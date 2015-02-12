@@ -521,7 +521,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 195; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 196; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -675,7 +675,7 @@ public:
     }
 
     /**
-     * @brief A get method to access he threshold between six- and five-flavour theory in GeV.
+     * @brief A get method to access the threshold between six- and five-flavour theory in GeV.
      * @return the threshold \f$\mu_t\f$
      */
     double getMut() const
@@ -684,7 +684,7 @@ public:
     }
 
     /**
-     * @brief A get method to access he threshold between five- and four-flavour theory in GeV.
+     * @brief A get method to access the threshold between five- and four-flavour theory in GeV.
      * @return the threshold \f$\mu_b\f$
      */
     double getMub() const
@@ -693,7 +693,7 @@ public:
     }
 
     /**
-     * @brief A get method to access he threshold between four- and three-flavour theory in GeV.
+     * @brief A get method to access the threshold between four- and three-flavour theory in GeV.
      * @return the threshold \f$\mu_c\f$
      */
     double getMuc() const
@@ -859,598 +859,956 @@ public:
         return IB_Kp;
     }
     
-    
+    /**
+     * @return the real part of the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toV@f$
+     */
     double getReh_0() const
     {
         return reh_0;
     }
     
+    /**
+     * @return the real part of the constant term of the charm loop long distance contribution @f$h_+@f$ to @f$M\toV@f$
+     */
     double getReh_p() const
     {
         return reh_p;
     }
     
+    /**
+     * @return the real part of the constant term of the charm loop long distance contribution @f$h_-@f$ to @f$M\toV@f$
+     */
     double getReh_m() const
     {
         return reh_m;
     }
     
+    /**
+     * @return the imaginary part of the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toV@f$
+     */
     double getImh_0() const
     {
         return imh_0;
     }
     
+    /**
+     * @return the imaginary part of the constant term of the charm loop long distance contribution @f$h_+@f$ to @f$M\toV@f$
+     */
     double getImh_p() const
     {
         return imh_p;
     }
     
+    /**
+     * @return the imaginary part of the constant term of the charm loop long distance contribution @f$h_-@f$ to @f$M\toV@f$
+     */
     double getImh_m() const
     {
         return imh_m;
     }
     
+    /**
+     * @return the real part of the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toV@f$
+     */
     double getReh_0_1() const
     {
         return reh_0_1;
     }
     
+    /**
+     * @return the real part of the linear term of the charm loop long distance contribution @f$h_+@f$ to @f$M\toV@f$
+     */
     double getReh_p_1() const
     {
         return reh_p_1;
     }
     
+    /**
+     * @return the real part of the linear term of the charm loop long distance contribution @f$h_-@f$ to @f$M\toV@f$
+     */
     double getReh_m_1() const
     {
         return reh_m_1;
     }
     
+    /**
+     * @return the imaginary part of the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toV@f$
+     */
     double getImh_0_1() const
     {
         return imh_0_1;
     }
     
+    /**
+     * @return the imaginary part of the linear term of the charm loop long distance contribution @f$h_+@f$ to @f$M\toV@f$
+     */
     double getImh_p_1() const
     {
         return imh_p_1;
     }
     
+    /**
+     * @return the imaginary part of the linear term of the charm loop long distance contribution @f$h_-@f$ to @f$M\toV@f$
+     */
     double getImh_m_1() const
     {
         return imh_m_1;
     }
     
+    /**
+     * @return the real part of the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toP@f$
+     */
     double getReh_0_MP() const
     {
         return reh_0_MP;
     }
     
+    /**
+     * @return the imaginary part of the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toP@f$
+     */
     double getImh_0_MP() const
     {
         return imh_0_MP;
     }
     
+    /**
+     * @return the real part of the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toP@f$
+     */
     double getReh_0_1_MP() const
     {
         return reh_0_1_MP;
     }
     
+    /**
+     * @return the imaginary part of the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toP@f$
+     */
     double getImh_0_1_MP() const
     {
         return imh_0_1_MP;
     }
     
+    /**
+     * @return the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toV@f$
+     */
     gslpp::complex geth_0() const
     {
         return reh_0 + gslpp::complex::i() * imh_0;
     }
 
+    /**
+     * @return the constant term of the charm loop long distance contribution @f$h_+@f$ to @f$M\toV@f$
+     */
     gslpp::complex geth_p() const
     {
         return reh_p + gslpp::complex::i() * imh_p;
     }
     
+    /**
+     * @return the constant term of the charm loop long distance contribution @f$h_-@f$ to @f$M\toV@f$
+     */
     gslpp::complex geth_m() const
     {
         return reh_m + gslpp::complex::i() * imh_m;
     }
     
+    /**
+     * @return the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toV@f$
+     */
     gslpp::complex geth_0_1() const
     {
         return reh_0_1 + gslpp::complex::i() * imh_0_1;
     }
 
+    /**
+     * @return the linear term of the charm loop long distance contribution @f$h_+@f$ to @f$M\toV@f$
+     */
     gslpp::complex geth_p_1() const
     {
         return reh_p_1 + gslpp::complex::i() * imh_p_1;
     }
     
+    /**
+     * @return the linear term of the charm loop long distance contribution @f$h_-@f$ to @f$M\toV@f$
+     */
     gslpp::complex geth_m_1() const
     {
         return reh_m_1 + gslpp::complex::i() * imh_m_1;
     }
     
+    /**
+     * @return the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toP@f$
+     */
     gslpp::complex geth_0_MP() const
     {
         return reh_0_MP + gslpp::complex::i() * imh_0_MP;
     }
     
+    /**
+     * @return the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toP@f$
+     */
     gslpp::complex geth_0_1_MP() const
     {
         return reh_0_1_MP + gslpp::complex::i() * imh_0_1_MP;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^V@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_0V() const
     {
         return a_0V;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^V@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_1V() const
     {
         return a_1V;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^V@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double getdmV() const
     {
         return dmV;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^A0@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_0A0() const
     {
         return a_0A0;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^A0@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_1A0() const
     {
         return a_1A0;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^A0@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double getdmA0() const
     {
         return dmV;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^A1@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_0A1() const
     {
         return a_0A1;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^A1@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_1A1() const
     {
         return a_1A1;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^A1@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double getdmA1() const
     {
         return dmA1;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^A12@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_0A12() const
     {
         return a_0A12;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^A12@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_1A12() const
     {
         return a_1A12;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^A12@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double getdmA12() const
     {
         return dmA12;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^T1@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_0T1() const
     {
         return a_0T1;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^T1@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_1T1() const
     {
         return a_1T1;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^T1@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double getdmT1() const
     {
         return dmT1;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^T2@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_0T2() const
     {
         return a_0T2;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^T2@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_1T2() const
     {
         return a_1T2;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^T2@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double getdmT2() const
     {
         return dmT2;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^T23@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_0T23() const
     {
         return a_0T23;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^T23@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double geta_1T23() const
     {
         return a_1T23;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^T23@f$ for @f$B\toK^*@f$ from arXiv:1310.3722v3
+     */
     double getdmT23() const
     {
         return dmT23;
     }
 
-    
-    
+    /**
+     * @return the LCSR fit parameter @f$r_1^V@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1V() const
     {
         return r_1V;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^V@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2V() const
     {
         return r_2V;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_R^V@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_RV() const
     {
         return m_RV;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,V@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2V() const
     {
         return m_fit2V;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_1^A0@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1A0() const
     {
         return r_1A0;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^A0@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2A0() const
     {
         return r_2A0;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_R^A0@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_RA0() const
     {
         return m_RA0;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,A0@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2A0() const
     {
         return m_fit2A0;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^A1@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2A1() const
     {
         return r_2A1;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,A1@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2A1() const
     {
         return m_fit2A1;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_1^A2@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1A2() const
     {
         return r_1A2;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^A2@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2A2() const
     {
         return r_2A2;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,A2@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2A2() const
     {
         return m_fit2A2;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_1^T1@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1T1() const
     {
         return r_1T1;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^T1@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2T1() const
     {
         return r_2T1;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_R^T1@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_RT1() const
     {
         return m_RT1;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,T1@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2T1() const
     {
         return m_fit2T1;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^T2@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2T2() const
     {
         return r_2T2;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,T2@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2T2() const
     {
         return m_fit2T2;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_1^T3t@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1T3t() const
     {
         return r_1T3t;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^T3t@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2T3t() const
     {
         return r_2T3t;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,T3t@f$ for @f$B\toK^*@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2T3t() const
     {
         return m_fit2T3t;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^V@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_0Vphi() const
     {
         return a_0Vphi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^V@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_1Vphi() const
     {
         return a_1Vphi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^V@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double getdmVphi() const
     {
         return dmVphi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^A0@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_0A0phi() const
     {
         return a_0A0phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^A0@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_1A0phi() const
     {
         return a_1A0phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_0^A0@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double getdmA0phi() const
     {
         return dmVphi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^A1@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_0A1phi() const
     {
         return a_0A1phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^A1@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_1A1phi() const
     {
         return a_1A1phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^A1@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double getdmA1phi() const
     {
         return dmA1phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^A12@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_0A12phi() const
     {
         return a_0A12phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^A12@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_1A12phi() const
     {
         return a_1A12phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^A12@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double getdmA12phi() const
     {
         return dmA12phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^T1@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_0T1phi() const
     {
         return a_0T1phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^T1@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_1T1phi() const
     {
         return a_1T1phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^T1@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double getdmT1phi() const
     {
         return dmT1phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^T2@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_0T2phi() const
     {
         return a_0T2phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^T2@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_1T2phi() const
     {
         return a_1T2phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^T2@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double getdmT2phi() const
     {
         return dmT2phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_0^T23@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_0T23phi() const
     {
         return a_0T23phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$a_1^T23@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double geta_1T23phi() const
     {
         return a_1T23phi;
     }
     
+    /**
+     * @return the lattice fit parameter @f$\Delta_m^T23@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     */
     double getdmT23phi() const
     {
         return dmT23phi;
     }
 
-    
-    
+    /**
+     * @return the LCSR fit parameter @f$r_1^V@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1Vphi() const
     {
         return r_1Vphi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^V@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2Vphi() const
     {
         return r_2Vphi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_R^V@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_RVphi() const
     {
         return m_RVphi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,V@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2Vphi() const
     {
         return m_fit2Vphi;
     }
 
+    /**
+     * @return the LCSR fit parameter @f$r_1^A0@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1A0phi() const
     {
         return r_1A0phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^A0@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2A0phi() const
     {
         return r_2A0phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_R^A0@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_RA0phi() const
     {
         return m_RA0phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,A0@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2A0phi() const
     {
         return m_fit2A0phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^A1@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2A1phi() const
     {
         return r_2A1phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,A1@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2A1phi() const
     {
         return m_fit2A1phi;
     }
 
+    /**
+     * @return the LCSR fit parameter @f$r_1^A2@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1A2phi() const
     {
         return r_1A2phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^A2@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2A2phi() const
     {
         return r_2A2phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,A2@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2A2phi() const
     {
         return m_fit2A2phi;
     }
 
+    /**
+     * @return the LCSR fit parameter @f$r_1^T1@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1T1phi() const
     {
         return r_1T1phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^T1@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2T1phi() const
     {
         return r_2T1phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_R^T1@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_RT1phi() const
     {
         return m_RT1phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,T1@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2T1phi() const
     {
         return m_fit2T1phi;
     }
+    
+    /**
+     * @return the LCSR fit parameter @f$r_2^T2@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2T2phi() const
     {
         return r_2T2phi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,T2@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2T2phi() const
     {
         return m_fit2T2phi;
     }
 
+    /**
+     * @return the LCSR fit parameter @f$r_1^T3@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_1T3tphi() const
     {
         return r_1T3tphi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^T3@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getr_2T3tphi() const
     {
         return r_2T3tphi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^2,T3@f$ for @f$B\to\phi@f$ from arXiv:hep-ph/0412079v1
+     */
     double getm_fit2T3tphi() const
     {
         return m_fit2T3tphi;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_1^{f_+}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getr_1_fplus() const
     {
         return r_1_fplus;
     }
 
+    /**
+     * @return the LCSR fit parameter @f$r_2^{f_+}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getr_2_fplus() const
     {
         return r_2_fplus;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^{2,f_+}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getm_fit2_fplus() const
     {
         return m_fit2_fplus;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_1^{f_T}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getr_1_fT() const
     {
         return r_1_fT;
     }
 
+    /**
+     * @return the LCSR fit parameter @f$r_2^{f_T}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getr_2_fT() const
     {
         return r_2_fT;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^{2,f_T}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getm_fit2_fT() const
     {
         return m_fit2_fT;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$r_2^{f_0}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getr_2_f0() const
     {
         return r_2_f0;
     }
     
+    /**
+     * @return the LCSR fit parameter @f$m_fit^{2,f_0}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
+     */
     double getm_fit2_f0() const
     {
         return m_fit2_f0;
+    }
+    
+    /**
+     * @return the experimental energy cutoff for @f$b\to s \gamma@f$
+     */
+    double getbsgamma_E0() const
+    {
+        return bsgamma_E0;
     }
     ////////////////////////////////////////////////////////////////////////
 
@@ -1720,6 +2078,7 @@ protected:
     double r_1_fplus, r_2_fplus, m_fit2_fplus;
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
+    double bsgamma_E0;
 
     double Nc; ///< The number of colours.
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.

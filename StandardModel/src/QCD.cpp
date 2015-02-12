@@ -50,7 +50,8 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "reh_0", "reh_p", "reh_m","imh_0", "imh_p", "imh_m",
     "reh_0_1", "reh_p_1", "reh_m_1","imh_0_1", "imh_p_1", "imh_m_1",
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
-    "reh_0_MP", "imh_0_MP", "reh_0_1_MP", "imh_0_1_MP"
+    "reh_0_MP", "imh_0_MP", "reh_0_1_MP", "imh_0_1_MP",
+    "bsgamma_E0"
 };
 
 QCD::QCD()
@@ -269,6 +270,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_fT", boost::cref(m_fit2_fT)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_f0", boost::cref(r_2_f0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_f0", boost::cref(m_fit2_f0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_E0", boost::cref(bsgamma_E0)));
 
     unknownParameterWarning = true;
 }
@@ -767,6 +769,8 @@ void QCD::setParameter(const std::string name, const double& value)
         r_2_f0 = value;
     else if (name.compare("m_fit2_f0") == 0)
         m_fit2_f0 = value;
+    else if (name.compare("bsgamma_E0") == 0)
+        bsgamma_E0 = value;
     else
         if (unknownParameterWarning)
             std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;

@@ -6,9 +6,9 @@
  */
 
 #include "bsgamma.h"
+#include <gslpp.h>
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
-#include <gsl/gsl_sf_clausen.h>
 
 Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag): ThObservable(SM_i), mySM(SM_i){
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
@@ -249,9 +249,8 @@ double Bsgamma::G78(orders order, double E0, double Mu){
     }
 }
 
-void Bsgamma::computeCoeff(orders order){
+void Bsgamma::computeCoeff(orders order, double E0){
     allcoeff = mySM.getMyFlavour()->ComputeCoeffsgamma(mu_b);
-    E0=1.6; //fixed to experimental cutoff
     
     switch(order) {
         case FULLNNLO: 
@@ -278,11 +277,23 @@ void Bsgamma::computeCoeff(orders order){
 void Bsgamma::computeGamma(orders order){
     GF = mySM.getGF();
     ale=mySM.getAle();
-    Mb=mySM.getQuarks(QCD::BOTTOM).getMass();  // both pole mass and running MSbar mass should be implemented
-    Mc=mySM.getQuarks(QCD::CHARM).getMass();
     mu_b = mySM.getMub();
+    Mb_pole=mySM.getQuarks(QCD::BOTTOM).getMass();  //pole mass
+    Mb=mySM.Mrun(mu_b,Mb_pole);   //running MSbar mass, at mu_b
+    Mc=mySM.getQuarks(QCD::CHARM).getMass();
     width = mySM.getMesons(StandardModel::B_D).computeWidth();
     lambda_t=mySM.computelamt_s();
+    E0=mySM.getbsgamma_E0();
+    
+    /*std::cout << "Mb " << Mb << std::endl;
+    std::cout << "Mb_pole " << Mb_pole << std::endl;
+    std::cout << "Mu_b " << mu_b << std::endl;
+    std::cout << "GF " << GF << std::endl;
+    std::cout << "ale " << ale << std::endl;
+    std::cout << "width " << width << std::endl;
+    std::cout << "la_t " << lambda_t << std::endl;
+    std::cout << "Mc " << Mc << std::endl;
+    std::cout << "E0 " << E0 << std::endl;*/
     
     CF=4./3.;
     CA=3.;
@@ -292,14 +303,14 @@ void Bsgamma::computeGamma(orders order){
     NV=1.;
     NL=3.;
     
-    computeCoeff(order);
+    computeCoeff(order, E0);
     
-    Gamma = GF*GF*pow(Mb,5.)*ale*lambda_t.abs2()/(32. * pow(M_PI,4.)) * coeff;
-    Gamma_conj = GF*GF*pow(Mb,5.)*ale*(lambda_t.conjugate()).abs2()/(32. * pow(M_PI,4.)) * coeff;
+    Gamma = GF*GF*pow(Mb,2.)*pow(Mb_pole,3.)*ale*lambda_t.abs2()/(32. * pow(M_PI,4.)) * coeff;
+    Gamma_conj = GF*GF*pow(Mb,2.)*pow(Mb_pole,3.)*ale*(lambda_t.conjugate()).abs2()/(32. * pow(M_PI,4.)) * coeff;
 }
 
 double Bsgamma::computeThValue(){
-    computeGamma(FULLNNLO);
+    computeGamma(LO);
     
     if (obs == 1) return Gamma/width;
     if (obs == 2) return (Gamma - Gamma_conj) / (Gamma + Gamma_conj);

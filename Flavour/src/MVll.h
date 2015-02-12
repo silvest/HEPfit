@@ -494,7 +494,7 @@ public:
     */
     
     /**
-    * @brief \f$ <Sigma_{i}> \f$ 
+    * @brief \f$ <FF> \f$ 
     * @param[in] i index of the form factor
     * @param[in] q_min minimum q^2 of the integral
     * @param[in] q_max maximum q^2 of the integral
@@ -638,9 +638,9 @@ public:
     };
     
     /**
-    * @brief \f$ Delta_{9} \f$ 
+    * @brief \f$ Delta_{6s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_9
+    * @return return the CP asymmetry Delta_6s
     */
     double getDelta7(double q2){
         return Delta(7, q2);

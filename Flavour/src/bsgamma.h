@@ -229,9 +229,10 @@ public:
     /**
     * @brief \f$ computeCoeff \f$
     * @param[in] order perturbation theory order
+    * @param[in] E0 energy cutoff
     * @return compute the Wilson Coefficient part of the BR
     */
-    void computeCoeff(orders order);
+    void computeCoeff(orders order, double E0);
     
     
     /**
@@ -254,6 +255,7 @@ private:
     
     double GF;
     double ale;
+    double Mb_pole;
     double Mb;
     double Mc;
     double mu_b;
