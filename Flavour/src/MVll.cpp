@@ -141,21 +141,27 @@ void MVll::updateParameters(){
             a_0V=mySM.geta_0V();
             a_1V=mySM.geta_1V();
             dmV=mySM.getdmV();
+            
             a_0A0=mySM.geta_0A0();
             a_1A0=mySM.geta_1A0();
             dmA0=mySM.getdmA0();
+            
             a_0A1=mySM.geta_0A1();
             a_1A1=mySM.geta_1A1();
             dmA1=mySM.getdmA1();
+            
             a_0A12=mySM.geta_0A12();
             a_1A12=mySM.geta_1A12();
             dmA12=mySM.getdmA12();
+            
             a_0T1=mySM.geta_0T1();
             a_1T1=mySM.geta_1T1();
             dmT1=mySM.getdmT1();
+            
             a_0T2=mySM.geta_0T2();
             a_1T2=mySM.geta_1T2();
             dmT2=mySM.getdmT2();
+            
             a_0T23=mySM.geta_0T23();
             a_1T23=mySM.geta_1T23();
             dmT23=mySM.getdmT23();
@@ -164,24 +170,30 @@ void MVll::updateParameters(){
             r_2V=mySM.getr_2V();
             m_RV=mySM.getm_RV();
             m_fit2V=mySM.getm_fit2V();
-            m_fit2A0=mySM.getm_fit2A0();
+            
             r_2A1=mySM.getr_2A1();
             m_fit2A1=mySM.getm_fit2A1();
+            
             r_1A2=mySM.getr_1A2();
             r_2A2=mySM.getr_2A2();
             m_fit2A2=mySM.getm_fit2A2();
+            
             r_1A0=mySM.getr_1A0();
             r_2A0=(MM * (r_2A1 - r_1A2 - r_2A2) + MV * (r_2A1 + r_1A2 + r_2A2))/2.*MV - r_1A0;//mySM.getr_2A0();
             m_RA0=mySM.getm_RA0();
-            r_1T1=mySM.getr_1T1();
-            r_2T1=mySM.getr_2T1();
-            m_RT1=mySM.getm_RT1();
-            m_fit2T1=mySM.getm_fit2T1();
-            r_2T2= mySM.getr_1T3t() + mySM.getr_2T3t();//mySM.getr_2T2();
-            m_fit2T2=mySM.getm_fit2T2();
+            m_fit2A0=mySM.getm_fit2A0();
+            
             r_1T3t=mySM.getr_1T3t();
             r_2T3t=mySM.getr_2T3t();
             m_fit2T3t=mySM.getm_fit2T3t();
+            
+            r_2T2= mySM.getr_1T3t() + mySM.getr_2T3t();//mySM.getr_2T2();
+            m_fit2T2=mySM.getm_fit2T2();
+            
+            r_1T1=mySM.getr_1T1();
+            r_2T1=r_2T2 - r_1T1;//mySM.getr_2T1();
+            m_RT1=mySM.getm_RT1();
+            m_fit2T1=mySM.getm_fit2T1();
             
             b=1;
             break;
@@ -189,21 +201,27 @@ void MVll::updateParameters(){
             a_0V=mySM.geta_0Vphi();
             a_1V=mySM.geta_1Vphi();
             dmV=mySM.getdmVphi();
+            
             a_0A0=mySM.geta_0A0phi();
             a_1A0=mySM.geta_1A0phi();
             dmA0=mySM.getdmA0phi();
+            
             a_0A1=mySM.geta_0A1phi();
             a_1A1=mySM.geta_1A1phi();
             dmA1=mySM.getdmA1phi();
+            
             a_0A12=mySM.geta_0A12phi();
             a_1A12=mySM.geta_1A12phi();
             dmA12=mySM.getdmA12phi();
+            
             a_0T1=mySM.geta_0T1phi();
             a_1T1=mySM.geta_1T1phi();
             dmT1=mySM.getdmT1phi();
+            
             a_0T2=mySM.geta_0T2phi();
             a_1T2=mySM.geta_1T2phi();
             dmT2=mySM.getdmT2phi();
+            
             a_0T23=mySM.geta_0T23phi();
             a_1T23=mySM.geta_1T23phi();
             dmT23=mySM.getdmT23phi();
@@ -212,24 +230,30 @@ void MVll::updateParameters(){
             r_2V=mySM.getr_2Vphi();
             m_RV=mySM.getm_RVphi();
             m_fit2V=mySM.getm_fit2Vphi();
-            m_fit2A0=mySM.getm_fit2A0phi();
+            
             r_2A1=mySM.getr_2A1phi();
             m_fit2A1=mySM.getm_fit2A1phi();
+            
             r_1A2=mySM.getr_1A2phi();
             r_2A2=mySM.getr_2A2phi();
             m_fit2A2=mySM.getm_fit2A2phi();
+            
             r_1A0=mySM.getr_1A0phi();
             r_2A0=(MM * (r_2A1 - r_1A2 - r_2A2) + MV * (r_2A1 + r_1A2 + r_2A2))/2.*MV - r_1A0;//mySM.getr_2A0phi();
             m_RA0=mySM.getm_RA0phi();
-            r_1T1=mySM.getr_1T1phi();
-            r_2T1=mySM.getr_2T1phi();
-            m_RT1=mySM.getm_RT1phi();
-            m_fit2T1=mySM.getm_fit2T1phi();
-            r_2T2=mySM.getr_1T3tphi() + mySM.getr_2T3tphi(); //mySM.getr_2T2phi();
-            m_fit2T2=mySM.getm_fit2T2phi();
+            m_fit2A0=mySM.getm_fit2A0phi();
+            
             r_1T3t=mySM.getr_1T3tphi();
             r_2T3t=mySM.getr_2T3tphi();
             m_fit2T3t=mySM.getm_fit2T3tphi();
+            
+            r_2T2=mySM.getr_1T3tphi() + mySM.getr_2T3tphi(); //mySM.getr_2T2phi();
+            m_fit2T2=mySM.getm_fit2T2phi();
+            
+            r_1T1=mySM.getr_1T1phi();
+            r_2T1=r_2T2 - r_1T1;//mySM.getr_2T1phi();
+            m_RT1=mySM.getm_RT1phi();
+            m_fit2T1=mySM.getm_fit2T1phi();
             
             b= 0.489;
             break;
