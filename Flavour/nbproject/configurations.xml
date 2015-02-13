@@ -144,6 +144,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
