@@ -72,49 +72,49 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
 
     iter = 0;
     
-    w_sigma0 = gsl_integration_workspace_alloc (50);
-    w_sigma1 = gsl_integration_workspace_alloc (50);
-    w_sigma2 = gsl_integration_workspace_alloc (50);
-    w_sigma3 = gsl_integration_workspace_alloc (50);
-    w_sigma4 = gsl_integration_workspace_alloc (50);
-    w_sigma5 = gsl_integration_workspace_alloc (50);
-    w_sigma6 = gsl_integration_workspace_alloc (50);
-    w_sigma7 = gsl_integration_workspace_alloc (50);
-    w_sigma9 = gsl_integration_workspace_alloc (50);
-    w_sigma10 = gsl_integration_workspace_alloc (50);
-    w_sigma11 = gsl_integration_workspace_alloc (50);
+    w_sigma0 = gsl_integration_workspace_alloc (200);
+    w_sigma1 = gsl_integration_workspace_alloc (200);
+    w_sigma2 = gsl_integration_workspace_alloc (200);
+    w_sigma3 = gsl_integration_workspace_alloc (200);
+    w_sigma4 = gsl_integration_workspace_alloc (200);
+    w_sigma5 = gsl_integration_workspace_alloc (200);
+    w_sigma6 = gsl_integration_workspace_alloc (200);
+    w_sigma7 = gsl_integration_workspace_alloc (200);
+    w_sigma9 = gsl_integration_workspace_alloc (200);
+    w_sigma10 = gsl_integration_workspace_alloc (200);
+    w_sigma11 = gsl_integration_workspace_alloc (200);
     
-    w_delta0 = gsl_integration_workspace_alloc (50);
-    w_delta1 = gsl_integration_workspace_alloc (50);
-    w_delta2 = gsl_integration_workspace_alloc (50);
-    w_delta3 = gsl_integration_workspace_alloc (50);
-    w_delta7 = gsl_integration_workspace_alloc (50);
-    w_delta11 = gsl_integration_workspace_alloc (50);
+    w_delta0 = gsl_integration_workspace_alloc (200);
+    w_delta1 = gsl_integration_workspace_alloc (200);
+    w_delta2 = gsl_integration_workspace_alloc (200);
+    w_delta3 = gsl_integration_workspace_alloc (200);
+    w_delta7 = gsl_integration_workspace_alloc (200);
+    w_delta11 = gsl_integration_workspace_alloc (200);
     
-    w_Vp = gsl_integration_workspace_alloc (50);
-    w_Tp = gsl_integration_workspace_alloc (50);
-    w_Vm = gsl_integration_workspace_alloc (50);
-    w_Tm = gsl_integration_workspace_alloc (50);
-    w_Vm_m_Tm = gsl_integration_workspace_alloc (50);
-    w_V0_m_T0 = gsl_integration_workspace_alloc (50);
-    w_V0_m_S = gsl_integration_workspace_alloc (50);
-    w_Vm_p_Tm = gsl_integration_workspace_alloc (50);
-    w_V0_p_T0 = gsl_integration_workspace_alloc (50);
-    w_V0_p_S = gsl_integration_workspace_alloc (50);
+    w_Vp = gsl_integration_workspace_alloc (200);
+    w_Tp = gsl_integration_workspace_alloc (200);
+    w_Vm = gsl_integration_workspace_alloc (200);
+    w_Tm = gsl_integration_workspace_alloc (200);
+    w_Vm_m_Tm = gsl_integration_workspace_alloc (200);
+    w_V0_m_T0 = gsl_integration_workspace_alloc (200);
+    w_V0_m_S = gsl_integration_workspace_alloc (200);
+    w_Vm_p_Tm = gsl_integration_workspace_alloc (200);
+    w_V0_p_T0 = gsl_integration_workspace_alloc (200);
+    w_V0_p_S = gsl_integration_workspace_alloc (200);
     
-    w_DC9_1_re = gsl_integration_workspace_alloc (50);
-    w_DC9_1_im = gsl_integration_workspace_alloc (50);
-    w_DC9_2_re = gsl_integration_workspace_alloc (50);
-    w_DC9_2_im = gsl_integration_workspace_alloc (50);
-    w_DC9_3_re = gsl_integration_workspace_alloc (50);
-    w_DC9_3_im = gsl_integration_workspace_alloc (50);
+    w_DC9_1_re = gsl_integration_workspace_alloc (1000);
+    w_DC9_1_im = gsl_integration_workspace_alloc (1000);
+    w_DC9_2_re = gsl_integration_workspace_alloc (1000);
+    w_DC9_2_im = gsl_integration_workspace_alloc (1000);
+    w_DC9_3_re = gsl_integration_workspace_alloc (1000);
+    w_DC9_3_im = gsl_integration_workspace_alloc (1000);
     
-    w_DC7_1_re = gsl_integration_workspace_alloc (50);
-    w_DC7_1_im = gsl_integration_workspace_alloc (50);
-    w_DC7_2_re = gsl_integration_workspace_alloc (50);
-    w_DC7_2_im = gsl_integration_workspace_alloc (50);
-    w_DC7_3_re = gsl_integration_workspace_alloc (50);
-    w_DC7_3_im = gsl_integration_workspace_alloc (50);
+    w_DC7_1_re = gsl_integration_workspace_alloc (1000);
+    w_DC7_1_im = gsl_integration_workspace_alloc (1000);
+    w_DC7_2_re = gsl_integration_workspace_alloc (1000);
+    w_DC7_2_im = gsl_integration_workspace_alloc (1000);
+    w_DC7_3_re = gsl_integration_workspace_alloc (1000);
+    w_DC7_3_im = gsl_integration_workspace_alloc (1000);
 }
 
 
@@ -1142,7 +1142,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 0:
             if (VpCached[qbin] == 0) {
                 FVp = convertToGslFunction( boost::bind( &MVll::getVp, &(*this), _1 ) );
-                gsl_integration_qags (&FVp, q_min, q_max, 1.e-5, 1.e-3, 50, w_Vp, &avaVp, &errVp);
+                gsl_integration_qags (&FVp, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vp, &avaVp, &errVp);
                 cacheVp[qbin] = avaVp;
                 VpCached[qbin] = 1;
             }
@@ -1151,7 +1151,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 1:
             if (TpCached[qbin] == 0) {
                 FTp = convertToGslFunction( boost::bind( &MVll::getTp, &(*this), _1 ) );
-                gsl_integration_qags (&FTp, q_min, q_max, 1.e-5, 1.e-3, 50, w_Tp, &avaTp, &errTp);
+                gsl_integration_qags (&FTp, q_min, q_max, 1.e-5, 1.e-3, 200, w_Tp, &avaTp, &errTp);
                 cacheTp[qbin] = avaTp;
                 TpCached[qbin] = 1;
             }
@@ -1160,7 +1160,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 2:
             if (VmCached[qbin] == 0) {
                 FVm = convertToGslFunction( boost::bind( &MVll::getVm, &(*this), _1 ) );
-                gsl_integration_qags (&FVm, q_min, q_max, 1.e-5, 1.e-3, 50, w_Vm, &avaVm, &errVm);
+                gsl_integration_qags (&FVm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vm, &avaVm, &errVm);
                 cacheVm[qbin] = avaVm;
                 VmCached[qbin] = 1;
             }
@@ -1169,7 +1169,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 3:
             if (TmCached[qbin] == 0) {
                 FTm = convertToGslFunction( boost::bind( &MVll::getTm, &(*this), _1 ) );
-                gsl_integration_qags (&FTm, q_min, q_max, 1.e-5, 1.e-3, 50, w_Tm, &avaTm, &errTm);
+                gsl_integration_qags (&FTm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Tm, &avaTm, &errTm);
                 cacheTm[qbin] = avaTm;
                 TmCached[qbin] = 1;
             }
@@ -1178,7 +1178,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 4:
             if (Vm_m_TmCached[qbin] == 0) {
                 FVm_m_Tm = convertToGslFunction( boost::bind( &MVll::getVm_m_Tm, &(*this), _1 ) );
-                gsl_integration_qags (&FVm_m_Tm, q_min, q_max, 1.e-5, 1.e-3, 50, w_Vm_m_Tm, &avaVm_m_Tm, &errVm_m_Tm);
+                gsl_integration_qags (&FVm_m_Tm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vm_m_Tm, &avaVm_m_Tm, &errVm_m_Tm);
                 cacheVm_m_Tm[qbin] = avaVm_m_Tm;
                 Vm_m_TmCached[qbin] = 1;
             }
@@ -1187,7 +1187,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 5:
             if (V0_m_T0Cached[qbin] == 0) {
                 FV0_m_T0 = convertToGslFunction( boost::bind( &MVll::getV0_m_T0, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_m_T0, q_min, q_max, 1.e-5, 1.e-3, 50, w_V0_m_T0, &avaV0_m_T0, &errV0_m_T0);
+                gsl_integration_qags (&FV0_m_T0, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_m_T0, &avaV0_m_T0, &errV0_m_T0);
                 cacheV0_m_T0[qbin] = avaV0_m_T0;
                 V0_m_T0Cached[qbin] = 1;
             }
@@ -1196,7 +1196,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 6:
             if (V0_m_SCached[qbin] == 0) {
                 FV0_m_S = convertToGslFunction( boost::bind( &MVll::getV0_m_S, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_m_S, q_min, q_max, 1.e-5, 1.e-3, 50, w_V0_m_S, &avaV0_m_S, &errV0_m_S);
+                gsl_integration_qags (&FV0_m_S, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_m_S, &avaV0_m_S, &errV0_m_S);
                 cacheV0_m_S[qbin] = avaV0_m_S;
                 V0_m_SCached[qbin] = 1;
             }
@@ -1205,7 +1205,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 7:
             if (Vm_p_TmCached[qbin] == 0) {
                 FVm_p_Tm = convertToGslFunction( boost::bind( &MVll::getVm_p_Tm, &(*this), _1 ) );
-                gsl_integration_qags (&FVm_p_Tm, q_min, q_max, 1.e-5, 1.e-3, 50, w_Vm_p_Tm, &avaVm_p_Tm, &errVm_p_Tm);
+                gsl_integration_qags (&FVm_p_Tm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vm_p_Tm, &avaVm_p_Tm, &errVm_p_Tm);
                 cacheVm_p_Tm[qbin] = avaVm_p_Tm;
                 Vm_p_TmCached[qbin] = 1;
             }
@@ -1214,7 +1214,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 8:
             if (V0_p_T0Cached[qbin] == 0) {
                 FV0_p_T0 = convertToGslFunction( boost::bind( &MVll::getV0_p_T0, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_p_T0, q_min, q_max, 1.e-5, 1.e-3, 50, w_V0_p_T0, &avaV0_p_T0, &errV0_p_T0);
+                gsl_integration_qags (&FV0_p_T0, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_p_T0, &avaV0_p_T0, &errV0_p_T0);
                 cacheV0_p_T0[qbin] = avaV0_p_T0;
                 V0_p_T0Cached[qbin] = 1;
             }
@@ -1223,7 +1223,7 @@ double MVll::integrateFF(int i, double q_min, double q_max){
         case 9:
             if (V0_p_SCached[qbin] == 0) {
                 FV0_p_S = convertToGslFunction( boost::bind( &MVll::getV0_p_S, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_p_S, q_min, q_max, 1.e-5, 1.e-3, 50, w_V0_p_S, &avaV0_p_S, &errV0_p_S);
+                gsl_integration_qags (&FV0_p_S, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_p_S, &avaV0_p_S, &errV0_p_S);
                 cacheV0_p_S[qbin] = avaV0_p_S;
                 V0_p_SCached[qbin] = 1;
             }
@@ -1249,7 +1249,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 0:
             if (sigma0Cached[qbin] == 0) {
                 FS0 = convertToGslFunction( boost::bind( &MVll::getSigma0, &(*this), _1 ) );
-                gsl_integration_qags (&FS0, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0, &avaSigma0, &errSigma0);
+                gsl_integration_qags (&FS0, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma0, &avaSigma0, &errSigma0);
                 cacheSigma0[qbin] = avaSigma0;
                 sigma0Cached[qbin] = 1;
             }
@@ -1258,7 +1258,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 1:
             if (sigma1Cached[qbin] == 0) {
                 FS1 = convertToGslFunction( boost::bind( &MVll::getSigma1, &(*this), _1 ) );
-                gsl_integration_qags (&FS1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma1, &avaSigma1, &errSigma1);
+                gsl_integration_qags (&FS1, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma1, &avaSigma1, &errSigma1);
                 cacheSigma1[qbin] = avaSigma1;
                 sigma1Cached[qbin] = 1;
             }
@@ -1267,7 +1267,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 2:
             if (sigma2Cached[qbin] == 0) {
                 FS2 = convertToGslFunction( boost::bind( &MVll::getSigma2, &(*this), _1 ) );
-                gsl_integration_qags (&FS2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
+                gsl_integration_qags (&FS2, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma2, &avaSigma2, &errSigma2);
                 cacheSigma2[qbin] = avaSigma2;
                 sigma2Cached[qbin] = 1;
             }
@@ -1276,7 +1276,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 3:
             if (sigma3Cached[qbin] == 0) {
                 FS3 = convertToGslFunction( boost::bind( &MVll::getSigma3, &(*this), _1 ) );
-                gsl_integration_qags (&FS3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
+                gsl_integration_qags (&FS3, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma3, &avaSigma3, &errSigma3);
                 cacheSigma3[qbin] = avaSigma3;
                 sigma3Cached[qbin] = 1;
             }
@@ -1285,7 +1285,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 4:
             if (sigma4Cached[qbin] == 0) {
                 FS4 = convertToGslFunction( boost::bind( &MVll::getSigma4, &(*this), _1 ) );
-                gsl_integration_qags (&FS4, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma4, &avaSigma4, &errSigma4);
+                gsl_integration_qags (&FS4, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma4, &avaSigma4, &errSigma4);
                 cacheSigma4[qbin] = avaSigma4;
                 sigma4Cached[qbin] = 1;
             }
@@ -1294,7 +1294,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 5:
             if (sigma5Cached[qbin] == 0) {
                 FS5 = convertToGslFunction( boost::bind( &MVll::getSigma5, &(*this), _1 ) );
-                gsl_integration_qags (&FS5, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma5, &avaSigma5, &errSigma5);
+                gsl_integration_qags (&FS5, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma5, &avaSigma5, &errSigma5);
                 cacheSigma5[qbin] = avaSigma5;
                 sigma5Cached[qbin] = 1;
             }
@@ -1303,7 +1303,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 6:
             if (sigma6Cached[qbin] == 0) {
                 FS6 = convertToGslFunction( boost::bind( &MVll::getSigma6, &(*this), _1 ) );
-                gsl_integration_qags (&FS6, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma6, &avaSigma6, &errSigma6);
+                gsl_integration_qags (&FS6, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma6, &avaSigma6, &errSigma6);
                 cacheSigma6[qbin] = avaSigma6;
                 sigma6Cached[qbin] = 1;
             }
@@ -1312,7 +1312,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 7:
             if (sigma7Cached[qbin] == 0) {
                 FS7 = convertToGslFunction( boost::bind( &MVll::getSigma7, &(*this), _1 ) );
-                gsl_integration_qags (&FS7, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma7, &avaSigma7, &errSigma7);
+                gsl_integration_qags (&FS7, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma7, &avaSigma7, &errSigma7);
                 cacheSigma7[qbin] = avaSigma7;
                 sigma7Cached[qbin] = 1;
             }
@@ -1321,7 +1321,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 9:
             if (sigma9Cached[qbin] == 0) {
                 FS9 = convertToGslFunction( boost::bind( &MVll::getSigma9, &(*this), _1 ) );
-                gsl_integration_qags (&FS9, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma9, &avaSigma9, &errSigma9);
+                gsl_integration_qags (&FS9, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma9, &avaSigma9, &errSigma9);
                 cacheSigma9[qbin] = avaSigma9;
                 sigma9Cached[qbin] = 1;
             }
@@ -1330,7 +1330,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 10:
             if (sigma10Cached[qbin] == 0) {
                 FS10 = convertToGslFunction( boost::bind( &MVll::getSigma10, &(*this), _1 ) );
-                gsl_integration_qags (&FS10, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma10, &avaSigma10, &errSigma10);
+                gsl_integration_qags (&FS10, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma10, &avaSigma10, &errSigma10);
                 cacheSigma10[qbin] = avaSigma10;
                 sigma10Cached[qbin] = 1;
             }
@@ -1339,7 +1339,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
         case 11:
             if (sigma11Cached[qbin] == 0) {
                 FS11 = convertToGslFunction( boost::bind( &MVll::getSigma11, &(*this), _1 ) );
-                gsl_integration_qags (&FS11, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma11, &avaSigma11, &errSigma11);
+                gsl_integration_qags (&FS11, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma11, &avaSigma11, &errSigma11);
                 cacheSigma11[qbin] = avaSigma11;
                 sigma11Cached[qbin] = 1;
             }
@@ -1365,7 +1365,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
         case 0:
             if (delta0Cached[qbin] == 0) {
                 FD0 = convertToGslFunction( boost::bind( &MVll::getDelta0, &(*this), _1 ) );
-                gsl_integration_qags (&FD0, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta0, &avaDelta0, &errDelta0);
+                gsl_integration_qags (&FD0, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta0, &avaDelta0, &errDelta0);
                 cacheDelta0[qbin] = avaDelta0;
                 delta0Cached[qbin] = 1;
             }
@@ -1374,7 +1374,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
         case 1:
             if (delta1Cached[qbin] == 0) {
                 FD1 = convertToGslFunction( boost::bind( &MVll::getDelta1, &(*this), _1 ) );
-                gsl_integration_qags (&FD1, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta1, &avaDelta1, &errDelta1);
+                gsl_integration_qags (&FD1, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta1, &avaDelta1, &errDelta1);
                 cacheDelta1[qbin] = avaDelta1;
                 delta1Cached[qbin] = 1;
             }
@@ -1383,7 +1383,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
         case 2:
             if (delta2Cached[qbin] == 0) {
                 FD2 = convertToGslFunction( boost::bind( &MVll::getDelta2, &(*this), _1 ) );
-                gsl_integration_qags (&FD2, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta2, &avaDelta2, &errDelta2);
+                gsl_integration_qags (&FD2, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta2, &avaDelta2, &errDelta2);
                 cacheDelta2[qbin] = avaDelta2;
                 delta2Cached[qbin] = 1;
             }
@@ -1392,7 +1392,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
         case 3:
             if (delta3Cached[qbin] == 0) {
                 FD3 = convertToGslFunction( boost::bind( &MVll::getDelta3, &(*this), _1 ) );
-                gsl_integration_qags (&FD3, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta3, &avaDelta3, &errDelta3);
+                gsl_integration_qags (&FD3, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta3, &avaDelta3, &errDelta3);
                 cacheDelta3[qbin] = avaDelta3;
                 delta3Cached[qbin] = 1;
             }
@@ -1401,7 +1401,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
         case 7:
             if (delta7Cached[qbin] == 0) {
                 FD7 = convertToGslFunction( boost::bind( &MVll::getDelta7, &(*this), _1 ) );
-                gsl_integration_qags (&FD7, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta7, &avaDelta7, &errDelta7);
+                gsl_integration_qags (&FD7, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta7, &avaDelta7, &errDelta7);
                 cacheDelta7[qbin] = avaDelta7;
                 delta7Cached[qbin] = 1;
             }
@@ -1410,7 +1410,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
         case 11:
             if (delta11Cached[qbin] == 0) {
                 FD11 = convertToGslFunction( boost::bind( &MVll::getDelta11, &(*this), _1 ) );
-                gsl_integration_qags (&FD11, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta11, &avaDelta11, &errDelta11);
+                gsl_integration_qags (&FD11, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta11, &avaDelta11, &errDelta11);
                 cacheDelta11[qbin] = avaDelta11;
                 delta11Cached[qbin] = 1;
             }
@@ -1435,9 +1435,9 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
         case 0:
             if (DC9_1Cached[qbin] == 0) {
                 FDC9_1_re = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_1_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_1_re, &avaDC9_1_re, &errDC9_1_re);
+                gsl_integration_qags (&FDC9_1_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_1_re, &avaDC9_1_re, &errDC9_1_re);
                 FDC9_1_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_1_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_1_im, &avaDC9_1_im, &errDC9_1_im);
+                gsl_integration_qags (&FDC9_1_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_1_im, &avaDC9_1_im, &errDC9_1_im);
                 cacheDC9_1[qbin] = sqrt(avaDC9_1_re * avaDC9_1_re + avaDC9_1_im * avaDC9_1_im);
                 DC9_1Cached[qbin] = 1;
             }
@@ -1446,9 +1446,9 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
         case 1:
             if (DC9_2Cached[qbin] == 0) {
                 FDC9_2_re = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_2_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_2_re, &avaDC9_2_re, &errDC9_2_re);
+                gsl_integration_qags (&FDC9_2_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_2_re, &avaDC9_2_re, &errDC9_2_re);
                 FDC9_2_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_2_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_2_im, &avaDC9_2_im, &errDC9_2_im);
+                gsl_integration_qags (&FDC9_2_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_2_im, &avaDC9_2_im, &errDC9_2_im);
                 cacheDC9_2[qbin] = sqrt(avaDC9_2_re * avaDC9_2_re + avaDC9_2_im * avaDC9_2_im);
                 DC9_2Cached[qbin] = 1;
             }
@@ -1457,9 +1457,9 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
         case 2:
             if (DC9_3Cached[qbin] == 0) {
                 FDC9_3_re = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_3_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_3_re, &avaDC9_3_re, &errDC9_3_re);
+                gsl_integration_qags (&FDC9_3_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_3_re, &avaDC9_3_re, &errDC9_3_re);
                 FDC9_3_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_3_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_3_im, &avaDC9_3_im, &errDC9_3_im);
+                gsl_integration_qags (&FDC9_3_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_3_im, &avaDC9_3_im, &errDC9_3_im);
                 cacheDC9_3[qbin] = sqrt(avaDC9_3_re * avaDC9_3_re + avaDC9_3_im * avaDC9_3_im);
                 DC9_3Cached[qbin] = 1;
             }
@@ -1484,9 +1484,9 @@ double MVll::integrateDC7(int i, double q_min, double q_max){
         case 0:
             if (DC7_1Cached[qbin] == 0) {
                 FDC7_1_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_1_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_1_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_1_re, &avaDC7_1_re, &errDC7_1_re);
+                gsl_integration_qags (&FDC7_1_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_1_re, &avaDC7_1_re, &errDC7_1_re);
                 FDC7_1_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_1_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_1_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_1_im, &avaDC7_1_im, &errDC7_1_im);
+                gsl_integration_qags (&FDC7_1_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_1_im, &avaDC7_1_im, &errDC7_1_im);
                 cacheDC7_1[qbin] = sqrt(avaDC7_1_re * avaDC7_1_re + avaDC7_1_im * avaDC7_1_im);
                 DC7_1Cached[qbin] = 1;
             }
@@ -1495,9 +1495,9 @@ double MVll::integrateDC7(int i, double q_min, double q_max){
         case 1:
             if (DC7_2Cached[qbin] == 0) {
                 FDC7_2_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_2_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_2_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_2_re, &avaDC7_2_re, &errDC7_2_re);
+                gsl_integration_qags (&FDC7_2_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_2_re, &avaDC7_2_re, &errDC7_2_re);
                 FDC7_2_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_2_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_2_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_2_im, &avaDC7_2_im, &errDC7_2_im);
+                gsl_integration_qags (&FDC7_2_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_2_im, &avaDC7_2_im, &errDC7_2_im);
                 cacheDC7_2[qbin] = sqrt(avaDC7_2_re * avaDC7_2_re + avaDC7_2_im * avaDC7_2_im);
                 DC7_2Cached[qbin] = 1;
             }
@@ -1506,9 +1506,9 @@ double MVll::integrateDC7(int i, double q_min, double q_max){
         case 2:
             if (DC7_3Cached[qbin] == 0) {
                 FDC7_3_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_3_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_3_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_3_re, &avaDC7_3_re, &errDC7_3_re);
+                gsl_integration_qags (&FDC7_3_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_3_re, &avaDC7_3_re, &errDC7_3_re);
                 FDC7_3_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_3_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_3_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_3_im, &avaDC7_3_im, &errDC7_3_im);
+                gsl_integration_qags (&FDC7_3_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_3_im, &avaDC7_3_im, &errDC7_3_im);
                 cacheDC7_3[qbin] = sqrt(avaDC7_3_re * avaDC7_3_re + avaDC7_3_im * avaDC7_3_im);
                 DC7_3Cached[qbin] = 1;
             }
