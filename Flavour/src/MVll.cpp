@@ -1423,7 +1423,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
     }
 }
 
-double MVll::integrateDC9(int i, double q_min, double q_max){
+gslpp::complex MVll::integrateDC9(int i, double q_min, double q_max){
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();
@@ -1438,7 +1438,7 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
                 gsl_integration_qags (&FDC9_1_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_1_re, &avaDC9_1_re, &errDC9_1_re);
                 FDC9_1_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_im, &(*this), _1 ) );
                 gsl_integration_qags (&FDC9_1_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_1_im, &avaDC9_1_im, &errDC9_1_im);
-                cacheDC9_1[qbin] = sqrt(avaDC9_1_re * avaDC9_1_re + avaDC9_1_im * avaDC9_1_im);
+                cacheDC9_1[qbin] = avaDC9_1_re + gslpp::complex::i() * avaDC9_1_im;
                 DC9_1Cached[qbin] = 1;
             }
             return cacheDC9_1[qbin];
@@ -1449,7 +1449,7 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
                 gsl_integration_qags (&FDC9_2_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_2_re, &avaDC9_2_re, &errDC9_2_re);
                 FDC9_2_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_im, &(*this), _1 ) );
                 gsl_integration_qags (&FDC9_2_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_2_im, &avaDC9_2_im, &errDC9_2_im);
-                cacheDC9_2[qbin] = sqrt(avaDC9_2_re * avaDC9_2_re + avaDC9_2_im * avaDC9_2_im);
+                cacheDC9_2[qbin] = avaDC9_2_re + gslpp::complex::i() * avaDC9_2_im;
                 DC9_2Cached[qbin] = 1;
             }
             return cacheDC9_2[qbin];
@@ -1460,7 +1460,7 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
                 gsl_integration_qags (&FDC9_3_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_3_re, &avaDC9_3_re, &errDC9_3_re);
                 FDC9_3_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_im, &(*this), _1 ) );
                 gsl_integration_qags (&FDC9_3_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_3_im, &avaDC9_3_im, &errDC9_3_im);
-                cacheDC9_3[qbin] = sqrt(avaDC9_3_re * avaDC9_3_re + avaDC9_3_im * avaDC9_3_im);
+                cacheDC9_3[qbin] = avaDC9_3_re + gslpp::complex::i() * avaDC9_3_im;
                 DC9_3Cached[qbin] = 1;
             }
             return cacheDC9_3[qbin];
@@ -1472,7 +1472,7 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
     }
 }
 
-double MVll::integrateDC7(int i, double q_min, double q_max){
+gslpp::complex MVll::integrateDC7(int i, double q_min, double q_max){
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();
@@ -1487,7 +1487,7 @@ double MVll::integrateDC7(int i, double q_min, double q_max){
                 gsl_integration_qags (&FDC7_1_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_1_re, &avaDC7_1_re, &errDC7_1_re);
                 FDC7_1_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_1_im, &(*this), _1 ) );
                 gsl_integration_qags (&FDC7_1_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_1_im, &avaDC7_1_im, &errDC7_1_im);
-                cacheDC7_1[qbin] = sqrt(avaDC7_1_re * avaDC7_1_re + avaDC7_1_im * avaDC7_1_im);
+                cacheDC7_1[qbin] = avaDC7_1_re + gslpp::complex::i() * avaDC7_1_im;
                 DC7_1Cached[qbin] = 1;
             }
             return cacheDC7_1[qbin];
@@ -1498,7 +1498,7 @@ double MVll::integrateDC7(int i, double q_min, double q_max){
                 gsl_integration_qags (&FDC7_2_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_2_re, &avaDC7_2_re, &errDC7_2_re);
                 FDC7_2_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_2_im, &(*this), _1 ) );
                 gsl_integration_qags (&FDC7_2_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_2_im, &avaDC7_2_im, &errDC7_2_im);
-                cacheDC7_2[qbin] = sqrt(avaDC7_2_re * avaDC7_2_re + avaDC7_2_im * avaDC7_2_im);
+                cacheDC7_2[qbin] = avaDC7_2_re + gslpp::complex::i() * avaDC7_2_im;
                 DC7_2Cached[qbin] = 1;
             }
             return cacheDC7_2[qbin];
@@ -1509,7 +1509,7 @@ double MVll::integrateDC7(int i, double q_min, double q_max){
                 gsl_integration_qags (&FDC7_3_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_3_re, &avaDC7_3_re, &errDC7_3_re);
                 FDC7_3_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_3_im, &(*this), _1 ) );
                 gsl_integration_qags (&FDC7_3_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_3_im, &avaDC7_3_im, &errDC7_3_im);
-                cacheDC7_3[qbin] = sqrt(avaDC7_3_re * avaDC7_3_re + avaDC7_3_im * avaDC7_3_im);
+                cacheDC7_3[qbin] = avaDC7_3_re + gslpp::complex::i() * avaDC7_3_im;
                 DC7_3Cached[qbin] = 1;
             }
             return cacheDC7_3[qbin];

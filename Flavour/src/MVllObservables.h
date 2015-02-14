@@ -1000,7 +1000,7 @@ public:
     /**
     * @brief \f$ \Delta_{C9}^1 \f$ 
     */
-    Delta_C9_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Delta_C9_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
     * @return return the factor Delta_C9_1
@@ -1012,7 +1012,7 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-
+    unsigned int typ;
 };
 
 
@@ -1031,7 +1031,7 @@ public:
     /**
     * @brief \f$ \Delta_{C9}^2 \f$ 
     */
-    Delta_C9_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Delta_C9_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
     * @return return the factor Delta_C9_2
@@ -1043,7 +1043,7 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-    
+    unsigned int typ;
 };
     
     
@@ -1062,7 +1062,7 @@ public:
     /**
     * @brief \f$ \Delta_{C9}^3 \f$ 
     */
-    Delta_C9_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Delta_C9_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
     * @return return the factor Delta_C9_3
@@ -1074,7 +1074,7 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-
+    unsigned int typ;
 };
 
 /**
@@ -1091,7 +1091,7 @@ public:
     /**
     * @brief \f$ \Delta_{C7}^1 \f$ 
     */
-    Delta_C7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Delta_C7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
     * @return return the factor Delta_C7_1
@@ -1103,7 +1103,7 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-
+    unsigned int typ;
 };
 
 
@@ -1122,7 +1122,7 @@ public:
     /**
     * @brief \f$ \Delta_{C7}^2 \f$ 
     */
-    Delta_C7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Delta_C7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
     * @return return the factor Delta_C7_2
@@ -1134,7 +1134,7 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-    
+    unsigned int typ;
 };
     
     
@@ -1153,7 +1153,7 @@ public:
     /**
     * @brief \f$ \Delta_{C7}^3 \f$ 
     */
-    Delta_C7_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Delta_C7_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
     * @return return the factor Delta_C7_3
@@ -1165,7 +1165,7 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-
+    unsigned int typ;
 };
 
 

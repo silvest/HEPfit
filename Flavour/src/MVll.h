@@ -469,7 +469,7 @@ public:
     * @param[in] q_max maximum q^2 of the integral
     * @return return the correction \f$ Delta C_9 \f$ from q_min to q_max
     */
-    double integrateDC9(int i, double q_min, double q_max);
+    gslpp::complex integrateDC9(int i, double q_min, double q_max);
     
     /**
     * @brief \f$ <Delta C_7> \f$ 
@@ -477,7 +477,7 @@ public:
     * @param[in] q_max maximum q^2 of the integral
     * @return return the correction \f$ Delta C_7 \f$ from q_min to q_max
     */
-    double integrateDC7(int i, double q_min, double q_max);
+    gslpp::complex integrateDC7(int i, double q_min, double q_max);
     
     /**
     * i values:
@@ -962,13 +962,13 @@ private:
     std::map<std::pair<double, double>, double > cacheV0_m_S;
     std::map<std::pair<double, double>, double > cacheV0_p_S;
     
-    std::map<std::pair<double, double>, double > cacheDC9_1;
-    std::map<std::pair<double, double>, double > cacheDC9_2;
-    std::map<std::pair<double, double>, double > cacheDC9_3;
+    std::map<std::pair<double, double>, gslpp::complex > cacheDC9_1;
+    std::map<std::pair<double, double>, gslpp::complex > cacheDC9_2;
+    std::map<std::pair<double, double>, gslpp::complex > cacheDC9_3;
     
-    std::map<std::pair<double, double>, double > cacheDC7_1;
-    std::map<std::pair<double, double>, double > cacheDC7_2;
-    std::map<std::pair<double, double>, double > cacheDC7_3;
+    std::map<std::pair<double, double>, gslpp::complex > cacheDC7_1;
+    std::map<std::pair<double, double>, gslpp::complex > cacheDC7_2;
+    std::map<std::pair<double, double>, gslpp::complex > cacheDC7_3;
     
     double avaSigma0;
     double avaSigma1;
