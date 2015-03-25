@@ -15,6 +15,7 @@
       <itemPath>src/NPHiggs.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
+      <itemPath>src/NPSTUZbbbarLR.h</itemPath>
       <itemPath>src/NPZbbbar.h</itemPath>
       <itemPath>src/NPZbbbarLinearized.h</itemPath>
       <itemPath>src/NPbase.h</itemPath>
@@ -37,6 +38,7 @@
       <itemPath>src/NPHiggs.cpp</itemPath>
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
+      <itemPath>src/NPSTUZbbbarLR.cpp</itemPath>
       <itemPath>src/NPZbbbar.cpp</itemPath>
       <itemPath>src/NPZbbbarLinearized.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
@@ -118,6 +120,10 @@
       <item path="src/NPSTUVWXY.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSTUVWXY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTUZbbbarLR.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTUZbbbarLR.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPZbbbar.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -206,6 +212,10 @@
       </item>
       <item path="src/NPSTUVWXY.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSTUZbbbarLR.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTUZbbbarLR.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPZbbbar.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
@@ -292,6 +302,10 @@
       <item path="src/NPSTUVWXY.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSTUVWXY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTUZbbbarLR.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTUZbbbarLR.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPZbbbar.cpp" ex="false" tool="1" flavor2="0">
       </item>

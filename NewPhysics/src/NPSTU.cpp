@@ -18,7 +18,6 @@ NPSTU::NPSTU()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueS", boost::cref(myObliqueS)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueT", boost::cref(myObliqueT)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueU", boost::cref(myObliqueU)));
-
 }
 
 void NPSTU::setParameter(const std::string name, const double& value)
