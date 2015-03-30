@@ -290,8 +290,8 @@ std::string InputParser::ReadParameters(const std::string filename,
                 beg = mytok.begin();
                 std::string type = *beg;
                 ++beg;
-                if (type.compare("Observable") != 0)
-                    throw std::runtime_error("ERROR: expecting an Observable type here...");
+                if (type.compare("Observable") != 0 || type.compare("BinnedObservable") != 0)
+                    throw std::runtime_error("ERROR: expecting an Observable or BinnedObservable type here...");
                 Observable * tmp = new Observable(ParseObservable(beg));
                 ++beg;
                 std::string distr = *beg;
@@ -303,9 +303,20 @@ std::string InputParser::ReadParameters(const std::string filename,
                     ++beg;
                     tmp->setErrf(atof((*beg).c_str()));
                 } else if (distr.compare("noweight") == 0) {
+                    if (type.compare("BinnedObservable") == 0){
+                        ++beg;
+                        ++beg;
+                        ++beg;
+                    }
                 } else
                     throw std::runtime_error("ERROR: wrong distribution flag in " + tmp->getName());
                 tmp->setDistr(distr);
+                if (type.compare("BinnedObservable") == 0){
+                    ++beg;
+                    tmp->getTho()->setBinMin(atof((*beg).c_str()));
+                    ++beg;
+                    tmp->getTho()->setBinMax(atof((*beg).c_str()));
+                }
                 if (tmp->isTMCMC()) {
                     o3.AddObs(*tmp);
                     lines.push_back(true);
@@ -339,7 +350,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                             beg++;
                         } else {
                             std::cout << "ERROR: invalid correlation matrix for "
-                                    << name << std::endl;
+                                    << name << ". Check element (" << ni+1 << "," << nj+1 << ")" << std::endl;
                             exit(EXIT_FAILURE);
                         }
                     }
