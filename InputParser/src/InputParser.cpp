@@ -290,8 +290,8 @@ std::string InputParser::ReadParameters(const std::string filename,
                 beg = mytok.begin();
                 std::string type = *beg;
                 ++beg;
-                if (type.compare("Observable") != 0 || type.compare("BinnedObservable") != 0)
-                    throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + "of file" + filename + ", expecting an Observable or BinnedObservable type here...");
+                if (type.compare("Observable") != 0 && type.compare("BinnedObservable") != 0)
+                    throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting an Observable or BinnedObservable type here...\n");
                 Observable * tmp = new Observable(ParseObservable(beg));
                 ++beg;
                 std::string distr = *beg;

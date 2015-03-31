@@ -21,9 +21,9 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGau
 }
 
 CorrelatedGaussianObservables::~CorrelatedGaussianObservables()
-{
-    if (Cov != NULL)
-        delete(Cov);
+{   
+    Cov = new gslpp::matrix<double>(10, 10, 0.); /** Put in to prevent seg fault during error handling in InputParser **/
+    delete(Cov);
 }
 
 void CorrelatedGaussianObservables::AddObs(Observable& Obs_i)
