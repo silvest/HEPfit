@@ -291,7 +291,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::string type = *beg;
                 ++beg;
                 if (type.compare("Observable") != 0 || type.compare("BinnedObservable") != 0)
-                    throw std::runtime_error("ERROR: expecting an Observable or BinnedObservable type here...");
+                    throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + "of file" + filename + ", expecting an Observable or BinnedObservable type here...");
                 Observable * tmp = new Observable(ParseObservable(beg));
                 ++beg;
                 std::string distr = *beg;
@@ -388,8 +388,8 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
-            ReadParameters(*beg, rank, ModelPars, Observables, Observables2D, CGO);
-            std::cout << "\nIncluding File: " + *beg << std::endl; 
+            std::cout << "\nIncluding File: " + *beg << std::endl;
+            ReadParameters(*beg, rank, ModelPars, Observables, Observables2D, CGO); 
             ++beg;
         } else
             throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + ". Make sure to specify a valid model configuration file.");
