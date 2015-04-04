@@ -562,11 +562,21 @@ std::string MonteCarloEngine::computeStatistics()
     StatsLog << "\nWARNING: These statistics should be taken as representative only!!\n" << std::endl;
     StatsLog << "Name\tmean +/- rms\tmin\tmax\t(bin_min\tbin_max)\n" << std::endl;
     StatsLog.precision(6);
-    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
-            it < Obs_ALL.end(); it++) {
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
         StatsLog << it->getName() << ": " << Histo1D[it->getName()]->GetHistogram()->GetMean() << " +/- " << Histo1D[it->getName()]->GetHistogram()->GetRMS() << "\t" << thMin[it->getName()] << "\t" << thMax[it->getName()];
         if (it->getObsType() == 2) StatsLog << "\t" << it->getTho()->getBinMin() << "\t" << it->getTho()->getBinMax() << std::endl;
         else StatsLog << std::endl;
     }
+    
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
+            it1 < CGO.end(); it1++) {
+        std::vector<Observable> CGObs(it1->getObs());
+        for (std::vector<Observable>::iterator it2 = CGObs.begin(); it2 < CGObs.end(); it2++) {
+            StatsLog << it2->getName() << ": " << Histo1D[it2->getName()]->GetHistogram()->GetMean() << " +/- " << Histo1D[it2->getName()]->GetHistogram()->GetRMS() << "\t" << thMin[it2->getName()] << "\t" << thMax[it2->getName()];
+            if (it2->getObsType() == 2) StatsLog << "\t" << it2->getTho()->getBinMin() << "\t" << it2->getTho()->getBinMax() << std::endl;
+            else StatsLog << std::endl;
+        }
+    }
+    
     return StatsLog.str().c_str();
 }
