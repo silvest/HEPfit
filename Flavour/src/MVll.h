@@ -79,8 +79,9 @@ public:
     double MW;            //W boson mass
     gslpp::complex lambda_t;     //Vckm factor
     double b;             //BF of the decay V -> final states
-    gslpp::complex h[3];         //parameter that contains the contribution from the hadronic hamiltonian 
-    gslpp::complex h_1[3];         //parameter that contains the contribution from the hadronic hamiltonian 
+    gslpp::complex h_0[3];         //parameter that contains the contribution from the hadronic hamiltonian 
+    gslpp::complex h_1[3];         //parameter that contains the contribution from the hadronic hamiltonian
+    gslpp::complex h_2[3];         //parameter that contains the contribution from the hadronic hamiltonian
     double q2;            //q^2 of the decay
     
     /*lattice fit parameters*/
@@ -823,7 +824,7 @@ public:
     * @return return the real part of Delta_C9_1
     */
     double getDeltaC9_1_re(double q2){
-        return (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_1[2] - h_1[1])).real();
+        return (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_1[2] + h_2[2] * q2 - (h_1[1] + h_2[1] * q2))).real();
     }
     
     /**
@@ -832,7 +833,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_9^1 \f$
     */
     double getDeltaC9_1_im(double q2){
-        return (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_1[2] - h_1[1])).imag();
+        return (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_1[2] + h_2[2] * q2 - (h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
@@ -841,7 +842,7 @@ public:
     * @return return the real part of \f$ Delta C_9^2 \f$
     */
     double getDeltaC9_2_re(double q2){
-        return (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_1[2] + h_1[1])).real();
+        return (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2)).real();
     }
     
     /**
@@ -850,7 +851,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_9^2 /f$
     */
     double getDeltaC9_2_im(double q2){
-        return (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_1[2] + h_1[1])).imag();
+        return (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2)).imag();
     }
     
     /**
@@ -859,7 +860,7 @@ public:
     * @return return the real part of \f$ Delta C_9^3 \f$
     */
     double getDeltaC9_3_re(double q2){
-        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_1[0]-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_1[2] + h_1[1]))).real();
+        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2))).real();
     }
 
     /**
@@ -868,7 +869,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_9^3 \f$
     */
     double getDeltaC9_3_im(double q2){
-        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_1[0]-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_1[2] + h_1[1]))).imag();
+        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
@@ -877,7 +878,7 @@ public:
     * @return return the real part of Delta_C7_1
     */
     double getDeltaC7_1_re(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h[2]-h[1])).real();
+        return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).real();
     }
     
     /**
@@ -886,7 +887,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_7^1 \f$
     */
     double getDeltaC7_1_im(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h[2]-h[1])).imag();
+        return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).imag();
     }
     
     /**
@@ -895,7 +896,7 @@ public:
     * @return return the real part of \f$ Delta C_7^2 \f$
     */
     double getDeltaC7_2_re(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h[2]+h[1])).real();
+        return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).real();
     }
     
     /**
@@ -904,7 +905,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_7^2 /f$
     */
     double getDeltaC7_2_im(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h[2]+h[1])).imag();
+        return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).imag();
     }
     
     /**
@@ -913,7 +914,7 @@ public:
     * @return return the real part of \f$ Delta C_7^3 \f$
     */
     double getDeltaC7_3_re(double q2){
-        return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h[2]+h[1]))).real();
+        return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).real();
     }
 
     /**
@@ -922,7 +923,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_7^3 \f$
     */
     double getDeltaC7_3_im(double q2){
-        return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h[2]+h[1]))).imag();
+        return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).imag();
     }
 
 private:
@@ -930,7 +931,6 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-    int iter;
     
     std::map<std::pair<double, double>, double > cacheSigma0;
     std::map<std::pair<double, double>, double > cacheSigma1;
@@ -1265,9 +1265,9 @@ private:
     unsigned int Yupdated;
     gslpp::vector<double> Ycache;
     
-    gslpp::complex h0Ccache[2];
-    gslpp::complex h1Ccache[2];
-    gslpp::complex h2Ccache[2];
+    gslpp::complex h0Ccache[3];
+    gslpp::complex h1Ccache[3];
+    gslpp::complex h2Ccache[3];
     
     unsigned int h0_updated;
     unsigned int h1_updated;

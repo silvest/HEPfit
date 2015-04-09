@@ -521,7 +521,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 196; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 202; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1033,6 +1033,30 @@ public:
     gslpp::complex geth_m_1() const
     {
         return reh_m_1 + gslpp::complex::i() * imh_m_1;
+    }
+    
+    /**
+     * @return the quadratic term of the charm loop long distance contribution @f$h_0@f$ to @f$M\toV@f$
+     */
+    gslpp::complex geth_0_2() const
+    {
+        return reh_0_2 + gslpp::complex::i() * imh_0_2;
+    }
+
+    /**
+     * @return the quadratic term of the charm loop long distance contribution @f$h_+@f$ to @f$M\toV@f$
+     */
+    gslpp::complex geth_p_2() const
+    {
+        return reh_p_2 + gslpp::complex::i() * imh_p_2;
+    }
+    
+    /**
+     * @return the quadratic term of the charm loop long distance contribution @f$h_-@f$ to @f$M\toV@f$
+     */
+    gslpp::complex geth_m_2() const
+    {
+        return reh_m_2 + gslpp::complex::i() * imh_m_2;
     }
     
     /**
@@ -2046,6 +2070,7 @@ protected:
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
     double reh_0, reh_p, reh_m, imh_0, imh_p, imh_m;
     double reh_0_1, reh_p_1, reh_m_1, imh_0_1, imh_p_1, imh_m_1;
+    double reh_0_2, reh_p_2, reh_m_2, imh_0_2, imh_p_2, imh_m_2;
     double reh_0_MP, imh_0_MP, reh_0_1_MP, imh_0_1_MP;
     double a_0V, a_1V, dmV;
     double a_0A0, a_1A0, dmA0;

@@ -69,8 +69,6 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     DC7_1updated = 0;
     DC7_2updated = 0;
     DC7_3updated = 0;
-
-    iter = 0;
     
     w_sigma0 = gsl_integration_workspace_alloc (200);
     w_sigma1 = gsl_integration_workspace_alloc (200);
@@ -264,13 +262,17 @@ void MVll::updateParameters(){
     }
     
     
-    h[0]=mySM.geth_0();
-    h[1]=mySM.geth_p();
-    h[2]=mySM.geth_m();
+    h_0[0]=mySM.geth_0();
+    h_0[1]=mySM.geth_p();
+    h_0[2]=mySM.geth_m();
     
     h_1[0]=mySM.geth_0_1();
     h_1[1]=mySM.geth_p_1();
     h_1[2]=mySM.geth_m_1();
+    
+    h_2[0]=mySM.geth_0_2();
+    h_2[1]=mySM.geth_p_2();
+    h_2[2]=mySM.geth_m_2();
     
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
@@ -645,28 +647,31 @@ void MVll::checkCache(){
         Ycache(1) = Mc;
     }
     
-    if (h[0] == h0Ccache[0] && h_1[0] == h0Ccache[1]) {
+    if (h_0[0] == h0Ccache[0] && h_1[0] == h0Ccache[1] && h_2[0] == h0Ccache[2]) {
         h0_updated = 1;
     } else {
         h0_updated = 0;
-        h0Ccache[0] = h[0];
+        h0Ccache[0] = h_0[0];
         h0Ccache[1] = h_1[0];
+        h0Ccache[2] = h_2[0];
     }
     
-    if (h[1] == h1Ccache[0] && h_1[1] == h1Ccache[1]) {
+    if (h_0[1] == h1Ccache[0] && h_1[1] == h1Ccache[1] && h_2[1] == h1Ccache[2]) {
         h1_updated = 1;
     } else {
         h1_updated = 0;
-        h1Ccache[0] = h[1];
+        h1Ccache[0] = h_0[1];
         h1Ccache[1] = h_1[1];
+        h1Ccache[2] = h_2[1];
     }
     
-    if (h[2] == h2Ccache[0] && h_1[2] == h2Ccache[1]) {
+    if (h_0[2] == h2Ccache[0] && h_1[2] == h2Ccache[1] && h_2[2] == h2Ccache[2]) {
         h2_updated = 1;
     } else {
         h2_updated = 0;
-        h2Ccache[0] = h[2];
+        h2Ccache[0] = h_0[2];
         h2Ccache[1] = h_1[2];
+        h2Ccache[2] = h_2[2];
     }
     
     if (MM == H_V0cache(0) && Mb == H_V0cache(1)) {
@@ -736,21 +741,6 @@ void MVll::checkCache(){
     DC7_1updated = lambda_updated * T1_updated * h1_updated * h2_updated * Mb_Ms_updated;
     DC7_2updated = lambda_updated * T2_updated * h1_updated * h2_updated * Mb_Ms_updated;
     DC7_3updated = lambda_updated * T2_updated * T3_updated * h1_updated * h2_updated * h0_updated * Mb_Ms_updated;
-    
-    iter += 1 ;
-
-//    if (I0_updated == 1) std::cout << I0_updated << " I0 " << it << std::endl;
-//    if (I1_updated == 1) std::cout << I1_updated << " I1 " << it << std::endl;
-//    if (I2_updated == 1) std::cout << I2_updated << " I2 " << it << std::endl;
-//    if (I3_updated == 1) std::cout << I3_updated << " I3 " << it << std::endl;
-//    if (I4_updated == 1) std::cout << I4_updated << " I4 " << it << std::endl;
-//    if (I5_updated == 1) std::cout << I5_updated << " I5 " << it << std::endl;
-//    if (I6_updated == 1) std::cout << I6_updated << " I6 " << it << std::endl;
-//    if (I7_updated == 1) std::cout << I7_updated << " I7 " << it << std::endl;
-//    if (I8_updated == 1) std::cout << I8_updated << " I8 " << it << std::endl;
-//    if (I9_updated == 1) std::cout << I9_updated << " I9 " << it << std::endl;
-//    if (I10_updated == 1) std::cout << I10_updated << " I10 " << it << std::endl;
-//    if (I11_updated == 1) std::cout << I11_updated << " I11 " << it << "\n" <<std::endl;
     
 }
 
@@ -982,7 +972,7 @@ gslpp::complex MVll::H_V(int i, double q2, int bar) {
     return -gslpp::complex::i()*n*( (C_9 + Y(q2))*V_L(i,q2)
             + C_9p*V_R(i,q2)
             + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(i,q2)
-            + C_7p*T_R(i,q2) ) - 16*M_PI*M_PI*(h[i] + h_1[i] * q2)) );
+            + C_7p*T_R(i,q2) ) - 16*M_PI*M_PI*(h_0[i] + h_1[i] * q2 + h_2[i] * q2*q2)) );
 }
 
 
