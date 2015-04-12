@@ -616,8 +616,6 @@ std::string MonteCarloEngine::computeStatistics()
                     << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
                     << std::endl;
         StatsLog << std::endl;
-        
-        delete bch1d;
     }
     
     StatsLog << "\nCorrelated Gaussian Observables:\n" << std::endl;
@@ -679,8 +677,6 @@ std::string MonteCarloEngine::computeStatistics()
                         << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
                         << std::endl;
             StatsLog << std::endl;
-
-            delete bch1d;
         }
     }
     
