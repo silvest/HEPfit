@@ -93,12 +93,9 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_Tp = gsl_integration_workspace_alloc (200);
     w_Vm = gsl_integration_workspace_alloc (200);
     w_Tm = gsl_integration_workspace_alloc (200);
-    w_Vm_m_Tm = gsl_integration_workspace_alloc (200);
-    w_V0_m_T0 = gsl_integration_workspace_alloc (200);
-    w_V0_m_S = gsl_integration_workspace_alloc (200);
-    w_Vm_p_Tm = gsl_integration_workspace_alloc (200);
-    w_V0_p_T0 = gsl_integration_workspace_alloc (200);
-    w_V0_p_S = gsl_integration_workspace_alloc (200);
+    w_V0 = gsl_integration_workspace_alloc (200);
+    w_T0 = gsl_integration_workspace_alloc (200);
+    w_S = gsl_integration_workspace_alloc (200);
     
     w_DC9_1_re = gsl_integration_workspace_alloc (1000);
     w_DC9_1_im = gsl_integration_workspace_alloc (1000);
@@ -321,18 +318,9 @@ void MVll::updateParameters(){
     if (TL1_updated == 0) for (it = TpCached.begin(); it != TpCached.end(); ++it) it->second = 0;
     if (VL2_updated == 0) for (it = VmCached.begin(); it != VmCached.end(); ++it) it->second = 0;
     if (TL2_updated == 0) for (it = TmCached.begin(); it != TmCached.end(); ++it) it->second = 0;
-    if (VL2_updated == 0 || TL2_updated == 0) {
-        for (it = Vm_m_TmCached.begin(); it != Vm_m_TmCached.end(); ++it) it->second = 0;
-        for (it = Vm_p_TmCached.begin(); it != Vm_p_TmCached.end(); ++it) it->second = 0;
-    }
-    if (VL0_updated == 0 || TL0_updated == 0) {
-        for (it = V0_m_T0Cached.begin(); it != V0_m_T0Cached.end(); ++it) it->second = 0;
-        for (it = V0_p_T0Cached.begin(); it != V0_p_T0Cached.end(); ++it) it->second = 0;
-    }
-    if (VL0_updated == 0 || SL_updated == 0) {
-        for (it = V0_m_SCached.begin(); it != V0_m_SCached.end(); ++it) it->second = 0;
-        for (it = V0_p_SCached.begin(); it != V0_p_SCached.end(); ++it) it->second = 0;
-    }
+    if (VL0_updated == 0) for (it = V0Cached.begin(); it != V0Cached.end(); ++it) it->second = 0;
+    if (TL0_updated == 0) for (it = T0Cached.begin(); it != T0Cached.end(); ++it) it->second = 0;
+    if (SL_updated == 0) for (it = SCached.begin(); it != SCached.end(); ++it) it->second = 0;
     
     if (DC9_1updated == 0) for (it = DC9_1Cached.begin(); it != DC9_1Cached.end(); ++it) it->second = 0;
     if (DC9_2updated == 0) for (it = DC9_2Cached.begin(); it != DC9_2Cached.end(); ++it) it->second = 0;
@@ -1118,6 +1106,15 @@ double MVll::integrateFF(int i, double q_min, double q_max){
    
     switch(i){
         case 0:
+            if (V0Cached[qbin] == 0) {
+                FV0 = convertToGslFunction( boost::bind( &MVll::getV0, &(*this), _1 ) );
+                gsl_integration_qags (&FV0, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0, &avaV0, &errV0);
+                cacheV0[qbin] = avaV0;
+                V0Cached[qbin] = 1;
+            }
+            return cacheV0[qbin];
+            break;
+        case 1:
             if (VpCached[qbin] == 0) {
                 FVp = convertToGslFunction( boost::bind( &MVll::getVp, &(*this), _1 ) );
                 gsl_integration_qags (&FVp, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vp, &avaVp, &errVp);
@@ -1125,15 +1122,6 @@ double MVll::integrateFF(int i, double q_min, double q_max){
                 VpCached[qbin] = 1;
             }
             return cacheVp[qbin];
-            break;
-        case 1:
-            if (TpCached[qbin] == 0) {
-                FTp = convertToGslFunction( boost::bind( &MVll::getTp, &(*this), _1 ) );
-                gsl_integration_qags (&FTp, q_min, q_max, 1.e-5, 1.e-3, 200, w_Tp, &avaTp, &errTp);
-                cacheTp[qbin] = avaTp;
-                TpCached[qbin] = 1;
-            }
-            return cacheTp[qbin];
             break;
         case 2:
             if (VmCached[qbin] == 0) {
@@ -1145,6 +1133,24 @@ double MVll::integrateFF(int i, double q_min, double q_max){
             return cacheVm[qbin];
             break;
         case 3:
+            if (T0Cached[qbin] == 0) {
+                FT0 = convertToGslFunction( boost::bind( &MVll::getT0, &(*this), _1 ) );
+                gsl_integration_qags (&FT0, q_min, q_max, 1.e-5, 1.e-3, 200, w_T0, &avaT0, &errT0);
+                cacheT0[qbin] = avaT0;
+                T0Cached[qbin] = 1;
+            }
+            return cacheT0[qbin];
+            break;
+        case 4:
+            if (TpCached[qbin] == 0) {
+                FTp = convertToGslFunction( boost::bind( &MVll::getTp, &(*this), _1 ) );
+                gsl_integration_qags (&FTp, q_min, q_max, 1.e-5, 1.e-3, 200, w_Tp, &avaTp, &errTp);
+                cacheTp[qbin] = avaTp;
+                TpCached[qbin] = 1;
+            }
+            return cacheTp[qbin];
+            break;
+        case 5:
             if (TmCached[qbin] == 0) {
                 FTm = convertToGslFunction( boost::bind( &MVll::getTm, &(*this), _1 ) );
                 gsl_integration_qags (&FTm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Tm, &avaTm, &errTm);
@@ -1153,59 +1159,14 @@ double MVll::integrateFF(int i, double q_min, double q_max){
             }
             return cacheTm[qbin];
             break;
-        case 4:
-            if (Vm_m_TmCached[qbin] == 0) {
-                FVm_m_Tm = convertToGslFunction( boost::bind( &MVll::getVm_m_Tm, &(*this), _1 ) );
-                gsl_integration_qags (&FVm_m_Tm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vm_m_Tm, &avaVm_m_Tm, &errVm_m_Tm);
-                cacheVm_m_Tm[qbin] = avaVm_m_Tm;
-                Vm_m_TmCached[qbin] = 1;
-            }
-            return cacheVm_m_Tm[qbin];
-            break;
-        case 5:
-            if (V0_m_T0Cached[qbin] == 0) {
-                FV0_m_T0 = convertToGslFunction( boost::bind( &MVll::getV0_m_T0, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_m_T0, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_m_T0, &avaV0_m_T0, &errV0_m_T0);
-                cacheV0_m_T0[qbin] = avaV0_m_T0;
-                V0_m_T0Cached[qbin] = 1;
-            }
-            return cacheV0_m_T0[qbin];
-            break;
         case 6:
-            if (V0_m_SCached[qbin] == 0) {
-                FV0_m_S = convertToGslFunction( boost::bind( &MVll::getV0_m_S, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_m_S, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_m_S, &avaV0_m_S, &errV0_m_S);
-                cacheV0_m_S[qbin] = avaV0_m_S;
-                V0_m_SCached[qbin] = 1;
+            if (SCached[qbin] == 0) {
+                FS = convertToGslFunction( boost::bind( &MVll::getS, &(*this), _1 ) );
+                gsl_integration_qags (&FS, q_min, q_max, 1.e-5, 1.e-3, 200, w_S, &avaS, &errS);
+                cacheS[qbin] = avaS;
+                SCached[qbin] = 1;
             }
-            return cacheV0_m_S[qbin];
-            break;
-        case 7:
-            if (Vm_p_TmCached[qbin] == 0) {
-                FVm_p_Tm = convertToGslFunction( boost::bind( &MVll::getVm_p_Tm, &(*this), _1 ) );
-                gsl_integration_qags (&FVm_p_Tm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vm_p_Tm, &avaVm_p_Tm, &errVm_p_Tm);
-                cacheVm_p_Tm[qbin] = avaVm_p_Tm;
-                Vm_p_TmCached[qbin] = 1;
-            }
-            return cacheVm_p_Tm[qbin];
-            break;
-        case 8:
-            if (V0_p_T0Cached[qbin] == 0) {
-                FV0_p_T0 = convertToGslFunction( boost::bind( &MVll::getV0_p_T0, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_p_T0, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_p_T0, &avaV0_p_T0, &errV0_p_T0);
-                cacheV0_p_T0[qbin] = avaV0_p_T0;
-                V0_p_T0Cached[qbin] = 1;
-            }
-            return cacheV0_p_T0[qbin];
-            break;
-        case 9:
-            if (V0_p_SCached[qbin] == 0) {
-                FV0_p_S = convertToGslFunction( boost::bind( &MVll::getV0_p_S, &(*this), _1 ) );
-                gsl_integration_qags (&FV0_p_S, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0_p_S, &avaV0_p_S, &errV0_p_S);
-                cacheV0_p_S[qbin] = avaV0_p_S;
-                V0_p_SCached[qbin] = 1;
-            }
-            return cacheV0_p_S[qbin];
+            return cacheS[qbin];
             break;
         default:
             std::stringstream out;

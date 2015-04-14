@@ -836,23 +836,23 @@ private:
 
 
 /**
- * @class Vp_Vm
+ * @class V0
  * @ingroup flavour
- * @brief A class for the ratio V_+/V_-. 
+ * @brief A class for the form factor V_0. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class Vp_Vm : public ThObservable{
+class V0 : public ThObservable{
 public:
     
     /**
-    * @brief \f$ V_{+}/V_{-} \f$ 
+    * @brief \f$ V_{0} \f$ 
     */
-    Vp_Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    V0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the ratio V_+/V_-
+    * @return return the form factor V_0
     */
     double computeThValue();
 
@@ -866,23 +866,23 @@ private:
 
 
 /**
- * @class Tp_Tm
+ * @class Vp
  * @ingroup flavour
- * @brief A class for the ratio T_+/T_-. 
+ * @brief A class for the form factor V_+. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class Tp_Tm : public ThObservable{
+class Vp : public ThObservable{
 public:
     
     /**
-    * @brief \f$ T_{+}/T_{-} \f$ 
+    * @brief \f$ V_{+} \f$ 
     */
-    Tp_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Vp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the ratio T_+/T_-
+    * @return return the form factor V_+
     */
     double computeThValue();
 
@@ -896,23 +896,23 @@ private:
 
 
 /**
- * @class V0_m_T0_V0_p_T0
+ * @class Vm
  * @ingroup flavour
- * @brief A class for the ratio (V_0 - T_0) / (V_0 + T_0). 
+ * @brief A class for the form factor V_-. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class V0_m_T0_V0_p_T0 : public ThObservable{
+class Vm : public ThObservable{
 public:
     
     /**
-    * @brief \f$ (V_{0} - T_{0}) / (V_{0} + T_{0}) \f$ 
+    * @brief \f$ V_{-} \f$ 
     */
-    V0_m_T0_V0_p_T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the ratio (V_0 - T_0) / (V_0 + T_0)
+    * @return return the form factor V_-
     */
     double computeThValue();
 
@@ -926,23 +926,23 @@ private:
 
 
 /**
- * @class Vm_m_Tm_Vm_p_Tm
+ * @class T0
  * @ingroup flavour
- * @brief A class for the ratio (V_- - T_-) / (V_- + T_-). 
+ * @brief A class for the form factor T_0. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class Vm_m_Tm_Vm_p_Tm : public ThObservable{
+class T0 : public ThObservable{
 public:
     
     /**
-    * @brief \f$ (V_{-} - T_{-}) / (V_{-} + T_{-}) \f$ 
+    * @brief \f$ V_{0} \f$ 
     */
-    Vm_m_Tm_Vm_p_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
-
+    T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
     /**
-    * @return return the ratio (V_- - T_-) / (V_- + T_-)
+    * @return return the form factor T_0
     */
     double computeThValue();
 
@@ -956,23 +956,83 @@ private:
 
 
 /**
- * @class V0_m_S_V0_p_S
+ * @class Tp
  * @ingroup flavour
- * @brief A class for the ratio (V_0 - S) / (V_0 + S). 
+ * @brief A class for the form factor T_+. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class V0_m_S_V0_p_S : public ThObservable{
+class Tp : public ThObservable{
 public:
     
     /**
-    * @brief \f$ (V_{0} - S) / (V_{0} + S) \f$ 
+    * @brief \f$ T_{+} \f$ 
     */
-    V0_m_S_V0_p_S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Tp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the form factor T_+
+    */
+    double computeThValue();
+
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class Tm
+ * @ingroup flavour
+ * @brief A class for the form factor T_-. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class Tm : public ThObservable{
+public:
+    
+    /**
+    * @brief \f$ T_{-} \f$ 
+    */
+    Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the form factor T_-
+    */
+    double computeThValue();
+
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class S
+ * @ingroup flavour
+ * @brief A class for the form factor S. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class S : public ThObservable{
+public:
+    
+    /**
+    * @brief \f$ S \f$ 
+    */
+    S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
 
     /**
-    * @return return the ratio (V_0 - S) / (V_0 + S)
+    * @return return the form factor S
     */
     double computeThValue();
 

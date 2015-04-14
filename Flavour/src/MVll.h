@@ -729,21 +729,12 @@ public:
     }
     
     /**
-    * @brief \f$ V0 - T0 \f$ 
+    * @brief \f$ V_0 \f$ 
     * @param[in] q2 q^2 of the decay
     * @return return the form factors difference V0 - T0
     */
-    double getV0_m_T0(double q2){
-        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
-    };
-    
-    /**
-    * @brief \f$ V0 + T0 \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the form factors sum V0 + T0
-    */
-    double getV0_p_T0(double q2){
-        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
+    double getV0(double q2){
+        return (2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2);
     };
     
     /**
@@ -765,21 +756,12 @@ public:
     };
     
     /**
-    * @brief \f$ V_- - T_- \f$ 
+    * @brief \f$ T_0 \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the form factors difference V_- - T_-
+    * @return return the form factors sum V0 + T0
     */
-    double getVm_m_Tm(double q2){
-        return V_L(2,q2)-T_L(2,q2);
-    };
-    
-    /**
-    * @brief \f$ V_- + T_- \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the form factors sum V_- + T_-
-    */
-    double getVm_p_Tm(double q2){
-        return V_L(2,q2)+T_L(2,q2);
+    double getT0(double q2){
+        return (2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2);
     };
     
     /**
@@ -801,21 +783,12 @@ public:
     };
     
     /**
-    * @brief \f$ V0 - S \f$ 
+    * @brief \f$ S \f$ 
     * @param[in] q2 q^2 of the decay
     * @return return the form factors difference V0 - S
     */
-    double getV0_m_S(double q2){
-        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
-    };
-    
-    /**
-    * @brief \f$ V0 + S \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the form factors sum V0 + S
-    */
-    double getV0_p_S(double q2){
-        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
+    double getS(double q2){
+        return (-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2);
     };
     
     /**
@@ -961,12 +934,9 @@ private:
     std::map<std::pair<double, double>, double > cacheVm;
     std::map<std::pair<double, double>, double > cacheTp;
     std::map<std::pair<double, double>, double > cacheTm;
-    std::map<std::pair<double, double>, double > cacheVm_m_Tm;
-    std::map<std::pair<double, double>, double > cacheVm_p_Tm;
-    std::map<std::pair<double, double>, double > cacheV0_m_T0;
-    std::map<std::pair<double, double>, double > cacheV0_p_T0;
-    std::map<std::pair<double, double>, double > cacheV0_m_S;
-    std::map<std::pair<double, double>, double > cacheV0_p_S;
+    std::map<std::pair<double, double>, double > cacheT0;
+    std::map<std::pair<double, double>, double > cacheV0;
+    std::map<std::pair<double, double>, double > cacheS;
     
     std::map<std::pair<double, double>, gslpp::complex > cacheDC9_1;
     std::map<std::pair<double, double>, gslpp::complex > cacheDC9_2;
@@ -1018,23 +988,17 @@ private:
     double avaTp;
     double avaVm;
     double avaTm;
-    double avaVm_m_Tm;
-    double avaVm_p_Tm;
-    double avaV0_m_T0;
-    double avaV0_p_T0;
-    double avaV0_m_S;
-    double avaV0_p_S;
+    double avaT0;
+    double avaV0;
+    double avaS;
     
     double errVp;
     double errTp;
     double errVm;
     double errTm;
-    double errVm_m_Tm;
-    double errVm_p_Tm;
-    double errV0_m_T0;
-    double errV0_p_T0;
-    double errV0_m_S;
-    double errV0_p_S;
+    double errT0;
+    double errV0;
+    double errS;
     
     double avaDC9_1_re;
     double avaDC9_1_im;
@@ -1087,12 +1051,9 @@ private:
     gsl_function FVm;
     gsl_function FTp;
     gsl_function FTm;
-    gsl_function FVm_m_Tm;
-    gsl_function FVm_p_Tm;
-    gsl_function FV0_m_T0;
-    gsl_function FV0_p_T0;
-    gsl_function FV0_m_S;
-    gsl_function FV0_p_S;
+    gsl_function FV0;
+    gsl_function FT0;
+    gsl_function FS;
     
     gsl_function FDC9_1_re;
     gsl_function FDC9_1_im;
@@ -1131,12 +1092,9 @@ private:
     gsl_integration_workspace * w_Vm;
     gsl_integration_workspace * w_Tp;
     gsl_integration_workspace * w_Tm;
-    gsl_integration_workspace * w_Vm_m_Tm;
-    gsl_integration_workspace * w_Vm_p_Tm;
-    gsl_integration_workspace * w_V0_m_T0;
-    gsl_integration_workspace * w_V0_p_T0;
-    gsl_integration_workspace * w_V0_m_S;
-    gsl_integration_workspace * w_V0_p_S;
+    gsl_integration_workspace * w_V0;
+    gsl_integration_workspace * w_T0;
+    gsl_integration_workspace * w_S;
     
     gsl_integration_workspace * w_DC9_1_re;
     gsl_integration_workspace * w_DC9_1_im;
@@ -1342,12 +1300,9 @@ private:
     std::map<std::pair<double, double>, unsigned int > TpCached;
     std::map<std::pair<double, double>, unsigned int > VmCached;
     std::map<std::pair<double, double>, unsigned int > TmCached;
-    std::map<std::pair<double, double>, unsigned int > Vm_m_TmCached;
-    std::map<std::pair<double, double>, unsigned int > Vm_p_TmCached;
-    std::map<std::pair<double, double>, unsigned int > V0_m_T0Cached;
-    std::map<std::pair<double, double>, unsigned int > V0_p_T0Cached;
-    std::map<std::pair<double, double>, unsigned int > V0_m_SCached;
-    std::map<std::pair<double, double>, unsigned int > V0_p_SCached;
+    std::map<std::pair<double, double>, unsigned int > V0Cached;
+    std::map<std::pair<double, double>, unsigned int > T0Cached;
+    std::map<std::pair<double, double>, unsigned int > SCached;
     
     std::map<std::pair<double, double>, unsigned int > DC9_1Cached;
     std::map<std::pair<double, double>, unsigned int > DC9_2Cached;
