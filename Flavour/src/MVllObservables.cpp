@@ -615,64 +615,64 @@ double Delta_C9_3::computeThValue() {
 //    else throw std::runtime_error("MVllObservables::Delta_C9_3: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
 
-Delta_C7_1::Delta_C7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) : ThObservable(SM_i), mySM(SM_i) {
+h_0::h_0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) : ThObservable(SM_i), mySM(SM_i) {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
 }
 
-double Delta_C7_1::computeThValue() {
+double h_0::computeThValue() {
     
 
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    if (typ == 1) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(0,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(0,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(0,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(0,q_min,q_max)).arg()/(q_max - q_min);
-    else throw std::runtime_error("MVllObservables::Delta_C7_1: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
+    if (typ == 1) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).real()/(q_max - q_min);
+    else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).imag()/(q_max - q_min);
+    else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).abs()/(q_max - q_min);
+    else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).arg()/(q_max - q_min);
+    else throw std::runtime_error("MVllObservables::h_0: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
 
 
-Delta_C7_2::Delta_C7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) : ThObservable(SM_i), mySM(SM_i) {
+h_p::h_p(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) : ThObservable(SM_i), mySM(SM_i) {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
 }
 
-double Delta_C7_2::computeThValue() {
+double h_p::computeThValue() {
     
 
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    if (typ == 1) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(1,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(1,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(1,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(1,q_min,q_max)).arg()/(q_max - q_min);
-    else throw std::runtime_error("MVllObservables::Delta_C7_2: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
+    if (typ == 1) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).real()/(q_max - q_min);
+    else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).imag()/(q_max - q_min);
+    else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).abs()/(q_max - q_min);
+    else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).arg()/(q_max - q_min);
+    else throw std::runtime_error("MVllObservables::h_p: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
 
 
-Delta_C7_3::Delta_C7_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) : ThObservable(SM_i), mySM(SM_i) {
+h_m::h_m(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) : ThObservable(SM_i), mySM(SM_i) {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
 }
 
-double Delta_C7_3::computeThValue() {
+double h_m::computeThValue() {
     
 
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    if (typ == 1) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(2,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(2,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(2,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(2,q_min,q_max)).arg()/(q_max - q_min);
-    else throw std::runtime_error("MVllObservables::Delta_C7_3: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
+    if (typ == 1) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).real()/(q_max - q_min);
+    else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).imag()/(q_max - q_min);
+    else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).abs()/(q_max - q_min);
+    else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).arg()/(q_max - q_min);
+    else throw std::runtime_error("MVllObservables::h_m: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }

@@ -478,7 +478,7 @@ public:
     * @param[in] q_max maximum q^2 of the integral
     * @return return the correction \f$ Delta C_7 \f$ from q_min to q_max
     */
-    gslpp::complex integrateDC7(int i, double q_min, double q_max);
+    gslpp::complex integrateh(int i, double q_min, double q_max);
     
     /**
     * i values:
@@ -824,7 +824,7 @@ public:
     * @return return the real part of Delta_C9_1
     */
     double getDeltaC9_1_re(double q2){
-        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_1[2] + h_2[2] * q2 - (h_1[1] + h_2[1] * q2))).real();
+        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
     
     /**
@@ -833,7 +833,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_9^1 \f$
     */
     double getDeltaC9_1_im(double q2){
-        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_1[2] + h_2[2] * q2 - (h_1[1] + h_2[1] * q2))).imag();
+        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
@@ -842,7 +842,7 @@ public:
     * @return return the real part of \f$ Delta C_9^2 \f$
     */
     double getDeltaC9_2_re(double q2){
-        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2)).real();
+        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
     }
     
     /**
@@ -851,7 +851,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_9^2 /f$
     */
     double getDeltaC9_2_im(double q2){
-        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2)).imag();
+        return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
     }
     
     /**
@@ -860,7 +860,7 @@ public:
     * @return return the real part of \f$ Delta C_9^3 \f$
     */
     double getDeltaC9_3_re(double q2){
-        return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2))).real();
+        return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
 
     /**
@@ -869,7 +869,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_9^3 \f$
     */
     double getDeltaC9_3_im(double q2){
-        return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_1[2] + h_2[2] * q2 + h_1[1] + h_2[1] * q2))).imag();
+        return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
@@ -877,8 +877,9 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the real part of Delta_C7_1
     */
-    double getDeltaC7_1_re(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).real();
+    double geth_0_re(double q2){
+        return (16 * M_PI * M_PI * MM * MM * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).real();
+        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).real();
     }
     
     /**
@@ -886,8 +887,9 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the imaginary part of \f$ Delta C_7^1 \f$
     */
-    double getDeltaC7_1_im(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).imag();
+    double geth_0_im(double q2){
+        return (16 * M_PI * M_PI * MM * MM * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).imag();
+        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).imag();
     }
     
     /**
@@ -895,8 +897,9 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the real part of \f$ Delta C_7^2 \f$
     */
-    double getDeltaC7_2_re(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).real();
+    double geth_p_re(double q2){
+        return (16 * M_PI * M_PI * MM * MM * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
+        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).real();
     }
     
     /**
@@ -904,8 +907,9 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the imaginary part of \f$ Delta C_7^2 /f$
     */
-    double getDeltaC7_2_im(double q2){
-        return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).imag();
+    double geth_p_im(double q2){
+        return (16 * M_PI * M_PI * MM * MM * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
+        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).imag();
     }
     
     /**
@@ -913,8 +917,9 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the real part of \f$ Delta C_7^3 \f$
     */
-    double getDeltaC7_3_re(double q2){
-        return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).real();
+    double geth_m_re(double q2){
+        return (16 * M_PI * M_PI * MM * MM * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).real();
+        //return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).real();
     }
 
     /**
@@ -922,8 +927,9 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the imaginary part of \f$ Delta C_7^3 \f$
     */
-    double getDeltaC7_3_im(double q2){
-        return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).imag();
+    double geth_m_im(double q2){
+        return (16 * M_PI * M_PI * MM * MM * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
+        //return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).imag();
     }
 
 private:
@@ -966,9 +972,9 @@ private:
     std::map<std::pair<double, double>, gslpp::complex > cacheDC9_2;
     std::map<std::pair<double, double>, gslpp::complex > cacheDC9_3;
     
-    std::map<std::pair<double, double>, gslpp::complex > cacheDC7_1;
-    std::map<std::pair<double, double>, gslpp::complex > cacheDC7_2;
-    std::map<std::pair<double, double>, gslpp::complex > cacheDC7_3;
+    std::map<std::pair<double, double>, gslpp::complex > cacheh_0;
+    std::map<std::pair<double, double>, gslpp::complex > cacheh_p;
+    std::map<std::pair<double, double>, gslpp::complex > cacheh_m;
     
     double avaSigma0;
     double avaSigma1;
@@ -1044,19 +1050,19 @@ private:
     double errDC9_3_re;
     double errDC9_3_im;
     
-    double avaDC7_1_re;
-    double avaDC7_1_im;
-    double avaDC7_2_re;
-    double avaDC7_2_im;
-    double avaDC7_3_re;
-    double avaDC7_3_im;
+    double avah_0_re;
+    double avah_0_im;
+    double avah_p_re;
+    double avah_p_im;
+    double avah_m_re;
+    double avah_m_im;
     
-    double errDC7_1_re;
-    double errDC7_1_im;
-    double errDC7_2_re;
-    double errDC7_2_im;
-    double errDC7_3_re;
-    double errDC7_3_im;
+    double errh_0_re;
+    double errh_0_im;
+    double errh_p_re;
+    double errh_p_im;
+    double errh_m_re;
+    double errh_m_im;
     
     gsl_function FS0;
     gsl_function FS1;
@@ -1095,12 +1101,12 @@ private:
     gsl_function FDC9_3_re;
     gsl_function FDC9_3_im;
     
-    gsl_function FDC7_1_re;
-    gsl_function FDC7_1_im;
-    gsl_function FDC7_2_re;
-    gsl_function FDC7_2_im;
-    gsl_function FDC7_3_re;
-    gsl_function FDC7_3_im;
+    gsl_function Fh_0_re;
+    gsl_function Fh_0_im;
+    gsl_function Fh_p_re;
+    gsl_function Fh_p_im;
+    gsl_function Fh_m_re;
+    gsl_function Fh_m_im;
     
     gsl_integration_workspace * w_sigma0;
     gsl_integration_workspace * w_sigma1;
@@ -1139,12 +1145,12 @@ private:
     gsl_integration_workspace * w_DC9_3_re;
     gsl_integration_workspace * w_DC9_3_im;
     
-    gsl_integration_workspace * w_DC7_1_re;
-    gsl_integration_workspace * w_DC7_1_im;
-    gsl_integration_workspace * w_DC7_2_re;
-    gsl_integration_workspace * w_DC7_2_im;
-    gsl_integration_workspace * w_DC7_3_re;
-    gsl_integration_workspace * w_DC7_3_im;
+    gsl_integration_workspace * w_h_0_re;
+    gsl_integration_workspace * w_h_0_im;
+    gsl_integration_workspace * w_h_p_re;
+    gsl_integration_workspace * w_h_p_im;
+    gsl_integration_workspace * w_h_m_re;
+    gsl_integration_workspace * w_h_m_im;
     
     unsigned int N_updated;
     gslpp::vector<double> N_cache;
@@ -1309,9 +1315,9 @@ private:
     unsigned int DC9_2updated;
     unsigned int DC9_3updated;
     
-    unsigned int DC7_1updated;
-    unsigned int DC7_2updated;
-    unsigned int DC7_3updated;
+    unsigned int h_0updated;
+    unsigned int h_pupdated;
+    unsigned int h_mupdated;
     
     std::map<std::pair<double, double>, unsigned int > sigma0Cached;
     std::map<std::pair<double, double>, unsigned int > sigma1Cached;
@@ -1347,9 +1353,9 @@ private:
     std::map<std::pair<double, double>, unsigned int > DC9_2Cached;
     std::map<std::pair<double, double>, unsigned int > DC9_3Cached;
     
-    std::map<std::pair<double, double>, unsigned int > DC7_1Cached;
-    std::map<std::pair<double, double>, unsigned int > DC7_2Cached;
-    std::map<std::pair<double, double>, unsigned int > DC7_3Cached;
+    std::map<std::pair<double, double>, unsigned int > h_0Cached;
+    std::map<std::pair<double, double>, unsigned int > h_pCached;
+    std::map<std::pair<double, double>, unsigned int > h_mCached;
     
 };
 

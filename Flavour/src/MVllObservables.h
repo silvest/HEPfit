@@ -1078,23 +1078,23 @@ private:
 };
 
 /**
- * @class Delta_C7_1
+ * @class h_0
  * @ingroup flavour
- * @brief A class for the correction to C7 Delta_C7_1. 
+ * @brief A class for the bin averaged value of h_0. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class Delta_C7_1 : public ThObservable{
+class h_0 : public ThObservable{
 public:
     
     /**
-    * @brief \f$ \Delta_{C7}^1 \f$ 
+    * @brief \f$ h_0 \f$ 
     */
-    Delta_C7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    h_0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
-    * @return return the factor Delta_C7_1
+    * @return return the factor h_0
     */
     double computeThValue();
 
@@ -1109,23 +1109,23 @@ private:
 
 
 /**
- * @class Delta_C7_2
+ * @class h_p
  * @ingroup flavour
- * @brief A class for the correction to C7 Delta_C7_2. 
+ * @brief A class for the bin averaged value of h_p.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class Delta_C7_2 : public ThObservable{
+class h_p : public ThObservable{
 public:
     
     /**
-    * @brief \f$ \Delta_{C7}^2 \f$ 
+    * @brief \f$ h_{+} \f$ 
     */
-    Delta_C7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    h_p(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
-    * @return return the factor Delta_C7_2
+    * @return return the factor h_p
     */
     double computeThValue();
     
@@ -1140,23 +1140,23 @@ private:
     
     
 /**
- * @class Delta_C7_3
+ * @class h_m
  * @ingroup flavour
- * @brief A class for the correction to C7 Delta_C7_3. 
+ * @brief A class for the bin averaged value of h_m.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class Delta_C7_3 : public ThObservable{
+class h_m : public ThObservable{
 public:
     
     /**
-    * @brief \f$ \Delta_{C7}^3 \f$ 
+    * @brief \f$ h_{-} \f$ 
     */
-    Delta_C7_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    h_m(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
-    * @return return the factor Delta_C7_3
+    * @return return the factor h_m
     */
     double computeThValue();
 

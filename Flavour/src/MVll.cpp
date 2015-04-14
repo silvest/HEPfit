@@ -66,9 +66,9 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     DC9_2updated = 0;
     DC9_3updated = 0;
     
-    DC7_1updated = 0;
-    DC7_2updated = 0;
-    DC7_3updated = 0;
+    h_0updated = 0;
+    h_pupdated = 0;
+    h_mupdated = 0;
     
     w_sigma0 = gsl_integration_workspace_alloc (200);
     w_sigma1 = gsl_integration_workspace_alloc (200);
@@ -107,12 +107,12 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_DC9_3_re = gsl_integration_workspace_alloc (1000);
     w_DC9_3_im = gsl_integration_workspace_alloc (1000);
     
-    w_DC7_1_re = gsl_integration_workspace_alloc (1000);
-    w_DC7_1_im = gsl_integration_workspace_alloc (1000);
-    w_DC7_2_re = gsl_integration_workspace_alloc (1000);
-    w_DC7_2_im = gsl_integration_workspace_alloc (1000);
-    w_DC7_3_re = gsl_integration_workspace_alloc (1000);
-    w_DC7_3_im = gsl_integration_workspace_alloc (1000);
+    w_h_0_re = gsl_integration_workspace_alloc (1000);
+    w_h_0_im = gsl_integration_workspace_alloc (1000);
+    w_h_p_re = gsl_integration_workspace_alloc (1000);
+    w_h_p_im = gsl_integration_workspace_alloc (1000);
+    w_h_m_re = gsl_integration_workspace_alloc (1000);
+    w_h_m_im = gsl_integration_workspace_alloc (1000);
 }
 
 
@@ -338,9 +338,9 @@ void MVll::updateParameters(){
     if (DC9_2updated == 0) for (it = DC9_2Cached.begin(); it != DC9_2Cached.end(); ++it) it->second = 0;
     if (DC9_3updated == 0) for (it = DC9_3Cached.begin(); it != DC9_3Cached.end(); ++it) it->second = 0;
     
-    if (DC7_1updated == 0) for (it = DC7_1Cached.begin(); it != DC7_1Cached.end(); ++it) it->second = 0;
-    if (DC7_2updated == 0) for (it = DC7_2Cached.begin(); it != DC7_2Cached.end(); ++it) it->second = 0;
-    if (DC7_3updated == 0) for (it = DC7_3Cached.begin(); it != DC7_3Cached.end(); ++it) it->second = 0;
+    if (h_0updated == 0) for (it = h_0Cached.begin(); it != h_0Cached.end(); ++it) it->second = 0;
+    if (h_pupdated == 0) for (it = h_pCached.begin(); it != h_pCached.end(); ++it) it->second = 0;
+    if (h_mupdated == 0) for (it = h_mCached.begin(); it != h_mCached.end(); ++it) it->second = 0;
     
 }
 
@@ -738,9 +738,13 @@ void MVll::checkCache(){
     DC9_2updated = lambda_updated * A1_updated * h1_updated * h2_updated;
     DC9_3updated = lambda_updated * A2_updated * h1_updated * h2_updated * h0_updated;
     
-    DC7_1updated = lambda_updated * T1_updated * h1_updated * h2_updated * Mb_Ms_updated;
-    DC7_2updated = lambda_updated * T2_updated * h1_updated * h2_updated * Mb_Ms_updated;
-    DC7_3updated = lambda_updated * T2_updated * T3_updated * h1_updated * h2_updated * h0_updated * Mb_Ms_updated;
+    h_0updated = h0_updated * k2_updated;
+    h_pupdated = h1_updated * k2_updated;
+    h_mupdated = h2_updated * k2_updated;
+    
+//    DC7_1updated = lambda_updated * T1_updated * h1_updated * h2_updated * Mb_Ms_updated;
+//    DC7_2updated = lambda_updated * T2_updated * h1_updated * h2_updated * Mb_Ms_updated;
+//    DC7_3updated = lambda_updated * T2_updated * T3_updated * h1_updated * h2_updated * h0_updated * Mb_Ms_updated;
     
 }
 
@@ -838,18 +842,6 @@ double MVll::T_3tilde(double q2){
 
 
 double MVll::T_3(double q2){
-    /*if (q2 < 2.) {
-        switch(vectorM){
-            case QCD::K_star : return (0.178168 - 0.202)/2. * q2 + 0.202;
-            case QCD::PHI : return (0.14667 - 0.175)/2. * q2 + 0.175;
-            default:
-            std::stringstream out;
-            out << vectorM;
-            throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
-                   
-        }
-    }
-    else*/
     return (MM*MM - MV*MV)/q2*(T_3tilde(q2) - T_2(q2));
 }
 
@@ -863,7 +855,6 @@ double MVll::V_L(int i, double q2){
             else
                 return 4*MV/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
         case 1:
-            //return 0.;
             return 1./2. * ( ( 1. + MV/MM)*A_1(q2) - sqrt(lambda(q2))/ ( MM* (MM + MV) ) * V(q2) );
         case 2:
             return 1./2. * ( ( 1. + MV/MM)*A_1(q2) + sqrt(lambda(q2))/ ( MM* (MM + MV) ) * V(q2) );
@@ -887,15 +878,12 @@ double MVll::T_L(int i, double q2){
     switch (i){
         case 0:
             if (q2 < CUTOFF)
-                //return q2/(MM*MM) * V_L(0,q2);
                 return sqrt(q2)/(4.*MM*MM*MV) * ( ( MM*MM+ 3.*MV*MV - q2 ) * T_2(q2) - lambda(q2) / (MM*MM - MV*MV) * T_3(q2) );
             else
                 return 2*sqrt(q2)*MV/MM/(MM + MV)*lat_fit(q2, a_0T23, a_1T23, dmT23);
         case 1:
-            //return V_L(1,q2);
             return (MM*MM - MV*MV) / ( 2.*MM*MM ) * T_2(q2) - sqrt(lambda(q2)) / ( 2.*MM*MM ) * T_1(q2);
         case 2:
-            //return V_L(2,q2);
             return (MM*MM - MV*MV) / ( 2.*MM*MM ) * T_2(q2) + sqrt(lambda(q2)) / ( 2.*MM*MM ) * T_1(q2);
         default:
             std::stringstream out;
@@ -1462,7 +1450,7 @@ gslpp::complex MVll::integrateDC9(int i, double q_min, double q_max){
     }
 }
 
-gslpp::complex MVll::integrateDC7(int i, double q_min, double q_max){
+gslpp::complex MVll::integrateh(int i, double q_min, double q_max){
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();
@@ -1472,37 +1460,37 @@ gslpp::complex MVll::integrateDC7(int i, double q_min, double q_max){
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     switch(i){
         case 0:
-            if (DC7_1Cached[qbin] == 0) {
-                FDC7_1_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_1_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_1_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_1_re, &avaDC7_1_re, &errDC7_1_re);
-                FDC7_1_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_1_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_1_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_1_im, &avaDC7_1_im, &errDC7_1_im);
-                cacheDC7_1[qbin] = avaDC7_1_re + gslpp::complex::i() * avaDC7_1_im;
-                DC7_1Cached[qbin] = 1;
+            if (h_0Cached[qbin] == 0) {
+                Fh_0_re = convertToGslFunction( boost::bind( &MVll::geth_0_re, &(*this), _1 ) );
+                gsl_integration_qags (&Fh_0_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_h_0_re, &avah_0_re, &errh_0_re);
+                Fh_0_im = convertToGslFunction( boost::bind( &MVll::geth_0_im, &(*this), _1 ) );
+                gsl_integration_qags (&Fh_0_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_h_0_im, &avah_0_im, &errh_0_im);
+                cacheh_0[qbin] = avah_0_re + gslpp::complex::i() * avah_0_im;
+                h_0Cached[qbin] = 1;
             }
-            return cacheDC7_1[qbin];
+            return cacheh_0[qbin];
             break;
         case 1:
-            if (DC7_2Cached[qbin] == 0) {
-                FDC7_2_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_2_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_2_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_2_re, &avaDC7_2_re, &errDC7_2_re);
-                FDC7_2_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_2_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_2_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_2_im, &avaDC7_2_im, &errDC7_2_im);
-                cacheDC7_2[qbin] = avaDC7_2_re + gslpp::complex::i() * avaDC7_2_im;
-                DC7_2Cached[qbin] = 1;
+            if (h_pCached[qbin] == 0) {
+                Fh_p_re = convertToGslFunction( boost::bind( &MVll::geth_p_re, &(*this), _1 ) );
+                gsl_integration_qags (&Fh_p_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_h_p_re, &avah_p_re, &errh_p_re);
+                Fh_p_im = convertToGslFunction( boost::bind( &MVll::geth_p_im, &(*this), _1 ) );
+                gsl_integration_qags (&Fh_p_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_h_p_im, &avah_p_im, &errh_p_im);
+                cacheh_p[qbin] = avah_p_re + gslpp::complex::i() * avah_p_im;
+                h_pCached[qbin] = 1;
             }
-            return cacheDC7_2[qbin];
+            return cacheh_p[qbin];
             break;
         case 2:
-            if (DC7_3Cached[qbin] == 0) {
-                FDC7_3_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_3_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_3_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_3_re, &avaDC7_3_re, &errDC7_3_re);
-                FDC7_3_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_3_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC7_3_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC7_3_im, &avaDC7_3_im, &errDC7_3_im);
-                cacheDC7_3[qbin] = avaDC7_3_re + gslpp::complex::i() * avaDC7_3_im;
-                DC7_3Cached[qbin] = 1;
+            if (h_mCached[qbin] == 0) {
+                Fh_m_re = convertToGslFunction( boost::bind( &MVll::geth_m_re, &(*this), _1 ) );
+                gsl_integration_qags (&Fh_m_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_h_m_re, &avah_m_re, &errh_m_re);
+                Fh_m_im = convertToGslFunction( boost::bind( &MVll::geth_m_im, &(*this), _1 ) );
+                gsl_integration_qags (&Fh_m_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_h_m_im, &avah_m_im, &errh_m_im);
+                cacheh_m[qbin] = avah_m_re + gslpp::complex::i() * avah_m_im;
+                h_mCached[qbin] = 1;
             }
-            return cacheDC7_3[qbin];
+            return cacheh_m[qbin];
             break;
         default:
             std::stringstream out;
