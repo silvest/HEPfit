@@ -470,7 +470,7 @@ public:
     * @param[in] q_max maximum q^2 of the integral
     * @return return the correction \f$ Delta C_9 \f$ from q_min to q_max
     */
-    gslpp::complex integrateDC9(int i, double q_min, double q_max);
+    gslpp::complex integrategtilde(int i, double q_min, double q_max);
     
     /**
     * @brief \f$ <Delta C_7> \f$ 
@@ -796,7 +796,7 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the real part of Delta_C9_1
     */
-    double getDeltaC9_1_re(double q2){
+    double getgtilde_1_re(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
     
@@ -805,7 +805,7 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the imaginary part of \f$ Delta C_9^1 \f$
     */
-    double getDeltaC9_1_im(double q2){
+    double getgtilde_1_im(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
@@ -814,7 +814,7 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the real part of \f$ Delta C_9^2 \f$
     */
-    double getDeltaC9_2_re(double q2){
+    double getgtilde_2_re(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
     }
     
@@ -823,7 +823,7 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the imaginary part of \f$ Delta C_9^2 /f$
     */
-    double getDeltaC9_2_im(double q2){
+    double getgtilde_2_im(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
     }
     
@@ -832,7 +832,7 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the real part of \f$ Delta C_9^3 \f$
     */
-    double getDeltaC9_3_re(double q2){
+    double getgtilde_3_re(double q2){
         return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
 
@@ -841,7 +841,7 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the imaginary part of \f$ Delta C_9^3 \f$
     */
-    double getDeltaC9_3_im(double q2){
+    double getgtilde_3_im(double q2){
         return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
@@ -938,9 +938,9 @@ private:
     std::map<std::pair<double, double>, double > cacheV0;
     std::map<std::pair<double, double>, double > cacheS;
     
-    std::map<std::pair<double, double>, gslpp::complex > cacheDC9_1;
-    std::map<std::pair<double, double>, gslpp::complex > cacheDC9_2;
-    std::map<std::pair<double, double>, gslpp::complex > cacheDC9_3;
+    std::map<std::pair<double, double>, gslpp::complex > cachegtilde_1;
+    std::map<std::pair<double, double>, gslpp::complex > cachegtilde_2;
+    std::map<std::pair<double, double>, gslpp::complex > cachegtilde_3;
     
     std::map<std::pair<double, double>, gslpp::complex > cacheh_0;
     std::map<std::pair<double, double>, gslpp::complex > cacheh_p;
@@ -1000,19 +1000,19 @@ private:
     double errV0;
     double errS;
     
-    double avaDC9_1_re;
-    double avaDC9_1_im;
-    double avaDC9_2_re;
-    double avaDC9_2_im;
-    double avaDC9_3_re;
-    double avaDC9_3_im;
+    double avagtilde_1_re;
+    double avagtilde_1_im;
+    double avagtilde_2_re;
+    double avagtilde_2_im;
+    double avagtilde_3_re;
+    double avagtilde_3_im;
     
-    double errDC9_1_re;
-    double errDC9_1_im;
-    double errDC9_2_re;
-    double errDC9_2_im;
-    double errDC9_3_re;
-    double errDC9_3_im;
+    double errgtilde_1_re;
+    double errgtilde_1_im;
+    double errgtilde_2_re;
+    double errgtilde_2_im;
+    double errgtilde_3_re;
+    double errgtilde_3_im;
     
     double avah_0_re;
     double avah_0_im;
@@ -1055,12 +1055,12 @@ private:
     gsl_function FT0;
     gsl_function FS;
     
-    gsl_function FDC9_1_re;
-    gsl_function FDC9_1_im;
-    gsl_function FDC9_2_re;
-    gsl_function FDC9_2_im;
-    gsl_function FDC9_3_re;
-    gsl_function FDC9_3_im;
+    gsl_function Fgtilde_1_re;
+    gsl_function Fgtilde_1_im;
+    gsl_function Fgtilde_2_re;
+    gsl_function Fgtilde_2_im;
+    gsl_function Fgtilde_3_re;
+    gsl_function Fgtilde_3_im;
     
     gsl_function Fh_0_re;
     gsl_function Fh_0_im;
@@ -1096,12 +1096,12 @@ private:
     gsl_integration_workspace * w_T0;
     gsl_integration_workspace * w_S;
     
-    gsl_integration_workspace * w_DC9_1_re;
-    gsl_integration_workspace * w_DC9_1_im;
-    gsl_integration_workspace * w_DC9_2_re;
-    gsl_integration_workspace * w_DC9_2_im;
-    gsl_integration_workspace * w_DC9_3_re;
-    gsl_integration_workspace * w_DC9_3_im;
+    gsl_integration_workspace * w_gtilde_1_re;
+    gsl_integration_workspace * w_gtilde_1_im;
+    gsl_integration_workspace * w_gtilde_2_re;
+    gsl_integration_workspace * w_gtilde_2_im;
+    gsl_integration_workspace * w_gtilde_3_re;
+    gsl_integration_workspace * w_gtilde_3_im;
     
     gsl_integration_workspace * w_h_0_re;
     gsl_integration_workspace * w_h_0_im;
@@ -1269,9 +1269,9 @@ private:
     unsigned int I10_updated;
     unsigned int I11_updated;
     
-    unsigned int DC9_1updated;
-    unsigned int DC9_2updated;
-    unsigned int DC9_3updated;
+    unsigned int gtilde_1updated;
+    unsigned int gtilde_2updated;
+    unsigned int gtilde_3updated;
     
     unsigned int h_0updated;
     unsigned int h_pupdated;
@@ -1304,9 +1304,9 @@ private:
     std::map<std::pair<double, double>, unsigned int > T0Cached;
     std::map<std::pair<double, double>, unsigned int > SCached;
     
-    std::map<std::pair<double, double>, unsigned int > DC9_1Cached;
-    std::map<std::pair<double, double>, unsigned int > DC9_2Cached;
-    std::map<std::pair<double, double>, unsigned int > DC9_3Cached;
+    std::map<std::pair<double, double>, unsigned int > gtilde_1Cached;
+    std::map<std::pair<double, double>, unsigned int > gtilde_2Cached;
+    std::map<std::pair<double, double>, unsigned int > gtilde_3Cached;
     
     std::map<std::pair<double, double>, unsigned int > h_0Cached;
     std::map<std::pair<double, double>, unsigned int > h_pCached;

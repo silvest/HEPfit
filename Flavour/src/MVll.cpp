@@ -62,9 +62,9 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     SL_updated = 0;
     SR_updated = 0;
     
-    DC9_1updated = 0;
-    DC9_2updated = 0;
-    DC9_3updated = 0;
+    gtilde_1updated = 0;
+    gtilde_2updated = 0;
+    gtilde_3updated = 0;
     
     h_0updated = 0;
     h_pupdated = 0;
@@ -97,12 +97,12 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_T0 = gsl_integration_workspace_alloc (200);
     w_S = gsl_integration_workspace_alloc (200);
     
-    w_DC9_1_re = gsl_integration_workspace_alloc (1000);
-    w_DC9_1_im = gsl_integration_workspace_alloc (1000);
-    w_DC9_2_re = gsl_integration_workspace_alloc (1000);
-    w_DC9_2_im = gsl_integration_workspace_alloc (1000);
-    w_DC9_3_re = gsl_integration_workspace_alloc (1000);
-    w_DC9_3_im = gsl_integration_workspace_alloc (1000);
+    w_gtilde_1_re = gsl_integration_workspace_alloc (1000);
+    w_gtilde_1_im = gsl_integration_workspace_alloc (1000);
+    w_gtilde_2_re = gsl_integration_workspace_alloc (1000);
+    w_gtilde_2_im = gsl_integration_workspace_alloc (1000);
+    w_gtilde_3_re = gsl_integration_workspace_alloc (1000);
+    w_gtilde_3_im = gsl_integration_workspace_alloc (1000);
     
     w_h_0_re = gsl_integration_workspace_alloc (1000);
     w_h_0_im = gsl_integration_workspace_alloc (1000);
@@ -322,9 +322,9 @@ void MVll::updateParameters(){
     if (TL0_updated == 0) for (it = T0Cached.begin(); it != T0Cached.end(); ++it) it->second = 0;
     if (SL_updated == 0) for (it = SCached.begin(); it != SCached.end(); ++it) it->second = 0;
     
-    if (DC9_1updated == 0) for (it = DC9_1Cached.begin(); it != DC9_1Cached.end(); ++it) it->second = 0;
-    if (DC9_2updated == 0) for (it = DC9_2Cached.begin(); it != DC9_2Cached.end(); ++it) it->second = 0;
-    if (DC9_3updated == 0) for (it = DC9_3Cached.begin(); it != DC9_3Cached.end(); ++it) it->second = 0;
+    if (gtilde_1updated == 0) for (it = gtilde_1Cached.begin(); it != gtilde_1Cached.end(); ++it) it->second = 0;
+    if (gtilde_2updated == 0) for (it = gtilde_2Cached.begin(); it != gtilde_2Cached.end(); ++it) it->second = 0;
+    if (gtilde_3updated == 0) for (it = gtilde_3Cached.begin(); it != gtilde_3Cached.end(); ++it) it->second = 0;
     
     if (h_0updated == 0) for (it = h_0Cached.begin(); it != h_0Cached.end(); ++it) it->second = 0;
     if (h_pupdated == 0) for (it = h_pCached.begin(); it != h_pCached.end(); ++it) it->second = 0;
@@ -722,9 +722,9 @@ void MVll::checkCache(){
     I10_updated = I5_updated;
     I11_updated = I7_updated;
     
-    DC9_1updated = lambda_updated * V_updated * h1_updated * h2_updated;
-    DC9_2updated = lambda_updated * A1_updated * h1_updated * h2_updated;
-    DC9_3updated = lambda_updated * A2_updated * h1_updated * h2_updated * h0_updated;
+    gtilde_1updated = lambda_updated * V_updated * h1_updated * h2_updated;
+    gtilde_2updated = lambda_updated * A1_updated * h1_updated * h2_updated;
+    gtilde_3updated = lambda_updated * A2_updated * h1_updated * h2_updated * h0_updated;
     
     h_0updated = h0_updated * k2_updated;
     h_pupdated = h1_updated * k2_updated;
@@ -1362,7 +1362,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
     }
 }
 
-gslpp::complex MVll::integrateDC9(int i, double q_min, double q_max){
+gslpp::complex MVll::integrategtilde(int i, double q_min, double q_max){
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();
@@ -1372,37 +1372,37 @@ gslpp::complex MVll::integrateDC9(int i, double q_min, double q_max){
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     switch(i){
         case 0:
-            if (DC9_1Cached[qbin] == 0) {
-                FDC9_1_re = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_1_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_1_re, &avaDC9_1_re, &errDC9_1_re);
-                FDC9_1_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_1_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_1_im, &avaDC9_1_im, &errDC9_1_im);
-                cacheDC9_1[qbin] = avaDC9_1_re + gslpp::complex::i() * avaDC9_1_im;
-                DC9_1Cached[qbin] = 1;
+            if (gtilde_1Cached[qbin] == 0) {
+                Fgtilde_1_re = convertToGslFunction( boost::bind( &MVll::getgtilde_1_re, &(*this), _1 ) );
+                gsl_integration_qags (&Fgtilde_1_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_gtilde_1_re, &avagtilde_1_re, &errgtilde_1_re);
+                Fgtilde_1_im = convertToGslFunction( boost::bind( &MVll::getgtilde_1_im, &(*this), _1 ) );
+                gsl_integration_qags (&Fgtilde_1_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_gtilde_1_im, &avagtilde_1_im, &errgtilde_1_im);
+                cachegtilde_1[qbin] = avagtilde_1_re + gslpp::complex::i() * avagtilde_1_im;
+                gtilde_1Cached[qbin] = 1;
             }
-            return cacheDC9_1[qbin];
+            return cachegtilde_1[qbin];
             break;
         case 1:
-            if (DC9_2Cached[qbin] == 0) {
-                FDC9_2_re = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_2_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_2_re, &avaDC9_2_re, &errDC9_2_re);
-                FDC9_2_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_2_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_2_im, &avaDC9_2_im, &errDC9_2_im);
-                cacheDC9_2[qbin] = avaDC9_2_re + gslpp::complex::i() * avaDC9_2_im;
-                DC9_2Cached[qbin] = 1;
+            if (gtilde_2Cached[qbin] == 0) {
+                Fgtilde_2_re = convertToGslFunction( boost::bind( &MVll::getgtilde_2_re, &(*this), _1 ) );
+                gsl_integration_qags (&Fgtilde_2_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_gtilde_2_re, &avagtilde_2_re, &errgtilde_2_re);
+                Fgtilde_2_im = convertToGslFunction( boost::bind( &MVll::getgtilde_2_im, &(*this), _1 ) );
+                gsl_integration_qags (&Fgtilde_2_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_gtilde_2_im, &avagtilde_2_im, &errgtilde_2_im);
+                cachegtilde_2[qbin] = avagtilde_2_re + gslpp::complex::i() * avagtilde_2_im;
+                gtilde_2Cached[qbin] = 1;
             }
-            return cacheDC9_2[qbin];
+            return cachegtilde_2[qbin];
             break;
         case 2:
-            if (DC9_3Cached[qbin] == 0) {
-                FDC9_3_re = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_re, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_3_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_3_re, &avaDC9_3_re, &errDC9_3_re);
-                FDC9_3_im = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_im, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_3_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_DC9_3_im, &avaDC9_3_im, &errDC9_3_im);
-                cacheDC9_3[qbin] = avaDC9_3_re + gslpp::complex::i() * avaDC9_3_im;
-                DC9_3Cached[qbin] = 1;
+            if (gtilde_3Cached[qbin] == 0) {
+                Fgtilde_3_re = convertToGslFunction( boost::bind( &MVll::getgtilde_3_re, &(*this), _1 ) );
+                gsl_integration_qags (&Fgtilde_3_re, q_min, q_max, 1.e-5, 1.e-3, 1000, w_gtilde_3_re, &avagtilde_3_re, &errgtilde_3_re);
+                Fgtilde_3_im = convertToGslFunction( boost::bind( &MVll::getgtilde_3_im, &(*this), _1 ) );
+                gsl_integration_qags (&Fgtilde_3_im, q_min, q_max, 1.e-5, 1.e-3, 1000, w_gtilde_3_im, &avagtilde_3_im, &errgtilde_3_im);
+                cachegtilde_3[qbin] = avagtilde_3_re + gslpp::complex::i() * avagtilde_3_im;
+                gtilde_3Cached[qbin] = 1;
             }
-            return cacheDC9_3[qbin];
+            return cachegtilde_3[qbin];
             break;
         default:
             std::stringstream out;
