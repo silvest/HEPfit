@@ -582,13 +582,11 @@ double gtilde_1::computeThValue() {
     else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(0,q_min,q_max)).imag()/(q_max - q_min);
     else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(0,q_min,q_max)).abs()/(q_max - q_min);
     else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(0,q_min,q_max)).arg()/(q_max - q_min);
-    else throw std::runtime_error("MVllObservables::gtilde_1_integrated: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
-    
-    if (typ == 5) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min));
+    else if (typ == 5) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min));
     else if (typ == 6) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min));
     else if (typ == 7) return ((mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min) + gslpp::complex::i() * mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min)).abs());
     else if (typ == 8) return ((mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min) + gslpp::complex::i() * mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min)).arg());
-    else throw std::runtime_error("MVllObservables::gtilde_1: type can only be 5:real, 6:imaginary, 7:absolute and 8:argument");
+    else throw std::runtime_error("MVllObservables::gtilde_1: incorrect type");
 }
 
 
@@ -609,13 +607,11 @@ double gtilde_2::computeThValue() {
     else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(1,q_min,q_max)).imag()/(q_max - q_min);
     else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(1,q_min,q_max)).abs()/(q_max - q_min);
     else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(1,q_min,q_max)).arg()/(q_max - q_min);
-    else throw std::runtime_error("MVllObservables::gtilde_2_integrated: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
-    
-    if (typ == 5) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min));
+    else if (typ == 5) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min));
     else if (typ == 6) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min));
     else if (typ == 7) return ((mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min) + gslpp::complex::i() * mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min)).abs());
     else if (typ == 8) return ((mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min) + gslpp::complex::i() * mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min)).arg());
-    else throw std::runtime_error("MVllObservables::gtilde_2: type can only be 5:real, 6:imaginary, 7:absolute and 8:argument");
+    else throw std::runtime_error("MVllObservables::gtilde_2: incorrect type");
 }
 
 
@@ -636,13 +632,11 @@ double gtilde_3::computeThValue() {
     else if (typ == 2) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(2,q_min,q_max)).imag()/(q_max - q_min);
     else if (typ == 3) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(2,q_min,q_max)).abs()/(q_max - q_min);
     else if (typ == 4) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(2,q_min,q_max)).arg()/(q_max - q_min);
-    else throw std::runtime_error("MVllObservables::gtilde_3_integrated: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
-    
-    if (typ == 5) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min));
+    else if (typ == 5) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min));
     else if (typ == 6) return (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min));
     else if (typ == 7) return ((mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min) + gslpp::complex::i() * mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min)).abs());
     else if (typ == 8) return ((mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min) + gslpp::complex::i() * mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min)).arg());
-    else throw std::runtime_error("MVllObservables::gtilde_3: type can only be 5:real, 6:imaginary, 7:absolute and 8:argument");
+    else throw std::runtime_error("MVllObservables::gtilde_3: incorrect type");
 }
 
 h_0::h_0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) : ThObservable(SM_i), mySM(SM_i) {
