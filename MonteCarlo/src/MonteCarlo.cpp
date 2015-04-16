@@ -53,7 +53,7 @@ void MonteCarlo::TestRun(int rank) {
     }
     
     if (rank == 0){
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
         std::map<std::string, double> DP;
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
 
@@ -95,7 +95,7 @@ void MonteCarlo::Run(const int rank)
     try {
 
         /* set model parameters */
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
@@ -286,7 +286,7 @@ void MonteCarlo::Run(const int rank)
             // open log file
             BCLog::OpenLog(("log" + JobTag + ".txt").c_str());
             BCLog::SetLogLevel(BCLog::debug);
-
+            
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
@@ -301,14 +301,15 @@ void MonteCarlo::Run(const int rank)
                 // BAT default: 
                 //   kIntGrid for the number of free parameters <= 2;
                 //   otherwise, kIntMonteCarlo (or kIntCuba if available)
-                MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
-                //MCEngine.SetRelativePrecision(1.e-3);
-                //MCEngine.SetAbsolutePrecision(1.e-10);
-                MCEngine.SetNIterationsMin(10000);
+                //   MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
+                MCEngine.SetRelativePrecision(1.e-3);
+                MCEngine.SetAbsolutePrecision(1.e-10);
+                MCEngine.SetNIterationsMin(100000);
                 MCEngine.Integrate();
+                evidence = MCEngine.GetIntegral();
                 BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
             }
-
+            
             // draw all marginalized distributions into a PostScript file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".ps").c_str());
@@ -353,9 +354,10 @@ void MonteCarlo::Run(const int rank)
             
             // print statistics for the theory values of the observables into a text file
             std::ofstream outStatLog;
-            outHistoLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::out);
-            outHistoLog << MCEngine.computeStatistics();
-            outHistoLog.close();
+            outStatLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::out);
+            if (CalculateEvidence) outStatLog << "Evidence for "<< ModelName.c_str() << ": " << evidence << "\n" << std::endl;
+            outStatLog << MCEngine.computeStatistics();
+            outStatLog.close();
 
             /* Number of events */
             std::stringstream ss;
