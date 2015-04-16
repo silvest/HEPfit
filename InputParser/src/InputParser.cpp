@@ -117,7 +117,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             ModelParameter m(name, mean, errg, errf);
             ModelPars.push_back(m);
             if (beg != tok.end())
-                std::cout << "WARNING: unread information in parameter " << name << std::endl;
+                if (rank == 0) std::cout << "WARNING: unread information in parameter " << name << std::endl;
             checkDuplicateParameter[name] = boost::make_tuple (true, filename, lineNo);
         } else if (type.compare("Observable") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 8)
@@ -153,7 +153,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             Observables.push_back(o);
             ++beg;
             if (beg != tok.end())
-                std::cout << "WARNING: unread information in observable "
+                if (rank == 0) std::cout << "WARNING: unread information in observable "
                     << Observables.back().getName() << std::endl;
         } else if (type.compare("BinnedObservable") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 10)
@@ -197,7 +197,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             Observables.push_back(bo);
             ++beg;
             if (beg != tok.end())
-                std::cout << "WARNING: unread information in observable "
+                if (rank == 0) std::cout << "WARNING: unread information in observable "
                     << Observables.back().getName() << std::endl;
         } else if (type.compare("Observable2D") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 12)
@@ -233,7 +233,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             Observables2D.push_back(o2);
             ++beg;
             if (beg != tok.end())
-                std::cout << "WARNING: unread information in observable2D "
+                if (rank == 0) std::cout << "WARNING: unread information in observable2D "
                     << Observables2D.back().getName() << std::endl;
         } else if (type.compare("HiggsObservable") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 8)
@@ -270,7 +270,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             Observables.push_back(ho);
             ++beg;
             if (beg != tok.end())
-                std::cout << "WARNING: unread information in HiggsObservable "
+                if (rank == 0) std::cout << "WARNING: unread information in HiggsObservable "
                     << Observables.back().getName() << std::endl;
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
             std::string name = *beg;
@@ -282,7 +282,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             for (int i = 0; i < size; i++) {
                 IsEOF = getline(ifile, line).eof();
                 if (line.empty() || line.at(0) == '#') {
-                    std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
+                    if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
                             << std::endl;
                     exit(EXIT_FAILURE);
                 }
@@ -331,7 +331,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             for (int i = 0; i < size; i++) {
                 IsEOF = getline(ifile, line).eof();
                 if (line.empty() || line.at(0) == '#') {
-                    std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
+                    if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
                             << std::endl;
                     exit(EXIT_FAILURE);
                 }
@@ -349,7 +349,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                             }
                             beg++;
                         } else {
-                            std::cout << "ERROR: invalid correlation matrix for "
+                            if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
                                     << name << ". Check element (" << ni+1 << "," << nj+1 << ")" << std::endl;
                             exit(EXIT_FAILURE);
                         }
@@ -386,9 +386,9 @@ std::string InputParser::ReadParameters(const std::string filename,
             }
             ++beg;
             if (beg != tok.end())
-                std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
+                if (rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
-            std::cout << "\nIncluding File: " + *beg << std::endl;
+            if (rank == 0) std::cout << "\nIncluding File: " + *beg << std::endl;
             ReadParameters(*beg, rank, ModelPars, Observables, Observables2D, CGO); 
             ++beg;
         } else
