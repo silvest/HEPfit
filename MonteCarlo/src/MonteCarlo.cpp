@@ -309,7 +309,10 @@ void MonteCarlo::Run(const int rank)
                 MCEngine.SetRelativePrecision(1.e-3);
                 MCEngine.SetAbsolutePrecision(1.e-10);
                 if (evidence_min_iterations == 0) MCEngine.SetNIterationsMin(10000);
-                else MCEngine.SetNIterationsMin(evidence_min_iterations);
+                else {
+                    MCEngine.SetNIterationsMin(evidence_min_iterations);
+                    MCEngine.SetNIterationsMax(10*evidence_min_iterations);
+                }
                 MCEngine.Integrate();
                 evidence = MCEngine.GetIntegral();
                 BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
