@@ -156,6 +156,7 @@ private:
     bool PrintParameterPlot; ///< Flag for printing the overview parameter plots.
     bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
     double evidence; ///< A variable to store the evidence of a model.
+    unsigned int evidence_min_iterations; ///< Minimum number of iterations for determining evidence of a model.
 };
 
 /** 
