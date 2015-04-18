@@ -293,6 +293,8 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (type.compare("Observable") != 0 && type.compare("BinnedObservable") != 0)
                     throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting an Observable or BinnedObservable type here...\n");
                 Observable * tmp = new Observable(ParseObservable(beg));
+                if (type.compare("Observable") == 0) tmp->setObsType(1);
+                if (type.compare("BinnedObservable") == 0) tmp->setObsType(2);
                 ++beg;
                 std::string distr = *beg;
                 if (distr.compare("weight") == 0) {
