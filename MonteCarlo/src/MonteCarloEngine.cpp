@@ -18,6 +18,7 @@
 #include <TH1.h>
 #include <fstream>
 #include <stdexcept>
+#include <iomanip>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -30,6 +31,7 @@ CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0)
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
+    TH1::StatOverflows(kTRUE);
 #ifdef _MPI
     rank = MPI::COMM_WORLD.Get_rank();
 #else
@@ -55,8 +57,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
             histo->GetXaxis()->SetTitle(it->getLabel().c_str());
             BCH1D * bchisto = new BCH1D(histo);
             Histo1D[HistName] = bchisto;
-            thMin[it->getThname()] = std::numeric_limits<double>::max();
-            thMax[it->getThname()] = -std::numeric_limits<double>::max();
+            thMin[it->getName()] = std::numeric_limits<double>::max();
+            thMax[it->getName()] = -std::numeric_limits<double>::max();
         }
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
@@ -99,8 +101,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
                 histo->GetXaxis()->SetTitle(it->getLabel().c_str());
                 BCH1D * bchisto = new BCH1D(histo);
                 Histo1D[HistName] = bchisto;
-                thMin[it->getThname()] = std::numeric_limits<double>::max();
-                thMax[it->getThname()] = -std::numeric_limits<double>::max();
+                thMin[HistName] = std::numeric_limits<double>::max();
+                thMax[HistName] = -std::numeric_limits<double>::max();
             }
         }
     }
@@ -142,7 +144,7 @@ void MonteCarloEngine::DefineParameters()
     // parameters.at(i) or parameters[i], where i is the index
     // of the parameter. The indices increase from 0 according to the
     // order of adding the parameters.
-    if (rank == 0) std::cout << "Parameters varied in Monte Carlo:" << std::endl;
+    if (rank == 0) std::cout << "\nParameters varied in Monte Carlo:" << std::endl;
     int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin();
             it < ModPars.end(); it++) {
@@ -313,8 +315,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                         it < Obs_ALL.end(); it++) {
                     double th = buff[il][k++];
                     /* set the min and max of theory values */
-                    if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                    if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+                    if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+                    if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                     Histo1D[it->getName()]->GetHistogram()->Fill(th);
                     if (!it->isTMCMC()) {
                         obval[index_chain[il] * kmax + ko++] = th;
@@ -340,8 +342,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                             it != pino.end(); ++it) {
                         double th = buff[il][k++];
                         /* set the min and max of theory values */
-                        if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                        if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+                        if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+                        if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                         Histo1D[it->getName()]->GetHistogram()->Fill(th);
                     }
                 }
@@ -373,8 +375,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                 it < Obs_ALL.end(); it++) {
             double th = it->computeTheoryValue();
             /* set the min and max of theory values */
-            if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-            if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+            if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+            if (th > thMax[it->getName()]) thMax[it->getName()] = th;
             Histo1D[it->getName()]->GetHistogram()->Fill(th);
             if (!it->isTMCMC()) {
                 obval[i * kmax + k] = th;
@@ -402,8 +404,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                     it != pino.end(); ++it) {
                 double th = it->computeTheoryValue();
                 /* set the min and max of theory values */
-                if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+                if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+                if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                 Histo1D[it->getName()]->GetHistogram()->Fill(th);
             }
         }
@@ -443,6 +445,9 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         const std::string OutputDir)
 {
     std::string HistName = it.getName();
+    double min = thMin[it.getName()];
+    double max = thMax[it.getName()];
+
     if (Histo1D[HistName]->GetHistogram()->Integral() > 0.0) {
         std::string fname = OutputDir + "/" + HistName + ".pdf";
         //        BCH1D* pippo =  Histo1D[HistName];
@@ -452,13 +457,11 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         Histo1D[HistName]->Print(fname.c_str());
         std::cout << fname << " has been created." << std::endl;
         out.Write(Histo1D[HistName]->GetHistogram());
-        CheckHistogram(*Histo1D[HistName]->GetHistogram(), it.getThname());
+        CheckHistogram(*Histo1D[HistName]->GetHistogram(), it.getName());
     } else
         HistoLog << "WARNING: The histogram of "
-            << it.getThname() << " is empty!" << std::endl;
+            << it.getName() << " is empty!" << std::endl;
 
-    double min = thMin[it.getThname()];
-    double max = thMax[it.getThname()];
     HistoLog.precision(10);
     HistoLog << "  [min, max]=[" << min << ", " << max << "]" << std::endl;
     HistoLog.precision(6);
@@ -554,3 +557,128 @@ void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename)
     out.close();
 }
 
+std::string MonteCarloEngine::computeStatistics()
+{
+    std::ostringstream StatsLog;
+    int i = 0;
+    StatsLog << "Statistics file for Observables, Binned Observables and Corellated Gaussian Observables.\n" << std::endl;
+    StatsLog << "Observables:\n" << std::endl;
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
+
+        if (it->getObsType() == 2) {
+            StatsLog << "  (" << ++i << ") Binned Observable \"";
+            StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]"<<"\":";
+        }
+        else {
+            StatsLog << "  (" << ++i << ") Observable \"";
+            StatsLog << it->getName() << "\":";
+        }
+
+        StatsLog << std::endl;
+        
+        BCH1D * bch1d = Histo1D[it->getName()];
+
+        StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
+                 << bch1d->GetMean() << " +- " << std::setprecision(4)
+                 << bch1d->GetRMS() << std::endl
+
+                 << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
+
+        std::vector<double> v1;
+        std::vector<double> v2;
+        std::vector<double> v3;
+        v1 = bch1d->GetSmallestIntervals(0.6827);
+        v2 = bch1d->GetSmallestIntervals(0.9545);
+        v3 = bch1d->GetSmallestIntervals(0.9973);
+        StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
+                 << std::endl;
+        for (unsigned j = 0; j < v1.size(); j += 5)
+           StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
+                    << ") (local mode at " << v1[j + 3] << " with rel. height "
+                    << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
+                    << std::endl;
+        StatsLog << std::endl;
+        
+        StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
+                 << std::endl;
+        for (unsigned j = 0; j < v2.size(); j += 5)
+           StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
+                    << ") (local mode at " << v2[j + 3] << " with rel. height "
+                    << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
+                    << std::endl;
+        StatsLog << std::endl;
+        
+        StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
+                 << std::endl;
+        for (unsigned j = 0; j < v3.size(); j += 5)
+           StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
+                    << ") (local mode at " << v3[j + 3] << " with rel. height "
+                    << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
+                    << std::endl;
+        StatsLog << std::endl;
+    }
+    
+    StatsLog << "\nCorrelated Gaussian Observables:\n" << std::endl;
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
+            it1 < CGO.end(); it1++) {
+        StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
+        i = 0;
+        std::vector<Observable> CGObs(it1->getObs());
+        for (std::vector<Observable>::iterator it2 = CGObs.begin(); it2 < CGObs.end(); it2++) {
+
+            if (it2->getObsType() == 2) {
+                StatsLog << "  (" << ++i << ") Binned Observable \"";
+                StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]"<<"\":";
+            }
+            else {
+                StatsLog << "  (" << ++i << ") Observable \"";
+                StatsLog << it2->getName() << "\":";
+            }
+
+            StatsLog << std::endl;
+
+            BCH1D * bch1d = Histo1D[it2->getName()];
+
+            StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
+                     << bch1d->GetMean() << " +- " << std::setprecision(4)
+                     << bch1d->GetRMS() << std::endl
+
+                     << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
+
+            std::vector<double> v1;
+            std::vector<double> v2;
+            std::vector<double> v3;
+            v1 = bch1d->GetSmallestIntervals(0.6827);
+            v2 = bch1d->GetSmallestIntervals(0.9545);
+            v3 = bch1d->GetSmallestIntervals(0.9973);
+            StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
+                     << std::endl;
+            for (unsigned j = 0; j < v1.size(); j += 5)
+               StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
+                        << ") (local mode at " << v1[j + 3] << " with rel. height "
+                        << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
+                        << std::endl;
+            StatsLog << std::endl;
+
+            StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
+                     << std::endl;
+            for (unsigned j = 0; j < v2.size(); j += 5)
+               StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
+                        << ") (local mode at " << v2[j + 3] << " with rel. height "
+                        << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
+                        << std::endl;
+            StatsLog << std::endl;
+
+            StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
+                     << std::endl;
+            for (unsigned j = 0; j < v3.size(); j += 5)
+               StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
+                        << ") (local mode at " << v3[j + 3] << " with rel. height "
+                        << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
+                        << std::endl;
+            StatsLog << std::endl;
+        }
+    }
+    
+    return StatsLog.str().c_str();
+}

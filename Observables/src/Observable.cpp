@@ -33,6 +33,7 @@ Observable::Observable (const std::string name_i,
     ave = 0.;
     errg = 0.;
     errf = 0.;
+    obsType = 0;
 }
 
 Observable::Observable(const Observable& orig) 

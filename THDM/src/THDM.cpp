@@ -5,27 +5,79 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <StandardModelMatching.h>
 #include "THDM.h"
-//#include "THDMcache.h"
-#include <stdexcept>
 
 const std::string THDM::THDMvars[NTHDMvars] = {"mHp","sin_ba","lambda6","lambda7","mA","m12_2","tanb","mH"};
 
-THDM::THDM() : StandardModel(), mycache() {   
-    //mycache = new THDMcache(*this);
+THDM::THDM() : StandardModel() {   
+    mycache = new THDMcache();
+    
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp", boost::cref(mHp)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("sin_ba", boost::cref(sin_ba)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda6", boost::cref(lambda6)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda7", boost::cref(lambda7)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA", boost::cref(mA)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m12_2", boost::cref(m12_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tanb", boost::cref(tanb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH", boost::cref(mH)));
 }
 
-bool THDM::Update(const std::map<std::string, double>& DPars) {
+THDM::~THDM(){
+    if (IsModelInitialized()) {
+            if (myTHDMMatching != NULL) delete(myTHDMMatching);
+            if (mycache != NULL) delete(mycache);
+        }
+}
+
+///////////////////////////////////////////////////////////////////////////
+// Initialization
+
+bool THDM::InitializeModel()
+{
+    myTHDMMatching = new THDMMatching(*this);
+    setModelInitialized(StandardModel::InitializeModel());
+    setModelTHDM();
+    return(true);
+}
+    
+bool THDM::Init(const std::map<std::string, double>& DPars) {
+    return(StandardModel::Init(DPars));
+}
+
+bool THDM::PreUpdate()
+{    
     requireCKM = false;
     requireYe = false;
     requireYn = false;
+    
+    if(!StandardModel::PreUpdate()) return (false);
+
+    return (true);
+}
+
+bool THDM::Update(const std::map<std::string, double>& DPars) {
+    
+    if(!PreUpdate()) return (false);
+    
+    UpdateError = false;
+
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
-    QCD::Update(DPars);
-    if (requireCKM) {
-        myCKM.setWolfenstein(lambda, A, rhob, etab);
-        myCKM.getCKM(VCKM);
-    }
+
+    if (UpdateError) return (false);
+
+    if(!PostUpdate()) return (false);
+
+    return (true);
+
+    return (true);
+}
+
+bool THDM::PostUpdate()
+{
+    if(!StandardModel::PostUpdate()) return (false);
+    
     //In THDM U couple with v2, D with v1 and L with v1
     if (requireYu || requireCKM) {
         Yu = matrix<complex>::Id(3);
@@ -47,6 +99,12 @@ bool THDM::Update(const std::map<std::string, double>& DPars) {
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v1() * sqrt(2.));
         Yn = Yn * UPMNS.hconjugate();
     }
+
+    /* Necessary for updating StandardModel parameters in StandardModelMatching,
+     * and THDM and THDM-derived parameters in THDMMatching */
+    myTHDMMatching->StandardModelMatching::updateSMParameters();
+    myTHDMMatching->updateTHDMParameters();
+
     return (true);
 }
 
@@ -78,10 +136,6 @@ void THDM::setParameter(const std::string name, const double& value){
         StandardModel::setParameter(name,value);
 }
 
-bool THDM::Init(const std::map<std::string, double>& DPars) {
-    return(StandardModel::Init(DPars));
-}
-
 bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NTHDMvars; i++) {
         if (DPars.find(THDMvars[i]) == DPars.end()) {
@@ -92,13 +146,23 @@ bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {
     return(StandardModel::CheckParameters(DPars));
 }
 
+///////////////////////////////////////////////////////////////////////////
+// Flags
 
+bool THDM::setFlag(const std::string name, const bool value)
+{
+    bool res = false;
+    
+    res = StandardModel::setFlag(name,value);
 
-double THDM::v1() {
+    return(res);
+}
+
+double THDM::v1() const {
     return v() * cosb;
 }
 
-double THDM::v2() {
+double THDM::v2() const {
     return v() * sinb;
 }
 
@@ -120,13 +184,13 @@ double THDM::obliqueS() const {
     double sin2_ba = sin_ba*sin_ba;
     double cos2_ba = 1. - sin2_ba;
     
-    B00prime_Mz_Mz2_mH_mA = - mycache.B00_Mz_Mz2_mH_mA(Mz,mH,mA) + mycache.B00_Mz_0_mH_mA(Mz,mH,mA);
-    B00prime_Mz_Mz2_mHp_mHp = - mycache.B00_Mz_Mz2_mHp_mHp(Mz,mHp) + mycache.B00_Mz_0_mHp_mHp(Mz,mHp);
-    B00prime_Mz_Mz2_mh_mA = - mycache.B00_Mz_Mz2_mh_mA(Mz,mh,mA) + mycache.B00_Mz_0_mh_mA(Mz,mh,mA);
-    B00prime_Mz_Mz2_Mz_mH = - mycache.B00_Mz_Mz2_Mz_mH(Mz,mH) + mycache.B00_Mz_0_Mz_mH(Mz,mH);
-    B00prime_Mz_Mz2_Mz_mh = - mycache.B00_Mz_0_Mz_mh(Mz,mh) + mycache.B00_Mz_0_Mz_mh(Mz,mh);
-    B0prime_Mz_Mz2_Mz_mH = mycache.B0_Mz_Mz2_Mz_mH(Mz,mH) - mycache.B0_Mz_0_Mz_mH(Mz,mH);
-    B0prime_Mz_Mz2_Mz_mh = mycache.B0_Mz_Mz2_Mz_mh(Mz,mh) - mycache.B0_Mz_0_Mz_mh(Mz,mh);
+    B00prime_Mz_Mz2_mH_mA = - mycache->B00_Mz_Mz2_mH_mA(Mz,mH,mA) + mycache->B00_Mz_0_mH_mA(Mz,mH,mA);
+    B00prime_Mz_Mz2_mHp_mHp = - mycache->B00_Mz_Mz2_mHp_mHp(Mz,mHp) + mycache->B00_Mz_0_mHp_mHp(Mz,mHp);
+    B00prime_Mz_Mz2_mh_mA = - mycache->B00_Mz_Mz2_mh_mA(Mz,mh,mA) + mycache->B00_Mz_0_mh_mA(Mz,mh,mA);
+    B00prime_Mz_Mz2_Mz_mH = - mycache->B00_Mz_Mz2_Mz_mH(Mz,mH) + mycache->B00_Mz_0_Mz_mH(Mz,mH);
+    B00prime_Mz_Mz2_Mz_mh = - mycache->B00_Mz_0_Mz_mh(Mz,mh) + mycache->B00_Mz_0_Mz_mh(Mz,mh);
+    B0prime_Mz_Mz2_Mz_mH = mycache->B0_Mz_Mz2_Mz_mH(Mz,mH) - mycache->B0_Mz_0_Mz_mH(Mz,mH);
+    B0prime_Mz_Mz2_Mz_mh = mycache->B0_Mz_Mz2_Mz_mh(Mz,mh) - mycache->B0_Mz_0_Mz_mh(Mz,mh);
     
     double DeltaS = 1./Mz2/M_PI*(sin2_ba * B00prime_Mz_Mz2_mH_mA.real() - B00prime_Mz_Mz2_mHp_mHp.real()
            + cos2_ba * (B00prime_Mz_Mz2_mh_mA.real() + B00prime_Mz_Mz2_Mz_mH.real()
@@ -153,10 +217,10 @@ double THDM::obliqueT() const {
     double cos2_ba = 1. - sin2_ba;
     double s_W2 = sW2(); 
     
-    B0_Mz_0_Mw_mH = mycache.B0_Mz_0_Mw_mH(Mz,M_w,mH);
-    B0_Mz_0_Mz_mH = mycache.B0_Mz_0_Mz_mH(Mz,mH);
-    B0_Mz_0_Mz_mh = mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh);
-    B0_Mz_0_Mw_mh = mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh); 
+    B0_Mz_0_Mw_mH = mycache->B0_Mz_0_Mw_mH(Mz,M_w,mH);
+    B0_Mz_0_Mz_mH = mycache->B0_Mz_0_Mz_mH(Mz,mH);
+    B0_Mz_0_Mz_mh = mycache->B0_Mz_0_Mw_mh(Mz,M_w,mh);
+    B0_Mz_0_Mw_mh = mycache->B0_Mz_0_Mw_mh(Mz,M_w,mh); 
     
     double DeltaT = 1. / 16. / M_PI / Mw2 / s_W2 * (F(mHp,mA)
            + sin2_ba * (F(mHp,mH) - F(mA,mH)) + cos2_ba * (F(mHp,mh) 
@@ -186,14 +250,14 @@ double THDM::obliqueU() const {
     double sin2_ba = sin_ba*sin_ba;
     double cos2_ba = 1. - sin2_ba;
       
-    B00prime_Mz_Mw2_mA_mHp = - mycache.B00_Mz_Mw2_mA_mHp(Mz,M_w,mA,mHp) + mycache.B00_Mz_0_mA_mHp(Mz,mA,mHp);
-    B00prime_Mz_Mw2_mHp_mHp = - mycache.B00_Mz_Mw2_mHp_mHp(Mz,M_w,mHp) + mycache.B00_Mz_0_mHp_mHp(Mz,mHp);
-    B00prime_Mz_Mw2_mh_mHp = - mycache.B00_Mz_Mw2_mh_mHp(Mz,M_w,mh,mHp) + mycache.B00_Mz_0_mh_mHp(Mz,mh,mHp);
-    B00prime_Mz_Mw2_Mw_mH = - mycache.B00_Mz_Mw2_Mw_mH(Mz,M_w,mH) + mycache.B00_Mz_0_Mw_mH(Mz,M_w,mH);
-    B00prime_Mz_Mw2_Mw_mh = - mycache.B00_Mz_Mw2_Mw_mh(Mz,M_w,mh) + mycache.B00_Mz_0_Mw_mh(Mz,M_w,mh);
-    B0prime_Mz_Mw2_Mw_mH = mycache.B0_Mz_Mw2_Mw_mH(Mz,M_w,mH) - mycache.B0_Mz_0_Mw_mH(Mz,M_w,mH);
-    B0prime_Mz_Mw2_Mw_mh = mycache.B0_Mz_Mw2_Mw_mh(Mz,M_w,mh) - mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh);
-    B00prime_Mz_Mw2_mH_mHp = - mycache.B00_Mz_Mw2_mH_mHp(Mz,M_w,mH,mHp) + mycache.B00_Mz_0_mH_mHp(Mz,mH,mHp);
+    B00prime_Mz_Mw2_mA_mHp = - mycache->B00_Mz_Mw2_mA_mHp(Mz,M_w,mA,mHp) + mycache->B00_Mz_0_mA_mHp(Mz,mA,mHp);
+    B00prime_Mz_Mw2_mHp_mHp = - mycache->B00_Mz_Mw2_mHp_mHp(Mz,M_w,mHp) + mycache->B00_Mz_0_mHp_mHp(Mz,mHp);
+    B00prime_Mz_Mw2_mh_mHp = - mycache->B00_Mz_Mw2_mh_mHp(Mz,M_w,mh,mHp) + mycache->B00_Mz_0_mh_mHp(Mz,mh,mHp);
+    B00prime_Mz_Mw2_Mw_mH = - mycache->B00_Mz_Mw2_Mw_mH(Mz,M_w,mH) + mycache->B00_Mz_0_Mw_mH(Mz,M_w,mH);
+    B00prime_Mz_Mw2_Mw_mh = - mycache->B00_Mz_Mw2_Mw_mh(Mz,M_w,mh) + mycache->B00_Mz_0_Mw_mh(Mz,M_w,mh);
+    B0prime_Mz_Mw2_Mw_mH = mycache->B0_Mz_Mw2_Mw_mH(Mz,M_w,mH) - mycache->B0_Mz_0_Mw_mH(Mz,M_w,mH);
+    B0prime_Mz_Mw2_Mw_mh = mycache->B0_Mz_Mw2_Mw_mh(Mz,M_w,mh) - mycache->B0_Mz_0_Mw_mh(Mz,M_w,mh);
+    B00prime_Mz_Mw2_mH_mHp = - mycache->B00_Mz_Mw2_mH_mHp(Mz,M_w,mH,mHp) + mycache->B00_Mz_0_mH_mHp(Mz,mH,mHp);
     
     double DeltaU = - obliqueS() + 1. / M_PI / Mz2 * (B00prime_Mz_Mw2_mA_mHp.real()
            - 2. * B00prime_Mz_Mw2_mHp_mHp.real() + sin2_ba * B00prime_Mz_Mw2_mH_mHp.real()

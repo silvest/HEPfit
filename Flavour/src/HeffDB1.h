@@ -96,9 +96,9 @@ public:
      * 
      * @param mu is the low energy scale
      * @param scheme indicates the renormalization scheme
-     * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
+     * @return short distance contribution to the rare decay \f$ b \rightarrow s \gamma \f$
      */
-    vector<complex>** ComputeCoeffBKstarll(double mu, schemes scheme = NDR);
+    vector<complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -106,7 +106,15 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    vector<complex>** ComputeCoeffprimeBKstarll(double mu, schemes scheme = NDR);
+    vector<complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
+     */
+    vector<complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR);
     
     WilsonCoefficient getCoeffnlep00() const {
         return coeffnlep00;
@@ -140,12 +148,16 @@ public:
         return coeffdnunu;
     }
     
+    WilsonCoefficient getCoeffsgamma() const {
+        return coeffsgamma;
+    }
+    
     EvolDF1nlep getUDF1() const {
         return u;
     }
     
-    EvolDF1bsg getUDF1BKstarll() const {
-        return evolDF1BKstarll;
+    EvolDF1bsg getUDF1BMll() const {
+        return evolDF1BMll;
     }
 
     const StandardModel& GetModel() const {
@@ -161,12 +173,27 @@ private :
     WilsonCoefficient coeffnlep11, coeffnlep11A, coeffnlep11B, coeffnlep10CC;
     WilsonCoefficient coeffsmumu, coeffdmumu;
     WilsonCoefficient coeffsnunu, coeffdnunu;
-    WilsonCoefficient coeffBKstarll, coeffprimeBKstarll;
-    EvolDF1bsg evolDF1BKstarll;
+    WilsonCoefficient coeffsgamma;
+    WilsonCoefficient coeffBMll, coeffprimeBMll;
+    EvolDF1bsg evolDF1BMll, evolDF1Bsgamma;
     EvolDF1nlep u;
     
     //StandardModelMatching& standardmodelmatching;
-
+    
+    double Bsgamma_mu_cache;
+    std::vector<double> Bsgamma_Mu_cache;
+    schemes Bsgamma_scheme_cache;
+    std::vector<WilsonCoefficient> Bsgamma_WC_cache;
+    
+    double BMll_mu_cache;
+    std::vector<double> BMll_Mu_cache;
+    schemes BMll_scheme_cache;
+    std::vector<WilsonCoefficient> BMll_WC_cache;
+    
+    double BMllprime_mu_cache;
+    std::vector<double> BMllprime_Mu_cache;
+    schemes BMllprime_scheme_cache;
+    std::vector<WilsonCoefficient> BMllprime_WC_cache;
     
     gslpp::vector<complex> nlep, nlep2, nlepCC;
 };

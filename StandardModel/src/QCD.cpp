@@ -24,9 +24,9 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "AlsM", "MAls",
     "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
     "muc", "mub", "mut",
-    "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", 
-    "tKl", "tKp", "tBd", "tBs", "tKstar",
-    "FK", "FD", "FBs", "FBsoFBd", "FKstar",
+    "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "Mphi", 
+    "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
+    "FK", "FD", "FBs", "FBsoFBd", "FKstar", "Fphi",
     "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
     "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
     "BBsoBBd",
@@ -42,7 +42,17 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "a_0T1", "a_1T1", "dmT1", "a_0T2", "a_1T2", "dmT2", "a_0T23", "a_1T23", "dmT23",
     "r_1V", "r_2V", "m_RV", "m_fit2V", "r_1A0", "r_2A0", "m_RA0", "m_fit2A0", "r_2A1", "m_fit2A1", "r_1A2", "r_2A2", "m_fit2A2",
     "r_1T1", "r_2T1", "m_RT1", "m_fit2T1", "r_2T2", "m_fit2T2", "r_1T3t", "r_2T3t", "m_fit2T3t",
-    "absh_0", "absh_plus", "absh_minus","argh_0", "argh_plus", "argh_minus"
+    "a_0Vphi", "a_1Vphi", "dmVphi", "a_0A0phi", "a_1A0phi", "dmA0phi", "a_0A1phi", "a_1A1phi", "dmA1phi", "a_0A12phi", "a_1A12phi",
+    "dmA12phi", "a_0T1phi", "a_1T1phi", "dmT1phi", "a_0T2phi", "a_1T2phi", "dmT2phi", "a_0T23phi", "a_1T23phi", "dmT23phi",
+    "r_1Vphi", "r_2Vphi", "m_RVphi", "m_fit2Vphi", "r_1A0phi", "r_2A0phi", "m_RA0phi", "m_fit2A0phi", 
+    "r_2A1phi", "m_fit2A1phi", "r_1A2phi", "r_2A2phi", "m_fit2A2phi", "r_1T1phi", "r_2T1phi", "m_RT1phi", "m_fit2T1phi", 
+    "r_2T2phi", "m_fit2T2phi", "r_1T3tphi", "r_2T3tphi", "m_fit2T3tphi",
+    "reh_0", "reh_p", "reh_m","imh_0", "imh_p", "imh_m",
+    "reh_0_1", "reh_p_1", "reh_m_1","imh_0_1", "imh_p_1", "imh_m_1",
+    "reh_0_2", "reh_p_2", "reh_m_2","imh_0_2", "imh_p_2", "imh_m_2",
+    "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
+    "reh_0_MP", "imh_0_MP", "reh_0_1_MP", "imh_0_1_MP",
+    "bsgamma_E0"
 };
 
 QCD::QCD()
@@ -87,16 +97,20 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBd", boost::cref(mesons[B_D].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBp", boost::cref(mesons[B_P].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBs", boost::cref(mesons[B_S].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBs", boost::cref(mesons[K_star].getMass())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstar", boost::cref(mesons[K_star].getMass())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mphi", boost::cref(mesons[PHI].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKl", boost::cref(mesons[K_0].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKp", boost::cref(mesons[K_P].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBd", boost::cref(mesons[B_D].getWidth())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBp", boost::cref(mesons[B_P].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBs", boost::cref(mesons[B_S].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBs", boost::cref(mesons[K_star].getWidth())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstar", boost::cref(mesons[K_star].getWidth())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tphi", boost::cref(mesons[PHI].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(mesons[K_0].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FD", boost::cref(mesons[D_0].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBs", boost::cref(mesons[B_S].getDecayconst())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBs", boost::cref(mesons[K_star].getDecayconst())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(mesons[K_star].getDecayconst())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(mesons[PHI].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK1", boost::cref(BK.getBpars()(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK2", boost::cref(BK.getBpars()(1))));
@@ -147,12 +161,28 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0", boost::cref(reh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_plus", boost::cref(reh_plus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_minus", boost::cref(reh_minus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0", boost::cref(imh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_plus", boost::cref(imh_plus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_minus", boost::cref(imh_minus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0", boost::cref(reh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p", boost::cref(reh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m", boost::cref(reh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0", boost::cref(imh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p", boost::cref(imh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m", boost::cref(imh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_1", boost::cref(reh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p_1", boost::cref(reh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m_1", boost::cref(reh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_1", boost::cref(imh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_1", boost::cref(imh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_1", boost::cref(imh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_2", boost::cref(reh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p_2", boost::cref(reh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m_2", boost::cref(reh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_2", boost::cref(imh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_2", boost::cref(imh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_2", boost::cref(imh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_MP", boost::cref(reh_0_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_MP", boost::cref(imh_0_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_1_MP", boost::cref(reh_0_1_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_1_MP", boost::cref(imh_0_1_MP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0V", boost::cref(a_0V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1V", boost::cref(a_1V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmV", boost::cref(dmV)));
@@ -196,8 +226,60 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1T3t", boost::cref(r_1T3t)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T3t", boost::cref(r_2T3t)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T3t", boost::cref(m_fit2T3t)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0Vphi", boost::cref(a_0Vphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1Vphi", boost::cref(a_1Vphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmVphi", boost::cref(dmVphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0A0phi", boost::cref(a_0A0phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1A0phi", boost::cref(a_1A0phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmA0phi", boost::cref(dmA0phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0A1phi", boost::cref(a_0A1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1A1phi", boost::cref(a_1A1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmA1phi", boost::cref(dmA1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0A12phi", boost::cref(a_0A12phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1A12phi", boost::cref(a_1A12phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmA12phi", boost::cref(dmA12phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0T1phi", boost::cref(a_0T1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1T1phi", boost::cref(a_1T1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmT1phi", boost::cref(dmT1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0T2phi", boost::cref(a_0T2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1T2phi", boost::cref(a_1T2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmT2phi", boost::cref(dmT2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0T23phi", boost::cref(a_0T23phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1T23phi", boost::cref(a_1T23phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmT23phi", boost::cref(dmT23phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1Vphi", boost::cref(r_1Vphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2Vphi", boost::cref(r_2Vphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_RVphi", boost::cref(m_RVphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2Vphi", boost::cref(m_fit2Vphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1A0phi", boost::cref(r_1A0phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2A0phi", boost::cref(r_2A0phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_RA0phi", boost::cref(m_RA0phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2A0phi", boost::cref(m_fit2A0phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2A1phi", boost::cref(r_2A1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2A1phi", boost::cref(m_fit2A1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1A2phi", boost::cref(r_1A2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2A2phi", boost::cref(r_2A2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2A2phi", boost::cref(m_fit2A2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1T1phi", boost::cref(r_1T1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T1phi", boost::cref(r_2T1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_RT1phi", boost::cref(m_RT1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T1phi", boost::cref(m_fit2T1phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T2phi", boost::cref(r_2T2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T2phi", boost::cref(m_fit2T2phi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1T3tphi", boost::cref(r_1T3tphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T3tphi", boost::cref(r_2T3tphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T3tphi", boost::cref(m_fit2T3tphi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1_fplus", boost::cref(r_1_fplus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_fplus", boost::cref(r_2_fplus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_fplus", boost::cref(m_fit2_fplus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1_fT", boost::cref(r_1_fT)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_fT", boost::cref(r_2_fT)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_fT", boost::cref(m_fit2_fT)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_f0", boost::cref(r_2_f0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_f0", boost::cref(m_fit2_f0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_E0", boost::cref(bsgamma_E0)));
 
-
+    unknownParameterWarning = true;
 }
 
 std::string QCD::orderToString(const orders order) const
@@ -223,6 +305,7 @@ std::string QCD::orderToString(const orders order) const
 bool QCD::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);
+    unknownParameterWarning = false;
     return (CheckParameters(DPars));
 }
 
@@ -245,7 +328,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
-
+    
     if (UpdateError) return (false);
 
     if (!PostUpdate()) return (false);
@@ -323,16 +406,22 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[B_S].setMass(value);
     else if (name.compare("MKstar") == 0)
         mesons[K_star].setMass(value);
+    else if (name.compare("Mphi") == 0)
+        mesons[PHI].setMass(value);
     else if (name.compare("tKl") == 0)
         mesons[K_0].setLifetime(value);
     else if (name.compare("tKp") == 0)
         mesons[K_P].setLifetime(value);
     else if (name.compare("tBd") == 0)
         mesons[B_D].setLifetime(value);
+    else if (name.compare("tBp") == 0)
+        mesons[B_P].setLifetime(value);
     else if (name.compare("tBs") == 0)
         mesons[B_S].setLifetime(value);
     else if (name.compare("tKstar") == 0)
         mesons[K_star].setLifetime(value);
+    else if (name.compare("tphi") == 0)
+        mesons[PHI].setLifetime(value);
         //else if(name.compare("FP")==0) {
         //    mesons[P_0].setDecayconst(value);
         //    mesons[P_P].setDecayconst(value);
@@ -343,6 +432,8 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[D_0].setDecayconst(value);
     else if (name.compare("FKstar") == 0)
         mesons[K_star].setDecayconst(value);
+    else if (name.compare("Fphi") == 0)
+        mesons[PHI].setDecayconst(value);
     else if (name.compare("FBs") == 0) {
         mesons[B_S].setDecayconst(value);
         computeFBd = true;
@@ -467,16 +558,48 @@ void QCD::setParameter(const std::string name, const double& value)
         IB_Kp = value;
     else if (name.compare("reh_0") == 0)
         reh_0 = value;
-    else if (name.compare("reh_plus") == 0)
-        reh_plus = value;
-    else if (name.compare("reh_minus") == 0)
-        reh_minus = value;
+    else if (name.compare("reh_p") == 0)
+        reh_p = value;
+    else if (name.compare("reh_m") == 0)
+        reh_m = value;
     else if (name.compare("imh_0") == 0)
-        reh_0 = value;
-    else if (name.compare("imh_plus") == 0)
-        reh_plus = value;
-    else if (name.compare("imh_minus") == 0)
-        reh_minus = value;
+        imh_0 = value;
+    else if (name.compare("imh_p") == 0)
+        imh_p = value;
+    else if (name.compare("imh_m") == 0)
+        imh_m = value;
+    else if (name.compare("reh_0_1") == 0)
+        reh_0_1 = value;
+    else if (name.compare("reh_p_1") == 0)
+        reh_p_1 = value;
+    else if (name.compare("reh_m_1") == 0)
+        reh_m_1 = value;
+    else if (name.compare("imh_0_1") == 0)
+        imh_0_1 = value;
+    else if (name.compare("imh_p_1") == 0)
+        imh_p_1 = value;
+    else if (name.compare("imh_m_1") == 0)
+        imh_m_1 = value;
+    else if (name.compare("reh_0_2") == 0)
+        reh_0_2 = value;
+    else if (name.compare("reh_p_2") == 0)
+        reh_p_2 = value;
+    else if (name.compare("reh_m_2") == 0)
+        reh_m_2 = value;
+    else if (name.compare("imh_0_2") == 0)
+        imh_0_2 = value;
+    else if (name.compare("imh_p_2") == 0)
+        imh_p_2 = value;
+    else if (name.compare("imh_m_2") == 0)
+        imh_m_2 = value;
+    else if (name.compare("reh_0_MP") == 0)
+        reh_0_MP = value;
+    else if (name.compare("imh_0_MP") == 0)
+        imh_0_MP = value;
+    else if (name.compare("reh_0_1_MP") == 0)
+        reh_0_1_MP = value;
+    else if (name.compare("imh_0_1_MP") == 0)
+        imh_0_1_MP = value;
     else if (name.compare("a_0V") == 0)
         a_0V = value;
     else if (name.compare("a_1V") == 0)
@@ -563,9 +686,113 @@ void QCD::setParameter(const std::string name, const double& value)
         r_2T3t = value;
     else if (name.compare("m_fit2T3t") == 0)
         m_fit2T3t = value;
+    else if (name.compare("a_0Vphi") == 0)
+        a_0Vphi = value;
+    else if (name.compare("a_1Vphi") == 0)
+        a_1Vphi = value;
+    else if (name.compare("dmVphi") == 0)
+        dmVphi = value;
+    else if (name.compare("a_0A0phi") == 0)
+        a_0A0phi = value;
+    else if (name.compare("a_1A0phi") == 0)
+        a_1A0phi = value;
+    else if (name.compare("dmA0phi") == 0)
+        dmA0phi = value;
+    else if (name.compare("a_0A1phi") == 0)
+        a_0A1phi = value;
+    else if (name.compare("a_1A1phi") == 0)
+        a_1A1phi = value;
+    else if (name.compare("dmA1phi") == 0)
+        dmA1phi = value;
+    else if (name.compare("a_0A12phi") == 0)
+        a_0A12phi = value;
+    else if (name.compare("a_1A12phi") == 0)
+        a_1A12phi = value;
+    else if (name.compare("dmA12phi") == 0)
+        dmA12phi = value;
+    else if (name.compare("a_0T1phi") == 0)
+        a_0T1phi = value;
+    else if (name.compare("a_1T1phi") == 0)
+        a_1T1phi = value;
+    else if (name.compare("dmT1phi") == 0)
+        dmT1phi = value;
+    else if (name.compare("a_0T2phi") == 0)
+        a_0T2phi = value;
+    else if (name.compare("a_1T2phi") == 0)
+        a_1T2phi = value;
+    else if (name.compare("dmT2phi") == 0)
+        dmT2phi = value;
+    else if (name.compare("a_0T23phi") == 0)
+        a_0T23phi = value;
+    else if (name.compare("a_1T23phi") == 0)
+        a_1T23phi = value;
+    else if (name.compare("dmT23phi") == 0)
+        dmT23phi = value;
+    else if (name.compare("r_1Vphi") == 0)
+        r_1Vphi = value;
+    else if (name.compare("r_2Vphi") == 0)
+        r_2Vphi = value;
+    else if (name.compare("m_RVphi") == 0)
+        m_RVphi = value;
+    else if (name.compare("m_fit2Vphi") == 0)
+        m_fit2Vphi = value;
+    else if (name.compare("r_1A0phi") == 0)
+        r_1A0phi = value;
+    else if (name.compare("r_2A0phi") == 0)
+        r_2A0phi = value;
+    else if (name.compare("m_RA0phi") == 0)
+        m_RA0phi = value;
+    else if (name.compare("m_fit2A0phi") == 0)
+        m_fit2A0phi = value;
+    else if (name.compare("r_2A1phi") == 0)
+        r_2A1phi = value;
+    else if (name.compare("m_fit2A1phi") == 0)
+        m_fit2A1phi = value;
+    else if (name.compare("r_1A2phi") == 0)
+        r_1A2phi = value;
+    else if (name.compare("r_2A2phi") == 0)
+        r_2A2phi = value;
+    else if (name.compare("m_fit2A2phi") == 0)
+        m_fit2A2phi = value;
+    else if (name.compare("r_1T1phi") == 0)
+        r_1T1phi = value;
+    else if (name.compare("r_2T1phi") == 0)
+        r_2T1phi = value;
+    else if (name.compare("m_RT1phi") == 0)
+        m_RT1phi = value;
+    else if (name.compare("m_fit2T1phi") == 0)
+        m_fit2T1phi = value;
+    else if (name.compare("r_2T2phi") == 0)
+        r_2T2phi = value;
+    else if (name.compare("m_fit2T2phi") == 0)
+        m_fit2T2phi = value;
+    else if (name.compare("r_1T3tphi") == 0)
+        r_1T3tphi = value;
+    else if (name.compare("r_2T3tphi") == 0)
+        r_2T3tphi = value;
+    else if (name.compare("m_fit2T3tphi") == 0)
+        m_fit2T3tphi = value;
+    else if (name.compare("r_1_fplus") == 0)
+        r_1_fplus = value;
+    else if (name.compare("r_2_fplus") == 0)
+        r_2_fplus = value;
+    else if (name.compare("m_fit2_fplus") == 0)
+        m_fit2_fplus = value;
+    else if (name.compare("r_1_fT") == 0)
+        r_1_fT = value;
+    else if (name.compare("r_2_fT") == 0)
+        r_2_fT = value;
+    else if (name.compare("m_fit2_fT") == 0)
+        m_fit2_fT = value;
+    else if (name.compare("r_2_f0") == 0)
+        r_2_f0 = value;
+    else if (name.compare("m_fit2_f0") == 0)
+        m_fit2_f0 = value;
+    else if (name.compare("bsgamma_E0") == 0)
+        bsgamma_E0 = value;
     else
-        std::cout << "WARNING: unknown parameter " << name
-            << " in model initialization" << std::endl;
+        if (unknownParameterWarning)
+            std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
 }
 
 bool QCD::CheckParameters(const std::map<std::string, double>& DPars)

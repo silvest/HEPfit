@@ -184,6 +184,12 @@ public:
     }
     
     /**
+     * @brief A get method to compute the mean and rms of the computed observables.
+     * @return a string containing the statistics
+     */
+    std::string computeStatistics();
+    
+    /**
      * @brief This member generates the correlation matrix using BCH2D from the
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>.
      * @param[in] filename the name of the file where the correlation matrix is printed

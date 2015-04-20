@@ -95,6 +95,7 @@ class EvolDF1bsg : public RGEvolutor {
     void Df1Evolbsg(double mu, double M, double nf, schemes scheme);
     gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<complex> e;
+    unsigned int dim;
     
  };
 

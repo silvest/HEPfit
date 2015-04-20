@@ -2,6 +2,7 @@
 #include <boost/bind.hpp>
 #include <NPSTU.h>
 #include <NPSTUVWXY.h>
+#include <NPSTUZbbbarLR.h>
 #include <NPEpsilons.h>
 #include <NPEpsilons_pureNP.h>
 #include <NPHiggs.h>
@@ -24,6 +25,7 @@ ModelFactory::ModelFactory()
     modelFactory["StandardModel"] = boost::factory<StandardModel*>();
     modelFactory["NPSTU"] = boost::factory<NPSTU*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
+    modelFactory["NPSTUZbbbarLR"] = boost::factory<NPSTUZbbbarLR*>();
     modelFactory["NPEpsilons"] = boost::factory<NPEpsilons*>();
     modelFactory["NPEpsilons_pureNP"] = boost::factory<NPEpsilons_pureNP*>();
     modelFactory["NPHiggs"] = boost::factory<NPHiggs*>();

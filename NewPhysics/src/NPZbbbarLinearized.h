@@ -109,6 +109,7 @@
  * </tr>
  * </table>
  *
+ * 
  * @anchor NPZbbbarLinearizedFlags
  * <h3>%Model Flags</h3>
  *
@@ -135,8 +136,8 @@
  * Compared to the base class NPbase, the functions for the following quantities
  * are reimplemented in the current class:
  *
- * @li @f$\delta g_V^f@f$&nbsp;&nbsp;(with deltaGVl() and deltaGVq()),
- * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAl() and deltaGAq()).
+ * @li @f$\delta g_V^f@f$&nbsp;&nbsp;(with deltaGVf()),
+ * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAf()).
  *
  */
 class NPZbbbarLinearized : public NPbase {
@@ -169,6 +170,12 @@ public:
      */
     NPZbbbarLinearized(const bool FlagNPZbbbarLR_in = false);
 
+    /**
+     * @brief The post-update method for %NPZbbbarLinearized.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
 
     /**

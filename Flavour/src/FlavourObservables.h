@@ -22,12 +22,15 @@
 #include <SJPsiPhi.h>
 #include <Bdmumu.h>
 #include <Bsmumu.h>
+#include <bsgamma.h>
 #include <M12D.h>
 #include <ArgD.h>
 #include <EpsilonK.h>
 #include <DmK.h>
 #include <EpsilonP_O_Epsilon.h>
-#include <BKstarll.h>
+#include <MVllObservables.h>
+#include <MPllObservables.h>
+#include <MVgamma.h>
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

@@ -13,10 +13,15 @@
 #include "NPbase.h"
 
 /**
+ * @addtogroup NewPhysics
+ * @brief A module for model-independent studies of new physics.
+ * @{
+ */
+
+/**
  * @class NPEffectiveBS
  * @brief A model class for new physics in the form the
  * dimension-six effective Lagrangian in the basis of Barbieri and Strumia \cite Barbieri:1999tm.
- * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
@@ -551,6 +556,10 @@ private:
     double deltaGR_f_tmp(const Particle p) const;
 
 };
+
+/**
+ * @}
+ */
 
 #endif	/* NPEFFECTIVEBS_H */
 

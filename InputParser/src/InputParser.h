@@ -22,6 +22,7 @@
 #include <istream>
 #include <boost/tokenizer.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/tuple/tuple.hpp>
 #include <string>
 
 /**
@@ -121,6 +122,8 @@ private:
     ThObsFactory& myObsFactory;///< Reference to an object of type ThObsFactory.
     std::string modname;///< A string to store the model name in.
     bool modelset;
+    std::map <std::string, boost::tuple<bool, std::string, int> > checkDuplicateParameter;
+    std::string modeldefinedinfile;
 };
 
 /** 

@@ -30,6 +30,7 @@ public:
     Model()
     {
         ModelInitialized = false;
+        flagSUSYmodel = false;
     };
 
     /**
@@ -171,6 +172,21 @@ public:
         return (ModelParamMap.find(name) != ModelParamMap.end());
     }
 
+    void setModelSUSY(){
+        flagSUSYmodel = true;
+    }
+    
+    bool isModelSUSY() const{
+        return flagSUSYmodel;
+    }
+    
+    void setModelTHDM(){
+        flagTHDMmodel = true;
+    }
+    
+    bool isModelTHDM() const{
+        return flagTHDMmodel;
+    }
 protected:
 
     bool UpdateError; ///< A boolean set to false if update is successful.
@@ -186,6 +202,8 @@ protected:
 private:
     std::string name; ///< The name of the model.
     bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
+    bool flagSUSYmodel;///< A flag identifying the model as a SUSY model
+    bool flagTHDMmodel;///< A flag identifying the model as a THDM model
 
 };
 

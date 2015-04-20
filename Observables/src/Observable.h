@@ -313,6 +313,16 @@ public:
     {
         return tho;
     }
+    
+    void setObsType(unsigned int obsType_i)
+    {
+        obsType = obsType_i;
+    }
+    
+    unsigned int getObsType() const
+    {
+        return obsType;
+    }
 
     /**
      * @brief A set method to fix the pointer to object of type ThObservable.
@@ -367,6 +377,7 @@ protected:
     double max; ///< The maximum valus of the observable.
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
     TH1D * inhisto; ///< 1D Histogram containing the experimental likelihood for the observable
+    unsigned int obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
 };
 
 

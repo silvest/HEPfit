@@ -136,6 +136,7 @@ public:
     void Run(const int rank);
 
 private:
+    std::string ModelName; ///< The name of the model.
     InputParser myInputParser; ///< An object of the InputParser class.
     MonteCarloEngine MCEngine; ///< An object of the MonteCarloEngine class.
     std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf.
@@ -154,6 +155,8 @@ private:
     bool PrintKnowledgeUpdatePlots; ///< Flag for printing plots to compare prior vs. posterior knowledge of parameters.
     bool PrintParameterPlot; ///< Flag for printing the overview parameter plots.
     bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
+    double evidence; ///< A variable to store the evidence of a model.
+    unsigned int evidence_min_iterations; ///< Minimum number of iterations for determining evidence of a model.
 };
 
 /** 

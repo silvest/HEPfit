@@ -94,14 +94,14 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMBKstarll();
+    virtual  std::vector<WilsonCoefficient>& CMBMll();
     /** 
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMprimeBKstarll();
+    virtual  std::vector<WilsonCoefficient>& CMprimeBMll();
     
     /** 
      * 
@@ -235,6 +235,15 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      * @param[in] mu the matching scale of the Wilson coefficients
      */
+    double A1t(double x, double mu) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient for the semileptonic operator
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
     double B1t(double x, double mu)const;
     
     /**
@@ -254,6 +263,15 @@ public:
      * @param[in] mu the matching scale of the Wilson coefficients
      */
     double D1t(double x, double mu)const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient for the semileptonic operator
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double F1t(double x, double mu) const;
 
     /**
      *
@@ -408,7 +426,7 @@ public:
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
-    std::vector<WilsonCoefficient> vmcbsg, vmcBKstarll, vmcprimeBKstarll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
+    std::vector<WilsonCoefficient> vmcbsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm;
     std::vector<WilsonCoefficient> vmcDL1;
     
@@ -422,7 +440,7 @@ private:
     double S18(double x) const;
     double ZDP(const double x, const double y) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
-    WilsonCoefficient mcbsg, mcBKstarll, mcprimeBKstarll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
+    WilsonCoefficient mcbsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;
     WilsonCoefficient mcDL1;
     
@@ -460,7 +478,7 @@ private:
      * @param order
      * @return return the value of the wilson coefficients for \f$ B \rightarrow k^* l^{+} l{-} \f$
      */
-    double setWCBKstarll (int i, double x, orders order);
+    double setWCBMll (int i, double x, orders order);
     
     /**
      * 
@@ -494,8 +512,8 @@ private:
      */
     double phi2 (double x, double y) const;
     
-    double CWbsgArrayLO[10], CWbsgArrayNLO[10];
-    double CWBKstarllArrayLO[19], CWBKstarllArrayNLO[19];
+    double CWbsgArrayLO[13], CWbsgArrayNLO[13];
+    double CWBMllArrayLO[19], CWBMllArrayNLO[19];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];
     double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
     double CWbnlepArrayLOew[10], CWbnlepArrayNLOew[10];

@@ -57,9 +57,9 @@ bool SUSY::InitializeModel()
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
     setModelInitialized(StandardModel::InitializeModel());
+    setModelSUSY();
     return(true);
 }
-
 
 ///////////////////////////////////////////////////////////////////////////
 // Parameters 

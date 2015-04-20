@@ -25,15 +25,17 @@ class OutputSLHAfromFH : public ThObservable {
 public:
 
     OutputSLHAfromFH(const StandardModel& SM_i)
-    : ThObservable(SM_i), output(true)
+    : ThObservable(SM_i), output(true), mySUSY(static_cast<const SUSY*> (&SM_i))
     {
+        if (mySUSY->isModelSUSY() == false)
+            throw std::runtime_error("\nERROR: The SUSY mass spectrum can only be computed in a SUSY model. Please check your observables list.\n");
     };
 
     double computeThValue()
     {
         if (output) {
             output = false;
-            ((static_cast<const SUSY*> (&SM))->getMyFH()->OutputSLHA("output.slha"));
+            (mySUSY->getMyFH()->OutputSLHA("output.slha"));
         }
 
         return 0.0;
@@ -41,7 +43,7 @@ public:
 
 private:
     bool output;
-
+    const SUSY * mySUSY;
 };
 
 #endif	/* OUTPUTSLHAFROMFH_H */
