@@ -6,7 +6,7 @@
  */
 
 #ifndef BETASJPSIPHI_H
-#define	BETASSJPSIPHI_H
+#define	BETASJPSIPHI_H
 
 #include <ThObservable.h>
 #include "Flavour.h"

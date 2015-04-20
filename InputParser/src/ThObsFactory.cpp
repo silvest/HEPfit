@@ -83,7 +83,7 @@ ThObsFactory::ThObsFactory(){
     obsThFactory["Dmd1"] = boost::factory<DmBd*>();
     obsThFactory["Dms1"] = boost::factory<DmBs*>();
     obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>();
-    obsThFactory["SJPsiPhi"] = boost::factory<SJPsiPhi*>();
+    obsThFactory["Betas_JPsiPhi"] = boost::factory<Betas_JPsiPhi*>();
     obsThFactory["M12D"] = boost::factory<M12D*>();
     obsThFactory["ArgD"] = boost::factory<ArgD*>();
     obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
