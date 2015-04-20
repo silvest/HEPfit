@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef SJPSIPHI_H
-#define	SJPSIPHI_H
+#ifndef BETASJPSIPHI_H
+#define	BETASSJPSIPHI_H
 
 #include <ThObservable.h>
 #include "Flavour.h"
@@ -21,7 +21,7 @@
  * @details This class is used to compute the theoretical value of
  * @f$S_{J/\psi\phi}@f$.
  */
-class SJPsiPhi : public ThObservable, AmpDB2 {
+class Betas_JPsiPhi : public ThObservable, AmpDB2 {
 public:
     
     /**
@@ -29,7 +29,7 @@ public:
      * @param Flavour
      */
     
-    SJPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
+    Betas_JPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
     
     /**
      *
@@ -39,5 +39,5 @@ public:
 
 };
 
-#endif	/* SJPSIPHI_H */
+#endif	/* BETASJPSIPHI_H */
 

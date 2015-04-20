@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "SJPsiPhi.h"
+#include "Betas_JPsiPhi.h"
 
-double SJPsiPhi::computeThValue() {
-    return sin(AmpBs(FULLNLO).arg());
+double Betas_JPsiPhi::computeThValue() {
+    return AmpBs(FULLNLO).arg()/2.*180./M_PI;
 }
