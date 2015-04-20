@@ -6,13 +6,13 @@
  */
 
 #include <gsl/gsl_sf_zeta.h>
-#include "EvolDF1bsg.h"
+#include "EvolDB1Mll.h"
 
-EvolDF1bsg::EvolDF1bsg(unsigned int dim_i, schemes scheme, orders order,
+EvolDB1Mll::EvolDB1Mll(unsigned int dim_i, schemes scheme, orders order,
              const StandardModel& model) : dim(dim_i), RGEvolutor(dim_i, scheme, order), model(model),
              v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.), s_s(dim_i,0.),
              jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.) {
-    if (dim != 13 ) throw std::runtime_error("ERROR: EvolDF1bsg can only be of dimension 13"); 
+    if (dim != 13 ) throw std::runtime_error("ERROR: EvolDB1Mll can only be of dimension 13"); 
     
     /* magic numbers a & b */ 
     
@@ -74,10 +74,10 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim_i, schemes scheme, orders order,
     }
 }
     
-EvolDF1bsg::~EvolDF1bsg() {
+EvolDB1Mll::~EvolDB1Mll() {
 }
 
-matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
+matrix<double> EvolDB1Mll::AnomalousDimension_M(orders order, unsigned int n_u,
         unsigned int n_d) const{
     
     /* Delta F = 1 anomalous dimension in Misiak basis, 
@@ -222,7 +222,7 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     return (gammaDF1);
 }
 
-matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const{
+matrix<double> EvolDB1Mll::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const{
     
     /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
        ref. hep-ph/9711280v1, hep-ph/0504194 */
@@ -300,7 +300,7 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     
 }
 
-matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
+matrix<double> EvolDB1Mll::ToEffectiveBasis(matrix<double> mat) const{
     
     gslpp::matrix<double> y(dim, 0.);
     
@@ -336,7 +336,7 @@ matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
     
 }
 
-matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) {
+matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order, schemes scheme) {
     
     switch (scheme) {
         case NDR:
@@ -365,18 +365,18 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
     double nf = model.Nf(m_down);
     
     while (m_up < M) {
-        Df1Evolbsg(m_down, m_up, nf, scheme);
+        Df1EvolMll(m_down, m_up, nf, scheme);
         m_down = m_up;
         m_up = model.AboveTh(m_down);
         nf += 1.;
     }
-    Df1Evolbsg(m_down, M, nf, scheme);
+    Df1EvolMll(m_down, M, nf, scheme);
     
     return (*Evol(order));
     
     }
     
- void EvolDF1bsg::Df1Evolbsg(double mu, double M, double nf, schemes scheme) {
+ void EvolDB1Mll::Df1EvolMll(double mu, double M, double nf, schemes scheme) {
 
     matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 

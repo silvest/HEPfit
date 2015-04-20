@@ -18,11 +18,11 @@ HeffDB1::HeffDB1(const StandardModel & SM) :
         coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO), coeffnlep10CC(10, NDR, NLO),
         coeffsmumu (6, NDR, NLO), coeffdmumu (6, NDR, NLO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
-        coeffsgamma(13,NDR, NLO),
+        coeffsgamma(8,NDR, NLO),
         coeffBMll (13,NDR, NLO),
         coeffprimeBMll (13, NDR, NLO),
         u(10, NDR, NLO, NLO_ew, SM),
-        evolDF1Bsgamma(13, NDR, NLO, SM),
+        evolDB1bsg(8, NDR, NLO, SM),
         evolDF1BMll(13, NDR, NLO, SM),
         nlep (12, 0.), nlep2(10, 0.), nlepCC(4, 0.){
     
@@ -371,7 +371,7 @@ vector<complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes scheme) {
             if (mc[i].getMu() == Bsgamma_Mu_cache[i]){
                 for (int j = LO; j <= ordDF1; j++){
                     for (int k = LO; k <= j; k++){
-                        for (int l = 0; l < 13; l++) {
+                        for (int l = 0; l < 8; l++) {
                             check = 1;
                             check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(Bsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
                         }
@@ -394,7 +394,7 @@ vector<complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffsgamma.setCoeff(*coeffsgamma.getCoeff(orders(j)) +
-                    evolDF1Bsgamma.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDB1bsg.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -439,7 +439,7 @@ vector<complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffBMll.setCoeff(*coeffBMll.getCoeff(orders(j)) +
-                    evolDF1BMll.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF1BMll.Df1EvolMll(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -485,7 +485,7 @@ vector<complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffprimeBMll.setCoeff(*coeffprimeBMll.getCoeff(orders(j)) +
-                    evolDF1BMll.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF1BMll.Df1EvolMll(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }

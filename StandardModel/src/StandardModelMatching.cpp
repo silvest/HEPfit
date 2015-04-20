@@ -22,7 +22,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcdk2(5, NDR, NLO),
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
-        mcbsg(13, NDR, NLO),
+        mcbsg(8, NDR, NLO),
         mcBMll(13, NDR, NLO),
         mcprimeBMll(13, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
@@ -61,7 +61,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         CWBMllArrayNLO[j] = 0.;
     }
     
-    for(int j=0; j<13; j++){
+    for(int j=0; j<8; j++){
         CWbsgArrayLO[j] = 0.;
         CWbsgArrayNLO[j] = 0.;
     }
@@ -989,11 +989,11 @@ double StandardModelMatching::phi2(double x, double y) const{
     switch (mcbsg.getOrder()) {
         case NNLO:
         case NLO:
-            for (int j=0; j<13; j++){
+            for (int j=0; j<8; j++){
             mcbsg.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
             }
         case LO:
-            for (int j=0; j<13; j++){
+            for (int j=0; j<8; j++){
             mcbsg.setCoeff(j, co * setWCbsg(j, xt,  LO), LO);
             }
             break;
@@ -1322,7 +1322,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
         default:
             std::stringstream out;
             out << a;
-            throw std::runtime_error("case" + out.str() + "unexsting; implemented i=0,1,2,3"); 
+            throw std::runtime_error("case" + out.str() + " not existing; implemented i=0,1,2,3"); 
     }
     
     double xt = x_t(Muw);

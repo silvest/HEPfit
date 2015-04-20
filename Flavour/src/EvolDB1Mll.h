@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef EVOLDF1BSG_H
-#define	EVOLDF1BSG_H
+#ifndef EVOLDB1MLL_H
+#define	EVOLDB1MLL_H
 
 
 #include <RGEvolutor.h>
@@ -14,7 +14,7 @@
 
 using namespace gslpp;
 
-class EvolDF1bsg : public RGEvolutor {
+class EvolDB1Mll : public RGEvolutor {
 /**
  * @class EvolDC1Buras
  * @brief \f$ |\Delta F = 1 | \f$ Evolutor Class
@@ -33,11 +33,11 @@ class EvolDF1bsg : public RGEvolutor {
      * @param order an enum "orders" for the order of perturbation theory of the evolutor
      * @param model an object of StandardModel class
      */
-    EvolDF1bsg(unsigned int dim,  schemes scheme, orders order, const StandardModel& model);
+    EvolDB1Mll(unsigned int dim,  schemes scheme, orders order, const StandardModel& model);
     /**
      * @brief EvolDF1bsg destructor
      */
-    virtual ~EvolDF1bsg();
+    virtual ~EvolDB1Mll();
     /**
      * @brief a method returning the anomalous dimension matrix given in the Misiak basis
      * @param order an enum "orders" for the order of perturbation theory of the ADM
@@ -54,7 +54,7 @@ class EvolDF1bsg : public RGEvolutor {
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @return the evolutor \f$ U (\mu , M) \f$
      */
-    matrix<double>& Df1Evolbsg(double mu, double M, orders order,  schemes scheme = NDR);
+    matrix<double>& Df1EvolMll(double mu, double M, orders order,  schemes scheme = NDR);
     /**
      * @brief a method returning the anomalous dimension in the Chetyrkin, Misiak and Munz operator basis 
      * @param order an enum "orders" for the order of perturbation theory of the evolutor
@@ -91,7 +91,7 @@ class EvolDF1bsg : public RGEvolutor {
      * @param nf a double for the active number of flavors
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      */
-    void Df1Evolbsg(double mu, double M, double nf, schemes scheme);
+    void Df1EvolMll(double mu, double M, double nf, schemes scheme);
     gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<complex> e;
     unsigned int dim;
@@ -99,5 +99,5 @@ class EvolDF1bsg : public RGEvolutor {
  };
 
 
-#endif	/* EVOLDF1BSG_H */
+#endif	/* EVOLDB1MLL_H */
 

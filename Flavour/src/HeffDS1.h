@@ -12,7 +12,7 @@
 #include <StandardModelMatching.h>
 #include <WilsonCoefficient.h>
 #include "EvolDF1nlep.h"
-#include "EvolDF1bsg.h"
+#include "EvolDB1Mll.h"
 #include <sstream>
 
 using namespace gslpp;
@@ -66,7 +66,7 @@ public:
         return u;
     }
     
-    EvolDF1bsg getUDF1M() const {
+    EvolDB1Mll getUDF1M() const {
         return uM;
     }
 
@@ -79,7 +79,7 @@ private :
     
     WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu, coeffds1mumu;
     EvolDF1nlep u;
-    EvolDF1bsg uM;
+    EvolDB1Mll uM;
     
     gslpp::vector<complex> DS1cce, DS1cc;
     

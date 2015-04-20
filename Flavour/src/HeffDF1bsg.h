@@ -11,7 +11,7 @@
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
 #include <WilsonCoefficient.h>
-#include "EvolDF1bsg.h"
+#include "EvolDB1bsg.h"
 
 using namespace gslpp;
 
@@ -39,8 +39,8 @@ public:
     vector<complex>** ComputeCoeffBsg(double mu, schemes scheme = NDR);
     
     
-    EvolDF1bsg getUDF1() const {
-        return evolDF1bsg;
+    EvolDB1bsg getUDF1() const {
+        return evolDB1bsg;
     }
 
     const StandardModel& GetModel() const {
@@ -51,7 +51,7 @@ private :
     const StandardModel& model;
     ModelMatching& modelmatching;
     WilsonCoefficient coeffbsg;
-    EvolDF1bsg evolDF1bsg;
+    EvolDB1bsg evolDB1bsg;
     
 };
 
