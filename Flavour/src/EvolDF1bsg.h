@@ -11,7 +11,6 @@
 
 #include <RGEvolutor.h>
 #include <StandardModel.h>
-#include <sstream>
 
 using namespace gslpp;
 

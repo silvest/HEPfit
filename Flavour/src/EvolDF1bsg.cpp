@@ -7,7 +7,6 @@
 
 #include <gsl/gsl_sf_zeta.h>
 #include "EvolDF1bsg.h"
-#include <stdexcept>
 
 EvolDF1bsg::EvolDF1bsg(unsigned int dim_i, schemes scheme, orders order,
              const StandardModel& model) : dim(dim_i), RGEvolutor(dim_i, scheme, order), model(model),
