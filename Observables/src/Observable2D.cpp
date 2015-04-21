@@ -77,7 +77,7 @@ void Observable2D::setLikelihoodFromHisto(std::string filename, std::string hist
         throw std::runtime_error("ERROR: nonexistent histogram called "
             + histoname
             + " in " + filename + ".root");
-    inhisto2d = (TH2D *) htmp2->Clone((filename + "_" + histoname).c_str());
+    inhisto2d = (TH2D *) htmp2->Clone((filename + "/" + histoname).c_str());
     inhisto2d->SetDirectory(gROOT);
     std::cout << "added 2D input histogram " << name << std::endl;
     setMin(inhisto2d->GetXaxis()->GetXmin());

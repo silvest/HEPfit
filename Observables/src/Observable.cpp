@@ -74,7 +74,7 @@ void Observable::setLikelihoodFromHisto(std::string filename, std::string histon
             throw std::runtime_error("ERROR: nonexistent histogram called "
                     + histoname + " in "
                     + filename + ".root");
-        inhisto = (TH1D *) htmp->Clone((filename + "_" + histoname).c_str());
+        inhisto = (TH1D *) htmp->Clone((filename + "/" + histoname).c_str());
         inhisto->SetDirectory(gROOT);
         std::cout << "added input histogram " << inhisto->GetName() << std::endl;
         setMin(inhisto->GetXaxis()->GetXmin());
