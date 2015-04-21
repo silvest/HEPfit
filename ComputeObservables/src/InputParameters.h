@@ -193,6 +193,12 @@ private:
         DPars_IN["imh_0_1"] = 0.;
         DPars_IN["imh_p_1"] = 0.;
         DPars_IN["imh_m_1"] = 0.;
+        DPars_IN["reh_0_2"] = 0.;
+        DPars_IN["reh_p_2"] = 0.;
+        DPars_IN["reh_m_2"] = 0.;
+        DPars_IN["imh_0_2"] = 0.;
+        DPars_IN["imh_p_2"] = 0.;
+        DPars_IN["imh_m_2"] = 0.;
         DPars_IN["reh_0_MP"] = 0.;
         DPars_IN["imh_0_MP"] = 0.;
         DPars_IN["reh_0_1_MP"] = 0.;

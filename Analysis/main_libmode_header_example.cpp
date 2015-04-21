@@ -27,8 +27,12 @@ int main(int argc, char** argv)
         DPars_IN["mcharm"] = 1.3;
         DPars_IN["mub"] = 4.2;
         
+        /* Create objects of the classes ModelFactory and ThObsFactory */
+        ModelFactory ModelF;
+        ThObsFactory ThObsF;
+
         /* Create an object of the class ComputeObservables. */
-        ComputeObservables CO(ModelName, DPars_IN);
+        ComputeObservables CO(ModelF, ThObsF, ModelName, DPars_IN);
         
         /* Add the observables to be returned. */
         CO.AddObservable("Mw");
@@ -53,8 +57,8 @@ int main(int argc, char** argv)
         for (int i = 0; i < 2; i++) {
             
             /* Vary the parameters that need to be varied in the analysis. */ 
-            DPars["mtop"] = 170.0 + i * 0.1;
-            DPars["dAle5Mz"] = 0.02750 - i * 0.0001;
+            DPars["epsilon_1"] = 0. + i * 0.01;
+            DPars["epsilon_3"] = 0. + i * 0.01;
             
             /* Get the map of observables with the parameter values defined above. */
             DObs = CO.compute(DPars);
