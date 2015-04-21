@@ -16,8 +16,6 @@
  * For the licensing terms see doc/COPYING.
  */
 #include <StandardModelMatching.h>
-#include <SUSYMassInsertion.h>
-#include <SUSYMassInsertionMatching.h>
 #include <WilsonCoefficient.h>
 #include "EvolDC1.h"
 #include "EvolDC1Buras.h"
