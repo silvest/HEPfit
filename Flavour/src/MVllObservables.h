@@ -36,7 +36,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -66,7 +65,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -96,7 +94,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -129,7 +126,6 @@ protected:
     
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -162,7 +158,6 @@ protected:
     
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -192,7 +187,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -222,7 +216,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -254,7 +247,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -284,7 +276,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -314,7 +305,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -347,7 +337,6 @@ public:
     double computeThValue ();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -377,7 +366,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep1;
     StandardModel::lepton lep2;
     StandardModel::meson meson;
@@ -407,7 +395,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep1;
     StandardModel::lepton lep2;
     StandardModel::meson meson;
@@ -437,7 +424,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep1;
     StandardModel::lepton lep2;
     StandardModel::meson meson;
@@ -467,7 +453,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep1;
     StandardModel::lepton lep2;
     StandardModel::meson meson;
@@ -497,7 +482,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -527,7 +511,6 @@ public:
     double computeThValue ();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -557,7 +540,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -587,7 +569,6 @@ public:
     double computeThValue ();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -617,7 +598,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -647,7 +627,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -677,7 +656,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -707,7 +685,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -737,7 +714,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -767,7 +743,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -797,7 +772,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -827,7 +801,6 @@ public:
     double computeThValue ();
    
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -857,7 +830,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -887,7 +859,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -917,7 +888,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -947,7 +917,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -977,7 +946,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1007,7 +975,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1037,7 +1004,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1068,7 +1034,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1099,7 +1064,6 @@ public:
     double computeThValue();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1130,7 +1094,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1159,7 +1122,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1190,7 +1152,6 @@ public:
     double computeThValue();
     
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
@@ -1221,7 +1182,6 @@ public:
     double computeThValue();
 
 private:
-    const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;

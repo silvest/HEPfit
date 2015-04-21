@@ -86,7 +86,6 @@ public:
     
     
 private:
-    const StandardModel& mySM;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
 };
@@ -106,7 +105,6 @@ public:
     double computeThValue ();
 
 private:
-    const StandardModel& mySM;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
 };
@@ -125,7 +123,6 @@ public:
     double computeThValue ();
 
 private:
-    const StandardModel& mySM;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
 };
