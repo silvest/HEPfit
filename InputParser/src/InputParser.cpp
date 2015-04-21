@@ -69,7 +69,6 @@ std::string InputParser::ReadParameters(const std::string filename,
         throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
     std::string filepath; 
     if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/")+1);
-    std::cout << filepath << std::endl;
     std::string line;
     bool IsEOF = false;
     do {
