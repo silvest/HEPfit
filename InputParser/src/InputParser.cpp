@@ -67,7 +67,9 @@ std::string InputParser::ReadParameters(const std::string filename,
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open())
         throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
-    std::string filepath = filename.substr(0, filename.find_last_of("\\/"));
+    std::string filepath; 
+    if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/")+1);
+    std::cout << filepath << std::endl;
     std::string line;
     bool IsEOF = false;
     do {
@@ -131,7 +133,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (std::distance(tok.begin(), tok.end()) < 10)
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
-                std::string fname = filepath + "/" + *(++beg);
+                std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
                 o->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
@@ -168,7 +170,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (std::distance(tok.begin(), tok.end()) < 12)
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
-                std::string fname = filepath + "/" + *(++beg);
+                std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
                 bo->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
@@ -211,7 +213,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (std::distance(tok.begin(), tok.end()) < 14)
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
-                std::string fname = filepath + "/" + *(++beg);
+                std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
                 o2.setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("noweight") == 0) {
@@ -391,7 +393,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (beg != tok.end())
                 if (rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
-            std::string IncludeFileName = filepath + "/" + *beg;
+            std::string IncludeFileName = filepath + *beg;
             if (rank == 0) std::cout << "\nIncluding File: " + IncludeFileName << std::endl;
             ReadParameters(IncludeFileName, rank, ModelPars, Observables, Observables2D, CGO);
             ++beg;
