@@ -21,9 +21,9 @@ HeffDB1::HeffDB1(const StandardModel & SM) :
         coeffsgamma(8,NDR, NLO),
         coeffBMll (13,NDR, NLO),
         coeffprimeBMll (13, NDR, NLO),
-        u(10, NDR, NLO, NLO_ew, SM),
-        evolDB1bsg(8, NDR, NLO, SM),
         evolDF1BMll(13, NDR, NLO, SM),
+        evolDB1bsg(8, NDR, NLO, SM),
+        u(10, NDR, NLO, NLO_ew, SM),
         nlep (12, 0.), nlep2(10, 0.), nlepCC(4, 0.){
     
     for (unsigned int i = 0; i < 6; i++) {

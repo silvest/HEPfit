@@ -12,24 +12,24 @@
 
 
 MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : mySM(SM_i),
+        N_cache(3, 0.),
+        V_cache(4, 0.),
+        A0_cache(4, 0.),
+        A1_cache(3, 0.),
+        A2_cache(2, 0.),
+        T1_cache(4, 0.),
+        T2_cache(3, 0.),
+        T3t_cache(2, 0.),
+        k2_cache(2, 0.),
+        VL0_cache(3, 0.),
+        TL0_cache(2, 0.),
+        SL_cache(2, 0.),
         Ycache(2, 0.),
         H_V0cache(2, 0.),
         H_V1cache(2, 0.),
         H_V2cache(2, 0.),
         H_Scache(2, 0.),
-        H_Pcache(4, 0.),
-        k2_cache(2, 0.),
-        N_cache(3, 0.),
-        A0_cache(4, 0.),
-        A1_cache(3, 0.),
-        A2_cache(2, 0.),
-        V_cache(4, 0.),
-        T1_cache(4, 0.),
-        T2_cache(3, 0.),
-        T3t_cache(2, 0.),
-        SL_cache(2, 0.),
-        VL0_cache(3, 0.),
-        TL0_cache(2, 0.)
+        H_Pcache(4, 0.)
 {
     lep = lep_i;
     meson = meson_i;

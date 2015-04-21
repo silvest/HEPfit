@@ -17,12 +17,13 @@
 
 
 MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) : mySM(SM_i),
-        N_cache(3, 0.),
-        Ycache(3, 0.),
+
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
         k2_cache(2, 0.),
         SL_cache(2, 0.),
+        N_cache(3, 0.),
+        Ycache(3, 0.),
         H_V0cache(2, 0.),
         H_Scache(2, 0.),
         H_P_cache(4, 0.)

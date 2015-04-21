@@ -12,7 +12,7 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
 RGEvolutor(dim, scheme, order),
 model(model)
 {
-    double Nc = model.getNc();
+    //double Nc = model.getNc();
     int basis = 0; //0: Gabbiani, 1: Buras
     matrix<double> g0t(AnomalousDimension(LO, 3, basis).transpose());
 
