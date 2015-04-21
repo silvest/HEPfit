@@ -5,8 +5,11 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "ComputeObservables.h"
 #include <boost/algorithm/string/predicate.hpp>
+#include <Observable.h>
+#include <Observable2D.h>
+#include <CorrelatedGaussianObservables.h>
+#include "ComputeObservables.h"
 
 ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObsF, 
         const std::string& ModelConf_i, const int rank_i)

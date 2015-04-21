@@ -40,14 +40,23 @@ public:
     std::map<std::string, double> getInputParameters(std::string& ModelName)
     {
         if (ModelName.compare("StandardModel") == 0) return(StandardModel());
+        else if (ModelName.compare("NPSTU") == 0) return(NPSTU());
+        else if (ModelName.compare("NPSTUZbbbarLR") == 0) return (NPSTUZbbbarLR());
         else if (ModelName.compare("NPEpsilons") == 0) return(NPEpsilons());
         else if (ModelName.compare("NPEpsilons_pureNP") == 0) return(NPEpsilons_pureNP());
-        else if (ModelName.compare("NPSTU") == 0) return(NPSTU());
         else if (ModelName.compare("NPHiggs") == 0) return(NPHiggs());
-        else if (ModelName.compare("NPZbbbar") == 0) return(NPZbbbar());
+        else if (ModelName.compare("NPZbbbar") == 0) return(NPZbbbarVA());
         else if (ModelName.compare("NPZbbbarLR") == 0) return(NPZbbbarLR());
-        else if (ModelName.compare("NPEffective1") == 0) return(NPEffective1());
-        else if (ModelName.compare("NPEffective2") == 0) return(NPEffective2());
+        else if (ModelName.compare("NPZbbbarLinearized") == 0) return(NPZbbbarVA());
+        else if (ModelName.compare("NPZbbbarLinearizedLR") == 0) return(NPZbbbarLR());
+        else if (ModelName.compare("NPEffectiveBS") == 0) return(NPEffectiveBS());
+        else if (ModelName.compare("NPEffectiveBS_LFU") == 0) return(NPEffectiveBS());
+        else if (ModelName.compare("NPEffectiveBS_QFU") == 0) return(NPEffectiveBS());
+        else if (ModelName.compare("NPEffectiveBS_LFU_QFU") == 0) return(NPEffectiveBS());
+        else if (ModelName.compare("NPEffectiveGIMR") == 0) return(NPEffectiveGIMR());
+        //else if (ModelName.compare("NPEffectiveGIMR_LFU") == 0) return(NPEffectiveGIMR());
+        //else if (ModelName.compare("NPEffectiveGIMR_QFU") == 0) return(NPEffectiveGIMR());
+        else if (ModelName.compare("NPEffectiveGIMR_LFU_QFU") == 0) return(NPEffectiveGIMR());
         else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParameters():  " + ModelName + "\n");
     };
     
@@ -360,14 +369,26 @@ private:
         
         return (DPars_IN);
     };
-    
+
     /**
-     * @brief A method that generates the map of the mandatory model parameters for NPZbbbar.
+     * @brief A method that generates the map of the mandatory model parameters for NPSTUZbbbarLR.
      * @return the map of the mandatory parameters
-     *
-     * @attention This method is applicable for the model "NPZbbbar", but not for "NPZbbbarLR".
+     */ 
+    std::map<std::string, double> NPSTUZbbbarLR()
+    {
+        DPars_IN = NPSTU();
+
+        DPars_IN["deltaGLb"] = 0.;
+        DPars_IN["deltaGRb"] = 0.;
+
+        return (DPars_IN);
+    };
+
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPZbbbar and NPZbbbarLinearized.
+     * @return the map of the mandatory parameters
      */
-    std::map<std::string, double> NPZbbbar()
+    std::map<std::string, double> NPZbbbarVA()
     {
         DPars_IN = StandardModel();
         
@@ -376,12 +397,10 @@ private:
         
         return (DPars_IN);
     };
-    
+
     /**
-     * @brief A method that generates the map of the mandatory model parameters for NPZbbbar.
+     * @brief A method that generates the map of the mandatory model parameters for NPZbbbar and NPZbbbarLinearized.
      * @return the map of the mandatory parameters
-     * 
-     * @attention This method is applicable for the model "NPZbbbarLR", but not for "NPZbbbar".
      */
     std::map<std::string, double> NPZbbbarLR()
     {
@@ -394,12 +413,12 @@ private:
     };
 
     /**
-     * @brief A method that generates the map of the mandatory model parameters for NPEffective1.
+     * @brief A method that generates the map of the mandatory model parameters for NPEffectiveBS.
      * @return the map of the mandatory parameters 
      *
      * @attention The NP scale Lambda_NP is initialize to 1 TeV.
      */
-    std::map<std::string, double> NPEffective1()
+    std::map<std::string, double> NPEffectiveBS()
     {
         DPars_IN = StandardModel();
                         
@@ -419,12 +438,12 @@ private:
     };
     
     /**
-     * @brief A method that generates the map of the mandatory model parameters for NPEffective2.
+     * @brief A method that generates the map of the mandatory model parameters for NPEffectiveGIMR.
      * @return the map of the mandatory parameters
      *
      * @attention The NP scale Lambda_NP is initialize to 1 TeV.
      */
-    std::map<std::string, double> NPEffective2()
+    std::map<std::string, double> NPEffectiveGIMR()
     {
         DPars_IN = StandardModel();
         

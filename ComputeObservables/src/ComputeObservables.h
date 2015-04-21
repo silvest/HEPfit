@@ -9,20 +9,8 @@
 #define	COMPUTEOBSERVABLES_H
 
 #include <InputParser.h>
-#include <Observable.h>
-#include <Observable2D.h>
 #include <StandardModel.h>
-#include <NPSTU.h>
-#include <NPEpsilons.h>
-#include <NPEpsilons_pureNP.h>
-#include <NPHiggs.h>
-#include <NPZbbbar.h>
-#include <NPZbbbarLinearized.h>
-#include <NPEffectiveBS.h>
-#include <NPEffectiveGIMR.h>
-#include <CorrelatedGaussianObservables.h>
 #include <ModelParameter.h>
-#include <Model.h>
 #include <ModelFactory.h>
 #include <ThObsFactory.h>
 
@@ -119,7 +107,7 @@ private:
     std::map<std::string, double> DObs; ///< Map of the observables to be computed. 
     std::map<std::string, std::string> DFlags; ///< Map of the model flags to be passed to Model.
     std::vector<std::string> paraNames;///< The vector of allowed parameter names.
-    std::map<std::string,ThObservable*> DThObs;
+    std::map<std::string, ThObservable*> DThObs;
     const int rank; ///<< Rank of the MPI process. Set to 0 for serial run. 
 
 };
