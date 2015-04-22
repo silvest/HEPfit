@@ -1837,10 +1837,10 @@ public:
     double computeSigmaggH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 15.01; // in pb for Mh=125.5 GeV
+            return 15.11; // in pb for Mh=125.1 GeV
             //return 14.99; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
-            return 19.12; // in pb for Mh=125.5 GeV
+            return 19.24; // in pb for Mh=125.1 GeV
             //return 19.09; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 1.96) {
             return 0.9493; // in pb for Mh=125 GeV
@@ -1920,10 +1920,10 @@ public:
     double computeSigmaVBF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 1.219; // in pb for Mh=125.5 GeV
+            return 1.222; // in pb for Mh=125.1 GeV
             //return 1.214; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
-            return 1.573; // in pb for Mh=125.5 GeV
+            return 1.579; // in pb for Mh=125.1 GeV
             //return 1.572; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 1.96) {
             return 0.0653; // in pb for Mh=125 GeV
@@ -1990,10 +1990,10 @@ public:
     double computeSigmaWH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.5703; // in pb for Mh=125.5 GeV
+            return 0.577; // in pb for Mh=125.1 GeV
             //return 0.5688; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
-            return 0.6951; // in pb for Mh=125.5 GeV
+            return 0.7027; // in pb for Mh=125.1 GeV
             //return 0.6931; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 1.96) {
             return 0.1295; // in pb for Mh=125 GeV
@@ -2010,10 +2010,10 @@ public:
     double computeSigmaZH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.3309; // in pb for Mh=125.5 GeV
+            return 0.3341; // in pb for Mh=125.1 GeV
             //return 0.3299; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
-            return 0.4102; // in pb for Mh=125.5 GeV
+            return 0.4142; // in pb for Mh=125.1 GeV
             //return 0.4091; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 1.96) {
             return 0.0785; // in pb for Mh=125 GeV
@@ -2030,10 +2030,10 @@ public:
     double computeSigmattH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.0853; // in pb for Mh=125.5 GeV
+            return 0.08611; // in pb for Mh=125.1 GeV
             //return 0.0851; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
-            return 0.1277; // in pb for Mh=125.5 GeV
+            return 0.129; // in pb for Mh=125.1 GeV
             //return 0.1274; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 1.96) {
             return 0.0043; // in pb for Mh=125 GeV
@@ -2043,98 +2043,98 @@ public:
     
     /**
      * @brief The Br@f$(H\to gg)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to gg)@f$
      */
     double computeBrHtogg() const
     {
-        return 8.52e-2; // Mh=125.5 GeV and 125.6 GeV
+        return 8.57e-2; // Mh=125.1 GeV
     }
 
     /**
      * @brief The Br@f$(H\to WW)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to WW)@f$ in the Standard Model
      */
     double computeBrHtoWW() const
     {
         //return 2.23e-1; // Mh=125.5 GeV
-        return 2.24e-1; // Mh=125.6 GeV
+        return 2.15e-1; // Mh=125.1 GeV
     }
 
     /**
      * @brief The Br@f$(H\to ZZ)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to ZZ)@f$ in the Standard Model
      */
     double computeBrHtoZZ() const
     {
-        return 2.76e-2; // Mh=125.5 GeV
+        return 2.64e-2; // Mh=125.5 GeV
         //return 2.79e-2; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to Z\gamma)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to Z\gamma)@f$ in the Standard Model
      */
     double computeBrHtoZga() const
     {
-        return 1.58e-3; // Mh=125.5 GeV
+        return 1.54e-3; // Mh=125.1 GeV
         //return 1.59e-3; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to\gamma\gamma)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to\gamma\gamma)@f$ in the Standard Model
      */
     double computeBrHtogaga() const
     {
-        return 2.28e-3; // Mh=125.5 GeV and 125.6 GeV
+        return 2.28e-3; // Mh=125.1 GeV
     }
 
     /**
      * @brief The Br@f$(H\to \tau\tau)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to \tau\tau)@f$ in the Standard Model
      */
     double computeBrHtotautau() const
     {
-        return 6.24e-2; // Mh=125.5 GeV
+        return 6.32e-2; // Mh=125.1 GeV
         //return 6.22e-2; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to cc)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to cc)@f$ in the Standard Model
      */
     double computeBrHtocc() const
     {
-        return 2.87e-2; // Mh=125.5 GeV
+        return 2.91e-2; // Mh=125.1 GeV
         //return 2.86e-2; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to bb)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return Br@f$(H\to bb)@f$ in the Standard Model
      */
     double computeBrHtobb() const
     {
-        return 5.69e-1; // Mh=125.5 GeV
+        return 5.77e-1; // Mh=125.1 GeV
         //return 5.67e-1; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Higgs total width in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return @f$\Gamma_h@f$ in GeV in the Standard Model
      */
     double computeGammaHTotal() const
     {
-        return 4.14e-3; // Mh=125.5 GeV
+        return 4.07e-3; // Mh=125.1 GeV
         //return 4.15e-3; // Mh=125.6 GeV
     }
 

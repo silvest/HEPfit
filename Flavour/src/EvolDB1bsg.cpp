@@ -9,9 +9,9 @@
 #include "EvolDB1bsg.h"
 
 EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order,
-             const StandardModel& model) : dim(dim_i), RGEvolutor(dim_i, scheme, order), model(model),
+             const StandardModel& model) : RGEvolutor(dim_i, scheme, order), model(model),
              v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.), s_s(dim_i,0.),
-             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.) {
+             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.), dim(dim_i) {
     if (dim != 8 ) throw std::runtime_error("ERROR: EvolDB1bsg can only be of dimension 8"); 
     
     /* magic numbers a & b */ 
@@ -197,7 +197,7 @@ matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     matrix<double> mat(dim, 0.);
     matrix<double> mat1(dim, 0.);
     unsigned int nf = n_u + n_d;
-    double z3 = gsl_sf_zeta_int(3);
+    //double z3 = gsl_sf_zeta_int(3);
     
     mat1(0,6) = - 13454./2187. + 44./2187.*nf;
     mat1(1,6) = 20644./729. - 88./729.*nf;

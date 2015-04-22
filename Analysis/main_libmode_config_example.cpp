@@ -21,9 +21,8 @@ int main(int argc, char** argv)
         std::map<std::string, double> DPars;
         
         /* Create objects of the classes ModelFactory and ThObsFactory */
-        
-        ThObsFactory ThObsF;
         ModelFactory ModelF;
+        ThObsFactory ThObsF;
 
         /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
         /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */

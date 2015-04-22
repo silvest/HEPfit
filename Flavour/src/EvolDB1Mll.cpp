@@ -9,9 +9,9 @@
 #include "EvolDB1Mll.h"
 
 EvolDB1Mll::EvolDB1Mll(unsigned int dim_i, schemes scheme, orders order,
-             const StandardModel& model) : dim(dim_i), RGEvolutor(dim_i, scheme, order), model(model),
+             const StandardModel& model) : RGEvolutor(dim_i, scheme, order), model(model),
              v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.), s_s(dim_i,0.),
-             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.) {
+             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.), dim(dim_i) {
     if (dim != 13 ) throw std::runtime_error("ERROR: EvolDB1Mll can only be of dimension 13"); 
     
     /* magic numbers a & b */ 

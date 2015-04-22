@@ -1032,35 +1032,70 @@ double NPEffectiveGIMR::muggH(const double sqrt_s) const
 
 double NPEffectiveGIMR::muVBF(const double sqrt_s) const
 {
-    double sigmaSM_LO, mu = 1.0;
-    if (sqrt_s == 7.0) {
-        sigmaSM_LO = 0.8616;
-        mu += (1.088 * deltaGL_f(quarks[UP])
-                - 0.535 * deltaGR_f(quarks[UP])
-                - 0.976 * deltaGL_f(quarks[DOWN])
-                + 0.147 * deltaGR_f(quarks[DOWN])
-                + 2.493 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                - 0.060 * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
-                - 0.058 * deltaGR_Wff(quarks[UP], quarks[DOWN]).real()
-                - 0.017 * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
-                - 0.105 * deltaG1_hWW() * 1000.0
-                + 2.415 * deltaG3_hWW() / 100.0
-                - 0.091 * deltaG1_hZZ() * 1000.0
-                + 1.280 * deltaG3_hZZ() / 100.0) / sigmaSM_LO;
+    double mu = 1.0;
+    if (sqrt_s == 1.96) {
+        mu +=  -0.046 * deltaGL_f(quarks[UP])
+                +0.088 * deltaGR_f(quarks[UP])
+                +11.594 * deltaGL_f(quarks[DOWN])
+                -0.021 * deltaGR_f(quarks[DOWN])
+	            +0.046 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -0.012 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                -0.084 * deltaG_hgg()
+                +0.391 * deltaG_hAA()
+                +26.344 * deltaG1_hZA()
+                +14.928 * deltaG2_hZA()
+                -0.129 * deltaG1_hWW()
+                +0.084 * deltaG2_hWW()
+                +0.164 * deltaG3_hWW()
+                -0.033 * deltaG1_hZZ()
+                -1.408 * deltaG2_hZZ()
+                -0.001 * deltaG3_hZZ()
+                +1.123 * deltaGL_Zffh(quarks[UP])
+                -0.531 * deltaGR_Zffh(quarks[UP])
+                -0.705 * deltaGL_Zffh(quarks[DOWN])
+                +0.136 * deltaGR_Zffh(quarks[DOWN]);
+    } else if (sqrt_s == 7.0) {
+        mu +=  -0.068 * deltaGL_f(quarks[UP])
+                +0.169 * deltaGR_f(quarks[UP])
+                +13.657 * deltaGL_f(quarks[DOWN])
+                -0.042 * deltaGR_f(quarks[DOWN])
+	            +0.089 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -0.04 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                -0.108 * deltaG_hgg()
+                +0.548 * deltaG_hAA()
+                +25.688 * deltaG1_hZA()
+                +14.266 * deltaG2_hZA()
+                -0.466 * deltaG1_hWW()
+                +0.211 * deltaG2_hWW()
+                +0.375 * deltaG3_hWW()
+                -0.07 * deltaG1_hZZ()
+                -1.827 * deltaG2_hZZ()
+                +0.001 * deltaG3_hZZ()
+                +1.188 * deltaGL_Zffh(quarks[UP])
+                -0.536 * deltaGR_Zffh(quarks[UP])
+                -0.976 * deltaGL_Zffh(quarks[DOWN])
+                +0.179 * deltaGR_Zffh(quarks[DOWN]);
     } else if (sqrt_s == 8.0) {
-        sigmaSM_LO = 1.110;
-        mu += (1.424 * deltaGL_f(quarks[UP])
-                - 0.615 * deltaGR_f(quarks[UP])
-                - 1.273 * deltaGL_f(quarks[DOWN])
-                + 0.253 * deltaGR_f(quarks[DOWN])
-                + 3.2465 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                + 0.0295 * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
-                + 0.034 * deltaGR_Wff(quarks[UP], quarks[DOWN]).real()
-                + 0.0075 * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
-                - 0.1125 * deltaG1_hWW() * 1000.0
-                + 3.1905 * deltaG3_hWW() / 100.0
-                - 0.081 * deltaG1_hZZ() * 1000.0
-                + 1.711 * deltaG3_hZZ() / 100.0) / sigmaSM_LO;
+        mu +=  -0.068 * deltaGL_f(quarks[UP])
+                +0.174 * deltaGR_f(quarks[UP])
+                +13.649 * deltaGL_f(quarks[DOWN])
+                -0.042 * deltaGR_f(quarks[DOWN])
+	            +0.09 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -0.04 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                -0.107 * deltaG_hgg()
+                +0.563 * deltaG_hAA()
+                +25.676 * deltaG1_hZA()
+                +14.247 * deltaG2_hZA()
+                -0.473 * deltaG1_hWW()
+                +0.215 * deltaG2_hWW()
+                +0.387 * deltaG3_hWW()
+                -0.072 * deltaG1_hZZ()
+                -1.858 * deltaG2_hZZ()
+                +0.002 * deltaG3_hZZ()
+                +1.179 * deltaGL_Zffh(quarks[UP])
+                -0.532 * deltaGR_Zffh(quarks[UP])
+                -0.984 * deltaGL_Zffh(quarks[DOWN])
+                +0.181 * deltaGR_Zffh(quarks[DOWN]);
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muVBF()");
 
@@ -1069,19 +1104,25 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
 
 double NPEffectiveGIMR::muWH(const double sqrt_s) const
 {
-    double sigmaSM_LO, mu = 1.0;
-    if (sqrt_s == 7.0) {
-        sigmaSM_LO = 0.4297;
-        mu += (0.846 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                + 0.770 * deltaG1_hWW() * 1000.0
-                + 1.660 * deltaG3_hWW() / 100.0
-                + 3.190 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()) / sigmaSM_LO;
+    double mu = 1.0;
+    if (sqrt_s == 1.96) {
+        mu += +2.032 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                +1.739  * deltaG1_hWW()
+                -3.433  * deltaG2_hWW()
+                +38.642  * deltaG3_hWW()
+                +6.523  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
+    } else if (sqrt_s == 7.0) {
+        mu += +1.979 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                +1.778  * deltaG1_hWW()
+                -3.891  * deltaG2_hWW()
+                +38.637  * deltaG3_hWW()
+                +7.345  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
     } else if (sqrt_s == 8.0) {
-        sigmaSM_LO = 0.5227;
-        mu += (1.029 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                + 0.938 * deltaG1_hWW() * 1000.0
-                + 2.019 * deltaG3_hWW() / 100.0
-                + 3.977 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()) / sigmaSM_LO;
+        mu += +1.978 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                +1.784  * deltaG1_hWW()
+                -3.967  * deltaG2_hWW()
+                +38.643  * deltaG3_hWW()
+                +7.507  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muWH()");
 
@@ -1090,31 +1131,49 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
 
 double NPEffectiveGIMR::muZH(const double sqrt_s) const
 {
-    double sigmaSM_LO, mu = 1.0;
-    if (sqrt_s == 7.0) {
-        sigmaSM_LO = 0.2276;
-        mu += (0.585 * deltaGL_f(quarks[UP])
-                - 0.264 * deltaGR_f(quarks[UP])
-                - 0.488 * deltaGL_f(quarks[DOWN])
-                + 0.089 * deltaGR_f(quarks[DOWN])
-                + 0.749 * deltaG1_hZZ() * 1000.0
-                + 1.348 * deltaG3_hZZ() / 100.0
-                + 1.098 * deltaGL_Zffh(quarks[UP])* 1000.0
-                - 0.498 * deltaGR_Zffh(quarks[UP])* 1000.0
-                - 0.891 * deltaGL_Zffh(quarks[DOWN])* 1000.0
-                + 0.164 * deltaGR_Zffh(quarks[DOWN])* 1000.0) / sigmaSM_LO;
+    double mu = 1.0;
+    if (sqrt_s == 1.96) {
+        mu += +3.529 * deltaGL_f(quarks[UP])
+                -1.598  * deltaGR_f(quarks[UP])
+                -1.229  * deltaGL_f(quarks[DOWN])
+                +0.227  * deltaGR_f(quarks[DOWN])
+                +3.215  * deltaG1_hZZ()
+                -2.922  * deltaG2_hZZ()
+                +59.223  * deltaG3_hZZ()
+                +0.495  * deltaG1_hZA()
+                -0.839  * deltaG2_hZA()
+                +5.932  * deltaGL_Zffh(quarks[UP])
+                -2.684  * deltaGR_Zffh(quarks[UP])
+                -1.878  * deltaGL_Zffh(quarks[DOWN])
+                +0.347  * deltaGR_Zffh(quarks[DOWN]);
+    } else if (sqrt_s == 7.0) {
+        mu += +2.583 * deltaGL_f(quarks[UP])
+                -1.17  * deltaGR_f(quarks[UP])
+                -2.127  * deltaGL_f(quarks[DOWN])
+                +0.392  * deltaGR_f(quarks[DOWN])
+                +3.27  * deltaG1_hZZ()
+                -3.202  * deltaG2_hZZ()
+                +59.218  * deltaG3_hZZ()
+                +0.473  * deltaG1_hZA()
+                -0.873  * deltaG2_hZA()
+                +4.763  * deltaGL_Zffh(quarks[UP])
+                -2.157  * deltaGR_Zffh(quarks[UP])
+                -3.853  * deltaGL_Zffh(quarks[DOWN])
+                +0.712  * deltaGR_Zffh(quarks[DOWN]);
     } else if (sqrt_s == 8.0) {
-        sigmaSM_LO = 0.2782;
-        mu += (0.708 * deltaGL_f(quarks[UP])
-                - 0.321 * deltaGR_f(quarks[UP])
-                - 0.602 * deltaGL_f(quarks[DOWN])
-                + 0.112 * deltaGR_f(quarks[DOWN])
-                + 0.920 * deltaG1_hZZ() * 1000.0
-                + 1.646 * deltaG3_hZZ() / 100.0
-                + 1.366 * deltaGL_Zffh(quarks[UP]) * 1000.0
-                - 0.617 * deltaGR_Zffh(quarks[UP])* 1000.0
-                - 1.122 * deltaGL_Zffh(quarks[DOWN])* 1000.0
-                + 0.206 * deltaGR_Zffh(quarks[DOWN])* 1000.0) / sigmaSM_LO;
+        mu += +2.569 * deltaGL_f(quarks[UP])
+                -1.163  * deltaGR_f(quarks[UP])
+                -2.14  * deltaGL_f(quarks[DOWN])
+                +0.395  * deltaGR_f(quarks[DOWN])
+                +3.283  * deltaG1_hZZ()
+                -3.262  * deltaG2_hZZ()
+                +59.229  * deltaG3_hZZ()
+                +0.475  * deltaG1_hZA()
+                -0.892  * deltaG2_hZA()
+                +4.848  * deltaGL_Zffh(quarks[UP])
+                -2.194  * deltaGR_Zffh(quarks[UP])
+                -3.96  * deltaGL_Zffh(quarks[DOWN])
+                +0.731  * deltaGR_Zffh(quarks[DOWN]);
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muZH()");
 
@@ -1130,14 +1189,45 @@ double NPEffectiveGIMR::muVH(const double sqrt_s) const
     return ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
 }
 
+double NPEffectiveGIMR::muVBFVH(const double sqrt_s) const
+{
+    double sigmaWH_SM = computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = computeSigmaZH(sqrt_s);
+    double sigmaVBF_SM = computeSigmaVBF(sqrt_s);
+    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
+    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
+    double sigmaVBF = muVBF(sqrt_s) * sigmaVBF_SM;
+
+    return ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+}
+
 double NPEffectiveGIMR::muttH(const double sqrt_s) const
 {
-    double m_t = mtpole;
-    //doulbe m_t = quarks[TOP].getMass();
+    double mu = 1.0;
+    if (sqrt_s == 1.96) {
+        mu += -2.863 * deltaG_hff(quarks[TOP]).real()
+      +1.737 * deltaG_hgg();
+    } else if (sqrt_s == 7.0) {
+        mu += -2.861 * deltaG_hff(quarks[TOP]).real()
+      +2.583 * deltaG_hgg();
+    } else if (sqrt_s == 8.0) {
+        mu += -2.861 * deltaG_hff(quarks[TOP]).real()
+      +2.637 * deltaG_hgg();
+    } else
+        throw std::runtime_error("Bad argument in NPEffectiveGIMR::muttH()");
 
-    double kt2 = 1.0 + 2.0 * deltaG_hff(quarks[TOP]).real() / (-m_t / v());
-    return kt2;
+    return mu;
 }
+
+double NPEffectiveGIMR::muggFttH(const double sqrt_s) const
+{
+    double sigmaggH_SM = computeSigmaggH(sqrt_s);
+    double sigmattH_SM = computeSigmattH(sqrt_s);
+    double sigmaggH = muggH(sqrt_s) * sigmaggH_SM;
+    double sigmattH = muttH(sqrt_s) * sigmattH_SM;
+
+    return ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
+} 
 
 double NPEffectiveGIMR::BrHggRatio() const
 {
@@ -1194,75 +1284,69 @@ double NPEffectiveGIMR::computeGammaTotalRatio() const
 double NPEffectiveGIMR::GammaHggRatio() const
 {
     return (1.0
-            + 222210.0 * CdH_33r / LambdaNP2
-            + 178394.0 * CuH_22r / LambdaNP2
-            - 129719.0 * CuH_33r / LambdaNP2
-            + 3.57e7 * CHG / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
+            +151.669 * deltaG_hgg()
+            -3.006 * deltaG_hff(quarks[TOP]).real()
+            +5.853 * deltaG_hff(quarks[BOTTOM]).real()
+            +4.71 * deltaG_hff(quarks[CHARM]).real());
 }
 
 double NPEffectiveGIMR::GammaHWWRatio() const
 {
     return (1.0
-            - 94239.0 * CHW / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
+            -0.183 * deltaG1_hWW()
+            -0.275 * deltaG2_hWW()
+            +38.683 * deltaG3_hWW());
 }
 
 double NPEffectiveGIMR::GammaHZZRatio() const
 {
     return (1.0
-            - 14237.0 * CHB / LambdaNP2
-            - 48889.0 * CHW / LambdaNP2
-            - 26023.0 * CHWB / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 + CHD / LambdaNP2));
+            -0.247 * deltaG1_hZZ()
+            -0.241 * deltaG2_hZZ()
+            +59.249 * deltaG3_hZZ()
+            +0.075 * deltaG3_hWW());
 }
 
 double NPEffectiveGIMR::GammaHZgaRatio() const
 {
     return (1.0
-            - 6666.0 * CdH_33r / LambdaNP2
-            - 3717.0 * CuH_22r / LambdaNP2
-            + 7343.0 * CuH_33r / LambdaNP2
-            - 535.0 * CeH_33r / LambdaNP2
-            + 1.48e7 * CHB / LambdaNP2
-            - 1.46e7 * CHW / LambdaNP2
-            + 9.87e6 * CHWB / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
+            +0.033 * deltaG3_hZZ()
+            -71.321 * deltaG1_hZA()
+            +40.776 * deltaG3_hWW()
+            +0.172 * deltaG_hff(quarks[TOP]).real()
+            -0.301 * deltaG_hff(quarks[BOTTOM]).real()
+            +0.196 * deltaG_hff(leptons[TAU]).real()
+            +0.232 * deltaG_hff(quarks[CHARM]).real());
 }
 
 double NPEffectiveGIMR::GammaHgagaRatio() const
 {
     return (1.0
-            - 15555.0 * CdH_33r / LambdaNP2
-            - 22299.0 * CuH_22r / LambdaNP2
-            + 33042.0 * CuH_33r / LambdaNP2
-            - 41583.0 * CeH_33r / LambdaNP2
-            - 5.09e7 * CHB / LambdaNP2
-            - 1.43e7 * CHW / LambdaNP2
-            + 2.73e7 * CHWB / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
+            -0.033 * deltaG3_hZZ()
+            -257.366 * deltaG_hAA()
+            +48.696 * deltaG3_hWW()
+            +0.761 * deltaG_hff(quarks[TOP]).real()
+            -0.441 * deltaG_hff(quarks[BOTTOM]).real()
+            -1.087 * deltaG_hff(leptons[TAU]).real()
+            -0.646 * deltaG_hff(quarks[CHARM]).real());
 }
 
 double NPEffectiveGIMR::GammaHtautauRatio() const
 {
     return (1.0
-            - 1.19e7 * CeH_33r / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
+            -277.458 * deltaG_hff(leptons[TAU]).real());
 }
 
 double NPEffectiveGIMR::GammaHccRatio() const
 {
     return (1.0
-            - 1.48e7 * CuH_22r / LambdaNP2
-            - 918.0 * CuH_33r / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
+            -383.036 * deltaG_hff(quarks[CHARM]).real());
 }
 
 double NPEffectiveGIMR::GammaHbbRatio() const
 {
     return (1.0
-            - 4.43e6 * CdH_33r / LambdaNP2
-            - 520.0 * CuH_33r / LambdaNP2
-            + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
+            -0.013 * deltaG_hff(quarks[TOP]).real()
+            -117.431 * deltaG_hff(quarks[BOTTOM]).real());
 }
 

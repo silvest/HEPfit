@@ -13,7 +13,7 @@ RGEvolutor(dim_i, scheme, order),
 model(model),
 dim(dim_i)
 {
-    double Nc = model.getNc();
+    //double Nc = model.getNc();
     int basis = 0; //0: Gabbiani, 1: Buras
     matrix<double> g0t(AnomalousDimension(LO, 3, basis).transpose());
 
