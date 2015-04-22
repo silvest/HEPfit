@@ -51,8 +51,8 @@ source directory can be made for building SusyFit (recommended, as it allows for
 
 where the available options are:
 
-  * -DLOCAL_INSTALL_ALL
-    to install BAT and SusyFit in the current directory
+  * -DLOCAL_INSTALL_ALL=ON
+    to install BAT and SusyFit in the current directory (default: OFF)
   * -DCMAKE_INSTALL_PREFIX=<SusyFit installation directory> (default: /usr/local)
   * -DNOMCMC=ON  
     to enable the No MCMC mode (default: OFF)
