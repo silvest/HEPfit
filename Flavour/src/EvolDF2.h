@@ -22,7 +22,7 @@ public:
      * @param order
      * @param model 
      */
-    EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model);
+    EvolDF2(unsigned int dim_i, schemes scheme, orders order, const StandardModel& model);
     
     /**
      * 
@@ -87,6 +87,7 @@ private:
     double c[3][5][5][5];
     double d[3][5][5][5];
     const StandardModel& model;
+    unsigned int dim;
 };
 
 #endif	/* EVOLDF2_H */
