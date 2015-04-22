@@ -9,12 +9,12 @@
 
 EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, orders_ew 
     order_ew, const StandardModel& model)
-: RGEvolutor(dim_i, scheme, order, order_ew), model(model), dim(dim_i), V(dim_i,0.), Vi(dim_i,0.),
+: RGEvolutor(dim_i, scheme, order, order_ew), model(model), V(dim_i,0.), Vi(dim_i,0.),
     gs(dim_i,0.), Js(dim_i,0.), ge0(dim_i,0.), K0(dim_i,0.), ge11(dim_i,0.), K11(dim_i,0.),
     JsK0V(dim_i,0.), ViK0Js(dim_i,0.), Gamma_s0T(dim_i,0.), Gamma_s1T(dim_i,0.), 
     Gamma_eT(dim_i,0.), Gamma_seT(dim_i,0.), JsV(dim_i,0.), ViJs(dim_i,0.), K0V(dim_i,0.), 
     ViK0(dim_i,0.), K11V(dim_i,0.), ViK11(dim_i,0.), ge11sing(dim_i,0.), K11sing(dim_i,0.), 
-    K11singV(dim_i,0.), e(dim_i,0.) {
+    K11singV(dim_i,0.), e(dim_i,0.), dim(dim_i) {
     
     int nu = 0, nd = 0;
     double  b0 = 0., b1 = 0.;
