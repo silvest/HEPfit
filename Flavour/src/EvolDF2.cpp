@@ -8,16 +8,17 @@
 #include <cstring>
 #include "EvolDF2.h"
 
-EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model) :
-RGEvolutor(dim, scheme, order),
-model(model)
+EvolDF2::EvolDF2(unsigned int dim_i, schemes scheme, orders order, const StandardModel& model) :
+RGEvolutor(dim_i, scheme, order),
+model(model),
+dim(dim_i)
 {
     double Nc = model.getNc();
     int basis = 0; //0: Gabbiani, 1: Buras
     matrix<double> g0t(AnomalousDimension(LO, 3, basis).transpose());
 
-    matrix<complex>vv(5, 5, 0.);
-    vector<complex>ee(5, 0.);
+    matrix<complex>vv(dim, dim, 0.);
+    vector<complex>ee(dim, 0.);
 
     g0t.eigensystem(vv, ee);
 
@@ -25,11 +26,11 @@ model(model)
     vector<double> e(ee.real());
 
     matrix<double> vi = v.inverse();
-    for (int k = 0; k < 5; k++) {
+    for (unsigned int k = 0; k < dim; k++) {
         a[k] = e(k);
 //        std::cout << "a[" << k << "] = " << a[k] << std::endl;
-        for (int j = 0; j < 5; j++) {
-            for (int i = 0; i < 5; i++) {
+        for (unsigned int j = 0; j < dim; j++) {
+            for (unsigned int i = 0; i < dim; i++) {
                 b[i][j][k] = v(i, k) * vi(k, j);
 //                if (b[i][j][k] != 0.)
 //                    std::cout << "b[" << i << "][" << j << "][" << k << "] = " << b[i][j][k] << std::endl;
@@ -37,20 +38,20 @@ model(model)
         }
     }
 
-    matrix<double> h(5, 5, 0.);
+    matrix<double> h(dim, dim, 0.);
     for (int l = 0; l < 3; l++) {
         matrix<double> gg = vi * (AnomalousDimension(NLO, 6 - l, basis).transpose()) * v;
         double b0 = model.Beta0(6 - l);
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
+        for (unsigned int i = 0; i < dim; i++)
+            for (unsigned int j = 0; j < dim; j++)
                 h(i, j) = (i == j) * e(i) * model.Beta1(6 - l) / (2. * b0 * b0) -
                 gg(i, j) / (2. * b0 + e(i) - e(j));
         matrix<double> j = v * h * vi;
         matrix<double> jv = j*v;
         matrix<double> vij = vi*j;
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
-                for (int k = 0; k < 5; k++) {
+        for (unsigned int i = 0; i < dim; i++)
+            for (unsigned int j = 0; j < dim; j++)
+                for (unsigned int k = 0; k < dim; k++) {
                     c[l][i][j][k] = jv(i, k) * vi(k, j);
 //                    if (c[l][i][j][k] != 0.)
 //                        std::cout << "c[" << l << "][" << i << "][" << j << "][" << k << "] = " << c[l][i][j][k] << std::endl;
@@ -67,7 +68,7 @@ EvolDF2::~EvolDF2()
 
 matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf, int basis) const
 {
-    matrix<double> ad(5, 5, 0.);
+    matrix<double> ad(dim, dim, 0.);
     double Nc = model.getNc();
     switch (basis) {
         case 0:
@@ -185,7 +186,7 @@ matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes sche
 void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme)
 {
 
-    matrix<double> resLO(5, 0.), resNLO(5, 0.), resNNLO(5, 0.);
+    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int l = 6 - (int) nf;
     double alsM = model.Als(M, FULLNLO) / 4. / M_PI;
@@ -193,10 +194,10 @@ void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme)
 
     double eta = alsM / alsmu;
 
-    for (int k = 0; k < 5; k++) {
+    for (unsigned int k = 0; k < dim; k++) {
         double etap = pow(eta, a[k] / 2. / model.Beta0(nf));
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++) {
+        for (unsigned int i = 0; i < dim; i++)
+            for (unsigned int j = 0; j < dim; j++) {
                 resNNLO(i, j) += 0.;
                 resNLO(i, j) += c[l][i][j][k] * etap * alsmu;
                 resNLO(i, j) += d[l][i][j][k] * etap * alsM;

@@ -223,12 +223,12 @@ matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(NLO): 
             mat = AnomalousDimension_M(NLO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<dim; j++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = mat1(i,j);
                 }
             }
-            for (int i=6; i<dim; i++){
-                for (int j=6; j<dim; j++){
+            for (unsigned int i=6; i<dim; i++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta1(nf);
                 }
             }
@@ -236,12 +236,12 @@ matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(LO):
             mat = AnomalousDimension_M(LO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<dim; j++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = AnomalousDimension_M(NLO, n_u, n_d)(i,j);
                 }
             }
-            for (int i=6; i<dim; i++){
-                for (int j=6; j<dim; j++){
+            for (unsigned int i=6; i<dim; i++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta0(nf);
                 }
             }
@@ -329,10 +329,10 @@ matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
     
     double eta = alsM / alsmu;
     
-    for (int k = 0; k < dim; k++) {
+    for (unsigned int k = 0; k < dim; k++) {
         double etap = pow(eta, a[L][k] / 2. / model.Beta0(nf));
-        for (int i = 0; i < dim; i++){
-            for (int j = 0; j < dim; j++) {
+        for (unsigned int i = 0; i < dim; i++){
+            for (unsigned int j = 0; j < dim; j++) {
                 resNNLO(i, j) += 0.;
                 
                 if(fabs(e(i).real() - e(j).real() + 2. * model.Beta0(nf))>0.000000000001)  {

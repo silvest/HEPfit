@@ -92,6 +92,7 @@ class EvolDC1 : public RGEvolutor {
     void DC1Evol(double mu, double M, double nf, schemes scheme);
     gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<complex> e;
+    unsigned int dim;
     
  };
 

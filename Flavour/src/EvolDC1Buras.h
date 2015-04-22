@@ -33,7 +33,7 @@ class EvolDC1Buras : public RGEvolutor {
      * @param order an enum "orders" for the order of perturbation theory of the evolutor
      * @param model an object of StandardModel class 
      */    
-    EvolDC1Buras(unsigned int dim,  schemes scheme, orders order, const StandardModel& model);
+    EvolDC1Buras(unsigned int dim_i,  schemes scheme, orders order, const StandardModel& model);
     /**
      * @brief EvolDC1Buras destructor
      */
@@ -92,6 +92,7 @@ class EvolDC1Buras : public RGEvolutor {
     void DC1PenguinThresholds(double M, orders order);
     gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<complex> e;
+    unsigned int dim;
     
  };
 

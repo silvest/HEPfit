@@ -123,6 +123,7 @@ class EvolDF1nlep : public RGEvolutor {
                                     Gamma_s0T, Gamma_s1T, Gamma_eT, Gamma_seT, JsV, ViJs,
                                     K0V, ViK0, K11V, ViK11, ge11sing, K11sing, K11singV;
     gslpp::vector<gslpp::complex> e;
+    unsigned int dim;
     
 
  };

@@ -7,14 +7,14 @@
 
 #include "EvolDF1nlep.h"
 
-EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_ew 
+EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, orders_ew 
     order_ew, const StandardModel& model)
-: RGEvolutor(dim, scheme, order, order_ew), model(model), V(10,0.), Vi(10,0.),
-    gs(10,0.), Js(10,0.), ge0(10,0.), K0(10,0.), ge11(10,0.), K11(10,0.),
-    JsK0V(10,0.), ViK0Js(10,0.), Gamma_s0T(10,0.), Gamma_s1T(10,0.), 
-    Gamma_eT(10,0.), Gamma_seT(10,0.), JsV(10,0.), ViJs(10,0.), K0V(10,0.), 
-    ViK0(10,0.), K11V(10,0.), ViK11(10,0.), ge11sing(10,0.), K11sing(10,0.), 
-    K11singV(10,0.), e(10,0.) {
+: RGEvolutor(dim_i, scheme, order, order_ew), model(model), dim(dim_i), V(dim_i,0.), Vi(dim_i,0.),
+    gs(dim_i,0.), Js(dim_i,0.), ge0(dim_i,0.), K0(dim_i,0.), ge11(dim_i,0.), K11(dim_i,0.),
+    JsK0V(dim_i,0.), ViK0Js(dim_i,0.), Gamma_s0T(dim_i,0.), Gamma_s1T(dim_i,0.), 
+    Gamma_eT(dim_i,0.), Gamma_seT(dim_i,0.), JsV(dim_i,0.), ViJs(dim_i,0.), K0V(dim_i,0.), 
+    ViK0(dim_i,0.), K11V(dim_i,0.), ViK11(dim_i,0.), ge11sing(dim_i,0.), K11sing(dim_i,0.), 
+    K11singV(dim_i,0.), e(dim_i,0.) {
     
     int nu = 0, nd = 0;
     double  b0 = 0., b1 = 0.;
@@ -39,18 +39,18 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_
         Vi = V.inverse();
         
         /* magic numbers of U0 */
-        for(int i = 0; i <10; i++){
+        for(unsigned int i = 0; i < dim; i++){
             a[L][i] = e(i).real()/2./b0;
-            for (int j = 0; j < 10; j++){
-                for (int k = 0; k < 10; k++){
+            for (unsigned int j = 0; j < dim; j++){
+                for (unsigned int k = 0; k < dim; k++){
                     b[L][i][j][k] = V(i, k).real() * Vi(k, j).real();
                 }
             }
         }
     
         gs = (b1/2./b0/b0) * Vi * Gamma_s0T * V - (1./2./b0) * Vi * Gamma_s1T * V;
-        for(int i = 0; i<10 ; i++){
-            for(int j = 0; j<10 ; j++){  
+        for(unsigned int i = 0; i<dim ; i++){
+            for(unsigned int j = 0; j<dim ; j++){  
                 gs.assign( i , j, gs(i,j)/(1. + a[L][i] - a[L][j]));
             }
         }
@@ -59,9 +59,9 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_
         /*magic numbers related to Js*/
         JsV = Js*V;
         ViJs = Vi * Js;
-        for(int i = 0; i<10; i++){
-            for(int j = 0; j<10; j++){
-                for(int k = 0; k<10; k++){
+        for(unsigned int i = 0; i<dim; i++){
+            for(unsigned int j = 0; j<dim; j++){
+                for(unsigned int k = 0; k<dim; k++){
                     c[L][i][j][k] = JsV(i, k).real() * Vi(k, j).real();
                     d[L][i][j][k] = -V(i, k).real() * ViJs(k, j).real();
                 }
@@ -69,8 +69,8 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_
         }
         
         ge0 = (1./2./b0) *  Vi * Gamma_eT * V;
-        for(int i = 0; i<10 ; i++){
-            for(int j = 0; j<10 ; j++){
+        for(unsigned int i = 0; i<dim ; i++){
+            for(unsigned int j = 0; j<dim ; j++){
                 ge0.assign( i , j, ge0(i,j)/(1. - a[L][i] + a[L][j]));
             }
         }
@@ -79,9 +79,9 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_
         /*magic numbers related to K0*/
         K0V = K0*V;
         ViK0 = Vi * K0;
-        for(int i = 0; i<10; i++){
-            for(int j = 0; j<10; j++){
-                for(int k = 0; k<10; k++){
+        for(unsigned int i = 0; i<dim; i++){
+            for(unsigned int j = 0; j<dim; j++){
+                for(unsigned int k = 0; k<dim; k++){
                     m[L][i][j][k] = K0V(i, k).real() * Vi(k, j).real();
                     n[L][i][j][k] = -V(i, k).real() * ViK0(k, j).real();
                 }
@@ -91,8 +91,8 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_
         ge11 = Gamma_seT - (b1/b0) * Gamma_eT + Gamma_eT * Js - Js * Gamma_eT;
         ge11 = Vi * ge11;
         ge11 = ge11 * V;
-        for(int i = 0; i<10 ; i++){
-            for(int j = 0; j<10 ; j++){
+        for(unsigned int i = 0; i<dim ; i++){
+            for(unsigned int j = 0; j<dim ; j++){
                 if(fabs(a[L][j]-a[L][i])> 0.00000000001){
                     ge11.assign( i , j, ge11(i,j)/( 2. * b0 * (a[L][j] - a[L][i])));
                 }
@@ -110,9 +110,9 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_
         K11singV = K11sing * V;
         if(L==1){
         }
-        for(int i = 0; i<10 ; i++){
-            for(int j = 0; j<10 ; j++){
-                    for(int k = 0; k<10 ; k++){
+        for(unsigned int i = 0; i<dim ; i++){
+            for(unsigned int j = 0; j<dim ; j++){
+                    for(unsigned int k = 0; k<dim ; k++){
                         o[L][i][j][k] = K11V(i, k).real() * Vi(k, j).real();
                         p[L][i][j][k] = -V(i, k).real() * ViK11(k, j).real();
                         u[L][i][j][k] = K11singV(i, k).real() * Vi(k, j).real();
@@ -123,9 +123,9 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_
         /*magic numbers related to K12 and K13*/
         JsK0V = Js * K0 * V; 
         ViK0Js = Vi * K0 * Js;
-        for(int i = 0; i<10 ; i++){
-            for(int j = 0; j<10 ; j++){
-                for(int k=0; k<10; k++){
+        for(unsigned int i = 0; i<dim ; i++){
+            for(unsigned int j = 0; j<dim ; j++){
+                for(unsigned int k=0; k<dim; k++){
                     q[L][i][j][k] =  JsK0V(i, k).real() * Vi(k, j).real();
                     r[L][i][j][k] =  V(i, k).real() * ViK0Js(k, j).real();
                     s[L][i][j][k] = -JsV(i, k).real() * ViK0(k, j).real();
@@ -147,7 +147,7 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int
     /*gamma(row, column) leading order*/
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    matrix<double> gammaDF1(10, 0.);
+    matrix<double> gammaDF1(dim, 0.);
    
     switch(order){
         
@@ -300,7 +300,7 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned in
     /* anomalous dimension related to Buras operators hep-ph/9512380v1 */
     /*gamma(riga, colonna) leading order*/
     unsigned int nf = n_u + n_d; /*n_u\d = active type up/down flavor d.o.f.*/
-    matrix<double> gammaDF1(10, 0.);
+    matrix<double> gammaDF1(dim, 0.);
    
     switch(order){
         
@@ -469,7 +469,7 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned in
 
 matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const {
     
-    matrix <double> delta_rsT(10,0.); 
+    matrix <double> delta_rsT(dim,0.); 
   
     delta_rsT(2,3) = 5./27.;
     delta_rsT(2,5) = 5./27.;
@@ -513,7 +513,7 @@ matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const {
 
 matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const {
  
-    matrix<double> delta_reT(10,0.);    
+    matrix<double> delta_reT(dim,0.);    
     
     if(nf == 3. || nf == 5.){
         
@@ -615,7 +615,7 @@ matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orde
 
 void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) {
 
-  matrix<double> resLO(10, 0.), resNLO(10, 0.), resLO_ew(10,0.), resNLO_ew(10,0.);
+  matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resLO_ew(dim,0.), resNLO_ew(dim,0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -624,10 +624,10 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) {
     
     double eta = alsM / alsmu;
     
-    for (int k = 0; k < 10; k++) {
+    for (unsigned int k = 0; k < dim; k++) {
         double etap = pow(eta, a[L][k]);
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (unsigned int i = 0; i < dim; i++) {
+            for (unsigned int j = 0; j < dim; j++) {
                 
                 resLO(i,j) += b[L][i][j][k] * etap;
                 
@@ -675,7 +675,7 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) {
 
 void EvolDF1nlep::Df1threshold_nlep(double M, double nf){
  
-    matrix<double> drsT(10,0.), dreT(10,0.);
+    matrix<double> drsT(dim,0.), dreT(dim,0.);
     
     double alsM = model.Als(M) / 4. / M_PI;
     double ale = model.getAle() / 4. / M_PI ;
