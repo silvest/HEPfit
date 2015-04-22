@@ -75,7 +75,7 @@ std::string InputParser::ReadParameters(const std::string filename,
         IsEOF = getline(ifile, line).eof();
         lineNo += 1;
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
-        if (line.empty() || line.at(0) == '#')
+        if (line.empty() || line.find_first_not_of(' ') == std::string::npos || line.at(0) == '#')
             continue;
         boost::char_separator<char> sep(" ");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
