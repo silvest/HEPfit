@@ -10,10 +10,10 @@
 #include <stdexcept>
 
 
-EvolDC1Buras::EvolDC1Buras(unsigned int dim, schemes scheme, orders order,
-             const StandardModel& model) : RGEvolutor(dim, scheme, order), model(model),
-             v(10,0.), vi(10,0.), js(10,0.), h(10,0.), gg(10,0.), s_s(10,0.),
-             jssv(10,0.), jss(10,0.), jv(10,0.), vij(10,0.), e(10,0.)  {
+EvolDC1Buras::EvolDC1Buras(unsigned int dim_i, schemes scheme, orders order,
+             const StandardModel& model) : RGEvolutor(dim_i, scheme, order), model(model),
+             v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.), s_s(dim_i,0.),
+             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.), dim(dim_i)  {
     
     /*magic numbers a & b */
     
@@ -27,10 +27,10 @@ EvolDC1Buras::EvolDC1Buras(unsigned int dim, schemes scheme, orders order,
     
     AnomalousDimension_DC1_Buras(LO,nu,nd).transpose().eigensystem(v,e);
     vi = v.inverse();
-    for(int i = 0; i < 10; i++){
+    for(unsigned int i = 0; i < dim; i++){
        a[L][i] = e(i).real();
-       for (int j = 0; j < 10; j++) {
-           for (int k = 0; k < 10; k++)  {
+       for (unsigned int j = 0; j < dim; j++) {
+           for (unsigned int k = 0; k < dim; k++)  {
                 b[L][i][j][k] = v(i, k).real() * vi(k, j).real();
                }
            }
@@ -41,8 +41,8 @@ EvolDC1Buras::EvolDC1Buras(unsigned int dim, schemes scheme, orders order,
     gg = vi * AnomalousDimension_DC1_Buras(NLO,nu,nd).transpose() * v;
     double b0 = model.Beta0(6-L);
     double b1 = model.Beta1(6-L);
-    for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
+    for (unsigned int i = 0; i < dim; i++){
+        for (unsigned int j = 0; j < dim; j++){
             s_s.assign( i, j, (b1 / b0) * (i==j) * e(i).real() - gg(i,j));    
             if(fabs(e(i).real() - e(j).real() + 2. * b0)>0.00000000001){
                 h.assign( i, j, s_s(i,j) / (2. * b0 + e(i) - e(j)));
@@ -54,16 +54,16 @@ EvolDC1Buras::EvolDC1Buras(unsigned int dim, schemes scheme, orders order,
     vij = vi * js;
     jss = v * s_s * vi;
     jssv = jss * v;        
-    for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
+    for (unsigned int i = 0; i < dim; i++){
+        for (unsigned int j = 0; j < dim; j++){
             if(fabs(e(i).real() - e(j).real() + 2. * b0) > 0.00000000001){
-                for(int k = 0; k < 10; k++){
+                for(unsigned int k = 0; k < dim; k++){
                         c[L][i][j][k] = jv(i, k).real() * vi(k, j).real();
                         d[L][i][j][k] = -v(i, k).real() * vij(k, j).real();
                         }
                     }
             else{    
-                for(int k = 0; k < 10; k++){
+                for(unsigned int k = 0; k < dim; k++){
                    c[L][i][j][k] = (1./(2. * b0)) * jssv(i, k).real() * vi(k, j).real();
                    d[L][i][j][k] = 0.;
                    }   
@@ -84,7 +84,7 @@ matrix<double> EvolDC1Buras::AnomalousDimension_DC1_Buras(orders order, unsigned
     /* gamma(row, column) at the LO */
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    matrix<double> gammaDF1(10, 0.);
+    matrix<double> gammaDF1(dim, 0.);
     
     switch(order){
         
@@ -223,7 +223,7 @@ matrix<double>& EvolDC1Buras::DC1EvolBuras(double mu, double M, orders order, sc
     
 void EvolDC1Buras::DC1EvolBuras(double mu, double M, double nf, schemes scheme) {
 
-    matrix<double> resLO(10, 0.), resNLO(10, 0.), resNNLO(10, 0.);
+    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -231,10 +231,10 @@ void EvolDC1Buras::DC1EvolBuras(double mu, double M, double nf, schemes scheme) 
     
     double eta = alsM / alsmu;
     
-    for (int k = 0; k < 10; k++) {
+    for (unsigned int k = 0; k < dim; k++) {
         double etap = pow(eta, a[L][k] / 2. / model.Beta0(nf));
-        for (int i = 0; i < 10; i++){
-            for (int j = 0; j < 10; j++) {
+        for (unsigned int i = 0; i < dim; i++){
+            for (unsigned int j = 0; j < dim; j++) {
                 resNNLO(i, j) += 0.;
                 
                 if(fabs(e(i).real() - e(j).real() + 2. * model.Beta0(nf))>0.000000000001)  {
@@ -268,7 +268,7 @@ matrix<double> EvolDC1Buras::StrongThresholds() const{
 
 // entries of the threshold matrix for the evolution at the NLO
     
-matrix<double> deltarsT(10,0.);
+matrix<double> deltarsT(dim,0.);
 
 deltarsT(2,3) = 5./27.;
 deltarsT(2,5) = 5./27.;
@@ -286,7 +286,7 @@ return(deltarsT);
 void EvolDC1Buras::DC1PenguinThresholds(double M, orders order) {
 
     double alsM = model.Als(M) / 4. / M_PI;
-    matrix<double> drsT(10,0.);
+    matrix<double> drsT(dim,0.);
     drsT = alsM * StrongThresholds();
     *elem[NLO] = (*elem[NLO]) + (*elem[LO]) * drsT;  
   }

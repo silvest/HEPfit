@@ -1,0 +1,10 @@
+echo "LD_LIBRARY_PATH=@MPI_LIB_PATH@:@ROOT_LIB_PATH@:${LD_LIBRARY_PATH}; export LD_LIBRARY_PATH"
+LD_LIBRARY_PATH=@MPI_LIB_PATH@:@ROOT_LIB_PATH@:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH
+if [ $# = 2 ] ; then
+  echo "CXX=$2; export CXX"
+  CXX=$2
+  export CXX
+fi
+echo "$1"
+$1

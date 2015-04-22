@@ -1,0 +1,7 @@
+0. Make sure if you have python3 in the PATH
+1. Specify your SusyFit directory in makePackage.sh
+
+ORGDIR="${HOME}/NetBeansProjects/SusyFit"
+
+2. sh makePackage.sh
+

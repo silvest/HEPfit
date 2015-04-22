@@ -1,0 +1,10 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+includedir=${prefix}/include/SusyFit
+libdir=${prefix}/lib
+bindir=${prefix}/bin
+
+Name: SusyFit
+Description: The SusyFit library
+Version: VERSIONNUMBER
+Cflags: -I${includedir}
+Libs: -L${libdir} -lSusyFit

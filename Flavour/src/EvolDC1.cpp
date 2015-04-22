@@ -10,10 +10,10 @@
 #include <stdexcept>
 
 
-EvolDC1::EvolDC1(unsigned int dim, schemes scheme, orders order,
-             const StandardModel& model) : RGEvolutor(dim, scheme, order), model(model),
-             v(10,0.), vi(10,0.), js(10,0.), h(10,0.), gg(10,0.),s_s(10,0.),
-             jssv(10,0.), jss(10,0.), jv(10,0.), vij(10,0.), e(10,0.) {
+EvolDC1::EvolDC1(unsigned int dim_i, schemes scheme, orders order,
+             const StandardModel& model) : RGEvolutor(dim_i, scheme, order), model(model),
+             v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.),s_s(dim_i,0.),
+             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.), dim(dim_i) {
     
     /* magic numbers a & b */
     
@@ -29,10 +29,10 @@ EvolDC1::EvolDC1(unsigned int dim, schemes scheme, orders order,
     
     (ToEffectiveBasis(ToRescaledBasis(LO,nu,nd))).transpose().eigensystem(v,e);
     vi = v.inverse();
-    for(int i = 0; i < 10; i++){
+    for(unsigned int i = 0; i < dim; i++){
        a[L][i] = e(i).real();
-       for (int j = 0; j < 10; j++) {
-           for (int k = 0; k < 10; k++)  {
+       for (unsigned int j = 0; j < dim; j++) {
+           for (unsigned int k = 0; k < dim; k++)  {
                 b[L][i][j][k] = v(i, k).real() * vi(k, j).real();
                }
            }
@@ -43,8 +43,8 @@ EvolDC1::EvolDC1(unsigned int dim, schemes scheme, orders order,
     gg = vi * (ToEffectiveBasis(ToRescaledBasis(NLO,nu,nd))).transpose() * v;
     double b0 = model.Beta0(6-L);
     double b1 = model.Beta1(6-L);
-    for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
+    for (unsigned int i = 0; i < dim; i++){
+        for (unsigned int j = 0; j < dim; j++){
             s_s.assign( i, j, (b1 / b0) * (i==j) * e(i).real() - gg(i,j));    
             if(fabs(e(i).real() - e(j).real() + 2. * b0)>0.00000000001){
                 h.assign( i, j, s_s(i,j) / (2. * b0 + e(i) - e(j)));
@@ -56,16 +56,16 @@ EvolDC1::EvolDC1(unsigned int dim, schemes scheme, orders order,
     vij = vi * js;
     jss = v * s_s * vi;
     jssv = jss * v;        
-    for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
+    for (unsigned int i = 0; i < dim; i++){
+        for (unsigned int j = 0; j < dim; j++){
             if(fabs(e(i).real() - e(j).real() + 2. * b0) > 0.00000000001){
-                for(int k = 0; k < 10; k++){
+                for(unsigned int k = 0; k < dim; k++){
                         c[L][i][j][k] = jv(i, k).real() * vi(k, j).real();
                         d[L][i][j][k] = -v(i, k).real() * vij(k, j).real();
                         }
                     }
             else{    
-                for(int k = 0; k < 10; k++){
+                for(unsigned int k = 0; k < dim; k++){
                    c[L][i][j][k] = (1./(2. * b0)) * jssv(i, k).real() * vi(k, j).real();
                    d[L][i][j][k] = 0.;
                    }   
@@ -89,7 +89,7 @@ matrix<double> EvolDC1::AnomalousDimension_M(orders order, unsigned int n_u,
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
   
-    matrix<double> gammaDF1(10,10, 0.);
+    matrix<double> gammaDF1(dim, dim, 0.);
    
     switch(order){
         
@@ -225,8 +225,8 @@ matrix<double> EvolDC1::ToRescaledBasis(orders order, unsigned int n_u, unsigned
     /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
        ref. hep-ph/9711280v1, hep-ph/0504194 */
     
-    matrix<double> mat(10, 0.);
-    matrix<double> mat1(10,0.);
+    matrix<double> mat(dim, 0.);
+    matrix<double> mat1(dim, 0.);
     unsigned int nf = n_u + n_d;
     double z3 = gsl_sf_zeta_int(3);
     
@@ -269,12 +269,12 @@ matrix<double> EvolDC1::ToRescaledBasis(orders order, unsigned int n_u, unsigned
         case(NLO): 
             mat = AnomalousDimension_M(NLO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<10; j++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = mat1(i,j);
                 }
             }
-            for (int i=6; i<10; i++){
-                for (int j=6; j<10; j++){
+            for (unsigned int i=6; i<dim; i++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta1(nf);
                 }
             }
@@ -282,12 +282,12 @@ matrix<double> EvolDC1::ToRescaledBasis(orders order, unsigned int n_u, unsigned
         case(LO):
             mat = AnomalousDimension_M(LO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<10; j++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = AnomalousDimension_M(NLO, n_u, n_d)(i,j);
                 }
             }
-            for (int i=6; i<10; i++){
-                for (int j=6; j<10; j++){
+            for (unsigned int i=6; i<dim; i++){
+                for (unsigned int j=6; j<dim; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta0(nf);
                 }
             }
@@ -300,7 +300,7 @@ matrix<double> EvolDC1::ToRescaledBasis(orders order, unsigned int n_u, unsigned
 
 matrix<double> EvolDC1::ToEffectiveBasis(matrix<double> mat) const{
     
-    gslpp::matrix<double> y(10, 0.);
+    gslpp::matrix<double> y(dim, 0.);
     
     y(0,0) = 1.;
     y(1,1) = 1.;
@@ -367,7 +367,7 @@ matrix<double>& EvolDC1::DC1Evol(double mu, double M, orders order, schemes sche
     
  void EvolDC1::DC1Evol(double mu, double M, double nf, schemes scheme) {
 
-    matrix<double> resLO(10, 0.), resNLO(10, 0.), resNNLO(10, 0.);
+    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -375,10 +375,10 @@ matrix<double>& EvolDC1::DC1Evol(double mu, double M, orders order, schemes sche
     
     double eta = alsM / alsmu;
     
-    for (int k = 0; k < 10; k++) {
+    for (unsigned int k = 0; k < dim; k++) {
         double etap = pow(eta, a[L][k] / 2. / model.Beta0(nf));
-        for (int i = 0; i < 10; i++){
-            for (int j = 0; j < 10; j++) {
+        for (unsigned int i = 0; i < dim; i++){
+            for (unsigned int j = 0; j < dim; j++) {
                 resNNLO(i, j) += 0.;
                 
                 if(fabs(e(i).real() - e(j).real() + 2. * model.Beta0(nf))>0.000000000001)  {
