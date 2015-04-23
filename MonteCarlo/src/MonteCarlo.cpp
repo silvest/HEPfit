@@ -332,7 +332,7 @@ void MonteCarlo::Run(const int rank)
 
             // draw the correlation matrix into an eps file
             if (PrintCorrelationMatrix)
-                myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".eps").c_str());
+                myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".pdf").c_str());
 
             // print the correlation matrix into a tex file
             if (PrintCorrelationMatrix)
@@ -341,11 +341,11 @@ void MonteCarlo::Run(const int rank)
             // print comparisons of the prior knowledge to the posterior knowledge 
             // for all parameters into a PostScript file
             if (PrintKnowledgeUpdatePlots)
-                myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".ps").c_str());
+                myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".pdf").c_str());
 
             // draw an overview plot of the parameters into an eps file
             if (PrintParameterPlot)
-                myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".eps").c_str());
+                myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".pdf").c_str());
 
             // print a LaTeX table of the parameters into a tex file
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
