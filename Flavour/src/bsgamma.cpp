@@ -244,15 +244,6 @@ double Bsgamma::Kij_1(int i, int j, double E0, double mu){
 void Bsgamma::computeCoeff(double mu){
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
     
-    /*C1_0 = -0.8411;//(*(allcoeff[LO]))(0);
-    C2_0 = 1.0647;//(*(allcoeff[LO]))(1);
-    C3_0 = -0.0133;//(*(allcoeff[LO]))(2);
-    C4_0 = -0.1276;//(*(allcoeff[LO]))(3);
-    C5_0 = 0.0012;//(*(allcoeff[LO]))(4);
-    C6_0 = 0.0028;//(*(allcoeff[LO]))(5);
-    C7_0 = -0.3736;//(*(allcoeff[LO]))(6);
-    C8_0 = -0.1729;//(*(allcoeff[LO]))(7);*/
-    
     C1_0 = (*(allcoeff[LO]))(0);
     C2_0 = (*(allcoeff[LO]))(1);
     C3_0 = (*(allcoeff[LO]))(2);
@@ -262,25 +253,16 @@ void Bsgamma::computeCoeff(double mu){
     C7_0 = (*(allcoeff[LO]))(6);
     C8_0 = (*(allcoeff[LO]))(7);
     
-    /*C1_1 = 15.278;//(*(allcoeff[NLO]))(0);
-    C2_1 = -2.124;//(*(allcoeff[NLO]))(1);
-    C3_1 = 0.096;//(*(allcoeff[NLO]))(2);
-    C4_1 = -0.463;//(*(allcoeff[NLO]))(3);
-    C5_1 = -0.021;//(*(allcoeff[NLO]))(4);
-    C6_1 = -0.013;//(*(allcoeff[NLO]))(5);
-    C7_1 = 2.027;//(*(allcoeff[NLO]))(6);
-    C8_1 = -0.617;//(*(allcoeff[NLO]))(7);*/
+    C1_1 = (*(allcoeff[NLO]))(0);
+    C2_1 = (*(allcoeff[NLO]))(1);
+    C3_1 = (*(allcoeff[NLO]))(2);
+    C4_1 = (*(allcoeff[NLO]))(3);
+    C5_1 = (*(allcoeff[NLO]))(4);
+    C6_1 = (*(allcoeff[NLO]))(5);
+    C7_1 = (*(allcoeff[NLO]))(6);
+    C8_1 = (*(allcoeff[NLO]))(7);
     
-    C1_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(0);
-    C2_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(1);
-    C3_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(2);
-    C4_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(3);
-    C5_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(4);
-    C6_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(5);
-    C7_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(6);
-    C8_1 = 4.*M_PI/SM.Als(mu,FULLNLO)*(*(allcoeff[NLO]))(7);
-    
-    std::cout << C1_0 << std::endl;
+    /*std::cout << C1_0 << std::endl;
     std::cout << C2_0 << std::endl;
     std::cout << C3_0 << std::endl;
     std::cout << C4_0 << std::endl;
@@ -289,14 +271,14 @@ void Bsgamma::computeCoeff(double mu){
     std::cout << C7_0 << std::endl;
     std::cout << C8_0 << std::endl;
     
-    std::cout << C1_1 << std::endl;
-    std::cout << C2_1 << std::endl;
-    std::cout << C3_1 << std::endl;
-    std::cout << C4_1 << std::endl;
-    std::cout << C5_1 << std::endl;
-    std::cout << C6_1 << std::endl;
-    std::cout << C7_1 << std::endl;
-    std::cout << C8_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C1_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C2_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C3_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C4_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C5_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C6_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C7_1 << std::endl;
+    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C8_1 << std::endl;*/
 }
 
 double Bsgamma::P21(double E0, double mu){
