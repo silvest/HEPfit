@@ -33,200 +33,6 @@ public:
     
     
     /**
-    * @brief \f$ H1 \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function H^(1) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
-    */
-    //double H1(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ f \f$
-    * @param[in] rho squared ratio of charm mass over bottom mass
-    * @return return the function f from arXiv:hep-ph/0611123v1
-    */
-    //double f(double rho);
-    
-    
-    /**
-    * @brief \f$ H2a \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function H^(2,a) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
-    */
-    //double H2a(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ H2na \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function H^(2,na) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
-    */
-    //double H2na(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ H2NH \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function H^(2,NH) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
-    */
-    //double H2NH(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ H2NV \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function H^(2,NV) obtained integrating the equations from arXiv:hep-ph/0611123v1
-    */
-    //double H2NV(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ H2NL \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function H^(2,NL) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
-    */
-    //double H2NL(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ H2 \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function H^(2) obtained integrating the equations from arXiv:hep-ph/0607316v1v2 and arXiv:hep-ph/0611123v1
-    */
-    //double H2(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ G77 \f$
-    * @param[in] order perturbation theory order
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function G_{77} obtained integrating the equations from arXiv:hep-ph/0607316v1v2 and arXiv:hep-ph/0611123v1
-    */
-    //double G77(orders order, double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ dY1 \f$
-    * @param[in] E0 energy cutoff
-    * @return return the function \delta Y^1 from arXiv:0805.3911
-    */
-    //double dY1(double E0);
-    
-    
-    /**
-    * @brief \f$ Y1 \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function Y^(1) from arXiv:0805.3911
-    */
-    //double Y1(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ Phi1 \f$
-    * @param[in] rho squared ratio of charm mass over bottom mass
-    * @return return the function \Phi_1 from arXiv:1005.5587
-    */
-    //double Phi1(double rho);
-    
-    
-    /**
-    * @brief \f$ Phi2 \f$
-    * @param[in] rho squared ratio of charm mass over bottom mass
-    * @return return the function \Phi_2 from arXiv:1005.5587
-    */
-    //double Phi2(double rho);
-    
-    
-    /**
-    * @brief \f$ Phi3 \f$
-    * @param[in] rho squared ratio of charm mass over bottom mass
-    * @return return the function \Phi_3 from arXiv:1005.5587
-    */
-    //double Phi3(double rho);
-    
-    
-    /**
-    * @brief \f$ Phi4 \f$
-    * @param[in] rho squared ratio of charm mass over bottom mass
-    * @return return the function \Phi_4 from arXiv:1005.5587
-    */
-    //double Phi4(double rho);
-    
-    
-    /**
-    * @brief \f$ Y2CF \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function Y^(2,CF) from arXiv:1005.5587
-    */
-    //double Y2CF(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ Y2CA \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function Y^(2,CA) from arXiv:1005.5587
-    */
-    //double Y2CA(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ Y2NH \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function Y^(2,NH) from arXiv:0805.3911
-    */
-    //double Y2NH(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ Y2NV \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function Y^(2,NV) from arXiv:0805.3911
-    */
-    //double Y2NV(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ Y2NL \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function Y^(2,NL) from arXiv:0805.3911
-    */
-    //double Y2NL(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ Y2 \f$
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function Y^(2) from arXiv:0805.3911 and arXiv:1005.5587
-    */
-    //double Y2(double E0, double Mu);
-    
-    
-    /**
-    * @brief \f$ G78 \f$
-    * @param[in] order perturbation theory order
-    * @param[in] E0 energy cutoff
-    * @param[in] Mu mass scale
-    * @return return the function G_{78} from arXiv:0805.3911 and arXiv:1005.5587
-    */
-    //double G78(orders order, double E0, double Mu);
-    
-    
-    /**
     * @brief \f$ delta \f$
     * @param[in] E0 cutoff energy
     * @return return the function delta(E0)
@@ -270,7 +76,7 @@ public:
     /**
     * @brief \f$ Gamma \f$
     * @param[in] t dummy variable to be integrated out
-    * @return return the function Gamma(t) from hep-ph/0104034v2
+    * @return return the function Gamma(t) as defined in hep-ph/0104034v2
     */
     gslpp::complex Gamma_t(double t);
     
@@ -328,7 +134,7 @@ public:
     /**
     * @brief \f$ Phi_{11}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi22(1) function from  from hep-ph/0104034v2
+    * @return return the phi11(1) function from hep-ph/0104034v2
     */
     double Phi11_1(double E0);
     
@@ -336,7 +142,7 @@ public:
     /**
     * @brief \f$ Phi_{12}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi22(1) function from  from hep-ph/0104034v2
+    * @return return the phi12(1) function from hep-ph/0104034v2
     */
     double Phi12_1(double E0);
     
@@ -344,7 +150,7 @@ public:
     /**
     * @brief \f$ Phi_{17}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi27(1) function from  from hep-ph/0104034v2
+    * @return return the phi17(1) function from hep-ph/0104034v2
     */
     double Phi17_1(double E0);
     
@@ -352,7 +158,7 @@ public:
     /**
     * @brief \f$ Phi_{18}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi27(1) function from  from hep-ph/0104034v2
+    * @return return the phi18(1) function from hep-ph/0104034v2
     */
     double Phi18_1(double E0);
     
@@ -360,7 +166,7 @@ public:
     /**
     * @brief \f$ Phi_{22}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi22(1) function from  from hep-ph/0104034v2
+    * @return return the phi22(1) function from hep-ph/0104034v2
     */
     double Phi22_1(double E0);
     
@@ -368,7 +174,7 @@ public:
     /**
     * @brief \f$ Phi_{27}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi27(1) function from  from hep-ph/0104034v2
+    * @return return the phi27(1) function from hep-ph/0104034v2
     */
     double Phi27_1(double E0);
     
@@ -376,7 +182,7 @@ public:
     /**
     * @brief \f$ Phi_{28}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi27(1) function from  from hep-ph/0104034v2
+    * @return return the phi28(1) function from hep-ph/0104034v2
     */
     double Phi28_1(double E0);
     
@@ -384,7 +190,7 @@ public:
     /**
     * @brief \f$ Phi_{47}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi42(1) function from  from 1005:1173
+    * @return return the phi47(1) function from arXiv:1005.1173
     */
     double Phi47_1(double E0);
     
@@ -392,7 +198,7 @@ public:
     /**
     * @brief \f$ Phi_{77}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi22(1) function from  from hep-ph/0104034v2
+    * @return return the phi77(1) function from hep-ph/0104034v2
     */
     double Phi77_1(double E0);
     
@@ -400,7 +206,7 @@ public:
     /**
     * @brief \f$ Phi_{78}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi27(1) function from  from hep-ph/0104034v2
+    * @return return the phi78(1) function from hep-ph/0104034v2
     */
     double Phi78_1(double E0);
     
@@ -408,7 +214,7 @@ public:
     /**
     * @brief \f$ Phi_{88}^{(1)} \f$
     * @param[in] E0 energy cutoff
-    * @return return the phi27(1) function from  from hep-ph/0104034v2
+    * @return return the phi88(1) function from hep-ph/0104034v2
     */
     double Phi88_1(double E0);
     
@@ -419,7 +225,7 @@ public:
     * @param[in] j second index
     * @param[in] E0 energy cutoff
     * @param[in] mu low scale of the decay
-    * @return return the phi27(1) function from  from hep-ph/0104034v2
+    * @return return the K_ij(1) function from arXiv:1005.1173
     */
     double Kij_1(int i, int j, double E0, double mu);
     
@@ -436,7 +242,7 @@ public:
     * @brief \f$ P_2^{(1)} \f$
     * @param[in] E0 energy cutoff
     * @param[in] mu low scale of the decay
-    * @return return the perturbative part P_2^(1) of the BR
+    * @return return the perturbative part P_2^(1) of the BR as defined in arXiv:1005.1173
     */
     double P21(double E0, double mu);
     
@@ -445,7 +251,7 @@ public:
     * @brief \f$ P_2^{(2)} \f$
     * @param[in] E0 energy cutoff
     * @param[in] mu low scale of the decay
-    * @return return the perturbative part P_2^(2) of the BR
+    * @return return the perturbative part P_2^(2) of the BR as defined in arXiv:1005.1173
     */
     double P22(double E0, double mu);
     
@@ -454,7 +260,7 @@ public:
     * @brief \f$ P_3^{(2)} \f$
     * @param[in] E0 energy cutoff
     * @param[in] mu low scale of the decay
-    * @return return the perturbative part P_3^(2) of the BR
+    * @return return the perturbative part P_3^(2) of the BR as defined in arXiv:1005.1173
     */
     double P32(double E0, double mu);
     
@@ -464,7 +270,7 @@ public:
     * @param[in] E0 energy cutoff
     * @param[in] mu low scale of the decay
     * @param[in] order perturbation theory order
-    * @return return the perturbative part of the BR
+    * @return return the perturbative part of the BR as defined in arXiv:1005.1173
     */
     double P(double E0, double mu, orders order);
     
@@ -472,21 +278,19 @@ public:
     /**
     * @brief \f$ computeBR \f$
     * @param[in] order perturbation theory order
-    * @return compute the branching fraction BR
+    * @return compute the branching fraction BR as defined in arXiv:1005.1173
     */
     void computeBR(orders order);
     
     
     /**
     * @brief \f$ computeThValue \f$
-    * @return compute the BR and A_{CP}
+    * @return compute the final observables
     */
     double computeThValue();
     
     
 private:
-    const StandardModel& mySM;
-    
     double ale;
     double E0;
     double mu_b;
@@ -523,7 +327,6 @@ private:
     int obs;
     
     double BR;
-    double BR_conj;
     
     double avaPhi221_1;
     double avaPhi221_2;

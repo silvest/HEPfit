@@ -228,7 +228,7 @@ private:
         DPars_IN["m_RV"] = 0.;
         DPars_IN["m_fit2V"] = 0.;
         DPars_IN["r_1A0"] = 0.;
-        DPars_IN["r_2A0"] = 0.;
+        //DPars_IN["r_2A0"] = 0.;
         DPars_IN["m_RA0"] = 0.;
         DPars_IN["m_fit2A0"] = 0.;
         DPars_IN["r_2A1"] = 0.;
@@ -237,10 +237,10 @@ private:
         DPars_IN["r_2A2"] = 0.;
         DPars_IN["m_fit2A2"] = 0.;
         DPars_IN["r_1T1"] = 0.;
-        DPars_IN["r_2T1"] = 0.;
+        //DPars_IN["r_2T1"] = 0.;
         DPars_IN["m_RT1"] = 0.;
         DPars_IN["m_fit2T1"] = 0.;
-        DPars_IN["r_2T2"] = 0.;
+        //DPars_IN["r_2T2"] = 0.;
         DPars_IN["m_fit2T2"] = 0.;
         DPars_IN["r_1T3t"] = 0.;
         DPars_IN["r_2T3t"] = 0.;
@@ -271,7 +271,7 @@ private:
         DPars_IN["m_RVphi"] = 0.;
         DPars_IN["m_fit2Vphi"] = 0.;
         DPars_IN["r_1A0phi"] = 0.;
-        DPars_IN["r_2A0phi"] = 0.;
+        //DPars_IN["r_2A0phi"] = 0.;
         DPars_IN["m_RA0phi"] = 0.;
         DPars_IN["m_fit2A0phi"] = 0.;
         DPars_IN["r_2A1phi"] = 0.;
@@ -280,10 +280,10 @@ private:
         DPars_IN["r_2A2phi"] = 0.;
         DPars_IN["m_fit2A2phi"] = 0.;
         DPars_IN["r_1T1phi"] = 0.;
-        DPars_IN["r_2T1phi"] = 0.;
+        //DPars_IN["r_2T1phi"] = 0.;
         DPars_IN["m_RT1phi"] = 0.;
         DPars_IN["m_fit2T1phi"] = 0.;
-        DPars_IN["r_2T2phi"] = 0.;
+        //DPars_IN["r_2T2phi"] = 0.;
         DPars_IN["m_fit2T2phi"] = 0.;
         DPars_IN["r_1T3tphi"] = 0.;
         DPars_IN["r_2T3tphi"] = 0.;
@@ -297,6 +297,7 @@ private:
         DPars_IN["r_2_f0"] = 0.;
         DPars_IN["m_fit2_f0"] = 0.;
         DPars_IN["bsgamma_E0"] = 0.;
+        DPars_IN["bsgamma_C"] = 0.;
         
         return (DPars_IN);
     };

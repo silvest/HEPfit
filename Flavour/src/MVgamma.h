@@ -16,7 +16,7 @@
 /**
  * @class MVgamma
  * @ingroup flavour
- * @brief A class for the decay B -> K^*gamma. 
+ * @brief A class for the decay M -> V gamma. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -100,7 +100,7 @@ public:
     BR_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
     
     /**
-    * @return return the clean observable BR_e
+    * @return return the BR
     */
     double computeThValue ();
 
@@ -113,12 +113,12 @@ class ACP_MVgamma : public MVgamma{
 public:
     
     /**
-    * @brief \f$ BR \f$ 
+    * @brief \f$ ACP \f$ 
     */
     ACP_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
     
     /**
-    * @return return the clean observable BR_e
+    * @return return the ACP
     */
     double computeThValue ();
 

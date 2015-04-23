@@ -20,7 +20,7 @@
 /**
  * @class MPll
  * @ingroup flavour
- * @brief A class for the decay B -> K^*ll. 
+ * @brief A class for the decay M -> Pll. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -46,7 +46,7 @@ public:
     complex lambda_t;     //Vckm factor
     double b;             //BF of the decay K^* -> K pi
     complex h_0;          //parameter that contains the contribution from the hadronic hamiltonian
-    complex h_0_1;          //parameter that contains the contribution from the hadronic hamiltonian
+    complex h_0_1;        //parameter that contains the contribution from the hadronic hamiltonian
     double q2;            //q^2 of the decay
     
     /*LCSR fit parameters*/

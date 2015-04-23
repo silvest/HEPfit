@@ -968,7 +968,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  * ****************************************************************************/
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
-    double xt = x_t(Muw);
+    double xt = x_t(160.); //Muw changed to 160 according to arXiv:1005.1173
     complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
     
     vmcbsg.clear();
@@ -984,14 +984,14 @@ double StandardModelMatching::phi2(double x, double y) const{
             throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcbsg.setMu(Muw);
+    mcbsg.setMu(160.); //Muw changed to 160 according to arXiv:1005.1173
     
     switch (mcbsg.getOrder()) {
         case NNLO:
         case NLO:
             for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
-            }
+            mcbsg.setCoeff(j, co * SM.Als(160., FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
+            } //Muw changed to 160 according to arXiv:1005.1173
         case LO:
             for (int j=0; j<8; j++){
             mcbsg.setCoeff(j, co * setWCbsg(j, xt,  LO), LO);
@@ -1014,7 +1014,7 @@ double StandardModelMatching::phi2(double x, double y) const{
 
 double StandardModelMatching::setWCbsg(int i, double x, orders order)
 {    
-    sw =  sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
+    sw =  sqrt( sW2 );//sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
 
     if ( swa == sw && xcachea == x){
         switch (order){
@@ -1033,28 +1033,18 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     }
     
     swa = sw; xcachea = x;
-    // this function returns the effective Wilson coefficients if  CWbsgArrayNLO[7] = C8NLOeff(x);
-    //                                                             CWbsgArrayNLO[6] = C7NLOeff(x);
-    //                                                             CWbsgArrayLO[6] = C7LOeff(x);
-    //                                                             CWbsgArrayLO[7] = C8LOeff(x);
-    // or the standard one if CWbsgArrayNLO[7] = -0.5 * A0t(x)- 23./36.;
-    //                        CWbsgArrayNLO[6] = -0.5 * F0t(x)- 1./3.;
-    //                        CWbsgArrayLO[6] = 0.;
-    //                        CWbsgArrayLO[7] = 0.;
+    
     switch (order){
         case NNLO:
         case NLO:
-            CWbsgArrayNLO[0] = 15.;
-            CWbsgArrayNLO[3] = E0t(x)-(2./3.);
-            CWbsgArrayNLO[6] = C7NLOeff(x);//-0.5 * A0t(x)- 23./36.;
-            CWbsgArrayNLO[7] = C8NLOeff(x);//-0.5 * F0t(x)- 1./3.;
-            CWbsgArrayNLO[8] = (1-4.*sw*sw) / sw *C0t(x) - 1./(sw*sw) *
-                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw);
-            CWbsgArrayNLO[9] = 1./(sw*sw) * (B0t(x) - C0t(x)) -1./(4.*sw*sw);
+            CWbsgArrayNLO[0] = 15. + 6*L;
+            CWbsgArrayNLO[3] = E0t(x) - (7./9.) + (2./3.* L);
+            CWbsgArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWbsgArrayNLO[3];
+            CWbsgArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWbsgArrayNLO[3];
         case LO:
             CWbsgArrayLO[1] = 1.;
-            CWbsgArrayLO[6] = C7LOeff(x);//0.;
-            CWbsgArrayLO[7] = C8LOeff(x);//0.;
+            CWbsgArrayLO[6] = -0.5*A0t(x) - 23./36.;
+            CWbsgArrayLO[7] = -0.5*F0t(x) - 1./3.;
             break;
         default:
             std::stringstream out;

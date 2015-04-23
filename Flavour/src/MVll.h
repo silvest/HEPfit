@@ -53,7 +53,7 @@ gsl_function convertToGslFunction( const F& f )
 /**
  * @class MVll
  * @ingroup flavour
- * @brief A class for the decay B -> K^*ll. 
+ * @brief A class for the decay M -> Vll. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -451,7 +451,7 @@ public:
     * @param[in] i index of the angular coefficient I_i
     * @param[in] q_min minimum q^2 of the integral
     * @param[in] q_max maximum q^2 of the integral
-    * @return return the CP average integral of Sigma_i from q_min to q_max
+    * @return return the integral of Sigma_i from q_min to q_max
     */
     double integrateSigma(int i, double q_min, double q_max);
     
@@ -460,23 +460,25 @@ public:
     * @param[in] i index of the angular coefficient I_i
     * @param[in] q_min minimum q^2 of the integral
     * @param[in] q_max maximum q^2 of the integral
-    * @return return the CP average integral of Delta_i from q_min to q_max
+    * @return return the integral of Delta_i from q_min to q_max
     */
     double integrateDelta(int i, double q_min, double q_max);
     
     /**
-    * @brief \f$ <Delta C_9> \f$ 
+    * @brief \f$ <g_tilde> \f$ 
+    * @param[in] i index of the correction 
     * @param[in] q_min minimum q^2 of the integral
     * @param[in] q_max maximum q^2 of the integral
-    * @return return the correction \f$ Delta C_9 \f$ from q_min to q_max
+    * @return return the integral of the hadronic correction \f$ g_tilde^i \f$ from q_min to q_max
     */
     gslpp::complex integrategtilde(int i, double q_min, double q_max);
     
     /**
-    * @brief \f$ <Delta C_7> \f$ 
+    * @brief \f$ <h> \f$ 
+    * @param[in] i helicity of the correction 
     * @param[in] q_min minimum q^2 of the integral
     * @param[in] q_max maximum q^2 of the integral
-    * @return return the correction \f$ Delta C_7 \f$ from q_min to q_max
+    * @return return the integral of the hadronic correction \f$ h_\lambda \f$ from q_min to q_max
     */
     gslpp::complex integrateh(int i, double q_min, double q_max);
     
@@ -731,7 +733,7 @@ public:
     /**
     * @brief \f$ V_0 \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the form factors difference V0 - T0
+    * @return return the form factor V0
     */
     double getV0(double q2){
         return (2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2);
@@ -758,7 +760,7 @@ public:
     /**
     * @brief \f$ T_0 \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the form factors sum V0 + T0
+    * @return return the form factor T0
     */
     double getT0(double q2){
         return (2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2);
@@ -785,70 +787,70 @@ public:
     /**
     * @brief \f$ S \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the form factors difference V0 - S
+    * @return return the form factor S
     */
     double getS(double q2){
         return (-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2);
     };
     
     /**
-    * @brief \f$ RE(Delta C_9^1) \f$ 
+    * @brief \f$ RE(g_tilde^1) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the real part of Delta_C9_1
+    * @return return the real part of \f$ g_tilde^1 \f$
     */
     double getgtilde_1_re(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
     
     /**
-    * @brief \f$ IM(Delta C_9^1) \f$ 
+    * @brief \f$ IM(g_tilde^1) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the imaginary part of \f$ Delta C_9^1 \f$
+    * @return return the imaginary part of \f$ g_tilde^1 \f$
     */
     double getgtilde_1_im(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
-    * @brief \f$ RE(Delta C_9^2) \f$ 
+    * @brief \f$ RE(g_tilde^2) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the real part of \f$ Delta C_9^2 \f$
+    * @return return the real part of \f$ g_tilde^2 \f$
     */
     double getgtilde_2_re(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
     }
     
     /**
-    * @brief \f$ IM(Delta C_9^2) \f$ 
+    * @brief \f$ IM(g_tilde^2) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the imaginary part of \f$ Delta C_9^2 /f$
+    * @return return the imaginary part of \f$ g_tilde^2 /f$
     */
     double getgtilde_2_im(double q2){
         return 1./(2. * C_2.real()) * (-16.*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
     }
     
     /**
-    * @brief \f$ RE(Delta C_9^3) \f$ 
+    * @brief \f$ RE(g_tilde^3) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the real part of \f$ Delta C_9^3 \f$
+    * @return return the real part of \f$ g_tilde^3 \f$
     */
     double getgtilde_3_re(double q2){
         return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
 
     /**
-    * @brief \f$ IM(Delta C_9^3) \f$ 
+    * @brief \f$ IM(g_tilde^3) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the imaginary part of \f$ Delta C_9^3 \f$
+    * @return return the imaginary part of \f$ g_tilde^3 \f$
     */
     double getgtilde_3_im(double q2){
         return 1./(2. * C_2.real()) * (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
-    * @brief \f$ RE(Delta C_7^1) \f$ 
+    * @brief \f$ RE(h_0) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the real part of Delta_C7_1
+    * @return return the real part of \f$ h_0 \f$
     */
     double geth_0_re(double q2){
         return (16 * M_PI * M_PI * MM * MM * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).real();
@@ -856,9 +858,9 @@ public:
     }
     
     /**
-    * @brief \f$ IM(Delta C_7^1) \f$ 
+    * @brief \f$ IM(h_0) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the imaginary part of \f$ Delta C_7^1 \f$
+    * @return return the imaginary part of \f$ h_0 \f$
     */
     double geth_0_im(double q2){
         return (16 * M_PI * M_PI * MM * MM * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).imag();
@@ -866,9 +868,9 @@ public:
     }
     
     /**
-    * @brief \f$ RE(Delta C_7^2) \f$ 
+    * @brief \f$ RE(h_+) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the real part of \f$ Delta C_7^2 \f$
+    * @return return the real part of \f$ h_+ \f$
     */
     double geth_p_re(double q2){
         return (16 * M_PI * M_PI * MM * MM * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
@@ -876,9 +878,9 @@ public:
     }
     
     /**
-    * @brief \f$ IM(Delta C_7^2) \f$ 
+    * @brief \f$ IM(h_+) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the imaginary part of \f$ Delta C_7^2 /f$
+    * @return return the imaginary part of \f$ h_+ /f$
     */
     double geth_p_im(double q2){
         return (16 * M_PI * M_PI * MM * MM * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
@@ -886,9 +888,9 @@ public:
     }
     
     /**
-    * @brief \f$ RE(Delta C_7^3) \f$ 
+    * @brief \f$ RE(h_-) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the real part of \f$ Delta C_7^3 \f$
+    * @return return the real part of \f$ h_- \f$
     */
     double geth_m_re(double q2){
         return (16 * M_PI * M_PI * MM * MM * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).real();
@@ -896,9 +898,9 @@ public:
     }
 
     /**
-    * @brief \f$ IM(Delta C_7^3) \f$ 
+    * @brief \f$ IM(h_0) \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the imaginary part of \f$ Delta C_7^3 \f$
+    * @return return the imaginary part of \f$ h_- \f$
     */
     double geth_m_im(double q2){
         return (16 * M_PI * M_PI * MM * MM * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();

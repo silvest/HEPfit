@@ -16,9 +16,9 @@
 
 
 /**
- * @class Branching Fraction for electron channel
+ * @class Branching Fraction
  * @ingroup flavour
- * @brief A class for the clean observable BR_e. 
+ * @brief A class for the BR. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -27,12 +27,12 @@ class BR_MPll : public ThObservable{
 public:
     
     /**
-    * @brief \f$ BR_e \f$ 
+    * @brief \f$ BR \f$ 
     */
     BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable BR_e
+    * @return return the BR
     */
     double computeBR_MPll(double qmin, double qmax, StandardModel::lepton lep_i);
     double computeThValue ();
@@ -56,12 +56,12 @@ class R_MPll : public BR_MPll{
 public:
     
     /**
-    * @brief \f$ BR_mu/BR_e \f$ 
+    * @brief \f$ BR_lep1/BR_lep2 \f$ 
     */
     R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
     
     /**
-    * @return the ratio between branching fractions of \f$ B\to K \mu^+ \mu^- \f$ and \f$ B\to K e^+ e^- \f$ 
+    * @return the ratio between branching fractions of \f$ B\to K \l_1^+ \l_1^- \f$ and \f$ B\to K \l_2^+ \l_2^- \f$ 
     */
     double computeThValue ();
     
@@ -74,9 +74,9 @@ private:
 
 
 /**
- * @class ACP for electron channel
+ * @class ACP
  * @ingroup flavour
- * @brief A class for the clean observable ACP_e. 
+ * @brief A class for the ACP. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -90,7 +90,7 @@ public:
     ACP_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable ACP_e
+    * @return return the ACP
     */
     double computeThValue ();
     
