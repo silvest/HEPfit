@@ -43,7 +43,7 @@ if(LOCAL_INSTALL_ALL)
       CACHE PATH "SusyFit installation directory" FORCE)
   set(BAT_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/BAT
       CACHE PATH "BAT installation directory" FORCE)
-  set(MPIBAT ON CACHE BOOL "Use MPI BAT" FORCE)
+  #set(MPIBAT ON CACHE BOOL "Use MPI BAT" FORCE)
   set(BAT_INSTALL ON CACHE BOOL "Download and install BAT" FORCE)
 endif()
 
