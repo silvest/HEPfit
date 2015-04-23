@@ -179,10 +179,14 @@ ORGFILE=${ORGDIR}/Analysis/main_MCMC_example.cpp
 eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/MonteCarloMode/MCMC.cpp
 
 ###########################################################
-# Patch
+# Modify source codes
 
-sh ${SCRIPTPATH}/mod.sh ${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h
-echo "applying patches to souce codes..."
+echo "modifing souce codes..."
+MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h"
+for MODFILE in $MODFILELIST
+do
+    perl ${SCRIPTPATH}/remove.pl $MODFILE
+done
 
 ###########################################################
 # Archive

@@ -1,7 +1,6 @@
 #include "ModelFactory.h"
 #include <boost/bind.hpp>
 #include <NPSTU.h>
-#include <NPSTUVWXY.h>
 #include <NPSTUZbbbarLR.h>
 #include <NPEpsilons.h>
 #include <NPEpsilons_pureNP.h>
@@ -10,21 +9,23 @@
 #include <NPZbbbarLinearized.h>
 #include <NPEffectiveBS.h>
 #include <NPEffectiveGIMR.h>
+#include <HiggsKvKf.h>
+#include <HiggsKvKfgen.h>
+#include <HiggsKvgenKf.h>
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+#include <NPSTUVWXY.h>
 #include <GeneralSUSY.h>
 #include <pMSSM.h>
 #include <SUSYMassInsertion.h>
 #include <MFV.h>
 #include <SUSY.h>
 #include <THDM.h>
-#include <HiggsKvKf.h>
-#include <HiggsKvKfgen.h>
-#include <HiggsKvgenKf.h>
+/** END: REMOVE FROM THE PACKAGE **/
 
 ModelFactory::ModelFactory()
 {
     modelFactory["StandardModel"] = boost::factory<StandardModel*>();
     modelFactory["NPSTU"] = boost::factory<NPSTU*>();
-    modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["NPSTUZbbbarLR"] = boost::factory<NPSTUZbbbarLR*>();
     modelFactory["NPEpsilons"] = boost::factory<NPEpsilons*>();
     modelFactory["NPEpsilons_pureNP"] = boost::factory<NPEpsilons_pureNP*>();
@@ -41,14 +42,17 @@ ModelFactory::ModelFactory()
     //modelFactory["NPEffectiveGIMR_LFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, false);
     //modelFactory["NPEffectiveGIMR_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), false, true);
     modelFactory["NPEffectiveGIMR_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, true);
+    modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
+    modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
+    modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
-    modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
-    modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
-    modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
+    /** END: REMOVE FROM THE PACKAGE **/
 }
 
 void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)

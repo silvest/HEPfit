@@ -24,9 +24,12 @@ class EWSMThreeLoopEW2QCD;
 class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
 class EWSMOneLoopEW_HV;
-class EWSMTwoFermionsLEP2;
 class Flavour;
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+class EWSMTwoFermionsLEP2;
 class LeptonFlavour;
+/** END: REMOVE FROM THE PACKAGE **/
+
 
 /**
  * @class StandardModel
@@ -984,10 +987,12 @@ public:
         return myFlavour;
     }
 
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
     LeptonFlavour* getMyLeptonFlavour() const
     {
         return myLeptonFlavour;
     }
+    /** END: REMOVE FROM THE PACKAGE **/
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -2543,9 +2548,11 @@ private:
     EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD; ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
     EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
-    EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
     Flavour* myFlavour; ///< A pointer to an object of the type Flavour.
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
     LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
+    /** END: REMOVE FROM THE PACKAGE **/
 
     StandardModelMatching* myStandardModelMatching; ///< A pointer to an object of type StandardModelMatching.
 
