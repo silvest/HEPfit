@@ -19,7 +19,7 @@
 
 /**
  * @class MPll
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the decay M -> Pll. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

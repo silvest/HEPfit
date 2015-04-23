@@ -16,7 +16,7 @@
 
 /**
  * @class Bsgamma
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the decay b -> s gamma. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

@@ -15,7 +15,7 @@
 
 /**
  * @class P_1
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P_1. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -45,7 +45,7 @@ private:
 
 /**
  * @class P_2
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P_2. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -74,7 +74,7 @@ private:
 
 /**
  * @class P_3
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P_3. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -103,7 +103,7 @@ private:
 
 /**
  * @class P_4Prime
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P'_4. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -134,7 +134,7 @@ private:
 
 /**
  * @class P_5Prime
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P'_5. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -167,7 +167,7 @@ private:
 
 /**
  * @class P_6Prime
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P'_6. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -196,7 +196,7 @@ private:
 
 /**
  * @class P_8Prime
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P'_8. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -225,7 +225,7 @@ private:
 
 /**
  * @class GammaPrime
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable Gamma'. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -256,7 +256,7 @@ private:
 
 /**
  * @class A_FB
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable A_{FB}. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -285,7 +285,7 @@ private:
 
 /**
  * @class BF
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the Branching Fraction. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -314,7 +314,7 @@ private:
 
 /**
  * @class F_L
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable F_L. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -346,7 +346,7 @@ private:
 
 /**
  * @class R_K^*
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the Branching Fraction ratio. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -375,7 +375,7 @@ private:
 
 /**
  * @class R_K^*_L
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the longitudinal Branching Fraction ratio. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -404,7 +404,7 @@ private:
 
 /**
  * @class R_K^*_T
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the transverse Branching Fraction ratio. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -433,7 +433,7 @@ private:
 
 /**
  * @class R_6
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the Branching Fraction ratio. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -462,7 +462,7 @@ private:
 
 /**
  * @class ACP
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable ACP. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -491,7 +491,7 @@ private:
 
 /**
  * @class P3CP
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable P3CP. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -520,7 +520,7 @@ private:
 
 /**
  * @class M_1Prime
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable M'_1. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -549,7 +549,7 @@ private:
 
 /**
  * @class M_2Prime
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the clean observable M'_2. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -578,7 +578,7 @@ private:
 
 /**
  * @class S_3
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable S_3. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -607,7 +607,7 @@ private:
 
 /**
  * @class S_4
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable S_4. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -636,7 +636,7 @@ private:
 
 /**
  * @class S_5
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable S_5. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -665,7 +665,7 @@ private:
 
 /**
  * @class S_7
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable S_7. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -694,7 +694,7 @@ private:
 
 /**
  * @class S_8
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable S_8. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -723,7 +723,7 @@ private:
 
 /**
  * @class S_9
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable S_9. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -752,7 +752,7 @@ private:
 
 /**
  * @class A_6
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable A_6. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -781,7 +781,7 @@ private:
 
 /**
  * @class A_9
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the observable A_9. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -810,7 +810,7 @@ private:
 
 /**
  * @class V0
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the form factor V_0. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -839,7 +839,7 @@ private:
 
 /**
  * @class Vp
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the form factor V_+. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -868,7 +868,7 @@ private:
 
 /**
  * @class Vm
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the form factor V_-. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -897,7 +897,7 @@ private:
 
 /**
  * @class T0
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the form factor T_0. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -926,7 +926,7 @@ private:
 
 /**
  * @class Tp
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the form factor T_+. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -955,7 +955,7 @@ private:
 
 /**
  * @class Tm
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the form factor T_-. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -984,7 +984,7 @@ private:
 
 /**
  * @class S
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the form factor S. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -1014,7 +1014,7 @@ private:
 
 /**
  * @class Delta_C9_1
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the correction to C9 Delta_C9_1. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -1044,7 +1044,7 @@ private:
 
 /**
  * @class gtilde_2
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the correction to C9 gtilde_2. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -1074,7 +1074,7 @@ private:
     
     /**
  * @class gtilde_3
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the correction to C9 Delta_C9_3. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -1102,7 +1102,7 @@ private:
 
 /**
  * @class h_0
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the bin averaged value of h_0. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -1132,7 +1132,7 @@ private:
 
 /**
  * @class h_p
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the bin averaged value of h_p.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -1162,7 +1162,7 @@ private:
     
 /**
  * @class h_m
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the bin averaged value of h_m.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

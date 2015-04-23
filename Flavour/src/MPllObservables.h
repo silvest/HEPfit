@@ -17,7 +17,7 @@
 
 /**
  * @class Branching Fraction
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the BR. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -46,7 +46,7 @@ private:
 
 /**
  * @class R_K
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the Branching Fraction ratio. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -75,7 +75,7 @@ private:
 
 /**
  * @class ACP
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the ACP. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

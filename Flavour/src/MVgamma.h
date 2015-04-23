@@ -15,7 +15,7 @@
 
 /**
  * @class MVgamma
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the decay M -> V gamma. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

@@ -52,7 +52,7 @@ gsl_function convertToGslFunction( const F& f )
 
 /**
  * @class MVll
- * @ingroup flavour
+ * @ingroup Flavour
  * @brief A class for the decay M -> Vll. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
