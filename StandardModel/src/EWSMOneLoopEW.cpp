@@ -110,14 +110,14 @@ complex EWSMOneLoopEW::deltaRho_rem_tmp(const complex uf,
     return dRho_rem;
 }
 
-complex EWSMOneLoopEW::deltaRho_rem_f(const Particle p, const double Mw_i) const
+complex EWSMOneLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
 
     double Mz = cache.getSM().getMz();
     double Mw = Mw_i;
-    complex uf = (3.0 * cache.v_f(p, Mw) * cache.v_f(p, Mw) + cache.a_f(p) * cache.a_f(p))
-            / 4.0 / cache.getSM().cW2(Mw) * FZ(Mz*Mz, Mw) + FW(Mz*Mz, p, Mw);
+    complex uf = (3.0 * cache.v_f(f, Mw) * cache.v_f(f, Mw) + cache.a_f(f) * cache.a_f(f))
+            / 4.0 / cache.getSM().cW2(Mw) * FZ(Mz*Mz, Mw) + FW(Mz*Mz, f, Mw);
     return ( deltaRho_rem_tmp(uf, Mw));
 }
 
@@ -140,16 +140,16 @@ complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
     return dKappa_rem;
 }
 
-complex EWSMOneLoopEW::deltaKappa_rem_f(const Particle p, const double Mw_i) const
+complex EWSMOneLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
 
     double Mz = cache.getSM().getMz();
     double Mw = Mw_i;
-    complex uf = (3.0 * cache.v_f(p, Mw) * cache.v_f(p, Mw) + cache.a_f(p) * cache.a_f(p))
-            / 4.0 / cache.getSM().cW2(Mw) * FZ(Mz*Mz, Mw) + FW(Mz*Mz, p, Mw);
+    complex uf = (3.0 * cache.v_f(f, Mw) * cache.v_f(f, Mw) + cache.a_f(f) * cache.a_f(f))
+            / 4.0 / cache.getSM().cW2(Mw) * FZ(Mz*Mz, Mw) + FW(Mz*Mz, f, Mw);
 
-    return ( deltaKappa_rem_tmp(cache.delta_f(p, Mw), uf, Mw));
+    return ( deltaKappa_rem_tmp(cache.delta_f(f, Mw), uf, Mw));
 }
 
 double EWSMOneLoopEW::rho_GammaW_tmp(const double Qi, const double Qj,
@@ -187,16 +187,14 @@ double EWSMOneLoopEW::rho_GammaW_tmp(const double Qi, const double Qj,
     return ( 1.0 + deltafij_W + deltafij_QED);
 }
 
-double EWSMOneLoopEW::rho_GammaW(const Particle pi,
-        const Particle pj,
-        const double Mw_i) const
+double EWSMOneLoopEW::rho_GammaW(const Particle fi, const Particle fj, const double Mw_i) const
 {
-    if (!((pi.is("NEUTRINO_1") && pj.is("ELECTRON")) || (pi.is("NEUTRINO_2") && pj.is("MU"))
-            || (pi.is("NEUTRINO_3") && pj.is("TAU")) || (pi.is("UP") && pj.is("DOWN"))
-            || (pi.is("CHARM") && pj.is("STRANGE")) || (pi.is("TOP") && pj.is("BOTTOM"))))
+    if (!((fi.is("NEUTRINO_1") && fj.is("ELECTRON")) || (fi.is("NEUTRINO_2") && fj.is("MU"))
+            || (fi.is("NEUTRINO_3") && fj.is("TAU")) || (fi.is("UP") && fj.is("DOWN"))
+            || (fi.is("CHARM") && fj.is("STRANGE")) || (fi.is("TOP") && fj.is("BOTTOM"))))
         throw std::runtime_error("EWSMOneLoopEW::rho_GammaW(): Wrong arguments");
     double Mw = Mw_i;
-    return ( rho_GammaW_tmp(cache.Q_f(pi), cache.Q_f(pj), Mw));
+    return ( rho_GammaW_tmp(cache.Q_f(fi), cache.Q_f(fj), Mw));
 }
 
 
@@ -490,15 +488,15 @@ complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s,
 }
 
 complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s,
-        const Particle p) const
+        const Particle f) const
 {
     // Neutrinos do not contribute, since Qf=0.
-    if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2")
-            || p.is("NEUTRINO_3"))
+    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2")
+            || f.is("NEUTRINO_3"))
         return 0.0;
 
     double mu2 = mu*mu;
-    double mf2 = cache.mf2(p, mu);
+    double mf2 = cache.mf2(f, mu);
     double Mz = cache.getSM().getMz();
     double Mz2 = Mz*Mz;
 
@@ -508,13 +506,13 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s,
         if (mf2 == 0.0) {
             Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf2_mf2 = cache.Bf_Mz2_Mz2_mf2_mf2(p);
+            Bf_s_mf2_mf2 = cache.Bf_Mz2_Mz2_mf2_mf2(f);
         }
     } else if (mu == Mz && s == 0.0) {
         if (mf2 == 0.0) {
             Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf2_mf2 = cache.Bf_Mz2_0_mf2_mf2(p);
+            Bf_s_mf2_mf2 = cache.Bf_Mz2_0_mf2_mf2(f);
         }
     } else {
         if (mf2 == 0.0) {
@@ -524,8 +522,8 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s,
         }
     }
 
-    double Qf = cache.Q_f(p);
-    double colorfactor = (p.is("QUARK") ? 3. : 1.);
+    double Qf = cache.Q_f(f);
+    double colorfactor = (f.is("QUARK") ? 3. : 1.);
     return ( -4.0 * colorfactor * Qf * Qf * Bf_s_mf2_mf2);
 }
 
@@ -1080,48 +1078,47 @@ complex EWSMOneLoopEW::FZ(const double s, const double Mw_i) const
     return ( FZa_0(s, Mw_i));
 }
 
-complex EWSMOneLoopEW::FW(const double s, const Particle p,
-        const double Mw_i) const
+complex EWSMOneLoopEW::FW(const double s, const Particle f, const double Mw_i) const
 {
     double Mw = Mw_i;
     double cW2 = cache.getSM().cW2(Mw);
 
-    if (p.is("LEPTON")) {
+    if (f.is("LEPTON")) {
         StandardModel::lepton lprime;
-        if (p.is("NEUTRINO_1"))
+        if (f.is("NEUTRINO_1"))
             lprime = StandardModel::ELECTRON;
-        else if (p.is("NEUTRINO_2"))
+        else if (f.is("NEUTRINO_2"))
             lprime = StandardModel::MU;
-        else if (p.is("NEUTRINO_3"))
+        else if (f.is("NEUTRINO_3"))
             lprime = StandardModel::TAU;
-        else if (p.is("ELECTRON"))
+        else if (f.is("ELECTRON"))
             lprime = StandardModel::NEUTRINO_1;
-        else if (p.is("MU"))
+        else if (f.is("MU"))
             lprime = StandardModel::NEUTRINO_2;
-        else if (p.is("TAU"))
+        else if (f.is("TAU"))
             lprime = StandardModel::NEUTRINO_3;
         else
-            throw std::runtime_error("EWSMOneLoopEW::FW(): " + p.getName() + " is not allowed");
+            throw std::runtime_error("EWSMOneLoopEW::FW(): " + f.getName() + " is not allowed");
         return ( cW2 * FWn_0(s, Mw) - cache.sigma_f(cache.getSM().getLeptons(lprime), Mw) / 2.0 * FWa_0(s, Mw)
                 - FbarWa_0(s) / 2.0);
-    } else if (p.is("QUARK")) {
+    } else if (f.is("QUARK")) {
         QCD::quark qprime;
-        if (p.is("UP"))
+        if (f.is("UP"))
             qprime = QCD::DOWN;
-        else if (p.is("DOWN"))
+        else if (f.is("DOWN"))
             qprime = QCD::UP;
-        else if (p.is("CHARM"))
+        else if (f.is("CHARM"))
             qprime = QCD::STRANGE;
-        else if (p.is("STRANGE"))
+        else if (f.is("STRANGE"))
             qprime = QCD::CHARM;
-        else if (p.is("BOTTOM"))
+        else if (f.is("BOTTOM"))
             qprime = QCD::TOP;
         else
             throw std::runtime_error("EWSMOneLoopEW::FW(): TOP is not allowed");
         complex FW(0.0, 0.0, false);
         FW = cW2 * FWn_0(s, Mw) - cache.sigma_f(cache.getSM().getQuarks(qprime), Mw) / 2.0 * FWa_0(s, Mw)
                 - FbarWa_0(s) / 2.0;
-        if (p.is("BOTTOM"))
+        if (f.is("BOTTOM"))
             FW += cW2 * FWn_t(s, Mw) - cache.sigma_f(cache.getSM().getQuarks(qprime), Mw) / 2.0 * FWa_t(s, Mw)
             - FbarWa_t(s, Mw) / 2.0;
         return FW;

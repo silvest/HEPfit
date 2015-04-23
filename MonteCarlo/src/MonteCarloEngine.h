@@ -42,25 +42,24 @@
  */
 class MonteCarloEngine : public BCModel {
 public:
-    
+
     /**
      * @brief Constructor.
      * @param[in] ModPars_i the vector of model parameters as defined in SomeModel.conf
      * @param[in] Obs_i the vector of observables as defined in SomeModel.conf
      * @param[in] Obs2D_i the vector of observables2D as defined in SomeModel.conf
      * @param[in] CGO_i the vector of correlated Gaussian observables as defined in SomeModel.conf
-     * @param[in] ParaObs_i the vector of parameter vs. observables as defined in SomeModel.conf
      */
     MonteCarloEngine(const std::vector<ModelParameter>& ModPars_i,
-                     boost::ptr_vector<Observable>& Obs_i,
-                     std::vector<Observable2D>& Obs2D_i,
-                     std::vector<CorrelatedGaussianObservables>& CGO_i);
-    
+            boost::ptr_vector<Observable>& Obs_i,
+            std::vector<Observable2D>& Obs2D_i,
+            std::vector<CorrelatedGaussianObservables>& CGO_i);
+
     /**
      * @brief The default destructor. Some pointers defined in this class are explicitly freed.
      */
     ~MonteCarloEngine();
-    
+
     /**
      * @brief Initialization of the Monte Carlo Engine
      * @details The initialization of the Monte Carlo Engine performs the following tasks
@@ -77,7 +76,7 @@ public:
      * @param[in] Mod_i the pointer to the model defined in SomeModel.conf
      */
     void Initialize(Model* Mod_i);
-    
+
     /**
      * @brief A member to classify the prior of the model parameters varied in the Monte Carlo
      * @details The model parameters being varied are first sorted out checking for the existence of 
@@ -97,7 +96,7 @@ public:
      * \f]
      */
     void DefineParameters();
-    
+
     /**
      * @brief This member calculates the loglikelihood for the observables included in the MCMC run.
      * @details The model is updated with the new set of parameters through the Model::Update() method.
@@ -110,7 +109,7 @@ public:
      * @return the loglikelihood
      */
     double LogLikelihood(const std::vector <double>& parameters);
-    
+
     /**
      * @brief This member checks if there is overflow of the 1D histogram.
      * @param[in] hist a reference to an object of type <a href="http://root.cern.ch/root/html/TH1D.html"
@@ -118,7 +117,7 @@ public:
      * @param[in] name the name for the histogram
      */
     void CheckHistogram(const TH1D& hist, const std::string name);
-    
+
     /**
      * @brief This member checks if there is overflow of the 2D histogram.
      * @param[in] hist a reference to an object of type <a href="http://root.cern.ch/root/html/TH2D.html"
@@ -126,19 +125,17 @@ public:
      * @param[in] name the name for the histogram
      */
     void CheckHistogram(const TH2D& hist, const std::string name);
-    
+
     /**
-     * @brief Overloaded from PrintHistogram(BCModelOutput&, const std::string ) to print
+     * @brief Overloaded from PrintHistogram(BCModelOutput&, const std::string) to print
      * histogram for observables.
      * @param[in] out a reference to an object of type BCModelOutput as defined in the
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>
-     * @param[in] a reference to an object of type Observable
+     * @param[in] it a reference to an object of type Observable
      * @param[in] OutputDir the name of the output directory
      */
-    void PrintHistogram(BCModelOutput & out,
-                        Observable & it,
-                        const std::string OutputDir);
-    
+    void PrintHistogram(BCModelOutput & out, Observable & it, const std::string OutputDir);
+
     /**
      * @brief Member used for printing histograms for observables, observable2D, correlated Gaussian observables
      * and model parameters vs. observables.
@@ -147,7 +144,7 @@ public:
      * @param[in] OutputDir the name of the output directory
      */
     void PrintHistogram(BCModelOutput& out, const std::string OutputDir);
-    
+
     /**
      * @brief Overloaded from BCEngineMCMC in <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>
      * @details The interface is used to update the model parameters using the Model::Update() method. Then the
@@ -156,7 +153,7 @@ public:
      * theory values.
      */
     void MCMCIterationInterface();
-    
+
     /**
      * @brief A set method to fix the number of chains.
      * @details The number of chains are set using the MCMCSetNChains() from
@@ -165,7 +162,7 @@ public:
      * @param[in] i the number of chains
      */
     void setNChains(unsigned int i);
-    
+
     /**
      * @brief A method to add the observable values and weights to the chain information.
      * @details If the WriteChain flag is set to true in the MonteCarlo.conf file then chain information
@@ -173,7 +170,7 @@ public:
      * to the chain information.
      */
     void AddChains();
-           
+
     /**
      * @brief A get method to access the stream that stores the log messages coming from histogram printing and checking.
      * @return a string containing the log messages
@@ -182,20 +179,20 @@ public:
     {
         return HistoLog.str().c_str();
     }
-    
+
     /**
      * @brief A get method to compute the mean and rms of the computed observables.
      * @return a string containing the statistics
      */
     std::string computeStatistics();
-    
+
     /**
      * @brief This member generates the correlation matrix using BCH2D from the
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>.
      * @param[in] filename the name of the file where the correlation matrix is printed
      */
     void PrintCorrelationMatrix(const std::string filename);
-    
+
     /**
      * @brief A get method to access the number of events discarded due to failure to update model.
      * These events are not used for the MCMC run.
@@ -205,7 +202,7 @@ public:
     {
         return NumOfDiscardedEvents;
     }
-    
+
     /**
      * @brief A get method to access the number of events used in the MCMC run.
      * @return the number of events used in the MCMC run
@@ -214,10 +211,10 @@ public:
     {
         return NumOfUsedEvents;
     }
-    
+
 private:
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
-    boost::ptr_vector<Observable>& Obs_ALL;  ///< A vector of all observables.
+    boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.
     std::vector<Observable2D>& Obs2D_ALL; ///< A vector of all pairs of observable for Observable2D.
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
     Model* Mod; ///< A pointer to an abject of type Model.
@@ -234,7 +231,7 @@ private:
     int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
-    
+
 };
 
 #endif

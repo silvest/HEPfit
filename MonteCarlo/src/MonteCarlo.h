@@ -41,6 +41,8 @@ public:
      * PrintAllMarginalized, PrintCorrelationMatrix, PrintKnowledgeUpdatePlots, PrintParameterPlot)
      * attain their run time values after the MonteCarlo.conf file is parsed by 
      * MonteCarlo::Run().
+     * @param[in] ModelF 
+     * @param[in] ThObsF 
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated (Observables, Observables2D,
      * Model Parameters vs. Observables and Correlated Gaussian Observables)

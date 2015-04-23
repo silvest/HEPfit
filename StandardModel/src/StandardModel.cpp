@@ -226,10 +226,10 @@ bool StandardModel::PostUpdate()
     }
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
-    if (ModelName() == "StandardModel"){
+    if (ModelName() == "StandardModel") {
         myStandardModelMatching->updateSMParameters();
     }
-    
+
     myFlavour->setSMupdated();
 
     return (true);
@@ -419,7 +419,7 @@ bool StandardModel::CheckFlags() const
 ///////////////////////////////////////////////////////////////////////////
 // For EWPO caches
 
-bool StandardModel::checkSMparamsForEWPO() 
+bool StandardModel::checkSMparamsForEWPO()
 {
     // 11 parameters in QCD:
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
@@ -867,36 +867,35 @@ double StandardModel::DeltaRbar() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::rho_GammaW(const Particle pi, const Particle pj) const
+double StandardModel::rho_GammaW(const Particle fi, const Particle fj) const
 {
     double rhoW = 0.0;
     if (flag_order[EW1])
-        rhoW = myOneLoopEW->rho_GammaW(pi, pj, Mw());
+        rhoW = myOneLoopEW->rho_GammaW(fi, fj, Mw());
     return rhoW;
 }
 
-double StandardModel::GammaW(const Particle pi,
-        const Particle pj) const
+double StandardModel::GammaW(const Particle fi, const Particle fj) const
 {
-    if ((pi.getIndex()) % 2 || (pj.getIndex() + 1) % 2)
+    if ((fi.getIndex()) % 2 || (fj.getIndex() + 1) % 2)
         throw std::runtime_error("Error in StandardModel::GammaW()");
 
     double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
     complex V(0.0, 0.0, false);
 
-    if (pi.is("TOP"))
+    if (fi.is("TOP"))
         return (0.0);
 
-    if (pj.getIndex() - pi.getIndex() == 1)
+    if (fj.getIndex() - fi.getIndex() == 1)
         V = complex(1.0, 0.0, false);
     else
         V = complex(0.0, 0.0, false);
 
-    if (pi.is("LEPTON"))
-        return ( V.abs2() * G0 * rho_GammaW(pi, pj));
+    if (fi.is("LEPTON"))
+        return ( V.abs2() * G0 * rho_GammaW(fi, fj));
     else {
         double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, FULLNLO);
-        return ( 3.0 * V.abs2() * G0 * rho_GammaW(pi, pj)*(1.0 + AlsMw / M_PI));
+        return ( 3.0 * V.abs2() * G0 * rho_GammaW(fi, fj)*(1.0 + AlsMw / M_PI));
     }
 }
 
@@ -919,63 +918,63 @@ double StandardModel::GammaW() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::A_f(const Particle p) const
+double StandardModel::A_f(const Particle f) const
 {
-    double Re_kappa = kappaZ_f(p).real();
-    double Re_gV_over_gA = 1.0 - 4.0 * fabs(p.getCharge()) * Re_kappa * sW2();
+    double Re_kappa = kappaZ_f(f).real();
+    double Re_gV_over_gA = 1.0 - 4.0 * fabs(f.getCharge()) * Re_kappa * sW2();
     return ( 2.0 * Re_gV_over_gA / (1.0 + pow(Re_gV_over_gA, 2.0)));
 }
 
-double StandardModel::AFB(const Particle p) const
+double StandardModel::AFB(const Particle f) const
 {
-    return (3.0 / 4.0 * A_f(leptons[ELECTRON]) * A_f(p));
+    return (3.0 / 4.0 * A_f(leptons[ELECTRON]) * A_f(f));
 }
 
-double StandardModel::sin2thetaEff(const Particle p) const
+double StandardModel::sin2thetaEff(const Particle f) const
 {
-    double Re_kappa = kappaZ_f(p).real();
+    double Re_kappa = kappaZ_f(f).real();
     return ( Re_kappa * sW2());
 }
 
-double StandardModel::GammaZ(const Particle p) const
+double StandardModel::GammaZ(const Particle f) const
 {
-    if (p.is("TOP"))
+    if (f.is("TOP"))
         return 0.0;
     double Gamma;
     if (!IsFlagNoApproximateGammaZ()) {
         /* SM contribution with the approximate formula */
-        if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
+        if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
             Gamma = myApproximateFormulae->X_extended("Gamma_nu");
-        else if (p.is("ELECTRON") || p.is("MU"))
+        else if (f.is("ELECTRON") || f.is("MU"))
             Gamma = myApproximateFormulae->X_extended("Gamma_e_mu");
-        else if (p.is("TAU"))
+        else if (f.is("TAU"))
             Gamma = myApproximateFormulae->X_extended("Gamma_tau");
-        else if (p.is("UP"))
+        else if (f.is("UP"))
             Gamma = myApproximateFormulae->X_extended("Gamma_u");
-        else if (p.is("CHARM"))
+        else if (f.is("CHARM"))
             Gamma = myApproximateFormulae->X_extended("Gamma_c");
-        else if (p.is("DOWN") || p.is("STRANGE"))
+        else if (f.is("DOWN") || f.is("STRANGE"))
             Gamma = myApproximateFormulae->X_extended("Gamma_d_s");
-        else if (p.is("BOTTOM"))
+        else if (f.is("BOTTOM"))
             Gamma = myApproximateFormulae->X_extended("Gamma_b");
         else
             throw std::runtime_error("Error in StandardModel::GammaZ()");
     } else {
-        complex myrhoZ_f = rhoZ_f(p);
-        complex gV_over_gA = gV_f(p) / gA_f(p);
+        complex myrhoZ_f = rhoZ_f(f);
+        complex gV_over_gA = gV_f(f) / gA_f(f);
         double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
-        if (p.is("LEPTON")) {
+        if (f.is("LEPTON")) {
             double myalphaMz = alphaMz();
-            double Q = p.getCharge();
-            double xl = pow(p.getMass() / Mz, 2.0);
+            double Q = f.getCharge();
+            double xl = pow(f.getMass() / Mz, 2.0);
             Gamma = G0 * myrhoZ_f.abs() * sqrt(1.0 - 4.0 * xl)
                     * ((1.0 + 2.0 * xl)*(gV_over_gA.abs2() + 1.0) - 6.0 * xl)
                     * (1.0 + 3.0 / 4.0 * myalphaMz / M_PI * pow(Q, 2.0));
-        } else if (p.is("QUARK")) {
-            Gamma = 3.0 * G0 * myrhoZ_f.abs()*(gV_over_gA.abs2() * RVq((QCD::quark) (p.getIndex() - 6)) + RAq((QCD::quark) (p.getIndex() - 6)));
+        } else if (f.is("QUARK")) {
+            Gamma = 3.0 * G0 * myrhoZ_f.abs()*(gV_over_gA.abs2() * RVq((QCD::quark) (f.getIndex() - 6)) + RAq((QCD::quark) (f.getIndex() - 6)));
 
             /* Nonfactorizable EW-QCD corrections */
-            Gamma += Delta_EWQCD((QCD::quark) (p.getIndex() - 6));
+            Gamma += Delta_EWQCD((QCD::quark) (f.getIndex() - 6));
         } else
             throw std::runtime_error("Error in StandardModel::GammaZ()");
     }
@@ -1022,22 +1021,22 @@ double StandardModel::sigma0_had() const
             / Mz / Mz / Gamma_Z() / Gamma_Z());
 }
 
-double StandardModel::R0_f(const Particle p) const
+double StandardModel::R0_f(const Particle f) const
 {
-    if (p.is("LEPTON")) {
+    if (f.is("LEPTON")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
             return (myApproximateFormulae->X_extended("R0_lepton"));
         else
             return (Gamma_had() / GammaZ(leptons[ELECTRON]));
-    } else if (p.is("CHARM")) {
+    } else if (f.is("CHARM")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
             return (myApproximateFormulae->X_extended("R0_charm"));
         else
             return (GammaZ(quarks[CHARM]) / Gamma_had());
 
-    } else if (p.is("BOTTOM")) {
+    } else if (f.is("BOTTOM")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
             return (myApproximateFormulae->X_extended("R0_bottom"));
@@ -1050,27 +1049,27 @@ double StandardModel::R0_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-complex StandardModel::gV_f(const Particle p) const
+complex StandardModel::gV_f(const Particle f) const
 {
-    return ( gA_f(p)
-            *(1.0 - 4.0 * fabs(p.getCharge())*(kappaZ_f(p)) * sW2()));
+    return ( gA_f(f)
+            *(1.0 - 4.0 * fabs(f.getCharge())*(kappaZ_f(f)) * sW2()));
 }
 
-complex StandardModel::gA_f(const Particle p) const
+complex StandardModel::gA_f(const Particle f) const
 {
-    return ( sqrt(rhoZ_f(p)) * p.getIsospin());
+    return ( sqrt(rhoZ_f(f)) * f.getIsospin());
 }
 
-complex StandardModel::rhoZ_f(const Particle p) const
+complex StandardModel::rhoZ_f(const Particle f) const
 {
-    if (p.getName().compare("TOP") == 0) return (complex(0.0, 0.0, false));
+    if (f.getName().compare("TOP") == 0) return (complex(0.0, 0.0, false));
     if (FlagRhoZ.compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f");
     else {
 
         if (FlagCacheInStandardModel)
-            if (useRhoZ_f_cache[p.getIndex()])
-                return rhoZ_f_cache[p.getIndex()];
+            if (useRhoZ_f_cache[f.getIndex()])
+                return rhoZ_f_cache[f.getIndex()];
 
         double myMw = Mw();
 
@@ -1087,22 +1086,22 @@ complex StandardModel::rhoZ_f(const Particle p) const
         deltaRho_remf[EW2QCD1] = complex(0.0, 0.0, false);
         deltaRho_remf[EW3] = complex(0.0, 0.0, false);
         if (flag_order[EW1])
-            deltaRho_remf[EW1] = myOneLoopEW->deltaRho_rem_f(p, myMw);
+            deltaRho_remf[EW1] = myOneLoopEW->deltaRho_rem_f(f, myMw);
         if (flag_order[EW1QCD1])
 #ifdef WITHIMTWOLOOPQCD
-            deltaRho_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_f(p, myMw).real(),
-                myTwoLoopQCD->deltaRho_rem_f(p, myMw).imag(), false);
+            deltaRho_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_f(f, myMw).real(),
+                myTwoLoopQCD->deltaRho_rem_f(f, myMw).imag(), false);
 #else
-            deltaRho_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_f(p, myMw).real(), 0.0, false);
+            deltaRho_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
 #endif
         if (flag_order[EW1QCD2])
-            deltaRho_remf[EW1QCD2] = complex(myThreeLoopQCD->deltaRho_rem_f(p, myMw).real(), 0.0, false);
+            deltaRho_remf[EW1QCD2] = complex(myThreeLoopQCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2])
-            deltaRho_remf[EW2] = complex(myTwoLoopEW->deltaRho_rem_f(p, myMw).real(), 0.0, false);
+            deltaRho_remf[EW2] = complex(myTwoLoopEW->deltaRho_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2QCD1])
-            deltaRho_remf[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaRho_rem_f(p, myMw).real(), 0.0, false);
+            deltaRho_remf[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW3])
-            deltaRho_remf[EW3] = complex(myThreeLoopEW->deltaRho_rem_f(p, myMw).real(), 0.0, false);
+            deltaRho_remf[EW3] = complex(myThreeLoopEW->deltaRho_rem_f(f, myMw).real(), 0.0, false);
 
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -1113,35 +1112,35 @@ complex StandardModel::rhoZ_f(const Particle p) const
         double deltaRho_rem_f_real[orders_EW_size];
         for (int j = 0; j < orders_EW_size; ++j)
             deltaRho_rem_f_real[j] = deltaRho_remf[j].real();
-        double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real, DeltaRbar_rem, p.is("BOTTOM"));
+        double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real, DeltaRbar_rem, f.is("BOTTOM"));
 
         /* Im[rho_Z^f] without resummation */
         double ImRhoZf = 0.0;
         for (int j = 0; j < orders_EW_size; ++j)
             ImRhoZf += deltaRho_remf[j].imag();
 
-        rhoZ_f_cache[p.getIndex()] = complex(ReRhoZf, ImRhoZf, false);
-        useRhoZ_f_cache[p.getIndex()] = true;
+        rhoZ_f_cache[f.getIndex()] = complex(ReRhoZf, ImRhoZf, false);
+        useRhoZ_f_cache[f.getIndex()] = true;
         return (complex(ReRhoZf, ImRhoZf, false));
     }
 }
 
-complex StandardModel::kappaZ_f(const Particle p) const
+complex StandardModel::kappaZ_f(const Particle f) const
 {
-    if (p.is("TOP")) return (complex(0.0, 0.0, false));
+    if (f.is("TOP")) return (complex(0.0, 0.0, false));
 
     if (FlagCacheInStandardModel)
-        if (useKappaZ_f_cache[p.getIndex()])
-            return kappaZ_f_cache[p.getIndex()];
+        if (useKappaZ_f_cache[f.getIndex()])
+            return kappaZ_f_cache[f.getIndex()];
 
     double myMw = Mw();
 
     double ReKappaZf = 0.0, ImKappaZf = 0.0;
     if (FlagKappaZ.compare("APPROXIMATEFORMULA") == 0) {
-        ReKappaZf = myApproximateFormulae->sin2thetaEff(p) / sW2();
-        ImKappaZf = myOneLoopEW->deltaKappa_rem_f(p, myMw).imag();
+        ReKappaZf = myApproximateFormulae->sin2thetaEff(f) / sW2();
+        ImKappaZf = myOneLoopEW->deltaKappa_rem_f(f, myMw).imag();
 #ifdef WITHIMTWOLOOPQCD
-        ImKappaZf += myTwoLoopQCD->deltaKappa_rem_f(p, myMw).imag();
+        ImKappaZf += myTwoLoopQCD->deltaKappa_rem_f(f, myMw).imag();
 
         /* TEST */
         //ImKappaZf -= myCache->ale()*myCache->alsMz()/24.0/M_PI*(cW2() - sW2())/sW2()/sW2();
@@ -1160,22 +1159,22 @@ complex StandardModel::kappaZ_f(const Particle p) const
         deltaKappa_remf[EW2QCD1] = complex(0.0, 0.0, false);
         deltaKappa_remf[EW3] = complex(0.0, 0.0, false);
         if (flag_order[EW1])
-            deltaKappa_remf[EW1] = myOneLoopEW->deltaKappa_rem_f(p, myMw);
+            deltaKappa_remf[EW1] = myOneLoopEW->deltaKappa_rem_f(f, myMw);
         if (flag_order[EW1QCD1])
 #ifdef WITHIMTWOLOOPQCD
-            deltaKappa_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_f(p, myMw).real(),
-                myTwoLoopQCD->deltaKappa_rem_f(p, myMw).imag(), false);
+            deltaKappa_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_f(f, myMw).real(),
+                myTwoLoopQCD->deltaKappa_rem_f(f, myMw).imag(), false);
 #else
-            deltaKappa_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_f(p, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
 #endif
         if (flag_order[EW1QCD2])
-            deltaKappa_remf[EW1QCD2] = complex(myThreeLoopQCD->deltaKappa_rem_f(p, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW1QCD2] = complex(myThreeLoopQCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2])
-            deltaKappa_remf[EW2] = complex(myTwoLoopEW->deltaKappa_rem_f(p, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW2] = complex(myTwoLoopEW->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2QCD1])
-            deltaKappa_remf[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaKappa_rem_f(p, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW3])
-            deltaKappa_remf[EW3] = complex(myThreeLoopEW->deltaKappa_rem_f(p, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW3] = complex(myThreeLoopEW->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
 
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -1187,7 +1186,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
         for (int j = 0; j < orders_EW_size; ++j)
             deltaKappa_rem_f_real[j] = deltaKappa_remf[j].real();
 
-        ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real, DeltaRbar_rem, p.is("BOTTOM"));
+        ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real, DeltaRbar_rem, f.is("BOTTOM"));
 
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0 * alphaMz() * alphaMz() / 18.0 / sW2()
@@ -1198,21 +1197,20 @@ complex StandardModel::kappaZ_f(const Particle p) const
             ImKappaZf += deltaKappa_remf[j].imag();
     }
 
-    kappaZ_f_cache[p.getIndex()] = complex(ReKappaZf, ImKappaZf, false);
-    useKappaZ_f_cache[p.getIndex()] = true;
+    kappaZ_f_cache[f.getIndex()] = complex(ReKappaZf, ImKappaZf, false);
+    useKappaZ_f_cache[f.getIndex()] = true;
     return (complex(ReKappaZf, ImKappaZf, false));
 }
 
-complex StandardModel::deltaRhoZ_f(const Particle p) const
+complex StandardModel::deltaRhoZ_f(const Particle f) const
 {
-    Particle p1 = p;
-    Particle pe = leptons[ELECTRON];
+    Particle p1 = f, pe = leptons[ELECTRON];
 
-    if (p.is("TOP") || p.is("ELECTRON")) return (complex(0.0, 0.0, false));
+    if (f.is("TOP") || f.is("ELECTRON")) return (complex(0.0, 0.0, false));
 
     /* In the case of BOTTOM, the top contribution has to be subtracted.
      * The remaining contribution is the same as that for DOWN and STRANGE. */
-    if (p.is("BOTTOM")) p1 = quarks[DOWN];
+    if (f.is("BOTTOM")) p1 = quarks[DOWN];
 
     double myMw = Mw();
     double cW2 = myMw * myMw / Mz / Mz, sW2 = 1.0 - cW2;
@@ -1229,15 +1227,15 @@ complex StandardModel::deltaRhoZ_f(const Particle p) const
     return dRho;
 }
 
-complex StandardModel::deltaKappaZ_f(const Particle p) const
+complex StandardModel::deltaKappaZ_f(const Particle f) const
 {
-    Particle p1 = p, pe = leptons[ELECTRON];
+    Particle p1 = f, pe = leptons[ELECTRON];
 
-    if (p.is("TOP") || p.is("ELECTRON")) return (complex(0.0, 0.0, false));
+    if (f.is("TOP") || f.is("ELECTRON")) return (complex(0.0, 0.0, false));
 
     /* In the case of BOTTOM, the top contribution has to be subtracted.
      * The remaining contribution is the same as that for DOWN and STRANGE. */
-    if (p.is("BOTTOM")) p1 = quarks[DOWN];
+    if (f.is("BOTTOM")) p1 = quarks[DOWN];
 
     double myMw = Mw();
     double cW2 = myMw * myMw / Mz / Mz, sW2 = 1.0 - cW2;

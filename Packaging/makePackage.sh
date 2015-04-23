@@ -159,7 +159,7 @@ if [ ! -d "${DOXYGENDIR}/images" ]; then
     echo "mkdir ${DOXYGENDIR}/images"
     mkdir ${DOXYGENDIR}/images
 fi
-DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Installation.md MainPage.md Models.md Usage.md EW.bib QCD.bib bibconversion.pl"
+DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Installation.md MainPage.md Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
 for DOXYFILE in $DOXYFILELIST
 do
     cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/

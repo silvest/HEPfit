@@ -12,7 +12,7 @@
 
 /**
  * @class EW_BURGESS
- * @ingroup EW
+ * @ingroup NewPhysics
  * @brief A test class for the oblique corrections to the EWPO.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -23,8 +23,8 @@ class EW_BURGESS {
 public:
 
     /**
-     * @brief EW_BURGESS constructor.
-     * @param SM_i An object of StandardModel class.
+     * @brief Constructor.
+     * @param[in] NP_i a reference to an object of type NPSTU
      */
     EW_BURGESS(const NPSTU& NP_i);
 

@@ -26,9 +26,9 @@ using namespace gslpp;
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
  * @li @f$\Delta\rho@f$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (with DeltaRho()),
  * @li @f$\Delta r_{\mathrm{rem}}@f$&nbsp;&nbsp; (with DeltaR_rem()),
- * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaRho_rem_l() and deltaRho_rem_q()),
- * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()),
- * @li @f$\rho_{ij}^W@f$&nbsp;&nbsp; (with rho_GammaW_l() and rho_GammaW_l()). 
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaRho_rem_f()),
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_f()),
+ * @li @f$\rho_{ij}^W@f$&nbsp;&nbsp; (with rho_GammaW()). 
  *
  * See also the description of EWSM class for their definitions.
  *
@@ -229,17 +229,17 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
-     * couplings @f$\rho_Z^l@f$,
-     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha}@f$.
+     * couplings @f$\rho_Z^f@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha}@f$.
      * @details This function handles the remainder contribution
-     * @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha}@f$ for @f$Z\to l\bar{l}@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha}@f$ for @f$Z\to f\bar{f}@f$.
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha}@f$
+     * @return @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha}@f$
      *
      * @sa deltaRho_rem_tmp()
      */
-    complex deltaRho_rem_f(const Particle p, const double Mw_i) const;
+    complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
@@ -277,17 +277,17 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
-     * couplings @f$\kappa_Z^l@f$,
-     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha}@f$.
+     * couplings @f$\kappa_Z^f@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha}@f$.
      * @details This function handles the remainder contribution
-     * @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha}@f$ for @f$Z\to l\bar{l}@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha}@f$ for @f$Z\to f\bar{f}@f$.
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha}@f$
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha}@f$
      *
      * @sa deltaKappa_rem_tmp()
      */
-    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
+    complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief %EW radiative corrections to the widths of @f$W \to f_i \bar{f}_j@f$, 
@@ -351,18 +351,16 @@ public:
             const double Mw_i) const;
 
     /**
-     * @brief %EW radiative corrections to the width of @f$W \to l_i \bar{l}_j@f$,
+     * @brief %EW radiative corrections to the width of @f$W \to f_i \bar{f}_j@f$,
      * denoted as @f$\rho^W_{ij}@f$.
-     * @param[in] li name of a neutrino (see StandardModel::lepton)
-     * @param[in] lj name of a charged lepton (see StandardModel::lepton)
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\rho^W_{ij}@f$
      *
      * @sa rho_GammaW_tmp()
      */
-    double rho_GammaW(const Particle pi,
-            const Particle pj,
-            const double Mw_i) const;
+    double rho_GammaW(const Particle fi, const Particle fj, const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////    
@@ -439,18 +437,18 @@ public:
 
     /**
      * @brief The fermionic contribution to the self-energy of the photon
-     * in the Unitary gauge, associated with lepton loops,
-     * @f$\overline{\Pi}^{\mathrm{fer},l}_{\gamma\gamma}(s)@f$.
+     * in the Unitary gauge, associated with loops of a lepton or quark. 
+     * @f$\overline{\Pi}^{\mathrm{fer},f}_{\gamma\gamma}(s)@f$.
      * @details This function represents the @f$O(\alpha)@f$ fermionic contribution
-     * with lepton loops to @f$\overline{\Pi}_{\gamma\gamma}(s)@f$,
+     * to @f$\overline{\Pi}_{\gamma\gamma}(s)@f$,
      * whose definition is given in @ref SeflEnergies "the detailed description"
      * of the current class.
      * @param[in] mu renormalization scale @f$\mu@f$
      * @param[in] s momentum squared @f$s@f$
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\overline{\Pi}^{\mathrm{fer},l}_{\gamma\gamma}(s)@f$
+     * @param[in] f a lepton or quark
+     * @return @f$\overline{\Pi}^{\mathrm{fer},f}_{\gamma\gamma}(s)@f$
      */
-    complex PibarGammaGamma_fer(const double mu, const double s, const Particle p) const;
+    complex PibarGammaGamma_fer(const double mu, const double s, const Particle f) const;
 
     /**
      * @brief The fermionic contribution to the self-energy of the photon
@@ -806,9 +804,9 @@ public:
     complex FZ(const double s, const double Mw_i) const;
 
     /**
-     * @brief The unified form factor @f$\mathcal{F}_W@f$ for @f$Z\to l\bar{l}@f$.
+     * @brief The unified form factor @f$\mathcal{F}_W@f$ for @f$Z\to f\bar{f}@f$.
      * @details The so-called unified form factor @f$\mathcal{F}_W@f$, associated
-     * with radiative corrections to the @f$Z\to l\bar{l}@f$ vertex with a virtual
+     * with radiative corrections to the @f$Z\to f\bar{f}@f$ vertex with a virtual
      * @f$W@f$ boson as well as with virtual @f$W@f$ bosons, is given by
      * @f[
      * {\cal F}_W(s) = c_W^2 {\cal F}_{Wn}^0(s)
@@ -816,20 +814,20 @@ public:
      * - \frac{1}{2}\overline{{\cal F}}_{Wa}^0(s)\,,
      * @f]
      * where the suprescripts "0" denote the chiral limit,
-     * @f$\sigma_{l'}^a = |v_{l'} + a_{l'}|
-     * = 1 - 2|Q_{l'}|s_W^2 = 2c_W^2 - 1 + 2|Q_{l}| s_W^2@f$
-     * with @f$l'@f$ being the partner of @f$l@f$ in the @f$SU(2)_L@f$ doublet,
+     * @f$\sigma_{f'}^a = |v_{f'} + a_{f'}|
+     * = 1 - 2|Q_{f'}|s_W^2 = 2c_W^2 - 1 + 2|Q_{f}| s_W^2@f$
+     * with @f$f'@f$ being the partner of @f$f@f$ in the @f$SU(2)_L@f$ doublet,
      * and @f${\cal F}_{Wn}^0(s)@f$, @f${\cal F}_{Wa}^0(s)@f$
      * and @f$\overline{{\cal F}}_{Wa}^0(s)@f$ correspond to the functions 
      * FWn_0(), FWa_0() and FbarWa_0(), respectively.
      *
      * See @cite Bardin:1999ak.
      * @param[in] s momentum squared @f$s@f$
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_W@f$
      */
-    complex FW(const double s, const Particle p, const double Mw_i) const;
+    complex FW(const double s, const Particle f, const double Mw_i) const;
 
     ////////////////////////////////////////////////////////////////////////        
 

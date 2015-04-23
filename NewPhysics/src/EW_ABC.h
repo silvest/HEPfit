@@ -15,7 +15,7 @@ using namespace gslpp;
 
 /**
  * @class EW_ABC
- * @ingroup EW 
+ * @ingroup NewPhysics
  * @brief A test class for the electroweak precision observables. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

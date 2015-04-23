@@ -43,9 +43,8 @@ public:
 
     /**
      * @brief Constructor. 
-     * @details The properties of the particle can be initialized by passing
-     * arguments. 
-     * @param[in] the name of the particle
+     * @details The properties of the particle can be initialized by passing arguments.
+     * @param[in] name the name of the particle
      * @param[in] mass the mass of the particle in GeV
      * @param[in] mass_scale the scale in GeV at which the mass is defined, set to 0 by default
      * @param[in] width the decay width of the particle in GeV, set to 0 by default

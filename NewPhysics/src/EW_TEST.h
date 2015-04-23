@@ -17,7 +17,7 @@
 
 /**
  * @class EW_TEST
- * @ingroup EW
+ * @ingroup NewPhysics
  * @brief A test class for the EWPO.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

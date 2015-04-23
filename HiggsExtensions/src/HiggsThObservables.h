@@ -36,7 +36,7 @@ public:
     }
 
     /**
-     * @brieef A method to compute the value of @f$\mu_{ggH}@f$ in the current model.
+     * @brief A method to compute the value of @f$\mu_{ggH}@f$ in the current model.
      * @return @f$\mu_{ggH}@f$
      */
     double computeThValue()
@@ -346,7 +346,7 @@ public:
     {
         return myNPbase->BrHZZRatio();
     }
-    
+
 private:
     const NPbase* myNPbase;
 };
@@ -418,7 +418,7 @@ public:
     {
         return myNPbase->BrHgagaRatio();
     }
-    
+
 private:
     const NPbase* myNPbase;
 };
@@ -454,7 +454,7 @@ public:
     {
         return myNPbase->BrHtautauRatio();
     }
-    
+
 private:
     const NPbase* myNPbase;
 };

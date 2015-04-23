@@ -22,47 +22,56 @@
  */
 class ThObservable {
 public:
-    
+
     /**
      * @brief Constructor.
-     * @param[in] ObsType_i a reference to an object of ThObsType() class
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
-    ThObservable(const StandardModel& SM_i) : SM(SM_i) {
+    ThObservable(const StandardModel& SM_i) 
+    : SM(SM_i)
+    {
         min = 0;
         max = 0;
     };
-    
+
     /**
      * @brief The copy constructor.
      */
-    ThObservable(const ThObservable& orig) : SM(orig.SM) {};
-    
+    ThObservable(const ThObservable& orig)
+    : SM(orig.SM)
+    {
+    };
+
     /**
      * @brief The default destructor.
      */
     virtual ~ThObservable()
-    {    
+    {
     };
-    
+
     /**
      * @brief A member to be overloaded by the respective theory observable.
      * class that calculates the value of the observable
      */
     virtual double computeThValue() = 0;
-    
-    void setBinMin(double min){
+
+    void setBinMin(double min)
+    {
         this->min = min;
     };
 
-    void setBinMax(double max){
+    void setBinMax(double max)
+    {
         this->max = max;
     };
-    
-    double getBinMin(){
+
+    double getBinMin()
+    {
         return min;
     };
-    
-    double getBinMax(){
+
+    double getBinMax()
+    {
         return max;
     };
 

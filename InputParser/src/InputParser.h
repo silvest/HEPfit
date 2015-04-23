@@ -79,7 +79,6 @@ public:
      * \li Search and read the Observable list using the ParseObservable() method.
      * \li Search and read the Observable2D list using the ParseObservable() method.
      * \li Search and read the CorrelatedGaussianObservables.
-     * \li Search and read the ModelParaVsObs.
      * \li Return the name of the model initialized.
      * @param[in] filename name of the SomeModel.conf file passed as an argument to the executable
      * @param[in] rank the rank of the process in an MPI run (set to 0 for a serial run)
@@ -87,7 +86,6 @@ public:
      * @param[out] Observables the vector of observables
      * @param[out] Observables2D the vector of observable pairs
      * @param[out] CGO the vector of correlated Gaussian observables
-     * @param[out] ParaObs The vector of model parameter - observable pairs
      * @return modname the name of the model initialized
      */
     std::string ReadParameters(const std::string filename,

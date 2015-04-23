@@ -45,7 +45,7 @@ class LeptonFlavour;
  * The constructor StandardModel() initializes some of the model flags to their
  * default values. After creating an instance of the current class,
  * it is required to call the initialization method InitializeModel(), which
- * allocates memory to the pointers #myEWSM and #myStandardModelMatching. 
+ * allocates memory to the pointers defined in the current class.
  * These pointers are then used in computing %EW precision and flavour observables,
  * respectively. In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
@@ -499,8 +499,7 @@ public:
     /**
      * @brief A method to initialize the model.
      * @details This method, called via InputParser::ReadParameters(), allocates
-     * memory to the pointers #myEWSM and #myStandardModelMatching, which are used
-     * for %EW precision and flavour observables, respectively. 
+     * memory to the pointers defined in the current class.
      * @return a boolean that is true if model initialization is successful
      */
     virtual bool InitializeModel();
@@ -982,7 +981,7 @@ public:
     {
         return myFlavour;
     }
-    
+
     LeptonFlavour* getMyLeptonFlavour() const
     {
         return myLeptonFlavour;
@@ -1417,17 +1416,17 @@ public:
     // The W-boson decay width
 
     /**
-     * @brief @copybrief EWSMOneLoopEW::rho_GammaW_l()
-     * @param[in] li name of a neutrino
-     * @param[in] lj name of a charged lepton
+     * @brief @copybrief EWSMOneLoopEW::rho_GammaW()
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
      * @return @f$\rho^W_{ij}@f$
      *
-     * @sa EWSMOneLoopEW::rho_GammaW_l()
+     * @sa EWSMOneLoopEW::rho_GammaW()
      */
-    virtual double rho_GammaW(const Particle pi, const Particle pj) const;
+    virtual double rho_GammaW(const Particle fi, const Particle fj) const;
 
     /**
-     * @brief A partial decay width of the @f$W@f$ boson decay into a lepton pair.
+     * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
      * @details
      * @f[
      * \Gamma^W_{ij}
@@ -1436,14 +1435,23 @@ public:
      * @f]
      * where @f$U@f$ denotes the %MNS matrix, and @f$\rho^W_{ij}@f$ represents
      * %EW radiative corrections.
-     * @param[in] li name of a neutrino
-     * @param[in] lj name of a charged lepton
+     *
+     * @f[
+     * \Gamma^W_{ij}
+     * =
+     * 3 |V_{ij}|^2\,\frac{G_\mu M_W^3}{6\sqrt{2}\,\pi}\,\rho^W_{ij}
+     * \left( 1 + \frac{\alpha_s(M_W^2)}{\pi} \right).
+     * @f]
+     * where @f$V@f$ denotes the %CKM matrix, and @f$\rho^W_{ij}@f$ represents
+     * %EW radiative corrections.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
      * @return @f$\Gamma^W_{ij}@f$
      *
      * @sa rho_GammaW_l_SM()
      * @attention Fermion masses are neglected.
      */
-    virtual double GammaW(const Particle pi, const Particle pj) const;
+    virtual double GammaW(const Particle fi, const Particle fj) const;
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
@@ -1470,12 +1478,17 @@ public:
      * when checkNPZff_linearized() returns true and
      * the model flag @ref StandardModelFlags "KappaZ" of StandardModel
      * is set to APPROXIMATEFORMULA.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\mathcal{A}_\ell@f$
      */
-    virtual double A_f(const Particle p) const;
+    virtual double A_f(const Particle f) const;
 
-    virtual double AFB(const Particle p) const;
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual double AFB(const Particle f) const;
 
     /**
      * @brief The effective weak mixing angle @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
@@ -1491,12 +1504,12 @@ public:
      * @f[
      * \sin^2\theta_{\rm eff}^{\,\ell} = {\rm Re}(\kappa_Z^\ell)\,s_W^2\,.
      * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
      *
      * @attention @f$\ell@f$ stands for both a neutrino and a charged lepton. 
      */
-    virtual double sin2thetaEff(const Particle p) const;
+    virtual double sin2thetaEff(const Particle f) const;
 
     /**
      * @brief The @f$Z\to \ell\bar{\ell}@f$ partial decay width, @f$\Gamma_\ell@f$.
@@ -1518,12 +1531,12 @@ public:
      * \left( 1 + \frac{3}{4}\frac{\alpha(M_Z^2)}{\pi}\, Q_\ell^2 \right)
      * @f]
      * with @f$\Gamma_0=G_\mu M_Z^3/(24\sqrt{2}\pi)@f$. 
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\Gamma_\ell@f$ in GeV
      *
      * @attention @f$\ell@f$ stands for both a neutrino and a charged lepton. 
      */
-    virtual double GammaZ(const Particle p) const;
+    virtual double GammaZ(const Particle f) const;
 
     /**
      * @brief The invisible partial decay width of the @f$Z@f$ boson,
@@ -1594,9 +1607,10 @@ public:
      * R_\ell^0 = \frac{\Gamma_h}{\Gamma_\ell}\,.
      * @f],
      * where @f$\ell@f$ denotes a charged lepton.
+     * @param[in] f a lepton or quark
      * @return @f$R_\ell^0 @f$
      */
-    virtual double R0_f(const Particle p) const;
+    virtual double R0_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1608,10 +1622,10 @@ public:
      * @f[
      * g_V^l = g_A^l (1 - 4|Q_l|\kappa_Z^l s_W^2)\,.
      * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$g_{V,\,\mathrm{SM}}^l@f$
      */
-    virtual complex gV_f(const Particle p) const;
+    virtual complex gV_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$ in the SM.
@@ -1619,10 +1633,10 @@ public:
      * @f[
      * g_A^l = \sqrt{\rho_Z^l}\, I_3^l\,.
      * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$g_{A,\,\mathrm{SM}}^l@f$
      */
-    virtual complex gA_f(const Particle p) const;
+    virtual complex gA_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$ in the SM.
@@ -1631,7 +1645,7 @@ public:
      * EWSMThreeLoopEW2QCD and EWSMThreeLoopEW classes. The real part is computed
      * with the function resumRhoZ(), while only the one-loop contribution is kept
      * in the imaginary part. 
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\rho_{Z,\,\mathrm{SM}}^l@f$
      * 
      * @sa resumRhoZ()
@@ -1639,7 +1653,7 @@ public:
      * of StandardModel is set to true, the caching method implemented in the
      * current class is employed.
      */
-    virtual complex rhoZ_f(const Particle p) const;
+    virtual complex rhoZ_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$ in the SM.
@@ -1660,7 +1674,7 @@ public:
      * = \frac{35\alpha^2(M_Z^2)}{18 s_W^2}\,
      * \left( 1 - \frac{8}{3}\, {\rm Re}(\kappa_Z^l) s_W^2 \right).
      * @f}
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\kappa_{Z,\,\mathrm{SM}}^l@f$
      *
      * @sa resumKappaZ()
@@ -1668,7 +1682,7 @@ public:
      * of StandardModel is set to true, the caching method implemented in the
      * current class is employed.
      */
-    virtual complex kappaZ_f(const Particle p) const;
+    virtual complex kappaZ_f(const Particle f) const;
 
     /**
      * @brief Flavour non-universal vertex corrections to @f$\rho_Z^l@f$,
@@ -1687,10 +1701,10 @@ public:
      * @f$\mathcal{F}_Z@f$ and @f$\mathcal{F}_W^l@f$.
      *
      * See @cite Ciuchini:2013pca and references therein. 
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\Delta\rho_Z^l@f$
      */
-    virtual complex deltaRhoZ_f(const Particle p) const;
+    virtual complex deltaRhoZ_f(const Particle f) const;
 
     /**
      * @brief Flavour non-universal vertex corrections to @f$\kappa_Z^l@f$,
@@ -1713,10 +1727,10 @@ public:
      * @f$\mathcal{F}_Z@f$ and @f$\mathcal{F}_W^l@f$.
      *
      * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\Delta\kappa_Z^l@f$
      */
-    virtual complex deltaKappaZ_f(const Particle p) const;
+    virtual complex deltaKappaZ_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1869,7 +1883,7 @@ public:
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
     }
 
-   /**
+    /**
      * @brief The square of the bottom-quark contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from  M. Spira. See also Table 38
      * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
@@ -1882,15 +1896,15 @@ public:
             //return 0.09528; // in pb for Mh=125 GeV with a scale choice of Mh
             //return 0.1079; // in pb for Mh=125 GeV with a scale choice of Mh/2
             return 0.1057; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
-    } else if (sqrt_s == 8.0) {
+        } else if (sqrt_s == 8.0) {
             //return 0.1206; // in pb for Mh=125 GeV with a scale choice of Mh
             //return 0.1357; // in pb for Mh=125 GeV with a scale choice of Mh/2
             return 0.1330; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
-    } else
+        } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
     }
 
-   /**
+    /**
      * @brief The top-bottom interference contribution to the ggH cross section in the Standard Model.
      * @details The values have been obtained from  M. Spira. See also Table 38
      * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
@@ -1910,7 +1924,7 @@ public:
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
     }
-    
+
     /**
      * @brief The VBF cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
@@ -1945,7 +1959,7 @@ public:
         } else if (sqrt_s == 8.0) {
             return 1.210; // in pb for Mh=125 GeV
         } else if (sqrt_s == 1.96) {
-            return computeSigmaVBF(sqrt_s)/computeSigmaVBF(7.)*computeSigmaWF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaWF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaWF()");
     }
@@ -1964,7 +1978,7 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.417; // in pb for Mh=125 GeV
         } else if (sqrt_s == 1.96) {
-            return computeSigmaVBF(sqrt_s)/computeSigmaVBF(7.)*computeSigmaZF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaZF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaZF()");
     }
@@ -2040,7 +2054,7 @@ public:
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
     }
-    
+
     /**
      * @brief The Br@f$(H\to gg)@f$ in the Standard Model.
      * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
@@ -2170,7 +2184,7 @@ public:
         return -42.1; // in keV for Mh=125 GeV
         //return -42.7; // in keV for Mh=126 GeV
     }
-    
+
     /**
      * @brief The top loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
      * @details Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
@@ -2511,7 +2525,7 @@ protected:
      * @return @f$R_V^h@f$
      */
     double RVh() const;
-    
+
     bool requireCKM; ///< An internal flag to control whether the %CKM matrix has to be recomputed.
     bool requireYe; ///< An internal flag to control whether the charged-lepton Yukawa matrix has to be recomputed.
     bool requireYn; ///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
