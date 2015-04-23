@@ -200,8 +200,7 @@ double EWSMOneLoopEW::rho_GammaW(const Particle fi, const Particle fj, const dou
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s,
-        const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -285,8 +284,7 @@ complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s,
-        const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -347,8 +345,7 @@ complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s,
-        const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -399,8 +396,7 @@ complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s,
-        const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -453,8 +449,7 @@ complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s,
-        const double Mw_i) const
+complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -487,8 +482,7 @@ complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s,
     return Pi;
 }
 
-complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s,
-        const Particle f) const
+complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s, const Particle f) const
 {
     // Neutrinos do not contribute, since Qf=0.
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2")
@@ -537,16 +531,14 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s) cons
     return Pi;
 }
 
-complex EWSMOneLoopEW::PibarZgamma_bos(const double mu, const double s,
-        const double Mw_i) const
+complex EWSMOneLoopEW::PibarZgamma_bos(const double mu, const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double cW2 = cache.getSM().cW2(Mw);
     return ( PibarGammaGamma_bos(mu, s, Mw) * cW2);
 }
 
-complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s,
-        const double Mw_i) const
+complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -594,8 +586,7 @@ complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s,
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu,
-        const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -648,8 +639,7 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu,
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu,
-        const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -705,8 +695,7 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu,
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu,
-        const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -1129,8 +1118,7 @@ complex EWSMOneLoopEW::FW(const double s, const Particle f, const double Mw_i) c
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::TEST_FWn(const double s, const double mf,
-        const double Mw_i) const
+complex EWSMOneLoopEW::TEST_FWn(const double s, const double mf, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mw2 = Mw*Mw;

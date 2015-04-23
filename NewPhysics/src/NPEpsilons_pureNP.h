@@ -181,46 +181,46 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief @copybrief NPbase::deltaGVq()
+     * @brief @copybrief NPbase::deltaGV_f()
      * @details
      * @f[
-     * \delta g_V^q
-     * = \Big( g_{V,\mathrm{SM}}^q - g_{A,\mathrm{SM}}^q \Big)
+     * \delta g_V^f
+     * = \Big( g_{V,\mathrm{SM}}^f - g_{A,\mathrm{SM}}^f \Big)
      *   \frac{\delta\,\varepsilon_3-c_0^2\,\delta\,\varepsilon_1}{c_0^2 - s_0^2}
-     * + \frac{g_{V,\mathrm{SM}}^q}{2} \delta\,\varepsilon_1
+     * + \frac{g_{V,\mathrm{SM}}^f}{2} \delta\,\varepsilon_1
      * @f]
-     * for @f$q\neq b@f$, and
+     * for @f$f\neq b@f$, and
      * @f[
-     * \delta g_V^q
-     * = \Big(g_{V,\mathrm{SM}}^q - g_{A,\mathrm{SM}}^q \Big)
+     * \delta g_V^b
+     * = \Big(g_{V,\mathrm{SM}}^b - g_{A,\mathrm{SM}}^b \Big)
      * \bigg( \frac{\delta\,\varepsilon_3-c_0^2\,\delta\,\varepsilon_1}{c_0^2 - s_0^2}
      * - \delta\,\varepsilon_b \bigg)
      * +
-     * \frac{g_{V,\mathrm{SM}}^f}{2}
+     * \frac{g_{V,\mathrm{SM}}^b}{2}
      * \big(\delta\,\varepsilon_1 + 2\delta\,\varepsilon_b\big)
      * @f]
-     * for @f$q=b@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_V^q@f$
+     * for @f$f=b@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_V^f@f$
      */
-    virtual double deltaGV_f(const Particle p) const;
+    virtual double deltaGV_f(const Particle f) const;
 
     /**
-     * @brief @copybrief NPbase::deltaGAq()
+     * @brief @copybrief NPbase::deltaGA_f()
      * @details
      * @f[
-     * \delta g_A^q = \frac{I_3^q}{2}\delta\,\varepsilon_1
+     * \delta g_A^f = \frac{I_3^f}{2}\delta\,\varepsilon_1
      * @f]
-     * for @f$q\neq b@f$, and
+     * for @f$f\neq b@f$, and
      * @f[
-     * \delta g_A^q 
-     * = \frac{I_3^q}{2}\big( \delta\,\varepsilon_1 + 2\,\delta\,\varepsilon_b \big)
+     * \delta g_A^b
+     * = \frac{I_3^b}{2}\big( \delta\,\varepsilon_1 + 2\,\delta\,\varepsilon_b \big)
      * @f]
-     * for @f$q=b@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_A^q@f$
+     * for @f$f=b@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_A^f@f$
      */
-    virtual double deltaGA_f(const Particle p) const;
+    virtual double deltaGA_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////

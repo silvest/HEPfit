@@ -7,12 +7,10 @@ are inherited from a parent model class to a child model class:
 
 MODEL_GRAPH_INHERITE_SVG
 
-where Model is a template class of models, and NPbase and NPEffective
-are auxiliary classes. 
-A complete list of observables are available at the documentation of
-@ref ListOfObservables "ThFactory", where not all the observables can
-be used in each model. Below we also list the available observables for
-each model. 
+where Model is a template class of models, and NPbase is an auxiliary class.
+A complete list of observables are available in the function ThObsFactory::ThObsFactory(),
+where not all the observables can be used in each model. Below we also list the
+available observables for each model.
 
 ## QCD:
 
@@ -26,13 +24,7 @@ each model.
   - %Model flags: [@ref StandardModelFlags "Summary table"]
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom, 
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon1",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon2",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon3",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilonb"
+    Rlepton, Rcharm, Rbottom
 
 ## NPEpsilons:
 
@@ -40,13 +32,7 @@ each model.
   - %Model flags: [@ref NPEpsilonsFlags "Summary table"]
   - %Observables: Mw, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom,
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon1",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon2",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon3",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilonb"
+    Rlepton, Rcharm, Rbottom
 
 ## NPEpsilons_pureNP:
 
@@ -54,13 +40,7 @@ each model.
   - %Model flags: None
   - %Observables: Mw, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom,
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon1",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon2",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon3",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilonb"
+    Rlepton, Rcharm, Rbottom
 
 ## NPSTU:
 
@@ -68,13 +48,7 @@ each model.
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom,
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon1",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon2",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilon3",
-	@ref NewPhysicsParams::NewPhysicsParams() "epsilonb"
+    Rlepton, Rcharm, Rbottom
 
 ## NPHiggs:
 
@@ -82,9 +56,7 @@ each model.
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom,
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl"
+    Rlepton, Rcharm, Rbottom
 
 ## NPZbbbar:
 
@@ -92,15 +64,7 @@ each model.
   - %Model flags: [@ref NPZbbbarFlags "Summary table"]
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom,
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl",
-    @ref NewPhysicsParams::NewPhysicsParams() "deltaGVb",
-    @ref NewPhysicsParams::NewPhysicsParams() "deltaGAb",
-    @ref NewPhysicsParams::NewPhysicsParams() "deltaGRb",
-    @ref NewPhysicsParams::NewPhysicsParams() "deltaGLb",
-    @ref NewPhysicsParams::NewPhysicsParams() "deltaRhoZb",
-    @ref NewPhysicsParams::NewPhysicsParams() "deltaKappaZb"
+    Rlepton, Rcharm, Rbottom
 
 ## NPZbbbarLR (a variant of NPZbbbar): 
 
@@ -110,34 +74,53 @@ each model.
   - %Model flags: Same as %NPZbbbar above. 
   - %Observables: Same as %NPZbbbar above. 
 
-## NPEffective1:
+## NPZbbbarLinearized:
 
-  - %Model parameters: [@ref NPEffective1Parameters "Summary table"]
+  - %Model parameters: [@ref NPZbbbarLinearizedParameters "Summary table"]
+  - %Model flags: [@ref NPZbbbarLinearizedFlags "Summary table"]
+  - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
+    PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
+    Rlepton, Rcharm, Rbottom
+
+## NPZbbbarLinearizedLR (a variant of NPZbbbarLinearized):
+
+  - %Model parameters: [@ref NPZbbbarLinearizedParameters "Summary table"],
+    where deltaGLb and deltaGRb must be used, instead of deltaGVb and
+    deltaGAb in %NPZbbbarLinearized above.
+  - %Model flags: Same as %NPZbbbarLinearized above.
+  - %Observables: Same as %NPZbbbarLinearized above.
+
+## NPEffectiveBS (variants: NPEffectiveBS_LFU, NPEffectiveBS_QFU and NPEffectiveBS_LFU_QFU):
+
+  - %Model parameters: [@ref NPEffectiveBSParameters "Summary table"]
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom,
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl",
-    @ref NewPhysicsParams::NewPhysicsParams() "cHQ1pPLUScHQ2p_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "cHQ2pMINUScHQ2_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "cHQ3pPLUScHQ3_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "c_Ae_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "c_GammaZ_uds_NP"
+    Rlepton, Rcharm, Rbottom
 
-## NPEffective2:
+## NPEffectiveGIMR (variant: NPEffectiveGIMR_LFU_QFU):
 
-  - %Model parameters: [@ref NPEffective2Parameters "Summary table"]
+  - %Model parameters: [@ref NPEffectiveGIMRParameters "Summary table"]
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
-    Rlepton, Rcharm, Rbottom,
-    @ref StandardModelParams::StandardModelParams() "Mz",
-    @ref StandardModelParams::StandardModelParams() "mHl",
-    @ref NewPhysicsParams::NewPhysicsParams() "cHQ1pPLUScHQ2p_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "cHQ2pMINUScHQ2_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "cHQ3pPLUScHQ3_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "c_Ae_NP",
-    @ref NewPhysicsParams::NewPhysicsParams() "c_GammaZ_uds_NP"
+    Rlepton, Rcharm, Rbottom
 
+## HiggsKvKf
+
+  - %Model parameters: [@ref HiggsKvKfParameters "Summary table"]
+  - %Model flags:
+  - %Observables:
+
+## HiggsKvKfgen
+
+  - %Model parameters: [@ref HiggsKvKfgenParameters "Summary table"]
+  - %Model flags:
+  - %Observables:
+
+## HiggsKvgenKf
+
+  - %Model parameters: [@ref HiggsKvgenKfParameters "Summary table"]
+  - %Model flags:
+  - %Observables:
 

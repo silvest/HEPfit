@@ -296,75 +296,75 @@ double NPEffectiveBS::obliqueU() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffectiveBS::deltaGV_f(const Particle p) const
+double NPEffectiveBS::deltaGV_f(const Particle f) const
 {
-    return ( deltaGL_f_tmp(p) + deltaGR_f_tmp(p) + NPbase::deltaGV_f(p));
+    return ( deltaGL_f_tmp(f) + deltaGR_f_tmp(f) + NPbase::deltaGV_f(f));
 }
 
-double NPEffectiveBS::deltaGA_f(const Particle p) const
+double NPEffectiveBS::deltaGA_f(const Particle f) const
 {
-    return ( deltaGL_f_tmp(p) - deltaGR_f_tmp(p) + NPbase::deltaGA_f(p));
+    return ( deltaGL_f_tmp(f) - deltaGR_f_tmp(f) + NPbase::deltaGA_f(f));
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffectiveBS::deltaGL_f_tmp(const Particle p) const
+double NPEffectiveBS::deltaGL_f_tmp(const Particle f) const
 {
     double ratio = v() * v() / Lambda_NP / Lambda_NP;
-    if (p.is("NEUTRINO_1"))
+    if (f.is("NEUTRINO_1"))
         return ( (cHL1p - cHL1) / 2.0 * ratio);
-    if (p.is("NEUTRINO_2"))
+    if (f.is("NEUTRINO_2"))
         return ( (cHL2p - cHL2) / 2.0 * ratio);
-    if (p.is("NEUTRINO_3"))
+    if (f.is("NEUTRINO_3"))
         return ( (cHL3p - cHL3) / 2.0 * ratio);
-    if (p.is("ELECTRON"))
+    if (f.is("ELECTRON"))
         return ( -(cHL1p + cHL1) / 2.0 * ratio);
-    if (p.is("MU"))
+    if (f.is("MU"))
         return ( -(cHL2p + cHL2) / 2.0 * ratio);
-    if (p.is("TAU"))
+    if (f.is("TAU"))
         return ( -(cHL3p + cHL3) / 2.0 * ratio);
-    if (p.is("UP"))
+    if (f.is("UP"))
         return ( (cHQ1p - cHQ1) / 2.0 * ratio);
-    if (p.is("CHARM"))
+    if (f.is("CHARM"))
         return ( (cHQ2p - cHQ2) / 2.0 * ratio);
-    if (p.is("TOP"))
+    if (f.is("TOP"))
         return 0.0;
-    if (p.is("DOWN"))
+    if (f.is("DOWN"))
         return ( -(cHQ1p + cHQ1) / 2.0 * ratio);
-    if (p.is("STRANGE"))
+    if (f.is("STRANGE"))
         return ( -(cHQ2p + cHQ2) / 2.0 * ratio);
-    if (p.is("BOTTOM"))
+    if (f.is("BOTTOM"))
         return ( -(cHQ3p + cHQ3) / 2.0 * ratio);
     throw std::runtime_error("Error in NPEffectiveBS::deltaGL_f()");
 }
 
-double NPEffectiveBS::deltaGR_f_tmp(const Particle p) const
+double NPEffectiveBS::deltaGR_f_tmp(const Particle f) const
 {
     double ratio = v() * v() / Lambda_NP / Lambda_NP;
-    if (p.is("NEUTRINO_1"))
+    if (f.is("NEUTRINO_1"))
         return ( 0.);
-    if (p.is("NEUTRINO_2"))
+    if (f.is("NEUTRINO_2"))
         return ( 0.);
-    if (p.is("NEUTRINO_3"))
+    if (f.is("NEUTRINO_3"))
         return ( 0.);
-    if (p.is("ELECTRON"))
+    if (f.is("ELECTRON"))
         return ( -cHE1 / 2.0 * ratio);
-    if (p.is("MU"))
+    if (f.is("MU"))
         return ( -cHE2 / 2.0 * ratio);
-    if (p.is("TAU"))
+    if (f.is("TAU"))
         return ( -cHE3 / 2.0 * ratio);
-    if (p.is("UP"))
+    if (f.is("UP"))
         return ( -cHU1 / 2.0 * ratio);
-    if (p.is("CHARM"))
+    if (f.is("CHARM"))
         return ( -cHU2 / 2.0 * ratio);
-    if (p.is("TOP"))
+    if (f.is("TOP"))
         return 0.0;
-    if (p.is("DOWN"))
+    if (f.is("DOWN"))
         return ( -cHD1 / 2.0 * ratio);
-    if (p.is("STRANGE"))
+    if (f.is("STRANGE"))
         return ( -cHD2 / 2.0 * ratio);
-    if (p.is("BOTTOM"))
+    if (f.is("BOTTOM"))
         return ( -cHD3 / 2.0 * ratio);
     throw std::runtime_error("Error in NPEffectiveBS::deltaGL_f()");
 }

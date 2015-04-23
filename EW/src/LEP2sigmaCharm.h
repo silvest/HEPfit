@@ -23,7 +23,7 @@ public:
 
     /**
      * @brief LEP2sigmaCharm constructor
-     * @param[in] EW_i an object of EW class
+     * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      * @param[in] bSigmaForAFB_i true for the denominator of A_FB
      */

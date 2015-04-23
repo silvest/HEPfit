@@ -943,6 +943,7 @@ public:
         return myApproximateFormulae;
     }
 
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
     /**
      * @brief A get method to retrieve the member pointer of type EWSMTwoFermionsLEP2.
      * @return the pointer #myTwoFermionsLEP2
@@ -951,6 +952,7 @@ public:
     {
         return myTwoFermionsLEP2;
     }
+    /** END: REMOVE FROM THE PACKAGE **/
 
     EWSMThreeLoopEW* getMyThreeLoopEW() const
     {
@@ -1818,7 +1820,7 @@ public:
      * precision observables.
      * @details This constant is used for the cashing method.
      *
-     * @sa checkSMparams()
+     * @sa checkSMparamsForEWPO()
      */
     static const int NumSMParamsForEWPO = 27;
 
@@ -1830,12 +1832,11 @@ public:
      * DeltaAlphaLepton(), DeltaAlpha(), Mw_SM(), rhoZ_l_SM(), rhoZ_q_SM(),
      * kappaZ_l_SM(), kappaZ_q_SM() and GammaW_SM().
      * When the values of the StandardModel parameters are updated in the Monte
-     * Carlo run and differ from those stored in the given cache, Params_cache,
+     * Carlo run and differ from those stored in the cache SMparamsForEWPO_cache,
      * this function updates the cache, and returns false.
-     * @param[in,out] Params_cache the cache of the parameters to be checked
      * @return a boolean that is true if the parameters are not updated. 
      *
-     * @sa NumSMParams
+     * @sa NumSMParamsForEWPO
      */
     bool checkSMparamsForEWPO();
 

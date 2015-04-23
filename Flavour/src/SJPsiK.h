@@ -25,8 +25,8 @@ class SJPsiK : public ThObservable, AmpDB2 {
 public:
     
     /**
-     * constructor
-     * @param Flavour
+     * @brief Constructor. 
+     * @param[in] SM_i
      */
     
     SJPsiK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};

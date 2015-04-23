@@ -80,17 +80,17 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPZbbbar::deltaGV_f(const Particle p) const
+double NPZbbbar::deltaGV_f(const Particle f) const
 {
-    if (p.is("BOTTOM"))
+    if (f.is("BOTTOM"))
         return myDeltaGVb;
     else
         return 0.0;
 }
 
-double NPZbbbar::deltaGA_f(const Particle p) const
+double NPZbbbar::deltaGA_f(const Particle f) const
 {
-    if (p.is("BOTTOM"))
+    if (f.is("BOTTOM"))
         return myDeltaGAb;
     else
         return 0.0;
@@ -118,23 +118,23 @@ double NPZbbbar::sigma0_had() const
     return (StandardModel::sigma0_had());
 }
 
-double NPZbbbar::sin2thetaEff(const Particle p) const
+double NPZbbbar::sin2thetaEff(const Particle f) const
 {
-    return (StandardModel::sin2thetaEff(p));
+    return (StandardModel::sin2thetaEff(f));
 }
 
-double NPZbbbar::A_f(const Particle p) const
+double NPZbbbar::A_f(const Particle f) const
 {
-    return (StandardModel::A_f(p));
+    return (StandardModel::A_f(f));
 }
 
-double NPZbbbar::AFB(const Particle p) const
+double NPZbbbar::AFB(const Particle f) const
 {
-    return (StandardModel::AFB(p));
+    return (StandardModel::AFB(f));
 }
 
-double NPZbbbar::R0_f(const Particle p) const
+double NPZbbbar::R0_f(const Particle f) const
 {
-    return (StandardModel::R0_f(p));
+    return (StandardModel::R0_f(f));
 }
 

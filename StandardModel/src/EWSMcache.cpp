@@ -46,22 +46,22 @@ EWSMcache::EWSMcache(const StandardModel& SM_i)
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMcache::mf(const Particle p, const double mu, const orders order) const
+double EWSMcache::mf(const Particle f, const double mu, const orders order) const
 {
-    if (p.is("TOP"))
+    if (f.is("TOP"))
         return SM.getMtpole(); // the pole mass
-    else if (p.is("QUARK") && !FlagDebug) {
+    else if (f.is("QUARK") && !FlagDebug) {
         /* These codes are slow and not effective. */
         //if (mu == SM.getMz()) {
         //    if (FlagCacheInEWSMcache && order == FULLNNLO)
-        //        if (SM.checkSMparams(mf_atMz_params_cache[p.getIndex()]))
-        //            return mf_atMz_cache[p.getIndex()];
-        //    mf_atMz_cache[p.getIndex()] = SM.Mrun(mu, p.getMass_scale(), p.getMass(), order);
-        //    return mf_atMz_cache[p.getIndex()];
+        //        if (SM.checkSMparams(mf_atMz_params_cache[f.getIndex()]))
+        //            return mf_atMz_cache[f.getIndex()];
+        //    mf_atMz_cache[f.getIndex()] = SM.Mrun(mu, f.getMass_scale(), f.getMass(), order);
+        //    return mf_atMz_cache[f.getIndex()];
         //}
-        return SM.Mrun(mu, p.getMass_scale(), p.getMass(), order);
+        return SM.Mrun(mu, f.getMass_scale(), f.getMass(), order);
     } else
-        return p.getMass();
+        return f.getMass();
 }
 
 
@@ -473,17 +473,17 @@ complex EWSMcache::B0_Mw2_Mw2_0_Mw2(const double Mw_i) const
     }
 }
 
-complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle p) const
+complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
-    double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.getIndex();
-    if (CacheCheck(B0_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
-        return complex(B0_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
-            B0_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
+    double params[] = {SM.getMz(), mf(f, SM.getMz())};
+    int ind = f.getIndex();
+    if (CacheCheck(B0_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
+        return complex(B0_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+            B0_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
-        newCacheForComplex(B0_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        newCacheForComplex(B0_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
@@ -593,17 +593,17 @@ complex EWSMcache::B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const
     }
 }
 
-complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle p) const
+complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
-    double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.getIndex();
-    if (CacheCheck(B0p_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
-        return complex(B0p_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
-            B0p_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
+    double params[] = {SM.getMz(), mf(f, SM.getMz())};
+    int ind = f.getIndex();
+    if (CacheCheck(B0p_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
+        return complex(B0p_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+            B0p_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
-        newCacheForComplex(B0p_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
+        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        newCacheForComplex(B0p_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
@@ -770,34 +770,34 @@ complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) co
     }
 }
 
-complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle p) const
+complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
-    double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.getIndex();
-    if (CacheCheck(Bf_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
-        return complex(Bf_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
-            Bf_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
+    double params[] = {SM.getMz(), mf(f, SM.getMz())};
+    int ind = f.getIndex();
+    if (CacheCheck(Bf_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
+        return complex(Bf_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+            Bf_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
-        newCacheForComplex(Bf_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
+        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        newCacheForComplex(Bf_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle p) const
+complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
-    double params[] = {SM.getMz(), mf(p, SM.getMz())};
+    double params[] = {SM.getMz(), mf(f, SM.getMz())};
     if (params[1] == 0.0)
         throw std::runtime_error("Error in EWSMcache::Bf_Mz_0_mf_mf()");
-    int f = p.getIndex();
-    if (CacheCheck(Bf_Mz2_0_mf2_mf2_cache[f], NumPar, params))
-        return complex(Bf_Mz2_0_mf2_mf2_cache[f][NumPar],
-            Bf_Mz2_0_mf2_mf2_cache[f][NumPar + 1], false);
+    int ind = f.getIndex();
+    if (CacheCheck(Bf_Mz2_0_mf2_mf2_cache[ind], NumPar, params))
+        return complex(Bf_Mz2_0_mf2_mf2_cache[ind][NumPar],
+            Bf_Mz2_0_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), 0.0, mf2(p, SM.getMz()), mf2(p, SM.getMz()));
-        newCacheForComplex(Bf_Mz2_0_mf2_mf2_cache[f], NumPar, params, newResult);
+        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), 0.0, mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        newCacheForComplex(Bf_Mz2_0_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
@@ -882,17 +882,17 @@ complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) con
     }
 }
 
-complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle p) const
+complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
-    double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.getIndex();
-    if (CacheCheck(Bfp_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
-        return complex(Bfp_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
-            Bfp_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
+    double params[] = {SM.getMz(), mf(f, SM.getMz())};
+    int ind = f.getIndex();
+    if (CacheCheck(Bfp_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
+        return complex(Bfp_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+            Bfp_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.Bfp(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
-        newCacheForComplex(Bfp_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
+        complex newResult = PV.Bfp(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        newCacheForComplex(Bfp_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }

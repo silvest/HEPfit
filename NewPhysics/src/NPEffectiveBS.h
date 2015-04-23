@@ -437,28 +437,28 @@ public:
     ////////////////////////////////////////////////////////////////////////    
 
     /**
-     * @brief @copybrief NPbase::deltaGVl()
+     * @brief @copybrief NPbase::deltaGV_f()
      * @details New physics contribution to the neutral-current vector
-     * coupling @f$g_V^l@f$ is given by
+     * coupling @f$g_V^f@f$ is given by
      * @f[
-     * \delta g_V^l = \delta g_L^l + \delta g_R^l.
+     * \delta g_V^f = \delta g_L^f + \delta g_R^f.
      * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_V^l@f$
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_V^f@f$
      */
-    virtual double deltaGV_f(const Particle p) const;
+    virtual double deltaGV_f(const Particle f) const;
 
     /**
-     * @brief @copybrief NPbase::deltaGAl()
+     * @brief @copybrief NPbase::deltaGA_f()
      * @details New physics contribution to the neutral-current axial-vector
-     * coupling @f$g_A^l@f$ is given by
+     * coupling @f$g_A^f@f$ is given by
      * @f[
-     * \delta g_A^l = \delta g_L^l - \delta g_R^l.
+     * \delta g_A^f = \delta g_L^f - \delta g_R^f.
      * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_A^l@f$
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_A^f@f$
      */
-    virtual double deltaGA_f(const Particle p) const;
+    virtual double deltaGA_f(const Particle f) const;
 
     ////////////////////////////////////////////////////////////////////////    
 protected:
@@ -514,46 +514,45 @@ private:
      * universality.
      */
     const bool FlagQuarkUniversal;
-    
+
     /**
-     * @brief New physics contribution to @f$g_L^l@f$.
+     * @brief New physics contribution to @f$g_L^f@f$.
      * @details New physics contributions to the neutral-current left-handed
-     * coupling @f$g_L^l@f$ from the operators @f$\mathcal{O}_{HL_i}^\prime@f$
-     * and @f$\mathcal{O}_{HL_i}@f$ are given by
+     * coupling @f$g_L^f@f$: e.g., 
      * @f[
      * \delta g_L^{\nu_i}
      * = \frac{C_{HL_i}^\prime-C_{HL_i}}{2} \left(\frac{v}{\Lambda}\right)^2,
      * \qquad
      * \delta g_L^{e_i}
-     * = -\frac{C_{HL_i}^\prime+C_{HL_i}}{2} \left(\frac{v}{\Lambda}\right)^2.
+     * = -\frac{C_{HL_i}^\prime+C_{HL_i}}{2} \left(\frac{v}{\Lambda}\right)^2,
      * @f]
      *
+     * where @f$L\toQ@f$, @f$\nu_i\to u_i@f$ and @f$e_i\to d_i@f$ for quarks.
      * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_L^l@f$
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_L^f@f$
      *
      * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
      * @f$\Delta G@f$ are not included in this function.
      */
-    double deltaGL_f_tmp(const Particle p) const;
+    double deltaGL_f_tmp(const Particle f) const;
 
     /**
-     * @brief New physics contribution to @f$g_R^l@f$.
+     * @brief New physics contribution to @f$g_R^f@f$.
      * @details New physics contributions to the neutral-current right-handed
-     * coupling @f$g_R^l@f$ for @f$l=e_i@f$ from the operators
-     * @f$\mathcal{O}_{HE_i}@f$ are given by
+     * coupling @f$g_R^f@f$: e.g., 
      * @f[
      * \delta g_R^{e_i} = -\frac{C_{HE_i}}{2} \left(\frac{v}{\Lambda}\right)^2.
      * @f]
      *
      * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_R^l@f$
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_R^f@f$
      *
      * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
      * @f$\Delta G@f$ are not included in this function.
      */
-    double deltaGR_f_tmp(const Particle p) const;
+    double deltaGR_f_tmp(const Particle f) const;
 
 };
 

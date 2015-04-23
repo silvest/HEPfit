@@ -93,10 +93,9 @@ double EWSMTwoLoopEW::DeltaR_rem(const double Mw_i) const
     return DeltaRrem;
 }
 
-complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle p,
-        const double Mw_i) const
+complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
 
     complex dRho = complex(0.0, 0.0, false);
 
@@ -107,16 +106,15 @@ complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle p,
     double cW2 = cache.getSM().cW2(Mw);
     double zt = Mz * Mz / cache.getSM().getMtpole() / cache.getSM().getMtpole();
     dRho += 3.0 * pow(cache.Xt_alpha(Mw), 2.0)
-            *(16.0 * zt * cW2 * DeltaEta2(Mw) + 4.0 * zt * cW2 * DeltaEta2Add_f(p, Mw));
+            *(16.0 * zt * cW2 * DeltaEta2(Mw) + 4.0 * zt * cW2 * DeltaEta2Add_f(f, Mw));
 #endif 
 
     return dRho;
 }
 
-complex EWSMTwoLoopEW::deltaKappa_rem_f(const Particle p,
-        const double Mw_i) const
+complex EWSMTwoLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
 
     complex dKappa = complex(0.0, 0.0, false);
 
@@ -127,7 +125,7 @@ complex EWSMTwoLoopEW::deltaKappa_rem_f(const Particle p,
     double cW2 = cache.getSM().cW2(Mw);
     double zt = Mz * Mz / cache.getSM().getMtpole() / cache.getSM().getMtpole();
     dKappa += 3.0 * pow(cache.Xt_alpha(Mw), 2.0)
-            *(16.0 * zt * cW2 * DeltaKappa2(Mw) + 4.0 * zt * cW2 * DeltaKappa2Add_f(p, Mw));
+            *(16.0 * zt * cW2 * DeltaKappa2(Mw) + 4.0 * zt * cW2 * DeltaKappa2Add_f(f, Mw));
 #endif 
 
     return dKappa;
@@ -460,11 +458,10 @@ complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
     return dEta2add;
 }
 
-complex EWSMTwoLoopEW::DeltaEta2Add_f(const Particle p,
-        const double Mw_i) const
+complex EWSMTwoLoopEW::DeltaEta2Add_f(const Particle f, const double Mw_i) const
 {
-    double I3f = cache.I3_f(p);
-    double Qf = cache.Q_f(p);
+    double I3f = cache.I3_f(f);
+    double Qf = cache.Q_f(f);
     return DeltaEta2Add_tmp(I3f, Qf, Mw_i);
 }
 
@@ -529,11 +526,10 @@ complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
     return dKappa2add;
 }
 
-complex EWSMTwoLoopEW::DeltaKappa2Add_f(const Particle p,
-        const double Mw_i) const
+complex EWSMTwoLoopEW::DeltaKappa2Add_f(const Particle f, const double Mw_i) const
 {
-    double I3f = cache.I3_f(p);
-    double Qf = cache.Q_f(p);
+    double I3f = cache.I3_f(f);
+    double Qf = cache.Q_f(f);
     return DeltaKappa2Add_tmp(I3f, Qf, Mw_i);
 }
 

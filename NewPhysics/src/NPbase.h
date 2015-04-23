@@ -169,17 +169,17 @@ public:
     virtual double GammaW() const;
 
     /**
-     * @brief New physics contribution to @f$g_V^l@f$.
+     * @brief New physics contribution to @f$g_V^f@f$.
      * @details
-     * The neutral-current vector coupling @f$g_V^l@f$ receives the new physics
+     * The neutral-current vector coupling @f$g_V^f@f$ receives the new physics
      * contribution via the oblique parameters @f$S@f$ and @f$T@f$ and the shift
      * in the Fermi constant, @f$\Delta G@f$:
      * @f[
-     * \delta g_V^l =
-     * \frac{g_{V,\mathrm{SM}}^l}{2}
+     * \delta g_V^f =
+     * \frac{g_{V,\mathrm{SM}}^f}{2}
      * \left[ \alpha(M_Z^2)\, T - \Delta G \right]
      * +
-     * \frac{\big( g_{V,\mathrm{SM}}^l - g_{A,\mathrm{SM}}^l \big)
+     * \frac{\big( g_{V,\mathrm{SM}}^f - g_{A,\mathrm{SM}}^f \big)
      * \left[
      * \alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)
      * + 4\,c_W^2s_W^2\, \Delta G
@@ -187,100 +187,147 @@ public:
      * @f]
      *
      * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @return @f$\delta g_V^l@f$
      */
-    virtual double deltaGV_f(const Particle p) const;
-
-    virtual complex gV_f(const Particle p) const;
+    virtual double deltaGV_f(const Particle f) const;
 
     /**
-     * @brief New physics contribution to @f$g_A^l@f$.
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual complex gV_f(const Particle f) const;
+
+    /**
+     * @brief New physics contribution to @f$g_A^f@f$.
      * @details
-     * The neutral-current axial-vector coupling @f$g_A^l@f$ receives the new
+     * The neutral-current axial-vector coupling @f$g_A^f@f$ receives the new
      * physics contribution via the oblique parameter @f$T@f$ and the shift in
      * the Fermi constant, @f$\Delta G@f$:
      * @f[
-     * \delta g_A^l
-     * = \frac{g_{A,\mathrm{SM}}^l}{2} \left[ \alpha(M_Z^2)\, T - \Delta G \right].
+     * \delta g_A^f
+     * = \frac{g_{A,\mathrm{SM}}^f}{2} \left[ \alpha(M_Z^2)\, T - \Delta G \right].
      * @f]
      *
      * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_A^l@f$
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_A^f@f$
      */
-    virtual double deltaGA_f(const Particle p) const;
+    virtual double deltaGA_f(const Particle f) const;
 
-    virtual complex gA_f(const Particle p) const;
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual complex gA_f(const Particle f) const;
 
-    virtual complex rhoZ_f(const Particle p) const;
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual complex rhoZ_f(const Particle f) const;
 
-    virtual complex kappaZ_f(const Particle p) const;
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual complex kappaZ_f(const Particle f) const;
 
+    /**
+     *
+     * @return
+     */
     virtual double deltaGamma_Z() const;
 
     /**
      * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
-     * @param[in] GammaZ_SM the SM prediction for @f$\Gamma_Z@f$ in GeV
      * @return @f$\Gamma_Z@f$ in GeV, including SM plus NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-
     virtual double Gamma_Z() const;
+
+    /**
+     * 
+     * @return
+     */
+    virtual double deltaSigmaHadron() const;
 
     /**
      * @brief The cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
      * at the @f$Z@f$ pole, @f$\sigma_h^0@f$.
-     * @param[in] sigmaHadron_SM the SM prediction for @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
      * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double deltaSigmaHadron() const;
-
     virtual double sigma0_had() const;
 
     /**
-     * @brief @copybrief sin2thetaEff::computeThValue()
-     * @param[in] sin2thetaEff_SM the SM prediction for @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$
-     * @return @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, including SM plus NP contributions
-     *
-     * @attention This function is applicable only to the NP model classes that
-     * are inherited from NPbase.
+     * 
+     * @return
      */
     virtual double deltaSin2thetaEff_e() const;
 
-    virtual double sin2thetaEff(const Particle p) const;
-
     /**
-     * @brief @copybrief PtauPol::computeThValue()
-     * @param[in] PtauPol_SM the SM prediction for @f$P_\tau^{\mathrm{pol}}@f$
-     * @return @f$P_\tau^{\mathrm{pol}}@f$, including SM plus NP contributions
+     * @brief @copybrief sin2thetaEff::computeThValue()
+     * @param[in] f a lepton or quark
+     * @return @f$\sin^2\theta_{\rm eff}^{\rm f}@f$, including SM plus NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double deltaA_f(const Particle p) const;
-
-    virtual double A_f(const Particle p) const;
-
-    virtual double deltaAFB(const Particle p) const;
-    virtual double AFB(const Particle p) const;
-
+    virtual double sin2thetaEff(const Particle f) const;
 
     /**
-     * @brief @copybrief Rlepton::computeThValue()
-     * @param[in] Rlepton_SM the SM prediction for @f$R_\ell^0@f$
-     * @return @f$R_\ell^0@f$, including SM plus NP contributions
+     * 
+     * @param f
+     * @return
+     */
+    virtual double deltaA_f(const Particle f) const;
+
+    /**
+     * @brief
+     * @param[in] f a lepton or quark
+     * @return
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual double deltaR0_f(const Particle p) const;
-    virtual double R0_f(const Particle p) const;
+    virtual double A_f(const Particle f) const;
+
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual double deltaAFB(const Particle f) const;
+
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual double AFB(const Particle f) const;
+
+    /**
+     * 
+     * @param f a lepton or quark
+     * @return
+     */
+    virtual double deltaR0_f(const Particle f) const;
+
+    /**
+     * 
+     * @param[in] f a lepton or quark
+     * @return 
+     */
+    virtual double R0_f(const Particle f) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -292,7 +339,7 @@ public:
      */
     virtual double muggH(const double sqrt_s) const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -303,7 +350,7 @@ public:
      */
     virtual double muVBF(const double sqrt_s) const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -314,7 +361,7 @@ public:
      */
     virtual double muWH(const double sqrt_s) const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -325,7 +372,7 @@ public:
      */
     virtual double muZH(const double sqrt_s) const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -336,7 +383,7 @@ public:
      */
     virtual double muVH(const double sqrt_s) const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -347,7 +394,7 @@ public:
      */
     virtual double muttH(const double sqrt_s) const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -357,7 +404,7 @@ public:
      */
     virtual double BrHggRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -367,7 +414,7 @@ public:
      */
     virtual double BrHWWRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -377,7 +424,7 @@ public:
      */
     virtual double BrHZZRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -387,7 +434,7 @@ public:
      */
     virtual double BrHZgaRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -397,7 +444,7 @@ public:
      */
     virtual double BrHgagaRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -407,7 +454,7 @@ public:
      */
     virtual double BrHtautauRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -417,7 +464,7 @@ public:
      */
     virtual double BrHccRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     /**
@@ -427,12 +474,12 @@ public:
      */
     virtual double BrHbbRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     virtual double computeGammaTotalRatio() const
     {
-        return 1.;
+        return 1.0;
     }
 
     ////////////////////////////////////////////////////////////////////////

@@ -136,41 +136,41 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\rho_Z^l@f$,
-     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^2}@f$. 
+     * couplings @f$\rho_Z^f@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha^2}@f$.
      * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
-     * to @f$\rho_{Z}^{l}@f$ in the on-shell scheme, which was calculated
+     * to @f$\rho_{Z}^{f}@f$ in the on-shell scheme, which was calculated
      * in @cite Degrassi:1999jd :
      * @f[
-     * \delta\rho_{\rm rem}^{l,\, \alpha^2} = 3 (X_t^{\alpha})^2
+     * \delta\rho_{\rm rem}^{f,\, \alpha^2} = 3 (X_t^{\alpha})^2
      * \left[ 16\, {\it zt}\,c_W^2\, \Delta\hat{\eta}^{(2)}
      * +  4\, {\it zt}\,c_W^2\, \Delta\bar{\eta}_{\rm add}^{(2)} \right],
      * @f]
      * where the definitions of the symbols can be read from the codes below. 
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^2}@f$
+     * @return @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha^2}@f$
      */
-    complex deltaRho_rem_f(const Particle p, const double Mw_i) const;
+    complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\kappa_Z^l@f$,
-     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2}@f$.
+     * couplings @f$\kappa_Z^f@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha^2}@f$.
      * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
-     * to @f$\kappa_{Z}^{l}@f$ in the on-shell scheme, which was calculated
+     * to @f$\kappa_{Z}^{f}@f$ in the on-shell scheme, which was calculated
      * in @cite Degrassi:1999jd :
      * @f[
-     * \delta\kappa_{\rm rem}^{l,\, \alpha^2} = 3 (X_t^{\alpha})^2
+     * \delta\kappa_{\rm rem}^{f,\, \alpha^2} = 3 (X_t^{\alpha})^2
      * \left[ 16\, {\it zt}\,c_W^2\, \Delta\hat{k}^{(2)}
      * + 4\, {\it zt}\,c_W^2\, \Delta\bar{k}_{\rm add}^{(2)} \right],
      * @f]
      * where the definitions of the symbols can be read from the codes below.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2}@f$
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha^2}@f$
      */
-    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
+    complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
 
     ////////////////////////////////////////////////////////////////////////        
     // O(GF^2 Mt^2) contributions
@@ -293,13 +293,13 @@ private:
     complex DeltaEta2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
 
     /**
-     * @brief The auxiliary function @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$ for @f$Z\to l\bar{l}@f$.
+     * @brief The auxiliary function @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$ for @f$Z\to f\bar{f}@f$.
      * @details See @cite Degrassi:1999jd.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$
      */
-    complex DeltaEta2Add_f(const Particle p, const double Mw_i) const;
+    complex DeltaEta2Add_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\hat{\kappa}^{(2)}@f$.
@@ -321,13 +321,13 @@ private:
     complex DeltaKappa2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
 
     /**
-     * @brief The auxiliary function @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$ for @f$Z\to l\bar{l}@f$.
+     * @brief The auxiliary function @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$ for @f$Z\to f\bar{f}@f$.
      * @details See @cite Degrassi:1999jd.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$
      */
-    complex DeltaKappa2Add_f(const Particle p, const double Mw_i) const;
+    complex DeltaKappa2Add_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$V_{\rm add}@f$.

@@ -57,16 +57,16 @@ double NPbase::GammaW() const
     return Gamma_W;
 }
 
-double NPbase::deltaGV_f(const Particle p) const
+double NPbase::deltaGV_f(const Particle f) const
 {
-    if (p.is("TOP")) return 0.;
+    if (f.is("TOP")) return 0.;
 
     /* SM values */
     double alpha = trueSM.alphaMz();
     double sW2SM = trueSM.sW2();
     double cW2SM = trueSM.cW2();
-    double gVSM = trueSM.gV_f(p).real();
-    double gASM = trueSM.gA_f(p).real();
+    double gVSM = trueSM.gV_f(f).real();
+    double gASM = trueSM.gA_f(f).real();
 
     return ( gVSM * (alpha * obliqueT() - DeltaGF()) / 2.0
             + (gVSM - gASM) / 4.0 / sW2SM / (cW2SM - sW2SM)
@@ -74,35 +74,35 @@ double NPbase::deltaGV_f(const Particle p) const
             + 4.0 * cW2SM * sW2SM * DeltaGF()));
 }
 
-complex NPbase::gV_f(const Particle p) const
+complex NPbase::gV_f(const Particle f) const
 {
-    return ( trueSM.gV_f(p) + deltaGV_f(p));
+    return ( trueSM.gV_f(f) + deltaGV_f(f));
 }
 
-double NPbase::deltaGA_f(const Particle p) const
+double NPbase::deltaGA_f(const Particle f) const
 {
-    if (p.is("TOP")) return 0.;
+    if (f.is("TOP")) return 0.;
     /* SM values */
     double alpha = trueSM.alphaMz();
-    double gASM = trueSM.gA_f(p).real();
+    double gASM = trueSM.gA_f(f).real();
 
     return ( gASM * (alpha * obliqueT() - DeltaGF()) / 2.0);
 }
 
-complex NPbase::gA_f(const Particle p) const
+complex NPbase::gA_f(const Particle f) const
 {
-    return ( trueSM.gA_f(p) + deltaGA_f(p));
+    return ( trueSM.gA_f(f) + deltaGA_f(f));
 }
 
-complex NPbase::rhoZ_f(const Particle p) const
+complex NPbase::rhoZ_f(const Particle f) const
 {
-    return ( gA_f(p) * gA_f(p) / p.getIsospin() / p.getIsospin());
+    return ( gA_f(f) * gA_f(f) / f.getIsospin() / f.getIsospin());
 
 }
 
-complex NPbase::kappaZ_f(const Particle p) const
+complex NPbase::kappaZ_f(const Particle f) const
 {
-    return ( (1.0 - gV_f(p) / gA_f(p)) / (4.0 * fabs(p.getCharge()) * sW2()));
+    return ( (1.0 - gV_f(f) / gA_f(f)) / (4.0 * fabs(f.getCharge()) * sW2()));
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -220,22 +220,22 @@ double NPbase::deltaSin2thetaEff_e() const
     return sin2_theta_eff;
 }
 
-double NPbase::sin2thetaEff(const Particle p) const
+double NPbase::sin2thetaEff(const Particle f) const
 {
-    if (p.is("ELECTRON"))
-        return (trueSM.sin2thetaEff(p) + deltaSin2thetaEff_e());
+    if (f.is("ELECTRON"))
+        return (trueSM.sin2thetaEff(f) + deltaSin2thetaEff_e());
     else
-        return (trueSM.sin2thetaEff(p));
+        return (trueSM.sin2thetaEff(f));
 }
 
-double NPbase::deltaA_f(const Particle p) const
+double NPbase::deltaA_f(const Particle f) const
 {
     double dAf = 0.;
-    double delGVf = deltaGV_f(p);
-    double delGAf = deltaGA_f(p);
+    double delGVf = deltaGV_f(f);
+    double delGAf = deltaGA_f(f);
     if (delGVf != 0.0 || delGAf != 0.0) {
-        double gVf = trueSM.gV_f(p).real();
-        double gAf = trueSM.gA_f(p).real();
+        double gVf = trueSM.gV_f(f).real();
+        double gAf = trueSM.gA_f(f).real();
         double Gf = gVf * gVf + gAf*gAf;
         double delGVfOverGAf = (gAf * delGVf - gVf * delGAf) / gAf / gAf;
 
@@ -245,20 +245,20 @@ double NPbase::deltaA_f(const Particle p) const
     return dAf;
 }
 
-double NPbase::A_f(const Particle p) const
+double NPbase::A_f(const Particle f) const
 {
-    return (trueSM.A_f(p) + deltaA_f(p));
+    return (trueSM.A_f(f) + deltaA_f(f));
 }
 
-double NPbase::deltaAFB(const Particle p) const
+double NPbase::deltaAFB(const Particle f) const
 {
     double dAFB = 0.;
-    double delGVf = deltaGV_f(p);
-    double delGAf = deltaGA_f(p);
-    if (p.is("LEPTON")) {
+    double delGVf = deltaGV_f(f);
+    double delGAf = deltaGA_f(f);
+    if (f.is("LEPTON")) {
         if (delGVf != 0.0 || delGAf != 0.0) {
-            double gVe = trueSM.gV_f(p).real();
-            double gAe = trueSM.gA_f(p).real();
+            double gVe = trueSM.gV_f(f).real();
+            double gAe = trueSM.gA_f(f).real();
             double Ge = gVe * gVe + gAe*gAe;
             double delGVeOverGAe = (gAe * delGVf - gVe * delGAf) / gAe / gAe;
             dAFB = -6.0 * gVe * gAe * (gVe * gVe - gAe * gAe) * gAe * gAe / Ge / Ge / Ge*delGVeOverGAe;
@@ -272,8 +272,8 @@ double NPbase::deltaAFB(const Particle p) const
             double Ge = gVe * gVe + gAe*gAe;
             double delGVeOverGAe = (gAe * delGVe - gVe * delGAe) / gAe / gAe;
             //
-            double gVf = trueSM.gV_f(p).real();
-            double gAf = trueSM.gA_f(p).real();
+            double gVf = trueSM.gV_f(f).real();
+            double gAf = trueSM.gA_f(f).real();
             double Gf = gVf * gVf + gAf*gAf;
             double delGVfOverGAf = (gAf * delGVf - gVf * delGAf) / gAf / gAf;
 
@@ -285,16 +285,16 @@ double NPbase::deltaAFB(const Particle p) const
     return dAFB;
 }
 
-double NPbase::AFB(const Particle p) const
+double NPbase::AFB(const Particle f) const
 {
-    return (trueSM.AFB(p) + deltaAFB(p));
+    return (trueSM.AFB(f) + deltaAFB(f));
 }
 
-double NPbase::deltaR0_f(const Particle p) const
+double NPbase::deltaR0_f(const Particle f) const
 {
     double dR0_f = 0., delGVe = 0., delGAe = 0., deltaGe = 0., Ge = 0.;
     bool nonZeroNP = false;
-    if (p.is("LEPTON")) {
+    if (f.is("LEPTON")) {
         delGVe = deltaGV_f(leptons[ELECTRON]);
         delGAe = deltaGA_f(leptons[ELECTRON]);
         if (delGVe != 0.0 || delGAe != 0.0) nonZeroNP = true;
@@ -309,7 +309,7 @@ double NPbase::deltaR0_f(const Particle p) const
 
     if (nonZeroNP) {
         double CF = 1.;
-        if (p.is("LEPTON")) {
+        if (f.is("LEPTON")) {
             double gVe = trueSM.gV_f(leptons[ELECTRON]).real();
             double gAe = trueSM.gA_f(leptons[ELECTRON]).real();
             Ge = gVe * gVe + gAe*gAe;
@@ -328,16 +328,16 @@ double NPbase::deltaR0_f(const Particle p) const
             Gq_sum += CF * Gq[q];
             delGq_sum += CF * deltaGq[q];
         }
-        if (p.is("LEPTON"))
+        if (f.is("LEPTON"))
             dR0_f = delGq_sum / Ge - Gq_sum * deltaGe / Ge / Ge;
         else
-            dR0_f = deltaGq[p.getIndex() - 6] / Gq_sum
-                - Gq[p.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;
+            dR0_f = deltaGq[f.getIndex() - 6] / Gq_sum
+                - Gq[f.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;
     }
     return dR0_f;
 }
 
-double NPbase::R0_f(const Particle p) const
+double NPbase::R0_f(const Particle f) const
 {
-    return (trueSM.R0_f(p) + deltaR0_f(p));
+    return (trueSM.R0_f(f) + deltaR0_f(f));
 }

@@ -63,17 +63,15 @@ double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const
     return DeltaR;
 }
 
-complex EWSMThreeLoopQCD::deltaRho_rem_f(const Particle p,
-        const double Mw_i) const
+complex EWSMThreeLoopQCD::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
     return ( complex(0.0, 0.0, false));
 }
 
-complex EWSMThreeLoopQCD::deltaKappa_rem_f(const Particle p,
-        const double Mw_i) const
+complex EWSMThreeLoopQCD::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP"))
+    if (f.is("TOP"))
         return ( complex(0.0, 0.0, false));
     else {
         double Mw = Mw_i;

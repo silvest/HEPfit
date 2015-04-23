@@ -53,9 +53,7 @@
  *
  * The constructor NPZbbbar() initializes the model flags explained below to their
  * default values. After creating an instance of the current class,
- * it is required to call the initialization method InitializeModel(), which
- * allocates memory to the pointer #myEWSM, inherited from StndardModel, with
- * type EWNPZbbbar.
+ * it is required to call the initialization method InitializeModel(). 
  * This pointer is then used in computing the fermionic neutral-current
  * couplings in the presence of new physics contribution to @f$Zb\bar{b}@f$.
  * In the Monte Carlo run, the constructor as well as the initialization
@@ -187,36 +185,72 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief New physics contribution to @f$g_V^l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_V^l@f$ (zero in the current model)
+     * @brief New physics contribution to @f$g_V^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_V^f@f$ (zero in the current model, except for @f$f=b@f$)
      */
-    virtual double deltaGV_f(const Particle p) const;
+    virtual double deltaGV_f(const Particle f) const;
 
     /**
-     * @brief New physics contribution to @f$g_A^l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_A^l@f$ (zero in the current model)
+     * @brief New physics contribution to @f$g_A^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_A^f@f$ (zero in the current model, except for @f$f=b@f$)
      */
-    virtual double deltaGA_f(const Particle p) const;
+    virtual double deltaGA_f(const Particle f) const;
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     *
+     * @return
+     */
     virtual double Mw() const;
 
+    /**
+     *
+     * @return
+     */
     virtual double GammaW() const;
 
+    /**
+     *
+     * @return
+     */
     virtual double Gamma_Z() const;
 
+    /**
+     *
+     * @return
+     */
     virtual double sigma0_had() const;
 
-    virtual double sin2thetaEff(const Particle p) const;
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual double sin2thetaEff(const Particle f) const;
 
-    virtual double A_f(const Particle p) const;
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual double A_f(const Particle f) const;
 
-    virtual double AFB(const Particle p) const;
+    /**
+     *
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual double AFB(const Particle f) const;
 
-    virtual double R0_f(const Particle p) const;
+    /**
+     * 
+     * @param[in] f a lepton or quark
+     * @return
+     */
+    virtual double R0_f(const Particle f) const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:

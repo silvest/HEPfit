@@ -29,7 +29,7 @@ public:
     
     /**
      * @brief LEP2oblique constructor
-     * @param[in] EW_i an object of EW class
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     LEP2oblique(const StandardModel& SM_i);
 

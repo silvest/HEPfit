@@ -48,18 +48,16 @@ double EWSMTwoLoopQCD::DeltaR_rem(const double Mw_i) const
             + cache.getSM().cW2(Mw) / cache.getSM().sW2(Mw) * DeltaRho(Mw));
 }
 
-complex EWSMTwoLoopQCD::deltaRho_rem_f(const Particle p,
-        const double Mw_i) const
+complex EWSMTwoLoopQCD::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
     double Mw = Mw_i;
     return ( (2.0 * DeltaRho_ud(Mw) + DeltaRho_tb(Mw)) - DeltaRho(Mw));
 }
 
-complex EWSMTwoLoopQCD::deltaKappa_rem_f(const Particle p,
-        const double Mw_i) const
+complex EWSMTwoLoopQCD::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (p.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
     double Mw = Mw_i;
     return ( (2.0 * DeltaKappa_ud(Mw) + DeltaKappa_tb(Mw))
             - cache.getSM().cW2(Mw) / cache.getSM().sW2(Mw) * DeltaRho(Mw));

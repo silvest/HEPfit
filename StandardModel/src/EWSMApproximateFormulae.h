@@ -33,7 +33,7 @@ public:
 
     /**
      * @brief Constructor.
-     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] cache_i a reference to an object of type EWSMcache
      */
     EWSMApproximateFormulae(const EWSMcache& cache_i);
 

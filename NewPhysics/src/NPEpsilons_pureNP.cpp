@@ -89,15 +89,15 @@ double NPEpsilons_pureNP::GammaW() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons_pureNP::deltaGV_f(const Particle p) const
+double NPEpsilons_pureNP::deltaGV_f(const Particle f) const
 {
-    if (p.is("TOP")) return 0.0;
+    if (f.is("TOP")) return 0.0;
 
     /* SM values */
-    double gV_SM = trueSM.gV_f(p).real();
-    double gA_SM = trueSM.gA_f(p).real();
+    double gV_SM = trueSM.gV_f(f).real();
+    double gA_SM = trueSM.gA_f(f).real();
 
-    if (p.is("BOTTOM"))
+    if (f.is("BOTTOM"))
         return ( gV_SM * deltaEps_1 / 2.0 + gV_SM * deltaEps_b
             + (gV_SM - gA_SM)*(deltaEps_3 - c02() * deltaEps_1)
             / (c02() - s02())
@@ -108,14 +108,14 @@ double NPEpsilons_pureNP::deltaGV_f(const Particle p) const
             / (c02() - s02()));
 }
 
-double NPEpsilons_pureNP::deltaGA_f(const Particle p) const
+double NPEpsilons_pureNP::deltaGA_f(const Particle f) const
 {
-    if (p.is("TOP")) return 0.0;
+    if (f.is("TOP")) return 0.0;
 
-    if (p.is("BOTTOM"))
-        return ( p.getIsospin()*(deltaEps_1 / 2.0 + deltaEps_b));
+    if (f.is("BOTTOM"))
+        return ( f.getIsospin()*(deltaEps_1 / 2.0 + deltaEps_b));
 
-    return ( p.getIsospin() * deltaEps_1 / 2.0);
+    return ( f.getIsospin() * deltaEps_1 / 2.0);
 }
 
 

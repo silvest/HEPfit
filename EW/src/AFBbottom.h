@@ -34,7 +34,7 @@ public:
 
     /**
      * @brief Constructor.
-     * @param[in] EW_i a reference to an object of type EW
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     AFBbottom(const StandardModel& SM_i) 
     : ThObservable(SM_i)  

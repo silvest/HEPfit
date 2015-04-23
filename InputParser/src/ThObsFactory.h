@@ -18,7 +18,7 @@ class ThObsFactory {
 public:
 
     ThObsFactory();
-    
+
     ThObsFactory(const ThObsFactory& orig);
 
     virtual ~ThObsFactory()

@@ -51,6 +51,10 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief 
+     * @return
+     */
     const StandardModel& getSM() const
     {
         return SM;
@@ -227,234 +231,100 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @brief The mass of a quark. 
-     * @param[in] q name of a quark (see QCD::quark)
+     * @brief The mass of an SM fermion.
+     * @param[in] f a lepton or quark
      * @param[in] mu renormalization scale
      * @param[in] order order in %QCD (= LO, FULLNLO, FULLNNLO[defalut])
      * @return the MSbar mass of u, d, s, c, b at the scale mu
-     * or the pole mass of t
+     * or the pole mass of t and leptons
      *
      * @attention If the flag #FlagDebug is set to true,
      * @f$m_{u,d,s}(2\,\mathrm{GeV})@f$, @f$m_c(m_c)@f$, @f$m_b(m_b)@f$ or
      * @f$m_t^{\mathrm{pole}}@f$ is returned.
      */
-    double mf(const Particle p, const double mu = 0.,
-            const orders order = FULLNNLO) const;
+    double mf(const Particle f, const double mu = 0.0, const orders order = FULLNNLO) const;
 
     /**
-     * @brief The mass squared of a quark. 
-     * @param[in] q name of a quark (see QCD::quark)
+     * @brief The mass squared of an SM fermion.
+     * @param[in] f a lepton or quark
      * @param[in] mu renormalization scale
      * @param[in] order order in %QCD (= LO, FULLNLO, FULLNNLO[defalut])
      * @return the MSbar mass squared of u, d, s, c, b at the scale mu
-     * or the pole mass squared of t
+     * or the pole mass squared of t and leptons
      *
      * @attention If the flag #FlagDebug is set to true,
      * @f$(m_{u,d,s}(2\,\mathrm{GeV}))^2@f$, @f$(m_c(m_c))^2@f$, @f$(m_b(m_b))^2@f$ or
      * @f$(m_t^{\mathrm{pole}})^2@f$ is returned.
      */
-    double mf2(const Particle p, const double mu = 0.,
-            const orders order = FULLNNLO) const
+    double mf2(const Particle f, const double mu = 0.0, const orders order = FULLNNLO) const
     {
-        double mf1 = mf(p, mu, order);
+        double mf1 = mf(f, mu, order);
         return ( mf1 * mf1);
     }
 
-    //    /**
-    //     * @brief The pole mass of the top quark.
-    //     * @return @f$m_t^{\mathrm{pole}}@f$
-    //     */
-    //    double Mt() const
-    //    {
-    //        return SM.getMtpole();
-    //    }
-    //
-    //    /**
-    //     * @brief The pole mass squared of the top quark.
-    //     * @return @f$(m_t^{\mathrm{pole}})^2@f$
-    //     */
-    //    double Mt2() const
-    //    {
-    //        return ( SM.getMtpole()*SM.getMtpole() );
-    //    }
-    //
-    //    /**
-    //     * @brief The strong coupling @f$\alpha_s(M_Z^2)@f$.
-    //     * @return @f$\alpha_s(M_Z^2)@f$
-    //     */
-    //    double alsMz() const
-    //    {
-    //        return SM.getAlsMz();
-    //    }
-    //
-    //    /**
-    //     * @brief The Fermi constant @f$G_\mu@f$.
-    //     * @return @f$G_\mu@f$
-    //     */
-    //    double GF() const
-    //    {
-    //        return SM.getGF();
-    //    }
-    //
-    //    /**
-    //     * @brief The fine structure constant @f$\alpha@f$.
-    //     * @return @f$\alpha@f$
-    //     */
-    //    double ale() const
-    //    {
-    //        return SM.getAle();
-    //    }
-    //
-    //    /**
-    //     * @brief The five-flavour hadronic correction to @f$\alpha@f$ at @f$M_Z^2@f$,
-    //     * @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
-    //     * @return @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
-    //     */
-    //    double dAle5Mz() const
-    //    {
-    //        return SM.getDAle5Mz();
-    //    }
-    //
-    //    /**
-    //     * @brief The @f$Z@f$-boson mass @f$M_Z@f$.
-    //     * @return @f$M_Z@f$
-    //     */
-    //    double Mz() const
-    //    {
-    //        return SM.getMz();
-    //    }
-    //
-    //    /**
-    //     * @brief The @f$Z@f$-boson mass squared @f$M_Z^2@f$.
-    //     * @return @f$M_Z^2@f$
-    //     */
-    //    double Mz2() const
-    //    {
-    //        return ( SM.getMz()*SM.getMz() );
-    //    }
-    //
-    //    /**
-    //     * @brief The Higgs mass @f$m_h@f$.
-    //     * @return @f$m_h@f$
-    //     */
-    //    double mh() const
-    //    {
-    //        return SM.getMHl();
-    //    }
-    //
-    //    /**
-    //     * @brief The Higgs mass squared @f$m_h^2@f$.
-    //     * @return @f$m_h^2@f$
-    //     */
-    //    double mh2() const
-    //    {
-    //        return ( SM.getMHl()*SM.getMHl() );
-    //    }
-    //
-    //    /**
-    //     * @brief The @f$W@f$-boson mass @f$M_W@f$.
-    //     * @param[in] Mw_i the @f$W@f$-boson mass
-    //     * @return @f$M_W@f$
-    //     */
-    //    double Mw(const double Mw_i) const
-    //    {
-    //        return Mw_i;
-    //    }
-    //
-    //    /**
-    //     * @brief The @f$W@f$-boson mass squared @f$M_W^2@f$.
-    //     * @param[in] Mw_i the @f$W@f$-boson mass
-    //     * @return @f$M_W^2@f$
-    //     */
-    //    double Mw2(const double Mw_i) const
-    //    {
-    //        return ( Mw_i*Mw_i );
-    //    }
-    //
-    //    /**
-    //     * @brief @f$c_W^2@f$.
-    //     * @param[in] Mw_i the @f$W@f$-boson mass
-    //     * @return @f$c_W^2@f$
-    //     */
-    //    double cW2(const double Mw_i) const
-    //    {
-    //        return ( Mw(Mw_i)*Mw(Mw_i)/Mz()/Mz() );
-    //    }
-    //
-    //    /**
-    //     * @brief @f$s_W^2@f$.
-    //     * @param[in] Mw_i the @f$W@f$-boson mass
-    //     * @return @f$s_W^2@f$
-    //     */
-    //    double sW2(const double Mw_i) const
-    //    {
-    //        return ( 1.0 - cW2(Mw_i) );
-    //    }
-    //
-
     /**
-     * @brief The charge of a lepton, @f$Q_l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$Q_l@f$
+     * @brief The charge of an SM fermion @f$Q_f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$Q_f@f$
      */
-    double Q_f(const Particle p) const
+    double Q_f(const Particle f) const
     {
-        return p.getCharge();
+        return f.getCharge();
     }
 
     /**
-     * @brief The isospin of a lepton, @f$I_3^l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$I_3^l@f$
+     * @brief The isospin of an SM fermion @f$I_3^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$I_3^f@f$
      */
-    double I3_f(const Particle p) const
+    double I3_f(const Particle f) const
     {
-        return p.getIsospin();
+        return f.getIsospin();
     }
 
     /**
-     * @brief The tree-level vector coupling for @f$Z\to l\bar{l}@f$, 
-     * denoted as @f$v_l@f$. 
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @brief The tree-level vector coupling for @f$Z\to f\bar{f}@f$,
+     * denoted as @f$v_f@f$.
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$v_l@f$
+     * @return @f$v_f@f$
      */
-    double v_f(const Particle p, const double Mw_i) const
+    double v_f(const Particle f, const double Mw_i) const
     {
-        return ( a_f(p) - 2.0 * Q_f(p) * SM.sW2(Mw_i));
+        return ( a_f(f) - 2.0 * Q_f(f) * SM.sW2(Mw_i));
     }
 
     /**
-     * @brief The tree-level axial-vector coupling for @f$Z\to l\bar{l}@f$,
-     * denoted as @f$a_l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$a_l@f$
+     * @brief The tree-level axial-vector coupling for @f$Z\to f\bar{f}@f$,
+     * denoted as @f$a_f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$a_f@f$
      */
-    double a_f(const Particle p) const
+    double a_f(const Particle f) const
     {
-        return ( p.getIsospin());
+        return ( f.getIsospin());
     }
 
     /**
-     * @brief @f$\sigma_l = |v_l+a_l|@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @brief @f$\sigma_f = |v_f+a_f|@f$.
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\sigma_l@f$
+     * @return @f$\sigma_f@f$
      */
-    double sigma_f(const Particle p, const double Mw_i) const
+    double sigma_f(const Particle f, const double Mw_i) const
     {
-        return ( 1.0 - 2.0 * fabs(Q_f(p)) * SM.sW2(Mw_i));
+        return ( 1.0 - 2.0 * fabs(Q_f(f)) * SM.sW2(Mw_i));
     }
 
     /**
-     * @brief @f$\delta_l = v_l-a_l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @brief @f$\delta_f = v_f-a_f@f$.
+     * @param[in] f a lepton or quark
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta_l@f$
+     * @return @f$\delta_f@f$
      */
-    double delta_f(const Particle p, const double Mw_i) const
+    double delta_f(const Particle f, const double Mw_i) const
     {
-        return ( -2.0 * Q_f(p) * SM.sW2(Mw_i));
+        return ( -2.0 * Q_f(f) * SM.sW2(Mw_i));
     }
 
     /**
@@ -803,10 +673,10 @@ public:
 
     /**
      * @brief A cache method.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$B_0(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
+     * @param[in] f a lepton or quark
+     * @return @f$B_0(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mz2_mf2_mf2(const Particle p) const;
+    complex B0_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
@@ -858,10 +728,10 @@ public:
 
     /**
      * @brief A cache method.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$B_{0p}(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
+     * @param[in] f a lepton or quark
+     * @return @f$B_{0p}(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_Mz2_mf2_mf2(const Particle p) const;
+    complex B0p_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
@@ -911,17 +781,17 @@ public:
 
     /**
      * @brief A cache method.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$B_f(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
+     * @param[in] f a lepton or quark
+     * @return @f$B_f(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_Mz2_mf2_mf2(const Particle p) const;
+    complex Bf_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$B_f(0;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
+     * @param[in] f a lepton or quark
+     * @return @f$B_f(0;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_0_mf2_mf2(const Particle p) const;
+    complex Bf_Mz2_0_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
@@ -948,10 +818,10 @@ public:
 
     /**
      * @brief A cache method.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$B_{fp}(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
+     * @param[in] f a lepton or quark
+     * @return @f$B_{fp}(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bfp_Mz2_Mz2_mf2_mf2(const Particle p) const;
+    complex Bfp_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.

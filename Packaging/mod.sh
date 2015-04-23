@@ -91,6 +91,14 @@ ORG="\Qclass LeptonFlavour\E"
 NEW="\/\/class LeptonFlavour"
 perl -p -w -i -e "s/${ORG}/${NEW}/g" $SMH
 
+ORG="\Q* @brief A get method to retrieve the member pointer of type EWSMTwoFermionsLEP2\E"
+NEW="\/\/\* \@brief A get method to retrieve the member pointer of type EWSMTwoFermionsLEP2"
+perl -p -w -i -e "s/${ORG}/${NEW}/g" $SMH
+
+ORG="\Q* @return the pointer #myTwoFermionsLEP2\E"
+NEW="\/\/\* \@return the pointer #myTwoFermionsLEP2"
+perl -p -w -i -e "s/${ORG}/${NEW}/g" $SMH
+
 ORG="EWSMTwoFermionsLEP2\* getMyTwoFermionsLEP2\(\) const\n"
 NEW="\/\/EWSMTwoFermionsLEP2\* getMyTwoFermionsLEP2\(\) const\n    \/\/"
 perl -p -w -i -e "s/${ORG}/${NEW}/g" $SMH
