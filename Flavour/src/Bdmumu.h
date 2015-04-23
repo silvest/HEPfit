@@ -44,7 +44,6 @@ protected:
     
 private:
     
-    const StandardModel& mySM;
     double beta;
     double mBd;
     double mmu;
