@@ -97,7 +97,9 @@ cp -af ${ORGDIR}/doc/LICENSE ${OUTDIR}/doc/
 ###########################################################
 # remove unnecessary files
 
+rm -f ${OUTDIR}/StandardModel/src/EWSMOneLoopEW_HV.*
 rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2.*
+rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2_Hollik.*
 rm -f ${OUTDIR}/StandardModel/src/EWSM_Output.*
 rm -f ${OUTDIR}/EW/src/LEP2*
 rm -f ${OUTDIR}/NewPhysics/src/EW_ABC.*
