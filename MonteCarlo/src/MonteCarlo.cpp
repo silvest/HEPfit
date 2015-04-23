@@ -318,7 +318,7 @@ void MonteCarlo::Run(const int rank)
                 BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
             }
             
-            // draw all marginalized distributions into a PostScript file
+            // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
 
@@ -330,7 +330,7 @@ void MonteCarlo::Run(const int rank)
 
             BCSummaryTool myBCSummaryTool(&MCEngine);
 
-            // draw the correlation matrix into an eps file
+            // draw the correlation matrix into a pdf file
             if (PrintCorrelationMatrix)
                 myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".pdf").c_str());
 
@@ -339,11 +339,11 @@ void MonteCarlo::Run(const int rank)
                 MCEngine.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".tex").c_str());
 
             // print comparisons of the prior knowledge to the posterior knowledge 
-            // for all parameters into a PostScript file
+            // for all parameters into a pdf file
             if (PrintKnowledgeUpdatePlots)
                 myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".pdf").c_str());
 
-            // draw an overview plot of the parameters into an eps file
+            // draw an overview plot of the parameters into a pdf file
             if (PrintParameterPlot)
                 myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".pdf").c_str());
 

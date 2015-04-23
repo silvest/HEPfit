@@ -23,7 +23,6 @@ class EWSMThreeLoopQCD;
 class EWSMThreeLoopEW2QCD;
 class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
-class EWSMOneLoopEW_HV;
 class Flavour;
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 class EWSMTwoFermionsLEP2;
