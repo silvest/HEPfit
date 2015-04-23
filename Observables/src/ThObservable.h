@@ -8,7 +8,6 @@
 #ifndef THOBSERVABLE_H
 #define	THOBSERVABLE_H
 
-
 #include <StandardModel.h>
 
 /**

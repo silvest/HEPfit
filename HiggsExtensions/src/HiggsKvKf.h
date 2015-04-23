@@ -10,8 +10,13 @@
 #include <NPbase.h>
 
 /**
+ * @addtogroup HiggsExtensions
+ * @brief A module for extending the %StandardModel Higgs sector with rescaled couplings.
+ * @{
+ */
+
+/**
  * @class HiggsKvKf
- * @ingroup HiggsExtensions
  * @brief A model class extending the %StandardModel Higgs sector with two universal couplings.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -178,6 +183,10 @@ protected:
 private:
     double Kv, Kf, BrHinv;
 };
+
+/**
+ * @}
+ */
 
 #endif	/* HIGGSKVKF_H */
 

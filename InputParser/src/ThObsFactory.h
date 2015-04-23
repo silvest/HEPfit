@@ -14,6 +14,14 @@
 #include <ThObservable.h>
 #include <map>
 
+/**
+ * @class ThObsFactory
+ * @ingroup InputParser
+ * @brief A class for
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details
+ */
 class ThObsFactory {
 public:
 

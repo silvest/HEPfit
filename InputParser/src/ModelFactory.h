@@ -14,7 +14,14 @@
 #include <StandardModel.h>
 #include <map>
 
-
+/**
+ * @class ModelFactory
+ * @ingroup InputParser 
+ * @brief A class for 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details
+ */
 class ModelFactory {
 public:
     ModelFactory();

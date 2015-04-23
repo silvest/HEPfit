@@ -1,8 +1,8 @@
-/* 
- * File:   CKM.h
- * Author: ayanpaul
+/*
+ * Copyright (C) 2015 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on April 23, 2015, 2:21 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef VCKM_H

@@ -10,6 +10,14 @@
 
 #include "ThObservable.h"
 
+/**
+ * @class ParamObs
+ * @ingroup Observable
+ * @brief A class for 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class ParamObs : public ThObservable {
 public:
     ParamObs(const StandardModel& SM, const std::string name);

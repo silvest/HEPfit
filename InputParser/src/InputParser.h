@@ -30,7 +30,7 @@
  * @brief A module for interfaces to model parameters and observables.
  * @details The InputParser class parses all the input given to the executable
  * through the SomeModel.conf file and the output directives in the same. \n
- * The ThFactory defines and initiates all available observables that can
+ * The ThObsFactory defines and initiates all available observables that can
  * be computed.
  * @{
  */

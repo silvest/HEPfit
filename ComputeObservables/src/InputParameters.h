@@ -16,7 +16,6 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  */
-
 class InputParameters {
 public:
     

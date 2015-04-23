@@ -16,7 +16,8 @@
  * @ingroup StandardModel
  * @brief An enum type for regularization schemes.
  */
-enum schemes {
+enum schemes
+{
     NDR = 0, /**< Naive dimensional regularization (NDR) scheme */
     HV, /**< 't Hooft-Veltman (HV) scheme */
     LRI /**< Regularization-Independent (RI) renormalization schemes with the Landau gauge */
@@ -27,7 +28,8 @@ enum schemes {
  * @ingroup StandardModel
  * @brief An enum type for orders in %QCD.
  */
-enum orders {
+enum orders
+{
     LO = 0, /**< Leading order */
     NLO, /**< Next-to-leading order */
     NNLO, /**< Next-to-next-to-leading order */
@@ -40,7 +42,8 @@ enum orders {
  * @ingroup StandardModel
  * @brief An enum type for orders in electroweak.
  */
-enum orders_ew {
+enum orders_ew
+{
     NULL_ew = orders(MAXORDER + 1), /**< An auxiliary enumerator */
     LO_ew, /**< Leading order */
     NLO_ew /**< Next-to-leading order */
