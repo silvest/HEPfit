@@ -91,10 +91,15 @@ ThObsFactory::ThObsFactory(){
     //----- eps'/eps  -----
     obsThFactory["EpsiloP_o_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
     //----- CKM  -----
-    obsThFactory["Vud"] = boost::factory<Vud*>();
-    obsThFactory["Vus"] = boost::factory<Vus*>();
-    obsThFactory["Vub"] = boost::factory<Vub*>();
-    obsThFactory["Vcb"] = boost::factory<Vcb*>();
+    obsThFactory["Vud"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 1);
+    obsThFactory["Vus"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 2);
+    obsThFactory["Vub"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 3);
+    obsThFactory["Vcd"] = boost::bind(boost::factory<VCKM*>(), _1, 2, 1);
+    obsThFactory["Vcs"] = boost::bind(boost::factory<VCKM*>(), _1, 2, 2);
+    obsThFactory["Vcb"] = boost::bind(boost::factory<VCKM*>(), _1, 2, 3);
+    obsThFactory["Vtd"] = boost::bind(boost::factory<VCKM*>(), _1, 3, 1);
+    obsThFactory["Vts"] = boost::bind(boost::factory<VCKM*>(), _1, 3, 2);
+    obsThFactory["Vtb"] = boost::bind(boost::factory<VCKM*>(), _1, 3, 3);
     obsThFactory["alpha"] = boost::factory<Alpha*>();
     obsThFactory["alpha_2a"] = boost::factory<Alpha_2a*>();
     obsThFactory["gamma"] = boost::factory<CKMGamma*>();

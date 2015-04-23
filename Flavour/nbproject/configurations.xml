@@ -46,10 +46,7 @@
       <itemPath>src/MVll.h</itemPath>
       <itemPath>src/MVllObservables.h</itemPath>
       <itemPath>src/SJPsiK.h</itemPath>
-      <itemPath>src/Vcb.h</itemPath>
-      <itemPath>src/Vub.h</itemPath>
-      <itemPath>src/Vud.h</itemPath>
-      <itemPath>src/Vus.h</itemPath>
+      <itemPath>src/VCKM.h</itemPath>
       <itemPath>src/alpha.h</itemPath>
       <itemPath>src/alpha_2a.h</itemPath>
       <itemPath>src/bsgamma.h</itemPath>
@@ -100,10 +97,7 @@
       <itemPath>src/MVll.cpp</itemPath>
       <itemPath>src/MVllObservables.cpp</itemPath>
       <itemPath>src/SJPsiK.cpp</itemPath>
-      <itemPath>src/Vcb.cpp</itemPath>
-      <itemPath>src/Vub.cpp</itemPath>
-      <itemPath>src/Vud.cpp</itemPath>
-      <itemPath>src/Vus.cpp</itemPath>
+      <itemPath>src/VCKM.cpp</itemPath>
       <itemPath>src/alpha.cpp</itemPath>
       <itemPath>src/alpha_2a.cpp</itemPath>
       <itemPath>src/bsgamma.cpp</itemPath>
@@ -316,21 +310,9 @@
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Vcb.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/VCKM.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/Vcb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vub.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vub.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vud.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vud.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vus.h" ex="false" tool="3" flavor2="0">
+      <item path="src/VCKM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -542,21 +524,9 @@
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Vcb.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/VCKM.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/Vcb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vub.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vub.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vud.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vud.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vus.h" ex="false" tool="3" flavor2="0">
+      <item path="src/VCKM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -753,21 +723,9 @@
       </item>
       <item path="src/SJPsiK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Vcb.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/VCKM.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/Vcb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vub.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vub.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vud.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vud.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Vus.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Vus.h" ex="false" tool="3" flavor2="0">
+      <item path="src/VCKM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
