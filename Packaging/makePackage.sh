@@ -172,9 +172,8 @@ done
 cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
 
 SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
-SED_ARG2="-e 's/{#PageInstallation}//g'"
 eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
-eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md |eval sed "$SED_ARG2" > ${DOXYGENDIR}/INSTALL.md
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md
 
 ###########################################################
 # Example main files

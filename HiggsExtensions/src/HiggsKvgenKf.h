@@ -59,6 +59,11 @@
  *   <td class="mod_symb">@f$\kappa_f@f$</td>
  *   <td class="mod_desc">The factor rescaling all Higgs couplings to fermions with respect to the SM.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%BrHinv</td>
+ *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
+ *   <td class="mod_desc">The branching ratio of invisible Higgs decays.</td>
+ * </tr>
  * </table>
  * 
  * Please read information about parameter initialization and update in the documentation of the %StandardModel class.
