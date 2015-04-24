@@ -14,7 +14,7 @@ Dependencies
   * GSL:
     The GNU Scientific Library (GSL) is a library for numerical computation. 
 
-  * ROOT v5 or v6(?):  
+  * ROOT v5 or later:  
     ROOT is an object oriented data analysis framework. You can obtain 
     it from http://root.cern.ch/.
 
@@ -42,8 +42,8 @@ Makefiles, enter the source directory and run CMake:
   $ cd SusyFit-x.x  
   $ cmake . <options>
 
-Alternatively, a directory separate from the
-source directory can be made for building SusyFit (recommended, as it allows for easy deletion of the build):
+Alternatively, a directory separate from the source directory can be made for
+building SusyFit (recommended, as it allows for easy deletion of the build):
 
   $ mkdir SusyFit-x.x/build  
   $ cd SusyFit-x.x/build  
@@ -53,6 +53,10 @@ where the available options are:
 
   * -DLOCAL_INSTALL_ALL=ON
     to install BAT and SusyFit in the current directory (default: OFF)
+    This is equivalent in setting the options -DCMAKE_INSTALL_PREFIX=./SusyFit
+    -BAT_INSTALL_DIR=./BAT and -DBAT_INSTALL=ON, where these variables
+    cannot be modified individually when -DLOCAL_INSTALL_ALL=ON is set. 
+
   * -DCMAKE_INSTALL_PREFIX=<SusyFit installation directory> (default: /usr/local)
   * -DNOMCMC=ON  
     to enable the No MCMC mode (default: OFF)
@@ -109,13 +113,13 @@ instead of just 'make install'.
 Post Install
 ------------
 
-  * Executable: SUSYFIT_INSTALL_DIR/bin/susyfit-config
-  * Library: SUSYFIT_INSTALL_DIR/lib/libSusyFit.a
-  * Combined Header: SUSYFIT_INSTALL_DIR/include/SusyFit/SusyFit.h
+  * Executable: <CMAKE_INSTALL_PREFIX>/bin/susyfit-config
+  * Library: <CMAKE_INSTALL_PREFIX>/lib/libSusyFit.a
+  * Combined Header: <CMAKE_INSTALL_PREFIX>/include/SusyFit/SusyFit.h
 
 ### Using susyfit-config
 
-A susyfit-config script can be found in the SUSYFIT_INSTALL_DIR/bin/
+A susyfit-config script can be found in the <CMAKE_INSTALL_PREFIX>/bin/
 directory, which can be invoked with the following options:
 
   * --cflags
