@@ -562,7 +562,7 @@ std::string MonteCarloEngine::computeStatistics()
     std::ostringstream StatsLog;
     int i = 0;
     StatsLog << "Statistics file for Observables, Binned Observables and Corellated Gaussian Observables.\n" << std::endl;
-    StatsLog << "Observables:\n" << std::endl;
+    if (Obs_ALL.size() > 0) StatsLog << "Observables:\n" << std::endl;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
 
         if (it->getObsType() == 2) {
@@ -618,7 +618,7 @@ std::string MonteCarloEngine::computeStatistics()
         StatsLog << std::endl;
     }
     
-    StatsLog << "\nCorrelated Gaussian Observables:\n" << std::endl;
+    if (CGO.size() > 0) StatsLog << "\nCorellated Gaussian Observables:\n" << std::endl;
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
             it1 < CGO.end(); it1++) {
         StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
