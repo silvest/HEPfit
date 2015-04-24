@@ -36,7 +36,7 @@ Contents:
 ---------
   * doc/          - directory containing information about SusyFit
   * examples-src/ - directory containing well commented example programs
-  * INSTALL       - information about how to install SusyFit on your system
+  * INSTALL.md    - information about how to install SusyFit on your system
   * README.md     - basic information about SusyFit (this file)
 
 Files for building SusyFit:  
@@ -66,7 +66,7 @@ Directories containing SusyFit source and header files:
 
 Installation:
 -------------
-See the INSTALL file for installation instructions.
+See the INSTALL.md file for installation instructions.
 
 Support:
 --------
