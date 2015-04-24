@@ -8,10 +8,10 @@
 #include <cstring>
 #include "EvolDF2.h"
 
-EvolDF2::EvolDF2(unsigned int dim_i, schemes scheme, orders order, const StandardModel& model) :
-RGEvolutor(dim_i, scheme, order),
-model(model),
-dim(dim_i)
+EvolDF2::EvolDF2(unsigned int dim_i, schemes scheme, orders order, const StandardModel& model) 
+:   RGEvolutor(dim_i, scheme, order),
+    model(model),
+    dim(dim_i)
 {
     //double Nc = model.getNc();
     int basis = 0; //0: Gabbiani, 1: Buras
@@ -63,8 +63,7 @@ dim(dim_i)
 }
 
 EvolDF2::~EvolDF2()
-{
-}
+{}
 
 matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf, int basis) const
 {

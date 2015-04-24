@@ -7,14 +7,14 @@
 
 #include "EvolDF1nlep.h"
 
-EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, orders_ew 
-    order_ew, const StandardModel& model)
-: RGEvolutor(dim_i, scheme, order, order_ew), model(model), V(dim_i,0.), Vi(dim_i,0.),
+EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, orders_ew order_ew, const StandardModel& model)
+:   RGEvolutor(dim_i, scheme, order, order_ew), model(model), V(dim_i,0.), Vi(dim_i,0.),
     gs(dim_i,0.), Js(dim_i,0.), ge0(dim_i,0.), K0(dim_i,0.), ge11(dim_i,0.), K11(dim_i,0.),
     JsK0V(dim_i,0.), ViK0Js(dim_i,0.), Gamma_s0T(dim_i,0.), Gamma_s1T(dim_i,0.), 
     Gamma_eT(dim_i,0.), Gamma_seT(dim_i,0.), JsV(dim_i,0.), ViJs(dim_i,0.), K0V(dim_i,0.), 
     ViK0(dim_i,0.), K11V(dim_i,0.), ViK11(dim_i,0.), ge11sing(dim_i,0.), K11sing(dim_i,0.), 
-    K11singV(dim_i,0.), e(dim_i,0.), dim(dim_i) {
+    K11singV(dim_i,0.), e(dim_i,0.), dim(dim_i) 
+{
     
     int nu = 0, nd = 0;
     double  b0 = 0., b1 = 0.;
@@ -136,11 +136,11 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, order
     }        
 }
     
-EvolDF1nlep::~EvolDF1nlep() {
-}
+EvolDF1nlep::~EvolDF1nlep() 
+{}
 
-matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int n_u,
-        unsigned int n_d) const{
+matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int n_u, unsigned int n_d) const
+{
    
     /* anomalous dimension related to Delta F = 1 operators in Buras basis, hep-ph/9512380v1 */
     
@@ -294,8 +294,8 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int
     
   }
 
-matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned int n_u,
-        unsigned int n_d) const{
+matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned int n_u, unsigned int n_d) const
+{
    
     /* anomalous dimension related to Buras operators hep-ph/9512380v1 */
     /*gamma(riga, colonna) leading order*/
@@ -467,7 +467,8 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned in
 }
 
 
-matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const {
+matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const 
+{
     
     matrix <double> delta_rsT(dim,0.); 
   
@@ -511,7 +512,8 @@ matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const {
 
 }
 
-matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const {
+matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const 
+{
  
     matrix<double> delta_reT(dim,0.);    
     
@@ -561,7 +563,8 @@ matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const {
     
 }
 
-matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme) {
+matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme) 
+{
     switch (scheme) {
         case NDR:
             break;
@@ -613,7 +616,8 @@ matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orde
    
    }
 
-void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) {
+void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) 
+{
 
   matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resLO_ew(dim,0.), resNLO_ew(dim,0.);
 

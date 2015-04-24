@@ -7,10 +7,12 @@
 
 #include "AmpDK2.h"
 
-AmpDK2::AmpDK2(const StandardModel& SM_i) : mySM(SM_i) {
-}
+AmpDK2::AmpDK2(const StandardModel& SM_i) 
+: mySM(SM_i) 
+{}
 
-complex AmpDK2::AmpDK(orders order) {
+complex AmpDK2::AmpDK(orders order) 
+{
     if (mySM.getMyFlavour()->getHDF2().getCoeffK().getOrder() < order % 3)
         throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed"); 
 
@@ -47,7 +49,8 @@ complex AmpDK2::AmpDK(orders order) {
     }
 }
 
-complex AmpDK2::AmpMK(orders order) {
+complex AmpDK2::AmpMK(orders order) 
+{
     if (mySM.getMyFlavour()->getHDF2().getCoeffmK().getOrder() < order % 3)
         throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed");
 

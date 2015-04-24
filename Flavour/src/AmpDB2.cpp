@@ -7,10 +7,12 @@
 
 #include "AmpDB2.h"
 
-AmpDB2::AmpDB2(const StandardModel& SM_i) : mySM(SM_i) {
-}
+AmpDB2::AmpDB2(const StandardModel& SM_i) 
+: mySM(SM_i) 
+{}
 
-complex AmpDB2::AmpBd(orders order) {
+complex AmpDB2::AmpBd(orders order) 
+{
     if (mySM.getMyFlavour()->getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
@@ -52,7 +54,8 @@ complex AmpDB2::AmpBd(orders order) {
     }
 }
 
-complex AmpDB2::AmpBs(orders order) {
+complex AmpDB2::AmpBs(orders order) 
+{
     if (mySM.getMyFlavour()->getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 

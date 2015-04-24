@@ -7,11 +7,12 @@
 
 #include "AmpDD2.h"
 
-AmpDD2::AmpDD2(const StandardModel& SM_i) : mySM(SM_i) {
+AmpDD2::AmpDD2(const StandardModel& SM_i) 
+: mySM(SM_i) 
+{}
 
-}
-
-complex AmpDD2::AmpDD(orders order) {
+complex AmpDD2::AmpDD(orders order) 
+{
     if (mySM.getMyFlavour()->getHDF2().getCoeffDD().getOrder() < order)
         throw std::runtime_error("DmD::computeThValue(): requires cofficient of order not computed"); 
 

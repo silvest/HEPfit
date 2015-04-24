@@ -9,14 +9,13 @@
 
 CPenguinBoxMu::CPenguinBoxMu(const StandardModel& model_i) 
 : model(model_i), modelmatching(*(model_i.getMyMatching()))
-{    
-}
+{}
 
-CPenguinBoxMu::~CPenguinBoxMu(){
-    
-}
+CPenguinBoxMu::~CPenguinBoxMu()
+{}
 
-double CPenguinBoxMu::C_NL(){
+double CPenguinBoxMu::C_NL()
+{
     double muc = model.getMuc();
     double Mw =  model.getMuw();
     double mc = model.Mrun(muc, model.getQuarks(QCD::CHARM).getMass_scale(),
@@ -35,7 +34,8 @@ double CPenguinBoxMu::C_NL(){
             4563698./144375*K3)));    
 }
 
-double CPenguinBoxMu::B_NL(){
+double CPenguinBoxMu::B_NL()
+{
     double muc = model.getMuc();
     double Mw =  model.getMuw();
     double mc = model.Mrun(muc, model.getQuarks(QCD::CHARM).getMass_scale(),
@@ -50,7 +50,8 @@ double CPenguinBoxMu::B_NL(){
             - -log(muc*muc/mc/mc) - 329./12. + 15212./625.*K3 + 30581./7500.*K*K3));
 }
 
-double CPenguinBoxMu::X_ch(){
+double CPenguinBoxMu::X_ch()
+{
     
     double x = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass_scale(), 
                               model.getQuarks(QCD::TOP).getMass(), FULLNNLO) / model.Mw_tree(), 2.);

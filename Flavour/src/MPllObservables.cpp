@@ -13,13 +13,16 @@
  * ****************************************************************************/
 
 
-BR_MPll::BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) : ThObservable(SM_i) {  
+BR_MPll::BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
 }
 
-double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton lep) {
+double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton lep) 
+{
     
     double q_min = qmin;
     double q_max = qmax;
@@ -28,7 +31,8 @@ double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton l
     return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(0,q_min,q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(2,q_min,q_max))/(4. * SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->width);
 }
 
-double BR_MPll::computeThValue(){
+double BR_MPll::computeThValue()
+{
     
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -36,14 +40,17 @@ double BR_MPll::computeThValue(){
     return computeBR_MPll(q_min, q_max, lep) / ( q_max - q_min );
 }
 
-R_MPll::R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) : BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_1) {  
+R_MPll::R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) 
+: BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_1) 
+{  
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
 }
 
-double R_MPll::computeThValue() {
+double R_MPll::computeThValue() 
+{
     
     double q_min = getBinMin();
     double q_max = getBinMax();
@@ -51,13 +58,16 @@ double R_MPll::computeThValue() {
     return computeBR_MPll(q_min, q_max, lep1)/computeBR_MPll(q_min, q_max, lep2);
 }
 
-ACP_MPll::ACP_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) : BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_i) {
+ACP_MPll::ACP_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
+: BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_i) 
+{
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
 }
 
-double ACP_MPll::computeThValue() {
+double ACP_MPll::computeThValue() 
+{
     
     double q_min = getBinMin();
     double q_max = getBinMax();

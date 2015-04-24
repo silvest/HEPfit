@@ -11,7 +11,9 @@
 #include <gsl/gsl_sf_zeta.h>
 #include <boost/bind.hpp>
 
-Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag): ThObservable(SM_i){
+Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
+: ThObservable(SM_i)
+{
     if (obsFlag > 0 and obsFlag < 2) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR)");
     
@@ -26,15 +28,18 @@ Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag): ThObservable(SM_i){
     w_Phi271_3 = gsl_integration_workspace_alloc (1000);
 }
 
-double Bsgamma::delta(double E0){
+double Bsgamma::delta(double E0)
+{
     return 1. - 2.*E0/Mb1s;
 }
 
-double Bsgamma::zeta(){
+double Bsgamma::zeta()
+{
     return Mc*Mc/Mb1s/Mb1s;
 }
 
-gslpp::complex Bsgamma::a(double z){
+gslpp::complex Bsgamma::a(double z)
+{
     double zeta3 = gsl_sf_zeta_int(3);
     
     double z2=z*z;
@@ -58,7 +63,8 @@ gslpp::complex Bsgamma::a(double z){
             + z3 + 5./9.*z4 + 49./72.*z5 + 231./200.*z6) );
 }
 
-gslpp::complex Bsgamma::b(double z){
+gslpp::complex Bsgamma::b(double z)
+{
     
     double z2=z*z;
     double z3=z2*z;
@@ -79,13 +85,15 @@ gslpp::complex Bsgamma::b(double z){
             gslpp::complex::i()*M_PI*( -z + ( 1 - 2.*L )*z2 + ( -10./9. + 4./3.*L )*z3 + z4 + 2./3.*z5 + 7./9.*z6) );
 }
 
-gslpp::complex Bsgamma::Gamma_t(double t){
+gslpp::complex Bsgamma::Gamma_t(double t)
+{
     if (t<4) return -2. * atan( sqrt(t/(4.-t)) ) * atan( sqrt(t/(4.-t)) );
     else return -M_PI*M_PI/2. + 2.*log( ( sqrt(t) + sqrt(t-4.) ) / 2. )*log( ( sqrt(t) + sqrt(t-4.) ) / 2. )
             - 2.*gslpp::complex::i()*M_PI*log( ( sqrt(t) + sqrt(t-4.) ) / 2. );
 }
 
-gslpp::complex Bsgamma::r(int i, double z){
+gslpp::complex Bsgamma::r(int i, double z)
+{
     
     double Xb = -0.16844083981858157;
     
@@ -110,7 +118,8 @@ gslpp::complex Bsgamma::r(int i, double z){
     }
 }
 
-double Bsgamma::Phi22_1(double E0){
+double Bsgamma::Phi22_1(double E0)
+{
     
     double t1 = (1. - delta(E0))/zeta();
     double t2 = 1./zeta();
@@ -135,15 +144,18 @@ double Bsgamma::Phi22_1(double E0){
             + avaPhi221_3 - 2.*zeta()*avaPhi221_4 + zeta()*zeta()*avaPhi221_5);
 }
 
-double Bsgamma::Phi11_1(double E0){
+double Bsgamma::Phi11_1(double E0)
+{
     return Phi22_1(E0)/36.;
 }
 
-double Bsgamma::Phi12_1(double E0){
+double Bsgamma::Phi12_1(double E0)
+{
     return -Phi22_1(E0)/3.;
 }
 
-double Bsgamma::Phi27_1(double E0){
+double Bsgamma::Phi27_1(double E0)
+{
     
     double t1 = (1. - delta(E0))/zeta();
     double t2 = 1./zeta();
@@ -161,19 +173,23 @@ double Bsgamma::Phi27_1(double E0){
     return -8./9. * zeta() * zeta() * (delta(E0)*avaPhi271_1 + avaPhi271_2 - zeta()*avaPhi271_3);
 }
 
-double Bsgamma::Phi17_1(double E0){
+double Bsgamma::Phi17_1(double E0)
+{
     return -Phi27_1(E0)/6.;
 }
 
-double Bsgamma::Phi18_1(double E0){
+double Bsgamma::Phi18_1(double E0)
+{
     return Phi27_1(E0)/18.;
 }
 
-double Bsgamma::Phi28_1(double E0){
+double Bsgamma::Phi28_1(double E0)
+{
     return -Phi27_1(E0)/3.;
 }
 
-double Bsgamma::Phi47_1(double E0){
+double Bsgamma::Phi47_1(double E0)
+{
     double d=delta(E0);
     double d2=d*d;
     double d3=d2*d;
@@ -183,7 +199,8 @@ double Bsgamma::Phi47_1(double E0){
             - 1./3.*( d2 +4.*d + 3. )*sqrt( (1. - d) / (3. + d) )*atan(sqrt( (1. - d) / (3. + d) ));
 }
 
-double Bsgamma::Phi77_1(double E0){
+double Bsgamma::Phi77_1(double E0)
+{
     double d=delta(E0);
     double d2=d*d;
     double d3=d2*d;
@@ -191,7 +208,8 @@ double Bsgamma::Phi77_1(double E0){
     return -2./3.*pow(log(d),2.) - 7./3.*log(d) - 31./9. + 10./3.*d + d2/3. - 2./9.*d3 + d*(d - 4.)*log(d)/3.;
 }
 
-double Bsgamma::Phi78_1(double E0){
+double Bsgamma::Phi78_1(double E0)
+{
     double d=delta(E0);
     double d2=d*d;
     double d3=d2*d;
@@ -203,7 +221,8 @@ double Bsgamma::Phi78_1(double E0){
     return 8./9.*( Li2 -  pi2/6. - d*log(d) + 9./4.*d - d2/4. + d3/12.);
 }
 
-double Bsgamma::Phi88_1(double E0){
+double Bsgamma::Phi88_1(double E0)
+{
     double d=delta(E0);
     double d2=d*d;
     double d3=d2*d;
@@ -216,7 +235,8 @@ double Bsgamma::Phi88_1(double E0){
             + 8.*log(1. - d) -  2./3.*d3 + 3.*d2 +7*d);
 }
 
-double Bsgamma::Kij_1(int i, int j, double E0, double mu){
+double Bsgamma::Kij_1(int i, int j, double E0, double mu)
+{
     if (i > j) throw std::runtime_error("Bsgamma::Kij_1(): index i must not be greater than index j");
     
     double gamma_i7[8] = {-208./243., 416./81., -176./81., -152./243., -6272./81., 4624./243., 32./3., -32./9.};
@@ -241,7 +261,8 @@ double Bsgamma::Kij_1(int i, int j, double E0, double mu){
     else throw std::runtime_error("Bsgamma::Kij_1(): indexes (i,j) not implemented");
 }
 
-void Bsgamma::computeCoeff(double mu){
+void Bsgamma::computeCoeff(double mu)
+{
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
     
     C1_0 = (*(allcoeff[LO]))(0);
@@ -281,7 +302,8 @@ void Bsgamma::computeCoeff(double mu){
     std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C8_1 << std::endl;*/
 }
 
-double Bsgamma::P21(double E0, double mu){
+double Bsgamma::P21(double E0, double mu)
+{
     return (C1_0*C1_0).real() * Kij_1(1,1,E0,mu) + 2.*(C1_0*C2_0).real() * Kij_1(1,2,E0,mu) 
             + 2.*(C1_0*C7_0).real() * Kij_1(1,7,E0,mu) + 2.*(C1_0*C8_0).real() * Kij_1(1,8,E0,mu)
             + (C2_0*C2_0).real() * Kij_1(2,2,E0,mu) + 2.*(C2_0*C7_0).real() * Kij_1(2,7,E0,mu) 
@@ -292,7 +314,8 @@ double Bsgamma::P21(double E0, double mu){
             + (C8_0*C8_0).real() * Kij_1(8,8,E0,mu);
 }
 
-double Bsgamma::P32(double E0, double mu){
+double Bsgamma::P32(double E0, double mu)
+{
     return 2.*( (C1_0*C1_1).real() * Kij_1(1,1,E0,mu) + (C1_0*C2_1 + C1_1*C2_0).real() * Kij_1(1,2,E0,mu) 
             + (C1_0*C7_1 + C1_1*C7_0).real() * Kij_1(1,7,E0,mu) + (C1_0*C8_1 + C1_1*C8_0).real() * Kij_1(1,8,E0,mu)
             + (C2_0*C2_1).real() * Kij_1(2,2,E0,mu) + (C2_0*C7_1 + C2_1*C7_0).real() * Kij_1(2,7,E0,mu) 
@@ -303,7 +326,8 @@ double Bsgamma::P32(double E0, double mu){
             + (C8_0*C8_1).real() * Kij_1(8,8,E0,mu) );
 }
 
-double Bsgamma::P(double E0, double mu, orders order){
+double Bsgamma::P(double E0, double mu, orders order)
+{
     switch(order) {
         case NLO:
             return C7_0.abs2() + SM.Als(mu,FULLNLO)/4./M_PI * (2.*(C7_0*C7_1).real() + P21(E0,mu));
@@ -318,7 +342,8 @@ double Bsgamma::P(double E0, double mu, orders order){
     }
 }
 
-void Bsgamma::computeBR(orders order){
+void Bsgamma::computeBR(orders order)
+{
     ale=SM.getAle();
     E0=SM.getbsgamma_E0();
     Mb1s=4.68;
@@ -335,7 +360,8 @@ void Bsgamma::computeBR(orders order){
     BR = BRsl * (lambda_t/V_cb).abs2() * 6. * ale / (M_PI * C) * P(E0, mu_b, order);
 }
 
-double Bsgamma::computeThValue(){
+double Bsgamma::computeThValue()
+{
     computeBR(NLO);
     
     if (obs == 1) return BR;

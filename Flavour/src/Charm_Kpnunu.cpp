@@ -12,7 +12,8 @@ Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i)
 cp(3,0.), dcp(3,0.), c_p(3,0.), cpmuW0(3,0.), cpmuW1(3,0.), cpmuW2(3,0.),  
 cb(2,0.), dcb(2,0.), c_b(2,0.), cbmuW0(2,0.), cbmuW1(2,0.), cbmuW2(2,0.),
 U4p(3,0.), U5p(3,0.), J5p1(3,0.), J4p1(3,0.), J5p2(3,0.), J4p2(3,0.), dc_p(3,0.),
-U4b(2,0.), U5b(2,0.), J5b1(2,0.), J4b1(2,0.), J5b2(2,0.), J4b2(2,0.), dc_b(2,0.) {
+U4b(2,0.), U5b(2,0.), J5b1(2,0.), J4b1(2,0.), J5b2(2,0.), J4b2(2,0.), dc_b(2,0.) 
+{
 
 CP = 0.;    
 CBe = 0.;
@@ -30,10 +31,11 @@ xi2c = 966966391./10546875. - 231404944./3515625.*(1./etac) - 272751559./1054687
 xc = kc*(1. + model.Als(mc)/4./M_PI*xi1c + (model.Als(mc)/4./M_PI)*(model.Als(mc)/4./M_PI)*xi2c);
 }
 
-Charm_Kpnunu::~Charm_Kpnunu() {
-}
+Charm_Kpnunu::~Charm_Kpnunu() 
+{}
 
-vector<double> Charm_Kpnunu::Cp(orders order){
+vector<double> Charm_Kpnunu::Cp(orders order)
+{
     
     double x = modelmatching.x_t(model.getMuw());
     double L = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
@@ -73,7 +75,8 @@ vector<double> Charm_Kpnunu::Cp(orders order){
     }
 }
 
-matrix<double> Charm_Kpnunu::RGevolP(int nf, orders order) {
+matrix<double> Charm_Kpnunu::RGevolP(int nf, orders order) 
+{
     
     matrix<double> evo(3,3, 0.);
     
@@ -160,7 +163,8 @@ matrix<double> Charm_Kpnunu::RGevolP(int nf, orders order) {
     }
 }
 
-vector<double> Charm_Kpnunu::ThresholdCp(orders order){
+vector<double> Charm_Kpnunu::ThresholdCp(orders order)
+{
     
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -199,7 +203,8 @@ vector<double> Charm_Kpnunu::ThresholdCp(orders order){
         
     
 
-vector<double> Charm_Kpnunu::C_p(orders order){
+vector<double> Charm_Kpnunu::C_p(orders order)
+{
     
     cpmuW0 = Cp(LO);
     cpmuW1 = Cp(NLO);
@@ -246,7 +251,8 @@ vector<double> Charm_Kpnunu::C_p(orders order){
     
 }
 
-double Charm_Kpnunu::C_P(orders order){
+double Charm_Kpnunu::C_P(orders order)
+{
     
     double L = log(model.getMuc()*model.getMuc()/mc/mc);
     double C_P0 = C_p(LO)(2);
@@ -285,7 +291,8 @@ double Charm_Kpnunu::C_P(orders order){
     }
 }
  
-vector<double> Charm_Kpnunu::Cb(orders order){
+vector<double> Charm_Kpnunu::Cb(orders order)
+{
     
     double L = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
@@ -315,7 +322,8 @@ vector<double> Charm_Kpnunu::Cb(orders order){
     }
 }
 
-matrix<double> Charm_Kpnunu::RGevolB(int nf, orders order){
+matrix<double> Charm_Kpnunu::RGevolB(int nf, orders order)
+{
     
     matrix<double> evo(2,2, 0.);
     
@@ -396,7 +404,8 @@ matrix<double> Charm_Kpnunu::RGevolB(int nf, orders order){
     } 
 }
 
-vector<double> Charm_Kpnunu::ThresholdCb(orders order){
+vector<double> Charm_Kpnunu::ThresholdCb(orders order)
+{
     
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -428,7 +437,8 @@ vector<double> Charm_Kpnunu::ThresholdCb(orders order){
     }
 }
 
-vector<double> Charm_Kpnunu::C_b(orders order){
+vector<double> Charm_Kpnunu::C_b(orders order)
+{
     
     cbmuW0 = Cb(LO);
     cbmuW1 = Cb(NLO);
@@ -475,7 +485,8 @@ vector<double> Charm_Kpnunu::C_b(orders order){
     
 }
 
-double Charm_Kpnunu::C_Be(orders order){
+double Charm_Kpnunu::C_Be(orders order)
+{
     
     double L = log(model.getMuc()*model.getMuc()/mc/mc);
     double rhoB1_e = 5. + 4.*L - 4.*log(kc);
@@ -508,7 +519,8 @@ double Charm_Kpnunu::C_Be(orders order){
     }
 }
 
-double Charm_Kpnunu::C_Bt(orders order){
+double Charm_Kpnunu::C_Bt(orders order)
+{
      
     double L = log(model.getMuc()*model.getMuc()/mc/mc);
     double x_t = model.getLeptons(model.TAU).getMass()*model.getLeptons(model.TAU).getMass()/mc/mc;
@@ -556,7 +568,8 @@ double Charm_Kpnunu::C_Bt(orders order){
     }  
 }
 
-double Charm_Kpnunu::P_C(orders order){
+double Charm_Kpnunu::P_C(orders order)
+{
     double Xe = C_P(order) + C_Be(order);
     double Xt = C_P(order) + C_Bt(order);
     double lambda4 = model.getLambda()*model.getLambda()*model.getLambda()*model.getLambda();
@@ -565,7 +578,8 @@ double Charm_Kpnunu::P_C(orders order){
     return(pc);    
 }
 
-double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew){
+double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew)
+{
     
     double xt = modelmatching.x_t(model.getMut());
     double Muw = model.getMuw();

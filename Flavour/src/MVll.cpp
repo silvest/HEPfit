@@ -11,7 +11,8 @@
 #include <boost/bind.hpp>
 
 
-MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : mySM(SM_i),
+MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+:       mySM(SM_i),
         N_cache(3, 0.),
         V_cache(4, 0.),
         A0_cache(4, 0.),
@@ -113,11 +114,11 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
 }
 
 
-MVll::~MVll() {
-/** Check to see if GSL pointers are released!!*/
-}
+MVll::~MVll() 
+{}
 
-void MVll::updateParameters(){
+void MVll::updateParameters()
+{
     GF = mySM.getGF();
     ale=mySM.getAle();
     Mlep=mySM.getLeptons(lep).getMass();
@@ -332,7 +333,8 @@ void MVll::updateParameters(){
     
 }
 
-void MVll::checkCache(){
+void MVll::checkCache()
+{
     
     if (MM == k2_cache(0) && MV == k2_cache(1) ) {
         k2_updated = 1;
@@ -739,26 +741,30 @@ void MVll::checkCache(){
 /*******************************************************************************
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
-double MVll::LCSR_fit1(double q2, double r_1, double r_2, double m_R2, double m_fit2){
+double MVll::LCSR_fit1(double q2, double r_1, double r_2, double m_R2, double m_fit2)
+{
     return r_1/( 1. - q2/m_R2 ) + r_2/( 1. - q2/m_fit2 ) ;
 }
 
 
 
-double MVll::LCSR_fit2(double q2, double r_1, double r_2, double m_fit2){
+double MVll::LCSR_fit2(double q2, double r_1, double r_2, double m_fit2)
+{
     return r_1/( 1. - q2/m_fit2 ) + r_2/pow( ( 1. - q2/m_fit2 ) , 2.) ;
 
 }
 
 
 
-double MVll::LCSR_fit3(double q2, double r_2, double m_fit2){
+double MVll::LCSR_fit3(double q2, double r_2, double m_fit2)
+{
     return r_2/( 1. - q2/m_fit2 ) ; 
 }
 
 
 
-double MVll::z(double q2){
+double MVll::z(double q2)
+{
     double t_0 = 12.;
     double t_p=pow(MM + MV,2.);
     return ( sqrt(t_p - q2) - sqrt(t_p - t_0) ) / ( sqrt(t_p - q2) + sqrt(t_p - t_0) );
@@ -766,13 +772,15 @@ double MVll::z(double q2){
 
 
 
-double MVll::lat_fit(double q2, double a_0, double a_1, double dm){
+double MVll::lat_fit(double q2, double a_0, double a_1, double dm)
+{
     return 1 / (1 - q2/pow(MM + dm,2.)) * ( a_0 + a_1*z(q2) );
 }
 
 
 
-double MVll::V(double q2){
+double MVll::V(double q2)
+{
     if (q2<CUTOFF)
         return LCSR_fit1(q2, r_1V, r_2V, pow(m_RV, 2.), m_fit2V);
     else
@@ -781,7 +789,8 @@ double MVll::V(double q2){
 
 
 
-double MVll::A_0(double q2){
+double MVll::A_0(double q2)
+{
     if (q2<CUTOFF)
         return LCSR_fit1(q2, r_1A0, r_2A0, pow(m_RA0, 2.), m_fit2A0);
     else
@@ -790,7 +799,8 @@ double MVll::A_0(double q2){
 
 
 
-double MVll::A_1(double q2){
+double MVll::A_1(double q2)
+{
     if (q2<CUTOFF)
         return LCSR_fit3(q2, r_2A1, m_fit2A1);
     else
@@ -805,7 +815,8 @@ double MVll::A_2(double q2){
 
 
 
-double MVll::T_1(double q2){
+double MVll::T_1(double q2)
+{
     if (q2<CUTOFF)
         return LCSR_fit1(q2, r_1T1, r_2T1, pow(m_RT1, 2.), m_fit2T1);
     else
@@ -814,7 +825,8 @@ double MVll::T_1(double q2){
 
 
 
-double MVll::T_2(double q2){
+double MVll::T_2(double q2)
+{
     if (q2<CUTOFF)
         return LCSR_fit3(q2, r_2T2, m_fit2T2);
     else
@@ -823,19 +835,22 @@ double MVll::T_2(double q2){
 
 
 
-double MVll::T_3tilde(double q2){
+double MVll::T_3tilde(double q2)
+{
     return LCSR_fit2(q2, r_1T3t, r_2T3t, m_fit2T3t);
 }
 
 
 
-double MVll::T_3(double q2){
+double MVll::T_3(double q2)
+{
     return (MM*MM - MV*MV)/q2*(T_3tilde(q2) - T_2(q2));
 }
 
 
 
-double MVll::V_L(int i, double q2){
+double MVll::V_L(int i, double q2)
+{
     switch (i){
         case 0:
             if (q2 < CUTOFF)
@@ -855,14 +870,16 @@ double MVll::V_L(int i, double q2){
 
 
 
-double MVll::V_R(int i, double q2){
+double MVll::V_R(int i, double q2)
+{
     if (i != 0) i=3-i;
     return -V_L(i,q2);
 }
 
 
 
-double MVll::T_L(int i, double q2){
+double MVll::T_L(int i, double q2)
+{
     switch (i){
         case 0:
             if (q2 < CUTOFF)
@@ -882,20 +899,23 @@ double MVll::T_L(int i, double q2){
 
 
 
-double MVll::T_R(int i, double q2){
+double MVll::T_R(int i, double q2)
+{
     if (i != 0) i=3-i;
     return -T_L(i,q2);
 }
 
 
 
-double MVll::S_L(double q2){
+double MVll::S_L(double q2)
+{
     return -sqrt(lambda(q2))/ ( 2.*MM*(Mb + Ms) ) *A_0(q2);
 }
 
 
 
-double MVll::S_R(double q2){
+double MVll::S_R(double q2)
+{
     return -S_L(q2);
 }
 
@@ -904,13 +924,15 @@ double MVll::S_R(double q2){
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-gslpp::complex MVll::N(){
+gslpp::complex MVll::N()
+{
     return -(4.*GF*MM*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
 
 
 
-gslpp::complex MVll::H(double q2, double m){
+gslpp::complex MVll::H(double q2, double m)
+{
     double x = 4.*m*m/q2;
     gslpp::complex par;
     
@@ -923,14 +945,16 @@ gslpp::complex MVll::H(double q2, double m){
 
 
 
-gslpp::complex MVll::Y(double q2){
+gslpp::complex MVll::Y(double q2)
+{
     return  - 1./2. * H(q2,0.) * ( C_3 + 4./3.*C_4 + 16. * C_5 + 64./3.*C_6 )
             + H(q2, Mc) * ( 4./3.*C_1 + C_2 + 6.*C_3 + 60.*C_5 ) - 1./2. * H(q2, Mb) * ( 7.*C_3 + 4./3.*C_4 + 76.*C_5 + 64./3.*C_6 );
 }
 
 
 
-gslpp::complex MVll::H_V(int i, double q2, int bar) {
+gslpp::complex MVll::H_V(int i, double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -953,7 +977,8 @@ gslpp::complex MVll::H_V(int i, double q2, int bar) {
 
 
 
-gslpp::complex MVll::H_A(int i, double q2, int bar) {
+gslpp::complex MVll::H_A(int i, double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -974,7 +999,8 @@ gslpp::complex MVll::H_A(int i, double q2, int bar) {
 
 
 
-gslpp::complex MVll::H_S(double q2, int bar) {
+gslpp::complex MVll::H_S(double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -995,7 +1021,8 @@ gslpp::complex MVll::H_S(double q2, int bar) {
 
 
 
-gslpp::complex MVll::H_P(double q2, int bar) {
+gslpp::complex MVll::H_P(double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -1021,31 +1048,36 @@ gslpp::complex MVll::H_P(double q2, int bar) {
 /*******************************************************************************
  * Angular coefficients                                                         *
  * ****************************************************************************/
-double MVll::k2(double q2) {
+double MVll::k2(double q2) 
+{
     return (pow(MM,4.) + q2*q2 + pow(MV,4.) -2.*MV*MV*q2 -2.*MM*MM*(q2 + MV*MV))/(4.*MM*MM);
 }
 
 
 
-double MVll::beta(double q2) {
+double MVll::beta(double q2) 
+{
     return sqrt(1.-4.*Mlep*Mlep/q2);
 }
 
 
 
-double MVll::lambda(double q2) {
+double MVll::lambda(double q2) 
+{
     return 4.*MM*MM*k2(q2);
 }
 
 
 
-double MVll::F(double q2, double b_i) {
+double MVll::F(double q2, double b_i) 
+{
     return sqrt(lambda(q2))*beta(q2)*q2*b_i/(96.*M_PI*M_PI*M_PI*MM*MM*MM);
 }
 
 
 
-double MVll::I(int i, double q2, int bar) {
+double MVll::I(int i, double q2, int bar) 
+{
 
     double Mlep2 = Mlep*Mlep;
     double beta2 = beta(q2)*beta(q2);
@@ -1087,11 +1119,13 @@ double MVll::I(int i, double q2, int bar) {
     }
 }
 
-double MVll::Sigma(int i, double q2) {
+double MVll::Sigma(int i, double q2) 
+{
     return (I(i, q2,0) + I(i, q2,1))/2;
 }
 
-double MVll::Delta(int i, double q2) {
+double MVll::Delta(int i, double q2) 
+{
     return (I(i, q2,0) - I(i, q2,1))/2;
 }
 
@@ -1175,7 +1209,8 @@ double MVll::integrateFF(int i, double q_min, double q_max){
     }
 }
 
-double MVll::integrateSigma(int i, double q_min, double q_max){
+double MVll::integrateSigma(int i, double q_min, double q_max)
+{
 
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();
@@ -1292,7 +1327,8 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
     
 }
 
-double MVll::integrateDelta(int i, double q_min, double q_max){
+double MVll::integrateDelta(int i, double q_min, double q_max)
+{
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();
@@ -1362,7 +1398,8 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
     }
 }
 
-gslpp::complex MVll::integrategtilde(int i, double q_min, double q_max){
+gslpp::complex MVll::integrategtilde(int i, double q_min, double q_max)
+{
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();
@@ -1411,7 +1448,8 @@ gslpp::complex MVll::integrategtilde(int i, double q_min, double q_max){
     }
 }
 
-gslpp::complex MVll::integrateh(int i, double q_min, double q_max){
+gslpp::complex MVll::integrateh(int i, double q_min, double q_max)
+{
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
         updateParameters();

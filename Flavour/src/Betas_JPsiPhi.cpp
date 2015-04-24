@@ -7,6 +7,7 @@
 
 #include "Betas_JPsiPhi.h"
 
-double Betas_JPsiPhi::computeThValue() {
+double Betas_JPsiPhi::computeThValue() 
+{
     return AmpBs(FULLNLO).arg()/2.*180./M_PI;
 }

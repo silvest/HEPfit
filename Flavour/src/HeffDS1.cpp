@@ -7,18 +7,18 @@
 
 #include "HeffDS1.h"
 
-HeffDS1::HeffDS1(const StandardModel & SM) :
-        model(SM), 
+HeffDS1::HeffDS1(const StandardModel & SM) 
+:       model(SM), 
         coeffds1 (10, NDR, NLO, NLO_ew), coeffds1cc(10, NDR, NLO),
         coeffds1pnunu(1, NDR, NLO, NLO_ew), coeffds1mumu(1, NDR, NLO),
         u(10, NDR, NLO, NLO_ew, SM), uM(13, NDR, NLO, SM),
-        DS1cce(10, 0.), DS1cc(10, 0.){
-}
+        DS1cce(10, 0.), DS1cc(10, 0.)
+{}
 
-HeffDS1::~HeffDS1() {
-}
+HeffDS1::~HeffDS1() {}
 
-vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
+vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) 
+{
     
     const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMK();
     const std::vector<WilsonCoefficient>& mcbCC = model.getMyMatching()->CMKCC();
@@ -129,7 +129,8 @@ vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
     }
 }
 
-vector<complex>** HeffDS1::ComputeCoeffDS1pnunu() {
+vector<complex>** HeffDS1::ComputeCoeffDS1pnunu() 
+{
     
     const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()-> CMkpnn();
     
@@ -150,7 +151,8 @@ vector<complex>** HeffDS1::ComputeCoeffDS1pnunu() {
     return coeffds1pnunu.getCoeff();
 }              
 
-vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
+vector<complex>** HeffDS1::ComputeCoeffDS1mumu() 
+{
     
     const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()-> CMkmm();
     
@@ -166,7 +168,8 @@ vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
     return coeffds1mumu.getCoeff();
 }       
 
-void HeffDS1::CharmMatch(){
+void HeffDS1::CharmMatch()
+{
     DS1cc = *coeffds1cc.getCoeff(LO);
     DS1cce = *coeffds1cc.getCoeff(LO_ew);
     

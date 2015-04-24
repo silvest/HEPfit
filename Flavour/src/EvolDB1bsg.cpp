@@ -8,10 +8,11 @@
 #include <gsl/gsl_sf_zeta.h>
 #include "EvolDB1bsg.h"
 
-EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order,
-             const StandardModel& model) : RGEvolutor(dim_i, scheme, order), model(model),
-             v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.), s_s(dim_i,0.),
-             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.), dim(dim_i) {
+EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order, const StandardModel& model) 
+:           RGEvolutor(dim_i, scheme, order), model(model),
+            v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.), s_s(dim_i,0.),
+            jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.), dim(dim_i) 
+{
     if (dim != 8 ) throw std::runtime_error("ERROR: EvolDB1bsg can only be of dimension 8"); 
     
     /* magic numbers a & b */ 
@@ -74,11 +75,11 @@ EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order,
     }
 }
     
-EvolDB1bsg::~EvolDB1bsg() {
-}
+EvolDB1bsg::~EvolDB1bsg() 
+{}
 
-matrix<double> EvolDB1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
-        unsigned int n_d) const{
+matrix<double> EvolDB1bsg::AnomalousDimension_M(orders order, unsigned int n_u, unsigned int n_d) const
+{
     
     /* Delta F = 1 anomalous dimension in Misiak basis, 
        ref.: M. Misiak, Nucl. Phys. B393 (1993) 23, B439 (1995) 461 (E),  
@@ -189,7 +190,8 @@ matrix<double> EvolDB1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     return (gammaDF1);
 }
 
-matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const{
+matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const
+{
     
     /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
        ref. hep-ph/9711280v1, hep-ph/0504194 */
@@ -252,7 +254,8 @@ matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     
 }
 
-matrix<double> EvolDB1bsg::ToEffectiveBasis(matrix<double> mat) const{
+matrix<double> EvolDB1bsg::ToEffectiveBasis(matrix<double> mat) const
+{
     
     gslpp::matrix<double> y(dim, 0.);
     
@@ -279,7 +282,8 @@ matrix<double> EvolDB1bsg::ToEffectiveBasis(matrix<double> mat) const{
     
 }
 
-matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) {
+matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) 
+{
     
     switch (scheme) {
         case NDR:
@@ -319,7 +323,8 @@ matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
     
     }
     
- void EvolDB1bsg::Df1Evolbsg(double mu, double M, double nf, schemes scheme) {
+ void EvolDB1bsg::Df1Evolbsg(double mu, double M, double nf, schemes scheme) 
+ {
 
     matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 

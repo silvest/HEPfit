@@ -16,8 +16,8 @@
 
 
 
-MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) : mySM(SM_i),
-
+MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
+:       mySM(SM_i),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
         k2_cache(2, 0.),
@@ -43,10 +43,11 @@ MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
 }
 
 
-MPll::~MPll() {
-}
+MPll::~MPll() 
+{}
 
-void MPll::updateParameters(){
+void MPll::updateParameters()
+{
     GF = mySM.getGF();
     ale=mySM.getAle();
     Mlep=mySM.getLeptons(lep).getMass();
@@ -115,7 +116,8 @@ void MPll::updateParameters(){
     
 }
 
-void MPll::checkCache(){
+void MPll::checkCache()
+{
     
     if(r_1_fplus == fplus_cache(0) && r_2_fplus == fplus_cache(1)) {
         fplus_updated = 1;
@@ -351,39 +353,48 @@ void MPll::checkCache(){
 /*******************************************************************************
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
-double MPll::f_plus(double q2){
+double MPll::f_plus(double q2)
+{
     return mySM.getMyFlavour()->getMVll(QCD::B_D, QCD::K_star, StandardModel::MU)->LCSR_fit2(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
 }
 
-double MPll::f_T(double q2){
+double MPll::f_T(double q2)
+{
     return mySM.getMyFlavour()->getMVll(QCD::B_D, QCD::K_star, StandardModel::MU)->LCSR_fit2(q2, r_1_fT, r_2_fT, m_fit2_fT);
 }
 
-double MPll::f_0(double q2){
+double MPll::f_0(double q2)
+{
     return mySM.getMyFlavour()->getMVll(QCD::B_D, QCD::K_star, StandardModel::MU)->LCSR_fit3(q2, r_2_f0, m_fit2_f0);
 }
 
-gslpp::complex MPll::V_L(double q2){
+gslpp::complex MPll::V_L(double q2)
+{
     return gslpp::complex::i() * sqrt(lambda(q2)) / (2*MM*sqrt(q2)) * f_plus(q2);
 }
 
-gslpp::complex MPll::V_R(double q2){
+gslpp::complex MPll::V_R(double q2)
+{
     return -V_L(q2);
 }
 
-gslpp::complex MPll::T_L(double q2){
+gslpp::complex MPll::T_L(double q2)
+{
     return gslpp::complex::i()  * sqrt(lambda(q2)*q2) / (2.*MM*MM*(MM+MP)) * f_T(q2);
 }
 
-gslpp::complex MPll::T_R(double q2){
+gslpp::complex MPll::T_R(double q2)
+{
     return -T_L(q2);
 }
 
-double MPll::S_L(double q2){
+double MPll::S_L(double q2)
+{
     return -( MM*MM - MP*MP )/(2*MM*(Mb + Ms)) * ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * f_0(q2);
 }
 
-double MPll::S_R(double q2){
+double MPll::S_R(double q2)
+{
     return -S_L(q2);
 }
 
@@ -392,11 +403,13 @@ double MPll::S_R(double q2){
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-gslpp::complex MPll::N(){
+gslpp::complex MPll::N()
+{
     return -(4.*GF*MM*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
 
-gslpp::complex MPll::H(double q2, double m){
+gslpp::complex MPll::H(double q2, double m)
+{
     double x = 4.*m*m/q2;
     gslpp::complex par;
     
@@ -407,12 +420,14 @@ gslpp::complex MPll::H(double q2, double m){
     else return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
 }
 
-gslpp::complex MPll::Y(double q2){
+gslpp::complex MPll::Y(double q2)
+{
     return 4./3. * C_3 + 64./9. * C_5 + 64./27. * C_6 - 1./2. * H(q2,0.) * ( C_3 + 4./3.*C_4 + 16. * C_5 + 64./3.*C_6 )
             + H(q2, Mc) * ( 4./3.*C_1 + C_2 + 6.*C_3 + 60.*C_5 ) - 1./2. * H(q2, Mb) * ( 7.*C_3 + 4./3.*C_4 + 76.*C_5 + 64./3.*C_6 );
 }
 
-gslpp::complex MPll::H_V(double q2, int bar) {
+gslpp::complex MPll::H_V(double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -431,7 +446,8 @@ gslpp::complex MPll::H_V(double q2, int bar) {
             + C_9p*V_R(q2) + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*(h_0 + h_0_1 * q2)) );
 }
 
-gslpp::complex MPll::H_A(double q2, int bar) {
+gslpp::complex MPll::H_A(double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -449,7 +465,8 @@ gslpp::complex MPll::H_A(double q2, int bar) {
     return -gslpp::complex::i()*n*( C_10*V_L(q2) + C_10p*V_R(q2) );
 }
 
-gslpp::complex MPll::H_S(double q2, int bar) {
+gslpp::complex MPll::H_S(double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -467,7 +484,8 @@ gslpp::complex MPll::H_S(double q2, int bar) {
     return gslpp::complex::i()*n*Mb/MW*( C_S*S_L(q2) + C_Sp*S_R(q2) );
 }
 
-gslpp::complex MPll::H_P(double q2, int bar) {
+gslpp::complex MPll::H_P(double q2, int bar) 
+{
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -491,23 +509,28 @@ gslpp::complex MPll::H_P(double q2, int bar) {
 /*******************************************************************************
  * Angular coefficients                                                         *
  * ****************************************************************************/
-double MPll::k2(double q2) {
+double MPll::k2(double q2) 
+{
     return (pow(MM,4.) + q2*q2 + pow(MP,4.) -2.*MP*MP*q2 -2.*MM*MM*(q2 + MP*MP))/(4.*MM*MM);
 }
 
-double MPll::beta(double q2) {
+double MPll::beta(double q2) 
+{
     return sqrt(1. - 4.*Mlep*Mlep/q2);
 }
 
-double MPll::lambda(double q2) {
+double MPll::lambda(double q2) 
+{
     return 4.*MM*MM*k2(q2);
 }
 
-double MPll::F(double q2) {
+double MPll::F(double q2) 
+{
     return sqrt(lambda(q2))*beta(q2)*q2/(96.*M_PI*M_PI*M_PI*MM*MM*MM);
 }
 
-double MPll::I(int i, double q2, int bar) {
+double MPll::I(int i, double q2, int bar) 
+{
 
     double Mlep2 = Mlep*Mlep;
     double beta2 = beta(q2)*beta(q2);
@@ -528,15 +551,18 @@ double MPll::I(int i, double q2, int bar) {
     }
 }
 
-double MPll::Sigma(int i, double q2) {
+double MPll::Sigma(int i, double q2) 
+{
     return (I(i, q2, 0) + I(i, q2, 1))/2.;
 }
 
-double MPll::Delta(int i, double q2) {
+double MPll::Delta(int i, double q2) 
+{
     return (I(i, q2, 0) - I(i, q2, 1))/2.;
 }
 
-double MPll::integrateSigma(int i, double q_min, double q_max){
+double MPll::integrateSigma(int i, double q_min, double q_max)
+{
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, pseudoscalar, lep)){
         updateParameters();
@@ -572,7 +598,8 @@ double MPll::integrateSigma(int i, double q_min, double q_max){
     
 }
 
-double MPll::integrateDelta(int i, double q_min, double q_max){
+double MPll::integrateDelta(int i, double q_min, double q_max)
+{
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, pseudoscalar, lep)){
         updateParameters();

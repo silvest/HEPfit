@@ -7,7 +7,8 @@
 
 #include "BR_Kp0nunu.h"
 
-double BR_Kp0nunu::computeThValue(){
+double BR_Kp0nunu::computeThValue()
+{
     double theta = asin(sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * 
                    SM.Mw_tree() * SM.Mw_tree()) ));
     
@@ -16,7 +17,8 @@ double BR_Kp0nunu::computeThValue(){
            BRKp0nunu(NLO, NLO_ew).real());
 }
 
-complex BR_Kp0nunu::BRKp0nunu(orders order, orders_ew order_ew){
+complex BR_Kp0nunu::BRKp0nunu(orders order, orders_ew order_ew)
+{
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1pnunu().getOrder() < order){
         std::stringstream out;
         out << order;

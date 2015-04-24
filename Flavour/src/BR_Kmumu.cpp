@@ -7,7 +7,8 @@
 
 #include "BR_Kmumu.h"
 
-double BR_Kmumu::computeThValue(){
+double BR_Kmumu::computeThValue()
+{
     double theta= asin(sqrt( (M_PI * mySM.getAle() )/( sqrt(2) * mySM.getGF() * 
                    mySM.Mw_tree() * mySM.Mw_tree()) ));
     
@@ -16,7 +17,8 @@ double BR_Kmumu::computeThValue(){
            * mySM.getBr_Kp_munu() * BRKmumu(NLO).real());
 }
 
-complex BR_Kmumu::BRKmumu(orders order){
+complex BR_Kmumu::BRKmumu(orders order)
+{
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1mumu().getOrder() < order){
         std::stringstream out;
         out << order;

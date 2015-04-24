@@ -7,7 +7,8 @@
 
 #include "BR_Bsnunu.h"
 
-double BR_Bsnunu::computeThValue(){
+double BR_Bsnunu::computeThValue()
+{
     double theta= asin(sqrt( (M_PI * mySM.getAle() )/( sqrt(2) *
                   mySM.getGF() * mySM.Mw_tree() * 
                   mySM.Mw_tree()) ));
@@ -23,7 +24,8 @@ double BR_Bsnunu::computeThValue(){
            /(1. - 2.*mySM.Als(mySM.getMub())/3./M_PI*((M_PI*M_PI-31./4.)*(1.-z*z)+1.5)));
 }
 
-complex BR_Bsnunu::BRBsnunu(orders order){
+complex BR_Bsnunu::BRBsnunu(orders order)
+{
     if (mySM.getMyFlavour()->getHDB1().getCoeffsnunu().getOrder() < order){
         std::stringstream out;
         out << order;

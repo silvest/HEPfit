@@ -7,6 +7,7 @@
 
 #include "alpha.h"
 
-double Alpha::computeThValue() {
+double Alpha::computeThValue() 
+{
     return(SM.computeAlpha()/M_PI*180.);
 }

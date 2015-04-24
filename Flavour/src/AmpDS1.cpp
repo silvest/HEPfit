@@ -8,10 +8,12 @@
 #include "AmpDS1.h"
 #include <sstream>
 
-AmpDS1::AmpDS1(const StandardModel& SM_i) : mySM(SM_i) {
-}
+AmpDS1::AmpDS1(const StandardModel& SM_i) 
+: mySM(SM_i) 
+{}
 
-complex AmpDS1::AmpDS1pp0(orders order) {
+complex AmpDS1::AmpDS1pp0(orders order) 
+{
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;
@@ -65,7 +67,8 @@ complex AmpDS1::AmpDS1pp0(orders order) {
     }
 }
 
-complex AmpDS1::AmpDS1pp2(orders order) {
+complex AmpDS1::AmpDS1pp2(orders order) 
+{
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;

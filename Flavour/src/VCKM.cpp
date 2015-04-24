@@ -7,7 +7,9 @@
 
 #include "VCKM.h"
 
-VCKM::VCKM(const StandardModel& SM_i, unsigned int obsFlag_1, unsigned int obsFlag_2) : ThObservable(SM_i) {
+VCKM::VCKM(const StandardModel& SM_i, unsigned int obsFlag_1, unsigned int obsFlag_2) 
+: ThObservable(SM_i) 
+{
     if (obsFlag_1 > 0 && obsFlag_1 < 4 && obsFlag_2 > 0 && obsFlag_2 < 4) {
         obs_1 = obsFlag_1;
         obs_2 = obsFlag_2;
@@ -15,10 +17,11 @@ VCKM::VCKM(const StandardModel& SM_i, unsigned int obsFlag_1, unsigned int obsFl
     else throw std::runtime_error("obsFlag in CKM(myFlavour, obsFlag_1, obsFlag_1) called from ThFactory::ThFactory() can only be 1 - 3 corresponding to the CKM matrix");
 }
 
-VCKM::~VCKM() {
-}
+VCKM::~VCKM() 
+{}
 
-double VCKM::computeThValue() { 
+double VCKM::computeThValue() 
+{ 
     
     if (obs_1 == 1 && obs_2 == 1) return(SM.getCKM().getVud());
     if (obs_1 == 1 && obs_2 == 2) return(SM.getCKM().getVus());

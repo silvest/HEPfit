@@ -9,19 +9,20 @@
 
 using namespace gslpp;
 
-HeffDF1bsg::HeffDF1bsg(const StandardModel & SM, StandardModelMatching & SM_Matching) :
-        model(SM), modelmatching(SM_Matching), coeffbsg(10, NDR, NLO), 
-        evolDB1bsg(13, NDR, NLO, SM) {
-}
+HeffDF1bsg::HeffDF1bsg(const StandardModel & SM, StandardModelMatching & SM_Matching) 
+:       model(SM), modelmatching(SM_Matching), coeffbsg(10, NDR, NLO), 
+        evolDB1bsg(13, NDR, NLO, SM) 
+{}
 
-HeffDF1bsg::~HeffDF1bsg() {
-}
+HeffDF1bsg::~HeffDF1bsg() 
+{}
 
 /*******************************************************************************
  * evoulution Wilson Coefficien b-> s gamma                                    * 
  * Misiak base                                                                 *
  ******************************************************************************/
-vector<complex>** HeffDF1bsg::ComputeCoeffBsg(double mu, schemes scheme) {
+vector<complex>** HeffDF1bsg::ComputeCoeffBsg(double mu, schemes scheme) 
+{
     
     const std::vector<WilsonCoefficient>& mc = modelmatching.CMbsg();
     

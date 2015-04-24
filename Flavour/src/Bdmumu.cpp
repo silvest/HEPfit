@@ -7,12 +7,15 @@
 
 #include "Bdmumu.h"
 
-Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag): ThObservable(SM_i){
+Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag)
+: ThObservable(SM_i)
+{
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
 };
 
-double Bdmumu::computeThValue(){
+double Bdmumu::computeThValue()
+{
     computeObs(FULLNLO);
     double FBd = SM.getMesons(QCD::B_D).getDecayconst();
     double coupling = SM.getGF() * SM.alphaMz() / 4. / M_PI;
@@ -29,7 +32,8 @@ double Bdmumu::computeThValue(){
     return (EXIT_FAILURE);
 }
 
-void Bdmumu::computeObs(orders order){
+void Bdmumu::computeObs(orders order)
+{
     mmu = SM.getLeptons(StandardModel::MU).getMass();
     mBd = SM.getMesons(QCD::B_D).getMass();
     mb = SM.getQuarks(QCD::BOTTOM).getMass();
@@ -41,17 +45,20 @@ void Bdmumu::computeObs(orders order){
     Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
 }
 
-double Bdmumu::computeAmumu(orders order){
+double Bdmumu::computeAmumu(orders order)
+{
     computeObs(FULLNLO);
     return(Amumu);
 }
 
-double Bdmumu::computeSmumu(orders order){
+double Bdmumu::computeSmumu(orders order)
+{
     computeObs(FULLNLO);
     return(Smumu);
 }
 
-void Bdmumu::computeAmpSq(orders order){
+void Bdmumu::computeAmpSq(orders order)
+{
     if (SM.getMyFlavour()->getHDB1().getCoeffdmumu().getOrder() < order % 3){
         std::stringstream out;
         out << order;

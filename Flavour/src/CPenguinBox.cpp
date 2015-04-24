@@ -96,7 +96,8 @@ vector<double> CPenguinBox::WMatchP(orders order){
     }
 }
 
-matrix<double> CPenguinBox::RGevolP(int nf) {
+matrix<double> CPenguinBox::RGevolP(int nf) 
+{
     
     switch (nf){
         case(5):
@@ -126,7 +127,8 @@ matrix<double> CPenguinBox::RGevolP(int nf) {
     }
 }
 
-double CPenguinBox::BmatchP(orders order){
+double CPenguinBox::BmatchP(orders order)
+{
     
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -152,7 +154,8 @@ double CPenguinBox::BmatchP(orders order){
     }
 }
 
-vector<double> CPenguinBox::WMatchB(orders order){
+vector<double> CPenguinBox::WMatchB(orders order)
+{
     double l = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
     switch(order){
@@ -178,7 +181,8 @@ vector<double> CPenguinBox::WMatchB(orders order){
     }
 }
 
-matrix<double> CPenguinBox::RGevolB(int nf) {
+matrix<double> CPenguinBox::RGevolB(int nf) 
+{
     
     switch (nf){
         case(5):
@@ -204,7 +208,8 @@ matrix<double> CPenguinBox::RGevolB(int nf) {
     }
 }
 
-double CPenguinBox::BmatchB(orders order){
+double CPenguinBox::BmatchB(orders order)
+{
     
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -227,7 +232,8 @@ double CPenguinBox::BmatchB(orders order){
     }
 }
 
-double CPenguinBox::Cmatch(orders order){
+double CPenguinBox::Cmatch(orders order)
+{
     
     up5 = RGevolP(5);
     up4 = RGevolP(4);
@@ -484,7 +490,8 @@ double CPenguinBox::Cmatch(orders order){
     return(3.*cpm + 2./3.*cbme + 1./3.*cbmt);
 }
 
-double CPenguinBox::CT_tot(orders order, orders_ew order_ew){
+double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
+{
     
     double IBT = model.getDeltaP_cu();
     double xt = modelmatching.x_t(model.getMuw());

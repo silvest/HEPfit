@@ -10,25 +10,26 @@
 
 using namespace gslpp;
 
-HeffDF1bnlep::HeffDF1bnlep(const StandardModel & SM, StandardModelMatching & SM_Matching) :
-        model(SM), modelmatching(SM_Matching), 
+HeffDF1bnlep::HeffDF1bnlep(const StandardModel & SM, StandardModelMatching & SM_Matching) 
+:       model(SM), modelmatching(SM_Matching), 
         coeffbnlep00qcd (10, NDR, NLO, NLO_ew), coeffbnlep00 (12, NDR, NLO, NLO_ew),
         coeffbnlep10qcd (10, NDR, NLO, NLO_ew), coeffbnlep10 (12, NDR, NLO, NLO_ew),
         coeffbnlep01 (10, NDR, NLO), coeffbnlep01A(10, NDR, NLO), coeffbnlep01B(4, NDR, NLO), coeffbnlep00CC(10, NDR, NLO),
         coeffbnlep11 (10, NDR, NLO), coeffbnlep11A(10, NDR, NLO), coeffbnlep11B(4, NDR, NLO), coeffbnlep10CC(10, NDR, NLO),
         u(10, NDR, NLO, NLO_ew, SM), 
-        bnlep (12, 0.), bnlep2(10, 0.), bnlepCC(4, 0.){
-}
+        bnlep (12, 0.), bnlep2(10, 0.), bnlepCC(4, 0.)
+{}
 
-HeffDF1bnlep::~HeffDF1bnlep() {
-}
+HeffDF1bnlep::~HeffDF1bnlep() 
+{}
 
 /*******************************************************************************
  * evolution Wilson Coefficienys b-> nonlep.                                   * 
  * Buras base                                                                  *
  * deltaB=1   deltaC=0   deltaS=0                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme) {
+vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme) 
+{
     
     const std::vector<WilsonCoefficient>& mcb = modelmatching.CMbnlep( 0);
     const std::vector<WilsonCoefficient>& mcbCC = modelmatching.CMbnlepCC( 0);
@@ -135,7 +136,8 @@ vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme) {
  * Buras base                                                                  *
  * deltaB=1   deltaC=0   deltaS=1                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, schemes scheme) {
+vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, schemes scheme) 
+{
     
     const std::vector<WilsonCoefficient>& mcb = modelmatching.CMbnlep( 1);
     const std::vector<WilsonCoefficient>& mcbCC = modelmatching.CMbnlepCC( 1);
@@ -210,7 +212,8 @@ vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, schemes scheme) {
  * Buras base                                                                  *
  * deltaB=1   deltaC=1   deltaS=0                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, schemes scheme) {
+vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, schemes scheme) 
+{
     
     const std::vector<WilsonCoefficient>& mcbCC1 = modelmatching.CMbnlepCC( 2);
     const std::vector<WilsonCoefficient>& mcbCC2 = modelmatching.CMbnlepCC( 3);
@@ -261,7 +264,8 @@ vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, schemes scheme) {
  * Buras base                                                                  *
  * deltaB=1   deltaC=1   deltaS=1                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep11(double mu, schemes scheme) {
+vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep11(double mu, schemes scheme) 
+{
     
     const std::vector<WilsonCoefficient>& mcbCC1 = modelmatching.CMbnlepCC( 2);
     const std::vector<WilsonCoefficient>& mcbCC2 = modelmatching.CMbnlepCC( 3);
