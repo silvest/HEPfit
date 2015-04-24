@@ -64,7 +64,7 @@ where the available options are:
   * `-DLOCAL_INSTALL_ALL=ON`  
 
     to install BAT and SusyFit in the current directory (default: OFF). 
-    This is equivalent in setting the options `-DCMAKE_INSTALL_PREFIX=./SusyFit`
+    This is equivalent in setting the options `-DCMAKE_INSTALL_PREFIX=./SusyFit`, 
     `-BAT_INSTALL_DIR=./BAT` and `-DBAT_INSTALL=ON`, where these variables cannot 
     be modified individually when `-DLOCAL_INSTALL_ALL=ON` is set. 
 
@@ -189,6 +189,4 @@ the last one can be used for testing a Monte Carlo run with the SusyFit
 executable.
 
 
-Please read the documentation at http://susyfit.roma1.infn.it/ for further 
-information.
 

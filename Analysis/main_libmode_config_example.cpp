@@ -1,6 +1,12 @@
 #include <iostream>
 #include <ComputeObservables.h>
 
+/**
+ * @example libmode_config.cpp
+ * This is an example of how to compute observables from the input parameters 
+ * defined in a model configuration file. 
+ *
+ */
 int main(int argc, char** argv) 
 {
     try {

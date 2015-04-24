@@ -375,7 +375,7 @@ while (<PAGEMODELIN>){
         unlink(@tmpfiles);
         exit(1)
     }
-    $_ =~ s/\<p\>MODEL\_GRAPH\_INHERITE\_SVG\<\/p\>/\<div class\=\"center\"\>\<iframe scrolling\=\"no\" frameborder\=\"0\" src\=\"\.\.\/\.\.\/Model\_inherit\_graph\.svg\" width\=\"702\" height\=\"306\"\>This browser is not able to show SVG\: try Firefox, Chrome, Safari, or Opera instead\.\<\/iframe\>\<\/div\>/;
+    $_ =~ s/\<p\>MODEL\_GRAPH\_INHERITE\_SVG\<\/p\>/\<div class\=\"center\"\>\<iframe scrolling\=\"no\" frameborder\=\"0\" src\=\"\.\.\/\.\.\/Model\_inherit\_graph\.svg\" width\=\"544\" height\=\"396\"\>This browser is not able to show SVG\: try Firefox, Chrome, Safari, or Opera instead\.\<\/iframe\>\<\/div\>/;
     print PAGEMODELOUT $_;
 }
 
