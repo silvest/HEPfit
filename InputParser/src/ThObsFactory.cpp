@@ -85,8 +85,8 @@ ThObsFactory::ThObsFactory()
 
     //-----  Flavour observables  -----
     //----- DF = 2  -----
-    obsThFactory["Dmd1"] = boost::factory<DmBd*>();
-    obsThFactory["Dms1"] = boost::factory<DmBs*>();
+    obsThFactory["DmBd"] = boost::factory<DmBd*>();
+    obsThFactory["DmBs"] = boost::factory<DmBs*>();
     obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>();
     obsThFactory["Betas_JPsiPhi"] = boost::factory<Betas_JPsiPhi*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
