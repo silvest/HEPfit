@@ -5,16 +5,17 @@
  * For the licensing terms see doc/COPYING.
  */
 
+/**
+ * @example libmode_header.cpp
+ * This is an example of how to compute observables from the input parameters
+ * defined in the file InputParameters.h.
+ *
+ */
+
 #include <iostream>
 #include <ComputeObservables.h>
 #include <InputParameters.h>
 
-/**
- * @example libmode_header.cpp
- * This is an example of how to compute observables from the input parameters 
- * defined in the file InputParameters.h.
- *
- */
 int main(int argc, char** argv) 
 {
     try {

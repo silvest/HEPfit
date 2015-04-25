@@ -5,7 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "observables.h"
+#include "myObservables.h"
 
 
 gg4l::gg4l(const StandardModel& SM_i)
@@ -22,7 +22,7 @@ void gg4l::updateParameters()
 {
     c1 = my_model->getc1();
     if (my_model->get_onshell_flag() == true) {
-        c2 = 1 - c1;
+        c2 = 1. - c1;
     } else {
         c2 = my_model->getc2();
     }
@@ -72,7 +72,7 @@ double C_3::computeThValue()
 {
     updateParameters();
     
-    return (1/2. - 4./3.*sw2)/(2. * (sqrt(sw2) * sqrt(1. - sw2))) * c3;
+    return (1./2. - 4./3.*sw2)/(2. * (sqrt(sw2) * sqrt(1. - sw2))) * c3;
 }
 
 C_4::C_4(const StandardModel& SM_i)
@@ -83,5 +83,5 @@ double C_4::computeThValue()
 {
     updateParameters();
     
-    return -1/2./(2. * (sqrt(sw2) * sqrt(1. - sw2))) * c4;
+    return -1./2./(2. * (sqrt(sw2) * sqrt(1. - sw2))) * c4;
 }

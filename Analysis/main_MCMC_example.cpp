@@ -5,6 +5,12 @@
  * For the licensing terms see doc/COPYING.
  */
 
+/**
+ * @example MCMC.cpp
+ * This is an example of how to perform a Bayesian Markov Chain Monte Carlo analysis with SusyFit and BAT.
+ *
+ */
+
 #include <iostream>
 #include <SusyFit.h>
 
@@ -13,11 +19,6 @@
 #include <mpi.h>
 #endif
 
-/**
- * @example MCMC.cpp
- * This is an example of how to perform a Bayesian Markov Chain Monte Carlo analysis with SusyFit and BAT.
- *
- */
 int main(int argc, char** argv) 
 {
 

@@ -5,11 +5,22 @@
  * For the licensing terms see doc/COPYING.
  */
 
+/**
+ * @example myModel_MCMC.cpp
+ * @example myModel.h
+ * @example myModel.cpp
+ * @example myObservables.h
+ * @example myObservables.cpp
+ * This is an example of how to add user-defined model and observables
+ * and to perform a Bayesian analysis with the Markov Chain Monte Carlo.
+ *
+ */
+
 #include <iostream>
 #include <SusyFit.h>
 #include <boost/bind.hpp>
 #include "myModel.h"
-#include "observables.h"
+#include "myObservables.h"
 
 /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI

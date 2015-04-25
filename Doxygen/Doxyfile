@@ -845,7 +845,8 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE                = ../ZFitterWrapper/ \
-                         ../BHWIDEWrapper/  \
+                         ../BHWIDEWrapper/ \
+                         ../examples-src/ \
                          ../Packaging/
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
@@ -892,14 +893,14 @@ EXAMPLE_PATH           = ../examples-src/
 # *.h) to filter out the source-files in the directories. If left blank all
 # files are included.
 
-EXAMPLE_PATTERNS       = *.cpp
+EXAMPLE_PATTERNS       = 
 
 # If the EXAMPLE_RECURSIVE tag is set to YES then subdirectories will be
 # searched for input files to be used with the \include or \dontinclude commands
 # irrespective of the value of the RECURSIVE tag.
 # The default value is: NO.
 
-EXAMPLE_RECURSIVE      = NO
+EXAMPLE_RECURSIVE      = YES
 
 # The IMAGE_PATH tag can be used to specify one or more files or directories
 # that contain images that are to be included in the documentation (see the

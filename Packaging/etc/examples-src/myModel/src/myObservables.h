@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef GG4L_H
-#define	GG4L_H
+#ifndef MYOBSERVABLES_H
+#define	MYOBSERVABLES_H
 
 #include <SusyFit.h>
 #include "myModel.h"
@@ -90,5 +90,5 @@ private:
     
 };
 
-#endif	/* GG4LL_H */
+#endif	/* MYOBSERVABLES_H */
 
