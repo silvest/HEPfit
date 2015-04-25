@@ -47,7 +47,7 @@ public:
     yield(const StandardModel& SM_i, unsigned int bin_i);
     
     /**
-     * @return yeild
+     * @return yield
      */
     double computeThValue ();
     

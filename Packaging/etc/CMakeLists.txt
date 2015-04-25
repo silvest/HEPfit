@@ -611,6 +611,22 @@ if(NOT NOMCMC)
                  "${CMAKE_CURRENT_BINARY_DIR}/examples/MonteCarloMode/MCMC.cpp" @ONLY)
   configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/MonteCarloMode/MonteCarlo.conf"
                  "${CMAKE_CURRENT_BINARY_DIR}/examples/MonteCarloMode/MonteCarlo.conf" COPYONLY)
+
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/myModel/Makefile.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/examples/myModel/Makefile" @ONLY)
+  set(_myDirs . config src)
+  foreach(_myDir ${_myDirs})
+    set(_myExts h cpp conf)
+    foreach(_myExt ${_myExts})
+      file(GLOB _myFiles ${CMAKE_CURRENT_SOURCE_DIR}/examples-src/myModel/${_myDir}/*.${_myExt})
+      foreach(_myFile ${_myFiles})
+        get_filename_component(_myFileName ${_myFile} NAME)
+        configure_file("${_myFile}" 
+                       "${CMAKE_CURRENT_BINARY_DIR}/examples/myModel/${_myDir}/${_myFileName}" COPYONLY)
+        #message(STATUS "${_myFile}")
+      endforeach(_myFile)
+    endforeach(_myExt)
+  endforeach(_myDir)
 endif(NOT NOMCMC)
 message(STATUS "Generated example codes in examples/")
 

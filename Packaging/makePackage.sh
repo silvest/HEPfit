@@ -146,11 +146,13 @@ eval sed "$SED_ARG" ${SCRIPTPATH}/etc/SusyFit.pc.in > ${OUTDIR}/SusyFit.pc.in
 cp ${SCRIPTPATH}/etc/SusyFit.h.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/BAT_mpi_patch.txt ${OUTDIR}/
 
+# examples
+cp -r ${SCRIPTPATH}/etc/examples-src/config ${OUTDIR}/examples-src/
+cp -r ${SCRIPTPATH}/etc/examples-src/config/input ${OUTDIR}/examples-src/config/
 cp -r ${SCRIPTPATH}/etc/examples-src/LibMode_config ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/LibMode_header ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/MonteCarloMode ${OUTDIR}/examples-src/
-cp -r ${SCRIPTPATH}/etc/examples-src/config ${OUTDIR}/examples-src/
-cp -r ${SCRIPTPATH}/etc/examples-src/config/input ${OUTDIR}/examples-src/config/
+cp -r ${SCRIPTPATH}/etc/examples-src/myModel ${OUTDIR}/examples-src/
 
 ###########################################################
 # copy Doxygen files
