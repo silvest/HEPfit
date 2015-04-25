@@ -179,7 +179,7 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::meson /**< Initial meson type. */
+    StandardModel::meson meson; /**< Initial meson type. */
     StandardModel::meson vectorM; /**< Final vector meson type. */
 };
 #endif	/* MVLL_H */
