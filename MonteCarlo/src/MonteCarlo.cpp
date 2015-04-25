@@ -63,7 +63,7 @@ void MonteCarlo::TestRun(int rank) {
         }
 
         if (!myInputParser.getModel()->Init(DP)) {
-            throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
+            if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
         }
 
         if (Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
@@ -104,9 +104,11 @@ void MonteCarlo::Run(const int rank)
             if (it->errg > 0. || it->errf > 0.)
                 buffsize++;
         }
+        if (buffsize == 0)
+            if (rank == 0) throw std::runtime_error("No parameters being varied. Aborting MCMC run.\n");
         buffsize++;
         if (!myInputParser.getModel()->Init(DP))
-            throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
+            if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 
         if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 
@@ -117,7 +119,7 @@ void MonteCarlo::Run(const int rank)
                 if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
                     std::cout << ObsDirName << " directory has been created." << std::endl;
                 else
-                    throw std::runtime_error("ERROR: " + ObsDirName + " director cannot be created.\n");
+                    throw std::runtime_error("ERROR: " + ObsDirName + " directory cannot be created.\n");
             }
         }
 
