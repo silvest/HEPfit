@@ -289,82 +289,82 @@ public:
     
     
 private:
-    double ale;
-    double E0;
-    double mu_b;
-    double Mb1s;
-    double Mc;
-    double Ms;
-    double BRsl;
-    double C;
-    gslpp::complex lambda_t;
-    gslpp::complex V_cb;
+    double ale; /**<alpha electromagnetic */
+    double E0; /**<energy cutoff */
+    double mu_b; /**<b quark mass scale */
+    double Mb1s; /**<b quark mass in the 1s scheme */
+    double Mc; /**<c quark mass scale */
+    double Ms;/**<s quark mass scale */
+    double BRsl; /**<BR of the semileptonic decay \f$B \to X_c e \nu\f$ */
+    double C; /**<The semileptonic phase space ratio */
+    gslpp::complex lambda_t; /**<Vckm factor */
+    gslpp::complex V_cb; /**<Vckm factor */
     
-    gslpp::vector<gslpp::complex> ** allcoeff;
+    int obs; /**<observable type*/
     
-    gslpp::complex C1_0;
-    gslpp::complex C2_0;
-    gslpp::complex C3_0;
-    gslpp::complex C4_0;
-    gslpp::complex C5_0;
-    gslpp::complex C6_0;
-    gslpp::complex C7_0;
-    gslpp::complex C8_0;
+    double BR; /**<BR of the decay */
     
-    gslpp::complex C1_1;
-    gslpp::complex C2_1;
-    gslpp::complex C3_1;
-    gslpp::complex C4_1;
-    gslpp::complex C5_1;
-    gslpp::complex C6_1;
-    gslpp::complex C7_1;
-    gslpp::complex C8_1;
+    gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     
-    gslpp::complex C7_2;
+    gslpp::complex C1_0;/**<LO term of the Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C2_0;/**<LO term of the Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C3_0;/**<LO term of the Wilson coeffients @f$C_3@f$*/
+    gslpp::complex C4_0;/**<LO term of the Wilson coeffients @f$C_4@f$*/
+    gslpp::complex C5_0;/**<LO term of the Wilson coeffients @f$C_5@f$*/
+    gslpp::complex C6_0;/**<LO term of the Wilson coeffients @f$C_6@f$*/
+    gslpp::complex C7_0;/**<LO term of the Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C8_0;/**<LO term of the Wilson coeffients @f$C_8@f$*/
     
-    int obs;
+    gslpp::complex C1_1;/**<NLO term of the Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C2_1;/**<NLO term of the Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C3_1;/**<NLO term of the Wilson coeffients @f$C_3@f$*/
+    gslpp::complex C4_1;/**<NLO term of the Wilson coeffients @f$C_4@f$*/
+    gslpp::complex C5_1;/**<NLO term of the Wilson coeffients @f$C_5@f$*/
+    gslpp::complex C6_1;/**<NLO term of the Wilson coeffients @f$C_6@f$*/
+    gslpp::complex C7_1;/**<NLO term of the Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C8_1;/**<NLO term of the Wilson coeffients @f$C_8@f$*/
     
-    double BR;
+    gslpp::complex C7_2;/**<NNLO term of the Wilson coeffients @f$C_7@f$*/
     
-    double avaPhi221_1;
-    double avaPhi221_2;
-    double avaPhi221_3;
-    double avaPhi221_4;
-    double avaPhi221_5;
+    double avaPhi221_1;/**< Gsl integral variable */
+    double avaPhi221_2;/**< Gsl integral variable */
+    double avaPhi221_3;/**< Gsl integral variable */
+    double avaPhi221_4;/**< Gsl integral variable */
+    double avaPhi221_5;/**< Gsl integral variable */
 
-    double avaPhi271_1;
-    double avaPhi271_2;
-    double avaPhi271_3;
+    double avaPhi271_1;/**< Gsl integral variable */
+    double avaPhi271_2;/**< Gsl integral variable */
+    double avaPhi271_3;/**< Gsl integral variable */
     
-    double errPhi221_1;
-    double errPhi221_2;
-    double errPhi221_3;
-    double errPhi221_4;
-    double errPhi221_5;
+    double errPhi221_1;/**< Gsl integral variable */
+    double errPhi221_2;/**< Gsl integral variable */
+    double errPhi221_3;/**< Gsl integral variable */
+    double errPhi221_4;/**< Gsl integral variable */
+    double errPhi221_5;/**< Gsl integral variable */
     
-    double errPhi271_1;
-    double errPhi271_2;
-    double errPhi271_3;
+    double errPhi271_1;/**< Gsl integral variable */
+    double errPhi271_2;/**< Gsl integral variable */
+    double errPhi271_3;/**< Gsl integral variable */
     
-    gsl_function FPhi221_1;
-    gsl_function FPhi221_2;
-    gsl_function FPhi221_3;
-    gsl_function FPhi221_4;
-    gsl_function FPhi221_5;
+    gsl_function FPhi221_1;/**< Gsl integral variable */
+    gsl_function FPhi221_2;/**< Gsl integral variable */
+    gsl_function FPhi221_3;/**< Gsl integral variable */
+    gsl_function FPhi221_4;/**< Gsl integral variable */
+    gsl_function FPhi221_5;/**< Gsl integral variable */
     
-    gsl_function FPhi271_1;
-    gsl_function FPhi271_2;
-    gsl_function FPhi271_3;
+    gsl_function FPhi271_1;/**< Gsl integral variable */
+    gsl_function FPhi271_2;/**< Gsl integral variable */
+    gsl_function FPhi271_3;/**< Gsl integral variable */
     
-    gsl_integration_workspace * w_Phi221_1;
-    gsl_integration_workspace * w_Phi221_2;
-    gsl_integration_workspace * w_Phi221_3;
-    gsl_integration_workspace * w_Phi221_4;
-    gsl_integration_workspace * w_Phi221_5;
+    gsl_integration_workspace * w_Phi221_1;/**< Gsl integral variable */
+    gsl_integration_workspace * w_Phi221_2;/**< Gsl integral variable */
+    gsl_integration_workspace * w_Phi221_3;/**< Gsl integral variable */
+    gsl_integration_workspace * w_Phi221_4;/**< Gsl integral variable */
+    gsl_integration_workspace * w_Phi221_5;/**< Gsl integral variable */
     
-    gsl_integration_workspace * w_Phi271_1;
-    gsl_integration_workspace * w_Phi271_2;
-    gsl_integration_workspace * w_Phi271_3;
+    gsl_integration_workspace * w_Phi271_1;/**< Gsl integral variable */
+    gsl_integration_workspace * w_Phi271_2;/**< Gsl integral variable */
+    gsl_integration_workspace * w_Phi271_3;/**< Gsl integral variable */
     
 };
 

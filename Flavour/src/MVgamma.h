@@ -21,7 +21,7 @@
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to 
  * compute the observables relative to the @f$M \to V \gamma@f$ decay. After the
- * parameters are updated in the updateParameters() and the form factor @f$ T_1 @f$
+ * parameters are updated in updateParameters() and the form factor @f$ T_1 @f$
  * is computed in T_1(), the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$
  * are build in H_V_p(), H_V_m(), H_V_p_bar() and H_V_m_bar().
  */
@@ -64,8 +64,8 @@ public:
     double m_RT1;/**<LCSR fit parameter */
     double m_fit2T1;/**<LCSR fit parameter */
     
-    gslpp::vector<complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
-    gslpp::vector<complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
     
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
     
@@ -82,25 +82,25 @@ public:
     * @brief The helicity amplitude @f$ H_V^+ @f$.
     * @return @f$ H_V^+ @f$ 
     */
-    complex H_V_p();
+    gslpp::complex H_V_p();
     
     /**
     * @brief The helicity amplitude @f$ H_V^- @f$.
     * @return @f$ H_V^- @f$ 
     */
-    complex H_V_m();
+    gslpp::complex H_V_m();
     
     /**
     * @brief The helicity amplitude @f$ \bar{H}_V^+ @f$.
     * @return @f$ \bar{H}_V^+ @f$ 
     */
-    complex H_V_p_bar();
+    gslpp::complex H_V_p_bar();
     
     /**
     * @brief The helicity amplitude @f$ \bar{H}_V^- @f$.
     * @return @f$ \bar{H}_V^- @f$ 
     */
-    complex H_V_m_bar();
+    gslpp::complex H_V_m_bar();
     
     
     

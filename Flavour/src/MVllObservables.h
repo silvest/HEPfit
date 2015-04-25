@@ -1347,10 +1347,10 @@ private:
 /**
  * @class gtilde_1
  * @ingroup Flavour
- * @brief A class for the correction @f$\~g_1@f$ in @f$B \to K^*@f$. 
+ * @brief A class for the correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the correction @f$\~g_1@f$ in 
+ * @details This class is used to compute the correction @f$\tilde{g}_1@f$ in 
  * @f$B \to K^*@f$ 
  */
 class gtilde_1 : public ThObservable{
@@ -1366,8 +1366,8 @@ public:
     gtilde_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
-    * @brief The averaged correction @f$\~g_1@f$ in @f$B \to K^*@f$.
-    * @return @f$\~g_1@f$
+    * @brief The averaged correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$.
+    * @return @f$\tilde{g}_1@f$
     */
     double computeThValue();
 
@@ -1386,10 +1386,10 @@ private:
 /**
  * @class gtilde_2
  * @ingroup Flavour
- * @brief A class for the correction @f$\~g_2@f$ in @f$B \to K^*@f$. 
+ * @brief A class for the correction @f$\tilde{g}_2@f$ in @f$B \to K^*@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the correction @f$\~g_2@f$ in 
+ * @details This class is used to compute the correction @f$\tilde{g}_2@f$ in 
  * @f$B \to K^*@f$ 
  */
 class gtilde_2 : public ThObservable{
@@ -1405,8 +1405,8 @@ public:
     gtilde_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
-    * @brief The averaged correction @f$\~g_1@f$ in @f$B \to K^*@f$.
-    * @return @f$\~g_1@f$
+    * @brief The averaged correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$.
+    * @return @f$\tilde{g}_1@f$
     */
     double computeThValue();
     
@@ -1425,10 +1425,10 @@ private:
     /**
  * @class gtilde_3
  * @ingroup Flavour
- * @brief A class for the correction @f$\~g_3@f$ in @f$B \to K^*@f$. 
+ * @brief A class for the correction @f$\tilde{g}_3@f$ in @f$B \to K^*@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the correction @f$\~g_3@f$ in 
+ * @details This class is used to compute the correction @f$\tilde{g}_3@f$ in 
  * @f$B \to K^*@f$
  */
 class gtilde_3 : public ThObservable{
@@ -1444,8 +1444,8 @@ public:
     gtilde_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
 
     /**
-    * @brief The averaged correction @f$\~g_1@f$ in @f$B \to K^*@f$.
-    * @return @f$\~g_1@f$
+    * @brief The averaged correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$.
+    * @return @f$\tilde{g}_1@f$
     */
     double computeThValue();
 
