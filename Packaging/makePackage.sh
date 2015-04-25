@@ -133,9 +133,9 @@ done
 # copy other necessary files
 
 SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
-
-eval sed "$SED_ARG" ${SCRIPTPATH}/etc/INSTALL > ${OUTDIR}/INSTALL
-eval sed "$SED_ARG" ${SCRIPTPATH}/etc/README.md > ${OUTDIR}/README.md
+SED_ARG2="-e 's/{#PageInstallation}//g'"
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${OUTDIR}/README.md
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md |eval sed "$SED_ARG2" > ${OUTDIR}/INSTALL.md
 
 cp ${SCRIPTPATH}/etc/CMakeLists.txt ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/SusyFit_noMCMC.h.in ${OUTDIR}/
@@ -164,12 +164,16 @@ if [ ! -d "${DOXYGENDIR}/images" ]; then
     echo "mkdir ${DOXYGENDIR}/images"
     mkdir ${DOXYGENDIR}/images
 fi
-DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Installation.md MainPage.md Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
+DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
 for DOXYFILE in $DOXYFILELIST
 do
     cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
 done
 cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
+
+SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md
 
 ###########################################################
 # Example main files

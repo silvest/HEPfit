@@ -274,32 +274,15 @@ void Bsgamma::computeCoeff(double mu)
     C7_0 = (*(allcoeff[LO]))(6);
     C8_0 = (*(allcoeff[LO]))(7);
     
-    C1_1 = (*(allcoeff[NLO]))(0);
-    C2_1 = (*(allcoeff[NLO]))(1);
-    C3_1 = (*(allcoeff[NLO]))(2);
-    C4_1 = (*(allcoeff[NLO]))(3);
-    C5_1 = (*(allcoeff[NLO]))(4);
-    C6_1 = (*(allcoeff[NLO]))(5);
-    C7_1 = (*(allcoeff[NLO]))(6);
-    C8_1 = (*(allcoeff[NLO]))(7);
-    
-    /*std::cout << C1_0 << std::endl;
-    std::cout << C2_0 << std::endl;
-    std::cout << C3_0 << std::endl;
-    std::cout << C4_0 << std::endl;
-    std::cout << C5_0 << std::endl;
-    std::cout << C6_0 << std::endl;
-    std::cout << C7_0 << std::endl;
-    std::cout << C8_0 << std::endl;
-    
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C1_1 << std::endl;
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C2_1 << std::endl;
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C3_1 << std::endl;
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C4_1 << std::endl;
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C5_1 << std::endl;
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C6_1 << std::endl;
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C7_1 << std::endl;
-    std::cout << 4.*M_PI/SM.Als(mu,FULLNLO)*C8_1 << std::endl;*/
+    C1_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(0);
+    C2_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(1);
+    C3_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(2);
+    C4_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(3);
+    C5_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(4);
+    C6_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(5);
+    C7_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(6);
+    C8_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(7);
+
 }
 
 double Bsgamma::P21(double E0, double mu)
@@ -354,6 +337,7 @@ void Bsgamma::computeBR(orders order)
     C=SM.getbsgamma_C();
     lambda_t=SM.computelamt_s();
     V_cb=SM.getCKM().getVcb();
+    V_cb=0.04174304221;
     
     computeCoeff(mu_b);
     

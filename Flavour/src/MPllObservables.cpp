@@ -23,7 +23,6 @@ BR_MPll::BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, Standa
 
 double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton lep) 
 {
-    
     double q_min = qmin;
     double q_max = qmax;
     StandardModel::lepton lep_i = lep;
@@ -33,7 +32,6 @@ double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton l
 
 double BR_MPll::computeThValue()
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -51,7 +49,6 @@ R_MPll::R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, Standard
 
 double R_MPll::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -68,7 +65,6 @@ ACP_MPll::ACP_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 
 double ACP_MPll::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     

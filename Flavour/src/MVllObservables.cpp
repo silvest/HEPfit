@@ -25,8 +25,6 @@ P_1::P_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double P_1::computeThValue() 
 {
-    
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -43,8 +41,7 @@ P_2::P_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 }
 
 double P_2::computeThValue() 
-{
-    
+{   
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -61,8 +58,7 @@ P_3::P_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 }
 
 double P_3::computeThValue() 
-{
-    
+{   
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -70,7 +66,8 @@ double P_3::computeThValue()
 }
 
 
-P_4Prime::P_4Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i) 
+P_4Prime::P_4Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
 {  
     lep = lep_i;
     meson = meson_i;
@@ -78,13 +75,11 @@ P_4Prime::P_4Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 }
 
 double P_4Prime::computeThValue() 
-{
-    
+{   
     double q_min = getBinMin();
     double q_max = getBinMax();
     
     return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(5,q_min,q_max)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
-   
 }
 
 
@@ -97,8 +92,7 @@ P_5Prime::P_5Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 }
 
 double P_5Prime::computeThValue() 
-{
-    
+{   
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -116,12 +110,10 @@ P_6Prime::P_6Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 
 double P_6Prime::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
     return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(9,q_min,q_max)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max)));
- 
 }
 
 
@@ -135,12 +127,10 @@ P_8Prime::P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 
 double P_8Prime::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
     return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max)/(sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max)));
- 
 }
 
 
@@ -154,7 +144,6 @@ GammaPrime::GammaPrime(const StandardModel& SM_i, StandardModel::meson meson_i, 
 
 double GammaPrime::computeGammaPrime(double qmin, double qmax, StandardModel::lepton lep)
 {
-    
     double q_min = qmin;
     double q_max = qmax;
     StandardModel::lepton lep_i = lep;
@@ -164,7 +153,6 @@ double GammaPrime::computeGammaPrime(double qmin, double qmax, StandardModel::le
 
 double GammaPrime::computeThValue()
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -182,7 +170,6 @@ A_FB::A_FB(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
 
 double A_FB::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -218,7 +205,6 @@ R_MVll::R_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, Standard
 
 double R_MVll::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -237,7 +223,6 @@ RL_MVll::RL_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, Standa
 
 double RL_MVll::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -256,7 +241,6 @@ RT_MVll::RT_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, Standa
 
 double RT_MVll::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -275,7 +259,6 @@ R_6::R_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double R_6::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -293,12 +276,10 @@ ACP_MVll::ACP_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 
 double ACP_MVll::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
           
     return (3.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(0,q_min,q_max) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(2,q_min,q_max) + 2. * ( 3.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(1,q_min,q_max) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(3,q_min,q_max) ) )/(4.*computeGammaPrime(q_min, q_max, lep));
-
 }
 
 
@@ -312,12 +293,10 @@ P3CP::P3CP(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
 
 double P3CP::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
     return - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(11,q_min,q_max)/(4.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
-
 }
 
 
@@ -331,7 +310,6 @@ F_L::F_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double F_L::computeFL(double qmin, double qmax, StandardModel::lepton lep) 
 {
-    
     double q_min = qmin;
     double q_max = qmax;
     StandardModel::lepton lep_i = lep;
@@ -340,17 +318,14 @@ double F_L::computeFL(double qmin, double qmax, StandardModel::lepton lep)
     double sigma2 = SM.getMyFlavour()->getMVll(meson, vectorM, lep_i)->integrateSigma(2,q_min,q_max);
     
     return (3.*sigma0 - sigma2) / (4. * computeGammaPrime(q_min, q_max, lep_i)) ;
-
 }
 
 double F_L::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
     return computeFL(q_min, q_max, lep);
-
 }
 
 
@@ -364,7 +339,6 @@ M_1Prime::M_1Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 
 double M_1Prime::computeThValue() 
 {
-    
     double q_min = getBinMin();
     
     return ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(1,q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(2,q_min,0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(1,q_min,0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(2,q_min,0).abs2() )/
@@ -382,7 +356,6 @@ M_2Prime::M_2Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 
 double M_2Prime::computeThValue() 
 {
-    
     double q_min = getBinMin();
     
     return ( q_min/(2.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep)*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min,0).abs2() ) + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(0,q_min,0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(0,q_min,0).abs2() )/
@@ -401,7 +374,6 @@ S_3::S_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double S_3::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -420,7 +392,6 @@ S_4::S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 /*Returns experimental value, defined according to 1308.1707*/
 double S_4::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -437,8 +408,8 @@ S_5::S_5(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 }
 
 
-double S_5::computeThValue() {
-
+double S_5::computeThValue() 
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -457,7 +428,6 @@ S_7::S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 /*Returns experimental value, defined according to 1308.1707*/
 double S_7::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -476,7 +446,6 @@ S_8::S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 /*Returns experimental value, defined according to 1308.1707*/
 double S_8::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -485,8 +454,7 @@ double S_8::computeThValue()
 
 
 S_9::S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
-{
+: GammaPrime(SM_i, meson_i, vector_i, lep_i) {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -495,7 +463,6 @@ S_9::S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double S_9::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -514,7 +481,6 @@ A_6::A_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double A_6::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -533,7 +499,6 @@ A_9::A_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double A_9::computeThValue() 
 {
-
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -550,7 +515,6 @@ V0::V0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double V0::computeThValue() 
 {
-
    double q_min = getBinMin();
    double q_max = getBinMax();
 
@@ -567,7 +531,6 @@ Vp::Vp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Vp::computeThValue() 
 {
-
    double q_min = getBinMin();
    double q_max = getBinMax();
 
@@ -584,7 +547,6 @@ Vm::Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Vm::computeThValue() 
 {
-
    double q_min = getBinMin();
    double q_max = getBinMax();
 
@@ -601,7 +563,6 @@ T0::T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double T0::computeThValue() 
 {
-
    double q_min = getBinMin();
    double q_max = getBinMax();
 
@@ -618,7 +579,6 @@ Tp::Tp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Tp::computeThValue() 
 {
-
    double q_min = getBinMin();
    double q_max = getBinMax();
 
@@ -635,7 +595,6 @@ Tm::Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Tm::computeThValue() 
 {
-
    double q_min = getBinMin();
    double q_max = getBinMax();
 
@@ -650,9 +609,8 @@ S::S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::mes
    vectorM = vector_i;
 }
 
-double S::computeThValue() {
-
-
+double S::computeThValue() 
+{
    double q_min = getBinMin();
    double q_max = getBinMax();
 
@@ -670,8 +628,7 @@ gtilde_1::gtilde_1(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 }
 
 double gtilde_1::computeThValue() 
-{    
-
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -698,7 +655,6 @@ gtilde_2::gtilde_2(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 
 double gtilde_2::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -715,16 +671,16 @@ double gtilde_2::computeThValue()
 
 
 gtilde_3::gtilde_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) 
-: ThObservable(SM_i) {
+: ThObservable(SM_i) 
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
     typ = typ_i;
 }
 
-double gtilde_3::computeThValue() {
-    
-
+double gtilde_3::computeThValue() 
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -749,8 +705,7 @@ h_0::h_0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 }
 
 double h_0::computeThValue() 
-{    
-
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -773,7 +728,6 @@ h_p::h_p(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 
 double h_p::computeThValue() 
 {
-    
     double q_min = getBinMin();
     double q_max = getBinMax();
 
@@ -795,8 +749,7 @@ h_m::h_m(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 }
 
 double h_m::computeThValue() 
-{    
-
+{
     double q_min = getBinMin();
     double q_max = getBinMax();
     
