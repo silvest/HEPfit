@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2015 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,7 +14,6 @@ gg4l::gg4l(const StandardModel& SM_i)
     fact = 2. * 3000 * pow(0.95, 4.);
     kfact = 1.85;
 }
-
 
 gg4l::~gg4l()
 {}
@@ -35,7 +34,6 @@ void gg4l::updateParameters()
 /*******************************************************************************
  * Observables                                                                 *
  * ****************************************************************************/
-
 
 yeild::yeild(const StandardModel& SM_i, unsigned int bin_i)
 : gg4l(SM_i)
@@ -76,7 +74,6 @@ double C_V::computeThValue()
     
     return (1/2. - 4./3.*sw2)/(2. * (sqrt(sw2) * sqrt(1. - sw2))) * cV;
 }
-
 
 C_A::C_A(const StandardModel& SM_i)
 : gg4l(SM_i)

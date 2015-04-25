@@ -20,10 +20,11 @@ myModel::myModel()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cA", boost::cref(cA)));
 }
 
-myModel::~myModel(){
+myModel::~myModel()
+{
     if (IsModelInitialized()) {
         /* Destroy whatever you want, e.g. potentially dangerous pointers. */
-        }
+    }
 }
 
 /* Initialize model here */
@@ -34,7 +35,8 @@ bool myModel::InitializeModel()
     return(true);
 }
     
-bool myModel::Init(const std::map<std::string, double>& DPars) {
+bool myModel::Init(const std::map<std::string, double>& DPars)
+{
     return(StandardModel::Init(DPars));
 }
 
@@ -46,8 +48,8 @@ bool myModel::PreUpdate()
 }
 
 /* Model update method used be the MCMC to update the model parameters. */
-bool myModel::Update(const std::map<std::string, double>& DPars) {
-    
+bool myModel::Update(const std::map<std::string, double>& DPars)
+{    
     if(!PreUpdate()) return (false);
     
     UpdateError = false;
@@ -72,8 +74,9 @@ bool myModel::PostUpdate()
     return (true);
 }
 
-/* Model parameters and their derived quantites can be set here. */
-void myModel::setParameter(const std::string name, const double& value){
+/* Model parameters and their derived quantities can be set here. */
+void myModel::setParameter(const std::string name, const double& value)
+{
     if(name.compare("ct") == 0)
         ct = value;
     else if(name.compare("cg") == 0)
@@ -86,7 +89,8 @@ void myModel::setParameter(const std::string name, const double& value){
         StandardModel::setParameter(name,value);
 }
 
-bool myModel::CheckParameters(const std::map<std::string, double>& DPars) {
+bool myModel::CheckParameters(const std::map<std::string, double>& DPars)
+{
     for (int i = 0; i < NmyModelvars; i++) {
         if (DPars.find(myModelvars[i]) == DPars.end()) {
             std::cout << "missing mandatory myModel parameter " << myModelvars[i] << std::endl;
