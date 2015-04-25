@@ -42,13 +42,13 @@ private:
 
 };
 
-class yeild : public gg4l{
+class yield : public gg4l {
 public:
     
     /**
-     * @brief yeild
+     * @brief yield
      */
-    yeild(const StandardModel& SM_i, unsigned int bin_i);
+    yield(const StandardModel& SM_i, unsigned int bin_i);
     
     /**
      * @return return the BR

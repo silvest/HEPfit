@@ -37,13 +37,13 @@ void gg4l::updateParameters()
  * ****************************************************************************/
 
 
-yeild::yeild(const StandardModel& SM_i, unsigned int bin_i)
+yield::yield(const StandardModel& SM_i, unsigned int bin_i)
 : gg4l(SM_i)
 {
     bin = bin_i;
 }
 
-double yeild::computeThValue()
+double yield::computeThValue()
 {
     updateParameters();
     
