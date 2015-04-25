@@ -11,17 +11,14 @@ allows to:
   - obtain fit results for observables
   - obtain predictions for observables
 
-SusyFit can be used:
+The SusyFit library can be used:
 
-  - as an executable in Monte Carlo mode, to perform a Bayesian Markov Chain
-    Monte Carlo analysis of the given model
-  - as an executable in single event mode, to obtain predictions of observables
-    for a given point in the parameter space of the model
-  - in library mode, to obtain predictions of observables for a given point
-    in the parameter space of the model, allowing our computational tool to
-    be used in any statistical framework
+  - to perform a Bayesian Markov Chain Monte Carlo analysis of the implemented model using BAT support
+  - to perform a Bayesian Markov Chain Monte Carlo analysis of user defined models and/or observables using BAT support
+  - to perform a user defined statistical analysis with the models and observables implemented in the library
+  - to perform a user defined statistical analysis with user defined models and/or observables
 
-The Monte Carlo mode is based on the BAT (Bayesian Analysis Toolkit) library.
+The Markov Chain Monte Carlo is based on the [BAT (Bayesian Analysis Toolkit) library](https://www.mppmu.mpg.de/bat/).
 
 Authors:
 --------
