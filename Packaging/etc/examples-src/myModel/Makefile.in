@@ -18,7 +18,7 @@ LIBS+=@EXAMPLE_RPATHS@
 
 all: $(EXE)
 
-$(EXE): MCMC.o src/myModel.o src/observables.o
+$(EXE): myModel_MCMC.o src/myModel.o src/observables.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
 
 clean:
