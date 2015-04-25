@@ -8,16 +8,16 @@
 #include "myModel.h"
 
 /* Define mandatory model parameters here. */
-const std::string myModel::myModelvars[NmyModelvars] = {"ct", "cg", "cV", "cA"};
+const std::string myModel::myModelvars[NmyModelvars] = {"c1", "c2", "c3", "c4"};
 
 myModel::myModel()
 :   StandardModel()
 {
     /* Define all the parameters here and port them as observables too */
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ct", boost::cref(ct)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cg", boost::cref(cg)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cV", boost::cref(cV)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cA", boost::cref(cA)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c1", boost::cref(c1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c2", boost::cref(c2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c3", boost::cref(c3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c4", boost::cref(c4)));
 }
 
 myModel::~myModel()
@@ -77,14 +77,14 @@ bool myModel::PostUpdate()
 /* Model parameters and their derived quantities can be set here. */
 void myModel::setParameter(const std::string name, const double& value)
 {
-    if(name.compare("ct") == 0)
-        ct = value;
-    else if(name.compare("cg") == 0)
-        cg = value;
-    else if(name.compare("cV") == 0)
-        cV = value;
-    else if(name.compare("cA") == 0)
-        cA = value;
+    if(name.compare("c1") == 0)
+        c1 = value;
+    else if(name.compare("c2") == 0)
+        c2 = value;
+    else if(name.compare("c3") == 0)
+        c3 = value;
+    else if(name.compare("c4") == 0)
+        c4 = value;
     else
         StandardModel::setParameter(name,value);
 }

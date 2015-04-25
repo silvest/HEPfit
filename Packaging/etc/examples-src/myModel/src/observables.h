@@ -25,10 +25,10 @@ public:
 protected:
     
     /* Define the couplings here. */
-    double ct;
-    double cg;
-    double cV;
-    double cA;
+    double c1;
+    double c2;
+    double c3;
+    double c4;
     double sw2;
     double fact;
     double kfact;
@@ -56,13 +56,13 @@ private:
 
 };
 
-class C_V : public gg4l {
+class C_3 : public gg4l {
 public:
     
     /**
      * @brief Constructor.
      */
-    C_V(const StandardModel& SM_i);
+    C_3(const StandardModel& SM_i);
     
     /**
      * @return C_V
@@ -73,13 +73,13 @@ private:
     
 };
 
-class C_A : public gg4l {
+class C_4 : public gg4l {
 public:
     
     /**
      * @brief Constructor.
      */
-    C_A(const StandardModel& SM_i);
+    C_4(const StandardModel& SM_i);
     
     /**
      * @return C_A

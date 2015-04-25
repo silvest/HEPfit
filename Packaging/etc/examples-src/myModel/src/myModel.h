@@ -49,36 +49,36 @@ public:
      * 
      * @return the coupling ct
      */
-    double getct() const
+    double getc1() const
     {
-        return ct;
+        return c1;
     };
 
     /**
      *
      * @return the coupling cg
      */
-    double getcg() const
+    double getc2() const
     {
-        return cg;
+        return c2;
     };
     
     /**
      *
      * @return the coupling cV
      */
-    double getcV() const
+    double getc3() const
     {
-        return cV;
+        return c3;
     };
     
     /**
      *
      * @return the coupling cA
      */
-    double getcA() const
+    double getc4() const
     {
-        return cA;
+        return c4;
     };
     
     /**
@@ -97,7 +97,7 @@ protected:
 
 private:
     
-    double ct, cg, cV, cA; /* Model Parameters */
+    double c1, c2, c3, c4; /* Model Parameters */
     bool onshell;
     
 };

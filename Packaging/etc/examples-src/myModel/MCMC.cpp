@@ -9,7 +9,7 @@
 #include <SusyFit.h>
 #include <boost/bind.hpp>
 #include "myModel.h"
-#include "gg4l.h"
+#include "observables.h"
 
 /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
@@ -72,8 +72,8 @@ int main(int argc, char** argv)
         ThObsF.addObsToFactory("BIN4", boost::bind(boost::factory<yield*>(), _1, 4) );
         ThObsF.addObsToFactory("BIN5", boost::bind(boost::factory<yield*>(), _1, 5) );
         ThObsF.addObsToFactory("BIN6", boost::bind(boost::factory<yield*>(), _1, 6) );
-        ThObsF.addObsToFactory("C_V", boost::factory<C_V*>() );
-        ThObsF.addObsToFactory("C_A", boost::factory<C_A*>() );
+        ThObsF.addObsToFactory("C_3", boost::factory<C_3*>() );
+        ThObsF.addObsToFactory("C_4", boost::factory<C_4*>() );
         
         /* Create an object of the class MonteCarlo. */        
         MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
