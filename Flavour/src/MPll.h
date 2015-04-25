@@ -137,39 +137,35 @@ public:
     double f_0(double q2);
     
     /**
-    * @brief The helicity form factor \f$ V_L^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity form factor \f$ V_L^0 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ V_L^{\lambda} \f$
     */
-    double V_L(int i, double q2);
+    gslpp::complex V_L(double q2);
 
     
     /**
-    * @brief The helicity form factor \f$ V_R^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity form factor \f$ V_R^0 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ V_R^{\lambda} \f$
     */
-    double V_R(int i, double q2);
+    gslpp::complex V_R(double q2);
 
 
     /**
-    * @brief The helicity form factor \f$ T_L^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity form factor \f$ T_L^0 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T_L^{\lambda} \f$
     */
-    double T_L(int i, double q2);
+    gslpp::complex T_L(double q2);
 
 
     /**
-    * @brief The helicity form factor \f$ T_R^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity form factor \f$ T_R^0 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T_R^{\lambda} \f$
     */
-    double T_R(int i, double q2);
+    gslpp::complex T_R(double q2);
 
 
     /**
