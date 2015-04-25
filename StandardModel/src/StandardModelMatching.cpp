@@ -109,7 +109,7 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
 #if SUSYFIT_DEBUG & 1
     std::cout << "mt(" << mu << "," << order << ")=" << mt << std::endl;
 #endif
-    return mt*mt/Mw/Mw; 
+    return mt*mt/Mw/Mw;
 }
 
 double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
@@ -968,7 +968,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  * ****************************************************************************/
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
-    double xt = x_t(160.); //Muw changed to 160 according to arXiv:1005.1173
+    double xt = x_t(Muw);
     complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
     
     vmcbsg.clear();
@@ -984,14 +984,14 @@ double StandardModelMatching::phi2(double x, double y) const{
             throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcbsg.setMu(160.); //Muw changed to 160 according to arXiv:1005.1173
+    mcbsg.setMu(Muw);
     
     switch (mcbsg.getOrder()) {
         case NNLO:
         case NLO:
             for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, co * SM.Als(160., FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
-            } //Muw changed to 160 according to arXiv:1005.1173
+            mcbsg.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
+            }
         case LO:
             for (int j=0; j<8; j++){
             mcbsg.setCoeff(j, co * setWCbsg(j, xt,  LO), LO);
