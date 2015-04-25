@@ -74,17 +74,17 @@ public:
     
     
     /**
-    * @brief The function \f$ Gamma \f$ as defined in hep-ph/0104034v2.
+    * @brief The function \f$ \Gamma \f$ as defined in hep-ph/0104034v2.
     * @param[in] t dummy variable to be integrated out
-    * @return \f$ Gamma \f$ 
+    * @return \f$ \Gamma \f$ 
     */
     gslpp::complex Gamma_t(double t);
     
     
     /**
-    * @brief The square of the absolute value of the function \f$\frac{Gamma(t)}{t} + \frac{1}{2}\f$.
+    * @brief The square of the absolute value of the function \f$\frac{\Gamma(t)}{t} + \frac{1}{2}\f$.
     * @param[in] t dummy variable to be integrated out
-    * @return \f$|\frac{Gamma(t)}{t} + \frac{1}{2}|^2\f$ 
+    * @return \f$|\frac{\Gamma(t)}{t} + \frac{1}{2}|^2\f$ 
     */
     double getPhi221(double t){
         return (Gamma_t(t)/t + 1./2.).abs2();
@@ -92,9 +92,9 @@ public:
     
     
     /**
-    * @brief The square of the absolute value of the function \f$\frac{Gamma(t)}{t} + \frac{1}{2}\f$ times \f$t\f$.
+    * @brief The square of the absolute value of the function \f$\frac{\Gamma(t)}{t} + \frac{1}{2}\f$ times \f$t\f$.
     * @param[in] t dummy variable to be integrated out
-    * @return \f$t|\frac{Gamma(t)}{t} + \frac{1}{2}|^2\f$ 
+    * @return \f$t|\frac{\Gamma(t)}{t} + \frac{1}{2}|^2\f$ 
     */
     double getPhi221_t(double t){
         return t*(Gamma_t(t)/t + 1./2.).abs2();
@@ -102,9 +102,9 @@ public:
     
     
     /**
-    * @brief The square of the absolute value of the function \f$\frac{Gamma(t)}{t} + \frac{1}{2}\f$ times \f$t^2\f$.
+    * @brief The square of the absolute value of the function \f$\frac{\Gamma(t)}{t} + \frac{1}{2}\f$ times \f$t^2\f$.
     * @param[in] t dummy variable to be integrated out
-    * @return \f$t^2|\frac{Gamma(t)}{t} + \frac{1}{2}|^2\f$ 
+    * @return \f$t^2|\frac{\Gamma(t)}{t} + \frac{1}{2}|^2\f$ 
     */
     double getPhi221_t2(double t){
         return t*t*(Gamma_t(t)/t + 1./2.).abs2();
@@ -114,7 +114,7 @@ public:
     /**
     * @brief The square of the real part of the function \f$\Gamma(t) + \frac{t}{2}\f$.
     * @param[in] t dummy variable to be integrated out
-    * @return \f$\matrhm{RE}({Gamma(t) + \frac{t}{2})\f$ 
+    * @return \f$\mathrm{RE}({\Gamma(t) + \frac{t}{2})\f$ 
     */
     double getPhi271(double t){
         return (Gamma_t(t) + t/2.).real();
@@ -124,7 +124,7 @@ public:
     /**
     * @brief The square of the real part of the function \f$\Gamma(t) + \frac{t}{2}\f$ times \f$t\f$.
     * @param[in] t dummy variable to be integrated out
-    * @return \f$t\matrhm{RE}({Gamma(t) + \frac{t}{2})\f$ 
+    * @return \f$t\mathrm{RE}({\Gamma(t) + \frac{t}{2})\f$ 
     */
     double getPhi271_t(double t){
         return t*(Gamma_t(t) + t/2.).real();
@@ -132,89 +132,89 @@ public:
     
     
     /**
-    * @brief The \f$ Phi_{11}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{11}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{11}^{(1)} \f$
+    * @return \f$ \Phi_{11}^{(1)} \f$
     */
     double Phi11_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{12}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{12}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{12}^{(1)} \f$
+    * @return \f$ \Phi_{12}^{(1)} \f$
     */
     double Phi12_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{17}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{17}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{17}^{(1)} \f$
+    * @return \f$ \Phi_{17}^{(1)} \f$
     */
     double Phi17_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{18}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{18}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{18}^{(1)} \f$
+    * @return \f$ \Phi_{18}^{(1)} \f$
     */
     double Phi18_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{22}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{22}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{22}^{(1)} \f$
+    * @return \f$ \Phi_{22}^{(1)} \f$
     */
     double Phi22_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{27}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{27}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{27}^{(1)} \f$
+    * @return \f$ \Phi_{27}^{(1)} \f$
     */
     double Phi27_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{28}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{28}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{28}^{(1)} \f$
+    * @return \f$ \Phi_{28}^{(1)} \f$
     */
     double Phi28_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{47}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{47}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{47}^{(1)} \f$
+    * @return \f$ \Phi_{47}^{(1)} \f$
     */
     double Phi47_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{77}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{77}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{77}^{(1)} \f$
+    * @return \f$ \Phi_{77}^{(1)} \f$
     */
     double Phi77_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{78}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{78}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{78}^{(1)} \f$
+    * @return \f$ \Phi_{78}^{(1)} \f$
     */
     double Phi78_1(double E0);
     
     
     /**
-    * @brief The \f$ Phi_{88}^{(1)} \f$ function from hep-ph/0104034v2.
+    * @brief The \f$ \Phi_{88}^{(1)} \f$ function from hep-ph/0104034v2.
     * @param[in] E0 energy cutoff
-    * @return \f$ Phi_{88}^{(1)} \f$
+    * @return \f$ \Phi_{88}^{(1)} \f$
     */
     double Phi88_1(double E0);
     
@@ -275,14 +275,14 @@ public:
     
     
     /**
-    * @brief The \f$BR\f$ as defined in arXiv:1005.1173, \f$P\f$.
+    * @brief The \f$BR\f$ as defined in arXiv:1005.1173.
     * @param[in] order perturbation theory order
     */
     void computeBR(orders order);
     
     
     /**
-    * @brief The \f$BR\f$ as defined in arXiv:1005.1173, \f$P\f$.
+    * @brief The \f$BR\f$ as defined in arXiv:1005.1173.
     * @return \f$BR\f$
     */
     double computeThValue();
