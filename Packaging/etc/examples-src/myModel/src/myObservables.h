@@ -13,13 +13,13 @@
 
 
 /**
- * @class gg4l
+ * @class myObservables
  * @brief A class for the gg -> 4l.
  */
-class gg4l : public ThObservable {
+class myObservables : public ThObservable {
 public:
-    gg4l(const StandardModel& SM_i);
-    virtual ~gg4l();
+    myObservables(const StandardModel& SM_i);
+    virtual ~myObservables();
     void updateParameters();
     
 protected:
@@ -38,7 +38,7 @@ private:
 
 };
 
-class yield : public gg4l {
+class yield : public myObservables {
 public:
     
     /**
@@ -56,7 +56,7 @@ private:
 
 };
 
-class C_3 : public gg4l {
+class C_3 : public myObservables {
 public:
     
     /**
@@ -73,7 +73,7 @@ private:
     
 };
 
-class C_4 : public gg4l {
+class C_4 : public myObservables {
 public:
     
     /**

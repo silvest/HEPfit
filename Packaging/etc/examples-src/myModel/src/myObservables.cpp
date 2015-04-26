@@ -8,17 +8,17 @@
 #include "myObservables.h"
 
 
-gg4l::gg4l(const StandardModel& SM_i)
+myObservables::myObservables(const StandardModel& SM_i)
 : ThObservable(SM_i), my_model(static_cast<const myModel*> (&SM_i))
 {
     fact = 2. * 3000 * pow(0.95, 4.);
     kfact = 1.85;
 }
 
-gg4l::~gg4l()
+myObservables::~myObservables()
 {}
 
-void gg4l::updateParameters()
+void myObservables::updateParameters()
 {
     c1 = my_model->getc1();
     if (my_model->get_onshell_flag() == true) {
@@ -36,7 +36,7 @@ void gg4l::updateParameters()
  * ****************************************************************************/
 
 yield::yield(const StandardModel& SM_i, unsigned int bin_i)
-: gg4l(SM_i)
+: myObservables(SM_i)
 {
     bin = bin_i;
 }
@@ -65,7 +65,7 @@ double yield::computeThValue()
 }
 
 C_3::C_3(const StandardModel& SM_i)
-: gg4l(SM_i)
+: myObservables(SM_i)
 {}
 
 double C_3::computeThValue()
@@ -76,7 +76,7 @@ double C_3::computeThValue()
 }
 
 C_4::C_4(const StandardModel& SM_i)
-: gg4l(SM_i)
+: myObservables(SM_i)
 {}
 
 double C_4::computeThValue()
