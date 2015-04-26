@@ -30,7 +30,7 @@ myModel::~myModel()
 /* Initialize model here */
 bool myModel::InitializeModel()
 {
-    onshell = false;
+    condition = false;
     setModelInitialized(StandardModel::InitializeModel());
     return(true);
 }
@@ -106,8 +106,8 @@ bool myModel::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     
-    if(name.compare("onshell") == 0){
-        onshell = value;
+    if(name.compare("condition") == 0){
+        condition = value;
         res = true;
     } else {
         res = StandardModel::setFlag(name,value);

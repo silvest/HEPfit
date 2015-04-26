@@ -85,9 +85,9 @@ public:
      *
      * @return the coupling cA
      */
-    bool get_onshell_flag() const
+    bool get_condition_flag() const
     {
-        return onshell;
+        return condition;
     };
 
 
@@ -98,7 +98,7 @@ protected:
 private:
     
     double c1, c2, c3, c4; /* Model Parameters */
-    bool onshell;
+    bool condition;
     
 };
 

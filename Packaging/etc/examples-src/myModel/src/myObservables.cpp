@@ -21,7 +21,7 @@ myObservables::~myObservables()
 void myObservables::updateParameters()
 {
     c1 = my_model->getc1();
-    if (my_model->get_onshell_flag() == true) {
+    if (my_model->get_condition_flag() == true) {
         c2 = 1. - c1;
     } else {
         c2 = my_model->getc2();
