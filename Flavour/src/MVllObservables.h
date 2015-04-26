@@ -16,10 +16,10 @@
 /**
  * @class P_1
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_1>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_1>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned clean observable @f$<P_1>@f$ in 
+ * @details This class is used to compute the binned observable @f$<P_1>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
@@ -40,7 +40,7 @@ public:
     
     
     /**
-    * @brief The binned clean observable @f$<P_1>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_1>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_1>@f$
     */
     double computeThValue ();
@@ -56,10 +56,10 @@ private:
 /**
  * @class P_2
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_2>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_2>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned clean observable @f$<P_2>@f$ in 
+ * @details This class is used to compute the binned observable @f$<P_2>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
@@ -79,7 +79,7 @@ public:
     P_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The binned clean observable @f$<P_2>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_2>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_2>@f$
     */
     double computeThValue ();
@@ -95,10 +95,10 @@ private:
 /**
  * @class P_3
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_3>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_3>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned clean observable @f$<P_3>@f$ in 
+ * @details This class is used to compute the binned observable @f$<P_3>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
@@ -118,7 +118,7 @@ public:
     P_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The binned clean observable @f$<P_3>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_3>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_3>@f$
     */
     double computeThValue ();
@@ -134,10 +134,10 @@ private:
 /**
  * @class P_4Prime
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_4'>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_4'>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned clean observable @f$<P_4'>@f$ in 
+ * @details This class is used to compute the binned observable @f$<P_4'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
@@ -157,7 +157,7 @@ public:
     P_4Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The binned clean observable @f$<P_4'>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_4'>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_4'>@f$
     */
     double computeThValue ();
@@ -175,10 +175,10 @@ private:
 /**
  * @class P_5Prime
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_5'>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_5'>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned clean observable @f$<P_5'>@f$ in 
+ * @details This class is used to compute the binned observable @f$<P_5'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
@@ -198,7 +198,7 @@ public:
     P_5Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The binned clean observable @f$<P_5'>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_5'>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_5'>@f$
     */
     double computeThValue ();
@@ -217,10 +217,10 @@ private:
 /**
  * @class P_6Prime
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_6'>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_6'>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned clean observable @f$<P_6'>@f$ in 
+ * @details This class is used to compute the binned observable @f$<P_6'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
@@ -240,7 +240,7 @@ public:
     P_6Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
 
     /**
-    * @brief The binned clean observable @f$<P_6'>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_6'>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_6'>@f$
     */
     double computeThValue ();
@@ -256,10 +256,10 @@ private:
 /**
  * @class P_8Prime
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_8'>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_8'>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned clean observable @f$<P_8'>@f$ in 
+ * @details This class is used to compute the binned observable @f$<P_8'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
@@ -279,7 +279,7 @@ public:
     P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
 
     /**
-    * @brief The binned clean observable @f$<P_8'>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_8'>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_8'>@f$
     */
     double computeThValue ();
@@ -421,7 +421,7 @@ private:
 /**
  * @class F_L
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<F_L>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<F_L>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<F_L>@f$ in 
@@ -444,7 +444,7 @@ public:
     F_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-     * @brief A method to compute the clean binned observable @f$<F_L>@f$ in @f$M \to V l^+l^-@f$ in a generic bin.
+     * @brief A method to compute the binned observable @f$<F_L>@f$ in @f$M \to V l^+l^-@f$ in a generic bin.
      * @param[in] qmin minimal value of the bin
      * @param[in] qmax maximal value of the bin
      * @param[in] lep final leptons of the decay
@@ -632,7 +632,7 @@ private:
 /**
  * @class ACP_MVll
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<A_{CP}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<A_{CP}>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<A_{CP}>@f$ in 
@@ -655,7 +655,7 @@ public:
     ACP_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The binned clean observable @f$<A_{CP}>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<A_{CP}>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<A_{CP}>@f$
     */
     double computeThValue ();
@@ -671,7 +671,7 @@ private:
 /**
  * @class P3CP
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<P_3^{CP}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<P_3^{CP}>@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_3^{CP}>@f$ in 
@@ -695,7 +695,7 @@ public:
     P3CP(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The binned clean observable @f$<P_3^{CP}>@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The binned observable @f$<P_3^{CP}>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<P_3^{CP}>@f$
     */
     double computeThValue ();
@@ -711,7 +711,7 @@ private:
 /**
  * @class M_1Prime
  * @ingroup Flavour
- * @brief A class for the clean observable @f$M_1'@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the observable @f$M_1'@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the observable @f$M_1'@f$ in 
@@ -734,7 +734,7 @@ public:
     M_1Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The clean observable @f$M_1'@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The observable @f$M_1'@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$M_1'@f$
     */
     double computeThValue ();
@@ -750,7 +750,7 @@ private:
 /**
  * @class M_2Prime
  * @ingroup Flavour
- * @brief A class for the clean observable @f$M_2'@f$ in @f$M \to V l^+l^-@f$. 
+ * @brief A class for the observable @f$M_2'@f$ in @f$M \to V l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the observable @f$M_2'@f$ in 
@@ -773,7 +773,7 @@ public:
     M_2Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @brief The clean observable @f$M_2'@f$ in @f$M \to V l^+l^-@f$.
+    * @brief The observable @f$M_2'@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$M_2'@f$
     */
     double computeThValue ();

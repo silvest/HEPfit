@@ -105,7 +105,7 @@ private:
 /**
  * @class ACP_MPll
  * @ingroup Flavour
- * @brief A class for the binned clean observable @f$<A_{CP}>@f$ in @f$M \to P l^+l^-@f$. 
+ * @brief A class for the binned observable @f$<A_{CP}>@f$ in @f$M \to P l^+l^-@f$. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<A_{CP}>@f$ in 
