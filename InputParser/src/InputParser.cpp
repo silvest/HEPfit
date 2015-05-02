@@ -332,39 +332,47 @@ std::string InputParser::ReadParameters(const std::string filename,
                     lines.push_back(false);
                 }
             }
-            gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
-            int ni = 0;
-            for (int i = 0; i < size; i++) {
-                IsEOF = getline(ifile, line).eof();
-                if (line.empty() || line.at(0) == '#') {
-                    if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
-                            << std::endl;
-                    exit(EXIT_FAILURE);
-                }
-                if (lines.at(i)) {
-                    boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
-                    beg = mytok.begin();
-                    int nj = 0;
-                    for (int j = 0; j < size; j++) {
-                        if ((*beg).compare(0, 1, "0") == 0
-                                || (*beg).compare(0, 1, "1") == 0
-                                || (*beg).compare(0, 1, "-") == 0) {
-                            if (lines.at(j)) {
-                                myCorr(ni, nj) = atof((*beg).c_str());
-                                nj++;
-                            }
-                            beg++;
-                        } else {
-                            if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
-                                    << name << ". Check element (" << ni+1 << "," << nj+1 << ")" << std::endl;
-                            exit(EXIT_FAILURE);
-                        }
+            if (nlines > 1) {
+                gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
+                int ni = 0;
+                for (int i = 0; i < size; i++) {
+                    IsEOF = getline(ifile, line).eof();
+                    if (line.empty() || line.at(0) == '#') {
+                        if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
+                                << std::endl;
+                        exit(EXIT_FAILURE);
                     }
-                    ni++;
+                    if (lines.at(i)) {
+                        boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
+                        beg = mytok.begin();
+                        int nj = 0;
+                        for (int j = 0; j < size; j++) {
+                            if ((*beg).compare(0, 1, "0") == 0
+                                    || (*beg).compare(0, 1, "1") == 0
+                                    || (*beg).compare(0, 1, "-") == 0) {
+                                if (lines.at(j)) {
+                                    myCorr(ni, nj) = atof((*beg).c_str());
+                                    nj++;
+                                }
+                                beg++;
+                            } else {
+                                if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
+                                        << name << ". Check element (" << ni+1 << "," << nj+1 << ")" << std::endl;
+                                exit(EXIT_FAILURE);
+                            }
+                        }
+                        ni++;
+                    }
+                }
+                o3.ComputeCov(myCorr);
+                CGO.push_back(o3);
+            } else {
+                if (rank == 0) std::cout << "\nWARNING: Correlated Gaussian Observable " << name.c_str() << " defined with less than two correlated observables. The set is being marked as normal Observables." << std::endl;
+                if (o3.getObs().size() == 1) Observables.push_back(new Observable(o3.getObs(0)));
+                for (int i = 0; i < size; i++) {
+                    IsEOF = getline(ifile, line).eof();
                 }
             }
-            o3.ComputeCov(myCorr);
-            CGO.push_back(o3);
         } else if (type.compare("ModelFlag") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 3)
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
