@@ -2,6 +2,7 @@
 #
 # Usage:
 #   sh makePackage.sh
+#   sh makePackage.sh --doxygen : with Doxygen files
 #
 
 VERSION="0.2"
@@ -157,25 +158,29 @@ cp -r ${SCRIPTPATH}/etc/examples-src/myModel ${OUTDIR}/examples-src/
 ###########################################################
 # copy Doxygen files
 
-DOXYGENDIR=${OUTDIR}/Doxygen
-if [ ! -d "${DOXYGENDIR}" ]; then
-    echo "mkdir ${DOXYGENDIR}"
-    mkdir ${DOXYGENDIR}
-fi
-if [ ! -d "${DOXYGENDIR}/images" ]; then
-    echo "mkdir ${DOXYGENDIR}/images"
-    mkdir ${DOXYGENDIR}/images
-fi
-DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
-for DOXYFILE in $DOXYFILELIST
-do
-    cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
-done
-cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
+if [ "$1" == "--doxygen" ]; then
+    echo "copying Doxygen files..."
 
-SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
-eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
-eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md
+    DOXYGENDIR=${OUTDIR}/Doxygen
+    if [ ! -d "${DOXYGENDIR}" ]; then
+	echo "mkdir ${DOXYGENDIR}"
+	mkdir ${DOXYGENDIR}
+    fi
+    if [ ! -d "${DOXYGENDIR}/images" ]; then
+	echo "mkdir ${DOXYGENDIR}/images"
+	mkdir ${DOXYGENDIR}/images
+    fi
+    DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
+    for DOXYFILE in $DOXYFILELIST
+    do
+	cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
+    done
+    cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
+    
+    SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
+    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
+    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md    
+fi
 
 ###########################################################
 # Example main files
