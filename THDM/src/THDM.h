@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2015 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,14 +18,14 @@ class THDMcache; //forward reference to THDMcache class
 
 /**
  * @class THDM
- * @brief  Two Higgs Doublet model type II
+ * @brief Two Higgs Doublet model type II
  */
 class THDM: public StandardModel {
 public:
 
     static const int NTHDMvars = 8;
-    //The parameters of the Higgs potential for THDM (there are several basis)Is it right? 
-    //I choose the physical basis: mHp,sin_ba,lambda6,lambda7,mA,m12_2,tanb,mH
+    //The parameters of the Higgs potential for THDM (there are several basis) according to ?
+    //We choose the physical basis: logtb,bma,mHh,mA,mHp,m12_2,lambda6,lambda7
     static const std::string THDMvars[NTHDMvars];
     
     /**
@@ -74,10 +74,70 @@ public:
 
     /**
      *
-     * @return cos beta
+     * @return \f$\log(\tan \beta)$\f
+     */
+    double getLogtb() const {
+        return logtb;
+    }
+
+    /**
+     *
+     * @return \f$\tan \beta$\f
+     */
+    double getTanb() const {
+        return tanb;
+    }
+
+    /**
+     *
+     * @return \f$\sin \beta$\f
+     */
+    double getSinb() const {
+        return sinb;
+    }
+
+    /**
+     *
+     * @return \f$\cos \beta$\f
      */
     double getCosb() const {
         return cosb;
+    }
+
+    /**
+     *
+     * @return \f$\beta-\alpha$\f
+     */
+    double getbma() const {
+        return bma;
+    }
+
+   /**
+     *
+     * @return \f$\sin(\beta-\alpha)$\f
+     */
+    double getsin_ba() const {
+        return sin_ba;
+    }
+
+    double computeCosa() const;
+
+    double computeSina() const;
+ 
+    /**
+     *
+     * @return mass heavy neutral scalar Higgs
+     */
+    double getMHh() const {
+        return mHh;
+    }
+
+    /**
+     *
+     * @return mass pseudoscalar Higgs A
+     */
+    double getMA() const {
+        return mA;
     }
 
     /**
@@ -87,21 +147,13 @@ public:
     double getMHp() const {
         return mHp;
     }
-    
-    /**
-     *
-     * @return sin beta
-     */
-    double getSinb() const {
-        return sinb;
-    }
 
     /**
      *
-     * @return \f$\tan \beta$\f
+     * @return parameter of the Higgs potential \f$m_{12}^2$\f 
      */
-    double getTanb() const {
-        return tanb;
+    double getM12_2() const {
+        return m12_2;
     }
 
     /**
@@ -120,39 +172,6 @@ public:
         return lambda7;
     }
 
-    /**
-     *
-     * @return parameter of the Higgs potential \f$m_{12}^2$\f 
-     */
-    double getM12_2() const {
-        return m12_2;
-    }
-
-    /**
-     *
-     * @return mass pseudoscalar Higgs A 
-     */
-    double getMA() const {
-        return mA;
-    }
-
-    /**
-     *
-     * @return mass heavy neutral scalar Higgs 
-     */
-    double getMH() const {
-        return mH;
-    }
-
-    /**
-     *
-     * @return \f$\sin(\beta-\alpha)$\f 
-     */
-    double getSin_ba() const {
-        return sin_ba;
-    }
-    
-    
     ///////////////////////////////////////////////////////////////////////////
     /* Functions for EW precision observables */
 
@@ -174,7 +193,7 @@ private:
     
     //double DeltaS, DeltaT, DeltaU;
     
-    double mH, mA, mHp, tanb, sinb, cosb, sin_ba, m12_2, lambda6, lambda7, mh;
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh, mA, mHp, m12_2, lambda6, lambda7, mh;
     
     //double Mz2;
     //double s_W2;//\sin^2(\theta_W)   
