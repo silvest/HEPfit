@@ -77,7 +77,7 @@ std::string InputParser::ReadParameters(const std::string filename,
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.find_first_not_of(' ') == std::string::npos || line.at(0) == '#')
             continue;
-        boost::char_separator<char> sep(" ");
+        boost::char_separator<char> sep(" \t");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
 
@@ -350,6 +350,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                             if ((*beg).compare(0, 1, "0") == 0
                                     || (*beg).compare(0, 1, "1") == 0
                                     || (*beg).compare(0, 1, "-") == 0) {
+                                if (std::distance(mytok.begin(), mytok.end()) < size && rank == 0) throw std::runtime_error(("ERROR: Correlation matrix is of wrong size in Correlated Gaussian Observables: " + name).c_str());
                                 if (lines.at(j)) {
                                     myCorr(ni, nj) = atof((*beg).c_str());
                                     nj++;
@@ -357,7 +358,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                                 beg++;
                             } else {
                                 if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
-                                        << name << ". Check element (" << ni+1 << "," << nj+1 << ")" << std::endl;
+                                        << name << ". Check element (" << ni+1 << "," << nj+1 << ") in line number " + boost::lexical_cast<std::string>(lineNo)<< std::endl;
                                 exit(EXIT_FAILURE);
                             }
                         }
