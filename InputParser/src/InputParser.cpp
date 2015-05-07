@@ -307,6 +307,9 @@ std::string InputParser::ReadParameters(const std::string filename,
                     tmp->setErrg(atof((*beg).c_str()));
                     ++beg;
                     tmp->setErrf(atof((*beg).c_str()));
+                    if (tmp->getErrf() == 0. && tmp->getErrg() == 0.) {
+                        if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + tmp->getName() + " cannot both be 0. in the " + filename + " file, line number:" + boost::lexical_cast<std::string>(lineNo));
+                }
                 } else if (distr.compare("noweight") == 0) {
                     if (type.compare("BinnedObservable") == 0){
                         ++beg;
