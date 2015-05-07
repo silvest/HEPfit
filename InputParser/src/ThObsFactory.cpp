@@ -8,6 +8,7 @@
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include <LeptonFlavourObservables.h>
 #include <SUSYObservables.h>
+#include <THDMObservables.h>
 /** END: REMOVE FROM THE PACKAGE **/
 
 ThObsFactory::ThObsFactory()
@@ -283,6 +284,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
     obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
     obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>();
+    /** END: REMOVE FROM THE PACKAGE **/
+    
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    //-----  THDM observables  -----
+    obsThFactory["lambda1"] = boost::factory<lambda1*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 
