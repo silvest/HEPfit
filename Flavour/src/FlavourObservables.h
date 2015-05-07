@@ -23,6 +23,7 @@
 #include "Betas_JPsiPhi.h"
 #include "Bdmumu.h"
 #include "Bsmumu.h"
+#include "Btaunu.h"
 #include "bsgamma.h"
 #include "M12D.h"
 #include "ArgD.h"

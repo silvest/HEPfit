@@ -252,7 +252,10 @@ ThObsFactory::ThObsFactory()
     //----- B to PHI gamma  -----
     obsThFactory["BR_Bsphigamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
     obsThFactory["ACP_Bsphigamma"] = boost::bind(boost::factory<ACP_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
-
+    
+    //----- B to tau nu  -----
+    obsThFactory["btaunu"] = boost::factory<Btaunu*>();
+    
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  Lepton Flavour observables  -----
     obsThFactory["li_lj_gamma"] = boost::factory<li_lj_gamma*>();

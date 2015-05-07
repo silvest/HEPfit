@@ -82,6 +82,13 @@ public:
     /**
      * 
      * @param scheme
+     * @return short distance contribution to the rare decay \f$ B \rightarrow \tau \nu \f$
+     */
+    vector<complex>** ComputeCoeffbtaunu();
+    
+    /**
+     * 
+     * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{s} \rightarrow \nu \bar{\nu} \f$
      */
     vector<complex>** ComputeCoeffsnunu();
@@ -141,6 +148,10 @@ public:
         return coeffdmumu;
     }
     
+    WilsonCoefficient getCoeffbtaunu() const {
+        return coeffdmumu;
+    }
+    
     WilsonCoefficient getCoeffsnunu() const {
         return coeffsnunu;
     }
@@ -177,6 +188,7 @@ private :
     WilsonCoefficient coeffnlep01, coeffnlep01A, coeffnlep01B, coeffnlep00CC;
     WilsonCoefficient coeffnlep11, coeffnlep11A, coeffnlep11B, coeffnlep10CC;
     WilsonCoefficient coeffsmumu, coeffdmumu;
+    WilsonCoefficient coeffbtaunu;
     WilsonCoefficient coeffsnunu, coeffdnunu;
     WilsonCoefficient coeffsgamma;
     WilsonCoefficient coeffBMll, coeffprimeBMll;
