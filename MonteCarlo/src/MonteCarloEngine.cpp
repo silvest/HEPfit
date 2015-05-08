@@ -220,6 +220,13 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
     return logprob;
 }
 
+double MonteCarloEngine::getEvidence(const std::vector <double>& parameters, const double logpost) {
+    double evidence = LogLikelihood(parameters);
+    evidence += LogAPrioriProbability(parameters);
+    evidence -= logpost;
+    return(exp(evidence));
+}
+
 void MonteCarloEngine::MCMCIterationInterface()
 {
 #ifdef _MPI
