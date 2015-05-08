@@ -94,6 +94,10 @@ public:
         return HDB1.ComputeCoeffdmumu();
     }
     
+    vector<complex>** ComputeCoeffbtaunu() {
+        return HDB1.ComputeCoeffbtaunu();
+    }
+    
     vector<complex>** ComputeCoeffsnunu() {
         return HDB1.ComputeCoeffdmumu();
     }

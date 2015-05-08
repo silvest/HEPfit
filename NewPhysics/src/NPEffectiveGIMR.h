@@ -43,6 +43,9 @@ using namespace gslpp;
  * @anchor NPEffectiveGIMRParameters
  * <h3>%Model parameters</h3>
  *
+ * *** This table has to be modified!! ***
+ *
+ *
  * The model parameters of %NPEffectiveGIMR are summarized below:
  * <table class="model">
  * <tr>

@@ -1,18 +1,26 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2015 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
 /**
- * @example MCMC.cpp
- * This is an example of how to perform a Bayesian Markov Chain Monte Carlo analysis with SusyFit and BAT.
+ * @example myModel_MCMC.cpp
+ * @example myModel.h
+ * @example myModel.cpp
+ * @example myObservables.h
+ * @example myObservables.cpp
+ * This is an example of how to add user-defined model and observables
+ * and to perform a Bayesian analysis with the Markov Chain Monte Carlo.
  *
  */
 
 #include <iostream>
 #include <SusyFit.h>
+#include <boost/bind.hpp>
+#include "myModel.h"
+#include "myObservables.h"
 
 /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
@@ -63,12 +71,20 @@ int main(int argc, char** argv)
         /* Create objects of the classes ModelFactory and ThObsFactory */
         ThObsFactory ThObsF;
         ModelFactory ModelF;
+        myModel my_model;
 
         /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
-        /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
+        ModelF.addModelToFactory("myModel", boost::factory<myModel*>() );
         
         /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
-        /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
+        ThObsF.addObsToFactory("BIN1", boost::bind(boost::factory<yield*>(), _1, 1) );
+        ThObsF.addObsToFactory("BIN2", boost::bind(boost::factory<yield*>(), _1, 2) );
+        ThObsF.addObsToFactory("BIN3", boost::bind(boost::factory<yield*>(), _1, 3) );
+        ThObsF.addObsToFactory("BIN4", boost::bind(boost::factory<yield*>(), _1, 4) );
+        ThObsF.addObsToFactory("BIN5", boost::bind(boost::factory<yield*>(), _1, 5) );
+        ThObsF.addObsToFactory("BIN6", boost::bind(boost::factory<yield*>(), _1, 6) );
+        ThObsF.addObsToFactory("C_3", boost::factory<C_3*>() );
+        ThObsF.addObsToFactory("C_4", boost::factory<C_4*>() );
         
         /* Create an object of the class MonteCarlo. */        
         MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);

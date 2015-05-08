@@ -516,7 +516,7 @@ if(BAT_INSTALL AND NOT NOMCMC)
 endif(BAT_INSTALL AND NOT NOMCMC)
 INSTALL(TARGETS SusyFit DESTINATION lib COMPONENT library)
 
-# header files SusyFit.h and SusyFit_noMCMC.h
+# SusyFit header file SusyFit.h 
 list(REVERSE PROJECTLIST)
 foreach(_project ${PROJECTLIST})
   file(GLOB HEADERS ${_project}/src/*.h)
@@ -531,16 +531,15 @@ foreach(_project ${PROJECTLIST})
   endforeach(_header)
 endforeach(_project)
 if(NOT NOMCMC)
-  INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/SusyFit.h 
-          DESTINATION include/SusyFit COMPONENT header)
   configure_file("${CMAKE_CURRENT_SOURCE_DIR}/SusyFit.h.in"
                  "${CMAKE_CURRENT_BINARY_DIR}/SusyFit.h" @ONLY)
+else(NOT NOMCMC)
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/SusyFit_noMCMC.h.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/SusyFit.h" @ONLY)
 endif(NOT NOMCMC)
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/SusyFit_noMCMC.h.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/SusyFit_noMCMC.h" @ONLY)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/SusyFit_noMCMC.h 
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/SusyFit.h 
         DESTINATION include/SusyFit COMPONENT header)
-
+      
 # pkg-config (FindPkgConfig in CMake 2.8.8 contains a bug)
 #find_package(PkgConfig)
 #if(PKG_CONFIG_FOUND)
@@ -612,6 +611,22 @@ if(NOT NOMCMC)
                  "${CMAKE_CURRENT_BINARY_DIR}/examples/MonteCarloMode/MCMC.cpp" @ONLY)
   configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/MonteCarloMode/MonteCarlo.conf"
                  "${CMAKE_CURRENT_BINARY_DIR}/examples/MonteCarloMode/MonteCarlo.conf" COPYONLY)
+
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/myModel/Makefile.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/examples/myModel/Makefile" @ONLY)
+  set(_myDirs . config src)
+  foreach(_myDir ${_myDirs})
+    set(_myExts h cpp conf)
+    foreach(_myExt ${_myExts})
+      file(GLOB _myFiles ${CMAKE_CURRENT_SOURCE_DIR}/examples-src/myModel/${_myDir}/*.${_myExt})
+      foreach(_myFile ${_myFiles})
+        get_filename_component(_myFileName ${_myFile} NAME)
+        configure_file("${_myFile}" 
+                       "${CMAKE_CURRENT_BINARY_DIR}/examples/myModel/${_myDir}/${_myFileName}" COPYONLY)
+        #message(STATUS "${_myFile}")
+      endforeach(_myFile)
+    endforeach(_myExt)
+  endforeach(_myDir)
 endif(NOT NOMCMC)
 message(STATUS "Generated example codes in examples/")
 

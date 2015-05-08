@@ -477,6 +477,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)
 {
     std::vector<double> mode(GetBestFitParameters());
+    if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
     for (unsigned int k = 0; k < GetNParameters(); k++)
         DPars[GetParameter(k)->GetName()] = mode[k];
     Mod->Update(DPars);
@@ -566,6 +567,8 @@ void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename)
 
 std::string MonteCarloEngine::computeStatistics()
 {
+    std::vector<double> mode(GetBestFitParameters());
+    if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
     std::ostringstream StatsLog;
     int i = 0;
     StatsLog << "Statistics file for Observables, Binned Observables and Corellated Gaussian Observables.\n" << std::endl;

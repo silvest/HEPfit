@@ -35,6 +35,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbdnn(1, NDR, NLO),
         mcbsmm(6, NDR, NLO),
         mcbdmm(6, NDR, NLO),
+        mcbtaunu(3, NDR, NLO),
         mcDL1(2, NDR, LO),
         Vckm(3, 3, 0)
 {
@@ -109,7 +110,7 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
 #if SUSYFIT_DEBUG & 1
     std::cout << "mt(" << mu << "," << order << ")=" << mt << std::endl;
 #endif
-    return mt*mt/Mw/Mw; 
+    return mt*mt/Mw/Mw;
 }
 
 double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
@@ -968,7 +969,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  * ****************************************************************************/
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
-    double xt = x_t(160.); //Muw changed to 160 according to arXiv:1005.1173
+    double xt = x_t(Muw);
     complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
     
     vmcbsg.clear();
@@ -984,14 +985,14 @@ double StandardModelMatching::phi2(double x, double y) const{
             throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcbsg.setMu(160.); //Muw changed to 160 according to arXiv:1005.1173
+    mcbsg.setMu(Muw);
     
     switch (mcbsg.getOrder()) {
         case NNLO:
         case NLO:
             for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, co * SM.Als(160., FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
-            } //Muw changed to 160 according to arXiv:1005.1173
+            mcbsg.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
+            }
         case LO:
             for (int j=0; j<8; j++){
             mcbsg.setCoeff(j, co * setWCbsg(j, xt,  LO), LO);
@@ -1540,6 +1541,33 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
     
     vmcbdmm.push_back(mcbdmm);
     return(vmcbdmm);
+    
+}
+
+/*******************************************************************************
+ * Wilson coefficients calcoulus, misiak base for B -> tau nu                   *
+ * ****************************************************************************/
+
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbtaunu() {
+    
+    vmcbtaunu.clear();
+    
+    mcbtaunu.setMu(Muw);
+ 
+    switch (mcbtaunu.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            mcbsmm.setCoeff(0, 4.*GF * Vckm(0,3) / sqrt(2.) , LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsmm.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMbsmm(): order " + out.str() + "not implemented");
+    }
+    
+    vmcbsmm.push_back(mcbsmm);
+    return(vmcbsmm);
     
 }
 

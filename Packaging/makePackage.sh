@@ -2,6 +2,7 @@
 #
 # Usage:
 #   sh makePackage.sh
+#   sh makePackage.sh --doxygen : with Doxygen files
 #
 
 VERSION="0.2"
@@ -133,9 +134,9 @@ done
 # copy other necessary files
 
 SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
-
-eval sed "$SED_ARG" ${SCRIPTPATH}/etc/INSTALL > ${OUTDIR}/INSTALL
-eval sed "$SED_ARG" ${SCRIPTPATH}/etc/README.md > ${OUTDIR}/README.md
+SED_ARG2="-e 's/{#PageInstallation}//g'"
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${OUTDIR}/README.md
+eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md |eval sed "$SED_ARG2" > ${OUTDIR}/INSTALL.md
 
 cp ${SCRIPTPATH}/etc/CMakeLists.txt ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/SusyFit_noMCMC.h.in ${OUTDIR}/
@@ -146,30 +147,40 @@ eval sed "$SED_ARG" ${SCRIPTPATH}/etc/SusyFit.pc.in > ${OUTDIR}/SusyFit.pc.in
 cp ${SCRIPTPATH}/etc/SusyFit.h.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/BAT_mpi_patch.txt ${OUTDIR}/
 
+# examples
+cp -r ${SCRIPTPATH}/etc/examples-src/config ${OUTDIR}/examples-src/
+cp -r ${SCRIPTPATH}/etc/examples-src/config/input ${OUTDIR}/examples-src/config/
 cp -r ${SCRIPTPATH}/etc/examples-src/LibMode_config ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/LibMode_header ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/MonteCarloMode ${OUTDIR}/examples-src/
-cp -r ${SCRIPTPATH}/etc/examples-src/config ${OUTDIR}/examples-src/
-cp -r ${SCRIPTPATH}/etc/examples-src/config/input ${OUTDIR}/examples-src/config/
+cp -r ${SCRIPTPATH}/etc/examples-src/myModel ${OUTDIR}/examples-src/
 
 ###########################################################
 # copy Doxygen files
 
-DOXYGENDIR=${OUTDIR}/Doxygen
-if [ ! -d "${DOXYGENDIR}" ]; then
-    echo "mkdir ${DOXYGENDIR}"
-    mkdir ${DOXYGENDIR}
+if [ "$1" == "--doxygen" ]; then
+    echo "copying Doxygen files..."
+
+    DOXYGENDIR=${OUTDIR}/Doxygen
+    if [ ! -d "${DOXYGENDIR}" ]; then
+	echo "mkdir ${DOXYGENDIR}"
+	mkdir ${DOXYGENDIR}
+    fi
+    if [ ! -d "${DOXYGENDIR}/images" ]; then
+	echo "mkdir ${DOXYGENDIR}/images"
+	mkdir ${DOXYGENDIR}/images
+    fi
+    DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
+    for DOXYFILE in $DOXYFILELIST
+    do
+	cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
+    done
+    cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
+    
+    SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
+    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
+    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md    
 fi
-if [ ! -d "${DOXYGENDIR}/images" ]; then
-    echo "mkdir ${DOXYGENDIR}/images"
-    mkdir ${DOXYGENDIR}/images
-fi
-DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Installation.md MainPage.md Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
-for DOXYFILE in $DOXYFILELIST
-do
-    cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
-done
-cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
 
 ###########################################################
 # Example main files

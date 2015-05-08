@@ -17,6 +17,7 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         coeffnlep01 (10, NDR, NLO), coeffnlep01A(10, NDR, NLO), coeffnlep01B(4, NDR, NLO), coeffnlep00CC(10, NDR, NLO),
         coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO), coeffnlep10CC(10, NDR, NLO),
         coeffsmumu (6, NDR, NLO), coeffdmumu (6, NDR, NLO),
+        coeffbtaunu (3, NDR, NLO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
         coeffsgamma(8,NDR, NLO),
         coeffBMll (13,NDR, NLO),
@@ -331,7 +332,23 @@ vector<complex>** HeffDB1::ComputeCoeffdmumu()
         }
     }
     return coeffdmumu.getCoeff(); 
-} 
+}
+
+vector<complex>** HeffDB1::ComputeCoeffbtaunu() 
+{
+    
+     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMbtaunu();
+    coeffbtaunu.resetCoefficient();
+    orders ordDF1 = coeffbtaunu.getOrder();
+    
+    for (unsigned int i = 0; i < mcb.size(); i++){
+        for (int j = LO; j <= ordDF1; j++){
+            coeffbtaunu.setCoeff(*coeffbtaunu.getCoeff(orders(j))
+                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+        }
+    }
+    return coeffbtaunu.getCoeff(); 
+}
 
 vector<complex>** HeffDB1::ComputeCoeffsnunu() 
 {

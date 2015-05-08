@@ -809,7 +809,8 @@ double MVll::A_1(double q2)
 
 
 
-double MVll::A_2(double q2){
+double MVll::A_2(double q2)
+{
     return LCSR_fit2(q2, r_1A2, r_2A2, m_fit2A2);
 }
 

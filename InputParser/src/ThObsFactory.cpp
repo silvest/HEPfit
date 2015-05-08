@@ -8,6 +8,7 @@
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include <LeptonFlavourObservables.h>
 #include <SUSYObservables.h>
+#include <THDMObservables.h>
 /** END: REMOVE FROM THE PACKAGE **/
 
 ThObsFactory::ThObsFactory()
@@ -251,7 +252,10 @@ ThObsFactory::ThObsFactory()
     //----- B to PHI gamma  -----
     obsThFactory["BR_Bsphigamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
     obsThFactory["ACP_Bsphigamma"] = boost::bind(boost::factory<ACP_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
-
+    
+    //----- B to tau nu  -----
+    obsThFactory["btaunu"] = boost::factory<Btaunu*>();
+    
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  Lepton Flavour observables  -----
     obsThFactory["li_lj_gamma"] = boost::factory<li_lj_gamma*>();
@@ -283,6 +287,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
     obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
     obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>();
+    /** END: REMOVE FROM THE PACKAGE **/
+    
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    //-----  THDM observables  -----
+    obsThFactory["lambda1"] = boost::factory<lambda1*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 
