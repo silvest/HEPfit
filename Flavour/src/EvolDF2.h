@@ -89,6 +89,7 @@ private:
     const StandardModel& model;
     unsigned int dim;
     double alsMZ_cache;
+    double Mz_cache;
 };
 
 #endif	/* EVOLDF2_H */

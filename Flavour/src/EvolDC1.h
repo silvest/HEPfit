@@ -94,6 +94,7 @@ class EvolDC1 : public RGEvolutor {
     gslpp::vector<complex> e;
     unsigned int dim;
     double alsMZ_cache;
+    double Mz_cache;
     
  };
 
