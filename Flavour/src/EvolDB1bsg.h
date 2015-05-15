@@ -95,6 +95,7 @@ class EvolDB1bsg : public RGEvolutor {
     gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<complex> e;
     unsigned int dim;
+    double alsMZ_cache;
     
  };
 

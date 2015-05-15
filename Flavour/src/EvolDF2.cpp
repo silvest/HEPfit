@@ -157,8 +157,12 @@ matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes sche
             throw std::runtime_error("EvolDF2::Df2Evol(): scheme " + out.str() + " not implemented ");
     }
 
-    if (mu == this->mu && M == this->M && scheme == this->scheme)
-        return (*Evol(order));
+    double alsMZ = model.getAlsMz();
+    if(alsMZ == alsMZ_cache) {
+        if (mu == this->mu && M == this->M && scheme == this->scheme)
+            return (*Evol(order));        
+    }
+    alsMZ_cache = alsMZ;
 
     if (M < mu) {
         std::stringstream out;
