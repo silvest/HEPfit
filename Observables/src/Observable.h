@@ -66,6 +66,15 @@ public:
     
     /**
      * @brief A method to compute the weight associated with the observable.
+     * @param[in] th the theoretical value of the observable
+     * @param[in] ave_i the average value of the observable
+     * @param[in] errg_i the Gaussian error of the observable
+     * @param[in] errf_i the flat error of the observable
+     */
+    virtual double computeWeight(double th, double ave_i, double errg_i, double errf_i);
+    
+    /**
+     * @brief A method to compute the weight associated with the observable.
      * @param[in] th1 the theoretical value of the first observable
      * @param[in] th2 the theoretical value of the second observable
      */
@@ -317,6 +326,14 @@ public:
     void setObsType(unsigned int obsType_i)
     {
         obsType = obsType_i;
+    }
+    
+    void setObsType(std::string& obsType_s)
+    {
+        if (obsType_s.compare("Observable") == 0) obsType = 0;
+        if (obsType_s.compare("HiggsObservable") == 0) obsType = 1;
+        if (obsType_s.compare("BinnedObservable") == 0) obsType = 2;
+        else throw std::runtime_error("ERROR: Wrong Observable type passed to Observable class.");
     }
     
     unsigned int getObsType() const
