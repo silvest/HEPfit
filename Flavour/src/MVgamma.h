@@ -59,10 +59,10 @@ public:
     gslpp::complex h[2];         /**<parameter that contains the contribution from the hadronic hamiltonian */
     double lambda;        /**<cinematic parameter */
     
-    double r_1T1;/**<LCSR fit parameter */
-    double r_2T1;/**<LCSR fit parameter */
-    double m_RT1;/**<LCSR fit parameter */
-    double m_fit2T1;/**<LCSR fit parameter */
+    double a_0T1;/**<LCSR fit parameter */
+    double a_1T1;/**<LCSR fit parameter */
+    double a_2T1;/**<LCSR fit parameter */
+    double dmT1;/**<LCSR fit parameter */
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */

@@ -36,17 +36,17 @@ void MVgamma::updateParameters()
     
     switch(vectorM){
         case StandardModel::K_star :
-            r_1T1=SM.getr_1T1();
-            r_2T1=SM.getr_1T3t() + SM.getr_2T3t() - r_1T1;//SM.getr_2T1();
-            m_RT1=SM.getm_RT1();
-            m_fit2T1=SM.getm_fit2T1();
+            a_0T1=SM.geta_0T1();
+            a_1T1=SM.geta_1T1();
+            a_2T1=SM.geta_2T1();
+            dmT1=SM.getdmT1();
             
             break;
         case StandardModel::PHI :
-            r_1T1=SM.getr_1T1phi();
-            r_2T1=SM.getr_1T3tphi() + SM.getr_2T3tphi() - r_1T1;//SM.getr_2T1();
-            m_RT1=SM.getm_RT1phi();
-            m_fit2T1=SM.getm_fit2T1phi();
+            a_0T1=SM.geta_0T1phi();
+            a_1T1=SM.geta_1T1phi();
+            a_2T1=SM.geta_2T1phi();
+            dmT1=SM.getdmT1phi();
             
             break;
         default:
@@ -73,7 +73,7 @@ void MVgamma::updateParameters()
  * ****************************************************************************/
 double MVgamma::T_1()
 {
-    return SM.getMyFlavour()->getMVll(meson, vectorM, StandardModel::MU)->LCSR_fit1(0., r_1T1, r_2T1, pow(m_RT1, 2.), m_fit2T1);
+    return SM.getMyFlavour()->getMVll(meson, vectorM, StandardModel::MU)->LCSR_fit(0., a_0T1, a_1T1, a_2T1, dmT1);
 }
 
 

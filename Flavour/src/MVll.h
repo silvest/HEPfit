@@ -120,49 +120,32 @@ public:
     /*lattice fit parameters*/
     double a_0V;/**<lattice fit parameter */
     double a_1V;/**<lattice fit parameter */
+    double a_2V;/**<lattice fit parameter */
     double dmV;/**<lattice fit parameter */
     double a_0A0;/**<lattice fit parameter */
     double a_1A0;/**<lattice fit parameter */
+    double a_2A0;/**<lattice fit parameter */
     double dmA0;/**<lattice fit parameter */
     double a_0A1;/**<lattice fit parameter */
     double a_1A1;/**<lattice fit parameter */
+    double a_2A1;/**<lattice fit parameter */
     double dmA1;/**<lattice fit parameter */
     double a_0A12;/**<lattice fit parameter */
     double a_1A12;/**<lattice fit parameter */
+    double a_2A12;/**<lattice fit parameter */
     double dmA12;/**<lattice fit parameter */
     double a_0T1;/**<lattice fit parameter */
     double a_1T1;/**<lattice fit parameter */
+    double a_2T1;/**<lattice fit parameter */
     double dmT1;/**<lattice fit parameter */
     double a_0T2;/**<lattice fit parameter */
     double a_1T2;/**<lattice fit parameter */
+    double a_2T2;/**<lattice fit parameter */
     double dmT2;/**<lattice fit parameter */
     double a_0T23;/**<lattice fit parameter */
     double a_1T23;/**<lattice fit parameter */
+    double a_2T23;/**<lattice fit parameter */
     double dmT23;/**<lattice fit parameter */
-    
-    /*LCSR fit parameters*/
-    double r_1V;/**<LCSR fit parameter */
-    double r_2V;/**<LCSR fit parameter */
-    double m_RV;/**<LCSR fit parameter */
-    double m_fit2V;/**<LCSR fit parameter */
-    double r_1A0;/**<LCSR fit parameter */
-    double r_2A0;/**<LCSR fit parameter */
-    double m_RA0;/**<LCSR fit parameter */
-    double m_fit2A0;/**<LCSR fit parameter */
-    double r_2A1;/**<LCSR fit parameter */
-    double m_fit2A1;/**<LCSR fit parameter */
-    double r_1A2;/**<LCSR fit parameter */
-    double r_2A2;/**<LCSR fit parameter */
-    double m_fit2A2;/**<LCSR fit parameter */
-    double r_1T1;/**<LCSR fit parameter */
-    double r_2T1;/**<LCSR fit parameter */
-    double m_RT1;/**<LCSR fit parameter */
-    double m_fit2T1;/**<LCSR fit parameter */
-    double r_2T2;/**<LCSR fit parameter */
-    double m_fit2T2;/**<LCSR fit parameter */
-    double r_1T3t;/**<LCSR fit parameter */
-    double r_2T3t;/**<LCSR fit parameter */
-    double m_fit2T3t;/**<LCSR fit parameter */
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
@@ -186,38 +169,16 @@ public:
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
     
-    
     /**
-    * @brief The first fit function from arXiv:hep-ph/0412079v1, \f$ f_1^{LCSR} \f$.
+    * @brief The fit function from arXiv:1503.05534v1, \f$ f^{LCSR} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] r_1 fit parameter
-    * @param[in] r_2 fit parameter
-    * @param[in] m_R2 fit parameter
-    * @param[in] m_fit2 fit parameter
-    * @return \f$ f_1^{LCSR} \f$
+    * @param[in] a_0 fit parameter
+    * @param[in] a_1 fit parameter
+    * @param[in] a_2 fit parameter
+    * @param[in] dm shift in the initial meson mass
+    * @return \f$ f^{lat} \f$
     */
-    double LCSR_fit1(double q2, double r_1, double r_2, double m_R2, double m_fit2);
-    
-    
-    /**
-    * @brief The second fit function from arXiv:hep-ph/0412079v1,\f$ f_2^{LCSR} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] r_1 fit parameter
-    * @param[in] r_2 fit parameter
-    * @param[in] m_fit2 fit parameter
-    * @return \f$ f_2^{LCSR} \f$
-    */
-    double LCSR_fit2(double q2, double r_1, double r_2, double m_fit2);
-    
-    
-    /**
-    * @brief The third fit function from arXiv:hep-ph/0412079v1, \f$ f_3^{LCSR} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] r_2 fit parameter
-    * @param[in] m_fit2 fit parameter
-    * @return \f$ f_3^{LCSR} \f$
-    */
-    double LCSR_fit3(double q2, double r_2, double m_fit2);
+    double LCSR_fit(double q2, double a_0, double a_1, double a_2, double dm);
     
     
     /**
@@ -235,7 +196,7 @@ public:
     * @param[in] a_1 fit parameter
     * @param[in] c_01 fit parameter
     * @param[in] c_01s fit parameter
-    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] dm shift in the initial meson mass
     * @return \f$ f^{lat} \f$
     */
     double lat_fit(double q2, double a_0, double a_1, double dm);
@@ -287,23 +248,6 @@ public:
     * @return \f$ T_2 \f$
     */
     double T_2(double q2);
-
-    
-    /**
-    * @brief The transverse form factor \f$ T_3t \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_3t \f$
-    */
-    double T_3tilde(double q2);
-
-    
-    /**
-    * @brief The transverse form factor \f$ T_3 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_3 \f$
-    */
-    double T_3(double q2);
-    
     
     /**
     * @brief The helicity form factor \f$ V_L^{\lambda} \f$.
@@ -1197,19 +1141,11 @@ private:
     unsigned int A1_updated;/**< Cache variable */
     gslpp::vector<double> A1_cache;/**< Cache variable */
     
-    unsigned int A2_updated;/**< Cache variable */
-    gslpp::vector<double> A2_cache;/**< Cache variable */
-    
     unsigned int T1_updated;/**< Cache variable */
     gslpp::vector<double> T1_cache;/**< Cache variable */
     
     unsigned int T2_updated;/**< Cache variable */
     gslpp::vector<double> T2_cache;/**< Cache variable */
-    
-    unsigned int T3t_updated;/**< Cache variable */
-    gslpp::vector<double> T3t_cache;/**< Cache variable */
-    
-    unsigned int T3_updated;/**< Cache variable */
     
     unsigned int k2_updated;/**< Cache variable */
     gslpp::vector<double> k2_cache;/**< Cache variable */
