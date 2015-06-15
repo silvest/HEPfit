@@ -353,35 +353,30 @@ void MPll::checkCache()
 /*******************************************************************************
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
-double MPll::LCSR_fit1(double q2, double r_1, double r_2, double m_R2, double m_fit2)
-{
-    return r_1/( 1. - q2/m_R2 ) + r_2/( 1. - q2/m_fit2 ) ;
-}
-
-double MPll::LCSR_fit2(double q2, double r_1, double r_2, double m_fit2)
+double MPll::LCSR_fit1(double q2, double r_1, double r_2, double m_fit2)
 {
     return r_1/( 1. - q2/m_fit2 ) + r_2/pow( ( 1. - q2/m_fit2 ) , 2.) ;
 
 }
 
-double MPll::LCSR_fit3(double q2, double r_2, double m_fit2)
+double MPll::LCSR_fit2(double q2, double r_2, double m_fit2)
 {
     return r_2/( 1. - q2/m_fit2 ) ; 
 }
 
 double MPll::f_plus(double q2)
 {
-    return LCSR_fit2(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
+    return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
 }
 
 double MPll::f_T(double q2)
 {
-    return LCSR_fit2(q2, r_1_fT, r_2_fT, m_fit2_fT);
+    return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
 }
 
 double MPll::f_0(double q2)
 {
-    return LCSR_fit3(q2, r_2_f0, m_fit2_f0);
+    return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
 }
 
 gslpp::complex MPll::V_L(double q2)

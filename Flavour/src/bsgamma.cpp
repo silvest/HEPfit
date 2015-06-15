@@ -282,6 +282,42 @@ void Bsgamma::computeCoeff(double mu)
     C6_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(5);
     C7_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(6);
     C8_1 = 4.*M_PI/SM.Als(mu)*(*(allcoeff[NLO]))(7);
+    
+    /*std::cout << "C1_0: " << C1_0 << std::endl;
+    std::cout << "C2_0: " << C2_0 << std::endl;
+    std::cout << "C3_0: " << C3_0 << std::endl;
+    std::cout << "C4_0: " << C4_0 << std::endl;
+    std::cout << "C5_0: " << C5_0 << std::endl;
+    std::cout << "C6_0: " << C6_0 << std::endl;
+    std::cout << "C7_0: " << C7_0 << std::endl;
+    std::cout << "C8_0: " << C8_0 << std::endl;
+    
+    std::cout << "C1_1: " << C1_1 << std::endl;
+    std::cout << "C2_1: " << C2_1 << std::endl;
+    std::cout << "C3_1: " << C3_1 << std::endl;
+    std::cout << "C4_1: " << C4_1 << std::endl;
+    std::cout << "C5_1: " << C5_1 << std::endl;
+    std::cout << "C6_1: " << C6_1 << std::endl;
+    std::cout << "C7_1: " << C7_1 << std::endl;
+    std::cout << "C8_1: " << C8_1 << std::endl;*/
+    
+    /*C1_0 = -0.8411;
+    C2_0 = 1.0647;
+    C3_0 = -0.0133;
+    C4_0 = -0.1276;
+    C5_0 = 0.0012;
+    C6_0 = 0.0028;
+    C7_0 = -0.3736;
+    C8_0 = -0.1729;
+    
+    C1_1 = 15.278;
+    C2_1 = -2.124;
+    C3_1 = 0.096;
+    C4_1 = -0.463;
+    C5_1 = -0.021;
+    C6_1 = -0.013;
+    C7_1 = 2.027;
+    C8_1 = -0.617;*/
 
 }
 
@@ -313,6 +349,10 @@ double Bsgamma::P(double E0, double mu, orders order)
 {
     switch(order) {
         case NLO:
+            std::cout << "p0: " << C7_0.abs2() << std::endl;
+            std::cout << "p11: " << 2.*(C7_0*C7_1).real() << std::endl;
+            std::cout << "p21: " << P21(E0,mu) << std::endl;
+            std::cout << "p32: " << P32(E0,mu) << std::endl;
             return C7_0.abs2() + SM.Als(mu,FULLNLO)/4./M_PI * (2.*(C7_0*C7_1).real() + P21(E0,mu));
             break;
         case LO:

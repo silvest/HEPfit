@@ -299,143 +299,73 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%a_0V, %a_1V, %a_2V, %dmV</td>
- *   <td class="mod_symb">@f$a_0^V, a_1^V, \Delta m^V@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$V@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%a_0A0, %a_1A0, %a_2A0, %dmA0</td>
- *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, \Delta m^{A_0}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$A_0@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%a_0A1, %a_1A1, %a_2A1, %dmA1</td>
- *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, \Delta m^{A_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$A_1@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%a_0A12, %a_1A12, %a_2A12, %dmA12</td>
- *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, \Delta m^{A_{12}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$A_{12}@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%a_0T1, %a_1T1, %a_2T1, %dmA0</td>
- *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, \Delta m^{T_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$T_1@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%a_0T2, %a_1T2, %a_2T2, %dmA1</td>
- *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, \Delta m^{T_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$T_2@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%a_0T23, %a_1T23, %a_2T23, %dmA1</td>
- *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, \Delta m^{T_{23}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$T_{23}@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%r_1V, %r_2V, %m_RV, %m_fit2V</td>
- *   <td class="mod_symb">@f$r_1^{V}, r_2^{V}, m_R^{V}, m_{fit}^{2,V}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$V@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_name">%a_0Vphi, %a_1Vphi, %a_2Vphi, %dmVphi</td>
+ *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%r_1A0, %m_RA0, %m_fit2A0</td>
- *   <td class="mod_symb">@f$r_1^{A_0}, r_2^{A_0}, m_R^{A_0}, m_{fit}^{2,A_0}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$A_0@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_name">%a_0A0phi, %a_1A0phi, %a_2A0phi, %dmA0phi</td>
+ *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%r_2A1, %m_fit2A1</td>
- *   <td class="mod_symb">@f$r_2^{A_1}, m_{fit}^{2,A_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$A_1@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %dmA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%r_1A2, %r_2A2, %m_fit2A2</td>
- *   <td class="mod_symb">@f$r_1^{A_2}, r_2^{A_2}, m_{fit}^{2,A_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$A_2@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %dmA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%r_1T1, %m_RT1, %m_fit2T1</td>
- *   <td class="mod_symb">@f$r_1^{T_1}, m_R^{T_1}, m_{fit}^{2,T_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$T_1@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_name">%a_0T1phi, %a_1T1phi, %a_2T1phi, %dmA0phi</td>
+ *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%m_fit2T2</td>
- *   <td class="mod_symb">@f$m_{fit}^{2,T_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$T_2@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_name">%a_0T2phi, %a_1T2phi, %a_2T2phi, %dmA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%r_1T3t, %r_2T3t, %m_fit2T3</td>
- *   <td class="mod_symb">@f$r_1^{T_3t}, r_2^{T_3t}, m_{fit}^{2,T_3t}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$T_3@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0Vphi, %a_1Vphi, %dmVphi</td>
- *   <td class="mod_symb">@f$a_0^V, a_1^V \Delta m^V@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$V@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A0phi, %a_1A0phi, %dmA0phi</td>
- *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, \Delta m^{A_0}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$A_0@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %dmA1phi</td>
- *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, \Delta m^{A_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$A_1@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %dmA1phi</td>
- *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, \Delta m^{A_{12}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$A_{12}@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T1phi, %a_1T1phi, %dmA0phi</td>
- *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, \Delta m^{T_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$T_1@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T2phi, %a_1T2phi, %dmA1phi</td>
- *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, \Delta m^{T_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$T_2@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T23phi, %a_1T23phi, %dmA1phi</td>
- *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, \Delta m^{T_{23}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the lattice form factor @f$T_{23}@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_1Vphi, %r_2Vphi, %m_RVphi, %m_fit2Vphi</td>
- *   <td class="mod_symb">@f$r_1^{V}, r_2^{V}, m_R^{V}, m_{fit}^{2,V}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$V@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_1A0phi, %m_RA0phi, %m_fit2A0phi</td>
- *   <td class="mod_symb">@f$r_1^{A_0}, r_2^{A_0}, m_R^{A_0}, m_{fit}^{2,A_0}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$A_0@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_2A1phi, %m_fit2A1phi</td>
- *   <td class="mod_symb">@f$r_2^{A_1}, m_{fit}^{2,A_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$A_1@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_1A2phi, %r_2A2phi, %m_fit2A2phi</td>
- *   <td class="mod_symb">@f$r_1^{A_2}, r_2^{A_2}, m_{fit}^{2,A_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$A_2@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_1T1phi, %m_RT1phi, %m_fit2T1phi</td>
- *   <td class="mod_symb">@f$r_1^{T_1}, m_R^{T_1}, m_{fit}^{2,T_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$T_1@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%m_fit2T2phi</td>
- *   <td class="mod_symb">@f$m_{fit}^{2,T_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$T_2@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_1T3tphi, %r_2T3tphi, %m_fit2T3tphi</td>
- *   <td class="mod_symb">@f$r_1^{T_3}, r_2^{T_3}, m_{fit}^{2,T_3}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$T_3@f$ of the @f$B\to\phi@f$.</td>
+ *   <td class="mod_name">%a_0T23phi, %a_1T23phi, %a_2T23phi, %dmA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%reh_0, %reh_0_1, %reh_0_2</td>
@@ -1286,7 +1216,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^V@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^V@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_0V() const
     {
@@ -1294,7 +1224,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^V@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^V@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_1V() const
     {
@@ -1302,7 +1232,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^V@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^V@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_2V() const
     {
@@ -1310,7 +1240,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^V@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^V@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double getdmV() const
     {
@@ -1318,7 +1248,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_0A0() const
     {
@@ -1326,7 +1256,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_1A0() const
     {
@@ -1334,7 +1264,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_2A0() const
     {
@@ -1342,15 +1272,15 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double getdmA0() const
     {
-        return dmV;
+        return dmA0;
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_0A1() const
     {
@@ -1358,7 +1288,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_1A1() const
     {
@@ -1366,7 +1296,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_2A1() const
     {
@@ -1374,7 +1304,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double getdmA1() const
     {
@@ -1382,7 +1312,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_0A12() const
     {
@@ -1390,7 +1320,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_1A12() const
     {
@@ -1398,7 +1328,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_2A12() const
     {
@@ -1406,7 +1336,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double getdmA12() const
     {
@@ -1414,7 +1344,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_0T1() const
     {
@@ -1422,7 +1352,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_1T1() const
     {
@@ -1430,7 +1360,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_2T1() const
     {
@@ -1438,7 +1368,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double getdmT1() const
     {
@@ -1446,7 +1376,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_0T2() const
     {
@@ -1454,7 +1384,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_1T2() const
     {
@@ -1462,7 +1392,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_2T2() const
     {
@@ -1470,7 +1400,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double getdmT2() const
     {
@@ -1478,7 +1408,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_0T23() const
     {
@@ -1486,7 +1416,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_1T23() const
     {
@@ -1494,7 +1424,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double geta_2T23() const
     {
@@ -1502,7 +1432,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
     double getdmT23() const
     {
@@ -1510,7 +1440,7 @@ public:
     }
 
     /**
-     * @return the lattice fit parameter @f$a_0^V@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^V@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_0Vphi() const
     {
@@ -1518,7 +1448,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^V@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^V@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_1Vphi() const
     {
@@ -1526,7 +1456,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^V@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^V@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_2Vphi() const
     {
@@ -1534,7 +1464,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^V@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^V@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double getdmVphi() const
     {
@@ -1542,7 +1472,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_0A0phi() const
     {
@@ -1550,7 +1480,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_1A0phi() const
     {
@@ -1558,7 +1488,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_2A0phi() const
     {
@@ -1566,7 +1496,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double getdmA0phi() const
     {
@@ -1574,7 +1504,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_0A1phi() const
     {
@@ -1582,7 +1512,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_1A1phi() const
     {
@@ -1590,7 +1520,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_2A1phi() const
     {
@@ -1598,7 +1528,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double getdmA1phi() const
     {
@@ -1606,7 +1536,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_0A12phi() const
     {
@@ -1614,7 +1544,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_1A12phi() const
     {
@@ -1622,7 +1552,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_2A12phi() const
     {
@@ -1630,7 +1560,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double getdmA12phi() const
     {
@@ -1638,7 +1568,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_0T1phi() const
     {
@@ -1646,7 +1576,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_1T1phi() const
     {
@@ -1654,7 +1584,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_2T1phi() const
     {
@@ -1662,7 +1592,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double getdmT1phi() const
     {
@@ -1670,7 +1600,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_0T2phi() const
     {
@@ -1678,7 +1608,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_1T2phi() const
     {
@@ -1686,7 +1616,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_2T2phi() const
     {
@@ -1694,7 +1624,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double getdmT2phi() const
     {
@@ -1702,7 +1632,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_0^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_0^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_0T23phi() const
     {
@@ -1710,7 +1640,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_1^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_1^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_1T23phi() const
     {
@@ -1718,7 +1648,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$a_2^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$a_2^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double geta_2T23phi() const
     {
@@ -1726,7 +1656,7 @@ public:
     }
     
     /**
-     * @return the lattice fit parameter @f$\Delta m^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1310.3722v3
+     * @return the LCSR fit parameter @f$\Delta m^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
     double getdmT23phi() const
     {
