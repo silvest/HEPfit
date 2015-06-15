@@ -303,74 +303,21 @@ void MonteCarlo::Run(const int rank)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
             if (CalculateEvidence) {
-                    std::vector <double> pars;
-                    double logmode = 211.571;
-                    pars.push_back(0.118437);
-                    pars.push_back(0.0272741);
-                    pars.push_back(91.1885);
-                    pars.push_back(173.01);
-                    pars.push_back(0.09067);
-                    pars.push_back(1.31105);
-                    pars.push_back(4.21102);
-                    pars.push_back(164.163);
-                    pars.push_back(1.51782);
-                    pars.push_back(1.22492);
-                    pars.push_back(1.5141);
-                    pars.push_back(0.226106);
-                    pars.push_back(1.6362);
-                    pars.push_back(12380);
-                    pars.push_back(0.225224);
-                    pars.push_back(0.819906);
-                    pars.push_back(0.124584);
-                    pars.push_back(0.344956);
-                    pars.push_back(-0.00015551);
-                    pars.push_back(0.000166167);
-                    pars.push_back(-1.83188e-05);
-                    pars.push_back(-0.000175787);
-                    pars.push_back(-0.000152502);
-                    pars.push_back(0.000110332);
-                    pars.push_back(0.000115577);
-                    pars.push_back(-0.000146047);
-                    pars.push_back(-3.05786e-07);
-                    pars.push_back(-0.000159357);
-                    pars.push_back(0.000131088);
-                    pars.push_back(-0.000102858);
-                    pars.push_back(-1.44821e-05);
-                    pars.push_back(-2.31685e-06);
-                    pars.push_back(1.69625e-05);
-                    pars.push_back(9.47749e-07);
-                    pars.push_back(-1.53587e-05);
-                    pars.push_back(-6.48001e-06);
-                    pars.push_back(0.897944);
-                    pars.push_back(-0.551732);
-                    pars.push_back(1.49241);
-                    pars.push_back(0.259487);
-                    pars.push_back(-0.0760865);
-                    pars.push_back(0.336411);
-                    pars.push_back(0.878961);
-                    pars.push_back(-0.537981);
-                    pars.push_back(-0.0351767);
-                    pars.push_back(0.428882);
-
-                    std::cout << MCEngine.getEvidence(pars, logmode) << std::endl;
+                // BAT default: 
+                //   kIntGrid for the number of free parameters <= 2;
+                //   otherwise, kIntMonteCarlo (or kIntCuba if available)
+                //   MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
+                MCEngine.SetRelativePrecision(1.e-3);
+                MCEngine.SetAbsolutePrecision(1.e-10);
+                if (evidence_min_iterations == 0) MCEngine.SetNIterationsMin(10000);
+                else {
+                    MCEngine.SetNIterationsMin(evidence_min_iterations);
+                    MCEngine.SetNIterationsMax(10*evidence_min_iterations);
                 }
-            // calculate the evidence
-//            if (CalculateEvidence) {
-//                // BAT default: 
-//                //   kIntGrid for the number of free parameters <= 2;
-//                //   otherwise, kIntMonteCarlo (or kIntCuba if available)
-//                //   MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
-//                MCEngine.SetRelativePrecision(1.e-3);
-//                MCEngine.SetAbsolutePrecision(1.e-10);
-//                if (evidence_min_iterations == 0) MCEngine.SetNIterationsMin(10000);
-//                else {
-//                    MCEngine.SetNIterationsMin(evidence_min_iterations);
-//                    MCEngine.SetNIterationsMax(10*evidence_min_iterations);
-//                }
-//                MCEngine.Integrate();
-//                evidence = MCEngine.GetIntegral();
-//                BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
-//            }
+                MCEngine.Integrate();
+                evidence = MCEngine.GetIntegral();
+                BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
+            }
             
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)

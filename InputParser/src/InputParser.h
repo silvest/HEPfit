@@ -70,6 +70,13 @@ public:
     Observable ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
         
     /**
+     * @brief The member that parses the HiggsObservable directives from SomeModel.conf file
+     * @param[in] ho a pointer to a HiggsObservable object
+     * @param[in] beg an iterator over words in a line separated by a specific separator character
+     */
+    void ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<boost::char_separator<char> >::iterator & beg);
+
+    /**
      * @brief Responsible for parsing the SomeModel.conf file.
      * @details This method parses the SomeModel.conf file for all input instructions. The algorithm
      * is as follows:

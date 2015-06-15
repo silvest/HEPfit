@@ -55,6 +55,34 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
     return (o);
 }
 
+void InputParser::ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<boost::char_separator<char> >::iterator & beg)
+{
+    std::vector<ThObservable*> hthobs;
+    std::string filename = *(++beg);
+    std::ifstream ifile(filename.c_str());
+    if (!ifile.is_open())
+        throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid Higgs parameters configuration file.\n");
+    std::string line;
+    bool IsEOF;
+    int i = 0, nrows = 0;
+    do {
+        IsEOF = getline(ifile, line).eof();
+        if (line.compare(0, 10, "CATEGORIES") == 0) {
+            boost::tokenizer<boost::char_separator<char> > tok(line.substr(11));
+            boost::tokenizer<boost::char_separator<char> >::iterator beg2 = tok.begin();
+            while (beg2 != tok.end()) {
+                std::string cat = *beg2;
+                hthobs.push_back(myObsFactory.CreateThMethod(cat, *myModel));
+                beg2++;
+            }
+        }
+    } while (!IsEOF);
+    if (hthobs.size() > 0)
+        ho->setParametricLikelihood(filename, hthobs);
+    else
+        throw std::runtime_error("\nERROR: " + ho->getName() + " does not provide at least one category\n");
+}
+
 std::string InputParser::ReadParameters(const std::string filename,
         const int rank,
         std::vector<ModelParameter>& ModelPars,
@@ -67,8 +95,8 @@ std::string InputParser::ReadParameters(const std::string filename,
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open())
         if (rank == 0) throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
-    std::string filepath; 
-    if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/")+1);
+    std::string filepath;
+    if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
     std::string line;
     bool IsEOF = false;
     do {
@@ -89,7 +117,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (myModel->IsModelInitialized()) {
                 if (rank == 0) std::cout << "\nModel Initialized: " << modname << std::endl;
                 modeldefinedinfile = filename;
-            } else if (rank == 0) 
+            } else if (rank == 0)
                 throw std::runtime_error("\nERROR: " + modname + " not initialized successfully.\n");
             modelset = 1;
             continue;
@@ -102,12 +130,12 @@ std::string InputParser::ReadParameters(const std::string filename,
         if (type.compare("ModelParameter") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 5)
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                        + *beg + " in " + filename);
             std::string name = *beg;
             if (checkDuplicateParameter[name].get<0>() && rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + name + " appears more than once ...!! \n" +
-                                                                "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[name].get<2>()) + 
-                                                                " in file " + checkDuplicateParameter[name].get<1>() + ".\n"
-                                                                "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
+                    "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[name].get<2>()) +
+                    " in file " + checkDuplicateParameter[name].get<1>() + ".\n"
+                    "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
             ++beg;
             double mean = atof((*beg).c_str());
             ++beg;
@@ -119,62 +147,62 @@ std::string InputParser::ReadParameters(const std::string filename,
             ModelPars.push_back(m);
             if (beg != tok.end())
                 if (rank == 0) std::cout << "WARNING: unread information in parameter " << name << std::endl;
-            checkDuplicateParameter[name] = boost::make_tuple (true, filename, lineNo);
+            checkDuplicateParameter[name] = boost::make_tuple(true, filename, lineNo);
         } else if (type.compare("Observable") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 8)
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                        + *beg + " in " + filename);
             Observable * o = new Observable(ParseObservable(beg));
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
                 if (std::distance(tok.begin(), tok.end()) < 10)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                    if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
+                            + *beg + " in " + filename);
                 std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
                 o->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
                 if (std::distance(tok.begin(), tok.end()) < 11)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                    if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
+                            + *beg + " in " + filename);
                 ++beg;
                 o->setAve(atof((*beg).c_str()));
                 ++beg;
                 o->setErrg(atof((*beg).c_str()));
                 ++beg;
                 o->setErrf(atof((*beg).c_str()));
-                if (o->getErrf() == 0. && o->getErrg() == 0.){
+                if (o->getErrf() == 0. && o->getErrg() == 0.) {
                     if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + o->getName() + " cannot both be 0. in the " + filename + " file.\n");
-                }                
+                }
             } else if (distr.compare("noweight") == 0) {
-            } else if (rank == 0) 
+            } else if (rank == 0)
                 throw std::runtime_error("ERROR: wrong distribution flag in " + o->getName());
             o->setDistr(distr);
             Observables.push_back(o);
             ++beg;
             if (beg != tok.end())
                 if (rank == 0) std::cout << "WARNING: unread information in observable "
-                    << Observables.back().getName() << std::endl;
+                        << Observables.back().getName() << std::endl;
         } else if (type.compare("BinnedObservable") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 10)
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                        + *beg + " in " + filename);
             Observable * bo = new Observable(ParseObservable(beg));
             bo->setObsType(2);
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
                 if (std::distance(tok.begin(), tok.end()) < 12)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                    if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
+                            + *beg + " in " + filename);
                 std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
                 bo->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
                 if (std::distance(tok.begin(), tok.end()) < 13)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                    if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
+                            + *beg + " in " + filename);
                 ++beg;
                 bo->setAve(atof((*beg).c_str()));
                 ++beg;
@@ -188,7 +216,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 ++beg;
                 ++beg;
                 ++beg;
-            } else if (rank == 0) 
+            } else if (rank == 0)
                 throw std::runtime_error("ERROR: wrong distribution flag in " + bo->getName());
             bo->setDistr(distr);
             ++beg;
@@ -199,13 +227,13 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             if (beg != tok.end())
                 if (rank == 0) std::cout << "WARNING: unread information in observable "
-                    << Observables.back().getName() << std::endl;
+                        << Observables.back().getName() << std::endl;
         } else if (type.compare("Observable2D") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 12) {
                 std::string name = *beg;
                 ++beg;
                 if (std::distance(tok.begin(), tok.end()) < 4 && rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + name + " in " + filename + " at line number" + boost::lexical_cast<std::string>(lineNo));
+                        + name + " in " + filename + " at line number" + boost::lexical_cast<std::string>(lineNo));
                 std::string toMCMC = *beg;
                 bool tMCMC;
                 if (toMCMC.compare("MCMC") == 0)
@@ -218,7 +246,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::string distr = *beg;
                 std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
-                
+
                 std::vector<double> min(2, 0.);
                 std::vector<double> max(2, 0.);
                 std::vector<double> ave(2, 0.);
@@ -230,7 +258,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::vector<std::string> label(2, "");
                 std::vector<std::string> type2D(2, "");
                 size_t pos = -1;
-                for (int i = 0; i < 2; i++){
+                for (int i = 0; i < 2; i++) {
                     IsEOF = getline(ifile, line).eof();
                     if (line.empty() || line.at(0) == '#') {
                         if (rank == 0) std::cout << "ERROR: no comments or empty lines in Observables2D (" + name + ") please!"
@@ -264,15 +292,15 @@ std::string InputParser::ReadParameters(const std::string filename,
                             if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + filename + " file, line number:" + boost::lexical_cast<std::string>(lineNo));
                         }
                     } else if (distr.compare("noweight") == 0) {
-                        if (type2D[i].compare("BinnedObservable") == 0){
+                        if (type2D[i].compare("BinnedObservable") == 0) {
                             ++beg;
                             ++beg;
                             ++beg;
                         }
                     }
-                    if (type2D[i].compare("BinnedObservable") == 0){
+                    if (type2D[i].compare("BinnedObservable") == 0) {
                         ++beg;
-                        bin_min[i] = atof((*beg).c_str());        
+                        bin_min[i] = atof((*beg).c_str());
                         ++beg;
                         bin_max[i] = atof((*beg).c_str());
                     }
@@ -288,11 +316,11 @@ std::string InputParser::ReadParameters(const std::string filename,
                 o2.setErrf(errf[0]);
                 o2.setErrf2(errf[1]);
                 if (distr.compare("file") == 0) o2.setLikelihoodFromHisto(fname, histoname);
-                if (o2.getObsType() == 2){
+                if (o2.getObsType() == 2) {
                     o2.getTho()->setBinMin(bin_min[0]);
                     o2.getTho()->setBinMax(bin_max[0]);
                 }
-                if (o2.getObsType2() == 2){
+                if (o2.getObsType2() == 2) {
                     o2.getTho2()->setBinMin(bin_min[1]);
                     o2.getTho2()->setBinMax(bin_max[1]);
                 }
@@ -303,13 +331,13 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::string distr = *beg;
                 if (distr.compare("file") == 0) {
                     if (std::distance(tok.begin(), tok.end()) < 14)
-                    if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                        + *beg + " in " + filename);
+                        if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
+                                + *beg + " in " + filename);
                     std::string fname = filepath + *(++beg);
                     std::string histoname = *(++beg);
                     o2.setLikelihoodFromHisto(fname, histoname);
                 } else if (distr.compare("noweight") == 0) {
-                } else if (rank == 0) 
+                } else if (rank == 0)
                     throw std::runtime_error("ERROR: wrong distribution flag in " + o2.getName());
                 o2.setDistr(distr);
                 ++beg;
@@ -329,12 +357,12 @@ std::string InputParser::ReadParameters(const std::string filename,
                 ++beg;
                 if (beg != tok.end())
                     if (rank == 0) std::cout << "WARNING: unread information in observable2D "
-                        << Observables2D.back().getName() << std::endl;
+                            << Observables2D.back().getName() << std::endl;
             }
         } else if (type.compare("HiggsObservable") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 8)
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                        + *beg + " in " + filename);
             HiggsObservable * ho = new HiggsObservable(ParseObservable(beg));
             ho->setObsType(1);
             ++beg;
@@ -358,18 +386,19 @@ std::string InputParser::ReadParameters(const std::string filename,
                     hthobs.push_back(myObsFactory.CreateThMethod("VBF196", *myModel));
                     hthobs.push_back(myObsFactory.CreateThMethod("VH196", *myModel));
                     hthobs.push_back(myObsFactory.CreateThMethod("ttH196", *myModel));
-                } else if (rank == 0) 
+                } else if (rank == 0)
                     throw std::runtime_error("ERROR: wrong keyword " + distr + " in " + ho->getName());
-
                 ho->setParametricLikelihood(*(++beg), hthobs);
-            } else if (rank == 0) 
+            }
+            else if (distr.compare("new_parametric") == 0) {
+                ParseHiggsObservable(ho, beg);
+            } else if (rank == 0)
                 throw std::runtime_error("ERROR: wrong distribution flag " + distr + " in " + ho->getName());
-
             Observables.push_back(ho);
             ++beg;
             if (beg != tok.end())
                 if (rank == 0) std::cout << "WARNING: unread information in HiggsObservable "
-                    << Observables.back().getName() << std::endl;
+                        << Observables.back().getName() << std::endl;
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
             std::string name = *beg;
             ++beg;
@@ -405,18 +434,18 @@ std::string InputParser::ReadParameters(const std::string filename,
                     tmp->setErrf(atof((*beg).c_str()));
                     if (tmp->getErrf() == 0. && tmp->getErrg() == 0.) {
                         if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + tmp->getName() + " cannot both be 0. in the " + filename + " file, line number:" + boost::lexical_cast<std::string>(lineNo));
-                }
+                    }
                 } else if (distr.compare("noweight") == 0) {
-                    if (type.compare("BinnedObservable") == 0){
+                    if (type.compare("BinnedObservable") == 0) {
                         ++beg;
                         ++beg;
                         ++beg;
                     }
-                } else if (rank == 0) 
+                } else if (rank == 0)
                     throw std::runtime_error("ERROR: wrong distribution flag in " + tmp->getName());
 
                 tmp->setDistr(distr);
-                if (type.compare("BinnedObservable") == 0){
+                if (type.compare("BinnedObservable") == 0) {
                     ++beg;
                     tmp->getTho()->setBinMin(atof((*beg).c_str()));
                     ++beg;
@@ -458,7 +487,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                                 beg++;
                             } else {
                                 if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
-                                        << name << ". Check element (" << ni+1 << "," << nj+1 << ") in line number " + boost::lexical_cast<std::string>(lineNo)<< std::endl;
+                                        << name << ". Check element (" << ni + 1 << "," << nj + 1 << ") in line number " + boost::lexical_cast<std::string>(lineNo) << std::endl;
                                 exit(EXIT_FAILURE);
                             }
                         }
@@ -478,7 +507,7 @@ std::string InputParser::ReadParameters(const std::string filename,
         } else if (type.compare("ModelFlag") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 3)
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
+                        + *beg + " in " + filename);
             std::string flagname = *beg;
             ++beg;
             if (boost::iequals(*beg, "true") || boost::iequals(*beg, "false")) {
@@ -490,15 +519,13 @@ std::string InputParser::ReadParameters(const std::string filename,
                     value_bool = 0;
                 if (!myModel->setFlag(flagname, value_bool)) {
                     if (rank == 0) throw std::runtime_error("ERROR: setFlag error for " + flagname);
-                }
-                else if (rank == 0) std::cout << "set flag " << flagname << "=" << *beg << std::endl;
+                } else if (rank == 0) std::cout << "set flag " << flagname << "=" << *beg << std::endl;
             } else {
                 /* String flags */
                 std::string value_str = *beg;
                 if (!myModel->setFlagStr(flagname, value_str)) {
                     if (rank == 0) throw std::runtime_error("ERROR: setFlag error for " + flagname);
-                }
-                else if (rank == 0) std::cout << "set flag " << flagname << "=" << value_str << std::endl;
+                } else if (rank == 0) std::cout << "set flag " << flagname << "=" << value_str << std::endl;
             }
             ++beg;
             if (beg != tok.end())
@@ -509,13 +536,13 @@ std::string InputParser::ReadParameters(const std::string filename,
             ReadParameters(IncludeFileName, rank, ModelPars, Observables, Observables2D, CGO);
             ++beg;
         } else if (rank == 0)
-             throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + ". Make sure to specify a valid model configuration file.");
+            throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + ". Make sure to specify a valid model configuration file.");
 
     } while (!IsEOF);
 
-    if (modelset == 0 && rank == 0 )
+    if (modelset == 0 && rank == 0)
         throw std::runtime_error("ERROR: Incorrect or missing model name in the model configuration file.\n");
-    if (!myModel->CheckFlags() && rank == 0 )
+    if (!myModel->CheckFlags() && rank == 0)
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
 
     return (modname);
