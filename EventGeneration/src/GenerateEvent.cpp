@@ -56,7 +56,7 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
     int rem_iteration = nIteration + 1;
     int itno = 0;
 #ifdef _MPI
-    gRandom->SetSeed(seed * ((unsigned)time(NULL) + rank * procnum + nameLen));
+    gRandom->SetSeed(seed * (/*(unsigned)time(NULL)*/ seed + rank * procnum + nameLen));
 #else
     gRandom->SetSeed(seed);
 #endif

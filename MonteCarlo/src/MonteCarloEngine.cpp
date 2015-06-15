@@ -587,68 +587,7 @@ std::string MonteCarloEngine::computeStatistics()
         StatsLog << std::endl;
         
         BCH1D * bch1d = Histo1D[it->getName()];
-
-        StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
-                 << bch1d->GetMean() << " +- " << std::setprecision(4)
-                 << bch1d->GetRMS() << std::endl
-
-                 << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
-
-        std::vector<double> v1;
-        std::vector<double> v2;
-        std::vector<double> v3;
-        v1 = bch1d->GetSmallestIntervals(0.6827);
-        v2 = bch1d->GetSmallestIntervals(0.9545);
-        v3 = bch1d->GetSmallestIntervals(0.9973);
-        StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
-                 << std::endl;
-        for (unsigned j = 0; j < v1.size(); j += 5)
-           StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
-                    << ") (local mode at " << v1[j + 3] << " with rel. height "
-                    << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
-                    << std::endl;
-        StatsLog << std::endl;
-        
-        StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
-                 << std::endl;
-        for (unsigned j = 0; j < v2.size(); j += 5)
-           StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
-                    << ") (local mode at " << v2[j + 3] << " with rel. height "
-                    << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
-                    << std::endl;
-        StatsLog << std::endl;
-        
-        StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
-                 << std::endl;
-        for (unsigned j = 0; j < v3.size(); j += 5)
-           StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
-                    << ") (local mode at " << v3[j + 3] << " with rel. height "
-                    << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
-                    << std::endl;
-        StatsLog << std::endl;
-    }
-    
-    if (CGO.size() > 0) StatsLog << "\nCorellated Gaussian Observables:\n" << std::endl;
-    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-            it1 < CGO.end(); it1++) {
-        StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
-        i = 0;
-        std::vector<Observable> CGObs(it1->getObs());
-        for (std::vector<Observable>::iterator it2 = CGObs.begin(); it2 < CGObs.end(); it2++) {
-
-            if (it2->getObsType() == 2) {
-                StatsLog << "  (" << ++i << ") Binned Observable \"";
-                StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]"<<"\":";
-            }
-            else {
-                StatsLog << "  (" << ++i << ") Observable \"";
-                StatsLog << it2->getName() << "\":";
-            }
-
-            StatsLog << std::endl;
-
-            BCH1D * bch1d = Histo1D[it2->getName()];
-
+        if (bch1d->GetHistogram()->Integral() > 0.0) {
             StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
                      << bch1d->GetMean() << " +- " << std::setprecision(4)
                      << bch1d->GetRMS() << std::endl
@@ -687,6 +626,72 @@ std::string MonteCarloEngine::computeStatistics()
                         << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
                         << std::endl;
             StatsLog << std::endl;
+        } else {
+            StatsLog << "\nWARNING: The histogram of " << it->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
+        }
+    }
+    
+    if (CGO.size() > 0) StatsLog << "\nCorellated Gaussian Observables:\n" << std::endl;
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
+            it1 < CGO.end(); it1++) {
+        StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
+        i = 0;
+        std::vector<Observable> CGObs(it1->getObs());
+        for (std::vector<Observable>::iterator it2 = CGObs.begin(); it2 < CGObs.end(); it2++) {
+
+            if (it2->getObsType() == 2) {
+                StatsLog << "  (" << ++i << ") Binned Observable \"";
+                StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]"<<"\":";
+            }
+            else {
+                StatsLog << "  (" << ++i << ") Observable \"";
+                StatsLog << it2->getName() << "\":";
+            }
+
+            StatsLog << std::endl;
+            BCH1D * bch1d = Histo1D[it2->getName()];
+            if (bch1d->GetHistogram()->Integral() > 0.0) {        
+                StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
+                         << bch1d->GetMean() << " +- " << std::setprecision(4)
+                         << bch1d->GetRMS() << std::endl
+
+                         << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
+
+                std::vector<double> v1;
+                std::vector<double> v2;
+                std::vector<double> v3;
+                v1 = bch1d->GetSmallestIntervals(0.6827);
+                v2 = bch1d->GetSmallestIntervals(0.9545);
+                v3 = bch1d->GetSmallestIntervals(0.9973);
+                StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
+                         << std::endl;
+                for (unsigned j = 0; j < v1.size(); j += 5)
+                   StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
+                            << ") (local mode at " << v1[j + 3] << " with rel. height "
+                            << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
+                            << std::endl;
+                StatsLog << std::endl;
+
+                StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
+                         << std::endl;
+                for (unsigned j = 0; j < v2.size(); j += 5)
+                   StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
+                            << ") (local mode at " << v2[j + 3] << " with rel. height "
+                            << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
+                            << std::endl;
+                StatsLog << std::endl;
+
+                StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
+                         << std::endl;
+                for (unsigned j = 0; j < v3.size(); j += 5)
+                   StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
+                            << ") (local mode at " << v3[j + 3] << " with rel. height "
+                            << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
+                            << std::endl;
+                StatsLog << std::endl;
+            } else {
+                StatsLog << "\nWARNING: The histogram of " << it2->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
+            }
         }
     }
     

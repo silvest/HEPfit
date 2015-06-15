@@ -393,13 +393,12 @@ vector<complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes scheme)
     const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMbsg();
     
     if(mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
-        int check = 0;
+        int check = 1;
         for (unsigned int i = 0; i < mc.size(); i++){
             if (mc[i].getMu() == Bsgamma_Mu_cache[i]){
                 for (int j = LO; j <= ordDF1; j++){
                     for (int k = LO; k <= j; k++){
                         for (int l = 0; l < 8; l++) {
-                            check = 1;
                             check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(Bsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
                         }
                     }
@@ -439,13 +438,12 @@ vector<complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes scheme)
     const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMBMll();
     
     if(mu == BMll_mu_cache && scheme == BMll_scheme_cache) {
-        int check = 0;
+        int check = 1;
         for (unsigned int i = 0; i < mc.size(); i++){
             if (mc[i].getMu() == BMll_Mu_cache[i]){
                 for (int j = LO; j <= ordDF1; j++){
                     for (int k = LO; k <= j; k++){
                         for (int l = 0; l < 13; l++) {
-                            check = 1;
                             check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BMll_WC_cache[i].getCoeff(orders(j - k))))(l));
                         }
                     }
@@ -486,13 +484,12 @@ vector<complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, schemes scheme)
     const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMprimeBMll();
     
     if(mu == BMllprime_mu_cache && scheme == BMllprime_scheme_cache) {
-        int check = 0;
+        int check = 1;
         for (unsigned int i = 0; i < mc.size(); i++){
             if (mc[i].getMu() == BMllprime_Mu_cache[i]){
                 for (int j = LO; j <= ordDF1; j++){
                     for (int k = LO; k <= j; k++){
                         for (int l = 0; l < 13; l++) {
-                            check = 1;
                             check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BMllprime_WC_cache[i].getCoeff(orders(j - k))))(l));
                         }
                     }

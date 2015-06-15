@@ -197,8 +197,14 @@ matrix<double>& EvolDC1Buras::DC1EvolBuras(double mu, double M, orders order, sc
             throw std::runtime_error("EvolDC1::Df1EvolDC1(): scheme " + out.str() + " not implemented "); 
     }
 
-    if (mu == this-> mu && M == this->M && scheme == this->scheme)
-        return (*Evol(order));
+    double alsMZ = model.getAlsMz();
+    double Mz = model.getMz();
+    if(alsMZ == alsMZ_cache && Mz == Mz_cache) {
+        if (mu == this-> mu && M == this->M && scheme == this->scheme)
+        return (*Evol(order));        
+    }
+    alsMZ_cache = alsMZ;
+    Mz_cache = Mz;
 
     if (M < mu) {
         std::stringstream out;

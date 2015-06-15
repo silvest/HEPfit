@@ -112,6 +112,38 @@ public:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
+    /**
+    * @brief The first fit function from arXiv:hep-ph/0412079v1, \f$ f_1^{LCSR} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] r_1 fit parameter
+    * @param[in] r_2 fit parameter
+    * @param[in] m_R2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_1^{LCSR} \f$
+    */
+    double LCSR_fit1(double q2, double r_1, double r_2, double m_R2, double m_fit2);
+    
+    
+    /**
+    * @brief The second fit function from arXiv:hep-ph/0412079v1,\f$ f_2^{LCSR} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] r_1 fit parameter
+    * @param[in] r_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_2^{LCSR} \f$
+    */
+    double LCSR_fit2(double q2, double r_1, double r_2, double m_fit2);
+    
+    
+    /**
+    * @brief The third fit function from arXiv:hep-ph/0412079v1, \f$ f_3^{LCSR} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] r_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_3^{LCSR} \f$
+    */
+    double LCSR_fit3(double q2, double r_2, double m_fit2);
+    
     
     /**
     * @brief The form factor \f$ f_+ \f$.

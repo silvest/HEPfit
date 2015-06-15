@@ -14,16 +14,14 @@
 MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 :       mySM(SM_i),
         N_cache(3, 0.),
-        V_cache(4, 0.),
-        A0_cache(4, 0.),
+        V_cache(3, 0.),
+        A0_cache(3, 0.),
         A1_cache(3, 0.),
-        A2_cache(2, 0.),
-        T1_cache(4, 0.),
+        T1_cache(3, 0.),
         T2_cache(3, 0.),
-        T3t_cache(2, 0.),
         k2_cache(2, 0.),
         VL0_cache(3, 0.),
-        TL0_cache(2, 0.),
+        TL0_cache(3, 0.),
         SL_cache(2, 0.),
         Ycache(2, 0.),
         H_V0cache(2, 0.),
@@ -136,120 +134,76 @@ void MVll::updateParameters()
         case StandardModel::K_star :
             a_0V=mySM.geta_0V();
             a_1V=mySM.geta_1V();
+            a_2V=mySM.geta_2V();
             dmV=mySM.getdmV();
             
             a_0A0=mySM.geta_0A0();
             a_1A0=mySM.geta_1A0();
+            a_2A0=mySM.geta_2A0();
             dmA0=mySM.getdmA0();
             
             a_0A1=mySM.geta_0A1();
             a_1A1=mySM.geta_1A1();
+            a_2A1=mySM.geta_2A1();
             dmA1=mySM.getdmA1();
             
             a_0A12=mySM.geta_0A12();
             a_1A12=mySM.geta_1A12();
+            a_2A12=mySM.geta_2A12();
             dmA12=mySM.getdmA12();
             
             a_0T1=mySM.geta_0T1();
             a_1T1=mySM.geta_1T1();
+            a_2T1=mySM.geta_2T1();
             dmT1=mySM.getdmT1();
             
             a_0T2=mySM.geta_0T2();
             a_1T2=mySM.geta_1T2();
+            a_2T2=mySM.geta_2T2();
             dmT2=mySM.getdmT2();
             
             a_0T23=mySM.geta_0T23();
             a_1T23=mySM.geta_1T23();
+            a_2T23=mySM.geta_2T23();
             dmT23=mySM.getdmT23();
-            
-            r_1V=mySM.getr_1V();
-            r_2V=mySM.getr_2V();
-            m_RV=mySM.getm_RV();
-            m_fit2V=mySM.getm_fit2V();
-            
-            r_2A1=mySM.getr_2A1();
-            m_fit2A1=mySM.getm_fit2A1();
-            
-            r_1A2=mySM.getr_1A2();
-            r_2A2=mySM.getr_2A2();
-            m_fit2A2=mySM.getm_fit2A2();
-            
-            r_1A0=mySM.getr_1A0();
-            r_2A0=(MM * (r_2A1 - r_1A2 - r_2A2) + MV * (r_2A1 + r_1A2 + r_2A2))/(2.*MV) - r_1A0;//mySM.getr_2A0();
-            m_RA0=mySM.getm_RA0();
-            m_fit2A0=mySM.getm_fit2A0();
-            
-            r_1T3t=mySM.getr_1T3t();
-            r_2T3t=mySM.getr_2T3t();
-            m_fit2T3t=mySM.getm_fit2T3t();
-            
-            r_2T2= mySM.getr_1T3t() + mySM.getr_2T3t();//mySM.getr_2T2();
-            m_fit2T2=mySM.getm_fit2T2();
-            
-            r_1T1=mySM.getr_1T1();
-            r_2T1=r_2T2 - r_1T1;//mySM.getr_2T1();
-            m_RT1=mySM.getm_RT1();
-            m_fit2T1=mySM.getm_fit2T1();
             
             b=1;
             break;
         case StandardModel::PHI :
             a_0V=mySM.geta_0Vphi();
             a_1V=mySM.geta_1Vphi();
+            a_2V=mySM.geta_2Vphi();
             dmV=mySM.getdmVphi();
             
             a_0A0=mySM.geta_0A0phi();
             a_1A0=mySM.geta_1A0phi();
+            a_2A0=mySM.geta_2A0phi();
             dmA0=mySM.getdmA0phi();
             
             a_0A1=mySM.geta_0A1phi();
             a_1A1=mySM.geta_1A1phi();
+            a_2A1=mySM.geta_2A1phi();
             dmA1=mySM.getdmA1phi();
             
             a_0A12=mySM.geta_0A12phi();
             a_1A12=mySM.geta_1A12phi();
+            a_2A12=mySM.geta_2A12phi();
             dmA12=mySM.getdmA12phi();
             
             a_0T1=mySM.geta_0T1phi();
             a_1T1=mySM.geta_1T1phi();
+            a_2T1=mySM.geta_2T1phi();
             dmT1=mySM.getdmT1phi();
             
             a_0T2=mySM.geta_0T2phi();
             a_1T2=mySM.geta_1T2phi();
+            a_2T2=mySM.geta_2T2phi();
             dmT2=mySM.getdmT2phi();
             
             a_0T23=mySM.geta_0T23phi();
             a_1T23=mySM.geta_1T23phi();
+            a_2T23=mySM.geta_2T23phi();
             dmT23=mySM.getdmT23phi();
-            
-            r_1V=mySM.getr_1Vphi();
-            r_2V=mySM.getr_2Vphi();
-            m_RV=mySM.getm_RVphi();
-            m_fit2V=mySM.getm_fit2Vphi();
-            
-            r_2A1=mySM.getr_2A1phi();
-            m_fit2A1=mySM.getm_fit2A1phi();
-            
-            r_1A2=mySM.getr_1A2phi();
-            r_2A2=mySM.getr_2A2phi();
-            m_fit2A2=mySM.getm_fit2A2phi();
-            
-            r_1A0=mySM.getr_1A0phi();
-            r_2A0=(MM * (r_2A1 - r_1A2 - r_2A2) + MV * (r_2A1 + r_1A2 + r_2A2))/(2.*MV) - r_1A0;//mySM.getr_2A0phi();
-            m_RA0=mySM.getm_RA0phi();
-            m_fit2A0=mySM.getm_fit2A0phi();
-            
-            r_1T3t=mySM.getr_1T3tphi();
-            r_2T3t=mySM.getr_2T3tphi();
-            m_fit2T3t=mySM.getm_fit2T3tphi();
-            
-            r_2T2=mySM.getr_1T3tphi() + mySM.getr_2T3tphi(); //mySM.getr_2T2phi();
-            m_fit2T2=mySM.getm_fit2T2phi();
-            
-            r_1T1=mySM.getr_1T1phi();
-            r_2T1=r_2T2 - r_1T1;//mySM.getr_2T1phi();
-            m_RT1=mySM.getm_RT1phi();
-            m_fit2T1=mySM.getm_fit2T1phi();
             
             b= 0.489;
             break;
@@ -365,104 +319,51 @@ void MVll::checkCache()
         N_cache(2) = MM;
         Nc_cache = lambda_t;
     }
-    
-    if (r_1A2 == A2_cache(0) && r_2A2 == A2_cache(1) ) {
-        A2_updated = 1;
-    } else {
-        A2_updated = 0;
-        A2_cache(0) = r_1A2;
-        A2_cache(1) = r_2A2;
-    }
-    
 
-    if (r_1V == V_cache(0) && r_2V == V_cache(1) ) {
-        V_updated = 1;
-    } else {
-        V_updated = 0;
-        V_cache(0) = r_1V;
-        V_cache(1) = r_2V;
-    }
-
-    if (r_1A0 == A0_cache(0) && r_2A0 == A0_cache(1) ) {
-        A0_updated = 1;
-    } else {
-        A0_updated = 0;
-        A0_cache(0) = r_1A0;
-        A0_cache(1) = r_2A0;
-    }
-
-    if ( r_2A1 == A1_cache(0) ) {
-        A1_updated = 1;
-    } else {
-        A1_updated = 0;
-        A1_cache(0) = r_2A1;
-    }
-
-    if (r_1T1 == T1_cache(0) && r_2T1 == T1_cache(1) ) {
-        T1_updated = 1;
-    } else {
-        T1_updated = 0;
-        T1_cache(0) = r_1T1;
-        T1_cache(1) = r_2T1;
-    }
-
-    if ( r_2T2 == T2_cache(0) ) {
-        T2_updated = 1;
-    } else {
-        T2_updated = 0;
-        T2_cache(0) = r_2T2;
-    }
-
-    if (a_0V == V_cache(2) && a_1V == V_cache(3) ) {
+    if (a_0V == V_cache(0) && a_1V == V_cache(1) && a_2V == V_cache(2) ) {
         V_updated = V_updated * z_updated;
     } else {
         V_updated = 0;
-        V_cache(2) = a_0V;
-        V_cache(3) = a_1V;
+        V_cache(0) = a_0V;
+        V_cache(1) = a_1V;
+        V_cache(2) = a_2V;
     }
 
-    if (a_0A0 == A0_cache(2) && a_1A0 == A0_cache(3) ) {
+    if (a_0A0 == A0_cache(0) && a_1A0 == A0_cache(1) && a_2A0 == A0_cache(2) ) {
         A0_updated = A0_updated * z_updated;
     } else {
         A0_updated = 0;
-        A0_cache(2) = a_0A0;
-        A0_cache(3) = a_1A0;
+        A0_cache(0) = a_0A0;
+        A0_cache(1) = a_1A0;
+        A0_cache(2) = a_2A0;
     }
 
-    if (a_0A1 == A1_cache(1) && a_1A1 == A1_cache(2) ) {
+    if (a_0A1 == A1_cache(0) && a_1A1 == A1_cache(1) && a_2A1 == A1_cache(2) ) {
         A1_updated = A1_updated * z_updated;
     } else {
         A1_updated = 0;
-        A1_cache(1) = a_0A1;
-        A1_cache(2) = a_1A1;
+        A1_cache(0) = a_0A1;
+        A1_cache(1) = a_1A1;
+        A1_cache(2) = a_2A1;
     }
 
-    if (a_0T1 == T1_cache(2) && a_1T1 == T1_cache(3) ) {
+    if (a_0T1 == T1_cache(0) && a_1T1 == T1_cache(1) && a_2T1 == T1_cache(2) ) {
         T1_updated = T1_updated * z_updated;
     } else {
         T1_updated = 0;
-        T1_cache(2) = a_0T1;
-        T1_cache(3) = a_1T1;
+        T1_cache(0) = a_0T1;
+        T1_cache(1) = a_1T1;
+        T1_cache(2) = a_2T1;
     }
 
-    if (a_0T2 == T2_cache(1) && a_1T2 == T2_cache(2) ) {
+    if (a_0T2 == T2_cache(0) && a_1T2 == T2_cache(1) && a_2T2 == T2_cache(2) ) {
         T2_updated = T2_updated * z_updated;
     } else {
         T2_updated = 0;
-        T2_cache(1) = a_0T2;
-        T2_cache(2) = a_1T2;
+        T2_cache(0) = a_0T2;
+        T2_cache(1) = a_1T2;
+        T2_cache(2) = a_2T2;
     }
-
-    
-    if (r_1T3t == T3t_cache(0) && r_2T3t == T3t_cache(1) ) {
-        T3t_updated = 1;
-    } else {
-        T3t_updated = 0;
-        T3t_cache(0) = r_1T3t;
-        T3t_cache(1) = r_2T3t;
-    }
-    
-    T3_updated = k2_updated * T3t_updated * T2_updated;
     
     VL1_updated = k2_updated * lambda_updated * A1_updated * V_updated;
     VL2_updated = VL1_updated;
@@ -487,14 +388,8 @@ void MVll::checkCache()
         SL_cache(0) = Mb;
         SL_cache(1) = Ms;
     }
-    
 
-    VL0_updated = k2_updated * lambda_updated * A1_updated * A2_updated;
-    VR0_updated = VL0_updated;
-    TL0_updated = k2_updated * lambda_updated * T2_updated * T3_updated;
-    TR0_updated = TL0_updated;
-
-    if (a_0A12 == VL0_cache(0) && a_1A12 == VL0_cache(1) && MV == VL0_cache(2) ){
+    if (a_0A12 == VL0_cache(0) && a_1A12 == VL0_cache(1) && a_2A12 == VL0_cache(2) ){
         VL0_updated = VL0_updated * z_updated;
         VR0_updated = VL0_updated;
     } else {
@@ -502,18 +397,18 @@ void MVll::checkCache()
         VR0_updated = VL0_updated;
         VL0_cache(0) = a_0A12;
         VL0_cache(1) = a_1A12;
-        VL0_cache(2) = MV;
+        VL0_cache(2) = a_2A12;
     }
 
-    if (a_0T23 == TL0_cache(0) && a_1T23 == TL0_cache(1) ){
-        TL0_updated = TL0_updated * k2_updated * z_updated;
+    if (a_0T23 == TL0_cache(0) && a_1T23 == TL0_cache(1) && a_2T23 == TL0_cache(2) ){
+        TL0_updated = TL0_updated * z_updated;
         TR0_updated = TL0_updated;
     } else {
         TL0_updated = 0;
         TR0_updated = TL0_updated;
         TL0_cache(0) = a_0T23;
         TL0_cache(1) = a_1T23;
-        VL0_cache(2) = MV;
+        TL0_cache(2) = a_2T23;
     }
     
     
@@ -726,47 +621,30 @@ void MVll::checkCache()
     
     gtilde_1updated = lambda_updated * V_updated * h1_updated * h2_updated;
     gtilde_2updated = lambda_updated * A1_updated * h1_updated * h2_updated;
-    gtilde_3updated = lambda_updated * A2_updated * h1_updated * h2_updated * h0_updated;
+    gtilde_3updated = lambda_updated * VL0_updated * A1_updated * h1_updated * h2_updated * h0_updated;
     
     h_0updated = h0_updated * k2_updated;
     h_pupdated = h1_updated * k2_updated;
     h_mupdated = h2_updated * k2_updated;
-    
-//    DC7_1updated = lambda_updated * T1_updated * h1_updated * h2_updated * Mb_Ms_updated;
-//    DC7_2updated = lambda_updated * T2_updated * h1_updated * h2_updated * Mb_Ms_updated;
-//    DC7_3updated = lambda_updated * T2_updated * T3_updated * h1_updated * h2_updated * h0_updated * Mb_Ms_updated;
     
 }
 
 /*******************************************************************************
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
-double MVll::LCSR_fit1(double q2, double r_1, double r_2, double m_R2, double m_fit2)
+
+double MVll::LCSR_fit(double q2, double a_0, double a_1, double a_2, double dm)
 {
-    return r_1/( 1. - q2/m_R2 ) + r_2/( 1. - q2/m_fit2 ) ;
+    return 1 / (1 - q2/pow(MM + dm,2.)) * ( a_0 + a_1 * (z(q2) - z(0)) + a_2 * (z(q2) - z(0)) * (z(q2) - z(0)) ); 
 }
-
-
-
-double MVll::LCSR_fit2(double q2, double r_1, double r_2, double m_fit2)
-{
-    return r_1/( 1. - q2/m_fit2 ) + r_2/pow( ( 1. - q2/m_fit2 ) , 2.) ;
-
-}
-
-
-
-double MVll::LCSR_fit3(double q2, double r_2, double m_fit2)
-{
-    return r_2/( 1. - q2/m_fit2 ) ; 
-}
-
-
 
 double MVll::z(double q2)
 {
-    double t_0 = 12.;
     double t_p=pow(MM + MV,2.);
+    double t_m=pow(MM - MV,2.);
+    double t_0;
+    if (q2<CUTOFF) t_0 = t_p * (1. - sqrt(1. - t_m/t_p));
+    else t_0 = 12.;
     return ( sqrt(t_p - q2) - sqrt(t_p - t_0) ) / ( sqrt(t_p - q2) + sqrt(t_p - t_0) );
 }
 
@@ -782,7 +660,8 @@ double MVll::lat_fit(double q2, double a_0, double a_1, double dm)
 double MVll::V(double q2)
 {
     if (q2<CUTOFF)
-        return LCSR_fit1(q2, r_1V, r_2V, pow(m_RV, 2.), m_fit2V);
+        return LCSR_fit(q2, a_0V, a_1V, a_2V, dmV);
+        //return LCSR_fit1(q2, r_1V, r_2V, pow(m_RV, 2.), m_fit2V);
     else
         return lat_fit(q2, a_0V, a_1V, dmV);
 }
@@ -792,7 +671,8 @@ double MVll::V(double q2)
 double MVll::A_0(double q2)
 {
     if (q2<CUTOFF)
-        return LCSR_fit1(q2, r_1A0, r_2A0, pow(m_RA0, 2.), m_fit2A0);
+        return LCSR_fit(q2, a_0A0, a_1A0, a_2A0, dmA0);
+        //return LCSR_fit1(q2, r_1A0, r_2A0, pow(m_RA0, 2.), m_fit2A0);
     else
         return lat_fit(q2, a_0A0, a_1A0, dmA0);
 }
@@ -802,7 +682,8 @@ double MVll::A_0(double q2)
 double MVll::A_1(double q2)
 {
     if (q2<CUTOFF)
-        return LCSR_fit3(q2, r_2A1, m_fit2A1);
+        return LCSR_fit(q2, a_0A1, a_1A1, a_2A1, dmA1);
+        //return LCSR_fit3(q2, r_2A1, m_fit2A1);
     else
         return lat_fit(q2, a_0A1, a_1A1, dmA1);
 }
@@ -811,7 +692,12 @@ double MVll::A_1(double q2)
 
 double MVll::A_2(double q2)
 {
-    return LCSR_fit2(q2, r_1A2, r_2A2, m_fit2A2);
+    if (q2<CUTOFF){
+        a_0A12 = a_0A0 * (MM*MM - MV*MV)/(8.*MM*MV);
+        return ((MM + MV) * (MM + MV) * (MM*MM - MV*MV - q2) * A_1(q2) - 16. * MM*MV*MV * (MM + MV) * LCSR_fit(q2, a_0A12, a_1A12, a_2A12, dmA12))/lambda(q2);
+    } else 
+        return ((MM + MV) * (MM + MV) * (MM*MM - MV*MV - q2) * A_1(q2) - 16. * MM*MV*MV * (MM + MV) * lat_fit(q2, a_0A12, a_1A12, dmA12))/lambda(q2);
+    //return LCSR_fit2(q2, r_1A2, r_2A2, m_fit2A2);
 }
 
 
@@ -819,7 +705,8 @@ double MVll::A_2(double q2)
 double MVll::T_1(double q2)
 {
     if (q2<CUTOFF)
-        return LCSR_fit1(q2, r_1T1, r_2T1, pow(m_RT1, 2.), m_fit2T1);
+        return LCSR_fit(q2, a_0T1, a_1T1, a_2T1, dmT1);
+        //return LCSR_fit1(q2, r_1T1, r_2T1, pow(m_RT1, 2.), m_fit2T1);
     else
         return lat_fit(q2, a_0T1, a_1T1, dmT1);
 }
@@ -828,34 +715,24 @@ double MVll::T_1(double q2)
 
 double MVll::T_2(double q2)
 {
-    if (q2<CUTOFF)
-        return LCSR_fit3(q2, r_2T2, m_fit2T2);
+    if (q2<CUTOFF){
+        a_0T2 = a_0T1;
+        return LCSR_fit(q2, a_0T2, a_1T2, a_2T2, dmT2);
+        //return LCSR_fit3(q2, r_2T2, m_fit2T2);
+    }
     else
         return lat_fit(q2, a_0T2, a_1T2, dmT2);
 }
-
-
-
-double MVll::T_3tilde(double q2)
-{
-    return LCSR_fit2(q2, r_1T3t, r_2T3t, m_fit2T3t);
-}
-
-
-
-double MVll::T_3(double q2)
-{
-    return (MM*MM - MV*MV)/q2*(T_3tilde(q2) - T_2(q2));
-}
-
-
 
 double MVll::V_L(int i, double q2)
 {
     switch (i){
         case 0:
-            if (q2 < CUTOFF)
-                return 1. / ( 4.*MV*MM*(MM + MV)*sqrt(q2) ) * ( pow((MM + MV),2.)*(MM*MM - q2 - MV*MV)*A_1(q2) - lambda(q2)*A_2(q2) );
+            if (q2 < CUTOFF) {
+                a_0A12 = a_0A0 * (MM*MM - MV*MV)/(8.*MM*MV);
+                return 4*MV/sqrt(q2)*LCSR_fit(q2, a_0A12, a_1A12, a_2A12, dmA12);
+                //return 1. / ( 4.*MV*MM*(MM + MV)*sqrt(q2) ) * ( pow((MM + MV),2.)*(MM*MM - q2 - MV*MV)*A_1(q2) - lambda(q2)*A_2(q2) );
+            }
             else
                 return 4*MV/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
         case 1:
@@ -884,7 +761,8 @@ double MVll::T_L(int i, double q2)
     switch (i){
         case 0:
             if (q2 < CUTOFF)
-                return sqrt(q2)/(4.*MM*MM*MV) * ( ( MM*MM+ 3.*MV*MV - q2 ) * T_2(q2) - lambda(q2) / (MM*MM - MV*MV) * T_3(q2) );
+                return 2*sqrt(q2)*MV/MM/(MM + MV)*LCSR_fit(q2, a_0T23, a_1T23, a_2T23, dmT23);
+                //return sqrt(q2)/(4.*MM*MM*MV) * ( ( MM*MM+ 3.*MV*MV - q2 ) * T_2(q2) - lambda(q2) / (MM*MM - MV*MV) * T_3(q2) );
             else
                 return 2*sqrt(q2)*MV/MM/(MM + MV)*lat_fit(q2, a_0T23, a_1T23, dmT23);
         case 1:

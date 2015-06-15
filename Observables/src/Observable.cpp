@@ -127,3 +127,22 @@ double Observable::computeWeight(double th)
     return (logprob);
 }
 
+double Observable::computeWeight(double th, double ave_i, double errg_i, double errf_i)
+{
+    double logprob;
+    if (distr.compare("weight") == 0) {
+        if (errf_i == 0.)
+            logprob = LogGaussian(th, ave_i, errg_i);
+        else if (errg_i == 0.) {
+            if (th < ave_i + errf_i && th > ave_i - errf_i)
+                logprob = 1.;
+            else
+                logprob = log(0.);
+        } else
+            logprob = log(TMath::Erf((th - ave_i + errf_i) / sqrt(2.) / errg_i)
+                - TMath::Erf((th - ave_i - errf_i) / sqrt(2.) / errg_i));
+    } else
+        throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
+            + name);
+    return (logprob);
+}

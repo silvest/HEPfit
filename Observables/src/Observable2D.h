@@ -188,11 +188,87 @@ public:
         return computeWeight(computeTheoryValue(),computeTheoryValue2());
     }
     
+    void setObsType2(unsigned int obsType2_i)
+    {
+        obsType2 = obsType2_i;
+    }
+    
+    void setObsType2(std::string& obsType2_s)
+    {
+        if (obsType2_s.compare("Observable") == 0) obsType2 = 0;
+        if (obsType2_s.compare("HiggsObservable") == 0) obsType2 = 1;
+        if (obsType2_s.compare("BinnedObservable") == 0) obsType2 = 2;
+        else throw std::runtime_error("ERROR: Wrong Observable type passed to Observable class.");
+    }
+    
+    unsigned int getObsType2() const
+    {
+        return obsType2;
+    }
+    
+    /**
+     * @brief A get method to access the average value of the second observable.
+     * @return the average value of the observable
+     */
+    double getAve2() const
+    {
+        return ave2;
+    }
+
+    /**
+     * @brief A set method to fix the average value of the second observable.
+     * @param[in] ave the average value of the observable
+     */
+    void setAve2(double ave2)
+    {
+        this->ave2 = ave2;
+    }
+
+    /**
+     * @brief A get method to access the flat error of the second observable.
+     * @return the flat error of the observable
+     */
+    double getErrf2() const
+    {
+        return errf2;
+    }
+
+    /**
+     * @brief A set method to fix the flat error of the second observable.
+     * @param[in] errf the flat error of the observable
+     */
+    void setErrf2(double errf2)
+    {
+        this->errf2 = errf2;
+    }
+
+    /**
+     * @brief A get method to access the Gaussian error of the second observble.
+     * @return the Gauissian error of the observable
+     */
+    double getErrg2() const
+    {
+        return errg2;
+    }
+
+    /**
+     * @brief A set method to fix the gaussian error of the observable.
+     * @param[in] errg the Gaussian error of the observable
+     */
+    void setErrg2(double errg2)
+    {
+        this->errg2 = errg2;
+    }
+    
 private:
     std::string thname2; ///< The name for the second oservable as fixed in the ThObservable() class.
     std::string label2; ///< A label for the second observable.
     double min2; ///< The minimum value of the second observable.
     double max2; ///< The maximum valus of the second observable.
+    double ave2; ///< The average value of the second observable.
+    double errg2; ///< The gaussian error of the second observable.
+    double errf2; ///< the flat error of the second observable.
+    unsigned int obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
     ThObservable * tho2; ///< A pointer to an object of the ThObservable class.
     TH2D * inhisto2d;  ///< 2D Histogram containing the experimental likelihood for the observable
 };

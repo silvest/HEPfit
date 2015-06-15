@@ -353,9 +353,15 @@ matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order, scheme
             throw std::runtime_error("EvolDF1bsg::Df1Evolbsg(): scheme " + out.str() + " not implemented "); 
     }
     
-    if (mu == this->mu && M == this->M && scheme == this->scheme)
-        return (*Evol(order));
-    
+    double alsMZ = model.getAlsMz();
+    double Mz = model.getMz();
+    if(alsMZ == alsMZ_cache && Mz == Mz_cache) {
+        if (mu == this->mu && M == this->M && scheme == this->scheme)
+            return (*Evol(order));        
+    }
+    alsMZ_cache = alsMZ;
+    Mz_cache = Mz;
+        
     if (M < mu) {
         std::stringstream out;
         out << "M = " << M << " < mu = " << mu;

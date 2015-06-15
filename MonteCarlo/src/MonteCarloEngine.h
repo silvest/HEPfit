@@ -211,7 +211,17 @@ public:
     {
         return NumOfUsedEvents;
     }
+    
+    std::map<std::string, BCH1D * > getHistograms1D()
+    {
+        return Histo1D;
+    }
 
+    std::map<std::string, BCH2D * > getHistograms2D()
+    {
+        return Histo2D;
+    }
+    
 private:
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.

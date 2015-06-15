@@ -105,7 +105,7 @@ int main(int argc, char** argv)
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
                 GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag, noMC);
-                GE.generate(nIterations);
+                GE.generate(nIterations, 1);
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
             {
