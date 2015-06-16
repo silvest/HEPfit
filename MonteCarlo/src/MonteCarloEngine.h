@@ -212,12 +212,12 @@ public:
         return NumOfUsedEvents;
     }
     
-    std::map<std::string, BCH1D * > getHistograms1D()
+    std::map<std::string, BCH1D * > getHistograms1D() const
     {
         return Histo1D;
     }
 
-    std::map<std::string, BCH2D * > getHistograms2D()
+    std::map<std::string, BCH2D * > getHistograms2D() const
     {
         return Histo2D;
     }

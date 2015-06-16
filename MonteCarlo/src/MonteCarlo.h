@@ -9,6 +9,8 @@
 #define	MONTECARLO_H
 
 #include <InputParser.h>
+#include <BAT/BCH1D.h>
+#include <BAT/BCH2D.h>
 #include "MonteCarloEngine.h"
 
 /**
@@ -136,6 +138,16 @@ public:
      * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with MPI.
      */
     void Run(const int rank);
+    
+    std::map<std::string, BCH1D * > getHistograms1D() const
+    {
+        return MCEngine.getHistograms1D();
+    }
+
+    std::map<std::string, BCH2D * > getHistograms2D() const
+    {
+        return MCEngine.getHistograms2D();
+    }
 
 private:
     std::string ModelName; ///< The name of the model.
