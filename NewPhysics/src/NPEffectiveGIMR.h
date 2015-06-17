@@ -258,10 +258,11 @@ public:
     virtual double muVBF(const double sqrt_s) const;
     virtual double muWH(const double sqrt_s) const;
     virtual double muZH(const double sqrt_s) const;
+    virtual double mueeZH(const double sqrt_s) const;
     virtual double muVH(const double sqrt_s) const;
-    virtual double muVBFVH(const double sqrt_s) const;
+    virtual double muVBFpVH(const double sqrt_s) const;
     virtual double muttH(const double sqrt_s) const;
-    virtual double muggFttH(const double sqrt_s) const;
+    virtual double muggHpttH(const double sqrt_s) const;
     virtual double BrHggRatio() const;
     virtual double BrHWWRatio() const;
     virtual double BrHZZRatio() const;

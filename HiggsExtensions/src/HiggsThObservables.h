@@ -165,6 +165,45 @@ private:
 };
 
 /**
+ * @class mueeZH
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$.
+ * @author SusyFit CollaborationH
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$ between the 
+ * @f$e^+e^- \to ZH@f$ 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class mueeZH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mueeZH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("mueeZH called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{e^+e^- \to ZH}@f$ in the current model.
+     * @return @f$\mu_{e^+e^- \to ZH}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->mueeZH(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
  * @class muVH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{VH}@f$.
@@ -203,6 +242,45 @@ private:
 };
 
 /**
+ * @class muVBFpVH
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{VBF+VH}@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{VBF+VH}@f$ between the sum of
+ * VBF and WH+ZH 
+ * associated production cross-section in the current model and in the Standard Model.
+ */
+class muVBFpVH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muVBFpVH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muVBFpVH called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{VBF+VH}@f$ in the current model.
+     * @return @f$\mu_{VBF+VH}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->muVBFpVH(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
  * @class muttH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{ttH}@f$.
@@ -233,6 +311,45 @@ public:
     double computeThValue()
     {
         return myNPbase->muttH(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muggHpttH
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{ggH+ttH}@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{ggH+ttH}@f$ between the sum
+ * of gluon-gluon fusion and t-tbar-Higgs associated production cross-section in 
+ * the current model and in the Standard Model.
+ */
+class muggHpttH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHpttH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muggHpttH called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{ggH+ttH}@f$ in the current model. 
+     * @return @f$\mu_{ggH+ttH}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->muggHpttH(sqrt_s);
     }
 
 private:
