@@ -376,6 +376,18 @@ public:
     }
 
     /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$e^{+}e^{-}\to ZH}@f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZH}@f$
+     */
+    virtual double mueeZH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
+    /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -387,12 +399,35 @@ public:
     }
 
     /**
+     * @brief The ratio @f$\mu_{VBF+VH}@f$ between the sum of VBF and WH+ZH associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VBF+VH}@f$
+     */
+    virtual double muVBFpVH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
+    /**
      * @brief The ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated 
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH}@f$
      */
     virtual double muttH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief The ratio @f$\mu_{ggH+ttH}@f$ between the sum of gluon-gluon fusion
+     * and t-tbar-Higgs associated 
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH+ttH}@f$
+     */
+    virtual double muggHpttH(const double sqrt_s) const
     {
         return 1.0;
     }
