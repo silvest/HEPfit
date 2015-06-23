@@ -690,3 +690,18 @@ std::string MonteCarloEngine::computeStatistics()
     
     return StatsLog.str().c_str();
 }
+
+double MonteCarloEngine::computeNormalization()
+{
+    gslpp::matrix<double> Hessian(GetNParameters(), GetNParameters(),0.);
+    
+    for (unsigned int i = 0; i < GetNParameters(); i++)
+        for (unsigned int j = 0; j < GetNParameters(); j++) {
+            // calculate Hessian matrix element
+            Hessian.assign(i, j, - HessianMatrixElement(GetParameter(i), GetParameter(j), GetBestFitParameters()));
+            
+  //          std::cout << "m1 " << i << "  " << j << "  " << - m1->HessianMatrixElement(m1->GetParameter(i), m1->GetParameter(j), m1->GetBestFitParameters()) << std::endl;
+        }
+    double det_Hessian = Hessian.determinant();
+    return GetNParameters()/2. * log(2. * M_PI) + 0.5 * log(1./det_Hessian) + LogLikelihood(GetBestFitParameters()) + LogAPrioriProbability(GetBestFitParameters());
+}

@@ -222,6 +222,8 @@ public:
         return Histo2D;
     }
     
+    double computeNormalization();
+    
 private:
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.

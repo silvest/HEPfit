@@ -35,13 +35,13 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
-    CalculateEvidence = false;
+    CalculateNormalization = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
     PrintParameterPlot = false;
     checkrun = false;
-    evidence_min_iterations = 0;
+    normalization = 0.;
 }
 
 //MonteCarlo::~MonteCarlo() {}
@@ -243,14 +243,11 @@ void MonteCarlo::Run(const int rank)
                     if (beg->compare("true") == 0) {
                         FindModeWithMinuit = true;
                     }
-                } else if (beg->compare("CalculateEvidence") == 0) {
+                } else if (beg->compare("CalculateNormalization") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
-                        CalculateEvidence = true;
+                        CalculateNormalization = true;
                     }
-                } else if (beg->compare("EvidenceMinIter") == 0) {
-                    ++beg;
-                    evidence_min_iterations = atoi((*beg).c_str());
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
@@ -302,22 +299,7 @@ void MonteCarlo::Run(const int rank)
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
-            if (CalculateEvidence) {
-                // BAT default: 
-                //   kIntGrid for the number of free parameters <= 2;
-                //   otherwise, kIntMonteCarlo (or kIntCuba if available)
-                //   MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
-                MCEngine.SetRelativePrecision(1.e-3);
-                MCEngine.SetAbsolutePrecision(1.e-10);
-                if (evidence_min_iterations == 0) MCEngine.SetNIterationsMin(10000);
-                else {
-                    MCEngine.SetNIterationsMin(evidence_min_iterations);
-                    MCEngine.SetNIterationsMax(10*evidence_min_iterations);
-                }
-                MCEngine.Integrate();
-                evidence = MCEngine.GetIntegral();
-                BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
-            }
+            if (CalculateNormalization) normalization = MCEngine.computeNormalization(); 
             
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
@@ -364,7 +346,7 @@ void MonteCarlo::Run(const int rank)
             // print statistics for the theory values of the observables into a text file
             std::ofstream outStatLog;
             outStatLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::out);
-            if (CalculateEvidence) outStatLog << "Evidence for "<< ModelName.c_str() << ": " << evidence << "\n" << std::endl;
+            if (CalculateNormalization) outStatLog << "Normalization for "<< ModelName.c_str() << ": " << normalization << "\n" << std::endl;
             outStatLog << MCEngine.computeStatistics();
             outStatLog.close();
 

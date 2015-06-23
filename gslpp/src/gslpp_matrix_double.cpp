@@ -196,6 +196,35 @@ namespace gslpp
     return m2;
   }
   
+  /** Determinant of matrix */
+  double matrix<double>::determinant(){
+      
+    matrix<double> m1(_matrix);  
+    int signum;
+    gsl_permutation *p;
+    
+    if (size_j() != size_i())
+    {
+      std::cout << "\n ** Size mismatch in matrix<double> determinant" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+   
+    if ((p = gsl_permutation_alloc(size_i())) == NULL)
+    {
+      std::cout << "\n ** Error in matrix<double> determinant" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+    
+    if(gsl_linalg_LU_decomp (m1.as_gsl_type_ptr(), p, &signum))
+    {
+      std::cout << "\n ** Error in matrix<double> determinant" << std::endl;
+      gsl_permutation_free(p);
+      exit(EXIT_FAILURE);
+    }
+    
+    return gsl_linalg_LU_det(m1.as_gsl_type_ptr() , signum);
+  }
+  
   void matrix<double>::eigensystem(matrix<complex> &U, vector<complex> &S) {
       matrix<double> m(*this);
 
