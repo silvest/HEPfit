@@ -162,6 +162,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
                 o->setLikelihoodFromHisto(fname, histoname);
+                if (rank == 0) std::cout << "added input histogram "  << fname << "/" << histoname << std::endl;
             } else if (distr.compare("weight") == 0) {
                 if (std::distance(tok.begin(), tok.end()) < 11)
                     if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
@@ -199,6 +200,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::string fname = filepath + *(++beg);
                 std::string histoname = *(++beg);
                 bo->setLikelihoodFromHisto(fname, histoname);
+                if (rank == 0) std::cout << "added input histogram "  << fname << "/" << histoname << std::endl;
             } else if (distr.compare("weight") == 0) {
                 if (std::distance(tok.begin(), tok.end()) < 13)
                     if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
@@ -315,7 +317,10 @@ std::string InputParser::ReadParameters(const std::string filename,
                 o2.setErrg2(errg[1]);
                 o2.setErrf(errf[0]);
                 o2.setErrf2(errf[1]);
-                if (distr.compare("file") == 0) o2.setLikelihoodFromHisto(fname, histoname);
+                if (distr.compare("file") == 0) {
+                    o2.setLikelihoodFromHisto(fname, histoname);
+                    if (rank == 0) std::cout << "added input histogram " << fname << "/" << histoname << std::endl;
+                }
                 if (o2.getObsType() == 2) {
                     o2.getTho()->setBinMin(bin_min[0]);
                     o2.getTho()->setBinMax(bin_max[0]);
@@ -336,6 +341,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                     std::string fname = filepath + *(++beg);
                     std::string histoname = *(++beg);
                     o2.setLikelihoodFromHisto(fname, histoname);
+                    if (rank == 0) std::cout << "added input histogram "  << fname << "/" << histoname << std::endl;
                 } else if (distr.compare("noweight") == 0) {
                 } else if (rank == 0)
                     throw std::runtime_error("ERROR: wrong distribution flag in " + o2.getName());

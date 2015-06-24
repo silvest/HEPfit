@@ -76,7 +76,6 @@ void Observable::setLikelihoodFromHisto(std::string filename, std::string histon
                     + filename + ".root");
         inhisto = (TH1D *) htmp->Clone((filename + "/" + histoname).c_str());
         inhisto->SetDirectory(gROOT);
-        std::cout << "added input histogram " << inhisto->GetName() << std::endl;
         setMin(inhisto->GetXaxis()->GetXmin());
         setMax(inhisto->GetXaxis()->GetXmax());
         lik->Close();
