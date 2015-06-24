@@ -29,6 +29,7 @@
 #define NBINSMODELPARS 100
 #define NBINS1D 100
 #define NBINS2D 100
+#define NSTEPS 1e5
 
 /**
  * @class MonteCarloEngine
@@ -223,6 +224,12 @@ public:
     }
     
     double computeNormalization();
+    
+    double SecondDerivative(const BCParameter * par1, const BCParameter * par2, std::vector<double> point);
+    
+    double FirstDerivative(const BCParameter * par, std::vector<double> point);
+    
+    double Function_h(std::vector<double> point);
     
 private:
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
