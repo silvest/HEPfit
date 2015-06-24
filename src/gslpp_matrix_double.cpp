@@ -221,7 +221,7 @@ namespace gslpp
       gsl_permutation_free(p);
       exit(EXIT_FAILURE);
     }
-    
+    gsl_permutation_free(p);
     return gsl_linalg_LU_det(m1.as_gsl_type_ptr() , signum);
   }
   
