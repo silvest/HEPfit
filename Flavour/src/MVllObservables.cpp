@@ -341,8 +341,8 @@ double M_1Prime::computeThValue()
 {
     double q_min = getBinMin();
     
-    return ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(1,q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(2,q_min,0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(1,q_min,0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(2,q_min,0).abs2() )/
-            ( 2.*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(1,q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(2,q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(1,q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(2,q_min,0).abs2() ) );
+    return ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_p(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_m(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_p(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_m(q_min).abs2() )/
+            ( 2.*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_p(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_m(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_p(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_m(q_min).abs2() ) );
 }
 
 
@@ -358,8 +358,8 @@ double M_2Prime::computeThValue()
 {
     double q_min = getBinMin();
     
-    return ( q_min/(2.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep)*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min,0).abs2() ) + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(0,q_min,0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(0,q_min,0).abs2() )/
-            ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(0,q_min,0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(0,q_min,0).abs2() );  
+    return ( q_min/(2.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep)*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min).abs2() ) + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min).abs2() )/
+            ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min).abs2() );  
 }
 
 
