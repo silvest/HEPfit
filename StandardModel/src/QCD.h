@@ -298,72 +298,72 @@
  *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0V, %a_1V, %a_2V, %dmV</td>
+ *   <td class="mod_name">%a_0V, %a_1V, %a_2V, %MRV</td>
  *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0A0, %a_1A0, %a_2A0, %dmA0</td>
+ *   <td class="mod_name">%a_0A0, %a_1A0, %a_2A0, %MRA0</td>
  *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0A1, %a_1A1, %a_2A1, %dmA1</td>
+ *   <td class="mod_name">%a_0A1, %a_1A1, %a_2A1, %MRA1</td>
  *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0A12, %a_1A12, %a_2A12, %dmA12</td>
+ *   <td class="mod_name">%a_0A12, %a_1A12, %a_2A12, %MRA12</td>
  *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0T1, %a_1T1, %a_2T1, %dmA0</td>
+ *   <td class="mod_name">%a_0T1, %a_1T1, %a_2T1, %MRA0</td>
  *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0T2, %a_1T2, %a_2T2, %dmA1</td>
+ *   <td class="mod_name">%a_0T2, %a_1T2, %a_2T2, %MRA1</td>
  *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0T23, %a_1T23, %a_2T23, %dmA1</td>
+ *   <td class="mod_name">%a_0T23, %a_1T23, %a_2T23, %MRA1</td>
  *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0Vphi, %a_1Vphi, %a_2Vphi, %dmVphi</td>
+ *   <td class="mod_name">%a_0Vphi, %a_1Vphi, %a_2Vphi, %MRVphi</td>
  *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0A0phi, %a_1A0phi, %a_2A0phi, %dmA0phi</td>
+ *   <td class="mod_name">%a_0A0phi, %a_1A0phi, %a_2A0phi, %MRA0phi</td>
  *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %dmA1phi</td>
+ *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %MRA1phi</td>
  *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %dmA1phi</td>
+ *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %MRA1phi</td>
  *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0T1phi, %a_1T1phi, %a_2T1phi, %dmA0phi</td>
+ *   <td class="mod_name">%a_0T1phi, %a_1T1phi, %a_2T1phi, %MRA0phi</td>
  *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0T2phi, %a_1T2phi, %a_2T2phi, %dmA1phi</td>
+ *   <td class="mod_name">%a_0T2phi, %a_1T2phi, %a_2T2phi, %MRA1phi</td>
  *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0T23phi, %a_1T23phi, %a_2T23phi, %dmA1phi</td>
+ *   <td class="mod_name">%a_0T23phi, %a_1T23phi, %a_2T23phi, %MRA1phi</td>
  *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
  *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
@@ -1242,9 +1242,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^V@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
-    double getdmV() const
+    double getMRV() const
     {
-        return dmV;
+        return MRV;
     }
     
     /**
@@ -1274,9 +1274,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{A0}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
-    double getdmA0() const
+    double getMRA0() const
     {
-        return dmA0;
+        return MRA0;
     }
     
     /**
@@ -1306,9 +1306,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{A1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
-    double getdmA1() const
+    double getMRA1() const
     {
-        return dmA1;
+        return MRA1;
     }
     
     /**
@@ -1338,9 +1338,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{A12}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
-    double getdmA12() const
+    double getMRA12() const
     {
-        return dmA12;
+        return MRA12;
     }
     
     /**
@@ -1370,9 +1370,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{T1}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
-    double getdmT1() const
+    double getMRT1() const
     {
-        return dmT1;
+        return MRT1;
     }
     
     /**
@@ -1402,9 +1402,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{T2}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
-    double getdmT2() const
+    double getMRT2() const
     {
-        return dmT2;
+        return MRT2;
     }
     
     /**
@@ -1434,9 +1434,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{T23}@f$ for @f$B\to K^*@f$ from arXiv:1503.05534v1
      */
-    double getdmT23() const
+    double getMRT23() const
     {
-        return dmT23;
+        return MRT23;
     }
 
     /**
@@ -1466,9 +1466,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^V@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
-    double getdmVphi() const
+    double getMRVphi() const
     {
-        return dmVphi;
+        return MRVphi;
     }
     
     /**
@@ -1498,9 +1498,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{A0}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
-    double getdmA0phi() const
+    double getMRA0phi() const
     {
-        return dmA0phi;
+        return MRA0phi;
     }
     
     /**
@@ -1530,9 +1530,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{A1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
-    double getdmA1phi() const
+    double getMRA1phi() const
     {
-        return dmA1phi;
+        return MRA1phi;
     }
     
     /**
@@ -1562,9 +1562,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{A12}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
-    double getdmA12phi() const
+    double getMRA12phi() const
     {
-        return dmA12phi;
+        return MRA12phi;
     }
     
     /**
@@ -1594,9 +1594,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{T1}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
-    double getdmT1phi() const
+    double getMRT1phi() const
     {
-        return dmT1phi;
+        return MRT1phi;
     }
     
     /**
@@ -1626,9 +1626,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{T2}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
-    double getdmT2phi() const
+    double getMRT2phi() const
     {
-        return dmT2phi;
+        return MRT2phi;
     }
     
     /**
@@ -1658,9 +1658,9 @@ public:
     /**
      * @return the LCSR fit parameter @f$\Delta m^{T23}@f$ for @f$B\to\phi@f$ from arXiv:1503.05534v1
      */
-    double getdmT23phi() const
+    double getMRT23phi() const
     {
-        return dmT23phi;
+        return MRT23phi;
     }
     
     /**
@@ -1980,20 +1980,20 @@ protected:
     double reh_0_1, reh_p_1, reh_m_1, imh_0_1, imh_p_1, imh_m_1;
     double reh_0_2, reh_p_2, reh_m_2, imh_0_2, imh_p_2, imh_m_2;
     double reh_0_MP, imh_0_MP, reh_0_1_MP, imh_0_1_MP;
-    double a_0V, a_1V, a_2V, dmV;
-    double a_0A0, a_1A0, a_2A0, dmA0;
-    double a_0A1, a_1A1, a_2A1, dmA1;
-    double a_0A12, a_1A12, a_2A12, dmA12;
-    double a_0T1, a_1T1, a_2T1, dmT1;
-    double a_0T2, a_1T2, a_2T2, dmT2;
-    double a_0T23, a_1T23, a_2T23, dmT23;
-    double a_0Vphi, a_1Vphi, a_2Vphi, dmVphi;
-    double a_0A0phi, a_1A0phi, a_2A0phi, dmA0phi;
-    double a_0A1phi, a_1A1phi, a_2A1phi, dmA1phi;
-    double a_0A12phi, a_1A12phi, a_2A12phi, dmA12phi;
-    double a_0T1phi, a_1T1phi, a_2T1phi, dmT1phi;
-    double a_0T2phi, a_1T2phi, a_2T2phi, dmT2phi;
-    double a_0T23phi, a_1T23phi, a_2T23phi, dmT23phi;
+    double a_0V, a_1V, a_2V, MRV;
+    double a_0A0, a_1A0, a_2A0, MRA0;
+    double a_0A1, a_1A1, a_2A1, MRA1;
+    double a_0A12, a_1A12, a_2A12, MRA12;
+    double a_0T1, a_1T1, a_2T1, MRT1;
+    double a_0T2, a_1T2, a_2T2, MRT2;
+    double a_0T23, a_1T23, a_2T23, MRT23;
+    double a_0Vphi, a_1Vphi, a_2Vphi, MRVphi;
+    double a_0A0phi, a_1A0phi, a_2A0phi, MRA0phi;
+    double a_0A1phi, a_1A1phi, a_2A1phi, MRA1phi;
+    double a_0A12phi, a_1A12phi, a_2A12phi, MRA12phi;
+    double a_0T1phi, a_1T1phi, a_2T1phi, MRT1phi;
+    double a_0T2phi, a_1T2phi, a_2T2phi, MRT2phi;
+    double a_0T23phi, a_1T23phi, a_2T23phi, MRT23phi;
     double r_1_fplus, r_2_fplus, m_fit2_fplus;
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
