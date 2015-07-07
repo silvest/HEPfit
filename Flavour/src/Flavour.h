@@ -14,7 +14,6 @@
 #include "HeffDB1.h"
 #include "MVll.h"
 #include "MPll.h"
-#include <boost/tuple/tuple.hpp>
 
 using namespace gslpp;
 
