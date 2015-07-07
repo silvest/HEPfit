@@ -61,13 +61,13 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     SL_updated = 0;
     SR_updated = 0;
     
-    gtilde_1updated = 0;
-    gtilde_2updated = 0;
-    gtilde_3updated = 0;
-    
-    h_0updated = 0;
-    h_pupdated = 0;
-    h_mupdated = 0;
+//    gtilde_1updated = 0;
+//    gtilde_2updated = 0;
+//    gtilde_3updated = 0;
+//    
+//    h_0updated = 0;
+//    h_pupdated = 0;
+//    h_mupdated = 0;
     
     w_sigma0 = gsl_integration_workspace_alloc (200);
     w_sigma1 = gsl_integration_workspace_alloc (200);
@@ -88,27 +88,6 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_delta7 = gsl_integration_workspace_alloc (200);
     w_delta11 = gsl_integration_workspace_alloc (200);
     
-    w_Vp = gsl_integration_workspace_alloc (200);
-    w_Tp = gsl_integration_workspace_alloc (200);
-    w_Vm = gsl_integration_workspace_alloc (200);
-    w_Tm = gsl_integration_workspace_alloc (200);
-    w_V0 = gsl_integration_workspace_alloc (200);
-    w_T0 = gsl_integration_workspace_alloc (200);
-    w_S = gsl_integration_workspace_alloc (200);
-    
-    w_gtilde_1_re = gsl_integration_workspace_alloc (200);
-    w_gtilde_1_im = gsl_integration_workspace_alloc (200);
-    w_gtilde_2_re = gsl_integration_workspace_alloc (200);
-    w_gtilde_2_im = gsl_integration_workspace_alloc (200);
-    w_gtilde_3_re = gsl_integration_workspace_alloc (200);
-    w_gtilde_3_im = gsl_integration_workspace_alloc (200);
-    
-    w_h_0_re = gsl_integration_workspace_alloc (200);
-    w_h_0_im = gsl_integration_workspace_alloc (200);
-    w_h_p_re = gsl_integration_workspace_alloc (200);
-    w_h_p_im = gsl_integration_workspace_alloc (200);
-    w_h_m_re = gsl_integration_workspace_alloc (200);
-    w_h_m_im = gsl_integration_workspace_alloc (200);
 }
 
 
@@ -135,37 +114,37 @@ void MVll::updateParameters()
             a_0V=mySM.geta_0V();
             a_1V=mySM.geta_1V();
             a_2V=mySM.geta_2V();
-            dmV=mySM.getdmV();
+            MRV_2=mySM.getMRV()*mySM.getMRV();
             
             a_0A0=mySM.geta_0A0();
             a_1A0=mySM.geta_1A0();
             a_2A0=mySM.geta_2A0();
-            dmA0=mySM.getdmA0();
+            MRA0_2=mySM.getMRA0()*mySM.getMRA0();
             
             a_0A1=mySM.geta_0A1();
             a_1A1=mySM.geta_1A1();
             a_2A1=mySM.geta_2A1();
-            dmA1=mySM.getdmA1();
+            MRA1_2=mySM.getMRA1()*mySM.getMRA1();
             
             a_0A12=mySM.geta_0A12();
             a_1A12=mySM.geta_1A12();
             a_2A12=mySM.geta_2A12();
-            dmA12=mySM.getdmA12();
+            MRA12_2=mySM.getMRA12()*mySM.getMRA12();
             
             a_0T1=mySM.geta_0T1();
             a_1T1=mySM.geta_1T1();
             a_2T1=mySM.geta_2T1();
-            dmT1=mySM.getdmT1();
+            MRT1_2=mySM.getMRT1()*mySM.getMRT1();
             
             a_0T2=mySM.geta_0T2();
             a_1T2=mySM.geta_1T2();
             a_2T2=mySM.geta_2T2();
-            dmT2=mySM.getdmT2();
+            MRT2_2=mySM.getMRT2()*mySM.getMRT2();
             
             a_0T23=mySM.geta_0T23();
             a_1T23=mySM.geta_1T23();
             a_2T23=mySM.geta_2T23();
-            dmT23=mySM.getdmT23();
+            MRT23_2=mySM.getMRT23()*mySM.getMRT23();
             
             b=1;
             break;
@@ -173,37 +152,37 @@ void MVll::updateParameters()
             a_0V=mySM.geta_0Vphi();
             a_1V=mySM.geta_1Vphi();
             a_2V=mySM.geta_2Vphi();
-            dmV=mySM.getdmVphi();
+            MRV_2=mySM.getMRVphi()*mySM.getMRVphi();
             
             a_0A0=mySM.geta_0A0phi();
             a_1A0=mySM.geta_1A0phi();
             a_2A0=mySM.geta_2A0phi();
-            dmA0=mySM.getdmA0phi();
+            MRA0_2=mySM.getMRA0phi()*mySM.getMRA0phi();
             
             a_0A1=mySM.geta_0A1phi();
             a_1A1=mySM.geta_1A1phi();
             a_2A1=mySM.geta_2A1phi();
-            dmA1=mySM.getdmA1phi();
+            MRA1_2=mySM.getMRA1phi()*mySM.getMRA1phi();
             
             a_0A12=mySM.geta_0A12phi();
             a_1A12=mySM.geta_1A12phi();
             a_2A12=mySM.geta_2A12phi();
-            dmA12=mySM.getdmA12phi();
+            MRA12_2=mySM.getMRA12phi()*mySM.getMRA12phi();
             
             a_0T1=mySM.geta_0T1phi();
             a_1T1=mySM.geta_1T1phi();
             a_2T1=mySM.geta_2T1phi();
-            dmT1=mySM.getdmT1phi();
+            MRT1_2=mySM.getMRT1phi()*mySM.getMRT1phi();
             
             a_0T2=mySM.geta_0T2phi();
             a_1T2=mySM.geta_1T2phi();
             a_2T2=mySM.geta_2T2phi();
-            dmT2=mySM.getdmT2phi();
+            MRT2_2=mySM.getMRT2phi()*mySM.getMRT2phi();
             
             a_0T23=mySM.geta_0T23phi();
             a_1T23=mySM.geta_1T23phi();
             a_2T23=mySM.geta_2T23phi();
-            dmT23=mySM.getdmT23phi();
+            MRT23_2=mySM.getMRT23phi()*mySM.getMRT23phi();
             
             b= 0.489;
             break;
@@ -297,7 +276,7 @@ void MVll::updateParameters()
     twoMM3 = 2. * MM2 * MM;
     C2_inv = 1./(2. * C_2.real());
     gtilde_1_pre = -16.*pow(MM,3.)*(MM + MV)*pow(M_PI,2.);
-    gtilde_2_pre = -16.*pow(MM,3.)*pow(M_PI,2.);
+    gtilde_2_pre = -16.*pow(MM,3.)*pow(M_PI,2.)/MMpMV;
     gtilde_3_pre = 64.*pow(MM,3.)*pow(M_PI,2.)*MV*MMpMV;
     S_L_pre = (-2. * MM * (Mb + Ms));
     
@@ -326,22 +305,6 @@ void MVll::updateParameters()
     if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
     if (I3_updated == 0) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
-    
-    if (VL1_updated == 0) for (it = VpCached.begin(); it != VpCached.end(); ++it) it->second = 0;
-    if (TL1_updated == 0) for (it = TpCached.begin(); it != TpCached.end(); ++it) it->second = 0;
-    if (VL2_updated == 0) for (it = VmCached.begin(); it != VmCached.end(); ++it) it->second = 0;
-    if (TL2_updated == 0) for (it = TmCached.begin(); it != TmCached.end(); ++it) it->second = 0;
-    if (VL0_updated == 0) for (it = V0Cached.begin(); it != V0Cached.end(); ++it) it->second = 0;
-    if (TL0_updated == 0) for (it = T0Cached.begin(); it != T0Cached.end(); ++it) it->second = 0;
-    if (SL_updated == 0) for (it = SCached.begin(); it != SCached.end(); ++it) it->second = 0;
-    
-    if (gtilde_1updated == 0) for (it = gtilde_1Cached.begin(); it != gtilde_1Cached.end(); ++it) it->second = 0;
-    if (gtilde_2updated == 0) for (it = gtilde_2Cached.begin(); it != gtilde_2Cached.end(); ++it) it->second = 0;
-    if (gtilde_3updated == 0) for (it = gtilde_3Cached.begin(); it != gtilde_3Cached.end(); ++it) it->second = 0;
-    
-    if (h_0updated == 0) for (it = h_0Cached.begin(); it != h_0Cached.end(); ++it) it->second = 0;
-    if (h_pupdated == 0) for (it = h_pCached.begin(); it != h_pCached.end(); ++it) it->second = 0;
-    if (h_mupdated == 0) for (it = h_mCached.begin(); it != h_mCached.end(); ++it) it->second = 0;
     
 }
 
@@ -677,23 +640,15 @@ void MVll::checkCache()
     I10_updated = I5_updated;
     I11_updated = I7_updated;
     
-    gtilde_1updated = lambda_updated * V_updated * h1_updated * h2_updated;
-    gtilde_2updated = lambda_updated * A1_updated * h1_updated * h2_updated;
-    gtilde_3updated = lambda_updated * VL0_updated * A1_updated * h1_updated * h2_updated * h0_updated;
-    
-    h_0updated = h0_updated * k2_updated;
-    h_pupdated = h1_updated * k2_updated;
-    h_mupdated = h2_updated * k2_updated;
-    
 }
 
 /*******************************************************************************
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
 
-double MVll::LCSR_fit(double q2, double a_0, double a_1, double a_2, double dm)
+double MVll::FF_fit(double q2, double a_0, double a_1, double a_2, double MR_2)
 {
-    return 1 / (1 - q2/pow(MM + dm,2.)) * ( a_0 + a_1 * (z(q2) - z_0) + a_2 * (z(q2) - z_0) * (z(q2) - z_0) ); 
+    return 1 / (1 - q2/MR_2) * ( a_0 + a_1 * (z(q2) - z_0) + a_2 * (z(q2) - z_0) * (z(q2) - z_0) ); 
 }
 
 double MVll::z(double q2)
@@ -701,142 +656,50 @@ double MVll::z(double q2)
     return ( sqrt(t_p - q2) - sqrt(t_p - t_0) ) / ( sqrt(t_p - q2) + sqrt(t_p - t_0) );
 }
 
-
-
-double MVll::lat_fit(double q2, double a_0, double a_1, double dm)
-{
-    return 1 / (1 - q2/pow(MM + dm,2.)) * ( a_0 + a_1*z(q2) );
-}
-
-
-
 double MVll::V(double q2)
 {
-    //if (q2<CUTOFF)
-        return LCSR_fit(q2, a_0V, a_1V, a_2V, dmV);
-    //else
-        //return lat_fit(q2, a_0V, a_1V, dmV);
+    return FF_fit(q2, a_0V, a_1V, a_2V, MRV_2);
 }
-
-
 
 double MVll::A_0(double q2)
 {
-    //if (q2<CUTOFF)
-        return LCSR_fit(q2, a_0A0, a_1A0, a_2A0, dmA0);
-    //else
-        //return lat_fit(q2, a_0A0, a_1A0, dmA0);
+    return FF_fit(q2, a_0A0, a_1A0, a_2A0, MRA0_2);
 }
-
-
 
 double MVll::A_1(double q2)
 {
-    //if (q2<CUTOFF)
-        return LCSR_fit(q2, a_0A1, a_1A1, a_2A1, dmA1);
-    //else
-        //return lat_fit(q2, a_0A1, a_1A1, dmA1);
+    return FF_fit(q2, a_0A1, a_1A1, a_2A1, MRA1_2);
 }
-
-
 
 double MVll::A_2(double q2)
 {
-    //if (q2<CUTOFF){
-        return (MMpMV2 * (MM2mMV2 - q2) * A_1(q2) - 16. * MM*MV2 * MMpMV * LCSR_fit(q2, a_0A12_LCSR, a_1A12, a_2A12, dmA12))/lambda(q2);
-    //} else 
-        //return (MMpMV2 * (MM2mMV2 - q2) * A_1(q2) - 16. * MM*MV2 * MMpMV * lat_fit(q2, a_0A12, a_1A12, dmA12))/lambda(q2);
+    return (MMpMV2 * (MM2mMV2 - q2) * A_1(q2) - 16. * MM*MV2 * MMpMV * FF_fit(q2, a_0A12_LCSR, a_1A12, a_2A12, MRA12_2))/lambda(q2);
 }
-
-
 
 double MVll::T_1(double q2)
 {
-    //if (q2<CUTOFF)
-        return LCSR_fit(q2, a_0T1, a_1T1, a_2T1, dmT1);
-    //else
-        //return lat_fit(q2, a_0T1, a_1T1, dmT1);
+    return FF_fit(q2, a_0T1, a_1T1, a_2T1, MRT1_2);
 }
-
-
 
 double MVll::T_2(double q2)
 {
-    //if (q2<CUTOFF){
-        return LCSR_fit(q2, a_0T2_LCSR, a_1T2, a_2T2, dmT2);
-    //}
-    //else
-      //  return lat_fit(q2, a_0T2, a_1T2, dmT2);
+    return FF_fit(q2, a_0T2_LCSR, a_1T2, a_2T2, MRT2_2);
 }
 
-//double MVll::V_L(int i, double q2)
-//{
-//    switch (i){
-//        case 0:
-//            if (q2 < CUTOFF) {
-//                
-//                return fourMV/sqrt(q2)*LCSR_fit(q2, a_0A12_LCSR, a_1A12, a_2A12, dmA12);
-//            }
-//            else
-//                return fourMV/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
-//        case 1:
-//            return 1./2. * ( onepMMoMV*A_1(q2) - sqrt(lambda(q2))/ ( MM_MMpMV ) * V(q2) );
-//        case 2:
-//            return 1./2. * ( onepMMoMV*A_1(q2) + sqrt(lambda(q2))/ ( MM_MMpMV ) * V(q2) );
-//        default:
-//            std::stringstream out;
-//            out << i;
-//            throw std::runtime_error("I: index " + out.str() + " not implemented");
-//    }
-//}
-
-double MVll::V_0(double q2){
-    //if (q2 < CUTOFF) 
-        return fourMV/sqrt(q2)*LCSR_fit(q2, a_0A12_LCSR, a_1A12, a_2A12, dmA12);
-    //else
-        //return fourMV/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
+double MVll::V_0t(double q2){
+        return fourMV/sqrt(q2)*FF_fit(q2, a_0A12_LCSR, a_1A12, a_2A12, MRA12_2);
 }
 
 double MVll::V_p(double q2){
-    return 1./2. * ( onepMMoMV*A_1(q2) - sqrt(lambda(q2))/ ( MM_MMpMV ) * V(q2) );
+    return half * ( onepMMoMV*A_1(q2) - sqrt(lambda(q2))/ ( MM_MMpMV ) * V(q2) );
 }
 
 double MVll::V_m(double q2){
-    return 1./2. * ( onepMMoMV*A_1(q2) + sqrt(lambda(q2))/ ( MM_MMpMV ) * V(q2) );
+    return half * ( onepMMoMV*A_1(q2) + sqrt(lambda(q2))/ ( MM_MMpMV ) * V(q2) );
 }
 
-//double MVll::V_R(int i, double q2)
-//{
-//    if (i != 0) i=3-i;
-//    return -V_L(i,q2);
-//}
-
-
-
-//double MVll::T_L(int i, double q2)
-//{
-//    switch (i){
-//        case 0:
-//            if (q2 < CUTOFF)
-//                return 2*sqrt(q2)*MV/MM_MMpMV*LCSR_fit(q2, a_0T23, a_1T23, a_2T23, dmT23);
-//            else
-//                return 2*sqrt(q2)*MV/MM_MMpMV*lat_fit(q2, a_0T23, a_1T23, dmT23);
-//        case 1:
-//            return (MM2mMV2 * T_2(q2) - sqrt(lambda(q2)) * T_1(q2)) / twoMM2;
-//        case 2:
-//            return (MM2mMV2 * T_2(q2) + sqrt(lambda(q2)) * T_1(q2)) / twoMM2;
-//        default:
-//            std::stringstream out;
-//            out << i;
-//            throw std::runtime_error("I: index " + out.str() + " not implemented");
-//    }
-//}
-
-double MVll::T_0(double q2){
-    //if (q2 < CUTOFF)
-        return 2*sqrt(q2)*MV/MM_MMpMV*LCSR_fit(q2, a_0T23, a_1T23, a_2T23, dmT23);
-    //else
-    //    return 2*sqrt(q2)*MV/MM_MMpMV*lat_fit(q2, a_0T23, a_1T23, dmT23);
+double MVll::T_0t(double q2){
+    return 2*sqrt(q2)*MV/MM_MMpMV*FF_fit(q2, a_0T23, a_1T23, a_2T23, MRT23_2);
 }
 
 double MVll::T_p(double q2){
@@ -847,45 +710,14 @@ double MVll::T_m(double q2){
     return (MM2mMV2 * T_2(q2) + sqrt(lambda(q2)) * T_1(q2)) / twoMM2;
 }
 
-//double MVll::T_R(int i, double q2)
-//{
-//    if (i != 0) i=3-i;
-//    return -T_L(i,q2);
-//}
-
-
-
 double MVll::S_L(double q2)
 {
     return -sqrt(lambda(q2))/ twoMM_mbpms *A_0(q2);
 }
 
-
-
-//double MVll::S_R(double q2)
-//{
-//    return -S_L(q2);
-//}
-
-
-
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-
-
-
-//gslpp::complex MVll::H(double q2, double m2)
-//{
-//    double x = 4.*m2/q2;
-//    gslpp::complex par;
-//    
-//    if (x>1.) par = sqrt(x - 1.) * atan( 1. / sqrt(x - 1.) );
-//    else par = sqrt(1. - x) * ( log( ( 1. + sqrt(1. - x) ) / sqrt(x) ) - gslpp::complex::i()*M_PI/2.);
-//    
-//    return - 4./9. * ( log( m2/mu_b2 ) - 2./3. - x ) - 4./9. * (2. + x) * par;
-//}
-
 gslpp::complex MVll::H_c(double q2)
 {
     double x = fourMc2/q2;
@@ -918,19 +750,9 @@ gslpp::complex MVll::Y(double q2)
     return  - half * H_0(q2) * H_0_WC + H_c(q2) * H_c_WC - half * H_b(q2) * H_b_WC;
 }
 
-
-
-//gslpp::complex MVll::H_V(int i, double q2, int bar) 
-//{
-//    return -( (C_9 + Y(q2))*V_L(i,q2)
-//            + C_9p*V_R(i,q2)
-//            + MM2/q2*( 2*Mb/MM*( C_7*T_L(i,q2)
-//            + C_7p*T_R(i,q2) ) - 16*M_PI*M_PI*(h_0[i] + h_1[i] * q2 + h_2[i] * q2*q2)) );
-//}
-
 gslpp::complex MVll::H_V_0(double q2) 
 {
-    return -( ((C_9 + Y(q2)) - C_9p)*V_0(q2) + MM2/q2*( twoMboMM*( C_7 - C_7p ) * T_0(q2) - sixteenM_PI2*(h_0[0] + h_1[0] * q2 + h_2[0] * q2*q2)) );
+    return -( ((C_9 + Y(q2)) - C_9p)*V_0t(q2) + MM2/q2*( twoMboMM*( C_7 - C_7p ) * T_0t(q2) - sixteenM_PI2*(h_0[0] + h_1[0] * q2 + h_2[0] * q2*q2)) );
 }
 
 gslpp::complex MVll::H_V_p(double q2) 
@@ -943,14 +765,9 @@ gslpp::complex MVll::H_V_m(double q2)
     return -( ((C_9 + Y(q2))*V_m(q2) - C_9p*V_p(q2)) + MM2/q2*( twoMboMM*( C_7*T_m(q2) - C_7p*T_p(q2) ) - sixteenM_PI2*(h_0[2] + h_1[2] * q2 + h_2[2] * q2*q2)) );
 }
 
-//gslpp::complex MVll::H_A(int i, double q2, int bar) 
-//{     
-//    return -( C_10*V_L(i,q2) + C_10p*V_R(i,q2) );
-//}
-
 gslpp::complex MVll::H_A_0(double q2) 
 {
-    return ( -C_10 + C_10p ) * V_0(q2);
+    return ( -C_10 + C_10p ) * V_0t(q2);
 }
 
 gslpp::complex MVll::H_A_p(double q2) 
@@ -968,8 +785,6 @@ gslpp::complex MVll::H_S(double q2)
     return MboMW*( C_S - C_Sp )*S_L(q2);
 }
 
-
-
 gslpp::complex MVll::H_P(double q2) 
 {    
     return ( MboMW*( C_P - C_Pp ) + twoMlepMb/q2*( C_10 - C_10p) * ( 1. + MsoMb )) * S_L(q2);
@@ -984,8 +799,6 @@ double MVll::k2(double q2)
 {
     return (MM4 + q2*q2 + MV4 -twoMV2*q2 -twoMM2*(q2 + MV2))/fourMM2;
 }
-
-
 
 double MVll::beta(double q2) 
 {
@@ -1002,54 +815,10 @@ double MVll::lambda(double q2)
     return (MM4 + q2*q2 + MV4 -twoMV2*q2 -twoMM2*(q2 + MV2));
 }
 
-
-
 double MVll::F(double q2, double b_i) 
 {
     return sqrt(lambda(q2))*beta(q2)*q2*b_i/(ninetysixM_PI3MM3);
 }
-
-
-
-//double MVll::I(int i, double q2, int bar) 
-//{
-//    
-//
-//    switch (i){
-//        case 0: // I1c
-//            return F(q2,b)*( ( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() )/2.  +  H_P(q2,bar).abs2()  +  2.*Mlep2/q2*( H_V(0,q2,bar).abs2() 
-//                    - H_A(0,q2,bar).abs2() )  + beta2*H_S(q2,bar).abs2() );
-//        case 1: // I1s
-//            return F(q2,b)*( (beta2 + 2.)/8.*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() + H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() )  +
-//                            Mlep2/q2*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() - H_A(1,q2,bar).abs2() - H_A(2,q2,bar).abs2() ) );
-//        case 2: // I2c
-//            return -F(q2,b)*beta2/2.*( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() );
-//        case 3: // I2s
-//            return F(q2,b)*beta2/8.*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2()  +  H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() );
-//        case 4: // I3
-//            return -F(q2,b)/2.*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).real()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).real() );
-//        case 5: // I4
-//            return F(q2,b)*beta2/4.*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real() );
-//        case 6: // I5
-//            return F(q2,b)*( beta(q2)/2.*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real() )  -
-//                            beta(q2)*Mlep/sqrt(q2)*( H_S(q2,bar).conjugate()*(H_V(1,q2,bar) + H_V(2,q2,bar)) ).real() );
-//        case 7: // I6s
-//            return F(q2,b)*beta(q2)*( H_V(2,q2,bar)*(H_A(2,q2,bar).conjugate()) - H_V(1,q2,bar)*(H_A(1,q2,bar).conjugate()) ).real();
-//        case 8: // I6c
-//            return 2.*F(q2,b)*beta(q2)*Mlep/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(0,q2,bar) ).real();
-//        case 9: // I7
-//            return F(q2,b)*( beta(q2)/2.*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag() )  -
-//                            beta(q2)*Mlep/sqrt(q2)*( H_S(q2,bar).conjugate()*(H_V(2,q2,bar) - H_V(1,q2,bar)) ).imag() );
-//        case 10: // I8
-//            return F(q2,b)*beta2/4.*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag() );
-//        case 11: // I9
-//            return F(q2,b)*beta2/2.*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).imag()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).imag() );
-//        default:
-//            std::stringstream out;
-//            out << i;
-//            throw std::runtime_error("I: index " + out.str() + " not implemented");
-//    }
-//}
 
 double  MVll::I_1c(double q2) {
     return F(q2,b)*( ( H_V_0(q2).abs2() + H_A_0(q2).abs2() )/2.  +  H_P(q2).abs2()  +  2.*Mlep2/q2*( H_V_0(q2).abs2() 
@@ -1103,95 +872,10 @@ double  MVll::I_9(double q2) {
     return F(q2,b)*beta2(q2)/2.*( ( H_V_p(q2)*H_V_m(q2).conjugate() ).imag()  +  ( H_A_p(q2)*H_A_m(q2).conjugate() ).imag() );
 }
 
-//double MVll::Sigma(int i, double q2) 
-//{
-//    return (I(i, q2,0) + I(i, q2,1))/2;
-//}
-
 double MVll::Delta(int i, double q2) 
 {
     return 0; /* FIX CPV */
     //return (I(i, q2,0) - I(i, q2,1))/2;
-}
-
-double MVll::integrateFF(int i, double q_min, double q_max){
-    
-    if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
-        updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
-    }
-    
-    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
-   
-    switch(i){
-        case 0:
-            if (V0Cached[qbin] == 0) {
-                FV0 = convertToGslFunction( boost::bind( &MVll::getV0, &(*this), _1 ) );
-                gsl_integration_qags (&FV0, q_min, q_max, 1.e-5, 1.e-3, 200, w_V0, &avaV0, &errV0);
-                cacheV0[qbin] = avaV0;
-                V0Cached[qbin] = 1;
-            }
-            return cacheV0[qbin];
-            break;
-        case 1:
-            if (VpCached[qbin] == 0) {
-                FVp = convertToGslFunction( boost::bind( &MVll::getVp, &(*this), _1 ) );
-                gsl_integration_qags (&FVp, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vp, &avaVp, &errVp);
-                cacheVp[qbin] = avaVp;
-                VpCached[qbin] = 1;
-            }
-            return cacheVp[qbin];
-            break;
-        case 2:
-            if (VmCached[qbin] == 0) {
-                FVm = convertToGslFunction( boost::bind( &MVll::getVm, &(*this), _1 ) );
-                gsl_integration_qags (&FVm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Vm, &avaVm, &errVm);
-                cacheVm[qbin] = avaVm;
-                VmCached[qbin] = 1;
-            }
-            return cacheVm[qbin];
-            break;
-        case 3:
-            if (T0Cached[qbin] == 0) {
-                FT0 = convertToGslFunction( boost::bind( &MVll::getT0, &(*this), _1 ) );
-                gsl_integration_qags (&FT0, q_min, q_max, 1.e-5, 1.e-3, 200, w_T0, &avaT0, &errT0);
-                cacheT0[qbin] = avaT0;
-                T0Cached[qbin] = 1;
-            }
-            return cacheT0[qbin];
-            break;
-        case 4:
-            if (TpCached[qbin] == 0) {
-                FTp = convertToGslFunction( boost::bind( &MVll::getTp, &(*this), _1 ) );
-                gsl_integration_qags (&FTp, q_min, q_max, 1.e-5, 1.e-3, 200, w_Tp, &avaTp, &errTp);
-                cacheTp[qbin] = avaTp;
-                TpCached[qbin] = 1;
-            }
-            return cacheTp[qbin];
-            break;
-        case 5:
-            if (TmCached[qbin] == 0) {
-                FTm = convertToGslFunction( boost::bind( &MVll::getTm, &(*this), _1 ) );
-                gsl_integration_qags (&FTm, q_min, q_max, 1.e-5, 1.e-3, 200, w_Tm, &avaTm, &errTm);
-                cacheTm[qbin] = avaTm;
-                TmCached[qbin] = 1;
-            }
-            return cacheTm[qbin];
-            break;
-        case 6:
-            if (SCached[qbin] == 0) {
-                FS = convertToGslFunction( boost::bind( &MVll::getS, &(*this), _1 ) );
-                gsl_integration_qags (&FS, q_min, q_max, 1.e-5, 1.e-3, 200, w_S, &avaS, &errS);
-                cacheS[qbin] = avaS;
-                SCached[qbin] = 1;
-            }
-            return cacheS[qbin];
-            break;
-        default:
-            std::stringstream out;
-            out << i;
-            throw std::runtime_error("MVll::integrateFF: index " + out.str() + " not implemented");
-    }
 }
 
 double MVll::integrateSigma(int i, double q_min, double q_max)
@@ -1380,105 +1064,5 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             std::stringstream out;
             out << i;
             throw std::runtime_error("integrateDelta: index " + out.str() + " not implemented"); 
-    }
-}
-
-gslpp::complex MVll::integrategtilde(int i, double q_min, double q_max)
-{
-    
-    if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
-        updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
-    }
-        
-    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
-    switch(i){
-        case 0:
-            if (gtilde_1Cached[qbin] == 0) {
-                Fgtilde_1_re = convertToGslFunction( boost::bind( &MVll::getgtilde_1_re, &(*this), _1 ) );
-                gsl_integration_qags (&Fgtilde_1_re, q_min, q_max, 1.e-5, 1.e-3, 200, w_gtilde_1_re, &avagtilde_1_re, &errgtilde_1_re);
-                Fgtilde_1_im = convertToGslFunction( boost::bind( &MVll::getgtilde_1_im, &(*this), _1 ) );
-                gsl_integration_qags (&Fgtilde_1_im, q_min, q_max, 1.e-5, 1.e-3, 200, w_gtilde_1_im, &avagtilde_1_im, &errgtilde_1_im);
-                cachegtilde_1[qbin] = avagtilde_1_re + gslpp::complex::i() * avagtilde_1_im;
-                gtilde_1Cached[qbin] = 1;
-            }
-            return cachegtilde_1[qbin];
-            break;
-        case 1:
-            if (gtilde_2Cached[qbin] == 0) {
-                Fgtilde_2_re = convertToGslFunction( boost::bind( &MVll::getgtilde_2_re, &(*this), _1 ) );
-                gsl_integration_qags (&Fgtilde_2_re, q_min, q_max, 1.e-5, 1.e-3, 200, w_gtilde_2_re, &avagtilde_2_re, &errgtilde_2_re);
-                Fgtilde_2_im = convertToGslFunction( boost::bind( &MVll::getgtilde_2_im, &(*this), _1 ) );
-                gsl_integration_qags (&Fgtilde_2_im, q_min, q_max, 1.e-5, 1.e-3, 200, w_gtilde_2_im, &avagtilde_2_im, &errgtilde_2_im);
-                cachegtilde_2[qbin] = avagtilde_2_re + gslpp::complex::i() * avagtilde_2_im;
-                gtilde_2Cached[qbin] = 1;
-            }
-            return cachegtilde_2[qbin];
-            break;
-        case 2:
-            if (gtilde_3Cached[qbin] == 0) {
-                Fgtilde_3_re = convertToGslFunction( boost::bind( &MVll::getgtilde_3_re, &(*this), _1 ) );
-                gsl_integration_qags (&Fgtilde_3_re, q_min, q_max, 1.e-5, 1.e-3, 200, w_gtilde_3_re, &avagtilde_3_re, &errgtilde_3_re);
-                Fgtilde_3_im = convertToGslFunction( boost::bind( &MVll::getgtilde_3_im, &(*this), _1 ) );
-                gsl_integration_qags (&Fgtilde_3_im, q_min, q_max, 1.e-5, 1.e-3, 200, w_gtilde_3_im, &avagtilde_3_im, &errgtilde_3_im);
-                cachegtilde_3[qbin] = avagtilde_3_re + gslpp::complex::i() * avagtilde_3_im;
-                gtilde_3Cached[qbin] = 1;
-            }
-            return cachegtilde_3[qbin];
-            break;
-        default:
-            std::stringstream out;
-            out << i;
-            throw std::runtime_error("integrateDC9: index " + out.str() + " not implemented"); 
-    }
-}
-
-gslpp::complex MVll::integrateh(int i, double q_min, double q_max)
-{
-    
-    if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
-        updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
-    }
-        
-    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
-    switch(i){
-        case 0:
-            if (h_0Cached[qbin] == 0) {
-                Fh_0_re = convertToGslFunction( boost::bind( &MVll::geth_0_re, &(*this), _1 ) );
-                gsl_integration_qags (&Fh_0_re, q_min, q_max, 1.e-5, 1.e-3, 200, w_h_0_re, &avah_0_re, &errh_0_re);
-                Fh_0_im = convertToGslFunction( boost::bind( &MVll::geth_0_im, &(*this), _1 ) );
-                gsl_integration_qags (&Fh_0_im, q_min, q_max, 1.e-5, 1.e-3, 200, w_h_0_im, &avah_0_im, &errh_0_im);
-                cacheh_0[qbin] = avah_0_re + gslpp::complex::i() * avah_0_im;
-                h_0Cached[qbin] = 1;
-            }
-            return cacheh_0[qbin];
-            break;
-        case 1:
-            if (h_pCached[qbin] == 0) {
-                Fh_p_re = convertToGslFunction( boost::bind( &MVll::geth_p_re, &(*this), _1 ) );
-                gsl_integration_qags (&Fh_p_re, q_min, q_max, 1.e-5, 1.e-3, 200, w_h_p_re, &avah_p_re, &errh_p_re);
-                Fh_p_im = convertToGslFunction( boost::bind( &MVll::geth_p_im, &(*this), _1 ) );
-                gsl_integration_qags (&Fh_p_im, q_min, q_max, 1.e-5, 1.e-3, 200, w_h_p_im, &avah_p_im, &errh_p_im);
-                cacheh_p[qbin] = avah_p_re + gslpp::complex::i() * avah_p_im;
-                h_pCached[qbin] = 1;
-            }
-            return cacheh_p[qbin];
-            break;
-        case 2:
-            if (h_mCached[qbin] == 0) {
-                Fh_m_re = convertToGslFunction( boost::bind( &MVll::geth_m_re, &(*this), _1 ) );
-                gsl_integration_qags (&Fh_m_re, q_min, q_max, 1.e-5, 1.e-3, 200, w_h_m_re, &avah_m_re, &errh_m_re);
-                Fh_m_im = convertToGslFunction( boost::bind( &MVll::geth_m_im, &(*this), _1 ) );
-                gsl_integration_qags (&Fh_m_im, q_min, q_max, 1.e-5, 1.e-3, 200, w_h_m_im, &avah_m_im, &errh_m_im);
-                cacheh_m[qbin] = avah_m_re + gslpp::complex::i() * avah_m_im;
-                h_mCached[qbin] = 1;
-            }
-            return cacheh_m[qbin];
-            break;
-        default:
-            std::stringstream out;
-            out << i;
-            throw std::runtime_error("integrateDC7: index " + out.str() + " not implemented"); 
     }
 }

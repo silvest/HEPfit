@@ -87,7 +87,287 @@ public:
     /**
      * @brief Destructor.
      */
-    virtual ~MVll();
+    virtual ~MVll();   
+    
+    /**
+    * @brief The fit function from arXiv:1503.05534v1, \f$ f^{LCSR} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0 fit parameter
+    * @param[in] a_1 fit parameter
+    * @param[in] a_2 fit parameter
+    * @param[in] MR2 square of the nearest resonance mass
+    * @return \f$ f^{lat} \f$
+    */
+    double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
+    
+    double getwidth(){
+        return width;
+    }
+    
+    double getMlep(){
+        return Mlep;
+    }
+    
+    /**
+    * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \beta \f$
+    */
+    double beta (double q2);
+    
+    /**
+    * @brief The integral of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
+    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return \f$ <\Sigma_{i}> \f$ 
+    */
+    double integrateSigma(int i, double q_min, double q_max);
+    
+    /**
+    * @brief The integral of \f$ \Delta_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
+    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return \f$ <\Delta_{i}> \f$ 
+    */
+    double integrateDelta(int i, double q_min, double q_max);
+    
+    /**
+    * @brief The form factor \f$ V_0 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ V_0 \f$
+    */
+    double getV0(double q2)
+    {
+        return (2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_0t(q2);
+    };
+    
+    /**
+    * @brief The form factor \f$ V_+ \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ V_+ \f$
+    */
+    double getVp(double q2)
+    {
+        return V_p(q2);
+    };
+    
+    /**
+    * @brief The form factor \f$ V_- \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ V_- \f$
+    */
+    double getVm(double q2)
+    {
+        return V_m(q2);
+    };
+    
+    /**
+    * @brief The form factor \f$ T_0 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T_0 \f$
+    */
+    double getT0(double q2)
+    {
+        return twoMM3/sqrt(q2 * lambda(q2)) * T_0t(q2);
+    };
+    
+    /**
+    * @brief The form factor \f$ T_+ \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T_+ \f$
+    */
+    double getTp(double q2)
+    {
+        return T_p(q2);
+    };
+    
+    /**
+    * @brief The form factor \f$ T_- \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T_- \f$
+    */
+    double getTm(double q2)
+    {
+        return T_m(q2);
+    };
+    
+    /**
+    * @brief The form factor \f$ S \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ S \f$
+    */
+    double getS(double q2)
+    {
+        return S_L_pre/sqrt(lambda(q2)) * S_L(q2);
+    };
+    
+    /**
+    * @brief The helicity amplitude \f$ H_V^{\lambda} \f$ .
+    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
+    * @return \f$ H_V^{\lambda} \f$
+    */
+    gslpp::complex H_V_0(double q2);
+    gslpp::complex H_V_p(double q2);
+    gslpp::complex H_V_m(double q2);
+
+    /**
+    * @brief The helicity amplitude \f$ H_A^{\lambda} \f$ .
+    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
+    * @return \f$ H_A^{\lambda} \f$
+    */
+    gslpp::complex H_A_0(double q2);
+    gslpp::complex H_A_p(double q2);
+    gslpp::complex H_A_m(double q2);
+
+    /**
+    * @brief The helicity amplitude \f$ H_S^{\lambda} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
+    * @return \f$ H_S^{\lambda} \f$
+    */
+    gslpp::complex H_S(double q2);
+
+    /**
+    * @brief The helicity amplitude \f$ H_P^{\lambda} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
+    * @return \f$ H_P^{\lambda} \f$
+    */
+    gslpp::complex H_P(double q2);
+    
+    /**
+    * @brief The real part of \f$ \tilde{g}^1 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{RE}(\tilde{g}^1) \f$ 
+    */
+    double getgtilde_1_re(double q2)
+    {
+        updateParameters();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
+    }
+    
+    /**
+    * @brief The immaginary part of \f$ \tilde{g}^1 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{IM}(\tilde{g}^1) \f$ 
+    */
+    double getgtilde_1_im(double q2)
+    {
+        updateParameters();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
+    }
+    
+    /**
+    * @brief The real part of \f$ \tilde{g}^2 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{RE}(\tilde{g}^2) \f$ 
+    */
+    double getgtilde_2_re(double q2)
+    {
+        updateParameters();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
+    }
+    
+    /**
+    * @brief The immaginary part of \f$ \tilde{g}^2 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{IM}(\tilde{g}^2) \f$ 
+    */
+    double getgtilde_2_im(double q2)
+    {
+        updateParameters();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
+    }
+    
+    /**
+    * @brief The real part of \f$ \tilde{g}^3 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{RE}(\tilde{g}^3) \f$ 
+    */
+    double getgtilde_3_re(double q2)
+    {
+        updateParameters();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
+    }
+
+    /**
+    * @brief The imaginary part of \f$ \tilde{g}^3 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{IM}(\tilde{g}^3) \f$ 
+    */
+    double getgtilde_3_im(double q2)
+    {
+        updateParameters();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
+    }
+    
+    /**
+    * @brief The real part of \f$ h_0 \f$.  
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{RE}(h_0) \f$
+    */
+    double geth_0_re(double q2)
+    {
+        return (sixteenM_PI2MM2 * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).real();
+    }
+    
+    /**
+    * @brief The imaginary part of \f$ h_0 \f$.  
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{IM}(h_0) \f$
+    */
+    double geth_0_im(double q2)
+    {
+        return (sixteenM_PI2MM2 * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).imag();
+    }
+    
+    /**
+    * @brief The real part of \f$ h_+ \f$.  
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{RE}(h_+) \f$
+    */
+    double geth_p_re(double q2)
+    {
+        return (sixteenM_PI2MM2 * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
+    }
+    
+    /**
+    * @brief The imaginary part of \f$ h_+ \f$.  
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{IM}(h_+) \f$
+    */
+    double geth_p_im(double q2)
+    {
+        return (sixteenM_PI2MM2 * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
+    }
+    
+    /**
+    * @brief The real part of \f$ h_- \f$.  
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{RE}(h_-) \f$
+    */
+    double geth_m_re(double q2)
+    {
+        return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).real();
+    }
+
+    /**
+    * @brief The imaginary part of \f$ h_- \f$.  
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \mathrm{IM}(h_-) \f$
+    */
+    double geth_m_im(double q2)
+    {
+        return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
+    }
+
+private:
     
     /**
      * @brief The update parameter method for MVll.
@@ -175,31 +455,31 @@ public:
     double a_0V;/**<LCSR fit parameter */
     double a_1V;/**<LCSR fit parameter */
     double a_2V;/**<LCSR fit parameter */
-    double dmV;/**<LCSR fit parameter */
+    double MRV_2;/**<LCSR fit parameter */
     double a_0A0;/**<LCSR fit parameter */
     double a_1A0;/**<LCSR fit parameter */
     double a_2A0;/**<LCSR fit parameter */
-    double dmA0;/**<LCSR fit parameter */
+    double MRA0_2;/**<LCSR fit parameter */
     double a_0A1;/**<LCSR fit parameter */
     double a_1A1;/**<LCSR fit parameter */
     double a_2A1;/**<LCSR fit parameter */
-    double dmA1;/**<LCSR fit parameter */
+    double MRA1_2;/**<LCSR fit parameter */
     double a_0A12;/**<LCSR fit parameter */
     double a_1A12;/**<LCSR fit parameter */
     double a_2A12;/**<LCSR fit parameter */
-    double dmA12;/**<LCSR fit parameter */
+    double MRA12_2;/**<LCSR fit parameter */
     double a_0T1;/**<LCSR fit parameter */
     double a_1T1;/**<LCSR fit parameter */
     double a_2T1;/**<LCSR fit parameter */
-    double dmT1;/**<LCSR fit parameter */
+    double MRT1_2;/**<LCSR fit parameter */
     double a_0T2;/**<LCSR fit parameter */
     double a_1T2;/**<LCSR fit parameter */
     double a_2T2;/**<LCSR fit parameter */
-    double dmT2;/**<LCSR fit parameter */
+    double MRT2_2;/**<LCSR fit parameter */
     double a_0T23;/**<LCSR fit parameter */
     double a_1T23;/**<LCSR fit parameter */
     double a_2T23;/**<LCSR fit parameter */
-    double dmT23;/**<LCSR fit parameter */
+    double MRT23_2;/**<LCSR fit parameter */
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
@@ -224,35 +504,11 @@ public:
     
     
     /**
-    * @brief The fit function from arXiv:1503.05534v1, \f$ f^{LCSR} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] a_0 fit parameter
-    * @param[in] a_1 fit parameter
-    * @param[in] a_2 fit parameter
-    * @param[in] dm shift in the initial meson mass
-    * @return \f$ f^{lat} \f$
-    */
-    double LCSR_fit(double q2, double a_0, double a_1, double a_2, double dm);
-    
-    
-    /**
     * @brief The lattice parameter \f$ z \f$ from arXiv:1310.3722v3.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ z \f$
     */
     double z(double q2);
-    
-    
-    /**
-    * @brief The fit function from arXiv:1310.3722v3, \f$ f^{lat} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] a_0 fit parameter
-    * @param[in] a_1 fit parameter
-    * @param[in] dm shift in the initial meson mass
-    * @return \f$ f^{lat} \f$
-    */
-    double lat_fit(double q2, double a_0, double a_1, double dm);
-    
     
     /**
     * @brief The transverse form factor \f$ V \f$.
@@ -276,7 +532,6 @@ public:
     * @return \f$ A_1 \f$
     */
     double A_1(double q2);
-
     
     /**
     * @brief The transverse form factor \f$ A_2 \f$.
@@ -284,7 +539,6 @@ public:
     * @return \f$ A_2 \f$
     */
     double A_2(double q2);
-
     
     /**
     * @brief The transverse form factor \f$ T_1 \f$.
@@ -307,20 +561,9 @@ public:
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ V_L^{\lambda} \f$
     */
-    //double V_L(int i, double q2);
-    double V_0(double q2);
+    double V_0t(double q2);
     double V_p(double q2);
     double V_m(double q2);
-
-    
-    /**
-    * @brief The helicity form factor \f$ V_R^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_R^{\lambda} \f$
-    */
-    //double V_R(int i, double q2);
-
 
     /**
     * @brief The helicity form factor \f$ T_L^{\lambda} \f$.
@@ -328,20 +571,9 @@ public:
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T_L^{\lambda} \f$
     */
-    //double T_L(int i, double q2);
-    double T_0(double q2);
+    double T_0t(double q2);
     double T_p(double q2);
     double T_m(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ T_R^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_R^{\lambda} \f$
-    */
-    //double T_R(int i, double q2);
-
 
     /**
     * @brief The helicity form factor \f$ S_L \f$.
@@ -349,14 +581,6 @@ public:
     * @return \f$ S_L \f$
     */
     double S_L(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ S_R \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ S_R \f$
-    */
-    //double S_R(double q2);
     
     /**
     * @brief The \f$ h(q^2,m) \f$ function involved into \f$ C_9^{eff}\f$.
@@ -364,78 +588,24 @@ public:
     * @param[in] m mass
     * @return \f$ h(q^2,m) \f$
     */
-    //gslpp::complex H(double q2, double m);
     gslpp::complex H_0(double q2);
     gslpp::complex H_c(double q2);
     gslpp::complex H_b(double q2);
-    
     
     /**
     * @brief The \f$ Y(q^2) \f$ function involved into \f$ C_9^{eff}\f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ Y(q^2) \f$
     */
-    gslpp::complex Y(double q2);
-    
-    
-    /**
-    * @brief The helicity amplitude \f$ H_V^{\lambda} \f$ .
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_V^{\lambda} \f$
-    */
-    gslpp::complex H_V(int i, double q2, int bar);
-    gslpp::complex H_V_0(double q2);
-    gslpp::complex H_V_p(double q2);
-    gslpp::complex H_V_m(double q2);
-
-
-    /**
-    * @brief The helicity amplitude \f$ H_A^{\lambda} \f$ .
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_A^{\lambda} \f$
-    */
-    gslpp::complex H_A(int i, double q2, int bar);
-    gslpp::complex H_A_0(double q2);
-    gslpp::complex H_A_p(double q2);
-    gslpp::complex H_A_m(double q2);
-
-    /**
-    * @brief The helicity amplitude \f$ H_S^{\lambda} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_S^{\lambda} \f$
-    */
-    gslpp::complex H_S(double q2);
-
-
-    /**
-    * @brief The helicity amplitude \f$ H_P^{\lambda} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_P^{\lambda} \f$
-    */
-    gslpp::complex H_P(double q2);
-    
-    
+    gslpp::complex Y(double q2);   
+        
     /**
     * @brief The square of the 3-momentum of the recoiling meson in the M rest frame, \f$ k^2 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ k^2 \f$ 
     */
     double k2 (double q2);
-    
-    
-    /**
-    * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \beta \f$
-    */
-    double beta (double q2);
-    
+        
     /**
     * @brief The factor \f$ \beta^2 \f$ used in the angular coefficients \f$I_i\f$. 
     * @param[in] q2 \f$q^2\f$ of the decay
@@ -468,8 +638,6 @@ public:
     * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
     * @return \f$ I_{i} \f$
     */
-    //double  I(int i, double q2, int bar);
-    
     double  I_1c(double q2);
     double  I_1s(double q2);
     double  I_2c(double q2);
@@ -483,16 +651,6 @@ public:
     double  I_8(double q2);
     double  I_9(double q2);
     
-    
-    /**
-    * @brief The CP average \f$ \Sigma_{i} \f$ .
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Sigma_{i} \f$
-    */
-    //double Sigma(int i, double q2);
-    
-    
     /**
     * @brief The CP asymmetry \f$ \Delta_{i} \f$ .
     * @param[in] i index of the angular coefficient \f$ I_{i} \f$
@@ -500,53 +658,6 @@ public:
     * @return \f$ \Delta_{i} \f$
     */
     double Delta(int i, double q2);
-    
-    /**
-    * @brief The integral of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return \f$ <\Sigma_{i}> \f$ 
-    */
-    double integrateSigma(int i, double q_min, double q_max);
-    
-    /**
-    * @brief The integral of \f$ \Delta_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return \f$ <\Delta_{i}> \f$ 
-    */
-    double integrateDelta(int i, double q_min, double q_max);
-    
-    /**
-    * @brief The integral of the hadronic correction \f$ \tilde{g}^i \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
-    * @param[in] i index of the hadronic correction \f$ \tilde{g}^i \f$
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return \f$ <\tilde{g}^i> \f$ 
-    */
-    gslpp::complex integrategtilde(int i, double q_min, double q_max);
-    
-    /**
-    * @brief The integral of the hadronic correction \f$ h_{\lambda} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
-    * @param[in] i index of the hadronic correction \f$ h_{\lambda} \f$
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return \f$ <h_{\lambda}> \f$ 
-    */
-    gslpp::complex integrateh(int i, double q_min, double q_max);
-    
-    /**
-    * @brief The integral of a form factor from \f$q_{min}\f$ to \f$q_{max}\f$.
-    * @param[in] i index of the form factor: 0 for \f$ V_0 \f$, 1 for \f$ V_+ \f$,
-     *  2 for \f$ V_- \f$, 3 for \f$ T_0 \f$, 4 for \f$ T_+ \f$, 5 for \f$ T_- \f$,
-     * 6 for \f$ S \f$
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return \f$ <FF> \f$ 
-    */
-    double integrateFF(int i, double q_min, double q_max);
     
     /**
     * @brief The CP average \f$ \Sigma_{1s} \f$ .
@@ -728,289 +839,6 @@ public:
         return Delta(11, q2);
     };
     
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_V^0 \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_V^0|^2 \f$
-//    */
-//    double getHV0_abs2(double q2)
-//    {
-//        return H_V(0, q2, 0).abs2();
-//    };
-//    
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_V^+ \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_V^+|^2 \f$
-//    */
-//    double getHV1_abs2(double q2)
-//    {
-//        return H_V(1, q2, 0).abs2();
-//    };
-//    
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_V^- \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_V^-|^2 \f$
-//    */
-//    double getHV2_abs2(double q2)
-//    {
-//        return H_V(2, q2, 0).abs2();
-//    };
-//    
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_A^0 \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_A^0|^2 \f$
-//    */
-//    double getHA0_abs2(double q2)
-//    {
-//        return H_A(0, q2, 0).abs2();
-//    };
-//    
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_A^+ \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_A^+|^2 \f$
-//    */
-//    double getHA1_abs2(double q2)
-//    {
-//        return H_A(1, q2, 0).abs2();
-//    };
-//    
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_A^- \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_A^-|^2 \f$
-//    */
-//    double getHA2_abs2(double q2)
-//    {
-//        return H_A(2, q2, 0).abs2();
-//    };
-//    
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_S \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_S|^2 \f$
-//    */
-//    double getHS_abs2(double q2)
-//    {
-//        return H_S(q2, 0).abs2();
-//    }
-//    
-//    /**
-//    * @brief The square of the absolute value of the helicity amplitude \f$ H_P \f$ .
-//    * @param[in] q2 \f$q^2\f$ of the decay
-//    * @return \f$ |H_P|^2 \f$
-//    */
-//    double getHP_abs2(double q2)
-//    {
-//        return H_P(q2, 0).abs2();
-//    }
-    
-    /**
-    * @brief The form factor \f$ V_0 \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_0 \f$
-    */
-    double getV0(double q2)
-    {
-        return (2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_0(q2);
-    };
-    
-    /**
-    * @brief The form factor \f$ V_+ \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_+ \f$
-    */
-    double getVp(double q2)
-    {
-        return V_p(q2);
-    };
-    
-    /**
-    * @brief The form factor \f$ V_- \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_- \f$
-    */
-    double getVm(double q2)
-    {
-        return V_m(q2);
-    };
-    
-    /**
-    * @brief The form factor \f$ T_0 \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_0 \f$
-    */
-    double getT0(double q2)
-    {
-        return twoMM3/sqrt(q2 * lambda(q2)) * T_0(q2);
-    };
-    
-    /**
-    * @brief The form factor \f$ T_+ \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_+ \f$
-    */
-    double getTp(double q2)
-    {
-        return T_p(q2);
-    };
-    
-    /**
-    * @brief The form factor \f$ T_- \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_- \f$
-    */
-    double getTm(double q2)
-    {
-        return T_m(q2);
-    };
-    
-    /**
-    * @brief The form factor \f$ S \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ S \f$
-    */
-    double getS(double q2)
-    {
-        return S_L_pre/sqrt(lambda(q2)) * S_L(q2);
-    };
-    
-    /**
-    * @brief The real part of \f$ \tilde{g}^1 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{RE}(\tilde{g}^1) \f$ 
-    */
-    double getgtilde_1_re(double q2)
-    {
-        updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
-    }
-    
-    /**
-    * @brief The immaginary part of \f$ \tilde{g}^1 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{IM}(\tilde{g}^1) \f$ 
-    */
-    double getgtilde_1_im(double q2)
-    {
-        updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
-    }
-    
-    /**
-    * @brief The real part of \f$ \tilde{g}^2 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{RE}(\tilde{g}^2) \f$ 
-    */
-    double getgtilde_2_re(double q2)
-    {
-        updateParameters();
-        return C2_inv * (gtilde_2_pre/(MMpMV * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
-    }
-    
-    /**
-    * @brief The immaginary part of \f$ \tilde{g}^2 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{IM}(\tilde{g}^2) \f$ 
-    */
-    double getgtilde_2_im(double q2)
-    {
-        updateParameters();
-        return C2_inv * (gtilde_2_pre/(MMpMV * A_1(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
-    }
-    
-    /**
-    * @brief The real part of \f$ \tilde{g}^3 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{RE}(\tilde{g}^3) \f$ 
-    */
-    double getgtilde_3_re(double q2)
-    {
-        updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
-    }
-
-    /**
-    * @brief The imaginary part of \f$ \tilde{g}^3 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{IM}(\tilde{g}^3) \f$ 
-    */
-    double getgtilde_3_im(double q2)
-    {
-        updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM*MM - q2 - MV*MV)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
-    }
-    
-    /**
-    * @brief The real part of \f$ h_0 \f$.  
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{RE}(h_0) \f$
-    */
-    double geth_0_re(double q2)
-    {
-        return (sixteenM_PI2MM2 * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).real();
-        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).real();
-    }
-    
-    /**
-    * @brief The imaginary part of \f$ h_0 \f$.  
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{IM}(h_0) \f$
-    */
-    double geth_0_im(double q2)
-    {
-        return (sixteenM_PI2MM2 * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).imag();
-        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(sqrt(lambda(q2))*T_1(q2)*(Mb+Ms))*(h_0[2]-h_0[1])).imag();
-    }
-    
-    /**
-    * @brief The real part of \f$ h_+ \f$.  
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{RE}(h_+) \f$
-    */
-    double geth_p_re(double q2)
-    {
-        return (sixteenM_PI2MM2 * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
-        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).real();
-    }
-    
-    /**
-    * @brief The imaginary part of \f$ h_+ \f$.  
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{IM}(h_+) \f$
-    */
-    double geth_p_im(double q2)
-    {
-        return (sixteenM_PI2MM2 * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
-        //return (-8.*M_PI*M_PI*pow(MM, 3.)/(T_2(q2)*(Mb+Ms)*(MM*MM-MV*MV))*(h_0[2]+h_0[1])).imag();
-    }
-    
-    /**
-    * @brief The real part of \f$ h_- \f$.  
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{RE}(h_-) \f$
-    */
-    double geth_m_re(double q2)
-    {
-        return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).real();
-        //return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).real();
-    }
-
-    /**
-    * @brief The imaginary part of \f$ h_- \f$.  
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \mathrm{IM}(h_-) \f$
-    */
-    double geth_m_im(double q2)
-    {
-        return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
-        //return (32.*M_PI*M_PI*pow(MM, 3.)*MV/(lambda(q2)*(Mb-Ms)*(T_2(q2)+q2/(MM*MM-MV*MV)*T_3(q2)))*(h_0[0]*sqrt(q2)-(MM*MM-q2-MV*MV)/(4.*MV)*(h_0[2]+h_0[1]))).imag();
-    }
-
-private:
     const StandardModel& mySM;/**< Model type */
     StandardModel::lepton lep;/**< Final leptons type */
     StandardModel::meson meson;/**< Initial meson type */
@@ -1034,22 +862,6 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta3;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta7;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, double > cacheVp;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheVm;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheTp;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheTm;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheT0;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheV0;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheS;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, gslpp::complex > cachegtilde_1;/**< Cache variable */
-    std::map<std::pair<double, double>, gslpp::complex > cachegtilde_2;/**< Cache variable */
-    std::map<std::pair<double, double>, gslpp::complex > cachegtilde_3;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, gslpp::complex > cacheh_0;/**< Cache variable */
-    std::map<std::pair<double, double>, gslpp::complex > cacheh_p;/**< Cache variable */
-    std::map<std::pair<double, double>, gslpp::complex > cacheh_m;/**< Cache variable */
     
     double avaSigma0;/**< Gsl integral variable */
     double avaSigma1;/**< Gsl integral variable */
@@ -1089,50 +901,6 @@ private:
     double errDelta7;/**< Gsl integral variable */
     double errDelta11;/**< Gsl integral variable */
     
-    double avaVp;/**< Gsl integral variable */
-    double avaTp;/**< Gsl integral variable */
-    double avaVm;/**< Gsl integral variable */
-    double avaTm;/**< Gsl integral variable */
-    double avaT0;/**< Gsl integral variable */
-    double avaV0;/**< Gsl integral variable */
-    double avaS;/**< Gsl integral variable */
-    
-    double errVp;/**< Gsl integral variable */
-    double errTp;/**< Gsl integral variable */
-    double errVm;/**< Gsl integral variable */
-    double errTm;/**< Gsl integral variable */
-    double errT0;/**< Gsl integral variable */
-    double errV0;/**< Gsl integral variable */
-    double errS;/**< Gsl integral variable */
-    
-    double avagtilde_1_re;/**< Gsl integral variable */
-    double avagtilde_1_im;/**< Gsl integral variable */
-    double avagtilde_2_re;/**< Gsl integral variable */
-    double avagtilde_2_im;/**< Gsl integral variable */
-    double avagtilde_3_re;/**< Gsl integral variable */
-    double avagtilde_3_im;/**< Gsl integral variable */
-    
-    double errgtilde_1_re;/**< Gsl integral variable */
-    double errgtilde_1_im;/**< Gsl integral variable */
-    double errgtilde_2_re;/**< Gsl integral variable */
-    double errgtilde_2_im;/**< Gsl integral variable */
-    double errgtilde_3_re;/**< Gsl integral variable */
-    double errgtilde_3_im;/**< Gsl integral variable */
-    
-    double avah_0_re;/**< Gsl integral variable */
-    double avah_0_im;/**< Gsl integral variable */
-    double avah_p_re;/**< Gsl integral variable */
-    double avah_p_im;/**< Gsl integral variable */
-    double avah_m_re;/**< Gsl integral variable */
-    double avah_m_im;/**< Gsl integral variable */
-    
-    double errh_0_re;/**< Gsl integral variable */
-    double errh_0_im;/**< Gsl integral variable */
-    double errh_p_re;/**< Gsl integral variable */
-    double errh_p_im;/**< Gsl integral variable */
-    double errh_m_re;/**< Gsl integral variable */
-    double errh_m_im;/**< Gsl integral variable */
-    
     gsl_function FS0;/**< Gsl integral variable */
     gsl_function FS1;/**< Gsl integral variable */
     gsl_function FS2;/**< Gsl integral variable */
@@ -1152,28 +920,6 @@ private:
     gsl_function FD7;/**< Gsl integral variable */
     gsl_function FD11;/**< Gsl integral variable */
     
-    gsl_function FVp;/**< Gsl integral variable */
-    gsl_function FVm;/**< Gsl integral variable */
-    gsl_function FTp;/**< Gsl integral variable */
-    gsl_function FTm;/**< Gsl integral variable */
-    gsl_function FV0;/**< Gsl integral variable */
-    gsl_function FT0;/**< Gsl integral variable */
-    gsl_function FS;/**< Gsl integral variable */
-    
-    gsl_function Fgtilde_1_re;/**< Gsl integral variable */
-    gsl_function Fgtilde_1_im;/**< Gsl integral variable */
-    gsl_function Fgtilde_2_re;/**< Gsl integral variable */
-    gsl_function Fgtilde_2_im;/**< Gsl integral variable */
-    gsl_function Fgtilde_3_re;/**< Gsl integral variable */
-    gsl_function Fgtilde_3_im;/**< Gsl integral variable */
-    
-    gsl_function Fh_0_re;/**< Gsl integral variable */
-    gsl_function Fh_0_im;/**< Gsl integral variable */
-    gsl_function Fh_p_re;/**< Gsl integral variable */
-    gsl_function Fh_p_im;/**< Gsl integral variable */
-    gsl_function Fh_m_re;/**< Gsl integral variable */
-    gsl_function Fh_m_im;/**< Gsl integral variable */
-    
     gsl_integration_workspace * w_sigma0;/**< Gsl integral variable */
     gsl_integration_workspace * w_sigma1;/**< Gsl integral variable */
     gsl_integration_workspace * w_sigma2;/**< Gsl integral variable */
@@ -1192,28 +938,6 @@ private:
     gsl_integration_workspace * w_delta3;/**< Gsl integral variable */
     gsl_integration_workspace * w_delta7;/**< Gsl integral variable */
     gsl_integration_workspace * w_delta11;/**< Gsl integral variable */
-    
-    gsl_integration_workspace * w_Vp;/**< Gsl integral variable */
-    gsl_integration_workspace * w_Vm;/**< Gsl integral variable */
-    gsl_integration_workspace * w_Tp;/**< Gsl integral variable */
-    gsl_integration_workspace * w_Tm;/**< Gsl integral variable */
-    gsl_integration_workspace * w_V0;/**< Gsl integral variable */
-    gsl_integration_workspace * w_T0;/**< Gsl integral variable */
-    gsl_integration_workspace * w_S;/**< Gsl integral variable */
-    
-    gsl_integration_workspace * w_gtilde_1_re;/**< Gsl integral variable */
-    gsl_integration_workspace * w_gtilde_1_im;/**< Gsl integral variable */
-    gsl_integration_workspace * w_gtilde_2_re;/**< Gsl integral variable */
-    gsl_integration_workspace * w_gtilde_2_im;/**< Gsl integral variable */
-    gsl_integration_workspace * w_gtilde_3_re;/**< Gsl integral variable */
-    gsl_integration_workspace * w_gtilde_3_im;/**< Gsl integral variable */
-    
-    gsl_integration_workspace * w_h_0_re;/**< Gsl integral variable */
-    gsl_integration_workspace * w_h_0_im;/**< Gsl integral variable */
-    gsl_integration_workspace * w_h_p_re;/**< Gsl integral variable */
-    gsl_integration_workspace * w_h_p_im;/**< Gsl integral variable */
-    gsl_integration_workspace * w_h_m_re;/**< Gsl integral variable */
-    gsl_integration_workspace * w_h_m_im;/**< Gsl integral variable */
     
     unsigned int N_updated;/**< Cache variable */
     gslpp::vector<double> N_cache;/**< Cache variable */
@@ -1366,14 +1090,6 @@ private:
     unsigned int I10_updated;/**< Cache variable */
     unsigned int I11_updated;/**< Cache variable */
     
-    unsigned int gtilde_1updated;/**< Cache variable */
-    unsigned int gtilde_2updated;/**< Cache variable */
-    unsigned int gtilde_3updated;/**< Cache variable */
-    
-    unsigned int h_0updated;/**< Cache variable */
-    unsigned int h_pupdated;/**< Cache variable */
-    unsigned int h_mupdated;/**< Cache variable */
-    
     std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma1Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma2Cached;/**< Cache variable */
@@ -1392,22 +1108,6 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta3Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta7Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, unsigned int > VpCached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > TpCached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > VmCached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > TmCached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > V0Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > T0Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > SCached;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, unsigned int > gtilde_1Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > gtilde_2Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > gtilde_3Cached;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, unsigned int > h_0Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > h_pCached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > h_mCached;/**< Cache variable */
     
 };
 

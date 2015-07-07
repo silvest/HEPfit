@@ -190,7 +190,7 @@ double BR_MVll::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return computeGammaPrime(q_min, q_max, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->width / ( q_max - q_min );
+    return computeGammaPrime(q_min, q_max, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getwidth() / ( q_max - q_min );
 }
 
 
@@ -358,7 +358,7 @@ double M_2Prime::computeThValue()
 {
     double q_min = getBinMin();
     
-    return ( q_min/(2.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep)*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min).abs2() ) + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min).abs2() )/
+    return ( q_min/(2.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getMlep()*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getMlep())*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min).abs2() ) + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min).abs2() )/
             ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min).abs2() );  
 }
 
@@ -515,10 +515,7 @@ V0::V0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double V0::computeThValue() 
 {
-   double q_min = getBinMin();
-   double q_max = getBinMax();
-
-   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(0,q_min,q_max) / ( q_max - q_min );
+   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getV0(getBinMin());
 }
 
 Vp::Vp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -531,10 +528,7 @@ Vp::Vp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Vp::computeThValue() 
 {
-   double q_min = getBinMin();
-   double q_max = getBinMax();
-
-   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(1,q_min,q_max) / ( q_max - q_min );
+   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getVp(getBinMin());
 }
 
 Vm::Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -547,10 +541,7 @@ Vm::Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Vm::computeThValue() 
 {
-   double q_min = getBinMin();
-   double q_max = getBinMax();
-
-   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(2,q_min,q_max) / ( q_max - q_min );
+   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getVm(getBinMin());
 }
 
 T0::T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -563,10 +554,7 @@ T0::T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double T0::computeThValue() 
 {
-   double q_min = getBinMin();
-   double q_max = getBinMax();
-
-   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(3,q_min,q_max) / ( q_max - q_min );
+   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getT0(getBinMin());
 }
 
 Tp::Tp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -579,10 +567,7 @@ Tp::Tp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Tp::computeThValue() 
 {
-   double q_min = getBinMin();
-   double q_max = getBinMax();
-
-   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(4,q_min,q_max) / ( q_max - q_min );
+   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getTp(getBinMin());
 }
 
 Tm::Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -595,10 +580,7 @@ Tm::Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::m
 
 double Tm::computeThValue() 
 {
-   double q_min = getBinMin();
-   double q_max = getBinMax();
-
-   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(5,q_min,q_max) / ( q_max - q_min );
+   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getTm(getBinMin());
 }
 
 S::S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -611,10 +593,7 @@ S::S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::mes
 
 double S::computeThValue() 
 {
-   double q_min = getBinMin();
-   double q_max = getBinMax();
-
-   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(6,q_min,q_max) / ( q_max - q_min );
+   return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getS(getBinMin());
 }
 
 
@@ -630,16 +609,11 @@ gtilde_1::gtilde_1(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 double gtilde_1::computeThValue() 
 {
     double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(0,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(0,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(0,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(0,q_min,q_max)).arg()/(q_max - q_min);
-    else if (typ == 5) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min));
-    else if (typ == 6) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min));
-    else if (typ == 7) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min)).abs());
-    else if (typ == 8) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min)).arg());
+
+    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min));
+    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min));
+    else if (typ == 3) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min)).abs());
+    else if (typ == 4) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_1_im(q_min)).arg());
     else throw std::runtime_error("MVllObservables::gtilde_1: incorrect type");
 }
 
@@ -656,16 +630,11 @@ gtilde_2::gtilde_2(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 double gtilde_2::computeThValue() 
 {
     double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(1,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(1,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(1,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(1,q_min,q_max)).arg()/(q_max - q_min);
-    else if (typ == 5) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min));
-    else if (typ == 6) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min));
-    else if (typ == 7) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min)).abs());
-    else if (typ == 8) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min)).arg());
+
+    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min));
+    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min));
+    else if (typ == 3) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min)).abs());
+    else if (typ == 4) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_2_im(q_min)).arg());
     else throw std::runtime_error("MVllObservables::gtilde_2: incorrect type");
 }
 
@@ -682,16 +651,11 @@ gtilde_3::gtilde_3(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
 double gtilde_3::computeThValue() 
 {
     double q_min = getBinMin();
-    double q_max = getBinMax();
     
-    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(2,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(2,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(2,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrategtilde(2,q_min,q_max)).arg()/(q_max - q_min);
-    else if (typ == 5) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min));
-    else if (typ == 6) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min));
-    else if (typ == 7) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min)).abs());
-    else if (typ == 8) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min)).arg());
+    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min));
+    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min));
+    else if (typ == 3) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min)).abs());
+    else if (typ == 4) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getgtilde_3_im(q_min)).arg());
     else throw std::runtime_error("MVllObservables::gtilde_3: incorrect type");
 }
 
@@ -707,12 +671,11 @@ h_0::h_0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 double h_0::computeThValue() 
 {
     double q_min = getBinMin();
-    double q_max = getBinMax();
 
-    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(0,q_min,q_max)).arg()/(q_max - q_min);
+    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_0_re(q_min));
+    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_0_im(q_min));
+    else if (typ == 3) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_0_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_0_im(q_min)).abs());
+    else if (typ == 4) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_0_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_0_im(q_min)).arg());
     else throw std::runtime_error("MVllObservables::h_0: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
 
@@ -729,12 +692,11 @@ h_p::h_p(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 double h_p::computeThValue() 
 {
     double q_min = getBinMin();
-    double q_max = getBinMax();
 
-    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(1,q_min,q_max)).arg()/(q_max - q_min);
+    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_p_re(q_min));
+    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_p_im(q_min));
+    else if (typ == 3) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_p_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_p_im(q_min)).abs());
+    else if (typ == 4) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_p_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_p_im(q_min)).arg());
     else throw std::runtime_error("MVllObservables::h_p: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
 
@@ -751,11 +713,10 @@ h_m::h_m(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
 double h_m::computeThValue() 
 {
     double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).real()/(q_max - q_min);
-    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).imag()/(q_max - q_min);
-    else if (typ == 3) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).abs()/(q_max - q_min);
-    else if (typ == 4) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh(2,q_min,q_max)).arg()/(q_max - q_min);
+
+    if (typ == 1) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_re(q_min));
+    else if (typ == 2) return (SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_im(q_min));
+    else if (typ == 3) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_im(q_min)).abs());
+    else if (typ == 4) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_im(q_min)).arg());
     else throw std::runtime_error("MVllObservables::h_m: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
