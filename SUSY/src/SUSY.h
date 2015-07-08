@@ -167,9 +167,9 @@ public:
      * @brief Gets the scale of the input parameters.
      * @return The scale of the input parameters.
      */
-    double getQ() const
+    double getQ_SUSY() const
     {
-        return Q;
+        return Q_SUSY;
     }
 
 
@@ -554,7 +554,7 @@ protected:
 
     // model parameters at scale Q
     complex m1, m2, muH;
-    double m3, mHptree, tanb, Q;
+    double m3, mHptree, tanb, Q_SUSY;
 
     // sinb and cosb computed with setTanb()
     double sinb, cosb;

@@ -17,7 +17,7 @@
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {
-    "m1r", "m1i", "m2r", "m2i", "m3" , "muHr", "muHi", "mHptree", "tanb", "Q"
+    "m1r", "m1i", "m2r", "m2i", "m3" , "muHr", "muHi", "mHptree", "tanb", "Q_SUSY"
 };
 
 SUSY::SUSY()
@@ -37,7 +37,7 @@ SUSY::SUSY()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muHi", boost::cref(muH.imag())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHptree", boost::cref(mHptree)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tanb", boost::cref(tanb)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q", boost::cref(Q)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_SUSY", boost::cref(Q_SUSY)));
 }
 
 SUSY::~SUSY(){
@@ -178,8 +178,8 @@ void SUSY::setParameter(const std::string name, const double& value)
         mHptree = value;
     else if (name.compare("tanb") == 0)
         SetTanb(value);
-    else if (name.compare("Q") == 0)
-        Q = value;
+    else if (name.compare("Q_SUSY") == 0)
+        Q_SUSY = value;
     else
         StandardModel::setParameter(name, value);
 }
@@ -219,18 +219,18 @@ void SUSY::computeYukawas()
     for (int i = 0; i < 3; i++) {
         /* Run the quark masses to scale Q */
         if (i != 2)
-            mu_Q[i] = Mrun(Q, getQuarks((quark)(UP + 2 * i)).getMass_scale(),
+            mu_Q[i] = Mrun(Q_SUSY, getQuarks((quark)(UP + 2 * i)).getMass_scale(),
                            getQuarks((quark)(UP + 2 * i)).getMass(), FULLNLO);
         else
-            mu_Q[i] = Mrun(Q, mtbar, FULLNLO);
-        md_Q[i] = Mrun(Q, getQuarks((quark)(DOWN + 2 * i)).getMass_scale(),
+            mu_Q[i] = Mrun(Q_SUSY, mtbar, FULLNLO);
+        md_Q[i] = Mrun(Q_SUSY, getQuarks((quark)(DOWN + 2 * i)).getMass_scale(),
                        getQuarks((quark)(DOWN + 2 * i)).getMass(), FULLNLO);
         me_Q[i] = getLeptons((lepton)(ELECTRON + 2 * i)).getMass();
         mn_Q[i] = getLeptons((lepton)(NEUTRINO_1 + 2 * i)).getMass();
 
         /* Convert MSbar to DRbar */
-        mu_Q[i] = MS2DRqmass(Q, mu_Q[i]);
-        md_Q[i] = MS2DRqmass(Q, md_Q[i]);
+        mu_Q[i] = MS2DRqmass(Q_SUSY, mu_Q[i]);
+        md_Q[i] = MS2DRqmass(Q_SUSY, md_Q[i]);
 
         Yu.assign(i, i, mu_Q[i] / v2() * sqrt(2.));
         Yd.assign(i, i, md_Q[i] / v1() * sqrt(2.));

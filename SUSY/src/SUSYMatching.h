@@ -192,7 +192,7 @@ private:
     gslpp::matrix<complex> myN;
     gslpp::matrix<complex> myV;
     gslpp::matrix<complex> myU;
-    double Q;
+    double Q_S;
     double mu2R;
     double Als;
     double Mg;

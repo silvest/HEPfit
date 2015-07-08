@@ -99,12 +99,12 @@ void SUSYMatching::updateSUSYParameters()
     myRl = mySUSY.getRl();
     mym_sn_sq = mySUSY.getMsn2();
     mym_se_sq = mySUSY.getMse2();
-    Q = mySUSY.getQ();
-    mu2R = Q * Q;
+    Q_S = mySUSY.getQ_SUSY();
+    mu2R = Q_S * Q_S;
     tanb = mySUSY.getTanb();
     sinb = mySUSY.getSinb();
     cosb = mySUSY.getCosb();
-    Als = mySUSY.Als(Q);
+    Als = mySUSY.Als(Q_S);
     Mg = mySUSY.getMGl();
     MChi0 = mySUSY.getMneu();
     MChi = mySUSY.getMch();
@@ -256,12 +256,12 @@ double SUSYMatching::DLLp(double a, double b, int k) {
             std::cout << "Mgluino = " << mySUSY.getM3() << std::endl;
             std::cout << "MHp = " << mySUSY.getMHp() << std::endl;
             std::cout << "Mw_tree = " << mySUSY.Mw_tree() << std::endl;
-            std::cout << "Mup(Q) = " << mySUSYMQ(0) << std::endl;
-            std::cout << "Mdown(Q) = " << mySUSYMQ(1) << std::endl;
-            std::cout << "Mc(Q) = " << mySUSYMQ(2) << std::endl;
-            std::cout << "Ms(Q) = " << mySUSYMQ(3) << std::endl;
-            std::cout << "Mtop(Q) = " << mySUSYMQ(4) << std::endl;
-            std::cout << "Mb(Q) = " << mySUSYMQ(5) << std::endl;
+            std::cout << "Mup(Q_S) = " << mySUSYMQ(0) << std::endl;
+            std::cout << "Mdown(Q_S) = " << mySUSYMQ(1) << std::endl;
+            std::cout << "Mc(Q_S) = " << mySUSYMQ(2) << std::endl;
+            std::cout << "Ms(Q_S) = " << mySUSYMQ(3) << std::endl;
+            std::cout << "Mtop(Q_S) = " << mySUSYMQ(4) << std::endl;
+            std::cout << "Mb(Q_S) = " << mySUSYMQ(5) << std::endl;
             
             
             throw std::runtime_error("Error in DLLp function, because the limits D0(0,0,b,b) and D0(a,a,0,0) are singular "); 
@@ -541,12 +541,12 @@ double SUSYMatching::Bk(double x, double y, int k) {
 
 void SUSYMatching::Comp_mySUSYMQ() {
     
-        mySUSYMQ(0) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.UP).getMass_scale(),mySUSY.getQuarks(mySUSY.UP).getMass());
-        mySUSYMQ(1) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.DOWN).getMass_scale(),mySUSY.getQuarks(mySUSY.DOWN).getMass());
-        mySUSYMQ(2) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.CHARM).getMass());
-        mySUSYMQ(3) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.STRANGE).getMass_scale(),mySUSY.getQuarks(mySUSY.STRANGE).getMass());
-        mySUSYMQ(4) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.TOP).getMass());
-        mySUSYMQ(5) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.BOTTOM).getMass());
+        mySUSYMQ(0) = mySUSY.Mrun(Q_S,mySUSY.getQuarks(mySUSY.UP).getMass_scale(),mySUSY.getQuarks(mySUSY.UP).getMass());
+        mySUSYMQ(1) = mySUSY.Mrun(Q_S,mySUSY.getQuarks(mySUSY.DOWN).getMass_scale(),mySUSY.getQuarks(mySUSY.DOWN).getMass());
+        mySUSYMQ(2) = mySUSY.Mrun(Q_S,mySUSY.getQuarks(mySUSY.CHARM).getMass());
+        mySUSYMQ(3) = mySUSY.Mrun(Q_S,mySUSY.getQuarks(mySUSY.STRANGE).getMass_scale(),mySUSY.getQuarks(mySUSY.STRANGE).getMass());
+        mySUSYMQ(4) = mySUSY.Mrun(Q_S,mySUSY.getQuarks(mySUSY.TOP).getMass());
+        mySUSYMQ(5) = mySUSY.Mrun(Q_S,mySUSY.getQuarks(mySUSY.BOTTOM).getMass());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2434,7 +2434,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdbd2Hp.setMu(Q);
+                mcdbd2Hp.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbd2Hp.setCoeff(i, CdF2dHpT(i), LO);
                 }
@@ -2452,7 +2452,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case LO:
             if (mySUSY.IsFlag_g()) {
 
-                mcdbd2gg.setMu(Q);
+                mcdbd2gg.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbd2gg.setCoeff(i, CdF2dggT(i), LO);
                 }
@@ -2469,7 +2469,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdbd2ChiChi.setMu(Q);
+                mcdbd2ChiChi.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbd2ChiChi.setCoeff(i, CdF2dChiChiT(i), LO);
                 }
@@ -2486,7 +2486,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ne()) {
-                mcdbd2Chi0Chi0.setMu(Q);
+                mcdbd2Chi0Chi0.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbd2Chi0Chi0.setCoeff(i, CdF2dChi0Chi0T(i), LO);
                 }
@@ -2503,7 +2503,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdbd2Chi0g.setMu(Q);
+                mcdbd2Chi0g.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                 mcdbd2Chi0g.setCoeff(i, CdF2dChigT(i), LO);
                 }
@@ -2523,7 +2523,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdbd2HpT.setMu(Q);
+                mcdbd2HpT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbd2HpT.setCoeff(i, CdF2dHpT(i + 5), LO);
                 }
@@ -2541,7 +2541,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case LO:
             if (mySUSY.IsFlag_g()) {
 
-                mcdbd2ggT.setMu(Q);
+                mcdbd2ggT.setMu(Q_S);
                 for(i = 0; i < 3 ; i++){
                 mcdbd2ggT.setCoeff(i, CdF2dggT(i + 5), LO);
                 }
@@ -2558,7 +2558,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdbd2ChiChiT.setMu(Q);
+                mcdbd2ChiChiT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbd2ChiChiT.setCoeff(i, CdF2dChiChiT(i + 5), LO);
                 }
@@ -2576,7 +2576,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case LO:
             if (mySUSY.IsFlag_ne()) {
 
-                mcdbd2Chi0Chi0T.setMu(Q);
+                mcdbd2Chi0Chi0T.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbd2Chi0Chi0T.setCoeff(i, CdF2dChi0Chi0T(i + 5), LO);
                 }
@@ -2593,7 +2593,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdbd2Chi0gT.setMu(Q);
+                mcdbd2Chi0gT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbd2Chi0gT.setCoeff(i, CdF2dChigT(i + 5), LO);
                 }
@@ -2635,7 +2635,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdbs2Hp.setMu(Q);
+                mcdbs2Hp.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbs2Hp.setCoeff(i, CdF2dHpT(i), LO);
                 }
@@ -2652,7 +2652,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_g()) {
-                mcdbs2gg.setMu(Q);
+                mcdbs2gg.setMu(Q_S);
                 for(i = 0; i < 5 ; i++){
                 mcdbs2gg.setCoeff(i, CdF2dggT(i), LO);
                 }
@@ -2669,7 +2669,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdbs2ChiChi.setMu(Q);
+                mcdbs2ChiChi.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbs2ChiChi.setCoeff(i, CdF2dChiChiT(i), LO);
                 }
@@ -2686,7 +2686,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ne()) {
-                mcdbs2Chi0Chi0.setMu(Q);
+                mcdbs2Chi0Chi0.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbs2Chi0Chi0.setCoeff(i, CdF2dChi0Chi0T(i), LO);
                 }
@@ -2703,7 +2703,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdbs2Chi0g.setMu(Q);
+                mcdbs2Chi0g.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdbs2Chi0g.setCoeff(i, CdF2dChigT(i), LO);
                 }
@@ -2723,7 +2723,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdbs2HpT.setMu(Q);
+                mcdbs2HpT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbs2HpT.setCoeff(i, CdF2dHpT(i + 5), LO);
                 }
@@ -2740,7 +2740,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_g()) {
-                mcdbs2ggT.setMu(Q);
+                mcdbs2ggT.setMu(Q_S);
                 for(i = 0; i < 3 ; i++){
                 mcdbs2ggT.setCoeff(i, CdF2dggT(i + 5), LO);
                 }
@@ -2757,7 +2757,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdbs2ChiChiT.setMu(Q);
+                mcdbs2ChiChiT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbs2ChiChiT.setCoeff(i, CdF2dChiChiT(i + 5), LO);
                 }
@@ -2774,7 +2774,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ne()) {
-                mcdbs2Chi0Chi0T.setMu(Q);
+                mcdbs2Chi0Chi0T.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbs2Chi0Chi0T.setCoeff(i, CdF2dChi0Chi0T(i + 5), LO);
                 }
@@ -2791,7 +2791,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdbs2Chi0gT.setMu(Q);
+                mcdbs2Chi0gT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdbs2Chi0gT.setCoeff(i, CdF2dChigT(i + 5), LO);
                 }
@@ -2834,7 +2834,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdk2Hp.setMu(Q);
+                mcdk2Hp.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdk2Hp.setCoeff(i, CdF2dHpT(i), LO);
                 }
@@ -2851,7 +2851,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_g()) {
-                mcdk2gg.setMu(Q);
+                mcdk2gg.setMu(Q_S);
                 for(i = 0; i < 5 ; i++){
                 mcdk2gg.setCoeff(i, CdF2dggT(i), LO);
                 }
@@ -2868,7 +2868,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdk2ChiChi.setMu(Q);
+                mcdk2ChiChi.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdk2ChiChi.setCoeff(i, CdF2dChiChiT(i), LO);
                 }
@@ -2885,7 +2885,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ne()) {
-                mcdk2Chi0Chi0.setMu(Q);    
+                mcdk2Chi0Chi0.setMu(Q_S);    
                 for (i = 0; i < 5; i++) {
                     mcdk2Chi0Chi0.setCoeff(i, CdF2dChi0Chi0T(i), LO);
                 }
@@ -2902,7 +2902,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdk2Chi0g.setMu(Q);    
+                mcdk2Chi0g.setMu(Q_S);    
                 for (i = 0; i < 5; i++) {
                     mcdk2Chi0g.setCoeff(i, CdF2dChigT(i), LO);
                 }
@@ -2922,7 +2922,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdk2HpT.setMu(Q);
+                mcdk2HpT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdk2HpT.setCoeff(i, CdF2dHpT(i + 5), LO);
                 }
@@ -2939,7 +2939,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_g()) {
-                mcdk2ggT.setMu(Q);
+                mcdk2ggT.setMu(Q_S);
                 for(i = 0; i < 3 ; i++){
                 mcdk2ggT.setCoeff(i, CdF2dggT(i + 5), LO);
                 }
@@ -2956,7 +2956,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdk2ChiChiT.setMu(Q);
+                mcdk2ChiChiT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdk2ChiChiT.setCoeff(i, CdF2dChiChiT(i + 5), LO);
                 }
@@ -2973,7 +2973,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ne()) {
-                mcdk2Chi0Chi0T.setMu(Q);
+                mcdk2Chi0Chi0T.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdk2Chi0Chi0T.setCoeff(i, CdF2dChi0Chi0T(i + 5), LO);
                 }
@@ -2990,7 +2990,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdk2Chi0gT.setMu(Q);
+                mcdk2Chi0gT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdk2Chi0gT.setCoeff(i, CdF2dChigT(i + 5), LO);
                 }
@@ -3034,7 +3034,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdd2Hp.setMu(Q);
+                mcdd2Hp.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdd2Hp.setCoeff(i, CdF2dHpT(i), LO);
                 }
@@ -3051,7 +3051,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_g()) {
-                mcdd2gg.setMu(Q);
+                mcdd2gg.setMu(Q_S);
                 for(i = 0; i < 5 ; i++){
                 mcdd2gg.setCoeff(i, CdF2dggT(i), LO);
                 }
@@ -3068,7 +3068,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdd2ChiChi.setMu(Q);
+                mcdd2ChiChi.setMu(Q_S);
                 for (i = 0; i < 5; i++) {
                     mcdd2ChiChi.setCoeff(i, CdF2dChiChiT(i), LO);
                 }
@@ -3085,7 +3085,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ne()) {
-                mcdd2Chi0Chi0.setMu(Q);    
+                mcdd2Chi0Chi0.setMu(Q_S);    
                 for (i = 0; i < 5; i++) {
                     mcdd2Chi0Chi0.setCoeff(i, CdF2dChi0Chi0T(i), LO);
                 }
@@ -3102,7 +3102,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdd2Chi0g.setMu(Q);    
+                mcdd2Chi0g.setMu(Q_S);    
                 for (i = 0; i < 5; i++) {
                     mcdd2Chi0g.setCoeff(i, CdF2dChigT(i), LO);
                 }
@@ -3122,7 +3122,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_h()) {
-                mcdd2HpT.setMu(Q);
+                mcdd2HpT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdd2HpT.setCoeff(i, CdF2dHpT(i + 5), LO);
                 }
@@ -3139,7 +3139,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_g()) {
-                mcdd2ggT.setMu(Q);
+                mcdd2ggT.setMu(Q_S);
                 for(i = 0; i < 3 ; i++){
                 mcdd2ggT.setCoeff(i, CdF2dggT(i + 5), LO);
                 }
@@ -3156,7 +3156,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ch()) {
-                mcdd2ChiChiT.setMu(Q);
+                mcdd2ChiChiT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdd2ChiChiT.setCoeff(i, CdF2dChiChiT(i + 5), LO);
                 }
@@ -3173,7 +3173,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if (mySUSY.IsFlag_ne()) {
-                mcdd2Chi0Chi0T.setMu(Q);
+                mcdd2Chi0Chi0T.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdd2Chi0Chi0T.setCoeff(i, CdF2dChi0Chi0T(i + 5), LO);
                 }
@@ -3190,7 +3190,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
         case NLO:
         case LO:
             if ((mySUSY.IsFlag_g()) || (mySUSY.IsFlag_ne())) {
-                mcdd2Chi0gT.setMu(Q);
+                mcdd2Chi0gT.setMu(Q_S);
                 for (i = 0; i < 3; i++) {
                     mcdd2Chi0gT.setCoeff(i, CdF2dChigT(i + 5), LO);
                 }

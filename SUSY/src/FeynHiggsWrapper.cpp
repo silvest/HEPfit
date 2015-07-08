@@ -68,7 +68,7 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     }
 
     /* Parameters for FeynHiggs */
-    double Q = mySUSY.Q;
+    double Q_S = mySUSY.Q_SUSY;
     complex muHFH = mySUSY.muH;
     complex M1FH = mySUSY.m1;
     complex M2FH = mySUSY.m2;
@@ -180,7 +180,7 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
               ToComplex2(M2FH.real(), M2FH.imag()),
               ToComplex2(mySUSY.m3, 0.),
               //
-              Q, Q, Q);
+              Q_S, Q_S, Q_S);
     if (err != 0) {
 #ifdef FHDEBUG
         std::cout << "FeynHiggsWrapper::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
