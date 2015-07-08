@@ -349,10 +349,10 @@ double Bsgamma::P(double E0, double mu, orders order)
 {
     switch(order) {
         case NLO:
-            std::cout << "p0: " << C7_0.abs2() << std::endl;
-            std::cout << "p11: " << 2.*(C7_0*C7_1).real() << std::endl;
-            std::cout << "p21: " << P21(E0,mu) << std::endl;
-            std::cout << "p32: " << P32(E0,mu) << std::endl;
+//            std::cout << "p0: " << C7_0.abs2() << std::endl;
+//            std::cout << "p11: " << 2.*(C7_0*C7_1).real() << std::endl;
+//            std::cout << "p21: " << P21(E0,mu) << std::endl;
+//            std::cout << "p32: " << P32(E0,mu) << std::endl;
             return C7_0.abs2() + SM.Als(mu,FULLNLO)/4./M_PI * (2.*(C7_0*C7_1).real() + P21(E0,mu));
             break;
         case LO:
