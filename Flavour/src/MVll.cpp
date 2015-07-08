@@ -96,6 +96,9 @@ MVll::~MVll()
 
 void MVll::updateParameters()
 {
+    if (!mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)) return;
+    
+    
     GF = mySM.getGF();
     ale=mySM.getAle();
     Mlep=mySM.getLeptons(lep).getMass();
@@ -306,6 +309,8 @@ void MVll::updateParameters()
     if (I3_updated == 0) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
     
+    mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
+    return;
 }
 
 void MVll::checkCache()
@@ -880,11 +885,7 @@ double MVll::Delta(int i, double q2)
 
 double MVll::integrateSigma(int i, double q_min, double q_max)
 {
-
-    if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
-        updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
-    }
+    updateParameters();
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     
@@ -998,11 +999,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
 
 double MVll::integrateDelta(int i, double q_min, double q_max)
 {
-    
-    if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
-        updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
-    }
+    updateParameters();
         
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     switch(i){

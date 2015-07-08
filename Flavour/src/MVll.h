@@ -101,10 +101,12 @@ public:
     double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
     
     double getwidth(){
+        updateParameters();
         return width;
     }
     
     double getMlep(){
+        updateParameters();
         return Mlep;
     }
     
@@ -140,6 +142,7 @@ public:
     */
     double getV0(double q2)
     {
+        updateParameters();
         return (2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_0t(q2);
     };
     
@@ -150,6 +153,7 @@ public:
     */
     double getVp(double q2)
     {
+        updateParameters();
         return V_p(q2);
     };
     
@@ -170,6 +174,7 @@ public:
     */
     double getT0(double q2)
     {
+        updateParameters();
         return twoMM3/sqrt(q2 * lambda(q2)) * T_0t(q2);
     };
     
@@ -180,6 +185,7 @@ public:
     */
     double getTp(double q2)
     {
+        updateParameters();
         return T_p(q2);
     };
     
@@ -190,6 +196,7 @@ public:
     */
     double getTm(double q2)
     {
+        updateParameters();
         return T_m(q2);
     };
     
@@ -200,6 +207,7 @@ public:
     */
     double getS(double q2)
     {
+        updateParameters();
         return S_L_pre/sqrt(lambda(q2)) * S_L(q2);
     };
     
