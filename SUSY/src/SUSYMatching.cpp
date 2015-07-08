@@ -60,7 +60,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcdd2Chi0Chi0T(5, NDR, NLO),
     mcdd2Chi0gT(5, NDR, NLO),
     mcDL1(2, NDR, LO),
-    mcbsg(10, NDR, NLO),
+    mcbsg(8, NDR, NLO),
     mcbnlep(10, NDR, NLO, NLO_ew),
     mcbnlepCC(10, NDR, NLO),
     mcd1(10, NDR, NLO),
