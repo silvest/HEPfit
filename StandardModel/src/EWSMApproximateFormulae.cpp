@@ -22,6 +22,7 @@ EWSMApproximateFormulae::EWSMApproximateFormulae(const EWSMcache& cache_i)
 
 double EWSMApproximateFormulae::Mw() const
 {
+    // Parametrization from arXiv:hep-ph/0311148v2 (updates from the journal version)
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;
     if (mycache.getSM().getMHl() >= 100.0 && mycache.getSM().getMHl() <= UpperBoundForApproximateFormulae) {
         // applicable for 100 GeV <= mHl <= 1 TeV
