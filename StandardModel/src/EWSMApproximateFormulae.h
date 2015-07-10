@@ -44,9 +44,10 @@ public:
      * @brief The @f$W@f$-boson mass with the full two-loop %EW corrections.
      * @details This function is based on the approximate formula for @f$M_W@f$
      * presented in @cite Awramik:2003rn, which includes the complete two-loop
-     * %EW corrections as well as leading three-loop corrections.
+     * %EW corrections as well as leading three-loop corrections, and the 
+     * four-loop corrections to the rho parameter.
      * The approximate formula reproduces the full result to be better than
-     * 0.5 (0.2) MeV over the range of 10 GeV @f$\leq m_h\leq@f$ 1 TeV
+     * 0.5 (0.25) MeV over the range of 10 GeV @f$\leq m_h\leq@f$ 1 TeV
      * (100 GeV @f$\leq m_h \leq@f$ 1 TeV), if other inputs vary within
      * their @f$2\sigma@f$ ranges of the 2003 data, where their @f$1\sigma@f$
      * ranges are given by
