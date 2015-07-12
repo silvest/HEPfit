@@ -64,7 +64,6 @@ void InputParser::ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<bo
         throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid Higgs parameters configuration file.\n");
     std::string line;
     bool IsEOF;
-    int i = 0, nrows = 0;
     do {
         IsEOF = getline(ifile, line).eof();
         if (line.compare(0, 10, "CATEGORIES") == 0) {

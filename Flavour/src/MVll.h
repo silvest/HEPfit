@@ -403,7 +403,7 @@ private:
     gslpp::complex h_0[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_1[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_2[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
-    double q2;            /**<\f$q^2\f$ of the decay */
+    //double q2;            /**<\f$q^2\f$ of the decay */
     double t_p;
     double t_m;
     double t_0;
