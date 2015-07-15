@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -24,7 +24,7 @@ namespace gslpp
      * @class vector<complex>
      * @ingroup gslpp
      * @brief A class for constructing and defining operations on complex vectors.
-     * @author SusyFit Collaboration
+     * @author HEPfit Collaboration
      * @copyright GNU General Public License
      * @details This class defines some common operations on complex vectors
      * using the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
