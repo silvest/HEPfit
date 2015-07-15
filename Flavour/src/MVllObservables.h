@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@
  * @class P_1
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_1>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_1>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -57,7 +57,7 @@ private:
  * @class P_2
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_2>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_2>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -96,7 +96,7 @@ private:
  * @class P_3
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_3>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_3>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -135,7 +135,7 @@ private:
  * @class P_4Prime
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_4'>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_4'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -176,7 +176,7 @@ private:
  * @class P_5Prime
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_5'>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_5'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -218,7 +218,7 @@ private:
  * @class P_6Prime
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_6'>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_6'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -257,7 +257,7 @@ private:
  * @class P_8Prime
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_8'>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_8'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -296,7 +296,7 @@ private:
  * @class GammaPrime
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<\Gamma'>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<\Gamma'>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -344,7 +344,7 @@ private:
  * @class A_FB
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<A_{FB}>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<A_{FB}>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -383,7 +383,7 @@ private:
  * @class BR_MVll
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<BR>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -422,7 +422,7 @@ private:
  * @class F_L
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<F_L>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<F_L>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -470,7 +470,7 @@ private:
  * @class R_MVll
  * @ingroup Flavour
  * @brief A class for the binned observable ratio @f$\frac {<BR>_{M \to V l_1^+l_1^-}}{<BR>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable ratio 
  * @f$\frac {<BR>_{M \to V l_1^+l_1^-}}{<BR>_{M \to V l_2^+l_2^-}}@f$ 
@@ -510,7 +510,7 @@ private:
  * @class RL_MVll
  * @ingroup Flavour
  * @brief A class for the binned observable ratio @f$\frac {<BR_L>_{M \to V l_1^+l_1^-}}{<BR_L>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable longitudinal ratio 
  * @f$\frac {<BR_L>_{M \to V l_1^+l_1^-}}{<BR_L>_{M \to V l_2^+l_2^-}}@f$ 
@@ -551,7 +551,7 @@ private:
  * @class RT_MVll
  * @ingroup Flavour
  * @brief A class for the binned observable ratio @f$\frac {<BR_T>_{M \to V l_1^+l_1^-}}{<BR_T>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable transverse ratio 
  * @f$\frac {<BR_T>_{M \to V l_1^+l_1^-}}{<BR_T>_{M \to V l_2^+l_2^-}}@f$ 
@@ -592,7 +592,7 @@ private:
  * @class R_6
  * @ingroup Flavour
  * @brief A class for the binned observable ratio @f$\frac {<\Sigma_6>_{M \to V l_1^+l_1^-}}{<\Sigma_6>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable ratio 
  * @f$\frac {<\Sigma_6>_{M \to V l_1^+l_1^-}}{<\Sigma_6>_{M \to V l_2^+l_2^-}}@f$ 
@@ -633,7 +633,7 @@ private:
  * @class ACP_MVll
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<A_{CP}>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<A_{CP}>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP asymmetry helicity coefficients 
@@ -672,7 +672,7 @@ private:
  * @class P3CP
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<P_3^{CP}>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<P_3^{CP}>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP asymmetry helicity coefficients 
@@ -712,7 +712,7 @@ private:
  * @class M_1Prime
  * @ingroup Flavour
  * @brief A class for the observable @f$M_1'@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the observable @f$M_1'@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the helicity amplitudes 
@@ -751,7 +751,7 @@ private:
  * @class M_2Prime
  * @ingroup Flavour
  * @brief A class for the observable @f$M_2'@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the observable @f$M_2'@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the helicity amplitudes 
@@ -790,7 +790,7 @@ private:
  * @class S_3
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<S_3>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<S_3>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -829,7 +829,7 @@ private:
  * @class S_4
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<S_4>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<S_4>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -868,7 +868,7 @@ private:
  * @class S_5
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<S_5>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<S_5>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -907,7 +907,7 @@ private:
  * @class S_7
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<S_7>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<S_7>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -946,7 +946,7 @@ private:
  * @class S_8
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<S_8>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<S_8>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -985,7 +985,7 @@ private:
  * @class S_9
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<S_9>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<S_9>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -1024,7 +1024,7 @@ private:
  * @class A_6
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<A_6>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<A_6>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -1063,7 +1063,7 @@ private:
  * @class A_9
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<A_9>@f$ in @f$M \to V l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<A_9>@f$ in 
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
@@ -1102,7 +1102,7 @@ private:
  * @class V0
  * @ingroup Flavour
  * @brief A class for the form factor @f$<V_0>@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the averaged form factor @f$<V_0>@f$ in 
  * @f$B \to K^*@f$ using LCSR results at low @f$q^2@f$ and lattice results at high @f$q^2@f$
@@ -1137,7 +1137,7 @@ private:
  * @class Vp
  * @ingroup Flavour
  * @brief A class for the form factor @f$<V_+>@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the averaged form factor @f$<V_+>@f$ in 
  * @f$B \to K^*@f$ using LCSR results at low @f$q^2@f$ and lattice results at high @f$q^2@f$
@@ -1172,7 +1172,7 @@ private:
  * @class Vm
  * @ingroup Flavour
  * @brief A class for the form factor @f$<V_->@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the averaged form factor @f$<V_->@f$ in 
  * @f$B \to K^*@f$ using LCSR results at low @f$q^2@f$ and lattice results at high @f$q^2@f$
@@ -1207,7 +1207,7 @@ private:
  * @class T0
  * @ingroup Flavour
  * @brief A class for the form factor @f$<T_0>@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the averaged form factor @f$<T_0>@f$ in 
  * @f$B \to K^*@f$ using LCSR results at low @f$q^2@f$ and lattice results at high @f$q^2@f$
@@ -1242,7 +1242,7 @@ private:
  * @class Tp
  * @ingroup Flavour
  * @brief A class for the form factor @f$<T_+>@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the averaged form factor @f$<T_+>@f$ in 
  * @f$B \to K^*@f$ using LCSR results at low @f$q^2@f$ and lattice results at high @f$q^2@f$
@@ -1277,7 +1277,7 @@ private:
  * @class Tm
  * @ingroup Flavour
  * @brief A class for the form factor @f$<T_->@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the averaged form factor @f$<T_->@f$ in 
  * @f$B \to K^*@f$ using LCSR results at low @f$q^2@f$ and lattice results at high @f$q^2@f$
@@ -1312,7 +1312,7 @@ private:
  * @class S
  * @ingroup Flavour
  * @brief A class for the form factor @f$<S>@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the averaged form factor @f$<S>@f$ in 
  * @f$B \to K^*@f$ using LCSR results at low @f$q^2@f$ and lattice results at high @f$q^2@f$
@@ -1348,7 +1348,7 @@ private:
  * @class gtilde_1
  * @ingroup Flavour
  * @brief A class for the correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the correction @f$\tilde{g}_1@f$ in 
  * @f$B \to K^*@f$ 
@@ -1387,7 +1387,7 @@ private:
  * @class gtilde_2
  * @ingroup Flavour
  * @brief A class for the correction @f$\tilde{g}_2@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the correction @f$\tilde{g}_2@f$ in 
  * @f$B \to K^*@f$ 
@@ -1426,7 +1426,7 @@ private:
  * @class gtilde_3
  * @ingroup Flavour
  * @brief A class for the correction @f$\tilde{g}_3@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the correction @f$\tilde{g}_3@f$ in 
  * @f$B \to K^*@f$
@@ -1463,7 +1463,7 @@ private:
  * @class h_0
  * @ingroup Flavour
  * @brief A class for the correction @f$h_0@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the correction @f$h_0@f$ in 
  * @f$B \to K^*@f$
@@ -1501,7 +1501,7 @@ private:
  * @class h_p
  * @ingroup Flavour
  * @brief A class for the correction @f$h_+@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the correction @f$h_+@f$ in 
  * @f$B \to K^*@f$
@@ -1539,7 +1539,7 @@ private:
  * @class h_m
  * @ingroup Flavour
  * @brief A class for the correction @f$h_-@f$ in @f$B \to K^*@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the correction @f$h_-@f$ in 
  * @f$B \to K^*@f$

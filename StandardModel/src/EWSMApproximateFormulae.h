@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,7 @@
  * @class EWSMApproximateFormulae
  * @ingroup StandardModel
  * @brief A class for approximate formulae of the %EW precision observables.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details The member functions in the current class compute the %EW precision 
  * observables @f$M_W@f$, @f$\sin\theta_{\rm eff}^f@f$, @f$\Gamma_f@f$,

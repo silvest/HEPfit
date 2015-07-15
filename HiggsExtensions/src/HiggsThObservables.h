@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,7 @@
  * @class muggH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{ggH}@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{ggH}@f$ between the gluon-gluon
  * fusion Higgs production cross-section in the current model and in the Standard Model.
@@ -53,7 +53,7 @@ private:
  * @class muVBF
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{VBF}@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{VBF}@f$ between the vector-boson
  * fusion Higgs production cross-section in the current model and in the Standard Model.
@@ -92,7 +92,7 @@ private:
  * @class muWH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{WH}@f$
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{WH}@f$ between the W Higgs 
  * associated production cross-section in the current model and in the Standard Model. 
@@ -130,7 +130,7 @@ private:
  * @class muZH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{ZH}@f$.
- * @author SusyFit CollaborationH
+ * @author HEPfit CollaborationH
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{ZH}@f$ between the Z Higgs 
  * associated production cross-section in the current model and in the Standard Model.
@@ -168,7 +168,7 @@ private:
  * @class mueeZH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$.
- * @author SusyFit CollaborationH
+ * @author HEPfit CollaborationH
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{e^+e^- \to ZH}@f$ between the 
  * @f$e^+e^- \to ZH@f$ 
@@ -207,7 +207,7 @@ private:
  * @class muVH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{VH}@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{VH}@f$ between the WH+ZH 
  * associated production cross-section in the current model and in the Standard Model.
@@ -245,7 +245,7 @@ private:
  * @class muVBFpVH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{VBF+VH}@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{VBF+VH}@f$ between the sum of
  * VBF and WH+ZH 
@@ -284,7 +284,7 @@ private:
  * @class muttH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{ttH}@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs 
  * associated production cross-section in the current model and in the Standard Model.
@@ -322,7 +322,7 @@ private:
  * @class muggHpttH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{ggH+ttH}@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio @f$\mu_{ggH+ttH}@f$ between the sum
  * of gluon-gluon fusion and t-tbar-Higgs associated production cross-section in 
@@ -361,7 +361,7 @@ private:
  * @class BrHtoggRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to gg)@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to gg)@f$
  * in the current model and in the Standard Model.
@@ -398,7 +398,7 @@ private:
  * @class BrHtoWWRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to WW)@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to WW)@f$.
  * in the current model and in the Standard Model
@@ -435,7 +435,7 @@ private:
  * @class BrHtoZZRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to ZZ)@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to ZZ)@f$
  * in the current model and in the Standard Model.
@@ -472,7 +472,7 @@ private:
  * @class BrHtoZgaRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$
  * in the current model and in the Standard Model.
@@ -508,7 +508,7 @@ private:
  * @class BrHtogagaRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to\gamma\gamma)@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to\gamma\gamma)@f$
  * in the current model and in the Standard Model.
@@ -544,7 +544,7 @@ private:
  * @class BrHtotautauRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to \tau^+\tau^-)@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to \tau^+\tau^-)@f$
  * in the current model and in the Standard Model.
@@ -580,7 +580,7 @@ private:
  * @class BrHtoccRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to c\bar{c})@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to c\bar{c})@f$
  * in the current model and in the Standard Model.
@@ -616,7 +616,7 @@ private:
  * @class BrHtobbRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to b\bar{b})@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A class for computing the ratio of the Br@f$(H\to b\bar{b})@f$
  * in the current model and in the Standard Model.

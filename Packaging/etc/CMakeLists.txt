@@ -2,7 +2,7 @@
 # List of available command-line options:
 #   -DDEBUG_MODE:BOOL=<ON or OFF>
 #   -DLOCAL_INSTALL_ALL:BOOL=<ON or OFF>
-#   -DCMAKE_INSTALL_PREFIX:PATH=<SusyFit installation directory>
+#   -DCMAKE_INSTALL_PREFIX:PATH=<HEPfit installation directory>
 #   -DNOMCMC:BOOL=<ON or OFF>
 #   -DBOOST_INCLUDE_DIR:PATH=<include path>/boost/
 #   -DGSL_CONFIG_DIR:PATH=<gsl-config directory>
@@ -26,7 +26,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-project(SusyFit)
+project(HEPfit)
 
 # default boolean flags
 option(DEBUG_MODE "Debug mode" OFF)
@@ -39,8 +39,8 @@ option(INTEL_FORTRAN "Use ifort libraries" OFF)
 
 # Local installation option
 if(LOCAL_INSTALL_ALL)
-  set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/SusyFit
-      CACHE PATH "SusyFit installation directory" FORCE)
+  set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/HEPfit
+      CACHE PATH "HEPfit installation directory" FORCE)
   set(BAT_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/BAT
       CACHE PATH "BAT installation directory" FORCE)
   #set(MPIBAT ON CACHE BOOL "Use MPI BAT" FORCE)
@@ -52,13 +52,13 @@ if(BAT_INSTALL AND ${CMAKE_VERSION} VERSION_LESS 2.8.0)
     message(FATAL_ERROR "The option -DBAT_INSTALL=ON is not applicable for CMake v${CMAKE_VERSION}.")
 endif()
 
-# SusyFit installation path
+# HEPfit installation path
 if(NOT IS_ABSOLUTE ${CMAKE_INSTALL_PREFIX})
    set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_PREFIX}
-       CACHE PATH "SusyFit installation directory" FORCE)
+       CACHE PATH "HEPfit installation directory" FORCE)
 endif()
 string(REGEX REPLACE "^~" "$ENV{HOME}" TMP_DIR ${CMAKE_INSTALL_PREFIX})
-set(CMAKE_INSTALL_PREFIX ${TMP_DIR} CACHE PATH "SusyFit installation directory" FORCE)
+set(CMAKE_INSTALL_PREFIX ${TMP_DIR} CACHE PATH "HEPfit installation directory" FORCE)
 unset(TMP_DIR)
 
 # BAT installation path
@@ -487,13 +487,13 @@ foreach(_project ${PROJECTLIST})
   add_subdirectory(${_project})
 endforeach(_project)
 
-# SusyFit library libSusyFit.a
+# HEPfit library libHEPfit.a
 if(${LIBTYPE} STREQUAL "OBJECT") 
   # for CMake v2.8.8 or later
   foreach(_project ${PROJECTLIST})
     set(OBJECTLIST ${OBJECTLIST} $<TARGET_OBJECTS:${_project}>)
   endforeach(_project)
-  add_library(SusyFit STATIC ${OBJECTLIST})
+  add_library(HEPfit STATIC ${OBJECTLIST})
 else()
   # for older CMake
   set(CMAKE_CXX_FLAGS "-Wall ${ROOT_CFLAGS} ${GSL_CFLAGS}")
@@ -509,14 +509,14 @@ else()
     file(GLOB SOURCES ${_project}/src/*.cpp)
     set(SRCLIST ${SRCLIST} ${SOURCES})
   endforeach(_project)
-  add_library(SusyFit STATIC ${SRCLIST})
+  add_library(HEPfit STATIC ${SRCLIST})
 endif()
 if(BAT_INSTALL AND NOT NOMCMC)
-  add_dependencies(SusyFit BATBUILD)
+  add_dependencies(HEPfit BATBUILD)
 endif(BAT_INSTALL AND NOT NOMCMC)
-INSTALL(TARGETS SusyFit DESTINATION lib COMPONENT library)
+INSTALL(TARGETS HEPfit DESTINATION lib COMPONENT library)
 
-# SusyFit header file SusyFit.h 
+# HEPfit header file HEPfit.h 
 list(REVERSE PROJECTLIST)
 foreach(_project ${PROJECTLIST})
   file(GLOB HEADERS ${_project}/src/*.h)
@@ -531,24 +531,24 @@ foreach(_project ${PROJECTLIST})
   endforeach(_header)
 endforeach(_project)
 if(NOT NOMCMC)
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/SusyFit.h.in"
-                 "${CMAKE_CURRENT_BINARY_DIR}/SusyFit.h" @ONLY)
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/HEPfit.h.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/HEPfit.h" @ONLY)
 else(NOT NOMCMC)
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/SusyFit_noMCMC.h.in"
-                 "${CMAKE_CURRENT_BINARY_DIR}/SusyFit.h" @ONLY)
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/HEPfit_noMCMC.h.in"
+                 "${CMAKE_CURRENT_BINARY_DIR}/HEPfit.h" @ONLY)
 endif(NOT NOMCMC)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/SusyFit.h 
-        DESTINATION include/SusyFit COMPONENT header)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/HEPfit.h 
+        DESTINATION include/HEPfit COMPONENT header)
       
 # pkg-config (FindPkgConfig in CMake 2.8.8 contains a bug)
 #find_package(PkgConfig)
 #if(PKG_CONFIG_FOUND)
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/SusyFit.pc.in" 
-                 "${CMAKE_CURRENT_BINARY_DIR}/SusyFit.pc" @ONLY)
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/susyfit-config.in" 
-                 "${CMAKE_CURRENT_BINARY_DIR}/susyfit-config" @ONLY)
-  INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/susyfit-config ${CMAKE_CURRENT_BINARY_DIR}/SusyFit.pc 
-          DESTINATION bin COMPONENT susyfit-config)
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/HEPfit.pc.in" 
+                 "${CMAKE_CURRENT_BINARY_DIR}/HEPfit.pc" @ONLY)
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/hepfit-config.in" 
+                 "${CMAKE_CURRENT_BINARY_DIR}/hepfit-config" @ONLY)
+  INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/hepfit-config ${CMAKE_CURRENT_BINARY_DIR}/HEPfit.pc 
+          DESTINATION bin COMPONENT hepfit-config)
 #endif()
 
 # example programs

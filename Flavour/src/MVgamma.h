@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@
  * @class MVgamma
  * @ingroup Flavour
  * @brief A class for the @f$M \to V \gamma@f$ decay. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to 
  * compute the observables relative to the @f$M \to V \gamma@f$ decay. After the
@@ -115,7 +115,7 @@ private:
  * @class BR_MVgamma
  * @ingroup Flavour
  * @brief A class for the @f$BR@f$ in @f$M \to V \gamma@f$ decay. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the @f$BR@f$ in @f$M \to V \gamma@f$ 
  * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
@@ -152,7 +152,7 @@ private:
  * @class ACP_MVgamma
  * @ingroup Flavour
  * @brief A class for the @f$A_{CP}@f$ in @f$M \to V \gamma@f$ decay. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the @f$A_{CP}@f$ in @f$M \to V \gamma@f$ 
  * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 

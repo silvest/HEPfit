@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,7 @@
 #ifndef MYMODEL_H
 #define	MYMODEL_H
 
-#include <SusyFit.h>
+#include <HEPfit.h>
 
 /**
  * @class myModel

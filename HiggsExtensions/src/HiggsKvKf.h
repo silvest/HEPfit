@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,7 +18,7 @@
 /**
  * @class HiggsKvKf
  * @brief A model class extending the %StandardModel Higgs sector with two universal couplings.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
  * with an extension of the %StandardModel where Higgs couplings to all vector bosons

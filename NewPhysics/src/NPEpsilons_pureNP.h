@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,7 @@
  * @brief A model class for new physics in the form of contributions to the
  * \f$\delta\,\varepsilon_{1,2,3,b}\f$ parameters.
  * @ingroup NewPhysics
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions to work 
  * with the modified epsilon parameters \f$\delta\,\varepsilon_{1,2,3,b}\f$

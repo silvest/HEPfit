@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
                 "job tag, please specify with --job_tag <tag>")
                 ("help", "help message")
                 ;
-        string coderun = "\n *** SusyFit Routines ***\n"
+        string coderun = "\n *** HEPfit Routines ***\n"
                          "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange]"
                          "\nSingle Event mode: analysis Model.conf MonteCarlo.conf --test"
                          "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--output_folder <name> [--job_tag <tag>]]\n";
@@ -98,7 +98,7 @@ int main(int argc, char** argv)
             else if (vm.count("noMC") && !vm.count("mcconf"))
             {
                 if (rank == 0)
-                    cout << "\n *** SusyFit Event Generation ***\n" << endl;
+                    cout << "\n *** HEPfit Event Generation ***\n" << endl;
                 noMC = true;
                 FolderOut = vm["output_folder"].as<string > ();
                 nIterations = vm["it"].as<int > ();
@@ -110,7 +110,7 @@ int main(int argc, char** argv)
             else if (!vm.count("noMC") && vm.count("mcconf"))
             {
                 if (rank == 0)
-                    cout << "\n *** SusyFit Markov Chain Monte Carlo ***\n" << endl;
+                    cout << "\n *** HEPfit Markov Chain Monte Carlo ***\n" << endl;
                 noMC = false;
                 string MCMCConf = vm["mcconf"].as<string > ();
                 string FileOut = vm["rootfile"].as<string > ();

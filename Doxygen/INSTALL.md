@@ -5,7 +5,7 @@ version VERSIONNUMBER
 -----------
 
 You can find here a short description of what to do to be able to compile 
-and use SusyFit on your computer.
+and use HEPfit on your computer.
 
 
 Dependencies
@@ -28,34 +28,34 @@ Dependencies
 
     Optionally, BAT (Bayesian Analysis Toolkit) can be obtained from 
     https://www.mppmu.mpg.de/bat/ for a Monte Carlo run. With the compilation 
-    option `-DBAT_INSTALL=ON` explained below, the SusyFit installation package 
-    will download and install BAT. Notice that at present SusyFit is not
+    option `-DBAT_INSTALL=ON` explained below, the HEPfit installation package 
+    will download and install BAT. Notice that at present HEPfit is not
     compatible with BAT compiled with the `--enable-parallelization` option.
 
   * MPI:  
 
-    Optionally, SusyFit can be compiled with MPI for usage in parallel 
+    Optionally, HEPfit can be compiled with MPI for usage in parallel 
     clusters and processpors supporting multi-threading. In this case,
-    the SusyFit installer will patch and compile BAT with MPI support.
+    the HEPfit installer will patch and compile BAT with MPI support.
 
 
 Installation Procedure
 ----------------------
-Unpack the tarball containing the SusyFit source. A directory called 
-SusyFit-x.x will be created containing the source code. To generate 
+Unpack the tarball containing the HEPfit source. A directory called 
+HEPfit-x.x will be created containing the source code. To generate 
 Makefiles, enter the source directory and run CMake:
 
 ~~~~~~~~~~~~~~~~~~~~~~  
-  $ cd SusyFit-x.x  
+  $ cd HEPfit-x.x  
   $ cmake . <options>  
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Alternatively, a directory separate from the source directory can be made for
-building SusyFit (recommended, as it allows for easy deletion of the build):
+building HEPfit (recommended, as it allows for easy deletion of the build):
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-  $ mkdir SusyFit-x.x/build  
-  $ cd SusyFit-x.x/build  
+  $ mkdir HEPfit-x.x/build  
+  $ cd HEPfit-x.x/build  
   $ cmake .. <options>  
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
 
@@ -63,12 +63,12 @@ where the available options are:
 
   * `-DLOCAL_INSTALL_ALL=ON`  
 
-    to install BAT and SusyFit in the current directory (default: OFF). 
-    This is equivalent in setting the options `-DCMAKE_INSTALL_PREFIX=./SusyFit`, 
+    to install BAT and HEPfit in the current directory (default: OFF). 
+    This is equivalent in setting the options `-DCMAKE_INSTALL_PREFIX=./HEPfit`, 
     `-BAT_INSTALL_DIR=./BAT` and `-DBAT_INSTALL=ON`, where these variables cannot 
     be modified individually when `-DLOCAL_INSTALL_ALL=ON` is set. 
 
-  * `-DCMAKE_INSTALL_PREFIX=<SusyFit installation directory>`  
+  * `-DCMAKE_INSTALL_PREFIX=<HEPfit installation directory>`  
 
     (default: `/usr/local`)  
   
@@ -101,7 +101,7 @@ where the available options are:
 
   * `-DROOT_CONFIG_DIR=<path to root-config>`  
 
-Setting the option `-DBAT_INSTALL=ON`, the SusyFit installer will download, 
+Setting the option `-DBAT_INSTALL=ON`, the HEPfit installer will download, 
 compile and install the BAT libraries.
 
 **NOTE:**
@@ -110,7 +110,7 @@ BAT installation directory. If it is present, the installer does not
 build BAT, and uses the pre-installed one. 
 
 **No MCMC mode:**
-The generated Makefiles are used for building a SusyFit library. If
+The generated Makefiles are used for building a HEPfit library. If
 you do not perform a Bayesian statistical analysis with the Markov
 Chain Monte Carlo (MCMC), you can use the option `-DNOMCMC=ON`. For
 this case, BAT is not required. 
@@ -118,7 +118,7 @@ this case, BAT is not required.
 **MPI Support:**
 If you want to perform a MCMC run with MPI support, you can specify
 the option `-DMPIBAT=ON`. This option must be accompanied with
-`-DBAT_INSTALL=ON` in order to enable the SusyFit installer to
+`-DBAT_INSTALL=ON` in order to enable the HEPfit installer to
 download, patch and compile BAT with MPI support:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
@@ -142,34 +142,34 @@ After successful CMake run, execute the build commands:
   $ make install  
 ~~~~~~~~~~~~~~~~~
 
-to compile and install SusyFit, where the command '`make VERBOSE=1`'
+to compile and install HEPfit, where the command '`make VERBOSE=1`'
 enables verbose output and '`make -j`' allows for parallel compilation.
 Note that depending on the setting of installation prefix you might
-need root priviledges to be able to install SusyFit with '`sudo make
+need root priviledges to be able to install HEPfit with '`sudo make
 install`' instead of just '`make install`'.
 
 
 Post Install
 ------------
 
-**Executable:** `<CMAKE_INSTALL_PREFIX>/bin/susyfit-config`  
+**Executable:** `<CMAKE_INSTALL_PREFIX>/bin/hepfit-config`  
 
-**Library:** `<CMAKE_INSTALL_PREFIX>/lib/libSusyFit.a`  
+**Library:** `<CMAKE_INSTALL_PREFIX>/lib/libHEPfit.a`  
 
-**Combined Header:** `<CMAKE_INSTALL_PREFIX>/include/SusyFit/SusyFit.h`  
+**Combined Header:** `<CMAKE_INSTALL_PREFIX>/include/HEPfit/HEPfit.h`  
 
-### Using susyfit-config
+### Using hepfit-config
 
-A susyfit-config script can be found in the `<CMAKE_INSTALL_PREFIX>/bin/`
+A hepfit-config script can be found in the `<CMAKE_INSTALL_PREFIX>/bin/`
 directory, which can be invoked with the following options:
 
   * `--cflags`  
 
-    to obtain the include path needed for compilation against the SusyFit library
+    to obtain the include path needed for compilation against the HEPfit library
 
   * `--libs`  
 
-    to obtain the flags needed for linking against the SusyFit library
+    to obtain the flags needed for linking against the HEPfit library
 
   * `--variable=parameters | sh`  
 
@@ -178,14 +178,14 @@ directory, which can be invoked with the following options:
 
 ### Examples
 
-The example programs can be found in the SusyFit build directory:  
+The example programs can be found in the HEPfit build directory:  
 
   * `examples/LibMode_config/`  
   * `examples/LibMode_header/` 
   * `examples/MonteCarloMode/`  
 
-where the first two demonstrate the usage of the SusyFit library, while 
-the last one can be used for testing a Monte Carlo run with the SusyFit 
+where the first two demonstrate the usage of the HEPfit library, while 
+the last one can be used for testing a Monte Carlo run with the HEPfit 
 executable.
 
 

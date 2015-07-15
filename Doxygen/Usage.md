@@ -1,9 +1,9 @@
 Usage   {#PageUsage}
 =============================================
 
-The SusyFit installer generates the executable `"analysis"` and the
+The HEPfit installer generates the executable `"analysis"` and the
 library `"libSufyFit.a"` along with header files including a combined
-header file, SusyFit.h. One can use
+header file, HEPfit.h. One can use
 the executable to perform a Bayesian statistical analysis with the
 Markov Chain Monte Carlo [__Monte Carlo mode__],
 or to obtain predictions of observables for a given point in the
@@ -177,8 +177,8 @@ where the available options are:
 
 ### Alternative: Run with MPI.
 
-SusyFit allows for parallel processing of the MCMC run and the observable computations.
-To allow for this SusyFit and BAT has to be compiled with MPI support as explained in the
+HEPfit allows for parallel processing of the MCMC run and the observable computations.
+To allow for this HEPfit and BAT has to be compiled with MPI support as explained in the
 @ref PageInstallation page. The command
 
 ~~~~~~~~~~~~~~~
@@ -189,7 +189,7 @@ will launch analysis on `N` thread/cores/processors depending on the smallest
 processing unit of the hardware used. Our MPI implementation allows for runs on multi-threaded single processors as
 well as clusters with MPI support.
 
-__NOTE:__ Our MPI implementation of SusyFit cannot be used with
+__NOTE:__ Our MPI implementation of HEPfit cannot be used with
 BAT compiled with the `--enable-parallelization` option. It is
 mandatory to use the MPI patched version of BAT as explained in the @ref PageInstallation page.
 
@@ -214,17 +214,17 @@ where the results are printed on the standard output.
 Library mode 
 ------------- 
 
-The library mode allows for access to all the observables implemented in SusyFit
+The library mode allows for access to all the observables implemented in HEPfit
 without a Monte Carlo run. The users can use one of our defined @ref PageModels and vary ModelParameters
 according to their own algorithm and get the corresponding predictions for the observables. 
 
 This is made possible through:
 
-* a combined library: libSusyFit.a (installed in `SUSYFIT_INSTALL_DIR/lib/`
-* a combined header file: SusyFit.h (installed in `SUSYFIT_INSTALL_DIR/include/SusyFit/`)
+* a combined library: libHEPfit.a (installed in `HEPFIT_INSTALL_DIR/lib/`
+* a combined header file: HEPfit.h (installed in `HEPFIT_INSTALL_DIR/include/HEPfit/`)
 
 
-The SusyFit library allows for two different implementations of the access algorithm.
+The HEPfit library allows for two different implementations of the access algorithm.
 
 ### Non-Minimal Mode:
 
@@ -234,7 +234,7 @@ the parameters and access the observable. (For details of model parameters, obse
 
 ~~~~~~~~~~~~~~~{.c}
 // Include the necessary header file. 
-#include <SusyFit.h>
+#include <HEPfit.h>
 
 // Define the model configuration file. 
 std::string ModelConf = "SomeModel.conf";
@@ -271,7 +271,7 @@ parsed. (For details of model name, flags, parameters, observables etc. please l
 
 ~~~~~~~~~~~~~~~{.c}
 // Include the necessary header file. 
-#include <SusyFit.h>
+#include <HEPfit.h>
 
 // Define a map for the observables. 
 std::map<std::string, double> DObs;
@@ -322,18 +322,18 @@ DObs = CO.compute(DPars);
 ~~~~~~~~~~~~~~~
 
 
-### Use of susyfit-config:
+### Use of hepfit-config:
 
-If `'make install'` has been done, a susyfit-config script can be found in the
-`SUSYFIT_INSTALL_DIR/bin/` directory, which can be invoked with the 
+If `'make install'` has been done, a hepfit-config script can be found in the
+`HEPFIT_INSTALL_DIR/bin/` directory, which can be invoked with the 
 following options:
 
 ~~~~~~~~~~~~~~~
-Library and Library Path: susyfit-config --libs
+Library and Library Path: hepfit-config --libs
 
-Include Path: susyfit-config --cflags
+Include Path: hepfit-config --cflags
 
-Parameters List: susyfit-config --variable=parameters | sh
+Parameters List: hepfit-config --variable=parameters | sh
 ~~~~~~~~~~~~~~~
 
 The last command lists all the mandatory parameters in all the models sorted alphabetically and their

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -54,7 +54,7 @@ gsl_function convertToGslFunction( const F& f )
  * @class MVll
  * @ingroup Flavour
  * @brief A class for the @f$M \to V l^+ l^-@f$ decay.  
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to 
  * compute the observables relative to the @f$M \to V l^+ l^-@f$ decay. After the

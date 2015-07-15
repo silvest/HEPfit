@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,7 @@
  * @class HiggsObservable
  * @ingroup Observable
  * @brief A class for Higgs experimental analyses
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details The class for building observables encoding Higgs experimental analyses, storing the 
  * parameters read from a file specified in the SomeModel.conf file or by the user. The names (thnames) of the observables have

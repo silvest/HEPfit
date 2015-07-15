@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,7 +14,7 @@
  * @class LEP2sigmaCharm
  * @ingroup EW
  * @brief A class for the cross section of @f$e^+e^-\to c\bar{c}@f$ above the @f$Z@f$ pole.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details 
  */

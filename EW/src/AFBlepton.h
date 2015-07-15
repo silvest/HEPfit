@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,7 @@
  * @ingroup EW 
  * @brief An observable class for the forward-backward asymmetry in
  * @f$e^+ e^-\to Z\to \ell^+ \ell^-@f$ at the @f$Z@f$ pole.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the forward-backward asymmetry for 
  * an @f$e^+ e^-\to Z\to \ell^+ \ell^-@f$ process at the @f$Z@f$ pole in terms

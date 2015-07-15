@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = SusyFit
+PROJECT_NAME           = HEPfit
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -697,7 +697,7 @@ LAYOUT_FILE            = DoxygenLayout.xml
 # LATEX_BIB_STYLE. To use this feature you need bibtex and perl available in the
 # search path. See also \cite for info how to create references.
 
-CITE_BIB_FILES         = SusyFit.bib
+CITE_BIB_FILES         = HEPfit.bib
 
 #---------------------------------------------------------------------------
 # Configuration options related to warning and progress messages

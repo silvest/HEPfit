@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -22,7 +22,7 @@
  * @class NPEffectiveBS
  * @brief A model class for new physics in the form the
  * dimension-six effective Lagrangian in the basis of Barbieri and Strumia \cite Barbieri:1999tm.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
  * associated with the dimension-six effective Lagrangian introduced in NPEffectiveBS

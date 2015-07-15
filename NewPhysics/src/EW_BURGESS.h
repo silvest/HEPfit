@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,7 +14,7 @@
  * @class EW_BURGESS
  * @ingroup NewPhysics
  * @brief A test class for the oblique corrections to the EWPO.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A test class based on simple parameterizations of the
  * oblique corrections by Burgess in Pramana 45, S47 (1995) [hep-ph/9411257].

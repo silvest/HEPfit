@@ -1,10 +1,10 @@
 prefix=@CMAKE_INSTALL_PREFIX@
-includedir=${prefix}/include/SusyFit
+includedir=${prefix}/include/HEPfit
 libdir=${prefix}/lib
 bindir=${prefix}/bin
 
-Name: SusyFit
-Description: The SusyFit library
+Name: HEPfit
+Description: The HEPfit library
 Version: VERSIONNUMBER
 Cflags: -I${includedir}
-Libs: -L${libdir} -lSusyFit
+Libs: -L${libdir} -lHEPfit

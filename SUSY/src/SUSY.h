@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -21,7 +21,7 @@ class SUSYSpectrum; // forward reference to Spectrum class
  * @class SUSY
  * @ingroup SUSY
  * @brief A base class for SUSY models. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details  
  */

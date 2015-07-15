@@ -240,7 +240,7 @@ else:
     print(')')
     print()
     print('file(GLOB headers \"${CMAKE_CURRENT_SOURCE_DIR}/src/*.h\")')
-    print('INSTALL(FILES ${headers} DESTINATION include/SusyFit COMPONENT header)')
+    print('INSTALL(FILES ${headers} DESTINATION include/HEPfit COMPONENT header)')
 print()
 
 
