@@ -643,6 +643,9 @@ bool NPEffectiveGIMR::setFlag(const std::string name, const bool value)
     if (name.compare("MwInput") == 0) {
         FlagMwInput = value;
         res = true;
+    } else if (name.compare("QuadraticTerms") == 0) {
+        FlagQuadraticTerms = value;
+        res = true;
     } else
         res = NPbase::setFlag(name, value);
 

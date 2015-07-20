@@ -344,6 +344,7 @@ protected:
 private:
 
     bool FlagMwInput; ///< A boolean flag that is true if the W mass is taken as an input parameter.
+    bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour
