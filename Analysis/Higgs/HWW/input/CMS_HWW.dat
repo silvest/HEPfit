@@ -1,0 +1,10 @@
+##################
+# arXiv 1312.1129
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, VBF fraction, VH fraction|
+##################
+CATEGORIES ggH VBF VH
+MEASUREMENT 0_1_jet |0.83 0.11 0.06| 0.74 -0.2 0.22
+MEASUREMENT VBFenriched |0.2 0.8 0.| 0.6 -0.46 0.57
+##################

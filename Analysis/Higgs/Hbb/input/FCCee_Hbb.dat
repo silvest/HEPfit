@@ -1,0 +1,9 @@
+##################
+# arXiv 1308.6176
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |VBF fraction, ZH fraction|
+##################
+CATEGORIES VBF ZH
+MEASUREMENT ZH |0. 1.| 1. -0.002 0.002
+##################
