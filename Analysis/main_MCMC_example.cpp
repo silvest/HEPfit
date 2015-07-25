@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -7,12 +7,12 @@
 
 /**
  * @example MCMC.cpp
- * This is an example of how to perform a Bayesian Markov Chain Monte Carlo analysis with SusyFit and BAT.
+ * This is an example of how to perform a Bayesian Markov Chain Monte Carlo analysis with HEPfit and BAT.
  *
  */
 
 #include <iostream>
-#include <SusyFit.h>
+#include <HEPfit.h>
 
 /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI

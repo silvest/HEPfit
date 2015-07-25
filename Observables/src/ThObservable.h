@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,7 +14,7 @@
  * @class ThObservable
  * @ingroup Observable
  * @brief A class for a model prediction of an observable. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class provides a base for the computation of the values
  * of different theory observables.

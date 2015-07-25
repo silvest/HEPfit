@@ -1,5 +1,5 @@
 #/
-# Copyright (C) 2014 SusyFit Collaboration
+# Copyright (C) 2014 HEPfit Collaboration
 # All rights reserved.
 #
 # For the licensing terms see doc/COPYING.
@@ -46,7 +46,7 @@ sub usage {
         -of     Deletes the output file if it exists.
         -dox    Specifies the Doxygen configuration file from the commandline
             
-        Default Output File SusyFit.bib can be specified with:
+        Default Output File HEPfit.bib can be specified with:
         perl $program <list of input bibtex files (*.bib)> [-of]
             
 _EOF_
@@ -59,7 +59,7 @@ sub header {
     print STDOUT <<_EOF_;
     
     
-    Copyright (C) 2014 SusyFit Collaboration
+    Copyright (C) 2014 HEPfit Collaboration
     All rights reserved.
     
     For the licensing terms see doc/COPYING.
@@ -84,7 +84,7 @@ if ($ARGV[-2] eq "-dox"){
 }
 
 if (($ARGV[-1] eq "-of") || ($ARGV[-2] eq "-of")){
-    unlink ("SusyFit.bib");
+    unlink ("HEPfit.bib");
     unlink ($ARGV[-1]);
 }
 
@@ -98,15 +98,15 @@ if ($ARGV[-1] eq "-o"){
 if ($ARGV[-2] ne "-o" && $ARGV[-2] ne "-of"){
     print colored ['Yellow'], "\n\n\tWARNING:";
     print " Output file not specified or the optional -o option not set.\n";
-    if (-e "SusyFit.bib"){
+    if (-e "HEPfit.bib"){
         print colored ['Red'], "\n\n\tERROR:";
-        print " SusyFit.bib exists. Please choose a name for the output file or move SusyFit.bib.\n\n";
+        print " HEPfit.bib exists. Please choose a name for the output file or move HEPfit.bib.\n\n";
         &usage;
         exit(1)
     } else {
         print colored ['Yellow'], "\tWARNING:";
-        print " Output bib file being set to SusyFit.bib.\n\n";
-        $bibfile_out = "SusyFit.bib";
+        print " Output bib file being set to HEPfit.bib.\n\n";
+        $bibfile_out = "HEPfit.bib";
         open BIBOUT, "+>", $bibfile_out;
         $end_index = 0;
     }
@@ -332,7 +332,7 @@ my $MainPageHeading = <INFILE>;
 close(INFILE);
 open(INFILE,"<html/index.html") || die "cannot open html/index.html!";
 open(OUTFILE,">index_new.html") || die "cannot open index_new.html!";
-my $MainPageHeadingORG = "SusyFit Documentation";
+my $MainPageHeadingORG = "HEPfit Documentation";
 while(<INFILE>) {
     $_ =~ s/$MainPageHeadingORG/$MainPageHeading/;
     print OUTFILE $_;

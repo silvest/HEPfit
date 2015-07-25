@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,7 @@
  * @brief A model class for new physics in the form of contributions to the
  * @f$Zb\bar{b}@f$ couplings.
  * @ingroup NewPhysics
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is a Model class containing the necessary functions to
  * work with new physics contributions to electroweak precision observables,

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@
  */
 
 #include <iostream>
-#include <SusyFit.h>
+#include <HEPfit.h>
 #include <boost/bind.hpp>
 #include "myModel.h"
 #include "myObservables.h"

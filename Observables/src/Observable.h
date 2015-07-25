@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@
  * @class Observable
  * @ingroup Observable
  * @brief A class for observables. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details The class for building an observable and storing its different 
  * parameters read from the SomeModel.conf file or specified by the user. The name (thname) of the observable has

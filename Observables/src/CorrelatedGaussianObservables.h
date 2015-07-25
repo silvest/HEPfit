@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -20,7 +20,7 @@
  * @class CorrelatedGaussianObservables
  * @ingroup Observable
  * @brief A class for correlated Gaussian observables. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class builds the correlated Gaussian observables that
  * are specified in the SomeModel.conf file or specified by the user.

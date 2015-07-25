@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@
  * @class OutputSLHAfromFH
  * @ingroup SUSY
  * @brief A class for outputting SUSY parameters to an SLHA file.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details
  */

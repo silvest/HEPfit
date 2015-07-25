@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -19,7 +19,7 @@ using namespace gslpp;
  * @ingroup Flavour
  * @brief A class for @f$|\epsilon'_K/\epsilon_K|@f$ that parametrizes
  * direct CPV in the Kaon sector
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
  * @f$|\epsilon'_K/\epsilon_K|@f$. This parameter gets contributions both

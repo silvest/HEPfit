@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,7 +13,7 @@
  * @ingroup ComputeObservables
  * @brief A class for defining the default values of the mandatory parameters of
  * the model being used on the library mode.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  */
 class InputParameters {
@@ -204,90 +204,60 @@ private:
         DPars_IN["imh_0_1_MP"] = 0.;
         DPars_IN["a_0V"] = 0.;
         DPars_IN["a_1V"] = 0.;
-        DPars_IN["dmV"] = 0.;
+        DPars_IN["a_2V"] = 0.;
+        DPars_IN["MRV"] = 0.;
         DPars_IN["a_0A0"] = 0.;
         DPars_IN["a_1A0"] = 0.;
-        DPars_IN["dmA0"] = 0.;
+        DPars_IN["a_2A0"] = 0.;
+        DPars_IN["MRA0"] = 0.;
         DPars_IN["a_0A1"] = 0.;
         DPars_IN["a_1A1"] = 0.;
-        DPars_IN["dmA1"] = 0.;
+        DPars_IN["a_2A1"] = 0.;
+        DPars_IN["MRA1"] = 0.;
         DPars_IN["a_0A12"] = 0.;
         DPars_IN["a_1A12"] = 0.;
-        DPars_IN["dmA12"] = 0.;
+        DPars_IN["a_2A12"] = 0.;
+        DPars_IN["MRA12"] = 0.;
         DPars_IN["a_0T1"] = 0.;
         DPars_IN["a_1T1"] = 0.;
-        DPars_IN["dmT1"] = 0.;
+        DPars_IN["a_2T1"] = 0.;
+        DPars_IN["MRT1"] = 0.;
         DPars_IN["a_0T2"] = 0.;
         DPars_IN["a_1T2"] = 0.;
-        DPars_IN["dmT2"] = 0.;
+        DPars_IN["a_2T2"] = 0.;
+        DPars_IN["MRT2"] = 0.;
         DPars_IN["a_0T23"] = 0.;
         DPars_IN["a_1T23"] = 0.;
-        DPars_IN["dmT23"] = 0.;
-        DPars_IN["r_1V"] = 0.;
-        DPars_IN["r_2V"] = 0.;
-        DPars_IN["m_RV"] = 0.;
-        DPars_IN["m_fit2V"] = 0.;
-        DPars_IN["r_1A0"] = 0.;
-        //DPars_IN["r_2A0"] = 0.;
-        DPars_IN["m_RA0"] = 0.;
-        DPars_IN["m_fit2A0"] = 0.;
-        DPars_IN["r_2A1"] = 0.;
-        DPars_IN["m_fit2A1"] = 0.;
-        DPars_IN["r_1A2"] = 0.;
-        DPars_IN["r_2A2"] = 0.;
-        DPars_IN["m_fit2A2"] = 0.;
-        DPars_IN["r_1T1"] = 0.;
-        //DPars_IN["r_2T1"] = 0.;
-        DPars_IN["m_RT1"] = 0.;
-        DPars_IN["m_fit2T1"] = 0.;
-        //DPars_IN["r_2T2"] = 0.;
-        DPars_IN["m_fit2T2"] = 0.;
-        DPars_IN["r_1T3t"] = 0.;
-        DPars_IN["r_2T3t"] = 0.;
-        DPars_IN["m_fit2T3t"] = 0.;
+        DPars_IN["a_2T23"] = 0.;
+        DPars_IN["MRT23"] = 0.;
         DPars_IN["a_0Vphi"] = 0.;
         DPars_IN["a_1Vphi"] = 0.;
-        DPars_IN["dmVphi"] = 0.;
+        DPars_IN["a_2Vphi"] = 0.;
+        DPars_IN["MRVphi"] = 0.;
         DPars_IN["a_0A0phi"] = 0.;
         DPars_IN["a_1A0phi"] = 0.;
-        DPars_IN["dmA0phi"] = 0.;
+        DPars_IN["a_2A0phi"] = 0.;
+        DPars_IN["MRA0phi"] = 0.;
         DPars_IN["a_0A1phi"] = 0.;
         DPars_IN["a_1A1phi"] = 0.;
-        DPars_IN["dmA1phi"] = 0.;
+        DPars_IN["a_2A1phi"] = 0.;
+        DPars_IN["MRA1phi"] = 0.;
         DPars_IN["a_0A12phi"] = 0.;
         DPars_IN["a_1A12phi"] = 0.;
-        DPars_IN["dmA12phi"] = 0.;
+        DPars_IN["a_2A12phi"] = 0.;
+        DPars_IN["MRA12phi"] = 0.;
         DPars_IN["a_0T1phi"] = 0.;
         DPars_IN["a_1T1phi"] = 0.;
-        DPars_IN["dmT1phi"] = 0.;
+        DPars_IN["a_2T1phi"] = 0.;
+        DPars_IN["MRT1phi"] = 0.;
         DPars_IN["a_0T2phi"] = 0.;
         DPars_IN["a_1T2phi"] = 0.;
-        DPars_IN["dmT2phi"] = 0.;
+        DPars_IN["a_2T2phi"] = 0.;
+        DPars_IN["MRT2phi"] = 0.;
         DPars_IN["a_0T23phi"] = 0.;
         DPars_IN["a_1T23phi"] = 0.;
-        DPars_IN["dmT23phi"] = 0.;
-        DPars_IN["r_1Vphi"] = 0.;
-        DPars_IN["r_2Vphi"] = 0.;
-        DPars_IN["m_RVphi"] = 0.;
-        DPars_IN["m_fit2Vphi"] = 0.;
-        DPars_IN["r_1A0phi"] = 0.;
-        //DPars_IN["r_2A0phi"] = 0.;
-        DPars_IN["m_RA0phi"] = 0.;
-        DPars_IN["m_fit2A0phi"] = 0.;
-        DPars_IN["r_2A1phi"] = 0.;
-        DPars_IN["m_fit2A1phi"] = 0.;
-        DPars_IN["r_1A2phi"] = 0.;
-        DPars_IN["r_2A2phi"] = 0.;
-        DPars_IN["m_fit2A2phi"] = 0.;
-        DPars_IN["r_1T1phi"] = 0.;
-        //DPars_IN["r_2T1phi"] = 0.;
-        DPars_IN["m_RT1phi"] = 0.;
-        DPars_IN["m_fit2T1phi"] = 0.;
-        //DPars_IN["r_2T2phi"] = 0.;
-        DPars_IN["m_fit2T2phi"] = 0.;
-        DPars_IN["r_1T3tphi"] = 0.;
-        DPars_IN["r_2T3tphi"] = 0.;
-        DPars_IN["m_fit2T3tphi"] = 0.;
+        DPars_IN["a_2T23phi"] = 0.;
+        DPars_IN["MRT23phi"] = 0.;
         DPars_IN["r_1_fplus"] = 0.;
         DPars_IN["r_2_fplus"] = 0.;
         DPars_IN["m_fit2_fplus"] = 0.;

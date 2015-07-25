@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,7 @@
  * @class Observable2D
  * @ingroup Observable
  * @brief A class for analyzing observables pairwise
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details The class for building a pair of observables and storing their different
  * parameters read from the SomeModel.conf file or specified by the user. The names (thname) of the observables have

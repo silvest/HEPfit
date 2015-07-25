@@ -50,7 +50,7 @@
  *       -of     Deletes the output file if it exists.
  *       -dox    Specifies the Doxygen configuration file from the commandline
  *   
- *       Default Output File SusyFit.bib can be specified with:
+ *       Default Output File HEPfit.bib can be specified with:
  *       perl $program <list of input bibtex files (*.bib)> [-of]	
  *
  */

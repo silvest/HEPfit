@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,7 @@
  * @class EWSMApproximateFormulae
  * @ingroup StandardModel
  * @brief A class for approximate formulae of the %EW precision observables.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details The member functions in the current class compute the %EW precision 
  * observables @f$M_W@f$, @f$\sin\theta_{\rm eff}^f@f$, @f$\Gamma_f@f$,
@@ -24,7 +24,9 @@
  * based on the approximate formulae given in
  * @cite Awramik:2003rn, @cite Awramik:2004ge, @cite Awramik:2006uz,
  * @cite Awramik:2008gi, @cite Freitas:2012sy, @cite Freitas:2013dpa and
- * @cite Freitas:2014hra.
+ * @cite Freitas:2014hra. 
+ * (The actual implementation for @f$M_W@f$ corresponds to arXiv:hep-ph/0311148v2,
+ * which updates the results presented in the journal version of @cite Awramik:2003rn.)
  * The maximal deviations to the full results and the valid ranges of input
  * parameters are summarized in the description of each function.
  */
@@ -44,9 +46,14 @@ public:
      * @brief The @f$W@f$-boson mass with the full two-loop %EW corrections.
      * @details This function is based on the approximate formula for @f$M_W@f$
      * presented in @cite Awramik:2003rn, which includes the complete two-loop
-     * %EW corrections as well as leading three-loop corrections.
+     * %EW corrections as well as leading three-loop corrections, and the 
+     * four-loop corrections to the rho parameter.
+     * (The four-loop effects are not included in the results presented in the 
+     * journal version of @cite Awramik:2003rn. The parametrization used here 
+     * corresponds to the results in arXiv:hep-ph/0311148v2, which updates the
+     * the ones presented in the published version.)
      * The approximate formula reproduces the full result to be better than
-     * 0.5 (0.2) MeV over the range of 10 GeV @f$\leq m_h\leq@f$ 1 TeV
+     * 0.5 (0.25) MeV over the range of 10 GeV @f$\leq m_h\leq@f$ 1 TeV
      * (100 GeV @f$\leq m_h \leq@f$ 1 TeV), if other inputs vary within
      * their @f$2\sigma@f$ ranges of the 2003 data, where their @f$1\sigma@f$
      * ranges are given by

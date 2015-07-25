@@ -1,17 +1,17 @@
-SusyFit - a Fitting Tool for the Standard Model and Beyond
+HEPfit - a Fitting Tool for the Standard Model and Beyond
 ===================================================================
 
 version VERSIONNUMBER
 -----------
 
-SusyFit is a flexible tool which, given the Standard Model or any extension,
+HEPfit is a flexible tool which, given the Standard Model or any extension,
 allows to:
 
   - fit the model parameters to a given set of experimental observables
   - obtain fit results for observables
   - obtain predictions for observables
 
-The SusyFit library can be used:
+The HEPfit library can be used:
 
   - to perform a Bayesian Markov Chain Monte Carlo analysis of the implemented model using BAT support
   - to perform a Bayesian Markov Chain Monte Carlo analysis of user defined models and/or observables using BAT support
@@ -22,32 +22,32 @@ The Markov Chain Monte Carlo is based on the [BAT (Bayesian Analysis Toolkit) li
 
 Authors:
 --------
-See doc/CREDITS file for list of contributors to SusyFit.
+See doc/CREDITS file for list of contributors to HEPfit.
 
 Availability:
 -------------
-SusyFit is available from [the SusyFit webpage](http://susyfit.roma1.infn.it/).
+HEPfit is available from [the HEPfit webpage](http://hepfit.roma1.infn.it/).
 See doc/COPYING and doc/LICENSE for licensing terms.
 
 Contents:
 ---------
-  * doc/          - directory containing information about SusyFit
+  * doc/          - directory containing information about HEPfit
   * examples-src/ - directory containing well commented example programs
-  * INSTALL.md    - information about how to install SusyFit on your system
-  * README.md     - basic information about SusyFit (this file)
+  * INSTALL.md    - information about how to install HEPfit on your system
+  * README.md     - basic information about HEPfit (this file)
 
-Files for building SusyFit:  
+Files for building HEPfit:  
 
   * BAT_make_wrapper.sh.in
   * BAT_mpi_patch.txt
   * CMakeLists.txt
   * cmake_uninstall.cmake.in
-  * SusyFit.h.in
-  * SusyFit.pc.in
-  * SusyFit_noMCMC.h.in
-  * susyfit-config.in
+  * HEPfit.h.in
+  * HEPfit.pc.in
+  * HEPfit_noMCMC.h.in
+  * hepfit-config.in
   
-Directories containing SusyFit source and header files:  
+Directories containing HEPfit source and header files:  
 
   * ComputeObservables/
   * EW/
@@ -68,5 +68,5 @@ See the INSTALL.md file for installation instructions.
 Support:
 --------
 For additional information and contacting the authors, please, consult
-[the SusyFit webpage](http://susyfit.roma1.infn.it/).
+[the HEPfit webpage](http://hepfit.roma1.infn.it/).
 

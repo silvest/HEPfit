@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -23,7 +23,7 @@ using namespace gslpp;
  * @class PVfunctions
  * @ingroup LoopFunctions 
  * @brief A class for Passarino-Veltman functions.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class handles the so-called Passarino-Veltman (PV) functions,
  * which appear in one-loop amplitudes.

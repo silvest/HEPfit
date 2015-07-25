@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -20,7 +20,7 @@
  * @class DoxyExample
  * @ingroup Documentation
  * @brief A class for setting an example for Doxygen documentation.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class shows how different members of a class and the 
  * class itself can be documneted in Doxygen.

@@ -1,0 +1,10 @@
+##################
+# arXiv 1310.3687 (see also CMS-PAS-HIG-13-012?) (VH), 1408.1682 (ttH)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
+##################
+CATEGORIES ggH ttH VBF VH
+MEASUREMENT VH |0. 0. 0. 1.| 1. -0.5 0.5
+MEASUREMENT ttH |0. 1. 0. 0.| 0.7 -1.9 1.9
+##################

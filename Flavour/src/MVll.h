@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -54,7 +54,7 @@ gsl_function convertToGslFunction( const F& f )
  * @class MVll
  * @ingroup Flavour
  * @brief A class for the @f$M \to V l^+ l^-@f$ decay.  
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to 
  * compute the observables relative to the @f$M \to V l^+ l^-@f$ decay. After the
@@ -403,7 +403,7 @@ private:
     gslpp::complex h_0[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_1[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_2[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
-    double q2;            /**<\f$q^2\f$ of the decay */
+    //double q2;            /**<\f$q^2\f$ of the decay */
     double t_p;
     double t_m;
     double t_0;

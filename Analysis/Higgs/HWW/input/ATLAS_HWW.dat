@@ -1,0 +1,10 @@
+##################
+# arXiv 1412.2641
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, VBF fraction|
+##################
+CATEGORIES ggH VBF
+MEASUREMENT ggFenriched |1. 0.| 1.02 -0.26 0.29
+MEASUREMENT VBFVHenriched |0. 1.| 1.27 -0.45 0.53
+##################

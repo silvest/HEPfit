@@ -1,0 +1,14 @@
+/* 
+ * Copyright (C) 2014 HEPfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
+ */
+
+#ifndef HEPFIT_H
+#define	HEPFIT_H
+
+@INCLUDE_LIST@
+
+#endif	/* HEPFIT_H */
+

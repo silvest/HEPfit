@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -19,7 +19,7 @@
  * @class BR_MPll
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<BR>@f$ in 
  * @f$M \to P l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
@@ -66,7 +66,7 @@ private:
  * @class R_MPll
  * @ingroup Flavour
  * @brief A class for the binned observable ratio @f$\frac {<BR>_{M \to P l_1^+l_1^-}}{<BR>_{M \to P l_2^+l_2^-}}@f$ in @f$M \to P l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable ratio 
  * @f$\frac {<BR>_{M \to P l_1^+l_1^-}}{<BR>_{M \to P l_2^+l_2^-}}@f$ 
@@ -106,7 +106,7 @@ private:
  * @class ACP_MPll
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<A_{CP}>@f$ in @f$M \to P l^+l^-@f$. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the binned observable @f$<A_{CP}>@f$ in 
  * @f$M \to P l^+l^-@f$ in terms of the binned CP asymmetry helicity coefficients 

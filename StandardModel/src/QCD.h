@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@
  * @class QCD
  * @ingroup StandardModel
  * @brief A class for parameters related to %QCD, hadrons and quarks.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is a Model class that assigns and updates parameters
  * related to and derived from %QCD. A complete list of parameters in the %QCD

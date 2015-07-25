@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -35,7 +35,7 @@
  * @class MonteCarloEngine
  * @ingroup MonteCarlo
  * @brief An engine class for Monte Carlo.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details The MonteCarlo engine is has overloaded from BCEngineMCMC class in the
  * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a> libraries 

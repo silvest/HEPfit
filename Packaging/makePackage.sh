@@ -10,7 +10,7 @@ VERSION="0.2"
 ###########################################################
 # Original source codes
 
-ORGDIR="${HOME}/NetBeansProjects/SusyFit"
+ORGDIR="${HOME}/NetBeansProjects/HEPfit"
 
 ###########################################################
 # List of Netbeans projects
@@ -56,7 +56,7 @@ if [ ! -d "$ORGDIR" ]; then
 fi
 
 # output directory
-OUTDIR="${CURRENTDIR}/SusyFit-${VERSION}"
+OUTDIR="${CURRENTDIR}/HEPfit-${VERSION}"
 if [ ! -d "$OUTDIR" ]; then
     echo "mkdir $OUTDIR"
     mkdir $OUTDIR
@@ -72,7 +72,7 @@ if [ ! -d "${OUTDIR}/examples-src" ]; then
 fi
 
 ###########################################################
-# copy susyfit codes
+# copy hepfit codes
 
 for PROJECT in ${PROJECTARRAY[@]}
 do
@@ -139,12 +139,12 @@ eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${OUTDIR}/README.md
 eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md |eval sed "$SED_ARG2" > ${OUTDIR}/INSTALL.md
 
 cp ${SCRIPTPATH}/etc/CMakeLists.txt ${OUTDIR}/
-cp ${SCRIPTPATH}/etc/SusyFit_noMCMC.h.in ${OUTDIR}/
+cp ${SCRIPTPATH}/etc/HEPfit_noMCMC.h.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/BAT_make_wrapper.sh.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/cmake_uninstall.cmake.in ${OUTDIR}/
-cp ${SCRIPTPATH}/etc/susyfit-config.in ${OUTDIR}/
-eval sed "$SED_ARG" ${SCRIPTPATH}/etc/SusyFit.pc.in > ${OUTDIR}/SusyFit.pc.in
-cp ${SCRIPTPATH}/etc/SusyFit.h.in ${OUTDIR}/
+cp ${SCRIPTPATH}/etc/hepfit-config.in ${OUTDIR}/
+eval sed "$SED_ARG" ${SCRIPTPATH}/etc/HEPfit.pc.in > ${OUTDIR}/HEPfit.pc.in
+cp ${SCRIPTPATH}/etc/HEPfit.h.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/BAT_mpi_patch.txt ${OUTDIR}/
 
 # examples
@@ -185,12 +185,12 @@ fi
 ###########################################################
 # Example main files
 
-SED_ARG="-e 's/ComputeObservables.h/SusyFit.h/g'"
+SED_ARG="-e 's/ComputeObservables.h/HEPfit.h/g'"
 ORGFILE=${ORGDIR}/Analysis/main_libmode_config_example.cpp
 eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/LibMode_config/libmode_config.cpp
 ORGFILE=${ORGDIR}/Analysis/main_libmode_header_example.cpp
 eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/LibMode_header/libmode_header.cpp
-SED_ARG="-e 's/MonteCarlo.h/SusyFit.h/g'"
+SED_ARG="-e 's/MonteCarlo.h/HEPfit.h/g'"
 ORGFILE=${ORGDIR}/Analysis/main_MCMC_example.cpp
 eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/MonteCarloMode/MCMC.cpp
 
@@ -207,8 +207,8 @@ done
 ###########################################################
 # Archive
 
-echo "tar zcf SusyFit-${VERSION}.tar.gz SusyFit-${VERSION}"
-tar zcf SusyFit-${VERSION}.tar.gz SusyFit-${VERSION}
+echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}"
+tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}
 
 ###########################################################
 

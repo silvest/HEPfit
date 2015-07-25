@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -19,7 +19,7 @@ using namespace gslpp;
  * @ingroup Flavour
  * @brief A class for calculating the amplitudes contributing to @f$\epsilon_K@f$
  * and @f$\Delta M_K@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
  * amplitudes contributing to @f$\epsilon_K@f$ and @f$\Delta M_K@f$. The

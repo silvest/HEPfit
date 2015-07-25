@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@ using namespace gslpp;
  * @class EW_ABC
  * @ingroup NewPhysics
  * @brief A test class for the electroweak precision observables. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details A test class for the electroweak precision observables with the epsilon
  * parameters based on Eqs.(7)-(14) of IJMPA, 7, 1031-1058 (1998) by Altarelli,

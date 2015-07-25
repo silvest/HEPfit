@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,7 +18,7 @@
  * @class Bsgamma
  * @ingroup Flavour
  * @brief A class for the @f$b \to s \gamma@f$ decay. 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to 
  * compute the observables relative to the @f$b \to s \gamma@f$ decay.

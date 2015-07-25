@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@ using namespace gslpp;
  * @class CKM
  * @ingroup StandardModel
  * @brief A class for the %CKM matrix elements.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is the class for defining the %CKM matrix and its elements with
  * the Wolfenstein and Gilman parameterizations. 

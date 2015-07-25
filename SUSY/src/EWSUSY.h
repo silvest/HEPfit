@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -24,7 +24,7 @@ using namespace gslpp;
 /**
  * @class EWSUSY
  * @brief A class for %SUSY contributions to the %EW precision observables.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used for the calculations of %SUSY contributions to
  * the %EW precision observables, where Rosiek's notation is adopted internally.

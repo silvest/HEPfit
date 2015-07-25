@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,7 @@ using namespace gslpp;
  * @class LoopToolsWrapper
  * @ingroup LoopFunctions
  * @brief A wrapper class for LoopTools library.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is responsible for the interface to 
  * <a href="http://www.feynarts.de/looptools/" target=blank>LoopTools</a> library

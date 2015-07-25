@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -34,7 +34,7 @@ class LeptonFlavour;
  * @class StandardModel
  * @ingroup StandardModel
  * @brief A model class for the Standard %Model.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
  * with the Standard %Model. This class is inherited from the QCD class, which

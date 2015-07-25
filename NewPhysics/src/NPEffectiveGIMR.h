@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 SusyFit Collaboration
+ * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -22,7 +22,7 @@ using namespace gslpp;
  * dimension-six effective Lagrangian, with lepton-flavour universality and
  * without quark-flavour universality.
  * @ingroup NewPhysics
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
  * associated with the dimension-six effective Lagrangian introduced in NPEffective
@@ -344,6 +344,7 @@ protected:
 private:
 
     bool FlagMwInput; ///< A boolean flag that is true if the W mass is taken as an input parameter.
+    bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour

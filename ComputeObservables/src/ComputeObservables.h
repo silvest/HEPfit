@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -27,7 +27,7 @@
 /**
  * @class ComputeObservables
  * @brief A class for providing access to the computation of observables without a Monte Carlo run.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class can be used to create an object that takes a map of model parameters that need to be varied
  * in the analysis and passes out a map of the observables that it is told to compute.

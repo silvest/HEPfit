@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,7 @@
  * @class lambda1 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_1@f$.
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_1@f$.
  */
