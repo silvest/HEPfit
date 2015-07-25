@@ -29,10 +29,10 @@ EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order, const S
     
     (ToEffectiveBasis(ToRescaleBasis(LO,nu,nd))).transpose().eigensystem(v,e);
     vi = v.inverse();
-    for(int i = 0; i < dim; i++){
+    for(unsigned int i = 0; i < dim; i++){
        a[L][i] = e(i).real();
-       for (int j = 0; j < dim; j++) {
-           for (int k = 0; k < dim; k++)  {
+       for (unsigned int j = 0; j < dim; j++) {
+           for (unsigned int k = 0; k < dim; k++)  {
                 b[L][i][j][k] = v(i, k).real() * vi(k, j).real();
                }
            }
@@ -43,8 +43,8 @@ EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order, const S
     gg = vi * (ToEffectiveBasis(ToRescaleBasis(NLO,nu,nd))).transpose() * v;
     double b0 = model.Beta0(6-L);
     double b1 = model.Beta1(6-L);
-    for (int i = 0; i < dim; i++){
-        for (int j = 0; j < dim; j++){
+    for (unsigned int i = 0; i < dim; i++){
+        for (unsigned int j = 0; j < dim; j++){
             s_s.assign( i, j, (b1 / b0) * (i==j) * e(i).real() - gg(i,j));    
             if(fabs(e(i).real() - e(j).real() + 2. * b0)>0.00000000001){
                 h.assign( i, j, s_s(i,j) / (2. * b0 + e(i) - e(j)));
@@ -56,10 +56,10 @@ EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order, const S
     vij = vi * js;
     jss = v * s_s * vi;
     jssv = jss * v;        
-    for (int i = 0; i < dim; i++){
-        for (int j = 0; j < dim; j++){
+    for (unsigned int i = 0; i < dim; i++){
+        for (unsigned int j = 0; j < dim; j++){
             if(fabs(e(i).real() - e(j).real() + 2. * b0) > 0.00000000001){
-                for(int k = 0; k < dim; k++){
+                for(unsigned int k = 0; k < dim; k++){
                         c[L][i][j][k] = jv(i, k).real() * vi(k, j).real();
                         d[L][i][j][k] = -v(i, k).real() * vij(k, j).real();
                         }
