@@ -8,6 +8,7 @@
 #ifndef LI_LJ_GAMMA_H
 #define	LI_LJ_GAMMA_H
 
+#include <gslpp.h>
 #include <ThObservable.h>
 #include "LeptonFlavour.h"
 
@@ -31,6 +32,8 @@ protected:
     
 private:
     const StandardModel& mySM;
+//    const SUSYMatching& mySUSYMatching;
+//    int obs;
     
 };
 
