@@ -22,7 +22,7 @@ complex AmpDS1::AmpDS1pp0(orders order)
     }
 
     vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
-            mySM.getBKd1().getMu(),
+            mySM.getBKd1().getMu()(0),
             mySM.getBKd1().getScheme());
 
     vector<double> me1(mySM.getBKd1().getBpars());
@@ -31,10 +31,10 @@ complex AmpDS1::AmpDS1pp0(orders order)
     double MP = mySM.getMesons(QCD::P_0).getMass();
     double FK = mySM.getMesons(QCD::K_0).getDecayconst();
     double FP = mySM.getMesons(QCD::P_0).getDecayconst();
-    double Ms = mySM.Mrun(mySM.getBKd1().getMu(),
+    double Ms = mySM.Mrun(mySM.getBKd1().getMu()(0),
                 mySM.getQuarks(QCD::STRANGE).getMass_scale(),
                 mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
-    double Md = mySM.Mrun(mySM.getBKd1().getMu(),
+    double Md = mySM.Mrun(mySM.getBKd1().getMu()(0),
                 mySM.getQuarks(QCD::DOWN).getMass_scale(),
                 mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     
@@ -77,7 +77,7 @@ complex AmpDS1::AmpDS1pp2(orders order)
     }
     
     vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
-            mySM.getBKd3().getMu(),
+            mySM.getBKd3().getMu()(0),
             mySM.getBKd3().getScheme());
     
     vector<double> me2(mySM.getBKd3().getBpars());
@@ -86,10 +86,10 @@ complex AmpDS1::AmpDS1pp2(orders order)
     double MP = mySM.getMesons(QCD::P_0).getMass();
     double FK = mySM.getMesons(QCD::K_0).getDecayconst();
     double FP = mySM.getMesons(QCD::P_0).getDecayconst();
-    double Ms = mySM.Mrun(mySM.getBKd3().getMu(),
+    double Ms = mySM.Mrun(mySM.getBKd3().getMu()(0),
                 mySM.getQuarks(QCD::STRANGE).getMass_scale(),
                 mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
-    double Md = mySM.Mrun(mySM.getBKd3().getMu(),
+    double Md = mySM.Mrun(mySM.getBKd3().getMu()(0),
                 mySM.getQuarks(QCD::DOWN).getMass_scale(),
                 mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     
