@@ -188,20 +188,12 @@ public:
         return computeWeight(computeTheoryValue(),computeTheoryValue2());
     }
     
-    void setObsType2(unsigned int obsType2_i)
+    void setObsType2(std::string& obsType2_i)
     {
         obsType2 = obsType2_i;
     }
     
-    void setObsType2(std::string& obsType2_s)
-    {
-        if (obsType2_s.compare("Observable") == 0) obsType2 = 0;
-        if (obsType2_s.compare("HiggsObservable") == 0) obsType2 = 1;
-        if (obsType2_s.compare("BinnedObservable") == 0) obsType2 = 2;
-        else throw std::runtime_error("ERROR: Wrong Observable type passed to Observable class.");
-    }
-    
-    unsigned int getObsType2() const
+    std::string getObsType2() const
     {
         return obsType2;
     }
@@ -268,7 +260,7 @@ private:
     double ave2; ///< The average value of the second observable.
     double errg2; ///< The gaussian error of the second observable.
     double errf2; ///< the flat error of the second observable.
-    unsigned int obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
+    std::string obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
     ThObservable * tho2; ///< A pointer to an object of the ThObservable class.
     TH2D * inhisto2d;  ///< 2D Histogram containing the experimental likelihood for the observable
 };

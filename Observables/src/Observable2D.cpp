@@ -28,6 +28,7 @@ Observable2D::Observable2D(const std::string name_i,
     min2 = min2_i;
     max2 = max2_i;
     tho2 = tho2_i;
+    obsType2 = "";
 }
 
 Observable2D::Observable2D(const Observable& o1d)
@@ -38,6 +39,7 @@ Observable2D::Observable2D(const Observable& o1d)
     min2 = 0.;
     max2 = 0.;
     tho2 = NULL;
+    obsType2 = "";
 }
 
 Observable2D::Observable2D(const Observable2D& orig)

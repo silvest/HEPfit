@@ -323,20 +323,12 @@ public:
         return tho;
     }
     
-    void setObsType(unsigned int obsType_i)
-    {
-        obsType = obsType_i;
-    }
-    
     void setObsType(std::string& obsType_s)
     {
-        if (obsType_s.compare("Observable") == 0) obsType = 0;
-        if (obsType_s.compare("HiggsObservable") == 0) obsType = 1;
-        if (obsType_s.compare("BinnedObservable") == 0) obsType = 2;
-        else throw std::runtime_error("ERROR: Wrong Observable type passed to Observable class.");
+        obsType = obsType_s;
     }
     
-    unsigned int getObsType() const
+    std::string getObsType() const
     {
         return obsType;
     }
@@ -394,7 +386,7 @@ protected:
     double max; ///< The maximum valus of the observable.
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
     TH1D * inhisto; ///< 1D Histogram containing the experimental likelihood for the observable
-    unsigned int obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
+    std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
 };
 
 
