@@ -4,11 +4,21 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/EWPO.h</itemPath>
+      <itemPath>src/HiggsSigStr.h</itemPath>
+      <itemPath>src/STU.h</itemPath>
       <itemPath>src/THDM.h</itemPath>
       <itemPath>src/THDMMatching.h</itemPath>
       <itemPath>src/THDMObservables.h</itemPath>
       <itemPath>src/THDMcache.h</itemPath>
+      <itemPath>src/globalminimum.h</itemPath>
       <itemPath>src/lambda1.h</itemPath>
+      <itemPath>src/lambda2.h</itemPath>
+      <itemPath>src/lambda3.h</itemPath>
+      <itemPath>src/lambda4.h</itemPath>
+      <itemPath>src/lambda5.h</itemPath>
+      <itemPath>src/positivity.h</itemPath>
+      <itemPath>src/unitarity.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -17,10 +27,20 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/EWPO.cpp</itemPath>
+      <itemPath>src/HiggsSigStr.cpp</itemPath>
+      <itemPath>src/STU.cpp</itemPath>
       <itemPath>src/THDM.cpp</itemPath>
       <itemPath>src/THDMMatching.cpp</itemPath>
       <itemPath>src/THDMcache.cpp</itemPath>
+      <itemPath>src/globalminimum.cpp</itemPath>
       <itemPath>src/lambda1.cpp</itemPath>
+      <itemPath>src/lambda2.cpp</itemPath>
+      <itemPath>src/lambda3.cpp</itemPath>
+      <itemPath>src/lambda4.cpp</itemPath>
+      <itemPath>src/lambda5.cpp</itemPath>
+      <itemPath>src/positivity.cpp</itemPath>
+      <itemPath>src/unitarity.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -55,6 +75,18 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsSigStr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsSigStr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/STU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDM.h" ex="false" tool="3" flavor2="0">
@@ -69,9 +101,37 @@
       </item>
       <item path="src/THDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/globalminimum.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/lambda1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lambda1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda4.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda4.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/positivity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/unitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/unitarity.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -103,6 +163,18 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsSigStr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsSigStr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/STU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDM.h" ex="false" tool="3" flavor2="0">
@@ -117,9 +189,37 @@
       </item>
       <item path="src/THDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/globalminimum.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/lambda1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lambda1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda4.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda4.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/positivity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/unitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/unitarity.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="3">
@@ -151,6 +251,18 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsSigStr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsSigStr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/STU.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDM.h" ex="false" tool="3" flavor2="0">
@@ -165,9 +277,37 @@
       </item>
       <item path="src/THDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/globalminimum.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/lambda1.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lambda1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda4.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda4.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/lambda5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/lambda5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/positivity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/unitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/unitarity.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

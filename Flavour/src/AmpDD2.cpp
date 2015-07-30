@@ -17,7 +17,7 @@ complex AmpDD2::AmpDD(orders order)
         throw std::runtime_error("DmD::computeThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff =  mySM.getMyFlavour()->ComputeCoeffdd(
-            mySM.getBD().getMu(),
+            mySM.getBD().getMu()(0),
             mySM.getBD().getScheme());
     vector<double> me(mySM.getBD().getBpars());
     double MD = mySM.getMesons(QCD::D_0).getMass();
