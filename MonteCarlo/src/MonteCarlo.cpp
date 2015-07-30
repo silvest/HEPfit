@@ -382,3 +382,15 @@ void MonteCarlo::Run(const int rank)
         exit(EXIT_FAILURE);
     }
 }
+
+void MonteCarlo::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct){
+        myInputParser.addCustomParser(name, funct);
+}
+    
+void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct){
+        myInputParser.addCustomObservableType(name, funct);
+}
+   
+void MonteCarlo::linkParserToObservable(std::string name_par, std::string name_obs) {
+       myInputParser.linkParserToObservable(name_par, name_obs);
+}
