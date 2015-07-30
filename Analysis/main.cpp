@@ -8,6 +8,8 @@
 #include <iostream>
 #include <MonteCarlo.h>
 #include <GenerateEvent.h>
+#include <InputParser.h>
+#include <Observable.h>
 #include <boost/program_options.hpp>
 //#include <mtbar.h>
 #ifdef _MPI
@@ -105,6 +107,9 @@ int main(int argc, char** argv)
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
                 GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag, noMC);
+//                GE.addCustomParser("PS", boost::factory<InputParser*>());
+//                GE.addCustomObservableType("Poisson", boost::factory<Observable*>());
+//                GE.linkParserToObservable("Poisson", "PS");
                 GE.generate(nIterations, 1);
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
@@ -121,6 +126,9 @@ int main(int argc, char** argv)
                 
                 MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
                 if (vm.count("test")){
+//                    MC.addCustomParser("PS", boost::factory<InputParser*>());
+//                    MC.addCustomObservableType("Poisson", boost::factory<Observable*>());
+//                    MC.linkParserToObservable("Poisson", "PS");
                     MC.TestRun(rank);
                 } else {
                     MC.Run(rank);
