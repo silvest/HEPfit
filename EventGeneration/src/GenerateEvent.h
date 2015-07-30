@@ -85,7 +85,11 @@ public:
      */
     void generate(int unsigned nIteration_i, int seed = 0);
     
-
+   void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
+    
+   void addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct);
+   
+   void linkParserToObservable(std::string name_par, std::string name_obs);
     
 private:
     /**

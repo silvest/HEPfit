@@ -100,7 +100,7 @@ std::string InputParser::ReadParameters(const std::string filename,
     bool IsEOF = false;
     do {
         IsEOF = getline(ifile, line).eof();
-        lineNo += 1;
+        lineNo++;
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.find_first_not_of(' ') == std::string::npos || line.at(0) == '#')
             continue;
@@ -153,6 +153,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                         + *beg + " in " + filename);
             Observable * o = new Observable(ParseObservable(beg));
             ++beg;
+            o->setObsType(type);
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
                 if (std::distance(tok.begin(), tok.end()) < 10)
@@ -189,7 +190,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
                         + *beg + " in " + filename);
             Observable * bo = new Observable(ParseObservable(beg));
-            bo->setObsType(2);
+            bo->setObsType(type);
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
@@ -320,11 +321,11 @@ std::string InputParser::ReadParameters(const std::string filename,
                     o2.setLikelihoodFromHisto(fname, histoname);
                     if (rank == 0) std::cout << "added input histogram " << fname << "/" << histoname << std::endl;
                 }
-                if (o2.getObsType() == 2) {
+                if (o2.getObsType().compare("BinnedObservable") == 0) {
                     o2.getTho()->setBinMin(bin_min[0]);
                     o2.getTho()->setBinMax(bin_max[0]);
                 }
-                if (o2.getObsType2() == 2) {
+                if (o2.getObsType2().compare("BinnedObservable") == 0) {
                     o2.getTho2()->setBinMin(bin_min[1]);
                     o2.getTho2()->setBinMax(bin_max[1]);
                 }
@@ -369,7 +370,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
                         + *beg + " in " + filename);
             HiggsObservable * ho = new HiggsObservable(ParseObservable(beg));
-            ho->setObsType(1);
+            ho->setObsType(type);
             ++beg;
             std::string distr = *beg;
             if (distr.compare("parametric") == 0) {
@@ -426,8 +427,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (type.compare("Observable") != 0 && type.compare("BinnedObservable") != 0)
                     if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting an Observable or BinnedObservable type here...\n");
                 Observable * tmp = new Observable(ParseObservable(beg));
-                if (type.compare("Observable") == 0) tmp->setObsType(1);
-                if (type.compare("BinnedObservable") == 0) tmp->setObsType(2);
+                tmp->setObsType(type);
                 ++beg;
                 std::string distr = *beg;
                 if (distr.compare("weight") == 0) {
@@ -509,6 +509,21 @@ std::string InputParser::ReadParameters(const std::string filename,
                     lineNo++;
                 }
             }
+        } else if (type.compare("CustomObservable") == 0) {
+            if (std::distance(tok.begin(), tok.end()) < 2)
+                if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+            std::string customObsName = *beg;
+            beg++;
+            std::string customParserName = ObservableToParsermap[customObsName];
+            if (rank == 0 && customObservableTypeMap.find(customObsName) == customObservableTypeMap.end()) throw std::runtime_error("\nERROR: No Observable Type defined for " + customObsName + "\n");
+            if (rank == 0 && customParserMap.find(customParserName) == customParserMap.end()) throw std::runtime_error("\nERROR: No parser defined for " + customObsName + "\n");
+            if (rank == 0 && ObservableToParsermap.find(customObsName) == ObservableToParsermap.end()) throw std::runtime_error("\nERROR: No parser linked to the observable " + customObsName + "\n");
+            InputParser* customParser = CreateCustomParser(customObsName);
+            customParser->setModel(myModel);
+            Observable * customObs = CreateObservableType(customObsName, customParser->ParseObservable(beg));
+            customObs->setObsType(customObsName);
+            Observables.push_back(customObs);
+            delete customParser;
         } else if (type.compare("ModelFlag") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 3)
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
@@ -553,4 +568,30 @@ std::string InputParser::ReadParameters(const std::string filename,
     return (modname);
 }
 
+void InputParser::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct)
+{
+    customParserMap[name] = funct;
+}
 
+void InputParser::addCustomObservableType(const std::string name, boost::function<Observable*(Observable obs_i) > funct)
+{
+    customObservableTypeMap[name] = funct;
+}
+
+void InputParser::linkParserToObservable(std::string name_obs, std::string name_par){
+    ObservableToParsermap[name_obs] = name_par;
+}
+
+InputParser * InputParser::CreateCustomParser(const std::string& name) const
+{
+    if (customParserMap.find(ObservableToParsermap.at(name)) == customParserMap.end())
+        throw std::runtime_error("\nERROR: No parser defined for " + ObservableToParsermap.at(name) + " so it cannot be created.\n");
+    return (customParserMap.at(ObservableToParsermap.at(name))(myModelFactory, myObsFactory));
+}
+
+Observable * InputParser::CreateObservableType(const std::string& name, Observable obs_i) const
+{
+    if (customObservableTypeMap.find(name) == customObservableTypeMap.end())
+        throw std::runtime_error("ERROR: No observable defined for " + name + " so it cannot be created");
+    return (customObservableTypeMap.at(name)(obs_i));
+}
