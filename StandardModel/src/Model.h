@@ -167,7 +167,7 @@ public:
         return ModelParamMap.at(name);
     }
 
-    const bool isModelParam(std::string name) const
+    bool isModelParam(std::string name) const
     {
         return (ModelParamMap.find(name) != ModelParamMap.end());
     }

@@ -53,6 +53,7 @@ public:
      */
     Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0., double isospin = 0.);
 
+    virtual ~Particle(){};
     /**
      * @brief A get method to access the particle mass. 
      * @return the particle mass in GeV

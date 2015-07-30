@@ -1258,7 +1258,7 @@ public:
      * @return @f$c_W^2@f$
      */
     virtual double cW2(const double Mw_i) const;
-    double cW2() const;
+    virtual double cW2() const;
 
     /**
      * @brief The square of the sine of the weak mixing angle

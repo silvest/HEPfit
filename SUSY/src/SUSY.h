@@ -529,19 +529,6 @@ public:
      */
     double Mw_dRho() const;
 
-    /**
-     * @brief
-     * @return
-     */
-    virtual double cW2() const;
-    
-    /**
-     * @brief
-     * @return
-     */
-    virtual double sW2() const;
-
-
     ///////////////////////////////////////////////////////////////////////////
 
 protected:

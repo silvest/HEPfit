@@ -35,9 +35,9 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
     std::string thname = *beg;
     ++beg;
     std::string label = *beg;
-    size_t pos = -1;
-    while ((pos = label.find("~", pos + 1)) != std::string::npos)
-        label.replace(pos, 1, " ");
+    size_t pos = 0;
+    while ((pos = label.find("~", pos)) != std::string::npos)
+        label.replace(pos++, 1, " ");
     ++beg;
     min = atof((*beg).c_str());
     ++beg;
@@ -259,7 +259,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::vector<std::string> thname(2, "");
                 std::vector<std::string> label(2, "");
                 std::vector<std::string> type2D(2, "");
-                size_t pos = -1;
+                size_t pos = 0;
                 for (int i = 0; i < 2; i++) {
                     IsEOF = getline(ifile, line).eof();
                     if (line.empty() || line.at(0) == '#') {
@@ -277,8 +277,8 @@ std::string InputParser::ReadParameters(const std::string filename,
                     thname[i] = *beg;
                     ++beg;
                     label[i] = *beg;
-                    while ((pos = label[i].find("~", pos + 1)) != std::string::npos)
-                        label[i].replace(pos, 1, " ");
+                    while ((pos = label[i].find("~", pos)) != std::string::npos)
+                        label[i].replace(pos++, 1, " ");
                     ++beg;
                     min[i] = atof((*beg).c_str());
                     ++beg;
