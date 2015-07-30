@@ -314,16 +314,3 @@ double SUSY::Mw_dRho() const
     double sW2_SM = 1.0 - cW2_SM;
     return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
 }
-
-double SUSY::cW2() const
-{
-    return (Mw()*Mw()/Mz/Mz);
-}
-
-double SUSY::sW2() const
-{
-    return (1.0 - cW2());
-}
-
-
-
