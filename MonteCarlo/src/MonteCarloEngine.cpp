@@ -571,12 +571,16 @@ std::string MonteCarloEngine::computeStatistics()
     if (Obs_ALL.size() > 0) StatsLog << "Observables:\n" << std::endl;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
 
-        if (it->getObsType() == 2) {
+        if (it->getObsType().compare("BinnedObservable") == 0) {
             StatsLog << "  (" << ++i << ") Binned Observable \"";
             StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]"<<"\":";
         }
+        else if (it->getObsType().compare("HiggsObservable") == 0){
+            StatsLog << "  (" << ++i << ") Higgs Observable \"";
+            StatsLog << it->getName() << "\":";
+        }
         else {
-            StatsLog << "  (" << ++i << ") Observable \"";
+            StatsLog << "  (" << ++i << ") " << it->getObsType() << " \"";
             StatsLog << it->getName() << "\":";
         }
 
@@ -635,12 +639,16 @@ std::string MonteCarloEngine::computeStatistics()
         std::vector<Observable> CGObs(it1->getObs());
         for (std::vector<Observable>::iterator it2 = CGObs.begin(); it2 < CGObs.end(); it2++) {
 
-            if (it2->getObsType() == 2) {
+            if (it2->getObsType().compare("BinnedObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Binned Observable \"";
                 StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]"<<"\":";
             }
+            else if (it2->getObsType().compare("HiggsObservable") == 0){
+                StatsLog << "  (" << ++i << ") Higgs Observable \"";
+                StatsLog << it2->getName() << "\":";
+            }
             else {
-                StatsLog << "  (" << ++i << ") Observable \"";
+                StatsLog << "  (" << ++i << ") " << it2->getObsType() << " \"";
                 StatsLog << it2->getName() << "\":";
             }
 
