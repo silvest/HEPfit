@@ -27,6 +27,7 @@ public:
     HiggsObservable(const Observable& Obs): 
                Observable(Obs)
                {
+                   isnew = true;
                };
                
     HiggsObservable(const HiggsObservable& orig);
@@ -46,8 +47,14 @@ public:
 
     virtual double computeWeight();
     
+    void setIsnew(bool isnew)
+    {
+        this->isnew = isnew;
+    }
+
     private:
         TMatrixD channels;
+        bool isnew;
         std::vector<ThObservable*> thObsV;
 };
 

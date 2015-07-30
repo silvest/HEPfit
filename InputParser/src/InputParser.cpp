@@ -67,8 +67,10 @@ void InputParser::ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<bo
     do {
         IsEOF = getline(ifile, line).eof();
         if (line.compare(0, 10, "CATEGORIES") == 0) {
-            boost::tokenizer<boost::char_separator<char> > tok(line.substr(11));
+            boost::char_separator<char> sep(" \t");
+            boost::tokenizer<boost::char_separator<char> > tok(line,sep);
             boost::tokenizer<boost::char_separator<char> >::iterator beg2 = tok.begin();
+            beg2++;
             while (beg2 != tok.end()) {
                 std::string cat = *beg2;
                 hthobs.push_back(myObsFactory.CreateThMethod(cat, *myModel));
@@ -374,6 +376,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("parametric") == 0) {
+                ho->setIsnew(false);
                 std::vector<ThObservable*> hthobs;
                 ++beg;
                 distr = *beg;

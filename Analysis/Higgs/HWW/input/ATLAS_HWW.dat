@@ -4,7 +4,7 @@
 # Name Definition weights mu -err_mu +err_mu
 # weights are given as |ggH fraction, VBF fraction, WH fraction, ZH fraction|
 ##################
-CATEGORIES ggH VBF WH ZH
+CATEGORIES ggH8 VBF8 WH8 ZH8
 MEASUREMENT ggFenriched |1. 0. 0. 0.| 1.02 -0.26 0.29
 MEASUREMENT VBFenriched |0. 1. 0. 0.| 1.27 -0.45 0.53
 MEASUREMENT VH_4l |0. 0. 0. 1.| 4.9 -3.1 4.6
