@@ -4,7 +4,7 @@
 # Name Definition weights mu -err_mu +err_mu
 # weights are given as |ggH fraction, ttH fraction, VBF fraction, WH fraction, ZH fraction|
 ##################
-CATEGORIES ggH ttH VBF WH ZH
+CATEGORIES ggH7 ttH7 VBF7 WH7 ZH7
 MEASUREMENT Untag0 |0.798 0.008 0.099 0.06 0.035| 1.973 -1.25 1.505
 MEASUREMENT Untag1 |0.919 0.002 0.042 0.024 0.013| 1.233 -0.88 0.979
 MEASUREMENT Untag2 |0.919 0.002 0.041 0.024 0.014| 1.602 -1.174 1.246

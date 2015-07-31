@@ -292,7 +292,7 @@ bool FeynHiggsWrapper::CalcHiggsSpectrum()
 
     /* Check */
     for (int i = 0; i < 4; i++)
-        if(std::isnan(mySUSY.mh[i])) {
+        if(isnan(mySUSY.mh[i])) {
             std::cout << "FeynHiggsWrapper::CalcHiggsSpectrum(): mh[" << i << "] is undefined"
                       << std::endl;
             return (false);
