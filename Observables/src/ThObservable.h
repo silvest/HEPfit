@@ -73,6 +73,10 @@ public:
     {
         return max;
     };
+    
+    const StandardModel& getModel(){
+      return SM;  
+    };
 
 protected:
     const StandardModel& SM; ///< A reference to an object of StandardMode class.
