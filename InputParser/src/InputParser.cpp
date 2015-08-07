@@ -523,7 +523,8 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (rank == 0 && ObservableToParsermap.find(customObsName) == ObservableToParsermap.end()) throw std::runtime_error("\nERROR: No parser linked to the observable " + customObsName + "\n");
             InputParser* customParser = CreateCustomParser(customObsName);
             customParser->setModel(myModel);
-            Observable * customObs = CreateObservableType(customObsName, customParser->ParseObservable(beg));
+            Observable * tmp = new Observable(customParser->ParseObservable(beg));
+            Observable * customObs = CreateObservableType(customObsName, *tmp);
             customObs->setObsType(customObsName);
             Observables.push_back(customObs);
             delete customParser;
@@ -576,7 +577,7 @@ void InputParser::addCustomParser(const std::string name, boost::function<InputP
     customParserMap[name] = funct;
 }
 
-void InputParser::addCustomObservableType(const std::string name, boost::function<Observable*(Observable obs_i) > funct)
+void InputParser::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct)
 {
     customObservableTypeMap[name] = funct;
 }
@@ -592,7 +593,7 @@ InputParser * InputParser::CreateCustomParser(const std::string& name) const
     return (customParserMap.at(ObservableToParsermap.at(name))(myModelFactory, myObsFactory));
 }
 
-Observable * InputParser::CreateObservableType(const std::string& name, Observable obs_i) const
+Observable * InputParser::CreateObservableType(const std::string& name, Observable& obs_i) const
 {
     if (customObservableTypeMap.find(name) == customObservableTypeMap.end())
         throw std::runtime_error("ERROR: No observable defined for " + name + " so it cannot be created");
