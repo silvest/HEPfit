@@ -1037,144 +1037,138 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
 {
     double mu = 1.0;
     if (sqrt_s == 1.96) {
-        mu += -0.046 * deltaGL_f(quarks[UP])
-                +0.088 * deltaGR_f(quarks[UP])
-                +11.594 * deltaGL_f(quarks[DOWN])
-                -0.021 * deltaGR_f(quarks[DOWN])
-	        +0.046 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
-                -0.012 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
-                -0.084 * deltaG_hgg()
-                +0.391 * deltaG_hAA()
-                +26.344 * deltaG1_hZA()
-                +14.928 * deltaG2_hZA()
-                -0.129 * deltaG1_hWW()
-                +0.084 * deltaG2_hWW()
-                +0.164 * deltaG3_hWW()
-                -0.033 * deltaG1_hZZ()
-                -1.408 * deltaG2_hZZ()
-                -0.001 * deltaG3_hZZ()
-                +1.123 * deltaGL_Zffh(quarks[UP])
-                -0.531 * deltaGR_Zffh(quarks[UP])
-                -0.705 * deltaGL_Zffh(quarks[DOWN])
-                +0.136 * deltaGR_Zffh(quarks[DOWN]);
+        mu +=  +1.123 * deltaGL_f(quarks[UP])
+                -0.531 * deltaGR_f(quarks[UP])
+                -0.705 * deltaGL_f(quarks[DOWN])
+                +0.136 * deltaGR_f(quarks[DOWN])
+	        +2.662 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -1407.72 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                +14928.1 * deltaG_hgg()
+                -12.451 * deltaG_hAA()
+                -21.274 * deltaG1_hZA()
+                +45.617 * deltaG2_hZA()
+                -84.016 * deltaG1_hWW()
+                +390.524 * deltaG2_hWW()
+                +0.026 * deltaG3_hWW()
+                -45.832 * deltaG1_hZZ()
+                +88.358 * deltaG2_hZZ()
+                +0.012 * deltaG3_hZZ()
+                -129.338 * deltaGL_Zffh(quarks[UP])
+                +84.325 * deltaGR_Zffh(quarks[UP])
+                +164.195 * deltaGL_Zffh(quarks[DOWN])
+                -32.751 * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-            mu += +0.146 * pow(deltaGL_f(quarks[UP]),2.0)
-                +0.066 * pow(deltaGR_f(quarks[UP]),2.0)
-                +166.498 * pow(deltaGL_f(quarks[DOWN]),2.0)
-                +0.151 * pow(deltaGR_f(quarks[DOWN]),2.0)
-	        +0.058 * pow(deltaGL_Wff(quarks[UP],quarks[DOWN]).real(),2.0)
-                +0.831 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0)
-                +0.107 * pow(deltaG_hgg(),2.0)
-                +0.219 * pow(deltaG_hAA(),2.0)
-                +248.649 * pow(deltaG1_hZA(),2.0)
-                +524.313 * pow(deltaG2_hZA(),2.0)
-                +1.608 * pow(deltaG1_hWW(),2.0)
-                +1.45 * pow(deltaG2_hWW(),2.0)
-                +0.41 * pow(deltaG3_hWW(),2.0)
-                +0.386 * pow(deltaG1_hZZ(),2.0)
-                +1.918 * pow(deltaG2_hZZ(),2.0)
-                +1.44 * pow(deltaG3_hZZ(),2.0)
-                +2.478 * pow(deltaGL_Zffh(quarks[UP]),2.0)
-                +1.878 * pow(deltaGR_Zffh(quarks[UP]),2.0)
-                +1.214 * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
-                +0.898 * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
+            mu +=  +2.478 * pow(deltaGL_f(quarks[UP]),2.0)
+                +1.878 * pow(deltaGR_f(quarks[UP]),2.0)
+                +1.214 * pow(deltaGL_f(quarks[DOWN]),2.0)
+                +0.898 * pow(deltaGR_f(quarks[DOWN]),2.0)
+	        +2.659 * pow(deltaGL_Wff(quarks[UP],quarks[DOWN]).real(),2.0)
+                +1917816 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0)
+                +524312994 * pow(deltaG_hgg(),2.0)
+                +831253. * pow(deltaG_hAA(),2.0)
+                +151140. * pow(deltaG1_hZA(),2.0)
+                +58067.7 * pow(deltaG2_hZA(),2.0)
+                +106835. * pow(deltaG1_hWW(),2.0)
+                +219369. * pow(deltaG2_hWW(),2.0)
+                +145840. * pow(deltaG1_hZZ(),2.0)
+                +66461.2 * pow(deltaG2_hZZ(),2.0)
+                +1608277 * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +1449825 * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +409700. * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +385965. * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
         }
         
     } else if (sqrt_s == 7.0) {
-        mu +=  -0.068 * deltaGL_f(quarks[UP])
-                +0.169 * deltaGR_f(quarks[UP])
-                +13.657 * deltaGL_f(quarks[DOWN])
-                -0.042 * deltaGR_f(quarks[DOWN])
-	        +0.089 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
-                -0.04 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
-                -0.108 * deltaG_hgg()
-                +0.548 * deltaG_hAA()
-                +25.688 * deltaG1_hZA()
-                +14.266 * deltaG2_hZA()
-                -0.466 * deltaG1_hWW()
-                +0.211 * deltaG2_hWW()
-                +0.375 * deltaG3_hWW()
-                -0.07 * deltaG1_hZZ()
-                -1.827 * deltaG2_hZZ()
-                +0.001 * deltaG3_hZZ()
-                +1.188 * deltaGL_Zffh(quarks[UP])
-                -0.536 * deltaGR_Zffh(quarks[UP])
-                -0.976 * deltaGL_Zffh(quarks[DOWN])
-                +0.179 * deltaGR_Zffh(quarks[DOWN]);
+        mu +=  +1.188 * deltaGL_f(quarks[UP])
+                -0.536 * deltaGR_f(quarks[UP])
+                -0.976 * deltaGL_f(quarks[DOWN])
+                +0.179 * deltaGR_f(quarks[DOWN])
+	        +2.592 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -1826.63 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                +14265.8 * deltaG_hgg()
+                -40.051 * deltaG_hAA()
+                -42.43 * deltaG1_hZA()
+                +88.972 * deltaG2_hZA()
+                -108.107 * deltaG1_hWW()
+                +547.508 * deltaG2_hWW()
+                +0.026 * deltaG3_hWW()
+                -67.672 * deltaG1_hZZ()
+                +168.86 * deltaG2_hZZ()
+                +0.014 * deltaG3_hZZ()
+                -466.198 * deltaGL_Zffh(quarks[UP])
+                +211.308 * deltaGR_Zffh(quarks[UP])
+                +374.597 * deltaGL_Zffh(quarks[DOWN])
+                -69.916 * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-            mu += +0.209 * pow(deltaGL_f(quarks[UP]),2.0)
-                +0.12 * pow(deltaGR_f(quarks[UP]),2.0)
-                +202.51 * pow(deltaGL_f(quarks[DOWN]),2.0)
-                +0.206 * pow(deltaGR_f(quarks[DOWN]),2.0)
-	        +0.095 * pow(deltaGL_Wff(quarks[UP],quarks[DOWN]).real(),2.0)
-                +0.777 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0)
-                +0.175 * pow(deltaG_hgg(),2.0)
-                +0.415 * pow(deltaG_hAA(),2.0)
-                +243.943 * pow(deltaG1_hZA(),2.0)
-                +519.301 * pow(deltaG2_hZA(),2.0)
-                +1.311 * pow(deltaG1_hWW(),2.0)
-                +1.131 * pow(deltaG2_hWW(),2.0)
-                +0.757 * pow(deltaG3_hWW(),2.0)
-                +0.652 * pow(deltaG1_hZZ(),2.0)
-                +2.863 * pow(deltaG2_hZZ(),2.0)
-                +2.016 * pow(deltaG3_hZZ(),2.0)
-                +2.534 * pow(deltaGL_Zffh(quarks[UP]),2.0)
-                +1.9 * pow(deltaGR_Zffh(quarks[UP]),2.0)
-                +1.695 * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
-                +1.177 * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
+            mu +=  +2.534 * pow(deltaGL_f(quarks[UP]),2.0)
+                +1.9 * pow(deltaGR_f(quarks[UP]),2.0)
+                +1.695 * pow(deltaGL_f(quarks[DOWN]),2.0)
+                +1.177 * pow(deltaGR_f(quarks[DOWN]),2.0)
+	        +2.608 * pow(deltaGL_Wff(quarks[UP],quarks[DOWN]).real(),2.0)
+                +2862580 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0)
+                +519301209 * pow(deltaG_hgg(),2.0)
+                +777159. * pow(deltaG_hAA(),2.0)
+                +206157. * pow(deltaG1_hZA(),2.0)
+                +94511.2 * pow(deltaG2_hZA(),2.0)
+                +174828. * pow(deltaG1_hWW(),2.0)
+                +414624. * pow(deltaG2_hWW(),2.0)
+                +209132. * pow(deltaG1_hZZ(),2.0)
+                +120250. * pow(deltaG2_hZZ(),2.0)
+                +1311032 * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +1130789 * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +757088. * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +651756. * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
         }
         
     } else if (sqrt_s == 8.0) {
-        mu +=  -0.068 * deltaGL_f(quarks[UP])
-                +0.174 * deltaGR_f(quarks[UP])
-                +13.649 * deltaGL_f(quarks[DOWN])
-                -0.042 * deltaGR_f(quarks[DOWN])
-	        +0.09 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
-                -0.04 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
-                -0.107 * deltaG_hgg()
-                +0.563 * deltaG_hAA()
-                +25.676 * deltaG1_hZA()
-                +14.247 * deltaG2_hZA()
-                -0.473 * deltaG1_hWW()
-                +0.215 * deltaG2_hWW()
-                +0.387 * deltaG3_hWW()
-                -0.072 * deltaG1_hZZ()
-                -1.858 * deltaG2_hZZ()
-                +0.002 * deltaG3_hZZ()
-                +1.179 * deltaGL_Zffh(quarks[UP])
-                -0.532 * deltaGR_Zffh(quarks[UP])
-                -0.984 * deltaGL_Zffh(quarks[DOWN])
-                +0.181 * deltaGR_Zffh(quarks[DOWN]);
+        mu +=  +1.179 * deltaGL_f(quarks[UP])
+                -0.532 * deltaGR_f(quarks[UP])
+                -0.984 * deltaGL_f(quarks[DOWN])
+                +0.181 * deltaGR_f(quarks[DOWN])
+	            +2.591 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -1858.03 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                +14247.4 * deltaG_hgg()
+                -40.46 * deltaG_hAA()
+                -41.713 * deltaG1_hZA()
+                +90.462 * deltaG2_hZA()
+                -106.576 * deltaG1_hWW()
+                +562.98 * deltaG2_hWW()
+                +0.026 * deltaG3_hWW()
+                -67.57 * deltaG1_hZZ()
+                +174.474 * deltaG2_hZZ()
+                +0.014 * deltaG3_hZZ()
+                -472.887 * deltaGL_Zffh(quarks[UP])
+                +214.739 * deltaGR_Zffh(quarks[UP])
+                +386.582 * deltaGL_Zffh(quarks[DOWN])
+                -72.228 * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-            mu += +0.21 * pow(deltaGL_f(quarks[UP]),2.0)
-                +0.132 * pow(deltaGR_f(quarks[UP]),2.0)
-                +201.699 * pow(deltaGL_f(quarks[DOWN]),2.0)
-                +0.208 * pow(deltaGR_f(quarks[DOWN]),2.0)
-	        +0.102 * pow(deltaGL_Wff(quarks[UP],quarks[DOWN]).real(),2.0)
-                +0.767 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0)
-                +0.178 * pow(deltaG_hgg(),2.0)
-                +0.454 * pow(deltaG_hAA(),2.0)
-                +243.823 * pow(deltaG1_hZA(),2.0)
-                +517.065 * pow(deltaG2_hZA(),2.0)
-                +1.399 * pow(deltaG1_hWW(),2.0)
-                +1.231 * pow(deltaG2_hWW(),2.0)
-                +0.82 * pow(deltaG3_hWW(),2.0)
-                +0.714 * pow(deltaG1_hZZ(),2.0)
-                +3.057 * pow(deltaG2_hZZ(),2.0)
-                +2.192 * pow(deltaG3_hZZ(),2.0)
-                +2.503 * pow(deltaGL_Zffh(quarks[UP]),2.0)
-                +1.877 * pow(deltaGR_Zffh(quarks[UP]),2.0)
-                +1.712 * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
-                +1.191 * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
+            mu +=  +2.503 * pow(deltaGL_f(quarks[UP]),2.0)
+                +1.877 * pow(deltaGR_f(quarks[UP]),2.0)
+                +1.712 * pow(deltaGL_f(quarks[DOWN]),2.0)
+                +1.191 * pow(deltaGR_f(quarks[DOWN]),2.0)
+	        +2.606 * pow(deltaGL_Wff(quarks[UP],quarks[DOWN]).real(),2.0)
+                +3057041 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0)
+                +517064803 * pow(deltaG_hgg(),2.0)
+                +766750. * pow(deltaG_hAA(),2.0)
+                +207500. * pow(deltaG1_hZA(),2.0)
+                +101779. * pow(deltaG2_hZA(),2.0)
+                +177714. * pow(deltaG1_hWW(),2.0)
+                +454117. * pow(deltaG2_hWW(),2.0)
+                +210212. * pow(deltaG1_hZZ(),2.0)
+                +131594. * pow(deltaG2_hZZ(),2.0)
+                +1399281 * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +1231240 * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +820259. * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +713820. * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
         }
         
     } else
@@ -1188,53 +1182,50 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
     double mu = 1.0;
     if (sqrt_s == 1.96) {
         mu += +2.032 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                +1.739 * deltaG1_hWW()
-                -3.433 * deltaG2_hWW()
-                +38.642 * deltaG3_hWW()
-                +6.523 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
+                +1738.87  * deltaG1_hWW()
+                -3432.64  * deltaG2_hWW()
+                +0.039  * deltaG3_hWW()
+                +6523.35 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
             mu += +1.042 * pow(deltaGL_Wff(quarks[UP], quarks[DOWN]).real(),2.0)
-                +1.076 * pow(deltaG1_hWW(),2.0)
-                +3.979 * pow(deltaG2_hWW(),2.0)
-                +373.605 * pow(deltaG3_hWW(),2.0)
-                +15.887 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0);            
+                +1075949  * pow(deltaG1_hWW(),2.0)
+                +3978950  * pow(deltaG2_hWW(),2.0)
+                +15887131 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0);            
         }
         
     } else if (sqrt_s == 7.0) {
         mu += +1.979 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                +1.778  * deltaG1_hWW()
-                -3.891  * deltaG2_hWW()
-                +38.637  * deltaG3_hWW()
-                +7.345  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
+                +1777.77  * deltaG1_hWW()
+                -3890.65  * deltaG2_hWW()
+                +0.039  * deltaG3_hWW()
+                +7344.73  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
         mu += +1.015 * pow(deltaGL_Wff(quarks[UP], quarks[DOWN]).real(),2.0)
-                +1.294 * pow(deltaG1_hWW(),2.0)
-                +7.356 * pow(deltaG2_hWW(),2.0)
-                +373.17 * pow(deltaG3_hWW(),2.0)
-                +31.356 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0);            
+                +1294405  * pow(deltaG1_hWW(),2.0)
+                +7356224  * pow(deltaG2_hWW(),2.0)
+                +31355627 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0);            
         }
         
     } else if (sqrt_s == 8.0) {
         mu += +1.978 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                +1.784  * deltaG1_hWW()
-                -3.967  * deltaG2_hWW()
-                +38.643  * deltaG3_hWW()
-                +7.507  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
+                +1784.47  * deltaG1_hWW()
+                -3967.38  * deltaG2_hWW()
+                +0.039  * deltaG3_hWW()
+                +7507.02  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
             mu += +1.016 * pow(deltaGL_Wff(quarks[UP], quarks[DOWN]).real(),2.0)
-                +1.332 * pow(deltaG1_hWW(),2.0)
-                +8.169 * pow(deltaG2_hWW(),2.0)
-                +374.1 * pow(deltaG3_hWW(),2.0)
-                +35.201 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0);            
+                +1331512  * pow(deltaG1_hWW(),2.0)
+                +8168916  * pow(deltaG2_hWW(),2.0)
+                +35201222 * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0);            
         }
         
     } else
@@ -1251,15 +1242,15 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
                 -1.598 * deltaGR_f(quarks[UP])
                 -1.229 * deltaGL_f(quarks[DOWN])
                 +0.227 * deltaGR_f(quarks[DOWN])
-                +3.215 * deltaG1_hZZ()
-                -2.922 * deltaG2_hZZ()
-                +59.223 * deltaG3_hZZ()
-                +0.495 * deltaG1_hZA()
-                -0.839 * deltaG2_hZA()
-                +5.932 * deltaGL_Zffh(quarks[UP])
-                -2.684 * deltaGR_Zffh(quarks[UP])
-                -1.878 * deltaGL_Zffh(quarks[DOWN])
-                +0.347 * deltaGR_Zffh(quarks[DOWN]);
+                +3215.38  * deltaG1_hZZ()
+                -2922.42  * deltaG2_hZZ()
+                +0.059  * deltaG3_hZZ()
+                +495.399  * deltaG1_hZA()
+                -838.743  * deltaG2_hZA()
+                +5931.99  * deltaGL_Zffh(quarks[UP])
+                -2684.23  * deltaGR_Zffh(quarks[UP])
+                -1878.46  * deltaGL_Zffh(quarks[DOWN])
+                +346.694  * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1268,15 +1259,15 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
                 +5.126 * pow(deltaGR_f(quarks[UP]),2.0)
                 +1.456 * pow(deltaGL_f(quarks[DOWN]),2.0)
                 +1.454 * pow(deltaGR_f(quarks[DOWN]),2.0)
-                +3.525 * pow(deltaG1_hZZ(),2.0)
-                +2.844 * pow(deltaG2_hZZ(),2.0)
-                +876.853 * pow(deltaG3_hZZ(),2.0)
-                +0.662 * pow(deltaG1_hZA(),2.0)
-                +2.006 * pow(deltaG2_hZA(),2.0)
-                +21.8 * pow(deltaGL_Zffh(quarks[UP]),2.0)
-                +21.796 * pow(deltaGR_Zffh(quarks[UP]),2.0)
-                +4.723 * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
-                +4.725 * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
+                +3525123  * pow(deltaG1_hZZ(),2.0)
+                +2844179  * pow(deltaG2_hZZ(),2.0)
+                +0.001  * pow(deltaG3_hZZ(),2.0)
+                +662397.  * pow(deltaG1_hZA(),2.0)
+                +2006248  * pow(deltaG2_hZA(),2.0)
+                +21799545  * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +21795795  * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +4723149  * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +4725123  * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
         }
         
     } else if (sqrt_s == 7.0) {
@@ -1284,15 +1275,15 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
                 -1.17 * deltaGR_f(quarks[UP])
                 -2.127 * deltaGL_f(quarks[DOWN])
                 +0.392 * deltaGR_f(quarks[DOWN])
-                +3.27 * deltaG1_hZZ()
-                -3.202 * deltaG2_hZZ()
-                +59.218 * deltaG3_hZZ()
-                +0.473 * deltaG1_hZA()
-                -0.873 * deltaG2_hZA()
-                +4.763 * deltaGL_Zffh(quarks[UP])
-                -2.157 * deltaGR_Zffh(quarks[UP])
-                -3.853 * deltaGL_Zffh(quarks[DOWN])
-                +0.712 * deltaGR_Zffh(quarks[DOWN]);
+                +3269.53  * deltaG1_hZZ()
+                -3201.65  * deltaG2_hZZ()
+                +0.059  * deltaG3_hZZ()
+                +473.267  * deltaG1_hZA()
+                -873.421  * deltaG2_hZA()
+                +4763.44  * deltaGL_Zffh(quarks[UP])
+                -2156.99  * deltaGR_Zffh(quarks[UP])
+                -3853.2  * deltaGL_Zffh(quarks[DOWN])
+                +712.124  * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1301,15 +1292,15 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
                 +3.753 * pow(deltaGR_f(quarks[UP]),2.0)
                 +2.519 * pow(deltaGL_f(quarks[DOWN]),2.0)
                 +2.517 * pow(deltaGR_f(quarks[DOWN]),2.0)
-                +4.052 * pow(deltaG1_hZZ(),2.0)
-                +4.598 * pow(deltaG2_hZZ(),2.0)
-                +876.649 * pow(deltaG3_hZZ(),2.0)
-                +0.611 * pow(deltaG1_hZA(),2.0)
-                +2.767 * pow(deltaG2_hZA(),2.0)
-                +27.425 * pow(deltaGL_Zffh(quarks[UP]),2.0)
-                +27.417 * pow(deltaGR_Zffh(quarks[UP]),2.0)
-                +17.044 * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
-                +17.04 * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
+                +4051505  * pow(deltaG1_hZZ(),2.0)
+                +4597749  * pow(deltaG2_hZZ(),2.0)
+                +0.001  * pow(deltaG3_hZZ(),2.0)
+                +610510.  * pow(deltaG1_hZA(),2.0)
+                +2766996  * pow(deltaG2_hZA(),2.0)
+                +27425400  * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +27416894  * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +17043782  * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +17039528  * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
         }
         
     } else if (sqrt_s == 8.0) {
@@ -1317,15 +1308,15 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
                 -1.163 * deltaGR_f(quarks[UP])
                 -2.14 * deltaGL_f(quarks[DOWN])
                 +0.395 * deltaGR_f(quarks[DOWN])
-                +3.283 * deltaG1_hZZ()
-                -3.262 * deltaG2_hZZ()
-                +59.229 * deltaG3_hZZ()
-                +0.475 * deltaG1_hZA()
-                -0.892 * deltaG2_hZA()
-                +4.848 * deltaGL_Zffh(quarks[UP])
-                -2.194 * deltaGR_Zffh(quarks[UP])
-                -3.96 * deltaGL_Zffh(quarks[DOWN])
-                +0.731 * deltaGR_Zffh(quarks[DOWN]);
+                +3282.79  * deltaG1_hZZ()
+                -3262.46  * deltaG2_hZZ()
+                +0.059  * deltaG3_hZZ()
+                +475.044  * deltaG1_hZA()
+                -892.243  * deltaG2_hZA()
+                +4847.78  * deltaGL_Zffh(quarks[UP])
+                -2193.61  * deltaGR_Zffh(quarks[UP])
+                -3960.46  * deltaGL_Zffh(quarks[DOWN])
+                +731.438  * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1334,15 +1325,15 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
                 +3.736 * pow(deltaGR_f(quarks[UP]),2.0)
                 +2.535 * pow(deltaGL_f(quarks[DOWN]),2.0)
                 +2.536 * pow(deltaGR_f(quarks[DOWN]),2.0)
-                +4.165 * pow(deltaG1_hZZ(),2.0)
-                +5.068 * pow(deltaG2_hZZ(),2.0)
-                +877.316 * pow(deltaG3_hZZ(),2.0)
-                +0.628 * pow(deltaG1_hZA(),2.0)
-                +3.088 * pow(deltaG2_hZA(),2.0)
-                +30.566 * pow(deltaGL_Zffh(quarks[UP]),2.0)
-                +30.559 * pow(deltaGR_Zffh(quarks[UP]),2.0)
-                +19.108 * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
-                +19.109 * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
+                +4164701  * pow(deltaG1_hZZ(),2.0)
+                +5067698  * pow(deltaG2_hZZ(),2.0)
+                +0.001  * pow(deltaG3_hZZ(),2.0)
+                +627966.  * pow(deltaG1_hZA(),2.0)
+                +3087745  * pow(deltaG2_hZA(),2.0)
+                +30566228  * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +30559313  * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +19107837  * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +19109134  * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
         }
         
     } else
@@ -1357,26 +1348,26 @@ double NPEffectiveGIMR::mueeZH(const double sqrt_s) const
 
     mu += -4.243 * deltaGL_f(leptons[DOWN])
         +3.723 * deltaGR_f(leptons[DOWN])
-        +2.691 * deltaG1_hZZ()
-        -1.952 * deltaG2_hZZ()
-        +59.224 * deltaG3_hZZ()
-        +0.126 * deltaG1_hZA()
-        -0.16 * deltaG2_hZA()
-        -4.18 * deltaGL_Zffh(leptons[DOWN])
-        +3.668 * deltaGR_Zffh(leptons[DOWN]);
+        +2690.94  * deltaG1_hZZ()
+        -1951.83  * deltaG2_hZZ()
+        +0.059  * deltaG3_hZZ()
+        +126.418  * deltaG1_hZA()
+        -160.3  * deltaG2_hZA()
+        -4179.8  * deltaGL_Zffh(leptons[DOWN])
+        +3668.  * deltaGR_Zffh(leptons[DOWN]);
         
     if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         //(Only valid under the assumptions of one dim 6 operator at a time)
         mu += +7.966 * pow(deltaGL_f(leptons[DOWN]),2.0)
             +7.966 * pow(deltaGR_f(leptons[DOWN]),2.0)
-            +1.841 * pow(deltaG1_hZZ(),2.0)
-            +0.952 * pow(deltaG2_hZZ(),2.0)
-            +876.95 * pow(deltaG3_hZZ(),2.0)
-            +0.962 * pow(deltaG1_hZA(),2.0)
-            +1.521 * pow(deltaG2_hZA(),2.0)
-            +7.732 * pow(deltaGL_Zffh(leptons[DOWN]),2.0)
-            +7.732 * pow(deltaGR_Zffh(leptons[DOWN]),2.0);            
+            +1841343  * pow(deltaG1_hZZ(),2.0)
+            +952412.  * pow(deltaG2_hZZ(),2.0)
+            +0.001  * pow(deltaG3_hZZ(),2.0)
+            +961714.  * pow(deltaG1_hZA(),2.0)
+            +1520521  * pow(deltaG2_hZA(),2.0)
+            +7731703  * pow(deltaGL_Zffh(leptons[DOWN]),2.0)
+            +7731703  * pow(deltaGR_Zffh(leptons[DOWN]),2.0);            
         }
     return mu;
 }
@@ -1407,35 +1398,35 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
     double mu = 1.0;
     if (sqrt_s == 1.96) {
         mu += -2.863 * deltaG_hff(quarks[TOP]).real()
-            +1.737 * deltaG_hgg();
+            +1737.35 * deltaG_hgg();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
             mu += +2.036 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
-                +0.886 * pow(deltaG_hgg(),2.0);            
+                +885586. * pow(deltaG_hgg(),2.0);            
         }
         
     } else if (sqrt_s == 7.0) {
         mu += -2.861 * deltaG_hff(quarks[TOP]).real()
-            +2.583 * deltaG_hgg();
+            +2583.3 * deltaG_hgg();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
             mu += +2.073 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
-                +3.91 * pow(deltaG_hgg(),2.0);            
+                +3909554 * pow(deltaG_hgg(),2.0);            
         }
         
     } else if (sqrt_s == 8.0) {
         mu += -2.861 * deltaG_hff(quarks[TOP]).real()
-            +2.637 * deltaG_hgg();
+            +2636.88 * deltaG_hgg();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
             mu += +1.963 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
-                +4.367 * pow(deltaG_hgg(),2.0);            
+                +4367338 * pow(deltaG_hgg(),2.0);            
         }
         
     } else
@@ -1510,7 +1501,7 @@ double NPEffectiveGIMR::GammaHggRatio() const
 {
     double width = 1.0;
 
-    width += +151.669 * deltaG_hgg()
+    width += +151669. * deltaG_hgg()
             -3.006 * deltaG_hff(quarks[TOP]).real()
             +5.853 * deltaG_hff(quarks[BOTTOM]).real()
             +4.71 * deltaG_hff(quarks[CHARM]).real();
@@ -1518,7 +1509,7 @@ double NPEffectiveGIMR::GammaHggRatio() const
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +5879.8 * pow(deltaG_hgg(),2.0)
+        width += +5879800851 * pow(deltaG_hgg(),2.0)
             +2.284 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
             +40.881 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
             +2.17 * pow(deltaG_hff(quarks[CHARM]).real(),2.0);            
@@ -1532,16 +1523,15 @@ double NPEffectiveGIMR::GammaHWWRatio() const
 {
     double width = 1.0;
 
-    width += -0.183 * deltaG1_hWW()
-            -0.275 * deltaG2_hWW()
-            +38.683 * deltaG3_hWW();
+    width += -183.404 * deltaG1_hWW()
+            -274.568 * deltaG2_hWW()
+            +0.039 * deltaG3_hWW();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +0.001 * pow(deltaG1_hWW(),2.0)
-            +0.001 * pow(deltaG2_hWW(),2.0)
-            +373.659 * pow(deltaG3_hWW(),2.0);            
+        width += +1267. * pow(deltaG1_hWW(),2.0)
+            +868.393 * pow(deltaG2_hWW(),2.0);
         }
     
     return width;
@@ -1552,18 +1542,16 @@ double NPEffectiveGIMR::GammaHZZRatio() const
 {
     double width = 1.0;
 
-    width += -0.247 * deltaG1_hZZ()
-            -0.241 * deltaG2_hZZ()
-            +59.249 * deltaG3_hZZ()
-            +0.075 * deltaG3_hWW();
+    width += -246.654 * deltaG1_hZZ()
+            -240.846 * deltaG2_hZZ()
+            +0.059 * deltaG3_hZZ();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +0.006 * pow(deltaG1_hZZ(),2.0)
-            +0.002 * pow(deltaG2_hZZ(),2.0)
-            +877.206 * pow(deltaG3_hZZ(),2.0)
-            +0.706 * pow(deltaG3_hWW(),2.0);            
+        width += +6391.57 * pow(deltaG1_hZZ(),2.0)
+            +2088.67 * pow(deltaG2_hZZ(),2.0)
+            +0.001 * pow(deltaG3_hZZ(),2.0);            
         }
     
     return width;
@@ -1574,9 +1562,8 @@ double NPEffectiveGIMR::GammaHZgaRatio() const
 {
     double width = 1.0;
 
-    width += +0.033 * deltaG3_hZZ()
-            -71.321 * deltaG1_hZA()
-            +40.776 * deltaG3_hWW()
+    width += -71321.5 * deltaG1_hZA()
+            +0.041 * deltaG3_hWW()
             +0.172 * deltaG_hff(quarks[TOP]).real()
             -0.301 * deltaG_hff(quarks[BOTTOM]).real()
             +0.196 * deltaG_hff(leptons[TAU]).real()
@@ -1585,9 +1572,7 @@ double NPEffectiveGIMR::GammaHZgaRatio() const
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +0.49 * pow(deltaG3_hZZ(),2.0)
-            +1271.85 * pow(deltaG1_hZA(),2.0)
-            +416.53 * pow(deltaG3_hWW(),2.0)
+        width += +1271853409 * pow(deltaG1_hZA(),2.0)
             +0.003 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
             +3.539 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
             -14.568 * pow(deltaG_hff(leptons[TAU]).real(),2.0)
@@ -1602,9 +1587,8 @@ double NPEffectiveGIMR::GammaHgagaRatio() const
 {
     double width = 1.0;
 
-    width += -0.033 * deltaG3_hZZ()
-            -257.366 * deltaG_hAA()
-            +48.696 * deltaG3_hWW()
+    width += -257366. * deltaG_hAA()
+            +0.049 * deltaG3_hWW()
             +0.761 * deltaG_hff(quarks[TOP]).real()
             -0.441 * deltaG_hff(quarks[BOTTOM]).real()
             -1.087 * deltaG_hff(leptons[TAU]).real()
@@ -1613,9 +1597,8 @@ double NPEffectiveGIMR::GammaHgagaRatio() const
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += -0.486 * pow(deltaG3_hZZ(),2.0)
-            +16479.1 * pow(deltaG_hAA(),2.0)
-            +592.978 * pow(deltaG3_hWW(),2.0)
+        width += +16479108529 * pow(deltaG_hAA(),2.0)
+            +0.001 * pow(deltaG3_hWW(),2.0)
             +0.146 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
             +1.828 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
             +6.672 * pow(deltaG_hff(leptons[TAU]).real(),2.0)
