@@ -27,6 +27,7 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
         DP[it->name] = it->ave;
         paraNames.push_back(it->name);
     }
+    DPars = DP;
     
     for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
         DObs.insert(std::pair<std::string, double> (it->getThname() , 0.));
