@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <iterator>
 
-#include "SLHA.hpp"     // Using LHPC, see https://lhpc.hepforge.org
+#include "SLHA.hpp"     // From LHPC 
 
 #include <iostream>
 #include <ComputeObservables.h>
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
             return EXIT_SUCCESS;
         }
         
-	// make the configuration file
+	// make the configuration file from the SLHA2 file passed in from the command line
 	std::string SLHAFileName( argv[1] );
 	LHPC::SlhaParser ParserForSlhaBlockSet( true, false );
 	LHPC::SlhaTwoWithSpheno SlhaSet( ParserForSlhaBlockSet, false );
@@ -70,13 +70,13 @@ int main(int argc, char** argv)
         std::map<std::string, double> DObs = CO.getObservables();
         
 	DPars = CO.getParameters();     // get the list of the parameters, READ from the config file
-	DObs = CO.compute(DPars);
-	
 	std::cout << "\nParameters:"<< std::endl;
 	for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) {
 	  std::cout << it->first << " = " << it->second << std::endl;
 	}
 
+
+	DObs = CO.compute(DPars);
 	std::cout << "\nObservables:" << std::endl;
 	for (std::map<std::string, double>::iterator it = DObs.begin(); it != DObs.end(); it++) {
 	  std::cout << it->first << " = " << it->second << std::endl;
@@ -117,8 +117,9 @@ void slhaparsing( LHPC::SlhaTwoWithSpheno& SlhaSet){
       if(words[1] == "muHi") words[2] = dtostring( SlhaSet.IMEXTPAR( 23 ) );      
       //      if(words[1] == "mHptree") words[2] = dtostring( SlhaSet.EXTPAR( 27 ) );
       // using MA instead of mHptree despite the naming miss-match
-      if(words[1] == "mHptree") words[2] = dtostring( SlhaSet.EXTPAR( 24 ) );
-      if(words[1] == "tanb") words[2] = dtostring( SlhaSet.MINPAR( 3 ) );
+      //      if(words[1] == "mHptree") words[2] = dtostring( SlhaSet.EXTPAR( 24 ) );
+      if(words[1] == "mHptree") words[2] = dtostring( SlhaSet.EXTPAR( 26 ) );
+      if(words[1] == "tanb") words[2] = dtostring( SlhaSet.EXTPAR( 25 ) );
       if(words[1] == "Q") words[2] = dtostring( SlhaSet.EXTPAR( 0 ) );
 
 
@@ -236,11 +237,12 @@ void slhaparsing( LHPC::SlhaTwoWithSpheno& SlhaSet){
       if(words[1] == "TEhat_31i") words[2] =  dtostring( SlhaSet.IMTEIN( 3, 1 ) );
       if(words[1] == "TEhat_32i") words[2] =  dtostring( SlhaSet.IMTEIN( 3, 2 ) );
 
+
     }
 
     std::ostringstream oss;
     copy(words.begin(), words.end(),
-	 std::ostream_iterator<std::string>(oss, " ")  
+	 std::ostream_iterator<std::string>(oss, " ")   // with a whitespace delimeter
 	 );
 
     line=oss.str();    // the modified line
