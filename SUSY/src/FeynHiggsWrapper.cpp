@@ -111,9 +111,9 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
            }
         }
     }
-    if (TMPu < 1.e-13) NMFVu = false;
-    if (TMPe < 1.e-13) NMFVd = false;
-    if (TMPe < 1.e-13) NMFVe = false;
+    if (!TMPu) NMFVu = false;
+    if (!TMPe) NMFVd = false;
+    if (!TMPe) NMFVe = false;
 
     /* NMFV trilinear couplings. In the case of NMFV, the trilinear couplings
      * AU, AD and AE for FHSetPara() as well as KU, KD and KE for FHSetNMFV()
@@ -151,8 +151,8 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     FHSetPara(&err,
               mySUSY.mut/mySUSY.quarks[QCD::TOP].getMass(),
               mySUSY.mtpole, mySUSY.tanb,
-              -1, // using mHptree instead of mA
-              mySUSY.mHptree,
+              mySUSY.mHptree,  // as now used, "mHptree" is a name for MA0. We shall be using mA instead of mHptree
+	      -1, // this is now not used, the mHptree 
               //
               sqrt(MsL2(2,2).real()), sqrt(MsE2(2,2).real()),
               sqrt(MsQ2(2,2).real()), sqrt(MsU2(2,2).real()),
