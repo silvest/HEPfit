@@ -101,6 +101,15 @@ public:
         return (DObs);
     };
 
+    /**
+     * @brief A method to get the map of parameters.
+     * @return the map of parameters
+     */
+    std::map<std::string, double> getParameters()
+    {
+        return (DPars);
+    };
+
    void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
     
    void addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct);
