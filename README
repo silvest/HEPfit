@@ -3,8 +3,10 @@ HEPfit - a Fitting Tool for the Standard Model and Beyond
 
 version in progress
 -------------------
-
-compatible with FeynHiggs v2.11.2 or v2.10.0 only!
+For SusyFit-0.2 (released before the SusyFit-to-HEPfit renaming) GNU
+Build version, please see
+https://github.com/silvest/HEPfit/tree/SusyFit-0.2_GNU_version
+or the cmake version http://hepfit.roma1.infn.it/SusyFit-0.2.tar.gz 
 
 HEPfit is a flexible tool which, given the Standard Model or any extension,
 allows to:
@@ -32,10 +34,17 @@ See COPYING file for licensing terms.
 
 Installation:
 -------------
+HEPfit can be built by either using the "./configure;make" method or
+using CMake. The first method is the one applicable for this GNU Build
+version of the HEPfit. It should work on all Unix-like machines
+but will require the cygwin environment for it to work on Windows
+machines. For using cmake, please refer to https://github.com/silvest/HEPfit.  
+
 To compile and install HEPfit, the following have to be availabled installed:
-GSL, LoopTools, Boost, ROOT, and BAT. If all these are installed in
-the default install prefix (/usr/local) then run the following
-commands to install HEPfit into /usr/local:
+GSL, LoopTools, Boost, ROOT, BAT and FeynHiggs. The current version in
+progress is compatible with FeynHiggs v2.11.2 or v2.10.0 only! If all
+these are installed in the default install prefix (/usr/local) then
+run the following commands to install HEPfit into /usr/local: 
 
 	./configure
 	make -j 4
