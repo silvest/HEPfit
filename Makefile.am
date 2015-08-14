@@ -642,6 +642,7 @@ Analysis/THDM.conf \
 Analysis/main_libmode_config_example.cpp \
 Analysis/main_libmode_header_example.cpp \
 Analysis/main_MCMC_example.cpp  \
+Analysis/main_libmode_slha2_to_GeneralSUSYconfigfile.cpp \
 Analysis/input/gamma_win10_DalModBabar.root \
 Analysis/input/pipi_NP_win10.root \
 Analysis/input/pipi_win10.root \
