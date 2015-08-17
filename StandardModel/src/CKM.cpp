@@ -42,6 +42,19 @@ CKM::~CKM()
 {
 }
 
+void CKM::setCKM(matrix<complex> & x)
+{
+    Vud = x(0, 0);
+    Vus = x(0, 1);
+    Vub = x(0, 2);
+    Vcd = x(1, 0);
+    Vcs = x(1, 1);
+    Vcb = x(1, 2);
+    Vtd = x(2, 0);
+    Vts = x(2, 1);
+    Vtb = x(2, 2);
+}
+
 void CKM::getCKM(matrix<complex> & x) const
 {
     x.assign(0, 0, Vud);
