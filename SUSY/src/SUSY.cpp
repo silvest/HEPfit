@@ -98,6 +98,7 @@ bool SUSY::PostUpdate()
 
     /* Set the squark and slepton mass matrices and the trilinear-coupling matrices */
     SetSoftTerms();
+    computeYukawas();
 
     /* use approximate GUT relation if M1 & M2 are zero */
     if(m1.abs() == 0. && m2.abs() == 0.) {
@@ -117,6 +118,8 @@ bool SUSY::PostUpdate()
         std::cout << "WARNING: mh=" << mHl << " in SUSY::PostUpdate" << std::endl;
         return (false);
     }
+    
+    if( Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt( sqrt(m_su2(2) * m_su2(5)) );
 
     /* For EWSUSY class */
     myEWSUSY->SetRosiekParameters();
@@ -216,6 +219,9 @@ void SUSY::computeYukawas()
     /* Convert the top-quark pole mass to the MSbar mass */
     double mtbar = Mp2Mbar(mtpole, FULLNLO);
 
+    double Q_SUSY_temp = Q_SUSY;
+    if( Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt( sqrt(msQhat2(2,2).abs() * msUhat2(2,2).abs() ) );
+
     for (int i = 0; i < 3; i++) {
         /* Run the quark masses to scale Q */
         if (i != 2)
@@ -240,6 +246,9 @@ void SUSY::computeYukawas()
 
     Yu = VCKM.transpose()*Yu;
     Yn = Yn * UPMNS.hconjugate();
+
+    Q_SUSY = Q_SUSY_temp;
+    
 }
 
 void SUSY::SetSoftTerms()
