@@ -159,7 +159,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 25;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 34;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -218,6 +218,20 @@ public:
     double deltaGR_f(const Particle p) const;
 
 
+        ////////////////////////////////////////////////////////////////////////
+    
+    virtual double sigma_eeTOffbar(const Particle p, const double sqrt_s) const;
+    
+    virtual complex sigma_eeTOffbarF(const Particle p, const double sqrt_s) const;
+    virtual complex sigma_eeTOffbarB(const Particle p, const double sqrt_s) const;
+    
+    double sigma_eeTOmumu(const double sqrt_s) const;
+    double sigma_eeTOqq(const double sqrt_s) const;
+    
+    double AFB_mu(const double sqrt_s) const;
+
+    ////////////////////////////////////////////////////////////////////////
+    
     ////////////////////////////////////////////////////////////////////////
 
     // no generation mixing
@@ -323,6 +337,15 @@ protected:
     double CdH_11r, CdH_12r, CdH_13r, CdH_22r, CdH_23r, CdH_33r;
     double CdH_11i, CdH_12i, CdH_13i, CdH_22i, CdH_23i, CdH_33i;
     double CLL_1221, CLL_2112;
+    double CLQ1;
+    double CLQ3;
+    double Cee;
+    double Ceu;
+    double Ced;
+    double CLe;
+    double CLu;
+    double CLd;
+    double CQe;
     double Lambda_NP;
     double MwInput;
 
