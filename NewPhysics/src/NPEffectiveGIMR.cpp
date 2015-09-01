@@ -36,7 +36,7 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU]
         = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
-    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL",
+    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP"};
 
 NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
@@ -64,6 +64,7 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_r", boost::cref(CeH_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_i", boost::cref(CeH_11i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL", boost::cref(CLL_1221)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee", boost::cref(Cee)));
     } else {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_11", boost::cref(CHL1_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_12r", boost::cref(CHL1_12r)));
@@ -196,10 +197,12 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3", boost::cref(CLQ3)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu", boost::cref(Ceu)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced", boost::cref(Ced)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe", boost::cref(CLe)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu", boost::cref(CLu)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd", boost::cref(CLd)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe", boost::cref(CQe)));
     } else {
-        throw std::runtime_error("Flavor non-universal form factors for LEP2 observables not yet implemented.");
+        std::cout << "WARNING: flavor non-universal coefficient for the dim-6 operators for LEP2 observables not yet implemented." << std::endl;
     }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
     if (FlagMwInput)
@@ -619,7 +622,6 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CLd = value;
     } else if (name.compare("CQe") == 0) {
         CQe = value;
-
     } else if (name.compare("Lambda_NP") == 0)
         Lambda_NP = value;
     else if (name.compare("MwInput") == 0)
