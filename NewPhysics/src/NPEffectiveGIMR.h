@@ -147,7 +147,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 121;
+    static const int NNPEffectiveGIMRVars = 130;
 
     /**
      * @brief A string array containing the labels of the model parameters in
