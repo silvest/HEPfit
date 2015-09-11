@@ -374,7 +374,22 @@ public:
     {
         return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
     }
+    
+    double getDC7_1_abs()
+    {
+        return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] - h_0[1]).abs());
+    }
 
+    double getDC7_2_abs()
+    {
+        return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] + h_0[1]).abs());
+    }
+
+    double gethp0_hm0_abs()
+    {
+        return (h_0[1]/h_0[2]).abs();
+    }
+    
 private:
     
     /**
