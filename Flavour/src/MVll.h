@@ -390,6 +390,11 @@ public:
         return (h_0[1]/h_0[2]).abs();
     }
     
+    double gethm0_h00_abs()
+    {
+        return (h_0[2]/h_0[0]).abs();
+    }
+    
 private:
     
     /**

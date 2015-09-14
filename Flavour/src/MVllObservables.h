@@ -1611,6 +1611,19 @@ private:
     StandardModel::meson vectorM; /**< Final vector meson type. */
 };
 
+class hm0_h00 : public ThObservable{
+public:
+
+    hm0_h00(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    double computeThValue();
+
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
 #endif	/* MVLLOBSERVABLES_H */
 
     

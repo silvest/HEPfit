@@ -758,3 +758,16 @@ double hp0_hm0::computeThValue()
 {
     return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->gethp0_hm0_abs();
 }
+
+hm0_h00::hm0_h00(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double hm0_h00::computeThValue()
+{
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->gethm0_h00_abs();
+}
