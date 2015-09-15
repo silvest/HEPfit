@@ -41,6 +41,19 @@ void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr)
         for (unsigned int j = 0; j < size; j++)
             (*Cov)(i, j) = Obs.at(i).getErrg() * Corr(i, j) * Obs.at(j).getErrg();
     *Cov = Cov->inverse();
+    
+    gslpp::matrix<gslpp::complex>vv(size, size, 0.);
+    gslpp::vector<gslpp::complex>ee(size, 0.);
+
+    Cov->eigensystem(vv, ee);
+
+    gslpp::matrix<double> v(vv.real());
+    gslpp::vector<double> e(ee.real());
+
+    std::cout << v << std::endl;
+    std::cout << e << std::endl;
+    for (int i=0; i< size; i++)
+        std::cout << 1./sqrt(e(i)) << std::endl;
 }
 
 double CorrelatedGaussianObservables::computeWeight()

@@ -26,7 +26,7 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
                        const std::string& MonteCarloConf_i,
                        const std::string& OutFile_i,
                        const std::string& JobTag_i)
-: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO)
+: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO, CGP)
 {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
@@ -54,7 +54,7 @@ void MonteCarlo::TestRun(int rank) {
     }
     
     if (rank == 0){
-        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
         std::map<std::string, double> DP;
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
 
@@ -96,7 +96,7 @@ void MonteCarlo::Run(const int rank)
     try {
 
         /* set model parameters */
-        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {

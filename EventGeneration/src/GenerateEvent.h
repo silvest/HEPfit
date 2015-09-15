@@ -112,6 +112,8 @@ private:
     
     void initModel();
     
+    void setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string,double>& DPars_i);
+    
     InputParser myInputParser; ///< An oject of the InputParser() class.
     std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model().
     std::map<std::string, TF1*> DDist; ///< Map of parameter distributions.
@@ -124,6 +126,7 @@ private:
     boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
     std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
     std::vector<CorrelatedGaussianObservables> CGO; ///< vector for the Correlated Gaussian Observables defined in SomeModel.conf.
+    std::vector<CorrelatedGaussianParameters> CGP; ///< vector for the Correlated Gaussian Parameters defined in SomeModel.conf.
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::string OutDirName; ///< String for the name of the output directory.
     std::string OldOutDirName; ///< String for the name of the backup output directory.

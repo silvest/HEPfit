@@ -19,6 +19,7 @@
 #include <Observable.h>
 #include <Observable2D.h>
 #include <CorrelatedGaussianObservables.h>
+#include <CorrelatedGaussianParameters.h>
 #include <ModelParameter.h>
 #include <Model.h>
 #include <map>
@@ -54,7 +55,8 @@ public:
     MonteCarloEngine(const std::vector<ModelParameter>& ModPars_i,
             boost::ptr_vector<Observable>& Obs_i,
             std::vector<Observable2D>& Obs2D_i,
-            std::vector<CorrelatedGaussianObservables>& CGO_i);
+            std::vector<CorrelatedGaussianObservables>& CGO_i,
+            std::vector<CorrelatedGaussianParameters>& CGP_i);
 
     /**
      * @brief The default destructor. Some pointers defined in this class are explicitly freed.
@@ -232,7 +234,9 @@ public:
     double Function_h(std::vector<double> point);
     
 private:
+    void setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string,double>& DPars_i);
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
+    const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.
     std::vector<Observable2D>& Obs2D_ALL; ///< A vector of all pairs of observable for Observable2D.
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.

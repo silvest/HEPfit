@@ -20,8 +20,9 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     boost::ptr_vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;
     std::vector<CorrelatedGaussianObservables> CGO;
+    std::vector<CorrelatedGaussianParameters> CGP;
 
-    std::string ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO);
+    std::string ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO, CGP);
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
         DP[it->name] = it->ave;

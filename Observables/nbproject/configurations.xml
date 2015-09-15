@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.h</itemPath>
+      <itemPath>src/CorrelatedGaussianParameters.h</itemPath>
       <itemPath>src/HiggsObservable.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
       <itemPath>src/Observable.h</itemPath>
@@ -20,6 +21,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.cpp</itemPath>
+      <itemPath>src/CorrelatedGaussianParameters.cpp</itemPath>
       <itemPath>src/HiggsObservable.cpp</itemPath>
       <itemPath>src/ModelParameter.cpp</itemPath>
       <itemPath>src/Observable.cpp</itemPath>
@@ -70,6 +72,13 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianParameters.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianParameters.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -133,6 +142,13 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/CorrelatedGaussianParameters.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianParameters.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
@@ -193,6 +209,13 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianParameters.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianParameters.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
       </item>

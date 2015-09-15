@@ -13,6 +13,7 @@
 #include <Observable.h>
 #include <Observable2D.h>
 #include <CorrelatedGaussianObservables.h>
+#include <CorrelatedGaussianParameters.h>
 #include <HiggsObservable.h>
 #include <ThObservable.h>
 #include <ModelParameter.h>
@@ -101,12 +102,21 @@ public:
     ModelParameter ParseModelParameter(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
 
     /**
+     * @brief The member that parses the CorrelatedGaussianParameters directives from SomeModel.conf file
+     * @param[in] Parameters a vector of ModelParameters
+     * @param[in] ifile the file being read
+     * @param[in] beg an iterator over words in a line separated by a specific separator character
+     */
+    CorrelatedGaussianParameters ParseCGP(std::vector<ModelParameter>& Parameters, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
+    
+    /**
      * @brief Responsible for parsing the SomeModel.conf file.
      * @details This method parses the SomeModel.conf file for all input instructions. The algorithm
      * is as follows:
      * \li Search for the predefined names of the available models, initialize the necessary model
      * class and build a ThFactory for that model to define the observables.
      * \li Search and read the ModelParameter list.
+     * \li Search and read the CorrelatedGaussianParameters.
      * \li Search and read the Observable list using the ParseObservable() method.
      * \li Search and read the Observable2D list using the ParseObservable() method.
      * \li Search and read the CorrelatedGaussianObservables.
@@ -117,6 +127,7 @@ public:
      * @param[out] Observables the vector of observables
      * @param[out] Observables2D the vector of observable pairs
      * @param[out] CGO the vector of correlated Gaussian observables
+     * @param[out] CGP the vector of correlated Gaussian parameters
      * @return modname the name of the model initialized
      */
     std::string ReadParameters(const std::string filename_i,
@@ -124,7 +135,8 @@ public:
                                std::vector<ModelParameter>& ModelPars,
                                boost::ptr_vector<Observable>& Observables,
                                std::vector<Observable2D>& Observables2D,
-                               std::vector<CorrelatedGaussianObservables>& CGO);
+                               std::vector<CorrelatedGaussianObservables>& CGO,
+                               std::vector<CorrelatedGaussianParameters>& CGP);
 
     /**
      * @brief A get method to access the pointer to the object of the StandardModel class.

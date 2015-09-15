@@ -41,13 +41,28 @@ public:
      */
     virtual ~ModelParameter();
     
+    bool IsCorrelated() const
+    {
+        return(!cgp_name.empty());
+    }
     
+    std::string getCgp_name() const
+    {
+        return cgp_name;
+    }
+
+    void setCgp_name(std::string cgp_name)
+    {
+        this->cgp_name = cgp_name;
+    }
+
     std::string name; ///< The name of the model parameter.
     double ave; ///< The average value of the model parameter.
     double errg; ///< The Gaussian error of the model parameter.
     double errf; ///< The flat error of the model parameter.
     double min; ///< The minimum value of the model parameter.
     double max; ///< The maximum value of the model parameter.
+    bool isFixed;
     
     /**
      * @brief Befriending of the std::ostream operator << to generate an
@@ -57,6 +72,7 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& output, const ModelParameter& m);
 private:
+    std::string cgp_name;
 };
 
 #endif	/* MODELPARAMETER_H */

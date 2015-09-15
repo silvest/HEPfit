@@ -15,6 +15,11 @@ ModelParameter::ModelParameter(std::string name_in, double ave_in, double errg_i
     errf = errf_in;
     min = ave - errf - 5.*errg;
     max = ave + errf + 5.*errg;
+    cgp_name.clear();
+    if(errg == 0. && errf == 0.)
+        isFixed = true;
+    else
+        isFixed = false;
 }
 
 ModelParameter::~ModelParameter() 

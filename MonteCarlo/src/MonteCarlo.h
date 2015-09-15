@@ -163,6 +163,7 @@ private:
     boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
     std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
     std::vector<CorrelatedGaussianObservables> CGO; ///< Vector for the Correlated Gaussian Observables defined in SomeModel.conf.
+    std::vector<CorrelatedGaussianParameters> CGP; ///< Vector for the Correlated Gaussian Parameters defined in SomeModel.conf.
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::string MCMCConf; ///< String for the name of the MonteCarlo.conf file.
     std::string OutFile; ///< String for the name of the output root file without the .root extension.

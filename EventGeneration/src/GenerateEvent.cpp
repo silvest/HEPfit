@@ -245,7 +245,7 @@ void GenerateEvent::createDirectories()
 }
 
 void GenerateEvent::initModel(){
-    ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+    ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
     Mod = myInputParser.getModel();
     if (Obs.size() == 0 && CGO.size() == 0 && rank == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n");
     std::map<std::string, double> DP;
@@ -302,7 +302,7 @@ void GenerateEvent::defineParameterDistributions()
 void GenerateEvent::generateRandomEvent(int iterationNo)
 {
     positionID = 0;
-    if (iterationNo == 0){
+    /* (iterationNo == 0){
         for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
             DPars[it->name] = it->ave;
             sendbuff[positionID++] = DPars[it->name];
@@ -312,7 +312,17 @@ void GenerateEvent::generateRandomEvent(int iterationNo)
             DPars[it->name] = DDist[it->name]->GetRandom();
             sendbuff[positionID++] = DPars[it->name];
         }
+    }*/
+    std::vector<double> vec(ModParsVar.size(),0.);
+    for (int i=0; i< vec.size();i++){
+        if (iterationNo == 0)
+            vec[i] = ModParsVar[i].ave;
+        else
+            vec[i] = DDist[ModParsVar[i].name]->GetRandom();
     }
+    setDParsFromParameters(vec,DPars);
+    for (int i=0; i<ModParsVar.size();i++)
+        sendbuff[positionID++] = DPars[ModParsVar[i].name];
     Mod->Update(DPars);
 }
 
@@ -326,4 +336,50 @@ void GenerateEvent::addCustomObservableType(const std::string name, boost::funct
    
 void GenerateEvent::linkParserToObservable(std::string name_par, std::string name_obs) {
        myInputParser.linkParserToObservable(name_par, name_obs);
+}
+
+
+void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters, 
+        std::map<std::string,double>& DPars_i) 
+{
+    std::map<std::string, std::vector<double> > cgpmap;
+
+   unsigned int k = 0;
+    for (unsigned int h = 0; h < ModPars.size(); h++) {
+        if(ModPars[h].isFixed)
+            continue;
+        k++;
+        ModelParameter p = ModPars[h]; 
+        if (p.IsCorrelated()) {
+            std::string index = p.name.substr(p.getCgp_name().size());
+            long int lindex = strtol(index.c_str(),NULL,10);
+            if (lindex - 1 == cgpmap[p.getCgp_name()].size())
+                cgpmap[p.getCgp_name()].push_back(parameters[k]);
+            else {
+                std::stringstream out;
+                out << p.name << " " << lindex;
+                throw std::runtime_error("GenerateEvent::setDParsFromParameters(): " + out.str() + "seems to be a CorrelatedGaussianParameters object but the corresponding parameters are missing or not in the right order");
+            }
+
+        } else
+            DPars_i[p.name] = parameters[k];
+    }
+
+    for (int j = 0; j < CGP.size(); j++) {
+        std::vector<double> current = cgpmap.at(CGP[j].getName());
+        if (current.size() != CGP[j].getPars().size()) {
+            std::stringstream out;
+            out << CGP[j].getName();
+            throw std::runtime_error("GenerateEvent::setDParsFromParameters(): " + out.str() + " appears to be represented in cgpmap with a wrong size");
+        }
+        
+        std::vector<double> porig = CGP[j].getOrigParsValue(current);
+
+        for(int l = 0; l < porig.size(); l++) {
+            DPars_i[CGP[j].getPar(l).name] = porig[l];
+        }
+        
+
+    }
+
 }

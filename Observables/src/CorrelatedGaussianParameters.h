@@ -28,18 +28,18 @@
  */
 class CorrelatedGaussianParameters {
 public:
-    
+
     /**
      * @brief Constructor.
      * @param[in] name_i a given name for the set of correlated Gaussian parameters
      */
     CorrelatedGaussianParameters(std::string name_i);
-    
+
     /**
      * @brief The copy constructor.
      */
     CorrelatedGaussianParameters(const CorrelatedGaussianParameters& orig);
-    
+
     /**
      * @brief The default destructor.
      */
@@ -66,7 +66,7 @@ public:
     {
         return Pars;
     }
-    
+
     /**
      * @brief A get method to access an element of the vector of parameters that are defined in
      * one correlated Gaussian parameters set.
@@ -102,13 +102,20 @@ public:
     {
         return *Cov;
     }
-    
+
+    std::vector<ModelParameter> getDiagPars() const
+    {
+        return DiagPars;
+    }
+
+    std::vector<double> getOrigParsValue(const std::vector<double>& DiagPars_i) const;
+
 private:
-    std::vector<ModelParameter> Pars;///< A vector of parameters whose correlation will be calculated.
-    gslpp::matrix<double>* Cov=NULL;///< The covariance matrix.
-    std::string name;///< The name of the correlated Gaussian Parameters set.
-    gslpp::matrix<double> * v=NULL;
-    gslpp::vector<double> * e=NULL;
+    std::vector<ModelParameter> Pars; ///< A vector of parameters whose correlation will be calculated.
+    gslpp::matrix<double>* Cov = NULL; ///< The covariance matrix.
+    std::string name; ///< The name of the correlated Gaussian Parameters set.
+    gslpp::matrix<double> * v = NULL;
+    gslpp::vector<double> * e = NULL;
     std::vector<ModelParameter> DiagPars; ///< The vector of diagonal parameters
 };
 
