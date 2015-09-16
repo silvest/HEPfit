@@ -201,7 +201,6 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
                         throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + "is sitting at the wrong position in the BAT parameters vector");
                     }
         if (p.IsCorrelated()) {
-            std::cout << p.name << " "  << p.getCgp_name() << std::endl;
             std::string index = p.name.substr(p.getCgp_name().size());
             long int lindex = strtol(index.c_str(),NULL,10);
             if (lindex - 1 == cgpmap[p.getCgp_name()].size())

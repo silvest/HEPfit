@@ -26,6 +26,7 @@ CorrelatedGaussianParameters::CorrelatedGaussianParameters(const CorrelatedGauss
     Cov = new gslpp::matrix<double>(*orig.Cov);
     v = new gslpp::matrix<double>(*orig.v);
     e = new gslpp::vector<double>(*orig.e);
+    DiagPars = orig.DiagPars;
 }
 
 CorrelatedGaussianParameters::~CorrelatedGaussianParameters()
@@ -53,22 +54,21 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     for (unsigned int i = 0; i < size; i++)
         for (unsigned int j = 0; j < size; j++)
             (*Cov)(i, j) = Pars.at(i).errg * Corr(i, j) * Pars.at(j).errg;
+
     *Cov = Cov->inverse();
     
     gslpp::matrix<gslpp::complex>vv(size, size, 0.);
     gslpp::vector<gslpp::complex>ee(size, 0.);
 
     Cov->eigensystem(vv, ee);
-    
+
     v = new gslpp::matrix<double>(size, size, 0.);
     e = new gslpp::vector<double>(size, 0.);
     *v = vv.real();
     *e = ee.real();
-    gslpp::matrix<double> vi = v->inverse();
     
-    //std::cout << v << std::endl;
-    //std::cout << e << std::endl;
-    
+//    std::cout << v->transpose() * (*Cov) * (*v) << std::endl;
+
     gslpp::vector<double> ave_in(size, 0.);
     
     int ind = 0;
@@ -78,14 +78,16 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
         ind++;
     }
     
-    gslpp::vector<double> ave = vi * ave_in;
+    gslpp::vector<double> ave = v->transpose() * ave_in;
     
     for (int i = 0; i < size; i++)
     {
         std::stringstream ss;
         ss << (i+1);
         std::string namei = name + ss.str();
-        DiagPars.push_back(ModelParameter(namei,ave(i),0.,1./sqrt((*e)(i))));
+        ModelParameter current(namei,ave(i),1./sqrt((*e)(i)),0.);
+        current.setCgp_name(name);
+        DiagPars.push_back(current);
     }
 }
 
