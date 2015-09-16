@@ -62,7 +62,7 @@ public:
      * one correlated Gaussian parameters set.
      * @return a vector of type ModelParameter()
      */
-    std::vector<ModelParameter> getPars() const
+    const std::vector<ModelParameter>& getPars() const
     {
         return Pars;
     }
@@ -103,19 +103,19 @@ public:
         return *Cov;
     }
 
-    std::vector<ModelParameter> getDiagPars() const
+    const std::vector<ModelParameter>& getDiagPars() const
     {
         return DiagPars;
-    }
+    }   
 
     std::vector<double> getOrigParsValue(const std::vector<double>& DiagPars_i) const;
 
 private:
     std::vector<ModelParameter> Pars; ///< A vector of parameters whose correlation will be calculated.
-    gslpp::matrix<double>* Cov = NULL; ///< The covariance matrix.
+    gslpp::matrix<double>* Cov; ///< The covariance matrix.
     std::string name; ///< The name of the correlated Gaussian Parameters set.
-    gslpp::matrix<double> * v = NULL;
-    gslpp::vector<double> * e = NULL;
+    gslpp::matrix<double> * v;
+    gslpp::vector<double> * e;
     std::vector<ModelParameter> DiagPars; ///< The vector of diagonal parameters
 };
 

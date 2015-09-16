@@ -421,9 +421,8 @@ CorrelatedGaussianParameters InputParser::ParseCGP(std::vector<ModelParameter>& 
                             << name << ". Check element (" << ni + 1 << "," << nj + 1 << ") in line number " + boost::lexical_cast<std::string>(lineNo) << std::endl;
                     exit(EXIT_FAILURE);
                 }
-
-                ni++;
             }
+            ni++;
         }
         p3.DiagonalizePars(myCorr);
         ModPars.insert(ModPars.end(), p3.getDiagPars().begin(), p3.getDiagPars().end());

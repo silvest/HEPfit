@@ -14,6 +14,9 @@
 CorrelatedGaussianParameters::CorrelatedGaussianParameters(std::string name_i)
 {
     name = name_i;
+    Cov = NULL; 
+    v = NULL;
+    e = NULL;
 }
 
 CorrelatedGaussianParameters::CorrelatedGaussianParameters(const CorrelatedGaussianParameters& orig)
@@ -56,13 +59,15 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     gslpp::vector<gslpp::complex>ee(size, 0.);
 
     Cov->eigensystem(vv, ee);
-
+    
+    v = new gslpp::matrix<double>(size, size, 0.);
+    e = new gslpp::vector<double>(size, 0.);
     *v = vv.real();
     *e = ee.real();
     gslpp::matrix<double> vi = v->inverse();
     
-    std::cout << v << std::endl;
-    std::cout << e << std::endl;
+    //std::cout << v << std::endl;
+    //std::cout << e << std::endl;
     
     gslpp::vector<double> ave_in(size, 0.);
     
