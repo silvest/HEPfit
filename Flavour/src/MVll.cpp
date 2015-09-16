@@ -653,7 +653,7 @@ void MVll::checkCache()
 
 double MVll::FF_fit(double q2, double a_0, double a_1, double a_2, double MR_2)
 {
-    return 1 / (1 - q2/MR_2) * ( a_0 + a_1 * (z(q2) - z_0) + a_2 * (z(q2) - z_0) * (z(q2) - z_0) ); 
+    return 1. / (1. - q2/MR_2) * ( a_0 + a_1 * (z(q2) - z_0) + a_2 * (z(q2) - z_0) * (z(q2) - z_0) ); 
 }
 
 double MVll::z(double q2)

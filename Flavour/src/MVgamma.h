@@ -63,6 +63,10 @@ public:
     double a_1T1;/**<LCSR fit parameter */
     double a_2T1;/**<LCSR fit parameter */
     double MRT1_2;/**<LCSR fit parameter */
+    double t_p;
+    double t_m;
+    double t_0;
+    double z_0;
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
