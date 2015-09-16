@@ -45,7 +45,7 @@ namespace gslpp
       /** Destructor */
       ~vector();
       /** Get i-th element */
-      const double operator()(const size_t& i) const;
+      double operator()(const size_t& i) const;
       /** Set i-th element */
       double& operator()(const size_t& i);
       /** Assign */

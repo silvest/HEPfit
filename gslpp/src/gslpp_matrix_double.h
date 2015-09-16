@@ -61,7 +61,7 @@ namespace gslpp
       /** Destructor */
       ~matrix();
       /** Get element (i,j)*/
-      const double operator()(const size_t& i, const size_t& j) const;
+      double operator()(const size_t& i, const size_t& j) const;
       /** Set i-th element */
       double& operator()(const size_t& i, const size_t& j);
       /** Assign */
