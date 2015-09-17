@@ -178,6 +178,8 @@ private:
     bool WritePreRunData; ///< Flag for printing the overview parameter plots.
     bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
     double normalization; ///< A variable to store the evidence of a model.
+    
+    void ReadPreRunData (std::string file);
 };
 
 /** 

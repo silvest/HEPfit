@@ -287,7 +287,10 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("true") == 0) {
                         WritePreRunData = true;
                     }
-                 } else if (beg->compare("OrderParameters") == 0) {
+                } else if (beg->compare("ReadPreRunData") == 0) {
+                    ++beg;
+                    ReadPreRunData(*beg);
+                } else if (beg->compare("OrderParameters") == 0) {
                     ++beg;
                     if (beg->compare("false") == 0) {
                         MCEngine.MCMCSetFlagOrderParameters(false);
@@ -410,6 +413,38 @@ void MonteCarlo::Run(const int rank) {
     }
 }
 
+void MonteCarlo::ReadPreRunData(std::string file)
+{
+    std::ifstream ifile(file.c_str());
+    if (!ifile.is_open())
+        throw std::runtime_error("\nMonteCarlo::ReadPreRunData ERROR: " + file + " does not exist.\n");
+    std::string line;
+    bool IsEOF = false;
+    std::vector<double> mode;
+    std::vector<double> scale;
+    do {
+        IsEOF = getline(ifile, line).eof();
+        if (line.empty())
+            continue;   
+        boost::char_separator<char> sep(" ");
+        boost::tokenizer<boost::char_separator<char> > tok(line, sep);
+        boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
+        ++beg;
+        mode.push_back(atof((*beg).c_str()));
+        ++beg;
+        scale.push_back(atof((*beg).c_str()));
+    } while (!IsEOF);
+    if (mode.size() != MCEngine.GetNParameters())
+        throw std::runtime_error("\nMonteCarlo::ReadPreRunData ERROR: wrong data size.\n");
+    std::vector<double> mode_all;
+    std::vector<double> scale_all;
+    for (int i = 0; i < MCEngine.MCMCGetNChains(); i++){
+        mode_all.insert(mode_all.end(), mode.begin(), mode.end());
+        scale_all.insert(scale_all.end(), scale.begin(), scale.end());
+    }
+    MCEngine.MCMCSetInitialPositions(mode_all);
+    MCEngine.MCMCSetTrialFunctionScaleFactor(scale_all);
+}
 void MonteCarlo::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct) {
     myInputParser.addCustomParser(name, funct);
 }
