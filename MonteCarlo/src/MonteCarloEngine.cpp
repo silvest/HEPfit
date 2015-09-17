@@ -743,6 +743,16 @@ std::string MonteCarloEngine::computeStatistics() {
     return StatsLog.str().c_str();
 }
 
+std::string MonteCarloEngine::writePreRunData() 
+{
+    std::vector<double> mode(GetBestFitParameters());
+    std::vector<double> scales(MCMCGetTrialFunctionScaleFactor(0));
+    std::ostringstream StatsLog;
+    for (int i = 0; i < mode.size(); i++)
+        StatsLog << GetParameter(i)->GetName() << " " << mode.at(i) << " " << scales.at(i) << std::endl;
+    return StatsLog.str().c_str();
+}
+
 double MonteCarloEngine::computeNormalization() {
 
     unsigned int Npars = GetNParameters();

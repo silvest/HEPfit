@@ -33,10 +33,6 @@ void MVgamma::updateParameters()
     mu_b = SM.getMub();
     width = SM.getMesons(meson).computeWidth();
     lambda = MM2 - pow(MV,2.);
-    t_p = pow(MM + MV,2.);
-    t_m = pow(MM - MV,2.);
-    t_0 = t_p * (1. - sqrt(1. - t_m/t_p)); /*Modify it for Lattice*/
-    z_0 = ( sqrt(t_p) - sqrt(t_p - t_0) ) / ( sqrt(t_p) + sqrt(t_p - t_0) );
     
     switch(vectorM){
         case StandardModel::K_star :
@@ -77,7 +73,7 @@ void MVgamma::updateParameters()
  * ****************************************************************************/
 double MVgamma::T_1()
 {
-    return ( a_0T1 + a_1T1 * (1. - z_0) + a_2T1 * (1. - z_0) * (1. - z_0) );
+    return ( a_0T1 );
 }
 
 

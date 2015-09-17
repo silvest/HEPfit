@@ -39,6 +39,7 @@ MonteCarlo::MonteCarlo(
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
     PrintParameterPlot = false;
+    WritePreRunData = false;
     checkrun = false;
     normalization = 0.;
 }
@@ -165,8 +166,7 @@ void MonteCarlo::Run(const int rank) {
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
                     double ll = MCEngine.LogEval(pars);
                     MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0);
-                }
-                else if (recvbuff[0] == 2.) { // compute observables
+                } else if (recvbuff[0] == 2.) { // compute observables
                     double sbuff[obsbuffsize];
                     std::map<std::string, double> DPars;
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
@@ -237,6 +237,9 @@ void MonteCarlo::Run(const int rank) {
                 } else if (beg->compare("PrerunMaxIter") == 0) {
                     ++beg;
                     MCEngine.MCMCSetNIterationsMax(atoi((*beg).c_str()));
+                } else if (beg->compare("NIterationsUpdateMax") == 0) {
+                    ++beg;
+                    MCEngine.MCMCSetNIterationsUpdateMax(atoi((*beg).c_str()));
                 } else if (beg->compare("Seed") == 0) {
                     ++beg;
                     int seed = atoi((*beg).c_str());
@@ -279,7 +282,12 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("true") == 0) {
                         PrintParameterPlot = true;
                     }
-                } else if (beg->compare("OrderParameters") == 0) {
+                } else if (beg->compare("WritePreRunData") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        WritePreRunData = true;
+                    }
+                 } else if (beg->compare("OrderParameters") == 0) {
                     ++beg;
                     if (beg->compare("false") == 0) {
                         MCEngine.MCMCSetFlagOrderParameters(false);
@@ -360,6 +368,14 @@ void MonteCarlo::Run(const int rank) {
             if (CalculateNormalization) outStatLog << "Normalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
             outStatLog << MCEngine.computeStatistics();
             outStatLog.close();
+
+            // print global mode and scale factors for the 1st chain into a text file
+            if (WritePreRunData) {
+                std::ofstream outPreRun;
+                outPreRun.open(("PreRun" + JobTag + ".txt").c_str(), std::ios::out);
+                outPreRun << MCEngine.writePreRunData();
+                outPreRun.close();
+            }
 
             /* Number of events */
             std::stringstream ss;

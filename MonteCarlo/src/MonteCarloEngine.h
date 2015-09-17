@@ -190,6 +190,12 @@ public:
     std::string computeStatistics();
 
     /**
+     * @brief A method to write in a text file the best fit parameters and the prerun scale factors.
+     * @return a string containing the data
+     */
+    std::string writePreRunData();
+
+    /**
      * @brief This member generates the correlation matrix using BCH2D from the
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>.
      * @param[in] filename the name of the file where the correlation matrix is printed
