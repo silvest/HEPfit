@@ -37,16 +37,10 @@ void MVgamma::updateParameters()
     switch(vectorM){
         case StandardModel::K_star :
             a_0T1=SM.geta_0T1();
-            a_1T1=SM.geta_1T1();
-            a_2T1=SM.geta_2T1();
-            MRT1_2=SM.getMRT1() * SM.getMRT1();
             
             break;
         case StandardModel::PHI :
             a_0T1=SM.geta_0T1phi();
-            a_1T1=SM.geta_1T1phi();
-            a_2T1=SM.geta_2T1phi();
-            MRT1_2=SM.getMRT1phi() * SM.getMRT1phi();
             
             break;
         default:
