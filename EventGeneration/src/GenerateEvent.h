@@ -55,10 +55,12 @@ public:
      * @param[in] JobTag_i optional job tag that might be specified
      * @param[in] noMC_i the noMC specification given to the executable=
      */
-    GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF, const std::string& ModelConf_i,
+    GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF, 
+                  const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
                   const std::string& JobTag_i,
-                  const bool noMC_i);
+                  const bool noMC_i,
+                  const bool weight_i=false);
     
     /**
      * @brief The default destructor.
@@ -137,6 +139,7 @@ private:
     std::string ParsDirName; ///< String for the name of the parameters output directory.
     std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
     bool noMC;///< Flag to initiate noMC mode.
+    bool weight;///< Flag to get weight for observables.
     bool outputTerm; ///< Flag to specify output stream storage.
     int rank;
     int procnum;
@@ -149,7 +152,9 @@ private:
     int positionID;
     int buffersize;
     double *sendbuff;
+    double *sendbuff_w;
     double **buff;
+    double **buff_w;
     int *sendbuff_int;
     int **buff_int;
     std::string ModelName;

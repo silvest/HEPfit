@@ -9,12 +9,14 @@
 #include <TSystem.h>
 #include <TMath.h>
 #include <TRandom3.h>
+#include <iomanip>  
 
 GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
-        const std::string& ModelConf_i,
+                             const std::string& ModelConf_i,
                              const std::string& OutDirName_i,
                              const std::string& JobTag_i,
-                             const bool noMC_i)
+                             const bool noMC_i,
+                             const bool weight_i)
 : myInputParser(ModelF, ThObsF)
 {
     outputTerm = 0;
@@ -22,7 +24,7 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
     JobTag = JobTag_i;
     if (OutDirName_i != ""){
         OutDirName = "GeneratedEvents/" + OutDirName_i + JobTag;
-        OldOutDirName = ("GeneratedEvents/OLD/" + OutDirName_i + JobTag);
+        OldOutDirName = ("GeneratedEvents/DELETED/" + OutDirName_i + JobTag);
         ObsDirName = OutDirName + "/Observables";
         ParsDirName = OutDirName + "/Parameters";
         CGODirName = OutDirName + "/CGO";
@@ -31,6 +33,7 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
         outputTerm = 1;
     }
     noMC = noMC_i;
+    weight = weight_i;
     
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -73,14 +76,21 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
         
         /* memory allocation for MPI */
         sendbuff = new double[buffersize];
+        sendbuff_w = new double[buffersize];
         sendbuff_int = new int[1];
         if( rank == 0 ){
             buff = new double*[procnum];
             buff[0]=new double[procnum * buffersize];
             for(int i = 1; i < procnum; i++) buff[i] = buff[i - 1] + buffersize;
+            
+            buff_w = new double*[procnum];
+            buff_w[0]=new double[procnum * buffersize];
+            for(int i = 1; i < procnum; i++) buff_w[i] = buff_w[i - 1] + buffersize;
         } else {
             buff = new double*[1];
             buff[0] = new double[1];
+            buff_w = new double*[1];
+            buff_w[0] = new double[1];
         }
         buff_int = new int*[procnum];
         buff_int[0]=new int[procnum];
@@ -92,27 +102,36 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
             if (rank < rem_iteration){
                 generateRandomEvent(itno);
                 for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
-                    sendbuff[positionID++] = it->computeTheoryValue();
+                    sendbuff[positionID] = it->computeTheoryValue();
+                    if (weight && it->getDistr().compare("weight") == 0) sendbuff_w[positionID] = it->computeWeight();
+                    else sendbuff_w[positionID] = 0.;
+                    positionID++;
                 }
                 for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                     std::vector<Observable> ObsInCGO = it1->getObs();
                     for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
-                        sendbuff[positionID++] = it2->computeTheoryValue();
+                        sendbuff[positionID] = it2->computeTheoryValue();
+                        if (weight && it2->getDistr().compare("weight") == 0) sendbuff_w[positionID] = it2->computeWeight();
+                        else sendbuff_w[positionID] = 0.;
+                        positionID++;
                     }
                 }
                 sendbuff_int[0] = rank + 1;
             } else {
                 for (int i = 0; i < buffersize; i++){
                     sendbuff[i] = 0.;
+                    sendbuff_w[i] = 0.;
                 }
                 sendbuff_int[0] = 0;
             }
             
 #ifdef _MPI
                 MPI::COMM_WORLD.Gather(sendbuff, buffersize, MPI::DOUBLE, buff[0], buffersize, MPI::DOUBLE, 0);
+                if (weight) MPI::COMM_WORLD.Gather(sendbuff_w, buffersize, MPI::DOUBLE, buff_w[0], buffersize, MPI::DOUBLE, 0);
                 MPI::COMM_WORLD.Allgather(sendbuff_int, 1, MPI::INT, buff_int[0], 1, MPI::INT);
 #else
                 buff[0] = sendbuff;
+                buff_w[0] = sendbuff_w;
                 buff_int[0] = sendbuff_int;
 #endif
                 
@@ -131,10 +150,12 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
                         if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
                         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                             if (outputTerm == 0) {
-                                std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
+                                if (weight && it->getDistr().compare("weight") == 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
                                 positionID++;
                             } else {
-                                (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
+                                if (weight && it->getDistr().compare("weight") == 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] <<std::endl;
+                                else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
                                 positionID++;
                             }
                         }
@@ -144,10 +165,12 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
                             std::vector<Observable> ObsInCGO = it1->getObs();
                             for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
                                 if (outputTerm == 0) {
-                                    std::cout << it2->getName() << " = " << buff[iproc][positionID] << std::endl;
+                                    if (weight && it2->getDistr().compare("weight") == 0) std::cout << it2->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                    else std::cout << it2->getName() << " = " << buff[iproc][positionID] << std::endl;
                                     positionID++;
                                 } else {
-                                    (*CGOOut[it1->getName()]) << buff[iproc][positionID] << "\t";
+                                    if (weight && it2->getDistr().compare("weight") == 0) (*CGOOut[it1->getName()]) << "(" << buff[iproc][positionID] << ", " << buff_w[iproc][positionID] << ")" << "\t";
+                                    else (*CGOOut[it1->getName()]) << buff[iproc][positionID] << "\t";
                                     positionID++;
                                 }
                             }
@@ -200,15 +223,15 @@ void GenerateEvent::createDirectories()
         if (gSystem->GetPathInfo("GeneratedEvents", info) != 0) {
             gSystem->MakeDirectory("GeneratedEvents");
         }
-        if (gSystem->GetPathInfo("GeneratedEvents/OLD", info) != 0) {
-            gSystem->MakeDirectory("GeneratedEvents/OLD");
+        if (gSystem->GetPathInfo("GeneratedEvents/DELETED", info) != 0) {
+            gSystem->MakeDirectory("GeneratedEvents/DELETED");
         }
         if (gSystem->GetPathInfo(OutDirName.c_str(), info) == 0){
             if (gSystem->GetPathInfo(OldOutDirName.c_str(), info) == 0){
                 gSystem->Exec(("rm -rf " + OldOutDirName).c_str());
                 std::cout << "\nWARNING: Removed " << OldOutDirName << std::endl;
             }
-            gSystem->Exec(("mv -f " + OutDirName + " " + "GeneratedEvents/OLD/").c_str());
+            gSystem->Exec(("mv -f " + OutDirName + " " + "GeneratedEvents/DELETED/").c_str());
             std::cout << "WARNING: " << OutDirName << " exists!\nWARNING: " << OutDirName <<" moved to " << OldOutDirName << "\n"<< std::endl;
         }
         gSystem->MakeDirectory(OutDirName.c_str());
@@ -339,7 +362,11 @@ void GenerateEvent::generateRandomEvent(int iterationNo)
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
                         std::string index = it->name.substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
-                        if (lindex > 0) sendbuff[positionID++] = DPars[CGP[i].getPar(lindex - 1).name];
+                        if (lindex > 0) {
+                            sendbuff[positionID] = DPars[CGP[i].getPar(lindex - 1).name];
+                            sendbuff_w[positionID] = DPars[CGP[i].getPar(lindex - 1).name];
+                            positionID++;
+                        }
                         else {
                             std::stringstream out;
                             out << it->name;
@@ -347,7 +374,11 @@ void GenerateEvent::generateRandomEvent(int iterationNo)
                         }
                     }
                 }
-            } else sendbuff[positionID++] = DPars[it->name];  
+            } else {
+                sendbuff[positionID] = DPars[it->name];  
+                sendbuff_w[positionID] = DPars[it->name];
+                positionID++;
+            }
     }
     Mod->Update(DPars);
 }
