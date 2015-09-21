@@ -239,8 +239,9 @@ public:
     
     double Function_h(std::vector<double> point);
     
-private:
     void setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string,double>& DPars_i);
+    
+private:
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.

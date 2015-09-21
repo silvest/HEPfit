@@ -59,8 +59,7 @@ public:
                   const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
                   const std::string& JobTag_i,
-                  const bool noMC_i,
-                  const bool weight_i=false);
+                  const bool noMC_i);
     
     /**
      * @brief The default destructor.
@@ -85,7 +84,7 @@ public:
      * @param[in] nIteration number of events generated
      * @param[in] seed seed for the random number generator (default = 0)
      */
-    void generate(int unsigned nIteration_i, int seed = 0);
+    void generate(int unsigned nIteration_i, int seed = 0, bool weight = false);
     
    void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
     

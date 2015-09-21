@@ -15,8 +15,7 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
                              const std::string& ModelConf_i,
                              const std::string& OutDirName_i,
                              const std::string& JobTag_i,
-                             const bool noMC_i,
-                             const bool weight_i)
+                             const bool noMC_i)
 : myInputParser(ModelF, ThObsF)
 {
     outputTerm = 0;
@@ -33,7 +32,6 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
         outputTerm = 1;
     }
     noMC = noMC_i;
-    weight = weight_i;
     
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -49,7 +47,7 @@ GenerateEvent::~GenerateEvent()
 {
 }
 
-void GenerateEvent::generate(int unsigned nIteration_i, int seed)
+void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
 {
     if (!noMC)
         throw std::runtime_error("\nGenerateEvent::generate():\n--noMC was not specified as an argument.\nPlease do so for running in Generate Event mode.\n");
@@ -103,7 +101,7 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
                 generateRandomEvent(itno);
                 for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                     sendbuff[positionID] = it->computeTheoryValue();
-                    if (weight && it->getDistr().compare("weight") == 0) sendbuff_w[positionID] = it->computeWeight();
+                    if (weight && it->getDistr().compare("noweight") != 0) sendbuff_w[positionID] = it->computeWeight();
                     else sendbuff_w[positionID] = 0.;
                     positionID++;
                 }
@@ -111,7 +109,7 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
                     std::vector<Observable> ObsInCGO = it1->getObs();
                     for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
                         sendbuff[positionID] = it2->computeTheoryValue();
-                        if (weight && it2->getDistr().compare("weight") == 0) sendbuff_w[positionID] = it2->computeWeight();
+                        if (weight && it2->getDistr().compare("noweight") != 0) sendbuff_w[positionID] = it1->computeWeight();
                         else sendbuff_w[positionID] = 0.;
                         positionID++;
                     }
@@ -150,35 +148,32 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
                         if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
                         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                             if (outputTerm == 0) {
-                                if (weight && it->getDistr().compare("weight") == 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                if (weight && it->getDistr().compare("noweight") != 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
                                 else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
                                 positionID++;
                             } else {
-                                if (weight && it->getDistr().compare("weight") == 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] <<std::endl;
+                                if (weight && it->getDistr().compare("noweight") != 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] <<std::endl;
                                 else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
                                 positionID++;
                             }
                         }
                         if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
                         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
-                            if (outputTerm == 0) std::cout << it1->getName() << ":" << std::endl;
+                            if (outputTerm == 0) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" <<std::endl;
                             std::vector<Observable> ObsInCGO = it1->getObs();
                             for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
                                 if (outputTerm == 0) {
-                                    if (weight && it2->getDistr().compare("weight") == 0) std::cout << it2->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                    if (weight && it2->getDistr().compare("noweight") != 0) std::cout << it2->getName() << " = " << buff[iproc][positionID] << std::endl;
                                     else std::cout << it2->getName() << " = " << buff[iproc][positionID] << std::endl;
                                     positionID++;
                                 } else {
-                                    if (weight && it2->getDistr().compare("weight") == 0) (*CGOOut[it1->getName()]) << "(" << buff[iproc][positionID] << ", " << buff_w[iproc][positionID] << ")" << "\t";
+                                    if (weight && it2->getDistr().compare("noweight") != 0) (*CGOOut[it1->getName()]) << buff[iproc][positionID] << "\t";
                                     else (*CGOOut[it1->getName()]) << buff[iproc][positionID] << "\t";
                                     positionID++;
                                 }
                             }
-                            if (outputTerm == 0) {
-                                std::cout << std::endl;
-                            } else {
-                                (*CGOOut[it1->getName()]) << std::endl;
-                            }
+                            if (outputTerm == 0) std::cout << std::endl;
+                            else (*CGOOut[it1->getName()]) << buff_w[iproc][positionID - 1] << std::endl;
                         }
                     }
                 }
@@ -214,6 +209,17 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
         std::cerr << message << std::endl;
         exit(EXIT_FAILURE);
     }
+    delete buff[0];
+    delete [] buff;
+    delete [] sendbuff;
+    
+    delete buff_w[0];
+    delete [] buff_w;
+    delete [] sendbuff_w;
+    
+    delete buff_int[0];
+    delete [] buff_int;
+    delete [] sendbuff_int;
 }
 
 void GenerateEvent::createDirectories()

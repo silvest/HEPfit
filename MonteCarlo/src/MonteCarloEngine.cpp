@@ -190,29 +190,28 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
     std::map<std::string, std::vector<double> > cgpmap;
 
     unsigned int k = 0;
-    for (unsigned int h = 0; h < ModPars.size(); h++) {
-        if(ModPars[h].isFixed)
+    for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it < ModPars.end(); it++){
+        if(it->isFixed)
             continue;
-        ModelParameter p = ModPars[h]; 
-        if(p.name.compare(GetParameter(k)->GetName()) != 0)
+        if(it->name.compare(GetParameter(k)->GetName()) != 0)
             {
                         std::stringstream out;
-                        out << p.name;
+                        out << it->name;
                         throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + "is sitting at the wrong position in the BAT parameters vector");
                     }
-        if (p.IsCorrelated()) {
-            std::string index = p.name.substr(p.getCgp_name().size());
+        if (it->IsCorrelated()) {
+            std::string index = it->name.substr(it->getCgp_name().size());
             long int lindex = strtol(index.c_str(),NULL,10);
-            if (lindex - 1 == cgpmap[p.getCgp_name()].size())
-                cgpmap[p.getCgp_name()].push_back(parameters[k]);
+            if (lindex - 1 == cgpmap[it->getCgp_name()].size())
+                cgpmap[it->getCgp_name()].push_back(parameters[k]);
             else {
                 std::stringstream out;
-                out << p.name << " " << lindex;
+                out << it->name << " " << lindex;
                 throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + "seems to be a CorrelatedGaussianParameters object but the corresponding parameters are missing or not in the right order");
             }
 
         } else
-            DPars_i[GetParameter(k)->GetName()] = parameters[k];
+            DPars_i[it->name] = parameters[k];
         k++;
     }
 

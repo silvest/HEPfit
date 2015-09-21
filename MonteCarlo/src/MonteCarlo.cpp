@@ -59,7 +59,22 @@ void MonteCarlo::TestRun(int rank) {
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
 
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-            DP[it->name] = it->ave;
+            if (it->IsCorrelated()) {
+                for (int i = 0; i < CGP.size(); i++) {
+                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                        std::string index = it->name.substr(CGP[i].getName().size());
+                        long int lindex = strtol(index.c_str(), NULL, 10);
+                        if (lindex > 0)
+                            DP[CGP[i].getPar(lindex - 1).name] = CGP[i].getPar(lindex - 1).ave;
+                        else {
+                            std::stringstream out;
+                            out << it->name;
+                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                        }
+                    }
+                }
+            } else
+                DP[it->name] = it->ave;
         }
 
         if (!myInputParser.getModel()->Init(DP)) {
@@ -117,7 +132,6 @@ void MonteCarlo::Run(const int rank) {
                 }
             } else
                 DP[it->name] = it->ave;
-
         }
         if (buffsize == 0)
             if (rank == 0) throw std::runtime_error("No parameters being varied. Aborting MCMC run.\n");
@@ -170,9 +184,7 @@ void MonteCarlo::Run(const int rank) {
                     double sbuff[obsbuffsize];
                     std::map<std::string, double> DPars;
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
-                    for (unsigned int k = 0; k < pars.size(); k++) {
-                        DPars[MCEngine.GetParameter(k)->GetName()] = pars[k];
-                    }
+                    MCEngine.setDParsFromParameters(pars,DPars);
                     myInputParser.getModel()->Update(DPars);
 
                     int k = 0;
