@@ -377,21 +377,25 @@ public:
     
     double getDC7_1_abs()
     {
+        updateParameters();
         return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] - h_0[1]).abs());
     }
 
     double getDC7_2_abs()
     {
+        updateParameters();
         return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] + h_0[1]).abs());
     }
 
     double gethp0_hm0_abs()
     {
+        updateParameters();
         return (h_0[1]/h_0[2]).abs();
     }
     
     double gethm0_h00_abs()
     {
+        updateParameters();
         return (h_0[2]/h_0[0]).abs();
     }
     
