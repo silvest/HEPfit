@@ -29,16 +29,18 @@ void ChainStats(TString ifile = "MCout", int nchains)
     {
       for (Int_t j = 0; j < nchains; j++)
 	{
-	  tmp->Reset("M");
 	  TString ntp = Form("MarkovChainTree_%d",j);
 	  nt = (TNtupleD * ) file.Get(ntp);
-	  nt->Project("tmp",Form("Parameter%d",i));
-	  tge[i].SetPoint(j,j+1,tmp->GetMean());
-	  tge[i].SetPointError(j,0.,tmp->GetRMS());
+	  TString npar = Form("Parameter%d",i);
+	  TH1D * histo = new TH1D("histo","",100,nt->GetMinimum(npar),nt->GetMaximum(npar));
+	  nt->Project("histo",npar);
+	  tge[i].SetPoint(j,j+1,histo->GetMean());
+	  tge[i].SetPointError(j,0.,histo->GetRMS());
+	  histo->Delete();
 	}
       tge[i].SetTitle(Form("Parameter%d",i));
       c->cd(i+1);
-      tge[i].Draw();
+      tge[i].Draw("ap");
     }
 
   c->cd();
