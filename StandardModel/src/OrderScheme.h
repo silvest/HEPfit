@@ -8,7 +8,7 @@
 #ifndef ORDERSCHEME_H
 #define	ORDERSCHEME_H
 
-#define MAXORDER NNLO
+#define MAXORDER FULLNNLO
 #define MAXORDER_EW NLO_ew
 
 /**
