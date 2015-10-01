@@ -275,7 +275,11 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         logprob += it->computeWeight();
     }
-    //std::cout << "logprob " << logprob <<std::endl;    
+    if (isnan(logprob)) {
+        NumOfDiscardedEvents++;
+        std::cout << "Event discarded since logprob evaluated to NAN.";
+        return (log(0.));
+    }
     return logprob;
 }
 
