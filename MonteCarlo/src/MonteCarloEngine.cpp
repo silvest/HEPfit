@@ -257,7 +257,6 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
         NumOfDiscardedEvents++;
         return (log(0.));
     }
-    NumOfUsedEvents++;
 #ifdef _MCDEBUG
     //std::cout << "event used in MC" << std::endl;
 #endif
@@ -280,6 +279,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
         std::cout << "Event discarded since logprob evaluated to NAN.";
         return (log(0.));
     }
+    NumOfUsedEvents++;
     return logprob;
 }
 
