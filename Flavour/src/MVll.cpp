@@ -9,6 +9,7 @@
 #include "MVll.h"
 #include <gslpp_complex.h>
 #include <boost/bind.hpp>
+#include <limits>
 
 
 MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -653,7 +654,7 @@ void MVll::checkCache()
 
 double MVll::FF_fit(double q2, double a_0, double a_1, double a_2, double MR_2)
 {
-    return 1. / (1. - q2/MR_2) * ( a_0 + a_1 * (z(q2) - z_0) + a_2 * (z(q2) - z_0) * (z(q2) - z_0) ); 
+    return 1 / (1 - q2/MR_2) * ( a_0 + a_1 * (z(q2) - z_0) + a_2 * (z(q2) - z_0) * (z(q2) - z_0) ); 
 }
 
 double MVll::z(double q2)
@@ -889,13 +890,11 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     
-    old_handler = gsl_set_error_handler_off ();
-    
     switch(i){
         case 0:
             if (sigma0Cached[qbin] == 0) {
                 FS0 = convertToGslFunction( boost::bind( &MVll::getSigma1c, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS0, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma0, &avaSigma0, &errSigma0) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS0, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma0, &avaSigma0, &errSigma0);
                 cacheSigma0[qbin] = NN*avaSigma0;
                 sigma0Cached[qbin] = 1;
             }
@@ -904,7 +903,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 1:
             if (sigma1Cached[qbin] == 0) {
                 FS1 = convertToGslFunction( boost::bind( &MVll::getSigma1s, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS1, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma1, &avaSigma1, &errSigma1) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS1, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma1, &avaSigma1, &errSigma1);
                 cacheSigma1[qbin] = NN*avaSigma1;
                 sigma1Cached[qbin] = 1;
             }
@@ -913,7 +912,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 2:
             if (sigma2Cached[qbin] == 0) {
                 FS2 = convertToGslFunction( boost::bind( &MVll::getSigma2c, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS2, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma2, &avaSigma2, &errSigma2) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS2, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma2, &avaSigma2, &errSigma2);
                 cacheSigma2[qbin] = NN*avaSigma2;
                 sigma2Cached[qbin] = 1;
             }
@@ -922,7 +921,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 3:
             if (sigma3Cached[qbin] == 0) {
                 FS3 = convertToGslFunction( boost::bind( &MVll::getSigma2s, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS3, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma3, &avaSigma3, &errSigma3) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS3, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma3, &avaSigma3, &errSigma3);
                 cacheSigma3[qbin] = NN*avaSigma3;
                 sigma3Cached[qbin] = 1;
             }
@@ -931,7 +930,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 4:
             if (sigma4Cached[qbin] == 0) {
                 FS4 = convertToGslFunction( boost::bind( &MVll::getSigma3, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS4, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma4, &avaSigma4, &errSigma4) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS4, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma4, &avaSigma4, &errSigma4);
                 cacheSigma4[qbin] = NN*avaSigma4;
                 sigma4Cached[qbin] = 1;
             }
@@ -940,7 +939,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 5:
             if (sigma5Cached[qbin] == 0) {
                 FS5 = convertToGslFunction( boost::bind( &MVll::getSigma4, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS5, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma5, &avaSigma5, &errSigma5) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS5, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma5, &avaSigma5, &errSigma5);
                 cacheSigma5[qbin] = NN*avaSigma5;
                 sigma5Cached[qbin] = 1;
             }
@@ -949,7 +948,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 6:
             if (sigma6Cached[qbin] == 0) {
                 FS6 = convertToGslFunction( boost::bind( &MVll::getSigma5, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS6, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma6, &avaSigma6, &errSigma6) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS6, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma6, &avaSigma6, &errSigma6);
                 cacheSigma6[qbin] = NN*avaSigma6;
                 sigma6Cached[qbin] = 1;
             }
@@ -958,7 +957,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 7:
             if (sigma7Cached[qbin] == 0) {
                 FS7 = convertToGslFunction( boost::bind( &MVll::getSigma6s, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS7, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma7, &avaSigma7, &errSigma7) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS7, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma7, &avaSigma7, &errSigma7);
                 cacheSigma7[qbin] = NN*avaSigma7;
                 sigma7Cached[qbin] = 1;
             }
@@ -967,7 +966,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 9:
             if (sigma9Cached[qbin] == 0) {
                 FS9 = convertToGslFunction( boost::bind( &MVll::getSigma7, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS9, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma9, &avaSigma9, &errSigma9) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS9, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma9, &avaSigma9, &errSigma9);
                 cacheSigma9[qbin] = NN*avaSigma9;
                 sigma9Cached[qbin] = 1;
             }
@@ -976,7 +975,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 10:
             if (sigma10Cached[qbin] == 0) {
                 FS10 = convertToGslFunction( boost::bind( &MVll::getSigma8, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS10, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma10, &avaSigma10, &errSigma10) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS10, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma10, &avaSigma10, &errSigma10);
                 cacheSigma10[qbin] = NN*avaSigma10;
                 sigma10Cached[qbin] = 1;
             }
@@ -985,7 +984,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
         case 11:
             if (sigma11Cached[qbin] == 0) {
                 FS11 = convertToGslFunction( boost::bind( &MVll::getSigma9, &(*this), _1 ) );
-                if (gsl_integration_qags (&FS11, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma11, &avaSigma11, &errSigma11) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FS11, q_min, q_max, 1.e-5, 1.e-3, 200, w_sigma11, &avaSigma11, &errSigma11);
                 cacheSigma11[qbin] = NN*avaSigma11;
                 sigma11Cached[qbin] = 1;
             }
@@ -997,8 +996,6 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             throw std::runtime_error("MVll::integrateSigma: index " + out.str() + " not implemented");
     }
     
-    gsl_set_error_handler (old_handler);
-    
 }
 
 double MVll::integrateDelta(int i, double q_min, double q_max)
@@ -1006,14 +1003,11 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
     updateParameters();
         
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
-    
-    old_handler = gsl_set_error_handler_off ();
-    
     switch(i){
         case 0:
             if (delta0Cached[qbin] == 0) {
                 FD0 = convertToGslFunction( boost::bind( &MVll::getDelta0, &(*this), _1 ) );
-                if (gsl_integration_qags (&FD0, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta0, &avaDelta0, &errDelta0) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FD0, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta0, &avaDelta0, &errDelta0);
                 cacheDelta0[qbin] = avaDelta0;
                 delta0Cached[qbin] = 1;
             }
@@ -1022,7 +1016,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
         case 1:
             if (delta1Cached[qbin] == 0) {
                 FD1 = convertToGslFunction( boost::bind( &MVll::getDelta1, &(*this), _1 ) );
-                if (gsl_integration_qags (&FD1, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta1, &avaDelta1, &errDelta1) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FD1, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta1, &avaDelta1, &errDelta1);
                 cacheDelta1[qbin] = avaDelta1;
                 delta1Cached[qbin] = 1;
             }
@@ -1031,7 +1025,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
         case 2:
             if (delta2Cached[qbin] == 0) {
                 FD2 = convertToGslFunction( boost::bind( &MVll::getDelta2, &(*this), _1 ) );
-                if (gsl_integration_qags (&FD2, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta2, &avaDelta2, &errDelta2) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FD2, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta2, &avaDelta2, &errDelta2);
                 cacheDelta2[qbin] = avaDelta2;
                 delta2Cached[qbin] = 1;
             }
@@ -1040,7 +1034,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
         case 3:
             if (delta3Cached[qbin] == 0) {
                 FD3 = convertToGslFunction( boost::bind( &MVll::getDelta3, &(*this), _1 ) );
-                if (gsl_integration_qags (&FD3, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta3, &avaDelta3, &errDelta3) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FD3, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta3, &avaDelta3, &errDelta3);
                 cacheDelta3[qbin] = avaDelta3;
                 delta3Cached[qbin] = 1;
             }
@@ -1049,7 +1043,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
         case 7:
             if (delta7Cached[qbin] == 0) {
                 FD7 = convertToGslFunction( boost::bind( &MVll::getDelta7, &(*this), _1 ) );
-                if (gsl_integration_qags (&FD7, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta7, &avaDelta7, &errDelta7) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FD7, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta7, &avaDelta7, &errDelta7);
                 cacheDelta7[qbin] = avaDelta7;
                 delta7Cached[qbin] = 1;
             }
@@ -1058,7 +1052,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
         case 11:
             if (delta11Cached[qbin] == 0) {
                 FD11 = convertToGslFunction( boost::bind( &MVll::getDelta11, &(*this), _1 ) );
-                if (gsl_integration_qags (&FD11, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta11, &avaDelta11, &errDelta11) != 0) return std::numeric_limits<double>::quiet_NaN();
+                gsl_integration_qags (&FD11, q_min, q_max, 1.e-5, 1.e-3, 200, w_delta11, &avaDelta11, &errDelta11);
                 cacheDelta11[qbin] = avaDelta11;
                 delta11Cached[qbin] = 1;
             }
@@ -1069,7 +1063,4 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             out << i;
             throw std::runtime_error("integrateDelta: index " + out.str() + " not implemented"); 
     }
-    
-    gsl_set_error_handler (old_handler);
-    
 }
