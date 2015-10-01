@@ -889,7 +889,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     
-    gsl_error_handler_t * old_handler = gsl_set_error_handler_off ();
+    old_handler = gsl_set_error_handler_off ();
     
     switch(i){
         case 0:
@@ -1007,7 +1007,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
         
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     
-    gsl_error_handler_t * old_handler = gsl_set_error_handler_off ();
+    old_handler = gsl_set_error_handler_off ();
     
     switch(i){
         case 0:

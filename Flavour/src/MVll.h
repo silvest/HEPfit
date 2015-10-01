@@ -1141,6 +1141,8 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta7Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
     
+    gsl_error_handler_t * old_handler; /**< GSL error handler store */
+    
 };
 
 #endif	/* MVLL_H */
