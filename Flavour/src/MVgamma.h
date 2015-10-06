@@ -51,7 +51,9 @@ public:
     double MM2;           /**<square of the initial meson mass */
     double MV;            /**<final vector meson mass */
     double Mb;            /**<b quark mass */
+    double Mc;            /**<c quark mass */
     double mu_b;          /**<b mass scale */
+    double mu_h;          /**<sqrt(mu_b*lambda_QCD) */
     double width;         /**<initial meson width */
     double Ms;            /**<s quark mass */
     double MW;            /**<W boson mass */
@@ -64,12 +66,16 @@ public:
     double a_2T1;/**<LCSR fit parameter */
     double MRT1_2;/**<LCSR fit parameter */
     
-    gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
-    gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients at mub*/
+    gslpp::vector<gslpp::complex> ** allcoeffh;/**<vector that contains the Wilson coeffients at muh*/
+    gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
     
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
-    
     gslpp::complex C_7p;/**<Wilson coeffients @f$C_7'@f$*/
+    gslpp::complex C_2;/**<Wilson coeffients @f$C_2(mu_b)@f$*/
+    gslpp::complex C_8;/**<Wilson coeffients @f$C_8(mu_b)@f$*/
+    gslpp::complex C_2h;/**<Wilson coeffients @f$C_2(mu_h)@f$*/
+    gslpp::complex C_8h;/**<Wilson coeffients @f$C_8(mu_h)@f$*/
     
     
     /**
@@ -101,8 +107,32 @@ public:
     * @return @f$ \bar{H}_V^- @f$ 
     */
     gslpp::complex H_V_m_bar();
+
+    /**
+     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @param s @f$ m_c^2/m_b^2  @f$
+     * @return @f$ G_1(s) @f$
+     */
+    gslpp::complex G1(double s);
     
-    
+    /**
+     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @return @f$ G_8 @f$
+     */
+    gslpp::complex G8();
+
+    /**
+     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @param s @f$ m_c^2/m_b^2  @f$
+     * @return @f$ H_1(s) @f$
+     */
+    gslpp::complex H1(double s);
+
+    /**
+     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @return  @f$ H_8 @f$
+     */
+    gslpp::complex H8();
     
 private:
     StandardModel::meson meson;

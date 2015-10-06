@@ -7,6 +7,7 @@
 
 #include "Flavour.h"
 #include "MVgamma.h"
+#include <gsl/gsl_sf_zeta.h>
 
 
 MVgamma::MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : ThObservable(SM_i)
@@ -26,11 +27,13 @@ void MVgamma::updateParameters()
     MM = SM.getMesons(meson).getMass();
     MM2 = MM * MM;
     MV = SM.getMesons(vectorM).getMass();
-    Mb = SM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
+    Mb = SM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
+    Mc = SM.getQuarks(QCD::CHARM).getMass();
     Ms = SM.getQuarks(QCD::STRANGE).getMass();
     MW = SM.Mw();
     lambda_t = SM.computelamt_s();
     mu_b = SM.getMub();
+    mu_h = sqrt(mu_b*exp(SM.logLambda(5,FULLNLO)));
     width = SM.getMesons(meson).computeWidth();
     lambda = MM2 - pow(MV,2.);
     
@@ -53,11 +56,16 @@ void MVgamma::updateParameters()
     h[0]=SM.geth_p();    //h_plus
     h[1]=SM.geth_m();    //h_minus
     
-    allcoeff = SM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
+    allcoeff = SM.getMyFlavour()->ComputeCoeffBMll(MW);   //check the mass scale, scheme fixed to NDR
+    //allcoeffh = SM.getMyFlavour()->ComputeCoeffBMll(mu_h);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    C_2 =  (*(allcoeff[LO]))(1);
+    C_8 = (*(allcoeff[LO]))(7);
+    //C_2h =  (*(allcoeffh[LO]))(1);
+    //C_8h = (*(allcoeffh[LO]))(7); 
     
 }
 
@@ -70,14 +78,62 @@ double MVgamma::T_1()
     return ( a_0T1 );
 }
 
+/*
+ * QCDF alpha_s corrections
+ */
+ gslpp::complex MVgamma::G1(double s)
+ {   double logs = log(s);
+     double M2 = M_PI*M_PI;
+     double M3 = M_PI*M_PI*M_PI;
+     
+     return -104./27.*log(mu_b/Mb)-833./162.-20.*gslpp::complex::i()*M_PI/27.+
+             8.*M2/9.*pow(s,1.5)+2./9.*(48.+30.*gslpp::complex::i()*M_PI-
+             5*M2-2.*gslpp::complex::i()*M3-36.*gsl_sf_zeta(3.)+
+             (36.+6.*gslpp::complex::i()*M_PI-9.*M2)*logs+(3.+6.*
+             gslpp::complex::i()*M_PI)*logs*logs+logs*logs*logs)*s+2./9.*(
+             18.+2.*M2-2.*gslpp::complex::i()*M3+(12.-6.*M2)*logs+6.*
+             gslpp::complex::i()*M_PI*logs*logs+logs*logs*logs)*s*s+1./27.*(-9.+112.*
+             gslpp::complex::i()*M_PI-14.*M2+(182.-48.*gslpp::complex::i()*M_PI)*logs-
+             126.*logs*logs)*s*s*s;
+ }
 
+ gslpp::complex MVgamma::G8()
+ {       
+     return 8./3.*log(mu_b/Mb)+11./3.-2./9.*M_PI*M_PI+2./3.*gslpp::complex::i()*M_PI;
+ }
 
+ gslpp::complex MVgamma::H1(double s)
+ {   double a1=0.2, a2=0.05, lambdaB=0.35; /// ************  CHANGE?
+     gslpp::complex c0, c1, c2;
+ 
+     c0=1.05171+1.02281+gslpp::complex::i()*2.75305;
+     c1=1.41919+0.413974-gslpp::complex::i()*1.85404;
+     c2=0.269769-1.73577-gslpp::complex::i()*1.50017;
+ 
+     return -2.*M_PI*M_PI/9.*SM.getMesons(meson).getDecayconst()*
+            SM.getMesons(vectorM).getDecayconst()/T_1()/MM/lambdaB*
+             (c0+c1*a1+c2*a2);
+ }
+
+gslpp::complex MVgamma::H8()
+{
+    double a1=0.2, a2=0.05, lambdaB=0.35; /// ************  CHANGE?
+    return 4.*M_PI*M_PI/9.*SM.getMesons(meson).getDecayconst()*
+            SM.getMesons(vectorM).getDecayconst()/T_1()/MM/lambdaB*
+            (3.-3.*a1+3.*a2);
+}
+ 
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-complex MVgamma::H_V_m() 
+gslpp::complex MVgamma::H_V_m() 
 {
-    return lambda_t * (C_7 *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
+    double s = Mc*Mc/Mb/Mb;
+    gslpp::complex a7 = C_7 + SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8())+
+                SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8());
+    std::cout << "a7TI " << SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8()) << std::endl;
+    std::cout << "a7TII " << SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8()) << std::endl;
+    return lambda_t * (a7*T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p() 
@@ -87,7 +143,11 @@ gslpp::complex MVgamma::H_V_p()
 
 gslpp::complex MVgamma::H_V_m_bar() 
 {
-    return lambda_t.conjugate() * (C_7 *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
+    double s = Mc*Mc/Mb/Mb;
+    gslpp::complex a7 = C_7 + SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8())+
+                SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8()); // conjugate????
+
+    return lambda_t.conjugate() * (a7 *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar() 
