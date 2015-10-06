@@ -33,7 +33,7 @@ void MVgamma::updateParameters()
     MW = SM.Mw();
     lambda_t = SM.computelamt_s();
     mu_b = SM.getMub();
-    mu_h = sqrt(mu_b*exp(SM.logLambda(5,FULLNLO)));
+    mu_h = sqrt(mu_b*.5); // From Beneke Neubert
     width = SM.getMesons(meson).computeWidth();
     lambda = MM2 - pow(MV,2.);
     
@@ -56,16 +56,18 @@ void MVgamma::updateParameters()
     h[0]=SM.geth_p();    //h_plus
     h[1]=SM.geth_m();    //h_minus
     
-    allcoeff = SM.getMyFlavour()->ComputeCoeffBMll(MW);   //check the mass scale, scheme fixed to NDR
-    //allcoeffh = SM.getMyFlavour()->ComputeCoeffBMll(mu_h);   //check the mass scale, scheme fixed to NDR
+    allcoeff = SM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     C_2 =  (*(allcoeff[LO]))(1);
     C_8 = (*(allcoeff[LO]))(7);
-    //C_2h =  (*(allcoeffh[LO]))(1);
-    //C_8h = (*(allcoeffh[LO]))(7); 
+    
+    allcoeffh = SM.getMyFlavour()->ComputeCoeffBMll(mu_h);   //check the mass scale, scheme fixed to NDR
+    
+    C_2h =  (*(allcoeffh[LO]))(1);
+    C_8h = (*(allcoeffh[LO]))(7); 
     
 }
 
@@ -131,8 +133,6 @@ gslpp::complex MVgamma::H_V_m()
     double s = Mc*Mc/Mb/Mb;
     gslpp::complex a7 = C_7 + SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8())+
                 SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8());
-    std::cout << "a7TI " << SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8()) << std::endl;
-    std::cout << "a7TII " << SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8()) << std::endl;
     return lambda_t * (a7*T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
 }
 
