@@ -82,7 +82,7 @@ class EvolDB1Mll : public RGEvolutor {
      * @param c array of double for the magic numbers of the evolutor ( NLO evolution, associated to \f$ \alpha_{strong}(\mu) \f$ )
      * @param d array of double for the magic numbers of the evolutor ( NLO evolution, associated to \f$ \alpha_{strong}(M) \f$ )
      */
-    double a[3][13], b[3][13][13][13], c[3][13][13][13], d[3][13][13][13];
+    double a[4][13], b[4][13][13][13], c[4][13][13][13], d[4][13][13][13];
     const StandardModel& model;
     /**
      * @brief a void type method storing properly the magic numbers for the implementation of the evolutor

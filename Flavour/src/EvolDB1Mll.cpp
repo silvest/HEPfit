@@ -17,14 +17,15 @@ EvolDB1Mll::EvolDB1Mll(unsigned int dim_i, schemes scheme, orders order, const S
     
     /* magic numbers a & b */ 
     
-    for(int L=2; L>-1; L--){
+    for(int L=3; L>-1; L--){
         
-    /* L=2 --> u,d,s,c (nf=4)  L=1 --> u,d,s,c,b (nf=5) L=0 --> u,d,s,c,b,t (nf=6) */
+    /* L=3 --> u,d,s (nf=3) L=2 --> u,d,s,c (nf=4)  L=1 --> u,d,s,c,b (nf=5) L=0 --> u,d,s,c,b,t (nf=6) */
         
     nu = L;  nd = L;
+    if(L == 3){nd = 2; nu = 1;} 
     if(L == 1){nd = 3; nu = 2;} 
     if(L == 0){nd = 3; nu = 3;}
-    
+
     // LO evolutor of the effective Wilson coefficients in the Chetyrkin, Misiak and Munz basis
     
     (ToEffectiveBasis(ToRescaleBasis(LO,nu,nd))).transpose().eigensystem(v,e);
@@ -41,8 +42,8 @@ EvolDB1Mll::EvolDB1Mll(unsigned int dim_i, schemes scheme, orders order, const S
     // NLO evolutor of the effective Wilson coefficients in the Chetyrkin, Misiak and Munz basis
     
     gg = vi * (ToEffectiveBasis(ToRescaleBasis(NLO,nu,nd))).transpose() * v;
-    double b0 = model.Beta0(6-L);
-    double b1 = model.Beta1(6-L);
+    double b0 = model.Beta0(nu+nd);
+    double b1 = model.Beta1(nu+nd);
     for (unsigned int i = 0; i < dim; i++){
         for (unsigned int j = 0; j < dim; j++){
             s_s.assign( i, j, (b1 / b0) * (i==j) * e(i).real() - gg(i,j));    
@@ -264,7 +265,7 @@ matrix<double> EvolDB1Mll::ToRescaleBasis(orders order, unsigned int n_u, unsign
     mat1(4,8) = - 31433600./6561. - 2912./27.*n_d*n_d + 5824./27.*n_u*n_u +
                 n_d*(- 3786616./2187. + 2912./27.*n_u - 1280./3.*z3) -
                 4096./81.*z3 + n_u*(7525520./2187. + 2560./3.*z3);
-    mat1(5,8) = - 48510784./19683. -51296./2187.*n_d*n_d + 54976./2187.*n_u*n_u +
+    mat1(5,8) = 48510784./19683. -51296./2187.*n_d*n_d + 54976./2187.*n_u*n_u +
                 n_u*(-11231648./6561. - 22016./81.*z3) + n_d*(340984./6561. + 
                 3680./2187.*n_u - 8192./81.*z3) - 80896./243.*z3;
      
