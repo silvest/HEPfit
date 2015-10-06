@@ -19,6 +19,9 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <ctime>
+#include <iostream>
+
 
 MonteCarlo::MonteCarlo(
         ModelFactory& ModelF, ThObsFactory& ThObsF,
@@ -260,6 +263,9 @@ void MonteCarlo::Run(const int rank) {
                 } else if (beg->compare("Iterations") == 0) {
                     ++beg;
                     MCEngine.MCMCSetNIterationsRun(atoi((*beg).c_str()));
+                } else if (beg->compare("MinimumEfficiency") == 0) {
+                    ++beg;
+                    MCEngine.MCMCSetMinimumEfficiency(atof((*beg).c_str()));
                 } else if (beg->compare("WriteChain") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0)
@@ -327,7 +333,14 @@ void MonteCarlo::Run(const int rank) {
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
+            std::time_t ti = std::time(NULL);
+            char mbstr[100];
+            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) 
+                std::cout << "MCMC Run started at " <<  mbstr << std::endl; 
             MCEngine.MarginalizeAll();
+            std::time_t tf = std::time(NULL);
+            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) 
+                std::cout << "MCMC Run ended at " <<  mbstr << std::endl; 
 
             // find mode using the best fit parameters as start values
             if (FindModeWithMinuit)

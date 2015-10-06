@@ -8,6 +8,7 @@
 #include <math.h>
 #ifndef GSLPP_COMPLEX_H
 #include "gslpp_complex.h"
+#include <gsl/gsl_sf.h>
 #endif
 
 #define GSLEPS 1.e-15
@@ -361,6 +362,16 @@ namespace gslpp
               const complex& b)
   {
     return complex(gsl_complex_log_b(z.as_gsl_type(),b.as_gsl_type()));
+  }
+  /** DiLogarithm of a complex number
+  \ingroup complex
+  \param[in] z Complex number
+  \return \f$ Li_2(z) \f$*/
+  complex dilog(const complex& z)
+  {
+    gsl_sf_result re, im;
+    gsl_sf_complex_dilog_xy_e(z.real(), z.imag(), &re, &im);
+    return complex(re.val, im.val, false);
   }
   /** @} */
 

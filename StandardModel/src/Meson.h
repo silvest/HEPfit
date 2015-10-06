@@ -10,6 +10,7 @@
 
 #include "Particle.h"
 #include "BParameter.h"
+#include "boost/lexical_cast.hpp"
 
 using namespace gslpp;
 
@@ -38,8 +39,11 @@ public:
      * @param[in] mass the mass of the meson in GeV
      * @param[in] lifetime the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
      * @param[in] decayconst the decay constant of the meson in GeV
+     * @param[in] lambdaM the first moment of the LCDA
+     * @param[in] gegenalpha1 first Gegenbauer moment of LCDA
+     * @param[in] gegenalpha2 second Gegenbauer moment of LCDA
      */
-    Meson(double mass, double lifetime, double decayconst);
+    Meson(double mass, double lifetime, double decayconst, double lambdaM, double gegenalpha1, double gegenalpha2);
 
     /**
      * @brief The default destructor.
@@ -88,10 +92,37 @@ public:
      */
     double computeWidth() const;
 
+    const double& getGegenalpha(int i) const
+    {
+        if (i >= 0 && i < 2)
+            return gegenalpha[i];
+        else 
+            throw std::runtime_error("Meson::getGegenalpha(" + boost::lexical_cast<std::string>(i) + "): index out of range");
+    }
+
+    void setGegenalpha(int i, double gegenalpha)
+    {
+        if (i >= 0 && i < 2)
+            this->gegenalpha[i] = gegenalpha;
+        else
+            throw std::runtime_error("Meson::setGegenalpha(" + boost::lexical_cast<std::string>(i) + ", double gegenalpha): index out of range");
+    }
+
+    const double& getLambdaM() const
+    {
+        return lambdaM;
+    }
+
+    void setLambdaM(double lambdaM)
+    {
+        this->lambdaM = lambdaM;
+    }
+
 private:
     double decayconst; ///< The decay constant of the meson.
     double lifetime; ///< The lifetime of the meson.
-
+    double gegenalpha[2]; ///< Gegenbauer moments 
+    double lambdaM; ///< First moment of LCDA
 };
 
 #endif	/* MESON_H */

@@ -24,7 +24,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "AlsM", "MAls",
     "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
     "muc", "mub", "mut",
-    "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "Mphi", 
+    "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "Mphi",
     "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
     "FK", "FD", "FBs", "FBsoFBd", "FKstar", "Fphi",
     "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
@@ -47,7 +47,8 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "reh_0_2", "reh_p_2", "reh_m_2", "imh_0_2", "imh_p_2", "imh_m_2",
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
     "reh_0_MP", "imh_0_MP", "reh_0_1_MP", "imh_0_1_MP",
-    "bsgamma_E0", "bsgamma_C"
+    "bsgamma_E0", "bsgamma_C",
+    "lambdaB", "alpha1kst", "alpha2kst"
     //"r_2A0", "r_2T1", "r_2T2", "r_2A0phi", "r_2T1phi", "r_2T2phi"
 };
 
@@ -245,6 +246,9 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_f0", boost::cref(m_fit2_f0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_E0", boost::cref(bsgamma_E0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_C", boost::cref(bsgamma_C)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
 
     unknownParameterWarning = true;
 }
@@ -295,7 +299,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
-    
+
     if (UpdateError) return (false);
 
     if (!PostUpdate()) return (false);
@@ -699,9 +703,15 @@ void QCD::setParameter(const std::string name, const double& value)
         bsgamma_E0 = value;
     else if (name.compare("bsgamma_C") == 0)
         bsgamma_C = value;
+    else if (name.compare("lambdaB") == 0)
+        mesons[B_D].setLambdaM(value);
+    else if (name.compare("alpha1kst") == 0)
+        mesons[K_star].setGegenalpha(0,value);
+    else if (name.compare("alpha2kst") == 0)
+        mesons[K_star].setGegenalpha(1,value);
     else
         if (unknownParameterWarning)
-            std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
+        std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
 }
 
 bool QCD::CheckParameters(const std::map<std::string, double>& DPars)

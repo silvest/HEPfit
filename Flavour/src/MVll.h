@@ -110,6 +110,10 @@ public:
         return Mlep;
     }
     
+    gslpp::complex Tparplus(double u, double q2);
+    gslpp::complex Tparminus(double u, double q2);
+    gslpp::complex Tperpplus(double u, double q2);
+    
     /**
     * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
     * @param[in] q2 \f$q^2\f$ of the decay
@@ -518,11 +522,13 @@ private:
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_2;/**<Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C_2L;/**<Leading order Wilson coeffients @f$C_2@f$*/
     gslpp::complex C_3;/**<Wilson coeffients @f$C_3@f$*/
     gslpp::complex C_4;/**<Wilson coeffients @f$C_4@f$*/
     gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C_8L;/**<Leading order Wilson coeffients @f$C_8@f$*/
     gslpp::complex C_9;/**<Wilson coeffients @f$C_9@f$*/
     gslpp::complex C_10;/**<Wilson coeffients @f$C_{10}@f$*/
     gslpp::complex C_S;/**<Wilson coeffients @f$C_S@f$*/

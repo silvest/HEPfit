@@ -105,7 +105,7 @@ double MVgamma::T_1()
  }
 
  gslpp::complex MVgamma::H1(double s)
- {   double a1=0.2, a2=0.05, lambdaB=0.35; /// ************  CHANGE?
+ {   
      gslpp::complex c0, c1, c2;
  
      c0=1.05171+1.02281+gslpp::complex::i()*2.75305;
@@ -113,16 +113,15 @@ double MVgamma::T_1()
      c2=0.269769-1.73577-gslpp::complex::i()*1.50017;
  
      return -2.*M_PI*M_PI/9.*SM.getMesons(meson).getDecayconst()*
-            SM.getMesons(vectorM).getDecayconst()/T_1()/MM/lambdaB*
-             (c0+c1*a1+c2*a2);
+            SM.getMesons(vectorM).getDecayconst()/T_1()/MM/SM.getMesons(meson).getLambdaM()*
+             (c0+c1*SM.getMesons(vectorM).getGegenalpha(0)+c2*SM.getMesons(vectorM).getGegenalpha(1));
  }
 
 gslpp::complex MVgamma::H8()
 {
-    double a1=0.2, a2=0.05, lambdaB=0.35; /// ************  CHANGE?
     return 4.*M_PI*M_PI/9.*SM.getMesons(meson).getDecayconst()*
-            SM.getMesons(vectorM).getDecayconst()/T_1()/MM/lambdaB*
-            (3.-3.*a1+3.*a2);
+            SM.getMesons(vectorM).getDecayconst()/T_1()/MM/SM.getMesons(meson).getLambdaM()*
+            (3.-3.*SM.getMesons(vectorM).getGegenalpha(0)+3.*SM.getMesons(vectorM).getGegenalpha(1));
 }
  
 /*******************************************************************************

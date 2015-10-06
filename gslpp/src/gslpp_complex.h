@@ -258,6 +258,7 @@ namespace gslpp
       friend complex log10(const complex& z);
       friend complex log(const complex& z,
                           const complex& b);
+      friend complex dilog(const complex& z);
       friend complex sqrt(const complex& z);
       friend complex pow(const complex& z1,
                           const complex& z2);

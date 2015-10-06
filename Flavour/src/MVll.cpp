@@ -214,11 +214,13 @@ void MVll::updateParameters()
     
     C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
     C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
+    C_2L = (*(allcoeff[LO]))(1);
     C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
     C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
     C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
     C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
     C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_8L = (*(allcoeff[LO]))(7);
     C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
     C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
     C_S = ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
@@ -720,6 +722,31 @@ double MVll::S_L(double q2)
 {
     return -sqrt(lambda(q2))/ twoMM_mbpms *A_0(q2);
 }
+
+/*******************************************************************************
+ * QCD factorization perturbative corrections                                  *
+ ******************************************************************************/
+
+gslpp::complex MVll::Tperpplus(double u, double q2)
+{
+    double Ee = (MM2-q2)/2./MM;
+    double ubar = 1.-u;
+    gslpp::complex B01 = -2.*sqrt(4.*Mc2/(ubar*MM2 + u*q2)-1.)*atan(1./sqrt(4.*Mc2/(ubar*MM2 + u*q2)-1.));
+    gslpp::complex B00 = -2.*sqrt(4.*Mc2/q2-1.)*atan(1./sqrt(4.*Mc2/q2-1.));
+    gslpp::complex xp = .5 + sqrt(1./4.-(Mc2-gslpp::complex::i()*1.e-10)/(ubar*MM2+u*q2));
+    gslpp::complex xm = .5 - sqrt(1./4.-(Mc2-gslpp::complex::i()*1.e-10)/(ubar*MM2+u*q2));
+    gslpp::complex yp = .5 + sqrt(1./4.-(Mc2-gslpp::complex::i()*1.e-10)/q2);
+    gslpp::complex ym = .5 - sqrt(1./4.-(Mc2-gslpp::complex::i()*1.e-10)/q2);
+    gslpp::complex L1xp = log(1.-1./xp)*log(1.-xp)-M_PI*M_PI/6.+dilog(xp/(xp-1.));
+    gslpp::complex L1xm = log(1.-1./xm)*log(1.-xm)-M_PI*M_PI/6.+dilog(xm/(xm-1.));
+    gslpp::complex L1yp = log(1.-1./yp)*log(1.-yp)-M_PI*M_PI/6.+dilog(yp/(yp-1.));
+    gslpp::complex L1ym = log(1.-1./ym)*log(1.-ym)-M_PI*M_PI/6.+dilog(ym/(ym-1.));
+    gslpp::complex I1 = 1. + 2.*Mc2/ubar/(MM2-q2)*(L1xp + L1xm - L1yp - L1ym);
+    gslpp::complex tperp = 2.*MM/Ee/ubar*I1+q2/Ee/Ee/ubar/ubar*(B01-B00);
+    return -4.*mySM.getQuarks(QCD::DOWN).getCharge()*C_8L/(u+ubar*q2/MM2)+MM/2./Mb*
+            mySM.getQuarks(QCD::UP).getCharge()*tperp;
+}
+
 
 /*******************************************************************************
  * Helicity amplitudes                                                         *
