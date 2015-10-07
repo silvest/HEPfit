@@ -110,9 +110,23 @@ public:
         return Mlep;
     }
     
+    gslpp::complex Tperpplus(double u, double q2);
     gslpp::complex Tparplus(double u, double q2);
     gslpp::complex Tparminus(double u, double q2);
-    gslpp::complex Tperpplus(double u, double q2);
+    double Integrand_ReTperpplus(double * up, double * q2);
+    double Integrand_ImTperpplus(double * up, double * q2);
+    double Integrand_ReTparplus(double * up, double * q2);
+    double Integrand_ImTparplus(double * up, double * q2);
+    double Integrand_ReTparminus(double * up, double * q2);
+    double Integrand_ImTparminus(double * up, double * q2);
+    gslpp::complex F27(double q2);
+    gslpp::complex F29(double q2);
+    gslpp::complex F87(double q2);
+    double F89(double q2);
+    gslpp::complex Cperp(double q2);
+    gslpp::complex Cpar(double q2);
+    gslpp::complex deltaTperp(double q2);
+    gslpp::complex deltaTpar(double q2);
     
     /**
     * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
