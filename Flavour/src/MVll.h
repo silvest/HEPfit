@@ -275,7 +275,8 @@ public:
     double getgtilde_1_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))
+                - 2.*Mb*MMpMV/V(q2)/q2 * deltaTperp(q2) ).real();
     }
     
     /**
@@ -286,7 +287,8 @@ public:
     double getgtilde_1_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))
+                - 2.*Mb*MMpMV/V(q2)/q2 * deltaTperp(q2) ).imag();
     }
     
     /**
@@ -297,7 +299,8 @@ public:
     double getgtilde_2_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)
+                -2.*MMmMV*Mb/A_1(q2)/q2 * (MM2 - q2)/MM2 * deltaTperp(q2)).real();
     }
     
     /**
@@ -308,7 +311,8 @@ public:
     double getgtilde_2_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)
+                -2.*MMmMV*Mb/A_1(q2)/q2 * (MM2 - q2)/MM2 * deltaTperp(q2)).imag();
     }
     
     /**
@@ -319,7 +323,8 @@ public:
     double getgtilde_3_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))
+                -2.*Mb*MMpMV/A_2(q2) * ( (deltaTpar(q2) + deltaTperp(q2))/MM2mMV2 + (MM2 - q2)/MM2/q2 * deltaTperp(q2) )).real();
     }
 
     /**
@@ -330,7 +335,8 @@ public:
     double getgtilde_3_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))
+                -2.*Mb*MMpMV/A_2(q2) * ( (deltaTpar(q2) + deltaTperp(q2))/MM2mMV2 + (MM2 - q2)/MM2/q2 * deltaTperp(q2) )).imag();
     }
     
     /**
@@ -393,7 +399,7 @@ public:
         return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
     }
     
-    double getDC7_1_abs()
+/*    double getDC7_1_abs()
     {
         updateParameters();
         return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] - h_0[1]).abs());
@@ -403,7 +409,7 @@ public:
     {
         updateParameters();
         return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] + h_0[1]).abs());
-    }
+    }*/
 
     double gethp0_hm0_abs()
     {
@@ -915,6 +921,10 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta7;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
     
+    gslpp::complex cacheDeltaTparp;
+    gslpp::complex cacheDeltaTparm;
+    gslpp::complex cacheDeltaTperp;
+    
     double avaSigma0;/**< Gsl integral variable */
     double avaSigma1;/**< Gsl integral variable */
     double avaSigma2;/**< Gsl integral variable */
@@ -1099,6 +1109,12 @@ private:
     unsigned int C_Pp_updated;/**< Cache variable */
     gslpp::complex C_Pp_cache;/**< Cache variable */
     
+    unsigned int C_2L_updated;/**< Cache variable */
+    gslpp::complex C_2L_cache;/**< Cache variable */
+    
+    unsigned int C_8L_updated;/**< Cache variable */
+    gslpp::complex C_8L_cache;/**< Cache variable */
+    
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */
     
@@ -1160,6 +1176,13 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta3Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta7Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
+    
+    unsigned int deltaTparpCached;
+    unsigned int deltaTparmCached;
+    unsigned int deltaTperpCached;
+    
+    unsigned int T_updated;/**< Cache variable */
+    gslpp::vector<double> T_cache;/**< Cache variable */
     
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
     

@@ -212,5 +212,29 @@ private:
     StandardModel::meson meson; /**< Initial meson type. */
     StandardModel::meson vectorM; /**< Final vector meson type. */
 };
+
+class DC7_1 : public MVgamma{
+public:
+
+    DC7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+class DC7_2 : public MVgamma{
+public:
+
+    DC7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
 #endif	/* MVLL_H */
 

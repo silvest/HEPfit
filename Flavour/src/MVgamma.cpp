@@ -129,10 +129,7 @@ gslpp::complex MVgamma::H8()
  * ****************************************************************************/
 gslpp::complex MVgamma::H_V_m() 
 {
-    double s = Mc*Mc/Mb/Mb;
-    gslpp::complex a7 = C_7 + SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8())+
-                SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8());
-    return lambda_t * (a7*T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
+    return lambda_t * (C_7*T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p() 
@@ -142,11 +139,7 @@ gslpp::complex MVgamma::H_V_p()
 
 gslpp::complex MVgamma::H_V_m_bar() 
 {
-    double s = Mc*Mc/Mb/Mb;
-    gslpp::complex a7 = C_7 + SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8())+
-                SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8()); // conjugate????
-
-    return lambda_t.conjugate() * (a7 *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
+    return lambda_t.conjugate() * (C_7 *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar() 
@@ -184,4 +177,36 @@ double ACP_MVgamma::computeThValue()
     updateParameters();
     
     return ((H_V_p().abs2() + H_V_m().abs2() - H_V_p_bar().abs2() - H_V_m_bar().abs2())) / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
+}
+
+DC7_1::DC7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i) 
+{
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double DC7_1::computeThValue()
+{
+    updateParameters();
+    double s = Mc*Mc/Mb/Mb;
+    return ( (8.*M_PI*M_PI*MM2*MM)/(lambda*Mb*T_1())*(h[1] - h[0]
+            - SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8())
+            - SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8()) ) ).abs();
+}
+
+DC7_2::DC7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i) 
+{
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double DC7_2::computeThValue()
+{
+    updateParameters();
+    double s = Mc*Mc/Mb/Mb;
+    return ( (8.*M_PI*M_PI*MM2*MM)/(lambda*Mb*T_1())*(h[1] + h[0]
+            - SM.Als(mu_b)/3./M_PI*(C_2*G1(s)+C_8*G8())
+            - SM.Als(mu_h)/3./M_PI*(C_2h*H1(s)+C_8h*H8()) ) ).abs();
 }
