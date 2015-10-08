@@ -17,7 +17,7 @@ double globalminimum::computeThValue()
     double cosa=myTHDM->computeCosa();
     double m12_2=myTHDM->getM12_2();
 
-    double globalminimum = m12_2*(m12_2 +(mHl*mHl-mHh*mHh)*cosa*sina
+    double globalminimum = 0.0000001*m12_2*(m12_2 +(mHl*mHl-mHh*mHh)*cosa*sina
                                    +sqrt((mHl*mHl*cosa*cosa +mHh*mHh*sina*sina -m12_2/tanb)
                                          *(mHh*mHh*cosa*cosa +mHl*mHl*sina*sina -m12_2*tanb)));
 

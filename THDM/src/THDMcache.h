@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 HEPfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,6 +11,9 @@
 #include <cmath>
 #include <PVfunctions.h>
 //#include "THDM.h"
+
+#include <stdexcept>
+#include <gslpp.h>
 
 using namespace gslpp;
 
@@ -50,8 +53,85 @@ public:
 //   const StandardModel& GetTHDM() const {
 //        return myTHDM;
 //    }
+
     
+    gslpp::matrix<double> readTable(std::string filename, int rowN);
+//    double OLDinterpolate (gslpp::matrix<double> arrayTab, double mass);
+    double interpolate (gslpp::matrix<double> arrayTab, double mass);
     
+    void read();
+    
+    gslpp::matrix<double> array1;
+    gslpp::matrix<double> array2;
+    gslpp::matrix<double> array3;
+    gslpp::matrix<double> array4;
+    gslpp::matrix<double> array5;
+    gslpp::matrix<double> array6;
+    gslpp::matrix<double> array7;
+    gslpp::matrix<double> array11;
+    gslpp::matrix<double> array12;
+    gslpp::matrix<double> array13;
+    gslpp::matrix<double> array14;
+    gslpp::matrix<double> array15;
+    gslpp::matrix<double> array16;
+    gslpp::matrix<double> array17;
+    gslpp::matrix<double> array18;
+    gslpp::matrix<double> array19;
+    gslpp::matrix<double> array20;
+    gslpp::matrix<double> array21;
+    gslpp::matrix<double> array22;
+    gslpp::matrix<double> array26;
+    gslpp::matrix<double> array27;
+    gslpp::matrix<double> array29;
+    gslpp::matrix<double> array31;
+    gslpp::matrix<double> array32;
+    gslpp::matrix<double> array33;
+    gslpp::matrix<double> array34;
+    gslpp::matrix<double> array35;
+    gslpp::matrix<double> array36;
+    gslpp::matrix<double> array37;
+    gslpp::matrix<double> array38;
+    gslpp::matrix<double> array39;
+    gslpp::matrix<double> array44;
+    gslpp::matrix<double> array45;
+    gslpp::matrix<double> arrayX_bb;
+    gslpp::matrix<double> arrayX_tt;
+    
+    double Br_HPtott(double mass);
+    double Br_HPtobb(double mass);
+    double Br_HPtotautau(double mass);
+    double Br_HPtocc(double mass);
+    double Br_HPtomumu(double mass);
+    double Br_HPtoZZ(double mass);
+    double Br_HPtoWW(double mass);
+    double pc_ggFtoHP(double mass);
+    double pc_VBFtoHP(double mass);
+    double pc_WHP_HP(double mass);
+    double pc_ZHP_HP(double mass);
+    double pc_ttFtoHP(double mass);
+    double ex_HP_ZZ(double mass);
+    double ex_A_tautau(double mass);
+    double GammaHPtotSM(double mass);
+    double cs_ggFtoHP(double mass);
+    double cs_ggHP_tt(double mass);
+    double cs_ggHP_bb(double mass);
+    double cs_ggFtoA(double mass);
+    double cs_ggFtoHPbbtotautaubb(double mass);
+    double cs_bbFtoHP(double mass);
+    double ex_ggF_A_hZ(double mass);
+    double ex_H_WW(double mass);
+    double ex_H_hh_gagabb(double mass);
+    double ex_H_hh_bbbb(double mass);
+    double ex_H_gaga(double mass);
+    double ex_ggF_H_tautau(double mass);
+    double ex_bbF_H_tautau(double mass);
+    double ex_ggF_H_WW(double mass);
+    double ex_VBF_H_WW(double mass);
+    double ex_H_hh(double mass);
+    double ex_ggF_A_hZ_tautauZ(double mass);
+    double ex_ggF_A_hZ_bbZ(double mass);
+    double ex_H_bb(double mass);
+    double ex_H_tt(double mass);
     
     /*One-loop functions*/
     
@@ -132,4 +212,3 @@ private:
 };
 
 #endif	/* THDMCACHE_H */
-

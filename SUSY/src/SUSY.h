@@ -539,6 +539,8 @@ protected:
 
     FeynHiggsWrapper* myFH;
 
+    SUSYSpectrum* mySUSYSpectrum;
+
     // model parameters at scale Q
     complex m1, m2, muH;
     double m3, mHptree, tanb, Q_SUSY;

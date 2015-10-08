@@ -6,6 +6,8 @@
  */
 
 #include "positivity.h"
+#include "lambda1.h"
+#include "lambda2.h"
 #include "StandardModel.h"
 
 positivity::positivity(const StandardModel& SM_i, int obsFlag) 
@@ -40,26 +42,25 @@ double positivity::computeThValue()
     double lambda1=mylambda1->computeThValue();
     double lambda2=mylambda2->computeThValue();
 
-    double positivity1=2*mHp*mHp*cosb*sinb -m12_2 +(mHh*mHh-mHl*mHl)*cosa*sina
-                       +sqrt((mHl*mHl*cosa*cosa +mHh*mHh*sina*sina -m12_2/tanb)
-                             *(mHh*mHh*cosa*cosa +mHl*mHl*sina*sina -m12_2*tanb));
-    double positivity2=mA*mA -std::abs(mA*mA-m12_2/cosb/sinb)
+    double positivity1=0.0001*(2*mHp*mHp*cosb*sinb -m12_2 +(mHh*mHh-mHl*mHl)*cosa*sina
+                       +sqrt(std::abs((mHl*mHl*cosa*cosa +mHh*mHh*sina*sina -m12_2/tanb)
+                             *(mHh*mHh*cosa*cosa +mHl*mHl*sina*sina -m12_2*tanb))));
+    double positivity2=0.0001*(mA*mA -std::abs(mA*mA-m12_2/cosb/sinb)
                        +((mHh*mHh-mHl*mHl)*cosa*sina
-                         +sqrt((mHl*mHl*cosa*cosa +mHh*mHh*sina*sina -m12_2/tanb)
-                               *(mHh*mHh*cosa*cosa +mHl*mHl*sina*sina - m12_2*tanb)))
-                        /cosb/sinb;
-//    if (lambda1 > 0 && lambda2>0)
-//    {
+                         +sqrt(std::abs((mHl*mHl*cosa*cosa +mHh*mHh*sina*sina -m12_2/tanb)
+                               *(mHh*mHh*cosa*cosa +mHl*mHl*sina*sina - m12_2*tanb))))
+                        /cosb/sinb);
+    if (lambda1 > 0 && lambda2>0)
+    {
      if (obs == 1) return( positivity1);
      if (obs == 2) return( positivity2);
      throw std::runtime_error("positivity::computeThValue(): Observable type not "
-            "defined. Can be only any of (1,2)");
-//    }
-//    else
-//    {
-//     throw std::runtime_error("positivity::computeThValue(): "
-//            "negative lambda1 or lambda2");
-//    }
+            "defined. Can be only 1 or 2.");
+    }
+    else
+    {
+     return -1.;
+    }
     return (EXIT_FAILURE);
 
 }

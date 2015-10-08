@@ -13,10 +13,10 @@ EWPO::EWPO(const StandardModel& SM_i, int obsFlag)
 {
     if (obsFlag > 0 and obsFlag < 16) obs = obsFlag;
     else throw std::runtime_error("obsFlag in EWPO() called from "
-            "ThFactory::ThFactory() can only be 1 (Al) or 2 (Ppoltau) "
-            "or 3 (Ac) or 4 (Ab) or 5 (AFBl0) or 6 (AFBc0) or 7 (AFBb0) "
-            "or 8 (GammaZ) or 9 (Rl0) or 10 (Rc0) or 11 (Rb0) "
-            "or 12 (Sigmahad) or 13 (GammaW) or 14 (sinthetaeffl_2) or 15 (MW)");
+            "ThFactory::ThFactory() can only be 1 (AlTHDM) or 2 (PpoltauTHDM) "
+            "or 3 (AcTHDM) or 4 (AbTHDM) or 5 (AFBl0THDM) or 6 (AFBc0THDM) or 7 (AFBb0THDM) "
+            "or 8 (GammaZTHDM) or 9 (Rl0THDM) or 10 (Rc0THDM) or 11 (Rb0THDM) "
+            "or 12 (SigmahadTHDM) or 13 (GammaWTHDM) or 14 (sinthetaeffl_2THDM) or 15 (MWTHDM)");
 };
 
 double EWPO::computeThValue()
@@ -50,41 +50,41 @@ double EWPO::computeThValue()
     double sinthetaeffl_2SM=myTHDM->sin2thetaEff(SM.getLeptons(SM.ELECTRON));
     double MWSM=myTHDM->Mw();
 
-    double Al = AlSM;
-    double Ppoltau = PpoltauSM;
-    double Ac = AcSM;
-    double Ab = AbSM;
+    double AlTHDM = AlSM;
+    double PpoltauTHDM = PpoltauSM;
+    double AcTHDM = AcSM;
+    double AbTHDM = AbSM;
 
-    double AFBl0 = AFBl0SM;
-    double AFBc0 = AFBc0SM;
-    double AFBb0 = AFBb0SM;
+    double AFBl0THDM = AFBl0SM;
+    double AFBc0THDM = AFBc0SM;
+    double AFBb0THDM = AFBb0SM;
 
-    double GammaZ = GammaZSM;
-    double Rl0 = Rl0SM;
-    double Rc0 = Rc0SM;
-    double Rb0 = Rb0SM;
-    double Sigmahad = SigmahadSM;
+    double GammaZTHDM = GammaZSM;
+    double Rl0THDM = Rl0SM;
+    double Rc0THDM = Rc0SM;
+    double Rb0THDM = Rb0SM;
+    double SigmahadTHDM = SigmahadSM;
 
-    double GammaW = GammaWSM;
+    double GammaWTHDM = GammaWSM;
 
-    double sinthetaeffl_2 = sinthetaeffl_2SM;
-    double MW = MWSM;
+    double sinthetaeffl_2THDM = sinthetaeffl_2SM;
+    double MWTHDM = MWSM;
 
-    if (obs == 1) return(Al);
-    if (obs == 2) return(Ppoltau);
-    if (obs == 3) return(Ac);
-    if (obs == 4) return(Ab);
-    if (obs == 5) return(AFBl0);
-    if (obs == 6) return(AFBc0);
-    if (obs == 7) return(AFBb0);
-    if (obs == 8) return(GammaZ);
-    if (obs == 9) return(Rl0);
-    if (obs == 10) return(Rc0);
-    if (obs == 11) return(Rb0);
-    if (obs == 12) return(Sigmahad);
-    if (obs == 13) return(GammaW);
-    if (obs == 14) return(sinthetaeffl_2);
-    if (obs == 15) return(MW);
+    if (obs == 1) return(AlTHDM);
+    if (obs == 2) return(PpoltauTHDM);
+    if (obs == 3) return(AcTHDM);
+    if (obs == 4) return(AbTHDM);
+    if (obs == 5) return(AFBl0THDM);
+    if (obs == 6) return(AFBc0THDM);
+    if (obs == 7) return(AFBb0THDM);
+    if (obs == 8) return(GammaZTHDM);
+    if (obs == 9) return(Rl0THDM);
+    if (obs == 10) return(Rc0THDM);
+    if (obs == 11) return(Rb0THDM);
+    if (obs == 12) return(SigmahadTHDM);
+    if (obs == 13) return(GammaWTHDM);
+    if (obs == 14) return(sinthetaeffl_2THDM);
+    if (obs == 15) return(MWTHDM);
 
     throw std::runtime_error("EWPO::computeThValue(): Observable type not defined. Can be only any of (1) till (15)");
     return (EXIT_FAILURE);

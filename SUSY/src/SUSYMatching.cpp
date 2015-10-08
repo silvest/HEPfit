@@ -70,6 +70,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     myRu(6, 6, 0.),
     myRd(6, 6, 0.),
     myRl(6, 6, 0.),
+    myRn(6, 6, 0.),
     mym_sn_sq(6, 0.),
     mym_se_sq(6, 0.),
     MChi0(4, 0.),
@@ -86,7 +87,38 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     myCKM_cache(3, 3, 0.),
     VUDHH_cache(6, 6, 0.),
     DeltaMd_cache(3, 3, 0.),
-    mySUSYMQ(6, 0.)
+    mySUSYMQ(6, 0.),
+
+    Lepty(4, 6, 0.),
+    Leptz(2, 3, 0.),
+    Leptf1(4, 6, 0.),
+    Leptf2(4, 6, 0.),
+    Leptf3(2, 3, 0.),
+    Leptf4(2, 3, 0.),
+    CRlE(2, 3, 0.),
+    CRlMU(2, 3, 0.),
+    CRlTAU(2, 3, 0.),
+    CLlE(2, 3, 0.),
+    CLlMU(2, 3, 0.),
+    CLlTAU(2, 3, 0.),
+    NRlE(4, 6, 0.),
+    NRlMU(4, 6, 0.),
+    NRlTAU(4, 6, 0.),
+    NLlE(4, 6, 0.),
+    NLlMU(4, 6, 0.),
+    NLlTAU(4, 6, 0.),
+    AmpALN(4, 6, 0.),
+    AmpARN(4, 6, 0.),
+    AmpLC(2, 3, 0.),
+    AmpRC(2, 3, 0.),
+    AmpTauALN(4, 6, 0.),
+    AmpTauARN(4, 6, 0.),
+    AmpTauALC(2, 3, 0.),
+    AmpTauARC(2, 3, 0.),
+    AmpTEALN(4, 6, 0.),
+    AmpTEARN(4, 6, 0.),
+    AmpTEALC(2, 3, 0.),
+    AmpTEARC(2, 3, 0.)
 {
 }
 
@@ -97,6 +129,7 @@ void SUSYMatching::updateSUSYParameters()
     myRu = mySUSY.getRu();
     myRd = mySUSY.getRd();
     myRl = mySUSY.getRl();
+    myRn = mySUSY.getRn();
     mym_sn_sq = mySUSY.getMsn2();
     mym_se_sq = mySUSY.getMse2();
     Q_S = mySUSY.getQ_SUSY();
@@ -3319,17 +3352,401 @@ gslpp::vector <complex> SUSYMatching::CalcC7(int b, int q) {
     vmcbsg.push_back(mcbsg);
     return (vmcbsg);
 }
- 
+
 /* LEPTON FLAVOUR */
 
-gslpp::vector<complex> SUSYMatching::C7_Lepton() {
+gslpp::vector<complex> SUSYMatching::C7_Lepton(int li_to_lj) {
+
+    int obs;
+    double MW = mySUSY.Mw();
+    double MZ = mySUSY.getMz();
+    double pi = M_PI;
+    double piconst = 1.0/(32.0 * pi * pi);
+    double sw2 = mySUSY.sW2();
+    double stw = sqrt(sw2);
+    double ctw = sqrt(1.0 - sw2);
+    double ttw = stw/ctw;
+    double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
+    double mMU = mySUSY.getLeptons(StandardModel::MU).getMass();
+    double mTAU = mySUSY.getLeptons(StandardModel::TAU).getMass();
+    sinb = mySUSY.getSinb();
     
+    double cdenc = sqrt(2.0)*MW*cosb;
+    double cdenn = MW*cosb;
+    double g2 = gW;
+    double g2t = g2/sqrt(2.0);
+    double alph = mySUSY.getAle();
+
     gslpp::vector<complex> C7(2, 0.);
-    
-    C7.assign(0, 5.);
-    C7.assign(1, 6.);
-    
-    return(C7);
+
+    if (li_to_lj > 0 and li_to_lj < 4) obs = li_to_lj;
+    else throw std::runtime_error("li_to_lj can only be"
+            "1 (mu to electron) or"
+            "2 (tau to mu) or"
+            "3 (tau to electron)");
+
+    //     Chargino-Fermion-sFermion Couplings 
+    //     ***********************************
+
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+
+            //     -------------------------------------------------
+            //     LL-TYPE
+            //     -------------------------------------------------
+            CRlE.assign(a, x, - (g2*myU(a, 0)*myRn(x, 0)));
+            CRlMU.assign(a, x, - (g2*myU(a, 0)*myRn(x, 1)));
+            CRlTAU.assign(a, x, - (g2*myU(a, 0)*myRn(x, 2)));
+
+            //     -------------------------------------------------
+            //     LR-TYPE
+            //     -------------------------------------------------
+            CLlE.assign(a, x, g2*mE/cdenc*myV(a, 1)*myRn(x, 0));
+            CLlMU.assign(a, x, g2*mMU/cdenc*myV(a, 1)*myRn(x, 1));
+            CLlTAU.assign(a, x, g2*mTAU/cdenc*myV(a, 1)*myRn(x, 2));
+
+        }
+    }
+            std::cout<<"myRn: "<<myRn<<std::endl;
+
+
+    //     Neutralino-Fermion-sFermion Couplings 
+    //     *************************************
+
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+
+            //     --------------------------------------------------
+            //     LL + RL TYPE MI
+            //     --------------------------------------------------
+            NRlE.assign(a, x, - (g2t)*((-myN(a, 1) - myN(a, 0)*ttw)*myRl(x, 0) + (mE/cdenn)*myN(a, 2)*myRl(x, 3)));
+            NRlMU.assign(a, x, -(g2t)*((-myN(a, 1) - myN(a, 0)*ttw)*myRl(x, 1) + (mMU/cdenn)*myN(a, 2)*myRl(x, 4)));
+            NRlTAU.assign(a, x, -(g2t)*((-myN(a, 1) - myN(a, 0)*ttw)*myRl(x, 2) + (mTAU/cdenn)*myN(a, 2)*myRl(x, 5)));
+
+            //     ---------------------------------------------------------
+            //     RL + RR TYPE MI 
+            //     ---------------------------------------------------------
+            NLlE.assign(a, x, -(g2t)*((mE/cdenn)*myN(a, 2)*myRl(x, 0) + 2.0*myN(a, 0)*ttw*myRl(x, 3)));
+            NLlMU.assign(a, x, -(g2t)*((mMU/cdenn)*myN(a, 2)*myRl(x, 1) + 2.0*myN(a, 0)*ttw*myRl(x, 4)));
+            NLlTAU.assign(a, x, -(g2t)*((mTAU/cdenn)*myN(a, 2)*myRl(x, 2) + 2.0*myN(a, 0)*ttw*myRl(x, 5)));
+
+        }
+    }
+
+    //     ---------------------------------------------------------
+    //     Mu--->E-Gamma
+    //     ---------------------------------------------------------
+
+    //     ------------------------
+    //     Dipole Neutralino Contributions 
+    //     ------------------------
+      
+    //     Defintion of y - remember it is a dimenionless quantity.
+
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            Lepty.assign(a, x, ( MChi0(a) * MChi0(a) ) / mym_se_sq(x) );
+        }
+    }
+
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            if (fabs(1.0 - Lepty(a, x)) > 0.01) {
+                Leptf1.assign(a, x, ((1.0 - 6.0*Lepty(a, x) + 3.0 * pow(Lepty(a, x),2.0) + 
+                                      2.0*pow(Lepty(a, x),3.0) - 6.0*pow(Lepty(a,x),2.0)*log(Lepty(a, x))))/
+                                    (6.0 * pow((1.0 - Lepty(a,x)),4.0)) );
+            }
+            else Leptf1.assign(a, x, 1.0/12.0 - (Lepty(a, x) - 1.0)/30.0);
+        }
+    }
+
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            if (fabs(1.0 - Lepty(a, x)) > 0.01 ) {
+                Leptf2.assign(a, x, (1.0 - pow(Lepty(a, x),2.0) +  2.0 * Lepty(a, x) * log(Lepty(a, x)))/
+                                    (pow((1.0-Lepty(a, x)),3.0)));
+            }
+            else Leptf2.assign(a, x, 1.0/3.0 - (Lepty(a, x) - 1.0)/6.0);
+        }
+    }
+
+    //     Neutralino Amplitude (L)
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            AmpALN.assign(a, x, (NLlE(a, x) * NLlMU(a, x).conjugate() * Leptf1(a, x)
+                                 + NLlE(a, x) * NRlMU(a, x).conjugate() * (MChi0(a)/mMU) * Leptf2(a, x)) /mym_se_sq(x) );
+        }
+    }
+
+    //     Sum Neutralino (L)
+    gslpp::complex ALN = 0.0;
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            ALN = ALN + AmpALN(a, x);
+        }
+    }
+    ALN = piconst*ALN;
+      
+    //     Neutralino Amplitude (R)
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            AmpARN.assign(a, x, (NRlE(a, x) * NRlMU(a, x).conjugate() * Leptf1(a, x) 
+                                 + NRlE(a, x) * NLlMU(a, x).conjugate() * (MChi0(a)/mMU) * Leptf2(a, x)) /mym_se_sq(x) );
+        }
+    }
+
+    //     Sum Neutralino (R)
+    gslpp::complex ARN = 0.0;
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            ARN = ARN + AmpARN(a,x);
+        }
+    }
+    ARN = piconst*ARN;
+
+    //     ------------------------------------------------------
+    //     Dipole Chargino Contributions
+    //     ------------------------------------------------------
+
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            Leptz.assign(a, x, MChi(a)*MChi(a)/mym_sn_sq(x) );
+        }
+    }
+
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            if(fabs(1.0-Leptz(a, x)) > 0.01) {
+                Leptf3.assign(a, x, ((2.0 + 3.0*Leptz(a, x) - 6.0*pow(Leptz(a, x),2.0) 
+                                      + pow(Leptz(a, x),3.0) + 6.0*Leptz(a, x)*log(Leptz(a, x)))/
+		                     pow(6.0*(1.0 - Leptz(a, x)),4.0)) );
+            }
+            else Leptf3.assign(a, x, 1.0/12.0 - (Leptz(a, x) - 1.0)/20.0 );
+        }
+    }
+
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            if(fabs(1.0-Leptz(a, x)) > 0.01) {
+                Leptf4.assign(a, x, ((-3.0 + 4.0*Leptz(a, x) - pow(Leptz(a, x),2.0)
+                                      - 2.0*log(Leptz(a, x)))/
+                                     pow((1.0 - Leptz(a, x)),3.0)) );
+            }
+            else Leptf4.assign(a, x, 2.0/3.0 - (Leptz(a, x) - 1.0)/2.0 );
+        }
+    }
+
+    //     Chargino Amplitude (L)
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            AmpLC.assign(a, x, -(piconst/mym_sn_sq(x)) * (CLlE(a, x) * CLlMU(a, x).conjugate() * Leptf3(a, x) 
+                                                          + CLlE(a, x) * CRlMU(a, x).conjugate() * (MChi(a)/mMU) * Leptf4(a, x)) );
+        }
+    }
+      
+    //     Sum Chargino (L)
+    gslpp::complex ALC = 0.0;
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            ALC = ALC + AmpLC(a, x);
+        }
+    }
+
+    //     Chargino Amplitude (R)
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            AmpRC.assign(a, x, -(piconst/mym_sn_sq(x)) * (CRlE(a, x)*CRlMU(a, x).conjugate() * Leptf3(a, x) 
+                                                          + CRlE(a, x) * CLlMU(a, x).conjugate() * (MChi(a)/mMU) * Leptf4(a, x)) );
+        }
+    }
+
+    //     Sum Chargino (R)
+    gslpp::complex ARC = 0.0;
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            ARC = ARC + AmpRC(a, x);
+        }
+    }
+
+//    //     Mu-E-Gamma Decay Rate
+//    //     ------------------------------------------------
+//    double megrate = (alph/4.0) * pow(mMU,5.0) * ( (ALN + ALC).abs2() + (ARN + ARC).abs2() );
+//    double Bmeg = megrate/(3.0e-19);
+
+
+    //     ---------------------------------------------------------
+    //     Tau--->Mu-Gamma
+    //     ---------------------------------------------------------
+
+    //     Neutralino Amplitude (L)
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            AmpTauALN.assign(a, x, piconst * (NLlMU(a, x) * NLlTAU(a, x).conjugate() * Leptf1(a, x) 
+                                              + NLlMU(a, x) * NRlTAU(a, x).conjugate() * (MChi0(a)/mTAU) * Leptf2(a, x)) /mym_se_sq(x) );
+        }
+    }
+
+    //     Sum Neutralino (L)
+    gslpp::complex TauALN = 0.0;
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            TauALN = TauALN + AmpTauALN(a, x);
+        }
+    }
+
+    //     Neutralino Amplitude (R)
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            AmpTauARN.assign(a, x, piconst * (NRlMU(a, x) * NRlTAU(a, x).conjugate() * Leptf1(a, x) 
+                                              + NRlMU(a, x) * NLlTAU(a, x).conjugate() * (MChi0(a)/mTAU) * Leptf2(a, x)) /mym_se_sq(x) );
+        }
+    }
+
+    //     Sum Neutralinos (R)
+    gslpp::complex TauARN = 0.0;
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            TauARN = TauARN + AmpTauARN(a, x);
+        }
+    }
+
+    //     Chargino Amplitudes (L)
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {		    
+            AmpTauALC.assign(a, x, -piconst / mym_sn_sq(x) * (CLlMU(a, x) * CLlTAU(a, x).conjugate() * Leptf3(a, x) 
+                                                              + CLlMU(a, x) * CRlTAU(a, x).conjugate() * (MChi(a)/mTAU) * Leptf4(a, x)) );
+        }
+    }
+
+    //     Sum Chargino Amplitude (L)
+    gslpp::complex TauALC = 0.0;
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            TauALC = TauALC + AmpTauALC(a,x);
+        }
+    }
+
+    //     Chargino Amplitudes (R)
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            AmpTauARC.assign(a, x, -piconst / mym_sn_sq(x) * (CRlMU(a, x) * CRlTAU(a, x).conjugate() * Leptf3(a, x) 
+                                                              + CRlMU(a, x) * CLlTAU(a, x).conjugate() * (MChi(a)/mTAU) * Leptf4(a, x)) );
+        }
+    }
+
+    //     Sum Chargino Amplitude (R)
+    gslpp::complex TauARC = 0.0;
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            TauARC = TauARC + AmpTauARC(a,x);
+        }
+    }
+
+
+//    //     Tau-Mu-Gamma Decay Rate
+//    //     ------------------------------------------------
+//    double tmugrate = (alph/4.0) * pow(mTAU,5.0) * ((TauALC + TauALN).abs2() + (TauARC + TauARN).abs2() );
+//    double Btmug = tmugrate/(2.26e-12);
+
+   
+    //     ---------------------------------------------------------
+    //     Tau--->E-Gamma
+    //     ---------------------------------------------------------
+
+    //     Neutralino Amplitude (L)
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            AmpTEALN.assign(a, x, piconst * (NLlE(a, x) * NLlTAU(a, x).conjugate() * Leptf1(a, x) 
+                                             + NLlE(a, x) * NRlTAU(a, x).conjugate() * (MChi0(a)/mTAU) * Leptf2(a, x)) / mym_se_sq(x) );
+        }
+    }
+
+    //     Sum Neutralino Amplitude (L)
+    gslpp::complex TEALN = 0.0;
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {
+            TEALN = TEALN + AmpTEALN(a, x);
+        }
+    }
+
+    //     Neutralino Amplitude (R)
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) {      
+            AmpTEARN.assign(a, x, piconst * (NRlE(a, x) * NRlTAU(a, x).conjugate() * Leptf1(a, x) 
+                                             + NRlE(a, x) * NLlTAU(a, x).conjugate() * (MChi0(a)/mTAU) * Leptf2(a, x)) / mym_se_sq(x) );
+        }
+    }
+      
+    //     Sum Neutralinos (R)
+    gslpp::complex TEARN = 0.0;
+    for (int a=0;a<4;a++) {
+        for (int x=0;x<6;x++) { 
+            TEARN = TEARN + AmpTEARN(a, x);
+        }
+    }
+
+    //     Chargino Amplitudes (L)
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            AmpTEALC.assign(a, x, -piconst / mym_sn_sq(x) * (CLlE(a, x) * CLlTAU(a, x).conjugate() * Leptf3(a, x) 
+                                                             + CLlE(a, x) * CRlTAU(a, x).conjugate() * (MChi(a)/mTAU) * Leptf4(a, x)) );
+        }
+    }
+      
+    //     Sum Chargino Amplitude (L)
+    gslpp::complex TEALC = 0.0;
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            TEALC = TEALC + AmpTEALC(a,x);
+        }
+    }
+
+    //     Chargino Amplitudes (R)
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            AmpTEARC.assign(a, x, -piconst / mym_sn_sq(x) * (CRlE(a, x) * CRlTAU(a, x).conjugate() * Leptf3(a, x) 
+                                                             + CRlE(a, x) * CLlTAU(a, x).conjugate() *(MChi(a)/mTAU) * Leptf4(a, x)) );
+        }
+    }
+
+    //     Sum Chargino Amplitude (R)
+    gslpp::complex TEARC = 0.0;
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<3;x++) {
+            TEARC = TEARC + AmpTEARC(a, x);
+        }
+    }
+
+//    //     Tau-E-Gamma Decay Rate
+//    //     ------------------------------------------------
+//    double tegrate = (alph/4.0) * pow(mTAU,5.0) * ( (TEALC + TEALN).abs2() + (TEARC + TEARN).abs2() );
+//    double Bteg = tegrate/(2.26e-12);
+
+    if (obs == 1) {
+        //     write C7 and C7' into a vector for mu->e
+        C7.assign(0, -0.5*(ARN + ARC) );
+        C7.assign(1, -0.5*(ALN + ALC) );
+        return(C7);
+    }
+    if (obs == 2) {
+        //     write C7 and C7' into a vector for tau->mu
+        C7.assign(0, -0.5*(TauARC + TauARN) );
+        C7.assign(1, -0.5*(TauALC + TauALN) );
+        return(C7);
+    }
+    if (obs == 3) {
+        //     write C7 and C7' into a vector for tau->e
+        C7.assign(0, -0.5*(TEARC + TEARN) );
+        C7.assign(1, -0.5*(TEALC + TEALN) );
+        return(C7);
+    }
+//
+//    throw std::runtime_error("SUSYMatching::C7_Lepton(): Observable type not defined. Can be only any of (1) till (3)");
+//        gslpp::vector<complex> errorvalues;
+//        errorvalues.assign(0,0.0);
+//        errorvalues.assign(1,0.0);
+//    return (EXIT_FAILURE);
+
 }
 
 std::vector<WilsonCoefficient>& SUSYMatching::CMDL1() {
@@ -3338,8 +3755,8 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMDL1() {
     
     switch (mcDL1.getOrder()) {
         case LO:
-            mcDL1.setCoeff(0, C7_Lepton()(0), LO);
-            mcDL1.setCoeff(1, C7_Lepton()(1), LO);
+            mcDL1.setCoeff(0, C7_Lepton(1)(0), LO);
+            mcDL1.setCoeff(1, C7_Lepton(1)(1), LO);
             break;
         case NNLO:
         case NLO:

@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <StandardModelMatching.h>
 #include "SUSY.h"
-#include "SUSYMatching.h"
+//#include "SUSYMatching.h"
 #include "SUSYSpectrum.h"
 #include "EWSUSY.h"
 #include "FeynHiggsWrapper.h"
@@ -44,6 +44,7 @@ SUSY::~SUSY(){
     if (IsModelInitialized()) {
             if (mySUSYMatching != NULL) delete(mySUSYMatching);
             if (myFH != NULL) delete(myFH);
+            if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
             if (myEWSUSY != NULL) delete(myEWSUSY);
         }
 }
@@ -53,6 +54,7 @@ SUSY::~SUSY(){
 bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
+    mySUSYSpectrum = new SUSYSpectrum(*this);
     myFH = new FeynHiggsWrapper(*this);
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
@@ -109,7 +111,9 @@ bool SUSY::PostUpdate()
     /* Compute Higgs and sparticle spectra with FeynHiggs */
     if(!myFH->SetFeynHiggsPars()) return (false);
     if(!myFH->CalcHiggsSpectrum()) return (false);
-    if(!myFH->CalcSpectrum()) return (false);
+    if(!myFH->CalcSpectrum()) return (false); /* Using SUSYSpectrum instead, because FH does not calculate Sneutrino masses. */
+    if(!mySUSYSpectrum->CalcSneutrino(Rn,m_sn2)) return (false);
+    myFH->SortSfermionMasses(m_sn2, Rn);
 
     /* Set the mass of the SM-like Higgs */
     mHl = mh[0];

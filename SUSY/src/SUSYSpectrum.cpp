@@ -7,10 +7,12 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <limits>
 #include "SUSYSpectrum.h"
+#include "SUSY.h"
 
 
-SUSYSpectrum::SUSYSpectrum(SUSY& SUSY_in)
+SUSYSpectrum::SUSYSpectrum(const SUSY & SUSY_in)
 : mySUSY(SUSY_in), Mchargino(2,2,0.), Mneutralino(4,4,0.),
         Msup2(6,0.), Msdown2(6,0.), Msneutrino2(6,0.), Mselectron2(6,0.),
         mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sn2(6,0.), m_se2(6,0.),
@@ -56,7 +58,7 @@ void SUSYSpectrum::CalcChargino()
      * M.singularvalue(&U, &V, &S) decompose M into
      * M = U diag(S) V^+.
      */
-    matrix<complex> Utmp(2, 2, 0.), Vtmp(2, 2, 0.);
+    gslpp::matrix<gslpp::complex> Utmp(2, 2, 0.), Vtmp(2, 2, 0.);
     Mchargino.singularvalue(Utmp, Vtmp, mch);
 
     /**
@@ -96,23 +98,23 @@ void SUSYSpectrum::CalcNeutralino()
      * M.singularvalue(&U, &V, &S) decompose M into
      * M = U diag(S) V^+.
      */
-    matrix<complex> Ntemp1(4, 4, 0.), Ntemp2(4, 4, 0.);
+    gslpp::matrix<gslpp::complex> Ntemp1(4, 4, 0.), Ntemp2(4, 4, 0.);
     Mneutralino.singularvalue(Ntemp1, Ntemp2, mneu);
 
-    //matrix<complex> Nleft = Ntemp1.transpose();
-    matrix<complex> Nright = Ntemp2.hconjugate();
+    //gslpp::matrix<gslpp::complex> Nleft = Ntemp1.transpose();
+    gslpp::matrix<gslpp::complex> Nright = Ntemp2.hconjugate();
     //std::cout << "Nleft = " << Nleft << std::endl;
     //std::cout << "Nright = " << Nright << std::endl;
 
     /* adopt N=Nright as N^* M N^+ = diag, not as N M N^+.
      * As a result, a phase rotation is required for N. */
-    matrix<complex> Mdiag_tmp(4, 4, 0.);
+    gslpp::matrix<gslpp::complex> Mdiag_tmp(4, 4, 0.);
     Mdiag_tmp = Nright.hconjugate().transpose() * Mneutralino * Nright.hconjugate();
     //std::cout << "Mdiag_tmp = " << Mdiag_tmp << std::endl;
-    vector<complex> v1(4, 0.);
+    gslpp::vector<gslpp::complex> v1(4, 0.);
     for(int i = 0; i < 4; i++)
         v1.assign(i, complex(1., Mdiag_tmp(i,i).arg()/2.0, true));
-    Nright = matrix<complex>(v1) * Nright;
+    Nright = gslpp::matrix<gslpp::complex>(v1) * Nright;
 
     N = Nright;
 }
@@ -123,20 +125,20 @@ void SUSYSpectrum::CalcSup()
     double Mz2 = mySUSY.getMz()*mySUSY.getMz();
     double sW2 = 1.0 - Mw*Mw/Mz2;
     double cos2b = 2.0 * mySUSY.getCosb() * mySUSY.getCosb() - 1.0;
-    matrix<complex> CKM(mySUSY.getVCKM());
-    matrix<complex> Id3 = matrix<complex>::Id(3);
+    gslpp::matrix<gslpp::complex> CKM(mySUSY.getVCKM());
+    gslpp::matrix<gslpp::complex> Id3 = gslpp::matrix<gslpp::complex>::Id(3);
     
     /* DRbar up-type quark masses at scale Q */
-    matrix<double> Mu(3, 3, 0.);
+    gslpp::matrix<double> Mu(3, 3, 0.);
     Mu(0, 0) = mySUSY.Mq_Q(mySUSY.UP);
     Mu(1, 1) = mySUSY.Mq_Q(mySUSY.CHARM);
     Mu(2, 2) = mySUSY.Mq_Q(mySUSY.TOP);
 
-    matrix<complex> uLL( CKM * mySUSY.msQhat2 * CKM.hconjugate() + Mu * Mu
+    gslpp::matrix<gslpp::complex> uLL( CKM * mySUSY.msQhat2 * CKM.hconjugate() + Mu * Mu
                          + cos2b * Mz2 * (1.0/2.0 - 2.0/3.0 * sW2) * Id3 );
-    matrix<complex> uLR( mySUSY.v2()/sqrt(2.0) * mySUSY.getTUhat().hconjugate()
+    gslpp::matrix<gslpp::complex> uLR( mySUSY.v2()/sqrt(2.0) * mySUSY.getTUhat().hconjugate()
                          - mySUSY.getMuH() * Mu / mySUSY.getTanb() );
-    matrix<complex> uRR( mySUSY.msUhat2 + Mu * Mu + cos2b * Mz2 * 2.0/3.0 * sW2 * Id3 );
+    gslpp::matrix<gslpp::complex> uRR( mySUSY.msUhat2 + Mu * Mu + cos2b * Mz2 * 2.0/3.0 * sW2 * Id3 );
     for(int i = 0; i < 3; i++)
         for(int j = 0; j < 3; j++) {
             Msup2.assign(i,   j,   uLL(i,j));
@@ -149,7 +151,7 @@ void SUSYSpectrum::CalcSup()
      * M.singularvalue(&U, &V, &S) decompose M into
      * M = U diag(S) V^+.
      */
-    matrix<complex> RuTmp(6, 6, 0.);
+    gslpp::matrix<gslpp::complex> RuTmp(6, 6, 0.);
     Msup2.eigensystem(RuTmp, m_su2);
 
     Ru = RuTmp.hconjugate();
@@ -161,19 +163,19 @@ void SUSYSpectrum::CalcSdown()
     double Mz2 = mySUSY.getMz()*mySUSY.getMz();
     double sW2 = 1.0 - Mw*Mw/Mz2;
     double cos2b = 2.0 * mySUSY.getCosb() * mySUSY.getCosb() - 1.0;
-    matrix<complex> Id3 = matrix<complex>::Id(3);
+    gslpp::matrix<gslpp::complex> Id3 = gslpp::matrix<gslpp::complex>::Id(3);
 
     /* DRbar down-type quark masses at scale Q */
-    matrix<double> Md(3, 3, 0.);
+    gslpp::matrix<double> Md(3, 3, 0.);
     Md(0, 0) = mySUSY.Mq_Q(mySUSY.DOWN);
     Md(1, 1) = mySUSY.Mq_Q(mySUSY.STRANGE);
     Md(2, 2) = mySUSY.Mq_Q(mySUSY.BOTTOM);
 
-    matrix<complex> dLL( mySUSY.msQhat2 + Md * Md
+    gslpp::matrix<gslpp::complex> dLL( mySUSY.msQhat2 + Md * Md
                          + cos2b * Mz2 * (- 1.0/2.0 + 1.0/3.0 * sW2) * Id3 );
-    matrix<complex> dLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTDhat().hconjugate()
+    gslpp::matrix<gslpp::complex> dLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTDhat().hconjugate()
                          - mySUSY.getMuH() * Md * mySUSY.getTanb() );
-    matrix<complex> dRR( mySUSY.msDhat2 + Md * Md - cos2b * Mz2 /3.0 * sW2 * Id3 );
+    gslpp::matrix<gslpp::complex> dRR( mySUSY.msDhat2 + Md * Md - cos2b * Mz2 /3.0 * sW2 * Id3 );
     for(int i = 0; i < 3; i++)
         for(int j = 0; j < 3; j++) {
             Msdown2.assign(i,   j,   dLL(i,j));
@@ -186,37 +188,43 @@ void SUSYSpectrum::CalcSdown()
      * M.singularvalue(&U, &V, &S) decompose M into
      * M = U diag(S) V^+.
      */
-    matrix<complex> RdTmp(6, 6, 0.);
+    gslpp::matrix<gslpp::complex> RdTmp(6, 6, 0.);
     Msdown2.eigensystem(RdTmp, m_sd2);
 
     Rd = RdTmp.hconjugate();
 }
 
-void SUSYSpectrum::CalcSneutrino()
+bool SUSYSpectrum::CalcSneutrino(gslpp::matrix<gslpp::complex>& Rn_i, gslpp::vector<double>& m_sn2_i)
 {
     double Mz2 = mySUSY.getMz()*mySUSY.getMz();
     double cos2b = 2.0 * mySUSY.getCosb() * mySUSY.getCosb() - 1.0;
-    matrix<complex> Id3 = matrix<complex>::Id(3);
+    gslpp::matrix<gslpp::complex> Id3 = gslpp::matrix<gslpp::complex>::Id(3);
 
-    matrix<complex> nLL( mySUSY.msLhat2 + cos2b * Mz2 /2.0 * Id3 );
-    matrix<complex> nLR( mySUSY.v2()/sqrt(2.0) * mySUSY.getTNhat().hconjugate() );
-    matrix<complex> nRR( mySUSY.msNhat2 );
-    for(int i = 0; i < 3; i++)
+    gslpp::matrix<gslpp::complex> nLL( mySUSY.msLhat2 + cos2b * Mz2 /2.0 * Id3 );
+    gslpp::matrix<gslpp::complex> nLR( mySUSY.v2()/sqrt(2.0) * mySUSY.getTNhat().hconjugate() );
+    gslpp::matrix<gslpp::complex> nRR( mySUSY.msNhat2 );
+    for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
             Msneutrino2.assign(i,   j,   nLL(i,j));
             Msneutrino2.assign(i,   j+3, nLR(i,j));
             Msneutrino2.assign(i+3, j,   nLR(j,i).conjugate());
             Msneutrino2.assign(i+3, j+3, nRR(i,j));
         }
-
+    }
     /*
      * M.singularvalue(&U, &V, &S) decompose M into
      * M = U diag(S) V^+.
      */
-    matrix<complex> RnTmp(6, 6, 0.);
-    Msneutrino2.eigensystem(RnTmp, m_sn2);
+    gslpp::matrix<gslpp::complex> RnTmp(6, 6, 0.);
+    Msneutrino2.eigensystem(RnTmp, m_sn2_i);
 
-    Rn = RnTmp.hconjugate();
+    m_sn2_i(0)=std::numeric_limits<double>::max();
+    m_sn2_i(1)=std::numeric_limits<double>::max();
+    m_sn2_i(2)=std::numeric_limits<double>::max();
+    Rn_i = RnTmp.hconjugate();
+
+    return true;
+
 }
 
 void SUSYSpectrum::CalcSelectron()
@@ -225,18 +233,18 @@ void SUSYSpectrum::CalcSelectron()
     double Mz2 = mySUSY.getMz()*mySUSY.getMz();
     double sW2 = 1.0 - Mw*Mw/Mz2;
     double cos2b = 2.0 * mySUSY.getCosb() * mySUSY.getCosb() - 1.0;
-    matrix<complex> Id3 = matrix<complex>::Id(3);
+    gslpp::matrix<gslpp::complex> Id3 = gslpp::matrix<gslpp::complex>::Id(3);
 
-    matrix<double> Me(3, 3, 0.);
+    gslpp::matrix<double> Me(3, 3, 0.);
     Me(0, 0) = mySUSY.Ml_Q(mySUSY.ELECTRON);
     Me(1, 1) = mySUSY.Ml_Q(mySUSY.MU);
     Me(2, 2) = mySUSY.Ml_Q(mySUSY.TAU);
 
-    matrix<complex> eLL( mySUSY.msLhat2 + Me * Me
+    gslpp::matrix<gslpp::complex> eLL( mySUSY.msLhat2 + Me * Me
                          + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
-    matrix<complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
+    gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
                          - mySUSY.getMuH() * Me * mySUSY.getTanb() );
-    matrix<complex> eRR( mySUSY.msEhat2 + Me * Me - cos2b * Mz2 * sW2 * Id3 );
+    gslpp::matrix<gslpp::complex> eRR( mySUSY.msEhat2 + Me * Me - cos2b * Mz2 * sW2 * Id3 );
     for(int i = 0; i < 3; i++)
         for(int j = 0; j < 3; j++) {
             Mselectron2.assign(i,   j,   eLL(i,j));
@@ -249,11 +257,19 @@ void SUSYSpectrum::CalcSelectron()
      * M.singularvalue(&U, &V, &S) decompose M into
      * M = U diag(S) V^+.
      */
-    matrix<complex> RlTmp(6, 6, 0.);
+    gslpp::matrix<gslpp::complex> RlTmp(6, 6, 0.);
     Mselectron2.eigensystem(RlTmp, m_se2);
 
     Rl = RlTmp.hconjugate();
 }
 
-
-
+//bool SUSYSpectrum::CalcSpectrum()
+//{
+////    CalcChargino();
+////    CalcNeutralino();
+////    CalcSup();
+////    CalcSdown();
+//    CalcSneutrino();
+////    CalcSelectron();
+//    return true;
+//}

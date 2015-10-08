@@ -88,7 +88,10 @@ public:
      * @return
      */
     virtual std::vector<WilsonCoefficient>& CMDL1();
-    
+
+   /** Calculates C7 for m->e (1), t->m (2) and t->e (3)**/
+    virtual gslpp::vector<complex> C7_Lepton(int n);
+
     
 //    /**
 //     * 
@@ -185,13 +188,48 @@ private:
     gslpp::matrix<complex> myRu;
     gslpp::matrix<complex> myRd;
     gslpp::matrix<complex> myRl;
-    gslpp::matrix<double> mym_sn_sq;
-    gslpp::matrix<double> mym_se_sq;
+    gslpp::matrix<complex> myRn;
+//    gslpp::matrix<double> mym_sn_sq; //Why?
+//    gslpp::matrix<double> mym_se_sq; //Why?
+    gslpp::vector<double> mym_sn_sq;
+    gslpp::vector<double> mym_se_sq;
     gslpp::vector<double> MChi0;
     gslpp::vector<double> MChi;
     gslpp::matrix<complex> myN;
     gslpp::matrix<complex> myV;
     gslpp::matrix<complex> myU;
+
+    gslpp::matrix<double> Lepty;
+    gslpp::matrix<double> Leptz;
+    gslpp::matrix<double> Leptf1;
+    gslpp::matrix<double> Leptf2;
+    gslpp::matrix<double> Leptf3;
+    gslpp::matrix<double> Leptf4;
+    gslpp::matrix<complex> CRlE;
+    gslpp::matrix<complex> CRlMU;
+    gslpp::matrix<complex> CRlTAU;
+    gslpp::matrix<complex> CLlE;
+    gslpp::matrix<complex> CLlMU;
+    gslpp::matrix<complex> CLlTAU;
+    gslpp::matrix<complex> NRlE;
+    gslpp::matrix<complex> NRlMU;
+    gslpp::matrix<complex> NRlTAU;
+    gslpp::matrix<complex> NLlE;
+    gslpp::matrix<complex> NLlMU;
+    gslpp::matrix<complex> NLlTAU;
+    gslpp::matrix<complex> AmpALN;
+    gslpp::matrix<complex> AmpARN;
+    gslpp::matrix<complex> AmpLC;
+    gslpp::matrix<complex> AmpRC;
+    gslpp::matrix<complex> AmpTauALN;
+    gslpp::matrix<complex> AmpTauARN;
+    gslpp::matrix<complex> AmpTauALC;
+    gslpp::matrix<complex> AmpTauARC;
+    gslpp::matrix<complex> AmpTEALN;
+    gslpp::matrix<complex> AmpTEARN;
+    gslpp::matrix<complex> AmpTEALC;
+    gslpp::matrix<complex> AmpTEARC;
+
     double Q_S;
     double mu2R;
     double Als;
