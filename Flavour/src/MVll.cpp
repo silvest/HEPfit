@@ -938,8 +938,6 @@ gslpp::complex MVll::deltaTperp(double q2)
             + mySM.Als(mu_b) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
             mySM.getMesons(vectorM).getDecayconst() / MM / mySM.getMesons(meson).getLambdaM()
             * cacheDeltaTperp;
-    
-    return 0.;
 }
 
 gslpp::complex MVll::deltaTpar(double q2) 
@@ -988,8 +986,6 @@ gslpp::complex MVll::deltaTpar(double q2)
             mySM.getMesons(vectorM).getDecayconst() / MM *
             (cacheDeltaTparp / Lambdaplus
             + cacheDeltaTparm / Lambdamin);
-    
-    return 0.;
 }
 
 /*******************************************************************************
