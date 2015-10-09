@@ -12,8 +12,8 @@
 #include <boost/bind.hpp>
 #include <limits>
 #include <TF1.h>
-#include "Math/GSLIntegrator.h"
-#include "Math/WrappedTF1.h"
+//#include "Math/GSLIntegrator.h"
+//#include "Math/WrappedTF1.h"
 
 MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
 : mySM(SM_i),
@@ -818,48 +818,48 @@ double MVll::Integrand_ReTperpplus(double * up, double * q2)
 {
     double u = *up;
     return (Tperpplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(1)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(2)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
+            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
 }
 
 double MVll::Integrand_ImTperpplus(double * up, double * q2) 
 {
     double u = *up;
     return (Tperpplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(1)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(2)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
+            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
 }
 
 double MVll::Integrand_ReTparplus(double * up, double * q2) 
 {
     double u = *up;
     return (Tparplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(1)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(2)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
+            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
 }
 
 double MVll::Integrand_ImTparplus(double * up, double * q2) 
 {
     double u = *up;
     return (Tparplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(1)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(2)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
+            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
 }
 
 double MVll::Integrand_ReTparminus(double* up, double * q2) 
 {
     double u = *up;
     return (Tparminus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(1)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(2)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
+            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
 }
 
 double MVll::Integrand_ImTparminus(double* up, double * q2) 
 {
     double u = *up;
     return (Tparminus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(1)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(2)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
+            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
 }
 
 gslpp::complex MVll::F27(double q2) 
@@ -914,78 +914,82 @@ gslpp::complex MVll::Cpar(double q2)
 gslpp::complex MVll::deltaTperp(double q2) 
 {
 
-    double CF = 4. / 3.;
-    if (deltaTperpCached == 0) {
-
-        TF1 f = TF1("f", this, &MVll::Integrand_ReTperpplus, 0., 1., 1, "MVll", "Integrand_ReTperpplus");
-        ROOT::Math::WrappedTF1 wf1(f);
-        wf1.SetParameters(&q2);
-        ROOT::Math::GSLIntegrator ig;
-        ig.SetFunction(wf1);
-        double ReTppint = ig.Integral(0., 1.); // interval
-
-        f = TF1("f", this, &MVll::Integrand_ImTperpplus, 0., 1., 1, "MVll", "Integrand_ImTperpplus");
-        wf1 = ROOT::Math::WrappedTF1(f);
-        wf1.SetParameters(&q2);
-        ig.SetFunction(wf1);
-        double ImTppint = ig.Integral(0., 1.); // interval
-
-        cacheDeltaTperp = ReTppint + gslpp::complex::i() * ImTppint;
-        deltaTperpCached = 1;
-    }
-
-    return mySM.Als(mu_b) * CF / 4. / M_PI * Cperp(q2)
-            + mySM.Als(mu_b) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-            mySM.getMesons(vectorM).getDecayconst() / MM / mySM.getMesons(meson).getLambdaM()
-            * cacheDeltaTperp;
+//    double CF = 4. / 3.;
+//    if (deltaTperpCached == 0) {
+//
+//        TF1 f = TF1("f", this, &MVll::Integrand_ReTperpplus, 0., 1., 1, "MVll", "Integrand_ReTperpplus");
+//        ROOT::Math::WrappedTF1 wf1(f);
+//        wf1.SetParameters(&q2);
+//        ROOT::Math::GSLIntegrator ig;
+//        ig.SetFunction(wf1);
+//        double ReTppint = ig.Integral(0., 1.); // interval
+//
+//        f = TF1("f", this, &MVll::Integrand_ImTperpplus, 0., 1., 1, "MVll", "Integrand_ImTperpplus");
+//        wf1 = ROOT::Math::WrappedTF1(f);
+//        wf1.SetParameters(&q2);
+//        ig.SetFunction(wf1);
+//        double ImTppint = ig.Integral(0., 1.); // interval
+//
+//        cacheDeltaTperp = ReTppint + gslpp::complex::i() * ImTppint;
+//        deltaTperpCached = 1;
+//    }
+//
+//    return mySM.Als(mu_b) * CF / 4. / M_PI * Cperp(q2)
+//            + mySM.Als(mu_b) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+//            mySM.getMesons(vectorM).getDecayconst() / MM / mySM.getMesons(meson).getLambdaM()
+//            * cacheDeltaTperp;
+    
+    return 0.;
 }
 
 gslpp::complex MVll::deltaTpar(double q2) 
 {
-    double Lambdaplus = mySM.getMesons(meson).getLambdaM();
-    gslpp::complex Lambdamin = exp(-q2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_E1(q2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
-    double CF = 4. / 3.;
-    if (deltaTparpCached == 0) {
-        TF1 f = TF1("f", this, &MVll::Integrand_ReTparplus, 0., 1., 1, "MVll", "Integrand_ReTparplus");
-        ROOT::Math::WrappedTF1 wf1(f);
-        wf1.SetParameters(&q2);
-        ROOT::Math::GSLIntegrator ig;
-        ig.SetFunction(wf1);
-        double ReTppint = ig.Integral(0., 1.); // interval
-
-        f = TF1("f", this, &MVll::Integrand_ImTparplus, 0., 1., 1, "MVll", "Integrand_ImTparplus");
-        wf1 = ROOT::Math::WrappedTF1(f);
-        wf1.SetParameters(&q2);
-        ig.SetFunction(wf1);
-        double ImTppint = ig.Integral(0., 1.); // interval
-
-        cacheDeltaTparp = (ReTppint + gslpp::complex::i() * ImTppint);
-        deltaTparpCached = 1;
-    }
-
-    if (deltaTparmCached == 0) {
-        TF1 f = TF1("f", this, &MVll::Integrand_ReTparminus, 0., 1., 1, "MVll", "Integrand_ReTparminus");
-        ROOT::Math::WrappedTF1 wf1(f);
-        wf1.SetParameters(&q2);
-        ROOT::Math::GSLIntegrator ig;
-        ig.SetFunction(wf1);
-        double ReTpmint = ig.Integral(0., 1.); // interval
-
-        f = TF1("f", this, &MVll::Integrand_ImTparminus, 0., 1., 1, "MVll", "Integrand_ImTparminus");
-        wf1 = ROOT::Math::WrappedTF1(f);
-        wf1.SetParameters(&q2);
-        ig.SetFunction(wf1);
-        double ImTpmint = ig.Integral(0., 1.); // interval
-
-        cacheDeltaTparm = (ReTpmint + gslpp::complex::i() * ImTpmint);
-        deltaTparmCached = 1;
-    }
-
-    return mySM.Als(mu_b) * CF / 4. / M_PI * Cpar(q2)
-            + mySM.Als(mu_b) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-            mySM.getMesons(vectorM).getDecayconst() / MM *
-            (cacheDeltaTparp / Lambdaplus
-            + cacheDeltaTparm / Lambdamin);
+//    double Lambdaplus = mySM.getMesons(meson).getLambdaM();
+//    gslpp::complex Lambdamin = exp(-q2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_E1(q2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
+//    double CF = 4. / 3.;
+//    if (deltaTparpCached == 0) {
+//        TF1 f = TF1("f", this, &MVll::Integrand_ReTparplus, 0., 1., 1, "MVll", "Integrand_ReTparplus");
+//        ROOT::Math::WrappedTF1 wf1(f);
+//        wf1.SetParameters(&q2);
+//        ROOT::Math::GSLIntegrator ig;
+//        ig.SetFunction(wf1);
+//        double ReTppint = ig.Integral(0., 1.); // interval
+//
+//        f = TF1("f", this, &MVll::Integrand_ImTparplus, 0., 1., 1, "MVll", "Integrand_ImTparplus");
+//        wf1 = ROOT::Math::WrappedTF1(f);
+//        wf1.SetParameters(&q2);
+//        ig.SetFunction(wf1);
+//        double ImTppint = ig.Integral(0., 1.); // interval
+//
+//        cacheDeltaTparp = (ReTppint + gslpp::complex::i() * ImTppint);
+//        deltaTparpCached = 1;
+//    }
+//
+//    if (deltaTparmCached == 0) {
+//        TF1 f = TF1("f", this, &MVll::Integrand_ReTparminus, 0., 1., 1, "MVll", "Integrand_ReTparminus");
+//        ROOT::Math::WrappedTF1 wf1(f);
+//        wf1.SetParameters(&q2);
+//        ROOT::Math::GSLIntegrator ig;
+//        ig.SetFunction(wf1);
+//        double ReTpmint = ig.Integral(0., 1.); // interval
+//
+//        f = TF1("f", this, &MVll::Integrand_ImTparminus, 0., 1., 1, "MVll", "Integrand_ImTparminus");
+//        wf1 = ROOT::Math::WrappedTF1(f);
+//        wf1.SetParameters(&q2);
+//        ig.SetFunction(wf1);
+//        double ImTpmint = ig.Integral(0., 1.); // interval
+//
+//        cacheDeltaTparm = (ReTpmint + gslpp::complex::i() * ImTpmint);
+//        deltaTparmCached = 1;
+//    }
+//
+//    return mySM.Als(mu_b) * CF / 4. / M_PI * Cpar(q2)
+//            + mySM.Als(mu_b) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+//            mySM.getMesons(vectorM).getDecayconst() / MM *
+//            (cacheDeltaTparp / Lambdaplus
+//            + cacheDeltaTparm / Lambdamin);
+    
+    return 0.;
 }
 
 /*******************************************************************************
