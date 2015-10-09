@@ -8,6 +8,7 @@
 #ifndef MESON_H
 #define	MESON_H
 
+#include <stdexcept>
 #include "Particle.h"
 #include "BParameter.h"
 #include "boost/lexical_cast.hpp"
