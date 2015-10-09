@@ -275,8 +275,7 @@ public:
     double getgtilde_1_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))
-                - 2.*Mb*MMpMV/V(q2)/q2 * deltaTperp(q2) ).real();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
     
     /**
@@ -287,8 +286,7 @@ public:
     double getgtilde_1_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))
-                - 2.*Mb*MMpMV/V(q2)/q2 * deltaTperp(q2) ).imag();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
@@ -299,8 +297,7 @@ public:
     double getgtilde_2_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)
-                -2.*MMmMV*Mb/A_1(q2)/q2 * (MM2 - q2)/MM2 * deltaTperp(q2)).real();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
     }
     
     /**
@@ -311,8 +308,7 @@ public:
     double getgtilde_2_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)
-                -2.*MMmMV*Mb/A_1(q2)/q2 * (MM2 - q2)/MM2 * deltaTperp(q2)).imag();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
     }
     
     /**
@@ -323,8 +319,9 @@ public:
     double getgtilde_3_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))
-                -2.*Mb*MMpMV/A_2(q2) * ( (deltaTpar(q2) + deltaTperp(q2))/MM2mMV2 + (MM2 - q2)/MM2/q2 * deltaTperp(q2) )).real();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + 
+                h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + 
+                h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
     }
 
     /**
@@ -335,8 +332,9 @@ public:
     double getgtilde_3_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))
-                -2.*Mb*MMpMV/A_2(q2) * ( (deltaTpar(q2) + deltaTperp(q2))/MM2mMV2 + (MM2 - q2)/MM2/q2 * deltaTperp(q2) )).imag();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + 
+                h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + 
+                h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
     /**
@@ -422,6 +420,11 @@ public:
         updateParameters();
         return (h_0[2]/h_0[0]).abs();
     }
+    
+    // Perturbative Delta C9 to be documented 
+    gslpp::complex DeltaC9_0(double q2);
+    gslpp::complex DeltaC9_p(double q2);
+    gslpp::complex DeltaC9_m(double q2);    
     
 private:
     
@@ -924,6 +927,10 @@ private:
     gslpp::complex cacheDeltaTparp;
     gslpp::complex cacheDeltaTparm;
     gslpp::complex cacheDeltaTperp;
+    
+    double cacheDeltaTparpq2;
+    double cacheDeltaTparmq2;
+    double cacheDeltaTperpq2;
     
     double avaSigma0;/**< Gsl integral variable */
     double avaSigma1;/**< Gsl integral variable */
