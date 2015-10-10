@@ -322,10 +322,9 @@ void MVll::updateParameters()
 
     mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
     
-    for (double q2 = .1 ; q2 < 8; q2+=.2)
+   for (double q2 = .1 ; q2 < 8; q2+=.2)
     {
-        std::cout << q2 << " " << DeltaC9_p(q2)/C_9 << " " << DeltaC9_m(q2)/C_9 << " " << DeltaC9_0(q2)/C_9 << std::endl;
-        std::cout << q2 << " " << DeltaC9_p(q2) * V_p(q2) << " " <<  DeltaC9_m(q2) * V_m(q2) << " " << DeltaC9_0(q2) * V_0t(q2) << std::endl;
+        std::cout << "DeltaC9_p,m,0 / C9 at q^2 = " << q2 << ": " << DeltaC9_p(q2)/C_9 << " " << DeltaC9_m(q2)/C_9 << " " << DeltaC9_0(q2)/C_9 << std::endl;
     }
     return;
 }
@@ -1002,21 +1001,21 @@ gslpp::complex MVll::deltaTpar(double q2)
 
 gslpp::complex MVll::DeltaC9_p(double q2)
 {
-    return 1./q2 * Mb/MM * (MMmMV * (MM2 - q2)/MM2 * MMpMV/2. -
+    return 1./q2 * Mb/MM * (MM2mMV2 * (MM2 - q2)/MM2 -
             sqrt(lambda(q2))) * deltaTperp(q2) ;
 }
 
 gslpp::complex MVll::DeltaC9_m(double q2)
 {
-    return 1./q2 * Mb/MM * (MMmMV * (MM2 - q2)/MM2 * MMpMV/2. +
+    return 1./q2 * Mb/MM * (MM2mMV2 * (MM2 - q2)/MM2 +
             sqrt(lambda(q2))) * deltaTperp(q2) ;
 }
 
 
 gslpp::complex MVll::DeltaC9_0(double q2)
 {
-    return 1. / 4. / MV / MM / sqrt(q2) * ((MM2mMV2 * (MM2mMV2 - q2) - 2.* lambda(q2))* (MM2 - q2) * 
-            Mb/MM2/q2 * deltaTperp(q2) - lambda(q2) * 2. *  (deltaTpar(q2) + deltaTperp(q2))* Mb/MM2mMV2);
+    return 1. / 2. / MV / MM / sqrt(q2) * ((MM2mMV2 * (MM2mMV2 - q2) - lambda(q2))* (MM2 - q2) * 
+            Mb/MM2/q2 * deltaTperp(q2) - lambda(q2) * (deltaTpar(q2) + deltaTperp(q2))* Mb/MM2mMV2);
 }
 
 /*******************************************************************************
