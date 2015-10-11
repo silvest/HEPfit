@@ -9,7 +9,9 @@
 
 Btaunu::Btaunu(const StandardModel& SM_i)
 : ThObservable(SM_i)
-{};
+{
+    if (SM.ModelName().compare("StandardModel") != 0) throw std::runtime_error("\nB to tau nu not implemented in: " + SM.ModelName() + " model\n");
+};
 
 double Btaunu::computeThValue()
 {

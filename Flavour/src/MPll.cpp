@@ -28,6 +28,7 @@ MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
         H_Scache(2, 0.),
         H_P_cache(4, 0.)
 {
+    if (mySM.ModelName().compare("StandardModel") != 0) throw std::runtime_error("\nB to P l+ l- not implemented in: " + mySM.ModelName() + " model\n");
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;

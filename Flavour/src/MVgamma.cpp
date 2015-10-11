@@ -11,6 +11,7 @@
 
 MVgamma::MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : ThObservable(SM_i)
 {
+    if (SM.ModelName().compare("StandardModel") != 0) throw std::runtime_error("\nB to V gamma not implemented in: " + SM.ModelName() + " model\n");
     meson = meson_i;
     vectorM = vector_i;
 }
