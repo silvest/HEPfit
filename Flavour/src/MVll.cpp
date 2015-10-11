@@ -33,7 +33,7 @@ H_V1cache(2, 0.),
 H_V2cache(2, 0.),
 H_Scache(2, 0.),
 H_Pcache(4, 0.),
-T_cache(3, 0.) 
+T_cache(5, 0.) 
 {
     lep = lep_i;
     meson = meson_i;
@@ -321,6 +321,11 @@ void MVll::updateParameters()
     if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
 
     mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
+    
+   for (double q2 = .1 ; q2 < 8; q2+=.2)
+    {
+        std::cout << "DeltaC9_p,m,0 / C9 at q^2 = " << q2 << ": " << DeltaC9_p(q2)/C_9 << " " << DeltaC9_m(q2)/C_9 << " " << DeltaC9_0(q2)/C_9 << std::endl;
+    }
     return;
 }
 
@@ -656,32 +661,35 @@ void MVll::checkCache()
         H_Pcache(3) = Ms;
 
     }
-
-    I0_updated = F_updated * H_V0updated * H_A0updated * H_Pupdated * beta_updated * H_Supdated;
-    I1_updated = F_updated * beta_updated * H_V1updated * H_V2updated * H_A1updated * H_A2updated;
-    I2_updated = F_updated * beta_updated * H_V0updated * H_A0updated;
-    I3_updated = F_updated * H_V1updated * H_V2updated * H_A1updated * H_A2updated * beta_updated;
-    I4_updated = F_updated * H_V1updated * H_V2updated * H_A1updated * H_A2updated;
-    I5_updated = F_updated * H_V0updated * H_V1updated * H_V2updated * H_A0updated * H_A1updated * H_A2updated * beta_updated;
-    I6_updated = F_updated * H_V1updated * H_V2updated * H_A0updated * H_A1updated * H_A2updated * H_V0updated * beta_updated * H_Supdated;
-    I7_updated = I4_updated * beta_updated;
-    I8_updated = F_updated * beta_updated * H_Supdated * H_V0updated;
-    I9_updated = I6_updated;
-    I10_updated = I5_updated;
-    I11_updated = I7_updated;
-
-    if (MM == T_cache(0) && Mb == T_cache(1) && Mc == T_cache(2)) {
+    
+        if (MM == T_cache(0) && Mb == T_cache(1) && Mc == T_cache(2) && 
+            mySM.getMesons(vectorM).getGegenalpha(0) == T_cache(3) && mySM.getMesons(vectorM).getGegenalpha(1) == T_cache(4) ) {
         T_updated = 1;
     } else {
         T_updated = 0;
         T_cache(0) = MM;
         T_cache(1) = Mb;
         T_cache(2) = Mc;
+        T_cache(3) = mySM.getMesons(vectorM).getGegenalpha(0);
+        T_cache(4) = mySM.getMesons(vectorM).getGegenalpha(1);
     }
 
     deltaTparpCached = C_2L_updated * T_updated;
     deltaTparmCached = C_2L_updated * C_8L_updated * T_updated;
     deltaTperpCached = deltaTparpCached;
+
+    I0_updated = F_updated * H_V0updated * H_A0updated * H_Pupdated * beta_updated * H_Supdated * deltaTparmCached;
+    I1_updated = F_updated * beta_updated * H_V1updated * H_V2updated * H_A1updated * H_A2updated * deltaTparmCached;
+    I2_updated = F_updated * beta_updated * H_V0updated * H_A0updated  * deltaTparmCached;
+    I3_updated = F_updated * H_V1updated * H_V2updated * H_A1updated * H_A2updated * beta_updated * deltaTparmCached ;
+    I4_updated = F_updated * H_V1updated * H_V2updated * H_A1updated * H_A2updated * deltaTparmCached;
+    I5_updated = F_updated * H_V0updated * H_V1updated * H_V2updated * H_A0updated * H_A1updated * H_A2updated * beta_updated * deltaTparmCached;
+    I6_updated = F_updated * H_V1updated * H_V2updated * H_A0updated * H_A1updated * H_A2updated * H_V0updated * beta_updated * H_Supdated * deltaTparmCached;
+    I7_updated = I4_updated * beta_updated ;
+    I8_updated = F_updated * beta_updated * H_Supdated * H_V0updated * deltaTparmCached;
+    I9_updated = I6_updated;
+    I10_updated = I5_updated;
+    I11_updated = I7_updated;
 
 }
 
@@ -771,8 +779,8 @@ double MVll::S_L(double q2)
 gslpp::complex MVll::Tperpplus(double u, double q2) 
 {
     double Ee = (MM2 - q2) / 2. / MM;
-    double ubar = 1. - u;
-    gslpp::complex B01 = -2. * sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.) * atan(1. / sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.));
+    gslpp::complex ubar = 1. - u;
+    gslpp::complex B01 = -2. * sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.) * arctan(1. / sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.));
     gslpp::complex B00 = -2. * sqrt(4. * Mc2 / q2 - 1.) * atan(1. / sqrt(4. * Mc2 / q2 - 1.));
     gslpp::complex xp = .5 + sqrt(1. / 4. - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
     gslpp::complex xm = .5 - sqrt(1. / 4. - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
@@ -791,8 +799,8 @@ gslpp::complex MVll::Tperpplus(double u, double q2)
 gslpp::complex MVll::Tparplus(double u, double q2) 
 {
     double Ee = (MM2 - q2) / 2. / MM;
-    double ubar = 1. - u;
-    gslpp::complex B01 = -2. * sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.) * atan(1. / sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.));
+    gslpp::complex ubar = 1. - u;
+    gslpp::complex B01 = -2. * sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.) * arctan(1. / sqrt(4. * Mc2 / (ubar * MM2 + u * q2) - 1.));
     gslpp::complex B00 = -2. * sqrt(4. * Mc2 / q2 - 1.) * atan(1. / sqrt(4. * Mc2 / q2 - 1.));
     gslpp::complex xp = .5 + sqrt(1. / 4. - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
     gslpp::complex xm = .5 - sqrt(1. / 4. - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
@@ -818,48 +826,48 @@ double MVll::Integrand_ReTperpplus(double * up, double * q2)
 {
     double u = *up;
     return (Tperpplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
+            (1 + mySM.getMesons(vectorM).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(vectorM).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
 }
 
 double MVll::Integrand_ImTperpplus(double * up, double * q2) 
 {
     double u = *up;
     return (Tperpplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
+            (1 + mySM.getMesons(vectorM).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(vectorM).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
 }
 
 double MVll::Integrand_ReTparplus(double * up, double * q2) 
 {
     double u = *up;
     return (Tparplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
+            (1 + mySM.getMesons(vectorM).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(vectorM).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
 }
 
 double MVll::Integrand_ImTparplus(double * up, double * q2) 
 {
     double u = *up;
     return (Tparplus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
+            (1 + mySM.getMesons(vectorM).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(vectorM).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
 }
 
 double MVll::Integrand_ReTparminus(double* up, double * q2) 
 {
     double u = *up;
     return (Tparminus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
+            (1 + mySM.getMesons(vectorM).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(vectorM).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).real();
 }
 
 double MVll::Integrand_ImTparminus(double* up, double * q2) 
 {
     double u = *up;
     return (Tparminus(u, *q2)*6. * u * (1. - u)*
-            (1 + mySM.getMesons(meson).getGegenalpha(0)*3. * (2. * u - 1)
-            + mySM.getMesons(meson).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
+            (1 + mySM.getMesons(vectorM).getGegenalpha(0)*3. * (2. * u - 1)
+            + mySM.getMesons(vectorM).getGegenalpha(1)*3. / 2. * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
 }
 
 gslpp::complex MVll::F27(double q2) 
@@ -915,7 +923,7 @@ gslpp::complex MVll::deltaTperp(double q2)
 {
 
     double CF = 4. / 3.;
-    if (deltaTperpCached == 0) {
+    if (deltaTperpCached == 0 || q2 != cacheDeltaTperpq2) {
 
         TF1 f = TF1("f", this, &MVll::Integrand_ReTperpplus, 0., 1., 1, "MVll", "Integrand_ReTperpplus");
         ROOT::Math::WrappedTF1 wf1(f);
@@ -931,6 +939,7 @@ gslpp::complex MVll::deltaTperp(double q2)
         double ImTppint = ig.Integral(0., 1.); // interval
 
         cacheDeltaTperp = ReTppint + gslpp::complex::i() * ImTppint;
+        cacheDeltaTperpq2 = q2;
         deltaTperpCached = 1;
     }
 
@@ -945,7 +954,7 @@ gslpp::complex MVll::deltaTpar(double q2)
     double Lambdaplus = mySM.getMesons(meson).getLambdaM();
     gslpp::complex Lambdamin = exp(-q2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_E1(q2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
     double CF = 4. / 3.;
-    if (deltaTparpCached == 0) {
+    if (deltaTparpCached == 0 || cacheDeltaTparpq2 != q2) {
         TF1 f = TF1("f", this, &MVll::Integrand_ReTparplus, 0., 1., 1, "MVll", "Integrand_ReTparplus");
         ROOT::Math::WrappedTF1 wf1(f);
         wf1.SetParameters(&q2);
@@ -960,10 +969,11 @@ gslpp::complex MVll::deltaTpar(double q2)
         double ImTppint = ig.Integral(0., 1.); // interval
 
         cacheDeltaTparp = (ReTppint + gslpp::complex::i() * ImTppint);
+        cacheDeltaTparpq2 = q2;
         deltaTparpCached = 1;
     }
 
-    if (deltaTparmCached == 0) {
+    if (deltaTparmCached == 0 || cacheDeltaTparmq2 != q2) {
         TF1 f = TF1("f", this, &MVll::Integrand_ReTparminus, 0., 1., 1, "MVll", "Integrand_ReTparminus");
         ROOT::Math::WrappedTF1 wf1(f);
         wf1.SetParameters(&q2);
@@ -978,6 +988,7 @@ gslpp::complex MVll::deltaTpar(double q2)
         double ImTpmint = ig.Integral(0., 1.); // interval
 
         cacheDeltaTparm = (ReTpmint + gslpp::complex::i() * ImTpmint);
+        cacheDeltaTparmq2 = q2;
         deltaTparmCached = 1;
     }
 
@@ -986,6 +997,25 @@ gslpp::complex MVll::deltaTpar(double q2)
             mySM.getMesons(vectorM).getDecayconst() / MM *
             (cacheDeltaTparp / Lambdaplus
             + cacheDeltaTparm / Lambdamin);
+}
+
+gslpp::complex MVll::DeltaC9_p(double q2)
+{
+    return 1./q2 * Mb/MM * (MM2mMV2 * (MM2 - q2)/MM2 -
+            sqrt(lambda(q2))) * deltaTperp(q2) ;
+}
+
+gslpp::complex MVll::DeltaC9_m(double q2)
+{
+    return 1./q2 * Mb/MM * (MM2mMV2 * (MM2 - q2)/MM2 +
+            sqrt(lambda(q2))) * deltaTperp(q2) ;
+}
+
+
+gslpp::complex MVll::DeltaC9_0(double q2)
+{
+    return 1. / 2. / MV / MM / sqrt(q2) * ((MM2mMV2 * (MM2mMV2 - q2) - lambda(q2))* (MM2 - q2) * 
+            Mb/MM2/q2 * deltaTperp(q2) - lambda(q2) * (deltaTpar(q2) + deltaTperp(q2))* Mb/MM2mMV2);
 }
 
 /*******************************************************************************
@@ -1025,17 +1055,17 @@ gslpp::complex MVll::Y(double q2)
 
 gslpp::complex MVll::H_V_0(double q2) 
 {
-    return -(((C_9 + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2)));
+    return -(((C_9 + DeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_V_p(double q2) 
 {
-    return -(((C_9 + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2)));
+    return -(((C_9 + DeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2) 
 {
-    return -(((C_9 + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2)));
+    return -(((C_9 + DeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2) 
