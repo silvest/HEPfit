@@ -35,7 +35,6 @@ H_Scache(2, 0.),
 H_Pcache(4, 0.),
 T_cache(5, 0.) 
 {
-    if (mySM.ModelName().compare("StandardModel") != 0) throw std::runtime_error("\nB to V l+ l- not implemented in: " + mySM.ModelName() + " model\n");
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;

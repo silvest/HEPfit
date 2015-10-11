@@ -45,6 +45,11 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
     
     virtual bool setFlag(const std::string name, const bool value);
+    
+    virtual FlavourWilsonCoefficientMatching* getMyMatching() const
+    {
+        return myFlavourWilsonCoefficientMatching;
+    }
 
     /**
      *

@@ -14,7 +14,7 @@
 Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i)
 {
-    if (SM.ModelName().compare("StandardModel") != 0) throw std::runtime_error("\nb to s gamma not implemented in: " + SM.ModelName() + " model\n");
+    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     
     if (obsFlag > 0 and obsFlag < 2) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR)");
