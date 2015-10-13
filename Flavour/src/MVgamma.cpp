@@ -67,7 +67,7 @@ void MVgamma::updateParameters()
 
     C_2h = (*(allcoeffh[LO]))(1);
     C_8h = (*(allcoeffh[LO]))(7);
-
+    
 }
 
 /*******************************************************************************
@@ -89,7 +89,7 @@ gslpp::complex MVgamma::G1(double s)
 
     return -104. / 27. * log(mu_b / Mb) - 833. / 162. - 20. * gslpp::complex::i() * M_PI / 27. +
             8. * M2 / 9. * pow(s, 1.5) + 2. / 9. * (48. + 30. * gslpp::complex::i() * M_PI -
-            5 * M2 - 2. * gslpp::complex::i() * M3 - 36. * gsl_sf_zeta(3.)+
+            5. * M2 - 2. * gslpp::complex::i() * M3 - 36. * gsl_sf_zeta(3.)+
             (36. + 6. * gslpp::complex::i() * M_PI - 9. * M2) * logs + (3. + 6. *
             gslpp::complex::i() * M_PI) * logs * logs + logs * logs * logs) * s + 2. / 9. * (
             18. + 2. * M2 - 2. * gslpp::complex::i() * M3 + (12. - 6. * M2) * logs + 6. *

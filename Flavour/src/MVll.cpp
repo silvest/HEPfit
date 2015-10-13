@@ -114,6 +114,7 @@ void MVll::updateParameters()
     MM = mySM.getMesons(meson).getMass();
     MV = mySM.getMesons(vectorM).getMass();
     mu_b = mySM.getMub();
+    mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass();
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
@@ -239,7 +240,12 @@ void MVll::updateParameters()
     C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
     C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
     C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
+    
+    allcoeffh = mySM.getMyFlavour()->ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
 
+    C_2Lh = (*(allcoeffh[LO]))(1);
+    C_8Lh = (*(allcoeffh[LO]))(7);
+    
     checkCache();
 
     t_p = pow(MM + MV, 2.);
@@ -566,18 +572,18 @@ void MVll::checkCache()
         C_Pp_cache = C_Pp;
     }
 
-    if (C_2L == C_2L_cache) {
-        C_2L_updated = 1;
+    if (C_2Lh == C_2Lh_cache) {
+        C_2Lh_updated = 1;
     } else {
-        C_2L_updated = 0;
-        C_2L_cache = C_2L;
+        C_2Lh_updated = 0;
+        C_2Lh_cache = C_2Lh;
     }
 
-    if (C_8L == C_8L_cache) {
-        C_8L_updated = 1;
+    if (C_8Lh == C_8Lh_cache) {
+        C_8Lh_updated = 1;
     } else {
-        C_8L_updated = 0;
-        C_8L_cache = C_8L;
+        C_8Lh_updated = 0;
+        C_8Lh_cache = C_8Lh;
     }
 
     if (Mb == Ycache(0) && Mc == Ycache(1)) {
@@ -674,8 +680,8 @@ void MVll::checkCache()
         T_cache(4) = mySM.getMesons(vectorM).getGegenalpha(1);
     }
 
-    deltaTparpCached = C_2L_updated * T_updated;
-    deltaTparmCached = C_2L_updated * C_8L_updated * T_updated;
+    deltaTparpCached = C_2Lh_updated * T_updated;
+    deltaTparmCached = C_2Lh_updated * C_8Lh_updated * T_updated;
     deltaTperpCached = deltaTparpCached;
 
     I0_updated = F_updated * H_V0updated * H_A0updated * H_Pupdated * beta_updated * H_Supdated * deltaTparmCached;
@@ -792,8 +798,8 @@ gslpp::complex MVll::Tperpplus(double u, double q2)
     gslpp::complex L1ym = log(1. - 1. / ym) * log(1. - ym) - M_PI * M_PI / 6. + dilog(ym / (ym - 1.));
     gslpp::complex I1 = 1. + 2. * Mc2 / ubar / (MM2 - q2)*(L1xp + L1xm - L1yp - L1ym);
     gslpp::complex tperp = 2. * MM / Ee / ubar * I1 + q2 / Ee / Ee / ubar / ubar * (B01 - B00);
-    return -4. * mySM.getQuarks(QCD::DOWN).getCharge() * C_8L / (u + ubar * q2 / MM2) + MM / 2. / Mb *
-            mySM.getQuarks(QCD::UP).getCharge() * tperp * C_2L;
+    return -4. * mySM.getQuarks(QCD::DOWN).getCharge() * C_8Lh / (u + ubar * q2 / MM2) + MM / 2. / Mb *
+            mySM.getQuarks(QCD::UP).getCharge() * tperp * C_2Lh;
 }
 
 gslpp::complex MVll::Tparplus(double u, double q2) 
@@ -812,14 +818,14 @@ gslpp::complex MVll::Tparplus(double u, double q2)
     gslpp::complex L1ym = log(1. - 1. / ym) * log(1. - ym) - M_PI * M_PI / 6. + dilog(ym / (ym - 1.));
     gslpp::complex I1 = 1. + 2. * Mc2 / ubar / (MM2 - q2)*(L1xp + L1xm - L1yp - L1ym);
     gslpp::complex tpar = 2. * MM / Ee / ubar * I1 + (ubar * MM2 + u * q2) / Ee / Ee / ubar / ubar * (B01 - B00);
-    return MM / Mb * mySM.getQuarks(QCD::UP).getCharge() * tpar*C_2L;
+    return MM / Mb * mySM.getQuarks(QCD::UP).getCharge() * tpar*C_2Lh;
 }
 
 gslpp::complex MVll::Tparminus(double u, double q2) 
 {
     double ubar = 1. - u;
-    return mySM.getQuarks(QCD::DOWN).getCharge()*(8. * C_8L / (ubar + u * q2 / MM2)
-            + 6. * MM / Mb * H_c(ubar * MM2 + u * q2) * C_2L);
+    return mySM.getQuarks(QCD::DOWN).getCharge()*(8. * C_8Lh / (ubar + u * q2 / MM2)
+            + 6. * MM / Mb * H_c(ubar * MM2 + u * q2) * C_2Lh);
 }
 
 double MVll::Integrand_ReTperpplus(double * up, double * q2) 
@@ -875,7 +881,7 @@ gslpp::complex MVll::F27(double q2)
     double s = q2 / Mb2;
     double Ls = log(s);
     gslpp::complex i = gslpp::complex::i();
-    return 3.8367 + 0.3531 * i + (1.3098 + 0.60185 * i) * s + (0.13507 + 0.89014 * i) * s * s
+    return 416./81. *log(mu_b/Mb) + 3.8367 + 0.3531 * i + (1.3098 + 0.60185 * i) * s + (0.13507 + 0.89014 * i) * s * s
             + (-1.0271 + 0.77168 * i) * s * s * s + (-0.031936 - 0.10981 * i) * Ls * s
             + (-0.14169 - 0.035553 * i) * Ls * s * s + (-0.13592 + 0.093 * i) * Ls * s * s*s;
 }
@@ -884,8 +890,15 @@ gslpp::complex MVll::F29(double q2)
 {
     double s = q2 / Mb2;
     double Ls = log(s);
+    double mchat2 = Mc2/Mb2;
+    double Lc = log(mchat2);
+    double Lm = log(mu_b/Mb);
     gslpp::complex i = gslpp::complex::i();
-    return 5.4082 - 1.0934 * i + (1.9061 + 0.80843 * i) * s + (-1.8286 + 2.8428 * i) * s * s
+    return (256./243. - 32./81.*gslpp::complex::i()*M_PI - 128./9.*Lc)*Lm
+            +32./81.*Lm*Ls + (-32./405. + 64./45./mchat2)*Lm*s
+            +(-8./945. + 16./105./mchat2/mchat2)*Lm*s*s
+            +(-32./25515. + 64./2835./mchat2/mchat2/mchat2)*Lm*s*s*s + 512./81.*Lm*Lm
+            + 5.4082 - 1.0934 * i + (1.9061 + 0.80843 * i) * s + (-1.8286 + 2.8428 * i) * s * s
             + (-12.113 + 8.1251 * i) * s * s * s + (0.48576 + 0.31119 * i) * Ls
             + (0.21951 - 0.14852 * i) * Ls * s
             + (0.13015 - 0.22155 * i) * Ls * s * s + (-0.079692 - 0.31214 * i) * Ls * s * s*s;
@@ -944,8 +957,8 @@ gslpp::complex MVll::deltaTperp(double q2)
     }
 
     return mySM.Als(mu_b) * CF / 4. / M_PI * Cperp(q2)
-            + mySM.Als(mu_b) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-            mySM.getMesons(vectorM).getDecayconst() / MM / mySM.getMesons(meson).getLambdaM()
+            + mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+            mySM.getMesons(vectorM).getDecayconst() / MM / T_1(q2) / mySM.getMesons(meson).getLambdaM()
             * cacheDeltaTperp;
 }
 
@@ -954,6 +967,8 @@ gslpp::complex MVll::deltaTpar(double q2)
     double Lambdaplus = mySM.getMesons(meson).getLambdaM();
     gslpp::complex Lambdamin = exp(-q2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_E1(q2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
     double CF = 4. / 3.;
+    double T3q2 = MM2mMV2/lambda(q2) * ( (MM2 + 3.*MV2 - q2) * T_2(q2) - 8.*MM*MV2/MMpMV * FF_fit(q2, a_0T23, a_1T23, a_2T23, MRT23_2) );
+    
     if (deltaTparpCached == 0 || cacheDeltaTparpq2 != q2) {
         TF1 f = TF1("f", this, &MVll::Integrand_ReTparplus, 0., 1., 1, "MVll", "Integrand_ReTparplus");
         ROOT::Math::WrappedTF1 wf1(f);
@@ -993,8 +1008,8 @@ gslpp::complex MVll::deltaTpar(double q2)
     }
 
     return mySM.Als(mu_b) * CF / 4. / M_PI * Cpar(q2)
-            + mySM.Als(mu_b) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-            mySM.getMesons(vectorM).getDecayconst() / MM *
+            + mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+            mySM.getMesons(vectorM).getDecayconst() / MM / (T_1(q2) - T3q2) *
             (cacheDeltaTparp / Lambdaplus
             + cacheDeltaTparm / Lambdamin);
 }

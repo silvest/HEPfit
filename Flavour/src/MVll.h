@@ -445,6 +445,7 @@ private:
     double MV;            /**<final vector meson mass */
     double Mb;            /**<b quark mass */
     double mu_b;          /**<b mass scale */
+    double mu_h;          /**<sqrt(mu_b*lambda_QCD) */
     double Mc;            /**<c quark mass */
     double Ms;            /**<s quark mass */
     double width;         /**<initial meson width */
@@ -541,17 +542,20 @@ private:
     double MRT23_2;/**<LCSR fit parameter */
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeffh;/**<vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_2;/**<Wilson coeffients @f$C_2@f$*/
     gslpp::complex C_2L;/**<Leading order Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C_2Lh;/**<Leading order Wilson coeffients @f$C_2@f$ at scale @f$\mu_h@f$*/
     gslpp::complex C_3;/**<Wilson coeffients @f$C_3@f$*/
     gslpp::complex C_4;/**<Wilson coeffients @f$C_4@f$*/
     gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
     gslpp::complex C_8L;/**<Leading order Wilson coeffients @f$C_8@f$*/
+    gslpp::complex C_8Lh;/**<Leading order Wilson coeffients @f$C_8@f$ at scale @f$\mu_h@f$*/
     gslpp::complex C_9;/**<Wilson coeffients @f$C_9@f$*/
     gslpp::complex C_10;/**<Wilson coeffients @f$C_{10}@f$*/
     gslpp::complex C_S;/**<Wilson coeffients @f$C_S@f$*/
@@ -1116,11 +1120,11 @@ private:
     unsigned int C_Pp_updated;/**< Cache variable */
     gslpp::complex C_Pp_cache;/**< Cache variable */
     
-    unsigned int C_2L_updated;/**< Cache variable */
-    gslpp::complex C_2L_cache;/**< Cache variable */
+    unsigned int C_2Lh_updated;/**< Cache variable */
+    gslpp::complex C_2Lh_cache;/**< Cache variable */
     
-    unsigned int C_8L_updated;/**< Cache variable */
-    gslpp::complex C_8L_cache;/**< Cache variable */
+    unsigned int C_8Lh_updated;/**< Cache variable */
+    gslpp::complex C_8Lh_cache;/**< Cache variable */
     
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */
