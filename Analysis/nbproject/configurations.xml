@@ -35,6 +35,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>Flavour.conf</itemPath>
+    <itemPath>FlavourWC.conf</itemPath>
     <itemPath>GeneralSUSY.conf</itemPath>
     <itemPath>HiggsKvKf.conf</itemPath>
     <itemPath>MFV.conf</itemPath>
@@ -190,6 +191,30 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../GeneralSUSY"
                             CT="3"
                             CN="Debug"
@@ -274,18 +299,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../LeptonFlavour"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../LeptonFlavour"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../LoopFunctions"
                             CT="3"
                             CN="Debug"
@@ -332,6 +345,8 @@
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -529,6 +544,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Debug"
@@ -683,6 +710,8 @@
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -861,6 +890,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Release"
@@ -1015,6 +1056,8 @@
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1217,6 +1260,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Release"
@@ -1371,6 +1426,8 @@
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1571,6 +1628,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Cluster"
@@ -1725,6 +1794,8 @@
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1926,6 +1997,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Cluster"
@@ -2080,6 +2163,8 @@
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>

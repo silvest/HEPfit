@@ -52,6 +52,12 @@ public:
     
     virtual bool setFlag(const std::string name, const bool value);
     
+    virtual THDMMatching* getMyMatching() const
+    {
+        return myTHDMMatching;
+    }
+
+    
     ///////////////////////////////////////////////////////////////////////////
     
     /**

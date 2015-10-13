@@ -20,6 +20,7 @@
 #include <MFV.h>
 #include <SUSY.h>
 #include <THDM.h>
+#include <FlavourWilsonCoefficient.h>
 /** END: REMOVE FROM THE PACKAGE **/
 
 ModelFactory::ModelFactory()
@@ -52,6 +53,7 @@ ModelFactory::ModelFactory()
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
+    modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 
