@@ -37,7 +37,8 @@ public:
             else
                 elem[i] = NULL;
         elem[orders_ew(NULL_ew)] = NULL;
-        for (int i = LO_ew; i <= NLO_ew; i++){
+        //for (int i = LO_ew; i <= NLO_ew; i++){
+        for (int i = LO_ew; i <= MAXORDER_EW; i++){
             if (i <= order_ew)
                 elem[i] = new T(size, 0.);
             else

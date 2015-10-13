@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 HEPfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,18 +8,21 @@
 #include "Bdmumu.h"
 
 Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag)
-: ThObservable(SM_i)
-{
+: ThObservable(SM_i),
+  evolbdmm(8, NDR, NNLO, NLO_ewt4, SM)
+{  
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
-    else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
+    else throw std::runtime_error("obsFlag in Bdmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
 };
 
 double Bdmumu::computeThValue()
-{
-    computeObs(FULLNLO);
+{   
+    computeObs(FULLNLO, FULLNLO_ew);
     double FBd = SM.getMesons(QCD::B_D).getDecayconst();
-    double coupling = SM.getGF() * SM.alphaMz() / 4. / M_PI;
-    double PRF = pow(coupling, 2.) / M_PI / SM.getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
+    
+    double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
+    
+    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
     yd = 0; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
     
@@ -32,32 +35,34 @@ double Bdmumu::computeThValue()
     return (EXIT_FAILURE);
 }
 
-void Bdmumu::computeObs(orders order)
+void Bdmumu::computeObs(orders order, orders_ew order_ew)
 {
+    double mu = SM.getMub();  
+        
     mmu = SM.getLeptons(StandardModel::MU).getMass();
     mBd = SM.getMesons(QCD::B_D).getMass();
     mb = SM.getQuarks(QCD::BOTTOM).getMass();
     md = SM.getQuarks(QCD::DOWN).getMass();
     chiral = pow(mBd, 2.) / 2. / mmu * mb / (mb + md);
     beta = sqrt(1. - pow(2. * mmu / mBd, 2.));
-    computeAmpSq(order);
+    computeAmpSq(order, order_ew, mu);
     Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
     Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
 }
 
 double Bdmumu::computeAmumu(orders order)
 {
-    computeObs(FULLNLO);
+    computeObs(FULLNLO, FULLNLO_ew);
     return(Amumu);
 }
 
 double Bdmumu::computeSmumu(orders order)
 {
-    computeObs(FULLNLO);
+    computeObs(FULLNLO, FULLNLO_ew);
     return(Smumu);
 }
 
-void Bdmumu::computeAmpSq(orders order)
+void Bdmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
 {
     if (SM.getMyFlavour()->getHDB1().getCoeffdmumu().getOrder() < order % 3){
         std::stringstream out;
@@ -65,42 +70,36 @@ void Bdmumu::computeAmpSq(orders order)
         throw std::runtime_error("Bdmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    vector<complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffdmumu();
+    vector<complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffdmumu(mu, NDR);
     
-    switch(order) {
-        case FULLNLO:
+    double alsmu = evolbdmm.alphatilde_s(mu);
+    double alemu = evolbdmm.alphatilde_e(mu);
+    
+    if((order == FULLNLO) && (order_ew == FULLNLO_ew)){
+    
+    switch(order_ew) {
+        case FULLNLO_ew:
         {
-            complex PP = (*(allcoeff[LO]) + *(allcoeff[NLO]))(0) - (*(allcoeff[LO]) + *(allcoeff[NLO]))(1)
-            + chiral * ((*(allcoeff[LO]) + *(allcoeff[NLO]))(2) - (*(allcoeff[LO]) + *(allcoeff[NLO]))(3));
-            absP = PP.abs();
-            argP = PP.arg();
-            
-            complex SS = beta * chiral * ((*(allcoeff[LO]) + *(allcoeff[NLO]))(4) - (*(allcoeff[LO]) + *(allcoeff[NLO]))(5));
-            absS = SS.abs();
-            argS = SS.arg();
+            complex CC = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
+                    + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_ew ]))(7) /alsmu
+                    + (*(allcoeff[NLO_ew]))(7) + (*(allcoeff[NLO_ewt1]))(7) * alemu /alsmu /alsmu 
+                    + (*(allcoeff[NLO_ewt2]))(7) * alsmu 
+                    + (*(allcoeff[NLO_ewt3]))(7) * alemu /alsmu+ (*(allcoeff[NLO_ewt4]))(7) * alemu;
+            absP = CC.abs();
+            argP = CC.arg();
+           
             phiNP = 0.;
             
-            ampSq = absP * absP + absS * absS;
+            ampSq = absP * absP ;
+                  
         }
-            break;
-        case LO:
-        {
-            complex PP = (*(allcoeff[LO]))(0) - (*(allcoeff[LO]))(1)
-            + chiral * ((*(allcoeff[LO]))(2) - (*(allcoeff[LO]))(3));
-            absP = PP.abs();
-            argP = PP.arg();
-            
-            complex SS = beta * chiral * ((*(allcoeff[LO]))(4) - (*(allcoeff[LO]))(5));
-            absS = SS.abs();
-            argS = SS.arg();
-            phiNP = 0.;
-            
-            ampSq = absP * absP + absS * absS;
-        }
-            break;
+        break;
         default:
             std::stringstream out;
             out << order;
             throw std::runtime_error("Bdmumu::computeAmpSq(): order " + out.str() + " not implemented");;
     }
+    }
+    
+    
 }

@@ -14,6 +14,7 @@
 #include "EvolDF1nlep.h"
 #include "EvolDB1Mll.h"
 #include "EvolDB1bsg.h"
+#include "EvolBsmm.h"
 
 
 using namespace gslpp;
@@ -70,14 +71,14 @@ public:
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{s} \rightarrow \mu \bar{\mu} \f$
      */
-    vector<complex>** ComputeCoeffsmumu();
+    vector<complex>** ComputeCoeffsmumu(double mu, schemes scheme = NDR);
     
     /**
      * 
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{d} \rightarrow \mu \bar{\mu} \f$
      */
-    vector<complex>** ComputeCoeffdmumu();
+    vector<complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -149,7 +150,7 @@ public:
     }
     
     WilsonCoefficient getCoeffbtaunu() const {
-        return coeffdmumu;
+        return coeffbtaunu;
     }
     
     WilsonCoefficient getCoeffsnunu() const {
@@ -162,6 +163,14 @@ public:
     
     WilsonCoefficient getCoeffsgamma() const {
         return coeffsgamma;
+    }
+    
+    EvolBsmm getUBsmm() const {
+        return evolbs;
+    }
+    
+    EvolBsmm getUBdmm() const {
+        return evolbd;
     }
     
     EvolDF1nlep getUDF1() const {
@@ -195,6 +204,7 @@ private :
     EvolDB1Mll evolDF1BMll;
     EvolDB1bsg evolDB1bsg;
     EvolDF1nlep u;
+    EvolBsmm evolbs, evolbd;
     
     //StandardModelMatching& standardmodelmatching;
     
@@ -212,6 +222,16 @@ private :
     std::vector<double> BMllprime_Mu_cache;
     schemes BMllprime_scheme_cache;
     std::vector<WilsonCoefficient> BMllprime_WC_cache;
+    
+    double Bsmumu_mu_cache;
+    std::vector<double> Bsmumu_Mu_cache;
+    schemes Bsmumu_scheme_cache;
+    std::vector<WilsonCoefficient> Bsmumu_WC_cache;
+    
+    double Bdmumu_mu_cache;
+    std::vector<double> Bdmumu_Mu_cache;
+    schemes Bdmumu_scheme_cache;
+    std::vector<WilsonCoefficient> Bdmumu_WC_cache;
     
     gslpp::vector<complex> nlep, nlep2, nlepCC;
 };

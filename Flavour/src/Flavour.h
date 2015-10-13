@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 HEPfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,6 +14,7 @@
 #include "HeffDB1.h"
 #include "MVll.h"
 #include "MPll.h"
+#include <boost/tuple/tuple.hpp>
 
 using namespace gslpp;
 
@@ -84,13 +85,13 @@ public:
         return HDS1.ComputeCoeffDS1mumu();
     }
     
-    vector<complex>** ComputeCoeffsmumu() {
-        return HDB1.ComputeCoeffsmumu();
+    vector<complex>** ComputeCoeffsmumu(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffsmumu(mu, scheme);
     }
     
     
-    vector<complex>** ComputeCoeffdmumu() {
-        return HDB1.ComputeCoeffdmumu();
+    vector<complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffdmumu(mu, scheme);
     }
     
     vector<complex>** ComputeCoeffbtaunu() {
@@ -98,11 +99,11 @@ public:
     }
     
     vector<complex>** ComputeCoeffsnunu() {
-        return HDB1.ComputeCoeffdmumu();
+        return HDB1.ComputeCoeffsnunu();
     }
     
     vector<complex>** ComputeCoeffdnunu() {
-        return HDB1.ComputeCoeffdmumu();
+        return HDB1.ComputeCoeffdnunu();
     }
     
     vector<complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR) {

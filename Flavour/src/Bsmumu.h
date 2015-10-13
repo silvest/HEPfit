@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 HEPfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -39,8 +39,8 @@ protected:
      * @return the short distance contribution to the 
      * |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
-    void computeAmpSq(orders order);
-    void computeObs(orders order);
+    void computeAmpSq(orders order, orders_ew order_ew, double mu);
+    void computeObs(orders order, orders_ew order_ew);
     
 private:
     
@@ -61,6 +61,7 @@ private:
     double timeInt;
     double ys;
     int obs;
+    EvolBsmm evolbsmm;
 
 };
 

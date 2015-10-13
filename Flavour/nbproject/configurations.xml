@@ -26,6 +26,7 @@
       <itemPath>src/DmK.h</itemPath>
       <itemPath>src/EpsilonK.h</itemPath>
       <itemPath>src/EpsilonP_O_Epsilon.h</itemPath>
+      <itemPath>src/EvolBsmm.h</itemPath>
       <itemPath>src/EvolDB1Mll.h</itemPath>
       <itemPath>src/EvolDB1bsg.h</itemPath>
       <itemPath>src/EvolDC1.h</itemPath>
@@ -81,6 +82,7 @@
       <itemPath>src/DmK.cpp</itemPath>
       <itemPath>src/EpsilonK.cpp</itemPath>
       <itemPath>src/EpsilonP_O_Epsilon.cpp</itemPath>
+      <itemPath>src/EvolBsmm.cpp</itemPath>
       <itemPath>src/EvolDB1Mll.cpp</itemPath>
       <itemPath>src/EvolDB1bsg.cpp</itemPath>
       <itemPath>src/EvolDC1.cpp</itemPath>
@@ -237,6 +239,10 @@
       <item path="src/EpsilonP_O_Epsilon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EvolDB1Mll.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -456,6 +462,10 @@
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EvolDB1Mll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDB1Mll.h" ex="false" tool="3" flavor2="0">
@@ -658,6 +668,10 @@
       <item path="src/EpsilonP_O_Epsilon.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EvolDB1Mll.cpp" ex="false" tool="1" flavor2="0">
       </item>

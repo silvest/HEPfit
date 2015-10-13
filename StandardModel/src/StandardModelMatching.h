@@ -62,7 +62,7 @@ public:
      * @return return the vector of SM Wilson coefficients
      */
     virtual  std::vector<WilsonCoefficient>& CMdk2();
-    
+        
     /** 
      * 
      * @brief operator basis: 
@@ -278,7 +278,61 @@ public:
      * @param[in] mu the matching scale of the Wilson coefficients
      */
     double F1t(double x, double mu) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double E1t(double x, double mu) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double G1t(double x, double mu) const;
 
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Tt(double x) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/0512066
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Wt(double x) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/0512066
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Eet(double x) const;
+    
+    /**
+     * 
+     * @brief approximation of two-loops EW correction for Q_10 operator
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/1311.1348
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Rest(double x, double mu) const;
+    
     /**
      *
      * @param[in] x the square of the ratio between top mass and W mass
@@ -473,6 +527,42 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
+     * @return return the value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBsmm(int i, double x, orders order);
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order_ew
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBsmmEW(int i, double x, orders_ew order_ew);
+    
+     /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order
+     * @return return the value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBdmm(int i, double x, orders order);
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order_ew
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBdmmEW(int i, double x, orders_ew order_ew);
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order
      * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
      */
     double setWCbsg (int i, double x, orders order);
@@ -524,8 +614,14 @@ private:
     double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
     double CWbnlepArrayLOew[10], CWbnlepArrayNLOew[10];
     
-    double sw, swa, swb, swc; //sen(theta_W) tree level
-    double xcachea, xcacheb, xcachec; // caching
+    double CWBsmmArrayNNLOqcd[8], CWBsmmArrayNLOqcd[8], CWBsmmArrayLOqcd[8];
+    double CWBsmmArrayNLOewt4[8], CWBsmmArrayNLOewt2[8], CWBsmmArrayNLOew[8];
+    
+    double CWBdmmArrayNNLOqcd[8], CWBdmmArrayNLOqcd[8], CWBdmmArrayLOqcd[8];
+    double CWBdmmArrayNLOewt4[8], CWBdmmArrayNLOewt2[8], CWBdmmArrayNLOew[8];
+    
+    double sw, swa, swb, swc, swd, swe; //sen(theta_W) tree level
+    double xcachea, xcacheb, xcachec, xcached, xcachee; // caching
     
     
 };

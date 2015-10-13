@@ -9,7 +9,7 @@
 #define	ORDERSCHEME_H
 
 #define MAXORDER FULLNNLO
-#define MAXORDER_EW NLO_ew
+#define MAXORDER_EW FULLNLO_ew
 
 /**
  * @enum schemes
@@ -46,7 +46,12 @@ enum orders_ew
 {
     NULL_ew = orders(MAXORDER + 1), /**< An auxiliary enumerator */
     LO_ew, /**< Leading order */
-    NLO_ew /**< Next-to-leading order */
+    NLO_ew, /**< Next-to-leading order */
+    NLO_ewt1,   /* e^2/s^2 */
+    NLO_ewt2,     /* es */
+    NLO_ewt3,    /* e^2/s */
+    NLO_ewt4,     /* e^2 */
+    FULLNLO_ew /**< Full NLO_ew = LO + NLO + LO_ew + NLO_ew +...+ NLO_ewt4 */
 };
 
 #endif	/* ORDERSCHEME_H */
