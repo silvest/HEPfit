@@ -12,7 +12,6 @@
 #include <StandardModel.h>
 #include <sstream>
 
-using namespace gslpp;
 /**
  * @class EvolDC1
  * @brief \f$ |\Delta C = 1 | \f$ Evolutor Class
@@ -43,7 +42,7 @@ class EvolDC1 : public RGEvolutor {
      * @param n_d an unsigned integer for the down-type number of d.o.f.
      * @return the ADM at the order LO/NLO in the Misiak basis
      */
-    matrix<double> AnomalousDimension_M(orders order, unsigned int n_u, unsigned int n_d) const;
+    gslpp::matrix<double> AnomalousDimension_M(orders order, unsigned int n_u, unsigned int n_d) const;
     /**
      * @brief a method returning the evolutor related to the high scale \f$ M \f$ and the low scale \f$ \mu \f$
      * @param mu a double for the low scale of the evolution
@@ -52,7 +51,7 @@ class EvolDC1 : public RGEvolutor {
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @return the evolutor \f$ U (\mu , M) \f$
      */
-    matrix<double>& DC1Evol(double mu, double M, orders order,  schemes scheme = NDR);
+    gslpp::matrix<double>& DC1Evol(double mu, double M, orders order,  schemes scheme = NDR);
     /**
      * @brief a method returning the anomalous dimension in the Chetyrkin, Misiak and Munz operator basis 
      * @param order an enum "orders" for the order of perturbation theory of the evolutor
@@ -60,13 +59,13 @@ class EvolDC1 : public RGEvolutor {
      * @param n_d an unsigned integer for the down-type number of d.o.f.
      * @return the ADM at the order LO/NLO in the Chetyrkin, Misiak and Munz basis
      */
-    matrix<double> ToRescaledBasis(orders order, unsigned int n_u, unsigned int n_d) const;
+    gslpp::matrix<double> ToRescaledBasis(orders order, unsigned int n_u, unsigned int n_d) const;
     /**
      * @brief a method returning the anomalous dimension for the evolution of the effective Wilson coefficients
      * @param mat a temporary variable of gslpp::matrix type
      * @return the ADM at the order LO/NLO for the effective Wilson coefficients
      */
-    matrix<double> ToEffectiveBasis(matrix<double> mat)const;
+    gslpp::matrix<double> ToEffectiveBasis(gslpp::matrix<double> mat)const;
     
     private:
     /**
@@ -90,8 +89,8 @@ class EvolDC1 : public RGEvolutor {
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor 
      */
     void DC1Evol(double mu, double M, double nf, schemes scheme);
-    gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
-    gslpp::vector<complex> e;
+    gslpp::matrix<gslpp::complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
+    gslpp::vector<gslpp::complex> e;
     unsigned int dim;
     double alsMZ_cache;
     double Mz_cache;

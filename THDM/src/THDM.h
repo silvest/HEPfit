@@ -12,8 +12,6 @@
 #include "THDMMatching.h"
 #include "THDMcache.h"
 
-
-using namespace gslpp;
 class THDMcache; //forward reference to THDMcache class
 
 /**

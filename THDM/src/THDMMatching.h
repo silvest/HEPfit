@@ -35,7 +35,7 @@ public:
 
 private:
     const THDM & myTHDM;
-    gslpp::matrix<complex> myCKM;
+    gslpp::matrix<gslpp::complex> myCKM;
 
     double tanb;
     double v;

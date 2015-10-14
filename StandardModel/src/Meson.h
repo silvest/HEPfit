@@ -13,8 +13,6 @@
 #include "BParameter.h"
 #include "boost/lexical_cast.hpp"
 
-using namespace gslpp;
-
 /**
  * @class Meson
  * @ingroup StandardModel

@@ -15,7 +15,7 @@ Btaunu::Btaunu(const StandardModel& SM_i)
 
 double Btaunu::computeThValue()
 {
-    vector<complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffbtaunu();
+    gslpp::vector<gslpp::complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffbtaunu();
     double mtau = SM.getLeptons(StandardModel::TAU).getMass();
     double mB = SM.getMesons(QCD::B_P).getMass();
     double mb = SM.getQuarks(QCD::BOTTOM).getMass();

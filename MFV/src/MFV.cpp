@@ -146,20 +146,20 @@ void MFV::SetSoftTerms()
 {
     // Colangelo's expressions in Colangelo's basis
     X.Update(myCKM);
-    msQhat2 = matrix<complex>::Id(3) * a1 + X.GetX13() * x1 + X.GetX1() * y1 +
+    msQhat2 = gslpp::matrix<gslpp::complex>::Id(3) * a1 + X.GetX13() * x1 + X.GetX1() * y1 +
                X.GetX5() * y2 + X.GetX9() * y2.conjugate();
-    msUhat2 = matrix<complex>::Id(3) * a2 + X.GetX1() * x2;
-    msDhat2 = matrix<complex>::Id(3) * a3 + X.GetX1() * y3 + X.GetX3() * w1 +
+    msUhat2 = gslpp::matrix<gslpp::complex>::Id(3) * a2 + X.GetX1() * x2;
+    msDhat2 = gslpp::matrix<gslpp::complex>::Id(3) * a3 + X.GetX1() * y3 + X.GetX3() * w1 +
                X.GetX4() * w1.conjugate();
     TUhat = X.GetX5() * a4 + X.GetX1() * y4 + X.GetX6() * w2;
     TDhat = X.GetX1() * a5 + X.GetX5() * y5 + X.GetX2() * w3 + X.GetX4() * w4;
-    msLhat2 = matrix<complex>::Id(3) * a6 + X.GetX1() * y6;
-    msEhat2 = matrix<complex>::Id(3) * a7 + X.GetX1() * y7;
+    msLhat2 = gslpp::matrix<gslpp::complex>::Id(3) * a6 + X.GetX1() * y6;
+    msEhat2 = gslpp::matrix<gslpp::complex>::Id(3) * a7 + X.GetX1() * y7;
     TEhat = X.GetX1() * a8 + X.GetX2() * w5;
     
     // rotation to the SCKM basis according to SLHA notation
     
-    matrix<complex> ckm(3,3,0.);
+    gslpp::matrix<gslpp::complex> ckm(3,3,0.);
     myCKM.getCKM(ckm);
   
     TUhat = sqrt(2.) * TUhat * ckm.hconjugate();

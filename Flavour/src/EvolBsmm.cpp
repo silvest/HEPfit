@@ -345,7 +345,7 @@ EvolBsmm::~EvolBsmm()
 
 
 
-matrix<double> EvolBsmm::AnomalousDimension(int gam, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolBsmm::AnomalousDimension(int gam, unsigned int n_u, unsigned int n_d) const
 
 {
 	       
@@ -357,7 +357,7 @@ matrix<double> EvolBsmm::AnomalousDimension(int gam, unsigned int n_u, unsigned 
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
     double zeta3 = 0;
         
-    matrix<double> gammaDF1(dim, 0.);
+    gslpp::matrix<double> gammaDF1(dim, 0.);
 	
     zeta3 = gsl_sf_zeta_int(3);
         
@@ -601,7 +601,7 @@ return (gammaDF1);
 }
 
 
-matrix<double> EvolBsmm::BuiltB(char letter, unsigned int n_u, unsigned int n_d)
+gslpp::matrix<double> EvolBsmm::BuiltB(char letter, unsigned int n_u, unsigned int n_d)
 
 {
 
@@ -618,14 +618,14 @@ matrix<double> EvolBsmm::BuiltB(char letter, unsigned int n_u, unsigned int n_d)
 
 
 
-	matrix<double> B(dim, 0.);
-	matrix<double> W10T(dim, 0.);
-	matrix<double> W20T(dim, 0.);
-	matrix<double> W30T(dim, 0.);
-	matrix<double> W01T(dim, 0.);
-	matrix<double> W02T(dim, 0.);
-	matrix<double> W11T(dim, 0.);
-	matrix<double> W21T(dim, 0.);
+	gslpp::matrix<double> B(dim, 0.);
+	gslpp::matrix<double> W10T(dim, 0.);
+	gslpp::matrix<double> W20T(dim, 0.);
+	gslpp::matrix<double> W30T(dim, 0.);
+	gslpp::matrix<double> W01T(dim, 0.);
+	gslpp::matrix<double> W02T(dim, 0.);
+	gslpp::matrix<double> W11T(dim, 0.);
+	gslpp::matrix<double> W21T(dim, 0.);
 
 
         W10T = (AnomalousDimension(10, n_u, n_d).transpose())/2./B00S;
@@ -683,7 +683,7 @@ return (B);
 
 
 
-matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, orders_ew order_ew, schemes scheme) 
+gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, orders_ew order_ew, schemes scheme) 
 
 {
 	switch (scheme) {             /*  complete this method */
@@ -748,8 +748,8 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
         unsigned int j = 0;
         unsigned int k = 0;
                
-        matrix<double> resLO(dim, 0.);
-	matrix<double> Ueos(dim, 0.), Ue(dim, 0.), Ues(dim,0.), Us(dim,0.), Ue2os(dim, 0.), Ue2os2(dim, 0.), Ue2(dim,0.), Us2(dim,0.);
+        gslpp::matrix<double> resLO(dim, 0.);
+	gslpp::matrix<double> Ueos(dim, 0.), Ue(dim, 0.), Ues(dim,0.), Us(dim,0.), Ue2os(dim, 0.), Ue2os2(dim, 0.), Ue2(dim,0.), Us2(dim,0.);
 
 	int L = 6 - (int) nf;
 	double alsM = alphatilde_s(M);

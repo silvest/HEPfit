@@ -13,8 +13,6 @@
 #include "CPenguinBoxMu.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 class BR_Kmumu : public ThObservable {
 public:   
     /**
@@ -40,7 +38,7 @@ protected:
      * @return the short distance contribution to the 
      * |\f$ BR(K_L \rightarrow \mu \bar{\mu}) \f$|, 
      */
-    complex BRKmumu(orders order);
+    gslpp::complex BRKmumu(orders order);
     
 private:
     

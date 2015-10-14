@@ -24,7 +24,7 @@ double BR_Bsnunu::computeThValue()
            /(1. - 2.*mySM.Als(mySM.getMub())/3./M_PI*((M_PI*M_PI-31./4.)*(1.-z*z)+1.5)));
 }
 
-complex BR_Bsnunu::BRBsnunu(orders order)
+gslpp::complex BR_Bsnunu::BRBsnunu(orders order)
 {
     if (mySM.getMyFlavour()->getHDB1().getCoeffsnunu().getOrder() < order){
         std::stringstream out;
@@ -33,7 +33,7 @@ complex BR_Bsnunu::BRBsnunu(orders order)
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffsnunu();
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffsnunu();
     
     switch(order) {
         case NLO:

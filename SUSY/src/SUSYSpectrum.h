@@ -12,8 +12,6 @@
 
 class SUSY;
 
-//using namespace gslpp;
-
 /**
  * @class SUSYSpectrum
  * @ingroup SUSY

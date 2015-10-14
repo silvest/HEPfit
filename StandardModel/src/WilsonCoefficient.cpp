@@ -9,7 +9,7 @@
 #include <sstream>
 #include <stdexcept>
 
-void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders order_i) 
+void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders order_i) 
 {    
     if ((unsigned int) i > size) {
         std::stringstream out;
@@ -26,7 +26,7 @@ void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders order_i)
     elem[order_i]->assign(i, z);
 }
 
-void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders_ew order_ew_i) 
+void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders_ew order_ew_i) 
 {    
     if ((unsigned int) i > size) {
         std::stringstream out;

@@ -197,7 +197,7 @@ public:
      * @param[in] f a lepton or quark
      * @return
      */
-    virtual complex gV_f(const Particle f) const;
+    virtual gslpp::complex gV_f(const Particle f) const;
 
     /**
      * @brief New physics contribution to @f$g_A^f@f$.
@@ -221,21 +221,21 @@ public:
      * @param[in] f a lepton or quark
      * @return
      */
-    virtual complex gA_f(const Particle f) const;
+    virtual gslpp::complex gA_f(const Particle f) const;
 
     /**
      *
      * @param[in] f a lepton or quark
      * @return
      */
-    virtual complex rhoZ_f(const Particle f) const;
+    virtual gslpp::complex rhoZ_f(const Particle f) const;
 
     /**
      *
      * @param[in] f a lepton or quark
      * @return
      */
-    virtual complex kappaZ_f(const Particle f) const;
+    virtual gslpp::complex kappaZ_f(const Particle f) const;
 
     /**
      *

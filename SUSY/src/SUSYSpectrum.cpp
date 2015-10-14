@@ -113,7 +113,7 @@ void SUSYSpectrum::CalcNeutralino()
     //std::cout << "Mdiag_tmp = " << Mdiag_tmp << std::endl;
     gslpp::vector<gslpp::complex> v1(4, 0.);
     for(int i = 0; i < 4; i++)
-        v1.assign(i, complex(1., Mdiag_tmp(i,i).arg()/2.0, true));
+        v1.assign(i, gslpp::complex(1., Mdiag_tmp(i,i).arg()/2.0, true));
     Nright = gslpp::matrix<gslpp::complex>(v1) * Nright;
 
     N = Nright;

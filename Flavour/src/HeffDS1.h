@@ -15,8 +15,6 @@
 #include "EvolDB1Mll.h"
 #include <sstream>
 
-using namespace gslpp;
-
 class HeffDS1{
 public:
     /**
@@ -40,11 +38,11 @@ public:
      * @param scheme indicates the reonrmalization scheme
      * @return the effective hamiltonian at the scale mu for \f$ K \rightarrow \pi \pi \f$
      */
-    vector<complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR);
     
-    vector<complex>** ComputeCoeffDS1pnunu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu();
     
-    vector<complex>** ComputeCoeffDS1mumu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu();
     
     WilsonCoefficient getCoeffDS1PP() const {
         return coeffds1;
@@ -81,7 +79,7 @@ private :
     EvolDF1nlep u;
     EvolDB1Mll uM;
     
-    gslpp::vector<complex> DS1cce, DS1cc;
+    gslpp::vector<gslpp::complex> DS1cce, DS1cc;
     
     /**
      * 

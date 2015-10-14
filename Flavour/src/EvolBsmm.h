@@ -12,14 +12,12 @@
 #include <StandardModel.h>
 #include <sstream>
 
-using namespace gslpp;
-
 class EvolBsmm : public RGEvolutor {
 	public:
 	EvolBsmm(unsigned int dim,  schemes scheme,orders order, orders_ew order_ew, const StandardModel& model);
 	virtual ~EvolBsmm();
-	matrix<double> AnomalousDimension(int gam, unsigned int n_u, unsigned int n_d) const;
-	matrix<double>& Df1Evol(double mu, double M, orders order, orders_ew order_ew, schemes scheme = NDR); 
+	gslpp::matrix<double> AnomalousDimension(int gam, unsigned int n_u, unsigned int n_d) const;
+	gslpp::matrix<double>& Df1Evol(double mu, double M, orders order, orders_ew order_ew, schemes scheme = NDR); 
         double alphatilde_e(double mu);
         double alphatilde_s(double mu);
         

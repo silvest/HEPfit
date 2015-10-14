@@ -417,21 +417,21 @@ public:
      * @brief hep-ph/9512380
      * @return the loop function for the charm-charm contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
      */
-    complex S0c() const;
+    gslpp::complex S0c() const;
     
     /**
      *  
      * @brief hep-ph/9512380
      * @return the loop function for the charm-top contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
      */
-    complex S0ct() const;
+    gslpp::complex S0ct() const;
     
     /**
      *  
      * @brief hep-ph/9512380v1
      * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
      */
-    complex S0tt() const;
+    gslpp::complex S0tt() const;
     
     /**
      *
@@ -474,13 +474,13 @@ public:
      * double penguin contribution to Kaon mixing - double top contribution
      * @return 
      */
-    complex ZDPtt() const;
+    gslpp::complex ZDPtt() const;
     
     /**
      * double penguin contribution to Kaon mixing - charm top contribution
      * @return 
      */
-    complex ZDPct() const;
+    gslpp::complex ZDPct() const;
     
     
     
@@ -518,8 +518,8 @@ private:
     double sW2;
     double mu_b;
     //double MM;
-    gslpp::matrix<complex> Vckm;
-    complex lam_t;
+    gslpp::matrix<gslpp::complex> Vckm;
+    gslpp::complex lam_t;
     double L;
     
     /**

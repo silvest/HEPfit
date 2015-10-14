@@ -12,8 +12,6 @@
 #include "Flavour.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 class AmpDD2 {
 /**
  * @brief \f$ | \Delta C = 2 | \f$ Amplitude Class
@@ -35,7 +33,7 @@ protected:
  * @param an enum "orders" for the order of perturbation theory of the evolutor 
  * @return the complex \f$ | \Delta C = 2 | \f$ amplitude 
  */
-    complex AmpDD(orders order);
+    gslpp::complex AmpDD(orders order);
     
 private:
     

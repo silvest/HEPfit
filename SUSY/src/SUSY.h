@@ -12,7 +12,6 @@
 #include <StandardModel.h>
 #include "SUSYMatching.h"
 
-using namespace gslpp;
 class EWSUSY; // forward reference to EWSUSY class
 class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
 class SUSYSpectrum; // forward reference to Spectrum class
@@ -113,7 +112,7 @@ public:
      * @brief Gets the bino mass.
      * @return The bino mass.
      */
-    complex getM1() const
+    gslpp::complex getM1() const
     {
         return m1;
     }
@@ -122,7 +121,7 @@ public:
      * @brief Gets the wino mass.
      * @return The wino mass.
      */
-    complex getM2() const
+    gslpp::complex getM2() const
     {
         return m2;
     }
@@ -149,7 +148,7 @@ public:
      * @brief Gets the @f$\mu@f$ parameter in the superpotential.
      * @return The @f$\mu@f$ parameter in the superpotential.
      */
-    complex getMuH() const
+    gslpp::complex getMuH() const
     {
         return muH;
     }
@@ -208,7 +207,7 @@ public:
      * @brief Gets the sine of the effective mixing angle for the CP-even neutral Higgs bosons. 
      * @return
      */
-    complex getSaeff() const
+    gslpp::complex getSaeff() const
     {
         return saeff;
     }
@@ -267,7 +266,7 @@ public:
      * @brief Gets the chargino masses.
      * @return The chargino masses.
      */
-    vector<double> getMch() const
+    gslpp::vector<double> getMch() const
     {
         return mch;
     }
@@ -276,7 +275,7 @@ public:
      * @brief Gets the rotation matrix for negative charginos.
      * @return The rotation matrix for negative charginos.
      */
-    matrix<complex> getU() const
+    gslpp::matrix<gslpp::complex> getU() const
     {
         return U;
     }
@@ -285,7 +284,7 @@ public:
      * @brief Gets the rotation matrix for positive charginos.
      * @return The rotation matrix for positive charginos.
      */
-    matrix<complex> getV() const
+    gslpp::matrix<gslpp::complex> getV() const
     {
         return V;
     }
@@ -298,7 +297,7 @@ public:
      * @brief Gets the neutralino masses.
      * @return The neutralino masses. 
      */
-    vector<double> getMneu() const
+    gslpp::vector<double> getMneu() const
     {
         return mneu;
     }
@@ -307,7 +306,7 @@ public:
      * @brief Gets the rotation matrix for neutralinos.
      * @return The rotation matrix for neutralinos.
      */
-    matrix<complex> getN() const
+    gslpp::matrix<gslpp::complex> getN() const
     {
         return N;
     }
@@ -316,17 +315,17 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the squark sector.
 
-    matrix<complex> getMsQhat2() const
+    gslpp::matrix<gslpp::complex> getMsQhat2() const
     {
         return msQhat2;
     }
 
-    matrix<complex> getMsUhat2() const
+    gslpp::matrix<gslpp::complex> getMsUhat2() const
     {
         return msUhat2;
     }
 
-    matrix<complex> getMsDhat2() const
+    gslpp::matrix<gslpp::complex> getMsDhat2() const
     {
         return msDhat2;
     }
@@ -335,7 +334,7 @@ public:
      * @brief Gets the trilinear-coupling matrix for up-type squarks.
      * @return The trilinear-coupling matrix for up-type squarks.
      */
-    matrix<complex> getTUhat() const
+    gslpp::matrix<gslpp::complex> getTUhat() const
     {
         return TUhat;
     }
@@ -344,7 +343,7 @@ public:
      * @brief Gets the trilinear-coupling matrix for down-type squarks.
      * @return The trilinear-coupling matrix for down-type squarks.
      */
-    matrix<complex> getTDhat() const
+    gslpp::matrix<gslpp::complex> getTDhat() const
     {
         return TDhat;
     }
@@ -353,7 +352,7 @@ public:
      * @brief Gets the up-type squark mass squared.
      * @return The up-type squark mass squared.
      */
-    vector<double> getMsu2() const
+    gslpp::vector<double> getMsu2() const
     {
         return m_su2;
     }
@@ -362,7 +361,7 @@ public:
      * @brief Gets the down-type squark mass squared.
      * @return The down-type squark mass squared. 
      */
-    vector<double> getMsd2() const
+    gslpp::vector<double> getMsd2() const
     {
         return m_sd2;
     }
@@ -372,7 +371,7 @@ public:
      * @f$\Delta_b@f$ corrections in the off-diagonal entries. 
      * @return The down-type squark mass squared.
      */
-    vector<double> getMsdresum2() const
+    gslpp::vector<double> getMsdresum2() const
     {
         return m_sdresum2;
     }
@@ -381,7 +380,7 @@ public:
      * @brief Gets the rotation matrix for up-type squarks.
      * @return The rotation matrix for up-type squarks.
      */
-    matrix<complex> getRu() const
+    gslpp::matrix<gslpp::complex> getRu() const
     {
         return Ru;
     }
@@ -390,7 +389,7 @@ public:
      * @brief Gets the rotation matrix for down-type squarks.
      * @return The rotation matrix for down-type squarks.
      */
-    matrix<complex> getRd() const
+    gslpp::matrix<gslpp::complex> getRd() const
     {
         return Rd;
     }
@@ -400,7 +399,7 @@ public:
      * @f$\Delta_b@f$ corrections in the off-diagonal entries. 
      * @return The rotation matrix for down-type squarks.
      */
-    matrix<complex> getRdresum() const
+    gslpp::matrix<gslpp::complex> getRdresum() const
     {
         return Rdresum;
     }
@@ -408,17 +407,17 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the slepton sector.
 
-    matrix<complex> getMsLhat2() const
+    gslpp::matrix<gslpp::complex> getMsLhat2() const
     {
         return msLhat2;
     }
 
-    matrix<complex> getMsNhat2() const
+    gslpp::matrix<gslpp::complex> getMsNhat2() const
     {
         return msNhat2;
     }
 
-    matrix<complex> getMsEhat2() const
+    gslpp::matrix<gslpp::complex> getMsEhat2() const
     {
         return msEhat2;
     }
@@ -427,7 +426,7 @@ public:
      * @brief Gets the trilinear-coupling matrix for sneutrinos.
      * @return The trilinear-coupling matrix for sneutrinos.
      */
-    matrix<complex> getTNhat() const
+    gslpp::matrix<gslpp::complex> getTNhat() const
     {
         return TNhat;
     }
@@ -436,7 +435,7 @@ public:
      * @brief Gets the trilinear-coupling matrix for charged sleptons.
      * @return The trilinear-coupling matrix for charged sleptons.
      */
-    matrix<complex> getTEhat() const
+    gslpp::matrix<gslpp::complex> getTEhat() const
     {
         return TEhat;
     }
@@ -445,7 +444,7 @@ public:
      * @brief Gets the sneutrino mass squared.
      * @return The sneutrino mass squared.
      */
-    vector<double> getMsn2() const
+    gslpp::vector<double> getMsn2() const
     {
         return m_sn2;
     }
@@ -454,7 +453,7 @@ public:
      * @brief Gets the charged slepton mass squared.
      * @return The charged slepton mass squared.
      */
-    vector<double> getMse2() const
+    gslpp::vector<double> getMse2() const
     {
         return m_se2;
     }
@@ -463,7 +462,7 @@ public:
      * @brief Gets the rotation matrix for sneutrinos.
      * @return The rotation matrix for sneutrinos.
      */
-    matrix<complex> getRn() const
+    gslpp::matrix<gslpp::complex> getRn() const
     {
         return Rn;
     }
@@ -472,7 +471,7 @@ public:
      * @brief Gets the rotation matrix for charged sleptons.
      * @return The rotation matrix for charged sleptons.
      */
-    matrix<complex> getRl() const
+    gslpp::matrix<gslpp::complex> getRl() const
     {
         return Rl;
     }
@@ -542,7 +541,7 @@ protected:
     SUSYSpectrum* mySUSYSpectrum;
 
     // model parameters at scale Q
-    complex m1, m2, muH;
+    gslpp::complex m1, m2, muH;
     double m3, mHptree, tanb, Q_SUSY;
 
     // sinb and cosb computed with setTanb()
@@ -550,17 +549,17 @@ protected:
 
     // soft-breaking parameters associated with squark and slepton mass terms and
     // trilinear couplings in the SCKM basis, which will be set with SetSoftTerms()
-    matrix<complex> msQhat2, msUhat2, msDhat2, msLhat2, msNhat2, msEhat2;
-    matrix<complex> TUhat, TDhat, TNhat, TEhat;
+    gslpp::matrix<gslpp::complex> msQhat2, msUhat2, msDhat2, msLhat2, msNhat2, msEhat2;
+    gslpp::matrix<gslpp::complex> TUhat, TDhat, TNhat, TEhat;
 
     // soft-breaking parameters computed with FeynHiggs
     double mHp, mh[4];
-    complex saeff;
-    vector<double> mch, mneu;
-    vector<double> m_su2, m_sd2, m_sdresum2, m_sn2, m_se2;
+    gslpp::complex saeff;
+    gslpp::vector<double> mch, mneu;
+    gslpp::vector<double> m_su2, m_sd2, m_sdresum2, m_sn2, m_se2;
 
     // rotation matrices
-    matrix<complex> U, V, N, Ru, Rd, Rdresum, Rn, Rl;
+    gslpp::matrix<gslpp::complex> U, V, N, Ru, Rd, Rdresum, Rn, Rl;
 
     // quark and lepton masses at scale Q, computed in setYukawas()
     double mu_Q[3], md_Q[3], me_Q[3], mn_Q[3];

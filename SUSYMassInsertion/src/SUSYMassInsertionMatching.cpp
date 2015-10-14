@@ -8,8 +8,6 @@
 #include "SUSYMassInsertionMatching.h"
 #include "SUSYMassInsertion.h" 
 
-using namespace gslpp;
-
 SUSYMassInsertionMatching::SUSYMassInsertionMatching(const SUSYMassInsertion & SUSYMassInsertion_i):
         
     StandardModelMatching(SUSYMassInsertion_i), 
@@ -882,7 +880,7 @@ double SUSYMassInsertionMatching::C4NLOB(double x, double mumatch2, double Ms2){
 
     mcd1.setMu(SusyMI.getMuM());
     
-    gslpp::vector<complex> C0_B(10,0.), C0_M(10,0.), C0_M_eff(10,0.);
+    gslpp::vector<gslpp::complex> C0_B(10,0.), C0_M(10,0.), C0_M_eff(10,0.);
     
     C0_B.assign(2, constLO * constLO / 4. * (-1./9.*B1(x) - 5./9.*B2(x) 
         - 1./18.*P1(x) - 1./2.*P2(x))* DLL);
@@ -1296,7 +1294,7 @@ double SUSYMassInsertionMatching::C4NLOB(double x, double mumatch2, double Ms2){
     return(vmck2);
 }
 
-matrix<double> SUSYMassInsertionMatching::RtoMisiak() const{
+gslpp::matrix<double> SUSYMassInsertionMatching::RtoMisiak() const{
     
     gslpp::matrix<double> R(10,0.);
     
@@ -1323,9 +1321,9 @@ matrix<double> SUSYMassInsertionMatching::RtoMisiak() const{
     
 }
 
-matrix<double> SUSYMassInsertionMatching::EffectiveBase() const{
+gslpp::matrix<double> SUSYMassInsertionMatching::EffectiveBase() const{
 
-gslpp::matrix<double> y(10, 0.);
+    gslpp::matrix<double> y(10, 0.);
     
     y(0,0) = 1.;
     y(1,1) = 1.;

@@ -39,7 +39,7 @@ PMNS::~PMNS()
 {
 }
 
-void PMNS::getPMNS(matrix<complex> & x) const
+void PMNS::getPMNS(gslpp::matrix<gslpp::complex> & x) const
 {
     x.assign(0, 0, U11);
     x.assign(0, 1, U12);
@@ -58,17 +58,17 @@ void PMNS::setPMNS(double s12, double s13, double s23, double delta)
     c23 = sqrt(1. - pow(s23, 2.));
     c13 = sqrt(1. - pow(s13, 2.));
 
-    U11 = complex(c12*c13, 0.);
-    U12 = complex(s12*c13, 0.);
-    U13 = complex(s13, -delta, true);
+    U11 = gslpp::complex(c12*c13, 0.);
+    U12 = gslpp::complex(s12*c13, 0.);
+    U13 = gslpp::complex(s13, -delta, true);
 
-    U21 = -s12 * c23 - complex(c12 * s23*s13, delta, true);
-    U22 = c12 * c23 - complex(s12 * s23*s13, delta, true);
-    U23 = complex(s23*c13, 0.);
+    U21 = -s12 * c23 - gslpp::complex(c12 * s23*s13, delta, true);
+    U22 = c12 * c23 - gslpp::complex(s12 * s23*s13, delta, true);
+    U23 = gslpp::complex(s23*c13, 0.);
 
-    U31 = s12 * s23 - complex(c12 * c23*s13, delta, true);
-    U32 = -c12 * s23 - complex(s12 * c23*s13, delta, true);
-    U33 = complex(c23*c13, 0.);
+    U31 = s12 * s23 - gslpp::complex(c12 * c23*s13, delta, true);
+    U32 = -c12 * s23 - gslpp::complex(s12 * c23*s13, delta, true);
+    U33 = gslpp::complex(c23*c13, 0.);
 
     return;
 }

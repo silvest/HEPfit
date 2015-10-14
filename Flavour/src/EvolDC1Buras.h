@@ -13,8 +13,6 @@
 #include <StandardModel.h>
 #include <sstream>
 
-using namespace gslpp;
-
 class EvolDC1Buras : public RGEvolutor {
 /**
  * @class EvolDC1Buras
@@ -46,7 +44,7 @@ class EvolDC1Buras : public RGEvolutor {
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @return the evolutor \f$ U (\mu , M) \f$
      */
-    matrix<double>& DC1EvolBuras(double mu, double M, orders order,  schemes scheme = NDR);
+    gslpp::matrix<double>& DC1EvolBuras(double mu, double M, orders order,  schemes scheme = NDR);
     /**
      * @brief a method returning the anomalous dimension matrix given in the standard basis
      * @param order an enum "orders" for the order of perturbation theory of the ADM
@@ -54,13 +52,13 @@ class EvolDC1Buras : public RGEvolutor {
      * @param n_d an unsigned integer for the down-type number of d.o.f.
      * @return the ADM at the order LO/NLO in the standard basis
      */
-    matrix<double> AnomalousDimension_DC1_Buras(orders order, unsigned int n_u,
+    gslpp::matrix<double> AnomalousDimension_DC1_Buras(orders order, unsigned int n_u,
         unsigned int n_d) const;
     /**
      * @brief a method returning the matrix threshold for the QCD penguins at the NLO
      * @return matrix threshold for QCD penguin operators
      */    
-    matrix<double> StrongThresholds() const;
+    gslpp::matrix<double> StrongThresholds() const;
     
     private:
     /**
@@ -90,8 +88,8 @@ class EvolDC1Buras : public RGEvolutor {
      * @param order an enum "orders" for the order of perturbation theory of the threshold (LO is trivial)
      */
     void DC1PenguinThresholds(double M, orders order);
-    gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
-    gslpp::vector<complex> e;
+    gslpp::matrix<gslpp::complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
+    gslpp::vector<gslpp::complex> e;
     unsigned int dim;
     double alsMZ_cache;
     double Mz_cache;

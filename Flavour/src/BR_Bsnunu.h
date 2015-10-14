@@ -11,8 +11,6 @@
 #include <ThObservable.h>
 #include "Flavour.h"
 
-using namespace gslpp;
-
 class BR_Bsnunu : public ThObservable {
 public:   
     /**
@@ -38,7 +36,7 @@ protected:
      * @return the short distance contribution to the 
      * |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
      */
-    complex BRBsnunu(orders order);
+    gslpp::complex BRBsnunu(orders order);
     
 private:
     

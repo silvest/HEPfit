@@ -12,8 +12,6 @@
 #include "Flavour.h"
 #include "AmpDS1.h"
 
-using namespace gslpp;
-
 /**
  * @class EpsilonK
  * @ingroup Flavour

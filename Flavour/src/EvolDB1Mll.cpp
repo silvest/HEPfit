@@ -79,7 +79,7 @@ EvolDB1Mll::EvolDB1Mll(unsigned int dim_i, schemes scheme, orders order, const S
 EvolDB1Mll::~EvolDB1Mll() 
 {}
 
-matrix<double> EvolDB1Mll::AnomalousDimension_M(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDB1Mll::AnomalousDimension_M(orders order, unsigned int n_u, unsigned int n_d) const
 {
     
     /* Delta F = 1 anomalous dimension in Misiak basis, 
@@ -90,7 +90,7 @@ matrix<double> EvolDB1Mll::AnomalousDimension_M(orders order, unsigned int n_u, 
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
   
-    matrix<double> gammaDF1(dim, dim, 0.);
+    gslpp::matrix<double> gammaDF1(dim, dim, 0.);
    
     switch(order){
         
@@ -224,14 +224,14 @@ matrix<double> EvolDB1Mll::AnomalousDimension_M(orders order, unsigned int n_u, 
     return (gammaDF1);
 }
 
-matrix<double> EvolDB1Mll::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDB1Mll::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const
 {
     
     /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
        ref. hep-ph/9711280v1, hep-ph/0504194 */
     
-    matrix<double> mat(dim, 0.);
-    matrix<double> mat1(dim, 0.);
+    gslpp::matrix<double> mat(dim, 0.);
+    gslpp::matrix<double> mat1(dim, 0.);
     unsigned int nf = n_u + n_d;
     double z3 = gsl_sf_zeta_int(3);
     
@@ -303,7 +303,7 @@ matrix<double> EvolDB1Mll::ToRescaleBasis(orders order, unsigned int n_u, unsign
     
 }
 
-matrix<double> EvolDB1Mll::ToEffectiveBasis(matrix<double> mat) const
+gslpp::matrix<double> EvolDB1Mll::ToEffectiveBasis(gslpp::matrix<double> mat) const
 {
     
     gslpp::matrix<double> y(dim, 0.);
@@ -340,7 +340,7 @@ matrix<double> EvolDB1Mll::ToEffectiveBasis(matrix<double> mat) const
     
 }
 
-matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order, schemes scheme) 
+gslpp::matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order, schemes scheme) 
 {
     
     switch (scheme) {
@@ -390,7 +390,7 @@ matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order, scheme
  void EvolDB1Mll::Df1EvolMll(double mu, double M, double nf, schemes scheme) 
  {
 
-    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
+    gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;

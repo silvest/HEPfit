@@ -14,8 +14,6 @@
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_clausen.h>
 
-using namespace gslpp;
-
 /**
  * 
  * @class: Charm_Kpnunu
@@ -44,7 +42,7 @@ public:
      * @return Wilson coefficients related to the Z-penguin contribution, given
      * at the renormalization scale \f$ \mu_{W} \f$
      */
-    vector<double> Cp(orders order);
+    gslpp::vector<double> Cp(orders order);
     
     /**
      * 
@@ -52,7 +50,7 @@ public:
      * @param nf, number of flavours
      * @return LO, NLO and NNLO RG evolution matrix for the Z-penguin contribution
      */
-    matrix<double> RGevolP(int nf, orders order);
+    gslpp::matrix<double> RGevolP(int nf, orders order);
     
     /**
      * 
@@ -61,7 +59,7 @@ public:
      * @return non trivial threshold matching at NNLO level for the Wilson coefficients 
      * related to the Z-penguin contribution
      */
-    vector<double> ThresholdCp(orders order);    
+    gslpp::vector<double> ThresholdCp(orders order);    
     
     /**
      * 
@@ -69,7 +67,7 @@ public:
      * @return Wilson coefficients related to the Z-penguin contribution evolved
      * down to the renormalization scale \f$ mu_{c} \f$ 
      */
-    vector<double> C_p(orders order);
+    gslpp::vector<double> C_p(orders order);
     
     /**
      * 
@@ -84,7 +82,7 @@ public:
      * @return Wilson coefficients related to the EW box contribution, given
      * at the renormalization scale \f$ \mu_{W} \f$
      */
-    vector<double> Cb(orders order);
+    gslpp::vector<double> Cb(orders order);
     
     /**
      * 
@@ -92,14 +90,14 @@ public:
      * @param nf, number of flavours
      * @return LO, NLO and NNLO RG evolution matrix for the EW box contribution
      */
-    matrix<double> RGevolB(int nf, orders order);
+    gslpp::matrix<double> RGevolB(int nf, orders order);
     /**
      * 
      * @param order, QCD perturbation theory order
      * @return non trivial threshold matching at NNLO level for the Wilson coefficients 
      * related to the EW box contribution
      */
-    vector<double> ThresholdCb(orders order);
+    gslpp::vector<double> ThresholdCb(orders order);
     
     /**
      * 
@@ -107,7 +105,7 @@ public:
      * @return Wilson coefficients related to the EW box contribution evolved
      * down to the renormalization scale \f$ \mu_{c} \f$ 
      */
-    vector<double> C_b(orders order);
+    gslpp::vector<double> C_b(orders order);
     
     /**
      * 
@@ -145,9 +143,9 @@ public:
 private:
     const StandardModel& model;
     const StandardModelMatching& modelmatching;
-    vector<double> cp, dcp, c_p, cpmuW0, cpmuW1, cpmuW2, cb, dcb, c_b, cbmuW0,
+    gslpp::vector<double> cp, dcp, c_p, cpmuW0, cpmuW1, cpmuW2, cb, dcb, c_b, cbmuW0,
                    cbmuW1, cbmuW2;
-    matrix<double> U4p, U5p, J5p1, J4p1, J5p2, J4p2, dc_p, 
+    gslpp::matrix<double> U4p, U5p, J5p1, J4p1, J5p2, J4p2, dc_p, 
                    U4b, U5b, J5b1, J4b1, J5b2, J4b2, dc_b;
     double etab, etacb, etac, mc, kc ,xi1c, xi2c, xc, CP, CBe, CBt;
 };

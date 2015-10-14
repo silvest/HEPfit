@@ -11,16 +11,16 @@ AmpDB2::AmpDB2(const StandardModel& SM_i)
 : mySM(SM_i) 
 {}
 
-complex AmpDB2::AmpBd(orders order) 
+gslpp::complex AmpDB2::AmpBd(orders order) 
 {
     if (mySM.getMyFlavour()->getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
             mySM.getBBd().getMu()(0),
         mySM.getBBd().getScheme());
     
-    vector<double> me(mySM.getBBd().getBpars());
+    gslpp::vector<double> me(mySM.getBBd().getBpars());
     double MBd = mySM.getMesons(QCD::B_D).getMass();
     double Mb = mySM.Mrun(mySM.getBBd().getMu()(0),
                 mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -54,16 +54,16 @@ complex AmpDB2::AmpBd(orders order)
     }
 }
 
-complex AmpDB2::AmpBs(orders order) 
+gslpp::complex AmpDB2::AmpBs(orders order) 
 {
     if (mySM.getMyFlavour()->getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
             mySM.getBBs().getMu()(0),
             mySM.getBBs().getScheme());
 
-    vector<double> me(mySM.getBBs().getBpars());
+    gslpp::vector<double> me(mySM.getBBs().getBpars());
     double MBs = mySM.getMesons(QCD::B_S).getMass();
     double Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
     double Ms = mySM.Mrun(mySM.getBBs().getMu()(0),

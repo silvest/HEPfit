@@ -69,20 +69,20 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
 
     /* Parameters for FeynHiggs */
     double Q_S = mySUSY.Q_SUSY;
-    complex muHFH = mySUSY.muH;
-    complex M1FH = mySUSY.m1;
-    complex M2FH = mySUSY.m2;
-    matrix<complex> MsQ2 = mySUSY.msQhat2;
-    matrix<complex> MsU2 = mySUSY.msUhat2;
-    matrix<complex> MsD2 = mySUSY.msDhat2;
-    matrix<complex> MsL2 = mySUSY.msLhat2;
-    matrix<complex> MsE2 = mySUSY.msEhat2;
-    matrix<complex> KU = mySUSY.TUhat.hconjugate() * mySUSY.v2() / sqrt(2.0);
-    matrix<complex> KD = mySUSY.TDhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
-    matrix<complex> KE = mySUSY.TEhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
+    gslpp::complex muHFH = mySUSY.muH;
+    gslpp::complex M1FH = mySUSY.m1;
+    gslpp::complex M2FH = mySUSY.m2;
+    gslpp::matrix<gslpp::complex> MsQ2 = mySUSY.msQhat2;
+    gslpp::matrix<gslpp::complex> MsU2 = mySUSY.msUhat2;
+    gslpp::matrix<gslpp::complex> MsD2 = mySUSY.msDhat2;
+    gslpp::matrix<gslpp::complex> MsL2 = mySUSY.msLhat2;
+    gslpp::matrix<gslpp::complex> MsE2 = mySUSY.msEhat2;
+    gslpp::matrix<gslpp::complex> KU = mySUSY.TUhat.hconjugate() * mySUSY.v2() / sqrt(2.0);
+    gslpp::matrix<gslpp::complex> KD = mySUSY.TDhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
+    gslpp::matrix<gslpp::complex> KE = mySUSY.TEhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
 
     /* MFV trilinear couplings */
-    vector<complex> AU(3,0.), AD(3,0.), AE(3,0.);
+    gslpp::vector<gslpp::complex> AU(3,0.), AD(3,0.), AE(3,0.);
     for (int i=0; i<3; i++) {
         int p = (int)mySUSY.UP + 2*i;
         AU.assign(i, KU(i,i) / mySUSY.Mq_Q((QCD::quark)p));
@@ -118,7 +118,7 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     /* NMFV trilinear couplings. In the case of NMFV, the trilinear couplings
      * AU, AD and AE for FHSetPara() as well as KU, KD and KE for FHSetNMFV()
      * and FHSetLFV() have to be rotated. */
-    complex muHphase(1.0, - 2.0*muHFH.arg(), true);
+    gslpp::complex muHphase(1.0, - 2.0*muHFH.arg(), true);
     if (NMFVu) AU *= muHphase;
     if (NMFVd) AD *= muHphase;
     if (NMFVe) AE *= muHphase;
@@ -127,11 +127,11 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     KE *= muHphase;
 
     /* NMFV parameters for FeynHiggs */
-    matrix<complex> deltaQLL(3,3,0.);
-    matrix<complex> deltaULR(3,3,0.), deltaURL(3,3,0.), deltaURR(3,3,0.);
-    matrix<complex> deltaDLR(3,3,0.), deltaDRL(3,3,0.), deltaDRR(3,3,0.);
-    matrix<complex> deltaLLL(3,3,0.);
-    matrix<complex> deltaELR(3,3,0.), deltaERL(3,3,0.), deltaERR(3,3,0.);
+    gslpp::matrix<gslpp::complex> deltaQLL(3,3,0.);
+    gslpp::matrix<gslpp::complex> deltaULR(3,3,0.), deltaURL(3,3,0.), deltaURR(3,3,0.);
+    gslpp::matrix<gslpp::complex> deltaDLR(3,3,0.), deltaDRL(3,3,0.), deltaDRR(3,3,0.);
+    gslpp::matrix<gslpp::complex> deltaLLL(3,3,0.);
+    gslpp::matrix<gslpp::complex> deltaELR(3,3,0.), deltaERL(3,3,0.), deltaERR(3,3,0.);
     for (int i=0; i<3; i++)
         for (int j=0; j<3; j++) {
             deltaQLL.assign(i, j, MsQ2(i,j) / sqrt(MsQ2(i,i).real() * MsQ2(j,j).real()));
@@ -282,7 +282,7 @@ bool FeynHiggsWrapper::CalcHiggsSpectrum()
     }
 
     // the sine of the effective Higgs mixing angle, alpha_eff,
-    mySUSY.saeff = complex(SAeff.real(), SAeff.imag());
+    mySUSY.saeff = gslpp::complex(SAeff.real(), SAeff.imag());
 
     /* Debug */
     //std::cout << "mh[0] = mh = " << mySUSY.mh[0] << std::endl;
@@ -343,8 +343,8 @@ bool FeynHiggsWrapper::CalcSpectrum()
     }
 
     /* sfermions in MFV for debug*/
-    //vector<double> m_sn2_MFV(6,0.), m_se2_MFV(6,0.), m_su2_MFV(6,0.), m_sd2_MFV(6,0.), m_sdresum2_MFV(6,0.);
-    //matrix<complex> Rn_MFV(6,6,0.), Rl_MFV(6,6,0.), Ru_MFV(6,6,0.), Rd_MFV(6,6,0.), Rdresum_MFV(6,6,0.);
+    //gslpp::vector<double> m_sn2_MFV(6,0.), m_se2_MFV(6,0.), m_su2_MFV(6,0.), m_sd2_MFV(6,0.), m_sdresum2_MFV(6,0.);
+    //gslpp::matrix<gslpp::complex> Rn_MFV(6,6,0.), Rl_MFV(6,6,0.), Ru_MFV(6,6,0.), Rd_MFV(6,6,0.), Rdresum_MFV(6,6,0.);
     //for (int g = 0; g < 3; g++) { /* generations */
     //    for (int s = 0; s < 2; s++) { /* left or right */
     //        m_sn2_MFV(g + 3*s) = MSf[g][0][s]*MSf[g][0][s];
@@ -353,11 +353,11 @@ bool FeynHiggsWrapper::CalcSpectrum()
     //        m_sd2_MFV(g + 3*s) = MSf[g][3][s]*MSf[g][3][s];
     //        m_sdresum2_MFV(g + 3*s) = MSf[g][4][s]*MSf[g][4][s];
     //        for (int t = 0; t < 2; t++) { /* left or right */
-    //            Rn_MFV.assign(s,t, complex(USf[g][0][t][s].real(), USf[g][0][t][s].imag()));
-    //            Rl_MFV.assign(s,t, complex(USf[g][1][t][s].real(), USf[g][1][t][s].imag()));
-    //            Ru_MFV.assign(s,t, complex(USf[g][2][t][s].real(), USf[g][2][t][s].imag()));
-    //            Rd_MFV.assign(s,t, complex(USf[g][3][t][s].real(), USf[g][3][t][s].imag()));
-    //            Rdresum_MFV.assign(s,t, complex(USf[g][4][t][s].real(), USf[g][4][t][s].imag()));
+    //            Rn_MFV.assign(s,t, gslpp::complex(USf[g][0][t][s].real(), USf[g][0][t][s].imag()));
+    //            Rl_MFV.assign(s,t, gslpp::complex(USf[g][1][t][s].real(), USf[g][1][t][s].imag()));
+    //            Ru_MFV.assign(s,t, gslpp::complex(USf[g][2][t][s].real(), USf[g][2][t][s].imag()));
+    //            Rd_MFV.assign(s,t, gslpp::complex(USf[g][3][t][s].real(), USf[g][3][t][s].imag()));
+    //            Rdresum_MFV.assign(s,t, gslpp::complex(USf[g][4][t][s].real(), USf[g][4][t][s].imag()));
     //        }
     //    }
     //}
@@ -372,18 +372,18 @@ bool FeynHiggsWrapper::CalcSpectrum()
         for (int j = 0; j < 6; j++) {
             /* R: first (second) index for mass (gauge) eigenstates */
             /* UASf: second (third) index for gauge (mass) eigenstates */
-            mySUSY.Rn.assign(i,j, complex(UASf[0][j][i].real(), UASf[0][j][i].imag()));
-            mySUSY.Rl.assign(i,j, complex(UASf[1][j][i].real(), UASf[1][j][i].imag()));
-            mySUSY.Ru.assign(i,j, complex(UASf[2][j][i].real(), UASf[2][j][i].imag()));
-            mySUSY.Rd.assign(i,j, complex(UASf[3][j][i].real(), UASf[3][j][i].imag()));
-            mySUSY.Rdresum.assign(i,j, complex(UASf[4][j][i].real(), UASf[4][j][i].imag()));
+            mySUSY.Rn.assign(i,j, gslpp::complex(UASf[0][j][i].real(), UASf[0][j][i].imag()));
+            mySUSY.Rl.assign(i,j, gslpp::complex(UASf[1][j][i].real(), UASf[1][j][i].imag()));
+            mySUSY.Ru.assign(i,j, gslpp::complex(UASf[2][j][i].real(), UASf[2][j][i].imag()));
+            mySUSY.Rd.assign(i,j, gslpp::complex(UASf[3][j][i].real(), UASf[3][j][i].imag()));
+            mySUSY.Rdresum.assign(i,j, gslpp::complex(UASf[4][j][i].real(), UASf[4][j][i].imag()));
         }
     }
 
     /* Phase rotations due to differences between the SLHA and FeynHiggs
      * notations, which is necessary in the case of NMFV. */
-    complex muHphase(1.0, mySUSY.muH.arg(), true);
-    matrix<complex> muHphaseMatrix(6,6,0.);
+    gslpp::complex muHphase(1.0, mySUSY.muH.arg(), true);
+    gslpp::matrix<gslpp::complex> muHphaseMatrix(6,6,0.);
     for (int i = 0; i < 3; i++) {
         muHphaseMatrix.assign(i, i, muHphase.conjugate());
         muHphaseMatrix.assign(i+3, i+3, muHphase);
@@ -407,8 +407,8 @@ bool FeynHiggsWrapper::CalcSpectrum()
         for (int j = 0; j < 2; j++) {
             /* U and V: first (second) index for mass (gauge) eigenstates */
             /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
-            mySUSY.U.assign(i,j, complex(UCha[j][i].real(), UCha[j][i].imag()));
-            mySUSY.V.assign(i,j, complex(VCha[j][i].real(), VCha[j][i].imag()));
+            mySUSY.U.assign(i,j, gslpp::complex(UCha[j][i].real(), UCha[j][i].imag()));
+            mySUSY.V.assign(i,j, gslpp::complex(VCha[j][i].real(), VCha[j][i].imag()));
         }
     }
 
@@ -418,11 +418,11 @@ bool FeynHiggsWrapper::CalcSpectrum()
         for (int j = 0; j < 4; j++)
             /* N: first (second) index for mass (gauge) eigenstates */
             /* Zneu: first (second) index for gauge (mass) eigenstates */
-            mySUSY.N.assign(i,j, complex(ZNeu[j][i].real(), ZNeu[j][i].imag()));
+            mySUSY.N.assign(i,j, gslpp::complex(ZNeu[j][i].real(), ZNeu[j][i].imag()));
     }
 
     /* the correction to the bottom Yukawa coupling */
-    FHDeltab = complex(Deltab.real(), Deltab.imag());
+    FHDeltab = gslpp::complex(Deltab.real(), Deltab.imag());
 
     return (true);
 }
@@ -541,7 +541,7 @@ bool FeynHiggsWrapper::CalcFlavour()
     return (true);
 }
 
-void FeynHiggsWrapper::SortSfermionMasses(vector<double>& m_sf2, matrix<complex>& Rf) const
+void FeynHiggsWrapper::SortSfermionMasses(gslpp::vector<double>& m_sf2, gslpp::matrix<gslpp::complex>& Rf) const
 {
     int newIndex[6];
     for (int i = 0; i < 6; i++)
@@ -557,7 +557,7 @@ void FeynHiggsWrapper::SortSfermionMasses(vector<double>& m_sf2, matrix<complex>
 
     /* sort the corresponding rotation matrix, where the first(second) index
      * denotes mass(gauge) eigenstates. */
-    gslpp::matrix<complex> myRf(6, 6, 0.);
+    gslpp::matrix<gslpp::complex> myRf(6, 6, 0.);
     for (int i = 0; i < 6; i++)
         for (int k = 0; k < 6; k++)
             myRf.assign(k, i, Rf(newIndex[k], i));

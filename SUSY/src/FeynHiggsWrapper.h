@@ -12,8 +12,6 @@
 #include <gslpp.h>
 #include "SUSY.h"
 
-using namespace gslpp;
-
 /**
  * @class FeynHiggsWrapper
  * @ingroup SUSY
@@ -80,7 +78,7 @@ public:
      * @brief Gets the correction to the bottom Yukawa coupling @f$\Delta_b@f$. 
      * @return The correction to the bottom Yukawa coupling @f$\Delta_b@f$
      */
-    complex getFHDeltab() const
+    gslpp::complex getFHDeltab() const
     {
         return FHDeltab;
     }
@@ -267,7 +265,7 @@ public:
      * @param[in,out] m_sf2 A vector of sfermion mass squared.
      * @param[in,out] Rf The corresponding rotation matrix.
      */
-    void SortSfermionMasses(vector<double>& m_sf2, matrix<complex>& Rf) const;
+    void SortSfermionMasses(gslpp::vector<double>& m_sf2, gslpp::matrix<gslpp::complex>& Rf) const;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -280,7 +278,7 @@ private:
     //bool NMFVnu;
 
     // see CalcSpectrum()
-    complex FHDeltab; /* the correction to the bottom Yukawa coupling */
+    gslpp::complex FHDeltab; /* the correction to the bottom Yukawa coupling */
 
     // see FHGetPara()
     double FHMGl, FHMHtree[4], FHSAtree; 

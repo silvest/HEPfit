@@ -12,8 +12,6 @@
 #include <StandardModel.h>
 #include "SUSYMassInsertionMatching.h" 
 
-using namespace gslpp;
-
 class SUSYMassInsertion: public StandardModel {
 /**
  * @class SUSYMassIsertion
@@ -103,7 +101,7 @@ public:
      *
      * @return the \f$ \delta^{u}_LL \f$ mass insertion
      */
-    matrix<complex> getDu_LL() const {
+    gslpp::matrix<gslpp::complex> getDu_LL() const {
         return Du_LL;
     }
 
@@ -111,7 +109,7 @@ public:
      * @brief set delta^u_LL mass insertion
      * @param delta^u_LL a matrix<complex> for the up-type left-left mass insertion parameters
      */
-    void setDu_LL(matrix<complex> Du_LL) {
+    void setDu_LL(gslpp::matrix<gslpp::complex> Du_LL) {
         this->Du_LL = Du_LL;
     }
 
@@ -119,7 +117,7 @@ public:
      *
      * @return the \f$ \delta^{u}_LR \f$ mass insertion
      */
-    matrix<complex> getDu_LR() const {
+    gslpp::matrix<gslpp::complex> getDu_LR() const {
         return Du_LR;
     }
 
@@ -127,7 +125,7 @@ public:
      * @brief set \f$ \delta^{u}_LR \f$ mass insertion
      * @param delta^u_LR a matrix<complex> for the up-type left-right mass insertion parameters
      */
-    void setDu_LR(matrix<complex> Du_LL) {
+    void setDu_LR(gslpp::matrix<gslpp::complex> Du_LL) {
         this->Du_LR = Du_LR;
     }
 
@@ -135,7 +133,7 @@ public:
      *
      * @return the \f$ \delta^{u}_RL \f$ mass insertion
      */
-    matrix<complex> getDu_RL() const {
+    gslpp::matrix<gslpp::complex> getDu_RL() const {
         return Du_RL;
     }
 
@@ -143,7 +141,7 @@ public:
      * @brief set \f$ \delta^{u}_RL \f$ mass insertion
      * @param delta^u_RL a matrix<complex> for the up-type right-left mass insertion parameters
      */
-    void setDu_RL(matrix<complex> Du_LL) {
+    void setDu_RL(gslpp::matrix<gslpp::complex> Du_LL) {
         this->Du_RL = Du_RL;
     }
 
@@ -151,7 +149,7 @@ public:
      *
      * @return the \f$ \delta^u_RR \f$ mass insertion
      */
-    matrix<complex> getDu_RR() const {
+    gslpp::matrix<gslpp::complex> getDu_RR() const {
         return Du_RR;
     }
 
@@ -159,7 +157,7 @@ public:
      * @brief set \f$ \delta^{u}_RR \f$ mass insertion
      * @param delta^u_RR a matrix<complex> for the up-type right-right mass insertion parameters
      */
-    void setDu_RR(matrix<complex> Du_LL) {
+    void setDu_RR(gslpp::matrix<gslpp::complex> Du_LL) {
         this->Du_RR = Du_RR;
     }
 
@@ -167,7 +165,7 @@ public:
      *
      * @return the \f$ \delta^{d}_LL \f$ mass insertion
      */
-    matrix<complex> getDd_LL() const {
+    gslpp::matrix<gslpp::complex> getDd_LL() const {
         return Dd_LL;
     }
 
@@ -175,7 +173,7 @@ public:
      * @brief set \f$ \delta^{d}_LL \f$ mass insertion
      * @param delta^d_LL a matrix<complex> for the down-type left-left mass insertion parameters
      */
-    void setDd_LL(matrix<complex> Dd_LL) {
+    void setDd_LL(gslpp::matrix<gslpp::complex> Dd_LL) {
         this->Dd_LL = Dd_LL;
     }
 
@@ -183,7 +181,7 @@ public:
      *
      * @return the \f$ \delta^{d}_LR \f$ mass insertion
      */
-    matrix<complex> getDd_LR() const {
+    gslpp::matrix<gslpp::complex> getDd_LR() const {
         return Dd_LR;
     }
 
@@ -191,7 +189,7 @@ public:
      * @brief set \f$ \delta^{d}_LR \f$ mass insertion
      * @param delta^d_LR a matrix<complex> for the down-type left-right mass insertion parameters
      */
-    void setDd_LR(matrix<complex> Dd_LL) {
+    void setDd_LR(gslpp::matrix<gslpp::complex> Dd_LL) {
         this->Dd_LR = Dd_LR;
     }
 
@@ -199,7 +197,7 @@ public:
      *
      * @return the \f$ \delta^{d}_RL \f$ mass insertion
      */
-    matrix<complex> getDd_RL() const {
+    gslpp::matrix<gslpp::complex> getDd_RL() const {
         return Dd_RL;
     }
 
@@ -207,7 +205,7 @@ public:
      * @brief set \f$ \delta^{d}_RL \f$ mass insertion
      * @param delta^d_RL a matrix<complex> for the down-type right-left mass insertion parameters
      */
-    void setDd_RL(matrix<complex> Dd_LL) {
+    void setDd_RL(gslpp::matrix<gslpp::complex> Dd_LL) {
         this->Dd_RL = Dd_RL;
     }
 
@@ -215,7 +213,7 @@ public:
      *
      * @return the \f$ \delta^{d}_RR \f$ mass insertion
      */
-    matrix<complex> getDd_RR() const {
+    gslpp::matrix<gslpp::complex> getDd_RR() const {
         return Dd_RR;
     }
 
@@ -223,7 +221,7 @@ public:
      * @brief set \f$ \delta^{d}_RR \f$ mass insertion
      * @param delta^d_RR a matrix<complex> for the down-type right-right mass insertion parameters
      */
-    void setDd_RR(matrix<complex> Dd_LL) {
+    void setDd_RR(gslpp::matrix<gslpp::complex> Dd_LL) {
         this->Dd_RR = Dd_RR;
     }
 
@@ -249,8 +247,8 @@ protected:
      */
     virtual void setParameter(const std::string, const double&);
 
-    matrix<complex> Du_LL, Du_LR, Du_RL, Du_RR;
-    matrix<complex> Dd_LL, Dd_LR, Dd_RL, Dd_RR;
+    gslpp::matrix<gslpp::complex> Du_LL, Du_LR, Du_RL, Du_RR;
+    gslpp::matrix<gslpp::complex> Dd_LL, Dd_LR, Dd_RL, Dd_RR;
     double Msq, m3, MuM;
     
     double rDULL11, rDULL12, rDULL13, rDULL21, rDULL22, rDULL23, rDULL31, rDULL32, rDULL33;

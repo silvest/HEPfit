@@ -90,7 +90,7 @@ public:
     virtual std::vector<WilsonCoefficient>& CMDL1();
 
    /** Calculates C7 for m->e (1), t->m (2) and t->e (3)**/
-    virtual gslpp::vector<complex> C7_Lepton(int n);
+    virtual gslpp::vector<gslpp::complex> C7_Lepton(int n);
 
     
 //    /**
@@ -184,20 +184,20 @@ private:
     std::vector<WilsonCoefficient> vmcbsg;
     std::vector<WilsonCoefficient> vmDL1;
     
-    gslpp::matrix<complex> myCKM;
-    gslpp::matrix<complex> myRu;
-    gslpp::matrix<complex> myRd;
-    gslpp::matrix<complex> myRl;
-    gslpp::matrix<complex> myRn;
+    gslpp::matrix<gslpp::complex> myCKM;
+    gslpp::matrix<gslpp::complex> myRu;
+    gslpp::matrix<gslpp::complex> myRd;
+    gslpp::matrix<gslpp::complex> myRl;
+    gslpp::matrix<gslpp::complex> myRn;
 //    gslpp::matrix<double> mym_sn_sq; //Why?
 //    gslpp::matrix<double> mym_se_sq; //Why?
     gslpp::vector<double> mym_sn_sq;
     gslpp::vector<double> mym_se_sq;
     gslpp::vector<double> MChi0;
     gslpp::vector<double> MChi;
-    gslpp::matrix<complex> myN;
-    gslpp::matrix<complex> myV;
-    gslpp::matrix<complex> myU;
+    gslpp::matrix<gslpp::complex> myN;
+    gslpp::matrix<gslpp::complex> myV;
+    gslpp::matrix<gslpp::complex> myU;
 
     gslpp::matrix<double> Lepty;
     gslpp::matrix<double> Leptz;
@@ -205,30 +205,30 @@ private:
     gslpp::matrix<double> Leptf2;
     gslpp::matrix<double> Leptf3;
     gslpp::matrix<double> Leptf4;
-    gslpp::matrix<complex> CRlE;
-    gslpp::matrix<complex> CRlMU;
-    gslpp::matrix<complex> CRlTAU;
-    gslpp::matrix<complex> CLlE;
-    gslpp::matrix<complex> CLlMU;
-    gslpp::matrix<complex> CLlTAU;
-    gslpp::matrix<complex> NRlE;
-    gslpp::matrix<complex> NRlMU;
-    gslpp::matrix<complex> NRlTAU;
-    gslpp::matrix<complex> NLlE;
-    gslpp::matrix<complex> NLlMU;
-    gslpp::matrix<complex> NLlTAU;
-    gslpp::matrix<complex> AmpALN;
-    gslpp::matrix<complex> AmpARN;
-    gslpp::matrix<complex> AmpLC;
-    gslpp::matrix<complex> AmpRC;
-    gslpp::matrix<complex> AmpTauALN;
-    gslpp::matrix<complex> AmpTauARN;
-    gslpp::matrix<complex> AmpTauALC;
-    gslpp::matrix<complex> AmpTauARC;
-    gslpp::matrix<complex> AmpTEALN;
-    gslpp::matrix<complex> AmpTEARN;
-    gslpp::matrix<complex> AmpTEALC;
-    gslpp::matrix<complex> AmpTEARC;
+    gslpp::matrix<gslpp::complex> CRlE;
+    gslpp::matrix<gslpp::complex> CRlMU;
+    gslpp::matrix<gslpp::complex> CRlTAU;
+    gslpp::matrix<gslpp::complex> CLlE;
+    gslpp::matrix<gslpp::complex> CLlMU;
+    gslpp::matrix<gslpp::complex> CLlTAU;
+    gslpp::matrix<gslpp::complex> NRlE;
+    gslpp::matrix<gslpp::complex> NRlMU;
+    gslpp::matrix<gslpp::complex> NRlTAU;
+    gslpp::matrix<gslpp::complex> NLlE;
+    gslpp::matrix<gslpp::complex> NLlMU;
+    gslpp::matrix<gslpp::complex> NLlTAU;
+    gslpp::matrix<gslpp::complex> AmpALN;
+    gslpp::matrix<gslpp::complex> AmpARN;
+    gslpp::matrix<gslpp::complex> AmpLC;
+    gslpp::matrix<gslpp::complex> AmpRC;
+    gslpp::matrix<gslpp::complex> AmpTauALN;
+    gslpp::matrix<gslpp::complex> AmpTauARN;
+    gslpp::matrix<gslpp::complex> AmpTauALC;
+    gslpp::matrix<gslpp::complex> AmpTauARC;
+    gslpp::matrix<gslpp::complex> AmpTEALN;
+    gslpp::matrix<gslpp::complex> AmpTEARN;
+    gslpp::matrix<gslpp::complex> AmpTEALC;
+    gslpp::matrix<gslpp::complex> AmpTEARC;
 
     double Q_S;
     double mu2R;
@@ -257,43 +257,43 @@ private:
     
     
     /** Calcolous of Charged Higgs contributions **/
-    gslpp::vector<complex> CdF2dHp(int b, int q, int Dmixingflag);
+    gslpp::vector<gslpp::complex> CdF2dHp(int b, int q, int Dmixingflag);
     
     /** Calcolous Gluinos Box **/
-    gslpp::vector<complex> CdF2dgg(int b, int q, int Dmixingflag);
+    gslpp::vector<gslpp::complex> CdF2dgg(int b, int q, int Dmixingflag);
     
     /** Calcolous Neutralino - Gluino Box **/
-    gslpp::vector<complex> CdF2dChi0g(int b, int q, int Dmixingflag);
+    gslpp::vector<gslpp::complex> CdF2dChi0g(int b, int q, int Dmixingflag);
     
     /** Calcolous Charginos contribution to Wilson Coefficents **/
-    gslpp::vector<complex> CdF2dChiChi(int b, int q, int Dmixingflag);
+    gslpp::vector<gslpp::complex> CdF2dChiChi(int b, int q, int Dmixingflag);
     
     /** Calcolous Neutralino contribution to Wilson Coefficents **/
-    gslpp::vector<complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
+    gslpp::vector<gslpp::complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
         
-    gslpp::vector<complex> C7_Lepton();
+    gslpp::vector<gslpp::complex> C7_Lepton();
     
     
     /** Feynmann rule for the Chargino - down quark - up squarks vertex with tan beta correction  **/
     
-    complex VdUCL_cache[3][6][2];
-    complex VdUCR_cache[3][6][2][2];
+    gslpp::complex VdUCL_cache[3][6][2];
+    gslpp::complex VdUCR_cache[3][6][2][2];
     
     gslpp::complex VdUCL(int b, int k, int j);
     gslpp::complex VdUCR(int b, int k, int j, int flag);
     
     /** Feynmann rule for the Neutralino - down quark - down squarks vertex with tan beta correction  **/
     
-    complex VdDNL_cache[3][6][4][2];
-    complex VdDNR_cache[3][6][4][2];
+    gslpp::complex VdDNL_cache[3][6][4][2];
+    gslpp::complex VdDNR_cache[3][6][4][2];
     
     gslpp::complex VdDNL(int b, int k, int j, int flag);
     gslpp::complex VdDNR(int b, int k, int j, int flag);
     
     /** Feynmann rule for the Chargino - up quark - down squarks vertex with tan beta correction  **/
     
-    complex VuDCL_cache[3][6][2];
-    complex VuDCR_cache[3][6][2];
+    gslpp::complex VuDCL_cache[3][6][2];
+    gslpp::complex VuDCR_cache[3][6][2];
     
     gslpp::complex VuDCL(int b, int k, int j);
     gslpp::complex VuDCR(int b, int k, int j);
@@ -301,8 +301,8 @@ private:
     /** Vertices Neutralino (N) - up quark (u) - up squarks (U) from Buras arXiv:hep-ph/0210145v2 
         in SLHA convention usefull in D - Dbar mixing **/
     
-    complex VuUNL_cache[3][6][4];
-    complex VuUNR_cache[3][6][4];
+    gslpp::complex VuUNL_cache[3][6][4];
+    gslpp::complex VuUNR_cache[3][6][4];
     
     gslpp::complex VuUN(int b, int k, int j, const std::string);
   
@@ -326,14 +326,14 @@ private:
     
     gslpp::complex DeltaMd(int J, int I);
     
-    gslpp::vector<complex> Eps_JCache;
+    gslpp::vector<gslpp::complex> Eps_JCache;
     gslpp::complex Eps_J(int J);
     
-    gslpp::matrix<complex> Lambda0EpsYCache;
+    gslpp::matrix<gslpp::complex> Lambda0EpsYCache;
     
     gslpp::complex Lambda0EpsY(int J, int I);
     
-    gslpp::matrix<complex> DeltaDL_Cache;
+    gslpp::matrix<gslpp::complex> DeltaDL_Cache;
     
     
     gslpp::complex DeltaDL(int J, int I);
@@ -347,13 +347,13 @@ private:
     
     
    
-    gslpp::matrix<complex> PHLRCache;
+    gslpp::matrix<gslpp::complex> PHLRCache;
     
     
     gslpp::complex PHLR(int j, int i);
     gslpp::complex DeltaFHL(int j, int i);
     
-    gslpp::matrix<complex> PHRLCache;
+    gslpp::matrix<gslpp::complex> PHRLCache;
     
     gslpp::complex PHRL(int j, int i);
     
@@ -367,16 +367,16 @@ private:
     gslpp::complex PRLk(int j, int i, int k, int Dmixingflag);
     gslpp::complex PLRk(int j, int i, int k, int Dmixingflag);
     
-    gslpp::matrix<complex> mySUSY_CKM();
+    gslpp::matrix<gslpp::complex> mySUSY_CKM();
     
     gslpp::complex EpsPrime(int J, int I);
-    gslpp::vector<complex> CalcC7(int b, int q);
+    gslpp::vector<gslpp::complex> CalcC7(int b, int q);
     double F7k(double x, int k);
    
     
-    gslpp::matrix<complex> myCKM_cache;
-    gslpp::matrix<complex> VUDHH_cache;
-    gslpp::matrix<complex> DeltaMd_cache;
+    gslpp::matrix<gslpp::complex> myCKM_cache;
+    gslpp::matrix<gslpp::complex> VUDHH_cache;
+    gslpp::matrix<gslpp::complex> DeltaMd_cache;
     gslpp::vector<double> mySUSYMQ;
     
 };

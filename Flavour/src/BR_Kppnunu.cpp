@@ -16,7 +16,7 @@ double BR_Kppnunu::computeThValue()
            * SM.getBr_Kp_P0enu() * BRKppnunu(NLO, NLO_ew).real());
 }
 
-complex BR_Kppnunu::BRKppnunu(orders order, orders_ew order_ew)
+gslpp::complex BR_Kppnunu::BRKppnunu(orders order, orders_ew order_ew)
 {
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1pnunu().getOrder() < order){
         std::stringstream out;
@@ -25,7 +25,7 @@ complex BR_Kppnunu::BRKppnunu(orders order, orders_ew order_ew)
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1pnunu();
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1pnunu();
     
     switch(order_ew) {
         case NLO_ew:

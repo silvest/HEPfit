@@ -8,11 +8,9 @@
 #ifndef RGEVOLUTOR_H
 #define	RGEVOLUTOR_H
 
-#include <gslpp_matrix_double.h>
+#include <gslpp.h>
 #include "OrderScheme.h"
 #include "WilsonTemplate.h"
-
-using namespace gslpp;
 
 /**
  * @class RGEvolutor
@@ -23,7 +21,7 @@ using namespace gslpp;
  * @details 
  */
 
-class RGEvolutor : public WilsonTemplate<matrix<double> > {
+class RGEvolutor : public WilsonTemplate<gslpp::matrix<double> > {
 public:
     
     /**
@@ -78,7 +76,7 @@ public:
      * @param[in] m Evolution matrix
      * @param[in] order_i order of QCD coupling
      */
-    void setEvol(const matrix<double>& m, orders order_i);
+    void setEvol(const gslpp::matrix<double>& m, orders order_i);
     
     /**
      *
@@ -86,14 +84,14 @@ public:
      * @param[in] m
      * @param[in] order_ew_i order of Electroweak coupling
      */
-    void setEvol(const matrix<double>& m, orders_ew order_ew_i);
+    void setEvol(const gslpp::matrix<double>& m, orders_ew order_ew_i);
     
     /**
      *
      * @brief
      * @return
      */
-    matrix<double>** getEvol() const;
+    gslpp::matrix<double>** getEvol() const;
 
     /**
      *
@@ -130,7 +128,7 @@ public:
      * @param[in] order order of QCD coupling
      * @return The RGE evolution matrix at a fixed order of QCD coupling
      */
-    matrix<double>* Evol(orders order);
+    gslpp::matrix<double>* Evol(orders order);
     
     /**
      *
@@ -138,7 +136,7 @@ public:
      * @param[in] order_ew order of Electroweak coupling
      * @return The RGE evolution matrix at a fixed order of Electroweak coupling
      */
-    matrix<double>* Evol(orders_ew order_ew);
+    gslpp::matrix<double>* Evol(orders_ew order_ew);
     
 protected:
     double M;

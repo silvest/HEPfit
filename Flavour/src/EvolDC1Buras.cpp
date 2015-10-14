@@ -77,7 +77,7 @@ EvolDC1Buras::EvolDC1Buras(unsigned int dim_i, schemes scheme, orders order, con
 EvolDC1Buras::~EvolDC1Buras() 
 {}
 
-matrix<double> EvolDC1Buras::AnomalousDimension_DC1_Buras(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDC1Buras::AnomalousDimension_DC1_Buras(orders order, unsigned int n_u, unsigned int n_d) const
 {
    
     /* anomalous dimension related to Delta F = 1 operators in Buras basis, hep-ph/9512380v1 */
@@ -85,7 +85,7 @@ matrix<double> EvolDC1Buras::AnomalousDimension_DC1_Buras(orders order, unsigned
     /* gamma(row, column) at the LO */
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    matrix<double> gammaDF1(dim, 0.);
+    gslpp::matrix<double> gammaDF1(dim, 0.);
     
     switch(order){
         
@@ -184,7 +184,7 @@ matrix<double> EvolDC1Buras::AnomalousDimension_DC1_Buras(orders order, unsigned
     
   }
 
-matrix<double>& EvolDC1Buras::DC1EvolBuras(double mu, double M, orders order, schemes scheme) 
+gslpp::matrix<double>& EvolDC1Buras::DC1EvolBuras(double mu, double M, orders order, schemes scheme) 
 {
     switch (scheme) {
         case NDR:
@@ -232,7 +232,7 @@ matrix<double>& EvolDC1Buras::DC1EvolBuras(double mu, double M, orders order, sc
 void EvolDC1Buras::DC1EvolBuras(double mu, double M, double nf, schemes scheme) 
 {
 
-    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
+    gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -273,12 +273,12 @@ void EvolDC1Buras::DC1EvolBuras(double mu, double M, double nf, schemes scheme)
     
   }
  
-matrix<double> EvolDC1Buras::StrongThresholds() const
+gslpp::matrix<double> EvolDC1Buras::StrongThresholds() const
 {
 
 // entries of the threshold matrix for the evolution at the NLO
     
-matrix<double> deltarsT(dim,0.);
+gslpp::matrix<double> deltarsT(dim,0.);
 
 deltarsT(2,3) = 5./27.;
 deltarsT(2,5) = 5./27.;
@@ -297,7 +297,7 @@ void EvolDC1Buras::DC1PenguinThresholds(double M, orders order)
 {
 
     double alsM = model.Als(M) / 4. / M_PI;
-    matrix<double> drsT(dim,0.);
+    gslpp::matrix<double> drsT(dim,0.);
     drsT = alsM * StrongThresholds();
     *elem[NLO] = (*elem[NLO]) + (*elem[LO]) * drsT;  
   }

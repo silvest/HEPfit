@@ -15,8 +15,6 @@
 #include <stdexcept>
 #include <gslpp.h>
 
-using namespace gslpp;
-
 
 class THDMcache {
     
@@ -32,11 +30,11 @@ public:
     static const int CacheSize = 5;
 
     
-    int CacheCheck(const complex cache[][CacheSize], 
+    int CacheCheck(const gslpp::complex cache[][CacheSize], 
                    const int NumPar, const double params[]) const;
     
-    void CacheShift(complex cache[][CacheSize], const int NumPar, 
-                    const double params[], const complex newResult) const; 
+    void CacheShift(gslpp::complex cache[][CacheSize], const int NumPar, 
+                    const double params[], const gslpp::complex newResult) const; 
 
 ////////////////////////////////////////////////////////////////////////////////
     
@@ -135,36 +133,36 @@ public:
     
     /*One-loop functions*/
     
-    complex B0_Mz_Mz2_Mz_mH(const double Mz, const double mH) const;
-    complex B0_Mz_0_Mz_mH(const double Mz, const double mH) const;
-    complex B0_Mz_Mz2_Mz_mh(const double Mz, const double mh) const;
-    complex B0_Mz_0_Mz_mh(const double Mz, const double mh) const;
-    complex B0_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const double mH) const;
-    complex B0_Mz_0_Mw_mH(const double Mz, const double Mw, const double mH) const;
-    complex B0_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const double mh) const;
-    complex B0_Mz_0_Mw_mh(const double Mz, const double Mw, const double mh) const;
+    gslpp::complex B0_Mz_Mz2_Mz_mH(const double Mz, const double mH) const;
+    gslpp::complex B0_Mz_0_Mz_mH(const double Mz, const double mH) const;
+    gslpp::complex B0_Mz_Mz2_Mz_mh(const double Mz, const double mh) const;
+    gslpp::complex B0_Mz_0_Mz_mh(const double Mz, const double mh) const;
+    gslpp::complex B0_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const double mH) const;
+    gslpp::complex B0_Mz_0_Mw_mH(const double Mz, const double Mw, const double mH) const;
+    gslpp::complex B0_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const double mh) const;
+    gslpp::complex B0_Mz_0_Mw_mh(const double Mz, const double Mw, const double mh) const;
     
-    complex B00_Mz_Mz2_mH_mA(const double Mz, const double mH, const double mA) const;
-    complex B00_Mz_0_mH_mA(const double Mz, const double mH, const double mA) const;
-    complex B00_Mz_Mz2_mHp_mHp(const double Mz, const double mHp) const;
-    complex B00_Mz_0_mHp_mHp(const double Mz, const double mHp) const;
-    complex B00_Mz_Mz2_mh_mA(const double Mz, const double mh, const double mA) const;
-    complex B00_Mz_0_mh_mA(const double Mz, const double mh, const double mA) const;
-    complex B00_Mz_Mz2_Mz_mH(const double Mz, const double mH) const;
-    complex B00_Mz_0_Mz_mH(const double Mz, const double mH) const;
-    complex B00_Mz_Mz2_Mz_mh(const double Mz, const double mh) const;
-    complex B00_Mz_0_Mz_mh(const double Mz, const double mh) const;
-    complex B00_Mz_Mw2_mA_mHp(const double Mz, const double Mw, const double mA, const double mHp) const;
-    complex B00_Mz_0_mA_mHp(const double Mz, const double mA, const double mHp) const;
-    complex B00_Mz_Mw2_mHp_mHp(const double Mz, const double Mw, const double mHp) const;
-    complex B00_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const double mH) const;
-    complex B00_Mz_0_Mw_mH(const double Mz, const double Mw, const double mH) const;
-    complex B00_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const double mh) const;
-    complex B00_Mz_0_Mw_mh(const double Mz, const double Mw, const double mh) const;
-    complex B00_Mz_Mw2_mH_mHp(const double Mz, const double Mw, const double mH, const double mHp) const;
-    complex B00_Mz_0_mH_mHp(const double Mz, const double mH, const double mHp) const;
-    complex B00_Mz_Mw2_mh_mHp(const double Mz, const double Mw, const double mh, const double mHp) const;
-    complex B00_Mz_0_mh_mHp(const double Mz, const double mh, const double mHp) const;
+    gslpp::complex B00_Mz_Mz2_mH_mA(const double Mz, const double mH, const double mA) const;
+    gslpp::complex B00_Mz_0_mH_mA(const double Mz, const double mH, const double mA) const;
+    gslpp::complex B00_Mz_Mz2_mHp_mHp(const double Mz, const double mHp) const;
+    gslpp::complex B00_Mz_0_mHp_mHp(const double Mz, const double mHp) const;
+    gslpp::complex B00_Mz_Mz2_mh_mA(const double Mz, const double mh, const double mA) const;
+    gslpp::complex B00_Mz_0_mh_mA(const double Mz, const double mh, const double mA) const;
+    gslpp::complex B00_Mz_Mz2_Mz_mH(const double Mz, const double mH) const;
+    gslpp::complex B00_Mz_0_Mz_mH(const double Mz, const double mH) const;
+    gslpp::complex B00_Mz_Mz2_Mz_mh(const double Mz, const double mh) const;
+    gslpp::complex B00_Mz_0_Mz_mh(const double Mz, const double mh) const;
+    gslpp::complex B00_Mz_Mw2_mA_mHp(const double Mz, const double Mw, const double mA, const double mHp) const;
+    gslpp::complex B00_Mz_0_mA_mHp(const double Mz, const double mA, const double mHp) const;
+    gslpp::complex B00_Mz_Mw2_mHp_mHp(const double Mz, const double Mw, const double mHp) const;
+    gslpp::complex B00_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const double mH) const;
+    gslpp::complex B00_Mz_0_Mw_mH(const double Mz, const double Mw, const double mH) const;
+    gslpp::complex B00_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const double mh) const;
+    gslpp::complex B00_Mz_0_Mw_mh(const double Mz, const double Mw, const double mh) const;
+    gslpp::complex B00_Mz_Mw2_mH_mHp(const double Mz, const double Mw, const double mH, const double mHp) const;
+    gslpp::complex B00_Mz_0_mH_mHp(const double Mz, const double mH, const double mHp) const;
+    gslpp::complex B00_Mz_Mw2_mh_mHp(const double Mz, const double Mw, const double mh, const double mHp) const;
+    gslpp::complex B00_Mz_0_mh_mHp(const double Mz, const double mh, const double mHp) const;
     
  ///////////////////////////////////////////////////////////////////////////////   
     
@@ -178,36 +176,36 @@ private:
     //Caches
     
     /*One-loop functions*/
-    mutable complex B0_Mz_Mz2_Mz_mH_cache[3][CacheSize];
-    mutable complex B0_Mz_0_Mz_mH_cache[3][CacheSize];
-    mutable complex B0_Mz_Mz2_Mz_mh_cache[3][CacheSize];
-    mutable complex B0_Mz_0_Mz_mh_cache[3][CacheSize];
-    mutable complex B0_Mz_Mw2_Mw_mH_cache[4][CacheSize];
-    mutable complex B0_Mz_0_Mw_mH_cache[4][CacheSize];
-    mutable complex B0_Mz_Mw2_Mw_mh_cache[4][CacheSize];
-    mutable complex B0_Mz_0_Mw_mh_cache[4][CacheSize];
+    mutable gslpp::complex B0_Mz_Mz2_Mz_mH_cache[3][CacheSize];
+    mutable gslpp::complex B0_Mz_0_Mz_mH_cache[3][CacheSize];
+    mutable gslpp::complex B0_Mz_Mz2_Mz_mh_cache[3][CacheSize];
+    mutable gslpp::complex B0_Mz_0_Mz_mh_cache[3][CacheSize];
+    mutable gslpp::complex B0_Mz_Mw2_Mw_mH_cache[4][CacheSize];
+    mutable gslpp::complex B0_Mz_0_Mw_mH_cache[4][CacheSize];
+    mutable gslpp::complex B0_Mz_Mw2_Mw_mh_cache[4][CacheSize];
+    mutable gslpp::complex B0_Mz_0_Mw_mh_cache[4][CacheSize];
     
-    mutable complex B00_Mz_Mz2_mH_mA_cache[4][CacheSize];
-    mutable complex B00_Mz_0_mH_mA_cache[4][CacheSize];
-    mutable complex B00_Mz_Mz2_mHp_mHp_cache[3][CacheSize];
-    mutable complex B00_Mz_0_mHp_mHp_cache[3][CacheSize];
-    mutable complex B00_Mz_Mz2_mh_mA_cache[4][CacheSize];
-    mutable complex B00_Mz_0_mh_mA_cache[4][CacheSize];
-    mutable complex B00_Mz_Mz2_Mz_mH_cache[3][CacheSize];
-    mutable complex B00_Mz_0_Mz_mH_cache[3][CacheSize];
-    mutable complex B00_Mz_Mz2_Mz_mh_cache[3][CacheSize];
-    mutable complex B00_Mz_0_Mz_mh_cache[3][CacheSize];
-    mutable complex B00_Mz_Mw2_mA_mHp_cache[5][CacheSize];
-    mutable complex B00_Mz_0_mA_mHp_cache[4][CacheSize];
-    mutable complex B00_Mz_Mw2_mHp_mHp_cache[4][CacheSize];
-    mutable complex B00_Mz_Mw2_Mw_mH_cache[4][CacheSize];
-    mutable complex B00_Mz_0_Mw_mH_cache[4][CacheSize];
-    mutable complex B00_Mz_Mw2_Mw_mh_cache[4][CacheSize];
-    mutable complex B00_Mz_0_Mw_mh_cache[4][CacheSize];
-    mutable complex B00_Mz_Mw2_mH_mHp_cache[5][CacheSize];
-    mutable complex B00_Mz_0_mH_mHp_cache[4][CacheSize];
-    mutable complex B00_Mz_Mw2_mh_mHp_cache[5][CacheSize];
-    mutable complex B00_Mz_0_mh_mHp_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mz2_mH_mA_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_0_mH_mA_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mz2_mHp_mHp_cache[3][CacheSize];
+    mutable gslpp::complex B00_Mz_0_mHp_mHp_cache[3][CacheSize];
+    mutable gslpp::complex B00_Mz_Mz2_mh_mA_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_0_mh_mA_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mz2_Mz_mH_cache[3][CacheSize];
+    mutable gslpp::complex B00_Mz_0_Mz_mH_cache[3][CacheSize];
+    mutable gslpp::complex B00_Mz_Mz2_Mz_mh_cache[3][CacheSize];
+    mutable gslpp::complex B00_Mz_0_Mz_mh_cache[3][CacheSize];
+    mutable gslpp::complex B00_Mz_Mw2_mA_mHp_cache[5][CacheSize];
+    mutable gslpp::complex B00_Mz_0_mA_mHp_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mw2_mHp_mHp_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mw2_Mw_mH_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_0_Mw_mH_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mw2_Mw_mh_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_0_Mw_mh_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mw2_mH_mHp_cache[5][CacheSize];
+    mutable gslpp::complex B00_Mz_0_mH_mHp_cache[4][CacheSize];
+    mutable gslpp::complex B00_Mz_Mw2_mh_mHp_cache[5][CacheSize];
+    mutable gslpp::complex B00_Mz_0_mh_mHp_cache[4][CacheSize];
 
 };
 

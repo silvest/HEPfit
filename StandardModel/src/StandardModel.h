@@ -14,7 +14,6 @@
 #include "WilsonCoefficient.h"
 #include "StandardModelMatching.h"
 
-using namespace gslpp;
 class EWSMcache;
 class EWSMOneLoopEW;
 class EWSMTwoLoopQCD;
@@ -765,7 +764,7 @@ public:
      * @brief A get method to retrieve the %CKM matrix. 
      * @return the %CKM matrix
      */
-    matrix<complex> getVCKM() const
+    gslpp::matrix<gslpp::complex> getVCKM() const
     {
         return VCKM;
     }
@@ -819,7 +818,7 @@ public:
      * @brief A get method to retrieve the object of the %PMNS matrix.
      * @return the %PMNS matrix
      */
-    matrix<complex> getUPMNS() const
+    gslpp::matrix<gslpp::complex> getUPMNS() const
     {
         return UPMNS;
     }
@@ -829,7 +828,7 @@ public:
      * @f$Y_u@f$.
      * @return @f$Y_u@f$
      */
-    matrix<complex> getYu() const
+    gslpp::matrix<gslpp::complex> getYu() const
     {
         return Yu;
     }
@@ -839,7 +838,7 @@ public:
      * @f$Y_d@f$.
      * @return @f$Y_d@f$
      */
-    matrix<complex> getYd() const
+    gslpp::matrix<gslpp::complex> getYd() const
     {
         return Yd;
     }
@@ -849,7 +848,7 @@ public:
      * @f$Y_\nu@f$.
      * @return @f$Y_\nu@f$
      */
-    matrix<complex> getYn() const
+    gslpp::matrix<gslpp::complex> getYn() const
     {
         return Yn;
     }
@@ -859,7 +858,7 @@ public:
      * @f$Y_e@f$.
      * @return @f$Y_e@f$
      */
-    matrix<complex> getYe() const
+    gslpp::matrix<gslpp::complex> getYe() const
     {
         return Ye;
     }
@@ -1025,55 +1024,55 @@ public:
      * @brief The product of the %CKM elements @f$V_{td} V_{ts}^*@f$.
      * @return @f$V_{td} V_{ts}^*@f$
      */
-    complex computelamt() const;
+    gslpp::complex computelamt() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{cd} V_{cs}^*@f$.
      * @return @f$V_{cd} V_{cs}^*@f$
      */
-    complex computelamc() const;
+    gslpp::complex computelamc() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{ud} V_{us}^*@f$.
      * @return @f$V_{ud} V_{us}^*@f$
      */
-    complex computelamu() const;
+    gslpp::complex computelamu() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{td} V_{tb}^*@f$.
      * @return @f$V_{td} V_{tb}^*@f$
      */
-    complex computelamt_d() const;
+    gslpp::complex computelamt_d() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{cd} V_{cb}^*@f$.
      * @return @f$V_{cd} V_{cb}^*@f$
      */
-    complex computelamc_d() const;
+    gslpp::complex computelamc_d() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{ud} V_{ub}^*@f$.
      * @return @f$V_{ud} V_{ub}^*@f$
      */
-    complex computelamu_d() const;
+    gslpp::complex computelamu_d() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{ts} V_{tb}^*@f$.
      * @return @f$V_{ts} V_{tb}^*@f$
      */
-    complex computelamt_s() const;
+    gslpp::complex computelamt_s() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{cs} V_{cb}^*@f$.
      * @return @f$V_{cs} V_{cb}^*@f$
      */
-    complex computelamc_s() const;
+    gslpp::complex computelamc_s() const;
 
     /**
      * @brief The product of the %CKM elements @f$V_{us} V_{ub}^*@f$.
      * @return @f$V_{us} V_{ub}^*@f$
      */
-    complex computelamu_s() const;
+    gslpp::complex computelamu_s() const;
 
     /**
      * @brief @f$R_t=|(V_{td} V_{tb}^*)/(V_{cd}V_{cb}^*)|@f$.
@@ -1631,7 +1630,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$g_{V,\,\mathrm{SM}}^l@f$
      */
-    virtual complex gV_f(const Particle f) const;
+    virtual gslpp::complex gV_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$ in the SM.
@@ -1642,7 +1641,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$g_{A,\,\mathrm{SM}}^l@f$
      */
-    virtual complex gA_f(const Particle f) const;
+    virtual gslpp::complex gA_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$ in the SM.
@@ -1659,7 +1658,7 @@ public:
      * of StandardModel is set to true, the caching method implemented in the
      * current class is employed.
      */
-    virtual complex rhoZ_f(const Particle f) const;
+    virtual gslpp::complex rhoZ_f(const Particle f) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$ in the SM.
@@ -1688,7 +1687,7 @@ public:
      * of StandardModel is set to true, the caching method implemented in the
      * current class is employed.
      */
-    virtual complex kappaZ_f(const Particle f) const;
+    virtual gslpp::complex kappaZ_f(const Particle f) const;
 
     /**
      * @brief Flavour non-universal vertex corrections to @f$\rho_Z^l@f$,
@@ -1710,7 +1709,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\Delta\rho_Z^l@f$
      */
-    virtual complex deltaRhoZ_f(const Particle f) const;
+    virtual gslpp::complex deltaRhoZ_f(const Particle f) const;
 
     /**
      * @brief Flavour non-universal vertex corrections to @f$\kappa_Z^l@f$,
@@ -1736,7 +1735,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\Delta\kappa_Z^l@f$
      */
-    virtual complex deltaKappaZ_f(const Particle f) const;
+    virtual gslpp::complex deltaKappaZ_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -2280,12 +2279,12 @@ protected:
 
     Particle leptons[6]; ///< An array of Particle objects for the leptons. 
     CKM myCKM; ///< An object of type CKM. 
-    matrix<complex> VCKM; ///< The %CKM matrix.
-    matrix<complex> UPMNS; ///<  The %PMNS matrix.
-    matrix<complex> Yu; ///< The Yukawa matrix of the up-type quarks.
-    matrix<complex> Yd; ///< The Yukawa matrix of the down-type quarks.
-    matrix<complex> Yn; ///< The Yukawa matrix of the neutrinos.
-    matrix<complex> Ye; ///< The Yukawa matrix of the charged leptons.
+    gslpp::matrix<gslpp::complex> VCKM; ///< The %CKM matrix.
+    gslpp::matrix<gslpp::complex> UPMNS; ///<  The %PMNS matrix.
+    gslpp::matrix<gslpp::complex> Yu; ///< The Yukawa matrix of the up-type quarks.
+    gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
+    gslpp::matrix<gslpp::complex> Yn; ///< The Yukawa matrix of the neutrinos.
+    gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
 
     // model parameters
     double AlsMz; ///< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$.
@@ -2572,8 +2571,8 @@ private:
     mutable double DeltaAlpha_cache; ///< A cache of the value of @f$\Delta\alpha(M_Z^2)@f$.
     mutable double Mw_cache; ///< A cache of the value of @f$M_W@f$.
     mutable double GammaW_cache; ///< A cache of the value of @f$\Gamma_W@f$.
-    mutable complex rhoZ_f_cache[12]; ///< A cache of the value of @f$\rho_Z^l@f$.
-    mutable complex kappaZ_f_cache[12]; ///< A cache of the value of @f$\kappa_Z^l@f$.
+    mutable gslpp::complex rhoZ_f_cache[12]; ///< A cache of the value of @f$\rho_Z^l@f$.
+    mutable gslpp::complex kappaZ_f_cache[12]; ///< A cache of the value of @f$\kappa_Z^l@f$.
     mutable bool useDeltaAlphaLepton_cache;
     mutable bool useDeltaAlpha_cache;
     mutable bool useMw_cache;

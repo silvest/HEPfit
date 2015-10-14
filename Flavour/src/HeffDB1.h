@@ -16,9 +16,6 @@
 #include "EvolDB1bsg.h"
 #include "EvolBsmm.h"
 
-
-using namespace gslpp;
-
 class HeffDB1 {
 public:
     /**
@@ -40,7 +37,7 @@ public:
      * @param scheme indicates the reonrmalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 0 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep00(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep00(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -48,7 +45,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 0 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep10(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep10(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -56,7 +53,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 1 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep01(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep01(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -64,42 +61,42 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 1 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep11(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep11(double mu, schemes scheme = NDR);
     
     /**
      * 
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{s} \rightarrow \mu \bar{\mu} \f$
      */
-    vector<complex>** ComputeCoeffsmumu(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffsmumu(double mu, schemes scheme = NDR);
     
     /**
      * 
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{d} \rightarrow \mu \bar{\mu} \f$
      */
-    vector<complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR);
     
     /**
      * 
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B \rightarrow \tau \nu \f$
      */
-    vector<complex>** ComputeCoeffbtaunu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu();
     
     /**
      * 
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{s} \rightarrow \nu \bar{\nu} \f$
      */
-    vector<complex>** ComputeCoeffsnunu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu();
     
     /**
      * 
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{d} \rightarrow \nu \bar{\nu} \f$
      */
-    vector<complex>** ComputeCoeffdnunu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffdnunu();
     
     /**
      * 
@@ -107,7 +104,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return short distance contribution to the rare decay \f$ b \rightarrow s \gamma \f$
      */
-    vector<complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -115,7 +112,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    vector<complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -123,7 +120,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    vector<complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR);
     
     WilsonCoefficient getCoeffnlep00() const {
         return coeffnlep00;
@@ -233,7 +230,7 @@ private :
     schemes Bdmumu_scheme_cache;
     std::vector<WilsonCoefficient> Bdmumu_WC_cache;
     
-    gslpp::vector<complex> nlep, nlep2, nlepCC;
+    gslpp::vector<gslpp::complex> nlep, nlep2, nlepCC;
 };
 
 #endif	/* HEFFDB1_H */

@@ -8,8 +8,6 @@
 #include "HeffDB1.h"
 #include "gslpp_complex.h"
 
-using namespace gslpp;
-
 HeffDB1::HeffDB1(const StandardModel & SM) 
 :       model(SM), 
         coeffnlep00qcd (10, NDR, NLO, NLO_ew), coeffnlep00 (12, NDR, NLO, NLO_ew),
@@ -68,7 +66,7 @@ HeffDB1::~HeffDB1()
  * Buras base                                                                  *
  * deltaB=1   deltaC=0   deltaS=0                                              *
  ******************************************************************************/
-vector<complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme) 
 {
     
      std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMbnlep( 0);
@@ -144,7 +142,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme)
  * Buras base                                                                  *
  * deltaB=1   deltaC=0   deltaS=1                                              *
  ******************************************************************************/
-vector<complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes scheme) 
 {
     
      std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMbnlep( 1);
@@ -218,7 +216,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes scheme)
  * Buras base                                                                  *
  * deltaB=1   deltaC=1   deltaS=0                                              *
  ******************************************************************************/
-vector<complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes scheme) 
 {
     
      std::vector<WilsonCoefficient>& mcbCC1 =model.getMyMatching()->CMbnlepCC( 2);
@@ -269,7 +267,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes scheme)
  * Buras base                                                                  *
  * deltaB=1   deltaC=1   deltaS=1                                              *
  ******************************************************************************/
-vector<complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme) 
 {
     
      std::vector<WilsonCoefficient>& mcbCC1 = model.getMyMatching()->CMbnlepCC( 2);
@@ -313,7 +311,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme)
     
 }
 
-vector<complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes scheme) 
 {   
     
     
@@ -509,21 +507,14 @@ vector<complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes scheme)
                 
                 
                 break;
-                }
-                
-                
-                
-               
-            }
+            }                
         }
-    
-    
+    }
     return coeffsmumu.getCoeff();
-    
 }
 
 
-vector<complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes scheme) 
 {   
     
     coeffdmumu.setScheme(scheme);
@@ -718,20 +709,13 @@ vector<complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes scheme)
                 
                 
                 break;
-                }
-                
-                
-                
-               
-            }
+            }                        
         }
-    
-    
+    }   
     return coeffdmumu.getCoeff();
-    
 }
 
-vector<complex>** HeffDB1::ComputeCoeffbtaunu() 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffbtaunu() 
 {
     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMbtaunu();
     coeffbtaunu.resetCoefficient();
@@ -745,7 +729,7 @@ vector<complex>** HeffDB1::ComputeCoeffbtaunu()
      return coeffbtaunu.getCoeff(); 
 }
 
-vector<complex>** HeffDB1::ComputeCoeffsnunu() 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsnunu() 
 {
     
      std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMBXsnn();
@@ -762,7 +746,7 @@ vector<complex>** HeffDB1::ComputeCoeffsnunu()
     return coeffsnunu.getCoeff(); 
 } 
 
-vector<complex>** HeffDB1::ComputeCoeffdnunu() 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdnunu() 
 {
     
      std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMBXdnn();
@@ -779,7 +763,7 @@ vector<complex>** HeffDB1::ComputeCoeffdnunu()
     return coeffdnunu.getCoeff(); 
 } 
 
-vector<complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes scheme) 
 {
     
     coeffsgamma.setScheme(scheme);
@@ -824,7 +808,7 @@ vector<complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes scheme)
     return coeffsgamma.getCoeff(); 
 }
 
-vector<complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes scheme) 
 {
     
     coeffBMll.setScheme(scheme);
@@ -870,7 +854,7 @@ vector<complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes scheme)
 }
 
 
-vector<complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, schemes scheme) 
 {
     
     coeffprimeBMll.setScheme(scheme);

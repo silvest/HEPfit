@@ -732,7 +732,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     
     
     double xt = x_t(Mut);
-    complex co = GF / 4. / M_PI * Mw * SM.computelamt_d();
+    gslpp::complex co = GF / 4. / M_PI * Mw * SM.computelamt_d();
     
     vmcdb.clear();
 
@@ -780,7 +780,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     double gammam = 6. * CF;
     double Bt;
     double xt = x_t(Mut);
-    complex co = GF / 4. / M_PI * Mw * SM.computelamt_s();
+    gslpp::complex co = GF / 4. / M_PI * Mw * SM.computelamt_s();
 
     vmcds.clear();
 
@@ -1073,7 +1073,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
-    complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
+    gslpp::complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
     
     vmcbsg.clear();
     
@@ -1573,7 +1573,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  * ****************************************************************************/
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int a)
 {
-    complex lambda;
+    gslpp::complex lambda;
     
     switch (a) {
         case 0: lambda = SM.computelamt_d();
@@ -1636,9 +1636,9 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  * ****************************************************************************/
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int a) 
 {    
-    complex lambda1 = 0.;
-    //complex lambda2 = 0.;
-    //matrix<complex> ckm = SM.getVCKM();
+    gslpp::complex lambda1 = 0.;
+    //gslpp::complex lambda2 = 0.;
+    //gslpp::matrix<gslpp::complex> ckm = SM.getVCKM();
     
     switch (a) {
         case 0: lambda1 = SM.computelamu_d();
@@ -2182,15 +2182,15 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
     return (CWbnlepArrayNLOew[i]);
 }
 
-complex StandardModelMatching::S0c() const 
+gslpp::complex StandardModelMatching::S0c() const 
 {
     double xc = x_c(SM.getMuc());
-    complex co = GF / 2. / M_PI * Mw_tree * SM.computelamc().conjugate(); /* Mw_tree...?? */
+    gslpp::complex co = GF / 2. / M_PI * Mw_tree * SM.computelamc().conjugate(); /* Mw_tree...?? */
     
     return(co * co * S0(xc, xc));
 }
 
-complex StandardModelMatching::S0ct() const 
+gslpp::complex StandardModelMatching::S0ct() const 
 {
     double xc = SM.Mrun4(SM.getMuc(),SM.getQuarks(QCD::CHARM).getMass_scale(),SM.getQuarks(QCD::CHARM).getMass())/Mw;
     xc *= xc;
@@ -2204,10 +2204,10 @@ complex StandardModelMatching::S0ct() const
     return( co * co * 2. * SM.computelamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
 }
 
-complex StandardModelMatching::S0tt() const
+gslpp::complex StandardModelMatching::S0tt() const
 {
     double xt = x_t(Mut);
-    complex co = GF / 2. / M_PI * Mw * lam_t.conjugate();
+    gslpp::complex co = GF / 2. / M_PI * Mw * lam_t.conjugate();
 #if SUSYFIT_DEBUG & 2
     std::cout << "S0(" << xt << ") = " << S0(xt,xt) << std::endl;
 #endif
@@ -2222,7 +2222,7 @@ double StandardModelMatching::ZDP(const double x, const double y) const
     return co * co / sqrt(2.) * GF * C0t(x) * C0t(y);
 }
 
-complex StandardModelMatching::ZDPtt() const
+gslpp::complex StandardModelMatching::ZDPtt() const
 {
     double xt = x_t(Mut);
     
@@ -2230,7 +2230,7 @@ complex StandardModelMatching::ZDPtt() const
     
 }
 
-complex StandardModelMatching::ZDPct() const
+gslpp::complex StandardModelMatching::ZDPct() const
 {
     double xt = x_t(Mut);
     double xc = x_c(SM.getMuc());

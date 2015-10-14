@@ -12,8 +12,6 @@
 #include "Flavour.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 /**
  * @class AmpDK2
  * @ingroup Flavour
@@ -37,8 +35,8 @@ public:
     AmpDK2(const StandardModel& SM_i);
 
 protected:
-    complex AmpDK(orders order);
-    complex AmpMK(orders order);
+    gslpp::complex AmpDK(orders order);
+    gslpp::complex AmpMK(orders order);
     
 private:
     

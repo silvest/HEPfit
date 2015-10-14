@@ -17,7 +17,7 @@ double BR_Kmumu::computeThValue()
            * mySM.getBr_Kp_munu() * BRKmumu(NLO).real());
 }
 
-complex BR_Kmumu::BRKmumu(orders order)
+gslpp::complex BR_Kmumu::BRKmumu(orders order)
 {
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1mumu().getOrder() < order){
         std::stringstream out;
@@ -26,7 +26,7 @@ complex BR_Kmumu::BRKmumu(orders order)
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1mumu();
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1mumu();
     
     switch(order) {
         case NLO:

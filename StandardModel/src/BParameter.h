@@ -11,8 +11,6 @@
 #include <gslpp_vector_double.h>
 #include "OrderScheme.h"
 
-using namespace gslpp;
-
 /**
  * @addtogroup StandardModel
  * @brief A module for the Standard %Model.
@@ -42,7 +40,7 @@ public:
      * @brief A get method for the vector of the bag parameters.
      * @return the vector of the bag parameters
      */
-    vector<double> getBpars() const
+    gslpp::vector<double> getBpars() const
     {
         return bpars;
     }
@@ -51,7 +49,7 @@ public:
      * @brief A set method for a vector of the bag parameters.
      * @param[in] bpars a vector of the bag parameters
      */
-    void setBpars(vector<double> bpars) 
+    void setBpars(gslpp::vector<double> bpars) 
     {
         this->bpars = bpars;
     }
@@ -70,7 +68,7 @@ public:
      * @brief A get method for the scale of the bag parameters.
      * @return the scale at which the bag parameters are defined
      */
-    vector<double> getMu() const
+    gslpp::vector<double> getMu() const
     {
         return bmu;
     }
@@ -102,8 +100,8 @@ public:
     }
 
 private:
-    vector<double> bpars;///< A vector of bag parameters.
-    vector<double> bmu;///< A vector with one single entry: the scale at which the bag parameters are defined. 
+    gslpp::vector<double> bpars;///< A vector of bag parameters.
+    gslpp::vector<double> bmu;///< A vector with one single entry: the scale at which the bag parameters are defined. 
     schemes scheme;///< The scheme in which the bag parameters are defined.
     
 };

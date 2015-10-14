@@ -70,7 +70,7 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
         throw std::runtime_error("Bsmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    vector<complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffsmumu(mu, NDR);
+    gslpp::vector<gslpp::complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffsmumu(mu, NDR);
   
     double alsmu = evolbsmm.alphatilde_s(mu);
     double alemu = evolbsmm.alphatilde_e(mu);
@@ -80,7 +80,7 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
     switch(order_ew) {
         case FULLNLO_ew:
         {
-            complex CC = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
+            gslpp::complex CC = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
                     + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_ew ]))(7) /alsmu
                     + (*(allcoeff[NLO_ew]))(7) + (*(allcoeff[NLO_ewt1]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_ewt2]))(7) * alsmu 

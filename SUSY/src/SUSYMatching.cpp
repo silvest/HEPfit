@@ -597,7 +597,7 @@ void SUSYMatching::Comp_DeltaMd() {
     for (J = 0; J < 3; J++) {
         for (I = 0; I < 3; I++) {
 
-            complex temp(0., 0., false);
+            gslpp::complex temp(0., 0., false);
 
             for (k = 0; k < 6; k++) {
 
@@ -684,7 +684,7 @@ gslpp::complex SUSYMatching::Lambda0EpsY(int J, int I){
 void SUSYMatching::Comp_DeltaDL() {
 
     int I, J;
-    complex C(0., 0., false);
+    gslpp::complex C(0., 0., false);
 
     for (I = 0; I < 3; I++) {
         for (J = 0; J < 3; J++) {
@@ -711,7 +711,7 @@ gslpp::complex SUSYMatching::DeltaDL(int J, int I) {
 
 gslpp::complex SUSYMatching::DeltaDR(int J, int I){
     
-    complex C(0., 0., false);
+    gslpp::complex C(0., 0., false);
     C = DeltaDL_Cache(J,I).conjugate();
     
    return (C);  
@@ -721,7 +721,7 @@ void SUSYMatching::Comp_mySUSY_CKM() {
 
   
     
-    complex Delta_CKM_IJ(0.,0.,false);
+    gslpp::complex Delta_CKM_IJ(0.,0.,false);
     
     int l, I, J;
 
@@ -741,7 +741,7 @@ void SUSYMatching::Comp_mySUSY_CKM() {
     }    
 }
 
-gslpp::matrix<complex> SUSYMatching::mySUSY_CKM() {
+gslpp::matrix<gslpp::complex> SUSYMatching::mySUSY_CKM() {
 
     return (myCKM_cache);
 
@@ -752,7 +752,7 @@ gslpp::matrix<complex> SUSYMatching::mySUSY_CKM() {
 void SUSYMatching::Comp_VdUCL() {
 
 
-    complex VdUCL_bkj(0., 0., false);
+    gslpp::complex VdUCL_bkj(0., 0., false);
     int l, b, k, j;
 
     for (b = 0; b < 3; b++) {
@@ -785,9 +785,9 @@ gslpp::complex SUSYMatching::VdUCL(int b, int k, int j) {
 /////  VdUCR element b,k,j <-> VChiUdR element j,k,b 
 void SUSYMatching::Comp_VdUCR(int flag) {
 
-    complex VdUCR_bkj(0., 0., false);
-    complex Ydb(0., 0., false);
-    complex Ydp(0., 0., false);
+    gslpp::complex VdUCR_bkj(0., 0., false);
+    gslpp::complex Ydb(0., 0., false);
+    gslpp::complex Ydp(0., 0., false);
     int l, p, b, k, j;
 
     for (b = 0; b < 3; b++) {
@@ -835,7 +835,7 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag) {
 
 void SUSYMatching::Comp_VdDNL(int flag){
     
-    complex VdDNL_bkj(0., 0., false);
+    gslpp::complex VdDNL_bkj(0., 0., false);
     /* tree-level cW2 */
     double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
     /* SM value for cW2 in the on-shell scheme */
@@ -907,7 +907,7 @@ gslpp::complex SUSYMatching::VdDNL(int b, int k, int j, int flag) {
 
 void SUSYMatching::Comp_VdDNR(int flag) {
 
-    complex VdDNR_bkj(0., 0., false);
+    gslpp::complex VdDNR_bkj(0., 0., false);
     /* tree-level cW2 */
     double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
     /* SM value for cW2 in the on-shell scheme */
@@ -975,9 +975,9 @@ gslpp::complex SUSYMatching::VdDNR(int b, int k, int j, int flag) {
 void SUSYMatching::Comp_VuDCL() { // to be corrected
 
 
-    gslpp::matrix<complex> myCKM(3, 3, 0.);
-    complex VuDCL_bkj(0., 0., false);
-    complex YdI(0., 0., false);
+    gslpp::matrix<gslpp::complex> myCKM(3, 3, 0.);
+    gslpp::complex VuDCL_bkj(0., 0., false);
+    gslpp::complex YdI(0., 0., false);
     int I, b, k, j;
 
     for (b = 0; b < 3; b++) {
@@ -1008,12 +1008,12 @@ gslpp::complex SUSYMatching::VuDCL(int b, int k, int j) {
 void SUSYMatching::Comp_VuDCR() {
 
 
-    gslpp::matrix<complex> mySUSYCKM(3, 3, 0.);
+    gslpp::matrix<gslpp::complex> mySUSYCKM(3, 3, 0.);
     mySUSYCKM = mySUSY_CKM();
-    gslpp::matrix<complex> myV(2, 2, 0.);
+    gslpp::matrix<gslpp::complex> myV(2, 2, 0.);
     myV = mySUSY.getV();
     double Yub;
-    complex VuDCR_bkj(0., 0., false);
+    gslpp::complex VuDCR_bkj(0., 0., false);
    
     int I, b, k, j;
 
@@ -1081,8 +1081,8 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag, int Dmixingfla
 void SUSYMatching::Comp_VuUN(){
  
     double TanThetaW = sqrt(mySUSY.sW2() / mySUSY.cW2());
-    complex VuUNL_bkj(0.,0.,false);
-    complex VuUNR_bkj(0.,0.,false);
+    gslpp::complex VuUNL_bkj(0.,0.,false);
+    gslpp::complex VuUNR_bkj(0.,0.,false);
     double Yub;
     
     int b, k, j;
@@ -1231,16 +1231,16 @@ gslpp::complex SUSYMatching::PHLR(int j, int i) {
 
 void SUSYMatching::Comp_VUDHH(){
     
-    complex VUDHijH(0., 0., false);
-    gslpp::matrix<complex> myTU(3, 3, 0.);
-    gslpp::matrix<complex> myTD(3, 3, 0.);
-    complex YuJ(0., 0., false);
-    complex YdI(0., 0., false);
-    gslpp::matrix<complex> mySUSYCKM(3, 3, 0.);
+    gslpp::complex VUDHijH(0., 0., false);
+    gslpp::matrix<gslpp::complex> myTU(3, 3, 0.);
+    gslpp::matrix<gslpp::complex> myTD(3, 3, 0.);
+    gslpp::complex YuJ(0., 0., false);
+    gslpp::complex YdI(0., 0., false);
+    gslpp::matrix<gslpp::complex> mySUSYCKM(3, 3, 0.);
     mySUSYCKM = mySUSY_CKM();
     myTU = mySUSY.getTUhat();
     myTD = mySUSY.getTDhat();
-    gslpp::matrix<complex> ZH(2, 2, 0.);
+    gslpp::matrix<gslpp::complex> ZH(2, 2, 0.);
     ZH.assign(0, 0, mySUSY.getSinb());
     ZH.assign(0, 1, -mySUSY.getCosb());
     ZH.assign(1, 0, mySUSY.getCosb());
@@ -1302,14 +1302,14 @@ gslpp::complex SUSYMatching::VUDHH(int i, int j) {
 gslpp::complex SUSYMatching::DeltaFHL(int j, int i) {
 
 
-    complex DFHL_ji(0., 0., false);
+    gslpp::complex DFHL_ji(0., 0., false);
     gslpp::vector<double> myMU2Squarks(6, 0.);
     gslpp::vector<double> myMD2Squarks(6, 0.);
     myMU2Squarks = mySUSY.getMsu2();
     myMD2Squarks = mySUSY.getMsd2();
     gslpp::vector<double> MChi0(4, 0.);
-    complex Yuj(0., 0., false);
-    complex Ydi(0., 0., false);
+    gslpp::complex Yuj(0., 0., false);
+    gslpp::complex Ydi(0., 0., false);
     int m, l;
 
     Yuj = sqrt(2.) / v2 * mySUSYMQ(2 * j);
@@ -1427,9 +1427,9 @@ gslpp::complex SUSYMatching::xdS(int S){
     double sina = tana / sqrt(1. + tana * tana);
     double cosa = 1. / sqrt(1 + tana * tana);
     
-    complex Cosa(cosa,0.,false);
-    complex Sina(sina,0.,false);
-    complex i(0.,1.,false);
+    gslpp::complex Cosa(cosa,0.,false);
+    gslpp::complex Sina(sina,0.,false);
+    gslpp::complex i(0.,1.,false);
 
 
     switch ( S ) {
@@ -1460,9 +1460,9 @@ gslpp::complex SUSYMatching::xuS(int S){
     double sina = tana / sqrt(1. + tana * tana);
     double cosa = 1. / sqrt(1 + tana * tana);
     
-    complex Cosa(cosa,0.,false);
-    complex Sina(sina,0.,false);
-    complex i(0.,1.,false);
+    gslpp::complex Cosa(cosa,0.,false);
+    gslpp::complex Sina(sina,0.,false);
+    gslpp::complex i(0.,1.,false);
     
     switch ( S ) {
         case 0:
@@ -1505,9 +1505,9 @@ gslpp::complex SUSYMatching::XLRS(int J, int I, int S){
 
     double Y2ut = sqrt(2.) / v2 * mySUSYMQ(4);
     Y2ut *= Y2ut;
-    complex temp(0.,0.,false);
+    gslpp::complex temp(0.,0.,false);
     temp = 1 + Eps_J(J) * tanb;
-    complex rJI(0.,0.,false);
+    gslpp::complex rJI(0.,0.,false);
         
     rJI = ((1. +  (Eps_J(J) + (Eps_J(I).conjugate() - Eps_J(J).conjugate()) *
             Lambda0EpsY(J, I) / Lambda0EpsY(I, J).conjugate()) * tanb) /
@@ -1536,7 +1536,7 @@ gslpp::complex SUSYMatching::XLRS(int J, int I, int S){
 //// Q_1 = (q \bar _L gamma_mu b_L) (q \bar _L gamma^mu b_L)
 //// in the D - D \bar mixing q -> u and b -> c
 
-gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
+gslpp::vector<gslpp::complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
 
     gslpp::vector<double> M2S(3,0.);
     gslpp::vector<double> MQuarks(6,0.);
@@ -1566,8 +1566,8 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
     M2S(1) = mySUSY.getMHh() * mySUSY.getMHh();
     M2S(2) = mySUSY.getMHa() * mySUSY.getMHa();
 
-    gslpp::vector<complex> VCLO(8, 0.);
-    complex CLO(0.,0.,false);
+    gslpp::vector<gslpp::complex> VCLO(8, 0.);
+    gslpp::complex CLO(0.,0.,false);
     
     
     int I, J, k, l, S, O;
@@ -1753,9 +1753,9 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
 ////////////////////////////////////////////////////////////////////////////////
 //// Gluino contribution to Wilson coefficients of Delta F = 2 
 
-gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
+gslpp::vector<gslpp::complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
 
-    gslpp::matrix<complex> myR(6, 6, 0.);
+    gslpp::matrix<gslpp::complex> myR(6, 6, 0.);
     gslpp::vector<double> myM2Squarks(6, 0.);
     
     
@@ -1775,8 +1775,8 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
         
     }
     
-    complex CLO(0., 0., false);
-    gslpp::vector<complex> VCLO(8, 0.);
+    gslpp::complex CLO(0., 0., false);
+    gslpp::vector<gslpp::complex> VCLO(8, 0.);
 
 
     double M2g = Mg*Mg;
@@ -1901,12 +1901,12 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
 ////////////////////////////////////////////////////////////////////////////////
 //// Chargino contribution to Wilson coefficients of Delta F = 2
 
-gslpp::vector<complex> SUSYMatching::CdF2dChiChi(int b, int q, int Dmixingflag) {
+gslpp::vector<gslpp::complex> SUSYMatching::CdF2dChiChi(int b, int q, int Dmixingflag) {
 
     gslpp::vector<double> myM2Squarks(6, 0.);
 
-    complex CLO(0., 0., false);
-    gslpp::vector<complex> VCLO(8, 0.);
+    gslpp::complex CLO(0., 0., false);
+    gslpp::vector<gslpp::complex> VCLO(8, 0.);
     int i, j, h, k, O;
 
     
@@ -2035,11 +2035,11 @@ gslpp::vector<complex> SUSYMatching::CdF2dChiChi(int b, int q, int Dmixingflag) 
 //// Neutralino contribution to Wilson coefficients of Delta F = 2
 /**** In the D mixing b -> c , q -> u ****/
 
-gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag) {  
+gslpp::vector<gslpp::complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag) {  
 
     gslpp::vector<double> myM2Squarks(6, 0.);
-    gslpp::vector<complex> VCLO(8, 0.);
-    complex CLO(0., 0., false);
+    gslpp::vector<gslpp::complex> VCLO(8, 0.);
+    gslpp::complex CLO(0., 0., false);
     int i, j, h, k, O;
     
     // Set the D - Dbar mixing flag
@@ -2221,13 +2221,13 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
 ////////////////////////////////////////////////////////////////////////////////
 //// Neutralino - Gluino contribution to Wilson coefficients of Delta F = 2
 
-gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {   
+gslpp::vector<gslpp::complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {   
 
 
-    gslpp::matrix<complex> myR(6, 6, 0.);
+    gslpp::matrix<gslpp::complex> myR(6, 6, 0.);
     gslpp::vector<double> myM2Squarks(6, 0.);
-    gslpp::vector<complex> VCLO(8, 0.);
-    complex CLO(0., 0., false);
+    gslpp::vector<gslpp::complex> VCLO(8, 0.);
+    gslpp::complex CLO(0., 0., false);
     int i, h, k, O;
     double M2g = Mg*Mg;
 
@@ -2447,11 +2447,11 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
 std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
 
     int i;
-    gslpp::vector<complex> CdF2dHpT(8, 0.);
-    gslpp::vector<complex> CdF2dggT(8, 0.);
-    gslpp::vector<complex> CdF2dChiChiT(8, 0.);
-    gslpp::vector<complex> CdF2dChi0Chi0T(8, 0.);
-    gslpp::vector<complex> CdF2dChigT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dHpT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dggT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChiChiT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChi0Chi0T(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChigT(8, 0.);
 
     if (mySUSY.IsFlag_h()) CdF2dHpT = CdF2dHp(0, 2, 0);
     if (mySUSY.IsFlag_ch()) CdF2dChiChiT = CdF2dChiChi(0, 2, 0);
@@ -2648,11 +2648,11 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
 
 std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
     int i;
-    gslpp::vector<complex> CdF2dHpT(8, 0.);
-    gslpp::vector<complex> CdF2dggT(8, 0.);
-    gslpp::vector<complex> CdF2dChiChiT(8, 0.);
-    gslpp::vector<complex> CdF2dChi0Chi0T(8, 0.);
-    gslpp::vector<complex> CdF2dChigT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dHpT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dggT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChiChiT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChi0Chi0T(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChigT(8, 0.);
     
     if (mySUSY.IsFlag_h()) CdF2dHpT = CdF2dHp(1, 2, 0);
     if (mySUSY.IsFlag_ch()) CdF2dChiChiT = CdF2dChiChi(1, 2, 0);
@@ -2847,11 +2847,11 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
 std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
 
     int i;
-    gslpp::vector<complex> CdF2dHpT(8, 0.);
-    gslpp::vector<complex> CdF2dggT(8, 0.);
-    gslpp::vector<complex> CdF2dChiChiT(8, 0.);
-    gslpp::vector<complex> CdF2dChi0Chi0T(8, 0.);
-    gslpp::vector<complex> CdF2dChigT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dHpT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dggT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChiChiT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChi0Chi0T(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChigT(8, 0.);
     
     if (mySUSY.IsFlag_h()) CdF2dHpT = CdF2dHp(0, 1, 0);
     if (mySUSY.IsFlag_ch()) CdF2dChiChiT = CdF2dChiChi(0, 1, 0);
@@ -3047,11 +3047,11 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
  std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
 
     int i;
-    gslpp::vector<complex> CdF2dHpT(8, 0.);
-    gslpp::vector<complex> CdF2dggT(8, 0.);
-    gslpp::vector<complex> CdF2dChiChiT(8, 0.);
-    gslpp::vector<complex> CdF2dChi0Chi0T(8, 0.);
-    gslpp::vector<complex> CdF2dChigT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dHpT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dggT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChiChiT(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChi0Chi0T(8, 0.);
+    gslpp::vector<gslpp::complex> CdF2dChigT(8, 0.);
     
     if (mySUSY.IsFlag_h()) CdF2dHpT = CdF2dHp(1, 0, 1);
     if (mySUSY.IsFlag_g()) CdF2dggT = CdF2dgg(1, 0, 1);
@@ -3251,9 +3251,9 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
 
 gslpp::complex SUSYMatching::EpsPrime(int J, int I){
    
-    gslpp::matrix<complex> myCKM(3, 3, 0.);
+    gslpp::matrix<gslpp::complex> myCKM(3, 3, 0.);
     myCKM = mySUSY_CKM();
-    complex YuJ(0., 0., false);
+    gslpp::complex YuJ(0., 0., false);
 
     YuJ = sqrt(2.) / v2 * mySUSYMQ(2 * J);
     
@@ -3282,10 +3282,10 @@ double SUSYMatching::F7k(double x, int k) {
 
 }
 
-gslpp::vector <complex> SUSYMatching::CalcC7(int b, int q) {
+gslpp::vector <gslpp::complex> SUSYMatching::CalcC7(int b, int q) {
 
-    gslpp::vector<complex> VCLO(5, 0.);
-    complex CLO(0., 0., false);
+    gslpp::vector<gslpp::complex> VCLO(5, 0.);
+    gslpp::complex CLO(0., 0., false);
     double m2top = mySUSYMQ(4) * mySUSYMQ(4);
     double M2Hp = mySUSY.getMHp() * mySUSY.getMHp();
     double M2W = mySUSY.Mw_tree() * mySUSY.Mw_tree();
@@ -3355,7 +3355,7 @@ gslpp::vector <complex> SUSYMatching::CalcC7(int b, int q) {
 
 /* LEPTON FLAVOUR */
 
-gslpp::vector<complex> SUSYMatching::C7_Lepton(int li_to_lj) {
+gslpp::vector<gslpp::complex> SUSYMatching::C7_Lepton(int li_to_lj) {
 
     int obs;
     double MW = mySUSY.Mw();
@@ -3377,7 +3377,7 @@ gslpp::vector<complex> SUSYMatching::C7_Lepton(int li_to_lj) {
     double g2t = g2/sqrt(2.0);
     double alph = mySUSY.getAle();
 
-    gslpp::vector<complex> C7(2, 0.);
+    gslpp::vector<gslpp::complex> C7(2, 0.);
 
     if (li_to_lj > 0 and li_to_lj < 4) obs = li_to_lj;
     else throw std::runtime_error("li_to_lj can only be"
@@ -3742,7 +3742,7 @@ gslpp::vector<complex> SUSYMatching::C7_Lepton(int li_to_lj) {
     }
 //
 //    throw std::runtime_error("SUSYMatching::C7_Lepton(): Observable type not defined. Can be only any of (1) till (3)");
-//        gslpp::vector<complex> errorvalues;
+//        gslpp::vector<gslpp::complex> errorvalues;
 //        errorvalues.assign(0,0.0);
 //        errorvalues.assign(1,0.0);
 //    return (EXIT_FAILURE);
