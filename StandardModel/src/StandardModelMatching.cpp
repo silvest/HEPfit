@@ -36,7 +36,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbsmm(8, NDR, NNLO, NLO_ewt4),
         mcbdmm(8, NDR, NNLO, NLO_ewt4),
         mcbtaunu(3, NDR, NLO),
-        mcDL1(2, NDR, LO),
+        mcDLij(2, NDR, LO),
+        mcDLi3j(12, NDR, LO),
         Vckm(3, 3, 0)
 {
     swa = 0.;
@@ -2244,26 +2245,60 @@ gslpp::complex StandardModelMatching::ZDPct() const
  * Wilson coefficients for Lepton Flavour Violation               *  
  * ****************************************************************************/
 
-std::vector<WilsonCoefficient>& StandardModelMatching::CMDL1() {
+std::vector<WilsonCoefficient>& StandardModelMatching::CMDLij(int li_lj) {
     
-    vmcDL1.clear();
+    vmcDLij.clear();
     
-    mcDL1.setMu(Muw);
+    mcDLij.setMu(Muw);
     
-    switch (mcDL1.getOrder()) {
+    switch (mcDLij.getOrder()) {
         case LO:
-            mcDL1.setCoeff(0, 0., LO);
-            mcDL1.setCoeff(1, 0., LO);
+            mcDLij.setCoeff(0, 0., LO);
+            mcDLij.setCoeff(1, 0., LO);
             break;
         case NNLO:
         case NLO:
         default:
             std::stringstream out;
-            out << mcDL1.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMDL1(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+            out << mcDLij.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMDLij(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
     }
     
-    vmcDL1.push_back(mcDL1);
-    return(vmcDL1);
+    vmcDLij.push_back(mcDLij);
+    return(vmcDLij);
+    
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::CMDLi3j(int li_lj) {
+    
+    vmcDLi3j.clear();
+    
+    mcDLi3j.setMu(Muw);
+    
+    switch (mcDLi3j.getOrder()) {
+        case LO:
+            mcDLi3j.setCoeff(0, 0., LO);
+            mcDLi3j.setCoeff(1, 0., LO);
+            mcDLi3j.setCoeff(2, 0., LO);
+            mcDLi3j.setCoeff(3, 0., LO);
+            mcDLi3j.setCoeff(4, 0., LO);
+            mcDLi3j.setCoeff(5, 0., LO);
+            mcDLi3j.setCoeff(6, 0., LO);
+            mcDLi3j.setCoeff(7, 0., LO);
+            mcDLi3j.setCoeff(8, 0., LO);
+            mcDLi3j.setCoeff(9, 0., LO);
+            mcDLi3j.setCoeff(10, 0., LO);
+            mcDLi3j.setCoeff(11, 0., LO);
+            break;
+        case NNLO:
+        case NLO:
+        default:
+            std::stringstream out;
+            out << mcDLi3j.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMDLi3j(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+    }
+    
+    vmcDLi3j.push_back(mcDLi3j);
+    return(vmcDLi3j);
     
 }

@@ -9,7 +9,8 @@
 #define	LEPTONFLAVOUR_H
 
 #include <StandardModel.h>
-#include "HeffDL1.h"
+#include "HeffDLij.h"
+#include "HeffDLi3j.h"
 
 using namespace gslpp;
 
@@ -17,19 +18,28 @@ class LeptonFlavour {
 public:
 
     LeptonFlavour(const StandardModel& SM_i) :
-            HDL1(SM_i)//, HDS1(SM_i), HDB1(SM_i)
+            HDLij(SM_i),HDLi3j(SM_i)//, HDS1(SM_i), HDB1(SM_i)
     {};
 
-    const HeffDL1& getHDL1() const {
-        return HDL1;
+    const HeffDLij& getHDLij() const {
+        return HDLij;
     }
-    
-    vector<complex>** ComputeCoeffli_lj_gamma() {
-        return HDL1.ComputeCoeffDL1();
+
+    vector<complex>** ComputeCoeffli_lj_gamma(int li_lj) {
+        return HDLij.ComputeCoeffDLij(li_lj);
     }
-    
+
+    const HeffDLi3j& getHDLi3j() const {
+        return HDLi3j;
+    }
+
+    vector<complex>** ComputeCoeffli_3lj(int li_lj) {
+        return HDLi3j.ComputeCoeffDLi3j(li_lj);
+    }
+
 private:
-    HeffDL1 HDL1;
+    HeffDLij HDLij;
+    HeffDLi3j HDLi3j;
 };
 
 #endif	/* LEPTONFLAVOUR_H */

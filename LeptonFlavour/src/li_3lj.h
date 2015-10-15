@@ -1,24 +1,24 @@
 /*
- * Copyright (C) 2013 HEPfit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef LI_LJ_GAMMA_H
-#define	LI_LJ_GAMMA_H
+#ifndef LI_3LJ_H
+#define	LI_3LJ_H
 
 #include <gslpp.h>
 #include <ThObservable.h>
 #include "LeptonFlavour.h"
 
-class li_lj_gamma : public ThObservable {
+class li_3lj : public ThObservable {
 public:
     /**
      * constructor
      * @param LeptonFlavour
      */
-    li_lj_gamma(const StandardModel& SM_i);
+    li_3lj(const StandardModel& SM_i);
 
     /**
      *
@@ -33,16 +33,16 @@ private:
     
 };
 
-class mu_e_gamma : public li_lj_gamma {
+class mu_3e : public li_3lj {
 public:
     
     /**
      * @brief Constructor.
      */
-    mu_e_gamma(const StandardModel& SM_i);
+    mu_3e(const StandardModel& SM_i);
     
     /**
-     * @return mu_e_gamma
+     * @return mu_3e
      */
     double computeThValue ();
     
@@ -51,16 +51,16 @@ private:
 
 };
 
-class tau_mu_gamma : public li_lj_gamma {
+class tau_3mu : public li_3lj {
 public:
     
     /**
      * @brief Constructor.
      */
-    tau_mu_gamma(const StandardModel& SM_i);
+    tau_3mu(const StandardModel& SM_i);
     
     /**
-     * @return tau_mu_gamma
+     * @return tau_3mu
      */
     double computeThValue ();
     
@@ -69,16 +69,16 @@ private:
 
 };
 
-class tau_e_gamma : public li_lj_gamma {
+class tau_3e : public li_3lj {
 public:
     
     /**
      * @brief Constructor.
      */
-    tau_e_gamma(const StandardModel& SM_i);
+    tau_3e(const StandardModel& SM_i);
     
     /**
-     * @return tau_e_gamma
+     * @return tau_3e
      */
     double computeThValue ();
     
@@ -88,4 +88,4 @@ private:
 };
 
 
-#endif	/* LI_LJ_GAMMA_H */
+#endif	/* LI_3LJ_H */

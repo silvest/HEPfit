@@ -264,8 +264,11 @@ ThObsFactory::ThObsFactory()
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  Lepton Flavour observables  -----
     obsThFactory["mu_e_gamma"] = boost::factory<mu_e_gamma*>();
-    obsThFactory["tau_e_gamma"] = boost::factory<tau_e_gamma*>();
     obsThFactory["tau_mu_gamma"] = boost::factory<tau_mu_gamma*>();
+    obsThFactory["tau_e_gamma"] = boost::factory<tau_e_gamma*>();
+    obsThFactory["mu_3e"] = boost::factory<mu_3e*>();
+    obsThFactory["tau_3mu"] = boost::factory<tau_3mu*>();
+    obsThFactory["tau_3e"] = boost::factory<tau_3e*>();
     /** END: REMOVE FROM THE PACKAGE **/
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/

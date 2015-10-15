@@ -4,9 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/HeffDL1.h</itemPath>
+      <itemPath>src/HeffDLi3j.h</itemPath>
+      <itemPath>src/HeffDLij.h</itemPath>
       <itemPath>src/LeptonFlavour.h</itemPath>
       <itemPath>src/LeptonFlavourObservables.h</itemPath>
+      <itemPath>src/li_3lj.h</itemPath>
       <itemPath>src/li_lj_gamma.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -16,7 +18,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/HeffDL1.cpp</itemPath>
+      <itemPath>src/HeffDLi3j.cpp</itemPath>
+      <itemPath>src/HeffDLij.cpp</itemPath>
+      <itemPath>src/li_3lj.cpp</itemPath>
       <itemPath>src/li_lj_gamma.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -51,13 +55,21 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HeffDL1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDLi3j.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HeffDL1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/HeffDLi3j.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HeffDLij.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HeffDLij.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavourObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/li_3lj.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/li_3lj.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/li_lj_gamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -92,13 +104,21 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HeffDL1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDLi3j.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HeffDL1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/HeffDLi3j.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HeffDLij.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HeffDLij.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavourObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/li_3lj.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/li_3lj.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/li_lj_gamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -123,13 +143,21 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HeffDL1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HeffDLi3j.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/HeffDL1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/HeffDLi3j.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HeffDLij.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HeffDLij.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavourObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/li_3lj.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/li_3lj.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/li_lj_gamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
