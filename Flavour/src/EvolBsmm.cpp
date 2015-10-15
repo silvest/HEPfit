@@ -1125,9 +1125,12 @@ double EvolBsmm::alphatilde_e(double mu)
 
 {     // also the running is only for nf = 5
     
-    double mu_0 = 91.1876;
-    double alphatilde_e = 1./(127.751 * 4. * M_PI); // alpha_e at mu_0 = 91.1876 Gev
-    double alphatilde_s = 0.1184/(4.* M_PI); // alpha_s at mu_0 = 91.1876 Gev
+    //double mu_0 = 91.1876;
+    double mu_0 = model.getMz();
+    //double alphatilde_e = 1./(127.751 * 4. * M_PI); // alpha_e at mu_0 = 91.1876 Gev
+    double alphatilde_e = model.alphaMz()/4./M_PI;
+    //double alphatilde_s = 0.1184/(4.* M_PI); // alpha_s at mu_0 = 91.1876 Gev
+    double alphatilde_s = model.getAlsMz()/4./M_PI;
     unsigned int nf = 5;
 
     double B00S = model.Beta0(nf), B10S = model.Beta1(nf), B20S = model.Beta2(nf), 
@@ -1162,9 +1165,12 @@ double EvolBsmm::alphatilde_s(double mu)
 
 {  // also the running is only for nf = 5
     
-    double mu_0 = 91.1876;
-    double alphatilde_e = 1./(127.751 * 4. * M_PI); // alpha_e at mu_0 = 91.1876 Gev
-    double alphatilde_s = 0.1184/(4.* M_PI); // alpha_s at mu_0 = 91.1876 Gev
+    //double mu_0 = 91.1876;
+    double mu_0 = model.getMz();
+    //double alphatilde_e = 1./(127.751 * 4. * M_PI); // alpha_e at mu_0 = 91.1876 Gev
+    double alphatilde_e = model.alphaMz()/4./M_PI;
+    //double alphatilde_s = 0.1184/(4.* M_PI); // alpha_s at mu_0 = 91.1876 Gev
+    double alphatilde_s = model.getAlsMz()/4./M_PI;
     unsigned int nf = 5;
 
     double B00S = model.Beta0(nf), B10S = model.Beta1(nf), B20S = model.Beta2(nf), B30S = gsl_sf_zeta_int(3) * 352864./81. - 598391./1458,
