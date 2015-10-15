@@ -140,10 +140,18 @@ Observable2D InputParser::ParseObservable2D(std::string& type, std::ifstream& if
             tMCMC = false;
         else
             throw std::runtime_error("ERROR: wrong MCMC flag in Observable2D" + name + " at line number:" + boost::lexical_cast<std::string>(lineNo) + " of file " + filename);
+        
         ++beg;
         std::string distr = *beg;
-        std::string fname = filepath + *(++beg);
-        std::string histoname = *(++beg);
+        std::string fname;
+        std::string histoname;
+        if (distr.compare("file") == 0) {
+            if (std::distance(tok->begin(), tok->end()) < 6)
+                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
+                        + *beg + " in " + filename);
+            fname = filepath + *(++beg);
+            histoname = *(++beg);
+        }
 
         std::vector<double> min(2, 0.);
         std::vector<double> max(2, 0.);
@@ -155,6 +163,7 @@ Observable2D InputParser::ParseObservable2D(std::string& type, std::ifstream& if
         std::vector<std::string> thname(2, "");
         std::vector<std::string> label(2, "");
         std::vector<std::string> type2D(2, "");
+        
         size_t pos = 0;
         for (int i = 0; i < 2; i++) {
             IsEOF = getline(ifile, line).eof();
