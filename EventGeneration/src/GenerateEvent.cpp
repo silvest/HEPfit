@@ -159,7 +159,10 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
                         }
                         if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
                         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
-                            if (outputTerm == 0) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" <<std::endl;
+                            if (outputTerm == 0) {
+                                if (weight) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" <<std::endl;
+                                else std::cout << it1->getName() <<std::endl;
+                            }
                             std::vector<Observable> ObsInCGO = it1->getObs();
                             for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
                                 if (outputTerm == 0) {
