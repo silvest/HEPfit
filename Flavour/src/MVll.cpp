@@ -259,8 +259,9 @@ void MVll::updateParameters()
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
 
     C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    C_1L_bar = (*(allcoeff[LO]))(0)/2.;
     C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
-    C_2L = (*(allcoeff[LO]))(1);
+    C_2L_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
     C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
     C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
     C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
@@ -280,7 +281,8 @@ void MVll::updateParameters()
     
     allcoeffh = mySM.getMyFlavour()->ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
 
-    C_2Lh = (*(allcoeffh[LO]))(1);
+    C_1Lh_bar = (*(allcoeffh[LO]))(0)/2.;
+    C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
     C_8Lh = (*(allcoeffh[LO]))(7);
     
     checkCache();
@@ -417,11 +419,11 @@ void MVll::updateParameters()
 
     mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
     
-//   for (double q2 = .1 ; q2 < 8.1; q2+=0.5)
-//    {
-//        std::cout << "DeltaC9_p,m,0 / C9 at q^2 = " << q2 << ": " << DeltaC9_p(q2)/C_9 << " " << DeltaC9_m(q2)/C_9 << " " << DeltaC9_0(q2)/C_9 << std::endl;
-//    }
-//    return;
+   for (double q2 = .1 ; q2 <= 8.1; q2+=0.5)
+    {
+       std::cout << "DeltaC9_p,m,0 at q^2 = " << q2 << ": " << DeltaC9_p(q2) << " " << DeltaC9_m(q2) << " " << DeltaC9_0(q2) << std::endl;
+    }
+    return;
 }
 
 void MVll::checkCache() 
@@ -661,11 +663,11 @@ void MVll::checkCache()
         C_Pp_cache = C_Pp;
     }
 
-    if (C_2Lh == C_2Lh_cache) {
+    if (C_2Lh_bar == C_2Lh_cache) {
         C_2Lh_updated = 1;
     } else {
         C_2Lh_updated = 0;
-        C_2Lh_cache = C_2Lh;
+        C_2Lh_cache = C_2Lh_bar;
     }
 
     if (C_8Lh == C_8Lh_cache) {
@@ -951,7 +953,7 @@ gslpp::complex MVll::Tperpplus(double u, double q2)
     
     gslpp::complex tperp = twoMM / Ee / ubar * I1(u, q2) + q2 / Ee / Ee / ubar / ubar * (B01 - B00);
     gslpp::complex Tperpplus = m4downcharge * C_8Lh / (u + ubar * q2 / MM2) + MM / 2. / Mb *
-            mySM.getQuarks(QCD::UP).getCharge() * tperp * C_2Lh;
+            mySM.getQuarks(QCD::UP).getCharge() * tperp * C_2Lh_bar;
     return Tperpplus * 6. * u * (1. - u)*
             (1. + threeGegen0 * (2. * u - 1)
             + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.));
@@ -976,7 +978,7 @@ gslpp::complex MVll::Tparplus(double u, double q2)
 //    I1 = 1. + twoMc2 / ubar / (MM2 - q2)*(L1xp + L1xm - L1yp - L1ym);
     
     gslpp::complex tpar = twoMM / Ee / ubar * I1(u, q2) + (ubar * MM2 + u * q2) / Ee / Ee / ubar / ubar * (B01 - B00);
-    gslpp::complex Tparplus = MM / Mb * mySM.getQuarks(QCD::UP).getCharge() * tpar*C_2Lh;
+    gslpp::complex Tparplus = MM / Mb * mySM.getQuarks(QCD::UP).getCharge() * tpar*C_2Lh_bar;
     return Tparplus * 6. * u * (1. - u)*
             (1. + threeGegen0 * (2. * u - 1)
             + threeGegen1otwo *((10. * u - 5.)*(2. * u - 1.) - 1.));
@@ -986,7 +988,7 @@ gslpp::complex MVll::Tparminus(double u, double q2)
 {
     double ubar = 1. - u;
     gslpp::complex Tparminus = mySM.getQuarks(QCD::DOWN).getCharge()*(8. * C_8Lh / (ubar + u * q2 / MM2)
-            + sixMMoMb * H_c(ubar * MM2 + u * q2) * C_2Lh);
+            + sixMMoMb * H_c(ubar * MM2 + u * q2) * C_2Lh_bar);
     return Tparminus * 6. * u * (1. - u)*
             (1 + threeGegen0 * (2. * u - 1)
             + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.));
@@ -1021,7 +1023,7 @@ double MVll::Integrand_ImTparplus1(double up)
     double u = up;
     return ((Tparplus(u, tmpq2)*6. * u * (1. - u)*
             (1 + threeGegen0 * (2. * u - 1)
-            + threeGegen1otwo * (5. * (2. * u - 1)*(2. * u - 1) - 1)))/mySM.getMesons(meson).getLambdaM()).imag();
+            + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.)))/mySM.getMesons(meson).getLambdaM()).imag();
 }
 
 double MVll::Integrand_ReTparminus1(double up) 
@@ -1083,7 +1085,7 @@ double MVll::Integrand_ImTparplus(double * up, double * q2)
     double u = *up;
     return (Tparplus(u, *q2)*6. * u * (1. - u)*
             (1 + threeGegen0 * (2. * u - 1)
-            + threeGegen1otwo * (5. * (2. * u - 1)*(2. * u - 1) - 1))).imag();
+            + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.))).imag();
 }
 
 double MVll::Integrand_ReTparminus(double* up, double * q2) 
@@ -1100,6 +1102,20 @@ double MVll::Integrand_ImTparminus(double* up, double * q2)
     return (Tparminus(u, *q2)*6. * u * (1. - u)*
             (1 + threeGegen0 * (2. * u - 1)
             + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.))).imag();
+}
+
+gslpp::complex MVll::F19(double q2) 
+{
+    double s = q2 / Mb2;
+    double s2 = s*s;
+    double Ls = log(s);
+    double Lc = log(Mc2/Mb2);
+    double Lm = log(mu_b/Mb);
+    gslpp::complex i = gslpp::complex::i();
+    return (-1424./729. + 16./243.*i*M_PI + 64./27.*Lc)*Lm - 16./243.*Lm*Ls + (16./1215. - 32./135./Mc2)*Lm*s
+            +(4./2835. - 8./315./Mc2/Mc2)*Lm*s2 + (16./76545. - 32./8505/Mc2/Mc2/Mc2)*Lm*s*s2 - 256./243.*Lm*Lm
+            +(-11.65 + 0.18223*i + (-24.709 - 0.13474*i) * s + (-43.588 - 0.4738*i) *s2 + (-86.22 - 1.3542 * i) *s*s2 
+            + (-0.080959 - 0.051864*i + (-0.036585 + 0.024753*i) * s + (-0.021692 + 0.036925*i) *s2 + (0.013282 + 0.052023 * i) *s*s2)*Ls );
 }
 
 gslpp::complex MVll::F27(double q2) 
@@ -1136,12 +1152,14 @@ double MVll::F89(double q2)
 
 gslpp::complex MVll::Cperp(double q2) 
 {
-    return 1. / CF * (-C_2L * F27(q2) - C_8L * F87(q2) - q2 / 2. / Mb / MM * (C_2L * F29(q2) - C_8L * F89(q2)));
+    return 1. / CF * (-C_2L_bar * F27(q2) - C_8L * F87(q2) - q2 / 2. / Mb / MM * 
+            (C_2L_bar * F29(q2) + 2.*C_1L_bar*(F19(q2) + F29(q2)/6.) + C_8L * F89(q2)));
 }
 
 gslpp::complex MVll::Cpar(double q2) 
 {
-    return 1. / CF * (C_2L * F27(q2) + C_8L * F87(q2) + MM / 2. / Mb * (C_2L * F29(q2) - C_8L * F89(q2)));
+    return 1. / CF * (C_2L_bar * F27(q2) + C_8L * F87(q2) + MM / 2. / Mb * 
+            (C_2L_bar * F29(q2) + 2.*C_1L_bar*(F19(q2) + F29(q2)/6.) + C_8L * F89(q2)));
 }
 
 gslpp::complex MVll::deltaTperp(double q2) 
@@ -1332,7 +1350,7 @@ void MVll::fit_DeltaC9_p()
     std::vector<double> ReDeltaC9_p;
     std::vector<double> ImDeltaC9_p;
     std::vector<double> myq2;
-    for (double i=0.1; i<SWITCH; i+=0.05) {
+    for (double i=0.1; i<SWITCH; i+=0.1) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1341,7 +1359,7 @@ void MVll::fit_DeltaC9_p()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH+0.001; i<8.2; i+=0.1) {
+    for (double i=SWITCH; i<8.2; i+=0.1) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1370,19 +1388,23 @@ void MVll::fit_DeltaC9_p()
 //    std::cout << "x2 " << imfres_p->GetParams()[2] << " +- " <<  imfres_p->GetErrors()[2] << std::endl;
 //    std::cout << "x3 " << imfres_p->GetParams()[3] << " +- " <<  imfres_p->GetErrors()[3] << std::endl << std::endl;
     
+    std::cout << "q2    ReDeltaC9_p   -   fit result" << std::endl;
+    std::cout << std::endl;
     int pl = 0;
         for (double i=0.1; i<8.2; i+=0.1) {
         double q2tmp = i;        
-        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << ReDeltaC9_p.at(pl) << "  " << reDC9fit(&q2tmp, const_cast<double *>(refres_p->GetParams())) << std::endl;
-        else std::cout << q2tmp << "  " << ReDeltaC9_p.at(pl)/q2tmp << "  " << reDC9fit(&q2tmp, const_cast<double *>(refres_p->GetParams()))/q2tmp << std::endl;
+        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << (ReDeltaC9_p.at(pl) - reDC9fit(&q2tmp, const_cast<double *>(refres_p->GetParams())))/ReDeltaC9_p.at(pl)*100 << std::endl;
+        else std::cout << q2tmp << "  " << (ReDeltaC9_p.at(pl)/q2tmp - reDC9fit(&q2tmp, const_cast<double *>(refres_p->GetParams()))/q2tmp)/ReDeltaC9_p.at(pl)/q2tmp*100 << std::endl;
         pl++;
     }
     pl = 0;
     std::cout << std::endl;
+    std::cout << "q2    ImDeltaC9_p    -  fit result" << std::endl;
+    std::cout << std::endl;
     for (double i = 0.1; i < 8.2; i += 0.1) {
         double q2tmp = i;
-        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << ImDeltaC9_p.at(pl) << "  " << imDC9fit(&q2tmp, const_cast<double *> (imfres_p->GetParams())) << std::endl;
-        else std::cout << q2tmp << "  " << ImDeltaC9_p.at(pl)/q2tmp << "  " << imDC9fit(&q2tmp, const_cast<double *> (imfres_p->GetParams()))/q2tmp << std::endl;
+        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << (ImDeltaC9_p.at(pl) - imDC9fit(&q2tmp, const_cast<double *> (imfres_p->GetParams())))/ImDeltaC9_p.at(pl)*100 << std::endl;
+        else std::cout << q2tmp << "  " << (ImDeltaC9_p.at(pl)/q2tmp - imDC9fit(&q2tmp, const_cast<double *> (imfres_p->GetParams()))/q2tmp)/ImDeltaC9_p.at(pl)/q2tmp*100 << std::endl;
         pl++; 
     }
     std::cout << std::endl;
@@ -1395,7 +1417,7 @@ void MVll::fit_DeltaC9_m()
     std::vector<double> ReDeltaC9_m;
     std::vector<double> ImDeltaC9_m;
     std::vector<double> myq2;
-    for (double i=0.1; i<SWITCH; i+=0.05) {
+    for (double i=0.1; i<SWITCH; i+=0.1) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1404,7 +1426,7 @@ void MVll::fit_DeltaC9_m()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH+0.001; i<8.2; i+=0.1) {
+    for (double i=SWITCH; i<8.2; i+=0.1) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1435,18 +1457,22 @@ void MVll::fit_DeltaC9_m()
 //    std::cout << "x3 " << imfres_m->GetParams()[3] << " +- " <<  imfres_m->GetErrors()[3] << std::endl << std::endl;
  
     int pl = 0;    
+    std::cout << "q2    ReDeltaC9_m  -    fit result" << std::endl;
+    std::cout << std::endl;
     for (double i=0.1; i<8.2; i+=0.1) {
         double q2tmp = i;        
-        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << ReDeltaC9_m.at(pl) << "  " << reDC9fit(&q2tmp, const_cast<double *>(refres_m->GetParams())) << std::endl;
-        else std::cout << q2tmp << "  " << ReDeltaC9_m.at(pl)/q2tmp << "  " << reDC9fit(&q2tmp, const_cast<double *>(refres_m->GetParams()))/q2tmp << std::endl;
+        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << (ReDeltaC9_m.at(pl) - reDC9fit(&q2tmp, const_cast<double *>(refres_m->GetParams())))/ReDeltaC9_m.at(pl)*100 << std::endl;
+        else std::cout << q2tmp << "  " << (ReDeltaC9_m.at(pl)/q2tmp - reDC9fit(&q2tmp, const_cast<double *>(refres_m->GetParams()))/q2tmp)/ReDeltaC9_m.at(pl)/q2tmp*100 << std::endl;
         pl++;
     }
     pl = 0;
     std::cout << std::endl;
+    std::cout << "q2    ImDeltaC9_m   -   fit result" << std::endl;
+    std::cout << std::endl;
     for (double i = 0.1; i < 8.2; i += 0.1) {
         double q2tmp = i;
-        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << ImDeltaC9_m.at(pl) << "  " << imDC9fit(&q2tmp, const_cast<double *> (imfres_m->GetParams())) << std::endl;
-        else std::cout << q2tmp << "  " << ImDeltaC9_m.at(pl)/q2tmp << "  " << imDC9fit(&q2tmp, const_cast<double *> (imfres_m->GetParams()))/q2tmp << std::endl;
+        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << (ImDeltaC9_m.at(pl) - imDC9fit(&q2tmp, const_cast<double *> (imfres_m->GetParams())))/ImDeltaC9_m.at(pl)*100 << std::endl;
+        else std::cout << q2tmp << "  " << (ImDeltaC9_m.at(pl)/q2tmp - imDC9fit(&q2tmp, const_cast<double *> (imfres_m->GetParams()))/q2tmp)/ImDeltaC9_m.at(pl)/q2tmp*100 << std::endl;
         pl++;    
     }
     std::cout << std::endl;
@@ -1460,7 +1486,7 @@ void MVll::fit_DeltaC9_0()
     std::vector<double> ReDeltaC9_0;
     std::vector<double> ImDeltaC9_0;
     std::vector<double> myq2;
-    for (double i=0.1; i<SWITCH; i+=0.05) {
+    for (double i=0.1; i<SWITCH; i+=0.1) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
@@ -1469,7 +1495,7 @@ void MVll::fit_DeltaC9_0()
                                                              Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).imag());
         dim++;
     }
-    for (double i=SWITCH+0.001; i<8.2; i+=0.1) {
+    for (double i=SWITCH; i<8.2; i+=0.1) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0.push_back(q2tmp * (1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
@@ -1500,18 +1526,22 @@ void MVll::fit_DeltaC9_0()
 //    std::cout << "x3 " << imfres_0->GetParams()[3] << " +- " <<  imfres_0->GetErrors()[3] << std::endl << std::endl;
     
     int pl = 0;    
+    std::cout << "q2    ReDeltaC9_0   -   fit result" << std::endl;
+    std::cout << std::endl;
     for (double i=0.1; i<8.2; i+=0.1) {
         double q2tmp = i;        
-        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << ReDeltaC9_0.at(pl) << "  " << reDC9fit(&q2tmp, const_cast<double *>(refres_0->GetParams())) << std::endl;
-        else  std::cout << q2tmp << "  " << ReDeltaC9_0.at(pl)/q2tmp << "  " << reDC9fit(&q2tmp, const_cast<double *>(refres_0->GetParams()))/q2tmp << std::endl;
+        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << (ReDeltaC9_0.at(pl) - reDC9fit(&q2tmp, const_cast<double *>(refres_0->GetParams())))/ReDeltaC9_0.at(pl)*100 << std::endl;
+        else  std::cout << q2tmp << "  " << (ReDeltaC9_0.at(pl)/q2tmp - reDC9fit(&q2tmp, const_cast<double *>(refres_0->GetParams()))/q2tmp)/ReDeltaC9_0.at(pl)/q2tmp*100 << std::endl;
         pl++;
     }
     pl = 0;
     std::cout << std::endl;
+    std::cout << "q2    ReDeltaC9_0   -   fit result" << std::endl;
+    std::cout << std::endl;
     for (double i = 0.1; i < 8.2; i += 0.1) {
         double q2tmp = i;
-        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << ImDeltaC9_0.at(pl) << "  " << imDC9fit(&q2tmp, const_cast<double *> (imfres_0->GetParams())) << std::endl;
-        else  std::cout << q2tmp << "  " << ImDeltaC9_0.at(pl)/q2tmp << "  " << imDC9fit(&q2tmp, const_cast<double *> (imfres_0->GetParams()))/q2tmp << std::endl;
+        if (q2tmp < SWITCH) std::cout << q2tmp << "  " << (ImDeltaC9_0.at(pl) - imDC9fit(&q2tmp, const_cast<double *> (imfres_0->GetParams())))/ImDeltaC9_0.at(pl)*100 << std::endl;
+        else  std::cout << q2tmp << "  " << (ImDeltaC9_0.at(pl)/q2tmp - imDC9fit(&q2tmp, const_cast<double *> (imfres_0->GetParams()))/q2tmp)/ImDeltaC9_0.at(pl)/q2tmp*100 << std::endl;
         pl++;    
     }
     std::cout << std::endl;

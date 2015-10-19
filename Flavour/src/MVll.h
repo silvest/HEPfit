@@ -184,6 +184,7 @@ public:
     double Integrand_ImTparplus(double * up, double * q2);
     double Integrand_ReTparminus(double * up, double * q2);
     double Integrand_ImTparminus(double * up, double * q2);
+    gslpp::complex F19(double q2);
     gslpp::complex F27(double q2);
     gslpp::complex F29(double q2);
     gslpp::complex F87(double q2);
@@ -670,9 +671,11 @@ private:
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_1L_bar;/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_1Lh_bar;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_2;/**<Wilson coeffients @f$C_2@f$*/
-    gslpp::complex C_2L;/**<Leading order Wilson coeffients @f$C_2@f$*/
-    gslpp::complex C_2Lh;/**<Leading order Wilson coeffients @f$C_2@f$ at scale @f$\mu_h@f$*/
+    gslpp::complex C_2L_bar;/**<Leading order Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C_2Lh_bar;/**<Leading order Wilson coeffients @f$C_2@f$ at scale @f$\mu_h@f$*/
     gslpp::complex C_3;/**<Wilson coeffients @f$C_3@f$*/
     gslpp::complex C_4;/**<Wilson coeffients @f$C_4@f$*/
     gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
