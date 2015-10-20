@@ -17,7 +17,7 @@
 #include <gsl/gsl_monte_plain.h>
 #include "TFitResultPtr.h"
 
-#define SWITCH 4.0
+#define SWITCH 1.0
 #define CUTOFF 10    //cutoff between LCSR and lattice values for Form Factors, in GeV^2
 
 /*******************************************************************************

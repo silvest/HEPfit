@@ -1281,7 +1281,7 @@ gslpp::complex MVll::deltaTpar(double q2)
 //        deltaTparmCached[q2] = 1;
 //    }
 
-    return deltaT_0 * Cpar(q2) + deltaT_1 * MV/Ee / 1./*(T_1(q2) - T3q2)*/ * (cacheDeltaTparp[q2]);
+    return deltaT_0 * Cpar(q2) + deltaT_1 * MV/Ee / (T_1(q2) - T3q2) * (cacheDeltaTparp[q2]);
 }
 
 
