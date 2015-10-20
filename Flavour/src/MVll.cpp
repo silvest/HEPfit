@@ -358,15 +358,16 @@ void MVll::updateParameters()
     F87_2 = (32. / 9. * M_PI * M_PI - 316. / 9.);
     F87_3 = (200. / 27. * M_PI * M_PI - 658. / 9.);
 
-    F89_1 = 104. / 9. - 32. / 27. * M_PI * M_PI + (1184. / 27. - 40. / 9. * M_PI * M_PI);
-    F89_2 = (-32. / 3. * M_PI * M_PI - 14212. / 135.);
+    F89_0 = 104. / 9. - 32. / 27. * M_PI * M_PI ;
+    F89_1 = 1184. / 27. - 40. / 9. * M_PI * M_PI;
+    F89_2 = (-32. / 3. * M_PI * M_PI + 14212. / 135.);
     F89_3 = (-560. / 27. * M_PI * M_PI + 193444. / 945.);
 
-    F29_0 = (256./243. - 32./81.*gslpp::complex::i()*M_PI - 128./9.*log(Mc2/Mb2))*log(mu_b/Mb) + 512./81.*log(mu_b/Mb)*log(mu_b/Mb);
+    F29_0 = (256./243. - 32./81.*gslpp::complex::i()*M_PI - 128./9.*log(Mc/Mb))*log(mu_b/Mb) + 512./81.*log(mu_b/Mb)*log(mu_b/Mb) + 5.4082 - 1.0934 * gslpp::complex::i();
     F29_L1 = 32./81.*log(mu_b/Mb) + (0.48576 + 0.31119 * gslpp::complex::i());
-    F29_1 = (-32./405. + 64./45./Mc2/Mb2)*log(mu_b/Mb) + 5.4082 - 1.0934 * gslpp::complex::i() + (1.9061 + 0.80843 * gslpp::complex::i());
-    F29_2 = (-8./945. + 16./105./Mc2/Mb2/Mc2/Mb2)*log(mu_b/Mb) + (-1.8286 + 2.8428 * gslpp::complex::i());
-    F29_3 = (-32./25515. + 64./2835./Mc2/Mb2/Mc2/Mb2/Mc2/Mb2)*log(mu_b/Mb) + (-12.113 + 8.1251 * gslpp::complex::i());
+    F29_1 = (-32./405. + 64./45./Mc2*Mb2)*log(mu_b/Mb) + (1.9061 + 0.80843 * gslpp::complex::i());
+    F29_2 = (-8./945. + 16./105./Mc2*Mb2/Mc2*Mb2)*log(mu_b/Mb) + (-1.8286 + 2.8428 * gslpp::complex::i());
+    F29_3 = (-32./25515. + 64./2835./Mc2*Mb2/Mc2*Mb2/Mc2*Mb2)*log(mu_b/Mb) + (-12.113 + 8.1251 * gslpp::complex::i());
     F29_L1_1 = (0.21951 - 0.14852 * gslpp::complex::i());
     F29_L1_2 = (0.13015 - 0.22155 * gslpp::complex::i());
     F29_L1_3 = (-0.079692 - 0.31214 * gslpp::complex::i());
@@ -419,10 +420,22 @@ void MVll::updateParameters()
 
     mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
     
-   for (double q2 = .1 ; q2 <= 8.1; q2+=0.5)
+    for (double q2 = .1 ; q2 <= 8.1; q2+=0.5)
     {
-       std::cout << "DeltaC9_p,m,0 at q^2 = " << q2 << ": " << DeltaC9_p(q2) << " " << DeltaC9_m(q2) << " " << DeltaC9_0(q2) << std::endl;
+       std::cout << "DeltaC9_p,m,0/C_9 at q^2 = " << q2 << ": " << DeltaC9_p(q2)/C_9 << " " << DeltaC9_m(q2)/C_9 << " " << DeltaC9_0(q2)/C_9 << std::endl;
     }
+    std::cout << std::endl;
+    for (double q2 = .1 ; q2 <= 8.1; q2+=0.5)
+    {
+       std::cout << "H_V(p,m,0)_p/H_V(p,m,0) at q^2 = " << q2 << ": " << (DeltaC9_p(q2)* V_p(q2))/(((C_9 + DeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) 
+               + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2))) 
+               << " " << (DeltaC9_m(q2)* V_m(q2))/(((C_9 + DeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) 
+               + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2))) 
+               << " " << (DeltaC9_0(q2)* V_0t(q2))/((C_9 + DeltaC9_0(q2) + Y(q2)) * V_0t(q2) 
+             + MM2 / q2 * (twoMboMM * C_7 * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2))) 
+               << std::endl;
+    }
+    
     return;
 }
 
@@ -937,9 +950,9 @@ gslpp::complex MVll::Tperpplus(double u, double q2)
 {
     Ee = (MM2 - q2) / twoMM;
     ubar = 1. - u;
-    arg1 = fourMc2 / (ubar * MM2 + u * q2) - 1.;
+    arg1 = (fourMc2 - gslpp::complex::i()*1.e-10)/ (ubar * MM2 + u * q2) - 1.;
     B01 = -2. * sqrt(arg1) * arctan(1. / sqrt(arg1));
-    arg1 = fourMc2 / q2 - 1.;
+    arg1 = (fourMc2 - gslpp::complex::i()*1.e-10)/ q2 - 1.;
     B00 = -2. * sqrt(arg1) * arctan(1. / sqrt(arg1));
 //    xp = .5 + sqrt(0.25 - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
 //    xm = .5 - sqrt(0.25 - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
@@ -952,20 +965,17 @@ gslpp::complex MVll::Tperpplus(double u, double q2)
 //    I1 = 1. + twoMc2 / ubar / (MM2 - q2)*(L1xp + L1xm - L1yp - L1ym);
     
     gslpp::complex tperp = twoMM / Ee / ubar * I1(u, q2) + q2 / Ee / Ee / ubar / ubar * (B01 - B00);
-    gslpp::complex Tperpplus = m4downcharge * C_8Lh / (u + ubar * q2 / MM2) + MM / 2. / Mb *
+    return m4downcharge * C_8Lh / (u + ubar * q2 / MM2) + MM / 2. / Mb *
             mySM.getQuarks(QCD::UP).getCharge() * tperp * C_2Lh_bar;
-    return Tperpplus * 6. * u * (1. - u)*
-            (1. + threeGegen0 * (2. * u - 1)
-            + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.));
 }
 
 gslpp::complex MVll::Tparplus(double u, double q2) 
 {
     Ee = (MM2 - q2) / twoMM;
     ubar = 1. - u;
-    arg1 = fourMc2 / (ubar * MM2 + u * q2) - 1.;
+    arg1 = (fourMc2 - gslpp::complex::i()*1.e-10)/ (ubar * MM2 + u * q2) - 1.;
     B01 = -2. * sqrt(arg1) * arctan(1. / sqrt(arg1));
-    arg1 = fourMc2 / q2 - 1.;
+    arg1 = (fourMc2 - gslpp::complex::i()*1.e-10)/ q2 - 1.;
     B00 = -2. * sqrt(arg1) * arctan(1. / sqrt(arg1));
 //    xp = .5 + sqrt(0.25 - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
 //    xm = .5 - sqrt(0.25 - (Mc2 - gslpp::complex::i()*1.e-10) / (ubar * MM2 + u * q2));
@@ -978,20 +988,14 @@ gslpp::complex MVll::Tparplus(double u, double q2)
 //    I1 = 1. + twoMc2 / ubar / (MM2 - q2)*(L1xp + L1xm - L1yp - L1ym);
     
     gslpp::complex tpar = twoMM / Ee / ubar * I1(u, q2) + (ubar * MM2 + u * q2) / Ee / Ee / ubar / ubar * (B01 - B00);
-    gslpp::complex Tparplus = MM / Mb * mySM.getQuarks(QCD::UP).getCharge() * tpar*C_2Lh_bar;
-    return Tparplus * 6. * u * (1. - u)*
-            (1. + threeGegen0 * (2. * u - 1)
-            + threeGegen1otwo *((10. * u - 5.)*(2. * u - 1.) - 1.));
+    return MM / Mb * mySM.getQuarks(QCD::UP).getCharge() * tpar*C_2Lh_bar;
 }
 
 gslpp::complex MVll::Tparminus(double u, double q2) 
 {
     double ubar = 1. - u;
-    gslpp::complex Tparminus = mySM.getQuarks(QCD::DOWN).getCharge()*(8. * C_8Lh / (ubar + u * q2 / MM2)
-            + sixMMoMb * H_c(ubar * MM2 + u * q2) * C_2Lh_bar);
-    return Tparminus * 6. * u * (1. - u)*
-            (1 + threeGegen0 * (2. * u - 1)
-            + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.));
+    return mySM.getQuarks(QCD::DOWN).getCharge()*(8. * C_8Lh / (ubar + u * q2 / MM2)
+            + sixMMoMb * H_c(ubar * MM2 + u * q2,mu_h*mu_h) * C_2Lh_bar);
 }
 //////////////////////////////////////////////////////////////////
 double MVll::Integrand_ReTperpplus1(double up) 
@@ -1029,7 +1033,7 @@ double MVll::Integrand_ImTparplus1(double up)
 double MVll::Integrand_ReTparminus1(double up) 
 {
     double Lambdaplus = mySM.getMesons(meson).getLambdaM();
-    gslpp::complex Lambdamin = exp(-tmpq2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_E1(tmpq2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
+    gslpp::complex Lambdamin = exp(-tmpq2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_Ei(tmpq2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
     
     double u = up;
     return ((Tparminus(u, tmpq2)*6. * u * (1. - u)*
@@ -1040,7 +1044,7 @@ double MVll::Integrand_ReTparminus1(double up)
 double MVll::Integrand_ImTparminus1(double up) 
 {
     double Lambdaplus = mySM.getMesons(meson).getLambdaM();
-    gslpp::complex Lambdamin = exp(-tmpq2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_E1(tmpq2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
+    gslpp::complex Lambdamin = exp(-tmpq2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_Ei(tmpq2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
     
     double u = up;
     return ((Tparminus(u, tmpq2)*6. * u * (1. - u)*
@@ -1109,11 +1113,11 @@ gslpp::complex MVll::F19(double q2)
     double s = q2 / Mb2;
     double s2 = s*s;
     double Ls = log(s);
-    double Lc = log(Mc2/Mb2);
+    double Lc = log(Mc/Mb);
     double Lm = log(mu_b/Mb);
     gslpp::complex i = gslpp::complex::i();
-    return (-1424./729. + 16./243.*i*M_PI + 64./27.*Lc)*Lm - 16./243.*Lm*Ls + (16./1215. - 32./135./Mc2)*Lm*s
-            +(4./2835. - 8./315./Mc2/Mc2)*Lm*s2 + (16./76545. - 32./8505/Mc2/Mc2/Mc2)*Lm*s*s2 - 256./243.*Lm*Lm
+    return (-1424./729. + 16./243.*i*M_PI + 64./27.*Lc)*Lm - 16./243.*Lm*Ls + (16./1215. - 32./135./Mc2*Mb2)*Lm*s
+            +(4./2835. - 8./315./Mc2*Mb2/Mc2*Mb2)*Lm*s2 + (16./76545. - 32./8505/Mc2*Mb2/Mc2*Mb2/Mc2*Mb2)*Lm*s*s2 - 256./243.*Lm*Lm
             +(-11.65 + 0.18223*i + (-24.709 - 0.13474*i) * s + (-43.588 - 0.4738*i) *s2 + (-86.22 - 1.3542 * i) *s*s2 
             + (-0.080959 - 0.051864*i + (-0.036585 + 0.024753*i) * s + (-0.021692 + 0.036925*i) *s2 + (0.013282 + 0.052023 * i) *s*s2)*Ls );
 }
@@ -1140,14 +1144,14 @@ gslpp::complex MVll::F87(double q2)
 {
     double s = q2 / Mb2;
     double s2 = s*s;
-    return F87_0 + F87_1 * s + F87_2 * s2 + F87_3 * s * s2 - 0.888889 * log(s)*(s + s2 + s * s2);
+    return F87_0 + F87_1 * s + F87_2 * s2 + F87_3 * s * s2 - 0.888889 * log(s)*(1. + s + s2 + s * s2);
 }
 
 double MVll::F89(double q2) 
 {
     double s = q2 / Mb2;
     double s2 = s*s;
-    return F89_1 * s + F89_2 * s2 + F89_3 * s * s2 + 1.77778 * log(s)*(1. + s + s2 + s * s2);
+    return F89_0 + F89_1 * s + F89_2 * s2 + F89_3 * s * s2 + 1.77778 * log(s)*(1. + s + s2 + s * s2);
 }
 
 gslpp::complex MVll::Cperp(double q2) 
@@ -1200,9 +1204,10 @@ gslpp::complex MVll::deltaTperp(double q2)
 gslpp::complex MVll::deltaTpar(double q2) 
 {
     double Lambdaplus = mySM.getMesons(meson).getLambdaM();
-    gslpp::complex Lambdamin = exp(-q2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_E1(q2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
+    gslpp::complex Lambdamin = exp(-q2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_Ei(q2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
     double T3q2 = MM2mMV2/lambda(q2) * ( (MM2 + 3.*MV2 - q2) * T_2(q2) - 8.*MM*MV2/MMpMV * FF_fit(q2, a_0T23, a_1T23, a_2T23, MRT23_2) );
     tmpq2 = q2;
+    Ee = (MM2 - tmpq2) / twoMM;
     
     if (deltaTparpCached[q2] == 0) {
   
@@ -1276,7 +1281,7 @@ gslpp::complex MVll::deltaTpar(double q2)
 //        deltaTparmCached[q2] = 1;
 //    }
 
-    return deltaT_0 * Cpar(q2) + deltaT_1 / (T_1(q2) - T3q2) * (cacheDeltaTparp[q2]/* / Lambdaplus + cacheDeltaTparm[q2] / Lambdamin*/);
+    return deltaT_0 * Cpar(q2) + deltaT_1 * MV/Ee / 1./*(T_1(q2) - T3q2)*/ * (cacheDeltaTparp[q2]);
 }
 
 
@@ -1536,7 +1541,7 @@ void MVll::fit_DeltaC9_0()
     }
     pl = 0;
     std::cout << std::endl;
-    std::cout << "q2    ReDeltaC9_0   -   fit result" << std::endl;
+    std::cout << "q2    ImDeltaC9_0   -   fit result" << std::endl;
     std::cout << std::endl;
     for (double i = 0.1; i < 8.2; i += 0.1) {
         double q2tmp = i;
@@ -1569,7 +1574,7 @@ gslpp::complex MVll::fDeltaC9_0(double q2)
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-gslpp::complex MVll::H_c(double q2) 
+gslpp::complex MVll::H_c(double q2, double mu2) 
 {
     double x = fourMc2 / q2;
     gslpp::complex par;
@@ -1577,7 +1582,7 @@ gslpp::complex MVll::H_c(double q2)
     if (x > 1.) par = sqrt(x - 1.) * atan(1. / sqrt(x - 1.));
     else par = sqrt(1. - x) * (log((1. + sqrt(1. - x)) / sqrt(x)) - ihalfMPI);
 
-    return -fournineth * (logMc - twothird - x) - fournineth * (2. + x) * par;
+    return -fournineth * (log(Mc2 / mu2) - twothird - x) - fournineth * (2. + x) * par;
 }
 
 gslpp::complex MVll::H_b(double q2) 
@@ -1598,22 +1603,22 @@ gslpp::complex MVll::H_0(double q2)
 
 gslpp::complex MVll::Y(double q2) 
 {
-    return -half * H_0(q2) * H_0_WC + H_c(q2) * H_c_WC - half * H_b(q2) * H_b_WC;
+    return -half * H_0(q2) * H_0_WC + H_c(q2,mu_b2) * H_c_WC - half * H_b(q2) * H_b_WC;
 }
 
 gslpp::complex MVll::H_V_0(double q2) 
 {
-    return -(((C_9 + fDeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2)));
+    return -(((C_9 + DeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_V_p(double q2) 
 {
-    return -(((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2)));
+    return -(((C_9 + DeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2) 
 {
-    return -(((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2)));
+    return -(((C_9 + DeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2) 
