@@ -420,7 +420,7 @@ void MVll::updateParameters()
 
     mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
     
-    for (double q2 = .1 ; q2 <= 8.1; q2+=0.5)
+    /*for (double q2 = .1 ; q2 <= 8.1; q2+=0.5)
     {
        std::cout << "DeltaC9_p,m,0/C_9 at q^2 = " << q2 << ": " << DeltaC9_p(q2)/C_9 << " " << DeltaC9_m(q2)/C_9 << " " << DeltaC9_0(q2)/C_9 << std::endl;
     }
@@ -434,7 +434,7 @@ void MVll::updateParameters()
                << " " << (DeltaC9_0(q2)* V_0t(q2))/((C_9 + DeltaC9_0(q2) + Y(q2)) * V_0t(q2) 
              + MM2 / q2 * (twoMboMM * C_7 * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2))) 
                << std::endl;
-    }
+    }*/
     
     return;
 }
@@ -1393,7 +1393,7 @@ void MVll::fit_DeltaC9_p()
 //    std::cout << "x2 " << imfres_p->GetParams()[2] << " +- " <<  imfres_p->GetErrors()[2] << std::endl;
 //    std::cout << "x3 " << imfres_p->GetParams()[3] << " +- " <<  imfres_p->GetErrors()[3] << std::endl << std::endl;
     
-    std::cout << "q2    ReDeltaC9_p   -   fit result" << std::endl;
+    /*std::cout << "q2    ReDeltaC9_p   -   fit result" << std::endl;
     std::cout << std::endl;
     int pl = 0;
         for (double i=0.1; i<8.2; i+=0.1) {
@@ -1412,7 +1412,7 @@ void MVll::fit_DeltaC9_p()
         else std::cout << q2tmp << "  " << (ImDeltaC9_p.at(pl)/q2tmp - imDC9fit(&q2tmp, const_cast<double *> (imfres_p->GetParams()))/q2tmp)/ImDeltaC9_p.at(pl)/q2tmp*100 << std::endl;
         pl++; 
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 }
 
 void MVll::fit_DeltaC9_m()
@@ -1461,7 +1461,7 @@ void MVll::fit_DeltaC9_m()
 //    std::cout << "x2 " << imfres_m->GetParams()[2] << " +- " <<  imfres_m->GetErrors()[2] << std::endl;
 //    std::cout << "x3 " << imfres_m->GetParams()[3] << " +- " <<  imfres_m->GetErrors()[3] << std::endl << std::endl;
  
-    int pl = 0;    
+    /*int pl = 0;    
     std::cout << "q2    ReDeltaC9_m  -    fit result" << std::endl;
     std::cout << std::endl;
     for (double i=0.1; i<8.2; i+=0.1) {
@@ -1480,7 +1480,7 @@ void MVll::fit_DeltaC9_m()
         else std::cout << q2tmp << "  " << (ImDeltaC9_m.at(pl)/q2tmp - imDC9fit(&q2tmp, const_cast<double *> (imfres_m->GetParams()))/q2tmp)/ImDeltaC9_m.at(pl)/q2tmp*100 << std::endl;
         pl++;    
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 }
 
 
@@ -1530,7 +1530,7 @@ void MVll::fit_DeltaC9_0()
 //    std::cout << "x2 " << imfres_0->GetParams()[2] << " +- " <<  imfres_0->GetErrors()[2] << std::endl;
 //    std::cout << "x3 " << imfres_0->GetParams()[3] << " +- " <<  imfres_0->GetErrors()[3] << std::endl << std::endl;
     
-    int pl = 0;    
+    /*int pl = 0;    
     std::cout << "q2    ReDeltaC9_0   -   fit result" << std::endl;
     std::cout << std::endl;
     for (double i=0.1; i<8.2; i+=0.1) {
@@ -1549,7 +1549,7 @@ void MVll::fit_DeltaC9_0()
         else  std::cout << q2tmp << "  " << (ImDeltaC9_0.at(pl)/q2tmp - imDC9fit(&q2tmp, const_cast<double *> (imfres_0->GetParams()))/q2tmp)/ImDeltaC9_0.at(pl)/q2tmp*100 << std::endl;
         pl++;    
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 }
 
 gslpp::complex MVll::fDeltaC9_p(double q2)
