@@ -11,11 +11,9 @@
 #include <gsl/gsl_sf.h>
 #include <boost/bind.hpp>
 #include <limits>
-#include <TF1.h>
 #include "Math/GSLIntegrator.h"
 #include "Math/WrappedTF1.h"
-#include "TGraph.h"
-#include "TFitResult.h"
+#include <TFitResult.h>
 
 MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
 : mySM(SM_i),
@@ -1311,51 +1309,48 @@ gslpp::complex MVll::DeltaC9_0(double q2)
 
 double MVll::reDC9fit(double* x, double* p)
 {
-//    return p[0]/x[0] + p[1] + p[2]*x[0] + p[3]*x[0]*x[0] + p[4]*x[0]*x[0]*x[0] + p[5]*x[0]*x[0]*x[0]*x[0] + p[6]*x[0]*x[0]*x[0]*x[0]*x[0]; 
+    return p[0]/x[0] + p[1] + p[2]*x[0] + p[3]*x[0]*x[0] + p[4]*x[0]*x[0]*x[0] + p[5]*x[0]*x[0]*x[0]*x[0] + p[6]*x[0]*x[0]*x[0]*x[0]*x[0]; 
     
-    double thr = 4.*Mc2;
-//    if (x[0] < thr)
-//        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(thr-x[0]) * p[3];
+//    double thr = 4.*Mc2;
+////    if (x[0] < thr)
+////        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(thr-x[0]) * p[3];
+////    else
+////        return p[0] + p[1] * x[0] + p[2] * x[0]*x[0];
+//    
+//    if (x[0] < thr){
+//        if (x[0] < SWITCH) return p[0]/x[0] + p[1] + p[2] * x[0];
+//        else return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(thr-x[0]) * p[3];
+//    }
 //    else
-//        return p[0] + p[1] * x[0] + p[2] * x[0]*x[0];
-    
-    if (x[0] < thr){
-        if (x[0] < SWITCH) return p[0]/x[0] + p[1] + p[2] * x[0];
-        else return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(thr-x[0]) * p[3];
-    }
-    else
-        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0];
-    
-//    return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + ( x[0] > thr ? 0.0 : 1.0 ) * sqrt(thr-x[0]) * p[3];
+//        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0];
+//    
+////    return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + ( x[0] > thr ? 0.0 : 1.0 ) * sqrt(thr-x[0]) * p[3];
 }
 
 double MVll::imDC9fit(double* x, double* p)
 {
-//    return p[0]/x[0] + p[1] + p[2]*x[0] + p[3]*x[0]*x[0] + p[4]*x[0]*x[0]*x[0] + p[5]*x[0]*x[0]*x[0]*x[0] + p[6]*x[0]*x[0]*x[0]*x[0]*x[0] + p[7]*x[0]*x[0]*x[0]*x[0]*x[0]*x[0];
+    return p[0]/x[0] + p[1] + p[2]*x[0] + p[3]*x[0]*x[0] + p[4]*x[0]*x[0]*x[0] + p[5]*x[0]*x[0]*x[0]*x[0] + p[6]*x[0]*x[0]*x[0]*x[0]*x[0] + p[7]*x[0]*x[0]*x[0]*x[0]*x[0]*x[0];
+    
     double thr = 4.*Mc2;
-//    if (x[0] < thr)
-//        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0];
+////    if (x[0] < thr)
+////        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0];
+////    else
+////        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(x[0]-thr) * p[3];
+//    
+//    if (x[0] < thr){
+//        if (x[0] < SWITCH) return p[0]/x[0] + p[1] + p[2] * x[0];
+//        else return p[0] + p[1] * x[0] + p[2] * x[0] * x[0];
+//    }
 //    else
-//        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(x[0]-thr) * p[3];
-    
-    if (x[0] < thr){
-        if (x[0] < SWITCH) return p[0]/x[0] + p[1] + p[2] * x[0];
-        else return p[0] + p[1] * x[0] + p[2] * x[0] * x[0];
-    }
-    else
-        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(x[0]-thr) * p[3];    
-    
-//    return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + ( x[0] > thr ? 1.0 : 0.0 ) * sqrt(x[0] - thr) * p[3];
+//        return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + sqrt(x[0]-thr) * p[3];    
+//    
+////    return p[0] + p[1] * x[0] + p[2] * x[0] * x[0] + ( x[0] > thr ? 1.0 : 0.0 ) * sqrt(x[0] - thr) * p[3];
 }
 
 void MVll::fit_DeltaC9_p()
 {
-    double thr = 4. * Mc2;
     int dim = 0;
-    std::vector<double> ReDeltaC9_p;
-    std::vector<double> ImDeltaC9_p;
-    std::vector<double> myq2;
-    for (double i=0.1; i<SWITCH; i+=0.1) {
+    for (double i=0.1; i<SWITCH; i+=0.4) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1364,7 +1359,7 @@ void MVll::fit_DeltaC9_p()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.1) {
+    for (double i=SWITCH; i<8.2; i+=0.4) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1373,14 +1368,14 @@ void MVll::fit_DeltaC9_p()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    TGraph * gr1 = new TGraph(dim, myq2.data(), ReDeltaC9_p.data());
-    TGraph * gr2 = new TGraph(dim, myq2.data(), ImDeltaC9_p.data());
+    gr1 =TGraph(dim, myq2.data(), ReDeltaC9_p.data());
+    gr2 =TGraph(dim, myq2.data(), ImDeltaC9_p.data());
     
-    TF1 * reffit = new TF1("reffit",this,&MVll::reDC9fit,0.1,8.1,4,"MVll","reDC9fit");
-    TF1 * imffit = new TF1("imffit",this,&MVll::imDC9fit,0.1,8.1,4,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0.1,8.1,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0.1,8.1,8,"MVll","imDC9fit");
     
-    refres_p = gr1->Fit(reffit, "SQN0+rob=0.99");
-    imfres_p = gr2->Fit(imffit, "SQN0+rob=0.99");
+    refres_p = gr1.Fit(&reffit, "SQN0+rob=0.99");
+    imfres_p = gr2.Fit(&imffit, "SQN0+rob=0.99");
     
 //    std::cout << "reffit parameters value after fit" << std::endl;
 //    std::cout << "x0 " << refres_p->GetParams()[0] << " +- " <<  refres_p->GetErrors()[0] << std::endl;
@@ -1413,16 +1408,16 @@ void MVll::fit_DeltaC9_p()
         pl++; 
     }
     std::cout << std::endl;*/
+    
+    ReDeltaC9_p.clear();
+    ImDeltaC9_p.clear();
+    myq2.clear();
 }
 
 void MVll::fit_DeltaC9_m()
 {
-    double thr = 4. * Mc2;
     int dim = 0;
-    std::vector<double> ReDeltaC9_m;
-    std::vector<double> ImDeltaC9_m;
-    std::vector<double> myq2;
-    for (double i=0.1; i<SWITCH; i+=0.1) {
+    for (double i=0.1; i<SWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1431,7 +1426,7 @@ void MVll::fit_DeltaC9_m()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.1) {
+    for (double i=SWITCH; i<8.2; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1441,14 +1436,14 @@ void MVll::fit_DeltaC9_m()
         dim++;
     }
     
-    TGraph * gr1 = new TGraph(dim, myq2.data(), ReDeltaC9_m.data());
-    TGraph * gr2 = new TGraph(dim, myq2.data(), ImDeltaC9_m.data());
+    gr1 = TGraph(dim, myq2.data(), ReDeltaC9_m.data());
+    gr2 = TGraph(dim, myq2.data(), ImDeltaC9_m.data());
     
-    TF1 * reffit = new TF1("reffit",this,&MVll::reDC9fit,0,8.1,4,"MVll","reDC9fit");
-    TF1 * imffit = new TF1("imffit",this,&MVll::imDC9fit,0,8.1,4,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0,8.1,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0,8.1,8,"MVll","imDC9fit");
     
-    refres_m = gr1->Fit(reffit, "SQN0+rob=0.99");
-    imfres_m = gr2->Fit(imffit, "SQN0+rob=0.99");
+    refres_m = gr1.Fit(&reffit, "SQN0+rob=0.99");
+    imfres_m = gr2.Fit(&imffit, "SQN0+rob=0.99");
     
 //    std::cout << "reffit parameters value after fit" << std::endl;
 //    std::cout << "x0 " << refres_m->GetParams()[0] << " +- " <<  refres_m->GetErrors()[0] << std::endl;
@@ -1481,17 +1476,17 @@ void MVll::fit_DeltaC9_m()
         pl++;    
     }
     std::cout << std::endl;*/
+    
+    ReDeltaC9_m.clear();
+    ImDeltaC9_m.clear();
+    myq2.clear();
 }
 
 
 void MVll::fit_DeltaC9_0()
 {
-    double thr = 4. * Mc2;
     int dim = 0;
-    std::vector<double> ReDeltaC9_0;
-    std::vector<double> ImDeltaC9_0;
-    std::vector<double> myq2;
-    for (double i=0.1; i<SWITCH; i+=0.1) {
+    for (double i=0.1; i<SWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
@@ -1500,7 +1495,7 @@ void MVll::fit_DeltaC9_0()
                                                              Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.1) {
+    for (double i=SWITCH; i<8.2; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0.push_back(q2tmp * (1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
@@ -1510,14 +1505,14 @@ void MVll::fit_DeltaC9_0()
         dim++;
     }
     
-    TGraph * gr1 = new TGraph(dim, myq2.data(), ReDeltaC9_0.data());
-    TGraph * gr2 = new TGraph(dim, myq2.data(), ImDeltaC9_0.data());
+    gr1 = TGraph(dim, myq2.data(), ReDeltaC9_0.data());
+    gr2 = TGraph(dim, myq2.data(), ImDeltaC9_0.data());
     
-    TF1 * reffit = new TF1("reffit",this,&MVll::reDC9fit,0,8.1,4,"MVll","reDC9fit");
-    TF1 * imffit = new TF1("imffit",this,&MVll::imDC9fit,0,8.1,4,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0,8.1,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0,8.1,8,"MVll","imDC9fit");
     
-    refres_0 = gr1->Fit(reffit, "SQN0+rob=0.99");
-    imfres_0 = gr2->Fit(imffit, "SQN0+rob=0.99");
+    refres_0 = gr1.Fit(&reffit, "SQN0+rob=0.99");
+    imfres_0 = gr2.Fit(&imffit, "SQN0+rob=0.99");
     
 //    std::cout << "reffit parameters value after fit" << std::endl;
 //    std::cout << "x0 " << refres_0->GetParams()[0] << " +- " <<  refres_0->GetErrors()[0] << std::endl;
@@ -1550,6 +1545,10 @@ void MVll::fit_DeltaC9_0()
         pl++;    
     }
     std::cout << std::endl;*/
+    
+    ReDeltaC9_0.clear();
+    ImDeltaC9_0.clear();
+    myq2.clear();
 }
 
 gslpp::complex MVll::fDeltaC9_p(double q2)
@@ -1608,17 +1607,17 @@ gslpp::complex MVll::Y(double q2)
 
 gslpp::complex MVll::H_V_0(double q2) 
 {
-    return -(((C_9 + DeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2)));
+    return -(((C_9 + fDeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_V_p(double q2) 
 {
-    return -(((C_9 + DeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2)));
+    return -(((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2) 
 {
-    return -(((C_9 + DeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2)));
+    return -(((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2) 

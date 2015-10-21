@@ -15,9 +15,11 @@
 #include <gsl/gsl_integration.h>
 #include <assert.h>
 #include <gsl/gsl_monte_plain.h>
-#include "TFitResultPtr.h"
+#include <TF1.h>
+#include <TGraph.h>
+#include <TFitResultPtr.h>
 
-#define SWITCH 1.0
+#define SWITCH 8.2
 #define CUTOFF 10    //cutoff between LCSR and lattice values for Form Factors, in GeV^2
 
 /*******************************************************************************
@@ -154,13 +156,13 @@ public:
     void fit_DeltaC9_m();
     void fit_DeltaC9_0();
     
-    std::vector<double>* ReDeltaC9_p;
-    std::vector<double>* ImDeltaC9_p;
-    std::vector<double>* ReDeltaC9_m;
-    std::vector<double>* ImDeltaC9_m;
-    std::vector<double>* ReDeltaC9_0;
-    std::vector<double>* ImDeltaC9_0;
-    std::vector<double>* myq2;
+    std::vector<double> ReDeltaC9_p;
+    std::vector<double> ImDeltaC9_p;
+    std::vector<double> ReDeltaC9_m;
+    std::vector<double> ImDeltaC9_m;
+    std::vector<double> ReDeltaC9_0;
+    std::vector<double> ImDeltaC9_0;
+    std::vector<double> myq2;
     
     TFitResultPtr refres_p;
     TFitResultPtr imfres_p;
@@ -168,6 +170,13 @@ public:
     TFitResultPtr imfres_m;
     TFitResultPtr refres_0;
     TFitResultPtr imfres_0;
+    
+        
+    TGraph gr1;
+    TGraph gr2;
+    
+    TF1 reffit;
+    TF1 imffit;
     
     gslpp::complex Tperpplus(double u, double q2);
     gslpp::complex Tparplus(double u, double q2);
