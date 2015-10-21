@@ -550,7 +550,8 @@ std::string InputParser::ReadParameters(const std::string filename_i,
                         << Observables.back().getName() << std::endl;
 
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
-            CGO.push_back(ParseCGO(Observables, ifile, beg));
+            CorrelatedGaussianObservables tmpCGO = ParseCGO(Observables, ifile, beg);
+            if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);
 
         } else if (type.compare("CustomObservable") == 0) {
             if (std::distance(tok->begin(), tok->end()) < 2)
