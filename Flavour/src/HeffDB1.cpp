@@ -15,7 +15,7 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         coeffnlep01 (10, NDR, NLO), coeffnlep01A(10, NDR, NLO), coeffnlep01B(4, NDR, NLO), coeffnlep00CC(10, NDR, NLO),
         coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO), coeffnlep10CC(10, NDR, NLO),
         coeffsmumu (8, NDR, NNLO, NLO_ewt4), coeffdmumu (8, NDR, NNLO, NLO_ewt4),
-        coeffbtaunu (3, NDR, NLO),
+        coeffbtaunu (3, NDR, LO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
         coeffsgamma(8,NDR, NLO),
         coeffBMll (13,NDR, NLO),
