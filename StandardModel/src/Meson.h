@@ -117,11 +117,12 @@ public:
         this->lambdaM = lambdaM;
     }
     
-    void setDgamma_gamma(double Dgamma_gamma_i){
-        this->Dgamma_gamma = Dgamma_gamma_i;
+    void setDgamma_gamma(double Dgamma_gamma){
+        this->Dgamma_gamma = Dgamma_gamma;
     }
     
-    const double& getDgamma_gamma(){
+    const double& getDgamma_gamma() const
+    {
         return Dgamma_gamma;
     }
 
