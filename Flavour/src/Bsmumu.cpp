@@ -85,8 +85,11 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
                     + (*(allcoeff[NLO_ew]))(7) + (*(allcoeff[NLO_ewt1]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_ewt2]))(7) * alsmu 
                     + (*(allcoeff[NLO_ewt3]))(7) * alemu /alsmu+ (*(allcoeff[NLO_ewt4]))(7) * alemu;
-            absP = CC.abs();
+            absP = CC.abs(); //contains only SM contributions (P, P', S, S' not added))
             argP = CC.arg();
+            
+            absS = 0.;
+            argS = 0.;
            
             phiNP = 0.;
             
@@ -98,7 +101,7 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
             std::stringstream out;
             out << order;
             throw std::runtime_error("Bsmumu::computeAmpSq(): order " + out.str() + " not implemented");;
-    }
+        }
     }
         
 }
