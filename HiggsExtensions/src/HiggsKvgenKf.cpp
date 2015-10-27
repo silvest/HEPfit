@@ -83,10 +83,37 @@ double HiggsKvgenKf::muVH(const double sqrt_s) const
             / (sigmaWH_SM + sigmaZH_SM));
 }
 
+double HiggsKvgenKf::muVBFpVH(const double sqrt_s) const
+{
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
+    double sigmaWF_SM = trueSM.computeSigmaWF(sqrt_s);
+    double sigmaZF_SM = trueSM.computeSigmaZF(sqrt_s);
+    double sigmaZWF_SM = trueSM.computeSigmaZWF(sqrt_s);    
+    double sigmaVBF_SM = sigmaWF_SM + sigmaZF_SM + sigmaZWF_SM;
+    
+    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
+    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
+    double sigmaVBF = muVBF(sqrt_s) * sigmaVBF_SM;
+
+    return ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+}
+
 double HiggsKvgenKf::muttH(const double sqrt_s) const
 {
     return (computeKt() * computeKt());
 }
+
+double HiggsKvgenKf::muggHpttH(const double sqrt_s) const
+{
+    double sigmaggH_SM = trueSM.computeSigmaggH(sqrt_s);
+    double sigmattH_SM = trueSM.computeSigmattH(sqrt_s);
+
+    double sigmaggH = muggH(sqrt_s) * sigmaggH_SM;
+    double sigmattH = muttH(sqrt_s) * sigmattH_SM;
+
+    return ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
+} 
 
 double HiggsKvgenKf::BrHggRatio() const
 {
