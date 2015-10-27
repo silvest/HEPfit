@@ -116,12 +116,21 @@ public:
     {
         this->lambdaM = lambdaM;
     }
+    
+    void setDgamma_gamma(double Dgamma_gamma_i){
+        this->Dgamma_gamma = Dgamma_gamma_i;
+    }
+    
+    const double& getDgamma_gamma(){
+        return Dgamma_gamma;
+    }
 
 private:
     double decayconst; ///< The decay constant of the meson.
     double lifetime; ///< The lifetime of the meson.
     double gegenalpha[2]; ///< Gegenbauer moments 
     double lambdaM; ///< First moment of LCDA
+    double Dgamma_gamma; ///< Dgamma/gamma for neutral mesons
 };
 
 #endif	/* MESON_H */
