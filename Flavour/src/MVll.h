@@ -50,32 +50,6 @@ gsl_function convertToGslFunction( const F& f )
     return gslFunction;
 }
 
-//template<class FM>
-//static double gslMonteFunctionAdapter( double* x, size_t dim, void* p)
-//{
-//    // Here I do recover the "right" pointer, safer to use static_cast
-//    // than reinterpret_cast.
-//    FM* function = static_cast<FM*>( p );
-//    return (*function)( x );
-//}
-//
-//template<class FM>
-//gsl_monte_function convertToGslFunction_Monte( const FM& fm )
-//{
-//    gsl_monte_function gsl_Monte_Function;
-//    
-//    const void* p = &fm;
-//    //const size_t dim = 2;
-//    assert (p != 0);
-//    
-//    gsl_Monte_Function.f = &gslMonteFunctionAdapter<FM>;
-//    // Just to eliminate the const.
-//    gsl_Monte_Function.params = const_cast<void*>( p );
-//    //gsl_Monte_Function.dim = const_cast<size_t>( dim );
-//    
-//    return gsl_Monte_Function;
-//}
-
 /*******************************************************************************
  * GSL Function conversion END                                                     *
  * ****************************************************************************/
@@ -105,7 +79,7 @@ gsl_function convertToGslFunction( const F& f )
  */
 class MVll {
 public:
-    double tmpq2;
+    
     //double Int(double up); 
     /**
      * @brief Constructor.
@@ -119,96 +93,7 @@ public:
     /**
      * @brief Destructor.
      */
-    virtual ~MVll();   
-    
-    /**
-    * @brief The fit function from arXiv:1503.05534v1, \f$ f^{LCSR} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] a_0 fit parameter
-    * @param[in] a_1 fit parameter
-    * @param[in] a_2 fit parameter
-    * @param[in] MR2 square of the nearest resonance mass
-    * @return \f$ f^{lat} \f$
-    */
-    double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
-    
-    double getwidth(){
-        updateParameters();
-        return width;
-    }
-    
-    double getMlep(){
-        updateParameters();
-        return Mlep;
-    }
-    
-    //gslpp::vector<gslpp::complex> Tplus(double u, double q2);
-    
-    gslpp::complex I1(double u, double q2);
-    
-    double Integrand_ImTpar_pm(double up);
-    double Integrand_ReTpar_pm(double up);
-    
-    double reDC9fit(double* x, double* p);
-    double imDC9fit(double* x, double* p);
-    
-    void fit_DeltaC9_p();
-    void fit_DeltaC9_m();
-    void fit_DeltaC9_0();
-    
-    std::vector<double> ReDeltaC9_p;
-    std::vector<double> ImDeltaC9_p;
-    std::vector<double> ReDeltaC9_m;
-    std::vector<double> ImDeltaC9_m;
-    std::vector<double> ReDeltaC9_0;
-    std::vector<double> ImDeltaC9_0;
-    std::vector<double> myq2;
-    
-    TFitResultPtr refres_p;
-    TFitResultPtr imfres_p;
-    TFitResultPtr refres_m;
-    TFitResultPtr imfres_m;
-    TFitResultPtr refres_0;
-    TFitResultPtr imfres_0;
-    
-        
-    TGraph gr1;
-    TGraph gr2;
-    
-    TF1 reffit;
-    TF1 imffit;
-    
-    gslpp::complex Tperpplus(double u, double q2);
-    gslpp::complex Tparplus(double u, double q2);
-    gslpp::complex Tparminus(double u, double q2);
-    double Integrand_ReTperpplus1(double up);
-    double Integrand_ImTperpplus1(double up);
-    double Integrand_ReTparplus1(double up);
-    double Integrand_ImTparplus1(double up);
-    double Integrand_ReTparminus1(double up);
-    double Integrand_ImTparminus1(double up);
-    double Integrand_ReTperpplus(double * up, double * q2);
-    double Integrand_ImTperpplus(double * up, double * q2);
-    double Integrand_ReTparplus(double * up, double * q2);
-    double Integrand_ImTparplus(double * up, double * q2);
-    double Integrand_ReTparminus(double * up, double * q2);
-    double Integrand_ImTparminus(double * up, double * q2);
-    gslpp::complex F19(double q2);
-    gslpp::complex F27(double q2);
-    gslpp::complex F29(double q2);
-    gslpp::complex F87(double q2);
-    double F89(double q2);
-    gslpp::complex Cperp(double q2);
-    gslpp::complex Cpar(double q2);
-    gslpp::complex deltaTperp(double q2);
-    gslpp::complex deltaTpar(double q2);
-    
-    /**
-    * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \beta \f$
-    */
-    double beta (double q2);
+    virtual ~MVll();  
     
     /**
     * @brief The integral of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
@@ -227,6 +112,23 @@ public:
     * @return \f$ <\Delta_{i}> \f$ 
     */
     double integrateDelta(int i, double q_min, double q_max);
+    
+    double getwidth(){
+        updateParameters();
+        return width;
+    }
+    
+    double getMlep(){
+        updateParameters();
+        return Mlep;
+    }
+    
+    /**
+    * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \beta \f$
+    */
+    double beta (double q2);
     
     /**
     * @brief The form factor \f$ V_0 \f$ .
@@ -471,18 +373,6 @@ public:
     {
         return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
     }
-    
-/*    double getDC7_1_abs()
-    {
-        updateParameters();
-        return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] - h_0[1]).abs());
-    }
-
-    double getDC7_2_abs()
-    {
-        updateParameters();
-        return (8.*M_PI*M_PI*MM2*MM)/(sqrt(lambda(0.))*Mb*T_1(0))*((h_0[2] + h_0[1]).abs());
-    }*/
 
     double gethp0_hm0_abs()
     {
@@ -496,6 +386,74 @@ public:
         return (h_0[2]/h_0[0]).abs();
     }
     
+    private:
+    double tmpq2;
+    /**
+    * @brief The fit function from arXiv:1503.05534v1, \f$ f^{LCSR} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0 fit parameter
+    * @param[in] a_1 fit parameter
+    * @param[in] a_2 fit parameter
+    * @param[in] MR2 square of the nearest resonance mass
+    * @return \f$ f^{lat} \f$
+    */
+    double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
+    
+    gslpp::complex I1(double u, double q2);
+    
+    double Integrand_ImTpar_pm(double up);
+    double Integrand_ReTpar_pm(double up);
+    
+    double reDC9fit(double* x, double* p);
+    double imDC9fit(double* x, double* p);
+    
+    void fit_DeltaC9_p();
+    void fit_DeltaC9_m();
+    void fit_DeltaC9_0();
+    
+    std::vector<double> ReDeltaC9_p;
+    std::vector<double> ImDeltaC9_p;
+    std::vector<double> ReDeltaC9_m;
+    std::vector<double> ImDeltaC9_m;
+    std::vector<double> ReDeltaC9_0;
+    std::vector<double> ImDeltaC9_0;
+    std::vector<double> myq2;
+    
+    TFitResultPtr refres_p;
+    TFitResultPtr imfres_p;
+    TFitResultPtr refres_m;
+    TFitResultPtr imfres_m;
+    TFitResultPtr refres_0;
+    TFitResultPtr imfres_0;
+    
+        
+    TGraph gr1;
+    TGraph gr2;
+    
+    TF1 reffit;
+    TF1 imffit;
+    
+    gslpp::complex Tperpplus(double u, double q2);
+    gslpp::complex Tparplus(double u, double q2);
+    gslpp::complex Tparminus(double u, double q2);
+    
+    double Integrand_ReTperpplus(double up);
+    double Integrand_ImTperpplus(double up);
+    double Integrand_ReTparplus(double up);
+    double Integrand_ImTparplus(double up);
+    double Integrand_ReTparminus(double up);
+    double Integrand_ImTparminus(double up);
+
+    gslpp::complex F19(double q2);
+    gslpp::complex F27(double q2);
+    gslpp::complex F29(double q2);
+    gslpp::complex F87(double q2);
+    double F89(double q2);
+    gslpp::complex Cperp(double q2);
+    gslpp::complex Cpar(double q2);
+    gslpp::complex deltaTperp(double q2);
+    gslpp::complex deltaTpar(double q2);
+    
     // Perturbative Delta C9 to be documented 
     gslpp::complex DeltaC9_0(double q2);
     gslpp::complex DeltaC9_p(double q2);
@@ -506,7 +464,6 @@ public:
     gslpp::complex fDeltaC9_p(double q2);
     gslpp::complex fDeltaC9_m(double q2);
     
-private:
     
     /**
      * @brief The update parameter method for MVll.
@@ -1067,113 +1024,26 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta7;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
     
-    double avaSigma0;/**< Gsl integral variable */
-    double avaSigma1;/**< Gsl integral variable */
-    double avaSigma2;/**< Gsl integral variable */
-    double avaSigma3;/**< Gsl integral variable */
-    double avaSigma4;/**< Gsl integral variable */
-    double avaSigma5;/**< Gsl integral variable */
-    double avaSigma6;/**< Gsl integral variable */
-    double avaSigma7;/**< Gsl integral variable */
-    double avaSigma9;/**< Gsl integral variable */
-    double avaSigma10;/**< Gsl integral variable */
-    double avaSigma11;/**< Gsl integral variable */
+    double avaSigma;/**< Gsl integral variable */
     
-    double errSigma0;/**< Gsl integral variable */
-    double errSigma1;/**< Gsl integral variable */
-    double errSigma2;/**< Gsl integral variable */
-    double errSigma3;/**< Gsl integral variable */
-    double errSigma4;/**< Gsl integral variable */
-    double errSigma5;/**< Gsl integral variable */
-    double errSigma6;/**< Gsl integral variable */
-    double errSigma7;/**< Gsl integral variable */
-    double errSigma9;/**< Gsl integral variable */
-    double errSigma10;/**< Gsl integral variable */
-    double errSigma11;/**< Gsl integral variable */
+    double errSigma;/**< Gsl integral variable */
     
-    double avaDelta0;/**< Gsl integral variable */
-    double avaDelta1;/**< Gsl integral variable */
-    double avaDelta2;/**< Gsl integral variable */
-    double avaDelta3;/**< Gsl integral variable */
-    double avaDelta7;/**< Gsl integral variable */
-    double avaDelta11;/**< Gsl integral variable */
+    double avaDelta;/**< Gsl integral variable */
     
-    double errDelta0;/**< Gsl integral variable */
-    double errDelta1;/**< Gsl integral variable */
-    double errDelta2;/**< Gsl integral variable */
-    double errDelta3;/**< Gsl integral variable */
-    double errDelta7;/**< Gsl integral variable */
-    double errDelta11;/**< Gsl integral variable */
+    double errDelta;/**< Gsl integral variable */
     
-    gsl_function FS0;/**< Gsl integral variable */
-    gsl_function FS1;/**< Gsl integral variable */
-    gsl_function FS2;/**< Gsl integral variable */
-    gsl_function FS3;/**< Gsl integral variable */
-    gsl_function FS4;/**< Gsl integral variable */
-    gsl_function FS5;/**< Gsl integral variable */
-    gsl_function FS6;/**< Gsl integral variable */
-    gsl_function FS7;/**< Gsl integral variable */
-    gsl_function FS9;/**< Gsl integral variable */
-    gsl_function FS10;/**< Gsl integral variable */
-    gsl_function FS11;/**< Gsl integral variable */
+    gsl_function FS;/**< Gsl integral variable */
     
-    gsl_function FD0;/**< Gsl integral variable */
-    gsl_function FD1;/**< Gsl integral variable */
-    gsl_function FD2;/**< Gsl integral variable */
-    gsl_function FD3;/**< Gsl integral variable */
-    gsl_function FD7;/**< Gsl integral variable */
-    gsl_function FD11;/**< Gsl integral variable */
+    gsl_function FD;/**< Gsl integral variable */
     
     gsl_function DTPPR;
     gsl_integration_cquad_workspace * w_DTPPR;/**< Gsl integral variable */
     double avaDTPPR;/**< Gsl integral variable */    
     double errDTPPR;/**< Gsl integral variable */
     
-    gsl_integration_cquad_workspace * w_sigma0;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma1;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma2;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma3;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma4;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma5;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma6;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma7;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma9;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma10;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma11;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_sigma;/**< Gsl integral variable */
     
-//    gsl_monte_function FMS0;/**< Gsl integral variable */
-//    gsl_monte_function FMS1;/**< Gsl integral variable */
-//    gsl_monte_function FMS2;/**< Gsl integral variable */
-//    gsl_monte_function FMS3;/**< Gsl integral variable */
-//    gsl_monte_function FMS4;/**< Gsl integral variable */
-//    gsl_monte_function FMS5;/**< Gsl integral variable */
-//    gsl_monte_function FMS6;/**< Gsl integral variable */
-//    gsl_monte_function FMS7;/**< Gsl integral variable */
-//    gsl_monte_function FMS9;/**< Gsl integral variable */
-//    gsl_monte_function FMS10;/**< Gsl integral variable */
-//    gsl_monte_function FMS11;/**< Gsl integral variable */
-//    
-//    gsl_monte_plain_state * s_sigma0;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma1;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma2;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma3;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma4;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma5;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma6;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma7;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma9;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma10;/**< Gsl integral variable */
-//    gsl_monte_plain_state * s_sigma11;/**< Gsl integral variable */
-//    
-//    const gsl_rng_type *T;
-//    gsl_rng *r;
-    
-    gsl_integration_cquad_workspace * w_delta0;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_delta1;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_delta2;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_delta3;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_delta7;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_delta11;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_delta;/**< Gsl integral variable */
     
     unsigned int N_updated;/**< Cache variable */
     gslpp::vector<double> N_cache;/**< Cache variable */
