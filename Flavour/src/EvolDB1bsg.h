@@ -11,7 +11,6 @@
 
 #include <RGEvolutor.h>
 #include <StandardModel.h>
-#include "EvolBsmm.h"
 
 class EvolDB1bsg : public RGEvolutor {
 /**
