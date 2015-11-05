@@ -94,6 +94,8 @@
       </compileType>
       <item path="src/FlavourWilsonCoefficient.cpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/FlavourWilsonCoefficient.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/FlavourWilsonCoefficientMatching.cpp"
             ex="false"
             tool="1"
