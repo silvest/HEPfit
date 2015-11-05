@@ -59,7 +59,6 @@ private:
     double Smumu;
     double phiNP;
     double timeInt;
-    double ys;
     int obs;
     EvolBsmm evolbsmm;
 

@@ -1,0 +1,19 @@
+##################
+# arXiv 1408.7084
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, WH fraction, ZH fraction|
+##################
+CATEGORIES ggH ttH VBF WH ZH
+MEASUREMENT CentralLowpT |0.923 0.001 0.04 0.015 0.01| 0.624 -0.398 0.425
+MEASUREMENT CentralHighpT |0.733 0.013 0.157 0.055 0.034| 1.619 -0.831 1.003
+MEASUREMENT ForwLowpT |0.917 0.001 0.041 0.019 0.012| 2.034 -0.526 0.57
+MEASUREMENT ForHighpT |0.719 0.009 0.162 0.064 0.039| 1.729 -1.18 1.343
+MEASUREMENT VBFloose |0.419 0.001 0.565 0.006 0.004| 1.327 -0.773 0.915
+MEASUREMENT VBFtight |0.19 0.01 0.805 0.002 0.001| 0.682 -0.508 0.667
+MEASUREMENT VHhad |0.459 0.013 0.032 0.303 0.188| 0.227 -1.388 1.674
+MEASUREMENT VHETmiss |0.023 0.095 0.003 0.369 0.51| 3.51 -2.417 3.304
+MEASUREMENT VHl |0.005 0.033 0.002 0.898 0.063| 0.408 -1.056 1.427
+MEASUREMENT ttHhad |0.073 0.841 0.01 0.007 0.013| -0.842 -1.25 3.229
+MEASUREMENT ttHlept |0.01 0.803 0.002 0.081 0.023| 2.423 -2.068 3.212
+##################

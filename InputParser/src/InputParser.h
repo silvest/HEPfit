@@ -96,20 +96,6 @@ public:
     CorrelatedGaussianObservables ParseCGO(boost::ptr_vector<Observable>& Observables, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
     
     /**
-     * @brief The member that parses the ModelParameter directives from SomeModel.conf file
-     * @param[in] beg an iterator over words in a line separated by a specific separator character
-     */
-    ModelParameter ParseModelParameter(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
-
-    /**
-     * @brief The member that parses the CorrelatedGaussianParameters directives from SomeModel.conf file
-     * @param[in] Parameters a vector of ModelParameters
-     * @param[in] ifile the file being read
-     * @param[in] beg an iterator over words in a line separated by a specific separator character
-     */
-    CorrelatedGaussianParameters ParseCGP(std::vector<ModelParameter>& Parameters, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
-    
-    /**
      * @brief Responsible for parsing the SomeModel.conf file.
      * @details This method parses the SomeModel.conf file for all input instructions. The algorithm
      * is as follows:

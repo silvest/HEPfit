@@ -26,27 +26,6 @@ InputParser::~InputParser()
 {
 }
 
-ModelParameter InputParser::ParseModelParameter(boost::tokenizer<boost::char_separator<char> >::iterator & beg)
-{
-    std::string name = *beg;
-    if (checkDuplicateParameter[name].get<0>() && rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + name + " appears more than once ...!! \n" +
-            "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[name].get<2>()) +
-            " in file " + checkDuplicateParameter[name].get<1>() + ".\n"
-            "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
-    ++beg;
-    double mean = atof((*beg).c_str());
-    ++beg;
-    double errg = atof((*beg).c_str());
-    ++beg;
-    double errf = atof((*beg).c_str());
-    ++beg;
-    ModelParameter m(name, mean, errg, errf);
-    if (beg != tok->end())
-        if (rank == 0) std::cout << "WARNING: unread information in parameter " << name << std::endl;
-    checkDuplicateParameter[name] = boost::make_tuple(true, filename, lineNo);
-    return m;
-}
-
 Observable* InputParser::ParseObservable(std::string& type, boost::tokenizer<boost::char_separator<char> >::iterator & beg)
 {
     double min;
@@ -377,76 +356,6 @@ CorrelatedGaussianObservables InputParser::ParseCGO(boost::ptr_vector<Observable
     return (o3);
 }
 
-CorrelatedGaussianParameters InputParser::ParseCGP(std::vector<ModelParameter>& ModPars, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg)
-{
-    std::string name = *beg;
-    ++beg;
-    int size = atoi((*beg).c_str());
-    CorrelatedGaussianParameters p3(name);
-    int nlines = 0;
-    for (int i = 0; i < size; i++) {
-        IsEOF = getline(ifile, line).eof();
-        if (line.empty() || line.at(0) == '#') {
-            if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianParameters please!"
-                    << std::endl;
-            exit(EXIT_FAILURE);
-        }
-        lineNo++;
-        tok = new boost::tokenizer<boost::char_separator<char> >(line, *sep);
-        beg = tok->begin();
-        std::string type = *beg;
-        ++beg;
-        if (type.compare("ModelParameter") != 0)
-            if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting a ModelParameter type here...\n");
-        ModelParameter tmp = ParseModelParameter(beg);
-        tmp.setCgp_name(name);
-        p3.AddPar(tmp);
-        nlines++;
-    }
-    if (nlines > 1) {
-        gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
-        int ni = 0;
-        for (int i = 0; i < size; i++) {
-            IsEOF = getline(ifile, line).eof();
-            if (line.empty() || line.at(0) == '#') {
-                if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianParameters please!"
-                        << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            lineNo++;
-            boost::tokenizer<boost::char_separator<char> > mytok(line, *sep);
-            beg = mytok.begin();
-            int nj = 0;
-            for (int j = 0; j < size; j++) {
-                if ((*beg).compare(0, 1, "0") == 0
-                        || (*beg).compare(0, 1, "1") == 0
-                        || (*beg).compare(0, 1, "-") == 0) {
-                    if (std::distance(mytok.begin(), mytok.end()) < size && rank == 0) throw std::runtime_error(("ERROR: Correlation matrix is of wrong size in Correlated Gaussian Parameters: " + name).c_str());
-                    myCorr(ni, nj) = atof((*beg).c_str());
-                    nj++;
-                    beg++;
-                } else {
-                    if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
-                            << name << ". Check element (" << ni + 1 << "," << nj + 1 << ") in line number " + boost::lexical_cast<std::string>(lineNo) << std::endl;
-                    exit(EXIT_FAILURE);
-                }
-            }
-            ni++;
-        }
-        p3.DiagonalizePars(myCorr);
-        ModPars.insert(ModPars.end(), p3.getDiagPars().begin(), p3.getDiagPars().end());
-
-    } else {
-        if (rank == 0) std::cout << "\nWARNING: Correlated Gaussian Parameters " << name.c_str() << " defined with less than two correlated parameters. The set is being marked as normal Parameters." << std::endl;
-        if (p3.getPars().size() == 1) ModPars.push_back(ModelParameter(p3.getPar(0)));
-        for (int i = 0; i < size; i++) {
-            IsEOF = getline(ifile, line).eof();
-            lineNo++;
-        }
-    }
-    return (p3);
-}
-
 std::string InputParser::ReadParameters(const std::string filename_i,
         const int rank_i,
         std::vector<ModelParameter>& ModelPars,
@@ -494,10 +403,26 @@ std::string InputParser::ReadParameters(const std::string filename_i,
         ++beg;
         if (type.compare("ModelParameter") == 0) {
             if (std::distance(tok->begin(), tok->end()) < 5 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
-            ModelPars.push_back(ParseModelParameter(beg));
+            ModelParameter tmpMP;
+            beg = tmpMP.ParseModelParameter(beg);
+            if (checkDuplicateParameter[tmpMP.getname()].get<0>() && rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " appears more than once ...!! \n" +
+                "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[tmpMP.getname()].get<2>()) +
+                " in file " + checkDuplicateParameter[tmpMP.getname()].get<1>() + ".\n"
+                "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
+            
+            if (beg != tok->end())
+                if (rank == 0) std::cout << "WARNING: unread information in parameter " << tmpMP.getname() << std::endl;
+            checkDuplicateParameter[tmpMP.getname()] = boost::make_tuple(true, filename, lineNo);
+               
+            ModelPars.push_back(tmpMP);
 
         } else if (type.compare("CorrelatedGaussianParameters") == 0) {
-            CGP.push_back(ParseCGP(ModelPars, ifile, beg));
+            CorrelatedGaussianParameters tmpCGP;
+            tmpCGP.setlineNo(lineNo);
+            tmpCGP.setfilename(filename);
+            tmpCGP.ParseCGP(ModelPars, ifile, beg, rank);
+            lineNo = tmpCGP.getlineNo();
+            CGP.push_back(tmpCGP);
 
         } else if (type.compare("Observable") == 0) {
             if (std::distance(tok->begin(), tok->end()) < 8 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
@@ -550,7 +475,8 @@ std::string InputParser::ReadParameters(const std::string filename_i,
                         << Observables.back().getName() << std::endl;
 
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
-            CGO.push_back(ParseCGO(Observables, ifile, beg));
+            CorrelatedGaussianObservables tmpCGO = ParseCGO(Observables, ifile, beg);
+            if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);
 
         } else if (type.compare("CustomObservable") == 0) {
             if (std::distance(tok->begin(), tok->end()) < 2)

@@ -7,13 +7,22 @@
 
 #include <stdexcept>
 #include <vector>
+#include <fstream>
 #include <sstream>
 #include <math.h>
+#include <boost/lexical_cast.hpp>
 #include "CorrelatedGaussianParameters.h"
 
 CorrelatedGaussianParameters::CorrelatedGaussianParameters(std::string name_i)
 {
     name = name_i;
+    Cov = NULL; 
+    v = NULL;
+    e = NULL;
+}
+
+CorrelatedGaussianParameters::CorrelatedGaussianParameters()
+{
     Cov = NULL; 
     v = NULL;
     e = NULL;
@@ -66,8 +75,6 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     e = new gslpp::vector<double>(size, 0.);
     *v = vv.real();
     *e = ee.real();
-    
-//    std::cout << v->transpose() * (*Cov) * (*v) << std::endl;
 
     gslpp::vector<double> ave_in(size, 0.);
     
@@ -115,3 +122,80 @@ std::vector<double> CorrelatedGaussianParameters::getOrigParsValue(const std::ve
         }
         return (res);
     }
+
+void CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars, 
+                                            std::ifstream& ifile, 
+                                            boost::tokenizer<boost::char_separator<char> >::iterator & beg,
+                                            int rank)
+{
+    name = *beg;
+    ++beg;
+    int size = atoi((*beg).c_str());
+    int nlines = 0;
+    std::string line;
+    bool IsEOF;
+    boost::char_separator<char>sep(" \t");
+    for (int i = 0; i < size; i++) {
+        IsEOF = getline(ifile, line).eof();
+        if (line.empty() || line.at(0) == '#') {
+            if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianParameters please!"
+                    << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        lineNo++;
+        boost::tokenizer<boost::char_separator<char> > tok(line, sep);
+        beg = tok.begin();
+        std::string type = *beg;
+        ++beg;
+        if (type.compare("ModelParameter") != 0)
+            if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting a ModelParameter type here...\n");
+        ModelParameter tmpMP;
+        beg = tmpMP.ParseModelParameter(beg);
+        if (beg != tok.end())
+                if (rank == 0) std::cout << "WARNING: unread information in parameter " << tmpMP.getname() << std::endl;
+        tmpMP.setCgp_name(name);
+        AddPar(tmpMP);
+        nlines++;
+    }
+    if (nlines > 1) {
+        gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
+        int ni = 0;
+        for (int i = 0; i < size; i++) {
+            IsEOF = getline(ifile, line).eof();
+            if (line.empty() || line.at(0) == '#') {
+                if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianParameters please!"
+                        << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            lineNo++;
+            boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
+            beg = mytok.begin();
+            int nj = 0;
+            for (int j = 0; j < size; j++) {
+                if ((*beg).compare(0, 1, "0") == 0
+                        || (*beg).compare(0, 1, "1") == 0
+                        || (*beg).compare(0, 1, "-") == 0) {
+                    if (std::distance(mytok.begin(), mytok.end()) < size && rank == 0) throw std::runtime_error(("ERROR: Correlation matrix is of wrong size in Correlated Gaussian Parameters: " + name).c_str());
+                    myCorr(ni, nj) = atof((*beg).c_str());
+                    nj++;
+                    beg++;
+                } else {
+                    if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
+                            << name << ". Check element (" << ni + 1 << "," << nj + 1 << ") in line number " + boost::lexical_cast<std::string>(lineNo) << std::endl;
+                    exit(EXIT_FAILURE);
+                }
+            }
+            ni++;
+        }
+        DiagonalizePars(myCorr);
+        ModPars.insert(ModPars.end(), getDiagPars().begin(), getDiagPars().end());
+
+    } else {
+        if (rank == 0) std::cout << "\nWARNING: Correlated Gaussian Parameters " << name.c_str() << " defined with less than two correlated parameters. The set is being marked as normal Parameters." << std::endl;
+        if (getPars().size() == 1) ModPars.push_back(ModelParameter(getPar(0)));
+        for (int i = 0; i < size; i++) {
+            IsEOF = getline(ifile, line).eof();
+            lineNo++;
+        }
+    }
+}

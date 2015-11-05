@@ -10,6 +10,7 @@
 
 #include <string>
 #include <iostream>
+#include <boost/tokenizer.hpp>
 
 /**
  * @class ModelParameter
@@ -37,6 +38,17 @@ public:
     ModelParameter(std::string name_in, double ave_in, double errg_in, double errf_in);
     
     /**
+     * @brief Constructor.
+     */
+    ModelParameter();
+    
+    /**
+     * @brief Parser for model parameters
+     * @param[in] beg iterator for reading the model parameter
+     */
+    boost::tokenizer<boost::char_separator<char> >::iterator & ParseModelParameter(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
+    
+    /**
      * @brief The default destructor.
      */
     virtual ~ModelParameter();
@@ -44,6 +56,11 @@ public:
     bool IsCorrelated() const
     {
         return(!cgp_name.empty());
+    }
+    
+    std::string getname()
+    {
+        return name;
     }
     
     std::string getCgp_name() const

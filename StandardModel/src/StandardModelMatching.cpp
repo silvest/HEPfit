@@ -35,7 +35,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbdnn(1, NDR, NLO),
         mcbsmm(8, NDR, NNLO, NLO_ewt4),
         mcbdmm(8, NDR, NNLO, NLO_ewt4),
-        mcbtaunu(3, NDR, NLO),
+        mcbtaunu(3, NDR, LO),
         mcDLij(2, NDR, LO),
         mcDLi3j(12, NDR, LO),
         Vckm(3, 3, 0)
@@ -1548,7 +1548,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
         case NNLO:
         case NLO:
         case LO:
-            mcbsmm.setCoeff(0, 4.*GF * Vckm(0,3) / sqrt(2.) , LO);
+            mcbtaunu.setCoeff(0, 4.*GF * Vckm(0,2) / sqrt(2.) , LO);
             break;
         default:
             std::stringstream out;
@@ -1556,8 +1556,8 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
             throw std::runtime_error("StandardModelMatching::CMbsmm(): order " + out.str() + "not implemented");
     }
     
-    vmcbsmm.push_back(mcbsmm);
-    return(vmcbsmm);
+    vmcbtaunu.push_back(mcbtaunu);
+    return(vmcbtaunu);
     
 }     
    
