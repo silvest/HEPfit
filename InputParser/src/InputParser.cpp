@@ -176,7 +176,7 @@ Observable2D InputParser::ParseObservable2D(std::string& type, std::ifstream& if
                 if (errg[i] == 0. && errg[i] == 0.) {
                     if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + filename + " file, line number:" + boost::lexical_cast<std::string>(lineNo));
                 }
-            } else if (distr.compare("noweight") == 0) {
+            } else if (distr.compare("noweight") == 0 || distr.compare("file") == 0) {
                 if (type2D[i].compare("BinnedObservable") == 0) {
                     ++beg;
                     ++beg;
