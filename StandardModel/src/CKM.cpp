@@ -83,7 +83,7 @@ void CKM::setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v
     double rho_nb = ratio.real();
     double eta_nb = ratio.imag();
 
-    double s12 = Lambda;
+    s12 = Lambda;
     s23 = A * pow(Lambda, 2.);
     s13 = (gslpp::complex(A * pow(Lambda, 3.) * rho_nb, -A * pow(Lambda, 3.) * eta_nb)).abs();
     delta = -(gslpp::complex(A * pow(Lambda, 3.) * rho_nb, -A * pow(Lambda, 3.) * eta_nb)).arg();
@@ -313,7 +313,7 @@ double CKM::getArgVtb()
 
 // Angles
 
-/*double CKM::computeBeta()
+double CKM::computeBeta()
 {
     return (-Vcd*Vcb.conjugate()/(Vtd*Vtb.conjugate())).arg();
 }
@@ -331,11 +331,11 @@ double CKM::computeAlpha()
 double CKM::computeBetas() 
 {
     return (-Vts*Vtb.conjugate()/(Vcs*Vcb.conjugate())).arg();
-}*/
+}
 
 // Lambda_q
 
-/*gslpp::complex CKM::computelamt()
+gslpp::complex CKM::computelamt()
 {
     return Vtd*Vts.conjugate();
 }
@@ -380,7 +380,7 @@ gslpp::complex CKM::computelamc_s()
 gslpp::complex CKM::computelamu_s() 
 {
     return Vus*Vub.conjugate();
-}*/
+}
 
 
 //Complex values of CKM elements
@@ -431,7 +431,6 @@ gslpp::complex CKM::V_tb()
 }
 
 // Sides
-/*
 double CKM::getRt()
 {
     return (Vtd*Vtb.conjugate()/(Vcd*Vcb.conjugate())).abs();
@@ -445,5 +444,3 @@ double CKM::getRb()
 {
     return (Vud*Vub.conjugate()/(Vcd*Vcb.conjugate())).abs();
 }
-
- */

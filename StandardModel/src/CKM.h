@@ -85,7 +85,7 @@ public:
     gslpp::complex V_ts();
     gslpp::complex V_tb();
 
-    /*
+   
     // Angles
     double computeBeta();
     double computeGamma();
@@ -109,8 +109,7 @@ public:
     double getRt();
     double getRts();
     double getRb();
-     */
-
+    
 private:
     double Rho, Eta, Lambda, A;
     double s12, s13, s23, delta;
