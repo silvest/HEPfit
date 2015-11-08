@@ -129,6 +129,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["alpha"] = boost::factory<Alpha*>();
     obsThFactory["alpha_2a"] = boost::factory<Alpha_2a*>();
     obsThFactory["gamma"] = boost::factory<CKMGamma*>();
+    obsThFactory["Abslam_t"] = boost::factory<Abslam_t*>();
+    obsThFactory["Abslam_c"] = boost::factory<Abslam_c*>();
+    obsThFactory["Abslam_u"] = boost::factory<Abslam_u*>();
+    obsThFactory["Abslam_td"] = boost::factory<Abslam_td*>();
+    obsThFactory["Abslam_cd"] = boost::factory<Abslam_cd*>();
+    obsThFactory["Abslam_ud"] = boost::factory<Abslam_ud*>();
+    obsThFactory["Abslam_ts"] = boost::factory<Abslam_ts*>();
+    obsThFactory["Abslam_cs"] = boost::factory<Abslam_cs*>();
+    obsThFactory["Abslam_us"] = boost::factory<Abslam_us*>();
     //----- B(s) to mu mu  -----
     obsThFactory["BR_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 1);
     obsThFactory["BRbar_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 2);
