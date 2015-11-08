@@ -1488,7 +1488,7 @@ double NPEffectiveGIMR::BrHggRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHggRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHggRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
@@ -1506,7 +1506,7 @@ double NPEffectiveGIMR::BrHWWRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHWWRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHWWRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
@@ -1524,7 +1524,7 @@ double NPEffectiveGIMR::BrHZZRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHZZRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHZZRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
@@ -1542,7 +1542,7 @@ double NPEffectiveGIMR::BrHZgaRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHZgaRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHZgaRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
@@ -1560,7 +1560,7 @@ double NPEffectiveGIMR::BrHgagaRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHgagaRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHgagaRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
@@ -1578,7 +1578,7 @@ double NPEffectiveGIMR::BrHtautauRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHtautauRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHtautauRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
@@ -1596,7 +1596,7 @@ double NPEffectiveGIMR::BrHccRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHccRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHccRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
@@ -1614,7 +1614,7 @@ double NPEffectiveGIMR::BrHbbRatio() const
         //(Only valid under the assumptions of one dim 6 operator at a time)
         Br += - deltaGammaHbbRatio1() * deltaGammaTotalRatio1()
                 + deltaGammaHbbRatio2() - deltaGammaTotalRatio2()
-                + pow(deltaGammaTotalRatio1(),2);            
+                + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
     return Br;
