@@ -276,7 +276,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     }
     if (isnan(logprob)) {
         NumOfDiscardedEvents++;
-        std::cout << "Event discarded since logprob evaluated to NAN.";
+        std::cout << "Event discarded since logprob evaluated to NAN.\n";
         return (log(0.));
     }
     NumOfUsedEvents++;
