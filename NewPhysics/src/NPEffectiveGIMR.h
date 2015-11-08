@@ -286,6 +286,9 @@ public:
     virtual double BrHccRatio() const;
     virtual double BrHbbRatio() const;
     virtual double computeGammaTotalRatio() const;
+    
+    virtual double deltaGammaTotalRatio1() const;
+    virtual double deltaGammaTotalRatio2() const;
 
     double GammaHggRatio() const;
     double GammaHWWRatio() const;
@@ -296,7 +299,24 @@ public:
     double GammaHccRatio() const;
     double GammaHbbRatio() const;
 
-
+    double deltaGammaHggRatio1() const;
+    double deltaGammaHWWRatio1() const;
+    double deltaGammaHZZRatio1() const;
+    double deltaGammaHZgaRatio1() const;
+    double deltaGammaHgagaRatio1() const;
+    double deltaGammaHtautauRatio1() const;
+    double deltaGammaHccRatio1() const;
+    double deltaGammaHbbRatio1() const;
+    
+    double deltaGammaHggRatio2() const;
+    double deltaGammaHWWRatio2() const;
+    double deltaGammaHZZRatio2() const;
+    double deltaGammaHZgaRatio2() const;
+    double deltaGammaHgagaRatio2() const;
+    double deltaGammaHtautauRatio2() const;
+    double deltaGammaHccRatio2() const;
+    double deltaGammaHbbRatio2() const;
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 
