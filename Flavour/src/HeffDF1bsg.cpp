@@ -8,7 +8,7 @@
 #include "HeffDF1bsg.h"
 
 HeffDF1bsg::HeffDF1bsg(const StandardModel & SM, StandardModelMatching & SM_Matching) 
-:       model(SM), modelmatching(SM_Matching), coeffbsg(10, NDR, NLO), 
+:       model(SM), coeffbsg(10, NDR, NLO), 
         evolDB1bsg(13, NDR, NLO, SM) 
 {}
 
@@ -22,7 +22,7 @@ HeffDF1bsg::~HeffDF1bsg()
 gslpp::vector<gslpp::complex>** HeffDF1bsg::ComputeCoeffBsg(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mc = modelmatching.CMbsg();
+    const std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMbsg();
     
     coeffbsg.setMu(mu); 
     
