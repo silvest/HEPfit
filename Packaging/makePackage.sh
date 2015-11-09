@@ -21,6 +21,7 @@ PROJECTARRAY+=( "ComputeObservables" )
 #PROJECTARRAY+=( "EventGeneration" )
 PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
+PROJECTARRAY+=( "FlavourWilsonCoefficient" )
 #PROJECTARRAY+=( "GeneralSUSY" )
 PROJECTARRAY+=( "gslpp" )
 PROJECTARRAY+=( "HiggsExtensions" )
@@ -170,7 +171,7 @@ if [ "$1" == "--doxygen" ]; then
 	echo "mkdir ${DOXYGENDIR}/images"
 	mkdir ${DOXYGENDIR}/images
     fi
-    DOXYFILELIST="Doxyfile DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
+    DOXYFILELIST="Doxyfile-${VERSION} DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
     for DOXYFILE in $DOXYFILELIST
     do
 	cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
@@ -211,4 +212,11 @@ echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}"
 tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}
 
 ###########################################################
+# Documentation
 
+if [ "$1" == "--doxygen" ]; then
+    cd ${OUTDIR}/Doxygen
+    cp -rp ${OUTDIR}/examples-src ${OUTDIR}/Doxygen/
+    perl bibconversion.pl EW.bib Higgs.bib QCD.bib -of HEPfit.bib -dox Doxyfile-${VERSION}
+#    rm -rf ${OUTDIR}/Doxygen/examples-src
+fi
