@@ -50,8 +50,8 @@ Makefiles, enter the source directory and run CMake:
   $ cmake . <options>  
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Alternatively, a directory separate from the source directory can be made for
-building HEPfit (recommended, as it allows for easy deletion of the build):
+(RECOMMENDED:) Alternatively, a directory separate from the source directory can be made for
+building HEPfit (recommended as it allows for easy deletion of the build):
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
   $ mkdir HEPfit-x.x/build  
@@ -82,7 +82,7 @@ where the available options are:
 
   * `-DBAT_INSTALL_DIR=<BAT installation directory>`  
 
-    (default: `/usr/local`)  
+    (default: `/usr/local`). This option is overruled by `-DLOCAL_INSTALL_ALL=ON`
 
   * `-DBAT_INSTALL=ON`  
 
@@ -107,7 +107,8 @@ compile and install the BAT libraries.
 **NOTE:**
 Please make sure that the BAT libraries are not already present in the
 BAT installation directory. If it is present, the installer does not
-build BAT, and uses the pre-installed one. 
+build BAT, and uses the pre-installed one. This is particularly problematic
+if switching to or from the MPI version of BAT (`-DMPIBAT=ON`)
 
 **No MCMC mode:**
 The generated Makefiles are used for building a HEPfit library. If
@@ -124,6 +125,9 @@ download, patch and compile BAT with MPI support:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
   $ cmake . -DBAT_INSTALL=ON -DMPIBAT=ON <other options>  
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+make sure non-MPI BAT libraries are not already installed in the 
+BAT installation directory
 
 **ROOT:**
 CMake checks for ROOT availability in the system and fails if ROOT is
@@ -171,22 +175,19 @@ directory, which can be invoked with the following options:
 
     to obtain the flags needed for linking against the HEPfit library
 
-  * `--variable=parameters | sh`  
-
-    to get a list of the mandatory model parameters sorted alphabetically and
-    their default values as defined in the InputParameters class
-
 ### Examples
 
 The example programs can be found in the HEPfit build directory:  
 
   * `examples/LibMode_config/`  
   * `examples/LibMode_header/` 
-  * `examples/MonteCarloMode/`  
+  * `examples/MonteCarloMode/`
+  * `examples/myModel/`
 
 where the first two demonstrate the usage of the HEPfit library, while 
 the last one can be used for testing a Monte Carlo run with the HEPfit 
-executable.
+executable. The fourth one is an example implementation of a custom 
+model and custom observables.
 
 
 
