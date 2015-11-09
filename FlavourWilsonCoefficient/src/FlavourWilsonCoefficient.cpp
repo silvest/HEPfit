@@ -126,7 +126,6 @@ bool FlavourWilsonCoefficient::PostUpdate()
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
      * and FlavourWC and FlavourWC-derived parameters in FlavourWCMatching */
-    StandardModel::getMyMatching()->updateSMParameters();
     myFlavourWilsonCoefficientMatching->updateFlavourWilsonCoefficientParameters();
 
     return (true);
