@@ -1243,7 +1243,7 @@ double Bsgamma::Y2NV_PHI4(double rho)
 
 double Bsgamma::Y2NV(double E0, double mu)
 {
-    double z0 = 1. - delta(E0);
+    //double z0 = 1. - delta(E0);
     double Lb = log(mu/Mb_kin);
     double rho = zeta();
     double rho2 = rho*rho;
@@ -1267,7 +1267,7 @@ double Bsgamma::Y2NV(double E0, double mu)
 
 double Bsgamma::Y2NH(double E0, double mu)
 {
-    double z0 = 1. - delta(E0);
+    //double z0 = 1. - delta(E0);
     double Lb = log(mu/Mb_kin);
     double zeta3 = gsl_sf_zeta_int(3);
     double Cl2 = gsl_sf_clausen(M_PI/3.);
@@ -1983,7 +1983,7 @@ double Bsgamma::N_77(double E0, double mu)
     double lambda1 = -mu_pi2 + mu_pi2_pert;
     double lambda2 = mu_G2/3.;
     double rho1 = rho_D3 - rho_D3_pert;
-    double rho2 = rho_LS3/3.;
+    //double rho2 = rho_LS3/3.;
     
     double f1EGN = 16./9. * ( 4. - M_PI*M_PI) - 8./3. * Lz2 - 
              ( 4. * z * ( 30. - 63. * z + 31. * z2 + 5. * z3))/(9. * umz2) -

@@ -1133,8 +1133,8 @@ double EvolBsmm::alphatilde_e(double mu)
     double alphatilde_s = model.getAlsMz()/4./M_PI;
     unsigned int nf = 5;
 
-    double B00S = model.Beta0(nf), B10S = model.Beta1(nf), B20S = model.Beta2(nf), 
-            B01S = -22./9., B11S = -308./27.; 
+    double B00S = model.Beta0(nf), B10S = model.Beta1(nf);//B20S = model.Beta2(nf), 
+    double B01S = -22./9.; //B11S = -308./27.; 
 
     double B00E = 80./9., B01E = 176./9., B10E = 464./27.;
 
@@ -1178,7 +1178,7 @@ double EvolBsmm::alphatilde_s(double mu)
 
     double B00E = 80./9., B01E = 176./9., B10E = 464./27.; 
 
-    double B00S2 = B00S * B00S;
+    //double B00S2 = B00S * B00S;
     double B10soB00s = B10S / B00S;
     double B01soB00e = B01S/B00E;
 

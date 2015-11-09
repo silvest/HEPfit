@@ -394,18 +394,18 @@ double EvolDB1bsg::alphatilde_s(double mu)
 
     double B00E = 80./9., B01E = 176./9., B10E = 464./27.; 
 
-    double B00S2 = B00S * B00S;
+    //double B00S2 = B00S * B00S;
     double B10soB00s = B10S / B00S;
     double B01soB00e = B01S/B00E;
 
-    double b1 = B10soB00s/(2. * B00S), b2 = B20S/(4. * B00S2 * B00S) - b1 * b1 , 
-            b3 = B01soB00e/(2. * B00S ), b4 = B11S /(4. * B00S2 * B00E) - 2 * b1 * b3, 
-            b5 = B01E/(2. * B00S * B00E) - b1;
+//    double b1 = B10soB00s/(2. * B00S), b2 = B20S/(4. * B00S2 * B00S) - b1 * b1 , 
+//            b3 = B01soB00e/(2. * B00S ), b4 = B11S /(4. * B00S2 * B00E) - 2 * b1 * b3, 
+//            b5 = B01E/(2. * B00S * B00E) - b1;
 
     double vs= 1. + 2. * B00S * alphatilde_s * log(mu/ mu_0);
     double ve= 1. - 2. * B00E * alphatilde_e * log(mu/ mu_0);
     double ps= B00S * alphatilde_s /(B00S * alphatilde_s + B00E * alphatilde_e);
-    double pe= B00E * alphatilde_e /(B00S * alphatilde_s + B00E * alphatilde_e);
+    //double pe= B00E * alphatilde_e /(B00S * alphatilde_s + B00E * alphatilde_e);
 
     double logve = log(ve);
     double logvs = log(vs);

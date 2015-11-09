@@ -26,8 +26,8 @@ MonteCarloEngine::MonteCarloEngine(
         std::vector<Observable2D>& Obs2D_i,
         std::vector<CorrelatedGaussianObservables>& CGO_i,
         std::vector<CorrelatedGaussianParameters>& CGP_i)
-: BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
-  CGP(CGP_i), CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0) {
+: BCModel(""), ModPars(ModPars_i), CGP(CGP_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
+  CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0) {
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
