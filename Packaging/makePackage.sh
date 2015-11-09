@@ -5,7 +5,7 @@
 #   sh makePackage.sh --doxygen : with Doxygen files
 #
 
-VERSION="0.2"
+VERSION="0.3"
 
 ###########################################################
 # Original source codes
