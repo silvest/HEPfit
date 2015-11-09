@@ -2,7 +2,7 @@
 #
 # Usage:
 #   sh makePackage.sh
-#   sh makePackage.sh --doxygen : with Doxygen files
+#   sh makePackage.sh --doxygen : generate Doxygen documentations
 #
 
 VERSION="0.3"
@@ -157,33 +157,6 @@ cp -r ${SCRIPTPATH}/etc/examples-src/MonteCarloMode ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/myModel ${OUTDIR}/examples-src/
 
 ###########################################################
-# copy Doxygen files
-
-if [ "$1" == "--doxygen" ]; then
-    echo "copying Doxygen files..."
-
-    DOXYGENDIR=${OUTDIR}/Doxygen
-    if [ ! -d "${DOXYGENDIR}" ]; then
-	echo "mkdir ${DOXYGENDIR}"
-	mkdir ${DOXYGENDIR}
-    fi
-    if [ ! -d "${DOXYGENDIR}/images" ]; then
-	echo "mkdir ${DOXYGENDIR}/images"
-	mkdir ${DOXYGENDIR}/images
-    fi
-    DOXYFILELIST="Doxyfile-${VERSION} DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
-    for DOXYFILE in $DOXYFILELIST
-    do
-	cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
-    done
-    cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
-    
-    SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
-    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
-    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md    
-fi
-
-###########################################################
 # Example main files
 
 SED_ARG="-e 's/ComputeObservables.h/HEPfit.h/g'"
@@ -215,8 +188,30 @@ tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}
 # Documentation
 
 if [ "$1" == "--doxygen" ]; then
+    echo "copying Doxygen files..."
+
+    DOXYGENDIR=${OUTDIR}/Doxygen
+    if [ ! -d "${DOXYGENDIR}" ]; then
+	echo "mkdir ${DOXYGENDIR}"
+	mkdir ${DOXYGENDIR}
+    fi
+    if [ ! -d "${DOXYGENDIR}/images" ]; then
+	echo "mkdir ${DOXYGENDIR}/images"
+	mkdir ${DOXYGENDIR}/images
+    fi
+    DOXYFILELIST="Doxyfile-${VERSION} DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
+    for DOXYFILE in $DOXYFILELIST
+    do
+	cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
+    done
+    cp -af ${ORGDIR}/Doxygen/images/Model_inherit_graph.svg ${DOXYGENDIR}/images/
+    
+    SED_ARG="-e 's/VERSIONNUMBER/${VERSION}/g'"
+    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/MainPage.md > ${DOXYGENDIR}/MainPage.md
+    eval sed "$SED_ARG" ${ORGDIR}/Doxygen/INSTALL.md > ${DOXYGENDIR}/INSTALL.md    
+
     cd ${OUTDIR}/Doxygen
     cp -rp ${OUTDIR}/examples-src ${OUTDIR}/Doxygen/
     perl bibconversion.pl EW.bib Higgs.bib QCD.bib -of HEPfit.bib -dox Doxyfile-${VERSION}
-#    rm -rf ${OUTDIR}/Doxygen/examples-src
+    rm -rf ${OUTDIR}/Doxygen/examples-src
 fi
