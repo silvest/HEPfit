@@ -108,6 +108,10 @@ public:
         return HDB1.ComputeCoeffsgamma(mu, scheme);
     }
     
+    gslpp::vector<gslpp::complex>** ComputeCoeffprimesgamma(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffprimesgamma(mu, scheme);
+    }
+    
     gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) {
         return HDB1.ComputeCoeffBMll(mu, scheme);
     }
