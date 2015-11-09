@@ -88,7 +88,6 @@ public:
     
 private :
     const StandardModel& model;
-    ModelMatching& modelmatching;
     WilsonCoefficient coeffdc1, coeffdc1g;
     EvolDC1 ug;
     EvolDC1Buras u;
