@@ -1,0 +1,9 @@
+The configuration files necessary for fitting the UT observables. (B to mu mu cannot be run along with this)
+The files are:
+
+Flavour.conf: File containing Flavour parameters that do not change
+MonteCarlo.conf: The Monte Carlo settings file
+Observables.conf: The UT observables
+StandardModel.conf: File containing SM parameters that do not change
+UTFit.conf: The file containing the parameters that change
+input: The folder containing the input root histograms
