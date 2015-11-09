@@ -135,9 +135,11 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll()
     switch (mcBMll.getOrder()) {
         case NNLO:
         case NLO:
-            mcBMll.setCoeff(6, 0., NLO);
+            //mcBMll.setCoeff(6, 0., NLO);
         case LO:
             mcBMll.setCoeff(6, DC7g, LO);
+            mcBMll.setCoeff(8, DC9, LO);
+            mcBMll.setCoeff(9, DC10, LO);
             break;
         default:
             std::stringstream out;
@@ -169,9 +171,11 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll()
     switch (mcprimeBMll.getOrder()) {
         case NNLO:
         case NLO:
-            mcprimeBMll.setCoeff(6, 0., NLO);
+            //mcprimeBMll.setCoeff(6, 0., NLO);
         case LO:
-            mcprimeBMll.setCoeff(6, DC7g, LO);
+            mcprimeBMll.setCoeff(6, DC7gp, LO);
+            mcprimeBMll.setCoeff(8, DC9p, LO);
+            mcprimeBMll.setCoeff(9, DC10p, LO);
             break;
         default:
             std::stringstream out;
