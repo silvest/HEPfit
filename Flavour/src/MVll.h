@@ -1235,10 +1235,6 @@ public:
     unsigned int deltaTparmupdated;
     unsigned int deltaTperpupdated;
     
-    double cacheDeltaTparpq2;
-    double cacheDeltaTparmq2;
-    double cacheDeltaTperpq2;
-    
     unsigned int T_updated;/**< Cache variable */
     gslpp::vector<double> T_cache;/**< Cache variable */
     

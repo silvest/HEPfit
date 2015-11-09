@@ -23,8 +23,9 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         evolDF1BMll(13, NDR, NLO, SM),
         evolDB1bsg(8, NDR, NLO, SM),
         u(10, NDR, NLO, NLO_ew, SM),
-        nlep (12, 0.), nlep2(10, 0.), nlepCC(4, 0.),
-        evolbs(8, NDR, NNLO, NLO_ewt4, SM), evolbd(8, NDR, NNLO, NLO_ewt4, SM)
+        nlep (12, 0.), nlep2(10, 0.),
+        evolbs(8, NDR, NNLO, NLO_ewt4, SM), evolbd(8, NDR, NNLO, NLO_ewt4, SM),
+        nlepCC(4, 0.)
 {
     
     for (unsigned int i = 0; i < 6; i++) {
@@ -344,7 +345,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes sc
     double nf = 0;  
     nf = 5; //al the process has nf = 5, also the evolutor
     
-    int L = 6 - (int) nf;
+    //int L = 6 - (int) nf;
     int j = 0;
     double alsM = evolbs.alphatilde_s(M);
     double alsmu = evolbs.alphatilde_s(mu);
@@ -546,7 +547,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     double nf = 0;  
     nf = 5; //al the process has nf = 5, also the evolutor
     
-    int L = 6 - (int) nf;
+    //int L = 6 - (int) nf;
     int j = 0;
     double alsM = evolbd.alphatilde_s(M);
     double alsmu = evolbd.alphatilde_s(mu);

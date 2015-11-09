@@ -12,12 +12,12 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
 
-InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF), rank(0), filename("")
+InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF), filename(""), rank(0)
 {
     modelset = 0;
 }
 
-InputParser::InputParser(const InputParser& orig) : myModelFactory(orig.myModelFactory), myObsFactory(orig.myObsFactory), rank(0), filename("")
+InputParser::InputParser(const InputParser& orig) : myModelFactory(orig.myModelFactory), myObsFactory(orig.myObsFactory), filename(""), rank(0)
 {
     myModel = new StandardModel(*orig.myModel);
 }
