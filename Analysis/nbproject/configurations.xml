@@ -1,0 +1,2208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>main.cpp</itemPath>
+      <itemPath>main_MCMC_example.cpp</itemPath>
+      <itemPath>main_libmode_config_example.cpp</itemPath>
+      <itemPath>main_libmode_header_example.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="RunningMass"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/RunningMass.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <itemPath>Flavour.conf</itemPath>
+    <itemPath>FlavourWC.conf</itemPath>
+    <itemPath>GeneralSUSY.conf</itemPath>
+    <itemPath>HiggsKvKf.conf</itemPath>
+    <itemPath>MFV.conf</itemPath>
+    <itemPath>Model.conf</itemPath>
+    <itemPath>MonteCarlo.conf</itemPath>
+    <itemPath>StandardModel.conf</itemPath>
+    <itemPath>pMSSM.conf</itemPath>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../ComputeObservables/src</pElem>
+            <pElem>../EventGeneration/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../BAT/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopTools/include</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
+          <linkerAddLib>
+            <pElem>../BAT/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
+          </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>../BAT/lib</pElem>
+          </linkerDynSerch>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit -lMathMore `gsl-config --libs`</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Debug_MPI" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandlineTool>mpic++</commandlineTool>
+          <incDir>
+            <pElem>../ComputeObservables/src</pElem>
+            <pElem>../EventGeneration/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../BAT_parallel/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopTools/include</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../HiggsExtensions/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>_MPI</Elem>
+          </preprocessorList>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
+          <linkerAddLib>
+            <pElem>../BAT_parallel/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>../BAT_parallel/lib</pElem>
+          </linkerDynSerch>
+          <commandlineTool>mpic++</commandlineTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Debug_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Debug_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Debug_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Debug_MPI"
+                            AC="true"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE}  -f Makefile CONF=Debug_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Debug_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit -lMathMore `gsl-config --libs`</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../ComputeObservables/src</pElem>
+            <pElem>../EventGeneration/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../BAT/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopTools/include</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
+          <linkerAddLib>
+            <pElem>../BAT/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit -lMathMore `gsl-config --libs`</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release_MPI" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../ComputeObservables/src</pElem>
+            <pElem>../EventGeneration/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../BAT_parallel/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopTools/include</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>_MPI</Elem>
+          </preprocessorList>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
+          <linkerAddLib>
+            <pElem>../BAT_parallel/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
+          </linkerAddLib>
+          <commandlineTool>mpic++</commandlineTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Release_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Release_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Release_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Release_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE}  -f Makefile CONF=Release_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Release_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit -lMathMore `gsl-config --libs`</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Cluster" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../ComputeObservables/src</pElem>
+            <pElem>../EventGeneration/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../BAT/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopTools/include</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
+          <linkerAddLib>
+            <pElem>../BAT/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`root-config --ldflags` `root-config --libs` `gsl-config --libs` -lMinuit -lMathMore -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Cluster_MPI" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../ComputeObservables/src</pElem>
+            <pElem>../EventGeneration/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../BAT_parallel/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopTools/include</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>_MPI</Elem>
+          </preprocessorList>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
+          <linkerAddLib>
+            <pElem>../BAT_parallel/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Cluster_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Cluster_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Cluster_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Cluster_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE}  -f Makefile CONF=Cluster_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Cluster_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../FlavourWilsonCoefficient"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../FlavourWilsonCoefficient"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../GeneralSUSY"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../GeneralSUSY"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`root-config --ldflags` `root-config --libs` `gsl-config --libs` -lMinuit -lMathMore -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Model.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
