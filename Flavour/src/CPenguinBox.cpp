@@ -59,7 +59,7 @@ CPenguinBox::~CPenguinBox(){
     
 }
 
-vector<double> CPenguinBox::WMatchP(orders order){
+gslpp::vector<double> CPenguinBox::WMatchP(orders order){
     double x = modelmatching.x_t(model.getMuw());
     
     double l = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
@@ -96,7 +96,7 @@ vector<double> CPenguinBox::WMatchP(orders order){
     }
 }
 
-matrix<double> CPenguinBox::RGevolP(int nf) 
+gslpp::matrix<double> CPenguinBox::RGevolP(int nf) 
 {
     
     switch (nf){
@@ -154,7 +154,7 @@ double CPenguinBox::BmatchP(orders order)
     }
 }
 
-vector<double> CPenguinBox::WMatchB(orders order)
+gslpp::vector<double> CPenguinBox::WMatchB(orders order)
 {
     double l = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
@@ -181,7 +181,7 @@ vector<double> CPenguinBox::WMatchB(orders order)
     }
 }
 
-matrix<double> CPenguinBox::RGevolB(int nf) 
+gslpp::matrix<double> CPenguinBox::RGevolB(int nf) 
 {
     
     switch (nf){

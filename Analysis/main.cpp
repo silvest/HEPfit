@@ -50,12 +50,13 @@ int main(int argc, char** argv)
                 "output folder for Generate Event mode to be specified for printing to file, please specify with --output_folder <name>")
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag, please specify with --job_tag <tag>")
+                ("weight", "run in generate event mode with --weight for weights")
                 ("help", "help message")
                 ;
         string coderun = "\n *** HEPfit Routines ***\n"
                          "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange]"
                          "\nSingle Event mode: analysis Model.conf MonteCarlo.conf --test"
-                         "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--output_folder <name> [--job_tag <tag>]]\n";
+                         "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--weight] [--output_folder <name> [--job_tag <tag>]]\n";
         positional_options_description pd;
         variables_map vm;
         pd.add("modconf", 1);
@@ -103,14 +104,16 @@ int main(int argc, char** argv)
                     cout << "\n *** HEPfit Event Generation ***\n" << endl;
                 noMC = true;
                 FolderOut = vm["output_folder"].as<string > ();
+                bool weight = false;
                 nIterations = vm["it"].as<int > ();
+                if (vm.count("weight")) weight = true;
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
                 GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag, noMC);
 //                GE.addCustomParser("PS", boost::factory<InputParser*>());
 //                GE.addCustomObservableType("Poisson", boost::factory<Observable*>());
 //                GE.linkParserToObservable("Poisson", "PS");
-                GE.generate(nIterations, 1);
+                GE.generate(nIterations, 1, weight);
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
             {

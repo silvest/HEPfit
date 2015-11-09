@@ -12,8 +12,6 @@
 #include <WilsonCoefficient.h>
 #include "EvolDF2.h"
 
-using namespace gslpp;
-
 /**
  * @class HeffDF2
  * @ingroup Flavour
@@ -53,7 +51,7 @@ public:
      * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for B_d oscillations
      */
-    vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -61,7 +59,7 @@ public:
      * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for B_s oscillations
      */
-    vector<complex>** ComputeCoeffBs(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -69,7 +67,7 @@ public:
      * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for D oscillations
      */
-    vector<complex>** ComputeCoeffdd(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffdd(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -77,7 +75,7 @@ public:
      * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for K oscillations
      */
-    vector<complex>** ComputeCoeffK(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffK(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -86,7 +84,7 @@ public:
      * @brief for Delta M_K the SM contribution is set to zero
      * @return the effective hamiltonian at the scale mu for Delta M_K
      */
-    vector<complex>** ComputeCoeffmK(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffmK(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -94,7 +92,7 @@ public:
      * @param nf is the number of active flavours
      * @return the anomalous dimension for DeltaF=2 processes
      */
-    matrix<double> AnomalousDimension(orders order, unsigned int nf = 0) const;
+    gslpp::matrix<double> AnomalousDimension(orders order, unsigned int nf = 0) const;
 
     WilsonCoefficient getCoeffBd() const {
         return coeffbd;
@@ -122,9 +120,9 @@ public:
 
 
 private:
-    complex S0tt(double mu) const;
+    gslpp::complex S0tt(double mu) const;
     const StandardModel& model;
-    matrix<double> drNDRLRI;
+    gslpp::matrix<double> drNDRLRI;
     WilsonCoefficient coeffbd;
     WilsonCoefficient coeffbs;
     WilsonCoefficient coeffDd;

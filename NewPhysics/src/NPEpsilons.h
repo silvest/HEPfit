@@ -261,14 +261,14 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$\rho_Z^f@f$
      */
-    complex rhoZ_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
+    gslpp::complex rhoZ_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::rhoZ_f()
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails NPbase::rhoZ_f()
      */
-    virtual complex rhoZ_f(const Particle f) const;
+    virtual gslpp::complex rhoZ_f(const Particle f) const;
 
     /**
      * @brief The effective neutral-current coupling @f$\kappa_Z^f@f$. 
@@ -292,7 +292,7 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$\kappa_Z^f@f$
      */
-    complex kappaZ_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
+    gslpp::complex kappaZ_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::kappaZ_f()
@@ -300,7 +300,7 @@ public:
      * @param[in] f a lepton or quark
      * @copydetails NPbase::kappaZ_f()
      */
-    virtual complex kappaZ_f(const Particle f) const;
+    virtual gslpp::complex kappaZ_f(const Particle f) const;
 
     /**
      * @brief The effective neutral-current vector coupling @f$g_V^f@f$.
@@ -318,14 +318,14 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$g_V^f@f$
      */
-    complex gV_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
+    gslpp::complex gV_f_eps(const Particle f, const double eps1, const double eps3, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::gV_f()
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails NPbase::gV_f()
      */
-    virtual complex gV_f(const Particle f) const;
+    virtual gslpp::complex gV_f(const Particle f) const;
 
     /**
      * @brief The effective neutral-current axial-vector coupling @f$g_A^f@f$. 
@@ -341,7 +341,7 @@ public:
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$g_A^f@f$
      */
-    complex gA_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
+    gslpp::complex gA_f_eps(const Particle f, const double eps1, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief NPbase::gA_f()
@@ -349,7 +349,7 @@ public:
      * @param[in] f a lepton or quark
      * @copydetails NPbase::gA_f()
      */
-    virtual complex gA_f(const Particle f) const;
+    virtual gslpp::complex gA_f(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////   

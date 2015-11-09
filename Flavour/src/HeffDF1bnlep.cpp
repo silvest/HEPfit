@@ -6,9 +6,7 @@
  */
     
 #include "HeffDF1bnlep.h"
-#include "gslpp_complex.h"
-
-using namespace gslpp;
+#include "gslpp.h"
 
 HeffDF1bnlep::HeffDF1bnlep(const StandardModel & SM, StandardModelMatching & SM_Matching) 
 :       model(SM), modelmatching(SM_Matching), 
@@ -28,7 +26,7 @@ HeffDF1bnlep::~HeffDF1bnlep()
  * Buras base                                                                  *
  * deltaB=1   deltaC=0   deltaS=0                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme) 
 {
     
     const std::vector<WilsonCoefficient>& mcb = modelmatching.CMbnlep( 0);
@@ -136,7 +134,7 @@ vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme)
  * Buras base                                                                  *
  * deltaB=1   deltaC=0   deltaS=1                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, schemes scheme) 
 {
     
     const std::vector<WilsonCoefficient>& mcb = modelmatching.CMbnlep( 1);
@@ -212,7 +210,7 @@ vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, schemes scheme)
  * Buras base                                                                  *
  * deltaB=1   deltaC=1   deltaS=0                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, schemes scheme) 
 {
     
     const std::vector<WilsonCoefficient>& mcbCC1 = modelmatching.CMbnlepCC( 2);
@@ -264,7 +262,7 @@ vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, schemes scheme)
  * Buras base                                                                  *
  * deltaB=1   deltaC=1   deltaS=1                                              *
  ******************************************************************************/
-vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep11(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep11(double mu, schemes scheme) 
 {
     
     const std::vector<WilsonCoefficient>& mcbCC1 = modelmatching.CMbnlepCC( 2);

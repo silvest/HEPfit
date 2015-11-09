@@ -19,15 +19,17 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <ctime>
+#include <iostream>
+
 
 MonteCarlo::MonteCarlo(
-ModelFactory& ModelF, ThObsFactory& ThObsF,
-                       const std::string& ModelConf_i,
-                       const std::string& MonteCarloConf_i,
-                       const std::string& OutFile_i,
-                       const std::string& JobTag_i)
-: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO)
-{
+        ModelFactory& ModelF, ThObsFactory& ThObsF,
+        const std::string& ModelConf_i,
+        const std::string& MonteCarloConf_i,
+        const std::string& OutFile_i,
+        const std::string& JobTag_i)
+: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO, CGP) {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
     JobTag = JobTag_i;
@@ -40,6 +42,7 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
     PrintParameterPlot = false;
+    WritePreRunData = false;
     checkrun = false;
     normalization = 0.;
 }
@@ -47,19 +50,34 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
 //MonteCarlo::~MonteCarlo() {}
 
 void MonteCarlo::TestRun(int rank) {
-    if (checkrun == true){
+    if (checkrun == true) {
         if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::TestRun() cannot be called after calling MonteCarlo::Run().\n");
     } else {
         checkrun = true;
     }
-    
-    if (rank == 0){
-        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+
+    if (rank == 0) {
+        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
         std::map<std::string, double> DP;
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
 
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-            DP[it->name] = it->ave;
+            if (it->IsCorrelated()) {
+                for (int i = 0; i < CGP.size(); i++) {
+                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                        std::string index = it->name.substr(CGP[i].getName().size());
+                        long int lindex = strtol(index.c_str(), NULL, 10);
+                        if (lindex > 0)
+                            DP[CGP[i].getPar(lindex - 1).name] = CGP[i].getPar(lindex - 1).ave;
+                        else {
+                            std::stringstream out;
+                            out << it->name;
+                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                        }
+                    }
+                }
+            } else
+                DP[it->name] = it->ave;
         }
 
         if (!myInputParser.getModel()->Init(DP)) {
@@ -85,24 +103,38 @@ void MonteCarlo::TestRun(int rank) {
     }
 }
 
-void MonteCarlo::Run(const int rank)
-{
-    if (checkrun == true){
+void MonteCarlo::Run(const int rank) {
+    if (checkrun == true) {
         if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::Run() cannot be called after calling MonteCarlo::TestRun().\n");
     } else {
         checkrun = true;
     }
-    
+
     try {
 
         /* set model parameters */
-        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+        ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-            DP[it->name] = it->ave;
             if (it->errg > 0. || it->errf > 0.)
                 buffsize++;
+            if (it->IsCorrelated()) {
+                for (int i = 0; i < CGP.size(); i++) {
+                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                        std::string index = it->name.substr(CGP[i].getName().size());
+                        long int lindex = strtol(index.c_str(), NULL, 10);
+                        if (lindex > 0)
+                            DP[CGP[i].getPar(lindex - 1).name] = CGP[i].getPar(lindex - 1).ave;
+                        else {
+                            std::stringstream out;
+                            out << it->name;
+                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                        }
+                    }
+                }
+            } else
+                DP[it->name] = it->ave;
         }
         if (buffsize == 0)
             if (rank == 0) throw std::runtime_error("No parameters being varied. Aborting MCMC run.\n");
@@ -113,8 +145,8 @@ void MonteCarlo::Run(const int rank)
         if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 
         /* create a directory for outputs */
-        if (rank == 0){
-        FileStat_t info;
+        if (rank == 0) {
+            FileStat_t info;
             if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0) {
                 if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
                     std::cout << ObsDirName << " directory has been created." << std::endl;
@@ -139,31 +171,27 @@ void MonteCarlo::Run(const int rank)
             int obsbuffsize = Obs.size() + 2 * Obs2D.size();
             for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++)
                 obsbuffsize += it1->getObs().size();
-            
+
             while (true) {
                 MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                                        recvbuff, buffsize, MPI::DOUBLE, 0);
-                
-                if (recvbuff[0] == 0.){ // do nothing and return ll
+                        recvbuff, buffsize, MPI::DOUBLE, 0);
+
+                if (recvbuff[0] == 0.) { // do nothing and return ll
                     double ll = log(0.);
                     MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0);
-                }
-                else if (recvbuff[0] == 1.) { //compute log likelihood
+                } else if (recvbuff[0] == 1.) { //compute log likelihood
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
                     double ll = MCEngine.LogEval(pars);
                     MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0);
-                } 
-                else if (recvbuff[0] == 2.) { // compute observables
+                } else if (recvbuff[0] == 2.) { // compute observables
                     double sbuff[obsbuffsize];
                     std::map<std::string, double> DPars;
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
-                    for (unsigned int k = 0; k < pars.size(); k++) {
-                        DPars[MCEngine.GetParameter(k)->GetName()] = pars[k];
-                    }
+                    MCEngine.setDParsFromParameters(pars,DPars);
                     myInputParser.getModel()->Update(DPars);
 
                     int k = 0;
-                    for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
+                    for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                         sbuff[k++] = it->computeTheoryValue();
                     }
                     for (std::vector<Observable2D>::iterator it = Obs2D.begin(); it < Obs2D.end(); it++) {
@@ -171,18 +199,16 @@ void MonteCarlo::Run(const int rank)
                         sbuff[k++] = it->computeTheoryValue2();
                     }
 
-                    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++){
+                    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                         std::vector<Observable> pino(it1->getObs());
                         for (std::vector<Observable>::iterator it = pino.begin(); it != pino.end(); ++it)
                             sbuff[k++] = it->computeTheoryValue();
                     }
                     MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0);
-                }
-                else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
+                } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
                     double sbuff[obsbuffsize];
                     MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0);
-                }
-                else if (recvbuff[0] == -1.)
+                } else if (recvbuff[0] == -1.)
                     break;
                 else {
                     std::cout << "recvbuff = " << recvbuff[0] << " rank " << rank << std::endl;
@@ -205,7 +231,7 @@ void MonteCarlo::Run(const int rank)
             for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
                     it1 != CGO.end(); ++it1)
                 std::cout << "  " << it1->getName() << " containing "
-                          << it1->getObs().size() << " observables." << std::endl;
+                << it1->getObs().size() << " observables." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
             if (!ifile.is_open())
@@ -226,6 +252,9 @@ void MonteCarlo::Run(const int rank)
                 } else if (beg->compare("PrerunMaxIter") == 0) {
                     ++beg;
                     MCEngine.MCMCSetNIterationsMax(atoi((*beg).c_str()));
+                } else if (beg->compare("NIterationsUpdateMax") == 0) {
+                    ++beg;
+                    MCEngine.MCMCSetNIterationsUpdateMax(atoi((*beg).c_str()));
                 } else if (beg->compare("Seed") == 0) {
                     ++beg;
                     int seed = atoi((*beg).c_str());
@@ -234,6 +263,9 @@ void MonteCarlo::Run(const int rank)
                 } else if (beg->compare("Iterations") == 0) {
                     ++beg;
                     MCEngine.MCMCSetNIterationsRun(atoi((*beg).c_str()));
+                } else if (beg->compare("MinimumEfficiency") == 0) {
+                    ++beg;
+                    MCEngine.MCMCSetMinimumEfficiency(atof((*beg).c_str()));
                 } else if (beg->compare("WriteChain") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0)
@@ -268,11 +300,19 @@ void MonteCarlo::Run(const int rank)
                     if (beg->compare("true") == 0) {
                         PrintParameterPlot = true;
                     }
+                } else if (beg->compare("WritePreRunData") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        WritePreRunData = true;
+                    }
+                } else if (beg->compare("ReadPreRunData") == 0) {
+                    ++beg;
+                    ReadPreRunData(*beg);
                 } else if (beg->compare("OrderParameters") == 0) {
                     ++beg;
                     if (beg->compare("false") == 0) {
                         MCEngine.MCMCSetFlagOrderParameters(false);
-                    }                    
+                    }
                 } else
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
@@ -289,18 +329,25 @@ void MonteCarlo::Run(const int rank)
             // open log file
             BCLog::OpenLog(("log" + JobTag + ".txt").c_str());
             BCLog::SetLogLevel(BCLog::debug);
-            
+
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
+            std::time_t ti = std::time(NULL);
+            char mbstr[100];
+            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) 
+                std::cout << "MCMC Run started at " <<  mbstr << std::endl; 
             MCEngine.MarginalizeAll();
+            std::time_t tf = std::time(NULL);
+            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) 
+                std::cout << "MCMC Run ended at " <<  mbstr << std::endl; 
 
             // find mode using the best fit parameters as start values
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
-            if (CalculateNormalization) normalization = MCEngine.computeNormalization(); 
-            
+            if (CalculateNormalization) normalization = MCEngine.computeNormalization();
+
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
@@ -332,7 +379,7 @@ void MonteCarlo::Run(const int rank)
 
             // print a LaTeX table of the parameters into a tex file
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
-        
+
             out.WriteMarginalizedDistributions();
             out.FillAnalysisTree();
             out.Close();
@@ -342,13 +389,21 @@ void MonteCarlo::Run(const int rank)
             outHistoLog.open((ObsDirName + "/HistoLog" + JobTag + ".txt").c_str(), std::ios::out);
             outHistoLog << MCEngine.getHistoLog();
             outHistoLog.close();
-            
+
             // print statistics for the theory values of the observables into a text file
             std::ofstream outStatLog;
             outStatLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::out);
-            if (CalculateNormalization) outStatLog << "Normalization for "<< ModelName.c_str() << ": " << normalization << "\n" << std::endl;
+            if (CalculateNormalization) outStatLog << "Normalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
             outStatLog << MCEngine.computeStatistics();
             outStatLog.close();
+
+            // print global mode and scale factors for the 1st chain into a text file
+            if (WritePreRunData) {
+                std::ofstream outPreRun;
+                outPreRun.open(("PreRun" + JobTag + ".txt").c_str(), std::ios::out);
+                outPreRun << MCEngine.writePreRunData();
+                outPreRun.close();
+            }
 
             /* Number of events */
             std::stringstream ss;
@@ -369,7 +424,7 @@ void MonteCarlo::Run(const int rank)
                 sendbuff[il][0] = -1.; //Exit command
             }
             MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                                    recvbuff, buffsize, MPI::DOUBLE, 0);
+                    recvbuff, buffsize, MPI::DOUBLE, 0);
             delete sendbuff[0];
             delete [] sendbuff;
 #endif
@@ -383,14 +438,46 @@ void MonteCarlo::Run(const int rank)
     }
 }
 
-void MonteCarlo::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct){
-        myInputParser.addCustomParser(name, funct);
+void MonteCarlo::ReadPreRunData(std::string file)
+{
+    std::ifstream ifile(file.c_str());
+    if (!ifile.is_open())
+        throw std::runtime_error("\nMonteCarlo::ReadPreRunData ERROR: " + file + " does not exist.\n");
+    std::string line;
+    bool IsEOF = false;
+    std::vector<double> mode;
+    std::vector<double> scale;
+    do {
+        IsEOF = getline(ifile, line).eof();
+        if (line.empty())
+            continue;   
+        boost::char_separator<char> sep(" ");
+        boost::tokenizer<boost::char_separator<char> > tok(line, sep);
+        boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
+        ++beg;
+        mode.push_back(atof((*beg).c_str()));
+        ++beg;
+        scale.push_back(atof((*beg).c_str()));
+    } while (!IsEOF);
+    if (mode.size() != MCEngine.GetNParameters())
+        throw std::runtime_error("\nMonteCarlo::ReadPreRunData ERROR: wrong data size.\n");
+    std::vector<double> mode_all;
+    std::vector<double> scale_all;
+    for (int i = 0; i < MCEngine.MCMCGetNChains(); i++){
+        mode_all.insert(mode_all.end(), mode.begin(), mode.end());
+        scale_all.insert(scale_all.end(), scale.begin(), scale.end());
+    }
+    MCEngine.MCMCSetInitialPositions(mode_all);
+    MCEngine.MCMCSetTrialFunctionScaleFactor(scale_all);
 }
-    
-void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct){
-        myInputParser.addCustomObservableType(name, funct);
+void MonteCarlo::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct) {
+    myInputParser.addCustomParser(name, funct);
 }
-   
+
+void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct) {
+    myInputParser.addCustomObservableType(name, funct);
+}
+
 void MonteCarlo::linkParserToObservable(std::string name_par, std::string name_obs) {
-       myInputParser.linkParserToObservable(name_par, name_obs);
+    myInputParser.linkParserToObservable(name_par, name_obs);
 }

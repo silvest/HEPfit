@@ -62,7 +62,7 @@ public:
      * @return return the vector of SM Wilson coefficients
      */
     virtual  std::vector<WilsonCoefficient>& CMdk2();
-    
+        
     /** 
      * 
      * @brief operator basis: 
@@ -178,9 +178,15 @@ public:
     
      /**
      * 
-     * @return Wilson coefficients for \f$ \Delta L = 1 \f$
+     * @return Wilson coefficients for \f$ \ell_i \to \ell_j\f$
      */
-    virtual  std::vector<WilsonCoefficient>& CMDL1();
+    virtual  std::vector<WilsonCoefficient>& CMDLij(int li_lj);
+
+     /**
+     * 
+     * @return Wilson coefficients for \f$ \ell_i \to \ell_j\ell_j\ell_j\f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMDLi3j(int li_lj);
 
     double x_c(const double mu, const orders order = FULLNNLO) const;
     double x_t(const double mu, const orders order = FULLNNLO) const;
@@ -278,7 +284,61 @@ public:
      * @param[in] mu the matching scale of the Wilson coefficients
      */
     double F1t(double x, double mu) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double E1t(double x, double mu) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double G1t(double x, double mu) const;
 
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9910220
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Tt(double x) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/0512066
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Wt(double x) const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/0512066
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Eet(double x) const;
+    
+    /**
+     * 
+     * @brief approximation of two-loops EW correction for Q_10 operator
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/1311.1348
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Rest(double x, double mu) const;
+    
     /**
      *
      * @param[in] x the square of the ratio between top mass and W mass
@@ -363,21 +423,21 @@ public:
      * @brief hep-ph/9512380
      * @return the loop function for the charm-charm contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
      */
-    complex S0c() const;
+    gslpp::complex S0c() const;
     
     /**
      *  
      * @brief hep-ph/9512380
      * @return the loop function for the charm-top contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
      */
-    complex S0ct() const;
+    gslpp::complex S0ct() const;
     
     /**
      *  
      * @brief hep-ph/9512380v1
      * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
      */
-    complex S0tt() const;
+    gslpp::complex S0tt() const;
     
     /**
      *
@@ -420,13 +480,13 @@ public:
      * double penguin contribution to Kaon mixing - double top contribution
      * @return 
      */
-    complex ZDPtt() const;
+    gslpp::complex ZDPtt() const;
     
     /**
      * double penguin contribution to Kaon mixing - charm top contribution
      * @return 
      */
-    complex ZDPct() const;
+    gslpp::complex ZDPct() const;
     
     
     
@@ -434,7 +494,7 @@ protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu;
-    std::vector<WilsonCoefficient> vmcDL1;
+    std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j;
     
     
 private:
@@ -448,7 +508,7 @@ private:
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu;
-    WilsonCoefficient mcDL1;
+    WilsonCoefficient mcDLij, mcDLi3j;
     
     double Mut;
     double Muw;
@@ -464,9 +524,45 @@ private:
     double sW2;
     double mu_b;
     //double MM;
-    gslpp::matrix<complex> Vckm;
-    complex lam_t;
+    gslpp::matrix<gslpp::complex> Vckm;
+    gslpp::complex lam_t;
     double L;
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order
+     * @return return the value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBsmm(int i, double x, orders order);
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order_ew
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBsmmEW(int i, double x, orders_ew order_ew);
+    
+     /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order
+     * @return return the value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBdmm(int i, double x, orders order);
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order_ew
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     */
+    double setWCBdmmEW(int i, double x, orders_ew order_ew);
     
     /**
      * 
@@ -524,8 +620,14 @@ private:
     double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
     double CWbnlepArrayLOew[10], CWbnlepArrayNLOew[10];
     
-    double sw, swa, swb, swc; //sen(theta_W) tree level
-    double xcachea, xcacheb, xcachec; // caching
+    double CWBsmmArrayNNLOqcd[8], CWBsmmArrayNLOqcd[8], CWBsmmArrayLOqcd[8];
+    double CWBsmmArrayNLOewt4[8], CWBsmmArrayNLOewt2[8], CWBsmmArrayNLOew[8];
+    
+    double CWBdmmArrayNNLOqcd[8], CWBdmmArrayNLOqcd[8], CWBdmmArrayLOqcd[8];
+    double CWBdmmArrayNLOewt4[8], CWBdmmArrayNLOewt2[8], CWBdmmArrayNLOew[8];
+    
+    double sw, swa, swb, swc, swd, swe; //sen(theta_W) tree level
+    double xcachea, xcacheb, xcachec, xcached, xcachee; // caching
     
     
 };

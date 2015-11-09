@@ -12,8 +12,6 @@
 #include "Flavour.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 class AmpDS1 {
 public:
     /**
@@ -29,14 +27,14 @@ protected:
      * @param order
      * @return the amplitude for K_L decay in 2 pion with 0 isospin change
      */
-    complex AmpDS1pp0(orders order);
+    gslpp::complex AmpDS1pp0(orders order);
     
     /**
      * 
      * @param order
      * @return the amplitude for K_L decay in 2 pion with double isospin change
      */
-    complex AmpDS1pp2(orders order);
+    gslpp::complex AmpDS1pp2(orders order);
     
 private:
     

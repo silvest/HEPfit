@@ -13,8 +13,6 @@
 #include <StandardModel.h>
 #include <sstream>
 
-using namespace gslpp;
-
 class EvolDF1nlep : public RGEvolutor {
 /**
  * @class EvolDF1nlep
@@ -48,7 +46,7 @@ class EvolDF1nlep : public RGEvolutor {
      * @param n_d an unsigned integer for the down-type number of d.o.f.
      * @return the ADM related to QCD corrections at the order LO/NLO in the standard basis 
      */
-    matrix<double> AnomalousDimension_nlep_S(orders order, unsigned int n_u, unsigned int n_d) const;
+    gslpp::matrix<double> AnomalousDimension_nlep_S(orders order, unsigned int n_u, unsigned int n_d) const;
     /**
      * @brief a method returning the anomalous dimension matrix given in the standard basis
      * @param order an enum "orders" for the order of QED perturbation theory of the ADM
@@ -56,7 +54,7 @@ class EvolDF1nlep : public RGEvolutor {
      * @param n_d an unsigned integer for the down-type number of d.o.f.
      * @return the ADM related to QED corrections at the order LO/NLO in the standard basis 
      */
-    matrix<double> AnomalousDimension_nlep_EM(orders order, unsigned int n_u, unsigned int n_d) const;
+    gslpp::matrix<double> AnomalousDimension_nlep_EM(orders order, unsigned int n_u, unsigned int n_d) const;
     /**
      * @brief a method returning the evolutor related to the high scale \f$ M \f$ and the low scale \f$ \mu \f$
      * @param mu a double for the low scale of the evolution
@@ -66,19 +64,19 @@ class EvolDF1nlep : public RGEvolutor {
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @return the evolutor \f$ U (\mu , M) \f$
      */
-    matrix<double>& Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme = NDR);
+    gslpp::matrix<double>& Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme = NDR);
     /**
      * @brief a method returning the matrix threshold for the QCD penguins at the NLO
      * @param nf a double for the active number of flavors
      * @return matrix threshold for QCD penguin operators
      */
-    matrix<double> Df1threshold_deltarsT(double nf) const;
+    gslpp::matrix<double> Df1threshold_deltarsT(double nf) const;
     /**
      * @brief a method returning the matrix threshold for the QED penguins at the NLO
      * @param nf a double for the active number of flavors
      * @return QED matrix threshold for QED penguin operators
      */
-    matrix<double> Df1threshold_deltareT(double nf) const;    
+    gslpp::matrix<double> Df1threshold_deltareT(double nf) const;    
     
     private:
     /**

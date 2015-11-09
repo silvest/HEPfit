@@ -139,7 +139,7 @@ EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, order
 EvolDF1nlep::~EvolDF1nlep() 
 {}
 
-matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int n_u, unsigned int n_d) const
 {
    
     /* anomalous dimension related to Delta F = 1 operators in Buras basis, hep-ph/9512380v1 */
@@ -147,7 +147,7 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int
     /*gamma(row, column) leading order*/
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    matrix<double> gammaDF1(dim, 0.);
+    gslpp::matrix<double> gammaDF1(dim, 0.);
    
     switch(order){
         
@@ -294,13 +294,13 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int
     
   }
 
-matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned int n_u, unsigned int n_d) const
 {
    
     /* anomalous dimension related to Buras operators hep-ph/9512380v1 */
     /*gamma(riga, colonna) leading order*/
     unsigned int nf = n_u + n_d; /*n_u\d = active type up/down flavor d.o.f.*/
-    matrix<double> gammaDF1(dim, 0.);
+    gslpp::matrix<double> gammaDF1(dim, 0.);
    
     switch(order){
         
@@ -467,10 +467,10 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned in
 }
 
 
-matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const 
+gslpp::matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const 
 {
     
-    matrix <double> delta_rsT(dim,0.); 
+    gslpp::matrix <double> delta_rsT(dim,0.); 
   
     delta_rsT(2,3) = 5./27.;
     delta_rsT(2,5) = 5./27.;
@@ -512,10 +512,10 @@ matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const
 
 }
 
-matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const 
+gslpp::matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const 
 {
  
-    matrix<double> delta_reT(dim,0.);    
+    gslpp::matrix<double> delta_reT(dim,0.);    
     
     if(nf == 3. || nf == 5.){
         
@@ -563,7 +563,7 @@ matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const
     
 }
 
-matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme) 
+gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme) 
 {
     switch (scheme) {
         case NDR:
@@ -619,7 +619,7 @@ matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orde
 void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) 
 {
 
-  matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resLO_ew(dim,0.), resNLO_ew(dim,0.);
+  gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resLO_ew(dim,0.), resNLO_ew(dim,0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -679,7 +679,7 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme)
 
 void EvolDF1nlep::Df1threshold_nlep(double M, double nf){
  
-    matrix<double> drsT(dim,0.), dreT(dim,0.);
+    gslpp::matrix<double> drsT(dim,0.), dreT(dim,0.);
     
     double alsM = model.Als(M) / 4. / M_PI;
     double ale = model.getAle() / 4. / M_PI ;

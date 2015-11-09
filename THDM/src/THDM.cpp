@@ -41,26 +41,26 @@ bool THDM::InitializeModel()
     setModelTHDM();
     return(true);
 }
-    
+
 bool THDM::Init(const std::map<std::string, double>& DPars) {
     return(StandardModel::Init(DPars));
 }
 
 bool THDM::PreUpdate()
-{    
+{
     requireCKM = false;
     requireYe = false;
     requireYn = false;
-    
+
     if(!StandardModel::PreUpdate()) return (false);
 
     return (true);
 }
 
 bool THDM::Update(const std::map<std::string, double>& DPars) {
-    
+
     if(!PreUpdate()) return (false);
-    
+
     UpdateError = false;
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
@@ -119,7 +119,8 @@ double THDM::computeSina() const
     return sin(atan(pow(10.,logtb))-bma);
 }
 
-void THDM::setParameter(const std::string name, const double& value){    
+void THDM::setParameter(const std::string name, const double& value){
+
     if(name.compare("logtb") == 0) {
         logtb = value;
 //        if(tanb > 0.){
@@ -168,7 +169,7 @@ bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {
 bool THDM::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    
+
     res = StandardModel::setFlag(name,value);
 
     return(res);

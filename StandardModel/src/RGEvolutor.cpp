@@ -7,14 +7,12 @@
 
 #include "RGEvolutor.h"
 
-using namespace gslpp;
-
 RGEvolutor::RGEvolutor(unsigned int dim, schemes scheme, orders order)
-: WilsonTemplate<matrix<double> >(dim, scheme, order)
+: WilsonTemplate<gslpp::matrix<double> >(dim, scheme, order)
 {}
 
 RGEvolutor::RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew)
-: WilsonTemplate<matrix<double> >(dim, scheme, order, order_ew)
+: WilsonTemplate<gslpp::matrix<double> >(dim, scheme, order, order_ew)
 {}
 
 RGEvolutor::~RGEvolutor()
@@ -64,19 +62,19 @@ void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order
     }
 }
 
-void RGEvolutor::setEvol(const matrix<double>& m, orders order_i)
+void RGEvolutor::setEvol(const gslpp::matrix<double>& m, orders order_i)
 {
     setElem(m, order_i);
 }
 
-void RGEvolutor::setEvol(const matrix<double>& m, orders_ew order_ew_i)
+void RGEvolutor::setEvol(const gslpp::matrix<double>& m, orders_ew order_ew_i)
 {
     setElem(m, order_ew_i);
 }
 
-matrix<double>** RGEvolutor::getEvol() const
+gslpp::matrix<double>** RGEvolutor::getEvol() const
 {
-    return (matrix<double>**) elem;
+    return (gslpp::matrix<double>**) elem;
 }
 
 double RGEvolutor::getM() const
@@ -88,7 +86,7 @@ void RGEvolutor::setScales(double mu, double M)
 {
     this->M = M;
     this->mu = mu;
-    *(elem[LO]) = matrix<double>::Id(size);
+    *(elem[LO]) = gslpp::matrix<double>::Id(size);
     for(int i = NLO; i <= order; i++)
         *(elem[i]) = 0.;
     
@@ -101,7 +99,7 @@ void RGEvolutor::setScales(double mu, double M)
 void RGEvolutor::setM(double M)
 {
     this->M = M;
-    *(elem[LO]) = matrix<double>::Id(size);
+    *(elem[LO]) = gslpp::matrix<double>::Id(size);
     for(int i = NLO; i <= order; i++)
         *(elem[i]) = 0.;
     
@@ -114,7 +112,7 @@ void RGEvolutor::setM(double M)
 void RGEvolutor::setMu(double mu)
 {
     this->mu = mu;
-    *(elem[LO]) = matrix<double>::Id(size);
+    *(elem[LO]) = gslpp::matrix<double>::Id(size);
     for(int i = NLO; i <= order; i++)
         *(elem[i]) = 0.;
     
@@ -124,12 +122,12 @@ void RGEvolutor::setMu(double mu)
     }
 }
 
-matrix<double>* RGEvolutor::Evol(orders order)
+gslpp::matrix<double>* RGEvolutor::Evol(orders order)
 {
     return Elem(order);
 }
 
-matrix<double>* RGEvolutor::Evol(orders_ew order_ew)
+gslpp::matrix<double>* RGEvolutor::Evol(orders_ew order_ew)
 {
     return Elem(order_ew);
 }

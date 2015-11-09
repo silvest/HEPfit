@@ -12,8 +12,6 @@
 #include "Flavour.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 class BR_Kp0nunu : public ThObservable {
 public:   
     /**
@@ -40,7 +38,7 @@ protected:
      * \f$ BR(K_{L} \rightarrow \pi^{0} \nu \bar{\nu}) \f$, for example
      * see hep-ph/0603079 section 2.3
      */
-    complex BRKp0nunu(orders order, orders_ew order_ew);
+    gslpp::complex BRKp0nunu(orders order, orders_ew order_ew);
     
 private:
     

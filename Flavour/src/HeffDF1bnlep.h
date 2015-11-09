@@ -14,8 +14,6 @@
 #include "EvolDF1nlep.h"
 #include <sstream>
 
-using namespace gslpp;
-
 class HeffDF1bnlep {
 public:
     /**
@@ -37,7 +35,7 @@ public:
      * @param scheme indicates the reonrmalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 0 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep00(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep00(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -45,7 +43,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 0 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep10(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep10(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -53,7 +51,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 1 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep01(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep01(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -61,7 +59,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 1 | \f$
      */
-    vector<complex>** ComputeCoeffBnlep11(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep11(double mu, schemes scheme = NDR);
     
     WilsonCoefficient getCoeffbnlep00() const {
         return coeffbnlep00;
@@ -97,7 +95,7 @@ private :
     WilsonCoefficient coeffbnlep11, coeffbnlep11A, coeffbnlep11B, coeffbnlep10CC;
     EvolDF1nlep u;
     
-    gslpp::vector<complex> bnlep, bnlep2, bnlepCC;
+    gslpp::vector<gslpp::complex> bnlep, bnlep2, bnlepCC;
 };
 
 #endif	/* HEFFDF1BNLEP_H */

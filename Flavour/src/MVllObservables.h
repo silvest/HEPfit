@@ -1571,6 +1571,58 @@ private:
                       * argument part. */
 };
 
+//   OBSERVABLES MOVED TO MVgamma.h
+/*class DC7_1 : public ThObservable{
+public:
+
+    DC7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    double computeThValue();
+
+private:
+    StandardModel::lepton lep; 
+    StandardModel::meson meson; 
+    StandardModel::meson vectorM; 
+};
+
+class DC7_2 : public ThObservable{
+public:
+
+    DC7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    double computeThValue();
+
+private:
+    StandardModel::lepton lep; 
+    StandardModel::meson meson; 
+    StandardModel::meson vectorM; 
+};*/
+
+class hp0_hm0 : public ThObservable{
+public:
+
+    hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    double computeThValue();
+
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+class hm0_h00 : public ThObservable{
+public:
+
+    hm0_h00(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    double computeThValue();
+
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
 
 #endif	/* MVLLOBSERVABLES_H */
 

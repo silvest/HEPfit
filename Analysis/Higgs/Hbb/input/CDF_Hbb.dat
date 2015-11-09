@@ -4,7 +4,7 @@
 # Name Definition weights mu -err_mu +err_mu
 # weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
 ##################
-CATEGORIES ggH ttH VBF VH
+CATEGORIES ggH196 ttH196 VBF196 VH196
 MEASUREMENT VH |0. 0. 0. 1.| 1.72 -0.87 0.92
 MEASUREMENT ttH |0. 1. 0. 0.| 9.49 -6.28 6.6
 ##################

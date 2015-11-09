@@ -13,8 +13,6 @@
 #include <WilsonCoefficient.h>
 #include "EvolDB1bsg.h"
 
-using namespace gslpp;
-
 class HeffDF1bsg {
 public:
     /**
@@ -36,7 +34,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> s gamma decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    vector<complex>** ComputeCoeffBsg(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBsg(double mu, schemes scheme = NDR);
     
     
     EvolDB1bsg getUDF1() const {

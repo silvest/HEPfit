@@ -12,7 +12,7 @@ AmpDS1::AmpDS1(const StandardModel& SM_i)
 : mySM(SM_i) 
 {}
 
-complex AmpDS1::AmpDS1pp0(orders order) 
+gslpp::complex AmpDS1::AmpDS1pp0(orders order) 
 {
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
@@ -21,11 +21,11 @@ complex AmpDS1::AmpDS1pp0(orders order)
                                  + out.str() + "not computed");
     }
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
             mySM.getBKd1().getMu()(0),
             mySM.getBKd1().getScheme());
 
-    vector<double> me1(mySM.getBKd1().getBpars());
+    gslpp::vector<double> me1(mySM.getBKd1().getBpars());
     
     double MK = mySM.getMesons(QCD::K_0).getMass();
     double MP = mySM.getMesons(QCD::P_0).getMass();
@@ -67,7 +67,7 @@ complex AmpDS1::AmpDS1pp0(orders order)
     }
 }
 
-complex AmpDS1::AmpDS1pp2(orders order) 
+gslpp::complex AmpDS1::AmpDS1pp2(orders order) 
 {
     if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
@@ -76,11 +76,11 @@ complex AmpDS1::AmpDS1pp2(orders order)
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
             mySM.getBKd3().getMu()(0),
             mySM.getBKd3().getScheme());
     
-    vector<double> me2(mySM.getBKd3().getBpars());
+    gslpp::vector<double> me2(mySM.getBKd3().getBpars());
     
     double MK = mySM.getMesons(QCD::K_0).getMass();
     double MP = mySM.getMesons(QCD::P_0).getMass();

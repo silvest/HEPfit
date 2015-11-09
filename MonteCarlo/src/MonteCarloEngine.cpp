@@ -24,10 +24,10 @@ MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
         boost::ptr_vector<Observable>& Obs_i,
         std::vector<Observable2D>& Obs2D_i,
-        std::vector<CorrelatedGaussianObservables>& CGO_i)
-: BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
-CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0)
-{
+        std::vector<CorrelatedGaussianObservables>& CGO_i,
+        std::vector<CorrelatedGaussianParameters>& CGP_i)
+: BCModel(""), ModPars(ModPars_i), CGP(CGP_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
+  CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0) {
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
@@ -39,8 +39,7 @@ CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0)
 #endif
 };
 
-void MonteCarloEngine::Initialize(Model* Mod_i)
-{
+void MonteCarloEngine::Initialize(Model* Mod_i) {
     Mod = Mod_i;
     int k = 0, kweight = 0;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
@@ -113,8 +112,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
 
 };
 
-void MonteCarloEngine::setNChains(unsigned int i)
-{
+void MonteCarloEngine::setNChains(unsigned int i) {
     MCMCSetNChains(i);
     obval = new double[fMCMCNChains * kmax];
     obweight = new double[fMCMCNChains * kwmax];
@@ -130,18 +128,17 @@ MonteCarloEngine::~MonteCarloEngine()
     /* The following code has been commented out pending further review.
        It is causing crashes at the termination of the code if the histograms
        are accessed from the main program.*/
-//    for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
-//            it != Histo1D.end(); it++)
-//        delete it->second;
-//    for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
-//            it != Histo2D.end(); it++)
-//        delete it->second;
+    //    for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
+    //            it != Histo1D.end(); it++)
+    //        delete it->second;
+    //    for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
+    //            it != Histo2D.end(); it++)
+    //        delete it->second;
 };
 
 // ---------------------------------------------------------
 
-void MonteCarloEngine::DefineParameters()
-{
+void MonteCarloEngine::DefineParameters() {
     // Add parameters to your model here.
     // You can then use them in the methods below by calling the
     // parameters.at(i) or parameters[i], where i is the index
@@ -155,7 +152,22 @@ void MonteCarloEngine::DefineParameters()
             continue;
         AddParameter(it->name.c_str(), it->min, it->max);
         if (rank == 0) std::cout << "  " << it->name << " " << k << std::endl;
-        DPars[it->name] = 0.;
+        if (it->IsCorrelated()) {
+            for (int i = 0; i < CGP.size(); i++) {
+                if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                    std::string index = it->name.substr(CGP[i].getName().size());
+                    long int lindex = strtol(index.c_str(),NULL,10);
+                    if (lindex > 0)
+                        DPars[CGP[i].getPar(lindex - 1).name] = 0.;
+                    else {
+                        std::stringstream out;
+                        out << it->name;
+                        throw std::runtime_error("MonteCarloEngine::DefineParameters(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                    }
+                }
+            }
+        } else
+            DPars[it->name] = 0.;
         if (it->errf == 0.) SetPriorGauss(k, it->ave, it->errg);
         else if (it->errg == 0.) SetPriorConstant(k);
         else {
@@ -172,21 +184,65 @@ void MonteCarloEngine::DefineParameters()
     }
 }
 
+void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& parameters, 
+        std::map<std::string,double>& DPars_i) 
+{
+    std::map<std::string, std::vector<double> > cgpmap;
+
+    unsigned int k = 0;
+    for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it < ModPars.end(); it++){
+        if(it->isFixed)
+            continue;
+        if(it->name.compare(GetParameter(k)->GetName()) != 0)
+            {
+                        std::stringstream out;
+                        out << it->name;
+                        throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + "is sitting at the wrong position in the BAT parameters vector");
+                    }
+        if (it->IsCorrelated()) {
+            std::string index = it->name.substr(it->getCgp_name().size());
+            long int lindex = strtol(index.c_str(),NULL,10);
+            if (lindex - 1 == cgpmap[it->getCgp_name()].size())
+                cgpmap[it->getCgp_name()].push_back(parameters[k]);
+            else {
+                std::stringstream out;
+                out << it->name << " " << lindex;
+                throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + "seems to be a CorrelatedGaussianParameters object but the corresponding parameters are missing or not in the right order");
+            }
+
+        } else
+            DPars_i[it->name] = parameters[k];
+        k++;
+    }
+
+    for (int j = 0; j < CGP.size(); j++) {
+        std::vector<double> current = cgpmap.at(CGP[j].getName());
+        if (current.size() != CGP[j].getPars().size()) {
+            std::stringstream out;
+            out << CGP[j].getName();
+            throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + " appears to be represented in cgpmap with a wrong size");
+        }
+        
+        std::vector<double> porig = CGP[j].getOrigParsValue(current);
+
+        for(int l = 0; l < porig.size(); l++) {
+            DPars_i[CGP[j].getPar(l).name] = porig[l];
+        }
+        
+
+    }
+
+}
+
 // ---------------------------------------------------------
 
-double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
-{
+double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     // This methods returns the logarithm of the conditional probability
     // p(data|parameters). This is where you have to define your model.
 
     double logprob = 0.;
-
-    for (unsigned int k = 0; k < parameters.size(); k++) {
-        //        std::string pippo = GetParameter(k)->GetName();
-        //        double pluto = parameters[k];
-        //        DPars[pippo]=pluto;
-        DPars[GetParameter(k)->GetName()] = parameters[k];
-    }
+    
+    setDParsFromParameters(parameters, DPars);
 
     // if update false set probability equal zero
     if (!Mod->Update(DPars)) {
@@ -201,7 +257,6 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
         NumOfDiscardedEvents++;
         return (log(0.));
     }
-    NumOfUsedEvents++;
 #ifdef _MCDEBUG
     //std::cout << "event used in MC" << std::endl;
 #endif
@@ -219,12 +274,16 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         logprob += it->computeWeight();
     }
-    //std::cout << "logprob " << logprob <<std::endl;    
+    if (isnan(logprob)) {
+        NumOfDiscardedEvents++;
+        std::cout << "Event discarded since logprob evaluated to NAN.\n";
+        return (log(0.));
+    }
+    NumOfUsedEvents++;
     return logprob;
 }
 
-void MonteCarloEngine::MCMCIterationInterface()
-{
+void MonteCarloEngine::MCMCIterationInterface() {
 #ifdef _MPI
     unsigned mychain = 0;
     int iproc = 0;
@@ -284,9 +343,7 @@ void MonteCarloEngine::MCMCIterationInterface()
             double sbuff[obsbuffsize];
             std::map<std::string, double> DPars;
             pars.assign(recvbuff + 1, recvbuff + buffsize);
-            for (unsigned int k = 0; k < pars.size(); k++) {
-                DPars[GetParameter(k)->GetName()] = pars[k];
-            }
+            setDParsFromParameters(pars,DPars);
             Mod->Update(DPars);
 
             int k = 0;
@@ -363,12 +420,10 @@ void MonteCarloEngine::MCMCIterationInterface()
     delete [] buff;
 #else
     for (unsigned int i = 0; i < fMCMCNChains; ++i) {
-        for (unsigned int k = 0; k < GetNParameters(); k++) {
-            //        std::string pippo = GetParameter(k)->GetName();
-            //        double pluto = parameters[k];
-            //        DPars[pippo]=pluto;
-            DPars[GetParameter(k)->GetName()] = fMCMCx.at(i * GetNParameters() + k);
-        }
+        std::vector<double>::const_iterator first = fMCMCx.begin() + i * GetNParameters();
+        std::vector<double>::const_iterator last = first + GetNParameters();
+        std::vector<double> currvec(first, last);
+        setDParsFromParameters(currvec,DPars);
 
         Mod->Update(DPars);
 
@@ -416,8 +471,7 @@ void MonteCarloEngine::MCMCIterationInterface()
 #endif
 }
 
-void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name)
-{
+void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name) {
     // output the portions of underflow and overflow bins
     double UnderFlowContent = hist.GetBinContent(0);
     double OverFlowContent = hist.GetBinContent(NBINS1D + 1);
@@ -432,8 +486,7 @@ void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name)
             << std::endl;
 }
 
-void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name)
-{
+void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name) {
     double Integral = hist.Integral();
     double TotalContent = 0.0;
     for (int m = 0; m <= NBINS2D + 1; m++)
@@ -445,8 +498,7 @@ void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name)
 }
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
-        const std::string OutputDir)
-{
+        const std::string OutputDir) {
     std::string HistName = it.getName();
     double min = thMin[it.getName()];
     double max = thMax[it.getName()];
@@ -470,12 +522,11 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
     HistoLog.precision(6);
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)
-{
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir) {
     std::vector<double> mode(GetBestFitParameters());
     if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
-    for (unsigned int k = 0; k < GetNParameters(); k++)
-        DPars[GetParameter(k)->GetName()] = mode[k];
+    setDParsFromParameters(mode,DPars);
+
     Mod->Update(DPars);
 
     // print the histograms to pdf files
@@ -509,8 +560,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
     }
 }
 
-void MonteCarloEngine::AddChains()
-{
+void MonteCarloEngine::AddChains() {
     fMCMCFlagWritePreRunToFile = false;
     int k = 0, kweight = 0;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
@@ -531,8 +581,7 @@ void MonteCarloEngine::AddChains()
     }
 }
 
-void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename)
-{
+void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename) {
     std::ofstream out;
     out.open(filename.c_str(), std::ios::out);
 
@@ -561,8 +610,7 @@ void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename)
     out.close();
 }
 
-std::string MonteCarloEngine::computeStatistics()
-{
+std::string MonteCarloEngine::computeStatistics() {
     std::vector<double> mode(GetBestFitParameters());
     if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
     std::ostringstream StatsLog;
@@ -573,26 +621,24 @@ std::string MonteCarloEngine::computeStatistics()
 
         if (it->getObsType().compare("BinnedObservable") == 0) {
             StatsLog << "  (" << ++i << ") Binned Observable \"";
-            StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]"<<"\":";
-        }
-        else if (it->getObsType().compare("HiggsObservable") == 0){
+            StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]" << "\":";
+        } else if (it->getObsType().compare("HiggsObservable") == 0) {
             StatsLog << "  (" << ++i << ") Higgs Observable \"";
             StatsLog << it->getName() << "\":";
-        }
-        else {
+        } else {
             StatsLog << "  (" << ++i << ") " << it->getObsType() << " \"";
             StatsLog << it->getName() << "\":";
         }
 
         StatsLog << std::endl;
-        
+
         BCH1D * bch1d = Histo1D[it->getName()];
         if (bch1d->GetHistogram()->Integral() > 0.0) {
             StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
-                     << bch1d->GetMean() << " +- " << std::setprecision(4)
-                     << bch1d->GetRMS() << std::endl
+                    << bch1d->GetMean() << " +- " << std::setprecision(4)
+                    << bch1d->GetRMS() << std::endl
 
-                     << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
+                    << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
 
             std::vector<double> v1;
             std::vector<double> v2;
@@ -601,36 +647,36 @@ std::string MonteCarloEngine::computeStatistics()
             v2 = bch1d->GetSmallestIntervals(0.9545);
             v3 = bch1d->GetSmallestIntervals(0.9973);
             StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
-                     << std::endl;
+                    << std::endl;
             for (unsigned j = 0; j < v1.size(); j += 5)
-               StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
-                        << ") (local mode at " << v1[j + 3] << " with rel. height "
-                        << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
-                        << std::endl;
+                StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
+                    << ") (local mode at " << v1[j + 3] << " with rel. height "
+                    << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
+                    << std::endl;
             StatsLog << std::endl;
 
             StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
-                     << std::endl;
+                    << std::endl;
             for (unsigned j = 0; j < v2.size(); j += 5)
-               StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
-                        << ") (local mode at " << v2[j + 3] << " with rel. height "
-                        << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
-                        << std::endl;
+                StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
+                    << ") (local mode at " << v2[j + 3] << " with rel. height "
+                    << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
+                    << std::endl;
             StatsLog << std::endl;
 
             StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
-                     << std::endl;
+                    << std::endl;
             for (unsigned j = 0; j < v3.size(); j += 5)
-               StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
-                        << ") (local mode at " << v3[j + 3] << " with rel. height "
-                        << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
-                        << std::endl;
+                StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
+                    << ") (local mode at " << v3[j + 3] << " with rel. height "
+                    << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
+                    << std::endl;
             StatsLog << std::endl;
         } else {
             StatsLog << "\nWARNING: The histogram of " << it->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
         }
     }
-    
+
     if (CGO.size() > 0) StatsLog << "\nCorellated Gaussian Observables:\n" << std::endl;
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
             it1 < CGO.end(); it1++) {
@@ -641,25 +687,23 @@ std::string MonteCarloEngine::computeStatistics()
 
             if (it2->getObsType().compare("BinnedObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Binned Observable \"";
-                StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]"<<"\":";
-            }
-            else if (it2->getObsType().compare("HiggsObservable") == 0){
+                StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]" << "\":";
+            } else if (it2->getObsType().compare("HiggsObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Higgs Observable \"";
                 StatsLog << it2->getName() << "\":";
-            }
-            else {
+            } else {
                 StatsLog << "  (" << ++i << ") " << it2->getObsType() << " \"";
                 StatsLog << it2->getName() << "\":";
             }
 
             StatsLog << std::endl;
             BCH1D * bch1d = Histo1D[it2->getName()];
-            if (bch1d->GetHistogram()->Integral() > 0.0) {        
+            if (bch1d->GetHistogram()->Integral() > 0.0) {
                 StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
-                         << bch1d->GetMean() << " +- " << std::setprecision(4)
-                         << bch1d->GetRMS() << std::endl
+                        << bch1d->GetMean() << " +- " << std::setprecision(4)
+                        << bch1d->GetRMS() << std::endl
 
-                         << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
+                        << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
 
                 std::vector<double> v1;
                 std::vector<double> v2;
@@ -668,131 +712,140 @@ std::string MonteCarloEngine::computeStatistics()
                 v2 = bch1d->GetSmallestIntervals(0.9545);
                 v3 = bch1d->GetSmallestIntervals(0.9973);
                 StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
-                         << std::endl;
+                        << std::endl;
                 for (unsigned j = 0; j < v1.size(); j += 5)
-                   StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
-                            << ") (local mode at " << v1[j + 3] << " with rel. height "
-                            << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
-                            << std::endl;
+                    StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
+                        << ") (local mode at " << v1[j + 3] << " with rel. height "
+                        << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
+                        << std::endl;
                 StatsLog << std::endl;
 
                 StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
-                         << std::endl;
+                        << std::endl;
                 for (unsigned j = 0; j < v2.size(); j += 5)
-                   StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
-                            << ") (local mode at " << v2[j + 3] << " with rel. height "
-                            << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
-                            << std::endl;
+                    StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
+                        << ") (local mode at " << v2[j + 3] << " with rel. height "
+                        << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
+                        << std::endl;
                 StatsLog << std::endl;
 
                 StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
-                         << std::endl;
+                        << std::endl;
                 for (unsigned j = 0; j < v3.size(); j += 5)
-                   StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
-                            << ") (local mode at " << v3[j + 3] << " with rel. height "
-                            << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
-                            << std::endl;
+                    StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
+                        << ") (local mode at " << v3[j + 3] << " with rel. height "
+                        << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
+                        << std::endl;
                 StatsLog << std::endl;
             } else {
                 StatsLog << "\nWARNING: The histogram of " << it2->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
             }
         }
     }
-    
+
     return StatsLog.str().c_str();
 }
 
-double MonteCarloEngine::computeNormalization()
+std::string MonteCarloEngine::writePreRunData() 
 {
-    
-    unsigned int Npars =  GetNParameters();
     std::vector<double> mode(GetBestFitParameters());
-    gslpp::matrix<double> Hessian(Npars, Npars,0.);
-    
+    std::vector<double> scales(MCMCGetTrialFunctionScaleFactor(0));
+    std::ostringstream StatsLog;
+    for (int i = 0; i < mode.size(); i++)
+        StatsLog << GetParameter(i)->GetName() << " " << mode.at(i) << " " << scales.at(i) << std::endl;
+    return StatsLog.str().c_str();
+}
+
+double MonteCarloEngine::computeNormalization() {
+
+    unsigned int Npars = GetNParameters();
+    std::vector<double> mode(GetBestFitParameters());
+    gslpp::matrix<double> Hessian(Npars, Npars, 0.);
+
     for (unsigned int i = 0; i < Npars; i++)
         for (unsigned int j = 0; j < Npars; j++) {
             // calculate Hessian matrix element
-            Hessian.assign(i, j, - SecondDerivative(GetParameter(i), GetParameter(j), GetBestFitParameters()));
+            Hessian.assign(i, j, -SecondDerivative(GetParameter(i), GetParameter(j), GetBestFitParameters()));
         }
-    
+
     double det_Hessian = Hessian.determinant();
-    
-    return exp(Npars/2. * log(2. * M_PI) + 0.5 * log(1./det_Hessian) + LogLikelihood(mode) + LogAPrioriProbability(mode));
+
+    return exp(Npars / 2. * log(2. * M_PI) + 0.5 * log(1. / det_Hessian) + LogLikelihood(mode) + LogAPrioriProbability(mode));
 }
 
-double MonteCarloEngine::SecondDerivative(const BCParameter * par1, const BCParameter * par2, std::vector<double> point){
-    
+double MonteCarloEngine::SecondDerivative(const BCParameter * par1, const BCParameter * par2, std::vector<double> point) {
+
     if (point.size() != GetNParameters()) {
-      throw std::runtime_error("MCMCENgine::SecondDerivative : Invalid number of entries in the vector.");
+        throw std::runtime_error("MCMCENgine::SecondDerivative : Invalid number of entries in the vector.");
     }
-    
+
     // define steps
     const double dy1 = par2->GetRangeWidth() / NSTEPS;
     const double dy2 = dy1 * 2.;
     const double dy3 = dy1 * 3.;
-   
-   // define points at which to evaluate
+
+    // define points at which to evaluate
     std::vector<double> y1p = point;
     std::vector<double> y1m = point;
     std::vector<double> y2p = point;
     std::vector<double> y2m = point;
     std::vector<double> y3p = point;
     std::vector<double> y3m = point;
-   
+
     unsigned idy = GetParameters().Index(par2->GetName());
-   
+
     y1p[idy] += dy1;
     y1m[idy] -= dy1;
     y2p[idy] += dy2;
     y2m[idy] -= dy2;
     y3p[idy] += dy3;
     y3m[idy] -= dy3;
-   
-    const double m1 = (FirstDerivative(par1,y1p) - FirstDerivative(par1,y1m)) / 2. / dy1;
-    const double m2 = (FirstDerivative(par1,y2p) - FirstDerivative(par1,y2m)) / 4. / dy1;
-    const double m3 = (FirstDerivative(par1,y3p) - FirstDerivative(par1,y3m)) / 6. / dy1;
-   
-    return 3./2. * m1 - 3./5. * m2 + 1./10. * m3;
+
+    const double m1 = (FirstDerivative(par1, y1p) - FirstDerivative(par1, y1m)) / 2. / dy1;
+    const double m2 = (FirstDerivative(par1, y2p) - FirstDerivative(par1, y2m)) / 4. / dy1;
+    const double m3 = (FirstDerivative(par1, y3p) - FirstDerivative(par1, y3m)) / 6. / dy1;
+
+    return 3. / 2. * m1 - 3. / 5. * m2 + 1. / 10. * m3;
 }
 
-double MonteCarloEngine::FirstDerivative(const BCParameter * par, std::vector<double> point){
-    
-    if (point.size() != GetNParameters()) {
-      throw std::runtime_error("MCMCENgine::FirstDerivative : Invalid number of entries in the vector.");
-   }
+double MonteCarloEngine::FirstDerivative(const BCParameter * par, std::vector<double> point) {
 
-   // define steps
+    if (point.size() != GetNParameters()) {
+        throw std::runtime_error("MCMCENgine::FirstDerivative : Invalid number of entries in the vector.");
+    }
+
+    // define steps
     const double dx1 = par->GetRangeWidth() / NSTEPS;
     const double dx2 = dx1 * 2.;
     const double dx3 = dx1 * 3.;
-   
-   // define points at which to evaluate
+
+    // define points at which to evaluate
     std::vector<double> x1p = point;
     std::vector<double> x1m = point;
     std::vector<double> x2p = point;
     std::vector<double> x2m = point;
     std::vector<double> x3p = point;
     std::vector<double> x3m = point;
-   
+
     unsigned idx = GetParameters().Index(par->GetName());
-   
+
     x1p[idx] += dx1;
     x1m[idx] -= dx1;
     x2p[idx] += dx2;
     x2m[idx] -= dx2;
     x3p[idx] += dx3;
     x3m[idx] -= dx3;
-   
+
     const double m1 = (Function_h(x1p) - Function_h(x1m)) / 2. / dx1;
     const double m2 = (Function_h(x2p) - Function_h(x2m)) / 4. / dx1;
     const double m3 = (Function_h(x3p) - Function_h(x3m)) / 6. / dx1;
-   
-    return 3./2. * m1 - 3./5. * m2 + 1./10. * m3;
+
+    return 3. / 2. * m1 - 3. / 5. * m2 + 1. / 10. * m3;
 }
 
-double MonteCarloEngine::Function_h(std::vector<double> point){
+double MonteCarloEngine::Function_h(std::vector<double> point) {
     if (point.size() != GetNParameters()) {
-      throw std::runtime_error("MCMCENgine::Function_h : Invalid number of entries in the vector.");
-   }
+        throw std::runtime_error("MCMCENgine::Function_h : Invalid number of entries in the vector.");
+    }
     return LogLikelihood(point) + LogAPrioriProbability(point);
 }

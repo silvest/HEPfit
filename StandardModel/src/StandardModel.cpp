@@ -218,8 +218,10 @@ bool StandardModel::PostUpdate()
     computeCKM();
 
     /* Set the Yukawa matrices */
-    computeYukawas();
-
+    if ( !isModelSUSY() ) {
+      computeYukawas();
+    }
+      
     /* Check whether the parameters for the EWPO are updated or not */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;
@@ -334,7 +336,7 @@ void StandardModel::computeCKM()
 
 void StandardModel::computeYukawas()
 {
-    /* THE FOLLOWING CODES HAVE TO BE MODIFIED!!
+  /* THE FOLLOWING CODES HAVE TO BE MODIFIED!!
      *   The Yukawa matrices have to be computed at a common scale
      *   for all the fermions!!! */
     if (requireYu || requireCKM) {

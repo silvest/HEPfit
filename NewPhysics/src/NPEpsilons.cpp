@@ -166,7 +166,7 @@ double NPEpsilons::R0_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-complex NPEpsilons::rhoZ_f_eps(const Particle p, const double eps1, const double epsb) const
+gslpp::complex NPEpsilons::rhoZ_f_eps(const Particle p, const double eps1, const double epsb) const
 {
     double gAe = gA_f_eps(leptons[ELECTRON], eps1).real();
     double rhoZ_e = 4. * gAe*gAe;
@@ -181,17 +181,17 @@ complex NPEpsilons::rhoZ_f_eps(const Particle p, const double eps1, const double
         return ( (rhoZ_e + deltaRhoZ_f(p).real()) * bfact);
 }
 
-complex NPEpsilons::rhoZ_f(const Particle p) const
+gslpp::complex NPEpsilons::rhoZ_f(const Particle p) const
 {
     if (p.is("TOP"))
-        return complex(0.0, 0.0, false);
+        return gslpp::complex(0.0, 0.0, false);
     else if (p.is("BOTTOM"))
         return rhoZ_f_eps(p, myEpsilon_1, myEpsilon_b);
     else
         return rhoZ_f_eps(p, myEpsilon_1);
 }
 
-complex NPEpsilons::gV_f_eps(const Particle p, const double eps1,
+gslpp::complex NPEpsilons::gV_f_eps(const Particle p, const double eps1,
         const double eps3, double epsb) const
 {
     double I3f = p.getIsospin();
@@ -208,7 +208,7 @@ complex NPEpsilons::gV_f_eps(const Particle p, const double eps1,
             * (1.0 - 4.0 * fabs(Qf) * kappaZ_f_eps(p, eps1, eps3) * sW2()));
 }
 
-complex NPEpsilons::gA_f_eps(const Particle p, const double eps1, const double epsb) const
+gslpp::complex NPEpsilons::gA_f_eps(const Particle p, const double eps1, const double epsb) const
 {
     double I3f = p.getIsospin();
 
@@ -217,12 +217,12 @@ complex NPEpsilons::gA_f_eps(const Particle p, const double eps1, const double e
     else if (p.is("BOTTOM"))
         return ( sqrt(rhoZ_f_eps(p, eps1, epsb).real()) * I3f);
     else if (p.is("ELECTRON"))
-        return complex(-(1.0 + eps1 / 2.0) / 2.0, 0.0, false);
+        return gslpp::complex(-(1.0 + eps1 / 2.0) / 2.0, 0.0, false);
     else
-        return ( complex(sqrt(rhoZ_f_eps(p, eps1).real()) * I3f, 0.0, false));
+        return ( gslpp::complex(sqrt(rhoZ_f_eps(p, eps1).real()) * I3f, 0.0, false));
 }
 
-complex NPEpsilons::kappaZ_f_eps(const Particle p,
+gslpp::complex NPEpsilons::kappaZ_f_eps(const Particle p,
         const double eps1, const double eps3, const double epsb) const
 {
     double kappaZ_e = (1.0 - (gV_f_eps(leptons[ELECTRON], eps1, eps3)
@@ -238,30 +238,30 @@ complex NPEpsilons::kappaZ_f_eps(const Particle p,
         return ( (kappaZ_e + deltaKappaZ_f(p).real()) / bfact);
 }
 
-complex NPEpsilons::kappaZ_f(const Particle p) const
+gslpp::complex NPEpsilons::kappaZ_f(const Particle p) const
 {
     if (p.is("TOP"))
-        return complex(0.0, 0.0, false);
+        return gslpp::complex(0.0, 0.0, false);
     else if (p.is("BOTTOM"))
         return (kappaZ_f_eps(p, myEpsilon_1, myEpsilon_3, myEpsilon_b));
     else
         return (kappaZ_f_eps(p, myEpsilon_1, myEpsilon_3));
 }
 
-complex NPEpsilons::gV_f(const Particle p) const
+gslpp::complex NPEpsilons::gV_f(const Particle p) const
 {
     if (p.is("TOP"))
-        return complex(0.0, 0.0, false);
+        return gslpp::complex(0.0, 0.0, false);
     else if (p.is("BOTTOM"))
         return (gV_f_eps(p, myEpsilon_1, myEpsilon_3, myEpsilon_b));
     else
         return (gV_f_eps(p, myEpsilon_1, myEpsilon_3));
 }
 
-complex NPEpsilons::gA_f(const Particle p) const
+gslpp::complex NPEpsilons::gA_f(const Particle p) const
 {
     if (p.is("TOP"))
-        return complex(0.0, 0.0, false);
+        return gslpp::complex(0.0, 0.0, false);
     else if (p.is("BOTTOM"))
         return (gA_f_eps(p, myEpsilon_1, myEpsilon_b));
     else

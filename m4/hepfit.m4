@@ -136,7 +136,6 @@ dnl # AC_SUBST([AM_FFLAGS],[$AM_FCFLAGS])
 dnl # AC_SUBST([FLIBS],[$FCLIBS])
 ])
 
-
 dnl ###### BAT PATH ######
 AC_DEFUN([HEPFIT_BAT_PATH],
 [
@@ -211,7 +210,7 @@ else
 		AC_MSG_RESULT([found in $with_feynhiggs])
 		FHLIBS="-L$with_feynhiggs/lib64 -R$with_feynhiggs/lib64 -lFH"
 		FHINCLUDE="-I$with_feynhiggs/include"
-	elif test -e "$with_feynhiggs/lib/libFH.a" -a -d "$with_bat/include/"; then
+	elif test -e "$with_feynhiggs/lib/libFH.a" -a -d "$with_feynhiggs/include/"; then
 		AC_MSG_RESULT([found in $with_feynhiggs])
 		FHLIBS="-L$with_feynhiggs/lib -R$with_feynhiggs/lib -lFH"
 		FHINCLUDE="-I$with_feynhiggs/include"

@@ -13,6 +13,7 @@
 #include <Observable.h>
 #include <Observable2D.h>
 #include <CorrelatedGaussianObservables.h>
+#include <CorrelatedGaussianParameters.h>
 #include <HiggsObservable.h>
 #include <ThObservable.h>
 #include <ModelParameter.h>
@@ -66,9 +67,18 @@ public:
 
     /**
      * @brief The member that parses the Observable directives from SomeModel.conf file
+     * @param[in] type a string for the type of Observable
      * @param[in] beg an iterator over words in a line separated by a specific separator character
      */
-    Observable ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
+    Observable* ParseObservable(std::string& type, boost::tokenizer<boost::char_separator<char> >::iterator & beg);
+    
+    /**
+     * @brief The member that parses the Observable2D directives from SomeModel.conf file
+     * @param[in] type a string for the type of Observable
+     * @param[in] ifile the file being read
+     * @param[in] beg an iterator over words in a line separated by a specific separator character
+     */
+    Observable2D ParseObservable2D(std::string& type, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
         
     /**
      * @brief The member that parses the HiggsObservable directives from SomeModel.conf file
@@ -76,7 +86,15 @@ public:
      * @param[in] beg an iterator over words in a line separated by a specific separator character
      */
     void ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<boost::char_separator<char> >::iterator & beg);
-
+    
+    /**
+     * @brief The member that parses the Observable2D directives from SomeModel.conf file
+     * @param[in] Observables a vector of Observables
+     * @param[in] ifile the file being read
+     * @param[in] beg an iterator over words in a line separated by a specific separator character
+     */
+    CorrelatedGaussianObservables ParseCGO(boost::ptr_vector<Observable>& Observables, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
+    
     /**
      * @brief Responsible for parsing the SomeModel.conf file.
      * @details This method parses the SomeModel.conf file for all input instructions. The algorithm
@@ -84,6 +102,7 @@ public:
      * \li Search for the predefined names of the available models, initialize the necessary model
      * class and build a ThFactory for that model to define the observables.
      * \li Search and read the ModelParameter list.
+     * \li Search and read the CorrelatedGaussianParameters.
      * \li Search and read the Observable list using the ParseObservable() method.
      * \li Search and read the Observable2D list using the ParseObservable() method.
      * \li Search and read the CorrelatedGaussianObservables.
@@ -94,14 +113,16 @@ public:
      * @param[out] Observables the vector of observables
      * @param[out] Observables2D the vector of observable pairs
      * @param[out] CGO the vector of correlated Gaussian observables
+     * @param[out] CGP the vector of correlated Gaussian parameters
      * @return modname the name of the model initialized
      */
-    std::string ReadParameters(const std::string filename,
+    std::string ReadParameters(const std::string filename_i,
                                const int rank,
                                std::vector<ModelParameter>& ModelPars,
                                boost::ptr_vector<Observable>& Observables,
                                std::vector<Observable2D>& Observables2D,
-                               std::vector<CorrelatedGaussianObservables>& CGO);
+                               std::vector<CorrelatedGaussianObservables>& CGO,
+                               std::vector<CorrelatedGaussianParameters>& CGP);
 
     /**
      * @brief A get method to access the pointer to the object of the StandardModel class.
@@ -147,6 +168,14 @@ private:
     std::map<std::string, boost::function<InputParser*(ModelFactory&, ThObsFactory&) > > customParserMap;
     std::map<std::string, boost::function<Observable*(Observable&) > > customObservableTypeMap;
     std::map<std::string, std::string> ObservableToParsermap;
+    int lineNo;
+    std::string filename;
+    int rank;
+    std::string filepath;
+    boost::tokenizer<boost::char_separator<char> > *tok;
+    boost::char_separator<char> * sep;
+    std::string line;
+    bool IsEOF;
 };
 
 /** 

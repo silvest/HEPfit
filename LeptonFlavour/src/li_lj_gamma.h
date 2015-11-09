@@ -19,23 +19,73 @@ public:
      * @param LeptonFlavour
      */
     li_lj_gamma(const StandardModel& SM_i);
-    
+
     /**
      *
      * @brief 
      * @return
      */
     double computeThValue();
-    
-    
+
 protected:
-    
+
 private:
-    const StandardModel& mySM;
-//    const SUSYMatching& mySUSYMatching;
-//    int obs;
     
 };
 
-#endif	/* LI_LJ_GAMMA_H */
+class mu_e_gamma : public li_lj_gamma {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    mu_e_gamma(const StandardModel& SM_i);
+    
+    /**
+     * @return mu_e_gamma
+     */
+    double computeThValue ();
+    
+private:
+    const StandardModel& mySM;
 
+};
+
+class tau_mu_gamma : public li_lj_gamma {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    tau_mu_gamma(const StandardModel& SM_i);
+    
+    /**
+     * @return tau_mu_gamma
+     */
+    double computeThValue ();
+    
+private:
+    const StandardModel& mySM;
+
+};
+
+class tau_e_gamma : public li_lj_gamma {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    tau_e_gamma(const StandardModel& SM_i);
+    
+    /**
+     * @return tau_e_gamma
+     */
+    double computeThValue ();
+    
+private:
+    const StandardModel& mySM;
+
+};
+
+
+#endif	/* LI_LJ_GAMMA_H */

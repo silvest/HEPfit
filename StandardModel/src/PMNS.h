@@ -11,8 +11,6 @@
 #include <math.h>
 #include <gslpp.h>
 
-using namespace gslpp;
-
 /**
  * @class PMNS
  * @ingroup StandardModel
@@ -29,7 +27,7 @@ public:
 
     void setPMNS(double, double, double, double);
 
-    void getPMNS(matrix<complex> &) const;
+    void getPMNS(gslpp::matrix<gslpp::complex> &) const;
 
     // Gilman parameterization
     double gets12();
@@ -59,15 +57,15 @@ private:
     double c23;
     double c13;
 
-    complex U11;
-    complex U12;
-    complex U13;
-    complex U21;
-    complex U22;
-    complex U23;
-    complex U31;
-    complex U32;
-    complex U33;
+    gslpp::complex U11;
+    gslpp::complex U12;
+    gslpp::complex U13;
+    gslpp::complex U21;
+    gslpp::complex U22;
+    gslpp::complex U23;
+    gslpp::complex U31;
+    gslpp::complex U32;
+    gslpp::complex U33;
 
     std::string H;
 

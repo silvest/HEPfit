@@ -11,8 +11,6 @@
 #include <math.h>
 #include <gslpp.h>
 
-using namespace gslpp;
-
 /**
  * @class CKM
  * @ingroup StandardModel
@@ -31,7 +29,8 @@ public:
     void setWolfenstein(double, double, double, double);
     void setCKM(double, double, double, double);
 
-    void getCKM(matrix<complex> &) const;
+    void setCKM(gslpp::matrix<gslpp::complex> &);
+    void getCKM(gslpp::matrix<gslpp::complex> &) const;
 
     // Wolfenstein parameters
     double getRho() const;
@@ -76,17 +75,17 @@ public:
     double getArgVtb();
 
     //Complex values of CKM elements
-    complex V_ud();
-    complex V_us();
-    complex V_ub();
-    complex V_cd();
-    complex V_cs();
-    complex V_cb();
-    complex V_td();
-    complex V_ts();
-    complex V_tb();
+    gslpp::complex V_ud();
+    gslpp::complex V_us();
+    gslpp::complex V_ub();
+    gslpp::complex V_cd();
+    gslpp::complex V_cs();
+    gslpp::complex V_cb();
+    gslpp::complex V_td();
+    gslpp::complex V_ts();
+    gslpp::complex V_tb();
 
-    /*
+   
     // Angles
     double computeBeta();
     double computeGamma();
@@ -94,32 +93,31 @@ public:
     double computeBetas();
     
     // Lambda_q
-    complex computelamt();
-    complex computelamc();
-    complex computelamu();
+    gslpp::complex computelamt();
+    gslpp::complex computelamc();
+    gslpp::complex computelamu();
     
-    complex computelamt_d();
-    complex computelamc_d();
-    complex computelamu_d();
+    gslpp::complex computelamt_d();
+    gslpp::complex computelamc_d();
+    gslpp::complex computelamu_d();
     
-    complex computelamt_s();
-    complex computelamc_s();
-    complex computelamu_s();
+    gslpp::complex computelamt_s();
+    gslpp::complex computelamc_s();
+    gslpp::complex computelamu_s();
     
     // Sides
     double getRt();
     double getRts();
     double getRb();
-     */
-
+    
 private:
     double Rho, Eta, Lambda, A;
     double s12, s13, s23, delta;
     double c12, c23, c13;
 
-    complex Vud, Vcd, Vtd;
-    complex Vus, Vcs, Vts;
-    complex Vub, Vcb, Vtb;
+    gslpp::complex Vud, Vcd, Vtd;
+    gslpp::complex Vus, Vcs, Vts;
+    gslpp::complex Vub, Vcb, Vtb;
 
 };
 

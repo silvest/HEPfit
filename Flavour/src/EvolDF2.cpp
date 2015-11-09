@@ -15,17 +15,17 @@ EvolDF2::EvolDF2(unsigned int dim_i, schemes scheme, orders order, const Standar
 {
     //double Nc = model.getNc();
     int basis = 0; //0: Gabbiani, 1: Buras
-    matrix<double> g0t(AnomalousDimension(LO, 3, basis).transpose());
+    gslpp::matrix<double> g0t(AnomalousDimension(LO, 3, basis).transpose());
 
-    matrix<complex>vv(dim, dim, 0.);
-    vector<complex>ee(dim, 0.);
+    gslpp::matrix<gslpp::complex>vv(dim, dim, 0.);
+    gslpp::vector<gslpp::complex>ee(dim, 0.);
 
     g0t.eigensystem(vv, ee);
 
-    matrix<double> v(vv.real());
-    vector<double> e(ee.real());
+    gslpp::matrix<double> v(vv.real());
+    gslpp::vector<double> e(ee.real());
 
-    matrix<double> vi = v.inverse();
+    gslpp::matrix<double> vi = v.inverse();
     for (unsigned int k = 0; k < dim; k++) {
         a[k] = e(k);
 //        std::cout << "a[" << k << "] = " << a[k] << std::endl;
@@ -38,17 +38,17 @@ EvolDF2::EvolDF2(unsigned int dim_i, schemes scheme, orders order, const Standar
         }
     }
 
-    matrix<double> h(dim, dim, 0.);
+    gslpp::matrix<double> h(dim, dim, 0.);
     for (int l = 0; l < 3; l++) {
-        matrix<double> gg = vi * (AnomalousDimension(NLO, 6 - l, basis).transpose()) * v;
+        gslpp::matrix<double> gg = vi * (AnomalousDimension(NLO, 6 - l, basis).transpose()) * v;
         double b0 = model.Beta0(6 - l);
         for (unsigned int i = 0; i < dim; i++)
             for (unsigned int j = 0; j < dim; j++)
                 h(i, j) = (i == j) * e(i) * model.Beta1(6 - l) / (2. * b0 * b0) -
                 gg(i, j) / (2. * b0 + e(i) - e(j));
-        matrix<double> j = v * h * vi;
-        matrix<double> jv = j*v;
-        matrix<double> vij = vi*j;
+        gslpp::matrix<double> j = v * h * vi;
+        gslpp::matrix<double> jv = j*v;
+        gslpp::matrix<double> vij = vi*j;
         for (unsigned int i = 0; i < dim; i++)
             for (unsigned int j = 0; j < dim; j++)
                 for (unsigned int k = 0; k < dim; k++) {
@@ -65,9 +65,9 @@ EvolDF2::EvolDF2(unsigned int dim_i, schemes scheme, orders order, const Standar
 EvolDF2::~EvolDF2()
 {}
 
-matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf, int basis) const
+gslpp::matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf, int basis) const
 {
-    matrix<double> ad(dim, dim, 0.);
+    gslpp::matrix<double> ad(dim, dim, 0.);
     double Nc = model.getNc();
     switch (basis) {
         case 0:
@@ -144,7 +144,7 @@ matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf, int ba
     return (ad);
 }
 
-matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes scheme)
+gslpp::matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes scheme)
 {
     switch (scheme) {
         case NDR:
@@ -191,7 +191,7 @@ matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes sche
 void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme)
 {
 
-    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
+    gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int l = 6 - (int) nf;
     double alsM = model.Als(M, FULLNLO) / 4. / M_PI;

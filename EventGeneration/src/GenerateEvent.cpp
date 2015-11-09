@@ -9,9 +9,10 @@
 #include <TSystem.h>
 #include <TMath.h>
 #include <TRandom3.h>
+#include <iomanip>  
 
 GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
-        const std::string& ModelConf_i,
+                             const std::string& ModelConf_i,
                              const std::string& OutDirName_i,
                              const std::string& JobTag_i,
                              const bool noMC_i)
@@ -22,7 +23,7 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
     JobTag = JobTag_i;
     if (OutDirName_i != ""){
         OutDirName = "GeneratedEvents/" + OutDirName_i + JobTag;
-        OldOutDirName = ("GeneratedEvents/OLD/" + OutDirName_i + JobTag);
+        OldOutDirName = ("GeneratedEvents/DELETED/" + OutDirName_i + JobTag);
         ObsDirName = OutDirName + "/Observables";
         ParsDirName = OutDirName + "/Parameters";
         CGODirName = OutDirName + "/CGO";
@@ -46,7 +47,7 @@ GenerateEvent::~GenerateEvent()
 {
 }
 
-void GenerateEvent::generate(int unsigned nIteration_i, int seed)
+void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
 {
     if (!noMC)
         throw std::runtime_error("\nGenerateEvent::generate():\n--noMC was not specified as an argument.\nPlease do so for running in Generate Event mode.\n");
@@ -73,14 +74,21 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
         
         /* memory allocation for MPI */
         sendbuff = new double[buffersize];
+        sendbuff_w = new double[buffersize];
         sendbuff_int = new int[1];
         if( rank == 0 ){
             buff = new double*[procnum];
             buff[0]=new double[procnum * buffersize];
             for(int i = 1; i < procnum; i++) buff[i] = buff[i - 1] + buffersize;
+            
+            buff_w = new double*[procnum];
+            buff_w[0]=new double[procnum * buffersize];
+            for(int i = 1; i < procnum; i++) buff_w[i] = buff_w[i - 1] + buffersize;
         } else {
             buff = new double*[1];
             buff[0] = new double[1];
+            buff_w = new double*[1];
+            buff_w[0] = new double[1];
         }
         buff_int = new int*[procnum];
         buff_int[0]=new int[procnum];
@@ -92,27 +100,36 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
             if (rank < rem_iteration){
                 generateRandomEvent(itno);
                 for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
-                    sendbuff[positionID++] = it->computeTheoryValue();
+                    sendbuff[positionID] = it->computeTheoryValue();
+                    if (weight && it->getDistr().compare("noweight") != 0) sendbuff_w[positionID] = it->computeWeight();
+                    else sendbuff_w[positionID] = 0.;
+                    positionID++;
                 }
                 for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                     std::vector<Observable> ObsInCGO = it1->getObs();
                     for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
-                        sendbuff[positionID++] = it2->computeTheoryValue();
+                        sendbuff[positionID] = it2->computeTheoryValue();
+                        if (weight && it2->getDistr().compare("noweight") != 0) sendbuff_w[positionID] = it1->computeWeight();
+                        else sendbuff_w[positionID] = 0.;
+                        positionID++;
                     }
                 }
                 sendbuff_int[0] = rank + 1;
             } else {
                 for (int i = 0; i < buffersize; i++){
                     sendbuff[i] = 0.;
+                    sendbuff_w[i] = 0.;
                 }
                 sendbuff_int[0] = 0;
             }
             
 #ifdef _MPI
                 MPI::COMM_WORLD.Gather(sendbuff, buffersize, MPI::DOUBLE, buff[0], buffersize, MPI::DOUBLE, 0);
+                if (weight) MPI::COMM_WORLD.Gather(sendbuff_w, buffersize, MPI::DOUBLE, buff_w[0], buffersize, MPI::DOUBLE, 0);
                 MPI::COMM_WORLD.Allgather(sendbuff_int, 1, MPI::INT, buff_int[0], 1, MPI::INT);
 #else
                 buff[0] = sendbuff;
+                buff_w[0] = sendbuff_w;
                 buff_int[0] = sendbuff_int;
 #endif
                 
@@ -131,31 +148,35 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
                         if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
                         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                             if (outputTerm == 0) {
-                                std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
+                                if (weight && it->getDistr().compare("noweight") != 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
                                 positionID++;
                             } else {
-                                (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
+                                if (weight && it->getDistr().compare("noweight") != 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] <<std::endl;
+                                else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
                                 positionID++;
                             }
                         }
                         if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
                         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
-                            if (outputTerm == 0) std::cout << it1->getName() << ":" << std::endl;
+                            if (outputTerm == 0) {
+                                if (weight) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" <<std::endl;
+                                else std::cout << it1->getName() <<std::endl;
+                            }
                             std::vector<Observable> ObsInCGO = it1->getObs();
                             for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
                                 if (outputTerm == 0) {
-                                    std::cout << it2->getName() << " = " << buff[iproc][positionID] << std::endl;
+                                    if (weight && it2->getDistr().compare("noweight") != 0) std::cout << it2->getName() << " = " << buff[iproc][positionID] << std::endl;
+                                    else std::cout << it2->getName() << " = " << buff[iproc][positionID] << std::endl;
                                     positionID++;
                                 } else {
-                                    (*CGOOut[it1->getName()]) << buff[iproc][positionID] << "\t";
+                                    if (weight && it2->getDistr().compare("noweight") != 0) (*CGOOut[it1->getName()]) << buff[iproc][positionID] << "\t";
+                                    else (*CGOOut[it1->getName()]) << buff[iproc][positionID] << "\t";
                                     positionID++;
                                 }
                             }
-                            if (outputTerm == 0) {
-                                std::cout << std::endl;
-                            } else {
-                                (*CGOOut[it1->getName()]) << std::endl;
-                            }
+                            if (outputTerm == 0) std::cout << std::endl;
+                            else (*CGOOut[it1->getName()]) << buff_w[iproc][positionID - 1] << std::endl;
                         }
                     }
                 }
@@ -191,6 +212,17 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed)
         std::cerr << message << std::endl;
         exit(EXIT_FAILURE);
     }
+    delete buff[0];
+    delete [] buff;
+    delete [] sendbuff;
+    
+    delete buff_w[0];
+    delete [] buff_w;
+    delete [] sendbuff_w;
+    
+    delete buff_int[0];
+    delete [] buff_int;
+    delete [] sendbuff_int;
 }
 
 void GenerateEvent::createDirectories()
@@ -200,15 +232,15 @@ void GenerateEvent::createDirectories()
         if (gSystem->GetPathInfo("GeneratedEvents", info) != 0) {
             gSystem->MakeDirectory("GeneratedEvents");
         }
-        if (gSystem->GetPathInfo("GeneratedEvents/OLD", info) != 0) {
-            gSystem->MakeDirectory("GeneratedEvents/OLD");
+        if (gSystem->GetPathInfo("GeneratedEvents/DELETED", info) != 0) {
+            gSystem->MakeDirectory("GeneratedEvents/DELETED");
         }
         if (gSystem->GetPathInfo(OutDirName.c_str(), info) == 0){
             if (gSystem->GetPathInfo(OldOutDirName.c_str(), info) == 0){
                 gSystem->Exec(("rm -rf " + OldOutDirName).c_str());
                 std::cout << "\nWARNING: Removed " << OldOutDirName << std::endl;
             }
-            gSystem->Exec(("mv -f " + OutDirName + " " + "GeneratedEvents/OLD/").c_str());
+            gSystem->Exec(("mv -f " + OutDirName + " " + "GeneratedEvents/DELETED/").c_str());
             std::cout << "WARNING: " << OutDirName << " exists!\nWARNING: " << OutDirName <<" moved to " << OldOutDirName << "\n"<< std::endl;
         }
         gSystem->MakeDirectory(OutDirName.c_str());
@@ -245,15 +277,27 @@ void GenerateEvent::createDirectories()
 }
 
 void GenerateEvent::initModel(){
-    ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+    ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
     Mod = myInputParser.getModel();
     if (Obs.size() == 0 && CGO.size() == 0 && rank == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n");
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-        DP[it->name] = it->ave;
-        if (it->errg > 0. || it->errf > 0.){
-            ModParsVar.push_back(*it);
-        }
+        if (it->IsCorrelated()) {
+                for (int i = 0; i < CGP.size(); i++) {
+                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                        std::string index = it->name.substr(CGP[i].getName().size());
+                        long int lindex = strtol(index.c_str(), NULL, 10);
+                        if (lindex > 0) DP[CGP[i].getPar(lindex - 1).name] = CGP[i].getPar(lindex - 1).ave;
+                        else {
+                            std::stringstream out;
+                            out << it->name;
+                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                        }
+                    }
+                }
+            } else DP[it->name] = it->ave;
+        
+        if (it->errg > 0. || it->errf > 0.) ModParsVar.push_back(*it);
     }
     if (!myInputParser.getModel()->Init(DP)) {
         throw std::runtime_error("parameter(s) missing in model initialization");
@@ -268,11 +312,22 @@ void GenerateEvent::initModel(){
 void GenerateEvent::defineParameterDistributions()
 {
     if (outputTerm == 0 && rank == 0) std::cout << "\nParameters varied in Event Generation:" << std::endl;
-    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin();
-            it < ModParsVar.end(); it++) {
-        //if (it->errf == 0. && it->errg == 0.)
-            //continue;
-        if (outputTerm == 0 && rank == 0) std::cout << it->name << ", "; //<< k << std::endl;
+    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
+        if (it->IsCorrelated()) {
+                for (int i = 0; i < CGP.size(); i++) {
+                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                        std::string index = it->name.substr(CGP[i].getName().size());
+                        long int lindex = strtol(index.c_str(), NULL, 10);
+                        if (lindex > 0) {
+                            if (outputTerm == 0 && rank == 0) std::cout << CGP[i].getPar(lindex - 1).name << ", ";
+                        } else {
+                            std::stringstream out;
+                            out << it->name;
+                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                        }
+                    }
+                }
+            } else if (outputTerm == 0 && rank == 0) std::cout << it->name << ", "; //<< k << std::endl;
         if (it->errf == 0. && it->errg != 0.){
             DDist[it->name] = new TF1(it->name.c_str(),
             "1./sqrt(2.*TMath::Pi())/[1] * exp(-(x-[0])*(x-[0])/2./[1]/[1])",
@@ -302,16 +357,37 @@ void GenerateEvent::defineParameterDistributions()
 void GenerateEvent::generateRandomEvent(int iterationNo)
 {
     positionID = 0;
-    if (iterationNo == 0){
-        for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
-            DPars[it->name] = it->ave;
-            sendbuff[positionID++] = DPars[it->name];
-        }
-    } else {
-        for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
-            DPars[it->name] = DDist[it->name]->GetRandom();
-            sendbuff[positionID++] = DPars[it->name];
-        }
+    
+    std::vector<double> vec(ModParsVar.size(),0.);
+    for (int i=0; i< vec.size();i++){
+        if (iterationNo == 0) vec[i] = ModParsVar[i].ave;
+        else vec[i] = DDist[ModParsVar[i].name]->GetRandom();
+    }
+    
+    setDParsFromParameters(vec,DPars);
+    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++){
+        if (it->IsCorrelated()) {
+                for (int i = 0; i < CGP.size(); i++) {
+                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                        std::string index = it->name.substr(CGP[i].getName().size());
+                        long int lindex = strtol(index.c_str(), NULL, 10);
+                        if (lindex > 0) {
+                            sendbuff[positionID] = DPars[CGP[i].getPar(lindex - 1).name];
+                            sendbuff_w[positionID] = DPars[CGP[i].getPar(lindex - 1).name];
+                            positionID++;
+                        }
+                        else {
+                            std::stringstream out;
+                            out << it->name;
+                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                        }
+                    }
+                }
+            } else {
+                sendbuff[positionID] = DPars[it->name];  
+                sendbuff_w[positionID] = DPars[it->name];
+                positionID++;
+            }
     }
     Mod->Update(DPars);
 }
@@ -326,4 +402,43 @@ void GenerateEvent::addCustomObservableType(const std::string name, boost::funct
    
 void GenerateEvent::linkParserToObservable(std::string name_par, std::string name_obs) {
        myInputParser.linkParserToObservable(name_par, name_obs);
+}
+
+
+void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters, 
+        std::map<std::string,double>& DPars_i) 
+{
+    std::map<std::string, std::vector<double> > cgpmap;
+
+   unsigned int k = 0;
+    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++){
+        
+        if (it->IsCorrelated()) {
+            std::string index = it->name.substr(it->getCgp_name().size());
+            long int lindex = strtol(index.c_str(),NULL,10);
+            if (lindex - 1 == cgpmap[it->getCgp_name()].size()) cgpmap[it->getCgp_name()].push_back(parameters[k]);
+            else {
+                std::stringstream out;
+                out << it->name << " " << lindex;
+                throw std::runtime_error("GenerateEvent::setDParsFromParameters(): " + out.str() + "seems to be a CorrelatedGaussianParameters object but the corresponding parameters are missing or not in the right order");
+            }
+
+        } else DPars_i[it->name] = parameters[k];
+        k++;
+    }
+    
+    for (int j = 0; j < CGP.size(); j++) {
+        std::vector<double> current = cgpmap.at(CGP[j].getName());
+        if (current.size() != CGP[j].getPars().size()) {
+            std::stringstream out;
+            out << CGP[j].getName();
+            throw std::runtime_error("GenerateEvent::setDParsFromParameters(): " + out.str() + " appears to be represented in cgpmap with a wrong size");
+        }
+        
+        std::vector<double> porig = CGP[j].getOrigParsValue(current);
+
+        for(int l = 0; l < porig.size(); l++) {
+            DPars_i[CGP[j].getPar(l).name] = porig[l];
+        }
+    }
 }

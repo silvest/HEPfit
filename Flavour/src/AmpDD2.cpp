@@ -11,15 +11,15 @@ AmpDD2::AmpDD2(const StandardModel& SM_i)
 : mySM(SM_i) 
 {}
 
-complex AmpDD2::AmpDD(orders order) 
+gslpp::complex AmpDD2::AmpDD(orders order) 
 {
     if (mySM.getMyFlavour()->getHDF2().getCoeffDD().getOrder() < order)
         throw std::runtime_error("DmD::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff =  mySM.getMyFlavour()->ComputeCoeffdd(
+    gslpp::vector<gslpp::complex> ** allcoeff =  mySM.getMyFlavour()->ComputeCoeffdd(
             mySM.getBD().getMu()(0),
             mySM.getBD().getScheme());
-    vector<double> me(mySM.getBD().getBpars());
+    gslpp::vector<double> me(mySM.getBD().getBpars());
     double MD = mySM.getMesons(QCD::D_0).getMass();
     double Mc = mySM.getQuarks(QCD::CHARM).getMass();
     double Mu = mySM.getQuarks(QCD::UP).getMass();

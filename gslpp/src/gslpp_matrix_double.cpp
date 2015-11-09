@@ -68,7 +68,7 @@ namespace gslpp
   }
 
   /** Get element (i,j) */
-  const double matrix<double>::operator()(const size_t& i, const size_t& j) const
+  double matrix<double>::operator()(const size_t& i, const size_t& j) const
   {
     const double *x = gsl_matrix_const_ptr(_matrix, i, j);
     return *x;

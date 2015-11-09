@@ -9,9 +9,8 @@
 #define	SUSYSPECTRUM_H
 
 #include <gslpp.h>
-#include "SUSY.h"
 
-using namespace gslpp;
+class SUSY;
 
 /**
  * @class SUSYSpectrum
@@ -28,7 +27,7 @@ public:
      * @brief A SUSYSpectrum constructor.
      * @param[in] SUSY_in An object of SUSY class.
      */
-    SUSYSpectrum(SUSY& SUSY_in);
+    SUSYSpectrum(const SUSY& SUSY_in);
 
     /**
      * @brief Computes the Higgs spectrum at tree level.
@@ -58,12 +57,17 @@ public:
     /**
      * @brief Computes the sneutrino spectrum at tree level.
      */
-    void CalcSneutrino();
+    bool CalcSneutrino(gslpp::matrix<gslpp::complex>& Rn_i, gslpp::vector<double>& m_sn2_i);
 
     /**
      * @brief Computes the charged-slepton spectrum at tree level.
      */
     void CalcSelectron();
+
+//    /**
+//     * @brief Computes the SUSY spectrum without the Higgs part at tree level.
+//     */
+//    bool CalcSpectrum();
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -105,103 +109,103 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
 
-    matrix<complex> getMchargino() const
+    gslpp::matrix<gslpp::complex> getMchargino() const
     {
         return Mchargino;
     }
 
-    vector<double> getMch() const
+    gslpp::vector<double> getMch() const
     {
         return mch;
     }
 
-    matrix<complex> getU() const
+    gslpp::matrix<gslpp::complex> getU() const
     {
         return U;
     }
 
-    matrix<complex> getV() const
+    gslpp::matrix<gslpp::complex> getV() const
     {
         return V;
     }
 
     ///////////////////////////////////////////////////////////////////////////
 
-    matrix<complex> getMneutralino() const
+    gslpp::matrix<gslpp::complex> getMneutralino() const
     {
         return Mneutralino;
     }
 
-    vector<double> getMneu() const
+    gslpp::vector<double> getMneu() const
     {
         return mneu;
     }
 
-    matrix<complex> getN() const
+    gslpp::matrix<gslpp::complex> getN() const
     {
         return N;
     }
 
     ///////////////////////////////////////////////////////////////////////////
 
-    matrix<complex> getMsup2() const
+    gslpp::matrix<gslpp::complex> getMsup2() const
     {
         return Msup2;
     }
 
-    matrix<complex> getMsdown2() const
+    gslpp::matrix<gslpp::complex> getMsdown2() const
     {
         return Msdown2;
     }
     
-    vector<double> getMsu2() const
+    gslpp::vector<double> getMsu2() const
     {
         return m_su2;
     }
 
-    vector<double> getMsd2() const
+    gslpp::vector<double> getMsd2() const
     {
         return m_sd2;
     }
 
-    matrix<complex> getRu() const
+    gslpp::matrix<gslpp::complex> getRu() const
     {
         return Ru;
     }
 
-    matrix<complex> getRd() const
+    gslpp::matrix<gslpp::complex> getRd() const
     {
         return Rd;
     }
 
     ///////////////////////////////////////////////////////////////////////////
 
-    matrix<complex> getMsneutrino2() const
+    gslpp::matrix<gslpp::complex> getMsneutrino2() const
     {
         return Msneutrino2;
     }
 
-    matrix<complex> getMselectron2() const
+    gslpp::matrix<gslpp::complex> getMselectron2() const
     {
         return Mselectron2;
     }
 
-    vector<double> getMsn2() const
+    gslpp::vector<double> getMsn2() const
     {
         return m_sn2;
     }
 
-    vector<double> getMse2() const
+    gslpp::vector<double> getMse2() const
     {
         return m_se2;
     }
 
-    matrix<complex> getRn() const
+    gslpp::matrix<gslpp::complex> getRn() const
     {
         return Rn;
     }
 
-    matrix<complex> getRl() const
+    gslpp::matrix<gslpp::complex> getRl() const
     {
         return Rl;
     }
@@ -209,14 +213,14 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 private:
-    SUSY& mySUSY;
+    const SUSY& mySUSY;
 
     double mh[4];
-    matrix<complex> Mchargino, Mneutralino;
-    matrix<complex> Msup2, Msdown2, Msneutrino2, Mselectron2;
+    gslpp::matrix<gslpp::complex> Mchargino, Mneutralino;
+    gslpp::matrix<gslpp::complex> Msup2, Msdown2, Msneutrino2, Mselectron2;
 
-    vector<double> mch, mneu, m_su2, m_sd2, m_sn2, m_se2;
-    matrix<complex> U, V, N, Ru, Rd, Rn, Rl;
+    gslpp::vector<double> mch, mneu, m_su2, m_sd2, m_sn2, m_se2;
+    gslpp::matrix<gslpp::complex> U, V, N, Ru, Rd, Rn, Rl;
 
 };
 

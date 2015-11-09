@@ -12,8 +12,6 @@
 #include "Flavour.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 class BR_Bdnunu : public ThObservable {
 public:   
     /**
@@ -39,7 +37,7 @@ protected:
      * @return the short distance contribution to the 
      * |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
      */
-    complex BRBdnunu(orders order);
+    gslpp::complex BRBdnunu(orders order);
     
 private:
     

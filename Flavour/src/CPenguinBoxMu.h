@@ -14,8 +14,6 @@
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_clausen.h>
 
-using namespace gslpp;
-
 class CPenguinBoxMu {
     
 public:

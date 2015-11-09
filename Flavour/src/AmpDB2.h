@@ -12,8 +12,6 @@
 #include "Flavour.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 /**
  * @addtogroup Flavour
  * @brief A module for flavour observables.
@@ -25,8 +23,8 @@ public:
     AmpDB2(const StandardModel& SM_i);
 
 protected:
-    complex AmpBd(orders order);
-    complex AmpBs(orders order);
+    gslpp::complex AmpBd(orders order);
+    gslpp::complex AmpBs(orders order);
 
 private:
     

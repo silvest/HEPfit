@@ -12,8 +12,10 @@ AM_INIT_AUTOMAKE([1.10 -Wall -Werror no-define])
 LT_INIT
 
 
-AC_PROG_CC([gcc])
-AC_PROG_CXX([g++])
+#AC_PROG_CC([gcc])
+#AC_PROG_CXX([g++])
+AC_PROG_CC([mpicc])
+AC_PROG_CXX([mpicxx])
 AC_PROG_F77
 AC_F77_LIBRARY_LDFLAGS
 
@@ -23,8 +25,8 @@ HEPFIT_CHECK_GSL
 HEPFIT_LOOPTOOLS_PATH
 BOOST_REQUIRE
 BOOST_PROGRAM_OPTIONS  
-HEPFIT_BAT_PATH
 HEPFIT_FEYNHIGGS_PATH
+HEPFIT_BAT_PATH
 # need to test the existence and workability of the package dependencies at configure and give error if something missing
 
 AC_SUBST(SuF_CFLAGS)

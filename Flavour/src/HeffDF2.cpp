@@ -34,7 +34,7 @@ HeffDF2::HeffDF2(const StandardModel& SM)
 HeffDF2::~HeffDF2() 
 {}
 
-vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) 
 {
 
      std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdbd2();
@@ -60,7 +60,7 @@ vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme)
     return coeffbd.getCoeff();
 }
 
-vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) 
 {
 
      std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdbs2();
@@ -86,7 +86,7 @@ vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme)
     return coeffbs.getCoeff();
 }
 
-vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) 
 {
 
      std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdd2();
@@ -112,11 +112,11 @@ vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme)
     return coeffDd.getCoeff();
 }
 
-vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) 
 {
 
-     std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdk2();
-    vector<complex> zero(5,0.);
+    std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdk2();
+    gslpp::vector<gslpp::complex> zero(5,0.);
     
     coeffk.setScheme(mc[0].getScheme());
 
@@ -164,11 +164,11 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme)
 }
 
 
-vector<complex>** HeffDF2::ComputeCoeffmK(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffmK(double mu, schemes scheme) 
 {
 
      std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdk2();
-    vector<complex> zero(5,0.);
+    gslpp::vector<gslpp::complex> zero(5,0.);
     
     coeffmk.setMu(mu);
 

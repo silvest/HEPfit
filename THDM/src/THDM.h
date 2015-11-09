@@ -12,8 +12,6 @@
 #include "THDMMatching.h"
 #include "THDMcache.h"
 
-
-using namespace gslpp;
 class THDMcache; //forward reference to THDMcache class
 
 /**
@@ -51,6 +49,12 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
     
     virtual bool setFlag(const std::string name, const bool value);
+    
+    virtual THDMMatching* getMyMatching() const
+    {
+        return myTHDMMatching;
+    }
+
     
     ///////////////////////////////////////////////////////////////////////////
     

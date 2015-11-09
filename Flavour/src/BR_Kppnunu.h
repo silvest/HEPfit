@@ -13,8 +13,6 @@
 #include "Charm_Kpnunu.h"
 #include <StandardModel.h>
 
-using namespace gslpp;
-
 class BR_Kppnunu : public ThObservable {
 public:   
     /**
@@ -41,14 +39,14 @@ protected:
      * |\f$ BR(K^{+} \rightarrow \pi^{+} \nu \bar{\nu}) \f$|, for example
      * see hep-ph/0603079 section 2.3
      */
-    complex BRKppnunu(orders order, orders_ew order_ew);
+    gslpp::complex BRKppnunu(orders order, orders_ew order_ew);
     
     /**
      * 
      * @param order
      * @return \f$ P_{C} \f$ defined for exmple in hep-ph/0603079 
      */
-    complex P_C(orders order);
+    gslpp::complex P_C(orders order);
     
 private:
     

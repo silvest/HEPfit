@@ -55,7 +55,8 @@ public:
      * @param[in] JobTag_i optional job tag that might be specified
      * @param[in] noMC_i the noMC specification given to the executable=
      */
-    GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF, const std::string& ModelConf_i,
+    GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF, 
+                  const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
                   const std::string& JobTag_i,
                   const bool noMC_i);
@@ -83,7 +84,7 @@ public:
      * @param[in] nIteration number of events generated
      * @param[in] seed seed for the random number generator (default = 0)
      */
-    void generate(int unsigned nIteration_i, int seed = 0);
+    void generate(int unsigned nIteration_i, int seed = 0, bool weight = false);
     
    void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
     
@@ -112,6 +113,8 @@ private:
     
     void initModel();
     
+    void setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string,double>& DPars_i);
+    
     InputParser myInputParser; ///< An oject of the InputParser() class.
     std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model().
     std::map<std::string, TF1*> DDist; ///< Map of parameter distributions.
@@ -124,6 +127,7 @@ private:
     boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
     std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
     std::vector<CorrelatedGaussianObservables> CGO; ///< vector for the Correlated Gaussian Observables defined in SomeModel.conf.
+    std::vector<CorrelatedGaussianParameters> CGP; ///< vector for the Correlated Gaussian Parameters defined in SomeModel.conf.
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::string OutDirName; ///< String for the name of the output directory.
     std::string OldOutDirName; ///< String for the name of the backup output directory.
@@ -134,6 +138,7 @@ private:
     std::string ParsDirName; ///< String for the name of the parameters output directory.
     std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
     bool noMC;///< Flag to initiate noMC mode.
+    bool weight;///< Flag to get weight for observables.
     bool outputTerm; ///< Flag to specify output stream storage.
     int rank;
     int procnum;
@@ -146,7 +151,9 @@ private:
     int positionID;
     int buffersize;
     double *sendbuff;
+    double *sendbuff_w;
     double **buff;
+    double **buff_w;
     int *sendbuff_int;
     int **buff_int;
     std::string ModelName;

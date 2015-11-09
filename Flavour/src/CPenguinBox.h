@@ -15,8 +15,6 @@
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_clausen.h>
 
-using namespace gslpp;
-
 /**
  * 
  * @class: CPenguinBox
@@ -46,7 +44,7 @@ public:
      * @param nf, number of flavours
      * @return the LO RG evolution matrix for the Z-penguin contribution
      */
-    matrix<double> RGevolP(int nf);
+    gslpp::matrix<double> RGevolP(int nf);
     
     /**
      * 
@@ -54,7 +52,7 @@ public:
      * @param nf, number of flavours
      * @return the LO RG evolution matrix for the Box contribution
      */
-    matrix<double> RGevolB(int nf);
+    gslpp::matrix<double> RGevolB(int nf);
     
     /**
      *  
@@ -62,7 +60,7 @@ public:
      * @param order, perturbation theory order
      * @return matching Wilson coefficients at the top scale for the Z-penguin contribution
      */    
-    vector<double> WMatchP(orders order);
+    gslpp::vector<double> WMatchP(orders order);
     
     /**
      * 
@@ -70,7 +68,7 @@ public:
      * @param order, perturbation theory order
      * @return matching Wilson coefficients at the W scale for the Box contribution
      */    
-    vector<double> WMatchB(orders order);
+    gslpp::vector<double> WMatchB(orders order);
     
     /**
      * 
@@ -94,20 +92,20 @@ private:
     const StandardModel& model;
     const StandardModelMatching& modelmatching; 
     
-    matrix<double> up, j5p1, j4p1, j5p2, j4p2;
-    matrix<double> ub, j5b1, j4b1, j5b2, j4b2;
+    gslpp::matrix<double> up, j5p1, j4p1, j5p2, j4p2;
+    gslpp::matrix<double> ub, j5b1, j4b1, j5b2, j4b2;
     
-    matrix<double> up4, up5, ub4, ub5;
+    gslpp::matrix<double> up4, up5, ub4, ub5;
     
-    vector<double> p, b;
+    gslpp::vector<double> p, b;
     
-    vector<double> p0, p1, p2;
-    vector<double> b0, b1, b2;
+    gslpp::vector<double> p0, p1, p2;
+    gslpp::vector<double> b0, b1, b2;
     
-    vector<double> r1, r2;
+    gslpp::vector<double> r1, r2;
     
-    vector<double> CPM0, CPM1, CPM2;
-    vector<double> CBM0, CBM1, CBM2;
+    gslpp::vector<double> CPM0, CPM1, CPM2;
+    gslpp::vector<double> CBM0, CBM1, CBM2;
     
     double r1tau, r2tau, r1e, r2e;
     //double tbp, tbb;

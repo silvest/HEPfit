@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 HEPfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,8 +14,7 @@
 #include "HeffDB1.h"
 #include "MVll.h"
 #include "MPll.h"
-
-using namespace gslpp;
+#include <boost/tuple/tuple.hpp>
 
 class Flavour {
 public:
@@ -52,68 +51,68 @@ public:
         return HDB1;
     }
     
-    vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffBd(mu, scheme);
     }
 
-    vector<complex>** ComputeCoeffBs(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffBs(mu, scheme);
     }
 
-    vector<complex>** ComputeCoeffdd(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffdd(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffdd(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffK(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffK(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffK(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffmK(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) {
         return HDS1.ComputeCoeffDS1PP(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffDS1pnunu() {
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu() {
         return HDS1.ComputeCoeffDS1pnunu();
     }
     
-    vector<complex>** ComputeCoeffDS1mumu() {
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu() {
         return HDS1.ComputeCoeffDS1mumu();
     }
     
-    vector<complex>** ComputeCoeffsmumu() {
-        return HDB1.ComputeCoeffsmumu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffsmumu(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffsmumu(mu, scheme);
     }
     
     
-    vector<complex>** ComputeCoeffdmumu() {
-        return HDB1.ComputeCoeffdmumu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffdmumu(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffbtaunu() {
+    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu() {
         return HDB1.ComputeCoeffbtaunu();
     }
     
-    vector<complex>** ComputeCoeffsnunu() {
-        return HDB1.ComputeCoeffdmumu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu() {
+        return HDB1.ComputeCoeffsnunu();
     }
     
-    vector<complex>** ComputeCoeffdnunu() {
-        return HDB1.ComputeCoeffdmumu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffdnunu() {
+        return HDB1.ComputeCoeffdnunu();
     }
     
-    vector<complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR) {
         return HDB1.ComputeCoeffsgamma(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) {
         return HDB1.ComputeCoeffBMll(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR) {
         return HDB1.ComputeCoeffprimeBMll(mu, scheme);
     }
     

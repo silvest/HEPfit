@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <iterator>
 
-#include "SLHA.hpp"     // From LHPC 
+#include "SLHA.hpp"     // From LHPC, see https://lhpc.hepforge.org
 
 #include <iostream>
 #include <ComputeObservables.h>
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
             return EXIT_SUCCESS;
         }
         
-	// make the configuration file from the SLHA2 file passed in from the command line
+	// make the configuration file from the SLHA2 file 
 	std::string SLHAFileName( argv[1] );
 	LHPC::SlhaParser ParserForSlhaBlockSet( true, false );
 	LHPC::SlhaTwoWithSpheno SlhaSet( ParserForSlhaBlockSet, false );
@@ -242,7 +242,7 @@ void slhaparsing( LHPC::SlhaTwoWithSpheno& SlhaSet){
 
     std::ostringstream oss;
     copy(words.begin(), words.end(),
-	 std::ostream_iterator<std::string>(oss, " ")   // with a whitespace delimeter
+	 std::ostream_iterator<std::string>(oss, " ")   
 	 );
 
     line=oss.str();    // the modified line

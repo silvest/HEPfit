@@ -78,7 +78,7 @@ EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order, const S
 EvolDB1bsg::~EvolDB1bsg() 
 {}
 
-matrix<double> EvolDB1bsg::AnomalousDimension_M(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDB1bsg::AnomalousDimension_M(orders order, unsigned int n_u, unsigned int n_d) const
 {
     
     /* Delta F = 1 anomalous dimension in Misiak basis, 
@@ -89,7 +89,7 @@ matrix<double> EvolDB1bsg::AnomalousDimension_M(orders order, unsigned int n_u, 
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
   
-    matrix<double> gammaDF1(dim, dim, 0.);
+    gslpp::matrix<double> gammaDF1(dim, dim, 0.);
    
     switch(order){
         
@@ -190,14 +190,14 @@ matrix<double> EvolDB1bsg::AnomalousDimension_M(orders order, unsigned int n_u, 
     return (gammaDF1);
 }
 
-matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const
 {
     
     /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
        ref. hep-ph/9711280v1, hep-ph/0504194 */
     
-    matrix<double> mat(dim, 0.);
-    matrix<double> mat1(dim, 0.);
+    gslpp::matrix<double> mat(dim, 0.);
+    gslpp::matrix<double> mat1(dim, 0.);
     unsigned int nf = n_u + n_d;
     //double z3 = gsl_sf_zeta_int(3);
     
@@ -254,7 +254,7 @@ matrix<double> EvolDB1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     
 }
 
-matrix<double> EvolDB1bsg::ToEffectiveBasis(matrix<double> mat) const
+gslpp::matrix<double> EvolDB1bsg::ToEffectiveBasis(gslpp::matrix<double> mat) const
 {
     
     gslpp::matrix<double> y(dim, 0.);
@@ -282,7 +282,7 @@ matrix<double> EvolDB1bsg::ToEffectiveBasis(matrix<double> mat) const
     
 }
 
-matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) 
+gslpp::matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) 
 {
     
     switch (scheme) {
@@ -332,11 +332,11 @@ matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
  void EvolDB1bsg::Df1Evolbsg(double mu, double M, double nf, schemes scheme) 
  {
 
-    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
+    gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int L = 6 - (int) nf;
-    double alsM = model.Als(M) / 4. / M_PI;
-    double alsmu = model.Als(mu) / 4. / M_PI;
+    double alsM = alphatilde_s(M);
+    double alsmu = alphatilde_s(mu);
     
     double eta = alsM / alsmu;
     
@@ -377,3 +377,54 @@ matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
   }
  
 
+double EvolDB1bsg::alphatilde_s(double mu)
+
+{  // also the running is only for nf = 5
+    
+    //double mu_0 = 91.1876;
+    double mu_0 = model.getMz();
+    //double alphatilde_e = 1./(127.751 * 4. * M_PI); // alpha_e at mu_0 = 91.1876 Gev
+    double alphatilde_e = model.alphaMz()/4./M_PI;
+    //double alphatilde_s = 0.1184/(4.* M_PI); // alpha_s at mu_0 = 91.1876 Gev
+    double alphatilde_s = model.getAlsMz()/4./M_PI;
+    unsigned int nf = 5;
+
+    double B00S = model.Beta0(nf), B10S = model.Beta1(nf), B20S = model.Beta2(nf), B30S = gsl_sf_zeta_int(3) * 352864./81. - 598391./1458,
+            B01S = -22./9., B11S = -308./27., B02S = 4945./243.; 
+
+    double B00E = 80./9., B01E = 176./9., B10E = 464./27.; 
+
+    //double B00S2 = B00S * B00S;
+    double B10soB00s = B10S / B00S;
+    double B01soB00e = B01S/B00E;
+
+//    double b1 = B10soB00s/(2. * B00S), b2 = B20S/(4. * B00S2 * B00S) - b1 * b1 , 
+//            b3 = B01soB00e/(2. * B00S ), b4 = B11S /(4. * B00S2 * B00E) - 2 * b1 * b3, 
+//            b5 = B01E/(2. * B00S * B00E) - b1;
+
+    double vs= 1. + 2. * B00S * alphatilde_s * log(mu/ mu_0);
+    double ve= 1. - 2. * B00E * alphatilde_e * log(mu/ mu_0);
+    double ps= B00S * alphatilde_s /(B00S * alphatilde_s + B00E * alphatilde_e);
+    //double pe= B00E * alphatilde_e /(B00S * alphatilde_s + B00E * alphatilde_e);
+
+    double logve = log(ve);
+    double logvs = log(vs);
+    double logeos = log(ve/vs);
+    double logsoe = log(vs/ve);
+    double asovs = alphatilde_s/vs;
+    double aeove = alphatilde_e/ve;
+
+    double result = 0;
+
+    result = asovs - pow(asovs, 2) * (logvs * B10soB00s - logve * B01soB00e) 
+            +  pow(asovs, 3) * ((1. - vs) * B20S / B00S + B10soB00s * B10soB00s * (logvs * logvs - logvs
+            + vs - 1.) + B01soB00e * B01soB00e * logve * logve + (-2. * logvs * logve 
+            + ps * ve * logve) * B01S * B10S/(B00E * B00S)) 
+            +  pow(asovs, 4) * (0.5 * B30S *(1. - vs * vs)/ B00S + ((2. * vs - 3.) * logvs + vs * vs 
+            - vs) * B20S * B10soB00s /(B00S) + B10soB00s * B10soB00s * B10soB00s * (- pow(logvs,3) 
+            + 5. * pow(logvs,2) / 2. + 2. * (1. - vs) * logvs - (vs - 1.) * (vs - 1.)* 0.5)) 
+            + pow(asovs, 2) * (aeove) * ((ve - 1.) * B02S / B00E 
+            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00S) 
+            + logvs * ve * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
+    return (result);
+}

@@ -254,14 +254,14 @@ public :
      * @brief Misiak et al, hep-ph/0005183
      * @return matrix for the change of basis from the standard to Misiak one
      */
-    matrix<double> RtoMisiak() const;
+    gslpp::matrix<double> RtoMisiak() const;
     
     /**
      * 
      * @brief the basis is defined, for example, in Chetyrkin et al hep-ph/9612313
      * @return matrix for the change to effective basis
      */
-    matrix<double> EffectiveBase() const;
+    gslpp::matrix<double> EffectiveBase() const;
     
     /**
      * 
@@ -274,8 +274,8 @@ private:
     const SUSYMassInsertion& SusyMI;
     double MuM2, Ms2;
     unsigned int Nf;
-    complex DLL, DLR, DRL, DRR;
-    matrix<double> drNDRLRI;
+    gslpp::complex DLL, DLR, DRL, DRR;
+    gslpp::matrix<double> drNDRLRI;
     
     WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2;
     

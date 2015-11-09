@@ -74,7 +74,7 @@ double NPbase::deltaGV_f(const Particle f) const
             + 4.0 * cW2SM * sW2SM * DeltaGF()));
 }
 
-complex NPbase::gV_f(const Particle f) const
+gslpp::complex NPbase::gV_f(const Particle f) const
 {
     return ( trueSM.gV_f(f) + deltaGV_f(f));
 }
@@ -89,18 +89,18 @@ double NPbase::deltaGA_f(const Particle f) const
     return ( gASM * (alpha * obliqueT() - DeltaGF()) / 2.0);
 }
 
-complex NPbase::gA_f(const Particle f) const
+gslpp::complex NPbase::gA_f(const Particle f) const
 {
     return ( trueSM.gA_f(f) + deltaGA_f(f));
 }
 
-complex NPbase::rhoZ_f(const Particle f) const
+gslpp::complex NPbase::rhoZ_f(const Particle f) const
 {
     return ( gA_f(f) * gA_f(f) / f.getIsospin() / f.getIsospin());
 
 }
 
-complex NPbase::kappaZ_f(const Particle f) const
+gslpp::complex NPbase::kappaZ_f(const Particle f) const
 {
     return ( (1.0 - gV_f(f) / gA_f(f)) / (4.0 * fabs(f.getCharge()) * sW2()));
 }

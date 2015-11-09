@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <StandardModelMatching.h>
 #include "SUSY.h"
-#include "SUSYMatching.h"
+//#include "SUSYMatching.h"
 #include "SUSYSpectrum.h"
 #include "EWSUSY.h"
 #include "FeynHiggsWrapper.h"
@@ -44,6 +44,7 @@ SUSY::~SUSY(){
     if (IsModelInitialized()) {
             if (mySUSYMatching != NULL) delete(mySUSYMatching);
             if (myFH != NULL) delete(myFH);
+            if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
             if (myEWSUSY != NULL) delete(myEWSUSY);
         }
 }
@@ -53,6 +54,7 @@ SUSY::~SUSY(){
 bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
+    mySUSYSpectrum = new SUSYSpectrum(*this);
     myFH = new FeynHiggsWrapper(*this);
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
@@ -98,6 +100,7 @@ bool SUSY::PostUpdate()
 
     /* Set the squark and slepton mass matrices and the trilinear-coupling matrices */
     SetSoftTerms();
+    computeYukawas();
 
     /* use approximate GUT relation if M1 & M2 are zero */
     if(m1.abs() == 0. && m2.abs() == 0.) {
@@ -108,7 +111,9 @@ bool SUSY::PostUpdate()
     /* Compute Higgs and sparticle spectra with FeynHiggs */
     if(!myFH->SetFeynHiggsPars()) return (false);
     if(!myFH->CalcHiggsSpectrum()) return (false);
-    if(!myFH->CalcSpectrum()) return (false);
+    if(!myFH->CalcSpectrum()) return (false); /* Using SUSYSpectrum instead, because FH does not calculate Sneutrino masses. */
+    if(!mySUSYSpectrum->CalcSneutrino(Rn,m_sn2)) return (false);
+    myFH->SortSfermionMasses(m_sn2, Rn);
 
     /* Set the mass of the SM-like Higgs */
     mHl = mh[0];
@@ -117,6 +122,8 @@ bool SUSY::PostUpdate()
         std::cout << "WARNING: mh=" << mHl << " in SUSY::PostUpdate" << std::endl;
         return (false);
     }
+    
+    if( Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt( sqrt(m_su2(2) * m_su2(5)) );
 
     /* For EWSUSY class */
     myEWSUSY->SetRosiekParameters();
@@ -216,6 +223,9 @@ void SUSY::computeYukawas()
     /* Convert the top-quark pole mass to the MSbar mass */
     double mtbar = Mp2Mbar(mtpole, FULLNLO);
 
+    double Q_SUSY_temp = Q_SUSY;
+    if( Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt( sqrt(msQhat2(2,2).abs() * msUhat2(2,2).abs() ) );
+
     for (int i = 0; i < 3; i++) {
         /* Run the quark masses to scale Q */
         if (i != 2)
@@ -240,6 +250,9 @@ void SUSY::computeYukawas()
 
     Yu = VCKM.transpose()*Yu;
     Yn = Yn * UPMNS.hconjugate();
+
+    Q_SUSY = Q_SUSY_temp;
+    
 }
 
 void SUSY::SetSoftTerms()

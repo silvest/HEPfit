@@ -10,6 +10,7 @@
 
 #include <string>
 #include <iostream>
+#include <boost/tokenizer.hpp>
 
 /**
  * @class ModelParameter
@@ -37,17 +38,48 @@ public:
     ModelParameter(std::string name_in, double ave_in, double errg_in, double errf_in);
     
     /**
+     * @brief Constructor.
+     */
+    ModelParameter();
+    
+    /**
+     * @brief Parser for model parameters
+     * @param[in] beg iterator for reading the model parameter
+     */
+    boost::tokenizer<boost::char_separator<char> >::iterator & ParseModelParameter(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
+    
+    /**
      * @brief The default destructor.
      */
     virtual ~ModelParameter();
     
+    bool IsCorrelated() const
+    {
+        return(!cgp_name.empty());
+    }
     
+    std::string getname()
+    {
+        return name;
+    }
+    
+    std::string getCgp_name() const
+    {
+        return cgp_name;
+    }
+
+    void setCgp_name(std::string cgp_name)
+    {
+        this->cgp_name = cgp_name;
+    }
+
     std::string name; ///< The name of the model parameter.
     double ave; ///< The average value of the model parameter.
     double errg; ///< The Gaussian error of the model parameter.
     double errf; ///< The flat error of the model parameter.
     double min; ///< The minimum value of the model parameter.
     double max; ///< The maximum value of the model parameter.
+    bool isFixed;
     
     /**
      * @brief Befriending of the std::ostream operator << to generate an
@@ -57,6 +89,7 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& output, const ModelParameter& m);
 private:
+    std::string cgp_name;
 };
 
 #endif	/* MODELPARAMETER_H */
