@@ -635,8 +635,8 @@ private:
     double CWBdmmArrayNNLOqcd[8], CWBdmmArrayNLOqcd[8], CWBdmmArrayLOqcd[8];
     double CWBdmmArrayNLOewt4[8], CWBdmmArrayNLOewt2[8], CWBdmmArrayNLOew[8];
     
-    double sw, swa, swb, swc, swd, swe; //sen(theta_W) tree level
-    double xcachea, xcacheb, xcachec, xcached, xcachee; // caching
+    double sw, swa, swb, swc, swd, swe, swf; //sen(theta_W) tree level
+    double xcachea, xcacheb, xcachec, xcached, xcachee, xcachef; // caching
     
     
 };

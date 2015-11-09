@@ -1162,7 +1162,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
 {    
     sw =  sqrt( sW2 );//sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
 
-    if ( swa == sw && xcachea == x){
+    if ( swf == sw && xcachef == x){
         switch (order){
         case NNLO:
         case NLO:
@@ -1178,7 +1178,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
         }
     }
     
-    swa = sw; xcachea = x;
+    swf = sw; xcachef = x;
     
     switch (order){
         case NNLO:
