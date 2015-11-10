@@ -11,8 +11,6 @@
 #include <gsl/gsl_sf.h>
 #include <boost/bind.hpp>
 #include <limits>
-#include "Math/GSLIntegrator.h"
-#include "Math/WrappedTF1.h"
 #include <TFitResult.h>
 
 MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
