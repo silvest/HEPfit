@@ -1487,6 +1487,51 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
 
 }
 
+double MVll::getSigma(int i, double q_2) 
+{
+    updateParameters();
+
+    switch (i) {
+        case 0:
+            return getSigma1c(q_2);
+            break;
+        case 1:
+            return getSigma1s(q_2);
+            break;
+        case 2:
+            return getSigma2c(q_2);
+            break;
+        case 3:
+            return getSigma2s(q_2);
+            break;
+        case 4:
+            return getSigma3(q_2);
+            break;
+        case 5:
+            return getSigma4(q_2);
+            break;
+        case 6:
+            return getSigma5(q_2);
+            break;
+        case 7:
+            return getSigma6s(q_2);
+            break;
+        case 9:
+            return getSigma7(q_2);
+            break;
+        case 10:
+            return getSigma8(q_2);
+            break;
+        case 11:
+            return getSigma9(q_2);
+            break;
+        default:
+            std::stringstream out;
+            out << i;
+            throw std::runtime_error("MVll::integrateSigma: index " + out.str() + " not implemented");
+    }
+}
+
 double MVll::integrateDelta(int i, double q_min, double q_max) 
 {
     updateParameters();

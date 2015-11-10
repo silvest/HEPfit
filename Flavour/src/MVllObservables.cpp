@@ -18,7 +18,6 @@
 P_1::P_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P_1 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -36,7 +35,6 @@ double P_1::computeThValue()
 P_2::P_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P_2 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -54,7 +52,6 @@ double P_2::computeThValue()
 P_3::P_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P_3 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -72,7 +69,6 @@ double P_3::computeThValue()
 P_4Prime::P_4Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P_4p not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -90,7 +86,6 @@ double P_4Prime::computeThValue()
 P_5Prime::P_5Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P_5p not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -108,7 +103,6 @@ double P_5Prime::computeThValue()
 P_6Prime::P_6Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P_6p not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -126,7 +120,6 @@ double P_6Prime::computeThValue()
 P_8Prime::P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P_8p not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -144,7 +137,6 @@ double P_8Prime::computeThValue()
 GammaPrime::GammaPrime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: GammaPrime not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -171,7 +163,6 @@ double GammaPrime::computeThValue()
 A_FB::A_FB(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: A_FB not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -189,7 +180,6 @@ double A_FB::computeThValue()
 BR_MVll::BR_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: BR_MVll not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -207,7 +197,6 @@ double BR_MVll::computeThValue()
 R_MVll::R_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_1) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: R_MVll not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
@@ -226,7 +215,6 @@ double R_MVll::computeThValue()
 RL_MVll::RL_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) 
 : F_L(SM_i, meson_i, vector_i, lep_1) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: RL_MVll not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
@@ -245,7 +233,6 @@ double RL_MVll::computeThValue()
 RT_MVll::RT_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) 
 : F_L(SM_i, meson_i, vector_i, lep_1) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: RT_MVll not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
@@ -264,7 +251,6 @@ double RT_MVll::computeThValue()
 R_6::R_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: R_6 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
@@ -283,7 +269,6 @@ double R_6::computeThValue()
 ACP_MVll::ACP_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: ACP not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -301,7 +286,6 @@ double ACP_MVll::computeThValue()
 P3CP::P3CP(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: P3CP not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -319,7 +303,6 @@ double P3CP::computeThValue()
 F_L::F_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l: F_L- not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -349,7 +332,6 @@ double F_L::computeThValue()
 M_1Prime::M_1Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: M_1Prime not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -367,7 +349,6 @@ double M_1Prime::computeThValue()
 M_2Prime::M_2Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: M_2Prime not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -385,7 +366,6 @@ double M_2Prime::computeThValue()
 S_3::S_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: S_3 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -404,7 +384,6 @@ double S_3::computeThValue()
 S_4::S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: S_4 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -423,7 +402,6 @@ double S_4::computeThValue()
 S_5::S_5(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: S_5 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -442,7 +420,6 @@ double S_5::computeThValue()
 S_7::S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l: S_7- not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -461,7 +438,6 @@ double S_7::computeThValue()
 S_8::S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: S_8 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -478,8 +454,8 @@ double S_8::computeThValue()
 
 
 S_9::S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
-: GammaPrime(SM_i, meson_i, vector_i, lep_i) {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: S_9 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+{
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -498,7 +474,6 @@ double S_9::computeThValue()
 A_6::A_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: A_6 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -517,7 +492,6 @@ double A_6::computeThValue()
 A_9::A_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: A_9 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -535,7 +509,6 @@ double A_9::computeThValue()
 V0::V0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: V0 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -549,7 +522,6 @@ double V0::computeThValue()
 Vp::Vp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: Vp not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -563,7 +535,6 @@ double Vp::computeThValue()
 Vm::Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: Vm not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -577,7 +548,6 @@ double Vm::computeThValue()
 T0::T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: T0 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -591,7 +561,6 @@ double T0::computeThValue()
 Tp::Tp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: Tp not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -605,7 +574,6 @@ double Tp::computeThValue()
 Tm::Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: Tm not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -619,7 +587,6 @@ double Tm::computeThValue()
 S::S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: S not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -634,7 +601,6 @@ double S::computeThValue()
 gtilde_1::gtilde_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) 
 : ThObservable(SM_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: gtilde_1 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -656,7 +622,6 @@ double gtilde_1::computeThValue()
 gtilde_2::gtilde_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) 
 : ThObservable(SM_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: gtilde_2 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -678,7 +643,6 @@ double gtilde_2::computeThValue()
 gtilde_3::gtilde_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) 
 : ThObservable(SM_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: gtilde_3 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -699,7 +663,6 @@ double gtilde_3::computeThValue()
 h_0::h_0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) 
 : ThObservable(SM_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: h_0 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -721,7 +684,6 @@ double h_0::computeThValue()
 h_p::h_p(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) 
 : ThObservable(SM_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: h_p not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -743,7 +705,6 @@ double h_p::computeThValue()
 h_m::h_m(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i) 
 : ThObservable(SM_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: h_m not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
@@ -760,38 +721,10 @@ double h_m::computeThValue()
     else if (typ == 4) return ((SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_re(q_min) + gslpp::complex::i() * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->geth_m_im(q_min)).arg());
     else throw std::runtime_error("MVllObservables::h_m: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
-/*DC7_1::DC7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
-: ThObservable(SM_i)
-{
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: DC7_1 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
-   lep = lep_i;
-   meson = meson_i;
-   vectorM = vector_i;
-}
-
-double DC7_1::computeThValue()
-{
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getDC7_1_abs();
-}
-
-DC7_2::DC7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
-: ThObservable(SM_i)
-{
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: DC7_2 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
-   lep = lep_i;
-   meson = meson_i;
-   vectorM = vector_i;
-}
-
-double DC7_2::computeThValue()
-{
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getDC7_2_abs();
-}*/
 
 hp0_hm0::hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
 : ThObservable(SM_i)
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: hp0_hm0 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -805,7 +738,6 @@ double hp0_hm0::computeThValue()
 hm0_h00::hm0_h00(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
 : ThObservable(SM_i)
 {
-   if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to V l+ l-: hm0_h00 not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
    lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
@@ -814,4 +746,302 @@ hm0_h00::hm0_h00(const StandardModel& SM_i, StandardModel::meson meson_i, Standa
 double hm0_h00::computeThValue()
 {
     return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->gethm0_h00_abs();
+}
+
+/***********************************************************************************************************************************
+FUNCTIONAL
+***********************************************************************************************************************************/
+
+P_1f::P_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_1f::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(4,q_min)/(2.* SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+}
+
+
+P_2f::P_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_2f::computeThValue() 
+{   
+    double q_min = getBinMin();
+    
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(7,q_min)/(8.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+}
+
+
+P_3f::P_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_3f::computeThValue() 
+{   
+    double q_min = getBinMin();
+    
+    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(11,q_min)/(4.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+}
+
+
+P_4Primef::P_4Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_4Primef::computeThValue() 
+{   
+    double q_min = getBinMin();
+    
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(5,q_min)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+}
+
+
+P_5Primef::P_5Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_5Primef::computeThValue() 
+{   
+    double q_min = getBinMin();
+    
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(6,q_min)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+}
+
+
+P_6Primef::P_6Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_6Primef::computeThValue() 
+{
+    double q_min = getBinMin();
+    
+    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(9,q_min)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+}
+
+
+P_8Primef::P_8Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_8Primef::computeThValue() 
+{
+    double q_min = getBinMin();
+    
+    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(10,q_min)/(sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+}
+
+
+GammaPrimef::GammaPrimef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double GammaPrimef::computeGammaPrimef(double qmin, StandardModel::lepton lep)
+{
+    double q_min = qmin;
+    StandardModel::lepton lep_i = lep;
+    
+    return ((3.*SM.getMyFlavour()->getMVll(meson, vectorM, lep_i)->getSigma(0,q_min) - SM.getMyFlavour()->getMVll(meson, vectorM, lep_i)->getSigma(2,q_min)) + 2.*(3.*SM.getMyFlavour()->getMVll(meson, vectorM, lep_i)->getSigma(1,q_min) - SM.getMyFlavour()->getMVll(meson, vectorM, lep_i)->getSigma(3,q_min)))/4.;
+}
+
+double GammaPrimef::computeThValue()
+{
+    double q_min = getBinMin();
+
+    return computeGammaPrimef(q_min, lep);
+}
+
+
+A_FBf::A_FBf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double A_FBf::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return -3. * SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(7,q_min) / 4. / computeGammaPrimef(q_min, lep);
+}
+
+F_Lf::F_Lf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double F_Lf::computeFLf(double qmin, StandardModel::lepton lep) 
+{
+    double q_min = qmin;
+    StandardModel::lepton lep_i = lep;
+    
+    double sigma0 = SM.getMyFlavour()->getMVll(meson, vectorM, lep_i)->getSigma(0,q_min);
+    double sigma2 = SM.getMyFlavour()->getMVll(meson, vectorM, lep_i)->getSigma(2,q_min);
+    
+    return (3.*sigma0 - sigma2) / (4. * computeGammaPrimef(q_min, lep_i)) ;
+}
+
+
+double F_Lf::computeThValue() 
+{
+    double q_min = getBinMin();
+    
+    return computeFLf(q_min, lep);
+}
+
+S_3f::S_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_3f::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(4,q_min) / computeGammaPrimef(q_min, lep);
+}
+
+
+S_4f::S_4f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+/*Returns experimental value, defined according to 1308.1707*/
+double S_4f::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(5,q_min) / computeGammaPrimef(q_min, lep) /2.;
+}
+
+
+S_5f::S_5f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_5f::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(6,q_min) / computeGammaPrimef(q_min, lep);
+}
+
+
+S_7f::S_7f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+/*Returns experimental value, defined according to 1308.1707*/
+double S_7f::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(9,q_min) / computeGammaPrimef(q_min, lep);
+}
+
+
+S_8f::S_8f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+/*Returns experimental value, defined according to 1308.1707*/
+double S_8f::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(10,q_min) / computeGammaPrimef(q_min, lep) / 2.;
+}
+
+
+S_9f::S_9f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_9f::computeThValue() 
+{
+    double q_min = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(11,q_min) / computeGammaPrimef(q_min, lep);
+}
+
+BRf_MVll::BRf_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: GammaPrimef(SM_i, meson_i, vector_i, lep_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double BRf_MVll::computeThValue() 
+{
+    double q_min = getBinMin();
+    
+    return computeGammaPrimef(q_min, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getwidth();
 }

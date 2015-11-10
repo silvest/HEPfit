@@ -105,6 +105,14 @@ public:
     double integrateSigma(int i, double q_min, double q_max);
     
     /**
+    * @brief The value of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
+    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
+    * @param[in] \f$ q^2 \f$ value of the function
+    * @return \f$ <\Sigma_{i}> \f$ 
+    */
+    double getSigma(int i, double q_2);
+    
+    /**
     * @brief The integral of \f$ \Delta_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
     * @param[in] i index of the angular coefficient \f$ I_{i} \f$
     * @param[in] q_min minimum q^2 of the integral
