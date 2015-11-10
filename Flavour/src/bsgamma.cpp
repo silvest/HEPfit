@@ -24,7 +24,7 @@ Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 Intbc_cache(2, 0.),
 myevol(8, NDR, NLO, SM)
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.ModelName().compare("StandardModel") != 0 && SM.ModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");
@@ -1740,6 +1740,7 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
 void Bsgamma::computeCoeff(double mu)
 {
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
+    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu);
     
     C1_0 = (*(allcoeff[LO]))(0);
     C2_0 = (*(allcoeff[LO]))(1);
@@ -1758,6 +1759,9 @@ void Bsgamma::computeCoeff(double mu)
     C6_1 = (*(allcoeff[NLO]))(5)/Alstilde;
     C7_1 = (*(allcoeff[NLO]))(6)/Alstilde;
     C8_1 = (*(allcoeff[NLO]))(7)/Alstilde;
+    
+    C7p_0 = (*(allcoeffprime[LO]))(6);
+    C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
    
     /*std::cout << "C1_0: " << C1_0 << std::endl;
     std::cout << "C2_0: " << C2_0 << std::endl;
@@ -1801,18 +1805,19 @@ void Bsgamma::computeCoeff(double mu)
 
 double Bsgamma::P0(double E0)
 {
-    return C7_0.abs2() + P0tree(E0,Mb_kin*Mb_kin/Ms/Ms);
+    return C7_0.abs2() + C7p_0.abs2() + P0tree(E0,Mb_kin*Mb_kin/Ms/Ms);
 }
 
 double Bsgamma::P11()
 {
-    return 2.*(C7_0*C7_1).real();
+    return 2.*((C7_0*C7_1).real() + (C7p_0*C7p_1).real()); /*CHECK SIGN*/
 }
 
 double Bsgamma::P21(double E0, double mu)
 {
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
+    gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
     double p21=0.;
     
     for(i=0;i<8;i++)
@@ -1823,12 +1828,20 @@ double Bsgamma::P21(double E0, double mu)
         }
     }
     
+    for(i=6;i<7;i++) /*CHECK ALGORITHM*/
+    {
+        for(j=6;j<7;j++)
+        {
+            p21 += (C0p[i]*C0p[j]).real() * Kij_1(i+1,j+1,E0,mu);
+        }
+    }
+    
     return p21;
 }
 
 double Bsgamma::P12()
 {
-   return C7_1.abs2() + 2.*(C7_0*C7_2).real(); 
+   return C7_1.abs2() + C7p_1.abs2() + 2.*(C7_0*C7_2).real(); /*CHECK SIGN*/
 }
 
 double Bsgamma::P22(double E0, double mu_b, double mu_c)
@@ -2001,7 +2014,7 @@ double Bsgamma::N_77(double E0, double mu)
     
     corrLambda3 = (-88./6. + 16.*log(2.))* rho1 /Mb_kin/Mb_kin/Mb_kin;
     
-    return C7_0.abs2() * (4. * Alstilde / Mb_kin / Mb_kin * corrLambda2 + corrLambda3);
+    return (C7_0.abs2() + C7p_0.abs2()) * (4. * Alstilde / Mb_kin / Mb_kin * corrLambda2 + corrLambda3);
 }
 
 double Bsgamma::N(double E0, double mu)
@@ -2062,14 +2075,14 @@ void Bsgamma::computeBR(orders order)
     overall = BRsl * (lambda_t/V_cb).abs2() * 6. * ale / (M_PI * C);
     
     if (obs == 1) 
-        BR = overall *  ( P(E0, mu_b, mu_c, order, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
+        BR = overall *  ( P(E0, mu_b, mu_c, order, false) + N(E0,mu_b) ) - 0.0000125145 - 0.000000135643;
     if (obs == 2) 
-        BR_CPodd = overall *  ( P(E0, mu_b, mu_c, order, true) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
+        BR_CPodd = overall *  ( P(E0, mu_b, mu_c, order, true) + N(E0,mu_b) ) - 0.0000125145 - 0.000000135643;
 }
 
 double Bsgamma::computeThValue()
 {
-    computeBR(NLO);
+    computeBR(NNLO);
     
     if (obs == 1) return BR;
     if (obs == 2) return BR_CPodd;

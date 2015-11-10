@@ -18,6 +18,7 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         coeffbtaunu (3, NDR, LO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
         coeffsgamma(8,NDR, NLO),
+        coeffprimesgamma(8,NDR, NLO),
         coeffBMll (13,NDR, NLO),
         coeffprimeBMll (13, NDR, NLO),
         evolDF1BMll(13, NDR, NLO, SM),
@@ -45,6 +46,11 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         Bsgamma_Mu_cache.push_back(0.);
     }
     Bsgamma_mu_cache = 0.;
+    
+    for (unsigned int i = 0; i < 6; i++) {
+        Bpsgamma_WC_cache.push_back(coeffsgamma);
+        Bpsgamma_Mu_cache.push_back(0.);
+    }
     
     for (unsigned int i = 0; i < 6; i++) {
         Bsmumu_WC_cache.push_back(coeffsmumu);
@@ -770,16 +776,16 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
     coeffsgamma.setScheme(scheme);
     orders ordDF1 = coeffsgamma.getOrder();   
     
-    const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMbsg();
+    const std::vector<WilsonCoefficient>& mcbsg = model.getMyMatching() -> CMbsg();
     
     if(mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
         int check = 1;
-        for (unsigned int i = 0; i < mc.size(); i++){
-            if (mc[i].getMu() == Bsgamma_Mu_cache[i]){
+        for (unsigned int i = 0; i < mcbsg.size(); i++){
+            if (mcbsg[i].getMu() == Bsgamma_Mu_cache[i]){
                 for (int j = LO; j <= ordDF1; j++){
                     for (int k = LO; k <= j; k++){
                         for (int l = 0; l < 8; l++) {
-                            check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(Bsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
+                            check *= ((*(mcbsg[i].getCoeff(orders(j - k))))(l) == (*(Bsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
                         }
                     }
                 }
@@ -791,22 +797,67 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
     Bsgamma_mu_cache = mu;
     Bsgamma_scheme_cache = scheme;
     Bsgamma_WC_cache.clear();
-    Bsgamma_WC_cache = mc;
+    Bsgamma_WC_cache = mcbsg;
     
     coeffsgamma.setMu(mu); 
     
-    for (unsigned int i = 0; i < mc.size(); i++){
-        Bsgamma_Mu_cache[i] = mc[i].getMu();
+    for (unsigned int i = 0; i < mcbsg.size(); i++){
+        Bsgamma_Mu_cache[i] = mcbsg[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffsgamma.setCoeff(*coeffsgamma.getCoeff(orders(j)) +
-                    evolDB1bsg.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
-                    (*(mc[i].getCoeff(orders(j - k)))), orders(j));
+                    evolDB1bsg.Df1Evolbsg(mu, mcbsg[i].getMu(), orders(k), mcbsg[i].getScheme()) *
+                    (*(mcbsg[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
     }
     
     return coeffsgamma.getCoeff(); 
+}
+
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, schemes scheme) 
+{
+    
+    coeffprimesgamma.setScheme(scheme);
+    orders ordDF1 = coeffprimesgamma.getOrder();   
+    
+    const std::vector<WilsonCoefficient>& mcbsgp = model.getMyMatching() -> CMprimebsg();
+    
+    if(mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
+        int check = 1;
+        for (unsigned int i = 0; i < mcbsgp.size(); i++){
+            if (mcbsgp[i].getMu() == Bpsgamma_Mu_cache[i]){
+                for (int j = LO; j <= ordDF1; j++){
+                    for (int k = LO; k <= j; k++){
+                        for (int l = 0; l < 8; l++) {
+                            check *= ((*(mcbsgp[i].getCoeff(orders(j - k))))(l) == (*(Bpsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
+                    }
+                }
+            }
+        }
+        if (check == 1) return coeffprimesgamma.getCoeff();
+    } 
+    
+    Bsgamma_mu_cache = mu;
+    Bsgamma_scheme_cache = scheme;
+    Bpsgamma_WC_cache.clear();
+    Bpsgamma_WC_cache = mcbsgp;
+    
+    coeffprimesgamma.setMu(mu); 
+    
+    for (unsigned int i = 0; i < mcbsgp.size(); i++){
+        Bpsgamma_Mu_cache[i] = mcbsgp[i].getMu();
+        for (int j = LO; j <= ordDF1; j++){
+            for (int k = LO; k <= j; k++){
+                coeffprimesgamma.setCoeff(*coeffprimesgamma.getCoeff(orders(j)) +
+                    evolDB1bsg.Df1Evolbsg(mu, mcbsgp[i].getMu(), orders(k), mcbsgp[i].getScheme()) *
+                    (*(mcbsgp[i].getCoeff(orders(j - k)))), orders(j));
+            }
+        }
+    }
+    
+    return coeffprimesgamma.getCoeff(); 
 }
 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes scheme) 

@@ -23,6 +23,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
         mcbsg(8, NDR, NLO),
+        mcprimebsg(8, NDR, NLO),
         mcBMll(13, NDR, NLO),
         mcprimeBMll(13, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
@@ -66,6 +67,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     for(int j=0; j<8; j++){
         CWbsgArrayLO[j] = 0.;
         CWbsgArrayNLO[j] = 0.;
+        CWprimebsgArrayLO[j] = 0.;
+        CWprimebsgArrayNLO[j] = 0.;
     }
     
     for(int j=0; j<8; j++){
@@ -1071,7 +1074,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
+std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
     gslpp::complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
@@ -1112,6 +1115,44 @@ double StandardModelMatching::phi2(double x, double y) const{
     return(vmcbsg);
 }
 
+ 
+std::vector<WilsonCoefficient>& StandardModelMatching::CMprimebsg() 
+{    
+    vmcprimebsg.clear();
+    
+    switch (mcprimebsg.getScheme()) {
+        case NDR:
+        //case HV:
+        //case LRI:
+        break;
+        default:
+            std::stringstream out;
+            out << mcprimebsg.getScheme();
+            throw std::runtime_error("StandardModel::CMprimebsg(): scheme " + out.str() + "not implemented"); 
+    }
+
+    mcprimebsg.setMu(Muw);
+    
+    switch (mcprimebsg.getOrder()) {
+        case NNLO:
+        case NLO:
+            for (int j=0; j<8; j++){
+            mcprimebsg.setCoeff(j, 0., NLO);//* CHECK ORDER *//
+            }
+        case LO:
+            for (int j=0; j<8; j++){
+            mcprimebsg.setCoeff(j, 0., LO);
+            }
+            break;
+        default:
+            std::stringstream out;
+            out << mcprimebsg.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMprimebsg(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcprimebsg.push_back(mcprimebsg);
+    return(vmcprimebsg);
+}
 
 /*******************************************************************************
  * Wilson coefficients calcoulus, misiak base for b -> s gamma                  *  
@@ -1121,7 +1162,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
 {    
     sw =  sqrt( sW2 );//sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
 
-    if ( swa == sw && xcachea == x){
+    if ( swf == sw && xcachef == x){
         switch (order){
         case NNLO:
         case NLO:
@@ -1137,7 +1178,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
         }
     }
     
-    swa = sw; xcachea = x;
+    swf = sw; xcachef = x;
     
     switch (order){
         case NNLO:

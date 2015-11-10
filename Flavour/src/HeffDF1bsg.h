@@ -47,7 +47,6 @@ public:
     
 private :
     const StandardModel& model;
-    ModelMatching& modelmatching;
     WilsonCoefficient coeffbsg;
     EvolDB1bsg evolDB1bsg;
     

@@ -1412,6 +1412,7 @@ private:
     double BR_CPodd; /**<BR of the decay */
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
     
     gslpp::complex C1_0;/**<LO term of the Wilson coeffients @f$C_1@f$*/
     gslpp::complex C2_0;/**<LO term of the Wilson coeffients @f$C_2@f$*/
@@ -1432,6 +1433,9 @@ private:
     gslpp::complex C8_1;/**<NLO term of the Wilson coeffients @f$C_8@f$*/
     
     gslpp::complex C7_2;/**<NNLO term of the Wilson coeffients @f$C_7@f$*/
+    
+    gslpp::complex C7p_0;/**<LO term of the Wilson coeffients @f$C'_7@f$*/
+    gslpp::complex C7p_1;/**<NLO term of the Wilson coeffients @f$C_7@f$*/
     
     gsl_function INT;/**< Gsl integral variable */
     gsl_integration_cquad_workspace * w_INT;/**< Gsl integral variable */

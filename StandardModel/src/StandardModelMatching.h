@@ -92,6 +92,14 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMprimebsg();
+    
+    /** 
+     * 
+     * @brief operator basis: current current; qcd penguins; 
+     * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMBMll();
@@ -492,7 +500,7 @@ public:
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
-    std::vector<WilsonCoefficient> vmcbsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
+    std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu;
     std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j;
     
@@ -506,7 +514,7 @@ private:
     double S18(double x) const;
     double ZDP(const double x, const double y) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
-    WilsonCoefficient mcbsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
+    WilsonCoefficient mcbsg, mcprimebsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu;
     WilsonCoefficient mcDLij, mcDLi3j;
     
@@ -614,7 +622,8 @@ private:
      */
     double phi2 (double x, double y) const;
     
-    double CWbsgArrayLO[13], CWbsgArrayNLO[13];
+    double CWbsgArrayLO[8], CWbsgArrayNLO[8];
+    double CWprimebsgArrayLO[8], CWprimebsgArrayNLO[8];
     double CWBMllArrayLO[19], CWBMllArrayNLO[19];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];
     double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
@@ -626,8 +635,8 @@ private:
     double CWBdmmArrayNNLOqcd[8], CWBdmmArrayNLOqcd[8], CWBdmmArrayLOqcd[8];
     double CWBdmmArrayNLOewt4[8], CWBdmmArrayNLOewt2[8], CWBdmmArrayNLOew[8];
     
-    double sw, swa, swb, swc, swd, swe; //sen(theta_W) tree level
-    double xcachea, xcacheb, xcachec, xcached, xcachee; // caching
+    double sw, swa, swb, swc, swd, swe, swf; //sen(theta_W) tree level
+    double xcachea, xcacheb, xcachec, xcached, xcachee, xcachef; // caching
     
     
 };

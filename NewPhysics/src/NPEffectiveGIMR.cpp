@@ -6,6 +6,7 @@
  */
 
 #include "NPEffectiveGIMR.h"
+#include <limits>
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
         = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
@@ -1062,7 +1063,12 @@ double NPEffectiveGIMR::muggH(const double sqrt_s) const
     complex tmp = 2.0 * dKappa_t;
 
     complex tmp2 = 2.0 * CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
-    return (1.0 + tmp.real() + tmp2.real());
+    
+    double mu = (1.0 + tmp.real() + tmp2.real());
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 }
 
 double NPEffectiveGIMR::muVBF(const double sqrt_s) const
@@ -1206,6 +1212,8 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muVBF()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1263,6 +1271,8 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muWH()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1371,6 +1381,8 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muZH()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1401,6 +1413,9 @@ double NPEffectiveGIMR::mueeZH(const double sqrt_s) const
             +7731703.  * pow(deltaGL_Zffh(leptons[DOWN]),2.0)
             +7731703.  * pow(deltaGR_Zffh(leptons[DOWN]),2.0);
         }
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1410,7 +1425,11 @@ double NPEffectiveGIMR::muVH(const double sqrt_s) const
     double sigmaZH_SM = computeSigmaZH(sqrt_s);
     double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
     double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
-    return ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
+    double mu = ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 }
 
 double NPEffectiveGIMR::muVBFpVH(const double sqrt_s) const
@@ -1421,8 +1440,11 @@ double NPEffectiveGIMR::muVBFpVH(const double sqrt_s) const
     double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
     double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
     double sigmaVBF = muVBF(sqrt_s) * sigmaVBF_SM;
-
-    return ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+    double mu = ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 }
 
 double NPEffectiveGIMR::muttH(const double sqrt_s) const
@@ -1464,6 +1486,8 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muttH()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1474,7 +1498,11 @@ double NPEffectiveGIMR::muggHpttH(const double sqrt_s) const
     double sigmaggH = muggH(sqrt_s) * sigmaggH_SM;
     double sigmattH = muttH(sqrt_s) * sigmattH_SM;
 
-    return ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
+    double mu = ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 } 
 
 double NPEffectiveGIMR::BrHggRatio() const
@@ -1490,6 +1518,8 @@ double NPEffectiveGIMR::BrHggRatio() const
                 + deltaGammaHggRatio2() - deltaGammaTotalRatio2()
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -1509,6 +1539,8 @@ double NPEffectiveGIMR::BrHWWRatio() const
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return Br;
 
 }
@@ -1526,6 +1558,8 @@ double NPEffectiveGIMR::BrHZZRatio() const
                 + deltaGammaHZZRatio2() - deltaGammaTotalRatio2()
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -1545,6 +1579,8 @@ double NPEffectiveGIMR::BrHZgaRatio() const
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return Br;
 
 }
@@ -1562,6 +1598,8 @@ double NPEffectiveGIMR::BrHgagaRatio() const
                 + deltaGammaHgagaRatio2() - deltaGammaTotalRatio2()
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
@@ -1581,6 +1619,8 @@ double NPEffectiveGIMR::BrHtautauRatio() const
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return Br;
 
 }
@@ -1599,6 +1639,8 @@ double NPEffectiveGIMR::BrHccRatio() const
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
     
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return Br;
 
 }
@@ -1616,6 +1658,8 @@ double NPEffectiveGIMR::BrHbbRatio() const
                 + deltaGammaHbbRatio2() - deltaGammaTotalRatio2()
                 + pow(deltaGammaTotalRatio1(),2.0);            
         }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return Br;
 
