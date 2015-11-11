@@ -6,6 +6,7 @@
  */
 
 #include "NPEffectiveGIMR.h"
+#include <limits>
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
         = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
@@ -1062,7 +1063,12 @@ double NPEffectiveGIMR::muggH(const double sqrt_s) const
     complex tmp = 2.0 * dKappa_t;
 
     complex tmp2 = 2.0 * CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
-    return (1.0 + tmp.real() + tmp2.real());
+    
+    double mu = (1.0 + tmp.real() + tmp2.real());
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 }
 
 double NPEffectiveGIMR::muVBF(const double sqrt_s) const
@@ -1206,6 +1212,8 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muVBF()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1263,6 +1271,8 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muWH()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1371,6 +1381,8 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muZH()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1401,6 +1413,9 @@ double NPEffectiveGIMR::mueeZH(const double sqrt_s) const
             +7731703.  * pow(deltaGL_Zffh(leptons[DOWN]),2.0)
             +7731703.  * pow(deltaGR_Zffh(leptons[DOWN]),2.0);
         }
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1410,7 +1425,11 @@ double NPEffectiveGIMR::muVH(const double sqrt_s) const
     double sigmaZH_SM = computeSigmaZH(sqrt_s);
     double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
     double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
-    return ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
+    double mu = ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 }
 
 double NPEffectiveGIMR::muVBFpVH(const double sqrt_s) const
@@ -1421,8 +1440,11 @@ double NPEffectiveGIMR::muVBFpVH(const double sqrt_s) const
     double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
     double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
     double sigmaVBF = muVBF(sqrt_s) * sigmaVBF_SM;
-
-    return ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+    double mu = ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 }
 
 double NPEffectiveGIMR::muttH(const double sqrt_s) const
@@ -1464,6 +1486,8 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muttH()");
 
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
     return mu;
 }
 
@@ -1474,47 +1498,171 @@ double NPEffectiveGIMR::muggHpttH(const double sqrt_s) const
     double sigmaggH = muggH(sqrt_s) * sigmaggH_SM;
     double sigmattH = muttH(sqrt_s) * sigmattH_SM;
 
-    return ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
+    double mu = ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
+    
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
 } 
 
 double NPEffectiveGIMR::BrHggRatio() const
 {
-    return (GammaHggRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHggRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHggRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHggRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::BrHWWRatio() const
 {
-    return (GammaHWWRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHWWRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHWWRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHWWRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::BrHZZRatio() const
 {
-    return (GammaHZZRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHZZRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHZZRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZZRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::BrHZgaRatio() const
 {
-    return (GammaHZgaRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHZgaRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHZgaRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHZgaRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::BrHgagaRatio() const
 {
-    return (GammaHgagaRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHgagaRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHgagaRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHgagaRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::BrHtautauRatio() const
 {
-    return (GammaHtautauRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHtautauRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHtautauRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHtautauRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::BrHccRatio() const
 {
-    return (GammaHccRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHccRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHccRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHccRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::BrHbbRatio() const
 {
-    return (GammaHbbRatio() / computeGammaTotalRatio());
+    double Br = 1.0;
+    
+    Br += deltaGammaHbbRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHbbRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHbbRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
 }
 
 double NPEffectiveGIMR::computeGammaTotalRatio() const
@@ -1529,25 +1677,62 @@ double NPEffectiveGIMR::computeGammaTotalRatio() const
             + trueSM.computeBrHtobb() * GammaHbbRatio());
 }
 
+double NPEffectiveGIMR::deltaGammaTotalRatio1() const
+{
+    return (trueSM.computeBrHtogg() * deltaGammaHggRatio1()
+            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio1()
+            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
+            + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio1()
+            + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio1()
+            + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
+            + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
+            + trueSM.computeBrHtobb() * deltaGammaHbbRatio1());
+}
+
+double NPEffectiveGIMR::deltaGammaTotalRatio2() const
+{
+    return (trueSM.computeBrHtogg() * deltaGammaHggRatio2()
+            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
+            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+            + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
+            + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
+            + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
+            + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
+            + trueSM.computeBrHtobb() * deltaGammaHbbRatio2());
+}
+
 double NPEffectiveGIMR::GammaHggRatio() const
 {
     double width = 1.0;
 
-    width += +151669. * deltaG_hgg()
-            -3.006 * deltaG_hff(quarks[TOP]).real()
-            +5.853 * deltaG_hff(quarks[BOTTOM]).real()
-            +4.71 * deltaG_hff(quarks[CHARM]).real();
+    width += deltaGammaHggRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +5879800851. * pow(deltaG_hgg(),2.0)
-            +2.284 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
-            +40.881 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
-            +2.17 * pow(deltaG_hff(quarks[CHARM]).real(),2.0);            
+        width += deltaGammaHggRatio2();            
         }
     
     return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHggRatio1() const
+{
+    return ( +151669. * deltaG_hgg()
+            -3.006 * deltaG_hff(quarks[TOP]).real()
+            +5.853 * deltaG_hff(quarks[BOTTOM]).real()
+            +4.71 * deltaG_hff(quarks[CHARM]).real() );
+}
+
+double NPEffectiveGIMR::deltaGammaHggRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +5879800851. * pow(deltaG_hgg(),2.0)
+            +2.284 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
+            +40.881 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
+            +2.17 * pow(deltaG_hff(quarks[CHARM]).real(),2.0) );            
     
 }
 
@@ -1555,18 +1740,33 @@ double NPEffectiveGIMR::GammaHWWRatio() const
 {
     double width = 1.0;
 
-    width += -183.404 * deltaG1_hWW()
-            -274.568 * deltaG2_hWW()
-            +0.039 * deltaG3_hWW();
+    width += deltaGammaHWWRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +1267. * pow(deltaG1_hWW(),2.0)
-            +868.393 * pow(deltaG2_hWW(),2.0);
+        width += deltaGammaHWWRatio2();
         }
     
     return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHWWRatio1() const
+{
+
+    return ( -183.404 * deltaG1_hWW()
+            -274.568 * deltaG2_hWW()
+            +0.039 * deltaG3_hWW() );
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHWWRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +1267. * pow(deltaG1_hWW(),2.0)
+            +868.393 * pow(deltaG2_hWW(),2.0) );
     
 }
 
@@ -1574,19 +1774,34 @@ double NPEffectiveGIMR::GammaHZZRatio() const
 {
     double width = 1.0;
 
-    width += -246.654 * deltaG1_hZZ()
-            -240.846 * deltaG2_hZZ()
-            +0.059 * deltaG3_hZZ();
+    width += deltaGammaHZZRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +6391.57 * pow(deltaG1_hZZ(),2.0)
-            +2088.67 * pow(deltaG2_hZZ(),2.0)
-            +0.001 * pow(deltaG3_hZZ(),2.0);            
+        width += deltaGammaHZZRatio2();            
         }
     
     return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHZZRatio1() const
+{
+
+    return ( -246.654 * deltaG1_hZZ()
+            -240.846 * deltaG2_hZZ()
+            +0.059 * deltaG3_hZZ() );
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHZZRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +6391.57 * pow(deltaG1_hZZ(),2.0)
+            +2088.67 * pow(deltaG2_hZZ(),2.0)
+            +0.001 * pow(deltaG3_hZZ(),2.0) );            
     
 }
 
@@ -1594,24 +1809,39 @@ double NPEffectiveGIMR::GammaHZgaRatio() const
 {
     double width = 1.0;
 
-    width += -71321.5 * deltaG1_hZA()
-            +0.041 * deltaG3_hWW()
-            +0.172 * deltaG_hff(quarks[TOP]).real()
-            -0.301 * deltaG_hff(quarks[BOTTOM]).real()
-            +0.196 * deltaG_hff(leptons[TAU]).real()
-            +0.232 * deltaG_hff(quarks[CHARM]).real();
+    width += deltaGammaHZgaRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +1271853409. * pow(deltaG1_hZA(),2.0)
-            +0.003 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
-            +3.539 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
-            -14.568 * pow(deltaG_hff(leptons[TAU]).real(),2.0)
-            -31.197 * pow(deltaG_hff(quarks[CHARM]).real(),2.0);            
+        width += deltaGammaHZgaRatio2();            
         }
     
     return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHZgaRatio1() const
+{
+
+    return ( -71321.5 * deltaG1_hZA()
+            +0.041 * deltaG3_hWW()
+            +0.172 * deltaG_hff(quarks[TOP]).real()
+            -0.301 * deltaG_hff(quarks[BOTTOM]).real()
+            +0.196 * deltaG_hff(leptons[TAU]).real()
+            +0.232 * deltaG_hff(quarks[CHARM]).real() );
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHZgaRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +1271853409. * pow(deltaG1_hZA(),2.0)
+            +0.003 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
+            +3.539 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
+            -14.568 * pow(deltaG_hff(leptons[TAU]).real(),2.0)
+            -31.197 * pow(deltaG_hff(quarks[CHARM]).real(),2.0) );            
     
 }
 
@@ -1619,25 +1849,39 @@ double NPEffectiveGIMR::GammaHgagaRatio() const
 {
     double width = 1.0;
 
-    width += -257366. * deltaG_hAA()
-            +0.049 * deltaG3_hWW()
-            +0.761 * deltaG_hff(quarks[TOP]).real()
-            -0.441 * deltaG_hff(quarks[BOTTOM]).real()
-            -1.087 * deltaG_hff(leptons[TAU]).real()
-            -0.646 * deltaG_hff(quarks[CHARM]).real();
+    width += deltaGammaHgagaRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +16479108529. * pow(deltaG_hAA(),2.0)
+        width += deltaGammaHgagaRatio2();            
+        }
+    
+    return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHgagaRatio1() const
+{
+    return ( -257366. * deltaG_hAA()
+            +0.049 * deltaG3_hWW()
+            +0.761 * deltaG_hff(quarks[TOP]).real()
+            -0.441 * deltaG_hff(quarks[BOTTOM]).real()
+            -1.087 * deltaG_hff(leptons[TAU]).real()
+            -0.646 * deltaG_hff(quarks[CHARM]).real() );
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHgagaRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +16479108529. * pow(deltaG_hAA(),2.0)
             +0.001 * pow(deltaG3_hWW(),2.0)
             +0.146 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
             +1.828 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
             +6.672 * pow(deltaG_hff(leptons[TAU]).real(),2.0)
-            +9.962 * pow(deltaG_hff(quarks[CHARM]).real(),2.0);            
-        }
-    
-    return width;
+            +9.962 * pow(deltaG_hff(quarks[CHARM]).real(),2.0) );            
     
 }
 
@@ -1645,15 +1889,29 @@ double NPEffectiveGIMR::GammaHtautauRatio() const
 {
     double width = 1.0;
 
-    width += -277.458 * deltaG_hff(leptons[TAU]).real();
+    width += deltaGammaHtautauRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +19223. * pow(deltaG_hff(leptons[TAU]).real(),2.0);            
+        width += deltaGammaHtautauRatio2();            
         }
     
     return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHtautauRatio1() const
+{
+    return ( -277.458 * deltaG_hff(leptons[TAU]).real() );
+        
+}
+
+double NPEffectiveGIMR::deltaGammaHtautauRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +19223. * pow(deltaG_hff(leptons[TAU]).real(),2.0) );            
     
 }
 
@@ -1661,15 +1919,28 @@ double NPEffectiveGIMR::GammaHccRatio() const
 {
     double width = 1.0;
 
-    width += -383.036 * deltaG_hff(quarks[CHARM]).real();
+    width += deltaGammaHccRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +36709.1 * pow(deltaG_hff(quarks[CHARM]).real(),2.0);            
+        width += deltaGammaHccRatio2();            
         }
     
     return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHccRatio1() const
+{
+    return ( -383.036 * deltaG_hff(quarks[CHARM]).real() );   
+}
+
+double NPEffectiveGIMR::deltaGammaHccRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +36709.1 * pow(deltaG_hff(quarks[CHARM]).real(),2.0) );            
     
 }
 
@@ -1677,16 +1948,29 @@ double NPEffectiveGIMR::GammaHbbRatio() const
 {
     double width = 1.0;
     
-    width += -0.013 * deltaG_hff(quarks[TOP]).real()
-            -117.431 * deltaG_hff(quarks[BOTTOM]).real();
+    width += deltaGammaHbbRatio1();
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
-        width += +3443.96 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0);        
+        width += deltaGammaHbbRatio2();        
         }
     
     return width;
+}
+
+double NPEffectiveGIMR::deltaGammaHbbRatio1() const
+{    
+    return ( -0.013 * deltaG_hff(quarks[TOP]).real()
+            -117.431 * deltaG_hff(quarks[BOTTOM]).real() );
+}
+
+double NPEffectiveGIMR::deltaGammaHbbRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return ( +3443.96 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0) );        
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////

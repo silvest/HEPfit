@@ -26,6 +26,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "muc", "mub", "mut",
     "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "Mphi",
     "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
+    "DGs_Gs",
     "FK", "FD", "FBs", "FBsoFBd", "FKstar", "Fphi",
     "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
     "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
@@ -101,6 +102,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBd", boost::cref(mesons[B_D].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBp", boost::cref(mesons[B_P].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBs", boost::cref(mesons[B_S].getWidth())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DGs_Gs", boost::cref(mesons[B_S].getDgamma_gamma())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstar", boost::cref(mesons[K_star].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tphi", boost::cref(mesons[PHI].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(mesons[K_0].getDecayconst())));
@@ -402,6 +404,8 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[B_P].setLifetime(value);
     else if (name.compare("tBs") == 0)
         mesons[B_S].setLifetime(value);
+    else if (name.compare("DGs_Gs") == 0)
+        mesons[B_S].setDgamma_gamma(value);
     else if (name.compare("tKstar") == 0)
         mesons[K_star].setLifetime(value);
     else if (name.compare("tphi") == 0)

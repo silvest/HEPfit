@@ -33,8 +33,9 @@ Contents:
 ---------
   * doc/          - directory containing information about HEPfit
   * examples-src/ - directory containing well commented example programs
-  * INSTALL.md    - information about how to install HEPfit on your system
-  * README.md     - basic information about HEPfit (this file)
+  * %INSTALL.md    - information about how to install HEPfit on your system
+  * %README.md     - basic information about HEPfit (this file)
+  * %Usage.md      - information about how to use HEPfit
 
 Files for building HEPfit:  
 

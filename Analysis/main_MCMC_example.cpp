@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014 HEPfit Collaboration
  * All rights reserved.
  *
@@ -19,10 +19,10 @@
 #include <mpi.h>
 #endif
 
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
 
-/* Necessary if MPI support is enabled during compilation. */
+    /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
     MPI::Init();
     int rank = MPI::COMM_WORLD.Get_rank();
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
         
         if(argc != 3){
             /* Print usage and exit. */
-            if (rank == 0) std::cout << "\nusage: " << argv[0] << " ModelConf.conf MonteCarlo.conf\n" << std::endl;
+            if (rank == 0) std::cout << "\nusage: " << argv[0] << " ModelConf.conf --noMC/MonteCarlo.conf\n" << std::endl;
             return EXIT_SUCCESS;
         }
 
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
         std::string MCMCConf = argv[2];
         
         /* Define the ROOT output file (w/o extension, empty string will set it to MCout) */
-        std::string FileOut = "";        
+        std::string FileOut = "";
         
         /* Define the optional job tag. */
         std::string JobTag = "";
@@ -70,19 +70,19 @@ int main(int argc, char** argv)
         /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
         /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
         
-        /* Create an object of the class MonteCarlo. */        
+        /* Create an object of the class MonteCarlo. */
         MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
         
         /* Do a test run if you wish to see the values of the observables      */
         /* and the correlated Gaussian observables defined in the model        */
         /* configuration file computed with the central value of the mandatory */
         /* parameters defined in the same file.                                */
-        // MC.TestRun(rank);
+        if (MCMCConf.compare("--noMC") == 0) MC.TestRun(rank);
         
         /* Initiate the Mote Carlo run. */
-        MC.Run(rank);
+        else MC.Run(rank);
 
-/* Necessary if MPI support is enabled during compilation. */
+    /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
         MPI::Finalize();
 #endif

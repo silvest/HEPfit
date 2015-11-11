@@ -53,6 +53,11 @@ public:
                  ThObservable * tho2_i);
     
     /**
+     * @brief The default constructor.
+     */
+    Observable2D();
+    
+    /**
      * @brief A conversion constructor. Constructs
      * Observable2D with just one observable.
      */
@@ -67,6 +72,14 @@ public:
      * @brief The default destructor.
      */
     virtual ~Observable2D();
+    
+    int ParseObservable2D(std::string& type, 
+                           boost::tokenizer<boost::char_separator<char> >* tok, 
+                           boost::tokenizer<boost::char_separator<char> >::iterator& beg,
+                           std::string& infilename,
+                           std::ifstream& ifile, 
+                           int lineNo,
+                           int rank);
 
     /**
      * @brief A set method to set the likelihood from which the experimental likelihood of the observable will
@@ -168,9 +181,22 @@ public:
      * the second observable.
      * @param[in] tho2 pointer to the object of type ThObservable() for the second observable
      */
-    void setTho2(ThObservable* tho2)
+    void setTho2(ThObservable* tho2_i)
     {
-        this->tho2 = tho2;
+        tho2 = tho2_i;
+        tho2->setBinMin(bin_min[1]);
+        tho2->setBinMax(bin_max[1]);
+    }
+    
+    /**
+     * @brief A set method to fix the pointer to object of type ThObservable class for
+     * the second observable.
+     * @param[in] tho2 pointer to the object of type ThObservable() for the second observable
+     */
+    void setTho1Tho2(ThObservable* tho1_i, ThObservable* tho2_i)
+    {
+        setTho(tho1_i, bin_min[0], bin_max[0]);
+        setTho2(tho2_i);
     }
 
     /**
@@ -263,6 +289,9 @@ private:
     std::string obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
     ThObservable * tho2; ///< A pointer to an object of the ThObservable class.
     TH2D * inhisto2d;  ///< 2D Histogram containing the experimental likelihood for the observable
+    std::vector<double> bin_min;
+    std::vector<double> bin_max;
+    std::string filepath;
 };
 
 #endif	/* OBSERVABLE2D_H */

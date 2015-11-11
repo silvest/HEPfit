@@ -268,6 +268,10 @@ private:
         DPars_IN["m_fit2_f0"] = 0.;
         DPars_IN["bsgamma_E0"] = 0.;
         DPars_IN["bsgamma_C"] = 0.;
+        DPars_IN["lambdaB"] = 0.3;
+        DPars_IN["alpha1kst"] = 0.;
+        DPars_IN["alpha2kst"] = 0.;
+        DPars_IN["DGs_Gs"] = 0.;
         
         return (DPars_IN);
     };

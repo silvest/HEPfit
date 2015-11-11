@@ -8,7 +8,7 @@
 #include "HeffDC1.h"
 
 HeffDC1::HeffDC1(const StandardModel & SM, StandardModelMatching & SM_Matching) 
-:       model(SM), modelmatching(SM_Matching), coeffdc1(10, NDR, NLO), 
+:       model(SM), coeffdc1(10, NDR, NLO), 
         coeffdc1g(10, NDR, NLO), ug(10, NDR, NLO, SM), u(10, NDR, NLO, SM), 
         ckm(3,0.), COEFF_pi(10,0.), COEFF_K(10,0.)
 {
@@ -41,7 +41,7 @@ HeffDC1::~HeffDC1() {
 gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1_pi(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mc = modelmatching.CMd1();
+    const std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMd1();
     coeffdc1.setMu(mu); 
     orders ordDF1 = coeffdc1.getOrder();
     for (unsigned int i = 0; i < mc.size(); i++){
@@ -64,7 +64,7 @@ gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1_pi(double mu, schemes s
 gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1_K(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mc = modelmatching.CMd1();
+    const std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMd1();
     coeffdc1.setMu(mu); 
     
     orders ordDF1 = coeffdc1.getOrder();
@@ -93,7 +93,7 @@ gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1_K(double mu, schemes sc
 gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1g(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mcg = modelmatching.CMd1();
+    const std::vector<WilsonCoefficient>& mcg = model.getMyMatching()->CMd1();
     gslpp::vector<gslpp::complex> vecdc1g(10,0.);
     coeffdc1g.setMu(mu); 
     

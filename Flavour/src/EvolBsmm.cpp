@@ -17,10 +17,10 @@
 EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_ew order_ew, const StandardModel & model)
 :   RGEvolutor(dim_i, scheme, order, order_ew), model(model), V(dim_i,0.), Vi(dim_i,0.),
     AA(dim_i,0.), BB(dim_i,0.), CC(dim_i,0.), DD(dim_i,0.), EE(dim_i,0.), FF(dim_i,0.),
-    RR(dim_i,0.), e(dim_i,0.), dim(dim_i), vavi(0,0.), vbvi(0,0.), vcvi(0,0.), vdvi(0,0.),
+    RR(dim_i,0.), e(dim_i,0.), vavi(0,0.), vbvi(0,0.), vcvi(0,0.), vdvi(0,0.),
         vevi(0,0.), vfvi(0,0.), vrvi(0,0.),vaevi(0,0.), vbbvi(0,0.), vbdvi(0,0.), vbevi(0,0.),
         vdbvi(0,0.), vdevi(0,0.), veavi(0,0.), vebvi(0,0.), vedvi(0,0.), veevi(0,0.), vbeevi(0,0.), 
-        vebevi(0,0.), veebvi(0,0.), vbbevi(0,0.), vbebvi(0,0.), vebbvi(0,0.)
+        vebevi(0,0.), veebvi(0,0.), vbbevi(0,0.), vbebvi(0,0.), vebbvi(0,0.), dim(dim_i)
 {
     unsigned int i = 0;
     unsigned int j = 0;
@@ -751,9 +751,9 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
 
     double eta = alsM / alsmu;
 
-    double B00S = model.Beta0(nf), B10S = model.Beta1(nf); /*inizializza i B*/
+    double B00S = model.Beta0(nf);// B10S = model.Beta1(nf); /*inizializza i B*/
 
-    double B00E = 80./9., B01E = 176./9.; /*inizializza i B*/
+    double B00E = 80./9.;// B01E = 176./9.; /*inizializza i B*/
 
     double omega = 2. * B00S , lambda = B00E  /B00S ;    /*   E ale dipende da mu?*/
 
@@ -1133,18 +1133,18 @@ double EvolBsmm::alphatilde_e(double mu)
     double alphatilde_s = model.getAlsMz()/4./M_PI;
     unsigned int nf = 5;
 
-    double B00S = model.Beta0(nf), B10S = model.Beta1(nf), B20S = model.Beta2(nf), 
-            B01S = -22./9., B11S = -308./27.; 
+    double B00S = model.Beta0(nf), B10S = model.Beta1(nf);//B20S = model.Beta2(nf), 
+    double B01S = -22./9.; //B11S = -308./27.; 
 
     double B00E = 80./9., B01E = 176./9., B10E = 464./27.;
 
-    double b1 = B10S/(2. * B00S * B00S), b2 = B20S/(4. * B00S * B00S * B00S) - b1 * b1 , 
-            b3 = B01S/(2. * B00S * B00E), b4 = B11S /(4. * B00S * B00S * B00E) - 2 * b1 * b3, 
-            b5 = B01E/(2. * B00S * B00E) - b1;
+    //double b1 = B10S/(2. * B00S * B00S); //b2 = B20S/(4. * B00S * B00S * B00S) - b1 * b1 , 
+    //double b3 = B01S/(2. * B00S * B00E);// b4 = B11S /(4. * B00S * B00S * B00E) - 2 * b1 * b3, 
+            //b5 = B01E/(2. * B00S * B00E) - b1;
 
     double vs= 1. + 2. * B00S * alphatilde_s * log(mu/ mu_0);
     double ve= 1. - 2. * B00E * alphatilde_e * log(mu/ mu_0);
-    double ps= B00S * alphatilde_s /(B00S * alphatilde_s + B00E * alphatilde_e);
+    //double ps= B00S * alphatilde_s /(B00S * alphatilde_s + B00E * alphatilde_e);
     double pe= B00E * alphatilde_e /(B00S * alphatilde_s + B00E * alphatilde_e);
 
     double logve = log(ve);
@@ -1178,18 +1178,18 @@ double EvolBsmm::alphatilde_s(double mu)
 
     double B00E = 80./9., B01E = 176./9., B10E = 464./27.; 
 
-    double B00S2 = B00S * B00S;
+    //double B00S2 = B00S * B00S;
     double B10soB00s = B10S / B00S;
     double B01soB00e = B01S/B00E;
 
-    double b1 = B10soB00s/(2. * B00S), b2 = B20S/(4. * B00S2 * B00S) - b1 * b1 , 
-            b3 = B01soB00e/(2. * B00S ), b4 = B11S /(4. * B00S2 * B00E) - 2 * b1 * b3, 
-            b5 = B01E/(2. * B00S * B00E) - b1;
+    //double b1 = B10soB00s/(2. * B00S), b2 = B20S/(4. * B00S2 * B00S) - b1 * b1 , 
+    //        b3 = B01soB00e/(2. * B00S ), b4 = B11S /(4. * B00S2 * B00E) - 2 * b1 * b3, 
+    //        b5 = B01E/(2. * B00S * B00E) - b1;
 
     double vs= 1. + 2. * B00S * alphatilde_s * log(mu/ mu_0);
     double ve= 1. - 2. * B00E * alphatilde_e * log(mu/ mu_0);
     double ps= B00S * alphatilde_s /(B00S * alphatilde_s + B00E * alphatilde_e);
-    double pe= B00E * alphatilde_e /(B00S * alphatilde_s + B00E * alphatilde_e);
+    //double pe= B00E * alphatilde_e /(B00S * alphatilde_s + B00E * alphatilde_e);
 
     double logve = log(ve);
     double logvs = log(vs);

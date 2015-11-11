@@ -87,7 +87,6 @@ public:
     
 private :
     const StandardModel& model;
-    ModelMatching& modelmatching;
     
     WilsonCoefficient coeffbnlep00qcd, coeffbnlep00;
     WilsonCoefficient coeffbnlep10qcd, coeffbnlep10;

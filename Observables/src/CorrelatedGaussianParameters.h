@@ -34,6 +34,11 @@ public:
      * @param[in] name_i a given name for the set of correlated Gaussian parameters
      */
     CorrelatedGaussianParameters(std::string name_i);
+    
+    /**
+     * @brief Constructor.
+     */
+    CorrelatedGaussianParameters();
 
     /**
      * @brief The copy constructor.
@@ -109,7 +114,13 @@ public:
     }   
 
     std::vector<double> getOrigParsValue(const std::vector<double>& DiagPars_i) const;
-
+    
+    int ParseCGP(std::vector<ModelParameter>& ModPars, 
+                 std::string& filename,
+                 std::ifstream& ifile, 
+                 boost::tokenizer<boost::char_separator<char> >::iterator & beg,
+                 int lineNo,
+                 int rank);
 private:
     std::vector<ModelParameter> Pars; ///< A vector of parameters whose correlation will be calculated.
     gslpp::matrix<double>* Cov; ///< The covariance matrix.

@@ -1,0 +1,11 @@
+The starting configuration file is StandardModel.conf or StandardModel_NE.conf (no SM and no FLavour parameter error)
+The files are:
+
+Flavour.conf: The parameters relating to flavour with errors
+FormFactors_LQ.conf: The formfactors from arXiv:1503.05534
+MonteCarlo.conf: The Monte Carlo settings file
+Observables_FF_LQ.conf: The file to define formfactor observables for the q^2 dependence of the formfactors
+Observables_LQ.conf: The B to K* mu mu observables, both branching fractions and angular observables
+Observables_h_lambda_LQ.conf: The file to set weights on the charm loop contribution from: arXiv:1006.4945
+StandardModel.conf: The Standard Model parameters with errors
+h_lambda_LQ.conf: The helicity parameterization for the non-factorizable hadronic contributions including ones from: arXiv:1006.4945 

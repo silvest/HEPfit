@@ -23,7 +23,7 @@ double Bsmumu::computeThValue()
     double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
  
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mmu, 2.) * mBs * beta;
-    ys = 0.087; // For now. To be explicitly calculated.
+    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
      
     if (obs == 1) return( PRF * ampSq);
@@ -85,8 +85,11 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
                     + (*(allcoeff[NLO_ew]))(7) + (*(allcoeff[NLO_ewt1]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_ewt2]))(7) * alsmu 
                     + (*(allcoeff[NLO_ewt3]))(7) * alemu /alsmu+ (*(allcoeff[NLO_ewt4]))(7) * alemu;
-            absP = CC.abs();
+            absP = CC.abs(); //contains only SM contributions (P, P', S, S' not added))
             argP = CC.arg();
+            
+            absS = 0.;
+            argS = 0.;
            
             phiNP = 0.;
             
@@ -98,7 +101,7 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
             std::stringstream out;
             out << order;
             throw std::runtime_error("Bsmumu::computeAmpSq(): order " + out.str() + " not implemented");;
-    }
+        }
     }
         
 }

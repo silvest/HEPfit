@@ -71,14 +71,6 @@ public:
      * @param[in] beg an iterator over words in a line separated by a specific separator character
      */
     Observable* ParseObservable(std::string& type, boost::tokenizer<boost::char_separator<char> >::iterator & beg);
-    
-    /**
-     * @brief The member that parses the Observable2D directives from SomeModel.conf file
-     * @param[in] type a string for the type of Observable
-     * @param[in] ifile the file being read
-     * @param[in] beg an iterator over words in a line separated by a specific separator character
-     */
-    Observable2D ParseObservable2D(std::string& type, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
         
     /**
      * @brief The member that parses the HiggsObservable directives from SomeModel.conf file
@@ -94,20 +86,6 @@ public:
      * @param[in] beg an iterator over words in a line separated by a specific separator character
      */
     CorrelatedGaussianObservables ParseCGO(boost::ptr_vector<Observable>& Observables, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
-    
-    /**
-     * @brief The member that parses the ModelParameter directives from SomeModel.conf file
-     * @param[in] beg an iterator over words in a line separated by a specific separator character
-     */
-    ModelParameter ParseModelParameter(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
-
-    /**
-     * @brief The member that parses the CorrelatedGaussianParameters directives from SomeModel.conf file
-     * @param[in] Parameters a vector of ModelParameters
-     * @param[in] ifile the file being read
-     * @param[in] beg an iterator over words in a line separated by a specific separator character
-     */
-    CorrelatedGaussianParameters ParseCGP(std::vector<ModelParameter>& Parameters, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
     
     /**
      * @brief Responsible for parsing the SomeModel.conf file.
