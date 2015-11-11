@@ -1132,7 +1132,7 @@ public:
      */
     gslpp::complex geth_0() const
     {
-        return reh_0 + gslpp::complex::i() * imh_0;
+        return myh_0;
     }
 
     /**
@@ -1140,7 +1140,7 @@ public:
      */
     gslpp::complex geth_p() const
     {
-        return reh_p + gslpp::complex::i() * imh_p;
+        return myh_p;
     }
     
     /**
@@ -1148,7 +1148,7 @@ public:
      */
     gslpp::complex geth_m() const
     {
-        return reh_m + gslpp::complex::i() * imh_m;
+        return myh_m;
     }
     
     /**
@@ -1156,7 +1156,7 @@ public:
      */
     gslpp::complex geth_0_1() const
     {
-        return reh_0_1 + gslpp::complex::i() * imh_0_1;
+        return myh_0_1;
     }
 
     /**
@@ -1164,7 +1164,7 @@ public:
      */
     gslpp::complex geth_p_1() const
     {
-        return reh_p_1 + gslpp::complex::i() * imh_p_1;
+        return myh_p_1;
     }
     
     /**
@@ -1172,7 +1172,7 @@ public:
      */
     gslpp::complex geth_m_1() const
     {
-        return reh_m_1 + gslpp::complex::i() * imh_m_1;
+        return myh_m_1;
     }
     
     /**
@@ -1180,7 +1180,7 @@ public:
      */
     gslpp::complex geth_0_2() const
     {
-        return reh_0_2 + gslpp::complex::i() * imh_0_2;
+        return myh_0_2;
     }
 
     /**
@@ -1188,7 +1188,7 @@ public:
      */
     gslpp::complex geth_p_2() const
     {
-        return reh_p_2 + gslpp::complex::i() * imh_p_2;
+        return myh_p_2;
     }
     
     /**
@@ -1196,7 +1196,7 @@ public:
      */
     gslpp::complex geth_m_2() const
     {
-        return reh_m_2 + gslpp::complex::i() * imh_m_2;
+        return myh_m_2;
     }
     
     /**
@@ -2138,7 +2138,7 @@ private:
      */
     void CacheShift(double cache[][5], int n) const;
 
-
+    gslpp::complex myh_0,myh_p,myh_m,myh_0_1,myh_p_1,myh_m_1,myh_0_2,myh_p_2,myh_m_2;
 };
 
 #endif	/* QCD_H */
