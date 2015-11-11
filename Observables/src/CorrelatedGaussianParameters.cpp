@@ -123,9 +123,11 @@ std::vector<double> CorrelatedGaussianParameters::getOrigParsValue(const std::ve
         return (res);
     }
 
-void CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars, 
+int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars, 
+                                            std::string& filename,
                                             std::ifstream& ifile, 
                                             boost::tokenizer<boost::char_separator<char> >::iterator & beg,
+                                            int lineNo,
                                             int rank)
 {
     name = *beg;
@@ -198,4 +200,5 @@ void CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars
             lineNo++;
         }
     }
+    return lineNo;
 }
