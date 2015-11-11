@@ -1,0 +1,7 @@
+0. Make sure if you have python3 in the PATH
+1. Specify your HEPfit directory in makePackage.sh
+
+ORGDIR="${HOME}/NetBeansProjects/HEPfit"
+
+2. sh makePackage.sh
+

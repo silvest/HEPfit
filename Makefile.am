@@ -708,8 +708,6 @@ Analysis_analysis_CPPFLAGS = $(SuF_CFLAGS) -I@ROOTINCDIR@  $(BOOST_CPPFLAGS) $(G
 Analysis_analysis_LDADD = $(SuF_LIBS) $(FLIBS) $(GSL_LIBS) -lgslcblas $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) -L@ROOTLIBDIR@ @ROOTGLIBS@ -lRooFitCore -lRooFit -lRooStats -lFoam -lMathMore -lMinuit @ROOTAUXLIBS@ 
 
 
-# -lCore -lRooFitCore -lRooFit -lRooStats -lFoam -lRIO -lHist -lMathCore -lMathMore -lMatrix -lGraf -lTree -lMinuit -lGpad 
-
 pkglib_LTLIBRARIES = libHEPfit-@HEPfit_API_VERSION@.la
 libHEPfit_@HEPfit_API_VERSION@_la_SOURCES = $(themySOURCES) 
 
@@ -717,10 +715,6 @@ libHEPfit_@HEPfit_API_VERSION@_la_LDFLAGS = -version-info $(HEPfit_SO_VERSION)
 libHEPfit_@HEPfit_API_VERSION@_la_CPPFLAGS = $(SuF_CFLAGS) -I@ROOTINCDIR@  $(BOOST_CPPFLAGS)  $(GSL_CFLAGS)
 libHEPfit_@HEPfit_API_VERSION@_la_LIBDADD = $(SuF_LIBS) $(FLIBS) $(GSL_LIBS) -lgslcblas $(BOOST_PROGRAM_OPTIONS_LIBS) $(BOOST_PROGRAM_OPTIONS_LDFLAGS) -L@ROOTLIBDIR@  @ROOTGLIBS@ -lRooFitCore -lRooFit -lRooStats -lFoam -lMathMore -lMinuit @ROOTAUXLIBS@  
 
-# -lCore -lRooFitCore -lRooFit -lRooStats -lFoam -lRIO -lHist -lMathCore -lMathMore -lMatrix -lGraf -lTree -lMinuit -lGpad
-# -lRooFitCore -lRooFit -lRooStats -lFoam -lMathMore -lMinuit 
-# -lGui -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread 
-# update to use @ROOTCONF@ --libs --ldflags 
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = HEPfit-$(HEPfit_API_VERSION).pc
@@ -730,268 +724,59 @@ bin_SCRIPTS = hepfit-config
 m4datadir = $(datadir)/aclocal
 m4data_DATA = m4/hepfit.m4
 
+#dist_noinst_SCRIPTS = 
 
-# noinst_SCRIPTS = autogen.sh HEPfit_noMCMC_h.sh HEPfit_h.sh 
-dist_noinst_SCRIPTS = Analysis/Flavour.conf \
-Analysis/GeneralSUSY.conf \
-Analysis/HiggsKvKf.conf \
-Analysis/MFV.conf \
-Analysis/Model.conf \
-Analysis/MonteCarlo.conf \
-Analysis/pMSSM.conf \
-Analysis/StandardModel.conf \
-Analysis/SUSYMassInsertion.conf \
-Analysis/THDM.conf \
-Analysis/main_libmode_config_example.cpp \
-Analysis/main_libmode_header_example.cpp \
-Analysis/main_MCMC_example.cpp  \
-Analysis/main_libmode_slha2_to_GeneralSUSYconfigfile.cpp \
-Analysis/input/gamma_win10_DalModBabar.root \
-Analysis/input/pipi_NP_win10.root \
-Analysis/input/pipi_win10.root \
-Analysis/input/rhopi_win10.root \
-Analysis/input/rhorho_NP_win10.root \
-Analysis/input/rhorho_win10.root \
-Analysis/input/vub_win10.root \
-Analysis/Higgs/Hbb/input/ATLAS_Hbb.dat \
-Analysis/Higgs/Hbb/input/CDF_Hbb.dat \
-Analysis/Higgs/Hbb/input/CMS_Hbb.dat \
-Analysis/Higgs/Hbb/input/D0_Hbb.dat \
-Analysis/Higgs/Hbb/input/FCCee_Hbb.dat \
-Analysis/Higgs/Htautau/input/ATLAS_Htautau.dat \
-Analysis/Higgs/Htautau/input/CMS_Htautau.dat \
-Analysis/Higgs/Htautau/input/FCCee_Htautau.dat \
-Analysis/Higgs/HWW/input/ATLAS_HWW.dat \
-Analysis/Higgs/HWW/input/CMS_HWW.dat \
-Analysis/Higgs/HWW/input/FCCee_HWW.dat \
-Analysis/Higgs/HZZ/input/ATLAS_HZZ.dat \
-Analysis/Higgs/HZZ/input/CMS_HZZ.dat \
-Analysis/Higgs/HZZ/input/FCCee_HZZ.dat \
-Configurations/Publications/README \
-Configurations/Temporary/Bmumu/conf_files/StandardModel.conf \
-Configurations/Temporary/Bmumu/conf_files/Observables.conf \
-Configurations/Temporary/Bmumu/conf_files/Flavour.conf \
-Configurations/Temporary/Bmumu/conf_files/MonteCarlo.conf \
-Configurations/Temporary/Bmumu/conf_files/Bmumu_input.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_8/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_7/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/FULL/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_5/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/BKstll_conf.zip \
-Configurations/Temporary/BKstll/S_9/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_9/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/A_FB/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_5p/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_8p/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_4/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_1/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/README \
-Configurations/Temporary/BKstll/F_L/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/F_L/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/S_3/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_6p/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_3/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/FormFactors_LQ_NE_new.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Observables_LQ_test.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/h_lambda_LQ_NE.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Observables_LQ_NP.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Observables_h_lambda_LQ_NE.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/FormFactors_LQ_NE.conf \
-Configurations/Temporary/BKstll/C1C2/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_2/conf_files/Observables_LQ.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/FormFactors_LQ.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/Flavour_NE.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/StandardModel.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/StandardModel_NE.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/Observables_FF_LQ.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/Flavour.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/MonteCarlo.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/Observables_h_lambda_LQ.conf \
-Configurations/Temporary/BKstll/P_4p/conf_files/Observables_LQ.conf \
-Configurations/Temporary/UTFit/UTFit.conf \
-Configurations/Temporary/UTFit/StandardModel.conf \
-Configurations/Temporary/UTFit/input/rhopi_win10.root \
-Configurations/Temporary/UTFit/input/rhorho_win13.root \
-Configurations/Temporary/UTFit/input/pipi_sum14.root \
-Configurations/Temporary/UTFit/input/su3rhoetaflat.root \
-Configurations/Temporary/UTFit/input/gamma_summer14.root \
-Configurations/Temporary/UTFit/Observables.conf \
-Configurations/Temporary/UTFit/Flavour.conf \
-Configurations/Temporary/UTFit/MonteCarlo.conf \
-Configurations/Temporary/Bsgamma/Bsgamma_input.conf \
-Configurations/Temporary/Bsgamma/StandardModel.conf \
-Configurations/Temporary/Bsgamma/Flavour.conf \
-Configurations/Conferences/README \
-Configurations/Conferences/BELLE_PNNL/Bmumu/StandardModel.conf \
-Configurations/Conferences/BELLE_PNNL/Bmumu/Observables.conf \
-Configurations/Conferences/BELLE_PNNL/Bmumu/Flavour.conf \
-Configurations/Conferences/BELLE_PNNL/Bmumu/MonteCarlo.conf \
-Configurations/Conferences/BELLE_PNNL/Bmumu/README \
-Configurations/Conferences/BELLE_PNNL/Bmumu/Bmumu_input.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/FormFactors_LQ.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/Flavour_NE.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/StandardModel.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/StandardModel_NE.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/Observables_FF_LQ.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/Flavour.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/MonteCarlo.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/README \
-Configurations/Conferences/BELLE_PNNL/BKstll/h_lambda_LQ.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/Observables_h_lambda_LQ.conf \
-Configurations/Conferences/BELLE_PNNL/BKstll/Observables_LQ.conf \
-Configurations/Conferences/BELLE_PNNL/UTFit/UTFit.conf \
-Configurations/Conferences/BELLE_PNNL/UTFit/StandardModel.conf \
-Configurations/Conferences/BELLE_PNNL/UTFit/input/rhopi_win10.root \
-Configurations/Conferences/BELLE_PNNL/UTFit/input/rhorho_win13.root \
-Configurations/Conferences/BELLE_PNNL/UTFit/input/pipi_sum14.root \
-Configurations/Conferences/BELLE_PNNL/UTFit/input/su3rhoetaflat.root \
-Configurations/Conferences/BELLE_PNNL/UTFit/input/gamma_summer14.root \
-Configurations/Conferences/BELLE_PNNL/UTFit/Observables.conf \
-Configurations/Conferences/BELLE_PNNL/UTFit/Flavour.conf \
-Configurations/Conferences/BELLE_PNNL/UTFit/MonteCarlo.conf \
-Configurations/Conferences/BELLE_PNNL/UTFit/README 
+EXTRA_DIST = Analysis/Higgs Analysis/input Analysis/nbproject Analysis/tests \
+BAT-0.9.4.1_parallel Configurations doc Doxygen Utils BAT-0.9.3_parallel Packaging ZFitterWrapper \
+Analysis/nbproject \
+BHWIDEWrapper/nbproject \
+ComputeObservables/nbproject \
+EventGeneration/nbproject \
+EW/nbproject \
+Flavour/nbproject \
+FlavourWilsonCoefficient/nbproject \
+GeneralSUSY/nbproject \
+gslpp/nbproject \
+HiggsExtensions/nbproject \
+InputParser/nbproject \
+LeptonFlavour/nbproject \
+LoopFunctions/nbproject \
+MFV/nbproject \
+MonteCarlo/nbproject \
+NewPhysics/nbproject \
+Observables/nbproject \
+pMSSM/nbproject \
+StandardModel/nbproject \
+SUSY/nbproject \
+SUSYMassInsertion/nbproject \
+THDM/nbproject \
+Utils/nbproject \
+ZFitterWrapper/nbproject \
+BHWIDEWrapper/Makefile \
+ComputeObservables/Makefile \
+EventGeneration/Makefile \
+EW/Makefile \
+Flavour/Makefile \
+FlavourWilsonCoefficient/Makefile \
+GeneralSUSY/Makefile \
+gslpp/Makefile \
+HiggsExtensions/Makefile \
+InputParser/Makefile \
+LeptonFlavour/Makefile \
+LoopFunctions/Makefile \
+MFV/Makefile \
+MonteCarlo/Makefile \
+NewPhysics/Makefile \
+Observables/Makefile \
+pMSSM/Makefile \
+StandardModel/Makefile \
+SUSY/Makefile \
+SUSYMassInsertion/Makefile \
+THDM/Makefile \
+Utils/Makefile \
+ZFitterWrapper/Makefile
+
+dist_noinst_SCRIPTS = 
 
 DISTCLEANFILES = config.hepfit
 # CLEANFILES = hepfit.pc hepfit-config

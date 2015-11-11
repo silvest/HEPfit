@@ -1,0 +1,26 @@
+EXE=analysis
+
+CXX=@CMAKE_CXX_COMPILER@
+
+CXXFLAGS=-Wall @CMAKE_CXX_FLAGS_RELEASE@
+CXXFLAGS+=`@CMAKE_INSTALL_PREFIX@/bin/hepfit-config --cflags` 
+#CXXFLAGS+=@EXAMPLE_NOMCMC_CXXFLAGS@
+CXXFLAGS+=@EXAMPLE_CXXFLAGS@
+CXXFLAGS+=`@ROOT_CONFIG_DIR@/root-config --cflags` 
+CXXFLAGS+=`@GSL_CONFIG_DIR@/gsl-config --cflags` 
+
+LIBS=`@CMAKE_INSTALL_PREFIX@/bin/hepfit-config --libs`
+#LIBS+=@EXAMPLE_NOMCMC_LIBS@
+LIBS+=@EXAMPLE_LIBS@
+LIBS+=`@ROOT_CONFIG_DIR@/root-config --libs` 
+LIBS+=`@ROOT_CONFIG_DIR@/root-config --ldflags` 
+LIBS+=`@GSL_CONFIG_DIR@/gsl-config --libs` 
+LIBS+=@EXAMPLE_NOMCMC_RPATHS@
+
+all: $(EXE)
+
+$(EXE): libmode_config.cpp Makefile
+	$(CXX) $(CXXFLAGS) -o $@ $< $(LIBS)
+
+clean:
+	rm $(EXE)

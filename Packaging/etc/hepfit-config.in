@@ -1,0 +1,2 @@
+#!/bin/sh
+pkg-config $@ @CMAKE_INSTALL_PREFIX@/bin/HEPfit.pc

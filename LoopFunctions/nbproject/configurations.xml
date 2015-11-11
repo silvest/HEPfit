@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>src/BernoulliNumbers.h</itemPath>
+      <itemPath>src/ClausenFunctions.h</itemPath>
+      <itemPath>src/LoopToolsWrapper.h</itemPath>
+      <itemPath>src/PVfunctions.h</itemPath>
+      <itemPath>src/Polylogarithms.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>src/BernoulliNumbers.cpp</itemPath>
+      <itemPath>src/ClausenFunctions.cpp</itemPath>
+      <itemPath>src/LoopToolsWrapper.cpp</itemPath>
+      <itemPath>src/PVfunctions.cpp</itemPath>
+      <itemPath>src/Polylogarithms.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f3"
+                     displayName="LoopFunctions-CppUnit"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/LFtestclass.cpp</itemPath>
+        <itemPath>tests/LFtestclass.h</itemPath>
+        <itemPath>tests/LFtestrunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="LoopFunctionsTest"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/LoopFunctionsTest.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1"
+                     displayName="PVfunctions-Limits"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/PVfunctions-Limits.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`gsl-config --libs`</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BernoulliNumbers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LoopToolsWrapper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LoopToolsWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LoopFunctionsTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/PVfunctions-Limits.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Debug_LoopTools" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../LoopTools/include</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>USE_LOOPTOOLS</Elem>
+          </preprocessorList>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`gsl-config --libs`</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/BernoulliNumbers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LoopToolsWrapper.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/LoopToolsWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/PVfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/Polylogarithms.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LoopFunctionsTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/PVfunctions-Limits.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`gsl-config --libs`</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
+      <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BernoulliNumbers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LoopToolsWrapper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LoopToolsWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LoopFunctionsTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/PVfunctions-Limits.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Cluster" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
+      <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BernoulliNumbers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LoopToolsWrapper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LoopToolsWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LoopFunctionsTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/PVfunctions-Limits.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

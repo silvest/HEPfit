@@ -1,0 +1,10 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+includedir=${prefix}/include/HEPfit
+libdir=${prefix}/lib
+bindir=${prefix}/bin
+
+Name: HEPfit
+Description: The HEPfit library
+Version: VERSIONNUMBER
+Cflags: -I${includedir}
+Libs: -L${libdir} -lHEPfit
