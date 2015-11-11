@@ -563,7 +563,8 @@ public:
     double CF;
     
     double deltaT_0;
-    double deltaT_1;
+    double deltaT_1par;
+    double deltaT_1perp;
     
     double Ee;
     gslpp::complex ubar;

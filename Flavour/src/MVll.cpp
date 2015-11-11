@@ -290,8 +290,10 @@ void MVll::updateParameters()
     CF =4./3.;
     
     deltaT_0 = mySM.Als(mu_b) * CF / 4. / M_PI;
-    deltaT_1 = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+    deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
             mySM.getMesons(vectorM).getDecayconst() / MM; 
+    deltaT_1perp = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
+            mySM.getFKstarp() / MM; 
             
     F87_0=-32. / 9. * log(mu_b / Mb) + 8. / 27. * M_PI * M_PI - 44. / 9. - 8. / 9. * gslpp::complex::i() * M_PI;
     F87_1 = (4. / 3. * M_PI * M_PI - 40. / 3.);
@@ -1003,7 +1005,7 @@ gslpp::complex MVll::deltaTperp(double q2)
         deltaTperpCached[q2] = 1;
     }
 
-    return deltaT_0 * Cperp(q2) + deltaT_1 / T_1(q2) / mySM.getMesons(meson).getLambdaM() * cacheDeltaTperp[q2];
+    return deltaT_0 * Cperp(q2) + deltaT_1perp / T_1(q2) / mySM.getMesons(meson).getLambdaM() * cacheDeltaTperp[q2];
 }
 
 gslpp::complex MVll::deltaTpar(double q2) 
@@ -1028,7 +1030,7 @@ gslpp::complex MVll::deltaTpar(double q2)
         deltaTparpCached[q2] = 1;
     }
 
-    return deltaT_0 * Cpar(q2) + deltaT_1 * MV/Ee / (T_1(q2) - T3q2) * (cacheDeltaTparp[q2]);
+    return deltaT_0 * Cpar(q2) + deltaT_1par * MV/Ee / (T_1(q2) - T3q2) * (cacheDeltaTparp[q2]);
 }
 
 

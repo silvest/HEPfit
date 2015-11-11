@@ -661,7 +661,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 177; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 178; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1742,6 +1742,16 @@ public:
     {
         return bsgamma_C;
     }
+    
+    /**
+     * @return the decay constant of a transversely polarized @f$K^*@f$ meson at 1 GeV
+     */
+    double getFKstarp() const
+    {
+        return FKstarp;
+    }
+
+    
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1998,6 +2008,7 @@ protected:
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
     double bsgamma_E0, bsgamma_C;
+    double FKstarp; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
 

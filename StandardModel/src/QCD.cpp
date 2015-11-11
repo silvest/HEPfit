@@ -27,7 +27,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "Mphi",
     "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
     "DGs_Gs",
-    "FK", "FD", "FBs", "FBsoFBd", "FKstar", "Fphi",
+    "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi",
     "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
     "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
     "BBsoBBd",
