@@ -8,10 +8,10 @@
 #ifndef THDMOBSERVABLES_H
 #define	THDMOBSERVABLES_H
 
-#include "BDtaunu.h"
+//#include "BDtaunu.h"
 #include "bsgamma.h"
 //#include "Btaunu.h"
-#include "B_to_mumu.h"
+//#include "B_to_mumu.h"
 #include "CPoddHiggsCache.h"
 //#include "DeltamBs.h"
 #include "EWPO.h"
