@@ -251,7 +251,7 @@ public:
      */
     complex Bfp(const double mu2, const double p2,
                 const double m02, const double m12) const;
-    
+
     /**
      * @brief @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$.
      * @details The scalar three-point function 
@@ -272,7 +272,43 @@ public:
      */
     complex C0(const double p2, 
                const double m02, const double m12, const double m22) const;
-    
+
+    /**
+     * @brief @f$C_{11}(m_1^2, m_2^2, m_3^2)@f$.
+     * @details The function
+     * @f$C_{11}(m_1^2, m_2^2, m_3^2)@f$ is defined as
+     * @f[
+     * C_{11}(m_1^2,m_2^2,m_3^2)
+     * = \frac{m_1^4 m_2^2 (2 m_1^2-m_2^2) \log \left(\frac{m_1^2}{m_2^2}\right)
+     * +m_1^4 m_3^2 (m_3^2-2 m_1^2) \log \left(\frac{m_1^2}{m_3^2}\right)
+     * -m_1^2 (m_1^2-m_2^2) (m_1^2-m_3^2) (m_2^2-m_3^2)
+     * +m_2^2 m_3^2 (m_2^2-2 m_1^2) (m_3^2-2 m_1^2) \log \left(\frac{m_2^2}{m_3^2}\right)}
+     * {2 (m_1^2-m_2^2)^2 (m_1^2-m_3^2)^2 (m_2^2-m_3^2)}.
+     * @f]
+     * The definition is taken from Equation (B8) in @cite Arganda:2005ji.
+     * @param[in] m12, m22, m32 mass squared, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
+     * @return @f$C_{11}(m_1^2, m_2^2, m_3^2)@f$
+     */
+    double C11(const double m12, const double m22, const double m32) const;
+
+    /**
+     * @brief @f$C_{12}(m_1^2, m_2^2, m_3^2)@f$.
+     * @details The function
+     * @f$C_{12}(m_1^2, m_2^2, m_3^2)@f$ is defined as
+     * @f[
+     * C_{12}(m_1^2,m_2^2,m_3^2)
+     * = \frac{m_1^4 \left(m_2^4 \log \left(\frac{m_1^2}{m_2^2}\right)
+     * +m_3^2 (m_3^2-2 m_2^2) \log \left(\frac{m_1^2}{m_3^2}\right)\right)
+     * +m_2^4 m_3^2 (2 m_1^2-m_3^2) \log \left(\frac{m_2^2}{m_3^2}\right)
+     * +m_3^2 (m_1^2-m_2^2) (m_1^2-m_3^2) (m_2^2-m_3^2)}
+     * {2 (m_1^2-m_2^2) (m_1^2-m_3^2)^2 (m_2^2-m_3^2)^2}.
+     * @f]
+     * The definition is taken from Equation (B9) in @cite Arganda:2005ji.
+     * @param[in] m12, m22, m32 mass squared, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
+     * @return @f$C_{12}(m_1^2, m_2^2, m_3^2)@f$
+     */
+    double C12(const double m12, const double m22, const double m32) const;
+
     /**
      * @brief @f$D_{0}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$.
      * @details The scalar four-point function 

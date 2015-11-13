@@ -196,6 +196,18 @@ public:
      */
     virtual  std::vector<WilsonCoefficient>& CMDLi3j(int li_lj);
 
+     /**
+     * 
+     * @return Wilson coefficients for \f$ \mu \to e\f$ conversion in nuclei
+     */
+    virtual  std::vector<WilsonCoefficient>& CMmueconv();
+
+     /**
+     * 
+     * @return Wilson coefficients for \f$ (g-2)_\mu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMgminus2mu();
+
     double x_c(const double mu, const orders order = FULLNNLO) const;
     double x_t(const double mu, const orders order = FULLNNLO) const;
     double mt2omh2(const double mu, const orders order = FULLNNLO) const;
@@ -502,8 +514,7 @@ protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu;
-    std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j;
-    
+    std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j, vmcmueconv, vmcgminus2mu;
     
 private:
     
@@ -516,7 +527,7 @@ private:
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcprimebsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu;
-    WilsonCoefficient mcDLij, mcDLi3j;
+    WilsonCoefficient mcDLij, mcDLi3j, mcmueconv, mcgminus2mu;
     
     double Mut;
     double Muw;

@@ -37,7 +37,7 @@ public:
     friend class FeynHiggsWrapper;
 
     /**
-     * @brief A SUSY constructor. 
+     * @brief A SUSY constructor.
      */
     SUSY();
 

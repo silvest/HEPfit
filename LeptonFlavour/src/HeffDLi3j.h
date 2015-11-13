@@ -53,6 +53,7 @@ private :
     WilsonCoefficient coeffDLi3j_1;
     WilsonCoefficient coeffDLi3j_2;
     WilsonCoefficient coeffDLi3j_3;
+    WilsonCoefficient coeffDLi3j_4;
 
 };
 

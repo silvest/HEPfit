@@ -11,6 +11,8 @@
 #include <StandardModel.h>
 #include "HeffDLij.h"
 #include "HeffDLi3j.h"
+#include "Heffmueconv.h"
+#include "Heffgminus2.h"
 
 using namespace gslpp;
 
@@ -18,7 +20,7 @@ class LeptonFlavour {
 public:
 
     LeptonFlavour(const StandardModel& SM_i) :
-            HDLij(SM_i),HDLi3j(SM_i)//, HDS1(SM_i), HDB1(SM_i)
+            HDLij(SM_i),HDLi3j(SM_i),Hmueconv(SM_i),Hgminus2(SM_i)
     {};
 
     const HeffDLij& getHDLij() const {
@@ -37,10 +39,27 @@ public:
         return HDLi3j.ComputeCoeffDLi3j(li_lj);
     }
 
+    const Heffmueconv& getHmueconv() const {
+        return Hmueconv;
+    }
+
+    vector<complex>** ComputeCoeffmueconversion() {
+        return Hmueconv.ComputeCoeffmueconv();
+    }
+
+    const Heffgminus2& getHgminus2() const {
+        return Hgminus2;
+    }
+
+    vector<complex>** ComputeCoeffgminus2mu() {
+        return Hgminus2.ComputeCoeffgm2mu();
+    }
+
 private:
     HeffDLij HDLij;
     HeffDLi3j HDLi3j;
+    Heffmueconv Hmueconv;
+    Heffgminus2 Hgminus2;
 };
 
 #endif	/* LEPTONFLAVOUR_H */
-

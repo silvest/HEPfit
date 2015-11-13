@@ -160,48 +160,41 @@ void heavyHiggsCache::computeParameters()
     /*A_HH_Hp expression can be found in "The Higgs Hunter's Guide", Appendix C, C.14*/
     A_HH_Hp= g_HH_HpHm*(1-2.0*s02)/sqrt(c02*s02)*myfunctions.Int1(TAUhp,LAMhp)
                             *vev/(2.*mHp*mHp);
+    std::string modelflag=myTHDM->getModelTypeflag();
 
-    modelType=myTHDM->getModelType();
-
-    switch(modelType){
-        case 1 ://type 1
+    if( modelflag == "type1" ) {
         rHH_gg=sina/sinb*sina/sinb;
         rHH_QdQd=sina/sinb*sina/sinb;
         rHH_ll=sina/sinb*sina/sinb;
         I_HH_f=sina/sinb*(I_HH_fU+I_HH_fD+I_HH_fL);
         A_HH_F = sina/sinb*(A_HH_U+A_HH_D+A_HH_L)/sqrt(s02*c02);
-        break;
-        case 2 ://type 2
+    }
+    else if( modelflag == "type2" ) {
         rHH_gg=sina/sinb*cosa/cosb+(Sigmaggh_tt*sina/sinb*(sina/sinb-cosa/cosb)
              +Sigmaggh_bb*cosa/cosb*(cosa/cosb-sina/sinb))/SigmaggF;
         rHH_QdQd=cosa/cosb*cosa/cosb;
         rHH_ll=cosa/cosb*cosa/cosb;
         I_HH_f=sina/sinb*I_HH_fU+cosa/cosb*(I_HH_fD+I_HH_fL);
         A_HH_F = (sina/sinb*A_HH_U+cosa/cosb*(A_HH_D+A_HH_L))/sqrt(s02*c02);
-        break;
-        case 3 ://Lepton-specific
+    }
+    else if( modelflag == "typeX" ) {
         rHH_gg=sina/sinb*sina/sinb;
         rHH_QdQd=sina/sinb*sina/sinb;
         rHH_ll=cosa/cosb*cosa/cosb;
         I_HH_f=sina/sinb*(I_HH_fU+I_HH_fD)+cosa/cosb*I_HH_fL;
         A_HH_F = (sina/sinb*(A_HH_U+A_HH_D)+cosa/cosb*A_HH_L)/sqrt(s02*c02);
-        break;
-        case 4 ://Flipped
+    }
+    else if( modelflag == "typeY" ) {
         rHH_gg=sina/sinb*cosa/cosb+(Sigmaggh_tt*sina/sinb*(sina/sinb-cosa/cosb)
              +Sigmaggh_bb*cosa/cosb*(cosa/cosb-sina/sinb))/SigmaggF;
         rHH_QdQd=cosa/cosb*cosa/cosb;
         rHH_ll=sina/sinb*sina/sinb;
         I_HH_f=sina/sinb*(I_HH_fU+I_HH_fL)+cosa/cosb*I_HH_fD;
         A_HH_F = (sina/sinb*(A_HH_U+A_HH_L)+cosa/cosb*A_HH_D)/sqrt(s02*c02);
-        break;
-        default :
-        std::stringstream out;
-        out << modelType;
-        //throw std::runtime_error(“lightHiggs::modelType " + out.str() + " not implemented: it can only be 1,2,3 or 4.”);
-        throw std::runtime_error("modelType can be only any of 1,2,3,4");
     }
-
-//    std::cout<<"rHH_gg: "<<rHH_gg<<std::endl;
+    else {
+        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
+    }
 
     /*Gamma_Hgaga expression can be found in in arXiv:0902.4665v3, Appendix A, A.8*/
     Gamma_Hgaga=GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2)*128.0*M_PI*M_PI*M_PI)

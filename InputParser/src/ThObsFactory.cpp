@@ -329,21 +329,21 @@ ThObsFactory::ThObsFactory()
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  THDM observables  -----
-    obsThFactory["AlTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 1);
-    obsThFactory["PpoltauTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 2);
-    obsThFactory["AcTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 3);
-    obsThFactory["AbTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 4);
-    obsThFactory["AFBl0THDM"] = boost::bind(boost::factory<EWPO*>(), _1, 5);
-    obsThFactory["AFBc0THDM"] = boost::bind(boost::factory<EWPO*>(), _1, 6);
-    obsThFactory["AFBb0THDM"] = boost::bind(boost::factory<EWPO*>(), _1, 7);
-    obsThFactory["GammaZTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 8);
-    obsThFactory["Rl0THDM"] = boost::bind(boost::factory<EWPO*>(), _1, 9);
-    obsThFactory["Rc0THDM"] = boost::bind(boost::factory<EWPO*>(), _1, 10);
-    obsThFactory["Rb0THDM"] = boost::bind(boost::factory<EWPO*>(), _1, 11);
-    obsThFactory["SigmahadTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 12);
-    obsThFactory["GammaWTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 13);
-    obsThFactory["sinthetaeffl_2THDM"] = boost::bind(boost::factory<EWPO*>(), _1, 14);
-    obsThFactory["MWTHDM"] = boost::bind(boost::factory<EWPO*>(), _1, 15);
+    obsThFactory["AlTHDM"] = boost::factory<AlTHDM*>();
+    obsThFactory["PpoltauTHDM"] = boost::factory<PpoltauTHDM*>();
+    obsThFactory["AcTHDM"] = boost::factory<AcTHDM*>();
+    obsThFactory["AbTHDM"] = boost::factory<AbTHDM*>();
+    obsThFactory["AFBl0THDM"] = boost::factory<AFBl0THDM*>();
+    obsThFactory["AFBc0THDM"] = boost::factory<AFBc0THDM*>();
+    obsThFactory["AFBb0THDM"] = boost::factory<AFBb0THDM*>();
+    obsThFactory["GammaZTHDM"] = boost::factory<GammaZTHDM*>();
+    obsThFactory["Rl0THDM"] = boost::factory<Rl0THDM*>();
+    obsThFactory["Rc0THDM"] = boost::factory<Rc0THDM*>();
+    obsThFactory["Rb0THDM"] = boost::factory<Rb0THDM*>();
+    obsThFactory["SigmahadTHDM"] = boost::factory<SigmahadTHDM*>();
+    obsThFactory["GammaWTHDM"] = boost::factory<GammaWTHDM*>();
+    obsThFactory["sinthetaeffl_2THDM"] = boost::factory<sinthetaeffl_2THDM*>();
+    obsThFactory["MWTHDM"] = boost::factory<MWTHDM*>();
     obsThFactory["globalminimum"] = boost::factory<globalminimum*>();
 
     obsThFactory["ggF_tth_htobb"] = boost::factory<ggF_tth_htobb*>();
@@ -444,6 +444,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DeltaS"] = boost::bind(boost::factory<STU*>(), _1, 1);
     obsThFactory["DeltaT"] = boost::bind(boost::factory<STU*>(), _1, 2);
     obsThFactory["DeltaU"] = boost::bind(boost::factory<STU*>(), _1, 3);
+    obsThFactory["B_BtoXsgammaTHDM"] = boost::factory<bsgammaTHDM*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

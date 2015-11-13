@@ -142,42 +142,38 @@ void CPoddHiggsCache::computeParameters()
                             *(//-myfunctions.Int2(TAUe,LAMe)
                             -myfunctions.Int2(TAUmu,LAMmu)-myfunctions.Int2(TAUtau,LAMtau))/sqrt(s02*c02);
 
-    modelType=myTHDM->getModelType();
+    std::string modelflag=myTHDM->getModelTypeflag();
 
-    switch(modelType){
-        case 1 ://type 1
+    if( modelflag == "type1" ) {
         rA_gg=-cosb/sinb*cosb/sinb+2.0*cosb/sinb*cosb/sinb*(Sigmaggh_tt+Sigmaggh_bb)/SigmaggF;
         rA_QdQd=cosb/sinb*cosb/sinb;
         rA_ll=cosb/sinb*cosb/sinb;
         I_A_f=cosb/sinb*(I_A_fU-I_A_fD-I_A_fL);
         A_A_F = cosb/sinb*(A_A_U-A_A_D-A_A_L);
-        break;
-        case 2 ://type 2
+    }
+    else if( modelflag == "type2" ) {
         rA_gg= 1.0+(cosb/sinb-sinb/cosb)*(Sigmaggh_tt*cosb/sinb-Sigmaggh_bb*sinb/cosb)/SigmaggF;
         rA_QdQd=sinb/cosb*sinb/cosb;
         rA_ll=sinb/cosb*sinb/cosb;
         I_A_f=cosb/sinb*I_A_fU+sinb/cosb*(I_A_fD+I_A_fL);
         A_A_F = (cosb/sinb*A_A_U+sinb/cosb*(A_A_D+A_A_L));
-        break;
-        case 3 ://Lepton-specific
+    }
+    else if( modelflag == "typeX" ) {
         rA_gg=-cosb/sinb*cosb/sinb+2.0*cosb/sinb*cosb/sinb*(Sigmaggh_tt+Sigmaggh_bb)/SigmaggF;
         rA_QdQd=cosb/sinb*cosb/sinb;
         rA_ll=sinb/cosb*sinb/cosb;
         I_A_f = cosb/sinb*(I_A_fU-I_A_fD)+sinb/cosb*I_A_fL;
         A_A_F = (cosb/sinb*(A_A_U-A_A_D)+sinb/cosb*A_A_L);
-        break;
-        case 4 ://Flipped
+    }
+    else if( modelflag == "typeY" ) {
         rA_gg=1.0+(cosb/sinb-sinb/cosb)*(Sigmaggh_tt*cosb/sinb-Sigmaggh_bb*sinb/cosb)/SigmaggF;
         rA_QdQd=sinb/cosb*sinb/cosb;
         rA_ll=cosb/sinb*cosb/sinb;
         I_A_f = cosb/sinb*(I_A_fU-I_A_fL)+sinb/cosb*I_A_fD;
         A_A_F = (cosb/sinb*(A_A_U-A_A_L)+sinb/cosb*A_A_D);
-        break;
-        default:
-        //std::stringstream out;
-        //out << modelType;
-        //throw std::runtime_error(“HiggsSigStr::modelType " + out.str() + " not implemented: it can only be 1,2,3 or 4.”);
-        throw std::runtime_error("modelType can be only any of 1,2,3,4");
+    }
+    else {
+        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
     }
 
 //    std::cout<<"rA_gg: "<<rA_gg<<std::endl;

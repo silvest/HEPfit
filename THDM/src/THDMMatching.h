@@ -33,6 +33,31 @@ public:
     
     void updateTHDMParameters();
 
+    /**
+     * 
+     * @brief \f$ \Delta B = 2 \f$, \f$ B_{s} \f$ 
+     * @return return the vector of THDM Wilson coefficients
+     */
+    virtual  std::vector<WilsonCoefficient>& CMdbs2();
+
+    /**
+     * 
+     * @return THDM Wilson coefficient for \f$ B \rightarrow \tau \nu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMbtaunu();
+
+    /**
+     * 
+     * @return THDM Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMbsmm();
+//
+//    /**
+//     * 
+//     * @return THDM Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
+//     */
+//    virtual  std::vector<WilsonCoefficient>& CMbdmm();
+    
 private:
     const THDM & myTHDM;
     gslpp::matrix<gslpp::complex> myCKM;
@@ -42,6 +67,8 @@ private:
     double v1;
     double v2;
     double gW;
+    WilsonCoefficient /*mcdbd2,*/ mcdbs2, mcbtaunu,mcbsmm,mcbdmm;
+
 };
 
 #endif	/* THDMMATCHING_H */

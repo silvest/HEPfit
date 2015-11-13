@@ -8,7 +8,9 @@
 #include <StandardModelMatching.h>
 #include "THDM.h"
 
-const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh","mA","mHp","m12_2","lambda6","lambda7","modelType"};
+const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh","mA","mHp","m12_2","lambda6","lambda7",/*"modelType",*/
+                                               "BDtaunu_SM","BDtaunu_A","BDtaunu_B","BDstartaunu_SM","BDstartaunu_A","BDstartaunu_B",
+                                               "BHatBsTHDM","etaBsTHDM", "bsgamma_theoryerror"};
 
 THDM::THDM() : StandardModel() {   
 //    mycache = new THDMcache();
@@ -21,7 +23,16 @@ THDM::THDM() : StandardModel() {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m12_2", boost::cref(m12_2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda6", boost::cref(lambda6)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda7", boost::cref(lambda7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("modelType", boost::cref(modelType)));
+//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("modelType", boost::cref(modelType)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_SM", boost::cref(BDtaunu_SM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_A", boost::cref(BDtaunu_A)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_B", boost::cref(BDtaunu_B)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_SM", boost::cref(BDstartaunu_SM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_A", boost::cref(BDstartaunu_A)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_B", boost::cref(BDstartaunu_B)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BHatBsTHDM", boost::cref(BHatBsTHDM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("etaBsTHDM", boost::cref(etaBsTHDM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_theoryerror", boost::cref(bsgamma_theoryerror)));
 }
 
 THDM::~THDM(){
@@ -147,8 +158,26 @@ void THDM::setParameter(const std::string name, const double& value){
         lambda6 = value;
     else if(name.compare("lambda7") == 0)
         lambda7 = value;
-    else if(name.compare("modelType") == 0)
-        modelType = value;
+//    else if(name.compare("modelType") == 0)
+//        modelType = value;
+    else if(name.compare("BDtaunu_SM") == 0)
+        BDtaunu_SM = value;
+    else if(name.compare("BDtaunu_A") == 0)
+        BDtaunu_A = value;
+    else if(name.compare("BDtaunu_B") == 0)
+        BDtaunu_B = value;
+    else if(name.compare("BDstartaunu_SM") == 0)
+        BDstartaunu_SM = value;
+    else if(name.compare("BDstartaunu_A") == 0)
+        BDstartaunu_A = value;
+    else if(name.compare("BDstartaunu_B") == 0)
+        BDstartaunu_B = value;
+    else if(name.compare("BHatBsTHDM") == 0)
+        BHatBsTHDM = value;
+    else if(name.compare("etaBsTHDM") == 0)
+        etaBsTHDM = value;
+    else if(name.compare("bsgamma_theoryerror") == 0)
+        bsgamma_theoryerror = value;
     else
         StandardModel::setParameter(name,value);
 }
@@ -166,11 +195,16 @@ bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool THDM::setFlag(const std::string name, const bool value)
+bool THDM::setFlagStr(const std::string name, const std::string value)
 {
     bool res = false;
-
-    res = StandardModel::setFlag(name,value);
+    if(name.compare("modelTypeflag") == 0) {
+        flag_model = value;
+        res = true;
+    }
+    else {
+        res = StandardModel::setFlagStr(name,value);
+    }
 
     return(res);
 }

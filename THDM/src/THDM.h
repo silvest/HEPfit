@@ -21,7 +21,7 @@ class THDMcache; //forward reference to THDMcache class
 class THDM: public StandardModel {
 public:
 
-    static const int NTHDMvars = 9;
+    static const int NTHDMvars = 17;
     //The parameters of the Higgs potential for THDM (there are several basis) according to ?
     //We choose the physical basis: logtb,bma,mHh,mA,mHp,m12_2,lambda6,lambda7
     static const std::string THDMvars[NTHDMvars];
@@ -47,9 +47,13 @@ public:
     virtual bool PostUpdate();
     
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+
     
-    virtual bool setFlag(const std::string name, const bool value);
-    
+    ///////////////////////////////////////////////////////////////////////////
+    // Flags
+
+    virtual bool setFlagStr(const std::string name, const std::string value);
+
     virtual THDMMatching* getMyMatching() const
     {
         return myTHDMMatching;
@@ -75,6 +79,14 @@ public:
 //    THDMcache GetMycache() const {
 //        return mycache;
 //    }
+
+    /**
+     *
+     * @return \f$\log(\tan \beta)$\f
+     */
+    std::string getModelTypeflag() const {
+        return flag_model;
+    }
 
     /**
      *
@@ -175,27 +187,99 @@ public:
     double getLambda7() const {
         return lambda7;
     }
-    
+//    
+//    /**
+//     *
+//     * @return model type
+//     */
+//    int getModelType() const {
+//        return modelType;
+//    }
+
     /**
      *
-     * @return modelType
+     * @return BDtaunu SM expectation
      */
-    int getModelType() const {
-        return modelType;
+    double getBDtaunu_SM() const {
+        return BDtaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient A
+     */
+    double getBDtaunu_A() const {
+        return BDtaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDtaunu_B() const {
+        return BDtaunu_B;
+    }
+
+    /**
+     *
+     * @return BDstartaunu SM expectation
+     */
+    double getBDstartaunu_SM() const {
+        return BDstartaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDstartaunu coefficient A
+     */
+    double getBDstartaunu_A() const {
+        return BDstartaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDstartaunu_B() const {
+        return BDstartaunu_B;
+    }
+
+    /**
+     *
+     * @return BHatBsTHDM for DeltamBs
+     */
+    double getBHatBsTHDM() const {
+        return BHatBsTHDM;
+    }
+
+    /**
+     *
+     * @return etaBsTHDM for DeltamBs
+     */
+    double getetaBsTHDM() const {
+        return etaBsTHDM;
+    }
+
+    /**
+     *
+     * @return nuisance parameter for the theoretical error on bsgamma
+     */
+    double getbsgamma_theoryerror() const {
+        return bsgamma_theoryerror;
     }
 
 protected: 
-    
+
     virtual void setParameter(const std::string, const double&);
     THDMcache * mycache;
 
 private:
 
     THDMMatching* myTHDMMatching;
-    
-    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh, mA, mHp, m12_2, lambda6, lambda7, mh, modelType;
-    
-      
+
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh, mA, mHp, m12_2, lambda6, lambda7, mh/*, modelType*/;
+    double BDtaunu_SM, BDtaunu_A, BDtaunu_B, BDstartaunu_SM, BDstartaunu_A, BDstartaunu_B, BHatBsTHDM, etaBsTHDM, bsgamma_theoryerror;
+    std::string flag_model;
 };
 
 #endif	/* THDM_H */

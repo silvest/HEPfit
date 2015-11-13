@@ -154,48 +154,42 @@ void lightHiggs::computeParameters()
     ABS3=0.0;
     ABS4=0.0;
 
-    modelType=myTHDM->getModelType();
+    std::string modelflag=myTHDM->getModelTypeflag();
 
-    switch(modelType){
-        case 1 ://type 1
+    if( modelflag == "type1" ) {
         rh_gg=cosa/sinb*cosa/sinb;
         rh_QdQd=cosa/sinb*cosa/sinb;
         rh_ll=cosa/sinb*cosa/sinb;
         I_h_ferm=cosa/sinb*(fermU+fermD+fermL);
-        A_h_F = cosa/sinb*(A_h_U+A_h_D+A_h_L)/sqrt(s02*c02); 
-        break;
-        case 2 ://type 2
+        A_h_F = cosa/sinb*(A_h_U+A_h_D+A_h_L)/sqrt(s02*c02);
+    }
+    else if( modelflag == "type2" ) {
         rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
              *(Sigmaggh_tt*cosa/sinb+Sigmaggh_bb*sina/cosb)/SigmaggF;
         rh_QdQd=sina/cosb*sina/cosb;
         rh_ll=sina/cosb*sina/cosb;
         I_h_ferm=cosa/sinb*fermU -sina/cosb*(fermD+fermL);
         A_h_F = (cosa/sinb*A_h_U-sina/cosb*(A_h_D+A_h_L))/sqrt(s02*c02);
-        break;
-        case 3 ://Lepton-specific
+    }
+    else if( modelflag == "typeX" ) {
         rh_gg=cosa/sinb*cosa/sinb;
         rh_QdQd=cosa/sinb*cosa/sinb;
         rh_ll=sina/cosb*sina/cosb;
         I_h_ferm = cosa/sinb*(fermU+fermD) -sina/cosb*fermL;
         A_h_F = (cosa/sinb*(A_h_U+A_h_D)-sina/cosb*A_h_L)/sqrt(s02*c02);
-        break;
-        case 4 ://Flipped
+    }
+    else if( modelflag == "typeY" ) {
         rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
              *(Sigmaggh_tt*cosa/sinb+Sigmaggh_bb*sina/cosb)/SigmaggF;
         rh_QdQd=sina/cosb*sina/cosb;
         rh_ll=cosa/sinb*cosa/sinb;
         I_h_ferm = cosa/sinb*(fermU+fermL) -sina/cosb*fermD;
         A_h_F = (cosa/sinb*(A_h_U+A_h_L)-sina/cosb*A_h_D)/sqrt(s02*c02);
-        break;
-        default :
-        std::stringstream out;
-        out << modelType;
-        //throw std::runtime_error(“lightHiggs::modelType " + out.str() + " not implemented: it can only be 1,2,3 or 4.”);
-        throw std::runtime_error("modelType can be only any of 1,2,3,4");
     }
-    
-//    std::cout<<"rh_gg: "<<rh_gg<<std::endl;
-    
+    else {
+        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
+    }
+
     ABS1=(I_h_ferm+I_h_W+I_h_Hp).abs();
     ABS2=(I_h_ferm+I_h_W).abs();
     rh_gaga=ABS1*ABS1/(ABS2*ABS2);

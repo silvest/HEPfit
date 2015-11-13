@@ -32,27 +32,27 @@ public:
     /**
      * @brief Computes the Higgs spectrum at tree level.
      */
-    void CalcHiggs();
+    bool CalcHiggs(double mh[4], gslpp::complex& saeff_i);
 
     /**
      * @brief Computes the chargino spectrum at tree level.
      */
-    void CalcChargino();
+    bool CalcChargino(gslpp::matrix<gslpp::complex>& U_i, gslpp::matrix<gslpp::complex>& V_i, gslpp::vector<double>& mch_i);
 
     /**
      * @brief Computes the neutralino spectrum at tree level.
      */
-    void CalcNeutralino();
+    bool CalcNeutralino(gslpp::matrix<gslpp::complex>& N_i, gslpp::vector<double>& mneu_i);
 
     /**
      * @brief Computes the up-type squark spectrum at tree level.
      */
-    void CalcSup();
+    bool CalcSup(gslpp::matrix<gslpp::complex>& Ru_i, gslpp::vector<double>& m_su2_i);
 
     /**
      * @brief Computes the down-type squark spectrum at tree level.
      */
-    void CalcSdown();
+    bool CalcSdown(gslpp::matrix<gslpp::complex>& Rd_i, gslpp::vector<double>& m_sd2_i);
 
     /**
      * @brief Computes the sneutrino spectrum at tree level.
@@ -62,12 +62,12 @@ public:
     /**
      * @brief Computes the charged-slepton spectrum at tree level.
      */
-    void CalcSelectron();
+    bool CalcSelectron(gslpp::matrix<gslpp::complex>& Rl_i, gslpp::vector<double>& m_se2_i);
 
-//    /**
-//     * @brief Computes the SUSY spectrum without the Higgs part at tree level.
-//     */
-//    bool CalcSpectrum();
+    /**
+     * @brief Computes the SUSY spectrum without the Higgs part at tree level.
+     */
+    bool CalcSpectrum();
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -216,6 +216,7 @@ private:
     const SUSY& mySUSY;
 
     double mh[4];
+    gslpp::complex saeff;
     gslpp::matrix<gslpp::complex> Mchargino, Mneutralino;
     gslpp::matrix<gslpp::complex> Msup2, Msdown2, Msneutrino2, Mselectron2;
 

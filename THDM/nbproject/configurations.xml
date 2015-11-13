@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/BDtaunu.h</itemPath>
+      <itemPath>src/B_to_mumu.h</itemPath>
       <itemPath>src/CPoddHiggsCache.h</itemPath>
       <itemPath>src/EWPO.h</itemPath>
       <itemPath>src/STU.h</itemPath>
@@ -12,6 +14,7 @@
       <itemPath>src/THDMObservables.h</itemPath>
       <itemPath>src/THDMcache.h</itemPath>
       <itemPath>src/THDMfunctions.h</itemPath>
+      <itemPath>src/bsgamma.h</itemPath>
       <itemPath>src/globalminimum.h</itemPath>
       <itemPath>src/heavyHiggsCache.h</itemPath>
       <itemPath>src/lambda1.h</itemPath>
@@ -30,6 +33,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/BDtaunu.cpp</itemPath>
+      <itemPath>src/B_to_mumu.cpp</itemPath>
       <itemPath>src/CPoddHiggsCache.cpp</itemPath>
       <itemPath>src/EWPO.cpp</itemPath>
       <itemPath>src/STU.cpp</itemPath>
@@ -37,6 +42,7 @@
       <itemPath>src/THDMMatching.cpp</itemPath>
       <itemPath>src/THDMcache.cpp</itemPath>
       <itemPath>src/THDMfunctions.cpp</itemPath>
+      <itemPath>src/bsgamma.cpp</itemPath>
       <itemPath>src/globalminimum.cpp</itemPath>
       <itemPath>src/heavyHiggsCache.cpp</itemPath>
       <itemPath>src/lambda1.cpp</itemPath>
@@ -81,6 +87,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
@@ -110,6 +124,10 @@
       <item path="src/THDMfunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -181,6 +199,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
@@ -210,6 +236,10 @@
       <item path="src/THDMfunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -281,6 +311,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
@@ -310,6 +348,10 @@
       <item path="src/THDMfunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>

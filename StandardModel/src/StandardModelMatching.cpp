@@ -38,7 +38,9 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbdmm(8, NDR, NNLO, NLO_ewt4),
         mcbtaunu(3, NDR, LO),
         mcDLij(2, NDR, LO),
-        mcDLi3j(12, NDR, LO),
+        mcDLi3j(20, NDR, LO),
+        mcmueconv(8, NDR, LO),
+        mcgminus2mu(2, NDR, LO),
         Vckm(3, 3, 0)
 {
     swa = 0.;
@@ -2311,11 +2313,11 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMDLij(int li_lj) {
 }
 
 std::vector<WilsonCoefficient>& StandardModelMatching::CMDLi3j(int li_lj) {
-    
+
     vmcDLi3j.clear();
-    
+
     mcDLi3j.setMu(Muw);
-    
+
     switch (mcDLi3j.getOrder()) {
         case LO:
             mcDLi3j.setCoeff(0, 0., LO);
@@ -2330,6 +2332,14 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMDLi3j(int li_lj) {
             mcDLi3j.setCoeff(9, 0., LO);
             mcDLi3j.setCoeff(10, 0., LO);
             mcDLi3j.setCoeff(11, 0., LO);
+            mcDLi3j.setCoeff(12, 0., LO);
+            mcDLi3j.setCoeff(13, 0., LO);
+            mcDLi3j.setCoeff(14, 0., LO);
+            mcDLi3j.setCoeff(15, 0., LO);
+            mcDLi3j.setCoeff(16, 0., LO);
+            mcDLi3j.setCoeff(17, 0., LO);
+            mcDLi3j.setCoeff(18, 0., LO);
+            mcDLi3j.setCoeff(19, 0., LO);
             break;
         case NNLO:
         case NLO:
@@ -2341,5 +2351,59 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMDLi3j(int li_lj) {
     
     vmcDLi3j.push_back(mcDLi3j);
     return(vmcDLi3j);
+    
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::CMmueconv() {
+    
+    vmcmueconv.clear();
+    
+    mcmueconv.setMu(Muw);
+    
+    switch (mcmueconv.getOrder()) {
+        case LO:
+            mcmueconv.setCoeff(0, 0., LO);
+            mcmueconv.setCoeff(1, 0., LO);
+            mcmueconv.setCoeff(2, 0., LO);
+            mcmueconv.setCoeff(3, 0., LO);
+            mcmueconv.setCoeff(4, 0., LO);
+            mcmueconv.setCoeff(5, 0., LO);
+            mcmueconv.setCoeff(6, 0., LO);
+            mcmueconv.setCoeff(7, 0., LO);
+            break;
+        case NNLO:
+        case NLO:
+        default:
+            std::stringstream out;
+            out << mcmueconv.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMmueconv(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+    }
+    
+    vmcmueconv.push_back(mcmueconv);
+    return(vmcmueconv);
+    
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::CMgminus2mu() {
+    
+    vmcgminus2mu.clear();
+    
+    mcgminus2mu.setMu(Muw);
+    
+    switch (mcgminus2mu.getOrder()) {
+        case LO:
+            mcgminus2mu.setCoeff(0, 0., LO);
+            mcgminus2mu.setCoeff(1, 0., LO);
+            break;
+        case NNLO:
+        case NLO:
+        default:
+            std::stringstream out;
+            out << mcgminus2mu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMmueconv(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+    }
+    
+    vmcgminus2mu.push_back(mcgminus2mu);
+    return(vmcgminus2mu);
     
 }

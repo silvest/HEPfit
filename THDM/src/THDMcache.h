@@ -53,9 +53,10 @@ public:
 //    }
 
     
-    gslpp::matrix<double> readTable(std::string filename, int rowN);
-//    double OLDinterpolate (gslpp::matrix<double> arrayTab, double mass);
+    gslpp::matrix<double> readTable(std::string filename, int rowN, int colN);
+
     double interpolate (gslpp::matrix<double> arrayTab, double mass);
+    double interpolate2D (gslpp::matrix<double> arrayTab, double x, double y);
     
     void read();
     
@@ -94,6 +95,7 @@ public:
     gslpp::matrix<double> array45;
     gslpp::matrix<double> arrayX_bb;
     gslpp::matrix<double> arrayX_tt;
+    gslpp::matrix<double> arraybsgamma;
     
     double Br_HPtott(double mass);
     double Br_HPtobb(double mass);
@@ -130,6 +132,7 @@ public:
     double ex_ggF_A_hZ_bbZ(double mass);
     double ex_H_bb(double mass);
     double ex_H_tt(double mass);
+    double ex_bsgamma(double logtb, double logmHp);
     
     /*One-loop functions*/
     

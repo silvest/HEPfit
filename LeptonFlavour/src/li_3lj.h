@@ -9,6 +9,7 @@
 #define	LI_3LJ_H
 
 #include <gslpp.h>
+#include <complex>
 #include <ThObservable.h>
 #include "LeptonFlavour.h"
 
@@ -44,7 +45,7 @@ public:
     /**
      * @return mu_3e
      */
-    double computeThValue ();
+    double computeThValue();
     
 private:
     const StandardModel& mySM;
@@ -62,7 +63,7 @@ public:
     /**
      * @return tau_3mu
      */
-    double computeThValue ();
+    double computeThValue();
     
 private:
     const StandardModel& mySM;
@@ -80,7 +81,7 @@ public:
     /**
      * @return tau_3e
      */
-    double computeThValue ();
+    double computeThValue();
     
 private:
     const StandardModel& mySM;

@@ -44,7 +44,7 @@ public:
     /**
      * @return mu_e_gamma
      */
-    double computeThValue ();
+    double computeThValue();
     
 private:
     const StandardModel& mySM;
@@ -62,7 +62,7 @@ public:
     /**
      * @return tau_mu_gamma
      */
-    double computeThValue ();
+    double computeThValue();
     
 private:
     const StandardModel& mySM;
@@ -80,7 +80,7 @@ public:
     /**
      * @return tau_e_gamma
      */
-    double computeThValue ();
+    double computeThValue();
     
 private:
     const StandardModel& mySM;

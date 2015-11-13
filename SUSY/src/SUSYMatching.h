@@ -99,26 +99,55 @@ public:
      */
     virtual std::vector<WilsonCoefficient>& CMDLi3j(int li_lj);
 
-//   /** Calculates amplitudes for m->(3)e (1), t->(3)m (2) and t->(3)e (3)**/
+    /**
+     *
+     * @brief mu -> e conversion
+     * @return
+     */
+    virtual std::vector<WilsonCoefficient>& CMmueconv();
+
+    /**
+     *
+     * @brief muon g-2
+     * @return
+     */
+    virtual std::vector<WilsonCoefficient>& CMgminus2mu();
+
+//   /** Calculates gamma penguin amplitudes for m->(3)e (1), t->(3)m (2) and t->(3)e (3)**/
     virtual gslpp::vector<gslpp::complex> AFunctions(int n);
 
-//   /** Calculates amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
+//   /** Calculates box amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
     virtual gslpp::vector<gslpp::complex> BFunctions(int n);
 
-//   /** Calculates amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
+//   /** Calculates Higgs penguin amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
+    virtual gslpp::vector<gslpp::complex> BHFunctions(int n);
+
+//   /** Calculates box amplitudes for m->e conversion**/
+    virtual gslpp::vector<gslpp::complex> DFunctions();
+
+//   /** Calculates Z penguin amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
     virtual gslpp::vector<gslpp::complex> FFunctions(int n);
+
+//   /** Calculates the muon g-2**/
+    virtual gslpp::vector<gslpp::complex> gminus2mu();
 
    /** Calculates C7 and C7' for m->e (1), t->m (2) and t->e (3)**/
     virtual gslpp::vector<gslpp::complex> C7_Lepton(int n);
 
-   /** Calculates C9 and C9' for m->eee (1), t->mmm (2) and t->eee (3)**/
+   /** Calculates C9 and C9' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
     virtual gslpp::vector<gslpp::complex> C9_Lepton(int n);
 
-   /** Calculates C10 and C10' for m->eee (1), t->mmm (2) and t->eee (3)**/
+   /** Calculates C10 and C10' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
     virtual gslpp::vector<gslpp::complex> C10_Lepton(int n);
 
-   /** Calculates CS and CS' for m->eee (1), t->mmm (2) and t->eee (3)**/
+   /** Calculates CS and CS' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
     virtual gslpp::vector<gslpp::complex> CS_Lepton(int n);
+
+   /** Calculates CP and CP' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
+    virtual gslpp::vector<gslpp::complex> CP_Lepton(int n);
+
+   /** Calculates CT and CT5 for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
+    virtual gslpp::vector<gslpp::complex> CT_Lepton(int n);
 
     
 //    /**
@@ -203,8 +232,8 @@ private:
                       mcdk2HpT, mcdk2ggT, mcdk2ChiChiT, mcdk2Chi0Chi0T, mcdk2Chi0gT;
     WilsonCoefficient mcdd2, mcdd2Hp, mcdd2gg, mcdd2ChiChi, mcdd2Chi0Chi0, mcdd2Chi0g,
                       mcdd2HpT, mcdd2ggT, mcdd2ChiChiT, mcdd2Chi0Chi0T, mcdd2Chi0gT;
-    WilsonCoefficient mcDLij,mcDLi3j;
-    
+    WilsonCoefficient mcDLij,mcDLi3j,mcmueconv,mcgminus2mu;
+
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
     std::vector<WilsonCoefficient> vmdbd2;                           
@@ -212,8 +241,8 @@ private:
     std::vector<WilsonCoefficient> vmdk2;
     std::vector<WilsonCoefficient> vmdd2;
     std::vector<WilsonCoefficient> vmcbsg;
-    std::vector<WilsonCoefficient> vmDLij;
-    std::vector<WilsonCoefficient> vmDLi3j;
+//    std::vector<WilsonCoefficient> vmDLij;
+//    std::vector<WilsonCoefficient> vmDLi3j;
     
     gslpp::matrix<gslpp::complex> myCKM;
     gslpp::matrix<gslpp::complex> myRu;
@@ -225,12 +254,13 @@ private:
     gslpp::vector<double> mym_sn_sq;
     gslpp::vector<double> mym_se_sq;
     gslpp::vector<double> MChi0;
-    gslpp::vector<double> MChi;
     gslpp::matrix<gslpp::complex> myN;
+    gslpp::vector<double> MNeig;
+    gslpp::matrix<double> ON;
+    gslpp::vector<double> MChi;
     gslpp::matrix<gslpp::complex> myV;
     gslpp::matrix<gslpp::complex> myU;
 
-    gslpp::matrix<gslpp::complex> myNreal;
     gslpp::matrix<double> Lepty;
     gslpp::matrix<double> Leptz;
     gslpp::matrix<double> Leptfa1;
@@ -242,15 +272,23 @@ private:
     gslpp::matrix<gslpp::complex> CRlE;
     gslpp::matrix<gslpp::complex> CRlMU;
     gslpp::matrix<gslpp::complex> CRlTAU;
+    gslpp::matrix<gslpp::complex> CRqUP;
+    gslpp::matrix<gslpp::complex> CRqDOWN;
     gslpp::matrix<gslpp::complex> CLlE;
     gslpp::matrix<gslpp::complex> CLlMU;
     gslpp::matrix<gslpp::complex> CLlTAU;
+    gslpp::matrix<gslpp::complex> CLqUP;
+    gslpp::matrix<gslpp::complex> CLqDOWN;
     gslpp::matrix<gslpp::complex> NRlE;
     gslpp::matrix<gslpp::complex> NRlMU;
     gslpp::matrix<gslpp::complex> NRlTAU;
+    gslpp::matrix<gslpp::complex> NRqUP;
+    gslpp::matrix<gslpp::complex> NRqDOWN;
     gslpp::matrix<gslpp::complex> NLlE;
     gslpp::matrix<gslpp::complex> NLlMU;
     gslpp::matrix<gslpp::complex> NLlTAU;
+    gslpp::matrix<gslpp::complex> NLqUP;
+    gslpp::matrix<gslpp::complex> NLqDOWN;
     gslpp::matrix<gslpp::complex> AmpA1LN;
     gslpp::matrix<gslpp::complex> AmpA1RN;
     gslpp::matrix<gslpp::complex> AmpA1LC;
@@ -279,6 +317,8 @@ private:
     std::complex<double> Leptgzn[6][4][4];
     std::complex<double> Leptfzc[3][2][2];
     std::complex<double> Leptgzc[3][2][2];
+
+    gslpp::matrix<gslpp::complex> TEhat;
 
     double Q_S;
     double mu2R;
@@ -321,20 +361,29 @@ private:
     /** Calcolous Neutralino contribution to Wilson Coefficents **/
     gslpp::vector<gslpp::complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
 
-    gslpp::vector<gslpp::complex> AFunctions();
-    gslpp::vector<gslpp::complex> BFunctions();
-    gslpp::vector<gslpp::complex> FFunctions();
-    gslpp::vector<gslpp::complex> C7_Lepton();
-    gslpp::vector<gslpp::complex> C9_Lepton();
-    gslpp::vector<gslpp::complex> C10_Lepton();
-    gslpp::vector<gslpp::complex> CS_Lepton();
-    
-    
+    /** Re-diagonalisation of the Neutralino mass matrix **/
+    void NeutralinoRemixing();
+
+    /** Kronecker delta **/
+    int delta_ab(int a, int b);
+
+//    gslpp::vector<gslpp::complex> AFunctions();
+//    gslpp::vector<gslpp::complex> BFunctions();
+//    gslpp::vector<gslpp::complex> BHFunctions();
+//    gslpp::vector<gslpp::complex> DFunctions();
+//    gslpp::vector<gslpp::complex> FFunctions();
+//    gslpp::vector<gslpp::complex> C7_Lepton();
+//    gslpp::vector<gslpp::complex> C9_Lepton();
+//    gslpp::vector<gslpp::complex> C10_Lepton();
+//    gslpp::vector<gslpp::complex> CS_Lepton();
+//    gslpp::vector<gslpp::complex> CP_Lepton();
+//    gslpp::vector<gslpp::complex> CT_Lepton();
+
     /** Feynmann rule for the Chargino - down quark - up squarks vertex with tan beta correction  **/
-    
+
     gslpp::complex VdUCL_cache[3][6][2];
     gslpp::complex VdUCR_cache[3][6][2][2];
-    
+
     gslpp::complex VdUCL(int b, int k, int j);
     gslpp::complex VdUCR(int b, int k, int j, int flag);
     

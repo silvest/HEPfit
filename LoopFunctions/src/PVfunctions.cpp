@@ -600,6 +600,73 @@ complex PVfunctions::C0(const double p2,
 #endif    
 }
 
+double PVfunctions::C11(const double m12, const double m22, const double m32) const
+{
+    if ( m12<=0.0 || m22<=0.0 || m32<=0.0 )
+        throw std::runtime_error("PVfunctions::C11(): Argument is not positive!");
+
+    const double Tolerance = 2.5e-3;
+    double C11;
+
+    if ( 2.0*fabs(m12-m22) > (m12+m22)*Tolerance && 2.0*fabs(m12-m32) > (m12+m32)*Tolerance && 2.0*fabs(m22-m32) > (m22+m32)*Tolerance ) {
+        C11=(-m12*(m12-m22)*(m12-m32)*(m22-m32)
+             +m12*m12*m22*(2.0*m12-m22)*log(m12/m22)
+             +m12*m12*m32*(-2.0*m12+m32)*log(m12/m32)
+             +m22*m32*(-2.0*m12+m22)*(-2.0*m12+m32)*log(m22/m32))
+            /(2.0*(m12-m22)*(m12-m22)*(m12-m32)*(m12-m32)*(m22-m32));
+    }
+    else if ( 2.0*fabs(m12-m22) > (m12+m22)*Tolerance && 2.0*fabs(m12-m32) > (m12+m32)*Tolerance && 2.0*fabs(m22-m32) <= (m22+m32)*Tolerance ) {
+        C11=-((-12.0*m12*m12+8.0*m12*(m22+m32)-(m22+m32)*(m22+m32)+8.0*m12*m12*log((2.0*m12)/(m22+m32)))
+              /pow(-2.0*m12+m22+m32,3));
+    }
+    else if ( 2.0*fabs(m12-m22) > (m12+m22)*Tolerance && 2.0*fabs(m12-m32) <= (m12+m32)*Tolerance && 2.0*fabs(m22-m32) > (m22+m32)*Tolerance ) {
+        C11=(3.0*m12*m12-8.0*m12*m22+4.0*m22*m22+6.0*m12*m32-8.0*m22*m32+3.0*m32*m32+8.0*m22*(m12-m22+m32)*log((2.0*m22)/(m12+m32)))
+            /(2.0*pow(m12-2.0*m22+m32,3));
+    }
+    else if ( 2.0*fabs(m12-m22) <= (m12+m22)*Tolerance && 2.0*fabs(m12-m32) <= (m12+m32)*Tolerance && 2.0*fabs(m22-m32) <= (m22+m32)*Tolerance ) {
+        C11=1/(m12+m22+m32);
+    }
+    else {
+        C11=(3.0*m12*m12+6.0*m12*m22+3.0*m22*m22-8.0*m12*m32-8.0*m22*m32+4.0*m32*m32-8.0*m32*(m12+m22-m32)*log((m12+m22)/(2.0*m32)))
+            /(2.0*pow(m12+m22-2.0*m32,3));
+    }
+
+    return C11;
+}
+
+double PVfunctions::C12(const double m12, const double m22, const double m32) const
+{
+    if ( m12<=0.0 || m22<=0.0 || m32<=0.0 )
+        throw std::runtime_error("PVfunctions::C12(): Argument is not positive!");
+
+    const double Tolerance = 2.5e-3;
+    double C12;
+
+    if ( 2.0*fabs(m12-m22) > (m12+m22)*Tolerance && 2.0*fabs(m12-m32) > (m12+m32)*Tolerance && 2.0*fabs(m22-m32) > (m22+m32)*Tolerance ) {
+        C12=((m12-m22)*(m12-m32)*(m22-m32)*m32
+             +m12*m12*(m22*m22*log(m12/m22) +m32*(-2.0*m22+m32)*log(m12/m32))
+             +m22*m22*(2.0*m12-m32)*m32*log(m22/m32))
+            /(2.0*(m12-m22)*(m12-m32)*(m12-m32)*(m22-m32)*(m22-m32));
+    }
+    else if ( 2.0*fabs(m12-m22) > (m12+m22)*Tolerance && 2.0*fabs(m12-m32) > (m12+m32)*Tolerance && 2.0*fabs(m22-m32) <= (m22+m32)*Tolerance ) {
+        C12=-(-12.0*m12*m12+8.0*m12*(m22+m32)-(m22+m32)*(m22+m32)+8.0*m12*m12*log((2.0*m12)/(m22+m32)))
+             /(2.0*pow(-2.0*m12+m22+m32,3));
+    }
+    else if ( 2.0*fabs(m12-m22) > (m12+m22)*Tolerance && 2.0*fabs(m12-m32) <= (m12+m32)*Tolerance && 2.0*fabs(m22-m32) > (m22+m32)*Tolerance ) {
+        C12=(m12*m12-8.0*m12*m22+12.0*m22*m22+2.0*m12*m32-8.0*m22*m32+m32*m32-8.0*m22*m22*log((2.0*m22)/(m12+m32)))
+            /(2.0*pow(m12-2.0*m22+m32,3));
+    }
+    else if ( 2.0*fabs(m12-m22) <= (m12+m22)*Tolerance && 2.0*fabs(m12-m32) <= (m12+m32)*Tolerance && 2.0*fabs(m22-m32) <= (m22+m32)*Tolerance ) {
+        C12=1.0/(2.0*(m12+m22+m32));
+    }
+    else {
+        C12=(m12*m12+2.0*m12*m22+m22*m22-4.0*m32*m32-4.0*(m12+m22)*m32*log((m12+m22)/(2.0*m32)))
+            /pow(m12+m22-2.0*m32,3);
+    }
+
+    return C12;
+}
+
 complex PVfunctions::D0(const double s, const double t, const double m02,
                         const double m12, const double m22, const double m32) const
 {

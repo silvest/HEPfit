@@ -116,9 +116,6 @@ private:
 
     double ABS3;
     double ABS4;
-
-    int modelType;
-
 };
 
 

@@ -108,9 +108,7 @@ private:
     gslpp::complex A_A_L;
     gslpp::complex A_A_W;
     gslpp::complex A_A_Hp;
-    
-    int modelType;
-    
+
     double SigmaggF_A;
     double SigmabbF_A;
     

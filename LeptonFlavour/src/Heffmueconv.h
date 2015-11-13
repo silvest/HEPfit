@@ -1,12 +1,12 @@
 /*
- * Copyright (C) 2013 HEPfit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef HEFFDLIJ_H
-#define	HEFFDLIJ_H
+#ifndef HEFFMUECONV_H
+#define	HEFFMUECONV_H
 
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
@@ -14,20 +14,20 @@
 
 using namespace gslpp;
 
-class HeffDLij {
+class Heffmueconv {
 public:
     /**
      * @brief constructor
      * @param SM
      * @param modelmatching
      */
-    HeffDLij(const StandardModel & SM_i);
+    Heffmueconv(const StandardModel & SM_i);
     
     /**
      * 
      * @brief destructor
      */
-    virtual ~HeffDLij();
+    virtual ~Heffmueconv();
     
     /**
      * 
@@ -35,7 +35,7 @@ public:
      * @param 
      * @return
      */
-    vector<complex>** ComputeCoeffDLij(int li_lj);
+    vector<complex>** ComputeCoeffmueconv();
 
     const StandardModel& GetModel() const {
         return model;
@@ -44,12 +44,8 @@ public:
 private :
     const StandardModel& model;
 
-    WilsonCoefficient coeffDLij_1;
-    WilsonCoefficient coeffDLij_2;
-    WilsonCoefficient coeffDLij_3;
+    WilsonCoefficient coeffmueconv;
 
-    //gslpp::vector<complex> nlep, nlep2, nlepCC;
 };
 
-#endif	/* HEFFDLIJ_H */
-
+#endif	/* HEFFMUECONV_H */

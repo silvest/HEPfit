@@ -49,7 +49,8 @@ THDMcache::THDMcache()
         array44(986, 2, 0.),
         array45(986, 2, 0.),
         arrayX_bb(199, 2, 0.),
-        arrayX_tt(198, 2, 0.) 
+        arrayX_tt(198, 2, 0.),
+        arraybsgamma(1111, 3, 0.)
 {
   read();
 //  std::cout<<"read"<<std::endl;
@@ -508,79 +509,82 @@ void THDMcache::read(){
     std::stringstream dw1;
     std::stringstream cs1,cs2,cs3,cs4,cs5,cs6;
     std::stringstream ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15,ex16;
+    std::stringstream bsg1;
 
     std::cout<<"reading tables"<<std::endl;
 
     br1 << tablepath << "GridSM1.dat";
-    array1 = readTable(br1.str(),19861);
+    array1 = readTable(br1.str(),19861,2);
     br2 << tablepath << "GridSM2.dat";
-    array2 = readTable(br2.str(),19861);
+    array2 = readTable(br2.str(),19861,2);
     br3 << tablepath << "GridSM3.dat";
-    array3 = readTable(br3.str(),19861); 
+    array3 = readTable(br3.str(),19861,2); 
     br4 << tablepath << "GridSM4.dat";
-    array4 = readTable(br4.str(),19861);
+    array4 = readTable(br4.str(),19861,2);
     br5 << tablepath << "GridSM5.dat";
-    array5 = readTable(br5.str(),19861);
+    array5 = readTable(br5.str(),19861,2);
     br6 << tablepath << "GridSM6.dat";
-    array6 = readTable(br6.str(),19861);
+    array6 = readTable(br6.str(),19861,2);
     br7 << tablepath << "GridSM7.dat";
-    array7 = readTable(br7.str(),19861);
+    array7 = readTable(br7.str(),19861,2);
     pc1 << tablepath << "GridSM11.dat";
-    array11 = readTable(pc1.str(),1971);
+    array11 = readTable(pc1.str(),1971,2);
     pc2 << tablepath << "GridSM12.dat";
-    array12 = readTable(pc2.str(),1971);
+    array12 = readTable(pc2.str(),1971,2);
     pc3 << tablepath << "GridSM13.dat";
-    array13 = readTable(pc3.str(),1971);
+    array13 = readTable(pc3.str(),1971,2);
     pc4 << tablepath << "GridSM14.dat";
-    array14 = readTable(pc4.str(),1971);
+    array14 = readTable(pc4.str(),1971,2);
     pc5 << tablepath << "GridSM15.dat";
-    array15 = readTable(pc5.str(),1971);
+    array15 = readTable(pc5.str(),1971,2);
     ex1 << tablepath << "GridSM16.dat";
-    array16 = readTable(ex1.str(),9851);
+    array16 = readTable(ex1.str(),9851,2);
     ex2 << tablepath << "GridSM17.dat";
-    array17 = readTable(ex2.str(),9851);
+    array17 = readTable(ex2.str(),9851,2);
     dw1 << tablepath << "GridSM18.dat";
-    array18 = readTable(dw1.str(),19861);
+    array18 = readTable(dw1.str(),19861,2);
     cs1 << tablepath << "GridSM19.dat";
-    array19 = readTable(cs1.str(),186);
+    array19 = readTable(cs1.str(),186,2);
     cs2 << tablepath << "GridSM20.dat";
-    array20 = readTable(cs2.str(),186);
+    array20 = readTable(cs2.str(),186,2);
     cs3 << tablepath << "GridSM21.dat";
-    array21 = readTable(cs3.str(),186);
+    array21 = readTable(cs3.str(),186,2);
     cs4 << tablepath << "GridSM22.dat";
-    array22 = readTable(cs4.str(),186);
+    array22 = readTable(cs4.str(),186,2);
     cs5 << tablepath << "GridSM26.dat";
-    array26 = readTable(cs5.str(),992);
+    array26 = readTable(cs5.str(),992,2);
     cs6 << tablepath << "GridSM27.dat";
-    array27 = readTable(cs6.str(),185);
+    array27 = readTable(cs6.str(),185,2);
     ex3 << tablepath << "GridSM29.dat";
-    array29 = readTable(ex3.str(),986);
+    array29 = readTable(ex3.str(),986,2);
     ex4 << tablepath << "GridSM31.dat";
-    array31 = readTable(ex4.str(),985);
+    array31 = readTable(ex4.str(),985,2);
     ex5 << tablepath << "GridSM32.dat";
-    array32 = readTable(ex5.str(),496);
+    array32 = readTable(ex5.str(),496,2);
     ex6 << tablepath << "GridSM33.dat";
-    array33 = readTable(ex6.str(),496);
+    array33 = readTable(ex6.str(),496,2);
     ex7 << tablepath << "GridSM34.dat";
-    array34 = readTable(ex7.str(),991);
+    array34 = readTable(ex7.str(),991,2);
     ex8 << tablepath << "GridSM35.dat";
-    array35 = readTable(ex8.str(),496);
+    array35 = readTable(ex8.str(),496,2);
     ex9 << tablepath << "GridSM36.dat";
-    array36 = readTable(ex9.str(),496);
+    array36 = readTable(ex9.str(),496,2);
     ex10 << tablepath << "GridSM37.dat";
-    array37 = readTable(ex10.str(),100);
+    array37 = readTable(ex10.str(),100,2);
     ex11 << tablepath << "GridSM38.dat";
-    array38 = readTable(ex11.str(),100);
+    array38 = readTable(ex11.str(),100,2);
     ex12 << tablepath << "GridSM39.dat";
-    array39 = readTable(ex12.str(),986);
+    array39 = readTable(ex12.str(),986,2);
     ex13 << tablepath << "GridSM44.dat";
-    array44 = readTable(ex13.str(),986);
+    array44 = readTable(ex13.str(),986,2);
     ex14 << tablepath << "GridSM45.dat";
-    array45 = readTable(ex14.str(),986);
+    array45 = readTable(ex14.str(),986,2);
     ex15 << tablepath << "Grid_X_bb.dat";
-    arrayX_bb = readTable(ex15.str(),199);
+    arrayX_bb = readTable(ex15.str(),199,2);
     ex16 << tablepath << "Grid_X_tt.dat";
-    arrayX_tt = readTable(ex16.str(),198);
+    arrayX_tt = readTable(ex16.str(),198,2);
+    bsg1 << tablepath << "bsgammalist.dat";
+    arraybsgamma = readTable(bsg1.str(),1111,3);
 }    
     
     
@@ -863,8 +867,13 @@ double THDMcache::ex_H_tt(double mass){
 }
 
 
+double THDMcache::ex_bsgamma(double logtb, double logmHp){
+    return interpolate2D(arraybsgamma, logtb, logmHp);
+}
 
-gslpp::matrix<double> THDMcache::readTable(std::string filename, int rowN){
+
+
+gslpp::matrix<double> THDMcache::readTable(std::string filename, int rowN, int colN){
 
     std::ifstream INfile;
     std::string lineTab;
@@ -873,7 +882,7 @@ gslpp::matrix<double> THDMcache::readTable(std::string filename, int rowN){
         std::cout<<"error: in HEAVY"<<" doesn't exist!"<<std::endl;
     }
 
-    gslpp::matrix<double> arrayTab(rowN, 2, 0.);
+    gslpp::matrix<double> arrayTab(rowN, colN, 0.);
     int a =0;
     int b=0;
     double v;
@@ -898,36 +907,9 @@ gslpp::matrix<double> THDMcache::readTable(std::string filename, int rowN){
     return arrayTab;
 }
 
-//Old Interpolate function
+//1D interpolation
 
-//double THDMcache::OLDinterpolate (gslpp::matrix<double> arrayTab, double mass){
-//
-//    int rowN=arrayTab.size_i();
-//
-//    double y = 0.0;
-//    if(mass<arrayTab(0,0)){
-//        std::cout<<"error: your mass value is smaller than the minimum mass value"<<std::endl;
-//    }
-//    else if(mass>arrayTab(rowN-1,0)){
-//        std::cout<<"error: your mass value is greater than the maximum mass value"<<std::endl;
-//    }
-//    else{
-//        for(int i=0; i<rowN; i++){
-//            if( (mass>=arrayTab(i,0)) && (mass<=arrayTab(i+1,0)) ){
-//                y =(arrayTab(i+1,1)-arrayTab(i,1))/(arrayTab(i+1,0)
-//                   -arrayTab(i,0))*(mass-arrayTab(i,0))+arrayTab(i,1);
-//                 break;       
-//        }
-//            
-//        }
-//        return y;
-//    }
-//    
-//}
-
-//New Interpolate function
-
-double THDMcache::interpolate (gslpp::matrix<double> arrayTab, double mass){
+double THDMcache::interpolate(gslpp::matrix<double> arrayTab, double mass){
 
     int rowN=arrayTab.size_i();
     
@@ -939,9 +921,11 @@ double THDMcache::interpolate (gslpp::matrix<double> arrayTab, double mass){
        
     if(mass<Mmin){
         std::cout<<"error: your mass value is smaller than the minimum mass value"<<std::endl;
+        return 0.;
     }
     else if(mass>Mmax){
         std::cout<<"error: your mass value is greater than the maximum mass value"<<std::endl;
+        return 0.;
     }
     else{
         
@@ -949,5 +933,39 @@ double THDMcache::interpolate (gslpp::matrix<double> arrayTab, double mass){
                    -arrayTab(Nintervals,0))*(mass-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
         
         return y;
+    }
+}
+
+//2D interpolation
+
+double THDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x, double y){
+
+    int rowN=arrayTab.size_i();
+    
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double ymin = arrayTab(0,1);
+    double ymax = arrayTab(rowN-1,1);
+    double intervalx = arrayTab(1,0)-arrayTab(0,0);
+    int i=1;
+    do i++;
+    while(arrayTab(i,1)-arrayTab(i-1,1)==0&&i<10000);
+    double intervaly = arrayTab(i,1)-arrayTab(i-1,1);
+    int Nintervalsx = (x-xmin)/intervalx;
+    int Nintervalsy = (y-ymin)/intervaly;
+    if(x<xmin||x>xmax||y<ymin||y>ymax){
+        std::cout<<"error: the parameter point lies outside the table"<<std::endl;
+        return 0.;
+    }
+    else{
+    double x1=arrayTab(i*Nintervalsy+Nintervalsx,0);
+    double x2=arrayTab(i*Nintervalsy+Nintervalsx+1,0);
+    double y1=arrayTab(i*Nintervalsy+Nintervalsx,1);
+    double y2=arrayTab(i*(Nintervalsy+1)+Nintervalsx,1);
+    return (arrayTab(i*Nintervalsy+Nintervalsx,2) * (x2-x) * (y2-y)
+            +arrayTab(i*Nintervalsy+Nintervalsx+1,2) * (x-x1) * (y2-y)
+            +arrayTab(i*(Nintervalsy+1)+Nintervalsx,2) * (x2-x) * (y-y1)
+            +arrayTab(i*(Nintervalsy+1)+Nintervalsx+1,2) * (x-x1) * (y-y1))
+           /((x2-x1)*(y2-y1));
     }
 }
