@@ -109,6 +109,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FD", boost::cref(mesons[D_0].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBs", boost::cref(mesons[B_S].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(mesons[K_star].getDecayconst())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(FKstarp)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(mesons[PHI].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK1", boost::cref(BK.getBpars()(0))));
@@ -420,6 +421,8 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[D_0].setDecayconst(value);
     else if (name.compare("FKstar") == 0)
         mesons[K_star].setDecayconst(value);
+    else if (name.compare("FKstarp") == 0)
+        FKstarp = value;
     else if (name.compare("Fphi") == 0)
         mesons[PHI].setDecayconst(value);
     else if (name.compare("FBs") == 0) {
