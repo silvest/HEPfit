@@ -4,8 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/BDtaunu.h</itemPath>
-      <itemPath>src/B_to_mumu.h</itemPath>
       <itemPath>src/CPoddHiggsCache.h</itemPath>
       <itemPath>src/EWPO.h</itemPath>
       <itemPath>src/STU.h</itemPath>
@@ -33,8 +31,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/BDtaunu.cpp</itemPath>
-      <itemPath>src/B_to_mumu.cpp</itemPath>
       <itemPath>src/CPoddHiggsCache.cpp</itemPath>
       <itemPath>src/EWPO.cpp</itemPath>
       <itemPath>src/STU.cpp</itemPath>
@@ -87,14 +83,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
@@ -199,14 +187,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
@@ -311,14 +291,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
