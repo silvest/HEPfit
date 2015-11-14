@@ -2011,19 +2011,24 @@ protected:
     double FKstarp; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
-
     double Nc; ///< The number of colours.
-    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     Particle quarks[6]; ///< The vector of all SM quarks.
     Meson mesons[MESON_END]; ///< The vector of defined mesons.
+private:
+    
+    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     BParameter BBs; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_s\f$ meson system.
     BParameter BBd; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_d\f$ meson system.
     BParameter BD; ///< The bag parameters for \f$\Delta c=2\f$ processes for the \f$D^0\f$ meson system.
     BParameter BK; ///< The bag parameters for \f$\Delta s=2\f$ processes for the \f$K^0\f$ meson system.
     BParameter BKd1;
     BParameter BKd3;
-
-private:
+    double BBsB0, BBsB1, BBsB2, BBsB3, BBsB4, BBsscale;
+    double BBdB0, BBdB1, BBdB2, BBdB3, BBdB4, BBdscale;
+    double BDB0, BDB1, BDB2, BDB3, BDB4, BDscale;
+    double BKB0, BKB1, BKB2, BKB3, BKB4, BKscale;
+    double BKd1B0, BKd1B1, BKd1B2, BKd1B3, BKd1B4, BKd1B5, BKd1B6, BKd1B7, BKd1B8, BKd1B9, BKd_scale;
+    double BKd3B0, BKd3B1, BKd3B2, BKd3B3, BKd3B4, BKd3B5, BKd3B6, BKd3B7, BKd3B8, BKd3B9;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.

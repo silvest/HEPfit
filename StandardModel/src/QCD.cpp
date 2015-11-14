@@ -112,46 +112,46 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(FKstarp)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(mesons[PHI].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK1", boost::cref(BK.getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK2", boost::cref(BK.getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK3", boost::cref(BK.getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK4", boost::cref(BK.getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK5", boost::cref(BK.getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKscale", boost::cref(BK.getMu()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD1", boost::cref(BD.getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD2", boost::cref(BD.getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD3", boost::cref(BD.getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD4", boost::cref(BD.getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD5", boost::cref(BD.getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDscale", boost::cref(BD.getMu()(0))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK1", boost::cref(BKB0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK2", boost::cref(BKB1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK3", boost::cref(BKB2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK4", boost::cref(BKB3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK5", boost::cref(BKB4)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKscale", boost::cref(BKscale)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD1", boost::cref(BDB0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD2", boost::cref(BDB1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD3", boost::cref(BDB2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD4", boost::cref(BDB3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD5", boost::cref(BDB4)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDscale", boost::cref(BDscale)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsoBBd", boost::cref(BBsoBBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs1", boost::cref(BBs.getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs2", boost::cref(BBs.getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs3", boost::cref(BBs.getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs4", boost::cref(BBs.getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs5", boost::cref(BBs.getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsscale", boost::cref(BBs.getMu()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)1", boost::cref(BKd1.getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)2", boost::cref(BKd1.getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)3", boost::cref(BKd1.getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)4", boost::cref(BKd1.getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)5", boost::cref(BKd1.getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)6", boost::cref(BKd1.getBpars()(5))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)7", boost::cref(BKd1.getBpars()(6))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)8", boost::cref(BKd1.getBpars()(7))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)9", boost::cref(BKd1.getBpars()(8))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)10", boost::cref(BKd1.getBpars()(9))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)1", boost::cref(BKd3.getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)2", boost::cref(BKd3.getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)3", boost::cref(BKd3.getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)4", boost::cref(BKd3.getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)5", boost::cref(BKd3.getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)6", boost::cref(BKd3.getBpars()(5))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)7", boost::cref(BKd3.getBpars()(6))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)8", boost::cref(BKd3.getBpars()(7))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)9", boost::cref(BKd3.getBpars()(8))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)10", boost::cref(BKd3.getBpars()(9))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKd_scale", boost::cref(BKd1.getMu()(0))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs1", boost::cref(BBsB0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs2", boost::cref(BBsB1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs3", boost::cref(BBsB2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs4", boost::cref(BBsB3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs5", boost::cref(BBsB4)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsscale", boost::cref(BBsscale)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)1", boost::cref(BKd1B0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)2", boost::cref(BKd1B1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)3", boost::cref(BKd1B2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)4", boost::cref(BKd1B3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)5", boost::cref(BKd1B4)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)6", boost::cref(BKd1B5)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)7", boost::cref(BKd1B6)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)8", boost::cref(BKd1B7)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)9", boost::cref(BKd1B8)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)10", boost::cref(BKd1B9)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)1", boost::cref(BKd3B0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)2", boost::cref(BKd3B1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)3", boost::cref(BKd3B2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)4", boost::cref(BKd3B3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)5", boost::cref(BKd3B4)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)6", boost::cref(BKd3B5)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)7", boost::cref(BKd3B6)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)8", boost::cref(BKd3B7)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)9", boost::cref(BKd3B8)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)10", boost::cref(BKd3B9)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKd_scale", boost::cref(BKd_scale)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ReA2_Kd", boost::cref(ReA2_Kd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ReA0_Kd", boost::cref(ReA0_Kd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Omega_eta_etap", boost::cref(Omega_eta_etap)));
@@ -431,101 +431,145 @@ void QCD::setParameter(const std::string name, const double& value)
     } else if (name.compare("FBsoFBd") == 0) {
         FBsoFBd = value;
         computeFBd = true;
-    } else if (name.compare("BK1") == 0)
+    } else if (name.compare("BK1") == 0) {
         BK.setBpars(0, value);
-    else if (name.compare("BK2") == 0)
+        BKB0 = value;
+    } else if (name.compare("BK2") == 0) {
         BK.setBpars(1, value);
-    else if (name.compare("BK3") == 0)
+        BKB1 = value;
+    } else if (name.compare("BK3") == 0) {
         BK.setBpars(2, value);
-    else if (name.compare("BK4") == 0)
+        BKB2 = value;
+    } else if (name.compare("BK4") == 0) {
         BK.setBpars(3, value);
-    else if (name.compare("BK5") == 0)
+        BKB3 = value;
+    } else if (name.compare("BK5") == 0) {
         BK.setBpars(4, value);
-    else if (name.compare("BKscale") == 0)
+        BKB4 = value;
+    } else if (name.compare("BKscale") == 0) {
         BK.setMu(value);
-    else if (name.compare("BKscheme") == 0)
+        BKscale = value;
+    } else if (name.compare("BKscheme") == 0)
         BK.setScheme((schemes) value);
-    else if (name.compare("BD1") == 0)
+    else if (name.compare("BD1") == 0) {
         BD.setBpars(0, value);
-    else if (name.compare("BD2") == 0)
+        BDB0 = value;
+    } else if (name.compare("BD2") == 0) {
         BD.setBpars(1, value);
-    else if (name.compare("BD3") == 0)
+        BDB1 = value;
+    } else if (name.compare("BD3") == 0) {
         BD.setBpars(2, value);
-    else if (name.compare("BD4") == 0)
+        BDB2 = value;
+    } else if (name.compare("BD4") == 0) {
         BD.setBpars(3, value);
-    else if (name.compare("BD5") == 0)
+        BDB3 = value;
+    } else if (name.compare("BD5") == 0) {
         BD.setBpars(4, value);
-    else if (name.compare("BDscale") == 0)
+        BDB4 = value;
+    } else if (name.compare("BDscale") == 0) {
         BD.setMu(value);
-    else if (name.compare("BDscheme") == 0)
+        BDscale = value;
+    } else if (name.compare("BDscheme") == 0)
         BD.setScheme((schemes) value);
     else if (name.compare("BBsoBBd") == 0) {
         BBsoBBd = value;
         computeBd = true;
     } else if (name.compare("BBs1") == 0) {
         BBs.setBpars(0, value);
+        BBsB0 = value;
         computeBd = true;
     } else if (name.compare("BBs2") == 0) {
         BBd.setBpars(1, value);
         BBs.setBpars(1, value);
+        BBsB1 = value;
+        BBdB1 = value;
     } else if (name.compare("BBs3") == 0) {
         BBd.setBpars(2, value);
         BBs.setBpars(2, value);
+        BBsB2 = value;
+        BBdB2 = value;
     } else if (name.compare("BBs4") == 0) {
         BBd.setBpars(3, value);
         BBs.setBpars(3, value);
+        BBsB3 = value;
+        BBdB3 = value;
     } else if (name.compare("BBs5") == 0) {
         BBd.setBpars(4, value);
         BBs.setBpars(4, value);
+        BBsB4 = value;
+        BBdB4 = value;
     } else if (name.compare("BBsscale") == 0) {
         BBd.setMu(value);
         BBs.setMu(value);
+        BBsscale = value;
+        BBdscale = value;
     } else if (name.compare("BBsscheme") == 0) {
         BBd.setScheme((schemes) value);
         BBs.setScheme((schemes) value);
-    } else if (name.compare("BK(1/2)1") == 0)
+    } else if (name.compare("BK(1/2)1") == 0) {
         BKd1.setBpars(0, value);
-    else if (name.compare("BK(1/2)2") == 0)
+        BKd1B0 = value;
+    } else if (name.compare("BK(1/2)2") == 0) {
         BKd1.setBpars(1, value);
-    else if (name.compare("BK(1/2)3") == 0)
+        BKd1B1 = value;
+    } else if (name.compare("BK(1/2)3") == 0) {
         BKd1.setBpars(2, value);
-    else if (name.compare("BK(1/2)4") == 0)
+        BKd1B2 = value;
+    } else if (name.compare("BK(1/2)4") == 0) {
         BKd1.setBpars(3, value);
-    else if (name.compare("BK(1/2)5") == 0)
+        BKd1B3 = value;
+    } else if (name.compare("BK(1/2)5") == 0) {
         BKd1.setBpars(4, value);
-    else if (name.compare("BK(1/2)6") == 0)
+        BKd1B4 = value;
+    } else if (name.compare("BK(1/2)6") == 0){
         BKd1.setBpars(5, value);
-    else if (name.compare("BK(1/2)7") == 0)
+        BKd1B5 = value;
+    } else if (name.compare("BK(1/2)7") == 0){
         BKd1.setBpars(6, value);
-    else if (name.compare("BK(1/2)8") == 0)
+        BKd1B6 = value;
+    } else if (name.compare("BK(1/2)8") == 0) {
         BKd1.setBpars(7, value);
-    else if (name.compare("BK(1/2)9") == 0)
+        BKd1B7 = value;
+    } else if (name.compare("BK(1/2)9") == 0) {
         BKd1.setBpars(8, value);
-    else if (name.compare("BK(1/2)10") == 0)
+        BKd1B8 = value;
+    } else if (name.compare("BK(1/2)10") == 0) {
         BKd1.setBpars(9, value);
-    else if (name.compare("BK(3/2)1") == 0)
+        BKd1B9 = value;
+    } else if (name.compare("BK(3/2)1") == 0) {
         BKd3.setBpars(0, value);
-    else if (name.compare("BK(3/2)2") == 0)
+        BKd3B0 = value;
+    } else if (name.compare("BK(3/2)2") == 0) {
         BKd3.setBpars(1, value);
-    else if (name.compare("BK(3/2)3") == 0)
+        BKd3B1 = value;
+    } else if (name.compare("BK(3/2)3") == 0) {
         BKd3.setBpars(2, value);
-    else if (name.compare("BK(3/2)4") == 0)
+        BKd3B2 = value;
+    } else if (name.compare("BK(3/2)4") == 0) {
         BKd3.setBpars(3, value);
-    else if (name.compare("BK(3/2)5") == 0)
+        BKd3B3 = value;
+    } else if (name.compare("BK(3/2)5") == 0) {
         BKd3.setBpars(4, value);
-    else if (name.compare("BK(3/2)6") == 0)
+        BKd3B4 = value;
+    } else if (name.compare("BK(3/2)6") == 0) {
         BKd3.setBpars(5, value);
-    else if (name.compare("BK(3/2)7") == 0)
+        BKd3B5 = value;
+    } else if (name.compare("BK(3/2)7") == 0) {
         BKd3.setBpars(6, value);
-    else if (name.compare("BK(3/2)8") == 0)
+        BKd3B6 = value;
+    } else if (name.compare("BK(3/2)8") == 0) {
         BKd3.setBpars(7, value);
-    else if (name.compare("BK(3/2)9") == 0)
+        BKd3B7 = value;
+    } else if (name.compare("BK(3/2)9") == 0) {
         BKd3.setBpars(8, value);
-    else if (name.compare("BK(3/2)10") == 0)
+        BKd3B8 = value;
+    } else if (name.compare("BK(3/2)10") == 0) {
         BKd3.setBpars(9, value);
-    else if (name.compare("BKd_scale") == 0) {
+        BKd3B9 = value;
+    } else if (name.compare("BKd_scale") == 0) {
         BKd1.setMu(value);
         BKd3.setMu(value);
+        BKd_scale = value;
     } else if (name.compare("BKd_scheme") == 0) {
         BKd1.setScheme((schemes) value);
         BKd3.setScheme((schemes) value);
