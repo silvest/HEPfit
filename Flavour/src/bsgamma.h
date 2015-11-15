@@ -13,6 +13,8 @@
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
 
+#define FOUR_BODY false
+
 /**
  * @class Bsgamma
  * @ingroup Flavour
@@ -684,11 +686,27 @@ public:
     
     
     /**
+    * @brief The \f$ \Phi_{23}^{(1)}_{\rm 4-body} \f$ function from xxxxxxxxxxxxxxxx.
+    * @param[in] E0 energy cutoff
+    * @return \f$ \Phi_{23}^{(1)}_{\rm 4-body} \f$
+    */
+    double Phi23_1_4body(double E0);
+    
+    
+    /**
     * @brief The \f$ \Phi_{23}^{(1)} \f$ function from xxxxxxxxxxxxxxxx.
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{23}^{(1)} \f$
     */
     double Phi23_1(double E0);
+    
+    
+    /**
+    * @brief The \f$ \Phi_{24}^{(1)}_{\rm 4-body} \f$ function from xxxxxxxxxxxxxxxx.
+    * @param[in] E0 energy cutoff
+    * @return \f$ \Phi_{24}^{(1)}_{\rm 4-body} \f$
+    */
+    double Phi24_1_4body(double E0);
     
     
     /**
@@ -700,11 +718,27 @@ public:
     
     
     /**
+    * @brief The \f$ \Phi_{25}^{(1)}_{\rm 4-body} \f$ function from xxxxxxxxxxxxxxxx.
+    * @param[in] E0 energy cutoff
+    * @return \f$ \Phi_{25}^{(1)}_{\rm 4-body} \f$
+    */
+    double Phi25_1_4body(double E0);
+    
+    
+    /**
     * @brief The \f$ \Phi_{25}^{(1)} \f$ function from xxxxxxxxxxxxxxxx.
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{25}^{(1)} \f$
     */
     double Phi25_1(double E0);
+    
+    
+    /**
+    * @brief The \f$ \Phi_{26}^{(1)}_{\rm 4-body} \f$ function from xxxxxxxxxxxxxxxx.
+    * @param[in] E0 energy cutoff
+    * @return \f$ \Phi_{26}^{(1)}_{\rm 4-body} \f$
+    */
+    double Phi26_1_4body(double E0);
     
     
     /**
@@ -1371,6 +1405,16 @@ public:
     
     
     /**
+    * @brief The ratio \f$C = | \frac{V_{ub}}{V_{cb}} |^2 \frac{\Gamma[\bar{B} \to X_c e \bar{\nu}]}{\Gamma[\bar{B} \to X_u e \bar{\nu}]} \f$ 
+    * as defined in arXiv:1307.4551, but with coefficients 
+    * slightly modified due to different imput parameters (obtained by private
+    * conversation with Paolo Gambino).
+    * @return \f$C\f$
+    */
+    double C_sem();
+    
+    
+    /**
     * @brief The \f$BR\f$ as defined in arXiv:1005.1173.
     * @param[in] order perturbation theory order
     */
@@ -1405,6 +1449,7 @@ private:
     double mu_G2;
     double rho_D3;
     double rho_LS3;
+    double BLNPcorr;
     
     int obs; /**<observable type*/
     
@@ -1488,8 +1533,6 @@ private:
     
     double Intb_cache;/**< Cache variable */
     gslpp::vector<double> Intbc_cache;/**< Cache variable */
-    
-    EvolDB1bsg myevol;
     
 };
 

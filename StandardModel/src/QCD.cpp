@@ -48,7 +48,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "reh_0_2", "reh_p_2", "reh_m_2", "imh_0_2", "imh_p_2", "imh_m_2",
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
     "reh_0_MP", "imh_0_MP", "reh_0_1_MP", "imh_0_1_MP",
-    "bsgamma_E0", "bsgamma_C",
+    "bsgamma_E0", "BLNPcorr", "Gambino_mukin", "Gambino_BRsem", "Gambino_Mbkin", "Gambino_Mcatmuc", "Gambino_mupi2", "Gambino_rhoD3", "Gambino_muG2", "Gambino_rhoLS3",
     "lambdaB", "alpha1kst", "alpha2kst"
     //"r_2A0", "r_2T1", "r_2T2", "r_2A0phi", "r_2T1phi", "r_2T2phi"
 };
@@ -248,7 +248,15 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_f0", boost::cref(r_2_f0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_f0", boost::cref(m_fit2_f0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_E0", boost::cref(bsgamma_E0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_C", boost::cref(bsgamma_C)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BLNPcorr", boost::cref(BLNPcorr)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_mukin", boost::cref(Gambino_mukin)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_BRsem", boost::cref(Gambino_BRsem)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_Mbkin", boost::cref(Gambino_Mbkin)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_Mcatmuc", boost::cref(Gambino_Mcatmuc)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_mupi2", boost::cref(Gambino_mupi2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_rhoD3", boost::cref(Gambino_rhoD3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_muG2", boost::cref(Gambino_muG2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_rhoLS3", boost::cref(Gambino_rhoLS3)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
@@ -765,8 +773,24 @@ void QCD::setParameter(const std::string name, const double& value)
         m_fit2_f0 = value;
     else if (name.compare("bsgamma_E0") == 0)
         bsgamma_E0 = value;
-    else if (name.compare("bsgamma_C") == 0)
-        bsgamma_C = value;
+    else if (name.compare("BLNPcorr") == 0)
+        BLNPcorr = value;
+    else if (name.compare("Gambino_mukin") == 0)
+        Gambino_mukin = value;
+    else if (name.compare("Gambino_BRsem") == 0)
+        Gambino_BRsem = value;
+    else if (name.compare("Gambino_Mbkin") == 0)
+        Gambino_Mbkin = value;
+    else if (name.compare("Gambino_Mcatmuc") == 0)
+        Gambino_Mcatmuc = value;
+    else if (name.compare("Gambino_mupi2") == 0)
+        Gambino_mupi2 = value;
+    else if (name.compare("Gambino_rhoD3") == 0)
+        Gambino_rhoD3 = value;
+    else if (name.compare("Gambino_muG2") == 0)
+        Gambino_muG2 = value;
+    else if (name.compare("Gambino_rhoLS3") == 0)
+        Gambino_rhoLS3 = value;
     else if (name.compare("lambdaB") == 0)
         mesons[B_D].setLambdaM(value);
     else if (name.compare("alpha1kst") == 0)
@@ -901,6 +925,47 @@ double QCD::Als4(const double mu) const
 {
     double v = 1. - Beta0(4.) * AlsM / 2. / M_PI * log(MAls / mu);
     return (AlsM / v * (1. - Beta1(4.) / Beta0(4.) * AlsM / 4. / M_PI * log(v) / v));
+}
+
+double QCD::Alstilde5(const double mu) const
+{
+    double mu_0 = MAls;
+    double alphatilde_e = alphaMz()/4./M_PI;
+    double alphatilde_s = AlsM/4./M_PI;
+    unsigned int nf = 5;
+
+    double B00S = Beta0(nf), B10S = Beta1(nf), B20S = Beta2(nf), B30S = gsl_sf_zeta_int(3) * 352864./81. - 598391./1458,
+            B01S = -22./9., B11S = -308./27., B02S = 4945./243.; 
+
+    double B00E = 80./9., B01E = 176./9., B10E = 464./27.; 
+
+    double B10soB00s = B10S / B00S;
+    double B01soB00e = B01S/B00E;
+
+    double vs= 1. + 2. * B00S * alphatilde_s * log(mu/ mu_0);
+    double ve= 1. - 2. * B00E * alphatilde_e * log(mu/ mu_0);
+    double ps= B00S * alphatilde_s /(B00S * alphatilde_s + B00E * alphatilde_e);
+
+    double logve = log(ve);
+    double logvs = log(vs);
+    double logeos = log(ve/vs);
+    double logsoe = log(vs/ve);
+    double asovs = alphatilde_s/vs;
+    double aeove = alphatilde_e/ve;
+
+    double result = 0;
+
+    result = asovs - pow(asovs, 2) * (logvs * B10soB00s - logve * B01soB00e) 
+            +  pow(asovs, 3) * ((1. - vs) * B20S / B00S + B10soB00s * B10soB00s * (logvs * logvs - logvs
+            + vs - 1.) + B01soB00e * B01soB00e * logve * logve + (-2. * logvs * logve 
+            + ps * ve * logve) * B01S * B10S/(B00E * B00S)) 
+            +  pow(asovs, 4) * (0.5 * B30S *(1. - vs * vs)/ B00S + ((2. * vs - 3.) * logvs + vs * vs 
+            - vs) * B20S * B10soB00s /(B00S) + B10soB00s * B10soB00s * B10soB00s * (- pow(logvs,3) 
+            + 5. * pow(logvs,2) / 2. + 2. * (1. - vs) * logvs - (vs - 1.) * (vs - 1.)* 0.5)) 
+            + pow(asovs, 2) * (aeove) * ((ve - 1.) * B02S / B00E 
+            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00S) 
+            + logvs * ve * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
+    return (result);
 }
 
 double QCD::AlsWithLambda(const double mu, const double logLambda,

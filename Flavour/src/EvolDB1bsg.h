@@ -68,9 +68,6 @@ class EvolDB1bsg : public RGEvolutor {
      */
     gslpp::matrix<double> ToEffectiveBasis(gslpp::matrix<double> mat)const;
     
-    
-    double alphatilde_s(double mu);
-    
 private:
     /**
      * @param nu an unsigned integer for the up-type number of d.o.f.

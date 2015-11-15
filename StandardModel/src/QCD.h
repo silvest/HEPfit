@@ -661,7 +661,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 178; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 186; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1736,11 +1736,75 @@ public:
     }
     
     /**
-     * @return the semileptonic phase space ratio involved in the phenomenological computation of the @f$b\to s\gamma@f$ BR.
+     * @return the Benzke, Lee, Neubert, Paz non perturbative correction for @f$b\to s \gamma@f$ from arXiv:1003.5012.
      */
-    double getbsgamma_C() const
+    double getBLNPcorr() const
     {
-        return bsgamma_C;
+        return BLNPcorr;
+    }
+    
+    /**
+     * @return the kinetic scale used in arXiv:1411.6560.
+     */
+    double getGambino_mukin() const
+    {
+        return Gambino_mukin;
+    }
+    
+    /**
+     * @return the fit value for the branching ratio of @f$B\to X_c e\nu@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_BRsem() const
+    {
+        return Gambino_BRsem;
+    }
+    
+    /**
+     * @return the fit value for the kinetic b mass @f$M_b^{\rm kin}(\mu^{\rm kin})@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_Mbkin() const
+    {
+        return Gambino_Mbkin;
+    }
+    
+    /**
+     * @return the fit value for the MSbar mass @f$M_c(\mu_c)@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_Mcatmuc() const
+    {
+        return Gambino_Mcatmuc;
+    }
+    
+    /**
+     * @return the fit value for @f$\mu_{\pi}^2@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_mupi2() const
+    {
+        return Gambino_mupi2;
+    }
+    
+    /**
+     * @return the fit value for @f$\rho_D^3@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_rhoD3() const
+    {
+        return Gambino_rhoD3;
+    }
+    
+    /**
+     * @return the fit value for @f$\mu_G^2@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_muG2() const
+    {
+        return Gambino_muG2;
+    }
+    
+    /**
+     * @return the fit value for@f$\rho_{LS}^3@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_rhoLS3() const
+    {
+        return Gambino_rhoLS3;
     }
     
     /**
@@ -1861,6 +1925,16 @@ public:
      * @attention Temporary function waiting for the implementation of NNLO etact.
      */
     double Als4(const double mu) const;
+    
+    virtual double alphaMz() const = 0;
+
+    /**
+     * @brief The value of \f$\frac{\alpha_s^{\mathrm{FULLNLO}}}{4\pi}\f$ at any scale \f$\mu\f$ with the number of flavours
+     * \f$n_f = 4\f$ and full EW corrections.
+     * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
+     * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\5$
+     */
+    double Alstilde5(const double mu) const;
 
     /**
      * @brief The running of a mass with the number of flavours \f$n_f = 4\f$.
@@ -2007,7 +2081,8 @@ protected:
     double r_1_fplus, r_2_fplus, m_fit2_fplus;
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
-    double bsgamma_E0, bsgamma_C;
+    double bsgamma_E0, BLNPcorr;
+    double Gambino_mukin, Gambino_BRsem, Gambino_Mbkin, Gambino_Mcatmuc, Gambino_mupi2, Gambino_rhoD3, Gambino_muG2, Gambino_rhoLS3;
     double FKstarp; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations

@@ -7,7 +7,7 @@
 
 /* 
  * Gambino's parameters hardcoded
- * phi1.4body hardcoded
+ * phi1.4body hardcoded, currently switched off through the macro FOUR_BODY set to false
  * VubNNLO and EW parts missing
  */
 
@@ -21,8 +21,7 @@
 
 Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
-Intbc_cache(2, 0.),
-myevol(8, NDR, NLO, SM)
+Intbc_cache(2, 0.)
 {
     if (SM.ModelName().compare("StandardModel") != 0 && SM.ModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
     
@@ -669,28 +668,60 @@ double Bsgamma::Phi22_1(double E0)
     return 16./27. * Int_cc1(E0);
 }
 
+double Bsgamma::Phi23_1_4body(double E0)
+{
+    if (FOUR_BODY)
+        return 0.0039849625073434735;
+    else
+        return 0.;
+}
+
 double Bsgamma::Phi23_1(double E0)
 {
     return -8./27. * (Int_c1(E0) + Int_c2(E0) + 2.*Int_bc1(E0) - 2.*Int_bc2(E0))
-            - 0.0039849625073434735;
+            - Phi23_1_4body(E0);
+}
+
+double Bsgamma::Phi24_1_4body(double E0)
+{
+    if (FOUR_BODY)
+        return 0.012330977673588935;
+    else
+        return 0.;
 }
 
 double Bsgamma::Phi24_1(double E0)
 {
-    return -1./6. * (Phi23_1(E0) + 0.0039849625073434735)
-            - 0.012330977673588935;
+    return -1./6. * (Phi23_1(E0) + Phi23_1_4body(E0))
+            - Phi24_1_4body(E0);
+}
+
+double Bsgamma::Phi25_1_4body(double E0)
+{
+    if (FOUR_BODY)
+        return 0.06375940011749558;
+    else
+        return 0.;
 }
 
 double Bsgamma::Phi25_1(double E0)
 {
     return -32./27. * (4.*Int_c1(E0) + Int_c2(E0) + 8.*Int_bc1(E0) - 2.*Int_bc2(E0))
-            - 0.06375940011749558;
+            - Phi25_1_4body(E0);
+}
+
+double Bsgamma::Phi26_1_4body(double E0)
+{
+    if (FOUR_BODY)
+        return 0.11932481422855279;
+    else
+        return 0.;
 }
 
 double Bsgamma::Phi26_1(double E0)
 {
     return 16./81. * (4.*Int_c1(E0) + Int_c2(E0) - 10.*Int_bc1(E0) - 2.*Int_bc2(E0) + 36.*Int_cc1(E0))
-            - 0.11932481422855279;
+            - Phi26_1_4body(E0);
 }
 
 double Bsgamma::Phi27_1(double E0, double z)
@@ -777,7 +808,7 @@ double Bsgamma::Phi36_1(double E0)
     
     return 8./81. * (5.*Int_b1(E0) + Int_b2(E0) + 4.*Int_b4(E0)
             - 18.*Int_bb1(E0) + 8.*Int_bb2(E0) - 4.*Int_bb4(E0))
-            + 6. * (Phi23_1(E0) + 0.0039849625073434735)
+            + 6. * (Phi23_1(E0) + Phi23_1_4body(E0))
             - 2./27. * d * ( 4./3. - d2 + 1./2.*d3 - 1./15.*d4 );
 }
 
@@ -842,7 +873,7 @@ double Bsgamma::Phi56_1(double E0)
     
     return 32./81. * (20.*Int_b1(E0) + Int_b2(E0) + 4.*Int_b4(E0)
             + 24.*Int_bb1(E0) + 14.*Int_bb2(E0) - 4.*Int_bb4(E0))
-            + 6. * (Phi25_1(E0) + 0.06375940011749558)
+            + 6. * (Phi25_1(E0) + Phi25_1_4body(E0))
             - 8./27. * d * ( 11./3. - 2.*d2 + 2./3.*d3 - 1./15.*d4 );
 }
 
@@ -1243,7 +1274,6 @@ double Bsgamma::Y2NV_PHI4(double rho)
 
 double Bsgamma::Y2NV(double E0, double mu)
 {
-    //double z0 = 1. - delta(E0);
     double Lb = log(mu/Mb_kin);
     double rho = zeta();
     double rho2 = rho*rho;
@@ -1267,7 +1297,6 @@ double Bsgamma::Y2NV(double E0, double mu)
 
 double Bsgamma::Y2NH(double E0, double mu)
 {
-    //double z0 = 1. - delta(E0);
     double Lb = log(mu/Mb_kin);
     double zeta3 = gsl_sf_zeta_int(3);
     double Cl2 = gsl_sf_clausen(M_PI/3.);
@@ -1908,25 +1937,29 @@ double Bsgamma::Vub_NLO_3body(double E0,bool CPodd)
 
 double Bsgamma::Vub_NLO_4body(double E0, bool CPodd)
 {
-    double d = delta(E0);
-    double d2 = d*d;
-    double d3 = d2*d;
-    double Ld = log(d);
-    double Lumd = log(1. - d);
-    double Lq = log(Ms/Mb_kin);
+    if (FOUR_BODY) {
+        double d = delta(E0);
+        double d2 = d*d;
+        double d3 = d2*d;
+        double Ld = log(d);
+        double Lumd = log(1. - d);
+        double Lq = log(Ms/Mb_kin);
+
+        double uphib427 = ( 2. * d * (-63. + 30. * d + 35. * d2 - 2. * d3 
+                    + 3. * d * (-18. - 7. * d + d2) * Ld) ) / ( 243. * (d - 1.) );
+        double uphib428 = ( 108. * (d - 1.) * (d - 1.) * Lumd*Lumd 
+                    - 12. * Lumd * (- 25. - 18. * Lq - 18. * d * (5. + 4. * Lq) 
+                    + 9. * d2 * (5. + 4. * Lq) + (9. + 36. * d - 18. * d2) * Ld) 
+                    + d * (24. * (17. + 9. * Lq) + 27. * d * (43. + 26. * Lq) 
+                    - d2 * (127. + 72. * Lq) + 9. * (-12. - 39. * d + 4. * d2) * Ld) 
+                    + 108. * (-1. - 4. * d + 2. * d2) * gsl_sf_dilog(d) ) / 729.;
+
+        return 4. * Alstilde * ( ( C2_0 - C1_0/6. ).abs2() * 
+                ( CKMu.real() * 0.005025213076791178 + CPodd * CKMu.imag() * 0.013978889449487913)
+                + ( C2_0 - C1_0/6. ).real() * CKMu.real() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) );
+    }
     
-    double uphib427 = ( 2. * d * (-63. + 30. * d + 35. * d2 - 2. * d3 
-                + 3. * d * (-18. - 7. * d + d2) * Ld) ) / ( 243. * (d - 1.) );
-    double uphib428 = ( 108. * (d - 1.) * (d - 1.) * Lumd*Lumd 
-                - 12. * Lumd * (- 25. - 18. * Lq - 18. * d * (5. + 4. * Lq) 
-                + 9. * d2 * (5. + 4. * Lq) + (9. + 36. * d - 18. * d2) * Ld) 
-                + d * (24. * (17. + 9. * Lq) + 27. * d * (43. + 26. * Lq) 
-                - d2 * (127. + 72. * Lq) + 9. * (-12. - 39. * d + 4. * d2) * Ld) 
-                + 108. * (-1. - 4. * d + 2. * d2) * gsl_sf_dilog(d) ) / 729.;
-    
-    return 4. * Alstilde * ( ( C2_0 - C1_0/6. ).abs2() * 
-            ( CKMu.real() * 0.005025213076791178 + CPodd * CKMu.imag() * 0.013978889449487913)
-            + ( C2_0 - C1_0/6. ).real() * CKMu.real() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) );
+    else return 0.;
 }
 
 double Bsgamma::Vub_NLO(double E0, bool CPodd)
@@ -1949,6 +1982,10 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order, bool CPodd)
                     + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b));
             break;
         case NLO:
+            /*std::cout << "p0 w/ tree, VubLO: " << P0(E0) << std::endl;
+            std::cout << "p11: " << P11() << std::endl;
+            std::cout << "p21: " << P21(E0,mu_b) << std::endl;
+            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;*/
             return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd);
             break;
         case LO:
@@ -1963,7 +2000,7 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order, bool CPodd)
 
 double Bsgamma::N_27()
 {
-    double mcnorm = 1.131;
+    double mcnorm = 1.131; // value fixed according to arXiv:1003.5012, in order to employ the remaining corrections given in that work
     double lambda2 = mu_G2/3.;
     
     return -1./18. * (C7_0 * ( 2.*C2_0 - C1_0/3. )).real() * lambda2/mcnorm/mcnorm;
@@ -1986,7 +2023,7 @@ double Bsgamma::N_77(double E0, double mu)
     double corrLambda2;
     double corrLambda3;
     
-    double alsb = myevol.alphatilde_s(Mb_kin);
+    double alsb = SM.Alstilde5(Mb_kin);
     double Lambda_pert = 64./9. * alsb * mu_kin * 
                 (1. + 4. * alsb * (9./2. * (log(Mb_kin/2./mu_kin) + 8./3.)
                 - 3. * (M_PI*M_PI/6. - 13./12.)) );
@@ -1996,7 +2033,6 @@ double Bsgamma::N_77(double E0, double mu)
     double lambda1 = -mu_pi2 + mu_pi2_pert;
     double lambda2 = mu_G2/3.;
     double rho1 = rho_D3 - rho_D3_pert;
-    //double rho2 = rho_LS3/3.;
     
     double f1EGN = 16./9. * ( 4. - M_PI*M_PI) - 8./3. * Lz2 - 
              ( 4. * z * ( 30. - 63. * z + 31. * z2 + 5. * z3))/(9. * umz2) -
@@ -2019,33 +2055,41 @@ double Bsgamma::N_77(double E0, double mu)
 
 double Bsgamma::N(double E0, double mu)
 {
-    return N_27() + N_77(E0,mu);
+    return N_27() + N_77(E0,mu) + BLNPcorr * P0(E0);
+}
+
+double Bsgamma::C_sem()
+{
+    double z=zeta();
+    return (1. - 8. * z + 8. * z*z*z - z*z*z*z - 12. * z*z * log(z)) * ( 0.903 
+            - 0.588 * (SM.Alstilde5(4.6)*4*M_PI - 0.22) + 0.0650 * (Mb_kin - 4.55) 
+            - 0.1080 * (Mc - 1.05) - 0.0122  * mu_G2 - 0.199 * rho_D3 + 0.004 * rho_LS3);
 }
 
 void Bsgamma::computeBR(orders order)
 {
-    //Gambino's parameters from 1411.6560, but at muc=2 GeV
-    mu_kin=1.;
-    C=SM.getbsgamma_C();
-    mu_pi2=0.470;
-    mu_G2=0.309;
-    rho_D3=0.171;
-    rho_LS3=-0.135;
+    mu_kin=SM.getGambino_mukin();
+    BRsl=SM.getGambino_BRsem();
+    Mb_kin=SM.getGambino_Mbkin();
+    Mc=SM.getGambino_Mcatmuc();
+    mu_pi2=SM.getGambino_mupi2();
+    rho_D3=SM.getGambino_rhoD3();
+    mu_G2=SM.getGambino_muG2();
+    rho_LS3=SM.getGambino_rhoLS3();
+    C=C_sem();
     
     ale=SM.getAle();
     E0=SM.getbsgamma_E0();
-    Mb_kin=SM.getQuarks(QCD::BOTTOM).getMass();
-    Mc=SM.getQuarks(QCD::CHARM).getMass();
     mu_b=SM.getMub();
     mu_c=SM.getMuc();
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
-    Alstilde = myevol.alphatilde_s(mu_b);
+    Alstilde = SM.Alstilde5(mu_b);
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
-    BRsl=SM.getBr_B_Xcenu();
     lambda_t=SM.computelamt_s();
     V_cb=SM.getCKM().getVcb();
-    CKMu = SM.computelamu_s().conjugate() / SM.computelamt_s().conjugate(); // -0.00802793 + 0.0180942*gslpp::complex::i();
+    CKMu=SM.computelamu_s().conjugate() / SM.computelamt_s().conjugate(); // -0.00802793 + 0.0180942*gslpp::complex::i();
     
+    BLNPcorr=SM.getBLNPcorr();
     
     checkCache();
     
@@ -2075,14 +2119,14 @@ void Bsgamma::computeBR(orders order)
     overall = BRsl * (lambda_t/V_cb).abs2() * 6. * ale / (M_PI * C);
     
     if (obs == 1) 
-        BR = overall *  ( P(E0, mu_b, mu_c, order, false) + N(E0,mu_b) ) - 0.0000125145 - 0.000000135643;
+        BR = overall *  ( P(E0, mu_b, mu_c, order, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
     if (obs == 2) 
-        BR_CPodd = overall *  ( P(E0, mu_b, mu_c, order, true) + N(E0,mu_b) ) - 0.0000125145 - 0.000000135643;
+        BR_CPodd = overall *  ( P(E0, mu_b, mu_c, order, true) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
 }
 
 double Bsgamma::computeThValue()
 {
-    computeBR(NNLO);
+    computeBR(NLO);
     
     if (obs == 1) return BR;
     if (obs == 2) return BR_CPodd;
