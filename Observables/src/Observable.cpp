@@ -10,6 +10,7 @@
 #include <TFile.h>
 #include <TROOT.h>
 #include <TMath.h>
+#include <limits>
 
 
 Observable::Observable (const std::string name_i,
@@ -36,6 +37,7 @@ Observable::Observable (const std::string name_i,
     obsType = "";
     bin_min = 0.;
     bin_max = 0.;
+    iterationNo = std::numeric_limits<int>::max();
 }
 
 Observable::Observable(const Observable& orig) 
@@ -56,6 +58,7 @@ Observable::Observable(const Observable& orig)
     obsType = orig.obsType;
     bin_min = orig.bin_min;
     bin_min = orig.bin_max;
+    iterationNo = orig.iterationNo;
 }
 
 Observable::Observable() 
@@ -76,6 +79,7 @@ Observable::Observable()
     obsType = "";
     bin_min = 0.;
     bin_max = 0.;
+    iterationNo = std::numeric_limits<int>::max();
 }
 
 Observable::~Observable() {}
@@ -110,7 +114,13 @@ void Observable::setLikelihoodFromHisto(std::string filename, std::string histon
 
 double Observable::computeTheoryValue()
 {
-    return tho->computeThValue();
+    if (tho->getModel().getIterationNo() == iterationNo) {
+        return thValue;
+    } else {
+        iterationNo = tho->getModel().getIterationNo();
+        thValue = tho->computeThValue();
+        return thValue;
+    }   
 }
 
 double Observable::LogSplitGaussian(double x, double ave, double errl, double errr)

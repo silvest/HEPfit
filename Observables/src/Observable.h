@@ -427,6 +427,8 @@ protected:
     std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
     double bin_min; ///< The minimum value of the observable bin.
     double bin_max; ///< The maximum valus of the observable bin.
+    int iterationNo;
+    double thValue;
 };
 
 
