@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -28,8 +28,6 @@ public:
     double THDM_BR_h_bb();
     double THDM_BR_h_gaga();
     double THDM_BR_h_tautau();
-    
-    double cos_bpa;
 
 protected:
     

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,11 +11,85 @@
 EWPO::EWPO(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
 {
+    mycache = new THDMcache();
 };
 
 double EWPO::computeThValue()
 {
     return 0.0;
+}
+
+double EWPO::dDelta_r()
+{
+    double Ale=myTHDM->getAle();
+    double MZ=myTHDM->getMz();
+    double MZ2=MZ*MZ;
+    double MW=myTHDM->Mw_tree();
+    double MW2=MW*MW;
+    double s02=myTHDM->s02();
+    double c02=myTHDM->c02();
+    double bma=myTHDM->getbma();
+    double CBA2=cos(bma)*cos(bma);
+    double SBA2=sin(bma)*sin(bma);
+    double mHl=myTHDM->getMHl();
+    double mHh=myTHDM->getmHh();
+    double mA=myTHDM->getmA();
+    double mHp=myTHDM->getmHp();
+
+    double prefactor=Ale/(4.*c02*MZ2*M_PI*s02*s02);
+
+    double part_A=-(c02*(mycache->A0_MZ2_mHp2(MZ,mHp)*(1.0 -10.0*c02*c02 +16.0*c02*s02 -6.0*s02*s02)
+                        -9.0*mycache->A0_MZ2_MW2(MZ,MW)*(13.0*c02*c02 -2.0*c02*s02 +s02*s02)))/2.;
+
+    double part_B=0.;
+//    double part_B=c02*c02*c02*mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ,MZ,mHp,mHp)
+//                  +(-mycache->B00_MZ2_0_mA2_mHp2(MZ,,,)
+//                    +mycache->B00_MZ2_0_MW2_Mh02(MZ,,,)
+//                    +mycache->B00_MZ2_0_MW2_MZ2(MZ,,,)
+//                    -mycache->B00_MZ2_0_MZ2_MW2(MZ,,,)
+//                    +mycache->Re_B00_MZ2_MW2_mA2_mHp2(MZ,,,)
+//                    -mycache->Re_B00_MZ2_MW2_MW2_Mh02(MZ,,,)
+//                    -mycache->Re_B00_MZ2_MW2_MW2_MZ2(MZ,,,)
+//                    +mycache->Re_B00_MZ2_MW2_MZ2_MW2(MZ,,,)
+//                    -CBA2*mycache->B00_MZ2_0_Mh02_mHp2(MZ,,,)
+//                    -CBA2*mycache->B00_MZ2_0_MHH2_MW2(MZ,,,)
+//                    +CBA2*mycache->Re_B00_MZ2_MW2_Mh02_mHp2(MZ,,,)
+//                    +CBA2*mycache->Re_B00_MZ2_MW2_MHH2_MW2(MZ,,,)
+//                    -SBA2*mycache->B00_MZ2_0_Mh02_MW2(MZ,,,)
+//                    -SBA2*mycache->B00_MZ2_0_MHH2_mHp2(MZ,,,)
+//                    +SBA2*mycache->Re_B00_MZ2_MW2_Mh02_MW2(MZ,,,)
+//                    +SBA2*mycache->Re_B00_MZ2_MW2_MHH2_mHp2(MZ,,,))*s02
+//                  -c02*(mycache->Re_B00_MZ2_MW2_mA2_mHp2(MZ,,,)
+//                        -mycache->Re_B00_MZ2_MW2_MW2_Mh02(MZ,,,)
+//                        -mycache->Re_B00_MZ2_MW2_MW2_MZ2(MZ,,,)
+//                        +mycache->Re_B00_MZ2_MW2_MZ2_MW2(MZ,,,)
+//                        +mycache->Re_B00_MZ2_MZ2_Mh02_MZ2(MZ,,,)
+//                        -MZ2*mycache->Re_B0_MZ2_MZ2_Mh02_MZ2(MZ,,,)
+//                        +mycache->Re_B00_MZ2_MW2_Mh02_MW2(MZ,,,)*SBA2
+//                        +mycache->Re_B00_MZ2_MW2_MHH2_mHp2(MZ,,,)*SBA2
+//                        -mycache->Re_B00_MZ2_MZ2_Mh02_MZ2(MZ,,,)*SBA2
+//                        -mycache->Re_B00_MZ2_MZ2_MHH2_mA2(MZ,,,)*SBA2
+//                        +MZ2*mycache->Re_B0_MZ2_MZ2_Mh02_MZ2(MZ,,,)*SBA2
+//                        +mycache->B0_MZ2_0_Mh02_MW2(MZ,,,)*MZ2*s02
+//                        -MZ2*mycache->Re_B0_MZ2_MW2_Mh02_MW2(MZ,,,)*s02
+//                        -mycache->B0_MZ2_0_Mh02_MW2(MZ,,,)*MZ2*SBA2*s02
+//                        +MZ2*mycache->Re_B0_MZ2_MW2_Mh02_MW2(MZ,,,)*SBA2*s02
+//                        +4.0*mycache->B00_MZ2_0_mHp2_mHp2(MZ,,,)*s02*s02
+//                        +4.0*mycache->B0i_MZ2_dbb00_0_mHp2_mHp2(MZ,,mHp,mHp)*MZ2*s02*s02
+//                        -mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ,,,)*s02*s02
+//                        +CBA2*(mycache->Re_B00_MZ2_MW2_Mh02_mHp2(MZ,,,)
+//                               +mycache->Re_B00_MZ2_MW2_MHH2_MW2(MZ,,,)
+//                               -mycache->Re_B00_MZ2_MZ2_Mh02_mA2(MZ,,,)
+//                               -mycache->Re_B00_MZ2_MZ2_MHH2_MZ2(MZ,,,)
+//                               +MZ2*mycache->Re_B0_MZ2_MZ2_MHH2_MZ2(MZ,,,)
+//                               -mycache->B0_MZ2_0_MHH2_MW2(MZ,,,)*MZ2*s02
+//                               +MZ2*mycache->Re_B0_MZ2_MW2_MHH2_MW2(MZ,,,)*s02)
+//                  +c02*c02*(MZ2*(mycache->Re_B0_MZ2_MW2_MHH2_MW2(MZ,,,)*CBA2
+//                                 -mycache->Re_B0_MZ2_MW2_Mh02_MW2(MZ,,,)*CBA2)
+//                            +2.0*(2.0*mycache->B00_MZ2_0_mHp2_mHp2(MZ,,,)
+//                                  -mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ,MZ,mHp,mHp))*s02));
+
+    return prefactor*(part_A+part_B);
 }
 
 void EWPO::computeTHDMcouplings()
@@ -58,8 +132,7 @@ void EWPO::computeTHDMcouplings()
 ////    double DeltaSigmahad=0.0;
 ////    double DeltaGammaW=0.0;
 ////    double Deltasinthetaeffl_2=0.0;
-    
-    
+
 }
 
 /*******************************************************************************
@@ -249,8 +322,8 @@ MWTHDM::MWTHDM(const StandardModel& SM_i)
 
 double MWTHDM::computeThValue()
 {
-    computeTHDMcouplings();
-    double DeltaMW=0.0;
+    double s02=myTHDM->s02();
+    double c02=myTHDM->c02();
     double MWSM=myTHDM->Mw();
-    return MWSM+DeltaMW;
+    return MWSM - s02*MWSM*dDelta_r()/(2.*(c02-s02));
 }

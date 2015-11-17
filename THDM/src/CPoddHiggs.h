@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,12 +9,17 @@
 #define	CPODDHIGGSCACHE_H
 
 #include <stdexcept>
-//#include <gslpp.h>
 #include <ThObservable.h>
 #include "THDM.h"
 #include "THDMfunctions.h"
 #include "THDMcache.h"
 #include "lightHiggs.h"
+
+/**
+ * @addtogroup THDM
+ * @brief A module for the @f$Z_2@f$ symmetric Two-Higgs-Doublet models.
+ * @{
+ */
 
 /**
  * @class CPoddHiggsCache
@@ -27,8 +32,6 @@ public:
     void computeParameters();
     
     double computeThValue();
-
-    double cos_ab;
     
 protected:
     
@@ -37,21 +40,26 @@ protected:
 
     double ggF_A_tautau_TH;
     double bbF_A_tautau_TH;
-    double A_gaga_TH;
-    double A_hZ_TH; 
-    double A_hZ_tautauZ_TH;  
-    double A_hZ_bbZ_TH;
-    double A_tt_TH;
-    double A_bb_TH;
-    
-    double ggF_A_tautau_EX;
-    double bbF_A_tautau_EX;
-    double A_gaga_EX;
-    double A_hZ_EX;
-    double A_hZ_tautauZ_EX;
-    double A_hZ_bbZ_EX;
-    double A_tt_EX;
-    double A_bb_EX;  
+    double ggF_A_gaga_TH;
+    double ggF_A_hZ_bbll_TH;
+    double ggF_A_hZ_bbZ_TH;
+    double ggF_A_hZ_tautaull_TH;
+    double ggF_A_hZ_tautauZ_TH;   
+    double pp_A_tt_TH;
+    double bbF_A_bb_TH;
+     
+    double ggF_A_tautau_EX_ATLAS;
+    double ggF_A_tautau_EX_CMS;
+    double bbF_A_tautau_EX_ATLAS;
+    double bbF_A_tautau_EX_CMS;
+    double ggF_A_gaga_EX_ATLAS;
+    double ggF_A_gaga_EX_CMS;
+    double ggF_A_hZ_bbll_EX_CMS;
+    double ggF_A_hZ_tautauZ_EX_ATLAS;
+    double ggF_A_hZ_tautaull_EX_CMS;
+    double ggF_A_hZ_bbZ_EX_ATLAS;
+    double pp_A_tt_EX_ATLAS;
+    double bbF_A_bb_EX_CMS;     
 
 private:
     const THDM * myTHDM;
@@ -70,13 +78,10 @@ private:
     double Gamma_AZga;
     double Gamma_Agg;
     
-    double TAUu;
     double TAUc;
     double TAUt;
-    double TAUd;
     double TAUs;
     double TAUb;
-    double TAUe;
     double TAUmu;
     double TAUtau;
     double TAUw;
@@ -89,14 +94,11 @@ private:
     gslpp::complex I_A_W;
     double g_A_HpHm;
     gslpp::complex I_A_Hp;
-    
-    double LAMu;
+
     double LAMc;
     double LAMt;
-    double LAMd;
     double LAMs;
     double LAMb;
-    double LAMe;
     double LAMmu;
     double LAMtau;
     double LAMw;
@@ -133,6 +135,9 @@ private:
     double Br_AtohZ;
     double Br_htotautau;
     double Br_htobb;
+    double Br_Ztoee; 
+    double Br_Ztomumu;
+    double Br_Ztotautau;
     
     gslpp::complex I_HH_f;
     gslpp::complex I_HH_fU;
@@ -148,13 +153,32 @@ private:
 
 
 
-class  Hobs_ggF_A_tautau: public CPoddHiggsCache {
+class  Hobs_ggF_A_tautau_ATLAS: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_ggF_A_tautau(const StandardModel& SM_i);
+    Hobs_ggF_A_tautau_ATLAS(const StandardModel& SM_i);
+    
+    /**
+     * @return Hobs_ggF_A_tautau_ATLAS
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_ggF_A_tautau_CMS: public CPoddHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_ggF_A_tautau_CMS(const StandardModel& SM_i);
     
     /**
      * @return Hobs_ggF_A_tautau
@@ -167,13 +191,32 @@ private:
 
 
 
-class  Hobs_bbF_A_tautau: public CPoddHiggsCache {
+class  Hobs_bbF_A_tautau_ATLAS: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_bbF_A_tautau(const StandardModel& SM_i);
+    Hobs_bbF_A_tautau_ATLAS(const StandardModel& SM_i);
+    
+    /**
+     * @return Hobs_bbF_A_tautau_ATLAS
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_bbF_A_tautau_CMS: public CPoddHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_bbF_A_tautau_CMS(const StandardModel& SM_i);
     
     /**
      * @return Hobs_bbF_A_tautau
@@ -186,16 +229,16 @@ private:
 
 
 
-class  Hobs_A_gaga: public CPoddHiggsCache {
+class  Hobs_ggF_A_gaga_ATLAS: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_A_gaga(const StandardModel& SM_i);
+    Hobs_ggF_A_gaga_ATLAS(const StandardModel& SM_i);
     
     /**
-     * @return Hobs_A_gaga
+     * @return Hobs_ggF_A_gaga_ATLAS
      */
     double computeThValue ();
     
@@ -205,13 +248,32 @@ private:
 
 
 
-class  Hobs_A_hZ: public CPoddHiggsCache {
+class  Hobs_ggF_A_gaga_CMS: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_A_hZ(const StandardModel& SM_i);
+    Hobs_ggF_A_gaga_CMS(const StandardModel& SM_i);
+    
+    /**
+     * @return Hobs_ggF_A_gaga_CMS
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_ggF_A_hZ_bbll_CMS: public CPoddHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_ggF_A_hZ_bbll_CMS(const StandardModel& SM_i);
     
     /**
      * @return Hobs_A_hZ
@@ -224,32 +286,13 @@ private:
 
 
 
-class  Hobs_A_hZ_tautauZ: public CPoddHiggsCache {
+class  Hobs_ggF_A_hZ_bbZ_ATLAS: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_A_hZ_tautauZ(const StandardModel& SM_i);
-    
-    /**
-     * @return Hobs_A_hZ_tautauZ
-     */
-    double computeThValue ();
-    
-private:
-    
-};
-
-
-
-class  Hobs_A_hZ_bbZ: public CPoddHiggsCache {
-public:
-    
-    /**
-     * @brief Constructor.
-     */
-    Hobs_A_hZ_bbZ(const StandardModel& SM_i);
+    Hobs_ggF_A_hZ_bbZ_ATLAS(const StandardModel& SM_i);
     
     /**
      * @return Hobs_A_hZ_bbZ
@@ -262,16 +305,16 @@ private:
 
 
 
-class  Hobs_A_tt: public CPoddHiggsCache {
+class  Hobs_ggF_A_hZ_tautaull_CMS: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_A_tt(const StandardModel& SM_i);
+    Hobs_ggF_A_hZ_tautaull_CMS(const StandardModel& SM_i);
     
     /**
-     * @return Hobs_A_tt
+     * @return Hobs_A_hZ
      */
     double computeThValue ();
     
@@ -281,16 +324,54 @@ private:
 
 
 
-class  Hobs_A_bb: public CPoddHiggsCache {
+class  Hobs_ggF_A_hZ_tautauZ_ATLAS: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_A_bb(const StandardModel& SM_i);
+    Hobs_ggF_A_hZ_tautauZ_ATLAS(const StandardModel& SM_i);
     
     /**
-     * @return Hobs_A_bb
+     * @return Hobs_A_hZ_tautauZ
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_pp_A_tt_ATLAS: public CPoddHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_pp_A_tt_ATLAS(const StandardModel& SM_i);
+    
+    /**
+     * @return Hobs_pp_A_tt
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_bbF_A_bb_CMS: public CPoddHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_bbF_A_bb_CMS(const StandardModel& SM_i);
+    
+    /**
+     * @return Hobs_bbF_A_bb
      */
     double computeThValue ();
     
@@ -338,16 +419,16 @@ private:
 
 
 
-class  log10_A_gaga_TH: public CPoddHiggsCache {
+class  log10_ggF_A_gaga_TH: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_A_gaga_TH(const StandardModel& SM_i);
+    log10_ggF_A_gaga_TH(const StandardModel& SM_i);
     
     /**
-     * @return A_gaga_TH
+     * @return ggF_A_gaga_TH
      */
     double computeThValue ();
     
@@ -357,13 +438,13 @@ private:
 
 
 
-class  log10_A_hZ_TH: public CPoddHiggsCache {
+class  log10_ggF_A_hZ_bbll_TH: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_A_hZ_TH(const StandardModel& SM_i);
+    log10_ggF_A_hZ_bbll_TH(const StandardModel& SM_i);
     
     /**
      * @return A_hZ_TH
@@ -376,32 +457,13 @@ private:
 
 
 
-class  log10_A_hZ_tautauZ_TH: public CPoddHiggsCache {
+class  log10_ggF_A_hZ_bbZ_TH: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_A_hZ_tautauZ_TH(const StandardModel& SM_i);
-    
-    /**
-     * @return A_hZ_tautauZ_TH
-     */
-    double computeThValue ();
-    
-private:
-    
-};
-
-
-
-class  log10_A_hZ_bbZ_TH: public CPoddHiggsCache {
-public:
-    
-    /**
-     * @brief Constructor.
-     */
-    log10_A_hZ_bbZ_TH(const StandardModel& SM_i);
+    log10_ggF_A_hZ_bbZ_TH(const StandardModel& SM_i);
     
     /**
      * @return A_hZ_bbZ_TH
@@ -414,16 +476,35 @@ private:
 
 
 
-class  log10_A_tt_TH: public CPoddHiggsCache {
+class  log10_ggF_A_hZ_tautaull_TH: public CPoddHiggsCache {
+ public:
+
+  /**                                                                                                                                         
+   * @brief Constructor.                                                                                                                      
+   */
+  log10_ggF_A_hZ_tautaull_TH(const StandardModel& SM_i);
+
+  /**                                                                                                                                         
+   * @return A_bb_TH                                                                                                                          
+   */
+  double computeThValue ();
+
+ private:
+
+};
+
+
+
+class  log10_ggF_A_hZ_tautauZ_TH: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_A_tt_TH(const StandardModel& SM_i);
+    log10_ggF_A_hZ_tautauZ_TH(const StandardModel& SM_i);
     
     /**
-     * @return A_tt_TH
+     * @return A_hZ_tautauZ_TH
      */
     double computeThValue ();
     
@@ -433,16 +514,35 @@ private:
 
 
 
-class  log10_A_bb_TH: public CPoddHiggsCache {
+class  log10_pp_A_tt_TH: public CPoddHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_A_bb_TH(const StandardModel& SM_i);
+    log10_pp_A_tt_TH(const StandardModel& SM_i);
     
     /**
-     * @return A_bb_TH
+     * @return pp_A_tt_TH
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  log10_bbF_A_bb_TH: public CPoddHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    log10_bbF_A_bb_TH(const StandardModel& SM_i);
+    
+    /**
+     * @return bbF_A_bb_TH
      */
     double computeThValue ();
     
@@ -450,6 +550,8 @@ private:
 
 };
 
-
+/**
+ * @}
+ */
 
 #endif	/* CPODDHIGGSCACHE_H */

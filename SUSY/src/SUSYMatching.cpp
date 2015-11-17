@@ -4262,7 +4262,7 @@ gslpp::complex HpengMuEEENL0temp=0.;
         gLLNU.assign(p, -0.5*MZ/ctw*sigma3(p));
     }
 
-    //Note that the dependence on the Rl elements here is different than the one in PhysRevD.73.055003
+    //Note that the dependence on the Rl and Rn elements here is different than the one in PhysRevD.73.055003
     //due to the different choice of flavour basis.
     //The replacement rules are:
     //AH basis (PhysRevD.73.055003) -> SLHA basis
@@ -4273,6 +4273,8 @@ gslpp::complex HpengMuEEENL0temp=0.;
     //  Rl(x,4)                     -> Rl(4,x)
     //  Rl(x,5)                     -> Rl(2,x)
     //  Rl(x,6)                     -> Rl(5,x)
+    //For Rn, the indices have to be swapped.
+
     gslpp::matrix<gslpp::complex> Gl0(6, 6, 0.), Gl1(6, 6, 0.), Gl2(6, 6, 0.);
     for (int x=0;x<6;x++) {
         for (int y=0;y<6;y++) {
@@ -4291,11 +4293,14 @@ gslpp::complex HpengMuEEENL0temp=0.;
     gslpp::matrix<gslpp::complex> Gnu0(3, 3, 0.), Gnu1(3, 3, 0.), Gnu2(3, 3, 0.);
     for (int x=0;x<3;x++) {
         for (int y=0;y<3;y++) {
-            Gnu0.assign(x, y, -g2*( gLLNU(0)*myRn(0,x).conjugate()*myRn(0,y) +gLLNU(0)*myRn(1,x).conjugate()*myRn(1,y) +gLLNU(0)*myRn(2,x).conjugate()*myRn(2,y)) );
-            Gnu1.assign(x, y, -g2*( gLLNU(1)*myRn(0,x).conjugate()*myRn(0,y) +gLLNU(1)*myRn(1,x).conjugate()*myRn(1,y) +gLLNU(1)*myRn(2,x).conjugate()*myRn(2,y)) );
-            Gnu2.assign(x, y, -g2*( gLLNU(2)*myRn(0,x).conjugate()*myRn(0,y) +gLLNU(2)*myRn(1,x).conjugate()*myRn(1,y) +gLLNU(2)*myRn(2,x).conjugate()*myRn(2,y)) );
+            Gnu0.assign(x, y, -g2*( gLLNU(0)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(0)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(0)*myRn(x,2).conjugate()*myRn(y,2)) );
+            Gnu1.assign(x, y, -g2*( gLLNU(1)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(1)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(1)*myRn(x,2).conjugate()*myRn(y,2)) );
+            Gnu2.assign(x, y, -g2*( gLLNU(2)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(2)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(2)*myRn(x,2).conjugate()*myRn(y,2)) );
         }
     }
+    std::cout<<"Gnu0(1,2) = "<< Gnu0(0,1)<<std::endl;
+    std::cout<<"Gnu0(1,3) = "<< Gnu0(0,2)<<std::endl;
+    std::cout<<"Gnu0(2,3) = "<< Gnu0(1,2)<<std::endl;
 
     gslpp::vector<gslpp::complex> SRE(3, 0.), SLE(3, 0.), SRMU(3, 0.), SLMU(3, 0.), SRTAU(3, 0.), SLTAU(3, 0.);
     for (int p=0;p<3;p++) {

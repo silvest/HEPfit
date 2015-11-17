@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -44,16 +44,16 @@ void lightHiggs::computeParameters()
     double c02=myTHDM->c02();
 
     double mHl=myTHDM->getMHl();
-    double mHp=myTHDM->getMHp();
+    double mHp=myTHDM->getmHp();
     
-    double m12_2=myTHDM->getM12_2();
+    double m12_2=myTHDM->getm12_2();
     
     double sin_ba=myTHDM->getsin_ba();
-    double sina=myTHDM->computeSina();
-    double cosa=myTHDM->computeCosa();
-    double sinb=myTHDM->getSinb();
-    double cosb=myTHDM->getCosb();
-    cos_bpa=cosb*cosa-sinb*sina;
+    double sina=myTHDM->getsina();
+    double cosa=myTHDM->getcosa();
+    double sinb=myTHDM->getsinb();
+    double cosb=myTHDM->getcosb();
+    double cos_bpa=cosb*cosa-sinb*sina;
     
     Br_htobb = myTHDM->computeBrHtobb();
     Br_htoWW = myTHDM->computeBrHtoWW();
@@ -213,8 +213,6 @@ void lightHiggs::computeParameters()
           rh_gaga*Br_htogaga + rh_gg*Br_htogg + rh_Zga*Br_htoZga + rh_QuQu*Br_htocc;
   
 }
-
-
 
 double lightHiggs::computeThValue()
 {

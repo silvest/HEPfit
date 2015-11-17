@@ -1,11 +1,11 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
-#include "heavyHiggsCache.h"
+#include "heavyHiggs.h"
 #include "lightHiggs.h"
 #include "StandardModel.h"
 //#include "gslpp.h"
@@ -31,13 +31,10 @@ void heavyHiggsCache::computeParameters()
 
     THDMfunctions myfunctions(mySM);
 
-//    double Mu=myTHDM->getQuarks(QCD::UP).getMass();
-//    double Md=myTHDM->getQuarks(QCD::DOWN).getMass();
     double Mc=myTHDM->getQuarks(QCD::CHARM).getMass();
     double Ms=myTHDM->getQuarks(QCD::STRANGE).getMass();
     double Mt=myTHDM->getQuarks(QCD::TOP).getMass();
     double Mb=myTHDM->getQuarks(QCD::BOTTOM).getMass();   
-//    double Me=myTHDM->getLeptons(StandardModel::ELECTRON).getMass();
     double Mmu=myTHDM->getLeptons(StandardModel::MU).getMass();
     double Mtau=myTHDM->getLeptons(StandardModel::TAU).getMass();   
     
@@ -50,19 +47,19 @@ void heavyHiggsCache::computeParameters()
     double s02=myTHDM->s02();
     double c02=myTHDM->c02();
 
-    double mHh=myTHDM->getMHh();
+    double mHh=myTHDM->getmHh();
     double mHl=myTHDM->getMHl();
-    double mHp=myTHDM->getMHp();
-    double mA=myTHDM->getMA();
-    double m12_2=myTHDM->getM12_2();
+    double mHp=myTHDM->getmHp();
+    double mA=myTHDM->getmA();
+    double m12_2=myTHDM->getm12_2();
 
-    double sina=myTHDM->computeSina();
-    double cosa=myTHDM->computeCosa();
-    double sinb=myTHDM->getSinb();
-    double cosb=myTHDM->getCosb();
+    double sina=myTHDM->getsina();
+    double cosa=myTHDM->getcosa();
+    double sinb=myTHDM->getsinb();
+    double cosb=myTHDM->getcosb();
     double sin_ba=myTHDM->getsin_ba();
-    cos_2b=cosb*cosb-sinb*sinb;
-    cos_ab=cosa*cosb+sina*sinb;
+    double cos_2b=cosb*cosb-sinb*sinb;
+    double cos_ab=cosa*cosb+sina*sinb;
 
     //These cross sections are necessary for rHH_gg
     //SM gg -> h production cross section at 8 TeV
@@ -95,13 +92,10 @@ void heavyHiggsCache::computeParameters()
      *Gamma_Hgg expression can be found in arXiv:0902.4665v3, Appendix A*/
 
     /*TAUi is necessary for Gamma_Hgaga, Gamma_HZga and Gamma_Hgg*/
-//    TAUu=4.0*Mu*Mu/(mHh*mHh);
     TAUc=4.0*Mc*Mc/(mHh*mHh);
     TAUt=4.0*Mt*Mt/(mHh*mHh);
-//    TAUd=4.0*Md*Md/(mHh*mHh);
     TAUs=4.0*Ms*Ms/(mHh*mHh);
     TAUb=4.0*Mb*Mb/(mHh*mHh);
-//    TAUe=4.0*Me*Me/(mHh*mHh);
     TAUmu=4.0*Mmu*Mmu/(mHh*mHh);
     TAUtau=4.0*Mtau*Mtau/(mHh*mHh);
     TAUw=4.0*MW*MW/(mHh*mHh);
@@ -110,15 +104,12 @@ void heavyHiggsCache::computeParameters()
     /*I_HH_f, I_HH_W and I_HH_Hp are necessary for Gamma_Hgaga, Gamma_HZga and Gamma_Hgg;
      * their expressions can be found in "The Higgs Hunter's Guide", Appendix C, C.4*/
     I_HH_f=0.0;//It depends on the modelType
-    I_HH_fU=-(8./3.)*(//TAUu*(1+(1-TAUu)*myfunctions.f_func(TAUu))+
-                           TAUc*(1+(1-TAUc)*myfunctions.f_func(TAUc))+
-                           TAUt*(1+(1-TAUt)*myfunctions.f_func(TAUt)));
-    I_HH_fD=-(2./3.)*(//TAUd*(1+(1-TAUd)*myfunctions.f_func(TAUd))+
-                           TAUs*(1+(1-TAUs)*myfunctions.f_func(TAUs))+
-                           TAUb*(1+(1-TAUb)*myfunctions.f_func(TAUb)));
-    I_HH_fL=-2.*(//TAUe*(1+(1-TAUe)*myfunctions.f_func(TAUe))+
-                           TAUmu*(1+(1-TAUmu)*myfunctions.f_func(TAUmu))+
-                           TAUtau*(1+(1-TAUtau)*myfunctions.f_func(TAUtau)));
+    I_HH_fU=-(8./3.)*(TAUc*(1+(1-TAUc)*myfunctions.f_func(TAUc))
+                      +TAUt*(1+(1-TAUt)*myfunctions.f_func(TAUt)));
+    I_HH_fD=-(2./3.)*(TAUs*(1+(1-TAUs)*myfunctions.f_func(TAUs))
+                      +TAUb*(1+(1-TAUb)*myfunctions.f_func(TAUb)));
+    I_HH_fL=-2.*(TAUmu*(1+(1-TAUmu)*myfunctions.f_func(TAUmu))
+                 +TAUtau*(1+(1-TAUtau)*myfunctions.f_func(TAUtau)));
     I_HH_W=cos_ab*(2.0 + 3.0*TAUw + 3.0*TAUw*(2.0-TAUw)
                           *myfunctions.f_func(TAUw));
     /* g_HH_HpHm is the coupling of the heavy Higgs boson to Hp and Hm; its
@@ -130,13 +121,10 @@ void heavyHiggsCache::computeParameters()
                             /(2.*mHp*mHp)*g_HH_HpHm;
 
     //LAMi is necessary for Gamma_HZga.
-//    LAMu=4.0*Mu*Mu/(MZ*MZ);
     LAMc=4.0*Mc*Mc/(MZ*MZ);
     LAMt=4.0*Mt*Mt/(MZ*MZ);
-//    LAMd=4.0*Md*Md/(MZ*MZ);
     LAMs=4.0*Ms*Ms/(MZ*MZ);
     LAMb=4.0*Mb*Mb/(MZ*MZ);
-//    LAMe=4.0*Me*Me/(MZ*MZ);
     LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
     LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
     LAMw=4.0*MW*MW/(MZ*MZ);
@@ -145,15 +133,12 @@ void heavyHiggsCache::computeParameters()
     /*A_HH_F, A_HH_W and A_HH_Hp are necessary for Gamma_HZga*/
     /*A_HH_F expression can be found in "The Higgs Hunter's Guide", Appendix C, C.12*/
     A_HH_F = 0.0;//It depends on the modelType
-    A_HH_U = -4.0*(1.0/2.0-4.0/3.0*s02)*(//myfunctions.Int1(TAUu,LAMu)-myfunctions.Int2(TAUu,LAMu)+
-                            myfunctions.Int1(TAUc,LAMc)-myfunctions.Int2(TAUc,LAMc)+
-                            myfunctions.Int1(TAUt,LAMt)-myfunctions.Int2(TAUt,LAMt));
-    A_HH_D = +2.0*(-1.0/2.0+2.0/3.0*s02)*(//myfunctions.Int1(TAUd,LAMd)-myfunctions.Int2(TAUd,LAMd)+
-                            myfunctions.Int1(TAUs,LAMs)-myfunctions.Int2(TAUs,LAMs)+
-                            myfunctions.Int1(TAUb,LAMb)-myfunctions.Int2(TAUb,LAMb));
-    A_HH_L = +2.0*(-1.0/2.0+2.0*s02)*(//myfunctions.Int1(TAUe,LAMe)-myfunctions.Int2(TAUe,LAMe)+
-                            myfunctions.Int1(TAUmu,LAMmu)-myfunctions.Int2(TAUmu,LAMmu)+
-                            myfunctions.Int1(TAUtau,LAMtau)-myfunctions.Int2(TAUtau,LAMtau));
+    A_HH_U = -4.0*(1.0/2.0-4.0/3.0*s02)*(myfunctions.Int1(TAUc,LAMc)-myfunctions.Int2(TAUc,LAMc)
+                                         +myfunctions.Int1(TAUt,LAMt)-myfunctions.Int2(TAUt,LAMt));
+    A_HH_D = +2.0*(-1.0/2.0+2.0/3.0*s02)*(myfunctions.Int1(TAUs,LAMs)-myfunctions.Int2(TAUs,LAMs)
+                                          +myfunctions.Int1(TAUb,LAMb)-myfunctions.Int2(TAUb,LAMb));
+    A_HH_L = +2.0*(-1.0/2.0+2.0*s02)*(myfunctions.Int1(TAUmu,LAMmu)-myfunctions.Int2(TAUmu,LAMmu)
+                                      +myfunctions.Int1(TAUtau,LAMtau)-myfunctions.Int2(TAUtau,LAMtau));
     /*A_HH_W expression can be found in "The Higgs Hunter's Guide", Appendix C, C.13*/
     A_HH_W = -cos_ab*sqrt(c02/s02)*(4*(3-s02/c02)*myfunctions.Int2(TAUw,LAMw)
                             +((1.0+2.0/TAUw)*s02/c02-(5.0+2.0/TAUw))*myfunctions.Int1(TAUw,LAMw));
@@ -269,37 +254,41 @@ void heavyHiggsCache::computeParameters()
 
     Br_htobb=mylightHiggs->THDM_BR_h_bb();
     Br_htogaga=mylightHiggs->THDM_BR_h_gaga();
+    Br_htotautau=mylightHiggs->THDM_BR_h_tautau();
 
     //Heavy Higgs Signals, theoretical expressions
 
     ggF_H_tautau_TH=SigmaggF_H*Br_Htotautau;
     bbF_H_tautau_TH=SigmabbF_H*Br_Htotautau;
-    H_gaga_TH=SigmaSum*Br_Htogaga;
-    H_ZZ_TH=SigmaSum*Br_HtoZZ;
-    ggF_H_WW_TH=SigmabbF_H*Br_HtoWW;
-    H_WW_TH=SigmaSum*Br_HtoWW;
+    ggF_H_gaga_TH=SigmaggF_H*Br_Htogaga;
+    pp_H_ZZ_TH=SigmaSum/SigmaTotSM_H*rHH_VV*GammaHtotSM/GammaHtot;
+    ggF_H_WW_TH=SigmaggF_H*Br_HtoWW;
     VBF_H_WW_TH=SigmaVBF_H*Br_HtoWW;
-    H_hh_TH=SigmaSum*Br_Htohh;
-    H_hh_bbbb_TH=SigmaSum*Br_Htohh*Br_htobb*Br_htobb;
-    H_tt_TH=SigmaSum*Br_Htott;
-    H_bb_TH=SigmaSum*Br_Htobb;
-    H_hh_gagabb_TH=SigmaSum*Br_Htohh*Br_htobb*Br_htogaga;
+    ggF_H_hh_TH=SigmaggF_H*Br_Htohh;
+    ggF_H_hh_bbtautau_TH=SigmaggF_H*Br_Htohh*Br_htobb*Br_htotautau;    
+    pp_H_hh_bbbb_TH=SigmaSum*Br_Htohh*Br_htobb*Br_htobb;
+    pp_H_hh_gagabb_TH=SigmaSum*Br_Htohh*Br_htobb*Br_htogaga;
+    pp_H_tt_TH=SigmaSum*Br_Htott;
+    bbF_H_bb_TH=SigmabbF_H*Br_Htobb; 
 
     //Heavy Higgs Signals, experimental expressions
 
-    ggF_H_tautau_EX=mycache->ex_ggF_H_tautau(mHh);
-    bbF_H_tautau_EX=mycache->ex_bbF_H_tautau(mHh);
-    H_gaga_EX=mycache->ex_H_gaga(mHh);
-    H_ZZ_EX=mycache->ex_HP_ZZ(mHh);
-    ggF_H_WW_EX=mycache->ex_ggF_H_WW(mHh);
-    H_WW_EX=mycache->ex_H_WW(mHh);
-    VBF_H_WW_EX=mycache->ex_VBF_H_WW(mHh);
-    H_hh_EX=mycache->ex_H_hh(mHh);
-    H_hh_bbbb_EX=mycache->ex_H_hh_bbbb(mHh);
-    H_tt_EX=mycache->ex_H_tt(mHh);
-    H_bb_EX=mycache->ex_H_bb(mHh);
-    H_hh_gagabb_EX=mycache->ex_H_hh_gagabb(mHh);
-
+    ggF_H_tautau_EX_ATLAS=mycache->ex_ggF_phi_tautau_ATLAS(mHh);
+    ggF_H_tautau_EX_CMS=mycache->ex_ggF_phi_tautau_CMS(mHh);    
+    bbF_H_tautau_EX_ATLAS=mycache->ex_bbF_phi_tautau_ATLAS(mHh);  
+    bbF_H_tautau_EX_CMS=mycache->ex_bbF_phi_tautau_CMS(mHh);       
+    ggF_H_gaga_EX_ATLAS=mycache->ex_ggF_phi_gaga_ATLAS(mHh); 
+    ggF_H_gaga_EX_CMS=mycache->ex_ggF_phi_gaga_CMS(mHh);
+    pp_H_ZZ_EX_CMS=mycache->ex_pp_H_ZZ_CMS(mHh);    
+    ggF_H_WW_EX_ATLAS=mycache->ex_ggF_H_WW_ATLAS(mHh);   
+    VBF_H_WW_EX_ATLAS=mycache->ex_VBF_H_WW_ATLAS(mHh);           
+    ggF_H_hh_EX_ATLAS=mycache->ex_ggF_H_hh_ATLAS(mHh);  
+    ggF_H_hh_bbtautau_EX_CMS=mycache->ex_ggF_H_hh_bbtautau_CMS(mHh);     
+    pp_H_hh_bbbb_EX_CMS=mycache->ex_pp_phi_hh_bbbb_CMS(mHh);   
+    pp_H_hh_gagabb_EX_CMS=mycache->ex_pp_phi_hh_gagabb_CMS(mHh);    
+    pp_H_tt_EX_ATLAS=mycache->ex_pp_phi_tt_ATLAS(mHh);    
+    bbF_H_bb_EX_CMS=mycache->ex_bbF_phi_bb_CMS(mHh);    
+    
 }
 
 double heavyHiggsCache::computeThValue()
@@ -311,125 +300,185 @@ double heavyHiggsCache::computeThValue()
  * Observables                                                                 *
  * ****************************************************************************/
 
-Hobs_ggF_H_tautau::Hobs_ggF_H_tautau(const StandardModel& SM_i)
+Hobs_ggF_H_tautau_ATLAS::Hobs_ggF_H_tautau_ATLAS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_ggF_H_tautau::computeThValue()
+double Hobs_ggF_H_tautau_ATLAS::computeThValue()
 {
     computeParameters();
-    return ggF_H_tautau_TH/ggF_H_tautau_EX;
+    return ggF_H_tautau_TH/ggF_H_tautau_EX_ATLAS;
 }
 
-Hobs_bbF_H_tautau::Hobs_bbF_H_tautau(const StandardModel& SM_i)
+
+
+Hobs_ggF_H_tautau_CMS::Hobs_ggF_H_tautau_CMS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_bbF_H_tautau::computeThValue()
+double Hobs_ggF_H_tautau_CMS::computeThValue()
 {
     computeParameters();
-    return bbF_H_tautau_TH/bbF_H_tautau_EX;
+    return ggF_H_tautau_TH/ggF_H_tautau_EX_CMS;
 }
 
-Hobs_H_gaga::Hobs_H_gaga(const StandardModel& SM_i)
+
+
+Hobs_bbF_H_tautau_ATLAS::Hobs_bbF_H_tautau_ATLAS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_gaga::computeThValue()
+double Hobs_bbF_H_tautau_ATLAS::computeThValue()
 {
     computeParameters();
-    return H_gaga_TH/H_gaga_EX;
+    return bbF_H_tautau_TH/bbF_H_tautau_EX_ATLAS;
 }
 
-Hobs_H_ZZ::Hobs_H_ZZ(const StandardModel& SM_i)
+
+
+Hobs_bbF_H_tautau_CMS::Hobs_bbF_H_tautau_CMS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_ZZ::computeThValue()
+double Hobs_bbF_H_tautau_CMS::computeThValue()
 {
     computeParameters();
-    return H_ZZ_TH/H_ZZ_EX;
+    return bbF_H_tautau_TH/bbF_H_tautau_EX_CMS;
 }
 
-Hobs_ggF_H_WW::Hobs_ggF_H_WW(const StandardModel& SM_i)
+
+
+Hobs_ggF_H_gaga_ATLAS::Hobs_ggF_H_gaga_ATLAS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_ggF_H_WW::computeThValue()
+double Hobs_ggF_H_gaga_ATLAS::computeThValue()
 {
     computeParameters();
-    return ggF_H_WW_TH/ggF_H_WW_EX;
+    return ggF_H_gaga_TH/ggF_H_gaga_EX_ATLAS;
 }
 
-Hobs_H_WW::Hobs_H_WW(const StandardModel& SM_i)
+
+
+Hobs_ggF_H_gaga_CMS::Hobs_ggF_H_gaga_CMS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_WW::computeThValue()
+double Hobs_ggF_H_gaga_CMS::computeThValue()
 {
     computeParameters();
-    return H_WW_TH/H_WW_EX;
+    return ggF_H_gaga_TH/ggF_H_gaga_EX_CMS;
 }
 
-Hobs_VBF_H_WW::Hobs_VBF_H_WW(const StandardModel& SM_i)
+
+
+Hobs_pp_H_ZZ_CMS::Hobs_pp_H_ZZ_CMS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_VBF_H_WW::computeThValue()
+double Hobs_pp_H_ZZ_CMS::computeThValue()
 {
     computeParameters();
-    return VBF_H_WW_TH/VBF_H_WW_EX;
+    return pp_H_ZZ_TH/pp_H_ZZ_EX_CMS;
 }
 
-Hobs_H_hh::Hobs_H_hh(const StandardModel& SM_i)
+
+
+Hobs_ggF_H_WW_ATLAS::Hobs_ggF_H_WW_ATLAS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_hh::computeThValue()
+double Hobs_ggF_H_WW_ATLAS::computeThValue()
 {
     computeParameters();
-    return H_hh_TH/H_hh_EX;
+    return ggF_H_WW_TH/ggF_H_WW_EX_ATLAS;
 }
 
-Hobs_H_hh_bbbb::Hobs_H_hh_bbbb(const StandardModel& SM_i)
+
+
+Hobs_VBF_H_WW_ATLAS::Hobs_VBF_H_WW_ATLAS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_hh_bbbb::computeThValue()
+double Hobs_VBF_H_WW_ATLAS::computeThValue()
 {
     computeParameters();
-    return H_hh_bbbb_TH/H_hh_bbbb_EX;
+    return VBF_H_WW_TH/VBF_H_WW_EX_ATLAS;
 }
 
-Hobs_H_tt::Hobs_H_tt(const StandardModel& SM_i)
+
+
+Hobs_ggF_H_hh_ATLAS::Hobs_ggF_H_hh_ATLAS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_tt::computeThValue()
+double Hobs_ggF_H_hh_ATLAS::computeThValue()
 {
     computeParameters();
-    return H_tt_TH/H_tt_EX;
+    return ggF_H_hh_TH/ggF_H_hh_EX_ATLAS;
 }
 
-Hobs_H_bb::Hobs_H_bb(const StandardModel& SM_i)
+
+
+Hobs_ggF_H_hh_bbtautau_CMS::Hobs_ggF_H_hh_bbtautau_CMS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_bb::computeThValue()
+double Hobs_ggF_H_hh_bbtautau_CMS::computeThValue()
 {
     computeParameters();
-    return H_bb_TH/H_bb_EX;
+    return ggF_H_hh_bbtautau_TH/ggF_H_hh_bbtautau_EX_CMS;
 }
 
-Hobs_H_hh_gagabb::Hobs_H_hh_gagabb(const StandardModel& SM_i)
+
+
+Hobs_pp_H_hh_bbbb_CMS::Hobs_pp_H_hh_bbbb_CMS(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double Hobs_H_hh_gagabb::computeThValue()
+double Hobs_pp_H_hh_bbbb_CMS::computeThValue()
 {
     computeParameters();
-    return H_hh_gagabb_TH/H_hh_gagabb_EX;
+    return pp_H_hh_bbbb_TH/pp_H_hh_bbbb_EX_CMS;
 }
+
+
+
+Hobs_pp_H_hh_gagabb_CMS::Hobs_pp_H_hh_gagabb_CMS(const StandardModel& SM_i)
+: heavyHiggsCache(SM_i)
+{}
+
+double Hobs_pp_H_hh_gagabb_CMS::computeThValue()
+{
+    computeParameters();
+    return pp_H_hh_gagabb_TH/pp_H_hh_gagabb_EX_CMS;
+}
+
+
+
+Hobs_pp_H_tt_ATLAS::Hobs_pp_H_tt_ATLAS(const StandardModel& SM_i)
+: heavyHiggsCache(SM_i)
+{}
+
+double Hobs_pp_H_tt_ATLAS::computeThValue()
+{
+    computeParameters();
+    return pp_H_tt_TH/pp_H_tt_EX_ATLAS;
+}
+
+
+
+Hobs_bbF_H_bb_CMS::Hobs_bbF_H_bb_CMS(const StandardModel& SM_i)
+: heavyHiggsCache(SM_i)
+{}
+
+double Hobs_bbF_H_bb_CMS::computeThValue()
+{
+    computeParameters();
+    return bbF_H_bb_TH/bbF_H_bb_EX_CMS;
+}
+
+
 
 log10_ggF_H_tautau_TH::log10_ggF_H_tautau_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
@@ -441,6 +490,8 @@ double log10_ggF_H_tautau_TH::computeThValue()
     return log10(ggF_H_tautau_TH);
 }
 
+
+
 log10_bbF_H_tautau_TH::log10_bbF_H_tautau_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
@@ -451,25 +502,31 @@ double log10_bbF_H_tautau_TH::computeThValue()
     return log10(bbF_H_tautau_TH);
 }
 
-log10_H_gaga_TH::log10_H_gaga_TH(const StandardModel& SM_i)
+
+
+log10_ggF_H_gaga_TH::log10_ggF_H_gaga_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double log10_H_gaga_TH::computeThValue()
+double log10_ggF_H_gaga_TH::computeThValue()
 {
     computeParameters();
-    return log10(H_gaga_TH);
+    return log10(ggF_H_gaga_TH);
 }
 
-log10_H_ZZ_TH::log10_H_ZZ_TH(const StandardModel& SM_i)
+
+
+log10_pp_H_ZZ_TH::log10_pp_H_ZZ_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double log10_H_ZZ_TH::computeThValue()
+double log10_pp_H_ZZ_TH::computeThValue()
 {
     computeParameters();
-    return log10(H_ZZ_TH);
+    return log10(pp_H_ZZ_TH);
 }
+
+
 
 log10_ggF_H_WW_TH::log10_ggF_H_WW_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
@@ -481,15 +538,7 @@ double log10_ggF_H_WW_TH::computeThValue()
     return log10(ggF_H_WW_TH);
 }
 
-log10_H_WW_TH::log10_H_WW_TH(const StandardModel& SM_i)
-: heavyHiggsCache(SM_i)
-{}
 
-double log10_H_WW_TH::computeThValue()
-{
-    computeParameters();
-    return log10(H_WW_TH);
-}
 
 log10_VBF_H_WW_TH::log10_VBF_H_WW_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
@@ -501,52 +550,74 @@ double log10_VBF_H_WW_TH::computeThValue()
     return log10(VBF_H_WW_TH);
 }
 
-log10_H_hh_TH::log10_H_hh_TH(const StandardModel& SM_i)
+
+
+log10_ggF_H_hh_TH::log10_ggF_H_hh_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double log10_H_hh_TH::computeThValue()
+double log10_ggF_H_hh_TH::computeThValue()
 {
     computeParameters();
-    return log10(H_hh_TH);
+    return log10(ggF_H_hh_TH);
 }
 
-log10_H_hh_bbbb_TH::log10_H_hh_bbbb_TH(const StandardModel& SM_i)
-: heavyHiggsCache(SM_i)
+
+
+log10_ggF_H_hh_bbtautau_TH::log10_ggF_H_hh_bbtautau_TH(const StandardModel& SM_i)
+  : heavyHiggsCache(SM_i)
 {}
 
-double log10_H_hh_bbbb_TH::computeThValue()
+double log10_ggF_H_hh_bbtautau_TH::computeThValue()
 {
-    computeParameters();
-    return log10(H_hh_bbbb_TH);
+  computeParameters();
+  return log10(ggF_H_hh_bbtautau_TH);
 }
 
-log10_H_tt_TH::log10_H_tt_TH(const StandardModel& SM_i)
+
+
+log10_pp_H_hh_bbbb_TH::log10_pp_H_hh_bbbb_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double log10_H_tt_TH::computeThValue()
+double log10_pp_H_hh_bbbb_TH::computeThValue()
 {
     computeParameters();
-    return log10(H_tt_TH);
+    return log10(pp_H_hh_bbbb_TH);
 }
 
-log10_H_bb_TH::log10_H_bb_TH(const StandardModel& SM_i)
+
+
+log10_pp_H_hh_gagabb_TH::log10_pp_H_hh_gagabb_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double log10_H_bb_TH::computeThValue()
+double log10_pp_H_hh_gagabb_TH::computeThValue()
 {
     computeParameters();
-    return log10(H_bb_TH);
+    return log10(pp_H_hh_gagabb_TH);
 }
 
-log10_H_hh_gagabb_TH::log10_H_hh_gagabb_TH(const StandardModel& SM_i)
+
+
+log10_pp_H_tt_TH::log10_pp_H_tt_TH(const StandardModel& SM_i)
 : heavyHiggsCache(SM_i)
 {}
 
-double log10_H_hh_gagabb_TH::computeThValue()
+double log10_pp_H_tt_TH::computeThValue()
 {
     computeParameters();
-    return log10(H_hh_gagabb_TH);
+    return log10(pp_H_tt_TH);
+}
+
+
+
+log10_bbF_H_bb_TH::log10_bbF_H_bb_TH(const StandardModel& SM_i)
+: heavyHiggsCache(SM_i)
+{}
+
+double log10_bbF_H_bb_TH::computeThValue()
+{
+    computeParameters();
+    return log10(bbF_H_bb_TH);
 }

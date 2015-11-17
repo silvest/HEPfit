@@ -72,4 +72,3 @@ private:
 };
 
 #endif	/* THDMMATCHING_H */
-

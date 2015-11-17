@@ -24,10 +24,10 @@ THDMMatching::THDMMatching(const THDM & THDM_i) :
 void THDMMatching::updateTHDMParameters()
 {
     myCKM = myTHDM.getVCKM();
-    tanb = myTHDM.getTanb();
+    tanb = myTHDM.gettanb();
     v = myTHDM.v();
-    v1 = myTHDM.v1();
-    v2 = myTHDM.v2();
+    v1 = myTHDM.getv1();
+    v2 = myTHDM.getv2();
     gW = sqrt(8. * myTHDM.getGF() / sqrt(2.)) * myTHDM.Mw_tree();; 
 }
 
@@ -38,9 +38,9 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
     double GF=myTHDM.getGF();
     double MW=myTHDM.Mw();
     gslpp::complex co = GF / 4. / M_PI * MW * myTHDM.computelamt_s();
-    tanb = myTHDM.getTanb();
-    double mHp=myTHDM.getMHp();
-    double xHW=mHp*mHp/(MW*MW);
+    tanb = myTHDM.gettanb();
+    double mHp2=myTHDM.getmHp2();
+    double xHW=mHp2/(MW*MW);
     double xtH=xt/xHW;
     double SWH=xtH*((2.0*xHW-8.0)*log(xtH)/((1.0-xHW)*(1.0-xtH)*(1.0-xtH))+6.0*xHW*log(xt)/((1.0-xHW)*(1.0-xt)*(1.0-xt))-(8.0-2.0*xt)/((1.0-xt)*(1.0-xtH)))/(tanb*tanb);
     double SHH=xtH*((1.0+xtH)/((1.0-xtH)*(1.0-xtH))+2.0*xtH*log(xtH)/((1.0-xtH)*(1.0-xtH)*(1.0-xtH)))/(tanb*tanb*tanb*tanb);
@@ -70,8 +70,8 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbtaunu() {
     double GF = myTHDM.getGF();
     myCKM = myTHDM.getVCKM();
     double mB = myTHDM.getMesons(QCD::B_P).getMass();
-    double tanb = myTHDM.getTanb();
-    double mHp=myTHDM.getMHp();
+    double tanb = myTHDM.gettanb();
+    double mHp2=myTHDM.getmHp2();
 
     vmcbtaunu = StandardModelMatching::CMbtaunu();
     mcbtaunu.setMu(Muw);
@@ -80,7 +80,7 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbtaunu() {
         case NNLO:
         case NLO:
         case LO:
-            mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp/mHp, LO);
+            mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
             break;
         default:
             std::stringstream out;

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -24,8 +24,8 @@ double bsgammaTHDM::computeThValue()
 {
     std::string modelflag=myTHDM->getModelTypeflag();
     if (modelflag == "type2") {
-        double logtb=myTHDM->getLogtb();
-        double logmHp=log10(myTHDM->getMHp());
+        double logtb=myTHDM->getlogtb();
+        double logmHp=log10(myTHDM->getmHp());
         double bsgtable=mycache->ex_bsgamma(logtb,logmHp);
         double B_BXsgamma_ctrl=bsgtable;
         double B_BXsgamma_err=0.07;

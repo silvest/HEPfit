@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,8 +15,8 @@
 /**
  * @class globalminimum 
  * @ingroup THDM 
- * @brief An observable class to prevent the occurence of a panic vacuum.
- * @author SusyFit Collaboration
+ * @brief An observable class to prevent the occurence of a second deeper vacuum.
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to assure that our vacuum is the global minimum of the potential.
  */

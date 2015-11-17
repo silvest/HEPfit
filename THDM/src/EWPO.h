@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <ThObservable.h>
 #include "THDM.h"
+#include "THDMcache.h"
 
 /**
  * @class EWPO
@@ -34,9 +35,11 @@ public:
      * @return 
      */
     double computeThValue();
+    double dDelta_r();
     void computeTHDMcouplings();
 
     const THDM * myTHDM;
+    THDMcache * mycache;
 
     private:
 };

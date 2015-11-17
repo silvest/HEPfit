@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -27,9 +27,6 @@ public:
     void computeParameters();
     
     double computeThValue();
-    
-    double cos_2b;
-    double cos_ab;
   
 protected:
 
@@ -38,30 +35,33 @@ protected:
     
     double ggF_H_tautau_TH;
     double bbF_H_tautau_TH;
-    double H_gaga_TH;  
-    double H_ZZ_TH; 
-    double ggF_H_WW_TH;
-    double H_WW_TH;  
+    double ggF_H_gaga_TH;  
+    double pp_H_ZZ_TH; 
+    double ggF_H_WW_TH; 
     double VBF_H_WW_TH;
-    double H_hh_TH;  
-    double H_hh_bbbb_TH;
-    double H_tt_TH;
-    double H_bb_TH;
-    double H_hh_gagabb_TH;
+    double ggF_H_hh_TH; 
+    double ggF_H_hh_bbtautau_TH;
+    double pp_H_hh_bbbb_TH;
+    double pp_H_hh_gagabb_TH;
+    double pp_H_tt_TH;
+    double bbF_H_bb_TH;
     
-    double ggF_H_tautau_EX;
-    double bbF_H_tautau_EX;
-    double H_gaga_EX;
-    double H_ZZ_EX;
-    double ggF_H_WW_EX;
-    double H_WW_EX;
-    double VBF_H_WW_EX;
-    double H_hh_EX;
-    double H_hh_bbbb_EX;
-    double H_tt_EX;
-    double H_bb_EX;
-    double H_hh_gagabb_EX;
-    
+    double ggF_H_tautau_EX_ATLAS;
+    double ggF_H_tautau_EX_CMS;
+    double bbF_H_tautau_EX_ATLAS;
+    double bbF_H_tautau_EX_CMS;
+    double ggF_H_gaga_EX_ATLAS;
+    double ggF_H_gaga_EX_CMS;
+    double pp_H_ZZ_EX_CMS;
+    double ggF_H_WW_EX_ATLAS;
+    double VBF_H_WW_EX_ATLAS;
+    double ggF_H_hh_EX_ATLAS;
+    double ggF_H_hh_bbtautau_EX_CMS;    
+    double pp_H_hh_bbbb_EX_CMS;
+    double pp_H_hh_gagabb_EX_CMS;    
+    double pp_H_tt_EX_ATLAS;
+    double bbF_H_bb_EX_CMS;
+
 private:
     const THDM * myTHDM;
     const StandardModel& mySM;
@@ -155,17 +155,18 @@ private:
     double Br_Htohh;
     double Br_htobb;
     double Br_htogaga;
+    double Br_htotautau;
 };
 
 
 
-class  Hobs_ggF_H_tautau: public heavyHiggsCache {
+class  Hobs_ggF_H_tautau_ATLAS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_ggF_H_tautau(const StandardModel& SM_i);
+    Hobs_ggF_H_tautau_ATLAS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -178,13 +179,13 @@ private:
 
 
 
-class  Hobs_bbF_H_tautau: public heavyHiggsCache {
+class  Hobs_ggF_H_tautau_CMS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_bbF_H_tautau(const StandardModel& SM_i);
+    Hobs_ggF_H_tautau_CMS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -197,13 +198,13 @@ private:
 
 
 
-class  Hobs_H_gaga: public heavyHiggsCache {
+class  Hobs_bbF_H_tautau_ATLAS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_gaga(const StandardModel& SM_i);
+    Hobs_bbF_H_tautau_ATLAS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -216,13 +217,13 @@ private:
 
 
 
-class  Hobs_H_ZZ: public heavyHiggsCache {
+class  Hobs_bbF_H_tautau_CMS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_ZZ(const StandardModel& SM_i);
+    Hobs_bbF_H_tautau_CMS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -235,13 +236,13 @@ private:
 
 
 
-class  Hobs_ggF_H_WW: public heavyHiggsCache {
+class  Hobs_ggF_H_gaga_ATLAS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_ggF_H_WW(const StandardModel& SM_i);
+    Hobs_ggF_H_gaga_ATLAS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -254,13 +255,13 @@ private:
 
 
 
-class  Hobs_H_WW: public heavyHiggsCache {
+class  Hobs_ggF_H_gaga_CMS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_WW(const StandardModel& SM_i);
+    Hobs_ggF_H_gaga_CMS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -273,13 +274,13 @@ private:
 
 
 
-class  Hobs_VBF_H_WW: public heavyHiggsCache {
+class  Hobs_pp_H_ZZ_CMS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_VBF_H_WW(const StandardModel& SM_i);
+    Hobs_pp_H_ZZ_CMS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -292,13 +293,13 @@ private:
 
 
 
-class  Hobs_H_hh: public heavyHiggsCache {
+class  Hobs_ggF_H_WW_ATLAS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_hh(const StandardModel& SM_i);
+    Hobs_ggF_H_WW_ATLAS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -311,13 +312,13 @@ private:
 
 
 
-class  Hobs_H_hh_bbbb: public heavyHiggsCache {
+class  Hobs_VBF_H_WW_ATLAS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_hh_bbbb(const StandardModel& SM_i);
+    Hobs_VBF_H_WW_ATLAS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -330,13 +331,13 @@ private:
 
 
 
-class  Hobs_H_tt: public heavyHiggsCache {
+class  Hobs_ggF_H_hh_ATLAS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_tt(const StandardModel& SM_i);
+    Hobs_ggF_H_hh_ATLAS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -349,13 +350,13 @@ private:
 
 
 
-class  Hobs_H_bb: public heavyHiggsCache {
+class  Hobs_ggF_H_hh_bbtautau_CMS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_bb(const StandardModel& SM_i);
+    Hobs_ggF_H_hh_bbtautau_CMS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -368,13 +369,70 @@ private:
 
 
 
-class  Hobs_H_hh_gagabb: public heavyHiggsCache {
+class  Hobs_pp_H_hh_bbbb_CMS: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    Hobs_H_hh_gagabb(const StandardModel& SM_i);
+    Hobs_pp_H_hh_bbbb_CMS(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_pp_H_hh_gagabb_CMS: public heavyHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_pp_H_hh_gagabb_CMS(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_pp_H_tt_ATLAS: public heavyHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_pp_H_tt_ATLAS(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+
+
+class  Hobs_bbF_H_bb_CMS: public heavyHiggsCache {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    Hobs_bbF_H_bb_CMS(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -425,13 +483,13 @@ private:
 
 
 
-class  log10_H_gaga_TH: public heavyHiggsCache {
+class  log10_ggF_H_gaga_TH: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_H_gaga_TH(const StandardModel& SM_i);
+    log10_ggF_H_gaga_TH(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -444,13 +502,13 @@ private:
 
 
 
-class  log10_H_ZZ_TH: public heavyHiggsCache {
+class  log10_pp_H_ZZ_TH: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_H_ZZ_TH(const StandardModel& SM_i);
+    log10_pp_H_ZZ_TH(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -482,25 +540,6 @@ private:
 
 
 
-class  log10_H_WW_TH: public heavyHiggsCache {
-public:
-    
-    /**
-     * @brief Constructor.
-     */
-    log10_H_WW_TH(const StandardModel& SM_i);
-    
-    /**
-     * @return 
-     */
-    double computeThValue ();
-    
-private:
-    
-};
-
-
-
 class  log10_VBF_H_WW_TH: public heavyHiggsCache {
 public:
     
@@ -520,13 +559,13 @@ private:
 
 
 
-class  log10_H_hh_TH: public heavyHiggsCache {
+class  log10_ggF_H_hh_TH: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_H_hh_TH(const StandardModel& SM_i);
+    log10_ggF_H_hh_TH(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -539,13 +578,32 @@ private:
 
 
 
-class  log10_H_hh_bbbb_TH: public heavyHiggsCache {
+class  log10_ggF_H_hh_bbtautau_TH: public heavyHiggsCache {
+ public:
+
+  /**                                                                                                                                         
+   * @brief Constructor.                                                                                                                      
+   */
+  log10_ggF_H_hh_bbtautau_TH(const StandardModel& SM_i);
+
+  /**                                                                                                                                         
+   * @return                                                                                                                                  
+   */
+  double computeThValue ();
+
+ private:
+
+};
+
+
+
+class  log10_pp_H_hh_bbbb_TH: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_H_hh_bbbb_TH(const StandardModel& SM_i);
+    log10_pp_H_hh_bbbb_TH(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -558,13 +616,13 @@ private:
 
 
 
-class  log10_H_tt_TH: public heavyHiggsCache {
+class  log10_pp_H_hh_gagabb_TH: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_H_tt_TH(const StandardModel& SM_i);
+    log10_pp_H_hh_gagabb_TH(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -577,13 +635,13 @@ private:
 
 
 
-class  log10_H_bb_TH: public heavyHiggsCache {
+class  log10_pp_H_tt_TH: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_H_bb_TH(const StandardModel& SM_i);
+    log10_pp_H_tt_TH(const StandardModel& SM_i);
     
     /**
      * @return 
@@ -596,13 +654,13 @@ private:
 
 
 
-class  log10_H_hh_gagabb_TH: public heavyHiggsCache {
+class  log10_bbF_H_bb_TH: public heavyHiggsCache {
 public:
     
     /**
      * @brief Constructor.
      */
-    log10_H_hh_gagabb_TH(const StandardModel& SM_i);
+    log10_bbF_H_bb_TH(const StandardModel& SM_i);
     
     /**
      * @return 

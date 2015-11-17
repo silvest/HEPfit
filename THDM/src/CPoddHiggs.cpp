@@ -1,14 +1,13 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
-#include "CPoddHiggsCache.h"
+#include "CPoddHiggs.h"
 #include "lightHiggs.h"
 #include "StandardModel.h"
-//#include "gslpp.h"
 
 CPoddHiggsCache::CPoddHiggsCache(const StandardModel& SM_i):
 
@@ -31,13 +30,10 @@ void CPoddHiggsCache::computeParameters()
 
     THDMfunctions myfunctions(mySM);
 
-//    double Mu=myTHDM->getQuarks(QCD::UP).getMass();
-//    double Md=myTHDM->getQuarks(QCD::DOWN).getMass();
     double Mc=myTHDM->getQuarks(QCD::CHARM).getMass();
     double Ms=myTHDM->getQuarks(QCD::STRANGE).getMass();
     double Mt=myTHDM->getQuarks(QCD::TOP).getMass();
     double Mb=myTHDM->getQuarks(QCD::BOTTOM).getMass();
-//    double Me=myTHDM->getLeptons(StandardModel::ELECTRON).getMass();
     double Mmu=myTHDM->getLeptons(StandardModel::MU).getMass();
     double Mtau=myTHDM->getLeptons(StandardModel::TAU).getMass();
 
@@ -50,24 +46,24 @@ void CPoddHiggsCache::computeParameters()
     double s02=myTHDM->s02();
     double c02=myTHDM->c02();
 
-    double mHh=myTHDM->getMHh();
+    double mHh=myTHDM->getmHh();
     double mHl=myTHDM->getMHl();
-    double mHp=myTHDM->getMHp();
-    double mA=myTHDM->getMA();
+    double mHp=myTHDM->getmHp();
+    double mA=myTHDM->getmA();
 
-    double m12_2=myTHDM->getM12_2();
+    double m12_2=myTHDM->getm12_2();
 
-    double sina=myTHDM->computeSina();
-    double cosa=myTHDM->computeCosa();
-    double sinb=myTHDM->getSinb();
-    double cosb=myTHDM->getCosb();
+    double sina=myTHDM->getsina();
+    double cosa=myTHDM->getcosa();
+    double sinb=myTHDM->getsinb();
+    double cosb=myTHDM->getcosb();
     double sin_ba=myTHDM->getsin_ba();
-    cos_ab=cosa*cosb+sina*sinb;//replaced with cos_ab
+    double cos_ab=cosa*cosb+sina*sinb;
 
     //These cross sections are necessary for rA_gg
     //SM gg -> h production cross section at 8 TeV
     SigmaggF = mycache->cs_ggFtoHP(mA);
-    //SM gg -> h production cross section at 8 TeV, top loop only
+    //SM gg -> h productmycaion cross section at 8 TeV, top loop only
     Sigmaggh_tt = mycache->cs_ggHP_tt(mA);
     //SM gg -> h production cross section at 8 TeV, bottom loop only
     Sigmaggh_bb = mycache->cs_ggHP_bb(mA);
@@ -94,13 +90,10 @@ void CPoddHiggsCache::computeParameters()
      *Gamma_Agg expression can be found in arXiv:0902.4665v3, Appendix A*/
 
     /*TAUi is necessary for Gamma_Agaga, Gamma_AZga and Gamma_Agg*/
-//    TAUu=4.0*Mu*Mu/(mA*mA);
     TAUc=4.0*Mc*Mc/(mA*mA);
     TAUt=4.0*Mt*Mt/(mA*mA);
-//    TAUd=4.0*Md*Md/(mA*mA);
     TAUs=4.0*Ms*Ms/(mA*mA);
     TAUb=4.0*Mb*Mb/(mA*mA);
-//    TAUe=4.0*Me*Me/(mA*mA);
     TAUmu=4.0*Mmu*Mmu/(mA*mA);
     TAUtau=4.0*Mtau*Mtau/(mA*mA);
     TAUw=4.0*MW*MW/(mA*mA);
@@ -116,14 +109,11 @@ void CPoddHiggsCache::computeParameters()
     I_A_fL=-2.*(//TAUe*myfunctions.f_func(TAUe)+
                           TAUmu*myfunctions.f_func(TAUmu)+TAUtau*myfunctions.f_func(TAUtau));
 
-    //LAMi is necessary for Gamma_HZga.
-//    LAMu=4.0*Mu*Mu/(MZ*MZ);
+    //LAMi is necessary for Gamma_HZga
     LAMc=4.0*Mc*Mc/(MZ*MZ);
     LAMt=4.0*Mt*Mt/(MZ*MZ);
-//    LAMd=4.0*Md*Md/(MZ*MZ);
     LAMs=4.0*Ms*Ms/(MZ*MZ);
     LAMb=4.0*Mb*Mb/(MZ*MZ);
-//    LAMe=4.0*Me*Me/(MZ*MZ);
     LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
     LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
     LAMw=4.0*MW*MW/(MZ*MZ);
@@ -193,7 +183,6 @@ void CPoddHiggsCache::computeParameters()
 
     SigmaggF_A=mycache->cs_ggFtoA(mA)*rA_gg;
     SigmabbF_A=mycache->cs_bbFtoHP(mA)*rA_QdQd;
-    //double SigmattF_A=myheavyHiggsCache.interpolate("H_tt.dat",mA)*rA_QuQu;
 
     SigmaSum = SigmaggF_A + SigmabbF_A; //+ SigmattF_A ;
 
@@ -228,28 +217,36 @@ void CPoddHiggsCache::computeParameters()
     Br_htobb=mylightHiggs->THDM_BR_h_bb();
     Br_htotautau=mylightHiggs->THDM_BR_h_tautau();
 
+    Br_Ztoee=3.363*0.01; //K.A. Olive et al. (Particle Data Group), Chin. Phys. C38, 090001 (2014)
+    Br_Ztomumu=3.366*0.01;
+    Br_Ztotautau=3.370*0.01;
+
     //CP-odd Higgs Signals, theoretical expressions
 
     ggF_A_tautau_TH=SigmaggF_A*Br_Atotautau;
     bbF_A_tautau_TH=SigmabbF_A*Br_Atotautau;
-    A_gaga_TH=SigmaSum*Br_Atogaga;
-    A_hZ_TH=SigmaSum*Br_AtohZ;
-    A_hZ_tautauZ_TH=SigmaSum*Br_AtohZ*Br_htotautau;
-    A_hZ_bbZ_TH=SigmaSum*Br_AtohZ*Br_htobb;
-    A_tt_TH=SigmaSum*Br_Atott;
-    A_bb_TH=SigmaSum*Br_Atobb;
-
+    ggF_A_gaga_TH=SigmaggF_A*Br_Atogaga;
+    ggF_A_hZ_bbll_TH=SigmaggF_A*Br_AtohZ*Br_htobb*(Br_Ztoee+Br_Ztomumu);
+    ggF_A_hZ_bbZ_TH=SigmaggF_A*Br_AtohZ*Br_htobb;
+    ggF_A_hZ_tautaull_TH=SigmaggF_A*Br_AtohZ*Br_htotautau*(Br_Ztoee+Br_Ztomumu+Br_Ztotautau);
+    ggF_A_hZ_tautauZ_TH=SigmaggF_A*Br_AtohZ*Br_htotautau;
+    pp_A_tt_TH=SigmaSum*Br_Atott;
+    bbF_A_bb_TH=SigmabbF_A*Br_Atobb;   
+    
     //CP-odd Higgs Signals, experimental expressions
 
-    ggF_A_tautau_EX=mycache->ex_A_tautau(mA);
-    bbF_A_tautau_EX=mycache->cs_ggFtoHPbbtotautaubb(mA);
-    A_gaga_EX=mycache->ex_H_gaga(mA);
-    A_hZ_EX=mycache->ex_ggF_A_hZ(mA);
-    A_hZ_tautauZ_EX=mycache->ex_ggF_A_hZ_tautauZ(mA);
-    A_hZ_bbZ_EX=mycache->ex_ggF_A_hZ_bbZ(mA);
-    A_tt_EX=mycache->ex_H_bb(mA);
-    A_bb_EX=mycache->ex_H_tt(mA);
-
+    ggF_A_tautau_EX_ATLAS=mycache->ex_ggF_phi_tautau_ATLAS(mA);
+    ggF_A_tautau_EX_CMS=mycache->ex_ggF_phi_tautau_CMS(mA);
+    bbF_A_tautau_EX_ATLAS=mycache->ex_bbF_phi_tautau_ATLAS(mA);
+    bbF_A_tautau_EX_CMS=mycache->ex_bbF_phi_tautau_CMS(mA);
+    ggF_A_gaga_EX_ATLAS=mycache->ex_ggF_phi_gaga_ATLAS(mA);
+    ggF_A_gaga_EX_CMS=mycache->ex_ggF_phi_gaga_CMS(mA);
+    ggF_A_hZ_bbll_EX_CMS=mycache->ex_ggF_A_hZ_bbll_CMS(mA);
+    ggF_A_hZ_bbZ_EX_ATLAS=mycache->ex_ggF_A_hZ_bbZ_ATLAS(mA);
+    ggF_A_hZ_tautaull_EX_CMS=mycache->ex_ggF_A_hZ_tautaull_CMS(mA);
+    ggF_A_hZ_tautauZ_EX_ATLAS=mycache->ex_ggF_A_hZ_tautauZ_ATLAS(mA);
+    pp_A_tt_EX_ATLAS=mycache->ex_pp_phi_tt_ATLAS(mA);
+    bbF_A_bb_EX_CMS=mycache->ex_bbF_phi_bb_CMS(mA);
 }
 
 
@@ -266,92 +263,148 @@ double CPoddHiggsCache::computeThValue()
 
 
 
-Hobs_ggF_A_tautau::Hobs_ggF_A_tautau(const StandardModel& SM_i)
+Hobs_ggF_A_tautau_ATLAS::Hobs_ggF_A_tautau_ATLAS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_ggF_A_tautau::computeThValue()
+double Hobs_ggF_A_tautau_ATLAS::computeThValue()
 {
     computeParameters();
-    return ggF_A_tautau_TH/ggF_A_tautau_EX;
+    return ggF_A_tautau_TH/ggF_A_tautau_EX_ATLAS;
 }
 
 
-Hobs_bbF_A_tautau::Hobs_bbF_A_tautau(const StandardModel& SM_i)
+
+Hobs_ggF_A_tautau_CMS::Hobs_ggF_A_tautau_CMS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_bbF_A_tautau::computeThValue()
+double Hobs_ggF_A_tautau_CMS::computeThValue()
 {
     computeParameters();
-    return bbF_A_tautau_TH/bbF_A_tautau_EX;
+    return ggF_A_tautau_TH/ggF_A_tautau_EX_CMS;
 }
 
 
-Hobs_A_gaga::Hobs_A_gaga(const StandardModel& SM_i)
+
+Hobs_bbF_A_tautau_ATLAS::Hobs_bbF_A_tautau_ATLAS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_A_gaga::computeThValue()
+double Hobs_bbF_A_tautau_ATLAS::computeThValue()
 {
     computeParameters();
-    return A_gaga_TH/A_gaga_EX;
+    return bbF_A_tautau_TH/bbF_A_tautau_EX_ATLAS;
 }
 
 
-Hobs_A_hZ::Hobs_A_hZ(const StandardModel& SM_i)
+
+Hobs_bbF_A_tautau_CMS::Hobs_bbF_A_tautau_CMS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_A_hZ::computeThValue()
+double Hobs_bbF_A_tautau_CMS::computeThValue()
 {
     computeParameters();
-    return A_hZ_TH/A_hZ_EX;
+    return bbF_A_tautau_TH/bbF_A_tautau_EX_CMS;
 }
 
 
-Hobs_A_hZ_tautauZ::Hobs_A_hZ_tautauZ(const StandardModel& SM_i)
+
+Hobs_ggF_A_gaga_ATLAS::Hobs_ggF_A_gaga_ATLAS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_A_hZ_tautauZ::computeThValue()
+double Hobs_ggF_A_gaga_ATLAS::computeThValue()
 {
     computeParameters();
-    return A_hZ_tautauZ_TH/A_hZ_tautauZ_EX;
+    return ggF_A_gaga_TH/ggF_A_gaga_EX_ATLAS;
 }
 
 
-Hobs_A_hZ_bbZ::Hobs_A_hZ_bbZ(const StandardModel& SM_i)
+
+Hobs_ggF_A_gaga_CMS::Hobs_ggF_A_gaga_CMS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_A_hZ_bbZ::computeThValue()
+double Hobs_ggF_A_gaga_CMS::computeThValue()
 {
     computeParameters();
-    return A_hZ_bbZ_TH/A_hZ_bbZ_EX;
+    return ggF_A_gaga_TH/ggF_A_gaga_EX_CMS;
 }
 
 
-Hobs_A_tt::Hobs_A_tt(const StandardModel& SM_i)
+
+Hobs_ggF_A_hZ_bbll_CMS::Hobs_ggF_A_hZ_bbll_CMS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_A_tt::computeThValue()
+double Hobs_ggF_A_hZ_bbll_CMS::computeThValue()
 {
     computeParameters();
-    return A_tt_TH/A_tt_EX;
+    return ggF_A_hZ_bbll_TH/ggF_A_hZ_bbll_EX_CMS;
 }
 
 
-Hobs_A_bb::Hobs_A_bb(const StandardModel& SM_i)
+
+Hobs_ggF_A_hZ_bbZ_ATLAS::Hobs_ggF_A_hZ_bbZ_ATLAS(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double Hobs_A_bb::computeThValue()
+double Hobs_ggF_A_hZ_bbZ_ATLAS::computeThValue()
 {
     computeParameters();
-    return A_bb_TH/A_bb_EX;
+    return ggF_A_hZ_bbZ_TH/ggF_A_hZ_bbZ_EX_ATLAS;
 }
+
+
+
+Hobs_ggF_A_hZ_tautaull_CMS::Hobs_ggF_A_hZ_tautaull_CMS(const StandardModel& SM_i)
+: CPoddHiggsCache(SM_i)
+{}
+
+double Hobs_ggF_A_hZ_tautaull_CMS::computeThValue()
+{
+    computeParameters();
+    return ggF_A_hZ_tautaull_TH/ggF_A_hZ_tautaull_EX_CMS;
+}
+
+
+
+Hobs_ggF_A_hZ_tautauZ_ATLAS::Hobs_ggF_A_hZ_tautauZ_ATLAS(const StandardModel& SM_i)
+: CPoddHiggsCache(SM_i)
+{}
+
+double Hobs_ggF_A_hZ_tautauZ_ATLAS::computeThValue()
+{
+    computeParameters();
+    return ggF_A_hZ_tautauZ_TH/ggF_A_hZ_tautauZ_EX_ATLAS;
+}
+
+
+
+Hobs_pp_A_tt_ATLAS::Hobs_pp_A_tt_ATLAS(const StandardModel& SM_i)
+: CPoddHiggsCache(SM_i)
+{}
+
+double Hobs_pp_A_tt_ATLAS::computeThValue()
+{
+    computeParameters();
+    return pp_A_tt_TH/pp_A_tt_EX_ATLAS;
+}
+
+
+
+Hobs_bbF_A_bb_CMS::Hobs_bbF_A_bb_CMS(const StandardModel& SM_i)
+: CPoddHiggsCache(SM_i)
+{}
+
+double Hobs_bbF_A_bb_CMS::computeThValue()
+{
+    computeParameters();
+    return bbF_A_bb_TH/bbF_A_bb_EX_CMS;
+}
+
 
 
 log10_ggF_A_tautau_TH::log10_ggF_A_tautau_TH(const StandardModel& SM_i)
@@ -365,6 +418,7 @@ double log10_ggF_A_tautau_TH::computeThValue()
 }
 
 
+
 log10_bbF_A_tautau_TH::log10_bbF_A_tautau_TH(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
@@ -376,67 +430,85 @@ double log10_bbF_A_tautau_TH::computeThValue()
 }
 
 
-log10_A_gaga_TH::log10_A_gaga_TH(const StandardModel& SM_i)
+
+log10_ggF_A_gaga_TH::log10_ggF_A_gaga_TH(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double log10_A_gaga_TH::computeThValue()
+double log10_ggF_A_gaga_TH::computeThValue()
 {
     computeParameters();
-    return log10(A_gaga_TH);
+    return log10(ggF_A_gaga_TH);
 }
 
 
-log10_A_hZ_TH::log10_A_hZ_TH(const StandardModel& SM_i)
+
+log10_ggF_A_hZ_bbll_TH::log10_ggF_A_hZ_bbll_TH(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double log10_A_hZ_TH::computeThValue()
+double log10_ggF_A_hZ_bbll_TH::computeThValue()
 {
     computeParameters();
-    return log10(A_hZ_TH);
+    return log10(ggF_A_hZ_bbll_TH);
 }
 
 
-log10_A_hZ_tautauZ_TH::log10_A_hZ_tautauZ_TH(const StandardModel& SM_i)
+
+log10_ggF_A_hZ_bbZ_TH::log10_ggF_A_hZ_bbZ_TH(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double log10_A_hZ_tautauZ_TH::computeThValue()
+double log10_ggF_A_hZ_bbZ_TH::computeThValue()
 {
     computeParameters();
-    return log10(A_hZ_tautauZ_TH);
+    return log10(ggF_A_hZ_bbZ_TH);
 }
 
 
-log10_A_hZ_bbZ_TH::log10_A_hZ_bbZ_TH(const StandardModel& SM_i)
-: CPoddHiggsCache(SM_i)
+
+log10_ggF_A_hZ_tautaull_TH::log10_ggF_A_hZ_tautaull_TH(const StandardModel& SM_i)
+  : CPoddHiggsCache(SM_i)
 {}
 
-double log10_A_hZ_bbZ_TH::computeThValue()
+double log10_ggF_A_hZ_tautaull_TH::computeThValue()
 {
-    computeParameters();
-    return log10(A_hZ_bbZ_TH);
+  computeParameters();
+  return log10(ggF_A_hZ_tautaull_TH);
 }
 
 
-log10_A_tt_TH::log10_A_tt_TH(const StandardModel& SM_i)
+
+log10_ggF_A_hZ_tautauZ_TH::log10_ggF_A_hZ_tautauZ_TH(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double log10_A_tt_TH::computeThValue()
+double log10_ggF_A_hZ_tautauZ_TH::computeThValue()
 {
     computeParameters();
-    return log10(A_tt_TH);
+    return log10(ggF_A_hZ_tautauZ_TH);
 }
 
 
-log10_A_bb_TH::log10_A_bb_TH(const StandardModel& SM_i)
+
+log10_pp_A_tt_TH::log10_pp_A_tt_TH(const StandardModel& SM_i)
 : CPoddHiggsCache(SM_i)
 {}
 
-double log10_A_bb_TH::computeThValue()
+double log10_pp_A_tt_TH::computeThValue()
 {
     computeParameters();
-    return log10(A_bb_TH);
+    return log10(pp_A_tt_TH);
+}
+
+
+
+log10_bbF_A_bb_TH::log10_bbF_A_bb_TH(const StandardModel& SM_i)
+: CPoddHiggsCache(SM_i)
+{}
+
+double log10_bbF_A_bb_TH::computeThValue()
+{
+    computeParameters();
+    return log10(bbF_A_bb_TH);
 }
