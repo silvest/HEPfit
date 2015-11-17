@@ -2099,7 +2099,7 @@ private:
     BParameter BKd1;
     BParameter BKd3;
     double BBsB0, BBsB1, BBsB2, BBsB3, BBsB4, BBsscale;
-    double BBdB0, BBdB1, BBdB2, BBdB3, BBdB4, BBdscale;
+    //double BBdB0, BBdB1, BBdB2, BBdB3, BBdB4, BBdscale;
     double BDB0, BDB1, BDB2, BDB3, BDB4, BDscale;
     double BKB0, BKB1, BKB2, BKB3, BKB4, BKscale;
     double BKd1B0, BKd1B1, BKd1B2, BKd1B3, BKd1B4, BKd1B5, BKd1B6, BKd1B7, BKd1B8, BKd1B9, BKd_scale;

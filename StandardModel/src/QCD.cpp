@@ -490,27 +490,27 @@ void QCD::setParameter(const std::string name, const double& value)
         BBd.setBpars(1, value);
         BBs.setBpars(1, value);
         BBsB1 = value;
-        BBdB1 = value;
+        //BBdB1 = value;
     } else if (name.compare("BBs3") == 0) {
         BBd.setBpars(2, value);
         BBs.setBpars(2, value);
         BBsB2 = value;
-        BBdB2 = value;
+        //BBdB2 = value;
     } else if (name.compare("BBs4") == 0) {
         BBd.setBpars(3, value);
         BBs.setBpars(3, value);
         BBsB3 = value;
-        BBdB3 = value;
+        //BBdB3 = value;
     } else if (name.compare("BBs5") == 0) {
         BBd.setBpars(4, value);
         BBs.setBpars(4, value);
         BBsB4 = value;
-        BBdB4 = value;
+        //BBdB4 = value;
     } else if (name.compare("BBsscale") == 0) {
         BBd.setMu(value);
         BBs.setMu(value);
         BBsscale = value;
-        BBdscale = value;
+        //BBdscale = value;
     } else if (name.compare("BBsscheme") == 0) {
         BBd.setScheme((schemes) value);
         BBs.setScheme((schemes) value);

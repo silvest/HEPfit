@@ -343,6 +343,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes sc
                 }
             }
         }
+        check = 0;
         if (check == 1) return coeffsmumu.getCoeff();
     } 
        
@@ -545,6 +546,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
                 }
             }
         }
+        check = 0;
         if (check == 1) return coeffdmumu.getCoeff();
     } 
        
