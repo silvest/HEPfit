@@ -9,6 +9,7 @@
 #include <TFile.h>
 #include <fstream>
 #include <TROOT.h>
+#include <limits>
 
 Observable2D::Observable2D(const std::string name_i,
         const std::string thname_i,
@@ -33,6 +34,7 @@ Observable2D::Observable2D(const std::string name_i,
     tho2 = tho2_i;
     obsType2 = "";
     filepath = "";
+    iterationNo2 = std::numeric_limits<int>::max();
 }
 
 Observable2D::Observable2D(const Observable& o1d)
@@ -47,6 +49,7 @@ Observable2D::Observable2D(const Observable& o1d)
     tho2 = NULL;
     obsType2 = "";
     filepath = "";
+    iterationNo2 = std::numeric_limits<int>::max();
 }
 
 Observable2D::Observable2D()
@@ -61,6 +64,7 @@ Observable2D::Observable2D()
     tho2 = NULL;
     obsType2 = "";
     filepath = "";
+    iterationNo2 = std::numeric_limits<int>::max();
 }
 
 Observable2D::Observable2D(const Observable2D& orig)
@@ -82,6 +86,7 @@ Observable2D::Observable2D(const Observable2D& orig)
     max2 = orig.max2;
     tho2 = orig.tho2;
     filepath = orig.filepath;
+    iterationNo2 = orig.iterationNo2;
 }
 
 Observable2D::~Observable2D()
@@ -89,7 +94,13 @@ Observable2D::~Observable2D()
 
 double Observable2D::computeTheoryValue2()
 {
-    return tho2->computeThValue();
+   if (tho2->getModel().getIterationNo() == iterationNo2) {
+        return thValue2;
+    } else {
+       iterationNo2 = tho2->getModel().getIterationNo();
+        thValue2 = tho2->computeThValue();
+        return thValue2;
+    }
 }
 
 void Observable2D::setLikelihoodFromHisto(std::string filename, std::string histoname)

@@ -292,6 +292,8 @@ private:
     std::vector<double> bin_min;
     std::vector<double> bin_max;
     std::string filepath;
+    int iterationNo2;
+    double thValue2;
 };
 
 #endif	/* OBSERVABLE2D_H */

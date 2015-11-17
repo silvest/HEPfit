@@ -1121,7 +1121,7 @@ void MVll::fit_DeltaC9_p_mumu()
 void MVll::fit_DeltaC9_p_ee()
 {
     int dim = 0;
-    for (double i=0.002; i<1.12; i+=0.04) {
+    for (double i=0.002; i<1.12; i+=0.05) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p_ee.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1184,7 +1184,7 @@ void MVll::fit_DeltaC9_m_mumu()
 void MVll::fit_DeltaC9_m_ee()
 {
     int dim = 0;
-    for (double i=0.002; i<1.12; i+=0.04) {
+    for (double i=0.002; i<1.12; i+=0.05) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m_ee.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1247,7 +1247,16 @@ void MVll::fit_DeltaC9_0_mumu()
 void MVll::fit_DeltaC9_0_ee()
 {
     int dim = 0;
-    for (double i=0.002; i<1.12; i+=0.04) {
+    for (double i=0.002; i<0.05; i+=0.005) {
+        double q2tmp = i;
+        myq2.push_back(q2tmp);
+        ReDeltaC9_0_ee.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
+                                                             Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).real());
+        ImDeltaC9_0_ee.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
+                                                             Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).imag());
+        dim++;
+    }
+    for (double i=0.05; i<1.12; i+=0.05) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0_ee.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
