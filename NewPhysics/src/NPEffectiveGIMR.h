@@ -147,7 +147,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 130;
+    static const int NNPEffectiveGIMRVars = 210;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -159,7 +159,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 34;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 114;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -367,6 +367,27 @@ protected:
     double CLd;
     double CQe;
     double Lambda_NP;
+// The error in the parameters multiplying the dimension-6 operator coefficients in the production cross sections.
+    double eVBF2_HZZ1, eVBF2_HZZ2, eVBF2_HZZ3, eVBF2_HZA1, eVBF2_HZA2, eVBF2_HAA;///< VBF (Tevatron 1.96 TeV).
+    double eVBF2_HWW1, eVBF2_HWW2, eVBF2_HWW3, eVBF2_Hgg, eVBF2_HZuL, eVBF2_HZuR;
+    double eVBF2_HZdL, eVBF2_HZdR, eVBF2_HWud, eVBF2_ZuL, eVBF2_ZuR, eVBF2_ZdL;
+    double eVBF2_ZdR, eVBF2_Wud;
+    double eVBF78_HZZ1, eVBF78_HZZ2, eVBF78_HZZ3, eVBF78_HZA1, eVBF78_HZA2, eVBF78_HAA;///< VBF (LHC 7 & 8 TeV).
+    double eVBF78_HWW1, eVBF78_HWW2, eVBF78_HWW3, eVBF78_Hgg, eVBF78_HZuL, eVBF78_HZuR;
+    double eVBF78_HZdL, eVBF78_HZdR, eVBF78_HWud, eVBF78_ZuL, eVBF78_ZuR, eVBF78_ZdL;
+    double eVBF78_ZdR, eVBF78_Wud;
+    
+    double eWH2_HWW1, eWH2_HWW2, eWH2_HWW3, eWH2_HWud, eWH2_Wud;///< WH (Tevatron 1.96 TeV).
+    double eWH78_HWW1, eWH78_HWW2, eWH78_HWW3, eWH78_HWud, eWH78_Wud;///< WH (LHC 7 & 8 TeV).
+    
+    double eZH2_HZZ1, eZH2_HZZ2, eZH2_HZZ3, eZH2_HZA1, eZH2_HZA2, eZH2_HZuL, eZH2_HZuR;///< ZH (Tevatron 1.96 TeV).
+    double eZH2_HZdL, eZH2_HZdR, eZH2_ZuL, eZH2_ZuR, eZH2_ZdL, eZH2_ZdR;
+    double eZH78_HZZ1, eZH78_HZZ2, eZH78_HZZ3, eZH78_HZA1, eZH78_HZA2, eZH78_HZuL, eZH78_HZuR;///< ZH (LHC 7 & 8 TeV).
+    double eZH78_HZdL, eZH78_HZdR, eZH78_ZuL, eZH78_ZuR, eZH78_ZdL, eZH78_ZdR;
+    
+    double ettH2_Htt, ettH2_Hgg;///< ttH (Tevatron 1.96 TeV).
+    double ettH78_Htt, ettH78_Hgg;///< ttH (LHC 7 & 8 TeV).
+    
     double MwInput;
 
     double LambdaNP2;
