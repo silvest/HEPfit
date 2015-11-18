@@ -11,8 +11,8 @@
 positivity::positivity(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
 {
-    mylambda1=new lambda1(SM_i);
-    mylambda2=new lambda2(SM_i);
+  //    mylambda1=new lambda1(SM_i);
+  //    mylambda2=new lambda2(SM_i);
 };
 
 positivity::~positivity()
