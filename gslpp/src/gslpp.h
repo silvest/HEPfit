@@ -23,7 +23,7 @@
  */
 
 /**
- * @brief Header file for inclusion of all gslpp claases for manipulating
+ * @brief Header file for inclusion of all gslpp classes for manipulating
  * complex variables, vectors and matrices. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License

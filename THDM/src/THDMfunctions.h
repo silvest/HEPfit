@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,7 @@
  * @class THDMfunctions
  * @ingroup THDM 
  * @brief 
- * @author SusyFit Collaboration
+ * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
@@ -33,8 +33,7 @@ public:
     };
 
     /**
-     * @brief The quartic coupling @f$\lambda_5@f$.
-     * @return @f$\lambda_5@f$
+     * @brief Empty function
      */
     double computeThValue();
     

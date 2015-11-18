@@ -104,151 +104,6 @@ Observable* InputParser::ParseObservable(std::string& type, boost::tokenizer<boo
     return (o);
 }
 
-Observable2D InputParser::ParseObservable2D(std::string& type, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg)
-{
-    if (std::distance(tok->begin(), tok->end()) < 12) {
-        std::string name = *beg;
-        ++beg;
-        if (std::distance(tok->begin(), tok->end()) < 4 && rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                + name + " in " + filename + " at line number" + boost::lexical_cast<std::string>(lineNo));
-        std::string toMCMC = *beg;
-        bool tMCMC;
-        if (toMCMC.compare("MCMC") == 0)
-            tMCMC = true;
-        else if (toMCMC.compare("noMCMC") == 0)
-            tMCMC = false;
-        else
-            throw std::runtime_error("ERROR: wrong MCMC flag in Observable2D" + name + " at line number:" + boost::lexical_cast<std::string>(lineNo) + " of file " + filename);
-        
-        ++beg;
-        std::string distr = *beg;
-        std::string fname;
-        std::string histoname;
-        if (distr.compare("file") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 6)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                        + *beg + " in " + filename);
-            fname = filepath + *(++beg);
-            histoname = *(++beg);
-        }
-
-        std::vector<double> min(2, 0.);
-        std::vector<double> max(2, 0.);
-        std::vector<double> ave(2, 0.);
-        std::vector<double> errg(2, 0.);
-        std::vector<double> errf(2, 0.);
-        std::vector<double> bin_min(2, 0.);
-        std::vector<double> bin_max(2, 0.);
-        std::vector<std::string> thname(2, "");
-        std::vector<std::string> label(2, "");
-        std::vector<std::string> type2D(2, "");
-        
-        size_t pos = 0;
-        for (int i = 0; i < 2; i++) {
-            IsEOF = getline(ifile, line).eof();
-            if (line.empty() || line.at(0) == '#') {
-                if (rank == 0) std::cout << "ERROR: no comments or empty lines in Observables2D (" + name + ") please!" << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            lineNo++;
-            boost::tokenizer<boost::char_separator<char> > mytok(line, *sep);
-            beg = mytok.begin();
-            type2D[i] = *beg;
-            if (type2D[i].compare("Observable") != 0 && type2D[i].compare("BinnedObservable") != 0)
-                if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting an Observable or BinnedObservable type here...\n");
-            ++beg;
-            thname[i] = *beg;
-            ++beg;
-            label[i] = *beg;
-            while ((pos = label[i].find("~", pos)) != std::string::npos)
-                label[i].replace(pos++, 1, " ");
-            ++beg;
-            min[i] = atof((*beg).c_str());
-            ++beg;
-            max[i] = atof((*beg).c_str());
-            if (distr.compare("weight") == 0) {
-                ++beg;
-                ave[i] = atof((*beg).c_str());
-                ++beg;
-                errg[i] = atof((*beg).c_str());
-                ++beg;
-                errf[i] = atof((*beg).c_str());
-                if (errg[i] == 0. && errg[i] == 0.) {
-                    if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + filename + " file, line number:" + boost::lexical_cast<std::string>(lineNo));
-                }
-            } else if (distr.compare("noweight") == 0 || distr.compare("file") == 0) {
-                if (type2D[i].compare("BinnedObservable") == 0) {
-                    ++beg;
-                    ++beg;
-                    ++beg;
-                }
-            }
-            if (type2D[i].compare("BinnedObservable") == 0) {
-                ++beg;
-                bin_min[i] = atof((*beg).c_str());
-                ++beg;
-                bin_max[i] = atof((*beg).c_str());
-            }
-        }
-        Observable2D o2(name, thname[0], thname[1], label[0], label[1], tMCMC, min[0], max[0], min[1], max[1], myObsFactory.CreateThMethod(thname[0], *myModel), myObsFactory.CreateThMethod(thname[1], *myModel));
-        o2.setDistr(distr);
-        o2.setObsType(type2D[0]);
-        o2.setObsType2(type2D[1]);
-        o2.setAve(ave[0]);
-        o2.setAve2(ave[1]);
-        o2.setErrg(errg[0]);
-        o2.setErrg2(errg[1]);
-        o2.setErrf(errf[0]);
-        o2.setErrf2(errf[1]);
-        if (distr.compare("file") == 0) {
-            o2.setLikelihoodFromHisto(fname, histoname);
-            if (rank == 0) std::cout << "added input histogram " << fname << "/" << histoname << std::endl;
-        }
-        if (o2.getObsType().compare("BinnedObservable") == 0) {
-            o2.getTho()->setBinMin(bin_min[0]);
-            o2.getTho()->setBinMax(bin_max[0]);
-        }
-        if (o2.getObsType2().compare("BinnedObservable") == 0) {
-            o2.getTho2()->setBinMin(bin_min[1]);
-            o2.getTho2()->setBinMax(bin_max[1]);
-        }
-        return (o2);
-    } else {
-        Observable2D o2(*ParseObservable(type, beg));
-        ++beg;
-        std::string distr = *beg;
-        if (distr.compare("file") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 14)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                        + *beg + " in " + filename);
-            std::string fname = filepath + *(++beg);
-            std::string histoname = *(++beg);
-            o2.setLikelihoodFromHisto(fname, histoname);
-            if (rank == 0) std::cout << "added input histogram " << fname << "/" << histoname << std::endl;
-        } else if (distr.compare("noweight") == 0) {
-        } else if (rank == 0)
-            throw std::runtime_error("ERROR: wrong distribution flag in " + o2.getName());
-        o2.setDistr(distr);
-        ++beg;
-        o2.setThname2(*beg);
-        o2.setTho2(myObsFactory.CreateThMethod(*beg, *myModel));
-        ++beg;
-        std::string label = *beg;
-        size_t pos = 0;
-        while ((pos = label.find("~", pos)) != std::string::npos)
-            label.replace(pos, 1, " ");
-        o2.setLabel2(label);
-        ++beg;
-        o2.setMin2(atof((*beg).c_str()));
-        ++beg;
-        o2.setMax2(atof((*beg).c_str()));
-        ++beg;
-        if (beg != tok->end())
-            if (rank == 0) std::cout << "WARNING: unread information in observable2D " << o2.getName() << std::endl;
-        return (o2);
-    }
-}
-
 void InputParser::ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<boost::char_separator<char> >::iterator & beg)
 {
     std::vector<ThObservable*> hthobs;
@@ -418,22 +273,22 @@ std::string InputParser::ReadParameters(const std::string filename_i,
 
         } else if (type.compare("CorrelatedGaussianParameters") == 0) {
             CorrelatedGaussianParameters tmpCGP;
-            tmpCGP.setlineNo(lineNo);
-            tmpCGP.setfilename(filename);
-            tmpCGP.ParseCGP(ModelPars, ifile, beg, rank);
-            lineNo = tmpCGP.getlineNo();
+            lineNo = tmpCGP.ParseCGP(ModelPars, filename, ifile, beg, lineNo, rank);
             CGP.push_back(tmpCGP);
 
-        } else if (type.compare("Observable") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 8 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
-            Observables.push_back(ParseObservable(type, beg));
-
-        } else if (type.compare("BinnedObservable") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 10 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
-            Observables.push_back(ParseObservable(type, beg));
+        } else if (type.compare("Observable") == 0 || type.compare("BinnedObservable") == 0) {
+            if (type.compare("Observable") == 0 && std::distance(tok->begin(), tok->end()) < 8 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+            if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 10 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+            Observable * tmpObs = new Observable();
+            beg = tmpObs->ParseObservable(type, tok, beg, filepath, rank);
+            tmpObs->setTho(myObsFactory.CreateThMethod(tmpObs->getThname(), *myModel));
+            Observables.push_back(tmpObs);
 
         } else if (type.compare("Observable2D") == 0) {
-            Observables2D.push_back(ParseObservable2D(type, ifile, beg));
+            Observable2D tmpObs2D;
+            lineNo = tmpObs2D.ParseObservable2D(type, tok, beg, filename, ifile, lineNo, rank);
+            tmpObs2D.setTho1Tho2(myObsFactory.CreateThMethod(tmpObs2D.getThname(), *myModel), myObsFactory.CreateThMethod(tmpObs2D.getThname2(), *myModel));
+            Observables2D.push_back(tmpObs2D);
 
         } else if (type.compare("HiggsObservable") == 0) {
             if (std::distance(tok->begin(), tok->end()) < 8 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);

@@ -1,0 +1,9 @@
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, VBF fraction, VH fraction|
+# ttH is computed as 1-ggH-VBF-VH
+##################
+# FERMILAB-CONF-12-318-E
+# http://arxiv.org/pdf/1207.0449v2
+##################
+MEASUREMENT VH_196TeV | 0. 0. 1.0 | 1.97 -0.68 0.74
+##################

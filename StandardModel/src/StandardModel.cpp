@@ -121,6 +121,8 @@ Ye(3, 3, 0.)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("KbarEpsK", boost::cref(KbarEpsK)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Dmk", boost::cref(Dmk)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("SM_M12D", boost::cref(SM_M12D)));
+    
+    iterationNo = 0;
 }
 
 StandardModel::~StandardModel()
@@ -240,6 +242,7 @@ bool StandardModel::PostUpdate()
     }
 
     myFlavour->setSMupdated();
+    iterationNo++;
 
     return (true);
 }

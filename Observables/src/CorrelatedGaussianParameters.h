@@ -115,24 +115,12 @@ public:
 
     std::vector<double> getOrigParsValue(const std::vector<double>& DiagPars_i) const;
     
-    void ParseCGP(std::vector<ModelParameter>& ModPars, 
-                  std::ifstream& ifile, 
-                  boost::tokenizer<boost::char_separator<char> >::iterator & beg,
-                  int rank);
-    void setlineNo(int lineNo_i)
-    {
-        lineNo = lineNo_i;
-    }
-    
-    int getlineNo()
-    {
-        return lineNo;
-    }
-
-    void setfilename(std::string& filename_i)
-    {
-        filename = filename_i;
-    }
+    int ParseCGP(std::vector<ModelParameter>& ModPars, 
+                 std::string& filename,
+                 std::ifstream& ifile, 
+                 boost::tokenizer<boost::char_separator<char> >::iterator & beg,
+                 int lineNo,
+                 int rank);
 private:
     std::vector<ModelParameter> Pars; ///< A vector of parameters whose correlation will be calculated.
     gslpp::matrix<double>* Cov; ///< The covariance matrix.
@@ -140,8 +128,6 @@ private:
     gslpp::matrix<double> * v;
     gslpp::vector<double> * e;
     std::vector<ModelParameter> DiagPars; ///< The vector of diagonal parameters
-    int lineNo;
-    std::string filename;
 };
 
 /** 

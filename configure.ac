@@ -1,5 +1,5 @@
 AC_PREREQ([2.59])
-AC_INIT([HEPfit], [0.3], [hepfit@roma1.infn.it], [HEPfit], [hepfit.roma1.infn.it])
+AC_INIT([HEPfit], [1.0], [hepfit@roma1.infn.it], [HEPfit], [hepfit.roma1.infn.it])
 AC_CONFIG_AUX_DIR([Config])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([Config/config.h])
@@ -27,13 +27,13 @@ BOOST_REQUIRE
 BOOST_PROGRAM_OPTIONS  
 HEPFIT_FEYNHIGGS_PATH
 HEPFIT_BAT_PATH
-# need to test the existence and workability of the package dependencies at configure and give error if something missing
+
 
 AC_SUBST(SuF_CFLAGS)
 AC_SUBST(SuF_LIBS)
 
-AC_SUBST([HEPfit_SO_VERSION], [0:3:0])
-AC_SUBST([HEPfit_API_VERSION], [0.3])
+AC_SUBST([HEPfit_SO_VERSION], [1:0:0])
+AC_SUBST([HEPfit_API_VERSION], [1.0])
 
 AC_CONFIG_FILES([Makefile
 		HEPfit-${HEPfit_API_VERSION}.pc:HEPfit.pc.in])

@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="95">
+<configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/CPoddHiggsCache.h</itemPath>
-      <itemPath>src/EWPO.h</itemPath>
+      <itemPath>src/CPoddHiggs.h</itemPath>
       <itemPath>src/STU.h</itemPath>
       <itemPath>src/THDM.h</itemPath>
       <itemPath>src/THDMMatching.h</itemPath>
       <itemPath>src/THDMObservables.h</itemPath>
       <itemPath>src/THDMcache.h</itemPath>
       <itemPath>src/THDMfunctions.h</itemPath>
+      <itemPath>src/THDMquantities.h</itemPath>
+      <itemPath>src/bsgamma.h</itemPath>
       <itemPath>src/globalminimum.h</itemPath>
-      <itemPath>src/heavyHiggsCache.h</itemPath>
-      <itemPath>src/lambda1.h</itemPath>
-      <itemPath>src/lambda2.h</itemPath>
-      <itemPath>src/lambda3.h</itemPath>
-      <itemPath>src/lambda4.h</itemPath>
-      <itemPath>src/lambda5.h</itemPath>
+      <itemPath>src/heavyHiggs.h</itemPath>
       <itemPath>src/lightHiggs.h</itemPath>
       <itemPath>src/positivity.h</itemPath>
       <itemPath>src/unitarity.h</itemPath>
@@ -30,20 +26,16 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/CPoddHiggsCache.cpp</itemPath>
-      <itemPath>src/EWPO.cpp</itemPath>
+      <itemPath>src/CPoddHiggs.cpp</itemPath>
       <itemPath>src/STU.cpp</itemPath>
       <itemPath>src/THDM.cpp</itemPath>
       <itemPath>src/THDMMatching.cpp</itemPath>
       <itemPath>src/THDMcache.cpp</itemPath>
       <itemPath>src/THDMfunctions.cpp</itemPath>
+      <itemPath>src/THDMquantities.cpp</itemPath>
+      <itemPath>src/bsgamma.cpp</itemPath>
       <itemPath>src/globalminimum.cpp</itemPath>
-      <itemPath>src/heavyHiggsCache.cpp</itemPath>
-      <itemPath>src/lambda1.cpp</itemPath>
-      <itemPath>src/lambda2.cpp</itemPath>
-      <itemPath>src/lambda3.cpp</itemPath>
-      <itemPath>src/lambda4.cpp</itemPath>
-      <itemPath>src/lambda5.cpp</itemPath>
+      <itemPath>src/heavyHiggs.cpp</itemPath>
       <itemPath>src/lightHiggs.cpp</itemPath>
       <itemPath>src/positivity.cpp</itemPath>
       <itemPath>src/unitarity.cpp</itemPath>
@@ -81,13 +73,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
+      <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -111,33 +99,21 @@
       </item>
       <item path="src/THDMfunctions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/globalminimum.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/heavyHiggsCache.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/heavyHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/heavyHiggsCache.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda4.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda5.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda5.h" ex="false" tool="3" flavor2="0">
+      <item path="src/heavyHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -181,13 +157,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
+      <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -211,33 +183,21 @@
       </item>
       <item path="src/THDMfunctions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/globalminimum.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/heavyHiggsCache.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/heavyHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/heavyHiggsCache.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda4.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda5.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda5.h" ex="false" tool="3" flavor2="0">
+      <item path="src/heavyHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -281,13 +241,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/CPoddHiggsCache.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/CPoddHiggsCache.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
+      <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -311,33 +267,21 @@
       </item>
       <item path="src/THDMfunctions.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/globalminimum.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/heavyHiggsCache.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/heavyHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/heavyHiggsCache.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda4.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/lambda5.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/lambda5.h" ex="false" tool="3" flavor2="0">
+      <item path="src/heavyHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -97,7 +97,6 @@ bool SUSY::Update(const std::map<std::string, double>& DPars)
 bool SUSY::PostUpdate()
 {
     if(!StandardModel::PostUpdate()) return (false);
-
     /* Set the squark and slepton mass matrices and the trilinear-coupling matrices */
     SetSoftTerms();
     computeYukawas();
@@ -108,12 +107,67 @@ bool SUSY::PostUpdate()
         m2.real() = m3/3.;
     }
     
+    bool IsFlag_FH = false;
     /* Compute Higgs and sparticle spectra with FeynHiggs */
-    if(!myFH->SetFeynHiggsPars()) return (false);
-    if(!myFH->CalcHiggsSpectrum()) return (false);
-    if(!myFH->CalcSpectrum()) return (false); /* Using SUSYSpectrum instead, because FH does not calculate Sneutrino masses. */
+    if (IsFlag_FH) {
+        if(!myFH->SetFeynHiggsPars()) return (false);
+        if(!myFH->CalcHiggsSpectrum()) return (false);
+        if(!myFH->CalcSpectrum()) return (false); /* FH does not calculate Sneutrino masses. */
+    }
+    else {
+    /* Compute Higgs and sparticle spectra without FeynHiggs */
+        /* sfermions */
+        for (int i = 0; i < 6; i++) {
+            m_sn2(i) = 0.;// heavy decoupled masses for i=3-5
+            m_se2(i) = 0.;
+            m_su2(i) = 0.;
+            m_sd2(i) = 0.;
+            m_sdresum2(i) = 0.;
+            for (int j = 0; j < 6; j++) {
+                /* R: first (second) index for mass (gauge) eigenstates */
+                /* UASf: second (third) index for gauge (mass) eigenstates */
+                Rn.assign(i,j, 0.);
+                Rl.assign(i,j, 0.);
+                Ru.assign(i,j, 0.);
+                Rd.assign(i,j, 0.);
+                Rdresum.assign(i,j, 0.);
+            }
+        }
+
+        /* charginos */
+        for (int i = 0; i < 2; i++) {
+            mch(i) = 0.;
+            for (int j = 0; j < 2; j++) {
+                /* U and V: first (second) index for mass (gauge) eigenstates */
+                /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
+                U.assign(i,j, 0.);
+                V.assign(i,j, 0.);
+            }
+        }
+
+        /* neutralinos */
+        for (int i = 0; i < 4; i++) {
+            mneu(i) = 0.;
+            for (int j = 0; j < 4; j++)
+                /* N: first (second) index for mass (gauge) eigenstates */
+                /* Zneu: first (second) index for gauge (mass) eigenstates */
+                N.assign(i,j, 0.);
+        }
+
+    if(!mySUSYSpectrum->CalcHiggs(mh,saeff)) return (false);
+    if(!mySUSYSpectrum->CalcChargino(U,V,mch)) return (false);
+    if(!mySUSYSpectrum->CalcNeutralino(N,mneu)) return (false);
+    if(!mySUSYSpectrum->CalcSup(Ru,m_su2)) return (false);
+    myFH->SortSfermionMasses(m_su2, Ru);
+    if(!mySUSYSpectrum->CalcSdown(Rd,m_sd2)) return (false);
+    myFH->SortSfermionMasses(m_sd2, Rd);
     if(!mySUSYSpectrum->CalcSneutrino(Rn,m_sn2)) return (false);
     myFH->SortSfermionMasses(m_sn2, Rn);
+    if(!mySUSYSpectrum->CalcSelectron(Rl,m_se2)) return (false);
+    myFH->SortSfermionMasses(m_se2, Rl);
+    }
+
+//    std::cout<<"muH S = "<<muH<<std::endl;
 
     /* Set the mass of the SM-like Higgs */
     mHl = mh[0];

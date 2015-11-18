@@ -6,10 +6,14 @@
                    projectFiles="true">
       <itemPath>src/HeffDLi3j.h</itemPath>
       <itemPath>src/HeffDLij.h</itemPath>
+      <itemPath>src/Heffgminus2.h</itemPath>
+      <itemPath>src/Heffmueconv.h</itemPath>
       <itemPath>src/LeptonFlavour.h</itemPath>
       <itemPath>src/LeptonFlavourObservables.h</itemPath>
+      <itemPath>src/gminus2.h</itemPath>
       <itemPath>src/li_3lj.h</itemPath>
       <itemPath>src/li_lj_gamma.h</itemPath>
+      <itemPath>src/mueconversion.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -20,8 +24,12 @@
                    projectFiles="true">
       <itemPath>src/HeffDLi3j.cpp</itemPath>
       <itemPath>src/HeffDLij.cpp</itemPath>
+      <itemPath>src/Heffgminus2.cpp</itemPath>
+      <itemPath>src/Heffmueconv.cpp</itemPath>
+      <itemPath>src/gminus2.cpp</itemPath>
       <itemPath>src/li_3lj.cpp</itemPath>
       <itemPath>src/li_lj_gamma.cpp</itemPath>
+      <itemPath>src/mueconversion.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -63,9 +71,21 @@
       </item>
       <item path="src/HeffDLij.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Heffgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Heffgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Heffmueconv.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Heffmueconv.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LeptonFlavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavourObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gminus2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/li_3lj.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -74,6 +94,10 @@
       <item path="src/li_lj_gamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/li_lj_gamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/mueconversion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mueconversion.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -112,9 +136,21 @@
       </item>
       <item path="src/HeffDLij.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Heffgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Heffgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Heffmueconv.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Heffmueconv.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LeptonFlavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavourObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gminus2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/li_3lj.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -123,6 +159,10 @@
       <item path="src/li_lj_gamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/li_lj_gamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/mueconversion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mueconversion.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="3">
@@ -151,9 +191,21 @@
       </item>
       <item path="src/HeffDLij.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Heffgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Heffgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Heffmueconv.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Heffmueconv.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/LeptonFlavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LeptonFlavourObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/gminus2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/li_3lj.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -162,6 +214,10 @@
       <item path="src/li_lj_gamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/li_lj_gamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/mueconversion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/mueconversion.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

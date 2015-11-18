@@ -545,6 +545,11 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate();
+    
+    int getIterationNo() const
+    {
+        return iterationNo;
+    }
 
     /**
      * @brief A method to check if all the mandatory parameters for %StandardModel
@@ -2579,6 +2584,8 @@ private:
     mutable bool useGammaW_cache;
     mutable bool useRhoZ_f_cache[12];
     mutable bool useKappaZ_f_cache[12];
+    
+    int iterationNo;
 
 };
 

@@ -71,7 +71,7 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
                                  "order " + out.str() + " not computed");
     }
     gslpp::vector<gslpp::complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffsmumu(mu, NDR);
-  
+
     double alsmu = evolbsmm.alphatilde_s(mu);
     double alemu = evolbsmm.alphatilde_e(mu);
    
@@ -85,7 +85,7 @@ void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
                     + (*(allcoeff[NLO_ew]))(7) + (*(allcoeff[NLO_ewt1]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_ewt2]))(7) * alsmu 
                     + (*(allcoeff[NLO_ewt3]))(7) * alemu /alsmu+ (*(allcoeff[NLO_ewt4]))(7) * alemu;
-            absP = CC.abs(); //contains only SM contributions (P, P', S, S' not added))
+            absP = CC.abs(); //contains only SM contributions (P, P', S, S' not added)
             argP = CC.arg();
             
             absS = 0.;

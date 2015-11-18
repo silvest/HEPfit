@@ -14,12 +14,6 @@
 
 using namespace gslpp;
 
-/**
- * @addtogroup LeptonFlavour
- * @brief A module for lepton flavour observables.
- * @{
- */
-
 class HeffDLij {
 public:
     /**
@@ -42,20 +36,6 @@ public:
      * @return
      */
     vector<complex>** ComputeCoeffDLij(int li_lj);
-//    vector<complex>** ComputeCoeffDL1_2();
-//    vector<complex>** ComputeCoeffDL1_3();
-
-//    WilsonCoefficient getCoeffDL1_1() const {
-//        return coeffDL1_1;
-//    }
-//
-//    WilsonCoefficient getCoeffDL1_2() const {
-//        return coeffDL1_2;
-//    }
-//
-//    WilsonCoefficient getCoeffDL1_3() const {
-//        return coeffDL1_3;
-//    }
 
     const StandardModel& GetModel() const {
         return model;
@@ -70,10 +50,6 @@ private :
 
     //gslpp::vector<complex> nlep, nlep2, nlepCC;
 };
-
-/**
- * @}
- */
 
 #endif	/* HEFFDLIJ_H */
 

@@ -10,6 +10,7 @@
 #include <TFile.h>
 #include <TROOT.h>
 #include <TMath.h>
+#include <limits>
 
 
 Observable::Observable (const std::string name_i,
@@ -34,6 +35,9 @@ Observable::Observable (const std::string name_i,
     errg = 0.;
     errf = 0.;
     obsType = "";
+    bin_min = 0.;
+    bin_max = 0.;
+    iterationNo = std::numeric_limits<int>::max();
 }
 
 Observable::Observable(const Observable& orig) 
@@ -51,6 +55,31 @@ Observable::Observable(const Observable& orig)
     ave = orig.ave; 
     errg = orig.errg; 
     errf = orig.errf;
+    obsType = orig.obsType;
+    bin_min = orig.bin_min;
+    bin_min = orig.bin_max;
+    iterationNo = orig.iterationNo;
+}
+
+Observable::Observable() 
+{
+    name = "";
+    thname = "";
+    label = "";
+    min = 0.;
+    max = 0.;
+    tMCMC = false;
+    tho = NULL;
+    distr = ""; 
+    filename = ""; 
+    histoname = "";
+    ave = 0.; 
+    errg = 0.; 
+    errf = 0.;
+    obsType = "";
+    bin_min = 0.;
+    bin_max = 0.;
+    iterationNo = std::numeric_limits<int>::max();
 }
 
 Observable::~Observable() {}
@@ -85,7 +114,13 @@ void Observable::setLikelihoodFromHisto(std::string filename, std::string histon
 
 double Observable::computeTheoryValue()
 {
-    return tho->computeThValue();
+    if (tho->getModel().getIterationNo() == iterationNo) {
+        return thValue;
+    } else {
+        iterationNo = tho->getModel().getIterationNo();
+        thValue = tho->computeThValue();
+        return thValue;
+    }   
 }
 
 double Observable::LogSplitGaussian(double x, double ave, double errl, double errr)
@@ -144,4 +179,74 @@ double Observable::computeWeight(double th, double ave_i, double errg_i, double 
         throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
             + name);
     return (logprob);
+}
+
+boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObservable(std::string& type, 
+                                                                                       boost::tokenizer<boost::char_separator<char> >* tok, 
+                                                                                       boost::tokenizer<boost::char_separator<char> >::iterator & beg, 
+                                                                                       std::string& filepath, 
+                                                                                       int rank) 
+{
+    obsType = type;
+    name = *beg;
+    ++beg;
+    thname = *beg;
+    ++beg;
+    label = *beg;
+    size_t pos = 0;
+    while ((pos = label.find("~", pos)) != std::string::npos)
+        label.replace(pos++, 1, " ");
+    ++beg;
+    min = atof((*beg).c_str());
+    ++beg;
+    max = atof((*beg).c_str());
+    ++beg;
+    std::string toMCMC = *beg;
+    if (toMCMC.compare("MCMC") == 0)
+        tMCMC = true;
+    else if (toMCMC.compare("noMCMC") == 0)
+        tMCMC = false;
+    else
+        throw std::runtime_error("ERROR: wrong MCMC flag in " + name);
+
+    if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0) {
+        ++beg;
+        distr = *beg;
+        if (distr.compare("file") == 0) {
+            if (std::distance(tok->begin(), tok->end()) < 10)
+                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
+                        + *beg + " in " + filename);
+            filename = filepath + *(++beg);
+            histoname = *(++beg);
+            setLikelihoodFromHisto(filename, histoname);
+            if (rank == 0) std::cout << "added input histogram " << filename << "/" << histoname << std::endl;
+        } else if (distr.compare("weight") == 0) {
+            if (std::distance(tok->begin(), tok->end()) < 11 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+            ++beg;
+            ave = atof((*beg).c_str());
+            ++beg;
+            errg = atof((*beg).c_str());
+            ++beg;
+            errf = atof((*beg).c_str());
+            if (errf == 0. && errg == 0.) {
+                if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + filename + " file.\n");
+            }
+        } else if (distr.compare("noweight") == 0) {
+            if (obsType.compare("BinnedObservable") == 0) {
+                ++beg;
+                ++beg;
+                ++beg;
+            }
+        } else if (rank == 0)
+            throw std::runtime_error("ERROR: wrong distribution flag in " + name);
+        ++beg;
+        if (obsType.compare("BinnedObservable") == 0) {
+            bin_min = atof((*beg).c_str());
+            ++beg;
+            bin_max = atof((*beg).c_str());
+            ++beg;
+        }
+        if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in observable " << name << std::endl;
+    }
+    return beg;
 }

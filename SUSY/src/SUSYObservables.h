@@ -12,6 +12,8 @@
 #include "Mhiggs.h"
 #include "Msup.h"
 #include "Msdown.h"
+#include "Mslepton.h"
+#include "Msneutrino.h"
 #include "Mchargino.h"
 #include "Mneutralino.h"
 #include "Mw_dRho.h"

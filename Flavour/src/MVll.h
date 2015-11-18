@@ -415,25 +415,41 @@ public:
     double reDC9fit(double* x, double* p);
     double imDC9fit(double* x, double* p);
     
-    void fit_DeltaC9_p();
-    void fit_DeltaC9_m();
-    void fit_DeltaC9_0();
+    void fit_DeltaC9_p_mumu();
+    void fit_DeltaC9_m_mumu();
+    void fit_DeltaC9_0_mumu();
     
-    std::vector<double> ReDeltaC9_p;
-    std::vector<double> ImDeltaC9_p;
-    std::vector<double> ReDeltaC9_m;
-    std::vector<double> ImDeltaC9_m;
-    std::vector<double> ReDeltaC9_0;
-    std::vector<double> ImDeltaC9_0;
+    void fit_DeltaC9_p_ee();
+    void fit_DeltaC9_m_ee();
+    void fit_DeltaC9_0_ee();
+    
+    std::vector<double> ReDeltaC9_p_mumu;
+    std::vector<double> ImDeltaC9_p_mumu;
+    std::vector<double> ReDeltaC9_m_mumu;
+    std::vector<double> ImDeltaC9_m_mumu;
+    std::vector<double> ReDeltaC9_0_mumu;
+    std::vector<double> ImDeltaC9_0_mumu;
+    std::vector<double> ReDeltaC9_p_ee;
+    std::vector<double> ImDeltaC9_p_ee;
+    std::vector<double> ReDeltaC9_m_ee;
+    std::vector<double> ImDeltaC9_m_ee;
+    std::vector<double> ReDeltaC9_0_ee;
+    std::vector<double> ImDeltaC9_0_ee;
     std::vector<double> myq2;
     
-    TFitResultPtr refres_p;
-    TFitResultPtr imfres_p;
-    TFitResultPtr refres_m;
-    TFitResultPtr imfres_m;
-    TFitResultPtr refres_0;
-    TFitResultPtr imfres_0;
+    TFitResultPtr refres_p_mumu;
+    TFitResultPtr imfres_p_mumu;
+    TFitResultPtr refres_m_mumu;
+    TFitResultPtr imfres_m_mumu;
+    TFitResultPtr refres_0_mumu;
+    TFitResultPtr imfres_0_mumu;
     
+    TFitResultPtr refres_p_ee;
+    TFitResultPtr imfres_p_ee;
+    TFitResultPtr refres_m_ee;
+    TFitResultPtr imfres_m_ee;
+    TFitResultPtr refres_0_ee;
+    TFitResultPtr imfres_0_ee;
         
     TGraph gr1;
     TGraph gr2;
@@ -563,7 +579,8 @@ public:
     double CF;
     
     double deltaT_0;
-    double deltaT_1;
+    double deltaT_1par;
+    double deltaT_1perp;
     
     double Ee;
     gslpp::complex ubar;

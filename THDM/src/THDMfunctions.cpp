@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 SusyFit Collaboration
+ * Copyright (C) 2015 HEPfit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -7,7 +7,6 @@
 
 #include "THDMfunctions.h"
 #include "StandardModel.h"
-//#include "gslpp.h"
 
 double THDMfunctions::computeThValue()
 {
@@ -56,14 +55,14 @@ gslpp::complex THDMfunctions::Int2(const double tau, const double lambda) const{
 
 
 
-int THDMfunctions::HSTheta (const double x) const{    
+int THDMfunctions::HSTheta (const double x) const{
     if(x<0)return 0.0;
     else return 1.0;
 }
 
 
 
-double THDMfunctions::KaellenFunction (const double a, const double b, const double c) const{    
-    double x = (a*a-b*b-c*c)*(a*a-b*b-c*c)-4.0*b*b*c*c;    
-    return HSTheta(x)*sqrt(std::abs(x))/(2.0*a);    
+double THDMfunctions::KaellenFunction (const double a, const double b, const double c) const{
+    double x = (a*a-b*b-c*c)*(a*a-b*b-c*c)-4.0*b*b*c*c;
+    return HSTheta(x)*sqrt(std::abs(x))/(2.0*a);
 }

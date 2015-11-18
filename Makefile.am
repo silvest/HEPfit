@@ -1,12 +1,6 @@
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4 --install
 AUTOMAKE_OPTIONS = subdir-objects
 
-# AM_CXXFLAGS = -I$(top_srcdir)/BAT-0.9.4.1_parallel/src \
-#  -I$(top_srcdir)/BAT-0.9.4.1_parallel/BAT \
-#  -I$(top_srcdir)/BAT-0.9.4.1_parallel/models/mtf \
-#  -I$(top_srcdir)/BAT-0.9.4.1_parallel/models/base \
-#  -I$(top_srcdir)/BAT-0.9.4.1_parallel/models/mvc 
-
 AM_CXXFLAGS = -I$(top_srcdir)/BHWIDEWrapper/src \
  -I$(top_srcdir)/BHWIDEWrapper/src \
  -I$(top_srcdir)/ComputeObservables/src \
@@ -21,11 +15,9 @@ AM_CXXFLAGS = -I$(top_srcdir)/BHWIDEWrapper/src \
  -I$(top_srcdir)/InputParser/src \
  -I$(top_srcdir)/LeptonFlavour/src \
  -I$(top_srcdir)/LoopFunctions/src \
- -I$(top_srcdir)/MFV/src \
  -I$(top_srcdir)/MonteCarlo/src \
  -I$(top_srcdir)/NewPhysics/src \
  -I$(top_srcdir)/Observables/src \
- -I$(top_srcdir)/pMSSM/src \
  -I$(top_srcdir)/StandardModel/src \
  -I$(top_srcdir)/SUSY/src \
  -I$(top_srcdir)/SUSYMassInsertion/src \
@@ -46,49 +38,6 @@ AM_CXXFLAGS = -I$(top_srcdir)/BHWIDEWrapper/src \
  -I$(top_srcdir)/LHPC/include/PCAD 
 
 bin_PROGRAMS = Analysis/analysis
-
-#nobase_pkginclude_HEADERS = 
-#pkginclude_HEADERS = BAT-0.9.4.1_parallel/src/LinkDef.h \
-BAT-0.9.4.1_parallel/BAT/BCParameter.h \
-BAT-0.9.4.1_parallel/BAT/BCIntegrate.h \
-BAT-0.9.4.1_parallel/BAT/BCH2D.h \
-BAT-0.9.4.1_parallel/BAT/BCMath.h \
-BAT-0.9.4.1_parallel/BAT/BCAux.h \
-BAT-0.9.4.1_parallel/BAT/BCModelOutput.h \
-BAT-0.9.4.1_parallel/BAT/BCEngineMCMC.h \
-BAT-0.9.4.1_parallel/BAT/BCSummaryPriorModel.h \
-BAT-0.9.4.1_parallel/BAT/BCDataSet.h \
-BAT-0.9.4.1_parallel/BAT/BCLog.h \
-BAT-0.9.4.1_parallel/BAT/BCH1D.h \
-BAT-0.9.4.1_parallel/BAT/BCDataPoint.h \
-BAT-0.9.4.1_parallel/BAT/BCGoFTest.h \
-BAT-0.9.4.1_parallel/BAT/BCSummaryTool.h \
-BAT-0.9.4.1_parallel/BAT/BCModelManager.h \
-BAT-0.9.4.1_parallel/BAT/BCModel.h \
-BAT-0.9.4.1_parallel/BAT/BCParameterSet.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFSystematicVariation.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFAnalysisFacility.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFSystematic.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFComparisonTool.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFChannel.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFProcess.h \
-BAT-0.9.4.1_parallel/models/mtf/LinkDef.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFTemplate.h \
-BAT-0.9.4.1_parallel/models/mtf/BCMTF.h \
-BAT-0.9.4.1_parallel/models/base/BCHistogramFitter.h \
-BAT-0.9.4.1_parallel/models/base/BCEfficiencyFitter.h \
-BAT-0.9.4.1_parallel/models/base/BATCalculator.h \
-BAT-0.9.4.1_parallel/models/base/BCGraphFitter.h \
-BAT-0.9.4.1_parallel/models/base/BCFitter.h \
-BAT-0.9.4.1_parallel/models/base/LDef.h \
-BAT-0.9.4.1_parallel/models/base/LDef_roostats.h \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCObservable.h \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCDataModel.h \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCUncertainty.h \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCombination.h \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCMeasurement.h \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCPhysicsModel.h \
-BAT-0.9.4.1_parallel/models/mvc/LinkDef.h
 
 pkginclude_HEADERS = BHWIDEWrapper/src/BHWIDE-f2c.h \
 BHWIDEWrapper/src/BHWIDEWrapper.h \
@@ -197,19 +146,21 @@ HiggsExtensions/src/HiggsKvKfgen.h \
 InputParser/src/ModelFactory.h \
 InputParser/src/ThObsFactory.h \
 InputParser/src/InputParser.h \
-LeptonFlavour/src/HeffDLi3j.h \
 LeptonFlavour/src/li_3lj.h \
 LeptonFlavour/src/li_lj_gamma.h \
 LeptonFlavour/src/LeptonFlavour.h \
+LeptonFlavour/src/gminus2.h \
 LeptonFlavour/src/HeffDLij.h \
+LeptonFlavour/src/Heffmueconv.h \
+LeptonFlavour/src/Heffgminus2.h \
+LeptonFlavour/src/HeffDLi3j.h \
 LeptonFlavour/src/LeptonFlavourObservables.h \
+LeptonFlavour/src/mueconversion.h\
 LoopFunctions/src/LoopToolsWrapper.h \
 LoopFunctions/src/BernoulliNumbers.h \
 LoopFunctions/src/PVfunctions.h \
 LoopFunctions/src/Polylogarithms.h \
 LoopFunctions/src/ClausenFunctions.h \
-MFV/src/MFV.h \
-MFV/src/Xmatrices.h \
 MonteCarlo/src/MonteCarlo.h \
 MonteCarlo/src/MonteCarloEngine.h \
 NewPhysics/src/NPZbbbar.h \
@@ -235,7 +186,6 @@ Observables/src/CorrelatedGaussianObservables.h \
 Observables/src/Observable2D.h \
 Observables/src/Observable.h \
 Observables/src/CorrelatedGaussianParameters.h \
-pMSSM/src/pMSSM.h \
 StandardModel/src/EWSMTwoFermionsLEP2.h \
 StandardModel/src/ModelMatching.h \
 StandardModel/src/EWSMApproximateFormulae.h \
@@ -264,8 +214,10 @@ StandardModel/src/EWSMThreeLoopEW.h \
 StandardModel/src/WilsonTemplate.h \
 SUSY/src/FeynHiggsWrapper.h \
 SUSY/src/EWSUSY.h \
+SUSY/src/Mslepton.h \
 SUSY/src/Mchargino.h \
 SUSY/src/Msdown.h \
+SUSY/src/Msneutrino.h \
 SUSY/src/Mneutralino.h \
 SUSY/src/OutputSLHAfromFH.h \
 SUSY/src/SUSYMatching.h \
@@ -277,21 +229,18 @@ SUSY/src/SUSYObservables.h \
 SUSY/src/SUSY.h \
 SUSYMassInsertion/src/SUSYMassInsertionMatching.h \
 SUSYMassInsertion/src/SUSYMassInsertion.h \
+THDM/src/bsgamma.h \
+THDM/src/CPoddHiggs.h \
 THDM/src/EWPO.h \
 THDM/src/THDMMatching.h \
 THDM/src/globalminimum.h \
 THDM/src/THDMfunctions.h \
-THDM/src/lambda5.h \
-THDM/src/CPoddHiggsCache.h \
 THDM/src/lightHiggs.h \
+THDM/src/heavyHiggs.h \
 THDM/src/positivity.h \
+THDM/src/THDMquantities.h \
 THDM/src/THDMObservables.h \
-THDM/src/lambda3.h \
-THDM/src/lambda1.h \
 THDM/src/THDMcache.h \
-THDM/src/lambda4.h \
-THDM/src/lambda2.h \
-THDM/src/heavyHiggsCache.h \
 THDM/src/unitarity.h \
 THDM/src/THDM.h \
 THDM/src/STU.h \
@@ -418,44 +367,6 @@ LHPC/include/PCAD/NineDigitSlhaCodes.hpp \
 LHPC/include/PCAD/SevenDigitSlhaCodes.hpp \
 LHPC/include/LHEF.hpp 
 
-#themySOURCES = BAT-0.9.4.1_parallel/src/BCDataPoint.cxx \
-BAT-0.9.4.1_parallel/src/BCMath.cxx \
-BAT-0.9.4.1_parallel/src/BCModelOutput.cxx \
-BAT-0.9.4.1_parallel/src/BCDataSet.cxx \
-BAT-0.9.4.1_parallel/src/BCH2D.cxx \
-BAT-0.9.4.1_parallel/src/BCModelManager.cxx \
-BAT-0.9.4.1_parallel/src/BCEngineMCMC.cxx \
-BAT-0.9.4.1_parallel/src/BCParameter.cxx \
-BAT-0.9.4.1_parallel/src/BCModel.cxx \
-BAT-0.9.4.1_parallel/src/BCAux.cxx \
-BAT-0.9.4.1_parallel/src/BCGoFTest.cxx \
-BAT-0.9.4.1_parallel/src/BCIntegrate.cxx \
-BAT-0.9.4.1_parallel/src/BCSummaryPriorModel.cxx \
-BAT-0.9.4.1_parallel/src/BCParameterSet.cxx \
-BAT-0.9.4.1_parallel/src/BCH1D.cxx \
-BAT-0.9.4.1_parallel/src/BCSummaryTool.cxx \
-BAT-0.9.4.1_parallel/src/BCLog.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFProcess.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFSystematicVariation.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFTemplate.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFSystematic.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFComparisonTool.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTF.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFChannel.cxx \
-BAT-0.9.4.1_parallel/models/mtf/BCMTFAnalysisFacility.cxx \
-BAT-0.9.4.1_parallel/models/base/BCRooInterface.cxx \
-BAT-0.9.4.1_parallel/models/base/BCFitter.cxx \
-BAT-0.9.4.1_parallel/models/base/BATCalculator.cxx \
-BAT-0.9.4.1_parallel/models/base/BCEfficiencyFitter.cxx \
-BAT-0.9.4.1_parallel/models/base/BCHistogramFitter.cxx \
-BAT-0.9.4.1_parallel/models/base/BCGraphFitter.cxx \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCombination.cxx \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCDataModel.cxx \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCPhysicsModel.cxx \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCObservable.cxx \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCMeasurement.cxx \
-BAT-0.9.4.1_parallel/models/mvc/BCMVCUncertainty.cxx
-
 themySOURCES = BHWIDEWrapper/src/BHWIDEWrapper.cpp \
 ComputeObservables/src/ComputeObservables.cpp \
 EventGeneration/src/GenerateEvent.cpp \
@@ -546,10 +457,14 @@ HiggsExtensions/src/HiggsKvKfgen.cpp \
 InputParser/src/ThObsFactory.cpp \
 InputParser/src/InputParser.cpp \
 InputParser/src/ModelFactory.cpp \
+LeptonFlavour/src/gminus2.cpp \
 LeptonFlavour/src/li_lj_gamma.cpp \
 LeptonFlavour/src/HeffDLi3j.cpp \
 LeptonFlavour/src/HeffDLij.cpp \
+LeptonFlavour/src/Heffgminus2.cpp \
+LeptonFlavour/src/Heffmueconv.cpp \
 LeptonFlavour/src/li_3lj.cpp \
+LeptonFlavour/src/mueconversion.cpp \
 LHPC/include/BOLlib/source/BalancedPartitionCandidate.cpp \
 LHPC/include/BOLlib/source/WaitingOnSubprocessExecutor.cpp \
 LHPC/include/BOLlib/source/CommentedTextParser.cpp \
@@ -628,8 +543,6 @@ LoopFunctions/src/PVfunctions.cpp \
 LoopFunctions/src/Polylogarithms.cpp \
 LoopFunctions/src/BernoulliNumbers.cpp \
 LoopFunctions/src/LoopToolsWrapper.cpp \
-MFV/src/Xmatrices.cpp \
-MFV/src/MFV.cpp \
 MonteCarlo/src/MonteCarlo.cpp \
 MonteCarlo/src/MonteCarloEngine.cpp \
 NewPhysics/src/NPSTU.cpp \
@@ -654,7 +567,6 @@ Observables/src/ParamObs.cpp \
 Observables/src/HiggsObservable.cpp \
 Observables/src/Observable2D.cpp \
 Observables/src/Observable.cpp \
-pMSSM/src/pMSSM.cpp \
 StandardModel/src/EWSMTwoFermionsLEP2.cpp \
 StandardModel/src/StandardModelMatching.cpp \
 StandardModel/src/EWSMOneLoopEW_HV.cpp \
@@ -684,22 +596,16 @@ SUSY/src/SUSY.cpp \
 SUSYMassInsertion/src/SUSYMassInsertionMatching.cpp \
 SUSYMassInsertion/src/SUSYMassInsertion.cpp \
 THDM/src/THDM.cpp \
-THDM/src/lambda1.cpp \
-THDM/src/lambda4.cpp \
 THDM/src/globalminimum.cpp \
 THDM/src/positivity.cpp \
-THDM/src/lambda3.cpp \
 THDM/src/STU.cpp \
 THDM/src/THDMcache.cpp \
 THDM/src/EWPO.cpp \
 THDM/src/unitarity.cpp \
-THDM/src/lambda5.cpp \
-THDM/src/CPoddHiggsCache.cpp \
-THDM/src/lambda2.cpp \
 THDM/src/THDMMatching.cpp \
 THDM/src/THDMfunctions.cpp \
-THDM/src/lightHiggs.cpp \
-THDM/src/heavyHiggsCache.cpp 
+THDM/src/lightHiggs.cpp 
+
 
 Analysis_analysis_SOURCES =  $(themySOURCES) Analysis/main.cpp
 
@@ -729,6 +635,20 @@ m4data_DATA = m4/hepfit.m4
 EXTRA_DIST = Analysis/Higgs Analysis/input Analysis/nbproject Analysis/tests \
 BAT-0.9.4.1_parallel Configurations doc Doxygen Utils BAT-0.9.3_parallel Packaging ZFitterWrapper \
 Analysis/nbproject \
+Analysis/Makefile \
+Analysis/Flavour.conf \
+Analysis/FlavourWC.conf \
+Analysis/GeneralSUSY.conf \
+Analysis/HiggsKvKf.conf \
+Analysis/Model.conf \
+Analysis/MonteCarlo.conf \
+Analysis/SUSYMassInsertion.conf \
+Analysis/StandardModel.conf \
+Analysis/THDM.conf \
+Analysis/main_MCMC_example.cpp \
+Analysis/main_libmode_config_example.cpp \
+Analysis/main_libmode_header_example.cpp \
+Analysis/main_libmode_slha2_to_GeneralSUSYconfigfile.cpp \
 BHWIDEWrapper/nbproject \
 ComputeObservables/nbproject \
 EventGeneration/nbproject \
@@ -741,11 +661,9 @@ HiggsExtensions/nbproject \
 InputParser/nbproject \
 LeptonFlavour/nbproject \
 LoopFunctions/nbproject \
-MFV/nbproject \
 MonteCarlo/nbproject \
 NewPhysics/nbproject \
 Observables/nbproject \
-pMSSM/nbproject \
 StandardModel/nbproject \
 SUSY/nbproject \
 SUSYMassInsertion/nbproject \
@@ -764,11 +682,9 @@ HiggsExtensions/Makefile \
 InputParser/Makefile \
 LeptonFlavour/Makefile \
 LoopFunctions/Makefile \
-MFV/Makefile \
 MonteCarlo/Makefile \
 NewPhysics/Makefile \
 Observables/Makefile \
-pMSSM/Makefile \
 StandardModel/Makefile \
 SUSY/Makefile \
 SUSYMassInsertion/Makefile \

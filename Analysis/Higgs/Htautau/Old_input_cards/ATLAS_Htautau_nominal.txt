@@ -1,0 +1,14 @@
+# ATLAS-CONF-2013-108
+# http://cds.cern.ch/record/1632191/files/ATLAS-CONF-2013-108.pdf
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, VBF fraction, VH fraction|
+# ttH is computed as 1-ggH-VBF-VH
+##################
+MEASUREMENT Blh_7and8TeV | 0.699 0.161 0.140 | 1.2 -0.8 1.1
+MEASUREMENT Vlh_7and8TeV | 0.249 0.751 0.000 | 1.6 -0.6 0.8
+MEASUREMENT Bll_7and8TeV | 0.689 0.180 0.131 | 2.0 -1.5 1.8
+MEASUREMENT Vll_7and8TeV | 0.197 0.791 0.012 | 2.2 -1.1 1.2
+MEASUREMENT Bhh_7and8TeV | 0.654 0.162 0.184 | 0.8 -1.0 1.2
+MEASUREMENT Vhh_7and8TeV | 0.272 0.715 0.013 | 1.0 -0.7 0.9
+##################

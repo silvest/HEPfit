@@ -16,14 +16,14 @@ class THDMcache; //forward reference to THDMcache class
 
 /**
  * @class THDM
- * @brief Two Higgs Doublet model type II
+ * @brief Z2 symmetric Two Higgs Doublet models
  */
 class THDM: public StandardModel {
 public:
 
-    static const int NTHDMvars = 9;
+    static const int NTHDMvars = 18;
     //The parameters of the Higgs potential for THDM (there are several basis) according to ?
-    //We choose the physical basis: logtb,bma,mHh,mA,mHp,m12_2,lambda6,lambda7
+    //We choose a modified physical basis: log(tanbeta),beta-alpha,mHh^2,mHh^2-mA^2,mHh^2-mHp^2,m12^2,lambda6,lambda7
     static const std::string THDMvars[NTHDMvars];
     
     /**
@@ -47,9 +47,13 @@ public:
     virtual bool PostUpdate();
     
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+
     
-    virtual bool setFlag(const std::string name, const bool value);
-    
+    ///////////////////////////////////////////////////////////////////////////
+    // Flags
+
+    virtual bool setFlagStr(const std::string name, const std::string value);
+
     virtual THDMMatching* getMyMatching() const
     {
         return myTHDMMatching;
@@ -60,15 +64,19 @@ public:
     
     /**
      * 
-     * @return the down-type VEV
+     * @return the VEV \f$v_1$\f
      */
-    double v1() const;
+    double getv1() const {
+        return v() * cosb;
+    }
 
     /**
      *
-     * @return the up-type VEV
+     * @return the VEV \f$v_2$\f
      */
-    double v2() const;
+    double getv2() const {
+        return v() * sinb;
+    }
     
     ///////////////////////////////////////////////////////////////////////////
 
@@ -80,7 +88,15 @@ public:
      *
      * @return \f$\log(\tan \beta)$\f
      */
-    double getLogtb() const {
+    std::string getModelTypeflag() const {
+        return flag_model;
+    }
+
+    /**
+     *
+     * @return \f$\log(\tan \beta)$\f
+     */
+    double getlogtb() const {
         return logtb;
     }
 
@@ -88,7 +104,7 @@ public:
      *
      * @return \f$\tan \beta$\f
      */
-    double getTanb() const {
+    double gettanb() const {
         return tanb;
     }
 
@@ -96,7 +112,7 @@ public:
      *
      * @return \f$\sin \beta$\f
      */
-    double getSinb() const {
+    double getsinb() const {
         return sinb;
     }
 
@@ -104,7 +120,7 @@ public:
      *
      * @return \f$\cos \beta$\f
      */
-    double getCosb() const {
+    double getcosb() const {
         return cosb;
     }
 
@@ -116,7 +132,7 @@ public:
         return bma;
     }
 
-   /**
+    /**
      *
      * @return \f$\sin(\beta-\alpha)$\f
      */
@@ -124,39 +140,75 @@ public:
         return sin_ba;
     }
 
-    double computeCosa() const;
+    /**
+     *
+     * @return \f$\cos \alpha$\f
+     */
+    double getcosa() const{
+        return cos(atan(pow(10.,logtb))-bma);
+    }
 
-    double computeSina() const;
- 
+    /**
+     *
+     * @return \f$\sin \alpha$\f
+     */
+    double getsina() const{
+        return sin(atan(pow(10.,logtb))-bma);
+    }
+
+    /**
+     *
+     * @return mass squared heavy neutral scalar Higgs
+     */
+    double getmHh2() const {
+        return mHh2;
+    }
+
     /**
      *
      * @return mass heavy neutral scalar Higgs
      */
-    double getMHh() const {
-        return mHh;
+    double getmHh() const {
+        return sqrt(mHh2);
+    }
+
+    /**
+     *
+     * @return mass squared pseudoscalar Higgs A
+     */
+    double getmA2() const {
+        return mHh2-mHh2mmA2;
     }
 
     /**
      *
      * @return mass pseudoscalar Higgs A
      */
-    double getMA() const {
-        return mA;
+    double getmA() const {
+        return sqrt(mHh2-mHh2mmA2);
+    }
+
+    /**
+     *
+     * @return charged Higgs mass squared
+     */
+    double getmHp2() const {
+        return mHh2-mHh2mmHp2;
     }
 
     /**
      *
      * @return charged Higgs mass
      */
-    double getMHp() const {
-        return mHp;
+    double getmHp() const {
+        return sqrt(mHh2-mHh2mmHp2);
     }
 
     /**
      *
      * @return parameter of the Higgs potential \f$m_{12}^2$\f 
      */
-    double getM12_2() const {
+    double getm12_2() const {
         return m12_2;
     }
 
@@ -164,7 +216,7 @@ public:
      *
      * @return Higgs potential parameter \f$\lambda6$\f (reference arXiv:0902.0851v2)  
      */
-    double getLambda6() const {
+    double getlambda6() const {
         return lambda6;
     }
 
@@ -172,30 +224,102 @@ public:
      *
      * @return \f$lambda_7$\f 
      */
-    double getLambda7() const {
+    double getlambda7() const {
         return lambda7;
     }
-    
+
     /**
      *
-     * @return modelType
+     * @return BDtaunu SM expectation
      */
-    int getModelType() const {
-        return modelType;
+    double getBDtaunu_SM() const {
+        return BDtaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient A
+     */
+    double getBDtaunu_A() const {
+        return BDtaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDtaunu_B() const {
+        return BDtaunu_B;
+    }
+
+    /**
+     *
+     * @return BDstartaunu SM expectation
+     */
+    double getBDstartaunu_SM() const {
+        return BDstartaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDstartaunu coefficient A
+     */
+    double getBDstartaunu_A() const {
+        return BDstartaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDstartaunu_B() const {
+        return BDstartaunu_B;
+    }
+
+    /**
+     *
+     * @return BHatBsTHDM for DeltamBs
+     */
+    double getBHatBsTHDM() const {
+        return BHatBsTHDM;
+    }
+
+    /**
+     *
+     * @return etaBsTHDM for DeltamBs
+     */
+    double getetaBsTHDM() const {
+        return etaBsTHDM;
+    }
+
+    /**
+     *
+     * @return nuisance parameter for the theoretical error on bsgamma
+     */
+    double getbsgamma_theoryerror() const {
+        return bsgamma_theoryerror;
+    }
+
+    /**
+     *
+     * @return THDM scale
+     */
+    double getQ_THDM() const {
+        return Q_THDM;
     }
 
 protected: 
-    
+
     virtual void setParameter(const std::string, const double&);
     THDMcache * mycache;
 
 private:
 
     THDMMatching* myTHDMMatching;
-    
-    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh, mA, mHp, m12_2, lambda6, lambda7, mh, modelType;
-    
-      
+
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mHh2mmA2, mHh2mmHp2, m12_2, lambda6, lambda7/*, mh*/;
+    double BDtaunu_SM, BDtaunu_A, BDtaunu_B, BDstartaunu_SM, BDstartaunu_A, BDstartaunu_B, BHatBsTHDM, etaBsTHDM, bsgamma_theoryerror, Q_THDM;
+    std::string flag_model;
 };
 
 #endif	/* THDM_H */

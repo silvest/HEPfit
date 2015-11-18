@@ -33,13 +33,45 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "CdH_11r", "CdH_12r", "CdH_13r", "CdH_22r", "CdH_23r", "CdH_33r",
     "CdH_11i", "CdH_12i", "CdH_13i", "CdH_22i", "CdH_23i", "CdH_33i",
     "CLL_1221", "CLQ1", "CLQ3","Cee", "Ceu", "Ced", "CLe", "CLu", "CLd",
-    "CQe", "Lambda_NP"};
+    "CQe", "Lambda_NP",
+    "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
+    "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
+    "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
+    "eVBF2_ZdR", "eVBF2_Wud",
+    "eVBF78_HZZ1", "eVBF78_HZZ2", "eVBF78_HZZ3", "eVBF78_HZA1", "eVBF78_HZA2", "eVBF78_HAA",
+    "eVBF78_HWW1", "eVBF78_HWW2", "eVBF78_HWW3", "eVBF78_Hgg", "eVBF78_HZuL", "eVBF78_HZuR",
+    "eVBF78_HZdL", "eVBF78_HZdR", "eVBF78_HWud", "eVBF78_ZuL", "eVBF78_ZuR", "eVBF78_ZdL",
+    "eVBF78_ZdR", "eVBF78_Wud",
+    "eWH2_HWW1", "eWH2_HWW2", "eWH2_HWW3", "eWH2_HWud", "eWH2_Wud",
+    "eWH78_HWW1", "eWH78_HWW2", "eWH78_HWW3", "eWH78_HWud", "eWH78_Wud",
+    "eZH2_HZZ1", "eZH2_HZZ2", "eZH2_HZZ3", "eZH2_HZA1", "eZH2_HZA2", "eZH2_HZuL", "eZH2_HZuR",
+    "eZH2_HZdL", "eZH2_HZdR", "eZH2_ZuL", "eZH2_ZuR", "eZH2_ZdL", "eZH2_ZdR",
+    "eZH78_HZZ1", "eZH78_HZZ2", "eZH78_HZZ3", "eZH78_HZA1", "eZH78_HZA2", "eZH78_HZuL", "eZH78_HZuR",
+    "eZH78_HZdL", "eZH78_HZdR", "eZH78_ZuL", "eZH78_ZuR", "eZH78_ZdL", "eZH78_ZdR",
+    "ettH2_Htt", "ettH2_Hgg",
+    "ettH78_Htt", "ettH78_Hgg"};
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU]
         = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL", "CLQ1", "CLQ3",
-    "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP"};
+    "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP",
+    "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
+    "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
+    "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
+    "eVBF2_ZdR", "eVBF2_Wud",
+    "eVBF78_HZZ1", "eVBF78_HZZ2", "eVBF78_HZZ3", "eVBF78_HZA1", "eVBF78_HZA2", "eVBF78_HAA",
+    "eVBF78_HWW1", "eVBF78_HWW2", "eVBF78_HWW3", "eVBF78_Hgg", "eVBF78_HZuL", "eVBF78_HZuR",
+    "eVBF78_HZdL", "eVBF78_HZdR", "eVBF78_HWud", "eVBF78_ZuL", "eVBF78_ZuR", "eVBF78_ZdL",
+    "eVBF78_ZdR", "eVBF78_Wud",
+    "eWH2_HWW1", "eWH2_HWW2", "eWH2_HWW3", "eWH2_HWud", "eWH2_Wud",
+    "eWH78_HWW1", "eWH78_HWW2", "eWH78_HWW3", "eWH78_HWud", "eWH78_Wud",
+    "eZH2_HZZ1", "eZH2_HZZ2", "eZH2_HZZ3", "eZH2_HZA1", "eZH2_HZA2", "eZH2_HZuL", "eZH2_HZuR",
+    "eZH2_HZdL", "eZH2_HZdR", "eZH2_ZuL", "eZH2_ZuR", "eZH2_ZdL", "eZH2_ZdR",
+    "eZH78_HZZ1", "eZH78_HZZ2", "eZH78_HZZ3", "eZH78_HZA1", "eZH78_HZA2", "eZH78_HZuL", "eZH78_HZuR",
+    "eZH78_HZdL", "eZH78_HZdR", "eZH78_ZuL", "eZH78_ZuR", "eZH78_ZdL", "eZH78_ZdR",
+    "ettH2_Htt", "ettH2_Hgg",
+    "ettH78_Htt", "ettH78_Hgg"};
 
 NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
 : NPbase(), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
@@ -207,6 +239,86 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         std::cout << "WARNING: flavor non-universal coefficient for the dim-6 operators for LEP2 observables not yet implemented." << std::endl;
     }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZZ1", boost::cref(eVBF2_HZZ1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZZ2", boost::cref(eVBF2_HZZ2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZZ3", boost::cref(eVBF2_HZZ3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZA1", boost::cref(eVBF2_HZA1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZA2", boost::cref(eVBF2_HZA2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HAA", boost::cref(eVBF2_HAA)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HWW1", boost::cref(eVBF2_HWW1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HWW2", boost::cref(eVBF2_HWW2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HWW3", boost::cref(eVBF2_HWW3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_Hgg", boost::cref(eVBF2_Hgg)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZuL", boost::cref(eVBF2_HZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZuR", boost::cref(eVBF2_HZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZdL", boost::cref(eVBF2_HZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZdR", boost::cref(eVBF2_HZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HWud", boost::cref(eVBF2_HWud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_ZuL", boost::cref(eVBF2_ZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_ZuR", boost::cref(eVBF2_ZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_ZdL", boost::cref(eVBF2_ZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_ZdR", boost::cref(eVBF2_ZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_Wud", boost::cref(eVBF2_Wud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZZ1", boost::cref(eVBF78_HZZ1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZZ2", boost::cref(eVBF78_HZZ2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZZ3", boost::cref(eVBF78_HZZ3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZA1", boost::cref(eVBF78_HZA1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZA2", boost::cref(eVBF78_HZA2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HAA", boost::cref(eVBF78_HAA)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HWW1", boost::cref(eVBF78_HWW1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HWW2", boost::cref(eVBF78_HWW2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HWW3", boost::cref(eVBF78_HWW3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_Hgg", boost::cref(eVBF78_Hgg)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZuL", boost::cref(eVBF78_HZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZuR", boost::cref(eVBF78_HZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZdL", boost::cref(eVBF78_HZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HZdR", boost::cref(eVBF78_HZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_HWud", boost::cref(eVBF78_HWud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_ZuL", boost::cref(eVBF78_ZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_ZuR", boost::cref(eVBF78_ZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_ZdL", boost::cref(eVBF78_ZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_ZdR", boost::cref(eVBF78_ZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF78_Wud", boost::cref(eVBF78_Wud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH2_HWW1", boost::cref(eWH2_HWW1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH2_HWW2", boost::cref(eWH2_HWW2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH2_HWW3", boost::cref(eWH2_HWW3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH2_HWud", boost::cref(eWH2_HWud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH2_Wud", boost::cref(eWH2_Wud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH78_HWW1", boost::cref(eWH78_HWW1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH78_HWW2", boost::cref(eWH78_HWW2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH78_HWW3", boost::cref(eWH78_HWW3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH78_HWud", boost::cref(eWH78_HWud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWH78_Wud", boost::cref(eWH78_Wud)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZZ1", boost::cref(eZH2_HZZ1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZZ2", boost::cref(eZH2_HZZ2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZZ3", boost::cref(eZH2_HZZ3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZA1", boost::cref(eZH2_HZA1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZA2", boost::cref(eZH2_HZA2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZuL", boost::cref(eZH2_HZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZuR", boost::cref(eZH2_HZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZdL", boost::cref(eZH2_HZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_HZdR", boost::cref(eZH2_HZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_ZuL", boost::cref(eZH2_ZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_ZuR", boost::cref(eZH2_ZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_ZdL", boost::cref(eZH2_ZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH2_ZdR", boost::cref(eZH2_ZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZZ1", boost::cref(eZH78_HZZ1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZZ2", boost::cref(eZH78_HZZ2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZZ3", boost::cref(eZH78_HZZ3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZA1", boost::cref(eZH78_HZA1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZA2", boost::cref(eZH78_HZA2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZuL", boost::cref(eZH78_HZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZuR", boost::cref(eZH78_HZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZdL", boost::cref(eZH78_HZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_HZdR", boost::cref(eZH78_HZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_ZuL", boost::cref(eZH78_ZuL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_ZuR", boost::cref(eZH78_ZuR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_ZdL", boost::cref(eZH78_ZdL)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZH78_ZdR", boost::cref(eZH78_ZdR)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH2_Htt", boost::cref(ettH2_Htt)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH2_Hgg", boost::cref(ettH2_Hgg)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH78_Htt", boost::cref(ettH78_Htt)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH78_Hgg", boost::cref(ettH78_Hgg)));
     if (FlagMwInput)
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MwInput", boost::cref(MwInput)));
 }
@@ -624,9 +736,169 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CLd = value;
     } else if (name.compare("CQe") == 0) {
         CQe = value;
-    } else if (name.compare("Lambda_NP") == 0)
+    } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;
-    else if (name.compare("MwInput") == 0)
+    } else if (name.compare("eVBF2_HZZ1") == 0) {
+         eVBF2_HZZ1 = value;
+    } else if (name.compare("eVBF2_HZZ2") == 0) {
+         eVBF2_HZZ2 = value;
+    } else if (name.compare("eVBF2_HZZ3") == 0) {
+         eVBF2_HZZ3 = value;
+    } else if (name.compare("eVBF2_HZA1") == 0) {
+         eVBF2_HZA1 = value;
+    } else if (name.compare("eVBF2_HZA2") == 0) {
+         eVBF2_HZA2 = value;
+    } else if (name.compare("eVBF2_HAA") == 0) {
+         eVBF2_HAA = value;
+    } else if (name.compare("eVBF2_HWW1") == 0) {
+         eVBF2_HWW1 = value;
+    } else if (name.compare("eVBF2_HWW2") == 0) {
+         eVBF2_HWW2 = value;
+    } else if (name.compare("eVBF2_HWW3") == 0) {
+         eVBF2_HWW3 = value;
+    } else if (name.compare("eVBF2_Hgg") == 0) {
+         eVBF2_Hgg = value;
+    } else if (name.compare("eVBF2_HZuL") == 0) {
+         eVBF2_HZuL = value;
+    } else if (name.compare("eVBF2_HZuR") == 0) {
+         eVBF2_HZuR = value;
+    } else if (name.compare("eVBF2_HZdL") == 0) {
+         eVBF2_HZdL = value;
+    } else if (name.compare("eVBF2_HZdR") == 0) {
+         eVBF2_HZdR = value;
+    } else if (name.compare("eVBF2_HWud") == 0) {
+         eVBF2_HWud = value;
+    } else if (name.compare("eVBF2_ZuL") == 0) {
+         eVBF2_ZuL = value;
+    } else if (name.compare("eVBF2_ZuR") == 0) {
+         eVBF2_ZuR = value;
+    } else if (name.compare("eVBF2_ZdL") == 0) {
+         eVBF2_ZdL = value;
+    } else if (name.compare("eVBF2_ZdR") == 0) {
+         eVBF2_ZdR = value;
+    } else if (name.compare("eVBF2_Wud") == 0) {
+         eVBF2_Wud = value;
+    } else if (name.compare("eVBF78_HZZ1") == 0) {
+         eVBF78_HZZ1 = value;
+    } else if (name.compare("eVBF78_HZZ2") == 0) {
+         eVBF78_HZZ2 = value;
+    } else if (name.compare("eVBF78_HZZ3") == 0) {
+         eVBF78_HZZ3 = value;
+    } else if (name.compare("eVBF78_HZA1") == 0) {
+         eVBF78_HZA1 = value;
+    } else if (name.compare("eVBF78_HZA2") == 0) {
+         eVBF78_HZA2 = value;
+    } else if (name.compare("eVBF78_HAA") == 0) {
+         eVBF78_HAA = value;
+    } else if (name.compare("eVBF78_HWW1") == 0) {
+         eVBF78_HWW1 = value;
+    } else if (name.compare("eVBF78_HWW2") == 0) {
+         eVBF78_HWW2 = value;
+    } else if (name.compare("eVBF78_HWW3") == 0) {
+         eVBF78_HWW3 = value;
+    } else if (name.compare("eVBF78_Hgg") == 0) {
+         eVBF78_Hgg = value;
+    } else if (name.compare("eVBF78_HZuL") == 0) {
+         eVBF78_HZuL = value;
+    } else if (name.compare("eVBF78_HZuR") == 0) {
+         eVBF78_HZuR = value;
+    } else if (name.compare("eVBF78_HZdL") == 0) {
+         eVBF78_HZdL = value;
+    } else if (name.compare("eVBF78_HZdR") == 0) {
+         eVBF78_HZdR = value;
+    } else if (name.compare("eVBF78_HWud") == 0) {
+         eVBF78_HWud = value;
+    } else if (name.compare("eVBF78_ZuL") == 0) {
+         eVBF78_ZuL = value;
+    } else if (name.compare("eVBF78_ZuR") == 0) {
+         eVBF78_ZuR = value;
+    } else if (name.compare("eVBF78_ZdL") == 0) {
+         eVBF78_ZdL = value;
+    } else if (name.compare("eVBF78_ZdR") == 0) {
+         eVBF78_ZdR = value;
+    } else if (name.compare("eVBF78_Wud") == 0) {
+         eVBF78_Wud = value;
+    } else if (name.compare("eWH2_HWW1") == 0) {
+         eWH2_HWW1 = value;
+    } else if (name.compare("eWH2_HWW2") == 0) {
+         eWH2_HWW2 = value;
+    } else if (name.compare("eWH2_HWW3") == 0) {
+         eWH2_HWW3 = value;
+    } else if (name.compare("eWH2_HWud") == 0) {
+         eWH2_HWud = value;
+    } else if (name.compare("eWH2_Wud") == 0) {
+         eWH2_Wud = value;
+    } else if (name.compare("eWH78_HWW1") == 0) {
+         eWH78_HWW1 = value;
+    } else if (name.compare("eWH78_HWW2") == 0) {
+         eWH78_HWW2 = value;
+    } else if (name.compare("eWH78_HWW3") == 0) {
+         eWH78_HWW3 = value;
+    } else if (name.compare("eWH78_HWud") == 0) {
+         eWH78_HWud = value;
+    } else if (name.compare("eWH78_Wud") == 0) {
+         eWH78_Wud = value;
+    } else if (name.compare("eZH2_HZZ1") == 0) {
+         eZH2_HZZ1 = value;
+    } else if (name.compare("eZH2_HZZ2") == 0) {
+         eZH2_HZZ2 = value;
+    } else if (name.compare("eZH2_HZZ3") == 0) {
+         eZH2_HZZ3 = value;
+    } else if (name.compare("eZH2_HZA1") == 0) {
+         eZH2_HZA1 = value;
+    } else if (name.compare("eZH2_HZA2") == 0) {
+         eZH2_HZA2 = value;
+    } else if (name.compare("eZH2_HZuL") == 0) {
+         eZH2_HZuL = value;
+    } else if (name.compare("eZH2_HZuR") == 0) {
+         eZH2_HZuR = value;
+    } else if (name.compare("eZH2_HZdL") == 0) {
+         eZH2_HZdL = value;
+    } else if (name.compare("eZH2_HZdR") == 0) {
+         eZH2_HZdR = value;
+    } else if (name.compare("eZH2_ZuL") == 0) {
+         eZH2_ZuL = value;
+    } else if (name.compare("eZH2_ZuR") == 0) {
+         eZH2_ZuR = value;
+    } else if (name.compare("eZH2_ZdL") == 0) {
+         eZH2_ZdL = value;
+    } else if (name.compare("eZH2_ZdR") == 0) {
+         eZH2_ZdR = value;   
+    } else if (name.compare("eZH78_HZZ1") == 0) {
+         eZH78_HZZ1 = value;
+    } else if (name.compare("eZH78_HZZ2") == 0) {
+         eZH78_HZZ2 = value;
+    } else if (name.compare("eZH78_HZZ3") == 0) {
+         eZH78_HZZ3 = value;
+    } else if (name.compare("eZH78_HZA1") == 0) {
+         eZH78_HZA1 = value;
+    } else if (name.compare("eZH78_HZA2") == 0) {
+         eZH78_HZA2 = value;
+    } else if (name.compare("eZH78_HZuL") == 0) {
+         eZH78_HZuL = value;
+    } else if (name.compare("eZH78_HZuR") == 0) {
+         eZH78_HZuR = value;
+    } else if (name.compare("eZH78_HZdL") == 0) {
+         eZH78_HZdL = value;
+    } else if (name.compare("eZH78_HZdR") == 0) {
+         eZH78_HZdR = value;
+    } else if (name.compare("eZH78_ZuL") == 0) {
+         eZH78_ZuL = value;
+    } else if (name.compare("eZH78_ZuR") == 0) {
+         eZH78_ZuR = value;
+    } else if (name.compare("eZH78_ZdL") == 0) {
+         eZH78_ZdL = value;
+    } else if (name.compare("eZH78_ZdR") == 0) {
+         eZH78_ZdR = value;     
+    } else if (name.compare("ettH2_Htt") == 0) {
+         ettH2_Htt = value;
+    } else if (name.compare("ettH2_Hgg") == 0) {
+         ettH2_Hgg = value;
+    } else if (name.compare("ettH78_Htt") == 0) {
+         ettH78_Htt = value;
+    } else if (name.compare("ettH78_Hgg") == 0) {
+         ettH78_Hgg = value;
+    } else if (name.compare("MwInput") == 0)
         MwInput = value;
     else
         NPbase::setParameter(name, value);
@@ -1075,26 +1347,26 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
 {
     double mu = 1.0;
     if (sqrt_s == 1.96) {
-        mu +=  +1.123 * deltaGL_f(quarks[UP])
-                -0.531 * deltaGR_f(quarks[UP])
-                -0.705 * deltaGL_f(quarks[DOWN])
-                +0.136 * deltaGR_f(quarks[DOWN])
-	        +2.662 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
-                -1407.72 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
-                +14928.1 * deltaG_hgg()
-                -12.451 * deltaG_hAA()
-                -21.274 * deltaG1_hZA()
-                +45.617 * deltaG2_hZA()
-                -84.016 * deltaG1_hWW()
-                +390.524 * deltaG2_hWW()
-                +0.026 * deltaG3_hWW()
-                -45.832 * deltaG1_hZZ()
-                +88.358 * deltaG2_hZZ()
-                +0.012 * deltaG3_hZZ()
-                -129.338 * deltaGL_Zffh(quarks[UP])
-                +84.325 * deltaGR_Zffh(quarks[UP])
-                +164.195 * deltaGL_Zffh(quarks[DOWN])
-                -32.751 * deltaGR_Zffh(quarks[DOWN]);
+        mu +=  +1.123 * (1. + eVBF2_ZuL ) * deltaGL_f(quarks[UP])
+                -0.531 * (1. + eVBF2_ZuR ) * deltaGR_f(quarks[UP])
+                -0.705 * (1. + eVBF2_ZdL ) * deltaGL_f(quarks[DOWN])
+                +0.136 * (1. + eVBF2_ZdR ) * deltaGR_f(quarks[DOWN])
+	        +2.662 * (1. + eVBF2_Wud ) * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -1407.72 * (1. + eVBF2_HWud ) * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                +14928.1 * (1. + eVBF2_Hgg ) * deltaG_hgg()
+                -12.451 * (1. + eVBF2_HAA ) * deltaG_hAA()
+                -21.274 * (1. + eVBF2_HZA1 ) * deltaG1_hZA()
+                +45.617 * (1. + eVBF2_HZA2 ) * deltaG2_hZA()
+                -84.016 * (1. + eVBF2_HWW1 ) * deltaG1_hWW()
+                +390.524 * (1. + eVBF2_HWW2 ) * deltaG2_hWW()
+                +0.026 * (1. + eVBF2_HWW3 ) * deltaG3_hWW()
+                -45.832 * (1. + eVBF2_HZZ1 ) * deltaG1_hZZ()
+                +88.358 * (1. + eVBF2_HZZ2 ) * deltaG2_hZZ()
+                +0.012 * (1. + eVBF2_HZZ3 ) * deltaG3_hZZ()
+                -129.338 * (1. + eVBF2_HZuL ) * deltaGL_Zffh(quarks[UP])
+                +84.325 * (1. + eVBF2_HZuR ) * deltaGR_Zffh(quarks[UP])
+                +164.195 * (1. + eVBF2_HZdL ) * deltaGL_Zffh(quarks[DOWN])
+                -32.751 * (1. + eVBF2_HZdR ) * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1120,26 +1392,26 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
-        mu +=  +1.188 * deltaGL_f(quarks[UP])
-                -0.536 * deltaGR_f(quarks[UP])
-                -0.976 * deltaGL_f(quarks[DOWN])
-                +0.179 * deltaGR_f(quarks[DOWN])
-	        +2.592 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
-                -1826.63 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
-                +14265.8 * deltaG_hgg()
-                -40.051 * deltaG_hAA()
-                -42.43 * deltaG1_hZA()
-                +88.972 * deltaG2_hZA()
-                -108.107 * deltaG1_hWW()
-                +547.508 * deltaG2_hWW()
-                +0.026 * deltaG3_hWW()
-                -67.672 * deltaG1_hZZ()
-                +168.86 * deltaG2_hZZ()
-                +0.014 * deltaG3_hZZ()
-                -466.198 * deltaGL_Zffh(quarks[UP])
-                +211.308 * deltaGR_Zffh(quarks[UP])
-                +374.597 * deltaGL_Zffh(quarks[DOWN])
-                -69.916 * deltaGR_Zffh(quarks[DOWN]);
+        mu +=  +1.188 * (1. + eVBF78_ZuL ) * deltaGL_f(quarks[UP])
+                -0.536 * (1. + eVBF78_ZuR ) * deltaGR_f(quarks[UP])
+                -0.976 * (1. + eVBF78_ZdL ) * deltaGL_f(quarks[DOWN])
+                +0.179 * (1. + eVBF78_ZdR ) * deltaGR_f(quarks[DOWN])
+	        +2.592 * (1. + eVBF78_Wud ) * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -1826.63 * (1. + eVBF78_HWud ) * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                +14265.8 * (1. + eVBF78_Hgg ) * deltaG_hgg()
+                -40.051 * (1. + eVBF78_HAA ) * deltaG_hAA()
+                -42.43 * (1. + eVBF78_HZA1 ) * deltaG1_hZA()
+                +88.972 * (1. + eVBF78_HZA2 ) * deltaG2_hZA()
+                -108.107 * (1. + eVBF78_HWW1 ) * deltaG1_hWW()
+                +547.508 * (1. + eVBF78_HWW2 ) * deltaG2_hWW()
+                +0.026 * (1. + eVBF78_HWW3 ) * deltaG3_hWW()
+                -67.672 * (1. + eVBF78_HZZ1 ) * deltaG1_hZZ()
+                +168.86 * (1. + eVBF78_HZZ2 ) * deltaG2_hZZ()
+                +0.014 * (1. + eVBF78_HZZ3 ) * deltaG3_hZZ()
+                -466.198 * (1. + eVBF78_HZuL ) * deltaGL_Zffh(quarks[UP])
+                +211.308 * (1. + eVBF78_HZuR ) * deltaGR_Zffh(quarks[UP])
+                +374.597 * (1. + eVBF78_HZdL ) * deltaGL_Zffh(quarks[DOWN])
+                -69.916 * (1. + eVBF78_HZdR ) * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1165,26 +1437,26 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
-        mu +=  +1.179 * deltaGL_f(quarks[UP])
-                -0.532 * deltaGR_f(quarks[UP])
-                -0.984 * deltaGL_f(quarks[DOWN])
-                +0.181 * deltaGR_f(quarks[DOWN])
-	            +2.591 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
-                -1858.03 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
-                +14247.4 * deltaG_hgg()
-                -40.46 * deltaG_hAA()
-                -41.713 * deltaG1_hZA()
-                +90.462 * deltaG2_hZA()
-                -106.576 * deltaG1_hWW()
-                +562.98 * deltaG2_hWW()
-                +0.026 * deltaG3_hWW()
-                -67.57 * deltaG1_hZZ()
-                +174.474 * deltaG2_hZZ()
-                +0.014 * deltaG3_hZZ()
-                -472.887 * deltaGL_Zffh(quarks[UP])
-                +214.739 * deltaGR_Zffh(quarks[UP])
-                +386.582 * deltaGL_Zffh(quarks[DOWN])
-                -72.228 * deltaGR_Zffh(quarks[DOWN]);
+        mu +=  +1.179 * (1. + eVBF78_ZuL ) * deltaGL_f(quarks[UP])
+                -0.532 * (1. + eVBF78_ZuR ) * deltaGR_f(quarks[UP])
+                -0.984 * (1. + eVBF78_ZdL ) * deltaGL_f(quarks[DOWN])
+                +0.181 * (1. + eVBF78_ZdR ) * deltaGR_f(quarks[DOWN])
+	            +2.591 * (1. + eVBF78_Wud ) * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -1858.03 * (1. + eVBF78_HWud ) * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                +14247.4 * (1. + eVBF78_Hgg ) * deltaG_hgg()
+                -40.46 * (1. + eVBF78_HAA ) * deltaG_hAA()
+                -41.713 * (1. + eVBF78_HZA1 ) * deltaG1_hZA()
+                +90.462 * (1. + eVBF78_HZA2 ) * deltaG2_hZA()
+                -106.576 * (1. + eVBF78_HWW1 ) * deltaG1_hWW()
+                +562.98 * (1. + eVBF78_HWW2 ) * deltaG2_hWW()
+                +0.026 * (1. + eVBF78_HWW3 ) * deltaG3_hWW()
+                -67.57 * (1. + eVBF78_HZZ1 ) * deltaG1_hZZ()
+                +174.474 * (1. + eVBF78_HZZ2 ) * deltaG2_hZZ()
+                +0.014 * (1. + eVBF78_HZZ3 ) * deltaG3_hZZ()
+                -472.887 * (1. + eVBF78_HZuL ) * deltaGL_Zffh(quarks[UP])
+                +214.739 * (1. + eVBF78_HZuR ) * deltaGR_Zffh(quarks[UP])
+                +386.582 * (1. + eVBF78_HZdL ) * deltaGL_Zffh(quarks[DOWN])
+                -72.228 * (1. + eVBF78_HZdR ) * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1221,11 +1493,11 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
 {
     double mu = 1.0;
     if (sqrt_s == 1.96) {
-        mu += +2.032 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                +1738.87  * deltaG1_hWW()
-                -3432.64  * deltaG2_hWW()
-                +0.039  * deltaG3_hWW()
-                +6523.35 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
+        mu += +2.032 * (1. + eWH2_Wud ) * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                +1738.87 * (1. + eWH2_HWW1 ) * deltaG1_hWW()
+                -3432.64 * (1. + eWH2_HWW2 ) * deltaG2_hWW()
+                +0.039 * (1. + eWH2_HWW3 ) * deltaG3_hWW()
+                +6523.35 * (1. + eWH2_HWud ) * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1237,11 +1509,11 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
-        mu += +1.979 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                +1777.77  * deltaG1_hWW()
-                -3890.65  * deltaG2_hWW()
-                +0.039  * deltaG3_hWW()
-                +7344.73  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
+        mu += +1.979 * (1. + eWH78_Wud ) * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                +1777.77 * (1. + eWH78_HWW1 ) * deltaG1_hWW()
+                -3890.65 * (1. + eWH78_HWW2 ) * deltaG2_hWW()
+                +0.039 * (1. + eWH78_HWW3 ) * deltaG3_hWW()
+                +7344.73 * (1. + eWH78_HWud ) * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1253,11 +1525,11 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
-        mu += +1.978 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
-                +1784.47  * deltaG1_hWW()
-                -3967.38  * deltaG2_hWW()
-                +0.039  * deltaG3_hWW()
-                +7507.02  * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
+        mu += +1.978 * (1. + eWH78_Wud ) * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                +1784.47 * (1. + eWH78_HWW1 ) * deltaG1_hWW()
+                -3967.38 * (1. + eWH78_HWW2 ) * deltaG2_hWW()
+                +0.039 * (1. + eWH78_HWW3 ) * deltaG3_hWW()
+                +7507.02 * (1. + eWH78_HWud ) * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1280,19 +1552,19 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
 {
     double mu = 1.0;
     if (sqrt_s == 1.96) {
-        mu += +3.529 * deltaGL_f(quarks[UP])
-                -1.598 * deltaGR_f(quarks[UP])
-                -1.229 * deltaGL_f(quarks[DOWN])
-                +0.227 * deltaGR_f(quarks[DOWN])
-                +3215.38  * deltaG1_hZZ()
-                -2922.42  * deltaG2_hZZ()
-                +0.059  * deltaG3_hZZ()
-                +495.399  * deltaG1_hZA()
-                -838.743  * deltaG2_hZA()
-                +5931.99  * deltaGL_Zffh(quarks[UP])
-                -2684.23  * deltaGR_Zffh(quarks[UP])
-                -1878.46  * deltaGL_Zffh(quarks[DOWN])
-                +346.694  * deltaGR_Zffh(quarks[DOWN]);
+        mu += +3.529 * (1. + eZH2_ZuL ) * deltaGL_f(quarks[UP])
+                -1.598 * (1. + eZH2_ZuR ) * deltaGR_f(quarks[UP])
+                -1.229 * (1. + eZH2_ZdL ) * deltaGL_f(quarks[DOWN])
+                +0.227 * (1. + eZH2_ZdR ) * deltaGR_f(quarks[DOWN])
+                +3215.38 * (1. + eZH2_HZZ1 ) * deltaG1_hZZ()
+                -2922.42 * (1. + eZH2_HZZ2 ) * deltaG2_hZZ()
+                +0.059 * (1. + eZH2_HZZ3 ) * deltaG3_hZZ()
+                +495.399 * (1. + eZH2_HZA1 ) * deltaG1_hZA()
+                -838.743 * (1. + eZH2_HZA2 ) * deltaG2_hZA()
+                +5931.99 * (1. + eZH2_HZuL ) * deltaGL_Zffh(quarks[UP])
+                -2684.23 * (1. + eZH2_HZuR ) * deltaGR_Zffh(quarks[UP])
+                -1878.46 * (1. + eZH2_HZdL ) * deltaGL_Zffh(quarks[DOWN])
+                +346.694 * (1. + eZH2_HZdR ) * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1313,19 +1585,19 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
-        mu += +2.583 * deltaGL_f(quarks[UP])
-                -1.17 * deltaGR_f(quarks[UP])
-                -2.127 * deltaGL_f(quarks[DOWN])
-                +0.392 * deltaGR_f(quarks[DOWN])
-                +3269.53  * deltaG1_hZZ()
-                -3201.65  * deltaG2_hZZ()
-                +0.059  * deltaG3_hZZ()
-                +473.267  * deltaG1_hZA()
-                -873.421  * deltaG2_hZA()
-                +4763.44  * deltaGL_Zffh(quarks[UP])
-                -2156.99  * deltaGR_Zffh(quarks[UP])
-                -3853.2  * deltaGL_Zffh(quarks[DOWN])
-                +712.124  * deltaGR_Zffh(quarks[DOWN]);
+        mu += +2.583 * (1. + eZH78_ZuL ) * deltaGL_f(quarks[UP])
+                -1.17 * (1. + eZH78_ZuR ) * deltaGR_f(quarks[UP])
+                -2.127 * (1. + eZH78_ZdL ) * deltaGL_f(quarks[DOWN])
+                +0.392 * (1. + eZH78_ZdR ) * deltaGR_f(quarks[DOWN])
+                +3269.53 * (1. + eZH78_HZZ1 ) * deltaG1_hZZ()
+                -3201.65 * (1. + eZH78_HZZ2 ) * deltaG2_hZZ()
+                +0.059 * (1. + eZH78_HZZ3 ) * deltaG3_hZZ()
+                +473.267 * (1. + eZH78_HZA1 ) * deltaG1_hZA()
+                -873.421 * (1. + eZH78_HZA2 ) * deltaG2_hZA()
+                +4763.44 * (1. + eZH78_HZuL ) * deltaGL_Zffh(quarks[UP])
+                -2156.99 * (1. + eZH78_HZuR ) * deltaGR_Zffh(quarks[UP])
+                -3853.2 * (1. + eZH78_HZdL ) * deltaGL_Zffh(quarks[DOWN])
+                +712.124 * (1. + eZH78_HZdR ) * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1346,19 +1618,19 @@ double NPEffectiveGIMR::muZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
-        mu += +2.569 * deltaGL_f(quarks[UP])
-                -1.163 * deltaGR_f(quarks[UP])
-                -2.14 * deltaGL_f(quarks[DOWN])
-                +0.395 * deltaGR_f(quarks[DOWN])
-                +3282.79  * deltaG1_hZZ()
-                -3262.46  * deltaG2_hZZ()
-                +0.059  * deltaG3_hZZ()
-                +475.044  * deltaG1_hZA()
-                -892.243  * deltaG2_hZA()
-                +4847.78  * deltaGL_Zffh(quarks[UP])
-                -2193.61  * deltaGR_Zffh(quarks[UP])
-                -3960.46  * deltaGL_Zffh(quarks[DOWN])
-                +731.438  * deltaGR_Zffh(quarks[DOWN]);
+        mu += +2.569 * (1. + eZH78_ZuL ) * deltaGL_f(quarks[UP])
+                -1.163 * (1. + eZH78_ZuR ) * deltaGR_f(quarks[UP])
+                -2.14 * (1. + eZH78_ZdL ) * deltaGL_f(quarks[DOWN])
+                +0.395 * (1. + eZH78_ZdR ) * deltaGR_f(quarks[DOWN])
+                +3282.79 * (1. + eZH78_HZZ1 ) * deltaG1_hZZ()
+                -3262.46 * (1. + eZH78_HZZ2 ) * deltaG2_hZZ()
+                +0.059 * (1. + eZH78_HZZ3 ) * deltaG3_hZZ()
+                +475.044 * (1. + eZH78_HZA1 ) * deltaG1_hZA()
+                -892.243 * (1. + eZH78_HZA2 ) * deltaG2_hZA()
+                +4847.78 * (1. + eZH78_HZuL ) * deltaGL_Zffh(quarks[UP])
+                -2193.61 * (1. + eZH78_HZuR ) * deltaGR_Zffh(quarks[UP])
+                -3960.46 * (1. + eZH78_HZdL ) * deltaGL_Zffh(quarks[DOWN])
+                +731.438 * (1. + eZH78_HZdR ) * deltaGR_Zffh(quarks[DOWN]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1451,8 +1723,8 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
 {
     double mu = 1.0;
     if (sqrt_s == 1.96) {
-        mu += -2.863 * deltaG_hff(quarks[TOP]).real()
-            +1737.35 * deltaG_hgg();
+        mu += -2.863 * (1. + ettH2_Htt ) * deltaG_hff(quarks[TOP]).real()
+            +1737.35 * (1. + ettH2_Hgg ) * deltaG_hgg();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1462,8 +1734,8 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 7.0) {
-        mu += -2.861 * deltaG_hff(quarks[TOP]).real()
-            +2583.3 * deltaG_hgg();
+        mu += -2.861 * (1. + ettH78_Htt ) * deltaG_hff(quarks[TOP]).real()
+            +2583.3 * (1. + ettH78_Hgg ) * deltaG_hgg();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1473,8 +1745,8 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 8.0) {
-        mu += -2.861 * deltaG_hff(quarks[TOP]).real()
-            +2636.88 * deltaG_hgg();
+        mu += -2.861 * (1. + ettH78_Htt ) * deltaG_hff(quarks[TOP]).real()
+            +2636.88 * (1. + ettH78_Hgg ) * deltaG_hgg();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients

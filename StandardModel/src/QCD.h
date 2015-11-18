@@ -661,7 +661,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 177; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 186; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1132,7 +1132,7 @@ public:
      */
     gslpp::complex geth_0() const
     {
-        return reh_0 + gslpp::complex::i() * imh_0;
+        return myh_0;
     }
 
     /**
@@ -1140,7 +1140,7 @@ public:
      */
     gslpp::complex geth_p() const
     {
-        return reh_p + gslpp::complex::i() * imh_p;
+        return myh_p;
     }
     
     /**
@@ -1148,7 +1148,7 @@ public:
      */
     gslpp::complex geth_m() const
     {
-        return reh_m + gslpp::complex::i() * imh_m;
+        return myh_m;
     }
     
     /**
@@ -1156,7 +1156,7 @@ public:
      */
     gslpp::complex geth_0_1() const
     {
-        return reh_0_1 + gslpp::complex::i() * imh_0_1;
+        return myh_0_1;
     }
 
     /**
@@ -1164,7 +1164,7 @@ public:
      */
     gslpp::complex geth_p_1() const
     {
-        return reh_p_1 + gslpp::complex::i() * imh_p_1;
+        return myh_p_1;
     }
     
     /**
@@ -1172,7 +1172,7 @@ public:
      */
     gslpp::complex geth_m_1() const
     {
-        return reh_m_1 + gslpp::complex::i() * imh_m_1;
+        return myh_m_1;
     }
     
     /**
@@ -1180,7 +1180,7 @@ public:
      */
     gslpp::complex geth_0_2() const
     {
-        return reh_0_2 + gslpp::complex::i() * imh_0_2;
+        return myh_0_2;
     }
 
     /**
@@ -1188,7 +1188,7 @@ public:
      */
     gslpp::complex geth_p_2() const
     {
-        return reh_p_2 + gslpp::complex::i() * imh_p_2;
+        return myh_p_2;
     }
     
     /**
@@ -1196,7 +1196,7 @@ public:
      */
     gslpp::complex geth_m_2() const
     {
-        return reh_m_2 + gslpp::complex::i() * imh_m_2;
+        return myh_m_2;
     }
     
     /**
@@ -1736,12 +1736,86 @@ public:
     }
     
     /**
-     * @return the semileptonic phase space ratio involved in the phenomenological computation of the @f$b\to s\gamma@f$ BR.
+     * @return the Benzke, Lee, Neubert, Paz non perturbative correction for @f$b\to s \gamma@f$ from arXiv:1003.5012.
      */
-    double getbsgamma_C() const
+    double getBLNPcorr() const
     {
-        return bsgamma_C;
+        return BLNPcorr;
     }
+    
+    /**
+     * @return the kinetic scale used in arXiv:1411.6560.
+     */
+    double getGambino_mukin() const
+    {
+        return Gambino_mukin;
+    }
+    
+    /**
+     * @return the fit value for the branching ratio of @f$B\to X_c e\nu@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_BRsem() const
+    {
+        return Gambino_BRsem;
+    }
+    
+    /**
+     * @return the fit value for the kinetic b mass @f$M_b^{\rm kin}(\mu^{\rm kin})@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_Mbkin() const
+    {
+        return Gambino_Mbkin;
+    }
+    
+    /**
+     * @return the fit value for the MSbar mass @f$M_c(\mu_c)@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_Mcatmuc() const
+    {
+        return Gambino_Mcatmuc;
+    }
+    
+    /**
+     * @return the fit value for @f$\mu_{\pi}^2@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_mupi2() const
+    {
+        return Gambino_mupi2;
+    }
+    
+    /**
+     * @return the fit value for @f$\rho_D^3@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_rhoD3() const
+    {
+        return Gambino_rhoD3;
+    }
+    
+    /**
+     * @return the fit value for @f$\mu_G^2@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_muG2() const
+    {
+        return Gambino_muG2;
+    }
+    
+    /**
+     * @return the fit value for@f$\rho_{LS}^3@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
+     */
+    double getGambino_rhoLS3() const
+    {
+        return Gambino_rhoLS3;
+    }
+    
+    /**
+     * @return the decay constant of a transversely polarized @f$K^*@f$ meson at 1 GeV
+     */
+    double getFKstarp() const
+    {
+        return FKstarp;
+    }
+
+    
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1851,6 +1925,16 @@ public:
      * @attention Temporary function waiting for the implementation of NNLO etact.
      */
     double Als4(const double mu) const;
+    
+    virtual double alphaMz() const = 0;
+
+    /**
+     * @brief The value of \f$\frac{\alpha_s^{\mathrm{FULLNLO}}}{4\pi}\f$ at any scale \f$\mu\f$ with the number of flavours
+     * \f$n_f = 4\f$ and full EW corrections.
+     * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
+     * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\5$
+     */
+    double Alstilde5(const double mu) const;
 
     /**
      * @brief The running of a mass with the number of flavours \f$n_f = 4\f$.
@@ -1997,22 +2081,29 @@ protected:
     double r_1_fplus, r_2_fplus, m_fit2_fplus;
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
-    double bsgamma_E0, bsgamma_C;
+    double bsgamma_E0, BLNPcorr;
+    double Gambino_mukin, Gambino_BRsem, Gambino_Mbkin, Gambino_Mcatmuc, Gambino_mupi2, Gambino_rhoD3, Gambino_muG2, Gambino_rhoLS3;
+    double FKstarp; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
-
     double Nc; ///< The number of colours.
-    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     Particle quarks[6]; ///< The vector of all SM quarks.
     Meson mesons[MESON_END]; ///< The vector of defined mesons.
+private:
+    
+    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     BParameter BBs; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_s\f$ meson system.
     BParameter BBd; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_d\f$ meson system.
     BParameter BD; ///< The bag parameters for \f$\Delta c=2\f$ processes for the \f$D^0\f$ meson system.
     BParameter BK; ///< The bag parameters for \f$\Delta s=2\f$ processes for the \f$K^0\f$ meson system.
     BParameter BKd1;
     BParameter BKd3;
-
-private:
+    double BBsB0, BBsB1, BBsB2, BBsB3, BBsB4, BBsscale;
+    //double BBdB0, BBdB1, BBdB2, BBdB3, BBdB4, BBdscale;
+    double BDB0, BDB1, BDB2, BDB3, BDB4, BDscale;
+    double BKB0, BKB1, BKB2, BKB3, BKB4, BKscale;
+    double BKd1B0, BKd1B1, BKd1B2, BKd1B3, BKd1B4, BKd1B5, BKd1B6, BKd1B7, BKd1B8, BKd1B9, BKd_scale;
+    double BKd3B0, BKd3B1, BKd3B2, BKd3B3, BKd3B4, BKd3B5, BKd3B6, BKd3B7, BKd3B8, BKd3B9;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
@@ -2138,7 +2229,7 @@ private:
      */
     void CacheShift(double cache[][5], int n) const;
 
-
+    gslpp::complex myh_0,myh_p,myh_m,myh_0_1,myh_p_1,myh_m_1,myh_0_2,myh_p_2,myh_m_2;
 };
 
 #endif	/* QCD_H */

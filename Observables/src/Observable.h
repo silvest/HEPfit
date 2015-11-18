@@ -8,10 +8,11 @@
 #ifndef OBSERVABLE_H
 #define	OBSERVABLE_H
 
+#include "ThObservable.h"
 #include <string>
 #include <iostream>
-#include "ThObservable.h"
 #include <TH1D.h>
+#include <boost/tokenizer.hpp>
 
 /**
  * @class Observable
@@ -47,6 +48,20 @@ public:
      * @brief The copy constructor.
      */
     Observable(const Observable& orig);
+    
+    /**
+     * @brief The default constructor.
+     */
+    Observable();
+    
+    /**
+     * @brief The Observable Parser
+     */
+    boost::tokenizer<boost::char_separator<char> >::iterator &  ParseObservable(std::string& type,
+                                                                                boost::tokenizer<boost::char_separator<char> >* tok, 
+                                                                                boost::tokenizer<boost::char_separator<char> >::iterator & beg, 
+                                                                                std::string& filepath, 
+                                                                                int rank);
     
     /**
      * @brief The default destructor.
@@ -172,6 +187,11 @@ public:
         return filename;
     }
     
+    void setFilename(std::string filename_i)
+    {
+        filename = filename_i;
+    }
+    
     /**
      * @brief A set method to set the likelihood from which the experimental likelihood of the observable will
      * be read.
@@ -204,6 +224,11 @@ public:
     std::string getHistoname() const
     {
         return histoname;
+    }
+    
+    void setHistoname(std::string histoname_i)
+    {
+        histoname = histoname_i;
     }
 
     /**
@@ -337,9 +362,22 @@ public:
      * @brief A set method to fix the pointer to object of type ThObservable.
      * @param[in] tho pointer to the object of type ThObservable
      */
-    void setTho(ThObservable* tho)
+    void setTho(ThObservable* tho_i)
     {
-        this->tho = tho;
+        tho = tho_i;
+        tho->setBinMin(bin_min);
+        tho->setBinMax(bin_max);
+    }
+    
+    /**
+     * @brief A set method to fix the pointer to object of type ThObservable.
+     * @param[in] tho pointer to the object of type ThObservable
+     */
+    void setTho(ThObservable* tho_i, double bmin, double bmax)
+    {
+        tho = tho_i;
+        tho->setBinMin(bmin);
+        tho->setBinMax(bmax);
     }
     
     /**
@@ -387,6 +425,10 @@ protected:
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
     TH1D * inhisto; ///< 1D Histogram containing the experimental likelihood for the observable
     std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
+    double bin_min; ///< The minimum value of the observable bin.
+    double bin_max; ///< The maximum valus of the observable bin.
+    int iterationNo;
+    double thValue;
 };
 
 

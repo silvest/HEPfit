@@ -7,7 +7,6 @@
 
 #include "li_3lj.h"
 #include "StandardModel.h"
-// #include "SUSYMatching.h"
 
 li_3lj::li_3lj(const StandardModel& SM_i): ThObservable(SM_i)
 {
@@ -15,7 +14,7 @@ li_3lj::li_3lj(const StandardModel& SM_i): ThObservable(SM_i)
 
 double li_3lj::computeThValue()
 {
-    return 0;
+    return 0.0;
 }
 
 mu_3e::mu_3e(const StandardModel& SM_i)
@@ -27,28 +26,65 @@ double mu_3e::computeThValue()
     double alph = mySM.getAle();
     double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
     double mMU = mySM.getLeptons(StandardModel::MU).getMass();
+    double GammaMU = 2.99598e-19;
     gslpp::vector<complex> ** allcoeff_m3e = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(1);
-    double Brmu3e = ((*(allcoeff_m3e[LO])) * (*(allcoeff_m3e[LO])).conjugate()).abs();
-    
-//    	Mu3Erate = (alph**2.d0/(32.d0*pi))*(mMu**5.d0)*(VLMuE**2.d0 
-//     .	+ VRMuE**2.d0 - 4.d0*(VLMuE*ARMuE + VRMuE*ALMuE) + 
-//     . 	(ALMuE**2.d0 + ARMuE**2.d0)*((16.d0/3.d0)*dlog(mMU/(2.d0*mE))- 
-//     . 14.d0/9.d0) + (1.d0/6.d0)*(B1LMu3E**2.d0 + B1RMu3E**2.d0) +
-//     . (1.d0/3.d0)*(B2LMu3E**2.d0 + B2RMu3E**2.d0) + (1.d0/24.d0)* 
-//     . (B3LMu3E**2.d0 + B3RMu3E**2.d0) + 6.d0*(B4LMu3E**2.d0 + 
-//     . B4RMu3E**2.d0) - (B3LMu3E*B4LMu3E + B3RMu3E*B4RMu3E) + 
-//     . (2.d0/3.d0)*(VLMuE*B1LMu3E + VRMuE*B1RMu3E + VLMuE*B2LMu3E 
-//     . + VRMuE*B2RMu3E) - (4.d0/3.d0)*(ARMuE*B1LMu3E + ALMuE*B1RMu3E 
-//     . + ARMuE*B2LMu3E + ALMuE*B2RMu3E) + (1.d0/3.d0)*(2.d0*(
-//     . FLLMu3E**2.d0 + FRRMu3E**2.d0) + FLRMu3E**2.d0 + FRLMu3E**2.d0
-//     . + 2.d0*(B1LMu3E*FLLMu3E + B1RMu3E*FRRMu3E + B2LMu3E*FLRMu3E 
-//     . + B2RMu3E*FRLMu3E) + 4.d0*(VLMuE*FLLMu3E + VRMuE*FRRMu3E)
-//     . + 2.d0*(VLMuE*FLRMu3E + VRMuE*FRLMu3E) - 8.d0*(ARMuE*FLLMu3E 
-//     . + ALMuE*FRRMu3E) - 4.d0*(ALMuE*FRLMu3E + ARMuE*FLRMu3E)))
-//
-//	Brmu3E = Mu3Erate/(3.d0*(10.d0**(-19.d0)))
-//
-                
+//    C_7 = (*(allcoeff_m3e[LO]))(0);
+//    C_7p = (*(allcoeff_m3e[LO]))(1);
+//    C_9 = (*(allcoeff_m3e[LO]))(2);
+//    C_9p = (*(allcoeff_m3e[LO]))(3);
+//    C_10 = (*(allcoeff_m3e[LO]))(4);
+//    C_10p = (*(allcoeff_m3e[LO]))(5);
+//    C_S = (*(allcoeff_m3e[LO]))(6);
+//    C_Sp = (*(allcoeff_m3e[LO]))(7);
+//    C_P = (*(allcoeff_m3e[LO]))(8);
+//    C_Pp = (*(allcoeff_m3e[LO]))(9);
+//    C_T = (*(allcoeff_m3e[LO]))(10);
+//    C_T5 = (*(allcoeff_m3e[LO]))(11);
+
+//std::cout<<"0"<< (*(allcoeff_m3e[LO]))(0)<<std::endl;
+//std::cout<<"1"<< (*(allcoeff_m3e[LO]))(1)<<std::endl;
+//std::cout<<"2"<< (*(allcoeff_m3e[LO]))(2)<<std::endl;
+//std::cout<<"3"<< (*(allcoeff_m3e[LO]))(3)<<std::endl;
+//std::cout<<"4"<< (*(allcoeff_m3e[LO]))(4)<<std::endl;
+//std::cout<<"5"<< (*(allcoeff_m3e[LO]))(5)<<std::endl;
+//std::cout<<"6"<< (*(allcoeff_m3e[LO]))(6)<<std::endl;
+//std::cout<<"7"<< (*(allcoeff_m3e[LO]))(7)<<std::endl;
+//std::cout<<"8"<< (*(allcoeff_m3e[LO]))(8)<<std::endl;
+//std::cout<<"9"<< (*(allcoeff_m3e[LO]))(9)<<std::endl;
+//std::cout<<"10"<< (*(allcoeff_m3e[LO]))(10)<<std::endl;
+//std::cout<<"11"<< (*(allcoeff_m3e[LO]))(11)<<std::endl;
+//std::cout<<"12"<< (*(allcoeff_m3e[LO]))(12)<<std::endl;
+//std::cout<<"13"<< (*(allcoeff_m3e[LO]))(13)<<std::endl;
+//std::cout<<"14"<< (*(allcoeff_m3e[LO]))(14)<<std::endl;
+//std::cout<<"15"<< (*(allcoeff_m3e[LO]))(15)<<std::endl;
+//std::cout<<"16"<< (*(allcoeff_m3e[LO]))(16)<<std::endl;
+//std::cout<<"17"<< (*(allcoeff_m3e[LO]))(17)<<std::endl;
+//std::cout<<"18"<< (*(allcoeff_m3e[LO]))(18)<<std::endl;
+//std::cout<<"19"<< (*(allcoeff_m3e[LO]))(19)<<std::endl;
+
+//    double Brmu3e = ((*(allcoeff_m3e[LO]))(0)* (*(allcoeff_m3e[LO]))(0).conjugate()).abs();
+    double Brmu3e = alph*alph/(32.0*M_PI) * pow(mMU,5.0)
+                    * ((*(allcoeff_m3e[LO]))(1).abs2()+(*(allcoeff_m3e[LO]))(0).abs2()
+                       -4.0*((*(allcoeff_m3e[LO]))(1)*(*(allcoeff_m3e[LO]))(2).conjugate()+(*(allcoeff_m3e[LO]))(3)*(*(allcoeff_m3e[LO]))(0).conjugate()).real()
+                       +((*(allcoeff_m3e[LO]))(3).abs2()+(*(allcoeff_m3e[LO]))(2).abs2())*(16.0*log(mMU/mE)-22.0)/3.0
+                       +((*(allcoeff_m3e[LO]))(5).abs2()+(*(allcoeff_m3e[LO]))(4).abs2())/6.0
+                       +(((*(allcoeff_m3e[LO]))(7)+(*(allcoeff_m3e[LO]))(13)).abs2()+((*(allcoeff_m3e[LO]))(6)+(*(allcoeff_m3e[LO]))(12)).abs2())/3.0
+                       +(((*(allcoeff_m3e[LO]))(9)+(*(allcoeff_m3e[LO]))(15)).abs2()+((*(allcoeff_m3e[LO]))(8)+(*(allcoeff_m3e[LO]))(14)).abs2())/24.0
+                       +((*(allcoeff_m3e[LO]))(11).abs2()+(*(allcoeff_m3e[LO]))(10).abs2())*6.0
+                       -(((*(allcoeff_m3e[LO]))(9)+(*(allcoeff_m3e[LO]))(15))*(*(allcoeff_m3e[LO]))(11).conjugate()+((*(allcoeff_m3e[LO]))(8)+(*(allcoeff_m3e[LO]))(14))*(*(allcoeff_m3e[LO]))(10).conjugate()).real()
+                       +((*(allcoeff_m3e[LO]))(1)*(*(allcoeff_m3e[LO]))(5).conjugate()+(*(allcoeff_m3e[LO]))(0)*(*(allcoeff_m3e[LO]))(4).conjugate()
+                         +(*(allcoeff_m3e[LO]))(1)*((*(allcoeff_m3e[LO]))(7)+(*(allcoeff_m3e[LO]))(13)).conjugate()+(*(allcoeff_m3e[LO]))(0)*((*(allcoeff_m3e[LO]))(6)+(*(allcoeff_m3e[LO]))(12)).conjugate()).real()*2.0/3.0
+                       -4.0*((*(allcoeff_m3e[LO]))(2)*(*(allcoeff_m3e[LO]))(5).conjugate()+(*(allcoeff_m3e[LO]))(3)*(*(allcoeff_m3e[LO]))(4).conjugate()
+                             +(*(allcoeff_m3e[LO]))(3)*((*(allcoeff_m3e[LO]))(6)+(*(allcoeff_m3e[LO]))(12)).conjugate()+(*(allcoeff_m3e[LO]))(2)*((*(allcoeff_m3e[LO]))(7)+(*(allcoeff_m3e[LO]))(13)).conjugate()).real()/3.0
+                       +2.0*((*(allcoeff_m3e[LO]))(19).abs2()+(*(allcoeff_m3e[LO]))(16).abs2())/3.0
+                       +((*(allcoeff_m3e[LO]))(18).abs2()+(*(allcoeff_m3e[LO]))(17).abs2())/3.0
+                       +((*(allcoeff_m3e[LO]))(5)*(*(allcoeff_m3e[LO]))(19).conjugate()+(*(allcoeff_m3e[LO]))(4)*(*(allcoeff_m3e[LO]))(16).conjugate()
+                         +((*(allcoeff_m3e[LO]))(7)+(*(allcoeff_m3e[LO]))(13))*(*(allcoeff_m3e[LO]))(18).conjugate()+((*(allcoeff_m3e[LO]))(6)+(*(allcoeff_m3e[LO]))(12))*(*(allcoeff_m3e[LO]))(17).conjugate()).real()*2.0/3.0
+                       +((*(allcoeff_m3e[LO]))(1)*(*(allcoeff_m3e[LO]))(19).conjugate()+(*(allcoeff_m3e[LO]))(0)*(*(allcoeff_m3e[LO]))(16).conjugate()).real()*4.0/3.0
+                       +((*(allcoeff_m3e[LO]))(1)*(*(allcoeff_m3e[LO]))(18).conjugate()+(*(allcoeff_m3e[LO]))(0)*(*(allcoeff_m3e[LO]))(17).conjugate()).real()*2.0/3.0
+                       -((*(allcoeff_m3e[LO]))(2)*(*(allcoeff_m3e[LO]))(19).conjugate()+(*(allcoeff_m3e[LO]))(3)*(*(allcoeff_m3e[LO]))(16).conjugate()).real()*8.0/3.0
+                       -((*(allcoeff_m3e[LO]))(3)*(*(allcoeff_m3e[LO]))(17).conjugate()+(*(allcoeff_m3e[LO]))(2)*(*(allcoeff_m3e[LO]))(18).conjugate()).real()*4.0/3.0) / (2.99598e-19);
+
 //    double Mu3Erate = (alph*alph/(32.0*M_PI))*(pow(mMU,5.0))*
 //                       (VLMuE**2.0 + VRMuE**2.0 - 4.0*(VLMuE*ARMuE + VRMuE*ALMuE)
 //                        + (ALMuE**2.0 + ARMuE**2.0)*((16.0/3.0)*log(mMU/(2.0*mE))-14.0/9.0)

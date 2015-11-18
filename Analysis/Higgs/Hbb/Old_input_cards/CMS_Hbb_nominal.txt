@@ -1,0 +1,15 @@
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, VBF fraction, VH fraction|
+# ttH is computed as 1-ggH-VBF-VH
+##################
+# CMS-HIG-13-012
+# http://cds.cern.ch/record/1610290/files/prd.89.e012003.pdf
+##################
+MEASUREMENT VH_7and8TeV | 0. 0. 1.0 | 1.0 -0.5 0.5
+##################
+# CMS-HIG-12-035
+# http://arxiv.org/pdf/1303.0763.pdf
+# CMS-PAS-HIG-13-019
+##################
+MEASUREMENT ttH_7and8TeV | 0. 0. 0. | 1.00 -2.00 1.90
+##################
