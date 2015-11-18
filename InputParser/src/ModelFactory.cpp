@@ -15,9 +15,7 @@
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include <NPSTUVWXY.h>
 #include <GeneralSUSY.h>
-#include <pMSSM.h>
 #include <SUSYMassInsertion.h>
-#include <MFV.h>
 #include <SUSY.h>
 #include <THDM.h>
 #include <FlavourWilsonCoefficient.h>
@@ -48,9 +46,7 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
-    modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
-    modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
