@@ -4130,33 +4130,34 @@ gslpp::vector<gslpp::complex> SUSYMatching::BHFunctions(int li_to_lj) {
 
     gslpp::vector<gslpp::complex> BHFunctions(4, 0.);
 
-    std::cout<<"MZ"<<MZ<<std::endl;
-    std::cout<<"MW"<<MW<<std::endl;
-    std::cout<<"sw2"<<sw2<<std::endl;
-    std::cout<<"mE"<<mE<<std::endl;
-    std::cout<<"mMU"<<mMU<<std::endl;
-    std::cout<<"mTAU"<<mTAU<<std::endl;
-    std::cout<<"sina"<<sina<<std::endl;
-    std::cout<<"tanb"<<tanb<<std::endl;
-    std::cout<<"mh"<<mh<<std::endl;
-    std::cout<<"mH"<<mH<<std::endl;
-    std::cout<<"mA"<<mA<<std::endl;
-    std::cout<<"M1"<<M1<<std::endl;
-    std::cout<<"M2"<<M2<<std::endl;
-    std::cout<<"muH"<<muH<<std::endl;
-    std::cout<<"TEhat"<<TEhat<<std::endl;
-    std::cout<<"g2"<<g2<<std::endl;
-    std::cout<<"alph"<<alph<<std::endl;
-    std::cout<<"myRl"<<myRl<<std::endl;
-    std::cout<<"ON"<<ON<<std::endl;
-    std::cout<<"myRn"<<myRn<<std::endl;
-    std::cout<<"myV"<<myV<<std::endl;
-    std::cout<<"myU"<<myU<<std::endl;
-    std::cout<<"mym_se_sq"<<mym_se_sq<<std::endl;
-    std::cout<<"mym_sn_sq"<<mym_sn_sq<<std::endl;
-    std::cout<<"MNeig"<<MNeig<<std::endl;
-    std::cout<<"MChi"<<MChi<<std::endl;
-gslpp::complex HpengMuEEENL0temp=0.;
+    //DEBUG
+////    std::cout<<"MZ"<<MZ<<std::endl;
+////    std::cout<<"MW"<<MW<<std::endl;
+////    std::cout<<"sw2"<<sw2<<std::endl;
+////    std::cout<<"mE"<<mE<<std::endl;
+////    std::cout<<"mMU"<<mMU<<std::endl;
+////    std::cout<<"mTAU"<<mTAU<<std::endl;
+////    std::cout<<"sina"<<sina<<std::endl;
+////    std::cout<<"tanb"<<tanb<<std::endl;
+////    std::cout<<"mh"<<mh<<std::endl;
+////    std::cout<<"mH"<<mH<<std::endl;
+////    std::cout<<"mA"<<mA<<std::endl;
+////    std::cout<<"M1"<<M1<<std::endl;
+////    std::cout<<"M2"<<M2<<std::endl;
+////    std::cout<<"muH"<<muH<<std::endl;
+////    std::cout<<"TEhat"<<TEhat<<std::endl;
+////    std::cout<<"g2"<<g2<<std::endl;
+////    std::cout<<"alph"<<alph<<std::endl;
+////    std::cout<<"myRl"<<myRl<<std::endl;
+////    std::cout<<"ON"<<ON<<std::endl;
+////    std::cout<<"myRn"<<myRn<<std::endl;
+////    std::cout<<"myV"<<myV<<std::endl;
+////    std::cout<<"myU"<<myU<<std::endl;
+////    std::cout<<"mym_se_sq"<<mym_se_sq<<std::endl;
+////    std::cout<<"mym_sn_sq"<<mym_sn_sq<<std::endl;
+////    std::cout<<"MNeig"<<MNeig<<std::endl;
+////    std::cout<<"MChi"<<MChi<<std::endl;
+////gslpp::complex HpengMuEEENL0temp=0.;
 
 
     //     Neutralino-Fermion-Sfermion couplings
@@ -4233,12 +4234,12 @@ gslpp::complex HpengMuEEENL0temp=0.;
         for (int b=0;b<2;b++) {
             Qch.assign(a, b, myU(a,1)*myV(b,0)/sqrt(2.0) );
             Rch.assign(a, b, (M2.conjugate()*myU(a,0)*myV(b,0) +muH.conjugate()*myU(a,1)*myV(b,1))/(2.0*MW) );
-            WL0.assign(a, b, -g2/sinb * (Qch(b,a)*sigma5(0).conjugate() -Rch(b,a)*sigma2(0).conjugate() +MChi(a)/(2.0*MW)*sigma2(0).conjugate()*delta_ab(a,b)) );
-            WR0.assign(a, b, WL0(b,a).conjugate() );
-            WL1.assign(a, b, -g2/sinb * (Qch(b,a)*sigma5(1).conjugate() -Rch(b,a)*sigma2(1).conjugate() +MChi(a)/(2.0*MW)*sigma2(1).conjugate()*delta_ab(a,b)) );
-            WR1.assign(a, b, WL1(b,a).conjugate() );
-            WL2.assign(a, b, -g2/sinb * (Qch(b,a)*sigma5(2).conjugate() -Rch(b,a)*sigma2(2).conjugate() +MChi(a)/(2.0*MW)*sigma2(2).conjugate()*delta_ab(a,b)) );
-            WR2.assign(a, b, WL2(b,a).conjugate() );
+            WR0.assign(a, b, -g2/sinb * (Qch(a,b)*sigma5(0).conjugate() -Rch(a,b)*sigma2(0).conjugate() +MChi(a)/(2.0*MW)*sigma2(0).conjugate()*delta_ab(a,b)) );
+            WL0.assign(b, a, WR0(a,b).conjugate() );
+            WR1.assign(a, b, -g2/sinb * (Qch(a,b)*sigma5(1).conjugate() -Rch(a,b)*sigma2(1).conjugate() +MChi(a)/(2.0*MW)*sigma2(1).conjugate()*delta_ab(a,b)) );
+            WL1.assign(b, a, WR1(a,b).conjugate() );
+            WR2.assign(a, b, -g2/sinb * (Qch(a,b)*sigma5(2).conjugate() -Rch(a,b)*sigma2(2).conjugate() +MChi(a)/(2.0*MW)*sigma2(2).conjugate()*delta_ab(a,b)) );
+            WL2.assign(b, a, WR2(a,b).conjugate() );
         }
     }
 
@@ -4292,15 +4293,10 @@ gslpp::complex HpengMuEEENL0temp=0.;
 
     gslpp::matrix<gslpp::complex> Gnu0(3, 3, 0.), Gnu1(3, 3, 0.), Gnu2(3, 3, 0.);
     for (int x=0;x<3;x++) {
-        for (int y=0;y<3;y++) {
-            Gnu0.assign(x, y, -g2*( gLLNU(0)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(0)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(0)*myRn(x,2).conjugate()*myRn(y,2)) );
-            Gnu1.assign(x, y, -g2*( gLLNU(1)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(1)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(1)*myRn(x,2).conjugate()*myRn(y,2)) );
-            Gnu2.assign(x, y, -g2*( gLLNU(2)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(2)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(2)*myRn(x,2).conjugate()*myRn(y,2)) );
-        }
+        Gnu0.assign(x, x, -g2*gLLNU(0) );
+        Gnu1.assign(x, x, -g2*gLLNU(1) );
+        Gnu2.assign(x, x, -g2*gLLNU(2) );
     }
-    std::cout<<"Gnu0(1,2) = "<< Gnu0(0,1)<<std::endl;
-    std::cout<<"Gnu0(1,3) = "<< Gnu0(0,2)<<std::endl;
-    std::cout<<"Gnu0(2,3) = "<< Gnu0(1,2)<<std::endl;
 
     gslpp::vector<gslpp::complex> SRE(3, 0.), SLE(3, 0.), SRMU(3, 0.), SLMU(3, 0.), SRTAU(3, 0.), SLTAU(3, 0.);
     for (int p=0;p<3;p++) {
@@ -4342,22 +4338,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
                                                                  +NRlE(a,x)*DR0(a,b)*NLlMU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
                     //     h L contribution
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_1b = "<< - 2.0*piconst*(NRlE(a,x)*DL0(a,b)*NLlMU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                            +mMU*mMU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
-                                                                 +NLlE(a,x)*DR0(a,b)*NRlMU(b,x).conjugate()*mMU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NLlE(a,x)*DR0(a,b)*NLlMU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NRlE(a,x)*DL0(a,b)*NRlMU(b,x).conjugate()*mMU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                 +NLlE(a,x)*DL0(a,b)*NLlMU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NRlE(a,x)*DR0(a,b)*NRlMU(b,x).conjugate()*mMU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NRlE(a,x)*DR0(a,b)*NLlMU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))<<std::endl;
                     HpengMuEEENL0 = HpengMuEEENL0 - 2.0*piconst*(NLlE(a,x)*DR0(a,b)*NRlMU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
                                                                                                             -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
                                                                                                             +mMU*mMU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
@@ -4454,10 +4434,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                                                 -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
                                                                           -NLlE(a,x)*NLlMU(a,y).conjugate()*mMU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
                                                                           -NLlE(a,x)*NRlMU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_2y = "<< - 2.0*piconst*Gl0(x,y)*(-NLlE(a,x)*NLlMU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
-                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
-                                                                          -NRlE(a,x)*NRlMU(a,y).conjugate()*mMU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
-                                                                          -NRlE(a,x)*NLlMU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))<<std::endl;
                     //     H R contribution
                     HpengMuEEENR1 = HpengMuEEENR1 - 2.0*piconst*Gl1(x,y)*(-NLlE(a,x)*NLlMU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
                                                                                                                 -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
@@ -4497,30 +4473,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                       +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_3 = "<< - 2.0*piconst*(SRMU(0)/(mE*mE-mMU*mMU)*(-NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
-                                                             +SRE(0)/(mMU*mMU-mE*mE)*(-NLlE(a,x)*NLlMU(a,x).conjugate()*mMU*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))))<<std::endl;
-    if(x==0&&a==2) std::cout<<"SRMU(0) = "<< SRMU(0)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NRlE(3,1) = "<< NRlE(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NRlMU(3,1) = "<< NRlMU(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NLlE(3,1) = "<< NLlE(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NLlMU(3,1) = "<< NLlMU(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"B0(3,1) = "<< PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))<<std::endl;
-    if(x==0&&a==2) std::cout<<"B1(3,1) = "<< PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))<<std::endl;
-                
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_3_1 = "<< - 2.0*piconst*(SRMU(0)/(mE*mE-mMU*mMU)*(-NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))))<<std::endl;
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_3_2 = "<< - 2.0*piconst*(SRE(0)/(mMU*mMU-mE*mE)*(-NLlE(a,x)*NLlMU(a,x).conjugate()*mMU*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))))<<std::endl;
                 //     H R contribution
                 HpengMuEEENR1 = HpengMuEEENR1 - 2.0*piconst*(SRMU(1)/(mE*mE-mMU*mMU)*(-NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
@@ -4557,16 +4509,8 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                       +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
-
-                std::cout<<"HpengMuEEENR0("<<a<<","<<x<<") = "<< HpengMuEEENR0-HpengMuEEENL0temp<<std::endl;
-                HpengMuEEENL0temp=HpengMuEEENR0;
-
             }
         }
-    std::cout<<"HpengMuEEENR1 = "<< HpengMuEEENR1<<std::endl;
-    std::cout<<"HpengMuEEENL1 = "<< HpengMuEEENL1<<std::endl;
-    std::cout<<"HpengMuEEENR2 = "<< HpengMuEEENR2<<std::endl;
-    std::cout<<"HpengMuEEENL2 = "<< HpengMuEEENL2<<std::endl;
 
         //     summing up the h (0), H (1) and A (2) parts
         gslpp::complex B2HiggsnR = (-0.5*HpengMuEEENR0*SLE(0)/(mh*mh)-0.5*HpengMuEEENR1*SLE(1)/(mH*mH)-0.5*HpengMuEEENR2*SLE(2)/(mA*mA))/(4.0*pi*alph);
@@ -4775,12 +4719,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                       +CLlE(a,x)*CRlMU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
            }
         }
-    std::cout<<"HpengMuEEECR0 = "<< HpengMuEEECR0<<std::endl;
-    std::cout<<"HpengMuEEECL0 = "<< HpengMuEEECL0<<std::endl;
-    std::cout<<"HpengMuEEECR1 = "<< HpengMuEEECR1<<std::endl;
-    std::cout<<"HpengMuEEECL1 = "<< HpengMuEEECL1<<std::endl;
-    std::cout<<"HpengMuEEECR2 = "<< HpengMuEEECR2<<std::endl;
-    std::cout<<"HpengMuEEECL2 = "<< HpengMuEEECL2<<std::endl;
 
         //     summing up the h (0), H (1) and A (2) parts
         gslpp::complex B2HiggscR = (-0.5*HpengMuEEECR0*SLE(0)/(mh*mh)-0.5*HpengMuEEECR1*SLE(1)/(mH*mH)-0.5*HpengMuEEECR2*SLE(2)/(mA*mA))/(4.0*pi*alph);

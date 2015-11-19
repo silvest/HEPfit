@@ -32,62 +32,101 @@ double EWPO::dDelta_r()
     double CBA2=cos(bma)*cos(bma);
     double SBA2=sin(bma)*sin(bma);
     double mHl=myTHDM->getMHl();
-    double mHh=myTHDM->getmHh();
-    double mA=myTHDM->getmA();
-    double mHp=myTHDM->getmHp();
+    double mHl2=mHl*mHl;
+    double mHh2=myTHDM->getmHh2();
+    double mA2=myTHDM->getmA2();
+    double mHp2=myTHDM->getmHp2();
 
     double prefactor=Ale/(4.*c02*MZ2*M_PI*s02*s02);
 
-    double part_A=-(c02*(mycache->A0_MZ2_mHp2(MZ,mHp)*(1.0 -10.0*c02*c02 +16.0*c02*s02 -6.0*s02*s02)
-                        -9.0*mycache->A0_MZ2_MW2(MZ,MW)*(13.0*c02*c02 -2.0*c02*s02 +s02*s02)))/2.;
+    double part_A=-(c02*(mycache->A0_MZ2_mHp2(MZ2,mHp2)*(1.0 -10.0*c02*c02 +16.0*c02*s02 -6.0*s02*s02)
+                        -9.0*mycache->A0_MZ2_MW2(MZ2,MW2)*(13.0*c02*c02 -2.0*c02*s02 +s02*s02)))/2.;
+
+
+    double B0_MZ2_0_MW2_mHh2 = mycache->B0_MZ2_0_MW2_mHh2(MZ2,MW2,mHh2).abs();
+    double B0_MZ2_0_MW2_mHl2 = mycache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2).abs();
+    double Re_B0_MZ2_MW2_MW2_mHh2 = mycache->B0_MZ2_MW2_MW2_mHh2(MZ2,MW2,mHh2).real();
+    double Re_B0_MZ2_MW2_MW2_mHl2 = mycache->B0_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2).real();
+    double Re_B0_MZ2_MZ2_MZ2_mHh2 = mycache->B0_MZ2_MZ2_MZ2_mHh2(MZ2,mHh2).real();
+    double Re_B0_MZ2_MZ2_MZ2_mHl2 = mycache->B0_MZ2_MZ2_MZ2_mHl2(MZ2,mHl2).real();
+
+//    double B00_MZ2_0_mA2_mHp2 = mycache->B00_MZ2_0_mA2_mHp2(MZ2,mA2,mHp2).abs();
+//    double B00_MZ2_0_mHh2_mHp2 = mycache->B00_MZ2_0_mHh2_mHp2(MZ2,mHh2,mHp2).abs();
+//    double B00_MZ2_0_mHh2_MW2 = mycache->B00_MZ2_0_mHh2_MW2(MZ2,mHh2,MW2).abs();
+//    double B00_MZ2_0_mHl2_mHp2 = mycache->B00_MZ2_0_mHl2_mHp2(MZ2,mHl2,mHp2).abs();
+//    double B00_MZ2_0_mHl2_MW2 = mycache->B00_MZ2_0_mHl2_MW2(MZ2,mHl2,MW2).abs();
+//    double B00_MZ2_0_mHp2_mHp2 = mycache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2).abs();
+//    double B00_MZ2_0_MW2_mHl2 = mycache->B00_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2).abs();
+//    double B00_MZ2_0_MW2_MZ2 = mycache->B00_MZ2_0_MW2_MZ2(MZ2,MW2).abs();
+//    double B00_MZ2_0_MZ2_MW2 = mycache->B00_MZ2_0_MZ2_MW2(MZ2,MW2).abs();
+
+//    double Re_B00_MZ2_MW2_mA2_mHp2 = mycache->B00_MZ2_MW2_mA2_mHp2(MZ2,MW2,mA2,mHp2).real();
+//    double Re_B00_MZ2_MW2_mHh2_mHp2 = mycache->B00_MZ2_MW2_mHh2_mHp2(MZ2,MW2,mHh2,mHp2).real();
+//    double Re_B00_MZ2_MW2_mHh2_MW2 = mycache->B00_MZ2_MW2_mHh2_MW2(MZ2,MW2,mHh2).real();
+//    double Re_B00_MZ2_MW2_mHl2_mHp2 = mycache->B00_MZ2_MW2_mHl2_mHp2(MZ2,MW2,mHl2,mHp2).real();
+//    double Re_B00_MZ2_MW2_mHl2_MW2 = mycache->B00_MZ2_MW2_mHl2_MW2(MZ2,MW2,mHl2).real();
+//    double Re_B00_MZ2_MW2_MW2_mHl2 = mycache->B00_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2).real();
+//    double Re_B00_MZ2_MW2_MW2_MZ2 = mycache->B00_MZ2_MW2_MW2_MZ2(MZ2,MW2).real();
+//    double Re_B00_MZ2_MW2_MZ2_MW2 = mycache->B00_MZ2_MW2_MZ2_MW2(MZ2,MW2).real();
+//    double Re_B00_MZ2_MZ2_mHh2_mA2 = mycache->B00_MZ2_MZ2_mHh2_mA2(MZ2,mHh2,mA2).real();
+//    double Re_B00_MZ2_MZ2_mHh2_MZ2 = mycache->B00_MZ2_MZ2_mHh2_MZ2(MZ2,mHh2).real();
+//    double Re_B00_MZ2_MZ2_mHl2_mA2 = mycache->B00_MZ2_MZ2_mHl2_mA2(MZ2,mHl2,mA2).real();
+//    double Re_B00_MZ2_MZ2_mHl2_MZ2 = mycache->B00_MZ2_MZ2_mHl2_MZ2(MZ2,mHl2).real();
+//    double Re_B00_MZ2_MZ2_mHp2_mHp2 = mycache->B00_MZ2_MZ2_mHp2_mHp2(MZ2,mHp2).real();
+//
+//    double B00p_0_mHp2_mHp2 = mycache->B00p_0_mHp2_mHp2(MZ2,mHp2).abs(); /*check whether this is the correct PV function!*/
+
+
+        
+
 
     double part_B=0.;
-//    double part_B=c02*c02*c02*mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ,MZ,mHp,mHp)
-//                  +(-mycache->B00_MZ2_0_mA2_mHp2(MZ,,,)
-//                    +mycache->B00_MZ2_0_MW2_Mh02(MZ,,,)
-//                    +mycache->B00_MZ2_0_MW2_MZ2(MZ,,,)
-//                    -mycache->B00_MZ2_0_MZ2_MW2(MZ,,,)
-//                    +mycache->Re_B00_MZ2_MW2_mA2_mHp2(MZ,,,)
-//                    -mycache->Re_B00_MZ2_MW2_MW2_Mh02(MZ,,,)
-//                    -mycache->Re_B00_MZ2_MW2_MW2_MZ2(MZ,,,)
-//                    +mycache->Re_B00_MZ2_MW2_MZ2_MW2(MZ,,,)
-//                    -CBA2*mycache->B00_MZ2_0_Mh02_mHp2(MZ,,,)
-//                    -CBA2*mycache->B00_MZ2_0_MHH2_MW2(MZ,,,)
-//                    +CBA2*mycache->Re_B00_MZ2_MW2_Mh02_mHp2(MZ,,,)
-//                    +CBA2*mycache->Re_B00_MZ2_MW2_MHH2_MW2(MZ,,,)
-//                    -SBA2*mycache->B00_MZ2_0_Mh02_MW2(MZ,,,)
-//                    -SBA2*mycache->B00_MZ2_0_MHH2_mHp2(MZ,,,)
-//                    +SBA2*mycache->Re_B00_MZ2_MW2_Mh02_MW2(MZ,,,)
-//                    +SBA2*mycache->Re_B00_MZ2_MW2_MHH2_mHp2(MZ,,,))*s02
-//                  -c02*(mycache->Re_B00_MZ2_MW2_mA2_mHp2(MZ,,,)
-//                        -mycache->Re_B00_MZ2_MW2_MW2_Mh02(MZ,,,)
-//                        -mycache->Re_B00_MZ2_MW2_MW2_MZ2(MZ,,,)
-//                        +mycache->Re_B00_MZ2_MW2_MZ2_MW2(MZ,,,)
-//                        +mycache->Re_B00_MZ2_MZ2_Mh02_MZ2(MZ,,,)
-//                        -MZ2*mycache->Re_B0_MZ2_MZ2_Mh02_MZ2(MZ,,,)
-//                        +mycache->Re_B00_MZ2_MW2_Mh02_MW2(MZ,,,)*SBA2
-//                        +mycache->Re_B00_MZ2_MW2_MHH2_mHp2(MZ,,,)*SBA2
-//                        -mycache->Re_B00_MZ2_MZ2_Mh02_MZ2(MZ,,,)*SBA2
-//                        -mycache->Re_B00_MZ2_MZ2_MHH2_mA2(MZ,,,)*SBA2
-//                        +MZ2*mycache->Re_B0_MZ2_MZ2_Mh02_MZ2(MZ,,,)*SBA2
-//                        +mycache->B0_MZ2_0_Mh02_MW2(MZ,,,)*MZ2*s02
-//                        -MZ2*mycache->Re_B0_MZ2_MW2_Mh02_MW2(MZ,,,)*s02
-//                        -mycache->B0_MZ2_0_Mh02_MW2(MZ,,,)*MZ2*SBA2*s02
-//                        +MZ2*mycache->Re_B0_MZ2_MW2_Mh02_MW2(MZ,,,)*SBA2*s02
-//                        +4.0*mycache->B00_MZ2_0_mHp2_mHp2(MZ,,,)*s02*s02
-//                        +4.0*mycache->B0i_MZ2_dbb00_0_mHp2_mHp2(MZ,,mHp,mHp)*MZ2*s02*s02
-//                        -mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ,,,)*s02*s02
-//                        +CBA2*(mycache->Re_B00_MZ2_MW2_Mh02_mHp2(MZ,,,)
-//                               +mycache->Re_B00_MZ2_MW2_MHH2_MW2(MZ,,,)
-//                               -mycache->Re_B00_MZ2_MZ2_Mh02_mA2(MZ,,,)
-//                               -mycache->Re_B00_MZ2_MZ2_MHH2_MZ2(MZ,,,)
-//                               +MZ2*mycache->Re_B0_MZ2_MZ2_MHH2_MZ2(MZ,,,)
-//                               -mycache->B0_MZ2_0_MHH2_MW2(MZ,,,)*MZ2*s02
-//                               +MZ2*mycache->Re_B0_MZ2_MW2_MHH2_MW2(MZ,,,)*s02)
-//                  +c02*c02*(MZ2*(mycache->Re_B0_MZ2_MW2_MHH2_MW2(MZ,,,)*CBA2
-//                                 -mycache->Re_B0_MZ2_MW2_Mh02_MW2(MZ,,,)*CBA2)
-//                            +2.0*(2.0*mycache->B00_MZ2_0_mHp2_mHp2(MZ,,,)
-//                                  -mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ,MZ,mHp,mHp))*s02));
+//    double part_B=c02*c02*c02*mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ2,mHp2)
+///                  +(-B00_MZ2_0_mA2_mHp2
+//                    +mycache->B00_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2)
+//                    +mycache->B00_MZ2_0_MW2_MZ2(MZ2,MW2)
+//                    -mycache->B00_MZ2_0_MZ2_MW2(MZ2,MW2)
+//                    +mycache->Re_B00_MZ2_MW2_mA2_mHp2(MZ2,MW2,mA2,mHp2)
+//                    -mycache->Re_B00_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2)
+//                    -mycache->Re_B00_MZ2_MW2_MW2_MZ2(MZ2,MW2)
+//                    +mycache->Re_B00_MZ2_MW2_MZ2_MW2(MZ2,MW2)
+//                    -CBA2*mycache->B00_MZ2_0_mHl2_mHp2(MZ2,mHl2,mHp2)
+//                    -CBA2*mycache->B00_MZ2_0_mHh2_MW2(MZ2,mHh2,MW2)
+//                    +CBA2*mycache->Re_B00_MZ2_MW2_mHl2_mHp2(MZ2,MW2,mHl2,mHp2)
+//                    +CBA2*mycache->Re_B00_MZ2_MW2_mHh2_MW2(MZ2,MW2,mHh2)
+//                    -SBA2*mycache->B00_MZ2_0_mHl2_MW2(MZ2,mHl2,MW2)
+//                    -SBA2*mycache->B00_MZ2_0_mHh2_mHp2(MZ2,mHh2,mHp2)
+//                    +SBA2*mycache->Re_B00_MZ2_MW2_mHl2_MW2(MZ2,MW2,mHl2)
+//                    +SBA2*mycache->Re_B00_MZ2_MW2_mHh2_mHp2(MZ2,MW2,mHh2,mHp2))*s02
+//                  -c02*(mycache->Re_B00_MZ2_MW2_mA2_mHp2(MZ2,MW2,mA2,mHp2)
+//                        -mycache->Re_B00_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2)
+//                        -mycache->Re_B00_MZ2_MW2_MW2_MZ2(MZ2,MW2)
+//                        +mycache->Re_B00_MZ2_MW2_MZ2_MW2(MZ2,MW2)
+//                        +mycache->Re_B00_MZ2_MZ2_mHl2_MZ2(MZ2,mHl2)
+////                        -MZ2*Re_B0_MZ2_MZ2_MZ2_mHl2
+//                        +mycache->Re_B00_MZ2_MW2_mHl2_MW2(MZ2,MW2,mHl2)*SBA2
+//                        +mycache->Re_B00_MZ2_MW2_mHh2_mHp2(MZ2,MW2,mHh2,mHp2)*SBA2
+//                        -mycache->Re_B00_MZ2_MZ2_mHl2_MZ2(MZ2,mHl2)*SBA2
+//                        -mycache->Re_B00_MZ2_MZ2_mHh2_mA2(MZ2,mHh2,mA2)*SBA2
+////                        +MZ2*Re_B0_MZ2_MZ2_MZ2_mHl2*SBA2
+////                        +B0_MZ2_0_MW2_mHl2*MZ2*s02
+////                        -MZ2*Re_B0_MZ2_MW2_MW2_mHl2*s02
+////                        -B0_MZ2_0_MW2_mHl2*MZ2*SBA2*s02
+////                        +MZ2*Re_B0_MZ2_MW2_MW2_mHl2*SBA2*s02
+//                        +4.0*mycache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2)*s02*s02
+//                        +4.0*mycache->B00p_0_mHp2_mHp2(MZ2,mHp2)*MZ2*s02*s02 /*check whether this is the correct PV function!*/
+//                        -mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ2,mHp2)*s02*s02
+//                        +CBA2*(mycache->Re_B00_MZ2_MW2_mHl2_mHp2(MZ2,MW2,mHl2,mHp2)
+//                               +mycache->Re_B00_MZ2_MW2_mHh2_MW2(MZ2,MW2,mHh2)
+//                               -mycache->Re_B00_MZ2_MZ2_mHl2_mA2(MZ2,mHl2,mA2)
+//                               -mycache->Re_B00_MZ2_MZ2_mHh2_MZ2(MZ2,mHh2)
+//                               +MZ2*mycache->Re_B0_MZ2_MZ2_mHh2_MZ2(MZ2,mHh2)
+////                               -B0_MZ2_0_MW2_mHh2*MZ2*s02
+////                               +MZ2*Re_B0_MZ2_MW2_MW2_mHh2*s02)
+////                  +c02*c02*(MZ2*(Re_B0_MZ2_MW2_MW2_mHh2*CBA2
+////                                 -Re_B0_MZ2_MW2_MW2_mHl2*CBA2)
+//                            +2.0*(2.0*mycache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2)
+//                                  -mycache->Re_B00_MZ2_MZ2_mHp2_mHp2(MZ2,mHp2))*s02));
 
     return prefactor*(part_A+part_B);
 }
