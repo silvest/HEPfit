@@ -7,7 +7,7 @@
 
 /* 
  * Gambino's parameters hardcoded
- * phi1.4body hardcoded, currently switched off through the macro FOUR_BODY set to false
+ * phi1.4body partially hardcoded, currently switched off through the macro FOUR_BODY set to false
  * VubNNLO and EW parts missing
  */
 
@@ -130,7 +130,7 @@ double Bsgamma::T3(double E0,double t)
             - (rho(E0)/18. + omega(E0)/162.) * log(t*d);
 }
 
-double Bsgamma::P0tree(double E0, double t)
+double Bsgamma::P0_4body(double E0, double t)
 {
     gslpp::complex A1 =-C1_0*CKMu;
     gslpp::complex A2 =-C2_0*CKMu;
@@ -567,60 +567,76 @@ double Bsgamma::Int_cc1_part1(double E0)
 
 double Bsgamma::ff7_dMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    
-    return 4. * d * (18. - 33.*d + 2.*d2 + 13.*d3 - 6.* d2 * (2. + d) * log(d)) 
-            / (81. * (d - 1.));
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+
+        return 4. * d * (18. - 33.*d + 2.*d2 + 13.*d3 - 6.* d2 * (2. + d) * log(d)) 
+                / (81. * (d - 1.));   
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::ff7_sMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    
-    return (-2. * d * (72. + 39.*d - 76.*d2 - 35.*d3 
-            + 6.*d*(18. + 13.*d + 2.*d2)*log(d))) / (243.*(d - 1.));
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+
+        return (-2. * d * (72. + 39.*d - 76.*d2 - 35.*d3 
+                + 6.*d*(18. + 13.*d + 2.*d2)*log(d))) / (243.*(d - 1.));
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::ff8_dMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    double ld = log(d);
-    double l1d = log(1. - d);
-    double Li2 = gsl_sf_dilog(d);
-    
-    return -136./27. * d - 724./81. * d2 + 20./27. * d3 
-            + (-8./9. + 16./9. * d - 8./9. * d2) * l1d* l1d 
-            + (32./27. * d + 76./27. * d2 - 16./81. * d3) * ld 
-            + (-104./27. - 80./9. * d + 40./9. * d2 + (32./27. 
-            + 32./9. * d - 16./9. * d2) * ld) * l1d 
-            + (-64./27. * d - 152./27. * d2 + 32./81. * d3 
-            + (-64./27. - 64./9. * d + 32./9. * d2) * l1d) * log(Ms/Mb_kin) 
-            + (32./27. + 32./9. * d - 16./9. * d2) * Li2;
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+        double ld = log(d);
+        double l1d = log(1. - d);
+        double Li2 = gsl_sf_dilog(d);
+
+        return -136./27. * d - 724./81. * d2 + 20./27. * d3 
+                + (-8./9. + 16./9. * d - 8./9. * d2) * l1d* l1d 
+                + (32./27. * d + 76./27. * d2 - 16./81. * d3) * ld 
+                + (-104./27. - 80./9. * d + 40./9. * d2 + (32./27. 
+                + 32./9. * d - 16./9. * d2) * ld) * l1d 
+                + (-64./27. * d - 152./27. * d2 + 32./81. * d3 
+                + (-64./27. - 64./9. * d + 32./9. * d2) * l1d) * log(Ms/Mb_kin) 
+                + (32./27. + 32./9. * d - 16./9. * d2) * Li2;
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::ff8_sMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    double ld = log(d);
-    double l1d = log(1. - d);
-    double Li2 = gsl_sf_dilog(d);
-    
-    return -340./243. * d - 104./81. * d2 + 16./729. * d3 
-            + (-4./27. + 8./27. * d - 4./27. * d2) * l1d* l1d 
-            + (8./27. * d + 4./9. * d2) * ld 
-            + (-16./27. * d - 8./9. * d2) * log(Ms/Mb_kin)
-            + (-268./243. - 40./27. * d + 20./27. * d2 + (8./27. 
-            + 16./27. * d - 8./27. * d2) * ld
-            + (-16./27. - 32./27. * d + 16./27. * d2) * log(Ms/Mb_kin)) * l1d 
-            + (8./27. + 16./27. * d - 8./27. * d2) * Li2;
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+        double ld = log(d);
+        double l1d = log(1. - d);
+        double Li2 = gsl_sf_dilog(d);
+
+        return -340./243. * d - 104./81. * d2 + 16./729. * d3 
+                + (-4./27. + 8./27. * d - 4./27. * d2) * l1d* l1d 
+                + (8./27. * d + 4./9. * d2) * ld 
+                + (-16./27. * d - 8./9. * d2) * log(Ms/Mb_kin)
+                + (-268./243. - 40./27. * d + 20./27. * d2 + (8./27. 
+                + 16./27. * d - 8./27. * d2) * ld
+                + (-16./27. - 32./27. * d + 16./27. * d2) * log(Ms/Mb_kin)) * l1d 
+                + (8./27. + 16./27. * d - 8./27. * d2) * Li2;
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::Phi11_1(double E0)
@@ -1015,757 +1031,6 @@ double Bsgamma::Kij_1(int i, int j, double E0, double mu)
     return K_ij[i-1][j-1];
 }
 
-double Bsgamma::Rer22(double z)
-{
-    double L = log(z);
-    double L2 = L*L;
-    double L3 = L2*L;
-    double L4 = L3*L;
-    double z32 = sqrt(z)*z;
-    double z2 = z*z;
-    double z52 = z32*z;
-    double z3 = z2*z;
-    double z72 = z52*z;
-    double z4 = z3*z;
-    double Pi2 = M_PI*M_PI;
-    double zeta3 = gsl_sf_zeta_int(3);
-    
-    return 67454./6561. - 124./729. * Pi2 
-            - 4./1215. * (11280. - 1520. * Pi2 - 171. * Pi2*Pi2 - 5760. * zeta3 
-            + 6840. * L - 1440. * Pi2*L - 2520. * zeta3*L 
-            + 120. * L2 + 100. * L3 - 30. * L4) * z 
-            - 64./243. * Pi2*( 43. - 12. * log(2.) - 3. * L) * z32 
-            - 2./1215. * (11475. - 380. * Pi2 + 96. * Pi2*Pi2 
-            + 7200. * zeta3 - 1110. * L - 1560. * Pi2*L + 1440. * zeta3*L 
-            + 990. * L2 + 260. * L3 - 60. * L4) * z2 
-            + 2240./243. * Pi2 * z52
-            - 2./2187. * (62471. - 2424. * Pi2 - 33264. * zeta3 - 19494. * L 
-            - 504. * Pi2*L - 5184. * L2 + 2160. * L3) * z3 
-            - 2464./6075. * Pi2 * z72
-            + ( - 15103841./546750. + 7912./3645. * Pi2 + 2368./81. * zeta3 
-            + 147038./6075. * L + 352./243. * Pi2*L + 88./243. * L2 
-            - 512./243. * L3 ) * z4; 
-}
-
-double Bsgamma::Phi22_2beta0(double E0, double mu)
-{
-    double Lb = 2*log(mu/Mb_kin);
-    double d = delta(E0);
-    double d2 = d*d;
-    double mcmb = Mc/Mb_kin;
-    double mcmb2 = mcmb*mcmb;
-    double mcmb3 = mcmb2*mcmb;
-    
-    return SM.Beta0(5) * (Phi22_1(E0)*Lb
-            + 0.013698269459646965 + 0.3356948452887703 * d 
-            - 0.086677232161681  * d2 
-            + ( 0.3575455009710223 + 1.8248223618702617 * d 
-            - 0.374324331239819 * d2 ) * mcmb 
-            + (-2.3059130759599302 - 5.799640881350228 * d 
-            - 6.226247001127346 * d2 ) * mcmb2 
-            + ( 3.4485885608332834 - 0.5479757965141787 * d 
-            + 17.272487170738795 * d2 ) * mcmb3);
-}
-
-double Bsgamma::Phi28_2beta0(double E0, double mu)
-{
-    double Lb = 2*log(mu/Mb_kin);
-    double d = delta(E0);
-    double d2 = d*d;
-    double mcmb = Mc/Mb_kin;
-    double mcmb2 = mcmb*mcmb;
-    double mcmb3 = mcmb2*mcmb;
-    double mcmb4 = mcmb3*mcmb;
-    double mcmb5 = mcmb4*mcmb;
-    
-    return SM.Beta0(5) * (Phi28_1(E0, zeta())*Lb
-            + 0.026054745293391798 + 0.1678721564514209 * d 
-            - 0.19700988587274693 * d2 
-            + ( -0.03801105485376407 + 0.601712887338462 * d 
-            - 0.7557529126506585 * d2 ) * mcmb 
-            + ( 2.7551159092192132 - 10.034450524236696 * d 
-            + 11.271837772655209 * d2 ) * mcmb2 
-            + ( -27.045289848315868 + 68.46851531490181 * d 
-            - 72.50921751760909 * d2 ) * mcmb3 
-            + ( 85.86574743951778 - 289.3441408351491 * d 
-            + 297.6777008484198 * d2 ) * mcmb4 
-            + ( -91.5260435658921 + 399.81982774456964 * d 
-            - 399.85440571662446 * d2 ) * mcmb5);
-}
-
-double Bsgamma::Phi77_2beta0(double E0, double mu)
-{
-    double Lb = 2*log(mu/Mb_kin);
-    double d = delta(E0);
-    double d2 = d*d;
-    double d3 = d2*d;
-    double Ld = log(d);
-    double zeta3 = gsl_sf_zeta_int(3);
-    double Li2 = gsl_sf_dilog(1. - d);
-    Polylogarithms Poly;
-    double Li3 = Poly.Li3(d);
-    
-    return SM.Beta0(5) * (Phi77_1(E0)*Lb
-            + ( -3. + 4./3. * d - 1./3. * d2 - 4./3. * Ld ) * Li2 
-            + ( 13./18. + 2. * d - 1./2. * d2 - 4./3. * log(1. - d) 
-            + 2./3. * Ld ) * Ld*Ld 
-            - 8./3. * (Li3 - zeta3) 
-            + ( 4./9. * M_PI*M_PI - 85./18. - 47./9. * d 
-            + 19./18. * d2 + 2./9. * d3 ) * Ld 
-            - 49./6. + 80./9. * d + 1./18. * d2 - 7./9. * d3);
-}
-
-double Bsgamma::Phi88_2beta0(double E0, double mu)
-{
-    double Lb = 2*log(mu/Mb_kin);
-    double d = delta(E0);
-    double d2 = d*d;
-    double d3 = d2*d;
-    double Ld = log(d);
-    double L1d = log(1. - d);
-    double Li2 = gsl_sf_dilog(1. - d);
-    Polylogarithms Poly;
-    double Li3 = Poly.Li3(d);
-    
-    return SM.Beta0(5) * (Phi88_1(E0)*Lb
-            + 4./27. * ( - 2. * ( Li2 - 1./6. * M_PI*M_PI + 3. * L1d 
-            - 1./4. * d * (2. + d) * Ld + 8./3. * d + 5./6. * d2 
-            - 1./18. * d3 ) * log(Mb_kin/Ms) - 2. * Li3 
-            + ( 5. - 2. * Ld ) * ( Li2 - 1./6. * M_PI*M_PI ) 
-            + ( 1./2. * d + 1./4. * d2 - L1d ) * Ld * Ld
-            - 1./12. * M_PI*M_PI * d * (2. + d) 
-            + ( 151./18. - 1./3. * M_PI*M_PI ) * L1d 
-            + ( - 53./12. * d - 19./12. * d2 + 2./9. * d3 ) * Ld 
-            + 787./72. * d + 227./72. * d2 - 41./72. * d3 ));
-}
-
-double Bsgamma::dY1(double E0)
-{
-    double z0 = 1. - delta(E0);
-    double Li2 = gsl_sf_dilog(z0);
-    
-    return + 2./9. * z0*(z0*z0 + 24.)- 8./3. * (z0 - 1.)*log(1. - z0) - 8./3. * Li2;
-}
-
-double Bsgamma::Y1(double E0, double mu)
-{
-    double Lb = log(mu/Mb_kin);
-    
-    return 4./9.*(29. - 2.*M_PI*M_PI) + 16./3.*Lb - dY1(E0);
-}
-
-double Bsgamma::Y2CF(double E0, double mu)
-{
-    double Lb = log(mu/Mb_kin);
-    double z0 = 1. - delta(E0);
-    double z02 = z0*z0;
-    double z03 = z02*z0;
-    double z04 = z03*z0;
-    double z05 = z04*z0;
-    double z06 = z05*z0;
-    double z07 = z06*z0;
-    double z08 = z07*z0;
-    double z09 = z08*z0;
-    double z010 = z09*z0;
-    double z011 = z010*z0;
-    double Lz = log(1. - z0);
-    double Li2 = gsl_sf_dilog(z0);
-    
-    return -21.9087 - 112.464 * Lb - 42.6667 * Lb*Lb - 77.7675 * z0 + 10.6667 * Lb*z0 
-            + 68.5848 * z02 - 5.33333 * Lb * z02 - 4.42133 * z03 + 6.22222 * Lb * z03 
-            - 4.0317 * z04 + 6.64376 * z05 - 11.647 * z06 + 15.8697 * z07 
-            - 14.8006 * z08 + 8.85514 * z09 - 2.9929 * z010 + 0.433254 * z011 
-            + (-77.7675 + 85.8251 * z0 - 28.6855 * z02 
-            + Lb * (-21.3333 - 21.3333 * z0 + 5.33333 * z02)) * Lz 
-            + (-12.2881 - 10.6667 * Lb + 6.12213 * z0 + 0.27227 * z02) * Lz*Lz 
-            + (-2.88573 + 5.77146 * z0 - 2.88573 * z02) * Lz*Lz*Lz - 32. * Lb*Li2;
-}
-
-double Bsgamma::Y2CA(double E0, double mu)
-{
-    double Lb = log(mu/Mb_kin);
-    double z0 = 1. - delta(E0);
-    double z02 = z0*z0;
-    double z03 = z02*z0;
-    double z04 = z03*z0;
-    double z05 = z04*z0;
-    double z06 = z05*z0;
-    double z07 = z06*z0;
-    double z08 = z07*z0;
-    double z09 = z08*z0;
-    double z010 = z09*z0;
-    double z011 = z010*z0;
-    double Lz = log(1. - z0);
-    double Li2 = gsl_sf_dilog(z0);
-    
-    return 22.8959 + 76.5729 * Lb + 30.2222 * Lb*Lb + 2.94616 * z0 - 60.4444 * Lb*z0 
-            - 13.2522 * z02 - 6.96907 * z03 - 2.51852 * Lb*z03 + 0.117907 * z04 
-            - 2.02988 * z05 + 2.90402 * z06 - 3.53904 * z07 + 2.55728 * z08 
-            - 0.941549 * z09 + 0.0173599 * z010 + 0.0598012 * z011 
-            + (2.94616 - 30.2222 * Lb- 12.3947 * z0 + 30.2222 * Lb*z0 + 9.44855 * z02) * Lz 
-            - 6.61587 * (1. - z0) * (1. - z0) * Lz*Lz + 30.2222 * Lb*Li2
-            + (0.69995 - 1.3999 * z0 + 0.69995 * z02) * Lz*Lz*Lz;
-}
-
-double Bsgamma::Y2NL(double E0, double mu)
-{
-    double z0 = 1. - delta(E0);
-    double Lz = log(1. - z0);
-    double Lb = log(mu/Mb_kin);
-    double zeta3 = gsl_sf_zeta_int(3);
-    double Li2 = gsl_sf_dilog(z0);
-    Polylogarithms Poly;
-    double Li3 = Poly.Li3(z0);
-    double Li3min = Poly.Li3(1. - z0);
-    
-    return -16./81. * (328. - 13.*M_PI*M_PI) - 64./27. * (18. - M_PI*M_PI)*Lb
-            -64./9. * Lb*Lb + 64./3. * zeta3
-            +4./27. * z0*(7.*z0*z0 - 17.*z0 + 238.) + 8./3. * Lb*dY1(E0)
-            -8./27. * (z0*z0*z0 - 6.*z0*z0 + 80.*z0 - 75. + 6.*M_PI*M_PI)*Lz
-            +16./3. * (z0 - 1.)*Lz*Lz + 16./3. * log(z0)*Lz*Lz
-            +32./27. * (3.*z0 - 8.)*Li2 + 32./3. * Lz*Li2
-            -32./9. * Li3 + 32./3. * Li3min - 32./3. * zeta3;
-}
-
-double Bsgamma::Y2NV_PHI1(double rho)
-{
-    double y = (1. - sqrt(1. - 4.*rho)) / (1. + sqrt(1. - 4.*rho));
-    
-    if (rho < 1./4.) 
-        return log(y)*log(y) - M_PI*M_PI;
-    else 
-        return - acos( 1. - 1./(2. * rho) ) * acos( 1. - 1./(2. * rho) );
-}
-
-
-double Bsgamma::Y2NV_PHI2(double rho)
-{
-    double y = (1. - sqrt(1. - 4.*rho)) / (1. + sqrt(1. - 4.*rho));
-    
-    if (rho < 1./4.) 
-        return log(y) * sqrt(1. - 4.*rho);
-    else 
-        return - acos( 1. - 1./(2. * rho) ) * sqrt(4.*rho - 1.);
-}
-
-
-double Bsgamma::Y2NV_PHI3(double rho)
-{
-    double y = (1. - sqrt(1. - 4.*rho)) / (1. + sqrt(1. - 4.*rho));
-    
-    if (rho < 1./4.) 
-        return ( gsl_sf_dilog(-y) + log(y)*log(y)/4. + M_PI*M_PI/12. ) * sqrt(1. - 4.*rho);
-    else 
-        return - gsl_sf_clausen(2. * asin( 1./(2. * sqrt(rho)) )) * sqrt(4.*rho - 1.);
-}
-
-
-double Bsgamma::Y2NV_PHI4(double rho)
-{
-    double y = (1. - sqrt(1. - 4.*rho)) / (1. + sqrt(1. - 4.*rho));
-    Polylogarithms Poly;
-    ClausenFunctions Clausen;
-    
-    if (rho < 1./4.) 
-        return Poly.Li3(- y) + log(y)*log(y)*log(y)/12. + log(y)*M_PI*M_PI/12.;
-    else 
-        return Clausen.Cl3(2. * asin( 1./(2. * sqrt(rho)) ));
-}
-
-double Bsgamma::Y2NV(double E0, double mu)
-{
-    double Lb = log(mu/Mb_kin);
-    double rho = zeta();
-    double rho2 = rho*rho;
-    double rho32 = rho*sqrt(rho);
-    double Lr = log(rho);
-    double Li2 = gsl_sf_dilog(1. - rho);
-    double Li2sqrt = gsl_sf_dilog(1. - sqrt(rho));
-    Polylogarithms Poly;
-    double Li3 = Poly.Li3(1. - rho);
-    double Li3ov = Poly.Li3(1. - 1./rho);
-    
-    return -16./81. * (157. - 279.*rho - M_PI*M_PI*(5. + 9.*rho2 - 42.*rho32))
-            -64./27. * (18. - M_PI*M_PI)*Lb - 64./9. * Lb*Lb
-            +16./27. * (22. - M_PI*M_PI + 10.*rho)*Lr + 16./27. * (8. + 9.*rho2)*Lr*Lr
-            -16./27. * Lr*Lr*Lr - 8./9. * (1. - 6.*rho2)*Y2NV_PHI1(rho)
-            -8./27. * (19. - 46.*rho)*Y2NV_PHI2(rho) - 32./27. * (13. + 14.*rho)*Y2NV_PHI3(rho)
-            -64./9. * Y2NV_PHI4(rho) - 32./9. * Lr*Li2 
-            +32./27. * (5. + 9.*rho2 + 14.*rho32)*Li2 - 1792./27. * rho32*Li2sqrt
-            +64./9. * Li3 + 64./9. * Li3ov + 4./3.*(2.*Lb - Lr)*dY1(E0);
-}
-
-double Bsgamma::Y2NH(double E0, double mu)
-{
-    double Lb = log(mu/Mb_kin);
-    double zeta3 = gsl_sf_zeta_int(3);
-    double Cl2 = gsl_sf_clausen(M_PI/3.);
-    
-    return 8./81. * (244. - 27.*sqrt(3.)*M_PI - 61.*M_PI*M_PI) 
-            - 64./27.*(18. - M_PI*M_PI)*Lb - 64./9.*Lb*Lb - 64./27.*zeta3
-            + 32.*sqrt(3.)*Cl2 + 8./3.*Lb*dY1(E0);
-}
-
-double Bsgamma::Y2(double E0, double mu)
-{
-    double CF = 4./3.;
-    double CA = 3.;
-    double TR = 1./2.;
-    double NL = 3.;
-    double NV = 1.;
-    double NH = 1.;
-    
-    return CF*Y2CF(E0,mu) + CA*Y2CA(E0,mu) 
-            + TR * ( NL*Y2NL(E0,mu) + NV*Y2NV(E0,mu) + NH*Y2NH(E0,mu) );
-}
-
-double Bsgamma::f_NLO_1(double z)
-{
-    return r1(2,z).real() + 2.*Phi27_1(0.,z);
-}
-
-double Bsgamma::zdz_f_NLO(double z, double E0)
-{
-    double d = delta(E0);
-    double sqrt1d = sqrt(1. - d);
-    double sqrt4z = sqrt(1. - 4. * z);
-    double sqrt1d4z = sqrt(1. - d - 4. * z);
-    double sqrtz = sqrt(z);
-    double sqrt1ovz = sqrt(1./z);
-    double sqrt4m1ovz = sqrt(-4. + 1./z);
-    double SumSqrt = sqrt1d + sqrt1d4z;
-    double ProdSqrt = sqrt1d * sqrt1d4z;
-    double ProdSqrtz = sqrtz * sqrt1d4z;
-    double LogSumSqrt = log(SumSqrt/(2. * sqrtz));
-    double LogSqrt4z = log((1. + sqrt4z)/(2. * sqrtz));
-    double LogSqrtov = log((sqrt4m1ovz + sqrt1ovz)/2.);
-    
-    double z2=z*z;
-    double z3=z2*z;
-    double z4=z3*z;
-    double z5=z4*z;
-    double Lz = log(z);
-    
-    double Pi2 = M_PI*M_PI;
-    double zeta3 = gsl_sf_zeta_int(3);
-    
-    double zdz_f_NLO_E0;
-    
-    if (E0 == 0. ){
-        zdz_f_NLO_E0 = 2./27. * (3. * (-7. + 2. * M_PI*M_PI) 
-                + 2. * (36. - 24. * M_PI*M_PI) * z 
-                + 108. * M_PI*M_PI * z2 
-                - ( 36. * (-pow(1./z,3./2.)/2. - 1./(2. * sqrt4m1ovz * z2)) 
-                * sqrt4m1ovz * (-1. + 2. * z))/((sqrt4m1ovz + sqrt1ovz) * pow(1./z,3./2.)) 
-                - (72. * sqrt4m1ovz * LogSqrtov)/pow(1./z,3./2.) 
-                - (54. * sqrt4m1ovz * (-1. + 2. * z) * LogSqrtov)/sqrt1ovz 
-                + (18. * sqrt1ovz * (-1. + 2. * z) * LogSqrtov)/sqrt4m1ovz 
-                - (48. * (-pow(1./z,3./2.)/2. - 1./(2. * sqrt4m1ovz * z2))
-                * z * (1. - 4. * z + 6. * z2) * LogSqrtov)/(sqrt4m1ovz + sqrt1ovz) 
-                - 24. * z * (-4. + 12. * z) * LogSqrtov * LogSqrtov 
-                - 24. * (1. - 4. * z + 6. * z2) * LogSqrtov * LogSqrtov);
-    } else zdz_f_NLO_E0 = 2. * ((2. - d) * d * (-7. + 2. * Pi2) / 9. 
-            + 8./9. * d * (3. - 2. * Pi2) * z 
-            + (8. * d * (-SumSqrt/( 4. * pow(z,3./2.) ) - 1./ProdSqrtz) 
-            * ProdSqrt * pow(z,3./2.))/(3. * SumSqrt) 
-            + 4./3. * d * ProdSqrt * LogSumSqrt 
-            - (8. * (1. - d) * d * z * LogSumSqrt)/(3. * ProdSqrt) 
-            - (32. * d * (-SumSqrt/( 4. * pow(z,3./2.) ) - 1./ProdSqrtz)
-            * (2. - d - 4. * z) * pow(z,3./2.) * LogSumSqrt)/(9. * SumSqrt) 
-            - 8./9. * d * (2. - d - 4. * z) * LogSumSqrt * LogSumSqrt 
-            + 32./9. * d * z * LogSumSqrt * LogSumSqrt 
-            + 4./3. * (1. - 2. * z) * z * 
-            ((2. * (-( (1. + sqrt4z)/(4. * pow(z,3./2.)) ) 
-            - 1./(sqrt4z * sqrtz)) * sqrt4z * sqrtz)/(1. + sqrt4z) 
-            - (2. * ( -(SumSqrt/(4. * pow(z,3./2.)) ) - 1./ProdSqrtz)
-            * ProdSqrt * sqrtz)/(SumSqrt) - 2. * LogSqrt4z/sqrt4z 
-            + 2. * (1. - d) * LogSumSqrt/ProdSqrt) 
-            + 4./3. * (1. - 2. * z) * (sqrt4z * LogSqrt4z - ProdSqrt * LogSumSqrt) 
-            - 8./3. * z * (sqrt4z * LogSqrt4z - ProdSqrt * LogSumSqrt) 
-            - 8./9. * z * (1 - 4. * z + 6. * z2) * 
-            (( 4. * (-( (1. + sqrt4z)/(4. * pow(z,3./2.)) ) 
-            - 1./(sqrt4z * sqrtz)) * sqrtz * LogSqrt4z)/(1. + sqrt4z) 
-            - (4. * (-SumSqrt/(4. * pow(z,3./2.)) - 1./ProdSqrtz) * sqrtz * LogSumSqrt)/SumSqrt) 
-            - 8./9. * (LogSqrt4z*LogSqrt4z - LogSumSqrt*LogSumSqrt) 
-            * ( z * (-4. + 12. * z)  + (1. - 4. * z + 6. * z2) )) ;
-    
-    return z * (zdz_f_NLO_E0
-            
-            - 16./9. * (-4. + Pi2/6. - Pi2 * sqrtz 
-            - Lz - z2 * (19./18. - 4. * Lz) + z * (-2. - Lz) 
-            + z3 * (137./30. + 4. * Lz) 
-            + z4 * (887./84. + 10. * Lz) 
-            + z5 * (16597./540. + 28. * Lz) 
-            - 3. * z2 * (25./12. + Pi2/9. + 19. * Lz/18. - 2. * Lz * Lz) 
-            + 2. * z * (1./2. + Pi2 - 2. * Lz - Lz * Lz/2) 
-            + 4. * z3 * (-1376./225. + 2. * Pi2/3 + 137. * Lz/30. + 2. * Lz * Lz) 
-            + 5. * z4 * (-131317./11760. + 5. * Pi2/3. + 887. * Lz/84. + 5. * Lz * Lz) 
-            + 6. * z5 * (-2807617./97200. + 14. * Pi2/3. + 16597. * Lz/540. + 14. * Lz * Lz)) 
-   
-            + 32./9. * (5./2. - Pi2/3. + (5./2. - 3. * Pi2/4.) * Lz 
-            + Lz * Lz/4 + Lz * Lz * Lz/12. 
-            + z5 * (-3303./800. - 63. * Lz/10.) 
-            + z4 * (-185./144. - 35. * Lz/12.) 
-            + z3 * (-1./72. - 5. * Lz/3.) 
-            + z2 * (2. - 3. * Lz/2.) 
-            + 6. * z5 * (67801./8000. - 21. * Pi2/20. 
-            - 3303. * Lz/800. - 63. * Lz * Lz/20.) 
-            + 5. * z4 * (35101./8640. - 35. * Pi2/72. 
-            - 185. * Lz/144. - 35. * Lz * Lz/24.) 
-            + 4. * z3 * (457./216. - 5. * Pi2/18. - Lz/72. - 5. * Lz * Lz/6.) 
-            + 3. * z2 * (-7./6. - Pi2/4. + 2. * Lz - 3. * Lz * Lz/4.) 
-            + z * (-Pi2/2. - Lz/2. + Lz * Lz/4.) 
-            + 5./2. - 3. * Pi2/4. + Lz/2. + Lz * Lz/4. 
-            + 2. * z * (7./4. + 2. * Pi2/3. - Pi2 * Lz/2. - Lz * Lz/4. 
-            + Lz * Lz * Lz/12.) - 3. * zeta3));
-}
-
-double Bsgamma::mddel_f_NLO(double z, double E0)
-{
-    double d = delta(E0);
-    double d2 = d*d;
-    double sqrt1d = sqrt(1. - d);
-    double sqrt1d4z = sqrt(1. - d - 4. * z);
-    double sqrtz = sqrt(z);
-    double LogSqrt = log((sqrt1d + sqrt1d4z)/(2. * sqrtz));
-    double SumSqrt = sqrt1d + sqrt1d4z;
-    double ProdSqrt = sqrt1d * sqrt1d4z;
-    
-    return 2. * (1. - d) * ( -2./27. * d * (-3. + 2. * d) 
-            - 2./27. * (3. - 3. * d + d2) 
-            + 1./9. * (2. - d) * (-7. + 2. * M_PI * M_PI) * z 
-            - 1./9. * d * (-7. + 2. * M_PI * M_PI) * z 
-            + 4. * d * (-1./(2. * sqrt1d) - 1./(2. * sqrt1d4z))
-            * ProdSqrt * z  / (3. * SumSqrt) 
-            + 4./9. * (3. - 2. * M_PI * M_PI) * z * z 
-            + 4./3. * ProdSqrt * z * LogSqrt 
-            - 16. * d * (-1./(2. * sqrt1d) - 1./(2. * sqrt1d4z)) 
-            * (2. - d - 4. * z) * z * LogSqrt / (9. * SumSqrt) 
-            + 2. * d * z * (-2. + 2. * d + 4. * z) * LogSqrt / (3. * ProdSqrt) 
-            + 16. * (-1./(2. * sqrt1d) - 1./(2. * sqrt1d4z)) * z
-            * (1 - 4. * z + 6. * z * z) * LogSqrt / (9. * SumSqrt) 
-            + 8./9. * d * z * LogSqrt * LogSqrt 
-            - 8./9. * (2. - d - 4. * z) * z * LogSqrt * LogSqrt 
-            + 4./3. * (1. - 2. * z) * z 
-            * ( (1./(2. * sqrt1d) + 1./(2. * sqrt1d4z)) * ProdSqrt/SumSqrt 
-            - (-2. + 2. * d + 4. * z) * LogSqrt/(2. * ProdSqrt)));
-}
-
-double Bsgamma::h27_2(double z, double E0)
-{
-    double d = delta(E0);
-    double d2 = d*d;
-    
-    if (E0 == 0.){
-        return ( 41./27. - 2./9. * M_PI*M_PI
-            - 2.24 * sqrt(z) - 7.04 * z + 23.72 * pow(z,3./2.)
-            + ( -9.86 * z + 31.28 * z * z ) * log(z));
-    } else return - 0.1755402735503456 - 1.4553730660088837 * d 
-            + 1.1192806367180177 * d2 
-            + ( 0.7259818237183779 - 7.230418135384073 * d 
-            + 5.977206932166958 * d2 ) * sqrt(z) 
-            + ( 13.786205094458156 + 113.71026116073105 * d 
-            - 100.3588074342665 * d2 ) * z 
-            + ( -145.05588751363894 - 307.05884309429547 * d 
-            + 388.54181686721904 * d2 ) * pow(z,3./2.) 
-            + ( 475.2039505292043 + 312.9832308573048 * d 
-            - 775.8088176670707 * d2 ) * z * z
-            + ( -509.7299390734172 - 126.08888075477071 * d 
-            + 646.2084041395774 * d2 ) * pow(z,5./2.);
-}
-
-double Bsgamma::f_q(double z, double E0)
-{
-    return Rer22(z) - 4./3. * h27_2(z,E0);
-}
-
-double Bsgamma::f_b(double z)
-{
-    return -1.836 + 2.608 * z + 0.8271 * z * z - 2.441 * z * log(z);
-}
-
-double Bsgamma::f_c(double z)
-{
-    return 9.099 + 13.20 * z - 19.68 * z * z + 25.71 * z * log(z);
-}
-
-double Bsgamma::F_1(double z)
-{
-    return - 23.74697061848885 + 35./12. * f_q(z,0.) 
-            + (2129./936. - 9./52. * M_PI*M_PI) * f_NLO_1(z)
-            - 0.8444138663102 * zdz_f_NLO(z,0.);
-}
-
-double Bsgamma::F_2(double z)
-{
-    return - 3.006537367876035 - 592./81. * f_q(z,0.) 
-            - 10.344289655256379 * f_NLO_1(z)
-            - 9.550817514525745 * zdz_f_NLO(z,0.);
-}
-
-double Bsgamma::delddel_Phi22_1(double E0)
-{
-    double d = delta(E0);
-    
-    return 4. * (1. - d)/d * 16./27. * Int_cc1_part1(E0);
-}
-
-double Bsgamma::zdz_Phi22_1(double E0)
-{
-    return 64./27. * ( Int_cc1(E0) - Int_cc(E0));
-}
-
-double Bsgamma::delddel_Phi28_1(double z, double E0)
-{
-    double d = delta(E0);
-    double Sq = sqrt( (1. - d) * (1. - d - 4.*z) );
-    double Log = log( ( sqrt(1. - d) + sqrt(1. - d - 4.*z) ) / 2. / sqrt(z) );
-    double Log2 = Log*Log;
-    
-    return 4. / (27. * Sq * (1 - d - 4. * z)) * Sq * Sq *
-            (-8. * (-1. + d) * Log * z * (-1. + d + 4. * z) + 
-            Sq * (1. + d*d + (4. + 8. * Log2 - 2. * M_PI*M_PI) * z + 
-            4. * (-4. * Log2 + M_PI*M_PI) * z * z - 
-            2. * d * (1. + (2. + 4. * Log2 - M_PI*M_PI) * z)));
-}
-
-double Bsgamma::zdz_Phi28_1(double z, double E0)
-{
-    double d = delta(E0);
-    double Sq = sqrt( (1. - d) * (1. - d - 4.*z) );
-    double Log1 = log( ( sqrt(1. - d) + sqrt(1. - d - 4.*z) ) / 2. / sqrt(z) );
-    double Log2 = log( ( 1. + sqrt(1. - 4.*z) ) / 2. / sqrt(z) );
-    
-    return 2./27. * z * (d*d * (-7. - 8. * (-1. + Log1) * Log1 + 2. * M_PI*M_PI) 
-            - 20. * Log2 * sqrt(1. - 4. * z) + 72. * Log2 * sqrt(1. - 4. * z) * z 
-            + (48. * Log1 * Sq * z * z) / (-1. + d + 4. * z) 
-            + (8. * z * ( -(3. + 4. * Log1) * Sq*Sq + 2. * (3. + 8. * Log1) * Sq * z 
-            - 24. * Log1 * z * z )) / (-1. + d - Sq + 4. * z) 
-            - 2. * d * (-7. - 3. * Sq + Log1 * (8. + 6. * Sq) + M_PI*M_PI * (2. - 8. * z) 
-            + 12. * z + 8. * Log1*Log1 * (-1. + 4. * z)) 
-            + 2. * (-3. * (-1. + Sq + 2. * (1. + Sq) * z) 
-            + Log1 * (4. + Sq * (6. - 52. * z) + 24. * z * z) 
-            + 4. * ( Log2 * Log2 - Log1 * Log1) * (1. + 2. * z * (-4. + 9. * z))));
-}
-
-double Bsgamma::delddel_Phi88_1(double E0)
-{
-    double d = delta(E0);
-    double Ld = log(d);
-    
-    return 4./27. * (1. - d) * (5. - 8./(1. - d) + 5. * d - 2. * d * d - 
-            2. * (2. - 4./(1. - d) + 2. * d) * log(Mb_kin/Ms) + (4. * Ld)/(1. - d)
-            - d * Ld - (2. + d) * Ld);
-}
-
-double Bsgamma::f_AEGG(double r)
-{
-    double r2 = r*r;
-    double r3 = r2*r;
-    double r4 = r3*r;
-    double Lr = log(r);
-    double zeta3 = gsl_sf_zeta_int(3);
-    Polylogarithms Poly;
-    
-    if (r==1.) 
-        return 7126./81. - 356./27. * M_PI*M_PI - 16./3. * zeta3;
-    else
-        return - 16./3. * Poly.Li3(r2) 
-                + 8. * r * (35./9. * r2 + 9.) * ( gsl_sf_dilog(r) - atanh(r) * Lr - 1./4. * M_PI*M_PI) 
-                + 2. * (8./3. * Lr - 6. * r4 - 35./9. * r3 - 9. * r - 62./9. ) * gsl_sf_dilog(r2) 
-                - 8. * (3. * r4 + 31./9.) * log(1. - r2) * Lr + 32./9. * Lr*Lr*Lr 
-                + 8. * (3. * r4 + 25./9.) * Lr*Lr + 64./9. * r2 * Lr 
-                + 4. * M_PI*M_PI * r4 + 172./9. * r2 + 5578./81.;
-}
-
-double Bsgamma::delta_GBGS(double r) 
-{
-    double r2 = r*r;
-    double r3 = r2*r;
-    double Lmr = log(1. - r);
-    double Lpr = log(1. + r);
-    double Lr = log(r);
-    double Lr2 = Lr*Lr;
-    
-    if (r==1.) 
-        return -3./8. + 1./8. * M_PI*M_PI;
-    else
-        return 1./4. * (1. - r) * (1. - r3) * ( gsl_sf_dilog(r) + Lr * Lmr - 1./2. * Lr2 - 1./3. * M_PI*M_PI ) 
-                - 1./4. * (1. + r) * (1. + r3) * ( gsl_sf_dilog(-1./r) - Lr * Lpr + Lr2 ) 
-                + 1./4. * Lr2 - 1./4. * r2 * Lr - 3./8. * r2 + 1./24. * M_PI*M_PI;
-}
-
-double Bsgamma::f_u(double r) 
-{
-    double r2 = r*r;
-    double r3 = r2*r;
-    double r4 = r3*r;
-    double r5 = r4*r;
-    double r6 = r5*r;
-    double r7 = r6*r;
-    double Lr = log(r);
-    double Lr2 = Lr*Lr;
-    double Pi2 = M_PI*M_PI;
-    double zeta3 = gsl_sf_zeta(3.);
-    
-    if (r==1.) 
-        return 6335./288. - 1./2. * M_PI*M_PI - 16. * zeta3;
-    else
-        return -5./6. * Pi2 * r + ( 14. + 16./9. * Pi2) * r2 
-                + (64./9. * Lr + 128./9. * log(2.) - 95./54.) * Pi2 * r3 
-                + (-16./3. * Lr2 + 365./9. * Lr + 4. * Pi2 * Lr 
-                - 4375./54. - 25./9. * Pi2 + 32. * zeta3) * r4 
-                - 224./45. * Pi2 * r5 + (-128./27. * Lr2 + 16./15. * Lr 
-                + 15608./2025. + 128./81. * Pi2) * r6 - 16./7. * Pi2 * r7;
-}
-
-double Bsgamma::omega77(double z)
-{
-    double z2 = z*z;
-    double z3 = z2*z;
-    double z4 = z3*z;
-    double z5 = z4*z;
-    double z6 = z5*z;
-    double z7 = z6*z;
-    double z8 = z7*z;
-    double omz = 1. - z;
-    double omz2 = omz * omz;
-    double omz3 = omz2 * omz;
-    double Lz = log(z);
-    double Lomz = log (1. - z);
-    double Lomz2 = Lomz*Lomz;
-    double Lomz3 = Lomz2*Lomz;
-    double Ltmz = log (2. - z);
-    double Ltmz2 = Ltmz*Ltmz;
-    double Li2omz = gsl_sf_dilog(1. - z);
-    double Li2zmo = gsl_sf_dilog(z - 1.);
-    Polylogarithms Poly;
-    double Pi2 = M_PI*M_PI;
-    
-    return 4./9. * (z3 - 4. * z2 + 4. * z + 1.)/omz * ( 2. * Poly.Li3( 1./(2.-z) ) 
-            - Poly.Li3( z/(2.-z) ) + Poly.Li3( z/(z-2.) ) 
-            + Ltmz * ( Lomz2 - 1./3. * Ltmz2 + 1./6. * Pi2 ) ) 
-            + 4./9. * (z3 + 36. * z - 43.)/omz * Poly.Li3(z) 
-            + 8./9. * (z3 - 2. * z2 + 19. * z - 22.)/omz * Poly.Li3(1.-z) 
-            - 16./9. * omz2 * Poly.Li3(z-1.) 
-            - 4./9. * (z3 + 35. * z - 44)/omz * Li2omz * Lomz 
-            - 4./9. * (z3 - 2. * z2 + 2. * z - 3.)/omz * Li2zmo * Lomz 
-            - 4./27. * (23. * z6 - 106. * z5 + 145. * z4 + 3. * z3 
-            - 180. * z2 + 147. * z - 36.)/(z * omz3) * (Li2omz + Lomz * Lz) 
-            + 2./27. * (z8 - 6. * z7 + 9. * z6 + 27. * z5 - 140. * z4 + 219. * z3 
-            - 124. * z2 + 28. * z - 6.)/(z * omz3) * (Li2zmo + Lomz * Ltmz) 
-            - 8./9. * (z2 + 8. * z - 11.)/omz * Lomz2 * Lz 
-            - 2./9. * (z4 - 3. * z3 - 5. * z2 + 15. * z + 8.)/(z * omz) * Lomz3 
-            - (z6 - 4. * z5 - 46. * z4 + 101. * z3 - 461. * z2 + 1057. * z - 72.)/(27. * z * omz) * Lomz2 
-            + 2./27. * (z3 - 2. * z2 + 4. * z - 5.)/omz * Pi2 * Lomz 
-            + (2. * z5 - 29. * z4 - 113. * z3 + 153. * z2 - 827. * z - 162.)/(27. * z * omz) * Lomz 
-            - (3. * z3 - 8. * z2 + 144. * z - 157.)/(9. * omz) * gsl_sf_zeta(3.) 
-            + (z6 - 4. * z5 + 48. * z4 - 106. * z3 - 58. * z2 + 158. * z - 75.)/(81. * z * omz) * Pi2 
-            + (2. * z4 - 92. * z3 + 88. * z2 - 713. * z - 18.)/(27. * omz);
-}
-
-double Bsgamma::Int_Phi77_2rem(double E0)
-{
-    if (IntPhi772rCached == 0) {
-        double t1 = (1. - delta(E0));
-
-        INT = convertToGslFunction(boost::bind(&Bsgamma::omega77, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        
-        CacheIntPhi772r = avaINT;
-        IntPhi772rCached = 1;
-    }
-    
-    return CacheIntPhi772r;
-}
-
-double Bsgamma::Phi77_2rem(double E0)
-{
-    double xm = 8./9. * M_PI * alsUps;
-    double d = delta(E0);
-    double d2 = d*d;
-    double d3 = d2*d;
-    double d4 = d3*d;
-    
-    return Int_Phi77_2rem(E0) - xm/3./ d * 
-            ((4. - 6. * d2 + 2. * d3) * log(d) + 7. - 13. * d + 3. * d2 + 5. * d3 - 2. * d4);
-}
-
-double Bsgamma::K77_2_z1(double E0, double mu)
-{
-    double K77_1 = Kij_1(7,7,E0,mu);
-    double Pi2 = M_PI*M_PI;
-    double xm = 8./9. * M_PI * alsUps;
-    double Lb = 2.*log(mu_b/Mb_kin);
-    
-    return ( K77_1 - 4. * Phi77_1(E0) ) * K77_1 - 1178948./729. + 18593./729. * Pi2 
-            - 628./405. * Pi2*Pi2 + 428./27. * Pi2 * log(2) + 61294./81. * gsl_sf_zeta(3.) 
-            - 880./9. * Lb * Lb + ( 440./27. * Pi2 - 14698./27. ) * Lb 
-            + 64./3. * xm + 4. * (Phi77_2beta0(E0,mu) + Phi77_2rem(E0));
-}
-
-double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
-{
-    if (i<1 || i > 2)
-        if (i < 7)
-            throw std::runtime_error("Bsgamma::Kij_2(): index i must be included in (1,2,7,8)");
-    if (j<1 || j > 2)
-        if (j < 7)
-            throw std::runtime_error("Bsgamma::Kij_2(): index j must be included in (1,2,7,8)");
-    
-    int temp;
-    
-    if (i > j) {temp=i; i=j; j=temp;}
-    
-    double K_ij[8][8];
-    double z = zeta();
-    double d = delta(E0);
-    double r = sqrt(z);
-    double Lb = 2.*log(mu_b/Mb_kin);
-    double Lb2 = Lb*Lb;
-    double Lc = 2.*log(mu_c/Mc);
-    double Lcb = log(Mc/Mb_kin);
-    double xm = 8./9. * M_PI * alsUps;
-    
-    double A1 = 22.604961348474838;
-    double A2 = 75.60281607240395;
-    
-    K_ij[1][1] = (r1(2,zeta()).real() - 208./81.*Lb) * (r1(2,zeta()).real() - 208./81.*Lb)
-            + r1(2,zeta()).imag() * r1(2,zeta()).imag()
-            + 4.*Phi22_2beta0(E0,mu_b) * SM.Beta0(3)/SM.Beta0(5) + 16./3. * Phi22_1(E0) * (Lcb - Lb)
-            + xm * (delddel_Phi22_1(E0) - 2. * zdz_Phi22_1(E0));
-    K_ij[1][6] = A2 + F_2(z) - 27./2. * f_q(z,E0) + f_b(z) + f_c(z)
-            + 4./3. * Phi27_1(E0,z) * log(z) + (8. * Lc - 2. * xm) * zdz_f_NLO(z,E0)
-            + xm * mddel_f_NLO(z,E0) + 416./81. * xm
-            + (10./3. * Kij_1(2,7,E0,mu_b) - 2./3. * Kij_1(4,7,E0,mu_b)
-            - 208./81. * Kij_1(7,7,E0,mu_b) - 35./27. * Kij_1(7,8,E0,mu_b)
-            - 254./81.) * Lb - 5948./729. * Lb2;
-    K_ij[1][7] = (r1(2,zeta()).real() - 208./81.*Lb) * (r1(8,zeta()).real() + 16./9.*Lb)
-            + r1(2,zeta()).imag() * r1(8,zeta()).imag()
-            + 2.*Phi28_2beta0(E0,mu_b) * SM.Beta0(3)/SM.Beta0(5) + 8./3. * Phi28_1(E0,z) * (Lcb - Lb)
-            + xm * (delddel_Phi28_1(z,E0) - 2. * zdz_Phi28_1(z,E0));
-    
-    K_ij[0][0] = 1./36. * K_ij[1][1];
-    K_ij[0][1] = -1./6. * K_ij[1][1];
-    K_ij[0][6] = - 1./6. * K_ij[1][6] + A1 + F_1(z)
-            + (- 3./2. * Kij_1(2,7,E0,mu_b) - 3./4. * Kij_1(7,8,E0,mu_b)
-            + 94./81.) * Lb - 34./27. * Lb2;
-    K_ij[0][7] = -1./6. * K_ij[1][7];
-    
-    K_ij[6][6] = K77_2_z1(E0,mu_b) + ( 1972./81. - 16./27. * M_PI*M_PI + 8./3. * Phi77_1(E0)) * log(zeta())
-            + 2./3. * (f_AEGG(r) - f_AEGG(1.)) - 128./3. * (delta_GBGS(r) - delta_GBGS(1.)) 
-            - 16. * (f_u(r) - f_u(1.));
-    K_ij[6][7] = 2./3. * Y2(E0,mu_b) + (16./9.*M_PI*M_PI - 164./9. - 32./6. * Lb) * Y1(E0,mu_b) 
-            - 32./81. * alsUps * M_PI * (3. + 7.*d - 3.*d*d + d*d*d - 4.*d*log(d) );
-    
-    K_ij[7][7] = (r1(8,zeta()).real() + 16./9.*Lb) * (r1(8,zeta()).real() + 16./9.*Lb)
-            + r1(8,zeta()).imag() * r1(8,zeta()).imag()
-            + 4.*Phi88_2beta0(E0,mu_b) * SM.Beta0(3)/SM.Beta0(5) + 16./3. * Phi88_1(E0) * (Lcb - Lb)
-            + xm * (delddel_Phi88_1(E0));
-    
-    return K_ij[i-1][j-1];
-}
-
 void Bsgamma::computeCoeff(double mu)
 {
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
@@ -1790,51 +1055,13 @@ void Bsgamma::computeCoeff(double mu)
     C8_1 = (*(allcoeff[NLO]))(7)/Alstilde;
     
     C7p_0 = (*(allcoeffprime[LO]))(6);
-    C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
-   
-    /*std::cout << "C1_0: " << C1_0 << std::endl;
-    std::cout << "C2_0: " << C2_0 << std::endl;
-    std::cout << "C3_0: " << C3_0 << std::endl;
-    std::cout << "C4_0: " << C4_0 << std::endl;
-    std::cout << "C5_0: " << C5_0 << std::endl;
-    std::cout << "C6_0: " << C6_0 << std::endl;
-    std::cout << "C7_0: " << C7_0 << std::endl;
-    std::cout << "C8_0: " << C8_0 << std::endl << std::endl;
-    
-    std::cout << "C1_1: " << C1_1 << std::endl;
-    std::cout << "C2_1: " << C2_1 << std::endl;
-    std::cout << "C3_1: " << C3_1 << std::endl;
-    std::cout << "C4_1: " << C4_1 << std::endl;
-    std::cout << "C5_1: " << C5_1 << std::endl;
-    std::cout << "C6_1: " << C6_1 << std::endl;
-    std::cout << "C7_1: " << C7_1 << std::endl;
-    std::cout << "C8_1: " << C8_1 << std::endl << std::endl;*/
-    
-    /*C1_0 = -0.899903;
-    C2_0 = 1.07309;
-    C3_0 = -0.0150851;
-    C4_0 = -0.139341;
-    C5_0 = 0.00140694;
-    C6_0 = 0.00324029;
-    C7_0 = -0.384796;
-    C8_0 = -0.177462;
-    
-    C1_1 = 14.9422;
-    C2_1 = -2.20987;
-    C3_1 = 0.0842172;
-    C4_1 = -0.590212;
-    C5_1 = -0.0207457;
-    C6_1 = -0.00689551;
-    C7_1 = 2.08714;
-    C8_1 = -0.631105;*/
-    
-    C7_2 = 18.8595;
+    C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde;
 
 }
 
 double Bsgamma::P0(double E0)
 {
-    return C7_0.abs2() + C7p_0.abs2() + P0tree(E0,Mb_kin*Mb_kin/Ms/Ms);
+    return C7_0.abs2() + C7p_0.abs2() + P0_4body(E0,Mb_kin*Mb_kin/Ms/Ms);
 }
 
 double Bsgamma::P11()
@@ -1866,52 +1093,6 @@ double Bsgamma::P21(double E0, double mu)
     }
     
     return p21;
-}
-
-double Bsgamma::P12()
-{
-   return C7_1.abs2() + C7p_1.abs2() + 2.*(C7_0*C7_2).real(); /*CHECK SIGN*/
-}
-
-double Bsgamma::P22(double E0, double mu_b, double mu_c)
-{
-    int i,j, temp_i,temp_j;
-    gslpp::complex C0[4]={C1_0,C2_0,C7_0,C8_0};
-    double p22=0.;
-    
-    for(i=0;i<4;i++)
-    {
-        for(j=0;j<4;j++)
-        {
-            if (i > 1) {
-                temp_i=i+4;
-            } else temp_i=i;
-            if (j > 1) {
-                temp_j=j+4;
-            } else temp_j=j;
-            p22 += (C0[i]*C0[j]).real() * Kij_2(temp_i+1,temp_j+1,E0,mu_b,mu_c);
-        }
-    }
-    
-    return p22;
-}
-
-double Bsgamma::P32(double E0, double mu)
-{
-    int i,j;
-    gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
-    gslpp::complex C1[8]={C1_1,C2_1,C3_1,C4_1,C5_1,C6_1,C7_1,C8_1};
-    double p32=0.;
-    
-    for(i=0;i<8;i++)
-    {
-        for(j=0;j<8;j++)
-        {
-            p32 += 2.*(C0[i]*C1[j]).real() * Kij_1(i+1,j+1,E0,mu);
-        }
-    }
-
-    return p32;
 }
 
 double Bsgamma::Vub_NLO_2body(bool CPodd)
@@ -1970,22 +1151,7 @@ double Bsgamma::Vub_NLO(double E0, bool CPodd)
 double Bsgamma::P(double E0, double mu_b, double mu_c, orders order, bool CPodd)
 {
     switch(order) {
-        case NNLO:
-            /*std::cout << "p0 w/ tree, VubLO: " << P0(E0) << std::endl;
-            std::cout << "p11: " << P11() << std::endl;
-            std::cout << "p21: " << P21(E0,mu_b) << std::endl;
-            std::cout << "p12: " << P12() << std::endl;
-            std::cout << "p22: " << P22(E0,mu_b,mu_c) << std::endl;
-            std::cout << "p32: " << P32(E0,mu_b) << std::endl << std::endl;
-            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;*/
-            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
-                    + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b));
-            break;
         case NLO:
-            /*std::cout << "p0 w/ tree, VubLO: " << P0(E0) << std::endl;
-            std::cout << "p11: " << P11() << std::endl;
-            std::cout << "p21: " << P21(E0,mu_b) << std::endl;
-            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;*/
             return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd);
             break;
         case LO:
@@ -2066,7 +1232,7 @@ double Bsgamma::C_sem()
             - 0.1080 * (Mc - 1.05) - 0.0122  * mu_G2 - 0.199 * rho_D3 + 0.004 * rho_LS3);
 }
 
-void Bsgamma::computeBR(orders order)
+void Bsgamma::updateParameters()
 {
     mu_kin=SM.getGambino_mukin();
     BRsl=SM.getGambino_BRsem();
@@ -2087,7 +1253,7 @@ void Bsgamma::computeBR(orders order)
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
     lambda_t=SM.computelamt_s();
     V_cb=SM.getCKM().getVcb();
-    CKMu=SM.computelamu_s().conjugate() / SM.computelamt_s().conjugate(); // -0.00802793 + 0.0180942*gslpp::complex::i();
+    CKMu=SM.computelamu_s().conjugate() / SM.computelamt_s().conjugate();
     
     BLNPcorr=SM.getBLNPcorr();
     
@@ -2117,19 +1283,16 @@ void Bsgamma::computeBR(orders order)
     computeCoeff(mu_b);
     
     overall = BRsl * (lambda_t/V_cb).abs2() * 6. * ale / (M_PI * C);
-    
-    if (obs == 1) 
-        BR = overall *  ( P(E0, mu_b, mu_c, order, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
-    if (obs == 2) 
-        BR_CPodd = overall *  ( P(E0, mu_b, mu_c, order, true) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
 }
 
 double Bsgamma::computeThValue()
 {
-    computeBR(NLO);
+    updateParameters();
     
-    if (obs == 1) return BR;
-    if (obs == 2) return BR_CPodd;
+    if (obs == 1) 
+        return overall *  ( P(E0, mu_b, mu_c, NLO, false) + N(E0,mu_b) );
+    if (obs == 2) 
+        return overall *  ( P(E0, mu_b, mu_c, NLO, true) + N(E0,mu_b) );
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");
 }
