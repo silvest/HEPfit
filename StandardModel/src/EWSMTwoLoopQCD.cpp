@@ -48,16 +48,16 @@ double EWSMTwoLoopQCD::DeltaR_rem(const double Mw_i) const
             + cache.getSM().cW2(Mw) / cache.getSM().sW2(Mw) * DeltaRho(Mw));
 }
 
-complex EWSMTwoLoopQCD::deltaRho_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMTwoLoopQCD::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
     double Mw = Mw_i;
     return ( (2.0 * DeltaRho_ud(Mw) + DeltaRho_tb(Mw)) - DeltaRho(Mw));
 }
 
-complex EWSMTwoLoopQCD::deltaKappa_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMTwoLoopQCD::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
     double Mw = Mw_i;
     return ( (2.0 * DeltaKappa_ud(Mw) + DeltaKappa_tb(Mw))
             - cache.getSM().cW2(Mw) / cache.getSM().sW2(Mw) * DeltaRho(Mw));
@@ -488,7 +488,7 @@ double EWSMTwoLoopQCD::DeltaRho_tb(const double Mw_i) const
     return DeltaRho;
 }
 
-complex EWSMTwoLoopQCD::DeltaKappa_ud(const double Mw_i) const
+gslpp::complex EWSMTwoLoopQCD::DeltaKappa_ud(const double Mw_i) const
 {
     double Mw = Mw_i;
     double sW2 = cache.getSM().sW2(Mw);
@@ -497,14 +497,14 @@ complex EWSMTwoLoopQCD::DeltaKappa_ud(const double Mw_i) const
     /* Logarithm */
     double log_cW2 = cache.log_cW2(Mw);
 
-    complex DeltaKappa(0.0, 0.0, false);
+    gslpp::complex DeltaKappa(0.0, 0.0, false);
     DeltaKappa = cW2 / 4.0 / sW2 / sW2 * log_cW2
-            + M_PI / 4.0 / sW2 * (1.0 - 20.0 / 9.0 * sW2)*(complex::i());
+            + M_PI / 4.0 / sW2 * (1.0 - 20.0 / 9.0 * sW2)*(gslpp::complex::i());
     DeltaKappa *= cache.getSM().getAle() * cache.getSM().getAlsMz() / M_PI / M_PI;
     return DeltaKappa;
 }
 
-complex EWSMTwoLoopQCD::DeltaKappa_tb(const double Mw_i) const
+gslpp::complex EWSMTwoLoopQCD::DeltaKappa_tb(const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mz = cache.getSM().getMz();
@@ -526,11 +526,11 @@ complex EWSMTwoLoopQCD::DeltaKappa_tb(const double Mw_i) const
     /* Logarithm */
     double log_zt = -2.0 * cache.logMZtoMTOP();
 
-    complex DeltaKappa(0.0, 0.0, false);
+    gslpp::complex DeltaKappa(0.0, 0.0, false);
     DeltaKappa = 4.0 * cW2 * wt * (vt * vt * V1(rZ4t) + at * at * A1(rZ4t) - F1(xWt, Mw))
             + 4.0 * sW2 * (fabs(Qt) - 4.0 * sW2 * Qt * Qt) * zt * V1(rZ4t)
             + (vb * vb + ab * ab + sW2 * (fabs(Qb) - 4.0 * sW2 * Qb * Qb)) * log_zt;
-    DeltaKappa += M_PI * sW2 * (1.0 / 3.0 - 4.0 / 9.0 * sW2)*(complex::i());
+    DeltaKappa += M_PI * sW2 * (1.0 / 3.0 - 4.0 / 9.0 * sW2)*(gslpp::complex::i());
     DeltaKappa /= 4.0 * sW2*sW2;
     DeltaKappa *= cache.getSM().getAle() * cache.alsMt() / M_PI / M_PI;
     return DeltaKappa;

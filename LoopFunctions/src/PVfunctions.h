@@ -11,13 +11,11 @@
 // set in case where LoopTools library is employed.
 //#define USE_LOOPTOOLS
 
-#include <gslpp_complex.h>
+#include "gslpp.h"
 #include "Polylogarithms.h"
 #ifdef USE_LOOPTOOLS
 #include "LoopToolsWrapper.h"
 #endif
-
-using namespace gslpp;
 
 /**
  * @class PVfunctions
@@ -89,7 +87,7 @@ public:
      * @return the finite part of @f$B_0(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B0(const double mu2, const double p2,
+    gslpp::complex B0(const double mu2, const double p2,
                const double m02, const double m12) const;
     
     /**
@@ -108,7 +106,7 @@ public:
      * @return the finite part of @f$B_1(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B1(const double mu2, const double p2,
+    gslpp::complex B1(const double mu2, const double p2,
                const double m02, const double m12) const;
     
     /**
@@ -129,7 +127,7 @@ public:
      * @return the finite part of @f$B_{11}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B11(const double mu2, const double p2,
+    gslpp::complex B11(const double mu2, const double p2,
                 const double m02, const double m12) const;
     
     /**
@@ -150,7 +148,7 @@ public:
      * @return the finite part of @f$B_{00}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B00(const double mu2, const double p2,
+    gslpp::complex B00(const double mu2, const double p2,
                 const double m02, const double m12) const;
     
     /**
@@ -168,7 +166,7 @@ public:
      * @return the finite part of @f$B_{f}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex Bf(const double mu2, const double p2,
+    gslpp::complex Bf(const double mu2, const double p2,
                const double m02, const double m12) const;
     
     /**
@@ -185,7 +183,7 @@ public:
      * @return the finite part of @f$B_{0p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B0p(const double muIR2, const double p2,
+    gslpp::complex B0p(const double muIR2, const double p2,
                 const double m02, const double m12) const;
     
     /**
@@ -201,7 +199,7 @@ public:
      * @return the finite part of @f$B_{1p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B1p(const double mu2, const double p2,
+    gslpp::complex B1p(const double mu2, const double p2,
                 const double m02, const double m12) const;
     
     /**
@@ -217,7 +215,7 @@ public:
      * @return the finite part of @f$B_{11p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B11p(const double mu2, const double p2,
+    gslpp::complex B11p(const double mu2, const double p2,
                  const double m02, const double m12) const;
 
     /**
@@ -233,7 +231,7 @@ public:
      * @return the finite part of @f$B_{00p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex B00p(const double mu2, const double p2,
+    gslpp::complex B00p(const double mu2, const double p2,
                  const double m02, const double m12) const;
     
     /**
@@ -249,7 +247,7 @@ public:
      * @return the finite part of @f$B_{fp}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex Bfp(const double mu2, const double p2,
+    gslpp::complex Bfp(const double mu2, const double p2,
                 const double m02, const double m12) const;
 
     /**
@@ -270,7 +268,7 @@ public:
      * @param[in] m02, m12, m22 mass squared, @f$m_0^2@f$, @f$m_1^2@f$ and @f$m_2^2@f$
      * @return @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$
      */
-    complex C0(const double p2, 
+    gslpp::complex C0(const double p2, 
                const double m02, const double m12, const double m22) const;
 
     /**
@@ -336,7 +334,7 @@ public:
      * can be computed with the help of LoopTools library, by setting the
      * preprocessor macro USE_LOOPTOOLS.
      */
-    complex D0(const double s, const double t, const double m02, const double m12,
+    gslpp::complex D0(const double s, const double t, const double m02, const double m12,
                const double m22, const double m32) const;
 
     /**
@@ -369,7 +367,7 @@ public:
      * can be computed with the help of LoopTools library, by setting the
      * preprocessor macro USE_LOOPTOOLS.
      */
-    complex D00(const double s, const double t, const double m02, const double m12,
+    gslpp::complex D00(const double s, const double t, const double m02, const double m12,
                 const double m22, const double m32) const;
 
 private:

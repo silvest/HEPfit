@@ -9,7 +9,6 @@
 #define	LOOPTOOLSWRAPPER_H
 
 #include <gslpp.h>
-using namespace gslpp;
    
 /**
  * @class LoopToolsWrapper
@@ -62,7 +61,7 @@ public:
      * @return the finite part of @f$B_0(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B0(const double mu2, const double p2,
+    gslpp::complex PV_B0(const double mu2, const double p2,
                   const double m02, const double m12) const;
     
     /**
@@ -73,7 +72,7 @@ public:
      * @return the finite part of @f$B_1(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B1(const double mu2, const double p2,
+    gslpp::complex PV_B1(const double mu2, const double p2,
                   const double m02, const double m12) const;
 
     /**
@@ -84,7 +83,7 @@ public:
      * @return the finite part of @f$B_{11}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B11(const double mu2, const double p2,
+    gslpp::complex PV_B11(const double mu2, const double p2,
                    const double m02, const double m12) const;
 
     /**
@@ -95,7 +94,7 @@ public:
      * @return the finite part of @f$B_{00}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B00(const double mu2, const double p2,
+    gslpp::complex PV_B00(const double mu2, const double p2,
                    const double m02, const double m12) const;
 
     /**
@@ -106,7 +105,7 @@ public:
      * @return the finite part of @f$B_{0p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B0p(const double muIR2, const double p2,
+    gslpp::complex PV_B0p(const double muIR2, const double p2,
                    const double m02, const double m12) const;
     
     /**
@@ -117,7 +116,7 @@ public:
      * @return the finite part of @f$B_{1p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B1p(const double mu2, const double p2,
+    gslpp::complex PV_B1p(const double mu2, const double p2,
                    const double m02, const double m12) const;
     
     /**
@@ -128,7 +127,7 @@ public:
      * @return the finite part of @f$B_{11p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B11p(const double mu2, const double p2,
+    gslpp::complex PV_B11p(const double mu2, const double p2,
                     const double m02, const double m12) const;
 
     /**
@@ -139,7 +138,7 @@ public:
      * @return the finite part of @f$B_{00p}(p^2; m_0^2, m_1^2)@f$
      * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    complex PV_B00p(const double mu2, const double p2,
+    gslpp::complex PV_B00p(const double mu2, const double p2,
                     const double m02, const double m12) const;
 
     /**
@@ -148,7 +147,7 @@ public:
      * @param[in] m02, m12, m22 mass squared, @f$m_0^2@f$, @f$m_1^2@f$ and @f$m_2^2@f$
      * @return @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$
      */
-    complex PV_C0(const double p2, 
+    gslpp::complex PV_C0(const double p2, 
                   const double m02, const double m12, const double m22) const;
     
     /**
@@ -157,7 +156,7 @@ public:
      * @param[in] m02, m12, m22, m32 mass squared, @f$m_0^2@f$, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
      * @return @f$D_{0}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$
      */
-    complex PV_D0(const double s, const double t, const double m02, const double m12,
+    gslpp::complex PV_D0(const double s, const double t, const double m02, const double m12,
                   const double m22, const double m32) const;
     
     /**
@@ -168,7 +167,7 @@ public:
      *
      * @warning This function does not work.
      */
-    complex PV_D00(const double s, const double t, const double m02, const double m12,
+    gslpp::complex PV_D00(const double s, const double t, const double m02, const double m12,
                    const double m22, const double m32) const;
 
 #endif

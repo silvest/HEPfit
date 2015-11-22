@@ -18,7 +18,7 @@ EWSMOneLoopEW_HV::EWSMOneLoopEW_HV(const StandardModel& SM_i)
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
         const double Mw) const
 {
     double Mz = SM.getMz(), mh = SM.getMHl();
@@ -28,7 +28,7 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
     double w = -s / Mw2, h = -s / mh2;
     double wh = mh2 / Mw2, zh = mh2 / Mz2;
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         throw std::runtime_error("Missing codes for EWSMOneLoopEW_HV::SigmaWW_bos(s=0)");
     } else {
@@ -36,9 +36,9 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
         double A0_Mw2 = PV.A0(mu*mu, Mw2);
         double A0_mh2 = PV.A0(mu*mu, mh2);
         double A0_Mz2 = PV.A0(mu*mu, Mz2);
-        complex B0_s_Mw2_Mz2 = PV.B0(mu*mu, s, Mw2, Mz2);
-        complex B0_s_mh2_Mw2 = PV.B0(mu*mu, s, mh2, Mw2);
-        complex B0_s_0_Mw2 = PV.B0(mu*mu, s, 0.0, Mw2);
+        gslpp::complex B0_s_Mw2_Mz2 = PV.B0(mu*mu, s, Mw2, Mz2);
+        gslpp::complex B0_s_mh2_Mw2 = PV.B0(mu*mu, s, mh2, Mw2);
+        gslpp::complex B0_s_0_Mw2 = PV.B0(mu*mu, s, 0.0, Mw2);
 
         Sigma = Mw2 / 12.0
                 * (-(sW4 / cW4 * (1.0 + 8.0 * cW2) / w - 10.0 / cW2 + 54.0
@@ -55,7 +55,7 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq,
+gslpp::complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq,
         const double s) const
 {
     double ml[6], mq[6], ml2[6], mq2[6];
@@ -66,14 +66,14 @@ complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq,
         mq2[i] = mq[i] * mq[i];
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         throw std::runtime_error("Missing codes for EWSMOneLoopEW_HV::SigmaWW_fer(s=0)");
     } else {
         /* Loop functions */
-        complex B1_s_ml2_mlprime2[3], B1_s_mq2_mqprime2[3];
-        complex B1_s_mlprime2_ml2[3], B1_s_mqprime2_mq2[3];
-        complex Bf_s_mlprime2_ml2[3], Bf_s_mqprime2_mq2[3];
+        gslpp::complex B1_s_ml2_mlprime2[3], B1_s_mq2_mqprime2[3];
+        gslpp::complex B1_s_mlprime2_ml2[3], B1_s_mqprime2_mq2[3];
+        gslpp::complex Bf_s_mlprime2_ml2[3], Bf_s_mqprime2_mq2[3];
         for (int gen = 0; gen < 3; gen++) {
             B1_s_ml2_mlprime2[gen] = PV.B1(mu*mu, s, ml2[2 * gen], ml2[2 * gen + 1]);
             B1_s_mq2_mqprime2[gen] = PV.B1(mu*mu, s, mq2[2 * gen], mq2[2 * gen + 1]);
@@ -99,7 +99,7 @@ complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq,
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
         const double Mw) const
 {
     double Mz = SM.getMz(), mh = SM.getMHl();
@@ -108,7 +108,7 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
     double z = -s / Mz2, h = -s / mh2;
     double wh = mh2 / Mw2, zh = mh2 / Mz2;
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         throw std::runtime_error("Missing codes for EWSMOneLoopEW_HV::SigmaZZ_bos(s=0)");
     } else {
@@ -116,8 +116,8 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
         double A0_Mw2 = PV.A0(mu*mu, Mw2);
         double A0_mh2 = PV.A0(mu*mu, mh2);
         double A0_Mz2 = PV.A0(mu*mu, Mz2);
-        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
-        complex B0_s_mh2_Mz2 = PV.B0(mu*mu, s, mh2, Mz2);
+        gslpp::complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
+        gslpp::complex B0_s_mh2_Mz2 = PV.B0(mu*mu, s, mh2, Mz2);
 
         Sigma = Mz2 / 12.0
                 * ((4.0 * cW2 * (5.0 - 8.0 * cW2 - 12.0 * cW4)
@@ -132,7 +132,7 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
+gslpp::complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
         const double s, const double Mw) const
 {
     double ml[6], mq[6], ml2[6], mq2[6];
@@ -143,13 +143,13 @@ complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
         mq2[i] = mq[i] * mq[i];
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         throw std::runtime_error("Missing codes for EWSMOneLoopEW_HV::SigmaZZ_fer(s=0)");
     } else {
         /* Loop functions */
-        complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
-        complex B0_s_ml2_ml2[6], B0_s_mq2_mq2[6];
+        gslpp::complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
+        gslpp::complex B0_s_ml2_ml2[6], B0_s_mq2_mq2[6];
         for (int i = 0; i < 6; i++) {
             Bf_s_ml2_ml2[i] = PV.Bf(mu*mu, s, ml2[i], ml2[i]);
             Bf_s_mq2_mq2[i] = PV.Bf(mu*mu, s, mq2[i], mq2[i]);
@@ -175,38 +175,38 @@ complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos(const double mu, const double s,
         const double Mw) const
 {
     return ( s * PiGammaGamma_bos(mu, s, Mw));
 }
 
-complex EWSMOneLoopEW_HV::SigmaGammaGamma_fer(const double mu, const double muForMq,
+gslpp::complex EWSMOneLoopEW_HV::SigmaGammaGamma_fer(const double mu, const double muForMq,
         const double s) const
 {
     return ( s * PiGammaGamma_fer(mu, muForMq, s));
 }
 
-complex EWSMOneLoopEW_HV::PiGammaGamma_bos(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_bos(const double mu, const double s,
         const double Mw) const
 {
     double Mw2 = Mw*Mw;
     double w = -s / Mw2;
 
-    complex Pi(0.0, 0.0, false);
+    gslpp::complex Pi(0.0, 0.0, false);
     if (s == 0.0) {
         Pi = 3.0 * log(Mw2 / mu / mu) - 2.0 / 3.0;
     } else {
         /* Loop functions */
         double A0_Mw2 = PV.A0(mu*mu, Mw2);
-        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
+        gslpp::complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
 
         Pi = -Mw2 / s * ((4.0 - 3.0 * w) * B0_s_Mw2_Mw2 + 4.0 * (A0_Mw2 / Mw2 + 1.0));
     }
     return Pi;
 }
 
-complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
         const StandardModel::lepton l) const
 {
     // Neutrinos do not contribute, since Qf=0.
@@ -218,7 +218,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
     double Qf = SM.getLeptons(l).getCharge();
 
     /* Loop functions */
-    complex Bf_s_mf2_mf2;
+    gslpp::complex Bf_s_mf2_mf2;
     if (mf == 0.0)
         Bf_s_mf2_mf2 = 0.0;
     else
@@ -227,14 +227,14 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
     return ( -4.0 * Qf * Qf * Bf_s_mf2_mf2);
 }
 
-complex EWSMOneLoopEW_HV::PiGammaGamma_fer_q(const double mu, const double muForMq,
+gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_fer_q(const double mu, const double muForMq,
         const double s, const QCD::quark q) const
 {
     double mf = this->mq((QCD::quark) q, muForMq);
     double Qf = SM.getQuarks(q).getCharge();
 
     /* Loop functions */
-    complex Bf_s_mf2_mf2;
+    gslpp::complex Bf_s_mf2_mf2;
     if (mf == 0.0)
         Bf_s_mf2_mf2 = 0.0;
     else
@@ -243,10 +243,10 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_q(const double mu, const double muFor
     return ( -4.0 * 3.0 * Qf * Qf * Bf_s_mf2_mf2);
 }
 
-complex EWSMOneLoopEW_HV::PiGammaGamma_fer(const double mu, const double muForMq,
+gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_fer(const double mu, const double muForMq,
         const double s) const
 {
-    complex Pi(0.0, 0.0, false);
+    gslpp::complex Pi(0.0, 0.0, false);
     for (int i = 0; i < 6; i++) {
         Pi += PiGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
         Pi += PiGammaGamma_fer_q(mu, muForMq, s, (QCD::quark) i);
@@ -254,7 +254,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer(const double mu, const double muForMq
     return Pi;
 }
 
-complex EWSMOneLoopEW_HV::SigmaZgamma_bos(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaZgamma_bos(const double mu, const double s,
         const double Mw) const
 {
     double Mz = SM.getMz();
@@ -262,13 +262,13 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_bos(const double mu, const double s,
     double cW2 = Mw2 / Mz2;
     double w = -s / Mw2;
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         Sigma = 2.0 * Mw2 * log(Mw2 / mu / mu);
     } else {
         /* Loop functions */
         double A0_Mw2 = PV.A0(mu*mu, Mw2);
-        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
+        gslpp::complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
 
         Sigma = (4.0 * (1.0 / 3.0 + cW2) / w - 1.0 / 6.0 - 3.0 * cW2) * s * B0_s_Mw2_Mw2
                 + (2.0 / 3.0 - 4.0 * cW2) * Mw2 * (A0_Mw2 / Mw2 + 1.0) - s / 9.0;
@@ -276,7 +276,7 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_bos(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
+gslpp::complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
         const double s, const double Mw) const
 {
     double ml[6], mq[6], ml2[6], mq2[6];
@@ -291,7 +291,7 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
     double sW2 = 1.0 - Mw2 / Mz2;
 
     /* Loop functions */
-    complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
+    gslpp::complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
     for (int i = 0; i < 6; i++) {
         if (i == 0 || i == 2 || i == 4)
             Bf_s_ml2_ml2[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
@@ -300,7 +300,7 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
         Bf_s_mq2_mq2[i] = PV.Bf(mu*mu, s, mq2[i], mq2[i]);
     }
 
-    complex Pi(0.0, 0.0, false);
+    gslpp::complex Pi(0.0, 0.0, false);
     double Ql, Qq;
     for (int i = 0; i < 6; i++) {
         Ql = SM.getLeptons((StandardModel::lepton) i).getCharge();
@@ -315,7 +315,7 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW_HV::F_Hollik(const double s, const double m1,
+gslpp::complex EWSMOneLoopEW_HV::F_Hollik(const double s, const double m1,
         const double m2) const
 {
     double m12 = m1*m1, m22 = m2*m2;
@@ -336,13 +336,13 @@ complex EWSMOneLoopEW_HV::F_Hollik(const double s, const double m1,
         throw std::runtime_error("Missing cases in EWSMOneLoopEW_HV::F_Hollik()");
 }
 
-complex EWSMOneLoopEW_HV::Fprime_Hollik(const double muIR, const double s,
+gslpp::complex EWSMOneLoopEW_HV::Fprime_Hollik(const double muIR, const double s,
         const double m1, const double m2) const
 {
     return ( PV.B0p(muIR*muIR, s, m1*m1, m2 * m2));
 }
 
-complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
         const double Mw) const
 {
     double Mz = SM.getMz(), mh = SM.getMHl();
@@ -356,7 +356,7 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
 
     double DeltaW = -log(Mw2 / mu / mu);
 
-    complex Sigma = -(19.0 / 2.0 * s + 3.0 * w * (1.0 - sW2 / cW2)) * DeltaW / 3.0 // correct, Hollik (90)
+    gslpp::complex Sigma = -(19.0 / 2.0 * s + 3.0 * w * (1.0 - sW2 / cW2)) * DeltaW / 3.0 // correct, Hollik (90)
             //- (19.0/2.0*s + 3.0*w*(1.0 - sW2/cW2))*DeltaW // incorrect, Consoli, Hollik, Jegerlehner (89)
             + (sW2 * sW2 * z - cW2 / 3.0 * (7.0 * (z + w) + 10.0 * s - 2.0 * (z - w)*(z - w) / s)
             - (w + z - s / 2.0 - (z - w)*(z - w) / 2.0 / s) / 6.0)
@@ -374,7 +374,7 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::SigmaZZ_bos_Hollik(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaZZ_bos_Hollik(const double mu, const double s,
         const double Mw) const
 {
     double Mz = SM.getMz(), mh = SM.getMHl();
@@ -388,7 +388,7 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos_Hollik(const double mu, const double s,
 
     double DeltaW = -log(Mw2 / mu / mu);
 
-    complex Sigma = ((3.0 - 19.0 / 6.0 / sW2 + 1.0 / 6.0 / cW2) * s
+    gslpp::complex Sigma = ((3.0 - 19.0 / 6.0 / sW2 + 1.0 / 6.0 / cW2) * s
             + (4.0 + 1.0 / cW2 - 1.0 / sW2) * Mz2) * DeltaW * sW2 * cW2
             + ((-cW2 * cW2 * (40.0 * s + 80.0 * w)
             + (cW2 - sW2)*(cW2 - sW2)*(8.0 * w + s) + 12.0 * w)
@@ -403,7 +403,7 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos_Hollik(const double mu, const double s,
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos_Hollik(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos_Hollik(const double mu, const double s,
         const double Mw) const
 {
     double Mw2 = Mw*Mw;
@@ -414,11 +414,11 @@ complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos_Hollik(const double mu, const doub
 
     double DeltaW = -log(Mw2 / mu / mu);
 
-    complex Sigma = -3.0 * s * DeltaW - (3.0 * s + 4.0 * w) * F_Hollik(s, Mw, Mw);
+    gslpp::complex Sigma = -3.0 * s * DeltaW - (3.0 * s + 4.0 * w) * F_Hollik(s, Mw, Mw);
     return Sigma;
 }
 
-complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double s,
         const double Mw) const
 {
     double Mw2 = Mw*Mw;
@@ -430,7 +430,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double 
     double DeltaW = -log(Mw2 / mu / mu);
     double muIR = Mw; // relevant only for Fprime_Hollik(muIR, Mw*Mw, 0, Mw)
 
-    complex Pi;
+    gslpp::complex Pi;
     if (s == 0.0) {
         //-- Pi(0) = dSigma(s)/ds|_{s=0} --
         Pi = -3.0 * DeltaW - 3.0 * F_Hollik(s, Mw, Mw)
@@ -442,7 +442,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double 
     return Pi;
 }
 
-complex EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik(const double mu, const double s,
+gslpp::complex EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik(const double mu, const double s,
         const double Mw) const
 {
     double Mz = SM.getMz();
@@ -455,7 +455,7 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik(const double mu, const double s
 
     double DeltaW = -log(Mw2 / mu / mu);
 
-    complex Sigma = ((3.0 * cW2 + 1.0 / 6.0) * s + 2.0 * w) * DeltaW
+    gslpp::complex Sigma = ((3.0 * cW2 + 1.0 / 6.0) * s + 2.0 * w) * DeltaW
             + ((3.0 * cW2 + 1.0 / 6.0) * s + (4.0 * cW2 + 4.0 / 3.0) * w)
             * F_Hollik(s, Mw, Mw)
             + s / 9.0;

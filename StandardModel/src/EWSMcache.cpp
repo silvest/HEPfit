@@ -278,337 +278,337 @@ double EWSMcache::A0_Mw2_Mw2(const double Mw_i) const
     }
 }
 
-complex EWSMcache::B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const
 {
     int NumPar = 3;
     double params[] = {SM.getMz(), Mw_i, SM.getMHl()};
 
     if (CacheCheck(B0_Mz2_Mw2_mh2_Mw2_cache, NumPar, params))
-        return complex(B0_Mz2_Mw2_mh2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_Mw2_mh2_Mw2_cache[NumPar],
             B0_Mz2_Mw2_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_0_mh2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mz2_0_mh2_Mw2(const double Mw_i) const
 {
     int NumPar = 3;
     double params[] = {SM.getMz(), SM.getMHl(), Mw_i};
 
     if (CacheCheck(B0_Mz2_0_mh2_Mw2_cache, NumPar, params))
-        return complex(B0_Mz2_0_mh2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_0_mh2_Mw2_cache[NumPar],
             B0_Mz2_0_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_0_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const
 {
     int NumPar = 3;
     double params[] = {Mw_i, SM.getMz(), SM.getMtpole()};
 
     if (CacheCheck(B0_Mw2_Mz2_Mt2_Mt2_cache, NumPar, params))
-        return complex(B0_Mw2_Mz2_Mt2_Mt2_cache[NumPar],
+        return gslpp::complex(B0_Mw2_Mz2_Mt2_Mt2_cache[NumPar],
             B0_Mw2_Mz2_Mt2_Mt2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz() * SM.getMz(), SM.getMtpole() * SM.getMtpole(), SM.getMtpole() * SM.getMtpole());
+        gslpp::complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz() * SM.getMz(), SM.getMtpole() * SM.getMtpole(), SM.getMtpole() * SM.getMtpole());
         newCacheForComplex(B0_Mw2_Mz2_Mt2_Mt2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(B0_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params))
-        return complex(B0_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
             B0_Mz2_Mz2_Mw2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mz2_mh2_Mz2() const
+gslpp::complex EWSMcache::B0_Mz2_Mz2_mh2_Mz2() const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), SM.getMHl()};
 
     if (CacheCheck(B0_Mz2_Mz2_mh2_Mz2_cache, NumPar, params))
-        return complex(B0_Mz2_Mz2_mh2_Mz2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_Mz2_mh2_Mz2_cache[NumPar],
             B0_Mz2_Mz2_mh2_Mz2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), SM.getMHl() * SM.getMHl(), SM.getMz() * SM.getMz());
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), SM.getMHl() * SM.getMHl(), SM.getMz() * SM.getMz());
         newCacheForComplex(B0_Mz2_Mz2_mh2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(B0_Mz2_Mw2_Mz2_Mw2_cache, NumPar, params))
-        return complex(B0_Mz2_Mw2_Mz2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_Mw2_Mz2_Mw2_cache[NumPar],
             B0_Mz2_Mw2_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mw2_0_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mz2_Mw2_0_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(B0_Mz2_Mw2_0_Mw2_cache, NumPar, params))
-        return complex(B0_Mz2_Mw2_0_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_Mw2_0_Mw2_cache[NumPar],
             B0_Mz2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_0_Mz2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mz2_0_Mz2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(B0_Mz2_0_Mz2_Mw2_cache, NumPar, params))
-        return complex(B0_Mz2_0_Mz2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_0_Mz2_Mw2_cache[NumPar],
             B0_Mz2_0_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_0_0_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mz2_0_0_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(B0_Mz2_0_0_Mw2_cache, NumPar, params))
-        return complex(B0_Mz2_0_0_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mz2_0_0_Mw2_cache[NumPar],
             B0_Mz2_0_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, 0.0, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_0_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
     if (CacheCheck(B0_Mw2_Mz2_Mw2_Mw2_cache, NumPar, params))
-        return complex(B0_Mw2_Mz2_Mw2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mw2_Mz2_Mw2_Mw2_cache[NumPar],
             B0_Mw2_Mz2_Mw2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
     if (CacheCheck(B0_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params))
-        return complex(B0_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
             B0_Mw2_Mw2_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMHl()};
 
     if (CacheCheck(B0_Mw2_Mw2_mh2_Mw2_cache, NumPar, params))
-        return complex(B0_Mw2_Mw2_mh2_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mw2_Mw2_mh2_Mw2_cache[NumPar],
             B0_Mw2_Mw2_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mw2_0_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0_Mw2_Mw2_0_Mw2(const double Mw_i) const
 {
     int NumPar = 1;
     double params[] = {Mw_i};
 
     if (CacheCheck(B0_Mw2_Mw2_0_Mw2_cache, NumPar, params))
-        return complex(B0_Mw2_Mw2_0_Mw2_cache[NumPar],
+        return gslpp::complex(B0_Mw2_Mw2_0_Mw2_cache[NumPar],
             B0_Mw2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle f) const
+gslpp::complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(f, SM.getMz())};
     int ind = f.getIndex();
     if (CacheCheck(B0_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
-        return complex(B0_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+        return gslpp::complex(B0_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
             B0_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        gslpp::complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
         newCacheForComplex(B0_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_0_mh2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0p_Mz2_0_mh2_Mw2(const double Mw_i) const
 {
     int NumPar = 3;
     double params[] = {SM.getMz(), SM.getMHl(), Mw_i};
 
     if (CacheCheck(B0p_Mz2_0_mh2_Mw2_cache, NumPar, params))
-        return complex(B0p_Mz2_0_mh2_Mw2_cache[NumPar],
+        return gslpp::complex(B0p_Mz2_0_mh2_Mw2_cache[NumPar],
             B0p_Mz2_0_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), 0.0, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0p(SM.getMz() * SM.getMz(), 0.0, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mz2_0_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_Mz2_mh2_Mz2() const
+gslpp::complex EWSMcache::B0p_Mz2_Mz2_mh2_Mz2() const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), SM.getMHl()};
 
     if (CacheCheck(B0p_Mz2_Mz2_mh2_Mz2_cache, NumPar, params))
-        return complex(B0p_Mz2_Mz2_mh2_Mz2_cache[NumPar],
+        return gslpp::complex(B0p_Mz2_Mz2_mh2_Mz2_cache[NumPar],
             B0p_Mz2_Mz2_mh2_Mz2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), SM.getMHl() * SM.getMHl(), SM.getMz() * SM.getMz());
+        gslpp::complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), SM.getMHl() * SM.getMHl(), SM.getMz() * SM.getMz());
         newCacheForComplex(B0p_Mz2_Mz2_mh2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(B0p_Mz2_0_Mz2_Mw2_cache, NumPar, params))
-        return complex(B0p_Mz2_0_Mz2_Mw2_cache[NumPar],
+        return gslpp::complex(B0p_Mz2_0_Mz2_Mw2_cache[NumPar],
             B0p_Mz2_0_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0p(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mz2_0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(B0p_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params))
-        return complex(B0p_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
+        return gslpp::complex(B0p_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
             B0p_Mz2_Mz2_Mw2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
         newCacheForComplex(B0p_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
     if (CacheCheck(B0p_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params))
-        return complex(B0p_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
+        return gslpp::complex(B0p_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
             B0p_Mw2_Mw2_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMHl()};
 
     if (CacheCheck(B0p_Mw2_Mw2_mh2_Mw2_cache, NumPar, params))
-        return complex(B0p_Mw2_Mw2_mh2_Mw2_cache[NumPar],
+        return gslpp::complex(B0p_Mw2_Mw2_mh2_Mw2_cache[NumPar],
             B0p_Mw2_Mw2_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mw2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const
 {
     int NumPar = 1;
     double params[] = {Mw_i};
 
     if (CacheCheck(B0p_Mw2_Mw2_0_Mw2_cache, NumPar, params))
-        return complex(B0p_Mw2_Mw2_0_Mw2_cache[NumPar],
+        return gslpp::complex(B0p_Mw2_Mw2_0_Mw2_cache[NumPar],
             B0p_Mw2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0p_Mw2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle f) const
+gslpp::complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(f, SM.getMz())};
     int ind = f.getIndex();
     if (CacheCheck(B0p_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
-        return complex(B0p_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+        return gslpp::complex(B0p_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
             B0p_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        gslpp::complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
         newCacheForComplex(B0p_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_0_mf2_mfprime2(const int gen) const
+gslpp::complex EWSMcache::B1_Mz2_0_mf2_mfprime2(const int gen) const
 {
     int NumPar = 3;
     double mymf, mymfprime;
@@ -624,18 +624,18 @@ complex EWSMcache::B1_Mz2_0_mf2_mfprime2(const int gen) const
     double params[] = {Mz, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_0_mf2_mfprime2_cache[gen], NumPar, params))
-        return complex(B1_Mz2_0_mf2_mfprime2_cache[gen][NumPar],
+        return gslpp::complex(B1_Mz2_0_mf2_mfprime2_cache[gen][NumPar],
             B1_Mz2_0_mf2_mfprime2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(Mz * Mz, 0.0, mf2, mfprime2);
+        gslpp::complex newResult = PV.B1(Mz * Mz, 0.0, mf2, mfprime2);
         newCacheForComplex(B1_Mz2_0_mf2_mfprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_0_mfprime2_mf2(const int gen) const
+gslpp::complex EWSMcache::B1_Mz2_0_mfprime2_mf2(const int gen) const
 {
     int NumPar = 3;
     double mymf, mymfprime;
@@ -651,18 +651,18 @@ complex EWSMcache::B1_Mz2_0_mfprime2_mf2(const int gen) const
     double params[] = {Mz, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params))
-        return complex(B1_Mz2_0_mfprime2_mf2_cache[gen][NumPar],
+        return gslpp::complex(B1_Mz2_0_mfprime2_mf2_cache[gen][NumPar],
             B1_Mz2_0_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(Mz * Mz, 0.0, mfprime2, mf2);
+        gslpp::complex newResult = PV.B1(Mz * Mz, 0.0, mfprime2, mf2);
         newCacheForComplex(B1_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const
+gslpp::complex EWSMcache::B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const
 {
     int NumPar = 4;
     double mymf, mymfprime;
@@ -678,18 +678,18 @@ complex EWSMcache::B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) con
     double params[] = {Mz, Mw_i, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_Mw2_mf2_mfprime2_cache[gen], NumPar, params))
-        return complex(B1_Mz2_Mw2_mf2_mfprime2_cache[gen][NumPar],
+        return gslpp::complex(B1_Mz2_Mw2_mf2_mfprime2_cache[gen][NumPar],
             B1_Mz2_Mw2_mf2_mfprime2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(Mz * Mz, Mw_i*Mw_i, mf2, mfprime2);
+        gslpp::complex newResult = PV.B1(Mz * Mz, Mw_i*Mw_i, mf2, mfprime2);
         newCacheForComplex(B1_Mz2_Mw2_mf2_mfprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+gslpp::complex EWSMcache::B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
 {
     int NumPar = 4;
     double mymf, mymfprime;
@@ -705,18 +705,18 @@ complex EWSMcache::B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) con
     double params[] = {Mz, Mw_i, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params))
-        return complex(B1_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar],
+        return gslpp::complex(B1_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar],
             B1_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(Mz * Mz, Mw_i*Mw_i, mfprime2, mf2);
+        gslpp::complex newResult = PV.B1(Mz * Mz, Mw_i*Mw_i, mfprime2, mf2);
         newCacheForComplex(B1_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const
+gslpp::complex EWSMcache::B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const
 {
     int NumPar = 3;
     double mymf, mymfprime;
@@ -732,18 +732,18 @@ complex EWSMcache::B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) co
     double params[] = {Mw_i, mymf, mymfprime};
 
     if (CacheCheck(B1p_Mw2_Mw2_mf2_mfprime2_cache[gen], NumPar, params))
-        return complex(B1p_Mw2_Mw2_mf2_mfprime2_cache[gen][NumPar],
+        return gslpp::complex(B1p_Mw2_Mw2_mf2_mfprime2_cache[gen][NumPar],
             B1p_Mw2_Mw2_mf2_mfprime2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1p(Mw_i*Mw_i, Mw_i*Mw_i, mf2, mfprime2);
+        gslpp::complex newResult = PV.B1p(Mw_i*Mw_i, Mw_i*Mw_i, mf2, mfprime2);
         newCacheForComplex(B1p_Mw2_Mw2_mf2_mfprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+gslpp::complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
 {
     int NumPar = 3;
     double mymf, mymfprime;
@@ -759,33 +759,33 @@ complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) co
     double params[] = {Mw_i, mymf, mymfprime};
 
     if (CacheCheck(B1p_Mw2_Mw2_mfprime2_mf2_cache[gen], NumPar, params))
-        return complex(B1p_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar],
+        return gslpp::complex(B1p_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar],
             B1p_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1p(Mw_i*Mw_i, Mw_i*Mw_i, mfprime2, mf2);
+        gslpp::complex newResult = PV.B1p(Mw_i*Mw_i, Mw_i*Mw_i, mfprime2, mf2);
         newCacheForComplex(B1p_Mw2_Mw2_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle f) const
+gslpp::complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(f, SM.getMz())};
     int ind = f.getIndex();
     if (CacheCheck(Bf_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
-        return complex(Bf_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+        return gslpp::complex(Bf_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
             Bf_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        gslpp::complex newResult = PV.Bf(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
         newCacheForComplex(Bf_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle f) const
+gslpp::complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(f, SM.getMz())};
@@ -793,16 +793,16 @@ complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle f) const
         throw std::runtime_error("Error in EWSMcache::Bf_Mz_0_mf_mf()");
     int ind = f.getIndex();
     if (CacheCheck(Bf_Mz2_0_mf2_mf2_cache[ind], NumPar, params))
-        return complex(Bf_Mz2_0_mf2_mf2_cache[ind][NumPar],
+        return gslpp::complex(Bf_Mz2_0_mf2_mf2_cache[ind][NumPar],
             Bf_Mz2_0_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), 0.0, mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        gslpp::complex newResult = PV.Bf(SM.getMz() * SM.getMz(), 0.0, mf2(f, SM.getMz()), mf2(f, SM.getMz()));
         newCacheForComplex(Bf_Mz2_0_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+gslpp::complex EWSMcache::Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
 {
     int NumPar = 4;
     double mymf, mymfprime;
@@ -817,18 +817,18 @@ complex EWSMcache::Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) con
     }
     double params[] = {Mz, Mw_i, mymf, mymfprime};
     if (CacheCheck(Bf_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params))
-        return complex(Bf_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar],
+        return gslpp::complex(Bf_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar],
             Bf_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.Bf(Mz * Mz, Mw_i*Mw_i, mfprime2, mf2);
+        gslpp::complex newResult = PV.Bf(Mz * Mz, Mw_i*Mw_i, mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_0_mfprime2_mf2(const int gen) const
+gslpp::complex EWSMcache::Bf_Mz2_0_mfprime2_mf2(const int gen) const
 {
     int NumPar = 3;
     double mymf, mymfprime;
@@ -844,18 +844,18 @@ complex EWSMcache::Bf_Mz2_0_mfprime2_mf2(const int gen) const
     double params[] = {Mz, mymf, mymfprime};
 
     if (CacheCheck(Bf_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params))
-        return complex(Bf_Mz2_0_mfprime2_mf2_cache[gen][NumPar],
+        return gslpp::complex(Bf_Mz2_0_mfprime2_mf2_cache[gen][NumPar],
             Bf_Mz2_0_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.Bf(Mz * Mz, 0.0, mfprime2, mf2);
+        gslpp::complex newResult = PV.Bf(Mz * Mz, 0.0, mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+gslpp::complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
 {
     int NumPar = 3;
     double mymf, mymfprime;
@@ -871,33 +871,33 @@ complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) con
     double params[] = {Mw_i, mymf, mymfprime};
 
     if (CacheCheck(Bf_Mw2_Mw2_mfprime2_mf2_cache[gen], NumPar, params))
-        return complex(Bf_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar],
+        return gslpp::complex(Bf_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar],
             Bf_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.Bf(Mw_i*Mw_i, Mw_i*Mw_i, mfprime2, mf2);
+        gslpp::complex newResult = PV.Bf(Mw_i*Mw_i, Mw_i*Mw_i, mfprime2, mf2);
         newCacheForComplex(Bf_Mw2_Mw2_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle f) const
+gslpp::complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle f) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(f, SM.getMz())};
     int ind = f.getIndex();
     if (CacheCheck(Bfp_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params))
-        return complex(Bfp_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
+        return gslpp::complex(Bfp_Mz2_Mz2_mf2_mf2_cache[ind][NumPar],
             Bfp_Mz2_Mz2_mf2_mf2_cache[ind][NumPar + 1], false);
     else {
-        complex newResult = PV.Bfp(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
+        gslpp::complex newResult = PV.Bfp(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(f, SM.getMz()), mf2(f, SM.getMz()));
         newCacheForComplex(Bfp_Mz2_Mz2_mf2_mf2_cache[ind], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+gslpp::complex EWSMcache::Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
 {
     int NumPar = 3;
     double mymf, mymfprime;
@@ -913,117 +913,117 @@ complex EWSMcache::Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) co
     double params[] = {Mw_i, mymf, mymfprime};
 
     if (CacheCheck(Bfp_Mw2_Mw2_mfprime2_mf2_cache[gen], NumPar, params))
-        return complex(Bfp_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar],
+        return gslpp::complex(Bfp_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar],
             Bfp_Mw2_Mw2_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.Bfp(Mw_i*Mw_i, Mw_i*Mw_i, mfprime2, mf2);
+        gslpp::complex newResult = PV.Bfp(Mw_i*Mw_i, Mw_i*Mw_i, mfprime2, mf2);
         newCacheForComplex(Bfp_Mw2_Mw2_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const
 {
     int NumPar = 3;
     double params[] = {SM.getMz(), Mw_i, SM.getMtpole()};
 
     if (CacheCheck(C0_Mz2_Mw2_Mt2_Mw2_cache, NumPar, params))
-        return complex(C0_Mz2_Mw2_Mt2_Mw2_cache[NumPar],
+        return gslpp::complex(C0_Mz2_Mw2_Mt2_Mw2_cache[NumPar],
             C0_Mz2_Mw2_Mt2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMtpole() * SM.getMtpole(), Mw_i * Mw_i);
+        gslpp::complex newResult = PV.C0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMtpole() * SM.getMtpole(), Mw_i * Mw_i);
         newCacheForComplex(C0_Mz2_Mw2_Mt2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const
+gslpp::complex EWSMcache::C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const
 {
     int NumPar = 3;
     double params[] = {SM.getMz(), SM.getMtpole(), Mw_i};
 
     if (CacheCheck(C0_Mz2_Mt2_Mw2_Mt2_cache, NumPar, params))
-        return complex(C0_Mz2_Mt2_Mw2_Mt2_cache[NumPar],
+        return gslpp::complex(C0_Mz2_Mt2_Mw2_Mt2_cache[NumPar],
             C0_Mz2_Mt2_Mw2_Mt2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz() * SM.getMz(), SM.getMtpole() * SM.getMtpole(), Mw_i*Mw_i, SM.getMtpole() * SM.getMtpole());
+        gslpp::complex newResult = PV.C0(SM.getMz() * SM.getMz(), SM.getMtpole() * SM.getMtpole(), Mw_i*Mw_i, SM.getMtpole() * SM.getMtpole());
         newCacheForComplex(C0_Mz2_Mt2_Mw2_Mt2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_0_Mw2_0(const double Mw_i) const
+gslpp::complex EWSMcache::C0_Mz2_0_Mw2_0(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(C0_Mz2_0_Mw2_0_cache, NumPar, params))
-        return complex(C0_Mz2_0_Mw2_0_cache[NumPar],
+        return gslpp::complex(C0_Mz2_0_Mw2_0_cache[NumPar],
             C0_Mz2_0_Mw2_0_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz() * SM.getMz(), 0.0, Mw_i*Mw_i, 0.0);
+        gslpp::complex newResult = PV.C0(SM.getMz() * SM.getMz(), 0.0, Mw_i*Mw_i, 0.0);
         newCacheForComplex(C0_Mz2_0_Mw2_0_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_Mw2_0_Mw2(const double Mw_i) const
+gslpp::complex EWSMcache::C0_Mz2_Mw2_0_Mw2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(C0_Mz2_Mw2_0_Mw2_cache, NumPar, params))
-        return complex(C0_Mz2_Mw2_0_Mw2_cache[NumPar],
+        return gslpp::complex(C0_Mz2_Mw2_0_Mw2_cache[NumPar],
             C0_Mz2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
+        gslpp::complex newResult = PV.C0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(C0_Mz2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mw2_Mw2_0_Mz2(const double Mw_i) const
+gslpp::complex EWSMcache::C0_Mw2_Mw2_0_Mz2(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
     if (CacheCheck(C0_Mw2_Mw2_0_Mz2_cache, NumPar, params))
-        return complex(C0_Mw2_Mw2_0_Mz2_cache[NumPar],
+        return gslpp::complex(C0_Mw2_Mw2_0_Mz2_cache[NumPar],
             C0_Mw2_Mw2_0_Mz2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, SM.getMz() * SM.getMz());
+        gslpp::complex newResult = PV.C0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, SM.getMz() * SM.getMz());
         newCacheForComplex(C0_Mw2_Mw2_0_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mw2_0_Mz2_0(const double Mw_i) const
+gslpp::complex EWSMcache::C0_Mw2_0_Mz2_0(const double Mw_i) const
 {
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
     if (CacheCheck(C0_Mw2_0_Mz2_0_cache, NumPar, params))
-        return complex(C0_Mw2_0_Mz2_0_cache[NumPar],
+        return gslpp::complex(C0_Mw2_0_Mz2_0_cache[NumPar],
             C0_Mw2_0_Mz2_0_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(Mw_i*Mw_i, 0.0, SM.getMz() * SM.getMz(), 0.0);
+        gslpp::complex newResult = PV.C0(Mw_i*Mw_i, 0.0, SM.getMz() * SM.getMz(), 0.0);
         newCacheForComplex(C0_Mw2_0_Mz2_0_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_0_Mz2_0() const
+gslpp::complex EWSMcache::C0_Mz2_0_Mz2_0() const
 {
     int NumPar = 1;
     double params[] = {SM.getMz()};
 
     if (CacheCheck(C0_Mz2_0_Mz2_0_cache, NumPar, params))
-        return complex(C0_Mz2_0_Mz2_0_cache[NumPar],
+        return gslpp::complex(C0_Mz2_0_Mz2_0_cache[NumPar],
             C0_Mz2_0_Mz2_0_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), 0.0);
+        gslpp::complex newResult = PV.C0(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), 0.0);
         newCacheForComplex(C0_Mz2_0_Mz2_0_cache, NumPar, params, newResult);
         return newResult;
     }

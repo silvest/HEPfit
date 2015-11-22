@@ -9,7 +9,6 @@
 #define	EWSMTHREELOOPQCD_H
 
 #include "EWSMcache.h"
-using namespace gslpp;
 
 /**
  * @class EWSMThreeLoopQCD
@@ -124,7 +123,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha\alpha_s^2}=0@f$
      */
-    complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
@@ -145,7 +144,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha\alpha_s^2}@f$
      */
-    complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////        
@@ -181,7 +180,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta^{\mathrm{QCD}}_{\kappa,3}@f$
      */
-    complex deltaQCD_kappa3(const double Mw_i) const;
+    gslpp::complex deltaQCD_kappa3(const double Mw_i) const;
 
 
 };

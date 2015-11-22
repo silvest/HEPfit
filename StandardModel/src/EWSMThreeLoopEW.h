@@ -9,7 +9,6 @@
 #define	EWSMTHREELOOPEW_H
 
 #include "EWSMcache.h"
-using namespace gslpp;
 
 /**
  * @class EWSMThreeLoopEW
@@ -97,7 +96,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha^3}=0@f$
      */
-    complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^3)@f$ to the effective
@@ -108,7 +107,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha^3}=0@f$
      */
-    complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////        

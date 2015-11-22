@@ -203,7 +203,7 @@ double LEP2oblique::G1_NP(const double s, const double alpha0, const double Qf,
     double ve2 = ve*ve, vf2 = vf*vf, ae2 = ae*ae, af2 = af*af;
     double Mz = SM.getMz();
     double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    complex denom = complex(s - Mz*Mz, Mz*GammaZ0, false);
+    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
     double Zprop = (1.0/denom).real();
 
     double epsilonbarGamma = - s/(Mw0(alpha0)*Mw0(alpha0))
@@ -255,7 +255,7 @@ double LEP2oblique::G3_NP(const double s, const double alpha0, const double Qf,
     double ae = al(StandardModel::ELECTRON, alpha0);
     double Mz = SM.getMz();
     double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    complex denom = complex(s - Mz*Mz, Mz*GammaZ0, false);
+    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
     double Zprop = (1.0/denom).real();
     
     double epsilonbarGamma = - s/(Mw0(alpha0)*Mw0(alpha0))
@@ -304,8 +304,8 @@ double LEP2oblique::G1_SM0(const double s, const double alpha0, const double Qf,
     double ve2 = ve*ve, vf2 = vf*vf, ae2 = ae*ae, af2 = af*af;
     double Mz = SM.getMz();
     double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    complex denom = complex(s - Mz*Mz, Mz*GammaZ0, false);
-    complex chiZ = s/denom;
+    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
+    gslpp::complex chiZ = s/denom;
     
     return ( Qe2*Qf2 + 2.0*ve*vf*Qe*Qf*chiZ.real()
              + (ve2 + ae2)*(vf2 + af2)*chiZ.abs2() );
@@ -340,8 +340,8 @@ double LEP2oblique::G2_SM0(const double s, const double alpha0, const double Qf,
     double ve2 = ve*ve, vf2 = vf*vf, ae2 = ae*ae;
     double Mz = SM.getMz();
     double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    complex denom = complex(s - Mz*Mz, Mz*GammaZ0, false);
-    complex chiZ = s/denom;
+    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
+    gslpp::complex chiZ = s/denom;
     
     return ( Qe2*Qf2 + 2.0*ve*vf*Qe*Qf*chiZ.real()
              + (ve2 + ae2)*vf2*chiZ.abs2() );
@@ -375,8 +375,8 @@ double LEP2oblique::G3_SM0(const double s, const double alpha0, const double Qf,
     double ae = al(StandardModel::ELECTRON, alpha0);
     double Mz = SM.getMz();
     double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    complex denom = complex(s - Mz*Mz, Mz*GammaZ0, false);
-    complex chiZ = s/denom;
+    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
+    gslpp::complex chiZ = s/denom;
 
     return ( 2.0*ae*af*Qe*Qf*chiZ.real() + 4.0*ve*ae*vf*af*chiZ.abs2() );
 }

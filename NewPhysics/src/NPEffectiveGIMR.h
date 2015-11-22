@@ -10,10 +10,8 @@
 
 #include <string.h>
 #include <stdexcept>
-#include <gslpp.h>
+#include "gslpp.h"
 #include "NPbase.h"
-
-using namespace gslpp;
 
 
 /**
@@ -222,8 +220,8 @@ public:
     
     virtual double sigma_eeTOffbar(const Particle p, const double sqrt_s) const;
     
-    virtual complex sigma_eeTOffbarF(const Particle p, const double sqrt_s) const;
-    virtual complex sigma_eeTOffbarB(const Particle p, const double sqrt_s) const;
+    virtual gslpp::complex sigma_eeTOffbarF(const Particle p, const double sqrt_s) const;
+    virtual gslpp::complex sigma_eeTOffbarB(const Particle p, const double sqrt_s) const;
     
     double sigma_eeTOmumu(const double sqrt_s) const;
     double sigma_eeTOqq(const double sqrt_s) const;
@@ -235,9 +233,9 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     // no generation mixing
-    complex deltaGL_Wff(const Particle pbar, const Particle p) const;
+    gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
     // no generation mixing
-    complex deltaGR_Wff(const Particle pbar, const Particle p) const;
+    gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
 
     double deltaG_hgg() const;
     double deltaG1_hWW() const;
@@ -251,12 +249,12 @@ public:
     double deltaG_hAA() const;
 
     // no generation mixing
-    complex deltaG_hff(const Particle p) const;
+    gslpp::complex deltaG_hff(const Particle p) const;
 
     // no generation mixing
-    complex deltaGL_Wffh(const Particle pbar, const Particle p) const;
+    gslpp::complex deltaGL_Wffh(const Particle pbar, const Particle p) const;
     // no generation mixing
-    complex deltaGR_Wffh(const Particle pbar, const Particle p) const;
+    gslpp::complex deltaGR_Wffh(const Particle pbar, const Particle p) const;
     // no generation mixing
     double deltaGL_Zffh(const Particle p) const;
     // no generation mixing 
@@ -265,8 +263,8 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    complex f_triangle(const double tau) const;
-    complex AH_f(const double tau) const;
+    gslpp::complex f_triangle(const double tau) const;
+    gslpp::complex AH_f(const double tau) const;
 
     virtual double muggH(const double sqrt_s) const;
     virtual double muVBF(const double sqrt_s) const;
@@ -400,8 +398,8 @@ protected:
     double CHF1_diag(const Particle F) const;
     double CHF3_diag(const Particle F) const;
     double CHf_diag(const Particle f) const;
-    complex CHud_diag(const Particle u) const;
-    complex CfH_diag(const Particle f) const;
+    gslpp::complex CHud_diag(const Particle u) const;
+    gslpp::complex CfH_diag(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////

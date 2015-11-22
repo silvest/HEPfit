@@ -96,35 +96,35 @@ void EWSUSY::SetRosiekParameters()
         mN[j] = mySUSY.getMneu()(j);
 }
 
-complex EWSUSY::FA(const double mu, const double p2,
+gslpp::complex EWSUSY::FA(const double mu, const double p2,
                    const double mi, const double mj,
-                   const complex cV_aij, const complex cV_bji,
-                   const complex cA_aij, const complex cA_bji) const
+                   const gslpp::complex cV_aij, const gslpp::complex cV_bji,
+                   const gslpp::complex cA_aij, const gslpp::complex cA_bji) const
 {
     double mu2 = mu*mu, mi2 = mi*mi, mj2 = mj*mj;
 
     /* PV functions */
     double A0i = PV.A0(mu2, mi2);
     double A0j = PV.A0(mu2, mj2);
-    complex B0 = PV.B0(mu2, p2, mi2, mj2);
-    complex B00 = PV.B00(mu2, p2, mi2, mj2);
+    gslpp::complex B0 = PV.B0(mu2, p2, mi2, mj2);
+    gslpp::complex B00 = PV.B00(mu2, p2, mi2, mj2);
 
     return ( -2.0*(cV_aij*cV_bji + cA_aij*cA_bji)
                *(4.0*B00 + A0i + A0j + (p2 - mi*mi - mj*mj)*B0)
              -4.0*(cV_aij*cV_bji - cA_aij*cA_bji)*mi*mj*B0 );
 }
 
-complex EWSUSY::dFA(const double mu, const double p2,
+gslpp::complex EWSUSY::dFA(const double mu, const double p2,
                     const double mi, const double mj,
-                    const complex cV_aij, const complex cV_bji,
-                    const complex cA_aij, const complex cA_bji) const
+                    const gslpp::complex cV_aij, const gslpp::complex cV_bji,
+                    const gslpp::complex cA_aij, const gslpp::complex cA_bji) const
 {
     double mu2 = mu*mu, mi2 = mi*mi, mj2 = mj*mj;
 
     /* PV functions */
-    complex B0 = PV.B0(mu2, p2, mi2, mj2);
-    complex B0p = PV.B0p(mu2, p2, mi2, mj2);
-    complex B00p = PV.B00p(mu2, p2, mi2, mj2);
+    gslpp::complex B0 = PV.B0(mu2, p2, mi2, mj2);
+    gslpp::complex B0p = PV.B0p(mu2, p2, mi2, mj2);
+    gslpp::complex B00p = PV.B00p(mu2, p2, mi2, mj2);
 
     if (mi == mj && cA_aij == 0.0 && cA_bji == 0.0)
         return ( -2.0*cV_aij*cV_bji*(4.0*B00p + p2*B0p + B0) );
@@ -134,7 +134,7 @@ complex EWSUSY::dFA(const double mu, const double p2,
                  -4.0*(cV_aij*cV_bji - cA_aij*cA_bji)*mi*mj*B0p );
 }
 
-complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
+gslpp::complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double e2 = 4.0*M_PI*mySUSY.getAle();
@@ -153,15 +153,15 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     double e_4sc = e/4.0/sW/cW;
     double e_2sc = 2.0*e_4sc;
 
-    complex PiT_f = complex(0.0, 0.0, false);
-    complex PiT_sf = complex(0.0, 0.0, false);
-    complex PiT_ch = complex(0.0, 0.0, false);
-    complex PiT_WZH = complex(0.0, 0.0, false);
+    gslpp::complex PiT_f = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_sf = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_ch = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_WZH = gslpp::complex(0.0, 0.0, false);
     double a0;
-    complex b0, b00;
-    complex cV_Zij, cV_Zji, cA_Zij, cA_Zji;
-    matrix<double> Id6 = matrix<double>::Id(6);
-    matrix<double> Id2 = matrix<double>::Id(2);
+    gslpp::complex b0, b00;
+    gslpp::complex cV_Zij, cV_Zji, cA_Zij, cA_Zji;
+    gslpp::matrix<double> Id6 = gslpp::matrix<double>::Id(6);
+    gslpp::matrix<double> Id2 = gslpp::matrix<double>::Id(2);
 
     /* neutrino loops */
     b0 = PV.B0(mu2, p2, 0.0, 0.0);
@@ -169,12 +169,12 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     PiT_f += - 3.0/4.0*g2sq/cW2*(4.0*b00 + p2*b0);
 
     /* other SM fermion loops */
-    complex cV_Zee = - e_4sc*(1.0 - 4.0*sW2);
-    complex cA_Zee = - e_4sc;
-    complex cV_Zdd = - e_4sc*(1.0 - 4.0/3.0*sW2);
-    complex cA_Zdd = - e_4sc;
-    complex cV_Zuu = e_4sc*(1.0 - 8.0/3.0*sW2);
-    complex cA_Zuu = e_4sc;
+    gslpp::complex cV_Zee = - e_4sc*(1.0 - 4.0*sW2);
+    gslpp::complex cA_Zee = - e_4sc;
+    gslpp::complex cV_Zdd = - e_4sc*(1.0 - 4.0/3.0*sW2);
+    gslpp::complex cA_Zdd = - e_4sc;
+    gslpp::complex cV_Zuu = e_4sc*(1.0 - 8.0/3.0*sW2);
+    gslpp::complex cA_Zuu = e_4sc;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
         PiT_f += FA(mu, p2, m_l[I], m_l[I], cV_Zee, cV_Zee, cA_Zee, cA_Zee);
@@ -187,8 +187,8 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     }
 
     /* sneutrino loops */
-    complex VZsnsn_II = e_2sc;
-    complex VZZsnsn_II = e2/2.0/sW2/cW2;
+    gslpp::complex VZsnsn_II = e_2sc;
+    gslpp::complex VZZsnsn_II = e2/2.0/sW2/cW2;
     for (int I=0; I<3; ++I) {  /* I=0-2 for left-handed sneutrinos */
         b00 = PV.B00(mu2, p2, Msn2[I], Msn2[I]);
         PiT_sf += 4.0*VZsnsn_II.abs2()*b00;
@@ -197,17 +197,17 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     }
 
     /* charged-slepton loops */
-    complex VZLL_mn, VZZLL_nn;
+    gslpp::complex VZLL_mn, VZZLL_nn;
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            VZLL_mn = complex(0.0, 0.0, false);
+            VZLL_mn = gslpp::complex(0.0, 0.0, false);
             for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
                 VZLL_mn += - e_2sc*ZL(I,n)*ZL(I,m).conjugate();
             VZLL_mn += - e_2sc*(- 2.0*sW2*Id6(m,n));
             b00 = PV.B00(mu2, p2, Mse2[m], Mse2[n]);
             PiT_sf += 4.0*VZLL_mn.abs2()*b00;
         }
-        VZZLL_nn = complex(0.0, 0.0, false);
+        VZZLL_nn = gslpp::complex(0.0, 0.0, false);
         VZZLL_nn += 2.0*e2/cW2*sW2;
         for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
             VZZLL_nn += 2.0*e2/cW2*(1.0 - 4.0*sW2)/4.0/sW2*ZL(I,n)*ZL(I,n).conjugate();
@@ -216,17 +216,17 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     }
 
     /* down-type squark loops */
-    complex VZDD_mn, VZZDD_nn;
+    gslpp::complex VZDD_mn, VZZDD_nn;
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            VZDD_mn = complex(0.0, 0.0, false);
+            VZDD_mn = gslpp::complex(0.0, 0.0, false);
             for (int I=0; I<3; ++I) /* sum over left-handed squarks */
                 VZDD_mn += - e_2sc*ZD(I,n)*ZD(I,m).conjugate();
             VZDD_mn += - e_2sc*(- 2.0/3.0*sW2*Id6(m,n));
             b00 = PV.B00(mu2, p2, Msd2[m], Msd2[n]);
             PiT_sf += 4.0*Nc*VZDD_mn.abs2()*b00;
         }
-        VZZDD_nn = complex(0.0, 0.0, false);
+        VZZDD_nn = gslpp::complex(0.0, 0.0, false);
         VZZDD_nn += 2.0*e2/3.0/cW2*sW2/3.0;
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VZZDD_nn += 2.0*e2/3.0/cW2*(3.0 - 4.0*sW2)/4.0/sW2*ZD(I,n)*ZD(I,n).conjugate();
@@ -235,17 +235,17 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     }
 
     /* up-type squark loops */
-    complex VZUU_mn, VZZUU_nn;
+    gslpp::complex VZUU_mn, VZZUU_nn;
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            VZUU_mn = complex(0.0, 0.0, false);
+            VZUU_mn = gslpp::complex(0.0, 0.0, false);
             for (int I=0; I<3; ++I) /* sum over left-handed squarks */
                 VZUU_mn += e_2sc*ZU(I,m).conjugate()*ZU(I,n);
             VZUU_mn += e_2sc*(- 4.0/3.0*sW2*Id6(m,n));
             b00 = PV.B00(mu2, p2, Msu2[m], Msu2[n]);
             PiT_sf += 4.0*Nc*VZUU_mn.abs2()*b00;
         }
-        VZZUU_nn = complex(0.0, 0.0, false);
+        VZZUU_nn = gslpp::complex(0.0, 0.0, false);
         VZZUU_nn += 2.0*e2/3.0/cW2*4.0*sW2/3.0;
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VZZUU_nn += 2.0*e2/3.0/cW2*(3.0 - 8.0*sW2)/4.0/sW2*ZU(I,n).conjugate()*ZU(I,n);
@@ -326,13 +326,13 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     PiT_WZH += 2.0*g2sq*cW2*(2.0*a0 + (2.0*p2 + Mw2)*b0 + 4.0*b00);
 
     /* Sum of all contributions */
-    complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
+    gslpp::complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
 
     return ( PiT/16.0/M_PI/M_PI );
 }
 
 
-complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
+gslpp::complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double e2 = 4.0*M_PI*mySUSY.getAle();
@@ -353,22 +353,22 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     double e_2sq2s = e_sq2s/2.0;
     double e2_2s2 = e2/2.0/sW2;
 
-    complex PiT_f = complex(0.0, 0.0, false);
-    complex PiT_sf = complex(0.0, 0.0, false);
-    complex PiT_ch = complex(0.0, 0.0, false);
-    complex PiT_WZH = complex(0.0, 0.0, false);
+    gslpp::complex PiT_f = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_sf = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_ch = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_WZH = gslpp::complex(0.0, 0.0, false);
     double a0;
-    complex b0, b00;
+    gslpp::complex b0, b00;
 
     /* SM fermion loops */
-    complex cV_Wen = e_2sq2s;
-    complex cA_Wen = e_2sq2s;
-    complex cV_Wne = cV_Wen.conjugate();
-    complex cA_Wne = cA_Wen.conjugate();
-    complex cV_Wdu = e_2sq2s; /* no CKM */
-    complex cA_Wdu = e_2sq2s; /* no CKM */
-    complex cV_Wud = cV_Wdu.conjugate();
-    complex cA_Wud = cA_Wdu.conjugate();
+    gslpp::complex cV_Wen = e_2sq2s;
+    gslpp::complex cA_Wen = e_2sq2s;
+    gslpp::complex cV_Wne = cV_Wen.conjugate();
+    gslpp::complex cA_Wne = cA_Wen.conjugate();
+    gslpp::complex cV_Wdu = e_2sq2s; /* no CKM */
+    gslpp::complex cA_Wdu = e_2sq2s; /* no CKM */
+    gslpp::complex cV_Wud = cV_Wdu.conjugate();
+    gslpp::complex cA_Wud = cA_Wdu.conjugate();
     for (int I=0; I<3; ++I) {
         /* leptons */
         PiT_f += FA(mu, p2, m_l[I], 0.0, cV_Wen, cV_Wne, cA_Wen, cA_Wne);
@@ -378,10 +378,10 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     }
 
     /* slepton loops */
-    complex VWsnL_In, VWWsnsn_II, VWWLL_nn;
+    gslpp::complex VWsnL_In, VWWsnsn_II, VWWLL_nn;
     for (int I=0; I<3; ++I) {  /* I=0-2 for left-handed sneutrinos */
         for (int n=0; n<6; ++n) {
-            VWsnL_In = complex(0.0, 0.0, false);
+            VWsnL_In = gslpp::complex(0.0, 0.0, false);
             for (int J=0; J<3; ++J) /* sum over left-handed sleptons */
                 VWsnL_In += e_sq2s*Zne(J,I)*ZL(J,n);
             b00 = PV.B00(mu2, p2, Msn2[I], Mse2[n]);
@@ -392,7 +392,7 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
         PiT_sf += VWWsnsn_II*a0;
     }
     for (int n=0; n<6; ++n) {
-        VWWLL_nn = complex(0.0, 0.0, false);
+        VWWLL_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
             VWWLL_nn += e2_2s2*ZL(I,n)*ZL(I,n).conjugate();
         a0 = PV.A0(mu2, Mse2[n]);
@@ -400,21 +400,21 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     }
 
     /* squark loops (no CKM) */
-    complex VWDU_nm, VWWDD_nn, VWWUU_nn;
+    gslpp::complex VWDU_nm, VWWDD_nn, VWWUU_nn;
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            VWDU_nm = complex(0.0, 0.0, false);
+            VWDU_nm = gslpp::complex(0.0, 0.0, false);
             for (int I=0; I<3; ++I) /* sum over left-handed squarks */
                 VWDU_nm += e_sq2s*ZD(I,n).conjugate()*ZU(I,m).conjugate();
             b00 = PV.B00(mu2, p2, Msd2[n], Msu2[m]);
             PiT_sf += 4.0*Nc*VWDU_nm.abs2()*b00;
         }
-        VWWDD_nn = complex(0.0, 0.0, false);
+        VWWDD_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VWWDD_nn += e2_2s2*ZD(I,n)*ZD(I,n).conjugate();
         a0 = PV.A0(mu2, Msd2[n]);
         PiT_sf += Nc*VWWDD_nn*a0;
-        VWWUU_nn = complex(0.0, 0.0, false);
+        VWWUU_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VWWUU_nn += e2_2s2*ZU(I,n).conjugate()*ZU(I,n);
         a0 = PV.A0(mu2, Msu2[n]);
@@ -422,7 +422,7 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     }
 
     /* chargino - neutralino loops */
-    complex cV_Wij, cV_Wji, cA_Wij, cA_Wji;
+    gslpp::complex cV_Wij, cV_Wji, cA_Wij, cA_Wji;
     for (int i=0; i<2; ++i)
         for (int j=0; j<4; ++j) {
             /* W^+ + neutralino(j) -> chi^+(i) */
@@ -493,12 +493,12 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     PiT_WZH += e2*((4.0*p2 + Mw2)*b0 - a0 + 8.0*b00);
 
     /* Sum of all contributions */
-    complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
+    gslpp::complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
 
     return ( PiT/16.0/M_PI/M_PI );
 }
 
-complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) const
+gslpp::complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double e2 = 4.0*M_PI*mySUSY.getAle();
@@ -518,26 +518,26 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     double e_2sc = 2.0*e_4sc;
     double e2_sc = e2/sW/cW;
 
-    complex PiT_f = complex(0.0, 0.0, false);
-    complex PiT_sf = complex(0.0, 0.0, false);
-    complex PiT_ch = complex(0.0, 0.0, false);
-    complex PiT_WZH = complex(0.0, 0.0, false);
+    gslpp::complex PiT_f = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_sf = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_ch = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiT_WZH = gslpp::complex(0.0, 0.0, false);
     double a0;
-    complex b0, b00;
+    gslpp::complex b0, b00;
 
     /* SM fermion loops */
-    complex cV_Aee = - e;
-    complex cA_Aee = 0.0;
-    complex cV_Add = - e/3.0;
-    complex cA_Add = 0.0;
-    complex cV_Auu = 2.0/3.0*e;
-    complex cA_Auu = 0.0;
-    complex cV_Zee = - e_4sc*(1.0 - 4.0*sW2);
-    complex cA_Zee = - e_4sc;
-    complex cV_Zdd = - e_4sc*(1.0 - 4.0/3.0*sW2);
-    complex cA_Zdd = - e_4sc;
-    complex cV_Zuu = e_4sc*(1.0 - 8.0/3.0*sW2);
-    complex cA_Zuu = e_4sc;
+    gslpp::complex cV_Aee = - e;
+    gslpp::complex cA_Aee = 0.0;
+    gslpp::complex cV_Add = - e/3.0;
+    gslpp::complex cA_Add = 0.0;
+    gslpp::complex cV_Auu = 2.0/3.0*e;
+    gslpp::complex cA_Auu = 0.0;
+    gslpp::complex cV_Zee = - e_4sc*(1.0 - 4.0*sW2);
+    gslpp::complex cA_Zee = - e_4sc;
+    gslpp::complex cV_Zdd = - e_4sc*(1.0 - 4.0/3.0*sW2);
+    gslpp::complex cA_Zdd = - e_4sc;
+    gslpp::complex cV_Zuu = e_4sc*(1.0 - 8.0/3.0*sW2);
+    gslpp::complex cA_Zuu = e_4sc;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
         PiT_f += FA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Zee, cA_Aee, cA_Zee);
@@ -550,9 +550,9 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     }
 
     /* charged-slepton loops */
-    complex VZLL_nn, VAZLL_nn;
+    gslpp::complex VZLL_nn, VAZLL_nn;
     for (int n=0; n<6; ++n) {
-        VZLL_nn = complex(0.0, 0.0, false);
+        VZLL_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
             VZLL_nn += - e_2sc*ZL(I,n)*ZL(I,n).conjugate();
         VZLL_nn += - e_2sc*(- 2.0*sW2);
@@ -560,7 +560,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
         /* typo in the paper: e^2 --> e */
         PiT_sf += - 4.0*e*VZLL_nn*b00;
 
-        VAZLL_nn = complex(0.0, 0.0, false);
+        VAZLL_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
             VAZLL_nn += e2_sc*ZL(I,n)*ZL(I,n).conjugate();
         VAZLL_nn += e2_sc*(- 2.0*sW2);
@@ -569,9 +569,9 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     }
 
     /* down-type squark loops */
-    complex VZDD_nn, VAZDD_nn;
+    gslpp::complex VZDD_nn, VAZDD_nn;
     for (int n=0; n<6; ++n) {
-        VZDD_nn = complex(0.0, 0.0, false);
+        VZDD_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VZDD_nn += - e_2sc*ZD(I,n)*ZD(I,n).conjugate();
         VZDD_nn += - e_2sc*(- 2.0/3.0*sW2);
@@ -579,7 +579,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
         /* typo in the paper: e^2 --> e */
         PiT_sf += - 4.0*e*Nc/3.0*VZDD_nn*b00;
 
-        VAZDD_nn = complex(0.0, 0.0, false);
+        VAZDD_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VAZDD_nn += e2_sc/3.0*ZD(I,n)*ZD(I,n).conjugate();
         VAZDD_nn += e2_sc/3.0*(- 2.0/3.0*sW2);
@@ -588,9 +588,9 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     }
 
     /* up-type squark loops */
-    complex VZUU_nn, VAZUU_nn;
+    gslpp::complex VZUU_nn, VAZUU_nn;
     for (int n=0; n<6; ++n) {
-        VZUU_nn = complex(0.0, 0.0, false);
+        VZUU_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VZUU_nn += e_2sc*ZU(I,n).conjugate()*ZU(I,n);
         VZUU_nn += e_2sc*(- 4.0/3.0*sW2);
@@ -598,7 +598,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
         /* typo in the paper: e^2 --> e */
         PiT_sf += 4.0*e*Nc*2.0/3.0*VZUU_nn*b00;
 
-        VAZUU_nn = complex(0.0, 0.0, false);
+        VAZUU_nn = gslpp::complex(0.0, 0.0, false);
         for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VAZUU_nn += 2.0*e2_sc/3.0*ZU(I,n).conjugate()*ZU(I,n);
         VAZUU_nn += 2.0*e2_sc/3.0*(- 4.0/3.0*sW2);
@@ -607,9 +607,9 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     }
 
     /* chargino loops */
-    complex cV_Aii = e;
-    complex cA_Aii = 0.0;
-    complex cV_Zii, cA_Zii;
+    gslpp::complex cV_Aii = e;
+    gslpp::complex cA_Aii = 0.0;
+    gslpp::complex cV_Zii, cA_Zii;
     for (int i=0; i<2; ++i) {
         cV_Zii = e_4sc*(  Zp(0,i).conjugate()*Zp(0,i)
                         + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2) );
@@ -637,12 +637,12 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     }
 
     /* Sum of all contributions */
-    complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
+    gslpp::complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
 
     return ( PiT/16.0/M_PI/M_PI );
 }
 
-complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) const
+gslpp::complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double e2 = 4.0*M_PI*mySUSY.getAle();
@@ -653,19 +653,19 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     double Mw2 = Mw_i*Mw_i;
     double mHp2[2] = {mySUSY.getMHp()*mySUSY.getMHp(), Mw2}; /* H^+_i = (H^+, G^+) */
 
-    complex PiTp_f = complex(0.0, 0.0, false);
-    complex PiTp_sf = complex(0.0, 0.0, false);
-    complex PiTp_ch = complex(0.0, 0.0, false);
-    complex PiTp_WZH = complex(0.0, 0.0, false);
-    complex b0, b0p, b00p;
+    gslpp::complex PiTp_f = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiTp_sf = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiTp_ch = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex PiTp_WZH = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex b0, b0p, b00p;
 
     /* SM fermion loops */
-    complex cV_Aee = - e;
-    complex cA_Aee = 0.0;
-    complex cV_Add = - e/3.0;
-    complex cA_Add = 0.0;
-    complex cV_Auu = 2.0/3.0*e;
-    complex cA_Auu = 0.0;
+    gslpp::complex cV_Aee = - e;
+    gslpp::complex cA_Aee = 0.0;
+    gslpp::complex cV_Add = - e/3.0;
+    gslpp::complex cA_Add = 0.0;
+    gslpp::complex cV_Auu = 2.0/3.0*e;
+    gslpp::complex cA_Auu = 0.0;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
         PiTp_f += dFA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee);
@@ -696,8 +696,8 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     }
 
     /* chargino loops */
-    complex cV_Aii = e;
-    complex cA_Aii = 0.0;
+    gslpp::complex cV_Aii = e;
+    gslpp::complex cA_Aii = 0.0;
     for (int i=0; i<2; ++i)
         PiTp_ch += dFA(mu, p2, mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
 
@@ -720,7 +720,7 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     PiTp_WZH += - 2.0*e2*Mw2*b0p;
 
     /* Sum of all contributions */
-    complex PiTp = PiTp_f + PiTp_sf + PiTp_ch + PiTp_WZH;
+    gslpp::complex PiTp = PiTp_f + PiTp_sf + PiTp_ch + PiTp_WZH;
 
     return ( PiTp/16.0/M_PI/M_PI );
 }
@@ -780,15 +780,15 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
     int J = 1; // NEUTRINO_2
     int I = 0; // NEUTRINO_1
 
-    complex a11 = complex(0.0, 0.0, false);
-    complex a12 = complex(0.0, 0.0, false);
+    gslpp::complex a11 = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex a12 = gslpp::complex(0.0, 0.0, false);
 
     /* charged-lepton - sneutrino - chargino - neutralino loop */
     for (int k=0; k<6; ++k)
         for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-                    complex FF = F(sqrt(Mse2[k]), sqrt(Msn2[K]), mC[i], mN[j]);
+                    gslpp::complex FF = F(sqrt(Mse2[k]), sqrt(Msn2[K]), mC[i], mN[j]);
                     a11 += 0.5
                            *L_esnC(M, K, i, Mw_i)
                            *L_nLC(I, k, i, Mw_i)
@@ -858,7 +858,7 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
                            *H(sqrt(Mse2[k]), sqrt(Msn2[K]), mN[i], mN[j]);
                }
 
-    complex a1 = (a11 + a12)/16.0/M_PI/M_PI;
+    gslpp::complex a1 = (a11 + a12)/16.0/M_PI/M_PI;
 
     double sW2 = 1.0 - Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     return ( - sW2*Mw_i*Mw_i/2.0/M_PI/mySUSY.getAle()*a1.real() );
@@ -871,15 +871,15 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
     int J = 1; // NEUTRINO_2
     int I = 0; // NEUTRINO_1
 
-    complex a21 = complex(0.0, 0.0, false);
-    complex a22 = complex(0.0, 0.0, false);
+    gslpp::complex a21 = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex a22 = gslpp::complex(0.0, 0.0, false);
 
     /* charged-lepton - sneutrino - chargino - neutralino loop */
     for (int k=0; k<6; ++k)
         for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-                    complex HH = H(sqrt(Mse2[k]), sqrt(Msn2[K]), mC[i], mN[j]);
+                    gslpp::complex HH = H(sqrt(Mse2[k]), sqrt(Msn2[K]), mC[i], mN[j]);
                     a21 += - 2.0
                              *R_esnC(M, K, i)
                              *L_nLC(I, k, i, Mw_i)
@@ -951,13 +951,13 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
                            *H(sqrt(Mse2[k]), sqrt(Msn2[K]), mC[i], mC[j]);
                 }
 
-    complex a2 = (a21 + a22)/16.0/M_PI/M_PI;
+    gslpp::complex a2 = (a21 + a22)/16.0/M_PI/M_PI;
 
     double sW2 = 1.0 - Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     return ( sW2*Mw_i*Mw_i/4.0/M_PI/mySUSY.getAle()*a2.real() );
 }
 
-complex EWSUSY::v(const double mu, const StandardModel::lepton M,
+gslpp::complex EWSUSY::v(const double mu, const StandardModel::lepton M,
                   const StandardModel::lepton J, const double Mw_i) const
 {
     int intM, intJ;
@@ -980,9 +980,9 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
             throw std::runtime_error("EWSUSY::v(): Wrong argument!");
     }
 
-    complex v = complex(0.0, 0.0, false);
-    complex b0, ff;
-    complex CL_ji, CR_ji; /* chargino-neutralino-W couplings */
+    gslpp::complex v = gslpp::complex(0.0, 0.0, false);
+    gslpp::complex b0, ff;
+    gslpp::complex CL_ji, CR_ji; /* chargino-neutralino-W couplings */
 
     /* charged-slepton - chargino - neutralino loops */
     for (int k=0; k<6; ++k)
@@ -1015,7 +1015,7 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
             }
 
     /* sneutrino - charged-slepton - neutralino loops */
-    matrix<complex> ZneT_ZL = Zne.transpose()*ZL;
+    gslpp::matrix<gslpp::complex> ZneT_ZL = Zne.transpose()*ZL;
     for (int i=0; i<6; ++i)
         for (int j=0; j<4; ++j)
             for (int K=0; K<3; ++K) {  /* K=0-2 for left-handed sneutrinos */
@@ -1028,7 +1028,7 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
     return ( v/16.0/M_PI/M_PI );
 }
 
-complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
+gslpp::complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
                         const StandardModel::lepton J, const double Mw_i) const
 {
     int intM, intJ;
@@ -1051,9 +1051,9 @@ complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
             throw std::runtime_error("EWSUSY::delta_v(): Wrong argument!");
     }
 
-    complex delv = complex(0.0, 0.0, false);
+    gslpp::complex delv = gslpp::complex(0.0, 0.0, false);
     double muIR = mu; /* fictional scale, since B0p(0,m1^2,m2^2) is IR finite */
-    complex b0p, b0;
+    gslpp::complex b0p, b0;
 
     /* charged-slepton - neutralino loops */
     for (int k=0; k<6; ++k)
@@ -1087,7 +1087,7 @@ double EWSUSY::DeltaR_vertex_SUSY(const double Mw_i) const
             + delta_v(mu, mySUSY.MU, mySUSY.NEUTRINO_2, Mw_i).real() );
 }
 
-complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
+gslpp::complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
                            const StandardModel::lepton J, const double Mw_i) const
 {
     int intI, intJ;
@@ -1110,9 +1110,9 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
             throw std::runtime_error("EWSUSY::Sigma_nu(): Wrong argument!");
     }
 
-    complex Sigma = complex(0.0, 0.0, false);
+    gslpp::complex Sigma = gslpp::complex(0.0, 0.0, false);
     double muIR = mu; /* fictional scale, since B0p(0,m1,m2) is IR finite */
-    complex b0p, b0;
+    gslpp::complex b0p, b0;
 
     /* charged-slepton - chargino loops */
     for (int k=0; k<6; ++k)
@@ -1189,12 +1189,12 @@ double EWSUSY::DeltaAlphaL5q_SM_EW1() const
     double DelA_l = 0.0, DelA_d = 0.0, DelA_u = 0.0;
 
     /* SM fermion loops */
-    complex cV_Aee = - e;
-    complex cA_Aee = 0.0;
-    complex cV_Add = - e/3.0;
-    complex cA_Add = 0.0;
-    complex cV_Auu = 2.0/3.0*e;
-    complex cA_Auu = 0.0;
+    gslpp::complex cV_Aee = - e;
+    gslpp::complex cA_Aee = 0.0;
+    gslpp::complex cV_Add = - e/3.0;
+    gslpp::complex cA_Add = 0.0;
+    gslpp::complex cV_Auu = 2.0/3.0*e;
+    gslpp::complex cA_Auu = 0.0;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
         DelA_l += FA(mu, Mz2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee).real()/Mz2;
@@ -1336,7 +1336,7 @@ double EWSUSY::Mw_MSSM() const
     return Mw;
 }
 
-complex EWSUSY::L_esnC(const int N, const int K, const int i, const double Mw_i) const
+gslpp::complex EWSUSY::L_esnC(const int N, const int K, const int i, const double Mw_i) const
 {
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double cW = Mw_i/mySUSY.getMz();
@@ -1345,12 +1345,12 @@ complex EWSUSY::L_esnC(const int N, const int K, const int i, const double Mw_i)
     return ( e/sW*Zp(0,i)*Zne(N,K).conjugate() );
 }
 
-complex EWSUSY::R_esnC(const int N, const int K, const int i) const
+gslpp::complex EWSUSY::R_esnC(const int N, const int K, const int i) const
 {
     return ( Yl(N,N)*Zne(N,K).conjugate()*Zm(1,i).conjugate() );
 }
 
-complex EWSUSY::L_nLC(const int I, const int k, const int i, const double Mw_i) const
+gslpp::complex EWSUSY::L_nLC(const int I, const int k, const int i, const double Mw_i) const
 {
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double cW = Mw_i/mySUSY.getMz();
@@ -1359,7 +1359,7 @@ complex EWSUSY::L_nLC(const int I, const int k, const int i, const double Mw_i) 
     return ( e/sW*ZL(I,k)*Zm(0,i) + Yl(I,I)*ZL(I+3,k)*Zm(1,i) );
 }
 
-complex EWSUSY::L_nsnN(const int J, const int K, const int j, const double Mw_i) const
+gslpp::complex EWSUSY::L_nsnN(const int J, const int K, const int j, const double Mw_i) const
 {
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double cW = Mw_i/mySUSY.getMz();
@@ -1368,7 +1368,7 @@ complex EWSUSY::L_nsnN(const int J, const int K, const int j, const double Mw_i)
     return ( - e/sqrt(2.0)/sW/cW*Zne(J,K).conjugate()*(ZN(0,j)*sW - ZN(1,j)*cW) );
 }
 
-complex EWSUSY::L_eLN(const int N, const int k, const int j, const double Mw_i) const
+gslpp::complex EWSUSY::L_eLN(const int N, const int k, const int j, const double Mw_i) const
 {
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double cW = Mw_i/mySUSY.getMz();
@@ -1378,7 +1378,7 @@ complex EWSUSY::L_eLN(const int N, const int k, const int j, const double Mw_i) 
              - Yl(N,N)*ZL(N+3,k)*ZN(2,j) );
 }
 
-complex EWSUSY::R_eLN(const int N, const int k, const int j, const double Mw_i) const
+gslpp::complex EWSUSY::R_eLN(const int N, const int k, const int j, const double Mw_i) const
 {
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double cW = Mw_i/mySUSY.getMz();
@@ -1387,19 +1387,19 @@ complex EWSUSY::R_eLN(const int N, const int k, const int j, const double Mw_i) 
              - Yl(N,N)*ZL(N,k)*ZN(2,j).conjugate() );
 }
 
-complex EWSUSY::F(const double m1, const double m2, const double m3,
+gslpp::complex EWSUSY::F(const double m1, const double m2, const double m3,
                   const double m4) const
 {
     return PV.D0(0.0, 0.0, m1*m1, m2*m2, m3*m3, m4*m4);
 }
 
-complex EWSUSY::H(const double m1, const double m2, const double m3,
+gslpp::complex EWSUSY::H(const double m1, const double m2, const double m3,
                   const double m4) const
 {
     return PV.D00(0.0, 0.0, m1*m1, m2*m2, m3*m3, m4*m4);
 }
 
-complex EWSUSY::f(const double m1, const double m2, const double m3) const
+gslpp::complex EWSUSY::f(const double m1, const double m2, const double m3) const
 {
     return ( - PV.C0(0.0, m1*m1, m2*m2, m3*m3) );
 }

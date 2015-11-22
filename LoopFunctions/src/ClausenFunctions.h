@@ -8,9 +8,7 @@
 #ifndef CLAUSENFUNCTIONS_H
 #define	CLAUSENFUNCTIONS_H
 
-#include <gslpp.h>
 #include "BernoulliNumbers.h"
-using namespace gslpp;
 
 /**
  * @class ClausenFunctions

@@ -111,16 +111,16 @@ double EWSMThreeLoopEW::DeltaR_rem(const double Mw_i) const
     return (0.0);
 }
 
-complex EWSMThreeLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMThreeLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
-    return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
+    return ( gslpp::complex(0.0, 0.0, false));
 }
 
-complex EWSMThreeLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMThreeLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
-    return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
+    return ( gslpp::complex(0.0, 0.0, false));
 }
 
 

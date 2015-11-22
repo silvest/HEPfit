@@ -14,8 +14,6 @@
 #include <ClausenFunctions.h>
 #include "StandardModel.h"
 
-using namespace gslpp;
-
 /**
  * @class EWSMcache
  * @ingroup StandardModel
@@ -586,166 +584,166 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_W^2;m_h^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(0;m_h^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_0_mh2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mz2_0_mh2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_Z^2;m_t^2,m_t^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const;
+    gslpp::complex B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_Z^2;M_W^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @return @f$B_0(M_Z^2;m_h^2,M_Z^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mz2_mh2_Mz2() const;
+    gslpp::complex B0_Mz2_Mz2_mh2_Mz2() const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_W^2;M_Z^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_W^2;0,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mw2_0_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mz2_Mw2_0_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(0;M_Z^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_0_Mz2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mz2_0_Mz2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(0;0,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_0_0_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mz2_0_0_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_Z^2;M_W^2,M_W^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_W^2;M_Z^2,M_W^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_W^2;m_h^2,M_W^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_0(M_W^2;0,M_W^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0_Mw2_Mw2_0_Mw2(const double Mw_i) const;
+    gslpp::complex B0_Mw2_Mw2_0_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] f a lepton or quark
      * @return @f$B_0(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mz2_mf2_mf2(const Particle f) const;
+    gslpp::complex B0_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{0p}(0;m_h^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_0_mh2_Mw2(const double Mw_i) const;
+    gslpp::complex B0p_Mz2_0_mh2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @return @f$B_{0p}(M_Z^2;m_h^2,M_Z^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_Mz2_mh2_Mz2() const;
+    gslpp::complex B0p_Mz2_Mz2_mh2_Mz2() const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{0p}(0;M_Z^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const;
+    gslpp::complex B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{0p}(M_Z^2;M_W^2,M_W^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const;
+    gslpp::complex B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{0p}(M_W^2;M_Z^2,M_W^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const;
+    gslpp::complex B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{0p}(M_W^2;m_h^2,M_W^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const;
+    gslpp::complex B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{0p}(M_W^2;0,M_W^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const;
+    gslpp::complex B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] f a lepton or quark
      * @return @f$B_{0p}(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_Mz2_mf2_mf2(const Particle f) const;
+    gslpp::complex B0p_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
      * @param[in] gen the generation index of a lepton doublet
      * @return @f$B_1(0;m_l^2,m_{l'}^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_0_mf2_mfprime2(const int gen) const;
+    gslpp::complex B1_Mz2_0_mf2_mfprime2(const int gen) const;
 
     /**
      * @brief A cache method.
      * @param[in] gen the generation index of a lepton doublet
      * @return @f$B_1(0;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_0_mfprime2_mf2(const int gen) const;
+    gslpp::complex B1_Mz2_0_mfprime2_mf2(const int gen) const;
 
     /**
      * @brief A cache method.
@@ -753,7 +751,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_1(M_W^2;m_l^2,m_{l'}^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const;
+    gslpp::complex B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
@@ -761,7 +759,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_1(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
+    gslpp::complex B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
@@ -769,7 +767,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{1p}(M_W^2;m_l^2,m_{l'}^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const;
+    gslpp::complex B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
@@ -777,21 +775,21 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{1p}(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
+    gslpp::complex B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] f a lepton or quark
      * @return @f$B_f(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_Mz2_mf2_mf2(const Particle f) const;
+    gslpp::complex Bf_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
      * @param[in] f a lepton or quark
      * @return @f$B_f(0;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_0_mf2_mf2(const Particle f) const;
+    gslpp::complex Bf_Mz2_0_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
@@ -799,14 +797,14 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_f(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
+    gslpp::complex Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] gen the generation index of a lepton doublet
      * @return @f$B_f(0;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_0_mfprime2_mf2(const int gen) const;
+    gslpp::complex Bf_Mz2_0_mfprime2_mf2(const int gen) const;
 
     /**
      * @brief A cache method.
@@ -814,14 +812,14 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_f(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_W@f$
      */
-    complex Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
+    gslpp::complex Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] f a lepton or quark
      * @return @f$B_{fp}(M_Z^2;m_f^2,m_f^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bfp_Mz2_Mz2_mf2_mf2(const Particle f) const;
+    gslpp::complex Bfp_Mz2_Mz2_mf2_mf2(const Particle f) const;
 
     /**
      * @brief A cache method.
@@ -829,55 +827,55 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{fp}(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_W@f$
      */
-    complex Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
+    gslpp::complex Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$C_0(M_Z^2;M_W^2,m_t^2,M_W^2)@f$
      */
-    complex C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const;
+    gslpp::complex C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$C_0(M_Z^2;M_t^2,M_W^2,m_t^2)@f$
      */
-    complex C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const;
+    gslpp::complex C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$C_0(M_Z^2;0,M_W^2,0)@f$
      */
-    complex C0_Mz2_0_Mw2_0(const double Mw_i) const;
+    gslpp::complex C0_Mz2_0_Mw2_0(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$C_0(M_Z^2;M_W^2,0,M_W^2)@f$
      */
-    complex C0_Mz2_Mw2_0_Mw2(const double Mw_i) const;
+    gslpp::complex C0_Mz2_Mw2_0_Mw2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$C_0(M_W^2;M_W^2,0,M_Z^2)@f$
      */
-    complex C0_Mw2_Mw2_0_Mz2(const double Mw_i) const;
+    gslpp::complex C0_Mw2_Mw2_0_Mz2(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$C_0(M_W^2;0,M_Z^2,0)@f$
      */
-    complex C0_Mw2_0_Mz2_0(const double Mw_i) const;
+    gslpp::complex C0_Mw2_0_Mz2_0(const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @return @f$C_0(M_Z^2;0,M_Z^2,0)@f$
      */
-    complex C0_Mz2_0_Mz2_0() const;
+    gslpp::complex C0_Mz2_0_Mz2_0() const;
 
 
     //////////////////////////////////////////////////////////////////////// 
@@ -1058,7 +1056,7 @@ private:
      * function does not modify cache[].
      */
     void newCacheForComplex(double cache[], const int NumPar,
-            const double params[], const complex newResult) const
+            const double params[], const gslpp::complex newResult) const
     {
         if (!FlagCacheInEWSMcache) return;
         for (int i = 0; i < NumPar; ++i)

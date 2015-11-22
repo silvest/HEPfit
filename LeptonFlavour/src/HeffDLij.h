@@ -8,11 +8,9 @@
 #ifndef HEFFDLIJ_H
 #define	HEFFDLIJ_H
 
-#include <StandardModel.h>
-#include <StandardModelMatching.h>
-#include <WilsonCoefficient.h>
-
-using namespace gslpp;
+#include "StandardModel.h"
+#include "StandardModelMatching.h"
+#include "WilsonCoefficient.h"
 
 class HeffDLij {
 public:
@@ -35,7 +33,7 @@ public:
      * @param 
      * @return
      */
-    vector<complex>** ComputeCoeffDLij(int li_lj);
+    gslpp::vector<gslpp::complex>** ComputeCoeffDLij(int li_lj);
 
     const StandardModel& GetModel() const {
         return model;
@@ -48,7 +46,7 @@ private :
     WilsonCoefficient coeffDLij_2;
     WilsonCoefficient coeffDLij_3;
 
-    //gslpp::vector<complex> nlep, nlep2, nlepCC;
+    //gslpp::vector<gslpp::complex> nlep, nlep2, nlepCC;
 };
 
 #endif	/* HEFFDLIJ_H */

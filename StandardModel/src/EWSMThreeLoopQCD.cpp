@@ -63,16 +63,16 @@ double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const
     return DeltaR;
 }
 
-complex EWSMThreeLoopQCD::deltaRho_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMThreeLoopQCD::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
-    return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
+    return ( gslpp::complex(0.0, 0.0, false));
 }
 
-complex EWSMThreeLoopQCD::deltaKappa_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMThreeLoopQCD::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
     if (f.is("TOP"))
-        return ( complex(0.0, 0.0, false));
+        return ( gslpp::complex(0.0, 0.0, false));
     else {
         double Mw = Mw_i;
         return ( -3.0 * cache.Xt_alpha(Mw) * cache.getSM().cW2(Mw) / cache.getSM().sW2(Mw)
@@ -111,9 +111,9 @@ double EWSMThreeLoopQCD::deltaQCD_3(const double Mw_i) const
     return dQCD3;
 }
 
-complex EWSMThreeLoopQCD::deltaQCD_kappa3(const double Mw_i) const
+gslpp::complex EWSMThreeLoopQCD::deltaQCD_kappa3(const double Mw_i) const
 {
-    complex dQCDk3;
+    gslpp::complex dQCDk3;
     double lZ = 2.0 * cache.logMZtoMTOP();
     double Mw = Mw_i;
     double sW2 = cache.getSM().sW2(Mw);

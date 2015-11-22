@@ -13,8 +13,6 @@
 
 class SUSY;
 
-using namespace gslpp;
-
 /**
  * @addtogroup SUSY
  * @brief A module for a basis of %SUSY models.
@@ -169,9 +167,9 @@ public:
      * Eq. (A.7) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
      * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
      */
-    complex FA(const double mu, const double p2, const double mi, const double mj,
-               const complex cV_aij, const complex cV_bji,
-               const complex cA_aij, const complex cA_bji) const;
+    gslpp::complex FA(const double mu, const double p2, const double mi, const double mj,
+               const gslpp::complex cV_aij, const gslpp::complex cV_bji,
+               const gslpp::complex cA_aij, const gslpp::complex cA_bji) const;
 
     /**
      * @brief The derivative of 
@@ -199,9 +197,9 @@ public:
      * Eq. (A.7) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
      * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
      */
-    complex dFA(const double mu, const double p2, const double mi, const double mj,
-                const complex cV_aij, const complex cV_bji,
-                const complex cA_aij, const complex cA_bji) const;
+    gslpp::complex dFA(const double mu, const double p2, const double mi, const double mj,
+                const gslpp::complex cV_aij, const gslpp::complex cV_bji,
+                const gslpp::complex cA_aij, const gslpp::complex cA_bji) const;
     
     /**
      * @brief The transverse part of the Z-boson self-energy, @f$\Pi_Z^T(p^2)@f$,
@@ -215,7 +213,7 @@ public:
      * Eq. (A.15) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
      * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
      */
-    complex PiT_Z(const double mu, const double p2, const double Mw_i) const;
+    gslpp::complex PiT_Z(const double mu, const double p2, const double Mw_i) const;
 
     /**
      * @brief The transverse part of the self-energy, @f$\Pi_{\gamma Z}^T(p^2)@f$,
@@ -229,7 +227,7 @@ public:
      * Eq. (A.18) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
      * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
      */
-    complex PiT_AZ(const double mu, const double p2, const double Mw_i) const;
+    gslpp::complex PiT_AZ(const double mu, const double p2, const double Mw_i) const;
 
     /**
      * @brief The transverse part of the W-boson self-energy, @f$\Pi_W^T(p^2)@f$,
@@ -243,7 +241,7 @@ public:
      * Eq. (A.20) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
      * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
      */
-    complex PiT_W(const double mu, const double p2, const double Mw_i) const;
+    gslpp::complex PiT_W(const double mu, const double p2, const double Mw_i) const;
 
     /**
      * @brief The derivative of the transverse part of the photon self-energy
@@ -258,7 +256,7 @@ public:
      * Eq. (A.17) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
      * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
      */
-    complex PiTp_A(const double mu, const double p2, const double Mw_i) const;
+    gslpp::complex PiTp_A(const double mu, const double p2, const double Mw_i) const;
 
     /**
      * @brief The renormalized transverse W-boson self-energy at zero momentum 
@@ -314,7 +312,7 @@ public:
      * Eq. (A.19) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    complex v(const double mu, const StandardModel::lepton M,
+    gslpp::complex v(const double mu, const StandardModel::lepton M,
               const StandardModel::lepton J, const double Mw_i) const;
 
     /**
@@ -328,7 +326,7 @@ public:
      * Eq. (A.21) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    complex delta_v(const double mu, const StandardModel::lepton M,
+    gslpp::complex delta_v(const double mu, const StandardModel::lepton M,
                     const StandardModel::lepton J, const double Mw_i) const;
 
     /**
@@ -356,7 +354,7 @@ public:
      * Eq. (A.24) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    complex Sigma_nu_0(const double mu, const StandardModel::lepton I,
+    gslpp::complex Sigma_nu_0(const double mu, const StandardModel::lepton I,
                        const StandardModel::lepton J, const double Mw_i) const;
 
     /**
@@ -421,32 +419,32 @@ private:
     const PVfunctions PV; ///< An object of PVfunctions class.
     const SUSY& mySUSY; ///< A reference to the SUSY object passed to the constructor.
 
-    matrix<complex> Yu; ///< The Yukawa coupling matrix for up-type quarks in Rosiek's notation.
-    matrix<complex> Yd; ///< The Yukawa coupling matrix for down-type quarks in Rosiek's notation.
-    matrix<complex> Yl; ///< The Yukawa coupling matrix for charged leptons in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Yu; ///< The Yukawa coupling matrix for up-type quarks in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa coupling matrix for down-type quarks in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Yl; ///< The Yukawa coupling matrix for charged leptons in Rosiek's notation.
 
-    matrix<complex> Au; ///< The trilinear coupling matrix for up-type squarks in Rosiek's notation.
-    matrix<complex> Ad; ///< The trilinear coupling matrix for down-type squarks in Rosiek's notation.
-    matrix<complex> Al; ///< The trilinear coupling matrix for charged sleptons in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Au; ///< The trilinear coupling matrix for up-type squarks in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Ad; ///< The trilinear coupling matrix for down-type squarks in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Al; ///< The trilinear coupling matrix for charged sleptons in Rosiek's notation.
 
-    matrix<complex> Zm; ///< The rotation matrix for negative charginos in Rosiek's notation.
-    matrix<complex> Zp; ///< The rotation matrix for positive charginos in Rosiek's notation.
-    matrix<complex> ZN; ///< The rotation matrix for neutralinos in Rosiek's notation.
-    matrix<complex> ZU; ///< The rotation matrix for up-type squarks in Rosiek's notation.
-    matrix<complex> ZD; ///< The rotation matrix for down-type squarks in Rosiek's notation.
-    matrix<complex> ZL; ///< The rotation matrix for charged sleptons in Rosiek's notation.
-    matrix<complex> Zne; ///< The rotation matrix for sneutrinos in Rosiek's notation.
-    matrix<double> ZR; ///< The rotation matrix for CP-even neutral Higgses in Rosiek's notation.
-    matrix<double> ZH; ///< The rotation matrix for charged (CP-odd neutral) Higgs and charged (neutral) Goldstone boson in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Zm; ///< The rotation matrix for negative charginos in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Zp; ///< The rotation matrix for positive charginos in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> ZN; ///< The rotation matrix for neutralinos in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> ZU; ///< The rotation matrix for up-type squarks in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> ZD; ///< The rotation matrix for down-type squarks in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> ZL; ///< The rotation matrix for charged sleptons in Rosiek's notation.
+    gslpp::matrix<gslpp::complex> Zne; ///< The rotation matrix for sneutrinos in Rosiek's notation.
+    gslpp::matrix<double> ZR; ///< The rotation matrix for CP-even neutral Higgses in Rosiek's notation.
+    gslpp::matrix<double> ZH; ///< The rotation matrix for charged (CP-odd neutral) Higgs and charged (neutral) Goldstone boson in Rosiek's notation.
 
     double m_u[3], m_d[3], m_l[3], mH02[4], Msu2[6], Msd2[6], Mse2[6], Msn2[3], mC[2], mN[4];
 
-    complex L_esnC(const int N, const int K, const int i, const double Mw_i) const;
-    complex R_esnC(const int N, const int K, const int i) const;
-    complex L_nLC(const int I, const int k, const int i, const double Mw_i) const;
-    complex L_nsnN(const int J, const int K, const int j, const double Mw_i) const;
-    complex L_eLN(const int N, const int k, const int j, const double Mw_i) const;
-    complex R_eLN(const int N, const int k, const int j, const double Mw_i) const;
+    gslpp::complex L_esnC(const int N, const int K, const int i, const double Mw_i) const;
+    gslpp::complex R_esnC(const int N, const int K, const int i) const;
+    gslpp::complex L_nLC(const int I, const int k, const int i, const double Mw_i) const;
+    gslpp::complex L_nsnN(const int J, const int K, const int j, const double Mw_i) const;
+    gslpp::complex L_eLN(const int N, const int k, const int j, const double Mw_i) const;
+    gslpp::complex R_eLN(const int N, const int k, const int j, const double Mw_i) const;
 
     /**
      * @brief
@@ -460,7 +458,7 @@ private:
      * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    complex F(const double m1, const double m2, const double m3, const double m4) const;
+    gslpp::complex F(const double m1, const double m2, const double m3, const double m4) const;
 
     /**
      * @brief
@@ -474,7 +472,7 @@ private:
      * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    complex H(const double m1, const double m2, const double m3, const double m4) const;
+    gslpp::complex H(const double m1, const double m2, const double m3, const double m4) const;
 
     /**
      * @brief
@@ -487,7 +485,7 @@ private:
      * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    complex f(const double m1, const double m2, const double m3) const;
+    gslpp::complex f(const double m1, const double m2, const double m3) const;
 
 };
 

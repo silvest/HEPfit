@@ -27,7 +27,7 @@ double mu_3e::computeThValue()
     double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
     double mMU = mySM.getLeptons(StandardModel::MU).getMass();
     double GammaMU = 2.99598e-19;
-    gslpp::vector<complex> ** allcoeff_m3e = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(1);
+    gslpp::vector<gslpp::complex> ** allcoeff_m3e = mySM.getMyLeptonFlavour()->ComputeCoeffli_3lj(1);
 //    C_7 = (*(allcoeff_m3e[LO]))(0);
 //    C_7p = (*(allcoeff_m3e[LO]))(1);
 //    C_9 = (*(allcoeff_m3e[LO]))(2);
@@ -132,7 +132,7 @@ double tau_3mu::computeThValue()
 {
 //    double alph = mySM.getAle();
 //    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
-//    gslpp::vector<complex> ** allcoeff_tm = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(2);
+//    gslpp::vector<gslpp::complex> ** allcoeff_tm = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(2);
 //    double BR_tau_mu_gamma = (alph*pow(mTAU,5.0) * ((*(allcoeff_tm[LO])) * (*(allcoeff_tm[LO])).conjugate()).abs() / (2.26e-12) );
     return 0.0;
 }
@@ -145,7 +145,7 @@ double tau_3e::computeThValue()
 {
 //    double alph = mySM.getAle();
 //    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
-//    gslpp::vector<complex> ** allcoeff_te = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(3);
+//    gslpp::vector<gslpp::complex> ** allcoeff_te = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(3);
 //    double BR_tau_e_gamma = (alph*pow(mTAU,5.0) * ((*(allcoeff_te[LO])) * (*(allcoeff_te[LO])).conjugate()).abs() / (2.26e-12) );
     return 0.0;
 }

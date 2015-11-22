@@ -13,7 +13,6 @@
 #include <Polylogarithms.h>
 #include <PVfunctions.h>
 #include "EWSMOneLoopEW.h"
-using namespace gslpp;
 
 /**
  * @class EWSMTwoFermionsLEP2
@@ -81,127 +80,127 @@ public:
 
     ////////////////////////////////////////////////////////////////////////  
 
-    complex V_pol(const double s) const;
+    gslpp::complex V_pol(const double s) const;
 
-    complex chi_Z(const double s, const double Mw, const double GammaZ) const;
+    gslpp::complex chi_Z(const double s, const double Mw, const double GammaZ) const;
 
-    complex G_e(const double s, const double t, const double Mw,
+    gslpp::complex G_e(const double s, const double t, const double Mw,
             const double I3f, const double Qf, const double mf,
             const double mfp, const bool bWeak, const bool bWWbox,
             const bool bZZbox) const;
-    complex G_f(const double s, const double t, const double Mw,
+    gslpp::complex G_f(const double s, const double t, const double Mw,
             const double I3f, const double Qf, const double mf,
             const double mfp, const bool bWeak, const bool bWWbox,
             const bool bZZbox) const;
-    complex G_ef(const double s, const double t, const double Mw,
-            const double I3f, const double Qf, const double mf,
-            const double mfp, const bool bWeak, const bool bWWbox,
-            const bool bZZbox) const;
-
-    complex rho_ef(const double s, const double t, const double Mw,
-            const double I3f, const double Qf, const double mf,
-            const double mfp, const bool bWeak, const bool bWWbox,
-            const bool bZZbox) const;
-    complex kappa_e(const double s, const double t, const double Mw,
-            const double I3f, const double Qf, const double mf,
-            const double mfp, const bool bWeak, const bool bWWbox,
-            const bool bZZbox) const;
-    complex kappa_f(const double s, const double t, const double Mw,
-            const double I3f, const double Qf, const double mf,
-            const double mfp, const bool bWeak, const bool bWWbox,
-            const bool bZZbox) const;
-    complex kappa_ef(const double s, const double t, const double Mw,
+    gslpp::complex G_ef(const double s, const double t, const double Mw,
             const double I3f, const double Qf, const double mf,
             const double mfp, const bool bWeak, const bool bWWbox,
             const bool bZZbox) const;
 
-    complex Delta_rho_ef_TOP(const double s, const double t, const double u,
+    gslpp::complex rho_ef(const double s, const double t, const double Mw,
+            const double I3f, const double Qf, const double mf,
+            const double mfp, const bool bWeak, const bool bWWbox,
+            const bool bZZbox) const;
+    gslpp::complex kappa_e(const double s, const double t, const double Mw,
+            const double I3f, const double Qf, const double mf,
+            const double mfp, const bool bWeak, const bool bWWbox,
+            const bool bZZbox) const;
+    gslpp::complex kappa_f(const double s, const double t, const double Mw,
+            const double I3f, const double Qf, const double mf,
+            const double mfp, const bool bWeak, const bool bWWbox,
+            const bool bZZbox) const;
+    gslpp::complex kappa_ef(const double s, const double t, const double Mw,
+            const double I3f, const double Qf, const double mf,
+            const double mfp, const bool bWeak, const bool bWWbox,
+            const bool bZZbox) const;
+
+    gslpp::complex Delta_rho_ef_TOP(const double s, const double t, const double u,
             const double Mw, const bool bWWbox) const;
-    complex Delta_kappa_e_TOP(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_e_TOP(const double s, const double t, const double u,
             const double Mw, const bool bWWbox) const;
-    complex Delta_kappa_f_TOP(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_f_TOP(const double s, const double t, const double u,
             const double Mw, const bool bWWbox) const;
-    complex Delta_kappa_ef_TOP(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_ef_TOP(const double s, const double t, const double u,
             const double Mw, const bool bWWbox) const;
 
-    complex Delta_rho_ef_WW_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_rho_ef_WW_hat(const double s, const double t, const double u,
             const double Mw, const double I3f) const;
-    complex Delta_kappa_e_WW_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_e_WW_hat(const double s, const double t, const double u,
             const double Mw, const double I3f) const;
-    complex Delta_kappa_f_WW_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_f_WW_hat(const double s, const double t, const double u,
             const double Mw, const double I3f) const;
-    complex Delta_kappa_ef_WW_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_ef_WW_hat(const double s, const double t, const double u,
             const double Mw, const double I3f) const;
 
-    complex Delta_rho_ef_WW_TOP_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_rho_ef_WW_TOP_hat(const double s, const double t, const double u,
             const double Mw) const;
-    complex Delta_kappa_e_WW_TOP_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_e_WW_TOP_hat(const double s, const double t, const double u,
             const double Mw) const;
-    complex Delta_kappa_f_WW_TOP_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_f_WW_TOP_hat(const double s, const double t, const double u,
             const double Mw) const;
-    complex Delta_kappa_ef_WW_TOP_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_kappa_ef_WW_TOP_hat(const double s, const double t, const double u,
             const double Mw) const;
 
-    complex Delta_rho_ef_ZZ(const double mu, const double s, const double t,
+    gslpp::complex Delta_rho_ef_ZZ(const double mu, const double s, const double t,
             const double u, const double Mw, const double I3f,
             const double Qf) const;
-    complex Delta_kappa_e_ZZ(const double mu, const double s, const double t,
+    gslpp::complex Delta_kappa_e_ZZ(const double mu, const double s, const double t,
             const double u, const double Mw, const double I3f,
             const double Qf) const;
-    complex Delta_kappa_f_ZZ(const double mu, const double s, const double t,
+    gslpp::complex Delta_kappa_f_ZZ(const double mu, const double s, const double t,
             const double u, const double Mw, const double I3f,
             const double Qf) const;
-    complex Delta_kappa_ef_ZZ(const double mu, const double s, const double t,
+    gslpp::complex Delta_kappa_ef_ZZ(const double mu, const double s, const double t,
             const double u, const double Mw, const double I3f,
             const double Qf) const;
 
     ////////////////////////////////////////////////////////////////////////  
 
     // Weak corrections
-    //complex I2e(const double s, const double Mw, const bool bWeak) const;
-    //complex I2f(const double s, const double Mw, const bool bWeak) const;
-    complex DeltaRhobar(const double mu, const double Mw) const;
-    complex DeltaRhobarZ(const double mu, const double Mw) const;
-    complex D_Z(const double mu, const double s, const double Mw) const;
-    complex Pibar_Zgamma(const double mu, const double s, const double Mw) const;
-    complex Pibar_gg_bos(const double mu, const double s, const double Mw) const;
-    complex F_za_0(const double s, const double Mw) const;
-    complex F_Wa_0(const double s, const double Mw) const;
-    complex F_Wa_t(const double s, const double Mw) const;
-    complex F_Wn_0(const double s, const double Mw) const;
-    complex F_Wn_t(const double s, const double Mw) const;
-    complex F_W_0(const double s, const double Mw) const;
-    complex F_W_t(const double s, const double Mw) const;
+    //gslpp::complex I2e(const double s, const double Mw, const bool bWeak) const;
+    //gslpp::complex I2f(const double s, const double Mw, const bool bWeak) const;
+    gslpp::complex DeltaRhobar(const double mu, const double Mw) const;
+    gslpp::complex DeltaRhobarZ(const double mu, const double Mw) const;
+    gslpp::complex D_Z(const double mu, const double s, const double Mw) const;
+    gslpp::complex Pibar_Zgamma(const double mu, const double s, const double Mw) const;
+    gslpp::complex Pibar_gg_bos(const double mu, const double s, const double Mw) const;
+    gslpp::complex F_za_0(const double s, const double Mw) const;
+    gslpp::complex F_Wa_0(const double s, const double Mw) const;
+    gslpp::complex F_Wa_t(const double s, const double Mw) const;
+    gslpp::complex F_Wn_0(const double s, const double Mw) const;
+    gslpp::complex F_Wn_t(const double s, const double Mw) const;
+    gslpp::complex F_W_0(const double s, const double Mw) const;
+    gslpp::complex F_W_t(const double s, const double Mw) const;
 
     // WW box
-    complex B_WW_d_0(const double mu, const double s, const double t,
+    gslpp::complex B_WW_d_0(const double mu, const double s, const double t,
             const double u, const double Mw) const;
-    complex B_WW_d(const double mu, const double s, const double t,
+    gslpp::complex B_WW_d(const double mu, const double s, const double t,
             const double u, const double Mw) const;
-    complex Delta_B_WW_d(const double mu, const double s, const double t,
+    gslpp::complex Delta_B_WW_d(const double mu, const double s, const double t,
             const double u, const double Mw) const;
-    complex B_WW_c_0(const double mu, const double s, const double t,
+    gslpp::complex B_WW_c_0(const double mu, const double s, const double t,
             const double u, const double Mw) const;
 
     // ZZ box
-    complex B_ZZ_0(const double mu, const double s, const double t,
+    gslpp::complex B_ZZ_0(const double mu, const double s, const double t,
             const double u) const;
 
     // weak corrections without non-unitary terms
-    complex D_Z_hat(const double s, const double Mw) const;
-    complex Pibar_Zgamma_hat(const double s, const double Mw) const;
-    complex Pibar_gg_bos_hat(const double s, const double Mw) const;
-    complex F_Wn_0_hat(const double s, const double Mw) const;
-    complex F_Wn_t_hat(const double s, const double Mw) const;
-    complex F_W_0_hat(const double s, const double Mw) const;
-    complex F_W_t_hat(const double s, const double Mw) const;
-    complex B_WW_d_0_hat(const double s, const double t, const double u,
+    gslpp::complex D_Z_hat(const double s, const double Mw) const;
+    gslpp::complex Pibar_Zgamma_hat(const double s, const double Mw) const;
+    gslpp::complex Pibar_gg_bos_hat(const double s, const double Mw) const;
+    gslpp::complex F_Wn_0_hat(const double s, const double Mw) const;
+    gslpp::complex F_Wn_t_hat(const double s, const double Mw) const;
+    gslpp::complex F_W_0_hat(const double s, const double Mw) const;
+    gslpp::complex F_W_t_hat(const double s, const double Mw) const;
+    gslpp::complex B_WW_d_0_hat(const double s, const double t, const double u,
             const double Mw) const;
-    complex B_WW_d_0_hat_TEST(const double s, const double t, const double u,
+    gslpp::complex B_WW_d_0_hat_TEST(const double s, const double t, const double u,
             const double Mw) const;
-    complex Delta_B_WW_d_hat(const double s, const double t, const double u,
+    gslpp::complex Delta_B_WW_d_hat(const double s, const double t, const double u,
             const double Mw) const;
-    complex B_WW_c_0_hat(const double s, const double t, const double u,
+    gslpp::complex B_WW_c_0_hat(const double s, const double t, const double u,
             const double Mw) const;
 
 

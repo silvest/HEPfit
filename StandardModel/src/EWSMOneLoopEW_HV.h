@@ -10,7 +10,7 @@
 
 #include <PVfunctions.h>
 #include "StandardModel.h"
-using namespace gslpp;
+
 
 /**
  * @class EWSMOneLoopEW_HV
@@ -118,7 +118,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of W boson
      */
-    complex SigmaWW_bos(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaWW_bos(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -126,7 +126,7 @@ public:
      * @param[in] s momentum-squared
      * @return fermionic contribution to the self-energy function of W boson
      */
-    complex SigmaWW_fer(const double mu, const double muForMq, const double s) const;
+    gslpp::complex SigmaWW_fer(const double mu, const double muForMq, const double s) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -134,7 +134,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of Z boson
      */
-    complex SigmaZZ_bos(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaZZ_bos(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -143,7 +143,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return fermionic contribution to the self-energy function of Z boson
      */
-    complex SigmaZZ_fer(const double mu, const double muForMq, const double s,
+    gslpp::complex SigmaZZ_fer(const double mu, const double muForMq, const double s,
             const double Mw) const;
 
     /**
@@ -152,7 +152,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of photon 
      */
-    complex SigmaGammaGamma_bos(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaGammaGamma_bos(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -160,7 +160,7 @@ public:
      * @param[in] s momentum-squared
      * @return fermionic contribution to the self-energy function of photon 
      */
-    complex SigmaGammaGamma_fer(const double mu, const double muForMq, const double s) const;
+    gslpp::complex SigmaGammaGamma_fer(const double mu, const double muForMq, const double s) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -168,7 +168,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of photon 
      */
-    complex PiGammaGamma_bos(const double mu, const double s, const double Mw) const;
+    gslpp::complex PiGammaGamma_bos(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -176,7 +176,7 @@ public:
      * @param[in] l name of lepton
      * @return contribution to the self-energy function of photon from lepton l
      */
-    complex PiGammaGamma_fer_l(const double mu, const double s, const StandardModel::lepton l) const;
+    gslpp::complex PiGammaGamma_fer_l(const double mu, const double s, const StandardModel::lepton l) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -185,7 +185,7 @@ public:
      * @param[in] q name of quark
      * @return contribution to the self-energy function of photon from quark q
      */
-    complex PiGammaGamma_fer_q(const double mu, const double muForMq,
+    gslpp::complex PiGammaGamma_fer_q(const double mu, const double muForMq,
             const double s, const QCD::quark q) const;
 
     /**
@@ -194,7 +194,7 @@ public:
      * @param[in] s momentum-squared
      * @return fermionic contribution to the self-energy function of photon 
      */
-    complex PiGammaGamma_fer(const double mu, const double muForMq, const double s) const;
+    gslpp::complex PiGammaGamma_fer(const double mu, const double muForMq, const double s) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -202,7 +202,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of the Z-gamma mixing
      */
-    complex SigmaZgamma_bos(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaZgamma_bos(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -211,7 +211,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return fermionic contribution to the self-energy function of the Z-gamma mixing
      */
-    complex SigmaZgamma_fer(const double mu, const double muForMq,
+    gslpp::complex SigmaZgamma_fer(const double mu, const double muForMq,
             const double s, const double Mw) const;
 
 
@@ -223,7 +223,7 @@ public:
      * @param[in] m2 mass
      * @return one-loop function F(s, m1, m2)
      */
-    complex F_Hollik(const double s, const double m1, const double m2) const;
+    gslpp::complex F_Hollik(const double s, const double m1, const double m2) const;
 
     /**
      * @param[in] muIR renormalization scale for a possible IR divergence
@@ -232,7 +232,7 @@ public:
      * @param[in] m2 mass
      * @return dF(s, m1, m2)/ds
      */
-    complex Fprime_Hollik(const double muIR, const double s, const double m1, const double m2) const;
+    gslpp::complex Fprime_Hollik(const double muIR, const double s, const double m1, const double m2) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -240,7 +240,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of W boson
      */
-    complex SigmaWW_bos_Hollik(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaWW_bos_Hollik(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -248,7 +248,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of Z boson
      */
-    complex SigmaZZ_bos_Hollik(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaZZ_bos_Hollik(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -256,7 +256,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of photon
      */
-    complex SigmaGammaGamma_bos_Hollik(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaGammaGamma_bos_Hollik(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -264,7 +264,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of photon
      */
-    complex PiGammaGamma_bos_Hollik(const double mu, const double s, const double Mw) const;
+    gslpp::complex PiGammaGamma_bos_Hollik(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -272,7 +272,7 @@ public:
      * @param[in] Mw the W-boson mass
      * @return bosonic contribution to the self-energy function of the Z-gamma mixing
      */
-    complex SigmaZgamma_bos_Hollik(const double mu, const double s, const double Mw) const;
+    gslpp::complex SigmaZgamma_bos_Hollik(const double mu, const double s, const double Mw) const;
 
 
     ////////////////////////////////////////////////////////////////////////      

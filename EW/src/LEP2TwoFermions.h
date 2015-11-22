@@ -8,9 +8,7 @@
 #ifndef LEP2TWOFERMIONS_H
 #define	LEP2TWOFERMIONS_H
 
-#include <StandardModel.h>
-
-using namespace gslpp;
+#include "StandardModel.h"
 
 /**
  * @class LEP2TwoFermions

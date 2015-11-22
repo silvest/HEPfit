@@ -5,7 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <EWSMTwoFermionsLEP2.h>
+#include "EWSMTwoFermionsLEP2.h"
 #include "LEP2TwoFermions.h"
 
 

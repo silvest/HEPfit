@@ -1022,43 +1022,43 @@ double NPEffectiveGIMR::CHf_diag(const Particle f) const
         throw std::runtime_error("NPEffectiveGIMR::CHf_diag(): wrong argument");
 }
 
-complex NPEffectiveGIMR::CHud_diag(const Particle u) const
+gslpp::complex NPEffectiveGIMR::CHud_diag(const Particle u) const
 {
     if (!u.is("QUARK") || u.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::CHud_diag(): wrong argument");
 
     if (u.is("UP"))
-        return complex(CHud_11r, CHud_11i, false);
+        return gslpp::complex(CHud_11r, CHud_11i, false);
     else if (u.is("CHARM"))
-        return complex(CHud_22r, CHud_22i, false);
+        return gslpp::complex(CHud_22r, CHud_22i, false);
     else if (u.is("TOP"))
-        return complex(CHud_22r, CHud_33i, false);
+        return gslpp::complex(CHud_22r, CHud_33i, false);
     else
         throw std::runtime_error("NPEffectiveGIMR::CHud_diag(): wrong argument");
 }
 
-complex NPEffectiveGIMR::CfH_diag(const Particle f) const
+gslpp::complex NPEffectiveGIMR::CfH_diag(const Particle f) const
 {
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
         return 0.0;
     else if (f.is("ELECTRON"))
-        return complex(CeH_11r, CeH_11i, false);
+        return gslpp::complex(CeH_11r, CeH_11i, false);
     else if (f.is("MU"))
-        return complex(CeH_22r, CeH_22i, false);
+        return gslpp::complex(CeH_22r, CeH_22i, false);
     else if (f.is("TAU"))
-        return complex(CeH_33r, CeH_33i, false);
+        return gslpp::complex(CeH_33r, CeH_33i, false);
     else if (f.is("UP"))
-        return complex(CuH_11r, CuH_11i, false);
+        return gslpp::complex(CuH_11r, CuH_11i, false);
     else if (f.is("CHARM"))
-        return complex(CuH_22r, CuH_22i, false);
+        return gslpp::complex(CuH_22r, CuH_22i, false);
     else if (f.is("TOP"))
-        return complex(CuH_33r, CuH_33i, false);
+        return gslpp::complex(CuH_33r, CuH_33i, false);
     else if (f.is("DOWN"))
-        return complex(CdH_11r, CdH_11i, false);
+        return gslpp::complex(CdH_11r, CdH_11i, false);
     else if (f.is("STRANGE"))
-        return complex(CdH_22r, CdH_22i, false);
+        return gslpp::complex(CdH_22r, CdH_22i, false);
     else if (f.is("BOTTOM"))
-        return complex(CdH_33r, CdH_33i, false);
+        return gslpp::complex(CdH_33r, CdH_33i, false);
     else
         throw std::runtime_error("NPEffectiveGIMR::CfH_diag(): wrong argument");
 }
@@ -1161,7 +1161,7 @@ double NPEffectiveGIMR::deltaGR_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-complex NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
+gslpp::complex NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wff(): Not implemented");
@@ -1178,12 +1178,12 @@ complex NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) cons
     return (NPindirect + NPdirect);
 }
 
-complex NPEffectiveGIMR::deltaGR_Wff(const Particle pbar, const Particle p) const
+gslpp::complex NPEffectiveGIMR::deltaGR_Wff(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wff(): Not implemented");
 
-    complex CHud = CHud_diag(pbar);
+    gslpp::complex CHud = CHud_diag(pbar);
     return (0.5 * CHud * v2_over_LambdaNP2);
 }
 
@@ -1247,7 +1247,7 @@ double NPEffectiveGIMR::deltaG_hAA() const
     return (delta_AA / v());
 }
 
-complex NPEffectiveGIMR::deltaG_hff(const Particle p) const
+gslpp::complex NPEffectiveGIMR::deltaG_hff(const Particle p) const
 {
     /* The effects of the RG running are neglected. */
     double mf;
@@ -1256,12 +1256,12 @@ complex NPEffectiveGIMR::deltaG_hff(const Particle p) const
         mf = mtpole; // pole mass
     else
         mf = p.getMass();
-    complex CfH = CfH_diag(p);
+    gslpp::complex CfH = CfH_diag(p);
     return (-mf / v() * (delta_h - 0.5 * DeltaGF())
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
 }
 
-complex NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) const
+gslpp::complex NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wffh(): Not implemented");
@@ -1270,12 +1270,12 @@ complex NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) con
     return (2.0 * sqrt(2.0) * Mz * cW_tree / v() / v() * CHF3 * v2_over_LambdaNP2);
 }
 
-complex NPEffectiveGIMR::deltaGR_Wffh(const Particle pbar, const Particle p) const
+gslpp::complex NPEffectiveGIMR::deltaGR_Wffh(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wffh(): Not implemented");
 
-    complex CHud = CHud_diag(pbar);
+    gslpp::complex CHud = CHud_diag(pbar);
     return (sqrt(2.0) * Mz * cW_tree / v() / v() * CHud * v2_over_LambdaNP2);
 }
 
@@ -1296,19 +1296,19 @@ double NPEffectiveGIMR::deltaGR_Zffh(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-complex NPEffectiveGIMR::f_triangle(const double tau) const
+gslpp::complex NPEffectiveGIMR::f_triangle(const double tau) const
 {
-    complex tmp;
+    gslpp::complex tmp;
     if (tau >= 1.0) {
         tmp = asin(1.0 / sqrt(tau));
         return (tmp * tmp);
     } else {
-        tmp = log((1.0 + sqrt(1.0 - tau)) / (1.0 - sqrt(1.0 - tau))) - M_PI * complex::i();
+        tmp = log((1.0 + sqrt(1.0 - tau)) / (1.0 - sqrt(1.0 - tau))) - M_PI * gslpp::complex::i();
         return (-0.25 * tmp * tmp);
     }
 }
 
-complex NPEffectiveGIMR::AH_f(const double tau) const
+gslpp::complex NPEffectiveGIMR::AH_f(const double tau) const
 {
     return (2.0 * tau * (1.0 + (1.0 - tau) * f_triangle(tau)));
 }
@@ -1319,22 +1319,22 @@ double NPEffectiveGIMR::muggH(const double sqrt_s) const
     //doulbe m_t = quarks[TOP].getMass();
     //double m_b = quarks[BOTTOM].getMass();
 
-    complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    //complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
+    //gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
 
     /* L_eff = G_eff_t_SM*hGG */
-    complex G_eff_t_SM = AlsMz / 16.0 / M_PI / v() * AH_f(4.0 * m_t * m_t / mHl / mHl);
+    gslpp::complex G_eff_t_SM = AlsMz / 16.0 / M_PI / v() * AH_f(4.0 * m_t * m_t / mHl / mHl);
 
     //double sigma_tt_SM = trueSM.computeSigmaggH_tt(sqrt_s);
     //double sigma_bb_SM = trueSM.computeSigmaggH_bb(sqrt_s);
     //double sigma_tb_SM = trueSM.computeSigmaggH_tb(sqrt_s);
-    //complex tmp = (2.0 * dKappa_t * sigma_tt_SM
+    //gslpp::complex tmp = (2.0 * dKappa_t * sigma_tt_SM
     //        + 2.0 * dKappa_b * sigma_bb_SM
     //        + (dKappa_t + dKappa_b) * sigma_tb_SM)
     //        / (sigma_tt_SM + sigma_bb_SM + sigma_tb_SM);
-    complex tmp = 2.0 * dKappa_t;
+    gslpp::complex tmp = 2.0 * dKappa_t;
 
-    complex tmp2 = 2.0 * CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
+    gslpp::complex tmp2 = 2.0 * CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
     
     double mu = (1.0 + tmp.real() + tmp2.real());
     
@@ -2282,7 +2282,7 @@ double NPEffectiveGIMR::sigma_eeTOffbar(const Particle F, const double sqrt_s) c
     double s = sqrt_s*sqrt_s;
     double s2 = s*s;
     
-    complex chi_s = s/(s - Mz*Mz + complex::i()*Mz*Gamma_Z());
+    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
 
     double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
     double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
@@ -2297,7 +2297,7 @@ double NPEffectiveGIMR::sigma_eeTOffbar(const Particle F, const double sqrt_s) c
     double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
     double alpha2Mz = alphaMz()*alphaMz();
     
-    complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CLR2_hat + CRL2_hat + CRR2_hat) * s2 - 
+    gslpp::complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CLR2_hat + CRL2_hat + CRR2_hat) * s2 - 
                   8 * (CLL_hat + CLR_hat + CRL_hat + CRR_hat) * M_PI * Qf * s * alphaMz()+
                   64 * M_PI * M_PI * Qf * Qf * alpha2Mz) + 
                   4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * ((CLL_hat * gLf * gLe + CLR_hat * gLe * gRf + 
@@ -2308,7 +2308,7 @@ double NPEffectiveGIMR::sigma_eeTOffbar(const Particle F, const double sqrt_s) c
     return (tmp.real());
 }
 
-complex NPEffectiveGIMR::sigma_eeTOffbarF(const Particle F, const double sqrt_s) const
+gslpp::complex NPEffectiveGIMR::sigma_eeTOffbarF(const Particle F, const double sqrt_s) const
 {
     int Nf;
     double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
@@ -2343,7 +2343,7 @@ complex NPEffectiveGIMR::sigma_eeTOffbarF(const Particle F, const double sqrt_s)
     double s = sqrt_s*sqrt_s;
     double s2 = s*s;
     
-    complex chi_s = s/(s - Mz*Mz + complex::i()*Mz*Gamma_Z());
+    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
 
     double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
     double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
@@ -2358,7 +2358,7 @@ complex NPEffectiveGIMR::sigma_eeTOffbarF(const Particle F, const double sqrt_s)
     double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
     double alpha2Mz = alphaMz()*alphaMz();
     
-    complex tmp = Nf * (sW4cW4 * ((CLR2_hat + CRL2_hat) * s2 - 
+    gslpp::complex tmp = Nf * (sW4cW4 * ((CLR2_hat + CRL2_hat) * s2 - 
                   8 * (CLR_hat + CRL_hat) * M_PI * Qf * s * alphaMz() + 
                   32 * M_PI * M_PI * Qf * Qf * alpha2Mz)+
                   4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * (CLR_hat * gLe * gRf * s +
@@ -2382,7 +2382,7 @@ complex NPEffectiveGIMR::sigma_eeTOffbarF(const Particle F, const double sqrt_s)
     return (tmp);
 }
 
-complex NPEffectiveGIMR::sigma_eeTOffbarB(const Particle F, const double sqrt_s) const
+gslpp::complex NPEffectiveGIMR::sigma_eeTOffbarB(const Particle F, const double sqrt_s) const
 {
     int Nf;
     double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
@@ -2417,7 +2417,7 @@ complex NPEffectiveGIMR::sigma_eeTOffbarB(const Particle F, const double sqrt_s)
     double s = sqrt_s*sqrt_s;
     double s2 = s*s;
     
-    complex chi_s = s/(s - Mz*Mz + complex::i()*Mz*Gamma_Z());
+    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
 
     double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
     double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
@@ -2432,7 +2432,7 @@ complex NPEffectiveGIMR::sigma_eeTOffbarB(const Particle F, const double sqrt_s)
     double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
     double alpha2Mz = alphaMz()*alphaMz();
     
-    complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CRR2_hat) * s2 - 
+    gslpp::complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CRR2_hat) * s2 - 
                   8 * (CLL_hat + CRR_hat) * M_PI * Qf * s * alphaMz() + 
                   32 * M_PI * M_PI * Qf * Qf * alpha2Mz)+
                   4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * (CLL_hat * gLe * gLf * s +
@@ -2475,10 +2475,10 @@ double NPEffectiveGIMR::sigma_eeTOqq(const double sqrt_s) const
 
 double NPEffectiveGIMR::AFB_mu(const double sqrt_s) const
 {
-    complex sigmaB = sigma_eeTOffbarB(leptons[MU], sqrt_s);
-    complex sigmaF = sigma_eeTOffbarF(leptons[MU], sqrt_s);
-    complex diff = sigmaF - sigmaB;
-    complex sum = sigmaF + sigmaB;
+    gslpp::complex sigmaB = sigma_eeTOffbarB(leptons[MU], sqrt_s);
+    gslpp::complex sigmaF = sigma_eeTOffbarF(leptons[MU], sqrt_s);
+    gslpp::complex diff = sigmaF - sigmaB;
+    gslpp::complex sum = sigmaF + sigmaB;
     
     double tmp = diff.real()/sum.real();
     

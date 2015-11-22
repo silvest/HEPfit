@@ -9,7 +9,6 @@
 #define	EWSMTWOLOOPQCD_H
 
 #include "EWSMcache.h"
-using namespace gslpp;
 
 /**
  * @class EWSMTwoLoopQCD
@@ -143,7 +142,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha\alpha_s}@f$
      */
-    complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
@@ -165,7 +164,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha\alpha_s}@f$
      */
-    complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////        
@@ -342,7 +341,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\kappa^{ud}@f$
      */
-    complex DeltaKappa_ud(const double Mw_i) const;
+    gslpp::complex DeltaKappa_ud(const double Mw_i) const;
 
     /**
      * @brief Heavy-quark contribution to @f$\kappa_Z^f@f$,
@@ -368,7 +367,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\kappa^{tb}@f$
      */
-    complex DeltaKappa_tb(const double Mw_i) const;
+    gslpp::complex DeltaKappa_tb(const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////        

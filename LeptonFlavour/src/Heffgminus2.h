@@ -8,11 +8,9 @@
 #ifndef HEFFGMINUS2_H
 #define	HEFFGMINUS2_H
 
-#include <StandardModel.h>
-#include <StandardModelMatching.h>
-#include <WilsonCoefficient.h>
-
-using namespace gslpp;
+#include "StandardModel.h"
+#include "StandardModelMatching.h"
+#include "WilsonCoefficient.h"
 
 class Heffgminus2 {
 public:
@@ -35,7 +33,7 @@ public:
      * @param 
      * @return
      */
-    vector<complex>** ComputeCoeffgm2mu();
+    gslpp::vector<gslpp::complex>** ComputeCoeffgm2mu();
 
     const StandardModel& GetModel() const {
         return model;
