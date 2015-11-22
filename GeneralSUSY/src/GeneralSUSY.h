@@ -8,7 +8,7 @@
 #ifndef GENERALSUSY_H
 #define	GENERALSUSY_H
 
-#include <SUSY.h>
+#include "SUSY.h"
 
 /**
  * @addtogroup GeneralSUSY

@@ -1,15 +1,22 @@
+/* 
+ * Copyright (C) 2012 HEPfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
+ */
+
 #include "ThObsFactory.h"
+#include "ParamObs.h"
+#include "EWObservables.h"
+#include "HiggsThObservables.h"
+#include "FlavourObservables.h"
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+#include "LeptonFlavourObservables.h"
+#include "SUSYObservables.h"
+#include "THDMObservables.h"
+/** END: REMOVE FROM THE PACKAGE **/
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
-#include <ParamObs.h>
-#include <EWObservables.h>
-#include <HiggsThObservables.h>
-#include <FlavourObservables.h>
-/** BEGIN: REMOVE FROM THE PACKAGE **/
-#include <LeptonFlavourObservables.h>
-#include <SUSYObservables.h>
-#include <THDMObservables.h>
-/** END: REMOVE FROM THE PACKAGE **/
 
 ThObsFactory::ThObsFactory()
 {

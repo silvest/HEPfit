@@ -10,14 +10,14 @@
 
 #include "ThObsFactory.h"
 #include "ModelFactory.h"
-#include <Observable.h>
-#include <Observable2D.h>
-#include <CorrelatedGaussianObservables.h>
-#include <CorrelatedGaussianParameters.h>
-#include <HiggsObservable.h>
-#include <ThObservable.h>
-#include <ModelParameter.h>
-#include <StandardModel.h>
+#include "Observable.h"
+#include "Observable2D.h"
+#include "CorrelatedGaussianObservables.h"
+#include "CorrelatedGaussianParameters.h"
+#include "HiggsObservable.h"
+#include "ThObservable.h"
+#include "ModelParameter.h"
+#include "StandardModel.h"
 #include <iostream>
 #include <fstream>
 #include <istream>

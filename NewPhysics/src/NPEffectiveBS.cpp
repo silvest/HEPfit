@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPEffectiveBS.h"
+#include <stdexcept>
 
 const std::string NPEffectiveBS::NPEffectiveBSVars[NNPEffectiveBSVars]
         = {"cWB", "cH", "cL1L1", "cL1L2", "cL1L3", "cL2L2", "cL2L3", "cL3L3",

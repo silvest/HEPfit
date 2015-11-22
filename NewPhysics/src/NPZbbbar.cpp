@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPZbbbar.h"
+#include <stdexcept>
 
 
 const std::string NPZbbbar::ZbbbarVAVars[NZbbbarVars]

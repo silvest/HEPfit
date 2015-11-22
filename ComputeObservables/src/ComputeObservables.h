@@ -8,11 +8,11 @@
 #ifndef COMPUTEOBSERVABLES_H
 #define	COMPUTEOBSERVABLES_H
 
-#include <InputParser.h>
-#include <StandardModel.h>
-#include <ModelParameter.h>
-#include <ModelFactory.h>
-#include <ThObsFactory.h>
+#include "InputParser.h"
+#include "StandardModel.h"
+#include "ModelParameter.h"
+#include "ModelFactory.h"
+#include "ThObsFactory.h"
 
 /**
  * @addtogroup ComputeObservables

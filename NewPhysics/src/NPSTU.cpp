@@ -5,8 +5,9 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPSTU.h"
+#include <stdexcept>
+
 
 
 const std::string NPSTU::STUvars[NSTUvars]

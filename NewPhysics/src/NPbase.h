@@ -8,7 +8,7 @@
 #ifndef NPBASE_H
 #define	NPBASE_H
 
-#include <StandardModel.h>
+#include "StandardModel.h"
 
 /**
  * @class NPbase

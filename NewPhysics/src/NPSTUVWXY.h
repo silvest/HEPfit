@@ -8,8 +8,8 @@
 #ifndef NPSTUVWXY_H
 #define	NPSTUVWXY_H
 
-#include <cmath>
 #include "NPbase.h"
+#include <cmath>
 
 /**
  * @class NPSTUVWXY

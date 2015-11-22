@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPZbbbarLinearized.h"
+#include <stdexcept>
 
 
 const std::string NPZbbbarLinearized::ZbbbarVAVars[NZbbbarVars]

@@ -8,6 +8,12 @@
 #ifndef __MONTECARLOENGINE__H
 #define __MONTECARLOENGINE__H
 
+#include "Observable.h"
+#include "Observable2D.h"
+#include "CorrelatedGaussianObservables.h"
+#include "CorrelatedGaussianParameters.h"
+#include "ModelParameter.h"
+#include "Model.h"
 #include <BAT/BCModel.h>
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
@@ -16,12 +22,6 @@
 #include <TH2D.h>
 #include <TFile.h>
 #include <TRandom3.h>
-#include <Observable.h>
-#include <Observable2D.h>
-#include <CorrelatedGaussianObservables.h>
-#include <CorrelatedGaussianParameters.h>
-#include <ModelParameter.h>
-#include <Model.h>
 #include <map>
 #include <string>
 #include <sstream>

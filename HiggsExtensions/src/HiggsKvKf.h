@@ -7,7 +7,7 @@
 
 #ifndef HIGGSKVKF_H
 #define	HIGGSKVKF_H
-#include <NPbase.h>
+#include "NPbase.h"
 
 /**
  * @addtogroup HiggsExtensions

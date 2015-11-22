@@ -9,9 +9,9 @@
 #ifndef MODELFACTORY_H
 #define	MODELFACTORY_H
 
+#include "StandardModel.h"
 #include <boost/functional/factory.hpp>
 #include <boost/function.hpp>
-#include <StandardModel.h>
 #include <map>
 
 /**

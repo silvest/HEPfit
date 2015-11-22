@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPEpsilons.h"
+#include <stdexcept>
 
 const std::string NPEpsilons::EPSILONvars[NEPSILONvars]
         = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};

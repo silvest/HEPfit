@@ -8,10 +8,10 @@
 #ifndef NPEFFECTIVEGIMR_H
 #define	NPEFFECTIVEGIMR_H
 
-#include <string.h>
-#include <stdexcept>
 #include "gslpp.h"
 #include "NPbase.h"
+#include <string.h>
+#include <stdexcept>
 
 
 /**

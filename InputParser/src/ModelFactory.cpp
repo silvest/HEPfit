@@ -1,25 +1,34 @@
+/* 
+ * Copyright (C) 2014 HEPfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
+ */
+
 #include "ModelFactory.h"
-#include <boost/bind.hpp>
-#include <NPSTU.h>
-#include <NPSTUZbbbarLR.h>
-#include <NPEpsilons.h>
-#include <NPEpsilons_pureNP.h>
-#include <NPHiggs.h>
-#include <NPZbbbar.h>
-#include <NPZbbbarLinearized.h>
-#include <NPEffectiveBS.h>
-#include <NPEffectiveGIMR.h>
-#include <HiggsKvKf.h>
-#include <HiggsKvKfgen.h>
-#include <HiggsKvgenKf.h>
+#include "NPSTU.h"
+#include "NPSTUZbbbarLR.h"
+#include "NPEpsilons.h"
+#include "NPEpsilons_pureNP.h"
+#include "NPHiggs.h"
+#include "NPZbbbar.h"
+#include "NPZbbbarLinearized.h"
+#include "NPEffectiveBS.h"
+#include "NPEffectiveGIMR.h"
+#include "HiggsKvKf.h"
+#include "HiggsKvKfgen.h"
+#include "HiggsKvgenKf.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
-#include <NPSTUVWXY.h>
-#include <GeneralSUSY.h>
-#include <SUSYMassInsertion.h>
-#include <SUSY.h>
-#include <THDM.h>
-#include <FlavourWilsonCoefficient.h>
+//#include "pMSSM.h"
+//#include "MFV.h"
+#include "NPSTUVWXY.h"
+#include "GeneralSUSY.h"
+#include "SUSYMassInsertion.h"
+#include "SUSY.h"
+#include "THDM.h"
+#include "FlavourWilsonCoefficient.h"
 /** END: REMOVE FROM THE PACKAGE **/
+#include <boost/bind.hpp>
 
 ModelFactory::ModelFactory()
 {
@@ -45,6 +54,8 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
     modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
+    //modelFactory["MFV"] = boost::factory<MFV*>();
+    //modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();

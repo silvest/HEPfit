@@ -8,7 +8,7 @@
 #ifndef LOOPTOOLSWRAPPER_H
 #define	LOOPTOOLSWRAPPER_H
 
-#include <gslpp.h>
+#include "gslpp.h"
    
 /**
  * @class LoopToolsWrapper

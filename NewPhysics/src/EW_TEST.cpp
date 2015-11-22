@@ -5,11 +5,11 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "EW_TEST.h"
 #include "NPEpsilons.h"
 #include "NPSTU.h"
-#include <EWSMApproximateFormulae.h>
+#include "EWSMApproximateFormulae.h"
+#include <stdexcept>
 
 EW_TEST::EW_TEST(const std::string mode_i, const std::string obsname_i, const StandardModel& SM_i)
 : ThObservable(SM_i), mode(mode_i), obsname(obsname_i), SM(SM_i)
