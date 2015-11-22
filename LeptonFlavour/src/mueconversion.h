@@ -8,9 +8,8 @@
 #ifndef MUECONVERSION_H
 #define	MUECONVERSION_H
 
-#include <gslpp.h>
-#include <complex>
-#include <ThObservable.h>
+#include "gslpp.h"
+#include "ThObservable.h"
 #include "LeptonFlavour.h"
 
 class mueconversion : public ThObservable {

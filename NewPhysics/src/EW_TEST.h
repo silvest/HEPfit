@@ -8,12 +8,12 @@
 #ifndef EW_TEST_H
 #define	EW_TEST_H
 
-#include <string>
-#include <ThObservable.h>
-#include <StandardModel.h>
+#include "ThObservable.h"
+#include "StandardModel.h"
 #include "EW_ABC.h"
 #include "EW_BURGESS.h"
 #include "EW_CHMN.h"
+#include <string>
 
 /**
  * @class EW_TEST

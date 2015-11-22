@@ -8,10 +8,10 @@
 #ifndef MONTECARLO_H
 #define	MONTECARLO_H
 
-#include <InputParser.h>
+#include "InputParser.h"
+#include "MonteCarloEngine.h"
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
-#include "MonteCarloEngine.h"
 
 /**
  * @addtogroup MonteCarlo

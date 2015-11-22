@@ -8,9 +8,10 @@
 #ifndef NPEFFECTIVEBS_H
 #define	NPEFFECTIVEBS_H
 
+#include "NPbase.h"
 #include <string.h>
 #include <stdexcept>
-#include "NPbase.h"
+
 
 /**
  * @addtogroup NewPhysics

@@ -5,11 +5,11 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <math.h>
 #ifndef GSLPP_COMPLEX_H
 #include "gslpp_complex.h"
 #include <gsl/gsl_sf.h>
 #endif
+#include <math.h>
 
 #define GSLEPS 1.e-15
 

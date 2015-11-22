@@ -7,7 +7,7 @@
 
 #ifndef HIGGSKVKFGEN_H
 #define	HIGGSKVKFGEN_H
-#include <NPbase.h>
+#include "NPbase.h"
 
 /**
  * @class HiggsKvKfgen

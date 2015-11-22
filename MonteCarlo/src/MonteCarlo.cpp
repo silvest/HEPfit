@@ -6,13 +6,13 @@
  */
 
 #include "MonteCarlo.h"
+#include "ModelFactory.h"
+#include "ThObsFactory.h"
 #include <BAT/BCParameter.h>
 #include <TSystem.h>
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
-#include <ModelFactory.h>
-#include <ThObsFactory.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif

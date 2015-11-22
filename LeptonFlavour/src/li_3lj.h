@@ -8,9 +8,8 @@
 #ifndef LI_3LJ_H
 #define	LI_3LJ_H
 
-#include <gslpp.h>
-#include <complex>
-#include <ThObservable.h>
+#include "gslpp.h"
+#include "ThObservable.h"
 #include "LeptonFlavour.h"
 
 class li_3lj : public ThObservable {

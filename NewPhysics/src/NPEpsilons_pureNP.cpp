@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPEpsilons_pureNP.h"
+#include <stdexcept>
 
 const std::string NPEpsilons_pureNP::EPSILONpureNPvars[NEPSILONpureNPvars]
         = {"delEps_1", "delEps_2", "delEps_3", "delEps_b"};

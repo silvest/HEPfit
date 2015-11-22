@@ -8,15 +8,15 @@
 #ifndef GENERATEEVENT_H
 #define	GENERATEEVENT_H
 
-#include <InputParser.h>
+#include "InputParser.h"
+#include "Observable.h"
+#include "Observable2D.h"
+#include "CorrelatedGaussianObservables.h"
+#include "ModelParameter.h"
+#include "Model.h"
+#include "boost/shared_ptr.hpp"
+#include "boost/make_shared.hpp"
 #include <TF1.h>
-#include <Observable.h>
-#include <Observable2D.h>
-#include <CorrelatedGaussianObservables.h>
-#include <ModelParameter.h>
-#include <Model.h>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
 #ifdef _MPI
 #include <mpi.h>
 #endif
