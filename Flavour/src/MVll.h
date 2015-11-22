@@ -20,7 +20,6 @@
 #include <TFitResultPtr.h>
 
 #define SWITCH 8.2
-#define CUTOFF 10    //cutoff between LCSR and lattice values for Form Factors, in GeV^2
 
 /*******************************************************************************
  * GSL Function Conversion BEGIN                                                  *
@@ -64,23 +63,30 @@ gsl_function convertToGslFunction( const F& f )
  * compute the observables relative to the @f$M \to V l^+ l^-@f$ decay. After the
  * parameters are updated in updateParameters() and the cache is checked in 
  * checkCache(), the form factor are build in the transverse basis in the functions
- * V(), A_0(), A_1(), A_2(), T_1(), T_2(), T_3tilde() and T_3() using either the LCSR functions
- * LCSR_fit1(), LCSR_fit2() and LCSR_fit3() or the lattice function lat_fit().
+ * V(), A_0(), A_1(), A_2(), T_1() and  T_2() using the fit function FF_fit() from arXiv:1503.05534.
  * The form factor are consequentely translated in the helicity basis through the
- * functions V_L(), V_R(), T_L(), T_R(), S_L() and S_R(). Form factors and parameters
- * are combined together in the functions H_V(), H_A(), H_S() and H_P() in order
- * to build the helicity aplitudes, which are consequentely combined to create
- * the angular coefficients in the function I(). Those coefficients are used to
- * create the CP averaged coefficients in the function Sigma() ad the CP asymmetric
- * coefficients in the function Delta(). Form factors, CP averaged and asymmetric
- * coefficients and hadronic contributions are integrated in the functions 
- * integrateSigma(), integrateDelta(), integrategtilde() and integrateh() in order
+ * functions V_0t(), V_p(), V_m(), T_0t(), T_p(), T_m() and S_L() from arXiv:1212.2263v2.
+ * The QCDF corrections to Wilson coefficient @f$C_9@f$ are computed according to hep-ph/0106067v2: the basic elements
+ * are build in the functions Tperpplus(), Tparplus(), Tparminus(), Cperp() and Cpar();
+ * these corrections have to be integrated to be computed, so the final correction is
+ * either obtaind through direct integration in the functions DeltaC9_p(), DeltaC9_m()
+ * and DeltaC9_0(), or obtained through fitting in the functions fDeltaC9_p(), 
+ * fDeltaC9_m() and fDeltaC9_0(). Form factors, Wilson coefficients and parameters 
+ * are combined together in the functions H_V_0(), H_V_p(), H_V_m(), H_A_0(), 
+ * H_A_p(), H_A_m(), H_S() and H_P() in order to build the helicity aplitudes, 
+ * which are consequentely combined to create the angular coefficients in the 
+ * function I_1c(), I_1s(), I_2c(), I_2s(), I_3(), I_4(), I_5(), I_6c(), I_6s(), 
+ * I_7(), I_8(), I_9(). Those coefficients are used to create the CP averaged 
+ * coefficients in the functions getSigma1c(), getSigma1s(), getSigma2c(), getSigma2s(), 
+ * getSigma3(), getSigma4(), getSigma5(), getSigma6c(), getSigma6s(), getSigma7(), 
+ * getSigma8(), getSigma9(), and the CP asymmetric coefficients in the function 
+ * Delta(). The CP averaged and asymmetric coefficients are integrated over the 
+ * @f$q^2@f$ bin in the functions integrateSigma() and integrateDelta(), in order
  * to be further used to build the observables.
  */
 class MVll {
 public:
     
-    //double Int(double up); 
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
@@ -121,11 +127,19 @@ public:
     */
     double integrateDelta(int i, double q_min, double q_max);
     
+    /**
+    * @brief The width of the meson M
+    * @return \f$ \Gamma_M \f$ 
+    */
     double getwidth(){
         updateParameters();
         return width;
     }
     
+    /**
+    * @brief The mass of the lepton l
+    * @return \f$ m_l \f$ 
+    */
     double getMlep(){
         updateParameters();
         return Mlep;
@@ -215,40 +229,58 @@ public:
     };
     
     /**
-    * @brief The helicity amplitude \f$ H_V^{\lambda} \f$ .
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity amplitude \f$ H_V^0 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_V^{\lambda} \f$
+    * @return \f$ H_V^0 \f$
     */
     gslpp::complex H_V_0(double q2);
+    
+    /**
+    * @brief The helicity amplitude \f$ H_V^+ \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_V^+ \f$
+    */
     gslpp::complex H_V_p(double q2);
+    
+    /**
+    * @brief The helicity amplitude \f$ H_V^- \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_V^- \f$
+    */
     gslpp::complex H_V_m(double q2);
 
     /**
-    * @brief The helicity amplitude \f$ H_A^{\lambda} \f$ .
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity amplitude \f$ H_A^0 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_A^{\lambda} \f$
+    * @return \f$ H_A^0 \f$
     */
     gslpp::complex H_A_0(double q2);
+
+    /**
+    * @brief The helicity amplitude \f$ H_A^+ \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_A^+ \f$
+    */
     gslpp::complex H_A_p(double q2);
+
+    /**
+    * @brief The helicity amplitude \f$ H_A^- \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_A^- \f$
+    */
     gslpp::complex H_A_m(double q2);
 
     /**
-    * @brief The helicity amplitude \f$ H_S^{\lambda} \f$ .
+    * @brief The helicity amplitude \f$ H_S \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_S^{\lambda} \f$
+    * @return \f$ H_S \f$
     */
     gslpp::complex H_S(double q2);
 
     /**
-    * @brief The helicity amplitude \f$ H_P^{\lambda} \f$ .
+    * @brief The helicity amplitude \f$ H_P \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_P^{\lambda} \f$
+    * @return \f$ H_P \f$
     */
     gslpp::complex H_P(double q2);
     
@@ -382,253 +414,153 @@ public:
         return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
     }
 
+    /**
+    * @brief The absolute value of the ratio \f$ h_+^{(0)}/h_0^{(0)} \f$.  
+    * @return \f$ h_+^{(0)}/h_0^{(0)} \f$
+    */
     double gethp0_hm0_abs()
     {
         updateParameters();
         return (h_0[1]/h_0[2]).abs();
     }
     
+    /**
+    * @brief The absolute value of the ratio \f$ h_-^{(0)}/h_0^{(0)} \f$.
+    * @return \f$ h_-^{(0)}/h_0^{(0)} \f$
+    */
     double gethm0_h00_abs()
     {
         updateParameters();
         return (h_0[2]/h_0[0]).abs();
     }
     
-    private:
-    double tmpq2;
-    /**
-    * @brief The fit function from arXiv:1503.05534v1, \f$ f^{LCSR} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] a_0 fit parameter
-    * @param[in] a_1 fit parameter
-    * @param[in] a_2 fit parameter
-    * @param[in] MR2 square of the nearest resonance mass
-    * @return \f$ f^{lat} \f$
-    */
-    double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
-    
-    gslpp::complex I1(double u, double q2);
-    
-    double Integrand_ImTpar_pm(double up);
-    double Integrand_ReTpar_pm(double up);
-    
-    double reDC9fit(double* x, double* p);
-    double imDC9fit(double* x, double* p);
-    
-    void fit_DeltaC9_p_mumu();
-    void fit_DeltaC9_m_mumu();
-    void fit_DeltaC9_0_mumu();
-    
-    void fit_DeltaC9_p_ee();
-    void fit_DeltaC9_m_ee();
-    void fit_DeltaC9_0_ee();
-    
-    std::vector<double> ReDeltaC9_p_mumu;
-    std::vector<double> ImDeltaC9_p_mumu;
-    std::vector<double> ReDeltaC9_m_mumu;
-    std::vector<double> ImDeltaC9_m_mumu;
-    std::vector<double> ReDeltaC9_0_mumu;
-    std::vector<double> ImDeltaC9_0_mumu;
-    std::vector<double> ReDeltaC9_p_ee;
-    std::vector<double> ImDeltaC9_p_ee;
-    std::vector<double> ReDeltaC9_m_ee;
-    std::vector<double> ImDeltaC9_m_ee;
-    std::vector<double> ReDeltaC9_0_ee;
-    std::vector<double> ImDeltaC9_0_ee;
-    std::vector<double> myq2;
-    
-    TFitResultPtr refres_p_mumu;
-    TFitResultPtr imfres_p_mumu;
-    TFitResultPtr refres_m_mumu;
-    TFitResultPtr imfres_m_mumu;
-    TFitResultPtr refres_0_mumu;
-    TFitResultPtr imfres_0_mumu;
-    
-    TFitResultPtr refres_p_ee;
-    TFitResultPtr imfres_p_ee;
-    TFitResultPtr refres_m_ee;
-    TFitResultPtr imfres_m_ee;
-    TFitResultPtr refres_0_ee;
-    TFitResultPtr imfres_0_ee;
-        
-    TGraph gr1;
-    TGraph gr2;
-    
-    TF1 reffit;
-    TF1 imffit;
-    
-    gslpp::complex Tperpplus(double u, double q2);
-    gslpp::complex Tparplus(double u, double q2);
-    gslpp::complex Tparminus(double u, double q2);
-    
-    double Integrand_ReTperpplus(double up);
-    double Integrand_ImTperpplus(double up);
-    double Integrand_ReTparplus(double up);
-    double Integrand_ImTparplus(double up);
-    double Integrand_ReTparminus(double up);
-    double Integrand_ImTparminus(double up);
-
-    gslpp::complex F19(double q2);
-    gslpp::complex F27(double q2);
-    gslpp::complex F29(double q2);
-    gslpp::complex F87(double q2);
-    double F89(double q2);
-    gslpp::complex Cperp(double q2);
-    gslpp::complex Cpar(double q2);
-    gslpp::complex deltaTperp(double q2);
-    gslpp::complex deltaTpar(double q2);
-    
-    // Perturbative Delta C9 to be documented 
-    gslpp::complex DeltaC9_0(double q2);
-    gslpp::complex DeltaC9_p(double q2);
-    gslpp::complex DeltaC9_m(double q2);    
-    
-    // Perturbative Delta C9 to be documented 
-    gslpp::complex fDeltaC9_0(double q2);
-    gslpp::complex fDeltaC9_p(double q2);
-    gslpp::complex fDeltaC9_m(double q2);
-    
-    
-    /**
-     * @brief The update parameter method for MVll.
-     */
-    void updateParameters();
-    
-    /**
-     * @brief The caching method for MVll.
-     */
-    void checkCache();
+private:
+    const StandardModel& mySM;/**< Model type */
+    StandardModel::lepton lep;/**< Final leptons type */
+    StandardModel::meson meson;/**< Initial meson type */
+    StandardModel::meson vectorM;/**< Final vector meson type */
     
     double GF;            /**<Fermi constant */
-    double ale;           /**<alpha electromagnetic */
-    double Mlep;          /**<muon mass */
-    double MM;            /**<initial meson mass */
-    double MV;            /**<final vector meson mass */
+    double ale;           /**<Alpha electromagnetic */
+    double Mlep;          /**<Muon mass */
+    double MM;            /**<Initial meson mass */
+    double MV;            /**<Final vector meson mass */
     double Mb;            /**<b quark mass */
     double mu_b;          /**<b mass scale */
-    double mu_h;          /**<sqrt(mu_b*lambda_QCD) */
+    double mu_h;          /**<\f$\sqrt{\mu_b*\lambda_{QCD}}\f$ */
     double Mc;            /**<c quark mass */
     double Ms;            /**<s quark mass */
-    double width;         /**<initial meson width */
+    double width;         /**<Initial meson width */
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
     double b;             /**<BF of the decay V -> final states */
-    gslpp::complex h_0[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
-    gslpp::complex h_1[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
-    gslpp::complex h_2[3];         /**<parameter that contains the contribution from the hadronic hamiltonian */
-    //double q2;            /**<\f$q^2\f$ of the decay */
-    double t_p;
-    double t_m;
-    double t_0;
-    double z_0;
-    double MMpMV;
-    double MMpMV2;
-    double MMmMV;
-    double MMmMV2;
-    double MM2;
-    double MM4;
-    double MV2;
-    double MV4;
-    double MMMV;
-    double MM2mMV2;
-    double fourMV;
-    double onepMMoMV;
-    double MM_MMpMV;
-    double twoMM2;
-    double twoMV2;
-    double twoMM_mbpms;
-    double fourMM2;
-    double Mlep2;
-    double twoMlepMb;
-    double MboMW;
-    double MsoMb;
-    double ninetysixM_PI3MM3;
-    double sixteenM_PI2;
-    double sixteenM_PI2MM2;
-    double twoMboMM;
-    gslpp::complex H_0_pre;
-    double mu_b2;
-    double Mc2;
-    double Mb2;
-    double fourMc2;
-    double fourMb2;
-    double logMc;
-    double logMb;
-    gslpp::complex H_0_WC;
-    gslpp::complex H_c_WC;
-    gslpp::complex H_b_WC;
-    double fournineth;
-    double half;
-    double twothird;
-    gslpp::complex ihalfMPI;
-    double twoMM3;
-    double gtilde_1_pre;
-    double gtilde_2_pre;
-    double gtilde_3_pre;
-    double C2_inv;
-    double S_L_pre;
+    gslpp::complex h_0[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex h_1[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex h_2[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
     
-    double M_PI2osix;
-    double twoMM;
-    double m4downcharge;
-    double threeGegen0;
-    double threeGegen1otwo;
-    double twoMc2;
+    double t_p;/**< Cache variable */
+    double t_m;/**< Cache variable */
+    double t_0;/**< Cache variable */
+    double z_0;/**< Cache variable */
+    double MMpMV;/**< Cache variable */
+    double MMpMV2;/**< Cache variable */
+    double MMmMV;/**< Cache variable */
+    double MMmMV2;/**< Cache variable */
+    double MM2;/**< Cache variable */
+    double MM4;/**< Cache variable */
+    double MV2;/**< Cache variable */
+    double MV4;/**< Cache variable */
+    double MMMV;/**< Cache variable */
+    double MM2mMV2;/**< Cache variable */
+    double fourMV;/**< Cache variable */
+    double onepMMoMV;/**< Cache variable */
+    double MM_MMpMV;/**< Cache variable */
+    double twoMM2;/**< Cache variable */
+    double twoMV2;/**< Cache variable */
+    double twoMM_mbpms;/**< Cache variable */
+    double fourMM2;/**< Cache variable */
+    double Mlep2;/**< Cache variable */
+    double twoMlepMb;/**< Cache variable */
+    double MboMW;/**< Cache variable */
+    double MsoMb;/**< Cache variable */
+    double M_PI2osix;/**< Cache variable */
+    double twoMM;/**< Cache variable */
+    double m4downcharge;/**< Cache variable */
+    double threeGegen0;/**< Cache variable */
+    double threeGegen1otwo;/**< Cache variable */
+    double twoMc2;/**< Cache variable */
+    double ninetysixM_PI3MM3;/**< Cache variable */
+    double sixteenM_PI2;/**< Cache variable */
+    double sixteenM_PI2MM2;/**< Cache variable */
+    double twoMboMM;/**< Cache variable */
+    gslpp::complex H_0_pre;/**< Cache variable */
+    double mu_b2;/**< Cache variable */
+    double Mc2;/**< Cache variable */
+    double Mb2;/**< Cache variable */
+    double fourMc2;/**< Cache variable */
+    double fourMb2;/**< Cache variable */
+    double logMc;/**< Cache variable */
+    double logMb;/**< Cache variable */
+    gslpp::complex H_0_WC;/**< Cache variable */
+    gslpp::complex H_c_WC;/**< Cache variable */
+    gslpp::complex H_b_WC;/**< Cache variable */
+    double fournineth;/**< Cache variable */
+    double half;/**< Cache variable */
+    double twothird;/**< Cache variable */
+    gslpp::complex ihalfMPI;/**< Cache variable */
+    double twoMM3;/**< Cache variable */
+    double gtilde_1_pre;/**< Cache variable */
+    double gtilde_2_pre;/**< Cache variable */
+    double gtilde_3_pre;/**< Cache variable */
+    double C2_inv;/**< Cache variable */
+    double S_L_pre;/**< Cache variable */
+    double NN;/**< Cache variable */
+    double sixMMoMb;/**< Cache variable */
+    double CF;/**< Cache variable */
+    double deltaT_0;/**< Cache variable */
+    double deltaT_1par;/**< Cache variable */
+    double deltaT_1perp;/**< Cache variable */
+    double Ee;/**< Cache variable */
     
-    double sixMMoMb;
-    double CF;
+    gslpp::complex ubar;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex arg1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex B01;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex B00;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex xp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex xm;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex yp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex ym;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1xp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1xm;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1yp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1ym;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_L1_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_L1_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_L1_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
-    double deltaT_0;
-    double deltaT_1par;
-    double deltaT_1perp;
+    double a_0A12_LCSR;/**<LCSR fit parameter */
+    double a_0T2_LCSR;/**<LCSR fit parameter */
     
-    double Ee;
-    gslpp::complex ubar;
-    gslpp::complex arg1;
-    gslpp::complex B01;
-    gslpp::complex B00;
-    gslpp::complex xp;
-    gslpp::complex xm;
-    gslpp::complex yp;
-    gslpp::complex ym;
-    gslpp::complex L1xp;
-    gslpp::complex L1xm;
-    gslpp::complex L1yp;
-    gslpp::complex L1ym;
-    //gslpp::complex I1;
-            
-    gslpp::complex F87_0;
-    gslpp::complex F87_1;
-    gslpp::complex F87_2;
-    gslpp::complex F87_3;
-
-    double F89_0;
-    double F89_1;
-    double F89_2;
-    double F89_3;
-
-    gslpp::complex F29_0;
-    gslpp::complex F29_L1;
-    gslpp::complex F29_1;
-    gslpp::complex F29_2;
-    gslpp::complex F29_3;
-    gslpp::complex F29_L1_1;
-    gslpp::complex F29_L1_2;
-    gslpp::complex F29_L1_3;
-
-    gslpp::complex F27_0;
-    gslpp::complex F27_1;
-    gslpp::complex F27_2;
-    gslpp::complex F27_3;
-    gslpp::complex F27_L1_1;
-    gslpp::complex F27_L1_2;
-    gslpp::complex F27_L1_3;
-    
-    double a_0A12_LCSR;
-    double a_0T2_LCSR;
-    double NN;
-    
-    /*LCSR fit parameters*/
     double a_0V;/**<LCSR fit parameter */
     double a_1V;/**<LCSR fit parameter */
     double a_2V;/**<LCSR fit parameter */
@@ -658,9 +590,9 @@ public:
     double a_2T23;/**<LCSR fit parameter */
     double MRT23_2;/**<LCSR fit parameter */
 
-    gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
-    gslpp::vector<gslpp::complex> ** allcoeffh;/**<vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
-    gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
+    gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_1L_bar;/**<Wilson coeffients @f$C_1@f$*/
@@ -686,6 +618,283 @@ public:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
+    std::vector<double> ReDeltaC9_p_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ImDeltaC9_p_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ReDeltaC9_m_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ImDeltaC9_m_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ReDeltaC9_0_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ImDeltaC9_0_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ReDeltaC9_p_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ImDeltaC9_p_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ReDeltaC9_m_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ImDeltaC9_m_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ReDeltaC9_0_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ImDeltaC9_0_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> myq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    
+    TFitResultPtr refres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr imfres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr refres_m_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr imfres_m_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr refres_0_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr imfres_0_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    
+    TFitResultPtr refres_p_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr imfres_p_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr refres_m_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr imfres_m_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr refres_0_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr imfres_0_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+        
+    TGraph gr1;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
+    TGraph gr2;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
+    
+    TF1 reffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
+    TF1 imffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
+    
+    double tmpq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    
+    double avaSigma;/**< Gsl integral variable */
+    double avaDelta;/**< Gsl integral variable */
+    double avaDTPPR;/**< Gsl integral variable */    
+    
+    double errSigma;/**< Gsl integral variable */
+    double errDelta;/**< Gsl integral variable */
+    double errDTPPR;/**< Gsl integral variable */
+    
+    gsl_function FS;/**< Gsl integral variable */
+    gsl_function FD;/**< Gsl integral variable */
+    gsl_function DTPPR;/**< Gsl integral variable */
+    
+    gsl_integration_cquad_workspace * w_DTPPR;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_sigma;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_delta;/**< Gsl integral variable */
+    
+    gsl_error_handler_t * old_handler; /**< GSL error handler store */
+    
+    std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
+    
+    std::map<std::pair<double, double>, double > cacheSigma0;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma1;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma2;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma3;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma4;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma5;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma6;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma7;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma9;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma10;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheSigma11;/**< Cache variable */
+    
+    std::map<std::pair<double, double>, double > cacheDelta0;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta1;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta2;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta3;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta7;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
+    
+    unsigned int N_updated;/**< Cache variable */
+    gslpp::vector<double> N_cache;/**< Cache variable */
+    gslpp::complex Nc_cache;/**< Cache variable */
+    
+    unsigned int V_updated;/**< Cache variable */
+    gslpp::vector<double> V_cache;/**< Cache variable */
+    
+    unsigned int A0_updated;/**< Cache variable */
+    gslpp::vector<double> A0_cache;/**< Cache variable */
+    
+    unsigned int A1_updated;/**< Cache variable */
+    gslpp::vector<double> A1_cache;/**< Cache variable */
+    
+    unsigned int T1_updated;/**< Cache variable */
+    gslpp::vector<double> T1_cache;/**< Cache variable */
+    
+    unsigned int T2_updated;/**< Cache variable */
+    gslpp::vector<double> T2_cache;/**< Cache variable */
+    
+    unsigned int k2_updated;/**< Cache variable */
+    gslpp::vector<double> k2_cache;/**< Cache variable */
+    
+    unsigned int z_updated;/**< Cache variable */
+    
+    unsigned int lambda_updated;/**< Cache variable */
+    
+    unsigned int beta_updated;/**< Cache variable */
+    double beta_cache;/**< Cache variable */
+    
+    unsigned int F_updated;/**< Cache variable */
+    
+    unsigned int VL1_updated;/**< Cache variable */
+    unsigned int VL2_updated;/**< Cache variable */
+    
+    unsigned int TL1_updated;/**< Cache variable */
+    unsigned int TL2_updated;/**< Cache variable */
+
+    unsigned int VR1_updated;/**< Cache variable */
+    unsigned int VR2_updated;/**< Cache variable */
+    
+    unsigned int TR1_updated;/**< Cache variable */
+    unsigned int TR2_updated;/**< Cache variable */
+    
+    unsigned int VL0_updated;/**< Cache variable */
+    gslpp::vector<double> VL0_cache;/**< Cache variable */
+    
+    unsigned int TL0_updated;/**< Cache variable */
+    gslpp::vector<double> TL0_cache;/**< Cache variable */
+    
+    unsigned int VR0_updated;/**< Cache variable */
+    
+    unsigned int TR0_updated;/**< Cache variable */
+    
+    unsigned int Mb_Ms_updated;/**< Cache variable */
+    
+    unsigned int SL_updated;/**< Cache variable */
+    gslpp::vector<double> SL_cache;/**< Cache variable */
+    
+    unsigned int SR_updated;/**< Cache variable */
+    
+    unsigned int C_1_updated;/**< Cache variable */
+    gslpp::complex C_1_cache;/**< Cache variable */
+
+    unsigned int C_2_updated;/**< Cache variable */
+    gslpp::complex C_2_cache;/**< Cache variable */
+    
+    unsigned int C_3_updated;/**< Cache variable */
+    gslpp::complex C_3_cache;/**< Cache variable */
+    
+    unsigned int C_4_updated;/**< Cache variable */
+    gslpp::complex C_4_cache;/**< Cache variable */
+    
+    unsigned int C_5_updated;/**< Cache variable */
+    gslpp::complex C_5_cache;/**< Cache variable */
+    
+    unsigned int C_6_updated;/**< Cache variable */
+    gslpp::complex C_6_cache;/**< Cache variable */
+    
+    unsigned int C_7_updated;/**< Cache variable */
+    gslpp::complex C_7_cache;/**< Cache variable */
+
+    unsigned int C_9_updated;/**< Cache variable */
+    gslpp::complex C_9_cache;/**< Cache variable */
+    
+    unsigned int C_10_updated;/**< Cache variable */
+    gslpp::complex C_10_cache;/**< Cache variable */
+    
+    unsigned int C_7p_updated;/**< Cache variable */
+    gslpp::complex C_7p_cache;/**< Cache variable */
+    
+    unsigned int C_9p_updated;/**< Cache variable */
+    gslpp::complex C_9p_cache;/**< Cache variable */
+    
+    unsigned int C_10p_updated;/**< Cache variable */
+    gslpp::complex C_10p_cache;/**< Cache variable */
+    
+    unsigned int C_S_updated;/**< Cache variable */
+    gslpp::complex C_S_cache;/**< Cache variable */
+    
+    unsigned int C_P_updated;/**< Cache variable */
+    gslpp::complex C_P_cache;/**< Cache variable */
+    
+    unsigned int C_Sp_updated;/**< Cache variable */
+    gslpp::complex C_Sp_cache;/**< Cache variable */
+    
+    unsigned int C_Pp_updated;/**< Cache variable */
+    gslpp::complex C_Pp_cache;/**< Cache variable */
+    
+    unsigned int C_2Lh_updated;/**< Cache variable */
+    gslpp::complex C_2Lh_cache;/**< Cache variable */
+    
+    unsigned int C_8Lh_updated;/**< Cache variable */
+    gslpp::complex C_8Lh_cache;/**< Cache variable */
+    
+    unsigned int Yupdated;/**< Cache variable */
+    gslpp::vector<double> Ycache;/**< Cache variable */
+    
+    gslpp::complex h0Ccache[3];/**< Cache variable */
+    gslpp::complex h1Ccache[3];/**< Cache variable */
+    gslpp::complex h2Ccache[3];/**< Cache variable */
+    
+    unsigned int h0_updated;/**< Cache variable */
+    unsigned int h1_updated;/**< Cache variable */
+    unsigned int h2_updated;/**< Cache variable */
+    
+    unsigned int H_V0updated;/**< Cache variable */
+    gslpp::vector<double> H_V0cache;/**< Cache variable */
+    
+    unsigned int H_V1updated;/**< Cache variable */
+    gslpp::vector<double> H_V1cache;/**< Cache variable */
+    
+    unsigned int H_V2updated;/**< Cache variable */
+    gslpp::vector<double> H_V2cache;/**< Cache variable */
+    
+    unsigned int H_A0updated;/**< Cache variable */
+    unsigned int H_A1updated;/**< Cache variable */
+    unsigned int H_A2updated;/**< Cache variable */
+    
+    unsigned int H_Supdated;/**< Cache variable */
+    gslpp::vector<double> H_Scache;/**< Cache variable */
+    
+    unsigned int H_Pupdated;/**< Cache variable */
+    gslpp::vector<double> H_Pcache;/**< Cache variable */
+    
+    unsigned int I0_updated;/**< Cache variable */
+    unsigned int I1_updated;/**< Cache variable */
+    unsigned int I2_updated;/**< Cache variable */
+    unsigned int I3_updated;/**< Cache variable */
+    unsigned int I4_updated;/**< Cache variable */
+    unsigned int I5_updated;/**< Cache variable */
+    unsigned int I6_updated;/**< Cache variable */
+    unsigned int I7_updated;/**< Cache variable */
+    unsigned int I8_updated;/**< Cache variable */
+    unsigned int I9_updated;/**< Cache variable */
+    unsigned int I10_updated;/**< Cache variable */
+    unsigned int I11_updated;/**< Cache variable */
+    
+    std::map<std::pair<double, double>, unsigned int > I1Cached;/**< Cache variable */
+    
+    std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma1Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma2Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma3Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma4Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma5Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma6Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma7Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma9Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma10Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > sigma11Cached;/**< Cache variable */
+    
+    std::map<std::pair<double, double>, unsigned int > delta0Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta1Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta2Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta3Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta7Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
+    
+    std::map<double, unsigned int> deltaTparpCached;/**< Cache variable */
+    std::map<double, unsigned int> deltaTparmCached;/**< Cache variable */
+    std::map<double, unsigned int> deltaTperpCached;/**< Cache variable */
+    
+    std::map<double, gslpp::complex> cacheDeltaTparp;/**< Cache variable */
+    std::map<double, gslpp::complex> cacheDeltaTparm;/**< Cache variable */
+    std::map<double, gslpp::complex> cacheDeltaTperp;/**< Cache variable */
+    
+    unsigned int deltaTparpupdated;/**< Cache variable */
+    unsigned int deltaTparmupdated;/**< Cache variable */
+    unsigned int deltaTperpupdated;/**< Cache variable */
+    
+    unsigned int T_updated;/**< Cache variable */
+    gslpp::vector<double> T_cache;/**< Cache variable */
+    
+    /**
+     * @brief The update parameter method for MVll.
+     */
+    void updateParameters();
+    
+    /**
+     * @brief The caching method for MVll.
+     */
+    void checkCache();
     
     /**
     * @brief The lattice parameter \f$ z \f$ from arXiv:1310.3722v3.
@@ -740,23 +949,45 @@ public:
     double T_2(double q2);
     
     /**
-    * @brief The helicity form factor \f$ V_L^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity form factor \f$ \tilde{V}_0 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_L^{\lambda} \f$
+    * @return \f$ \tilde{V}_0 \f$
     */
     double V_0t(double q2);
+    
+    /**
+    * @brief The helicity form factor \f$ V_+ \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ V_+ \f$
+    */
     double V_p(double q2);
+    
+    /**
+    * @brief The helicity form factor \f$ V_- \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ V_- \f$
+    */
     double V_m(double q2);
 
     /**
-    * @brief The helicity form factor \f$ T_L^{\lambda} \f$.
-    * @param[in] i polarization: 0 for 0, 1 for +, 2 for -
+    * @brief The helicity form factor \f$ \tilde{T}_0 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_L^{\lambda} \f$
+    * @return \f$ \tilde{T}_0 \f$
     */
     double T_0t(double q2);
+    
+    /**
+    * @brief The helicity form factor \f$ T_+ \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T_+ \f$
+    */
     double T_p(double q2);
+    
+    /**
+    * @brief The helicity form factor \f$ T_- \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T_- \f$
+    */
     double T_m(double q2);
 
     /**
@@ -767,13 +998,25 @@ public:
     double S_L(double q2);
     
     /**
-    * @brief The \f$ h(q^2,m) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @brief The \f$ h(q^2,0) \f$ function involved into \f$ C_9^{eff}\f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] m mass
-    * @return \f$ h(q^2,m) \f$
+    * @return \f$ h(q^2,0) \f$
     */
     gslpp::complex H_0(double q2);
+    
+    /**
+    * @brief The \f$ h(q^2,m_c) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] mu mass scale
+    * @return \f$ h(q^2,m_c) \f$
+    */
     gslpp::complex H_c(double q2, double mu);
+    
+    /**
+    * @brief The \f$ h(q^2,m_b) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h(q^2,m_b) \f$
+    */
     gslpp::complex H_b(double q2);
     
     /**
@@ -804,7 +1047,6 @@ public:
     */
     double lambda(double q2);
 
-    
     /**
     * @brief The factor \f$ F \f$ used in the angular coefficients I_i. 
     * @param[in] q2 \f$q^2\f$ of the decay
@@ -813,26 +1055,88 @@ public:
     */
     double F(double q2, double b_i);
     
-    
     /**
-    * @brief The angular coefficient \f$ I_{i} \f$ .
-    * @param[in] i index of the angular coefficient: 0 for 1c, 1 for 1s, 2 for 2c,
-    *  3 for 2s, 4 for 3, 5 for 4, 6 for 5, 7 for 6s, 8 for 6c, 9 for 7, 10 for 8, 11 for 9
+    * @brief The angular coefficient \f$ I_{1c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose between regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ I_{i} \f$
+    * @return \f$ I_{1c} \f$
     */
     double  I_1c(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{1s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{1s} \f$
+    */
     double  I_1s(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{2c} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{2c} \f$
+    */
     double  I_2c(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{2s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{2s} \f$
+    */
     double  I_2s(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_3 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_3 \f$
+    */
     double  I_3(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_4 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_4 \f$
+    */
     double  I_4(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_5 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_5 \f$
+    */
     double  I_5(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{6c} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{6c} \f$
+    */
     double  I_6c(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{6s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{6s} \f$
+    */
     double  I_6s(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_7 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_7 \f$
+    */
     double  I_7(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_8 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_8 \f$
+    */
     double  I_8(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_9 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_9 \f$
+    */
     double  I_9(double q2);
     
     /**
@@ -1023,247 +1327,256 @@ public:
         return Delta(11, q2);
     };
     
-    const StandardModel& mySM;/**< Model type */
-    StandardModel::lepton lep;/**< Final leptons type */
-    StandardModel::meson meson;/**< Initial meson type */
-    StandardModel::meson vectorM;/**< Final vector meson type */
     
-    std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
+    /**
+    * @brief The fit function from arXiv:1503.05534v1, \f$ FF^{\rm fit} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] a_0 fit parameter
+    * @param[in] a_1 fit parameter
+    * @param[in] a_2 fit parameter
+    * @param[in] MR2 square of the nearest resonance mass
+    * @return \f$ FF^{\rm fit} \f$
+    */
+    double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
     
-    std::map<std::pair<double, double>, double > cacheSigma0;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma1;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma2;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma3;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma4;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma5;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma6;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma7;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma9;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma10;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheSigma11;/**< Cache variable */
+    /**
+    * @brief The \f$ I_1 \f$ function from hep-ph/0106067.
+    * @param[in] u dummy variable to be integrated out
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_1 \f$
+    */
+    gslpp::complex I1(double u, double q2);
     
-    std::map<std::pair<double, double>, double > cacheDelta0;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheDelta1;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheDelta2;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheDelta3;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheDelta7;/**< Cache variable */
-    std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
+    /**
+    * @brief The \f$ T^{\perp}_+ \f$ function from hep-ph/0106067.
+    * @param[in] u dummy variable to be integrated out
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T^{\perp}_+ \f$
+    */
+    gslpp::complex Tperpplus(double u, double q2);
     
-    double avaSigma;/**< Gsl integral variable */
+    /**
+    * @brief The \f$ T^{\parallel}_+ \f$ function from hep-ph/0106067.
+    * @param[in] u dummy variable to be integrated out
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T^{\parallel}_+ \f$
+    */
+    gslpp::complex Tparplus(double u, double q2);
     
-    double errSigma;/**< Gsl integral variable */
+    /**
+    * @brief The \f$ T^{\parallel}_- \f$ function from hep-ph/0106067.
+    * @param[in] u dummy variable to be integrated out
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T^{\parallel}_- \f$
+    */
+    gslpp::complex Tparminus(double u, double q2);
     
-    double avaDelta;/**< Gsl integral variable */
+    /**
+    * @brief The real part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Re T^{\perp}_+ \Phi^{\perp}\f$
+    */
+    double Integrand_ReTperpplus(double up);
     
-    double errDelta;/**< Gsl integral variable */
+    /**
+    * @brief The imaginary part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Im T^{\perp}_+ \Phi^{\perp}\f$
+    */
+    double Integrand_ImTperpplus(double up);
     
-    gsl_function FS;/**< Gsl integral variable */
+    /**
+    * @brief The real part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Re T^{\parallel}_+ \Phi^{\parallel}\f$
+    */
+    double Integrand_ReTparplus(double up);
     
-    gsl_function FD;/**< Gsl integral variable */
+    /**
+    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Im T^{\parallel}_+ \Phi^{\parallel}\f$
+    */
+    double Integrand_ImTparplus(double up);
     
-    gsl_function DTPPR;
-    gsl_integration_cquad_workspace * w_DTPPR;/**< Gsl integral variable */
-    double avaDTPPR;/**< Gsl integral variable */    
-    double errDTPPR;/**< Gsl integral variable */
+    /**
+    * @brief The real part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Re T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ReTparminus(double up);
     
-    gsl_integration_cquad_workspace * w_sigma;/**< Gsl integral variable */
+    /**
+    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Im T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ImTparminus(double up);
     
-    gsl_integration_cquad_workspace * w_delta;/**< Gsl integral variable */
+    /**
+    * @brief The sum of Integrand_ReTparplus() and Integrand_ReTparminus().
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Re T^{\parallel}_+ \Phi^{\parallel} + Re T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ReTpar_pm(double up);
     
-    unsigned int N_updated;/**< Cache variable */
-    gslpp::vector<double> N_cache;/**< Cache variable */
-    gslpp::complex Nc_cache;/**< Cache variable */
-    
-    unsigned int V_updated;/**< Cache variable */
-    gslpp::vector<double> V_cache;/**< Cache variable */
-    
-    unsigned int A0_updated;/**< Cache variable */
-    gslpp::vector<double> A0_cache;/**< Cache variable */
-    
-    unsigned int A1_updated;/**< Cache variable */
-    gslpp::vector<double> A1_cache;/**< Cache variable */
-    
-    unsigned int T1_updated;/**< Cache variable */
-    gslpp::vector<double> T1_cache;/**< Cache variable */
-    
-    unsigned int T2_updated;/**< Cache variable */
-    gslpp::vector<double> T2_cache;/**< Cache variable */
-    
-    unsigned int k2_updated;/**< Cache variable */
-    gslpp::vector<double> k2_cache;/**< Cache variable */
-    
-    unsigned int z_updated;/**< Cache variable */
-    
-    unsigned int lambda_updated;/**< Cache variable */
-    
-    unsigned int beta_updated;/**< Cache variable */
-    double beta_cache;/**< Cache variable */
-    
-    unsigned int F_updated;/**< Cache variable */
-    
-    unsigned int VL1_updated;/**< Cache variable */
-    unsigned int VL2_updated;/**< Cache variable */
-    
-    unsigned int TL1_updated;/**< Cache variable */
-    unsigned int TL2_updated;/**< Cache variable */
+    /**
+    * @brief The sum of Integrand_ImTparplus() and Integrand_ImTparminus().
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Im T^{\parallel}_+ \Phi^{\parallel} + Im T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ImTpar_pm(double up);
 
-    unsigned int VR1_updated;/**< Cache variable */
-    unsigned int VR2_updated;/**< Cache variable */
-    
-    unsigned int TR1_updated;/**< Cache variable */
-    unsigned int TR2_updated;/**< Cache variable */
-    
-    unsigned int VL0_updated;/**< Cache variable */
-    gslpp::vector<double> VL0_cache;/**< Cache variable */
-    
-    unsigned int TL0_updated;/**< Cache variable */
-    gslpp::vector<double> TL0_cache;/**< Cache variable */
-    
-    unsigned int VR0_updated;/**< Cache variable */
-    
-    unsigned int TR0_updated;/**< Cache variable */
-    
-    unsigned int Mb_Ms_updated;/**< Cache variable */
-    
-    unsigned int SL_updated;/**< Cache variable */
-    gslpp::vector<double> SL_cache;/**< Cache variable */
-    
-    unsigned int SR_updated;/**< Cache variable */
-    
-    unsigned int C_1_updated;/**< Cache variable */
-    gslpp::complex C_1_cache;/**< Cache variable */
+    /**
+    * @brief The correction \f$ F_{19} \f$ from hep-ph/0103087.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{19} \f$
+    */
+    gslpp::complex F19(double q2);
 
-    unsigned int C_2_updated;/**< Cache variable */
-    gslpp::complex C_2_cache;/**< Cache variable */
-    
-    unsigned int C_3_updated;/**< Cache variable */
-    gslpp::complex C_3_cache;/**< Cache variable */
-    
-    unsigned int C_4_updated;/**< Cache variable */
-    gslpp::complex C_4_cache;/**< Cache variable */
-    
-    unsigned int C_5_updated;/**< Cache variable */
-    gslpp::complex C_5_cache;/**< Cache variable */
-    
-    unsigned int C_6_updated;/**< Cache variable */
-    gslpp::complex C_6_cache;/**< Cache variable */
-    
-    unsigned int C_7_updated;/**< Cache variable */
-    gslpp::complex C_7_cache;/**< Cache variable */
+    /**
+    * @brief The correction \f$ F_{27} \f$ from hep-ph/0103087.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{27} \f$
+    */
+    gslpp::complex F27(double q2);
 
-    unsigned int C_9_updated;/**< Cache variable */
-    gslpp::complex C_9_cache;/**< Cache variable */
+    /**
+    * @brief The correction \f$ F_{29} \f$ from hep-ph/0103087.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{29} \f$
+    */
+    gslpp::complex F29(double q2);
+
+    /**
+    * @brief The correction \f$ F_{87} \f$ from hep-ph/0103087.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{87} \f$
+    */
+    gslpp::complex F87(double q2);
+
+    /**
+    * @brief The correction \f$ F_{89} \f$ from hep-ph/0103087.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{89} \f$
+    */
+    double F89(double q2);
     
-    unsigned int C_10_updated;/**< Cache variable */
-    gslpp::complex C_10_cache;/**< Cache variable */
+    /**
+    * @brief The correction \f$ C_{\perp} \f$ from hep-ph/0106067.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ C_{\perp} \f$
+    */
+    gslpp::complex Cperp(double q2);
     
-    unsigned int C_7p_updated;/**< Cache variable */
-    gslpp::complex C_7p_cache;/**< Cache variable */
+    /**
+    * @brief The correction \f$ C_{\parallel} \f$ from hep-ph/0106067.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ C_{\parallel} \f$
+    */
+    gslpp::complex Cpar(double q2);
     
-    unsigned int C_9p_updated;/**< Cache variable */
-    gslpp::complex C_9p_cache;/**< Cache variable */
+    /**
+    * @brief The total correction \f$ \Delta \mathcal{T}^{\perp} \f$ from hep-ph/0106067.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta \mathcal{T}^{\perp} \f$
+    */
+    gslpp::complex deltaTperp(double q2);
     
-    unsigned int C_10p_updated;/**< Cache variable */
-    gslpp::complex C_10p_cache;/**< Cache variable */
+    /**
+    * @brief The total correction \f$ \Delta \mathcal{T}^{\parallel} \f$ from hep-ph/0106067.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta \mathcal{T}^{\parallel} \f$
+    */
+    gslpp::complex deltaTpar(double q2);
     
-    unsigned int C_S_updated;/**< Cache variable */
-    gslpp::complex C_S_cache;/**< Cache variable */
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9^0 \f$ computed integrating over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9^0 \f$
+    */
+    gslpp::complex DeltaC9_0(double q2);
     
-    unsigned int C_P_updated;/**< Cache variable */
-    gslpp::complex C_P_cache;/**< Cache variable */
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9^+ \f$ computed integrating over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9^+ \f$
+    */
+    gslpp::complex DeltaC9_p(double q2);
     
-    unsigned int C_Sp_updated;/**< Cache variable */
-    gslpp::complex C_Sp_cache;/**< Cache variable */
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9^- \f$ computed integrating over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9^- \f$
+    */
+    gslpp::complex DeltaC9_m(double q2);
     
-    unsigned int C_Pp_updated;/**< Cache variable */
-    gslpp::complex C_Pp_cache;/**< Cache variable */
+    /**
+    * @brief The fit function for the real part of the QCDF correction \f$ \Delta C_9^{\lambda} \f$.
+    * @param[in] x fit variable
+    * @param[in] p fit parameters vector
+    * @return \f$ f_{Re \Delta C_9^{\lambda}} \f$
+    */
+    double reDC9fit(double* x, double* p);
     
-    unsigned int C_2Lh_updated;/**< Cache variable */
-    gslpp::complex C_2Lh_cache;/**< Cache variable */
+    /**
+    * @brief The fit function for the imaginary part of the QCDF correction \f$ \Delta C_9^{\lambda} \f$.
+    * @param[in] x fit variable
+    * @param[in] p fit parameters vector
+    * @return \f$ f_{Im \Delta C_9^{\lambda}} \f$
+    */
+    double imDC9fit(double* x, double* p);
     
-    unsigned int C_8Lh_updated;/**< Cache variable */
-    gslpp::complex C_8Lh_cache;/**< Cache variable */
+    /**
+    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^+ \f$ in the muon channel.
+    */
+    void fit_DeltaC9_p_mumu();
     
-    unsigned int Yupdated;/**< Cache variable */
-    gslpp::vector<double> Ycache;/**< Cache variable */
+    /**
+    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^- \f$ in the muon channel.
+    */
+    void fit_DeltaC9_m_mumu();
     
-    gslpp::complex h0Ccache[3];/**< Cache variable */
-    gslpp::complex h1Ccache[3];/**< Cache variable */
-    gslpp::complex h2Ccache[3];/**< Cache variable */
+    /**
+    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^0 \f$ in the muon channel.
+    */
+    void fit_DeltaC9_0_mumu();
     
-    unsigned int h0_updated;/**< Cache variable */
-    unsigned int h1_updated;/**< Cache variable */
-    unsigned int h2_updated;/**< Cache variable */
+    /**
+    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^+ \f$ in the electron channel.
+    */
+    void fit_DeltaC9_p_ee();
     
-    unsigned int H_V0updated;/**< Cache variable */
-    gslpp::vector<double> H_V0cache;/**< Cache variable */
+    /**
+    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^- \f$ in the electron channel.
+    */
+    void fit_DeltaC9_m_ee();
     
-    unsigned int H_V1updated;/**< Cache variable */
-    gslpp::vector<double> H_V1cache;/**< Cache variable */
+    /**
+    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^0 \f$ in the electron channel.
+    */
+    void fit_DeltaC9_0_ee();
     
-    unsigned int H_V2updated;/**< Cache variable */
-    gslpp::vector<double> H_V2cache;/**< Cache variable */
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9^0 \f$ computed fitting over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9^0 \f$
+    */
+    gslpp::complex fDeltaC9_p(double q2);
     
-    unsigned int H_A0updated;/**< Cache variable */
-    unsigned int H_A1updated;/**< Cache variable */
-    unsigned int H_A2updated;/**< Cache variable */
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9^+ \f$ computed fitting over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9^+ \f$
+    */
+    gslpp::complex fDeltaC9_m(double q2);
     
-    unsigned int H_Supdated;/**< Cache variable */
-    gslpp::vector<double> H_Scache;/**< Cache variable */
-    
-    unsigned int H_Pupdated;/**< Cache variable */
-    gslpp::vector<double> H_Pcache;/**< Cache variable */
-    
-    unsigned int I0_updated;/**< Cache variable */
-    unsigned int I1_updated;/**< Cache variable */
-    unsigned int I2_updated;/**< Cache variable */
-    unsigned int I3_updated;/**< Cache variable */
-    unsigned int I4_updated;/**< Cache variable */
-    unsigned int I5_updated;/**< Cache variable */
-    unsigned int I6_updated;/**< Cache variable */
-    unsigned int I7_updated;/**< Cache variable */
-    unsigned int I8_updated;/**< Cache variable */
-    unsigned int I9_updated;/**< Cache variable */
-    unsigned int I10_updated;/**< Cache variable */
-    unsigned int I11_updated;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, unsigned int > I1Cached;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma1Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma2Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma3Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma4Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma5Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma6Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma7Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma9Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma10Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > sigma11Cached;/**< Cache variable */
-    
-    std::map<std::pair<double, double>, unsigned int > delta0Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > delta1Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > delta2Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > delta3Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > delta7Cached;/**< Cache variable */
-    std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
-    
-    std::map<double, unsigned int> deltaTparpCached;
-    std::map<double, unsigned int> deltaTparmCached;
-    std::map<double, unsigned int> deltaTperpCached;
-    
-    std::map<double, gslpp::complex> cacheDeltaTparp;
-    std::map<double, gslpp::complex> cacheDeltaTparm;
-    std::map<double, gslpp::complex> cacheDeltaTperp;
-    
-    unsigned int deltaTparpupdated;
-    unsigned int deltaTparmupdated;
-    unsigned int deltaTperpupdated;
-    
-    unsigned int T_updated;/**< Cache variable */
-    gslpp::vector<double> T_cache;/**< Cache variable */
-    
-    gsl_error_handler_t * old_handler; /**< GSL error handler store */
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9^0 \f$ computed fitting over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9^+ \f$
+    */
+    gslpp::complex fDeltaC9_0(double q2);
     
 };
 
