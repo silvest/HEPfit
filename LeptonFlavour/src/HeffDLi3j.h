@@ -8,11 +8,9 @@
 #ifndef HEFFDLI3J_H
 #define	HEFFDLI3J_H
 
-#include <StandardModel.h>
-#include <StandardModelMatching.h>
-#include <WilsonCoefficient.h>
-
-using namespace gslpp;
+#include "StandardModel.h"
+#include "StandardModelMatching.h"
+#include "WilsonCoefficient.h"
 
 /**
  * @addtogroup LeptonFlavour
@@ -41,7 +39,7 @@ public:
      * @param 
      * @return
      */
-    vector<complex>** ComputeCoeffDLi3j(int li_lj);
+    gslpp::vector<gslpp::complex>** ComputeCoeffDLi3j(int li_lj);
 
     const StandardModel& GetModel() const {
         return model;

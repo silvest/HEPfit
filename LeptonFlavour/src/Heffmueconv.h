@@ -8,11 +8,9 @@
 #ifndef HEFFMUECONV_H
 #define	HEFFMUECONV_H
 
-#include <StandardModel.h>
-#include <StandardModelMatching.h>
-#include <WilsonCoefficient.h>
-
-using namespace gslpp;
+#include "StandardModel.h"
+#include "StandardModelMatching.h"
+#include "WilsonCoefficient.h"
 
 class Heffmueconv {
 public:
@@ -35,7 +33,7 @@ public:
      * @param 
      * @return
      */
-    vector<complex>** ComputeCoeffmueconv();
+    gslpp::vector<gslpp::complex>** ComputeCoeffmueconv();
 
     const StandardModel& GetModel() const {
         return model;

@@ -6,9 +6,6 @@
  */
     
 #include "Heffmueconv.h"
-#include "gslpp_complex.h"
-
-using namespace gslpp;
 
 Heffmueconv::Heffmueconv(const StandardModel & SM_i) :
         model(SM_i),
@@ -18,7 +15,7 @@ Heffmueconv::Heffmueconv(const StandardModel & SM_i) :
 Heffmueconv::~Heffmueconv() {
 }
 
-vector<complex>** Heffmueconv::ComputeCoeffmueconv() {
+gslpp::vector<gslpp::complex>** Heffmueconv::ComputeCoeffmueconv() {
 
     std::vector<WilsonCoefficient>& mcb8 = model.getMyMatching() -> CMmueconv();
     orders ordmueconv = coeffmueconv.getOrder();

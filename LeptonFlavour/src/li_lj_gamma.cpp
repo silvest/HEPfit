@@ -25,7 +25,7 @@ double mu_e_gamma::computeThValue()
 {
     double alph = mySM.getAle();
     double mMU = mySM.getLeptons(StandardModel::MU).getMass();
-    gslpp::vector<complex> ** allcoeff_me = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(1);
+    gslpp::vector<gslpp::complex> ** allcoeff_me = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(1);
     double BR_mu_e_gamma = (alph*pow(mMU,5) * ((*(allcoeff_me[LO])) * (*(allcoeff_me[LO])).conjugate()).abs() / (2.99598e-19) );
 //    double BR_mu_e_gamma = log10((alph*pow(mMU,5.0) * ((*(allcoeff_me[LO])) * (*(allcoeff_me[LO])).conjugate()).abs() / (3.0e-19) )); /*This is the log!*/
     return BR_mu_e_gamma;
@@ -39,7 +39,7 @@ double tau_mu_gamma::computeThValue()
 {
     double alph = mySM.getAle();
     double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
-    gslpp::vector<complex> ** allcoeff_tm = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(2);
+    gslpp::vector<gslpp::complex> ** allcoeff_tm = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(2);
     double BR_tau_mu_gamma = (alph*pow(mTAU,5) * ((*(allcoeff_tm[LO])) * (*(allcoeff_tm[LO])).conjugate()).abs() / (2.26735e-12) );
     return BR_tau_mu_gamma;
 }
@@ -52,7 +52,7 @@ double tau_e_gamma::computeThValue()
 {
     double alph = mySM.getAle();
     double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
-    gslpp::vector<complex> ** allcoeff_te = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(3);
+    gslpp::vector<gslpp::complex> ** allcoeff_te = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(3);
     double BR_tau_e_gamma = (alph*pow(mTAU,5) * ((*(allcoeff_te[LO])) * (*(allcoeff_te[LO])).conjugate()).abs() / (2.26735e-12) );
     return BR_tau_e_gamma;
 }

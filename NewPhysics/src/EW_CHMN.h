@@ -8,9 +8,7 @@
 #ifndef EW_CHMN_H
 #define	EW_CHMN_H
 
-#include <gslpp.h>
-#include <StandardModel.h>
-using namespace gslpp;
+#include "StandardModel.h"
 
 /**
  * @class EW_CHMN

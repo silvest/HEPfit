@@ -6,9 +6,6 @@
  */
     
 #include "HeffDLi3j.h"
-#include "gslpp_complex.h"
-
-using namespace gslpp;
 
 HeffDLi3j::HeffDLi3j(const StandardModel & SM_i) :
         model(SM_i),
@@ -19,7 +16,7 @@ HeffDLi3j::HeffDLi3j(const StandardModel & SM_i) :
 HeffDLi3j::~HeffDLi3j() {
 }
 
-vector<complex>** HeffDLi3j::ComputeCoeffDLi3j(int li_lj) {
+gslpp::vector<gslpp::complex>** HeffDLi3j::ComputeCoeffDLi3j(int li_lj) {
 
     switch (li_lj) {
         case 1:

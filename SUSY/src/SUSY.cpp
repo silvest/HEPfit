@@ -8,9 +8,8 @@
 #include <math.h>
 #include <sstream>
 #include <stdexcept>
-#include <StandardModelMatching.h>
+#include "StandardModelMatching.h"
 #include "SUSY.h"
-//#include "SUSYMatching.h"
 #include "SUSYSpectrum.h"
 #include "EWSUSY.h"
 #include "FeynHiggsWrapper.h"
@@ -269,10 +268,10 @@ void SUSY::SetTanb(const double tanb)
 void SUSY::computeYukawas()
 {
     /* initializations */
-    Yu = matrix<complex>::Id(3);
-    Yd = matrix<complex>::Id(3);
-    Ye = matrix<complex>::Id(3);
-    Yn = matrix<complex>::Id(3);
+    Yu = gslpp::matrix<gslpp::complex>::Id(3);
+    Yd = gslpp::matrix<gslpp::complex>::Id(3);
+    Ye = gslpp::matrix<gslpp::complex>::Id(3);
+    Yn = gslpp::matrix<gslpp::complex>::Id(3);
 
     /* Convert the top-quark pole mass to the MSbar mass */
     double mtbar = Mp2Mbar(mtpole, FULLNLO);

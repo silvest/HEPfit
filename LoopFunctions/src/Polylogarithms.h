@@ -8,9 +8,8 @@
 #ifndef POLYLOGARITHMS_H
 #define	POLYLOGARITHMS_H
 
-#include <gslpp.h>
+#include "gslpp.h"
 #include "BernoulliNumbers.h"
-using namespace gslpp;
 
 /**
  * @class Polylogarithms
@@ -38,7 +37,7 @@ public:
      * @param[in] x a real variable.
      * @return @f$\mathrm{Li}_2(x)@f$
      */
-    complex Li2(const double x) const;    
+    gslpp::complex Li2(const double x) const;    
     
     /**
      * @brief The dilogarithm with a complex argument, @f$\mathrm{Li}_2(z)@f$.
@@ -46,7 +45,7 @@ public:
      * @param[in] z a complex variable.
      * @return @f$\mathrm{Li}_2(z)@f$
      */
-    complex Li2(const complex z) const;
+    gslpp::complex Li2(const gslpp::complex z) const;
     
     /**
      * @brief The trilogarithm @f$\mathrm{Li}_3(x)@f$

@@ -9,7 +9,6 @@
 #define	EWSMONELOOPEW_H
 
 #include "EWSMcache.h"
-using namespace gslpp;
 
 /**
  * @class EWSMOneLoopEW
@@ -225,7 +224,7 @@ public:
      * @sa deltaRho_rem_l() and deltaRho_rem_q() as well as
      * FZ(), FW_l() and FW_q()
      */
-    complex deltaRho_rem_tmp(const complex u_f, const double Mw_i) const;
+    gslpp::complex deltaRho_rem_tmp(const gslpp::complex u_f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
@@ -239,7 +238,7 @@ public:
      *
      * @sa deltaRho_rem_tmp()
      */
-    complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
@@ -272,7 +271,7 @@ public:
      * FZ(), FW_l() and FW_q()
 
      */
-    complex deltaKappa_rem_tmp(const double deltaf, const complex uf,
+    gslpp::complex deltaKappa_rem_tmp(const double deltaf, const gslpp::complex uf,
             const double Mw_i) const;
 
     /**
@@ -287,7 +286,7 @@ public:
      *
      * @sa deltaKappa_rem_tmp()
      */
-    complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief %EW radiative corrections to the widths of @f$W \to f_i \bar{f}_j@f$, 
@@ -377,7 +376,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\mathrm{bos}}_{WW}(s)@f$
      */
-    complex SigmabarWW_bos(const double mu, const double s, const double Mw_i) const;
+    gslpp::complex SigmabarWW_bos(const double mu, const double s, const double Mw_i) const;
 
     /**
      * @brief The fermionic contribution to the self-energy of the @f$W@f$ boson
@@ -391,7 +390,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\mathrm{fer}}_{WW}(s)@f$
      */
-    complex SigmabarWW_fer(const double mu, const double s, const double Mw_i) const;
+    gslpp::complex SigmabarWW_fer(const double mu, const double s, const double Mw_i) const;
 
     /**
      * @brief The bosonic contribution to the self-energy of the @f$Z@f$ boson
@@ -405,7 +404,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\mathrm{bos}}_{ZZ}(s)@f$
      */
-    complex SigmabarZZ_bos(const double mu, const double s, const double Mw_i) const;
+    gslpp::complex SigmabarZZ_bos(const double mu, const double s, const double Mw_i) const;
 
     /**
      * @brief The fermionic contribution to the self-energy of the @f$Z@f$ boson
@@ -419,7 +418,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\mathrm{fer}}_{ZZ}(s)@f$
      */
-    complex SigmabarZZ_fer(const double mu, const double s, const double Mw_i) const;
+    gslpp::complex SigmabarZZ_fer(const double mu, const double s, const double Mw_i) const;
 
     /**
      * @brief The bosonic contribution to the self-energy of the photon
@@ -433,7 +432,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Pi}^{\mathrm{bos}}_{\gamma\gamma}(s)@f$
      */
-    complex PibarGammaGamma_bos(const double mu, const double s, const double Mw_i) const;
+    gslpp::complex PibarGammaGamma_bos(const double mu, const double s, const double Mw_i) const;
 
     /**
      * @brief The fermionic contribution to the self-energy of the photon
@@ -448,7 +447,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\overline{\Pi}^{\mathrm{fer},f}_{\gamma\gamma}(s)@f$
      */
-    complex PibarGammaGamma_fer(const double mu, const double s, const Particle f) const;
+    gslpp::complex PibarGammaGamma_fer(const double mu, const double s, const Particle f) const;
 
     /**
      * @brief The fermionic contribution to the self-energy of the photon
@@ -462,7 +461,7 @@ public:
      * @param[in] s momentum squared @f$s@f$
      * @return @f$\overline{\Pi}^{\mathrm{fer}}_{\gamma\gamma}(s)@f$
      */
-    complex PibarGammaGamma_fer(const double mu, const double s) const;
+    gslpp::complex PibarGammaGamma_fer(const double mu, const double s) const;
 
     /**
      * @brief The bosonic contribution to the self-energy of the @f$Z@f$-@f$\gamma@f$
@@ -476,7 +475,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Pi}^{\mathrm{bos}}_{Z\gamma}(s)@f$
      */
-    complex PibarZgamma_bos(const double mu, const double s, const double Mw_i) const;
+    gslpp::complex PibarZgamma_bos(const double mu, const double s, const double Mw_i) const;
 
     /**
      * @brief The fermionic contribution to the self-energy of the @f$Z@f$-@f$\gamma@f$
@@ -490,7 +489,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Pi}^{\mathrm{fer}}_{Z\gamma}(s)@f$
      */
-    complex PibarZgamma_fer(const double mu, const double s, const double Mw_i) const;
+    gslpp::complex PibarZgamma_fer(const double mu, const double s, const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////   
@@ -505,7 +504,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{bos}}_{WW}(M_W^2)@f$
      */
-    complex SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw_i) const;
+    gslpp::complex SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw_i) const;
 
     /**
      * @brief The derivative of the fermionic contribution to the self-energy of
@@ -517,7 +516,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{fer}}_{WW}(M_W^2)@f$
      */
-    complex SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw_i) const;
+    gslpp::complex SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw_i) const;
 
     /**
      * @brief The derivative of the bosonic contribution to the self-energy of
@@ -529,7 +528,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{bos}}_{ZZ}(M_Z^2)@f$
      */
-    complex SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const;
+    gslpp::complex SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const;
 
     /**
      * @brief The derivative of the fermionic contribution to the self-energy of
@@ -541,7 +540,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{fer}}_{ZZ}(M_Z^2)@f$
      */
-    complex SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const;
+    gslpp::complex SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const;
 
     ////////////////////////////////////////////////////////////////////////       
 
@@ -626,7 +625,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_{Za}^0@f$
      */
-    complex FZa_0(const double s, const double Mw_i) const;
+    gslpp::complex FZa_0(const double s, const double Mw_i) const;
 
     /**
      * @brief The form factor @f$\mathcal{F}_{Wa}^0@f$.
@@ -647,7 +646,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_{Wa}^0@f$
      */
-    complex FWa_0(const double s, const double Mw_i) const;
+    gslpp::complex FWa_0(const double s, const double Mw_i) const;
 
     /**
      * @brief The form factor @f$\overline{\mathcal{F}}_{Wa}^0@f$.
@@ -662,7 +661,7 @@ public:
      * @param[in] s momentum squared @f$s@f$
      * @return @f$\overline{\mathcal{F}}_{Wa}^0@f$
      */
-    complex FbarWa_0(const double s) const;
+    gslpp::complex FbarWa_0(const double s) const;
 
     /**
      * @brief The form factor @f$\mathcal{F}_{Wn}^0@f$.
@@ -683,7 +682,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_{Wn}^0@f$
      */
-    complex FWn_0(const double s, const double Mw_i) const;
+    gslpp::complex FWn_0(const double s, const double Mw_i) const;
 
     /**
      * @brief The form factor @f$\mathcal{F}_{Wa}^t@f$.
@@ -719,7 +718,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_{Wa}^t@f$
      */
-    complex FWa_t(const double s, const double Mw_i) const;
+    gslpp::complex FWa_t(const double s, const double Mw_i) const;
 
     /**
      * @brief The form factor @f$\overline{\mathcal{F}}_{Wa}^t@f$.
@@ -743,7 +742,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\overline{\mathcal{F}}_{Wa}^t@f$
      */
-    complex FbarWa_t(const double s, const double Mw_i) const;
+    gslpp::complex FbarWa_t(const double s, const double Mw_i) const;
 
     /**
      * @brief The form factor @f$\mathcal{F}_{Wn}^t@f$.
@@ -784,7 +783,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_{Wn}^0@f$
      */
-    complex FWn_t(const double s, const double Mw_i) const;
+    gslpp::complex FWn_t(const double s, const double Mw_i) const;
 
     /**
      * @brief The unified form factor @f$\mathcal{F}_Z@f$.
@@ -801,7 +800,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_Z@f$
      */
-    complex FZ(const double s, const double Mw_i) const;
+    gslpp::complex FZ(const double s, const double Mw_i) const;
 
     /**
      * @brief The unified form factor @f$\mathcal{F}_W@f$ for @f$Z\to f\bar{f}@f$.
@@ -827,7 +826,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_W@f$
      */
-    complex FW(const double s, const Particle f, const double Mw_i) const;
+    gslpp::complex FW(const double s, const Particle f, const double Mw_i) const;
 
     ////////////////////////////////////////////////////////////////////////        
 
@@ -838,7 +837,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_{Wn}@f$
      */
-    complex TEST_FWn(const double s, const double mf, const double Mw_i) const;
+    gslpp::complex TEST_FWn(const double s, const double mf, const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////    

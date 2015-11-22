@@ -9,7 +9,7 @@
 #define	STU_H
 
 #include <stdexcept>
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "THDM.h"
 #include "THDMcache.h"
 

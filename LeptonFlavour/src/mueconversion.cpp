@@ -27,7 +27,7 @@ double mueconversion_Ti::computeThValue()
 //    double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
     double mMU = mySM.getLeptons(StandardModel::MU).getMass();
 //    double GammaMU = 2.99598e-19;
-    gslpp::vector<complex> ** allcoeff_mueconv = mySM.getMyLeptonFlavour()->ComputeCoeffmueconversion();
+    gslpp::vector<gslpp::complex> ** allcoeff_mueconv = mySM.getMyLeptonFlavour()->ComputeCoeffmueconversion();
     double ZTi=22.0;
     double NTi=26.0;
     double Zeff=17.6;

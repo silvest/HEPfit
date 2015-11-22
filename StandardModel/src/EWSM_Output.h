@@ -10,8 +10,6 @@
 
 #include "StandardModel.h"
 
-using namespace gslpp;
-
 /**
  * @class EWSM_Output
  * @ingroup StandardModel

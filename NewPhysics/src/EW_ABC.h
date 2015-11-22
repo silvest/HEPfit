@@ -8,10 +8,8 @@
 #ifndef EW_ABC_H
 #define	EW_ABC_H
 
-#include <gslpp.h>
+#include "gslpp.h"
 #include "NPEpsilons.h"
-
-using namespace gslpp;
 
 /**
  * @class EW_ABC
@@ -65,15 +63,15 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    complex gVl(StandardModel::lepton l) const;
-    complex gAl(StandardModel::lepton l) const;
-    complex gVl_over_gAl(StandardModel::lepton l) const;
-    complex gVq(QCD::quark q) const;
-    complex gAq(QCD::quark q) const;
-    complex gVq_over_gAq(QCD::quark q) const;
-    complex gVb() const;
-    complex gAb() const;
-    complex gVb_over_gAb() const;
+    gslpp::complex gVl(StandardModel::lepton l) const;
+    gslpp::complex gAl(StandardModel::lepton l) const;
+    gslpp::complex gVl_over_gAl(StandardModel::lepton l) const;
+    gslpp::complex gVq(QCD::quark q) const;
+    gslpp::complex gAq(QCD::quark q) const;
+    gslpp::complex gVq_over_gAq(QCD::quark q) const;
+    gslpp::complex gVb() const;
+    gslpp::complex gAb() const;
+    gslpp::complex gVb_over_gAb() const;
 
 
     ////////////////////////////////////////////////////////////////////////

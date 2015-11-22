@@ -6,9 +6,6 @@
  */
     
 #include "Heffgminus2.h"
-#include "gslpp_complex.h"
-
-using namespace gslpp;
 
 Heffgminus2::Heffgminus2(const StandardModel & SM_i) :
         model(SM_i),
@@ -18,7 +15,7 @@ Heffgminus2::Heffgminus2(const StandardModel & SM_i) :
 Heffgminus2::~Heffgminus2() {
 }
 
-vector<complex>** Heffgminus2::ComputeCoeffgm2mu() {
+gslpp::vector<gslpp::complex>** Heffgminus2::ComputeCoeffgm2mu() {
 
     std::vector<WilsonCoefficient>& mcb9 = model.getMyMatching() -> CMgminus2mu();
     orders ordgminus2mu = coeffgminus2mu.getOrder();

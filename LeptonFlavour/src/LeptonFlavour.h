@@ -8,13 +8,11 @@
 #ifndef LEPTONFLAVOUR_H
 #define	LEPTONFLAVOUR_H
 
-#include <StandardModel.h>
+#include "StandardModel.h"
 #include "HeffDLij.h"
 #include "HeffDLi3j.h"
 #include "Heffmueconv.h"
 #include "Heffgminus2.h"
-
-using namespace gslpp;
 
 class LeptonFlavour {
 public:
@@ -27,7 +25,7 @@ public:
         return HDLij;
     }
 
-    vector<complex>** ComputeCoeffli_lj_gamma(int li_lj) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffli_lj_gamma(int li_lj) {
         return HDLij.ComputeCoeffDLij(li_lj);
     }
 
@@ -35,7 +33,7 @@ public:
         return HDLi3j;
     }
 
-    vector<complex>** ComputeCoeffli_3lj(int li_lj) {
+    gslpp::vector<gslpp::complex>** ComputeCoeffli_3lj(int li_lj) {
         return HDLi3j.ComputeCoeffDLi3j(li_lj);
     }
 
@@ -43,7 +41,7 @@ public:
         return Hmueconv;
     }
 
-    vector<complex>** ComputeCoeffmueconversion() {
+    gslpp::vector<gslpp::complex>** ComputeCoeffmueconversion() {
         return Hmueconv.ComputeCoeffmueconv();
     }
 
@@ -51,7 +49,7 @@ public:
         return Hgminus2;
     }
 
-    vector<complex>** ComputeCoeffgminus2mu() {
+    gslpp::vector<gslpp::complex>** ComputeCoeffgminus2mu() {
         return Hgminus2.ComputeCoeffgm2mu();
     }
 
