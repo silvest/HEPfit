@@ -7,7 +7,7 @@
 
 /* 
  * Gambino's parameters hardcoded
- * phi1.4body hardcoded, currently switched off through the macro FOUR_BODY set to false
+ * phi1.4body partially hardcoded, currently switched off through the macro FOUR_BODY set to false
  * VubNNLO and EW parts missing
  */
 
@@ -130,7 +130,7 @@ double Bsgamma::T3(double E0,double t)
             - (rho(E0)/18. + omega(E0)/162.) * log(t*d);
 }
 
-double Bsgamma::P0tree(double E0, double t)
+double Bsgamma::P0_4body(double E0, double t)
 {
     gslpp::complex A1 =-C1_0*CKMu;
     gslpp::complex A2 =-C2_0*CKMu;
@@ -567,60 +567,76 @@ double Bsgamma::Int_cc1_part1(double E0)
 
 double Bsgamma::ff7_dMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    
-    return 4. * d * (18. - 33.*d + 2.*d2 + 13.*d3 - 6.* d2 * (2. + d) * log(d)) 
-            / (81. * (d - 1.));
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+
+        return 4. * d * (18. - 33.*d + 2.*d2 + 13.*d3 - 6.* d2 * (2. + d) * log(d)) 
+                / (81. * (d - 1.));   
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::ff7_sMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    
-    return (-2. * d * (72. + 39.*d - 76.*d2 - 35.*d3 
-            + 6.*d*(18. + 13.*d + 2.*d2)*log(d))) / (243.*(d - 1.));
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+
+        return (-2. * d * (72. + 39.*d - 76.*d2 - 35.*d3 
+                + 6.*d*(18. + 13.*d + 2.*d2)*log(d))) / (243.*(d - 1.));
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::ff8_dMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    double ld = log(d);
-    double l1d = log(1. - d);
-    double Li2 = gsl_sf_dilog(d);
-    
-    return -136./27. * d - 724./81. * d2 + 20./27. * d3 
-            + (-8./9. + 16./9. * d - 8./9. * d2) * l1d* l1d 
-            + (32./27. * d + 76./27. * d2 - 16./81. * d3) * ld 
-            + (-104./27. - 80./9. * d + 40./9. * d2 + (32./27. 
-            + 32./9. * d - 16./9. * d2) * ld) * l1d 
-            + (-64./27. * d - 152./27. * d2 + 32./81. * d3 
-            + (-64./27. - 64./9. * d + 32./9. * d2) * l1d) * log(Ms/Mb_kin) 
-            + (32./27. + 32./9. * d - 16./9. * d2) * Li2;
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+        double ld = log(d);
+        double l1d = log(1. - d);
+        double Li2 = gsl_sf_dilog(d);
+
+        return -136./27. * d - 724./81. * d2 + 20./27. * d3 
+                + (-8./9. + 16./9. * d - 8./9. * d2) * l1d* l1d 
+                + (32./27. * d + 76./27. * d2 - 16./81. * d3) * ld 
+                + (-104./27. - 80./9. * d + 40./9. * d2 + (32./27. 
+                + 32./9. * d - 16./9. * d2) * ld) * l1d 
+                + (-64./27. * d - 152./27. * d2 + 32./81. * d3 
+                + (-64./27. - 64./9. * d + 32./9. * d2) * l1d) * log(Ms/Mb_kin) 
+                + (32./27. + 32./9. * d - 16./9. * d2) * Li2;
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::ff8_sMP(double E0)
 {
-    double d=delta(E0);
-    double d2=d*d;
-    double d3=d2*d;
-    double ld = log(d);
-    double l1d = log(1. - d);
-    double Li2 = gsl_sf_dilog(d);
-    
-    return -340./243. * d - 104./81. * d2 + 16./729. * d3 
-            + (-4./27. + 8./27. * d - 4./27. * d2) * l1d* l1d 
-            + (8./27. * d + 4./9. * d2) * ld 
-            + (-16./27. * d - 8./9. * d2) * log(Ms/Mb_kin)
-            + (-268./243. - 40./27. * d + 20./27. * d2 + (8./27. 
-            + 16./27. * d - 8./27. * d2) * ld
-            + (-16./27. - 32./27. * d + 16./27. * d2) * log(Ms/Mb_kin)) * l1d 
-            + (8./27. + 16./27. * d - 8./27. * d2) * Li2;
+    if (FOUR_BODY){
+        double d=delta(E0);
+        double d2=d*d;
+        double d3=d2*d;
+        double ld = log(d);
+        double l1d = log(1. - d);
+        double Li2 = gsl_sf_dilog(d);
+
+        return -340./243. * d - 104./81. * d2 + 16./729. * d3 
+                + (-4./27. + 8./27. * d - 4./27. * d2) * l1d* l1d 
+                + (8./27. * d + 4./9. * d2) * ld 
+                + (-16./27. * d - 8./9. * d2) * log(Ms/Mb_kin)
+                + (-268./243. - 40./27. * d + 20./27. * d2 + (8./27. 
+                + 16./27. * d - 8./27. * d2) * ld
+                + (-16./27. - 32./27. * d + 16./27. * d2) * log(Ms/Mb_kin)) * l1d 
+                + (8./27. + 16./27. * d - 8./27. * d2) * Li2;
+    }
+    else 
+        return 0.;
 }
 
 double Bsgamma::Phi11_1(double E0)
@@ -1558,7 +1574,7 @@ double Bsgamma::delddel_Phi88_1(double E0)
             - d * Ld - (2. + d) * Ld);
 }
 
-double Bsgamma::f_AEGG(double r)
+double Bsgamma::f(double r)
 {
     double r2 = r*r;
     double r3 = r2*r;
@@ -1578,7 +1594,7 @@ double Bsgamma::f_AEGG(double r)
                 + 4. * M_PI*M_PI * r4 + 172./9. * r2 + 5578./81.;
 }
 
-double Bsgamma::delta_GBGS(double r) 
+double Bsgamma::Delta(double r) 
 {
     double r2 = r*r;
     double r3 = r2*r;
@@ -1753,7 +1769,7 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
     K_ij[0][7] = -1./6. * K_ij[1][7];
     
     K_ij[6][6] = K77_2_z1(E0,mu_b) + ( 1972./81. - 16./27. * M_PI*M_PI + 8./3. * Phi77_1(E0)) * log(zeta())
-            + 2./3. * (f_AEGG(r) - f_AEGG(1.)) - 128./3. * (delta_GBGS(r) - delta_GBGS(1.)) 
+            + 2./3. * (f(r) - f(1.)) - 128./3. * (Delta(r) - Delta(1.)) 
             - 16. * (f_u(r) - f_u(1.));
     K_ij[6][7] = 2./3. * Y2(E0,mu_b) + (16./9.*M_PI*M_PI - 164./9. - 32./6. * Lb) * Y1(E0,mu_b) 
             - 32./81. * alsUps * M_PI * (3. + 7.*d - 3.*d*d + d*d*d - 4.*d*log(d) );
@@ -1791,42 +1807,6 @@ void Bsgamma::computeCoeff(double mu)
     
     C7p_0 = (*(allcoeffprime[LO]))(6);
     C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
-   
-    /*std::cout << "C1_0: " << C1_0 << std::endl;
-    std::cout << "C2_0: " << C2_0 << std::endl;
-    std::cout << "C3_0: " << C3_0 << std::endl;
-    std::cout << "C4_0: " << C4_0 << std::endl;
-    std::cout << "C5_0: " << C5_0 << std::endl;
-    std::cout << "C6_0: " << C6_0 << std::endl;
-    std::cout << "C7_0: " << C7_0 << std::endl;
-    std::cout << "C8_0: " << C8_0 << std::endl << std::endl;
-    
-    std::cout << "C1_1: " << C1_1 << std::endl;
-    std::cout << "C2_1: " << C2_1 << std::endl;
-    std::cout << "C3_1: " << C3_1 << std::endl;
-    std::cout << "C4_1: " << C4_1 << std::endl;
-    std::cout << "C5_1: " << C5_1 << std::endl;
-    std::cout << "C6_1: " << C6_1 << std::endl;
-    std::cout << "C7_1: " << C7_1 << std::endl;
-    std::cout << "C8_1: " << C8_1 << std::endl << std::endl;*/
-    
-    /*C1_0 = -0.899903;
-    C2_0 = 1.07309;
-    C3_0 = -0.0150851;
-    C4_0 = -0.139341;
-    C5_0 = 0.00140694;
-    C6_0 = 0.00324029;
-    C7_0 = -0.384796;
-    C8_0 = -0.177462;
-    
-    C1_1 = 14.9422;
-    C2_1 = -2.20987;
-    C3_1 = 0.0842172;
-    C4_1 = -0.590212;
-    C5_1 = -0.0207457;
-    C6_1 = -0.00689551;
-    C7_1 = 2.08714;
-    C8_1 = -0.631105;*/
     
     C7_2 = 18.8595;
 
@@ -1834,7 +1814,7 @@ void Bsgamma::computeCoeff(double mu)
 
 double Bsgamma::P0(double E0)
 {
-    return C7_0.abs2() + C7p_0.abs2() + P0tree(E0,Mb_kin*Mb_kin/Ms/Ms);
+    return C7_0.abs2() + C7p_0.abs2() + P0_4body(E0,Mb_kin*Mb_kin/Ms/Ms);
 }
 
 double Bsgamma::P11()
@@ -2066,7 +2046,7 @@ double Bsgamma::C_sem()
             - 0.1080 * (Mc - 1.05) - 0.0122  * mu_G2 - 0.199 * rho_D3 + 0.004 * rho_LS3);
 }
 
-void Bsgamma::computeBR(orders order)
+void Bsgamma::updateParameters()
 {
     mu_kin=SM.getGambino_mukin();
     BRsl=SM.getGambino_BRsem();
@@ -2117,19 +2097,16 @@ void Bsgamma::computeBR(orders order)
     computeCoeff(mu_b);
     
     overall = BRsl * (lambda_t/V_cb).abs2() * 6. * ale / (M_PI * C);
-    
-    if (obs == 1) 
-        BR = overall *  ( P(E0, mu_b, mu_c, order, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
-    if (obs == 2) 
-        BR_CPodd = overall *  ( P(E0, mu_b, mu_c, order, true) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
 }
 
 double Bsgamma::computeThValue()
 {
-    computeBR(NLO);
+    updateParameters();
     
-    if (obs == 1) return BR;
-    if (obs == 2) return BR_CPodd;
+    if (obs == 1) 
+        return overall *  ( P(E0, mu_b, mu_c, NLO, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
+    if (obs == 2) 
+        return overall *  ( P(E0, mu_b, mu_c, NLO, true) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");
 }

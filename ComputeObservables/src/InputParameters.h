@@ -110,6 +110,7 @@ private:
         DPars_IN["FK"] = 0.;
         DPars_IN["FBs"] = 0.;
         DPars_IN["FKstar"] = 0.;
+        DPars_IN["FKstarp"] = 0.;
         DPars_IN["Fphi"] = 0.;
         DPars_IN["FBsoFBd"] = 0.;
         DPars_IN["BBsoBBd"] = 0.;
@@ -267,7 +268,15 @@ private:
         DPars_IN["r_2_f0"] = 0.;
         DPars_IN["m_fit2_f0"] = 0.;
         DPars_IN["bsgamma_E0"] = 0.;
-        DPars_IN["bsgamma_C"] = 0.;
+        DPars_IN["BLNPcorr"] = 0.;
+        DPars_IN["Gambino_mukin"] = 0.;
+        DPars_IN["Gambino_BRsem"] = 0.;
+        DPars_IN["Gambino_Mbkin"] = 0.;
+        DPars_IN["Gambino_Mcatmuc"] = 0.;
+        DPars_IN["Gambino_mupi2"] = 0.;
+        DPars_IN["Gambino_rhoD3"] = 0.;
+        DPars_IN["Gambino_muG2"] = 0.;
+        DPars_IN["Gambino_rhoLS3"] = 0.;
         DPars_IN["lambdaB"] = 0.3;
         DPars_IN["alpha1kst"] = 0.;
         DPars_IN["alpha2kst"] = 0.;
