@@ -52,6 +52,7 @@ MonteCarlo::MonteCarlo(
 void MonteCarlo::TestRun(int rank) {
     if (checkrun == true) {
         if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::TestRun() cannot be called after calling MonteCarlo::Run().\n");
+        else sleep (2);
     } else {
         checkrun = true;
     }
@@ -82,6 +83,7 @@ void MonteCarlo::TestRun(int rank) {
 
         if (!myInputParser.getModel()->Init(DP)) {
             if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
+            else sleep (2);
         }
 
         if (Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
@@ -106,6 +108,7 @@ void MonteCarlo::TestRun(int rank) {
 void MonteCarlo::Run(const int rank) {
     if (checkrun == true) {
         if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::Run() cannot be called after calling MonteCarlo::TestRun().\n");
+        else sleep(2);
     } else {
         checkrun = true;
     }
@@ -136,11 +139,15 @@ void MonteCarlo::Run(const int rank) {
             } else
                 DP[it->name] = it->ave;
         }
-        if (buffsize == 0)
+        if (buffsize == 0){
             if (rank == 0) throw std::runtime_error("No parameters being varied. Aborting MCMC run.\n");
+            else sleep(2);
+        }
         buffsize++;
-        if (!myInputParser.getModel()->Init(DP))
-            if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
+        if (!myInputParser.getModel()->Init(DP)){
+            if (rank == 0) throw std::runtime_error("\nERROR: Model cannot be initialization.\n");
+            else sleep(2);
+        }
 
         if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 

@@ -9,10 +9,11 @@
 #define	THOBSFACTORY_H
 
 #include "StandardModel.h"
-#include "ThObservable.h"
 #include <boost/functional/factory.hpp>
 #include <boost/function.hpp>
 #include <map>
+
+class ThObservable;
 
 /**
  * @class ThObsFactory

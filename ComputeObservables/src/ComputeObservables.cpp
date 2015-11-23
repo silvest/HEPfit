@@ -65,7 +65,7 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
         throw std::runtime_error("\nERROR: " + ModelName + " not initialized successfully.\n");
     }
     if (!Mod->Init(DPars_i))
-        throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
+        throw std::runtime_error("\nERROR: Model cannot be initialized initialization.\n");
 }
 
 ComputeObservables::~ComputeObservables()

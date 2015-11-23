@@ -61,6 +61,7 @@ public:
                                                                                 boost::tokenizer<boost::char_separator<char> >* tok, 
                                                                                 boost::tokenizer<boost::char_separator<char> >::iterator & beg, 
                                                                                 std::string& filepath, 
+                                                                                std::string& infilename,
                                                                                 int rank);
     
     /**
@@ -424,7 +425,7 @@ protected:
     double max; ///< The maximum valus of the observable.
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
     TH1D * inhisto; ///< 1D Histogram containing the experimental likelihood for the observable
-    std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
+    std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable, 3: FunctionObservable
     double bin_min; ///< The minimum value of the observable bin.
     double bin_max; ///< The maximum valus of the observable bin.
     int iterationNo;

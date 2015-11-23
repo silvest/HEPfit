@@ -279,7 +279,10 @@ void GenerateEvent::createDirectories()
 void GenerateEvent::initModel(){
     ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
     Mod = myInputParser.getModel();
-    if (Obs.size() == 0 && CGO.size() == 0 && rank == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n");
+    if (Obs.size() == 0 && CGO.size() == 0) {
+        if (rank == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n");
+        else sleep (2);
+    }
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
         if (it->IsCorrelated()) {
@@ -300,7 +303,8 @@ void GenerateEvent::initModel(){
         if (it->errg > 0. || it->errf > 0.) ModParsVar.push_back(*it);
     }
     if (!myInputParser.getModel()->Init(DP)) {
-        throw std::runtime_error("parameter(s) missing in model initialization");
+        if (rank == 0) throw std::runtime_error("\nERROR: Model cannot be initialization");
+        else sleep(2);
     }
     
     buffersize = Obs.size() + ModParsVar.size();

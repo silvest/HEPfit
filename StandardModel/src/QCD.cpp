@@ -286,9 +286,11 @@ std::string QCD::orderToString(const orders order) const
 
 bool QCD::Init(const std::map<std::string, double>& DPars)
 {
-    Update(DPars);
+    bool check = CheckParameters(DPars);
+    if (!check) return (check);
+    check *= Update(DPars);
     unknownParameterWarning = false;
-    return (CheckParameters(DPars));
+    return (check);
 }
 
 bool QCD::PreUpdate()

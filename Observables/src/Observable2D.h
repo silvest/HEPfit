@@ -278,6 +278,11 @@ public:
         this->errg2 = errg2;
     }
     
+    bool isEOF()
+    {
+        return IsEOF;
+    }
+    
 private:
     std::string thname2; ///< The name for the second oservable as fixed in the ThObservable() class.
     std::string label2; ///< A label for the second observable.
@@ -286,7 +291,7 @@ private:
     double ave2; ///< The average value of the second observable.
     double errg2; ///< The gaussian error of the second observable.
     double errf2; ///< the flat error of the second observable.
-    std::string obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
+    std::string obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable, 3: FunctionObservable
     ThObservable * tho2; ///< A pointer to an object of the ThObservable class.
     TH2D * inhisto2d;  ///< 2D Histogram containing the experimental likelihood for the observable
     std::vector<double> bin_min;
@@ -294,6 +299,7 @@ private:
     std::string filepath;
     int iterationNo2;
     double thValue2;
+    bool IsEOF;
 };
 
 #endif	/* OBSERVABLE2D_H */

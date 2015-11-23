@@ -6,6 +6,7 @@
  */
 
 #include "ThObsFactory.h"
+#include "ThObservable.h"
 #include "ParamObs.h"
 #include "EWObservables.h"
 #include "HiggsThObservables.h"

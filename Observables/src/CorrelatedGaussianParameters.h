@@ -121,6 +121,12 @@ public:
                  boost::tokenizer<boost::char_separator<char> >::iterator & beg,
                  int lineNo,
                  int rank);
+    
+    bool isEOF()
+    {
+        return IsEOF;
+    }
+    
 private:
     std::vector<ModelParameter> Pars; ///< A vector of parameters whose correlation will be calculated.
     gslpp::matrix<double>* Cov; ///< The covariance matrix.
@@ -128,6 +134,7 @@ private:
     gslpp::matrix<double> * v;
     gslpp::vector<double> * e;
     std::vector<ModelParameter> DiagPars; ///< The vector of diagonal parameters
+    bool IsEOF;
 };
 
 /** 
