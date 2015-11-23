@@ -721,80 +721,109 @@ protected:
     virtual void setParameter(const std::string name, const double& value);
 
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
-    double CHG;
-    double CHW;
-    double CHB;
-    double CHWB;
-    double CHD;
-    double CHbox;
-    double CH;
-    double CHL1_11, CHL1_12r, CHL1_13r, CHL1_22, CHL1_23r, CHL1_33;
-    double CHL1_12i, CHL1_13i, CHL1_23i;
-    double CHL3_11, CHL3_12r, CHL3_13r, CHL3_22, CHL3_23r, CHL3_33;
-    double CHL3_12i, CHL3_13i, CHL3_23i;
-    double CHe_11, CHe_12r, CHe_13r, CHe_22, CHe_23r, CHe_33;
-    double CHe_12i, CHe_13i, CHe_23i;
-    double CHQ1_11, CHQ1_12r, CHQ1_13r, CHQ1_22, CHQ1_23r, CHQ1_33;
-    double CHQ1_12i, CHQ1_13i, CHQ1_23i;
-    double CHQ3_11, CHQ3_12r, CHQ3_13r, CHQ3_22, CHQ3_23r, CHQ3_33;
-    double CHQ3_12i, CHQ3_13i, CHQ3_23i;
-    double CHu_11, CHu_12r, CHu_13r, CHu_22, CHu_23r, CHu_33;
-    double CHu_12i, CHu_13i, CHu_23i;
-    double CHd_11, CHd_12r, CHd_13r, CHd_22, CHd_23r, CHd_33;
-    double CHd_12i, CHd_13i, CHd_23i;
-    double CHud_11r, CHud_12r, CHud_13r, CHud_22r, CHud_23r, CHud_33r;
-    double CHud_11i, CHud_12i, CHud_13i, CHud_22i, CHud_23i, CHud_33i;
-    double CeH_11r, CeH_12r, CeH_13r, CeH_22r, CeH_23r, CeH_33r;
-    double CeH_11i, CeH_12i, CeH_13i, CeH_22i, CeH_23i, CeH_33i;
-    double CuH_11r, CuH_12r, CuH_13r, CuH_22r, CuH_23r, CuH_33r;
-    double CuH_11i, CuH_12i, CuH_13i, CuH_22i, CuH_23i, CuH_33i;
-    double CdH_11r, CdH_12r, CdH_13r, CdH_22r, CdH_23r, CdH_33r;
-    double CdH_11i, CdH_12i, CdH_13i, CdH_22i, CdH_23i, CdH_33i;
-    double CLL_1221, CLL_2112;
-    double CLQ1;
-    double CLQ3;
-    double Cee;
-    double Ceu;
-    double Ced;
-    double CLe;
-    double CLu;
-    double CLd;
-    double CQe;
-    double Lambda_NP;
+    double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
+    double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
+    double CHB; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
+    double CHWB; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
+    double CHD; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
+    double CHbox; ///< The dimension-6 operator coefficient \f$C_{H\box}\f$.
+    double CH; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
+    double CHL1_11, CHL1_12r, CHL1_13r, CHL1_22, CHL1_23r, CHL1_33; ///< The dimension-6 operator coefficients \f$C_{HL}^{(1)}\f$ (real parts).
+    double CHL1_12i, CHL1_13i, CHL1_23i; ///< The dimension-6 operator coefficients \f$C_{HL}^{(1)}\f$ (imaginary parts).
+    double CHL3_11, CHL3_12r, CHL3_13r, CHL3_22, CHL3_23r, CHL3_33; ///< The dimension-6 operator coefficients \f$C_{HL}^{(3)}\f$ (real parts).
+    double CHL3_12i, CHL3_13i, CHL3_23i; ///< The dimension-6 operator coefficients \f$C_{HL}^{(3)}\f$ (real parts).
+    double CHe_11, CHe_12r, CHe_13r, CHe_22, CHe_23r, CHe_33; ///< The dimension-6 operator coefficients \f$C_{HE}\f$ (real parts).
+    double CHe_12i, CHe_13i, CHe_23i; ///< The dimension-6 operator coefficients \f$C_{HE}\f$ (imaginary parts).
+    double CHQ1_11, CHQ1_12r, CHQ1_13r, CHQ1_22, CHQ1_23r, CHQ1_33; ///< The dimension-6 operator coefficients \f$C_{HQ}^{(1)}\f$ (real parts).
+    double CHQ1_12i, CHQ1_13i, CHQ1_23i; ///< The dimension-6 operator coefficients \f$C_{HQ}^{(1)}\f$ (imaginary parts).
+    double CHQ3_11, CHQ3_12r, CHQ3_13r, CHQ3_22, CHQ3_23r, CHQ3_33; ///< The dimension-6 operator coefficients \f$C_{HQ}^{(3)}\f$ (real parts).
+    double CHQ3_12i, CHQ3_13i, CHQ3_23i; ///< The dimension-6 operator coefficients \f$C_{HQ}^{(3)}\f$ (imaginary parts).
+    double CHu_11, CHu_12r, CHu_13r, CHu_22, CHu_23r, CHu_33; ///< The dimension-6 operator coefficients \f$C_{HU}\f$ (real parts).
+    double CHu_12i, CHu_13i, CHu_23i; ///< The dimension-6 operator coefficients \f$C_{HU}\f$ (imaginary parts).
+    double CHd_11, CHd_12r, CHd_13r, CHd_22, CHd_23r, CHd_33; ///< The dimension-6 operator coefficients \f$C_{HD}\f$ (real parts).
+    double CHd_12i, CHd_13i, CHd_23i; ///< The dimension-6 operator coefficients \f$C_{HD}\f$ (imaginary parts).
+    double CHud_11r, CHud_12r, CHud_13r, CHud_22r, CHud_23r, CHud_33r; ///< The dimension-6 operator coefficients \f$C_{HUD}\f$ (real parts).
+    double CHud_11i, CHud_12i, CHud_13i, CHud_22i, CHud_23i, CHud_33i; ///< The dimension-6 operator coefficients \f$C_{HUD}\f$ (imaginary parts).
+    double CeH_11r, CeH_12r, CeH_13r, CeH_22r, CeH_23r, CeH_33r; ///< The dimension-6 operator coefficients \f$C_{EH}\f$ (real parts).
+    double CeH_11i, CeH_12i, CeH_13i, CeH_22i, CeH_23i, CeH_33i; ///< The dimension-6 operator coefficients \f$C_{EH}\f$ (imaginary parts).
+    double CuH_11r, CuH_12r, CuH_13r, CuH_22r, CuH_23r, CuH_33r; ///< The dimension-6 operator coefficients \f$C_{UH}\f$ (real parts).
+    double CuH_11i, CuH_12i, CuH_13i, CuH_22i, CuH_23i, CuH_33i; ///< The dimension-6 operator coefficients \f$C_{UH}\f$ (imaginary parts).
+    double CdH_11r, CdH_12r, CdH_13r, CdH_22r, CdH_23r, CdH_33r; ///< The dimension-6 operator coefficients \f$C_{DH}\f$ (real parts).
+    double CdH_11i, CdH_12i, CdH_13i, CdH_22i, CdH_23i, CdH_33i; ///< The dimension-6 operator coefficients \f$C_{DH}\f$ (imaginary parts).
+    double CLL_1221, CLL_2112; ///< The dimension-6 operator coefficients \f$C_{LL}\f$.
+    double CLQ1; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{LQ}^{(1)}\f$.
+    double CLQ3; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{LQ}^{(3)}\f$.
+    double Cee; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{EE}\f$.
+    double Ceu; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{EU}\f$.
+    double Ced; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{ED}\f$.
+    double CLe; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{LE}\f$.
+    double CLu; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{LU}\f$.
+    double CLd; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{LD}\f$.
+    double CQe; ///< The dimension-6 (four-fermion) operator coefficients \f$C_{QE}\f$.
+    double Lambda_NP; ///< The new physics scale [GeV].
 // The error in the parameters multiplying the dimension-6 operator coefficients in the production cross sections.
-    double eVBF2_HZZ1, eVBF2_HZZ2, eVBF2_HZZ3, eVBF2_HZA1, eVBF2_HZA2, eVBF2_HAA;///< VBF (Tevatron 1.96 TeV).
-    double eVBF2_HWW1, eVBF2_HWW2, eVBF2_HWW3, eVBF2_Hgg, eVBF2_HZuL, eVBF2_HZuR;
-    double eVBF2_HZdL, eVBF2_HZdR, eVBF2_HWud, eVBF2_ZuL, eVBF2_ZuR, eVBF2_ZdL;
-    double eVBF2_ZdR, eVBF2_Wud;
-    double eVBF78_HZZ1, eVBF78_HZZ2, eVBF78_HZZ3, eVBF78_HZA1, eVBF78_HZA2, eVBF78_HAA;///< VBF (LHC 7 & 8 TeV).
-    double eVBF78_HWW1, eVBF78_HWW2, eVBF78_HWW3, eVBF78_Hgg, eVBF78_HZuL, eVBF78_HZuR;
-    double eVBF78_HZdL, eVBF78_HZdR, eVBF78_HWud, eVBF78_ZuL, eVBF78_ZuR, eVBF78_ZdL;
-    double eVBF78_ZdR, eVBF78_Wud;
+    double eVBF2_HZZ1, eVBF2_HZZ2, eVBF2_HZZ3, eVBF2_HZA1, eVBF2_HZA2, eVBF2_HAA;///< Error parameters for VBF production at Tevatron (1.96 TeV).
+    double eVBF2_HWW1, eVBF2_HWW2, eVBF2_HWW3, eVBF2_Hgg, eVBF2_HZuL, eVBF2_HZuR;///< Error parameters for VBF production at Tevatron (1.96 TeV).
+    double eVBF2_HZdL, eVBF2_HZdR, eVBF2_HWud, eVBF2_ZuL, eVBF2_ZuR, eVBF2_ZdL;///< Error parameters for VBF production at Tevatron (1.96 TeV).
+    double eVBF2_ZdR, eVBF2_Wud;///< Error parameters for VBF production at Tevatron (1.96 TeV).
+    double eVBF78_HZZ1, eVBF78_HZZ2, eVBF78_HZZ3, eVBF78_HZA1, eVBF78_HZA2, eVBF78_HAA;///< Error parameters for VBF production at the LHC (7 & 8 TeV).
+    double eVBF78_HWW1, eVBF78_HWW2, eVBF78_HWW3, eVBF78_Hgg, eVBF78_HZuL, eVBF78_HZuR;///< Error parameters for VBF production at the LHC (7 & 8 TeV).
+    double eVBF78_HZdL, eVBF78_HZdR, eVBF78_HWud, eVBF78_ZuL, eVBF78_ZuR, eVBF78_ZdL;///< Error parameters for VBF production at the LHC (7 & 8 TeV).
+    double eVBF78_ZdR, eVBF78_Wud;///< Error parameters for VBF production at the LHC (7 & 8 TeV).
     
-    double eWH2_HWW1, eWH2_HWW2, eWH2_HWW3, eWH2_HWud, eWH2_Wud;///< WH (Tevatron 1.96 TeV).
-    double eWH78_HWW1, eWH78_HWW2, eWH78_HWW3, eWH78_HWud, eWH78_Wud;///< WH (LHC 7 & 8 TeV).
+    double eWH2_HWW1, eWH2_HWW2, eWH2_HWW3, eWH2_HWud, eWH2_Wud;///< Error parameters for WH production at Tevatron (1.96 TeV).
+    double eWH78_HWW1, eWH78_HWW2, eWH78_HWW3, eWH78_HWud, eWH78_Wud;///< Error parameters for WH production at the LHC (7 & 8 TeV).
     
-    double eZH2_HZZ1, eZH2_HZZ2, eZH2_HZZ3, eZH2_HZA1, eZH2_HZA2, eZH2_HZuL, eZH2_HZuR;///< ZH (Tevatron 1.96 TeV).
-    double eZH2_HZdL, eZH2_HZdR, eZH2_ZuL, eZH2_ZuR, eZH2_ZdL, eZH2_ZdR;
-    double eZH78_HZZ1, eZH78_HZZ2, eZH78_HZZ3, eZH78_HZA1, eZH78_HZA2, eZH78_HZuL, eZH78_HZuR;///< ZH (LHC 7 & 8 TeV).
-    double eZH78_HZdL, eZH78_HZdR, eZH78_ZuL, eZH78_ZuR, eZH78_ZdL, eZH78_ZdR;
+    double eZH2_HZZ1, eZH2_HZZ2, eZH2_HZZ3, eZH2_HZA1, eZH2_HZA2, eZH2_HZuL, eZH2_HZuR;///< Error parameters for ZH production at Tevatron (1.96 TeV).
+    double eZH2_HZdL, eZH2_HZdR, eZH2_ZuL, eZH2_ZuR, eZH2_ZdL, eZH2_ZdR;///< Error parameters for ZH production at Tevatron (1.96 TeV).
+    double eZH78_HZZ1, eZH78_HZZ2, eZH78_HZZ3, eZH78_HZA1, eZH78_HZA2, eZH78_HZuL, eZH78_HZuR;///< Error parameters for ZH production at the LHC (7 & 8 TeV).
+    double eZH78_HZdL, eZH78_HZdR, eZH78_ZuL, eZH78_ZuR, eZH78_ZdL, eZH78_ZdR;///< Error parameters for ZH production at the LHC (7 & 8 TeV).
     
-    double ettH2_Htt, ettH2_Hgg;///< ttH (Tevatron 1.96 TeV).
-    double ettH78_Htt, ettH78_Hgg;///< ttH (LHC 7 & 8 TeV).
+    double ettH2_Htt, ettH2_Hgg;///< Error parameters for ttH production at Tevatron (1.96 TeV).
+    double ettH78_Htt, ettH78_Hgg;///< Error parameters for ttH production at the LHC (7 & 8 TeV).
     
-    double MwInput;
+    double MwInput;///< The input value for the \f$W\f$-boson mass if FlagMwInput is true.
 
-    double LambdaNP2;
-    double v2_over_LambdaNP2;
-    double cW_tree, sW_tree;
-    double cW2_tree, sW2_tree;
-    double delta_ZZ, delta_AZ, delta_AA;
-    double delta_h;
+    double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
+    double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
+    double cW_tree, sW_tree;///< The tree level values for the sine and cosine of the weak angle.
+    double cW2_tree, sW2_tree;///< The sqaure of the tree level values for the sine and cosine of the weak angle.
+    double delta_ZZ, delta_AZ, delta_AA;///< Combinations of dimension 6 coefficients modifying the \f$Z_\mu\f$ and \f$A_\mu\f$ canonical field definitions.
+    double delta_h;///< Combinations of dimension 6 coefficients modifying the \f$H\f$ canonical field definition.
 
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(1)}\f$ corresponding to particle F.
+     * @param[in] F a lepton or quark
+     * @return @f$(\f$C_{HF}^{(1)})_{FF}\f$@f$
+     */
     double CHF1_diag(const Particle F) const;
+    
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HL,HQ}^{(3)}\f$ corresponding to particle F.
+     * @param[in] F a lepton or quark
+     * @return @f$(\f$C_{HF}^{(3)})_{FF}\f$@f$
+     */
     double CHF3_diag(const Particle F) const;
+
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HE,HU,HD}\f$ corresponding to particle f.
+     * @param[in] f a lepton or quark
+     * @return @f$(\f$C_{Hf})_{ff}\f$@f$
+     */
     double CHf_diag(const Particle f) const;
+    
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{HUD}\f$ corresponding to particle f.
+     * @param[in] u a quark
+     * @return @f$(\f$C_{HUD})_{ud}\f$@f$
+     */
     gslpp::complex CHud_diag(const Particle u) const;
+    
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{EH,UH,DH}\f$ corresponding to particle f.
+     * @param[in] f a lepton or quark
+     * @return @f$(\f$C_{fH})_{ff}\f$@f$
+     */
     gslpp::complex CfH_diag(const Particle f) const;
 
 
