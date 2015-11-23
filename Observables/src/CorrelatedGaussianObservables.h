@@ -9,6 +9,9 @@
 #define	CORRELATEDGAUSSIANOBSERVABLES_H
 
 #include "Observable.h"
+#include <boost/ptr_container/ptr_vector.hpp>
+
+class ThObsFactory;
 
 /**
  * @addtogroup Observable
@@ -33,6 +36,11 @@ public:
      * @param[in] name_i a given name for the set of correlated Gaussian observables
      */
     CorrelatedGaussianObservables(std::string name_i);
+    
+    /**
+     * @brief Default Constructor.
+     */
+    CorrelatedGaussianObservables();
     
     /**
      * @brief The copy constructor.
@@ -107,10 +115,26 @@ public:
         return *Cov;
     }
     
+    int ParseCGO(boost::ptr_vector<Observable>& Observables, 
+                 std::ifstream& ifile, 
+                 boost::tokenizer<boost::char_separator<char> >::iterator& beg, 
+                 std::string& infilename, 
+                 ThObsFactory& myObsFactory,
+                 StandardModel * myModel,
+                 int lineNo,
+                 int rank);
+    
+    bool isEOF()
+    {
+        return IsEOF;
+    }
+    
 private:
     std::vector<Observable> Obs;///< A vector of observables whose correlation will be calculated.
     gslpp::matrix<double>* Cov;///< The covariance matrix.
     std::string name;///< The name of the correlated Gaussian Observables set.
+    std::string filepath;
+    bool IsEOF;
 };
 
 /** 

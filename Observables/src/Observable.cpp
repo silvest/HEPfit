@@ -184,69 +184,95 @@ double Observable::computeWeight(double th, double ave_i, double errg_i, double 
 boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObservable(std::string& type, 
                                                                                        boost::tokenizer<boost::char_separator<char> >* tok, 
                                                                                        boost::tokenizer<boost::char_separator<char> >::iterator & beg, 
-                                                                                       std::string& filepath, 
+                                                                                       std::string& filepath,
+                                                                                       std::string& infilename,
                                                                                        int rank) 
 {
-    obsType = type;
-    name = *beg;
-    ++beg;
-    thname = *beg;
-    ++beg;
-    label = *beg;
-    size_t pos = 0;
-    while ((pos = label.find("~", pos)) != std::string::npos)
-        label.replace(pos++, 1, " ");
-    ++beg;
-    min = atof((*beg).c_str());
-    ++beg;
-    max = atof((*beg).c_str());
-    ++beg;
-    std::string toMCMC = *beg;
-    if (toMCMC.compare("MCMC") == 0)
-        tMCMC = true;
-    else if (toMCMC.compare("noMCMC") == 0)
-        tMCMC = false;
-    else
-        throw std::runtime_error("ERROR: wrong MCMC flag in " + name);
-
-    if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0) {
+    if ((type.compare("Observable") == 0 || type.compare("HiggsObservable")) && std::distance(tok->begin(), tok->end()) < 8) {
+        if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
+        else sleep (2);
+    } else if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 10) {
+        if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
+        else sleep (2);
+    } else if (type.compare("FunctionObservable") == 0 && std::distance(tok->begin(), tok->end()) < 9) {
+        if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
+        else sleep (2);
+    } else {
+        obsType = type;
+        name = *beg;
         ++beg;
-        distr = *beg;
-        if (distr.compare("file") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 10)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                        + *beg + " in " + filename);
-            filename = filepath + *(++beg);
-            histoname = *(++beg);
-            setLikelihoodFromHisto(filename, histoname);
-            if (rank == 0) std::cout << "added input histogram " << filename << "/" << histoname << std::endl;
-        } else if (distr.compare("weight") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 11 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
-            ++beg;
-            ave = atof((*beg).c_str());
-            ++beg;
-            errg = atof((*beg).c_str());
-            ++beg;
-            errf = atof((*beg).c_str());
-            if (errf == 0. && errg == 0.) {
-                if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + filename + " file.\n");
-            }
-        } else if (distr.compare("noweight") == 0) {
-            if (obsType.compare("BinnedObservable") == 0) {
-                ++beg;
-                ++beg;
-                ++beg;
-            }
-        } else if (rank == 0)
-            throw std::runtime_error("ERROR: wrong distribution flag in " + name);
+        thname = *beg;
         ++beg;
-        if (obsType.compare("BinnedObservable") == 0) {
-            bin_min = atof((*beg).c_str());
-            ++beg;
-            bin_max = atof((*beg).c_str());
-            ++beg;
+        label = *beg;
+        size_t pos = 0;
+        while ((pos = label.find("~", pos)) != std::string::npos)
+            label.replace(pos++, 1, " ");
+        ++beg;
+        min = atof((*beg).c_str());
+        ++beg;
+        max = atof((*beg).c_str());
+        ++beg;
+        std::string toMCMC = *beg;
+        if (toMCMC.compare("MCMC") == 0)
+            tMCMC = true;
+        else if (toMCMC.compare("noMCMC") == 0)
+            tMCMC = false;
+        else {
+            if (rank == 0) throw std::runtime_error("ERROR: wrong MCMC flag in " + name + ".\n");
+            else sleep (2);
         }
-        if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in observable " << name << std::endl;
+
+        if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0) {
+            ++beg;
+            distr = *beg;
+            if (distr.compare("file") == 0) {
+                if (std::distance(tok->begin(), tok->end()) < 10) {
+                    if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
+                    else sleep(2);
+                } else {
+                    filename = filepath + *(++beg);
+                    histoname = *(++beg);
+                    setLikelihoodFromHisto(filename, histoname);
+                    if (rank == 0) std::cout << "added input histogram " << filename << "/" << histoname << std::endl;
+                }
+            } else if (distr.compare("weight") == 0) {
+                if (std::distance(tok->begin(), tok->end()) < 11) {
+                    if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
+                    else sleep (2);
+                }
+                ++beg;
+                ave = atof((*beg).c_str());
+                ++beg;
+                errg = atof((*beg).c_str());
+                ++beg;
+                errf = atof((*beg).c_str());
+                if (errf == 0. && errg == 0.) {
+                    if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + infilename + " .\n");
+                    else sleep(2);
+                }
+            } else if (distr.compare("noweight") == 0) {
+                if (obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0) {
+                    ++beg;
+                    ++beg;
+                    ++beg;
+                }
+            } else {
+                if (rank == 0) throw std::runtime_error("ERROR: wrong distribution flag in " + name + " in file " + infilename + ".\n");
+                else sleep(2);
+            }
+            ++beg;
+            if (obsType.compare("BinnedObservable") == 0) {
+                bin_min = atof((*beg).c_str());
+                ++beg;
+                bin_max = atof((*beg).c_str());
+                ++beg;
+            } else if (obsType.compare("FunctionObservable") == 0) {
+                bin_min = atof((*beg).c_str());
+                ++beg;
+                ++beg;
+            }
+            if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in observable " << name << std::endl;
+        }
     }
     return beg;
 }

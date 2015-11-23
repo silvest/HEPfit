@@ -10,7 +10,9 @@
 
 #include "Observable.h"
 #include <TMatrixD.h>
+#include <boost/tokenizer.hpp>
 
+class ThObsFactory;
 /**
  * @class HiggsObservable
  * @ingroup Observable
@@ -51,6 +53,12 @@ public:
     {
         this->isnew = isnew;
     }
+    
+    boost::tokenizer<boost::char_separator<char> >::iterator & ParseHiggsObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg, 
+                                                                                    std::string& type,
+                                                                                    ThObsFactory& myObsFactory,
+                                                                                    StandardModel * myModel,
+                                                                                    int rank);
 
     private:
         TMatrixD channels;

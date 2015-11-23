@@ -524,7 +524,10 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir) {
     std::vector<double> mode(GetBestFitParameters());
-    if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
+    if (mode.size() == 0) {
+        if (rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
+        else sleep(2);
+    }
     setDParsFromParameters(mode,DPars);
 
     Mod->Update(DPars);
@@ -612,7 +615,10 @@ void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename) {
 
 std::string MonteCarloEngine::computeStatistics() {
     std::vector<double> mode(GetBestFitParameters());
-    if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
+    if (mode.size() == 0) {
+        if(rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
+        else sleep (2);
+    }
     std::ostringstream StatsLog;
     int i = 0;
     StatsLog << "Statistics file for Observables, Binned Observables and Corellated Gaussian Observables.\n" << std::endl;
@@ -622,6 +628,9 @@ std::string MonteCarloEngine::computeStatistics() {
         if (it->getObsType().compare("BinnedObservable") == 0) {
             StatsLog << "  (" << ++i << ") Binned Observable \"";
             StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]" << "\":";
+        } else if (it->getObsType().compare("FunctionObservable") == 0) {
+            StatsLog << "  (" << ++i << ") Function Observable \"";
+            StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << "]" << "\":";
         } else if (it->getObsType().compare("HiggsObservable") == 0) {
             StatsLog << "  (" << ++i << ") Higgs Observable \"";
             StatsLog << it->getName() << "\":";
@@ -688,6 +697,9 @@ std::string MonteCarloEngine::computeStatistics() {
             if (it2->getObsType().compare("BinnedObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Binned Observable \"";
                 StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]" << "\":";
+            } else if (it2->getObsType().compare("FunctionObservable") == 0) {
+                StatsLog << "  (" << ++i << ") Function Observable \"";
+                StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << "]" << "\":";
             } else if (it2->getObsType().compare("HiggsObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Higgs Observable \"";
                 StatsLog << it2->getName() << "\":";
