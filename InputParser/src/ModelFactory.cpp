@@ -19,8 +19,8 @@
 #include "HiggsKvKfgen.h"
 #include "HiggsKvgenKf.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
-//#include "pMSSM.h"
-//#include "MFV.h"
+#include "pMSSM.h"
+#include "MFV.h"
 #include "NPSTUVWXY.h"
 #include "GeneralSUSY.h"
 #include "SUSYMassInsertion.h"
@@ -54,8 +54,8 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
     modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
-    //modelFactory["MFV"] = boost::factory<MFV*>();
-    //modelFactory["pMSSM"] = boost::factory<pMSSM*>();
+    modelFactory["MFV"] = boost::factory<MFV*>();
+    modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
