@@ -2049,7 +2049,7 @@ double Bsgamma::C_sem()
 void Bsgamma::updateParameters()
 {
     mu_kin=SM.getGambino_mukin();
-    BRsl=SM.getGambino_BRsem();
+    BRsl=SM.getGambino_BRsem()/100.;
     Mb_kin=SM.getGambino_Mbkin();
     Mc=SM.getGambino_Mcatmuc();
     mu_pi2=SM.getGambino_mupi2();
