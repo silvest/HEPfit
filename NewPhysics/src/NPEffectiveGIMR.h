@@ -173,46 +173,103 @@ public:
     NPEffectiveGIMR(const bool FlagLeptonUniversal_in = false, const bool FlagQuarkUniversal_in = false);
 
     /**
-     * @brief 
-     * @return
+     * @brief The post-update method for %NPEffectiveGIMR.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate();
 
     /**
-     * @brief @copybrief Model::CheckParameters()
-     * @copydetails Model::CheckParameters()
+     * @brief A method to check if all the mandatory parameters for %NPEffectiveGIMR
+     * have been provided in model initialization.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
+     * @brief A method to set a flag of %NPEffectiveGIMR.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlag(const std::string name, const bool value);
 
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief New physics contribution to the Fermi constant.
+     * @details The new physics contribution @f$\Delta G@f$ is defined as
+     * @f[
+     * G_\mu = G_{\mu,\mathrm{SM}}(1+\Delta G)\,,
+     * @f]
+     * where @f$G_\mu@f$ is the experimental value measured through muon decays, 
+     * and @f$G_{\mu,\mathrm{SM}}@f$ is the Fermi constant in the SM.
+     * @return @f$\Delta G@f$
+     */
     virtual double DeltaGF() const;
 
+    /**
+     * @brief The oblique parameter \f$S\f$.
+     * @return the value of @f$S@f$
+     */
     virtual double obliqueS() const;
 
+    /**
+     * @brief The oblique parameter \f$T\f$.
+     * @return the value of @f$T@f$
+     */
     virtual double obliqueT() const;
 
+    /**
+     * @brief The oblique parameter \f$U\f$.
+     * @return the value of @f$U@f$
+     */
     virtual double obliqueU() const;
 
+    /**
+     * @brief @copybrief StandardModel::Mw()
+     * @return @f$M_W@f$ in GeV
+     */
     virtual double Mw() const;
 
+    /**
+     * @brief @copybrief StandardModel::GammaW()
+     * @return @f$\Gamma_W@f$ in GeV
+     */
     virtual double GammaW() const;
 
+    /**
+     * @brief New physics contribution to @f$g_V^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_V^f@f$
+     */
     virtual double deltaGV_f(const Particle p) const;
 
+    /**
+     * @brief New physics contribution to @f$g_A^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_A^f@f$
+     */
     virtual double deltaGA_f(const Particle p) const;
 
-    // no generation mixing
+    /**
+     * @brief New physics contribution to @f$g_L^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_L^f@f$
+     */
+        // no generation mixing
     double deltaGL_f(const Particle p) const;
 
-    // no generation mixing
+    /**
+     * @brief New physics contribution to @f$g_R^f@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta g_R^f@f$
+     */
+        // no generation mixing
     double deltaGR_f(const Particle p) const;
 
 
@@ -232,87 +289,426 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Wff}^{L}@f$
+     */
     // no generation mixing
     gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Wff}^{R}@f$
+     */
     // no generation mixing
     gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
 
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
+     * @return @f$\delta g_{HGG}@f$
+     */
     double deltaG_hgg() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
+     * @return @f$\delta g_{HWW}^{(1)}@f$
+     */
     double deltaG1_hWW() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
+     * @return @f$\delta g_{HWW}^{(2)}@f$
+     */
     double deltaG2_hWW() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
+     * @return @f$\delta g_{HWW}^{(3)}@f$
+     */
     double deltaG3_hWW() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZZ}^{(1)}@f$
+     */
     double deltaG1_hZZ() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZZ}^{(2)}@f$
+     */
     double deltaG2_hZZ() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
+     * @return @f$\delta g_{HZZ}^{(3)}@f$
+     */
     double deltaG3_hZZ() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZA}^{(1)}@f$
+     */
     double deltaG1_hZA() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZA}^{(2)}@f$
+     */
     double deltaG2_hZA() const;
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HAA}@f$
+     */
     double deltaG_hAA() const;
 
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Hff}@f$
+     */
     // no generation mixing
     gslpp::complex deltaG_hff(const Particle p) const;
 
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_\mu \bar{f_L}\gamma^mu f_L@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{WffH}^{L}@f$
+     */
     // no generation mixing
     gslpp::complex deltaGL_Wffh(const Particle pbar, const Particle p) const;
+    
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_\mu \bar{f_R}\gamma^mu f_R@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{WffH}^{R}@f$
+     */
     // no generation mixing
     gslpp::complex deltaGR_Wffh(const Particle pbar, const Particle p) const;
+    
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_\mu \bar{f_L}\gamma^mu f_L@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{ZffH}^{L}@f$
+     */
     // no generation mixing
     double deltaGL_Zffh(const Particle p) const;
+    
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_\mu \bar{f_R}\gamma^mu f_R@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{ZffH}^{R}@f$
+     */
     // no generation mixing 
     double deltaGR_Zffh(const Particle p) const;
 
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief Loop function entering in the calculation of the effecive @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$f(\tau)@f$
+     */
     gslpp::complex f_triangle(const double tau) const;
+    /**
+     * @brief Fermionic loop function entering in the calculation of the effecive @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
+     * @details
+     * @f$A^H_f(\tau)=2\tau [1+(1-\tau)f(\tau)]@f$
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^H_f(\tau)@f$
+     */
     gslpp::complex AH_f(const double tau) const;
 
+    /**
+     * @brief The ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH}@f$
+     */
     virtual double muggH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs
+     * production cross-section in the current model and in the Standard Model. 
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VBF}@f$
+     */
     virtual double muVBF(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
+     * cross-section in the current model and in the Standard Model. 
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{WH}@f$
+     */
     virtual double muWH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ZH}@f$
+     */
     virtual double muZH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$e^{+}e^{-}\to ZH}@f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZH}@f$
+     */
     virtual double mueeZH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VH}@f$
+     */
     virtual double muVH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{VBF+VH}@f$ between the sum of VBF and WH+ZH associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VBF+VH}@f$
+     */
     virtual double muVBFpVH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated 
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ttH}@f$
+     */
     virtual double muttH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ggH+ttH}@f$ between the sum of gluon-gluon fusion
+     * and t-tbar-Higgs associated 
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH+ttH}@f$
+     */
     virtual double muggHpttH(const double sqrt_s) const;
+    /**
+     * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to gg)@f$/Br@f$(H\to gg)_{\mathrm{SM}}@f$
+     */
     virtual double BrHggRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to WW)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to WW)@f$/Br@f$(H\to WW)_{\mathrm{SM}}@f$
+     */
     virtual double BrHWWRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
+     */
     virtual double BrHZZRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to Z\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma)@f$/Br@f$(H\to Z\gamma)_{\mathrm{SM}}@f$
+     */
     virtual double BrHZgaRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to \gamma\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \gamma\gamma)@f$/Br@f$(H\to \gamma\gamma)_{\mathrm{SM}}@f$
+     */
     virtual double BrHgagaRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to \tau^+\tau^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \tau^+\tau^-)@f$/Br@f$(H\to \tau^+\tau^-)_{\mathrm{SM}}@f$
+     */
     virtual double BrHtautauRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to c\bar{c})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to c\bar{c})@f$/Br@f$(H\to c\bar{c})_{\mathrm{SM}}@f$
+     */
     virtual double BrHccRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to b\bar{b})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
+     */
     virtual double BrHbbRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
+     */
     virtual double computeGammaTotalRatio() const;
-    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
+     */
     virtual double deltaGammaTotalRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
+     */
     virtual double deltaGammaTotalRatio2() const;
-
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to gg)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
+     */
     double GammaHggRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to WW)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
+     */
     double GammaHWWRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to ZZ)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
+     */
     double GammaHZZRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to Z\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
+     */
     double GammaHZgaRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to \gamma\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
+     */
     double GammaHgagaRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to \tau\tau)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
+     */
     double GammaHtautauRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to cc)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
+     */
     double GammaHccRatio() const;
+    /**
+     * @brief The ratio of the @f$\Gamma(H\to bb)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
+     */
     double GammaHbbRatio() const;
-
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to gg)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHggRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHWWRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHZZRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHZgaRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHgagaRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHtautauRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHccRatio1() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * linear in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHbbRatio1() const;
-    
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to gg)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
+     */   
     double deltaGammaHggRatio2() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHWWRatio2() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHZZRatio2() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHZgaRatio2() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHgagaRatio2() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHtautauRatio2() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHccRatio2() const;
+    /**
+     * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
+     * in the current model and in the Standard Model. Only terms that are
+     * quadratic in the effective Lagrangian coefficients.
+     * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
+     */
     double deltaGammaHbbRatio2() const;
     
     ////////////////////////////////////////////////////////////////////////

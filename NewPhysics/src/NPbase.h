@@ -188,7 +188,7 @@ public:
      *
      * See @cite Ciuchini:2013pca and references therein.
      * @param[in] f a lepton or quark
-     * @return @f$\delta g_V^l@f$
+     * @return @f$\delta g_V^f@f$
      */
     virtual double deltaGV_f(const Particle f) const;
 
@@ -512,6 +512,11 @@ public:
         return 1.0;
     }
 
+    /**
+     * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
+     * and in the Standard Model.
+     * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
+     */
     virtual double computeGammaTotalRatio() const
     {
         return 1.0;
