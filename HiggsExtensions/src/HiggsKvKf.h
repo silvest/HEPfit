@@ -77,27 +77,53 @@ public:
      */
     static const std::string HKvKfvars[NHKvKfvars];
 
+    /**
+     * @brief The default constructor.
+     */
     HiggsKvKf();
 
+    /**
+     * @brief The default destructor.
+     */
     virtual ~HiggsKvKf()
     {
     };
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to fermions with respect to the SM @f$K_f@f$.
+     * @return @f$K_f@f$
+     */
     double getKf() const
     {
         return Kf;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling
+     * to fermions with respect to the SM @f$K_f@f$.
+     * @param[in] @f$K_f@f$ the factor rescaling the Higgs coupling to fermions.
+     */
     void setKf(double Kf)
     {
         this->Kf = Kf;
     }
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to EW vector bosons with respect to the SM @f$K_V@f$.
+     * @return @f$K_V@f$
+     */
     double getKv() const
     {
         return Kv;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling
+     * to EW vector bosons with respect to the SM @f$K_V@f$.
+     * @param[in] @f$K_V@f$ the factor rescaling the Higgs coupling to EW vector bosons.
+     */
     void setKv(double Kv)
     {
         this->Kv = Kv;
@@ -310,7 +336,9 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-    double Kv, Kf, BrHinv;
+    double Kv; ///< The factor rescaling all Higgs couplings to vector bosons with respect to the SM. 
+    double Kf; ///< The factor rescaling all Higgs couplings to fermions with respect to the SM.
+    double BrHinv; ///< The branching ratio of invisible Higgs decays.
 };
 
 /**

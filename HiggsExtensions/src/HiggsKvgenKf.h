@@ -78,37 +78,73 @@ public:
      */
     static const std::string HKvgenKfvars[NHKvgenKfvars];
 
+    /**
+     * @brief The default constructor.
+     */
     HiggsKvgenKf();
 
+    /**
+     * @brief The default destructor.
+     */
     virtual ~HiggsKvgenKf()
     {
     };
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling 
+     * to fermions with respect to the SM @f$K_f@f$.
+     * @return @f$K_f@f$
+     */
     double getKf() const
     {
         return Kf;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling 
+     * to fermions with respect to the SM @f$K_f@f$.
+     * @param[in] @f$K_f@f$ the factor rescaling the Higgs coupling to fermions.
+     */
     void setKf(double Kf)
     {
         this->Kf = Kf;
     }
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to the @f$W@f$ boson with respect to the SM @f$K_W@f$.
+     * @return @f$K_W@f$
+     */
     double getKW() const
     {
         return KW;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling 
+     * to the @f$W@f$ boson with respect to the SM @f$K_W@f$.
+     * @param[in] @f$K_W@f$ the factor rescaling the Higgs coupling to the @f$W@f$ boson.
+     */
     void setKW(double KW)
     {
         this->KW = KW;
     }
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to the @f$Z@f$ boson with respect to the SM @f$K_Z@f$.
+     * @return @f$K_Z@f$
+     */
     double getKZ() const
     {
         return KZ;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling
+     * to the @f$Z@f$ boson with respect to the SM @f$K_Z@f$.
+     * @param[in] @f$K_Z@f$ the factor rescaling the Higgs coupling to the @f$Z@f$ boson.
+     */
     void setKZ(double KZ)
     {
         this->KZ = KZ;
@@ -303,7 +339,10 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-    double KW, KZ, Kf, BrHinv;
+    double KW; ///< The factor rescaling Higgs couplings to @f$W@f$ bosons with respect to the SM.
+    double KZ; ///< The factor rescaling Higgs couplings to @f$Z@f$ bosons with respect to the SM.
+    double Kf; ///< The factor rescaling all Higgs couplings to fermions with respect to the SM.
+    double BrHinv; ///< The branching ratio of invisible Higgs decays.
 };
 
 #endif	/* HIGGSKVGENKF_H */

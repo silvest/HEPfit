@@ -82,47 +82,93 @@ public:
      */
     static const std::string HKvKfgenvars[NHKvKfgenvars];
 
+    /**
+     * @brief The default constructor.
+     */
     HiggsKvKfgen();
 
+    /**
+     * @brief The default destructor.
+     */
     virtual ~HiggsKvKfgen()
     {
     };
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to EW vector bosons with respect to the SM @f$K_V@f$.
+     * @return @f$K_V@f$
+     */
     double getKv() const
     {
         return Kv;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling
+     * to EW vector bosons with respect to the SM @f$K_V@f$.
+     * @param[in] @f$K_V@f$ the factor rescaling the Higgs coupling to EW vector bosons.
+     */
     void setKv(double Kv)
     {
         this->Kv = Kv;
     }
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to d quarks with respect to the SM @f$K_d@f$.
+     * @return @f$K_d@f$
+     */
     double getKd() const
     {
         return Kd;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling
+     * to d quarks with respect to the SM @f$K_d@f$.
+     * @param[in] @f$K_d@f$ the factor rescaling the Higgs coupling to d quarks.
+     */
     void setKd(double Kd)
     {
         this->Kd = Kd;
     }
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to charged leptons with respect to the SM @f$K_l@f$.
+     * @return @f$K_l@f$
+     */
     double getKl() const
     {
         return Kl;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling
+     * to charged leptons with respect to the SM @f$K_l@f$.
+     * @param[in] @f$K_f@f$ the factor rescaling the Higgs coupling to charged leptons.
+     */
     void setKl(double Kl)
     {
         this->Kl = Kl;
     }
 
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs coupling
+     * to u quarks with respect to the SM @f$K_u@f$.
+     * @return @f$K_u@f$
+     */
     double getKu() const
     {
         return Ku;
     }
 
+    /**
+     * @brief A set method to change the factor rescaling the Higgs coupling
+     * to u quarks with respect to the SM @f$K_u@f$.
+     * @param[in] @f$K_u@f$ the factor rescaling the Higgs coupling to u quarks.
+     */
     void setKu(double Ku)
     {
         this->Ku = Ku;
@@ -335,7 +381,11 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-    double Kv, Ku, Kd, Kl, BrHinv;
+    double Kv; ///< The factor rescaling all Higgs couplings to vector bosons with respect to the SM. 
+    double Ku; ///< The factor rescaling all Higgs couplings to up-type fermions with respect to the SM.
+    double Kd; ///< The factor rescaling all Higgs couplings to down-type fermions with respect to the SM.
+    double Kl; ///< The factor rescaling all Higgs couplings to leptons with respect to the SM.
+    double BrHinv; ///< The branching ratio of invisible Higgs decays.
 };
 
 #endif	/* HIGGSKVKFGEN_H */
