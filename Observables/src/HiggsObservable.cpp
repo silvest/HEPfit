@@ -103,11 +103,11 @@ double HiggsObservable::computeWeight()
 
 
 boost::tokenizer<boost::char_separator<char> >::iterator & HiggsObservable::ParseHiggsObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg,
-                                                                                                 std::string& type,
                                                                                                  ThObsFactory& myObsFactory,
                                                                                                  StandardModel * myModel,
                                                                                                  int rank)
 {
+    std::string type = "HiggsObservable";
     setObsType(type);
     std::vector<ThObservable*> hthobs;
     ++beg;
