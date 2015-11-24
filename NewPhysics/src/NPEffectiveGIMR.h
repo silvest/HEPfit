@@ -17,15 +17,13 @@
 /**
  * @class NPEffectiveGIMR
  * @brief A model class for new physics in the form of the
- * dimension-six effective Lagrangian, with lepton-flavour universality and
- * without quark-flavour universality.
+ * dimension-six effective Lagrangian.
  * @ingroup NewPhysics
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
- * associated with the dimension-six effective Lagrangian introduced in NPEffective
- * class, where lepton-flavour universality is assumed, but quark-flavour universality
- * is not.
+ * associated with the dimension-six effective Lagrangian introduced in NPEffectiveGIMR
+ * class. (Use NPEffectiveGIMR_LFU_QFU to asumme lepton and quark flavour universality)
  *
 *
  * @anchor NPEffectiveGIMRInitialization
@@ -344,8 +342,8 @@ public:
 
     /**
      * @brief Constructor.
-     * @param[in] FlagLeptonUniversal_in
-     * @param[in] FlagQuarkUniversal_in
+     * @param[in] FlagLeptonUniversal_in an internal boolean flag that is true if assuming lepton flavour universality
+     * @param[in] FlagQuarkUniversal_in an internal boolean flag that is true if assuming quark flavour universality
      */
     NPEffectiveGIMR(const bool FlagLeptonUniversal_in = false, const bool FlagQuarkUniversal_in = false);
 
@@ -451,15 +449,49 @@ public:
 
 
         ////////////////////////////////////////////////////////////////////////
-    
+ 
+    /**
+     * @brief The total cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
+     * @param[in] p a lepton or quark
+     * @param[in] sqrt_s the center-of-mass energy in ???
+     * @return @f$\sigma(e^+e^- \to \mathrm{hadrons})@f$ in ???
+     */
     virtual double sigma_eeTOffbar(const Particle p, const double sqrt_s) const;
-    
+ 
+    /**
+     * @brief The forward cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
+     * @param[in] p a lepton or quark
+     * @param[in] sqrt_s the center-of-mass energy in ???
+     * @return @f$\sigma_F(e^+e^- \to f\bar{f})@f$ in ???
+     */
     virtual gslpp::complex sigma_eeTOffbarF(const Particle p, const double sqrt_s) const;
+    /**
+     * @brief The backward cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
+     * @param[in] p a lepton or quark
+     * @param[in] sqrt_s the center-of-mass energy in ???
+     * @return @f$\sigma_B(e^+e^- \to f\bar{f})@f$ in ???
+     */
     virtual gslpp::complex sigma_eeTOffbarB(const Particle p, const double sqrt_s) const;
-    
+ 
+    /**
+     * @brief The total cross section for @f$e^+e^- \to \mu^+ \mu^- @f$ [CHECK!]
+     * @param[in] sqrt_s the center-of-mass energy in ???
+     * @return @f$\sigma(e^+e^- \to \mu^+ \mu^-)@f$ in ???
+     */
     double sigma_eeTOmumu(const double sqrt_s) const;
-    double sigma_eeTOqq(const double sqrt_s) const;
     
+    /**
+     * @brief The total cross section for @f$e^+e^- \to \mathrm{hadrons} @f$ [CHECK!]
+     * @param[in] sqrt_s the center-of-mass energy in ???
+     * @return @f$\sigma(e^+e^- \to \mathrm{hadrons})@f$ in ???
+     */
+    double sigma_eeTOqq(const double sqrt_s) const;
+
+    /**
+     * @brief The forward-backward asymmetry for @f$e^+e^- \to \mu^+ \mu^- @f$ [CHECK!]
+     * @param[in] sqrt_s the center-of-mass energy in ???
+     * @return @f$A_{FB}^{\mu}@f$
+     */    
     double AFB_mu(const double sqrt_s) const;
 
     ////////////////////////////////////////////////////////////////////////
@@ -580,13 +612,13 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief Loop function entering in the calculation of the effecive @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
+     * @brief Loop function entering in the calculation of the effective @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
      * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the particle in the loop.
      * @return @f$f(\tau)@f$
      */
     gslpp::complex f_triangle(const double tau) const;
     /**
-     * @brief Fermionic loop function entering in the calculation of the effecive @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
+     * @brief Fermionic loop function entering in the calculation of the effective @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
      * @details
      * @f$A^H_f(\tau)=2\tau [1+(1-\tau)f(\tau)]@f$
      * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the fermion in the loop.

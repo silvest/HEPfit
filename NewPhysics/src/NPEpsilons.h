@@ -138,6 +138,10 @@ public:
      */
     NPEpsilons();
 
+    /**
+     * @brief The post-update method for %NPEpsilons.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
 
     /**

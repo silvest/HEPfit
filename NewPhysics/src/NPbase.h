@@ -67,10 +67,14 @@ class NPbase : public StandardModel {
 public:
 
     /**
-     * @brief Th default constructor.
+     * @brief The default constructor.
      */
     NPbase();
 
+    /**
+     * @brief The post-update method for %NPbase.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
 
     ////////////////////////////////////////////////////////////////////////
@@ -193,9 +197,9 @@ public:
     virtual double deltaGV_f(const Particle f) const;
 
     /**
-     *
+     * @brief The total (SM+NP) contribution to @f$g_V^f@f$.
      * @param[in] f a lepton or quark
-     * @return
+     * @return @f$g_V^f@f$, including SM plus NP contributions
      */
     virtual gslpp::complex gV_f(const Particle f) const;
 
@@ -217,29 +221,29 @@ public:
     virtual double deltaGA_f(const Particle f) const;
 
     /**
-     *
+     * @brief The total (SM+NP) contribution to @f$g_A^f@f$.
      * @param[in] f a lepton or quark
-     * @return
+     * @return @f$g_A^f@f$, including SM plus NP contributions
      */
     virtual gslpp::complex gA_f(const Particle f) const;
 
     /**
-     *
+     * @brief The effective neutral-current coupling @f$\rho_Z^f@f$ including SM plus NP contributions.
      * @param[in] f a lepton or quark
-     * @return
+     * @return @f$\rho_Z^f@f$, including SM plus NP contributions
      */
     virtual gslpp::complex rhoZ_f(const Particle f) const;
 
     /**
-     *
+     * @brief The effective neutral-current coupling @f$\kappa_Z^f@f$ including SM plus NP contributions.
      * @param[in] f a lepton or quark
-     * @return
+     * @return @f$\kappa_Z^f@f$, including SM plus NP contributions
      */
     virtual gslpp::complex kappaZ_f(const Particle f) const;
 
     /**
-     *
-     * @return
+     * @brief The new physics contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z@f$.
+     * @return @f$\delta \Gamma_Z@f$ in GeV
      */
     virtual double deltaGamma_Z() const;
 
@@ -253,8 +257,9 @@ public:
     virtual double Gamma_Z() const;
 
     /**
-     * 
-     * @return
+     * @brief The new physics contribution to the cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
+     * at the @f$Z@f$ pole, @f$\delta \sigma_h^0@f$.
+     * @return @f$\delta \sigma_h^0@f$ in GeV@f$^{-2}@f$
      */
     virtual double deltaSigmaHadron() const;
 
@@ -269,8 +274,9 @@ public:
     virtual double sigma0_had() const;
 
     /**
-     * 
-     * @return
+     * @brief The new physics contribution to the effective leptonic weak angle @f$\delta \sin^2\theta_{\rm eff}^{\rm f}@f$
+     * at the @f$Z@f$ pole.
+     * @return @f$\delta \sin^2\theta_{\rm eff}^{\rm f}@f$
      */
     virtual double deltaSin2thetaEff_e() const;
 
@@ -285,16 +291,18 @@ public:
     virtual double sin2thetaEff(const Particle f) const;
 
     /**
-     * 
-     * @param f
-     * @return
+     * @brief The new physics contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\delta \mathcal{A}_f@f$. 
+     * @param[in] f a lepton or quark
+     * @return @f$\delta \mathcal{A}_f@f$
      */
     virtual double deltaA_f(const Particle f) const;
 
     /**
-     * @brief
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\mathcal{A}_f@f$.
      * @param[in] f a lepton or quark
-     * @return
+     * @return @f$\mathcal{A}_f@f$, including SM plus NP contributions
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
@@ -302,30 +310,34 @@ public:
     virtual double A_f(const Particle f) const;
 
     /**
-     *
+     * @brief The new physics contribution to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\delta A^f_{FB}@f$. 
      * @param[in] f a lepton or quark
-     * @return
+     * @return @f$\delta A^f_{FB}@f$
      */
     virtual double deltaAFB(const Particle f) const;
 
     /**
-     *
+     * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$A^f_{FB}@f$.
      * @param[in] f a lepton or quark
-     * @return
+     * @return @f$A^f_{FB}@f$, including SM plus NP contributions
      */
     virtual double AFB(const Particle f) const;
 
     /**
-     * 
+     * @brief The new physics contribution to the ratio @f$R_\ell=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
+     * or @f$R_q=\Gamma_q/\Gamma_{\mathrm{had}}@f$, for leptons or quarks, respectively.
      * @param f a lepton or quark
-     * @return
+     * @return @f$\delta R_f@f$
      */
     virtual double deltaR0_f(const Particle f) const;
 
     /**
-     * 
+     * @brief The ratio @f$R_\ell=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
+     * or @f$R_q=\Gamma_q/\Gamma_{\mathrm{had}}@f$, for leptons or quarks, respectively. 
      * @param[in] f a lepton or quark
-     * @return 
+     * @return @f$\delta R_f@f$, including SM plus NP contributions
      */
     virtual double R0_f(const Particle f) const;
 
