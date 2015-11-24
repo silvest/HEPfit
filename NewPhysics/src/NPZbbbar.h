@@ -207,7 +207,7 @@ public:
     virtual double Mw() const;
 
     /**
-     * @brief @copybrief StandardModel::Mw()
+     * @brief @copybrief StandardModel::GammaW()
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;

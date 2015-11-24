@@ -12,12 +12,13 @@
 /**
  * @class HiggsKvKfgen
  * @ingroup HiggsExtensions
- * @brief A model class extending the %StandardModel Higgs sector with four flavour-universal couplings.
+ * @brief A model class extending the %StandardModel Higgs sector with five flavour-universal couplings.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
  * with an extension of the %StandardModel where Higgs couplings to all vector bosons
  * are rescaled by @f$K_v@f$ and Higgs couplings to all up, down and lepton fermions are rescaled by @f$K_u, K_d, K_l@f$ respectively.
+ * The invisible decay width is also parametrized independently by Br@f$(H\to invisible)@f$.
  * This class inherits from the %HiggsExtensionModel class, which defines parameters related to generic
  * extensions of the %StandardModel Higgs sector.
  *

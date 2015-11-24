@@ -17,12 +17,13 @@
 
 /**
  * @class HiggsKvKf
- * @brief A model class extending the %StandardModel Higgs sector with two universal couplings.
+ * @brief A model class extending the %StandardModel Higgs sector with three universal couplings.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
  * with an extension of the %StandardModel where Higgs couplings to all vector bosons
  * are rescaled by @f$K_v@f$ and Higgs couplings to all fermions are rescaled by @f$K_f@f$.
+ * The invisible decay width is also parametrized independently by Br@f$(H\to invisible)@f$.
  * This class inherits from the %HiggsExtensionModel class, which defines parameters related to generic
  * extensions of the %StandardModel Higgs sector.
  *
