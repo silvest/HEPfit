@@ -25,8 +25,8 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     std::string ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO, CGP);
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-        DP[it->name] = it->ave;
-        paraNames.push_back(it->name);
+        DP[it->getname()] = it->getave();
+        paraNames.push_back(it->getname());
     }
     DPars = DP;
     

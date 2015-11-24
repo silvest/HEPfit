@@ -62,7 +62,7 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     Cov = new gslpp::matrix<double>(size, size, 0.);
     for (unsigned int i = 0; i < size; i++)
         for (unsigned int j = 0; j < size; j++)
-            (*Cov)(i, j) = Pars.at(i).errg * Corr(i, j) * Pars.at(j).errg;
+            (*Cov)(i, j) = Pars.at(i).geterrg() * Corr(i, j) * Pars.at(j).geterrg();
 
     *Cov = Cov->inverse();
     
@@ -81,7 +81,7 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     int ind = 0;
     for(std::vector<ModelParameter>::iterator it = Pars.begin(); it != Pars.end(); it++)
     {
-        ave_in(ind) = it->ave;
+        ave_in(ind) = it->getave();
         ind++;
     }
     
@@ -98,30 +98,30 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     }
 }
 
-std::vector<double> CorrelatedGaussianParameters::getOrigParsValue(const std::vector<double>& DiagPars_i) const
-    {
-        if (DiagPars_i.size() != DiagPars.size()) {
-            std::stringstream out;
-            out << DiagPars_i.size();
-            throw std::runtime_error("CorrelatedGaussianParameters::getOrigParsValue(DiagPars_i): DiagPars_i.size() = " + out.str() + " does not match the size of DiagPars");
-        }
-        gslpp::vector<double> pars_in(DiagPars_i.size(), 0.);
-
-        int ind = 0;
-        for (std::vector<double>::const_iterator it = DiagPars_i.begin(); it != DiagPars_i.end(); it++) {
-            pars_in(ind) = *it;
-            ind++;
-        }
-
-        gslpp::vector<double> val = (*v) * pars_in;
-
-        std::vector<double> res;
-
-        for (unsigned int i = 0; i < DiagPars_i.size(); i++) {
-            res.push_back(val(i));
-        }
-        return (res);
+std::vector<double> CorrelatedGaussianParameters::getOrigParsValue(const std::vector<double>& DiagPars_i) const 
+{
+    if (DiagPars_i.size() != DiagPars.size()) {
+        std::stringstream out;
+        out << DiagPars_i.size();
+        throw std::runtime_error("CorrelatedGaussianParameters::getOrigParsValue(DiagPars_i): DiagPars_i.size() = " + out.str() + " does not match the size of DiagPars");
     }
+    gslpp::vector<double> pars_in(DiagPars_i.size(), 0.);
+
+    int ind = 0;
+    for (std::vector<double>::const_iterator it = DiagPars_i.begin(); it != DiagPars_i.end(); it++) {
+        pars_in(ind) = *it;
+        ind++;
+    }
+
+    gslpp::vector<double> val = (*v) * pars_in;
+
+    std::vector<double> res;
+
+    for (unsigned int i = 0; i < DiagPars_i.size(); i++) {
+        res.push_back(val(i));
+    }
+    return (res);
+}
 
 int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars, 
                                             std::string& filename,

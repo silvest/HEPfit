@@ -36,7 +36,7 @@ public:
     CorrelatedGaussianParameters(std::string name_i);
     
     /**
-     * @brief Constructor.
+     * @brief The default Constructor.
      */
     CorrelatedGaussianParameters();
 
@@ -92,15 +92,6 @@ public:
     }
 
     /**
-     * @brief A set method to fix the name of the set of correlated Gaussian parameters.
-     * @param name the name
-     */
-    void setName(std::string name)
-    {
-        this->name = name;
-    }
-
-    /**
      * @brief A get method to access the covariance matrix of the correlated Gaussian parameters.
      */
     gslpp::matrix<double> getCov() const
@@ -108,13 +99,28 @@ public:
         return *Cov;
     }
 
+    /**
+     * @brief A get method to access the diagonalized parameters
+     * @return a vector of type ModelParameters
+     */
     const std::vector<ModelParameter>& getDiagPars() const
     {
         return DiagPars;
     }   
 
+
     std::vector<double> getOrigParsValue(const std::vector<double>& DiagPars_i) const;
     
+    /**
+     * @brief The parser for CorrelatedGaussianParameters.
+     * @param[in] ModPars the vector containing the model parameters
+     * @param[in] filename the name of the config file being parsed
+     * @param[in] ifile the stream containing the config file to be parsed
+     * @param[in] beg the iterator that parses a line in the config file
+     * @param[in] lineNo the current line number at which the file is being parsed
+     * @param[in] rank the rank of the process that is using the parser
+     * @return the line number (integer) after the parsing is done
+     */
     int ParseCGP(std::vector<ModelParameter>& ModPars, 
                  std::string& filename,
                  std::ifstream& ifile, 
@@ -122,6 +128,10 @@ public:
                  int lineNo,
                  int rank);
     
+    /**
+     * @brief A method to check if the end of file has been reached
+     * @return a boolean which is true if the end of file has been reached
+     */
     bool isEOF()
     {
         return IsEOF;
@@ -131,9 +141,9 @@ private:
     std::vector<ModelParameter> Pars; ///< A vector of parameters whose correlation will be calculated.
     gslpp::matrix<double>* Cov; ///< The covariance matrix.
     std::string name; ///< The name of the correlated Gaussian Parameters set.
-    gslpp::matrix<double> * v;
-    gslpp::vector<double> * e;
-    std::vector<ModelParameter> DiagPars; ///< The vector of diagonal parameters
+    gslpp::matrix<double> * v; ///< The rotation matrix form the diagonalized parameters to the original parameters
+    gslpp::vector<double> * e;///< The diagonalized parameters
+    std::vector<ModelParameter> DiagPars; ///< The eigenvector of the covariance matrix
     bool IsEOF;
 };
 

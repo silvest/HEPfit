@@ -120,12 +120,12 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             Observables2D.push_back(tmpObs2D);
 
         } else if (type.compare("HiggsObservable") == 0) {
-            std::cout << "HERE" << std::endl;
+            
             Observable * tmphObs = new Observable();
             beg = tmphObs->ParseObservable(type, tok, beg, filepath, filename, rank);
             tmphObs->setTho(myObsFactory.CreateThMethod(tmphObs->getThname(), *myModel));
             HiggsObservable * tmpho = new HiggsObservable(*tmphObs);
-            beg = tmpho->ParseHiggsObservable(beg, type, myObsFactory, myModel, rank);
+            beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank);
             Observables.push_back(tmpho);
             ++beg;
             if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
