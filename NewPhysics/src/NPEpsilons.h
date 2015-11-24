@@ -200,16 +200,44 @@ public:
      */
     virtual double GammaW() const;
 
+    /** 
+     * @brief @copybrief StandardModel::Gamma_Z()
+     * @return @f$\Gamma_Z@f$ in GeV
+     */
     virtual double Gamma_Z() const;
 
+    /** 
+     * @brief @copybrief StandardModel::sigma0_had()
+     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
+     */
     virtual double sigma0_had() const;
 
+    /** 
+     * @brief @copybrief StandardModel::sin2thetaEff()
+     * @param[in] f a lepton or quark
+     * @return @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
+     */
     virtual double sin2thetaEff(const Particle p) const;
 
+    /** 
+     * @brief @copybrief StandardModel::A_f()
+     * @param[in] f a lepton or quark
+     * @return @f$\mathcal{A}_\ell@f$
+     */
     virtual double A_f(const Particle p) const;
 
+    /** 
+     * @brief @copybrief StandardModel::AFB()
+     * @param[in] f a lepton or quark
+     * @return @f$A^f_{FB}@f$
+     */
     virtual double AFB(const Particle p) const;
 
+    /** 
+     * @brief @copybrief StandardModel::R0_f()
+     * @param[in] f a lepton or quark
+     * @return @f$R_\ell^0 @f$
+     */
     virtual double R0_f(const Particle p) const;
 
     /**
