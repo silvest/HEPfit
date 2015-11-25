@@ -15,48 +15,47 @@ THDMcache::THDMcache()
         
         : PV(true),
         
-        br_tt(19861, 2, 0.),
-        br_bb(19861, 2, 0.),
-        br_tautau(19861, 2, 0.),
-        br_cc(19861, 2, 0.),
-        br_mumu(19861, 2, 0.),
-        br_ZZ(19861, 2, 0.),
-        br_WW(19861, 2, 0.),
-        pc_ggF(1971, 2, 0.),
-        pc_VBF(1971, 2, 0.),
-        pc_WH(1971, 2, 0.),
-        pc_ZH(1971, 2, 0.),
-        pc_ttH(1971, 2, 0.),
-        GammaHtotSM(19861, 2, 0.),
-        cs_ggH(186, 2, 0.),
-        cs_ggH_tt(186, 2, 0.),
-        cs_ggH_bb(186, 2, 0.),
-        cs_ggA(186, 2, 0.),
-        cs_ggA_tt(186, 2, 0.),
-        cs_ggA_bb(186, 2, 0.),
-        cs_bbFtoHP(185, 2, 0.),
-        ATLAS_ggF_phi_gaga(991, 2, 0.),
-        ATLAS_ggF_phi_tautau(496, 2, 0.),
-        ATLAS_bbF_phi_tautau(496, 2, 0.),
-        ATLAS_ggF_A_hZ_tautauZ(986, 2, 0.),
-        ATLAS_ggF_A_hZ_bbZ(986, 2, 0.),
-        ATLAS_pp_phi_tt(200, 2, 0.),
-        ATLAS_ggF_H_WW(100,2,0.),
-        ATLAS_VBF_H_WW(100,2,0.),
-        ATLAS_ggF_H_hh(1000,2,0.),
-        CMS_pp_H_ZZ(9851, 2, 0.),
-        CMS_ggF_A_hZ_bbll(986, 2, 0.),
-        CMS_pp_H_hh_gagabb(496, 2, 0.),
-        CMS_pp_H_hh_bbbb(496, 2, 0.),
-        CMS_bbF_phi_bb(1000, 2, 0.),
-        CMS_ggF_phi_tautau(1000,2,0.),
-        CMS_bbF_phi_tautau(1000,2,0.),
-        CMS_ggF_phi_gaga(2000,2,0.),
-        CMS_ggF_H_hh_bbtautau(1000,2,0.),
-        CMS_ggF_A_hZ_tautaull(1000,2,0.),
+        array1(19861, 2, 0.),
+        array2(19861, 2, 0.),
+        array3(19861, 2, 0.),
+        array4(19861, 2, 0.),
+        array5(19861, 2, 0.),
+        array6(19861, 2, 0.),
+        array7(19861, 2, 0.),
+        array11(1971, 2, 0.),
+        array12(1971, 2, 0.),
+        array13(1971, 2, 0.),
+        array14(1971, 2, 0.),
+        array15(1971, 2, 0.),
+        array16(9851, 2, 0.),
+        array18(19861, 2, 0.),
+        array19(186, 2, 0.),
+        array20(186, 2, 0.),
+        array21(186, 2, 0.),
+        array22(186, 2, 0.),
+        array27(185, 2, 0.),
+        array29(986, 2, 0.),
+        array32(496, 2, 0.),
+        array33(496, 2, 0.),
+        array34(991, 2, 0.),
+        array35(496, 2, 0.),
+        array36(496, 2, 0.),
+        array44(986, 2, 0.),
+        array45(986, 2, 0.),
+        bbF_phi_bb_CMS(1000, 2, 0.),
+        pp_phi_tt_ATLAS(200, 2, 0.),
+        ggF_phi_tautau_CMS(1000,2,0.),
+        bbF_phi_tautau_CMS(1000,2,0.),
+        ggF_phi_gaga_CMS(2000,2,0.),
+        ggF_H_WW_ATLAS(100,2,0.),
+        VBF_H_WW_ATLAS(100,2,0.),
+        ggF_H_hh_ATLAS(1000,2,0.),
+        ggF_H_hh_bbtautau_CMS(1000,2,0.),
+        ggF_A_hZ_tautaull_CMS(1000,2,0.),
         arraybsgamma(1111, 3, 0.)
 {
   read();
+//  std::cout<<"read"<<std::endl;
 }
 
 
@@ -69,6 +68,18 @@ int THDMcache::CacheCheck(const gslpp::complex cache[][CacheSize],
         bCache = true;
         for(int j=0; j<NumPar; j++)
             bCache &= (params[j] == cache[j][i].real());
+        if (bCache) return i;
+    }
+    return -1;
+}
+
+int THDMcache::CacheCheckReal(const double cache[][CacheSize], 
+                          const int NumPar, const double params[]) const {
+    bool bCache;
+    for(int i=0; i<CacheSize; i++) {
+        bCache = true;
+        for(int j=0; j<NumPar; j++)
+            bCache &= (params[j] == cache[j][i]);
         if (bCache) return i;
     }
     return -1;
@@ -88,9 +99,55 @@ void THDMcache::CacheShift(gslpp::complex cache[][CacheSize], const int NumPar,
     }
 }
 
+void THDMcache::CacheShiftReal(double cache[][CacheSize], const int NumPar,
+                           const double params[], const double newResult) const {
+    // shift old parameters and result
+    for(int i=CacheSize-1; i>0; i--)
+        for(int j=0; j<NumPar+1; j++)
+            cache[j][i] = cache[j][i-1];
+
+    // store new parameters and result
+    for(int j=0; j<NumPar; j++) {
+        cache[j][0] = params[j];
+        cache[NumPar][0] = newResult;
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 /*One-loop functions*/
-////////////////////////////////////////////////////////////////////////////////
+
+double THDMcache::A0_MZ2_mHp2(const double MZ2, const double mHp2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHp2};
+
+    int i = CacheCheckReal(A0_MZ2_MHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( A0_MZ2_MHp2_cache[NumPar][i] );
+    } else {
+        double newResult = PV.A0(MZ2, mHp2);
+        CacheShiftReal(A0_MZ2_MHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+double THDMcache::A0_MZ2_MW2(const double MZ2, const double mW2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mW2};
+
+    int i = CacheCheckReal(A0_MZ2_MW2_cache, NumPar, params);
+    if (i>=0) {
+        return ( A0_MZ2_MW2_cache[NumPar][i] );
+    } else {
+        double newResult = PV.A0(MZ2, mW2);
+        CacheShiftReal(A0_MZ2_MW2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+//    std::cout<<"PV.B0p(1., MZ*MZ, mHh*mHh, mA*mA) = "<<PV.B00p(1., MZ*MZ, mHh*mHh, mA*mA)<<std::endl;
+//    std::cout<<"PV.B0(MZ*MZ, MZ*MZ, mHh*mHh, mA*mA) = "<<PV.B0(MZ*MZ, MZ*MZ, mHh*mHh, mA*mA)<<std::endl;
 
 gslpp::complex THDMcache::B0_MZ2_0_MW2_mHh2(const double MZ2, const double MW2, const double mHh2) const {
     int NumPar = 3;
@@ -500,335 +557,394 @@ gslpp::complex THDMcache::B00_MZ2_MZ2_MZ2_mHl2(const double MZ2, const double mH
     } 
 }
 
+
 void THDMcache::read(){
 
     std::string tablepath="/Users/Roma1/Desktop/HEPfit/THDM/tabs/";
     std::stringstream br1,br2,br3,br4,br5,br6,br7;
     std::stringstream pc1,pc2,pc3,pc4,pc5;
     std::stringstream dw1;
-    std::stringstream cs1,cs2,cs3,cs4,cs5,cs6,cs7;
+    std::stringstream cs1,cs2,cs3,cs4,cs5;
     std::stringstream ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15,ex16,ex17,ex18,ex19;
     std::stringstream bsg1;
 
     std::cout<<"reading tables"<<std::endl;
 
-    br1 << tablepath << "br1.dat";
-    br_tt = readTable(br1.str(),19861,2);
-    br2 << tablepath << "br2.dat";
-    br_bb = readTable(br2.str(),19861,2);
-    br3 << tablepath << "br3.dat";
-    br_tautau = readTable(br3.str(),19861,2); 
-    br4 << tablepath << "br4.dat";
-    br_cc = readTable(br4.str(),19861,2);
-    br5 << tablepath << "br5.dat";
-    br_mumu = readTable(br5.str(),19861,2);
-    br6 << tablepath << "br6.dat";
-    br_ZZ = readTable(br6.str(),19861,2);
-    br7 << tablepath << "br7.dat";
-    br_WW = readTable(br7.str(),19861,2);
-    pc1 << tablepath << "pc1.dat";
-    pc_ggF = readTable(pc1.str(),1971,2);
-    pc2 << tablepath << "pc2.dat";
-    pc_VBF = readTable(pc2.str(),1971,2);
-    pc3 << tablepath << "pc3.dat";
-    pc_WH = readTable(pc3.str(),1971,2);
-    pc4 << tablepath << "pc4.dat";
-    pc_ZH = readTable(pc4.str(),1971,2);
-    pc5 << tablepath << "pc5.dat";
-    pc_ttH = readTable(pc5.str(),1971,2);
-    dw1 << tablepath << "dw1.dat";
-    GammaHtotSM = readTable(dw1.str(),19861,2);
-    cs1 << tablepath << "cs1.dat";
-    cs_ggH = readTable(cs1.str(),186,2);
-    cs2 << tablepath << "cs2.dat";
-    cs_ggH_tt = readTable(cs2.str(),186,2);
-    cs3 << tablepath << "cs3.dat";
-    cs_ggH_bb = readTable(cs3.str(),186,2);
-    cs4 << tablepath << "cs4.dat";
-    cs_ggA = readTable(cs4.str(),186,2);
-    cs5 << tablepath << "cs5.dat";
-    cs_ggA_tt = readTable(cs5.str(),186,2);
-    cs6 << tablepath << "cs6.dat";
-    cs_ggA_bb = readTable(cs6.str(),186,2);
-    cs7 << tablepath << "cs7.dat";
-    cs_bbFtoHP = readTable(cs7.str(),185,2);
-    ex5 << tablepath << "ATLAS_ggF_phi_gaga.dat";
-    ATLAS_ggF_phi_gaga = readTable(ex5.str(),991,2);
-    ex6 << tablepath << "ATLAS_ggF_phi_tautau.dat";
-    ATLAS_ggF_phi_tautau = readTable(ex6.str(),496,2);
-    ex7 << tablepath << "ATLAS_bbF_phi_tautau.dat";
-    ATLAS_bbF_phi_tautau = readTable(ex7.str(),496,2);
-    ex8 << tablepath << "ATLAS_ggF_A_hZ_tautauZ.dat";
-    ATLAS_ggF_A_hZ_tautauZ = readTable(ex8.str(),986,2);
-    ex9 << tablepath << "ATLAS_ggF_A_hZ_bbZ.dat";
-    ATLAS_ggF_A_hZ_bbZ = readTable(ex9.str(),986,2);
-    ex11 << tablepath << "ATLAS_pp_phi_tt.dat";
-    ATLAS_pp_phi_tt = readTable(ex11.str(),200,2);
-    ex15 << tablepath << "ATLAS_ggF_H_WW.dat";
-    ATLAS_ggF_H_WW = readTable(ex15.str(),100,2);
-    ex16 << tablepath << "ATLAS_VBF_H_WW.dat";
-    ATLAS_VBF_H_WW = readTable(ex16.str(),100,2);
-    ex17 << tablepath << "ATLAS_ggF_H_hh.dat";
-    ATLAS_ggF_H_hh = readTable(ex17.str(),1000,2);
-    ex1 << tablepath << "CMS_pp_H_ZZ.dat";
-    CMS_pp_H_ZZ = readTable(ex1.str(),9851,2);
-    ex2 << tablepath << "CMS_ggF_A_hZ_bbll.dat";
-    CMS_ggF_A_hZ_bbll = readTable(ex2.str(),986,2);
-    ex3 << tablepath << "CMS_pp_H_hh_gagabb.dat";
-    CMS_pp_H_hh_gagabb = readTable(ex3.str(),496,2);
-    ex4 << tablepath << "CMS_pp_H_hh_bbbb.dat";
-    CMS_pp_H_hh_bbbb = readTable(ex4.str(),496,2);
-    ex10 << tablepath << "CMS_bbF_phi_bb.dat";
-    CMS_bbF_phi_bb = readTable(ex10.str(),1000,2);
-    ex12 << tablepath << "CMS_ggF_phi_tautau.dat";
-    CMS_ggF_phi_tautau = readTable(ex12.str(),1000,2);
-    ex13 << tablepath << "CMS_bbF_phi_tautau.dat";
-    CMS_bbF_phi_tautau = readTable(ex13.str(),1000,2);
-    ex14 << tablepath << "CMS_ggF_phi_gaga.dat";
-    CMS_ggF_phi_gaga = readTable(ex14.str(),2000,2);
-    ex18 << tablepath << "CMS_ggF_H_hh_bbtautau.dat";
-    CMS_ggF_H_hh_bbtautau = readTable(ex18.str(),1000,2);
-    ex19 << tablepath << "CMS_ggF_A_hZ_tautaull.dat";
-    CMS_ggF_A_hZ_tautaull = readTable(ex19.str(),1000,2);
-    bsg1 << tablepath << "bsgammatable.dat";
+    br1 << tablepath << "GridSM1.dat";
+    array1 = readTable(br1.str(),19861,2);
+    br2 << tablepath << "GridSM2.dat";
+    array2 = readTable(br2.str(),19861,2);
+    br3 << tablepath << "GridSM3.dat";
+    array3 = readTable(br3.str(),19861,2); 
+    br4 << tablepath << "GridSM4.dat";
+    array4 = readTable(br4.str(),19861,2);
+    br5 << tablepath << "GridSM5.dat";
+    array5 = readTable(br5.str(),19861,2);
+    br6 << tablepath << "GridSM6.dat";
+    array6 = readTable(br6.str(),19861,2);
+    br7 << tablepath << "GridSM7.dat";
+    array7 = readTable(br7.str(),19861,2);
+    pc1 << tablepath << "GridSM11.dat";
+    array11 = readTable(pc1.str(),1971,2);
+    pc2 << tablepath << "GridSM12.dat";
+    array12 = readTable(pc2.str(),1971,2);
+    pc3 << tablepath << "GridSM13.dat";
+    array13 = readTable(pc3.str(),1971,2);
+    pc4 << tablepath << "GridSM14.dat";
+    array14 = readTable(pc4.str(),1971,2);
+    pc5 << tablepath << "GridSM15.dat";
+    array15 = readTable(pc5.str(),1971,2);
+    ex1 << tablepath << "GridSM16.dat";
+    array16 = readTable(ex1.str(),9851,2);
+    dw1 << tablepath << "GridSM18.dat";
+    array18 = readTable(dw1.str(),19861,2);
+    cs1 << tablepath << "GridSM19.dat";
+    array19 = readTable(cs1.str(),186,2);
+    cs2 << tablepath << "GridSM20.dat";
+    array20 = readTable(cs2.str(),186,2);
+    cs3 << tablepath << "GridSM21.dat";
+    array21 = readTable(cs3.str(),186,2);
+    cs4 << tablepath << "GridSM22.dat";
+    array22 = readTable(cs4.str(),186,2);
+    cs5 << tablepath << "GridSM27.dat";
+    array27 = readTable(cs5.str(),185,2);
+    ex2 << tablepath << "GridSM29.dat";
+    array29 = readTable(ex2.str(),986,2);
+    ex3 << tablepath << "GridSM32.dat";
+    array32 = readTable(ex3.str(),496,2);
+    ex4 << tablepath << "GridSM33.dat";
+    array33 = readTable(ex4.str(),496,2);
+    ex5 << tablepath << "GridSM34.dat";
+    array34 = readTable(ex5.str(),991,2);
+    ex6 << tablepath << "GridSM35.dat";
+    array35 = readTable(ex6.str(),496,2);
+    ex7 << tablepath << "GridSM36.dat";
+    array36 = readTable(ex7.str(),496,2);
+    ex8 << tablepath << "GridSM44.dat";
+    array44 = readTable(ex8.str(),986,2);
+    ex9 << tablepath << "GridSM45.dat";
+    array45 = readTable(ex9.str(),986,2);
+    ex10 << tablepath << "bbF_phi_bb_CMS.dat";
+    bbF_phi_bb_CMS = readTable(ex10.str(),1000,2);
+    ex11 << tablepath << "pp_phi_tt_ATLAS.dat";
+    pp_phi_tt_ATLAS = readTable(ex11.str(),200,2);
+    ex12 << tablepath << "ggF_phi_tautau_CMS.dat";
+    ggF_phi_tautau_CMS = readTable(ex12.str(),1000,2);
+    ex13 << tablepath << "bbF_phi_tautau_CMS.dat";
+    bbF_phi_tautau_CMS = readTable(ex13.str(),1000,2);
+    ex14 << tablepath << "ggF_phi_gaga_CMS.dat";
+    ggF_phi_gaga_CMS = readTable(ex14.str(),2000,2);
+    ex15 << tablepath << "ggF_H_WW_ATLAS.dat";
+    ggF_H_WW_ATLAS = readTable(ex15.str(),100,2);
+    ex16 << tablepath << "VBF_H_WW_ATLAS.dat";
+    VBF_H_WW_ATLAS = readTable(ex16.str(),100,2);
+    ex17 << tablepath << "ggF_H_hh_ATLAS.dat";
+    ggF_H_hh_ATLAS = readTable(ex17.str(),1000,2);
+    ex18 << tablepath << "ggF_H_hh_bbtautau_CMS.dat";
+    ggF_H_hh_bbtautau_CMS = readTable(ex18.str(),1000,2);
+    ex19 << tablepath << "ggF_A_hZ_tautaull_CMS.dat";
+    ggF_A_hZ_tautaull_CMS = readTable(ex19.str(),1000,2);
+    bsg1 << tablepath << "bsgammalist.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
 }    
     
 
 
-double THDMcache::ip_Br_HPtott(double mass){
-    return pow(10.0,interpolate(br_tt,mass));
+double THDMcache::Br_HPtott(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array1,mass));  
 }
 
 
 
-double THDMcache::ip_Br_HPtobb(double mass){
-    return pow(10.0,interpolate(br_bb,mass));
+double THDMcache::Br_HPtobb(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array2,mass));  
 }
 
 
 
-double THDMcache::ip_Br_HPtotautau(double mass){
-    return pow(10.0,interpolate(br_tautau,mass));
+double THDMcache::Br_HPtotautau(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array3,mass));  
 }
 
 
 
-double THDMcache::ip_Br_HPtocc(double mass){
-    return pow(10.0,interpolate(br_cc,mass));
+double THDMcache::Br_HPtocc(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array4,mass));  
 }
 
 
 
-double THDMcache::ip_Br_HPtomumu(double mass){
-    return pow(10.0,interpolate(br_mumu,mass));
+double THDMcache::Br_HPtomumu(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array5,mass));  
 }
 
 
 
-double THDMcache::ip_Br_HPtoZZ(double mass){
-    return pow(10.0,interpolate(br_ZZ,mass));
+double THDMcache::Br_HPtoZZ(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array6,mass));  
 }
 
 
 
-double THDMcache::ip_Br_HPtoWW(double mass){
-    return pow(10.0,interpolate(br_WW,mass));
+double THDMcache::Br_HPtoWW(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array7,mass));  
 }
 
 
 
-double THDMcache::ip_pc_ggFtoHP(double mass){
-    return interpolate(pc_ggF,mass);
+double THDMcache::pc_ggFtoHP(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array11,mass);  
 }
 
 
 
-double THDMcache::ip_pc_VBFtoHP(double mass){
-    return interpolate(pc_VBF,mass);
+double THDMcache::pc_VBFtoHP(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array12,mass);  
 }
 
 
 
-double THDMcache::ip_pc_WHP_HP(double mass){
-    return interpolate(pc_WH,mass);
+double THDMcache::pc_WHP_HP(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array13,mass);  
 }
 
 
-double THDMcache::ip_pc_ZHP_HP(double mass){
-    return interpolate(pc_ZH,mass);
-}
-
-
-
-double THDMcache::ip_pc_ttFtoHP(double mass){
-    return interpolate(pc_ttH,mass);
-}
-
-
-
-double THDMcache::ip_GammaHPtotSM(double mass){
-    return pow(10.0,interpolate(GammaHtotSM,mass));
+double THDMcache::pc_ZHP_HP(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array14,mass);  
 }
 
 
 
-double THDMcache::ip_cs_ggFtoHP(double mass){
-    return pow(10.0,interpolate (cs_ggH,log10(mass)));
-}
-
-
-double THDMcache::ip_cs_ggHP_tt(double mass){
-    return pow(10.0,interpolate (cs_ggH_tt,log10(mass)));
-}
-
-
-
-double THDMcache::ip_cs_ggHP_bb(double mass){
-    return pow(10.0,interpolate (cs_ggH_bb,log10(mass)));
+double THDMcache::pc_ttFtoHP(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array15,mass);  
 }
 
 
 
-double THDMcache::ip_cs_ggA(double mass){
-    return pow(10.0,interpolate (cs_ggA,log10(mass)));
+double THDMcache::ex_pp_H_ZZ_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array16,mass);  
 }
 
 
 
-double THDMcache::ip_cs_ggA_tt(double mass){
-    return pow(10.0,interpolate (cs_ggA_tt,log10(mass)));
+double THDMcache::GammaHPtotSM(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate(array18,mass));  
 }
 
 
 
-double THDMcache::ip_cs_ggA_bb(double mass){
-    return pow(10.0,interpolate (cs_ggA_bb,log10(mass)));
+double THDMcache::cs_ggFtoHP(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass}; 
+    return pow(10.0,interpolate (array19,log10(mass)));  
+}
+
+
+double THDMcache::cs_ggHP_tt(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate (array20,log10(mass)));  
 }
 
 
 
-double THDMcache::ip_cs_bbFtoHP(double mass){
-    return pow(10.0,interpolate (cs_bbFtoHP,log10(mass)));
+double THDMcache::cs_ggHP_bb(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate (array21,log10(mass)));  
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_gaga_ATLAS(double mass){
-    return interpolate(ATLAS_ggF_phi_gaga,mass);
+double THDMcache::cs_ggFtoA(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate (array22,log10(mass)));  
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tautau_ATLAS(double mass){
-    return interpolate(ATLAS_ggF_phi_tautau,mass);
+double THDMcache::cs_bbFtoHP(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return pow(10.0,interpolate (array27,log10(mass)));  
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_tautau_ATLAS(double mass){
-    return interpolate(ATLAS_bbF_phi_tautau,mass);
+double THDMcache::ex_ggF_A_hZ_bbll_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array29,mass); 
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_tautauZ_ATLAS(double mass){
-    return interpolate(ATLAS_ggF_A_hZ_tautauZ,mass);
+double THDMcache::ex_pp_phi_hh_gagabb_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array32,mass);  
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_bbZ_ATLAS(double mass){
-    return interpolate(ATLAS_ggF_A_hZ_bbZ,mass);
+double THDMcache::ex_pp_phi_hh_bbbb_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array33,mass);  
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_tt_ATLAS(double mass){
-    return interpolate (ATLAS_pp_phi_tt,mass);
+double THDMcache::ex_ggF_phi_gaga_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array34,mass);  
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_WW_ATLAS(double mass){
-    return interpolate (ATLAS_ggF_H_WW,mass);
+double THDMcache::ex_ggF_phi_tautau_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array35,mass);    
 }
 
 
 
-double THDMcache::ip_ex_VBF_H_WW_ATLAS(double mass){
-    return interpolate (ATLAS_VBF_H_WW,mass);
+double THDMcache::ex_bbF_phi_tautau_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array36,mass);  
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_hh_ATLAS(double mass){
-    return interpolate (ATLAS_ggF_H_hh,mass);
+double THDMcache::ex_ggF_A_hZ_tautauZ_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate(array44,mass);  
 }
 
 
 
-double THDMcache::ip_ex_pp_H_ZZ_CMS(double mass){
-    return interpolate(CMS_pp_H_ZZ,mass);
+double THDMcache::ex_ggF_A_hZ_bbZ_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass}; 
+    return interpolate(array45,mass);
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_bbll_CMS(double mass){
-    return interpolate(CMS_ggF_A_hZ_bbll,mass);
+double THDMcache::ex_bbF_phi_bb_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass}; 
+    return interpolate (bbF_phi_bb_CMS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_hh_gagabb_CMS(double mass){
-    return interpolate(CMS_pp_H_hh_gagabb,mass);
+double THDMcache::ex_pp_phi_tt_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (pp_phi_tt_ATLAS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_hh_bbbb_CMS(double mass){
-    return interpolate(CMS_pp_H_hh_bbbb,mass);
+double THDMcache::ex_ggF_phi_tautau_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (ggF_phi_tautau_CMS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_bb_CMS(double mass){
-    return interpolate (CMS_bbF_phi_bb,mass);
+double THDMcache::ex_bbF_phi_tautau_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (bbF_phi_tautau_CMS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tautau_CMS(double mass){
-    return interpolate (CMS_ggF_phi_tautau,mass);
+double THDMcache::ex_ggF_phi_gaga_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (ggF_phi_gaga_CMS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_tautau_CMS(double mass){
-    return interpolate (CMS_bbF_phi_tautau,mass);
+double THDMcache::ex_ggF_H_WW_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (ggF_H_WW_ATLAS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_gaga_CMS(double mass){
-    return interpolate (CMS_ggF_phi_gaga,mass);
+double THDMcache::ex_VBF_H_WW_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (VBF_H_WW_ATLAS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_hh_bbtautau_CMS(double mass){
-    return interpolate (CMS_ggF_H_hh_bbtautau,mass);
+double THDMcache::ex_ggF_H_hh_ATLAS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (ggF_H_hh_ATLAS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_tautaull_CMS(double mass){
-    return interpolate (CMS_ggF_A_hZ_tautaull,mass);
+double THDMcache::ex_ggF_H_hh_bbtautau_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (ggF_H_hh_bbtautau_CMS,mass);  
 }
 
 
 
-double THDMcache::ip_ex_bsgamma(double logtb, double logmHp){
+double THDMcache::ex_ggF_A_hZ_tautaull_CMS(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+    return interpolate (ggF_A_hZ_tautaull_CMS,mass);  
+}
+
+
+
+double THDMcache::ex_bsgamma(double logtb, double logmHp){
     return interpolate2D(arraybsgamma, logtb, logmHp);
 }
 
@@ -870,27 +986,29 @@ gslpp::matrix<double> THDMcache::readTable(std::string filename, int rowN, int c
 
 //1D interpolation
 
-double THDMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
+double THDMcache::interpolate(gslpp::matrix<double> arrayTab, double mass){
 
     int rowN=arrayTab.size_i();
     
-    double xmin = arrayTab(0,0);
-    double xmax = arrayTab(rowN-1,0);
+    double Mmin = arrayTab(0,0);
+    double Mmax = arrayTab(rowN-1,0);
     double interval = arrayTab(1,0)-arrayTab(0,0);
-    int Nintervals = (x-xmin)/interval;
+    int Nintervals = (mass-Mmin)/interval;
     double y = 0.0;
        
-    if(x<xmin){
-        std::cout<<"error: your table parameter value is smaller than the minimum allowed value"<<std::endl;
+    if(mass<Mmin){
+        std::cout<<"error: your mass value is smaller than the minimum mass value"<<std::endl;
         return 0.;
     }
-    else if(x>xmax){
-        std::cout<<"error: your table parameter value is greater than the maximum allowed value"<<std::endl;
+    else if(mass>Mmax){
+        std::cout<<"error: your mass value is greater than the maximum mass value"<<std::endl;
         return 0.;
     }
     else{
+        
         y =(arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/(arrayTab(Nintervals+1,0)
-                   -arrayTab(Nintervals,0))*(x-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
+                   -arrayTab(Nintervals,0))*(mass-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
+        
         return y;
     }
 }

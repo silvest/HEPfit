@@ -8,7 +8,7 @@
 #ifndef THDMMATCHING_H
 #define	THDMMATCHING_H
 
-#include "gslpp.h"
+#include <gslpp.h>
 #include "StandardModelMatching.h"
 
 class THDM;
@@ -16,30 +16,58 @@ class THDM;
 /**
  * @class THDMMatching
  * @ingroup THDM
- * @brief A class for the Wilson coefficients in the THDM.
+ * @brief A class for the matching in the THDM. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details At the moment, this includes only the @f$B_s@f$ mass difference and the decay @f$B\to \tau \nu@f$.
+ * @details  
  */
 class THDMMatching : public StandardModelMatching {
 public:
     THDMMatching(const THDM & THDM_i);
+    
+    /**
+     *
+     * @brief Updates to new THDM parameter sets.
+     * @return
+     */
+    
+    void updateTHDMParameters();
 
     /**
-     * @return THDM Wilson coefficients for \f$ B_s \to \bar{B_s}\f$
+     * 
+     * @brief \f$ \Delta B = 2 \f$, \f$ B_{s} \f$ 
+     * @return return the vector of THDM Wilson coefficients
      */
     virtual  std::vector<WilsonCoefficient>& CMdbs2();
 
     /**
-     * @return THDM Wilson coefficient for \f$ B \to \tau \nu \f$
+     * 
+     * @return THDM Wilson coefficient for \f$ B \rightarrow \tau \nu \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMbtaunu();
 
+    /**
+     * 
+     * @return THDM Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMbsmm();
+//
+//    /**
+//     * 
+//     * @return THDM Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
+//     */
+//    virtual  std::vector<WilsonCoefficient>& CMbdmm();
+    
 private:
     const THDM & myTHDM;
     gslpp::matrix<gslpp::complex> myCKM;
 
-    WilsonCoefficient mcdbs2, mcbtaunu;
+    double tanb;
+    double v;
+    double v1;
+    double v2;
+    double gW;
+    WilsonCoefficient /*mcdbd2,*/ mcdbs2, mcbtaunu,mcbsmm,mcbdmm;
 
 };
 

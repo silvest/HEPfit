@@ -5,11 +5,11 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef CPODDHIGGS_H
-#define	CPODDHIGGS_H
+#ifndef CPODDHIGGSCACHE_H
+#define	CPODDHIGGSCACHE_H
 
 #include <stdexcept>
-#include "ThObservable.h"
+#include <ThObservable.h>
 #include "THDM.h"
 #include "THDMfunctions.h"
 #include "THDMcache.h"
@@ -22,23 +22,15 @@
  */
 
 /**
- * @class CPoddHiggs
- * @ingroup THDM 
- * @brief Base class for direct CP-odd Higgs search observables.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
- * @details The @f$\gamma \gamma@f$, @f$Z\gamma@f$ and @f$gg@f$ decay widths are calculated at one-loop
- * following @cite Gunion:1989we and @cite Aoki:2009ha.
+ * @class CPoddHiggsCache
+ * @brief .
  */
-class CPoddHiggs : public ThObservable {
+class CPoddHiggsCache : public ThObservable {
 public:
-    CPoddHiggs(const StandardModel& SM_i);
-    virtual ~CPoddHiggs();
+    CPoddHiggsCache(const StandardModel& SM_i);
+    virtual ~CPoddHiggsCache();
     void computeParameters();
-
-    /**
-     * @brief Empty function
-     */
+    
     double computeThValue();
     
 protected:
@@ -46,478 +38,520 @@ protected:
     THDMcache * mycache;
     lightHiggs * mylightHiggs;
 
-    /**
-     * @brief The CP-odd Higgs mass. (Required for the experimental tables.)
-     * @return @f$m_A@f$
-     */
-    double mA;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
-     */
     double ggF_A_tautau_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to \tau\tau@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
-     */
     double bbF_A_tautau_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
-     */
     double ggF_A_gaga_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)@f$
-     */
     double ggF_A_hZ_bbll_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b Z@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b Z)@f$
-     */
     double ggF_A_hZ_bbZ_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau \ell \ell@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)@f$
-     */
     double ggF_A_hZ_tautaull_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau Z@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau Z)@f$
-     */
-    double ggF_A_hZ_tautauZ_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to t\bar t@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
-     */
+    double ggF_A_hZ_tautauZ_TH;   
     double pp_A_tt_TH;
-
-    /**
-     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to b\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$
-     */
     double bbF_A_bb_TH;
+     
+    double ggF_A_tautau_EX_ATLAS;
+    double ggF_A_tautau_EX_CMS;
+    double bbF_A_tautau_EX_ATLAS;
+    double bbF_A_tautau_EX_CMS;
+    double ggF_A_gaga_EX_ATLAS;
+    double ggF_A_gaga_EX_CMS;
+    double ggF_A_hZ_bbll_EX_CMS;
+    double ggF_A_hZ_tautauZ_EX_ATLAS;
+    double ggF_A_hZ_tautaull_EX_CMS;
+    double ggF_A_hZ_bbZ_EX_ATLAS;
+    double pp_A_tt_EX_ATLAS;
+    double bbF_A_bb_EX_CMS;     
 
 private:
     const THDM * myTHDM;
     const StandardModel& mySM;
+    
+    double SigmaggF;
+    double Sigmaggh_tt;
+    double Sigmaggh_bb;
+    
+    double rA_QuQu; 
+    double rA_QdQd;
+    double rA_ll;
+    double rA_gg; 
+   
+    double Gamma_Agaga; 
+    double Gamma_AZga;
+    double Gamma_Agg;
+    
+    double TAUc;
+    double TAUt;
+    double TAUs;
+    double TAUb;
+    double TAUmu;
+    double TAUtau;
+    double TAUw;
+    double TAUhp;
+    
+    gslpp::complex I_A_f;
+    gslpp::complex I_A_fU;
+    gslpp::complex I_A_fD;
+    gslpp::complex I_A_fL;
+    gslpp::complex I_A_W;
+    double g_A_HpHm;
+    gslpp::complex I_A_Hp;
 
-    /**
-     * @brief Total decay width of the CP-odd Higgs @f$A@f$.
-     * @return @f$\Gamma^{\text tot}_A@f$
-     */
+    double LAMc;
+    double LAMt;
+    double LAMs;
+    double LAMb;
+    double LAMmu;
+    double LAMtau;
+    double LAMw;
+    double LAMhp;
+    
+    gslpp::complex A_A_F;
+    gslpp::complex A_A_U;
+    gslpp::complex A_A_D;
+    gslpp::complex A_A_L;
+    gslpp::complex A_A_W;
+    gslpp::complex A_A_Hp;
+
+    double SigmaggF_A;
+    double SigmabbF_A;
+    
+    double SigmaSum;
+    
+    double BrSM_Atocc;
+    double BrSM_Atobb;
+    double BrSM_Atott;
+    double BrSM_Atomumu;
+    double BrSM_Atotautau;
+    
+    double GammaAtotSM;
+    double GammaAHZ;
+    double GammaAhZ;
+    double GammaAHpW;
     double GammaAtot;
+    
+    double Br_Atott;
+    double Br_Atobb;
+    double Br_Atotautau;
+    double Br_Atogaga;
+    double Br_AtohZ;
+    double Br_htotautau;
+    double Br_htobb;
+    double Br_Ztoee; 
+    double Br_Ztomumu;
+    double Br_Ztotautau;
+    
+    gslpp::complex I_HH_f;
+    gslpp::complex I_HH_fU;
+    gslpp::complex I_HH_fD;
+    gslpp::complex I_HH_fL;
+    gslpp::complex I_HH_W;
+
+    int HSTheta (const double x) const;
+    double KaellenFunction (const double a, const double b, const double c) const;
+
+
 };
 
-/**
- * @class Hobs_ggF_A_tautau_ATLAS
- * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg\to A\to \tau\tau@f$.
- */
-class Hobs_ggF_A_tautau_ATLAS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_tautau_ATLAS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_tautau_ATLAS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_tautau_ATLAS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to \tau\tau)]_{\text{ATLAS,95\%}}@f$
+     * @return Hobs_ggF_A_tautau_ATLAS
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_ggF_A_tautau_CMS
- * @ingroup THDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg\to A\to \tau\tau@f$.
- */
-class Hobs_ggF_A_tautau_CMS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_tautau_CMS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_tautau_CMS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_tautau_CMS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to \tau\tau)]_{\text{CMS,95\%}}@f$
+     * @return Hobs_ggF_A_tautau
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_bbF_A_tautau_ATLAS
- * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$b\bar b\to A\to \tau\tau@f$.
- */
-class Hobs_bbF_A_tautau_ATLAS: public CPoddHiggs {
-public:
 
+
+class  Hobs_bbF_A_tautau_ATLAS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_bbF_A_tautau_ATLAS constructor.
+     * @brief Constructor.
      */
     Hobs_bbF_A_tautau_ATLAS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} / [\sigma_{b\bar b\to A}\cdot BR(A\to \tau\tau)]_{\text{ATLAS,95\%}}@f$
+     * @return Hobs_bbF_A_tautau_ATLAS
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_bbF_A_tautau_CMS
- * @ingroup THDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$b\bar b\to A\to \tau\tau@f$.
- */
-class Hobs_bbF_A_tautau_CMS: public CPoddHiggs {
-public:
 
+
+class  Hobs_bbF_A_tautau_CMS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_bbF_A_tautau_CMS constructor.
+     * @brief Constructor.
      */
     Hobs_bbF_A_tautau_CMS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} / [\sigma_{b\bar b\to A}\cdot BR(A\to \tau\tau)]_{\text{CMS,95\%}}@f$
+     * @return Hobs_bbF_A_tautau
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_ggF_A_gaga_ATLAS
- * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg \to A\to \gamma\gamma@f$.
- */
-class Hobs_ggF_A_gaga_ATLAS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_gaga_ATLAS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_gaga_ATLAS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_gaga_ATLAS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to \gamma\gamma)]_{\text{ATLAS,95\%}}@f$
+     * @return Hobs_ggF_A_gaga_ATLAS
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_ggF_A_gaga_CMS
- * @ingroup THDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg \to A\to \gamma\gamma@f$.
- */
-class Hobs_ggF_A_gaga_CMS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_gaga_CMS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_gaga_CMS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_gaga_CMS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to \gamma\gamma)]_{\text{CMS,95\%}}@f$
+     * @return Hobs_ggF_A_gaga_CMS
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_ggF_A_hZ_bbll_CMS
- * @ingroup THDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg \to A\to hZ \to b\bar b \ell \ell@f$.
- */
-class Hobs_ggF_A_hZ_bbll_CMS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_hZ_bbll_CMS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_hZ_bbll_CMS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_hZ_bbll_CMS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to hZ \to b\bar b \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @return Hobs_A_hZ
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_ggF_A_hZ_bbZ_ATLAS
- * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg \to A\to hZ \to b\bar b Z@f$.
- */
-class Hobs_ggF_A_hZ_bbZ_ATLAS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_hZ_bbZ_ATLAS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_hZ_bbZ_ATLAS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_hZ_bbZ_ATLAS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b Z)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to hZ \to b\bar b Z)]_{\text{ATLAS,95\%}}@f$
+     * @return Hobs_A_hZ_bbZ
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_ggF_A_hZ_tautaull_CMS
- * @ingroup THDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg \to A\to hZ \to \tau \tau \ell \ell@f$.
- */
-class Hobs_ggF_A_hZ_tautaull_CMS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_hZ_tautaull_CMS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_hZ_tautaull_CMS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_hZ_tautaull_CMS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to hZ \to \tau \tau \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @return Hobs_A_hZ
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_ggF_A_hZ_tautauZ_ATLAS
- * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg \to A\to hZ \to \tau \tau Z@f$.
- */
-class Hobs_ggF_A_hZ_tautauZ_ATLAS: public CPoddHiggs {
-public:
 
+
+class  Hobs_ggF_A_hZ_tautauZ_ATLAS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_ggF_A_hZ_tautauZ_ATLAS constructor.
+     * @brief Constructor.
      */
     Hobs_ggF_A_hZ_tautauZ_ATLAS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau b Z)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to hZ \to \tau \tau Z)]_{\text{ATLAS,95\%}}@f$
+     * @return Hobs_A_hZ_tautauZ
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_pp_A_tt_ATLAS
- * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp \to A\to t\bar t@f$.
- */
-class Hobs_pp_A_tt_ATLAS: public CPoddHiggs {
-public:
 
+
+class  Hobs_pp_A_tt_ATLAS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_pp_A_tt_ATLAS constructor.
+     * @brief Constructor.
      */
     Hobs_pp_A_tt_ATLAS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)]_{\text{theo}} / [\sigma_{pp\to A}\cdot BR(A\to t\bar t))_{\text{ATLAS,95\%}}@f$
+     * @return Hobs_pp_A_tt
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class Hobs_bbF_A_bb_CMS
- * @ingroup THDM
- * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$b\bar b \to A\to b\bar b@f$.
- */
-class Hobs_bbF_A_bb_CMS: public CPoddHiggs {
-public:
 
+
+class  Hobs_bbF_A_bb_CMS: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief Hobs_bbF_A_bb_CMS constructor.
+     * @brief Constructor.
      */
     Hobs_bbF_A_bb_CMS(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)]_{\text{theo}} / [\sigma_{b\bar b\to A}\cdot BR(A\to b\bar b)]_{\text{CMS,95\%}}@f$
+     * @return Hobs_bbF_A_bb
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_ggF_A_tautau_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to \tau\tau@f$.
- */
-class log10_ggF_A_tautau_TH: public CPoddHiggs {
-public:
 
+
+class  log10_ggF_A_tautau_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_ggF_A_tautau_TH constructor.
+     * @brief Constructor.
      */
     log10_ggF_A_tautau_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]@f$
+     * @return ggF_A_tautau_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_bbF_A_tautau_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to A\to \tau\tau@f$.
- */
-class log10_bbF_A_tautau_TH: public CPoddHiggs {
-public:
 
+
+class  log10_bbF_A_tautau_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_bbF_A_tautau_TH constructor.
+     * @brief Constructor.
      */
     log10_bbF_A_tautau_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]@f$
+     * @return bbF_A_tautau_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_ggF_A_gaga_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to \gamma\gamma@f$.
- */
-class log10_ggF_A_gaga_TH: public CPoddHiggs {
-public:
 
+
+class  log10_ggF_A_gaga_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_ggF_A_gaga_TH constructor.
+     * @brief Constructor.
      */
     log10_ggF_A_gaga_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]@f$
+     * @return ggF_A_gaga_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_ggF_A_hZ_bbll_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to hZ \to b\bar b \ell \ell@f$.
- */
-class log10_ggF_A_hZ_bbll_TH: public CPoddHiggs {
-public:
 
+
+class  log10_ggF_A_hZ_bbll_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_ggF_A_hZ_bbll_TH constructor.
+     * @brief Constructor.
      */
     log10_ggF_A_hZ_bbll_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b \ell \ell)]@f$
+     * @return A_hZ_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_ggF_A_hZ_bbZ_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to hZ \to b\bar b Z@f$.
- */
-class log10_ggF_A_hZ_bbZ_TH: public CPoddHiggs {
-public:
 
+
+class  log10_ggF_A_hZ_bbZ_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_ggF_A_hZ_bbZ_TH constructor.
+     * @brief Constructor.
      */
     log10_ggF_A_hZ_bbZ_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b Z)]@f$
+     * @return A_hZ_bbZ_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_ggF_A_hZ_tautaull_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to hZ \to \tau \tau \ell \ell@f$.
- */
-class log10_ggF_A_hZ_tautaull_TH: public CPoddHiggs {
-public:
 
-    /**
-     * @brief log10_ggF_A_hZ_tautaull_TH constructor.
-     */
-    log10_ggF_A_hZ_tautaull_TH(const StandardModel& SM_i);
 
-     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ\to \tau \tau \ell \ell)]@f$
-     */
-    double computeThValue();
+class  log10_ggF_A_hZ_tautaull_TH: public CPoddHiggsCache {
+ public:
+
+  /**                                                                                                                                         
+   * @brief Constructor.                                                                                                                      
+   */
+  log10_ggF_A_hZ_tautaull_TH(const StandardModel& SM_i);
+
+  /**                                                                                                                                         
+   * @return A_bb_TH                                                                                                                          
+   */
+  double computeThValue ();
+
+ private:
+
 };
 
-/**
- * @class log10_ggF_A_hZ_tautauZ_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to hZ \to \tau \tau Z@f$.
- */
-class log10_ggF_A_hZ_tautauZ_TH: public CPoddHiggs {
-public:
 
+
+class  log10_ggF_A_hZ_tautauZ_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_ggF_A_hZ_tautauZ_TH constructor.
+     * @brief Constructor.
      */
     log10_ggF_A_hZ_tautauZ_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ\to \tau \tau Z)]@f$
+     * @return A_hZ_tautauZ_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_pp_A_tt_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to A\to t\bar t@f$.
- */
-class log10_pp_A_tt_TH: public CPoddHiggs {
-public:
 
+
+class  log10_pp_A_tt_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_pp_A_tt_TH constructor.
+     * @brief Constructor.
      */
     log10_pp_A_tt_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)]@f$
+     * @return pp_A_tt_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+    
 };
 
-/**
- * @class log10_bbF_A_bb_TH
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$b\bar b\to A\to b\bar b@f$.
- */
-class log10_bbF_A_bb_TH: public CPoddHiggs {
-public:
 
+
+class  log10_bbF_A_bb_TH: public CPoddHiggsCache {
+public:
+    
     /**
-     * @brief log10_bbF_A_bb_TH constructor.
+     * @brief Constructor.
      */
     log10_bbF_A_bb_TH(const StandardModel& SM_i);
-
+    
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)]@f$
+     * @return bbF_A_bb_TH
      */
-    double computeThValue();
+    double computeThValue ();
+    
+private:
+
 };
 
 /**
  * @}
  */
 
-#endif	/* CPODDHIGGS_H */
+#endif	/* CPODDHIGGSCACHE_H */
