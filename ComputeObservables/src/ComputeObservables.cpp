@@ -117,15 +117,7 @@ void ComputeObservables::AddObservable(std::string ObsName)
     DThObs[ObsName] = myInputParser.getObsFactory().CreateThMethod(ObsName, *Mod);
     DObs.insert(std::pair<std::string, double> (ObsName , 0.));
 }
-
-void ComputeObservables::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct){
-        myInputParser.addCustomParser(name, funct);
-}
-    
-void ComputeObservables::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct){
+ 
+void ComputeObservables::addCustomObservableType(const std::string name, boost::function<Observable*() > funct){
         myInputParser.addCustomObservableType(name, funct);
-}
-   
-void ComputeObservables::linkParserToObservable(std::string name_par, std::string name_obs) {
-       myInputParser.linkParserToObservable(name_par, name_obs);
 }
