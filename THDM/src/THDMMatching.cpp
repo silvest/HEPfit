@@ -16,20 +16,8 @@ THDMMatching::THDMMatching(const THDM & THDM_i) :
     myCKM(3, 3, 0.),
     myTHDM(THDM_i),
     mcdbs2(5, NDR, NLO),
-    mcbtaunu(3, NDR, LO),
-    mcbsmm(8, NDR, NNLO, NLO_ewt4),
-    mcbdmm(8, NDR, NNLO, NLO_ewt4)
+    mcbtaunu(3, NDR, LO)
 {}
-
-void THDMMatching::updateTHDMParameters()
-{
-    myCKM = myTHDM.getVCKM();
-    tanb = myTHDM.gettanb();
-    v = myTHDM.v();
-    v1 = myTHDM.getv1();
-    v2 = myTHDM.getv2();
-    gW = sqrt(8. * myTHDM.getGF() / sqrt(2.)) * myTHDM.Mw_tree();; 
-}
 
 std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
 
@@ -38,7 +26,7 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
     double GF=myTHDM.getGF();
     double MW=myTHDM.Mw();
     gslpp::complex co = GF / 4. / M_PI * MW * myTHDM.computelamt_s();
-    tanb = myTHDM.gettanb();
+    double tanb = myTHDM.gettanb();
     double mHp2=myTHDM.getmHp2();
     double xHW=mHp2/(MW*MW);
     double xtH=xt/xHW;
@@ -49,8 +37,8 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
     mcdbs2.setMu(Mut);
 
     switch (mcdbs2.getOrder()) {
-//        case NNLO:
-//        case NLO:
+        case NNLO:
+        case NLO:
         case LO:
             mcdbs2.setCoeff(0, co * co * xt * (SWH+SHH), LO);
             break;
@@ -90,34 +78,5 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbtaunu() {
 
     vmcbtaunu.push_back(mcbtaunu);
     return(vmcbtaunu);
-
-}
-
-std::vector<WilsonCoefficient>& THDMMatching::CMbsmm() {
-
-    double Muw = myTHDM.getMuw();
-//    double GF = myTHDM.getGF();
-//    myCKM = myTHDM.getVCKM();
-//    double mB = myTHDM.getMesons(QCD::B_P).getMass();
-//    double tanb = myTHDM.getTanb();
-//    double mHp=myTHDM.getMHp();
-
-    vmcbsmm = StandardModelMatching::CMbsmm();
-    mcbsmm.setMu(Muw);
- 
-    switch (mcbsmm.getOrder()) {
-        case NNLO:
-        case NLO:
-        case LO:
-            mcbsmm.setCoeff(0, 0., LO);
-            break;
-        default:
-            std::stringstream out;
-            out << mcbsmm.getOrder();
-            throw std::runtime_error("THDMMatching::CMbsmm(): order " + out.str() + "not implemented");
-    }
-
-    vmcbsmm.push_back(mcbsmm);
-    return(vmcbsmm);
 
 }
