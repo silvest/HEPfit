@@ -9,7 +9,7 @@
 #define	GLOBALMINIMUM_H
 
 #include <stdexcept>
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "THDM.h"
 
 /**
@@ -19,6 +19,7 @@
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to assure that our vacuum is the global minimum of the potential.
+ * Modified discriminant from @cite Barroso:2013awa. (Scaled by a factor @f$10^{-7}@f$ and some always positive factors removed.)
  */
 class globalminimum : public ThObservable {
 public:

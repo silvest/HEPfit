@@ -26,8 +26,7 @@ double bsgammaTHDM::computeThValue()
     if (modelflag == "type2") {
         double logtb=myTHDM->getlogtb();
         double logmHp=log10(myTHDM->getmHp());
-        double bsgtable=mycache->ex_bsgamma(logtb,logmHp);
-        double B_BXsgamma_ctrl=bsgtable;
+        double B_BXsgamma_ctrl=mycache->ip_ex_bsgamma(logtb,logmHp);
         double B_BXsgamma_err=0.07;
         double bsgamma_theoryerror=myTHDM->getbsgamma_theoryerror();
 

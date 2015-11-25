@@ -9,7 +9,7 @@
 #define	POSITIVITY_H
 
 #include <stdexcept>
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "THDM.h"
 #include "THDMquantities.h"
 
@@ -20,6 +20,7 @@
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the positivity conditions of the Higgs potential.
+ * Formulae can be found in @cite Deshpande:1977rw.
  */
 class positivity : public ThObservable {
 public:

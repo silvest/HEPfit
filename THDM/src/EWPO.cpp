@@ -39,16 +39,17 @@ double EWPO::dDelta_r()
 
     double prefactor=Ale/(4.*c02*MZ2*M_PI*s02*s02);
 
-    double part_A=-(c02*(mycache->A0_MZ2_mHp2(MZ2,mHp2)*(1.0 -10.0*c02*c02 +16.0*c02*s02 -6.0*s02*s02)
-                        -9.0*mycache->A0_MZ2_MW2(MZ2,MW2)*(13.0*c02*c02 -2.0*c02*s02 +s02*s02)))/2.;
+    double part_A=0.;
+//    double part_A=-(c02*(mycache->A0_MZ2_mHp2(MZ2,mHp2)*(1.0 -10.0*c02*c02 +16.0*c02*s02 -6.0*s02*s02)
+//                        -9.0*mycache->A0_MZ2_MW2(MZ2,MW2)*(13.0*c02*c02 -2.0*c02*s02 +s02*s02)))/2.;
 
 
-    double B0_MZ2_0_MW2_mHh2 = mycache->B0_MZ2_0_MW2_mHh2(MZ2,MW2,mHh2).abs();
-    double B0_MZ2_0_MW2_mHl2 = mycache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2).abs();
-    double Re_B0_MZ2_MW2_MW2_mHh2 = mycache->B0_MZ2_MW2_MW2_mHh2(MZ2,MW2,mHh2).real();
-    double Re_B0_MZ2_MW2_MW2_mHl2 = mycache->B0_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2).real();
-    double Re_B0_MZ2_MZ2_MZ2_mHh2 = mycache->B0_MZ2_MZ2_MZ2_mHh2(MZ2,mHh2).real();
-    double Re_B0_MZ2_MZ2_MZ2_mHl2 = mycache->B0_MZ2_MZ2_MZ2_mHl2(MZ2,mHl2).real();
+//    double B0_MZ2_0_MW2_mHh2 = mycache->B0_MZ2_0_MW2_mHh2(MZ2,MW2,mHh2).abs();
+//    double B0_MZ2_0_MW2_mHl2 = mycache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2).abs();
+//    double Re_B0_MZ2_MW2_MW2_mHh2 = mycache->B0_MZ2_MW2_MW2_mHh2(MZ2,MW2,mHh2).real();
+//    double Re_B0_MZ2_MW2_MW2_mHl2 = mycache->B0_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2).real();
+//    double Re_B0_MZ2_MZ2_MZ2_mHh2 = mycache->B0_MZ2_MZ2_MZ2_mHh2(MZ2,mHh2).real();
+//    double Re_B0_MZ2_MZ2_MZ2_mHl2 = mycache->B0_MZ2_MZ2_MZ2_mHl2(MZ2,mHl2).real();
 
 //    double B00_MZ2_0_mA2_mHp2 = mycache->B00_MZ2_0_mA2_mHp2(MZ2,mA2,mHp2).abs();
 //    double B00_MZ2_0_mHh2_mHp2 = mycache->B00_MZ2_0_mHh2_mHp2(MZ2,mHh2,mHp2).abs();
