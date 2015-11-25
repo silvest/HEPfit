@@ -62,7 +62,7 @@
  * to @f$\mathcal{O}_{HD}@f$. 
  *
  * 
- * * @anchor NPEffectiveBSInitialization
+ * @anchor NPEffectiveBSInitialization
  * <h3>Initialization</h3>
  *
  * After creating an instance of the current class with the constructor
