@@ -396,21 +396,7 @@ void GenerateEvent::generateRandomEvent(int iterationNo)
     Mod->Update(DPars);
 }
 
-void GenerateEvent::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct){
-        myInputParser.addCustomParser(name, funct);
-}
-    
-void GenerateEvent::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct){
-        myInputParser.addCustomObservableType(name, funct);
-}
-   
-void GenerateEvent::linkParserToObservable(std::string name_par, std::string name_obs) {
-       myInputParser.linkParserToObservable(name_par, name_obs);
-}
-
-
-void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters, 
-        std::map<std::string,double>& DPars_i) 
+void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string,double>& DPars_i) 
 {
     std::map<std::string, std::vector<double> > cgpmap;
 
@@ -445,4 +431,8 @@ void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters
             DPars_i[CGP[j].getPar(l).getname()] = porig[l];
         }
     }
+}
+
+void GenerateEvent::addCustomObservableType(const std::string name, boost::function<Observable*() > funct){
+        myInputParser.addCustomObservableType(name, funct);
 }

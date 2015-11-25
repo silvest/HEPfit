@@ -477,14 +477,7 @@ void MonteCarlo::ReadPreRunData(std::string file)
     MCEngine.MCMCSetInitialPositions(mode_all);
     MCEngine.MCMCSetTrialFunctionScaleFactor(scale_all);
 }
-void MonteCarlo::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct) {
-    myInputParser.addCustomParser(name, funct);
-}
 
-void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct) {
+void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*() > funct) {
     myInputParser.addCustomObservableType(name, funct);
-}
-
-void MonteCarlo::linkParserToObservable(std::string name_par, std::string name_obs) {
-    myInputParser.linkParserToObservable(name_par, name_obs);
 }
