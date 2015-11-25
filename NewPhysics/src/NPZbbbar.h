@@ -110,21 +110,7 @@
  * @anchor NPZbbbarFlags
  * <h3>%Model Flags</h3>
  *
- * The flag of %NPZbbbar is summarized below:
- * <table class="model">
- * <tr>
- *   <th>Label</th>
- *   <th>Value</th>
- *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="mod_name">%NotLinearizedNP</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if new physics contributions
- *   to electroweak observables are not linearized in \f$\delta g^b\f$.
- *   The default value is FALSE; new physics contributions are linearized.</td>
- * </tr>
- * </table>
+ * There is no model flag in the current class.
  *
  *
  * @anchor NPZbbbarFunctions
