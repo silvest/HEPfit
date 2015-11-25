@@ -337,21 +337,6 @@ ThObsFactory::ThObsFactory()
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  THDM observables  -----
-    obsThFactory["AlTHDM"] = boost::factory<AlTHDM*>();
-    obsThFactory["PpoltauTHDM"] = boost::factory<PpoltauTHDM*>();
-    obsThFactory["AcTHDM"] = boost::factory<AcTHDM*>();
-    obsThFactory["AbTHDM"] = boost::factory<AbTHDM*>();
-    obsThFactory["AFBl0THDM"] = boost::factory<AFBl0THDM*>();
-    obsThFactory["AFBc0THDM"] = boost::factory<AFBc0THDM*>();
-    obsThFactory["AFBb0THDM"] = boost::factory<AFBb0THDM*>();
-    obsThFactory["GammaZTHDM"] = boost::factory<GammaZTHDM*>();
-    obsThFactory["Rl0THDM"] = boost::factory<Rl0THDM*>();
-    obsThFactory["Rc0THDM"] = boost::factory<Rc0THDM*>();
-    obsThFactory["Rb0THDM"] = boost::factory<Rb0THDM*>();
-    obsThFactory["SigmahadTHDM"] = boost::factory<SigmahadTHDM*>();
-    obsThFactory["GammaWTHDM"] = boost::factory<GammaWTHDM*>();
-    obsThFactory["sinthetaeffl_2THDM"] = boost::factory<sinthetaeffl_2THDM*>();
-    obsThFactory["MWTHDM"] = boost::factory<MWTHDM*>();
     obsThFactory["globalminimum"] = boost::factory<globalminimum*>();
 
     obsThFactory["ggF_tth_htobb"] = boost::factory<ggF_tth_htobb*>();
