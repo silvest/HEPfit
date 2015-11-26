@@ -13,7 +13,6 @@
 /**
  * @addtogroup GeneralSUSY
  * @brief A module for the general MSSM.
- * @{
  */
 
 /**

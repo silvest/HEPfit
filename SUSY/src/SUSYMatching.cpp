@@ -77,6 +77,8 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     myRn(6, 6, 0.),
     mym_sn_sq(6, 0.),
     mym_se_sq(6, 0.),
+    mym_su_sq(6, 0.),
+    mym_sd_sq(6, 0.),
     MChi0(4, 0.),
     myN(4, 4, 0.),
     MNeig(4, 0.),
@@ -106,13 +108,13 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     CRlE(2, 3, 0.),
     CRlMU(2, 3, 0.),
     CRlTAU(2, 3, 0.),
-    CRqUP(2, 3, 0.),
-    CRqDOWN(2, 3, 0.),
+    CRqUP(2, 6, 0.),
+    CRqDOWN(2, 6, 0.),
     CLlE(2, 3, 0.),
     CLlMU(2, 3, 0.),
     CLlTAU(2, 3, 0.),
-    CLqUP(2, 3, 0.),
-    CLqDOWN(2, 3, 0.),
+    CLqUP(2, 6, 0.),
+    CLqDOWN(2, 6, 0.),
     NRlE(4, 6, 0.),
     NRlMU(4, 6, 0.),
     NRlTAU(4, 6, 0.),
@@ -4066,6 +4068,7 @@ gslpp::vector<gslpp::complex> SUSYMatching::BFunctions(int li_to_lj) {
 //        BFunctions.assign(6, 0. );
 //        BFunctions.assign(7, 0. );
 //    }
+    std::cout<<"BFunctions("<<li_to_lj<<") = "<<BFunctions<<std::endl;
 
     return(BFunctions);
 }
@@ -4074,17 +4077,6 @@ int SUSYMatching::delta_ab(int a, int b) {
     if(a == b) return 1;
     else return 0;
 }
-
-////gslpp::complex SUSYMatching::PVC11(double m12, double m22, double m32) {
-////    return 0.5*(-(m12-m22)*(m12-m32)*(m22-m32)*m12
-////                +m12*m12*m22*(2.0*m12-m22)*log(m12/m22) +m12*m12*m32*(-2.0*m12+m32)*log(m12/m32)
-////                +m22*m32*(-2.0*m12+m22)*(-2.0*m12+m32)*log(m22/m32))/((m12-m22)*(m12-m22)*(m12-m32)*(m12-m32)*(m22-m32));
-////}
-////
-////gslpp::complex SUSYMatching::PVC12(double m12, double m22, double m32) {
-////    return 0.5*((m12-m22)*(m12-m32)*(m22-m32)*m32 +m22*m22*m32*(2.0*m12-m32)*log(m22/m32)
-////                +m12*m12*(m22*m22*log(m12/m22)+m32*(-2.0*m22+m32)*log(m12/m32)))/((m12-m22)*(m12-m32)*(m12-m32)*(m22-m32)*(m22-m32));
-////}
 
 gslpp::vector<gslpp::complex> SUSYMatching::BHFunctions(int li_to_lj) {
         //Higgs penguin contributions from PhysRevD.73.055003
@@ -4128,35 +4120,36 @@ gslpp::vector<gslpp::complex> SUSYMatching::BHFunctions(int li_to_lj) {
     double g2t = g2/sqrt(2.0);
     double alph = mySUSY.getAle();
 
-    gslpp::vector<gslpp::complex> BHFunctions(4, 0.);
+    //DEBUG
+////    std::cout<<"MZ"<<MZ<<std::endl;
+////    std::cout<<"MW"<<MW<<std::endl;
+////    std::cout<<"sw2"<<sw2<<std::endl;
+////    std::cout<<"mE"<<mE<<std::endl;
+////    std::cout<<"mMU"<<mMU<<std::endl;
+////    std::cout<<"mTAU"<<mTAU<<std::endl;
+////    std::cout<<"sina"<<sina<<std::endl;
+////    std::cout<<"tanb"<<tanb<<std::endl;
+////    std::cout<<"mh"<<mh<<std::endl;
+////    std::cout<<"mH"<<mH<<std::endl;
+////    std::cout<<"mA"<<mA<<std::endl;
+////    std::cout<<"M1"<<M1<<std::endl;
+////    std::cout<<"M2"<<M2<<std::endl;
+////    std::cout<<"muH"<<muH<<std::endl;
+////    std::cout<<"TEhat"<<TEhat<<std::endl;
+////    std::cout<<"g2"<<g2<<std::endl;
+////    std::cout<<"alph"<<alph<<std::endl;
+////    std::cout<<"myRl"<<myRl<<std::endl;
+////    std::cout<<"ON"<<ON<<std::endl;
+////    std::cout<<"myRn"<<myRn<<std::endl;
+////    std::cout<<"myV"<<myV<<std::endl;
+////    std::cout<<"myU"<<myU<<std::endl;
+////    std::cout<<"mym_se_sq"<<mym_se_sq<<std::endl;
+////    std::cout<<"mym_sn_sq"<<mym_sn_sq<<std::endl;
+////    std::cout<<"MNeig"<<MNeig<<std::endl;
+////    std::cout<<"MChi"<<MChi<<std::endl;
+////gslpp::complex HpengMuEEENL0temp=0.;
 
-    std::cout<<"MZ"<<MZ<<std::endl;
-    std::cout<<"MW"<<MW<<std::endl;
-    std::cout<<"sw2"<<sw2<<std::endl;
-    std::cout<<"mE"<<mE<<std::endl;
-    std::cout<<"mMU"<<mMU<<std::endl;
-    std::cout<<"mTAU"<<mTAU<<std::endl;
-    std::cout<<"sina"<<sina<<std::endl;
-    std::cout<<"tanb"<<tanb<<std::endl;
-    std::cout<<"mh"<<mh<<std::endl;
-    std::cout<<"mH"<<mH<<std::endl;
-    std::cout<<"mA"<<mA<<std::endl;
-    std::cout<<"M1"<<M1<<std::endl;
-    std::cout<<"M2"<<M2<<std::endl;
-    std::cout<<"muH"<<muH<<std::endl;
-    std::cout<<"TEhat"<<TEhat<<std::endl;
-    std::cout<<"g2"<<g2<<std::endl;
-    std::cout<<"alph"<<alph<<std::endl;
-    std::cout<<"myRl"<<myRl<<std::endl;
-    std::cout<<"ON"<<ON<<std::endl;
-    std::cout<<"myRn"<<myRn<<std::endl;
-    std::cout<<"myV"<<myV<<std::endl;
-    std::cout<<"myU"<<myU<<std::endl;
-    std::cout<<"mym_se_sq"<<mym_se_sq<<std::endl;
-    std::cout<<"mym_sn_sq"<<mym_sn_sq<<std::endl;
-    std::cout<<"MNeig"<<MNeig<<std::endl;
-    std::cout<<"MChi"<<MChi<<std::endl;
-gslpp::complex HpengMuEEENL0temp=0.;
+    gslpp::vector<gslpp::complex> BHFunctions(4, 0.);
 
 
     //     Neutralino-Fermion-Sfermion couplings
@@ -4233,12 +4226,12 @@ gslpp::complex HpengMuEEENL0temp=0.;
         for (int b=0;b<2;b++) {
             Qch.assign(a, b, myU(a,1)*myV(b,0)/sqrt(2.0) );
             Rch.assign(a, b, (M2.conjugate()*myU(a,0)*myV(b,0) +muH.conjugate()*myU(a,1)*myV(b,1))/(2.0*MW) );
-            WL0.assign(a, b, -g2/sinb * (Qch(b,a)*sigma5(0).conjugate() -Rch(b,a)*sigma2(0).conjugate() +MChi(a)/(2.0*MW)*sigma2(0).conjugate()*delta_ab(a,b)) );
-            WR0.assign(a, b, WL0(b,a).conjugate() );
-            WL1.assign(a, b, -g2/sinb * (Qch(b,a)*sigma5(1).conjugate() -Rch(b,a)*sigma2(1).conjugate() +MChi(a)/(2.0*MW)*sigma2(1).conjugate()*delta_ab(a,b)) );
-            WR1.assign(a, b, WL1(b,a).conjugate() );
-            WL2.assign(a, b, -g2/sinb * (Qch(b,a)*sigma5(2).conjugate() -Rch(b,a)*sigma2(2).conjugate() +MChi(a)/(2.0*MW)*sigma2(2).conjugate()*delta_ab(a,b)) );
-            WR2.assign(a, b, WL2(b,a).conjugate() );
+            WR0.assign(a, b, -g2/sinb * (Qch(a,b)*sigma5(0).conjugate() -Rch(a,b)*sigma2(0).conjugate() +MChi(a)/(2.0*MW)*sigma2(0).conjugate()*delta_ab(a,b)) );
+            WL0.assign(b, a, WR0(a,b).conjugate() );
+            WR1.assign(a, b, -g2/sinb * (Qch(a,b)*sigma5(1).conjugate() -Rch(a,b)*sigma2(1).conjugate() +MChi(a)/(2.0*MW)*sigma2(1).conjugate()*delta_ab(a,b)) );
+            WL1.assign(b, a, WR1(a,b).conjugate() );
+            WR2.assign(a, b, -g2/sinb * (Qch(a,b)*sigma5(2).conjugate() -Rch(a,b)*sigma2(2).conjugate() +MChi(a)/(2.0*MW)*sigma2(2).conjugate()*delta_ab(a,b)) );
+            WL2.assign(b, a, WR2(a,b).conjugate() );
         }
     }
 
@@ -4292,15 +4285,10 @@ gslpp::complex HpengMuEEENL0temp=0.;
 
     gslpp::matrix<gslpp::complex> Gnu0(3, 3, 0.), Gnu1(3, 3, 0.), Gnu2(3, 3, 0.);
     for (int x=0;x<3;x++) {
-        for (int y=0;y<3;y++) {
-            Gnu0.assign(x, y, -g2*( gLLNU(0)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(0)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(0)*myRn(x,2).conjugate()*myRn(y,2)) );
-            Gnu1.assign(x, y, -g2*( gLLNU(1)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(1)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(1)*myRn(x,2).conjugate()*myRn(y,2)) );
-            Gnu2.assign(x, y, -g2*( gLLNU(2)*myRn(x,0).conjugate()*myRn(y,0) +gLLNU(2)*myRn(x,1).conjugate()*myRn(y,1) +gLLNU(2)*myRn(x,2).conjugate()*myRn(y,2)) );
-        }
+        Gnu0.assign(x, x, -g2*gLLNU(0) );
+        Gnu1.assign(x, x, -g2*gLLNU(1) );
+        Gnu2.assign(x, x, -g2*gLLNU(2) );
     }
-    std::cout<<"Gnu0(1,2) = "<< Gnu0(0,1)<<std::endl;
-    std::cout<<"Gnu0(1,3) = "<< Gnu0(0,2)<<std::endl;
-    std::cout<<"Gnu0(2,3) = "<< Gnu0(1,2)<<std::endl;
 
     gslpp::vector<gslpp::complex> SRE(3, 0.), SLE(3, 0.), SRMU(3, 0.), SLMU(3, 0.), SRTAU(3, 0.), SLTAU(3, 0.);
     for (int p=0;p<3;p++) {
@@ -4342,22 +4330,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
                                                                  +NRlE(a,x)*DR0(a,b)*NLlMU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
                     //     h L contribution
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_1b = "<< - 2.0*piconst*(NRlE(a,x)*DL0(a,b)*NLlMU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                            +mMU*mMU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
-                                                                 +NLlE(a,x)*DR0(a,b)*NRlMU(b,x).conjugate()*mMU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NLlE(a,x)*DR0(a,b)*NLlMU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NRlE(a,x)*DL0(a,b)*NRlMU(b,x).conjugate()*mMU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                 +NLlE(a,x)*DL0(a,b)*NLlMU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NRlE(a,x)*DR0(a,b)*NRlMU(b,x).conjugate()*mMU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
-                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
-                                                                 +NRlE(a,x)*DR0(a,b)*NLlMU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))<<std::endl;
                     HpengMuEEENL0 = HpengMuEEENL0 - 2.0*piconst*(NLlE(a,x)*DR0(a,b)*NRlMU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
                                                                                                             -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
                                                                                                             +mMU*mMU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
@@ -4454,10 +4426,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                                                 -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
                                                                           -NLlE(a,x)*NLlMU(a,y).conjugate()*mMU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
                                                                           -NLlE(a,x)*NRlMU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_2y = "<< - 2.0*piconst*Gl0(x,y)*(-NLlE(a,x)*NLlMU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
-                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
-                                                                          -NRlE(a,x)*NRlMU(a,y).conjugate()*mMU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
-                                                                          -NRlE(a,x)*NLlMU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))<<std::endl;
                     //     H R contribution
                     HpengMuEEENR1 = HpengMuEEENR1 - 2.0*piconst*Gl1(x,y)*(-NLlE(a,x)*NLlMU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
                                                                                                                 -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
@@ -4497,30 +4465,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                       +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_3 = "<< - 2.0*piconst*(SRMU(0)/(mE*mE-mMU*mMU)*(-NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
-                                                             +SRE(0)/(mMU*mMU-mE*mE)*(-NLlE(a,x)*NLlMU(a,x).conjugate()*mMU*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))))<<std::endl;
-    if(x==0&&a==2) std::cout<<"SRMU(0) = "<< SRMU(0)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NRlE(3,1) = "<< NRlE(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NRlMU(3,1) = "<< NRlMU(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NLlE(3,1) = "<< NLlE(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"NLlMU(3,1) = "<< NLlMU(a,x)<<std::endl;
-    if(x==0&&a==2) std::cout<<"B0(3,1) = "<< PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))<<std::endl;
-    if(x==0&&a==2) std::cout<<"B1(3,1) = "<< PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))<<std::endl;
-                
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_3_1 = "<< - 2.0*piconst*(SRMU(0)/(mE*mE-mMU*mMU)*(-NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))))<<std::endl;
-    if(x==0&&a==2) std::cout<<"HpengMuEEENR0(3,1)_3_2 = "<< - 2.0*piconst*(SRE(0)/(mMU*mMU-mE*mE)*(-NLlE(a,x)*NLlMU(a,x).conjugate()*mMU*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NLlE(a,x)*NRlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      -NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
-                                                                                      +NRlE(a,x)*NLlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))))<<std::endl;
                 //     H R contribution
                 HpengMuEEENR1 = HpengMuEEENR1 - 2.0*piconst*(SRMU(1)/(mE*mE-mMU*mMU)*(-NRlE(a,x)*NRlMU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
@@ -4557,16 +4501,8 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                       +NRlE(a,x)*NLlMU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       -NLlE(a,x)*NLlMU(a,x).conjugate()*mE*mMU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
                                                                                       +NLlE(a,x)*NRlMU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
-
-                std::cout<<"HpengMuEEENR0("<<a<<","<<x<<") = "<< HpengMuEEENR0-HpengMuEEENL0temp<<std::endl;
-                HpengMuEEENL0temp=HpengMuEEENR0;
-
             }
         }
-    std::cout<<"HpengMuEEENR1 = "<< HpengMuEEENR1<<std::endl;
-    std::cout<<"HpengMuEEENL1 = "<< HpengMuEEENL1<<std::endl;
-    std::cout<<"HpengMuEEENR2 = "<< HpengMuEEENR2<<std::endl;
-    std::cout<<"HpengMuEEENL2 = "<< HpengMuEEENL2<<std::endl;
 
         //     summing up the h (0), H (1) and A (2) parts
         gslpp::complex B2HiggsnR = (-0.5*HpengMuEEENR0*SLE(0)/(mh*mh)-0.5*HpengMuEEENR1*SLE(1)/(mH*mH)-0.5*HpengMuEEENR2*SLE(2)/(mA*mA))/(4.0*pi*alph);
@@ -4775,12 +4711,6 @@ gslpp::complex HpengMuEEENL0temp=0.;
                                                                                       +CLlE(a,x)*CRlMU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
            }
         }
-    std::cout<<"HpengMuEEECR0 = "<< HpengMuEEECR0<<std::endl;
-    std::cout<<"HpengMuEEECL0 = "<< HpengMuEEECL0<<std::endl;
-    std::cout<<"HpengMuEEECR1 = "<< HpengMuEEECR1<<std::endl;
-    std::cout<<"HpengMuEEECL1 = "<< HpengMuEEECL1<<std::endl;
-    std::cout<<"HpengMuEEECR2 = "<< HpengMuEEECR2<<std::endl;
-    std::cout<<"HpengMuEEECL2 = "<< HpengMuEEECL2<<std::endl;
 
         //     summing up the h (0), H (1) and A (2) parts
         gslpp::complex B2HiggscR = (-0.5*HpengMuEEECR0*SLE(0)/(mh*mh)-0.5*HpengMuEEECR1*SLE(1)/(mH*mH)-0.5*HpengMuEEECR2*SLE(2)/(mA*mA))/(4.0*pi*alph);
@@ -4794,15 +4724,856 @@ gslpp::complex HpengMuEEENL0temp=0.;
         BHFunctions.assign(2, B3HiggsnR+B3HiggscR );
         BHFunctions.assign(3, B3HiggsnL+B3HiggscL );
     }
-//    if (li_to_lj == 2) // tau -> 3mu
-//    {
-//    }
-//    if (li_to_lj == 3) // tau -> 3e
-//    {
-//    }
-//    if (li_to_lj == 4) // tau -> muee
-//    {
-//    }
+
+    if (li_to_lj == 2) // tau -> 3mu
+    {
+        //     Neutralino contributions
+        gslpp::complex HpengTauMUMUMUNR0 = 0.0;
+        gslpp::complex HpengTauMUMUMUNL0 = 0.0;
+        gslpp::complex HpengTauMUMUMUNR1 = 0.0;
+        gslpp::complex HpengTauMUMUMUNL1 = 0.0;
+        gslpp::complex HpengTauMUMUMUNR2 = 0.0;
+        gslpp::complex HpengTauMUMUMUNL2 = 0.0;
+        for (int x=0;x<6;x++) {
+            for (int a=0;a<4;a++) {
+                for (int b=0;b<4;b++) {
+                    //     h R contribution
+                    HpengTauMUMUMUNR0 = HpengTauMUMUMUNR0 - 2.0*piconst*(NRlMU(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NLlMU(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DR0(a,b)*NLlTAU(b,x).conjugate()*mMU*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DL0(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NLlMU(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*mMU*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DR0(a,b)*NLlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     h L contribution
+                    HpengTauMUMUMUNL0 = HpengTauMUMUMUNL0 - 2.0*piconst*(NLlMU(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NRlMU(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DL0(a,b)*NRlTAU(b,x).conjugate()*mMU*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DR0(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NRlMU(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*mMU*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DL0(a,b)*NRlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     H R contribution
+                    HpengTauMUMUMUNR1 = HpengTauMUMUMUNR1 - 2.0*piconst*(NRlMU(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NLlMU(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DR1(a,b)*NLlTAU(b,x).conjugate()*mMU*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DL1(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NLlMU(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*mMU*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DR1(a,b)*NLlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     H L contribution
+                    HpengTauMUMUMUNL1 = HpengTauMUMUMUNL1 - 2.0*piconst*(NLlMU(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NRlMU(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DL1(a,b)*NRlTAU(b,x).conjugate()*mMU*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DR1(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NRlMU(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*mMU*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DL1(a,b)*NRlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     A R contribution
+                    HpengTauMUMUMUNR2 = HpengTauMUMUMUNR2 - 2.0*piconst*(NRlMU(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NLlMU(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DR2(a,b)*NLlTAU(b,x).conjugate()*mMU*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DL2(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NLlMU(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*mMU*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DR2(a,b)*NLlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     A L contribution
+                    HpengTauMUMUMUNL2 = HpengTauMUMUMUNL2 - 2.0*piconst*(NLlMU(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NRlMU(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlMU(a,x)*DL2(a,b)*NRlTAU(b,x).conjugate()*mMU*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DR2(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NRlMU(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*mMU*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlMU(a,x)*DL2(a,b)*NRlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                }
+                for (int y=0;y<6;y++) {
+                    //     h R contribution
+                    HpengTauMUMUMUNR0 = HpengTauMUMUMUNR0 - 2.0*piconst*Gl0(x,y)*(-NLlMU(a,x)*NLlTAU(a,y).conjugate()*mMU*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NRlMU(a,x)*NRlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NRlMU(a,x)*NLlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     h L contribution
+                    HpengTauMUMUMUNL0 = HpengTauMUMUMUNL0 - 2.0*piconst*Gl0(x,y)*(-NRlMU(a,x)*NRlTAU(a,y).conjugate()*mMU*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NLlMU(a,x)*NLlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NLlMU(a,x)*NRlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     H R contribution
+                    HpengTauMUMUMUNR1 = HpengTauMUMUMUNR1 - 2.0*piconst*Gl1(x,y)*(-NLlMU(a,x)*NLlTAU(a,y).conjugate()*mMU*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NRlMU(a,x)*NRlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NRlMU(a,x)*NLlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     H L contribution
+                    HpengTauMUMUMUNL1 = HpengTauMUMUMUNL1 - 2.0*piconst*Gl1(x,y)*(-NRlMU(a,x)*NRlTAU(a,y).conjugate()*mMU*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NLlMU(a,x)*NLlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NLlMU(a,x)*NRlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     A R contribution
+                    HpengTauMUMUMUNR2 = HpengTauMUMUMUNR2 - 2.0*piconst*Gl2(x,y)*(-NLlMU(a,x)*NLlTAU(a,y).conjugate()*mMU*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NRlMU(a,x)*NRlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NRlMU(a,x)*NLlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     A L contribution
+                    HpengTauMUMUMUNL2 = HpengTauMUMUMUNL2 - 2.0*piconst*Gl2(x,y)*(-NRlMU(a,x)*NRlTAU(a,y).conjugate()*mMU*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NLlMU(a,x)*NLlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NLlMU(a,x)*NRlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                }
+                //     h R contribution
+                HpengTauMUMUMUNR0 = HpengTauMUMUMUNR0 - 2.0*piconst*(SRTAU(0)/(mMU*mMU-mTAU*mTAU)*(-NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SRMU(0)/(mTAU*mTAU-mMU*mMU)*(-NLlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     h L contribution
+                HpengTauMUMUMUNL0 = HpengTauMUMUMUNL0 - 2.0*piconst*(SLTAU(0)/(mMU*mMU-mTAU*mTAU)*(-NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SLMU(0)/(mTAU*mTAU-mMU*mMU)*(-NRlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     H R contribution
+                HpengTauMUMUMUNR1 = HpengTauMUMUMUNR1 - 2.0*piconst*(SRTAU(1)/(mMU*mMU-mTAU*mTAU)*(-NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SRMU(1)/(mTAU*mTAU-mMU*mMU)*(-NLlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     H L contribution
+                HpengTauMUMUMUNL1 = HpengTauMUMUMUNL1 - 2.0*piconst*(SLTAU(1)/(mMU*mMU-mTAU*mTAU)*(-NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SLMU(1)/(mTAU*mTAU-mMU*mMU)*(-NRlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     A R contribution
+                HpengTauMUMUMUNR2 = HpengTauMUMUMUNR2 - 2.0*piconst*(SRTAU(2)/(mMU*mMU-mTAU*mTAU)*(-NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SRMU(2)/(mTAU*mTAU-mMU*mMU)*(-NLlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     A L contribution
+                HpengTauMUMUMUNL2 = HpengTauMUMUMUNL2 - 2.0*piconst*(SLTAU(2)/(mMU*mMU-mTAU*mTAU)*(-NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SLMU(2)/(mTAU*mTAU-mMU*mMU)*(-NRlMU(a,x)*NRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlMU(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlMU(a,x)*NLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlMU(a,x)*NRlTAU(a,x).conjugate()*mMU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+            }
+        }
+
+        //     summing up the h (0), H (1) and A (2) parts
+        gslpp::complex B2HiggsnRtm = (-0.5*HpengTauMUMUMUNR0*SLMU(0)/(mh*mh)-0.5*HpengTauMUMUMUNR1*SLMU(1)/(mH*mH)-0.5*HpengTauMUMUMUNR2*SLMU(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B2HiggsnLtm = (-0.5*HpengTauMUMUMUNL0*SRMU(0)/(mh*mh)-0.5*HpengTauMUMUMUNL1*SRMU(1)/(mH*mH)-0.5*HpengTauMUMUMUNL2*SRMU(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggsnRtm = (HpengTauMUMUMUNR0*SRMU(0)/(mh*mh)+HpengTauMUMUMUNR1*SRMU(1)/(mH*mH)+HpengTauMUMUMUNR2*SRMU(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggsnLtm = (HpengTauMUMUMUNL0*SLMU(0)/(mh*mh)+HpengTauMUMUMUNL1*SLMU(1)/(mH*mH)+HpengTauMUMUMUNL2*SLMU(2)/(mA*mA))/(4.0*pi*alph);
+
+        //     Chargino contributions
+        gslpp::complex HpengTauMUMUMUCR0 = 0.0;
+        gslpp::complex HpengTauMUMUMUCL0 = 0.0;
+        gslpp::complex HpengTauMUMUMUCR1 = 0.0;
+        gslpp::complex HpengTauMUMUMUCL1 = 0.0;
+        gslpp::complex HpengTauMUMUMUCR2 = 0.0;
+        gslpp::complex HpengTauMUMUMUCL2 = 0.0;
+        for (int x=0;x<3;x++) {
+            for (int a=0;a<2;a++) {
+                for (int b=0;b<2;b++) {
+                    //     h R contribution
+                    HpengTauMUMUMUCR0 = HpengTauMUMUMUCR0 - 2.0*piconst*(CRlMU(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CLlMU(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WR0(a,b)*CLlTAU(b,x).conjugate()*mMU*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WL0(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CLlMU(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*mMU*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WR0(a,b)*CLlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     h L contribution
+                    HpengTauMUMUMUCL0 = HpengTauMUMUMUCL0 - 2.0*piconst*(CLlMU(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CRlMU(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WL0(a,b)*CRlTAU(b,x).conjugate()*mMU*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WR0(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CRlMU(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*mMU*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WL0(a,b)*CRlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     H R contribution
+                    HpengTauMUMUMUCR1 = HpengTauMUMUMUCR1 - 2.0*piconst*(CRlMU(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CLlMU(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WR1(a,b)*CLlTAU(b,x).conjugate()*mMU*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WL1(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CLlMU(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*mMU*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WR1(a,b)*CLlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     H L contribution
+                    HpengTauMUMUMUCL1 = HpengTauMUMUMUCL1 - 2.0*piconst*(CLlMU(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CRlMU(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WL1(a,b)*CRlTAU(b,x).conjugate()*mMU*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WR1(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CRlMU(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*mMU*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WL1(a,b)*CRlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     A R contribution
+                    HpengTauMUMUMUCR2 = HpengTauMUMUMUCR2 - 2.0*piconst*(CRlMU(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CLlMU(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WR2(a,b)*CLlTAU(b,x).conjugate()*mMU*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WL2(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CLlMU(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*mMU*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WR2(a,b)*CLlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     A L contribution
+                    HpengTauMUMUMUCL2 = HpengTauMUMUMUCL2 - 2.0*piconst*(CLlMU(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mMU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CRlMU(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*mTAU*mMU*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlMU(a,x)*WL2(a,b)*CRlTAU(b,x).conjugate()*mMU*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WR2(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CRlMU(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*mMU*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlMU(a,x)*WL2(a,b)*CRlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                }
+                for (int y=0;y<3;y++) {
+                    //     h R contribution
+                    HpengTauMUMUMUCR0 = HpengTauMUMUMUCR0 - 2.0*piconst*Gnu0(x,y)*(-CLlMU(a,x)*CLlTAU(a,y).conjugate()*mMU*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CRlMU(a,x)*CRlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CRlMU(a,x)*CLlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     h L contribution
+                    HpengTauMUMUMUCL0 = HpengTauMUMUMUCL0 - 2.0*piconst*Gnu0(x,y)*(-CRlMU(a,x)*CRlTAU(a,y).conjugate()*mMU*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CLlMU(a,x)*CLlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CLlMU(a,x)*CRlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     H R contribution
+                    HpengTauMUMUMUCR1 = HpengTauMUMUMUCR1 - 2.0*piconst*Gnu1(x,y)*(-CLlMU(a,x)*CLlTAU(a,y).conjugate()*mMU*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CRlMU(a,x)*CRlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CRlMU(a,x)*CLlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     H L contribution
+                    HpengTauMUMUMUCL1 = HpengTauMUMUMUCL1 - 2.0*piconst*Gnu1(x,y)*(-CRlMU(a,x)*CRlTAU(a,y).conjugate()*mMU*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CLlMU(a,x)*CLlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CLlMU(a,x)*CRlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     A R contribution
+                    HpengTauMUMUMUCR2 = HpengTauMUMUMUCR2 - 2.0*piconst*Gnu2(x,y)*(-CLlMU(a,x)*CLlTAU(a,y).conjugate()*mMU*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CRlMU(a,x)*CRlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CRlMU(a,x)*CLlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     A L contribution
+                    HpengTauMUMUMUCL2 = HpengTauMUMUMUCL2 - 2.0*piconst*Gnu2(x,y)*(-CRlMU(a,x)*CRlTAU(a,y).conjugate()*mMU*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CLlMU(a,x)*CLlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CLlMU(a,x)*CRlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                }
+                //     h R contribution
+                HpengTauMUMUMUCR0 = HpengTauMUMUMUCR0 - 2.0*piconst*(SRTAU(0)/(mMU*mMU-mTAU*mTAU)*(-CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SRMU(0)/(mTAU*mTAU-mMU*mMU)*(-CLlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     h L contribution
+                HpengTauMUMUMUCL0 = HpengTauMUMUMUCL0 - 2.0*piconst*(SLTAU(0)/(mMU*mMU-mTAU*mTAU)*(-CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SLMU(0)/(mTAU*mTAU-mMU*mMU)*(-CRlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     H R contribution
+                HpengTauMUMUMUCR1 = HpengTauMUMUMUCR1 - 2.0*piconst*(SRTAU(1)/(mMU*mMU-mTAU*mTAU)*(-CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SRMU(1)/(mTAU*mTAU-mMU*mMU)*(-CLlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     H L contribution
+                HpengTauMUMUMUCL1 = HpengTauMUMUMUCL1 - 2.0*piconst*(SLTAU(1)/(mMU*mMU-mTAU*mTAU)*(-CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SLMU(1)/(mTAU*mTAU-mMU*mMU)*(-CRlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     A R contribution
+                HpengTauMUMUMUCR2 = HpengTauMUMUMUCR2 - 2.0*piconst*(SRTAU(2)/(mMU*mMU-mTAU*mTAU)*(-CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SRMU(2)/(mTAU*mTAU-mMU*mMU)*(-CLlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     A L contribution
+                HpengTauMUMUMUCL2 = HpengTauMUMUMUCL2 - 2.0*piconst*(SLTAU(2)/(mMU*mMU-mTAU*mTAU)*(-CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mMU*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SLMU(2)/(mTAU*mTAU-mMU*mMU)*(-CRlMU(a,x)*CRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlMU(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlMU(a,x)*CLlTAU(a,x).conjugate()*mMU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlMU(a,x)*CRlTAU(a,x).conjugate()*mMU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+           }
+        }
+
+        //     summing up the h (0), H (1) and A (2) parts
+        gslpp::complex B2HiggscRtm = (-0.5*HpengTauMUMUMUCR0*SLMU(0)/(mh*mh)-0.5*HpengTauMUMUMUCR1*SLMU(1)/(mH*mH)-0.5*HpengTauMUMUMUCR2*SLMU(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B2HiggscLtm = (-0.5*HpengTauMUMUMUCL0*SRMU(0)/(mh*mh)-0.5*HpengTauMUMUMUCL1*SRMU(1)/(mH*mH)-0.5*HpengTauMUMUMUCL2*SRMU(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggscRtm = (HpengTauMUMUMUCR0*SRMU(0)/(mh*mh)+HpengTauMUMUMUCR1*SRMU(1)/(mH*mH)+HpengTauMUMUMUCR2*SRMU(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggscLtm = (HpengTauMUMUMUCL0*SLMU(0)/(mh*mh)+HpengTauMUMUMUCL1*SLMU(1)/(mH*mH)+HpengTauMUMUMUCL2*SLMU(2)/(mA*mA))/(4.0*pi*alph);
+
+        //     write B2H and B3H into a vector for tau->3mu
+        BHFunctions.assign(0, B2HiggsnRtm+B2HiggscRtm );
+        BHFunctions.assign(1, B2HiggsnLtm+B2HiggscLtm );
+        BHFunctions.assign(2, B3HiggsnRtm+B3HiggscRtm );
+        BHFunctions.assign(3, B3HiggsnLtm+B3HiggscLtm );
+    }
+
+    if (li_to_lj == 3) // tau -> 3e
+    {
+        //     Neutralino contributions
+        gslpp::complex HpengTauEEENR0 = 0.0;
+        gslpp::complex HpengTauEEENL0 = 0.0;
+        gslpp::complex HpengTauEEENR1 = 0.0;
+        gslpp::complex HpengTauEEENL1 = 0.0;
+        gslpp::complex HpengTauEEENR2 = 0.0;
+        gslpp::complex HpengTauEEENL2 = 0.0;
+        for (int x=0;x<6;x++) {
+            for (int a=0;a<4;a++) {
+                for (int b=0;b<4;b++) {
+                    //     h R contribution
+                    HpengTauEEENR0 = HpengTauEEENR0 - 2.0*piconst*(NRlE(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NLlE(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DR0(a,b)*NLlTAU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DL0(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NLlE(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DR0(a,b)*NLlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     h L contribution
+                    HpengTauEEENL0 = HpengTauEEENL0 - 2.0*piconst*(NLlE(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NRlE(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DL0(a,b)*NRlTAU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DR0(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NRlE(a,x)*DR0(a,b)*NRlTAU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DL0(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DL0(a,b)*NRlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     H R contribution
+                    HpengTauEEENR1 = HpengTauEEENR1 - 2.0*piconst*(NRlE(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NLlE(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DR1(a,b)*NLlTAU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DL1(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NLlE(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DR1(a,b)*NLlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     H L contribution
+                    HpengTauEEENL1 = HpengTauEEENL1 - 2.0*piconst*(NLlE(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NRlE(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DL1(a,b)*NRlTAU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DR1(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NRlE(a,x)*DR1(a,b)*NRlTAU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DL1(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DL1(a,b)*NRlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     A R contribution
+                    HpengTauEEENR2 = HpengTauEEENR2 - 2.0*piconst*(NRlE(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NLlE(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DR2(a,b)*NLlTAU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DL2(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NLlE(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DR2(a,b)*NLlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                    //     A L contribution
+                    HpengTauEEENL2 = HpengTauEEENL2 - 2.0*piconst*(NLlE(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            -mym_se_sq(x)*PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                            +mE*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))))
+                                                                 +NRlE(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                    -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NRlE(a,x)*DL2(a,b)*NRlTAU(b,x).conjugate()*mE*MNeig(b)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DR2(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(b)*PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                 +NRlE(a,x)*DR2(a,b)*NRlTAU(b,x).conjugate()*mE*MNeig(a)*(PV.C11(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                         -PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DL2(a,b)*NLlTAU(b,x).conjugate()*mTAU*MNeig(a)*(PV.C12(mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))
+                                                                                                                          -PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b)))
+                                                                 +NLlE(a,x)*DL2(a,b)*NRlTAU(b,x).conjugate()*MNeig(a)*MNeig(b)*(-PV.C0(0.,mym_se_sq(x),MNeig(a)*MNeig(a),MNeig(b)*MNeig(b))));
+                }
+                for (int y=0;y<6;y++) {
+                    //     h R contribution
+                    HpengTauEEENR0 = HpengTauEEENR0 - 2.0*piconst*Gl0(x,y)*(-NLlE(a,x)*NLlTAU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NRlE(a,x)*NRlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NRlE(a,x)*NLlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     h L contribution
+                    HpengTauEEENL0 = HpengTauEEENL0 - 2.0*piconst*Gl0(x,y)*(-NRlE(a,x)*NRlTAU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NLlE(a,x)*NLlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NLlE(a,x)*NRlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     H R contribution
+                    HpengTauEEENR1 = HpengTauEEENR1 - 2.0*piconst*Gl1(x,y)*(-NLlE(a,x)*NLlTAU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NRlE(a,x)*NRlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NRlE(a,x)*NLlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     H L contribution
+                    HpengTauEEENL1 = HpengTauEEENL1 - 2.0*piconst*Gl1(x,y)*(-NRlE(a,x)*NRlTAU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NLlE(a,x)*NLlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NLlE(a,x)*NRlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     A R contribution
+                    HpengTauEEENR2 = HpengTauEEENR2 - 2.0*piconst*Gl2(x,y)*(-NLlE(a,x)*NLlTAU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NRlE(a,x)*NRlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NRlE(a,x)*NLlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                    //     A L contribution
+                    HpengTauEEENL2 = HpengTauEEENL2 - 2.0*piconst*Gl2(x,y)*(-NRlE(a,x)*NRlTAU(a,y).conjugate()*mE*(PV.C11(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                                                                -PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)))
+                                                                          -NLlE(a,x)*NLlTAU(a,y).conjugate()*mTAU*PV.C12(MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y))
+                                                                          -NLlE(a,x)*NRlTAU(a,y).conjugate()*MNeig(a)*PV.C0(0.,MNeig(a)*MNeig(a),mym_se_sq(x),mym_se_sq(y)));
+                }
+                //     h R contribution
+                HpengTauEEENR0 = HpengTauEEENR0 - 2.0*piconst*(SRTAU(0)/(mE*mE-mTAU*mTAU)*(-NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SRE(0)/(mTAU*mTAU-mE*mE)*(-NLlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     h L contribution
+                HpengTauEEENL0 = HpengTauEEENL0 - 2.0*piconst*(SLTAU(0)/(mE*mE-mTAU*mTAU)*(-NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SLE(0)/(mTAU*mTAU-mE*mE)*(-NRlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     H R contribution
+                HpengTauEEENR1 = HpengTauEEENR1 - 2.0*piconst*(SRTAU(1)/(mE*mE-mTAU*mTAU)*(-NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SRE(1)/(mTAU*mTAU-mE*mE)*(-NLlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     H L contribution
+                HpengTauEEENL1 = HpengTauEEENL1 - 2.0*piconst*(SLTAU(1)/(mE*mE-mTAU*mTAU)*(-NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SLE(1)/(mTAU*mTAU-mE*mE)*(-NRlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     A R contribution
+                HpengTauEEENR2 = HpengTauEEENR2 - 2.0*piconst*(SRTAU(2)/(mE*mE-mTAU*mTAU)*(-NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SRE(2)/(mTAU*mTAU-mE*mE)*(-NLlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+                //     A L contribution
+                HpengTauEEENL2 = HpengTauEEENL2 - 2.0*piconst*(SLTAU(2)/(mE*mE-mTAU*mTAU)*(-NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NRlE(a,x)*NRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x)))
+                                                             +SLE(2)/(mTAU*mTAU-mE*mE)*(-NRlE(a,x)*NRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NRlE(a,x)*NLlTAU(a,x).conjugate()*mTAU*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      -NLlE(a,x)*NLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))
+                                                                                      +NLlE(a,x)*NRlTAU(a,x).conjugate()*mE*MNeig(a)*PV.B0(1.,0.,MNeig(a)*MNeig(a),mym_se_sq(x))));
+            }
+        }
+
+        //     summing up the h (0), H (1) and A (2) parts
+        gslpp::complex B2HiggsnRte = (-0.5*HpengTauEEENR0*SLE(0)/(mh*mh)-0.5*HpengTauEEENR1*SLE(1)/(mH*mH)-0.5*HpengTauEEENR2*SLE(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B2HiggsnLte = (-0.5*HpengTauEEENL0*SRE(0)/(mh*mh)-0.5*HpengTauEEENL1*SRE(1)/(mH*mH)-0.5*HpengTauEEENL2*SRE(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggsnRte = (HpengTauEEENR0*SRE(0)/(mh*mh)+HpengTauEEENR1*SRE(1)/(mH*mH)+HpengTauEEENR2*SRE(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggsnLte = (HpengTauEEENL0*SLE(0)/(mh*mh)+HpengTauEEENL1*SLE(1)/(mH*mH)+HpengTauEEENL2*SLE(2)/(mA*mA))/(4.0*pi*alph);
+
+        //     Chargino contributions
+        gslpp::complex HpengTauEEECR0 = 0.0;
+        gslpp::complex HpengTauEEECL0 = 0.0;
+        gslpp::complex HpengTauEEECR1 = 0.0;
+        gslpp::complex HpengTauEEECL1 = 0.0;
+        gslpp::complex HpengTauEEECR2 = 0.0;
+        gslpp::complex HpengTauEEECL2 = 0.0;
+        for (int x=0;x<3;x++) {
+            for (int a=0;a<2;a++) {
+                for (int b=0;b<2;b++) {
+                    //     h R contribution
+                    HpengTauEEECR0 = HpengTauEEECR0 - 2.0*piconst*(CRlE(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mE*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CLlE(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WR0(a,b)*CLlTAU(b,x).conjugate()*mE*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WL0(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CLlE(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*mE*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WR0(a,b)*CLlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     h L contribution
+                    HpengTauEEECL0 = HpengTauEEECL0 - 2.0*piconst*(CLlE(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mE*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CRlE(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WL0(a,b)*CRlTAU(b,x).conjugate()*mE*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WR0(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CRlE(a,x)*WR0(a,b)*CRlTAU(b,x).conjugate()*mE*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WL0(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WL0(a,b)*CRlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     H R contribution
+                    HpengTauEEECR1 = HpengTauEEECR1 - 2.0*piconst*(CRlE(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mE*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CLlE(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WR1(a,b)*CLlTAU(b,x).conjugate()*mE*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WL1(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CLlE(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*mE*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WR1(a,b)*CLlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     H L contribution
+                    HpengTauEEECL1 = HpengTauEEECL1 - 2.0*piconst*(CLlE(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mE*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CRlE(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WL1(a,b)*CRlTAU(b,x).conjugate()*mE*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WR1(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CRlE(a,x)*WR1(a,b)*CRlTAU(b,x).conjugate()*mE*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WL1(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WL1(a,b)*CRlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     A R contribution
+                    HpengTauEEECR2 = HpengTauEEECR2 - 2.0*piconst*(CRlE(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mE*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CLlE(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WR2(a,b)*CLlTAU(b,x).conjugate()*mE*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WL2(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CLlE(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*mE*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WR2(a,b)*CLlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                    //     A L contribution
+                    HpengTauEEECL2 = HpengTauEEECL2 - 2.0*piconst*(CLlE(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*(PV.B0(1.,0.,MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            -mym_sn_sq(x)*PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mTAU*mTAU*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                            +mE*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))))
+                                                                 +CRlE(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*mTAU*mE*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                    -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CRlE(a,x)*WL2(a,b)*CRlTAU(b,x).conjugate()*mE*MChi(b)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WR2(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(b)*PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                 +CRlE(a,x)*WR2(a,b)*CRlTAU(b,x).conjugate()*mE*MChi(a)*(PV.C11(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                        -PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WL2(a,b)*CLlTAU(b,x).conjugate()*mTAU*MChi(a)*(PV.C12(mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))
+                                                                                                                         -PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b)))
+                                                                 +CLlE(a,x)*WL2(a,b)*CRlTAU(b,x).conjugate()*MChi(a)*MChi(b)*(-PV.C0(0.,mym_sn_sq(x),MChi(a)*MChi(a),MChi(b)*MChi(b))));
+                }
+                for (int y=0;y<3;y++) {
+                    //     h R contribution
+                    HpengTauEEECR0 = HpengTauEEECR0 - 2.0*piconst*Gnu0(x,y)*(-CLlE(a,x)*CLlTAU(a,y).conjugate()*mE*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CRlE(a,x)*CRlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CRlE(a,x)*CLlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     h L contribution
+                    HpengTauEEECL0 = HpengTauEEECL0 - 2.0*piconst*Gnu0(x,y)*(-CRlE(a,x)*CRlTAU(a,y).conjugate()*mE*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CLlE(a,x)*CLlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CLlE(a,x)*CRlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     H R contribution
+                    HpengTauEEECR1 = HpengTauEEECR1 - 2.0*piconst*Gnu1(x,y)*(-CLlE(a,x)*CLlTAU(a,y).conjugate()*mE*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CRlE(a,x)*CRlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CRlE(a,x)*CLlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     H L contribution
+                    HpengTauEEECL1 = HpengTauEEECL1 - 2.0*piconst*Gnu1(x,y)*(-CRlE(a,x)*CRlTAU(a,y).conjugate()*mE*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CLlE(a,x)*CLlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CLlE(a,x)*CRlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     A R contribution
+                    HpengTauEEECR2 = HpengTauEEECR2 - 2.0*piconst*Gnu2(x,y)*(-CLlE(a,x)*CLlTAU(a,y).conjugate()*mE*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CRlE(a,x)*CRlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CRlE(a,x)*CLlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                    //     A L contribution
+                    HpengTauEEECL2 = HpengTauEEECL2 - 2.0*piconst*Gnu2(x,y)*(-CRlE(a,x)*CRlTAU(a,y).conjugate()*mE*(PV.C11(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                                                                 -PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)))
+                                                                           -CLlE(a,x)*CLlTAU(a,y).conjugate()*mTAU*PV.C12(MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y))
+                                                                           -CLlE(a,x)*CRlTAU(a,y).conjugate()*MChi(a)*PV.C0(0.,MChi(a)*MChi(a),mym_sn_sq(x),mym_sn_sq(y)));
+                }
+                //     h R contribution
+                HpengTauEEECR0 = HpengTauEEECR0 - 2.0*piconst*(SRTAU(0)/(mE*mE-mTAU*mTAU)*(-CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SRE(0)/(mTAU*mTAU-mE*mE)*(-CLlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     h L contribution
+                HpengTauEEECL0 = HpengTauEEECL0 - 2.0*piconst*(SLTAU(0)/(mE*mE-mTAU*mTAU)*(-CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SLE(0)/(mTAU*mTAU-mE*mE)*(-CRlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     H R contribution
+                HpengTauEEECR1 = HpengTauEEECR1 - 2.0*piconst*(SRTAU(1)/(mE*mE-mTAU*mTAU)*(-CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SRE(1)/(mTAU*mTAU-mE*mE)*(-CLlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     H L contribution
+                HpengTauEEECL1 = HpengTauEEECL1 - 2.0*piconst*(SLTAU(1)/(mE*mE-mTAU*mTAU)*(-CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SLE(1)/(mTAU*mTAU-mE*mE)*(-CRlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     A R contribution
+                HpengTauEEECR2 = HpengTauEEECR2 - 2.0*piconst*(SRTAU(2)/(mE*mE-mTAU*mTAU)*(-CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SRE(2)/(mTAU*mTAU-mE*mE)*(-CLlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+                //     A L contribution
+                HpengTauEEECL2 = HpengTauEEECL2 - 2.0*piconst*(SLTAU(2)/(mE*mE-mTAU*mTAU)*(-CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mE*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CRlE(a,x)*CRlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x)))
+                                                             +SLE(2)/(mTAU*mTAU-mE*mE)*(-CRlE(a,x)*CRlTAU(a,x).conjugate()*mTAU*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CRlE(a,x)*CLlTAU(a,x).conjugate()*mTAU*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      -CLlE(a,x)*CLlTAU(a,x).conjugate()*mE*mTAU*PV.B1(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))
+                                                                                      +CLlE(a,x)*CRlTAU(a,x).conjugate()*mE*MChi(a)*PV.B0(1.,0.,MChi(a)*MChi(a),mym_sn_sq(x))));
+           }
+        }
+
+        //     summing up the h (0), H (1) and A (2) parts
+        gslpp::complex B2HiggscRte = (-0.5*HpengTauEEECR0*SLE(0)/(mh*mh)-0.5*HpengTauEEECR1*SLE(1)/(mH*mH)-0.5*HpengTauEEECR2*SLE(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B2HiggscLte = (-0.5*HpengTauEEECL0*SRE(0)/(mh*mh)-0.5*HpengTauEEECL1*SRE(1)/(mH*mH)-0.5*HpengTauEEECL2*SRE(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggscRte = (HpengTauEEECR0*SRE(0)/(mh*mh)+HpengTauEEECR1*SRE(1)/(mH*mH)+HpengTauEEECR2*SRE(2)/(mA*mA))/(4.0*pi*alph);
+        gslpp::complex B3HiggscLte = (HpengTauEEECL0*SLE(0)/(mh*mh)+HpengTauEEECL1*SLE(1)/(mH*mH)+HpengTauEEECL2*SLE(2)/(mA*mA))/(4.0*pi*alph);
+
+        //     write B2H and B3H into a vector for tau->3e
+        BHFunctions.assign(0, B2HiggsnRte+B2HiggscRte );
+        BHFunctions.assign(1, B2HiggsnLte+B2HiggscLte );
+        BHFunctions.assign(2, B3HiggsnRte+B3HiggscRte );
+        BHFunctions.assign(3, B3HiggsnLte+B3HiggscLte );
+    }
 
     return(BHFunctions);
 }
@@ -4821,7 +5592,7 @@ gslpp::vector<gslpp::complex> SUSYMatching::DFunctions() {
     double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
     double mMU = mySUSY.getLeptons(StandardModel::MU).getMass();
     double mUP = mySUSY.getQuarks(QCD::UP).getMass();
-    double mDOWN = mySUSY.getQuarks(QCD::DOWN).getMass();
+        double mDOWN = mySUSY.getQuarks(QCD::DOWN).getMass();
     double cdenc = sqrt(2.0)*MW*cosb;
     double cdenn = MW*cosb;
     double g2 = gW;
@@ -4850,11 +5621,17 @@ gslpp::vector<gslpp::complex> SUSYMatching::DFunctions() {
             //     LL-TYPE
             CRlE.assign(a, x, - (g2*myV(a, 0)*myRn(x, 0)));
             CRlMU.assign(a, x, - (g2*myV(a, 0)*myRn(x, 1)));
-            CRqUP.assign(a, x, g2*(-myU(a, 0)*myRd(x, 0) + mDOWN/cdenc*myU(a, 1)*myRd(x, 3)));
-            CRqDOWN.assign(a, x, g2*(-myV(a, 0)*myRu(x, 0) + mUP/(sqrt(2.0)*MW*sinb)*myV(a, 1)*myRu(x, 3)));
             //     LR-TYPE
             CLlE.assign(a, x, g2*mE/cdenc*myU(a, 1).conjugate()*myRn(x, 0));
             CLlMU.assign(a, x, g2*mMU/cdenc*myU(a, 1).conjugate()*myRn(x, 1));
+        }
+    }
+    for (int a=0;a<2;a++) {
+        for (int x=0;x<6;x++) {
+            //     LL-TYPE
+            CRqUP.assign(a, x, g2*(-myU(a, 0)*myRd(x, 0) + mDOWN/cdenc*myU(a, 1)*myRd(x, 3)));
+            CRqDOWN.assign(a, x, g2*(-myV(a, 0)*myRu(x, 0) + mUP/(sqrt(2.0)*MW*sinb)*myV(a, 1)*myRu(x, 3)));
+            //     LR-TYPE
             CLqUP.assign(a, x, g2*mUP/(sqrt(2.0)*MW*sinb)*myV(a, 1)*myRd(x, 0));
             CLqDOWN.assign(a, x, g2*mDOWN/cdenc*myU(a, 1)*myRu(x, 0));
         }
@@ -4871,28 +5648,28 @@ gslpp::vector<gslpp::complex> SUSYMatching::DFunctions() {
                 for (int y=0;y<6;y++) {
                     DunR = DunR + (0.125*(NLlMU(a,x).conjugate()*NLlE(b,x)*NLqUP(a,y)*NLqUP(b,y).conjugate()
                                           -NLlMU(a,x).conjugate()*NLlE(b,x)*NRqUP(a,y).conjugate()*NRqUP(b,y))
-                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(4.0*pi*pi)
+                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_su_sq(y))/(4.0*pi*pi)
                                    -0.25*MNeig(a)*MNeig(b)*(NLlMU(a,x).conjugate()*NLlE(b,x)*NRqUP(a,y)*NRqUP(b,y).conjugate()
                                                             -NLlMU(a,x).conjugate()*NLlE(b,x)*NLqUP(a,y).conjugate()*NLqUP(b,y))
-                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
+                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_su_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
                     DunL = DunL + (0.125*(NRlMU(a,x).conjugate()*NRlE(b,x)*NRqUP(a,y)*NRqUP(b,y).conjugate()
                                           -NRlMU(a,x).conjugate()*NRlE(b,x)*NLqUP(a,y).conjugate()*NLqUP(b,y))
-                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(4.0*pi*pi)
+                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_su_sq(y))/(4.0*pi*pi)
                                    -0.25*MNeig(a)*MNeig(b)*(NRlMU(a,x).conjugate()*NRlE(b,x)*NLqUP(a,y)*NLqUP(b,y).conjugate()
                                                             -NRlMU(a,x).conjugate()*NRlE(b,x)*NRqUP(a,y).conjugate()*NRqUP(b,y))
-                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
+                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_su_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
                     DdnR = DdnR + (0.125*(NLlMU(a,x).conjugate()*NLlE(b,x)*NLqDOWN(a,y)*NLqDOWN(b,y).conjugate()
                                           -NLlMU(a,x).conjugate()*NLlE(b,x)*NRqDOWN(a,y).conjugate()*NRqDOWN(b,y))
-                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(4.0*pi*pi)
+                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_sd_sq(y))/(4.0*pi*pi)
                                    -0.25*MNeig(a)*MNeig(b)*(NLlMU(a,x).conjugate()*NLlE(b,x)*NRqDOWN(a,y)*NRqDOWN(b,y).conjugate()
                                                             -NLlMU(a,x).conjugate()*NLlE(b,x)*NLqDOWN(a,y).conjugate()*NLqDOWN(b,y))
-                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
+                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_sd_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
                     DdnL = DdnL + (0.125*(NRlMU(a,x).conjugate()*NRlE(b,x)*NRqDOWN(a,y)*NRqDOWN(b,y).conjugate()
                                           -NRlMU(a,x).conjugate()*NRlE(b,x)*NLqDOWN(a,y).conjugate()*NLqDOWN(b,y))
-                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(4.0*pi*pi)
+                                         *PV.D00(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_sd_sq(y))/(4.0*pi*pi)
                                    -0.25*MNeig(a)*MNeig(b)*(NRlMU(a,x).conjugate()*NRlE(b,x)*NLqDOWN(a,y)*NLqDOWN(b,y).conjugate()
                                                             -NRlMU(a,x).conjugate()*NRlE(b,x)*NRqDOWN(a,y).conjugate()*NRqDOWN(b,y))
-                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_se_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
+                                                           *PV.D0(0., 0., MNeig(a)*MNeig(a), MNeig(b)*MNeig(b), mym_se_sq(x), mym_sd_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
                 }
             }
         }
@@ -4906,26 +5683,33 @@ gslpp::vector<gslpp::complex> SUSYMatching::DFunctions() {
     for (int a=0;a<2;a++) {
         for (int b=0;b<2;b++) {
             for (int x=0;x<3;x++) {
-                for (int y=0;y<3;y++) {
+                for (int y=0;y<6;y++) {
+                    DucR = DucR + (-0.125*CLlMU(a,x).conjugate()*CLlE(b,x)*CRqUP(a,y).conjugate()*CRqUP(b,y)
+                                   *PV.D00(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sd_sq(y))/(4.0*pi*pi)
+                                   +0.25*MChi(a)*MChi(b)*CLlMU(a,x).conjugate()*CLlE(b,x)*CLqUP(a,y).conjugate()*CLqUP(b,y)
+                                   *PV.D0(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sd_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
                     DucL = DucL + (-0.125*CRlMU(a,x).conjugate()*CRlE(b,x)*CLqUP(a,y).conjugate()*CLqUP(b,y)
-                                   *PV.D00(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sn_sq(y))/(4.0*pi*pi)
+                                   *PV.D00(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sd_sq(y))/(4.0*pi*pi)
                                    +0.25*MChi(a)*MChi(b)*CRlMU(a,x).conjugate()*CRlE(b,x)*CRqUP(a,y).conjugate()*CRqUP(b,y)
-                                   *PV.D0(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sn_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
+                                   *PV.D0(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sd_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
+                    DdcR = DdcR + (0.125*CLlMU(a,x).conjugate()*CLlE(b,x)*CLqDOWN(a,y)*CLqDOWN(b,y).conjugate()
+                                   *PV.D00(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_su_sq(y))/(4.0*pi*pi)
+                                   -0.25*MChi(a)*MChi(b)*CLlMU(a,x).conjugate()*CLlE(b,x)*CRqDOWN(a,y)*CRqDOWN(b,y).conjugate()
+                                   *PV.D0(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_su_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
                     DdcL = DdcL + (0.125*CRlMU(a,x).conjugate()*CRlE(b,x)*CRqDOWN(a,y)*CRqDOWN(b,y).conjugate()
-                                   *PV.D00(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sn_sq(y))/(4.0*pi*pi)
+                                   *PV.D00(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_su_sq(y))/(4.0*pi*pi)
                                    -0.25*MChi(a)*MChi(b)*CRlMU(a,x).conjugate()*CRlE(b,x)*CLqDOWN(a,y)*CLqDOWN(b,y).conjugate()
-                                   *PV.D0(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_sn_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
-// And the R contributions???
+                                   *PV.D0(0., 0., MChi(a)*MChi(a), MChi(b)*MChi(b), mym_sn_sq(x), mym_su_sq(y))/(16.0*pi*pi))/(4.0*pi*alph);
                 }
             }
         }
     }
 
     //     write DuR, DuL, DdR and DdL into a vector for mu->e conversion
-    DFunctions.assign(0, 0.0 );  //DuR
-    DFunctions.assign(1, 0.0 );  //DuL
-    DFunctions.assign(2, 0.0 );  //DdR
-    DFunctions.assign(3, 0.0 );  //DdL
+    DFunctions.assign(0, DunR+DucR );  //DuR
+    DFunctions.assign(1, DunL+DucL );  //DuL
+    DFunctions.assign(2, DdnR+DdcR );  //DdR
+    DFunctions.assign(3, DdnL+DdcL );  //DdL
 
     return(DFunctions);
 }
@@ -5407,7 +6191,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMDLij(int li_lj) {
         default:
             std::stringstream out;
             out << mcDLij.getOrder();
-            throw std::runtime_error("SSUSYlMatching::CMDLij(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+            throw std::runtime_error("SUSYMatching::CMDLij(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
     }
 
     vmcDLij.push_back(mcDLij);
@@ -5463,7 +6247,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMDLi3j(int li_lj) {
         default:
             std::stringstream out;
             out << mcDLi3j.getOrder();
-            throw std::runtime_error("SSUSYlMatching::CMDLi3j(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+            throw std::runtime_error("SUSYMatching::CMDLi3j(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
     }
 
     vmcDLi3j.push_back(mcDLi3j);
@@ -5497,7 +6281,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMmueconv() {
         default:
             std::stringstream out;
             out << mcmueconv.getOrder();
-            throw std::runtime_error("SSUSYlMatching::CMmueconv(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+            throw std::runtime_error("SUSYMatching::CMmueconv(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
     }
 
     vmcmueconv.push_back(mcmueconv);
@@ -5507,7 +6291,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMmueconv() {
 
 std::vector<WilsonCoefficient>& SUSYMatching::CMgminus2mu() {
 
-    vmcgminus2mu = StandardModelMatching::CMmueconv();
+    vmcgminus2mu = StandardModelMatching::CMgminus2mu();
 
     gslpp::vector<gslpp::complex> gminus2muvector=gminus2mu();
     switch (mcgminus2mu.getOrder()) {
@@ -5520,7 +6304,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMgminus2mu() {
         default:
             std::stringstream out;
             out << mcgminus2mu.getOrder();
-            throw std::runtime_error("SSUSYlMatching::CMgminus2mu(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+            throw std::runtime_error("SUSYMatching::CMgminus2mu(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
     }
 
     vmcgminus2mu.push_back(mcgminus2mu);

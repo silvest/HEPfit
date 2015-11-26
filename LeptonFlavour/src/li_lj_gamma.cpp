@@ -8,17 +8,17 @@
 #include "li_lj_gamma.h"
 #include "StandardModel.h"
 
-li_lj_gamma::li_lj_gamma(const StandardModel& SM_i): ThObservable(SM_i)
-{
-};
-
-double li_lj_gamma::computeThValue()
-{
-    return 0.0;
-}
+//li_lj_gamma::li_lj_gamma(const StandardModel& SM_i): ThObservable(SM_i)
+//{
+//};
+//
+//double li_lj_gamma::computeThValue()
+//{
+//    return 0.0;
+//}
 
 mu_e_gamma::mu_e_gamma(const StandardModel& SM_i)
-: li_lj_gamma(SM_i), mySM(SM_i)
+: ThObservable(SM_i), mySM(SM_i)
 {}
 
 double mu_e_gamma::computeThValue()
@@ -32,7 +32,7 @@ double mu_e_gamma::computeThValue()
 }
 
 tau_mu_gamma::tau_mu_gamma(const StandardModel& SM_i)
-: li_lj_gamma(SM_i), mySM(SM_i)
+: ThObservable(SM_i), mySM(SM_i)
 {}
 
 double tau_mu_gamma::computeThValue()
@@ -45,7 +45,7 @@ double tau_mu_gamma::computeThValue()
 }
 
 tau_e_gamma::tau_e_gamma(const StandardModel& SM_i)
-: li_lj_gamma(SM_i), mySM(SM_i)
+: ThObservable(SM_i), mySM(SM_i)
 {}
 
 double tau_e_gamma::computeThValue()
