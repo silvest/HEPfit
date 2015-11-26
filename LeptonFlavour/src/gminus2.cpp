@@ -8,17 +8,21 @@
 #include "gminus2.h"
 #include "StandardModel.h"
 
-gminus2::gminus2(const StandardModel& SM_i): ThObservable(SM_i)
-{
-};
+//gminus2::gminus2(const StandardModel& SM_i): ThObservable(SM_i)
+//{
+//};
+//
+//double gminus2::computeThValue()
+//{
+//    return 0.0;
+//}
 
-double gminus2::computeThValue()
-{
-    return 0.0;
-}
+//gminus2_mu::gminus2_mu(const StandardModel& SM_i)
+//: gminus2(SM_i), mySM(SM_i)
+//{}
 
 gminus2_mu::gminus2_mu(const StandardModel& SM_i)
-: gminus2(SM_i), mySM(SM_i)
+: ThObservable(SM_i), mySM(SM_i)
 {}
 
 double gminus2_mu::computeThValue()

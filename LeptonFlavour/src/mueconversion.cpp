@@ -8,17 +8,17 @@
 #include "mueconversion.h"
 #include "StandardModel.h"
 
-mueconversion::mueconversion(const StandardModel& SM_i): ThObservable(SM_i)
-{
-};
-
-double mueconversion::computeThValue()
-{
-    return 0.0;
-}
+//mueconversion::mueconversion(const StandardModel& SM_i): ThObservable(SM_i)
+//{
+//};
+//
+//double mueconversion::computeThValue()
+//{
+//    return 0.0;
+//}
 
 mueconversion_Ti::mueconversion_Ti(const StandardModel& SM_i)
-: mueconversion(SM_i), mySM(SM_i)
+: ThObservable(SM_i), mySM(SM_i)
 {}
 
 double mueconversion_Ti::computeThValue()

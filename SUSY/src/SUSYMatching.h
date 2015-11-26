@@ -87,66 +87,135 @@ public:
 
     /**
      *
-     * @brief li -> lj gamma
-     * @return
+     * @brief Wilson coefficient for the process \f$ \ell_j \to \ell_i \gamma \f$.
+     * @param[in] li_lj determines the process, e.g., 1 = \f$ \mu \to e \gamma \f$, 2 = \f$ \tau \to \mu \gamma \f$, 3 = \f$ \tau \to e \gamma \f$
+     * @return returns the vector of SUSY Wilson coefficients
      */
     virtual std::vector<WilsonCoefficient>& CMDLij(int li_lj);
 
     /**
      *
-     * @brief li -> lj lj lj
-     * @return
+     * @brief Wilson coefficient for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
+     * @param[in] li_lj determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of SUSY Wilson coefficients
      */
     virtual std::vector<WilsonCoefficient>& CMDLi3j(int li_lj);
 
     /**
      *
-     * @brief mu -> e conversion
-     * @return
+     * @brief Wilson coefficient for the process \f$ \mu \to e \f$ conversion in Nuclei.
+     * @return returns the vector of SUSY Wilson coefficients
      */
     virtual std::vector<WilsonCoefficient>& CMmueconv();
 
     /**
      *
-     * @brief muon g-2
-     * @return
+     * @brief Wilson coefficient for \f$ (g-2)_{\mu} \f$ at one-loop.
+     * @return returns the vector of SUSY Wilson coefficients
      */
     virtual std::vector<WilsonCoefficient>& CMgminus2mu();
 
 //   /** Calculates gamma penguin amplitudes for m->(3)e (1), t->(3)m (2) and t->(3)e (3)**/
+    /**
+     * 
+     * @brief Calculates gamma penguin amplitudes for the process \f$ \ell_j \to \ell_i \gamma \f$ from \cite Hisano:1995cp \cite Arganda:2005ji.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to e \gamma \f$, 2 = \f$ \tau \to \mu \gamma \f$, 3 = \f$ \tau \to e \gamma \f$
+     * @return returns the vector of gamma penguin amplitude
+     */
     virtual gslpp::vector<gslpp::complex> AFunctions(int n);
+    
+    //   /** Calculates Z penguin amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
+    /**
+     * 
+     * @brief Calculates Z penguin amplitudes for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$ from \cite Hisano:1995cp \cite Arganda:2005ji.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of Z penguin amplitude
+     */
+    virtual gslpp::vector<gslpp::complex> FFunctions(int n);
 
-//   /** Calculates box amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
+
+//   /** Calculates box amplitudes for m->3e (1), t->3m (2) and t->3e (3) **/
+    /**
+     * @brief Calculates box diagram amplitudes for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$ from from \cite Hisano:1995cp \cite Arganda:2005ji.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of gamma diagram amplitude
+     */
     virtual gslpp::vector<gslpp::complex> BFunctions(int n);
 
 //   /** Calculates Higgs penguin amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
+    /**
+     * @brief Calculates Higgs penguin amplitudes for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$ from \cite Arganda:2005ji.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of Higgs penguin amplitude
+     */
     virtual gslpp::vector<gslpp::complex> BHFunctions(int n);
 
 //   /** Calculates box amplitudes for m->e conversion**/
+    /**
+     * @brief Calculates box diagram amplitudes for the process \f$ \mu \to e \f$ conversion in Nuclei from from \cite Hisano:1995cp.
+     * @return returns the vector of box diagram amplitude
+     */    
     virtual gslpp::vector<gslpp::complex> DFunctions();
 
-//   /** Calculates Z penguin amplitudes for m->3e (1), t->3m (2) and t->3e (3)**/
-    virtual gslpp::vector<gslpp::complex> FFunctions(int n);
-
 //   /** Calculates the muon g-2**/
+    /**
+     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at one-loop from \cite Hisano:1995cp.
+     * @return returns the vector of \f$ (g-2)_{\mu} \f$ amplitude
+     */    
     virtual gslpp::vector<gslpp::complex> gminus2mu();
 
    /** Calculates C7 and C7' for m->e (1), t->m (2) and t->e (3)**/
+    /**
+     * 
+     * @brief Calculates \f$ C_{7} \f$ and \f$ C^{\prime}_{7} \f$ Wilson coefficients for the process \f$ \ell_j \to \ell_i \gamma \f$.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to e \gamma \f$, 2 = \f$ \tau \to \mu \gamma \f$, 3 = \f$ \tau \to e \gamma \f$
+     * @return returns the vector of \f$ C_{7} \f$ and \f$ C^{\prime}_{7} \f$ Wilson coefficients
+     */
     virtual gslpp::vector<gslpp::complex> C7_Lepton(int n);
 
    /** Calculates C9 and C9' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
+    /**
+     * 
+     * @brief Calculates \f$ C_{9} \f$ and \f$ C^{\prime}_{9} \f$ Wilson coefficients for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of \f$ C_{9} \f$ and \f$ C^{\prime}_{9} \f$ Wilson coefficients
+     */
     virtual gslpp::vector<gslpp::complex> C9_Lepton(int n);
 
    /** Calculates C10 and C10' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
+    /**
+     * 
+     * @brief Calculates \f$ C_{10} \f$ and \f$ C^{\prime}_{10} \f$ Wilson coefficients for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of \f$ C_{10} \f$ and \f$ C^{\prime}_{10} \f$ Wilson coefficients
+     */
     virtual gslpp::vector<gslpp::complex> C10_Lepton(int n);
 
    /** Calculates CS and CS' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
+    /**
+     * 
+     * @brief Calculates \f$ C_{S} \f$ and \f$ C^{\prime}_{S} \f$ Wilson coefficients for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of \f$ C_{S} \f$ and \f$ C^{\prime}_{S} \f$ Wilson coefficients
+     */
     virtual gslpp::vector<gslpp::complex> CS_Lepton(int n);
 
    /** Calculates CP and CP' for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
+    /**
+     * 
+     * @brief Calculates \f$ C_{P} \f$ and \f$ C^{\prime}_{P} \f$ Wilson coefficients for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of \f$ C_{P} \f$ and \f$ C^{\prime}_{P} \f$ Wilson coefficients
+     */
     virtual gslpp::vector<gslpp::complex> CP_Lepton(int n);
 
    /** Calculates CT and CT5 for m->eee (1), t->mmm (2), t->eee (3) and t->muee (4)**/
+    /**
+     * 
+     * @brief Calculates \f$ C_{T} \f$ and \f$ C_{T5} \f$ Wilson coefficients for the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
+     * @param[in] n determines the process, e.g., 1 = \f$ \mu \to eee \f$, 2 = \f$ \tau \to \mu \mu \mu \f$, 3 = \f$ \tau \to eee \f$
+     * @return returns the vector of \f$ C_{T} \f$ and \f$ C_{T5} \f$ Wilson coefficients
+     */
     virtual gslpp::vector<gslpp::complex> CT_Lepton(int n);
 
     
@@ -245,79 +314,124 @@ private:
 //    std::vector<WilsonCoefficient> vmDLi3j;
     
     gslpp::matrix<gslpp::complex> myCKM;
-    gslpp::matrix<gslpp::complex> myRu;
-    gslpp::matrix<gslpp::complex> myRd;
-    gslpp::matrix<gslpp::complex> myRl;
-    gslpp::matrix<gslpp::complex> myRn;
-//    gslpp::matrix<double> mym_sn_sq; //Why?
-//    gslpp::matrix<double> mym_se_sq; //Why?
-    gslpp::vector<double> mym_sn_sq;
-    gslpp::vector<double> mym_se_sq;
-    gslpp::vector<double> MChi0;
-    gslpp::matrix<gslpp::complex> myN;
-    gslpp::vector<double> MNeig;
-    gslpp::matrix<double> ON;
+//    gslpp::matrix<gslpp::complex> myRu;
+//    gslpp::matrix<gslpp::complex> myRd;
+//    gslpp::matrix<gslpp::complex> myRl;
+//    gslpp::matrix<gslpp::complex> myRn;
+////    gslpp::matrix<double> mym_sn_sq; //Why?
+////    gslpp::matrix<double> mym_se_sq; //Why?
+//    gslpp::vector<double> mym_sn_sq;
+//    gslpp::vector<double> mym_se_sq;
+//    gslpp::vector<double> mym_su_sq;
+//    gslpp::vector<double> mym_sd_sq;
+
+    /**
+     * @brief Sfermion mass-eigenvalue squared.
+     */
+    gslpp::vector<double> mym_su_sq,mym_sd_sq,mym_se_sq,mym_sn_sq;
+    
+    /**
+     * @brief Sfermion mixing matrices.
+     */
+    gslpp::matrix<gslpp::complex> myRu,myRd,myRl,myRn;
+    
+    /**
+     * @brief Chargino mass-eigenvalue
+     */
     gslpp::vector<double> MChi;
+    /**
+     * @brief Chargino mixing matrices
+     */
     gslpp::matrix<gslpp::complex> myV;
     gslpp::matrix<gslpp::complex> myU;
 
-    gslpp::matrix<double> Lepty;
-    gslpp::matrix<double> Leptz;
-    gslpp::matrix<double> Leptfa1;
-    gslpp::matrix<double> Leptfa2;
-    gslpp::matrix<double> Leptf1;
-    gslpp::matrix<double> Leptf2;
-    gslpp::matrix<double> Leptf3;
-    gslpp::matrix<double> Leptf4;
-    gslpp::matrix<gslpp::complex> CRlE;
-    gslpp::matrix<gslpp::complex> CRlMU;
-    gslpp::matrix<gslpp::complex> CRlTAU;
-    gslpp::matrix<gslpp::complex> CRqUP;
-    gslpp::matrix<gslpp::complex> CRqDOWN;
-    gslpp::matrix<gslpp::complex> CLlE;
-    gslpp::matrix<gslpp::complex> CLlMU;
-    gslpp::matrix<gslpp::complex> CLlTAU;
-    gslpp::matrix<gslpp::complex> CLqUP;
-    gslpp::matrix<gslpp::complex> CLqDOWN;
-    gslpp::matrix<gslpp::complex> NRlE;
-    gslpp::matrix<gslpp::complex> NRlMU;
-    gslpp::matrix<gslpp::complex> NRlTAU;
-    gslpp::matrix<gslpp::complex> NRqUP;
-    gslpp::matrix<gslpp::complex> NRqDOWN;
-    gslpp::matrix<gslpp::complex> NLlE;
-    gslpp::matrix<gslpp::complex> NLlMU;
-    gslpp::matrix<gslpp::complex> NLlTAU;
-    gslpp::matrix<gslpp::complex> NLqUP;
-    gslpp::matrix<gslpp::complex> NLqDOWN;
-    gslpp::matrix<gslpp::complex> AmpA1LN;
-    gslpp::matrix<gslpp::complex> AmpA1RN;
-    gslpp::matrix<gslpp::complex> AmpA1LC;
-    gslpp::matrix<gslpp::complex> AmpA1RC;
-    gslpp::matrix<gslpp::complex> AmpTauA1LN;
-    gslpp::matrix<gslpp::complex> AmpTauA1RN;
-    gslpp::matrix<gslpp::complex> AmpTauA1LC;
-    gslpp::matrix<gslpp::complex> AmpTauA1RC;
-    gslpp::matrix<gslpp::complex> AmpTEA1LN;
-    gslpp::matrix<gslpp::complex> AmpTEA1RN;
-    gslpp::matrix<gslpp::complex> AmpTEA1LC;
-    gslpp::matrix<gslpp::complex> AmpTEA1RC;
-    gslpp::matrix<gslpp::complex> AmpALN;
-    gslpp::matrix<gslpp::complex> AmpARN;
-    gslpp::matrix<gslpp::complex> AmpALC;
-    gslpp::matrix<gslpp::complex> AmpARC;
-    gslpp::matrix<gslpp::complex> AmpTauALN;
-    gslpp::matrix<gslpp::complex> AmpTauARN;
-    gslpp::matrix<gslpp::complex> AmpTauALC;
-    gslpp::matrix<gslpp::complex> AmpTauARC;
-    gslpp::matrix<gslpp::complex> AmpTEALN;
-    gslpp::matrix<gslpp::complex> AmpTEARN;
-    gslpp::matrix<gslpp::complex> AmpTEALC;
-    gslpp::matrix<gslpp::complex> AmpTEARC;
-    std::complex<double> Leptfzn[6][4][4];
-    std::complex<double> Leptgzn[6][4][4];
-    std::complex<double> Leptfzc[3][2][2];
-    std::complex<double> Leptgzc[3][2][2];
+    /**
+     * @brief Neutralino mass-eigenvalue
+     */
+    gslpp::vector<double> MChi0,MNeig;
+    /**
+     * @brief Neutralino mixing matrix
+     */
+    gslpp::matrix<gslpp::complex> myN,ON;
 
+//    gslpp::vector<double> MNeig;
+//    gslpp::matrix<double> ON;
+    
+    /**
+     *@brief Functions needed to calculate various LFV observables
+     */
+    gslpp::matrix<double> Lepty,Leptz,Leptfa1,Leptfa2,Leptf1,Leptf2,Leptf3,Leptf4;
+    std::complex<double> Leptfzn[6][4][4],Leptgzn[6][4][4],Leptfzc[3][2][2],Leptgzc[3][2][2];
+
+//    gslpp::matrix<double> Leptz;
+//    gslpp::matrix<double> Leptfa1;
+//    gslpp::matrix<double> Leptfa2;
+//    gslpp::matrix<double> Leptf1;
+//    gslpp::matrix<double> Leptf2;
+//    gslpp::matrix<double> Leptf3;
+//    gslpp::matrix<double> Leptf4;
+
+//    std::complex<double> Leptgzn[6][4][4];
+//    std::complex<double> Leptfzc[3][2][2];
+//    std::complex<double> Leptgzc[3][2][2];
+
+    /**
+     *@brief Chargino and Neutralino couplings to sfermions
+     */    
+    gslpp::matrix<gslpp::complex> CRlE,CRlMU,CRlTAU,CRqUP,CRqDOWN,CLlE,CLlMU,CLlTAU,CLqUP,CLqDOWN,NRlE,NRlMU,NRlTAU,NRqUP,NRqDOWN,NLlE,NLlMU,NLlTAU,NLqUP,NLqDOWN;
+    
+//    gslpp::matrix<gslpp::complex> CRlMU;
+//    gslpp::matrix<gslpp::complex> CRlTAU;
+//    gslpp::matrix<gslpp::complex> CRqUP;
+//    gslpp::matrix<gslpp::complex> CRqDOWN;
+//    gslpp::matrix<gslpp::complex> CLlE;
+//    gslpp::matrix<gslpp::complex> CLlMU;
+//    gslpp::matrix<gslpp::complex> CLlTAU;
+//    gslpp::matrix<gslpp::complex> CLqUP;
+//    gslpp::matrix<gslpp::complex> CLqDOWN;
+//    gslpp::matrix<gslpp::complex> NRlE;
+//    gslpp::matrix<gslpp::complex> NRlMU;
+//    gslpp::matrix<gslpp::complex> NRlTAU;
+//    gslpp::matrix<gslpp::complex> NRqUP;
+//    gslpp::matrix<gslpp::complex> NRqDOWN;
+//    gslpp::matrix<gslpp::complex> NLlE;
+//    gslpp::matrix<gslpp::complex> NLlMU;
+//    gslpp::matrix<gslpp::complex> NLlTAU;
+//    gslpp::matrix<gslpp::complex> NLqUP;
+//    gslpp::matrix<gslpp::complex> NLqDOWN;
+    
+    /**
+     *@brief Amplitudes of Chargino and Neutralino contribution to various LFV observables
+     */    
+    gslpp::matrix<gslpp::complex> AmpA1LN,AmpA1RN,AmpA1LC,AmpA1RC,AmpTauA1LN,AmpTauA1RN,AmpTauA1LC,AmpTauA1RC,AmpTEA1LN,AmpTEA1RN,AmpTEA1LC,AmpTEA1RC,AmpALN,AmpARN,AmpALC,AmpARC,AmpTauALN,AmpTauARN,AmpTauALC,AmpTauARC,AmpTEALN,AmpTEARN,AmpTEALC,AmpTEARC;
+
+//    gslpp::matrix<gslpp::complex> AmpA1RN;
+//    gslpp::matrix<gslpp::complex> AmpA1LC;
+//    gslpp::matrix<gslpp::complex> AmpA1RC;
+//    gslpp::matrix<gslpp::complex> AmpTauA1LN;
+//    gslpp::matrix<gslpp::complex> AmpTauA1RN;
+//    gslpp::matrix<gslpp::complex> AmpTauA1LC;
+//    gslpp::matrix<gslpp::complex> AmpTauA1RC;
+//    gslpp::matrix<gslpp::complex> AmpTEA1LN;
+//    gslpp::matrix<gslpp::complex> AmpTEA1RN;
+//    gslpp::matrix<gslpp::complex> AmpTEA1LC;
+//    gslpp::matrix<gslpp::complex> AmpTEA1RC;
+//    gslpp::matrix<gslpp::complex> AmpALN;
+//    gslpp::matrix<gslpp::complex> AmpARN;
+//    gslpp::matrix<gslpp::complex> AmpALC;
+//    gslpp::matrix<gslpp::complex> AmpARC;
+//    gslpp::matrix<gslpp::complex> AmpTauALN;
+//    gslpp::matrix<gslpp::complex> AmpTauARN;
+//    gslpp::matrix<gslpp::complex> AmpTauALC;
+//    gslpp::matrix<gslpp::complex> AmpTauARC;
+//    gslpp::matrix<gslpp::complex> AmpTEALN;
+//    gslpp::matrix<gslpp::complex> AmpTEARN;
+//    gslpp::matrix<gslpp::complex> AmpTEALC;
+//    gslpp::matrix<gslpp::complex> AmpTEARC;
+
+    /**
+     *@brief Slepton tri-linear coupling matrix
+     */
     gslpp::matrix<gslpp::complex> TEhat;
 
     double Q_S;
@@ -365,6 +479,11 @@ private:
     void NeutralinoRemixing();
 
     /** Kronecker delta **/
+    /**
+     * @brief Kronecker delta
+     * @param[in] a is the first index of the Kronecker delta function
+     * @param[in] b is the second index of the Kronecker delta function
+     */
     int delta_ab(int a, int b);
 
 //    gslpp::vector<gslpp::complex> AFunctions();
