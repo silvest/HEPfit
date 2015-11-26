@@ -26,10 +26,7 @@
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
- * associated with the dimension-six effective Lagrangian introduced in NPEffectiveBS
- * class.
- * 
- * In this class we consider the dimension-six effective Lagrangian
+ * associated with the dimension-six effective Lagrangian:
  * @f[
  * \mathcal{L}_\mathrm{eff}
  * = \mathcal{L}_\mathrm{SM}
@@ -67,7 +64,7 @@
  *
  * After creating an instance of the current class with the constructor
  * NPEffectiveBS(), it is required to call the initialization method
- * InitializeModel(), inherited from NPEffectiveBS class.
+ * InitializeModel().
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *

@@ -22,8 +22,8 @@
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
- * associated with the dimension-six effective Lagrangian introduced in NPEffectiveGIMR
- * class. (Use the model name "NPEffectiveGIMR_LFU_QFU" to asumme lepton and quark flavour universality)
+ * associated with the general dimension-six effective Lagrangian.
+ * (Use the model name "NPEffectiveGIMR_LFU_QFU" to asumme lepton and quark flavour universality)
  *
  * In this class we consider the dimension-six effective Lagrangian
  * @f[
@@ -38,7 +38,7 @@
  *
  * After creating an instance of the current class with the constructor
  * NPEffectiveGIMR(), it is required to call the initialization method
- * InitializeModel(), inherited from NPEffective class.
+ * InitializeModel().
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *

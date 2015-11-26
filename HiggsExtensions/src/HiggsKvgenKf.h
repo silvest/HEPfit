@@ -17,10 +17,10 @@
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
  * with an extension of the %StandardModel where Higgs couplings to the @f$Z@f$ boson
- * are rescaled by @f$K_Z@f$, Higgs couplings to the @f$W@f$ boson
- * are rescaled by @f$K_W@f$ and Higgs couplings to all fermions are rescaled by @f$K_f@f$.
+ * are rescaled by @f$\kappa_Z@f$, Higgs couplings to the @f$W@f$ boson
+ * are rescaled by @f$\kappa_W@f$ and Higgs couplings to all fermions are rescaled by @f$\kappa_f@f$.
  * The invisible decay width is also parametrized independently by Br@f$(H\to invisible)@f$.
- * This class inherits from the %HiggsExtensionModel class, which defines parameters related to generic
+ * This class inherits from the %NPbase class, which defines parameters related to generic
  * extensions of the %StandardModel Higgs sector.
  *
  *
