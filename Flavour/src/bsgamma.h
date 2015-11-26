@@ -43,13 +43,13 @@
  * Phi34_1(), Phi35_1(), Phi36_1(), Phi37_1(), Phi38_1(), Phi44_1(), Phi45_1(), Phi46_1(), 
  * Phi47_1(), Phi48_1(), Phi55_1(), Phi56_1(), Phi57_1(), Phi58_1(), Phi66_1(), Phi67_1(), 
  * Phi68_1(), Phi77_1(), Phi78_1() and Phi88_1() @cite Buras:2002tp, @cite Gambino:2001ew, 
- * @cite Pott:1995if, @cite Huber:2014nna . The subleading terms due to the
+ * @cite Pott:1995if . The subleading terms due to the
  * 4-body contributions @cite Huber:2014nna are currently hard-coded in Phi23_1_4body(), Phi24_1_4body(), 
  * Phi25_1_4body() and Phi26_1_4body(), and switched off due to setting the marco
  * FOUR_BODY to false.
  * 
  * The @f$V_{ub}@f$ corrections at LO are automatically taken into account in P0_4body() @cite Kaminski:2012eb,
- * while at NLO are computed in the function Vub_NLO() @cite Gambino:2001ew, @cite Gambino:2001ew , which considers contributions
+ * while at NLO are computed in the function Vub_NLO() @cite Gambino:2001ew, @cite Huber:2014nna , which considers contributions
  * from 2-body, 3-body and 4-body decays, with the former switched off due to setting the marco
  * FOUR_BODY to false.
  * 
