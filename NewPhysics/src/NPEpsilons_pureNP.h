@@ -153,7 +153,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief @copybrief StandardModel::Mw()
+     * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @details
      * @f[
      * M_W =
@@ -171,7 +171,7 @@ public:
     virtual double Mw() const;
 
     /**
-     * @brief @copybrief StandardModel::GammaW()
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * 
      * @warning This function is not available.
      */
