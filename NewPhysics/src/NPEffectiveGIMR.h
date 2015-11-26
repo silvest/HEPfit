@@ -625,33 +625,33 @@ public:
     virtual double obliqueU() const;
 
     /**
-     * @brief @copybrief StandardModel::Mw()
+     * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @brief @copybrief StandardModel::GammaW()
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
 
     /**
-     * @brief New physics contribution to @f$g_V^f@f$.
+     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_V^f@f$
      */
     virtual double deltaGV_f(const Particle p) const;
 
     /**
-     * @brief New physics contribution to @f$g_A^f@f$.
+     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$
      */
     virtual double deltaGA_f(const Particle p) const;
 
     /**
-     * @brief New physics contribution to @f$g_L^f@f$.
+     * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_L^f@f$
      */
@@ -659,7 +659,7 @@ public:
     double deltaGL_f(const Particle p) const;
 
     /**
-     * @brief New physics contribution to @f$g_R^f@f$.
+     * @brief New physics contribution to the neutral-current right-handed coupling @f$g_R^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_R^f@f$
      */
@@ -1035,106 +1035,106 @@ public:
     double deltaGammaHggRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * linear in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
     double deltaGammaHWWRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * linear in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
     double deltaGammaHZZRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * linear in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
     double deltaGammaHZgaRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * linear in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
     double deltaGammaHgagaRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * linear in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
     double deltaGammaHtautauRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * linear in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
     double deltaGammaHccRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * linear in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
     double deltaGammaHbbRatio1() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to gg)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
      */   
     double deltaGammaHggRatio2() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
     double deltaGammaHWWRatio2() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
     double deltaGammaHZZRatio2() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
     double deltaGammaHZgaRatio2() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
     double deltaGammaHgagaRatio2() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
     double deltaGammaHtautauRatio2() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
     double deltaGammaHccRatio2() const;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
-     * in the current model and in the Standard Model. Only terms that are
-     * quadratic in the effective Lagrangian coefficients.
+     * in the current model and in the Standard Model. (Only terms that are
+     * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
     double deltaGammaHbbRatio2() const;

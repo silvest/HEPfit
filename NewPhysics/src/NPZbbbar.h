@@ -171,14 +171,14 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief New physics contribution to @f$g_V^f@f$.
+     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_V^f@f$ (zero in the current model, except for @f$f=b@f$)
      */
     virtual double deltaGV_f(const Particle f) const;
 
     /**
-     * @brief New physics contribution to @f$g_A^f@f$.
+     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$ (zero in the current model, except for @f$f=b@f$)
      */
@@ -193,7 +193,7 @@ public:
     virtual double Mw() const;
 
     /**
-     * @brief @copybrief StandardModel::GammaW()
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
@@ -225,16 +225,18 @@ public:
     virtual double A_f(const Particle f) const;
 
     /** 
-     * @brief @copybrief StandardModel::AFB()
+     * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$A^f_{FB}@f$.
      * @param[in] f a lepton or quark
      * @return @f$A^f_{FB}@f$
      */
     virtual double AFB(const Particle f) const;
 
     /** 
-     * @brief @copybrief StandardModel::R0_f()
+     * @brief The ratio @f$R_\ell=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
+     * or @f$R_q=\Gamma_q/\Gamma_{\mathrm{had}}@f$, for leptons or quarks, respectively.
      * @param[in] f a lepton or quark
-     * @return @f$R_\ell^0 @f$
+     * @return @f$R_f^0@f$
      */
     virtual double R0_f(const Particle f) const;
 

@@ -171,14 +171,14 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief New physics contribution to @f$g_V^f@f$.
+     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_V^f@f$ (zero in the current model, except for @f$f=b@f$)
      */
     virtual double deltaGV_f(const Particle f) const;
 
     /**
-     * @brief New physics contribution to @f$g_A^f@f$.
+     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$ (zero in the current model, except for @f$f=b@f$)
      */

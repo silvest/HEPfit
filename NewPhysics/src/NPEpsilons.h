@@ -190,7 +190,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
 
     /**
-     * @brief @copybrief StandardModel::Mw()
+     * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @details This function calls EWNPEpsilons::Mw() via
      * EWNPEpsilons::Mw_NPEpsilons().
      * @return @f$M_W@f$ in GeV
@@ -198,7 +198,7 @@ public:
     virtual double Mw() const;
 
     /** 
-     * @brief @copybrief StandardModel::GammaW()
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * 
      * @warning This function is not available.
      */
@@ -231,16 +231,18 @@ public:
     virtual double A_f(const Particle p) const;
 
     /** 
-     * @brief @copybrief StandardModel::AFB()
+     * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$A^f_{FB}@f$.
      * @param[in] f a lepton or quark
      * @return @f$A^f_{FB}@f$
      */
     virtual double AFB(const Particle p) const;
 
     /** 
-     * @brief @copybrief StandardModel::R0_f()
+     * @brief The ratio @f$R_\ell=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
+     * or @f$R_q=\Gamma_q/\Gamma_{\mathrm{had}}@f$, for leptons or quarks, respectively. 
      * @param[in] f a lepton or quark
-     * @return @f$R_\ell^0 @f$
+     * @return @f$R_f^0@f$
      */
     virtual double R0_f(const Particle p) const;
 
