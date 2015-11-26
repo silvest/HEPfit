@@ -8,7 +8,6 @@
 #ifndef SUSYOBSERVABLES_H
 #define	SUSYOBSERVABLES_H
 
-#include "OutputSLHAfromFH.h"
 #include "Mhiggs.h"
 #include "Msup.h"
 #include "Msdown.h"
@@ -16,7 +15,6 @@
 #include "Msneutrino.h"
 #include "Mchargino.h"
 #include "Mneutralino.h"
-#include "Mw_dRho.h"
 
 #endif	/* SUSYOBSERVABLES_H */
 

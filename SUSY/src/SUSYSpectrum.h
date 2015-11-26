@@ -286,6 +286,13 @@ public:
     {
         return Rl;
     }
+    
+    /**
+     * Sort sfermion masses in increasing order.
+     * @param[in,out] m_sf2 A vector of sfermion mass squared.
+     * @param[in,out] Rf The corresponding rotation matrix.
+     */
+    void SortSfermionMasses(gslpp::vector<double>& m_sf2, gslpp::matrix<gslpp::complex>& Rf) const;
 
     ///////////////////////////////////////////////////////////////////////////
 

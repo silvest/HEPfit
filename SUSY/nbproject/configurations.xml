@@ -4,8 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/EWSUSY.h</itemPath>
-      <itemPath>src/FeynHiggsWrapper.h</itemPath>
       <itemPath>src/Mchargino.h</itemPath>
       <itemPath>src/Mhiggs.h</itemPath>
       <itemPath>src/Mneutralino.h</itemPath>
@@ -13,8 +11,6 @@
       <itemPath>src/Mslepton.h</itemPath>
       <itemPath>src/Msneutrino.h</itemPath>
       <itemPath>src/Msup.h</itemPath>
-      <itemPath>src/Mw_dRho.h</itemPath>
-      <itemPath>src/OutputSLHAfromFH.h</itemPath>
       <itemPath>src/SUSY.h</itemPath>
       <itemPath>src/SUSYMatching.h</itemPath>
       <itemPath>src/SUSYObservables.h</itemPath>
@@ -27,8 +23,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/EWSUSY.cpp</itemPath>
-      <itemPath>src/FeynHiggsWrapper.cpp</itemPath>
       <itemPath>src/SUSY.cpp</itemPath>
       <itemPath>src/SUSYMatching.cpp</itemPath>
       <itemPath>src/SUSYSpectrum.cpp</itemPath>
@@ -60,7 +54,6 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -70,14 +63,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/EWSUSY.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWSUSY.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/FeynHiggsWrapper.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/FeynHiggsWrapper.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
@@ -91,10 +76,6 @@
       <item path="src/Msneutrino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mw_dRho.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/OutputSLHAfromFH.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -128,7 +109,6 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -141,14 +121,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/EWSUSY.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWSUSY.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/FeynHiggsWrapper.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/FeynHiggsWrapper.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
@@ -162,10 +134,6 @@
       <item path="src/Msneutrino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mw_dRho.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/OutputSLHAfromFH.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -199,7 +167,6 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -212,14 +179,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/EWSUSY.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWSUSY.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/FeynHiggsWrapper.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/FeynHiggsWrapper.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
@@ -233,10 +192,6 @@
       <item path="src/Msneutrino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mw_dRho.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/OutputSLHAfromFH.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>

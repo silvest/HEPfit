@@ -309,7 +309,6 @@ ThObsFactory::ThObsFactory()
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  SUSY spectra and observables  -----
-    obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(); // for debug
     obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);
     obsThFactory["MHh"] = boost::bind(boost::factory<Mhiggs*>(), _1, 1);
     obsThFactory["MHa"] = boost::bind(boost::factory<Mhiggs*>(), _1, 2);
@@ -332,7 +331,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Mneu2"] = boost::bind(boost::factory<Mneutralino*>(), _1, 1);
     obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
     obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
-    obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>();
     /** END: REMOVE FROM THE PACKAGE **/
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/

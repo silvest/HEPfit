@@ -11,8 +11,6 @@
 #include "StandardModelMatching.h"
 #include "SUSY.h"
 #include "SUSYSpectrum.h"
-#include "EWSUSY.h"
-#include "FeynHiggsWrapper.h"
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {
@@ -42,9 +40,7 @@ SUSY::SUSY()
 SUSY::~SUSY(){
     if (IsModelInitialized()) {
             if (mySUSYMatching != NULL) delete(mySUSYMatching);
-            if (myFH != NULL) delete(myFH);
             if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
-            if (myEWSUSY != NULL) delete(myEWSUSY);
         }
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -54,8 +50,6 @@ bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
     mySUSYSpectrum = new SUSYSpectrum(*this);
-    myFH = new FeynHiggsWrapper(*this);
-    myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
     setModelInitialized(StandardModel::InitializeModel());
     setModelSUSY();
@@ -93,80 +87,65 @@ bool SUSY::Update(const std::map<std::string, double>& DPars)
     return (true);
 }
 
-bool SUSY::PostUpdate()
-{
-    if(!StandardModel::PostUpdate()) return (false);
-    /* Set the squark and slepton mass matrices and the trilinear-coupling matrices */
-    SetSoftTerms();
+bool SUSY::PostUpdate() {
+    if (!StandardModel::PostUpdate()) return (false);
     computeYukawas();
 
     /* use approximate GUT relation if M1 & M2 are zero */
-    if(m1.abs() == 0. && m2.abs() == 0.) {
-        m1.real() = m3/6.;
-        m2.real() = m3/3.;
+    if (m1.abs() == 0. && m2.abs() == 0.) {
+        m1.real() = m3 / 6.;
+        m2.real() = m3 / 3.;
     }
-    
-    bool IsFlag_FH = false;
-    /* Compute Higgs and sparticle spectra with FeynHiggs */
-    if (IsFlag_FH) {
-        if(!myFH->SetFeynHiggsPars()) return (false);
-        if(!myFH->CalcHiggsSpectrum()) return (false);
-        if(!myFH->CalcSpectrum()) return (false); /* FH does not calculate Sneutrino masses. */
-    }
-    else {
     /* Compute Higgs and sparticle spectra without FeynHiggs */
-        /* sfermions */
-        for (int i = 0; i < 6; i++) {
-            m_sn2(i) = 0.;// heavy decoupled masses for i=3-5
-            m_se2(i) = 0.;
-            m_su2(i) = 0.;
-            m_sd2(i) = 0.;
-            m_sdresum2(i) = 0.;
-            for (int j = 0; j < 6; j++) {
-                /* R: first (second) index for mass (gauge) eigenstates */
-                /* UASf: second (third) index for gauge (mass) eigenstates */
-                Rn.assign(i,j, 0.);
-                Rl.assign(i,j, 0.);
-                Ru.assign(i,j, 0.);
-                Rd.assign(i,j, 0.);
-                Rdresum.assign(i,j, 0.);
-            }
+    /* sfermions */
+    for (int i = 0; i < 6; i++) {
+        m_sn2(i) = 0.; // heavy decoupled masses for i=3-5
+        m_se2(i) = 0.;
+        m_su2(i) = 0.;
+        m_sd2(i) = 0.;
+        m_sdresum2(i) = 0.;
+        for (int j = 0; j < 6; j++) {
+            /* R: first (second) index for mass (gauge) eigenstates */
+            /* UASf: second (third) index for gauge (mass) eigenstates */
+            Rn.assign(i, j, 0.);
+            Rl.assign(i, j, 0.);
+            Ru.assign(i, j, 0.);
+            Rd.assign(i, j, 0.);
+            Rdresum.assign(i, j, 0.);
         }
-
-        /* charginos */
-        for (int i = 0; i < 2; i++) {
-            mch(i) = 0.;
-            for (int j = 0; j < 2; j++) {
-                /* U and V: first (second) index for mass (gauge) eigenstates */
-                /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
-                U.assign(i,j, 0.);
-                V.assign(i,j, 0.);
-            }
-        }
-
-        /* neutralinos */
-        for (int i = 0; i < 4; i++) {
-            mneu(i) = 0.;
-            for (int j = 0; j < 4; j++)
-                /* N: first (second) index for mass (gauge) eigenstates */
-                /* Zneu: first (second) index for gauge (mass) eigenstates */
-                N.assign(i,j, 0.);
-        }
-
-    if(!mySUSYSpectrum->CalcHiggs(mh,saeff)) return (false);
-    if(!mySUSYSpectrum->CalcChargino(U,V,mch)) return (false);
-    if(!mySUSYSpectrum->CalcNeutralino(N,mneu)) return (false);
-    if(!mySUSYSpectrum->CalcSup(Ru,m_su2)) return (false);
-    myFH->SortSfermionMasses(m_su2, Ru);
-    if(!mySUSYSpectrum->CalcSdown(Rd,m_sd2)) return (false);
-    myFH->SortSfermionMasses(m_sd2, Rd);
-    if(!mySUSYSpectrum->CalcSneutrino(Rn,m_sn2)) return (false);
-    myFH->SortSfermionMasses(m_sn2, Rn);
-    if(!mySUSYSpectrum->CalcSelectron(Rl,m_se2)) return (false);
-    myFH->SortSfermionMasses(m_se2, Rl);
     }
 
-//    std::cout<<"muH S = "<<muH<<std::endl;
+    /* charginos */
+    for (int i = 0; i < 2; i++) {
+        mch(i) = 0.;
+        for (int j = 0; j < 2; j++) {
+            /* U and V: first (second) index for mass (gauge) eigenstates */
+            /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
+            U.assign(i, j, 0.);
+            V.assign(i, j, 0.);
+        }
+    }
+
+    /* neutralinos */
+    for (int i = 0; i < 4; i++) {
+        mneu(i) = 0.;
+        for (int j = 0; j < 4; j++)
+            /* N: first (second) index for mass (gauge) eigenstates */
+            /* Zneu: first (second) index for gauge (mass) eigenstates */
+            N.assign(i, j, 0.);
+    }
+
+    if (!mySUSYSpectrum->CalcHiggs(mh, saeff)) return (false);
+    if (!mySUSYSpectrum->CalcChargino(U, V, mch)) return (false);
+    if (!mySUSYSpectrum->CalcNeutralino(N, mneu)) return (false);
+    if (!mySUSYSpectrum->CalcSup(Ru, m_su2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_su2, Ru);
+    if (!mySUSYSpectrum->CalcSdown(Rd, m_sd2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_sd2, Rd);
+    if (!mySUSYSpectrum->CalcSneutrino(Rn, m_sn2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_sn2, Rn);
+    if (!mySUSYSpectrum->CalcSelectron(Rl, m_se2)) return (false);
+    mySUSYSpectrum->SortSfermionMasses(m_se2, Rl);
 
     /* Set the mass of the SM-like Higgs */
     mHl = mh[0];
@@ -175,45 +154,13 @@ bool SUSY::PostUpdate()
         std::cout << "WARNING: mh=" << mHl << " in SUSY::PostUpdate" << std::endl;
         return (false);
     }
-    
-    if( Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt( sqrt(m_su2(2) * m_su2(5)) );
 
-    /* For EWSUSY class */
-    myEWSUSY->SetRosiekParameters();
+    if (Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt(sqrt(m_su2(2) * m_su2(5)));
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
      * and SUSY and SUSY-derived parameters in SUSYMatching */
     mySUSYMatching->StandardModelMatching::updateSMParameters();
     mySUSYMatching->updateSUSYParameters();
-
-    mySUSYMatching->Comp_mySUSYMQ();
-
-    if (IsFlag_ne()) mySUSYMatching->Comp_VdDNL(0);
-    if (IsFlag_ne()) mySUSYMatching->Comp_VdDNR(0);
-    if (IsFlag_ch()) mySUSYMatching->Comp_VdUCL();
-    if (IsFlag_ch()) mySUSYMatching->Comp_VdUCR(0);
-
-    mySUSYMatching->Comp_DeltaMd();
-    mySUSYMatching->Comp_DeltaDL();
-    mySUSYMatching->Comp_Eps_J();
-    mySUSYMatching->Comp_Lambda0EpsY();
-    mySUSYMatching->Comp_mySUSY_CKM();
-
-    if (IsFlag_h()) {
-        mySUSYMatching->Comp_PHLR();
-        mySUSYMatching->Comp_VUDHH();
-        mySUSYMatching->Comp_PHRL();
-    }
-    if (IsFlag_ne()) {
-        mySUSYMatching->Comp_VdDNL(1);
-        mySUSYMatching->Comp_VdDNR(1);
-        mySUSYMatching->Comp_VuUN();
-    }
-    if (IsFlag_ch()) {
-        mySUSYMatching->Comp_VdUCR(1);
-        mySUSYMatching->Comp_VuDCL();
-        mySUSYMatching->Comp_VuDCR();
-    }
 
     return (true);
 }
@@ -308,41 +255,13 @@ void SUSY::computeYukawas()
     
 }
 
-void SUSY::SetSoftTerms()
-{
-    // MsQ2, MsU2, MsD2, MsL2, MsN2, MsE2, TU, TD, TN and TE are set to 0 in the constructor.
-    // See also GeneralSUSY::SetSoftTerms().
-}
-
-
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
 bool SUSY::setFlag(const std::string name, const bool value)
 {
-    bool res = false;
-    if(name.compare("Flag_H") == 0) {
-        flag_h = value;
-        res = true;
-    }
-    else if(name.compare("Flag_g") == 0) {
-        flag_g = value;
-        res = true;
-    }
-    else if(name.compare("Flag_Chi") == 0) {
-        flag_ch = value;
-        res = true;
-    }
-    else if(name.compare("Flag_Chi0") == 0) {
-        flag_ne = value;
-        res = true;
-    }
-    else
-        res = StandardModel::setFlag(name,value);
-
-    return(res);
+    return(StandardModel::setFlag(name,value));
 }
-
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -358,25 +277,5 @@ double SUSY::v2() const
 
 double SUSY::getMGl() const
 {
-    return myFH->getMGl();
-}
-
-
-///////////////////////////////////////////////////////////////////////////
-
-double SUSY::Mw() const
-{
-    return myEWSUSY->Mw_MSSM();
-}
-
-double SUSY::Mw_dRho() const
-{
-    //double delRho = myFH->getFHdeltarho();
-    //std::cout << "DeltaRho = " << delRho << std::endl;
-
-    /* Delta rho approximation */
-    double Mw_SM = StandardModel::Mw();
-    double cW2_SM = Mw_SM*Mw_SM/Mz/Mz;
-    double sW2_SM = 1.0 - cW2_SM;
-    return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
+    return m3;
 }
