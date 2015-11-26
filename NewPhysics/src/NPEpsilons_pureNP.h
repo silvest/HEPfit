@@ -30,7 +30,7 @@
  *
  * After creating an instance of the current class with the constructor
  * NPEpsilons_pureNP(), it is required to call the initialization method
- * InitializeModel(), inherited from NPEffective class.
+ * InitializeModel().
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *

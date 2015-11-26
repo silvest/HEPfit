@@ -79,6 +79,10 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief A method to return a StandardModel object from %NPbase.
+     * @return an StandardModel object
+     */
     virtual StandardModel getTrueSM() const
     {
         return trueSM;
@@ -389,7 +393,7 @@ public:
 
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
-     * @f$ e^{+}e^{-}\to ZH}@f$ associated production
+     * @f$ e^{+}e^{-}\to ZH @f$ associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{eeZH}@f$
