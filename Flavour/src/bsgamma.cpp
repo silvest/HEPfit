@@ -19,6 +19,36 @@
 #include <gsl/gsl_sf_clausen.h>
 #include <boost/bind.hpp>
 
+Bsgamma::Bsgamma(const StandardModel& SM_i, StandardModel::quark quark_i, int obsFlag)
+: ThObservable(SM_i),
+Intbc_cache(2, 0.)
+{
+    if (SM.ModelName().compare("StandardModel") != 0 && SM.ModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    
+    if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
+    else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");
+    
+    quark = quark_i;
+    
+    SUM = false;
+    
+    Intb1Cached = 0;
+    Intb2Cached = 0;
+    Intb3Cached = 0;
+    Intb4Cached = 0;
+    Intbb1Cached = 0;
+    Intbb2Cached = 0;
+    Intbb4Cached = 0;
+    Intbc1Cached = 0;
+    Intbc2Cached = 0;
+    Intc1Cached = 0;
+    Intc2Cached = 0;
+    Intc3Cached = 0;
+    Intcc1Cached = 0;
+    
+    w_INT = gsl_integration_cquad_workspace_alloc (100);
+}
+
 Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
@@ -27,6 +57,8 @@ Intbc_cache(2, 0.)
     
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");
+    
+    SUM = true;
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -133,16 +165,18 @@ double Bsgamma::T3(double E0,double t)
 double Bsgamma::P0_4body(double E0, double t)
 {
     gslpp::complex A1 =-C1_0*CKMu;
+    double A1sq =C1_0.abs2()*CKMusq;
     gslpp::complex A2 =-C2_0*CKMu;
+    double A2sq =C2_0.abs2()*CKMusq;
     
     return (C3_0.abs2() + 20. * (C3_0*C5_0).real() + 2./9. * C4_0.abs2() 
             + 40./9. * (C4_0*C6_0).real() + 136. * C5_0.abs2() 
             + 272./9. * C6_0.abs2()) * T1(E0,t)
-            + (2./9. * A1.abs2() + A2.abs2() 
+            + (2./9. * A1sq + A2sq 
             + (8./9. * C3_0.real() 
             - 4./27. * C4_0.real() + 128./9. * C5_0.real() 
             - 64./27. * C6_0.real()) * A1.real() 
-            +(2./3. * C3_0.real() + 8./9. * C4_0.real() + 32./3. * C5_0.real() 
+            + (2./3. * C3_0.real() + 8./9. * C4_0.real() + 32./3. * C5_0.real() 
             + 128./9. * C6_0.real()) * A2.real()) * T2(E0,t)
             + (C3_0.abs2() + 8./3. * (C3_0*C4_0).real() + 32. * (C3_0*C5_0).real() 
             + 128./3. * (C3_0*C6_0).real() - 2./9. * C4_0.abs2() 
@@ -1902,15 +1936,21 @@ double Bsgamma::Vub_NLO_2body(bool CPodd)
             (CKMu.real()*( a(z) + b(z) ).real() - CPodd * CKMu.imag()*( a(z) + b(z) ).imag());
 }
 
-double Bsgamma::Vub_NLO_3body(double E0,bool CPodd)
+double Bsgamma::Vub_NLO_3body_A(double E0,bool CPodd)
 {
     double d = delta(E0);
     
     return 64./27. * Alstilde * ( C2_0 - C1_0/6. ).abs2() *
             ( CKMu.real() * ( 2. * Int_cc1(E0) - Int_c1(E0) )
-            + CKMu.abs2() *  ( Int_cc1(E0) - Int_c1(E0) + 1./8. * d * ( 1. - 1./3. * d*d ) )
-            - CPodd * CKMu.imag() * Int_c1_im(E0) )
-            + 4. * Alstilde * (( C7_0 - C8_0/3. ) * ( C2_0 - C1_0/6. )).real() *
+            + CKMusq *  ( Int_cc1(E0) - Int_c1(E0) + 1./8. * d * ( 1. - 1./3. * d*d ) )
+            - CPodd * CKMu.imag() * Int_c1_im(E0) );
+}
+
+double Bsgamma::Vub_NLO_3body_B(double E0,bool CPodd)
+{
+    double d = delta(E0);
+    
+    return 4. * Alstilde * (( C7_0 - C8_0/3. ) * ( C2_0 - C1_0/6. )).real() *
             ( CKMu.real() * ( Phi27_1(E0,zeta()) + 2./9. * d * ( 1. - d + 1./3. * d*d ) )
             - CPodd * CKMu.imag() * Phi27_1_im(E0,zeta()) );
 }
@@ -1944,7 +1984,17 @@ double Bsgamma::Vub_NLO_4body(double E0, bool CPodd)
 
 double Bsgamma::Vub_NLO(double E0, bool CPodd)
 {
-    return Vub_NLO_2body(CPodd) + Vub_NLO_3body(E0,CPodd) + Vub_NLO_4body(E0,CPodd);
+    return Vub_NLO_2body(CPodd) + Vub_NLO_3body_A(E0,CPodd) + Vub_NLO_3body_B(E0,CPodd) + Vub_NLO_4body(E0,CPodd);
+}
+
+double Bsgamma::Vub_NNLO(double E0)
+{
+    double r12 = (( C2_1 - C1_1/6. )/( C2_0 - C1_0/6. )).real();
+    double r78 = (( C7_1 - C8_1/3. )/( C7_0 - C8_0/3. )).real();
+    double r7 = (C7_1/C7_0).real();
+    
+    return Alstilde * ( (r12 + r7) * Vub_NLO_2body(false) 
+            + 2. * r12 * Vub_NLO_3body_A(E0,false) + (r12 + r78) * Vub_NLO_3body_B(E0,false));
 }
 
 double Bsgamma::P(double E0, double mu_b, double mu_c, orders order, bool CPodd)
@@ -2065,9 +2115,32 @@ void Bsgamma::updateParameters()
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
     Alstilde = SM.Alstilde5(mu_b);
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
-    lambda_t=SM.computelamt_s();
+    V_ub=SM.getCKM().getVub();
     V_cb=SM.getCKM().getVcb();
-    CKMu=SM.computelamu_s().conjugate() / SM.computelamt_s().conjugate(); // -0.00802793 + 0.0180942*gslpp::complex::i();
+    V_tb=SM.getCKM().getVtb();
+    
+    if (SUM) {
+        CKMratio=(V_tb*V_tb/V_cb/V_cb)*(1. - V_tb*V_tb);
+        CKMu=-V_ub*V_ub/(1. - V_tb*V_tb);
+        CKMusq = V_ub*V_ub/V_tb/V_tb * (1. - V_ub*V_ub)/(1. - V_tb*V_tb);
+        }
+    else
+        switch (quark) {
+            case StandardModel::STRANGE:
+                CKMratio=(SM.computelamt_s()/V_cb).abs2();
+                CKMu=SM.computelamu_s().conjugate() / SM.computelamt_s().conjugate(); // -0.00802793 + 0.0180942*gslpp::complex::i(); //
+                CKMusq = CKMu.abs2();
+                break;
+            case StandardModel::DOWN:
+                CKMratio=(SM.computelamt_d()/V_cb).abs2();
+                CKMu=SM.computelamu_d().conjugate() / SM.computelamt_d().conjugate(); //  0.00745398 - 0.40416*gslpp::complex::i(); //
+                CKMusq = CKMu.abs2();
+                break;
+            default:
+                std::stringstream out;
+                out << quark;
+                throw std::runtime_error("bqgamma: quark " + out.str() + " not implemented");
+        }
     
     BLNPcorr=SM.getBLNPcorr();
     
@@ -2096,7 +2169,12 @@ void Bsgamma::updateParameters()
     
     computeCoeff(mu_b);
     
-    overall = BRsl * (lambda_t/V_cb).abs2() * 6. * ale / (M_PI * C);
+    overall = BRsl * CKMratio * 6. * ale / (M_PI * C);
+    
+    /*std::cout << "bqgamma quark type: " << quark <<  std::endl;
+    std::cout << "CKMratio " <<  CKMratio << std::endl;
+    std::cout << "CKMu " <<  CKMu << std::endl;
+    std::cout << "CKMusq " <<  CKMusq << std::endl << std::endl;*/
 }
 
 double Bsgamma::computeThValue()
@@ -2104,9 +2182,9 @@ double Bsgamma::computeThValue()
     updateParameters();
     
     if (obs == 1) 
-        return overall *  ( P(E0, mu_b, mu_c, NLO, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
+        return overall *  ( P(E0, mu_b, mu_c, NLO, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643; //
     if (obs == 2) 
-        return overall *  ( P(E0, mu_b, mu_c, NLO, true) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643;
+        return overall *  ( P(E0, mu_b, mu_c, NLO, true) + N(E0,mu_b) );// -0.000000560272 + 0.000000228606; //
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");
 }
