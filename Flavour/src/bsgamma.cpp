@@ -5,12 +5,6 @@
  * For the licensing terms see doc/COPYING.
  */
 
-/* 
- * Gambino's parameters hardcoded
- * phi1.4body partially hardcoded, currently switched off through the macro FOUR_BODY set to false
- * VubNNLO and EW parts missing
- */
-
 #include "Flavour.h"
 #include "bsgamma.h"
 #include <gslpp_complex.h>

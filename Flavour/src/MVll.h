@@ -63,17 +63,17 @@ gsl_function convertToGslFunction( const F& f )
  * compute the observables relative to the @f$M \to V l^+ l^-@f$ decay. After the
  * parameters are updated in updateParameters() and the cache is checked in 
  * checkCache(), the form factor are build in the transverse basis in the functions
- * V(), A_0(), A_1(), A_2(), T_1() and  T_2() using the fit function FF_fit() from arXiv:1503.05534.
+ * V(), A_0(), A_1(), A_2(), T_1() and  T_2() using the fit function FF_fit() from @cite Straub:2015ica.
  * The form factor are consequentely translated in the helicity basis through the
- * functions V_0t(), V_p(), V_m(), T_0t(), T_p(), T_m() and S_L() from arXiv:1212.2263v2.
- * The QCDF corrections to Wilson coefficient @f$C_9@f$ are computed according to hep-ph/0106067v2: the basic elements
+ * functions V_0t(), V_p(), V_m(), T_0t(), T_p(), T_m() and S_L() from @cite Jager:2012uw.
+ * The QCDF corrections to Wilson coefficient @f$C_9@f$ are computed according to @cite Beneke:2001at: the basic elements
  * are build in the functions Tperpplus(), Tparplus(), Tparminus(), Cperp() and Cpar();
  * these corrections have to be integrated to be computed, so the final correction is
  * either obtaind through direct integration in the functions DeltaC9_p(), DeltaC9_m()
  * and DeltaC9_0(), or obtained through fitting in the functions fDeltaC9_p(), 
  * fDeltaC9_m() and fDeltaC9_0(). Form factors, Wilson coefficients and parameters 
  * are combined together in the functions H_V_0(), H_V_p(), H_V_m(), H_A_0(), 
- * H_A_p(), H_A_m(), H_S() and H_P() in order to build the helicity aplitudes, 
+ * H_A_p(), H_A_m(), H_S() and H_P() @cite Jager:2012uw in order to build the helicity aplitudes, 
  * which are consequentely combined to create the angular coefficients in the 
  * function I_1c(), I_1s(), I_2c(), I_2s(), I_3(), I_4(), I_5(), I_6c(), I_6s(), 
  * I_7(), I_8(), I_9(). Those coefficients are used to create the CP averaged 
@@ -1329,7 +1329,7 @@ private:
     
     
     /**
-    * @brief The fit function from arXiv:1503.05534v1, \f$ FF^{\rm fit} \f$.
+    * @brief The fit function from @cite Straub:2015ica, \f$ FF^{\rm fit} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param[in] a_0 fit parameter
     * @param[in] a_1 fit parameter
@@ -1340,7 +1340,7 @@ private:
     double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
     
     /**
-    * @brief The \f$ I_1 \f$ function from hep-ph/0106067.
+    * @brief The \f$ I_1 \f$ function from @cite Beneke:2001at .
     * @param[in] u dummy variable to be integrated out
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_1 \f$
@@ -1348,7 +1348,7 @@ private:
     gslpp::complex I1(double u, double q2);
     
     /**
-    * @brief The \f$ T^{\perp}_+ \f$ function from hep-ph/0106067.
+    * @brief The \f$ T^{\perp}_+ \f$ function from @cite Beneke:2001at .
     * @param[in] u dummy variable to be integrated out
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T^{\perp}_+ \f$
@@ -1356,7 +1356,7 @@ private:
     gslpp::complex Tperpplus(double u, double q2);
     
     /**
-    * @brief The \f$ T^{\parallel}_+ \f$ function from hep-ph/0106067.
+    * @brief The \f$ T^{\parallel}_+ \f$ function from @cite Beneke:2001at .
     * @param[in] u dummy variable to be integrated out
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T^{\parallel}_+ \f$
@@ -1364,7 +1364,7 @@ private:
     gslpp::complex Tparplus(double u, double q2);
     
     /**
-    * @brief The \f$ T^{\parallel}_- \f$ function from hep-ph/0106067.
+    * @brief The \f$ T^{\parallel}_- \f$ function from @cite Beneke:2001at .
     * @param[in] u dummy variable to be integrated out
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T^{\parallel}_- \f$
@@ -1372,42 +1372,42 @@ private:
     gslpp::complex Tparminus(double u, double q2);
     
     /**
-    * @brief The real part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @brief The real part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
     * @param[in] up dummy variable to be integrated out
     * @return \f$ Re T^{\perp}_+ \Phi^{\perp}\f$
     */
     double Integrand_ReTperpplus(double up);
     
     /**
-    * @brief The imaginary part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @brief The imaginary part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
     * @param[in] up dummy variable to be integrated out
     * @return \f$ Im T^{\perp}_+ \Phi^{\perp}\f$
     */
     double Integrand_ImTperpplus(double up);
     
     /**
-    * @brief The real part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @brief The real part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
     * @param[in] up dummy variable to be integrated out
     * @return \f$ Re T^{\parallel}_+ \Phi^{\parallel}\f$
     */
     double Integrand_ReTparplus(double up);
     
     /**
-    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
     * @param[in] up dummy variable to be integrated out
     * @return \f$ Im T^{\parallel}_+ \Phi^{\parallel}\f$
     */
     double Integrand_ImTparplus(double up);
     
     /**
-    * @brief The real part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @brief The real part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
     * @param[in] up dummy variable to be integrated out
     * @return \f$ Re T^{\parallel}_- \Phi^{\parallel}\f$
     */
     double Integrand_ReTparminus(double up);
     
     /**
-    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to hep-ph/0106067.
+    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
     * @param[in] up dummy variable to be integrated out
     * @return \f$ Im T^{\parallel}_- \Phi^{\parallel}\f$
     */
@@ -1428,63 +1428,63 @@ private:
     double Integrand_ImTpar_pm(double up);
 
     /**
-    * @brief The correction \f$ F_{19} \f$ from hep-ph/0103087.
+    * @brief The correction \f$ F_{19} \f$ from @cite Asatrian:2001de.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ F_{19} \f$
     */
     gslpp::complex F19(double q2);
 
     /**
-    * @brief The correction \f$ F_{27} \f$ from hep-ph/0103087.
+    * @brief The correction \f$ F_{27} \f$ from @cite Asatrian:2001de.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ F_{27} \f$
     */
     gslpp::complex F27(double q2);
 
     /**
-    * @brief The correction \f$ F_{29} \f$ from hep-ph/0103087.
+    * @brief The correction \f$ F_{29} \f$ from @cite Asatrian:2001de.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ F_{29} \f$
     */
     gslpp::complex F29(double q2);
 
     /**
-    * @brief The correction \f$ F_{87} \f$ from hep-ph/0103087.
+    * @brief The correction \f$ F_{87} \f$ from @cite Asatrian:2001de.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ F_{87} \f$
     */
     gslpp::complex F87(double q2);
 
     /**
-    * @brief The correction \f$ F_{89} \f$ from hep-ph/0103087.
+    * @brief The correction \f$ F_{89} \f$ from @cite Asatrian:2001de.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ F_{89} \f$
     */
     double F89(double q2);
     
     /**
-    * @brief The correction \f$ C_{\perp} \f$ from hep-ph/0106067.
+    * @brief The correction \f$ C_{\perp} \f$ from @cite Beneke:2001at .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ C_{\perp} \f$
     */
     gslpp::complex Cperp(double q2);
     
     /**
-    * @brief The correction \f$ C_{\parallel} \f$ from hep-ph/0106067.
+    * @brief The correction \f$ C_{\parallel} \f$ from @cite Beneke:2001at .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ C_{\parallel} \f$
     */
     gslpp::complex Cpar(double q2);
     
     /**
-    * @brief The total correction \f$ \Delta \mathcal{T}^{\perp} \f$ from hep-ph/0106067.
+    * @brief The total correction \f$ \Delta \mathcal{T}^{\perp} \f$ from @cite Beneke:2001at .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta \mathcal{T}^{\perp} \f$
     */
     gslpp::complex deltaTperp(double q2);
     
     /**
-    * @brief The total correction \f$ \Delta \mathcal{T}^{\parallel} \f$ from hep-ph/0106067.
+    * @brief The total correction \f$ \Delta \mathcal{T}^{\parallel} \f$ from @cite Beneke:2001at .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta \mathcal{T}^{\parallel} \f$
     */
