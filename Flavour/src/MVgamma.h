@@ -22,10 +22,10 @@
  * @details This class is used to compute all the functions needed in order to 
  * compute the observables relative to the @f$M \to V \gamma@f$ decay. After the
  * parameters are updated in updateParameters() and the form factor @f$ T_1 @f$
- * is computed in T_1(), the QCDF corrections to the Wilson coefficient @f$ C_7 @f$
- * is computed in the functions G1(), G8(), H1() and H8(). The helicity amplitudes 
+ * is computed in T_1() following @cite Straub:2015ica, the QCDF corrections to the Wilson coefficient @f$ C_7 @f$
+ * is computed in the functions G1(), G8(), H1() and H8() @cite Bosch:2001gv. The helicity amplitudes
  * @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$ are build in H_V_p(), H_V_m(), H_V_p_bar() 
- * and H_V_m_bar(), in order to be further used to build the observables.
+ * and H_V_m_bar() following @cite Jager:2012uw, in order to be further used to build the observables.
  */
 class MVgamma  : public ThObservable {
 public:
@@ -111,27 +111,27 @@ public:
     gslpp::complex H_V_m_bar();
 
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @param s @f$ m_c^2/m_b^2  @f$
      * @return @f$ G_1(s) @f$
      */
     gslpp::complex G1(double s);
     
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @return @f$ G_8 @f$
      */
     gslpp::complex G8();
 
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @param s @f$ m_c^2/m_b^2  @f$
      * @return @f$ H_1(s) @f$
      */
     gslpp::complex H1(double s);
 
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @return  @f$ H_8 @f$
      */
     gslpp::complex H8();
