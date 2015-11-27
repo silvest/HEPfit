@@ -61,7 +61,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             myModel->setModelName(modname);
             myModel->InitializeModel();
             if (myModel->IsModelInitialized()) {
-                if (rank == 0) std::cout << "\nModel Initialized: " << modname << std::endl;
+                if (rank == 0) std::cout << "\nModel Initialized: " << modname << "\n" << std::endl;
                 modeldefinedinfile = filename;
             } else if (rank == 0)
                 throw std::runtime_error("\nERROR: " + modname + " not initialized successfully.\n");
@@ -136,6 +136,13 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             IsEOF = tmpCGO.isEOF();
             if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);
 
+        } else if (type.compare("CorrelatedObservables") == 0) {
+            CorrelatedGaussianObservables tmpCO;
+            tmpCO.setIsPrediction(true);
+            lineNo = tmpCO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
+            IsEOF = tmpCO.isEOF();
+            CGO.push_back(tmpCO);
+
         } else if (type.compare("CustomObservable") == 0) {
             if (std::distance(tok->begin(), tok->end()) < 2) {
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename + ".\n");
@@ -184,7 +191,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
             std::string IncludeFileName = filepath + *beg;
-            if (rank == 0) std::cout << "\nIncluding File: " + IncludeFileName << std::endl;
+            if (rank == 0) std::cout << "Including File: " + IncludeFileName << std::endl;
             ReadParameters(IncludeFileName, rank, ModelPars, Observables, Observables2D, CGO, CGP);
             IsEOF = false;
             ++beg;

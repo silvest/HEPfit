@@ -22,6 +22,7 @@
 #include <TH2D.h>
 #include <TFile.h>
 #include <TRandom3.h>
+#include <TPrincipal.h>
 #include <map>
 #include <string>
 #include <sstream>
@@ -259,6 +260,7 @@ private:
     std::map<std::string, BCH2D * > Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.
     std::map<std::string, double> thMax; ///< A map between the name of a theory observable and its maximum value.
+    std::map<std::string, TPrincipal *> CorrelationMap; ///< A map between the name of a theory observable and its maximum value.
     double *obval; ///< A pointer to the vector of observable values.
     double *obweight; ///< A pointer to the vector of observable weights.
     unsigned int kwmax; ///< The number of observables whose weights are used for the MCMC.
