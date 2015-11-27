@@ -15,9 +15,11 @@ AM_CXXFLAGS = -I$(top_srcdir)/BHWIDEWrapper/src \
  -I$(top_srcdir)/InputParser/src \
  -I$(top_srcdir)/LeptonFlavour/src \
  -I$(top_srcdir)/LoopFunctions/src \
+ -I$(top_srcdir)/MFV/src \
  -I$(top_srcdir)/MonteCarlo/src \
  -I$(top_srcdir)/NewPhysics/src \
  -I$(top_srcdir)/Observables/src \
+ -I$(top_srcdir)/pMSSM/src \
  -I$(top_srcdir)/StandardModel/src \
  -I$(top_srcdir)/SUSY/src \
  -I$(top_srcdir)/SUSYMassInsertion/src \
@@ -161,6 +163,8 @@ LoopFunctions/src/BernoulliNumbers.h \
 LoopFunctions/src/PVfunctions.h \
 LoopFunctions/src/Polylogarithms.h \
 LoopFunctions/src/ClausenFunctions.h \
+MFV/src/MFV.h \
+MFV/src/Xmatrices.h \
 MonteCarlo/src/MonteCarlo.h \
 MonteCarlo/src/MonteCarloEngine.h \
 NewPhysics/src/NPZbbbar.h \
@@ -186,6 +190,7 @@ Observables/src/CorrelatedGaussianObservables.h \
 Observables/src/Observable2D.h \
 Observables/src/Observable.h \
 Observables/src/CorrelatedGaussianParameters.h \
+pMSSM/src/pMSSM.h \
 StandardModel/src/EWSMTwoFermionsLEP2.h \
 StandardModel/src/ModelMatching.h \
 StandardModel/src/EWSMApproximateFormulae.h \
@@ -212,16 +217,12 @@ StandardModel/src/StandardModel.h \
 StandardModel/src/Meson.h \
 StandardModel/src/EWSMThreeLoopEW.h \
 StandardModel/src/WilsonTemplate.h \
-SUSY/src/FeynHiggsWrapper.h \
-SUSY/src/EWSUSY.h \
 SUSY/src/Mslepton.h \
 SUSY/src/Mchargino.h \
 SUSY/src/Msdown.h \
 SUSY/src/Msneutrino.h \
 SUSY/src/Mneutralino.h \
-SUSY/src/OutputSLHAfromFH.h \
 SUSY/src/SUSYMatching.h \
-SUSY/src/Mw_dRho.h \
 SUSY/src/SUSYSpectrum.h \
 SUSY/src/Mhiggs.h \
 SUSY/src/Msup.h \
@@ -543,6 +544,8 @@ LoopFunctions/src/PVfunctions.cpp \
 LoopFunctions/src/Polylogarithms.cpp \
 LoopFunctions/src/BernoulliNumbers.cpp \
 LoopFunctions/src/LoopToolsWrapper.cpp \
+MFV/src/MFV.cpp \
+MFV/src/Xmatrices.cpp \
 MonteCarlo/src/MonteCarlo.cpp \
 MonteCarlo/src/MonteCarloEngine.cpp \
 NewPhysics/src/NPSTU.cpp \
@@ -567,6 +570,7 @@ Observables/src/ParamObs.cpp \
 Observables/src/HiggsObservable.cpp \
 Observables/src/Observable2D.cpp \
 Observables/src/Observable.cpp \
+pMSSM/src/pMSSM.cpp \
 StandardModel/src/EWSMTwoFermionsLEP2.cpp \
 StandardModel/src/StandardModelMatching.cpp \
 StandardModel/src/EWSMOneLoopEW_HV.cpp \
@@ -588,8 +592,6 @@ StandardModel/src/StandardModel.cpp \
 StandardModel/src/CKM.cpp \
 StandardModel/src/EWSMTwoLoopQCD.cpp \
 StandardModel/src/EWSMThreeLoopQCD.cpp \
-SUSY/src/EWSUSY.cpp \
-SUSY/src/FeynHiggsWrapper.cpp \
 SUSY/src/SUSYMatching.cpp \
 SUSY/src/SUSYSpectrum.cpp \
 SUSY/src/SUSY.cpp \
@@ -649,6 +651,7 @@ Analysis/main_MCMC_example.cpp \
 Analysis/main_libmode_config_example.cpp \
 Analysis/main_libmode_header_example.cpp \
 Analysis/main_libmode_slha2_to_GeneralSUSYconfigfile.cpp \
+Analysis/NPEffectiveGIMR_LFU_QFU.conf \
 BHWIDEWrapper/nbproject \
 ComputeObservables/nbproject \
 EventGeneration/nbproject \
@@ -661,9 +664,12 @@ HiggsExtensions/nbproject \
 InputParser/nbproject \
 LeptonFlavour/nbproject \
 LoopFunctions/nbproject \
+MFV/nbproject \
+MFV/tests/ \
 MonteCarlo/nbproject \
 NewPhysics/nbproject \
 Observables/nbproject \
+pMSSM/nbproject \
 StandardModel/nbproject \
 SUSY/nbproject \
 SUSYMassInsertion/nbproject \
@@ -682,13 +688,16 @@ HiggsExtensions/Makefile \
 InputParser/Makefile \
 LeptonFlavour/Makefile \
 LoopFunctions/Makefile \
+MFV/Makefile \
 MonteCarlo/Makefile \
 NewPhysics/Makefile \
 Observables/Makefile \
+pMSSM/Makefile \
 StandardModel/Makefile \
 SUSY/Makefile \
 SUSYMassInsertion/Makefile \
 THDM/Makefile \
+THDM/tabs \
 Utils/Makefile \
 ZFitterWrapper/Makefile
 

@@ -808,7 +808,6 @@ with_gsl
 with_looptools
 with_boost
 enable_static_boost
-with_feynhiggs
 with_bat
 '
       ac_precious_vars='build_alias
@@ -1475,8 +1474,6 @@ Optional Packages:
   --with-looptools=DIR    location of looptools installation [default=system
                           libs]
   --with-boost=DIR        prefix of Boost [guess]
-  --with-feynhiggs=DIR    location of FeynHiggs installation [default=system
-                          libs]
   --with-bat=DIR          location of BAT installation [default=system libs]
 
 Some influential environment variables:
@@ -20812,7 +20809,6 @@ fi
 	LIBS=$oldlibs
 
 
-
 else
 	if test "`uname -m`" = "x86_64" -a -e "$with_gsl/lib64/libgsl.a" -a -d "$with_gsl/include/gsl"; then
 		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: found in $with_gsl" >&5
@@ -20919,7 +20915,6 @@ fi
 
 SuF_LIBS="$SuF_LIBS $LTLIBS"
 SuF_CFLAGS="$SuF_CFLAGS $LTINCLUDE"
-
 
 
 echo "$as_me: this is boost.m4 serial 18" >&5
@@ -21516,94 +21511,6 @@ fi
 
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for feynhiggs location" >&5
-$as_echo_n "checking for feynhiggs location... " >&6; }
-
-
-# Check whether --with-feynhiggs was given.
-if test "${with_feynhiggs+set}" = set; then :
-  withval=$with_feynhiggs;
-else
-  with_feynhiggs=system
-fi
-
-
-if test "x$with_feynhiggs" = "xno"; then
-as_fn_error $? "libFH is required. Please install FeynHiggs." "$LINENO" 5
-fi
-
-if test "x$with_feynhiggs" = "xsystem"; then
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: in system libraries or non-standard directory" >&5
-$as_echo "in system libraries or non-standard directory" >&6; }
-	oldlibs="$LIBS"
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lFH" >&5
-$as_echo_n "checking for main in -lFH... " >&6; }
-if ${ac_cv_lib_FH_main+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lFH  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-
-int
-main ()
-{
-return main ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_link "$LINENO"; then :
-  ac_cv_lib_FH_main=yes
-else
-  ac_cv_lib_FH_main=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_FH_main" >&5
-$as_echo "$ac_cv_lib_FH_main" >&6; }
-if test "x$ac_cv_lib_FH_main" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBFH 1
-_ACEOF
-
-  LIBS="-lFH $LIBS"
-
-else
-
-			as_fn_error $? "Cannot find libFH. Please install FeynHiggs or use --with-feynhiggs=." "$LINENO" 5
-
-
-fi
-
-	FHLIBS="$LIBS"
-	LIBS=$oldlibs
-else
-	if test "`uname -m`" = "x86_64" -a -e "$with_feynhiggs/lib64/libFH.a" -a -d "$with_feynhiggs/include/"; then
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: found in $with_feynhiggs" >&5
-$as_echo "found in $with_feynhiggs" >&6; }
-		FHLIBS="-L$with_feynhiggs/lib64 -R$with_feynhiggs/lib64 -lFH"
-		FHINCLUDE="-I$with_feynhiggs/include"
-	elif test -e "$with_feynhiggs/lib/libFH.a" -a -d "$with_feynhiggs/include/"; then
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: found in $with_feynhiggs" >&5
-$as_echo "found in $with_feynhiggs" >&6; }
-		FHLIBS="-L$with_feynhiggs/lib -R$with_feynhiggs/lib -lFH"
-		FHINCLUDE="-I$with_feynhiggs/include"
-	else
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: not found" >&5
-$as_echo "not found" >&6; }
-		as_fn_error $? "Can't find $with_feynhiggs/lib/libFH.a or the headers in $with_feynhiggs/include" "$LINENO" 5
-	fi
-fi
-
-SuF_LIBS="$SuF_LIBS $FHLIBS"
-SuF_CFLAGS="$SuF_CFLAGS $FHINCLUDE"
-
-
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for BAT location" >&5
 $as_echo_n "checking for BAT location... " >&6; }
 
@@ -21730,7 +21637,6 @@ cat << _HEPFIT_EOF_ > config.hepfit
 *** Prefix:		$prefix
 ***
 *** BAT:		$with_bat
-*** FeynHiggs:		$with_feynhiggs
 ***
 *** GSL:		`$GSL_CONFIG --prefix`
 *** root:   		${ROOTCFLAGS} (root-version: $ROOTVERSION)
