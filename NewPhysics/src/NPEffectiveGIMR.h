@@ -501,6 +501,22 @@
  * </table>
  * (The parameters associated to the theoretical uncertainties, \f$\varepsilon_{X}^i(E)\f$,
  * are the same for both "NPEffectiveGIMR" and "NPEffectiveGIMR_LFU_QFU".)
+ * 
+ * Finally, if the flag %MwInput (see below) is set to TRUE, one must also specify the input value for
+ * the W mass via the following parameter (Warning: The W width is not implemented in this case):
+ * 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MwInput </td>
+ *   <td class="mod_symb">\f$M_{W} \f$</td>
+ *   <td class="mod_desc">The input value for the W mass in GeV.</td>
+ * </tr>
+ * </table>
  *
  * @anchor NPEffectiveGIMRFlags
  * <h3>%Model flags</h3>
@@ -516,7 +532,7 @@
  *   <td class="mod_name">%MwInput</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to TRUE if the W mass is taken as an input parameter.
- *   The default value is FALSE.</td>
+ *   (Warning: The W width is not implemented in this case.) The default value is FALSE. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%QuadraticTerms</td>
@@ -1416,7 +1432,7 @@ protected:
     ////////////////////////////////////////////////////////////////////////
 private:
 
-    bool FlagMwInput; ///< A boolean flag that is true if the W mass is taken as an input parameter.
+    bool FlagMwInput; ///< A boolean flag that is true if the W mass is taken as an input parameter. (Warning: The W width is not implemented in this case.)
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
 
     /**
