@@ -360,7 +360,7 @@ public:
      * and @f$G_{\mu,\mathrm{SM}}@f$ is the Fermi constant in the SM.
      * The dimension-six operators yield the following corrections:
      * @f[
-     *  \Delta G_F
+     *  \Delta G
      *  = - C_{LL}\left(\frac{v}{\Lambda}\right)^2
      *    + C^\prime_{HL_1}\left(\frac{v}{\Lambda}\right)^2
      *    + C^\prime_{HL_2}\left(\frac{v}{\Lambda}\right)^2.

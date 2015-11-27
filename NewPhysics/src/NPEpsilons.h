@@ -224,9 +224,10 @@ public:
     virtual double sin2thetaEff(const Particle p) const;
 
     /** 
-     * @brief @copybrief StandardModel::A_f()
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$\mathcal{A}_f@f$.
      * @param[in] f a lepton or quark
-     * @return @f$\mathcal{A}_\ell@f$
+     * @return @f$\mathcal{A}_f@f$
      */
     virtual double A_f(const Particle p) const;
 
