@@ -228,9 +228,12 @@ void MonteCarlo::Run(const int rank) {
         } else {
 
             bool writechains = false;
-            std::cout << ModPars.size() << " parameters defined." << std::endl;
-            std::cout << Obs.size() << " observables defined." << std::endl;
-            std::cout << CGO.size() << " correlated gaussian observables defined";
+            std::cout << std::endl;
+            std::cout << std::endl;
+            if (ModPars.size() > 0) std::cout << ModPars.size() << " parameters defined." << std::endl;
+            if (Obs.size() > 0) std::cout << Obs.size() << " observables defined." << std::endl;
+            if (Obs2D.size() > 0) std::cout << Obs2D.size() << " 2D observables defined." << std::endl;
+            if (CGO.size() > 0) std::cout << CGO.size() << " correlated gaussian observables defined";
             if (CGO.size() == 0)
                 std::cout << "." << std::endl;
             else
