@@ -239,8 +239,8 @@ public:
     virtual double AFB(const Particle p) const;
 
     /** 
-     * @brief The ratio @f$R_\ell=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
-     * or @f$R_q=\Gamma_q/\Gamma_{\mathrm{had}}@f$, for leptons or quarks, respectively. 
+     * @brief The ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
+     * or @f$R_q^0=\Gamma_q/\Gamma_{\mathrm{had}}@f$, for leptons or quarks, respectively. 
      * @param[in] f a lepton or quark
      * @return @f$R_f^0@f$
      */
