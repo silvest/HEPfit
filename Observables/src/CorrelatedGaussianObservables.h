@@ -126,12 +126,39 @@ public:
                  int lineNo,
                  int rank);
     /**
-     * @brief A method to check if the end of file has been reached
+     * @brief A method to check if the end of file has been reached.
      * @return a boolean which is true if the end of file has been reached
      */
     bool isEOF()
     {
         return IsEOF;
+    }
+    
+    /**
+     * @brief A method to set a set of CGO to be predicted.
+     * @param[in] IsPrediction_i a boolean which is true if the set of CGO is set for prediction
+     */
+    void setIsPrediction(bool IsPrediction_i)
+    {
+        IsPrediction = IsPrediction_i;
+    }
+    
+    /**
+     * @brief A method to check if the Correlated Observables are set for prediction.
+     * @return a boolean which is true if the set of CGO are to be predicted
+     */
+    bool isPrediction()
+    {
+        return IsPrediction;
+    }
+    
+    /**
+     * @brief A method to set a set of CGO to be predicted.
+     * @param[in] IsPrediction_i a boolean which is true if the set of CGO is set for prediction
+     */
+    void setName(std::string name_i)
+    {
+        name = name_i;
     }
     
 private:
@@ -140,6 +167,7 @@ private:
     std::string name;///< The name of the correlated Gaussian Observables set.
     std::string filepath;///< The path to the config file being parsed
     bool IsEOF;///< A boolean which is true if the end of file is reached.
+    bool IsPrediction;///< Flag to define a set of Correlated Observables to be predicted.
 };
 
 /** 

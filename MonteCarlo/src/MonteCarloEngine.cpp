@@ -104,6 +104,9 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
                 thMax[HistName] = -std::numeric_limits<double>::max();
             }
         }
+        if (it1->isPrediction()){
+            CorrelationMap[it1->getName()] = new TPrincipal(it1->getObs().size());
+        }
     }
     kmax = k;
     kwmax = kweight;
@@ -134,6 +137,9 @@ MonteCarloEngine::~MonteCarloEngine()
     //    for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
     //            it != Histo2D.end(); it++)
     //        delete it->second;
+    for (std::map<std::string, TPrincipal *>::iterator it = CorrelationMap.begin();
+            it != CorrelationMap.end(); it++)
+        delete it->second;
 };
 
 // ---------------------------------------------------------
@@ -151,7 +157,7 @@ void MonteCarloEngine::DefineParameters() {
         if (it->geterrf() == 0. && it->geterrg() == 0.)
             continue;
         AddParameter(it->getname().c_str(), it->getmin(), it->getmax());
-        if (rank == 0) std::cout << "  " << it->getname() << " " << k << std::endl;
+        if (rank == 0) std::cout << k << ": " << it->getname() << ", ";
         if (it->IsCorrelated()) {
             for (int i = 0; i < CGP.size(); i++) {
                 if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
@@ -228,10 +234,7 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
         for(int l = 0; l < porig.size(); l++) {
             DPars_i[CGP[j].getPar(l).getname()] = porig[l];
         }
-        
-
     }
-
 }
 
 // ---------------------------------------------------------
@@ -262,17 +265,15 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
 #endif
 
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it != Obs_ALL.end(); it++) {
-        if (it->isTMCMC())
-            logprob += it->computeWeight();
+        if (it->isTMCMC()) logprob += it->computeWeight();
     }
 
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it != Obs2D_ALL.end(); it++) {
-        if (it->isTMCMC())
-            logprob += it->computeWeight();
+        if (it->isTMCMC()) logprob += it->computeWeight();
     }
 
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
-        logprob += it->computeWeight();
+        if(!(it->isPrediction())) logprob += it->computeWeight();
     }
     if (isnan(logprob)) {
         NumOfDiscardedEvents++;
@@ -398,6 +399,8 @@ void MonteCarloEngine::MCMCIterationInterface() {
                 for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
                         it1 < CGO.end(); it1++) {
                     std::vector<Observable> pino(it1->getObs());
+                    Double_t * COdata = new Double_t[pino.size()];
+                    int nObs = 0;
                     for (std::vector<Observable>::iterator it = pino.begin();
                             it != pino.end(); ++it) {
                         double th = buff[il][k++];
@@ -405,9 +408,11 @@ void MonteCarloEngine::MCMCIterationInterface() {
                         if (th < thMin[it->getName()]) thMin[it->getName()] = th;
                         if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                         Histo1D[it->getName()]->GetHistogram()->Fill(th);
+                        if (it1->isPrediction()) COdata[nObs++] = th;
                     }
+                    if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
+                    delete [] COdata;
                 }
-
             }
         }
         iproc = 0;
@@ -458,6 +463,8 @@ void MonteCarloEngine::MCMCIterationInterface() {
         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
                 it1 < CGO.end(); it1++) {
             std::vector<Observable> pino(it1->getObs());
+            Double_t * COdata = new Double_t[pino.size()];
+            int nObs = 0;
             for (std::vector<Observable>::iterator it = pino.begin();
                     it != pino.end(); ++it) {
                 double th = it->computeTheoryValue();
@@ -465,7 +472,10 @@ void MonteCarloEngine::MCMCIterationInterface() {
                 if (th < thMin[it->getName()]) thMin[it->getName()] = th;
                 if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                 Histo1D[it->getName()]->GetHistogram()->Fill(th);
+                if (it1->isPrediction()) COdata[nObs++] = th;
             }
+            if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
+            delete [] COdata;
         }
     }
 #endif
@@ -686,7 +696,7 @@ std::string MonteCarloEngine::computeStatistics() {
         }
     }
 
-    if (CGO.size() > 0) StatsLog << "\nCorellated Gaussian Observables:\n" << std::endl;
+    if (CGO.size() > 0) StatsLog << "\nCorellated (Gaussian) Observables:\n" << std::endl;
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
             it1 < CGO.end(); it1++) {
         StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
@@ -751,6 +761,32 @@ std::string MonteCarloEngine::computeStatistics() {
                 StatsLog << std::endl;
             } else {
                 StatsLog << "\nWARNING: The histogram of " << it2->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
+            }
+        }
+        if (it1->isPrediction()) {
+            int size = it1->getObs().size();
+            CorrelationMap[it1->getName()]->MakePrincipals();
+            //CorrelationMap[it1->getName()]->Print();
+            TMatrixD * corr = const_cast<TMatrixD*>(CorrelationMap[it1->getName()]->GetCovarianceMatrix());
+            *corr *= (double)size;
+            StatsLog << "\nThe correlation matrix for " << it1->getName() << " is given by the " << size << "x"<< size << " matrix:\n" << std::endl;
+
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(4) << "" << " | ";
+                else StatsLog << std::setw(5) << i << std::setw(5) << "    |";
+            }
+            StatsLog << std::endl;
+            for (int i = 0; i < size + 1; i++) {
+                if (i == 0) StatsLog << std::setw(8) << "--------";
+                else StatsLog << std::setw(10) << "----------";
+            }
+            StatsLog << std::endl;
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size + 1; j++) {
+                    if (j == 0) StatsLog << std::setw(4) << i+1 << " |";
+                    else StatsLog << std::setprecision(5) << std::setw(10) << (*corr)(i, j - 1);
+                }
+            StatsLog << std::endl;
             }
         }
     }
