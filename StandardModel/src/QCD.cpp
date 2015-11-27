@@ -161,24 +161,24 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0", boost::cref(reh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p", boost::cref(reh_p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m", boost::cref(reh_m)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0", boost::cref(imh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p", boost::cref(imh_p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m", boost::cref(imh_m)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_1", boost::cref(reh_0_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p_1", boost::cref(reh_p_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m_1", boost::cref(reh_m_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_1", boost::cref(imh_0_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_1", boost::cref(imh_p_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_1", boost::cref(imh_m_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_2", boost::cref(reh_0_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p_2", boost::cref(reh_p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m_2", boost::cref(reh_m_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_2", boost::cref(imh_0_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_2", boost::cref(imh_p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_2", boost::cref(imh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0", boost::cref(absmyh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p", boost::cref(absmyh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m", boost::cref(absmyh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0", boost::cref(argmyh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p", boost::cref(argmyh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m", boost::cref(argmyh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_1", boost::cref(absmyh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p_1", boost::cref(absmyh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m_1", boost::cref(absmyh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_1", boost::cref(argmyh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_1", boost::cref(argmyh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_1", boost::cref(argmyh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_2", boost::cref(absmyh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p_2", boost::cref(absmyh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m_2", boost::cref(absmyh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_2", boost::cref(argmyh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_2", boost::cref(argmyh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_2", boost::cref(argmyh_m_2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_MP", boost::cref(reh_0_MP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_MP", boost::cref(imh_0_MP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_1_MP", boost::cref(reh_0_1_MP)));
@@ -331,30 +331,57 @@ bool QCD::PostUpdate()
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
 
-//    myh_0 = gslpp::complex(reh_0,imh_0,true);
-//    myh_p = gslpp::complex(reh_p,imh_p,true);
-//    myh_m = gslpp::complex(reh_m,imh_m,true);
-//    myh_0_2 = (3.*myh_0 + gslpp::complex(reh_0_2,imh_0_2,true) - 4. * 
-//            gslpp::complex(reh_0_1,imh_0_1,true))/12.;
-//    myh_p_2 = (3.*myh_p + gslpp::complex(reh_p_2,imh_p_2,true) - 4. * 
-//            gslpp::complex(reh_p_1,imh_p_1,true))/12.;
-//    myh_m_2 = (3.*myh_m + gslpp::complex(reh_m_2,imh_m_2,true) - 4. * 
-//            gslpp::complex(reh_m_1,imh_m_1,true))/12.;
-//    myh_0_1 = -myh_0 - myh_0_2 + gslpp::complex(reh_0_1,imh_0_1,true);
-//    myh_p_1 = -myh_p - myh_p_2 + gslpp::complex(reh_p_1,imh_p_1,true);
-//    myh_m_1 = -myh_m - myh_m_2 + gslpp::complex(reh_m_1,imh_m_1,true);
-    
     myh_0 = gslpp::complex(reh_0,imh_0,true);
     myh_p = gslpp::complex(reh_p,imh_p,true);
     myh_m = gslpp::complex(reh_m,imh_m,true);
+    myh_0_2 = (3.*myh_0 + gslpp::complex(reh_0_2,imh_0_2,true) - 4. * 
+            gslpp::complex(reh_0_1,imh_0_1,true))/12.;
+    myh_p_2 = (3.*myh_p + gslpp::complex(reh_p_2,imh_p_2,true) - 4. * 
+            gslpp::complex(reh_p_1,imh_p_1,true))/12.;
+    myh_m_2 = (3.*myh_m + gslpp::complex(reh_m_2,imh_m_2,true) - 4. * 
+            gslpp::complex(reh_m_1,imh_m_1,true))/12.;
+    myh_0_1 = -myh_0 - myh_0_2 + gslpp::complex(reh_0_1,imh_0_1,true);
+    myh_p_1 = -myh_p - myh_p_2 + gslpp::complex(reh_p_1,imh_p_1,true);
+    myh_m_1 = -myh_m - myh_m_2 + gslpp::complex(reh_m_1,imh_m_1,true);
     
-    myh_0_1 = gslpp::complex(reh_0_1,imh_0_1,true);
-    myh_p_1 = gslpp::complex(reh_p_1,imh_p_1,true);
-    myh_m_1 = gslpp::complex(reh_m_1,imh_m_1,true);
+    absmyh_0 = myh_0.abs();
+    argmyh_0 = myh_0.arg();
     
-    myh_0_2 = gslpp::complex(reh_0_2,imh_0_2,true);
-    myh_p_2 = gslpp::complex(reh_p_2,imh_p_2,true);
-    myh_m_2 = gslpp::complex(reh_m_2,imh_m_2,true);
+    absmyh_p = myh_p.abs();
+    argmyh_p = myh_p.arg();
+    
+    absmyh_m = myh_m.abs();
+    argmyh_m = myh_m.arg();
+    
+    absmyh_0_1 = myh_0_1.abs();
+    argmyh_0_1 = myh_0_1.arg();
+    
+    absmyh_p_1 = myh_p_1.abs();
+    argmyh_p_1 = myh_p_1.arg();
+    
+    absmyh_m_1 = myh_m_1.abs();
+    argmyh_m_1 = myh_m_1.arg();
+    
+    absmyh_0_2 = myh_0_2.abs();
+    argmyh_0_2 = myh_0_2.arg();
+    
+    absmyh_p_2 = myh_p_2.abs();
+    argmyh_p_2 = myh_p_2.arg();
+    
+    absmyh_m_2 = myh_m_2.abs();
+    argmyh_m_2 = myh_m_2.arg();
+    
+//    myh_0 = gslpp::complex(reh_0,imh_0,true);
+//    myh_p = gslpp::complex(reh_p,imh_p,true);
+//    myh_m = gslpp::complex(reh_m,imh_m,true);
+//    
+//    myh_0_1 = gslpp::complex(reh_0_1,imh_0_1,true);
+//    myh_p_1 = gslpp::complex(reh_p_1,imh_p_1,true);
+//    myh_m_1 = gslpp::complex(reh_m_1,imh_m_1,true);
+//    
+//    myh_0_2 = gslpp::complex(reh_0_2,imh_0_2,true);
+//    myh_p_2 = gslpp::complex(reh_p_2,imh_p_2,true);
+//    myh_m_2 = gslpp::complex(reh_m_2,imh_m_2,true);
     
     return (true);
 }
