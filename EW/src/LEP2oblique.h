@@ -9,10 +9,7 @@
 #define	LEP2OBLIQUE_H
 
 #include <stdexcept>
-#include <gslpp.h>
-#include <StandardModel.h>
-
-using namespace gslpp;
+#include "StandardModel.h"
 
 /**
  * @class LEP2oblique

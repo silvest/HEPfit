@@ -62,7 +62,7 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     Cov = new gslpp::matrix<double>(size, size, 0.);
     for (unsigned int i = 0; i < size; i++)
         for (unsigned int j = 0; j < size; j++)
-            (*Cov)(i, j) = Pars.at(i).errg * Corr(i, j) * Pars.at(j).errg;
+            (*Cov)(i, j) = Pars.at(i).geterrg() * Corr(i, j) * Pars.at(j).geterrg();
 
     *Cov = Cov->inverse();
     
@@ -81,7 +81,7 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     int ind = 0;
     for(std::vector<ModelParameter>::iterator it = Pars.begin(); it != Pars.end(); it++)
     {
-        ave_in(ind) = it->ave;
+        ave_in(ind) = it->getave();
         ind++;
     }
     
@@ -98,30 +98,30 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     }
 }
 
-std::vector<double> CorrelatedGaussianParameters::getOrigParsValue(const std::vector<double>& DiagPars_i) const
-    {
-        if (DiagPars_i.size() != DiagPars.size()) {
-            std::stringstream out;
-            out << DiagPars_i.size();
-            throw std::runtime_error("CorrelatedGaussianParameters::getOrigParsValue(DiagPars_i): DiagPars_i.size() = " + out.str() + " does not match the size of DiagPars");
-        }
-        gslpp::vector<double> pars_in(DiagPars_i.size(), 0.);
-
-        int ind = 0;
-        for (std::vector<double>::const_iterator it = DiagPars_i.begin(); it != DiagPars_i.end(); it++) {
-            pars_in(ind) = *it;
-            ind++;
-        }
-
-        gslpp::vector<double> val = (*v) * pars_in;
-
-        std::vector<double> res;
-
-        for (unsigned int i = 0; i < DiagPars_i.size(); i++) {
-            res.push_back(val(i));
-        }
-        return (res);
+std::vector<double> CorrelatedGaussianParameters::getOrigParsValue(const std::vector<double>& DiagPars_i) const 
+{
+    if (DiagPars_i.size() != DiagPars.size()) {
+        std::stringstream out;
+        out << DiagPars_i.size();
+        throw std::runtime_error("CorrelatedGaussianParameters::getOrigParsValue(DiagPars_i): DiagPars_i.size() = " + out.str() + " does not match the size of DiagPars");
     }
+    gslpp::vector<double> pars_in(DiagPars_i.size(), 0.);
+
+    int ind = 0;
+    for (std::vector<double>::const_iterator it = DiagPars_i.begin(); it != DiagPars_i.end(); it++) {
+        pars_in(ind) = *it;
+        ind++;
+    }
+
+    gslpp::vector<double> val = (*v) * pars_in;
+
+    std::vector<double> res;
+
+    for (unsigned int i = 0; i < DiagPars_i.size(); i++) {
+        res.push_back(val(i));
+    }
+    return (res);
+}
 
 int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars, 
                                             std::string& filename,
@@ -135,22 +135,22 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
     int size = atoi((*beg).c_str());
     int nlines = 0;
     std::string line;
-    bool IsEOF;
     boost::char_separator<char>sep(" \t");
     for (int i = 0; i < size; i++) {
         IsEOF = getline(ifile, line).eof();
         if (line.empty() || line.at(0) == '#') {
-            if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianParameters please!"
-                    << std::endl;
-            exit(EXIT_FAILURE);
+            if (rank == 0) throw std::runtime_error("ERROR: no comments or empty lines in CorrelatedGaussianParameters please! In line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename);
+            else sleep(2);
         }
         lineNo++;
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         beg = tok.begin();
         std::string type = *beg;
         ++beg;
-        if (type.compare("ModelParameter") != 0)
+        if (type.compare("ModelParameter") != 0){
             if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting a ModelParameter type here...\n");
+            else sleep(2);
+        }
         ModelParameter tmpMP;
         beg = tmpMP.ParseModelParameter(beg);
         if (beg != tok.end())
@@ -165,9 +165,8 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
         for (int i = 0; i < size; i++) {
             IsEOF = getline(ifile, line).eof();
             if (line.empty() || line.at(0) == '#') {
-                if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianParameters please!"
-                        << std::endl;
-                exit(EXIT_FAILURE);
+                if (rank == 0) throw std::runtime_error("ERROR: no comments or empty lines in CorrelatedGaussianParameters please! In line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename);
+                else sleep(2);
             }
             lineNo++;
             boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
@@ -177,7 +176,10 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
                 if ((*beg).compare(0, 1, "0") == 0
                         || (*beg).compare(0, 1, "1") == 0
                         || (*beg).compare(0, 1, "-") == 0) {
-                    if (std::distance(mytok.begin(), mytok.end()) < size && rank == 0) throw std::runtime_error(("ERROR: Correlation matrix is of wrong size in Correlated Gaussian Parameters: " + name).c_str());
+                    if (std::distance(mytok.begin(), mytok.end()) < size) { 
+                        if (rank == 0) throw std::runtime_error("ERROR: invalid correlation matrix for " + name + ". Check element (" + boost::lexical_cast<std::string>(ni + 1) + "," + boost::lexical_cast<std::string>(nj + 1) + ") in line number " + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
+                        else sleep(2);
+                    }
                     myCorr(ni, nj) = atof((*beg).c_str());
                     nj++;
                     beg++;

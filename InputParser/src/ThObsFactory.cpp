@@ -1,15 +1,23 @@
+/* 
+ * Copyright (C) 2012 HEPfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
+ */
+
 #include "ThObsFactory.h"
+#include "ThObservable.h"
+#include "ParamObs.h"
+#include "EWObservables.h"
+#include "HiggsThObservables.h"
+#include "FlavourObservables.h"
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+#include "LeptonFlavourObservables.h"
+#include "SUSYObservables.h"
+#include "THDMObservables.h"
+/** END: REMOVE FROM THE PACKAGE **/
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
-#include <ParamObs.h>
-#include <EWObservables.h>
-#include <HiggsThObservables.h>
-#include <FlavourObservables.h>
-/** BEGIN: REMOVE FROM THE PACKAGE **/
-#include <LeptonFlavourObservables.h>
-#include <SUSYObservables.h>
-#include <THDMObservables.h>
-/** END: REMOVE FROM THE PACKAGE **/
 
 ThObsFactory::ThObsFactory()
 {
@@ -301,7 +309,6 @@ ThObsFactory::ThObsFactory()
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  SUSY spectra and observables  -----
-    obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(); // for debug
     obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);
     obsThFactory["MHh"] = boost::bind(boost::factory<Mhiggs*>(), _1, 1);
     obsThFactory["MHa"] = boost::bind(boost::factory<Mhiggs*>(), _1, 2);
@@ -324,26 +331,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Mneu2"] = boost::bind(boost::factory<Mneutralino*>(), _1, 1);
     obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
     obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
-    obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>();
     /** END: REMOVE FROM THE PACKAGE **/
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  THDM observables  -----
-    obsThFactory["AlTHDM"] = boost::factory<AlTHDM*>();
-    obsThFactory["PpoltauTHDM"] = boost::factory<PpoltauTHDM*>();
-    obsThFactory["AcTHDM"] = boost::factory<AcTHDM*>();
-    obsThFactory["AbTHDM"] = boost::factory<AbTHDM*>();
-    obsThFactory["AFBl0THDM"] = boost::factory<AFBl0THDM*>();
-    obsThFactory["AFBc0THDM"] = boost::factory<AFBc0THDM*>();
-    obsThFactory["AFBb0THDM"] = boost::factory<AFBb0THDM*>();
-    obsThFactory["GammaZTHDM"] = boost::factory<GammaZTHDM*>();
-    obsThFactory["Rl0THDM"] = boost::factory<Rl0THDM*>();
-    obsThFactory["Rc0THDM"] = boost::factory<Rc0THDM*>();
-    obsThFactory["Rb0THDM"] = boost::factory<Rb0THDM*>();
-    obsThFactory["SigmahadTHDM"] = boost::factory<SigmahadTHDM*>();
-    obsThFactory["GammaWTHDM"] = boost::factory<GammaWTHDM*>();
-    obsThFactory["sinthetaeffl_2THDM"] = boost::factory<sinthetaeffl_2THDM*>();
-    obsThFactory["MWTHDM"] = boost::factory<MWTHDM*>();
     obsThFactory["globalminimum"] = boost::factory<globalminimum*>();
 
     obsThFactory["ggF_tth_htobb"] = boost::factory<ggF_tth_htobb*>();

@@ -148,35 +148,35 @@ void MonteCarloEngine::DefineParameters() {
     int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin();
             it < ModPars.end(); it++) {
-        if (it->errf == 0. && it->errg == 0.)
+        if (it->geterrf() == 0. && it->geterrg() == 0.)
             continue;
-        AddParameter(it->name.c_str(), it->min, it->max);
-        if (rank == 0) std::cout << "  " << it->name << " " << k << std::endl;
+        AddParameter(it->getname().c_str(), it->getmin(), it->getmax());
+        if (rank == 0) std::cout << "  " << it->getname() << " " << k << std::endl;
         if (it->IsCorrelated()) {
             for (int i = 0; i < CGP.size(); i++) {
                 if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                    std::string index = it->name.substr(CGP[i].getName().size());
+                    std::string index = it->getname().substr(CGP[i].getName().size());
                     long int lindex = strtol(index.c_str(),NULL,10);
                     if (lindex > 0)
-                        DPars[CGP[i].getPar(lindex - 1).name] = 0.;
+                        DPars[CGP[i].getPar(lindex - 1).getname()] = 0.;
                     else {
                         std::stringstream out;
-                        out << it->name;
+                        out << it->getname();
                         throw std::runtime_error("MonteCarloEngine::DefineParameters(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
                     }
                 }
             }
         } else
-            DPars[it->name] = 0.;
-        if (it->errf == 0.) SetPriorGauss(k, it->ave, it->errg);
-        else if (it->errg == 0.) SetPriorConstant(k);
+            DPars[it->getname()] = 0.;
+        if (it->geterrf() == 0.) SetPriorGauss(k, it->getave(), it->geterrg());
+        else if (it->geterrg() == 0.) SetPriorConstant(k);
         else {
-            TF1 * combined = new TF1(it->name.c_str(),
+            TF1 * combined = new TF1(it->getname().c_str(),
                     "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
-                    it->min, it->max);
-            combined->SetParameter(0, it->ave);
-            combined->SetParameter(1, it->errg);
-            combined->SetParameter(2, it->errf);
+                    it->getmin(), it->getmax());
+            combined->SetParameter(0, it->getave());
+            combined->SetParameter(1, it->geterrg());
+            combined->SetParameter(2, it->geterrf());
             SetPrior(k, combined);
             delete combined;
         }
@@ -191,27 +191,27 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
 
     unsigned int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it < ModPars.end(); it++){
-        if(it->isFixed)
+        if(it->IsFixed())
             continue;
-        if(it->name.compare(GetParameter(k)->GetName()) != 0)
+        if(it->getname().compare(GetParameter(k)->GetName()) != 0)
             {
                         std::stringstream out;
-                        out << it->name;
+                        out << it->getname();
                         throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + "is sitting at the wrong position in the BAT parameters vector");
                     }
         if (it->IsCorrelated()) {
-            std::string index = it->name.substr(it->getCgp_name().size());
+            std::string index = it->getname().substr(it->getCgp_name().size());
             long int lindex = strtol(index.c_str(),NULL,10);
             if (lindex - 1 == cgpmap[it->getCgp_name()].size())
                 cgpmap[it->getCgp_name()].push_back(parameters[k]);
             else {
                 std::stringstream out;
-                out << it->name << " " << lindex;
+                out << it->getname() << " " << lindex;
                 throw std::runtime_error("MonteCarloEngine::setDParsFromParameters(): " + out.str() + "seems to be a CorrelatedGaussianParameters object but the corresponding parameters are missing or not in the right order");
             }
 
         } else
-            DPars_i[it->name] = parameters[k];
+            DPars_i[it->getname()] = parameters[k];
         k++;
     }
 
@@ -226,7 +226,7 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
         std::vector<double> porig = CGP[j].getOrigParsValue(current);
 
         for(int l = 0; l < porig.size(); l++) {
-            DPars_i[CGP[j].getPar(l).name] = porig[l];
+            DPars_i[CGP[j].getPar(l).getname()] = porig[l];
         }
         
 
@@ -524,7 +524,10 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir) {
     std::vector<double> mode(GetBestFitParameters());
-    if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
+    if (mode.size() == 0) {
+        if (rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
+        else sleep(2);
+    }
     setDParsFromParameters(mode,DPars);
 
     Mod->Update(DPars);
@@ -612,7 +615,10 @@ void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename) {
 
 std::string MonteCarloEngine::computeStatistics() {
     std::vector<double> mode(GetBestFitParameters());
-    if (mode.size() == 0 && rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
+    if (mode.size() == 0) {
+        if(rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
+        else sleep (2);
+    }
     std::ostringstream StatsLog;
     int i = 0;
     StatsLog << "Statistics file for Observables, Binned Observables and Corellated Gaussian Observables.\n" << std::endl;
@@ -622,6 +628,9 @@ std::string MonteCarloEngine::computeStatistics() {
         if (it->getObsType().compare("BinnedObservable") == 0) {
             StatsLog << "  (" << ++i << ") Binned Observable \"";
             StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << ", " << it->getTho()->getBinMax() << "]" << "\":";
+        } else if (it->getObsType().compare("FunctionObservable") == 0) {
+            StatsLog << "  (" << ++i << ") Function Observable \"";
+            StatsLog << it->getName() << "[" << it->getTho()->getBinMin() << "]" << "\":";
         } else if (it->getObsType().compare("HiggsObservable") == 0) {
             StatsLog << "  (" << ++i << ") Higgs Observable \"";
             StatsLog << it->getName() << "\":";
@@ -688,6 +697,9 @@ std::string MonteCarloEngine::computeStatistics() {
             if (it2->getObsType().compare("BinnedObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Binned Observable \"";
                 StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << ", " << it2->getTho()->getBinMax() << "]" << "\":";
+            } else if (it2->getObsType().compare("FunctionObservable") == 0) {
+                StatsLog << "  (" << ++i << ") Function Observable \"";
+                StatsLog << it2->getName() << "[" << it2->getTho()->getBinMin() << "]" << "\":";
             } else if (it2->getObsType().compare("HiggsObservable") == 0) {
                 StatsLog << "  (" << ++i << ") Higgs Observable \"";
                 StatsLog << it2->getName() << "\":";

@@ -27,10 +27,11 @@
  * compute the observables relative to the @f$M \to P l^+ l^-@f$ decay. After the
  * parameters are updated in updateParameters() and the cache is checked in 
  * checkCache(), the form factor are build in the transverse basis in the functions
- * f_plus(), f_0() and f_T(). They are consequentely translated in the helicity basis through the
+ * f_plus(), f_0() and f_T() @cite Ball:2004ye. Following @cite Jager:2012uw, 
+ * they are consequentely translated in the helicity basis through the
  * functions V_L(), V_R(), T_L(), T_R(), S_L() and S_R(). Form factors and parameters
  * are combined together in the functions H_V(), H_A(), H_S() and H_P() in order
- * to build the helicity aplitudes, which are consequentely combined to create
+ * to build the helicity amplitudes, which are consequentely combined to create
  * the angular coefficients in the function I(). Those coefficients are used to
  * create the CP averaged coefficients in the function Sigma() ad the CP asymmetric
  * coefficients in the function Delta(). Form factors, CP averaged and asymmetric

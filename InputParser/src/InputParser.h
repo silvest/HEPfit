@@ -10,14 +10,14 @@
 
 #include "ThObsFactory.h"
 #include "ModelFactory.h"
-#include <Observable.h>
-#include <Observable2D.h>
-#include <CorrelatedGaussianObservables.h>
-#include <CorrelatedGaussianParameters.h>
-#include <HiggsObservable.h>
-#include <ThObservable.h>
-#include <ModelParameter.h>
-#include <StandardModel.h>
+#include "Observable.h"
+#include "Observable2D.h"
+#include "CorrelatedGaussianObservables.h"
+#include "CorrelatedGaussianParameters.h"
+#include "HiggsObservable.h"
+#include "ThObservable.h"
+#include "ModelParameter.h"
+#include "StandardModel.h"
 #include <iostream>
 #include <fstream>
 #include <istream>
@@ -64,20 +64,6 @@ public:
      * @brief The default destructor.
      */
     virtual ~InputParser();
-
-    /**
-     * @brief The member that parses the Observable directives from SomeModel.conf file
-     * @param[in] type a string for the type of Observable
-     * @param[in] beg an iterator over words in a line separated by a specific separator character
-     */
-    Observable* ParseObservable(std::string& type, boost::tokenizer<boost::char_separator<char> >::iterator & beg);
-        
-    /**
-     * @brief The member that parses the HiggsObservable directives from SomeModel.conf file
-     * @param[in] ho a pointer to a HiggsObservable object
-     * @param[in] beg an iterator over words in a line separated by a specific separator character
-     */
-    void ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<boost::char_separator<char> >::iterator & beg);
     
     /**
      * @brief The member that parses the Observable2D directives from SomeModel.conf file
@@ -85,7 +71,7 @@ public:
      * @param[in] ifile the file being read
      * @param[in] beg an iterator over words in a line separated by a specific separator character
      */
-    CorrelatedGaussianObservables ParseCGO(boost::ptr_vector<Observable>& Observables, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
+//    CorrelatedGaussianObservables ParseCGO(boost::ptr_vector<Observable>& Observables, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg);
     
     /**
      * @brief Responsible for parsing the SomeModel.conf file.
@@ -134,16 +120,10 @@ public:
     ModelFactory& getModelFactory() const {
         return myModelFactory;
     }
-
-    void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
     
-    void addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct);
+    void addCustomObservableType(const std::string name, boost::function<Observable*() > funct);
     
-    void linkParserToObservable(std::string name_obs, std::string name_par);
-    
-    InputParser * CreateCustomParser(const std::string& name) const;
-    
-    Observable * CreateObservableType(const std::string& name, Observable& obs_i) const;
+    Observable * CreateObservableType(const std::string& name) const;
     
     void setModel(StandardModel* myModel_i){
         myModel = myModel_i;
@@ -157,9 +137,9 @@ private:
     bool modelset;
     std::map <std::string, boost::tuple<bool, std::string, int> > checkDuplicateParameter;
     std::string modeldefinedinfile;
-    std::map<std::string, boost::function<InputParser*(ModelFactory&, ThObsFactory&) > > customParserMap;
-    std::map<std::string, boost::function<Observable*(Observable&) > > customObservableTypeMap;
-    std::map<std::string, std::string> ObservableToParsermap;
+    //std::map<std::string, boost::function<InputParser*(ModelFactory&, ThObsFactory&) > > customParserMap;
+    std::map<std::string, boost::function<Observable* ()> > customObservableTypeMap;
+    //std::map<std::string, std::string> ObservableToParsermap;
     int lineNo;
     std::string filename;
     int rank;

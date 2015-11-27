@@ -8,8 +8,8 @@
 #ifndef FLAVOURWILSONCOEFFICIENT_H
 #define	FLAVOURWILSONCOEFFICIENT_H
 
-#include <StandardModel.h>
-#include <gslpp.h>
+#include "StandardModel.h"
+#include "gslpp.h"
 #include "FlavourWilsonCoefficientMatching.h"
 
 /**

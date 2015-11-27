@@ -6,13 +6,13 @@
  */
 
 #include "MonteCarlo.h"
+#include "ModelFactory.h"
+#include "ThObsFactory.h"
 #include <BAT/BCParameter.h>
 #include <TSystem.h>
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
-#include <ModelFactory.h>
-#include <ThObsFactory.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -52,6 +52,7 @@ MonteCarlo::MonteCarlo(
 void MonteCarlo::TestRun(int rank) {
     if (checkrun == true) {
         if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::TestRun() cannot be called after calling MonteCarlo::Run().\n");
+        else sleep (2);
     } else {
         checkrun = true;
     }
@@ -65,23 +66,24 @@ void MonteCarlo::TestRun(int rank) {
             if (it->IsCorrelated()) {
                 for (int i = 0; i < CGP.size(); i++) {
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                        std::string index = it->name.substr(CGP[i].getName().size());
+                        std::string index = it->getname().substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
                         if (lindex > 0)
-                            DP[CGP[i].getPar(lindex - 1).name] = CGP[i].getPar(lindex - 1).ave;
+                            DP[CGP[i].getPar(lindex - 1).getname()] = CGP[i].getPar(lindex - 1).getave();
                         else {
                             std::stringstream out;
-                            out << it->name;
+                            out << it->getname();
                             throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
                         }
                     }
                 }
             } else
-                DP[it->name] = it->ave;
+                DP[it->getname()] = it->getave();
         }
 
         if (!myInputParser.getModel()->Init(DP)) {
             if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
+            else sleep (2);
         }
 
         if (Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
@@ -106,6 +108,7 @@ void MonteCarlo::TestRun(int rank) {
 void MonteCarlo::Run(const int rank) {
     if (checkrun == true) {
         if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::Run() cannot be called after calling MonteCarlo::TestRun().\n");
+        else sleep(2);
     } else {
         checkrun = true;
     }
@@ -117,30 +120,34 @@ void MonteCarlo::Run(const int rank) {
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-            if (it->errg > 0. || it->errf > 0.)
+            if (it->geterrg() > 0. || it->geterrf() > 0.)
                 buffsize++;
             if (it->IsCorrelated()) {
                 for (int i = 0; i < CGP.size(); i++) {
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                        std::string index = it->name.substr(CGP[i].getName().size());
+                        std::string index = it->getname().substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
                         if (lindex > 0)
-                            DP[CGP[i].getPar(lindex - 1).name] = CGP[i].getPar(lindex - 1).ave;
+                            DP[CGP[i].getPar(lindex - 1).getname()] = CGP[i].getPar(lindex - 1).getave();
                         else {
                             std::stringstream out;
-                            out << it->name;
+                            out << it->getname();
                             throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
                         }
                     }
                 }
             } else
-                DP[it->name] = it->ave;
+                DP[it->getname()] = it->getave();
         }
-        if (buffsize == 0)
+        if (buffsize == 0){
             if (rank == 0) throw std::runtime_error("No parameters being varied. Aborting MCMC run.\n");
+            else sleep(2);
+        }
         buffsize++;
-        if (!myInputParser.getModel()->Init(DP))
-            if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
+        if (!myInputParser.getModel()->Init(DP)){
+            if (rank == 0) throw std::runtime_error("\nERROR: Model cannot be initialization.\n");
+            else sleep(2);
+        }
 
         if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 
@@ -470,14 +477,7 @@ void MonteCarlo::ReadPreRunData(std::string file)
     MCEngine.MCMCSetInitialPositions(mode_all);
     MCEngine.MCMCSetTrialFunctionScaleFactor(scale_all);
 }
-void MonteCarlo::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct) {
-    myInputParser.addCustomParser(name, funct);
-}
 
-void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct) {
+void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*() > funct) {
     myInputParser.addCustomObservableType(name, funct);
-}
-
-void MonteCarlo::linkParserToObservable(std::string name_par, std::string name_obs) {
-    myInputParser.linkParserToObservable(name_par, name_obs);
 }

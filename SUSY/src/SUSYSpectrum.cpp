@@ -275,51 +275,56 @@ bool SUSYSpectrum::CalcSelectron(gslpp::matrix<gslpp::complex>& Rl_i, gslpp::vec
     Me(1, 1) = mySUSY.Ml_Q(mySUSY.MU);
     Me(2, 2) = mySUSY.Ml_Q(mySUSY.TAU);
 
-    //  this section is useful to re-define the slepton matrix...
-    
-//                double delta12=0.;
-//                double delta13=0.1;
-//                double delta23=0.1;
-//                gslpp::complex sLmass=mySUSY.msLhat2(0,0);
-//                gslpp::matrix<gslpp::complex> msLhat2modified(3,3,0.);
-//                    msLhat2modified.assign(0, 0, sLmass);
-//                    msLhat2modified.assign(1, 1, sLmass);
-//                    msLhat2modified.assign(2, 2, sLmass);
-//                    msLhat2modified.assign(0, 1, 0.);
-//                    msLhat2modified.assign(1, 0, 0.);
-//                    msLhat2modified.assign(0, 2, delta13*sLmass);
-//                    msLhat2modified.assign(2, 0, delta13*sLmass);
-//                    msLhat2modified.assign(1, 2, delta23*sLmass);
-//                    msLhat2modified.assign(2, 1, delta23*sLmass);
-//                gslpp::matrix<gslpp::complex> msEhat2modified(3,3,0.);
-//                    msEhat2modified.assign(0, 0, sLmass);
-//                    msEhat2modified.assign(1, 1, sLmass);
-//                    msEhat2modified.assign(2, 2, sLmass);
-//                    msEhat2modified.assign(0, 1, 0.);
-//                    msEhat2modified.assign(1, 0, 0.);
-//                    msEhat2modified.assign(0, 2, 0.);
-//                    msEhat2modified.assign(2, 0, 0.);
-//                    msEhat2modified.assign(1, 2, 0.);
-//                    msEhat2modified.assign(2, 1, 0.);
-//                gslpp::matrix<gslpp::complex> eLL( msLhat2modified + Me * Me
-//                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
-//                gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
-//                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
-//                gslpp::matrix<gslpp::complex> eRR( msEhat2modified + Me * Me - cos2b * Mz2 * sW2 * Id3 ); /*and this*/
+    //  this section is useful to re-define the slepton matrix
+    //if you want to use deltas, use this...
+                double delta12=0.1;
+                double delta13=0.;
+                double delta23=0.;
+                gslpp::complex sLmass=mySUSY.msLhat2(0,0);
+                gslpp::matrix<gslpp::complex> msLhat2modified(3,3,0.);
+                    msLhat2modified.assign(0, 0, sLmass);
+                    msLhat2modified.assign(1, 1, sLmass);
+                    msLhat2modified.assign(2, 2, sLmass);
+                    msLhat2modified.assign(0, 1, delta12*sLmass);
+                    msLhat2modified.assign(1, 0, delta12*sLmass);
+                    msLhat2modified.assign(0, 2, 0.);
+                    msLhat2modified.assign(2, 0, 0.);
+                    msLhat2modified.assign(1, 2, 0.);
+                    msLhat2modified.assign(2, 1, 0.);
+                gslpp::matrix<gslpp::complex> msEhat2modified(3,3,0.);
+                    msEhat2modified.assign(0, 0, sLmass);
+                    msEhat2modified.assign(1, 1, sLmass);
+                    msEhat2modified.assign(2, 2, sLmass);
+                    msEhat2modified.assign(0, 1, 0.);
+                    msEhat2modified.assign(1, 0, 0.);
+                    msEhat2modified.assign(0, 2, 0.);
+                    msEhat2modified.assign(2, 0, 0.);
+                    msEhat2modified.assign(1, 2, 0.);
+                    msEhat2modified.assign(2, 1, 0.);
+                gslpp::matrix<gslpp::complex> eLL( msLhat2modified + Me * Me
+                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
+                gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
+                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
+                gslpp::matrix<gslpp::complex> eRR( msEhat2modified + Me * Me - cos2b * Mz2 * sW2 * Id3 );
 
     // ... until here
+    //else use the following...
+//    gslpp::matrix<gslpp::complex> eLL( mySUSY.msLhat2 + Me * Me
+//                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
+//    gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
+//                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
+//    gslpp::matrix<gslpp::complex> eRR( mySUSY.msEhat2 + Me * Me - cos2b * Mz2 * sW2 * Id3 );
+    // ... until here
 
-    gslpp::matrix<gslpp::complex> eLL( mySUSY.msLhat2 + Me * Me
-                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
-    gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
-                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
-    gslpp::matrix<gslpp::complex> eRR( mySUSY.msEhat2 + Me * Me - cos2b * Mz2 * sW2 * Id3 );
-    for(int i = 0; i < 3; i++)
-        for(int j = 0; j < 3; j++) {
-            Mselectron2.assign(i,   j,   eLL(i,j));
-            Mselectron2.assign(i,   j+3, eLR(i,j));
-            Mselectron2.assign(i+3, j,   eLR(j,i).conjugate());
-            Mselectron2.assign(i+3, j+3, eRR(i,j));
+        for(int i = 0; i < 3; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                Mselectron2.assign(i,   j,   eLL(i,j));
+                Mselectron2.assign(i,   j+3, eLR(i,j));
+                Mselectron2.assign(i+3, j,   eLR(j,i).conjugate());
+                Mselectron2.assign(i+3, j+3, eRR(i,j));
+            }
         }
 
     /*
@@ -334,15 +339,26 @@ bool SUSYSpectrum::CalcSelectron(gslpp::matrix<gslpp::complex>& Rl_i, gslpp::vec
     return true;
 
 }
-//
-//bool SUSYSpectrum::CalcSpectrum()
-//{
-//    CalcHiggs();
-//    CalcChargino();
-//    CalcNeutralino();
-//    CalcSup();
-//    CalcSdown();
-////    CalcSneutrino();
-//    CalcSelectron();
-//    return true;
-//}
+
+void SUSYSpectrum::SortSfermionMasses(gslpp::vector<double>& m_sf2, gslpp::matrix<gslpp::complex>& Rf) const
+{
+    int newIndex[6];
+    for (int i = 0; i < 6; i++)
+        newIndex[i] = i;
+
+    /* sort sfermion masses in increasing order */
+    for (int i = 0; i < 5; i++)
+        for (int k = i + 1; k < 6; k++)
+            if (m_sf2(i) > m_sf2(k)) {
+                std::swap(m_sf2(i), m_sf2(k));
+                std::swap(newIndex[i], newIndex[k]);
+            }
+
+    /* sort the corresponding rotation matrix, where the first(second) index
+     * denotes mass(gauge) eigenstates. */
+    gslpp::matrix<gslpp::complex> myRf(6, 6, 0.);
+    for (int i = 0; i < 6; i++)
+        for (int k = 0; k < 6; k++)
+            myRf.assign(k, i, Rf(newIndex[k], i));
+    Rf = myRf;
+}

@@ -70,8 +70,8 @@ Ye(3, 3, 0.)
     for (int i = 0; i < 12; ++i) {
         useRhoZ_f_cache[i] = false;
         useKappaZ_f_cache[i] = false;
-        rhoZ_f_cache[i] = complex(0.0, 0.0, false);
-        kappaZ_f_cache[i] = complex(0.0, 0.0, false);
+        rhoZ_f_cache[i] = gslpp::complex(0.0, 0.0, false);
+        kappaZ_f_cache[i] = gslpp::complex(0.0, 0.0, false);
     }
 
     myEWSMcache = NULL;
@@ -334,7 +334,7 @@ void StandardModel::computeCKM()
         myCKM.setWolfenstein(lambda, A, rhob, etab);
         myCKM.getCKM(VCKM);
     }
-    UPMNS = matrix<complex>::Id(3);
+    UPMNS = gslpp::matrix<gslpp::complex>::Id(3);
 }
 
 void StandardModel::computeYukawas()
@@ -343,23 +343,23 @@ void StandardModel::computeYukawas()
      *   The Yukawa matrices have to be computed at a common scale
      *   for all the fermions!!! */
     if (requireYu || requireCKM) {
-        Yu = matrix<complex>::Id(3);
+        Yu = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
         Yu = VCKM.transpose() * Yu;
     }
     if (requireYd) {
-        Yd = matrix<complex>::Id(3);
+        Yd = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yd.assign(i, i, this->quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
     }
     if (requireYe) {
-        Ye = matrix<complex>::Id(3);
+        Ye = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Ye.assign(i, i, this->leptons[ELECTRON + 2 * i].getMass() / v() * sqrt(2.));
     }
     if (requireYn) {
-        Yn = matrix<complex>::Id(3);
+        Yn = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
         Yn = Yn * UPMNS.hconjugate();
@@ -506,47 +506,47 @@ double StandardModel::computeBetas() const
 
 // Lambda_q
 
-complex StandardModel::computelamt() const
+gslpp::complex StandardModel::computelamt() const
 {
     return VCKM(2, 0) * VCKM(2, 1).conjugate();
 }
 
-complex StandardModel::computelamc() const
+gslpp::complex StandardModel::computelamc() const
 {
     return VCKM(1, 0) * VCKM(1, 1).conjugate();
 }
 
-complex StandardModel::computelamu() const
+gslpp::complex StandardModel::computelamu() const
 {
     return VCKM(0, 0) * VCKM(0, 1).conjugate();
 }
 
-complex StandardModel::computelamt_d() const
+gslpp::complex StandardModel::computelamt_d() const
 {
     return VCKM(2, 0) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::computelamc_d() const
+gslpp::complex StandardModel::computelamc_d() const
 {
     return VCKM(1, 0) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::computelamu_d() const
+gslpp::complex StandardModel::computelamu_d() const
 {
     return VCKM(0, 0) * VCKM(0, 2).conjugate();
 }
 
-complex StandardModel::computelamt_s() const
+gslpp::complex StandardModel::computelamt_s() const
 {
     return VCKM(2, 1) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::computelamc_s() const
+gslpp::complex StandardModel::computelamc_s() const
 {
     return VCKM(1, 1) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::computelamu_s() const
+gslpp::complex StandardModel::computelamu_s() const
 {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
@@ -893,15 +893,15 @@ double StandardModel::GammaW(const Particle fi, const Particle fj) const
         throw std::runtime_error("Error in StandardModel::GammaW()");
 
     double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
-    complex V(0.0, 0.0, false);
+    gslpp::complex V(0.0, 0.0, false);
 
     if (fi.is("TOP"))
         return (0.0);
 
     if (fj.getIndex() - fi.getIndex() == 1)
-        V = complex(1.0, 0.0, false);
+        V = gslpp::complex(1.0, 0.0, false);
     else
-        V = complex(0.0, 0.0, false);
+        V = gslpp::complex(0.0, 0.0, false);
 
     if (fi.is("LEPTON"))
         return ( V.abs2() * G0 * rho_GammaW(fi, fj));
@@ -972,8 +972,8 @@ double StandardModel::GammaZ(const Particle f) const
         else
             throw std::runtime_error("Error in StandardModel::GammaZ()");
     } else {
-        complex myrhoZ_f = rhoZ_f(f);
-        complex gV_over_gA = gV_f(f) / gA_f(f);
+        gslpp::complex myrhoZ_f = rhoZ_f(f);
+        gslpp::complex gV_over_gA = gV_f(f) / gA_f(f);
         double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
         if (f.is("LEPTON")) {
             double myalphaMz = alphaMz();
@@ -1061,20 +1061,20 @@ double StandardModel::R0_f(const Particle f) const
 
 ////////////////////////////////////////////////////////////////////////
 
-complex StandardModel::gV_f(const Particle f) const
+gslpp::complex StandardModel::gV_f(const Particle f) const
 {
     return ( gA_f(f)
             *(1.0 - 4.0 * fabs(f.getCharge())*(kappaZ_f(f)) * sW2()));
 }
 
-complex StandardModel::gA_f(const Particle f) const
+gslpp::complex StandardModel::gA_f(const Particle f) const
 {
     return ( sqrt(rhoZ_f(f)) * f.getIsospin());
 }
 
-complex StandardModel::rhoZ_f(const Particle f) const
+gslpp::complex StandardModel::rhoZ_f(const Particle f) const
 {
-    if (f.getName().compare("TOP") == 0) return (complex(0.0, 0.0, false));
+    if (f.getName().compare("TOP") == 0) return (gslpp::complex(0.0, 0.0, false));
     if (FlagRhoZ.compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f");
     else {
@@ -1090,30 +1090,30 @@ complex StandardModel::rhoZ_f(const Particle f) const
         ComputeDeltaRho(myMw, DeltaRho);
 
         /* compute delta rho_rem^f */
-        complex deltaRho_remf[orders_EW_size];
-        deltaRho_remf[EW1] = complex(0.0, 0.0, false);
-        deltaRho_remf[EW1QCD1] = complex(0.0, 0.0, false);
-        deltaRho_remf[EW1QCD2] = complex(0.0, 0.0, false);
-        deltaRho_remf[EW2] = complex(0.0, 0.0, false);
-        deltaRho_remf[EW2QCD1] = complex(0.0, 0.0, false);
-        deltaRho_remf[EW3] = complex(0.0, 0.0, false);
+        gslpp::complex deltaRho_remf[orders_EW_size];
+        deltaRho_remf[EW1] = gslpp::complex(0.0, 0.0, false);
+        deltaRho_remf[EW1QCD1] = gslpp::complex(0.0, 0.0, false);
+        deltaRho_remf[EW1QCD2] = gslpp::complex(0.0, 0.0, false);
+        deltaRho_remf[EW2] = gslpp::complex(0.0, 0.0, false);
+        deltaRho_remf[EW2QCD1] = gslpp::complex(0.0, 0.0, false);
+        deltaRho_remf[EW3] = gslpp::complex(0.0, 0.0, false);
         if (flag_order[EW1])
             deltaRho_remf[EW1] = myOneLoopEW->deltaRho_rem_f(f, myMw);
         if (flag_order[EW1QCD1])
 #ifdef WITHIMTWOLOOPQCD
-            deltaRho_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_f(f, myMw).real(),
+            deltaRho_remf[EW1QCD1] = gslpp::complex(myTwoLoopQCD->deltaRho_rem_f(f, myMw).real(),
                 myTwoLoopQCD->deltaRho_rem_f(f, myMw).imag(), false);
 #else
-            deltaRho_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
+            deltaRho_remf[EW1QCD1] = gslpp::complex(myTwoLoopQCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
 #endif
         if (flag_order[EW1QCD2])
-            deltaRho_remf[EW1QCD2] = complex(myThreeLoopQCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
+            deltaRho_remf[EW1QCD2] = gslpp::complex(myThreeLoopQCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2])
-            deltaRho_remf[EW2] = complex(myTwoLoopEW->deltaRho_rem_f(f, myMw).real(), 0.0, false);
+            deltaRho_remf[EW2] = gslpp::complex(myTwoLoopEW->deltaRho_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2QCD1])
-            deltaRho_remf[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
+            deltaRho_remf[EW2QCD1] = gslpp::complex(myThreeLoopEW2QCD->deltaRho_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW3])
-            deltaRho_remf[EW3] = complex(myThreeLoopEW->deltaRho_rem_f(f, myMw).real(), 0.0, false);
+            deltaRho_remf[EW3] = gslpp::complex(myThreeLoopEW->deltaRho_rem_f(f, myMw).real(), 0.0, false);
 
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -1131,15 +1131,15 @@ complex StandardModel::rhoZ_f(const Particle f) const
         for (int j = 0; j < orders_EW_size; ++j)
             ImRhoZf += deltaRho_remf[j].imag();
 
-        rhoZ_f_cache[f.getIndex()] = complex(ReRhoZf, ImRhoZf, false);
+        rhoZ_f_cache[f.getIndex()] = gslpp::complex(ReRhoZf, ImRhoZf, false);
         useRhoZ_f_cache[f.getIndex()] = true;
-        return (complex(ReRhoZf, ImRhoZf, false));
+        return (gslpp::complex(ReRhoZf, ImRhoZf, false));
     }
 }
 
-complex StandardModel::kappaZ_f(const Particle f) const
+gslpp::complex StandardModel::kappaZ_f(const Particle f) const
 {
-    if (f.is("TOP")) return (complex(0.0, 0.0, false));
+    if (f.is("TOP")) return (gslpp::complex(0.0, 0.0, false));
 
     if (FlagCacheInStandardModel)
         if (useKappaZ_f_cache[f.getIndex()])
@@ -1163,30 +1163,30 @@ complex StandardModel::kappaZ_f(const Particle f) const
         ComputeDeltaRho(myMw, DeltaRho);
 
         /* compute delta kappa_rem^f */
-        complex deltaKappa_remf[orders_EW_size];
-        deltaKappa_remf[EW1] = complex(0.0, 0.0, false);
-        deltaKappa_remf[EW1QCD1] = complex(0.0, 0.0, false);
-        deltaKappa_remf[EW1QCD2] = complex(0.0, 0.0, false);
-        deltaKappa_remf[EW2] = complex(0.0, 0.0, false);
-        deltaKappa_remf[EW2QCD1] = complex(0.0, 0.0, false);
-        deltaKappa_remf[EW3] = complex(0.0, 0.0, false);
+        gslpp::complex deltaKappa_remf[orders_EW_size];
+        deltaKappa_remf[EW1] = gslpp::complex(0.0, 0.0, false);
+        deltaKappa_remf[EW1QCD1] = gslpp::complex(0.0, 0.0, false);
+        deltaKappa_remf[EW1QCD2] = gslpp::complex(0.0, 0.0, false);
+        deltaKappa_remf[EW2] = gslpp::complex(0.0, 0.0, false);
+        deltaKappa_remf[EW2QCD1] = gslpp::complex(0.0, 0.0, false);
+        deltaKappa_remf[EW3] = gslpp::complex(0.0, 0.0, false);
         if (flag_order[EW1])
             deltaKappa_remf[EW1] = myOneLoopEW->deltaKappa_rem_f(f, myMw);
         if (flag_order[EW1QCD1])
 #ifdef WITHIMTWOLOOPQCD
-            deltaKappa_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_f(f, myMw).real(),
+            deltaKappa_remf[EW1QCD1] = gslpp::complex(myTwoLoopQCD->deltaKappa_rem_f(f, myMw).real(),
                 myTwoLoopQCD->deltaKappa_rem_f(f, myMw).imag(), false);
 #else
-            deltaKappa_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW1QCD1] = gslpp::complex(myTwoLoopQCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
 #endif
         if (flag_order[EW1QCD2])
-            deltaKappa_remf[EW1QCD2] = complex(myThreeLoopQCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW1QCD2] = gslpp::complex(myThreeLoopQCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2])
-            deltaKappa_remf[EW2] = complex(myTwoLoopEW->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW2] = gslpp::complex(myTwoLoopEW->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW2QCD1])
-            deltaKappa_remf[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW2QCD1] = gslpp::complex(myThreeLoopEW2QCD->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
         if (flag_order[EW3])
-            deltaKappa_remf[EW3] = complex(myThreeLoopEW->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
+            deltaKappa_remf[EW3] = gslpp::complex(myThreeLoopEW->deltaKappa_rem_f(f, myMw).real(), 0.0, false);
 
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -1209,16 +1209,16 @@ complex StandardModel::kappaZ_f(const Particle f) const
             ImKappaZf += deltaKappa_remf[j].imag();
     }
 
-    kappaZ_f_cache[f.getIndex()] = complex(ReKappaZf, ImKappaZf, false);
+    kappaZ_f_cache[f.getIndex()] = gslpp::complex(ReKappaZf, ImKappaZf, false);
     useKappaZ_f_cache[f.getIndex()] = true;
-    return (complex(ReKappaZf, ImKappaZf, false));
+    return (gslpp::complex(ReKappaZf, ImKappaZf, false));
 }
 
-complex StandardModel::deltaRhoZ_f(const Particle f) const
+gslpp::complex StandardModel::deltaRhoZ_f(const Particle f) const
 {
     Particle p1 = f, pe = leptons[ELECTRON];
 
-    if (f.is("TOP") || f.is("ELECTRON")) return (complex(0.0, 0.0, false));
+    if (f.is("TOP") || f.is("ELECTRON")) return (gslpp::complex(0.0, 0.0, false));
 
     /* In the case of BOTTOM, the top contribution has to be subtracted.
      * The remaining contribution is the same as that for DOWN and STRANGE. */
@@ -1227,23 +1227,23 @@ complex StandardModel::deltaRhoZ_f(const Particle f) const
     double myMw = Mw();
     double cW2 = myMw * myMw / Mz / Mz, sW2 = 1.0 - cW2;
 
-    complex ul = (3.0 * myEWSMcache->v_f(pe, myMw) * myEWSMcache->v_f(pe, myMw)
+    gslpp::complex ul = (3.0 * myEWSMcache->v_f(pe, myMw) * myEWSMcache->v_f(pe, myMw)
             + myEWSMcache->a_f(pe) * myEWSMcache->a_f(pe)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             + myOneLoopEW->FW(Mz*Mz, pe, myMw);
-    complex uf = (3.0 * myEWSMcache->v_f(p1, myMw) * myEWSMcache->v_f(p1, myMw)
+    gslpp::complex uf = (3.0 * myEWSMcache->v_f(p1, myMw) * myEWSMcache->v_f(p1, myMw)
             + myEWSMcache->a_f(p1) * myEWSMcache->a_f(p1)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             + myOneLoopEW->FW(Mz*Mz, p1, myMw);
 
-    complex dRho = 2.0 * (uf - ul);
+    gslpp::complex dRho = 2.0 * (uf - ul);
     dRho *= ale / 4.0 / M_PI / sW2;
     return dRho;
 }
 
-complex StandardModel::deltaKappaZ_f(const Particle f) const
+gslpp::complex StandardModel::deltaKappaZ_f(const Particle f) const
 {
     Particle p1 = f, pe = leptons[ELECTRON];
 
-    if (f.is("TOP") || f.is("ELECTRON")) return (complex(0.0, 0.0, false));
+    if (f.is("TOP") || f.is("ELECTRON")) return (gslpp::complex(0.0, 0.0, false));
 
     /* In the case of BOTTOM, the top contribution has to be subtracted.
      * The remaining contribution is the same as that for DOWN and STRANGE. */
@@ -1251,16 +1251,16 @@ complex StandardModel::deltaKappaZ_f(const Particle f) const
 
     double myMw = Mw();
     double cW2 = myMw * myMw / Mz / Mz, sW2 = 1.0 - cW2;
-    complex ul = (3.0 * myEWSMcache->v_f(pe, myMw) * myEWSMcache->v_f(pe, myMw)
+    gslpp::complex ul = (3.0 * myEWSMcache->v_f(pe, myMw) * myEWSMcache->v_f(pe, myMw)
             + myEWSMcache->a_f(pe) * myEWSMcache->a_f(pe)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             + myOneLoopEW->FW(Mz*Mz, pe, myMw);
     double deltal = myEWSMcache->delta_f(pe, myMw);
-    complex uf = (3.0 * myEWSMcache->v_f(p1, myMw) * myEWSMcache->v_f(p1, myMw)
+    gslpp::complex uf = (3.0 * myEWSMcache->v_f(p1, myMw) * myEWSMcache->v_f(p1, myMw)
             + myEWSMcache->a_f(p1) * myEWSMcache->a_f(p1)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             + myOneLoopEW->FW(Mz*Mz, p1, myMw);
     double deltaf = myEWSMcache->delta_f(p1, myMw);
 
-    complex dKappa = (deltaf * deltaf - deltal * deltal) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
+    gslpp::complex dKappa = (deltaf * deltaf - deltal * deltal) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             - uf + ul;
     dKappa *= ale / 4.0 / M_PI / sW2;
     return dKappa;
@@ -1311,8 +1311,8 @@ double StandardModel::epsilonb() const
 
     /* epsilon_b from Re(g_V^b/g_A^b), i.e. Re(kappaZ_b)
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    complex kappaZe = kappaZ_f(leptons[ELECTRON]);
-    complex kappaZb = kappaZ_f(quarks[BOTTOM]);
+    gslpp::complex kappaZe = kappaZ_f(leptons[ELECTRON]);
+    gslpp::complex kappaZb = kappaZ_f(quarks[BOTTOM]);
     if (IsFlagWithoutNonUniversalVC())
         return ( kappaZe.real() / kappaZb.real() - 1.0);
     else
@@ -1891,8 +1891,8 @@ double StandardModel::RVh() const
     double AlsMzPi3 = AlsMzPi2*AlsMzPi;
     double AlsMzPi4 = AlsMzPi3*AlsMzPi;
 
-    complex gV_sum(0.0, 0.0);
-    complex gV_q;
+    gslpp::complex gV_sum(0.0, 0.0);
+    gslpp::complex gV_q;
     for (int q = 0; q < 6; q++) {
         gV_q = gV_f(QCD::quarks[(QCD::quark)q]);
         if (q == (int) (QCD::TOP))

@@ -123,6 +123,16 @@
  *   <td class="mod_desc">The mass of the \f$ K^\pm \f$ meson in GeV.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%MKstar</td>
+ *   <td class="mod_symb">@f$M_{K^*}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ K^* \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Mphi</td>
+ *   <td class="mod_symb">@f$M_{\phi}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ \phi \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%MD</td>
  *   <td class="mod_symb">@f$M_{D^0}@f$</td>
  *   <td class="mod_desc">The mass of the \f$ D^0 \f$ meson in GeV.</td>
@@ -153,19 +163,54 @@
  *   <td class="mod_desc">The lifetime of the \f$ K^\pm \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%tKstar</td>
+ *   <td class="mod_symb">@f$\tau_{K^*}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ K^* \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tphi</td>
+ *   <td class="mod_symb">@f$\tau_{\phi}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ \phi \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%tBd</td>
  *   <td class="mod_symb">@f$\tau_{B_d}@f$</td>
  *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%tBp</td>
+ *   <td class="mod_symb">@f$\tau_{B^\pm}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B^\pm \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%tBs</td>
  *   <td class="mod_symb">@f$\tau_{B_s}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B_s \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%DGs_Gs</td>
+ *   <td class="mod_symb"></td>
+ *   <td class="mod_desc"></td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%FK</td>
- *   <td class="mod_symb"></td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_symb">@f$F_{K^-}@f$</td>
+ *   <td class="mod_desc">The decay constant of the \f$ K^- \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FKstar</td>
+ *   <td class="mod_symb">@f$F_{K^*}@f$</td>
+ *   <td class="mod_desc">The decay constant of the \f$ K^* \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FKstarp</td>
+ *   <td class="mod_symb">@f$F_{K^*}^{\perp}@f$</td>
+ *   <td class="mod_desc">The decay constant of a transversely polarized \f$ K^* \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Fphi</td>
+ *   <td class="mod_symb">@f$F_{\phi}@f$</td>
+ *   <td class="mod_desc">The decay constant of the \f$ \phi \f$ meson in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%FD</td>
@@ -370,11 +415,6 @@
  * <tr>
  *   <td class="mod_name">%reh_0, %reh_0_1, %reh_0_2</td>
  *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}, \mathrm{Re}h_0^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_{\lambda}@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%reh_0, %reh_0_1, %reh_0_2</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}, \mathrm{Re}h_0^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
@@ -401,6 +441,16 @@
  *   <td class="mod_name">%imh_2, %imh_2_1, %imh_2_2</td>
  *   <td class="mod_symb">@f$\mathrm{Im}h_-^{(0)}, \mathrm{Im}h_-^{(1)}, \mathrm{Im}h_-^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%alpha1kst, %alpha2kst</td>
+ *   <td class="mod_symb">@f$\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)@f$</td>
+ *   <td class="mod_desc">The Gegenbauer coefficients for the @f$\bar{K}^*@f$ meson.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%lambdaB</td>
+ *   <td class="mod_symb">@f$\Lambda_{B,+}@f$</td>
+ *   <td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%r_1_fplus, %r_2_fplus, %m_fit2_fplus</td>
@@ -433,9 +483,34 @@
  *   <td class="mod_desc">The experimental energy cutoff @f$E_0@f$ of the @f$b\to s\gamma@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%bsgamma_C</td>
- *   <td class="mod_symb">@f$C_{b\to s\gamma}@f$</td>
- *   <td class="mod_desc">The semileptonic phase space ratio involved in the phenomenological computation of the @f$b\to s\gamma@f$ BR.</td>
+ *   <td class="mod_name">%BLNPcorr</td>
+ *   <td class="mod_symb">@f$N_{b\to s\gamma}@f$</td>
+ *   <td class="mod_desc">The non perturbative uncertainty associated to the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_mukin</td>
+ *   <td class="mod_symb">@f$\mu^{\rm kin}@f$</td>
+ *   <td class="mod_desc">The mass scale for the b quark in the kinetic scheme, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_BRsem</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)^{\rm Gambino}@f$</td>
+ *   <td class="mod_desc">The branching ratio of \f$B\to X_c e\nu\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_Mbkin</td>
+ *   <td class="mod_symb">@f$m_b^{\rm kin,\,Gambino}@f$</td>
+ *   <td class="mod_desc">The b quark mass in the kinetic scheme fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_Mcatmuc</td>
+ *   <td class="mod_symb">@f$m_c(\mu_c)^{\rm Gambino}@f$</td>
+ *   <td class="mod_desc">The c quark at \f$\mu_c\f$ fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Gambino_mupi2, %Gambino_rhoD3, %Gambino_muG2, %Gambino_rhoLS3</td>
+ *   <td class="mod_symb">@f$\mu_{\pi}^{2,\,\rm Gambino}, \rho_{D}^{3,\,\rm Gambino}, \mu_{G}^{2,\,\rm Gambino}, \rho_{LS}^{3,\,\rm Gambino}@f$</td>
+ *   <td class="mod_desc">The B meson expecation values for the relevant dim. 5 and 6 operators fitted by Paolo Gambino, employed in the @f$b\to s\gamma@f$ BR.</td>
  * </tr>
  * </table>
  *

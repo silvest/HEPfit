@@ -8,9 +8,10 @@
 #ifndef NPEFFECTIVEBS_H
 #define	NPEFFECTIVEBS_H
 
+#include "NPbase.h"
 #include <string.h>
 #include <stdexcept>
-#include "NPbase.h"
+
 
 /**
  * @addtogroup NewPhysics
@@ -25,9 +26,7 @@
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
- * associated with the dimension-six effective Lagrangian introduced in NPEffectiveBS
- * class.
- * 
+ * associated with the dimension-six effective Lagrangian:
  * @f[
  * \mathcal{L}_\mathrm{eff}
  * = \mathcal{L}_\mathrm{SM}
@@ -60,12 +59,12 @@
  * to @f$\mathcal{O}_{HD}@f$. 
  *
  * 
- * * @anchor NPEffectiveBSInitialization
+ * @anchor NPEffectiveBSInitialization
  * <h3>Initialization</h3>
  *
  * After creating an instance of the current class with the constructor
  * NPEffectiveBS(), it is required to call the initialization method
- * InitializeModel(), inherited from NPEffectiveBS class.
+ * InitializeModel().
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
@@ -157,6 +156,8 @@
  * </tr>
  * </table>
  *
+ * The parameters to be used as inputs when lepton or quark universality
+ * are not assumed are the following:
  *
  * <table class="model">
  * <tr>
@@ -184,11 +185,11 @@
  *   \big(\overline{L}\,\gamma_\mu\tau^a L\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHLp_NP </td>
- *   <td class="mod_symb">\f$ C_{HL}^\prime \f$</td>
+ *   <td class="mod_name">%cHL1p_NP, cHL2p_NP, cHL3p_NP </td>
+ *   <td class="mod_symb">\f$ C_{HL_i}^\prime \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HL}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
- *   \big(\overline{L}\,\gamma^\mu\tau^a L\big)\f$. </td>
+ *   \f${\cal O}_{HL_i}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
+ *   \big(\overline{L_i}\,\gamma^\mu\tau^a L_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHQ1p_NP, %cHQ2p_NP, %cHQ3p_NP </td>
@@ -198,11 +199,11 @@
  *   \big(\overline{Q_i}\,\gamma^\mu\tau^a Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHL_NP </td>
- *   <td class="mod_symb">\f$ C_{HL} \f$</td>
+ *   <td class="mod_name">%cHL1_NP, cHL2_NP, cHL3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HL_i} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HL} =i\big(H^\dagger D_\mu H\big)
- *   \big(\overline{L}\,\gamma^\mu L\big)\f$. </td>
+ *   \f${\cal O}_{HL_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{L_i}\,\gamma^\mu L_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHQ1_NP, %cHQ2_NP, %cHQ3_NP </td>
@@ -212,11 +213,11 @@
  *   \big(\overline{Q_i}\,\gamma^\mu Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHE_NP </td>
- *   <td class="mod_symb">\f$ C_{HE} \f$</td>
+ *   <td class="mod_name">%cHE1_NP, cHE2_NP, cHE3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HE_i} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{HE} =i\big(H^\dagger D_\mu H\big)
- *   \big(\overline{E}\,\gamma^\mu E\big)\f$. </td>
+ *   \f${\cal O}_{HE_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{E_i}\,\gamma^\mu E_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHU1_NP, %cHU2_NP, %cHU3_NP </td>
@@ -316,8 +317,8 @@ public:
 
     /**
      * @brief Constructor.
-     * @param[in] FlagLeptonUniversal_in
-     * @param[in] FlagQuarkUniversal_in
+     * @param[in] FlagLeptonUniversal_in an internal boolean flag that is true if assuming lepton flavour universality
+     * @param[in] FlagQuarkUniversal_in an internal boolean flag that is true if assuming quark flavour universality
      */
     NPEffectiveBS(const bool FlagLeptonUniversal_in = false, const bool FlagQuarkUniversal_in = false);
 
@@ -527,7 +528,7 @@ private:
      * = -\frac{C_{HL_i}^\prime+C_{HL_i}}{2} \left(\frac{v}{\Lambda}\right)^2,
      * @f]
      *
-     * where @f$L\toQ@f$, @f$\nu_i\to u_i@f$ and @f$e_i\to d_i@f$ for quarks.
+     * where @f$L\to Q@f$, @f$\nu_i\to u_i@f$ and @f$e_i\to d_i@f$ for quarks.
      * See @cite Ciuchini:2013pca and references therein.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_L^f@f$

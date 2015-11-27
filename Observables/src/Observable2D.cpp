@@ -154,20 +154,27 @@ int Observable2D::ParseObservable2D(std::string& type,
     if (std::distance(tok->begin(), tok->end()) < 12) {
         setName(*beg);
         ++beg;
-        if (std::distance(tok->begin(), tok->end()) < 4 && rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                + name + " in " + infilename + " at line number" + boost::lexical_cast<std::string>(lineNo));
+        if (std::distance(tok->begin(), tok->end()) < 4) {
+            if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + name + " in " + infilename + " at line number" + boost::lexical_cast<std::string>(lineNo));
+            else sleep (2);
+        }
         std::string toMCMC = *beg;
         if (toMCMC.compare("MCMC") == 0)
             setTMCMC(true);
         else if (toMCMC.compare("noMCMC") == 0)
             setTMCMC(false);
-        else
-            throw std::runtime_error("ERROR: wrong MCMC flag in Observable2D" + name + " at line number:" + boost::lexical_cast<std::string>(lineNo) + " of file " + infilename);
+        else {
+            if (rank == 0) throw std::runtime_error("ERROR: wrong MCMC flag in Observable2D" + name + " at line number:" + boost::lexical_cast<std::string>(lineNo) + " of file " + infilename + ".\n");
+            else sleep(2);
+        }
         
         ++beg;
         setDistr(*beg);
         if (distr.compare("file") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 6 && rank == 0) throw std::runtime_error("ERROR: lack of information on "+ *beg + " in " + infilename);
+            if (std::distance(tok->begin(), tok->end()) < 6) {
+                if(rank == 0) throw std::runtime_error("ERROR: lack of information on "+ *beg + " in " + infilename);
+                else sleep (2);
+            }
             setFilename(filepath + *(++beg));
             setHistoname(*(++beg));
         }
@@ -183,19 +190,20 @@ int Observable2D::ParseObservable2D(std::string& type,
         std::string line;
         size_t pos = 0;
         boost::char_separator<char> sep(" \t");
-        bool IsEOF;
         for (int i = 0; i < 2; i++) {
             IsEOF = getline(ifile, line).eof();
             if (line.empty() || line.at(0) == '#') {
-                if (rank == 0) std::cout << "ERROR: no comments or empty lines in Observables2D (" + name + ") please!" << std::endl;
-                exit(EXIT_FAILURE);
+                if (rank == 0) throw std::runtime_error("ERROR: no comments or empty lines in Observable2D please! In file " + infilename + " at line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
+                else sleep(2);
             }
             lineNo++;
             boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
             beg = mytok.begin();
             type2D[i] = *beg;
-            if (type2D[i].compare("Observable") != 0 && type2D[i].compare("BinnedObservable") != 0)
-                if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + infilename + ", expecting an Observable or BinnedObservable type here...\n");
+            if (type2D[i].compare("Observable") != 0 && type2D[i].compare("BinnedObservable") != 0 && type2D[i].compare("FunctionObservable") != 0) {
+                if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + infilename + ", expecting an Observable or BinnedObservable or FunctionObservable type here...\n");
+                else sleep(2);
+            }
             ++beg;
             thname[i] = *beg;
             ++beg;
@@ -214,20 +222,28 @@ int Observable2D::ParseObservable2D(std::string& type,
                 ++beg;
                 errf[i] = atof((*beg).c_str());
                 if (errg[i] == 0. && errg[i] == 0.) {
-                    if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + infilename + " file, line number:" + boost::lexical_cast<std::string>(lineNo));
+                    if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + infilename + " file, line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
+                    else sleep(2);
                 }
             } else if (distr.compare("noweight") == 0 || distr.compare("file") == 0) {
-                if (type2D[i].compare("BinnedObservable") == 0) {
+                if (type2D[i].compare("BinnedObservable") == 0 || type2D[i].compare("FunctionObservable") == 0) {
                     ++beg;
                     ++beg;
                     ++beg;
                 }
+            } else {
+                if (rank == 0) throw std::runtime_error("ERROR: wrong distribution flag in " + name + " in file " + infilename + ".\n");
+                else sleep(2);
             }
             if (type2D[i].compare("BinnedObservable") == 0) {
                 ++beg;
                 bin_min[i] = atof((*beg).c_str());
                 ++beg;
                 bin_max[i] = atof((*beg).c_str());
+            } else if (type2D[i].compare("FunctionObservable") == 0) {
+                ++beg;
+                bin_min[i] = atof((*beg).c_str());
+                ++beg;
             }
         }
         setObsType(type2D[0]);
@@ -252,19 +268,23 @@ int Observable2D::ParseObservable2D(std::string& type,
         }
         return lineNo;
     } else {
-        beg = ParseObservable(type, tok, beg, filepath, rank);
+        beg = ParseObservable(type, tok, beg, filepath, filename, rank);
         ++beg;
         std::string distr = *beg;
         if (distr.compare("file") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 14)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
+            if (std::distance(tok->begin(), tok->end()) < 14) {
+                if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
+                else sleep(2);
+            }
             setFilename(filepath + *(++beg));
             setHistoname(*(++beg));
             setLikelihoodFromHisto(filename, histoname);
             if (rank == 0) std::cout << "added input histogram " << filename << "/" << histoname << std::endl;
         } else if (distr.compare("noweight") == 0) {
-        } else if (rank == 0)
-            throw std::runtime_error("ERROR: wrong distribution flag in " + name);
+        } else { 
+            if (rank == 0) throw std::runtime_error("ERROR: wrong distribution flag in " + name);
+            else sleep(2);
+        }
         setDistr(distr);
         ++beg;
         thname2 = *beg;

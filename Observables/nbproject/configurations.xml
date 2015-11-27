@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="95">
+<configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -53,10 +53,7 @@
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../BAT/include</pElem>
-            <pElem>../EW/src</pElem>
-            <pElem>../HiggsExtensions/src</pElem>
+            <pElem>../InputParser/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -118,8 +115,7 @@
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../InputParser/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -187,7 +183,7 @@
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../InputParser/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>

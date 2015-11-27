@@ -111,21 +111,7 @@
  * @anchor NPZbbbarLinearizedFlags
  * <h3>%Model Flags</h3>
  *
- * The flag of %NPZbbbarLinearized is summarized below:
- * <table class="model">
- * <tr>
- *   <th>Label</th>
- *   <th>Value</th>
- *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="mod_name">%NotLinearizedNP</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if new physics contributions
- *   to electroweak observables are not linearized in \f$\delta g^b\f$.
- *   The default value is FALSE; new physics contributions are linearized.</td>
- * </tr>
- * </table>
+ * There is no model flag in the current class.
  *
  *
  * @anchor NPZbbbarLinearizedFunctions
@@ -185,14 +171,14 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief New physics contribution to @f$g_V^f@f$.
+     * @brief New physics contribution to the neutral-current vector coupling @f$g_V^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_V^f@f$ (zero in the current model, except for @f$f=b@f$)
      */
     virtual double deltaGV_f(const Particle f) const;
 
     /**
-     * @brief New physics contribution to @f$g_A^f@f$.
+     * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$ (zero in the current model, except for @f$f=b@f$)
      */

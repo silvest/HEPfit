@@ -9,190 +9,251 @@
 #define	THDMQUANTITIES_H
 
 #include <stdexcept>
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "THDM.h"
 
 /**
- * @class THDMquantities
- * @brief .
+ * @class mass_mHh
+ * @ingroup THDM 
+ * @brief The mass of the heavy CP-even Higgs state.
  */
-class THDMquantities : public ThObservable {
-public:
-    THDMquantities(const StandardModel& SM_i);
-    virtual ~THDMquantities();
-    double computeThValue();
-    const THDM * myTHDM;
-    const StandardModel& mySM;
-};
-
-class mass_mHh: public THDMquantities {
+class mass_mHh: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief mass_mHh constructor.
      */
     mass_mHh(const StandardModel& SM_i);
 
     /**
-     * @return mHh
+     * @return @f$m_H@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class mass_mA: public THDMquantities {
+/**
+ * @class mass_mA
+ * @ingroup THDM 
+ * @brief The mass of the CP-odd Higgs state.
+ */
+class mass_mA: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief mass_mA constructor.
      */
     mass_mA(const StandardModel& SM_i);
 
     /**
-     * @return mA
+     * @return @f$m_A@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class mass_mHp: public THDMquantities {
+/**
+ * @class mass_mHp
+ * @ingroup THDM 
+ * @brief The mass of the charged Higgs state.
+ */
+class mass_mHp: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief mass_mHp constructor.
      */
     mass_mHp(const StandardModel& SM_i);
 
     /**
-     * @return mHp
+     * @return @f$m_{H^+}@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class masssquare_mA: public THDMquantities {
+/**
+ * @class masssquare_mA
+ * @ingroup THDM 
+ * @brief The squared mass of the CP-odd Higgs state.
+ */
+class masssquare_mA: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief masssquare_mA constructor.
      */
     masssquare_mA(const StandardModel& SM_i);
 
     /**
-     * @return mA2
+     * @return @f$m_A^2@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class masssquare_mHp: public THDMquantities {
+/**
+ * @class masssquare_mHp
+ * @ingroup THDM 
+ * @brief The squared mass of the charged Higgs state.
+ */
+class masssquare_mHp: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief masssquare_mHp constructor.
      */
     masssquare_mHp(const StandardModel& SM_i);
 
     /**
-     * @return mHp2
+     * @return @f$m_{H^+}^2@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class massdifference_mHhmmA: public THDMquantities {
+/**
+ * @class massdifference_mHhmmA
+ * @ingroup THDM 
+ * @brief The difference between the masses of the heavy CP-even and the CP-odd Higgs.
+ */
+class massdifference_mHhmmA: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief massdifference_mHhmmA constructor.
      */
     massdifference_mHhmmA(const StandardModel& SM_i);
 
     /**
-     * @return mHh-mA
+     * @return @f$m_H-m_A@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class massdifference_mAmmHh: public THDMquantities {
+/**
+ * @class massdifference_mAmmHh
+ * @ingroup THDM 
+ * @brief The difference between the masses of the CP-odd and the heavy CP-even Higgs.
+ */
+class massdifference_mAmmHh: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief massdifference_mAmmHh constructor.
      */
     massdifference_mAmmHh(const StandardModel& SM_i);
 
     /**
-     * @return mA-mHh
+     * @return @f$m_A-m_H@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class massdifference_mHhmmHp: public THDMquantities {
+/**
+ * @class massdifference_mHhmmHp
+ * @ingroup THDM 
+ * @brief The difference between the masses of the heavy CP-even and the charged Higgs.
+ */
+class massdifference_mHhmmHp: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief massdifference_mHhmmHp constructor.
      */
     massdifference_mHhmmHp(const StandardModel& SM_i);
 
     /**
-     * @return mHh-mHp
+     * @return @f$m_H-m_{H^+}@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class massdifference_mHpmmHh: public THDMquantities {
+/**
+ * @class massdifference_mHpmmHh
+ * @ingroup THDM 
+ * @brief The difference between the masses of the charged and the heavy CP-even Higgs.
+ */
+class massdifference_mHpmmHh: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief massdifference_mHpmmHh constructor.
      */
     massdifference_mHpmmHh(const StandardModel& SM_i);
 
     /**
-     * @return mHp-mHh
+     * @return @f$m_{H^+}-m_H@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class massdifference_mAmmHp: public THDMquantities {
+/**
+ * @class massdifference_mAmmHp
+ * @ingroup THDM 
+ * @brief The difference between the masses of the CP-odd and the charged Higgs.
+ */
+class massdifference_mAmmHp: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief massdifference_mAmmHp constructor.
      */
     massdifference_mAmmHp(const StandardModel& SM_i);
 
     /**
-     * @return mA-mHp
+     * @return @f$m_A-m_{H^+}@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
-class massdifference_mHpmmA: public THDMquantities {
+/**
+ * @class massdifference_mHpmmA
+ * @ingroup THDM 
+ * @brief The difference between the masses of the charged and the CP-odd Higgs.
+ */
+class massdifference_mHpmmA: public ThObservable {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief massdifference_mHpmmA constructor.
      */
     massdifference_mHpmmA(const StandardModel& SM_i);
 
     /**
-     * @return mHp-mA
+     * @return @f$m_{H^+}-m_A@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
 /**
  * @class lambda1 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_1@f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
  * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_1@f$.
  */
-class lambda1 : public THDMquantities {
+class lambda1 : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] ?
      */
     lambda1(const StandardModel& SM_i);
 
@@ -201,22 +262,21 @@ public:
      * @return @f$\lambda_1@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
 /**
  * @class lambda2
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_2@f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
  * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_2@f$.
  */
-class lambda2 : public THDMquantities {
+class lambda2 : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] ?
      */
     lambda2(const StandardModel& SM_i);
 
@@ -225,22 +285,21 @@ public:
      * @return @f$\lambda_2@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
 /**
  * @class lambda3
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_3@f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
  * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_3@f$.
  */
-class lambda3 : public THDMquantities {
+class lambda3 : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] ?
      */
     lambda3(const StandardModel& SM_i);
 
@@ -249,22 +308,21 @@ public:
      * @return @f$\lambda_3@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
 /**
  * @class lambda4
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_4@f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
  * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_4@f$.
  */
-class lambda4 : public THDMquantities {
+class lambda4 : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] ?
      */
     lambda4(const StandardModel& SM_i);
 
@@ -273,22 +331,21 @@ public:
      * @return @f$\lambda_4@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
 /**
  * @class lambda5
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_5@f$.
- * @author HEPfit Collaboration
- * @copyright GNU General Public License
  * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_5@f$.
  */
-class lambda5 : public THDMquantities {
+class lambda5 : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] ?
      */
     lambda5(const StandardModel& SM_i);
 
@@ -297,6 +354,8 @@ public:
      * @return @f$\lambda_5@f$
      */
     double computeThValue();
+
+    const THDM * myTHDM;
 };
 
 #endif	/* THDMQUANTITIES_H */

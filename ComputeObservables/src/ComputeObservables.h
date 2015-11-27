@@ -8,11 +8,11 @@
 #ifndef COMPUTEOBSERVABLES_H
 #define	COMPUTEOBSERVABLES_H
 
-#include <InputParser.h>
-#include <StandardModel.h>
-#include <ModelParameter.h>
-#include <ModelFactory.h>
-#include <ThObsFactory.h>
+#include "InputParser.h"
+#include "StandardModel.h"
+#include "ModelParameter.h"
+#include "ModelFactory.h"
+#include "ThObsFactory.h"
 
 /**
  * @addtogroup ComputeObservables
@@ -109,12 +109,8 @@ public:
     {
         return (DPars);
     };
-
-   void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
     
-   void addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct);
-   
-   void linkParserToObservable(std::string name_par, std::string name_obs);
+   void addCustomObservableType(const std::string name, boost::function<Observable*() > funct);
 
 private:
 

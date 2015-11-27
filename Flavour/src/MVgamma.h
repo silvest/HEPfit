@@ -22,8 +22,10 @@
  * @details This class is used to compute all the functions needed in order to 
  * compute the observables relative to the @f$M \to V \gamma@f$ decay. After the
  * parameters are updated in updateParameters() and the form factor @f$ T_1 @f$
- * is computed in T_1(), the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$
- * are build in H_V_p(), H_V_m(), H_V_p_bar() and H_V_m_bar().
+ * is computed in T_1() following @cite Straub:2015ica, the QCDF corrections to the Wilson coefficient @f$ C_7 @f$
+ * is computed in the functions G1(), G8(), H1() and H8() @cite Bosch:2001gv. The helicity amplitudes
+ * @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$ are build in H_V_p(), H_V_m(), H_V_p_bar() 
+ * and H_V_m_bar() following @cite Jager:2012uw, in order to be further used to build the observables.
  */
 class MVgamma  : public ThObservable {
 public:
@@ -109,27 +111,27 @@ public:
     gslpp::complex H_V_m_bar();
 
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @param s @f$ m_c^2/m_b^2  @f$
      * @return @f$ G_1(s) @f$
      */
     gslpp::complex G1(double s);
     
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @return @f$ G_8 @f$
      */
     gslpp::complex G8();
 
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @param s @f$ m_c^2/m_b^2  @f$
      * @return @f$ H_1(s) @f$
      */
     gslpp::complex H1(double s);
 
     /**
-     * @brief Correction in eq. (42) of hep-ph/0106081
+     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @return  @f$ H_8 @f$
      */
     gslpp::complex H8();
@@ -213,11 +215,35 @@ private:
     StandardModel::meson vectorM; /**< Final vector meson type. */
 };
 
+
+
+/**
+ * @class DC7_1
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^1@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^1@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^1 = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_- - h_+| \,.
+ * @f]
+ */
 class DC7_1 : public MVgamma{
 public:
-
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
     DC7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
 
+    /**
+    * @brief The @f$\Delta C_7^1@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^1@f$
+    */
     double computeThValue();
 
 private:
@@ -225,11 +251,35 @@ private:
     StandardModel::meson vectorM; /**< Final vector meson type. */
 };
 
+
+
+/**
+ * @class DC7_2
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^2@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^2 = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_- + h_+| \,.
+ * @f]
+ */
 class DC7_2 : public MVgamma{
 public:
-
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
     DC7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
 
+    /**
+    * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^2@f$
+    */
     double computeThValue();
 
 private:

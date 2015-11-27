@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPSTUVWXY.h"
+#include <stdexcept>
 
 
 const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars]

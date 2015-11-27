@@ -12,8 +12,6 @@
 #include <StandardModel.h>
 #include "SUSYMatching.h"
 
-class EWSUSY; // forward reference to EWSUSY class
-class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
 class SUSYSpectrum; // forward reference to Spectrum class
 
 /**
@@ -34,7 +32,7 @@ public:
      * @brief Friend classes of SUSY class.
      */
     friend class SUSYSpectrum;
-    friend class FeynHiggsWrapper;
+    //friend class FeynHiggsWrapper;
 
     /**
      * @brief A SUSY constructor.
@@ -49,15 +47,6 @@ public:
     // Initialization
 
     virtual bool InitializeModel();
-
-    /**
-     * @brief
-     * @return
-     */
-    FeynHiggsWrapper* getMyFH() const
-    {
-        return myFH;
-    }
 
     virtual SUSYMatching* getMyMatching() const
     {
@@ -83,27 +72,6 @@ public:
     // Flags
 
     virtual bool setFlag(const std::string, const bool);
-
-    bool IsFlag_h() const
-    {
-        return flag_h;
-    }
-
-    bool IsFlag_g() const
-    {
-        return flag_g;
-    }
-
-    bool IsFlag_ch() const
-    {
-        return flag_ch;
-    }
-
-    bool IsFlag_ne() const
-    {
-        return flag_ne;
-    }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // functions for the input parameters of SUSY model
@@ -512,31 +480,10 @@ public:
         }
     }
 
-
-    ///////////////////////////////////////////////////////////////////////////
-    // EW precision observables
-
-    /**
-     * @brief The W boson mass.
-     * @return @f$M_W@f$.
-     */
-    virtual double Mw() const;
-
-    /**
-     * @brief The W boson mass in the @f$\Delta\rho@f$ approximation.
-     * @return @f$M_W@f$ in the @f$\Delta\rho@f$ approximation.
-     */
-    double Mw_dRho() const;
-
-    ///////////////////////////////////////////////////////////////////////////
-
 protected:
     virtual void setParameter(const std::string name , const double& value);
     virtual void SetTanb(const double tanb);
     virtual void computeYukawas();
-    virtual void SetSoftTerms();
-
-    FeynHiggsWrapper* myFH;
 
     SUSYSpectrum* mySUSYSpectrum;
 
@@ -568,7 +515,6 @@ protected:
 private:    
     bool flag_h, flag_g, flag_ch, flag_ne;
     SUSYMatching* mySUSYMatching;
-    EWSUSY* myEWSUSY;
 
 };
 

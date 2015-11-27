@@ -55,12 +55,19 @@ public:
     Observable();
     
     /**
-     * @brief The Observable Parser
+     * @brief The parser for Observables.
+     * @param[in] type the string specifying the type of the observable
+     * @param[in] tok the tokenizer containing the line being parsed
+     * @param[in] beg the iterator that parses a line in the config file
+     * @param[in] filepath the path to the config file being parsed
+     * @param[in] filename the name of the config file being parsed
+     * @return the line number (integer) after the parsing is done
      */
     boost::tokenizer<boost::char_separator<char> >::iterator &  ParseObservable(std::string& type,
                                                                                 boost::tokenizer<boost::char_separator<char> >* tok, 
                                                                                 boost::tokenizer<boost::char_separator<char> >::iterator & beg, 
                                                                                 std::string& filepath, 
+                                                                                std::string& infilename,
                                                                                 int rank);
     
     /**
@@ -226,6 +233,10 @@ public:
         return histoname;
     }
     
+    /**
+     * @brief A set method to set the name of the histogram containing the likelihood
+     * @param[in] histoname_i a string that contains the name of the histogram
+     */
     void setHistoname(std::string histoname_i)
     {
         histoname = histoname_i;
@@ -348,11 +359,19 @@ public:
         return tho;
     }
     
+    /**
+     * @brief A set method to set the Observable type
+     * @param[in] obsType_s a string that contains the parameter name
+     */
     void setObsType(std::string& obsType_s)
     {
         obsType = obsType_s;
     }
     
+    /**
+     * @brief A get method to get the Observable type.
+     * @return a string containing the observable type
+     */
     std::string getObsType() const
     {
         return obsType;
@@ -424,11 +443,11 @@ protected:
     double max; ///< The maximum valus of the observable.
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
     TH1D * inhisto; ///< 1D Histogram containing the experimental likelihood for the observable
-    std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable
+    std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable, 3: FunctionObservable
     double bin_min; ///< The minimum value of the observable bin.
     double bin_max; ///< The maximum valus of the observable bin.
-    int iterationNo;
-    double thValue;
+    int iterationNo; ///< A counter for the interation that helps with the observable caching.
+    double thValue; ///< The theory value of the first observable.
 };
 
 

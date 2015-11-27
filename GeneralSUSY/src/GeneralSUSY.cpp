@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
 // */
 
-#include <math.h>
 #include "GeneralSUSY.h"
+#include <math.h>
 
 const std::string GeneralSUSY::GeneralSUSYvars[NGeneralSUSYvars] = {
     "msQhat2_11r","msQhat2_12r","msQhat2_12i","msQhat2_13r","msQhat2_13i","msQhat2_22r","msQhat2_23r","msQhat2_23i","msQhat2_33r",

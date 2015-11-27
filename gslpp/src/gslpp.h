@@ -8,11 +8,11 @@
 #ifndef GSLPP_H
 #define	GSLPP_H
 
-#include <gslpp_complex.h>
-#include <gslpp_vector_double.h>
-#include <gslpp_vector_complex.h>
-#include <gslpp_matrix_double.h>
-#include <gslpp_matrix_complex.h>
+#include "gslpp_complex.h"
+#include "gslpp_vector_double.h"
+#include "gslpp_vector_complex.h"
+#include "gslpp_matrix_double.h"
+#include "gslpp_matrix_complex.h"
 
 /**
  * @addtogroup gslpp

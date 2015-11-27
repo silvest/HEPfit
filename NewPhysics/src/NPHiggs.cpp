@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <stdexcept>
 #include "NPHiggs.h"
+#include <stdexcept>
 
 
 const std::string NPHiggs::NPHIGGSvars[NNPHIGGSvars]

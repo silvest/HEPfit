@@ -53,33 +53,94 @@ public:
      */
     virtual ~ModelParameter();
     
+     /**
+     * @brief A method to check if the parameters are correlated or not
+     * @return a boolean which is true of the parameters are correlated
+     */
     bool IsCorrelated() const
     {
         return(!cgp_name.empty());
     }
     
-    std::string getname()
+    /**
+     * @brief A get method to get the name of each parameter
+     * @return a string that contains the name
+     */
+    std::string getname() const
     {
         return name;
     }
     
+    /**
+     * @brief A get method to get the average
+     * @return the average of the parameter
+     */
+    double getave() const
+    {
+        return ave;
+    }
+    
+    /**
+     * @brief A get method to get the flat error
+     * @return the flat error of the parameter
+     */
+    double geterrf() const
+    {
+        return errf;
+    }
+    
+    /**
+     * @brief A get method to get the gaussian error
+     * @return the Gaussian error of the parameter
+     */
+    double geterrg() const
+    {
+        return errg;
+    }
+    
+    /**
+     * @brief A get method to get the minimum value
+     * @return the minimum value of the parameter
+     */
+    double getmin() const
+    {
+        return min;
+    }
+    
+    /**
+     * @brief A get method to get the maximum value
+     * @return the maximum value of the parameter
+     */
+    double getmax() const
+    {
+        return max;
+    }
+    
+    /**
+     * @brief A method to check if the parameter is fixed
+     * @return a boolean that is true if the parameter is fixed
+     */
+    bool IsFixed() const
+    {
+        return isFixed;
+    }
+    
+    /**
+     * @brief A get method to get the name of the set of correlated parameter
+     * @return a string that contains the name
+     */
     std::string getCgp_name() const
     {
         return cgp_name;
     }
 
+    /**
+     * @brief A set method to set the name of the set of correlated parameter
+     */
     void setCgp_name(std::string cgp_name)
     {
         this->cgp_name = cgp_name;
     }
-
-    std::string name; ///< The name of the model parameter.
-    double ave; ///< The average value of the model parameter.
-    double errg; ///< The Gaussian error of the model parameter.
-    double errf; ///< The flat error of the model parameter.
-    double min; ///< The minimum value of the model parameter.
-    double max; ///< The maximum value of the model parameter.
-    bool isFixed;
     
     /**
      * @brief Befriending of the std::ostream operator << to generate an
@@ -88,7 +149,15 @@ public:
      * @param[in] m a reference to an object of type ModelParameter()
      */
     friend std::ostream& operator<<(std::ostream& output, const ModelParameter& m);
+ 
 private:
+    std::string name; ///< The name of the model parameter.
+    double ave; ///< The average value of the model parameter.
+    double errg; ///< The Gaussian error of the model parameter.
+    double errf; ///< The flat error of the model parameter.
+    double min; ///< The minimum value of the model parameter.
+    double max; ///< The maximum value of the model parameter.
+    bool isFixed; ///< A boolean flag that is true if the parameter is fixed
     std::string cgp_name;
 };
 

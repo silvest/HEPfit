@@ -8,7 +8,7 @@
 #ifndef HIGGSTHOBSERVABLES_H
 #define	HIGGSTHOBSERVABLES_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "NPbase.h"
 
 /**

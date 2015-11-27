@@ -10,7 +10,7 @@
 
 #include "EWSMcache.h"
 #include "EWSMOneLoopEW.h"
-using namespace gslpp;
+
 
 /**
  * @class EWSMTwoLoopEW
@@ -151,7 +151,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{f,\, \alpha^2}@f$
      */
-    complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaRho_rem_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
@@ -170,7 +170,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{f,\, \alpha^2}@f$
      */
-    complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
+    gslpp::complex deltaKappa_rem_f(const Particle f, const double Mw_i) const;
 
     ////////////////////////////////////////////////////////////////////////        
     // O(GF^2 Mt^2) contributions
@@ -290,7 +290,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$
      */
-    complex DeltaEta2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
+    gslpp::complex DeltaEta2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$ for @f$Z\to f\bar{f}@f$.
@@ -299,7 +299,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$
      */
-    complex DeltaEta2Add_f(const Particle f, const double Mw_i) const;
+    gslpp::complex DeltaEta2Add_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\hat{\kappa}^{(2)}@f$.
@@ -318,7 +318,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$
      */
-    complex DeltaKappa2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
+    gslpp::complex DeltaKappa2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$ for @f$Z\to f\bar{f}@f$.
@@ -327,7 +327,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$
      */
-    complex DeltaKappa2Add_f(const Particle f, const double Mw_i) const;
+    gslpp::complex DeltaKappa2Add_f(const Particle f, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$V_{\rm add}@f$.
@@ -338,7 +338,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$V_{\rm add}@f$
      */
-    complex Vadd(const double I3f, const double Qf, const double Mw_i) const;
+    gslpp::complex Vadd(const double I3f, const double Qf, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\bar{\eta}^{(1)}_f@f$.
@@ -349,7 +349,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\eta}^{(1)}_f@f$
      */
-    complex DeltaEtaf1(const double I3f, const double Qf, const double Mw_i) const;
+    gslpp::complex DeltaEtaf1(const double I3f, const double Qf, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f${\cal V}_{fi}(q^2)@f$. 
@@ -361,7 +361,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f${\cal V}_{fi}(q^2)@f$
      */
-    complex Vfi(const double I3f, const double Qf, const double q2, const double Mw_i) const;
+    gslpp::complex Vfi(const double I3f, const double Qf, const double q2, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Lambda(x)@f$.
@@ -395,7 +395,7 @@ private:
      *
      * @attention This function is valid for @f$x>0@f$.
      */
-    complex FV(const double x) const;
+    gslpp::complex FV(const double x) const;
 
     /**
      * @brief The auxiliary function @f$g(x)@f$.
@@ -406,7 +406,7 @@ private:
      *
      * @attention This function is valid for @f$0<x<4@f$.
      */
-    complex GV(const double x) const;
+    gslpp::complex GV(const double x) const;
 
 };
 

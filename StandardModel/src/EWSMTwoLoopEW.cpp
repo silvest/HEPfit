@@ -93,11 +93,11 @@ double EWSMTwoLoopEW::DeltaR_rem(const double Mw_i) const
     return DeltaRrem;
 }
 
-complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
 
-    complex dRho = complex(0.0, 0.0, false);
+    gslpp::complex dRho = gslpp::complex(0.0, 0.0, false);
 
 #ifdef EW_SUBLEADING_ALPHA2
     /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
@@ -112,11 +112,11 @@ complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
     return dRho;
 }
 
-complex EWSMTwoLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMTwoLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
 
-    complex dKappa = complex(0.0, 0.0, false);
+    gslpp::complex dKappa = gslpp::complex(0.0, 0.0, false);
 
 #ifdef EW_SUBLEADING_ALPHA2
     /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
@@ -433,7 +433,7 @@ double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const
     return dEta2;
 }
 
-complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
+gslpp::complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
         const double Mw_i) const
 {
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
@@ -446,7 +446,7 @@ complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
 
     double B0_Mt2_Mz2_Mw2_Mw2 = cache.getPV().B0(Mt2, Mz2, Mw2, Mw2).real();
 
-    complex dEta2add = 16.0 * M_PI * M_PI * DeltaEtaf1(I3f, Qf, Mw_i) + Vadd(I3f, Qf, Mw_i)
+    gslpp::complex dEta2add = 16.0 * M_PI * M_PI * DeltaEtaf1(I3f, Qf, Mw_i) + Vadd(I3f, Qf, Mw_i)
             - (197.0 - 1378.0 * cW2 + 1064.0 * cW4) / 27.0 / (1.0 - 4.0 * cW2)
             - (1.0 + 16.0 * cW2 - 20.0 * cW4 + 48.0 * cW6) / 3.0 / (1.0 - 4.0 * cW2)
             * B0_Mt2_Mz2_Mw2_Mw2
@@ -458,7 +458,7 @@ complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
     return dEta2add;
 }
 
-complex EWSMTwoLoopEW::DeltaEta2Add_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMTwoLoopEW::DeltaEta2Add_f(const Particle f, const double Mw_i) const
 {
     double I3f = cache.I3_f(f);
     double Qf = cache.Q_f(f);
@@ -500,7 +500,7 @@ double EWSMTwoLoopEW::DeltaKappa2(const double Mw_i) const
     return dKappa2;
 }
 
-complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
+gslpp::complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
         const double Mw_i) const
 {
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
@@ -511,9 +511,9 @@ complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
     double zt = Mz2 / Mt2;
     double mu = Mt; // renormalization scale
 
-    complex i = complex::i();
+    gslpp::complex i = gslpp::complex::i();
 
-    complex dKappa2add = -238.0 * cW2 / 27.0 + 8.0 * cW4
+    gslpp::complex dKappa2add = -238.0 * cW2 / 27.0 + 8.0 * cW4
             - 2.0 * cW2 * sqrt(4.0 * cW2 - 1.0)*(3.0 + 4.0 * cW2)
             * atan(1.0 / sqrt(4.0 * cW2 - 1.0))
             - 16.0 / 9.0 * cW2 * log(zt)
@@ -526,14 +526,14 @@ complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
     return dKappa2add;
 }
 
-complex EWSMTwoLoopEW::DeltaKappa2Add_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMTwoLoopEW::DeltaKappa2Add_f(const Particle f, const double Mw_i) const
 {
     double I3f = cache.I3_f(f);
     double Qf = cache.Q_f(f);
     return DeltaKappa2Add_tmp(I3f, Qf, Mw_i);
 }
 
-complex EWSMTwoLoopEW::Vadd(const double I3f, const double Qf,
+gslpp::complex EWSMTwoLoopEW::Vadd(const double I3f, const double Qf,
         const double Mw_i) const
 {
     double Mw = Mw_i, Mw2 = Mw*Mw;
@@ -541,29 +541,29 @@ complex EWSMTwoLoopEW::Vadd(const double I3f, const double Qf,
     double Mt = cache.getSM().getMtpole();
     double mu = Mt; // renormalization scale
 
-    complex V = 8.0 * cW2 * log(Mw2 / mu / mu)
+    gslpp::complex V = 8.0 * cW2 * log(Mw2 / mu / mu)
             + 3.0 * (2.0 * I3f * Qf - 4.0 * sW2 * Qf * Qf) * FV(1.0)
             - 16.0 * cW2 * GV(1.0 / cW2)
             + (1.0 - 4.0 * cW2 - 4.0 * (1.0 - 2.0 * cW2) * I3f * Qf) * FV(1.0 / cW2);
     return V;
 }
 
-complex EWSMTwoLoopEW::DeltaEtaf1(const double I3f, const double Qf,
+gslpp::complex EWSMTwoLoopEW::DeltaEtaf1(const double I3f, const double Qf,
         const double Mw_i) const
 {
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i;
     double cW2 = cache.getSM().cW2(Mw);
 
-    complex SigmaPrime_ZZ = myOneLoopEW.SigmabarPrime_ZZ_bos_Mz2(Mz, Mw)
+    gslpp::complex SigmaPrime_ZZ = myOneLoopEW.SigmabarPrime_ZZ_bos_Mz2(Mz, Mw)
             + myOneLoopEW.SigmabarPrime_ZZ_fer_Mz2(Mz, Mw);
 
-    complex dEtaf1 = 1.0 / 16.0 / M_PI / M_PI
+    gslpp::complex dEtaf1 = 1.0 / 16.0 / M_PI / M_PI
             * (-SigmaPrime_ZZ / cW2 - 4.0 * cW2 * log(cW2) + Vfi(I3f, Qf, Mz2, Mw));
     return dEtaf1;
 }
 
-complex EWSMTwoLoopEW::Vfi(const double I3f, const double Qf,
+gslpp::complex EWSMTwoLoopEW::Vfi(const double I3f, const double Qf,
         const double q2, const double Mw_i) const
 {
     double I3i = cache.I3_f(cache.getSM().getLeptons(StandardModel::ELECTRON));
@@ -575,7 +575,7 @@ complex EWSMTwoLoopEW::Vfi(const double I3f, const double Qf,
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw), sW2 = cache.getSM().sW2(Mw);
 
-    complex V = (1.0 - sW2 * (2.0 - 2.0 * I3aQaQa)) * FV(q2 / Mw2)
+    gslpp::complex V = (1.0 - sW2 * (2.0 - 2.0 * I3aQaQa)) * FV(q2 / Mw2)
             + 8.0 * cW2 * GV(q2 / Mw2)
             - (1.0 - 6.0 * sW2 * I3aQa + 6.0 * sW2 * QaQa) / 2.0 / cW2 * FV(q2 / Mz2);
     return V;
@@ -604,12 +604,12 @@ double EWSMTwoLoopEW::phi(const double x) const
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::phi()");
 }
 
-complex EWSMTwoLoopEW::FV(const double x) const
+gslpp::complex EWSMTwoLoopEW::FV(const double x) const
 {
     if (x <= 0.0)
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::FV()");
 
-    complex i = complex::i();
+    gslpp::complex i = gslpp::complex::i();
 
     return ( i * M_PI * (2.0 / x + 3.0 - 2.0 * (1.0 + 1.0 / x)*(1.0 + 1.0 / x) * log(1.0 + x))
             + 2.0 / x + 7.0 / 2.0 - (3.0 + 2.0 / x) * log(x)
@@ -618,7 +618,7 @@ complex EWSMTwoLoopEW::FV(const double x) const
             - M_PI * M_PI / 3.0 + pow(log(1.0 + x), 2.0)));
 }
 
-complex EWSMTwoLoopEW::GV(const double x) const
+gslpp::complex EWSMTwoLoopEW::GV(const double x) const
 {
     if (x <= 0.0 || x >= 4.0)
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::GV()");

@@ -88,7 +88,7 @@ double EWSMOneLoopEW::DeltaRbar_rem(const double Mw_i) const
     return DRbar_rem;
 }
 
-complex EWSMOneLoopEW::deltaRho_rem_tmp(const complex uf,
+gslpp::complex EWSMOneLoopEW::deltaRho_rem_tmp(const gslpp::complex uf,
         const double Mw_i) const
 {
     double Mz = cache.getSM().getMz();
@@ -99,7 +99,7 @@ complex EWSMOneLoopEW::deltaRho_rem_tmp(const complex uf,
     /* Logarithm */
     double log_cW2 = cache.log_cW2(Mw);
 
-    complex dRho_rem(0.0, 0.0, false);
+    gslpp::complex dRho_rem(0.0, 0.0, false);
     dRho_rem = -(SigmabarPrime_ZZ_bos_Mz2(Mz, Mw).real()
             + SigmabarPrime_ZZ_fer_Mz2(Mz, Mw).real()) / cW2
             - DeltaRhobarW(Mz, Mw) + 2.0 * uf
@@ -110,18 +110,18 @@ complex EWSMOneLoopEW::deltaRho_rem_tmp(const complex uf,
     return dRho_rem;
 }
 
-complex EWSMOneLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::deltaRho_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
 
     double Mz = cache.getSM().getMz();
     double Mw = Mw_i;
-    complex uf = (3.0 * cache.v_f(f, Mw) * cache.v_f(f, Mw) + cache.a_f(f) * cache.a_f(f))
+    gslpp::complex uf = (3.0 * cache.v_f(f, Mw) * cache.v_f(f, Mw) + cache.a_f(f) * cache.a_f(f))
             / 4.0 / cache.getSM().cW2(Mw) * FZ(Mz*Mz, Mw) + FW(Mz*Mz, f, Mw);
     return ( deltaRho_rem_tmp(uf, Mw));
 }
 
-complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
+gslpp::complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const gslpp::complex uf,
         const double Mw_i) const
 {
     double Mz = cache.getSM().getMz();
@@ -132,7 +132,7 @@ complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
     /* Logarithm */
     double log_cW2 = cache.log_cW2(Mw);
 
-    complex dKappa_rem(0.0, 0.0, false);
+    gslpp::complex dKappa_rem(0.0, 0.0, false);
     dKappa_rem = (PibarZgamma_bos(Mz, Mz*Mz, Mw) + PibarZgamma_fer(Mz, Mz*Mz, Mw))
             + deltaf * deltaf / 4.0 / cW2 * FZ(Mz*Mz, Mw) - uf
             + (1.0 / 12.0 / cW2 + 4.0 / 3.0) * log_cW2;
@@ -140,13 +140,13 @@ complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
     return dKappa_rem;
 }
 
-complex EWSMOneLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::deltaKappa_rem_f(const Particle f, const double Mw_i) const
 {
-    if (f.is("TOP")) return ( complex(0.0, 0.0, false));
+    if (f.is("TOP")) return ( gslpp::complex(0.0, 0.0, false));
 
     double Mz = cache.getSM().getMz();
     double Mw = Mw_i;
-    complex uf = (3.0 * cache.v_f(f, Mw) * cache.v_f(f, Mw) + cache.a_f(f) * cache.a_f(f))
+    gslpp::complex uf = (3.0 * cache.v_f(f, Mw) * cache.v_f(f, Mw) + cache.a_f(f) * cache.a_f(f))
             / 4.0 / cache.getSM().cW2(Mw) * FZ(Mz*Mz, Mw) + FW(Mz*Mz, f, Mw);
 
     return ( deltaKappa_rem_tmp(cache.delta_f(f, Mw), uf, Mw));
@@ -163,8 +163,8 @@ double EWSMOneLoopEW::rho_GammaW_tmp(const double Qi, const double Qj,
 
     /* Logarithm and one-loop functions */
     double log_cW2 = cache.log_cW2(Mw);
-    complex B0_Mw2_Mw2_Mz2_Mw2 = cache.B0_Mw2_Mw2_Mz2_Mw2(Mw);
-    complex C0_Mw2_Mw2_0_Mz2 = cache.C0_Mw2_Mw2_0_Mz2(Mw);
+    gslpp::complex B0_Mw2_Mw2_Mz2_Mw2 = cache.B0_Mw2_Mw2_Mz2_Mw2(Mw);
+    gslpp::complex C0_Mw2_Mw2_0_Mz2 = cache.C0_Mw2_Mw2_0_Mz2(Mw);
 
     double V1 = FZa_0(Mw*Mw, Mw).real() - 3.0 / 2.0;
     double V2 = -2.0 * (2.0 + cW2) * Mz * Mz * C0_Mw2_Mw2_0_Mz2.real()
@@ -200,7 +200,7 @@ double EWSMOneLoopEW::rho_GammaW(const Particle fi, const Particle fj, const dou
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -219,8 +219,8 @@ complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s, const dou
 
     /* Loop functions */
     double A0_Mw2, A0_Mz2, A0_mh2;
-    complex B0_s_Mz2_Mw2, B0_s_0_Mw2, B0_s_mh2_Mw2;
-    complex B0p_s_Mz2_Mw2, B0p_s_mh2_Mw2; /* for s==0.0 */
+    gslpp::complex B0_s_Mz2_Mw2, B0_s_0_Mw2, B0_s_mh2_Mw2;
+    gslpp::complex B0p_s_Mz2_Mw2, B0p_s_mh2_Mw2; /* for s==0.0 */
     if (mu == Mz && s == 0.0) {
         A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
         A0_Mz2 = cache.A0_Mz2_Mz2();
@@ -248,7 +248,7 @@ complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s, const dou
         B0p_s_mh2_Mw2 = cache.getPV().B0p(mu2, s, mh2, Mw2);
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         Sigma = Mw2 * (2.0 / 3.0 * (1.0 / cW2 - 4.0 - 4.0 * cW2 + cW4) * B0_s_Mz2_Mw2
                 + (1.0 / 12.0 / cW4 + 2.0 / 3.0 / cW2 - 3.0 / 2.0
@@ -284,7 +284,7 @@ complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s, const dou
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -297,9 +297,9 @@ complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s, const dou
     double Mz = cache.getSM().getMz();
 
     /* Loop functions */
-    complex B1_s_ml2_mlprime2[3], B1_s_mq2_mqprime2[3];
-    complex B1_s_mlprime2_ml2[3], B1_s_mqprime2_mq2[3];
-    complex Bf_s_mlprime2_ml2[3], Bf_s_mqprime2_mq2[3];
+    gslpp::complex B1_s_ml2_mlprime2[3], B1_s_mq2_mqprime2[3];
+    gslpp::complex B1_s_mlprime2_ml2[3], B1_s_mqprime2_mq2[3];
+    gslpp::complex Bf_s_mlprime2_ml2[3], Bf_s_mqprime2_mq2[3];
     if (mu == Mz && s == 0.0) {
         for (int gen = 0; gen < 3; gen++) {
             B1_s_ml2_mlprime2[gen] = cache.B1_Mz2_0_mf2_mfprime2(gen);
@@ -329,7 +329,7 @@ complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s, const dou
         }
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     double mf2, mfprime2;
     for (int gen = 0; gen < 3; gen++) {
         mf2 = ml2[2 * gen];
@@ -345,7 +345,7 @@ complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s, const dou
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -363,7 +363,7 @@ complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s, const dou
 
     /* Loop functions */
     double A0_Mw2, A0_Mz2, A0_mh2;
-    complex B0_s_Mw2_Mw2, B0_s_mh2_Mz2;
+    gslpp::complex B0_s_Mw2_Mw2, B0_s_mh2_Mz2;
     if (mu == Mz && s == Mz2) {
         A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
         A0_Mz2 = cache.A0_Mz2_Mz2();
@@ -378,7 +378,7 @@ complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s, const dou
         B0_s_mh2_Mz2 = cache.getPV().B0(mu2, s, mh2, Mz2);
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         throw std::runtime_error("EWSMOneLoopEW::SigmabarZZ_bos(): Undefined for s=0.0");
     } else {
@@ -396,7 +396,7 @@ complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s, const dou
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -409,8 +409,8 @@ complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, const dou
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
-    complex B0_s_ml2_ml2[6], B0_s_mq2_mq2[6];
+    gslpp::complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
+    gslpp::complex B0_s_ml2_ml2[6], B0_s_mq2_mq2[6];
     if (mu == Mz && s == Mz2) {
         for (int i = 0; i < 6; i++) {
             Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
@@ -427,7 +427,7 @@ complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, const dou
         }
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     if (s == 0.0) {
         throw std::runtime_error("EWSMOneLoopEW::SigmaZZ_fer(): Undefined for s=0.0");
     } else {
@@ -449,7 +449,7 @@ complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, const dou
     return Sigma;
 }
 
-complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -462,7 +462,7 @@ complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s, cons
 
     /* Loop functions */
     double A0_Mw2;
-    complex B0_s_Mw2_Mw2;
+    gslpp::complex B0_s_Mw2_Mw2;
     if (mu == Mz && s == Mz2) {
         A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
         B0_s_Mw2_Mw2 = cache.B0_Mz2_Mz2_Mw2_Mw2(Mw);
@@ -471,7 +471,7 @@ complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s, cons
         B0_s_Mw2_Mw2 = cache.getPV().B0(mu2, s, Mw2, Mw2);
     }
 
-    complex Pi(0.0, 0.0, false);
+    gslpp::complex Pi(0.0, 0.0, false);
     if (s == 0.0) {
         Pi = 7.0 * log(Mw2 / mu / mu) - 2.0 / 3.0;
     } else {
@@ -482,7 +482,7 @@ complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s, cons
     return Pi;
 }
 
-complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s, const Particle f) const
+gslpp::complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s, const Particle f) const
 {
     // Neutrinos do not contribute, since Qf=0.
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2")
@@ -495,7 +495,7 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s, cons
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_s_mf2_mf2;
+    gslpp::complex Bf_s_mf2_mf2;
     if (mu == Mz && s == Mz2) {
         if (mf2 == 0.0) {
             Bf_s_mf2_mf2 = 0.0;
@@ -521,9 +521,9 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s, cons
     return ( -4.0 * colorfactor * Qf * Qf * Bf_s_mf2_mf2);
 }
 
-complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s) const
+gslpp::complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s) const
 {
-    complex Pi(0.0, 0.0, false);
+    gslpp::complex Pi(0.0, 0.0, false);
     for (int i = 0; i < 6; i++) {
         Pi += PibarGammaGamma_fer(mu, s, cache.getSM().getLeptons((StandardModel::lepton) i));
         Pi += PibarGammaGamma_fer(mu, s, cache.getSM().getQuarks((QCD::quark) i));
@@ -531,14 +531,14 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s) cons
     return Pi;
 }
 
-complex EWSMOneLoopEW::PibarZgamma_bos(const double mu, const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::PibarZgamma_bos(const double mu, const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double cW2 = cache.getSM().cW2(Mw);
     return ( PibarGammaGamma_bos(mu, s, Mw) * cW2);
 }
 
-complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -552,7 +552,7 @@ complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, const do
     double sW2 = cache.getSM().sW2(Mw);
 
     /* Loop functions */
-    complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
+    gslpp::complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
     if (mu == Mz && s == Mz2) {
         for (int i = 0; i < 6; i++) {
             if (i == 0 || i == 2 || i == 4)
@@ -571,7 +571,7 @@ complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, const do
         }
     }
 
-    complex Pi(0.0, 0.0, false);
+    gslpp::complex Pi(0.0, 0.0, false);
     double Ql, Qq;
     for (int i = 0; i < 6; i++) {
         Ql = cache.Q_f(cache.getSM().getLeptons((StandardModel::lepton) i));
@@ -586,7 +586,7 @@ complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, const do
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -603,8 +603,8 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw
 
     /* Loop functions */
     double A0_Mw2, A0_Mz2, A0_mh2;
-    complex B0_Mw2_Mz2_Mw2, B0_Mw2_0_Mw2, B0_Mw2_mh2_Mw2;
-    complex B0p_Mw2_Mz2_Mw2, B0p_Mw2_0_Mw2, B0p_Mw2_mh2_Mw2;
+    gslpp::complex B0_Mw2_Mz2_Mw2, B0_Mw2_0_Mw2, B0_Mw2_mh2_Mw2;
+    gslpp::complex B0p_Mw2_Mz2_Mw2, B0p_Mw2_0_Mw2, B0p_Mw2_mh2_Mw2;
     if (mu == Mw) {
         A0_Mw2 = cache.A0_Mw2_Mw2(Mw);
         A0_Mz2 = cache.A0_Mw2_Mz2(Mw);
@@ -627,7 +627,7 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw
         B0p_Mw2_mh2_Mw2 = cache.getPV().B0p(mu2, Mw2, mh2, Mw2);
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     Sigma = -(1.0 / 12.0 / cW4 + 2.0 / 3.0 / cW2 + 2.0 * cW2) * B0_Mw2_Mz2_Mw2
             + (1.0 / 12.0 / cW4 + 4.0 / 3.0 / cW2 - 17.0 / 3.0 - 4.0 * cW2) * Mw2 * B0p_Mw2_Mz2_Mw2
             - 2.0 * sW2 * B0_Mw2_0_Mw2 - 4.0 * sW2 * Mw2 * B0p_Mw2_0_Mw2
@@ -639,7 +639,7 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -651,10 +651,10 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw
     double Mw2 = Mw*Mw;
 
     /* Loop functions */
-    complex Bf_Mw2_mlprime2_ml2[3], Bf_Mw2_mqprime2_mq2[3];
-    complex Bfp_Mw2_mlprime2_ml2[3], Bfp_Mw2_mqprime2_mq2[3];
-    complex B1p_Mw2_mlprime2_ml2[3], B1p_Mw2_mqprime2_mq2[3];
-    complex B1p_Mw2_ml2_mlprime2[3], B1p_Mw2_mq2_mqprime2[3];
+    gslpp::complex Bf_Mw2_mlprime2_ml2[3], Bf_Mw2_mqprime2_mq2[3];
+    gslpp::complex Bfp_Mw2_mlprime2_ml2[3], Bfp_Mw2_mqprime2_mq2[3];
+    gslpp::complex B1p_Mw2_mlprime2_ml2[3], B1p_Mw2_mqprime2_mq2[3];
+    gslpp::complex B1p_Mw2_ml2_mlprime2[3], B1p_Mw2_mq2_mqprime2[3];
     if (mu == Mw) {
         for (int gen = 0; gen < 3; gen++) {
             Bf_Mw2_mlprime2_ml2[gen] = cache.Bf_Mw2_Mw2_mfprime2_mf2(gen, Mw);
@@ -679,7 +679,7 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw
         }
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     double mf2, mfprime2;
     for (int gen = 0; gen < 3; gen++) {
         mf2 = ml2[2 * gen];
@@ -695,7 +695,7 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = Mw_i;
@@ -711,8 +711,8 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw
 
     /* Loop functions */
     double A0_Mw2, A0_Mz2, A0_mh2;
-    complex B0_Mz2_Mw2_Mw2, B0_Mz2_mh2_Mz2;
-    complex B0p_Mz2_Mw2_Mw2, B0p_Mz2_mh2_Mz2;
+    gslpp::complex B0_Mz2_Mw2_Mw2, B0_Mz2_mh2_Mz2;
+    gslpp::complex B0p_Mz2_Mw2_Mw2, B0p_Mz2_mh2_Mz2;
     if (mu == Mz) {
         A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
         A0_Mz2 = cache.A0_Mz2_Mz2();
@@ -731,7 +731,7 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw
         B0p_Mz2_mh2_Mz2 = cache.getPV().B0p(mu2, Mz2, mh2, Mz2);
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     Sigma = (1.0 / 4.0 / cW2 + 8.0 / 3.0 - 17.0 / 3.0 * cW2) * B0_Mz2_Mw2_Mw2
             + (1.0 / 12.0 / cW2 + 4.0 / 3.0 - 17.0 / 3.0 * cW2 - 4.0 * cW4) * Mz2 * B0p_Mz2_Mw2_Mw2
             + rw / 6.0 * (1.0 - rz / 2.0) * B0_Mz2_mh2_Mz2
@@ -743,7 +743,7 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw
     return Sigma;
 }
 
-complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
@@ -756,9 +756,9 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_Mz2_ml2_ml2[6], Bf_Mz2_mq2_mq2[6];
-    complex Bfp_Mz2_ml2_ml2[6], Bfp_Mz2_mq2_mq2[6];
-    complex B0p_Mz2_ml2_ml2[6], B0p_Mz2_mq2_mq2[6];
+    gslpp::complex Bf_Mz2_ml2_ml2[6], Bf_Mz2_mq2_mq2[6];
+    gslpp::complex Bfp_Mz2_ml2_ml2[6], Bfp_Mz2_mq2_mq2[6];
+    gslpp::complex B0p_Mz2_ml2_ml2[6], B0p_Mz2_mq2_mq2[6];
     if (mu == Mz) {
         for (int i = 0; i < 6; i++) {
             Bf_Mz2_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
@@ -779,7 +779,7 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw
         }
     }
 
-    complex Sigma(0.0, 0.0, false);
+    gslpp::complex Sigma(0.0, 0.0, false);
     double mf2, vf2, af2;
     for (int i = 0; i < 6; i++) {
         mf2 = ml2[i];
@@ -835,10 +835,10 @@ double EWSMOneLoopEW::TEST_DeltaRhobar_bos(const double Mw_i) const
     double log_cW2 = cache.log_cW2(Mw);
 
     /* B0 functions for mu=Mw */
-    complex B0_Mw2_Mz2_Mw2_Mw2 = cache.B0_Mz2_Mz2_Mw2_Mw2(Mw) + log_cW2;
-    complex B0_Mw2_Mz2_mh2_Mz2 = cache.B0_Mz2_Mz2_mh2_Mz2() + log_cW2;
-    complex B0_Mw2_Mw2_Mz2_Mw2 = cache.B0_Mz2_Mw2_Mz2_Mw2(Mw) + log_cW2;
-    complex B0_Mw2_Mw2_mh2_Mw2 = cache.B0_Mz2_Mw2_mh2_Mw2(Mw) + log_cW2;
+    gslpp::complex B0_Mw2_Mz2_Mw2_Mw2 = cache.B0_Mz2_Mz2_Mw2_Mw2(Mw) + log_cW2;
+    gslpp::complex B0_Mw2_Mz2_mh2_Mz2 = cache.B0_Mz2_Mz2_mh2_Mz2() + log_cW2;
+    gslpp::complex B0_Mw2_Mw2_Mz2_Mw2 = cache.B0_Mz2_Mw2_Mz2_Mw2(Mw) + log_cW2;
+    gslpp::complex B0_Mw2_Mw2_mh2_Mw2 = cache.B0_Mz2_Mw2_mh2_Mw2(Mw) + log_cW2;
 
     double DRhobar;
     DRhobar = -(1.0 / 12.0 / cW2 + 4.0 / 3.0 - 17.0 / 3.0 * cW2 - 4.0 * cW4)
@@ -864,8 +864,8 @@ double EWSMOneLoopEW::TEST_DeltaRhobarW_bos(const double Mw_i) const
     double log_cW2 = cache.log_cW2(Mw);
 
     /* B0 functions for mu=Mw */
-    complex B0_Mw2_Mz2_Mw2 = cache.B0_Mz2_Mw2_Mz2_Mw2(Mw) + log_cW2;
-    complex B0_Mw2_mh2_Mw2 = cache.B0_Mz2_Mw2_mh2_Mw2(Mw) + log_cW2;
+    gslpp::complex B0_Mw2_Mz2_Mw2 = cache.B0_Mz2_Mw2_Mz2_Mw2(Mw) + log_cW2;
+    gslpp::complex B0_Mw2_mh2_Mw2 = cache.B0_Mz2_Mw2_mh2_Mw2(Mw) + log_cW2;
 
     double DRhobarW;
     DRhobarW = -(1.0 / 12.0 / cW4 + 4.0 / 3.0 / cW2 - 17.0 / 3.0 - 4.0 * cW2) * B0_Mw2_Mz2_Mw2.real()
@@ -880,7 +880,7 @@ double EWSMOneLoopEW::TEST_DeltaRhobarW_bos(const double Mw_i) const
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::FZa_0(const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FZa_0(const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mz = cache.getSM().getMz();
@@ -888,7 +888,7 @@ complex EWSMOneLoopEW::FZa_0(const double s, const double Mw_i) const
 
     /* Logarithm and three-point one-loop functions */
     double log_Rz;
-    complex C0_s_0_Mz2_0;
+    gslpp::complex C0_s_0_Mz2_0;
     if (s == Mz * Mz) {
         log_Rz = 0.0;
         C0_s_0_Mz2_0 = cache.C0_Mz2_0_Mz2_0();
@@ -900,13 +900,13 @@ complex EWSMOneLoopEW::FZa_0(const double s, const double Mw_i) const
         C0_s_0_Mz2_0 = cache.getPV().C0(s, 0.0, Mz*Mz, 0.0);
     }
 
-    complex FZa(0.0, 0.0, false);
+    gslpp::complex FZa(0.0, 0.0, false);
     FZa = 2.0 * pow((Rz + 1.0), 2.0) * s * C0_s_0_Mz2_0
-            - (2.0 * Rz + 3.0)*(log_Rz + M_PI * complex::i()) - 2.0 * Rz - 7.0 / 2.0;
+            - (2.0 * Rz + 3.0)*(log_Rz + M_PI * gslpp::complex::i()) - 2.0 * Rz - 7.0 / 2.0;
     return FZa;
 }
 
-complex EWSMOneLoopEW::FWa_0(const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FWa_0(const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mz = cache.getSM().getMz();
@@ -914,7 +914,7 @@ complex EWSMOneLoopEW::FWa_0(const double s, const double Mw_i) const
 
     /* Logarithm and three-point one-loop functions */
     double log_Rw;
-    complex C0_s_0_Mw2_0;
+    gslpp::complex C0_s_0_Mw2_0;
     if (s == Mz * Mz) {
         log_Rw = cache.log_cW2(Mw);
         C0_s_0_Mw2_0 = cache.C0_Mz2_0_Mw2_0(Mw);
@@ -923,18 +923,18 @@ complex EWSMOneLoopEW::FWa_0(const double s, const double Mw_i) const
         C0_s_0_Mw2_0 = cache.getPV().C0(s, 0.0, Mw*Mw, 0.0);
     }
 
-    complex FWa(0.0, 0.0, false);
+    gslpp::complex FWa(0.0, 0.0, false);
     FWa = 2.0 * pow((Rw + 1.0), 2.0) * s * C0_s_0_Mw2_0
-            - (2.0 * Rw + 3.0)*(log_Rw + M_PI * complex::i()) - 2.0 * Rw - 7.0 / 2.0;
+            - (2.0 * Rw + 3.0)*(log_Rw + M_PI * gslpp::complex::i()) - 2.0 * Rw - 7.0 / 2.0;
     return FWa;
 }
 
-complex EWSMOneLoopEW::FbarWa_0(const double s) const
+gslpp::complex EWSMOneLoopEW::FbarWa_0(const double s) const
 {
-    return ( complex(0.0, 0.0, false));
+    return ( gslpp::complex(0.0, 0.0, false));
 }
 
-complex EWSMOneLoopEW::FWn_0(const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FWn_0(const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mw2 = Mw*Mw;
@@ -942,8 +942,8 @@ complex EWSMOneLoopEW::FWn_0(const double s, const double Mw_i) const
     double Rw = Mw * Mw / s;
 
     /* Two- and three-point one-loop functions */
-    complex B0_Mw_s_Mw2_Mw2;
-    complex C0_s_Mw2_0_Mw2;
+    gslpp::complex B0_Mw_s_Mw2_Mw2;
+    gslpp::complex C0_s_Mw2_0_Mw2;
     if (s == Mz * Mz) {
         B0_Mw_s_Mw2_Mw2 = cache.B0_Mw2_Mz2_Mw2_Mw2(Mw);
         C0_s_Mw2_0_Mw2 = cache.C0_Mz2_Mw2_0_Mw2(Mw);
@@ -952,14 +952,14 @@ complex EWSMOneLoopEW::FWn_0(const double s, const double Mw_i) const
         C0_s_Mw2_0_Mw2 = cache.getPV().C0(s, Mw2, 0.0, Mw2);
     }
 
-    complex FWn(0.0, 0.0, false);
+    gslpp::complex FWn(0.0, 0.0, false);
     FWn = -2.0 * (Rw + 2.0) * Mw * Mw * C0_s_Mw2_0_Mw2
             - (2.0 * Rw + 7.0 / 3.0 - 3.0 / 2.0 / Rw - 1.0 / 12.0 / Rw / Rw) * B0_Mw_s_Mw2_Mw2
             + 2.0 * Rw + 9.0 / 2.0 - 11.0 / 18.0 / Rw + 1.0 / 18.0 / Rw / Rw;
     return FWn;
 }
 
-complex EWSMOneLoopEW::FWa_t(const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FWa_t(const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mw2 = Mw*Mw;
@@ -972,8 +972,8 @@ complex EWSMOneLoopEW::FWa_t(const double s, const double Mw_i) const
     /* Logarithm and two- and three-point one-loop functions */
     double log_wt = -2.0 * cache.logMZtoMTOP() - cache.log_cW2(Mw);
     double log_Rw;
-    complex B0_Mw2_s_Mt2_Mt2;
-    complex C0_s_Mt2_Mw2_Mt2, C0_s_0_Mw2_0;
+    gslpp::complex B0_Mw2_s_Mt2_Mt2;
+    gslpp::complex C0_s_Mt2_Mw2_Mt2, C0_s_0_Mw2_0;
     if (s == Mz * Mz) {
         log_Rw = cache.log_cW2(Mw);
         B0_Mw2_s_Mt2_Mt2 = cache.B0_Mw2_Mz2_Mt2_Mt2(Mw);
@@ -986,9 +986,9 @@ complex EWSMOneLoopEW::FWa_t(const double s, const double Mw_i) const
         C0_s_0_Mw2_0 = cache.getPV().C0(s, 0.0, Mw2, 0.0);
     }
 
-    complex FWa(0.0, 0.0, false);
+    gslpp::complex FWa(0.0, 0.0, false);
     FWa = 2.0 * (Rw + 1.0)*(Rw + 1.0) * s * (C0_s_Mt2_Mw2_Mt2 - C0_s_0_Mw2_0)
-            + (2.0 * Rw + 3.0)*(-B0_Mw2_s_Mt2_Mt2 + log_Rw + M_PI * complex::i() + 2.0)
+            + (2.0 * Rw + 3.0)*(-B0_Mw2_s_Mt2_Mt2 + log_Rw + M_PI * gslpp::complex::i() + 2.0)
             - wt * ((3.0 * Rw + 2.0 - wt - wt * wt * Rw) * Mw * Mw * C0_s_Mt2_Mw2_Mt2
             + (Rw + 1.0 / 2.0 + wt * Rw)*(1.0 - B0_Mw2_s_Mt2_Mt2)
             - (2.0 * Rw + 1.0 / 2.0 - 2.0 / (wt - 1.0)
@@ -997,7 +997,7 @@ complex EWSMOneLoopEW::FWa_t(const double s, const double Mw_i) const
     return FWa;
 }
 
-complex EWSMOneLoopEW::FbarWa_t(const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FbarWa_t(const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mw2 = Mw*Mw;
@@ -1009,8 +1009,8 @@ complex EWSMOneLoopEW::FbarWa_t(const double s, const double Mw_i) const
 
     /* Logarithm and two- and three-point one-loop functions */
     double log_wt = -2.0 * cache.logMZtoMTOP() - cache.log_cW2(Mw);
-    complex B0_Mw2_s_Mt2_Mt2;
-    complex C0_s_Mt2_Mw2_Mt2;
+    gslpp::complex B0_Mw2_s_Mt2_Mt2;
+    gslpp::complex C0_s_Mt2_Mw2_Mt2;
     if (s == Mz * Mz) {
         B0_Mw2_s_Mt2_Mt2 = cache.B0_Mw2_Mz2_Mt2_Mt2(Mw);
         C0_s_Mt2_Mw2_Mt2 = cache.C0_Mz2_Mt2_Mw2_Mt2(Mw);
@@ -1019,14 +1019,14 @@ complex EWSMOneLoopEW::FbarWa_t(const double s, const double Mw_i) const
         C0_s_Mt2_Mw2_Mt2 = cache.getPV().C0(s, Mt2, Mw2, Mt2);
     }
 
-    complex FbarWa(0.0, 0.0, false);
+    gslpp::complex FbarWa(0.0, 0.0, false);
     FbarWa = -wt * ((Rw + 2.0 - wt * (2.0 - wt) * Rw) * Mw * Mw * C0_s_Mt2_Mw2_Mt2
             - (1.0 / 2.0 - Rw + wt * Rw)*(-B0_Mw2_s_Mt2_Mt2 + 1.0)
             + wt * Rw * log_wt);
     return FbarWa;
 }
 
-complex EWSMOneLoopEW::FWn_t(const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FWn_t(const double s, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mw2 = Mw*Mw;
@@ -1038,8 +1038,8 @@ complex EWSMOneLoopEW::FWn_t(const double s, const double Mw_i) const
 
     /* Logarithm and two- and three-point one-loop functions */
     double log_wt = -2.0 * cache.logMZtoMTOP() - cache.log_cW2(Mw);
-    complex B0_Mw2_s_Mw2_Mw2;
-    complex C0_s_Mw2_Mt2_Mw2, C0_s_Mw2_0_Mw2;
+    gslpp::complex B0_Mw2_s_Mw2_Mw2;
+    gslpp::complex C0_s_Mw2_Mt2_Mw2, C0_s_Mw2_0_Mw2;
     if (s == Mz * Mz) {
         B0_Mw2_s_Mw2_Mw2 = cache.B0_Mw2_Mz2_Mw2_Mw2(Mw);
         C0_s_Mw2_Mt2_Mw2 = cache.C0_Mz2_Mw2_Mt2_Mw2(Mw);
@@ -1050,7 +1050,7 @@ complex EWSMOneLoopEW::FWn_t(const double s, const double Mw_i) const
         C0_s_Mw2_0_Mw2 = cache.getPV().C0(s, Mw2, 0.0, Mw2);
     }
 
-    complex FWn(0.0, 0.0, false);
+    gslpp::complex FWn(0.0, 0.0, false);
     FWn = -2.0 * (Rw + 2.0) * Mw * Mw * (C0_s_Mw2_Mt2_Mw2 - C0_s_Mw2_0_Mw2)
             + wt * ((3.0 * Rw + 5.0 / 2.0 - 2.0 / Rw - wt * (2.0 - 1.0 / 2.0 / Rw)
             + wt * wt * (1.0 / 2.0 - Rw)) * Mw * Mw * C0_s_Mw2_Mt2_Mw2
@@ -1062,12 +1062,12 @@ complex EWSMOneLoopEW::FWn_t(const double s, const double Mw_i) const
     return FWn;
 }
 
-complex EWSMOneLoopEW::FZ(const double s, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FZ(const double s, const double Mw_i) const
 {
     return ( FZa_0(s, Mw_i));
 }
 
-complex EWSMOneLoopEW::FW(const double s, const Particle f, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::FW(const double s, const Particle f, const double Mw_i) const
 {
     double Mw = Mw_i;
     double cW2 = cache.getSM().cW2(Mw);
@@ -1104,7 +1104,7 @@ complex EWSMOneLoopEW::FW(const double s, const Particle f, const double Mw_i) c
             qprime = QCD::TOP;
         else
             throw std::runtime_error("EWSMOneLoopEW::FW(): TOP is not allowed");
-        complex FW(0.0, 0.0, false);
+        gslpp::complex FW(0.0, 0.0, false);
         FW = cW2 * FWn_0(s, Mw) - cache.sigma_f(cache.getSM().getQuarks(qprime), Mw) / 2.0 * FWa_0(s, Mw)
                 - FbarWa_0(s) / 2.0;
         if (f.is("BOTTOM"))
@@ -1118,7 +1118,7 @@ complex EWSMOneLoopEW::FW(const double s, const Particle f, const double Mw_i) c
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::TEST_FWn(const double s, const double mf, const double Mw_i) const
+gslpp::complex EWSMOneLoopEW::TEST_FWn(const double s, const double mf, const double Mw_i) const
 {
     double Mw = Mw_i;
     double Mw2 = Mw*Mw;
@@ -1130,12 +1130,12 @@ complex EWSMOneLoopEW::TEST_FWn(const double s, const double mf, const double Mw
     double log_wf = log(wf);
     double A0_Mw2 = cache.getPV().A0(Mw2, Mw2);
     double A0_mf2 = cache.getPV().A0(Mw2, mf2);
-    complex B0_Mw2_s_Mw2_Mw2 = cache.getPV().B0(Mw2, s, Mw2, Mw2);
-    complex B0_Mw2_0_mf2_Mw2 = cache.getPV().B0(Mw2, 0.0, mf2, Mw2);
-    complex C0_s_Mw2_mf2_Mw2 = cache.getPV().C0(s, Mw2, mf2, Mw2);
-    complex C0_s_Mw2_0_Mw2 = cache.getPV().C0(s, Mw2, 0.0, Mw2);
+    gslpp::complex B0_Mw2_s_Mw2_Mw2 = cache.getPV().B0(Mw2, s, Mw2, Mw2);
+    gslpp::complex B0_Mw2_0_mf2_Mw2 = cache.getPV().B0(Mw2, 0.0, mf2, Mw2);
+    gslpp::complex C0_s_Mw2_mf2_Mw2 = cache.getPV().C0(s, Mw2, mf2, Mw2);
+    //gslpp::complex C0_s_Mw2_0_Mw2 = cache.getPV().C0(s, Mw2, 0.0, Mw2);
 
-    complex FWn(0.0, 0.0, false);
+    gslpp::complex FWn(0.0, 0.0, false);
     /* Eq.(5.586) in Bardin and Passarino's book */
     FWn = ((2.0 + wf)*(1.0 - wf)*(1.0 - wf) * Rw + 4.0 - 5.0 / 2.0 * wf + 2.0 * wf * wf
             - wf * wf * wf / 2.0 + wf * (2.0 - wf / 2.0) / Rw) * Mw * Mw * C0_s_Mw2_mf2_Mw2

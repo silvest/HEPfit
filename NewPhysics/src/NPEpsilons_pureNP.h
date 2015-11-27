@@ -30,7 +30,7 @@
  *
  * After creating an instance of the current class with the constructor
  * NPEpsilons_pureNP(), it is required to call the initialization method
- * InitializeModel(), inherited from NPEffective class.
+ * InitializeModel().
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
@@ -153,7 +153,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief @copybrief StandardModel::Mw()
+     * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @details
      * @f[
      * M_W =
@@ -171,7 +171,7 @@ public:
     virtual double Mw() const;
 
     /**
-     * @brief @copybrief StandardModel::GammaW()
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * 
      * @warning This function is not available.
      */

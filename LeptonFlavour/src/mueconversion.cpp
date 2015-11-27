@@ -8,17 +8,17 @@
 #include "mueconversion.h"
 #include "StandardModel.h"
 
-mueconversion::mueconversion(const StandardModel& SM_i): ThObservable(SM_i)
-{
-};
-
-double mueconversion::computeThValue()
-{
-    return 0.0;
-}
+//mueconversion::mueconversion(const StandardModel& SM_i): ThObservable(SM_i)
+//{
+//};
+//
+//double mueconversion::computeThValue()
+//{
+//    return 0.0;
+//}
 
 mueconversion_Ti::mueconversion_Ti(const StandardModel& SM_i)
-: mueconversion(SM_i), mySM(SM_i)
+: ThObservable(SM_i), mySM(SM_i)
 {}
 
 double mueconversion_Ti::computeThValue()
@@ -27,7 +27,7 @@ double mueconversion_Ti::computeThValue()
 //    double mE = mySM.getLeptons(StandardModel::ELECTRON).getMass();
     double mMU = mySM.getLeptons(StandardModel::MU).getMass();
 //    double GammaMU = 2.99598e-19;
-    gslpp::vector<complex> ** allcoeff_mueconv = mySM.getMyLeptonFlavour()->ComputeCoeffmueconversion();
+    gslpp::vector<gslpp::complex> ** allcoeff_mueconv = mySM.getMyLeptonFlavour()->ComputeCoeffmueconversion();
     double ZTi=22.0;
     double NTi=26.0;
     double Zeff=17.6;

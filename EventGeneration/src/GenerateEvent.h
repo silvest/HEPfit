@@ -8,15 +8,15 @@
 #ifndef GENERATEEVENT_H
 #define	GENERATEEVENT_H
 
-#include <InputParser.h>
+#include "InputParser.h"
+#include "Observable.h"
+#include "Observable2D.h"
+#include "CorrelatedGaussianObservables.h"
+#include "ModelParameter.h"
+#include "Model.h"
+#include "boost/shared_ptr.hpp"
+#include "boost/make_shared.hpp"
 #include <TF1.h>
-#include <Observable.h>
-#include <Observable2D.h>
-#include <CorrelatedGaussianObservables.h>
-#include <ModelParameter.h>
-#include <Model.h>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -86,11 +86,7 @@ public:
      */
     void generate(int unsigned nIteration_i, int seed = 0, bool weight = false);
     
-   void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
-    
-   void addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct);
-   
-   void linkParserToObservable(std::string name_par, std::string name_obs);
+    void addCustomObservableType(const std::string name, boost::function<Observable*() > funct);
     
 private:
     /**

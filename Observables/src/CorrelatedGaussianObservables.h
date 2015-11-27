@@ -9,6 +9,9 @@
 #define	CORRELATEDGAUSSIANOBSERVABLES_H
 
 #include "Observable.h"
+#include <boost/ptr_container/ptr_vector.hpp>
+
+class ThObsFactory;
 
 /**
  * @addtogroup Observable
@@ -33,6 +36,11 @@ public:
      * @param[in] name_i a given name for the set of correlated Gaussian observables
      */
     CorrelatedGaussianObservables(std::string name_i);
+    
+    /**
+     * @brief The default Constructor.
+     */
+    CorrelatedGaussianObservables();
     
     /**
      * @brief The copy constructor.
@@ -91,15 +99,6 @@ public:
     }
 
     /**
-     * @brief A set method to fix the name of the set of correlated Gaussian observables.
-     * @param name the name
-     */
-    void setName(std::string name)
-    {
-        this->name = name;
-    }
-
-    /**
      * @brief A get method to access the covariance matrix of the correlated Gaussian observables.
      */
     gslpp::matrix<double> getCov() const
@@ -107,10 +106,40 @@ public:
         return *Cov;
     }
     
+    /**
+     * @brief The parser for CorrelatedGaussianObservables.
+     * @param[in] Observables the pointer vector containing the Observables
+     * @param[in] ifile the stream containing the config file to be parsed
+     * @param[in] beg the iterator that parses a line in the config file
+     * @param[in] infilename the name of the config file being parsed
+     * @param[in] myModel a pointer to the model
+     * @param[in] lineNo the current line number at which the file is being parsed
+     * @param[in] rank the rank of the process that is using the parser
+     * @return the line number (integer) after the parsing is done
+     */
+    int ParseCGO(boost::ptr_vector<Observable>& Observables, 
+                 std::ifstream& ifile, 
+                 boost::tokenizer<boost::char_separator<char> >::iterator& beg, 
+                 std::string& infilename, 
+                 ThObsFactory& myObsFactory,
+                 StandardModel * myModel,
+                 int lineNo,
+                 int rank);
+    /**
+     * @brief A method to check if the end of file has been reached
+     * @return a boolean which is true if the end of file has been reached
+     */
+    bool isEOF()
+    {
+        return IsEOF;
+    }
+    
 private:
     std::vector<Observable> Obs;///< A vector of observables whose correlation will be calculated.
     gslpp::matrix<double>* Cov;///< The covariance matrix.
     std::string name;///< The name of the correlated Gaussian Observables set.
+    std::string filepath;///< The path to the config file being parsed
+    bool IsEOF;///< A boolean which is true if the end of file is reached.
 };
 
 /** 

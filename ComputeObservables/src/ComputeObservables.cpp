@@ -5,11 +5,11 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <boost/algorithm/string/predicate.hpp>
-#include <Observable.h>
-#include <Observable2D.h>
-#include <CorrelatedGaussianObservables.h>
+#include "Observable.h"
+#include "Observable2D.h"
+#include "CorrelatedGaussianObservables.h"
 #include "ComputeObservables.h"
+#include <boost/algorithm/string/predicate.hpp>
 
 ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObsF, 
         const std::string& ModelConf_i, const int rank_i)
@@ -25,8 +25,8 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     std::string ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO, CGP);
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-        DP[it->name] = it->ave;
-        paraNames.push_back(it->name);
+        DP[it->getname()] = it->getave();
+        paraNames.push_back(it->getname());
     }
     DPars = DP;
     
@@ -65,7 +65,7 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
         throw std::runtime_error("\nERROR: " + ModelName + " not initialized successfully.\n");
     }
     if (!Mod->Init(DPars_i))
-        throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
+        throw std::runtime_error("\nERROR: Model cannot be initialized initialization.\n");
 }
 
 ComputeObservables::~ComputeObservables()
@@ -117,15 +117,7 @@ void ComputeObservables::AddObservable(std::string ObsName)
     DThObs[ObsName] = myInputParser.getObsFactory().CreateThMethod(ObsName, *Mod);
     DObs.insert(std::pair<std::string, double> (ObsName , 0.));
 }
-
-void ComputeObservables::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct){
-        myInputParser.addCustomParser(name, funct);
-}
-    
-void ComputeObservables::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct){
+ 
+void ComputeObservables::addCustomObservableType(const std::string name, boost::function<Observable*() > funct){
         myInputParser.addCustomObservableType(name, funct);
-}
-   
-void ComputeObservables::linkParserToObservable(std::string name_par, std::string name_obs) {
-       myInputParser.linkParserToObservable(name_par, name_obs);
 }

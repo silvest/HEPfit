@@ -138,6 +138,10 @@ public:
      */
     NPEpsilons();
 
+    /**
+     * @brief The post-update method for %NPEpsilons.
+     * @return a boolean that is true if the execution is successful
+     */
     virtual bool PostUpdate();
 
     /**
@@ -186,7 +190,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
 
     /**
-     * @brief @copybrief StandardModel::Mw()
+     * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @details This function calls EWNPEpsilons::Mw() via
      * EWNPEpsilons::Mw_NPEpsilons().
      * @return @f$M_W@f$ in GeV
@@ -194,22 +198,52 @@ public:
     virtual double Mw() const;
 
     /** 
-     * @brief @copybrief StandardModel::GammaW()
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * 
      * @warning This function is not available.
      */
     virtual double GammaW() const;
 
+    /** 
+     * @brief @copybrief StandardModel::Gamma_Z()
+     * @return @f$\Gamma_Z@f$ in GeV
+     */
     virtual double Gamma_Z() const;
 
+    /** 
+     * @brief @copybrief StandardModel::sigma0_had()
+     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
+     */
     virtual double sigma0_had() const;
 
+    /** 
+     * @brief @copybrief StandardModel::sin2thetaEff()
+     * @param[in] f a lepton or quark
+     * @return @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
+     */
     virtual double sin2thetaEff(const Particle p) const;
 
+    /** 
+     * @brief @copybrief StandardModel::A_f()
+     * @param[in] f a lepton or quark
+     * @return @f$\mathcal{A}_\ell@f$
+     */
     virtual double A_f(const Particle p) const;
 
+    /** 
+     * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
+     * @f$Z@f$-pole, @f$A^f_{FB}@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$A^f_{FB}@f$
+     */
     virtual double AFB(const Particle p) const;
 
+    /** 
+     * @brief The ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
+     * or @f$R_q^0=\Gamma_q/\Gamma_{\mathrm{had}}@f$, for leptons or quarks, respectively. 
+     * @param[in] f a lepton or quark
+     * @return @f$R_f^0@f$
+     */
     virtual double R0_f(const Particle p) const;
 
     /**

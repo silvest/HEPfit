@@ -23,193 +23,7 @@ InputParser::InputParser(const InputParser& orig) : myModelFactory(orig.myModelF
 }
 
 InputParser::~InputParser()
-{
-}
-
-Observable* InputParser::ParseObservable(std::string& type, boost::tokenizer<boost::char_separator<char> >::iterator & beg)
-{
-    double min;
-    double max;
-    std::string name = *beg;
-    ++beg;
-    std::string thname = *beg;
-    ++beg;
-    std::string label = *beg;
-    size_t pos = 0;
-    while ((pos = label.find("~", pos)) != std::string::npos)
-        label.replace(pos++, 1, " ");
-    ++beg;
-    min = atof((*beg).c_str());
-    ++beg;
-    max = atof((*beg).c_str());
-    ++beg;
-    std::string toMCMC = *beg;
-    bool tMCMC;
-    if (toMCMC.compare("MCMC") == 0)
-        tMCMC = true;
-    else if (toMCMC.compare("noMCMC") == 0)
-        tMCMC = false;
-    else
-        throw std::runtime_error("ERROR: wrong MCMC flag in " + name);
-    Observable * o = new Observable(name, thname, label, tMCMC, min, max, myObsFactory.CreateThMethod(thname, *myModel));
-
-    if (type.compare("Observable") == 0 || type.compare("BinnedObservable") == 0) {
-        ++beg;
-        o->setObsType(type);
-        std::string distr = *beg;
-        if (distr.compare("file") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 10)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                        + *beg + " in " + filename);
-            std::string fname = filepath + *(++beg);
-            std::string histoname = *(++beg);
-            o->setLikelihoodFromHisto(fname, histoname);
-            if (rank == 0) std::cout << "added input histogram " << fname << "/" << histoname << std::endl;
-        } else if (distr.compare("weight") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 11) {
-                std::cout << std::distance(tok->begin(), tok->end()) << std::endl;
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                        + *beg + " in " + filename);
-            }
-            ++beg;
-            o->setAve(atof((*beg).c_str()));
-            ++beg;
-            o->setErrg(atof((*beg).c_str()));
-            ++beg;
-            o->setErrf(atof((*beg).c_str()));
-            if (o->getErrf() == 0. && o->getErrg() == 0.) {
-                if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + o->getName() + " cannot both be 0. in the " + filename + " file.\n");
-            }
-        } else if (distr.compare("noweight") == 0) {
-            if (type.compare("BinnedObservable") == 0) {
-                ++beg;
-                ++beg;
-                ++beg;
-            }
-        } else if (rank == 0)
-            throw std::runtime_error("ERROR: wrong distribution flag in " + o->getName());
-        o->setDistr(distr);
-        ++beg;
-        if (type.compare("BinnedObservable") == 0) {
-            o->getTho()->setBinMin(atof((*beg).c_str()));
-            ++beg;
-            o->getTho()->setBinMax(atof((*beg).c_str()));
-            ++beg;
-        }
-        if (beg != tok->end())
-            if (rank == 0) std::cout << "WARNING: unread information in observable "
-                    << o->getName() << std::endl;
-    }
-
-    return (o);
-}
-
-void InputParser::ParseHiggsObservable(HiggsObservable * ho, boost::tokenizer<boost::char_separator<char> >::iterator & beg)
-{
-    std::vector<ThObservable*> hthobs;
-    std::string filename_h = *(++beg);
-    std::ifstream ifile(filename_h.c_str());
-    if (!ifile.is_open())
-        throw std::runtime_error("\nERROR: " + filename_h + " does not exist. Make sure to specify a valid Higgs parameters configuration file.\n");
-    std::string line_h;
-    bool IsEOF_h;
-    do {
-        IsEOF_h = getline(ifile, line_h).eof();
-        if (line_h.compare(0, 10, "CATEGORIES") == 0) {
-            boost::char_separator<char> sep(" \t");
-            boost::tokenizer<boost::char_separator<char> > mytok(line_h, sep);
-            boost::tokenizer<boost::char_separator<char> >::iterator beg2 = mytok.begin();
-            beg2++;
-            while (beg2 != mytok.end()) {
-                std::string cat = *beg2;
-                hthobs.push_back(myObsFactory.CreateThMethod(cat, *myModel));
-                beg2++;
-            }
-        }
-    } while (!IsEOF_h);
-    if (hthobs.size() > 0)
-        ho->setParametricLikelihood(filename_h, hthobs);
-    else
-        throw std::runtime_error("\nERROR: " + ho->getName() + " does not provide at least one category\n");
-}
-
-CorrelatedGaussianObservables InputParser::ParseCGO(boost::ptr_vector<Observable>& Observables, std::ifstream& ifile, boost::tokenizer<boost::char_separator<char> >::iterator& beg)
-{
-    std::string name = *beg;
-    ++beg;
-    int size = atoi((*beg).c_str());
-    CorrelatedGaussianObservables o3(name);
-    int nlines = 0;
-    std::vector<bool> lines;
-    for (int i = 0; i < size; i++) {
-        IsEOF = getline(ifile, line).eof();
-        if (line.empty() || line.at(0) == '#') {
-            if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
-                    << std::endl;
-            exit(EXIT_FAILURE);
-        }
-        lineNo++;
-        tok = new boost::tokenizer<boost::char_separator<char> >(line, *sep);
-        beg = tok->begin();
-        std::string type = *beg;
-        ++beg;
-        if (type.compare("Observable") != 0 && type.compare("BinnedObservable") != 0)
-            if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + filename + ", expecting an Observable or BinnedObservable type here...\n");
-        Observable * tmp = ParseObservable(type, beg);
-        if (tmp->isTMCMC()) {
-            o3.AddObs(*tmp);
-            lines.push_back(true);
-            nlines++;
-        } else {
-            Observables.push_back(tmp);
-            lines.push_back(false);
-        }
-    }
-    if (nlines > 1) {
-        gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
-        int ni = 0;
-        for (int i = 0; i < size; i++) {
-            IsEOF = getline(ifile, line).eof();
-            if (line.empty() || line.at(0) == '#') {
-                if (rank == 0) std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
-                        << std::endl;
-                exit(EXIT_FAILURE);
-            }
-            lineNo++;
-            if (lines.at(i)) {
-                boost::tokenizer<boost::char_separator<char> > mytok(line, *sep);
-                beg = mytok.begin();
-                int nj = 0;
-                for (int j = 0; j < size; j++) {
-                    if ((*beg).compare(0, 1, "0") == 0
-                            || (*beg).compare(0, 1, "1") == 0
-                            || (*beg).compare(0, 1, "-") == 0) {
-                        if (std::distance(mytok.begin(), mytok.end()) < size && rank == 0) throw std::runtime_error(("ERROR: Correlation matrix is of wrong size in Correlated Gaussian Observables: " + name).c_str());
-                        if (lines.at(j)) {
-                            myCorr(ni, nj) = atof((*beg).c_str());
-                            nj++;
-                        }
-                        beg++;
-                    } else {
-                        if (rank == 0) std::cout << "ERROR: invalid correlation matrix for "
-                                << name << ". Check element (" << ni + 1 << "," << nj + 1 << ") in line number " + boost::lexical_cast<std::string>(lineNo) << std::endl;
-                        exit(EXIT_FAILURE);
-                    }
-                }
-                ni++;
-            }
-        }
-        o3.ComputeCov(myCorr);
-    } else {
-        if (rank == 0) std::cout << "\nWARNING: Correlated Gaussian Observable " << name.c_str() << " defined with less than two correlated observables. The set is being marked as normal Observables." << std::endl;
-        if (o3.getObs().size() == 1) Observables.push_back(new Observable(o3.getObs(0)));
-        for (int i = 0; i < size; i++) {
-            IsEOF = getline(ifile, line).eof();
-            lineNo++;
-        }
-    }
-    return (o3);
-}
+{}
 
 std::string InputParser::ReadParameters(const std::string filename_i,
         const int rank_i,
@@ -224,7 +38,10 @@ std::string InputParser::ReadParameters(const std::string filename_i,
     modname = "";
     lineNo = 0;
     std::ifstream ifile(filename.c_str());
-    if (!ifile.is_open() && rank == 0) throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
+    if (!ifile.is_open()) {
+        if(rank == 0) throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
+        else sleep (2);
+    }
 
     if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
     IsEOF = false;
@@ -257,102 +74,90 @@ std::string InputParser::ReadParameters(const std::string filename_i,
         std::string type = *beg;
         ++beg;
         if (type.compare("ModelParameter") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 5 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+            
+            if (std::distance(tok->begin(), tok->end()) < 5) {
+                if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename + ".\n");
+                else sleep(2);
+            } else {
             ModelParameter tmpMP;
             beg = tmpMP.ParseModelParameter(beg);
-            if (checkDuplicateParameter[tmpMP.getname()].get<0>() && rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " appears more than once ...!! \n" +
+            
+            if (checkDuplicateParameter[tmpMP.getname()].get<0>()) {
+                if(rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " appears more than once ...!! \n" +
                 "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[tmpMP.getname()].get<2>()) +
                 " in file " + checkDuplicateParameter[tmpMP.getname()].get<1>() + ".\n"
                 "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
+                else sleep (2);
+            }
             
             if (beg != tok->end())
                 if (rank == 0) std::cout << "WARNING: unread information in parameter " << tmpMP.getname() << std::endl;
             checkDuplicateParameter[tmpMP.getname()] = boost::make_tuple(true, filename, lineNo);
                
             ModelPars.push_back(tmpMP);
+            }
 
         } else if (type.compare("CorrelatedGaussianParameters") == 0) {
+            
             CorrelatedGaussianParameters tmpCGP;
             lineNo = tmpCGP.ParseCGP(ModelPars, filename, ifile, beg, lineNo, rank);
+            IsEOF = tmpCGP.isEOF();
             CGP.push_back(tmpCGP);
 
-        } else if (type.compare("Observable") == 0 || type.compare("BinnedObservable") == 0) {
-            if (type.compare("Observable") == 0 && std::distance(tok->begin(), tok->end()) < 8 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
-            if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 10 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+        } else if (type.compare("Observable") == 0 || type.compare("BinnedObservable") == 0 || type.compare("FunctionObservable") == 0) {
+            
             Observable * tmpObs = new Observable();
-            beg = tmpObs->ParseObservable(type, tok, beg, filepath, rank);
+            beg = tmpObs->ParseObservable(type, tok, beg, filepath, filename, rank);
             tmpObs->setTho(myObsFactory.CreateThMethod(tmpObs->getThname(), *myModel));
             Observables.push_back(tmpObs);
 
         } else if (type.compare("Observable2D") == 0) {
+            
             Observable2D tmpObs2D;
             lineNo = tmpObs2D.ParseObservable2D(type, tok, beg, filename, ifile, lineNo, rank);
             tmpObs2D.setTho1Tho2(myObsFactory.CreateThMethod(tmpObs2D.getThname(), *myModel), myObsFactory.CreateThMethod(tmpObs2D.getThname2(), *myModel));
+            IsEOF = tmpObs2D.isEOF();
             Observables2D.push_back(tmpObs2D);
 
         } else if (type.compare("HiggsObservable") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 8 && rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
-            HiggsObservable * ho = new HiggsObservable(*ParseObservable(type, beg));
-            ho->setObsType(type);
+            
+            Observable * tmphObs = new Observable();
+            beg = tmphObs->ParseObservable(type, tok, beg, filepath, filename, rank);
+            tmphObs->setTho(myObsFactory.CreateThMethod(tmphObs->getThname(), *myModel));
+            HiggsObservable * tmpho = new HiggsObservable(*tmphObs);
+            beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank);
+            Observables.push_back(tmpho);
             ++beg;
-            std::string distr = *beg;
-            if (distr.compare("parametric") == 0) {
-                ho->setIsnew(false);
-                std::vector<ThObservable*> hthobs;
-                ++beg;
-                distr = *beg;
-                if (distr.compare("LHC7") == 0) {
-                    hthobs.push_back(myObsFactory.CreateThMethod("ggH7", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("VBF7", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("VH7", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("ttH7", *myModel));
-                } else if (distr.compare("LHC8") == 0) {
-                    hthobs.push_back(myObsFactory.CreateThMethod("ggH8", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("VBF8", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("VH8", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("ttH8", *myModel));
-                } else if (distr.compare("TeV196") == 0) {
-                    hthobs.push_back(myObsFactory.CreateThMethod("ggH196", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("VBF196", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("VH196", *myModel));
-                    hthobs.push_back(myObsFactory.CreateThMethod("ttH196", *myModel));
-                } else if (rank == 0)
-                    throw std::runtime_error("ERROR: wrong keyword " + distr + " in " + ho->getName());
-                ho->setParametricLikelihood(*(++beg), hthobs);
-            } else if (distr.compare("new_parametric") == 0) {
-                ParseHiggsObservable(ho, beg);
-            } else if (rank == 0)
-                throw std::runtime_error("ERROR: wrong distribution flag " + distr + " in " + ho->getName());
-            Observables.push_back(ho);
-            ++beg;
-            if (beg != tok->end())
-                if (rank == 0) std::cout << "WARNING: unread information in HiggsObservable "
-                        << Observables.back().getName() << std::endl;
+            if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
 
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
-            CorrelatedGaussianObservables tmpCGO = ParseCGO(Observables, ifile, beg);
+            CorrelatedGaussianObservables tmpCGO;
+            lineNo = tmpCGO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
+            IsEOF = tmpCGO.isEOF();
             if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);
 
         } else if (type.compare("CustomObservable") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 2)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+            if (std::distance(tok->begin(), tok->end()) < 2) {
+                if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename + ".\n");
+            else sleep(2);
+            }
             std::string customObsName = *beg;
             beg++;
-            std::string customParserName = ObservableToParsermap[customObsName];
-            if (rank == 0 && customObservableTypeMap.find(customObsName) == customObservableTypeMap.end()) throw std::runtime_error("\nERROR: No Observable Type defined for " + customObsName + "\n");
-            if (rank == 0 && customParserMap.find(customParserName) == customParserMap.end()) throw std::runtime_error("\nERROR: No parser defined for " + customObsName + "\n");
-            if (rank == 0 && ObservableToParsermap.find(customObsName) == ObservableToParsermap.end()) throw std::runtime_error("\nERROR: No parser linked to the observable " + customObsName + "\n");
-            InputParser* customParser = CreateCustomParser(customObsName);
-            customParser->setModel(myModel);
-            Observable * tmp = customParser->ParseObservable(type, beg);
-            Observable * customObs = CreateObservableType(customObsName, *tmp);
-            customObs->setObsType(customObsName);
-            Observables.push_back(customObs);
-            delete customParser;
+            if (customObservableTypeMap.find(customObsName) == customObservableTypeMap.end()) {
+                if (rank == 0) throw std::runtime_error("\nERROR: No Observable Type defined for " + customObsName + "\n");
+                else sleep(2);
+            }
+            Observable * tmpcustomObs = CreateObservableType(customObsName);
+            tmpcustomObs->setObsType(customObsName);
+            beg = tmpcustomObs->ParseObservable(type, tok, beg, filepath, filename, rank);
+            tmpcustomObs->setTho(myObsFactory.CreateThMethod(tmpcustomObs->getThname(), *myModel));
+            Observables.push_back(tmpcustomObs);
+
         } else if (type.compare("ModelFlag") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 3)
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on "
-                        + *beg + " in " + filename);
+            if (std::distance(tok->begin(), tok->end()) < 3) {
+                if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
+                else sleep (2);
+            }
             std::string flagname = *beg;
             ++beg;
             if (boost::iequals(*beg, "true") || boost::iequals(*beg, "false")) {
@@ -363,26 +168,30 @@ std::string InputParser::ReadParameters(const std::string filename_i,
                 else
                     value_bool = 0;
                 if (!myModel->setFlag(flagname, value_bool)) {
-                    if (rank == 0) throw std::runtime_error("ERROR: setFlag error for " + flagname);
-                } else if (rank == 0) std::cout << "set flag " << flagname << "=" << *beg << std::endl;
+                    if(rank == 0) throw std::runtime_error("ERROR: setFlag error for " + flagname);
+                    else sleep (2);
+                }
+                else if (rank == 0) std::cout << "set flag " << flagname << "=" << *beg << std::endl;
             } else {
                 /* String flags */
                 std::string value_str = *beg;
                 if (!myModel->setFlagStr(flagname, value_str)) {
-                    if (rank == 0) throw std::runtime_error("ERROR: setFlag error for " + flagname);
+                    if(rank == 0) throw std::runtime_error("ERROR: setFlag error for " + flagname);
+                    else sleep (2);
                 } else if (rank == 0) std::cout << "set flag " << flagname << "=" << value_str << std::endl;
             }
             ++beg;
-            if (beg != tok->end())
-                if (rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
+            if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
             std::string IncludeFileName = filepath + *beg;
             if (rank == 0) std::cout << "\nIncluding File: " + IncludeFileName << std::endl;
             ReadParameters(IncludeFileName, rank, ModelPars, Observables, Observables2D, CGO, CGP);
             IsEOF = false;
             ++beg;
-        } else if (rank == 0)
-            throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + ". Make sure to specify a valid model configuration file.");
+        } else {
+            if (rank == 0) throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ". Make sure to specify a valid model configuration file.\n");
+            else sleep(2);
+        }
 
     } while (!IsEOF);
 
@@ -394,31 +203,16 @@ std::string InputParser::ReadParameters(const std::string filename_i,
     return (modname);
 }
 
-void InputParser::addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct)
-{
-    customParserMap[name] = funct;
-}
-
-void InputParser::addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct)
+void InputParser::addCustomObservableType(const std::string name, boost::function<Observable*() > funct)
 {
     customObservableTypeMap[name] = funct;
 }
 
-void InputParser::linkParserToObservable(std::string name_obs, std::string name_par)
+Observable * InputParser::CreateObservableType(const std::string& name) const
 {
-    ObservableToParsermap[name_obs] = name_par;
-}
-
-InputParser * InputParser::CreateCustomParser(const std::string& name) const
-{
-    if (customParserMap.find(ObservableToParsermap.at(name)) == customParserMap.end())
-        throw std::runtime_error("\nERROR: No parser defined for " + ObservableToParsermap.at(name) + " so it cannot be created.\n");
-    return (customParserMap.at(ObservableToParsermap.at(name))(myModelFactory, myObsFactory));
-}
-
-Observable * InputParser::CreateObservableType(const std::string& name, Observable& obs_i) const
-{
-    if (customObservableTypeMap.find(name) == customObservableTypeMap.end())
-        throw std::runtime_error("ERROR: No observable defined for " + name + " so it cannot be created");
-    return (customObservableTypeMap.at(name)(obs_i));
+    if (customObservableTypeMap.find(name) == customObservableTypeMap.end()) {
+        if (rank ==0) throw std::runtime_error("ERROR: No observable defined for " + name + " so it cannot be created");
+        else sleep(0);
+    }
+    return (customObservableTypeMap.at(name)());
 }

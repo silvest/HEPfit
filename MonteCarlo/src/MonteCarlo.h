@@ -8,10 +8,10 @@
 #ifndef MONTECARLO_H
 #define	MONTECARLO_H
 
-#include <InputParser.h>
+#include "InputParser.h"
+#include "MonteCarloEngine.h"
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
-#include "MonteCarloEngine.h"
 
 /**
  * @addtogroup MonteCarlo
@@ -148,12 +148,8 @@ public:
     {
         return MCEngine.getHistograms2D();
     }
-
-   void addCustomParser(const std::string name, boost::function<InputParser*(ModelFactory& ModF, ThObsFactory& ObsF) > funct);
     
-   void addCustomObservableType(const std::string name, boost::function<Observable*(Observable& obs_i) > funct);
-   
-   void linkParserToObservable(std::string name_par, std::string name_obs);
+   void addCustomObservableType(const std::string name, boost::function<Observable*() > funct);
    
 private:
     std::string ModelName; ///< The name of the model.
