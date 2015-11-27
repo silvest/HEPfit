@@ -331,18 +331,30 @@ bool QCD::PostUpdate()
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
 
+//    myh_0 = gslpp::complex(reh_0,imh_0,true);
+//    myh_p = gslpp::complex(reh_p,imh_p,true);
+//    myh_m = gslpp::complex(reh_m,imh_m,true);
+//    myh_0_2 = (3.*myh_0 + gslpp::complex(reh_0_2,imh_0_2,true) - 4. * 
+//            gslpp::complex(reh_0_1,imh_0_1,true))/12.;
+//    myh_p_2 = (3.*myh_p + gslpp::complex(reh_p_2,imh_p_2,true) - 4. * 
+//            gslpp::complex(reh_p_1,imh_p_1,true))/12.;
+//    myh_m_2 = (3.*myh_m + gslpp::complex(reh_m_2,imh_m_2,true) - 4. * 
+//            gslpp::complex(reh_m_1,imh_m_1,true))/12.;
+//    myh_0_1 = -myh_0 - myh_0_2 + gslpp::complex(reh_0_1,imh_0_1,true);
+//    myh_p_1 = -myh_p - myh_p_2 + gslpp::complex(reh_p_1,imh_p_1,true);
+//    myh_m_1 = -myh_m - myh_m_2 + gslpp::complex(reh_m_1,imh_m_1,true);
+    
     myh_0 = gslpp::complex(reh_0,imh_0,true);
     myh_p = gslpp::complex(reh_p,imh_p,true);
     myh_m = gslpp::complex(reh_m,imh_m,true);
-    myh_0_2 = (3.*myh_0 + gslpp::complex(reh_0_2,imh_0_2,true) - 4. * 
-            gslpp::complex(reh_0_1,imh_0_1,true))/12.;
-    myh_p_2 = (3.*myh_p + gslpp::complex(reh_p_2,imh_p_2,true) - 4. * 
-            gslpp::complex(reh_p_1,imh_p_1,true))/12.;
-    myh_m_2 = (3.*myh_m + gslpp::complex(reh_m_2,imh_m_2,true) - 4. * 
-            gslpp::complex(reh_m_1,imh_m_1,true))/12.;
-    myh_0_1 = -myh_0 - myh_0_2 + gslpp::complex(reh_0_1,imh_0_1,true);
-    myh_p_1 = -myh_p - myh_p_2 + gslpp::complex(reh_p_1,imh_p_1,true);
-    myh_m_1 = -myh_m - myh_m_2 + gslpp::complex(reh_m_1,imh_m_1,true);
+    
+    myh_0_1 = gslpp::complex(reh_0_1,imh_0_1,true);
+    myh_p_1 = gslpp::complex(reh_p_1,imh_p_1,true);
+    myh_m_1 = gslpp::complex(reh_m_1,imh_m_1,true);
+    
+    myh_0_2 = gslpp::complex(reh_0_2,imh_0_2,true);
+    myh_p_2 = gslpp::complex(reh_p_2,imh_p_2,true);
+    myh_m_2 = gslpp::complex(reh_m_2,imh_m_2,true);
     
     return (true);
 }
