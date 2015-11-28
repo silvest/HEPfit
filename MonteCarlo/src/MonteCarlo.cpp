@@ -253,7 +253,7 @@ void MonteCarlo::Run(const int rank) {
                 if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
                 if (line.empty() || line.at(0) == '#')
                     continue;
-                boost::char_separator<char> sep(" ");
+                boost::char_separator<char> sep(" \t");
                 boost::tokenizer<boost::char_separator<char> > tok(line, sep);
                 boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
                 if (beg->compare("NChains") == 0) {
