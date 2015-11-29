@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -17,21 +17,6 @@
       <itemPath>src/Epsilonb.h</itemPath>
       <itemPath>src/GammaW.h</itemPath>
       <itemPath>src/GammaZ.h</itemPath>
-      <itemPath>src/LEP2AFBbottom.h</itemPath>
-      <itemPath>src/LEP2AFBcharm.h</itemPath>
-      <itemPath>src/LEP2AFBmu.h</itemPath>
-      <itemPath>src/LEP2AFBtau.h</itemPath>
-      <itemPath>src/LEP2Rbottom.h</itemPath>
-      <itemPath>src/LEP2Rcharm.h</itemPath>
-      <itemPath>src/LEP2ThObservable.h</itemPath>
-      <itemPath>src/LEP2TwoFermions.h</itemPath>
-      <itemPath>src/LEP2oblique.h</itemPath>
-      <itemPath>src/LEP2sigmaBottom.h</itemPath>
-      <itemPath>src/LEP2sigmaCharm.h</itemPath>
-      <itemPath>src/LEP2sigmaHadron.h</itemPath>
-      <itemPath>src/LEP2sigmaMu.h</itemPath>
-      <itemPath>src/LEP2sigmaTau.h</itemPath>
-      <itemPath>src/LEP2test.h</itemPath>
       <itemPath>src/Mw.h</itemPath>
       <itemPath>src/PtauPol.h</itemPath>
       <itemPath>src/Rbottom.h</itemPath>
@@ -55,20 +40,6 @@
       <itemPath>src/Alepton.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
-      <itemPath>src/LEP2AFBbottom.cpp</itemPath>
-      <itemPath>src/LEP2AFBcharm.cpp</itemPath>
-      <itemPath>src/LEP2AFBmu.cpp</itemPath>
-      <itemPath>src/LEP2AFBtau.cpp</itemPath>
-      <itemPath>src/LEP2Rbottom.cpp</itemPath>
-      <itemPath>src/LEP2Rcharm.cpp</itemPath>
-      <itemPath>src/LEP2TwoFermions.cpp</itemPath>
-      <itemPath>src/LEP2oblique.cpp</itemPath>
-      <itemPath>src/LEP2sigmaBottom.cpp</itemPath>
-      <itemPath>src/LEP2sigmaCharm.cpp</itemPath>
-      <itemPath>src/LEP2sigmaHadron.cpp</itemPath>
-      <itemPath>src/LEP2sigmaMu.cpp</itemPath>
-      <itemPath>src/LEP2sigmaTau.cpp</itemPath>
-      <itemPath>src/LEP2test.cpp</itemPath>
       <itemPath>src/Mw.cpp</itemPath>
       <itemPath>src/PtauPol.cpp</itemPath>
       <itemPath>src/Rbottom.cpp</itemPath>
@@ -253,64 +224,6 @@
       </item>
       <item path="src/GammaZ.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/LEP2AFBbottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBbottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBcharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBcharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBmu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBmu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBtau.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBtau.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2Rbottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2Rbottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2Rcharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2Rcharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2ThObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2TwoFermions.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2TwoFermions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2oblique.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2oblique.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaBottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaBottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaCharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaCharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaHadron.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaMu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaMu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaTau.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaTau.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2test.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2test.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Mw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Mw.h" ex="false" tool="3" flavor2="0">
@@ -422,64 +335,6 @@
       </item>
       <item path="src/GammaZ.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/LEP2AFBbottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBbottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBcharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBcharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBmu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBmu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBtau.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBtau.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2Rbottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2Rbottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2Rcharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2Rcharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2ThObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2TwoFermions.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2TwoFermions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2oblique.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2oblique.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaBottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaBottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaCharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaCharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaHadron.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaMu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaMu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaTau.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaTau.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2test.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2test.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Mw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Mw.h" ex="false" tool="3" flavor2="0">
@@ -590,64 +445,6 @@
       <item path="src/GammaZ.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GammaZ.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBbottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBbottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBcharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBcharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBmu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBmu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBtau.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2AFBtau.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2Rbottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2Rbottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2Rcharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2Rcharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2ThObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2TwoFermions.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2TwoFermions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2oblique.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2oblique.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaBottom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaBottom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaCharm.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaCharm.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaHadron.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaMu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaMu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaTau.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2sigmaTau.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/LEP2test.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/LEP2test.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Mw.cpp" ex="false" tool="1" flavor2="0">
       </item>
