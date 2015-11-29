@@ -32,8 +32,8 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "CuH_11i", "CuH_12i", "CuH_13i", "CuH_22i", "CuH_23i", "CuH_33i",
     "CdH_11r", "CdH_12r", "CdH_13r", "CdH_22r", "CdH_23r", "CdH_33r",
     "CdH_11i", "CdH_12i", "CdH_13i", "CdH_22i", "CdH_23i", "CdH_33i",
-    "CLL_1221", "CLQ1", "CLQ3","Cee", "Ceu", "Ced", "CLe", "CLu", "CLd",
-    "CQe", "Lambda_NP",
+    "CLL_1221",
+    "Lambda_NP",
     "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
     "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
     "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
@@ -54,8 +54,8 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU]
         = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
-    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL", "CLQ1", "CLQ3",
-    "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP",
+    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL",
+    "Lambda_NP",
     "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
     "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
     "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
@@ -98,7 +98,6 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_r", boost::cref(CeH_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_i", boost::cref(CeH_11i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL", boost::cref(CLL_1221)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee", boost::cref(Cee)));
     } else {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_11", boost::cref(CHL1_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_12r", boost::cref(CHL1_12r)));
@@ -225,18 +224,6 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_22i", boost::cref(CdH_22i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_23i", boost::cref(CdH_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_33i", boost::cref(CdH_33i)));
-    }
-    if(FlagLeptonUniversal && FlagQuarkUniversal){
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1", boost::cref(CLQ1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3", boost::cref(CLQ3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu", boost::cref(Ceu)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced", boost::cref(Ced)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe", boost::cref(CLe)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu", boost::cref(CLu)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd", boost::cref(CLd)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe", boost::cref(CQe)));
-    } else {
-        std::cout << "WARNING: flavor non-universal coefficient for the dim-6 operators for LEP2 observables not yet implemented." << std::endl;
     }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF2_HZZ1", boost::cref(eVBF2_HZZ1)));
@@ -718,24 +705,6 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
     } else if (name.compare("CLL") == 0) {
         CLL_1221 = value;
         CLL_2112 = value;
-    } else if (name.compare("CLQ1") == 0) {
-        CLQ1 = value;
-    } else if (name.compare("CLQ3") == 0) {
-        CLQ3 = value;
-    } else if (name.compare("Cee") == 0) {
-        Cee = value;
-    } else if (name.compare("Ceu") == 0) {
-        Ceu = value;
-    } else if (name.compare("Ced") == 0) {
-        Ced = value;
-    } else if (name.compare("CLe") == 0) {
-        CLe = value;
-    } else if (name.compare("CLu") == 0) {
-        CLu = value;
-    } else if (name.compare("CLd") == 0) {
-        CLd = value;
-    } else if (name.compare("CQe") == 0) {
-        CQe = value;
     } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;
     } else if (name.compare("eVBF2_HZZ1") == 0) {
@@ -2246,242 +2215,3 @@ double NPEffectiveGIMR::deltaGammaHbbRatio2() const
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
-double NPEffectiveGIMR::sigma_eeTOffbar(const Particle F, const double sqrt_s) const
-{
-    int Nf;
-    double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
-    if (F.is("UP") || F.is("CHARM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 - CLQ3)/LambdaNP2;
-        CLR_hat = CLu/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ceu/LambdaNP2;
-    } else if(F.is("DOWN") || F.is("STRANGE") || F.is("BOTTOM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 + CLQ3)/LambdaNP2;
-        CLR_hat = CLd/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ced/LambdaNP2;
-    } else if (F.is("TOP")) {
-        throw std::runtime_error("Not enough energy at LEP2 in order to produce tops!");
-    } else {
-        Nf = 1;
-        CLL_hat = CLL_1221/LambdaNP2;
-        CLR_hat = CLe/LambdaNP2;
-        CRL_hat = CLe/LambdaNP2;
-        CRR_hat = Cee/LambdaNP2;
-    }
-        
-    double CLL2_hat = CLL_hat*CLL_hat;
-    double CLR2_hat = CLR_hat*CLR_hat;
-    double CRL2_hat = CRL_hat*CRL_hat;
-    double CRR2_hat = CRR_hat*CRR_hat;
-    
-    double Qf = F.getCharge();
-    double s = sqrt_s*sqrt_s;
-    double s2 = s*s;
-    
-    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
-
-    double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
-    double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
-    double gRf = (gVf - gAf)/2.0; 
-    double gLf = (gVf + gAf)/2.0;
-    
-    double gVe = trueSM.gV_f(leptons[ELECTRON]).real() + deltaGV_f(leptons[ELECTRON]);
-    double gAe = trueSM.gA_f(leptons[ELECTRON]).real() + deltaGA_f(leptons[ELECTRON]);
-    double gRe = (gVe - gAe)/2.0; 
-    double gLe = (gVe + gAe)/2.0;
-    
-    double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
-    double alpha2Mz = alphaMz()*alphaMz();
-    
-    gslpp::complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CLR2_hat + CRL2_hat + CRR2_hat) * s2 - 
-                  8 * (CLL_hat + CLR_hat + CRL_hat + CRR_hat) * M_PI * Qf * s * alphaMz()+
-                  64 * M_PI * M_PI * Qf * Qf * alpha2Mz) + 
-                  4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * ((CLL_hat * gLf * gLe + CLR_hat * gLe * gRf + 
-                  CRL_hat * gLf * gRe + CRR_hat * gRf * gRe) * s 
-                  - 4.0 * (gLf + gRf) * (gLe + gRe) * M_PI * Qf * alphaMz()) * (chi_s + chi_s.conjugate()) +
-                  16.0 * M_PI * M_PI * alpha2Mz * chi_s.abs2())/(48.0 * M_PI * s * sW4cW4);
-    
-    return (tmp.real());
-}
-
-gslpp::complex NPEffectiveGIMR::sigma_eeTOffbarF(const Particle F, const double sqrt_s) const
-{
-    int Nf;
-    double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
-    if (F.is("UP") || F.is("CHARM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 - CLQ3)/LambdaNP2;
-        CLR_hat = CLu/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ceu/LambdaNP2;
-    } else if(F.is("DOWN") || F.is("STRANGE") || F.is("BOTTOM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 + CLQ3)/LambdaNP2;
-        CLR_hat = CLd/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ced/LambdaNP2;
-    } else if (F.is("TOP")) {
-        throw std::runtime_error("Not enough energy at LEP2 in order to produce tops!");
-    } else {
-        Nf = 1;
-        CLL_hat = CLL_1221/LambdaNP2;
-        CLR_hat = CLe/LambdaNP2;
-        CRL_hat = CLe/LambdaNP2;
-        CRR_hat = Cee/LambdaNP2;
-    }
-        
-    double CLL2_hat = CLL_hat*CLL_hat;
-    double CLR2_hat = CLR_hat*CLR_hat;
-    double CRL2_hat = CRL_hat*CRL_hat;
-    double CRR2_hat = CRR_hat*CRR_hat;
-    
-    double Qf = F.getCharge();
-    double s = sqrt_s*sqrt_s;
-    double s2 = s*s;
-    
-    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
-
-    double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
-    double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
-    double gRf = (gVf - gAf)/2.0; 
-    double gLf = (gVf + gAf)/2.0;
-    
-    double gVe = trueSM.gV_f(leptons[ELECTRON]).real() + deltaGV_f(leptons[ELECTRON]);
-    double gAe = trueSM.gA_f(leptons[ELECTRON]).real() + deltaGA_f(leptons[ELECTRON]);
-    double gRe = (gVe - gAe)/2.0; 
-    double gLe = (gVe + gAe)/2.0;
-    
-    double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
-    double alpha2Mz = alphaMz()*alphaMz();
-    
-    gslpp::complex tmp = Nf * (sW4cW4 * ((CLR2_hat + CRL2_hat) * s2 - 
-                  8 * (CLR_hat + CRL_hat) * M_PI * Qf * s * alphaMz() + 
-                  32 * M_PI * M_PI * Qf * Qf * alpha2Mz)+
-                  4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * (CLR_hat * gLe * gRf * s +
-                  CRL_hat * gLf * gRe * s -
-                  4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLR_hat * gLe * gRf *s +
-                  CRL_hat * gLf * gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf * gRe)) + 
-                  4.0 * M_PI * alphaMz() * (gLe * gLe * gRf * gRf + 
-                  gLf * gLf * gRe * gRe) * chi_s) * chi_s.conjugate() +
-                  7.0 * (sW4cW4 * ((CLL2_hat + CRR2_hat) * s2 -
-                  8.0 * M_PI * Qf * s * alphaMz() * (CLL_hat + CRR_hat)+
-                  32.0 * M_PI * M_PI * Qf * Qf * alpha2Mz) + 
-                  4.0 * cW2_tree *sW2_tree * M_PI * alphaMz() * (CLL_hat * gLf * gLe * s +
-                  CRR_hat * gRf *gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLf * gLe + gRf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLL_hat * gLf * gLe * s + 
-                  CRR_hat * gRf * gRe * s - 
-                  4.0 * M_PI * Qf * alphaMz() * (gLf * gLe + gRf *gLe)) +
-                  4.0 * M_PI * alphaMz() * (gLf * gLf * gLe * gLe + 
-                  gRf * gRf * gRe * gRe) * chi_s) * chi_s.conjugate())) / (348.0 * M_PI * s * sW4cW4);
-    
-    return (tmp);
-}
-
-gslpp::complex NPEffectiveGIMR::sigma_eeTOffbarB(const Particle F, const double sqrt_s) const
-{
-    int Nf;
-    double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
-    if (F.is("UP") || F.is("CHARM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 - CLQ3)/LambdaNP2;
-        CLR_hat = CLu/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ceu/LambdaNP2;
-    } else if(F.is("DOWN") || F.is("STRANGE") || F.is("BOTTOM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 + CLQ3)/LambdaNP2;
-        CLR_hat = CLd/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ced/LambdaNP2;
-    } else if (F.is("TOP")) {
-        throw std::runtime_error("Not enough energy at LEP2 in order to produce tops!");
-    } else {
-        Nf = 1;
-        CLL_hat = CLL_1221/LambdaNP2;
-        CLR_hat = CLe/LambdaNP2;
-        CRL_hat = CLe/LambdaNP2;
-        CRR_hat = Cee/LambdaNP2;
-    }
-        
-    double CLL2_hat = CLL_hat*CLL_hat;
-    double CLR2_hat = CLR_hat*CLR_hat;
-    double CRL2_hat = CRL_hat*CRL_hat;
-    double CRR2_hat = CRR_hat*CRR_hat;
-    
-    double Qf = F.getCharge();
-    double s = sqrt_s*sqrt_s;
-    double s2 = s*s;
-    
-    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
-
-    double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
-    double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
-    double gRf = (gVf - gAf)/2.0; 
-    double gLf = (gVf + gAf)/2.0;
-    
-    double gVe = trueSM.gV_f(leptons[ELECTRON]).real() + deltaGV_f(leptons[ELECTRON]);
-    double gAe = trueSM.gA_f(leptons[ELECTRON]).real() + deltaGA_f(leptons[ELECTRON]);
-    double gRe = (gVe - gAe)/2.0; 
-    double gLe = (gVe + gAe)/2.0;
-    
-    double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
-    double alpha2Mz = alphaMz()*alphaMz();
-    
-    gslpp::complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CRR2_hat) * s2 - 
-                  8 * (CLL_hat + CRR_hat) * M_PI * Qf * s * alphaMz() + 
-                  32 * M_PI * M_PI * Qf * Qf * alpha2Mz)+
-                  4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * (CLL_hat * gLe * gLf * s +
-                  CRR_hat * gRf * gRe * s -
-                  4.0 * M_PI * Qf * alphaMz() * (gLe * gLf + gRf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLL_hat * gLe * gLf *s +
-                  CRR_hat * gRf * gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLe * gLf + gRf * gRe)) + 
-                  4.0 * M_PI * alphaMz() * (gLe * gLe * gLf * gLf + 
-                  gRf * gRf * gRe * gRe) * chi_s) * chi_s.conjugate() +
-                  7.0 * (sW4cW4 * ((CLR2_hat + CRL2_hat) * s2 -
-                  8.0 * M_PI * Qf * s * alphaMz() * (CLR_hat + CRL_hat)+
-                  32.0 * M_PI * M_PI * Qf * Qf * alpha2Mz) + 
-                  4.0 * cW2_tree *sW2_tree * M_PI * alphaMz() * (CLR_hat * gLe * gRf * s +
-                  CRL_hat * gLf *gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLR_hat * gLe * gRf * s + 
-                  CRL_hat * gLf * gRe * s - 
-                  4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf *gRe)) +
-                  4.0 * M_PI * alphaMz() * (gLe * gLe * gRf * gRf + 
-                  gLf * gLf * gRe *gRe) * chi_s) * chi_s.conjugate())) / (348.0 * M_PI * s * sW4cW4);
-    
-    return (tmp);
-}
-
-
-double NPEffectiveGIMR::sigma_eeTOmumu(const double sqrt_s) const
-{
-    return (sigma_eeTOffbar(leptons[MU],sqrt_s));
-}
-
-double NPEffectiveGIMR::sigma_eeTOqq(const double sqrt_s) const
-{
-    double tmp = sigma_eeTOffbar(quarks[UP],sqrt_s) +
-                 sigma_eeTOffbar(quarks[DOWN],sqrt_s) +
-                 sigma_eeTOffbar(quarks[CHARM],sqrt_s) +
-                 sigma_eeTOffbar(quarks[STRANGE],sqrt_s) +
-                 sigma_eeTOffbar(quarks[BOTTOM],sqrt_s);
-    
-    return (tmp);
-}
-
-double NPEffectiveGIMR::AFB_mu(const double sqrt_s) const
-{
-    gslpp::complex sigmaB = sigma_eeTOffbarB(leptons[MU], sqrt_s);
-    gslpp::complex sigmaF = sigma_eeTOffbarF(leptons[MU], sqrt_s);
-    gslpp::complex diff = sigmaF - sigmaB;
-    gslpp::complex sum = sigmaF + sigmaB;
-    
-    double tmp = diff.real()/sum.real();
-    
-    return tmp;
-}
-

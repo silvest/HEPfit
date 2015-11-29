@@ -186,69 +186,6 @@
  *   \big(\overline{L^k}\,\gamma_\mu L^l\big)\f$, for \f$ijkl=1221,2112\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLQ1 </td>
- *   <td class="mod_symb">\f$C_{LQ}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(1)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLQ3 </td>
- *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \tau_a L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \tau_a Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cee </td>
- *   <td class="mod_symb">\f$C_{EE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{EE})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Ceu </td>
- *   <td class="mod_symb">\f$C_{EU}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{EU})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Ced </td>
- *   <td class="mod_symb">\f$C_{ED}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{ED})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLe </td>
- *   <td class="mod_symb">\f$C_{LE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LE})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLu </td>
- *   <td class="mod_symb">\f$C_{LU}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LU})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLd </td>
- *   <td class="mod_symb">\f$C_{LD}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LD})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CQe </td>
- *   <td class="mod_symb">\f$C_{QE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{QE})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%Lambda_NP </td>
  *   <td class="mod_symb">\f$\Lambda \f$</td>
  *   <td class="mod_desc">The new physics scale. </td>
@@ -431,69 +368,6 @@
  *   \big(\overline{L^k}\,\gamma_\mu L^l\big)\f$, for \f$ijkl=1221,2112\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CLQ1 </td>
- *   <td class="mod_symb">\f$C_{LQ}^{(1)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(1)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLQ3 </td>
- *   <td class="mod_symb">\f$C_{LQ}^{(3)}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LQ}^{(3)})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu \tau_a L^j\big)
- *   \big(\overline{Q^k}\,\gamma_\mu \tau_a Q^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Cee </td>
- *   <td class="mod_symb">\f$C_{EE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{EE})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Ceu </td>
- *   <td class="mod_symb">\f$C_{EU}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{EU})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%Ced </td>
- *   <td class="mod_symb">\f$C_{ED}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{ED})_{ijkl}=\big(\overline{E^i}\,\gamma^\mu E^j\big)
- *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLe </td>
- *   <td class="mod_symb">\f$C_{LE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LE})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLu </td>
- *   <td class="mod_symb">\f$C_{LU}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LU})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{U^k}\,\gamma_\mu U^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CLd </td>
- *   <td class="mod_symb">\f$C_{LD}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{LD})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
- *   \big(\overline{D^k}\,\gamma_\mu D^l\big)\f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CQe </td>
- *   <td class="mod_symb">\f$C_{QE}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{QE})_{ijkl}=\big(\overline{Q^i}\,\gamma^\mu Q^j\big)
- *   \big(\overline{E^k}\,\gamma_\mu E^l\big)\f$. </td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%Lambda_NP </td>
  *   <td class="mod_symb">\f$\Lambda \f$</td>
  *   <td class="mod_desc">The new physics scale. </td>
@@ -555,7 +429,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 210;
+    static const int NNPEffectiveGIMRVars = 201;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -567,7 +441,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 114;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 105;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -683,54 +557,6 @@ public:
     double deltaGR_f(const Particle p) const;
 
 
-        ////////////////////////////////////////////////////////////////////////
- 
-    /**
-     * @brief The total cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
-     * @param[in] p a lepton or quark
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma(e^+e^- \to \mathrm{hadrons})@f$ in ???
-     */
-    virtual double sigma_eeTOffbar(const Particle p, const double sqrt_s) const;
- 
-    /**
-     * @brief The forward cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
-     * @param[in] p a lepton or quark
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma_F(e^+e^- \to f\bar{f})@f$ in ???
-     */
-    virtual gslpp::complex sigma_eeTOffbarF(const Particle p, const double sqrt_s) const;
-    /**
-     * @brief The backward cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
-     * @param[in] p a lepton or quark
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma_B(e^+e^- \to f\bar{f})@f$ in ???
-     */
-    virtual gslpp::complex sigma_eeTOffbarB(const Particle p, const double sqrt_s) const;
- 
-    /**
-     * @brief The total cross section for @f$e^+e^- \to \mu^+ \mu^- @f$ [CHECK!]
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma(e^+e^- \to \mu^+ \mu^-)@f$ in ???
-     */
-    double sigma_eeTOmumu(const double sqrt_s) const;
-    
-    /**
-     * @brief The total cross section for @f$e^+e^- \to \mathrm{hadrons} @f$ [CHECK!]
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma(e^+e^- \to \mathrm{hadrons})@f$ in ???
-     */
-    double sigma_eeTOqq(const double sqrt_s) const;
-
-    /**
-     * @brief The forward-backward asymmetry for @f$e^+e^- \to \mu^+ \mu^- @f$ [CHECK!]
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$A_{FB}^{\mu}@f$
-     */    
-    double AFB_mu(const double sqrt_s) const;
-
-    ////////////////////////////////////////////////////////////////////////
-    
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1285,15 +1111,6 @@ protected:
     double CdH_33i; ///< The dimension-6 operator coefficient \f$(C_{DH})_{33}\f$ (imaginary part).
     double CLL_1221; ///< The dimension-6 operator coefficient \f$(C_{LL})_{1221}\f$.
     double CLL_2112; ///< The dimension-6 operator coefficient \f$(C_{LL})_{2112}\f$.
-    double CLQ1; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LQ}^{(1)}\f$.
-    double CLQ3; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LQ}^{(3)}\f$.
-    double Cee; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{EE}\f$.
-    double Ceu; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{EU}\f$.
-    double Ced; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{ED}\f$.
-    double CLe; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LE}\f$.
-    double CLu; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LU}\f$.
-    double CLd; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LD}\f$.
-    double CQe; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{QE}\f$.
     double Lambda_NP; ///< The new physics scale [GeV].
 // The error in the parameters multiplying the dimension-6 operator coefficients in the production cross sections.
     double eVBF2_HZZ1;///< Theoretical uncertainty in the (linear) new physics contribution from \f$g_{HZZ}^{(1)}\f$ to VBF production at Tevatron (1.96 TeV).
