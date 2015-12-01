@@ -40,6 +40,12 @@ MonteCarloEngine::MonteCarloEngine(
 };
 
 void MonteCarloEngine::Initialize(Model* Mod_i) {
+    TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood",
+                    NBINS1D, 1., -1.);
+    lhisto->SetDefaultBufferSize(100000);
+    lhisto->GetXaxis()->SetTitle("LogLikelihood");
+    BCH1D * bclhisto = new BCH1D(lhisto);
+    Histo1D["LogLikelihood"] = bclhisto;
     Mod = Mod_i;
     int k = 0, kweight = 0;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
@@ -346,7 +352,7 @@ void MonteCarloEngine::MCMCIterationInterface() {
             pars.assign(recvbuff + 1, recvbuff + buffsize);
             setDParsFromParameters(pars,DPars);
             Mod->Update(DPars);
-
+          
             int k = 0;
             for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
                 sbuff[k++] = it->computeTheoryValue();
@@ -479,6 +485,8 @@ void MonteCarloEngine::MCMCIterationInterface() {
         }
     }
 #endif
+    for (int i = 0; i < fMCMCNChains; i++)
+        Histo1D["LogLikelihood"]->GetHistogram()->Fill(MCMCGetLogProbx(i));
 }
 
 void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name) {
@@ -571,6 +579,10 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
             HistoLog << "WARNING: The histogram of "
                 << HistName << " is empty!" << std::endl;
     }
+    std::string fname = OutputDir + "/LogLikelihood.pdf";
+    Histo1D["LogLikelihood"]->Print(fname.c_str());
+    std::cout << fname << " has been created." << std::endl;
+    out.Write(Histo1D["LogLikelihood"]->GetHistogram());
 }
 
 void MonteCarloEngine::AddChains() {
