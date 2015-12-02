@@ -126,7 +126,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../EW/src</pElem>
@@ -146,6 +146,7 @@
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -172,7 +173,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../EW/src</pElem>
@@ -195,6 +196,7 @@
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

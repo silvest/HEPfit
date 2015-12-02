@@ -629,7 +629,7 @@
           </incDir>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>2</developmentMode>
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -639,6 +639,7 @@
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

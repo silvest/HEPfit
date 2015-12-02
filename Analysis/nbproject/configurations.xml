@@ -740,7 +740,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -870,12 +870,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../FlavourWilsonCoefficient"
                             CT="3"
-                            CN="Debug"
-                            AC="true"
+                            CN="Release"
+                            AC="false"
                             BL="true"
                             WD="../FlavourWilsonCoefficient"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -1078,46 +1078,26 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
+          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
-            <pElem>../EW/src</pElem>
-            <pElem>../Flavour/src</pElem>
-            <pElem>../GeneralSUSY/src</pElem>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../LeptonFlavour/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
             <pElem>../MonteCarlo/src</pElem>
-            <pElem>../NewPhysics/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../pMSSM/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSY/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../THDM/src</pElem>
-            <pElem>../BAT_parallel/include</pElem>
-            <pElem>../FeynHiggs/include</pElem>
-            <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../BAT_parallel/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
@@ -1125,8 +1105,10 @@
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
-            <pElem>../boost/lib</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>../BAT_parallel/lib</pElem>
+          </linkerDynSerch>
           <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -1178,15 +1160,15 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../LeptonFlavour"
+              <makeArtifact PL="../FlavourWilsonCoefficient"
                             CT="3"
                             CN="Release"
                             AC="false"
                             BL="true"
-                            WD="../LeptonFlavour"
+                            WD="../FlavourWilsonCoefficient"
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1214,18 +1196,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../Flavour"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../LeptonFlavour"
                             CT="3"
                             CN="Release"
@@ -1238,22 +1208,10 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../FlavourWilsonCoefficient"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../FlavourWilsonCoefficient"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../NewPhysics"
                             CT="3"
                             CN="Release"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../NewPhysics"
                             BC="${MAKE}  -f Makefile CONF=Release"
@@ -1337,7 +1295,7 @@
               <makeArtifact PL="../HiggsExtensions"
                             CT="3"
                             CN="Release"
-                            AC="false"
+                            AC="true"
                             BL="true"
                             WD="../HiggsExtensions"
                             BC="${MAKE}  -f Makefile CONF=Release"
@@ -1400,7 +1358,7 @@
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit -lMathMore `gsl-config --libs`</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
@@ -1437,6 +1395,10 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_libmode_header_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1608,12 +1570,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../FlavourWilsonCoefficient"
                             CT="3"
-                            CN="Debug"
-                            AC="true"
+                            CN="Cluster"
+                            AC="false"
                             BL="true"
                             WD="../FlavourWilsonCoefficient"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -1977,12 +1939,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../FlavourWilsonCoefficient"
                             CT="3"
-                            CN="Debug"
-                            AC="true"
+                            CN="Cluster"
+                            AC="false"
                             BL="true"
                             WD="../FlavourWilsonCoefficient"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavourwilsoncoefficient.a">
               </makeArtifact>
             </linkerLibProjectItem>

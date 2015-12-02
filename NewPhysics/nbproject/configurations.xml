@@ -65,6 +65,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <developmentMode>6</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../EW/src</pElem>
@@ -73,6 +74,7 @@
             <pElem>../StandardModel/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
