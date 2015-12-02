@@ -12,8 +12,8 @@
 FlavourWilsonCoefficientMatching::FlavourWilsonCoefficientMatching(const FlavourWilsonCoefficient & FlavourWilsonCoefficient_i) :
 
     StandardModelMatching(FlavourWilsonCoefficient_i),
-    myCKM(3, 3, 0.),
     myFlavourWilsonCoefficient(FlavourWilsonCoefficient_i),
+    myCKM(3, 3, 0.),
     mcbsg(8, NDR, NLO),
     mcprimebsg(8, NDR, NLO),
     mcBMll(13, NDR, NLO),
