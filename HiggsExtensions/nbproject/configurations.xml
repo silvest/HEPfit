@@ -75,24 +75,15 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../Observables/dist</pElem>
+            <pElem>../Observables/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../NewPhysics/src</pElem>
           </incDir>
         </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
         <archiverTool>
         </archiverTool>
       </compileType>
