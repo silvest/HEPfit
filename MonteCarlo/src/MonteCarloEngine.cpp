@@ -486,7 +486,9 @@ void MonteCarloEngine::MCMCIterationInterface() {
     }
 #endif
     for (int i = 0; i < fMCMCNChains; i++)
-        Histo1D["LogLikelihood"]->GetHistogram()->Fill(MCMCGetLogProbx(i));
+    {
+        Histo1D["LogLikelihood"]->GetHistogram()->Fill(MCMCGetLogProbx(i)-LogAPrioriProbability(MCMCGetx(i)));
+    }
 }
 
 void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name) {
@@ -803,6 +805,17 @@ std::string MonteCarloEngine::computeStatistics() {
         }
     }
 
+    std::vector<double> parsa;
+    for (int i = 0; i < GetNParameters(); i++)
+        parsa.push_back(GetMarginalized(fParameters[i])->GetMean());
+    double llik = LogLikelihood(parsa);
+    StatsLog << "LogLikelihood on the mean values of parameters: " << llik << std::endl;
+    double llika = Histo1D["LogLikelihood"]->GetMean();
+    StatsLog << "LogLikelihood mean value: " << llika << std::endl;
+    double dbar = -2.*llika; //Wikipedia notation... 
+    double dothetabar = -2.*llik; //Wikipedia notation...
+    StatsLog << "IC value (don't ask me what it means...): " << 3.*dbar - 2.*dothetabar << std::endl; 
+    StatsLog << "DIC value (same as above...): " << 2.*dbar - dothetabar << std::endl; 
     return StatsLog.str().c_str();
 }
 

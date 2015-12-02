@@ -43,11 +43,11 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "a_0T1", "a_1T1", "a_2T1", "MRT1", "a_0T2", "a_1T2", "a_2T2", "MRT2", "a_0T23", "a_1T23", "a_2T23", "MRT23",
     "a_0Vphi", "a_1Vphi", "a_2Vphi", "MRVphi", "a_0A0phi", "a_1A0phi", "a_2A0phi", "MRA0phi", "a_0A1phi", "a_1A1phi", "a_2A1phi", "MRA1phi", "a_0A12phi", "a_1A12phi", "a_2A12phi",
     "MRA12phi", "a_0T1phi", "a_1T1phi", "a_2T1phi", "MRT1phi", "a_0T2phi", "a_1T2phi", "a_2T2phi", "MRT2phi", "a_0T23phi", "a_1T23phi", "a_2T23phi", "MRT23phi",
-    "Absh_0", "Absh_p", "Absh_m", "Argh_0", "Argh_p", "Argh_m",
-    "Absh_0_1", "Absh_p_1", "Absh_m_1", "Argh_0_1", "Argh_p_1", "Argh_m_1",
-    "Absh_0_2", "Absh_p_2", "Absh_m_2", "Argh_0_2", "Argh_p_2", "Argh_m_2",
+    "absh_0", "absh_p", "absh_m", "argh_0", "argh_p", "argh_m",
+    "absh_0_1", "absh_p_1", "absh_m_1", "argh_0_1", "argh_p_1", "argh_m_1",
+    "absh_0_2", "absh_p_2", "absh_m_2", "argh_0_2", "argh_p_2", "argh_m_2",
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
-    "Absh_0_MP", "Argh_0_MP", "Absh_0_1_MP", "Argh_0_1_MP",
+    "absh_0_MP", "argh_0_MP", "absh_0_1_MP", "argh_0_1_MP",
     "bsgamma_E0", "BLNPcorr", "Gambino_mukin", "Gambino_BRsem", "Gambino_Mbkin", "Gambino_Mcatmuc", "Gambino_mupi2", "Gambino_rhoD3", "Gambino_muG2", "Gambino_rhoLS3",
     "lambdaB", "alpha1kst", "alpha2kst"
     //"r_2A0", "r_2T1", "r_2T2", "r_2A0phi", "r_2T1phi", "r_2T2phi"
@@ -161,28 +161,28 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_0", boost::cref(absmyh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_p", boost::cref(absmyh_p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_m", boost::cref(absmyh_m)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_0", boost::cref(argmyh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_p", boost::cref(argmyh_p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_m", boost::cref(argmyh_m)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_0_1", boost::cref(absmyh_0_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_p_1", boost::cref(absmyh_p_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_m_1", boost::cref(absmyh_m_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_0_1", boost::cref(argmyh_0_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_p_1", boost::cref(argmyh_p_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_m_1", boost::cref(argmyh_m_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_0_2", boost::cref(absmyh_0_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_p_2", boost::cref(absmyh_p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_m_2", boost::cref(absmyh_m_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_0_2", boost::cref(argmyh_0_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_p_2", boost::cref(argmyh_p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_m_2", boost::cref(argmyh_m_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_0_MP", boost::cref(Absh_0_MP)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_0_MP", boost::cref(Argh_0_MP)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Absh_0_1_MP", boost::cref(Absh_0_1_MP)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Argh_0_1_MP", boost::cref(Argh_0_1_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0", boost::cref(absmyh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p", boost::cref(absmyh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m", boost::cref(absmyh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0", boost::cref(argmyh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p", boost::cref(argmyh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m", boost::cref(argmyh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_1", boost::cref(absmyh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p_1", boost::cref(absmyh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m_1", boost::cref(absmyh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_1", boost::cref(argmyh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p_1", boost::cref(argmyh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m_1", boost::cref(argmyh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_2", boost::cref(absmyh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p_2", boost::cref(absmyh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m_2", boost::cref(absmyh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_2", boost::cref(argmyh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p_2", boost::cref(argmyh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m_2", boost::cref(argmyh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_MP", boost::cref(absh_0_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_MP", boost::cref(argh_0_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_1_MP", boost::cref(absh_0_1_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_1_MP", boost::cref(argh_0_1_MP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0V", boost::cref(a_0V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1V", boost::cref(a_1V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_2V", boost::cref(a_2V)));
@@ -331,15 +331,15 @@ bool QCD::PostUpdate()
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
 
-    myh_0 = gslpp::complex(Absh_0,Argh_0,true);
-    myh_p = gslpp::complex(Absh_p,Argh_p,true);
-    myh_m = gslpp::complex(Absh_m,Argh_m,true);
-    myh_0_2 = gslpp::complex(Absh_0_2,Argh_0_2,true);
-    myh_p_2 = gslpp::complex(Absh_p_2,Argh_p_2,true);
-    myh_m_2 = gslpp::complex(Absh_m_2,Argh_m_2,true);
-    myh_0_1 = -myh_0 - myh_0_2 + gslpp::complex(Absh_0_1,Argh_0_1,true);
-    myh_p_1 = -myh_p - myh_p_2 + gslpp::complex(Absh_p_1,Argh_p_1,true);
-    myh_m_1 = -myh_m - myh_m_2 + gslpp::complex(Absh_m_1,Argh_m_1,true);
+    myh_0 = gslpp::complex(absh_0,argh_0,true);
+    myh_p = gslpp::complex(absh_p,argh_p,true);
+    myh_m = gslpp::complex(absh_m,argh_m,true);
+    myh_0_2 = gslpp::complex(absh_0_2,argh_0_2,true);
+    myh_p_2 = gslpp::complex(absh_p_2,argh_p_2,true);
+    myh_m_2 = gslpp::complex(absh_m_2,argh_m_2,true);
+    myh_0_1 = -myh_0 - myh_0_2 + gslpp::complex(absh_0_1,argh_0_1,true);
+    myh_p_1 = -myh_p - myh_p_2 + gslpp::complex(absh_p_1,argh_p_1,true);
+    myh_m_1 = -myh_m - myh_m_2 + gslpp::complex(absh_m_1,argh_m_1,true);
     
     absmyh_0 = myh_0.abs();
     argmyh_0 = myh_0.arg();
@@ -368,17 +368,17 @@ bool QCD::PostUpdate()
     absmyh_m_2 = myh_m_2.abs();
     argmyh_m_2 = myh_m_2.arg();
     
-//    myh_0 = gslpp::complex(Absh_0,Argh_0,true);
-//    myh_p = gslpp::complex(Absh_p,Argh_p,true);
-//    myh_m = gslpp::complex(Absh_m,Argh_m,true);
+//    myh_0 = gslpp::complex(absh_0,argh_0,true);
+//    myh_p = gslpp::complex(absh_p,argh_p,true);
+//    myh_m = gslpp::complex(absh_m,argh_m,true);
 //    
-//    myh_0_1 = gslpp::complex(Absh_0_1,Argh_0_1,true);
-//    myh_p_1 = gslpp::complex(Absh_p_1,Argh_p_1,true);
-//    myh_m_1 = gslpp::complex(Absh_m_1,Argh_m_1,true);
+//    myh_0_1 = gslpp::complex(absh_0_1,argh_0_1,true);
+//    myh_p_1 = gslpp::complex(absh_p_1,argh_p_1,true);
+//    myh_m_1 = gslpp::complex(absh_m_1,argh_m_1,true);
 //    
-//    myh_0_2 = gslpp::complex(Absh_0_2,Argh_0_2,true);
-//    myh_p_2 = gslpp::complex(Absh_p_2,Argh_p_2,true);
-//    myh_m_2 = gslpp::complex(Absh_m_2,Argh_m_2,true);
+//    myh_0_2 = gslpp::complex(absh_0_2,argh_0_2,true);
+//    myh_p_2 = gslpp::complex(absh_p_2,argh_p_2,true);
+//    myh_m_2 = gslpp::complex(absh_m_2,argh_m_2,true);
     
     return (true);
 }
@@ -637,50 +637,50 @@ void QCD::setParameter(const std::string name, const double& value)
         IB_Kl = value;
     else if (name.compare("IB_Kp") == 0)
         IB_Kp = value;
-    else if (name.compare("Absh_0") == 0)
-        Absh_0 = value;
-    else if (name.compare("Absh_p") == 0)
-        Absh_p = value;
-    else if (name.compare("Absh_m") == 0)
-        Absh_m = value;
-    else if (name.compare("Argh_0") == 0)
-        Argh_0 = value;
-    else if (name.compare("Argh_p") == 0)
-        Argh_p = value;
-    else if (name.compare("Argh_m") == 0)
-        Argh_m = value;
-    else if (name.compare("Absh_0_1") == 0)
-        Absh_0_1 = value;
-    else if (name.compare("Absh_p_1") == 0)
-        Absh_p_1 = value;
-    else if (name.compare("Absh_m_1") == 0)
-        Absh_m_1 = value;
-    else if (name.compare("Argh_0_1") == 0)
-        Argh_0_1 = value;
-    else if (name.compare("Argh_p_1") == 0)
-        Argh_p_1 = value;
-    else if (name.compare("Argh_m_1") == 0)
-        Argh_m_1 = value;
-    else if (name.compare("Absh_0_2") == 0)
-        Absh_0_2 = value;
-    else if (name.compare("Absh_p_2") == 0)
-        Absh_p_2 = value;
-    else if (name.compare("Absh_m_2") == 0)
-        Absh_m_2 = value;
-    else if (name.compare("Argh_0_2") == 0)
-        Argh_0_2 = value;
-    else if (name.compare("Argh_p_2") == 0)
-        Argh_p_2 = value;
-    else if (name.compare("Argh_m_2") == 0)
-        Argh_m_2 = value;
-    else if (name.compare("Absh_0_MP") == 0)
-        Absh_0_MP = value;
-    else if (name.compare("Argh_0_MP") == 0)
-        Argh_0_MP = value;
-    else if (name.compare("Absh_0_1_MP") == 0)
-        Absh_0_1_MP = value;
-    else if (name.compare("Argh_0_1_MP") == 0)
-        Argh_0_1_MP = value;
+    else if (name.compare("absh_0") == 0)
+        absh_0 = value;
+    else if (name.compare("absh_p") == 0)
+        absh_p = value;
+    else if (name.compare("absh_m") == 0)
+        absh_m = value;
+    else if (name.compare("argh_0") == 0)
+        argh_0 = value;
+    else if (name.compare("argh_p") == 0)
+        argh_p = value;
+    else if (name.compare("argh_m") == 0)
+        argh_m = value;
+    else if (name.compare("absh_0_1") == 0)
+        absh_0_1 = value;
+    else if (name.compare("absh_p_1") == 0)
+        absh_p_1 = value;
+    else if (name.compare("absh_m_1") == 0)
+        absh_m_1 = value;
+    else if (name.compare("argh_0_1") == 0)
+        argh_0_1 = value;
+    else if (name.compare("argh_p_1") == 0)
+        argh_p_1 = value;
+    else if (name.compare("argh_m_1") == 0)
+        argh_m_1 = value;
+    else if (name.compare("absh_0_2") == 0)
+        absh_0_2 = value;
+    else if (name.compare("absh_p_2") == 0)
+        absh_p_2 = value;
+    else if (name.compare("absh_m_2") == 0)
+        absh_m_2 = value;
+    else if (name.compare("argh_0_2") == 0)
+        argh_0_2 = value;
+    else if (name.compare("argh_p_2") == 0)
+        argh_p_2 = value;
+    else if (name.compare("argh_m_2") == 0)
+        argh_m_2 = value;
+    else if (name.compare("absh_0_MP") == 0)
+        absh_0_MP = value;
+    else if (name.compare("argh_0_MP") == 0)
+        argh_0_MP = value;
+    else if (name.compare("absh_0_1_MP") == 0)
+        absh_0_1_MP = value;
+    else if (name.compare("argh_0_1_MP") == 0)
+        argh_0_1_MP = value;
     else if (name.compare("a_0V") == 0)
         a_0V = value;
     else if (name.compare("a_1V") == 0)

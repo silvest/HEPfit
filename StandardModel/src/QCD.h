@@ -413,32 +413,32 @@
  *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to\phi@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Absh_0, %Absh_0_1, %Absh_0_2</td>
+ *   <td class="mod_name">%absh_0, %absh_0_1, %absh_0_2</td>
  *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}, \mathrm{Re}h_0^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Argh_0, %Argh_0_1, %Argh_0_2</td>
+ *   <td class="mod_name">%argh_0, %argh_0_1, %argh_0_2</td>
  *   <td class="mod_symb">@f$\mathrm{Im}h_0^{(0)}, \mathrm{Im}h_0^{(1)}, \mathrm{Im}h_0^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Absh_1, %Absh_1_1, %Absh_1_2</td>
+ *   <td class="mod_name">%absh_1, %absh_1_1, %absh_1_2</td>
  *   <td class="mod_symb">@f$\mathrm{Re}h_+^{(0)}, \mathrm{Re}h_+^{(1)}, \mathrm{Re}h_+^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Argh_1, %Argh_1_1, %Argh_1_2</td>
+ *   <td class="mod_name">%argh_1, %argh_1_1, %argh_1_2</td>
  *   <td class="mod_symb">@f$\mathrm{Im}h_+^{(0)}, \mathrm{Im}h_+^{(1)}, \mathrm{Im}h_+^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Absh_2, %Absh_2_1, %Absh_2_2</td>
+ *   <td class="mod_name">%absh_2, %absh_2_1, %absh_2_2</td>
  *   <td class="mod_symb">@f$\mathrm{Re}h_-^{(0)}, \mathrm{Re}h_-^{(1)}, \mathrm{Re}h_-^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Argh_2, %Argh_2_1, %Argh_2_2</td>
+ *   <td class="mod_name">%argh_2, %argh_2_1, %argh_2_2</td>
  *   <td class="mod_symb">@f$\mathrm{Im}h_-^{(0)}, \mathrm{Im}h_-^{(1)}, \mathrm{Im}h_-^{(2)}@f$</td>
  *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
@@ -468,12 +468,12 @@
  *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$f_0@f$ of the @f$B\to K@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Absh_0_MP, %Absh_0_1_MP</td>
+ *   <td class="mod_name">%absh_0_MP, %absh_0_1_MP</td>
  *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}@f$</td>
  *   <td class="mod_desc">The constant and linear terms of the real part of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Argh_0_MP, %Argh_0_1_MP</td>
+ *   <td class="mod_name">%argh_0_MP, %argh_0_1_MP</td>
  *   <td class="mod_symb">@f$\mathrm{Im}h_0^{(0)}, \mathrm{Im}h_0^{(1)}@f$</td>
  *   <td class="mod_desc">The constant and linear terms of the immaginary part of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
  * </tr>
@@ -1151,7 +1151,7 @@ public:
      */
     gslpp::complex geth_0_MP() const
     {
-        return gslpp::complex(Absh_0_MP,Argh_0_MP,true);
+        return gslpp::complex(absh_0_MP,argh_0_MP,true);
     }
     
     /**
@@ -1159,7 +1159,7 @@ public:
      */
     gslpp::complex geth_0_1_MP() const
     {
-        return gslpp::complex(Absh_0_1_MP,Argh_0_1_MP,true);
+        return gslpp::complex(absh_0_1_MP,argh_0_1_MP,true);
     }
     
     /**
@@ -2007,10 +2007,10 @@ protected:
     double Br_B_Xcenu;
     double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
-    double Absh_0, Absh_p, Absh_m, Argh_0, Argh_p, Argh_m;
-    double Absh_0_1, Absh_p_1, Absh_m_1, Argh_0_1, Argh_p_1, Argh_m_1;
-    double Absh_0_2, Absh_p_2, Absh_m_2, Argh_0_2, Argh_p_2, Argh_m_2;
-    double Absh_0_MP, Argh_0_MP, Absh_0_1_MP, Argh_0_1_MP;
+    double absh_0, absh_p, absh_m, argh_0, argh_p, argh_m;
+    double absh_0_1, absh_p_1, absh_m_1, argh_0_1, argh_p_1, argh_m_1;
+    double absh_0_2, absh_p_2, absh_m_2, argh_0_2, argh_p_2, argh_m_2;
+    double absh_0_MP, argh_0_MP, absh_0_1_MP, argh_0_1_MP;
     double a_0V, a_1V, a_2V, MRV;
     double a_0A0, a_1A0, a_2A0, MRA0;
     double a_0A1, a_1A1, a_2A1, MRA1;
