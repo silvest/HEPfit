@@ -37,17 +37,5 @@
 #include "Epsilon3.h"
 #include "Epsilonb.h"
 
-/** BEGIN: REMOVE FROM THE PACKAGE **/
-#include "LEP2sigmaHadron.h"
-#include "LEP2sigmaMu.h"
-#include "LEP2sigmaTau.h"
-#include "LEP2AFBmu.h"
-#include "LEP2AFBtau.h"
-#include "LEP2AFBbottom.h"
-#include "LEP2AFBcharm.h"
-#include "LEP2Rbottom.h"
-#include "LEP2Rcharm.h"
-/** END: REMOVE FROM THE PACKAGE **/
-
 #endif	/* EWOBSERVABLES_H */
 
