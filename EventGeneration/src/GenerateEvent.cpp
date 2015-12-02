@@ -286,7 +286,7 @@ void GenerateEvent::initModel(){
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
         if (it->IsCorrelated()) {
-                for (int i = 0; i < CGP.size(); i++) {
+                for (unsigned int i = 0; i < CGP.size(); i++) {
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
                         std::string index = it->getname().substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
@@ -318,7 +318,7 @@ void GenerateEvent::defineParameterDistributions()
     if (outputTerm == 0 && rank == 0) std::cout << "\nParameters varied in Event Generation:" << std::endl;
     for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
         if (it->IsCorrelated()) {
-                for (int i = 0; i < CGP.size(); i++) {
+                for (unsigned int i = 0; i < CGP.size(); i++) {
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
                         std::string index = it->getname().substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
@@ -363,7 +363,7 @@ void GenerateEvent::generateRandomEvent(int iterationNo)
     positionID = 0;
     
     std::vector<double> vec(ModParsVar.size(),0.);
-    for (int i=0; i< vec.size();i++){
+    for (unsigned int i=0; i< vec.size();i++){
         if (iterationNo == 0) vec[i] = ModParsVar[i].getave();
         else vec[i] = DDist[ModParsVar[i].getname()]->GetRandom();
     }
@@ -371,7 +371,7 @@ void GenerateEvent::generateRandomEvent(int iterationNo)
     setDParsFromParameters(vec,DPars);
     for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++){
         if (it->IsCorrelated()) {
-                for (int i = 0; i < CGP.size(); i++) {
+                for (unsigned int i = 0; i < CGP.size(); i++) {
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
                         std::string index = it->getname().substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
@@ -405,7 +405,7 @@ void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters
         
         if (it->IsCorrelated()) {
             std::string index = it->getname().substr(it->getCgp_name().size());
-            long int lindex = strtol(index.c_str(),NULL,10);
+            unsigned long int lindex = strtol(index.c_str(),NULL,10);
             if (lindex - 1 == cgpmap[it->getCgp_name()].size()) cgpmap[it->getCgp_name()].push_back(parameters[k]);
             else {
                 std::stringstream out;
@@ -417,7 +417,7 @@ void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters
         k++;
     }
     
-    for (int j = 0; j < CGP.size(); j++) {
+    for (unsigned int j = 0; j < CGP.size(); j++) {
         std::vector<double> current = cgpmap.at(CGP[j].getName());
         if (current.size() != CGP[j].getPars().size()) {
             std::stringstream out;
@@ -427,7 +427,7 @@ void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters
         
         std::vector<double> porig = CGP[j].getOrigParsValue(current);
 
-        for(int l = 0; l < porig.size(); l++) {
+        for(unsigned int l = 0; l < porig.size(); l++) {
             DPars_i[CGP[j].getPar(l).getname()] = porig[l];
         }
     }

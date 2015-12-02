@@ -64,7 +64,7 @@ void MonteCarlo::TestRun(int rank) {
 
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
             if (it->IsCorrelated()) {
-                for (int i = 0; i < CGP.size(); i++) {
+                for (unsigned int i = 0; i < CGP.size(); i++) {
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
                         std::string index = it->getname().substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
@@ -123,7 +123,7 @@ void MonteCarlo::Run(const int rank) {
             if (it->geterrg() > 0. || it->geterrf() > 0.)
                 buffsize++;
             if (it->IsCorrelated()) {
-                for (int i = 0; i < CGP.size(); i++) {
+                for (unsigned int i = 0; i < CGP.size(); i++) {
                     if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
                         std::string index = it->getname().substr(CGP[i].getName().size());
                         long int lindex = strtol(index.c_str(), NULL, 10);
@@ -478,7 +478,7 @@ void MonteCarlo::ReadPreRunData(std::string file)
         throw std::runtime_error("\nMonteCarlo::ReadPreRunData ERROR: wrong data size.\n");
     std::vector<double> mode_all;
     std::vector<double> scale_all;
-    for (int i = 0; i < MCEngine.MCMCGetNChains(); i++){
+    for (unsigned int i = 0; i < MCEngine.MCMCGetNChains(); i++){
         mode_all.insert(mode_all.end(), mode.begin(), mode.end());
         scale_all.insert(scale_all.end(), scale.begin(), scale.end());
     }

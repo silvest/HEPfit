@@ -65,7 +65,7 @@ EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order, const S
                         }
                     }
             else{    
-                for(int k = 0; k < dim; k++){
+                for(unsigned int k = 0; k < dim; k++){
                    c[L][i][j][k] = (1./(2. * b0)) * jssv(i, k).real() * vi(k, j).real();
                    d[L][i][j][k] = 0.;
                    }   

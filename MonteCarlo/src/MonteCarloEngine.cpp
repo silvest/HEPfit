@@ -165,7 +165,7 @@ void MonteCarloEngine::DefineParameters() {
         AddParameter(it->getname().c_str(), it->getmin(), it->getmax());
         if (rank == 0) std::cout << k << ": " << it->getname() << ", ";
         if (it->IsCorrelated()) {
-            for (int i = 0; i < CGP.size(); i++) {
+            for (unsigned int i = 0; i < CGP.size(); i++) {
                 if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
                     std::string index = it->getname().substr(CGP[i].getName().size());
                     long int lindex = strtol(index.c_str(),NULL,10);
@@ -213,7 +213,7 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
                     }
         if (it->IsCorrelated()) {
             std::string index = it->getname().substr(it->getCgp_name().size());
-            long int lindex = strtol(index.c_str(),NULL,10);
+            unsigned long int lindex = strtol(index.c_str(),NULL,10);
             if (lindex - 1 == cgpmap[it->getCgp_name()].size())
                 cgpmap[it->getCgp_name()].push_back(parameters[k]);
             else {
@@ -227,7 +227,7 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
         k++;
     }
 
-    for (int j = 0; j < CGP.size(); j++) {
+    for (unsigned int j = 0; j < CGP.size(); j++) {
         std::vector<double> current = cgpmap.at(CGP[j].getName());
         if (current.size() != CGP[j].getPars().size()) {
             std::stringstream out;
@@ -237,7 +237,7 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
         
         std::vector<double> porig = CGP[j].getOrigParsValue(current);
 
-        for(int l = 0; l < porig.size(); l++) {
+        for(unsigned int l = 0; l < porig.size(); l++) {
             DPars_i[CGP[j].getPar(l).getname()] = porig[l];
         }
     }
@@ -485,7 +485,7 @@ void MonteCarloEngine::MCMCIterationInterface() {
         }
     }
 #endif
-    for (int i = 0; i < fMCMCNChains; i++)
+    for (unsigned int i = 0; i < fMCMCNChains; i++)
     {
         Histo1D["LogLikelihood"]->GetHistogram()->Fill(MCMCGetLogProbx(i)-LogAPrioriProbability(MCMCGetx(i)));
     }
@@ -806,7 +806,7 @@ std::string MonteCarloEngine::computeStatistics() {
     }
 
     std::vector<double> parsa;
-    for (int i = 0; i < GetNParameters(); i++)
+    for (unsigned int i = 0; i < GetNParameters(); i++)
         parsa.push_back(GetMarginalized(fParameters[i])->GetMean());
     double llik = LogLikelihood(parsa);
     StatsLog << "LogLikelihood on the mean values of parameters: " << llik << std::endl;
@@ -824,7 +824,7 @@ std::string MonteCarloEngine::writePreRunData()
     std::vector<double> mode(GetBestFitParameters());
     std::vector<double> scales(MCMCGetTrialFunctionScaleFactor(0));
     std::ostringstream StatsLog;
-    for (int i = 0; i < mode.size(); i++)
+    for (unsigned int i = 0; i < mode.size(); i++)
         StatsLog << GetParameter(i)->GetName() << " " << mode.at(i) << " " << scales.at(i) << std::endl;
     return StatsLog.str().c_str();
 }
