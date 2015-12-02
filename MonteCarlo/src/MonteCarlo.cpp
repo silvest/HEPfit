@@ -320,6 +320,11 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("false") == 0) {
                         MCEngine.MCMCSetFlagOrderParameters(false);
                     }
+                } else if (beg->compare("StatOverFlow") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) MCEngine.setHistogramOverFlow(true);
+                    if (beg->compare("false") == 0) MCEngine.setHistogramOverFlow(false);
+                    else throw std::runtime_error("\nERROR: Wrong value in MonteCarlo config file for keyword StatOverFlow. It can be either true or false.\n");
                 } else
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);

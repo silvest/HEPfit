@@ -231,6 +231,12 @@ public:
         return Histo2D;
     }
     
+    void setHistogramOverFlow(bool overflow)
+    {
+        if (overflow) TH1::StatOverflows(kTRUE);
+        else TH1::StatOverflows(kFALSE);
+    }
+    
     double computeNormalization();
     
     double SecondDerivative(const BCParameter * par1, const BCParameter * par2, std::vector<double> point);
