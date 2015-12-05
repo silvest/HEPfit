@@ -218,29 +218,23 @@ private :
     //StandardModelMatching& standardmodelmatching;
     
     double Bsgamma_mu_cache;
-    std::vector<double> Bsgamma_Mu_cache;
-    std::vector<double> Bpsgamma_Mu_cache;
     schemes Bsgamma_scheme_cache;
     std::vector<WilsonCoefficient> Bsgamma_WC_cache;
     std::vector<WilsonCoefficient> Bpsgamma_WC_cache;
     
     double BMll_mu_cache;
-    std::vector<double> BMll_Mu_cache;
     schemes BMll_scheme_cache;
     std::vector<WilsonCoefficient> BMll_WC_cache;
     
     double BMllprime_mu_cache;
-    std::vector<double> BMllprime_Mu_cache;
     schemes BMllprime_scheme_cache;
     std::vector<WilsonCoefficient> BMllprime_WC_cache;
     
     double Bsmumu_mu_cache;
-    std::vector<double> Bsmumu_Mu_cache;
     schemes Bsmumu_scheme_cache;
     std::vector<WilsonCoefficient> Bsmumu_WC_cache;
     
     double Bdmumu_mu_cache;
-    std::vector<double> Bdmumu_Mu_cache;
     schemes Bdmumu_scheme_cache;
     std::vector<WilsonCoefficient> Bdmumu_WC_cache;
     
