@@ -29,20 +29,39 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         nlepCC(4, 0.)
 {
     
-    for (unsigned int i = 0; i < 6; i++) BMll_WC_cache.push_back(coeffBMll);
+    for (unsigned int i = 0; i < 6; i++) {
+        BMll_WC_cache.push_back(coeffBMll);
+        BMll_Mu_cache.push_back(0.);
+    }
     BMll_mu_cache = 0.;
     
-    for (unsigned int i = 0; i < 6; i++) BMllprime_WC_cache.push_back(coeffprimeBMll);
+    for (unsigned int i = 0; i < 6; i++) {
+        BMllprime_WC_cache.push_back(coeffprimeBMll);
+        BMllprime_Mu_cache.push_back(0.);
+    }
     BMllprime_mu_cache = 0.;
     
-    for (unsigned int i = 0; i < 6; i++) Bsgamma_WC_cache.push_back(coeffsgamma);
+    for (unsigned int i = 0; i < 6; i++) {
+        Bsgamma_WC_cache.push_back(coeffsgamma);
+        Bsgamma_Mu_cache.push_back(0.);
+    }
     Bsgamma_mu_cache = 0.;
     
-    for (unsigned int i = 0; i < 6; i++) Bpsgamma_WC_cache.push_back(coeffsgamma); 
-    for (unsigned int i = 0; i < 6; i++) Bsmumu_WC_cache.push_back(coeffsmumu);
+    for (unsigned int i = 0; i < 6; i++) {
+        Bpsgamma_WC_cache.push_back(coeffsgamma);
+        Bpsgamma_Mu_cache.push_back(0.);
+    }
+    
+    for (unsigned int i = 0; i < 6; i++) {
+        Bsmumu_WC_cache.push_back(coeffsmumu);
+        Bsmumu_Mu_cache.push_back(0.);
+    }
     Bsmumu_mu_cache = 0.;
     
-    for (unsigned int i = 0; i < 6; i++) Bdmumu_WC_cache.push_back(coeffdmumu);
+    for (unsigned int i = 0; i < 6; i++) {
+        Bdmumu_WC_cache.push_back(coeffdmumu);
+        Bdmumu_Mu_cache.push_back(0.);
+    }
     Bdmumu_mu_cache = 0.;
 }
 
@@ -312,14 +331,16 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes sc
     if (mu == Bsmumu_mu_cache && scheme == Bsmumu_scheme_cache) {
         int check = 1;
         for (unsigned int i = 0; i < mcbsm.size(); i++) {
-            for (int j = LO; j <= ordDF1; j++) {
-                for (int k = LO; k <= j; k++) {
-                    for (int l = 0; l < 8; l++) {
-                        check *= ((*(mcbsm[i].getCoeff(orders(j - k))))(l) == (*(Bsmumu_WC_cache[i].getCoeff(orders(j - k))))(l));
+            if (mcbsm[i].getMu() == Bsmumu_Mu_cache[i]) {
+                for (int j = LO; j <= ordDF1; j++) {
+                    for (int k = LO; k <= j; k++) {
+                        for (int l = 0; l < 8; l++) {
+                            check *= ((*(mcbsm[i].getCoeff(orders(j - k))))(l) == (*(Bsmumu_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
                     }
                 }
-            }
-        }
+            } else check = 0;
+        } 
         if (check == 1) return coeffsmumu.getCoeff();
     } 
        
@@ -347,6 +368,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes sc
     coeffsmumu.setMu(mu); 
            
     for (unsigned int i = 0; i < mcbsm.size(); i++){
+        Bsmumu_Mu_cache[i] = mcbsm[i].getMu();
         for (j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){  
                 if ((k <= NNLO) && (j <= NNLO)){
@@ -499,13 +521,15 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     if (mu == Bdmumu_mu_cache && scheme == Bdmumu_scheme_cache) {
         int check = 1;
         for (unsigned int i = 0; i < mcbdm.size(); i++) {
-            for (int j = LO; j <= ordDF1; j++) {
-                for (int k = LO; k <= j; k++) {
-                    for (int l = 0; l < 8; l++) {
-                        check *= ((*(mcbdm[i].getCoeff(orders(j - k))))(l) == (*(Bdmumu_WC_cache[i].getCoeff(orders(j - k))))(l));
+            if (mcbdm[i].getMu() == Bdmumu_Mu_cache[i]) {
+                for (int j = LO; j <= ordDF1; j++) {
+                    for (int k = LO; k <= j; k++) {
+                        for (int l = 0; l < 8; l++) {
+                            check *= ((*(mcbdm[i].getCoeff(orders(j - k))))(l) == (*(Bdmumu_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
                     }
                 }
-            }
+            } else check = 0;
         }
         if (check == 1) return coeffdmumu.getCoeff();
     } 
@@ -534,6 +558,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     coeffdmumu.setMu(mu); 
            
     for (unsigned int i = 0; i < mcbdm.size(); i++){
+        Bdmumu_Mu_cache[i] = mcbdm[i].getMu();
         for (j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 if ((k <= NNLO) && (j <= NNLO)){                        
@@ -732,13 +757,15 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
     if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
         int check = 1;
         for (unsigned int i = 0; i < mcbsg.size(); i++) {
-            for (int j = LO; j <= ordDF1; j++) {
-                for (int k = LO; k <= j; k++) {
-                    for (int l = 0; l < 8; l++) {
-                        check *= ((*(mcbsg[i].getCoeff(orders(j - k))))(l) == (*(Bsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
+            if (mcbsg[i].getMu() == Bsgamma_Mu_cache[i]) {
+                for (int j = LO; j <= ordDF1; j++) {
+                    for (int k = LO; k <= j; k++) {
+                        for (int l = 0; l < 8; l++) {
+                            check *= ((*(mcbsg[i].getCoeff(orders(j - k))))(l) == (*(Bsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
                     }
                 }
-            }
+            } else check = 0;
         }
         if (check == 1) return coeffsgamma.getCoeff();
     } 
@@ -751,6 +778,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
     coeffsgamma.setMu(mu); 
     
     for (unsigned int i = 0; i < mcbsg.size(); i++){
+        Bsgamma_Mu_cache[i] = mcbsg[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffsgamma.setCoeff(*coeffsgamma.getCoeff(orders(j)) +
@@ -774,13 +802,15 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, sche
     if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
         int check = 1;
         for (unsigned int i = 0; i < mcbsgp.size(); i++) {
-            for (int j = LO; j <= ordDF1; j++) {
-                for (int k = LO; k <= j; k++) {
-                    for (int l = 0; l < 8; l++) {
-                        check *= ((*(mcbsgp[i].getCoeff(orders(j - k))))(l) == (*(Bpsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
+            if (mcbsgp[i].getMu() == Bpsgamma_Mu_cache[i]) {
+                for (int j = LO; j <= ordDF1; j++) {
+                    for (int k = LO; k <= j; k++) {
+                        for (int l = 0; l < 8; l++) {
+                            check *= ((*(mcbsgp[i].getCoeff(orders(j - k))))(l) == (*(Bpsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
                     }
                 }
-            }
+            } else check = 0;
         }
         if (check == 1) return coeffprimesgamma.getCoeff();
     } 
@@ -793,6 +823,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, sche
     coeffprimesgamma.setMu(mu); 
     
     for (unsigned int i = 0; i < mcbsgp.size(); i++){
+        Bpsgamma_Mu_cache[i] = mcbsgp[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffprimesgamma.setCoeff(*coeffprimesgamma.getCoeff(orders(j)) +
@@ -816,13 +847,15 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes sch
     if (mu == BMll_mu_cache && scheme == BMll_scheme_cache) {
         int check = 1;
         for (unsigned int i = 0; i < mc.size(); i++) {
-            for (int j = LO; j <= ordDF1; j++) {
-                for (int k = LO; k <= j; k++) {
-                    for (int l = 0; l < 13; l++) {
-                        check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BMll_WC_cache[i].getCoeff(orders(j - k))))(l));
+            if (mc[i].getMu() == BMll_Mu_cache[i]){
+                for (int j = LO; j <= ordDF1; j++) {
+                    for (int k = LO; k <= j; k++) {
+                        for (int l = 0; l < 13; l++) {
+                            check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BMll_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
                     }
                 }
-            }
+            } else check = 0;
         }
         if (check == 1) return coeffBMll.getCoeff();
     } 
@@ -835,6 +868,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes sch
     coeffBMll.setMu(mu); 
     
     for (unsigned int i = 0; i < mc.size(); i++){
+        BMll_Mu_cache[i] = mc[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffBMll.setCoeff(*coeffBMll.getCoeff(orders(j)) +
@@ -859,13 +893,15 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, scheme
     if (mu == BMllprime_mu_cache && scheme == BMllprime_scheme_cache) {
         int check = 1;
         for (unsigned int i = 0; i < mc.size(); i++) {
-            for (int j = LO; j <= ordDF1; j++) {
-                for (int k = LO; k <= j; k++) {
-                    for (int l = 0; l < 13; l++) {
-                        check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BMllprime_WC_cache[i].getCoeff(orders(j - k))))(l));
+            if (mc[i].getMu() == BMllprime_Mu_cache[i]) {
+                for (int j = LO; j <= ordDF1; j++) {
+                    for (int k = LO; k <= j; k++) {
+                        for (int l = 0; l < 13; l++) {
+                            check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BMllprime_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
                     }
                 }
-            }
+            } else check = 0;
         }
         if (check == 1) return coeffprimeBMll.getCoeff();
     }
@@ -878,6 +914,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, scheme
     coeffprimeBMll.setMu(mu); 
     
     for (unsigned int i = 0; i < mc.size(); i++){
+        BMllprime_Mu_cache[i] = mc[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffprimeBMll.setCoeff(*coeffprimeBMll.getCoeff(orders(j)) +
