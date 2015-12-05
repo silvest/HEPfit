@@ -8,7 +8,7 @@
 #ifndef GAMMA_H
 #define	GAMMA_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 
 
 

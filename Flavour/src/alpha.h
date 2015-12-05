@@ -8,7 +8,7 @@
 #ifndef ALPHA_H
 #define	ALPHA_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 
 
 

@@ -8,7 +8,7 @@
 #ifndef ALPHA_2A_H
 #define	ALPHA_2A_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 
 
 

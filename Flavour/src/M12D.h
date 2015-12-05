@@ -8,9 +8,9 @@
 #ifndef M12D_H
 #define	M12D_H
 
-#include <ThObservable.h>
-#include <Flavour.h>
-#include <AmpDD2.h>
+#include "ThObservable.h"
+#include "Flavour.h"
+#include "AmpDD2.h"
 
 class M12D : public ThObservable, AmpDD2 {
 /**

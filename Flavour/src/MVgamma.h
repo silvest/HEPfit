@@ -8,8 +8,8 @@
 #ifndef MVGAMMA_H
 #define	MVGAMMA_H
 
-#include <StandardModel.h>
-#include <ThObservable.h>
+#include "StandardModel.h"
+#include "ThObservable.h"
 
 
 

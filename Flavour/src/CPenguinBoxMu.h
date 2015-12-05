@@ -8,7 +8,7 @@
 #ifndef CPENGUINBOXMU_H
 #define	CPENGUINBOXMU_H
 
-#include <StandardModel.h>
+#include "StandardModel.h"
 #include <sstream>
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>

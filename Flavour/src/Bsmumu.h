@@ -8,9 +8,9 @@
 #ifndef BSMUMU_H
 #define	BSMUMU_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "Flavour.h"
-#include <StandardModel.h>
+#include "StandardModel.h"
 
 class Bsmumu : public ThObservable {
 public:   

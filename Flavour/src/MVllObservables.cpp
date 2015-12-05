@@ -7,7 +7,7 @@
 
 #include "MVllObservables.h"
 #include "Flavour.h"
-#include <gslpp.h>
+#include "gslpp.h"
 
 /*******************************************************************************
  * Observables                                                                 *

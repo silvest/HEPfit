@@ -8,9 +8,9 @@
 #ifndef ARGD_H
 #define	ARGD_H
 
-#include <ThObservable.h>
-#include <Flavour.h>
-#include <AmpDD2.h>
+#include "ThObservable.h"
+#include "Flavour.h"
+#include "AmpDD2.h"
 
 class ArgD : public ThObservable, AmpDD2 {
 /**

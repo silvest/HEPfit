@@ -8,10 +8,10 @@
 #ifndef BR_KPPNUNU_H
 #define	BR_KPPNUNU_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "Flavour.h"
 #include "Charm_Kpnunu.h"
-#include <StandardModel.h>
+#include "StandardModel.h"
 
 class BR_Kppnunu : public ThObservable {
 public:   

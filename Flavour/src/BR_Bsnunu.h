@@ -8,7 +8,7 @@
 #ifndef BR_BSNUNU_H
 #define	BR_BSNUNU_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "Flavour.h"
 
 class BR_Bsnunu : public ThObservable {

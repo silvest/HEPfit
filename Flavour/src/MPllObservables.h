@@ -9,8 +9,7 @@
 #define	MPLLOBSERVABLES_H
 
 #include "MPll.h"
-#include <StandardModel.h>
-#include <ThObservable.h>
+#include "ThObservable.h"
 
 
 

@@ -7,7 +7,7 @@
 
 #include "Flavour.h"
 #include "MPll.h"
-#include <gslpp.h>
+#include "gslpp.h"
 #include <gslpp_complex.h>
 #include <gsl/gsl_math.h>
 #include <boost/bind.hpp>

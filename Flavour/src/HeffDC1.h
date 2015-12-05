@@ -8,15 +8,9 @@
 #ifndef HEFFDC1_H
 #define	HEFFDC1_H
 
-#include <StandardModel.h>
-/* 
- * Copyright (C) 2012 HEPfit Collaboration
- * All rights reserved.
- *
- * For the licensing terms see doc/COPYING.
- */
-#include <StandardModelMatching.h>
-#include <WilsonCoefficient.h>
+#include "StandardModel.h"
+#include "StandardModelMatching.h"
+#include "WilsonCoefficient.h"
 #include "EvolDC1.h"
 #include "EvolDC1Buras.h"
 #include <sstream>

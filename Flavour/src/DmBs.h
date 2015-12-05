@@ -8,7 +8,7 @@
 #ifndef DMBS_H
 #define	DMBS_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "Flavour.h"
 #include "AmpDB2.h"
 
