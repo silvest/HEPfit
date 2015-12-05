@@ -146,67 +146,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <logicalFolder name="TestFiles"
-                   displayName="Test Files"
-                   projectFiles="false"
-                   kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f3"
-                     displayName="EWSMOneLoopEW"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f9"
-                     displayName="EWSMOneLoopEW_HV"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f6"
-                     displayName="EWSMThreeLoopEW"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f5"
-                     displayName="EWSMThreeLoopQCD"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f10"
-                     displayName="EWSMTwoFermionsLEP2"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f7"
-                     displayName="EWSMTwoLoopEW"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f4"
-                     displayName="EWSMTwoLoopQCD"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f2"
-                     displayName="RunningMass"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f1"
-                     displayName="StandardModelTest"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-      <logicalFolder name="f8"
-                     displayName="StrongCoupling"
-                     projectFiles="true"
-                     kind="TEST">
-      </logicalFolder>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false"
-                   kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>Makefile</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -629,7 +568,7 @@
           </incDir>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -639,6 +578,7 @@
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

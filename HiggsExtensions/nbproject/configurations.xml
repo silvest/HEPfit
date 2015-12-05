@@ -76,13 +76,14 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <incDir>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../NewPhysics/src</pElem>
           </incDir>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
