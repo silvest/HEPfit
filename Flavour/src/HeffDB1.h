@@ -11,7 +11,6 @@
 #include "StandardModel.h"
 #include "StandardModelMatching.h"
 #include "WilsonCoefficient.h"
-#include "EvolDF1nlep.h"
 #include "EvolDB1Mll.h"
 #include "EvolDB1bsg.h"
 #include "EvolBsmm.h"
@@ -182,9 +181,6 @@ public:
         return evolbd;
     }
     
-    EvolDF1nlep getUDF1() const {
-        return u;
-    }
     
     EvolDB1Mll getUDF1BMll() const {
         return evolDF1BMll;
@@ -212,7 +208,6 @@ private :
     WilsonCoefficient coeffBMll, coeffprimeBMll;
     EvolDB1Mll evolDF1BMll;
     EvolDB1bsg evolDB1bsg;
-    EvolDF1nlep u;
     EvolBsmm evolbs, evolbd;
     
     //StandardModelMatching& standardmodelmatching;

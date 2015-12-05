@@ -9,7 +9,6 @@
 #define	FLAVOUR_H
 
 #include "HeffDF2.h"
-#include "HeffDS1.h"
 #include "HeffDB1.h"
 #include "MVll.h"
 #include "MPll.h"
@@ -35,8 +34,7 @@ public:
      */
     Flavour(const StandardModel& SM_i) : 
         HDF2(SM_i), 
-        HDB1(SM_i), 
-        HDS1(SM_i)
+        HDB1(SM_i)
     {
         myMVll_BdKstarmu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
         myMVll_BdKstarel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
@@ -60,15 +58,6 @@ public:
      */
     const HeffDF2& getHDF2() const {
         return HDF2;
-    }
-    
-    /**
-     * @brief The member that returns an object of the class HeffDS1.
-     * @return returns the Hamiltonian for the \f$ \Delta S = 1 \f$ processes.
-     * 
-     */
-    const HeffDS1& getHDS1() const {
-        return HDS1;
     }
     
     /**
@@ -112,18 +101,6 @@ public:
     
     gslpp::vector<gslpp::complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffmK(mu, scheme);
-    }
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) {
-        return HDS1.ComputeCoeffDS1PP(mu, scheme);
-    }
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu() {
-        return HDS1.ComputeCoeffDS1pnunu();
-    }
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu() {
-        return HDS1.ComputeCoeffDS1mumu();
     }
     
     /**
@@ -292,7 +269,6 @@ private:
     
     HeffDF2 HDF2;///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
     HeffDB1 HDB1;///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
-    HeffDS1 HDS1;///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
     MVll* myMVll_BdKstarmu;///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
     MVll* myMVll_BdKstarel;///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
     MVll* myMVll_Bsphimu;///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.

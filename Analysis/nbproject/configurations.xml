@@ -38,11 +38,9 @@
     <itemPath>FlavourWC.conf</itemPath>
     <itemPath>GeneralSUSY.conf</itemPath>
     <itemPath>HiggsKvKf.conf</itemPath>
-    <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
     <itemPath>StandardModel.conf</itemPath>
-    <itemPath>pMSSM.conf</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -328,8 +326,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
@@ -352,8 +348,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -647,8 +641,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
@@ -675,8 +667,6 @@
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -970,8 +960,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
@@ -994,8 +982,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1317,8 +1303,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
@@ -1343,8 +1327,6 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1661,8 +1643,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
@@ -1685,8 +1665,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -2006,8 +1984,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
@@ -2034,8 +2010,6 @@
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>

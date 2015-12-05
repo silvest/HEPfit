@@ -5,43 +5,25 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/AmpDB2.h</itemPath>
-      <itemPath>src/AmpDD2.h</itemPath>
       <itemPath>src/AmpDK2.h</itemPath>
-      <itemPath>src/AmpDS1.h</itemPath>
-      <itemPath>src/ArgD.h</itemPath>
       <itemPath>src/BR_Bdnunu.h</itemPath>
       <itemPath>src/BR_Bsnunu.h</itemPath>
-      <itemPath>src/BR_Kmumu.h</itemPath>
-      <itemPath>src/BR_Kp0nunu.h</itemPath>
-      <itemPath>src/BR_Kppnunu.h</itemPath>
       <itemPath>src/Bdmumu.h</itemPath>
       <itemPath>src/Betas_JPsiPhi.h</itemPath>
       <itemPath>src/Bsmumu.h</itemPath>
       <itemPath>src/Btaunu.h</itemPath>
-      <itemPath>src/CPenguinBox.h</itemPath>
-      <itemPath>src/CPenguinBoxMu.h</itemPath>
-      <itemPath>src/Charm_Kpnunu.h</itemPath>
       <itemPath>src/DmBd.h</itemPath>
       <itemPath>src/DmBs.h</itemPath>
       <itemPath>src/DmK.h</itemPath>
       <itemPath>src/EpsilonK.h</itemPath>
-      <itemPath>src/EpsilonP_O_Epsilon.h</itemPath>
       <itemPath>src/EvolBsmm.h</itemPath>
       <itemPath>src/EvolDB1Mll.h</itemPath>
       <itemPath>src/EvolDB1bsg.h</itemPath>
-      <itemPath>src/EvolDC1.h</itemPath>
-      <itemPath>src/EvolDC1Buras.h</itemPath>
-      <itemPath>src/EvolDF1nlep.h</itemPath>
       <itemPath>src/EvolDF2.h</itemPath>
       <itemPath>src/Flavour.h</itemPath>
       <itemPath>src/FlavourObservables.h</itemPath>
       <itemPath>src/HeffDB1.h</itemPath>
-      <itemPath>src/HeffDC1.h</itemPath>
-      <itemPath>src/HeffDF1bnlep.h</itemPath>
-      <itemPath>src/HeffDF1bsg.h</itemPath>
       <itemPath>src/HeffDF2.h</itemPath>
-      <itemPath>src/HeffDS1.h</itemPath>
-      <itemPath>src/M12D.h</itemPath>
       <itemPath>src/MPll.h</itemPath>
       <itemPath>src/MPllObservables.h</itemPath>
       <itemPath>src/MVgamma.h</itemPath>
@@ -62,39 +44,23 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/AmpDB2.cpp</itemPath>
-      <itemPath>src/AmpDD2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
-      <itemPath>src/AmpDS1.cpp</itemPath>
       <itemPath>src/BR_Bdnunu.cpp</itemPath>
       <itemPath>src/BR_Bsnunu.cpp</itemPath>
-      <itemPath>src/BR_Kmumu.cpp</itemPath>
-      <itemPath>src/BR_Kp0nunu.cpp</itemPath>
-      <itemPath>src/BR_Kppnunu.cpp</itemPath>
       <itemPath>src/Bdmumu.cpp</itemPath>
       <itemPath>src/Betas_JPsiPhi.cpp</itemPath>
       <itemPath>src/Bsmumu.cpp</itemPath>
       <itemPath>src/Btaunu.cpp</itemPath>
-      <itemPath>src/CPenguinBox.cpp</itemPath>
-      <itemPath>src/CPenguinBoxMu.cpp</itemPath>
-      <itemPath>src/Charm_Kpnunu.cpp</itemPath>
       <itemPath>src/DmBd.cpp</itemPath>
       <itemPath>src/DmBs.cpp</itemPath>
       <itemPath>src/DmK.cpp</itemPath>
       <itemPath>src/EpsilonK.cpp</itemPath>
-      <itemPath>src/EpsilonP_O_Epsilon.cpp</itemPath>
       <itemPath>src/EvolBsmm.cpp</itemPath>
       <itemPath>src/EvolDB1Mll.cpp</itemPath>
       <itemPath>src/EvolDB1bsg.cpp</itemPath>
-      <itemPath>src/EvolDC1.cpp</itemPath>
-      <itemPath>src/EvolDC1Buras.cpp</itemPath>
-      <itemPath>src/EvolDF1nlep.cpp</itemPath>
       <itemPath>src/EvolDF2.cpp</itemPath>
       <itemPath>src/HeffDB1.cpp</itemPath>
-      <itemPath>src/HeffDC1.cpp</itemPath>
-      <itemPath>src/HeffDF1bnlep.cpp</itemPath>
-      <itemPath>src/HeffDF1bsg.cpp</itemPath>
       <itemPath>src/HeffDF2.cpp</itemPath>
-      <itemPath>src/HeffDS1.cpp</itemPath>
       <itemPath>src/MPll.cpp</itemPath>
       <itemPath>src/MPllObservables.cpp</itemPath>
       <itemPath>src/MVgamma.cpp</itemPath>
@@ -147,19 +113,9 @@
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/AmpDD2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/AmpDD2.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/AmpDK2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDK2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/AmpDS1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -168,18 +124,6 @@
       <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bsnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kmumu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kp0nunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -197,18 +141,6 @@
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CPenguinBox.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/CPenguinBoxMu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CPenguinBoxMu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/DmBd.h" ex="false" tool="3" flavor2="0">
@@ -225,10 +157,6 @@
       </item>
       <item path="src/EpsilonK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EpsilonP_O_Epsilon.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
@@ -240,18 +168,6 @@
       <item path="src/EvolDB1bsg.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDB1bsg.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDC1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDC1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDC1Buras.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDC1Buras.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDF1nlep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDF1nlep.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -265,27 +181,9 @@
       </item>
       <item path="src/HeffDB1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDC1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDC1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bnlep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bnlep.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bsg.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bsg.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HeffDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HeffDF2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDS1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -370,19 +268,9 @@
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/AmpDD2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/AmpDD2.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/AmpDK2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDK2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/AmpDS1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -391,18 +279,6 @@
       <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bsnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kmumu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kp0nunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -420,18 +296,6 @@
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CPenguinBox.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/CPenguinBoxMu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CPenguinBoxMu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/DmBd.h" ex="false" tool="3" flavor2="0">
@@ -448,10 +312,6 @@
       </item>
       <item path="src/EpsilonK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EpsilonP_O_Epsilon.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
@@ -463,18 +323,6 @@
       <item path="src/EvolDB1bsg.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDB1bsg.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDC1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDC1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDC1Buras.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDC1Buras.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDF1nlep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDF1nlep.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -488,27 +336,9 @@
       </item>
       <item path="src/HeffDB1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDC1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDC1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bnlep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bnlep.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bsg.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bsg.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HeffDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HeffDF2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDS1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -577,19 +407,9 @@
       </item>
       <item path="src/AmpDB2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/AmpDD2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/AmpDD2.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/AmpDK2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDK2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/AmpDS1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -598,18 +418,6 @@
       <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bsnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kmumu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kp0nunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -627,18 +435,6 @@
       </item>
       <item path="src/Btaunu.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CPenguinBox.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/CPenguinBoxMu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CPenguinBoxMu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Charm_Kpnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Charm_Kpnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/DmBd.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/DmBd.h" ex="false" tool="3" flavor2="0">
@@ -655,10 +451,6 @@
       </item>
       <item path="src/EpsilonK.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EpsilonP_O_Epsilon.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EpsilonP_O_Epsilon.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/EvolBsmm.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolBsmm.h" ex="false" tool="3" flavor2="0">
@@ -670,18 +462,6 @@
       <item path="src/EvolDB1bsg.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EvolDB1bsg.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDC1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDC1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDC1Buras.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDC1Buras.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EvolDF1nlep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EvolDF1nlep.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EvolDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -695,27 +475,9 @@
       </item>
       <item path="src/HeffDB1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HeffDC1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDC1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bnlep.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bnlep.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bsg.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDF1bsg.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HeffDF2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HeffDF2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HeffDS1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HeffDS1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/M12D.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
       </item>
