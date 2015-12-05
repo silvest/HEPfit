@@ -8,9 +8,9 @@
 #ifndef BTAUNU_H
 #define	BTAUNU_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "Flavour.h"
-#include <StandardModel.h>
+#include "StandardModel.h"
 
 class Btaunu : public ThObservable {
 public:   

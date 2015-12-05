@@ -8,9 +8,9 @@
 #ifndef AMPDS1_H
 #define	AMPDS1_H
 
-#include <gslpp_complex.h>
+#include "gslpp_complex.h"
 #include "Flavour.h"
-#include <StandardModel.h>
+#include "StandardModel.h"
 
 class AmpDS1 {
 public:

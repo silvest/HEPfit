@@ -8,7 +8,7 @@
 #ifndef DMK_H
 #define	DMK_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "Flavour.h"
 #include "AmpDK2.h"
 

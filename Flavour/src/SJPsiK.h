@@ -8,7 +8,7 @@
 #ifndef SJPSIK_H
 #define	SJPSIK_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include "Flavour.h"
 #include "AmpDB2.h"
 

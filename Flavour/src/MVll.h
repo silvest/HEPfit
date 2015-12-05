@@ -8,9 +8,9 @@
 #ifndef MVLL_H
 #define	MVLL_H
 
+#include "StandardModel.h"
+#include "ThObservable.h"
 #include <math.h>
-#include <StandardModel.h>
-#include <ThObservable.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_integration.h>
 #include <assert.h>

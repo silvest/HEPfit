@@ -8,7 +8,7 @@
 #ifndef VCKM_H
 #define	VCKM_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 
 class VCKM : public ThObservable {
 public:

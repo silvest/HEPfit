@@ -8,8 +8,8 @@
 #ifndef EVOLDF2_H
 #define	EVOLDF2_H
 
-#include <RGEvolutor.h>
-#include <StandardModel.h>
+#include "RGEvolutor.h"
+#include "StandardModel.h"
 #include <gsl/gsl_sf_dilog.h>
 
 class EvolDF2 : public RGEvolutor {

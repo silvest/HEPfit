@@ -9,8 +9,7 @@
 #define	MVLLOBSERVABLES_H
 
 #include "MVll.h"
-#include <StandardModel.h>
-#include <ThObservable.h>
+#include "ThObservable.h"
 
 
 /**
