@@ -92,14 +92,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>();
     obsThFactory["Betas_JPsiPhi"] = boost::factory<Betas_JPsiPhi*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
-    obsThFactory["M12D"] = boost::factory<M12D*>();
-    obsThFactory["ArgD"] = boost::factory<ArgD*>();
     /** END: REMOVE FROM THE PACKAGE **/
     obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
     obsThFactory["DmK"] = boost::factory<DmK*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //----- eps'/eps  -----
-    obsThFactory["EpsiloP_o_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
     /** END: REMOVE FROM THE PACKAGE **/
     //----- CKM  -----
     obsThFactory["Vud"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 1);
