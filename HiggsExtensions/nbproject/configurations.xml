@@ -89,15 +89,15 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -122,6 +122,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../NewPhysics/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
