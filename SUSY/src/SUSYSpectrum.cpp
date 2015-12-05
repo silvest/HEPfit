@@ -14,9 +14,9 @@
 
 SUSYSpectrum::SUSYSpectrum(const SUSY & SUSY_in)
 : mySUSY(SUSY_in), Mchargino(2,2,0.), Mneutralino(4,4,0.),
+        U(2,2,0.), V(2,2,0.), N(4,4,0.),
         Msup2(6,0.), Msdown2(6,0.), Msneutrino2(6,0.), Mselectron2(6,0.),
         mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sn2(6,0.), m_se2(6,0.),
-        U(2,2,0.), V(2,2,0.), N(4,4,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)
 {
 }
@@ -278,8 +278,8 @@ bool SUSYSpectrum::CalcSelectron(gslpp::matrix<gslpp::complex>& Rl_i, gslpp::vec
     //  this section is useful to re-define the slepton matrix
     //if you want to use deltas, use this...
                 double delta12=0.1;
-                double delta13=0.;
-                double delta23=0.;
+                //double delta13=0.;
+                //double delta23=0.;
                 gslpp::complex sLmass=mySUSY.msLhat2(0,0);
                 gslpp::matrix<gslpp::complex> msLhat2modified(3,3,0.);
                     msLhat2modified.assign(0, 0, sLmass);
