@@ -7,12 +7,6 @@
 
 #include "EvolBsmm.h"
 #include <gsl/gsl_sf.h>
-#include <stdlib.h>
-#include <gsl/gsl_types.h>
-#include <gsl/gsl_errno.h>
-#include <gsl/gsl_inline.h>
-#include <gsl/gsl_check_range.h>
-#include <gsl/gsl_block_double.h>
 
 EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_ew order_ew, const StandardModel & model)
 :   RGEvolutor(dim_i, scheme, order, order_ew), model(model), V(dim_i,0.), Vi(dim_i,0.),
@@ -769,144 +763,146 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
     }
 
     unsigned int ind = 0;
-    double max = 0;
-    gsl_vector * list = gsl_vector_alloc (23);
-    gsl_vector_set (list, 0, vbeevi.size()/7.);
-    gsl_vector_set (list, 1, vebevi.size()/7.);
-    gsl_vector_set (list, 2, veebvi.size()/7.);
-    gsl_vector_set (list, 3, vbbevi.size()/7.);
-    gsl_vector_set (list, 4, vbebvi.size()/7.);
-    gsl_vector_set (list, 5, vebbvi.size()/7.);
-    gsl_vector_set (list, 6, vaevi.size()/6.);
-    gsl_vector_set (list, 7, vbbvi.size()/6.);
-    gsl_vector_set (list, 8, vbdvi.size()/6.);
-    gsl_vector_set (list, 9, vbevi.size()/6.);
-    gsl_vector_set (list, 10, vdbvi.size()/6.);
-    gsl_vector_set (list, 11, vdevi.size()/6.);
-    gsl_vector_set (list, 12, veavi.size()/6.);
-    gsl_vector_set (list, 13, vebvi.size()/6.);
-    gsl_vector_set (list, 14, vedvi.size()/6.);
-    gsl_vector_set (list, 15, veevi.size()/6.);
-    gsl_vector_set (list, 16, vavi.size()/5.);
-    gsl_vector_set (list, 17, vbvi.size()/5.);
-    gsl_vector_set (list, 18, vcvi.size()/5.);
-    gsl_vector_set (list, 19, vdvi.size()/5.);
-    gsl_vector_set (list, 20, vevi.size()/5.);
-    gsl_vector_set (list, 21, vfvi.size()/5.);
-    gsl_vector_set (list, 22, vrvi.size()/5.);
-
-    max = gsl_vector_max (list);
+    //double max = 0;
+    
+    gslpp::vector<double> list(23, 0.);
+    
+    list(0) = vbeevi.size()/7.;
+    list(1) = vebevi.size()/7.;
+    list(2) = veebvi.size()/7.;
+    list(3) = vbbevi.size()/7.;
+    list(4) = vbebvi.size()/7.;
+    list(5) = vebbvi.size()/7.;
+    list(6) = vaevi.size()/6.;
+    list(7) = vbbvi.size()/6.;
+    list(8) = vbdvi.size()/6.;
+    list(9) = vbevi.size()/6.;
+    list(10) = vdbvi.size()/6.;
+    list(11) = vdevi.size()/6.;
+    list(12) = veavi.size()/6.;
+    list(13) = vebvi.size()/6.;
+    list(14) = vedvi.size()/6.;
+    list(15) = veevi.size()/6.;
+    list(16) = vavi.size()/5.;
+    list(17) = vbvi.size()/5.;
+    list(18) = vcvi.size()/5.;
+    list(19) = vdvi.size()/5.;
+    list(20) = vevi.size()/5.;
+    list(21) = vfvi.size()/5.;
+    list(22) = vrvi.size()/5.;
+    
+    double max = list.max();
 
     for (ind = 0; ind < max; ind++) {
 
-        if (ind < gsl_vector_get(list, 0)) {
+        if (ind < list(0)) {
 
             Ue2os(vbeevi[7 * ind], vbeevi[7 * ind + 5]) += vbeevi[7 * ind + 6] * H(vbeevi[7 * ind + 1], vbeevi[7 * ind + 2], vbeevi[7 * ind + 3], vbeevi[7 * ind + 4], 2, 4, 4, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 1)) {
+        if (ind < list(1)) {
 
             Ue2os(vebevi[7 * ind], vebevi[7 * ind + 5]) += vebevi[7 * ind + 6] * H(vebevi[7 * ind + 1], vebevi[7 * ind + 2], vebevi[7 * ind + 3], vebevi[7 * ind + 4], 4, 2, 4, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 2)) {
+        if (ind < list(2)) {
 
             Ue2os(veebvi[7 * ind], veebvi[7 * ind + 5]) += veebvi[7 * ind + 6] * H(veebvi[7 * ind + 1], veebvi[7 * ind + 2], veebvi[7 * ind + 3], veebvi[7 * ind + 4], 4, 4, 2, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 3)) {
+        if (ind < list(3)) {
 
             Ues(vbbevi[7 * ind], vbbevi[7 * ind + 5]) += vbbevi[7 * ind + 6] * H(vbbevi[7 * ind + 1], vbbevi[7 * ind + 2], vbbevi[7 * ind + 3], vbbevi[7 * ind + 4], 2, 2, 4, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 4)) {
+        if (ind < list(4)) {
 
             Ues(vbebvi[7 * ind], vbebvi[7 * ind + 5]) += vbebvi[7 * ind + 6] * H(vbebvi[7 * ind + 1], vbebvi[7 * ind + 2], vbebvi[7 * ind + 3], vbebvi[7 * ind + 4], 2, 4, 2, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 5)) {
+        if (ind < list(5)) {
 
             Ues(vebbvi[7 * ind], vebbvi[7 * ind + 5]) += vebbvi[7 * ind + 6] * H(vebbvi[7 * ind + 1], vebbvi[7 * ind + 2], vebbvi[7 * ind + 3], vebbvi[7 * ind + 4], 4, 2, 2, mu, M, nf);
         }
 
 
-        if (ind < gsl_vector_get(list, 6)) {
+        if (ind < list(6)) {
 
             Ues(vaevi[6 * ind], vaevi[6 * ind + 4]) += vaevi[6 * ind + 5] * G(vaevi[6 * ind + 1], vaevi[6 * ind + 2], vaevi[6 * ind + 3], 1, 4, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 7)) {
+        if (ind < list(7)) {
 
             Us2(vbbvi[6 * ind], vbbvi[6 * ind + 4]) += vbbvi[6 * ind + 5] * G(vbbvi[6 * ind + 1], vbbvi[6 * ind + 2], vbbvi[6 * ind + 3], 2, 2, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 8)) {
+        if (ind < list(8)) {
 
             Ues(vbdvi[6 * ind], vbdvi[6 * ind + 4]) += vbdvi[6 * ind + 5] * G(vbdvi[6 * ind + 1], vbdvi[6 * ind + 2], vbdvi[6 * ind + 3], 2, 3, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 9)) {
+        if (ind < list(9)) {
 
             Ue(vbevi[6 * ind], vbevi[6 * ind + 4]) += vbevi[6 * ind + 5] * G(vbevi[6 * ind + 1], vbevi[6 * ind + 2], vbevi[6 * ind + 3], 2, 4, mu, M, nf);
             Ue2os(vbevi[6 * ind], vbevi[6 * ind + 4]) += vbevi[6 * ind + 5] * (-G(vbevi[6 * ind + 1], vbevi[6 * ind + 2], vbevi[6 * ind + 3], 2, 4, mu, M, nf)
                     + G(vbevi[6 * ind + 1], vbevi[6 * ind + 2], vbevi[6 * ind + 3], 2, 5, mu, M, nf));
         }
-        if (ind < gsl_vector_get(list, 10)) {
+        if (ind < list(10)) {
 
             Ues(vdbvi[6 * ind], vdbvi[6 * ind + 4]) += vdbvi[6 * ind + 5] * G(vdbvi[6 * ind + 1], vdbvi[6 * ind + 2], vdbvi[6 * ind + 3], 3, 2, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 11)) {
+        if (ind < list(11)) {
 
             Ue2os(vdevi[6 * ind], vdevi[6 * ind + 4]) += vdevi[6 * ind + 5] * G(vdevi[6 * ind + 1], vdevi[6 * ind + 2], vdevi[6 * ind + 3], 3, 4, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 12)) {
+        if (ind < list(12)) {
 
             Ues(veavi[6 * ind], veavi[6 * ind + 4]) += veavi[6 * ind + 5] * G(veavi[6 * ind + 1], veavi[6 * ind + 2], veavi[6 * ind + 3], 4, 1, mu, M, nf);
 
         }
-        if (ind < gsl_vector_get(list, 13)) {
+        if (ind < list(13)) {
 
             Ue(vebvi[6 * ind], vebvi[6 * ind + 4]) += vebvi[6 * ind + 5] * G(vebvi[6 * ind + 1], vebvi[6 * ind + 2], vebvi[6 * ind + 3], 4, 2, mu, M, nf);
             Ue2os(vebvi[6 * ind], vebvi[6 * ind + 4]) += vebvi[6 * ind + 5] * (-G(vebvi[6 * ind + 1], vebvi[6 * ind + 2], vebvi[6 * ind + 3], 4, 2, mu, M, nf)
                     + G(vebvi[6 * ind + 1], vebvi[6 * ind + 2], vebvi[6 * ind + 3], 5, 2, mu, M, nf));
         }
-        if (ind < gsl_vector_get(list, 14)) {
+        if (ind < list(14)) {
 
             Ue2os(vedvi[6 * ind], vedvi[6 * ind + 4]) += vedvi[6 * ind + 5] * G(vedvi[6 * ind + 1], vedvi[6 * ind + 2], vedvi[6 * ind + 3], 4, 3, mu, M, nf);
 
         }
-        if (ind < gsl_vector_get(list, 15)) {
+        if (ind < list(15)) {
 
             Ue2os2(veevi[6 * ind], veevi[6 * ind + 4]) += (veevi[6 * ind + 5] * G(veevi[6 * ind + 1], veevi[6 * ind + 2], veevi[6 * ind + 3], 4, 4, mu, M, nf));
 
         }
 
 
-        if (ind < gsl_vector_get(list, 16)) {
+        if (ind < list(16)) {
 
             Us2(vavi[5 * ind], vavi[5 * ind + 3]) += (vavi[5 * ind + 4] * F(vavi[5 * ind + 1], vavi[5 * ind + 2], 1, mu, M, nf));
         }
 
 
-        if (ind < gsl_vector_get(list, 17)) {
+        if (ind < list(17)) {
 
             Us(vbvi[5 * ind], vbvi[5 * ind + 3]) += vbvi[5 * ind + 4] * F(vbvi[5 * ind + 1], vbvi[5 * ind + 2], 2, mu, M, nf);
 
         }
 
-        if (ind < gsl_vector_get(list, 18)) {
+        if (ind < list(18)) {
 
             Ues(vcvi[5 * ind], vcvi[5 * ind + 3]) += vcvi[5 * ind + 4] * F(vcvi[5 * ind + 1], vcvi[5 * ind + 2], 2, mu, M, nf);
         }
-        if (ind < gsl_vector_get(list, 19)) {
+        if (ind < list(19)) {
 
             Ue(vdvi[5 * ind], vdvi[5 * ind + 3]) += vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf);
             Ue2os(vdvi[5 * ind], vdvi[5 * ind + 3]) += (lambda * lambda * omega)
                     * (-vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf));
         }
-        if (ind < gsl_vector_get(list, 20)) {
+        if (ind < list(20)) {
 
             Ueos(vevi[5 * ind], vevi[5 * ind + 3]) += vevi[5 * ind + 4] * F(vevi[5 * ind + 1], vevi[5 * ind + 2], 4, mu, M, nf);
             Ue2os2(vevi[5 * ind], vevi[5 * ind + 3]) += (vevi[5 * ind + 4] * (F(vevi[5 * ind + 1], vevi[5 * ind + 2], 5, mu, M, nf)
                     - F(vevi[5 * ind + 1], vevi[5 * ind + 2], 4, mu, M, nf)));
         }
-        if (ind < gsl_vector_get(list, 21)) {
+        if (ind < list(21)) {
 
             Ue2os(vfvi[5 * ind], vfvi[5 * ind + 3]) += (vfvi[5 * ind + 4] * F(vfvi[5 * ind + 1], vfvi[5 * ind + 2], 4, mu, M, nf));
         }
-        if (ind < gsl_vector_get(list, 22)) {
+        if (ind < list(22)) {
 
             Ue2os(vrvi[5 * ind], vrvi[5 * ind + 3]) += vrvi[5 * ind + 4] * R(vrvi[5 * ind + 1], vrvi[5 * ind + 2], 4, mu, M, nf);
 
