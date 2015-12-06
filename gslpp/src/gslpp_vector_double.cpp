@@ -89,6 +89,18 @@ namespace gslpp
   {
     return gsl_blas_dnrm2(_vector);
   }
+  
+  /** Get max element */
+  double vector<double>::max() const
+  {
+    return gsl_vector_max(_vector);
+  }
+  
+  /** Get min element */
+  double vector<double>::min() const
+  {
+    return gsl_vector_max(_vector);
+  }
 
   /** Conversion */
   gsl_vector* vector<double>::as_gsl_type_ptr() const
