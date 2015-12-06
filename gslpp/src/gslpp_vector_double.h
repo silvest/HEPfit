@@ -54,6 +54,10 @@ namespace gslpp
       size_t size() const;
       /** Get Euclidean norm */
       double mod() const;
+      /** Get max element */
+      double max() const;
+      /** Get min element */
+      double min() const;
       /** Conversion */
       gsl_vector* as_gsl_type_ptr() const;
       gsl_vector& as_gsl_type();
