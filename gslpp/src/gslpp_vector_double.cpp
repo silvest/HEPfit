@@ -99,7 +99,7 @@ namespace gslpp
   /** Get min element */
   double vector<double>::min() const
   {
-    return gsl_vector_max(_vector);
+    return gsl_vector_min(_vector);
   }
 
   /** Conversion */
