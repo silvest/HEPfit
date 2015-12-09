@@ -1,8 +1,8 @@
 /* 
- * File:   EvolBsmm.h
- * Author: claudio
+ * Copyright (C) 2015 HEPfit Collaboration
+ * All rights reserved.
  *
- * Created on 30 settembre 2015, 18.44
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EVOLBSMM_H
