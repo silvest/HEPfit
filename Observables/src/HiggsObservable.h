@@ -9,7 +9,6 @@
 #define	HIGGSOBSERVABLE_H
 
 #include "Observable.h"
-#include <TMatrixD.h>
 #include <boost/tokenizer.hpp>
 
 class ThObsFactory;
@@ -61,6 +60,31 @@ public:
     }
     
     /**
+     * @brief A method to get the observable to the new parametric form.
+     * @return a boolean which is true if the observable is in the new parametric form
+     */
+    bool isNew()
+    {
+        return isnew;
+    }
+    
+    void getTheoryValues(std::vector<double>& theoryValues_i) 
+    {
+        theoryValues_i = theoryValues;
+    }
+    
+    int getNTheoryValues() 
+    {
+        return thobsvsize;
+    }
+    
+    int getNChannels() 
+    {
+        return channelsize;
+    }
+    
+    
+    /**
      * @brief the parser for HiggsObservables
      * @param[in] beg the iterator that parses a line in the config file
      * @param[in] myObsFactory a reference to the Observables Factory  
@@ -77,6 +101,9 @@ public:
         TMatrixD channels;///< A matrix holding the information of all the channels.
         bool isnew;///< A boolean which is true if the parametrization is new.
         std::vector<ThObservable*> thObsV;///< A vector of ThObservables.
+        std::vector<double> theoryValues;
+        double thobsvsize;
+        double channelsize;
 };
 
 #endif	/* HIGGSOBSERVABLE_H */

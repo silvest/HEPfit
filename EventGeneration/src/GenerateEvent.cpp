@@ -100,10 +100,22 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
             if (rank < rem_iteration){
                 generateRandomEvent(itno);
                 for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
-                    sendbuff[positionID] = it->computeTheoryValue();
-                    if (weight && it->getDistr().compare("noweight") != 0) sendbuff_w[positionID] = it->computeWeight();
-                    else sendbuff_w[positionID] = 0.;
-                    positionID++;
+                    if (it->getObsType().compare("HiggsObservable") != 0) {
+                        sendbuff[positionID] = it->computeTheoryValue();
+                        if (weight && it->getDistr().compare("noweight") != 0) sendbuff_w[positionID] = it->computeWeight();
+                        else sendbuff_w[positionID] = 0.;
+                        positionID++;
+                    } else {
+                        double hw = it->computeWeight();
+                        if (weight) sendbuff_w[positionID] = hw;
+                        std::vector<double> theoryValues;
+                        it->getTheoryValues(theoryValues);
+                        for (unsigned int j = 0; j < it->getNTheoryValues() + 1 + it->getNChannels(); j++) {
+                            sendbuff[positionID] = theoryValues.at(j);
+                            if (weight) sendbuff_w[positionID] = 0.;
+                            positionID++;
+                        }
+                    }
                 }
                 for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                     std::vector<Observable> ObsInCGO = it1->getObs();
@@ -147,20 +159,35 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
                         else if (outputTerm == 0 && itno++ == 0) std::cout << "\nThe central event is: " <<std::endl;
                         if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
                         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
-                            if (outputTerm == 0) {
-                                if (weight && it->getDistr().compare("noweight") != 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
-                                else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
-                                positionID++;
+                            if (it->getObsType().compare("HiggsObservable") != 0) {
+                                if (outputTerm == 0) {
+                                    if (weight && it->getDistr().compare("noweight") != 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                    else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
+                                    positionID++;
+                                } else {
+                                    if (weight && it->getDistr().compare("noweight") != 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] <<std::endl;
+                                    else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
+                                    positionID++;
+                                }
                             } else {
-                                if (weight && it->getDistr().compare("noweight") != 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] <<std::endl;
-                                else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
-                                positionID++;
+                                if (weight) std::cout << "\n" << it->getName() << " :" << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                std::cout << "\n" << it->getName() << " :" << std::endl;
+                                for (int i = 0; i < it->getNTheoryValues(); i++) {
+                                        std::cout << " sigma(i = " << i + 1 << ") = " << buff[iproc][positionID] << std::endl;
+                                        positionID ++;
+                                } 
+                                std::cout << " BR = " << buff[iproc][positionID] << std::endl;
+                                positionID ++;
+                                for (int i = it->getNTheoryValues() + 1; i < it->getNTheoryValues() + 1 + it->getNChannels(); i++) {
+                                    std::cout << " mu(i = " << i - (it->getNTheoryValues() + 1) + 1 << ") = " << buff[iproc][positionID] << std::endl;
+                                    positionID ++;
+                                }
                             }
                         }
                         if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
                         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                             if (outputTerm == 0) {
-                                if (weight) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" <<std::endl;
+                                if (weight && !(it1->isPrediction())) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" <<std::endl;
                                 else std::cout << it1->getName() <<std::endl;
                             }
                             std::vector<Observable> ObsInCGO = it1->getObs();
@@ -307,9 +334,16 @@ void GenerateEvent::initModel(){
         else sleep(2);
     }
     
-    buffersize = Obs.size() + ModParsVar.size();
+    buffersize = ModParsVar.size();
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++){
         buffersize += it->getObs().size();
+    }
+    for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
+        if (it->getObsType().compare("HiggsObservable") == 0) {
+            buffersize += it->getNTheoryValues() + 1 + it->getNChannels();
+        } else {
+            buffersize += 1;
+        }
     }
 }
 

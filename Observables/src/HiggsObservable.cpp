@@ -69,35 +69,42 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         throw std::runtime_error(ss.str());
     }
 
+    thobsvsize = thObsV.size();
+    channelsize = channels.GetNrows();
+    theoryValues.resize(thobsvsize + 1 + channelsize);
 }
 
 double HiggsObservable::computeWeight()
 {
     double logprob = 0;
 
-    double thobsvsize = thObsV.size();
-    
     if (isnew) {
         for (int i = 0; i < channels.GetNrows(); i++) {
             double mu = 0;
-            for (unsigned int j = 0; j < thobsvsize; j++)
-                mu += channels(i, j) * thObsV.at(j)->computeThValue();
-            logprob += LogSplitGaussian(mu * tho->computeThValue(), channels(i, thobsvsize), channels(i, thobsvsize + 1), channels(i, thobsvsize + 2));
+            for (unsigned int j = 0; j < thobsvsize; j++) {
+                theoryValues.at(j) = thObsV.at(j)->computeThValue();
+                mu += channels(i, j) * theoryValues.at(j);
+            }
+                theoryValues.at(thobsvsize) = tho->computeThValue();
+                theoryValues.at(thobsvsize + i + 1) = mu * theoryValues.at(thobsvsize);
+            logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i), channels(i, thobsvsize), channels(i, thobsvsize + 1), channels(i, thobsvsize + 2));
         }
       
-
     } else {
         for (int i = 0; i < channels.GetNrows(); i++) {
             double mu = 0, sum = 0.;
             for (unsigned int j = 0; j < thobsvsize - 1; j++) {
-                mu += channels(i, j) * thObsV.at(j)->computeThValue();
+                theoryValues.at(j) = thObsV.at(j)->computeThValue();
+                mu += channels(i, j) * theoryValues.at(j);
                 sum += channels(i, j);
             }
             mu += (1. - sum) * thObsV.at(thobsvsize - 1)->computeThValue();
-            logprob += LogSplitGaussian(mu * tho->computeThValue(), channels(i, 3), channels(i, 4), channels(i, 5));
+            theoryValues.at(thobsvsize) = tho->computeThValue();
+            theoryValues.at(thobsvsize + i + 1) = mu * theoryValues.at(thobsvsize);
+            logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i), channels(i, 3), channels(i, 4), channels(i, 5));
         }
     }
-
+    
     return (logprob);
 }
 
