@@ -12,6 +12,7 @@
 #include <string>
 #include <iostream>
 #include <TH1D.h>
+#include <TMatrixD.h>
 #include <boost/tokenizer.hpp>
 
 /**
@@ -418,7 +419,13 @@ public:
      */
     double LogGaussian(double x, double ave, double sigma);
     
+    virtual void getTheoryValues(std::vector<double>& theoryValues_i) {}; 
     
+    virtual int getNTheoryValues() { return 0; }; 
+    
+    virtual int getNChannels() { return 0; }; 
+    
+    virtual bool isNew() { return false; };
 
     /**
      * @brief Befriending of the std::ostream operator << to generate an
