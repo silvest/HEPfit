@@ -805,17 +805,15 @@ std::string MonteCarloEngine::computeStatistics() {
         }
     }
 
-    std::vector<double> parsa;
-    for (unsigned int i = 0; i < GetNParameters(); i++)
-        parsa.push_back(GetMarginalized(fParameters[i])->GetMean());
-    double llik = LogLikelihood(parsa);
-    StatsLog << "LogLikelihood on the mean values of parameters: " << llik << std::endl;
     double llika = Histo1D["LogLikelihood"]->GetMean();
     StatsLog << "LogLikelihood mean value: " << llika << std::endl;
+    double llikv = Histo1D["LogLikelihood"]->GetRMS();
+    llikv *= llikv;
+    StatsLog << "LogLikelihood variance: " << llikv << std::endl;
     double dbar = -2.*llika; //Wikipedia notation... 
-    double dothetabar = -2.*llik; //Wikipedia notation...
-    StatsLog << "IC value (don't ask me what it means...): " << 3.*dbar - 2.*dothetabar << std::endl; 
-    StatsLog << "DIC value (same as above...): " << 2.*dbar - dothetabar << std::endl; 
+    double pd = 2.*llikv; //Wikipedia notation...
+    StatsLog << "IC value (don't ask me what it means...): " << dbar + 2.*pd << std::endl; 
+    StatsLog << "DIC value (same as above...): " << dbar + pd << std::endl; 
     return StatsLog.str().c_str();
 }
 
