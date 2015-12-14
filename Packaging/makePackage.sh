@@ -14,6 +14,15 @@ VERSION="1.0-RC1"
 ORGDIR=../
 
 ###########################################################
+# Original source codes
+
+if [ -d "HEPfit-${VERSION}" ]; then
+    echo "Deleting old copy of the source files!"
+    echo " "
+    rm -rf HEPfit-${VERSION}
+fi
+
+###########################################################
 # List of Netbeans projects
 
 PROJECTARRAY=()
