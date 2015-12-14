@@ -211,7 +211,7 @@ if [ "$1" == "--doxygen" ]; then
 	echo "mkdir ${DOXYGENDIR}/images"
 	mkdir ${DOXYGENDIR}/images
     fi
-    DOXYFILELIST="Doxyfile-${VERSION} DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib QCD.bib Higgs.bib bibconversion.pl"
+    DOXYFILELIST="Doxyfile-${VERSION} DoxygenLayout.xml customdoxygen.css footer.html header.html Models.md Usage.md EW.bib Flavour.bib Higgs.bib QCD.bib SUSY.bib THDM.bib bibconversion.pl"
     for DOXYFILE in $DOXYFILELIST
     do
 	cp -af ${ORGDIR}/Doxygen/${DOXYFILE} ${DOXYGENDIR}/
