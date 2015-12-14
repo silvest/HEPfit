@@ -5,12 +5,13 @@
 #   sh makePackage.sh --doxygen : generate Doxygen documentations
 #
 
-VERSION="0.3"
+VERSION="1.0-RC1"
 
 ###########################################################
 # Original source codes
 
-ORGDIR="${HOME}/NetBeansProjects/HEPfit"
+#ORGDIR="${HOME}/NetBeansProjects/HEPfit"
+ORGDIR=../
 
 ###########################################################
 # List of Netbeans projects
@@ -18,15 +19,15 @@ ORGDIR="${HOME}/NetBeansProjects/HEPfit"
 PROJECTARRAY=()
 #PROJECTARRAY+=( "Analysis" )
 PROJECTARRAY+=( "ComputeObservables" )
-#PROJECTARRAY+=( "EventGeneration" )
+PROJECTARRAY+=( "EventGeneration" )
 PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
 PROJECTARRAY+=( "FlavourWilsonCoefficient" )
-#PROJECTARRAY+=( "GeneralSUSY" )
+PROJECTARRAY+=( "GeneralSUSY" )
 PROJECTARRAY+=( "gslpp" )
 PROJECTARRAY+=( "HiggsExtensions" )
 PROJECTARRAY+=( "InputParser" )
-#PROJECTARRAY+=( "LeptonFlavour" )
+PROJECTARRAY+=( "LeptonFlavour" )
 PROJECTARRAY+=( "LoopFunctions" )
 #PROJECTARRAY+=( "MFV" )
 PROJECTARRAY+=( "MonteCarlo" )
@@ -34,9 +35,9 @@ PROJECTARRAY+=( "NewPhysics" )
 PROJECTARRAY+=( "Observables" )
 #PROJECTARRAY+=( "pMSSM" )
 PROJECTARRAY+=( "StandardModel" )
-#PROJECTARRAY+=( "SUSY" )
-#PROJECTARRAY+=( "SUSYMassInsertion" )
-#PROJECTARRAY+=( "THDM" )
+PROJECTARRAY+=( "SUSY" )
+PROJECTARRAY+=( "SUSYMassInsertion" )
+PROJECTARRAY+=( "THDM" )
 #PROJECTARRAY+=( "Utils" )
 #PROJECTARRAY+=( "ZFitterWrapper" )
 
@@ -172,7 +173,9 @@ eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/MonteCarloMode/MCMC.cpp
 # Modify source codes
 
 echo "modifing souce codes..."
-MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h"
+## FOR VERSION 1.0-RC1
+MODFILELIST="${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h"
+#MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h"
 for MODFILE in $MODFILELIST
 do
     perl ${SCRIPTPATH}/remove.pl $MODFILE
@@ -212,6 +215,6 @@ if [ "$1" == "--doxygen" ]; then
 
     cd ${OUTDIR}/Doxygen
     cp -rp ${OUTDIR}/examples-src ${OUTDIR}/Doxygen/
-    perl bibconversion.pl EW.bib Higgs.bib QCD.bib -of HEPfit.bib -dox Doxyfile-${VERSION}
+    perl bibconversion.pl EW.bib Flavour.bib Higgs.bib QCD.bib SUSY.bib THDM.bib -of HEPfit.bib -dox Doxyfile-${VERSION}
     rm -rf ${OUTDIR}/Doxygen/examples-src
 fi

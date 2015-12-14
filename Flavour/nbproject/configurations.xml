@@ -6,8 +6,6 @@
                    projectFiles="true">
       <itemPath>src/AmpDB2.h</itemPath>
       <itemPath>src/AmpDK2.h</itemPath>
-      <itemPath>src/BR_Bdnunu.h</itemPath>
-      <itemPath>src/BR_Bsnunu.h</itemPath>
       <itemPath>src/Bdmumu.h</itemPath>
       <itemPath>src/Betas_JPsiPhi.h</itemPath>
       <itemPath>src/Bsmumu.h</itemPath>
@@ -45,8 +43,6 @@
                    projectFiles="true">
       <itemPath>src/AmpDB2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
-      <itemPath>src/BR_Bdnunu.cpp</itemPath>
-      <itemPath>src/BR_Bsnunu.cpp</itemPath>
       <itemPath>src/Bdmumu.cpp</itemPath>
       <itemPath>src/Betas_JPsiPhi.cpp</itemPath>
       <itemPath>src/Bsmumu.cpp</itemPath>
@@ -116,14 +112,6 @@
       <item path="src/AmpDK2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDK2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bsnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -272,14 +260,6 @@
       </item>
       <item path="src/AmpDK2.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bsnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
@@ -410,14 +390,6 @@
       <item path="src/AmpDK2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AmpDK2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bsnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -18,13 +18,11 @@
 #include "HiggsKvKf.h"
 #include "HiggsKvKfgen.h"
 #include "HiggsKvgenKf.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralSUSY.h"
 #include "SUSYMassInsertion.h"
 #include "SUSY.h"
 #include "THDM.h"
 #include "FlavourWilsonCoefficient.h"
-/** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
 
 ModelFactory::ModelFactory()
@@ -50,12 +48,10 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
     modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
-    /** END: REMOVE FROM THE PACKAGE **/
 }
 
 void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)

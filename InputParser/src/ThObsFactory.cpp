@@ -11,11 +11,9 @@
 #include "EWObservables.h"
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
 #include "THDMObservables.h"
-/** END: REMOVE FROM THE PACKAGE **/
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 
@@ -91,13 +89,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DmBs"] = boost::factory<DmBs*>();
     obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>();
     obsThFactory["Betas_JPsiPhi"] = boost::factory<Betas_JPsiPhi*>();
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    /** END: REMOVE FROM THE PACKAGE **/
     obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
     obsThFactory["DmK"] = boost::factory<DmK*>();
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    //----- eps'/eps  -----
-    /** END: REMOVE FROM THE PACKAGE **/
     //----- CKM  -----
     obsThFactory["Vud"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 1);
     obsThFactory["Vus"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 2);
@@ -271,7 +264,6 @@ ThObsFactory::ThObsFactory()
     //----- B to tau nu  -----
     obsThFactory["btaunu"] = boost::factory<Btaunu*>();
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  Lepton Flavour observables  -----
     obsThFactory["mu_e_gamma"] = boost::factory<mu_e_gamma*>();
     obsThFactory["tau_mu_gamma"] = boost::factory<tau_mu_gamma*>();
@@ -279,9 +271,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mu_3e"] = boost::factory<mu_3e*>();
     obsThFactory["tau_3mu"] = boost::factory<tau_3mu*>();
     obsThFactory["tau_3e"] = boost::factory<tau_3e*>();
-    /** END: REMOVE FROM THE PACKAGE **/
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  SUSY spectra and observables  -----
     obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);
     obsThFactory["MHh"] = boost::bind(boost::factory<Mhiggs*>(), _1, 1);
@@ -305,9 +295,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Mneu2"] = boost::bind(boost::factory<Mneutralino*>(), _1, 1);
     obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
     obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
-    /** END: REMOVE FROM THE PACKAGE **/
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  THDM observables  -----
     obsThFactory["globalminimum"] = boost::factory<globalminimum*>();
 
@@ -410,7 +398,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DeltaU"] = boost::factory<DeltaU*>();
 
     obsThFactory["B_BtoXsgammaTHDM"] = boost::factory<bsgammaTHDM*>();
-    /** END: REMOVE FROM THE PACKAGE **/
 }
 
 void ThObsFactory::addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) > funct)
