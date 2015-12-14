@@ -106,7 +106,6 @@
             <pElem>../THDM/src</pElem>
             <pElem>../BAT/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
