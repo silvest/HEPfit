@@ -84,7 +84,7 @@ public:
      * @param[in] nIteration number of events generated
      * @param[in] seed seed for the random number generator (default = 0)
      */
-    void generate(int unsigned nIteration_i, int seed = 0, bool weight = false);
+    void generate(int unsigned nIteration_i, int seed = 0, bool weight_i = false);
     
     void addCustomObservableType(const std::string name, boost::function<Observable*() > funct);
     
@@ -152,6 +152,7 @@ private:
     int *sendbuff_int;
     int **buff_int;
     std::string ModelName;
+    bool weight;
 };
 
 #endif	/* GENERATEEVENT_H */
