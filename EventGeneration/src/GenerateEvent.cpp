@@ -47,8 +47,9 @@ GenerateEvent::~GenerateEvent()
 {
 }
 
-void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
+void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
 {
+    weight = weight_i;
     if (!noMC)
         throw std::runtime_error("\nGenerateEvent::generate():\n--noMC was not specified as an argument.\nPlease do so for running in Generate Event mode.\n");
     nIteration = nIteration_i;
@@ -107,12 +108,11 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
                         positionID++;
                     } else {
                         double hw = it->computeWeight();
-                        if (weight) sendbuff_w[positionID] = hw;
                         std::vector<double> theoryValues;
                         it->getTheoryValues(theoryValues);
                         for (int j = 0; j < it->getNTheoryValues() + 1 + it->getNChannels(); j++) {
                             sendbuff[positionID] = theoryValues.at(j);
-                            if (weight) sendbuff_w[positionID] = 0.;
+                            if (weight) sendbuff_w[positionID] = hw;
                             positionID++;
                         }
                     }
@@ -146,9 +146,9 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
 #endif
                 
             /* output generation */
-            if ( rank == 0 ){
+            if (rank == 0) {
                 itno = nIteration - rem_iteration + 1;
-                for(int iproc = 0; iproc < procnum; iproc++){
+                for (int iproc = 0; iproc < procnum; iproc++) {
                     positionID = 0;
                     if (buff_int[iproc][0] != 0) {
                         for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
@@ -156,39 +156,54 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight)
                             positionID++;
                         }
                         if (outputTerm == 0 && itno != 0) std::cout << "\nEvent No.: " << itno++ << std::endl;
-                        else if (outputTerm == 0 && itno++ == 0) std::cout << "\nThe central event is: " <<std::endl;
+                        else if (outputTerm == 0 && itno++ == 0) std::cout << "\nThe central event is: " << std::endl;
                         if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
                         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                             if (it->getObsType().compare("HiggsObservable") != 0) {
                                 if (outputTerm == 0) {
-                                    if (weight && it->getDistr().compare("noweight") != 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
+                                    if (weight && it->getDistr().compare("noweight") != 0) std::cout << it->getName() << " = " << buff[iproc][positionID] << " (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
                                     else std::cout << it->getName() << " = " << buff[iproc][positionID] << std::endl;
                                     positionID++;
                                 } else {
-                                    if (weight && it->getDistr().compare("noweight") != 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] <<std::endl;
+                                    if (weight && it->getDistr().compare("noweight") != 0) (*ObsOut[it->getName()]) << buff[iproc][positionID] << "\t" << buff_w[iproc][positionID] << std::endl;
                                     else (*ObsOut[it->getName()]) << buff[iproc][positionID] << std::endl;
                                     positionID++;
                                 }
                             } else {
-                                if (weight) std::cout << "\n" << it->getName() << " :" << " (weight: " << buff_w[iproc][positionID] << ")"<< std::endl;
-                                std::cout << "\n" << it->getName() << " :" << std::endl;
-                                for (int i = 0; i < it->getNTheoryValues(); i++) {
-                                        std::cout << " sigma(i = " << i + 1 << ") = " << buff[iproc][positionID] << std::endl;
-                                        positionID ++;
-                                } 
-                                std::cout << " BR = " << buff[iproc][positionID] << std::endl;
-                                positionID ++;
-                                for (int i = it->getNTheoryValues() + 1; i < it->getNTheoryValues() + 1 + it->getNChannels(); i++) {
-                                    std::cout << " mu(i = " << i - (it->getNTheoryValues() + 1) + 1 << ") = " << buff[iproc][positionID] << std::endl;
-                                    positionID ++;
+                                if (outputTerm == 0) {
+                                    if (weight) std::cout << "\n" << it->getName() << " :" << " (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
+                                    else std::cout << "\n" << it->getName() << " :" << std::endl;
+                                    for (int i = 0; i < it->getNTheoryValues(); i++) {
+                                        std::cout << " sigma(" << i + 1 << ") = " << buff[iproc][positionID] << std::endl;
+                                        positionID++;
+                                    }
+                                    std::cout << " BR = " << buff[iproc][positionID] << std::endl;
+                                    positionID++;
+                                    for (int i = it->getNTheoryValues() + 1; i < it->getNTheoryValues() + 1 + it->getNChannels(); i++) {
+                                        std::cout << " mu(" << i - (it->getNTheoryValues() + 1) + 1 << ") = " << buff[iproc][positionID] << std::endl;
+                                        positionID++;
+                                    }
+                                } else {
+                                    for (int i = 0; i < it->getNTheoryValues(); i++) {
+                                        (*ObsOut[it->getName()]) << std::setw(10) << std::left << buff[iproc][positionID];
+                                        positionID++;
+                                    }
+                                    (*ObsOut[it->getName()]) << std::setw(10) << std::left << buff[iproc][positionID];
+                                    positionID++;
+                                    for (int i = it->getNTheoryValues() + 1; i < it->getNTheoryValues() + 1 + it->getNChannels(); i++) {
+                                        (*ObsOut[it->getName()]) << std::setw(10) << std::left << buff[iproc][positionID];
+                                        positionID++;
+                                    }
+                                    if (weight) (*ObsOut[it->getName()]) << std::setw(10) << std::left << buff_w[iproc][positionID - 1];
+                                    (*ObsOut[it->getName()]) << std::endl;
                                 }
                             }
                         }
                         if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
                         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                             if (outputTerm == 0) {
-                                if (weight && !(it1->isPrediction())) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" <<std::endl;
-                                else std::cout << it1->getName() <<std::endl;
+                                if (weight && !(it1->isPrediction())) std::cout << it1->getName() << ": (weight: " << buff_w[iproc][positionID] << ")" << std::endl;
+                                else std::cout << it1->getName() << std::endl;
                             }
                             std::vector<Observable> ObsInCGO = it1->getObs();
                             for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
@@ -284,9 +299,16 @@ void GenerateEvent::createDirectories()
             ParsOut[it->getname()] = boost::make_shared<std::ofstream>((ParsDirName + "/" + it->getname() + ".txt").c_str(), std::ios::out);
             summary << "Parameter\t" << it->getname() << "\n";
         }
-        
-        for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
+
+        for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
             ObsOut[it->getName()] = boost::make_shared<std::ofstream>((ObsDirName + "/" + it->getName() + ".txt").c_str(), std::ios::out);
+            if (outputTerm != 0 && it->getObsType().compare("HiggsObservable") == 0) {
+                for (int i = 0; i < it->getNTheoryValues(); i++) (*ObsOut[it->getName()]) << std::setw(6) << std::left << "sigma(" << std::setw(1) << i << std::setw(3) << std::left <<")";
+                (*ObsOut[it->getName()]) << std::setw(10) << std::left << "BR";
+                for (int i = it->getNTheoryValues() + 1; i < it->getNTheoryValues() + 1 + it->getNChannels(); i++) (*ObsOut[it->getName()]) << std::setw(3) << std::left << "mu(" << std::setw(1) << i << std::setw(6) << std::left << ")";
+                if (weight) (*ObsOut[it->getName()]) << std::setw(10) << std::left << "weight";
+                (*ObsOut[it->getName()]) << std::endl;
+            }
             summary << "Observable\t" << it->getName() << "\n";
         }
         for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++){
