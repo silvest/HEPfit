@@ -110,7 +110,7 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
                         double hw = it->computeWeight();
                         std::vector<double> theoryValues;
                         it->getTheoryValues(theoryValues);
-                        for (unsigned int j = 0; j < it->getNTheoryValues() + 1 + it->getNChannels(); j++) {
+                        for (int j = 0; j < it->getNTheoryValues() + 1 + it->getNChannels(); j++) {
                             sendbuff[positionID] = theoryValues.at(j);
                             if (weight) sendbuff_w[positionID] = hw;
                             positionID++;

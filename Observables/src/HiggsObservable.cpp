@@ -58,7 +58,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         // left-side error
         // right-side error
         beg++; // skip label
-        for (unsigned int j = 0; j < channels.GetNcols(); j++) 
+        for (int j = 0; j < channels.GetNcols(); j++) 
             channels(i, j) = atof((*(++beg)).c_str());
         i++;
 
