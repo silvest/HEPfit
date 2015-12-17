@@ -112,7 +112,7 @@
  *   <td class="mod_name">%CHL3_kk, CHL3_klr, CHL3_kli </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{kk}, \mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}^a_\mu H\big)
+ *   \f$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
@@ -133,7 +133,7 @@
  *   <td class="mod_name">%CHQ3_kk, CHQ3_klr, CHQ3_kli </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{kk}, \mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}^a_\mu H\big)
+ *   \f$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
@@ -228,11 +228,11 @@
  * 
  * Where the hermitian derivatives are defined as 
  * @f[
- * H^dagger i \overset{\leftrightarrow}{D}_\mu H\equiv H^dagger i(D_\mu - \overset{\leftarrow}{D}_\mu)H
+ * H^\dagger i \overset{\leftrightarrow}{D}_\mu H\equiv H^\dagger i(D_\mu - \overset{\leftarrow}{D}_\mu)H
  * @f]
  * and
  * @f[
- * H^dagger i \overset{\leftrightarrow}{D}^a_\mu H\equiv H^dagger i (\tau^a D_\mu - \overset{\leftarrow}{D}_\mu \tau^a)H.  
+ * H^\dagger i \overset{\leftrightarrow}{D^a_\mu} H\equiv H^\dagger i (\tau^a D_\mu - \overset{\leftarrow}{D}_\mu \tau^a)H.  
  * @f]
  *
  * Alternatively, when using the model name "NPEffectiveGIMR_LFU_QFU", where lepton
@@ -303,7 +303,7 @@
  *   <td class="mod_name">%CHL3 </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}^a_\mu H\big)
+ *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
@@ -324,7 +324,7 @@
  *   <td class="mod_name">%CHQ3 </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{ii}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}^a_\mu H\big)
+ *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
