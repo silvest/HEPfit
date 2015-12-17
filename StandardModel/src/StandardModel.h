@@ -1882,12 +1882,12 @@ public:
     {
         if (sqrt_s == 7.0) {
             //return 14.355; // in pb for Mh=125 GeV with a scale choice of Mh (corrected from the value in 1307.1347v2)
-            //return 15.89; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            return 15.76; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 15.89; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            //return 15.76; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
         } else if (sqrt_s == 8.0) {
             //return 18.31; // in pb for Mh=125 GeV with a scale choice of Mh
-            //return 20.18; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            return 20.02; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 20.18; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            //return 20.02; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
     }
@@ -1903,12 +1903,12 @@ public:
     {
         if (sqrt_s == 7.0) {
             //return 0.09528; // in pb for Mh=125 GeV with a scale choice of Mh
-            //return 0.1079; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            return 0.1057; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 0.1079; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            //return 0.1057; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
         } else if (sqrt_s == 8.0) {
             //return 0.1206; // in pb for Mh=125 GeV with a scale choice of Mh
-            //return 0.1357; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            return 0.1330; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return 0.1357; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            //return 0.1330; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
     }
@@ -1924,12 +1924,12 @@ public:
     {
         if (sqrt_s == 7.0) {
             //return -0.8970; // in pb for Mh=125 GeV with a scale choice of Mh
-            //return -0.9726; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            return -0.9609; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return -0.9726; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            //return -0.9609; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
         } else if (sqrt_s == 8.0) {
             //return -1.125; // in pb for Mh=125 GeV with a scale choice of Mh
-            //return -1.206; // in pb for Mh=125 GeV with a scale choice of Mh/2
-            return -1.192; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+            return -1.206; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            //return -1.192; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
     }
@@ -2053,7 +2053,7 @@ public:
     double computeSigmattH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.08611; // in pb for Mh=125.1 GeV
+            return 0.0861; // in pb for Mh=125.1 GeV
             //return 0.0851; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
             return 0.129; // in pb for Mh=125.1 GeV
@@ -2071,7 +2071,7 @@ public:
      */
     double computeBrHtogg() const
     {
-        return 8.57e-2; // Mh=125.1 GeV
+        return 8.56e-2; // Mh=125.1 GeV
     }
 
     /**
@@ -2082,7 +2082,7 @@ public:
     double computeBrHtoWW() const
     {
         //return 2.23e-1; // Mh=125.5 GeV
-        return 2.15e-1; // Mh=125.1 GeV
+        return 2.16e-1; // Mh=125.1 GeV
     }
 
     /**
@@ -2092,7 +2092,7 @@ public:
      */
     double computeBrHtoZZ() const
     {
-        return 2.64e-2; // Mh=125.5 GeV
+        return 2.67e-2; // Mh=125.1 GeV
         //return 2.79e-2; // Mh=125.6 GeV
     }
 
@@ -2103,7 +2103,7 @@ public:
      */
     double computeBrHtoZga() const
     {
-        return 1.54e-3; // Mh=125.1 GeV
+        return 1.55e-3; // Mh=125.1 GeV
         //return 1.59e-3; // Mh=125.6 GeV
     }
 
@@ -2124,7 +2124,7 @@ public:
      */
     double computeBrHtotautau() const
     {
-        return 6.32e-2; // Mh=125.1 GeV
+        return 6.30e-2; // Mh=125.1 GeV
         //return 6.22e-2; // Mh=125.6 GeV
     }
 
@@ -2135,7 +2135,7 @@ public:
      */
     double computeBrHtocc() const
     {
-        return 2.91e-2; // Mh=125.1 GeV
+        return 2.90e-2; // Mh=125.1 GeV
         //return 2.86e-2; // Mh=125.6 GeV
     }
 
@@ -2146,7 +2146,7 @@ public:
      */
     double computeBrHtobb() const
     {
-        return 5.77e-1; // Mh=125.1 GeV
+        return 5.75e-1; // Mh=125.1 GeV
         //return 5.67e-1; // Mh=125.6 GeV
     }
 
@@ -2157,7 +2157,7 @@ public:
      */
     double computeGammaHTotal() const
     {
-        return 4.07e-3; // Mh=125.1 GeV
+        return 4.08e-3; // Mh=125.1 GeV
         //return 4.15e-3; // Mh=125.6 GeV
     }
 
