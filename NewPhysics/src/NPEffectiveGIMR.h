@@ -54,12 +54,6 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CW </td>
- *   <td class="mod_symb">\f$C_{W} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%CHG </td>
  *   <td class="mod_symb">\f$C_{HG} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -243,12 +237,6 @@
  *   <th>Label</th>
  *   <th>LaTeX symbol</th>
  *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CW </td>
- *   <td class="mod_symb">\f$C_{W} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHG </td>
@@ -438,7 +426,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 201;
+    static const int NNPEffectiveGIMRVars = 200;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -450,7 +438,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 105;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 104;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -999,7 +987,6 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
     double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
     double CHB; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
