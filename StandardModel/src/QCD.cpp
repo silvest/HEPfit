@@ -161,24 +161,24 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0", boost::cref(absmyh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p", boost::cref(absmyh_p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m", boost::cref(absmyh_m)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0", boost::cref(argmyh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p", boost::cref(argmyh_p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m", boost::cref(argmyh_m)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_1", boost::cref(absmyh_0_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p_1", boost::cref(absmyh_p_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m_1", boost::cref(absmyh_m_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_1", boost::cref(argmyh_0_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p_1", boost::cref(argmyh_p_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m_1", boost::cref(argmyh_m_1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_2", boost::cref(absmyh_0_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p_2", boost::cref(absmyh_p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m_2", boost::cref(absmyh_m_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_2", boost::cref(argmyh_0_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p_2", boost::cref(argmyh_p_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m_2", boost::cref(argmyh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0", boost::cref(absh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p", boost::cref(absh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m", boost::cref(absh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0", boost::cref(argh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p", boost::cref(argh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m", boost::cref(argh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_1", boost::cref(absh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p_1", boost::cref(absh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m_1", boost::cref(absh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_1", boost::cref(argh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p_1", boost::cref(argh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m_1", boost::cref(argh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_2", boost::cref(absh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_p_2", boost::cref(absh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_m_2", boost::cref(absh_m_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_2", boost::cref(argh_0_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_p_2", boost::cref(argh_p_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_m_2", boost::cref(argh_m_2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_MP", boost::cref(absh_0_MP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_MP", boost::cref(argh_0_MP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_1_MP", boost::cref(absh_0_1_MP)));
@@ -334,51 +334,12 @@ bool QCD::PostUpdate()
     myh_0 = gslpp::complex(absh_0,argh_0,true);
     myh_p = gslpp::complex(absh_p,argh_p,true);
     myh_m = gslpp::complex(absh_m,argh_m,true);
+    myh_0_1 = gslpp::complex(absh_0_1,argh_0_1,true);
+    myh_p_1 = gslpp::complex(absh_p_1,argh_p_1,true);
+    myh_m_1 = gslpp::complex(absh_m_1,argh_m_1,true);
     myh_0_2 = gslpp::complex(absh_0_2,argh_0_2,true);
     myh_p_2 = gslpp::complex(absh_p_2,argh_p_2,true);
     myh_m_2 = gslpp::complex(absh_m_2,argh_m_2,true);
-    myh_0_1 = -myh_0 - myh_0_2 + gslpp::complex(absh_0_1,argh_0_1,true);
-    myh_p_1 = -myh_p - myh_p_2 + gslpp::complex(absh_p_1,argh_p_1,true);
-    myh_m_1 = -myh_m - myh_m_2 + gslpp::complex(absh_m_1,argh_m_1,true);
-    
-    absmyh_0 = myh_0.abs();
-    argmyh_0 = myh_0.arg();
-    
-    absmyh_p = myh_p.abs();
-    argmyh_p = myh_p.arg();
-    
-    absmyh_m = myh_m.abs();
-    argmyh_m = myh_m.arg();
-    
-    absmyh_0_1 = myh_0_1.abs();
-    argmyh_0_1 = myh_0_1.arg();
-    
-    absmyh_p_1 = myh_p_1.abs();
-    argmyh_p_1 = myh_p_1.arg();
-    
-    absmyh_m_1 = myh_m_1.abs();
-    argmyh_m_1 = myh_m_1.arg();
-    
-    absmyh_0_2 = myh_0_2.abs();
-    argmyh_0_2 = myh_0_2.arg();
-    
-    absmyh_p_2 = myh_p_2.abs();
-    argmyh_p_2 = myh_p_2.arg();
-    
-    absmyh_m_2 = myh_m_2.abs();
-    argmyh_m_2 = myh_m_2.arg();
-    
-//    myh_0 = gslpp::complex(absh_0,argh_0,true);
-//    myh_p = gslpp::complex(absh_p,argh_p,true);
-//    myh_m = gslpp::complex(absh_m,argh_m,true);
-//    
-//    myh_0_1 = gslpp::complex(absh_0_1,argh_0_1,true);
-//    myh_p_1 = gslpp::complex(absh_p_1,argh_p_1,true);
-//    myh_m_1 = gslpp::complex(absh_m_1,argh_m_1,true);
-//    
-//    myh_0_2 = gslpp::complex(absh_0_2,argh_0_2,true);
-//    myh_p_2 = gslpp::complex(absh_p_2,argh_p_2,true);
-//    myh_m_2 = gslpp::complex(absh_m_2,argh_m_2,true);
     
     return (true);
 }
