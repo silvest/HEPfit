@@ -13,9 +13,7 @@
 
 THDMcache::THDMcache()
         
-        : PV(true),
-        
-        br_tt(19861, 2, 0.),
+:       br_tt(19861, 2, 0.),
         br_bb(19861, 2, 0.),
         br_tautau(19861, 2, 0.),
         br_cc(19861, 2, 0.),
@@ -54,7 +52,8 @@ THDMcache::THDMcache()
         CMS_ggF_phi_gaga(2000,2,0.),
         CMS_ggF_H_hh_bbtautau(1000,2,0.),
         CMS_ggF_A_hZ_tautaull(1000,2,0.),
-        arraybsgamma(1111, 3, 0.)
+        arraybsgamma(1111, 3, 0.),
+        PV(true)
 {
   read();
 }

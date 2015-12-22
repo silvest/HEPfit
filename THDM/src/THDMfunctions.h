@@ -28,7 +28,7 @@ public:
      * @param[in] ?
      */
     THDMfunctions(const StandardModel& SM_i) 
-    : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+    : ThObservable(SM_i)//, myTHDM(static_cast<const THDM*> (&SM_i))
     {
     };
 
@@ -72,7 +72,7 @@ public:
     double KaellenFunction (const double a, const double b, const double c) const;
 
 private:
-    const THDM * myTHDM;
+    //const THDM * myTHDM;
 
     /**
      * @brief g function for the Int1 function

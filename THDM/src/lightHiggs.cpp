@@ -68,12 +68,12 @@ void lightHiggs::computeSignalStrengthQuantities()
     //The ttH production cross section in the SM
     double Sigmatth = myTHDM->computeSigmattH(8.0);
     //The VBF cross section in the SM
-    double SigmaVBF = myTHDM->computeSigmaVBF(8.0);
+    //double SigmaVBF = myTHDM->computeSigmaVBF(8.0);
     //The WH production cross section in the SM
-    double SigmaWh = myTHDM->computeSigmaWH(8.0);
+    //double SigmaWh = myTHDM->computeSigmaWH(8.0);
     //The ZH production cross section in the SM
-    double SigmaZh = myTHDM->computeSigmaZH(8.0);
-    double SigmaVh = SigmaWh + SigmaZh;
+    //double SigmaZh = myTHDM->computeSigmaZH(8.0);
+    //double SigmaVh = SigmaWh + SigmaZh;
 
     /* r_ii is the ratio of the squared 2HDM vertex coupling of h to
      * the particle i and the respective squared SM coupling.*/
