@@ -10,7 +10,6 @@
 
 #include "bsgamma.h"
 #include "CPoddHiggs.h"
-#include "EWPO.h"
 #include "globalminimum.h"
 #include "heavyHiggs.h"
 #include "lightHiggs.h"
