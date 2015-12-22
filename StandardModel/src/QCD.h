@@ -2177,33 +2177,6 @@ private:
     void CacheShift(double cache[][5], int n) const;
 
     gslpp::complex myh_0,myh_p,myh_m,myh_0_1,myh_p_1,myh_m_1,myh_0_2,myh_p_2,myh_m_2;
-    
-    double absmyh_0;
-    double argmyh_0;
-    
-    double absmyh_p;
-    double argmyh_p;
-    
-    double absmyh_m;
-    double argmyh_m;
-    
-    double absmyh_0_1;
-    double argmyh_0_1;
-    
-    double absmyh_p_1;
-    double argmyh_p_1;
-    
-    double absmyh_m_1;
-    double argmyh_m_1;
-    
-    double absmyh_0_2;
-    double argmyh_0_2;
-    
-    double absmyh_p_2;
-    double argmyh_p_2;
-    
-    double absmyh_m_2;
-    double argmyh_m_2;
 };
 
 #endif	/* QCD_H */
