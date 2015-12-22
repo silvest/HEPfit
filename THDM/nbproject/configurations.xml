@@ -79,10 +79,6 @@
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/STU.h" ex="false" tool="3" flavor2="0">
@@ -168,10 +164,6 @@
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/STU.h" ex="false" tool="3" flavor2="0">
@@ -255,10 +247,6 @@
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EWPO.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EWPO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/STU.cpp" ex="false" tool="1" flavor2="0">
       </item>
