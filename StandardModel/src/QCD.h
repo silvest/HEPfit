@@ -305,7 +305,7 @@
  * <tr>
  *   <td class="mod_name">%ReA2_Kd</td>
  *   <td class="mod_symb">@f${\cal Re}(A_2(K\to\pi\pi))@f$</td>
- *   <td class="mod_desc">the experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=2\f$.</td>
+ *   <td class="mod_desc">The experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=2\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Omega_eta_etap</td>
@@ -335,7 +335,7 @@
  * <tr>
  *   <td class="mod_name">%IB_Kl</td>
  *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">the isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
+ *   <td class="mod_desc">The isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%IB_Kp</td>
@@ -414,33 +414,33 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%absh_0, %absh_0_1, %absh_0_2</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}, \mathrm{Re}h_0^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$\vert h_0^{(0)}\vert, \vert h_0^{(1)}\vert, \vert h_0^{(2)}\vert@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the absolute value of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%argh_0, %argh_0_1, %argh_0_2</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_0^{(0)}, \mathrm{Im}h_0^{(1)}, \mathrm{Im}h_0^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}\,h_0^{(0)}, \mathrm{Arg}\,h_0^{(1)}, \mathrm{Arg}\,h_0^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the argument of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%absh_1, %absh_1_1, %absh_1_2</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_+^{(0)}, \mathrm{Re}h_+^{(1)}, \mathrm{Re}h_+^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$\vert h_+^{(0)}\vert, \vert h_+^{(1)}\vert, \vert h_+^{(2)}\vert@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the absolute value of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%argh_1, %argh_1_1, %argh_1_2</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_+^{(0)}, \mathrm{Im}h_+^{(1)}, \mathrm{Im}h_+^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}\,h_+^{(0)}, \mathrm{Arg}\,h_+^{(1)}, \mathrm{Arg}\,h_+^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the argument of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%absh_2, %absh_2_1, %absh_2_2</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_-^{(0)}, \mathrm{Re}h_-^{(1)}, \mathrm{Re}h_-^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$\vert h_-^{(0)}\vert, \vert h_-^{(1)}\vert, \vert h_-^{(2)}\vert@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the absoulute value of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%argh_2, %argh_2_1, %argh_2_2</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_-^{(0)}, \mathrm{Im}h_-^{(1)}, \mathrm{Im}h_-^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}\,h_-^{(0)}, \mathrm{Arg}\,h_-^{(1)}, \mathrm{Arg}\,h_-^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the argument of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%alpha1kst, %alpha2kst</td>
@@ -469,13 +469,13 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%absh_0_MP, %absh_0_1_MP</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}@f$</td>
- *   <td class="mod_desc">The constant and linear terms of the real part of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
+ *   <td class="mod_symb">@f$\vert h_0^{(0)}\vert, \vert h_0^{(1)}\vert@f$</td>
+ *   <td class="mod_desc">The constant and linear terms of the absolute value of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%argh_0_MP, %argh_0_1_MP</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_0^{(0)}, \mathrm{Im}h_0^{(1)}@f$</td>
- *   <td class="mod_desc">The constant and linear terms of the immaginary part of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}\,h_0^{(0)}, \mathrm{Arg}\,h_0^{(1)}@f$</td>
+ *   <td class="mod_desc">The constant and linear terms of the argument of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%bsgamma_E0</td>

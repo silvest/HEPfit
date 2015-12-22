@@ -9,7 +9,7 @@
 #include <limits>
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
-        = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
+        = {"CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -52,7 +52,7 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "ettH78_Htt", "ettH78_Hgg"};
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU]
-        = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
+        = {"CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL",
     "Lambda_NP",
@@ -83,7 +83,6 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
 
     FlagMwInput = false;
 
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CW", boost::cref(CW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHG", boost::cref(CHG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHB", boost::cref(CHB)));
@@ -335,9 +334,7 @@ bool NPEffectiveGIMR::PostUpdate()
 
 void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("CW") == 0)
-        CW = value;
-    else if (name.compare("CHG") == 0)
+    if (name.compare("CHG") == 0)
         CHG = value;
     else if (name.compare("CHW") == 0)
         CHW = value;

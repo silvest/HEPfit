@@ -54,12 +54,6 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CW </td>
- *   <td class="mod_symb">\f$C_{W} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%CHG </td>
  *   <td class="mod_symb">\f$C_{HG} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -105,49 +99,49 @@
  *   <td class="mod_name">%CHL1_kk, CHL1_klr, CHL1_kli </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(1)})_{kk}, \mbox{Re}\big[(C_{HL}^{(1)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(1)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HL}^{(1)})_{ij} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HL}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{L^i}\,\gamma^\mu L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHL3_kk, CHL3_klr, CHL3_kli </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{kk}, \mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \tau^a D_\mu H\big)
+ *   \f$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHe_kk, CHe_klr, CHe_kli </td>
  *   <td class="mod_symb">\f$ (C_{HE})_{kk}, \mbox{Re}\big[(C_{HE})_{kl}\big], \mbox{Im}\big[(C_{HE})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HE})_{ij} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HE})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{E^i}\,\gamma^\mu E^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHQ1_kk, CHQ1_klr, CHQ1_kli </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(1)})_{kk}, \mbox{Re}\big[(C_{HQ}^{(1)})_{kl}\big], \mbox{Im}\big[(C_{HQ}^{(1)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(1)})_{ij} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HQ}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHQ3_kk, CHQ3_klr, CHQ3_kli </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{kk}, \mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big], \mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \tau^a D_\mu H\big)
+ *   \f$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHu_kk, CHu_klr, CHu_kli </td>
  *   <td class="mod_symb">\f$ (C_{HU})_{kk}, \mbox{Re}\big[(C_{HU})_{kl}\big], \mbox{Im}\big[(C_{HU})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HU})_{ij} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HU})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{U^i}\,\gamma^\mu U^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHd_kk, CHd_klr, CHd_kli </td>
  *   <td class="mod_symb">\f$ (C_{HD})_{kk}, \mbox{Re}\big[(C_{HD})_{kl}\big], \mbox{Im}\big[(C_{HD})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{HD})_{ij} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HD})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{D^i}\,\gamma^\mu D^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
   * <tr>
@@ -225,6 +219,15 @@
  * \f$(g_i= g_{Htt}, g_{Hgg})\f$ </td>
  * </tr>
  * </table>
+ * 
+ * Where the hermitian derivatives are defined as 
+ * @f[
+ * H^\dagger i \overset{\leftrightarrow}{D}_\mu H\equiv H^\dagger i(D_\mu - \overset{\leftarrow}{D}_\mu)H
+ * @f]
+ * and
+ * @f[
+ * H^\dagger i \overset{\leftrightarrow}{D^a_\mu} H\equiv H^\dagger i (\tau^a D_\mu - \overset{\leftarrow}{D}_\mu \tau^a)H.  
+ * @f]
  *
  * Alternatively, when using the model name "NPEffectiveGIMR_LFU_QFU", where lepton
  * and quark flavour universality are assumed, the parameters to be used as inputs
@@ -234,12 +237,6 @@
  *   <th>Label</th>
  *   <th>LaTeX symbol</th>
  *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="mod_name">%CW </td>
- *   <td class="mod_symb">\f$C_{W} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{W}=\varepsilon_{abc}W_{\mu}^{a\nu} W_{\nu}^{b\rho}W_{\rho}^{b\mu}\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHG </td>
@@ -287,49 +284,49 @@
  *   <td class="mod_name">%CHL1</td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(1)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HL}^{(1)})_{ii} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HL}^{(1)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{L^i}\,\gamma^\mu L^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHL3 </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(3)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \tau^a D_\mu H\big)
+ *   \f$({\cal O}_{HL}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{L^i}\,\gamma^\mu \tau^a L^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHe </td>
  *   <td class="mod_symb">\f$ (C_{HE})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HE})_{ij} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HE})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{E^i}\,\gamma^\mu E^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHQ1 </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(1)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(1)})_{ii} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HQ}^{(1)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu Q^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHQ3 </td>
  *   <td class="mod_symb">\f$ (C_{HQ}^{(3)})_{ii}\f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \tau^a D_\mu H\big)
+ *   \f$({\cal O}_{HQ}^{(3)})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
  *   \big(\overline{Q^i}\,\gamma^\mu \tau^a Q^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHu </td>
  *   <td class="mod_symb">\f$ (C_{HU})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HU})_{ii} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HU})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{U^i}\,\gamma^\mu U^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CHd </td>
  *   <td class="mod_symb">\f$ (C_{HD})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
- *   \f$({\cal O}_{HD})_{ii} =i\big(H^\dagger D_\mu H\big)
+ *   \f$({\cal O}_{HD})_{ii} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
  *   \big(\overline{D^i}\,\gamma^\mu D^i\big)\f$ (flavor universal). </td>
  * </tr>
   * <tr>
@@ -429,7 +426,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 201;
+    static const int NNPEffectiveGIMRVars = 200;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -441,7 +438,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 105;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 104;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -990,7 +987,6 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
     double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
     double CHB; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
