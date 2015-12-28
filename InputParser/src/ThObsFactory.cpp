@@ -11,6 +11,7 @@
 #include "EWObservables.h"
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
+#include "MtMSbar.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
@@ -21,6 +22,8 @@
 
 ThObsFactory::ThObsFactory()
 {
+    //-----  StandardModel observables  -----
+    obsThFactory["MtMSbar"] = boost::factory<MtMSbar*>();
     //-----  Electroweak precision observables  -----
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();

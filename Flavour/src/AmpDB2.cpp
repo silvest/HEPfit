@@ -16,16 +16,16 @@ gslpp::complex AmpDB2::AmpBd(orders order)
     if (mySM.getMyFlavour()->getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
-            mySM.getBBd().getMu()(0),
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
+            mySM.getBBd().getMu(),
         mySM.getBBd().getScheme());
     
     gslpp::vector<double> me(mySM.getBBd().getBpars());
     double MBd = mySM.getMesons(QCD::B_D).getMass();
-    double Mb = mySM.Mrun(mySM.getBBd().getMu()(0),
+    double Mb = mySM.Mrun(mySM.getBBd().getMu(),
                 mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
                 mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
-    double Md = mySM.Mrun(mySM.getBBd().getMu()(0),
+    double Md = mySM.Mrun(mySM.getBBd().getMu(),
                 mySM.getQuarks(QCD::DOWN).getMass_scale(),
                 mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     double KBd = MBd/(Mb+Md)*MBd/(Mb+Md);
@@ -59,14 +59,14 @@ gslpp::complex AmpDB2::AmpBs(orders order)
     if (mySM.getMyFlavour()->getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
-            mySM.getBBs().getMu()(0),
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
+            mySM.getBBs().getMu(),
             mySM.getBBs().getScheme());
 
     gslpp::vector<double> me(mySM.getBBs().getBpars());
     double MBs = mySM.getMesons(QCD::B_S).getMass();
     double Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
-    double Ms = mySM.Mrun(mySM.getBBs().getMu()(0),
+    double Ms = mySM.Mrun(mySM.getBBs().getMu(),
                 mySM.getQuarks(QCD::STRANGE).getMass_scale(),
                 mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
     double KBs = MBs/(Mb+Ms)*MBs/(Mb+Ms);
