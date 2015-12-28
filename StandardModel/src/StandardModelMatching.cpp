@@ -2259,31 +2259,6 @@ gslpp::complex StandardModelMatching::S0tt() const
     return ( co * co * S0(xt, xt) );
 }
 
-double StandardModelMatching::ZDP(const double x, const double y) const
-{
-    double co = 2. * GF / M_PI / M_PI * Mw * Mw ;
-
-    return co * co / sqrt(2.) * GF * C0t(x) * C0t(y);
-}
-
-gslpp::complex StandardModelMatching::ZDPtt() const
-{
-    double xt = x_t(Mut);
-    
-    return (ZDP(xt,xt) * lam_t.conjugate() * lam_t.conjugate());
-    
-}
-
-gslpp::complex StandardModelMatching::ZDPct() const
-{
-    double xt = x_t(Mut);
-    double xc = x_c(SM.getMuc());
-    
-    return (2. * ZDP(xc,xt) * lam_t.conjugate() * SM.computelamc().conjugate());
-    
-}
-
-
 /*******************************************************************************
  * Wilson coefficients for Lepton Flavour Violation               *  
  * ****************************************************************************/

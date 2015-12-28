@@ -33,7 +33,7 @@ public:
      * @param[in] n dimension of the vector of bag parameters
      */
     BParameter(int n)
-    : bpars(n,0.), bmu(1,0.)
+    : bpars(n,0.)
     {};
 
     /**
@@ -68,9 +68,9 @@ public:
      * @brief A get method for the scale of the bag parameters.
      * @return the scale at which the bag parameters are defined
      */
-    gslpp::vector<double> getMu() const
+    double getMu() const
     {
-        return bmu;
+        return mu;
     }
 
     /**
@@ -79,7 +79,7 @@ public:
      */
     void setMu(double mu) 
     {
-        this->bmu(0) = mu;
+        this->mu = mu;
     }
     /**
      * @brief A get method for the scheme of the bag parameters.
@@ -100,8 +100,8 @@ public:
     }
 
 private:
-    gslpp::vector<double> bpars;///< A vector of bag parameters.
-    gslpp::vector<double> bmu;///< A vector with one single entry: the scale at which the bag parameters are defined. 
+    vector<double> bpars;///< A vector of bag parameters.
+    double mu;///< The scale at which the bag parameters are defined. 
     schemes scheme;///< The scheme in which the bag parameters are defined.
     
 };
