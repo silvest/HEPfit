@@ -58,7 +58,7 @@ namespace gslpp
   }
 
   /** Get i-th element */
-  double vector<double>::operator()(const size_t& i) const
+  const double& vector<double>::operator()(const size_t& i) const
     {
       const double *x = gsl_vector_const_ptr(_vector, i);
       return *x;

@@ -40,7 +40,7 @@ public:
      * @brief A get method for the vector of the bag parameters.
      * @return the vector of the bag parameters
      */
-    gslpp::vector<double> getBpars() const
+    const gslpp::vector<double>& getBpars() const
     {
         return bpars;
     }
