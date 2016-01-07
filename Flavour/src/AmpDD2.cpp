@@ -7,6 +7,8 @@
 
 #include "AmpDD2.h"
 
+using namespace gslpp;
+
 AmpDD2::AmpDD2(const StandardModel& SM_i) 
 : mySM(SM_i) 
 {}

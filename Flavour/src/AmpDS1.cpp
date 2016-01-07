@@ -8,6 +8,8 @@
 #include "AmpDS1.h"
 #include <sstream>
 
+using namespace gslpp;
+
 AmpDS1::AmpDS1(const StandardModel& SM_i) 
 : mySM(SM_i) 
 {}

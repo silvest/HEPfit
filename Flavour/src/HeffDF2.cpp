@@ -132,15 +132,15 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme
                              + evolDF2.etact(mu) * model.getMyMatching()->S0ct(),
                             NLO);
 #if SUSYFIT_DEBUG & 2
-    std::cout << "mu = " << mu<< ", S0tt = " << model.GetMyMatching()->S0tt() << 
-            ", S0cc = " << model.GetMyMatching()->S0c() << 
-            ", S0ct = " << model.GetMyMatching()->S0ct() << std::endl <<
+    std::cout << "mu = " << mu<< ", S0tt = " << model.getMyMatching()->S0tt() << 
+            ", S0cc = " << model.getMyMatching()->S0c() << 
+            ", S0ct = " << model.getMyMatching()->S0ct() << std::endl <<
             ", etatt = " << evolDF2.etatt(mu) << 
             ", etacc = " << evolDF2.etacc(mu) << 
             ", etact = " << evolDF2.etact(mu) << std::endl <<
-            "tt = " << evolDF2.etatt(mu)*model.GetMyMatching()->S0tt() << 
-            ", cc = " << evolDF2.etacc(mu)*model.GetMyMatching()->S0c() << 
-            ", ct = " << evolDF2.etact(mu)*model.GetMyMatching()->S0ct() << std::endl;
+            "tt = " << evolDF2.etatt(mu)*model.getMyMatching()->S0tt() << 
+            ", cc = " << evolDF2.etacc(mu)*model.getMyMatching()->S0c() << 
+            ", ct = " << evolDF2.etact(mu)*model.getMyMatching()->S0ct() << std::endl;
 #endif
             
         }
