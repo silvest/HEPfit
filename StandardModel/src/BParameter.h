@@ -68,7 +68,7 @@ public:
      * @brief A get method for the scale of the bag parameters.
      * @return the scale at which the bag parameters are defined
      */
-    double getMu() const
+    const double& getMu() const
     {
         return mu;
     }
@@ -100,7 +100,7 @@ public:
     }
 
 private:
-    vector<double> bpars;///< A vector of bag parameters.
+    gslpp::vector<double> bpars;///< A vector of bag parameters.
     double mu;///< The scale at which the bag parameters are defined. 
     schemes scheme;///< The scheme in which the bag parameters are defined.
     
