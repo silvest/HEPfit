@@ -10,9 +10,8 @@
 
 #include "StandardModel.h"
 #include "THDMMatching.h"
-#include "THDMcache.h"
 
-//class THDMcache; //forward reference to THDMcache class
+class THDMcache; //forward reference to THDMcache class
 
 /**
  * @class THDM
@@ -27,7 +26,7 @@
  * <h3>%Model parameters</h3>
  *
  * The model parameters of %THDM are summarized below.
- * The current implementation only allows for a @f$Z_2@f$ symmetric Two-Higgs-Doublet model without CP violation in the Higgs potential.
+ * The current implementation only allows for a Two-Higgs-Doublet model with a softly broken @f$Z_2@f$ symmetry and without CP violation in the Higgs potential.
  * The scalar 125 GeV resonance is assumed to be the lighter CP-even Higgs state of the model.
  * 
  * <table class="model">
@@ -52,14 +51,14 @@
  *   <td class="mod_desc">The mass square of the heavier CP-even Higgs state.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%mHh2mmA2</td>
- *   <td class="mod_symb">@f$m_H^2-m_A^2@f$</td>
- *   <td class="mod_desc">The difference of the squared masses of the heavier CP-even Higgs and the CP-odd Higgs.</td>
+ *   <td class="mod_name">%mA2</td>
+ *   <td class="mod_symb">@f$m_A^2@f$</td>
+ *   <td class="mod_desc">The squared masses of the CP-odd Higgs @f$A@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%mHh2mmHp2</td>
- *   <td class="mod_symb">@f$m_H^2-m_{H^+}^2@f$</td>
- *   <td class="mod_desc">The difference of the squared masses of the heavier CP-even Higgs and the charged Higgs.</td>
+ *   <td class="mod_name">%mHp2</td>
+ *   <td class="mod_symb">@f$m_{H^+}^2@f$</td>
+ *   <td class="mod_desc">The squared masses of the charged Higgs.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%m12_2</td>
@@ -130,7 +129,11 @@ public:
         return myTHDMMatching;
     }
 
-    
+    THDMcache* getMyTHDMCache() const
+    {
+        return myTHDMcache;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     
     /**
@@ -244,7 +247,7 @@ public:
      * @return mass squared pseudoscalar Higgs A
      */
     double getmA2() const {
-        return mHh2-mHh2mmA2;
+        return mA2;
     }
 
     /**
@@ -252,7 +255,10 @@ public:
      * @return mass pseudoscalar Higgs A
      */
     double getmA() const {
-        return sqrt(mHh2-mHh2mmA2);
+    if(mA2 < 0.) {
+        return 0.;
+    }
+        return sqrt(mA2);
     }
 
     /**
@@ -260,7 +266,7 @@ public:
      * @return charged Higgs mass squared
      */
     double getmHp2() const {
-        return mHh2-mHh2mmHp2;
+        return mHp2;
     }
 
     /**
@@ -268,7 +274,10 @@ public:
      * @return charged Higgs mass
      */
     double getmHp() const {
-        return sqrt(mHh2-mHh2mmHp2);
+    if(mHp2 < 0.) {
+        return 0.;
+    }
+        return sqrt(mHp2);
     }
 
     /**
@@ -290,7 +299,7 @@ public:
 protected: 
 
     virtual void setParameter(const std::string, const double&);
-    THDMcache * mycache;
+//    THDMcache * mycache;
 
     /**
      * @brief A method to check if the model type name in string form is valid.
@@ -311,8 +320,9 @@ protected:
 private:
 
     THDMMatching* myTHDMMatching;
+    THDMcache* myTHDMcache;
 
-    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mHh2mmA2, mHh2mmHp2, m12_2, bsgamma_theoryerror;
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror;
     std::string flag_model;
 };
 

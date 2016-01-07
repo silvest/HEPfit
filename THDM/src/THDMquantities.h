@@ -244,6 +244,52 @@ public:
 };
 
 /**
+ * @class m11_2 
+ * @ingroup THDM 
+ * @brief An observable class for the quadratic Higgs potential coupling @f$m_{11}^2@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$m_{11}^2@f$.
+ */
+class m11_2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    m11_2(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$m_{11}^2@f$.
+     * @return @f$m_{11}^2@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class m22_2 
+ * @ingroup THDM 
+ * @brief An observable class for the quadratic Higgs potential coupling @f$m_{22}^2@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$m_{22}^2@f$.
+ */
+class m22_2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    m22_2(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$m_{22}^2@f$.
+     * @return @f$m_{22}^2@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
  * @class lambda1 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_1@f$.
@@ -352,6 +398,198 @@ public:
     /**
      * @brief The quartic coupling @f$\lambda_5@f$.
      * @return @f$\lambda_5@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_hhh
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{hhh}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_hhh : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_hhh(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{hhh}@f$.
+     * @return @f$g_{hhh}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_hhHh
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{hhH}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_hhHh : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_hhHh(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{hhH}@f$.
+     * @return @f$g_{hhH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_hHhHh
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{hHH}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_hHhHh : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_hHhHh(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{hHH}@f$.
+     * @return @f$g_{hHH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_HhHhHh
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{HHH}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_HhHhHh : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_HhHhHh(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{HHH}@f$.
+     * @return @f$g_{HHH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_hAA
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{hAA}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_hAA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_hAA(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{hAA}@f$.
+     * @return @f$g_{hAA}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_HhAA
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{HAA}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_HhAA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_HhAA(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{HAA}@f$.
+     * @return @f$g_{HAA}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_hHpHm
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{hH^+H^-}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_hHpHm : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_hHpHm(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{hH^+H^-}@f$.
+     * @return @f$g_{hH^+H^-}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class g_HhHpHm
+ * @ingroup THDM 
+ * @brief An observable class for the triple Higgs coupling @f$g_{HH^+H^-}@f$.
+ * @details Taken from @cite Baglio:2014nea, equation (5) and multiplied by the SM coupling.
+ *          Cross-checked with equation (F1) from @cite Gunion:2002zf
+ */
+class g_HhHpHm : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    g_HhHpHm(const StandardModel& SM_i);
+
+    /**
+     * @brief The triple Higgs coupling @f$g_{HH^+H^-}@f$.
+     * @return @f$g_{HH^+H^-}@f$
      */
     double computeThValue();
 

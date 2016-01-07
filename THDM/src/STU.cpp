@@ -12,7 +12,7 @@ STU::STU(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
 
 {
-    mycache = new THDMcache();
+    mycache = new THDMcache(SM_i);
 };
 
 double STU::computeThValue()
@@ -95,9 +95,9 @@ double DeltaT::computeThValue()
     double cos2_ba = 1. - sin2_ba;
     double MZ=myTHDM->getMz();
     double MZ2 = MZ*MZ;
-    double MW = myTHDM->Mw();
+    double MW=mycache->MWTHDM(myTHDM->Mw_tree());
     double MW2 = MW*MW;
-    double s_W2 = myTHDM->sW2();
+    double s_W2 = 1.0-mycache->cW2THDM(myTHDM->c02());
 
     gslpp::complex B0_MZ2_0_MZ2_mHh2;
     gslpp::complex B0_MZ2_0_MZ2_mHl2;
