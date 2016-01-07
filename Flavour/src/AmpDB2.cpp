@@ -7,6 +7,8 @@
 
 #include "AmpDB2.h"
 
+using namespace gslpp;
+
 AmpDB2::AmpDB2(const StandardModel& SM_i) 
 : mySM(SM_i) 
 {}
@@ -41,7 +43,7 @@ gslpp::complex AmpDB2::AmpBd(orders order)
 #endif
 #if SUSYFIT_DEBUG & 2
     std::cout << "M: " << me << std::endl;
-    std::cout << "M.U: " << myFlavour.getHDF2().getUDF2().Df2Evol(4.2,1.e6,LO).transpose()*me << std::endl;
+    std::cout << "M.U: " << mySM.getMyFlavour()->getHDF2().getUDF2().Df2Evol(4.2,1.e6,LO).transpose()*me << std::endl;
 #endif
 
     switch(order) {
