@@ -45,6 +45,12 @@ public:
     
 };
 
+/**
+ * @class unitarity1
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{even}_{21+}@f$.
+ */
 class unitarity1: public unitarity {
 public:
 
@@ -60,6 +66,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity2
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{even}_{21-}@f$.
+ */
 class unitarity2: public unitarity {
 public:
 
@@ -75,6 +87,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity3
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{even}_{01+}@f$.
+ */
 class unitarity3: public unitarity {
 public:
 
@@ -90,6 +108,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity4
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{even}_{01-}@f$.
+ */
 class unitarity4: public unitarity {
 public:
 
@@ -105,6 +129,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity5
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{even}_{00+}@f$.
+ */
 class unitarity5: public unitarity {
 public:
 
@@ -120,6 +150,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity6
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{even}_{00-}@f$.
+ */
 class unitarity6: public unitarity {
 public:
 
@@ -129,12 +165,18 @@ public:
     unitarity6(const StandardModel& SM_i);
 
     /**
-     * @return @f$\Lambda^{even}_{00+}=\frac{3}{2}(\lambda_1+\lambda_2)-\frac{1}{2}\sqrt{9(\lambda_1-\lambda_2)^2+4(2\lambda_3+\lambda_4)^2}@f$
+     * @return @f$\Lambda^{even}_{00-}=\frac{3}{2}(\lambda_1+\lambda_2)-\frac{1}{2}\sqrt{9(\lambda_1-\lambda_2)^2+4(2\lambda_3+\lambda_4)^2}@f$
      * @details Corresponds to @f$a_-@f$ from equation (2.6) in @cite Akeroyd:2000wc.
      */
     double computeThValue();
 };
 
+/**
+ * @class unitarity7
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{odd}_{21}@f$.
+ */
 class unitarity7: public unitarity {
 public:
 
@@ -147,10 +189,15 @@ public:
      * @return @f$\Lambda^{odd}_{21}=\lambda_3+\lambda_4@f$
      * @details Corresponds to @f$f_1=f_2@f$ from equation (2.5) in @cite Akeroyd:2000wc
      */
-////	LAod21 =lambada3+lambada4
     double computeThValue();
 };
 
+/**
+ * @class unitarity8
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{odd}_{20}@f$.
+ */
 class unitarity8: public unitarity {
 public:
 
@@ -166,6 +213,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity9
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{odd}_{01+}@f$.
+ */
 class unitarity9: public unitarity {
 public:
 
@@ -181,6 +234,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity10
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{odd}_{01-}@f$.
+ */
 class unitarity10: public unitarity {
 public:
 
@@ -196,6 +255,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity11
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{odd}_{00+}@f$.
+ */
 class unitarity11: public unitarity {
 public:
 
@@ -211,6 +276,12 @@ public:
     double computeThValue();
 };
 
+/**
+ * @class unitarity12
+ * @ingroup THDM 
+ * @brief Eigenvalue of the @f$\Phi \Phi \to \Phi \Phi@f$ scattering matrix.
+ * @details @f$\Lambda^{odd}_{00-}@f$.
+ */
 class unitarity12: public unitarity {
 public:
 

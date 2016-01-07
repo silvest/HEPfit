@@ -7,16 +7,17 @@
 
 #include "StandardModelMatching.h"
 #include "THDM.h"
+#include "THDMcache.h"
 
-const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mHh2mmA2","mHh2mmHp2","m12_2","bsgamma_theoryerror"};
+const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2","bsgamma_theoryerror"};
 
 THDM::THDM() : StandardModel() {
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bma", boost::cref(bma)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh2", boost::cref(mHh2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh2mmA2", boost::cref(mHh2mmA2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh2mmHp2", boost::cref(mHh2mmHp2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA2", boost::cref(mA2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp2", boost::cref(mHp2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m12_2", boost::cref(m12_2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_theoryerror", boost::cref(bsgamma_theoryerror)));
 }
@@ -24,6 +25,7 @@ THDM::THDM() : StandardModel() {
 THDM::~THDM(){
     if (IsModelInitialized()) {
             if (myTHDMMatching != NULL) delete(myTHDMMatching);
+            if (myTHDMcache != NULL) delete(myTHDMcache);
         }
 }
 
@@ -33,6 +35,7 @@ THDM::~THDM(){
 bool THDM::InitializeModel()
 {
     myTHDMMatching = new THDMMatching(*this);
+    myTHDMcache = new THDMcache(*this);
     setModelInitialized(StandardModel::InitializeModel());
     setModelTHDM();
     return(true);
@@ -72,7 +75,7 @@ bool THDM::PostUpdate()
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
      * and THDM and THDM-derived parameters in THDMMatching */
     myTHDMMatching->StandardModelMatching::updateSMParameters();
-//    myTHDMMatching->updateTHDMParameters();
+    myTHDMcache->updateCache();
 
     return (true);
 }
@@ -96,10 +99,10 @@ void THDM::setParameter(const std::string name, const double& value){
     }
     else if(name.compare("mHh2") == 0)
         mHh2 = value;
-    else if(name.compare("mHh2mmA2") == 0)
-        mHh2mmA2 = value;
-    else if(name.compare("mHh2mmHp2") == 0)
-        mHh2mmHp2 = value;
+    else if(name.compare("mA2") == 0)
+        mA2 = value;
+    else if(name.compare("mHp2") == 0)
+        mHp2 = value;
     else if(name.compare("m12_2") == 0)
         m12_2 = value;
     else if(name.compare("bsgamma_theoryerror") == 0)

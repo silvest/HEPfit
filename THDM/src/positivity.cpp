@@ -45,6 +45,10 @@ double positivity1::computeThValue()
     double lambda1=mylambda1->computeThValue();
     double lambda2=mylambda2->computeThValue();
 
+//    std::cout<<(2.0*mHp2*cosb*sinb -m12_2 +(mHh2-mHl*mHl)*cosa*sina
+//                       +sqrt(std::abs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
+//                             *(mHh2*cosa*cosa +mHl*mHl*sina*sina -m12_2*tanb))))<<std::endl;
+    
     if (lambda1>0 && lambda2>0)
     {
         return 0.0001*(2.0*mHp2*cosb*sinb -m12_2 +(mHh2-mHl*mHl)*cosa*sina
@@ -74,6 +78,12 @@ double positivity2::computeThValue()
     double m12_2=myTHDM->getm12_2();
     double lambda1=mylambda1->computeThValue();
     double lambda2=mylambda2->computeThValue();
+
+//    std::cout<<(mA2 -std::abs(mA2-m12_2/cosb/sinb)
+//                       +((mHh2-mHl*mHl)*cosa*sina
+//                         +sqrt(std::abs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
+//                               *(mHh2*cosa*cosa +mHl*mHl*sina*sina - m12_2*tanb))))
+//                        /cosb/sinb)<<std::endl;
 
     if (lambda1>0 && lambda2>0)
     {

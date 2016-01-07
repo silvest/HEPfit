@@ -10,7 +10,7 @@
 
 #include <cmath>
 #include "PVfunctions.h"
-//#include "THDM.h"
+#include "THDM.h"
 
 #include <stdexcept>
 #include "gslpp.h"
@@ -32,7 +32,14 @@ public:
      * @brief THDMcache constructor.
      * @details Reads all the tables values and stores them in the memory.
      */
-    THDMcache();
+    THDMcache(const StandardModel& SM_i);
+
+    /**
+     * @brief THDMcache destructor.
+     * @details Reads all the tables values and stores them in the memory.
+     */
+    ~THDMcache()
+    {}
     
     /**
      * @brief Cache size.
@@ -42,16 +49,31 @@ public:
 
     /**
      * @brief Check whether for the latest set of parameters a value is in the cache.
+     * @details Takes a complex value.
      */
     int CacheCheck(const gslpp::complex cache[][CacheSize],
                    const int NumPar, const double params[]) const;
 
     /**
+     * @brief Check whether for the latest set of parameters a value is in the cache.
+     * @details Takes a real value.
+     */
+    int CacheCheckReal(const double cache[][CacheSize],
+                   const int NumPar, const double params[]) const;
+
+    /**
      * @brief Adds a new result and its parameters into the cache.
-     * @details The new values are added on top. The oldest set on the stack is deleted.
+     * @details The new values are added on top. The oldest set on the stack is deleted. Takes a complex value.
      */
     void CacheShift(gslpp::complex cache[][CacheSize], const int NumPar,
                     const double params[], const gslpp::complex newResult) const; 
+
+    /**
+     * @brief Adds a new result and its parameters into the cache.
+     * @details The new values are added on top. The oldest set on the stack is deleted. Takes a real value.
+     */
+    void CacheShiftReal(double cache[][CacheSize], const int NumPar,
+                    const double params[], const double newResult) const; 
 
     /**
      * @return an object of PVfunctions class
@@ -421,16 +443,432 @@ public:
     gslpp::complex B00_MZ2_MZ2_MZ2_mHh2(const double MZ2, const double mHh2) const;
     gslpp::complex B00_MZ2_MZ2_MZ2_mHl2(const double MZ2, const double mHl2) const;
 
- ///////////////////////////////////////////////////////////////////////////////
+    double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl, const double vev) const;
+    double g_HH_HpHm(const double mHp2, const double mHh2, const double tanb, const double m12_2, const double bma, const double vev) const;
+
+    gslpp::complex I_h_U(const double mHl, const double Mu, const double Mc, const double Mt) const;
+    gslpp::complex I_HH_U(const double mHh2, const double Mc, const double Mt) const;
+    gslpp::complex I_A_U(const double mA2, const double Mc, const double Mt) const;
+    gslpp::complex I_h_D(const double mHl, const double Md, const double Ms, const double Mb) const;
+    gslpp::complex I_HH_D(const double mHh2, const double Ms, const double Mb) const;
+    gslpp::complex I_A_D(const double mA2, const double Ms, const double Mb) const;
+    gslpp::complex I_h_L(const double mHl, const double Me, const double Mmu, const double Mtau) const;
+    gslpp::complex I_HH_L(const double mHh2, const double Mmu, const double Mtau) const;
+    gslpp::complex I_A_L(const double mA2, const double Mmu, const double Mtau) const;
+    gslpp::complex I_H_W(const double mH, const double MW) const;
+    gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
+
+    gslpp::complex A_h_U(const double mHl, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
+    gslpp::complex A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    gslpp::complex A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const;
+    gslpp::complex A_h_D(const double mHl, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
+    gslpp::complex A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+    gslpp::complex A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const;
+    gslpp::complex A_h_L(const double mHl, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
+    gslpp::complex A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    gslpp::complex A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
+    gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
+    gslpp::complex A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const;
+
+    /**
+     * @brief Kaellen function
+     * @return @f$\kappa(a,b,c)=\frac{1}{2a}\sqrt{a^2+b^a+c^2-2ab-2ac-2bc}@f$
+     */
+    double KaellenFunction(const double a2, const double b2, const double c2) const;
+
+    double cW2THDM(const double c02) const;
+    double MWTHDM(const double MW) const;
+
+    
+    
+    void computeSignalStrengthQuantities();
+
+    void computeHHquantities();
+
+    void computeAquantities();
+
+    ////////////////////////////////////////////////////////////////////////////
+    void updateCache();
+
+    /**
+     * @brief SM branching ratio of @f$h\to b \bar b@f$.
+     * @return @f$BR{\text SM}(h\to b \bar b)@f$
+     */
+    double BrSM_htobb;
+
+    /**
+     * @brief SM branching ratio of @f$h\to \gamma \gamma@f$.
+     * @return @f$BR{\text SM}(h\to \gamma \gamma)@f$
+     */
+    double BrSM_htogaga;
+
+    /**
+     * @brief SM branching ratio of @f$h\to \tau \tau@f$.
+     * @return @f$BR{\text SM}(h\to \tau \tau)@f$
+     */
+    double BrSM_htotautau;
+
+    /**
+     * @brief Squared relative coupling of @f$h@f$ to two down type quarks.
+     * @return @f$r^{(h)}_{Q_dQ_d}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rh_QdQd;
+
+    /**
+     * @brief Squared relative coupling of @f$h@f$ to two massive vector bosons.
+     * @return @f$r^{(h)}_{WW}=r^{(h)}_{ZZ}@f$
+     */
+    double rh_VV;
+
+    /**
+     * @brief Squared relative coupling of @f$h@f$ to two charged leptons.
+     * @return @f$r^{(h)}_{\ell \ell}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rh_ll;
+
+    /**
+     * @brief Squared relative coupling of @f$h@f$ to two photons.
+     * @return @f$r^{(h)}_{\gamma \gamma}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rh_gaga;
+
+    /**
+     * @brief Squared relative coupling of @f$h@f$ to two gluons.
+     * @return @f$r^{(h)}_{gg}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rh_gg;
+
+    /**
+     * @brief Ratio of THDM and SM cross sections for ggF and tth production of h.
+     * @return @f$\sigma^{\text THDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$
+     */
+    double ggF_tth;
+
+    /**
+     * @brief Ratio of THDM and SM cross sections for VBF and Vh production of h.
+     * @return @f$\sigma^{\text THDM}_{\text VBF+Vh}/\sigma^{\text SM}_{\text VBF+Vh}@f$
+     */
+    double VBF_Vh;
+
+    /**
+     * @brief Sum of the modified branching ratios.
+     * @return @f$\sum _i r^{(h)}_{i} BR^{\text SM}(h\to i)@f$
+     */
+    double sumModBRs;
+
+    /**
+     * @brief Total h decay rate in the THDM.
+     * @return @f$\Gamma_h@f$
+     */
+    double Gamma_h;
+
+    /**
+     * @brief Squared relative coupling of @f$h@f$ to a @f$Z@f$ boson and a photon.
+     * @return @f$r^{(h)}_{Z\gamma}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rh_Zga;
+
+    /**
+     * @brief Squared relative coupling of @f$h@f$ to two up type quarks.
+     * @return @f$r^{(h)}_{Q_uQ_u}@f$
+     */
+    double rh_QuQu;
+
+    double THDM_BR_h_bb;
+    double THDM_BR_h_gaga;
+    double THDM_BR_h_tautau;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
+     */
+    double ggF_H_tautau_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
+     */
+    double bbF_H_tautau_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
+     */
+    double ggF_H_gaga_TH;  
+
+    /**
+     * @brief Signal strength for the process @f$pp\to H\to ZZ@f$ at the LHC with 8 TeV.
+     * @return @f$\mu_H^{\text{THDM}}(H\to ZZ)=[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ)] / [\sigma^{\text{SM}}_{pp\to H}\cdot BR^{\text{SM}}(H\to ZZ)]@f$
+     */
+    double pp_H_ZZ_TH; 
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
+     */
+    double ggF_H_WW_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to H\to WW@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
+     */
+    double VBF_H_WW_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
+     */
+    double ggF_H_hh_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
+     */
+    double pp_H_hh_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)@f$
+     */
+    double ggF_H_hh_bbtautau_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
+     */
+    double pp_H_hh_bbbb_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)@f$
+     */
+    double pp_H_hh_gagabb_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to t\bar t@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
+     */
+    double pp_H_tt_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$
+     */
+    double bbF_H_bb_TH;
+
+    /**
+     * @brief Total decay width of the heavy CP-even Higgs @f$H@f$.
+     * @return @f$\Gamma_H@f$
+     */
+    double GammaHtot;
+
+//    /**
+//     * @brief Squared relative coupling of @f$H@f$ to two photons.
+//     * @return @f$r^{(H)}_{\gamma \gamma}@f$
+//     * @details Depends on the type of @f$Z_2@f$ symmetry.
+//     */
+//    double rHH_gaga;
+
+    /**
+     * @brief Squared relative coupling of @f$H@f$ to two gluons.
+     * @return @f$r^{(H)}_{gg}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rHH_gg;
+
+    /**
+     * @brief @f$H@f$ branching ratio to two light Higgs bosons.
+     * @return @f$BR(H\to hh)@f$
+     */
+    double Br_Htohh;
+
+    /**
+     * @brief @f$H@f$ branching ratio to two CP-odd Higgs bosons.
+     * @return @f$BR(H\to AA)@f$
+     */
+    double Br_HtoAA;
+
+    /**
+     * @brief @f$H@f$ branching ratio to two charged Higgs bosons.
+     * @return @f$BR(H\to H^\pm H^\mp)@f$
+     */
+    double Br_HtoHpHm;
+
+    /**
+     * @brief @f$H@f$ branching ratio to two light Higgs bosons.
+     * @return @f$BR(H\to hh)@f$
+     */
+    double Br_HtoAZ;
+
+    /**
+     * @brief @f$H@f$ branching ratio to two light Higgs bosons.
+     * @return @f$BR(H\to hh)@f$
+     */
+    double Br_HtoHpW;
+
+    double THoEX_ggF_H_tautau_ATLAS;
+    double THoEX_ggF_H_tautau_CMS;
+    double THoEX_bbF_H_tautau_ATLAS;
+    double THoEX_bbF_H_tautau_CMS;
+    double THoEX_ggF_H_gaga_ATLAS;
+    double THoEX_ggF_H_gaga_CMS;
+    double THoEX_pp_H_ZZ_CMS;
+    double THoEX_ggF_H_WW_ATLAS;
+    double THoEX_VBF_H_WW_ATLAS;
+    double THoEX_ggF_H_hh_ATLAS;
+    double THoEX_ggF_H_hh_bbtautau_CMS;
+    double THoEX_pp_H_hh_bbbb_CMS;
+    double THoEX_pp_H_hh_gagabb_CMS;
+    double THoEX_pp_H_tt_ATLAS;
+    double THoEX_bbF_H_bb_CMS;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
+     */
+    double ggF_A_tautau_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to \tau\tau@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
+     */
+    double bbF_A_tautau_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
+     */
+    double ggF_A_gaga_TH;
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ)@f$
+     */
+    double ggF_A_hZ_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)@f$
+     */
+    double ggF_A_hZ_bbll_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b Z@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b Z)@f$
+     */
+    double ggF_A_hZ_bbZ_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)@f$
+     */
+    double ggF_A_hZ_tautaull_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau Z@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau Z)@f$
+     */
+    double ggF_A_hZ_tautauZ_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to t\bar t@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
+     */
+    double pp_A_tt_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to b\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$
+     */
+    double bbF_A_bb_TH;
+
+    /**
+     * @brief Total decay width of the CP-odd Higgs @f$A@f$.
+     * @return @f$\Gamma_A@f$
+     */
+    double GammaAtot;
+
+//    /**
+//     * @brief Squared relative coupling of @f$A@f$ to two photons.
+//     * @return @f$r^{(A)}_{\gamma \gamma}@f$
+//     * @details Depends on the type of @f$Z_2@f$ symmetry.
+//     */
+//    double rA_gaga;
+
+    /**
+     * @brief Squared relative coupling of @f$A@f$ to two gluons.
+     * @return @f$r^{(A)}_{gg}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rA_gg;
+
+    /**
+     * @brief @f$A@f$ branching ratio to an @f$H@f$ and a @f$Z@f$ boson.
+     * @return @f$BR(A\to HZ)@f$
+     */
+    double Br_AtoHZ;
+
+    /**
+     * @brief @f$A@f$ branching ratio to an @f$h@f$ and a @f$Z@f$ boson.
+     * @return @f$BR(A\to hZ)@f$
+     */
+    double Br_AtohZ;
+
+    /**
+     * @brief @f$A@f$ branching ratio to a charged Higgs and a @f$W^\mp@f$ boson.
+     * @return @f$BR(A\to H^\pm W^\mp)@f$
+     */
+    double Br_AtoHpW;
+
+    double THoEX_ggF_A_tautau_ATLAS;
+    double THoEX_ggF_A_tautau_CMS;
+    double THoEX_bbF_A_tautau_ATLAS;
+    double THoEX_bbF_A_tautau_CMS;
+    double THoEX_ggF_A_gaga_ATLAS;
+    double THoEX_ggF_A_gaga_CMS;
+    double THoEX_ggF_A_hZ_bbll_CMS;
+    double THoEX_ggF_A_hZ_bbZ_ATLAS;
+    double THoEX_ggF_A_hZ_tautaull_CMS;
+    double THoEX_ggF_A_hZ_tautauZ_ATLAS;
+    double THoEX_pp_A_tt_ATLAS;
+    double THoEX_bbF_A_bb_CMS;
 
 private:
 
     const PVfunctions PV;
-    //const THDM myTHDM;
+    const THDM * myTHDM;
+
+    double bma;
+    double tanb;
+    double m12_2;
+    double mHh2;
+    double mA2;
+    double mHp2;
+    double MW;
+    double cW2;
+    double mHl;
+    double vev;
+    double Ale;
+    double Als;
+    double Mt;
+    double Mb;
+    double Mtau;
+    double Mc;
+    double Ms;
+    double Mmu;
+    double Mu;
+    double Md;
+    double Me;
+    double MZ;
+    std::string modelflag;
 
     ////////////////////////////////////////////////////////////////////////////
     //Caches
-    
+
     /*One-loop functions*/
 
     mutable gslpp::complex B0_MZ2_0_MW2_mHh2_cache[4][CacheSize];
@@ -464,6 +902,109 @@ private:
     mutable gslpp::complex B00_MZ2_MZ2_MZ2_mHh2_cache[3][CacheSize];
     mutable gslpp::complex B00_MZ2_MZ2_MZ2_mHl2_cache[3][CacheSize];
 
+    mutable double ip_Br_HPtott_cache[2][CacheSize];
+    mutable double ip_Br_HPtobb_cache[2][CacheSize];
+    mutable double ip_Br_HPtotautau_cache[2][CacheSize];
+    mutable double ip_Br_HPtocc_cache[2][CacheSize];
+    mutable double ip_Br_HPtomumu_cache[2][CacheSize];
+    mutable double ip_Br_HPtoZZ_cache[2][CacheSize];
+    mutable double ip_Br_HPtoWW_cache[2][CacheSize];
+    mutable double ip_pc_ggFtoHP_cache[2][CacheSize];
+    mutable double ip_pc_VBFtoHP_cache[2][CacheSize];
+    mutable double ip_pc_WHP_HP_cache[2][CacheSize];
+    mutable double ip_pc_ZHP_HP_cache[2][CacheSize];
+    mutable double ip_pc_ttFtoHP_cache[2][CacheSize];
+    mutable double ip_GammaHPtotSM_cache[2][CacheSize];
+    mutable double ip_cs_ggFtoHP_cache[2][CacheSize];
+    mutable double ip_cs_ggHP_tt_cache[2][CacheSize];
+    mutable double ip_cs_ggHP_bb_cache[2][CacheSize];
+    mutable double ip_cs_ggA_cache[2][CacheSize];
+    mutable double ip_cs_ggA_tt_cache[2][CacheSize];
+    mutable double ip_cs_ggA_bb_cache[2][CacheSize];
+    mutable double ip_cs_bbFtoHP_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_tautau_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_bbF_phi_tautau_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_bbZ_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_tt_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_WW_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_VBF_H_WW_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_hh_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_pp_H_ZZ_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_bbll_CMS_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_gagabb_CMS_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bbbb_CMS_cache[2][CacheSize];
+    mutable double ip_ex_bbF_phi_bb_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_tautau_CMS_cache[2][CacheSize];
+    mutable double ip_ex_bbF_phi_tautau_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_gaga_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_hh_bbtautau_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_tautaull_CMS_cache[2][CacheSize];
+    mutable double ip_ex_bsgamma_cache[3][CacheSize];
+
+    mutable double ghHpHm_cache[7][CacheSize];
+    mutable double g_HH_HpHm_cache[7][CacheSize];
+
+    mutable gslpp::complex I_h_U_cache[5][CacheSize];
+    mutable gslpp::complex I_HH_U_cache[4][CacheSize];
+    mutable gslpp::complex I_A_U_cache[4][CacheSize];
+    mutable gslpp::complex I_h_D_cache[5][CacheSize];
+    mutable gslpp::complex I_HH_D_cache[4][CacheSize];
+    mutable gslpp::complex I_A_D_cache[4][CacheSize];
+    mutable gslpp::complex I_h_L_cache[5][CacheSize];
+    mutable gslpp::complex I_HH_L_cache[4][CacheSize];
+    mutable gslpp::complex I_A_L_cache[4][CacheSize];
+    mutable gslpp::complex I_H_W_cache[3][CacheSize];
+    mutable gslpp::complex I_H_Hp_cache[3][CacheSize];
+
+    mutable gslpp::complex A_h_U_cache[7][CacheSize];
+    mutable gslpp::complex A_HH_U_cache[6][CacheSize];
+    mutable gslpp::complex A_A_U_cache[6][CacheSize];
+    mutable gslpp::complex A_h_D_cache[7][CacheSize];
+    mutable gslpp::complex A_HH_D_cache[6][CacheSize];
+    mutable gslpp::complex A_A_D_cache[6][CacheSize];
+    mutable gslpp::complex A_h_L_cache[7][CacheSize];
+    mutable gslpp::complex A_HH_L_cache[6][CacheSize];
+    mutable gslpp::complex A_A_L_cache[6][CacheSize];
+    mutable gslpp::complex A_H_W_cache[5][CacheSize];
+    mutable gslpp::complex A_H_Hp_cache[5][CacheSize];
+
+    mutable double KaellenFunction_cache[4][CacheSize];
+
+    /**
+     * @brief f function for the gamma gamma coupling to h, H and A
+     * @return @f$f(x)@f$
+     * @details The definition can be found in (2.19) of @cite Gunion:1989we.
+     */
+    gslpp::complex f_func(const double x) const;
+
+    /**
+     * @brief g function for the Int1 function
+     * @return @f$g(x)@f$
+     * @details The definition can be found in (2.24) of @cite Gunion:1989we.
+     */
+    gslpp::complex g_func(const double x) const;
+
+    /**
+     * @brief @f$I_1@f$ function for Z gamma coupling to h, H and A
+     * @return @f$I_1(\tau,\lambda)@f$
+     * @details The definition can be found in (2.24) of @cite Gunion:1989we.
+     */
+    gslpp::complex Int1(const double tau, const double lambda) const;
+
+    /**
+     * @brief @f$I_2@f$ function for Z gamma coupling to h, H and A
+     * @return @f$I_2(\tau,\lambda)@f$
+     * @details The definition can be found in (2.24) of @cite Gunion:1989we.
+     */
+    gslpp::complex Int2(const double tau, const double lambda) const;
+
+    /**
+     * @brief Heaviside @f$\Theta@f$ function
+     * @return @f$\Theta(x)@f$
+     * @details Gives 1 for @f$x\geq 0@f$ and 0 for @f$x<0@f$.
+     */
+    int HSTheta (const double x) const;
 };
 
 #endif	/* THDMCACHE_H */

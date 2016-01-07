@@ -13,7 +13,7 @@ bsgammaTHDM::bsgammaTHDM(const StandardModel& SM_i):
         ThObservable(SM_i), 
         myTHDM(static_cast<const THDM*> (&SM_i))
 {
-    mycache = new THDMcache();
+    mycache = new THDMcache(SM_i);
 }
 
 bsgammaTHDM::~bsgammaTHDM()
