@@ -12,7 +12,6 @@
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
 #include "THDMObservables.h"
