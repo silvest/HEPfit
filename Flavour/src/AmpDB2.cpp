@@ -7,8 +7,6 @@
 
 #include "AmpDB2.h"
 
-using namespace gslpp;
-
 AmpDB2::AmpDB2(const StandardModel& SM_i) 
 : mySM(SM_i) 
 {}
@@ -18,7 +16,7 @@ gslpp::complex AmpDB2::AmpBd(orders order)
     if (mySM.getMyFlavour()->getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
             mySM.getBBd().getMu(),
         mySM.getBBd().getScheme());
     
@@ -61,7 +59,7 @@ gslpp::complex AmpDB2::AmpBs(orders order)
     if (mySM.getMyFlavour()->getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
             mySM.getBBs().getMu(),
             mySM.getBBs().getScheme());
 
