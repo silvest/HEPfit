@@ -8,26 +8,6 @@
 #include "lightHiggs.h"
 #include "StandardModel.h"
 
-//
-//lightHiggs::lightHiggs(const StandardModel& SM_i): 
-//
-//        ThObservable(SM_i)//, 
-//        //myTHDM(static_cast<const THDM&> (SM_i))
-//{}
-//
-//lightHiggs::~lightHiggs()
-//{}
-//
-//double lightHiggs::computeThValue()
-//{
-//    return 0;
-//}
-
-
-/*******************************************************************************
- * Observables                                                                 *
- * ****************************************************************************/
-
 
 
 THDM_BR_h_bb::THDM_BR_h_bb(const StandardModel& SM_i)

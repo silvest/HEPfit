@@ -8,30 +8,7 @@
 #include "heavyHiggs.h"
 #include "StandardModel.h"
 
-//
-//heavyHiggs::heavyHiggs(const StandardModel& SM_i): 
-//
-//        ThObservable(SM_i), 
-//        myTHDM(static_cast<const THDM&> (SM_i))//,
-////        mySM (SM_i)
-//        
-//{
-//    mycache = new THDMcache(SM_i);
-//    //mylightHiggs = new lightHiggs(SM_i);
-//}
-//
-//
-//heavyHiggs::~heavyHiggs()
-//{}
-//
-//double heavyHiggs::computeThValue()
-//{
-//    return 0;
-//}
 
-/*******************************************************************************
- * Observables                                                                 *
- * ****************************************************************************/
 
 Hobs_ggF_H_tautau_ATLAS::Hobs_ggF_H_tautau_ATLAS(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))

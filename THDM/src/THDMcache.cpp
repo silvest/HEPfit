@@ -144,7 +144,7 @@ gslpp::complex THDMcache::B0_MZ2_0_MW2_mHl2(const double MZ2, const double MW2, 
         gslpp::complex newResult = PV.B0(MZ2, 0., MW2, mHl2);
         CacheShift(B0_MZ2_0_MW2_mHl2_cache, NumPar, params, newResult);
         return newResult;
-    } 
+    }
 }
 
 gslpp::complex THDMcache::B0_MZ2_0_MZ2_mHh2(const double MZ2, const double mHh2) const {
@@ -158,7 +158,7 @@ gslpp::complex THDMcache::B0_MZ2_0_MZ2_mHh2(const double MZ2, const double mHh2)
         gslpp::complex newResult = PV.B0(MZ2, 0., MZ2, mHh2);
         CacheShift(B0_MZ2_0_MZ2_mHh2_cache, NumPar, params, newResult);
         return newResult;
-    } 
+    }
 }
 
 gslpp::complex THDMcache::B0_MZ2_0_MZ2_mHl2(const double MZ2, const double mHl2) const {
@@ -172,7 +172,7 @@ gslpp::complex THDMcache::B0_MZ2_0_MZ2_mHl2(const double MZ2, const double mHl2)
         gslpp::complex newResult = PV.B0(MZ2, 0., MZ2, mHl2);
         CacheShift(B0_MZ2_0_MZ2_mHl2_cache, NumPar, params, newResult);
         return newResult;
-    } 
+    }
 }
 
 gslpp::complex THDMcache::B0_MZ2_MW2_MW2_mHh2(const double MZ2, const double MW2, const double mHh2) const {
@@ -2460,27 +2460,10 @@ void THDMcache::computeAquantities()
     double GammaAHpW=2.*HSTheta(mA-MW-mHp)*pow(KaellenFunction(mA2,MW*MW,mHp*mHp),3)
                      /(2.0*M_PI*vev*vev);
 
-    std::cout<<"t="<<BrSM_Atott*rA_QuQu<<std::endl;
-    std::cout<<"c="<<BrSM_Atocc*rA_QuQu<<std::endl;
-    std::cout<<"b="<<BrSM_Atobb*rA_QdQd<<std::endl;
-    std::cout<<"tau="<<BrSM_Atotautau*rA_ll<<std::endl;
-    std::cout<<"mu="<<BrSM_Atomumu*rA_ll<<std::endl;
-
-    std::cout<<"Gamma_Agaga="<<Gamma_Agaga<<std::endl;
-    std::cout<<"Gamma_AZga="<<Gamma_AZga<<std::endl;
-    std::cout<<"Gamma_Agg="<<Gamma_Agg<<std::endl;
-    std::cout<<"GammaAHZ="<<GammaAHZ<<std::endl;
-    std::cout<<"GammaAhZ="<<GammaAhZ<<std::endl;
-    std::cout<<"GammaAHpW="<<GammaAHpW<<std::endl;
-    std::cout<<"GammaAtotSM="<<GammaAtotSM<<std::endl;
-
-
     GammaAtot= ((BrSM_Atott+BrSM_Atocc)*rA_QuQu
                     +BrSM_Atobb*rA_QdQd
                     +(BrSM_Atotautau+BrSM_Atomumu)*rA_ll)*GammaAtotSM
                +Gamma_Agaga+Gamma_AZga+Gamma_Agg+GammaAHZ+GammaAhZ+GammaAHpW;
-
-        std::cout<<"GammaAt="<<GammaAtotSM*BrSM_Atott*rA_QuQu<<std::endl;
 
     double Br_Atott=BrSM_Atott*rA_QuQu*GammaAtotSM/GammaAtot;
     double Br_Atobb=BrSM_Atobb*rA_QdQd*GammaAtotSM/GammaAtot;
