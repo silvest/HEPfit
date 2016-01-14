@@ -37,8 +37,8 @@ public:
     const THDM * myTHDM;
 
     /**
-     * @brief Function @f$F(m02,m12)@f$ used for THDM. Remember that this function is
-     * defined for THDM while for SUSY we have a multiplicative factor 2.
+     * @brief Function @f$F(m02,m12)@f$ used for %THDM. Remember that this function is
+     * defined for %THDM while for SUSY we have a multiplicative factor 2.
      * @param[in] m02 mass square @f$m_0^2@f$
      * @param[in] m12 mass square @f$m_1^2@f$
      * @return @f$F(m02,m12)@f$
@@ -53,7 +53,7 @@ protected:
 /**
  * @class DeltaS
  * @ingroup THDM
- * @brief An observable class for the THDM contribution to the electroweak Peskin-Takeuchi pseudo-observable @f$S@f$.
+ * @brief An observable class for the %THDM contribution to the electroweak Peskin-Takeuchi pseudo-observable @f$S@f$.
  */
 class DeltaS: public STU {
 public:
@@ -73,7 +73,7 @@ public:
 /**
  * @class DeltaT
  * @ingroup THDM
- * @brief An observable class for the THDM contribution to the electroweak Peskin-Takeuchi pseudo-observable @f$T@f$.
+ * @brief An observable class for the %THDM contribution to the electroweak Peskin-Takeuchi pseudo-observable @f$T@f$.
  */
 class DeltaT: public STU {
 public:

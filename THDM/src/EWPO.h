@@ -16,7 +16,7 @@
 /**
  * @class EWPO
  * @ingroup THDM 
- * @brief An observable class to calculate the electroweak precision observables in the THDM.
+ * @brief An observable class to calculate the electroweak precision observables in the %THDM.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details An observable class to calculate ??? in context of the 2HDM.

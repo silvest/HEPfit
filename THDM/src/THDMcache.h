@@ -18,10 +18,10 @@
 /**
  * @class THDMcache
  * @ingroup THDM
- * @brief A class for the caching of some THDM objects.
+ * @brief A class for the caching of some %THDM objects.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details At the moment only the Passarino-Veltman functions for STU are cached.
+ * @details At the moment the Passarino-Veltman functions for %STU and the calculation of the Higgs observables (@f$h@f$ signal strengths and searches for @f$H@f$ and @f$A@f$) are cached.
  * The tables are also read here.
  */
 class THDMcache {
@@ -579,8 +579,22 @@ public:
      */
     double rh_QuQu;
 
+    /**
+     * @brief @f$h@f$ branching ratio to two @f$b@f$ quarks in the %THDM.
+     * @return @f$BR^{\text{THDM}}(h\to b \bar b)@f$
+     */
     double THDM_BR_h_bb;
+
+    /**
+     * @brief @f$h@f$ branching ratio to two photons in the %THDM.
+     * @return @f$BR^{\text{THDM}}(h\to \gamma \gamma)@f$
+     */
     double THDM_BR_h_gaga;
+
+    /**
+     * @brief @f$h@f$ branching ratio to two @f$\tau@f$ leptons in the %THDM.
+     * @return @f$BR^{\text{THDM}}(h\to \tau\tau )@f$
+     */
     double THDM_BR_h_tautau;
 
     /**

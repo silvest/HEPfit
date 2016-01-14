@@ -17,7 +17,6 @@
 #include "positivity.h"
 #include "unitarity.h"
 #include "STU.h"
-#include "THDMfunctions.h"
 #include "THDMquantities.h"
 
 #endif	/* THDMOBSERVABLES_H */
