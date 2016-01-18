@@ -212,7 +212,7 @@
             <pElem>../THDM/src</pElem>
             <pElem>../FlavourWilsonCoefficient/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../boost/</pElem>
+            <pElem>../boost/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>

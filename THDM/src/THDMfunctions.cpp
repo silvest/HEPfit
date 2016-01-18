@@ -7,6 +7,8 @@
 
 #include "THDMfunctions.h"
 #include "StandardModel.h"
+#include <math.h>
+
 
 double THDMfunctions::computeThValue()
 {
@@ -64,5 +66,5 @@ int THDMfunctions::HSTheta (const double x) const{
 
 double THDMfunctions::KaellenFunction (const double a, const double b, const double c) const{
     double x = (a*a-b*b-c*c)*(a*a-b*b-c*c)-4.0*b*b*c*c;
-    return HSTheta(x)*sqrt(std::abs(x))/(2.0*a);
+    return HSTheta(x)*sqrt(fabs(x))/(2.0*a);
 }

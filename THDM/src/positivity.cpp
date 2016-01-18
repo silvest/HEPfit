@@ -7,6 +7,7 @@
 
 #include "positivity.h"
 #include "StandardModel.h"
+#include <math.h>
 
 positivity::positivity(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
@@ -52,7 +53,7 @@ double positivity1::computeThValue()
     if (lambda1>0 && lambda2>0)
     {
         return 0.0001*(2.0*mHp2*cosb*sinb -m12_2 +(mHh2-mHl*mHl)*cosa*sina
-                       +sqrt(std::abs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
+                       +sqrt(fabs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
                              *(mHh2*cosa*cosa +mHl*mHl*sina*sina -m12_2*tanb))));
     }
     else
@@ -87,9 +88,9 @@ double positivity2::computeThValue()
 
     if (lambda1>0 && lambda2>0)
     {
-        return 0.0001*(mA2 -std::abs(mA2-m12_2/cosb/sinb)
+        return 0.0001*(mA2 -fabs(mA2-m12_2/cosb/sinb)
                        +((mHh2-mHl*mHl)*cosa*sina
-                         +sqrt(std::abs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
+                         +sqrt(fabs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
                                *(mHh2*cosa*cosa +mHl*mHl*sina*sina - m12_2*tanb))))
                         /cosb/sinb);
     }

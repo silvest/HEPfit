@@ -137,6 +137,7 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
+            <linkerOptionItem>-Wl,--start-group</linkerOptionItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../StandardModel"
                             CT="3"
@@ -185,10 +186,47 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LeptonFlavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LeptonFlavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>gsl</linkerLibLibItem>
             <linkerLibLibItem>gslcblas</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
+            <linkerOptionItem>-Wl,--end-group</linkerOptionItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs`</commandLine>
         </linkerTool>
