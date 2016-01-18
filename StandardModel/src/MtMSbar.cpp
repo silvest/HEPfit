@@ -5,6 +5,7 @@
  */
 
 #include "MtMSbar.h"
+#include "QCD.h"
 
 double MtMSbar::computeThValue() 
 {

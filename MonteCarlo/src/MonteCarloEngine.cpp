@@ -32,6 +32,7 @@ MonteCarloEngine::MonteCarloEngine(
     obweight = NULL;
     Mod = NULL;
     TH1::StatOverflows(kTRUE);
+    TH1::SetDefaultBufferSize(100000);
 #ifdef _MPI
     rank = MPI::COMM_WORLD.Get_rank();
 #else
@@ -42,7 +43,6 @@ MonteCarloEngine::MonteCarloEngine(
 void MonteCarloEngine::Initialize(Model* Mod_i) {
     TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood",
                     NBINS1D, 1., -1.);
-    lhisto->SetDefaultBufferSize(100000);
     lhisto->GetXaxis()->SetTitle("LogLikelihood");
     BCH1D * bclhisto = new BCH1D(lhisto);
     Histo1D["LogLikelihood"] = bclhisto;
@@ -637,6 +637,14 @@ void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename) {
     out.close();
 }
 
+int MonteCarloEngine::getPrecision(double value, double rms)
+{
+    if (value == 0.0) // otherwise it will return 'nan' due to the log10() of zero
+        return 0.0;
+
+    return 2 + ceil(log10(fabs(value)))-ceil(log10(rms));   
+}
+
 std::string MonteCarloEngine::computeStatistics() {
     std::vector<double> mode(GetBestFitParameters());
     if (mode.size() == 0) {
@@ -667,11 +675,12 @@ std::string MonteCarloEngine::computeStatistics() {
 
         BCH1D * bch1d = Histo1D[it->getName()];
         if (bch1d->GetHistogram()->Integral() > 0.0) {
-            StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
-                    << bch1d->GetMean() << " +- " << std::setprecision(4)
-                    << bch1d->GetRMS() << std::endl
+            double rms = bch1d->GetRMS();
+            StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d->GetMean(),rms))
+                    << bch1d->GetMean() << " +- " << std::setprecision(2)
+                    << rms << std::endl
 
-                    << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
+                    << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d->GetMode(),rms)) << bch1d->GetMode() << std::endl;
 
             std::vector<double> v1;
             std::vector<double> v2;
@@ -682,27 +691,27 @@ std::string MonteCarloEngine::computeStatistics() {
             StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
                     << std::endl;
             for (unsigned j = 0; j < v1.size(); j += 5)
-                StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
-                    << ") (local mode at " << v1[j + 3] << " with rel. height "
-                    << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
+                StatsLog << "       (" << std::setprecision(getPrecision(v1[j],rms)) << v1[j] << ", " << std::setprecision(getPrecision(v1[j+1],rms)) << v1[j + 1]
+                    << ") (local mode at " << std::setprecision(getPrecision(v1[j+3],rms)) << v1[j + 3] << " with rel. height "
+                    << std::setprecision(getPrecision(v1[j+2],rms)) << v1[j + 2] << "; rel. area " << std::setprecision(getPrecision(v1[j+4],rms)) << v1[j + 4] << ")"
                     << std::endl;
             StatsLog << std::endl;
 
             StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
                     << std::endl;
             for (unsigned j = 0; j < v2.size(); j += 5)
-                StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
-                    << ") (local mode at " << v2[j + 3] << " with rel. height "
-                    << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
+                StatsLog << "       (" << std::setprecision(getPrecision(v2[j],rms)) << v2[j] << ", " << std::setprecision(getPrecision(v2[j+1],rms)) << v2[j + 1]
+                    << ") (local mode at " << std::setprecision(getPrecision(v2[j+3],rms)) << v2[j + 3] << " with rel. height "
+                    << std::setprecision(getPrecision(v2[j+2],rms)) << v2[j + 2] << "; rel. area " << std::setprecision(getPrecision(v2[j+4],rms)) << v2[j + 4] << ")"
                     << std::endl;
             StatsLog << std::endl;
 
             StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
                     << std::endl;
             for (unsigned j = 0; j < v3.size(); j += 5)
-                StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
-                    << ") (local mode at " << v3[j + 3] << " with rel. height "
-                    << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
+                StatsLog << "       (" << std::setprecision(getPrecision(v3[j],rms)) << v3[j] << ", " << std::setprecision(getPrecision(v3[j+1],rms)) << v3[j + 1]
+                    << ") (local mode at " << std::setprecision(getPrecision(v3[j+3],rms)) << v3[j + 3] << " with rel. height "
+                    << std::setprecision(getPrecision(v3[j+2],rms)) << v3[j + 2] << "; rel. area " << std::setprecision(getPrecision(v3[j+4],rms)) << v3[j + 4] << ")"
                     << std::endl;
             StatsLog << std::endl;
         } else {
@@ -710,7 +719,7 @@ std::string MonteCarloEngine::computeStatistics() {
         }
     }
 
-    if (CGO.size() > 0) StatsLog << "\nCorellated (Gaussian) Observables:\n" << std::endl;
+    if (CGO.size() > 0) StatsLog << "\nCorrelated (Gaussian) Observables:\n" << std::endl;
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
             it1 < CGO.end(); it1++) {
         StatsLog << "\n" << it1->getName() << ":\n" << std::endl;
@@ -735,44 +744,48 @@ std::string MonteCarloEngine::computeStatistics() {
             StatsLog << std::endl;
             BCH1D * bch1d = Histo1D[it2->getName()];
             if (bch1d->GetHistogram()->Integral() > 0.0) {
-                StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(4)
-                        << bch1d->GetMean() << " +- " << std::setprecision(4)
-                        << bch1d->GetRMS() << std::endl
+            double rms = bch1d->GetRMS();
+            StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d->GetMean(),rms))
+                    << bch1d->GetMean() << " +- " << std::setprecision(2)
+                    << rms << std::endl
 
-                        << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
+                    << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d->GetMode(),rms)) << bch1d->GetMode() << std::endl;
 
-                std::vector<double> v1;
-                std::vector<double> v2;
-                std::vector<double> v3;
-                v1 = bch1d->GetSmallestIntervals(0.6827);
-                v2 = bch1d->GetSmallestIntervals(0.9545);
-                v3 = bch1d->GetSmallestIntervals(0.9973);
-                StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
-                        << std::endl;
-                for (unsigned j = 0; j < v1.size(); j += 5)
-                    StatsLog << "       (" << v1[j] << ", " << v1[j + 1]
-                        << ") (local mode at " << v1[j + 3] << " with rel. height "
-                        << v1[j + 2] << "; rel. area " << v1[j + 4] << ")"
-                        << std::endl;
-                StatsLog << std::endl;
+            std::vector<double> v1;
+            std::vector<double> v2;
+            std::vector<double> v3;
+            v1 = bch1d->GetSmallestIntervals(0.6827);
+            v2 = bch1d->GetSmallestIntervals(0.9545);
+            v3 = bch1d->GetSmallestIntervals(0.9973);
+            StatsLog << "      Smallest interval(s) containing at least 68.27% and local mode(s):"
+                    << std::endl;
+            for (unsigned j = 0; j < v1.size(); j += 5) {
+                StatsLog << "       (" << std::setprecision(getPrecision(v1[j],rms)) << v1[j] << ", " << std::setprecision(getPrecision(v1[j+1],rms)) << v1[j + 1]
+                    << ") (local mode at " << std::setprecision(getPrecision(v1[j+3],rms)) << v1[j + 3] << " with rel. height "
+                    << std::setprecision(getPrecision(v1[j+2],rms)) << v1[j + 2] << "; rel. area " << std::setprecision(getPrecision(v1[j+4],rms)) << v1[j + 4] << ")"
+                    << std::endl;
+            StatsLog << "        corresponding to " << std::setprecision(getPrecision((v1[j]+v1[j+1])/2.,rms)) << (v1[j]+v1[j+1])/2. << " +- " 
+                    << std::setprecision(getPrecision((-v1[j]+v1[j+1])/2.,rms)) << (-v1[j]+v1[j+1])/2. << std::endl;
+            }
+            StatsLog << std::endl;
 
-                StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
-                        << std::endl;
-                for (unsigned j = 0; j < v2.size(); j += 5)
-                    StatsLog << "       (" << v2[j] << ", " << v2[j + 1]
-                        << ") (local mode at " << v2[j + 3] << " with rel. height "
-                        << v2[j + 2] << "; rel. area " << v2[j + 4] << ")"
-                        << std::endl;
-                StatsLog << std::endl;
+            StatsLog << "      Smallest interval(s) containing at least 95.45% and local mode(s):"
+                    << std::endl;
+            for (unsigned j = 0; j < v2.size(); j += 5)
+                StatsLog << "       (" << std::setprecision(getPrecision(v2[j],rms)) << v2[j] << ", " << std::setprecision(getPrecision(v2[j+1],rms)) << v2[j + 1]
+                    << ") (local mode at " << std::setprecision(getPrecision(v2[j+3],rms)) << v2[j + 3] << " with rel. height "
+                    << std::setprecision(getPrecision(v2[j+2],rms)) << v2[j + 2] << "; rel. area " << std::setprecision(getPrecision(v2[j+4],rms)) << v2[j + 4] << ")"
+                    << std::endl;
+            StatsLog << std::endl;
 
-                StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
-                        << std::endl;
-                for (unsigned j = 0; j < v3.size(); j += 5)
-                    StatsLog << "       (" << v3[j] << ", " << v3[j + 1]
-                        << ") (local mode at " << v3[j + 3] << " with rel. height "
-                        << v3[j + 2] << "; rel. area " << v3[j + 4] << ")"
-                        << std::endl;
-                StatsLog << std::endl;
+            StatsLog << "      Smallest interval(s) containing at least 99.73% and local mode(s):"
+                    << std::endl;
+            for (unsigned j = 0; j < v3.size(); j += 5)
+                StatsLog << "       (" << std::setprecision(getPrecision(v3[j],rms)) << v3[j] << ", " << std::setprecision(getPrecision(v3[j+1],rms)) << v3[j + 1]
+                    << ") (local mode at " << std::setprecision(getPrecision(v3[j+3],rms)) << v3[j + 3] << " with rel. height "
+                    << std::setprecision(getPrecision(v3[j+2],rms)) << v3[j + 2] << "; rel. area " << std::setprecision(getPrecision(v3[j+4],rms)) << v3[j + 4] << ")"
+                    << std::endl;
+            StatsLog << std::endl;
             } else {
                 StatsLog << "\nWARNING: The histogram of " << it2->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
             }

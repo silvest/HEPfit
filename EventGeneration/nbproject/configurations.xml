@@ -249,9 +249,9 @@
     </conf>
     <conf name="Cluster_MPI" type="3">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU_MPI|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>

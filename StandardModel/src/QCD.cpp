@@ -328,6 +328,12 @@ bool QCD::PostUpdate()
         BBd.setBpars(0, BBs.getBpars()(0) / BBsoBBd);
     if (computemt) {
         quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
+#if SUSYFIT_DEBUG & 2
+        std::cout << "WARNING: using NLO mt for debugging purpose!"<< std::endl;
+        quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNLO));
+        std::cout << "postupdate: " << mtpole << std::endl;
+        std::cout << "postupdate: " << Mp2Mbar(mtpole, FULLNLO) << std::endl;
+#endif
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
 

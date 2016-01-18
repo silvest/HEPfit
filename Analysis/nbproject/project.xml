@@ -10,9 +10,8 @@
             <header-extensions/>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
+                <make-dep-project>../HiggsExtensions</make-dep-project>
                 <make-dep-project>../Flavour</make-dep-project>
-                <make-dep-project>../FlavourWilsonCoefficient</make-dep-project>
-                <make-dep-project>../EventGeneration</make-dep-project>
                 <make-dep-project>../LeptonFlavour</make-dep-project>
                 <make-dep-project>../HiggsExtensions</make-dep-project>
                 <make-dep-project>../THDM</make-dep-project>
@@ -24,10 +23,10 @@
                 <make-dep-project>../InputParser</make-dep-project>
                 <make-dep-project>../EW</make-dep-project>
                 <make-dep-project>../gslpp</make-dep-project>
-                <make-dep-project>../SUSYMassInsertion</make-dep-project>
-                <make-dep-project>../Observables</make-dep-project>
-                <make-dep-project>../StandardModel</make-dep-project>
-                <make-dep-project>../ComputeObservables</make-dep-project>
+                <make-dep-project>../FlavourWilsonCoefficient</make-dep-project>
+                <make-dep-project>../EW</make-dep-project>
+                <make-dep-project>../InputParser</make-dep-project>
+                <make-dep-project>../NewPhysics</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>

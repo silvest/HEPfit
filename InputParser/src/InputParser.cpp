@@ -190,9 +190,11 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             ++beg;
             if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
+            std::string oldfilepath = filepath;
             std::string IncludeFileName = filepath + *beg;
             if (rank == 0) std::cout << "Including File: " + IncludeFileName << std::endl;
             ReadParameters(IncludeFileName, rank, ModelPars, Observables, Observables2D, CGO, CGP);
+            filepath = oldfilepath;
             IsEOF = false;
             ++beg;
         } else {
