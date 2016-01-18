@@ -65,11 +65,11 @@ double DeltaS::computeThValue()
     gslpp::complex B0prime_MZ2_MZ2_MZ2_mHh2;
     gslpp::complex B0prime_MZ2_MZ2_MZ2_mHl2;
 
-    B00prime_MZ2_MZ2_mHh2_mA2 = - mycache->B00_MZ2_MZ2_mHh2_mA2(MZ2,mHh2,mA2) + mycache->B00_MZ2_0_mHh2_mA2(MZ2,mHh2,mA2);
-    B00prime_MZ2_MZ2_mHp2_mHp2 = - mycache->B00_MZ2_MZ2_mHp2_mHp2(MZ2,mHp2) + mycache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2);
-    B00prime_MZ2_MZ2_mHl2_mA2 = - mycache->B00_MZ2_MZ2_mHl2_mA2(MZ2,mHl2,mA2) + mycache->B00_MZ2_0_mHl2_mA2(MZ2,mHl2,mA2);
-    B00prime_MZ2_MZ2_MZ2_mHh2 = - mycache->B00_MZ2_MZ2_MZ2_mHh2(MZ2,mHh2) + mycache->B00_MZ2_0_MZ2_mHh2(MZ2,mHh2);
-    B00prime_MZ2_MZ2_MZ2_mHl2 = - mycache->B00_MZ2_MZ2_MZ2_mHl2(MZ2,mHl2) + mycache->B00_MZ2_0_MZ2_mHl2(MZ2,mHl2);
+    B00prime_MZ2_MZ2_mHh2_mA2 = mycache->B00_MZ2_MZ2_mHh2_mA2(MZ2,mHh2,mA2) - mycache->B00_MZ2_0_mHh2_mA2(MZ2,mHh2,mA2);
+    B00prime_MZ2_MZ2_mHp2_mHp2 = mycache->B00_MZ2_MZ2_mHp2_mHp2(MZ2,mHp2) - mycache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2);
+    B00prime_MZ2_MZ2_mHl2_mA2 = mycache->B00_MZ2_MZ2_mHl2_mA2(MZ2,mHl2,mA2) - mycache->B00_MZ2_0_mHl2_mA2(MZ2,mHl2,mA2);
+    B00prime_MZ2_MZ2_MZ2_mHh2 = mycache->B00_MZ2_MZ2_MZ2_mHh2(MZ2,mHh2) - mycache->B00_MZ2_0_MZ2_mHh2(MZ2,mHh2);
+    B00prime_MZ2_MZ2_MZ2_mHl2 = mycache->B00_MZ2_MZ2_MZ2_mHl2(MZ2,mHl2) - mycache->B00_MZ2_0_MZ2_mHl2(MZ2,mHl2);
     B0prime_MZ2_MZ2_MZ2_mHh2 = mycache->B0_MZ2_MZ2_MZ2_mHh2(MZ2,mHh2) - mycache->B0_MZ2_0_MZ2_mHh2(MZ2,mHh2);
     B0prime_MZ2_MZ2_MZ2_mHl2 = mycache->B0_MZ2_MZ2_MZ2_mHl2(MZ2,mHl2) - mycache->B0_MZ2_0_MZ2_mHl2(MZ2,mHl2);
 
@@ -134,7 +134,7 @@ double DeltaU::computeThValue()
     double cos2_ba = 1. - sin2_ba;
     double MZ=myTHDM->getMz();
     double MZ2 = MZ*MZ;
-    double MW = myTHDM->Mw();
+    double MW =mycache->MWTHDM(myTHDM->Mw_tree());
     double MW2 = MW*MW;
 
     gslpp::complex B00prime_MZ2_MW2_mA2_mHp2;
@@ -146,12 +146,12 @@ double DeltaU::computeThValue()
     gslpp::complex B0prime_MZ2_MW2_MW2_mHh2;
     gslpp::complex B0prime_MZ2_MW2_MW2_mHl2;
 
-    B00prime_MZ2_MW2_mA2_mHp2 = - mycache->B00_MZ2_MW2_mA2_mHp2(MZ2,MW2,mA2,mHp2) + mycache->B00_MZ2_0_mA2_mHp2(MZ2,mA2,mHp2);
-    B00prime_MZ2_MW2_mHp2_mHp2 = - mycache->B00_MZ2_MW2_mHp2_mHp2(MZ2,MW2,mHp2) + mycache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2);
-    B00prime_MZ2_MW2_mHh2_mHp2 = - mycache->B00_MZ2_MW2_mHh2_mHp2(MZ2,MW2,mHh2,mHp2) + mycache->B00_MZ2_0_mHh2_mHp2(MZ2,mHh2,mHp2);
-    B00prime_MZ2_MW2_mHl2_mHp2 = - mycache->B00_MZ2_MW2_mHl2_mHp2(MZ2,MW2,mHl2,mHp2) + mycache->B00_MZ2_0_mHl2_mHp2(MZ2,mHl2,mHp2);
-    B00prime_MZ2_MW2_MW2_mHh2 = - mycache->B00_MZ2_MW2_MW2_mHh2(MZ2,MW2,mHh2) + mycache->B00_MZ2_0_MW2_mHh2(MZ2,MW2,mHh2);
-    B00prime_MZ2_MW2_MW2_mHl2 = - mycache->B00_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2) + mycache->B00_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2);
+    B00prime_MZ2_MW2_mA2_mHp2 = mycache->B00_MZ2_MW2_mA2_mHp2(MZ2,MW2,mA2,mHp2) - mycache->B00_MZ2_0_mA2_mHp2(MZ2,mA2,mHp2);
+    B00prime_MZ2_MW2_mHp2_mHp2 = mycache->B00_MZ2_MW2_mHp2_mHp2(MZ2,MW2,mHp2) - mycache->B00_MZ2_0_mHp2_mHp2(MZ2,mHp2);
+    B00prime_MZ2_MW2_mHh2_mHp2 = mycache->B00_MZ2_MW2_mHh2_mHp2(MZ2,MW2,mHh2,mHp2) - mycache->B00_MZ2_0_mHh2_mHp2(MZ2,mHh2,mHp2);
+    B00prime_MZ2_MW2_mHl2_mHp2 = mycache->B00_MZ2_MW2_mHl2_mHp2(MZ2,MW2,mHl2,mHp2) - mycache->B00_MZ2_0_mHl2_mHp2(MZ2,mHl2,mHp2);
+    B00prime_MZ2_MW2_MW2_mHh2 = mycache->B00_MZ2_MW2_MW2_mHh2(MZ2,MW2,mHh2) - mycache->B00_MZ2_0_MW2_mHh2(MZ2,MW2,mHh2);
+    B00prime_MZ2_MW2_MW2_mHl2 = mycache->B00_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2) - mycache->B00_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2);
     B0prime_MZ2_MW2_MW2_mHh2 = mycache->B0_MZ2_MW2_MW2_mHh2(MZ2,MW2,mHh2) - mycache->B0_MZ2_0_MW2_mHh2(MZ2,MW2,mHh2);
     B0prime_MZ2_MW2_MW2_mHl2 = mycache->B0_MZ2_MW2_MW2_mHl2(MZ2,MW2,mHl2) - mycache->B0_MZ2_0_MW2_mHl2(MZ2,MW2,mHl2);
 

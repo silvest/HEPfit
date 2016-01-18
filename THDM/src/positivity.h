@@ -26,7 +26,6 @@ class positivity : public ThObservable {
 public:
     /**
      * @brief Constructor.
-     * @param[in] ?
      */
    positivity(const StandardModel& SM_i);
      
@@ -45,7 +44,7 @@ public:
 /**
  * @class positivity1
  * @ingroup THDM 
- * @brief Controls that the scalar THDM potential is bounded from below.
+ * @brief Controls that the scalar %THDM potential is bounded from below.
  * @details @f$\lambda_3>-\sqrt{\lambda_1 \lambda_2}@f$.
  */
 class positivity1: public positivity {
@@ -65,7 +64,7 @@ public:
 /**
  * @class positivity2
  * @ingroup THDM 
- * @brief Controls that the scalar THDM potential is bounded from below.
+ * @brief Controls that the scalar %THDM potential is bounded from below.
  * @details @f$\lambda_3+\lambda_4-|\lambda_5|>-\sqrt{\lambda_1 \lambda_2}@f$.
  */
 class positivity2: public positivity {

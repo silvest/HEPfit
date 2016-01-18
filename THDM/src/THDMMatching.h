@@ -16,7 +16,7 @@ class THDM;
 /**
  * @class THDMMatching
  * @ingroup THDM
- * @brief A class for the Wilson coefficients in the THDM.
+ * @brief A class for the Wilson coefficients in the %THDM.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details At the moment, this includes only the @f$B_s@f$ mass difference and the decay @f$B\to \tau \nu@f$.
