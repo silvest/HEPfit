@@ -23,7 +23,7 @@ Bsgamma::Bsgamma(const StandardModel& SM_i, StandardModel::quark quark_i, int ob
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
 {
-    if (SM.ModelName().compare("StandardModel") != 0 && SM.ModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");
@@ -53,7 +53,7 @@ Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
 {
-    if (SM.ModelName().compare("StandardModel") != 0 && SM.ModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");

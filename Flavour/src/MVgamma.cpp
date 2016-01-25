@@ -11,7 +11,7 @@
 
 MVgamma::MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : ThObservable(SM_i)
 {
-    if (SM.ModelName().compare("StandardModel") != 0 && SM.ModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: B to V gamma not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: B to V gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     meson = meson_i;
     vectorM = vector_i;
 }

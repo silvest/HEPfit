@@ -65,7 +65,7 @@ public:
 
     bool checkLEP2NP() const
     {
-        std::string Model = SM.ModelName();
+        std::string Model = SM.getModelName();
         if ( (Model.compare("NPSTU") == 0
                 || Model.compare("NPSTUVWXY") == 0
                 || Model.compare("NPHiggs") == 0

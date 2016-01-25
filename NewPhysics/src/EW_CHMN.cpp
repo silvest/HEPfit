@@ -11,9 +11,9 @@
 EW_CHMN::EW_CHMN(const StandardModel& SM_i)
 : SM(SM_i)
 {
-    if (SM.ModelName().compare("StandardModel") != 0
-            && SM.ModelName().compare("NPSTU") != 0)
-        throw std::runtime_error("EW_CHMN::EW_CHMN() is not applicable for the model " + SM.ModelName());
+    if (SM.getModelName().compare("StandardModel") != 0
+            && SM.getModelName().compare("NPSTU") != 0)
+        throw std::runtime_error("EW_CHMN::EW_CHMN() is not applicable for the model " + SM.getModelName());
 }
 
 
@@ -65,7 +65,7 @@ double EW_CHMN::gL_l(const StandardModel::lepton l) const
     }
 
     double deltaGVl = 0.0, deltaGAl = 0.0;
-    if (SM.ModelName().compare("StandardModel") != 0) {
+    if (SM.getModelName().compare("StandardModel") != 0) {
         deltaGVl = (dynamic_cast<const NPbase*> (&SM))->deltaGV_f(SM.getLeptons(l));
         deltaGAl = (dynamic_cast<const NPbase*> (&SM))->deltaGA_f(SM.getLeptons(l));
     }
@@ -97,7 +97,7 @@ double EW_CHMN::gR_l(const StandardModel::lepton l) const
     }
 
     double deltaGVl = 0.0, deltaGAl = 0.0;
-    if (SM.ModelName().compare("StandardModel") != 0) {
+    if (SM.getModelName().compare("StandardModel") != 0) {
         deltaGVl = (dynamic_cast<const NPbase*> (&SM))->deltaGV_f(SM.getLeptons(l));
         deltaGAl = (dynamic_cast<const NPbase*> (&SM))->deltaGA_f(SM.getLeptons(l));
     }
@@ -134,7 +134,7 @@ double EW_CHMN::gL_q(const QCD::quark q) const
     }
 
     double deltaGVq = 0.0, deltaGAq = 0.0;
-    if (SM.ModelName().compare("StandardModel") != 0) {
+    if (SM.getModelName().compare("StandardModel") != 0) {
         deltaGVq = (dynamic_cast<const NPbase*> (&SM))->deltaGV_f(SM.getQuarks(q));
         deltaGAq = (dynamic_cast<const NPbase*> (&SM))->deltaGA_f(SM.getQuarks(q));
     }
@@ -171,7 +171,7 @@ double EW_CHMN::gR_q(const QCD::quark q) const
     }
 
     double deltaGVq = 0.0, deltaGAq = 0.0;
-    if (SM.ModelName().compare("StandardModel") != 0) {
+    if (SM.getModelName().compare("StandardModel") != 0) {
         deltaGVq = (dynamic_cast<const NPbase*> (&SM))->deltaGV_f(SM.getQuarks(q));
         deltaGAq = (dynamic_cast<const NPbase*> (&SM))->deltaGA_f(SM.getQuarks(q));
     }
@@ -280,7 +280,7 @@ double EW_CHMN::sin2thetaEff() const
 
 double EW_CHMN::S() const
 {
-    if (SM.ModelName().compare("StandardModel") != 0)
+    if (SM.getModelName().compare("StandardModel") != 0)
         return ( (dynamic_cast<const NPbase*> (&SM))->obliqueS());
     else
         return 0.0;
@@ -288,7 +288,7 @@ double EW_CHMN::S() const
 
 double EW_CHMN::T() const
 {
-    if (SM.ModelName().compare("StandardModel") != 0)
+    if (SM.getModelName().compare("StandardModel") != 0)
         return ( (dynamic_cast<const NPbase*> (&SM))->obliqueT());
     else
         return 0.0;
@@ -296,7 +296,7 @@ double EW_CHMN::T() const
 
 double EW_CHMN::U() const
 {
-    if (SM.ModelName().compare("StandardModel") != 0)
+    if (SM.getModelName().compare("StandardModel") != 0)
         return ( (dynamic_cast<const NPbase*> (&SM))->obliqueU());
     else
         return 0.0;

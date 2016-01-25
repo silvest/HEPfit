@@ -16,7 +16,7 @@
 BR_MPll::BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: BR_MPll not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: BR_MPll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
@@ -42,7 +42,7 @@ double BR_MPll::computeThValue()
 R_MPll::R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) 
 : BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_1) 
 {  
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: R_MPll not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: R_MPll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep1 = lep_1;
     lep2 = lep_2;
     meson = meson_i;
@@ -60,7 +60,7 @@ double R_MPll::computeThValue()
 ACP_MPll::ACP_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
 : BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_i) 
 {
-    if (SM.ModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: ACP not implemented in: " + SM.ModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: ACP not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;

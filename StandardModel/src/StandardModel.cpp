@@ -237,7 +237,7 @@ bool StandardModel::PostUpdate()
     }
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
-    if (ModelName() == "StandardModel") {
+    if (getModelName() == "StandardModel") {
         myStandardModelMatching->updateSMParameters();
     }
 

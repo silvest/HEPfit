@@ -67,7 +67,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
                 throw std::runtime_error("\nERROR: " + modname + " not initialized successfully.\n");
             modelset = 1;
             continue;
-        } else if (modelset == 1 && beg->compare(myModel->ModelName()) == 0) {
+        } else if (modelset == 1 && beg->compare(myModel->getModelName()) == 0) {
             continue;
         }
 

@@ -86,7 +86,10 @@ double HiggsObservable::computeWeight()
                 mu += channels(i, j) * theoryValues.at(j);
             }
                 theoryValues.at(thobsvsize) = tho->computeThValue();
-                theoryValues.at(thobsvsize + i + 1) = mu * theoryValues.at(thobsvsize);
+                if(thObsV.at(0)->getModel().isModelLinearized())
+                    theoryValues.at(thobsvsize + i + 1) = -1. + mu + theoryValues.at(thobsvsize);
+                else
+                    theoryValues.at(thobsvsize + i + 1) = mu * theoryValues.at(thobsvsize);
             logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i), channels(i, thobsvsize), channels(i, thobsvsize + 1), channels(i, thobsvsize + 2));
         }
       

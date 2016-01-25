@@ -107,7 +107,7 @@ void StandardModelMatching::updateSMParameters()
     GF = SM.getGF();
     Mw_tree = SM.Mw_tree();
     /* NP models should be added here after writing codes for Mw. */
-    if (SM.ModelName()=="StandardModel") {
+    if (SM.getModelName()=="StandardModel") {
         Mw = SM.Mw(); /* on-shell Mw */
         sW2 = SM.sW2(); /* on-shell sW2 */
     } else {

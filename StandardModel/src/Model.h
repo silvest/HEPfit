@@ -31,6 +31,7 @@ public:
     {
         ModelInitialized = false;
         flagSUSYmodel = false;
+        flagLinearized = false;
     };
 
     /**
@@ -53,7 +54,7 @@ public:
      * @brief A method to fetch the name of the model.
      * @return the name of the model as a string
      */
-    std::string ModelName() const
+    std::string getModelName() const
     {
         return name;
     }
@@ -187,6 +188,15 @@ public:
     bool isModelTHDM() const{
         return flagTHDMmodel;
     }
+    
+    bool isModelLinearized() const{
+        return flagLinearized;
+    }
+    
+    void setModelLinearized(bool linearized = true){
+        flagLinearized = linearized;
+    }
+
 protected:
 
     bool UpdateError; ///< A boolean set to false if update is successful.
@@ -204,6 +214,7 @@ private:
     bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
     bool flagSUSYmodel;///< A flag identifying the model as a SUSY model
     bool flagTHDMmodel;///< A flag identifying the model as a THDM model
+    bool flagLinearized; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
 
 };
 

@@ -389,21 +389,25 @@ double EvolDF2::etatt(double m) const
 
     double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * logx)
             / ((-1. + x) * (-4. + 15. * x - 12. * x2 + x3 + 6. * x2 * logx));
-    //double AlsT = model.Als(model.getMut());
-    //double AlsB = model.Als(model.getMub());
-    //double AlsC = model.Als(model.getMuc());
 
-    double eta = pow(model.Als(model.getMuc()), 6. / 27.) *
-            pow(model.Als(model.getMub()) / model.Als(model.getMuc()), 6. / 25.) *
-            pow(model.Als(model.getMut()) / model.Als(model.getMub()), 6. / 23.) *
-            (1. + model.Als(model.getMuc()) / 4. / M_PI * (J[1] - J[0]) +
-            model.Als(model.getMub()) / 4. / M_PI * (J[2] - J[1])
-            + model.Als(model.getMut()) / 4. / M_PI * (model.getMyMatching()->S1(x) / S0tt
+    double AlsT = model.Als(model.getMut());
+    double AlsB = model.Als(model.getMub());
+    double AlsC = model.Als(model.getMuc());
+    double eta = pow(AlsC, 6. / 27.) *
+            pow(AlsB / AlsC, 6. / 25.) *
+            pow(AlsT / AlsB, 6. / 23.) *
+            (1. + AlsC / 4. / M_PI * (J[1] - J[0]) +
+            AlsB / 4. / M_PI * (J[2] - J[1])
+            + AlsT / 4. / M_PI * (model.getMyMatching()->S1(x) / S0tt
             + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
             + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b));
     /* double J3 = 6. * (N - 1.) / N * (model.Beta1(3) / 2. / model.Beta0(3) / model.Beta0(3)) -
             (N - 1.) / (2. * N) * (-21. + 57. / N - 19./3. * N + 4.) / 2. / model.Beta0(3);*/
-
+#if SUSYFIT_DEBUG & 2
+    std::cout << "AlsT = " << AlsT << " AlsC = " << AlsC << " AlsB = " << AlsB << " mub = " << model.getMub() << std::endl;
+    std::cout << "etatt = " << eta*(1. + model.Als(m, FULLNLO) / 4. / M_PI * J[0]) * pow(model.Als(m, FULLNLO), -2. / 9.)
+            << "  mut = " << model.getMut() << "  Muw = " << model.getMuw() << std::endl;
+#endif
     return (eta * (1. + model.Als(m, FULLNLO) / 4. / M_PI * J[0]) * pow(model.Als(m, FULLNLO), -2. / 9.));
 }
 
