@@ -1188,7 +1188,6 @@
           </linkerDynSerch>
           <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
-            <linkerOptionItem>-Wl,--start-group</linkerOptionItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../ComputeObservables"
                             CT="3"
@@ -1429,7 +1428,6 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerOptionItem>-Wl,--end-group</linkerOptionItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
