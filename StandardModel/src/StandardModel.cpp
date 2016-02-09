@@ -41,7 +41,7 @@ const double StandardModel::Mw_error = 0.00001; /* 0.01 MeV */
 
 StandardModel::StandardModel()
 : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
-Ye(3, 3, 0.)
+Ye(3, 3, 0.), SMM(*this)
 {
     FlagWithoutNonUniversalVC = false;
     FlagNoApproximateGammaZ = false;
@@ -85,7 +85,6 @@ Ye(3, 3, 0.)
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     myTwoFermionsLEP2 = NULL;
     /** END: REMOVE FROM THE PACKAGE **/
-    myStandardModelMatching = NULL;
 
     // Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     leptons[NEUTRINO_1] = Particle("NEUTRINO_1", 0., 0., 0., 0., .5);
@@ -135,7 +134,6 @@ StandardModel::~StandardModel()
         if (myTwoLoopEW != NULL) delete(myTwoLoopEW);
         if (myThreeLoopEW2QCD != NULL) delete(myThreeLoopEW2QCD);
         if (myApproximateFormulae != NULL) delete(myApproximateFormulae);
-        if (myStandardModelMatching != NULL) delete(myStandardModelMatching);
         if (myFlavour != NULL) delete(myFlavour);
         if (myLeptonFlavour != NULL) delete(myLeptonFlavour);
         /** BEGIN: REMOVE FROM THE PACKAGE **/
@@ -158,7 +156,6 @@ bool StandardModel::InitializeModel()
     myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
     myThreeLoopEW = new EWSMThreeLoopEW(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW.
     myApproximateFormulae = new EWSMApproximateFormulae(*myEWSMcache); ///< A pointer to an object of type EWSMApproximateFormulae.
-    myStandardModelMatching = new StandardModelMatching(*this);
     myFlavour = new Flavour(*this);
     myLeptonFlavour = new LeptonFlavour(*this);
     /** BEGIN: REMOVE FROM THE PACKAGE **/
@@ -237,9 +234,7 @@ bool StandardModel::PostUpdate()
     }
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
-    if (ModelName() == "StandardModel") {
-        myStandardModelMatching->updateSMParameters();
-    }
+    SMM.getObj().updateSMParameters();
 
     myFlavour->setSMupdated();
     iterationNo++;

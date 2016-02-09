@@ -18,13 +18,14 @@ const std::string SUSY::SUSYvars[NSUSYvars] = {
 };
 
 SUSY::SUSY()
-: StandardModel(),
+: StandardModel(), SUSYM(*this),
         msQhat2(3,3,0.), msUhat2(3,3,0.), msDhat2(3,3,0.),msLhat2(3,3,0.), msNhat2(3,3,0.), msEhat2(3,3,0.),
         TUhat(3,3,0.), TDhat(3,3,0.), TNhat(3,3,0.), TEhat(3,3,0.),
         mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sdresum2(6,0.), m_sn2(6,0.), m_se2(6,0.),
         U(2,2,0.), V(2,2,0.), N(4,4,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rdresum(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)
 {
+    SMM.setObj((StandardModelMatching&) SUSYM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1r", boost::cref(m1.real())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1i", boost::cref(m1.imag())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m2r", boost::cref(m2.real())));
@@ -48,7 +49,6 @@ SUSY::~SUSY(){
 
 bool SUSY::InitializeModel()
 {
-    mySUSYMatching = new SUSYMatching(*this);
     mySUSYSpectrum = new SUSYSpectrum(*this);
     setFlagStr("Mw", "NORESUM");
     setModelInitialized(StandardModel::InitializeModel());
@@ -157,10 +157,8 @@ bool SUSY::PostUpdate() {
 
     if (Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt(sqrt(m_su2(2) * m_su2(5)));
 
-    /* Necessary for updating StandardModel parameters in StandardModelMatching,
-     * and SUSY and SUSY-derived parameters in SUSYMatching */
-    mySUSYMatching->StandardModelMatching::updateSMParameters();
-    mySUSYMatching->updateSUSYParameters();
+    /* Necessary for updating SUSY and SUSY-derived parameters in SUSYMatching */
+    SUSYM.getObj().updateSUSYParameters();
 
     return (true);
 }

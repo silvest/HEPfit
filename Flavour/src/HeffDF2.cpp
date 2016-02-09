@@ -37,7 +37,7 @@ HeffDF2::~HeffDF2()
 gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) 
 {
 
-     std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdbd2();
+    std::vector<WilsonCoefficient> mc = model.getMatching().CMdbd2();
     
     coeffbd.setMu(mu);
     
@@ -63,7 +63,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBd(double mu, schemes schem
 gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) 
 {
 
-     std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdbs2();
+    std::vector<WilsonCoefficient> mc = model.getMatching().CMdbs2();
 
     coeffbs.setMu(mu);
     
@@ -89,7 +89,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBs(double mu, schemes schem
 gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) 
 {
 
-     std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdd2();
+    std::vector<WilsonCoefficient> mc = model.getMatching().CMdd2();
     
     coeffDd.setMu(mu);
 
@@ -115,7 +115,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffdd(double mu, schemes schem
 gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) 
 {
 
-    std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdk2();
+    std::vector<WilsonCoefficient> mc = model.getMatching().CMdk2();
     gslpp::vector<gslpp::complex> zero(5,0.);
     
     coeffk.setScheme(mc[0].getScheme());
@@ -127,20 +127,20 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme
     orders ordDF2 = coeffk.getOrder();
     for (unsigned int i = 0; i < mc.size(); i++){
         if (i == 0){
-            coeffk.setCoeff(0, evolDF2.etatt(mu) * model.getMyMatching()->S0tt()
-                             + evolDF2.etacc(mu) * model.getMyMatching()->S0c()
-                             + evolDF2.etact(mu) * model.getMyMatching()->S0ct(),
+            coeffk.setCoeff(0, evolDF2.etatt(mu) * model.getMatching().S0tt()
+                             + evolDF2.etacc(mu) * model.getMatching().S0c()
+                             + evolDF2.etact(mu) * model.getMatching().S0ct(),
                             NLO);
 #if SUSYFIT_DEBUG & 2
-    std::cout << "mu = " << mu<< ", S0tt = " << model.getMyMatching()->S0tt() << 
-            ", S0cc = " << model.getMyMatching()->S0c() << 
-            ", S0ct = " << model.getMyMatching()->S0ct() << std::endl <<
+    std::cout << "mu = " << mu<< ", S0tt = " << model.getMatching()->S0tt() << 
+            ", S0cc = " << model.getMatching()->S0c() << 
+            ", S0ct = " << model.getMatching()->S0ct() << std::endl <<
             ", etatt = " << evolDF2.etatt(mu) << 
             ", etacc = " << evolDF2.etacc(mu) << 
             ", etact = " << evolDF2.etact(mu) << std::endl <<
-            "tt = " << evolDF2.etatt(mu)*model.getMyMatching()->S0tt() << 
-            ", cc = " << evolDF2.etacc(mu)*model.getMyMatching()->S0c() << 
-            ", ct = " << evolDF2.etact(mu)*model.getMyMatching()->S0ct() << std::endl;
+            "tt = " << evolDF2.etatt(mu)*model.getMatching()->S0tt() << 
+            ", cc = " << evolDF2.etacc(mu)*model.getMatching()->S0c() << 
+            ", ct = " << evolDF2.etact(mu)*model.getMatching()->S0ct() << std::endl;
 #endif
             
         }
@@ -165,7 +165,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme
 gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffmK(double mu, schemes scheme) 
 {
 
-     std::vector<WilsonCoefficient>& mc = model.getMyMatching()->CMdk2();
+    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMdk2();
     gslpp::vector<gslpp::complex> zero(5,0.);
     
     coeffmk.setMu(mu);

@@ -35,9 +35,14 @@ public:
     
     virtual bool InitializeModel();
     
-    virtual SUSYMassInsertionMatching* getMyMatching() const
+    virtual SUSYMassInsertionMatching& getMatching() const
     {
-        return mySUSYMIA;
+        return SUSYMIM.getObj();
+    }
+ 
+    virtual void setMatching(SUSYMassInsertionMatching& SUSYMIMr)
+    {
+        SUSYMIM.setObj(SUSYMIMr);
     }
  
      ///////////////////////////////////////////////////////////////////////////
@@ -275,8 +280,7 @@ protected:
     double rDDRR11, rDDRR12, rDDRR13, rDDRR21, rDDRR22, rDDRR23, rDDRR31, rDDRR32, rDDRR33;
     double iDDRR11, iDDRR12, iDDRR13, iDDRR21, iDDRR22, iDDRR23, iDDRR31, iDDRR32, iDDRR33;
 
-private:    
-    SUSYMassInsertionMatching* mySUSYMIA;
+    mutable Matching<SUSYMassInsertionMatching,SUSYMassInsertion> SUSYMIM;
 
 };        
 

@@ -15,7 +15,7 @@
 
 
 StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) 
-: ModelMatching(), SM(SM_i),
+: SM(SM_i),
         mcdbd2(5, NDR, NLO),
         mcdbs2(5, NDR, NLO),
         mcdd2(5, NDR, NLO),
@@ -728,7 +728,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  * Wilson coefficients Buras base for Delta B = 2 observables                  *                                           
  * ****************************************************************************/
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2()  
 {
     double gammam = 6. * CF;
     double Bt;  
@@ -848,7 +848,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     return(vmck2);
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras()
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras() 
 {    
     vmcd1Buras.clear();
     
@@ -892,7 +892,7 @@ double StandardModelMatching::phi2(double x, double y) const{
 
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMd1()
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMd1() 
 { 
     vmcd1.clear();
     
@@ -935,7 +935,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() 
 {
     vmcd2.clear();
 
@@ -971,7 +971,8 @@ double StandardModelMatching::phi2(double x, double y) const{
     return(vmcd2);
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMK()  
+ {
     
     double xt = x_t(Muw);
     
@@ -1019,7 +1020,8 @@ double StandardModelMatching::phi2(double x, double y) const{
  * Wilson coefficients Buras base for K -> pi pi decays                        * 
  * operator basis: - current current                                           *
  * ****************************************************************************/
- std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC() 
+ {
     
     double xt = x_t(Muw);
     
@@ -1073,7 +1075,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
     gslpp::complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
@@ -1115,7 +1117,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg()
 }
 
  
-std::vector<WilsonCoefficient>& StandardModelMatching::CMprimebsg() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMprimebsg() 
 {    
     vmcprimebsg.clear();
     
@@ -1222,7 +1224,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-    std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll() 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll() 
     {    
     double xt = x_t(Muw); //* ORDER FULLNNLO*//
     
@@ -1337,7 +1339,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-    std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBMll() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBMll() 
     {
         vmcprimeBMll.clear();
         mcprimeBMll.setMu(Muw);
@@ -1371,7 +1373,8 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  *                 - semileptonic                                              *
  * ****************************************************************************/
     
-     std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() 
+{
     
          // The couplings are not used here, but in the Bsmumu class.
             
@@ -1476,7 +1479,8 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  *                 - semileptonic                                              *
  * ****************************************************************************/
     
-     std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() 
+{
     
          // The couplings are not used here, but in the Bdmumu class.
            
@@ -1578,7 +1582,8 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  * Wilson coefficients calcoulus, misiak base for B -> tau nu                   *
  * ****************************************************************************/
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbtaunu() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbtaunu() 
+{
     
     vmcbtaunu.clear();
     
@@ -2267,7 +2272,8 @@ gslpp::complex StandardModelMatching::S0tt() const
  * Wilson coefficients for Lepton Flavour Violation               *  
  * ****************************************************************************/
 
-std::vector<WilsonCoefficient>& StandardModelMatching::CMDLij(int li_lj) {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMDLij(int li_lj) 
+{
     
     vmcDLij.clear();
     
@@ -2291,7 +2297,8 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMDLij(int li_lj) {
     
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::CMDLi3j(int li_lj) {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMDLi3j(int li_lj) 
+{
 
     vmcDLi3j.clear();
 
@@ -2333,7 +2340,8 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMDLi3j(int li_lj) {
     
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::CMmueconv() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMmueconv() 
+{
     
     vmcmueconv.clear();
     
@@ -2363,7 +2371,8 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMmueconv() {
     
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::CMgminus2mu() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMgminus2mu() 
+{
     
     vmcgminus2mu.clear();
     

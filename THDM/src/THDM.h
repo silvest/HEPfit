@@ -118,16 +118,25 @@ public:
     
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    
+    /**
+     * @brief A get method to access the member reference of type StandardModelMatching.
+     * @return a reference to a StandardModelMatching object
+     */
+    virtual THDMMatching& getMatching() const
+    {
+        return THDMM.getObj();
+    }
+
+    virtual void setMatching(THDMMatching& THDMMr)
+    {
+        THDMM.setObj(THDMMr);
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
     virtual bool setFlagStr(const std::string name, const std::string value);
-
-    virtual THDMMatching* getMyMatching() const
-    {
-        return myTHDMMatching;
-    }
 
     THDMcache* getMyTHDMCache() const
     {
@@ -317,9 +326,10 @@ protected:
             return false;
     }
 
+    mutable Matching<THDMMatching,THDM> THDMM; ///< An object of type Matching.
+
 private:
 
-    THDMMatching* myTHDMMatching;
     THDMcache* myTHDMcache;
 
     double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror;
