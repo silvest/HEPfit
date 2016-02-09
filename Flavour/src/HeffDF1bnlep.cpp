@@ -29,8 +29,8 @@ HeffDF1bnlep::~HeffDF1bnlep()
 gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMbnlep( 0);
-    const std::vector<WilsonCoefficient>& mcbCC = model.getMyMatching()->CMbnlepCC( 0);
+    const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbnlep( 0);
+    const std::vector<WilsonCoefficient>& mcbCC = model.getMatching().CMbnlepCC( 0);
     
     coeffbnlep00qcd.setMu(mu); //inizializes to zero the coefficients
     coeffbnlep00CC.setMu(mu);
@@ -137,8 +137,8 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, sch
 gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMbnlep( 1);
-    const std::vector<WilsonCoefficient>& mcbCC = model.getMyMatching()->CMbnlepCC( 1);
+    const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbnlep( 1);
+    const std::vector<WilsonCoefficient>& mcbCC = model.getMatching().CMbnlepCC( 1);
     
     coeffbnlep10qcd.setMu(mu);
     coeffbnlep10CC.setMu(mu);
@@ -213,8 +213,8 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, sch
 gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mcbCC1 = model.getMyMatching()->CMbnlepCC( 2);
-    const std::vector<WilsonCoefficient>& mcbCC2 = model.getMyMatching()->CMbnlepCC( 3);
+    const std::vector<WilsonCoefficient>& mcbCC1 = model.getMatching().CMbnlepCC( 2);
+    const std::vector<WilsonCoefficient>& mcbCC2 = model.getMatching().CMbnlepCC( 3);
     
     coeffbnlep01.setMu(mu);
     coeffbnlep01A.setMu(mu);
@@ -265,8 +265,8 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep01(double mu, sch
 gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep11(double mu, schemes scheme) 
 {
     
-    const std::vector<WilsonCoefficient>& mcbCC1 = model.getMyMatching()->CMbnlepCC( 2);
-    const std::vector<WilsonCoefficient>& mcbCC2 = model.getMyMatching()->CMbnlepCC( 3);
+    const std::vector<WilsonCoefficient>& mcbCC1 = model.getMatching().CMbnlepCC( 2);
+    const std::vector<WilsonCoefficient>& mcbCC2 = model.getMatching().CMbnlepCC( 3);
     
     coeffbnlep11.setMu(mu);
     coeffbnlep11A.setMu(mu);

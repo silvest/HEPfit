@@ -13,6 +13,7 @@
 #include "CKM.h"
 #include "WilsonCoefficient.h"
 #include "StandardModelMatching.h"
+#include "Matching.h"
 
 class EWSMcache;
 class EWSMOneLoopEW;
@@ -914,12 +915,17 @@ public:
     }
 
     /**
-     * @brief A get method to access the member pointer of type StandardModelMatching.
-     * @return the pointer #myStandardModelMatching
+     * @brief A get method to access the member reference of type StandardModelMatching.
+     * @return a reference to a StandardModelMatching object
      */
-    virtual StandardModelMatching* getMyMatching() const
+    virtual StandardModelMatching& getMatching() const
     {
-        return myStandardModelMatching;
+        return SMM.getObj();
+    }
+
+    virtual void setMatching(StandardModelMatching& SMMr)
+    {
+        SMM.setObj(SMMr);
     }
 
     /**
@@ -2282,6 +2288,8 @@ protected:
      */
     virtual void computeYukawas();
 
+    mutable Matching<StandardModelMatching,StandardModel> SMM; ///< An object of type Matching.
+    
     Particle leptons[6]; ///< An array of Particle objects for the leptons. 
     CKM myCKM; ///< An object of type CKM. 
     gslpp::matrix<gslpp::complex> VCKM; ///< The %CKM matrix.
@@ -2556,8 +2564,6 @@ private:
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
     LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
     /** END: REMOVE FROM THE PACKAGE **/
-
-    StandardModelMatching* myStandardModelMatching; ///< A pointer to an object of type StandardModelMatching.
 
     bool FlagWithoutNonUniversalVC; ///< A boolean for the model flag %WithoutNonUniversalVC.
     bool FlagNoApproximateGammaZ; ///< A boolean for the model flag %NoApproximateGammaZ.

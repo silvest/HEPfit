@@ -20,7 +20,7 @@ public:
      * @param SM
      * @param SM_Matching
      */
-    HeffDF1bsg(const StandardModel & SM, StandardModelMatching & SM_Matching);
+    HeffDF1bsg(const StandardModel & SM);
     
     /**
      * 

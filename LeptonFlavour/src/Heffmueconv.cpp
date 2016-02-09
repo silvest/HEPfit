@@ -17,7 +17,7 @@ Heffmueconv::~Heffmueconv() {
 
 gslpp::vector<gslpp::complex>** Heffmueconv::ComputeCoeffmueconv() {
 
-    std::vector<WilsonCoefficient>& mcb8 = model.getMyMatching() -> CMmueconv();
+    std::vector<WilsonCoefficient>& mcb8 = model.getMatching().CMmueconv();
     orders ordmueconv = coeffmueconv.getOrder();
     coeffmueconv.resetCoefficient();
     for (unsigned int i = 0; i < mcb8.size(); i++){

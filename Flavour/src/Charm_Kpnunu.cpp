@@ -8,7 +8,7 @@
 #include "Charm_Kpnunu.h"
 
 Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i) 
-: model(model_i), modelmatching(*(model_i.getMyMatching())),
+: model(model_i),
 cp(3,0.), dcp(3,0.), c_p(3,0.), cpmuW0(3,0.), cpmuW1(3,0.), cpmuW2(3,0.),  
 cb(2,0.), dcb(2,0.), c_b(2,0.), cbmuW0(2,0.), cbmuW1(2,0.), cbmuW2(2,0.),
 U4p(3,0.), U5p(3,0.), J5p1(3,0.), J4p1(3,0.), J5p2(3,0.), J4p2(3,0.), dc_p(3,0.),
@@ -37,7 +37,7 @@ Charm_Kpnunu::~Charm_Kpnunu()
 gslpp::vector<double> Charm_Kpnunu::Cp(orders order)
 {
     
-    double x = modelmatching.x_t(model.getMuw());
+    double x = model.getMatching().x_t(model.getMuw());
     double L = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
     switch(order){
@@ -581,10 +581,10 @@ double Charm_Kpnunu::P_C(orders order)
 double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew)
 {
     
-    double xt = modelmatching.x_t(model.getMut());
+    double xt = model.getMatching().x_t(model.getMut());
     double Muw = model.getMuw();
     double Ale = model.getAle();
-    double a = 1./modelmatching.mt2omh2(Muw);
+    double a = 1./model.getMatching().mt2omh2(Muw);
     gslpp::complex lambdat = model.computelamt();
     gslpp::complex lambdac = model.computelamc();
     double lambda = model.getLambda();
@@ -594,18 +594,18 @@ double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew)
     double X = 0.;
     
     if((order == NNLO) && (order_ew == NLO_ew)){
-            X = lambdat.real()/lambda5*(modelmatching.X0t(xt) + model.Als(model.getMut(), FULLNLO)
-                /4./M_PI* modelmatching.X1t(xt) + Ale/4./M_PI*modelmatching.Xewt(xt, a, Muw));
+            X = lambdat.real()/lambda5*(model.getMatching().X0t(xt) + model.Als(model.getMut(), FULLNLO)
+                /4./M_PI* model.getMatching().X1t(xt) + Ale/4./M_PI*model.getMatching().Xewt(xt, a, Muw));
             return(X + (lambdac.real()/lambda)*(P_C(NNLO) + IBT));
     }
     
     if((order == NLO) && (order_ew == LO_ew)){
-            X = lambdat.real()/lambda5*(modelmatching.X0t(xt)/lambda5 + model.Als(model.getMut(), FULLNLO)/4./M_PI*modelmatching.X1t(xt));
+            X = lambdat.real()/lambda5*(model.getMatching().X0t(xt)/lambda5 + model.Als(model.getMut(), FULLNLO)/4./M_PI*model.getMatching().X1t(xt));
             return(X + (lambdac.real()/lambda)*(P_C(NLO) + IBT));
     }
     
     if((order == LO) && (order_ew == LO_ew)){
-            X = lambdat.real()*modelmatching.X0t(xt)/lambda5;
+            X = lambdat.real()*model.getMatching().X0t(xt)/lambda5;
             return(X + (lambdac.real()/lambda)*(P_C(LO) + IBT));
     }
 

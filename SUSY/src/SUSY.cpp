@@ -20,13 +20,14 @@ const std::string SUSY::SUSYvars[NSUSYvars] = {
 };
 
 SUSY::SUSY()
-: StandardModel(),
+: StandardModel(), SUSYM(*this),
         msQhat2(3,3,0.), msUhat2(3,3,0.), msDhat2(3,3,0.),msLhat2(3,3,0.), msNhat2(3,3,0.), msEhat2(3,3,0.),
         TUhat(3,3,0.), TDhat(3,3,0.), TNhat(3,3,0.), TEhat(3,3,0.),
         mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sdresum2(6,0.), m_sn2(6,0.), m_se2(6,0.),
         U(2,2,0.), V(2,2,0.), N(4,4,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rdresum(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)
 {
+    SMM.setObj((StandardModelMatching&) SUSYM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1r", boost::cref(m1.real())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1i", boost::cref(m1.imag())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m2r", boost::cref(m2.real())));
@@ -41,7 +42,6 @@ SUSY::SUSY()
 
 SUSY::~SUSY(){
     if (IsModelInitialized()) {
-            if (mySUSYMatching != NULL) delete(mySUSYMatching);
             if (myFH != NULL) delete(myFH);
             if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
             if (myEWSUSY != NULL) delete(myEWSUSY);
@@ -52,7 +52,6 @@ SUSY::~SUSY(){
 
 bool SUSY::InitializeModel()
 {
-    mySUSYMatching = new SUSYMatching(*this);
     mySUSYSpectrum = new SUSYSpectrum(*this);
     myFH = new FeynHiggsWrapper(*this);
     myEWSUSY = new EWSUSY(*this);
@@ -181,38 +180,36 @@ bool SUSY::PostUpdate()
     /* For EWSUSY class */
     myEWSUSY->SetRosiekParameters();
 
-    /* Necessary for updating StandardModel parameters in StandardModelMatching,
-     * and SUSY and SUSY-derived parameters in SUSYMatching */
-    mySUSYMatching->StandardModelMatching::updateSMParameters();
-    mySUSYMatching->updateSUSYParameters();
+    /* Necessary for updating SUSY and SUSY-derived parameters in SUSYMatching */
+    SUSYM.getObj().updateSUSYParameters();
 
-    mySUSYMatching->Comp_mySUSYMQ();
+    SUSYM.getObj().Comp_mySUSYMQ();
 
-    if (IsFlag_ne()) mySUSYMatching->Comp_VdDNL(0);
-    if (IsFlag_ne()) mySUSYMatching->Comp_VdDNR(0);
-    if (IsFlag_ch()) mySUSYMatching->Comp_VdUCL();
-    if (IsFlag_ch()) mySUSYMatching->Comp_VdUCR(0);
+    if (IsFlag_ne()) SUSYM.getObj().Comp_VdDNL(0);
+    if (IsFlag_ne()) SUSYM.getObj().Comp_VdDNR(0);
+    if (IsFlag_ch()) SUSYM.getObj().Comp_VdUCL();
+    if (IsFlag_ch()) SUSYM.getObj().Comp_VdUCR(0);
 
-    mySUSYMatching->Comp_DeltaMd();
-    mySUSYMatching->Comp_DeltaDL();
-    mySUSYMatching->Comp_Eps_J();
-    mySUSYMatching->Comp_Lambda0EpsY();
-    mySUSYMatching->Comp_mySUSY_CKM();
+    SUSYM.getObj().Comp_DeltaMd();
+    SUSYM.getObj().Comp_DeltaDL();
+    SUSYM.getObj().Comp_Eps_J();
+    SUSYM.getObj().Comp_Lambda0EpsY();
+    SUSYM.getObj().Comp_mySUSY_CKM();
 
     if (IsFlag_h()) {
-        mySUSYMatching->Comp_PHLR();
-        mySUSYMatching->Comp_VUDHH();
-        mySUSYMatching->Comp_PHRL();
+        SUSYM.getObj().Comp_PHLR();
+        SUSYM.getObj().Comp_VUDHH();
+        SUSYM.getObj().Comp_PHRL();
     }
     if (IsFlag_ne()) {
-        mySUSYMatching->Comp_VdDNL(1);
-        mySUSYMatching->Comp_VdDNR(1);
-        mySUSYMatching->Comp_VuUN();
+        SUSYM.getObj().Comp_VdDNL(1);
+        SUSYM.getObj().Comp_VdDNR(1);
+        SUSYM.getObj().Comp_VuUN();
     }
     if (IsFlag_ch()) {
-        mySUSYMatching->Comp_VdUCR(1);
-        mySUSYMatching->Comp_VuDCL();
-        mySUSYMatching->Comp_VuDCR();
+        SUSYM.getObj().Comp_VdUCR(1);
+        SUSYM.getObj().Comp_VuDCL();
+        SUSYM.getObj().Comp_VuDCR();
     }
 
     return (true);

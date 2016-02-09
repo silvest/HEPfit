@@ -354,7 +354,7 @@ double EvolDF2::etact(double mu) const
             model.getQuarks(QCD::CHARM).getMass()) - 0.25) * (3. * Kpp - 2. * Kpm + Kmm) +
             262497. / 35000. * Kpp - 123. / 625. * Kpm + 1108657. / 1305000. * Kmm - 277133. / 50750. * K7 +
             K * (-21093. / 8750. * Kpp + 13331. / 13750. * Kpm - 10181. / 18125. * Kmm - 1731104. / 2512125. * K7) +
-            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1. - xt) * (1. - xt)) + 0.5) * K * K7) * xc / (model.getMyMatching()->S0(xc, xt)) * pow(AlsC, 2. / 9.);
+            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1. - xt) * (1. - xt)) + 0.5) * K * K7) * xc / (model.getMatching().S0(xc, xt)) * pow(AlsC, 2. / 9.);
 
     return (eta * (1. + model.Als(mu, FULLNLO) / 4. / M_PI * J3) * pow(model.Als(mu, FULLNLO), -2. / 9.));
 }
@@ -362,7 +362,7 @@ double EvolDF2::etact(double mu) const
 double EvolDF2::etatt(double m) const
 {
     double N = model.getNc();
-    double x = model.getMyMatching()->x_t(model.getMut());
+    double x = model.getMatching().x_t(model.getMut());
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
@@ -398,7 +398,7 @@ double EvolDF2::etatt(double m) const
             pow(AlsT / AlsB, 6. / 23.) *
             (1. + AlsC / 4. / M_PI * (J[1] - J[0]) +
             AlsB / 4. / M_PI * (J[2] - J[1])
-            + AlsT / 4. / M_PI * (model.getMyMatching()->S1(x) / S0tt
+            + AlsT / 4. / M_PI * (model.getMatching().S1(x) / S0tt
             + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
             + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b));
     /* double J3 = 6. * (N - 1.) / N * (model.Beta1(3) / 2. / model.Beta0(3) / model.Beta0(3)) -

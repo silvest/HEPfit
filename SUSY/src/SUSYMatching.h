@@ -250,26 +250,26 @@ public:
     /** Quark Masses run to the SUSY scale Q **/
     void Comp_mySUSYMQ();
     
-    /** Calcolous of Charged Higgs - squrks down - squarks up vertex **/
+    /** Computation of Charged Higgs - squrks down - squarks up vertex **/
     
     void Comp_VUDHH();
     
-    /** Calcolous of down quark - down squark - neutralino vertex **/
+    /** Computation of down quark - down squark - neutralino vertex **/
     
     void Comp_VdDNL(int flag);
     void Comp_VdDNR(int flag);
     
-    /** Calcolous of down quark - up squark - chargino vertex **/
+    /** Computation of down quark - up squark - chargino vertex **/
 
     void Comp_VdUCL();
     void Comp_VdUCR(int flag);     
     
     
-    /** Calcolous of up quark - up squark - neutralino vertex **/
+    /** Computation of up quark - up squark - neutralino vertex **/
     
     void Comp_VuUN();
     
-    /** Calcolous of up quark - down squark - chargino vertex **/
+    /** Computation of up quark - down squark - chargino vertex **/
     
     void Comp_VuDCL();
     void Comp_VuDCR();
@@ -280,7 +280,7 @@ public:
     void Comp_Eps_J();
     void Comp_Lambda0EpsY();
     
-    /** Calcolous of charged Higgs - quark vertex **/
+    /** Computation of charged Higgs - quark vertex **/
     
     void Comp_PHLR();
     void Comp_PHRL();
@@ -460,19 +460,19 @@ private:
     double DLLL(double a, int k);
     
     
-    /** Calcolous of Charged Higgs contributions **/
+    /** Computation of Charged Higgs contributions **/
     gslpp::vector<gslpp::complex> CdF2dHp(int b, int q, int Dmixingflag);
     
-    /** Calcolous Gluinos Box **/
+    /** Computation Gluinos Box **/
     gslpp::vector<gslpp::complex> CdF2dgg(int b, int q, int Dmixingflag);
     
-    /** Calcolous Neutralino - Gluino Box **/
+    /** Computation Neutralino - Gluino Box **/
     gslpp::vector<gslpp::complex> CdF2dChi0g(int b, int q, int Dmixingflag);
     
-    /** Calcolous Charginos contribution to Wilson Coefficents **/
+    /** Computation Charginos contribution to Wilson Coefficents **/
     gslpp::vector<gslpp::complex> CdF2dChiChi(int b, int q, int Dmixingflag);
     
-    /** Calcolous Neutralino contribution to Wilson Coefficents **/
+    /** Computation Neutralino contribution to Wilson Coefficents **/
     gslpp::vector<gslpp::complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
 
     /** Re-diagonalisation of the Neutralino mass matrix **/

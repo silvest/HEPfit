@@ -59,11 +59,15 @@ public:
         return myFH;
     }
 
-    virtual SUSYMatching* getMyMatching() const
+    virtual SUSYMatching& getMatching() const
     {
-        return mySUSYMatching;
+        return SUSYM.getObj();
     }
 
+    virtual void setMatching(SUSYMatching& SUSYMr)
+    {
+        SUSYM.setObj(SUSYMr);
+    }
     
     ///////////////////////////////////////////////////////////////////////////
     // Parameters 
@@ -567,7 +571,7 @@ protected:
     ///////////////////////////////////////////////////////////////////////////
 private:    
     bool flag_h, flag_g, flag_ch, flag_ne;
-    SUSYMatching* mySUSYMatching;
+    mutable Matching<SUSYMatching,SUSY>  SUSYM;
     EWSUSY* myEWSUSY;
 
 };

@@ -142,7 +142,6 @@ public:
     
 private:
     const StandardModel& model;
-    const StandardModelMatching& modelmatching;
     gslpp::vector<double> cp, dcp, c_p, cpmuW0, cpmuW1, cpmuW2, cb, dcb, c_b, cbmuW0,
                    cbmuW1, cbmuW2;
     gslpp::matrix<double> U4p, U5p, J5p1, J4p1, J5p2, J4p2, dc_p, 

@@ -44,9 +44,10 @@ const std::string SUSYMassInsertion::SusyMIvars[NSusyMIvars] = {"Msq", "m3", "Mu
 };
 
 SUSYMassInsertion::SUSYMassInsertion()
-:  StandardModel(),
+:  StandardModel(), SUSYMIM(*this),
         Du_LL(3,0.), Du_LR(3,0.), Du_RL(3,0.), Du_RR(3,0.),
         Dd_LL(3,0.), Dd_LR(3,0.), Dd_RL(3,0.), Dd_RR(3,0.){
+    SMM.setObj((StandardModelMatching&) SUSYMIM.getObj());
     
         rDULL11=0.; rDULL12=0.; rDULL13=0.; 
         rDULL21=0.; rDULL22=0.; rDULL23=0.; 
@@ -114,7 +115,6 @@ SUSYMassInsertion::~SUSYMassInsertion(){
 
 bool SUSYMassInsertion::InitializeModel()
 {
-    mySUSYMIA = new SUSYMassInsertionMatching(*this);
     setModelInitialized(true);
     return(true);
 }
@@ -161,7 +161,6 @@ bool SUSYMassInsertion::Update(const std::map<std::string, double>& DPars)
 bool SUSYMassInsertion::PostUpdate()
 {
     if (!StandardModel::PostUpdate()) return (false);
-    mySUSYMIA->StandardModelMatching::updateSMParameters();
     return (true);
 }
 

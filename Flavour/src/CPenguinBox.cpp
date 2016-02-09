@@ -8,7 +8,7 @@
 #include "CPenguinBox.h"
 
 CPenguinBox::CPenguinBox(const StandardModel& model_i) 
-: model(model_i), modelmatching(*(model_i.getMyMatching())),
+: model(model_i),
         up(3,0.), j5p1(3,0.), j4p1(3,0.), j5p2(3,0.), j4p2(1,0.),
         ub(2,0.), j5b1(2,0.), j4b1(2,0.), j5b2(2,0.), j4b2(2,0.),
         up4(3,0.), up5(3,0.), ub4(2,0.), ub5(2,0.),
@@ -60,7 +60,7 @@ CPenguinBox::~CPenguinBox(){
 }
 
 gslpp::vector<double> CPenguinBox::WMatchP(orders order){
-    double x = modelmatching.x_t(model.getMuw());
+    double x = model.getMatching().x_t(model.getMuw());
     
     double l = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
@@ -494,8 +494,8 @@ double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
 {
     
     double IBT = model.getDeltaP_cu();
-    double xt = modelmatching.x_t(model.getMuw());
-    double a = modelmatching.mt2omh2(model.getMuw());
+    double xt = model.getMatching().x_t(model.getMuw());
+    double a = model.getMatching().mt2omh2(model.getMuw());
     
     switch(order){
         case(NNLO):
@@ -503,12 +503,12 @@ double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
                 case(NLO_ew):
                     return(model.computelamc().real()/model.getLambda()*(Cmatch(NNLO) + IBT) +
                            model.computelamt().real()/model.getLambda()*(model.Als(model.getMuw())/4./M_PI*
-                                 modelmatching.X1t(xt) + modelmatching.X1t(xt) + model.getAle()/4./M_PI*
-                                 modelmatching.Xewt(xt, a, model.getMuc())));
+                                 model.getMatching().X1t(xt) + model.getMatching().X1t(xt) + model.getAle()/4./M_PI*
+                                 model.getMatching().Xewt(xt, a, model.getMuc())));
                 case(LO_ew):
                     return(model.computelamc().real()/model.getLambda()*(Cmatch(NNLO) + IBT) +
                            model.computelamt().real()/model.getLambda()*(model.Als(model.getMuw())/4./M_PI*
-                                modelmatching.X1t(xt) + modelmatching.X1t(xt)));
+                                model.getMatching().X1t(xt) + model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
                     out << order_ew;
@@ -519,12 +519,12 @@ double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
                 case(NLO_ew):
                     return(model.computelamc().real()/model.getLambda()*(Cmatch(NLO) + IBT) +
                            model.computelamt().real()/model.getLambda()*(model.Als(model.getMuw())/4./M_PI*
-                                 modelmatching.X1t(xt) + modelmatching.X1t(xt) + model.getAle()/4./M_PI*
-                                 modelmatching.Xewt(xt, a, model.getMuc())));
+                                 model.getMatching().X1t(xt) + model.getMatching().X1t(xt) + model.getAle()/4./M_PI*
+                                 model.getMatching().Xewt(xt, a, model.getMuc())));
                 case(LO_ew):
                     return(model.computelamc().real()/model.getLambda()*(Cmatch(NLO) + IBT) +
                            model.computelamt().real()/model.getLambda()*(model.Als(model.getMuw())/4./M_PI*
-                                modelmatching.X1t(xt) + modelmatching.X1t(xt)));
+                                model.getMatching().X1t(xt) + model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
                     out << order_ew;
@@ -535,12 +535,12 @@ double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
                 case(NLO_ew):
                     return(model.computelamc().real()/model.getLambda()*(Cmatch(LO) + IBT) +
                            model.computelamt().real()/model.getLambda()*(model.Als(model.getMuw())/4./M_PI*
-                                 modelmatching.X1t(xt) + model.getAle()/4./M_PI*
-                                 modelmatching.Xewt(xt, a, model.getMuc())));
+                                 model.getMatching().X1t(xt) + model.getAle()/4./M_PI*
+                                 model.getMatching().Xewt(xt, a, model.getMuc())));
                 case(LO_ew):
                     return(model.computelamc().real()/model.getLambda()*(Cmatch(NLO) + IBT) +
                            model.computelamt().real()/model.getLambda()*(model.Als(model.getMuw())/4./M_PI*
-                                modelmatching.X1t(xt)));
+                                model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
                     out << order_ew;

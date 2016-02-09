@@ -20,7 +20,7 @@ gslpp::vector<gslpp::complex>** HeffDLij::ComputeCoeffDLij(int li_lj) {
     switch (li_lj) {
         case 1:
         {
-            std::vector<WilsonCoefficient>& mcb1 = model.getMyMatching() -> CMDLij(1);
+            std::vector<WilsonCoefficient>& mcb1 = model.getMatching().CMDLij(1);
             orders ordDLij_1 = coeffDLij_1.getOrder();
             coeffDLij_1.resetCoefficient();
             for (unsigned int i = 0; i < mcb1.size(); i++){
@@ -33,7 +33,7 @@ gslpp::vector<gslpp::complex>** HeffDLij::ComputeCoeffDLij(int li_lj) {
         }
         case 2:
         {
-            std::vector<WilsonCoefficient>& mcb2 = model.getMyMatching() -> CMDLij(2);
+            std::vector<WilsonCoefficient>& mcb2 = model.getMatching().CMDLij(2);
             orders ordDLij_2 = coeffDLij_2.getOrder();
             coeffDLij_2.resetCoefficient();
             for (unsigned int i = 0; i < mcb2.size(); i++){
@@ -46,7 +46,7 @@ gslpp::vector<gslpp::complex>** HeffDLij::ComputeCoeffDLij(int li_lj) {
         }
         case 3:
         {
-            std::vector<WilsonCoefficient>& mcb3 = model.getMyMatching() -> CMDLij(3);
+            std::vector<WilsonCoefficient>& mcb3 = model.getMatching().CMDLij(3);
             orders ordDLij_3 = coeffDLij_3.getOrder();
             coeffDLij_3.resetCoefficient();
             for (unsigned int i = 0; i < mcb3.size(); i++){
