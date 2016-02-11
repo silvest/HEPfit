@@ -2280,12 +2280,12 @@ gslpp::complex StandardModelMatching::S0tt() const
     mcDLij.setMu(Muw);
     
     switch (mcDLij.getOrder()) {
+        case NNLO:
+        case NLO:
         case LO:
             mcDLij.setCoeff(0, 0., LO);
             mcDLij.setCoeff(1, 0., LO);
             break;
-        case NNLO:
-        case NLO:
         default:
             std::stringstream out;
             out << mcDLij.getOrder();
@@ -2305,6 +2305,8 @@ gslpp::complex StandardModelMatching::S0tt() const
     mcDLi3j.setMu(Muw);
 
     switch (mcDLi3j.getOrder()) {
+        case NNLO:
+        case NLO:
         case LO:
             mcDLi3j.setCoeff(0, 0., LO);
             mcDLi3j.setCoeff(1, 0., LO);
@@ -2327,8 +2329,6 @@ gslpp::complex StandardModelMatching::S0tt() const
             mcDLi3j.setCoeff(18, 0., LO);
             mcDLi3j.setCoeff(19, 0., LO);
             break;
-        case NNLO:
-        case NLO:
         default:
             std::stringstream out;
             out << mcDLi3j.getOrder();
@@ -2348,6 +2348,8 @@ gslpp::complex StandardModelMatching::S0tt() const
     mcmueconv.setMu(Muw);
     
     switch (mcmueconv.getOrder()) {
+        case NNLO:
+        case NLO:
         case LO:
             mcmueconv.setCoeff(0, 0., LO);
             mcmueconv.setCoeff(1, 0., LO);
@@ -2358,8 +2360,6 @@ gslpp::complex StandardModelMatching::S0tt() const
             mcmueconv.setCoeff(6, 0., LO);
             mcmueconv.setCoeff(7, 0., LO);
             break;
-        case NNLO:
-        case NLO:
         default:
             std::stringstream out;
             out << mcmueconv.getOrder();
@@ -2379,12 +2379,15 @@ gslpp::complex StandardModelMatching::S0tt() const
     mcgminus2mu.setMu(Muw);
     
     switch (mcgminus2mu.getOrder()) {
+        case NNLO:
+        case NLO:
+            mcgminus2mu.setCoeff(0, 0., NLO);
+            mcgminus2mu.setCoeff(1, 0., NLO);
+            break;
         case LO:
             mcgminus2mu.setCoeff(0, 0., LO);
             mcgminus2mu.setCoeff(1, 0., LO);
             break;
-        case NNLO:
-        case NLO:
         default:
             std::stringstream out;
             out << mcgminus2mu.getOrder();

@@ -311,6 +311,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mu_3e"] = boost::factory<mu_3e*>();
     obsThFactory["tau_3mu"] = boost::factory<tau_3mu*>();
     obsThFactory["tau_3e"] = boost::factory<tau_3e*>();
+    obsThFactory["gminus2_mu"] = boost::factory<gminus2_mu*>();
     /** END: REMOVE FROM THE PACKAGE **/
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/

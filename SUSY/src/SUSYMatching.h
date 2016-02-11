@@ -10,6 +10,7 @@
 
 #include <gslpp.h>
 #include <complex>
+#include <Polylogarithms.h>
 #include <PVfunctions.h>
 #include "StandardModelMatching.h"
 
@@ -164,6 +165,13 @@ public:
      */    
     virtual gslpp::vector<gslpp::complex> gminus2mu();
 
+//   /** Calculates the muon g-2**/
+    /**
+     * @brief Calculates amplitudes for \f$ (g-2)_{\mu} \f$ at two-loop from \cite ?.
+     * @return returns the vector of the two-loop contributions to the \f$ (g-2)_{\mu} \f$ amplitude
+     */    
+    virtual double gminus2muNLO();
+
    /** Calculates C7 and C7' for m->e (1), t->m (2) and t->e (3)**/
     /**
      * 
@@ -291,6 +299,7 @@ public:
     
 private:
     const SUSY & mySUSY;
+    const Polylogarithms Polylogs;
     const PVfunctions PV;
 
     WilsonCoefficient mcdbd2, mcdbd2Hp, mcdbd2gg, mcdbd2ChiChi, mcdbd2Chi0Chi0, mcdbd2Chi0g,
@@ -430,6 +439,16 @@ private:
 //    gslpp::matrix<gslpp::complex> AmpTEARC;
 
     /**
+     *@brief Sup tri-linear coupling matrix
+     */
+    gslpp::matrix<gslpp::complex> TUhat;
+
+    /**
+     *@brief Sdown tri-linear coupling matrix
+     */
+    gslpp::matrix<gslpp::complex> TDhat;
+
+    /**
      *@brief Slepton tri-linear coupling matrix
      */
     gslpp::matrix<gslpp::complex> TEhat;
@@ -486,17 +505,25 @@ private:
      */
     int delta_ab(int a, int b);
 
-//    gslpp::vector<gslpp::complex> AFunctions();
-//    gslpp::vector<gslpp::complex> BFunctions();
-//    gslpp::vector<gslpp::complex> BHFunctions();
-//    gslpp::vector<gslpp::complex> DFunctions();
-//    gslpp::vector<gslpp::complex> FFunctions();
-//    gslpp::vector<gslpp::complex> C7_Lepton();
-//    gslpp::vector<gslpp::complex> C9_Lepton();
-//    gslpp::vector<gslpp::complex> C10_Lepton();
-//    gslpp::vector<gslpp::complex> CS_Lepton();
-//    gslpp::vector<gslpp::complex> CP_Lepton();
-//    gslpp::vector<gslpp::complex> CT_Lepton();
+    /** NLO g-2 auxiliary functions **/
+        // loopfunctions for Barr-Zee corrections:
+        double fPS(double x);
+        double fS(double x);
+        double fft(double x);
+        // loopfunction for tanb-enhanced correction
+        double It(double a, double b, double c);
+        // loopfunctions for the photonic 2loop corrections:
+        double F3C(double x);
+        double F4C(double x);
+        double F3N(double x);
+        double F4N(double x);
+        double Li2(double x);
+        // loopfunctions for the following correction:
+        //   Deviation of the smuon-muon-chargino/neutralino couplings
+        //   from gauge/Yukawa couplings due to the breaking of SUSY relations
+        //   ref. arXiv:1311.1775
+        double Fa(double x, double y);
+        double Fb(double x, double y);    
 
     /** Feynmann rule for the Chargino - down quark - up squarks vertex with tan beta correction  **/
 

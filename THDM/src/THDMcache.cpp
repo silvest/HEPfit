@@ -1297,11 +1297,11 @@ double THDMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
     double y = 0.0;
        
     if(x<xmin){
-        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
+//        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
         return 0.;
     }
     else if(x>xmax){
-        std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
+//        std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
         return 0.;
     }
     else{
@@ -1329,7 +1329,7 @@ double THDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x, double
     int Nintervalsx = (x-xmin)/intervalx;
     int Nintervalsy = (y-ymin)/intervaly;
     if(x<xmin||x>xmax||y<ymin||y>ymax){
-        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+//        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
         return 0.;
     }
     else{
@@ -1836,7 +1836,7 @@ double THDMcache::KaellenFunction(const double a2, const double b2, const double
     else {
         double newResult = 0.0;
         double x = (a2-b2-c2)*(a2-b2-c2)-4.0*b2*c2;
-        if(x>0) newResult = sqrt(std::abs(x/a2))/2.0;        
+        if(x>0) newResult = sqrt(std::fabs(x/a2))/2.0;        
         CacheShiftReal(KaellenFunction_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -2104,19 +2104,18 @@ void THDMcache::computeHHquantities()
 
     double GammaHtotSM=ip_GammaHPtotSM(mHh);
 
-    double GammaHhh=HSTheta(mHh - 2.0*mHl)*sqrt(std::abs(1.0 - (4.0*mHl*mHl)/mHh2))
-                    *std::abs((cos_ba*cos_ba/(4.0*sinb*cosb*sinb*cosb)
-                    *pow(m12_2 + mHh2*cosa*sina + (2.0* //Otto added a factor of 2 - check this!
-            mHl*mHl - 3.0*m12_2/(sinb*cosb))
+    double GammaHhh=HSTheta(mHh - 2.0*mHl)*sqrt(std::fabs(1.0 - (4.0*mHl*mHl)/mHh2))
+                    *std::fabs((cos_ba*cos_ba/(4.0*sinb*cosb*sinb*cosb)
+                    *pow(m12_2 + mHh2*cosa*sina + (2.0*mHl*mHl - 3.0*m12_2/(sinb*cosb))
                     *sina*cosa,2))/(vev*vev))/(8.0*mHh*M_PI);
 
-    double GammaHHpHm=HSTheta(mHh - 2.0*sqrt(mHp2))*sqrt(std::abs(1.0 - (4.0*mHp2)/mHh2))
-                      *std::abs(pow(cos_ba*(mHh2 + 2.0*mHp2 - 2.0*m12_2/sinb/cosb)
+    double GammaHHpHm=HSTheta(mHh - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/mHh2))
+                      *std::fabs(pow(cos_ba*(mHh2 + 2.0*mHp2 - 2.0*m12_2/sinb/cosb)
                                 -cos_2b/(sinb*cosb)*(mHh2 - m12_2/sinb/cosb)*sin_ba,2)/(vev*vev))
                       /(16.0*mHh*M_PI);
 
-    double GammaHAA=HSTheta(mHh-2.0*sqrt(mA2))*sqrt(std::abs(1.0 - (4.0*mA2)/mHh2))
-                    *std::abs(pow(cos_ba*(2*mA2 + mHh2 - 2.0*m12_2/sinb/cosb)
+    double GammaHAA=HSTheta(mHh-2.0*sqrt(mA2))*sqrt(std::fabs(1.0 - (4.0*mA2)/mHh2))
+                    *std::fabs(pow(cos_ba*(2.0*mA2 + mHh2 - 2.0*m12_2/sinb/cosb)
                     - cos_2b/(sinb*cosb)*(mHh2 - m12_2/sinb/cosb)*sin_ba,2)/(vev*vev))
                     /(32.0*mHh*M_PI);
 
@@ -2476,14 +2475,13 @@ void THDMcache::computeAquantities()
 
     double Br_Ztoee=0.03363; //K.A. Olive et al. (Particle Data Group), Chin. Phys. C38, 090001 (2014)
     double Br_Ztomumu=0.03366; //K.A. Olive et al. (Particle Data Group), Chin. Phys. C38, 090001 (2014)
-    double Br_Ztotautau=0.03370; //K.A. Olive et al. (Particle Data Group), Chin. Phys. C38, 090001 (2014)
 
     ggF_A_tautau_TH=SigmaggF_A*Br_Atotautau;
     bbF_A_tautau_TH=SigmabbF_A*Br_Atotautau;
     ggF_A_gaga_TH=SigmaggF_A*Br_Atogaga;
     ggF_A_hZ_bbll_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_bb*(Br_Ztoee+Br_Ztomumu);
     ggF_A_hZ_bbZ_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_bb;
-    ggF_A_hZ_tautaull_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu+Br_Ztotautau);
+    ggF_A_hZ_tautaull_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu);
     ggF_A_hZ_tautauZ_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_tautau;
     pp_A_tt_TH=SigmaSum*Br_Atott;
     bbF_A_bb_TH=SigmabbF_A*Br_Atobb;
