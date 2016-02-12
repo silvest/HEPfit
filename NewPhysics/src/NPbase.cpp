@@ -11,6 +11,7 @@ NPbase::NPbase()
 : StandardModel(), trueSM()
 {
     trueSM.InitializeModel();
+    trueSM.setSliced(true);
 }
 
 bool NPbase::Update(const std::map<std::string, double>& DPars)

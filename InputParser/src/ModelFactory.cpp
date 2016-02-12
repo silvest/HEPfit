@@ -15,6 +15,7 @@
 #include "NPZbbbarLinearized.h"
 #include "NPEffectiveBS.h"
 #include "NPEffectiveGIMR.h"
+#include "SigmaBR.h"
 #include "HiggsKvKf.h"
 #include "HiggsKvKfgen.h"
 #include "HiggsKvgenKf.h"
@@ -47,6 +48,7 @@ ModelFactory::ModelFactory()
     modelFactory["NPEffectiveBS_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), false, true);
     modelFactory["NPEffectiveBS_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), true, true);
     modelFactory["NPEffectiveGIMR"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), false, false);
+    modelFactory["SigmaBR"] = boost::factory<SigmaBR*>();
     //modelFactory["NPEffectiveGIMR_LFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, false);
     //modelFactory["NPEffectiveGIMR_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), false, true);
     modelFactory["NPEffectiveGIMR_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveGIMR*>(), true, true);

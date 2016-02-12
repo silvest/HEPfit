@@ -197,6 +197,11 @@ public:
         flagLinearized = linearized;
     }
 
+    void setSliced(bool Sliced)
+    {
+        isSliced = Sliced;
+    }
+
 protected:
 
     bool UpdateError; ///< A boolean set to false if update is successful.
@@ -208,6 +213,8 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value) = 0;
     std::map< std::string, boost::reference_wrapper<const double> > ModelParamMap;
+
+    bool isSliced; ///< A boolean set to true if the current istance is a slice of an extended object
 
 private:
     std::string name; ///< The name of the model.
