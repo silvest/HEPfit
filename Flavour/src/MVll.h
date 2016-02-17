@@ -66,7 +66,7 @@ gsl_function convertToGslFunction( const F& f )
  * V(), A_0(), A_1(), A_2(), T_1() and  T_2() using the fit function FF_fit() from @cite Straub:2015ica.
  * The form factor are consequentely translated in the helicity basis through the
  * functions V_0t(), V_p(), V_m(), T_0t(), T_p(), T_m() and S_L() from @cite Jager:2012uw.
- * The QCDF corrections to Wilson coefficient @f$C_9@f$ are computed according to @cite Beneke:2001at: the basic elements
+ * The QCDF corrections to Wilson coefficient @f$C_9@f$ are computed according to @cite Beneke:2001at . The basic elements
  * are build in the functions Tperpplus(), Tparplus(), Tparminus(), Cperp() and Cpar();
  * these corrections have to be integrated to be computed, so the final correction is
  * either obtaind through direct integration in the functions DeltaC9_p(), DeltaC9_m()
