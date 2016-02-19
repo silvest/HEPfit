@@ -1,0 +1,193 @@
+\documentclass[aps,superscriptaddress,nofootinbib,floatfix,notitlepage]{revtex4-1}
+\usepackage[utf8x]{inputenc}
+\pdfoutput=1
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{xspace}
+%\usepackage[punctsep]{collref}
+
+\newcommand{\HEPfit}{\texttt{HEPfit}\xspace}
+\usepackage{lmodern}
+
+\begin{document}
+
+\title{\HEPfit: a Code for the Combination of Indirect and Direct
+  Constraints\\ on High Energy Physics Models. \\
+  v1.0: Precision Electroweak Observables, Higgs Signal Strengths,\\ and Flavour Violation in the
+  Standard Model and Beyond
+  \vspace*{0.5cm}
+%  \begin{figure}[htb!]
+%   \begin{center}
+% %  \includegraphics[width=0.13\textwidth]{logo}
+%   \end{center}
+% \end{figure}
+% \vspace*{-0.8cm}
+}
+
+\collaboration{
+%\begin{figure}[h!]
+  %\begin{center}
+  %\includegraphics[width=0.13\textwidth]{logo}
+  %\end{center}
+ %\end{figure}
+\HEPfit Collaboration
+}
+\homepage{http://www.susyfit.org} 
+%\affiliation{}
+\author{M.~Ciuchini}
+\affiliation{INFN,  Sezione di Roma Tre, Via della Vasca Navale 84, I-00146 Roma, Italy}
+\author{J.~de Blas}
+\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\author{D.~Chowdhury}
+\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\author{8~Eberhardt}
+\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\author{M.~Fedele}
+\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\author{E.~Franco}
+\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\author{S.~Mishima}
+\affiliation{Institute of Particle and Nuclear Studies, KEK, Tsukuba 305-0801, Japan}
+\author{A.~Paul}
+\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\author{L.~Reina}
+\affiliation{Physics Department, Florida State University, Tallahassee, FL 32306-4350, USA}
+\author{L.~Silvestrini}
+\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\author{M.~Valli}
+\affiliation{SISSA, via Bonomea 265, I-34136 Trieste, Italy and INFN, Sezione di Trieste, via Valerio 2, I-34127 Trieste, Italy}
+\begin{abstract}
+\HEPfit is a flexible tool which, given the Standard Model or any extension, allows to \textit{i)} fit the model
+parameters to a given set of experimental observables;
+\textit{ii)} obtain predictions for observables.
+\HEPfit can be used either in Monte Carlo mode, to perform a Bayesian Markov Chain Monte Carlo
+analysis of the given model, or as a library, to obtain predictions of
+observables for a given point in the parameter space of the model, allowing our computational tool to be used in
+any statistical framework. In the present version, Electroweak Precision Observables have been implemented
+in the Standard Model and in several New Physics scenarios.
+
+
+\end{abstract}
+ 
+\maketitle
+
+\section{Introduction}
+Searching for New Physics (NP) in the LHC era requires combining
+experimental and theoretical information from many sources to optimize
+the NP sensitivity. NP searches, even in the absence of a positive
+signal, provide useful information which puts constraints on the
+viable parameter space of any NP model. Should a NP signal emerge at
+future LHC runs or elsewhere, the combination of all available
+information remains a crucial step to pin down the actual NP model.
+NP searches at LHC require extensive detector simulations and are
+usually restricted to a subset of simplified NP models. Given the high
+computational demand of direct searches, it is crucial to explore only
+regions of the parameter space compatible with other constraints. In
+this respect, indirect searches can be helpful and make the study of
+more general models viable.
+
+\HEPfit aims at providing a tool which allows to combine all
+available information to select allowed regions in the parameter space
+of any NP model. To this end, it can compute many observables with
+state-of-the-art theoretical expressions in a set of models which can
+be extended by the user. It also offers the possibility of sampling
+the parameter space using a Markov Chain Monte Carlo implemented using
+the BAT library~\cite{arXiv:0808.2552}. Alternatively, \HEPfit can be
+used as a library to obtain predictions of the observables in any
+implemented model. This allows to use \HEPfit in any statistical
+framework.
+
+This is the first public release with a limited set of observables and
+models, which we plan to enlarge. The code is released under the GNU
+General Public License, so that contributions from users are possible
+and welcome. In particular, the present version provides Electro Weak
+Precision Observables (EWPO) in the SM and in several parametrizations
+of NP contributions. In the near future, we plan to add flavour
+observables and several incarnations of the Minimal Supersymmetric
+Standard Model (MSSM).
+
+The paper is organised as follows. In section~\ref{sec:Physics} we
+summarize models and observables implemented in the present
+version. In section~\ref{sec:Code} we describe the structure of our
+code. Section~\ref{sec:Usage} contains the instructions for using our
+code and some examples. In Section~\ref{sec:Comparison} we compare our
+numerical results with other existing public codes.
+
+Updated information and online documentation can be found at the
+\HEPfit collaboration web site~\cite{website}.
+
+\section{Physics Content}
+\label{sec:Physics}
+
+\subsection{Standard Model}
+\label{sec:SM}
+Marco Ciuchini
+\subsection{Two-Higgs Doublet Models}
+\label{sec:THDM}
+Otto
+\subsection{Minimal Supersymmetric Standard Model}
+\label{sec:MSSM}
+Luca
+\subsection{Dimension 6 Effective Theory above the Electroweak Scale }
+\label{sec:Dim6}
+Jorge
+\subsection{Modified Higgs Couplings}
+\label{sec:Higgs}
+Jorge
+\subsection{Electroweak Precision Observables}
+\label{sec:EWPO}
+Satoshi
+\subsection{Higgs Signal Strengths}
+\label{sec:HSS}
+Maurizio
+\subsection{Flavour Observables}
+\label{sec:Flavour}
+Ayan, Debtosh, Luca
+\begin{table}
+  \centering
+  \begin{tabular}{lccccc}
+    Observable & SM & THDM & MSSM & Dim-6 & MHC \\
+  \end{tabular}
+  \caption{This table summarizes the observables and models
+    implemented in the code.}
+  \label{tab:summary}
+\end{table}
+
+\section{Code Description}
+\label{sec:Code}
+L+M+E, Ayan
+\section{Usage and Examples}
+\label{sec:Usage}
+Ayan
+\section{Comparison with Other Codes}
+\label{sec:Comparison}
+
+\subsection{Comparison with ZFITTER}
+\label{sec:ZFitter}
+Satoshi
+\subsection{Comparison with UTfit}
+\label{sec:UTfit}
+L+M+E
+\subsection{Comparison with JDBM}
+\label{sec:JDBM}
+Jorge
+\subsection{Comparison with SuSEFlav}
+\label{sec:Debtosh}
+Debtosh
+\subsection{More comparisons....}
+\label{sec:more}
+Otto
+\cite{hep-ph/9412201,hep-ph/9908433,hep-ph/0507146,1302.1395}.
+
+
+\acknowledgments
+M.C. is associated to the Dipartimento di Fisica, Universit\`a di Roma
+Tre. E.F. and L.S. are associated to the Dipartimento di Fisica,
+Universit\`a di Roma ``La Sapienza''. We acknowledge partial support
+from ERC Ideas Starting Grant n.~279972 ``NPFlavour'' and ERC Ideas
+Advanced Grant n.~267985 ``DaMeSyFla''.
+
+%\bibliography{hepbiblio}
+
+\end{document}
