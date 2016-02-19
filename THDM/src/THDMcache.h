@@ -111,39 +111,64 @@ public:
     gslpp::matrix<double> br_tt, br_bb, br_tautau, br_cc, br_mumu, br_ZZ, br_WW;
 
     /**
-     * @brief LHC production cross section percentage contributions (derived from the cross sections provided by the LHC Higgs Cross Section Working Group), depending on the Higgs mass.
-     */
-    gslpp::matrix<double> pc_ggF, pc_VBF, pc_WH, pc_ZH, pc_ttH;
-
-    /**
      * @brief Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass.
      */
     gslpp::matrix<double> GammaHtotSM;
 
     /**
-     * @brief HIGLU v4.00 cross sections, depending on the Higgs mass.
+     * @brief SM Higgs production cross section tables at 8 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
      */
-    gslpp::matrix<double> cs_ggH, cs_ggH_tt, cs_ggH_bb, cs_ggA, cs_ggA_tt, cs_ggA_bb;
+    gslpp::matrix<double> log_cs_ggH_8, log_cs_VBF_8, log_cs_WH_8, log_cs_ZH_8;
 
     /**
-     * @brief HiggsBounds 4.1.0 @f$b\bar b \to H@f$ cross sections, depending on the Higgs mass.
+     * @brief SM Higgs production cross section table at 8 TeV obtained with MadGraph 5, depending on the Higgs mass.
      */
-    gslpp::matrix<double> cs_bbFtoHP;
+    gslpp::matrix<double> log_cs_ttH_8;
 
     /**
-     * @brief ATLAS @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
+     * @brief SM Higgs production cross section table at 8 TeV obtained with SusHi 1.5, depending on the Higgs mass.
      */
-    gslpp::matrix<double> ATLAS_ggF_phi_gaga, ATLAS_ggF_phi_tautau, ATLAS_bbF_phi_tautau, ATLAS_ggF_A_hZ_tautauZ, ATLAS_ggF_A_hZ_bbZ, ATLAS_pp_phi_tt, ATLAS_ggF_H_WW, ATLAS_VBF_H_WW, ATLAS_ggF_H_hh;
+    gslpp::matrix<double> log_cs_bbH_8;
 
     /**
-     * @brief CMS @f$95\%@f$ upper signal strength limits, depending on the Higgs mass.
+     * @brief CP-odd Higgs production cross section tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
      */
-    gslpp::matrix<double> CMS_pp_H_ZZ;
+    gslpp::matrix<double> log_cs_ggA_8, log_cs_ttA_8, log_cs_bbA_8;
 
     /**
-     * @brief CMS @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
+     * @brief Production cross section ratio tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> csrH_top_8, csrH_bottom_8, csrA_top_8, csrA_bottom_8;
+
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> ATLAS_pp_phi_gaga, ATLAS_ggF_phi_tautau, ATLAS_bbF_phi_tautau, ATLAS_ggF_A_hZ_tautauZ, ATLAS_ggF_A_hZ_bbZ, ATLAS_ggF_phi_tt, ATLAS_ggF_H_WW, ATLAS_VBF_H_WW, ATLAS_ggF_H_ZZ, ATLAS_VBF_H_ZZ, ATLAS_ggF_H_hh;
+
+    /**
+     * @brief ATLAS expected @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> ATLAS_pp_phi_gaga_e, ATLAS_ggF_phi_tautau_e, ATLAS_bbF_phi_tautau_e, ATLAS_ggF_A_hZ_tautauZ_e, ATLAS_ggF_A_hZ_bbZ_e, ATLAS_ggF_phi_tt_e, ATLAS_ggF_H_WW_e, ATLAS_VBF_H_WW_e, ATLAS_ggF_H_ZZ_e, ATLAS_VBF_H_ZZ_e, ATLAS_ggF_H_hh_e;
+
+    /**
+     * @brief CMS observed @f$95\%@f$ upper signal strength limits, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> CMS_mu_pp_H_VV;
+
+    /**
+     * @brief CMS expected @f$95\%@f$ upper signal strength limits, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> CMS_mu_pp_H_VV_e;
+
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
      */
     gslpp::matrix<double> CMS_ggF_A_hZ_bbll, CMS_pp_H_hh_gagabb, CMS_pp_H_hh_bbbb, CMS_bbF_phi_bb, CMS_ggF_phi_tautau, CMS_bbF_phi_tautau, CMS_ggF_phi_gaga, CMS_ggF_H_hh_bbtautau, CMS_ggF_A_hZ_tautaull;
+
+    /**
+     * @brief CMS expected @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> CMS_ggF_A_hZ_bbll_e, CMS_pp_H_hh_gagabb_e, CMS_pp_H_hh_bbbb_e, CMS_bbF_phi_bb_e, CMS_ggF_phi_tautau_e, CMS_bbF_phi_tautau_e, CMS_ggF_phi_gaga_e, CMS_ggF_H_hh_bbtautau_e, CMS_ggF_A_hZ_tautaull_e;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -193,215 +218,382 @@ public:
     double ip_Br_HPtoWW(double mass);
 
     /**
-     * @brief Interpolating function for the SM percentage contribution of gluon-gluon fusion to the total Higgs production cross section.
-     * @return @f$pc(gg\to H)@f$
-     */
-    double ip_pc_ggFtoHP(double mass);
-
-    /**
-     * @brief Interpolating function for the SM percentage contribution of vector boson fusion to the total Higgs production cross section.
-     * @return @f$pc(VV\to H)@f$
-     */
-    double ip_pc_VBFtoHP(double mass);
-
-    /**
-     * @brief Interpolating function for the SM percentage contribution of @f$W@f$ Higgsstrahlung to the total Higgs production cross section.
-     * @return @f$pc(W\to WH)@f$
-     */
-    double ip_pc_WHP_HP(double mass);
-
-    /**
-     * @brief Interpolating function for the SM percentage contribution of @f$Z@f$ Higgsstrahlung to the total Higgs production cross section.
-     * @return @f$pc(Z\to ZH)@f$
-     */
-    double ip_pc_ZHP_HP(double mass);
-
-    /**
-     * @brief Interpolating function for the SM percentage contribution of @f$t\bar t@f$ associated production to the total Higgs production cross section.
-     * @return @f$pc(t\bar t\to H)@f$
-     */
-    double ip_pc_ttFtoHP(double mass);
-
-    /**
      * @brief Interpolating function for the total SM Higgs decay width.
      * @return @f$\Gamma^{\text{tot}}_H@f$
      */
     double ip_GammaHPtotSM(double mass);
 
     /**
-     * @brief Interpolating function for the SM Higgs production cross section via gluon-gluon fusion.
+     * @brief Interpolating function for the H production cross section via gluon-gluon fusion at 8 TeV.
      * @return @f$\sigma(gg\to H)@f$
      */
-    double ip_cs_ggFtoHP(double mass);
+    double ip_cs_ggtoH_8(double mass);
 
     /**
-     * @brief Interpolating function for the SM Higgs production cross section via gluon-gluon fusion (top-loop only).
-     * @return @f$\sigma_t(gg\to H)@f$
+     * @brief Interpolating function for the H production cross section via vector boson fusion at 8 TeV.
+     * @return @f$\sigma(VV\to H)@f$
      */
-    double ip_cs_ggHP_tt(double mass);
+    double ip_cs_VBFtoH_8(double mass);
 
     /**
-     * @brief Interpolating function for the SM Higgs production cross section via gluon-gluon fusion (bottom-loop only).
-     * @return @f$\sigma_b(gg\to H)@f$
+     * @brief Interpolating function for the W associated H production cross section at 8 TeV.
+     * @return @f$\sigma(W\to WH)@f$
      */
-    double ip_cs_ggHP_bb(double mass);
+    double ip_cs_WtoWH_8(double mass);
 
     /**
-     * @brief Interpolating function for the production cross section of a pseudoscalar via gluon-gluon fusion.
+     * @brief Interpolating function for the Z associated H production cross section at 8 TeV.
+     * @return @f$\sigma(Z\to ZH)@f$
+     */
+    double ip_cs_ZtoZH_8(double mass);
+
+    /**
+     * @brief Interpolating function for the top associated H production cross section at 8 TeV.
+     * @return @f$\sigma(pp\to t \bar t H)@f$
+     */
+    double ip_cs_pptottH_8(double mass);
+
+    /**
+     * @brief Interpolating function for the bottom associated H production cross section at 8 TeV.
+     * @return @f$\sigma(pp\to b \bar b H)@f$
+     */
+    double ip_cs_pptobbH_8(double mass);
+
+    /**
+     * @brief Interpolating function for the A production cross section via gluon-gluon fusion at 8 TeV.
      * @return @f$\sigma(gg\to A)@f$
      */
-    double ip_cs_ggA(double mass);
+    double ip_cs_ggtoA_8(double mass);
 
     /**
-     * @brief Interpolating function for the production cross section of a pseudoscalar via gluon-gluon fusion (top-loop only).
-     * @return @f$\sigma_t(gg\to A)@f$
+     * @brief Interpolating function for the top associated A production cross section at 8 TeV.
+     * @return @f$\sigma(pp\to t \bar t A)@f$
      */
-    double ip_cs_ggA_tt(double mass);
+    double ip_cs_pptottA_8(double mass);
 
     /**
-     * @brief Interpolating function for the production cross section of a pseudoscalar via gluon-gluon fusion (bottom-loop only).
-     * @return @f$\sigma_b(gg\to A)@f$
+     * @brief Interpolating function for the bottom associated A production cross section at 8 TeV.
+     * @return @f$\sigma(pp\to b \bar b A)@f$
      */
-    double ip_cs_ggA_bb(double mass);
+    double ip_cs_pptobbA_8(double mass);
 
     /**
-     * @brief Interpolating function for the bottom quark associated production cross section of a Higgs.
-     * @return @f$\sigma(b\bar b\to H)@f$
+     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution.
+     * @return @f$\sigma_t(gg\to H)/\sigma(gg\to H)@f$
      */
-    double ip_cs_bbFtoHP(double mass);
+    double ip_csr_ggH_t(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two photons.
-     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \gamma \gamma)]_{\text{ATLAS,95\%}}@f$
+     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the bottom-loop and the total contribution.
+     * @return @f$\sigma_b(gg\to H)/\sigma(gg\to H)@f$
+     */
+    double ip_csr_ggH_b(double mass);
+
+    /**
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution.
+     * @return @f$\sigma_t(gg\to A)/\sigma(gg\to A)@f$
+     */
+    double ip_csr_ggA_t(double mass);
+
+    /**
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the bottom-loop and the total contribution.
+     * @return @f$\sigma_b(gg\to A)/\sigma(gg\to A)@f$
+     */
+    double ip_csr_ggA_b(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance decaying to two photons.
+     * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to \gamma \gamma)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1407.6583, Figure 4 @cite Aad:2014ioa.
      */
-    double ip_ex_ggF_phi_gaga_ATLAS(double mass);
+    double ip_ex_pp_phi_gaga_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
+     * @brief Interpolating function for the expected ATLAS upper limit on a scalar resonance decaying to two photons.
+     * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to \gamma \gamma)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1407.6583, Figure 4 @cite Aad:2014ioa.
+     */
+    double ip_ex_pp_phi_gaga_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1409.6064, Figure 11a @cite Aad:2014vgg.
      */
     double ip_ex_ggF_phi_tautau_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
+     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1409.6064, Figure 11a @cite Aad:2014vgg.
+     */
+    double ip_ex_ggF_phi_tautau_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
      * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1409.6064, Figure 11b @cite Aad:2014vgg.
      */
     double ip_ex_bbF_phi_tautau_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ of which the Higgs further decays to a @f$\tau@f$ lepton pair.
+     * @brief Interpolating function for the expected ATLAS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
+     * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1409.6064, Figure 11b @cite Aad:2014vgg.
+     */
+    double ip_ex_bbF_phi_tautau_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ of which the Higgs further decays to a @f$\tau@f$ lepton pair.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to \tau \tau Z)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1502.04478, Figure 3a @cite Aad:2015wra.
      */
     double ip_ex_ggF_A_hZ_tautauZ_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ of which the Higgs further decays to a bottom quark pair.
+     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ of which the Higgs further decays to a @f$\tau@f$ lepton pair.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to \tau \tau Z)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1502.04478, Figure 3a @cite Aad:2015wra.
+     */
+    double ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ of which the Higgs further decays to a bottom quark pair.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to b\bar b Z)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1502.04478, Figure 3b @cite Aad:2015wra.
      */
     double ip_ex_ggF_A_hZ_bbZ_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on scalar resonance decaying to a top quark pair.
+     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ of which the Higgs further decays to a bottom quark pair.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to b\bar b Z)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1502.04478, Figure 3b @cite Aad:2015wra.
+     */
+    double ip_ex_ggF_A_hZ_bbZ_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to a top quark pair.
      * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to t\bar t)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1505.07018, Figure 11d @cite Aad:2015fna.
      */
-    double ip_ex_pp_phi_tt_ATLAS(double mass);
+    double ip_ex_ggF_phi_tt_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$W@f$ bosons.
+     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to a top quark pair.
+     * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to t\bar t)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1505.07018, Figure 11d @cite Aad:2015fna.
+     */
+    double ip_ex_ggF_phi_tt_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$W@f$ bosons.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to WW)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1509.00389, Figure 13, left @cite Aad:2015agg.
      */
     double ip_ex_ggF_H_WW_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a vector boson fusion produced scalar resonance decaying to two @f$W@f$ bosons.
+     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$W@f$ bosons.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to WW)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1509.00389, Figure 13, left @cite Aad:2015agg.
+     */
+    double ip_ex_ggF_H_WW_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a vector boson fusion produced scalar resonance decaying to two @f$W@f$ bosons.
      * @return @f$[\sigma_{VV\to \phi}\cdot BR(\phi\to WW)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1509.00389, Figure 13, right @cite Aad:2015agg.
      */
     double ip_ex_VBF_H_WW_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons.
+     * @brief Interpolating function for the expected ATLAS upper limit on a vector boson fusion produced scalar resonance decaying to two @f$W@f$ bosons.
+     * @return @f$[\sigma_{VV\to \phi}\cdot BR(\phi\to WW)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1509.00389, Figure 13, right @cite Aad:2015agg.
+     */
+    double ip_ex_VBF_H_WW_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$Z@f$ bosons.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to ZZ)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1507.05930, Figure 12(a) @cite Aad:2015kna.
+     */
+    double ip_ex_ggF_H_ZZ_ATLAS(double mass);
+
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$Z@f$ bosons.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to ZZ)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1507.05930, Figure 12(a) @cite Aad:2015kna.
+     */
+    double ip_ex_ggF_H_ZZ_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a vector boson fusion produced scalar resonance decaying to two @f$Z@f$ bosons.
+     * @return @f$[\sigma_{VV\to \phi}\cdot BR(\phi\to ZZ)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1507.05930, Figure 12(b) @cite Aad:2015kna.
+     */
+    double ip_ex_VBF_H_ZZ_ATLAS(double mass);
+
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a vector boson fusion produced scalar resonance decaying to two @f$Z@f$ bosons.
+     * @return @f$[\sigma_{VV\to \phi}\cdot BR(\phi\to ZZ)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1507.05930, Figure 12(b) @cite Aad:2015kna.
+     */
+    double ip_ex_VBF_H_ZZ_ATLAS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1509.04670, Figure 6 @cite Aad:2015xja.
      */
     double ip_ex_ggF_H_hh_ATLAS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a scalar resonance decaying to two @f$Z@f$ bosons.
-     * @return @f$[\mu_H(H\to ZZ)]_{\text{CMS,95\%}}@f$
-     * @details Taken from arXiv:1504.00936, Figure 7, bottom right @cite Khachatryan:2015cwa.
+     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1509.04670, Figure 6 @cite Aad:2015xja.
      */
-    double ip_ex_pp_H_ZZ_CMS(double mass);
+    double ip_ex_ggF_H_hh_ATLAS_e(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ which further decay to a bottom quark pair and a light lepton pair.
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two massive vector bosons.
+     * @return @f$[\mu_H(H\to VV)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1504.00936, Figure 7, bottom right @cite Khachatryan:2015cwa.
+     */
+    double ip_ex_mu_pp_H_VV_CMS(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two massive vector bosons.
+     * @return @f$[\mu_H(H\to VV)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1504.00936, Figure 7, bottom right @cite Khachatryan:2015cwa.
+     */
+    double ip_ex_mu_pp_H_VV_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ which further decay to a bottom quark pair and a light lepton pair.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to b\bar b \ell \ell)]_{\text{CMS,95\%}}@f$
      * @details Taken from arXiv:1504.04710, Figure 3 @cite Khachatryan:2015lba.
      */
     double ip_ex_ggF_A_hZ_bbll_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to a photon pair and a bottom quark pair.
+     * @brief Interpolating function for the expected CMS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ which further decay to a bottom quark pair and a light lepton pair.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to b\bar b \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1504.04710, Figure 3 @cite Khachatryan:2015lba.
+     */
+    double ip_ex_ggF_A_hZ_bbll_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to a photon pair and a bottom quark pair.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh\to \gamma \gamma b\bar b)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-PAS-HIG-13-032, Figure 8 @cite CMS:2014ipa.
      */
     double ip_ex_pp_phi_hh_gagabb_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to two bottom quark pairs.
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to a photon pair and a bottom quark pair.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh\to \gamma \gamma b\bar b)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-13-032, Figure 8 @cite CMS:2014ipa.
+     */
+    double ip_ex_pp_phi_hh_gagabb_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to two bottom quark pairs.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
      * @details Taken from arXiv:1503.04114, Figure 5, left @cite Khachatryan:2015yea.
      */
     double ip_ex_pp_phi_hh_bbbb_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a bottom quark produced scalar resonance decaying to two bottom quarks.
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to two bottom quark pairs.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1503.04114, Figure 5, left @cite Khachatryan:2015yea.
+     */
+    double ip_ex_pp_phi_hh_bbbb_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a bottom quark produced scalar resonance decaying to two bottom quarks.
      * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to b\bar b)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-HIG-14-017, Figure 6 @cite Khachatryan:2015tra.
      */
     double ip_ex_bbF_phi_bb_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
+     * @brief Interpolating function for the expected CMS upper limit on a bottom quark produced scalar resonance decaying to two bottom quarks.
+     * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to b\bar b)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-HIG-14-017, Figure 6 @cite Khachatryan:2015tra.
+     */
+    double ip_ex_bbF_phi_bb_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-PAS-HIG-14-029, Figure 10-a @cite CMS:2015mca.
      */
     double ip_ex_ggF_phi_tautau_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
+     * @brief Interpolating function for the expected CMS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-14-029, Figure 10-a @cite CMS:2015mca.
+     */
+    double ip_ex_ggF_phi_tautau_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
      * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-PAS-HIG-14-029, Figure 10-b @cite CMS:2015mca.
      */
     double ip_ex_bbF_phi_tautau_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a gluon-gluon produced scalar resonance decaying to two photons.
+     * @brief Interpolating function for the expected CMS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
+     * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-14-029, Figure 10-b @cite CMS:2015mca.
+     */
+    double ip_ex_bbF_phi_tautau_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced scalar resonance decaying to two photons.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \gamma \gamma)]_{\text{CMS,95\%}}@f$
      * @details Taken from arXiv:1506.02301, Figure 7, left @cite Khachatryan:2015qba.
      */
     double ip_ex_ggF_phi_gaga_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons which further decay to a bottom quark pair and a @f$\tau@f$ lepton pair.
+     * @brief Interpolating function for the expected CMS upper limit on a gluon-gluon produced scalar resonance decaying to two photons.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \gamma \gamma)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1506.02301, Figure 7, left @cite Khachatryan:2015qba.
+     */
+    double ip_ex_ggF_phi_gaga_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons which further decay to a bottom quark pair and a @f$\tau@f$ lepton pair.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh\to b\bar b \tau \tau)]_{\text{CMS,95\%}}@f$
      * @details Taken from arXiv:1510.01181, Figure 8, bottom right @cite Khachatryan:2015tha.
      */
     double ip_ex_ggF_H_hh_bbtautau_CMS(double mass);
 
     /**
-     * @brief Interpolating function for the CMS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ which further decay to a @f$\tau@f$ lepton pair and a light lepton pair.
+     * @brief Interpolating function for the expected CMS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons which further decay to a bottom quark pair and a @f$\tau@f$ lepton pair.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh\to b\bar b \tau \tau)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1510.01181, Figure 8, bottom right @cite Khachatryan:2015tha.
+     */
+    double ip_ex_ggF_H_hh_bbtautau_CMS_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ which further decay to a @f$\tau@f$ lepton pair and a light lepton pair.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to \tau \tau \ell \ell)]_{\text{CMS,95\%}}@f$
      * @details Taken from arXiv:1510.01181, Figure 10, left @cite Khachatryan:2015tha.
      */
     double ip_ex_ggF_A_hZ_tautaull_CMS(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a gluon-gluon produced pseudoscalar resonance decaying to @f$hZ@f$ which further decay to a @f$\tau@f$ lepton pair and a light lepton pair.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hZ\to \tau \tau \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1510.01181, Figure 10, left @cite Khachatryan:2015tha.
+     */
+    double ip_ex_ggF_A_hZ_tautaull_CMS_e(double mass);
 
     /**
      * @brief Interpolating function for the NNLO value for the branching ratio of @f$b\to s \gamma@f$ decays in the THDM.
@@ -610,16 +802,34 @@ public:
     double bbF_H_tautau_TH;
 
     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to \gamma\gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
+     */
+    double pp_H_gaga_TH;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
      */
-    double ggF_H_gaga_TH;  
+    double ggF_H_gaga_TH;
 
     /**
-     * @brief Signal strength for the process @f$pp\to H\to ZZ@f$ at the LHC with 8 TeV.
-     * @return @f$\mu_H^{\text{THDM}}(H\to ZZ)=[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ)] / [\sigma^{\text{SM}}_{pp\to H}\cdot BR^{\text{SM}}(H\to ZZ)]@f$
+     * @brief Signal strength for the process @f$pp\to H\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
+     * @return @f$\mu_H^{\text{THDM}}(H\to VV)=[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to VV)] / [\sigma^{\text{SM}}_{pp\to H}\cdot BR^{\text{SM}}(H\to VV)]@f$
      */
-    double pp_H_ZZ_TH; 
+    double mu_pp_H_VV_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to ZZ@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
+     */
+    double ggF_H_ZZ_TH;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to H\to ZZ@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
+     */
+    double VBF_H_ZZ_TH;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 8 TeV.
@@ -664,10 +874,10 @@ public:
     double pp_H_hh_gagabb_TH;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H\to t\bar t@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to t\bar t@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
      */
-    double pp_H_tt_TH;
+    double ggF_H_tt_TH;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to b\bar b@f$ at the LHC with 8 TeV.
@@ -726,20 +936,39 @@ public:
     double Br_HtoHpW;
 
     double THoEX_ggF_H_tautau_ATLAS;
+    double R_ggF_H_tautau_ATLAS;
     double THoEX_ggF_H_tautau_CMS;
+    double R_ggF_H_tautau_CMS;
     double THoEX_bbF_H_tautau_ATLAS;
+    double R_bbF_H_tautau_ATLAS;
     double THoEX_bbF_H_tautau_CMS;
-    double THoEX_ggF_H_gaga_ATLAS;
+    double R_bbF_H_tautau_CMS;
+    double THoEX_pp_H_gaga_ATLAS;
+    double R_pp_H_gaga_ATLAS;
     double THoEX_ggF_H_gaga_CMS;
-    double THoEX_pp_H_ZZ_CMS;
+    double R_ggF_H_gaga_CMS;
+    double THoEX_mu_pp_H_VV_CMS;
+    double R_mu_pp_H_VV_CMS;
     double THoEX_ggF_H_WW_ATLAS;
+    double R_ggF_H_WW_ATLAS;
     double THoEX_VBF_H_WW_ATLAS;
+    double R_VBF_H_WW_ATLAS;
+    double THoEX_ggF_H_ZZ_ATLAS;
+    double R_ggF_H_ZZ_ATLAS;
+    double THoEX_VBF_H_ZZ_ATLAS;
+    double R_VBF_H_ZZ_ATLAS;
     double THoEX_ggF_H_hh_ATLAS;
+    double R_ggF_H_hh_ATLAS;
     double THoEX_ggF_H_hh_bbtautau_CMS;
+    double R_ggF_H_hh_bbtautau_CMS;
     double THoEX_pp_H_hh_bbbb_CMS;
+    double R_pp_H_hh_bbbb_CMS;
     double THoEX_pp_H_hh_gagabb_CMS;
-    double THoEX_pp_H_tt_ATLAS;
+    double R_pp_H_hh_gagabb_CMS;
+    double THoEX_ggF_H_tt_ATLAS;
+    double R_ggF_H_tt_ATLAS;
     double THoEX_bbF_H_bb_CMS;
+    double R_bbF_H_bb_CMS;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau\tau@f$ at the LHC with 8 TeV.
@@ -754,10 +983,17 @@ public:
     double bbF_A_tautau_TH;
 
     /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
+     */
+    double pp_A_gaga_TH;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
      */
     double ggF_A_gaga_TH;
+
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ)@f$
@@ -789,10 +1025,10 @@ public:
     double ggF_A_hZ_tautauZ_TH;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to A\to t\bar t@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to t\bar t@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
      */
-    double pp_A_tt_TH;
+    double ggF_A_tt_TH;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to b\bar b@f$ at the LHC with 8 TeV.
@@ -839,17 +1075,29 @@ public:
     double Br_AtoHpW;
 
     double THoEX_ggF_A_tautau_ATLAS;
+    double R_ggF_A_tautau_ATLAS;
     double THoEX_ggF_A_tautau_CMS;
+    double R_ggF_A_tautau_CMS;
     double THoEX_bbF_A_tautau_ATLAS;
+    double R_bbF_A_tautau_ATLAS;
     double THoEX_bbF_A_tautau_CMS;
-    double THoEX_ggF_A_gaga_ATLAS;
+    double R_bbF_A_tautau_CMS;
+    double THoEX_pp_A_gaga_ATLAS;
+    double R_pp_A_gaga_ATLAS;
     double THoEX_ggF_A_gaga_CMS;
+    double R_ggF_A_gaga_CMS;
     double THoEX_ggF_A_hZ_bbll_CMS;
+    double R_ggF_A_hZ_bbll_CMS;
     double THoEX_ggF_A_hZ_bbZ_ATLAS;
+    double R_ggF_A_hZ_bbZ_ATLAS;
     double THoEX_ggF_A_hZ_tautaull_CMS;
+    double R_ggF_A_hZ_tautaull_CMS;
     double THoEX_ggF_A_hZ_tautauZ_ATLAS;
-    double THoEX_pp_A_tt_ATLAS;
+    double R_ggF_A_hZ_tautauZ_ATLAS;
+    double THoEX_ggF_A_tt_ATLAS;
+    double R_ggF_A_tt_ATLAS;
     double THoEX_bbF_A_bb_CMS;
+    double R_bbF_A_bb_CMS;
 
 private:
 
@@ -923,37 +1171,62 @@ private:
     mutable double ip_Br_HPtomumu_cache[2][CacheSize];
     mutable double ip_Br_HPtoZZ_cache[2][CacheSize];
     mutable double ip_Br_HPtoWW_cache[2][CacheSize];
-    mutable double ip_pc_ggFtoHP_cache[2][CacheSize];
-    mutable double ip_pc_VBFtoHP_cache[2][CacheSize];
-    mutable double ip_pc_WHP_HP_cache[2][CacheSize];
-    mutable double ip_pc_ZHP_HP_cache[2][CacheSize];
-    mutable double ip_pc_ttFtoHP_cache[2][CacheSize];
     mutable double ip_GammaHPtotSM_cache[2][CacheSize];
-    mutable double ip_cs_ggFtoHP_cache[2][CacheSize];
-    mutable double ip_cs_ggHP_tt_cache[2][CacheSize];
-    mutable double ip_cs_ggHP_bb_cache[2][CacheSize];
-    mutable double ip_cs_ggA_cache[2][CacheSize];
-    mutable double ip_cs_ggA_tt_cache[2][CacheSize];
-    mutable double ip_cs_ggA_bb_cache[2][CacheSize];
-    mutable double ip_cs_bbFtoHP_cache[2][CacheSize];
+    mutable double ip_cs_ggtoH_8_cache[2][CacheSize];
+    mutable double ip_cs_VBFtoH_8_cache[2][CacheSize];
+    mutable double ip_cs_WtoWH_8_cache[2][CacheSize];
+    mutable double ip_cs_ZtoZH_8_cache[2][CacheSize];
+    mutable double ip_cs_pptottH_8_cache[2][CacheSize];
+    mutable double ip_cs_pptobbH_8_cache[2][CacheSize];
+    mutable double ip_cs_ggtoA_8_cache[2][CacheSize];
+    mutable double ip_cs_pptottA_8_cache[2][CacheSize];
+    mutable double ip_cs_pptobbA_8_cache[2][CacheSize];
+    mutable double ip_csr_ggH_t_cache[2][CacheSize];
+    mutable double ip_csr_ggH_b_cache[2][CacheSize];
+    mutable double ip_csr_ggA_t_cache[2][CacheSize];
+    mutable double ip_csr_ggA_b_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_gaga_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_gaga_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_phi_tautau_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_tautau_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_bbF_phi_tautau_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_bbF_phi_tautau_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_A_hZ_bbZ_ATLAS_cache[2][CacheSize];
-    mutable double ip_ex_pp_phi_tt_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_bbZ_ATLAS_cache_e[2][CacheSize];
+    mutable double ip_ex_ggF_phi_tt_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_tt_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_WW_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_WW_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_VBF_H_WW_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_VBF_H_WW_ATLAS_cache_e[2][CacheSize];
+    mutable double ip_ex_ggF_H_ZZ_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_ZZ_ATLAS_cache_e[2][CacheSize];
+    mutable double ip_ex_VBF_H_ZZ_ATLAS_cache[2][CacheSize];
+    mutable double ip_ex_VBF_H_ZZ_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_ATLAS_cache[2][CacheSize];
-    mutable double ip_ex_pp_H_ZZ_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_hh_ATLAS_cache_e[2][CacheSize];
+    mutable double ip_ex_mu_pp_H_VV_CMS_cache[2][CacheSize];
+    mutable double ip_ex_mu_pp_H_VV_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_A_hZ_bbll_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_bbll_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_gagabb_CMS_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_gagabb_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bbbb_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_bbF_phi_bb_CMS_cache[2][CacheSize];
+    mutable double ip_ex_bbF_phi_bb_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_phi_tautau_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_tautau_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_bbF_phi_tautau_CMS_cache[2][CacheSize];
+    mutable double ip_ex_bbF_phi_tautau_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_phi_gaga_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_gaga_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbtautau_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_hh_bbtautau_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_A_hZ_tautaull_CMS_cache[2][CacheSize];
+    mutable double ip_ex_ggF_A_hZ_tautaull_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 
     mutable double ghHpHm_cache[7][CacheSize];
