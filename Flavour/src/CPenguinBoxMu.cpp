@@ -8,7 +8,7 @@
 #include "CPenguinBoxMu.h"
 
 CPenguinBoxMu::CPenguinBoxMu(const StandardModel& model_i) 
-: model(model_i), modelmatching(*(model_i.getMyMatching()))
+: model(model_i), modelmatching(model_i.getMatching())
 {}
 
 CPenguinBoxMu::~CPenguinBoxMu()

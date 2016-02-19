@@ -18,6 +18,7 @@
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
       <itemPath>src/EWSM_Output.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
+      <itemPath>src/Matching.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/ModelMatching.h</itemPath>
@@ -526,6 +527,8 @@
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Meson.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Meson.h" ex="false" tool="3" flavor2="0">
@@ -801,6 +804,8 @@
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Meson.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Meson.h" ex="false" tool="3" flavor2="0">
@@ -1064,6 +1069,8 @@
       <item path="src/EWSMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Matching.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Meson.cpp" ex="false" tool="1" flavor2="0">
       </item>

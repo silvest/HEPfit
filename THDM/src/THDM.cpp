@@ -5,14 +5,14 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "StandardModelMatching.h"
 #include "THDM.h"
 #include "THDMcache.h"
 
 const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2","bsgamma_theoryerror"};
 
-THDM::THDM() : StandardModel() {
-    
+THDM::THDM() : StandardModel(), THDMM(*this) {
+
+    SMM.setObj((StandardModelMatching&) THDMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bma", boost::cref(bma)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh2", boost::cref(mHh2)));
@@ -24,7 +24,6 @@ THDM::THDM() : StandardModel() {
 
 THDM::~THDM(){
     if (IsModelInitialized()) {
-            if (myTHDMMatching != NULL) delete(myTHDMMatching);
             if (myTHDMcache != NULL) delete(myTHDMcache);
         }
 }
@@ -34,7 +33,6 @@ THDM::~THDM(){
 
 bool THDM::InitializeModel()
 {
-    myTHDMMatching = new THDMMatching(*this);
     myTHDMcache = new THDMcache(*this);
     setModelInitialized(StandardModel::InitializeModel());
     setModelTHDM();
@@ -72,9 +70,6 @@ bool THDM::PostUpdate()
 {
     if(!StandardModel::PostUpdate()) return (false);
 
-    /* Necessary for updating StandardModel parameters in StandardModelMatching,
-     * and THDM and THDM-derived parameters in THDMMatching */
-    myTHDMMatching->StandardModelMatching::updateSMParameters();
     myTHDMcache->updateCache();
 
     return (true);

@@ -8,15 +8,21 @@
 #include "NPbase.h"
 
 NPbase::NPbase()
-: StandardModel()
+: StandardModel(), trueSM()
 {
+    trueSM.InitializeModel();
+    trueSM.setSliced(true);
+}
+
+bool NPbase::Update(const std::map<std::string, double>& DPars)
+{
+    if (!trueSM.Update(DPars)) return (false);
+    return StandardModel::Update(DPars);
 }
 
 bool NPbase::PostUpdate()
 {
-    bool SMup = StandardModel::PostUpdate();
-    trueSM = *this;
-    return (SMup);
+    return StandardModel::PostUpdate();
 }
 
 double NPbase::Mw() const

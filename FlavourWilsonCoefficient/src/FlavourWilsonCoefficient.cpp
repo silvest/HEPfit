@@ -12,9 +12,9 @@ const std::string FlavourWilsonCoefficient::FlavourWilsonCoefficientvars[NFlavou
                                                                                                            "absDC7p","absDC8p","absDC9p","absDC10p","absDC7gp","absDC8gp",
                                                                                                            "argDC7p","argDC8p","argDC9p","argDC10p","argDC7gp","argDC8gp"};
 
-FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel() {   
+FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel(), FWCM(*this) {   
 
-    
+    SMM.setObj((StandardModelMatching&) FWCM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC1", boost::cref(absDC1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC2", boost::cref(absDC2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC3", boost::cref(absDC3)));
@@ -59,7 +59,6 @@ FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel() {
 
 FlavourWilsonCoefficient::~FlavourWilsonCoefficient(){
     if (IsModelInitialized()) {
-            if (myFlavourWilsonCoefficientMatching != NULL) delete(myFlavourWilsonCoefficientMatching);
         }
 }
 
@@ -68,7 +67,6 @@ FlavourWilsonCoefficient::~FlavourWilsonCoefficient(){
 
 bool FlavourWilsonCoefficient::InitializeModel()
 {
-    myFlavourWilsonCoefficientMatching = new FlavourWilsonCoefficientMatching(*this);
     setModelInitialized(StandardModel::InitializeModel());
     return(true);
 }
@@ -126,7 +124,7 @@ bool FlavourWilsonCoefficient::PostUpdate()
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
      * and FlavourWC and FlavourWC-derived parameters in FlavourWCMatching */
-    myFlavourWilsonCoefficientMatching->updateFlavourWilsonCoefficientParameters();
+    FWCM.getObj().updateFlavourWilsonCoefficientParameters();
 
     return (true);
 }

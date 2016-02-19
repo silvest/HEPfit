@@ -803,7 +803,7 @@ void QCD::setParameter(const std::string name, const double& value)
     else if (name.compare("alpha2kst") == 0)
         mesons[K_star].setGegenalpha(1,value);
     else
-        if (unknownParameterWarning)
+        if (unknownParameterWarning && !isSliced)
         std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
 }
 

@@ -8,12 +8,14 @@
 #include "SUSYMatching.h"
 #include "SUSY.h"
 #include <math.h>
+#include <gsl/gsl_integration.h>
 #include <stdexcept>
 
 SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
 
     StandardModelMatching(SUSY_i),
     mySUSY(SUSY_i),
+    Polylogs(),
     PV(true),
 
     mcdbd2(5, NDR, NLO),
@@ -150,6 +152,8 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     AmpTEALC(2, 3, 0.),
     AmpTEARC(2, 3, 0.),
 
+        TUhat(3, 3, 0.),
+        TDhat(3, 3, 0.),
         TEhat(3, 3, 0.)
 {
 }
@@ -5592,7 +5596,7 @@ gslpp::vector<gslpp::complex> SUSYMatching::DFunctions() {
     double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
     double mMU = mySUSY.getLeptons(StandardModel::MU).getMass();
     double mUP = mySUSY.getQuarks(QCD::UP).getMass();
-        double mDOWN = mySUSY.getQuarks(QCD::DOWN).getMass();
+    double mDOWN = mySUSY.getQuarks(QCD::DOWN).getMass();
     double cdenc = sqrt(2.0)*MW*cosb;
     double cdenn = MW*cosb;
     double g2 = gW;
@@ -5783,21 +5787,21 @@ gslpp::vector<gslpp::complex> SUSYMatching::FFunctions(int li_to_lj) {
     for (int x=0;x<6;x++) {
         for (int a=0;a<4;a++) {
             for (int b=0;b<4;b++) {
-                if (a != b && std::abs(Lepty(a,x)-Lepty(b,x)) > 0.01 && std::abs(1.0-Lepty(a,x)) > 0.01 && std::abs(1.0-Lepty(b,x)) > 0.01) {
+                if (a != b && std::fabs(Lepty(a,x)-Lepty(b,x)) > 0.01 && std::fabs(1.0-Lepty(a,x)) > 0.01 && std::fabs(1.0-Lepty(b,x)) > 0.01) {
                     Leptfzn[x][a][b] = log(Lepty(a,x)) + 1.0/(Lepty(a,x)-Lepty(b,x))*
                                      ( (Lepty(a,x)*Lepty(a,x)*log(Lepty(a,x)))/(1.0-Lepty(a,x)) - (Lepty(b,x)*Lepty(b,x)*log(Lepty(b,x)))/(1.0-Lepty(b,x)) );
                     Leptgzn[x][a][b] = (MNeig(a)*MNeig(b)/mym_se_sq(x))/(Lepty(a,x)-Lepty(b,x))*
                                      ( (Lepty(a,x)*log(Lepty(a,x)))/(1.0-Lepty(a,x)) - (Lepty(b,x)*log(Lepty(b,x)))/(1.0-Lepty(b,x)) );
                 }
-                else if (a != b && std::abs(Lepty(a,x)-Lepty(b,x)) > 0.01 && std::abs(1.0-Lepty(a,x)) > 0.01 && std::abs(1.0-Lepty(b,x)) <= 0.01) {
+                else if (a != b && std::fabs(Lepty(a,x)-Lepty(b,x)) > 0.01 && std::fabs(1.0-Lepty(a,x)) > 0.01 && std::fabs(1.0-Lepty(b,x)) <= 0.01) {
                     Leptfzn[x][a][b] = (-2.0*log(Lepty(a,x))*Lepty(a,x)+log(Lepty(a,x))+Lepty(a,x)-1.0)/(Lepty(a,x)-1.0)/(Lepty(a,x)-1.0);
                     Leptgzn[x][a][b] = -(MNeig(a)*MNeig(b)/mym_se_sq(x))*(log(Lepty(a,x))*Lepty(a,x)-Lepty(a,x)+1.0)/(Lepty(a,x)-1.0)/(Lepty(a,x)-1.0);
                 }
-                else if (a != b && std::abs(Lepty(a,x)-Lepty(b,x)) > 0.01 && std::abs(1.0-Lepty(b,x)) > 0.01 && std::abs(1.0-Lepty(a,x)) <= 0.01) {
+                else if (a != b && std::fabs(Lepty(a,x)-Lepty(b,x)) > 0.01 && std::fabs(1.0-Lepty(b,x)) > 0.01 && std::fabs(1.0-Lepty(a,x)) <= 0.01) {
                     Leptfzn[x][a][b] = (-log(Lepty(b,x))*Lepty(b,x)*Lepty(b,x)+Lepty(b,x)-1.0)/(Lepty(b,x)-1.0)/(Lepty(b,x)-1.0); 
                     Leptgzn[x][a][b] = -(MNeig(a)*MNeig(b)/mym_se_sq(x))*(log(Lepty(b,x))*Lepty(b,x)-Lepty(b,x)+1.0)/(Lepty(b,x)-1.0)/(Lepty(b,x)-1.0);
                 }
-                else if ((a == b || std::abs(Lepty(a,x)-Lepty(b,x)) <= 0.01) && std::abs(1.0-Lepty(a,x)) > 0.01 && std::abs(1.0-Lepty(b,x)) > 0.01) {
+                else if ((a == b || std::fabs(Lepty(a,x)-Lepty(b,x)) <= 0.01) && std::fabs(1.0-Lepty(a,x)) > 0.01 && std::fabs(1.0-Lepty(b,x)) > 0.01) {
                     Leptfzn[x][a][b] = (-Lepty(a,x)*Lepty(a,x)+Lepty(a,x)+log(Lepty(a,x)))/(Lepty(a,x)-1.0)/(Lepty(a,x)-1.0);
                     Leptgzn[x][a][b] = (MNeig(b)*MNeig(b)/mym_se_sq(x))*(-Lepty(a,x)+log(Lepty(a,x))+1.0)/(Lepty(a,x)-1.0)/(Lepty(a,x)-1.0);
                 }
@@ -5819,21 +5823,21 @@ gslpp::vector<gslpp::complex> SUSYMatching::FFunctions(int li_to_lj) {
     for (int x=0;x<3;x++) {
         for (int a=0;a<2;a++) {
             for (int b=0;b<2;b++) {
-                if (a != b && std::abs(Leptz(a,x)-Leptz(b,x)) > 0.01 && std::abs(1.0-Leptz(a,x)) > 0.01 && std::abs(1.0-Leptz(b,x)) > 0.01) {
+                if (a != b && std::fabs(Leptz(a,x)-Leptz(b,x)) > 0.01 && std::fabs(1.0-Leptz(a,x)) > 0.01 && std::fabs(1.0-Leptz(b,x)) > 0.01) {
                     Leptfzc[x][a][b] = log(Leptz(a,x)) + 1.0/(Leptz(a,x)-Leptz(b,x))*
                                      ( (Leptz(a,x)*Leptz(a,x)*log(Leptz(a,x)))/(1.0-Leptz(a,x)) - (Leptz(b,x)*Leptz(b,x)*log(Leptz(b,x)))/(1.0-Leptz(b,x)) );
                     Leptgzc[x][a][b] = (MChi(a)*MChi(b)/mym_sn_sq(x))/(Leptz(a,x)-Leptz(b,x))*
                                      ( (Leptz(a,x)*log(Leptz(a,x)))/(1.0-Leptz(a,x)) - (Leptz(b,x)*log(Leptz(b,x)))/(1.0-Leptz(b,x)) );
                 }
-                else if (a != b && std::abs(Leptz(a,x)-Leptz(b,x)) > 0.01 && std::abs(1.0-Leptz(a,x)) > 0.01 && std::abs(1.0-Leptz(b,x)) <= 0.01) {
+                else if (a != b && std::fabs(Leptz(a,x)-Leptz(b,x)) > 0.01 && std::fabs(1.0-Leptz(a,x)) > 0.01 && std::fabs(1.0-Leptz(b,x)) <= 0.01) {
                     Leptfzc[x][a][b] = (-2.0*log(Leptz(a,x))*Leptz(a,x)+Leptz(a,x)+log(Leptz(a,x))-1.0)/(Leptz(a,x)-1.0)/(Leptz(a,x)-1.0);
                     Leptgzc[x][a][b] = -(MChi(a)*MChi(b)/mym_sn_sq(x))*(log(Leptz(a,x))*Leptz(a,x)-Leptz(a,x)+1.0)/(Leptz(a,x)-1.0)/(Leptz(a,x)-1.0);
                 }
-                else if (a != b && std::abs(Leptz(a,x)-Leptz(b,x)) > 0.01 && std::abs(1.0-Leptz(b,x)) > 0.01 && std::abs(1.0-Leptz(a,x)) <= 0.01) {
+                else if (a != b && std::fabs(Leptz(a,x)-Leptz(b,x)) > 0.01 && std::fabs(1.0-Leptz(b,x)) > 0.01 && std::fabs(1.0-Leptz(a,x)) <= 0.01) {
                     Leptfzc[x][a][b] = (-log(Leptz(b,x))*Leptz(b,x)*Leptz(b,x)+Leptz(b,x)-1.0)/(Leptz(b,x)-1.0)/(Leptz(b,x)-1.0);
                     Leptgzc[x][a][b] = -(MChi(a)*MChi(b)/mym_sn_sq(x))*(log(Leptz(b,x))*Leptz(b,x)-Leptz(b,x)+1.0)/(Leptz(b,x)-1.0)/(Leptz(b,x)-1.0);
                 }
-                else if ((a == b || std::abs(Leptz(a,x)-Leptz(b,x)) <= 0.01) && std::abs(1.0-Leptz(a,x)) > 0.01 && std::abs(1.0-Leptz(b,x)) > 0.01) {
+                else if ((a == b || std::fabs(Leptz(a,x)-Leptz(b,x)) <= 0.01) && std::fabs(1.0-Leptz(a,x)) > 0.01 && std::fabs(1.0-Leptz(b,x)) > 0.01) {
                     Leptfzc[x][a][b] = (-Leptz(a,x)*Leptz(a,x)+Leptz(a,x)+log(Leptz(a,x)))/(Leptz(a,x)-1.0)/(Leptz(a,x)-1.0);
                     Leptgzc[x][a][b] = (MChi(b)*MChi(b)/mym_sn_sq(x))*((-Leptz(a,x)+log(Leptz(a,x))+1.0))/(Leptz(a,x)-1.0)/(Leptz(a,x)-1.0);
                 }
@@ -6095,6 +6099,709 @@ gslpp::vector<gslpp::complex> SUSYMatching::gminus2mu() {
     return(gminus2mu);
 }
 
+struct __fPS_params{
+  double a;
+};
+
+double __fPS_integ(double x, void* p){
+  __fPS_params &params= *reinterpret_cast<__fPS_params *>(p);
+  double r = params.a*log(x*(1.-x)/params.a) / (x*(1.-x)-params.a);
+  return r;
+}
+
+double SUSYMatching::fPS(double x){
+
+    __fPS_params params;
+    params.a=x;
+
+    double result;
+    gsl_integration_glfixed_table * w
+        = gsl_integration_glfixed_table_alloc(100);
+    gsl_function F;
+
+    F.function = &__fPS_integ;
+    F.params = reinterpret_cast<void *>(&params);
+
+    result = gsl_integration_glfixed (&F, 0, 1, w);
+
+    gsl_integration_glfixed_table_free (w);
+
+  return result;
+}
+
+double SUSYMatching::fS(double x){
+
+    double r=0;
+    r=(2.*x-1.)*fPS(x)-2.*x*(2.+log(x));
+    return r;
+}
+
+double SUSYMatching::fft(double x){
+
+    double r=0;
+    r=x*(2.+log(x)-fPS(x))/2.0;
+    return r;
+}
+
+double SUSYMatching::It(double a, double b, double c){
+
+    double r=0;
+    if (std::fabs(a-b) < 0.0005 && std::fabs(a-c) < 0.0005 && std::fabs(b-c) < 0.0005)
+    {
+        r=9./(2.*(a+b+c)*(a+b+c));
+    }
+    else
+    {
+        if (std::fabs(a-b) < 0.0005)
+        {
+            if (std::fabs(a-c) < 0.0005)
+            {
+                r=(-4.*(4.*b*b*c*c*log(b*b/(c*c)) 
+                        +((b+c)*(b+c))*(c*c*log((4.*c*c)/((b+c)*(b+c))) 
+                            + b*b*log(((b+c)*(b+c))/(4.*b*b)))))
+                  /(pow(b-c,3)*(b+c)*(3.*b+c)*(b+3.*c));
+            }
+            else
+            {
+                if (std::fabs(b-c) < 0.0005)
+                {
+                    r=(4.*(pow(a-2.*b+c,2)*(-3.*pow(a,8) - 46.*pow(a,7)*c - 42.*pow(a,6)*c*c + 234.*pow(a,5)*c*c*c
+                                            - 234.*a*a*a*pow(c,5) + 42.*a*a*pow(c,6) + 46.*a*pow(c,7) + 3.*pow(c,8)
+                                            + 8.*a*a*c*c*(11.*pow(a,4) + 28.*a*a*a*c + 50.*a*a*c*c + 28.*a*c*c*c + 11.*pow(c,4))
+                                                *log(c*c/(a*a))
+                                            + a*a*(7.*pow(a,6) + 62.*pow(a,5)*c + 265.*pow(a,4)*c*c
+                                                   + 356.*a*a*a*c*c*c + 265.*a*a*pow(c,4) + 62.*a*pow(c,5) + 7.*pow(c,6))
+                                                *log((4.*a*a)/((a+c)*(a+c)))
+                                            + 7.*pow(a,6)*c*c*log(((a+c)*(a+c))/(4.*c*c))
+                                            + 62.*pow(a,5)*c*c*c*log(((a+c)*(a+c))/(4.*c*c))
+                                            + 265.*pow(a,4)*pow(c,4)*log(((a+c)*(a+c))/(4.*c*c))
+                                            + 356.*a*a*a*pow(c,5)*log(((a+c)*(a+c))/(4.*c*c))
+                                            + 265.*a*a*pow(c,6)*log(((a+c)*(a+c))/(4.*c*c))
+                                            + 62.*a*pow(c,7)*log(((a+c)*(a+c))/(4.*c*c))
+                                            + 7.*pow(c,8)*log(((a+c)*(a+c))/(4.*c*c)))
+                           +((a-c)*(a-c))*pow(3.*a+c,2)*pow(a+3.*c,2)
+                            *(4.*a*a*c*c*log((c*c)/(a*a))
+                              +((a+c)*(a+c))*(a*a*log((4.*a*a)/((a+c)*(a+c))) + c*c*log(((a+c)*(a+c))/(4.*c*c))))))
+                      /(pow(a-c,5)*(a+c)*pow(3.*a+c,3)*pow(a+3.*c,3));
+                }
+                else
+                {
+                    r=((b*b) - (c*c) - (c*c)*log((b*b)/(c*c)))/pow((b*b) - (c*c),2) + 
+   ((a - b)*(-pow(b,4) + pow(c,4) + 2*(b*b)*(c*c)*log((b*b)/(c*c))))/(b*pow((b*b) - (c*c),3));
+                }
+            }
+        }
+        else
+        {
+            if (std::fabs(b-c) < 0.0005)
+            {
+                if (std::fabs(a-c) < 0.0005)
+                {
+                    r=(-4*(4*(a*a)*(b*b)*log((a*a)/(b*b)) + ((a+b)*(a+b))*((b*b)*log((4*(b*b))/((a+b)*(a+b))) + (a*a)*log(((a+b)*(a+b))/(4.*(a*a))))))/
+(pow(a - b,3)*(a + b)*(3*a + b)*(a + 3*b));
+                }
+                else
+                {
+                    r=(-(a*a) + (c*c) - (a*a)*log((c*c)/(a*a)))/pow((a*a) - (c*c),2) + 
+((b - c)*(pow(a,4) - pow(c,4) + 2*(a*a)*(c*c)*log((c*c)/(a*a))))/(c*pow(-(a*a) + (c*c),3));
+                }
+            }   
+            else
+            {
+                if (std::fabs(a-c) < 0.0005)
+                {
+                    r=(-(b*b) + (c*c) + (b*b)*log((b*b)/(c*c)))/pow((b*b) - (c*c),2) + 
+   ((a - c)*(pow(b,4) - pow(c,4) - 2*(b*b)*(c*c)*log((b*b)/(c*c))))/(c*pow(-(b*b) + (c*c),3));
+                }
+                else
+                {
+                    r=( a*a*b*b*log(a*a/(b*b))+b*b*c*c*log(b*b/(c*c))+c*c*a*a*log(c*c/(a*a)) )
+                /( (a*a-b*b)*(b*b-c*c)*(a*a-c*c) );
+                }
+            }
+        }
+
+            
+            
+            
+            
+            
+    }
+    return r;
+}
+
+double SUSYMatching::F3C(double x){
+
+    double r=0;
+    if (std::fabs(x-1.) < 0.005)
+    {
+        r=1. + (1059.*(x-1.))/1175.;
+    }
+    else
+    {
+        r=(1. - x) * (151. * x*x - 335. * x + 592.)
+          + 6. * (21. * x*x*x - 108. * x*x - 93. * x + 50.) * log(x)
+          - 54. * x * (x*x - 2. * x - 2.) * pow(log(x),2)
+          - 108. * x * (x*x - 2. * x + 12.) * Polylogs.Li2(1.- x).real() ;
+        r*=4./(141.*pow(1. - x,4));
+    }
+    return r;
+}
+
+double SUSYMatching::F4C(double x){
+
+    double r=0;
+    if (std::fabs(x-1.) < 0.005)
+    {
+        r=1. - (45.*(x-1.))/122.;
+    }
+    else
+    {
+        r=8.*(x*x-3.*x+2.)+(11.*x*x-40.*x+5.)*log(x)
+          -2.*(x*x-2.*x-2.)*log(x)*log(x)
+          -4.*(x*x-2.*x+9.)*Polylogs.Li2(1.-x).real();
+        r=r*(-9.)/(122.*pow(1-x,3));
+    }
+    return r;
+}
+
+double SUSYMatching::F3N(double x){
+
+    double r=0;
+    if (std::fabs(x-1.) < 0.005)
+    {
+        r=1. + (76.*(x-1.))/875.;
+    }
+    else
+    {
+        r=(1-x)*(-97.*x*x-529.*x+2.)+6.*x*x*(13.*x+81.)*log(x)
+          +108.*x*(7.*x+4.)*Polylogs.Li2(1.-x).real();
+        r=r*4./(105.*pow(1-x,4));
+    }
+    return r;
+}
+
+double SUSYMatching::F4N(double x){
+
+    double r=0;
+    if (std::fabs(x-1.) < 0.005)
+    {
+        r=1. - (111.*(x-1.)*(x-1.))/800.;
+    }
+    else
+    {
+        r=(x+3.)*(x*log(x)+x-1.0)+(6.*x+2.)*Polylogs.Li2(1.-x).real();
+        r=r*(-9.)/(4.*pow(1-x,3));
+    }
+    return r;
+}
+
+double SUSYMatching::Fa(double x, double y){
+
+    double r=0;
+    if (std::fabs(x-y) < 0.005)
+    {
+        if (std::fabs(y-1.) < 0.005)
+        {
+            r=(49. - 22.*x - 22.*y + 10.*x*y)/60.;
+        }
+        else
+        {
+            r=(2. + 3.*x - 6.*x*x + x*x*x + 6.*x*log(x))/(4.*pow(x-1.,4)*x)
+              +(2. + 3.*y - 6.*y*y + y*y*y + 6.*y*log(y))/(4.*pow(y-1.,4)*y);
+        }
+    }
+    else
+    {
+        if (std::fabs(x-1.) < 0.005)
+        {
+            r=((x-1.)*(-25. + 48.*y - 36.*y*y + 16.*y*y*y - 3.*y*y*y*y - 12.*log(y)))/(12.*pow(y-1.,5))
+                    + (-11. + 18.*y - 9.*y*y + 2.*y*y*y - 6.*log(y))/(6.*pow(y-1.,4));
+        }
+        else if (std::fabs(y-1.) < 0.005)
+        {
+            r=((y-1.)*(-25. + 48.*x - 36.*x*x + 16.*x*x*x - 3.*x*x*x*x - 12.*log(x)))/(12.*pow(x-1.,5))
+                    + (-11. + 18.*x - 9.*x*x + 2.*x*x*x - 6.*log(x))/(6.*pow(x-1.,4));
+        }
+        else
+        {
+            double G3x, G3y;
+            G3x=(1./(2.*pow(x-1,3))) *( (x-1)*(x-3)+2.*log(x) );
+            G3y=(1./(2.*pow(y-1,3))) *( (y-1)*(y-3)+2.*log(y) );
+            r=-(G3x-G3y)/(x-y);
+        }
+    }
+    return r;
+}
+
+double SUSYMatching::Fb(double x, double y){
+
+    double r=0;
+    if (std::fabs(x-y) < 0.005)
+    {
+        if (std::fabs(y-1.) < 0.005)
+        {
+            r=(13. - 5.*x - 5.*y + 2.*x*y)/60.;
+        }
+        else
+        {
+            r=((2. + 3.*x - 6.*x*x + x*x*x + 6.*x*log(x))/pow(x-1.,4) 
+               + (2. + 3.*y - 6.*y*y + y*y*y + 6.*y*log(y))/pow(y-1.,4))/12.;
+        }
+    }
+    else
+    {
+        if (std::fabs(x-1.) < 0.005)
+        {
+            r=(2. + 3.*y - 6.*y*y + y*y*y + 6.*y*log(y))/(6.*pow(y-1.,4))
+                    + ((x-1.)*(3. + 10.*y - 18.*y*y + 6.*y*y*y - y*y*y*y + 12.*y*log(y)))/(12.*pow(y-1.,5));
+        }
+        else if (std::fabs(y-1.) < 0.005)
+        {
+            r=(2. + 3.*x - 6.*x*x + x*x*x + 6.*x*log(x))/(6.*pow(x-1.,4))
+                    + ((y-1.)*(3. + 10.*x - 18.*x*x + 6.*x*x*x - x*x*x*x + 12.*x*log(x)))/(12.*pow(x-1.,5));
+        }
+        else
+        {
+            double G4x, G4y;
+            G4x=(1./(2.*pow(x-1,3))) *( (x-1)*(x+1) -2.*x*log(x) );
+            G4y=(1./(2.*pow(y-1,3))) *( (y-1)*(y+1) -2.*y*log(y) );
+            r=-(G4x-G4y)/(x-y);
+        }
+    }
+    return r;
+}
+
+double SUSYMatching::gminus2muNLO() {
+
+    updateSUSYParameters();
+
+    double pi = M_PI;
+    double MZ = mySUSY.getMz();
+    double g1atMZ = sqrt(4.0*pi*mySUSY.getAle());
+    double g2atMZ = gW;
+    double g3atMZ = sqrt(4.0*pi*mySUSY.getAlsMz());
+    double mh = mySUSY.getMHl();
+    double mhh = mySUSY.getMHh();
+    double ma = mySUSY.getMHa();
+    gslpp::complex sa = mySUSY.getSaeff();
+    gslpp::complex ca = sqrt(1.0-sa*sa);
+    gslpp::complex s2a = 2.0*ca*sa;
+    gslpp::complex c2a = ca*ca-sa*sa;
+    double vew = v;
+    double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
+    double mmu = mySUSY.getLeptons(StandardModel::MU).getMass();
+    double mTAU = mySUSY.getLeptons(StandardModel::TAU).getMass();
+    double mt = mySUSY.getQuarks(mySUSY.TOP).getMass();
+    double mb = mySUSY.getQuarks(mySUSY.BOTTOM).getMass();
+    gslpp::complex M1 = mySUSY.getM1();
+    gslpp::complex M2 = mySUSY.getM2();
+
+    gslpp::complex muH = mySUSY.getMuH();
+    TUhat = mySUSY.getTUhat();
+    TDhat = mySUSY.getTDhat();
+    TEhat = mySUSY.getTEhat();
+    gslpp::complex a3t = TUhat(2,2);
+    gslpp::complex a3b = TDhat(2,2);
+    gslpp::complex a3tau = TEhat(2,2);
+
+    gslpp::matrix<gslpp::complex> MsQhat2(3,3,0);
+    gslpp::matrix<gslpp::complex> MsUhat2(3,3,0);
+    gslpp::matrix<gslpp::complex> MsDhat2(3,3,0);
+    gslpp::matrix<gslpp::complex> MsLhat2(3,3,0);
+    gslpp::matrix<gslpp::complex> MsEhat2(3,3,0);
+    MsQhat2 = mySUSY.getMsQhat2();
+    MsUhat2 = mySUSY.getMsUhat2();
+    MsDhat2 = mySUSY.getMsDhat2();
+    MsLhat2 = mySUSY.getMsLhat2();
+    MsEhat2 = mySUSY.getMsEhat2();
+    double msq1L = MsQhat2(0,0).real();
+    double msq2L = MsQhat2(1,1).real();
+    double msq3L = MsQhat2(2,2).real();
+    double msuR = MsUhat2(0,0).real();
+    double mscR = MsUhat2(1,1).real();
+    double mstR = MsUhat2(2,2).real();
+    double msdR = MsDhat2(0,0).real();
+    double mssR = MsDhat2(1,1).real();
+    double msbR = MsDhat2(2,2).real();
+    double mseL = MsLhat2(0,0).real();
+    double msmuL = MsLhat2(1,1).real();
+    double mstauL = MsLhat2(2,2).real();
+    double mseR = MsEhat2(0,0).real();
+    double msmuR = MsEhat2(1,1).real();
+    double mstauR = MsEhat2(2,2).real();
+
+    int k;
+    double b1[3];
+    double gi[3];
+    double g1, g2, g3;
+    double res_g;
+    b1[0]=41./6., b1[1]=-19./6., b1[2]=-7.;
+    gi[0]=g1atMZ, gi[1]=g2atMZ, gi[2]=g3atMZ;
+    for(k=0; k<3; k++){
+        res_g=1./gi[k]/gi[k] -b1[k]/(8.*pi*pi)*log(msmuL/MZ);
+        gi[k]=sqrt(1/res_g);
+    }
+    g1=gi[0], g2=gi[1], g3=gi[2];
+
+    double alp = (g1*g1*g2*g2/(g1*g1+g2*g2))/(4.0*pi);
+    double s2b = 2.0*cosb*sinb;
+    double c2b = cosb*cosb-sinb*sinb;
+    double mzq = sqrt( 0.5*(g1*g1+g2*g2)*vew*vew );
+    double mwq = sqrt( 0.5*(g2*g2)*vew*vew );
+    double sw2 = g1*g1/(g1*g1+g2*g2);
+    gslpp::complex lh1 = -sa/cosb;
+    gslpp::complex lh2 = ca/cosb;
+    double lA = tanb;
+    double msneu2 = msmuL*msmuL+0.5*mzq*mzq*c2b;
+
+    gslpp::matrix<gslpp::complex> Rsmu(2,2,0.), Xm(2,2,0.);
+    gslpp::vector<double> msmu2(2,0.);
+    Rsmu.assign(0,0, msmuL+mmu*mmu+c2b*mzq*mzq*(-1.0/2.0+sw2) );
+    Rsmu.assign(0,1, mySUSY.v1()/sqrt(2.0)*TEhat(1,1).conjugate()-muH*mmu*tanb);
+    Rsmu.assign(1,0, mySUSY.v1()/sqrt(2.0)*TEhat(1,1)-muH.conjugate()*mmu*tanb);
+    Rsmu.assign(1,1, msmuR+mmu*mmu-c2b*mzq*mzq*sw2);
+    Rsmu.eigensystem(Xm,msmu2); //in the 1,2 basis now!
+
+    gslpp::vector<gslpp::complex> gminus2muvector=gminus2mu();
+    double gm21loop = (gminus2muvector(0)+gminus2muvector(1)).abs();
+
+    double res,res1;            //the two Barr-Zee contributions
+    double gm2cor, res2, res3;  //muon mass correction, photonic two-loop and corrected smuon-muon-chargino/neutralino couplings
+    double res01, res02;
+    double gminus2muNLO;
+
+    ///////////////////////////////////////////////////////////////
+    //two-loop corrections to SM one-loop diagrams
+    ///////////////////////////////////////////////////////////////
+
+    // Barr-Zee diagrams (photonic)
+    // chargino-loop
+    gslpp::vector<gslpp::complex> lxh1(2,0);
+    gslpp::vector<gslpp::complex> lxh2(2,0);
+    gslpp::vector<gslpp::complex> lxA(2,0);
+
+    double tmp1;
+    for(int i=0; i<2; i++){
+        tmp1=sqrt(2.0)*mwq/MChi(i);
+        lxh1.assign(i, tmp1*( myU(i,0)*myV(i,1)*ca    + myU(i,1)*myV(i,0)*(-sa) ) );
+        lxh2.assign(i, tmp1*( myU(i,0)*myV(i,1)*sa    + myU(i,1)*myV(i,0)*( ca) ) );
+        lxA.assign(i,  tmp1*( myU(i,0)*myV(i,1)*(-cosb) + myU(i,1)*myV(i,0)*(-sinb) ) );
+    }
+
+    res=0;
+    double xps, xh1, xh2;
+    for(int i=0; i<2; i++){
+        xps=MChi(i)*MChi(i)/(ma*ma);
+        xh1=MChi(i)*MChi(i)/(mh*mh);
+        xh2=MChi(i)*MChi(i)/(mhh*mhh);
+
+        res += (lA*lxA(i)).real()*fPS(xps) + (lh1*lxh1(i)).real()*fS(xh1)
+               +(lh2*lxh2(i)).real()*fS(xh2);
+    }
+    res *= alp*alp * mmu*mmu / (8.*pi*pi*mwq*mwq*sw2);
+
+    // Barr-Zee diagrams (photonic)
+    // sfermion-loop
+    gslpp::matrix<gslpp::complex> stauM(2,2,0), sbottomM(2,2,0), stopM(2,2,0);
+    gslpp::vector<double> mstau2(2,0), msbottom2(2,0), mstop2(2,0);
+    gslpp::matrix<gslpp::complex> Ustau(2,2,0), Usbottom(2,2,0), Ustop(2,2,0);
+
+    stauM.assign(0,0, mstauL*mstauL+mTAU*mTAU + mzq*mzq*c2b*(0.5-(-1.)*sw2) );
+    stauM.assign(1,1, mstauR*mstauR+mTAU*mTAU + mzq*mzq*c2b*(-1.)*sw2);
+    stauM.assign(0,1, mTAU*(a3tau-muH*tanb));
+    stauM.assign(1,0, mTAU*(a3tau-muH*tanb));
+
+    sbottomM.assign(0,0, msq3L*msq3L+mb*mb + mzq*mzq*c2b*(0.5-(-1./3.)*sw2) );
+    sbottomM.assign(1,1, msbR*msbR+mb*mb + mzq*mzq*c2b*(-1./3.)*sw2);
+    sbottomM.assign(0,1, mb*(a3b-muH*tanb));
+    sbottomM.assign(1,0, mb*(a3b-muH*tanb));
+
+    stopM.assign(0,0, msq3L*msq3L+mt*mt + mzq*mzq*c2b*(0.5-(2./3.)*sw2) );
+    stopM.assign(1,1, mstR*mstR+mt*mt + mzq*mzq*c2b*(2./3.)*sw2);
+    stopM.assign(0,1, mt*(a3t-muH/tanb));
+    stopM.assign(1,0, mt*(a3t-muH/tanb));
+
+    stauM.eigensystem(Ustau,mstau2);
+    sbottomM.eigensystem(Usbottom,msbottom2);
+    stopM.eigensystem(Ustop,mstop2);
+
+    Ustau=Ustau.hconjugate();
+    Usbottom=Usbottom.hconjugate();
+    Ustop=Ustop.hconjugate();
+
+    gslpp::vector<gslpp::complex> lstauh1(2,0);
+    gslpp::vector<gslpp::complex> lstauh2(2,0);
+    gslpp::vector<gslpp::complex> lsbottomh1(2,0);
+    gslpp::vector<gslpp::complex> lsbottomh2(2,0);
+    gslpp::vector<gslpp::complex> lstoph1(2,0);
+    gslpp::vector<gslpp::complex> lstoph2(2,0);
+
+    gslpp::complex rr;
+    for(int i=0; i<2; i++){
+        
+        rr=2.*mTAU/(cosb*mstau2(i)) * Ustau(i,0).conjugate() * Ustau(i,1);
+        lstauh1.assign(i,rr*(-muH*ca + a3tau*(-sa)) );
+        lstauh2.assign(i,rr*(-muH*sa + a3tau*(ca)) );
+        
+        rr=2.*mb/(cosb*msbottom2(i)) * Usbottom(i,0).conjugate() * Usbottom(i,1);
+        lsbottomh1.assign(i,rr*(-muH*ca + a3b*(-sa)) );
+        lsbottomh2.assign(i,rr*(-muH*sa + a3b*(ca)) );
+
+        rr=2.*mt/(cosb*mstop2(i)) * Ustop(i,0).conjugate() * Ustop(i,1);
+        lstoph1.assign(i,rr*(-muH*sa + a3t*(ca)) );
+        lstoph2.assign(i,rr*(-muH*(-ca) + a3t*(sa)) );
+    }
+
+    res1=0;
+    double qe2;
+    double xx1,xx2;
+    for(int i=0;i<2;i++){
+        xx1=mstau2(i)/(mh*mh);
+        xx2=mstau2(i)/(mhh*mhh);
+        res1 += (lh1*lstauh1(i)).real()*fft(xx1)
+                +(lh2*lstauh2(i)).real()*fft(xx2);
+    
+        qe2=1./3.0;
+        xx1=msbottom2(i)/(mh*mh);
+        xx2=msbottom2(i)/(mhh*mhh);
+        res1 += (lh1*lsbottomh1(i)).real()*qe2*fft(xx1)
+                +(lh2*lsbottomh2(i)).real()*qe2*fft(xx2);
+
+        qe2=4./3.0;
+        xx1=mstop2(i)/(mh*mh);
+        xx2=mstop2(i)/(mhh*mhh);
+        res1 += (lh1*lstoph1(i)).real()*qe2*fft(xx1)
+                +(lh2*lstoph2(i)).real()*qe2*fft(xx2);
+    }  
+    res1 *= alp*alp * mmu*mmu / (8.*pi*pi*mwq*mwq*sw2);
+
+    //adding up the photonic Barr-Zee contributions
+    res02=res+res1;
+
+    std::cout<<"res="<<res<<std::endl;
+    std::cout<<"res1="<<res1<<std::endl;
+
+    ///////////////////////////////////////////////////////////////
+    //two-loop corrections to MSSM one-loop diagrams
+    ///////////////////////////////////////////////////////////////
+
+    gm2cor=0, res2=0, res3=0;
+
+    /////////////////////////////////////////////////////////////////////////////
+    //
+    //   tanb enhanced correction from SUSY one-loop correction to the muon mass
+    //   (ref. arXiv:0808.1530 )
+    //
+    /////////////////////////////////////////////////////////////////////////////
+
+    double dmu=0;
+    double I=0;
+    double x0, x1a, x2a, xL, xR;
+    double tmp2, tmp3;
+
+    x0=sqrt(std::fabs(msneu2));
+    xL=sqrt( msmuL*msmuL-mzq*mzq*(sw2-0.5) );
+    xR=sqrt( msmuR*msmuR +mzq*mzq*sw2 );
+
+    tmp2=M2.abs2()+muH.abs2() +2.*mwq*mwq;
+    tmp3= tmp2*tmp2 -4.*M2.abs2()*muH.abs2();
+    x1a=sqrt( 0.5*( tmp2-sqrt(tmp3) ) );
+    x2a=sqrt( 0.5*( tmp2+sqrt(tmp3) ) );
+
+    dmu=-muH.real()*tanb*g2*g2*M2.real()/(16.*pi*pi)*(It(x1a,x2a,x0) + 0.5*It(x1a,x2a,xL))
+        -muH.real()*tanb*g1*g1*M1.real()/(16.*pi*pi)*(It(muH.real(),M1.real(),xR) - 0.5*It(muH.real(),M1.real(),xL) - It(M1.real(),xL,xR));
+
+    // corrected one-loop result
+    gm2cor=gm21loop/(1+dmu);
+
+    ////////////////////////////////////////////////////////////////
+    //
+    // photonic two-loop (arXiv:1003.5820)
+    //
+    ////////////////////////////////////////////////////////////////
+
+    // leading part is simple, which is enhanced by log(mmu/msmu)
+    res2=gm2cor*alp/(4.*pi)*16.*log(mmu/msmuL);
+
+    // non-logarithmic corrections, which are usually small
+    double amch=0;
+    double amne=0;
+
+    // switch of the sub-leading contribution to reduce the computation time
+    int sub_leading=0;
+
+            if (sub_leading==1){
+                /////////////////////////////////////////////////
+                // for the corrections to the chargino diagrams
+                /////////////////////////////////////////////////
+                gslpp::vector<gslpp::complex> ckL(2,0), ckR(2,0);
+                double ymu=mmu/(vew*cosb);
+
+                ckR.assign(0, ymu*myU(0,1));
+                ckR.assign(1, ymu*myU(1,1));
+
+                // gauge couplings are defined at the smuon mass scale msmuL
+                ckL.assign(0, -g2*myV(0,0));
+                ckL.assign(1, -g2*myV(1,0));
+
+                double xk=0;
+                for(int i=0; i<2; i++){
+                    xk=MChi(i)*MChi(i)/msneu2;
+                    amch=amch -(47.*mmu/(12.*msneu2))*( (ckL(i).abs()*ckL(i).abs() + ckR(i).abs()*ckR(i).abs())*F3C(xk) );
+                    amch=amch -(122.*MChi(i)/(9.*msneu2))*F4C(xk)*( (ckL(i)*ckR(i)).real() );
+                }
+                amch=(1./(1+dmu))*amch*mmu/(16.*pi*pi)*alp/(4.*pi);
+
+                /////////////////////////////////////////////////
+                // for the corrections to the neutralino diagrams
+                /////////////////////////////////////////////////
+                gslpp::vector<gslpp::complex> nR1(4,0), nR2(4,0), nL1(4,0), nL2(4,0);
+
+                for(int i=0; i<4; i++){
+                    nR1.assign(i, sqrt(2.)*g1*myN(i,0)*Xm(0,1) + ymu*myN(i,2)*Xm(0,0));
+                    nR2.assign(i, sqrt(2.)*g1*myN(i,0)*Xm(1,1) + ymu*myN(i,2)*Xm(1,0));
+                    nL1.assign(i, (1./sqrt(2.))*(g2*myN(i,1) + g1*myN(i,0))*Xm(0,0).conjugate() -ymu*myN(i,2)*Xm(0,1).conjugate());
+                    nL2.assign(i, (1./sqrt(2.))*(g2*myN(i,1) + g1*myN(i,0))*Xm(1,0).conjugate() -ymu*myN(i,2)*Xm(1,1).conjugate());
+                }
+
+                double tmp4, tmp5;
+                double xi1, xi2;
+                double r1, r2;
+                double amne=0;
+                for(int i=0; i<4; i++){
+                    xi1=MChi0(i)*MChi0(i)/msmu2(0);
+                    xi2=MChi0(i)*MChi0(i)/msmu2(1);
+                    tmp4=nL1(i).abs2() + nR1(i).abs2();
+                    tmp5=nL2(i).abs2() + nR2(i).abs2();
+                    r1=35.*mmu/(72.*msmu2(0))*F3N(xi1)*tmp4 - 16.*MChi0(i)/(9.*msmu2(0))*F4N(xi1)*( (nL1(i)*nR1(i)).real() );
+                    r2=35.*mmu/(72.*msmu2(1))*F3N(xi2)*tmp5 - 16.*MChi0(i)/(9.*msmu2(1))*F4N(xi2)*( (nL2(i)*nR2(i)).real() );
+                    amne=amne+r1+r2;
+                }
+
+                amne=(1./(1+dmu))*amne*mmu/(16.*pi*pi)*alp/(4*pi);
+            }// end of the subleading term
+
+    //adding leading log correction and sub-leading terms
+    res2=res2+amch+amne;
+
+    ///////////////////////////////////////////////////////////////////////
+    //
+    //   Deviation of the smuon-muon-chargino/neutralino couplings 
+    //   from gauge/Yukawa couplings due to the breaking of SUSY relations
+    //   ref. arXiv:1311.1775
+    //
+    ///////////////////////////////////////////////////////////////////////
+  
+    // approximate one-loop corrections
+    // usually awhn and ablr are dominant contribution 
+    double x1,y1,x2,y2,x3,y3,x4,y4,x5,y5;
+    double awhn=mmu*mmu*muH.real()*tanb/(1+dmu);
+    double awhl=awhn;
+    double abhl=awhn;
+    double abhr=awhn;
+    double ablr=awhn;
+
+    //wino-Higgsino-sneutrino
+    x1=M2.abs2()/msneu2;
+    y1=muH.abs2()/msneu2;
+    awhn *= g2*g2*M2.real()/(8.*pi*pi*msneu2*msneu2)*Fa(x1,y1);
+
+    //wino-Higgsino-L-smuon
+    x2=M2.abs2()/msmuL/msmuL;
+    y2=muH.abs2()/msmuL/msmuL;
+    awhl *= -g2*g2*M2.real()/(16.*pi*pi*pow(msmuL,4))*Fb(x2,y2);
+
+    //bino-higgsino-L-smuon
+    x3=M1.abs2()/msmuL/msmuL;
+    y3=muH.abs2()/msmuL/msmuL;
+    abhl *= g1*g1*M1.real()/(16.*pi*pi*pow(msmuL,4))*Fb(x3,y3);
+
+    ///bino-higgsino-R-smuon
+    x4=M1.abs2()/msmuR/msmuR;
+    y4=muH.abs2()/msmuR/msmuR;
+    abhr *= -g1*g1*M1.real()/(8.*pi*pi*pow(msmuR,4))*Fb(x4,y4);
+
+    //bino-L-smuon-R-smuon
+    x5=msmuL*msmuL/(M1.abs2());
+    y5=msmuR*msmuR/(M1.abs2());
+    ablr *= g1*g1/(8.*pi*pi*pow(M1.real(),3))*Fb(x5,y5);
+    std::cout<<"x5="<<x5<<std::endl;
+    std::cout<<"y5="<<y5<<std::endl;
+    std::cout<<"Fb(x5,y5)="<<Fb(x5,y5)<<std::endl;
+    std::cout<<"ablr="<<ablr<<std::endl;
+
+    double dg2, dg1, dh, dwh, dbh, dtb;
+    double msusy=msmuL;
+
+    dg1=g1*g1/(16.*pi*pi)*(4./3.)
+        *(4./3.*log(msuR/msusy) + 4./3.*log(mscR/msusy) + 4./3.*log(mstR/msusy)
+          + 2./3.*log(msdR/msusy) + 2./3.*log(mssR/msusy) + 2./3.*log(msbR/msusy)
+          + 1./3.*log(msq1L/msusy) + 1./3.*log(msq2L/msusy) + 1./3.*log(msq3L/msusy)
+          + log(mseR/msusy) + log(mstauR/msusy)
+          + 1./2.*log(mseL/msusy) + 1./2.*log(mstauL/msusy) );
+
+    dg2=g2*g2/(16.*pi*pi)*(4./3.)
+        *(3./2.*log(msq1L/msusy) + 3./2.*log(msq2L/msusy) + 3./2.*log(msq3L/msusy)
+          + 1./2.*log(mseL/msusy) + 1./2.*log(mstauL/msusy) );
+
+    // corrections involving Yukawa couplings
+    double yb, ytau, yt;
+    double as_mt, delta_mt;
+
+    // a_s(msmuL)
+    as_mt=1/(g3*g3);
+    //running down to mt
+    as_mt=as_mt - (-7.)*log(mt/msmuL)/(8.*pi*pi);
+    as_mt=(1./as_mt)/(4.*pi);
+
+    delta_mt=-4./3.*(as_mt/pi)-9.1*pow( (as_mt/pi), 2)-80.*pow((as_mt/pi),3);
+
+    yb=mb/(vew*cosb);
+    yt=mt/(vew*sinb)*(1+delta_mt); //neglecting small EW correction
+    ytau=mTAU/(vew*cosb);
+
+    // to the DR bar scheme
+    yt=yt*(1+as_mt/(8.*pi)*(-4./3.));
+    yb=yb*(1+as_mt/(8.*pi)*(-4./3.));
+
+    dh=0.5/(16.*pi*pi)*(3.*yt*yt*log(mstR/msusy) +3.*yb*yb*log(msbR/msusy)
+                        +3.*(yt*yt+yb*yb)*log(msq3L/msusy)
+                        +ytau*ytau*log(mstauR/msusy) +ytau*ytau*log(mstauL/msusy));
+
+    dwh=yt*yt/(16.*pi*pi)*(-6.*log(msq3L/msusy));
+
+    dbh=yt*yt/(16.*pi*pi)*( 2.*log(msq3L/msusy)-8.*log(mstR/msusy) );
+
+    dtb=1./(16.*pi*pi)*( 3.*yb*yb -3.*yt*yt +ytau*ytau)*log(Q_S/msusy);
+
+    // summing sfermion/fermion contributions
+    res3= awhn*(dg2 + dh + dwh + dtb)
+          + awhl*(dg2 + dh + dwh + dtb)
+          + abhl*(dg1 + dh + dbh + dtb)
+          + abhr*(dg1 + dh + dbh + dtb)
+          + ablr*(dg1 + dtb);
+    std::cout<<"awhn="<<awhn<<std::endl;
+    std::cout<<"awhl="<<awhl<<std::endl;
+    std::cout<<"abhl="<<abhl<<std::endl;
+    std::cout<<"abhr="<<abhr<<std::endl;
+    std::cout<<"ablr="<<ablr<<std::endl;
+    std::cout<<"dg1="<<dg1<<std::endl;
+    std::cout<<"dg2="<<dg2<<std::endl;
+    std::cout<<"dh="<<dh<<std::endl;
+    std::cout<<"dwh="<<dwh<<std::endl;
+    std::cout<<"dbh="<<dbh<<std::endl;
+    std::cout<<"dtb="<<dtb<<std::endl;
+
+    std::cout<<"res3="<<res3<<std::endl;
+    res01=gm2cor+res2+res3-gm21loop;
+
+    gminus2muNLO=res01+res02;
+
+    std::cout<<"gm2NLO="<<gminus2muNLO<<std::endl;
+    return(gminus2muNLO);
+}
+
 gslpp::vector<gslpp::complex> SUSYMatching::C7_Lepton(int li_to_lj) {
 
     gslpp::vector<gslpp::complex> C7(2, 0.);
@@ -6294,13 +7001,17 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMgminus2mu() {
     vmcgminus2mu = StandardModelMatching::CMgminus2mu();
 
     gslpp::vector<gslpp::complex> gminus2muvector=gminus2mu();
+    double gminus2muvectorNLO=gminus2muNLO();
     switch (mcgminus2mu.getOrder()) {
         case LO:
             mcgminus2mu.setCoeff(0, gminus2muvector(0), LO);  //g-2_muR
             mcgminus2mu.setCoeff(1, gminus2muvector(1), LO);  //g-2_muL
             break;
-        case NNLO:
         case NLO:
+            mcgminus2mu.setCoeff(0, gminus2muvectorNLO, NLO);  //g-2_muR
+            mcgminus2mu.setCoeff(1, 0., NLO);  //g-2_muL
+            break;
+        case NNLO:
         default:
             std::stringstream out;
             out << mcgminus2mu.getOrder();

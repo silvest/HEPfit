@@ -47,11 +47,16 @@ public:
     
     virtual bool setFlag(const std::string name, const bool value);
     
-    virtual FlavourWilsonCoefficientMatching* getMyMatching() const
+    virtual FlavourWilsonCoefficientMatching& getMatching() const
     {
-        return myFlavourWilsonCoefficientMatching;
+        return FWCM.getObj();
     }
 
+    virtual void setMatching(FlavourWilsonCoefficientMatching& FWCMr)
+    {
+        FWCM.setObj(FWCMr);
+    }
+    
     /**
      *
      * @return \f$\Delta C_1$\f
@@ -199,10 +204,10 @@ public:
 protected: 
     
     virtual void setParameter(const std::string, const double&);
+    mutable Matching<FlavourWilsonCoefficientMatching,FlavourWilsonCoefficient> FWCM;
 
 private:
 
-    FlavourWilsonCoefficientMatching* myFlavourWilsonCoefficientMatching;
     
     gslpp::complex DC1, DC2, DC3, DC4, DC5, DC6, DC7, DC8, DC9, DC10, DC7g, DC8g;
     gslpp::complex DC7p, DC8p, DC9p, DC10p, DC7gp, DC8gp;

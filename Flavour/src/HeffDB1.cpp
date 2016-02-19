@@ -76,8 +76,8 @@ HeffDB1::~HeffDB1()
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme) 
 {
     
-     std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMbnlep( 0);
-     std::vector<WilsonCoefficient>& mcbCC = model.getMyMatching()->CMbnlepCC( 0);
+     std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbnlep( 0);
+     std::vector<WilsonCoefficient>& mcbCC = model.getMatching().CMbnlepCC( 0);
     
     coeffnlep00qcd.setMu(mu); //inizializes to zero the coefficients
     coeffnlep00CC.setMu(mu);
@@ -152,8 +152,8 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes scheme) 
 {
     
-     std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMbnlep( 1);
-     std::vector<WilsonCoefficient>& mcbCC = model.getMyMatching()->CMbnlepCC( 1);
+    const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbnlep( 1);
+    const std::vector<WilsonCoefficient>& mcbCC = model.getMatching().CMbnlepCC( 1);
     
     coeffnlep10qcd.setMu(mu);
     coeffnlep10CC.setMu(mu);
@@ -226,8 +226,8 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes scheme) 
 {
     
-     std::vector<WilsonCoefficient>& mcbCC1 =model.getMyMatching()->CMbnlepCC( 2);
-     std::vector<WilsonCoefficient>& mcbCC2 = model.getMyMatching()->CMbnlepCC( 3);
+    const std::vector<WilsonCoefficient>& mcbCC1 =model.getMatching().CMbnlepCC( 2);
+    const std::vector<WilsonCoefficient>& mcbCC2 = model.getMatching().CMbnlepCC( 3);
     
     coeffnlep01.setMu(mu);
     coeffnlep01A.setMu(mu);
@@ -277,8 +277,8 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme) 
 {
     
-     std::vector<WilsonCoefficient>& mcbCC1 = model.getMyMatching()->CMbnlepCC( 2);
-     std::vector<WilsonCoefficient>& mcbCC2 = model.getMyMatching()->CMbnlepCC( 3);
+    const std::vector<WilsonCoefficient>& mcbCC1 = model.getMatching().CMbnlepCC( 2);
+    const std::vector<WilsonCoefficient>& mcbCC2 = model.getMatching().CMbnlepCC( 3);
     
     coeffnlep11.setMu(mu);
     coeffnlep11A.setMu(mu);
@@ -326,7 +326,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes sc
     orders ordDF1 = coeffsmumu.getOrder(); 
     orders_ew ordDF1ew = coeffsmumu.getOrder_ew();
     
-    const std::vector<WilsonCoefficient>& mcbsm = model.getMyMatching() -> CMbsmm();
+    const std::vector<WilsonCoefficient>& mcbsm = model.getMatching().CMbsmm();
 
     if (mu == Bsmumu_mu_cache && scheme == Bsmumu_scheme_cache) {
         int check = 1;
@@ -516,7 +516,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     orders ordDF1 = coeffdmumu.getOrder(); 
     orders_ew ordDF1ew = coeffdmumu.getOrder_ew();
     
-    const std::vector<WilsonCoefficient>& mcbdm = model.getMyMatching() -> CMbdmm();
+    const std::vector<WilsonCoefficient>& mcbdm = model.getMatching().CMbdmm();
 
     if (mu == Bdmumu_mu_cache && scheme == Bdmumu_scheme_cache) {
         int check = 1;
@@ -700,7 +700,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffbtaunu() 
 {
-    std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMbtaunu();
+    const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMbtaunu();
     coeffbtaunu.resetCoefficient();
     orders ordDF1 = coeffbtaunu.getOrder();
     for (unsigned int i = 0; i < mcb.size(); i++){
@@ -715,7 +715,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffbtaunu()
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsnunu() 
 {
     
-     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMBXsnn();
+    const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMBXsnn();
     
     orders ordDF1 = coeffsnunu.getOrder();
     
@@ -732,7 +732,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsnunu()
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdnunu() 
 {
     
-     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMBXdnn();
+    const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMBXdnn();
     
     orders ordDF1 = coeffdnunu.getOrder();
     
@@ -752,7 +752,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
     coeffsgamma.setScheme(scheme);
     orders ordDF1 = coeffsgamma.getOrder();   
     
-    const std::vector<WilsonCoefficient>& mcbsg = model.getMyMatching() -> CMbsg();
+    const std::vector<WilsonCoefficient>& mcbsg = model.getMatching().CMbsg();
 
     if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
         int check = 1;
@@ -797,7 +797,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, sche
     coeffprimesgamma.setScheme(scheme);
     orders ordDF1 = coeffprimesgamma.getOrder();   
     
-    const std::vector<WilsonCoefficient>& mcbsgp = model.getMyMatching() -> CMprimebsg();
+    const std::vector<WilsonCoefficient>& mcbsgp = model.getMatching().CMprimebsg();
 
     if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
         int check = 1;
@@ -842,7 +842,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes sch
     coeffBMll.setScheme(scheme);
     orders ordDF1 = coeffBMll.getOrder();   
     
-    const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMBMll();
+    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMBMll();
 
     if (mu == BMll_mu_cache && scheme == BMll_scheme_cache) {
         int check = 1;
@@ -888,7 +888,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, scheme
     coeffprimeBMll.setScheme(scheme);
     orders ordDF1 = coeffprimeBMll.getOrder();  
     
-    const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMprimeBMll();
+    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMprimeBMll();
 
     if (mu == BMllprime_mu_cache && scheme == BMllprime_scheme_cache) {
         int check = 1;

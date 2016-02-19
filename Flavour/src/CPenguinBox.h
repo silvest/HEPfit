@@ -90,7 +90,6 @@ protected:
     
 private:
     const StandardModel& model;
-    const StandardModelMatching& modelmatching; 
     
     gslpp::matrix<double> up, j5p1, j4p1, j5p2, j4p2;
     gslpp::matrix<double> ub, j5b1, j4b1, j5b2, j4b2;

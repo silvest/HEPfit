@@ -51,6 +51,27 @@ private:
 };
 
 /**
+ * @class Robs_ggF_A_tautau_ATLAS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$gg\to A\to \tau\tau@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_tautau_ATLAS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_tautau_ATLAS constructor.
+     */
+    Robs_ggF_A_tautau_ATLAS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_ggF_A_tautau_CMS
  * @ingroup THDM
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg\to A\to \tau\tau@f$.
@@ -65,6 +86,27 @@ public:
 
     /**
      * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to \tau\tau)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_ggF_A_tautau_CMS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$gg\to A\to \tau\tau@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_tautau_CMS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_tautau_CMS constructor.
+     */
+    Robs_ggF_A_tautau_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to \tau\tau)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -93,6 +135,27 @@ private:
 };
 
 /**
+ * @class Robs_bbF_A_tautau_ATLAS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$b\bar b\to A\to \tau\tau@f$ assuming a Gaussian likelihood.
+ */
+class Robs_bbF_A_tautau_ATLAS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_bbF_A_tautau_ATLAS constructor.
+     */
+    Robs_bbF_A_tautau_ATLAS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} - [\sigma_{b\bar b\to A}\cdot BR(A\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{b\bar b\to A}\cdot BR(A\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_bbF_A_tautau_CMS
  * @ingroup THDM
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$b\bar b\to A\to \tau\tau@f$.
@@ -114,20 +177,62 @@ private:
 };
 
 /**
- * @class Hobs_ggF_A_gaga_ATLAS
+ * @class Robs_bbF_A_tautau_CMS
  * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg \to A\to \gamma\gamma@f$.
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$b\bar b\to A\to \tau\tau@f$ assuming a Gaussian likelihood.
  */
-class Hobs_ggF_A_gaga_ATLAS: public ThObservable {
+class Robs_bbF_A_tautau_CMS: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_ggF_A_gaga_ATLAS constructor.
+     * @brief Robs_bbF_A_tautau_CMS constructor.
      */
-    Hobs_ggF_A_gaga_ATLAS(const StandardModel& SM_i);
+    Robs_bbF_A_tautau_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to \gamma\gamma)]_{\text{ATLAS,95\%}}@f$
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]_{\text{theo}} - [\sigma_{b\bar b\to A}\cdot BR(A\to \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma_{b\bar b\to A}\cdot BR(A\to \tau\tau)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Hobs_pp_A_gaga_ATLAS
+ * @ingroup THDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp \to A\to \gamma\gamma@f$.
+ */
+class Hobs_pp_A_gaga_ATLAS: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_A_gaga_ATLAS constructor.
+     */
+    Hobs_pp_A_gaga_ATLAS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]_{\text{theo}} / [\sigma_{pp\to A}\cdot BR(A\to \gamma\gamma)]_{\text{ATLAS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_pp_A_gaga_ATLAS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$pp \to A\to \gamma\gamma@f$ assuming a Gaussian likelihood.
+ */
+class Robs_pp_A_gaga_ATLAS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_pp_A_gaga_ATLAS constructor.
+     */
+    Robs_pp_A_gaga_ATLAS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]_{\text{theo}} - [\sigma_{pp\to A}\cdot BR(A\to \gamma\gamma)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{pp\to A}\cdot BR(A\to \gamma\gamma)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -156,6 +261,27 @@ private:
 };
 
 /**
+ * @class Robs_ggF_A_gaga_CMS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$gg \to A\to \gamma\gamma@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_gaga_CMS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_gaga_CMS constructor.
+     */
+    Robs_ggF_A_gaga_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to \gamma\gamma)]_{\text{CMS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to \gamma\gamma)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_ggF_A_hZ_bbll_CMS
  * @ingroup THDM
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg \to A\to hZ \to b\bar b \ell \ell@f$.
@@ -170,6 +296,27 @@ public:
 
     /**
      * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to hZ \to b\bar b \ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_ggF_A_hZ_bbll_CMS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$gg \to A\to hZ \to b\bar b \ell \ell@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_hZ_bbll_CMS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_hZ_bbll_CMS constructor.
+     */
+    Robs_ggF_A_hZ_bbll_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to hZ \to b\bar b \ell \ell)]_{\text{CMS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to hZ \to b\bar b \ell \ell)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -198,6 +345,27 @@ private:
 };
 
 /**
+ * @class Robs_ggF_A_hZ_bbZ_ATLAS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$gg \to A\to hZ \to b\bar b Z@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_hZ_bbZ_ATLAS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_hZ_bbZ_ATLAS constructor.
+     */
+    Robs_ggF_A_hZ_bbZ_ATLAS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b Z)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to hZ \to b\bar b Z)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to hZ \to b\bar b Z)]_{\text{ATLAS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_ggF_A_hZ_tautaull_CMS
  * @ingroup THDM
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg \to A\to hZ \to \tau \tau \ell \ell@f$.
@@ -212,6 +380,27 @@ public:
 
     /**
      * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to hZ \to \tau \tau \ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_ggF_A_hZ_tautaull_CMS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$gg \to A\to hZ \to \tau \tau \ell \ell@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_hZ_tautaull_CMS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_hZ_tautaull_CMS constructor.
+     */
+    Robs_ggF_A_hZ_tautaull_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to hZ \to \tau \tau \ell \ell)]_{\text{CMS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to hZ \to \tau \tau \ell \ell)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -240,20 +429,62 @@ private:
 };
 
 /**
- * @class Hobs_pp_A_tt_ATLAS
+ * @class Robs_ggF_A_hZ_tautauZ_ATLAS
  * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp \to A\to t\bar t@f$.
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$gg \to A\to hZ \to \tau \tau Z@f$ assuming a Gaussian likelihood.
  */
-class Hobs_pp_A_tt_ATLAS: public ThObservable {
+class Robs_ggF_A_hZ_tautauZ_ATLAS: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_pp_A_tt_ATLAS constructor.
+     * @brief Robs_ggF_A_hZ_tautauZ_ATLAS constructor.
      */
-    Hobs_pp_A_tt_ATLAS(const StandardModel& SM_i);
+    Robs_ggF_A_hZ_tautauZ_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)]_{\text{theo}} / [\sigma_{pp\to A}\cdot BR(A\to t\bar t))_{\text{ATLAS,95\%}}@f$
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau b Z)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to hZ \to \tau \tau Z)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to hZ \to \tau \tau Z)]_{\text{ATLAS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Hobs_ggF_A_tt_ATLAS
+ * @ingroup THDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg \to A\to t\bar t@f$.
+ */
+class Hobs_ggF_A_tt_ATLAS: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_ggF_A_tt_ATLAS constructor.
+     */
+    Hobs_ggF_A_tt_ATLAS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to t\bar t))_{\text{ATLAS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_ggF_A_tt_ATLAS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$gg \to A\to t\bar t@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_tt_ATLAS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_tt_ATLAS constructor.
+     */
+    Robs_ggF_A_tt_ATLAS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to t\bar t)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to t\bar t)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -275,6 +506,27 @@ public:
 
     /**
      * @return @f$[\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)]_{\text{theo}} / [\sigma_{b\bar b\to A}\cdot BR(A\to b\bar b)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_bbF_A_bb_CMS
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$b\bar b \to A\to b\bar b@f$ assuming a Gaussian likelihood.
+ */
+class Robs_bbF_A_bb_CMS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_bbF_A_bb_CMS constructor.
+     */
+    Robs_bbF_A_bb_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)]_{\text{theo}} - [\sigma_{b\bar b\to A}\cdot BR(A\to b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma_{b\bar b\to A}\cdot BR(A\to b\bar b)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -317,6 +569,27 @@ public:
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class log10_pp_A_gaga_TH
+ * @ingroup THDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to A\to \gamma\gamma@f$.
+ */
+class log10_pp_A_gaga_TH: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_A_gaga_TH constructor.
+     */
+    log10_pp_A_gaga_TH(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)]@f$
      */
     double computeThValue();
 private:
@@ -429,20 +702,20 @@ private:
 };
 
 /**
- * @class log10_pp_A_tt_TH
+ * @class log10_ggF_A_tt_TH
  * @ingroup THDM
- * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to A\to t\bar t@f$.
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to t\bar t@f$.
  */
-class log10_pp_A_tt_TH: public ThObservable {
+class log10_ggF_A_tt_TH: public ThObservable {
 public:
 
     /**
-     * @brief log10_pp_A_tt_TH constructor.
+     * @brief log10_ggF_A_tt_TH constructor.
      */
-    log10_pp_A_tt_TH(const StandardModel& SM_i);
+    log10_ggF_A_tt_TH(const StandardModel& SM_i);
 
     /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)]@f$
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)]@f$
      */
     double computeThValue();
 private:
