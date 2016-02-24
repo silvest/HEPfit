@@ -12,26 +12,6 @@
 #include "ThObservable.h"
 #include "LeptonFlavour.h"
 
-//class li_lj_gamma : public ThObservable {
-//public:
-//    /**
-//     * @brief Calculates the value of the process \f$ \ell_j \to \ell_i \gamma \f$.
-//     * @return value of the process \f$ \ell_j \to \ell_i \gamma \f$.
-//     */
-//    li_lj_gamma(const StandardModel& SM_i);
-//
-//    /**
-//     *
-//     * @return value of the process \f$ \ell_j \to \ell_i \gamma \f$.
-//     */
-//    double computeThValue();
-//
-//protected:
-//
-//private:
-//    
-//};
-
 /**
  * @class mu_e_gamma
  * @ingroup LeptonFlavour
@@ -51,6 +31,34 @@ public:
     
     /**
      * @return value of the process \f$ \mu \to e \gamma \f$.
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
+ * @class Robs_mu_e_gamma
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the upper limit ratio for the process \f$ \mu \to e \gamma \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class Robs_mu_e_gamma : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the upper limit ratio of the process \f$ \mu \to e \gamma \f$.
+     */
+    Robs_mu_e_gamma(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$R=1+(BR_{\text{theo}}-BR_{\text{obs,90\%}})/BR_{\text{exp,90\%}}\cdot \sqrt{2}\text{InvErf}(0.90)@f$
      */
     double computeThValue();
     
@@ -93,6 +101,34 @@ private:
 };
 
 /**
+ * @class Robs_tau_mu_gamma
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the upper limit ratio for the process \f$ \tau \to \mu \gamma \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class Robs_tau_mu_gamma : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the upper limit ratio of the process \f$ \tau \to \mu \gamma \f$.
+     */
+    Robs_tau_mu_gamma(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$R=1+(BR_{\text{theo}}-BR_{\text{obs,90\%}})/BR_{\text{exp,90\%}}\cdot \sqrt{2}\text{InvErf}(0.90)@f$
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
  * @class tau_e_gamma
  * @ingroup LeptonFlavour
  * @brief A class for calculating the branching ratio of the process \f$ \tau \to e \gamma \f$.
@@ -111,6 +147,34 @@ public:
     
     /**
      * @return value of the process \f$ \tau \to e \gamma \f$.
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
+ * @class Robs_tau_e_gamma
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the upper limit ratio for the process \f$ \tau \to e \gamma \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class Robs_tau_e_gamma : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the upper limit ratio of the process \f$ \tau \to e \gamma \f$.
+     */
+    Robs_tau_e_gamma(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$R=1+(BR_{\text{theo}}-BR_{\text{obs,90\%}})/BR_{\text{exp,90\%}}\cdot \sqrt{2}\text{InvErf}(0.90)@f$
      */
     double computeThValue();
     
