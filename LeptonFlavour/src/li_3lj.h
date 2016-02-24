@@ -11,27 +11,27 @@
 #include "gslpp.h"
 #include "ThObservable.h"
 #include "LeptonFlavour.h"
-
-class li_3lj : public ThObservable {
-public:
-    /**
-     * constructor
-     * @param LeptonFlavour
-     */
-    li_3lj(const StandardModel& SM_i);
-
-    /**
-     *
-     * @brief Calculates the value of the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
-     * @return value of the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$
-     */
-    double computeThValue();
-
-protected:
-
-private:
-    
-};
+////
+////class li_3lj : public ThObservable {
+////public:
+////    /**
+////     * constructor
+////     * @param LeptonFlavour
+////     */
+////    li_3lj(const StandardModel& SM_i);
+////
+////    /**
+////     *
+////     * @brief Calculates the value of the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$.
+////     * @return value of the process \f$ \ell_j \to \ell_i \ell_i \ell_i \f$
+////     */
+////    double computeThValue();
+////
+////protected:
+////
+////private:
+////    
+////};
 
 /**
  * @class mu_3e
@@ -52,6 +52,34 @@ public:
     
     /**
      * @return value of the process \f$ \mu \to eee \f$
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
+ * @class Robs_mu_3e
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the upper limit ratio for the process \f$ \mu \to eee \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class Robs_mu_3e : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the upper limit ratio of the process \f$ \mu \to eee \f$.
+     */
+    Robs_mu_3e(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$R=1+(BR_{\text{theo}}-BR_{\text{obs,90\%}})/BR_{\text{exp,90\%}}\cdot \sqrt{2}\text{InvErf}(0.90)@f$
      */
     double computeThValue();
     
@@ -94,6 +122,34 @@ private:
 };
 
 /**
+ * @class Robs_tau_3mu
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the upper limit ratio for the process \f$ \tau \to \mu \mu \mu \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class Robs_tau_3mu : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the upper limit ratio of the process \f$ \tau \to \mu \mu \mu \f$.
+     */
+    Robs_tau_3mu(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$R=1+(BR_{\text{theo}}-BR_{\text{obs,90\%}})/BR_{\text{exp,90\%}}\cdot \sqrt{2}\text{InvErf}(0.90)@f$
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
  * @class tau_3e
  * @ingroup LeptonFlavour
  * @brief A class for calculating the branching ratio of the process \f$ \tau \to eee \f$.
@@ -112,6 +168,34 @@ public:
     
     /**
      * @return value of the process \f$ \tau \to eee \f$
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
+ * @class Robs_tau_3e
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the upper limit ratio for the process \f$ \tau \to eee \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class Robs_tau_3e : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the upper limit ratio of the process \f$ \tau \to eee \f$.
+     */
+    Robs_tau_3e(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$R=1+(BR_{\text{theo}}-BR_{\text{obs,90\%}})/BR_{\text{exp,90\%}}\cdot \sqrt{2}\text{InvErf}(0.90)@f$
      */
     double computeThValue();
     
