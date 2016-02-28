@@ -35,6 +35,7 @@ Observable2D::Observable2D(const std::string name_i,
     obsType2 = "";
     filepath = "";
     iterationNo2 = std::numeric_limits<int>::max();
+    IsEOF = false;
 }
 
 Observable2D::Observable2D(const Observable& o1d)
@@ -50,6 +51,7 @@ Observable2D::Observable2D(const Observable& o1d)
     obsType2 = "";
     filepath = "";
     iterationNo2 = std::numeric_limits<int>::max();
+    IsEOF = false;
 }
 
 Observable2D::Observable2D()
@@ -65,6 +67,7 @@ Observable2D::Observable2D()
     obsType2 = "";
     filepath = "";
     iterationNo2 = std::numeric_limits<int>::max();
+    IsEOF = false;
 }
 
 Observable2D::Observable2D(const Observable2D& orig)
@@ -87,6 +90,7 @@ Observable2D::Observable2D(const Observable2D& orig)
     tho2 = orig.tho2;
     filepath = orig.filepath;
     iterationNo2 = orig.iterationNo2;
+    IsEOF = orig.IsEOF;
 }
 
 Observable2D::~Observable2D()

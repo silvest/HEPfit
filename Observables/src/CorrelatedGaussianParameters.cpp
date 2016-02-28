@@ -19,6 +19,7 @@ CorrelatedGaussianParameters::CorrelatedGaussianParameters(std::string name_i)
     Cov = NULL; 
     v = NULL;
     e = NULL;
+    IsEOF = false;
 }
 
 CorrelatedGaussianParameters::CorrelatedGaussianParameters()
@@ -26,6 +27,7 @@ CorrelatedGaussianParameters::CorrelatedGaussianParameters()
     Cov = NULL; 
     v = NULL;
     e = NULL;
+    IsEOF = false;
 }
 
 CorrelatedGaussianParameters::CorrelatedGaussianParameters(const CorrelatedGaussianParameters& orig)
@@ -36,6 +38,7 @@ CorrelatedGaussianParameters::CorrelatedGaussianParameters(const CorrelatedGauss
     v = new gslpp::matrix<double>(*orig.v);
     e = new gslpp::vector<double>(*orig.e);
     DiagPars = orig.DiagPars;
+    IsEOF = orig.IsEOF;
 }
 
 CorrelatedGaussianParameters::~CorrelatedGaussianParameters()
