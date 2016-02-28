@@ -14,12 +14,14 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables(std::string name_i)
 {
     name = name_i;
     IsPrediction = false;
+    IsEOF = false;
 }
 
 CorrelatedGaussianObservables::CorrelatedGaussianObservables()
 {
     name = "";
     IsPrediction = false;
+    IsEOF = false;
 }
 
 CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig)
@@ -28,6 +30,7 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGau
     name = orig.name;
     Cov = new gslpp::matrix<double>(*orig.Cov);
     IsPrediction = orig.IsPrediction;
+    IsEOF = orig.IsEOF;
 }
 
 CorrelatedGaussianObservables::~CorrelatedGaussianObservables()
