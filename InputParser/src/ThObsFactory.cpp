@@ -275,7 +275,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["tau_3mu"] = boost::factory<tau_3mu*>();
     obsThFactory["tau_3e"] = boost::factory<tau_3e*>();
     obsThFactory["gminus2_mu"] = boost::factory<gminus2_mu*>();
-    /** END: REMOVE FROM THE PACKAGE **/
     
     //-----  SUSY spectra and observables  -----
     obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);

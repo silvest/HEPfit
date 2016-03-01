@@ -40,7 +40,6 @@ SUSY::SUSY()
 
 SUSY::~SUSY(){
     if (IsModelInitialized()) {
-            if (mySUSYMatching != NULL) delete(mySUSYMatching);
             if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
         }
 }

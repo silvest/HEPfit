@@ -48,15 +48,6 @@ public:
 
     virtual bool InitializeModel();
 
-    /**
-     * @brief
-     * @return
-     */
-    FeynHiggsWrapper* getMyFH() const
-    {
-        return myFH;
-    }
-
     virtual SUSYMatching& getMatching() const
     {
         return SUSYM.getObj();
@@ -528,7 +519,6 @@ protected:
 private:    
     bool flag_h, flag_g, flag_ch, flag_ne;
     mutable Matching<SUSYMatching,SUSY>  SUSYM;
-    EWSUSY* myEWSUSY;
 
 };
 

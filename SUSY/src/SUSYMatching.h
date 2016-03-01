@@ -287,110 +287,12 @@ private:
         double Fa(double x, double y);
         double Fb(double x, double y);    
 
-    /** Feynmann rule for the Chargino - down quark - up squarks vertex with tan beta correction  **/
 
-    gslpp::complex VdUCL_cache[3][6][2];
-    gslpp::complex VdUCR_cache[3][6][2][2];
 
-    gslpp::complex VdUCL(int b, int k, int j);
-    gslpp::complex VdUCR(int b, int k, int j, int flag);
-    
-    /** Feynmann rule for the Neutralino - down quark - down squarks vertex with tan beta correction  **/
-    
-    gslpp::complex VdDNL_cache[3][6][4][2];
-    gslpp::complex VdDNR_cache[3][6][4][2];
-    
-    gslpp::complex VdDNL(int b, int k, int j, int flag);
-    gslpp::complex VdDNR(int b, int k, int j, int flag);
-    
-    /** Feynmann rule for the Chargino - up quark - down squarks vertex with tan beta correction  **/
-    
-    gslpp::complex VuDCL_cache[3][6][2];
-    gslpp::complex VuDCR_cache[3][6][2];
-    
-    gslpp::complex VuDCL(int b, int k, int j);
-    gslpp::complex VuDCR(int b, int k, int j);
-    
-    /** Vertices Neutralino (N) - up quark (u) - up squarks (U) from Buras arXiv:hep-ph/0210145v2 
-        in SLHA convention usefull in D - Dbar mixing **/
-    
-    gslpp::complex VuUNL_cache[3][6][4];
-    gslpp::complex VuUNR_cache[3][6][4];
-    
-    gslpp::complex VuUN(int b, int k, int j, const std::string);
-  
-  
-    /** Rules to include in the same formulas the D - D bar mixing  **/
-    gslpp::complex VdUCL(int b, int k, int j, int Dmixingflag);
-    gslpp::complex VdUCR(int b, int k, int j, int flag, int Dmixingflag);
-        
-    gslpp::complex VdDNL(int b, int k, int j, int flag, int Dmixingflag);
-    gslpp::complex VdDNR(int b, int k, int j, int flag, int Dmixingflag);
-    
-    
-    
-    
- 
-    double CL(double a, double b, int k);
-    double CLL(double a, int k);
-    double Ck(double x, double y, double z,int k);
-    double BL(double a, int k);
-    double Bk(double x, double y, int k);
-    
-    gslpp::complex DeltaMd(int J, int I);
-    
-    gslpp::vector<gslpp::complex> Eps_JCache;
-    gslpp::complex Eps_J(int J);
-    
-    gslpp::matrix<gslpp::complex> Lambda0EpsYCache;
-    
-    gslpp::complex Lambda0EpsY(int J, int I);
-    
-    gslpp::matrix<gslpp::complex> DeltaDL_Cache;
-    
-    
-    gslpp::complex DeltaDL(int J, int I);
-    gslpp::complex DeltaDR(int J, int I);
-    
-    
-    gslpp::complex xdS(int S);
-    gslpp::complex xuS(int S);
-    gslpp::complex XRLS(int J, int I, int S);
-    gslpp::complex XLRS(int J, int I, int S);
     
     
    
-    gslpp::matrix<gslpp::complex> PHLRCache;
     
-    
-    gslpp::complex PHLR(int j, int i);
-    gslpp::complex DeltaFHL(int j, int i);
-    
-    gslpp::matrix<gslpp::complex> PHRLCache;
-    
-    gslpp::complex PHRL(int j, int i);
-    
-    
-    gslpp::complex VUDHH(int i, int j);
-    gslpp::complex PGLR(int j, int i);
-    gslpp::complex PGRL(int j, int i);
-    gslpp::complex PLRk(int j, int i, int k);
-    gslpp::complex PRLk(int j, int i, int k);
-    
-    gslpp::complex PRLk(int j, int i, int k, int Dmixingflag);
-    gslpp::complex PLRk(int j, int i, int k, int Dmixingflag);
-    
-    gslpp::matrix<gslpp::complex> mySUSY_CKM();
-    
-    gslpp::complex EpsPrime(int J, int I);
-    gslpp::vector<gslpp::complex> CalcC7(int b, int q);
-    double F7k(double x, int k);
-   
-    
-    gslpp::matrix<gslpp::complex> myCKM_cache;
-    gslpp::matrix<gslpp::complex> VUDHH_cache;
-    gslpp::matrix<gslpp::complex> DeltaMd_cache;
-    gslpp::vector<double> mySUSYMQ;
     
 };
 

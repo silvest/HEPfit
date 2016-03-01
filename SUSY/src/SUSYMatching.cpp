@@ -3510,7 +3510,7 @@ double SUSYMatching::gminus2muNLO() {
 
     dbh=yt*yt/(16.*pi*pi)*( 2.*log(msq3L/msusy)-8.*log(mstR/msusy) );
 
-    dtb=1./(16.*pi*pi)*( 3.*yb*yb -3.*yt*yt +ytau*ytau)*log(Q_S/msusy);
+    dtb=1./(16.*pi*pi)*( 3.*yb*yb -3.*yt*yt +ytau*ytau)*log(msmuR/msusy);/* ASK NORIMI */
 
     // summing sfermion/fermion contributions
     res3= awhn*(dg2 + dh + dwh + dtb)
