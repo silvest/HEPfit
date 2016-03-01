@@ -21,6 +21,14 @@
 class AmpDB2 {
 public:
     AmpDB2(const StandardModel& SM_i);
+    
+    gslpp::complex getAmpBd(orders order){
+        return AmpBd(order);
+    }
+    
+    gslpp::complex getAmpBs(orders order){
+        return AmpBs(order);
+    }
 
 protected:
     gslpp::complex AmpBd(orders order);

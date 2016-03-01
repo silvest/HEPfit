@@ -171,17 +171,44 @@ double BR_MVgamma::computeThValue()
     return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda / (4. * width) * (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
 }
 
-ACP_MVgamma::ACP_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : MVgamma(SM_i, meson_i, vector_i)
+C_MVgamma::C_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : MVgamma(SM_i, meson_i, vector_i)
 {
     meson = meson_i;
     vectorM = vector_i;
 }
 
-double ACP_MVgamma::computeThValue()
+double C_MVgamma::computeThValue()
 {
     updateParameters();
 
     return ((H_V_p().abs2() + H_V_m().abs2() - H_V_p_bar().abs2() - H_V_m_bar().abs2())) / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
+}
+
+S_MVgamma::S_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : MVgamma(SM_i, meson_i, vector_i), myAmpDB2(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double S_MVgamma::computeThValue()
+{
+    updateParameters();
+    
+    switch (vectorM) {
+        case StandardModel::K_star:
+            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            break;
+        case StandardModel::PHI:
+            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            break;
+        default:
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
+    }
+    
+    
+    return 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar())).imag() / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
 }
 
 DC7_1::DC7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)

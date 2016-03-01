@@ -10,6 +10,7 @@
 
 #include "StandardModel.h"
 #include "ThObservable.h"
+#include "AmpDB2.h"
 
 
 
@@ -183,17 +184,17 @@ private:
 /**
  * @class ACP_MVgamma
  * @ingroup Flavour
- * @brief A class for the @f$A_{CP}@f$ in @f$M \to V \gamma@f$ decay. 
+ * @brief A class for the @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$ decay. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the @f$A_{CP}@f$ in @f$M \to V \gamma@f$ 
+ * @details This class is used to compute the @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$ 
  * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
  * computed in the MVgamma class:
  * @f[
- * A_{CP} = \frac {( |H_V^+|^2 + |H_A^+|^2 - |\overline{H}_V^-|^2 - |\overline{H}_A^-|^2)}{( |H_V^+|^2 + |H_A^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_A^-|^2)} \,.
+ * C = \frac {( |H_V^+|^2 + |H_V^-|^2 - |\overline{H}_V^+|^2 - |\overline{H}_V^-|^2)}{( |H_V^+|^2 + |H_V^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_V^-|^2)} \,.
  * @f]
  */
-class ACP_MVgamma : public MVgamma{
+class C_MVgamma : public MVgamma{
 public:
     
     /**
@@ -202,11 +203,11 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    ACP_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    C_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
     
     /**
-    * @brief The @f$A_{CP}@f$ in @f$M \to V \gamma@f$.
-    * @return @f$A_{CP}@f$
+    * @brief The @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$.
+    * @return @f$C@f$
     */
     double computeThValue ();
 
@@ -215,6 +216,42 @@ private:
     StandardModel::meson vectorM; /**< Final vector meson type. */
 };
 
+/**
+ * @class S_MVgamma
+ * @ingroup Flavour
+ * @brief A class for the @f$S@f$ parameter for CPV in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$S@f$ parameter of CPV in @f$M \to V \gamma@f$ 
+ * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
+ * computed in the MVgamma class:
+ * @f[
+ * S = \frac {2Im(q/p * ( H_V^{+*} \overline{H}_V^+ + H_V^{-*} \overline{H}_V^-))}{( |H_V^+|^2 + |H_V^-|^2 +|\overline{H}_V^+|^2 + |\overline{H}_V^-|^2)} \,.
+ * @f]
+ */
+class S_MVgamma : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    S_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    
+    /**
+    * @brief The @f$S@f$ parameter for CPV in @f$M \to V \gamma@f$.
+    * @return @f$S@f$
+    */
+    double computeThValue ();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+    AmpDB2 myAmpDB2;
+    double arg;
+};
 
 
 /**
