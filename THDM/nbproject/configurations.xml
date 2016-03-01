@@ -5,7 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/CPoddHiggs.h</itemPath>
-      <itemPath>src/EWPO.h</itemPath>
       <itemPath>src/STU.h</itemPath>
       <itemPath>src/THDM.h</itemPath>
       <itemPath>src/THDMMatching.h</itemPath>
@@ -28,7 +27,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CPoddHiggs.cpp</itemPath>
-      <itemPath>src/EWPO.cpp</itemPath>
       <itemPath>src/STU.cpp</itemPath>
       <itemPath>src/THDM.cpp</itemPath>
       <itemPath>src/THDMMatching.cpp</itemPath>
