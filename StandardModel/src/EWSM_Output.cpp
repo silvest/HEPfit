@@ -15,7 +15,6 @@
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
 #include "EWSMOneLoopEW_HV.h"
-#include "EWSMTwoFermionsLEP2.h"
 
 EWSM_Output::EWSM_Output(const StandardModel& SM_in)
 : StandardModel(SM_in)

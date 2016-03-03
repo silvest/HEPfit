@@ -25,9 +25,6 @@ class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
 class Flavour;
 class LeptonFlavour;
-/** BEGIN: REMOVE FROM THE PACKAGE **/
-class EWSMTwoFermionsLEP2;
-/** END: REMOVE FROM THE PACKAGE **/
 
 
 /**
@@ -954,17 +951,6 @@ public:
     {
         return myApproximateFormulae;
     }
-
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    /**
-     * @brief A get method to retrieve the member pointer of type EWSMTwoFermionsLEP2.
-     * @return the pointer #myTwoFermionsLEP2
-     */
-    EWSMTwoFermionsLEP2* getMyTwoFermionsLEP2() const
-    {
-        return myTwoFermionsLEP2;
-    }
-    /** END: REMOVE FROM THE PACKAGE **/
 
     EWSMThreeLoopEW* getMyThreeLoopEW() const
     {
@@ -2559,9 +2545,6 @@ private:
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
     Flavour* myFlavour; ///< A pointer to an object of the type Flavour.
     LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
-    /** END: REMOVE FROM THE PACKAGE **/
 
     bool FlagWithoutNonUniversalVC; ///< A boolean for the model flag %WithoutNonUniversalVC.
     bool FlagNoApproximateGammaZ; ///< A boolean for the model flag %NoApproximateGammaZ.
