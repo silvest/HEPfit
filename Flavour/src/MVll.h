@@ -60,20 +60,148 @@ gsl_function convertToGslFunction( const F& f )
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to 
- * compute the observables relative to the @f$M \to V l^+ l^-@f$ decay. After the
- * parameters are updated in updateParameters() and the cache is checked in 
+ * build the observables relative to the @f$M \to V l^+ l^-@f$ decays, where
+ * @f$M@f$ is a generic meson and @f$V@f$ is a vector meson. This kind of decays can be described
+ * by means of the @f$\Delta B = 1 @f$ weak effective Hamiltonian
+ * @f[
+ *   \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} +
+ *   \mathcal{H}_\mathrm{eff}^\mathrm{sl+\gamma},
+ * @f]  
+ * where the first term is the hadronic contribution 
+ * @f[
+ * \mathcal{H}_\mathrm{eff}^\mathrm{had} = \frac{4G_F}{\sqrt{2}}\Bigg[\sum_{p=u,c}\lambda_p\bigg(C_1 Q^{p}_1 
+ * + C_2 Q^{p}_2\bigg) -\lambda_t \bigg(\sum_{i=3}^{6} C_i P_i + C_{8}Q_{8g} \bigg)\Bigg] \,,
+ * @f]
+ * involving current-current, chromodynamic penguin and chromomagnetic dipole operators, while the second one, given by
+ * @f[
+ * \mathcal{H}_\mathrm{eff}^\mathrm{sl+\gamma} = - \frac{4G_F}{\sqrt{2}}\lambda_t
+ * \bigg( C_7Q_{7\gamma} + C_9Q_{9V} + C_{10}Q_{10A} \bigg) \,, 
+ * @f]
+ * includes the electromagnetic penguin plus the semileptonic operators.
+ * 
+ * Considering the matrix element of @f$\mathcal{H}_\mathrm{eff}^{\Delta B = 1}@f$
+ * between the initial state @f$M@f$ and the final state @f$V l^+ l^-@f$, only the contribution of 
+ * @f$\mathcal{H}_\mathrm{eff}^\mathrm{sl+\gamma}@f$ clearly factorizes into the 
+ * product of hadronic form factors and leptonic tensors at all orders in strong interactions. 
+ * Following @cite Jager:2012uw, we implemented the amplitude in the helicity basis; hence we made use of the helicity
+ * form factors @f$ \tilde{V}_\lambda(q^2), \tilde{T}_\lambda(q^2)@f$ and @f$\tilde{S}(q^2) @f$ 
+ * (where @f$\lambda=+,-,0@f$ represents the helicity), which are related to the
+ * ones in the transverse basis through the following relations :
+ * @f[
+ * \tilde{V}_0(q^2) = \frac{4m_V}{\sqrt{q^2}}A_{12}(q^2)\,,\\
+ * \tilde{V}_{\pm}\left( q^{2}\right) = \frac{1}{2} \bigg[ \Big( 1 + \frac{m_V}{m_M} \Big) A_1\left( q^{2}\right) 
+ * \mp \frac{\lambda^{1/2}(q^2)}{m_M(m_M + m_V)} V\left( q^{2}\right) \bigg]\,, \\
+ * \tilde{T}_0(q^2)=\frac{2\sqrt{q^2}m_V}{m_M(m_M + m_V)}T_{23}(q^2)\,,\\
+ * \tilde{T}_{\pm}\left( q^{2}\right) = \frac{m_M^2 - m_V^2}{2m_M^2}T_2\left( q^{2}\right) 
+ * \mp \frac{\lambda^{1/2}(q^2)}{2m_M^2}T_1\left( q^{2}\right)\,,\\
+ * \tilde{S}\left( q^{2}\right) = -\frac{\lambda^{1/2}(q^2)}{2m_M(m_b+m_s)}A_0\left( q^{2}\right)\,,
+ * @f]
+ * where @f$\lambda(q^2) = 4m_M^2|\vec{k}|^2@f$, with @f$\vec{k}@f$ as the 3-momentum
+ * of the meson @f$V@f$ in the @f$M@f$ rest frame.
+ * 
+ * The effect of the operators of @f$\mathcal{H}_\mathrm{eff}^\mathrm{had}@f$ due to
+ * exchange of soft gluon can be reabsorbed in the following parameterization,
+ * @f[
+ * h_\lambda(q^2) = \frac{\epsilon^*_\mu(\lambda)}{m_M^2} 
+ * \int d^4x e^{iqx} \langle \bar V \vert T\{j^{\mu}_\mathrm{em} (x) 
+ * \mathcal{H}_\mathrm{eff}^\mathrm{had} (0)\} \vert \bar M \rangle = 
+ * h_\lambda^{(0)} + \frac{q^2}{1\,\mathrm{GeV}^2} h_\lambda^{(1)} + \frac{q^4}{1\, \mathrm{GeV}^4} h_\lambda^{(2)} \,,
+ * @f]
+ * while the effect due to exchange of hard gluons can be parametrized following 
+ * the prescription of @cite Beneke:2001at as a shift to the Wilson coefficient @f$C_9@f$ :
+ * one first have to define the corrections
+ * @f[
+ * \Delta \mathcal{T}_a = \frac{\alpha_sC_F}{4\pi} C_a + \frac{\alpha_sC_F}{4}\frac{\pi}{N_c}\frac{f_Mf_{V,a}}{m_V F_a(q^2)}\Xi_a
+ * \sum_{\pm}\int \frac{d\omega}{\omega}\Phi_{V,\pm}(\omega)\int_0^1du\Phi_{M,a}(u)T_{a,\pm}(u,\omega)\,,
+ * @f]
+ * where @f$a=\perp,\parallel@f$, @f$F_\perp(q^2) = T_1(q^2) @f$, @f$F_\parallel(q^2) = T_1(q^2) - T_3(q^2)@f$, 
+ * @f$\Xi_\perp(q^2) = 1 @f$, @f$\Xi_\parallel(q^2) = \frac{2m_Vm_M}{m_M^2-q^2}@f$,
+ * and @f$\Phi_X@f$ are leading twist light-cone distributions; the term proportional
+ * to @f$C_a@f$ is the one describing the corrections where the spectator quark is
+ * connected to the hard process only through soft interactions, while the one 
+ * proportional to @f$T_{a,\pm}@f$ is the one describing the corrections where
+ * the spectactor quark is involved in the hard process. Therefore, it is possible
+ * to define the correction to the Wilson coefficient in the following way:
+ * @f[
+ * \Delta C_{9,\pm} = \frac{1}{q^2}\frac{m_b}{m_M} \left((m_M^2-m_V^2) \frac{m_M^2 - q^2}{m_M^2} 
+ * \mp \sqrt{\lambda(q^2)}\right) \Delta T_{\perp}(q^2)\,,\\
+ * \Delta C_{9,0} = \frac{1}{ 2 m_V m_M \sqrt{q^2} } \left(\left[(m_M^2-m_V^2) ( m_M^2-m_V^2 - q^2) - \lambda(q^2)\right]
+ * (m_M^2 - q^2) \frac{m_b}{m_M^2q^2} \Delta T_{\perp}(q^2) - \lambda(q^2) 
+ * \frac{m_b}{m_M^2-m_V^2}\left(\Delta T_{\parallel}(q^2) + \Delta T_\perp(q^2)\right)\right)\,.
+ * @f]
+ * 
+ * The amplitude can be therefore parametrized in terms of the following helicity amplitudes:
+ * @f[
+ * H_V(\lambda) = -i\, N \Big\{C_{9} \tilde{V}_{L\lambda} +C_{9}'  \tilde{V}_{R\lambda}
+ * + \frac{m_M^2}{q^2} \Big[\frac{2\, m_b}{m_M} (C_{7} \tilde{T}_{L\lambda} +  C_{7}'  \tilde{T}_{R\lambda})
+            - 16 \pi^2 h_\lambda \Big] \Big\} \,,  \\
+ * H_A(\lambda) = -i\, N (C_{10}  \tilde{V}_{L\lambda} + C_{10}'\tilde{V}_{R\lambda}) \,, \\
+ * H_S = i\, N \frac{ m_b}{m_W} (C_S \tilde{S}_L + C_S' \tilde{S}_R)\,, \\
+ * H_P = i\, N \Big\{ \frac{ m_b}{m_W} (C_P \tilde{S}_L + C_P' \tilde{S}_R)
+ * + \frac{2\,m_\ell m_b}{q^2} \left[C_{10} \Big(\tilde{S}_L - \frac{m_s}{m_b} \tilde{S}_R \Big) 
+ * + C_{10}' \Big(\tilde{S}_R - \frac{m_s}{m_b} \tilde{S}_L\Big) \right] \Big\} \,,
+ * @f]
+ * where @f$ N = - \frac{4 G_F m_M}{\sqrt{2}}\frac{e^2}{16\pi^2}\lambda_t@f$ and we have defined
+ * @f[
+ * \tilde{V}_{L\pm}(q^2) = -\tilde{V}_{R\mp}(q^2)=\tilde{V}_\pm(q^2)\,,\\
+ * \tilde{T}_{L\pm}(q^2) = -\tilde{T}_{R\mp}(q^2)=\tilde{T}_\pm(q^2)\,,\\
+ * \tilde{S}_L(q^2) = -\tilde{S}_R(q^2)=\tilde{S}(q^2)\,.
+ * @f]
+ * Squaring the amplitude and summing over the spins it is possible to obtain 
+ * the fully differential decay rate, which is
+ * @f[
+ * \frac{d^{(4)} \Gamma}{dq^2\,d(\cos\theta_l)d(\cos\theta_k)d\phi} = \frac{9}{32\,\pi} 
+ * \Big( I^s_1\sin^2\theta_k+I^c_1\cos^2\theta_k +(I^s_2\sin^2\theta_k+I^c_2\cos^2\theta_k)\cos2\theta_l \\
+ * + I_3\sin^2\theta_k\sin^2\theta_l\cos2\phi +I_4\sin2\theta_k\sin2\theta_l\cos\phi 
+ * + I_5\sin2\theta_k\sin\theta_l\cos\phi \\
+ * +(I_6^s\sin^2\theta_k + I_6^c \cos^2\theta_K) \cos\theta_l
+ * + I_7\sin2\theta_k\sin\theta_l\sin\phi+I_8\sin2\theta_k\sin2\theta_l\sin\phi +I_9\sin^2\theta_k\sin^2\theta_l\sin2\phi \Big) 
+ * @f]
+ * The angular coefficients involved in the differential decay rate are related to the
+ * helicity amplitudes according to the following relations:
+ * @f[
+ * I_1^c = F \left\{ \frac{1}{2}\left(|H_V^0|^2+|H_A^0|^2\right)+ 
+ * |H_P|^2+\frac{2m_\ell^2}{q^2}\left(|H_V^0|^2-|H_A^0|^2\right) + \beta^2 |H_S|^2 \right\}\,,\\
+ * I_1^s = F \left\{\frac{\beta^2\!+\!2}{8}\left(|H_V^+|^2+|H_V^-|^2+(V\rightarrow A)\right)
+ * +\frac{m_\ell^2}{q^2}\left(|H_V^+|^2+|H_V^-|^2-(V\rightarrow A)\right)\right\}\,,\\
+ * I_2^c = -F\, \frac{\beta^2}{2}\left(|H_V^0|^2+|H_A^0|^2\right)\,,\\
+ * I_2^s = F\, \frac{\beta^2}{8}\left(|H_V^+|^2+|H_V^-|^2\right)+(V\rightarrow A)\,,\\
+ * I_3 = -\frac{F}{2}{\rm Re} \left[H_V^+(H_V^-)^*\right]+(V\rightarrow A)\,,\\
+ * I_4 = F\, \frac{\beta^2}{4}{\rm Re}\left[(H_V^-+H_V^+)\left(H_V^0\right)^*\right]+(V\rightarrow A)\,,\\
+ * I_5 = F\left\{ \frac{\beta}{2}{\rm Re}\left[(H_V^--H_V^+)\left(H_A^0\right)^*\right]
+ * +(V\leftrightarrow A) - \frac{\beta\,m_\ell}{\sqrt{q^2}} {\rm Re} 
+ * \left[H_S^* (H_V^+ + H_V^-)\right]\right\}\,,\\
+ * I_6^s = F \beta\,{\rm Re}\left[H_V^-(H_A^-)^*-H_V^+(H_A^+)^*\right]\,,\\
+ * I_6^c = 2 F \frac{\beta\, m_\ell}{\sqrt{q^2}} {\rm Re} \left[ H_S^* H_V^0 \right]\,,\\
+ * I_7 = F \left\{ \frac{\beta}{2}\,{\rm Im}\left[\left(H_A^++H_A^-\right)
+ * (H_V^0)^* \, +(V\leftrightarrow A) \right] - \frac{\beta\, m_\ell}{\sqrt{q^2} }\, {\rm Im} 
+ * \left[ H_S^*(H_V^{-} -  H_V^{+}) \right] \right\}\,,\\
+ * I_8 = F\, \frac{\beta^2}{4}{\rm Im}\left[(H_V^--H_V^+)(H_V^0)^*\right]+(V\rightarrow A)\,,\\
+ * I_9 = F\, \frac{\beta^2}{2}{\rm Im}\left[H_V^+(H_V^-)^*\right]+(V\rightarrow A)\,,
+ * @f]
+ * where
+ * @f[
+ * F=\frac{ \lambda^{1/2}\beta\, q^2}{3 \times 2^{5} \,\pi^3\, m_M^3} BF(V \to {\rm final \, state})\,,
+ * \qquad \beta = \sqrt{1 - \frac{4 m_\ell^2}{q^2} }\,.
+ * @f]
+ * The final observables are hence build employing CP-averages @f$\Sigma_i@f$ or CP-asymmetries @f$\Delta_i@f$ of
+ * such angular coefficients; however, since on the experimental side the observables
+ * are averaged over @f$ q^2 @f$ bins, an integration of the coeffiecients over such
+ * bins has to be performed before they are combined in order to build the observables.
+ * 
+ * The class is organized as follows: after the parameters are updated in updateParameters() and the cache is checked in 
  * checkCache(), the form factor are build in the transverse basis in the functions
  * V(), A_0(), A_1(), A_2(), T_1() and  T_2() using the fit function FF_fit() from @cite Straub:2015ica .
  * The form factor are consequentely translated in the helicity basis through the
- * functions V_0t(), V_p(), V_m(), T_0t(), T_p(), T_m() and S_L() from @cite Jager:2012uw .
- * The QCDF corrections to Wilson coefficient @f$C_9@f$ are computed according to @cite Beneke:2001at . The basic elements
+ * functions V_0t(), V_p(), V_m(), T_0t(), T_p(), T_m() and S_L() .
+ * The basic elements required to compute the hard gluon corrections to the Wilson coefficient @f$C_9@f$
  * are build in the functions Tperpplus(), Tparplus(), Tparminus(), Cperp() and Cpar();
  * these corrections have to be integrated to be computed, so the final correction is
  * either obtaind through direct integration in the functions DeltaC9_p(), DeltaC9_m()
  * and DeltaC9_0(), or obtained through fitting in the functions fDeltaC9_p(), 
  * fDeltaC9_m() and fDeltaC9_0(). Form factors, Wilson coefficients and parameters 
  * are combined together in the functions H_V_0(), H_V_p(), H_V_m(), H_A_0(), 
- * H_A_p(), H_A_m(), H_S() and H_P() @cite Jager:2012uw in order to build the helicity aplitudes, 
+ * H_A_p(), H_A_m(), H_S() and H_P() in order to build the helicity aplitudes, 
  * which are consequentely combined to create the angular coefficients in the 
  * function I_1c(), I_1s(), I_2c(), I_2s(), I_3(), I_4(), I_5(), I_6c(), I_6s(), 
  * I_7(), I_8(), I_9(). Those coefficients are used to create the CP averaged 

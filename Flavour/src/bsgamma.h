@@ -18,45 +18,102 @@
 /**
  * @class Bsgamma
  * @ingroup Flavour
- * @brief A class for the @f$b \to s \gamma@f$ decay.
+ * @brief A class for the @f$\bar{B} \to X_s\gamma@f$ decay.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute all the functions needed in order to
- * compute the observables relative to the @f$b \to s \gamma@f$ decay, following
- * the prescriptions of @cite Misiak:2006zs and @cite Misiak:2015xwa. After the
- * Wilson coefficients are computed in computeCoeff() and the cache is checked in
- * checkCache(), the parameters are updated in updateParameters(), in which part
- * of the parameters are taken from the fit in @cite Alberti:2014yda and used to compute
- * the ratio \f$C = | \frac{V_{ub}}{V_{cb}} |^2 \frac{\Gamma[\bar{B} \to X_c e \bar{\nu}]}
- * {\Gamma[\bar{B} \to X_u e \bar{\nu}]} \f$ in C_sem().
+ * @details This class is used to build all the functions needed in order to
+ * compute the observables relative to the @f$\bar{B} \to X_s\gamma@f$ decay, following
+ * the prescriptions of @cite Misiak:2006zs and @cite Misiak:2015xwa. In general,
+ * the decay rate can be expressed as
+ * @f[
+ * \Gamma(\bar{B} \to X_s^p \gamma)_{{E_\gamma > E_0}} = \frac{\left|V_{ts}^\star V_{tb}\right|^2 
+ * G_F^2 m_b^5 \alpha_{\rm em}}{32\pi^4} \sum_{i,j=1}^8 C_i(\mu_b)C_j(\mu_b) G_{ij}(E_0,\mu_b)\,.
+ * @f]
+ * Given the factor @f$m_b^5@f$ present in the normalization, this formulation is not really usefull 
+ * in a phenomenological analysis; in order to reduce this uncertainty, one can write 
+ * the branching fraction dividing by the theoretical semileptonic decay rate 
+ * and multiplying by the experimental semileptonic branching ratio:
+ * @f[
+ * {\rm BR}[\bar{B} \to X_s \gamma]_{E_{\gamma} > E_0} = {\rm BR}[\bar{B} \to X_{c\,} e \bar{\nu}]_{\rm exp}
+ * \left( \frac{\Gamma[\bar{B} \to X_u e \bar{\nu}]}{\Gamma[\bar{B} \to X_{c\,} e \bar{\nu}]} \right)_{\rm th} 
+ * \left( \frac{\Gamma(\bar{B} \to X_s^p \gamma)_{{E_\gamma > E_0}}}{\Gamma[\bar{B} \to X_u e \bar{\nu}]} \right)_{\rm th}\\
+ * = {\rm BR}[\bar{B} \to X_c e \bar{\nu}]_{\rm exp} \left| \frac{ V^*_{ts} V_{tb}}{V_{cb}} \right|^2  
+ * \frac{6 \alpha_{\rm em}}{\pi\;C}  \left[ P(E_0) + N(E_0) \right]\,,
+ * @f]
+ * where @f$C@f$, taken from the fit in @cite Alberti:2014yda , is the ratio 
+ * @f[
+ * C = \left| \frac{V_{ub}}{V_{cb}} \right|^2 \frac{\Gamma[\bar{B} \to X_c e \bar{\nu}]}{\Gamma[\bar{B} \to X_u e \bar{\nu}]} \,,
+ * @f]
+ * @f$P(E_0)@f$ is given by the perturbative ratio
+ * @f[
+ * \frac{\Gamma[ b \to X_s \gamma]_{E_{\gamma} > E_0}}{|V_{cb}/V_{ub}|^2 \; \Gamma[ b \to X_u e \bar{\nu}]} 
+ * = \left| \frac{ V^*_{ts} V_{tb}}{V_{cb}} \right|^2 \frac{6 \alpha_{\rm em}}{\pi} \; P(E_0)\,,
+ * @f]
+ * and @f$N(E_0)@f$ denotes the non-perturbative correction @cite Benzke:2010js , which appears when 
+ * @f$b@f$ is replaced by @f$\bar{B}@f$ in the previous equation.
+ * 
+ * The quantity @f$P(E_0)@f$ depends quadratically on the Wilson coefficients, and can be
+ * perturbatively expand at NLO in the following form (@f$\tilde{\alpha}_s(\mu) \equiv \frac{ \alpha_s^{(5)}(\mu)}{4\pi}@f$):
+ * @f[
+ * P(E_0) = P^{(0)}(\mu_b) + \tilde{\alpha}_s(\mu_b)\Big[ P^{(1)}_1(\mu_b) + P^{(1)}_2(\mu_b)\Big] + O\Big(\tilde{\alpha}_s^2(\mu_b)\Big)\,.
+ * @f]
+ * Here, @f$P^{(0)}@f$ and @f$P_1^{(k)}@f$ mainly originate from the tree-level matrix 
+ * element of @f$Q_7@f$ @cite Misiak:2006ab, while a small contribution steams also 
+ * from the penguin operators @cite Kaminski:2012eb :
+ * @f[
+ * P^{(0)} = \Big(C_7^{\rm (0) eff}(\mu_b)\Big)^2 + P^{(0)}_{\rm 4-body}\,,\\
+ * P_1^{(1)} = 2C_7^{\rm (0) eff}(\mu_b)C_7^{\rm (1) eff}(\mu_b)\,.\\
+ * @f]
+ * @f$P_2^{(1)}@f$ depends on the LO Wilson coefficients @f$C_i^{\rm (0)eff}@f$
+ * throught the following relation @cite Misiak:2006ab :
+ * @f[
+ * P_2^{(1)} = \sum_{i,j=1}^8C_i^{\rm (0)eff}C_j^{\rm (0)eff}K_{ij}^{(1)}\,.
+ * @f]
+ * 
+ * The @f$K_{ij}^{(1)}@f$ functions are defined in the following way:
+ * @f[
+ * K_{i7}^{(1)} = \mathrm{Re} r_i^{(1)} - \frac{1}{2}\gamma_{i7}^{\rm (0) eff}L_b + 2\phi_{i7}^{(1)}(\delta)\,, \qquad {\rm for}\:\:i\leq 6,\\
+ * K_{77}^{(1)} = -\frac{182}{9} + \frac{8}{9}\pi^2 - \gamma_{77}^{\rm (0) eff}L_b + 4\phi_{77}^{(1)}(\delta)\,,\\
+ * K_{78}^{(1)} = \frac{44}{9} - \frac{8}{27}\pi^2 - \frac{1}{2}\gamma_{87}^{\rm (0) eff}L_b + 2\phi_{78}^{(1)}(\delta)\,,\\
+ * K_{ij}^{(1)} = 2(1+\delta_{ij})\phi_{ij}^{(1)}(\delta)\,, \qquad  {\rm for}\:\:i,j \neq 7\,,
+ * @f]
+ * where we have defined the quantities
+ * @f[
+ * L_b= \ln{\bigg(\frac{\mu_b}{ m_b^{kin}}\bigg)^2}, \qquad \delta = 1 - \frac{2E_0}{ m_b^{kin}}\,,
+ * @f]
+ * and all the relevant ingredients can be collected in @cite Buras:2002tp, 
+ * @cite Gambino:2001ew, @cite Pott:1995if, @cite Huber:2014nna .
+ * 
+ * The class is organized as follows: after the Wilson coefficients are 
+ * computed in computeCoeff() and the cache is checked in
+ * checkCache(), the parameters are updated in updateParameters() and the 
+ * ratio \f$C\f$ is computed in C_sem().
  *
  * The perturbative part of the Branching Ratio is computed order by order:
  *
  * @li at Leading Order it is computed in P0(), in which are
- * taken into account both the leading term due to @f$C_7@f$ @cite Misiak:2006ab and the subleading term
- * due to the 4-body contribution, computed in P0_4body() @cite Kaminski:2012eb ;
+ * taken into account both the leading term due to @f$C_7@f$ and the subleading term
+ * due to the 4-body contribution, computed in P0_4body() ;
  *
  * @li at Next to Leading Order it is computed in P11() and P21(),
- * where the latter is build from the Kij_1() function @cite Misiak:2006ab, which make use of the functions
+ * where the latter is build from the Kij_1() function, which make use of the functions
  * Phi11_1(), Phi12_1(), Phi13_1(), Phi14_1(), Phi15_1(), Phi16_1(), Phi17_1(), Phi18_1(),
  * Phi22_1(), Phi23_1(), Phi24_1(), Phi25_1(), Phi26_1(), Phi27_1(), Phi28_1(), Phi33_1(),
  * Phi34_1(), Phi35_1(), Phi36_1(), Phi37_1(), Phi38_1(), Phi44_1(), Phi45_1(), Phi46_1(),
  * Phi47_1(), Phi48_1(), Phi55_1(), Phi56_1(), Phi57_1(), Phi58_1(), Phi66_1(), Phi67_1(),
- * Phi68_1(), Phi77_1(), Phi78_1() and Phi88_1() @cite Buras:2002tp, @cite Gambino:2001ew,
- * @cite Pott:1995if . The subleading terms due to the
- * 4-body contributions @cite Huber:2014nna are currently hard-coded in Phi23_1_4body(), Phi24_1_4body(),
+ * Phi68_1(), Phi77_1(), Phi78_1() and Phi88_1() . The subleading terms due to the
+ * 4-body contributions are currently hard-coded in Phi23_1_4body(), Phi24_1_4body(),
  * Phi25_1_4body() and Phi26_1_4body(), and switched off due to setting the marco
  * FOUR_BODY to false.
  *
- * The @f$V_{ub}@f$ corrections at LO are automatically taken into account in P0_4body() @cite Kaminski:2012eb,
- * while at NLO are computed in the function Vub_NLO() @cite Gambino:2001ew, @cite Huber:2014nna , which considers contributions
+ * The @f$V_{ub}@f$ corrections at LO are automatically taken into account in P0_4body() ,
+ * while at NLO they are computed in the function Vub_NLO(), which considers contributions
  * from 2-body, 3-body and 4-body decays, with the former switched off due to setting the marco
  * FOUR_BODY to false.
  *
  * All the perturbative corrections are eventually added in the function P(). The
- * non-perturbative corrections are computed in the function N(), which follows
- * the prescription of @cite Benzke:2010js. The observables are finally computed in
- * the computeThValue() function.
+ * non-perturbative corrections are computed in the function N(). 
+ * The observables are finally computed in the computeThValue() function.
  */
 class Bsgamma : public ThObservable {
 public: 
