@@ -82,6 +82,7 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         throw std::runtime_error("Invalid arguments for NPEffectiveGIMR::NPEffectiveGIMR()");
 
     FlagMwInput = false;
+    FlagQuadraticTerms = false;
 
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHG", boost::cref(CHG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
