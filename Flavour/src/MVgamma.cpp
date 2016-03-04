@@ -40,10 +40,14 @@ void MVgamma::updateParameters()
     switch (vectorM) {
         case StandardModel::K_star:
             a_0T1 = SM.geta_0T1();
+            
+            fperp = SM.getFKstarp();
 
             break;
         case StandardModel::PHI:
             a_0T1 = SM.geta_0T1phi();
+            
+            fperp = SM.getFphip();
 
             break;
         default:
@@ -111,16 +115,16 @@ gslpp::complex MVgamma::H1(double s)
     c0 = 1.05171 + 1.02281 + gslpp::complex::i()*2.75305;
     c1 = 1.41919 + 0.413974 - gslpp::complex::i()*1.85404;
     c2 = 0.269769 - 1.73577 - gslpp::complex::i()*1.50017;
-
+    
     return -2. * M_PI * M_PI / 9. * SM.getMesons(meson).getDecayconst() *
-            SM.getMesons(vectorM).getDecayconst() / T_1() / MM / SM.getMesons(meson).getLambdaM()*
+            fperp / T_1() / MM / SM.getMesons(meson).getLambdaM()*
             (c0 + c1 * SM.getMesons(vectorM).getGegenalpha(0) + c2 * SM.getMesons(vectorM).getGegenalpha(1));
 }
 
 gslpp::complex MVgamma::H8()
 {
     return 4. * M_PI * M_PI / 9. * SM.getMesons(meson).getDecayconst() *
-            SM.getMesons(vectorM).getDecayconst() / T_1() / MM / SM.getMesons(meson).getLambdaM()*
+            fperp / T_1() / MM / SM.getMesons(meson).getLambdaM()*
             (3. - 3. * SM.getMesons(vectorM).getGegenalpha(0) + 3. * SM.getMesons(vectorM).getGegenalpha(1));
 }
 
@@ -131,7 +135,7 @@ gslpp::complex MVgamma::H_V_m()
 {
     double s = Mc * Mc / Mb / Mb;
     return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2 * G1(s) + C_8 * G8())
-            + SM.Als(mu_h) / 3. / M_PI * (C_2h * H1(s) + C_8h * H8())) * T_1()
+            + SM.Als(mu_h) / 3. / M_PI * 0. * (C_2h * H1(s) + C_8h * H8())) * T_1()
             * lambda / MM2 - MM / (2 * Mb)*16 * M_PI * M_PI * h[1]);
 }
 
@@ -167,7 +171,7 @@ BR_MVgamma::BR_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, 
 double BR_MVgamma::computeThValue()
 {
     updateParameters();
-
+    
     return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda / (4. * width) * (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
 }
 

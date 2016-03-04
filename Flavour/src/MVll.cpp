@@ -135,6 +135,8 @@ void MVll::updateParameters()
             a_1T23 = mySM.geta_1T23();
             a_2T23 = mySM.geta_2T23();
             MRT23_2 = mySM.getMRT23() * mySM.getMRT23();
+            
+            fperp = mySM.getFKstarp();
 
             b = 1;
             break;
@@ -173,6 +175,8 @@ void MVll::updateParameters()
             a_1T23 = mySM.geta_1T23phi();
             a_2T23 = mySM.geta_2T23phi();
             MRT23_2 = mySM.getMRT23phi() * mySM.getMRT23phi();
+            
+            fperp = mySM.getFphip();
 
             b = 0.489;
             break;
@@ -293,7 +297,7 @@ void MVll::updateParameters()
     deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
             mySM.getMesons(vectorM).getDecayconst() / MM; 
     deltaT_1perp = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-            mySM.getFKstarp() / MM; 
+            fperp / MM; 
             
     F87_0=-32. / 9. * log(mu_b / Mb) + 8. / 27. * M_PI * M_PI - 44. / 9. - 8. / 9. * gslpp::complex::i() * M_PI;
     F87_1 = (4. / 3. * M_PI * M_PI - 40. / 3.);
@@ -711,7 +715,7 @@ void MVll::checkCache()
 
     }
     
-        if (MM == T_cache(0) && Mb == T_cache(1) && Mc == T_cache(2) && 
+    if (MM == T_cache(0) && Mb == T_cache(1) && Mc == T_cache(2) && 
             mySM.getMesons(vectorM).getGegenalpha(0) == T_cache(3) && mySM.getMesons(vectorM).getGegenalpha(1) == T_cache(4) ) {
         T_updated = 1;
     } else {

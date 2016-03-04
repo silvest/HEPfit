@@ -112,6 +112,7 @@ private:
         DPars_IN["FKstar"] = 0.;
         DPars_IN["FKstarp"] = 0.;
         DPars_IN["Fphi"] = 0.;
+        DPars_IN["Fphip"] = 0.;
         DPars_IN["FBsoFBd"] = 0.;
         DPars_IN["BBsoBBd"] = 0.;
         DPars_IN["BBs1"] = 0.;
@@ -280,6 +281,7 @@ private:
         DPars_IN["lambdaB"] = 0.3;
         DPars_IN["alpha1kst"] = 0.;
         DPars_IN["alpha2kst"] = 0.;
+        DPars_IN["alpha2phi"] = 0.;
         DPars_IN["DGs_Gs"] = 0.;
         
         return (DPars_IN);

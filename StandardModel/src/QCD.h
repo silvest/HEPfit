@@ -213,6 +213,11 @@
  *   <td class="mod_desc">The decay constant of the \f$ \phi \f$ meson in GeV.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%FKstarp</td>
+ *   <td class="mod_symb">@f$F_{K^*}^{\perp}@f$</td>
+ *   <td class="mod_desc">The decay constant of a transversely polarized \f$ \phi \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%FD</td>
  *   <td class="mod_symb">@f$F_{D^0}@f$</td>
  *   <td class="mod_desc">The decay constant of the \f$ D^0 \f$ meson in GeV.</td>
@@ -446,6 +451,11 @@
  *   <td class="mod_name">%alpha1kst, %alpha2kst</td>
  *   <td class="mod_symb">@f$\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)@f$</td>
  *   <td class="mod_desc">The Gegenbauer coefficients for the @f$\bar{K}^*@f$ meson.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%alpha2phi</td>
+ *   <td class="mod_symb">@f$\alpha_2(\phi)@f$</td>
+ *   <td class="mod_desc">The Gegenbauer coefficient for the @f$\phi@f$ meson.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%lambdaB</td>
@@ -736,7 +746,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 186; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 188; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1761,6 +1771,14 @@ public:
     {
         return FKstarp;
     }
+    
+    /**
+     * @return the decay constant of a transversely polarized @f$\phi@f$ meson at 1 GeV
+     */
+    double getFphip() const
+    {
+        return Fphip;
+    }
 
     
     ////////////////////////////////////////////////////////////////////////
@@ -2030,7 +2048,7 @@ protected:
     double r_2_f0, m_fit2_f0;
     double bsgamma_E0, BLNPcorr;
     double Gambino_mukin, Gambino_BRsem, Gambino_Mbkin, Gambino_Mcatmuc, Gambino_mupi2, Gambino_rhoD3, Gambino_muG2, Gambino_rhoLS3;
-    double FKstarp; //matrix element of tensor current for transverse polarization at 1 GeV
+    double FKstarp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
     double Nc; ///< The number of colours.

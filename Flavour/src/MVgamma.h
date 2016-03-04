@@ -122,6 +122,7 @@ public:
     double mu_b;          /**<b mass scale */
     double mu_h;          /**<sqrt(mu_b*lambda_QCD) */
     double width;         /**<initial meson width */
+    double fperp;         /**<vector meson perpendicular decay constant*/
     double Ms;            /**<s quark mass */
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */

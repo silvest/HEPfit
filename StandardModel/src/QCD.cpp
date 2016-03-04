@@ -27,7 +27,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "Mphi",
     "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
     "DGs_Gs",
-    "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi",
+    "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi", "Fphip",
     "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
     "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
     "BBsoBBd",
@@ -49,7 +49,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
     "absh_0_MP", "argh_0_MP", "absh_0_1_MP", "argh_0_1_MP",
     "bsgamma_E0", "BLNPcorr", "Gambino_mukin", "Gambino_BRsem", "Gambino_Mbkin", "Gambino_Mcatmuc", "Gambino_mupi2", "Gambino_rhoD3", "Gambino_muG2", "Gambino_rhoLS3",
-    "lambdaB", "alpha1kst", "alpha2kst"
+    "lambdaB", "alpha1kst", "alpha2kst", "alpha2phi"
     //"r_2A0", "r_2T1", "r_2T2", "r_2A0phi", "r_2T1phi", "r_2T2phi"
 };
 
@@ -111,6 +111,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(mesons[K_star].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(FKstarp)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(mesons[PHI].getDecayconst())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphip", boost::cref(Fphip)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK1", boost::cref(BK.getBpars()(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK2", boost::cref(BK.getBpars()(1))));
@@ -260,6 +261,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2phi", boost::cref(mesons[PHI].getGegenalpha(1))));
 
     unknownParameterWarning = true;
 }
@@ -438,6 +440,8 @@ void QCD::setParameter(const std::string name, const double& value)
         FKstarp = value;
     else if (name.compare("Fphi") == 0)
         mesons[PHI].setDecayconst(value);
+    else if (name.compare("Fphip") == 0)
+        Fphip = value;
     else if (name.compare("FBs") == 0) {
         mesons[B_S].setDecayconst(value);
         computeFBd = true;
@@ -796,12 +800,15 @@ void QCD::setParameter(const std::string name, const double& value)
         Gambino_muG2 = value;
     else if (name.compare("Gambino_rhoLS3") == 0)
         Gambino_rhoLS3 = value;
-    else if (name.compare("lambdaB") == 0)
+    else if (name.compare("lambdaB") == 0) {
         mesons[B_D].setLambdaM(value);
-    else if (name.compare("alpha1kst") == 0)
+        mesons[B_S].setLambdaM(value);
+    } else if (name.compare("alpha1kst") == 0)
         mesons[K_star].setGegenalpha(0,value);
     else if (name.compare("alpha2kst") == 0)
         mesons[K_star].setGegenalpha(1,value);
+    else if (name.compare("alpha2phi") == 0)
+        mesons[PHI].setGegenalpha(1,value);
     else
         if (unknownParameterWarning && !isSliced)
         std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;

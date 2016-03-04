@@ -579,6 +579,7 @@ private:
     double Mc;            /**<c quark mass */
     double Ms;            /**<s quark mass */
     double width;         /**<Initial meson width */
+    double fperp;         /**<vector meson perpendicular decay constant*/
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
     double b;             /**<BF of the decay V -> final states */
