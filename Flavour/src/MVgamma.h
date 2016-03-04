@@ -16,16 +16,80 @@
 /**
  * @class MVgamma
  * @ingroup Flavour
- * @brief A class for the @f$M \to V \gamma@f$ decay. 
+ * @brief A class for the @f$M \to V \gamma@f$ decay.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute all the functions needed in order to 
- * compute the observables relative to the @f$M \to V \gamma@f$ decay. After the
+ * @details This class is used to compute all the functions needed in order to
+ * compute the observables relative to the @f$M \to V \gamma@f$ decays, where
+ * @f$M@f$ is a generic meson and @f$V@f$ is a vector meson. This kind of decays can be described
+ * by means of the @f$\Delta B = 1 @f$ weak effective Hamiltonian
+ * @f[
+ *   \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} +
+ *   \mathcal{H}_\mathrm{eff}^\mathrm{\gamma},
+ * @f]
+ * where the first term is the hadronic contribution
+ * @f[
+ * \mathcal{H}_\mathrm{eff}^\mathrm{had} = \frac{4G_F}{\sqrt{2}}\Bigg[\sum_{p=u,c}\lambda_p\bigg(C_1 Q^{p}_1
+ * + C_2 Q^{p}_2\bigg) -\lambda_t \bigg(\sum_{i=3}^{6} C_i P_i + C_{8}Q_{8g} \bigg)\Bigg] \,,
+ * @f]
+ * involving current-current, chromodynamic penguin and chromomagnetic dipole operators, while the second one, given by
+ * @f[
+ * \mathcal{H}_\mathrm{eff}^\mathrm{\gamma} = - \frac{4G_F}{\sqrt{2}}\lambda_t C_7Q_{7\gamma} \,,
+ * @f]
+ * includes the electromagnetic penguin operator.
+ *
+ * Considering the matrix element of @f$\mathcal{H}_\mathrm{eff}^{\Delta B = 1}@f$
+ * between the initial state @f$M@f$ and the final state @f$V \gamma@f$, only the contribution of
+ * @f$\mathcal{H}_\mathrm{eff}^\mathrm{\gamma}@f$ clearly factorizes into the
+ * product of hadronic form factors and leptonic tensors at all orders in strong interactions.
+ * Following @cite Jager:2012uw, we implemented the amplitude in the helicity basis;
+ * hence we made use of the helicity form factor @f$ T_-(0)@f$, which is related to the
+ * ones in the transverse basis through the following relation:
+ * @f[
+ * T_{-}\left( q^{2}\right) = \frac{m_M^2 - m_V^2}{m_M^2}T_1\left( q^{2}\right)\,.
+ * @f]
+ *
+ * The effect of the operators of @f$\mathcal{H}_\mathrm{eff}^\mathrm{had}@f$ due to
+ * exchange of soft gluon can be reabsorbed in the following parameterization,
+ * @f[
+ * h_\lambda(q^2) = \frac{\epsilon^*_\mu(\lambda)}{m_M^2}
+ * \int d^4x e^{iqx} \langle \bar V \vert T\{j^{\mu}_\mathrm{em} (x)
+ * \mathcal{H}_\mathrm{eff}^\mathrm{had} (0)\} \vert \bar M \rangle =
+ * h_\lambda^{(0)}\,,
+ * @f]
+ * while the effect due to exchange of hard gluons can be parametrized following
+ * the prescription of @cite Bosch:2001gv as a shift to the Wilson coefficient @f$C_7@f$ :
+ * @f[
+ * \Delta C_{7} = \frac{\alpha_s(\mu) C_F}{4\pi} \left( C_1(\mu) G_1(s_p)+ C_8(\mu) G_8\right)
+ + \frac{\alpha_s(\mu_h) C_F}{4\pi} \left( C_1(\mu_h) H_1(s_p)+ C_8(\mu_h) H_8\right)\,,
+ * @f]
+ * where the terms proportional to @f$G_i@f$ are the ones describing the
+ * corrections where the spectator quark is connected to the hard process only
+ * through soft interactions, while the ones proportional to @f$H_i@f$
+ * (involving leading twist light-cone distributions) are the ones describing
+ * the corrections where the spectactor quark is involved in the hard process,
+ * and @f$s=\frac{m_c^2}{m_b^2}@f$.
+ *
+ * The amplitude can be therefore parametrized in terms of the following helicity amplitudes:
+ * @f[
+ * H_V^+ = \lambda_t \Big[- C_{7}' {T}_{-}
+ - \frac{m_M}{m_b} 8 \pi^2 h_\lambda \Big]  \,,  \\
+ * H_V^- = \lambda_t \Big[ C_{7} T_{-}
+ - \frac{m_M}{m_b} 8 \pi^2 h_\lambda \Big]  \,.
+ * @f]
+ *
+ * Squaring the amplitude and summing over the spins it is possible to obtain
+ * the Branching Ratio, which is
+ * @f[
+ * BR = \frac {\alpha_e G_F^2 M_b^2 M_M \lambda}{(4\pi)^2 4 w_M} ( |H_V^+|^2 + |H_A^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_A^-|^2) \,.
+ * @f]
+ *
+ * The class is build as follows: after the
  * parameters are updated in updateParameters() and the form factor @f$ T_1 @f$
  * is computed in T_1() following @cite Straub:2015ica, the QCDF corrections to the Wilson coefficient @f$ C_7 @f$
- * is computed in the functions G1(), G8(), H1() and H8() @cite Bosch:2001gv. The helicity amplitudes
- * @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$ are build in H_V_p(), H_V_m(), H_V_p_bar() 
- * and H_V_m_bar() following @cite Jager:2012uw, in order to be further used to build the observables.
+ * is computed in the functions G1(), G8(), H1() and H8(). The helicity amplitudes
+ * @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$ are build in H_V_p(), H_V_m(), H_V_p_bar()
+ * and H_V_m_bar(), in order to be further used to compute the observables.
  */
 class MVgamma  : public ThObservable {
 public:
