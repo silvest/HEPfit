@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -10,6 +10,7 @@
       <itemPath>src/EW_TEST.h</itemPath>
       <itemPath>src/NPEffectiveBS.h</itemPath>
       <itemPath>src/NPEffectiveGIMR.h</itemPath>
+      <itemPath>src/NPEffectiveGIMRprime.h</itemPath>
       <itemPath>src/NPEpsilons.h</itemPath>
       <itemPath>src/NPEpsilons_pureNP.h</itemPath>
       <itemPath>src/NPHiggs.h</itemPath>
@@ -34,6 +35,7 @@
       <itemPath>src/EW_TEST.cpp</itemPath>
       <itemPath>src/NPEffectiveBS.cpp</itemPath>
       <itemPath>src/NPEffectiveGIMR.cpp</itemPath>
+      <itemPath>src/NPEffectiveGIMRprime.cpp</itemPath>
       <itemPath>src/NPEpsilons.cpp</itemPath>
       <itemPath>src/NPEpsilons_pureNP.cpp</itemPath>
       <itemPath>src/NPHiggs.cpp</itemPath>
@@ -104,6 +106,10 @@
       <item path="src/NPEffectiveGIMR.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffectiveGIMR.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPEffectiveGIMRprime.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEffectiveGIMRprime.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -200,6 +206,10 @@
       </item>
       <item path="src/NPEffectiveGIMR.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPEffectiveGIMRprime.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEffectiveGIMRprime.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
@@ -294,6 +304,10 @@
       <item path="src/NPEffectiveGIMR.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffectiveGIMR.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPEffectiveGIMRprime.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEffectiveGIMRprime.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
