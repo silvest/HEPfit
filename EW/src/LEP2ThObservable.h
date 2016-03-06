@@ -15,6 +15,7 @@
 #include <StandardModel.h>
 #include "LEP2TwoFermions.h"
 #include "LEP2oblique.h"
+#include "LEP2GIMR.h"
 #include "LEP2test.h"
 
 // TEST: use the Zfitter outputs defined in LEP2test class for SM predictions
@@ -46,7 +47,7 @@ public:
                      const bool bSigmaForR_i=false) 
             : ThObservable(SM_i),
             myTwoFermions(SM_i), myLEP2oblique(SM_i), 
-            sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), bSigmaForAFB(bSigmaForAFB_i),
+            sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), myLEP2GIMR(SM_i), bSigmaForAFB(bSigmaForAFB_i),
             bSigmaForR(bSigmaForR_i)
     {
         flag[Weak] = true;
@@ -81,7 +82,16 @@ public:
         else
             return false;
     }    
-
+    
+    bool checkLEP2GIMR() const
+    {
+        std::string Model = SM.getModelName();
+        if (Model.compare("NPEffectiveGIMR") == 0)
+            return true;
+        else
+            return false;
+    }
+    
     /**
      * @brief set a flag to control radiative corrections
      * @param[in] str "Weak", "WeakBox", "ISR", "QEDFSR" or "QCDFSR"
@@ -152,8 +162,10 @@ protected:
     const LEP2oblique myLEP2oblique;
     const LEP2test myTEST;
     const double sqrt_s, s;
+    
+    const LEP2GIMR myLEP2GIMR;
 
-    bool flag[NUMofLEP2RCs]; 
+    bool flag[NUMofLEP2RCs];
     bool bSigmaForAFB;
     bool bSigmaForR;
     
@@ -173,8 +185,16 @@ protected:
             else ObParam_i[i] = 0.0;
         }
     }
-    
-    double m_l(const StandardModel::lepton l) const 
+
+    void SetDim6Coef(LEP2GIMR::Param par, double GIMRParam_i[]) const
+    {
+        for (int i=0; i<10; i++) {
+            if (i==par) GIMRParam_i[par] = 1.0;
+            else GIMRParam_i[i] = 0.0;
+        }
+    }
+
+    double m_l(const StandardModel::lepton l) const
     {
         return SM.getLeptons(l).getMass();
     }

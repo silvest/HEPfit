@@ -564,7 +564,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 210;
+    static const int NNPEffectiveGIMRVars = 264;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -648,7 +648,9 @@ public:
      * @return the value of @f$U@f$
      */
     virtual double obliqueU() const;
-
+    
+    virtual double deltaMz2() const;
+    
     /**
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @return @f$M_W@f$ in GeV
@@ -694,49 +696,37 @@ public:
 
         ////////////////////////////////////////////////////////////////////////
  
-    /**
-     * @brief The total cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
-     * @param[in] p a lepton or quark
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma(e^+e^- \to \mathrm{hadrons})@f$ in ???
-     */
-    virtual double sigma_eeTOffbar(const Particle p, const double sqrt_s) const;
- 
-    /**
-     * @brief The forward cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
-     * @param[in] p a lepton or quark
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma_F(e^+e^- \to f\bar{f})@f$ in ???
-     */
-    virtual gslpp::complex sigma_eeTOffbarF(const Particle p, const double sqrt_s) const;
-    /**
-     * @brief The backward cross section for @f$e^+e^- \to f\bar{f} @f$ [CHECK!]
-     * @param[in] p a lepton or quark
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma_B(e^+e^- \to f\bar{f})@f$ in ???
-     */
-    virtual gslpp::complex sigma_eeTOffbarB(const Particle p, const double sqrt_s) const;
- 
-    /**
-     * @brief The total cross section for @f$e^+e^- \to \mu^+ \mu^- @f$ [CHECK!]
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma(e^+e^- \to \mu^+ \mu^-)@f$ in ???
-     */
-    double sigma_eeTOmumu(const double sqrt_s) const;
+    double CLL_mu() const;
+    double CLL_tau() const;
+    double CLL_up() const;
+    double CLL_down() const;
+    double CLL_charm() const;
+    double CLL_strange() const;
+    double CLL_bottom() const;
     
-    /**
-     * @brief The total cross section for @f$e^+e^- \to \mathrm{hadrons} @f$ [CHECK!]
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$\sigma(e^+e^- \to \mathrm{hadrons})@f$ in ???
-     */
-    double sigma_eeTOqq(const double sqrt_s) const;
-
-    /**
-     * @brief The forward-backward asymmetry for @f$e^+e^- \to \mu^+ \mu^- @f$ [CHECK!]
-     * @param[in] sqrt_s the center-of-mass energy in ???
-     * @return @f$A_{FB}^{\mu}@f$
-     */    
-    double AFB_mu(const double sqrt_s) const;
+    double CLR_mu() const;
+    double CLR_tau() const;
+    double CLR_up() const;
+    double CLR_down() const;
+    double CLR_charm() const;
+    double CLR_strange() const;
+    double CLR_bottom() const;
+    
+    double CRL_mu() const;
+    double CRL_tau() const;
+    double CRL_up() const;
+    double CRL_down() const;
+    double CRL_charm() const;
+    double CRL_strange() const;
+    double CRL_bottom() const;
+    
+    double CRR_mu() const;
+    double CRR_tau() const;
+    double CRR_up() const;
+    double CRR_down() const;
+    double CRR_charm() const;
+    double CRR_strange() const;
+    double CRR_bottom() const;
 
     ////////////////////////////////////////////////////////////////////////
     
@@ -1292,17 +1282,36 @@ protected:
     double CdH_22i; ///< The dimension-6 operator coefficient \f$(C_{DH})_{22}\f$ (imaginary part).
     double CdH_23i; ///< The dimension-6 operator coefficient \f$(C_{DH})_{23}\f$ (imaginary part).
     double CdH_33i; ///< The dimension-6 operator coefficient \f$(C_{DH})_{33}\f$ (imaginary part).
-    double CLL_1221; ///< The dimension-6 operator coefficient \f$(C_{LL})_{1221}\f$.
-    double CLL_2112; ///< The dimension-6 operator coefficient \f$(C_{LL})_{2112}\f$.
-    double CLQ1; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LQ}^{(1)}\f$.
-    double CLQ3; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LQ}^{(3)}\f$.
-    double Cee; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{EE}\f$.
-    double Ceu; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{EU}\f$.
-    double Ced; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{ED}\f$.
-    double CLe; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LE}\f$.
-    double CLu; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LU}\f$.
-    double CLd; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{LD}\f$.
-    double CQe; ///< The dimension-6 (four-fermion) operator coefficient \f$C_{QE}\f$.
+    double CLL_1111;
+    double CLL_1221, CLL_2112, CLL_1122, CLL_2211;
+    double CLL_1331, CLL_3113, CLL_1133, CLL_3311;
+    double CLQ1_1111;
+    double CLQ1_1122, CLQ1_2211, CLQ1_1221, CLQ1_2112;
+    double CLQ1_1133, CLQ1_3311, CLQ1_1331, CLQ1_3113;
+    double CLQ3_1111;
+    double CLQ3_1122, CLQ3_2211, CLQ3_1221, CLQ3_2112;
+    double CLQ3_1133, CLQ3_3311, CLQ3_1331, CLQ3_3113;
+    double Cee_1111;
+    double Cee_1122, Cee_2211;
+    double Cee_1133, Cee_3311;
+    double Ceu_1111;
+    double Ceu_1122, Ceu_2211;
+    double Ceu_1133, Ceu_3311;
+    double Ced_1111;
+    double Ced_1122, Ced_2211;
+    double Ced_1133, Ced_3311;
+    double CLe_1111;
+    double CLe_1122, CLe_2211;
+    double CLe_1133, CLe_3311;
+    double CLu_1111;
+    double CLu_1122, CLu_2211;
+    double CLu_1133, CLu_3311;
+    double CLd_1111;
+    double CLd_1122, CLd_2211;
+    double CLd_1133, CLd_3311;
+    double CQe_1111;
+    double CQe_1122, CQe_2211;
+    double CQe_1133, CQe_3311;
     double Lambda_NP; ///< The new physics scale [GeV].
 // The error in the parameters multiplying the dimension-6 operator coefficients in the production cross sections.
     double eVBF2_HZZ1;///< Theoretical uncertainty in the (linear) new physics contribution from \f$g_{HZZ}^{(1)}\f$ to VBF production at Tevatron (1.96 TeV).

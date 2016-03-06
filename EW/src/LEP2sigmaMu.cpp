@@ -65,7 +65,25 @@ double LEP2sigmaMu::computeThValue()
                              obliqueV, obliqueW, obliqueX, obliqueY};
         sigma_mu += myLEP2oblique.sigma_l_LEP2_NP(StandardModel::MU, s, ml_cache, ObParam);
     }
-
+    
+    if ( checkLEP2GIMR() && !bSigmaForAFB ) {
+        double myCLL = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->CLL_mu();
+        double myCLR = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->CLR_mu();
+        double myCRL = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->CRL_mu();
+        double myCRR = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->CRR_mu();
+        
+        double deltaGammaZ = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->deltaGamma_Z();
+        double deltaGR_l = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->deltaGR_f(SM.getLeptons(StandardModel::MU));
+        double deltaGL_l = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->deltaGL_f(SM.getLeptons(StandardModel::MU));
+        double deltaGR_e = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->deltaGR_f(SM.getLeptons(StandardModel::ELECTRON));
+        double deltaGL_e = (dynamic_cast<const NPEffectiveGIMR*> (&SM))->deltaGL_f(SM.getLeptons(StandardModel::ELECTRON));
+        double deltaMz2=(dynamic_cast<const NPEffectiveGIMR*> (&SM))->deltaMz2();
+        
+        double GIMRParam[10] ={myCLL,myCLR,myCRL,myCRR,deltaGammaZ,deltaGL_l,deltaGR_l,deltaGL_e,deltaGR_e,deltaMz2};
+        
+        sigma_mu += myLEP2GIMR.sigma_l_LEP2_GIMR(StandardModel::MU, s, GIMRParam);
+    }
+    
     return ( sigma_mu*SM.GeVminus2_to_nb*1000.0 );
 }
         

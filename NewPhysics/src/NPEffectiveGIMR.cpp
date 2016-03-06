@@ -32,8 +32,19 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "CuH_11i", "CuH_12i", "CuH_13i", "CuH_22i", "CuH_23i", "CuH_33i",
     "CdH_11r", "CdH_12r", "CdH_13r", "CdH_22r", "CdH_23r", "CdH_33r",
     "CdH_11i", "CdH_12i", "CdH_13i", "CdH_22i", "CdH_23i", "CdH_33i",
-    "CLL_1221", "CLQ1", "CLQ3","Cee", "Ceu", "Ced", "CLe", "CLu", "CLd",
-    "CQe", "Lambda_NP",
+    "CLL_1111","CLL_1221","CLL_2112","CLL_2211","CLL_1122",
+    "CLL_1133","CLL_3311","CLL_1331","CLL_3113",
+    "CLQ1_1111","CLQ1_1122","CLQ1_2211","CLQ1_1221","CLQ1_2112",
+    "CLQ1_1133","CLQ1_3311","CLQ1_1331","CLQ1_3113",
+    "CLQ3_1111","CLQ3_1122","CLQ3_2211","CLQ3_1221","CLQ3_2112",
+    "CLQ3_1133","CLQ3_3311","CLQ3_1331","CLQ3_3113",
+    "Cee_1111","Cee_1122","Cee_2211","Cee_1133","Cee_3311",
+    "Ceu_1111","Ceu_1122","Ceu_2211","Ceu_1133","Ceu_3311",
+    "Ced_1111","Ced_1122","Ced_2211","Ced_1133","Ced_3311",
+    "CLe_1111","CLe_1122","CLe_2211","CLe_1133","CLe_3311",
+    "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_3311",
+    "CLd_1111","CLd_1122","CLd_2211","CLd_1133","CLd_3311",
+    "CQe_1111","CQe_1122","CQe_2211","CQe_1133","CQe_3311", "Lambda_NP",
     "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
     "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
     "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
@@ -100,7 +111,7 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_r", boost::cref(CeH_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_i", boost::cref(CeH_11i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL", boost::cref(CLL_1221)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee", boost::cref(Cee)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee", boost::cref(Cee_1111)));
     } else {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_11", boost::cref(CHL1_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_12r", boost::cref(CHL1_12r)));
@@ -141,7 +152,20 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_22i", boost::cref(CeH_22i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_23i", boost::cref(CeH_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_33i", boost::cref(CeH_33i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_1111", boost::cref(CLL_1111)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_1221", boost::cref(CLL_1221)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_2112", boost::cref(CLL_2112)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_2211", boost::cref(CLL_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_1122", boost::cref(CLL_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_1331", boost::cref(CLL_1331)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_3113", boost::cref(CLL_3113)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_3311", boost::cref(CLL_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL_1133", boost::cref(CLL_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_1111", boost::cref(Cee_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_1122", boost::cref(Cee_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_2211", boost::cref(Cee_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_1133", boost::cref(Cee_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_3311", boost::cref(Cee_3311)));
     }
     if (FlagQuarkUniversal) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1", boost::cref(CHQ1_11)));
@@ -229,14 +253,54 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_33i", boost::cref(CdH_33i)));
     }
     if(FlagLeptonUniversal && FlagQuarkUniversal){
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1", boost::cref(CLQ1)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3", boost::cref(CLQ3)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu", boost::cref(Ceu)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced", boost::cref(Ced)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe", boost::cref(CLe)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu", boost::cref(CLu)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd", boost::cref(CLd)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe", boost::cref(CQe)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1111", boost::cref(CLQ1_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1122", boost::cref(CLQ1_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_2211", boost::cref(CLQ1_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1221", boost::cref(CLQ1_1221)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_2112", boost::cref(CLQ1_2112)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1133", boost::cref(CLQ1_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_3311", boost::cref(CLQ1_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1331", boost::cref(CLQ1_1331)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_3113", boost::cref(CLQ1_3113)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_1111", boost::cref(CLQ3_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_1122", boost::cref(CLQ3_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_2211", boost::cref(CLQ3_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_1221", boost::cref(CLQ3_1221)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_2112", boost::cref(CLQ3_2112)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_1133", boost::cref(CLQ3_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_3311", boost::cref(CLQ3_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_1331", boost::cref(CLQ3_1331)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_3113", boost::cref(CLQ3_3113)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_1111", boost::cref(Ceu_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_1122", boost::cref(Ceu_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_2211", boost::cref(Ceu_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_1133", boost::cref(Ceu_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_3311", boost::cref(Ceu_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_1111", boost::cref(Ced_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_1122", boost::cref(Ced_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_2211", boost::cref(Ced_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_1133", boost::cref(Ced_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_3311", boost::cref(Ced_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe_1111", boost::cref(CLe_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe_1122", boost::cref(CLe_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe_2211", boost::cref(CLe_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe_1133", boost::cref(CLe_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLe_3311", boost::cref(CLe_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_1111", boost::cref(CLu_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_1122", boost::cref(CLu_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_2211", boost::cref(CLu_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_1133", boost::cref(CLu_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_3311", boost::cref(CLu_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_1111", boost::cref(CLd_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_1122", boost::cref(CLd_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_2211", boost::cref(CLd_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_1133", boost::cref(CLd_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_3311", boost::cref(CLd_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_1111", boost::cref(CQe_1111)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_1122", boost::cref(CQe_1122)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_2211", boost::cref(CQe_2211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_1133", boost::cref(CQe_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_3311", boost::cref(CQe_3311)));
     } else {
         std::cout << "WARNING: flavor non-universal coefficient for the dim-6 operators for LEP2 observables not yet implemented." << std::endl;
     }
@@ -714,30 +778,182 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CdH_22i = value;
         CdH_23i = 0.0;
         CdH_33i = value;
+    } else if (name.compare("CLL_1111") == 0) {
+        CLL_1111 = value;
     } else if (name.compare("CLL_1221") == 0) {
         CLL_1221 = value;
         CLL_2112 = value;
+        CLL_2211 = value;
+        CLL_1122 = value;
+    } else if (name.compare("CLL_1133") == 0) {
+        CLL_1331 = value;
+        CLL_3113 = value;
+        CLL_3311 = value;
+        CLL_1133 = value;
     } else if (name.compare("CLL") == 0) {
+        CLL_1111 = value;
         CLL_1221 = value;
         CLL_2112 = value;
+        CLL_2211 = value;
+        CLL_1122 = value;
+        CLL_3311 = value;
+        CLL_1133 = value;
+        CLL_1331 = value;
+        CLL_3113 = value;
+    } else if (name.compare("CLQ1_1111") == 0) {
+        CLQ1_1111 = value;
+    } else if (name.compare("CLQ1_1122") == 0) {
+        CLQ1_1122 = value;
+        CLQ1_2211 = value;
+        CLQ1_1221 = value;
+        CLQ1_2112 = value;
+    } else if (name.compare("CLQ1_1133") == 0) {
+        CLQ1_1133 = value;
+        CLQ1_3311 = value;
+        CLQ1_1331 = value;
+        CLQ1_3113 = value;
     } else if (name.compare("CLQ1") == 0) {
-        CLQ1 = value;
+        CLQ1_1111 = value;
+        CLQ1_1122 = value;
+        CLQ1_2211 = value;
+        CLQ1_1221 = value;
+        CLQ1_2112 = value;
+        CLQ1_1133 = value;
+        CLQ1_3311 = value;
+        CLQ1_1331 = value;
+        CLQ1_3113 = value;
+    } else if (name.compare("CLQ1_1111") == 0) {
+        CLQ1_1111 = value;
+    } else if (name.compare("CLQ1_1122") == 0) {
+        CLQ1_1122 = value;
+        CLQ1_2211 = value;
+        CLQ1_2112 = value;
+        CLQ1_1221 = value;
+    } else if (name.compare("CLQ1_1133") == 0) {
+        CLQ1_1133 = value;
+        CLQ1_3311 = value;
+        CLQ1_3113 = value;
+        CLQ1_1331 = value;
     } else if (name.compare("CLQ3") == 0) {
-        CLQ3 = value;
+        CLQ3_1111 = value;
+        CLQ3_1122 = value;
+        CLQ3_2211 = value;
+        CLQ3_1221 = value;
+        CLQ3_2112 = value;
+        CLQ3_1133 = value;
+        CLQ3_3311 = value;
+        CLQ3_1331 = value;
+        CLQ3_3113 = value;
+    } else if (name.compare("CLQ3_1111") == 0) {
+        CLQ3_1111 = value;
+    } else if (name.compare("CLQ3_1122") == 0) {
+        CLQ3_1122 = value;
+        CLQ3_2211 = value;
+        CLQ3_2112 = value;
+        CLQ3_1221 = value;
+    } else if (name.compare("CLQ3_1133") == 0) {
+        CLQ3_1133 = value;
+        CLQ3_3311 = value;
+        CLQ3_3113 = value;
+        CLQ3_1331 = value;
     } else if (name.compare("Cee") == 0) {
-        Cee = value;
+        Cee_1111 = value;
+        Cee_1122 = value;
+        Cee_2211 = value;
+        Cee_1133 = value;
+        Cee_3311 = value;
+    } else if (name.compare("Cee_1111") == 0) {
+        Cee_1111 = value;
+    } else if (name.compare("Cee_1122") == 0) {
+        Cee_1122 = value;
+        Cee_2211 = value;
+    } else if (name.compare("Cee_1133") == 0) {
+        Cee_1133 = value;
+        Cee_3311 = value;
     } else if (name.compare("Ceu") == 0) {
-        Ceu = value;
+        Ceu_1111 = value;
+        Ceu_1122 = value;
+        Ceu_2211 = value;
+        Ceu_1133 = value;
+        Ceu_3311 = value;
+    } else if (name.compare("Ceu_1111") == 0) {
+        Ceu_1111 = value;
+    } else if (name.compare("Ceu_1122") == 0) {
+        Ceu_1122 = value;
+        Ceu_2211 = value;
+    } else if (name.compare("Ceu_1133") == 0) {
+        Ceu_1133 = value;
+        Ceu_3311 = value;
     } else if (name.compare("Ced") == 0) {
-        Ced = value;
+        Ced_1111 = value;
+        Ced_1122 = value;
+        Ced_2211 = value;
+        Ced_1133 = value;
+        Ced_3311 = value;
+    } else if (name.compare("Ced_1111") == 0) {
+        Ced_1111 = value;
+    } else if (name.compare("Ced_1122") == 0) {
+        Ced_1122 = value;
+        Ced_2211 = value;
+    } else if (name.compare("Ced_1133") == 0) {
+        Ced_1133 = value;
+        Ced_3311 = value;
     } else if (name.compare("CLe") == 0) {
-        CLe = value;
+        CLe_1111 = value;
+        CLe_1122 = value;
+        CLe_2211 = value;
+        CLe_1133 = value;
+        CLe_3311 = value;
+    } else if (name.compare("CLe_1111") == 0) {
+        CLe_1111 = value;
+    } else if (name.compare("CLe_1122") == 0) {
+        CLe_1122 = value;
+        CLe_2211 = value;
+    } else if (name.compare("CLe_1133") == 0) {
+        CLe_1133 = value;
+        CLe_3311 = value;
     } else if (name.compare("CLu") == 0) {
-        CLu = value;
+        CLu_1111 = value;
+        CLu_1122 = value;
+        CLu_2211 = value;
+        CLu_1133 = value;
+        CLu_3311 = value;
+    } else if (name.compare("CLu_1111") == 0) {
+        CLu_1111 = value;
+    } else if (name.compare("CLu_1122") == 0) {
+        CLu_1122 = value;
+        CLu_2211 = value;
+    } else if (name.compare("CLu_1133") == 0) {
+        CLu_1133 = value;
+        CLu_3311 = value;
     } else if (name.compare("CLd") == 0) {
-        CLd = value;
+        CLd_1111 = value;
+        CLd_1122 = value;
+        CLd_2211 = value;
+        CLd_1133 = value;
+        CLd_3311 = value;
+    } else if (name.compare("CLd_1111") == 0) {
+        CLd_1111 = value;
+    } else if (name.compare("CLd_1122") == 0) {
+        CLd_1122 = value;
+        CLd_2211 = value;
+    } else if (name.compare("CLd_1133") == 0) {
+        CLd_1133 = value;
+        CLd_3311 = value;
     } else if (name.compare("CQe") == 0) {
-        CQe = value;
+        CQe_1111 = value;
+        CQe_1122 = value;
+        CQe_2211 = value;
+        CQe_1133 = value;
+        CQe_3311 = value;
+    } else if (name.compare("CQe_1111") == 0) {
+        CQe_1111 = value;
+    } else if (name.compare("CQe_1122") == 0) {
+        CQe_1122 = value;
+        CQe_2211 = value;
+    } else if (name.compare("CQe_1133") == 0) {
+        CQe_1133 = value;
+        CQe_3311 = value;
     } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;
     } else if (name.compare("eVBF2_HZZ1") == 0) {
@@ -1087,6 +1303,11 @@ double NPEffectiveGIMR::obliqueT() const
 double NPEffectiveGIMR::obliqueU() const
 {
     return 0.0;
+}
+
+double NPEffectiveGIMR::deltaMz2() const
+{
+    return (2.0*(cW2_tree*CHW+sW2_tree*CHB+cW_tree*sW_tree*CHWB)*v2_over_LambdaNP2);
 }
 
 double NPEffectiveGIMR::Mw() const
@@ -2250,241 +2471,143 @@ double NPEffectiveGIMR::deltaGammaHbbRatio2() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPEffectiveGIMR::sigma_eeTOffbar(const Particle F, const double sqrt_s) const
+double NPEffectiveGIMR::CLL_mu() const
 {
-    int Nf;
-    double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
-    if (F.is("UP") || F.is("CHARM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 - CLQ3)/LambdaNP2;
-        CLR_hat = CLu/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ceu/LambdaNP2;
-    } else if(F.is("DOWN") || F.is("STRANGE") || F.is("BOTTOM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 + CLQ3)/LambdaNP2;
-        CLR_hat = CLd/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ced/LambdaNP2;
-    } else if (F.is("TOP")) {
-        throw std::runtime_error("Not enough energy at LEP2 in order to produce tops!");
-    } else {
-        Nf = 1;
-        CLL_hat = CLL_1221/LambdaNP2;
-        CLR_hat = CLe/LambdaNP2;
-        CRL_hat = CLe/LambdaNP2;
-        CRR_hat = Cee/LambdaNP2;
-    }
-        
-    double CLL2_hat = CLL_hat*CLL_hat;
-    double CLR2_hat = CLR_hat*CLR_hat;
-    double CRL2_hat = CRL_hat*CRL_hat;
-    double CRR2_hat = CRR_hat*CRR_hat;
-    
-    double Qf = F.getCharge();
-    double s = sqrt_s*sqrt_s;
-    double s2 = s*s;
-    
-    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
-
-    double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
-    double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
-    double gRf = (gVf - gAf)/2.0; 
-    double gLf = (gVf + gAf)/2.0;
-    
-    double gVe = trueSM.gV_f(leptons[ELECTRON]).real() + deltaGV_f(leptons[ELECTRON]);
-    double gAe = trueSM.gA_f(leptons[ELECTRON]).real() + deltaGA_f(leptons[ELECTRON]);
-    double gRe = (gVe - gAe)/2.0; 
-    double gLe = (gVe + gAe)/2.0;
-    
-    double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
-    double alpha2Mz = alphaMz()*alphaMz();
-    
-    gslpp::complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CLR2_hat + CRL2_hat + CRR2_hat) * s2 - 
-                  8 * (CLL_hat + CLR_hat + CRL_hat + CRR_hat) * M_PI * Qf * s * alphaMz()+
-                  64 * M_PI * M_PI * Qf * Qf * alpha2Mz) + 
-                  4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * ((CLL_hat * gLf * gLe + CLR_hat * gLe * gRf + 
-                  CRL_hat * gLf * gRe + CRR_hat * gRf * gRe) * s 
-                  - 4.0 * (gLf + gRf) * (gLe + gRe) * M_PI * Qf * alphaMz()) * (chi_s + chi_s.conjugate()) +
-                  16.0 * M_PI * M_PI * alpha2Mz * chi_s.abs2())/(48.0 * M_PI * s * sW4cW4);
-    
-    return (tmp.real());
+    return (CLL_1122 + CLL_2211 + CLL_1221 + CLL_2112);
 }
 
-gslpp::complex NPEffectiveGIMR::sigma_eeTOffbarF(const Particle F, const double sqrt_s) const
+double NPEffectiveGIMR::CLL_tau() const
 {
-    int Nf;
-    double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
-    if (F.is("UP") || F.is("CHARM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 - CLQ3)/LambdaNP2;
-        CLR_hat = CLu/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ceu/LambdaNP2;
-    } else if(F.is("DOWN") || F.is("STRANGE") || F.is("BOTTOM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 + CLQ3)/LambdaNP2;
-        CLR_hat = CLd/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ced/LambdaNP2;
-    } else if (F.is("TOP")) {
-        throw std::runtime_error("Not enough energy at LEP2 in order to produce tops!");
-    } else {
-        Nf = 1;
-        CLL_hat = CLL_1221/LambdaNP2;
-        CLR_hat = CLe/LambdaNP2;
-        CRL_hat = CLe/LambdaNP2;
-        CRR_hat = Cee/LambdaNP2;
-    }
-        
-    double CLL2_hat = CLL_hat*CLL_hat;
-    double CLR2_hat = CLR_hat*CLR_hat;
-    double CRL2_hat = CRL_hat*CRL_hat;
-    double CRR2_hat = CRR_hat*CRR_hat;
-    
-    double Qf = F.getCharge();
-    double s = sqrt_s*sqrt_s;
-    double s2 = s*s;
-    
-    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
-
-    double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
-    double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
-    double gRf = (gVf - gAf)/2.0; 
-    double gLf = (gVf + gAf)/2.0;
-    
-    double gVe = trueSM.gV_f(leptons[ELECTRON]).real() + deltaGV_f(leptons[ELECTRON]);
-    double gAe = trueSM.gA_f(leptons[ELECTRON]).real() + deltaGA_f(leptons[ELECTRON]);
-    double gRe = (gVe - gAe)/2.0; 
-    double gLe = (gVe + gAe)/2.0;
-    
-    double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
-    double alpha2Mz = alphaMz()*alphaMz();
-    
-    gslpp::complex tmp = Nf * (sW4cW4 * ((CLR2_hat + CRL2_hat) * s2 - 
-                  8 * (CLR_hat + CRL_hat) * M_PI * Qf * s * alphaMz() + 
-                  32 * M_PI * M_PI * Qf * Qf * alpha2Mz)+
-                  4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * (CLR_hat * gLe * gRf * s +
-                  CRL_hat * gLf * gRe * s -
-                  4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLR_hat * gLe * gRf *s +
-                  CRL_hat * gLf * gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf * gRe)) + 
-                  4.0 * M_PI * alphaMz() * (gLe * gLe * gRf * gRf + 
-                  gLf * gLf * gRe * gRe) * chi_s) * chi_s.conjugate() +
-                  7.0 * (sW4cW4 * ((CLL2_hat + CRR2_hat) * s2 -
-                  8.0 * M_PI * Qf * s * alphaMz() * (CLL_hat + CRR_hat)+
-                  32.0 * M_PI * M_PI * Qf * Qf * alpha2Mz) + 
-                  4.0 * cW2_tree *sW2_tree * M_PI * alphaMz() * (CLL_hat * gLf * gLe * s +
-                  CRR_hat * gRf *gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLf * gLe + gRf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLL_hat * gLf * gLe * s + 
-                  CRR_hat * gRf * gRe * s - 
-                  4.0 * M_PI * Qf * alphaMz() * (gLf * gLe + gRf *gLe)) +
-                  4.0 * M_PI * alphaMz() * (gLf * gLf * gLe * gLe + 
-                  gRf * gRf * gRe * gRe) * chi_s) * chi_s.conjugate())) / (348.0 * M_PI * s * sW4cW4);
-    
-    return (tmp);
+    return (CLL_1133 + CLL_3311 + CLL_1331 + CLL_3113);
 }
 
-gslpp::complex NPEffectiveGIMR::sigma_eeTOffbarB(const Particle F, const double sqrt_s) const
+double NPEffectiveGIMR::CLL_up() const
 {
-    int Nf;
-    double CLL_hat, CRR_hat, CLR_hat, CRL_hat;
-    if (F.is("UP") || F.is("CHARM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 - CLQ3)/LambdaNP2;
-        CLR_hat = CLu/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ceu/LambdaNP2;
-    } else if(F.is("DOWN") || F.is("STRANGE") || F.is("BOTTOM")){
-        Nf = 3;
-        CLL_hat = (CLQ1 + CLQ3)/LambdaNP2;
-        CLR_hat = CLd/LambdaNP2;
-        CRL_hat = CQe/LambdaNP2;
-        CRR_hat = Ced/LambdaNP2;
-    } else if (F.is("TOP")) {
-        throw std::runtime_error("Not enough energy at LEP2 in order to produce tops!");
-    } else {
-        Nf = 1;
-        CLL_hat = CLL_1221/LambdaNP2;
-        CLR_hat = CLe/LambdaNP2;
-        CRL_hat = CLe/LambdaNP2;
-        CRR_hat = Cee/LambdaNP2;
-    }
-        
-    double CLL2_hat = CLL_hat*CLL_hat;
-    double CLR2_hat = CLR_hat*CLR_hat;
-    double CRL2_hat = CRL_hat*CRL_hat;
-    double CRR2_hat = CRR_hat*CRR_hat;
-    
-    double Qf = F.getCharge();
-    double s = sqrt_s*sqrt_s;
-    double s2 = s*s;
-    
-    gslpp::complex chi_s = s/(s - Mz*Mz + gslpp::complex::i()*Mz*Gamma_Z());
+    return (CLQ1_1111-CLQ3_1111);
+}
 
-    double gVf = trueSM.gV_f(F).real() + deltaGV_f(F);
-    double gAf = trueSM.gA_f(F).real() + deltaGA_f(F);
-    double gRf = (gVf - gAf)/2.0; 
-    double gLf = (gVf + gAf)/2.0;
-    
-    double gVe = trueSM.gV_f(leptons[ELECTRON]).real() + deltaGV_f(leptons[ELECTRON]);
-    double gAe = trueSM.gA_f(leptons[ELECTRON]).real() + deltaGA_f(leptons[ELECTRON]);
-    double gRe = (gVe - gAe)/2.0; 
-    double gLe = (gVe + gAe)/2.0;
-    
-    double sW4cW4 = cW2_tree*cW2_tree*sW2_tree*sW2_tree;
-    double alpha2Mz = alphaMz()*alphaMz();
-    
-    gslpp::complex tmp = Nf * (sW4cW4 * ((CLL2_hat + CRR2_hat) * s2 - 
-                  8 * (CLL_hat + CRR_hat) * M_PI * Qf * s * alphaMz() + 
-                  32 * M_PI * M_PI * Qf * Qf * alpha2Mz)+
-                  4.0 * cW2_tree * sW2_tree * M_PI * alphaMz() * (CLL_hat * gLe * gLf * s +
-                  CRR_hat * gRf * gRe * s -
-                  4.0 * M_PI * Qf * alphaMz() * (gLe * gLf + gRf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLL_hat * gLe * gLf *s +
-                  CRR_hat * gRf * gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLe * gLf + gRf * gRe)) + 
-                  4.0 * M_PI * alphaMz() * (gLe * gLe * gLf * gLf + 
-                  gRf * gRf * gRe * gRe) * chi_s) * chi_s.conjugate() +
-                  7.0 * (sW4cW4 * ((CLR2_hat + CRL2_hat) * s2 -
-                  8.0 * M_PI * Qf * s * alphaMz() * (CLR_hat + CRL_hat)+
-                  32.0 * M_PI * M_PI * Qf * Qf * alpha2Mz) + 
-                  4.0 * cW2_tree *sW2_tree * M_PI * alphaMz() * (CLR_hat * gLe * gRf * s +
-                  CRL_hat * gLf *gRe * s - 4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf * gRe)) * chi_s +
-                  4.0 * M_PI * alphaMz() * (cW2_tree * sW2_tree * (CLR_hat * gLe * gRf * s + 
-                  CRL_hat * gLf * gRe * s - 
-                  4.0 * M_PI * Qf * alphaMz() * (gLe * gRf + gLf *gRe)) +
-                  4.0 * M_PI * alphaMz() * (gLe * gLe * gRf * gRf + 
-                  gLf * gLf * gRe *gRe) * chi_s) * chi_s.conjugate())) / (348.0 * M_PI * s * sW4cW4);
-    
-    return (tmp);
+double NPEffectiveGIMR::CLL_down() const
+{
+    return (CLQ1_1111+CLQ3_1111);
+}
+
+double NPEffectiveGIMR::CLL_charm() const
+{
+    return (CLQ1_1122+CLQ1_2211-CLQ3_1122-CLQ3_2211);
+}
+
+double NPEffectiveGIMR::CLL_strange() const
+{
+    return (CLQ1_1122+CLQ1_2211+CLQ3_1122+CLQ3_2211);
+}
+
+double NPEffectiveGIMR::CLL_bottom() const
+{
+    return (CLQ1_1133+CLQ1_3311+CLQ3_1133+CLQ3_3311);
+}
+
+double NPEffectiveGIMR::CLR_mu() const
+{
+    return (CLe_1122+CLe_2211);
+}
+
+double NPEffectiveGIMR::CLR_tau() const
+{
+    return (CLe_1133+CLe_3311);
+}
+
+double NPEffectiveGIMR::CLR_up() const
+{
+    return (CLu_1111);
+}
+
+double NPEffectiveGIMR::CLR_down() const
+{
+    return (CLd_1111);
+}
+
+double NPEffectiveGIMR::CLR_charm() const
+{
+    return (CLu_1122+CLu_2211);
+}
+
+double NPEffectiveGIMR::CLR_strange() const
+{
+    return (CLd_1122+CLd_2211);
+}
+
+double NPEffectiveGIMR::CLR_bottom() const
+{
+    return (CLd_1133+CLd_3311);
+}
+
+double NPEffectiveGIMR::CRL_mu() const
+{
+    return (CLe_1122+CLe_2211);
+}
+
+double NPEffectiveGIMR::CRL_tau() const
+{
+    return (CLe_1133+CLe_3311);
+}
+
+double NPEffectiveGIMR::CRL_up() const
+{
+    return (CQe_1111);
+}
+
+double NPEffectiveGIMR::CRL_down() const
+{
+    return (CQe_1111);
+}
+
+double NPEffectiveGIMR::CRL_charm() const
+{
+    return (CQe_1122+CQe_2211);
+}
+
+double NPEffectiveGIMR::CRL_strange() const
+{
+    return (CQe_1122+CQe_2211);
+}
+
+double NPEffectiveGIMR::CRL_bottom() const
+{
+    return (CQe_1133+CQe_3311);
+}
+
+double NPEffectiveGIMR::CRR_mu() const
+{
+    return (Cee_1122+Cee_2211);
+}
+
+double NPEffectiveGIMR::CRR_tau() const
+{
+    return (Cee_1133+Cee_3311);
 }
 
 
-double NPEffectiveGIMR::sigma_eeTOmumu(const double sqrt_s) const
+double NPEffectiveGIMR::CRR_up() const
 {
-    return (sigma_eeTOffbar(leptons[MU],sqrt_s));
+    return (Ceu_1111);
 }
 
-double NPEffectiveGIMR::sigma_eeTOqq(const double sqrt_s) const
+double NPEffectiveGIMR::CRR_down() const
 {
-    double tmp = sigma_eeTOffbar(quarks[UP],sqrt_s) +
-                 sigma_eeTOffbar(quarks[DOWN],sqrt_s) +
-                 sigma_eeTOffbar(quarks[CHARM],sqrt_s) +
-                 sigma_eeTOffbar(quarks[STRANGE],sqrt_s) +
-                 sigma_eeTOffbar(quarks[BOTTOM],sqrt_s);
-    
-    return (tmp);
+    return (Ced_1111);
 }
 
-double NPEffectiveGIMR::AFB_mu(const double sqrt_s) const
+double NPEffectiveGIMR::CRR_charm() const
 {
-    gslpp::complex sigmaB = sigma_eeTOffbarB(leptons[MU], sqrt_s);
-    gslpp::complex sigmaF = sigma_eeTOffbarF(leptons[MU], sqrt_s);
-    gslpp::complex diff = sigmaF - sigmaB;
-    gslpp::complex sum = sigmaF + sigmaB;
-    
-    double tmp = diff.real()/sum.real();
-    
-    return tmp;
+    return (Ceu_1122+Ceu_2211);
 }
 
+double NPEffectiveGIMR::CRR_strange() const
+{
+    return (Ced_1122+Ced_2211);
+}
+
+double NPEffectiveGIMR::CRR_bottom() const
+{
+    return (Ced_1133+Ced_3311);
+}
