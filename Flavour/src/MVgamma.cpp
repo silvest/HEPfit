@@ -62,10 +62,20 @@ void MVgamma::updateParameters()
 
     allcoeff = SM.getMyFlavour()->ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    
+    double ms_over_mb = SM.Mrun(mu_b, SM.getQuarks(QCD::STRANGE).getMass_scale(), 
+                        SM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO)
+                       /SM.Mrun(mu_b, SM.getQuarks(QCD::BOTTOM).getMass_scale(), 
+                        SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
 
+    C_3 = (*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2);
+    C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
+    C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
+    C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
     /* Defined with a -ve sign since Jager et. al. 2013 define C7prime with a -ve sign while others define C7 with a _ve sign in the amplitude. See Altmannshofer et. al. 2008.*/
-    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6) - Ms/Mb*C_7;
+    /* Done in the dirty way to remove from the effective basis since C7p is not in the effective basis according to EOS.*/
+    C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
     C_2 = (*(allcoeff[LO]))(1);
     C_8 = (*(allcoeff[LO]))(7);
 
@@ -136,7 +146,7 @@ gslpp::complex MVgamma::H_V_m()
 {
     double s = Mc * Mc / Mb / Mb;
     return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2 * G1(s) + C_8 * G8())
-            + SM.Als(mu_h) / 3. / M_PI * 0. * (C_2h * H1(s) + C_8h * H8())) * T_1()
+            + SM.Als(mu_h) / 3. / M_PI * (C_2h * H1(s) + C_8h * H8())) * T_1()
             * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
@@ -211,8 +221,9 @@ double S_MVgamma::computeThValue()
             out << vectorM;
             throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
     }
-    
+
     /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
+    /* See discussion around eq.53 in hep-ph/0510104*/
     return 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*H_V_m_bar() + H_V_m().conjugate()*H_V_p_bar())).imag() / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
 }
 

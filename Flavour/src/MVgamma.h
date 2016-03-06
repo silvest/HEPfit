@@ -138,6 +138,10 @@ public:
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<vector that contains the Wilson coeffients at muh*/
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
     
+    gslpp::complex C_3;/**<Wilson coeffients @f$C_3@f$*/
+    gslpp::complex C_4;/**<Wilson coeffients @f$C_4@f$*/
+    gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
+    gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
     gslpp::complex C_7p;/**<Wilson coeffients @f$C_7'@f$*/
     gslpp::complex C_2;/**<Wilson coeffients @f$C_2(mu_b)@f$*/
