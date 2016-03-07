@@ -1,6 +1,6 @@
-Configuration files for arXiv:1512:07157
+Configuration files for arXiv:1512.07157
 
-1. arXiv:1512.05157 contains all the files in this folder zipped together
+1. arXiv_1512.05157.zip contains all the files in this folder zipped together
 2. Run "sh master" to create all the variations of all the configurations
 3. The soft linking to the executable and the submission commands are commented out in the file called makerun
 4. run_long is a sample submission file for a SGE cluster
