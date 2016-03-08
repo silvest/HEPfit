@@ -51,8 +51,73 @@ const std::string NPEffectiveGIMRprime::NPEffectiveGIMRprimeVars[NNPEffectiveGIM
     "ettH2_Htt", "ettH2_Hgg",
     "ettH78_Htt", "ettH78_Hgg"};
 
+const std::string NPEffectiveGIMRprime::NPEffectiveGIMRprimeVarsRot[NNPEffectiveGIMRprimeVars]
+        = {"CW", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHbox", "CH",
+    "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
+    "CHL1_12i", "CHL1_13i", "CHL1_23i",
+    "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
+    "CHL3_12i", "CHL3_13i", "CHL3_23i",
+    "CHe_11", "CHe_12r", "CHe_13r", "CHe_22", "CHe_23r", "CHe_33",
+    "CHe_12i", "CHe_13i", "CHe_23i",
+    "CHQ1_11", "CHQ1_12r", "CHQ1_13r", "CHQ1_22", "CHQ1_23r", "CHQ1_33",
+    "CHQ1_12i", "CHQ1_13i", "CHQ1_23i",
+    "CHQ3_11", "CHQ3_12r", "CHQ3_13r", "CHQ3_22", "CHQ3_23r", "CHQ3_33",
+    "CHQ3_12i", "CHQ3_13i", "CHQ3_23i",
+    "CHu_11", "CHu_12r", "CHu_13r", "CHu_22", "CHu_23r", "CHu_33",
+    "CHu_12i", "CHu_13i", "CHu_23i",
+    "CHd_11", "CHd_12r", "CHd_13r", "CHd_22", "CHd_23r", "CHd_33",
+    "CHd_12i", "CHd_13i", "CHd_23i",
+    "CHud_11r", "CHud_12r", "CHud_13r", "CHud_22r", "CHud_23r", "CHud_33r",
+    "CHud_11i", "CHud_12i", "CHud_13i", "CHud_22i", "CHud_23i", "CHud_33i",
+    "CeH_11r", "CeH_12r", "CeH_13r", "CeH_22r", "CeH_23r", "CeH_33r",
+    "CeH_11i", "CeH_12i", "CeH_13i", "CeH_22i", "CeH_23i", "CeH_33i",
+    "CuH_11r", "CuH_12r", "CuH_13r", "CuH_22r", "CuH_23r", "CuH_33r",
+    "CuH_11i", "CuH_12i", "CuH_13i", "CuH_22i", "CuH_23i", "CuH_33i",
+    "CdH_11r", "CdH_12r", "CdH_13r", "CdH_22r", "CdH_23r", "CdH_33r",
+    "CdH_11i", "CdH_12i", "CdH_13i", "CdH_22i", "CdH_23i", "CdH_33i",
+    "CLL_1221", "CLQ1", "CLQ3","Cee", "Ceu", "Ced", "CLe", "CLu", "CLd",
+    "CQe", "Lambda_NP",
+    "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
+    "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
+    "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
+    "eVBF2_ZdR", "eVBF2_Wud",
+    "eVBF78_HZZ1", "eVBF78_HZZ2", "eVBF78_HZZ3", "eVBF78_HZA1", "eVBF78_HZA2", "eVBF78_HAA",
+    "eVBF78_HWW1", "eVBF78_HWW2", "eVBF78_HWW3", "eVBF78_Hgg", "eVBF78_HZuL", "eVBF78_HZuR",
+    "eVBF78_HZdL", "eVBF78_HZdR", "eVBF78_HWud", "eVBF78_ZuL", "eVBF78_ZuR", "eVBF78_ZdL",
+    "eVBF78_ZdR", "eVBF78_Wud",
+    "eWH2_HWW1", "eWH2_HWW2", "eWH2_HWW3", "eWH2_HWud", "eWH2_Wud",
+    "eWH78_HWW1", "eWH78_HWW2", "eWH78_HWW3", "eWH78_HWud", "eWH78_Wud",
+    "eZH2_HZZ1", "eZH2_HZZ2", "eZH2_HZZ3", "eZH2_HZA1", "eZH2_HZA2", "eZH2_HZuL", "eZH2_HZuR",
+    "eZH2_HZdL", "eZH2_HZdR", "eZH2_ZuL", "eZH2_ZuR", "eZH2_ZdL", "eZH2_ZdR",
+    "eZH78_HZZ1", "eZH78_HZZ2", "eZH78_HZZ3", "eZH78_HZA1", "eZH78_HZA2", "eZH78_HZuL", "eZH78_HZuR",
+    "eZH78_HZdL", "eZH78_HZdR", "eZH78_ZuL", "eZH78_ZuR", "eZH78_ZdL", "eZH78_ZdR",
+    "ettH2_Htt", "ettH2_Hgg",
+    "ettH78_Htt", "ettH78_Hgg"};
+
 const std::string NPEffectiveGIMRprime::NPEffectiveGIMRprimeVars_LFU_QFU[NNPEffectiveGIMRprimeVars_LFU_QFU]
         = {"CW", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHbox", "CH",
+    "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
+    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL", "CLQ1", "CLQ3",
+    "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP",
+    "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
+    "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
+    "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
+    "eVBF2_ZdR", "eVBF2_Wud",
+    "eVBF78_HZZ1", "eVBF78_HZZ2", "eVBF78_HZZ3", "eVBF78_HZA1", "eVBF78_HZA2", "eVBF78_HAA",
+    "eVBF78_HWW1", "eVBF78_HWW2", "eVBF78_HWW3", "eVBF78_Hgg", "eVBF78_HZuL", "eVBF78_HZuR",
+    "eVBF78_HZdL", "eVBF78_HZdR", "eVBF78_HWud", "eVBF78_ZuL", "eVBF78_ZuR", "eVBF78_ZdL",
+    "eVBF78_ZdR", "eVBF78_Wud",
+    "eWH2_HWW1", "eWH2_HWW2", "eWH2_HWW3", "eWH2_HWud", "eWH2_Wud",
+    "eWH78_HWW1", "eWH78_HWW2", "eWH78_HWW3", "eWH78_HWud", "eWH78_Wud",
+    "eZH2_HZZ1", "eZH2_HZZ2", "eZH2_HZZ3", "eZH2_HZA1", "eZH2_HZA2", "eZH2_HZuL", "eZH2_HZuR",
+    "eZH2_HZdL", "eZH2_HZdR", "eZH2_ZuL", "eZH2_ZuR", "eZH2_ZdL", "eZH2_ZdR",
+    "eZH78_HZZ1", "eZH78_HZZ2", "eZH78_HZZ3", "eZH78_HZA1", "eZH78_HZA2", "eZH78_HZuL", "eZH78_HZuR",
+    "eZH78_HZdL", "eZH78_HZdR", "eZH78_ZuL", "eZH78_ZuR", "eZH78_ZdL", "eZH78_ZdR",
+    "ettH2_Htt", "ettH2_Hgg",
+    "ettH78_Htt", "ettH78_Hgg"};
+
+const std::string NPEffectiveGIMRprime::NPEffectiveGIMRprimeVarsRot_LFU_QFU[NNPEffectiveGIMRprimeVars_LFU_QFU]
+        = {"CW", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP",
@@ -83,12 +148,18 @@ NPEffectiveGIMRprime::NPEffectiveGIMRprime(const bool FlagLeptonUniversal_in, co
 
     FlagMwInput = false;
     FlagQuadraticTerms = false;
+    FlagRotateCHWCHB = false;
     setModelLinearized();
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CW", boost::cref(CW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHG", boost::cref(CHG)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHB", boost::cref(CHB)));
+    if (FlagRotateCHWCHB) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHWHB_gaga", boost::cref(CHWHB_gaga)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHWHB_gagaorth", boost::cref(CHWHB_gagaorth)));        
+    } else {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHB", boost::cref(CHB)));
+    }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CDHB", boost::cref(CDHB)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CDHW", boost::cref(CDHW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHbox", boost::cref(CHbox)));
@@ -338,6 +409,11 @@ bool NPEffectiveGIMRprime::PostUpdate()
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
     sW_tree = sqrt(sW2_tree);
+    
+    if (FlagRotateCHWCHB) {
+        CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
+        CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
+    }
 
     delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB ) * v2_over_LambdaNP2;
     delta_AA = (sW2_tree * CHW + cW2_tree * CHB ) * v2_over_LambdaNP2;
@@ -357,6 +433,10 @@ void NPEffectiveGIMRprime::setParameter(const std::string name, const double& va
         CHW = value;
     else if (name.compare("CHB") == 0)
         CHB = value;
+    else if (name.compare("CHWHB_gaga") == 0)
+        CHWHB_gaga = value;
+    else if (name.compare("CHWHB_gagaorth") == 0)
+        CHWHB_gagaorth = value;
     else if (name.compare("CDHB") == 0)
         CDHB = value;
     else if (name.compare("CDHW") == 0)
@@ -914,13 +994,24 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
                 return false;
             }
         }
-        for (int i = 0; i < NNPEffectiveGIMRprimeVars_LFU_QFU; i++) {
-            if (DPars.find(NPEffectiveGIMRprimeVars_LFU_QFU[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime_LFU_QFU parameter "
-                        << NPEffectiveGIMRprimeVars_LFU_QFU[i] << std::endl;
-                return false;
-            }
+        if (FlagRotateCHWCHB) {
+              for (int i = 0; i < NNPEffectiveGIMRprimeVars_LFU_QFU; i++) {
+                    if (DPars.find(NPEffectiveGIMRprimeVarsRot_LFU_QFU[i]) == DPars.end()) {
+                          std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime_LFU_QFU parameter "
+                          << NPEffectiveGIMRprimeVarsRot_LFU_QFU[i] << std::endl;
+                          return false;
+                    }
+              }
+        } else {
+              for (int i = 0; i < NNPEffectiveGIMRprimeVars_LFU_QFU; i++) {
+                    if (DPars.find(NPEffectiveGIMRprimeVars_LFU_QFU[i]) == DPars.end()) {
+                          std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime_LFU_QFU parameter "
+                          << NPEffectiveGIMRprimeVars_LFU_QFU[i] << std::endl;
+                          return false;
+                    }
+              }
         }
+          
         //} else if (FlagLeptonUniversal && !FlagQuarkUniversal) {
         //} else if (!FlagLeptonUniversal && FlagQuarkUniversal) {
     } else if (!FlagLeptonUniversal && !FlagQuarkUniversal) {
@@ -930,13 +1021,24 @@ bool NPEffectiveGIMRprime::CheckParameters(const std::map<std::string, double>& 
                 return false;
             }
         }
-        for (int i = 0; i < NNPEffectiveGIMRprimeVars; i++) {
-            if (DPars.find(NPEffectiveGIMRprimeVars[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime parameter"
-                        << NPEffectiveGIMRprimeVars[i] << std::endl;
-                return false;
-            }
+        if (FlagRotateCHWCHB) {
+              for (int i = 0; i < NNPEffectiveGIMRprimeVars; i++) {
+                    if (DPars.find(NPEffectiveGIMRprimeVarsRot[i]) == DPars.end()) {
+                          std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime parameter"
+                          << NPEffectiveGIMRprimeVarsRot[i] << std::endl;
+                          return false;
+                    }
+              }
+        } else {
+              for (int i = 0; i < NNPEffectiveGIMRprimeVars; i++) {
+                    if (DPars.find(NPEffectiveGIMRprimeVars[i]) == DPars.end()) {
+                          std::cout << "ERROR: Missing mandatory NPEffectiveGIMRprime parameter"
+                          << NPEffectiveGIMRprimeVars[i] << std::endl;
+                          return false;
+                    }
+              }
         }
+          
     } else
         throw std::runtime_error("Error in NPEffectiveGIMRprime::CheckParameters()");
 
@@ -952,6 +1054,9 @@ bool NPEffectiveGIMRprime::setFlag(const std::string name, const bool value)
     } else if (name.compare("QuadraticTerms") == 0) {
         FlagQuadraticTerms = value;
         if(value) setModelLinearized(false);
+        res = true;
+    } else if (name.compare("RotateCHWCHB") == 0) {
+        FlagRotateCHWCHB = value;
         res = true;
     } else
         res = NPbase::setFlag(name, value);

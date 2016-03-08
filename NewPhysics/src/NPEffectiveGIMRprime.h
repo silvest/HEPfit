@@ -574,9 +574,15 @@ public:
 
     /**
      * @brief A string array containing the labels of the model parameters in
-     * %NPEffectiveGIMRprime.
+     * %NPEffectiveGIMRprime if the model flag FlagRotateCHWCHB=false.
      */
     static const std::string NPEffectiveGIMRprimeVars[NNPEffectiveGIMRprimeVars];
+      
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveGIMRprime if the model flag FlagRotateCHWCHB=true.
+     */
+    static const std::string NPEffectiveGIMRprimeVarsRot[NNPEffectiveGIMRprimeVars];
 
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMRprime
@@ -586,9 +592,17 @@ public:
 
     /**
      * @brief A string array containing the labels of the model parameters in
-     * %NPEffectiveGIMRprime with lepton and quark flavour universalities.
+     * %NPEffectiveGIMRprime with lepton and quark flavour universalities
+     * if the model flag FlagRotateCHWCHB=false.
      */
     static const std::string NPEffectiveGIMRprimeVars_LFU_QFU[NNPEffectiveGIMRprimeVars_LFU_QFU];
+      
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveGIMRprime with lepton and quark flavour universalities
+     * if the model flag FlagRotateCHWCHB=true.
+     */
+    static const std::string NPEffectiveGIMRprimeVarsRot_LFU_QFU[NNPEffectiveGIMRprimeVars_LFU_QFU];
 
     /**
      * @brief Constructor.
@@ -1132,6 +1146,8 @@ protected:
     double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
     double CHB; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
+    double CHWHB_gaga; ///< The combination of dimension-6 operator coefficients entering in \f$\delta_{AA}\f$: \f$s_W^2 C_{HW} + c_W^2 C_{HW}\f$.
+    double CHWHB_gagaorth; ///< The combination of dimension-6 operator coefficients \f$-c_W^2 C_{HW} + s_W^2 C_{HW}\f$.
     double CDHB; ///< The dimension-6 operator coefficient \f$C_{DHB}\f$.
     double CDHW; ///< The dimension-6 operator coefficient \f$C_{DHW}\f$.
     double CHbox; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
@@ -1398,6 +1414,7 @@ private:
 
     bool FlagMwInput; ///< A boolean flag that is true if the W mass is taken as an input parameter. (Warning: The W width is not implemented in this case.)
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
+    bool FlagRotateCHWCHB; ///< A boolean flag that is true if we use as parameters CHWHB_gaga and CHWHB_gagaorth instead of CHW and CHB.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour
