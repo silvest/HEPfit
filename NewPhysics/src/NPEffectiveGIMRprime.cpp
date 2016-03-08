@@ -153,13 +153,10 @@ NPEffectiveGIMRprime::NPEffectiveGIMRprime(const bool FlagLeptonUniversal_in, co
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CW", boost::cref(CW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHG", boost::cref(CHG)));
-    if (FlagRotateCHWCHB) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHWHB_gaga", boost::cref(CHWHB_gaga)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHWHB_gagaorth", boost::cref(CHWHB_gagaorth)));        
-    } else {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHB", boost::cref(CHB)));
-    }
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHB", boost::cref(CHB)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHWHB_gaga", boost::cref(CHWHB_gaga)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHWHB_gagaorth", boost::cref(CHWHB_gagaorth)));        
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CDHB", boost::cref(CDHB)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CDHW", boost::cref(CDHW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHbox", boost::cref(CHbox)));
@@ -413,6 +410,9 @@ bool NPEffectiveGIMRprime::PostUpdate()
     if (FlagRotateCHWCHB) {
         CHW = sW2_tree * CHWHB_gaga - cW2_tree * CHWHB_gagaorth;
         CHB = cW2_tree * CHWHB_gaga + sW2_tree * CHWHB_gagaorth;
+    } else {
+        CHWHB_gaga = sW2_tree * CHW + cW2_tree * CHB;
+        CHWHB_gagaorth = - cW2_tree * CHW + sW2_tree * CHB;
     }
 
     delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB ) * v2_over_LambdaNP2;
