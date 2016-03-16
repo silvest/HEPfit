@@ -434,6 +434,24 @@ public:
         return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
     }
     
+    double getQCDf_1(double q2)
+    {
+        /* NOTE THE ZEROS */
+        return (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * 1./(16. * M_PI * M_PI * MM*MM) * ((0.*C_9 + fDeltaC9_m(q2) + 0.*Y(q2)) * V_m(q2) - (C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2))).abs();
+    }
+    
+    double getQCDf_2(double q2)
+    {
+        /* NOTE THE ZEROS */
+        return (gtilde_2_pre/A_1(q2) * 1./(16. * M_PI * M_PI * MM*MM) * ((0.*C_9 + fDeltaC9_m(q2) + 0.*Y(q2)) * V_m(q2) + (0.*C_9 + fDeltaC9_p(q2) + 0.*Y(q2)) * V_p(q2))).abs();
+    }
+    
+    double getQCDf_3(double q2)
+    {
+        /* NOTE THE ZEROS */
+        return (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2) * 1./(16. * M_PI * M_PI * MM*MM) * (0.*C_9 + fDeltaC9_0(q2) + 0.*Y(q2)) * V_0t(q2) - (MM2mMV2 - q2)/(4.*MV) * 1./(16. * M_PI * M_PI * MM*MM) * ((0.*C_9 + fDeltaC9_m(q2) + 0.*Y(q2)) * V_m(q2) + (0.*C_9 + fDeltaC9_p(q2) + 0.*Y(q2)) * V_p(q2)))).abs();
+    }
+    
     /**
     * @brief The real part of \f$ \tilde{g}^2 \f$.
     * @param[in] q2 \f$q^2\f$ of the decay

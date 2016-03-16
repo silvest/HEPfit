@@ -1045,3 +1045,56 @@ double BRf_MVll::computeThValue()
     
     return computeGammaPrimef(q_min, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getwidth();
 }
+
+P_relationf::P_relationf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_relationf::computeThValue() 
+{   
+    double q_min = getBinMin();
+    double P1 = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(4,q_min)/(2.* SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P2 = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(7,q_min)/(8.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P4p = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(5,q_min)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P5p = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(6,q_min)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+    double beta = sqrt(1. - 4.*SM.getLeptons(lep).getMass()*SM.getLeptons(lep).getMass()/q_min/q_min);
+    
+    return (1./2.*(P4p*P5p + 1./beta *sqrt((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p))))/P2;
+}
+
+P_relation_exactf::P_relation_exactf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_relation_exactf::computeThValue() 
+{   
+    double q_min = getBinMin();
+    double P1 = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(4,q_min)/(2.* SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P2 = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(7,q_min)/(8.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P3 = -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(11,q_min)/(4.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P4p = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(5,q_min)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P5p = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(6,q_min)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+    double P6p = -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(9,q_min)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+    double P8p = -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(10,q_min)/(sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+    
+    double beta = sqrt(1. - 4.*SM.getLeptons(lep).getMass()*SM.getLeptons(lep).getMass()/q_min/q_min);
+    
+    /* k1 and k2 not fully implemented. arXiv:1402.6855*/
+    double k1 = 1.;
+    double k2 = 1.;
+    
+    double delta_1 = P6p*P8p;
+    double delta_2 = -1. + k1*k1*k2*k2 + (1. - k1*k2)*(P4p*P4p + beta*beta*P5p*P5p) - 4.*k1*k1*P3*P3 + beta*beta*P6p*P8p*(2.*P4p*P5p + P6p*P8p) + k1*(beta*beta*P6p*(4.*P3*P5p - k2*P6p) - P8p*(4.*P3*P4p + k2*P8p));
+    double delta_3 = (1. - k1)*P4p*P4p + beta*beta*((-1. + k1)*P5p*P5p - k1*P6p*P6p) + k1*P8p*P8p;
+    double delta_4 = 1. - k1*k1;
+    
+    return (1./2./k1*((P4p*P5p + delta_1) + 1./beta *sqrt((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p) + delta_2 + delta_3*P1 + delta_4*P1*P1)))/P2;
+}
