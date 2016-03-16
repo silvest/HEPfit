@@ -1859,7 +1859,9 @@ public:
 
     /**
      * @brief The ggH cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return ggH cross section in pb
      */
@@ -1871,6 +1873,12 @@ public:
         } else if (sqrt_s == 8.0) {
             return 19.24; // in pb for Mh=125.1 GeV
             //return 19.09; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 13.0) {
+            return 43.92; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 14.0) {
+            return 49.47; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH(), Higgs SM cross sections not implemented for 100 TeV");            
         } else if (sqrt_s == 1.96) {
             return 0.9493; // in pb for Mh=125 GeV
         } else
@@ -1894,6 +1902,12 @@ public:
             //return 18.31; // in pb for Mh=125 GeV with a scale choice of Mh
             return 20.18; // in pb for Mh=125 GeV with a scale choice of Mh/2
             //return 20.02; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+        } else if (sqrt_s == 13.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 14.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tt(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt(), Higgs SM cross sections not implemented for 100 TeV");
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
     }
@@ -1915,6 +1929,12 @@ public:
             //return 0.1206; // in pb for Mh=125 GeV with a scale choice of Mh
             return 0.1357; // in pb for Mh=125 GeV with a scale choice of Mh/2
             //return 0.1330; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+        } else if (sqrt_s == 13.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 14.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_bb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb(), Higgs SM cross sections not implemented for 100 TeV");
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
     }
@@ -1936,13 +1956,21 @@ public:
             //return -1.125; // in pb for Mh=125 GeV with a scale choice of Mh
             return -1.206; // in pb for Mh=125 GeV with a scale choice of Mh/2
             //return -1.192; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+        } else if (sqrt_s == 13.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 14.0) {
+            return computeSigmaggH(sqrt_s) / computeSigmaggH(8.) * computeSigmaggH_tb(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb(), Higgs SM cross sections not implemented for 100 TeV");
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
     }
 
     /**
      * @brief The VBF cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return VBF cross section in pb
      */
@@ -1954,6 +1982,12 @@ public:
         } else if (sqrt_s == 8.0) {
             return 1.579; // in pb for Mh=125.1 GeV
             //return 1.572; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 13.0) {
+            return 3.748; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 14.0) {
+            return 4.233; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaVBF(), Higgs SM cross sections not implemented for 100 TeV");
         } else if (sqrt_s == 1.96) {
             return 0.0653; // in pb for Mh=125 GeV
         } else
@@ -1973,6 +2007,12 @@ public:
             return 0.938; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0) {
             return 1.210; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 13.0) {
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 14.0) {
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaWF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaWF(), Higgs SM cross sections not implemented for 100 TeV");
         } else if (sqrt_s == 1.96) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaWF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
@@ -1992,6 +2032,12 @@ public:
             return 0.321; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0) {
             return 0.417; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 13.0) {
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 14.0) {
+            return computeSigmaVBF(sqrt_s) / computeSigmaVBF(8.) * computeSigmaZF(8.); // in the absence of this value we rescale the LHC result at 8 TeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaZF(), Higgs SM cross sections not implemented for 100 TeV");
         } else if (sqrt_s == 1.96) {
             return computeSigmaVBF(sqrt_s) / computeSigmaVBF(7.) * computeSigmaZF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
@@ -2012,7 +2058,9 @@ public:
 
     /**
      * @brief The WH production cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return WH production cross section in pb
      */
@@ -2024,6 +2072,12 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.7027; // in pb for Mh=125.1 GeV
             //return 0.6931; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 13.0) {
+            return 1.380; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 14.0) {
+            return 1.522; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaWH(), Higgs SM cross sections not implemented for 100 TeV");
         } else if (sqrt_s == 1.96) {
             return 0.1295; // in pb for Mh=125 GeV
         } else
@@ -2032,7 +2086,9 @@ public:
 
     /**
      * @brief The ZH production cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return ZH production cross section in pb
      */
@@ -2044,6 +2100,12 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.4142; // in pb for Mh=125.1 GeV
             //return 0.4091; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 13.0) {
+            return 0.8696; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 14.0) {
+            return 0.9690; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaZH(), Higgs SM cross sections not implemented for 100 TeV");
         } else if (sqrt_s == 1.96) {
             return 0.0785; // in pb for Mh=125 GeV
         } else
@@ -2052,7 +2114,9 @@ public:
 
     /**
      * @brief The ttH production cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return ttH production cross section in pb
      */
@@ -2064,6 +2128,12 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.129; // in pb for Mh=125.1 GeV
             //return 0.1274; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 13.0) {
+            return 0.5085; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 14.0) {
+            return 0.6113; // in pb for Mh=125. GeV            
+        } else if (sqrt_s == 100.0) {
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmattH(), Higgs SM cross sections not implemented for 100 TeV");
         } else if (sqrt_s == 1.96) {
             return 0.0043; // in pb for Mh=125 GeV
         } else
