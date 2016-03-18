@@ -74,7 +74,7 @@ double HiggsKvgenKf::muZH(const double sqrt_s) const
     return (computeKZ() * computeKZ());
 }
 
-double HiggsKvKf::mueeZH(const double sqrt_s) const
+double HiggsKvgenKf::mueeZH(const double sqrt_s) const
 {
     return (computeKZ() * computeKZ());
 }
