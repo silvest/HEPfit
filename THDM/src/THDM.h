@@ -70,6 +70,11 @@ class THDMcache; //forward reference to THDMcache class
  *   <td class="mod_symb">@f$\theta_{b\to s\gamma}^{\text{theo}}@f$</td>
  *   <td class="mod_desc">A nuisance parameter between -1 and +1 for the theoretical error in the determination of BR(B\to X_s \gamma).</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%Q_THDM</td>
+ *   <td class="mod_symb">@f$Q_{\text{THDM}}@f$</td>
+ *   <td class="mod_desc">The THDM scale.</td>
+ * </tr>
  * </table>
  * 
  *
@@ -93,7 +98,7 @@ class THDMcache; //forward reference to THDMcache class
 class THDM: public StandardModel {
 public:
 
-    static const int NTHDMvars = 7;
+    static const int NTHDMvars = 8;
     static const std::string THDMvars[NTHDMvars];
     
     /**
@@ -305,6 +310,14 @@ public:
         return bsgamma_theoryerror;
     }
 
+    /**
+     *
+     * @return THDM scale
+     */
+    double getQ_THDM() const {
+        return Q_THDM;
+    }
+
 protected: 
 
     virtual void setParameter(const std::string, const double&);
@@ -332,7 +345,7 @@ private:
 
     THDMcache* myTHDMcache;
 
-    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror;
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM;
     std::string flag_model;
 };
 

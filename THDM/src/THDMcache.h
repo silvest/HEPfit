@@ -11,6 +11,7 @@
 #include <cmath>
 #include "PVfunctions.h"
 #include "THDM.h"
+#include "THDMquantities.h"
 
 #include <stdexcept>
 #include "gslpp.h"
@@ -38,8 +39,7 @@ public:
      * @brief THDMcache destructor.
      * @details Reads all the tables values and stores them in the memory.
      */
-    ~THDMcache()
-    {}
+    ~THDMcache();
     
     /**
      * @brief Cache size.
@@ -671,13 +671,17 @@ public:
     double cW2THDM(const double c02) const;
     double MWTHDM(const double MW) const;
 
-    
-    
     void computeSignalStrengthQuantities();
 
     void computeHHquantities();
 
     void computeAquantities();
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    void runTHDMparameters();
+
+    void computeWFRcombinations();
 
     ////////////////////////////////////////////////////////////////////////////
     void updateCache();
@@ -1099,10 +1103,32 @@ public:
     double THoEX_bbF_A_bb_CMS;
     double R_bbF_A_bb_CMS;
 
+    double Ytop_at_Q;
+    double Ybottom1_at_Q;
+    double Ybottom2_at_Q;
+    double Ytau1_at_Q;
+    double Ytau2_at_Q;
+    double lambda1_at_Q;
+    double lambda2_at_Q;
+    double lambda3_at_Q;
+    double lambda4_at_Q;
+    double lambda5_at_Q;
+    double WFRcomb1;
+    double WFRcomb2;
+    double WFRcomb3;
+    double WFRcomb4;
+
 private:
 
     const PVfunctions PV;
     const THDM * myTHDM;
+//    m11_2 * mym11_2;
+//    m22_2 * mym22_2;
+    lambda1 * mylambda1;
+    lambda2 * mylambda2;
+    lambda3 * mylambda3;
+    lambda4 * mylambda4;
+    lambda5 * mylambda5;
 
     double bma;
     double tanb;
