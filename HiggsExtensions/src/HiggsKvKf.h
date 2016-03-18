@@ -188,6 +188,14 @@ public:
      */
     virtual double muZH(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$e^{+}e^{-}\to ZH@f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZH}@f$
+     */
+    virtual double mueeZH(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV

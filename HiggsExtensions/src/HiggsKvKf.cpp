@@ -100,6 +100,11 @@ double HiggsKvKf::muZH(const double sqrt_s) const
     return (computeKZ() * computeKZ());
 }
 
+double HiggsKvKf::mueeZH(const double sqrt_s) const
+{
+    return (computeKZ() * computeKZ());
+}
+
 double HiggsKvKf::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
