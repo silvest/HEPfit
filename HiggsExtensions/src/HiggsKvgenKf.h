@@ -258,6 +258,12 @@ public:
      */
     virtual double BrHgagaRatio() const;
     /**
+     * @brief The ratio of the Br@f$(H\to \mu^+\mu^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \mu^+\mu^-)@f$/Br@f$(H\to \mu^+\mu^-)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHmumuRatio() const;
+    /**
      * @brief The ratio of the Br@f$(H\to \tau^+\tau^-)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to \tau^+\tau^-)@f$/Br@f$(H\to \tau^+\tau^-)_{\mathrm{SM}}@f$
@@ -321,6 +327,12 @@ protected:
      * @return the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM
      */
     virtual double computeKgaga() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKmu() const;
 
     /**
      * @brief A method to compute the ratio of the @f$H\tau\tau@f$ coupling in the current model and in the SM.

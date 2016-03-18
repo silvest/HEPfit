@@ -541,6 +541,42 @@ private:
 };
 
 /**
+ * @class BrHtomumuRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to \mu^+\mu^-)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to \mu^+\mu^-)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtomumuRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtomumuRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtomumuRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to \mu^+\mu^-)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to \mu^+\mu^-)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHmumuRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
  * @class BrHtotautauRatio
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio of the Br@f$(H\to \tau^+\tau^-)@f$.

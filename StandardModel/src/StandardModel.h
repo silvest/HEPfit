@@ -2202,6 +2202,16 @@ public:
     {
         return 2.28e-3; // Mh=125.1 GeV
     }
+    
+    /**
+     * @brief The Br@f$(H\to \mu\mu)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to \mu\mu)@f$ in the Standard Model
+     */
+    double computeBrHtomumu() const
+    {
+        return 2.19e-4; // Mh=125.1 GeV
+    }
 
     /**
      * @brief The Br@f$(H\to \tau\tau)@f$ in the Standard Model.

@@ -145,6 +145,11 @@ double HiggsKvgenKf::BrHgagaRatio() const
     return (computeKgaga() * computeKgaga() / computeGammaTotalRatio());
 }
 
+double HiggsKvgenKf::BrHmumuRatio() const
+{
+    return (computeKmu() * computeKmu() / computeGammaTotalRatio());
+}
+
 double HiggsKvgenKf::BrHtautauRatio() const
 {
     return (computeKtau() * computeKtau() / computeGammaTotalRatio());
@@ -167,6 +172,7 @@ double HiggsKvgenKf::computeGammaTotalRatio() const
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
             + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
             + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
+            + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
             + computeKb() * computeKb() * trueSM.computeBrHtobb())
@@ -208,6 +214,11 @@ double HiggsKvgenKf::computeKgaga() const
     return (sqrt((computeKt() * computeKt() * gtt_SM
             + computeKW() * computeKW() * gWW_SM
             + computeKt() * computeKW() * gtW_SM) / (gtt_SM + gWW_SM + gtW_SM)));
+}
+
+double HiggsKvgenKf::computeKmu() const
+{
+    return Kf;
 }
 
 double HiggsKvgenKf::computeKtau() const
