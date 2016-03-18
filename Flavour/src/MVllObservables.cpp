@@ -1063,7 +1063,7 @@ double P_relationf::computeThValue()
     double P5p = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(6,q_min)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
     double beta = sqrt(1. - 4.*SM.getLeptons(lep).getMass()*SM.getLeptons(lep).getMass()/q_min/q_min);
     
-    return (1./2.*(P4p*P5p + 1./beta *sqrt((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p))))/P2;
+    return 1./2.*(P4p*P5p + 1./beta *sqrt(std::abs((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p)))) - P2;
 }
 
 P_relation_exactf::P_relation_exactf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -1095,6 +1095,6 @@ double P_relation_exactf::computeThValue()
     double delta_2 = -1. + k1*k1*k2*k2 + (1. - k1*k2)*(P4p*P4p + beta*beta*P5p*P5p) - 4.*k1*k1*P3*P3 + beta*beta*P6p*P8p*(2.*P4p*P5p + P6p*P8p) + k1*(beta*beta*P6p*(4.*P3*P5p - k2*P6p) - P8p*(4.*P3*P4p + k2*P8p));
     double delta_3 = (1. - k1)*P4p*P4p + beta*beta*((-1. + k1)*P5p*P5p - k1*P6p*P6p) + k1*P8p*P8p;
     double delta_4 = 1. - k1*k1;
-    
-    return (1./2./k1*((P4p*P5p + delta_1) + 1./beta *sqrt((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p) + delta_2 + delta_3*P1 + delta_4*P1*P1)))/P2;
+
+    return 1./2./k1*((P4p*P5p + delta_1) + 1./beta *sqrt(std::abs((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p) + delta_2 + delta_3*P1 + delta_4*P1*P1))) - P2;
 }
