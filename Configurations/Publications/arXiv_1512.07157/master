@@ -4,7 +4,7 @@ do
 	cp makerun ${i}/.
 	cp run_long.sh ${i}/.
 	cd ${i}
-	sed -i "s/FOLDER/$i/" run_long.sh
+	sed -i "" "s/FOLDER/$i/" run_long.sh
 	./makerun
 	cd ../
 done
