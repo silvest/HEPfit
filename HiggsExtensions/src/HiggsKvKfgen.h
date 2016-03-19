@@ -234,6 +234,14 @@ public:
      */
     virtual double muZH(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$e^{+}e^{-}\to ZH@f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZH}@f$
+     */
+    virtual double mueeZH(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -292,6 +300,12 @@ public:
      * @return Br@f$(H\to \gamma\gamma)@f$/Br@f$(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
     virtual double BrHgagaRatio() const;
+    /**
+     * @brief The ratio of the Br@f$(H\to \mu^+\mu^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \mu^+\mu^-)@f$/Br@f$(H\to \mu^+\mu^-)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHmumuRatio() const;
     /**
      * @brief The ratio of the Br@f$(H\to \tau^+\tau^-)@f$ in the current model
      * and in the Standard Model.
@@ -356,6 +370,12 @@ protected:
      * @return the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM
      */
     virtual double computeKgaga() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKmu() const;
 
     /**
      * @brief A method to compute the ratio of the @f$H\tau\tau@f$ coupling in the current model and in the SM.

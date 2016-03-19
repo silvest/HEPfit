@@ -503,6 +503,16 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to \mu^+\mu^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \mu^+\mu^-)@f$/Br@f$(H\to \mu^+\mu^-)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHmumuRatio() const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief The ratio of the Br@f$(H\to \tau^+\tau^-)@f$ in the current model

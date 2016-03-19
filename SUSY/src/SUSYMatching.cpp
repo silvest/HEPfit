@@ -6095,6 +6095,9 @@ gslpp::vector<gslpp::complex> SUSYMatching::gminus2mu() {
     //     write R and L contributions to the muon g-2 into a vector
     gminus2mu.assign(0, g2ARN + g2ARC );    //g-2_muR
     gminus2mu.assign(1, g2ALN + g2ALC );    //g-2_muL
+    
+    std::cout<<"g2AN="<<g2ARN+g2ALN <<std::endl;
+    std::cout<<"g2AC="<<g2ARC+g2ALC <<std::endl;
 
     return(gminus2mu);
 }
@@ -6378,8 +6381,10 @@ double SUSYMatching::gminus2muNLO() {
 
     double pi = M_PI;
     double MZ = mySUSY.getMz();
-    double g1atMZ = sqrt(4.0*pi*mySUSY.getAle());
-    double g2atMZ = gW;
+//    double g1atMZ = sqrt(4.0*pi*mySUSY.getAle());
+//    double g2atMZ = gW;
+    double g1atMZ = 0.357456;
+    double g2atMZ = 0.651721;
     double g3atMZ = sqrt(4.0*pi*mySUSY.getAlsMz());
     double mh = mySUSY.getMHl();
     double mhh = mySUSY.getMHh();
@@ -6388,7 +6393,7 @@ double SUSYMatching::gminus2muNLO() {
     gslpp::complex ca = sqrt(1.0-sa*sa);
     gslpp::complex s2a = 2.0*ca*sa;
     gslpp::complex c2a = ca*ca-sa*sa;
-    double vew = v;
+    double vew = v/sqrt(2.);
     double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
     double mmu = mySUSY.getLeptons(StandardModel::MU).getMass();
     double mTAU = mySUSY.getLeptons(StandardModel::TAU).getMass();
@@ -6439,7 +6444,7 @@ double SUSYMatching::gminus2muNLO() {
     b1[0]=41./6., b1[1]=-19./6., b1[2]=-7.;
     gi[0]=g1atMZ, gi[1]=g2atMZ, gi[2]=g3atMZ;
     for(k=0; k<3; k++){
-        res_g=1./gi[k]/gi[k] -b1[k]/(8.*pi*pi)*log(msmuL/MZ);
+        res_g=1./gi[k]/gi[k] -b1[k]/(8.*pi*pi)*log(sqrt(msmuL)/MZ);
         gi[k]=sqrt(1/res_g);
     }
     g1=gi[0], g2=gi[1], g3=gi[2];
@@ -6453,8 +6458,14 @@ double SUSYMatching::gminus2muNLO() {
     gslpp::complex lh1 = -sa/cosb;
     gslpp::complex lh2 = ca/cosb;
     double lA = tanb;
-    double msneu2 = msmuL*msmuL+0.5*mzq*mzq*c2b;
+    double msneu2 = msmuL+0.5*mzq*mzq*c2b;
 
+        TEhat.assign(1,1, 0.);
+     a3t = 0.;
+     a3b = 0.;
+     a3tau = 0.;
+
+    
     gslpp::matrix<gslpp::complex> Rsmu(2,2,0.), Xm(2,2,0.);
     gslpp::vector<double> msmu2(2,0.);
     Rsmu.assign(0,0, msmuL+mmu*mmu+c2b*mzq*mzq*(-1.0/2.0+sw2) );
@@ -6464,8 +6475,17 @@ double SUSYMatching::gminus2muNLO() {
     Rsmu.eigensystem(Xm,msmu2); //in the 1,2 basis now!
 
     gslpp::vector<gslpp::complex> gminus2muvector=gminus2mu();
-    double gm21loop = (gminus2muvector(0)+gminus2muvector(1)).abs();
+    std::cout<<"gminus2muvector"<<gminus2muvector<<std::endl;
+//    double gm21loop = (gminus2muvector(0)+gminus2muvector(1)).abs();
+//    std::cout<<"gm21loop="<<gm21loop<<std::endl;
 
+
+    double gm21loop = 1.06978e-9;
+    mh=125.;
+    alp = 0.00729927;
+    mt=173.34;
+
+    
     double res,res1;            //the two Barr-Zee contributions
     double gm2cor, res2, res3;  //muon mass correction, photonic two-loop and corrected smuon-muon-chargino/neutralino couplings
     double res01, res02;
@@ -6507,18 +6527,18 @@ double SUSYMatching::gminus2muNLO() {
     gslpp::vector<double> mstau2(2,0), msbottom2(2,0), mstop2(2,0);
     gslpp::matrix<gslpp::complex> Ustau(2,2,0), Usbottom(2,2,0), Ustop(2,2,0);
 
-    stauM.assign(0,0, mstauL*mstauL+mTAU*mTAU + mzq*mzq*c2b*(0.5-(-1.)*sw2) );
-    stauM.assign(1,1, mstauR*mstauR+mTAU*mTAU + mzq*mzq*c2b*(-1.)*sw2);
+    stauM.assign(0,0, mstauL+mTAU*mTAU + mzq*mzq*c2b*(0.5-(-1.)*sw2) );
+    stauM.assign(1,1, mstauR+mTAU*mTAU + mzq*mzq*c2b*(-1.)*sw2);
     stauM.assign(0,1, mTAU*(a3tau-muH*tanb));
     stauM.assign(1,0, mTAU*(a3tau-muH*tanb));
 
-    sbottomM.assign(0,0, msq3L*msq3L+mb*mb + mzq*mzq*c2b*(0.5-(-1./3.)*sw2) );
-    sbottomM.assign(1,1, msbR*msbR+mb*mb + mzq*mzq*c2b*(-1./3.)*sw2);
+    sbottomM.assign(0,0, msq3L+mb*mb + mzq*mzq*c2b*(0.5-(-1./3.)*sw2) );
+    sbottomM.assign(1,1, msbR+mb*mb + mzq*mzq*c2b*(-1./3.)*sw2);
     sbottomM.assign(0,1, mb*(a3b-muH*tanb));
     sbottomM.assign(1,0, mb*(a3b-muH*tanb));
 
-    stopM.assign(0,0, msq3L*msq3L+mt*mt + mzq*mzq*c2b*(0.5-(2./3.)*sw2) );
-    stopM.assign(1,1, mstR*mstR+mt*mt + mzq*mzq*c2b*(2./3.)*sw2);
+    stopM.assign(0,0, msq3L+mt*mt + mzq*mzq*c2b*(0.5-(2./3.)*sw2) );
+    stopM.assign(1,1, mstR+mt*mt + mzq*mzq*c2b*(2./3.)*sw2);
     stopM.assign(0,1, mt*(a3t-muH/tanb));
     stopM.assign(1,0, mt*(a3t-muH/tanb));
 
@@ -6552,6 +6572,9 @@ double SUSYMatching::gminus2muNLO() {
         lstoph1.assign(i,rr*(-muH*sa + a3t*(ca)) );
         lstoph2.assign(i,rr*(-muH*(-ca) + a3t*(sa)) );
     }
+//    std::cout<<"mh="<<mh<<std::endl;
+//    std::cout<<"mhh="<<mhh<<std::endl;
+//    std::cout<<"ma="<<ma<<std::endl;
 
     res1=0;
     double qe2;
@@ -6561,18 +6584,21 @@ double SUSYMatching::gminus2muNLO() {
         xx2=mstau2(i)/(mhh*mhh);
         res1 += (lh1*lstauh1(i)).real()*fft(xx1)
                 +(lh2*lstauh2(i)).real()*fft(xx2);
+//    std::cout<<"mstau2="<<mstau2<<std::endl;
     
         qe2=1./3.0;
         xx1=msbottom2(i)/(mh*mh);
         xx2=msbottom2(i)/(mhh*mhh);
         res1 += (lh1*lsbottomh1(i)).real()*qe2*fft(xx1)
                 +(lh2*lsbottomh2(i)).real()*qe2*fft(xx2);
+//    std::cout<<"msbottom2="<<msbottom2<<std::endl;
 
         qe2=4./3.0;
         xx1=mstop2(i)/(mh*mh);
         xx2=mstop2(i)/(mhh*mhh);
         res1 += (lh1*lstoph1(i)).real()*qe2*fft(xx1)
                 +(lh2*lstoph2(i)).real()*qe2*fft(xx2);
+//    std::cout<<"mstop2="<<mstop2<<std::endl;
     }  
     res1 *= alp*alp * mmu*mmu / (8.*pi*pi*mwq*mwq*sw2);
 
@@ -6601,8 +6627,8 @@ double SUSYMatching::gminus2muNLO() {
     double tmp2, tmp3;
 
     x0=sqrt(std::fabs(msneu2));
-    xL=sqrt( msmuL*msmuL-mzq*mzq*(sw2-0.5) );
-    xR=sqrt( msmuR*msmuR +mzq*mzq*sw2 );
+    xL=sqrt( msmuL-mzq*mzq*(sw2-0.5) );
+    xR=sqrt( msmuR +mzq*mzq*sw2 );
 
     tmp2=M2.abs2()+muH.abs2() +2.*mwq*mwq;
     tmp3= tmp2*tmp2 -4.*M2.abs2()*muH.abs2();
@@ -6622,14 +6648,14 @@ double SUSYMatching::gminus2muNLO() {
     ////////////////////////////////////////////////////////////////
 
     // leading part is simple, which is enhanced by log(mmu/msmu)
-    res2=gm2cor*alp/(4.*pi)*16.*log(mmu/msmuL);
+    res2=gm2cor*alp/(4.*pi)*16.*log(mmu/sqrt(msmuL));
 
     // non-logarithmic corrections, which are usually small
     double amch=0;
     double amne=0;
 
     // switch of the sub-leading contribution to reduce the computation time
-    int sub_leading=0;
+    int sub_leading=1;
 
             if (sub_leading==1){
                 /////////////////////////////////////////////////
@@ -6668,7 +6694,6 @@ double SUSYMatching::gminus2muNLO() {
                 double tmp4, tmp5;
                 double xi1, xi2;
                 double r1, r2;
-                double amne=0;
                 for(int i=0; i<4; i++){
                     xi1=MChi0(i)*MChi0(i)/msmu2(0);
                     xi2=MChi0(i)*MChi0(i)/msmu2(1);
@@ -6679,11 +6704,12 @@ double SUSYMatching::gminus2muNLO() {
                     amne=amne+r1+r2;
                 }
 
-                amne=(1./(1+dmu))*amne*mmu/(16.*pi*pi)*alp/(4*pi);
+                amne*=(1./(1.+dmu))*mmu/(16.*pi*pi)*alp/(4.*pi);
             }// end of the subleading term
 
     //adding leading log correction and sub-leading terms
     res2=res2+amch+amne;
+    std::cout<<"res2="<<res2<<std::endl;
 
     ///////////////////////////////////////////////////////////////////////
     //
@@ -6708,42 +6734,38 @@ double SUSYMatching::gminus2muNLO() {
     awhn *= g2*g2*M2.real()/(8.*pi*pi*msneu2*msneu2)*Fa(x1,y1);
 
     //wino-Higgsino-L-smuon
-    x2=M2.abs2()/msmuL/msmuL;
-    y2=muH.abs2()/msmuL/msmuL;
-    awhl *= -g2*g2*M2.real()/(16.*pi*pi*pow(msmuL,4))*Fb(x2,y2);
+    x2=M2.abs2()/msmuL;
+    y2=muH.abs2()/msmuL;
+    awhl *= -g2*g2*M2.real()/(16.*pi*pi*pow(msmuL,2))*Fb(x2,y2);
 
     //bino-higgsino-L-smuon
-    x3=M1.abs2()/msmuL/msmuL;
-    y3=muH.abs2()/msmuL/msmuL;
-    abhl *= g1*g1*M1.real()/(16.*pi*pi*pow(msmuL,4))*Fb(x3,y3);
+    x3=M1.abs2()/msmuL;
+    y3=muH.abs2()/msmuL;
+    abhl *= g1*g1*M1.real()/(16.*pi*pi*pow(msmuL,2))*Fb(x3,y3);
 
     ///bino-higgsino-R-smuon
-    x4=M1.abs2()/msmuR/msmuR;
-    y4=muH.abs2()/msmuR/msmuR;
-    abhr *= -g1*g1*M1.real()/(8.*pi*pi*pow(msmuR,4))*Fb(x4,y4);
+    x4=M1.abs2()/msmuR;
+    y4=muH.abs2()/msmuR;
+    abhr *= -g1*g1*M1.real()/(8.*pi*pi*pow(msmuR,2))*Fb(x4,y4);
 
     //bino-L-smuon-R-smuon
-    x5=msmuL*msmuL/(M1.abs2());
-    y5=msmuR*msmuR/(M1.abs2());
+    x5=msmuL/(M1.abs2());
+    y5=msmuR/(M1.abs2());
     ablr *= g1*g1/(8.*pi*pi*pow(M1.real(),3))*Fb(x5,y5);
-    std::cout<<"x5="<<x5<<std::endl;
-    std::cout<<"y5="<<y5<<std::endl;
-    std::cout<<"Fb(x5,y5)="<<Fb(x5,y5)<<std::endl;
-    std::cout<<"ablr="<<ablr<<std::endl;
 
     double dg2, dg1, dh, dwh, dbh, dtb;
-    double msusy=msmuL;
+    double msusy=sqrt(msmuL);
 
     dg1=g1*g1/(16.*pi*pi)*(4./3.)
-        *(4./3.*log(msuR/msusy) + 4./3.*log(mscR/msusy) + 4./3.*log(mstR/msusy)
-          + 2./3.*log(msdR/msusy) + 2./3.*log(mssR/msusy) + 2./3.*log(msbR/msusy)
-          + 1./3.*log(msq1L/msusy) + 1./3.*log(msq2L/msusy) + 1./3.*log(msq3L/msusy)
-          + log(mseR/msusy) + log(mstauR/msusy)
-          + 1./2.*log(mseL/msusy) + 1./2.*log(mstauL/msusy) );
+        *(4./3.*log(sqrt(msuR)/msusy) + 4./3.*log(sqrt(mscR)/msusy) + 4./3.*log(sqrt(mstR)/msusy)
+          + 2./3.*log(sqrt(msdR)/msusy) + 2./3.*log(sqrt(mssR)/msusy) + 2./3.*log(sqrt(msbR)/msusy)
+          + 1./3.*log(sqrt(msq1L)/msusy) + 1./3.*log(sqrt(msq2L)/msusy) + 1./3.*log(sqrt(msq3L)/msusy)
+          + log(sqrt(mseR)/msusy) + log(sqrt(mstauR)/msusy)
+          + 1./2.*log(sqrt(mseL)/msusy) + 1./2.*log(sqrt(mstauL)/msusy) );
 
     dg2=g2*g2/(16.*pi*pi)*(4./3.)
-        *(3./2.*log(msq1L/msusy) + 3./2.*log(msq2L/msusy) + 3./2.*log(msq3L/msusy)
-          + 1./2.*log(mseL/msusy) + 1./2.*log(mstauL/msusy) );
+        *(3./2.*log(sqrt(msq1L)/msusy) + 3./2.*log(sqrt(msq2L)/msusy) + 3./2.*log(sqrt(msq3L)/msusy)
+          + 1./2.*log(sqrt(mseL)/msusy) + 1./2.*log(sqrt(mstauL)/msusy) );
 
     // corrections involving Yukawa couplings
     double yb, ytau, yt;
@@ -6752,7 +6774,7 @@ double SUSYMatching::gminus2muNLO() {
     // a_s(msmuL)
     as_mt=1/(g3*g3);
     //running down to mt
-    as_mt=as_mt - (-7.)*log(mt/msmuL)/(8.*pi*pi);
+    as_mt=as_mt - (-7.)*log(mt/sqrt(msmuL))/(8.*pi*pi);
     as_mt=(1./as_mt)/(4.*pi);
 
     delta_mt=-4./3.*(as_mt/pi)-9.1*pow( (as_mt/pi), 2)-80.*pow((as_mt/pi),3);
@@ -6765,14 +6787,16 @@ double SUSYMatching::gminus2muNLO() {
     yt=yt*(1+as_mt/(8.*pi)*(-4./3.));
     yb=yb*(1+as_mt/(8.*pi)*(-4./3.));
 
-    dh=0.5/(16.*pi*pi)*(3.*yt*yt*log(mstR/msusy) +3.*yb*yb*log(msbR/msusy)
-                        +3.*(yt*yt+yb*yb)*log(msq3L/msusy)
-                        +ytau*ytau*log(mstauR/msusy) +ytau*ytau*log(mstauL/msusy));
+    dh=0.5/(16.*pi*pi)*(3.*yt*yt*log(sqrt(mstR)/msusy) +3.*yb*yb*log(sqrt(msbR)/msusy)
+                        +3.*(yt*yt+yb*yb)*log(sqrt(msq3L)/msusy)
+                        +ytau*ytau*log(sqrt(mstauR)/msusy) +ytau*ytau*log(sqrt(mstauL)/msusy));
 
-    dwh=yt*yt/(16.*pi*pi)*(-6.*log(msq3L/msusy));
+    dwh=yt*yt/(16.*pi*pi)*(-6.*log(sqrt(msq3L)/msusy));
 
-    dbh=yt*yt/(16.*pi*pi)*( 2.*log(msq3L/msusy)-8.*log(mstR/msusy) );
+    dbh=yt*yt/(16.*pi*pi)*( 2.*log(sqrt(msq3L)/msusy)-8.*log(sqrt(mstR)/msusy) );
 
+    Q_S=msusy;
+    
     dtb=1./(16.*pi*pi)*( 3.*yb*yb -3.*yt*yt +ytau*ytau)*log(Q_S/msusy);
 
     // summing sfermion/fermion contributions
@@ -6782,22 +6806,20 @@ double SUSYMatching::gminus2muNLO() {
           + abhr*(dg1 + dh + dbh + dtb)
           + ablr*(dg1 + dtb);
     std::cout<<"awhn="<<awhn<<std::endl;
-    std::cout<<"awhl="<<awhl<<std::endl;
-    std::cout<<"abhl="<<abhl<<std::endl;
+    std::cout<<"awhl="<<awhl <<std::endl;
+    std::cout<<"abhl="<<abhl <<std::endl;
     std::cout<<"abhr="<<abhr<<std::endl;
     std::cout<<"ablr="<<ablr<<std::endl;
-    std::cout<<"dg1="<<dg1<<std::endl;
-    std::cout<<"dg2="<<dg2<<std::endl;
-    std::cout<<"dh="<<dh<<std::endl;
-    std::cout<<"dwh="<<dwh<<std::endl;
-    std::cout<<"dbh="<<dbh<<std::endl;
-    std::cout<<"dtb="<<dtb<<std::endl;
 
-    std::cout<<"res3="<<res3<<std::endl;
+//    std::cout<<"res3="<<res3<<std::endl;
+//    std::cout<<"gm2cor="<<gm2cor<<std::endl;
     res01=gm2cor+res2+res3-gm21loop;
 
-    gminus2muNLO=res01+res02;
+//    std::cout<<"res01="<<res01<<std::endl;
+//    std::cout<<"res02="<<res02<<std::endl;
 
+    gminus2muNLO=res01+res02;
+    
     std::cout<<"gm2NLO="<<gminus2muNLO<<std::endl;
     return(gminus2muNLO);
 }
@@ -7001,6 +7023,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMgminus2mu() {
     vmcgminus2mu = StandardModelMatching::CMgminus2mu();
 
     gslpp::vector<gslpp::complex> gminus2muvector=gminus2mu();
+    std::cout<<"gminus2muvector in the Wilson coeff"<<gminus2muvector<<std::endl;
     double gminus2muvectorNLO=gminus2muNLO();
     switch (mcgminus2mu.getOrder()) {
         case LO:

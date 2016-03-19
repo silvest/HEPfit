@@ -245,14 +245,468 @@ Norimi, Luca
 \label{sec:Dim6}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-Jorge
+When the typical mass scale of new physics is significantly larger than the energies tested by the experimental observables, the new effects can be described in a model-independent way by means of a general effective Lagrangian
+%
+\begin{equation}
+{\cal L}_{\mathrm{Eff}}={\cal L}_{\mathrm{SM}} + \sum_{d>4} \frac{1}{\Lambda^{d-4}}{\cal L}_d.
+\label{eq:EffLag}
+\end{equation}
+%
+In Eq.~(\ref{eq:EffLag}) ${\cal L}_{\mathrm{SM}}$ is the SM Lagrangian, $\Lambda$ is the cut-off scale where the effective theory ceases to be valid, and
+%
+\begin{equation}
+{\cal L}_d=\sum_i C_i {\cal O}_i
+\end{equation}
+%
+contains only (Lorentz and) gauge invariant operators of mass dimension $d$, built using exclusively the SM fields and symmetries. At any order in the effective Lagrangian expansion a complete basis of physically independent operators contains only a finite number of higher-dimensional interactions. In particular, for new physics in the multi-TeV region, the precision of current EW measurements only allows to be sensitive to the next-to-leading order contributions in  Eq.~(\ref{eq:EffLag}), i.e., the {\it dimension-six effective Lagrangian}. (To dimension five there is only one interaction: the Weinberg operator giving Majorana masses to the SM neutrinos and which plays a negligible role in EW processes.)
+The first complete basis of independent dimension six operators was introduced by Grzadkowski, Iskrzynski, Misiak and Rosiek (GIMR) and contains a total of 59 independent operators, barring flavor indices and hermitian conjugates.
+
+The main implementation of the dimension-six Standard Model effective Lagrangian in {\tt HEPfit} is based in the GIMR basis. Currently, all the dimension-six interactions entering in the electroweak precision observables as well as Higgs signal strengths have been included in the so called {\tt NPEffectiveGIMR} model class, as well as in its variant {\tt NPEffectiveGIMR\_LFU\_QFU}, where lepton and quark flavor universality is asumed. These implementations assume that we use the Fermi constant as extracted from $\mu$ decay, $G_\mu$, as one of the SM input parameters. The complete list of operators as well the corresponding names for the {\tt HEPfit} model parameters can be found in Table~\ref{tab:GIMRpars}. The model flags are are described in Table~\ref{tab:GIMRflags}.
+
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
+  \begin{tabular}{| c c c c c c | }
+\hline
+%
+&\textbf{\HEPfit name}&&&
+\textbf{Parameter}&
+\textbf{Operator}\\
+%
+\textbf{{\tt NPEffectiveGIMR}}&&\textbf{{\tt NPEffectiveGIMR\_LFU\_QFU}}&&
+&
+\\
+%
+\hline
+%
+&\tt{CHG}& & &
+$C_{HG} $&
+${\cal O}_{HG}=\big(H^\dagger H\big)G_{\mu\nu}^A G^{A\mu\nu}$\\
+%
+\hline
+%
+&\tt{CHW}& & &
+$C_{HW} $&
+${\cal O}_{HW}=\big(H^\dagger H\big)W_{\mu\nu}^a W^{a\mu\nu}$ \\
+%
+\hline
+%
+&\tt{CHB}& & &
+$C_{HB} $&
+${\cal O}_{HB}=\big(H^\dagger H\big)B_{\mu\nu} B^{\mu\nu}$ \\
+%
+\hline
+%
+&\tt{CWB}& & &
+$C_{WB} $&
+${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}$ \\
+%
+\hline
+%
+&\tt{CHD}& & &
+$C_{HD}$&
+${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2$ \\
+%
+\hline
+%
+&\tt{CHbox}& & &
+$C_{H\Box}$&
+${\cal O}_{H\Box}=\big(H^\dagger H\big)\Box\big(H^\dagger H\big)$ \\
+%
+\hline
+%
+\tt{CHL1\_kk}&&\tt{CHL1}&&$ (C_{HL}^{(1)})_{kk}$&$({\cal O}_{HL}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{L^i}\,\gamma^\mu L^j\big)$\\
+\tt{CHL1\_klr}&&&&$\mbox{Re}\big[(C_{HL}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHL1\_kli} &&&&
+$\mbox{Im}\big[(C_{HL}^{(1)})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHL3\_kk}&&\tt{CHL3}&&$(C_{HL}^{(3)})_{kk}$&$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
+\big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)$\\
+\tt{CHL3\_klr}&&&&$\mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHL3\_kli} &&&&
+$\mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHe\_kk}&&\tt{CHe}&&$(C_{HE})_{kk}$&$({\cal O}_{HE})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{E^i}\,\gamma^\mu E^j\big)$\\
+\tt{CHe\_klr}&&&&$\mbox{Re}\big[(C_{HE})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHe\_kli} &&&&
+$\mbox{Im}\big[(C_{HE})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHQ1\_kk}&&\tt{CHQ1}&&$(C_{HQ}^{(1)})_{kk}$&$({\cal O}_{HQ}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{Q^i}\,\gamma^\mu Q^j\big)$\\
+\tt{CHQ1\_klr}&&&&$\mbox{Re}\big[(C_{HQ}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHQ1\_kli} &&&&
+$\mbox{Im}\big[(C_{HQ}^{(1)})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHQ3\_kk}&&\tt{CHQ3}&&$(C_{HQ}^{(3)})_{kk}$&$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
+\big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)$\\
+\tt{CHQ3\_klr}&&&&$\mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHQ3\_kli} &&&&
+$\mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHu\_kk}&&\tt{CHu}&&$(C_{HU})_{kk}$&$({\cal O}_{HU})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{U^i}\,\gamma^\mu U^j\big)$\\
+\tt{CHu\_klr}&&&&$\mbox{Re}\big[(C_{HU})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHu\_kli} &&&&
+$\mbox{Im}\big[(C_{HU})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHd\_kk}&&\tt{CHd}&&$(C_{HD})_{kk}$&$({\cal O}_{HD})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{D^i}\,\gamma^\mu D^j\big)$\\
+\tt{CHd\_klr}&&&&$\mbox{Re}\big[(C_{HD})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHd\_kli} &&&&
+$\mbox{Im}\big[(C_{HD})_{kl}\big] $&$i,j=1,2,3$ \\
+%
+\hline
+%
+\tt{CHud\_klr}&&\tt{CHud}&&$\mbox{Re}\big[(C_{HUD})_{kl}\big]$&$({\cal O}_{HUD})_{ij} =i\big(\widetilde{H}^\dagger D_\mu H\big)
+\big(\overline{U^i}\,\gamma^\mu D^j\big)$\\
+\tt{CHud\_kli} &&&&
+$\mbox{Im}\big[(C_{HUD})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CeH\_klr}&&\tt{CeH}&&$\mbox{Re}\big[(C_{EH})_{kl}\big]$&$({\cal O}_{EH})_{ij} =\big(H^\dagger H\big)
+\big(\overline{L^i}\,H E^j\big)$\\
+\tt{CeH\_kli} &&&&
+$\mbox{Im}\big[(C_{EH})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CuH\_klr}&&\tt{CuH}&&$\mbox{Re}\big[(C_{UH})_{kl}\big]$&$({\cal O}_{UH})_{ij} =\big(H^\dagger H\big)
+\big(\overline{Q^i}\,\widetilde{H} U^j\big)$\\
+\tt{CuH\_kli} &&&&
+$\mbox{Im}\big[(C_{UH})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CdH\_klr}&&\tt{CdH}&&$\mbox{Re}\big[(C_{DH})_{kl}\big]$&$({\cal O}_{DH})_{ij} =\big(H^\dagger H\big)
+\big(\overline{Q^i}\,H D^j\big)$\\
+\tt{CdH\_kli} &&&&
+$\mbox{Im}\big[(C_{DH})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CLL\_1221}&&\tt{CLL}&&
+$(C_{LL})_{1221,2112}$&$({\cal O}_{LL})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
+\big(\overline{L^k}\,\gamma_\mu L^l\big)$\\
+\tt{CLL\_2112}&&&&&$ijkl=1221,2112$ \\
+%
+\hline
+%
+&\tt{Lambda\_NP}&&&
+$\Lambda $&
+The new physics scale in GeV.\\
+\hline
+  \end{tabular}
+ \label{tab:GIMRpars}
+\end{table}
+
+
+\begin{table}[tb]
+ \centering
+\caption{Model flags in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
+  \begin{tabular}{|l|l|}
+    \hline
+      \textbf{Flag} & \textbf{Description} \\
+    \hline
+      {\tt MwInput} & If ``true'' the $W$ mass is taken as an input parameter \\
+    \hline
+      {\tt QuadraticTerms} &  If ``true'' the contributions from quadratic terms are\\
+      &  switched on in the calculation of Higgs cross sections\\
+      &  and decay widths. (Currently implemented only for \\
+      &  fits assuming one operator at a time.)\\
+    \hline
+  \end{tabular}
+  \label{tab:GIMRflags}
+\end{table} 
+
+
+
+
+%\begin{table}[tb]
+% \centering
+% \caption{Model parameters in the {\tt NPEffectiveGIMR} class.}\vspace{0.2cm}
+%  \begin{tabular}{| c c c | }
+%\hline
+%%
+%\textbf{\HEPfit name}&
+%\textbf{Parameter}&
+%\textbf{Operator}\\
+%%
+%\hline
+%
+%\tt{CHG} &
+%$C_{HG} $&
+%${\cal O}_{HG}=\big(H^\dagger H\big)G_{\mu\nu}^A G^{A\mu\nu}$\\
+%%
+%\hline
+%%
+%\tt{CHW} &
+%$C_{HW} $&
+%${\cal O}_{HW}=\big(H^\dagger H\big)W_{\mu\nu}^a W^{a\mu\nu}$ \\
+%%
+%\hline
+%%
+%\tt{CHB} &
+%$C_{HB} $&
+%${\cal O}_{HB}=\big(H^\dagger H\big)B_{\mu\nu} B^{\mu\nu}$ \\
+%%
+%\hline
+%%
+%\tt{CWB} &
+%$C_{WB} $&
+%${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}$ \\
+%%
+%\hline
+%%
+%\tt{CHD} &
+%$C_{HD}$&
+%${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2$ \\
+%%
+%\hline
+%%
+%\tt{CHbox} &
+%$C_{H\Box}$&
+%${\cal O}_{H\Box}=\big(H^\dagger H\big)\Box\big(H^\dagger H\big)$ \\
+%%
+%\hline
+%%
+%\tt{CHL1\_kk}&$ (C_{HL}^{(1)})_{kk}$&$({\cal O}_{HL}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+%\big(\overline{L^i}\,\gamma^\mu L^j\big)$\\
+%\tt{CHL1\_klr}&$\mbox{Re}\big[(C_{HL}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
+%\tt{CHL1\_kli} &
+%$\mbox{Im}\big[(C_{HL}^{(1)})_{kl}\big] $&\\
+%%
+%\hline
+%%
+%\tt{CHL3\_kk}&$(C_{HL}^{(3)})_{kk}$&$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
+%\big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)$\\
+%\tt{CHL3\_klr}&$\mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
+%\tt{CHL3\_kli} &
+%$\mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] $&\\
+%
+%\hline
+%
+%\tt{CHe\_kk}&$(C_{HE})_{kk}$&$({\cal O}_{HE})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+%\big(\overline{E^i}\,\gamma^\mu E^j\big)$\\
+%\tt{CHe\_klr}&$\mbox{Re}\big[(C_{HE})_{kl}\big]$&$i,j=1,2,3$\\
+%\tt{CHe\_kli} &
+%$\mbox{Im}\big[(C_{HE})_{kl}\big] $&\\
+%%
+%\hline
+%%
+%\tt{CHQ1\_kk}&$(C_{HQ}^{(1)})_{kk}$&$({\cal O}_{HQ}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+%\big(\overline{Q^i}\,\gamma^\mu Q^j\big)$\\
+%\tt{CHQ1\_klr}&$\mbox{Re}\big[(C_{HQ}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
+%\tt{CHQ1\_kli} &
+%$\mbox{Im}\big[(C_{HQ}^{(1)})_{kl}\big] $&\\
+%
+%\hline
+%%
+%\tt{CHQ3\_kk}&$(C_{HQ}^{(3)})_{kk}$&$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
+%\big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)$\\
+%\tt{CHQ3\_klr}&$\mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
+%\tt{CHQ3\_kli} &
+%$\mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] $&\\
+%%
+%\hline
+%%
+%\tt{CHu\_kk}&$(C_{HU})_{kk}$&$({\cal O}_{HU})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+%\big(\overline{U^i}\,\gamma^\mu U^j\big)$\\
+%\tt{CHu\_klr}&$\mbox{Re}\big[(C_{HU})_{kl}\big]$&$i,j=1,2,3$\\
+%\tt{CHu\_kli} &
+%$\mbox{Im}\big[(C_{HU})_{kl}\big] $&\\
+%%
+%\hline
+%%
+%\tt{CHd\_kk}&$(C_{HD})_{kk}$&$({\cal O}_{HD})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+%\big(\overline{D^i}\,\gamma^\mu D^j\big)$\\
+%\tt{CHd\_klr}&$\mbox{Re}\big[(C_{HD})_{kl}\big]$&$i,j=1,2,3$\\
+%\tt{CHd\_kli} &
+%$\mbox{Im}\big[(C_{HD})_{kl}\big] $&$i,j=1,2,3$ \\
+%%
+%\hline
+%%
+%\tt{CHud\_klr}&$\mbox{Re}\big[(C_{HUD})_{kl}\big]$&$({\cal O}_{HUD})_{ij} =i\big(\widetilde{H}^\dagger D_\mu H\big)
+%\big(\overline{U^i}\,\gamma^\mu D^j\big)$\\
+%\tt{CHud\_kli} &
+%$\mbox{Im}\big[(C_{HUD})_{kl}\big] $&$i,j=1,2,3$\\
+%%
+%\hline
+%%
+%\tt{CeH\_klr}&$\mbox{Re}\big[(C_{EH})_{kl}\big]$&$({\cal O}_{EH})_{ij} =\big(H^\dagger H\big)
+%\big(\overline{L^i}\,H E^j\big)$\\
+%\tt{CeH\_kli} &
+%$\mbox{Im}\big[(C_{EH})_{kl}\big] $&$i,j=1,2,3$\\
+%%
+%\hline
+%%
+%\tt{CuH\_klr}&$\mbox{Re}\big[(C_{UH})_{kl}\big]$&$({\cal O}_{UH})_{ij} =\big(H^\dagger H\big)
+%\big(\overline{Q^i}\,\widetilde{H} U^j\big)$\\
+%\tt{CuH\_kli} &
+%$\mbox{Im}\big[(C_{UH})_{kl}\big] $&$i,j=1,2,3$\\
+%%
+%\hline
+%%
+%\tt{CdH\_klr}&$\mbox{Re}\big[(C_{DH})_{kl}\big]$&$({\cal O}_{DH})_{ij} =\big(H^\dagger H\big)
+%\big(\overline{Q^i}\,H D^j\big)$\\
+%\tt{CdH\_kli} &
+%$\mbox{Im}\big[(C_{DH})_{kl}\big] $&$i,j=1,2,3$\\
+%%
+%\hline
+%%
+%\tt{CLL\_1221}&
+%$(C_{LL})_{1221,2112}$&
+%$({\cal O}_{LL})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
+%\big(\overline{L^k}\,\gamma_\mu L^l\big)$\\
+%\tt{CLL\_2112} &&$ijkl=1221,2112$ \\
+%%
+%\hline
+%%
+%\tt{Lambda\_NP} &
+%$\Lambda $&
+%The new physics scale in GeV.\\
+%\hline
+%  \end{tabular}
+% \label{tab:GIMRpars}
+%\end{table}
+
+By default, the theoretical predictions for the experimental observables including the new physics contributions coming from the effective Lagrangian are computed consistently with assumption of only dimension six effects. In other words, for a given observable, $O$, only effects of order $1/\Lambda^2$ are considered, and all new physics contributions are linear in the new physics parameters:
+%
+\begin{equation}
+O=O_{\mathrm{SM}}+ \sum_i F_i \frac{C_i}{\Lambda^2}.
+\label{eq:Odim6}
+\end{equation}
+%
+Note that these linear contributions always come from the interference with the SM amplitudes. Because of this, one must be careful with some of the parameters included in Table~\ref{tab:GIMRpars}, e.g. $C_{HUD}$ which modifies the charged currents adding right-handed contributions, for they do not interfere with the SM ampitudes. 
+
+The default behaviour described above can be altered for some observables by using some of the model flags described in Table~\ref{tab:GIMRflags}. Setting the flag {\tt QuadraticTerms} to ``True'', one can test the quadratic effects of the dimension-six interactions in the Higgs productions cross sections and decay widths. Currently, such contributions are only implemented in the case that only one dimension six operator is switch on at a time. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Modified Higgs Couplings}
 \label{sec:Higgs}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-Jorge
+In many scenarios of new physics one of the main predictions are deviations in the Higgs boson couplings with respect to the SM ones. Such an scenario can be described in general by considering the following effective Lagrangian for a light Higgs-like scalar field $h$:
+%
+\begin{equation}
+\begin{split}
+{\cal L}=&\frac 12 \partial_\mu h \partial^\mu h - V(h) + \frac{v^2}{4} \mathrm{Tr}(D_\mu \Sigma^\dagger D^\mu\Sigma)\left(1+2\kappa_V\frac{h}{v}+\dots\right)\\
+%
+&-m_{u^i} \left(\begin{array}{c c}\overline{u_L^i}&\overline{d_L^i}\end{array}\right) \Sigma \left(\begin{array}{c}\overline{u_R^i}\\ 0 \end{array}\right) \left(1+ \kappa_u \frac{h}{v}+\dots \right) +\mathrm{h.c.}\\
+%
+&-m_{d^i} \left(\begin{array}{c c}\overline{u_L^i}&\overline{d_L^i}\end{array}\right) \Sigma \left(\begin{array}{c}0\\ \overline{d_R^i} \end{array}\right) \left(1+ \kappa_d \frac{h}{v}+\dots \right) +\mathrm{h.c.}\\
+%
+&-m_{\ell^i} \left(\begin{array}{c c}\overline{\nu_L^i}&\overline{\ell_L^i}\end{array}\right) \Sigma \left(\begin{array}{c} 0\\ \overline{\ell_R^i}\end{array}\right) \left(1+ \kappa_\ell \frac{h}{v}+\dots \right) +\mathrm{h.c.}~\!.
+\label{eq:Lagh}
+\end{split}
+\end{equation}
+%
+This Lagrangian assumes an approximate custodial symmetry and the absence of other light degrees of freedom below the given cut-off scale. In the previous Lagrangian the longitudinal components of the $W$ and $Z$ gauge bosons, $\chi^a(x)$, are described by the $2\times 2$ matrix $\Sigma(x)=\mathrm{exp}\left( i \sigma_a \chi^a(x)/v\right)$, with $\sigma_a$ the Pauli matrices, and $V(h)$ is the scalar potential of the Higgs field, whose details are not relevant for the discussion here. The SM is recovered for $\kappa_V=\kappa_u=\kappa_d=\kappa_\ell=1$. 
+
+The Lagrangian above describing an SM extension with {\it Modified Higgs Coupling} has been implemented in {\tt HEPfit} in two different model classes, depending on further asumptions on the couplings in Eq.~(\ref{eq:Lagh}):
+%
+\begin{itemize}
+{\item The model class {\tt HiggsKvKf} describes an scenario where the couplings to all fermions are rescaled by the same factor, i.e., $\kappa_u=\kappa_d=\kappa_\ell \equiv \kappa_f$. The invisible decay width of the Higgs is also parameterized independently. The {\tt HEPfit} names of the different parameters in this model class are described in Table~\ref{tab:HiggsKvKfpars}.}
+%
+{\item The model class {\tt HiggsKvKfgen} describes the general case in Eq.~(\ref{eq:Lagh}), where all modified couplings $\kappa_V$, $\kappa_{u, d, \ell}$, as well as the invisible decay width of the Higgs are independent parameters. The {\tt HEPfit} names of the different parameters in this model class are described in Table~\ref{tab:HiggsKvKfpars}.
+}
+%
+\end{itemize}
+%
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKf} class. }\vspace{0.2cm}
+  \begin{tabular}{| c c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvKfpars}
+\end{table} 
+
+ \begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKfgen} class.}\vspace{0.2cm}
+  \begin{tabular}{| c c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Ku}&
+$\kappa_u$\\
+%
+ {\tt Kd}&
+$\kappa_d$\\
+%
+ {\tt Kl}&
+$\kappa_l$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvKfgenpars}
+\end{table} 
+
+Finally, relaxing the assumption of custodial symmetry, the Higgs couplings to the $W$ and $Z$ bosons can be different. The model class {\tt HiggsKvgenKf} considers this possibility, replacing $\kappa_V\rightarrow \kappa_Z,~\kappa_W$, with $\kappa_Z$ and $\kappa_W$ being two completely independent parameters. One must be aware that for $\kappa_W\not = \kappa_Z$ power divergences appear in the contributions to oblique corrections, and the detailed information of the UV theory is necessary for calculating the contributions to electroweak precision observables.
+Therefore, this class is constructed solely for the purpose of testing custodial symmetry in the experimental Higgs observables. Because of this, and also for simplicity, in this class we assume again universality on the deviations in the fermionic couplings, described by a single parameter $\kappa_f$. The corresponding model parameters for this class are described in Table~\ref{tab:HiggsKvgenKfpars}.
+
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvgenKf} class.}\vspace{0.2cm}
+  \begin{tabular}{| c c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt KZ}&
+$\kappa_Z$\\
+%
+ {\tt KW}&
+$\kappa_W$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvgenKfpars}
+\end{table} 
 
 
 
