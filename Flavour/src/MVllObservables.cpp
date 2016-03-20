@@ -31,7 +31,7 @@ double P_1::computeThValue()
     return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(4,q_min,q_max)/(2.* SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
 }
 
-
+/*Returns experimental value, defined according to 1510.04239.*/
 P_2::P_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
@@ -45,7 +45,9 @@ double P_2::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(7,q_min,q_max)/(8.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
+    double P_2_theory = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(7,q_min,q_max)/(8.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
+    
+    return -P_2_theory;
 }
 
 
@@ -57,12 +59,15 @@ P_3::P_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
+/*Returns experimental value, defined according to 1510.04239.*/
 double P_3::computeThValue() 
 {   
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(11,q_min,q_max)/(4.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
+    double P_3_theory = -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(11,q_min,q_max)/(4.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
+    
+    return -P_3_theory;
 }
 
 
@@ -74,12 +79,15 @@ P_4Prime::P_4Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
     vectorM = vector_i;
 }
 
+/*Returns experimental value, defined according to 1510.04239.*/
 double P_4Prime::computeThValue() 
 {   
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(5,q_min,q_max)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
+    double P_4p_theory = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(5,q_min,q_max)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max));
+    
+    return -1./2.*P_4p_theory;
 }
 
 
@@ -125,12 +133,15 @@ P_8Prime::P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, Stan
     vectorM = vector_i;
 }
 
+/*Returns experimental value, defined according to 1510.04239.*/
 double P_8Prime::computeThValue() 
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max)/(sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max)));
+    double P_8p_theory = -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max)/(sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max)));
+    
+    return -1./2.*P_8p_theory;
 }
 
 
@@ -389,7 +400,7 @@ S_4::S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-/*Returns experimental value, defined according to 1308.1707. The -ve sign because of the other lepton.*/
+/*Returns experimental value, due to difference in \theta_l and \phi definitions*/
 double S_4::computeThValue() 
 {
     double q_min = getBinMin();
@@ -425,7 +436,7 @@ S_7::S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-/*Returns experimental value, defined according to 1308.1707. The -ve sign because of the other lepton.*/
+/*Returns experimental value, due to difference in \theta_l and \phi definitions*/
 double S_7::computeThValue() 
 {
     double q_min = getBinMin();
@@ -443,13 +454,13 @@ S_8::S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-/*Returns experimental value, defined according to 1308.1707. The -ve sign because of the other lepton.*/
+
 double S_8::computeThValue() 
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
 }
 
 
@@ -461,13 +472,13 @@ S_9::S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-
+/*Returns experimental value, due to difference in \theta_l and \phi definitions*/
 double S_9::computeThValue() 
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(11,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(11,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
 }
 
 
@@ -479,7 +490,7 @@ A_6::A_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-/*Returns experimental value, defined according to 1308.1707. The -ve sign because of the other lepton.*/
+/*Returns experimental value, due to difference in \theta_l and \phi definitions*/
 double A_6::computeThValue() 
 {
     double q_min = getBinMin();
@@ -776,11 +787,14 @@ P_2f::P_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     vectorM = vector_i;
 }
 
+/*Returns experimental value, defined according to 1510.04239.*/
 double P_2f::computeThValue() 
 {   
     double q_min = getBinMin();
     
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(7,q_min)/(8.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P_2f_theory = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(7,q_min)/(8.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    
+    return -P_2f_theory;
 }
 
 
@@ -792,11 +806,14 @@ P_3f::P_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     vectorM = vector_i;
 }
 
+/*Returns experimental value, defined according to 1510.04239.*/
 double P_3f::computeThValue() 
 {   
     double q_min = getBinMin();
     
-    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(11,q_min)/(4.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P_3f_theory = -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(11,q_min)/(4.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    
+    return -P_3f_theory;
 }
 
 
@@ -808,11 +825,14 @@ P_4Primef::P_4Primef(const StandardModel& SM_i, StandardModel::meson meson_i, St
     vectorM = vector_i;
 }
 
+/*Returns experimental value, defined according to 1510.04239.*/
 double P_4Primef::computeThValue() 
 {   
     double q_min = getBinMin();
     
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(5,q_min)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    double P_4pf_theory = SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(5,q_min)/sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min));
+    
+    return -1./2.*P_4pf_theory;
 }
 
 
@@ -847,7 +867,7 @@ double P_6Primef::computeThValue()
     return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(9,q_min)/(2.*sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
 }
 
-
+/*Returns experimental value, defined according to 1510.04239.*/
 P_8Primef::P_8Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
@@ -860,7 +880,9 @@ double P_8Primef::computeThValue()
 {
     double q_min = getBinMin();
     
-    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(10,q_min)/(sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+    double P_8pf_theory = -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(10,q_min)/(sqrt(-SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(2,q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(3,q_min)));
+    
+    return -1./2.*P_8pf_theory;
 }
 
 
@@ -955,7 +977,7 @@ S_4f::S_4f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     vectorM = vector_i;
 }
 
-/*Returns experimental value, defined according to 1308.1707. The -ve sign because of the other lepton.*/
+/*Returns experimental value, due to difference in \theta_l and \phi definitions*/
 double S_4f::computeThValue() 
 {
     double q_min = getBinMin();
@@ -989,7 +1011,7 @@ S_7f::S_7f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     vectorM = vector_i;
 }
 
-/*Returns experimental value, defined according to 1308.1707. The -ve sign because of the other lepton.*/
+/*Returns experimental value, due to difference in \theta_l and \phi definitions*/
 double S_7f::computeThValue() 
 {
     double q_min = getBinMin();
@@ -1006,12 +1028,11 @@ S_8f::S_8f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     vectorM = vector_i;
 }
 
-/*Returns experimental value, defined according to 1308.1707. The -ve sign because of the other lepton.*/
 double S_8f::computeThValue() 
 {
     double q_min = getBinMin();
 
-    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(10,q_min) / computeGammaPrimef(q_min, lep);
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(10,q_min) / computeGammaPrimef(q_min, lep);
 }
 
 
@@ -1023,12 +1044,12 @@ S_9f::S_9f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     vectorM = vector_i;
 }
 
-
+/*Returns experimental value, due to difference in \theta_l and \phi definitions*/
 double S_9f::computeThValue() 
 {
     double q_min = getBinMin();
 
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(11,q_min) / computeGammaPrimef(q_min, lep);
+    return -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getSigma(11,q_min) / computeGammaPrimef(q_min, lep);
 }
 
 BRf_MVll::BRf_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
