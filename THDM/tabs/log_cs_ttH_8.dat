@@ -1,5 +1,5 @@
 # MadGraph 5
-# ttbar associated H production cross section
+# ttbar associated H production cross section at 8 TeV
 # mH[GeV] | log10(sigma/pb)
 20.0	0.488
 30.0	0.277

@@ -1,5 +1,5 @@
 # HIGLU 4.34
-# ratio of the top-loop produced H contribution and the total ggH cross section
+# ratio of the top-loop produced H contribution and the total ggH cross section at 8 TeV
 # mH[GeV] | sigma_ggH_t/sigma_ggH
 20.0	0.36202
 30.0	0.60735

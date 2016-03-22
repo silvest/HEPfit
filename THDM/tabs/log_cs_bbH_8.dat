@@ -1,5 +1,5 @@
 # SusHi 1.5
-# bbbar associated H production cross section
+# bbbar associated H production cross section at 8 TeV
 # mH[GeV] | log10(sigma/pb)
 20.0	0.876
 30.0	0.884
