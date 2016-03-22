@@ -271,6 +271,890 @@ gslpp::complex THDMcache::B0_MZ2_MZ2_MZ2_mHl2(const double MZ2, const double mHl
     } 
 }
 
+gslpp::complex THDMcache::B0_MZ2_0_0_mHl2(const double MZ2, const double mHl2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_0_0_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_0_0_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, 0.0, 0.0, mHl2);
+        CacheShift(B0_MZ2_0_0_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_0_0_mHh2(const double MZ2, const double mHh2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_0_0_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_0_0_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, 0.0, 0.0, mHh2);
+        CacheShift(B0_MZ2_0_0_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_0_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_0_mHp2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_0_mHp2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, 0.0, mHp2, mHl2);
+        CacheShift(B0_MZ2_0_mHp2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_0_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_0_mHp2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_0_mHp2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, 0.0, mHp2, mHh2);
+        CacheShift(B0_MZ2_0_mHp2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_0_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_0_mA2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_0_mA2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, 0.0, mA2, mHl2);
+        CacheShift(B0_MZ2_0_mA2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_0_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_0_mA2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_0_mA2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, 0.0, mA2, mHh2);
+        CacheShift(B0_MZ2_0_mA2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_0_0(const double MZ2, const double mHl2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_0_0_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_0_0_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, 0.0, 0.0);
+        CacheShift(B0_MZ2_mHl2_0_0_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_0_mHp2(const double MZ2, const double mHl2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHp2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_0_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_0_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, 0.0, mHp2);
+        CacheShift(B0_MZ2_mHl2_0_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_0_mA2(const double MZ2, const double mHl2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mA2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_0_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_0_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, 0.0, mA2);
+        CacheShift(B0_MZ2_mHl2_0_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_mHl2_mHl2(const double MZ2, const double mHl2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_mHl2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_mHl2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, mHl2, mHl2);
+        CacheShift(B0_MZ2_mHl2_mHl2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_mHh2_mHl2(const double MZ2, const double mHl2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_mHh2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_mHh2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, mHh2, mHl2);
+        CacheShift(B0_MZ2_mHl2_mHh2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_mHh2_mHh2(const double MZ2, const double mHl2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_mHh2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_mHh2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, mHh2, mHh2);
+        CacheShift(B0_MZ2_mHl2_mHh2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_mHp2_mHp2(const double MZ2, const double mHl2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHp2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_mHp2_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_mHp2_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, mHp2, mHp2);
+        CacheShift(B0_MZ2_mHl2_mHp2_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHl2_mA2_mA2(const double MZ2, const double mHl2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mA2};
+
+    int i = CacheCheck(B0_MZ2_mHl2_mA2_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHl2_mA2_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHl2, mA2, mA2);
+        CacheShift(B0_MZ2_mHl2_mA2_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_0_0(const double MZ2, const double mHh2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_0_0_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_0_0_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, 0.0, 0.0);
+        CacheShift(B0_MZ2_mHh2_0_0_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_0_mHp2(const double MZ2, const double mHh2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHp2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_0_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_0_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, 0.0, mHp2);
+        CacheShift(B0_MZ2_mHh2_0_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_0_mA2(const double MZ2, const double mHh2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mA2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_0_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_0_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, 0.0, mA2);
+        CacheShift(B0_MZ2_mHh2_0_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_mHl2_mHl2(const double MZ2, const double mHh2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_mHl2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_mHl2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, mHl2, mHl2);
+        CacheShift(B0_MZ2_mHh2_mHl2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_mHh2_mHl2(const double MZ2, const double mHh2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_mHh2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_mHh2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, mHh2, mHl2);
+        CacheShift(B0_MZ2_mHh2_mHh2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_mHh2_mHh2(const double MZ2, const double mHh2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_mHh2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_mHh2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, mHh2, mHh2);
+        CacheShift(B0_MZ2_mHh2_mHh2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_mHp2_mHp2(const double MZ2, const double mHh2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHp2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_mHp2_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_mHp2_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, mHp2, mHp2);
+        CacheShift(B0_MZ2_mHh2_mHp2_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHh2_mA2_mA2(const double MZ2, const double mHh2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mA2};
+
+    int i = CacheCheck(B0_MZ2_mHh2_mA2_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHh2_mA2_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHh2, mA2, mA2);
+        CacheShift(B0_MZ2_mHh2_mA2_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHp2_0_mHl2(const double MZ2, const double mHp2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mHp2_0_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHp2_0_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHp2, 0.0, mHl2);
+        CacheShift(B0_MZ2_mHp2_0_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHp2_0_mHh2(const double MZ2, const double mHp2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mHp2_0_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHp2_0_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHp2, 0.0, mHh2);
+        CacheShift(B0_MZ2_mHp2_0_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHp2_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mHp2_mHp2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHp2_mHp2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHp2, mHp2, mHl2);
+        CacheShift(B0_MZ2_mHp2_mHp2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mHp2_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mHp2_mHp2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mHp2_mHp2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mHp2, mHp2, mHh2);
+        CacheShift(B0_MZ2_mHp2_mHp2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mA2_0_mHl2(const double MZ2, const double mA2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mA2_0_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mA2_0_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mA2, 0.0, mHl2);
+        CacheShift(B0_MZ2_mA2_0_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mA2_0_mHh2(const double MZ2, const double mA2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mA2_0_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mA2_0_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mA2, 0.0, mHh2);
+        CacheShift(B0_MZ2_mA2_0_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mA2_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHl2};
+
+    int i = CacheCheck(B0_MZ2_mA2_mA2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mA2_mA2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mA2, mA2, mHl2);
+        CacheShift(B0_MZ2_mA2_mA2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0_MZ2_mA2_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHh2};
+
+    int i = CacheCheck(B0_MZ2_mA2_mA2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0_MZ2_mA2_mA2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0(MZ2, mA2, mA2, mHh2);
+        CacheShift(B0_MZ2_mA2_mA2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+gslpp::complex THDMcache::B0p_MZ2_0_0_mHl2(const double MZ2, const double mHl2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_0_0_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_0_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, 0.0, 0.0, mHl2);
+        CacheShift(B0p_MZ2_0_0_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_0_0_mHh2(const double MZ2, const double mHh2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_0_0_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_0_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, 0.0, 0.0, mHh2);
+        CacheShift(B0p_MZ2_0_0_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_0_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_0_mHp2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_mHp2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, 0.0, mHp2, mHl2);
+        CacheShift(B0p_MZ2_0_mHp2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_0_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_0_mHp2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_mHp2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, 0.0, mHp2, mHh2);
+        CacheShift(B0p_MZ2_0_mHp2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_0_mHp2_mA2(const double MZ2, const double mHp2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mA2};
+
+    int i = CacheCheck(B0p_MZ2_0_mHp2_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_mHp2_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, 0.0, mHp2, mA2);
+        CacheShift(B0p_MZ2_0_mHp2_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_0_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_0_mA2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_mA2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, 0.0, mA2, mHl2);
+        CacheShift(B0p_MZ2_0_mA2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_0_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_0_mA2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_mA2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, 0.0, mA2, mHh2);
+        CacheShift(B0p_MZ2_0_mA2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_0_0(const double MZ2, const double mHl2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_0_0_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_0_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, 0.0, 0.0);
+        CacheShift(B0p_MZ2_0_0_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_0_mHp2(const double MZ2, const double mHl2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHp2};
+
+    int i = CacheCheck(B0p_MZ2_mHl2_0_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHl2_0_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, 0.0, mHp2);
+        CacheShift(B0p_MZ2_mHl2_0_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_0_mA2(const double MZ2, const double mHl2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mA2};
+
+    int i = CacheCheck(B0p_MZ2_mHl2_0_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHl2_0_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, 0.0, mA2);
+        CacheShift(B0p_MZ2_mHl2_0_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_mHl2_mHl2(const double MZ2, const double mHl2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_mHl2_mHl2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHl2_mHl2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, mHl2, mHl2);
+        CacheShift(B0p_MZ2_mHl2_mHl2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_mHh2_mHl2(const double MZ2, const double mHl2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_mHl2_mHh2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHl2_mHh2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, mHh2, mHl2);
+        CacheShift(B0p_MZ2_mHl2_mHh2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_mHh2_mHh2(const double MZ2, const double mHl2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_mHl2_mHh2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHl2_mHh2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, mHh2, mHh2);
+        CacheShift(B0p_MZ2_mHl2_mHh2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_mHp2_mHp2(const double MZ2, const double mHl2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mHp2};
+
+    int i = CacheCheck(B0p_MZ2_mHl2_mHp2_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHl2_mHp2_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, mHp2, mHp2);
+        CacheShift(B0p_MZ2_mHl2_mHp2_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHl2_mA2_mA2(const double MZ2, const double mHl2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHl2, mA2};
+
+    int i = CacheCheck(B0p_MZ2_mHl2_mA2_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHl2_mA2_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHl2, mA2, mA2);
+        CacheShift(B0p_MZ2_mHl2_mA2_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_0_0(const double MZ2, const double mHh2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_0_0_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_0_0_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, 0.0, 0.0);
+        CacheShift(B0p_MZ2_0_0_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_0_mHp2(const double MZ2, const double mHh2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHp2};
+
+    int i = CacheCheck(B0p_MZ2_mHh2_0_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHh2_0_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, 0.0, mHp2);
+        CacheShift(B0p_MZ2_mHh2_0_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_0_mA2(const double MZ2, const double mHh2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mA2};
+
+    int i = CacheCheck(B0p_MZ2_mHh2_0_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHh2_0_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, 0.0, mA2);
+        CacheShift(B0p_MZ2_mHh2_0_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_mHl2_mHl2(const double MZ2, const double mHh2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_mHh2_mHl2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHh2_mHl2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, mHl2, mHl2);
+        CacheShift(B0p_MZ2_mHh2_mHl2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_mHh2_mHl2(const double MZ2, const double mHh2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_mHh2_mHh2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHh2_mHh2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, mHh2, mHl2);
+        CacheShift(B0p_MZ2_mHh2_mHh2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_mHh2_mHh2(const double MZ2, const double mHh2) const {
+    int NumPar = 2;
+    double params[] = {MZ2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_mHh2_mHh2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHh2_mHh2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, mHh2, mHh2);
+        CacheShift(B0p_MZ2_mHh2_mHh2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_mHp2_mHp2(const double MZ2, const double mHh2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mHp2};
+
+    int i = CacheCheck(B0p_MZ2_mHh2_mHp2_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHh2_mHp2_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, mHp2, mHp2);
+        CacheShift(B0p_MZ2_mHh2_mHp2_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHh2_mA2_mA2(const double MZ2, const double mHh2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHh2, mA2};
+
+    int i = CacheCheck(B0p_MZ2_mHh2_mA2_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHh2_mA2_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHh2, mA2, mA2);
+        CacheShift(B0p_MZ2_mHh2_mA2_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHp2_0_mHl2(const double MZ2, const double mHp2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_mHp2_0_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHp2_0_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHp2, 0.0, mHl2);
+        CacheShift(B0p_MZ2_mHp2_0_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHp2_0_mHh2(const double MZ2, const double mHp2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_mHp2_0_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHp2_0_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHp2, 0.0, mHh2);
+        CacheShift(B0p_MZ2_mHp2_0_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHp2_0_mA2(const double MZ2, const double mHp2, const double mA2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mA2};
+
+    int i = CacheCheck(B0p_MZ2_mHp2_0_mA2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHp2_0_mA2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHp2, 0.0, mA2);
+        CacheShift(B0p_MZ2_mHp2_0_mA2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHp2_mHp2_mHl2(const double MZ2, const double mHp2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_mHp2_mHp2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHp2_mHp2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHp2, mHp2, mHl2);
+        CacheShift(B0p_MZ2_mHp2_mHp2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mHp2_mHp2_mHh2(const double MZ2, const double mHp2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mHp2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_mHp2_mHp2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mHp2_mHp2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mHp2, mHp2, mHh2);
+        CacheShift(B0p_MZ2_mHp2_mHp2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mA2_0_mHl2(const double MZ2, const double mA2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_mA2_0_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mA2_0_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mA2, 0.0, mHl2);
+        CacheShift(B0p_MZ2_mA2_0_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mA2_0_mHh2(const double MZ2, const double mA2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_mA2_0_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mA2_0_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mA2, 0.0, mHh2);
+        CacheShift(B0p_MZ2_mA2_0_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mA2_0_mHp2(const double MZ2, const double mA2, const double mHp2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHp2};
+
+    int i = CacheCheck(B0p_MZ2_mA2_0_mHp2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mA2_0_mHp2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mA2, 0.0, mHp2);
+        CacheShift(B0p_MZ2_mA2_0_mHp2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mA2_mA2_mHl2(const double MZ2, const double mA2, const double mHl2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHl2};
+
+    int i = CacheCheck(B0p_MZ2_mA2_mA2_mHl2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mA2_mA2_mHl2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mA2, mA2, mHl2);
+        CacheShift(B0p_MZ2_mA2_mA2_mHl2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
+gslpp::complex THDMcache::B0p_MZ2_mA2_mA2_mHh2(const double MZ2, const double mA2, const double mHh2) const {
+    int NumPar = 3;
+    double params[] = {MZ2, mA2, mHh2};
+
+    int i = CacheCheck(B0p_MZ2_mA2_mA2_mHh2_cache, NumPar, params);
+    if (i>=0) {
+        return ( B0p_MZ2_mA2_mA2_mHh2_cache[NumPar][i] );
+    } else {
+        gslpp::complex newResult = PV.B0p(MZ2, mA2, mA2, mHh2);
+        CacheShift(B0p_MZ2_mA2_mA2_mHh2_cache, NumPar, params, newResult);
+        return newResult;
+    } 
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 gslpp::complex THDMcache::B00_MZ2_0_mA2_mHp2(const double MZ2, const double mA2, const double mHp2) const {
@@ -3539,116 +4423,161 @@ void THDMcache::runTHDMparameters()
 
 void THDMcache::computeWFRcombinations()
 {
-    bma=myTHDM->getbma();
-    tanb=myTHDM->gettanb();
-    m12_2=myTHDM->getm12_2();
-    mHh2=myTHDM->getmHh2();
-    mA2=myTHDM->getmA2();
-    mHp2=myTHDM->getmHp2();
-    mHl=myTHDM->getMHl();
-    double mHl2=mHl*mHl;
+//    bma=myTHDM->getbma();
+//    tanb=myTHDM->gettanb();
+    double sinb=myTHDM->getsinb();
+    double cosb=myTHDM->getcosb();
     double beta=atan(tanb);
     double alpha=beta-bma;
+//    m12_2=myTHDM->getm12_2();
+//    mHh2=myTHDM->getmHh2();
+//    mA2=myTHDM->getmA2();
+//    mHp2=myTHDM->getmHp2();
+//    mHl=myTHDM->getMHl();
+    double mHl2=mHl*mHl;
+    double MZ2=MZ*MZ;
 
-//    double B000mh = B0_MZ2_0_0_mHl2(mHl2).real();
-//    double B000mH = B0_MZ2_0_0_mHh2(mHh2).real();
-//    double B00mHpmh = B0_MZ2_0_mHp2_mHl2(mHp2,mHl2).real();
-//    double B00mHpmH = B0_MZ2_0_mHp2_mHh2(mHp2,mHh2).real();
-//    double B00mAmh = B0_MZ2_0_mA2_mHl2(mA2,mHl2).real();
-//    double B00mAmH = B0_MZ2_0_mA2_mHh2(mA2,mHh2).real();
-//    double B0mh00 = B0_MZ2_mHl2_0_0(mHl2).real();
-//    double B0mh0mHp = B0_MZ2_mHl2_0_mHp2(mHl2,mHp2).real();
-//    double B0mh0mA = B0_MZ2_mHl2_0_mA2(mHl2,mA2).real();
-//    double B0mhmhmh = B0_MZ2_mHl2_mHl2_mHl2(mHl2).real();
-//    double B0mhmHmh = B0_MZ2_mHl2_mHh2_mHl2(mHl2,mHh2).real();
-//    double B0mhmHmH = B0_MZ2_mHl2_mHh2_mHh2(mHl2,mHh2).real();
-//    double B0mhmHpmHp = B0_MZ2_mHl2_mHp2_mHp2(mHl2,mHp2).real();
-//    double B0mhmAmA = B0_MZ2_mHl2_mA2_mA2(mHl2,mA2).real();
-//    double B0mH00 = B0_MZ2_mHh2_0_0(mHh2).real();
-//    double B0mH0mHp = B0_MZ2_mHh2_0_mHp2(mHh2,mHp2).real();
-//    double B0mH0mA = B0_MZ2_mHh2_0_mA2(mHh2,mA2).real();
-//    double B0mHmhmh = B0_MZ2_mHh2_mHl2_mHl2(mHh2,mHl2).real();
-//    double B0mHmHmh = B0_MZ2_mHh2_mHh2_mHl2(mHh2,mHl2).real();
-//    double B0mHmHmH = B0_MZ2_mHh2_mHh2_mHh2(mHh2).real();
-//    double B0mHmHpmHp = B0_MZ2_mHh2_mHp2_mHp2(mHh2,mHp2).real();
-//    double B0mHmAmA = B0_MZ2_mHh2_mA2_mA2(mHh2,mA2).real();
-//    double B0mHp0mh = B0_MZ2_mHp2_0_mHl2(mHp2,mHl2).real();
-//    double B0mHp0mH = B0_MZ2_mHp2_0_mHh2(mHp2,mHh2).real();
-//    double B0mHpmHpmh = B0_MZ2_mHp2_mHp2_mHl2(mHp2,mHl2).real();
-//    double B0mHpmHpmH = B0_MZ2_mHp2_mHp2_mHh2(mHp2,mHh2).real();
-//    double B0mA0mh = B0_MZ2_mA2_0_mHl2(mA2,mHl2).real();
-//    double B0mA0mH = B0_MZ2_mA2_0_mHh2(mA2,mHh2).real();
-//    double B0mAmAmh = B0_MZ2_mA2_mA2_mHl2(mA2,mHl2).real();
-//    double B0mAmAmH = B0_MZ2_mA2_mA2_mHh2(mA2,mHh2).real();
+    double B000mh = B0_MZ2_0_0_mHl2(MZ2,mHl2).real();
+    double B000mH = B0_MZ2_0_0_mHh2(MZ2,mHh2).real();
+    double B00mHpmh = B0_MZ2_0_mHp2_mHl2(MZ2,mHp2,mHl2).real();
+    double B00mHpmH = B0_MZ2_0_mHp2_mHh2(MZ2,mHp2,mHh2).real();
+    double B00mAmh = B0_MZ2_0_mA2_mHl2(MZ2,mA2,mHl2).real();
+    double B00mAmH = B0_MZ2_0_mA2_mHh2(MZ2,mA2,mHh2).real();
+    double B0mh00 = B0_MZ2_mHl2_0_0(MZ2,mHl2).real();
+    double B0mh0mHp = B0_MZ2_mHl2_0_mHp2(MZ2,mHl2,mHp2).real();
+    double B0mh0mA = B0_MZ2_mHl2_0_mA2(MZ2,mHl2,mA2).real();
+    double B0mhmhmh = B0_MZ2_mHl2_mHl2_mHl2(MZ2,mHl2).real();
+    double B0mhmHmh = B0_MZ2_mHl2_mHh2_mHl2(MZ2,mHl2,mHh2).real();
+    double B0mhmHmH = B0_MZ2_mHl2_mHh2_mHh2(MZ2,mHl2,mHh2).real();
+    double B0mhmHpmHp = B0_MZ2_mHl2_mHp2_mHp2(MZ2,mHl2,mHp2).real();
+    double B0mhmAmA = B0_MZ2_mHl2_mA2_mA2(MZ2,mHl2,mA2).real();
+    double B0mH00 = B0_MZ2_mHh2_0_0(MZ2,mHh2).real();
+    double B0mH0mHp = B0_MZ2_mHh2_0_mHp2(MZ2,mHh2,mHp2).real();
+    double B0mH0mA = B0_MZ2_mHh2_0_mA2(MZ2,mHh2,mA2).real();
+    double B0mHmhmh = B0_MZ2_mHh2_mHl2_mHl2(MZ2,mHh2,mHl2).real();
+    double B0mHmHmh = B0_MZ2_mHh2_mHh2_mHl2(MZ2,mHh2,mHl2).real();
+    double B0mHmHmH = B0_MZ2_mHh2_mHh2_mHh2(MZ2,mHh2).real();
+    double B0mHmHpmHp = B0_MZ2_mHh2_mHp2_mHp2(MZ2,mHh2,mHp2).real();
+    double B0mHmAmA = B0_MZ2_mHh2_mA2_mA2(MZ2,mHh2,mA2).real();
+    double B0mHp0mh = B0_MZ2_mHp2_0_mHl2(MZ2,mHp2,mHl2).real();
+    double B0mHp0mH = B0_MZ2_mHp2_0_mHh2(MZ2,mHp2,mHh2).real();
+    double B0mHpmHpmh = B0_MZ2_mHp2_mHp2_mHl2(MZ2,mHp2,mHl2).real();
+    double B0mHpmHpmH = B0_MZ2_mHp2_mHp2_mHh2(MZ2,mHp2,mHh2).real();
+    double B0mA0mh = B0_MZ2_mA2_0_mHl2(MZ2,mA2,mHl2).real();
+    double B0mA0mH = B0_MZ2_mA2_0_mHh2(MZ2,mA2,mHh2).real();
+    double B0mAmAmh = B0_MZ2_mA2_mA2_mHl2(MZ2,mA2,mHl2).real();
+    double B0mAmAmH = B0_MZ2_mA2_mA2_mHh2(MZ2,mA2,mHh2).real();
+
+    double ddpB000mh = B0p_MZ2_0_0_mHl2(MZ2,mHl2).real();
+    double ddpB000mH = B0p_MZ2_0_0_mHh2(MZ2,mHh2).real();
+    double ddpB00mHpmh = B0p_MZ2_0_mHp2_mHl2(MZ2,mHp2,mHl2).real();
+    double ddpB00mHpmH = B0p_MZ2_0_mHp2_mHh2(MZ2,mHp2,mHh2).real();
+    double ddpB00mHpmA = B0p_MZ2_0_mHp2_mA2(MZ2,mHp2,mA2).real();
+    double ddpB00mAmh = B0p_MZ2_0_mA2_mHl2(MZ2,mA2,mHl2).real();
+    double ddpB00mAmH = B0p_MZ2_0_mA2_mHh2(MZ2,mA2,mHh2).real();
+    double ddpB0mh00 = B0p_MZ2_mHl2_0_0(MZ2,mHl2).real();
+    double ddpB0mh0mHp = B0p_MZ2_mHl2_0_mHp2(MZ2,mHl2,mHp2).real();
+    double ddpB0mh0mA = B0p_MZ2_mHl2_0_mA2(MZ2,mHl2,mA2).real();
+    double ddpB0mhmhmh = B0p_MZ2_mHl2_mHl2_mHl2(MZ2,mHl2).real();
+    double ddpB0mhmHmh = B0p_MZ2_mHl2_mHh2_mHl2(MZ2,mHl2,mHh2).real();
+    double ddpB0mhmHmH = B0p_MZ2_mHl2_mHh2_mHh2(MZ2,mHl2,mHh2).real();
+    double ddpB0mhmHpmHp = B0p_MZ2_mHl2_mHp2_mHp2(MZ2,mHl2,mHp2).real();
+    double ddpB0mhmAmA = B0p_MZ2_mHl2_mA2_mA2(MZ2,mHl2,mA2).real();
+    double ddpB0mH00 = B0p_MZ2_mHh2_0_0(MZ2,mHh2).real();
+    double ddpB0mH0mHp = B0p_MZ2_mHh2_0_mHp2(MZ2,mHh2,mHp2).real();
+    double ddpB0mH0mA = B0p_MZ2_mHh2_0_mA2(MZ2,mHh2,mA2).real();
+    double ddpB0mHmhmh = B0p_MZ2_mHh2_mHl2_mHl2(MZ2,mHh2,mHl2).real();
+    double ddpB0mHmHmh = B0p_MZ2_mHh2_mHh2_mHl2(MZ2,mHh2,mHl2).real();
+    double ddpB0mHmHmH = B0p_MZ2_mHh2_mHh2_mHh2(MZ2,mHh2).real();
+    double ddpB0mHmHpmHp = B0p_MZ2_mHh2_mHp2_mHp2(MZ2,mHh2,mHp2).real();
+    double ddpB0mHmAmA = B0p_MZ2_mHh2_mA2_mA2(MZ2,mHh2,mA2).real();
+    double ddpB0mHp0mh = B0p_MZ2_mHp2_0_mHl2(MZ2,mHp2,mHl2).real();
+    double ddpB0mHp0mH = B0p_MZ2_mHp2_0_mHh2(MZ2,mHp2,mHh2).real();
+    double ddpB0mHp0mA = B0p_MZ2_mHp2_0_mA2(MZ2,mHp2,mA2).real();
+    double ddpB0mHpmHpmh = B0p_MZ2_mHp2_mHp2_mHl2(MZ2,mHp2,mHl2).real();
+    double ddpB0mHpmHpmH = B0p_MZ2_mHp2_mHp2_mHh2(MZ2,mHp2,mHh2).real();
+    double ddpB0mA0mh = B0p_MZ2_mA2_0_mHl2(MZ2,mA2,mHl2).real();
+    double ddpB0mA0mH = B0p_MZ2_mA2_0_mHh2(MZ2,mA2,mHh2).real();
+    double ddpB0mA0mHp = B0p_MZ2_mA2_0_mHp2(MZ2,mA2,mHp2).real();
+    double ddpB0mAmAmh = B0p_MZ2_mA2_mA2_mHl2(MZ2,mA2,mHl2).real();
+    double ddpB0mAmAmH = B0p_MZ2_mA2_mA2_mHh2(MZ2,mA2,mHh2).real();
 //
-//    double ddpB000mh = B0p_MZ2_0_0_mHl2(mHl2).real();
-//    double ddpB000mH = B0p_MZ2_0_0_mHh2(mHh2).real();
-//    double ddpB000mA = B0p_MZ2_0_0_mA2(mA2).real();
-//    double ddpB00mHpmh = B0p_MZ2_0_mHp2_mHl2(mHp2,mHl2).real();
-//    double ddpB00mHpmH = B0p_MZ2_0_mHp2_mHh2(mHp2,mHh2).real();
-//    double ddpB00mAmh = B0p_MZ2_0_mA2_mHl2(mA2,mHl2).real();
-//    double ddpB00mAmH = B0p_MZ2_0_mA2_mHh2(mA2,mHh2).real();
-//    double ddpB0mh00 = B0p_MZ2_mHl2_0_0(mHl2).real();
-//    double ddpB0mh0mHp = B0p_MZ2_mHl2_0_mHp2(mHl2,mHp2).real();
-//    double ddpB0mh0mA = B0p_MZ2_mHl2_0_mA2(mHl2,mA2).real();
-//    double ddpB0mhmhmh = B0p_MZ2_mHl2_mHl2_mHl2(mHl2).real();
-//    double ddpB0mhmHmh = B0p_MZ2_mHl2_mHh2_mHl2(mHl2,mHh2).real();
-//    double ddpB0mhmHmH = B0p_MZ2_mHl2_mHh2_mHh2(mHl2,mHh2).real();
-//    double ddpB0mhmHpmHp = B0p_MZ2_mHl2_mHp2_mHp2(mHl2,mHp2).real();
-//    double ddpB0mhmAmA = B0p_MZ2_mHl2_mA2_mA2(mHl2,mA2).real();
-//    double ddpB0mH00 = B0p_MZ2_mHh2_0_0(mHh2).real();
-//    double ddpB0mH0mHp = B0p_MZ2_mHh2_0_mHp2(mHh2,mHp2).real();
-//    double ddpB0mH0mA = B0p_MZ2_mHh2_0_mA2(mHh2,mA2).real();
-//    double ddpB0mHmhmh = B0p_MZ2_mHh2_mHl2_mHl2(mHh2,mHl2).real();
-//    double ddpB0mHmHmh = B0p_MZ2_mHh2_mHh2_mHl2(mHh2,mHl2).real();
-//    double ddpB0mHmHmH = B0p_MZ2_mHh2_mHh2_mHh2(mHh2).real();
-//    double ddpB0mHmHpmHp = B0p_MZ2_mHh2_mHp2_mHp2(mHh2,mHp2).real();
-//    double ddpB0mHmAmA = B0p_MZ2_mHh2_mA2_mA2(mHh2,mA2).real();
-//    double ddpB0mHp0mh = B0p_MZ2_mHp2_0_mHl2(mHp2,mHl2).real();
-//    double ddpB0mHp0mH = B0p_MZ2_mHp2_0_mHh2(mHp2,mHh2).real();
-//    double ddpB0mHp0mA = B0p_MZ2_mHp2_0_mA2(mHp2,mA2).real();
-//    double ddpB0mHpmHpmh = B0p_MZ2_mHp2_mHp2_mHl2(mHp2,mHl2).real();
-//    double ddpB0mHpmHpmH = B0p_MZ2_mHp2_mHp2_mHh2(mHp2,mHh2).real();
-//    double ddpB0mA0mh = B0p_MZ2_mA2_0_mHl2(mA2,mHl2).real();
-//    double ddpB0mA0mH = B0p_MZ2_mA2_0_mHh2(mA2,mHh2).real();
-//    double ddpB0mA0mHp = B0p_MZ2_mA2_0_mHp2(mA2,mHp2).real();
-//    double ddpB0mAmAmh = B0p_MZ2_mA2_mA2_mHl2(mA2,mHl2).real();
-//    double ddpB0mAmAmH = B0p_MZ2_mA2_mA2_mHh2(mA2,mHh2).real();
-
-//    double WFRcomb1a = -3.0*mhl*mhl*cosb*cosb*sin(bma)*sin(bma) * ddpB000mh
-//// + 3 mH^4 Cos[a - b]^2 Cos[b]^2 ddpB000mH
-//// + 2 (mA^2 - mHp^2)^2 Cos[b]^2 ddpB000mA
-//// + 2 (mh^2 - mHp^2)^2 Cos[a - b]^2 Cos[b]^2 ddpB00mHpmh
-//// + 2 (mH^2 - mHp^2)^2 Cos[b]^2 Sin[a - b]^2 ddpB00mHpmH
-//// + (mA^2 - mh^2)^2 Cos[a - b]^2 Cos[b]^2 ddpB00mAmh
-//// + (mA^2 - mH^2)^2 Cos[b]^2 Sin[a - b]^2 ddpB00mAmH
-//// + 3/2 mh^4 Sin[a]^2 Sin[a - b]^2 ddpB0mh00
-//// + 2 (mh^2 - mHp^2)^2 Cos[a - b]^2 Sin[a]^2 ddpB0mh0mHp
-//// + (mA^2 - mh^2)^2 Cos[a - b]^2 Sin[a]^2 ddpB0mh0mA
-//// + 9/32 Csc[2 b]^4 Sin[a]^2 (4 m12sq Cos[a - 3 b] + 4 m12sq Cos[3 a - b] + 8 m12sq Cos[a + b] + 3 mh^2 Sin[a - b] + mh^2 Sin[3 (a - b)] - mh^2 Sin[3 a + b] - 3 mh^2 Sin[a + 3 b])^2 ddpB0mhmhmh
-//// + Sin[a]^2 (Cos[a] Csc[b] + Sec[b] Sin[a])^2 (m12sq + Cos[a] (2 mh^2 + mH^2 - 3 m12sq Csc[b] Sec[b]) Sin[a])^2 ddpB0mhmHmh
-//// + 1/2 Csc[2 b]^2 Sin[a]^2 (-2 m12sq + (mh^2 + 2 mH^2 - 3 m12sq Csc[b] Sec[b]) Sin[2 a])^2 Sin[a - b]^2 ddpB0mhmHmH
-//// + 1/64 Csc[b]^4 Sec[b]^4 Sin[a]^2 ((mh^2 - 2 mHp^2) Cos[a - 3 b] Sin[2 b] + Cos[a + b] (-8 m12sq + (3 mh^2 + 2 mHp^2) Sin[2 b]))^2 ddpB0mhmHpmHp
-//// + 1/128 Csc[b]^4 Sec[b]^4 Sin[a]^2 ((2 mA^2 - mh^2) Cos[a - 3 b] Sin[2 b] + Cos[a + b] (8 m12sq - (2 mA^2 + 3 mh^2) Sin[2 b]))^2 ddpB0mhmAmA
-//// + 3/2 mH^4 Cos[a]^2 Cos[a - b]^2 ddpB0mH00
-//// + 2 (mH^2 - mHp^2)^2 Cos[a]^2 Sin[a - b]^2 ddpB0mH0mHp
-//// + (mA^2 - mH^2)^2 Cos[a]^2 Sin[a - b]^2 ddpB0mH0mA
-//// + 2 Cos[a]^2 Cos[a - b]^2 Csc[2 b]^2 (m12sq + Cos[a] (mH^2 - 3 m12sq Csc[b] Sec[b]) Sin[a] + mh^2 Sin[2 a])^2 ddpB0mHmhmh
-//// + 16 Cos[a]^2 Csc[2 b]^4 Sin[a - b]^2 (m12sq Cos[b] Sin[b] + 1/4 Sin[2 a] (6 m12sq - (mh^2 + 2 mH^2) Sin[2 b]))^2 ddpB0mHmHmh
-//// + 9/32 Cos[a]^2 Csc[2 b]^4 (-3 mH^2 Cos[a - b] + mH^2 Cos[3 (a - b)] - mH^2 Cos[3 a + b] + 3 mH^2 Cos[a + 3 b] + 4 m12sq Sin[a - 3 b] - 4 m12sq Sin[3 a - b] + 8 m12sq Sin[a + b])^2 ddpB0mHmHmH
-//// + 1/256 Cos[a]^2 Csc[b]^4 Sec[b]^4 ((mH^2 - 2 mHp^2) Cos[a - 5 b] + 2 (mH^2 + 2 mHp^2) Cos[a - b] - 3 mH^2 Cos[a + 3 b] - 2 mHp^2 Cos[a + 3 b] - 16 m12sq Sin[a + b])^2 ddpB0mHmHpmHp
-//// + 1/512 Cos[a]^2 Csc[b]^4 Sec[b]^4 ((2 mA^2 - mH^2) Cos[a - 5 b] - 2 (2 mA^2 + mH^2) Cos[a - b] + 2 mA^2 Cos[a + 3 b] + 3 mH^2 Cos[a + 3 b] + 16 m12sq Sin[a + b])^2 ddpB0mHmAmA
-//// + 2 (mh^2 - mHp^2)^2 Cos[a - b]^2 Sin[b]^2 ddpB0mHp0mh
-//// + 2 (mH^2 - mHp^2)^2 Sin[a - b]^2 Sin[b]^2 ddpB0mHp0mH
-//// + 2 (mA^2 - mHp^2)^2 Sin[b]^2 ddpB0mHp0mA
-//// + 2 (-mh^2 Cos[a - b] Cos[2 b] Csc[b] Sec[b] + m12sq Cos[a + b] Csc[b]^2 Sec[b]^2 + (mh^2 + 2 mHp^2) Sin[a - b])^2 Sin[b]^2 ddpB0mHpmHpmh
-//// + 2 Sin[b]^2 ((mH^2 + 2 mHp^2) Cos[a - b] + mH^2 Cos[2 b] Csc[b] Sec[b] Sin[a - b] - 4 m12sq Csc[2 b]^2 Sin[a + b])^2 ddpB0mHpmHpmH
-//// + (mA^2 - mh^2)^2 Cos[a - b]^2 Sin[b]^2 ddpB0mA0mh
-//// + (mA^2 - mH^2)^2 Sin[a - b]^2 Sin[b]^2 ddpB0mA0mH
-//// + 2 (mA^2 - mHp^2)^2 Sin[b]^2 ddpB0mA0mHp
-//// + 1/64 Csc[b]^2 Sec[b]^4 ((2 mA^2 - mh^2) Cos[a - 3 b] Sin[2 b] + Cos[a + b] (8 m12sq - (2 mA^2 + 3 mh^2) Sin[2 b]))^2 ddpB0mAmAmh
-//        + pow(((2.0*mA2-mHh2)*cos(alpha-5.0*beta) - 2.0*(2.0*mA2+mHh2)*cos(bma) + 2.0*mA2*cos(alpha+3.0*beta) 
-//               + 3.0*mHh2*cos(alpha+3.0*beta) + 16.0*m12_2*sin(alpha + beta)),2)/(256.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmH;
+//    double WFRcomb1a = -3.0*mHl*mHl*cosb*cosb*sin(bma)*sin(bma) * ddpB000mh
+//        + 3.0*mHh2*cos(bma)*cos(bma)*cosb*cosb * ddpB000mH
+//        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*cosb*cosb * ddpB00mHpmh
+//        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*cosb*cosb * ddpB00mHpmH
+//        + 2.0*(mA2-mHp2)*(mA2-mHp2)*cosb*cosb * ddpB00mHpmA
+//        + (mA2-mHh2)*(mA2-mHh2)*cos(bma)*cos(bma)*cosb*cosb * ddpB00mAmh
+//        + (mA2-mHh2)*(mA2-mHh2)*cosb*cosb*sin(bma)*sin(bma) * ddpB00mAmH
+//        + 1.5*mHl2*mHl2*sin(alpha)*sin(alpha)*sin(bma)*sin(bma) * ddpB0mh00
+//        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mHp
+//        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mA
+//        + 9.0*sin(alpha)*sin(alpha)*pow(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
+//                                        +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mhmhmh
+//        + sin(alpha)*sin(alpha)*pow((cos(alpha)/sinb+sin(alpha)/cosb)*(m12_2+cos(alpha)*sin(alpha)*(mHh2+2.0*mHl2-(3.0*m12_2)/(cosb*sinb))),2) * ddpB0mhmHmh
+//        + sin(alpha)*sin(alpha)*sin(bma)*sin(bma)*pow(-2.0*m12_2+(2.0*mHh2+mHl2-(3.0*m12_2)/(cosb*sinb))*sin(2.0*alpha),2)/(8.0*cosb*cosb*sinb*sinb) * ddpB0mhmHmH
+//        + (sin(alpha)*sin(alpha)*pow((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+//                                     +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb),2))/(64.0*pow(cosb*sinb,4)) * ddpB0mhmHpmHp
+//        + (sin(alpha)*sin(alpha)*pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2))/(128.0*pow(cosb*sinb,4)) * ddpB0mhmAmA
+//        + 1.5*mHh2*mHh2*cos(alpha)*cos(alpha)*cos(bma)*cos(bma) * ddpB0mH00
+//        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mHp
+//        + (mA2-mHh2)*(mA2-mHh2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mA
+//        + cos(alpha)*cos(alpha)*cos(bma)*cos(bma)*pow(m12_2+cos(alpha)*sin(alpha)*(mHh2-3.0*m12_2/(cosb*sinb))+mHl2*sin(2.0*alpha),2)/(2.0*cosb*cosb*sinb*sinb) * ddpB0mHmhmh
+//        + cos(alpha)*cos(alpha)*sin(bma)*sin(bma)*pow(m12_2*cosb*sinb+0.5*sin(2.0*alpha)*(3.0*m12_2-(2.0*mHh2+mHl2)*cosb*sinb),2)/pow(cosb*sinb,4) * ddpB0mHmHmh
+//        + 9.0*cos(alpha)*cos(alpha)*pow(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
+//                                        +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mHmHmH
+//        + (cos(alpha)*cos(alpha)*pow((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)
+//                                     +2.0*(mHh2+2.0*mHp2)*cos(bma)-(3.0*mHh2+2.0*mHp2)*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta),2))/(256.0*pow(cosb*sinb,4)) * ddpB0mHmHpmHp
+//        + (cos(alpha)*cos(alpha)*pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)
+//                                     -2.0*(2.0*mA2+mHh2)*cos(bma)+(2.0*mA2+3.0*mHh2)*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2))/(512.0*pow(cosb*sinb,4)) * ddpB0mHmAmA
+//        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sinb*sinb * ddpB0mHp0mh
+//        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*sinb*sinb * ddpB0mHp0mH
+//        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB0mHp0mA
+//        + 2.0*pow((m12_2*cos(alpha+beta))/(sinb*sinb*cosb*cosb)-(mHl2*cos(bma)*cos(2.0*beta))/(cosb*sinb)-(mHl2+2.0*mHp2)*sin(bma),2)*sinb*sinb * ddpB0mHpmHpmh
+//        + pow(2.0*sinb*sinb*((mHh2+2.0*mHp2)*cos(bma)-mHh2*cos(2.0*beta)*sin(bma)/(cosb*sinb)-m12_2*sin(alpha+beta)/(sinb*sinb*cosb*cosb)),2) * ddpB0mHpmHpmH
+//        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sinb*sinb * ddpB0mA0mh
+//        + (mA2-mHh2)*(mA2-mHh2)*sin(bma)*sin(bma)*sinb*sinb * ddpB0mA0mH
+//        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB0mA0mHp
+//        + pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2)/(64.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmh
+//        + pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta) 
+//               + 3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2)/(256.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmH;
+//
+//    double WFRcomb1b = (mHl2*(mA2*(2.0*mHl2-3.0*mHp2)+mHl2*mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/(2.0*mA2*mHp2) * B000mh
+//        - (mHh2*(mA2*(2.0*mHh2-3.0*mHp2)+mHh2*mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/(2.0*mA2*mHp2) * B000mH
+//        + ((mHl2-mHp2)*cos(bma)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+//                                 +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb)))/(2.0*mHp2*sinb*cosb) * B00mHpmh
+//        + ((mHp2-mHh2)*sin(bma)*((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+//                                 -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta)))/(4.0*mHp2*sinb*cosb) * B00mHpmH
+//        + ((mHl2-mA2)*cos(bma)*((mHl2-2.0*mA2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+//                                +cos(alpha+beta)*(-8.0*m12_2+(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb)))/(4.0*mA2*sinb*cosb) * B00mAmh
+//        + ((mHh2-mA2)*sin(bma)*((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta)
+//                                +3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta)))/(8.0*mA2*sinb*cosb) * B00mAmH
+//        + (3.0*mHh2*mHl2*sin(2.0*alpha)*Sin(2.0*bma))/(4.0*(mHh2-mHl2)) * B0mh00
+//        + ((mHl2-mHp2)*(mHp2-mHh2)*sin(2.0*alpha)*sin(2.0*bma))/(mHh2-mHl2) * B0mh0mHp
+//        - ((mA2-mHh2)*(mA2-mHl2)*sin(2.0*alpha)*sin(2.0*bma))/(2.0*(mHh2-mHl2)) * B0mh0mA
+////    B0mhmhmh
+////    B0mhmHmh
+////    B0mhmHmH
+////    B0mhmHpmHp
+////    B0mhmAmA
+////    B0mH00
+////    B0mH0mHp
+////    B0mH0mA
+////    B0mHmhmh
+////    B0mHmHmh
+////    B0mHmHmH
+////    B0mHmHpmHp
+////    B0mHmAmA
+////    B0mHp0mh
+////    B0mHp0mH
+////    B0mHpmHpmh
+////    B0mHpmHpmH
+//        + (mHl2*(mA2-mHl2)*sin(bma)*cos(bma)*2.0*sinb*cosb)/mA2 * B0mA0mh
+//        + ((mHh2-mA2)*mHh2*sin(bma)*cos(bma)*2.0*sinb*cosb)/mA2 * B0mA0mH
+//        + ((mA2-mHl2)*cos(bma)*((-2.0*mA2+mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+//                                +cos(alpha+beta)*(-8.0*m12_2+(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb)))/(4.0*mA2*sinb*cosb) * B0mAmAmh
+//        +((mA2-mHh2)*sin(bma)*((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta)
+//                               +3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta)))/(8.0*mA2*sinb*cosb) * B0mAmAmH;
 
     double WFRcomb1a = 0.0;
     double WFRcomb1b = 0.0;
