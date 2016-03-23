@@ -25,6 +25,7 @@
                 <make-dep-project>../pMSSM</make-dep-project>
                 <make-dep-project>../EventGeneration</make-dep-project>
                 <make-dep-project>../THDM</make-dep-project>
+                <make-dep-project>../GeneralTHDM</make-dep-project>
                 <make-dep-project>../gslpp</make-dep-project>
                 <make-dep-project>../FlavourWilsonCoefficient</make-dep-project>
                 <make-dep-project>../EW</make-dep-project>

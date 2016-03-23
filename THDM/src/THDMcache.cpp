@@ -4501,77 +4501,244 @@ void THDMcache::computeWFRcombinations()
     double ddpB0mA0mHp = B0p_MZ2_mA2_0_mHp2(MZ2,mA2,mHp2).real();
     double ddpB0mAmAmh = B0p_MZ2_mA2_mA2_mHl2(MZ2,mA2,mHl2).real();
     double ddpB0mAmAmH = B0p_MZ2_mA2_mA2_mHh2(MZ2,mA2,mHh2).real();
-//
-//    double WFRcomb1a = -3.0*mHl*mHl*cosb*cosb*sin(bma)*sin(bma) * ddpB000mh
-//        + 3.0*mHh2*cos(bma)*cos(bma)*cosb*cosb * ddpB000mH
-//        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*cosb*cosb * ddpB00mHpmh
-//        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*cosb*cosb * ddpB00mHpmH
-//        + 2.0*(mA2-mHp2)*(mA2-mHp2)*cosb*cosb * ddpB00mHpmA
-//        + (mA2-mHh2)*(mA2-mHh2)*cos(bma)*cos(bma)*cosb*cosb * ddpB00mAmh
-//        + (mA2-mHh2)*(mA2-mHh2)*cosb*cosb*sin(bma)*sin(bma) * ddpB00mAmH
-//        + 1.5*mHl2*mHl2*sin(alpha)*sin(alpha)*sin(bma)*sin(bma) * ddpB0mh00
-//        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mHp
-//        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mA
-//        + 9.0*sin(alpha)*sin(alpha)*pow(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
-//                                        +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mhmhmh
-//        + sin(alpha)*sin(alpha)*pow((cos(alpha)/sinb+sin(alpha)/cosb)*(m12_2+cos(alpha)*sin(alpha)*(mHh2+2.0*mHl2-(3.0*m12_2)/(cosb*sinb))),2) * ddpB0mhmHmh
-//        + sin(alpha)*sin(alpha)*sin(bma)*sin(bma)*pow(-2.0*m12_2+(2.0*mHh2+mHl2-(3.0*m12_2)/(cosb*sinb))*sin(2.0*alpha),2)/(8.0*cosb*cosb*sinb*sinb) * ddpB0mhmHmH
-//        + (sin(alpha)*sin(alpha)*pow((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
-//                                     +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb),2))/(64.0*pow(cosb*sinb,4)) * ddpB0mhmHpmHp
-//        + (sin(alpha)*sin(alpha)*pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2))/(128.0*pow(cosb*sinb,4)) * ddpB0mhmAmA
-//        + 1.5*mHh2*mHh2*cos(alpha)*cos(alpha)*cos(bma)*cos(bma) * ddpB0mH00
-//        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mHp
-//        + (mA2-mHh2)*(mA2-mHh2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mA
-//        + cos(alpha)*cos(alpha)*cos(bma)*cos(bma)*pow(m12_2+cos(alpha)*sin(alpha)*(mHh2-3.0*m12_2/(cosb*sinb))+mHl2*sin(2.0*alpha),2)/(2.0*cosb*cosb*sinb*sinb) * ddpB0mHmhmh
-//        + cos(alpha)*cos(alpha)*sin(bma)*sin(bma)*pow(m12_2*cosb*sinb+0.5*sin(2.0*alpha)*(3.0*m12_2-(2.0*mHh2+mHl2)*cosb*sinb),2)/pow(cosb*sinb,4) * ddpB0mHmHmh
-//        + 9.0*cos(alpha)*cos(alpha)*pow(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
-//                                        +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mHmHmH
-//        + (cos(alpha)*cos(alpha)*pow((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)
-//                                     +2.0*(mHh2+2.0*mHp2)*cos(bma)-(3.0*mHh2+2.0*mHp2)*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta),2))/(256.0*pow(cosb*sinb,4)) * ddpB0mHmHpmHp
-//        + (cos(alpha)*cos(alpha)*pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)
-//                                     -2.0*(2.0*mA2+mHh2)*cos(bma)+(2.0*mA2+3.0*mHh2)*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2))/(512.0*pow(cosb*sinb,4)) * ddpB0mHmAmA
-//        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sinb*sinb * ddpB0mHp0mh
-//        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*sinb*sinb * ddpB0mHp0mH
-//        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB0mHp0mA
-//        + 2.0*pow((m12_2*cos(alpha+beta))/(sinb*sinb*cosb*cosb)-(mHl2*cos(bma)*cos(2.0*beta))/(cosb*sinb)-(mHl2+2.0*mHp2)*sin(bma),2)*sinb*sinb * ddpB0mHpmHpmh
-//        + pow(2.0*sinb*sinb*((mHh2+2.0*mHp2)*cos(bma)-mHh2*cos(2.0*beta)*sin(bma)/(cosb*sinb)-m12_2*sin(alpha+beta)/(sinb*sinb*cosb*cosb)),2) * ddpB0mHpmHpmH
-//        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sinb*sinb * ddpB0mA0mh
-//        + (mA2-mHh2)*(mA2-mHh2)*sin(bma)*sin(bma)*sinb*sinb * ddpB0mA0mH
-//        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB0mA0mHp
-//        + pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2)/(64.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmh
-//        + pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta) 
-//               + 3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2)/(256.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmH;
-//
-//    double WFRcomb1b = (mHl2*(mA2*(2.0*mHl2-3.0*mHp2)+mHl2*mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/(2.0*mA2*mHp2) * B000mh
-//        - (mHh2*(mA2*(2.0*mHh2-3.0*mHp2)+mHh2*mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/(2.0*mA2*mHp2) * B000mH
-//        + ((mHl2-mHp2)*cos(bma)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+
+    double WFRcomb1a = -3.0*mHl*mHl*cosb*cosb*sin(bma)*sin(bma) * ddpB000mh
+        + 3.0*mHh2*cos(bma)*cos(bma)*cosb*cosb * ddpB000mH
+        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*cosb*cosb * ddpB00mHpmh
+        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*cosb*cosb * ddpB00mHpmH
+        + 2.0*(mA2-mHp2)*(mA2-mHp2)*cosb*cosb * ddpB00mHpmA
+        + (mA2-mHh2)*(mA2-mHh2)*cos(bma)*cos(bma)*cosb*cosb * ddpB00mAmh
+        + (mA2-mHh2)*(mA2-mHh2)*cosb*cosb*sin(bma)*sin(bma) * ddpB00mAmH
+        + 1.5*mHl2*mHl2*sin(alpha)*sin(alpha)*sin(bma)*sin(bma) * ddpB0mh00
+        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mHp
+        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mA
+        + 9.0*sin(alpha)*sin(alpha)*pow(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
+                                        +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mhmhmh
+        + sin(alpha)*sin(alpha)*pow((cos(alpha)/sinb+sin(alpha)/cosb)*(m12_2+cos(alpha)*sin(alpha)*(mHh2+2.0*mHl2-(3.0*m12_2)/(cosb*sinb))),2) * ddpB0mhmHmh
+        + sin(alpha)*sin(alpha)*sin(bma)*sin(bma)*pow(-2.0*m12_2+(2.0*mHh2+mHl2-(3.0*m12_2)/(cosb*sinb))*sin(2.0*alpha),2)/(8.0*cosb*cosb*sinb*sinb) * ddpB0mhmHmH
+        + (sin(alpha)*sin(alpha)*pow((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+                                     +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb),2))/(64.0*pow(cosb*sinb,4)) * ddpB0mhmHpmHp
+        + (sin(alpha)*sin(alpha)*pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2))/(128.0*pow(cosb*sinb,4)) * ddpB0mhmAmA
+        + 1.5*mHh2*mHh2*cos(alpha)*cos(alpha)*cos(bma)*cos(bma) * ddpB0mH00
+        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mHp
+        + (mA2-mHh2)*(mA2-mHh2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mA
+        + cos(alpha)*cos(alpha)*cos(bma)*cos(bma)*pow(m12_2+cos(alpha)*sin(alpha)*(mHh2-3.0*m12_2/(cosb*sinb))+mHl2*sin(2.0*alpha),2)/(2.0*cosb*cosb*sinb*sinb) * ddpB0mHmhmh
+        + cos(alpha)*cos(alpha)*sin(bma)*sin(bma)*pow(m12_2*cosb*sinb+0.5*sin(2.0*alpha)*(3.0*m12_2-(2.0*mHh2+mHl2)*cosb*sinb),2)/pow(cosb*sinb,4) * ddpB0mHmHmh
+        + 9.0*cos(alpha)*cos(alpha)*pow(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
+                                        +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mHmHmH
+        + (cos(alpha)*cos(alpha)*pow((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)
+                                     +2.0*(mHh2+2.0*mHp2)*cos(bma)-(3.0*mHh2+2.0*mHp2)*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta),2))/(256.0*pow(cosb*sinb,4)) * ddpB0mHmHpmHp
+        + (cos(alpha)*cos(alpha)*pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)
+                                     -2.0*(2.0*mA2+mHh2)*cos(bma)+(2.0*mA2+3.0*mHh2)*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2))/(512.0*pow(cosb*sinb,4)) * ddpB0mHmAmA
+        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sinb*sinb * ddpB0mHp0mh
+        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*sinb*sinb * ddpB0mHp0mH
+        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB0mHp0mA
+        + 2.0*pow((m12_2*cos(alpha+beta))/(sinb*sinb*cosb*cosb)-(mHl2*cos(bma)*cos(2.0*beta))/(cosb*sinb)-(mHl2+2.0*mHp2)*sin(bma),2)*sinb*sinb * ddpB0mHpmHpmh
+        + pow(2.0*sinb*sinb*((mHh2+2.0*mHp2)*cos(bma)-mHh2*cos(2.0*beta)*sin(bma)/(cosb*sinb)-m12_2*sin(alpha+beta)/(sinb*sinb*cosb*cosb)),2) * ddpB0mHpmHpmH
+        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sinb*sinb * ddpB0mA0mh
+        + (mA2-mHh2)*(mA2-mHh2)*sin(bma)*sin(bma)*sinb*sinb * ddpB0mA0mH
+        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB0mA0mHp
+        + pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2)/(64.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmh
+        + pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta) 
+               + 3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2)/(256.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmH;
+
+    double WFRcomb1b = (mHl2*(mA2*(2.0*mHl2-3.0*mHp2)+mHl2*mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/(2.0*mA2*mHp2) * B000mh
+        - (mHh2*(mA2*(2.0*mHh2-3.0*mHp2)+mHh2*mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/(2.0*mA2*mHp2) * B000mH
+        + ((mHl2-mHp2)*cos(bma)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+                                 +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb)))/(2.0*mHp2*sinb*cosb) * B00mHpmh
+        + ((mHp2-mHh2)*sin(bma)*((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+                                 -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta)))/(4.0*mHp2*sinb*cosb) * B00mHpmH
+        + ((mHl2-mA2)*cos(bma)*((mHl2-2.0*mA2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+                                +cos(alpha+beta)*(-8.0*m12_2+(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb)))/(4.0*mA2*sinb*cosb) * B00mAmh
+        + ((mHh2-mA2)*sin(bma)*((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta)
+                                +3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta)))/(8.0*mA2*sinb*cosb) * B00mAmH
+        + (3.0*mHh2*mHl2*sin(2.0*alpha)*sin(2.0*bma))/(4.0*(mHh2-mHl2)) * B0mh00
+        + ((mHl2-mHp2)*(mHp2-mHh2)*sin(2.0*alpha)*sin(2.0*bma))/(mHh2-mHl2) * B0mh0mHp
+        - ((mA2-mHh2)*(mA2-mHl2)*sin(2.0*alpha)*sin(2.0*bma))/(2.0*(mHh2-mHl2)) * B0mh0mA
+        + 3.0*cos(bma)*sin(2.0*alpha)*(m12_2+cos(alpha)*sin(alpha)*(mHh2-(3.0*m12_2)/(sinb*cosb))+mHl2*sin(2.0*alpha))
+          *(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
+            +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta))/(32.0*(mHl2-mHh2)*pow(sinb*cosb,3)) * B0mhmhmh
+        + (sin(2.0*bma)*sin(2.0*alpha)
+           *(4.0*m12_2*m12_2+2.0*m12_2*(mHl2-mHh2)*sin(2.0*alpha)
+             -(2.0*mHh2*mHh2+5.0*mHh2*mHl2+2.0*mHl2*mHl2-(9.0*m12_2*(mHh2+mHl2))/(sinb*cosb)
+               +(9.0*m12_2*m12_2)/(sinb*sinb*cosb*cosb))*sin(2.0*alpha)*sin(2.0*alpha)))/(8.0*(mHh2-mHl2)*sinb*sinb*cosb*cosb) * B0mhmHmh
+        - 3.0*sin(2.0*alpha)*sin(bma)*(m12_2-cos(alpha)*sin(alpha)*(2.0*mHh2+mHl2-(3.0*m12_2)/(sinb*cosb)))
+          *(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
+            +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta))/(32.0*(mHh2-mHl2)*pow(sinb*cosb,3)) * B0mhmHmH
+        + sin(2.0*alpha)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb))
+          *((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+             -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(128.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mhmHpmHp
+        - sin(2.0*alpha)*((mHl2-2.0*mA2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb))
+          *((mHh2-2.0*mA2)*cos(alpha-5.0*beta)+2.0*(2.0*mA2+mHh2)*cos(bma)-2.0*mA2*cos(alpha+3.0*beta)
+             -3.0*mHh2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(256.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mhmAmA
+        - (3.0*mHh2*mHl2*sin(2.0*alpha)*sin(2.0*bma))/(4.0*(mHh2-mHl2)) * B0mH00
+        + ((mHh2-mHp2)*(mHl2-mHp2)*sin(2.0*alpha)*sin(2.0*bma))/(mHh2-mHl2) * B0mH0mHp
+        + ((mA2-mHh2)*(mA2-mHl2)*sin(2.0*alpha)*sin(2.0*bma))/(2.0*(mHh2-mHl2)) * B0mH0mA
+        + 3.0*cos(bma)*sin(2.0*alpha)*(m12_2+cos(alpha)*sin(alpha)*(mHh2-(3.0*m12_2)/(sinb*cosb))+mHl2*sin(2.0*alpha))
+          *(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
+            +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta))/(32.0*(mHh2-mHl2)*pow(sinb*cosb,3)) * B0mHmhmh
+        + (sin(2.0*bma)*sin(2.0*alpha)*(-4.0*m12_2*m12_2+2.0*m12_2*(mHh2-mHl2)*sin(2.0*alpha)
+                                        +(2.0*mHh2*mHh2+5.0*mHh2*mHl2+2.0*mHl2*mHl2
+                                          -(9.0*m12_2*(mHh2+mHl2))/(sinb*cosb)
+                                          +(9.0*m12_2*m12_2)/(sinb*sinb*cosb*cosb))*sin(2.0*alpha)*sin(2.0*alpha)))
+          /(8.0*(mHh2-mHl2)*sinb*sinb*cosb*cosb) * B0mHmHmh
+        + 3.0*sin(2.0*bma)*sin(2.0*alpha)*(m12_2-cos(alpha)*sin(alpha)*(2.0*mHh2+mHl2-(3.0*m12_2)/(sinb*cosb)))
+          *(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
+            +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta))/(32.0*(mHh2-mHl2)*pow(sinb*cosb,3)) * B0mHmHmH
+        - sin(2.0*alpha)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb))
+          *((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+            -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(128.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mHmHpmHp
+        - sin(2.0*alpha)*((mHl2-2.0*mA2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mA2)*2.0*sinb*cosb))
+          *((mHh2-2.0*mA2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mA2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+            -2.0*mA2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(256.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mHmAmA
+        - (mHl2*(mHl2-mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/mHp2 * B0mHp0mh
+        + (mHh2*(mHh2-mHp2)*sin(2.0*bma)*2.0*sinb*cosb)/mHp2 * B0mHp0mH
+        + ((mHp2-mHl2)*cos(bma)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+                                 +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb)))/(2.0*mHp2*sinb*cosb) * B0mHpmHpmh
+        + ((mHh2-mHp2)*sin(bma)*((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+                                 -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta)))/(4.0*mHp2*sinb*cosb) * B0mHpmHpmH
+        + (mHl2*(mA2-mHl2)*sin(bma)*cos(bma)*2.0*sinb*cosb)/mA2 * B0mA0mh
+        + ((mHh2-mA2)*mHh2*sin(bma)*cos(bma)*2.0*sinb*cosb)/mA2 * B0mA0mH
+        + ((mA2-mHl2)*cos(bma)*((-2.0*mA2+mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+                                +cos(alpha+beta)*(-8.0*m12_2+(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb)))/(4.0*mA2*sinb*cosb) * B0mAmAmh
+        +((mA2-mHh2)*sin(bma)*((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta)
+                               +3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta)))/(8.0*mA2*sinb*cosb) * B0mAmAmH;
+
+//    double WFRcomb2a =  * ddpB000mh
+//        + * ddpB000mH
+//        + * ddpB00mHpmh
+//        + * ddpB00mHpmH
+//        + * ddpB00mHpmA
+//        + * ddpB00mAmh
+//        + * ddpB00mAmH
+//        + * ddpB0mh00
+//        + * ddpB0mh0mHp
+//        + * ddpB0mh0mA
+//        + * ddpB0mhmhmh
+//        + * ddpB0mhmHmh
+//        + * ddpB0mhmHmH
+//        + * ddpB0mhmHpmHp
+//        + * ddpB0mhmAmA
+//        + * ddpB0mH00
+//        + * ddpB0mH0mHp
+//        + * ddpB0mH0mA
+//        + * ddpB0mHmhmh
+//        + * ddpB0mHmHmh
+//        + * ddpB0mHmHmH
+//        + * ddpB0mHmHpmHp
+//        + * ddpB0mHmAmA
+//        + * ddpB0mHp0mh
+//        + * ddpB0mHp0mH
+//        + * ddpB0mHp0mA
+//        + * ddpB0mHpmHpmh
+//        + * ddpB0mHpmHpmH
+//        + * ddpB0mA0mh
+//        + * ddpB0mA0mH
+//        + * ddpB0mA0mHp
+//        + * ddpB0mAmAmh
+//        + * ddpB0mAmAmH;
+
+    double WFRcomb3a = 0.5*mHl2*mHl2*(3.0-cos(2.0*beta))*sin(bma)*sin(bma) * ddpB000mh
+        + 0.5*mHh2*mHh2*(3.0-cos(2.0*beta))*cos(bma)*cos(bma) * ddpB000mH
+        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sinb*sinb * ddpB00mHpmh
+        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*sinb*sinb * ddpB00mHpmH
+        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB00mHpmA
+        + (mA2-mHh2)*(mA2-mHh2)*cos(bma)*cos(bma)*cosb*cosb * ddpB00mAmh
+        + (mA2-mHh2)*(mA2-mHh2)*cosb*cosb*sin(bma)*sin(bma) * ddpB00mAmH
+        + 1.5*mHl2*mHl2*sin(alpha)*sin(alpha)*sin(bma)*sin(bma) * ddpB0mh00
+        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mHp
+        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sin(alpha)*sin(alpha) * ddpB0mh0mA
+        + 9.0*sin(alpha)*sin(alpha)*pow(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
+                                        +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mhmhmh
+        + sin(alpha)*sin(alpha)*pow((cos(alpha)/sinb+sin(alpha)/cosb)*(m12_2+cos(alpha)*sin(alpha)*(mHh2+2.0*mHl2-(3.0*m12_2)/(cosb*sinb))),2) * ddpB0mhmHmh
+        + sin(alpha)*sin(alpha)*sin(bma)*sin(bma)*pow(-2.0*m12_2+(2.0*mHh2+mHl2-(3.0*m12_2)/(cosb*sinb))*sin(2.0*alpha),2)/(8.0*cosb*cosb*sinb*sinb) * ddpB0mhmHmH
+        + (sin(alpha)*sin(alpha)*pow((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
+                                     +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb),2))/(64.0*pow(cosb*sinb,4)) * ddpB0mhmHpmHp
+        + (sin(alpha)*sin(alpha)*pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2))/(128.0*pow(cosb*sinb,4)) * ddpB0mhmAmA
+        + 1.5*mHh2*mHh2*cos(alpha)*cos(alpha)*cos(bma)*cos(bma) * ddpB0mH00
+        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mHp
+        + (mA2-mHh2)*(mA2-mHh2)*cos(alpha)*cos(alpha)*sin(bma)*sin(bma) * ddpB0mH0mA
+        + cos(alpha)*cos(alpha)*cos(bma)*cos(bma)*pow(m12_2+cos(alpha)*sin(alpha)*(mHh2-3.0*m12_2/(cosb*sinb))+mHl2*sin(2.0*alpha),2)/(2.0*cosb*cosb*sinb*sinb) * ddpB0mHmhmh
+        + cos(alpha)*cos(alpha)*sin(bma)*sin(bma)*pow(m12_2*cosb*sinb+0.5*sin(2.0*alpha)*(3.0*m12_2-(2.0*mHh2+mHl2)*cosb*sinb),2)/pow(cosb*sinb,4) * ddpB0mHmHmh
+        + 9.0*cos(alpha)*cos(alpha)*pow(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
+                                        +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mHmHmH
+        + (cos(alpha)*cos(alpha)*pow((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)
+                                     +2.0*(mHh2+2.0*mHp2)*cos(bma)-(3.0*mHh2+2.0*mHp2)*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta),2))/(256.0*pow(cosb*sinb,4)) * ddpB0mHmHpmHp
+        + (cos(alpha)*cos(alpha)*pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)
+                                     -2.0*(2.0*mA2+mHh2)*cos(bma)+(2.0*mA2+3.0*mHh2)*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2))/(512.0*pow(cosb*sinb,4)) * ddpB0mHmAmA
+        + 2.0*(mHl2-mHp2)*(mHl2-mHp2)*cos(bma)*cos(bma)*cosb*cosb * ddpB0mHp0mh
+        + 2.0*(mHh2-mHp2)*(mHh2-mHp2)*sin(bma)*sin(bma)*cosb*cosb * ddpB0mHp0mH
+        + 2.0*(mA2-mHp2)*(mA2-mHp2)*cosb*cosb * ddpB0mHp0mA
+        + 2.0*cosb*cosb*pow((m12_2*cos(alpha+beta))/(cosb*cosb*sinb*sinb)-(mHl2*cos(bma)*cos(2.0*beta))/(cosb*sinb)-(mHl2+2.0*mHp2)*sin(bma),2) * ddpB0mHpmHpmh
+        + 2.0*cosb*cosb*pow((mHh2+2.0*mHp2)*cos(bma)-(mHh2*cos(2.0*beta)*sin(bma))/(cosb*sinb)-(m12_2*sin(alpha+beta))/(cosb*cosb*sinb*sinb),2) * ddpB0mHpmHpmH
+        + (mA2-mHl2)*(mA2-mHl2)*cos(bma)*cos(bma)*sinb*sinb * ddpB0mA0mh
+        + (mA2-mHh2)*(mA2-mHh2)*sin(bma)*sin(bma)*sinb*sinb * ddpB0mA0mH
+        + 2.0*(mA2-mHp2)*(mA2-mHp2)*sinb*sinb * ddpB0mA0mHp
+        + pow((2.0*mA2-mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb),2)/(64.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmh
+        + pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta) 
+               + 3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta),2)/(256.0*pow(cosb,4)*sinb*sinb) * ddpB0mAmAmH;
+
+//    double WFRcomb3b = ((mHl2*mHl2*mHp2+mA2*(-2.0*mHl2*mHl2+mHl2*mHp2))*sin(2.0*bma)*sinb*cosb)/(mA2*mHp2) * B000mh
+//        + ((mHh2*mHh2*mHp2+mA2*(2.0*mHh2*mHh2-mHh2*mHp2))*sin(2.0*bma)*sinb*cosb)/(mA2*mHp2) * B000mH
+//        + ((mHp2-mHl2)*cos(bma)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
 //                                 +cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb)))/(2.0*mHp2*sinb*cosb) * B00mHpmh
-//        + ((mHp2-mHh2)*sin(bma)*((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+//        + ((mHh2-mHp2)*sin(bma)*((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
 //                                 -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta)))/(4.0*mHp2*sinb*cosb) * B00mHpmH
 //        + ((mHl2-mA2)*cos(bma)*((mHl2-2.0*mA2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
 //                                +cos(alpha+beta)*(-8.0*m12_2+(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb)))/(4.0*mA2*sinb*cosb) * B00mAmh
 //        + ((mHh2-mA2)*sin(bma)*((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta)
 //                                +3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta)))/(8.0*mA2*sinb*cosb) * B00mAmH
-//        + (3.0*mHh2*mHl2*sin(2.0*alpha)*Sin(2.0*bma))/(4.0*(mHh2-mHl2)) * B0mh00
+//        + (3.0*mHh2*mHl2*sin(2.0*alpha)*sin(2.0*bma))/(4.0*(mHh2-mHl2)) * B0mh00
 //        + ((mHl2-mHp2)*(mHp2-mHh2)*sin(2.0*alpha)*sin(2.0*bma))/(mHh2-mHl2) * B0mh0mHp
 //        - ((mA2-mHh2)*(mA2-mHl2)*sin(2.0*alpha)*sin(2.0*bma))/(2.0*(mHh2-mHl2)) * B0mh0mA
-////    B0mhmhmh
-////    B0mhmHmh
-////    B0mhmHmH
-////    B0mhmHpmHp
-////    B0mhmAmA
-////    B0mH00
-////    B0mH0mHp
-////    B0mH0mA
-////    B0mHmhmh
-////    B0mHmHmh
-////    B0mHmHmH
-////    B0mHmHpmHp
-////    B0mHmAmA
-////    B0mHp0mh
-////    B0mHp0mH
-////    B0mHpmHpmh
-////    B0mHpmHpmH
+//        + 3.0*cos(bma)*sin(2.0*alpha)*(m12_2+cos(alpha)*sin(alpha)*(mHh2-(3.0*m12_2)/(sinb*cosb))+mHl2*sin(2.0*alpha))
+//          *(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
+//            +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta))/(32.0*(mHl2-mHh2)*pow(sinb*cosb,3)) * B0mhmhmh
+//        + (sin(2.0*bma)*sin(2.0*alpha)
+//           *(4.0*m12_2*m12_2+2.0*m12_2*(mHl2-mHh2)*sin(2.0*alpha)
+//             -(2.0*mHh2*mHh2+5.0*mHh2*mHl2+2.0*mHl2*mHl2-(9.0*m12_2*(mHh2+mHl2))/(sinb*cosb)
+//               +(9.0*m12_2*m12_2)/(sinb*sinb*cosb*cosb))*sin(2.0*alpha)*sin(2.0*alpha)))/(8.0*(mHh2-mHl2)*sinb*sinb*cosb*cosb) * B0mhmHmh
+//        - 3.0*sin(2.0*alpha)*sin(bma)*(m12_2-cos(alpha)*sin(alpha)*(2.0*mHh2+mHl2-(3.0*m12_2)/(sinb*cosb)))
+//          *(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
+//            +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta))/(32.0*(mHh2-mHl2)*pow(sinb*cosb,3)) * B0mhmHmH
+//        + sin(2.0*alpha)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb))
+//          *((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+//             -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(128.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mhmHpmHp
+//        - sin(2.0*alpha)*((mHl2-2.0*mA2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(2.0*mA2+3.0*mHl2)*2.0*sinb*cosb))
+//          *((mHh2-2.0*mA2)*cos(alpha-5.0*beta)+2.0*(2.0*mA2+mHh2)*cos(bma)-2.0*mA2*cos(alpha+3.0*beta)
+//             -3.0*mHh2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(256.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mhmAmA
+//        - (3.0*mHh2*mHl2*sin(2.0*alpha)*sin(2.0*bma))/(4.0*(mHh2-mHl2)) * B0mH00
+//        + ((mHh2-mHp2)*(mHl2-mHp2)*sin(2.0*alpha)*sin(2.0*bma))/(mHh2-mHl2) * B0mH0mHp
+//        + ((mA2-mHh2)*(mA2-mHl2)*sin(2.0*alpha)*sin(2.0*bma))/(2.0*(mHh2-mHl2)) * B0mH0mA
+//        + 3.0*cos(bma)*sin(2.0*alpha)*(m12_2+cos(alpha)*sin(alpha)*(mHh2-(3.0*m12_2)/(sinb*cosb))+mHl2*sin(2.0*alpha))
+//          *(-mHl2*(3.0*sin(bma)+sin(3.0*bma)+sin(3.0*alpha+beta)+3.0*sin(alpha+3.0*beta))
+//            +16.0*m12_2*cos(bma)*cos(bma)*cos(alpha+beta))/(32.0*(mHh2-mHl2)*pow(sinb*cosb,3)) * B0mHmhmh
+//        + (sin(2.0*bma)*sin(2.0*alpha)*(-4.0*m12_2*m12_2+2.0*m12_2*(mHh2-mHl2)*sin(2.0*alpha)
+//                                        +(2.0*mHh2*mHh2+5.0*mHh2*mHl2+2.0*mHl2*mHl2
+//                                          -(9.0*m12_2*(mHh2+mHl2))/(sinb*cosb)
+//                                          +(9.0*m12_2*m12_2)/(sinb*sinb*cosb*cosb))*sin(2.0*alpha)*sin(2.0*alpha)))
+//          /(8.0*(mHh2-mHl2)*sinb*sinb*cosb*cosb) * B0mHmHmh
+//        + 3.0*sin(2.0*bma)*sin(2.0*alpha)*(m12_2-cos(alpha)*sin(alpha)*(2.0*mHh2+mHl2-(3.0*m12_2)/(sinb*cosb)))
+//          *(mHh2*(-3.0*cos(bma)+cos(3.0*bma)-cos(3.0*alpha+beta)+3.0*cos(alpha+3.0*beta))
+//            +16.0*m12_2*sin(bma)*sin(bma)*sin(alpha+beta))/(32.0*(mHh2-mHl2)*pow(sinb*cosb,3)) * B0mHmHmH
+//        - sin(2.0*alpha)*((mHl2-2.0*mHp2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mHp2)*2.0*sinb*cosb))
+//          *((mHh2-2.0*mHp2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mHp2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+//            -2.0*mHp2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(128.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mHmHpmHp
+//        - sin(2.0*alpha)*((mHl2-2.0*mA2)*cos(alpha-3.0*beta)*2.0*sinb*cosb+cos(alpha+beta)*(-8.0*m12_2+(3.0*mHl2+2.0*mA2)*2.0*sinb*cosb))
+//          *((mHh2-2.0*mA2)*cos(alpha-5.0*beta)+2.0*(mHh2+2.0*mA2)*cos(bma)-3.0*mHh2*cos(alpha+3.0*beta)
+//            -2.0*mA2*cos(alpha+3.0*beta)-16.0*m12_2*sin(alpha+beta))/(256.0*(mHh2-mHl2)*pow(cosb*sinb,4)) * B0mHmAmA
+//        -((mHl2 (mHl2 - mHp2) (-sin(2.0*bma)) 2.0*sinb*cosb)/mHp2) * B0mHp0mh
+//        + (mHh2 (mHh2 - mHp2) (-sin(2.0*bma)) 2.0*sinb*cosb)/mHp2 * B0mHp0mH
+//        + ((mHl2 - mHp2) Cos[
+//  alpha - beta] ((mHl2 - 2 mHp2) Cos[alpha - 3 beta] 2.0*sinb*cosb + 
+//   Cos[alpha + 
+//      beta] (-8 m12_2 + (3 mHl2 + 2 mHp2) 2.0*sinb*cosb)))/(2 mHp2 Cos[
+//  beta] Sin[beta]) * B0mHpmHpmh
+//        + ((mHh2 - mHp2) Sin[
+//  alpha - beta] ((mHh2 - 2 mHp2) Cos[alpha - 5 beta] + 
+//   2 (mHh2 + 2 mHp2) Cos[alpha - beta] - 3 mHh2 Cos[alpha + 3 beta] - 
+//   2 mHp2 Cos[alpha + 3 beta] - 
+//   16 m12_2 Sin[alpha + beta]))/(2 mHp2 2.0*sinb*cosb) * B0mHpmHpmH
 //        + (mHl2*(mA2-mHl2)*sin(bma)*cos(bma)*2.0*sinb*cosb)/mA2 * B0mA0mh
 //        + ((mHh2-mA2)*mHh2*sin(bma)*cos(bma)*2.0*sinb*cosb)/mA2 * B0mA0mH
 //        + ((mA2-mHl2)*cos(bma)*((-2.0*mA2+mHl2)*cos(alpha-3.0*beta)*2.0*sinb*cosb
@@ -4579,10 +4746,10 @@ void THDMcache::computeWFRcombinations()
 //        +((mA2-mHh2)*sin(bma)*((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+2.0*mA2*cos(alpha+3.0*beta)
 //                               +3.0*mHh2*cos(alpha+3.0*beta)+16.0*m12_2*sin(alpha+beta)))/(8.0*mA2*sinb*cosb) * B0mAmAmH;
 
-    double WFRcomb1a = 0.0;
-    double WFRcomb1b = 0.0;
+//    double WFRcomb1a = 0.0;
+//    double WFRcomb1b = 0.0;
     double WFRcomb2a = 0.0;
-    double WFRcomb3a = 0.0;
+//    double WFRcomb3a = 0.0;
     double WFRcomb3b = 0.0;
     double WFRcomb4a = 0.0;
 

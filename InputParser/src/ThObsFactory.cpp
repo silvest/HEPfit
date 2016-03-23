@@ -15,6 +15,7 @@
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
+#include "GeneralTHDMObservables.h"
 #include "THDMObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/lexical_cast.hpp>
@@ -568,6 +569,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitarityNLO24"] = boost::factory<unitarityNLO24*>();
     obsThFactory["unitarityNLO25"] = boost::factory<unitarityNLO25*>();
     obsThFactory["unitarityNLO26"] = boost::factory<unitarityNLO26*>();
+    /** END: REMOVE FROM THE PACKAGE **/
+
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    //-----  GeneralTHDM observables  -----
+    obsThFactory["Re_sigma_u"] = boost::factory<Re_sigma_u*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

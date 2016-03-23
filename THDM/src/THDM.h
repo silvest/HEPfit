@@ -92,6 +92,11 @@ class THDMcache; //forward reference to THDMcache class
  *   <td class="mod_valu">typeI / <b>typeII</b> / typeX / typeY</td>
  *   <td class="mod_desc">This flag determines the type of @f$Z_2@f$ symmetry.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%wavefunctionrenormalization</td>
+ *   <td class="mod_valu"><b>true</b> / false</td>
+ *   <td class="mod_desc">Whether to use wavefunction renormalization for NLO unitarity constraints.</td>
+ * </tr>
  * </table>
  *
  */
@@ -142,6 +147,7 @@ public:
     // Flags
 
     virtual bool setFlagStr(const std::string name, const std::string value);
+    virtual bool setFlag(const std::string, const bool);
 
     THDMcache* getMyTHDMCache() const
     {
@@ -170,10 +176,18 @@ public:
 
     /**
      *
-     * @return @f$\log(\tan \beta)@f$
+     * @return THDM model type
      */
     std::string getModelTypeflag() const {
         return flag_model;
+    }
+
+    /**
+     *
+     * @return THDM model type
+     */
+    bool getWFRflag() const {
+        return flag_wfr;
     }
 
     /**
@@ -347,6 +361,7 @@ private:
 
     double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM;
     std::string flag_model;
+    bool flag_wfr;
 };
 
 #endif	/* THDM_H */
