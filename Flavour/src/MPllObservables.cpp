@@ -28,7 +28,7 @@ double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton l
     double q_max = qmax;
     StandardModel::lepton lep_i = lep;
     
-    return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(0,q_min,q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(2,q_min,q_max))/(4. * SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->width);
+    return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(0,q_min,q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(2,q_min,q_max))/(4. * SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->getwidth());
 }
 
 double BR_MPll::computeThValue()
@@ -71,6 +71,6 @@ double ACP_MPll::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep)->integrateDelta(0, q_min, q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep)->integrateDelta(2, q_min, q_max))/(4.*computeBR_MPll(q_min, q_max, lep)* SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep)->width);
+    return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep)->integrateDelta(0, q_min, q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep)->integrateDelta(2, q_min, q_max))/(4.*computeBR_MPll(q_min, q_max, lep)* SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep)->getwidth());
 }
 

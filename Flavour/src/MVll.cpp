@@ -1672,7 +1672,7 @@ double MVll::getSigma(int i, double q_2)
         default:
             std::stringstream out;
             out << i;
-            throw std::runtime_error("MVll::integrateSigma: index " + out.str() + " not implemented");
+            throw std::runtime_error("MVll::getSigma: index " + out.str() + " not implemented");
     }
 }
 
@@ -1742,7 +1742,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
         default:
             std::stringstream out;
             out << i;
-            throw std::runtime_error("integrateDelta: index " + out.str() + " not implemented");
+            throw std::runtime_error("MVll::integrateDelta: index " + out.str() + " not implemented");
     }
 
     gsl_set_error_handler(old_handler);

@@ -1705,23 +1705,23 @@ private:
     void fit_DeltaC9_0_ee();
     
     /**
-    * @brief The total QCDF correction \f$ \Delta C_9^0 \f$ computed fitting over \f$ u \f$.
+    * @brief The total QCDF correction \f$ \Delta C_9^+ \f$ computed fitting over \f$ u \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^0 \f$
+    * @return \f$ \Delta C_9^+ \f$
     */
     gslpp::complex fDeltaC9_p(double q2);
     
     /**
-    * @brief The total QCDF correction \f$ \Delta C_9^+ \f$ computed fitting over \f$ u \f$.
+    * @brief The total QCDF correction \f$ \Delta C_9^- \f$ computed fitting over \f$ u \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^+ \f$
+    * @return \f$ \Delta C_9^- \f$
     */
     gslpp::complex fDeltaC9_m(double q2);
     
     /**
     * @brief The total QCDF correction \f$ \Delta C_9^0 \f$ computed fitting over \f$ u \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^+ \f$
+    * @return \f$ \Delta C_9^0 \f$
     */
     gslpp::complex fDeltaC9_0(double q2);
     
