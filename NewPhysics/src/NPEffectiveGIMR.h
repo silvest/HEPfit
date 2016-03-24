@@ -90,12 +90,6 @@
  *   \f${\cal O}_{H\Box}=\big(H^\dagger H\big)\Box\big(H^\dagger H\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CH </td>
- *   <td class="mod_symb">\f$C_{H}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{H}=\big(H^\dagger H\big)^3\f$. </td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%CHL1_kk, CHL1_klr, CHL1_kli </td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(1)})_{kk}, \mbox{Re}\big[(C_{HL}^{(1)})_{kl}\big], \mbox{Im}\big[(C_{HL}^{(1)})_{kl}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
@@ -275,12 +269,6 @@
  *   \f${\cal O}_{H\Box}=\big(H^\dagger H\big)\Box\big(H^\dagger H\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CH </td>
- *   <td class="mod_symb">\f$C_{H}\f$</td>
- *   <td class="mod_desc">The coefficient of the operator
- *   \f${\cal O}_{H}=\big(H^\dagger H\big)^3\f$. </td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%CHL1</td>
  *   <td class="mod_symb">\f$ (C_{HL}^{(1)})_{ii} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -426,7 +414,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 200;
+    static const int NNPEffectiveGIMRVars = 199;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -438,7 +426,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 104;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 103;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -993,7 +981,6 @@ protected:
     double CHWB; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
     double CHD; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
     double CHbox; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
-    double CH; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
     double CHL1_11; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{11}\f$.
     double CHL1_12r; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{12}\f$ (real part).
     double CHL1_13r; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{13}\f$ (real part).

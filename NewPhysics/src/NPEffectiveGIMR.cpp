@@ -9,7 +9,7 @@
 #include <limits>
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
-        = {"CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
+        = {"CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -52,7 +52,7 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "ettH78_Htt", "ettH78_Hgg"};
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU]
-        = {"CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
+        = {"CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL",
     "Lambda_NP",
@@ -90,7 +90,6 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHWB", boost::cref(CHWB)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHD", boost::cref(CHD)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHbox", boost::cref(CHbox)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CH", boost::cref(CH)));
     if (FlagLeptonUniversal) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1", boost::cref(CHL1_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3", boost::cref(CHL3_11)));
@@ -347,8 +346,6 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CHD = value;
     else if (name.compare("CHbox") == 0)
         CHbox = value;
-    else if (name.compare("CH") == 0)
-        CH = value;
     else if (name.compare("CHL1_11") == 0)
         CHL1_11 = value;
     else if (name.compare("CHL1_12r") == 0)

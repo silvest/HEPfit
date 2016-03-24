@@ -23,19 +23,103 @@
  * @brief A class for the @f$M \to P l^+ l^-@f$ decay.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute all the functions needed in order to 
- * compute the observables relative to the @f$M \to P l^+ l^-@f$ decay. After the
- * parameters are updated in updateParameters() and the cache is checked in 
+ * @details This class is used to compute all the functions needed in order to
+ * build the observables relative to the @f$M \to P l^+ l^-@f$ decays, where
+ * @f$M@f$ is a generic meson and @f$P@f$ is a pseudoscalar meson. This kind of decays can be described
+ * by means of the @f$\Delta B = 1 @f$ weak effective Hamiltonian
+ * @f[
+ *   \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} +
+ *   \mathcal{H}_\mathrm{eff}^\mathrm{sl+\gamma},
+ * @f]
+ * where the first term is the hadronic contribution
+ * @f[
+ * \mathcal{H}_\mathrm{eff}^\mathrm{had} = \frac{4G_F}{\sqrt{2}}\Bigg[\sum_{p=u,c}\lambda_p\bigg(C_1 Q^{p}_1
+ * + C_2 Q^{p}_2\bigg) -\lambda_t \bigg(\sum_{i=3}^{6} C_i P_i + C_{8}Q_{8g} \bigg)\Bigg] \,,
+ * @f]
+ * involving current-current, chromodynamic penguin and chromomagnetic dipole operators, while the second one, given by
+ * @f[
+ * \mathcal{H}_\mathrm{eff}^\mathrm{sl+\gamma} = - \frac{4G_F}{\sqrt{2}}\lambda_t
+ * \bigg( C_7Q_{7\gamma} + C_9Q_{9V} + C_{10}Q_{10A} \bigg) \,,
+ * @f]
+ * includes the electromagnetic penguin plus the semileptonic operators.
+ *
+ * Considering the matrix element of @f$\mathcal{H}_\mathrm{eff}^{\Delta B = 1}@f$
+ * between the initial state @f$M@f$ and the final state @f$P l^+ l^-@f$, only the contribution of
+ * @f$\mathcal{H}_\mathrm{eff}^\mathrm{sl+\gamma}@f$ clearly factorizes into the
+ * product of hadronic form factors and leptonic tensors at all orders in strong interactions.
+ * Following @cite Jager:2012uw, we implemented the amplitude in the helicity basis;
+ * hence we made use of the helicity form factors @f$ \tilde{V}_0(q^2),
+ * \tilde{T}_0(q^2)@f$ and @f$\tilde{S}(q^2) @f$, which are related to the
+ * ones in the transverse basis through the following relations :
+ * @f[
+ * \tilde{V}_0(q^2) = i \frac{\sqrt{\lambda(q^2)}}{2m_M\sqrt{q^2}}f_+(q^2)\,,\\
+ * \tilde{T}_0(q^2) = i \frac{\sqrt{\lambda(q^2)q^2}}{2m_M^2(m_M+m_P)}f_T(q^2)\,,\\
+ * \tilde{S}(q^2) = -\frac{m_M^2-m_P^2}{2m_M(m_b+m_s)}\frac{1+m_s/m_b}{1-m_s/m_b}f_0(q^2)\,,
+ * @f]
+ * where @f$\lambda(q^2) = 4m_M^2|\vec{k}|^2@f$, with @f$\vec{k}@f$ as the 3-momentum
+ * of the meson @f$P@f$ in the @f$M@f$ rest frame.
+ *
+ * The effect of the operators of @f$\mathcal{H}_\mathrm{eff}^\mathrm{had}@f$ due to
+ * exchange of soft gluon can be reabsorbed in the following parameterization,
+ * @f[
+ * h_0(q^2) = \frac{\epsilon^*_\mu(\lambda)}{m_M^2}
+ * \int d^4x e^{iqx} \langle \bar P \vert T\{j^{\mu}_\mathrm{em} (x)
+ * \mathcal{H}_\mathrm{eff}^\mathrm{had} (0)\} \vert \bar M \rangle =
+ * h_0^{(0)} + \frac{q^2}{1\,\mathrm{GeV}^2} h_0^{(1)}\,.
+ * @f]
+ *
+ * The amplitude can be therefore parametrized in terms of the following helicity amplitudes:
+ * @f[
+ * H_V = -i\, N \Big\{C_{9} \tilde{V}_{L,0} +C_{9}'  \tilde{V}_{R,0}
+ * + \frac{m_M^2}{q^2} \Big[\frac{2\, m_b}{m_M} (C_{7} \tilde{T}_{L,0} +  C_{7}'  \tilde{T}_{R,0})
+ - 16 \pi^2 h_0 \Big] \Big\} \,,  \\
+ * H_A = -i\, N (C_{10}  \tilde{V}_{L,0} + C_{10}'\tilde{V}_{R,0}) \,, \\
+ * H_S = i\, N \frac{ m_b}{m_W} (C_S \tilde{S}_L + C_S' \tilde{S}_R)\,, \\
+ * H_P = i\, N \Big\{ \frac{ m_b}{m_W} (C_P \tilde{S}_L + C_P' \tilde{S}_R)
+ * + \frac{2\,m_\ell m_b}{q^2} \left[C_{10} \Big(\tilde{S}_L - \frac{m_s}{m_b} \tilde{S}_R \Big)
+ * + C_{10}' \Big(\tilde{S}_R - \frac{m_s}{m_b} \tilde{S}_L\Big) \right] \Big\} \,,
+ * @f]
+ * where @f$ N = - \frac{4 G_F m_M}{\sqrt{2}}\frac{e^2}{16\pi^2}\lambda_t@f$ and we have defined
+ * @f[
+ * \tilde{V}_{L,0}(q^2) = -\tilde{V}_{R,0}(q^2)=\tilde{V}_0(q^2)\,,\\
+ * \tilde{T}_{L,0}(q^2) = -\tilde{T}_{R,0}(q^2)=\tilde{V}_0(q^2)\,,\\
+ * \tilde{S}_L(q^2) = -\tilde{S}_R(q^2)=\tilde{S}(q^2)\,.
+ * @f]
+ * Squaring the amplitude and summing over the spins it is possible to obtain
+ * the fully differential decay rate, which is
+ * @f[
+ * \frac{d^{(4)} \Gamma}{dq^2\,d(\cos\theta_l)} = \frac{9}{32\,\pi}
+ * \Big( I^c_1 +I^c_2\cos2\theta_l + I_6^c \cos\theta_l \Big)
+ * @f]
+ * The angular coefficients involved in the differential decay rate are related to the
+ * helicity amplitudes according to the following relations:
+ * @f[
+ * I_1^c = F \left\{ \frac{1}{2}\left(|H_V^0|^2+|H_A^0|^2\right)+
+ * |H_P|^2+\frac{2m_\ell^2}{q^2}\left(|H_V^0|^2-|H_A^0|^2\right) + \beta^2 |H_S|^2 \right\}\,,\\
+ * I_2^c = -F\, \frac{\beta^2}{2}\left(|H_V^0|^2+|H_A^0|^2\right)\,,\\
+ * I_6^c = 2 F \frac{\beta\, m_\ell}{\sqrt{q^2}} {\rm Re} \left[ H_S^* H_V^0 \right]\,,\\
+ * @f]
+ * where
+ * @f[
+ * F=\frac{ \lambda^{1/2}\beta\, q^2}{3 \times 2^{5} \,\pi^3\, m_M^3}\,,
+ * \qquad \beta = \sqrt{1 - \frac{4 m_\ell^2}{q^2} }\,.
+ * @f]
+ * The final observables are hence build employing CP-averages @f$\Sigma_i@f$ or CP-asymmetries @f$\Delta_i@f$ of
+ * such angular coefficients; however, since on the experimental side the observables
+ * are averaged over @f$ q^2 @f$ bins, an integration of the coeffiecients over such
+ * bins has to be performed before they are combined in order to build the observables.
+ *
+ * The class is organized as follows: after the parameters are updated in
+ * updateParameters() and the cache is checked in
  * checkCache(), the form factor are build in the transverse basis in the functions
- * f_plus(), f_0() and f_T() @cite Ball:2004ye. Following @cite Jager:2012uw, 
- * they are consequentely translated in the helicity basis through the
+ * f_plus(), f_0() and f_T() @cite Ball:2004ye. They are consequentely translated in the helicity basis through the
  * functions V_L(), V_R(), T_L(), T_R(), S_L() and S_R(). Form factors and parameters
  * are combined together in the functions H_V(), H_A(), H_S() and H_P() in order
  * to build the helicity amplitudes, which are consequentely combined to create
  * the angular coefficients in the function I(). Those coefficients are used to
  * create the CP averaged coefficients in the function Sigma() ad the CP asymmetric
  * coefficients in the function Delta(). Form factors, CP averaged and asymmetric
- * coefficients and hadronic contributions are integrated in the functions 
+ * coefficients and hadronic contributions are integrated in the functions
  * integrateSigma() and integrateDelta() in order to be further used to build the observables.
  */
 class MPll{
