@@ -59,7 +59,7 @@ public:
                   const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
                   const std::string& JobTag_i,
-                  const bool noMC_i);
+                  const bool noMC_i = true);
     
     /**
      * @brief The default destructor.
