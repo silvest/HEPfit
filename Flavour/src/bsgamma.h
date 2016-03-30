@@ -1599,8 +1599,8 @@ private:
     
     int obs; /**<observable type*/
     
-    double BR; /**<BR of the decay */
-    double BR_CPodd; /**<BR of the decay */
+//    double BR; /**<BR of the decay */
+//    double BR_CPodd; /**<BR of the decay */
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */

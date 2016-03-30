@@ -73,6 +73,8 @@ T_cache(5, 0.)
     w_sigma = gsl_integration_cquad_workspace_alloc (100);   
     w_DTPPR = gsl_integration_cquad_workspace_alloc (100);
     w_delta = gsl_integration_cquad_workspace_alloc (100);
+    
+    h_pole = true;
 
 }
 
@@ -1374,19 +1376,28 @@ gslpp::complex MVll::Y(double q2)
     return -half * H_0(q2) * H_0_WC + H_c(q2,mu_b2) * H_c_WC - half * H_b(q2) * H_b_WC;
 }
 
+gslpp::complex MVll::h_lambda(int hel, double q2) 
+{
+    if(hel >=0 && hel < 3)
+        if (h_pole == true) return (h_0[hel]+(1.-h_2[hel])*q2*(h_1[hel]-h_0[hel])/(q2-h_2[hel]));
+        else return (h_0[hel] + h_1[hel] * q2 + h_2[hel] * q2 * q2);
+    else
+        throw std::runtime_error("MVll::h: helicity index "+ boost::lexical_cast<std::string>(hel) + " out of range");
+}
+
 gslpp::complex MVll::H_V_0(double q2) 
 {
-    return -(((C_9 + fDeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * (h_0[0] + h_1[0] * q2 + h_2[0] * q2 * q2)));
+    return -(((C_9 + fDeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
 }
 
 gslpp::complex MVll::H_V_p(double q2) 
 {
-    return -(((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2)));
+    return -(((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2) 
 {
-    return -(((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * (h_0[2] + h_1[2] * q2 + h_2[2] * q2 * q2)));
+    return -(((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2) 

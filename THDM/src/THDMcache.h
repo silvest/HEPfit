@@ -1195,6 +1195,7 @@ private:
     lambda4 * mylambda4;
     lambda5 * mylambda5;
 
+    double Q_THDM;
     double bma;
     double tanb;
     double m12_2;
@@ -1218,6 +1219,7 @@ private:
     double Me;
     double MZ;
     std::string modelflag;
+    bool WFRflag;
 
     ////////////////////////////////////////////////////////////////////////////
     //Caches

@@ -357,6 +357,14 @@ public:
     };
     
     /**
+     * @brief The non-pertubative ccbar contributions to the helicity amplitudes
+     * @param hel helicity
+     * @param q2 \f$q^2\f$
+     * @return \f$h_{hel}(q^2)\f$
+     */
+    gslpp::complex h_lambda(int hel, double q2);
+    
+    /**
     * @brief The helicity amplitude \f$ H_V^0 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_V^0 \f$
@@ -420,7 +428,7 @@ public:
     double getgtilde_1_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_lambda(2,q2)-h_lambda(1,q2))).real()/q2;
     }
     
     /**
@@ -431,7 +439,7 @@ public:
     double getgtilde_1_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 - (h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
+        return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_lambda(2,q2)-h_lambda(1,q2))).imag()/q2;
     }
     
     double getQCDf_1(double q2)
@@ -460,7 +468,7 @@ public:
     double getgtilde_2_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_lambda(1,q2)+h_lambda(2,q2))).real()/q2;
     }
     
     /**
@@ -471,7 +479,7 @@ public:
     double getgtilde_2_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_0[2]/q2 + h_1[2] + h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
+        return C2_inv * (gtilde_2_pre/A_1(q2) * (h_lambda(1,q2)+h_lambda(2,q2))).imag()/q2;
     }
     
     /**
@@ -482,9 +490,8 @@ public:
     double getgtilde_3_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + 
-                h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + 
-                h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).real();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_lambda(0,q2)-
+                (MM2mMV2 - q2)/(4.*MV) * (h_lambda(1,q2)+h_lambda(2,q2))/q2)).real();
     }
 
     /**
@@ -495,9 +502,8 @@ public:
     double getgtilde_3_im(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*(h_0[0]/q2 + 
-                h_1[0] + h_2[0] * q2)-(MM2mMV2 - q2)/(4.*MV) * (h_0[2]/q2 + h_1[2] + 
-                h_2[2] * q2 + h_0[1]/q2 + h_1[1] + h_2[1] * q2))).imag();
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_lambda(0,q2)/q2-
+                (MM2mMV2 - q2)/(4.*MV) * (h_lambda(1,q2)+h_lambda(2,q2))/q2)).imag();
     }
     
     /**
@@ -507,7 +513,7 @@ public:
     */
     double geth_0_re(double q2)
     {
-        return (sixteenM_PI2MM2 * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).real();
+        return (sixteenM_PI2MM2 * h_lambda(0,q2)/q2).real();
     }
     
     /**
@@ -517,7 +523,7 @@ public:
     */
     double geth_0_im(double q2)
     {
-        return (sixteenM_PI2MM2 * (h_0[0]/q2 + h_1[0] + h_2[0] * q2)).imag();
+        return (sixteenM_PI2MM2 * h_lambda(0,q2)/q2).imag();
     }
     
     /**
@@ -527,7 +533,7 @@ public:
     */
     double geth_p_re(double q2)
     {
-        return (sixteenM_PI2MM2 * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).real();
+        return (sixteenM_PI2MM2 * h_lambda(1,q2)/q2).real();
     }
     
     /**
@@ -537,7 +543,7 @@ public:
     */
     double geth_p_im(double q2)
     {
-        return (sixteenM_PI2MM2 * (h_0[1]/q2 + h_1[1] + h_2[1] * q2)).imag();
+        return (sixteenM_PI2MM2 * h_lambda(1,q2)/q2).imag();
     }
     
     /**
@@ -547,7 +553,7 @@ public:
     */
     double geth_m_re(double q2)
     {
-        return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).real();
+        return (sixteenM_PI2MM2 * h_lambda(2,q2)/q2).real();
     }
 
     /**
@@ -557,7 +563,7 @@ public:
     */
     double geth_m_im(double q2)
     {
-        return (sixteenM_PI2MM2 * (h_0[2]/q2 + h_1[2] + h_2[2] * q2)).imag();
+        return (sixteenM_PI2MM2 *  h_lambda(2,q2)/q2).imag();
     }
 
     /**
@@ -668,6 +674,8 @@ private:
     double deltaT_1par;/**< Cache variable */
     double deltaT_1perp;/**< Cache variable */
     double Ee;/**< Cache variable */
+    
+    bool h_pole;
     
     gslpp::complex ubar;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     gslpp::complex arg1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
