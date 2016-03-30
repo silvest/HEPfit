@@ -231,7 +231,7 @@ private:
     gslpp::complex lambda_t;     /**<Vckm factor */
     gslpp::complex h_0;          /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_0_1;        /**<parameter that contains the contribution from the hadronic hamiltonian */
-    double q2;            /**<\f$q^2\f$ of the decay */
+//    double q2;            /**<\f$q^2\f$ of the decay */
     
     /*LCSR fit parameters*/
     double r_1_fplus;/**<LCSR fit parameter */
