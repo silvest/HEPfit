@@ -9,5 +9,5 @@
  
 double  DmBd::computeThValue() 
 {
-    return(2. * AmpBd(FULLNLO).abs());
+    return(2. * SM.getCBd() * AmpBd(FULLNLO).abs());
 }

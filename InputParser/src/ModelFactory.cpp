@@ -30,6 +30,7 @@
 #include "GeneralTHDM.h"
 #include "THDM.h"
 #include "FlavourWilsonCoefficient.h"
+#include "NPDF2.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
 
@@ -69,6 +70,7 @@ ModelFactory::ModelFactory()
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
+    modelFactory["NPDF2"] = boost::factory<NPDF2*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

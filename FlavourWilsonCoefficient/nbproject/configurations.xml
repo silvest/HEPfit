@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/FlavourWilsonCoefficient.h</itemPath>
       <itemPath>src/FlavourWilsonCoefficientMatching.h</itemPath>
+      <itemPath>src/NPDF2.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,6 +17,7 @@
                    projectFiles="true">
       <itemPath>src/FlavourWilsonCoefficient.cpp</itemPath>
       <itemPath>src/FlavourWilsonCoefficientMatching.cpp</itemPath>
+      <itemPath>src/NPDF2.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -63,6 +65,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/NPDF2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPDF2.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
@@ -97,6 +103,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/NPDF2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPDF2.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="3">
@@ -140,6 +150,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/NPDF2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPDF2.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -9,5 +9,5 @@
 
 double SJPsiK::computeThValue() 
 {
-    return sin(-AmpBd(FULLNLO).arg());
+    return sin(-AmpBd(FULLNLO).arg() + SM.getPhiBd());
 }

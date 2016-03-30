@@ -12,6 +12,6 @@ double EpsilonK::computeThValue()
 #if SUSYFIT_DEBUG & 2
     std::cout << "amplitude = " <<  AmpDK(FULLNLO).imag() << std::endl;
 #endif
-    return(1. / SM.getDeltaMK() * AmpDK(FULLNLO).imag() * SM.getKbarEpsK() * 
+    return(SM.getCepsK() / SM.getDeltaMK() * AmpDK(FULLNLO).imag() * SM.getKbarEpsK() * 
             sin(SM.getphiEpsK() * M_PI / 180.));
 }

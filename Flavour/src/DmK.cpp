@@ -9,5 +9,5 @@
 
 double DmK::computeThValue() 
 {
-    return(2.*AmpMK(FULLNLO).real() + SM.getDmk());
+    return(SM.getCDMK()* (2.*AmpMK(FULLNLO).real() + SM.getDmk()));
 }
