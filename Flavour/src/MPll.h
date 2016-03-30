@@ -8,14 +8,18 @@
 #ifndef MPLL_H
 #define	MPLL_H
 
-#include <math.h>
 #include <StandardModel.h>
 #include <ThObservable.h>
+#include <math.h>
+#include <gsl/gsl_math.h>
 #include <gsl/gsl_integration.h>
 #include <assert.h>
+#include <gsl/gsl_monte_plain.h>
+#include <TF1.h>
+#include <TGraph.h>
+#include <TFitResultPtr.h>
 
-
-#define CUTOFF 10    //cutoff between LCSR and lattice values for Form Factors, in GeV^2
+#define SWITCH 8.2
 
 /**
  * @class MPll
@@ -139,14 +143,78 @@ public:
     virtual ~MPll();
     
     /**
-     * @brief The update parameter method for MPll.
-     */
-    void updateParameters();
+    * @brief The helicity amplitude \f$ H_V^{\lambda} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_V^{\lambda} \f$
+    */
+    gslpp::complex H_V(double q2);
+
+
+    /**
+    * @brief The helicity amplitude \f$ H_A^{\lambda} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_A^{\lambda} \f$
+    */
+    gslpp::complex H_A(double q2);
+
+
+    /**
+    * @brief The helicity amplitude \f$ H_S^{\lambda} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_S^{\lambda} \f$
+    */
+    gslpp::complex H_S(double q2);
+
+
+    /**
+    * @brief The helicity amplitude \f$ H_P^{\lambda} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ H_P^{\lambda} \f$
+    */
+    gslpp::complex H_P(double q2);
+    
     
     /**
-     * @brief The caching method for MPll.
-     */
-    void checkCache();
+    * @brief The integral of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
+    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return \f$ <\Sigma_{i}> \f$ 
+    */
+    double integrateSigma(int i, double q_min, double q_max);
+    
+    /**
+    * @brief The value of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
+    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
+    * @param[in] \f$ q^2 \f$ value of the function
+    * @return \f$ <\Sigma_{i}> \f$ 
+    */
+    double getSigma(int i, double q_2);
+    
+    /**
+    * @brief The integral of \f$ \Delta_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
+    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return \f$ <\Delta_{i}> \f$ 
+    */
+    double integrateDelta(int i, double q_min, double q_max);
+    
+    /**
+    * @brief The width of the meson M
+    * @return \f$ \Gamma_M \f$ 
+    */
+    double getwidth(){
+        updateParameters();
+        return width;
+    }
+    
+
+private:
+    const StandardModel& mySM;/**< Model type */
+    StandardModel::lepton lep;/**< Final leptons type */
+    StandardModel::meson meson;/**< Initial meson type */
+    StandardModel::meson pseudoscalar;/**< Final pseudoscalar meson type */
     
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */
@@ -155,12 +223,12 @@ public:
     double MP;            /**<final pseudoscalar meson mass */
     double Mb;            /**<b quark mass */
     double mu_b;          /**<b mass scale */
+    double mu_h;          /**<\f$\sqrt{\mu_b*\lambda_{QCD}}\f$ */
     double Mc;            /**<c quark mass */
     double Ms;            /**<s quark mass */
     double width;         /**<initial meson width */
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
-    double b;             /**<BF of the decay V -> final states */
     gslpp::complex h_0;          /**<parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_0_1;        /**<parameter that contains the contribution from the hadronic hamiltonian */
     double q2;            /**<\f$q^2\f$ of the decay */
@@ -177,15 +245,22 @@ public:
     
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
+    gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients */
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_1L_bar;/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_1Lh_bar;/**<Wilson coeffients @f$C_1@f$*/
     gslpp::complex C_2;/**<Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C_2L_bar;/**<Leading order Wilson coeffients @f$C_2@f$*/
+    gslpp::complex C_2Lh_bar;/**<Leading order Wilson coeffients @f$C_2@f$ at scale @f$\mu_h@f$*/
     gslpp::complex C_3;/**<Wilson coeffients @f$C_3@f$*/
     gslpp::complex C_4;/**<Wilson coeffients @f$C_4@f$*/
     gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C_8L;/**<Leading order Wilson coeffients @f$C_8@f$*/
+    gslpp::complex C_8Lh;/**<Leading order Wilson coeffients @f$C_8@f$ at scale @f$\mu_h@f$*/
     gslpp::complex C_9;/**<Wilson coeffients @f$C_9@f$*/
     gslpp::complex C_10;/**<Wilson coeffients @f$C_{10}@f$*/
     gslpp::complex C_S;/**<Wilson coeffients @f$C_S@f$*/
@@ -197,281 +272,104 @@ public:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
-    /**
-    * @brief The second fit function from arXiv:hep-ph/0412079v1,\f$ f_2^{LCSR} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] r_1 fit parameter
-    * @param[in] r_2 fit parameter
-    * @param[in] m_fit2 fit parameter
-    * @return \f$ f_2^{LCSR} \f$
-    */
-    double LCSR_fit1(double q2, double r_1, double r_2, double m_fit2);
     
+    std::vector<double> ReDeltaC9;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> ImDeltaC9;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
+    std::vector<double> myq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr refres;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+    TFitResultPtr imfres;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
+        
+    TGraph gr1;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
+    TGraph gr2;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
     
-    /**
-    * @brief The third fit function from arXiv:hep-ph/0412079v1, \f$ f_3^{LCSR} \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] r_2 fit parameter
-    * @param[in] m_fit2 fit parameter
-    * @return \f$ f_3^{LCSR} \f$
-    */
-    double LCSR_fit2(double q2, double r_2, double m_fit2);
+    TF1 reffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
+    TF1 imffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
     
+    double tmpq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
-    /**
-    * @brief The form factor \f$ f_+ \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ f_+ \f$
-    */
-    double f_plus(double q2);
+    gslpp::complex H_0_pre;/**< Cache variable */
+    gslpp::complex H_0_WC;/**< Cache variable */
+    gslpp::complex H_c_WC;/**< Cache variable */
+    gslpp::complex H_b_WC;/**< Cache variable */
     
+    gslpp::complex ihalfMPI;/**< Cache variable */
+    double fournineth;/**< Cache variable */
+    double half;/**< Cache variable */
+    double twothird;/**< Cache variable */
+    double Mc2;/**< Cache variable */
+    double Mb2;/**< Cache variable */
+    double logMc;/**< Cache variable */
+    double logMb;/**< Cache variable */
+    double mu_b2;/**< Cache variable */
+    double fourMc2;/**< Cache variable */
+    double fourMb2;/**< Cache variable */
+    double Mlep2;/**< Cache variable */
+    double NN;/**< Cache variable */
+    double MM2;/**< Cache variable */
+    double MM4;/**< Cache variable */
+    double MP2;/**< Cache variable */
+    double MP4;/**< Cache variable */
+    double MM2mMP2;/**< Cache variable */
+    double twoMP2;/**< Cache variable */
+    double twoMM;/**< Cache variable */
+    double twoMM2;/**< Cache variable */
+    double twoMM2_MMpMP;/**< Cache variable */
+    double twoMM_MbpMs;/**< Cache variable */
+    double S_L_pre;/**< Cache variable */
+    double fourMM2;/**< Cache variable */
+    double twoMboMM;/**< Cache variable */
+    double sixteenM_PI2;/**< Cache variable */
+    double ninetysixM_PI3MM3;/**< Cache variable */
+    double MboMW;/**< Cache variable */
+    double MboMM;/**< Cache variable */
+    double MsoMb;/**< Cache variable */
+    double twoMlepMb;/**< Cache variable */
+    double DC9pre;/**< Cache variable */
+    double threeGegen0;/**< Cache variable */
+    double threeGegen1otwo;/**< Cache variable */
+    double M_PI2osix;/**< Cache variable */
+    double twoMc2;/**< Cache variable */
+    double sixMMoMb;/**< Cache variable */
+    double CF;/**< Cache variable */
+    double deltaT_0;/**< Cache variable */
+    double deltaT_1par;/**< Cache variable */
     
-    /**
-    * @brief The form factor \f$ f_T \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ f_T \f$
-    */
-    double f_T(double q2);
-    
-    
-    /**
-    * @brief The form factor \f$ f_0 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ f_0 \f$
-    */
-    double f_0(double q2);
-    
-    /**
-    * @brief The helicity form factor \f$ V_L^0 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_L^{\lambda} \f$
-    */
-    gslpp::complex V_L(double q2);
-
-    
-    /**
-    * @brief The helicity form factor \f$ V_R^0 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ V_R^{\lambda} \f$
-    */
-    gslpp::complex V_R(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ T_L^0 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_L^{\lambda} \f$
-    */
-    gslpp::complex T_L(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ T_R^0 \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T_R^{\lambda} \f$
-    */
-    gslpp::complex T_R(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ S_L \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ S_L \f$
-    */
-    double S_L(double q2);
-
-
-    /**
-    * @brief The helicity form factor \f$ S_R \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ S_R \f$
-    */
-    double S_R(double q2);
-
-
-    /**
-    * @brief The helicity amplitudes normalization factor \f$ N \f$ .
-    * @return \f$ N \f$
-    */
-    gslpp::complex N();
-    
-    
-    /**
-    * @brief The \f$ h(q^2,m) \f$ function involved into \f$ C_9^{eff}\f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] m mass
-    * @return \f$ h(q^2,m) \f$
-    */
-    gslpp::complex H(double q2, double m);
-    
-    
-    /**
-    * @brief The \f$ Y(q^2) \f$ function involved into \f$ C_9^{eff}\f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ Y(q^2) \f$
-    */
-    gslpp::complex Y(double q2);
-    
-    
-    /**
-    * @brief The helicity amplitude \f$ H_V^{\lambda} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_V^{\lambda} \f$
-    */
-    gslpp::complex H_V(double q2, int bar);
-
-
-    /**
-    * @brief The helicity amplitude \f$ H_A^{\lambda} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_A^{\lambda} \f$
-    */
-    gslpp::complex H_A(double q2, int bar);
-
-
-    /**
-    * @brief The helicity amplitude \f$ H_S^{\lambda} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_S^{\lambda} \f$
-    */
-    gslpp::complex H_S(double q2, int bar);
-
-
-    /**
-    * @brief The helicity amplitude \f$ H_P^{\lambda} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ H_P^{\lambda} \f$
-    */
-    gslpp::complex H_P(double q2, int bar);
-    
-    
-    /**
-    * @brief The square of the 3-momentum of the recoiling meson in the M rest frame, \f$ k^2 \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ k^2 \f$ 
-    */
-    double k2 (double q2);
-    
-    
-    /**
-    * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \beta \f$
-    */
-    double beta (double q2);
-    
-    
-    /**
-    * @brief The factor \f$ \lambda \f$ used in the angular coefficients \f$I_i\f$. 
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \lambda \f$
-    */
-    double lambda(double q2);
-
-    
-    /**
-    * @brief The factor \f$ F \f$ used in the angular coefficients \f$I_i\f$. 
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ F \f$
-    */
-    double F(double q2);
-    
-    
-    /**
-    * @brief The angular coefficient \f$ I_{i} \f$ .
-    * @param[in] i index of the angular coefficient: 0 for 1c, 2 for 2c, 8 for 6c
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @return \f$ I_{i} \f$
-    */
-    double  I(int i, double q2, int bar);
-    
-    
-    /**
-    * @brief The CP average \f$ \Sigma_{i} \f$ .
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Sigma_{i} \f$
-    */
-    double Sigma(int i, double q2);
-    
-    
-    /**
-    * @brief The CP asymmetry \f$ \Delta_{i} \f$ .
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta_{i} \f$
-    */
-    double Delta(int i, double q2);
-    
-    /**
-    * @brief The CP average \f$ \Sigma_{1s} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Sigma_{1s} \f$
-    */
-    double getSigma0(double q2)
-    {
-        return Sigma(0, q2);
-    };
-    
-    /**
-    * @brief The CP average \f$ \Sigma_{2s} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Sigma_{2s} \f$
-    */
-    double getSigma2(double q2)
-    {
-        return Sigma(2, q2);
-    };
-    
-    /**
-    * @brief The CP asymmetry \f$ \Delta_{1s} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta_{1s} \f$
-    */
-    double getDelta0(double q2)
-    {
-        return Delta(0, q2);
-    };
-    
-    /**
-    * @brief The CP asymmetry \f$ \Delta_{2s} \f$ .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta_{2s} \f$
-    */
-    double getDelta2(double q2)
-    {
-        return Delta(2, q2);
-    };
-    
-    /**
-    * @brief The integral of \f$ \Sigma_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return \f$ <\Sigma_{i}> \f$ 
-    */
-    double integrateSigma(int i, double q_min, double q_max);
-    
-    /**
-    * @brief The integral of \f$ \Delta_{i} \f$ from \f$q_{min}\f$ to \f$q_{max}\f$
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return \f$ <\Delta_{i}> \f$ 
-    */
-    double integrateDelta(int i, double q_min, double q_max);
-    
-
-private:
-    const StandardModel& mySM;/**< Model type */
-    StandardModel::lepton lep;/**< Final leptons type */
-    StandardModel::meson meson;/**< Initial meson type */
-    StandardModel::meson pseudoscalar;/**< Final pseudoscalar meson type */
+    gslpp::complex ubar;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex arg1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex B01;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex B00;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex xp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex xm;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex yp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex ym;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1xp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1xm;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1yp;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex L1ym;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F87_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F29_L1_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_L1_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_L1_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    gslpp::complex F27_L1_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double F89_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double Ee;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
     unsigned int fplus_updated;/**< Cache variable */
     gslpp::vector<double> fplus_cache;/**< Cache variable */
@@ -489,22 +387,15 @@ private:
     double beta_cache;/**< Cache variable */
     
     unsigned int lambda_updated;/**< Cache variable */
-    double lambda_cache;/**< Cache variable */
     
     unsigned int F_updated;/**< Cache variable */
     
     unsigned int VL_updated;/**< Cache variable */
     
-    unsigned int VR_updated;/**< Cache variable */
-    
     unsigned int TL_updated;/**< Cache variable */
-    
-    unsigned int TR_updated;/**< Cache variable */
     
     unsigned int SL_updated;/**< Cache variable */
     gslpp::vector<double> SL_cache;/**< Cache variable */
-    
-    unsigned int SR_updated;/**< Cache variable */
     
     unsigned int N_updated;/**< Cache variable */
     gslpp::vector<double> N_cache;/**< Cache variable */
@@ -558,6 +449,12 @@ private:
     unsigned int C_Pp_updated;/**< Cache variable */
     gslpp::complex C_Pp_cache;/**< Cache variable */
     
+    unsigned int C_2Lh_updated;/**< Cache variable */
+    gslpp::complex C_2Lh_cache;/**< Cache variable */
+    
+    unsigned int C_8Lh_updated;/**< Cache variable */
+    gslpp::complex C_8Lh_cache;/**< Cache variable */
+    
     unsigned int Yupdated;/**< Cache variable */
     gslpp::vector<double> Ycache;/**< Cache variable */
     
@@ -577,41 +474,431 @@ private:
     unsigned int I2_updated;/**< Cache variable */
     unsigned int I8_updated;/**< Cache variable */
     
+    std::map<std::pair<double, double>, unsigned int > I1Cached;/**< Cache variable */
+    
     std::map<std::pair<double, double>, unsigned int > sigma0Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > sigma2Cached;/**< Cache variable */
     
     std::map<std::pair<double, double>, unsigned int > delta0Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta2Cached;/**< Cache variable */
     
-    double avaSigma0;/**< Gsl integral variable */
-    double avaSigma2;/**< Gsl integral variable */
+    double avaSigma;/**< Gsl integral variable */
+    double avaDelta;/**< Gsl integral variable */
+    double avaDTPPR;/**< Gsl integral variable */ 
     
-    double errSigma0;/**< Gsl integral variable */
-    double errSigma2;/**< Gsl integral variable */
+    double errSigma;/**< Gsl integral variable */
+    double errDelta;/**< Gsl integral variable */
+    double errDTPPR;/**< Gsl integral variable */
     
-    double avaDelta0;/**< Gsl integral variable */
-    double avaDelta2;/**< Gsl integral variable */
+    gsl_function FS;/**< Gsl integral variable */
+    gsl_function FD;/**< Gsl integral variable */
+    gsl_function DTPPR;/**< Gsl integral variable */
     
-    double errDelta0;/**< Gsl integral variable */
-    double errDelta2;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_sigma;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_delta;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_DTPPR;/**< Gsl integral variable */
     
-    gsl_function FS0;/**< Gsl integral variable */
-    gsl_function FS2;/**< Gsl integral variable */
+    gsl_error_handler_t * old_handler; /**< GSL error handler store */
     
-    gsl_function FD0;/**< Gsl integral variable */
-    gsl_function FD2;/**< Gsl integral variable */
-    
-    gsl_integration_workspace * w_sigma0;/**< Gsl integral variable */
-    gsl_integration_workspace * w_sigma2;/**< Gsl integral variable */
-    
-    gsl_integration_workspace * w_delta0;/**< Gsl integral variable */
-    gsl_integration_workspace * w_delta2;/**< Gsl integral variable */
+    std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
     
     std::map<std::pair<double, double>, double > cacheSigma0;/**< Gsl integral variable */
     std::map<std::pair<double, double>, double > cacheSigma2;/**< Gsl integral variable */
     
     std::map<std::pair<double, double>, double > cacheDelta0;/**< Gsl integral variable */
     std::map<std::pair<double, double>, double > cacheDelta2;/**< Gsl integral variable */
+    
+    std::map<double, unsigned int> deltaTparpCached;/**< Cache variable */
+    std::map<double, unsigned int> deltaTparmCached;/**< Cache variable */
+    
+    std::map<double, gslpp::complex> cacheDeltaTparp;/**< Cache variable */
+    std::map<double, gslpp::complex> cacheDeltaTparm;/**< Cache variable */
+    
+    unsigned int deltaTparpupdated;/**< Cache variable */
+    unsigned int deltaTparmupdated;/**< Cache variable */
+    
+    unsigned int T_updated;/**< Cache variable */
+    gslpp::vector<double> T_cache;/**< Cache variable */
+    
+    
+    
+    /**
+     * @brief The update parameter method for MPll.
+     */
+    void updateParameters();
+    
+    /**
+     * @brief The caching method for MPll.
+     */
+    void checkCache();
+    
+    /**
+    * @brief The second fit function from arXiv:hep-ph/0412079v1,\f$ f_2^{LCSR} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] r_1 fit parameter
+    * @param[in] r_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_2^{LCSR} \f$
+    */
+    double LCSR_fit1(double q2, double r_1, double r_2, double m_fit2);
+    
+    
+    /**
+    * @brief The third fit function from arXiv:hep-ph/0412079v1, \f$ f_3^{LCSR} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] r_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_3^{LCSR} \f$
+    */
+    double LCSR_fit2(double q2, double r_2, double m_fit2);
+    
+    
+    /**
+    * @brief The form factor \f$ f_+ \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ f_+ \f$
+    */
+    double f_plus(double q2);
+    
+    
+    /**
+    * @brief The form factor \f$ f_T \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ f_T \f$
+    */
+    double f_T(double q2);
+    
+    
+    /**
+    * @brief The form factor \f$ f_0 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ f_0 \f$
+    */
+    double f_0(double q2);
+    
+    /**
+    * @brief The helicity form factor \f$ V_L^0 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ V_L^{\lambda} \f$
+    */
+    gslpp::complex V_L(double q2);
+
+
+    /**
+    * @brief The helicity form factor \f$ T_L^0 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T_L^{\lambda} \f$
+    */
+    gslpp::complex T_L(double q2);
+
+
+    /**
+    * @brief The helicity form factor \f$ S_L \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ S_L \f$
+    */
+    double S_L(double q2);
+
+
+    /**
+    * @brief The \f$ h(q^2,0) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h(q^2,0) \f$
+    */
+    gslpp::complex H_0(double q2);
+    
+    /**
+    * @brief The \f$ h(q^2,m_c) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] mu2 mass scale
+    * @return \f$ h(q^2,m_c) \f$
+    */
+    gslpp::complex H_c(double q2, double mu2);
+    
+    /**
+    * @brief The \f$ h(q^2,m_b) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] mu2 mass scale
+    * @return \f$ h(q^2,m_b) \f$
+    */
+    gslpp::complex H_b(double q2, double mu2);
+    
+    
+    /**
+    * @brief The \f$ Y(q^2) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ Y(q^2) \f$
+    */
+    gslpp::complex Y(double q2);
+    
+    
+    /**
+    * @brief The square of the 3-momentum of the recoiling meson in the M rest frame, \f$ k^2 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ k^2 \f$ 
+    */
+    double k2 (double q2);
+    
+    
+    /**
+    * @brief The factor \f$ \beta \f$ used in the angular coefficients \f$I_i\f$. 
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \beta \f$
+    */
+    double beta (double q2);
+        
+    /**
+    * @brief The factor \f$ \beta^2 \f$ used in the angular coefficients \f$I_i\f$. 
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \beta^2 \f$
+    */
+    double beta2 (double q2);
+    
+    
+    /**
+    * @brief The factor \f$ \lambda \f$ used in the angular coefficients \f$I_i\f$. 
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \lambda \f$
+    */
+    double lambda(double q2);
+
+    
+    /**
+    * @brief The factor \f$ F \f$ used in the angular coefficients \f$I_i\f$. 
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F \f$
+    */
+    double F(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{1c} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{1c} \f$
+    */
+    double  I_1c(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{2c} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{2c} \f$
+    */
+    double  I_2c(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ I_{6c} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_{6c} \f$
+    */
+    double  I_6c(double q2);
+    
+    
+    /**
+    * @brief The CP asymmetry \f$ \Delta_{i} \f$ .
+    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{i} \f$
+    */
+    double Delta(int i, double q2);
+    
+    /**
+    * @brief The CP average \f$ \Sigma_{1s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Sigma_{1c} \f$
+    */
+    double getSigma1c(double q2)
+    {
+        return I_1c(q2);
+    };
+    
+    /**
+    * @brief The CP average \f$ \Sigma_{2s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Sigma_{2c} \f$
+    */
+    double getSigma2c(double q2)
+    {
+        return I_2c(q2);
+    };
+    
+    /**
+    * @brief The CP average \f$ \Sigma_{6s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Sigma_{6c} \f$
+    */
+    double getSigma6c(double q2)
+    {
+        return I_6c(q2);
+    };
+    
+    /**
+    * @brief The CP asymmetry \f$ \Delta_{1s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{1c} \f$
+    */
+    double getDelta1c(double q2)
+    {
+        return Delta(0, q2);
+    };
+    
+    /**
+    * @brief The CP asymmetry \f$ \Delta_{2s} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{2s} \f$
+    */
+    double getDelta2c(double q2)
+    {
+        return Delta(2, q2);
+    };
+    
+    /**
+    * @brief The \f$ I_1 \f$ function from @cite Beneke:2001at .
+    * @param[in] u dummy variable to be integrated out
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ I_1 \f$
+    */
+    gslpp::complex I1(double u, double q2);
+    
+    /**
+    * @brief The \f$ T^{\parallel}_+ \f$ function from @cite Beneke:2001at .
+    * @param[in] u dummy variable to be integrated out
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T^{\parallel}_+ \f$
+    */
+    gslpp::complex Tparplus(double u, double q2);
+    
+    /**
+    * @brief The \f$ T^{\parallel}_- \f$ function from @cite Beneke:2001at .
+    * @param[in] u dummy variable to be integrated out
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ T^{\parallel}_- \f$
+    */
+    gslpp::complex Tparminus(double u, double q2);
+    
+    /**
+    * @brief The real part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Re T^{\parallel}_+ \Phi^{\parallel}\f$
+    */
+    double Integrand_ReTparplus(double up);
+    
+    /**
+    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Im T^{\parallel}_+ \Phi^{\parallel}\f$
+    */
+    double Integrand_ImTparplus(double up);
+    
+    /**
+    * @brief The real part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Re T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ReTparminus(double up);
+    
+    /**
+    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Im T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ImTparminus(double up);
+    
+    /**
+    * @brief The sum of Integrand_ReTparplus() and Integrand_ReTparminus().
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Re T^{\parallel}_+ \Phi^{\parallel} + Re T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ReTpar_pm(double up);
+    
+    /**
+    * @brief The sum of Integrand_ImTparplus() and Integrand_ImTparminus().
+    * @param[in] up dummy variable to be integrated out
+    * @return \f$ Im T^{\parallel}_+ \Phi^{\parallel} + Im T^{\parallel}_- \Phi^{\parallel}\f$
+    */
+    double Integrand_ImTpar_pm(double up);
+
+    /**
+    * @brief The correction \f$ F_{19} \f$ from @cite Asatrian:2001de.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{19} \f$
+    */
+    gslpp::complex F19(double q2);
+
+    /**
+    * @brief The correction \f$ F_{27} \f$ from @cite Asatrian:2001de.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{27} \f$
+    */
+    gslpp::complex F27(double q2);
+
+    /**
+    * @brief The correction \f$ F_{29} \f$ from @cite Asatrian:2001de.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{29} \f$
+    */
+    gslpp::complex F29(double q2);
+
+    /**
+    * @brief The correction \f$ F_{87} \f$ from @cite Asatrian:2001de.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{87} \f$
+    */
+    gslpp::complex F87(double q2);
+
+    /**
+    * @brief The correction \f$ F_{89} \f$ from @cite Asatrian:2001de.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ F_{89} \f$
+    */
+    double F89(double q2);
+    
+    /**
+    * @brief The correction \f$ C_{\parallel} \f$ from @cite Beneke:2001at .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ C_{\parallel} \f$
+    */
+    gslpp::complex Cpar(double q2);
+    
+    /**
+    * @brief The total correction \f$ \Delta \mathcal{T}^{\parallel} \f$ from @cite Beneke:2001at .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta \mathcal{T}^{\parallel} \f$
+    */
+    gslpp::complex deltaTpar(double q2);
+    
+    /**
+    * @brief The fit function for the real part of the QCDF correction \f$ \Delta C_9^{\lambda} \f$.
+    * @param[in] x fit variable
+    * @param[in] p fit parameters vector
+    * @return \f$ f_{Re \Delta C_9^{\lambda}} \f$
+    */
+    double reDC9fit(double* x, double* p);
+    
+    /**
+    * @brief The fit function for the imaginary part of the QCDF correction \f$ \Delta C_9^{\lambda} \f$.
+    * @param[in] x fit variable
+    * @param[in] p fit parameters vector
+    * @return \f$ f_{Im \Delta C_9^{\lambda}} \f$
+    */
+    double imDC9fit(double* x, double* p);
+    
+    /**
+    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^0 \f$ in the muon channel.
+    */
+    void fit_DeltaC9_mumu();
+    
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9 \f$ computed fitting over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9 \f$
+    */
+    gslpp::complex fDeltaC9(double q2);
+    
+    /**
+    * @brief The total QCDF correction \f$ \Delta C_9 \f$ computed integrating over \f$ u \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta C_9 \f$
+    */
+    gslpp::complex DeltaC9(double q2);
     
 };
 

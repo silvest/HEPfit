@@ -1,5 +1,5 @@
 # HIGLU 4.34
-# ratio of the top-loop produced A contribution and the total ggA cross section
+# ratio of the top-loop produced A contribution and the total ggA cross section at 8 TeV
 # mA[GeV] | sigma_ggA_t/sigma_ggA
 20.0	0.52717
 30.0	0.81880

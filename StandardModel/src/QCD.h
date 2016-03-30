@@ -458,6 +458,11 @@
  *   <td class="mod_desc">The Gegenbauer coefficient for the @f$\phi@f$ meson.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%alpha1kp, %alpha2kp</td>
+ *   <td class="mod_symb">@f$\alpha_1(K^+), \alpha_2(K^+)@f$</td>
+ *   <td class="mod_desc">The Gegenbauer coefficients for the @f$K^+@f$ meson.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%lambdaB</td>
  *   <td class="mod_symb">@f$\Lambda_{B,+}@f$</td>
  *   <td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.</td>
@@ -746,7 +751,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 188; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 190; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored

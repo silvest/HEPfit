@@ -133,7 +133,7 @@ bool THDM::setFlagStr(const std::string name, const std::string value)
             res = true;
         }
         else
-        {    
+        {
             throw std::runtime_error("THDM::setFlagStr(): Invalid flag "
                 + name + "=" + value);
         }
@@ -142,6 +142,19 @@ bool THDM::setFlagStr(const std::string name, const std::string value)
     {
         res = StandardModel::setFlagStr(name,value);
     }
+
+    return(res);
+}
+
+bool THDM::setFlag(const std::string name, const bool value)
+{
+    bool res = false;
+    if(name.compare("wavefunctionrenormalization") == 0) {
+        flag_wfr = value;
+        res = true;
+    }
+    else
+        res = StandardModel::setFlag(name,value);
 
     return(res);
 }

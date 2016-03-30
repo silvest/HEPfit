@@ -27,6 +27,7 @@
 #include "GeneralSUSY.h"
 #include "SUSYMassInsertion.h"
 #include "SUSY.h"
+#include "GeneralTHDM.h"
 #include "THDM.h"
 #include "FlavourWilsonCoefficient.h"
 /** END: REMOVE FROM THE PACKAGE **/

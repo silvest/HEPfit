@@ -588,7 +588,7 @@ double unitarityNLO10::computeThValue()
     double uniNLO10a = -16.0*M_PI*M_PI*la3Q;
     double uniNLO10b = 3.0*betalambda3;
     gslpp::complex uniNLO10c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la5Q*la5Q);
-    gslpp::complex uniNLO10d = -(la3Q+la4Q+la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+    gslpp::complex uniNLO10d = -(la3Q+la4Q-la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
 
     return (uniNLO10a+uniNLO10b+uniNLO10c+uniNLO10d - gslpp::complex::i()/2.0).abs();
 }
