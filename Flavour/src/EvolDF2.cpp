@@ -333,6 +333,9 @@ double EvolDF2::etact(double mu) const
     //temporary fix waiting for NNLO
 
     double K = model.Als4(model.getMuw()) / model.Als4(model.getMuc());
+#if SUSYFIT_DEBUG & 2
+    std::cout << "K = " << K << std::endl;
+#endif
     double Kpp = pow(K, 12. / 25.);
     double Kpm = pow(K, -6. / 25.);
     double Kmm = pow(K, -24. / 25.);
@@ -355,7 +358,7 @@ double EvolDF2::etact(double mu) const
             262497. / 35000. * Kpp - 123. / 625. * Kpm + 1108657. / 1305000. * Kmm - 277133. / 50750. * K7 +
             K * (-21093. / 8750. * Kpp + 13331. / 13750. * Kpm - 10181. / 18125. * Kmm - 1731104. / 2512125. * K7) +
             (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1. - xt) * (1. - xt)) + 0.5) * K * K7) * xc / (model.getMatching().S0(xc, xt)) * pow(AlsC, 2. / 9.);
-
+    
     return (eta * (1. + model.Als(mu, FULLNLO) / 4. / M_PI * J3) * pow(model.Als(mu, FULLNLO), -2. / 9.));
 }
 

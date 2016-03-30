@@ -1,6 +1,6 @@
 #include "TMath.h"
 
-void ChainStats(TString ifile = "MCout", int nchains)
+void ChainStats(TString ifile = "MCout", int nchains = 12)
 {
   gROOT->Reset();
   gROOT->SetStyle("Plain");
@@ -11,7 +11,7 @@ void ChainStats(TString ifile = "MCout", int nchains)
   gStyle->SetOptStat("");
 
   TFile file(ifile+".root","read");
-  TNtupleD *nt0 = file.Get("AnalysisTree");
+  TNtupleD *nt0 = (TNtupleD *) file.Get("AnalysisTree");
   TH1D *tmp = new TH1D("tmp","tmp",50, 0., 1000.);
 
   nt0->Project("tmp","fNParameters");
@@ -23,8 +23,8 @@ void ChainStats(TString ifile = "MCout", int nchains)
   c->Divide(nx,ny);
   
   TNtupleD * nt;
-  TGraphErrors tge[npars];
-  TGraph tg[npars*nchains];
+  TGraphErrors * tge =  new TGraphErrors[npars];
+  TGraph * tg = new TGraph[npars*nchains];
   Double_t x;
 
   TCanvas * c2 = new TCanvas("c2","TracePlot",1000,1000);
@@ -54,16 +54,13 @@ void ChainStats(TString ifile = "MCout", int nchains)
 	  tg[i*nchains+j].Draw("al");
 	}
       c2->cd();
-      switch(i){
-      case 0:
+      if(i == 0)
 	c2->Print(ifile+"_traceplots.pdf(","pdf");
-	break;
-      case (npars-1):
+      else if (i == npars-1)
 	c2->Print(ifile+"_traceplots.pdf)","pdf");
-	break;
-      default:
+      else
 	c2->Print(ifile+"_traceplots.pdf","pdf");
-      }
+      
       tge[i].SetTitle(Form("Parameter%d",i));
       c->cd(i+1);
       tge[i].Draw("ap");
@@ -71,6 +68,7 @@ void ChainStats(TString ifile = "MCout", int nchains)
 
   c->cd();
   c->SaveAs(ifile+"_chains.pdf");
-
+  delete[] tg;
+  delete[] tge;
   file.Close();
 }

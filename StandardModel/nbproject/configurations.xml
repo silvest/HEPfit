@@ -231,7 +231,7 @@
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
-            <Elem>SUSYFIT_DEBUG=2</Elem>
+            <Elem>SUSYFIT_DEBUG=0</Elem>
           </preprocessorList>
           <warningLevel>2</warningLevel>
         </ccTool>

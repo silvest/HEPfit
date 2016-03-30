@@ -42,8 +42,11 @@ gslpp::complex AmpDB2::AmpBd(orders order)
     std::cout << "Bd: me(0) = " << me(0)  << std::endl;
 #endif
 #if SUSYFIT_DEBUG & 2
+    std::cout << "coefficient Bd: " << (*(allcoeff[LO]) + *(allcoeff[NLO]))(0) << std::endl;
     std::cout << "M: " << me << std::endl;
-    std::cout << "M.U: " << mySM.getMyFlavour()->getHDF2().getUDF2().Df2Evol(4.2,1.e6,LO).transpose()*me << std::endl;
+    std::cout << "mu : " << mySM.getBBd().getMu() << ", mut: " << mySM.getMut() << ", scheme: " << mySM.getBBd().getScheme() << ", B par.: " <<  mySM.getBBd().getBpars()(0) << std::endl;
+    std::cout << "U (mut): " << (mySM.getMyFlavour()->getHDF2().getUDF2().Df2Evol(mySM.getBBd().getMu(),mySM.getMut(),LO)(0,0) +  
+            mySM.getMyFlavour()->getHDF2().getUDF2().Df2Evol(mySM.getBBd().getMu(),mySM.getMut(),NLO)(0,0))<< std::endl;
 #endif
 
     switch(order) {

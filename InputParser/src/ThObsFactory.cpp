@@ -166,9 +166,23 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Vtd"] = boost::bind(boost::factory<VCKM*>(), _1, 3, 1);
     obsThFactory["Vts"] = boost::bind(boost::factory<VCKM*>(), _1, 3, 2);
     obsThFactory["Vtb"] = boost::bind(boost::factory<VCKM*>(), _1, 3, 3);
-    obsThFactory["alpha"] = boost::factory<Alpha*>();
+    obsThFactory["alpha"] = boost::factory<CKM_Alpha*>();
     obsThFactory["alpha_2a"] = boost::factory<Alpha_2a*>();
-    obsThFactory["gamma"] = boost::factory<CKMGamma*>();
+    obsThFactory["gamma"] = boost::factory<CKM_Gamma*>();
+    obsThFactory["beta"] = boost::factory<CKM_Beta*>();
+    obsThFactory["betas"] = boost::factory<CKM_Betas*>();
+    obsThFactory["2betapgamma"] = boost::factory<CKM_2BpG*>();
+    obsThFactory["s2beta"] = boost::factory<CKM_S2Beta*>();
+    obsThFactory["c2beta"] = boost::factory<CKM_C2Beta*>();
+    obsThFactory["sintheta12"] = boost::factory<CKM_SinTheta12*>();
+    obsThFactory["sintheta13"] = boost::factory<CKM_SinTheta13*>();
+    obsThFactory["sintheta23"] = boost::factory<CKM_SinTheta23*>();
+    obsThFactory["ckmdelta"] = boost::factory<CKM_Delta*>();
+    obsThFactory["J_CP"] = boost::factory<J_CP*>();
+    obsThFactory["Rt"] = boost::factory<CKM_Rt*>();
+    obsThFactory["Rts"] = boost::factory<CKM_Rts*>();
+    obsThFactory["Rb"] = boost::factory<CKM_Rb*>();
+    obsThFactory["VtdoVts"] = boost::factory<CKM_VtdoVts*>();
     obsThFactory["Abslam_t"] = boost::factory<Abslam_t*>();
     obsThFactory["Abslam_c"] = boost::factory<Abslam_c*>();
     obsThFactory["Abslam_u"] = boost::factory<Abslam_u*>();
@@ -178,6 +192,24 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Abslam_ts"] = boost::factory<Abslam_ts*>();
     obsThFactory["Abslam_cs"] = boost::factory<Abslam_cs*>();
     obsThFactory["Abslam_us"] = boost::factory<Abslam_us*>();
+    obsThFactory["Relam_t"] = boost::factory<Relam_t*>();
+    obsThFactory["Relam_c"] = boost::factory<Relam_c*>();
+    obsThFactory["Relam_u"] = boost::factory<Relam_u*>();
+    obsThFactory["Relam_td"] = boost::factory<Relam_td*>();
+    obsThFactory["Relam_cd"] = boost::factory<Relam_cd*>();
+    obsThFactory["Relam_ud"] = boost::factory<Relam_ud*>();
+    obsThFactory["Relam_ts"] = boost::factory<Relam_ts*>();
+    obsThFactory["Relam_cs"] = boost::factory<Relam_cs*>();
+    obsThFactory["Relam_us"] = boost::factory<Relam_us*>();
+    obsThFactory["Imlam_t"] = boost::factory<Imlam_t*>();
+    obsThFactory["Imlam_c"] = boost::factory<Imlam_c*>();
+    obsThFactory["Imlam_u"] = boost::factory<Imlam_u*>();
+    obsThFactory["Imlam_td"] = boost::factory<Imlam_td*>();
+    obsThFactory["Imlam_cd"] = boost::factory<Imlam_cd*>();
+    obsThFactory["Imlam_ud"] = boost::factory<Imlam_ud*>();
+    obsThFactory["Imlam_ts"] = boost::factory<Imlam_ts*>();
+    obsThFactory["Imlam_cs"] = boost::factory<Imlam_cs*>();
+    obsThFactory["Imlam_us"] = boost::factory<Imlam_us*>();
     //----- B(s) to mu mu  -----
     obsThFactory["BR_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 1);
     obsThFactory["BRbar_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 2);
@@ -573,7 +605,7 @@ ThObsFactory::ThObsFactory()
 
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  GeneralTHDM observables  -----
-    obsThFactory["Re_sigma_u"] = boost::factory<Re_sigma_u*>();
+    //obsThFactory["Re_sigma_u"] = boost::factory<Re_sigma_u*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

@@ -23,6 +23,9 @@ gslpp::complex AmpDK2::AmpDK(orders order)
             mySM.getBK().getScheme());
             
     gslpp::vector<double> me(mySM.getBK().getBpars());
+#if SUSYFIT_DEBUG & 2
+    std::cout << "B-parameter: " << me(0) << std::endl;
+#endif
 
     double MK = mySM.getMesons(QCD::K_0).getMass();
     double Ms = mySM.Mrun(mySM.getBK().getMu(),
@@ -41,6 +44,9 @@ gslpp::complex AmpDK2::AmpDK(orders order)
     me(3) *= 1./4.*KK;
     me(4) *= 1./12.*KK;
 
+#if SUSYFIT_DEBUG & 2
+    std::cout << "matrix element: " << me(0) << std::endl;
+#endif
     switch(order) {
         case FULLNLO:
            return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me);
