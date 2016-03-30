@@ -89,12 +89,12 @@ class THDMcache; //forward reference to THDMcache class
  * </tr>
  * <tr>
  *   <td class="mod_name">%modelTypeflag</td>
- *   <td class="mod_valu">typeI / <b>typeII</b> / typeX / typeY</td>
+ *   <td class="mod_valu">typeI / typeII / typeX / typeY</td>
  *   <td class="mod_desc">This flag determines the type of @f$Z_2@f$ symmetry.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%wavefunctionrenormalization</td>
- *   <td class="mod_valu"><b>true</b> / false</td>
+ *   <td class="mod_valu">true / false</td>
  *   <td class="mod_desc">Whether to use wavefunction renormalization for NLO unitarity constraints.</td>
  * </tr>
  * </table>
