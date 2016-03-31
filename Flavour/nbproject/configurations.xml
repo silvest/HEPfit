@@ -232,7 +232,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>0</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
