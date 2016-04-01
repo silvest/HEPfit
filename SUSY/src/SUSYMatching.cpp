@@ -3126,7 +3126,7 @@ double SUSYMatching::gminus2muNLO() {
     gslpp::complex s2a = 2.0*ca*sa;
     gslpp::complex c2a = ca*ca-sa*sa;
     double vew = v;
-    double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
+    //double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
     double mmu = mySUSY.getLeptons(StandardModel::MU).getMass();
     double mTAU = mySUSY.getLeptons(StandardModel::TAU).getMass();
     double mt = mySUSY.getQuarks(mySUSY.TOP).getMass();
@@ -3182,7 +3182,7 @@ double SUSYMatching::gminus2muNLO() {
     g1=gi[0], g2=gi[1], g3=gi[2];
 
     double alp = (g1*g1*g2*g2/(g1*g1+g2*g2))/(4.0*pi);
-    double s2b = 2.0*cosb*sinb;
+    //double s2b = 2.0*cosb*sinb;
     double c2b = cosb*cosb-sinb*sinb;
     double mzq = sqrt( 0.5*(g1*g1+g2*g2)*vew*vew );
     double mwq = sqrt( 0.5*(g2*g2)*vew*vew );
@@ -3333,7 +3333,7 @@ double SUSYMatching::gminus2muNLO() {
     /////////////////////////////////////////////////////////////////////////////
 
     double dmu=0;
-    double I=0;
+    //double I=0;
     double x0, x1a, x2a, xL, xR;
     double tmp2, tmp3;
 

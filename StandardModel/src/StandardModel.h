@@ -2271,8 +2271,6 @@ protected:
      * @attention This function has not been correctly implemented yet. 
      */
     virtual void computeYukawas();
-
-    mutable Matching<StandardModelMatching,StandardModel> SMM; ///< An object of type Matching.
     
     Particle leptons[6]; ///< An array of Particle objects for the leptons. 
     CKM myCKM; ///< An object of type CKM. 
@@ -2282,6 +2280,8 @@ protected:
     gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
     gslpp::matrix<gslpp::complex> Yn; ///< The Yukawa matrix of the neutrinos.
     gslpp::matrix<gslpp::complex> Ye; ///< The Yukawa matrix of the charged leptons.
+    
+    mutable Matching<StandardModelMatching,StandardModel> SMM; ///< An object of type Matching.
 
     // model parameters
     double AlsMz; ///< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$.

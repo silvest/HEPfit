@@ -1101,8 +1101,8 @@ public:
 
 private:
 
-    const PVfunctions PV;
     const THDM * myTHDM;
+    const PVfunctions PV;
 
     double bma;
     double tanb;
