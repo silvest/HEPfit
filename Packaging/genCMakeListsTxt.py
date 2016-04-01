@@ -101,10 +101,14 @@ print('cmake_minimum_required(VERSION 2.6)\n', sep='')
 print('project(', project, ')\n', sep='')
 
 # set Release as default
-print('if(NOT CMAKE_BUILD_TYPE)')
-print('  set(CMAKE_BUILD_TYPE Release)')
-print('endif(NOT CMAKE_BUILD_TYPE)\n')
-
+if project == 'Flavour' or project == 'SUSY':
+    print('if(NOT CMAKE_BUILD_TYPE)')
+    print('  set(CMAKE_BUILD_TYPE empty)')
+    print('endif(NOT CMAKE_BUILD_TYPE)\n')
+else:
+    print('if(NOT CMAKE_BUILD_TYPE)')
+    print('  set(CMAKE_BUILD_TYPE Release)')
+    print('endif(NOT CMAKE_BUILD_TYPE)\n')
 # cxx flags
 #if ccTool_commandLine != None:
 #    print('set(CMAKE_CXX_FLAGS \"-Wall\")', sep='') 
