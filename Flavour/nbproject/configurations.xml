@@ -150,6 +150,7 @@
           <preprocessorList>
             <Elem>SUSYFIT_DEBUG=0</Elem>
           </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
