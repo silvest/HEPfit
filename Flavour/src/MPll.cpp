@@ -701,14 +701,14 @@ double MPll::imDC9fit(double* x, double* p)
 void MPll::fit_DeltaC9_mumu()
 {
     int dim = 0;
-    for (double i=0.1; i<SWITCH; i+=0.4) {
+    for (double i=0.1; i<MPllSWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
-        ReDeltaC9.push_back( deltaTpar(q2tmp).real());
-        ImDeltaC9.push_back( ( sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).imag() );
+        ReDeltaC9.push_back( (DC9pre * sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).real() );
+        ImDeltaC9.push_back( (DC9pre * sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).imag() );
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.4) {
+    for (double i=MPllSWITCH; i<8.2; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9.push_back(q2tmp * (DC9pre * sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).real());
@@ -732,7 +732,7 @@ void MPll::fit_DeltaC9_mumu()
 
 gslpp::complex MPll::fDeltaC9(double q2)
 {
-    if (q2 < SWITCH) return (reDC9fit(&q2, const_cast<double *>(refres->GetParams())) 
+    if (q2 < MPllSWITCH) return (reDC9fit(&q2, const_cast<double *>(refres->GetParams())) 
             + gslpp::complex::i()*imDC9fit(&q2, const_cast<double *>(imfres->GetParams())));
     else return (reDC9fit(&q2, const_cast<double *>(refres->GetParams())) 
             + gslpp::complex::i()*imDC9fit(&q2, const_cast<double *>(imfres->GetParams())))/q2;

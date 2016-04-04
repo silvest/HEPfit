@@ -19,7 +19,7 @@
 #include <TGraph.h>
 #include <TFitResultPtr.h>
 
-#define SWITCH 8.2
+#define MPllSWITCH 8.2
 
 /**
  * @class MPll
