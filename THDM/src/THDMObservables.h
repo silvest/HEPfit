@@ -18,6 +18,7 @@
 #include "Runner.h"
 #include "STU.h"
 #include "THDMquantities.h"
+#include "THDMquantitiesatQ.h"
 #include "unitarity.h"
 
 #endif	/* THDMOBSERVABLES_H */

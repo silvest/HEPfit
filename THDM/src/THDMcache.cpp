@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
- *
+ * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -80,25 +80,27 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         CMS_ggF_A_hZ_tautaull_e(14,2,0.),
         arraybsgamma(1111, 3, 0.)
 {
-//    mym11_2=new m11_2(SM_i);
-//    mym22_2=new m22_2(SM_i);
+    mym11_2=new m11_2(SM_i);
+    mym22_2=new m22_2(SM_i);
     mylambda1=new lambda1(SM_i);
     mylambda2=new lambda2(SM_i);
     mylambda3=new lambda3(SM_i);
     mylambda4=new lambda4(SM_i);
     mylambda5=new lambda5(SM_i);
+    myRunner=new Runner(SM_i);
   read();
 }
 
 THDMcache::~THDMcache()
 {
-//  delete mym11_2;
-//  delete mym22_2;
+  delete mym11_2;
+  delete mym22_2;
   delete mylambda1;
   delete mylambda2;
   delete mylambda3;
   delete mylambda4;
   delete mylambda5;
+  delete myRunner;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4375,59 +4377,131 @@ void THDMcache::runTHDMparameters()
     double sinb=myTHDM->getsinb();
     modelflag=myTHDM->getModelTypeflag();
 
-//    if(fabs(Q_THDM-log(91.1875))<0.005)
-//    {
-    Ytop_at_Q=(sqrt(2.0)*myTHDM->getQuarks(QCD::TOP).getMass())/(vev*sinb);
+    double g1_at_MZ=sqrt(4.0*M_PI*Ale/(1-cW2));
+    double g2_at_MZ=sqrt(4.0*M_PI*Ale/cW2);
+    double g3_at_MZ=sqrt(4.0*M_PI*Als);
+
+    double Ytop_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::TOP).getMass())/(vev*sinb);
+    double Ybottom1_at_MZ=0.0;
+    double Ybottom2_at_MZ=0.0;
+    double Ytau1_at_MZ=0.0;
+    double Ytau2_at_MZ=0.0;
     if( modelflag == "type1" ) {
-        Ybottom1_at_Q=0.0;
-        Ybottom2_at_Q=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
-        Ytau1_at_Q=0.0;
-        Ytau2_at_Q=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
+        Ybottom2_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
+        Ytau2_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
     }
     else if( modelflag == "type2" ) {
-        Ybottom1_at_Q=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
-        Ybottom2_at_Q=0.0;
-        Ytau1_at_Q=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
-        Ytau2_at_Q=0.0;
+        Ybottom1_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
+        Ytau1_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
     }
     else if( modelflag == "typeX" ) {
-        Ybottom1_at_Q=0.0;
-        Ybottom2_at_Q=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
-        Ytau1_at_Q=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
-        Ytau2_at_Q=0.0;
+        Ybottom2_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
+        Ytau1_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
     }
     else if( modelflag == "typeY" ) {
-        Ybottom1_at_Q=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
-        Ybottom2_at_Q=0.0;
-        Ytau1_at_Q=0.0;
-        Ytau2_at_Q=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
+        Ybottom1_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
+        Ytau2_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
     }
     else {
         throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
     }
 
-//    m11_2_at_Q=mym11_2->computeThValue();
-//    m22_2_at_Q=mym22_2->computeThValue();
-//    m12_2_at_Q=myTHDM->getm12_2();
-    lambda1_at_Q=mylambda1->computeThValue();
-    lambda2_at_Q=mylambda2->computeThValue();
-    lambda3_at_Q=mylambda3->computeThValue();
-    lambda4_at_Q=mylambda4->computeThValue();
-    lambda5_at_Q=mylambda5->computeThValue();
-////    std::cout<<"Ytop_at_Q = "<<Ytop_at_Q<<std::endl;
-////    std::cout<<"Ybottom1_at_Q = "<<Ybottom1_at_Q<<std::endl;
-////    std::cout<<"Ybottom2_at_Q = "<<Ybottom2_at_Q<<std::endl;
-////    std::cout<<"Ytau1_at_Q = "<<Ytau1_at_Q<<std::endl;
-////    std::cout<<"Ytau2_at_Q = "<<Ytau2_at_Q<<std::endl;
-////    std::cout<<"lambda1_at_Q = "<<lambda1_at_Q<<std::endl;
-////    std::cout<<"lambda2_at_Q = "<<lambda2_at_Q<<std::endl;
-////    std::cout<<"lambda3_at_Q = "<<lambda3_at_Q<<std::endl;
-////    std::cout<<"lambda4_at_Q = "<<lambda4_at_Q<<std::endl;
-////    std::cout<<"lambda5_at_Q = "<<lambda5_at_Q<<std::endl;
-//    }
-//    else
-//    {
-//    }
+    double m11_2_at_MZ=mym11_2->computeThValue();
+    double m22_2_at_MZ=mym22_2->computeThValue();
+    double m12_2_at_MZ=myTHDM->getm12_2();
+    double lambda1_at_MZ=mylambda1->computeThValue();
+    double lambda2_at_MZ=mylambda2->computeThValue();
+    double lambda3_at_MZ=mylambda3->computeThValue();
+    double lambda4_at_MZ=mylambda4->computeThValue();
+    double lambda5_at_MZ=mylambda5->computeThValue();
+
+    if(fabs(Q_THDM-log10(MZ))<0.005)   //at MZ scale
+    {
+        Q_cutoff=log10(MZ);
+
+        g1_at_Q = g1_at_MZ;
+        g2_at_Q = g2_at_MZ;
+        g3_at_Q = g3_at_MZ;
+        Ytop_at_Q = Ytop_at_MZ;
+        Ybottom1_at_Q = Ybottom1_at_MZ;
+        Ybottom2_at_Q = Ybottom2_at_MZ;
+        Ytau1_at_Q = Ytau1_at_MZ;
+        Ytau2_at_Q = Ytau2_at_MZ;
+        m11_2_at_Q = m11_2_at_MZ;
+        m22_2_at_Q = m22_2_at_MZ;
+        m12_2_at_Q = m12_2_at_MZ;
+        lambda1_at_Q = lambda1_at_MZ;
+        lambda2_at_Q = lambda2_at_MZ;
+        lambda3_at_Q = lambda3_at_MZ;
+        lambda4_at_Q = lambda4_at_MZ;
+        lambda5_at_Q = lambda5_at_MZ;
+    }
+    else   //at some other scale
+    {
+        double InitVals[14];
+        InitVals[0]=g1_at_MZ;
+        InitVals[1]=g2_at_MZ;
+        InitVals[2]=g3_at_MZ;
+        InitVals[3]=Ytop_at_MZ;
+        InitVals[4]=Ybottom1_at_MZ+Ybottom2_at_MZ;
+        InitVals[5]=Ytau1_at_MZ+Ytau2_at_MZ;
+        InitVals[6]=m11_2_at_MZ;
+        InitVals[7]=m22_2_at_MZ;
+        InitVals[8]=m12_2_at_MZ;
+        InitVals[9]=lambda1_at_MZ;
+        InitVals[10]=lambda2_at_MZ;
+        InitVals[11]=lambda3_at_MZ;
+        InitVals[12]=lambda4_at_MZ;
+        InitVals[13]=lambda5_at_MZ;
+
+        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM);  //Running up to Q_cutoff<=Q_THDM
+
+        g1_at_Q = InitVals[0];
+        g2_at_Q = InitVals[1];
+        g3_at_Q = InitVals[2];
+        Ytop_at_Q = InitVals[3];
+        Ybottom1_at_Q = 0.0;
+        Ybottom2_at_Q = 0.0;
+        Ytau1_at_Q = 0.0;
+        Ytau2_at_Q = 0.0;
+        if( modelflag == "type1" ) {
+            Ybottom2_at_Q=InitVals[4];
+            Ytau2_at_Q=InitVals[5];
+        }
+        else if( modelflag == "type2" ) {
+            Ybottom1_at_Q=InitVals[4];
+            Ytau1_at_Q=InitVals[5];
+        }
+        else if( modelflag == "typeX" ) {
+            Ybottom2_at_Q=InitVals[4];
+            Ytau1_at_Q=InitVals[5];
+        }
+        else if( modelflag == "typeY" ) {
+            Ybottom1_at_Q=InitVals[4];
+            Ytau2_at_Q=InitVals[5];
+        }
+        else {
+            throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
+        }
+        m11_2_at_Q = InitVals[6];
+        m22_2_at_Q = InitVals[7];
+        m12_2_at_Q = InitVals[8];
+        lambda1_at_Q = InitVals[9];
+        lambda2_at_Q = InitVals[10];
+        lambda3_at_Q = InitVals[11];
+        lambda4_at_Q = InitVals[12];
+        lambda5_at_Q = InitVals[13];
+//    std::cout<<"Ytop_at_Q = "<<Ytop_at_Q<<std::endl;
+//    std::cout<<"Ybottom1_at_Q = "<<Ybottom1_at_Q<<std::endl;
+//    std::cout<<"Ybottom2_at_Q = "<<Ybottom2_at_Q<<std::endl;
+//    std::cout<<"Ytau1_at_Q = "<<Ytau1_at_Q<<std::endl;
+//    std::cout<<"Ytau2_at_Q = "<<Ytau2_at_Q<<std::endl;
+//    std::cout<<"lambda1_at_Q = "<<lambda1_at_Q<<std::endl;
+//    std::cout<<"lambda2_at_Q = "<<lambda2_at_Q<<std::endl;
+//    std::cout<<"lambda3_at_Q = "<<lambda3_at_Q<<std::endl;
+//    std::cout<<"lambda4_at_Q = "<<lambda4_at_Q<<std::endl;
+//    std::cout<<"lambda5_at_Q = "<<lambda5_at_Q<<std::endl;
+    }
 
 }
 
@@ -4895,6 +4969,7 @@ void THDMcache::updateCache()
     mHh2=myTHDM->getmHh2();
     mA2=myTHDM->getmA2();
     mHp2=myTHDM->getmHp2();
+    Rpeps=myTHDM->getRpeps();
     MW=MWTHDM(myTHDM->Mw_tree());
     cW2=cW2THDM(myTHDM->c02());
     mHl=myTHDM->getMHl();

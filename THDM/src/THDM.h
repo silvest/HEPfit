@@ -75,6 +75,11 @@ class THDMcache; //forward reference to THDMcache class
  *   <td class="mod_symb">@f$Q_{\text{THDM}}@f$</td>
  *   <td class="mod_desc">The THDM scale.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%Rpeps</td>
+ *   <td class="mod_symb">@f$\varepsilon_{\text{R'}}@f$</td>
+ *   <td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.</td>
+ * </tr>
  * </table>
  * 
  *
@@ -103,7 +108,7 @@ class THDMcache; //forward reference to THDMcache class
 class THDM: public StandardModel {
 public:
 
-    static const int NTHDMvars = 8;
+    static const int NTHDMvars = 9;
     static const std::string THDMvars[NTHDMvars];
     
     /**
@@ -332,6 +337,14 @@ public:
         return Q_THDM;
     }
 
+    /**
+     *
+     * @return Minimal R' value
+     */
+    double getRpeps() const {
+        return Rpeps;
+    }
+
 protected: 
 
     virtual void setParameter(const std::string, const double&);
@@ -359,7 +372,7 @@ private:
 
     THDMcache* myTHDMcache;
 
-    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM;
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps;
     std::string flag_model;
     bool flag_wfr;
 };

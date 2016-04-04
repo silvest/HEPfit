@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
- *
+ * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -12,6 +12,7 @@
 #include "PVfunctions.h"
 #include "THDM.h"
 #include "THDMquantities.h"
+#include "Runner.h"
 
 #include <stdexcept>
 #include "gslpp.h"
@@ -1168,11 +1169,18 @@ public:
     double THoEX_bbF_A_bb_CMS;
     double R_bbF_A_bb_CMS;
 
+    double Q_cutoff;
+    double g1_at_Q;
+    double g2_at_Q;
+    double g3_at_Q;
     double Ytop_at_Q;
     double Ybottom1_at_Q;
     double Ybottom2_at_Q;
     double Ytau1_at_Q;
     double Ytau2_at_Q;
+    double m11_2_at_Q;
+    double m22_2_at_Q;
+    double m12_2_at_Q;
     double lambda1_at_Q;
     double lambda2_at_Q;
     double lambda3_at_Q;
@@ -1182,18 +1190,20 @@ public:
     double WFRcomb2;
     double WFRcomb3;
     double WFRcomb4;
+    double Rpeps;
 
 private:
 
     const PVfunctions PV;
     const THDM * myTHDM;
-//    m11_2 * mym11_2;
-//    m22_2 * mym22_2;
+    m11_2 * mym11_2;
+    m22_2 * mym22_2;
     lambda1 * mylambda1;
     lambda2 * mylambda2;
     lambda3 * mylambda3;
     lambda4 * mylambda4;
     lambda5 * mylambda5;
+    Runner * myRunner;
 
     double Q_THDM;
     double bma;

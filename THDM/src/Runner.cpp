@@ -40,7 +40,6 @@ double Runner::computeThValue()
 int RGEs(double t, const double y[], double beta[], void *params)
 {
     (void)(t); /* avoid unused parameter warning */
-    //do something with *params
 
     double g1=y[0];
     double g2=y[1];
@@ -88,7 +87,6 @@ int RGEs(double t, const double y[], double beta[], void *params)
     //beta_lambda_5
     beta[13] = (la5*(-3.0*g1*g1 - 9.0*g2*g2 + 2.0*(la1 + la2 + 4.0*la3 + 6.0*la4 + 3.0*Yb*Yb + 3.0*Yt*Yt + Ytau*Ytau)))/(16.0*pi*pi);
 
-//    return GSL_SUCCESS;
     return 0;
 }
 
@@ -100,11 +98,23 @@ int Jacobian (double t, const double y[], double *dfdy, double dfdt[], void *par
 int RGEcheck(const double InitialValues[])
 {
     int check=0;
-    
+
+    //perturbativity of the Yukawa couplings
+    for(int i=3;i<6;i++)
+    {
+        if(fabs(InitialValues[i])>sqrt(4.0*M_PI)) check=1;
+    }
+    //perturbativity of the quartic Higgs couplings
     for(int i=9;i<14;i++)
     {
         if(fabs(InitialValues[i])>4.0*M_PI) check=1;
     }
+    //positivity
+    if(InitialValues[9]<0.0) check=1;
+    if(InitialValues[10]<0.0) check=1;
+    if(InitialValues[11]+sqrt(fabs(InitialValues[9]*InitialValues[10]))<0.0) check=1;
+    if(InitialValues[11]+InitialValues[12]-fabs(InitialValues[13])+sqrt(fabs(InitialValues[9]*InitialValues[10]))<0.0) check=1;
+
     return check;
 }
 
@@ -146,88 +156,14 @@ double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long i
 
         //intermediate checks if appropriate
         if(RGEcheck(InitialValues) != 0) break;
-
-        printf ("%.5e %.5e\n", t1, InitialValues[9]);
     }
 
     gsl_odeiv2_evolve_free (e);
     gsl_odeiv2_control_free (c);
     gsl_odeiv2_step_free (s);
 
-    for(int i=0;i<14;i++) std::cout<<InitialValues[i]<<std::endl;
+//    for(int i=0;i<14;i++) std::cout<<InitialValues[i]<<std::endl;
 
     //Return the decadic log scale at which the evolution stopped
     return t1/log(10.0);
-}
-
-
-
-lambda1atQ::lambda1atQ(const StandardModel& SM_i)
-: Runner(SM_i)
-{}
-
-double lambda1atQ::computeThValue()
-{
-
-//    Ale=myTHDM->getAle();
-//    GF=myTHDM->getGF();
-//    Als=myTHDM->getAlsMz();
-    double InitVals[14];
-    InitVals[0]=0.35611;    //g1
-//    double g2=sqrt(8. * mySUSY.getGF() / sqrt(2.)) * mySUSY.Mw_tree();
-    InitVals[1]=0.64883;    //g2
-    InitVals[2]=3.54491*sqrt(myTHDM->getAlsMz());   //g3
-    InitVals[3]=sqrt(2.0)*myTHDM->getQuarks(QCD::TOP).getMass()/myTHDM->v()/myTHDM->getsinb(); //msbar mass?    //Yt
-    InitVals[4]=sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass()/myTHDM->v()/myTHDM->getcosb(); //msbar mass  //Yb
-    InitVals[5]=sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass()/myTHDM->v()/myTHDM->getcosb(); //msbar mass  //Ytau
-    InitVals[6]=mym11_2->computeThValue();  //m11_2
-    InitVals[7]=mym22_2->computeThValue();  //m22_2
-    InitVals[8]=myTHDM->getm12_2(); //m12_2
-    InitVals[9]=mylambda1->computeThValue();    //lambda1
-    InitVals[10]=mylambda2->computeThValue();    //lambda2
-    InitVals[11]=mylambda3->computeThValue();    //lambda3
-    InitVals[12]=mylambda4->computeThValue();    //lambda4
-    InitVals[13]=mylambda5->computeThValue();    //lambda5
-    double Q1=1.959;
-    double Q2=5;
-
-    double t_cutoff=RGERunner(InitVals, 14, Q1, Q2);
-
-    return InitVals[9];
-}
-
-lambda2atQ::lambda2atQ(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
-{}
-
-double lambda2atQ::computeThValue()
-{
-    return 0.;
-}
-
-lambda3atQ::lambda3atQ(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
-{}
-
-double lambda3atQ::computeThValue()
-{
-    return 0.;
-}
-
-lambda4atQ::lambda4atQ(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
-{}
-
-double lambda4atQ::computeThValue()
-{
-    return 0.;
-}
-
-lambda5atQ::lambda5atQ(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
-{}
-
-double lambda5atQ::computeThValue()
-{
-    return 0.;
 }

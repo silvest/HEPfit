@@ -568,7 +568,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DeltaU"] = boost::factory<DeltaU*>();
 
     obsThFactory["B_BtoXsgammaTHDM"] = boost::factory<bsgammaTHDM*>();
-    
+
+    obsThFactory["Q_st"] = boost::factory<Q_st*>();
+    obsThFactory["DeltaQ_THDM"] = boost::factory<DeltaQ_THDM*>();
+    obsThFactory["g1atQ"] = boost::factory<g1atQ*>();
+    obsThFactory["g2atQ"] = boost::factory<g2atQ*>();
+    obsThFactory["g3atQ"] = boost::factory<g3atQ*>();
+    obsThFactory["YtopatQ"] = boost::factory<YtopatQ*>();
+    obsThFactory["YbottomatQ"] = boost::factory<YbottomatQ*>();
+    obsThFactory["YtauatQ"] = boost::factory<YtauatQ*>();
+    obsThFactory["m11_2atQ"] = boost::factory<m11_2atQ*>();
+    obsThFactory["m22_2atQ"] = boost::factory<m22_2atQ*>();
+    obsThFactory["m12_2atQ"] = boost::factory<m12_2atQ*>();
     obsThFactory["lambda1atQ"] = boost::factory<lambda1atQ*>();
     obsThFactory["lambda2atQ"] = boost::factory<lambda2atQ*>();
     obsThFactory["lambda3atQ"] = boost::factory<lambda3atQ*>();
@@ -619,6 +630,28 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitarityNLOev16"] = boost::factory<unitarityNLOev16*>();
     obsThFactory["unitarityNLOev17"] = boost::factory<unitarityNLOev17*>();
     obsThFactory["unitarityNLOev18"] = boost::factory<unitarityNLOev18*>();
+    obsThFactory["unitarityRp1"] = boost::factory<unitarityRp1*>();
+    obsThFactory["unitarityRp2"] = boost::factory<unitarityRp2*>();
+    obsThFactory["unitarityRp3"] = boost::factory<unitarityRp3*>();
+    obsThFactory["unitarityRp4"] = boost::factory<unitarityRp4*>();
+    obsThFactory["unitarityRp5"] = boost::factory<unitarityRp5*>();
+    obsThFactory["unitarityRp6"] = boost::factory<unitarityRp6*>();
+    obsThFactory["unitarityRp7"] = boost::factory<unitarityRp7*>();
+    obsThFactory["unitarityRp8"] = boost::factory<unitarityRp8*>();
+    obsThFactory["unitarityRp9"] = boost::factory<unitarityRp9*>();
+    obsThFactory["unitarityRp10"] = boost::factory<unitarityRp10*>();
+    obsThFactory["unitarityRp11"] = boost::factory<unitarityRp11*>();
+    obsThFactory["unitarityRp12"] = boost::factory<unitarityRp12*>();
+    obsThFactory["unitarityRp13"] = boost::factory<unitarityRp13*>();
+    obsThFactory["unitarityRp14"] = boost::factory<unitarityRp14*>();
+    obsThFactory["unitarityRp15"] = boost::factory<unitarityRp15*>();
+    obsThFactory["unitarityRp16"] = boost::factory<unitarityRp16*>();
+    obsThFactory["unitarityRp17"] = boost::factory<unitarityRp17*>();
+    obsThFactory["unitarityRp18"] = boost::factory<unitarityRp18*>();
+    obsThFactory["unitarityRp19"] = boost::factory<unitarityRp19*>();
+    obsThFactory["unitarityRp20"] = boost::factory<unitarityRp20*>();
+    obsThFactory["unitarityRp21"] = boost::factory<unitarityRp21*>();
+    obsThFactory["unitarityRp22"] = boost::factory<unitarityRp22*>();
     /** END: REMOVE FROM THE PACKAGE **/
 
     /** BEGIN: REMOVE FROM THE PACKAGE **/

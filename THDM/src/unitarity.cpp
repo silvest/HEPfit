@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2015 HEPfit Collaboration
- *
+ * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -1959,4 +1959,1191 @@ double unitarityNLOev18::computeThValue()
     gslpp::complex uniC=uniNLO23a+uniNLO23b+uniNLO23c+uniNLO23d;
 
     return (0.5*(uniA+uniB-sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC)) - 0.5*gslpp::complex::i()).abs();
+}
+
+// Rp ratios:
+
+unitarityRp1::unitarityRp1(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp1::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO1a = -3.0*la1Q/(16.0*M_PI);
+    double uniNLO1b = 9.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO1c = (gslpp::complex::i()*M_PI-1.0)*(9.0*la1Q*la1Q+(2.0*la3Q+la4Q)*(2.0*la3Q+la4Q))/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO1d = -3.0*la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO2a = -3.0*la2Q/(16.0*M_PI);
+    double uniNLO2b = 9.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO2c = (gslpp::complex::i()*M_PI-1.0)*(9.0*la2Q*la2Q+(2.0*la3Q+la4Q)*(2.0*la3Q+la4Q))/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO2d = -3.0*la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO3a = -(2.0*la3Q+la4Q)/(16.0*M_PI);
+    double uniNLO3b = 3.0*(2.0*betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO3c = 3.0*(gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*(2.0*la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO3d = -(2.0*la3Q+la4Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO1a+uniNLO1b+uniNLO1c+uniNLO1d;
+    gslpp::complex uniB=uniNLO2a+uniNLO2b+uniNLO2c+uniNLO2d;
+    gslpp::complex uniC=uniNLO3a+uniNLO3b+uniNLO3c+uniNLO3d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO1a+uniNLO2a+sqrt((uniNLO1a-uniNLO2a)*(uniNLO1a-uniNLO2a)+4.0*uniNLO3a*uniNLO3a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB+sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp2::unitarityRp2(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp2::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO1a = -3.0*la1Q/(16.0*M_PI);
+    double uniNLO1b = 9.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO1c = (gslpp::complex::i()*M_PI-1.0)*(9.0*la1Q*la1Q+(2.0*la3Q+la4Q)*(2.0*la3Q+la4Q))/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO1d = -3.0*la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO2a = -3.0*la2Q/(16.0*M_PI);
+    double uniNLO2b = 9.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO2c = (gslpp::complex::i()*M_PI-1.0)*(9.0*la2Q*la2Q+(2.0*la3Q+la4Q)*(2.0*la3Q+la4Q))/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO2d = -3.0*la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO3a = -(2.0*la3Q+la4Q)/(16.0*M_PI);
+    double uniNLO3b = 3.0*(2.0*betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO3c = 3.0*(gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*(2.0*la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO3d = -(2.0*la3Q+la4Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO1a+uniNLO1b+uniNLO1c+uniNLO1d;
+    gslpp::complex uniB=uniNLO2a+uniNLO2b+uniNLO2c+uniNLO2d;
+    gslpp::complex uniC=uniNLO3a+uniNLO3b+uniNLO3c+uniNLO3d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO1a+uniNLO2a-sqrt((uniNLO1a-uniNLO2a)*(uniNLO1a-uniNLO2a)+4.0*uniNLO3a*uniNLO3a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB-sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp3::unitarityRp3(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp3::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO4a = -(la3Q+2.0*la4Q)/(16.0*M_PI);
+    double uniNLO4b = 3.0*(betalambda3+2.0*betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO4c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+4.0*la3Q*la4Q+4.0*la4Q*la4Q+9.0*la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO4d = -(la3Q+la4Q+la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    double uniNLO5a = -3.0*la5Q/(16.0*M_PI);
+    double uniNLO5b = 9.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO5c = 3.0*(gslpp::complex::i()*M_PI-1.0)*(la3Q+2.0*la4Q)*la5Q/(128.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO5d = -(la4Q+2.0*la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO4a+uniNLO4b+uniNLO4c+uniNLO4d;
+    gslpp::complex uniC=uniNLO5a+uniNLO5b+uniNLO5c+uniNLO5d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO4a+uniNLO5a;
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniC)/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp4::unitarityRp4(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp4::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO4a = -(la3Q+2.0*la4Q)/(16.0*M_PI);
+    double uniNLO4b = 3.0*(betalambda3+2.0*betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO4c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+4.0*la3Q*la4Q+4.0*la4Q*la4Q+9.0*la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO4d = -(la3Q+la4Q+la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    double uniNLO5a = -3.0*la5Q/(16.0*M_PI);
+    double uniNLO5b = 9.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO5c = 3.0*(gslpp::complex::i()*M_PI-1.0)*(la3Q+2.0*la4Q)*la5Q/(128.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO5d = -(la4Q+2.0*la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO4a+uniNLO4b+uniNLO4c+uniNLO4d;
+    gslpp::complex uniC=uniNLO5a+uniNLO5b+uniNLO5c+uniNLO5d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO4a-uniNLO5a;
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA-uniC)/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp5::unitarityRp5(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp5::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO6a = -la1Q/(16.0*M_PI);
+    double uniNLO6b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6d = -la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO7a = -la2Q/(16.0*M_PI);
+    double uniNLO7b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO8a = -la4Q/(16.0*M_PI);
+    double uniNLO8b = 3.0*betalambda4/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO8c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la4Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO8d = -la4Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO6a+uniNLO6b+uniNLO6c+uniNLO6d;
+    gslpp::complex uniB=uniNLO7a+uniNLO7b+uniNLO7c+uniNLO7d;
+    gslpp::complex uniC=uniNLO8a+uniNLO8b+uniNLO8c+uniNLO8d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO6a+uniNLO7a+sqrt((uniNLO6a-uniNLO7a)*(uniNLO6a-uniNLO7a)+4.0*uniNLO8a*uniNLO8a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB+sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp6::unitarityRp6(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp6::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO6a = -la1Q/(16.0*M_PI);
+    double uniNLO6b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6d = -la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO7a = -la2Q/(16.0*M_PI);
+    double uniNLO7b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO8a = -la4Q/(16.0*M_PI);
+    double uniNLO8b = 3.0*betalambda4/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO8c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la4Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO8d = -la4Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO6a+uniNLO6b+uniNLO6c+uniNLO6d;
+    gslpp::complex uniB=uniNLO7a+uniNLO7b+uniNLO7c+uniNLO7d;
+    gslpp::complex uniC=uniNLO8a+uniNLO8b+uniNLO8c+uniNLO8d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO6a+uniNLO7a-sqrt((uniNLO6a-uniNLO7a)*(uniNLO6a-uniNLO7a)+4.0*uniNLO8a*uniNLO8a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB-sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp7::unitarityRp7(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp7::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO6a = -la1Q/(16.0*M_PI);
+    double uniNLO6b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6d = -la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO7a = -la2Q/(16.0*M_PI);
+    double uniNLO7b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO9a = -la4Q/(16.0*M_PI);
+    double uniNLO9b = 3.0*betalambda4/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO9c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la4Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO9d = -la5Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO6a+uniNLO6b+uniNLO6c+uniNLO6d;
+    gslpp::complex uniB=uniNLO7a+uniNLO7b+uniNLO7c+uniNLO7d;
+    gslpp::complex uniC=uniNLO9a+uniNLO9b+uniNLO9c+uniNLO9d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO6a+uniNLO7a+sqrt((uniNLO6a-uniNLO7a)*(uniNLO6a-uniNLO7a)+4.0*uniNLO9a*uniNLO9a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB+sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp8::unitarityRp8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp8::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO6a = -la1Q/(16.0*M_PI);
+    double uniNLO6b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO6d = -la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO7a = -la2Q/(16.0*M_PI);
+    double uniNLO7b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO7d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO9a = -la4Q/(16.0*M_PI);
+    double uniNLO9b = 3.0*betalambda4/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO9c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la4Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO9d = -la5Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO6a+uniNLO6b+uniNLO6c+uniNLO6d;
+    gslpp::complex uniB=uniNLO7a+uniNLO7b+uniNLO7c+uniNLO7d;
+    gslpp::complex uniC=uniNLO9a+uniNLO9b+uniNLO9c+uniNLO9d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO6a+uniNLO7a-sqrt((uniNLO6a-uniNLO7a)*(uniNLO6a-uniNLO7a)+4.0*uniNLO9a*uniNLO9a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB-sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp9::unitarityRp9(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp9::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO10a = -la3Q/(16.0*M_PI);
+    double uniNLO10b = 3.0*betalambda3/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO10c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO10d = -(la3Q+la4Q-la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    double uniNLO11a = -la5Q/(16.0*M_PI);
+    double uniNLO11b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO11c = (gslpp::complex::i()*M_PI-1.0)*la3Q*la5Q/(128.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO11d = -(la4Q-2.0*la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO10a+uniNLO10b+uniNLO10c+uniNLO10d;
+    gslpp::complex uniC=uniNLO11a+uniNLO11b+uniNLO11c+uniNLO11d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO10a+uniNLO11a;
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniC)/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp10::unitarityRp10(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp10::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO10a = -la3Q/(16.0*M_PI);
+    double uniNLO10b = 3.0*betalambda3/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO10c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO10d = -(la3Q+la4Q-la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    double uniNLO11a = -la5Q/(16.0*M_PI);
+    double uniNLO11b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO11c = (gslpp::complex::i()*M_PI-1.0)*la3Q*la5Q/(128.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO11d = -(la4Q-2.0*la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO10a+uniNLO10b+uniNLO10c+uniNLO10d;
+    gslpp::complex uniC=uniNLO11a+uniNLO11b+uniNLO11c+uniNLO11d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO10a-uniNLO11a;
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA-uniC)/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp11::unitarityRp11(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp11::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double WFRc3 = myTHDM.getMyTHDMCache()->WFRcomb3;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO12a = -la3Q/(16.0*M_PI);
+    double uniNLO12b = 3.0*betalambda3/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO12c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO12d = -la3Q/(512.0*M_PI*M_PI*M_PI) * WFRc3;
+
+    double uniNLO13a = -la5Q/(16.0*M_PI);
+    double uniNLO13b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO13c = (gslpp::complex::i()*M_PI-1.0)*la3Q*la5Q/(128.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO13d = -la4Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO12a+uniNLO12b+uniNLO12c+uniNLO12d;
+    gslpp::complex uniC=uniNLO13a+uniNLO13b+uniNLO13c+uniNLO13d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO12a+uniNLO13a;
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniC)/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp12::unitarityRp12(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp12::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double WFRc3 = myTHDM.getMyTHDMCache()->WFRcomb3;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO12a = -la3Q/(16.0*M_PI);
+    double uniNLO12b = 3.0*betalambda3/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO12c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO12d = -la3Q/(512.0*M_PI*M_PI*M_PI) * WFRc3;
+
+    double uniNLO13a = -la5Q/(16.0*M_PI);
+    double uniNLO13b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO13c = (gslpp::complex::i()*M_PI-1.0)*la3Q*la5Q/(128.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO13d = -la4Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO12a+uniNLO12b+uniNLO12c+uniNLO12d;
+    gslpp::complex uniC=uniNLO13a+uniNLO13b+uniNLO13c+uniNLO13d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO12a-uniNLO13a;
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA-uniC)/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp13::unitarityRp13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp13::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double WFRc3 = myTHDM.getMyTHDMCache()->WFRcomb3;
+    double WFRc4 = myTHDM.getMyTHDMCache()->WFRcomb4;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO15a = -la1Q/(16.0*M_PI);
+    double uniNLO15b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO15c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO15d = -la1Q/(512.0*M_PI*M_PI*M_PI) * (WFRc1-2.0*WFRc2+WFRc3+2.0*WFRc4);
+
+    double uniNLO16a = -la2Q/(16.0*M_PI);
+    double uniNLO16b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO16c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO16d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2-WFRc3+2.0*WFRc4);
+
+    double uniNLO17a = -la5Q/(16.0*M_PI);
+    double uniNLO17b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO17c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO17d = -2.0*la5Q/(512.0*M_PI*M_PI*M_PI) * WFRc4;
+
+    gslpp::complex uniA=uniNLO15a+uniNLO15b+uniNLO15c+uniNLO15d;
+    gslpp::complex uniB=uniNLO16a+uniNLO16b+uniNLO16c+uniNLO16d;
+    gslpp::complex uniC=uniNLO17a+uniNLO17b+uniNLO17c+uniNLO17d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO15a+uniNLO16a+sqrt((uniNLO15a-uniNLO16a)*(uniNLO15a-uniNLO16a)+4.0*uniNLO17a*uniNLO17a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB+sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp14::unitarityRp14(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp14::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double WFRc3 = myTHDM.getMyTHDMCache()->WFRcomb3;
+    double WFRc4 = myTHDM.getMyTHDMCache()->WFRcomb4;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO15a = -la1Q/(16.0*M_PI);
+    double uniNLO15b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO15c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO15d = -la1Q/(512.0*M_PI*M_PI*M_PI) * (WFRc1-2.0*WFRc2+WFRc3+2.0*WFRc4);
+
+    double uniNLO16a = -la2Q/(16.0*M_PI);
+    double uniNLO16b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO16c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO16d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2-WFRc3+2.0*WFRc4);
+
+    double uniNLO17a = -la5Q/(16.0*M_PI);
+    double uniNLO17b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO17c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO17d = -2.0*la5Q/(512.0*M_PI*M_PI*M_PI) * WFRc4;
+
+    gslpp::complex uniA=uniNLO15a+uniNLO15b+uniNLO15c+uniNLO15d;
+    gslpp::complex uniB=uniNLO16a+uniNLO16b+uniNLO16c+uniNLO16d;
+    gslpp::complex uniC=uniNLO17a+uniNLO17b+uniNLO17c+uniNLO17d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO15a+uniNLO16a-sqrt((uniNLO15a-uniNLO16a)*(uniNLO15a-uniNLO16a)+4.0*uniNLO17a*uniNLO17a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB-sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp15::unitarityRp15(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp15::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO18a = -la1Q/(16.0*M_PI);
+    double uniNLO18b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO18c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO18d = -la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO19a = -la2Q/(16.0*M_PI);
+    double uniNLO19b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO19c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO19d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO20a = -la5Q/(16.0*M_PI);
+    double uniNLO20b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO20c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO20d = -la4Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO18a+uniNLO18b+uniNLO18c+uniNLO18d;
+    gslpp::complex uniB=uniNLO19a+uniNLO19b+uniNLO19c+uniNLO19d;
+    gslpp::complex uniC=uniNLO20a+uniNLO20b+uniNLO20c+uniNLO20d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO18a+uniNLO19a+sqrt((uniNLO18a-uniNLO19a)*(uniNLO18a-uniNLO19a)+4.0*uniNLO20a*uniNLO20a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB+sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp16::unitarityRp16(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp16::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO18a = -la1Q/(16.0*M_PI);
+    double uniNLO18b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO18c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO18d = -la1Q/(512.0*M_PI*M_PI*M_PI) * WFRc1;
+
+    double uniNLO19a = -la2Q/(16.0*M_PI);
+    double uniNLO19b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO19c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO19d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2);
+
+    double uniNLO20a = -la5Q/(16.0*M_PI);
+    double uniNLO20b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO20c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO20d = -la4Q/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    gslpp::complex uniA=uniNLO18a+uniNLO18b+uniNLO18c+uniNLO18d;
+    gslpp::complex uniB=uniNLO19a+uniNLO19b+uniNLO19c+uniNLO19d;
+    gslpp::complex uniC=uniNLO20a+uniNLO20b+uniNLO20c+uniNLO20d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO18a+uniNLO19a-sqrt((uniNLO18a-uniNLO19a)*(uniNLO18a-uniNLO19a)+4.0*uniNLO20a*uniNLO20a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB-sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp17::unitarityRp17(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp17::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double WFRc3 = myTHDM.getMyTHDMCache()->WFRcomb3;
+    double WFRc4 = myTHDM.getMyTHDMCache()->WFRcomb4;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO21a = -la1Q/(16.0*M_PI);
+    double uniNLO21b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO21c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO21d = -la1Q/(512.0*M_PI*M_PI*M_PI) * (WFRc1+2.0*WFRc2-WFRc3-2.0*WFRc4);
+
+    double uniNLO22a = -la2Q/(16.0*M_PI);
+    double uniNLO22b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO22c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO22d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2+WFRc3-2.0*WFRc4);
+
+    double uniNLO23a = -la5Q/(16.0*M_PI);
+    double uniNLO23b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO23c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO23d = -2.0*la5Q/(512.0*M_PI*M_PI*M_PI) * (WFRc2-WFRc4);
+
+    gslpp::complex uniA=uniNLO21a+uniNLO21b+uniNLO21c+uniNLO21d;
+    gslpp::complex uniB=uniNLO22a+uniNLO22b+uniNLO22c+uniNLO22d;
+    gslpp::complex uniC=uniNLO23a+uniNLO23b+uniNLO23c+uniNLO23d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO21a+uniNLO22a+sqrt((uniNLO21a-uniNLO22a)*(uniNLO21a-uniNLO22a)+4.0*uniNLO23a*uniNLO23a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB+sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp18::unitarityRp18(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp18::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc1 = myTHDM.getMyTHDMCache()->WFRcomb1;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double WFRc3 = myTHDM.getMyTHDMCache()->WFRcomb3;
+    double WFRc4 = myTHDM.getMyTHDMCache()->WFRcomb4;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double uniNLO21a = -la1Q/(16.0*M_PI);
+    double uniNLO21b = 3.0*betalambda1/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO21c = (gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO21d = -la1Q/(512.0*M_PI*M_PI*M_PI) * (WFRc1+2.0*WFRc2-WFRc3-2.0*WFRc4);
+
+    double uniNLO22a = -la2Q/(16.0*M_PI);
+    double uniNLO22b = 3.0*betalambda2/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO22c = (gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO22d = -la2Q/(512.0*M_PI*M_PI*M_PI) * (-WFRc1+2.0*WFRc2+WFRc3-2.0*WFRc4);
+
+    double uniNLO23a = -la5Q/(16.0*M_PI);
+    double uniNLO23b = 3.0*betalambda5/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO23c = (gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO23d = -2.0*la5Q/(512.0*M_PI*M_PI*M_PI) * (WFRc2-WFRc4);
+
+    gslpp::complex uniA=uniNLO21a+uniNLO21b+uniNLO21c+uniNLO21d;
+    gslpp::complex uniB=uniNLO22a+uniNLO22b+uniNLO22c+uniNLO22d;
+    gslpp::complex uniC=uniNLO23a+uniNLO23b+uniNLO23c+uniNLO23d;
+
+    double Rp=0.1;
+    double a0LO = uniNLO21a+uniNLO22a-sqrt((uniNLO21a-uniNLO22a)*(uniNLO21a-uniNLO22a)+4.0*uniNLO23a*uniNLO23a);
+    if(fabs(a0LO)>Rpeps)
+    {
+        Rp = ((uniA+uniB-sqrt((uniA-uniB)*(uniA-uniB)+4.0*uniC*uniC))/a0LO-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp19::unitarityRp19(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp19::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO14a = -(la3Q-la4Q)/(16.0*M_PI);
+    double uniNLO14b = 3.0*(betalambda3-betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO14c = (gslpp::complex::i()*M_PI-1.0)*(la3Q-la4Q)*(la3Q-la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO14d = -(la3Q-la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    double Rp=0.1;
+    if(fabs(uniNLO14a)>Rpeps)
+    {
+        Rp = ((uniNLO14a+uniNLO14b+uniNLO14c+uniNLO14d)/uniNLO14a-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp20::unitarityRp20(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp20::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc4 = myTHDM.getMyTHDMCache()->WFRcomb4;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO24a = -(la3Q+la4Q)/(16.0*M_PI);
+    double uniNLO24b = 3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO24c = (gslpp::complex::i()*M_PI-1.0)*(la3Q+la4Q)*(la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO24d = -2.0*(la3Q+la4Q)/(512.0*M_PI*M_PI*M_PI) * WFRc4;
+
+    double Rp=0.1;
+    if(fabs(uniNLO24a)>Rpeps)
+    {
+        Rp = ((uniNLO24a+uniNLO24b+uniNLO24c+uniNLO24d)/uniNLO24a-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp21::unitarityRp21(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp21::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO25a = -(la3Q+la4Q)/(16.0*M_PI);
+    double uniNLO25b = 3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO25c = (gslpp::complex::i()*M_PI-1.0)*(la3Q+la4Q)*(la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO25d = -(la3Q+la5Q)/(512.0*M_PI*M_PI*M_PI) * WFRc2;
+
+    double Rp=0.1;
+    if(fabs(uniNLO25a)>Rpeps)
+    {
+        Rp = ((uniNLO25a+uniNLO25b+uniNLO25c+uniNLO25d)/uniNLO25a-1.0).abs();
+    }
+
+    return Rp;
+}
+
+unitarityRp22::unitarityRp22(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double unitarityRp22::computeThValue()
+{
+    double YtQ = myTHDM.getMyTHDMCache()->Ytop_at_Q;
+    double Yb1Q = myTHDM.getMyTHDMCache()->Ybottom1_at_Q;
+    double Yb2Q = myTHDM.getMyTHDMCache()->Ybottom2_at_Q;
+    double Ytau1Q = myTHDM.getMyTHDMCache()->Ytau1_at_Q;
+    double Ytau2Q = myTHDM.getMyTHDMCache()->Ytau2_at_Q;
+    double la1Q = myTHDM.getMyTHDMCache()->lambda1_at_Q;
+    double la2Q = myTHDM.getMyTHDMCache()->lambda2_at_Q;
+    double la3Q = myTHDM.getMyTHDMCache()->lambda3_at_Q;
+    double la4Q = myTHDM.getMyTHDMCache()->lambda4_at_Q;
+    double la5Q = myTHDM.getMyTHDMCache()->lambda5_at_Q;
+    double WFRc2 = myTHDM.getMyTHDMCache()->WFRcomb2;
+    double WFRc4 = myTHDM.getMyTHDMCache()->WFRcomb4;
+    double Rpeps = myTHDM.getMyTHDMCache()->Rpeps;
+
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+
+    double uniNLO26a = -(la3Q+la4Q)/(16.0*M_PI);
+    double uniNLO26b = 3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO26c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO26d = -2.0*(la3Q+la4Q)/(512.0*M_PI*M_PI*M_PI) * (WFRc2-WFRc4);
+
+    double Rp=0.1;
+    if(fabs(uniNLO26a)>Rpeps)
+    {
+        Rp = ((uniNLO26a+uniNLO26b+uniNLO26c+uniNLO26d)/uniNLO26a-1.0).abs();
+    }
+
+    return Rp;
 }
