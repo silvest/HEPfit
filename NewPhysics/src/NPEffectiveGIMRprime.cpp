@@ -1449,9 +1449,7 @@ double NPEffectiveGIMRprime::muggH(const double sqrt_s) const
 double NPEffectiveGIMRprime::muVBF(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == .24) {
-        return 1.;
-    } else if (sqrt_s == 1.96) {
+    if (sqrt_s == 1.96) {
         mu +=  +1.123 * (1. + eVBF2_ZuL ) * deltaGL_f(quarks[UP])
                 -0.531 * (1. + eVBF2_ZuR ) * deltaGR_f(quarks[UP])
                 -0.705 * (1. + eVBF2_ZdL ) * deltaGL_f(quarks[DOWN])
@@ -1586,6 +1584,53 @@ double NPEffectiveGIMRprime::muVBF(const double sqrt_s) const
                 +713820. * pow(deltaGR_Zffh(quarks[DOWN]),2.0);            
         }
         
+    } else if (sqrt_s == 14.0) {
+        mu +=  +1.129 * deltaGL_f(quarks[UP])
+                -0.505 * deltaGR_f(quarks[UP])
+                -1.05 * deltaGL_f(quarks[DOWN])
+                +0.191 * deltaGR_f(quarks[DOWN])
+	        +2.586 * deltaGL_Wff(quarks[UP],quarks[DOWN]).real()
+                -1989.34 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()
+                +14228.8 * deltaG_hgg()
+                -35.554 * deltaG_hAA()
+                -39.847 * deltaG1_hZA()
+                +98.522 * deltaG2_hZA()
+                -99.287 * deltaG1_hWW()
+                +622.352 * deltaG2_hWW()
+                +0.026 * deltaG3_hWW()
+                -66.196 * deltaG1_hZZ()
+                +196.676 * deltaG2_hZZ()
+                +0.014 * deltaG3_hZZ()
+                -493.198 * deltaGL_Zffh(quarks[UP])
+                +217.017 * deltaGR_Zffh(quarks[UP])
+                +447.396 * deltaGL_Zffh(quarks[DOWN])
+                -82.396 * deltaGR_Zffh(quarks[DOWN]); 
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +2.319 * pow(deltaGL_f(quarks[UP]),2.0)
+                +1.783 * pow(deltaGR_f(quarks[UP]),2.0)
+                +1.849 * pow(deltaGL_f(quarks[DOWN]),2.0)
+                +1.263 * pow(deltaGR_f(quarks[DOWN]),2.0)
+	        +2.592 * pow(deltaGL_Wff(quarks[UP],quarks[DOWN]).real(),2.0)
+                +4077238. * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0)
+                +507787376. * pow(deltaG_hgg(),2.0)
+                +702353. * pow(deltaG_hAA(),2.0)
+                +212082. * pow(deltaG1_hZA(),2.0)
+                +141422. * pow(deltaG2_hZA(),2.0)
+                +195770. * pow(deltaG1_hWW(),2.0)
+                +655804. * pow(deltaG2_hWW(),2.0)
+                +0. * pow(deltaG3_hWW(),2.0)
+                +240333. * pow(deltaG1_hZZ(),2.0)
+                +192371. * pow(deltaG2_hZZ(),2.0)
+                +0. * pow(deltaG3_hZZ(),2.0)
+                +1904757. * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +1743849. * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +1185212. * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +1061826. * pow(deltaGR_Zffh(quarks[DOWN]),2.0); 
+        }
+        
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMRprime::muVBF()");
 
@@ -1597,9 +1642,7 @@ double NPEffectiveGIMRprime::muVBF(const double sqrt_s) const
 double NPEffectiveGIMRprime::muWH(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == .24) {
-        return 1.;
-    } else if (sqrt_s == 1.96) {
+    if (sqrt_s == 1.96) {
         mu += +2.032 * (1. + eWH2_Wud ) * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
                 +1738.87 * (1. + eWH2_HWW1 ) * deltaG1_hWW()
                 -3432.64 * (1. + eWH2_HWW2 ) * deltaG2_hWW()
@@ -1647,6 +1690,22 @@ double NPEffectiveGIMRprime::muWH(const double sqrt_s) const
                 +35201222. * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0);
         }
         
+    } else if (sqrt_s == 14.0) {
+        mu += +1.963 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                +1799.45 * deltaG1_hWW()
+                -4252.03 * deltaG2_hWW()
+                +0.039 * deltaG3_hWW()
+                +8047.59 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(); 
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +1.007 * pow(deltaGL_Wff(quarks[UP], quarks[DOWN]).real(),2.0)
+                +1467903.  * pow(deltaG1_hWW(),2.0)
+                +13173439.  * pow(deltaG2_hWW(),2.0)
+                +58780336.  * pow(deltaGL_Wffh(quarks[UP], quarks[DOWN]).real(),2.0); 
+        }
+        
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMRprime::muWH()");
 
@@ -1658,9 +1717,7 @@ double NPEffectiveGIMRprime::muWH(const double sqrt_s) const
 double NPEffectiveGIMRprime::muZH(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == .24) {
-        return 1.;
-    } else if (sqrt_s == 1.96) {
+    if (sqrt_s == 1.96) {
         mu += +3.529 * (1. + eZH2_ZuL ) * deltaGL_f(quarks[UP])
                 -1.598 * (1. + eZH2_ZuR ) * deltaGR_f(quarks[UP])
                 -1.229 * (1. + eZH2_ZdL ) * deltaGL_f(quarks[DOWN])
@@ -1759,6 +1816,38 @@ double NPEffectiveGIMRprime::muZH(const double sqrt_s) const
                 +19109134.  * pow(deltaGR_Zffh(quarks[DOWN]),2.0);
         }
         
+    } else if (sqrt_s == 14.0) {
+        mu += +2.477 * deltaGL_f(quarks[UP])
+                -1.103 * deltaGR_f(quarks[UP])
+                -2.226 * deltaGL_f(quarks[DOWN])
+                +0.405 * deltaGR_f(quarks[DOWN])
+                +3321.75 * deltaG1_hZZ()
+                -3494.38 * deltaG2_hZZ()
+                +0.059 * deltaG3_hZZ()
+                +481.727 * deltaG1_hZA()
+                -967.239 * deltaG2_hZA()
+                +5106.92 * deltaGL_Zffh(quarks[UP])
+                -2270.81 * deltaGR_Zffh(quarks[UP])
+                -4434.64 * deltaGL_Zffh(quarks[DOWN])
+                +807.186 * deltaGR_Zffh(quarks[DOWN]);
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +3.579 * pow(deltaGL_f(quarks[UP]),2.0)
+                +3.58  * pow(deltaGR_f(quarks[UP]),2.0)
+                +2.631  * pow(deltaGL_f(quarks[DOWN]),2.0)
+                +2.629  * pow(deltaGR_f(quarks[DOWN]),2.0)
+                +4609160.  * pow(deltaG1_hZZ(),2.0)
+                +7946470.  * pow(deltaG2_hZZ(),2.0)
+                +0.001  * pow(deltaG3_hZZ(),2.0)
+                +683466.  * pow(deltaG1_hZA(),2.0)
+                +5019397.  * pow(deltaG2_hZA(),2.0)
+                +50036976.  * pow(deltaGL_Zffh(quarks[UP]),2.0)
+                +50008570.  * pow(deltaGR_Zffh(quarks[UP]),2.0)
+                +31660707.  * pow(deltaGL_Zffh(quarks[DOWN]),2.0)
+                +31666009.  * pow(deltaGR_Zffh(quarks[DOWN]),2.0);
+        }
+        
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMRprime::muZH()");
 
@@ -1831,9 +1920,7 @@ double NPEffectiveGIMRprime::muVBFpVH(const double sqrt_s) const
 double NPEffectiveGIMRprime::muttH(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == .24) {
-        return 1.;
-    } else if (sqrt_s == 1.96) {
+    if (sqrt_s == 1.96) {
         mu += -2.863 * (1. + ettH2_Htt ) * deltaG_hff(quarks[TOP]).real()
             +1737.35 * (1. + ettH2_Hgg ) * deltaG_hgg();
         
@@ -1864,6 +1951,17 @@ double NPEffectiveGIMRprime::muttH(const double sqrt_s) const
             //(Only valid under the assumptions of one dim 6 operator at a time)
             mu += +1.963 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
                 +4367338. * pow(deltaG_hgg(),2.0);
+        }
+        
+    } else if (sqrt_s == 14.0) {
+        mu += -2.861 * deltaG_hff(quarks[TOP]).real()
+            +2769.79 * deltaG_hgg();
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +2.012 * pow(deltaG_hff(quarks[TOP]).real(),2.0)
+            +5689423. * pow(deltaG_hgg(),2.0);
         }
         
     } else
