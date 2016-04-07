@@ -1449,7 +1449,9 @@ double NPEffectiveGIMRprime::muggH(const double sqrt_s) const
 double NPEffectiveGIMRprime::muVBF(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == 1.96) {
+    if (sqrt_s == .24) {
+        return 1.;
+    } else if (sqrt_s == 1.96) {
         mu +=  +1.123 * (1. + eVBF2_ZuL ) * deltaGL_f(quarks[UP])
                 -0.531 * (1. + eVBF2_ZuR ) * deltaGR_f(quarks[UP])
                 -0.705 * (1. + eVBF2_ZdL ) * deltaGL_f(quarks[DOWN])
@@ -1595,7 +1597,9 @@ double NPEffectiveGIMRprime::muVBF(const double sqrt_s) const
 double NPEffectiveGIMRprime::muWH(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == 1.96) {
+    if (sqrt_s == .24) {
+        return 1.;
+    } else if (sqrt_s == 1.96) {
         mu += +2.032 * (1. + eWH2_Wud ) * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
                 +1738.87 * (1. + eWH2_HWW1 ) * deltaG1_hWW()
                 -3432.64 * (1. + eWH2_HWW2 ) * deltaG2_hWW()
@@ -1654,7 +1658,9 @@ double NPEffectiveGIMRprime::muWH(const double sqrt_s) const
 double NPEffectiveGIMRprime::muZH(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == 1.96) {
+    if (sqrt_s == .24) {
+        return 1.;
+    } else if (sqrt_s == 1.96) {
         mu += +3.529 * (1. + eZH2_ZuL ) * deltaGL_f(quarks[UP])
                 -1.598 * (1. + eZH2_ZuR ) * deltaGR_f(quarks[UP])
                 -1.229 * (1. + eZH2_ZdL ) * deltaGL_f(quarks[DOWN])
@@ -1825,7 +1831,9 @@ double NPEffectiveGIMRprime::muVBFpVH(const double sqrt_s) const
 double NPEffectiveGIMRprime::muttH(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == 1.96) {
+    if (sqrt_s == .24) {
+        return 1.;
+    } else if (sqrt_s == 1.96) {
         mu += -2.863 * (1. + ettH2_Htt ) * deltaG_hff(quarks[TOP]).real()
             +1737.35 * (1. + ettH2_Hgg ) * deltaG_hgg();
         
