@@ -17,6 +17,8 @@
 #include "Mchargino.h"
 #include "Mneutralino.h"
 #include "Mw_dRho.h"
+#include "CCBbounds.h"
+#include "SFermiondeltas.h"
 
 #endif	/* SUSYOBSERVABLES_H */
 
