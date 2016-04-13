@@ -13,9 +13,7 @@
 
 THDMcache::THDMcache(const StandardModel& SM_i)
         
-        : myTHDM(static_cast<const THDM*> (&SM_i)),
-        PV(true),
-        br_tt(19861, 2, 0.),
+        :br_tt(19861, 2, 0.),
         br_bb(19861, 2, 0.),
         br_tautau(19861, 2, 0.),
         br_cc(19861, 2, 0.),
@@ -78,7 +76,9 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         CMS_ggF_H_hh_bbtautau_e(10,2,0.),
         CMS_ggF_A_hZ_tautaull(14,2,0.),
         CMS_ggF_A_hZ_tautaull_e(14,2,0.),
-        arraybsgamma(1111, 3, 0.)
+        arraybsgamma(1111, 3, 0.),
+        myTHDM(static_cast<const THDM*> (&SM_i)),
+        PV(true)
 {
     mym11_2=new m11_2(SM_i);
     mym22_2=new m22_2(SM_i);
