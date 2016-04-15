@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/LeftRightSymmetricModel.h</itemPath>
+      <itemPath>src/LeftRightSymmetricModelMatching.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -14,6 +15,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/LeftRightSymmetricModel.cpp</itemPath>
+      <itemPath>src/LeftRightSymmetricModelMatching.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -37,7 +39,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <commandlineTool>g++</commandlineTool>
+          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
@@ -52,6 +54,16 @@
       <item path="src/LeftRightSymmetricModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LeftRightSymmetricModel.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModelMatching.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModelMatching.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -88,6 +100,16 @@
       </item>
       <item path="src/LeftRightSymmetricModel.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/LeftRightSymmetricModelMatching.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModelMatching.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
@@ -112,6 +134,16 @@
       <item path="src/LeftRightSymmetricModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/LeftRightSymmetricModel.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModelMatching.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/LeftRightSymmetricModelMatching.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
     </conf>
   </confs>
