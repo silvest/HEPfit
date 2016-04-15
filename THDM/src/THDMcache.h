@@ -1194,8 +1194,8 @@ public:
 
 private:
 
-    const PVfunctions PV;
     const THDM * myTHDM;
+    const PVfunctions PV;
     m11_2 * mym11_2;
     m22_2 * mym22_2;
     lambda1 * mylambda1;

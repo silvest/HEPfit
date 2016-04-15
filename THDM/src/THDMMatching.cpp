@@ -13,8 +13,8 @@
 THDMMatching::THDMMatching(const THDM & THDM_i) :
 
     StandardModelMatching(THDM_i),
-    myCKM(3, 3, 0.),
     myTHDM(THDM_i),
+    myCKM(3, 3, 0.),
     mcdbs2(5, NDR, NLO),
     mcbtaunu(3, NDR, LO)
 {}

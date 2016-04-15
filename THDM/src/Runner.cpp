@@ -95,7 +95,7 @@ int Jacobian (double t, const double y[], double *dfdy, double dfdt[], void *par
     return 0;
 }
 
-int RGEcheck(const double InitialValues[])
+int RGEcheck(const double InitialValues[], const double t1)
 {
     int check=0;
 
@@ -114,6 +114,138 @@ int RGEcheck(const double InitialValues[])
     if(InitialValues[10]<0.0) check=1;
     if(InitialValues[11]+sqrt(fabs(InitialValues[9]*InitialValues[10]))<0.0) check=1;
     if(InitialValues[11]+InitialValues[12]-fabs(InitialValues[13])+sqrt(fabs(InitialValues[9]*InitialValues[10]))<0.0) check=1;
+    //NLO unitarity
+    double YtQ = InitialValues[3];
+    double Yb1Q = 0.;
+    double Yb2Q = 0.;
+    double Ytau1Q = 0.;
+    double Ytau2Q = 0.;
+//    if( modelflag == "type1" ) {
+//        Yb2Q=InitialValues[4];
+//        Ytau2Q=InitialValues[5];
+//    }
+//    else if( modelflag == "type2" ) {
+        Yb1Q=InitialValues[4];
+        Ytau1Q=InitialValues[5];
+//    }
+//    else if( modelflag == "typeX" ) {
+//        Yb2Q=InitialValues[4];
+//        Ytau1Q=InitialValues[5];
+//    }
+//    else if( modelflag == "typeY" ) {
+//        Yb1Q=InitialValues[4];
+//        Ytau2Q=InitialValues[5];
+//    }
+    
+//    if(t1>6.908)    //1 TeV
+    if(t1>6.62)   //750 GeV
+    {
+    double la1Q = InitialValues[9];
+    double la2Q = InitialValues[10];
+    double la3Q = InitialValues[11];
+    double la4Q = InitialValues[12];
+    double la5Q = InitialValues[13];
+
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
+                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
+                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
+                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
+                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
+                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
+                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
+                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
+                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+
+    double         uniLO1   = -3.0*la1Q/(16.0*M_PI);
+    gslpp::complex uniNLO1  = -3.0*la1Q/(16.0*M_PI) +9.0*betalambda1/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(9.0*la1Q*la1Q+(2.0*la3Q+la4Q)*(2.0*la3Q+la4Q))/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO2   = -3.0*la2Q/(16.0*M_PI);
+    gslpp::complex uniNLO2  = -3.0*la2Q/(16.0*M_PI) +9.0*betalambda2/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(9.0*la2Q*la2Q+(2.0*la3Q+la4Q)*(2.0*la3Q+la4Q))/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO3   = -(2.0*la3Q+la4Q)/(16.0*M_PI);
+    gslpp::complex uniNLO3  = -(2.0*la3Q+la4Q)/(16.0*M_PI) +3.0*(2.0*betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI) +3.0*(gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*(2.0*la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO4   = -(la3Q+2.0*la4Q)/(16.0*M_PI);
+    gslpp::complex uniNLO4  = -(la3Q+2.0*la4Q)/(16.0*M_PI) +3.0*(betalambda3+2.0*betalambda4)/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+4.0*la3Q*la4Q+4.0*la4Q*la4Q+9.0*la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO5   = -3.0*la5Q/(16.0*M_PI);
+    gslpp::complex uniNLO5  = -3.0*la5Q/(16.0*M_PI) +9.0*betalambda5/(256.0*M_PI*M_PI*M_PI) +3.0*(gslpp::complex::i()*M_PI-1.0)*(la3Q+2.0*la4Q)*la5Q/(128.0*M_PI*M_PI*M_PI);
+    double         uniLO6   = -la1Q/(16.0*M_PI);
+    gslpp::complex uniNLO6  = -la1Q/(16.0*M_PI) +3.0*betalambda1/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO7   = -la2Q/(16.0*M_PI);
+    gslpp::complex uniNLO7  = -la2Q/(16.0*M_PI) +3.0*betalambda2/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO8   = -la4Q/(16.0*M_PI);
+    gslpp::complex uniNLO8  = -la4Q/(16.0*M_PI) +3.0*betalambda4/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la4Q/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO10  = -la3Q/(16.0*M_PI);
+    gslpp::complex uniNLO10 = -la3Q/(16.0*M_PI) +3.0*betalambda3/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO11  = -la5Q/(16.0*M_PI);
+    gslpp::complex uniNLO11 = -la5Q/(16.0*M_PI) +3.0*betalambda5/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*la3Q*la5Q/(128.0*M_PI*M_PI*M_PI);
+    double         uniLO14  = -(la3Q-la4Q)/(16.0*M_PI);
+    gslpp::complex uniNLO14 = -(la3Q-la4Q)/(16.0*M_PI) +3.0*(betalambda3-betalambda4)/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la3Q-la4Q)*(la3Q-la4Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO15  = -la1Q/(16.0*M_PI);
+    gslpp::complex uniNLO15 = -la1Q/(16.0*M_PI) +3.0*betalambda1/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la1Q*la1Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO16  = -la2Q/(16.0*M_PI);
+    gslpp::complex uniNLO16 = -la2Q/(16.0*M_PI) +3.0*betalambda2/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la2Q*la2Q+la5Q*la5Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO17  = -la5Q/(16.0*M_PI);
+    gslpp::complex uniNLO17 = -la5Q/(16.0*M_PI) +3.0*betalambda5/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO24  = -(la3Q+la4Q)/(16.0*M_PI);
+    gslpp::complex uniNLO24 = -(la3Q+la4Q)/(16.0*M_PI) +3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la3Q+la4Q)*(la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
+    double         uniLO26  = -(la3Q+la4Q)/(16.0*M_PI);
+    gslpp::complex uniNLO26 = -(la3Q+la4Q)/(16.0*M_PI) +3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+
+    double uniLOev1  = 0.5*(uniLO1+uniLO2+sqrt((uniLO1-uniLO2)*(uniLO1-uniLO2)+4.0*uniLO3*uniLO3));
+    double uniLOev2  = 0.5*(uniLO1+uniLO2-sqrt((uniLO1-uniLO2)*(uniLO1-uniLO2)+4.0*uniLO3*uniLO3));
+    double uniLOev3  = uniLO4+uniLO5;
+    double uniLOev4  = uniLO4-uniLO5;
+    double uniLOev5  = 0.5*(uniLO6+uniLO7+sqrt((uniLO6-uniLO7)*(uniLO6-uniLO7)+4.0*uniLO8*uniLO8));
+    double uniLOev6  = 0.5*(uniLO6+uniLO7-sqrt((uniLO6-uniLO7)*(uniLO6-uniLO7)+4.0*uniLO8*uniLO8));
+    double uniLOev9  = uniLO10+uniLO11;
+    double uniLOev10 = uniLO10-uniLO11;
+    double uniLOev13 = 0.5*(uniLO15+uniLO16+sqrt((uniLO15-uniLO16)*(uniLO15-uniLO16)+4.0*uniLO17*uniLO17));
+    double uniLOev14 = 0.5*(uniLO15+uniLO16-sqrt((uniLO15-uniLO16)*(uniLO15-uniLO16)+4.0*uniLO17*uniLO17));
+    gslpp::complex uniNLOev1wowfr  = 0.5*(uniNLO1+uniNLO2+sqrt((uniNLO1-uniNLO2)*(uniNLO1-uniNLO2)+4.0*uniNLO3*uniNLO3));
+    gslpp::complex uniNLOev2wowfr  = 0.5*(uniNLO1+uniNLO2-sqrt((uniNLO1-uniNLO2)*(uniNLO1-uniNLO2)+4.0*uniNLO3*uniNLO3));
+    gslpp::complex uniNLOev3wowfr  = uniNLO4+uniNLO5;
+    gslpp::complex uniNLOev4wowfr  = uniNLO4-uniNLO5;
+    gslpp::complex uniNLOev5wowfr  = 0.5*(uniNLO6+uniNLO7+sqrt((uniNLO6-uniNLO7)*(uniNLO6-uniNLO7)+4.0*uniNLO8*uniNLO8));
+    gslpp::complex uniNLOev6wowfr  = 0.5*(uniNLO6+uniNLO7-sqrt((uniNLO6-uniNLO7)*(uniNLO6-uniNLO7)+4.0*uniNLO8*uniNLO8));
+    gslpp::complex uniNLOev9wowfr  = uniNLO10+uniNLO11;
+    gslpp::complex uniNLOev10wowfr  = uniNLO10-uniNLO11;
+    gslpp::complex uniNLOev13wowfr  = 0.5*(uniNLO15+uniNLO16+sqrt((uniNLO15-uniNLO16)*(uniNLO15-uniNLO16)+4.0*uniNLO17*uniNLO17));
+    gslpp::complex uniNLOev14wowfr = 0.5*(uniNLO15+uniNLO16-sqrt((uniNLO15-uniNLO16)*(uniNLO15-uniNLO16)+4.0*uniNLO17*uniNLO17));
+
+    if( (uniNLOev1wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev2wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev3wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev4wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev5wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev6wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev9wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev10wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev13wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLOev14wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLO14 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLO24 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+    if( (uniNLO26 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
+
+    double Rpeps=0.01;
+    if( fabs(uniLOev1) > Rpeps && (uniNLOev1wowfr/uniLOev1-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev2) > Rpeps && (uniNLOev2wowfr/uniLOev2-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev3) > Rpeps && (uniNLOev3wowfr/uniLOev3-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev4) > Rpeps && (uniNLOev4wowfr/uniLOev4-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev5) > Rpeps && (uniNLOev5wowfr/uniLOev5-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev6) > Rpeps && (uniNLOev6wowfr/uniLOev6-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev9) > Rpeps && (uniNLOev9wowfr/uniLOev9-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev10) > Rpeps && (uniNLOev10wowfr/uniLOev10-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev13) > Rpeps && (uniNLOev13wowfr/uniLOev13-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLOev14) > Rpeps && (uniNLOev14wowfr/uniLOev14-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLO14) > Rpeps && (uniNLO14/uniLO14-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLO24) > Rpeps && (uniNLO24/uniLO24-1.0).abs() > 1.0) check=1;
+    if( fabs(uniLO26) > Rpeps && (uniNLO26/uniLO26-1.0).abs() > 1.0) check=1;
+    
+    }
 
     return check;
 }
@@ -155,7 +287,7 @@ double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long i
         if(status != GSL_SUCCESS) break;
 
         //intermediate checks if appropriate
-        if(RGEcheck(InitialValues) != 0) break;
+        if(RGEcheck(InitialValues,t1) != 0) break;
     }
 
     gsl_odeiv2_evolve_free (e);
