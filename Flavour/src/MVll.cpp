@@ -74,7 +74,7 @@ T_cache(5, 0.)
     w_DTPPR = gsl_integration_cquad_workspace_alloc (100);
     w_delta = gsl_integration_cquad_workspace_alloc (100);
     
-    h_pole = true;
+    h_pole = false;
 
 }
 
