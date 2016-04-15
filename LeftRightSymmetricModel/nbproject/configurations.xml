@@ -39,7 +39,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
@@ -78,7 +77,6 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
-          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
@@ -119,7 +117,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
