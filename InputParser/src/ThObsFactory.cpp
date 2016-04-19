@@ -377,6 +377,52 @@ ThObsFactory::ThObsFactory()
     obsThFactory["tau_3mu"] = boost::factory<tau_3mu*>();
     obsThFactory["tau_3e"] = boost::factory<tau_3e*>();
     obsThFactory["gminus2_mu"] = boost::factory<gminus2_mu*>();
+    obsThFactory["Robs_mu_e_gamma"] = boost::factory<Robs_mu_e_gamma*>();
+
+    obsThFactory["deltaRL_12_u"] = boost::factory<deltaRL_12_u*>();
+    obsThFactory["deltaRL_13_u"] = boost::factory<deltaRL_13_u*>();
+    obsThFactory["deltaRL_23_u"] = boost::factory<deltaRL_23_u*>();
+    obsThFactory["deltaRL_12_e"] = boost::factory<deltaRL_12_e*>();
+    obsThFactory["deltaRL_21_e"] = boost::factory<deltaRL_21_e*>();
+    obsThFactory["deltaRL_13_e"] = boost::factory<deltaRL_13_e*>();
+    obsThFactory["deltaRL_31_e"] = boost::factory<deltaRL_31_e*>();
+    obsThFactory["deltaRL_23_e"] = boost::factory<deltaRL_23_e*>();
+    obsThFactory["deltaRL_32_e"] = boost::factory<deltaRL_32_e*>();
+
+    obsThFactory["deltaLL1_q"] = boost::factory<deltaLL1_q*>();
+    obsThFactory["deltaLL2_q"] = boost::factory<deltaLL2_q*>();
+    obsThFactory["deltaLL3_q"] = boost::factory<deltaLL3_q*>();
+    obsThFactory["deltaRR1_u"] = boost::factory<deltaRR1_u*>();
+    obsThFactory["deltaRR2_u"] = boost::factory<deltaRR2_u*>();
+    obsThFactory["deltaRR3_u"] = boost::factory<deltaRR3_u*>();
+    obsThFactory["deltaRR1_d"] = boost::factory<deltaRR1_d*>();
+    obsThFactory["deltaRR2_d"] = boost::factory<deltaRR2_d*>();
+    obsThFactory["deltaRR3_d"] = boost::factory<deltaRR3_d*>();
+    obsThFactory["deltaLL1_l"] = boost::factory<deltaLL1_l*>();
+    obsThFactory["deltaLL2_l"] = boost::factory<deltaLL2_l*>();
+    obsThFactory["deltaLL3_l"] = boost::factory<deltaLL3_l*>();
+    obsThFactory["deltaRR1_e"] = boost::factory<deltaRR1_e*>();
+    obsThFactory["deltaRR2_e"] = boost::factory<deltaRR2_e*>();
+    obsThFactory["deltaRR3_e"] = boost::factory<deltaRR3_e*>();
+
+    obsThFactory["CCBu11"] = boost::factory<CCBu11*>();
+    obsThFactory["CCBu22"] = boost::factory<CCBu22*>();
+    obsThFactory["CCBu33"] = boost::factory<CCBu33*>();
+    obsThFactory["CCBu12"] = boost::factory<CCBu12*>();
+    obsThFactory["CCBu13"] = boost::factory<CCBu13*>();
+    obsThFactory["CCBu23"] = boost::factory<CCBu23*>();
+    obsThFactory["CCBd11"] = boost::factory<CCBd11*>();
+    obsThFactory["CCBd22"] = boost::factory<CCBd22*>();
+    obsThFactory["CCBd33"] = boost::factory<CCBd33*>();
+    obsThFactory["CCBd12"] = boost::factory<CCBd12*>();
+    obsThFactory["CCBd13"] = boost::factory<CCBd13*>();
+    obsThFactory["CCBd23"] = boost::factory<CCBd23*>();
+    obsThFactory["CCBe11"] = boost::factory<CCBe11*>();
+    obsThFactory["CCBe22"] = boost::factory<CCBe22*>();
+    obsThFactory["CCBe33"] = boost::factory<CCBe33*>();
+    obsThFactory["CCBe12"] = boost::factory<CCBe12*>();
+    obsThFactory["CCBe13"] = boost::factory<CCBe13*>();
+    obsThFactory["CCBe23"] = boost::factory<CCBe23*>();
     /** END: REMOVE FROM THE PACKAGE **/
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
@@ -568,6 +614,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DeltaU"] = boost::factory<DeltaU*>();
 
     obsThFactory["B_BtoXsgammaTHDM"] = boost::factory<bsgammaTHDM*>();
+    obsThFactory["BR_BsmumuTHDM"] = boost::factory<BR_BsmumuTHDM*>();
+    obsThFactory["BR_BdmumuTHDM"] = boost::factory<BR_BdmumuTHDM*>();
 
     obsThFactory["Q_st"] = boost::factory<Q_st*>();
     obsThFactory["DeltaQ_THDM"] = boost::factory<DeltaQ_THDM*>();

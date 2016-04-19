@@ -6406,9 +6406,9 @@ double SUSYMatching::gminus2muNLO() {
     TUhat = mySUSY.getTUhat();
     TDhat = mySUSY.getTDhat();
     TEhat = mySUSY.getTEhat();
-    gslpp::complex a3t = TUhat(2,2);
-    gslpp::complex a3b = TDhat(2,2);
-    gslpp::complex a3tau = TEhat(2,2);
+    gslpp::complex a3t = TUhat(2,2)*mySUSY.v2()/sqrt(2.0)/mt;
+    gslpp::complex a3b = TDhat(2,2)*mySUSY.v1()/sqrt(2.0)/mb;
+    gslpp::complex a3tau = TEhat(2,2)*mySUSY.v1()/sqrt(2.0)/mTAU;
 
     gslpp::matrix<gslpp::complex> MsQhat2(3,3,0);
     gslpp::matrix<gslpp::complex> MsUhat2(3,3,0);
@@ -6461,9 +6461,9 @@ double SUSYMatching::gminus2muNLO() {
     double msneu2 = msmuL+0.5*mzq*mzq*c2b;
 
         TEhat.assign(1,1, 0.);
-     a3t = 0.;
-     a3b = 0.;
-     a3tau = 0.;
+//     a3t = 0.;
+//     a3b = 0.;
+//     a3tau = 0.;
 
     
     gslpp::matrix<gslpp::complex> Rsmu(2,2,0.), Xm(2,2,0.);

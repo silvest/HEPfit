@@ -116,26 +116,26 @@ int RGEcheck(const double InitialValues[], const double t1)
     if(InitialValues[11]+InitialValues[12]-fabs(InitialValues[13])+sqrt(fabs(InitialValues[9]*InitialValues[10]))<0.0) check=1;
     //NLO unitarity
     double YtQ = InitialValues[3];
-    double Yb1Q = 0.;
-    double Yb2Q = 0.;
-    double Ytau1Q = 0.;
-    double Ytau2Q = 0.;
-//    if( modelflag == "type1" ) {
-//        Yb2Q=InitialValues[4];
-//        Ytau2Q=InitialValues[5];
-//    }
-//    else if( modelflag == "type2" ) {
-        Yb1Q=InitialValues[4];
-        Ytau1Q=InitialValues[5];
-//    }
-//    else if( modelflag == "typeX" ) {
-//        Yb2Q=InitialValues[4];
-//        Ytau1Q=InitialValues[5];
-//    }
-//    else if( modelflag == "typeY" ) {
+//    double Yb1Q = 0.;
+//    double Yb2Q = 0.;
+//    double Ytau1Q = 0.;
+//    double Ytau2Q = 0.;
+////    if( modelflag == "type1" ) {
+////        Yb2Q=InitialValues[4];
+////        Ytau2Q=InitialValues[5];
+////    }
+////    else if( modelflag == "type2" ) {
 //        Yb1Q=InitialValues[4];
-//        Ytau2Q=InitialValues[5];
-//    }
+//        Ytau1Q=InitialValues[5];
+////    }
+////    else if( modelflag == "typeX" ) {
+////        Yb2Q=InitialValues[4];
+////        Ytau1Q=InitialValues[5];
+////    }
+////    else if( modelflag == "typeY" ) {
+////        Yb1Q=InitialValues[4];
+////        Ytau2Q=InitialValues[5];
+////    }
     
 //    if(t1>6.908)    //1 TeV
     if(t1>6.62)   //750 GeV
@@ -146,21 +146,21 @@ int RGEcheck(const double InitialValues[], const double t1)
     double la4Q = InitialValues[12];
     double la5Q = InitialValues[13];
 
-    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q
-                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
-                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
-    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q 
-                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q + 6.0*la2Q*YtQ*YtQ
-                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q - 6.0*YtQ*YtQ*YtQ*YtQ;
-    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q
-                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q + 3.0*la3Q*YtQ*YtQ
-                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
-    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q
-                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q + 3.0*la4Q*YtQ*YtQ
-                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
-    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q)
-                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q + 3.0*YtQ*YtQ)
-                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda1 = 6.0*la1Q*la1Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q;
+//                          + 6.0*la1Q*Yb1Q*Yb1Q + 2.0*la1Q*Ytau1Q*Ytau1Q
+//                          - 6.0*Yb1Q*Yb1Q*Yb1Q*Yb1Q - 2.0*Ytau1Q*Ytau1Q*Ytau1Q*Ytau1Q;
+    double betalambda2 = 6.0*la2Q*la2Q + 2.0*la3Q*la3Q + 2.0*la3Q*la4Q + la4Q*la4Q + la5Q*la5Q + 6.0*la2Q*YtQ*YtQ - 6.0*YtQ*YtQ*YtQ*YtQ;
+//                          + 6.0*la2Q*Yb2Q*Yb2Q + 2.0*la2Q*Ytau2Q*Ytau2Q 
+//                          - 6.0*Yb2Q*Yb2Q*Yb2Q*Yb2Q - 2.0*Ytau2Q*Ytau2Q*Ytau2Q*Ytau2Q;
+    double betalambda3 = 3.0*la1Q*la3Q + 3.0*la2Q*la3Q + 2.0*la3Q*la3Q + la1Q*la4Q + la2Q*la4Q + la4Q*la4Q + la5Q*la5Q + 3.0*la3Q*YtQ*YtQ;
+//                          + 3.0*la3Q*Yb1Q*Yb1Q + 3.0*la3Q*Yb2Q*Yb2Q + la3Q*Ytau1Q*Ytau1Q + la3Q*Ytau2Q*Ytau2Q
+//                          - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q + YtQ*YtQ) - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
+    double betalambda4 = la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 2.0*la4Q*la4Q + 4.0*la5Q*la5Q + 3.0*la4Q*YtQ*YtQ;
+//                          + 3.0*la4Q*Yb1Q*Yb1Q + 3.0*la4Q*Yb2Q*Yb2Q + la4Q*Ytau1Q*Ytau1Q + la4Q*Ytau2Q*Ytau2Q
+//                          - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q - 6.0*Yb1Q*Yb1Q*(Yb2Q*Yb2Q - YtQ*YtQ);
+    double betalambda5 = la5Q*(la1Q + la2Q + 4.0*la3Q + 6.0*la4Q + 3.0*YtQ*YtQ);
+//                          + 3.0*la5Q*Yb1Q*Yb1Q + la5Q*Ytau1Q*Ytau1Q + la5Q*(3.0*Yb2Q*Yb2Q + Ytau2Q*Ytau2Q)
+//                          - 6.0*Yb1Q*Yb1Q*Yb2Q*Yb2Q - 2.0*Ytau1Q*Ytau1Q*Ytau2Q*Ytau2Q;
 
     double         uniLO1   = -3.0*la1Q/(16.0*M_PI);
     gslpp::complex uniNLO1  = -3.0*la1Q/(16.0*M_PI) +9.0*betalambda1/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(9.0*la1Q*la1Q+(2.0*la3Q+la4Q)*(2.0*la3Q+la4Q))/(256.0*M_PI*M_PI*M_PI);
