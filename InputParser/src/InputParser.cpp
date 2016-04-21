@@ -35,7 +35,6 @@ std::string InputParser::ReadParameters(const std::string filename_i,
 {
     filename = filename_i;
     rank = rank_i;
-    modname = "";
     lineNo = 0;
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open()) {
