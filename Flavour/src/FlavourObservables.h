@@ -29,6 +29,7 @@
 #include "MVllObservables.h"
 #include "MPllObservables.h"
 #include "MVgamma.h"
+#include "BdmumuOBsmumu.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 
