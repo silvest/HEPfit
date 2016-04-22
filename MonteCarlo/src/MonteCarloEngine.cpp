@@ -350,7 +350,7 @@ void MonteCarloEngine::MCMCIterationInterface() {
 
         if (recvbuff[0] == 2.) { // compute observables
             double sbuff[obsbuffsize];
-            std::map<std::string, double> DPars;
+//            std::map<std::string, double> DPars;
             pars.assign(recvbuff + 1, recvbuff + buffsize);
             setDParsFromParameters(pars,DPars);
             Mod->Update(DPars);
@@ -655,7 +655,7 @@ std::string MonteCarloEngine::computeStatistics() {
     }
     std::ostringstream StatsLog;
     int i = 0;
-    StatsLog << "Statistics file for Observables, Binned Observables and Corellated Gaussian Observables.\n" << std::endl;
+    StatsLog << "Statistics file for Observables, Binned Observables and Correlated Gaussian Observables.\n" << std::endl;
     if (Obs_ALL.size() > 0) StatsLog << "Observables:\n" << std::endl;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
 
@@ -829,6 +829,25 @@ std::string MonteCarloEngine::computeStatistics() {
     double pd = 2.*llikv; //Wikipedia notation...
     StatsLog << "IC value (don't ask me what it means...): " << dbar + 2.*pd << std::endl; 
     StatsLog << "DIC value (same as above...): " << dbar + pd << std::endl; 
+    StatsLog << std::endl;
+    StatsLog << "Value of the Parameters and Observables at the global mode:" << std::endl;
+    StatsLog << std::endl;
+    
+    setDParsFromParameters(mode,DPars);
+
+    Mod->Update(DPars);
+
+    StatsLog << std::setprecision(5);
+    
+    for (std::map<std::string,double>::iterator it = DPars.begin(); it != DPars.end(); it++)
+        StatsLog << it->first << ": " << it->second << std::endl;
+       
+    StatsLog << std::endl;
+    
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
+                it < Obs_ALL.end(); it++) 
+        StatsLog << it->getName() << ": " << it->computeTheoryValue() << std::endl;
+
     return StatsLog.str().c_str();
 }
 
