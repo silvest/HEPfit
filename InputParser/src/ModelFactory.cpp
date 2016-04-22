@@ -31,6 +31,7 @@
 #include "THDM.h"
 #include "FlavourWilsonCoefficient.h"
 #include "NPDF2.h"
+#include "CMFV.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
 
@@ -71,6 +72,7 @@ ModelFactory::ModelFactory()
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
     modelFactory["NPDF2"] = boost::factory<NPDF2*>();
+    modelFactory["CMFV"] = boost::factory<CMFV*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 
