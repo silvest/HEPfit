@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -15,8 +15,8 @@
 SUSYSpectrum::SUSYSpectrum(const SUSY & SUSY_in)
 : mySUSY(SUSY_in), Mchargino(2,2,0.), Mneutralino(4,4,0.),
         Msup2(6,0.), Msdown2(6,0.), Msneutrino2(6,0.), Mselectron2(6,0.),
-        mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sn2(6,0.), m_se2(6,0.),
         U(2,2,0.), V(2,2,0.), N(4,4,0.),
+        mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sn2(6,0.), m_se2(6,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)
 {
 }

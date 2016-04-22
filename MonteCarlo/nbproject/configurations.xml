@@ -74,6 +74,7 @@
           <preprocessorList>
             <Elem>_MCDEBUG</Elem>
           </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -338,6 +339,7 @@
             <Elem>_MCDEBUG</Elem>
             <Elem>_MPI</Elem>
           </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>

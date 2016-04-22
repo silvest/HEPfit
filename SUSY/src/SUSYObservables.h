@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -17,6 +17,8 @@
 #include "Mchargino.h"
 #include "Mneutralino.h"
 #include "Mw_dRho.h"
+#include "CCBbounds.h"
+#include "SFermiondeltas.h"
 
 #endif	/* SUSYOBSERVABLES_H */
 

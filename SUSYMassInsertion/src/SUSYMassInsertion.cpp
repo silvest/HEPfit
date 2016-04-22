@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -44,9 +44,11 @@ const std::string SUSYMassInsertion::SusyMIvars[NSusyMIvars] = {"Msq", "m3", "Mu
 };
 
 SUSYMassInsertion::SUSYMassInsertion()
-:  StandardModel(), SUSYMIM(*this),
+:  StandardModel(),
         Du_LL(3,0.), Du_LR(3,0.), Du_RL(3,0.), Du_RR(3,0.),
-        Dd_LL(3,0.), Dd_LR(3,0.), Dd_RL(3,0.), Dd_RR(3,0.){
+        Dd_LL(3,0.), Dd_LR(3,0.), Dd_RL(3,0.), Dd_RR(3,0.),
+        SUSYMIM(*this)
+{
     SMM.setObj((StandardModelMatching&) SUSYMIM.getObj());
     
         rDULL11=0.; rDULL12=0.; rDULL13=0.; 

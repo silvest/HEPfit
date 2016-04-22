@@ -152,6 +152,7 @@
           <preprocessorList>
             <Elem>SUSYFIT_DEBUG=0</Elem>
           </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -363,7 +364,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>0</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>

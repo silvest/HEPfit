@@ -31,6 +31,7 @@
                 <make-dep-project>../EW</make-dep-project>
                 <make-dep-project>../InputParser</make-dep-project>
                 <make-dep-project>../NewPhysics</make-dep-project>
+                <make-dep-project>../LeftRightSymmetricModel</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>

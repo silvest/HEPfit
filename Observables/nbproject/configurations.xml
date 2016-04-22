@@ -54,8 +54,10 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../InputParser/src</pElem>
+            <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -116,6 +118,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../InputParser/src</pElem>
+            <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -185,6 +188,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../InputParser/src</pElem>
+            <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>

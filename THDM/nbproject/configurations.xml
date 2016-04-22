@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/B_to_mumu.h</itemPath>
       <itemPath>src/CPoddHiggs.h</itemPath>
       <itemPath>src/EWPO.h</itemPath>
       <itemPath>src/Runner.h</itemPath>
@@ -13,6 +14,7 @@
       <itemPath>src/THDMObservables.h</itemPath>
       <itemPath>src/THDMcache.h</itemPath>
       <itemPath>src/THDMquantities.h</itemPath>
+      <itemPath>src/THDMquantitiesatQ.h</itemPath>
       <itemPath>src/bsgamma.h</itemPath>
       <itemPath>src/globalminimum.h</itemPath>
       <itemPath>src/heavyHiggs.h</itemPath>
@@ -27,6 +29,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/B_to_mumu.cpp</itemPath>
       <itemPath>src/CPoddHiggs.cpp</itemPath>
       <itemPath>src/EWPO.cpp</itemPath>
       <itemPath>src/Runner.cpp</itemPath>
@@ -35,6 +38,7 @@
       <itemPath>src/THDMMatching.cpp</itemPath>
       <itemPath>src/THDMcache.cpp</itemPath>
       <itemPath>src/THDMquantities.cpp</itemPath>
+      <itemPath>src/THDMquantitiesatQ.cpp</itemPath>
       <itemPath>src/bsgamma.cpp</itemPath>
       <itemPath>src/globalminimum.cpp</itemPath>
       <itemPath>src/heavyHiggs.cpp</itemPath>
@@ -71,10 +75,15 @@
             <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -108,6 +117,10 @@
       <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMquantitiesatQ.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -164,6 +177,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -197,6 +214,10 @@
       <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMquantitiesatQ.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -252,6 +273,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -285,6 +310,10 @@
       <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMquantitiesatQ.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2016 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */

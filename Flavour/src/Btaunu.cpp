@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -10,7 +10,8 @@
 Btaunu::Btaunu(const StandardModel& SM_i)
 : ThObservable(SM_i)
 {
-    if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to tau nu not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
+    if (SM.getModelName().compare("StandardModel") != 0 
+            && SM.getModelName().compare("THDM") != 0) std::cout << "\nWARNING: B to tau nu not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
 };
 
 double Btaunu::computeThValue()

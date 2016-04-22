@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2012 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -73,31 +73,21 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcd1Buras(10, NDR, NLO),
         
     myCKM(3, 3, 0.),
+    mym_su_sq(6, 0.),
+    mym_sd_sq(6, 0.),
+    mym_se_sq(6, 0.),
+    mym_sn_sq(6, 0.),
     myRu(6, 6, 0.),
     myRd(6, 6, 0.),
     myRl(6, 6, 0.),
     myRn(6, 6, 0.),
-    mym_sn_sq(6, 0.),
-    mym_se_sq(6, 0.),
-    mym_su_sq(6, 0.),
-    mym_sd_sq(6, 0.),
-    MChi0(4, 0.),
-    myN(4, 4, 0.),
-    MNeig(4, 0.),
-    ON(4, 4, 0.),
     MChi(2, 0.),
     myV(2, 2, 0.),
     myU(2, 2, 0.),
-
-    Eps_JCache(3,0.),
-    Lambda0EpsYCache(3,3,0.),
-    DeltaDL_Cache(3,3,0.),
-    PHLRCache(3,3,0.),
-    PHRLCache(3,3,0.),
-    myCKM_cache(3, 3, 0.),
-    VUDHH_cache(6, 6, 0.),
-    DeltaMd_cache(3, 3, 0.),
-    mySUSYMQ(6, 0.),
+    MChi0(4, 0.),
+    MNeig(4, 0.),
+    myN(4, 4, 0.),
+    ON(4, 4, 0.),
 
     Lepty(4, 6, 0.),
     Leptz(2, 3, 0.),
@@ -151,10 +141,20 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     AmpTEARN(4, 6, 0.),
     AmpTEALC(2, 3, 0.),
     AmpTEARC(2, 3, 0.),
+    TUhat(3, 3, 0.),
+    TDhat(3, 3, 0.),
+    TEhat(3, 3, 0.),
 
-        TUhat(3, 3, 0.),
-        TDhat(3, 3, 0.),
-        TEhat(3, 3, 0.)
+    Eps_JCache(3,0.),
+    Lambda0EpsYCache(3,3,0.),
+    DeltaDL_Cache(3,3,0.),
+    PHLRCache(3,3,0.),
+    PHRLCache(3,3,0.),
+    myCKM_cache(3, 3, 0.),
+    VUDHH_cache(6, 6, 0.),
+    DeltaMd_cache(3, 3, 0.),
+    mySUSYMQ(6, 0.)
+
 {
 }
 
@@ -6394,7 +6394,7 @@ double SUSYMatching::gminus2muNLO() {
     gslpp::complex s2a = 2.0*ca*sa;
     gslpp::complex c2a = ca*ca-sa*sa;
     double vew = v/sqrt(2.);
-    double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
+//    double mE = mySUSY.getLeptons(StandardModel::ELECTRON).getMass();
     double mmu = mySUSY.getLeptons(StandardModel::MU).getMass();
     double mTAU = mySUSY.getLeptons(StandardModel::TAU).getMass();
     double mt = mySUSY.getQuarks(mySUSY.TOP).getMass();
@@ -6406,9 +6406,9 @@ double SUSYMatching::gminus2muNLO() {
     TUhat = mySUSY.getTUhat();
     TDhat = mySUSY.getTDhat();
     TEhat = mySUSY.getTEhat();
-    gslpp::complex a3t = TUhat(2,2);
-    gslpp::complex a3b = TDhat(2,2);
-    gslpp::complex a3tau = TEhat(2,2);
+    gslpp::complex a3t = TUhat(2,2)*mySUSY.v2()/sqrt(2.0)/mt;
+    gslpp::complex a3b = TDhat(2,2)*mySUSY.v1()/sqrt(2.0)/mb;
+    gslpp::complex a3tau = TEhat(2,2)*mySUSY.v1()/sqrt(2.0)/mTAU;
 
     gslpp::matrix<gslpp::complex> MsQhat2(3,3,0);
     gslpp::matrix<gslpp::complex> MsUhat2(3,3,0);
@@ -6450,7 +6450,7 @@ double SUSYMatching::gminus2muNLO() {
     g1=gi[0], g2=gi[1], g3=gi[2];
 
     double alp = (g1*g1*g2*g2/(g1*g1+g2*g2))/(4.0*pi);
-    double s2b = 2.0*cosb*sinb;
+//    double s2b = 2.0*cosb*sinb;
     double c2b = cosb*cosb-sinb*sinb;
     double mzq = sqrt( 0.5*(g1*g1+g2*g2)*vew*vew );
     double mwq = sqrt( 0.5*(g2*g2)*vew*vew );
@@ -6461,9 +6461,9 @@ double SUSYMatching::gminus2muNLO() {
     double msneu2 = msmuL+0.5*mzq*mzq*c2b;
 
         TEhat.assign(1,1, 0.);
-     a3t = 0.;
-     a3b = 0.;
-     a3tau = 0.;
+//     a3t = 0.;
+//     a3b = 0.;
+//     a3tau = 0.;
 
     
     gslpp::matrix<gslpp::complex> Rsmu(2,2,0.), Xm(2,2,0.);
@@ -6622,7 +6622,7 @@ double SUSYMatching::gminus2muNLO() {
     /////////////////////////////////////////////////////////////////////////////
 
     double dmu=0;
-    double I=0;
+//    double I=0;
     double x0, x1a, x2a, xL, xR;
     double tmp2, tmp3;
 

@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2014 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -19,7 +19,7 @@
 #include <TGraph.h>
 #include <TFitResultPtr.h>
 
-#define SWITCH 8.2
+#define MPllSWITCH 8.2
 
 /**
  * @class MPll

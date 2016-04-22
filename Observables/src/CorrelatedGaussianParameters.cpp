@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2013 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -90,7 +90,7 @@ void CorrelatedGaussianParameters::DiagonalizePars(gslpp::matrix<double> Corr)
     
     gslpp::vector<double> ave = v->transpose() * ave_in;
     
-    for (int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
         std::stringstream ss;
         ss << (i+1);

@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 2015 HEPfit Collaboration
- * All rights reserved.
+ *
  *
  * For the licensing terms see doc/COPYING.
  */
@@ -18,7 +18,9 @@
 #include "Runner.h"
 #include "STU.h"
 #include "THDMquantities.h"
+#include "THDMquantitiesatQ.h"
 #include "unitarity.h"
+#include "B_to_mumu.h"
 
 #endif	/* THDMOBSERVABLES_H */
 
