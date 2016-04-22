@@ -494,7 +494,7 @@ public:
 
     double S1(double x) const;
 
-    double S0(double, double) const;
+    virtual double S0(double, double) const;
     
     
 protected:

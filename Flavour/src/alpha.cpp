@@ -9,5 +9,6 @@
 
 double Alpha::computeThValue() 
 {
-    return(SM.computeAlpha()/M_PI*180.);
+    double alpha = (SM.computeAlpha() - SM.getPhiBd())/M_PI*180.;
+    return(remainder(alpha,360.));
 }

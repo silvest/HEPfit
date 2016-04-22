@@ -2069,6 +2069,7 @@ private:
     BParameter BKd1;
     BParameter BKd3;
     double BBsB0, BBsB1, BBsB2, BBsB3, BBsB4, BBsscale;
+    double FBsSqrtBBs0, FBsSqrtBBs1, FBsSqrtBBs2, FBsSqrtBBs3, FBsSqrtBBs4, csi;
     //double BBdB0, BBdB1, BBdB2, BBdB3, BBdB4, BBdscale;
     double BDB0, BDB1, BDB2, BDB3, BDB4, BDscale;
     double BKB0, BKB1, BKB2, BKB3, BKB4, BKscale;

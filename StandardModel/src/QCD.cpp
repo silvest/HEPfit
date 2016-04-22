@@ -30,8 +30,8 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi", "Fphip",
     "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
     "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
-    "BBsoBBd",
-    "BBs1", "BBs2", "BBs3", "BBs4", "BBs5", "BBsscale", "BBsscheme",
+    "csi",
+    "FBsSqrtBBs1", "FBsSqrtBBs2", "FBsSqrtBBs3", "FBsSqrtBBs4", "FBsSqrtBBs5", "BBsscale", "BBsscheme",
     "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5",
     "BK(1/2)6", "BK(1/2)7", "BK(1/2)8", "BK(1/2)9", "BK(1/2)10",
     "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5",
@@ -125,7 +125,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD4", boost::cref(BD.getBpars()(3))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD5", boost::cref(BD.getBpars()(4))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDscale", boost::cref(BD.getMu())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsoBBd", boost::cref(BBsoBBd)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("csi", boost::cref(csi)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs1", boost::cref(BBs.getBpars()(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs2", boost::cref(BBs.getBpars()(1))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs3", boost::cref(BBs.getBpars()(2))));
@@ -329,7 +329,7 @@ bool QCD::PostUpdate()
     if (computeFBd)
         mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
     if (computeBd)
-        BBd.setBpars(0, BBs.getBpars()(0) / BBsoBBd);
+        BBd.setBpars(0, BBs.getBpars()(0) / csi / csi);
     if (computemt) {
         quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
 #if SUSYFIT_DEBUG & 2
@@ -490,32 +490,37 @@ void QCD::setParameter(const std::string name, const double& value)
         BDscale = value;
     } else if (name.compare("BDscheme") == 0)
         BD.setScheme((schemes) value);
-    else if (name.compare("BBsoBBd") == 0) {
-        BBsoBBd = value;
+    else if (name.compare("csi") == 0) {
+        csi = value;
         computeBd = true;
-    } else if (name.compare("BBs1") == 0) {
-        BBs.setBpars(0, value);
-        BBsB0 = value;
+    } else if (name.compare("FBsSqrtBBs1") == 0) {
+        double value2 = value*value;
+        BBs.setBpars(0, value2);
+        BBsB0 = value2;
         computeBd = true;
-    } else if (name.compare("BBs2") == 0) {
-        BBd.setBpars(1, value);
-        BBs.setBpars(1, value);
-        BBsB1 = value;
+    } else if (name.compare("FBsSqrtBBs2") == 0) {
+        double value2 = value*value;
+        BBd.setBpars(1, value2);
+        BBs.setBpars(1, value2);
+        BBsB1 = value2;
         //BBdB1 = value;
-    } else if (name.compare("BBs3") == 0) {
-        BBd.setBpars(2, value);
-        BBs.setBpars(2, value);
-        BBsB2 = value;
+    } else if (name.compare("FBsSqrtBBs3") == 0) {
+        double value2 = value*value;
+        BBd.setBpars(2, value2);
+        BBs.setBpars(2, value2);
+        BBsB2 = value2;
         //BBdB2 = value;
-    } else if (name.compare("BBs4") == 0) {
-        BBd.setBpars(3, value);
-        BBs.setBpars(3, value);
-        BBsB3 = value;
+    } else if (name.compare("FBsSqrtBBs4") == 0) {
+        double value2 = value*value;
+        BBd.setBpars(3, value2);
+        BBs.setBpars(3, value2);
+        BBsB3 = value2;
         //BBdB3 = value;
-    } else if (name.compare("BBs5") == 0) {
-        BBd.setBpars(4, value);
-        BBs.setBpars(4, value);
-        BBsB4 = value;
+    } else if (name.compare("FBsSqrtBBs5") == 0) {
+        double value2 = value*value;
+        BBd.setBpars(4, value2);
+        BBs.setBpars(4, value2);
+        BBsB4 = value2;
         //BBdB4 = value;
     } else if (name.compare("BBsscale") == 0) {
         BBd.setMu(value);

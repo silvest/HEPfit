@@ -29,10 +29,10 @@
 /** END: REMOVE FROM THE PACKAGE **/
 
 
-const std::string StandardModel::SMvars[NSMvars] = {
-    "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ",
-    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau",
-    "lambda", "A", "rhob", "etab", "muw",
+//NOTICE: lambda, A, rhob and etab MUST be the first four items, otherwise FlagWolfenstein does not work!!!!
+std::string StandardModel::SMvars[NSMvars] = {
+    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ",
+    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw",
     "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
 
@@ -48,6 +48,7 @@ Ye(3, 3, 0.), SMM(*this)
     FlagMw = "APPROXIMATEFORMULA";
     FlagRhoZ = "NORESUM";
     FlagKappaZ = "APPROXIMATEFORMULA";
+    FlagWolfenstein = true;
 
     /* Internal flags for EWPO (for debugging) */
     flag_order[EW1] = true;
@@ -282,17 +283,29 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("mtau") == 0) {
         leptons[TAU].setMass(value);
         requireYe = true;
-    } else if (name.compare("lambda") == 0) {
+    } else if (name.compare("lambda") == 0 && FlagWolfenstein) {
         lambda = value;
         requireCKM = true;
-    } else if (name.compare("A") == 0) {
+    } else if (name.compare("A") == 0 && FlagWolfenstein) {
         A = value;
         requireCKM = true;
-    } else if (name.compare("rhob") == 0) {
+    } else if (name.compare("rhob") == 0 && FlagWolfenstein) {
         rhob = value;
         requireCKM = true;
-    } else if (name.compare("etab") == 0) {
+    } else if (name.compare("etab") == 0 && FlagWolfenstein) {
         etab = value;
+        requireCKM = true;
+    } else if (name.compare("Vus") == 0 && !FlagWolfenstein) {
+        Vus = value;
+        requireCKM = true;
+    } else if (name.compare("Vcb") == 0 && !FlagWolfenstein) {
+        Vcb = value;
+        requireCKM = true;
+    } else if (name.compare("Vub") == 0 && !FlagWolfenstein) {
+        Vub = value;
+        requireCKM = true;
+    } else if (name.compare("gamma") == 0 && !FlagWolfenstein) {
+        gamma = value;
         requireCKM = true;
     } else if (name.compare("muw") == 0)
         muw = value;
@@ -326,8 +339,22 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars)
 void StandardModel::computeCKM()
 {
     if (requireCKM) {
-        myCKM.setWolfenstein(lambda, A, rhob, etab);
+        if (FlagWolfenstein) {
+        myCKM.setWolfenstein(lambda, A, rhob, etab);    
         myCKM.getCKM(VCKM);
+        Vus = myCKM.getVus();
+        Vcb = myCKM.getVcb();
+        Vub = myCKM.getVub();
+        gamma = myCKM.computeGamma();
+        }
+        else { 
+        myCKM.setCKM(Vus, Vcb, Vub, gamma);
+        myCKM.getCKM(VCKM);
+        lambda = myCKM.getLambda();
+        A = myCKM.getA();
+        rhob = myCKM.getRho();
+        etab = myCKM.getEta();
+        }
     }
     UPMNS = gslpp::matrix<gslpp::complex>::Id(3);
 }
@@ -373,6 +400,15 @@ bool StandardModel::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("CacheInEWSMcache") == 0) {
         getMyEWSMcache()->setFlagCacheInEWSMcache(value);
+        res = true;
+    } else if (name.compare("Wolfenstein") == 0) {
+        FlagWolfenstein = value;
+        if(!FlagWolfenstein) {
+            SMvars[0] = "Vus";
+            SMvars[1] = "Vcb";
+            SMvars[2] = "Vub";
+            SMvars[3] = "gamma";
+        }
         res = true;
     } else if (name.compare("WithoutNonUniversalVC") == 0) {
         FlagWithoutNonUniversalVC = value;

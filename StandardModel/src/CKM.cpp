@@ -107,12 +107,12 @@ void CKM::setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v
     return;
 }
 
-void CKM::setCKM(double Vud_v, double Vcb_v, double Vub_v, double gamma_v)
+void CKM::setCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v)
 {
     s13 = Vub_v;
     c13 = sqrt(1. - s13 * s13);
-    c12 = Vud_v / c13;
-    s12 = sqrt(1. - c12 * c12);
+    s12 = Vus_v / c13;
+    c12 = sqrt(1. - s12 * s12);
     s23 = Vcb_v / c13;
     c23 = sqrt(1. - s23 * s23);
     double a = c12 * s13 * s23 / s12 / c23;

@@ -31,12 +31,12 @@ gslpp::complex AmpDB2::AmpBd(orders order)
                 mySM.getQuarks(QCD::DOWN).getMass_scale(),
                 mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     double KBd = MBd/(Mb+Md)*MBd/(Mb+Md);
-    double Fb = mySM.getMesons(QCD::B_D).getDecayconst();
-    me(0) *= 1./3.*MBd*Fb*Fb;
-    me(1) *= -5./24.*KBd*MBd*Fb*Fb;
-    me(2) *= 1./24.*KBd*MBd*Fb*Fb;
-    me(3) *= 1./4.*KBd*MBd*Fb*Fb;
-    me(4) *= 1./12.*KBd*MBd*Fb*Fb;
+//    double Fb = mySM.getMesons(QCD::B_D).getDecayconst();
+    me(0) *= 1./3.*MBd;//*Fb*Fb;
+    me(1) *= -5./24.*KBd*MBd;//*Fb*Fb;
+    me(2) *= 1./24.*KBd*MBd;//*Fb*Fb;
+    me(3) *= 1./4.*KBd*MBd;//*Fb*Fb;
+    me(4) *= 1./12.*KBd*MBd;//*Fb*Fb;
     
 #if SUSYFIT_DEBUG & 1
     std::cout << "Bd: me(0) = " << me(0)  << std::endl;
@@ -75,12 +75,12 @@ gslpp::complex AmpDB2::AmpBs(orders order)
                 mySM.getQuarks(QCD::STRANGE).getMass_scale(),
                 mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
     double KBs = MBs/(Mb+Ms)*MBs/(Mb+Ms);
-    double Fbs = mySM.getMesons(QCD::B_S).getDecayconst();
-    me(0) *= 1./3.*MBs*Fbs*Fbs;
-    me(1) *= -5./24.*KBs*MBs*Fbs*Fbs;
-    me(2) *= 1./24.*KBs*MBs*Fbs*Fbs;
-    me(3) *= 1./4.*KBs*MBs*Fbs*Fbs;
-    me(4) *= 1./12.*KBs*MBs*Fbs*Fbs;
+//    double Fbs = mySM.getMesons(QCD::B_S).getDecayconst();
+    me(0) *= 1./3.*MBs;//*Fbs*Fbs;
+    me(1) *= -5./24.*KBs*MBs;//*Fbs*Fbs;
+    me(2) *= 1./24.*KBs*MBs;//*Fbs*Fbs;
+    me(3) *= 1./4.*KBs*MBs;//*Fbs*Fbs;
+    me(4) *= 1./12.*KBs*MBs;//*Fbs*Fbs;
 #if SUSYFIT_DEBUG & 1
     std::cout << "Bs: me(0) = " << me(0)  << std::endl;
 #endif
