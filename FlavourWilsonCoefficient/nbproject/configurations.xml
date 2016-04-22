@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/CMFV.h</itemPath>
+      <itemPath>src/CMFVMatching.h</itemPath>
       <itemPath>src/FlavourWilsonCoefficient.h</itemPath>
       <itemPath>src/FlavourWilsonCoefficientMatching.h</itemPath>
       <itemPath>src/NPDF2.h</itemPath>
@@ -15,6 +17,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/CMFV.cpp</itemPath>
+      <itemPath>src/CMFVMatching.cpp</itemPath>
       <itemPath>src/FlavourWilsonCoefficient.cpp</itemPath>
       <itemPath>src/FlavourWilsonCoefficientMatching.cpp</itemPath>
       <itemPath>src/NPDF2.cpp</itemPath>
@@ -51,6 +55,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/CMFV.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/CMFV.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/CMFVMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/CMFVMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/FlavourWilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/FlavourWilsonCoefficient.h" ex="false" tool="3" flavor2="0">
@@ -90,6 +102,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/CMFV.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/CMFV.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/CMFVMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/CMFVMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/FlavourWilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/FlavourWilsonCoefficient.h" ex="false" tool="3" flavor2="0">
@@ -137,6 +157,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/CMFV.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/CMFV.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/CMFVMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/CMFVMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/FlavourWilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/FlavourWilsonCoefficient.h" ex="false" tool="3" flavor2="0">
