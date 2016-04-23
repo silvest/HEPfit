@@ -333,7 +333,7 @@
           </incDir>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
           </incDir>

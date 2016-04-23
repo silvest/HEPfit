@@ -116,7 +116,7 @@
           </incDir>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../HiggsExtensions/src</pElem>
             <pElem>../gslpp/src</pElem>

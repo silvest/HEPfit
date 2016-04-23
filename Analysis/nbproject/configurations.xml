@@ -727,7 +727,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -1060,7 +1060,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>

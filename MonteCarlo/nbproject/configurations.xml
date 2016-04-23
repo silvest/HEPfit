@@ -87,7 +87,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
@@ -139,7 +139,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>6</developmentMode>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
