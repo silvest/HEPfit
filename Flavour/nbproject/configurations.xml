@@ -148,11 +148,10 @@
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>
             <Elem>SUSYFIT_DEBUG=0</Elem>
           </preprocessorList>
-          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -372,8 +371,7 @@
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
-          <warningLevel>2</warningLevel>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -590,7 +588,7 @@
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
