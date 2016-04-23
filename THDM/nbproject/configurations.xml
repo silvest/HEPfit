@@ -66,7 +66,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -140,8 +140,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
-          <warningLevel>2</warningLevel>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -221,7 +220,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

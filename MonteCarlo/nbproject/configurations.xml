@@ -59,7 +59,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>
             <Elem>_MCDEBUG</Elem>
           </preprocessorList>
@@ -107,8 +107,7 @@
             <pElem>../BAT/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
-          <warningLevel>2</warningLevel>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -160,11 +159,10 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
-          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -216,7 +214,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -320,7 +318,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>
             <Elem>_MCDEBUG</Elem>
             <Elem>_MPI</Elem>
