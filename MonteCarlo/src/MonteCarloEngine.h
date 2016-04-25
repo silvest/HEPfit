@@ -17,9 +17,6 @@
 #include <BAT/BCModel.h>
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
-#include <BAT/BCModelOutput.h>
-#include <TH1D.h>
-#include <TH2D.h>
 #include <TFile.h>
 #include <TRandom3.h>
 #include <TPrincipal.h>
@@ -120,7 +117,7 @@ public:
      * target=blank>TH1D</a> as defined in the ROOT libraries
      * @param[in] name the name for the histogram
      */
-    void CheckHistogram(const TH1D& hist, const std::string name);
+    void CheckHistogram(TH1& hist, const std::string name);
 
     /**
      * @brief This member checks if there is overflow of the 2D histogram.
@@ -128,7 +125,11 @@ public:
      * target=blank>TH2D</a> as defined in the ROOT libraries
      * @param[in] name the name for the histogram
      */
-    void CheckHistogram(const TH2D& hist, const std::string name);
+    void CheckHistogram(TH2& hist, const std::string name);
+    
+    void Print1D(BCH1D hist1D, const char * filename, int ww=0, int wh=0);
+    
+    void Print2D(BCH2D hist2D, const char * filename, int ww=0, int wh=0);
 
     /**
      * @brief Overloaded from PrintHistogram(BCModelOutput&, const std::string) to print
@@ -138,7 +139,7 @@ public:
      * @param[in] it a reference to an object of type Observable
      * @param[in] OutputDir the name of the output directory
      */
-    void PrintHistogram(BCModelOutput & out, Observable & it, const std::string OutputDir);
+    void PrintHistogram(std::string& OutFile, Observable & it, const std::string OutputDir);
 
     /**
      * @brief Member used for printing histograms for observables, observable2D, correlated Gaussian observables
@@ -147,7 +148,7 @@ public:
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>
      * @param[in] OutputDir the name of the output directory
      */
-    void PrintHistogram(BCModelOutput& out, const std::string OutputDir);
+    void PrintHistogram(std::string& OutFile, const std::string OutputDir);
 
     /**
      * @brief Overloaded from BCEngineMCMC in <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>
@@ -156,7 +157,7 @@ public:
      * flag is true then the minimum and maximum of the theory value is checked and reset to include the current
      * theory values.
      */
-    void MCMCIterationInterface();
+    void MCMCUserIterationInterface();
 
     /**
      * @brief A set method to fix the number of chains.
@@ -174,6 +175,8 @@ public:
      * to the chain information.
      */
     void AddChains();
+    
+    void InChainFillObservablesTree();
 
     /**
      * @brief A get method to access the stream that stores the log messages coming from histogram printing and checking.
@@ -201,7 +204,7 @@ public:
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>.
      * @param[in] filename the name of the file where the correlation matrix is printed
      */
-    void PrintCorrelationMatrix(const std::string filename);
+    void PrintCorrelationMatrixToLaTeX(const std::string filename);
 
     /**
      * @brief A get method to access the number of events discarded due to failure to update model.
@@ -222,21 +225,21 @@ public:
         return NumOfUsedEvents;
     }
     
-    std::map<std::string, BCH1D * > getHistograms1D() const
+    std::map<std::string, BCH1D> getHistograms1D() const
     {
         return Histo1D;
     }
 
-    std::map<std::string, BCH2D * > getHistograms2D() const
+    std::map<std::string, BCH2D> getHistograms2D() const
     {
         return Histo2D;
     }
     
     double computeNormalization();
     
-    double SecondDerivative(const BCParameter * par1, const BCParameter * par2, std::vector<double> point);
+    double SecondDerivative(BCParameter par1, BCParameter par2, std::vector<double> point);
     
-    double FirstDerivative(const BCParameter * par, std::vector<double> point);
+    double FirstDerivative(BCParameter par, std::vector<double> point);
     
     double Function_h(std::vector<double> point);
     
@@ -250,8 +253,8 @@ private:
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
     Model* Mod; ///< A pointer to an abject of type Model.
     std::map<std::string, double> DPars; ///< A map between parameter names and their values.
-    std::map<std::string, BCH1D * > Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
-    std::map<std::string, BCH2D * > Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
+    std::map<std::string, BCH1D> Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
+    std::map<std::string, BCH2D> Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.
     std::map<std::string, double> thMax; ///< A map between the name of a theory observable and its maximum value.
     std::map<std::string, TPrincipal *> CorrelationMap; ///< A map between the name of a theory observable and its maximum value.
@@ -264,7 +267,13 @@ private:
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
     int getPrecision(double value, double rms);
-
+    TTree * hMCMCObservableTree;
+    std::vector<std::vector<double> > hMCMCObservables;
+    std::vector<std::vector<double> > hMCMCObservables_weight;
+    std::vector<double> hMCMCTree_Observables;
+    std::vector<double> hMCMCTree_Observables_weight;
+    unsigned int cindex;
+    std::ofstream ofi;
 };
 
 #endif

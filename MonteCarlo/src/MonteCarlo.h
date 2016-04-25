@@ -139,12 +139,12 @@ public:
      */
     void Run(const int rank);
     
-    std::map<std::string, BCH1D * > getHistograms1D() const
+    std::map<std::string, BCH1D> getHistograms1D() const
     {
         return MCEngine.getHistograms1D();
     }
 
-    std::map<std::string, BCH2D * > getHistograms2D() const
+    std::map<std::string, BCH2D> getHistograms2D() const
     {
         return MCEngine.getHistograms2D();
     }

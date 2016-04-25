@@ -12,7 +12,6 @@
 #include <TSystem.h>
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
-#include <BAT/BCSummaryTool.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -117,6 +116,7 @@ void MonteCarlo::Run(const int rank) {
 
         /* set model parameters */
         ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
+        MCEngine.SetName(ModelName);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
@@ -233,11 +233,7 @@ void MonteCarlo::Run(const int rank) {
             if (ModPars.size() > 0) std::cout << ModPars.size() << " parameters defined." << std::endl;
             if (Obs.size() > 0) std::cout << Obs.size() << " observables defined." << std::endl;
             if (Obs2D.size() > 0) std::cout << Obs2D.size() << " 2D observables defined." << std::endl;
-            if (CGO.size() > 0) std::cout << CGO.size() << " correlated gaussian observables defined";
-            if (CGO.size() == 0)
-                std::cout << "." << std::endl;
-            else
-                std::cout << ":" << std::endl;
+            if (CGO.size() > 0) std::cout << CGO.size() << " correlated gaussian observables defined:" << std::endl;
             for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
                     it1 != CGO.end(); ++it1)
                 std::cout << "  " << it1->getName() << " containing "
@@ -261,21 +257,21 @@ void MonteCarlo::Run(const int rank) {
                     MCEngine.setNChains(atoi((*beg).c_str()));
                 } else if (beg->compare("PrerunMaxIter") == 0) {
                     ++beg;
-                    MCEngine.MCMCSetNIterationsMax(atoi((*beg).c_str()));
+                    MCEngine.SetNIterationsMax(atoi((*beg).c_str()));
                 } else if (beg->compare("NIterationsUpdateMax") == 0) {
                     ++beg;
-                    MCEngine.MCMCSetNIterationsUpdateMax(atoi((*beg).c_str()));
+                    MCEngine.SetNIterationsPreRunCheck(atoi((*beg).c_str()));
                 } else if (beg->compare("Seed") == 0) {
                     ++beg;
                     int seed = atoi((*beg).c_str());
                     if (seed != 0)
-                        MCEngine.MCMCSetRandomSeed(seed);
+                        MCEngine.SetRandomSeed(seed);
                 } else if (beg->compare("Iterations") == 0) {
                     ++beg;
-                    MCEngine.MCMCSetNIterationsRun(atoi((*beg).c_str()));
+                    MCEngine.SetNIterationsRun(atoi((*beg).c_str()));
                 } else if (beg->compare("MinimumEfficiency") == 0) {
                     ++beg;
-                    MCEngine.MCMCSetMinimumEfficiency(atof((*beg).c_str()));
+                    MCEngine.SetMinimumEfficiency(atof((*beg).c_str()));
                 } else if (beg->compare("WriteChain") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0)
@@ -318,27 +314,31 @@ void MonteCarlo::Run(const int rank) {
                 } else if (beg->compare("ReadPreRunData") == 0) {
                     ++beg;
                     ReadPreRunData(*beg);
-                } else if (beg->compare("OrderParameters") == 0) {
+                } else if (beg->compare("MultivariateProposal") == 0) {
                     ++beg;
                     if (beg->compare("false") == 0) {
-                        MCEngine.MCMCSetFlagOrderParameters(false);
+                        MCEngine.SetProposeMultivariate(false);
                     }
                 } else
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
 
-            BCModelOutput out(&MCEngine, OutFile.c_str());
+            /* Open root file for storing data. */
             if (writechains) {
-                out.WriteMarkovChain(true);
+                MCEngine.WriteMarkovChain(OutFile, "RECREATE", true, false); /*Run: true, PreRun: false*/
                 MCEngine.AddChains();
+            } else {
+                MCEngine.WriteMarkovChain(OutFile, "RECREATE", false, false);
+                MCEngine.InitializeMarkovChainTree(true, true);
+                MCEngine.WriteMarkovChainRun(false);
+                MCEngine.WriteMarkovChainPreRun(false);
             }
-
             // set nicer style for drawing than the ROOT default
             BCAux::SetStyle();
 
             // open log file
-            BCLog::OpenLog(("log" + JobTag + ".txt").c_str());
-            BCLog::SetLogLevel(BCLog::debug);
+            BCLog::OpenLog(("log" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
+//            BCLog::SetLogLevel(BCLog::debug);
 
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
@@ -361,38 +361,36 @@ void MonteCarlo::Run(const int rank) {
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
-
-            // print results of the analysis into a text file
-            MCEngine.PrintResults(("MonteCarlo_results" + JobTag + ".txt").c_str());
-
+            
+//            // print results of the analysis into a text file
+//            MCEngine.PrintSummaryToFile(("MonteCarlo_results" + JobTag + ".txt").c_str());
+           
             // print histograms
-            MCEngine.PrintHistogram(out, ObsDirName);
+            MCEngine.PrintHistogram(OutFile, ObsDirName);
 
-            BCSummaryTool myBCSummaryTool(&MCEngine);
-
-            // draw the correlation matrix into a pdf file
-            if (PrintCorrelationMatrix)
-                myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".pdf").c_str());
-
-            // print the correlation matrix into a tex file
-            if (PrintCorrelationMatrix)
-                MCEngine.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".tex").c_str());
-
+            // draw the correlation matrix into a pdf file and make the tex files
+            if (PrintCorrelationMatrix) {
+                MCEngine.PrintCorrelationMatrix(("CorrelationMatrix" + JobTag + ".pdf").c_str());
+                MCEngine.PrintCorrelationMatrix(("CorrelationMatrix" + JobTag + ".tex").c_str());
+                MCEngine.PrintCorrelationPlot("CorrelationPlots.pdf");
+                MCEngine.PrintCorrelationMatrixToLaTeX(("ParameterCorrelations" + JobTag + ".tex").c_str());
+            }
+               
             // print comparisons of the prior knowledge to the posterior knowledge 
             // for all parameters into a pdf file
             if (PrintKnowledgeUpdatePlots)
-                myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".pdf").c_str());
+                MCEngine.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".pdf").c_str());
 
             // draw an overview plot of the parameters into a pdf file
             if (PrintParameterPlot)
-                myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".pdf").c_str());
-
+                MCEngine.PrintParameterPlot(("ParamSummary" + JobTag + ".pdf").c_str());
+            
             // print a LaTeX table of the parameters into a tex file
-            //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
+            //MCEngine.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
 
-            out.WriteMarginalizedDistributions();
-            out.FillAnalysisTree();
-            out.Close();
+            MCEngine.WriteMarginalizedDistributions(OutFile, "UPDATE");
+            //out.FillAnalysisTree();
+            //out.Close();
 
             // print logs for the histograms of the observables into a text file
             std::ofstream outHistoLog;
@@ -406,7 +404,7 @@ void MonteCarlo::Run(const int rank) {
             if (CalculateNormalization) outStatLog << "Normalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
             outStatLog << MCEngine.computeStatistics();
             outStatLog.close();
-
+            
             // print global mode and scale factors for the 1st chain into a text file
             if (WritePreRunData) {
                 std::ofstream outPreRun;
@@ -422,10 +420,14 @@ void MonteCarlo::Run(const int rank) {
             ss.str("");
             ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents();
             BCLog::OutSummary(ss.str().c_str());
-
             // close log file
             BCLog::CloseLog();
-
+            
+            // print results of the analysis into a text file
+            BCLog::OpenLog(("MonteCarlo_results" + JobTag + ".txt").c_str(), BCLog::results, BCLog::nothing);
+            MCEngine.PrintSummary();
+            BCLog::CloseLog();
+            
 #ifdef _MPI
             double ** sendbuff = new double *[MCEngine.procnum];
             sendbuff[0] = new double[MCEngine.procnum * buffsize];
@@ -473,12 +475,12 @@ void MonteCarlo::ReadPreRunData(std::string file)
         throw std::runtime_error("\nMonteCarlo::ReadPreRunData ERROR: wrong data size.\n");
     std::vector<double> mode_all;
     std::vector<double> scale_all;
-    for (unsigned int i = 0; i < MCEngine.MCMCGetNChains(); i++){
+    for (unsigned int i = 0; i < MCEngine.GetNChains(); i++){
         mode_all.insert(mode_all.end(), mode.begin(), mode.end());
         scale_all.insert(scale_all.end(), scale.begin(), scale.end());
     }
-    MCEngine.MCMCSetInitialPositions(mode_all);
-    MCEngine.MCMCSetTrialFunctionScaleFactor(scale_all);
+    MCEngine.SetInitialPositions(mode_all);
+    MCEngine.SetInitialScaleFactors(scale_all);
 }
 
 void MonteCarlo::addCustomObservableType(const std::string name, boost::function<Observable*() > funct) {
