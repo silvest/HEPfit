@@ -1,0 +1,146 @@
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 1.0.0-RC1                                |
+ | Copyright (C) 2007-2015, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ | Please cite: DOI 10.1016/j.cpc.2009.06.026           |
+ |              http://arxiv.org/abs/0808.2552          |
+ |                                                      |
+ +------------------------------------------------------+
+Summary : Opening logfile log.txt
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC for model "StandardModel" ...
+Summary :  --> Perform MCMC pre-run with 5 chains, each with maximum 100000 iterations
+Detail  :      * Convergence status: Set of 5 Markov chains did not converge after 500 iterations.
+Detail  :        - Parameter :  R-Value
+Detail  :          AlsMz   :  1.067
+Detail  :          dAle5Mz :  1.188 <-- Greater than threshold
+Detail  :          Mz      :  1.238 <-- Greater than threshold
+Detail  :          mtop    :  1.014
+Detail  :          mut     :  1.026
+Detail  :          mbottom :  1.117 <-- Greater than threshold
+Detail  :          tBd     :  1.039
+Detail  :          FBsoFBd :  1.054
+Detail  :          tBs     :  1.032
+Detail  :          DGs_Gs  :  1.220 <-- Greater than threshold
+Detail  :          FBs     :  1.188 <-- Greater than threshold
+Detail  :          lambda  :  1.094
+Detail  :          A       :  1.026
+Detail  :          rhob    :  1.320 <-- Greater than threshold
+Detail  :          etab    :  1.042
+Detail  :      * Convergence status: Set of 5 Markov chains did not converge after 1000 iterations.
+Detail  :        - Parameter :  R-Value
+Detail  :          AlsMz   :  1.032
+Detail  :          dAle5Mz :  1.083
+Detail  :          Mz      :  1.093
+Detail  :          mtop    :  1.005
+Detail  :          mut     :  1.015
+Detail  :          mbottom :  1.047
+Detail  :          tBd     :  1.019
+Detail  :          FBsoFBd :  1.028
+Detail  :          tBs     :  1.059
+Detail  :          DGs_Gs  :  1.110 <-- Greater than threshold
+Detail  :          FBs     :  1.111 <-- Greater than threshold
+Detail  :          lambda  :  1.018
+Detail  :          A       :  1.006
+Detail  :          rhob    :  1.105 <-- Greater than threshold
+Detail  :          etab    :  1.020
+Summary :  --> Set of 5 Markov chains converged within 1500 iterations, and all scales are adjusted.
+Summary :  --> 2 updates to multivariate proposal function's covariances were made.
+Detail  :  --> Scale factors and efficiencies (measured in last 500 iterations):
+Detail  :        - Chain : Scale factor    Efficiency
+Detail  :              0 :        0.3776        21.1 %
+Detail  :              1 :        0.3776        20.6 %
+Detail  :              2 :        0.3776        20.5 %
+Detail  :              3 :        0.3776        18.7 %
+Detail  :              4 :        0.3776        20.1 %
+Summary : Run Metropolis MCMC for model "StandardModel" ...
+Summary :  --> Perform MCMC run with 5 chains, each with 500000 iterations.
+Detail  :  --> iteration number  10000 (  2 %)
+Detail  :  --> iteration number  20000 (  4 %)
+Detail  :  --> iteration number  30000 (  6 %)
+Detail  :  --> iteration number  40000 (  8 %)
+Detail  :  --> iteration number  50000 ( 10 %)
+Detail  :  --> iteration number  60000 ( 12 %)
+Detail  :  --> iteration number  70000 ( 14 %)
+Detail  :  --> iteration number  80000 ( 16 %)
+Detail  :  --> iteration number  90000 ( 18 %)
+Detail  :  --> iteration number 100000 ( 20 %)
+Detail  :  --> iteration number 110000 ( 22 %)
+Detail  :  --> iteration number 120000 ( 24 %)
+Detail  :  --> iteration number 130000 ( 26 %)
+Detail  :  --> iteration number 140000 ( 28 %)
+Detail  :  --> iteration number 150000 ( 30 %)
+Detail  :  --> iteration number 160000 ( 32 %)
+Detail  :  --> iteration number 170000 ( 34 %)
+Detail  :  --> iteration number 180000 ( 36 %)
+Detail  :  --> iteration number 190000 ( 38 %)
+Detail  :  --> iteration number 200000 ( 40 %)
+Detail  :  --> iteration number 210000 ( 42 %)
+Detail  :  --> iteration number 220000 ( 44 %)
+Detail  :  --> iteration number 230000 ( 46 %)
+Detail  :  --> iteration number 240000 ( 48 %)
+Detail  :  --> iteration number 250000 ( 50 %)
+Detail  :  --> iteration number 260000 ( 52 %)
+Detail  :  --> iteration number 270000 ( 54 %)
+Detail  :  --> iteration number 280000 ( 56 %)
+Detail  :  --> iteration number 290000 ( 58 %)
+Detail  :  --> iteration number 300000 ( 60 %)
+Detail  :  --> iteration number 310000 ( 62 %)
+Detail  :  --> iteration number 320000 ( 64 %)
+Detail  :  --> iteration number 330000 ( 66 %)
+Detail  :  --> iteration number 340000 ( 68 %)
+Detail  :  --> iteration number 350000 ( 70 %)
+Detail  :  --> iteration number 360000 ( 72 %)
+Detail  :  --> iteration number 370000 ( 74 %)
+Detail  :  --> iteration number 380000 ( 76 %)
+Detail  :  --> iteration number 390000 ( 78 %)
+Detail  :  --> iteration number 400000 ( 80 %)
+Detail  :  --> iteration number 410000 ( 82 %)
+Detail  :  --> iteration number 420000 ( 84 %)
+Detail  :  --> iteration number 430000 ( 86 %)
+Detail  :  --> iteration number 440000 ( 88 %)
+Detail  :  --> iteration number 450000 ( 90 %)
+Detail  :  --> iteration number 460000 ( 92 %)
+Detail  :  --> iteration number 470000 ( 94 %)
+Detail  :  --> iteration number 480000 ( 96 %)
+Detail  :  --> iteration number 490000 ( 98 %)
+Detail  :  --> iteration number 500000 (100 %)
+Summary :  --> Markov chains ran for 500000 iterations.
+Detail  :  --> Efficiencies (measured in 500000 iterations):
+Detail  :        - Chain : Efficiency
+Detail  :              0 :     19.9 %
+Detail  :              1 :     22.2 %
+Detail  :              2 :     20.4 %
+Detail  :              3 :     19.1 %
+Detail  :              4 :     20.2 %
+Detail  :  --> Global mode from MCMC:
+Debug   :  --> Posterior value: 58.958
+Detail  :           AlsMz   :    0.11834
+Detail  :           dAle5Mz :    0.0274741
+Detail  :           Mz      :    91.186802
+Detail  :           mtop    :    173.679
+Detail  :           mut     :    163.8927
+Detail  :           mbottom :    4.19115
+Detail  :           tBd     :    1.52212
+Detail  :           FBsoFBd :    1.1882
+Detail  :           tBs     :    1.50982
+Detail  :           DGs_Gs  :    0.12856
+Detail  :           FBs     :    0.22625
+Detail  :           lambda  :    0.225338
+Detail  :           A       :    0.82153
+Detail  :           rhob    :    0.1326
+Detail  :           etab    :    0.3584
+Summary : Printing all marginalized distributions (15 x 1D + 105 x 2D = 120) into file MonteCarlo_plots.pdf
+Detail  : This can take a while...
+Detail  :  --> 100 plots done
+Detail  :  --> 120 plots done
+Summary : Printing knowledge update plots (15 x 1D + 105 x 2D = 120) into file ParamUpdate.pdf
+Detail  : This can take a while...
+Detail  :  --> 100 plots done
+Detail  :  --> 120 plots done
+Summary : Number of used events: 1891430
+Summary : Number of discarded events: 0

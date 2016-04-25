@@ -1,0 +1,80 @@
+Normalization for StandardModel: 1
+
+Statistics file for Observables, Binned Observables and Correlated Gaussian Observables.
+
+Observables:
+
+  (1) Observable "BR_Bdmumu":
+      Mean +- sqrt(V):                1.072e-10 +- 8.1e-12
+      (Marginalized) mode:            1.058e-10
+      Smallest interval(s) containing at least 68.27% and local mode(s):
+       (9.88e-11, 1.142e-10) (local mode at 1.058e-10 with rel. height 1; rel. area 0.9662227956143)
+
+       (1.142e-10, 1.149e-10) (local mode at 1.145e-10 with rel. height 0.6366829009707; rel. area 0.0337772043857)
+
+      Smallest interval(s) containing at least 95.8291916584% and local mode(s):
+       (9.08e-11, 1.236e-10) (local mode at 1.058e-10 with rel. height 1; rel. area 1)
+
+      Smallest interval(s) containing at least 99.74031948064% and local mode(s):
+       (8.49e-11, 1.324e-10) (local mode at 1.058e-10 with rel. height 1; rel. area 0.9995556452108)
+
+       (1.324e-10, 1.331e-10) (local mode at 1.328e-10 with rel. height 0.0122364686523; rel. area 0.0004443547892)
+
+  (2) Observable "BR_Bsmumu":
+      Mean +- sqrt(V):                3.35e-09 +- 1.6e-10
+      (Marginalized) mode:            3.35e-09
+      Smallest interval(s) containing at least 68.5% and local mode(s):
+       (3.18e-09, 3.49e-09) (local mode at 3.35e-09 with rel. height 1; rel. area 0.97003323089)
+
+       (3.49e-09, 3.5e-09) (local mode at 3.49e-09 with rel. height 0.60897162111; rel. area 0.02996676911)
+
+      Smallest interval(s) containing at least 95.59212892% and local mode(s):
+       (3.04e-09, 3.66e-09) (local mode at 3.35e-09 with rel. height 1; rel. area 0.99490321763)
+
+       (3.66e-09, 3.67e-09) (local mode at 3.66e-09 with rel. height 0.14450455581; rel. area 0.00509678237)
+
+      Smallest interval(s) containing at least 99.7461536% and local mode(s):
+       (2.9e-09, 3.83e-09) (local mode at 3.35e-09 with rel. height 1; rel. area 0.99963265828)
+
+       (3.83e-09, 3.84e-09) (local mode at 3.84e-09 with rel. height 0.0108675019; rel. area 0.00036734172)
+
+  (3) Observable "BRbar_Bsmumu":
+      Mean +- sqrt(V):                3.58e-09 +- 1.7e-10
+      (Marginalized) mode:            3.56e-09
+      Smallest interval(s) containing at least 69.8% and local mode(s):
+       (3.4e-09, 3.75e-09) (local mode at 3.56e-09 with rel. height 1; rel. area 1)
+
+      Smallest interval(s) containing at least 95.726122041% and local mode(s):
+       (3.24e-09, 3.93e-09) (local mode at 3.56e-09 with rel. height 1; rel. area 1)
+
+      Smallest interval(s) containing at least 99.750313109% and local mode(s):
+       (3.1e-09, 4.1e-09) (local mode at 3.56e-09 with rel. height 1; rel. area 0.99963267272)
+
+       (4.1e-09, 4.11e-09) (local mode at 4.1e-09 with rel. height 0.01095785532; rel. area 0.00036732728)
+
+LogLikelihood mean value: 0
+LogLikelihood variance: 0
+IC value (don't ask me what it means...): 0
+DIC value (same as above...): 0
+
+Value of the Parameters and Observables at the global mode:
+
+A: 0.821
+AlsMz: 0.1185
+DGs_Gs: 0.13
+FBs: 0.2274
+FBsoFBd: 1.198
+Mz: 91.188
+dAle5Mz: 0.02741
+etab: 0.352
+lambda: 0.22534
+mbottom: 4.18
+mtop: 173.6
+mut: 163.9
+rhob: 0.132
+tBd: 1.52
+tBs: 1.51
+
+BR_Bdmumu: 1.0692e-10
+BR_Bsmumu: 3.348e-09
+BRbar_Bsmumu: 3.5806e-09
