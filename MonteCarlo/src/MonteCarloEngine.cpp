@@ -685,7 +685,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, Observable& it, cons
             throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
         }
         TDirectory * dir = gDirectory;
-        fMCMCOutputFile->cd();
+        GetOutputFile()->cd();
         Histo1D[HistName].GetHistogram()->Write();
         gDirectory = dir;
         CheckHistogram(*Histo1D[HistName].GetHistogram(), it.getName());
@@ -738,7 +738,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
                 throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
             }
             TDirectory * dir = gDirectory;
-            fMCMCOutputFile->cd();
+            GetOutputFile()->cd();
             Histo2D[HistName].GetHistogram()->Write();
             gDirectory = dir;
             CheckHistogram(*Histo2D[HistName].GetHistogram(), HistName);
@@ -752,7 +752,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
         Print1D(Histo1D["LogLikelihood"], fname.c_str());
         std::cout << fname << " has been created." << std::endl;
         TDirectory * dir = gDirectory;
-        fMCMCOutputFile->cd();
+        GetOutputFile()->cd();
         Histo1D["LogLikelihood"].GetHistogram()->Write();
         gDirectory = dir;
         CheckHistogram(*Histo1D["LogLikelihood"].GetHistogram(), "LogLikelihood");
@@ -760,19 +760,19 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
 }
 
 void MonteCarloEngine::AddChains() {
-    InitializeMarkovChainTree(true, true);
+    InitializeMarkovChainTree();
     TDirectory* dir = gDirectory;
-    fMCMCOutputFile->cd();
+    GetOutputFile()->cd();
     
     hMCMCObservableTree = new TTree(TString::Format("%s_Observables", GetSafeName().data()), TString::Format("%s_Observables", GetSafeName().data()));
     hMCMCObservableTree->Branch("Chain", &fMCMCTree_Chain, "chain/i");
     hMCMCObservableTree->Branch("Iteration", &fMCMCCurrentIteration, "iteration/i");
     // hMCMCObservableTree->Branch("Phase", &fMCMCPhase, "phase/I");
     // hMCMCObservableTree->Branch("LogProbability", &fMCMCTree_Prob, "log(probability)/D");
-    hMCMCObservables.assign(fMCMCNChains, std::vector<double>(kmax, 0));
-    hMCMCObservables_weight.assign(fMCMCNChains, std::vector<double>(kwmax, 0));
-    hMCMCTree_Observables.assign(kmax, 0);
-    hMCMCTree_Observables_weight.assign(kwmax, 0);
+    hMCMCObservables.assign(fMCMCNChains, std::vector<double>(kmax, 0.));
+    hMCMCObservables_weight.assign(fMCMCNChains, std::vector<double>(kwmax, 0.));
+    hMCMCTree_Observables.assign(kmax, 0.);
+    hMCMCTree_Observables_weight.assign(kwmax, 0.);
     int k = 0, kweight = 0;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
         hMCMCObservableTree->Branch(it->getName().data(), &hMCMCTree_Observables[k], (it->getName() + "/D").data());
@@ -784,6 +784,8 @@ void MonteCarloEngine::AddChains() {
             kweight++;
         }
     }
+    hMCMCObservableTree->SetAutoSave(10 * fMCMCNIterationsPreRunCheck);
+    hMCMCObservableTree->AutoSave("SelfSave");
     gDirectory = dir;
 }
 
@@ -797,7 +799,6 @@ void MonteCarloEngine::InChainFillObservablesTree()
         hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
         hMCMCObservableTree->Fill();
     }
-    hMCMCObservableTree->AutoSave("SaveSelf");
 }
 
 void MonteCarloEngine::PrintCorrelationMatrixToLaTeX(const std::string filename) {

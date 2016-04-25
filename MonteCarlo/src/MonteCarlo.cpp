@@ -329,7 +329,7 @@ void MonteCarlo::Run(const int rank) {
                 MCEngine.AddChains();
             } else {
                 MCEngine.WriteMarkovChain(OutFile, "RECREATE", false, false);
-                MCEngine.InitializeMarkovChainTree(true, true);
+                MCEngine.InitializeMarkovChainTree();
                 MCEngine.WriteMarkovChainRun(false);
                 MCEngine.WriteMarkovChainPreRun(false);
             }
