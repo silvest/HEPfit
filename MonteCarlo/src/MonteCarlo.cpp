@@ -257,7 +257,7 @@ void MonteCarlo::Run(const int rank) {
                     MCEngine.setNChains(atoi((*beg).c_str()));
                 } else if (beg->compare("PrerunMaxIter") == 0) {
                     ++beg;
-                    MCEngine.SetNIterationsMax(atoi((*beg).c_str()));
+                    MCEngine.SetNIterationsPreRunMax(atoi((*beg).c_str()));
                 } else if (beg->compare("NIterationsUpdateMax") == 0) {
                     ++beg;
                     MCEngine.SetNIterationsPreRunCheck(atoi((*beg).c_str()));
