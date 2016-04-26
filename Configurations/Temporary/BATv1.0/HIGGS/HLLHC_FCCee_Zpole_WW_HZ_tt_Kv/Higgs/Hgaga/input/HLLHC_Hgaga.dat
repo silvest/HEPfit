@@ -1,0 +1,15 @@
+##################
+# Efficiencies from Table 3 of https://cds.cern.ch/record/1611186/files/ATL-PHYS-PUB-2013-014.pdf
+# Precision from Fig 1 of http://cds.cern.ch/record/1956710/files/ATL-PHYS-PUB-2014-016.pdf
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH+ttH fraction, VBF+VH fraction|
+##################
+CATEGORIES ggH14 VBF14 WH14 ZH14 ttH14
+MEASUREMENT 0j       |0.97 0.03 0.00 0.00 0.00 | 1. -0.05 0.05
+MEASUREMENT 1j       |0.86 0.14 0.00 0.00 0.00 | 1. -0.06 0.06
+MEASUREMENT VBFlike  |0.30 0.70 0.00 0.00 0.00 | 1. -0.15 0.15
+MEASUREMENT WHlike   |0.07 0.04 0.72 0.10 0.07 | 1. -0.18 0.18 
+MEASUREMENT ZHlike   |0.01 0.01 0.01 0.88 0.09 | 1. -0.28 0.28
+MEASUREMENT ttHlike  |0.03 0.01 0.05 0.02 0.89 | 1. -0.12 0.12
+##################
