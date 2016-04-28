@@ -31,7 +31,7 @@
 
 //NOTICE: lambda, A, rhob and etab MUST be the first four items, otherwise FlagWolfenstein does not work!!!!
 std::string StandardModel::SMvars[NSMvars] = {
-    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ",
+    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw",
     "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
@@ -104,6 +104,7 @@ Ye(3, 3, 0.), SMM(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delMw", boost::cref(delMw)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_l", boost::cref(delSin2th_l)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delGammaZ", boost::cref(delGammaZ)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0b", boost::cref(delR0b)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_1", boost::cref(leptons[NEUTRINO_1].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_2", boost::cref(leptons[NEUTRINO_2].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_3", boost::cref(leptons[NEUTRINO_3].getMass())));
@@ -265,6 +266,8 @@ void StandardModel::setParameter(const std::string name, const double& value)
         delSin2th_l = value;
     else if (name.compare("delGammaZ") == 0)
         delGammaZ = value;
+    else if (name.compare("delR0b") == 0)
+        delR0b = value;
     else if (name.compare("mneutrino_1") == 0) {
         leptons[NEUTRINO_1].setMass(value);
         requireYn = true;
@@ -470,7 +473,7 @@ bool StandardModel::checkSMparamsForEWPO()
     // 13 parameters in StandardModel
     // GF, ale, dAle5Mz, mHl,
     // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
-    // delMw, delSin2th_l, delGammaZ
+    // delMw, delSin2th_l, delGammaZ, delR0b,
     // 3 flags in StandardModel
     // FlagMw_cache, FlagRhoZ_cache, FlagKappaZ_cache
 
@@ -491,7 +494,7 @@ bool StandardModel::checkSMparamsForEWPO()
         quarks[STRANGE].getMass(),
         quarks[BOTTOM].getMass(),
         mut, mub, muc,
-        delMw, delSin2th_l, delGammaZ,
+        delMw, delSin2th_l, delGammaZ, delR0b,
         SchemeToDouble(FlagMw),
         SchemeToDouble(FlagRhoZ),
         SchemeToDouble(FlagKappaZ)

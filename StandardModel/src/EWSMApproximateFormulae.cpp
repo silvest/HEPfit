@@ -852,6 +852,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = 0.73;
         a14 = -0.011;
         a15 = -18.0;
+        ThError = mycache.getSM().getDelR0b();
     } else
         throw std::runtime_error("ApproximateFormulae::X_extended(): " + observable + " is not defined");
 
