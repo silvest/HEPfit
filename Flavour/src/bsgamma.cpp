@@ -164,25 +164,58 @@ double Bsgamma::T3(double E0,double t)
 
 double Bsgamma::P0_4body(double E0, double t)
 {
-    gslpp::complex A1 =-C1_0*CKMu;
+    gslpp::complex la_u =-CKMu;
+    
     double A1sq =C1_0.abs2()*CKMusq;
-    gslpp::complex A2 =-C2_0*CKMu;
     double A2sq =C2_0.abs2()*CKMusq;
     
-    return (C3_0.abs2() + 20. * (C3_0*C5_0).real() + 2./9. * C4_0.abs2() 
-            + 40./9. * (C4_0*C6_0).real() + 136. * C5_0.abs2() 
-            + 272./9. * C6_0.abs2()) * T1(E0,t)
-            + (2./9. * A1sq + A2sq 
-            + (8./9. * C3_0.real() 
-            - 4./27. * C4_0.real() + 128./9. * C5_0.real() 
-            - 64./27. * C6_0.real()) * A1.real() 
-            + (2./3. * C3_0.real() + 8./9. * C4_0.real() + 32./3. * C5_0.real() 
-            + 128./9. * C6_0.real()) * A2.real()) * T2(E0,t)
-            + (C3_0.abs2() + 8./3. * (C3_0*C4_0).real() + 32. * (C3_0*C5_0).real() 
-            + 128./3. * (C3_0*C6_0).real() - 2./9. * C4_0.abs2() 
-            + 128./3. * (C4_0*C5_0).real() - 64./9. * (C4_0*C6_0).real()
-            + 256. * C5_0.abs2() + 2048./3 * (C5_0*C6_0).real() 
-            - 512./9. * C6_0.abs2()) * T3(E0,t);
+    double C13re = (C1_0.real()*C3_0.real() + C1_0.imag()*C3_0.imag());
+    double C14re = (C1_0.real()*C4_0.real() + C1_0.imag()*C4_0.imag());
+    double C15re = (C1_0.real()*C5_0.real() + C1_0.imag()*C5_0.imag());
+    double C16re = (C1_0.real()*C6_0.real() + C1_0.imag()*C6_0.imag());
+    
+    double C13im = (C1_0.real()*C3_0.imag() + C1_0.imag()*C3_0.real());
+    double C14im = (C1_0.real()*C4_0.imag() + C1_0.imag()*C4_0.real());
+    double C15im = (C1_0.real()*C5_0.imag() + C1_0.imag()*C5_0.real());
+    double C16im = (C1_0.real()*C6_0.imag() + C1_0.imag()*C6_0.real());
+    
+    double C23re = (C2_0.real()*C3_0.real() + C2_0.imag()*C3_0.imag());
+    double C24re = (C2_0.real()*C4_0.real() + C2_0.imag()*C4_0.imag());
+    double C25re = (C2_0.real()*C5_0.real() + C2_0.imag()*C5_0.imag());
+    double C26re = (C2_0.real()*C6_0.real() + C2_0.imag()*C6_0.imag());
+    
+    double C23im = (C2_0.real()*C3_0.imag() + C2_0.imag()*C3_0.real());
+    double C24im = (C2_0.real()*C4_0.imag() + C2_0.imag()*C4_0.real());
+    double C25im = (C2_0.real()*C5_0.imag() + C2_0.imag()*C5_0.real());
+    double C26im = (C2_0.real()*C6_0.imag() + C2_0.imag()*C6_0.real());
+    
+    double C13 = (C13re*la_u.real() - C13im*la_u.imag());
+    double C14 = (C14re*la_u.real() - C14im*la_u.imag());
+    double C15 = (C15re*la_u.real() - C15im*la_u.imag());
+    double C16 = (C16re*la_u.real() - C16im*la_u.imag());
+    double C23 = (C23re*la_u.real() - C23im*la_u.imag());
+    double C24 = (C24re*la_u.real() - C24im*la_u.imag());
+    double C25 = (C25re*la_u.real() - C25im*la_u.imag());
+    double C26 = (C26re*la_u.real() - C26im*la_u.imag());
+    double C33 = C3_0.abs2();
+    double C34 = (C3_0.real()*C4_0.real() + C3_0.imag()*C4_0.imag());
+    double C35 = (C3_0.real()*C5_0.real() + C3_0.imag()*C5_0.imag());
+    double C36 = (C3_0.real()*C6_0.real() + C3_0.imag()*C6_0.imag());
+    double C44 = C4_0.abs2();
+    double C45 = (C4_0.real()*C5_0.real() + C4_0.imag()*C5_0.imag());
+    double C46 = (C4_0.real()*C6_0.real() + C4_0.imag()*C6_0.imag());
+    double C55 = C5_0.abs2();
+    double C56 = (C5_0.real()*C6_0.real() + C5_0.imag()*C6_0.imag());
+    double C66 = C6_0.abs2();
+    
+    return (C33 + 20. * C35 + 2./9. * C44 + 40./9. * C46 + 136. * C55 + 272./9. * C66) * T1(E0,t) +
+            
+            (2./9. * A1sq + A2sq 
+            + 8./9. * C13 - 4./27. * C14 + 128./9. * C15 - 64./27. * C16
+            + 2./3. * C23 + 8./9. * C24 + 32./3. * C25 + 128./9. * C26) * T2(E0,t) +
+            
+            (C33 + 8./3. * C34 + 32. * C35 + 128./3. * C36 - 2./9. * C44 + 128./3. * C45 
+            - 64./9. * C46 + 256. * C55 + 2048./3 * C56 - 512./9. * C66) * T3(E0,t);
 }
 
 double Bsgamma::zeta()
@@ -424,18 +457,26 @@ double Bsgamma::Int_bb4(double E0)
     return CacheIntbb4;
 }
 
-double Bsgamma::Int_bc1(double E0)
+gslpp::complex Bsgamma::Int_bc1(double E0)
 {
     if (Intbc1Cached == 0) {
         double t1 = (1. - delta(E0));
     
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_Kb_1mt, &(*this), _1));
         if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt = avaINT;
+        gslpp::complex mt = avaINT;
+    
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_Kb_1mt, &(*this), _1));
+        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt += gslpp::complex::i() * avaINT;
 
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_Kb_1mt2, &(*this), _1));
         if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt2 = avaINT;
+        gslpp::complex mt2 = avaINT;
+
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_Kb_1mt2, &(*this), _1));
+        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntbc1 = delta(E0)*mt + mt2;
         Intbc1Cached = 1;
@@ -444,18 +485,26 @@ double Bsgamma::Int_bc1(double E0)
     return CacheIntbc1;
 }
 
-double Bsgamma::Int_bc2(double E0)
+gslpp::complex Bsgamma::Int_bc2(double E0)
 {
     if (Intbc2Cached == 0) {
         double t1 = (1. - delta(E0));
     
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_Kb_t_1mt, &(*this), _1));
         if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt = avaINT;
+        gslpp::complex mt = avaINT;
+    
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_Kb_t_1mt, &(*this), _1));
+        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt += gslpp::complex::i() * avaINT;
 
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_Kb_t_1mt2, &(*this), _1));
         if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt2 = avaINT;
+        gslpp::complex mt2 = avaINT;
+
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_Kb_t_1mt2, &(*this), _1));
+        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntbc2 = delta(E0)*mt + mt2;
         Intbc2Cached = 1;
@@ -464,18 +513,26 @@ double Bsgamma::Int_bc2(double E0)
     return CacheIntbc2;
 }
 
-double Bsgamma::Int_c1(double E0)
+gslpp::complex Bsgamma::Int_c1(double E0)
 {
     if (Intc1Cached == 0) {
         double t1 = (1. - delta(E0));
     
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_1mt, &(*this), _1));
         if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt = avaINT;
+        gslpp::complex mt = avaINT;
+    
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_1mt, &(*this), _1));
+        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt += gslpp::complex::i() * avaINT;
 
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_1mt2, &(*this), _1));
         if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt2 = avaINT;
+        gslpp::complex mt2 = avaINT;
+
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_1mt2, &(*this), _1));
+        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntc1 = delta(E0)*mt + mt2;
         Intc1Cached = 1;
@@ -484,38 +541,26 @@ double Bsgamma::Int_c1(double E0)
     return CacheIntc1;
 }
 
-double Bsgamma::Int_c1_im(double E0)
-{
-    if (Intc1imCached == 0) {
-        double t1 = (1. - delta(E0));
-    
-        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_1mt, &(*this), _1));
-        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt = avaINT;
-
-        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_1mt2, &(*this), _1));
-        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt2 = avaINT;
-
-        CacheIntc1im = delta(E0)*mt + mt2;
-        Intc1imCached = 1;
-    }
-
-    return CacheIntc1im;
-}
-
-double Bsgamma::Int_c2(double E0)
+gslpp::complex Bsgamma::Int_c2(double E0)
 {
     if (Intc2Cached == 0) {
         double t1 = (1. - delta(E0));
 
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_t_1mt, &(*this), _1));
         if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt = avaINT;
+        gslpp::complex mt = avaINT;
+
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_t_1mt, &(*this), _1));
+        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt += gslpp::complex::i() * avaINT;
 
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_t_1mt2, &(*this), _1));
         if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt2 = avaINT;
+        gslpp::complex mt2 = avaINT;
+
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_t_1mt2, &(*this), _1));
+        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntc2 = delta(E0)*mt + mt2;
         Intc2Cached = 1;
@@ -524,18 +569,26 @@ double Bsgamma::Int_c2(double E0)
     return CacheIntc2;
 }
 
-double Bsgamma::Int_c3(double E0)
+gslpp::complex Bsgamma::Int_c3(double E0)
 {
     if (Intc3Cached == 0) {
         double t1 = (1. - delta(E0));
     
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_t, &(*this), _1));
         if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double t = avaINT;
+        gslpp::complex t = avaINT;
+    
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_t, &(*this), _1));
+        if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        t += gslpp::complex::i() * avaINT;
 
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_re_t_1mt, &(*this), _1));
         if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-        double mt = avaINT;
+        gslpp::complex mt = avaINT;
+
+        INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_im_t_1mt, &(*this), _1));
+        if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        mt += gslpp::complex::i() * avaINT;
         
         CacheIntc3 = delta(E0)*t + mt;
         Intc3Cached = 1;
@@ -683,32 +736,32 @@ double Bsgamma::Phi12_1(double E0)
     return -Phi22_1(E0)/3.;
 }
 
-double Bsgamma::Phi13_1(double E0)
+gslpp::complex Bsgamma::Phi13_1(double E0)
 {
     return -Phi23_1(E0)/6.;
 }
 
-double Bsgamma::Phi14_1(double E0)
+gslpp::complex Bsgamma::Phi14_1(double E0)
 {
     return -Phi24_1(E0)/6.;
 }
 
-double Bsgamma::Phi15_1(double E0)
+gslpp::complex Bsgamma::Phi15_1(double E0)
 {
     return -Phi25_1(E0)/6.;
 }
 
-double Bsgamma::Phi16_1(double E0)
+gslpp::complex Bsgamma::Phi16_1(double E0)
 {
     return -Phi26_1(E0)/6.;
 }
 
-double Bsgamma::Phi17_1(double E0, double z)
+gslpp::complex Bsgamma::Phi17_1(double E0, double z)
 {
     return -Phi27_1(E0,z)/6.;
 }
 
-double Bsgamma::Phi18_1(double E0, double z)
+gslpp::complex Bsgamma::Phi18_1(double E0, double z)
 {
     return Phi27_1(E0,z)/18.;
 }
@@ -726,7 +779,7 @@ double Bsgamma::Phi23_1_4body(double E0)
         return 0.;
 }
 
-double Bsgamma::Phi23_1(double E0)
+gslpp::complex Bsgamma::Phi23_1(double E0)
 {
     return -8./27. * (Int_c1(E0) + Int_c2(E0) + 2.*Int_bc1(E0) - 2.*Int_bc2(E0))
             - Phi23_1_4body(E0);
@@ -740,7 +793,7 @@ double Bsgamma::Phi24_1_4body(double E0)
         return 0.;
 }
 
-double Bsgamma::Phi24_1(double E0)
+gslpp::complex Bsgamma::Phi24_1(double E0)
 {
     return -1./6. * (Phi23_1(E0) + Phi23_1_4body(E0))
             - Phi24_1_4body(E0);
@@ -754,7 +807,7 @@ double Bsgamma::Phi25_1_4body(double E0)
         return 0.;
 }
 
-double Bsgamma::Phi25_1(double E0)
+gslpp::complex Bsgamma::Phi25_1(double E0)
 {
     return -32./27. * (4.*Int_c1(E0) + Int_c2(E0) + 8.*Int_bc1(E0) - 2.*Int_bc2(E0))
             - Phi25_1_4body(E0);
@@ -768,54 +821,46 @@ double Bsgamma::Phi26_1_4body(double E0)
         return 0.;
 }
 
-double Bsgamma::Phi26_1(double E0)
+gslpp::complex Bsgamma::Phi26_1(double E0)
 {
     return 16./81. * (4.*Int_c1(E0) + Int_c2(E0) - 10.*Int_bc1(E0) - 2.*Int_bc2(E0) + 36.*Int_cc1(E0))
             - Phi26_1_4body(E0);
 }
 
-double Bsgamma::Phi27_1(double E0, double z)
+gslpp::complex Bsgamma::Phi27_1(double E0, double z)
 {
     double d = delta(E0);
     double d2 = d*d;
+    double z2 = z*z;
     double Pi2 = M_PI*M_PI;
     double st0 = sqrt(1. - 4.*z);
     double std = sqrt( (1. - d - 4.*z) * (1. - d) );
     double L0 = log( ( 1. + st0 ) / ( 2.*sqrt(z) ) );
     double Ld = log( ( sqrt(1. - d) + sqrt(1. - d - 4.*z) ) / ( 2.*sqrt(z) ) );
     
+    gslpp::complex res;
+    
     if (d == 1) {
-        return -2./27. + (2.*Pi2 - 7.)/9. * z + 4.*(3. - 2.*Pi2)/9. * z * z
+        res = -2./27. + (2.*Pi2 - 7.)/9. * z + 4.*(3. - 2.*Pi2)/9. * z * z
                 + 4./3. * z * (1. - 2.*z) * st0 * L0
                 - 8./9. * z * (6.*z*z - 4.*z + 1.) * L0*L0 + 4./3. * Pi2 * z * z *z;
-    } else return -2./27. * d * (3. - 3.*d + d2) + (2.*Pi2 - 7.)/9. * z * d * (2. - d)
+    } else res = -2./27. * d * (3. - 3.*d + d2) + (2.*Pi2 - 7.)/9. * z * d * (2. - d)
             + 4.*(3. - 2.*Pi2)/9. * z * z * d 
             + 4./3. * z * (1. - 2.*z) * ( st0 * L0 - std * Ld ) 
             + 4./3. * z * d * std * Ld 
             - 8./9. * z * (6.*z*z - 4.*z + 1.) * ( L0*L0 - Ld*Ld ) 
             - 8./9. * z * d * (2. - d - 4.*z) * Ld * Ld;
-}
-
-double Bsgamma::Phi27_1_im(double E0, double z)
-{
-    if (z >= 1./4.) 
-        throw std::runtime_error("Bsgamma::Phi27_1_im(): z can not be greater than 1/4");
-    
-    double d = delta(E0);
-    double z2 = z*z;
-    double st0 = sqrt(1. - 4.*z);
-    double std = sqrt( (1. - d - 4.*z) * (1. - d) );
-    double L0 = log( ( 1. + st0 ) / ( 2.*sqrt(z) ) );
-    double Ld = log( ( sqrt(1. - d) + sqrt(1. - d - 4.*z) ) / ( 2.*sqrt(z) ) );
     
     if (z < (1. - d)/4.)
-        return 8./9. * M_PI * z * ( (1. - 4. * z + 6. * z2)* (L0-Ld) - 3./4. * (1. - 2. * z) * (st0-std) 
+        res += gslpp::complex::i() * 8./9. * M_PI * z * ( (1. - 4. * z + 6. * z2)* (L0-Ld) - 3./4. * (1. - 2. * z) * (st0-std) 
                 + d * (2. - d - 4. * z) * Ld - 3./4. * d * std );
     else
-        return 8./9. * M_PI * z * ( (1. - 4. * z + 6. * z2) * L0 - 3./4. * (1. - 2. * z) * st0 );
+        res += gslpp::complex::i() * 8./9. * M_PI * z * ( (1. - 4. * z + 6. * z2) * L0 - 3./4. * (1. - 2. * z) * st0 );
+    
+    return res;
 }
 
-double Bsgamma::Phi28_1(double E0, double z)
+gslpp::complex Bsgamma::Phi28_1(double E0, double z)
 {
     return -Phi27_1(E0, z)/3.;
 }
@@ -849,7 +894,7 @@ double Bsgamma::Phi35_1(double E0)
             + 4./9. * d * ( 4./3. - d2 + 1./2.*d3 - 1./15.*d4 );
 }
 
-double Bsgamma::Phi36_1(double E0)
+gslpp::complex Bsgamma::Phi36_1(double E0)
 {
     double d=delta(E0);
     double d2=d*d;
@@ -885,7 +930,7 @@ double Bsgamma::Phi45_1(double E0)
     return -1./6. * Phi35_1(E0);
 }
 
-double Bsgamma::Phi46_1(double E0)
+gslpp::complex Bsgamma::Phi46_1(double E0)
 {
     return -1./6. * Phi36_1(E0);
 }
@@ -914,7 +959,7 @@ double Bsgamma::Phi55_1(double E0)
             + 8./9. * d * ( 11./3. - 2.*d2 + 2./3.*d3 - 1./15.*d4 );
 }
 
-double Bsgamma::Phi56_1(double E0)
+gslpp::complex Bsgamma::Phi56_1(double E0)
 {
     double d=delta(E0);
     double d2=d*d;
@@ -941,7 +986,7 @@ double Bsgamma::Phi58_1(double E0)
             + 4. * ff8_sMP(E0);
 }
 
-double Bsgamma::Phi66_1(double E0)
+gslpp::complex Bsgamma::Phi66_1(double E0)
 {
     double d=delta(E0);
     double d2=d*d;
@@ -955,7 +1000,7 @@ double Bsgamma::Phi66_1(double E0)
             + 2./81. * d * ( 11./3. - 2.*d2 + 2./3.*d3 - 1./15.*d4 );
 }
 
-double Bsgamma::Phi67_1(double E0)
+gslpp::complex Bsgamma::Phi67_1(double E0)
 {
     double d=delta(E0);
     double d2=d*d;
@@ -964,7 +1009,7 @@ double Bsgamma::Phi67_1(double E0)
             + 1./4. * (-8./3. * ff7_sMP(E0) + 10. * ff7_dMP(E0));
 }
 
-double Bsgamma::Phi68_1(double E0)
+gslpp::complex Bsgamma::Phi68_1(double E0)
 {
     return -1./3. * (Phi67_1(E0) - 1./4. * (-8./3. * ff7_sMP(E0) + 10. * ff7_dMP(E0)) ) 
             + 1./4. * (-8./3. * ff8_sMP(E0) + 10. * ff8_dMP(E0));
@@ -1006,16 +1051,12 @@ double Bsgamma::Phi88_1(double E0)
             + 8.*log(1. - d) -  2./3.*d3 + 3.*d2 +7*d);
 }
 
-double Bsgamma::Kij_1(int i, int j, double E0, double mu)
+gslpp::complex Bsgamma::Kij_1(int i, int j, double E0, double mu)
 {
     if (i > 8 || j>8 || i<1 || j<1) throw std::runtime_error("Bsgamma::Kij_1(): indexes (i,j) must be included in (1,..,8)");
     
-    int temp;
-    
-    if (i > j) {temp=i; i=j; j=temp;}
-    
     double gamma_i7[8] = {-208./243., 416./81., -176./81., -152./243., -6272./81., 4624./243., 32./3., -32./9.};
-    double K_ij[8][8];
+    gslpp::complex K_ij[8][8] = {{0.}};
     double Lb = log(mu/Mb_kin);
     
     K_ij[0][0] = 4.*Phi11_1(E0);
@@ -1024,7 +1065,7 @@ double Bsgamma::Kij_1(int i, int j, double E0, double mu)
     K_ij[0][3] = 2.*Phi14_1(E0);
     K_ij[0][4] = 2.*Phi15_1(E0);
     K_ij[0][5] = 2.*Phi16_1(E0);
-    K_ij[0][6] = r1(1,zeta()).real() - gamma_i7[0]*Lb + 2.*Phi17_1(E0, zeta());
+    K_ij[0][6] = r1(1,zeta()) - gamma_i7[0]*Lb + 2.*Phi17_1(E0, zeta());
     K_ij[0][7] = 2.*Phi18_1(E0, zeta());
     
     K_ij[1][1] = 4.*Phi22_1(E0);
@@ -1032,37 +1073,38 @@ double Bsgamma::Kij_1(int i, int j, double E0, double mu)
     K_ij[1][3] = 2.*Phi24_1(E0);
     K_ij[1][4] = 2.*Phi25_1(E0);
     K_ij[1][5] = 2.*Phi26_1(E0);
-    K_ij[1][6] = r1(2,zeta()).real() - gamma_i7[1]*Lb + 2.*Phi27_1(E0, zeta());
+    K_ij[1][6] = r1(2,zeta()) - gamma_i7[1]*Lb + 2.*Phi27_1(E0, zeta());
     K_ij[1][7] = 2.*Phi28_1(E0, zeta());
     
     K_ij[2][2] = 4.*Phi33_1(E0);
     K_ij[2][3] = 2.*Phi34_1(E0);
     K_ij[2][4] = 2.*Phi35_1(E0);
     K_ij[2][5] = 2.*Phi36_1(E0);
-    K_ij[2][6] = r1(3,zeta()).real() - gamma_i7[2]*Lb + 2.*Phi37_1(E0);
+    K_ij[2][6] = r1(3,zeta()) - gamma_i7[2]*Lb + 2.*Phi37_1(E0);
     K_ij[2][7] = 2.*Phi38_1(E0);
     
     K_ij[3][3] = 4.*Phi44_1(E0);
     K_ij[3][4] = 2.*Phi45_1(E0);
     K_ij[3][5] = 2.*Phi46_1(E0);
-    K_ij[3][6] = r1(4,zeta()).real() - gamma_i7[3]*Lb + 2.*Phi47_1(E0);
+    K_ij[3][6] = r1(4,zeta()) - gamma_i7[3]*Lb + 2.*Phi47_1(E0);
     K_ij[3][7] = 2.*Phi48_1(E0);
     
     K_ij[4][4] = 4.*Phi55_1(E0);
     K_ij[4][5] = 2.*Phi56_1(E0);
-    K_ij[4][6] = r1(5,zeta()).real() - gamma_i7[4]*Lb + 2.*Phi57_1(E0);
+    K_ij[4][6] = r1(5,zeta()) - gamma_i7[4]*Lb + 2.*Phi57_1(E0);
     K_ij[4][7] = 2.*Phi58_1(E0);
     
     K_ij[5][5] = 4.*Phi66_1(E0);
-    K_ij[5][6] = r1(6,zeta()).real() - gamma_i7[5]*Lb + 2.*Phi67_1(E0);
+    K_ij[5][6] = r1(6,zeta()) - gamma_i7[5]*Lb + 2.*Phi67_1(E0);
     K_ij[5][7] = 2.*Phi68_1(E0);
     
     K_ij[6][6] = -182./9. + 8./9.*M_PI*M_PI - gamma_i7[6]*2.*Lb + 4.*Phi77_1(E0);
-    K_ij[6][7] =  r1(8,zeta()).real() - gamma_i7[7]*Lb + 2.*Phi78_1(E0);
+    K_ij[6][7] =  r1(8,zeta()) - gamma_i7[7]*Lb + 2.*Phi78_1(E0);
     
     K_ij[7][7] = 4.*Phi88_1(E0);
     
-    return K_ij[i-1][j-1];
+    if (j >= i ) return K_ij[i-1][j-1];
+    else return K_ij[j-1][i-1].conjugate();
 }
 
 double Bsgamma::Rer22(double z)
@@ -1128,7 +1170,7 @@ double Bsgamma::Phi28_2beta0(double E0, double mu)
     double mcmb4 = mcmb3*mcmb;
     double mcmb5 = mcmb4*mcmb;
     
-    return SM.Beta0(5) * (Phi28_1(E0, zeta())*Lb
+    return SM.Beta0(5) * (Phi28_1(E0, zeta()).real()*Lb
             + 0.026054745293391798 + 0.1678721564514209 * d 
             - 0.19700988587274693 * d2 
             + ( -0.03801105485376407 + 0.601712887338462 * d 
@@ -1371,7 +1413,7 @@ double Bsgamma::Y2(double E0, double mu)
 
 double Bsgamma::f_NLO_1(double z)
 {
-    return r1(2,z).real() + 2.*Phi27_1(0.,z);
+    return r1(2,z).real() + 2.*Phi27_1(0.,z).real();
 }
 
 double Bsgamma::zdz_f_NLO(double z, double E0)
@@ -1743,7 +1785,7 @@ double Bsgamma::Phi77_2rem(double E0)
 
 double Bsgamma::K77_2_z1(double E0, double mu)
 {
-    double K77_1 = Kij_1(7,7,E0,mu);
+    double K77_1 = Kij_1(7,7,E0,mu).real();
     double Pi2 = M_PI*M_PI;
     double xm = 8./9. * M_PI * alsUps;
     double Lb = 2.*log(mu_b/Mb_kin);
@@ -1785,20 +1827,20 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
             + 4.*Phi22_2beta0(E0,mu_b) * SM.Beta0(3)/SM.Beta0(5) + 16./3. * Phi22_1(E0) * (Lcb - Lb)
             + xm * (delddel_Phi22_1(E0) - 2. * zdz_Phi22_1(E0));
     K_ij[1][6] = A2 + F_2(z) - 27./2. * f_q(z,E0) + f_b(z) + f_c(z)
-            + 4./3. * Phi27_1(E0,z) * log(z) + (8. * Lc - 2. * xm) * zdz_f_NLO(z,E0)
+            + 4./3. * Phi27_1(E0,z).real() * log(z) + (8. * Lc - 2. * xm) * zdz_f_NLO(z,E0)
             + xm * mddel_f_NLO(z,E0) + 416./81. * xm
-            + (10./3. * Kij_1(2,7,E0,mu_b) - 2./3. * Kij_1(4,7,E0,mu_b)
-            - 208./81. * Kij_1(7,7,E0,mu_b) - 35./27. * Kij_1(7,8,E0,mu_b)
+            + (10./3. * Kij_1(2,7,E0,mu_b).real() - 2./3. * Kij_1(4,7,E0,mu_b).real()
+            - 208./81. * Kij_1(7,7,E0,mu_b).real() - 35./27. * Kij_1(7,8,E0,mu_b).real()
             - 254./81.) * Lb - 5948./729. * Lb2;
     K_ij[1][7] = (r1(2,zeta()).real() - 208./81.*Lb) * (r1(8,zeta()).real() + 16./9.*Lb)
             + r1(2,zeta()).imag() * r1(8,zeta()).imag()
-            + 2.*Phi28_2beta0(E0,mu_b) * SM.Beta0(3)/SM.Beta0(5) + 8./3. * Phi28_1(E0,z) * (Lcb - Lb)
+            + 2.*Phi28_2beta0(E0,mu_b) * SM.Beta0(3)/SM.Beta0(5) + 8./3. * Phi28_1(E0,z).real() * (Lcb - Lb)
             + xm * (delddel_Phi28_1(z,E0) - 2. * zdz_Phi28_1(z,E0));
     
     K_ij[0][0] = 1./36. * K_ij[1][1];
     K_ij[0][1] = -1./6. * K_ij[1][1];
     K_ij[0][6] = - 1./6. * K_ij[1][6] + A1 + F_1(z)
-            + (- 3./2. * Kij_1(2,7,E0,mu_b) - 3./4. * Kij_1(7,8,E0,mu_b)
+            + (- 3./2. * Kij_1(2,7,E0,mu_b).real() - 3./4. * Kij_1(7,8,E0,mu_b).real()
             + 94./81.) * Lb - 34./27. * Lb2;
     K_ij[0][7] = -1./6. * K_ij[1][7];
     
@@ -1818,6 +1860,37 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
 
 void Bsgamma::computeCoeff(double mu)
 {
+    allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(160.);
+    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(160.);
+    
+    C1_0 = (*(allcoeff[LO]))(0);
+    C2_0 = (*(allcoeff[LO]))(1);
+    C3_0 = (*(allcoeff[LO]))(2);
+    C4_0 = (*(allcoeff[LO]))(3);
+    C5_0 = (*(allcoeff[LO]))(4);
+    C6_0 = (*(allcoeff[LO]))(5);
+    C7_0 = (*(allcoeff[LO]))(6);
+    C8_0 = (*(allcoeff[LO]))(7);
+    
+    C1_1 = (*(allcoeff[NLO]))(0)/SM.Alstilde5(160.);
+    C2_1 = (*(allcoeff[NLO]))(1)/SM.Alstilde5(160.);
+    C3_1 = (*(allcoeff[NLO]))(2)/SM.Alstilde5(160.);
+    C4_1 = (*(allcoeff[NLO]))(3)/SM.Alstilde5(160.);
+    C5_1 = (*(allcoeff[NLO]))(4)/SM.Alstilde5(160.);
+    C6_1 = (*(allcoeff[NLO]))(5)/SM.Alstilde5(160.);
+    C7_1 = (*(allcoeff[NLO]))(6)/SM.Alstilde5(160.);
+    C8_1 = (*(allcoeff[NLO]))(7)/SM.Alstilde5(160.);
+    
+    C7p_0 = (*(allcoeffprime[LO]))(6);
+    C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
+    
+    /*std::cout << "C_0(160 GeV): (" << C1_0.real() << "," << C2_0.real() << "," 
+            << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
+            << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
+    std::cout << "C_1(160 GeV): (" << C1_1.real() << "," << C2_1.real() << "," 
+            << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
+            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
+    
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu);
     
@@ -1842,6 +1915,13 @@ void Bsgamma::computeCoeff(double mu)
     C7p_0 = (*(allcoeffprime[LO]))(6);
     C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
     
+    /*std::cout << "C_0(2 GeV): (" << C1_0.real() << "," << C2_0.real() << "," 
+            << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
+            << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
+    std::cout << "C_1(2 GeV): (" << C1_1.real() << "," << C2_1.real() << "," 
+            << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
+            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
+    
     C7_2 = 18.8595;
 
 }
@@ -1853,7 +1933,8 @@ double Bsgamma::P0(double E0)
 
 double Bsgamma::P11()
 {
-    return 2.*((C7_0*C7_1).real() + (C7p_0*C7p_1).real()); /*CHECK SIGN*/
+    return 2.*( C7_0.real()*C7_1.real() + C7_0.imag()*C7_1.imag()
+            + C7p_0.real()*C7p_1.real() + C7p_0.imag()*C7p_1.imag() ); /*CHECK SIGN*/
 }
 
 double Bsgamma::P21(double E0, double mu)
@@ -1867,7 +1948,8 @@ double Bsgamma::P21(double E0, double mu)
     {
         for(j=0;j<8;j++)
         {
-            p21 += (C0[i]*C0[j]).real() * Kij_1(i+1,j+1,E0,mu);
+            p21 += ( C0[i].real()*C0[j].real() + C0[i].imag()*C0[j].imag() ) * Kij_1(i+1,j+1,E0,mu).real()
+                    - ( C0[i].real()*C0[j].imag() - C0[i].imag()*C0[j].real() ) * Kij_1(i+1,j+1,E0,mu).imag();
         }
     }
     
@@ -1875,7 +1957,8 @@ double Bsgamma::P21(double E0, double mu)
     {
         for(j=6;j<7;j++)
         {
-            p21 += (C0p[i]*C0p[j]).real() * Kij_1(i+1,j+1,E0,mu);
+            p21 += (C0p[i].real()*C0p[j].real() + C0p[i].imag()*C0p[j].imag()) * Kij_1(i+1,j+1,E0,mu).real()
+                    - ( C0p[i].real()*C0p[j].imag() - C0p[i].imag()*C0p[j].real() ) * Kij_1(i+1,j+1,E0,mu).imag();
         }
     }
     
@@ -1921,7 +2004,7 @@ double Bsgamma::P32(double E0, double mu)
     {
         for(j=0;j<8;j++)
         {
-            p32 += 2.*(C0[i]*C1[j]).real() * Kij_1(i+1,j+1,E0,mu);
+            p32 += 2.*(C0[i]*C1[j]).real() * Kij_1(i+1,j+1,E0,mu).real();
         }
     }
 
@@ -1941,9 +2024,9 @@ double Bsgamma::Vub_NLO_3body_A(double E0,bool CPodd)
     double d = delta(E0);
     
     return 64./27. * Alstilde * ( C2_0 - C1_0/6. ).abs2() *
-            ( CKMu.real() * ( 2. * Int_cc1(E0) - Int_c1(E0) )
-            + CKMusq *  ( Int_cc1(E0) - Int_c1(E0) + 1./8. * d * ( 1. - 1./3. * d*d ) )
-            - CPodd * CKMu.imag() * Int_c1_im(E0) );
+            ( CKMu.real() * ( 2. * Int_cc1(E0) - Int_c1(E0).real() )
+            + CKMusq *  ( Int_cc1(E0) - Int_c1(E0).real() + 1./8. * d * ( 1. - 1./3. * d*d ) )
+            - CPodd * CKMu.imag() * Int_c1(E0).imag() );
 }
 
 double Bsgamma::Vub_NLO_3body_B(double E0,bool CPodd)
@@ -1951,8 +2034,8 @@ double Bsgamma::Vub_NLO_3body_B(double E0,bool CPodd)
     double d = delta(E0);
     
     return 4. * Alstilde * (( C7_0 - C8_0/3. ) * ( C2_0 - C1_0/6. )).real() *
-            ( CKMu.real() * ( Phi27_1(E0,zeta()) + 2./9. * d * ( 1. - d + 1./3. * d*d ) )
-            - CPodd * CKMu.imag() * Phi27_1_im(E0,zeta()) );
+            ( CKMu.real() * ( Phi27_1(E0,zeta()).real() + 2./9. * d * ( 1. - d + 1./3. * d*d ) )
+            - CPodd * CKMu.imag() * Phi27_1(E0,zeta()).imag() );
 }
 
 double Bsgamma::Vub_NLO_4body(double E0, bool CPodd)
@@ -2074,7 +2157,7 @@ double Bsgamma::N_77(double E0, double mu)
     corrLambda2_rad = lambda1 * ( f1EGN/8.  - 4./3. * (Lb + 1.) ) 
             + lambda2 * (f2EGN/8.  + 12. * (Lb + 1.) );
     corrLambda2_sem = -3. * 4.98 * lambda2 + (25. - 4. * M_PI*M_PI)/12.*lambda1;
-    corrLambda2_mix = 1./8. * (9. * lambda2 - lambda1) * Kij_1(7,7,E0,mu);
+    corrLambda2_mix = 1./8. * (9. * lambda2 - lambda1) * Kij_1(7,7,E0,mu).real();
     
     corrLambda2 = corrLambda2_rad - corrLambda2_sem + corrLambda2_mix;
     
