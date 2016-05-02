@@ -299,6 +299,17 @@ public:
     
     
     /**
+    * @brief The function \f$Im(k_c(t))t\f$.
+    * @param[in] t dummy variable to be integrated out
+    * @return \f$Im(k_c(t))t\f$ 
+    */
+    double getKc_im_t(double t)
+    {
+        return kappa(Mc,t).imag() * t ;
+    };
+    
+    
+    /**
     * @brief The function \f$Re(k_c(t))t(1-t)\f$.
     * @param[in] t dummy variable to be integrated out
     * @return \f$Re(k_c(t))t(1-t)\f$
@@ -310,6 +321,17 @@ public:
     
     
     /**
+    * @brief The function \f$Im(k_c(t))t(1-t)\f$.
+    * @param[in] t dummy variable to be integrated out
+    * @return \f$Im(k_c(t))t(1-t)\f$
+    */
+    double getKc_im_t_1mt(double t)
+    {
+        return kappa(Mc,t).imag() * t * (1. - t);
+    };
+    
+    
+    /**
     * @brief The function \f$Re(k_c(t))t(1-t)^2\f$.
     * @param[in] t dummy variable to be integrated out
     * @return \f$Re(k_c(t))t(1-t)^2\f$
@@ -317,6 +339,17 @@ public:
     double getKc_re_t_1mt2(double t)
     {
         return kappa(Mc,t).real() * t * (1. - t) * (1. - t);
+    };
+    
+    
+    /**
+    * @brief The function \f$Im(k_c(t))t(1-t)^2\f$.
+    * @param[in] t dummy variable to be integrated out
+    * @return \f$Im(k_c(t))t(1-t)^2\f$
+    */
+    double getKc_im_t_1mt2(double t)
+    {
+        return kappa(Mc,t).imag() * t * (1. - t) * (1. - t);
     };
     
     
@@ -519,6 +552,17 @@ public:
     
     
     /**
+    * @brief The function \f$Re(k_b(t))Im(k_c(t))(1-t)\f$.
+    * @param[in] t dummy variable to be integrated out
+    * @return \f$Re(k_b(t))Im(k_c(t))(1-t)\f$
+    */
+    double getKc_im_Kb_1mt(double t)
+    {
+        return kappa(Mc,t).imag() * kappa(Mb_kin,t).real() * (1. - t);
+    };
+    
+    
+    /**
     * @brief The function \f$Re(k_b(t))Re(k_c(t))(1-t)^2\f$.
     * @param[in] t dummy variable to be integrated out
     * @return \f$Re(k_b(t))Re(k_c(t))(1-t)^2\f$
@@ -526,6 +570,17 @@ public:
     double getKc_re_Kb_1mt2(double t)
     {
         return kappa(Mc,t).real() * kappa(Mb_kin,t).real() * (1. - t) * (1. - t);
+    };
+    
+    
+    /**
+    * @brief The function \f$Re(k_b(t))Im(k_c(t))(1-t)^2\f$.
+    * @param[in] t dummy variable to be integrated out
+    * @return \f$Re(k_b(t))Im(k_c(t))(1-t)^2\f$
+    */
+    double getKc_im_Kb_1mt2(double t)
+    {
+        return kappa(Mc,t).imag() * kappa(Mb_kin,t).real() * (1. - t) * (1. - t);
     };
     
     
@@ -541,6 +596,17 @@ public:
     
     
     /**
+    * @brief The function \f$Re(k_b(t))Im(k_c(t)t(1-t)\f$.
+    * @param[in] t dummy variable to be integrated out
+    * @return \f$Re(k_b(t))Im(k_c(t)t(1-t)\f$
+    */
+    double getKc_im_Kb_t_1mt(double t)
+    {
+        return kappa(Mc,t).imag() * kappa(Mb_kin,t).real() * t * (1. - t);
+    };
+    
+    
+    /**
     * @brief The function \f$Re(k_b(t))Re(k_c(t)t(1-t)^2\f$.
     * @param[in] t dummy variable to be integrated out
     * @return \f$Re(k_b(t))Re(k_c(t)t(1-t)^2\f$
@@ -548,6 +614,17 @@ public:
     double getKc_re_Kb_t_1mt2(double t)
     {
         return kappa(Mc,t).real() * kappa(Mb_kin,t).real() * t * (1. - t) * (1. - t);
+    };
+    
+    
+    /**
+    * @brief The function \f$Re(k_b(t))Im(k_c(t)t(1-t)^2\f$.
+    * @param[in] t dummy variable to be integrated out
+    * @return \f$Re(k_b(t))Im(k_c(t)t(1-t)^2\f$
+    */
+    double getKc_im_Kb_t_1mt2(double t)
+    {
+        return kappa(Mc,t).imag() * kappa(Mb_kin,t).real() * t * (1. - t) * (1. - t);
     };
     
     
@@ -608,51 +685,43 @@ public:
     
     
     /**
-    * @brief Integral of the functions getKc_re_Kb_1mt() and getKc_re_Kb_1mt2().
+    * @brief Integral of the functions getKc_re_Kb_1mt(), getKc_im_Kb_1mt() and getKc_re_Kb_1mt2(), getKc_im_Kb_1mt2().
     * @param[in] E0 energy cutoff
-    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Re(k_b(t))Re(k_c(t))(1-t) + \int_{1-\delta(E_0)}^1 Re(k_b(t))Re(k_c(t))(1-t)^2\f$
+    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Re(k_b(t))k_c(t)(1-t) + \int_{1-\delta(E_0)}^1 Re(k_b(t))k_c(t)(1-t)^2\f$
     */
-    double Int_bc1(double E0);
+    gslpp::complex Int_bc1(double E0);
     
     
     /**
-    * @brief Integral of the functions getKc_re_Kb_t_1mt() and getKc_re_Kb_t_1mt2().
+    * @brief Integral of the functions getKc_re_Kb_t_1mt(), getKc_im_Kb_t_1mt() and getKc_re_Kb_t_1mt2(), getKc_im_Kb_t_1mt2().
     * @param[in] E0 energy cutoff
-    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Re(k_b(t))Re(k_c(t))t(1-t) + \int_{1-\delta(E_0)}^1 Re(k_b(t))Re(k_c(t))t(1-t)^2\f$
+    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Re(k_b(t))k_c(t)t(1-t) + \int_{1-\delta(E_0)}^1 Re(k_b(t))k_c(t)t(1-t)^2\f$
     */
-    double Int_bc2(double E0);
+    gslpp::complex Int_bc2(double E0);
     
     
     /**
-    * @brief Integral of the functions getKc_re_1mt() and getKc_re_1mt2().
+    * @brief Integral of the functions getKc_re_1mt(), getKc_im_1mt() and getKc_re_1mt2(), getKc_im_1mt2().
     * @param[in] E0 energy cutoff
-    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Re(k_c(t))(1-t) + \int_{1-\delta(E_0)}^1 Re(k_c(t))(1-t)^2\f$
+    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} k_c(t)(1-t) + \int_{1-\delta(E_0)}^1 k_c(t)(1-t)^2\f$
     */
-    double Int_c1(double E0);
+    gslpp::complex Int_c1(double E0);
     
     
     /**
-    * @brief Integral of the functions getKc_im_1mt() and getKc_im_1mt2().
+    * @brief Integral of the functions getKc_re_t_1mt(), getKc_im_t_1mt() and getKc_re_t_1mt2(), getKc_im_t_1mt2().
     * @param[in] E0 energy cutoff
-    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Im(k_c(t))(1-t) + \int_{1-\delta(E_0)}^1 Im(k_c(t))(1-t)^2\f$
+    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} k_c(t)t(1-t) + \int_{1-\delta(E_0)}^1 k_c(t)t(1-t)^2\f$
     */
-    double Int_c1_im(double E0);
+    gslpp::complex Int_c2(double E0);
     
     
     /**
-    * @brief Integral of the functions getKc_re_t_1mt() and getKc_re_t_1mt2().
+    * @brief Integral of the functions getKc_re_t(), getKc_im_t() and getKc_re_t_1mt(), getKc_im_t_1mt().
     * @param[in] E0 energy cutoff
-    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Re(k_c(t))t(1-t) + \int_{1-\delta(E_0)}^1 Re(k_c(t))t(1-t)^2\f$
+    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} k_c(t)t + \int_{1-\delta(E_0)}^1 k_c(t)t(1-t)\f$
     */
-    double Int_c2(double E0);
-    
-    
-    /**
-    * @brief Integral of the functions getKc_re_t() and getKc_re_t_1mt().
-    * @param[in] E0 energy cutoff
-    * @return \f$\delta(E_0)\int_0^{1-\delta(E_0)} Re(k_c(t))t + \int_{1-\delta(E_0)}^1 Re(k_c(t))t(1-t)\f$
-    */
-    double Int_c3(double E0);
+    gslpp::complex Int_c3(double E0);
     
     
     /**
@@ -732,7 +801,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{13}^{(1)} \f$
     */
-    double Phi13_1(double E0);
+    gslpp::complex Phi13_1(double E0);
     
     
     /**
@@ -740,7 +809,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{14}^{(1)} \f$
     */
-    double Phi14_1(double E0);
+    gslpp::complex Phi14_1(double E0);
     
     
     /**
@@ -748,7 +817,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{15}^{(1)} \f$
     */
-    double Phi15_1(double E0);
+    gslpp::complex Phi15_1(double E0);
     
     
     /**
@@ -756,7 +825,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{16}^{(1)} \f$
     */
-    double Phi16_1(double E0);
+    gslpp::complex Phi16_1(double E0);
     
     
     /**
@@ -765,7 +834,7 @@ public:
     * @param[in] z squared ratio between \f$m_c\f$ and \f$m_b^{\rm kin}\f$
     * @return \f$ \Phi_{17}^{(1)} \f$
     */
-    double Phi17_1(double E0, double z);
+    gslpp::complex Phi17_1(double E0, double z);
     
     
     /**
@@ -774,7 +843,7 @@ public:
     * @param[in] z squared ratio between \f$m_c\f$ and \f$m_b^{\rm kin}\f$
     * @return \f$ \Phi_{18}^{(1)} \f$
     */
-    double Phi18_1(double E0, double z);
+    gslpp::complex Phi18_1(double E0, double z);
     
     
     /**
@@ -799,7 +868,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{23}^{(1)} \f$
     */
-    double Phi23_1(double E0);
+    gslpp::complex Phi23_1(double E0);
     
     
     /**
@@ -816,7 +885,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{24}^{(1)} \f$
     */
-    double Phi24_1(double E0);
+    gslpp::complex Phi24_1(double E0);
     
     
     /**
@@ -833,7 +902,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{25}^{(1)} \f$
     */
-    double Phi25_1(double E0);
+    gslpp::complex Phi25_1(double E0);
     
     
     /**
@@ -850,7 +919,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{26}^{(1)} \f$
     */
-    double Phi26_1(double E0);
+    gslpp::complex Phi26_1(double E0);
     
     
     /**
@@ -859,16 +928,7 @@ public:
     * @param[in] z squared ratio between \f$m_c\f$ and \f$m_b^{\rm kin}\f$
     * @return \f$ \Re \Phi_{27}^{(1)} \f$
     */
-    double Phi27_1(double E0, double z);
-    
-    
-    /**
-    * @brief The \f$ \Im\Phi_{27}^{(1)} \f$ function from @cite Gambino:2001ew .
-    * @param[in] E0 energy cutoff
-    * @param[in] z squared ratio between \f$m_c\f$ and \f$m_b^{\rm kin}\f$
-    * @return \f$ \Im\Phi_{27}^{(1)} \f$
-    */
-    double Phi27_1_im(double E0, double z);
+    gslpp::complex Phi27_1(double E0, double z);
     
     
     /**
@@ -877,7 +937,7 @@ public:
     * @param[in] z squared ratio between \f$m_c\f$ and \f$m_b^{\rm kin}\f$
     * @return \f$ \Phi_{28}^{(1)} \f$
     */
-    double Phi28_1(double E0, double z);
+    gslpp::complex Phi28_1(double E0, double z);
     
     /**
     * @brief The \f$ \Phi_{33}^{(1)} \f$ function obtained using the prescription of @cite Chetyrkin:1996vx .
@@ -906,7 +966,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{36}^{(1)} \f$
     */
-    double Phi36_1(double E0);
+    gslpp::complex Phi36_1(double E0);
     
     /**
     * @brief The \f$ \Phi_{37}^{(1)} \f$ function obtained using the prescription 
@@ -944,7 +1004,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{46}^{(1)} \f$
     */
-    double Phi46_1(double E0);
+    gslpp::complex Phi46_1(double E0);
     
     
     /**
@@ -976,7 +1036,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{56}^{(1)} \f$
     */
-    double Phi56_1(double E0);
+    gslpp::complex Phi56_1(double E0);
     
     
     /**
@@ -1000,7 +1060,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{66}^{(1)} \f$
     */
-    double Phi66_1(double E0);
+    gslpp::complex Phi66_1(double E0);
     
     
     /**
@@ -1009,7 +1069,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{67}^{(1)} \f$
     */
-    double Phi67_1(double E0);
+    gslpp::complex Phi67_1(double E0);
     
     /**
     * @brief The \f$ \Phi_{68}^{(1)} \f$ function obtained using the prescription 
@@ -1017,7 +1077,7 @@ public:
     * @param[in] E0 energy cutoff
     * @return \f$ \Phi_{68}^{(1)} \f$
     */
-    double Phi68_1(double E0);
+    gslpp::complex Phi68_1(double E0);
     
     
     /**
@@ -1052,7 +1112,7 @@ public:
     * @param[in] mu low scale of the decay
     * @return \f$ K_{ij}^{(1)} \f$
     */
-    double Kij_1(int i, int j, double E0, double mu);
+    gslpp::complex Kij_1(int i, int j, double E0, double mu);
     
     
     /**
@@ -1658,12 +1718,11 @@ private:
     double CacheIntbb1;/**< Cache variable */
     double CacheIntbb2;/**< Cache variable */
     double CacheIntbb4;/**< Cache variable */
-    double CacheIntbc1;/**< Cache variable */
-    double CacheIntbc2;/**< Cache variable */
-    double CacheIntc1;/**< Cache variable */
-    double CacheIntc1im;/**< Cache variable */
-    double CacheIntc2;/**< Cache variable */
-    double CacheIntc3;/**< Cache variable */
+    gslpp::complex CacheIntbc1;/**< Cache variable */
+    gslpp::complex CacheIntbc2;/**< Cache variable */
+    gslpp::complex CacheIntc1;/**< Cache variable */
+    gslpp::complex CacheIntc2;/**< Cache variable */
+    gslpp::complex CacheIntc3;/**< Cache variable */
     double CacheIntcc;/**< Cache variable */
     double CacheIntcc1;/**< Cache variable */
     double CacheIntcc1p1;/**< Cache variable */
