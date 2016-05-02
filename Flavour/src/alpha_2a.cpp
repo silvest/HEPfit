@@ -9,6 +9,10 @@
 
 double Alpha_2a::computeThValue() 
 { 
-    double twoa = (SM.computeAlpha()-SM.getPhiBd())/M_PI*180.;
-    return(90. + remainder(twoa,180.));
+    double a_2a = (SM.computeAlpha()-SM.getPhiBd())/M_PI*180.;
+    if (a_2a < 0.)
+        a_2a += 180.;
+    else if (a_2a > 180.)
+        a_2a -= 180.;
+    return(a_2a);
 }
