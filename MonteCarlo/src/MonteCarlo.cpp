@@ -46,7 +46,7 @@ MonteCarlo::MonteCarlo(
     normalization = 0.;
 }
 
-//MonteCarlo::~MonteCarlo() {}
+MonteCarlo::~MonteCarlo() {}
 
 void MonteCarlo::TestRun(int rank) {
     if (checkrun == true) {
