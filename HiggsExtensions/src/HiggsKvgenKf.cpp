@@ -176,7 +176,15 @@ double HiggsKvgenKf::computeGammaTotalRatio() const
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
             + computeKb() * computeKb() * trueSM.computeBrHtobb())
-            / (1.0 - BrHinv));
+            / (trueSM.computeBrHtogg()
+            + trueSM.computeBrHtoWW()
+            + trueSM.computeBrHtoZZ()
+            + trueSM.computeBrHtoZga()
+            + trueSM.computeBrHtogaga()
+            + trueSM.computeBrHtomumu()
+            + trueSM.computeBrHtotautau()
+            + trueSM.computeBrHtocc()
+            + trueSM.computeBrHtobb() - BrHinv));
 }
 
 ////////////////////////////////////////////////////////////////////////
