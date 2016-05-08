@@ -443,7 +443,7 @@ std::vector<BCH1D::BCH1DSmallestInterval> BCH1D::GetSmallestIntervals(std::vecto
         BCH1D::BCH1DSmallestInterval smallest_interval;
         smallest_interval.total_mass = 0;
         for (int b = 1; b <= GetHistogram()->GetNbinsX(); ++b)
-            if (GetHistogram()->GetBinContent(b) >= bounds[i].first) {
+            if (GetHistogram()->GetBinContent(b) > bounds[i].first) {
                 BCH1D::BCH1DInterval interval;
                 interval.xmin = GetHistogram()->GetXaxis()->GetBinLowEdge(b);
                 interval.xmax = GetHistogram()->GetXaxis()->GetBinUpEdge(b);
