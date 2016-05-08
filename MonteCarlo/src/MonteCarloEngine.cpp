@@ -326,8 +326,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 
     while (mychain < fMCMCNChains) {
         pars.clear();
-        for (unsigned int k = 0; k < npars; k++)
-            pars.push_back(fMCMCx.at(mychain * npars + k));
+        pars = fMCMCx.at(mychain);
 
         fMCMCxvect.push_back(pars);
         index_chain[iproc] = mychain;
@@ -392,9 +391,14 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                     if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                     Histo1D[it->getName()].GetHistogram()->Fill(th);
                     if (!it->isTMCMC()) {
-                        obval[index_chain[il] * kmax + ko++] = th;
+                        obval[index_chain[il] * kmax + ko] = th;
+                        if (fMCMCFlagWriteChainToFile) hMCMCObservables[index_chain[il]][ko] = th;
+                        ko++;
                         if (it->getDistr().compare("noweight") != 0) {
-                            obweight[index_chain[il] * kwmax + kweight++] = it->computeWeight(th);
+                            double weight = it->computeWeight(th);
+                            obweight[index_chain[il] * kwmax + kweight] = weight;
+                            if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[index_chain[il]][kweight] = weight;
+                            kweight++;
                         }
                     }
                 }
@@ -430,6 +434,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         iproc = 0;
         fMCMCxvect.clear();
     }
+    if (fMCMCFlagWriteChainToFile) InChainFillObservablesTree();
     delete sendbuff[0];
     delete [] sendbuff;
     delete [] recvbuff;
@@ -457,7 +462,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 if (fMCMCFlagWriteChainToFile) hMCMCObservables[i][k] = th;
                 k++;
                 if (it->getDistr().compare("noweight") != 0) {
-                    double weight = it->computeWeight();
+                    double weight = it->computeWeight(th);
                     obweight[i * kwmax + kweight] = weight;
                     if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[i][kweight] = weight;
                     kweight++;
