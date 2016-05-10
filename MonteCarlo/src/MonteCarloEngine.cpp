@@ -765,7 +765,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
 }
 
 void MonteCarloEngine::AddChains() {
-    InitializeMarkovChainTree();
+
     TDirectory* dir = gDirectory;
     GetOutputFile()->cd();
     
@@ -787,7 +787,7 @@ void MonteCarloEngine::AddChains() {
             hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
             hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
             kweight++;
-        }
+}
     }
     hMCMCObservableTree->SetAutoSave(10 * fMCMCNIterationsPreRunCheck);
     hMCMCObservableTree->AutoSave("SelfSave");

@@ -361,9 +361,6 @@ void MonteCarlo::Run(const int rank) {
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
-            
-//            // print results of the analysis into a text file
-//            MCEngine.PrintSummaryToFile(("MonteCarlo_results" + JobTag + ".txt").c_str());
            
             // print histograms
             MCEngine.PrintHistogram(OutFile, ObsDirName);
