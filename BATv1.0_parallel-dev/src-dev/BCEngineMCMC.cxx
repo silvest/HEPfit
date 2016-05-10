@@ -476,9 +476,6 @@ void BCEngineMCMC::WriteMarkovChain(const std::string& filename, const std::stri
     fMCMCOutputFileOption = option;
     fMCMCFlagWriteChainToFile = flag_run;
     fMCMCFlagWritePreRunToFile = flag_prerun;
-    
-    if (flag_run || flag_prerun)
-        InitializeMarkovChainTree();
 }
 
 // --------------------------------------------------------
@@ -1850,8 +1847,8 @@ bool BCEngineMCMC::MetropolisPreRun()
     // initialize Markov chain
     MCMCInitialize();
 
-    //if (fMCMCFlagWritePreRunToFile)
-        //InitializeMarkovChainTree();
+    if (!fMCMCOutputFile && fMCMCFlagWritePreRunToFile)
+        InitializeMarkovChainTree();
 
     // perform run
     BCLog::OutSummary(Form(" --> Perform MCMC pre-run with %i chains, each with maximum %i iterations", fMCMCNChains, fMCMCNIterationsPreRunMax));
@@ -2269,12 +2266,12 @@ bool BCEngineMCMC::Metropolis()
     if (fMCMCFlagPreRun) {
         if (!MetropolisPreRun())
             return false;
-        //if (!fMCMCFlagWritePreRunToFile && fMCMCFlagWriteChainToFile)
-            //InitializeMarkovChainTree();
+        if (!fMCMCOutputFile && !fMCMCFlagWritePreRunToFile && fMCMCFlagWriteChainToFile)
+            InitializeMarkovChainTree();
     } else {
         BCLog::OutWarning("BCEngineMCMC::MCMCMetropolis. Not running prerun. This can cause trouble if the data have changed.");
-        //if (fMCMCFlagWriteChainToFile)
-            //InitializeMarkovChainTree();
+        if (!fMCMCOutputFile && fMCMCFlagWriteChainToFile)
+            InitializeMarkovChainTree();
     }
 
     // make sure enough statistics containers exist
