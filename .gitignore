@@ -204,6 +204,8 @@ BAT-0.9.4.1_parallel/tools/MakefileTemplate
 BAT-0.9.4.1_parallel/tools/bat-project
 BAT_parallel/
 *.libs
+BAT-0.9.3_parallel/
+BAT-0.9.4.1_parallel/
 
 #Local Files
 Cuba
