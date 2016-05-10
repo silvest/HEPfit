@@ -765,7 +765,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
 }
 
 void MonteCarloEngine::AddChains() {
-
+    InitializeMarkovChainTree();
     TDirectory* dir = gDirectory;
     GetOutputFile()->cd();
     
