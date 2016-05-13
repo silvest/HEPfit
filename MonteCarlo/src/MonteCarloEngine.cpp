@@ -775,15 +775,17 @@ void MonteCarloEngine::AddChains() {
     // hMCMCObservableTree->Branch("Phase", &fMCMCPhase, "phase/I");
     // hMCMCObservableTree->Branch("LogProbability", &fMCMCTree_Prob, "log(probability)/D");
     hMCMCObservables.assign(fMCMCNChains, std::vector<double>(kmax, 0.));
-    hMCMCObservables_weight.assign(fMCMCNChains, std::vector<double>(kwmax, 0.));
-    hMCMCTree_Observables.assign(kmax, 0.);
-    hMCMCTree_Observables_weight.assign(kwmax, 0.);
+    hMCMCTree_Observables.assign(kmax, 0.);  
+    if (kwmax > 0) {
+        hMCMCObservables_weight.assign(fMCMCNChains, std::vector<double>(kwmax, 0.));
+        hMCMCTree_Observables_weight.assign(kwmax, 0.);
+    }
     int k = 0, kweight = 0;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
         hMCMCObservableTree->Branch(it->getName().data(), &hMCMCTree_Observables[k], (it->getName() + "/D").data());
         hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables%i", k), it->getName().data());
         k++;
-        if (it->getDistr().compare("weight") == 0) {
+        if (!it->isTMCMC() && it->getDistr().compare("weight") == 0) {
             hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
             hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
             kweight++;
@@ -801,7 +803,7 @@ void MonteCarloEngine::InChainFillObservablesTree()
     // loop over all chains
     for (fMCMCTree_Chain = 0; fMCMCTree_Chain < fMCMCNChains; ++fMCMCTree_Chain) {
         hMCMCTree_Observables = hMCMCObservables[fMCMCTree_Chain];
-        hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
+        if (kwmax > 0) hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
         hMCMCObservableTree->Fill();
     }
 }
@@ -1091,20 +1093,22 @@ std::string MonteCarloEngine::writePreRunData()
 }
 
 double MonteCarloEngine::computeNormalization() {
-
-    unsigned int Npars = GetNParameters();
-    std::vector<double> mode(GetBestFitParameters());
-    gslpp::matrix<double> Hessian(Npars, Npars, 0.);
-
-    for (unsigned int i = 0; i < Npars; i++)
-        for (unsigned int j = 0; j < Npars; j++) {
-            // calculate Hessian matrix element
-            Hessian.assign(i, j, -SecondDerivative(GetParameter(i), GetParameter(j), GetBestFitParameters()));
-        }
-
-    double det_Hessian = Hessian.determinant();
-
-    return exp(Npars / 2. * log(2. * M_PI) + 0.5 * log(1. / det_Hessian) + LogLikelihood(mode) + LogAPrioriProbability(mode));
+/* PENDING REVIEW FOR USE WITH BAT v1.0. */
+//    unsigned int Npars = GetNParameters();
+//    std::vector<double> mode(GetBestFitParameters());
+//    gslpp::matrix<double> Hessian(Npars, Npars, 0.);
+//
+//    for (unsigned int i = 0; i < Npars; i++)
+//        for (unsigned int j = 0; j < Npars; j++) {
+//            // calculate Hessian matrix element
+//            Hessian.assign(i, j, -SecondDerivative(GetParameter(i), GetParameter(j), GetBestFitParameters()));
+//        }
+//
+//    double det_Hessian = Hessian.determinant();
+//
+//    return exp(Npars / 2. * log(2. * M_PI) + 0.5 * log(1. / det_Hessian) + LogLikelihood(mode) + LogAPrioriProbability(mode));
+    
+    return 0.0;
 }
 
 double MonteCarloEngine::SecondDerivative(BCParameter par1, BCParameter par2, std::vector<double> point) {
