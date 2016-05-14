@@ -1036,21 +1036,18 @@ std::string MonteCarloEngine::writePreRunData()
 
 double MonteCarloEngine::computeNormalization() {
 /* PENDING REVIEW FOR USE WITH BAT v1.0. */
-//    unsigned int Npars = GetNParameters();
-//    std::vector<double> mode(GetBestFitParameters());
-//    gslpp::matrix<double> Hessian(Npars, Npars, 0.);
-//
-//    for (unsigned int i = 0; i < Npars; i++)
-//        for (unsigned int j = 0; j < Npars; j++) {
-//            // calculate Hessian matrix element
-//            Hessian.assign(i, j, -SecondDerivative(GetParameter(i), GetParameter(j), GetBestFitParameters()));
-//        }
-//
-//    double det_Hessian = Hessian.determinant();
-//
-//    return exp(Npars / 2. * log(2. * M_PI) + 0.5 * log(1. / det_Hessian) + LogLikelihood(mode) + LogAPrioriProbability(mode));
+    unsigned int Npars = GetNParameters();
+    std::vector<double> mode(GetBestFitParameters());
+    gslpp::matrix<double> Hessian(Npars, Npars, 0.);
     
-    return 0.0;
+    for (unsigned int i = 0; i < Npars; i++)
+        for (unsigned int j = 0; j < Npars; j++) {
+            // calculate Hessian matrix element
+            Hessian.assign(i, j, -SecondDerivative(GetParameter(i), GetParameter(j), GetBestFitParameters()));
+        }
+    double det_Hessian = Hessian.determinant();
+
+    return exp(Npars / 2. * log(2. * M_PI) + 0.5 * log(1. / det_Hessian) + LogLikelihood(mode) + LogAPrioriProbability(mode));
 }
 
 double MonteCarloEngine::SecondDerivative(BCParameter par1, BCParameter par2, std::vector<double> point) {
