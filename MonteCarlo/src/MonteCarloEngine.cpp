@@ -886,50 +886,22 @@ std::string MonteCarloEngine::computeStatistics() {
             intervals.push_back(0.954499736104);
             intervals.push_back(0.997300203937);
             std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
-            
-            StatsLog << "      Smallest interval(s) containing at least " << v[0].total_mass*100 << "% and local mode(s):"
-                    << std::endl;
-            for (unsigned j = 0; j < v[0].intervals.size(); j++) {
-                double interval_xmin = v[0].intervals[j].xmin;
-                double interval_xmax = v[0].intervals[j].xmax;
-                double interval_mode = v[0].intervals[j].mode;
-                double interval_heignt = v[0].intervals[j].relative_height;
-                double interval_relative_mass = v[0].intervals[j].relative_mass;
-                StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin,rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax,rms)) << interval_xmax
-                    << ") (local mode at " << std::setprecision(getPrecision(interval_mode,rms)) << interval_mode << " with rel. height "
-                    << std::setprecision(getPrecision(interval_heignt,rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass,rms)) << interval_relative_mass << ")"
-                    << std::endl;
-            StatsLog << std::endl;
-            }
-
-            StatsLog << "      Smallest interval(s) containing at least " << v[1].total_mass*100 << "% and local mode(s):"
-                    << std::endl;
-            for (unsigned j = 0; j < v[1].intervals.size(); j++) {
-                double interval_xmin = v[1].intervals[j].xmin;
-                double interval_xmax = v[1].intervals[j].xmax;
-                double interval_mode = v[1].intervals[j].mode;
-                double interval_heignt = v[1].intervals[j].relative_height;
-                double interval_relative_mass = v[1].intervals[j].relative_mass;
-                StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin,rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax,rms)) << interval_xmax
-                    << ") (local mode at " << std::setprecision(getPrecision(interval_mode,rms)) << interval_mode << " with rel. height "
-                    << std::setprecision(getPrecision(interval_heignt,rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass,rms)) << interval_relative_mass << ")"
-                    << std::endl;
-            StatsLog << std::endl;
-            }
-
-            StatsLog << "      Smallest interval(s) containing at least " << v[2].total_mass*100 << "% and local mode(s):"
-                    << std::endl;
-            for (unsigned j = 0; j < v[2].intervals.size(); j++) {
-                double interval_xmin = v[2].intervals[j].xmin;
-                double interval_xmax = v[2].intervals[j].xmax;
-                double interval_mode = v[2].intervals[j].mode;
-                double interval_heignt = v[2].intervals[j].relative_height;
-                double interval_relative_mass = v[2].intervals[j].relative_mass;
-                StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin,rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax,rms)) << interval_xmax
-                    << ") (local mode at " << std::setprecision(getPrecision(interval_mode,rms)) << interval_mode << " with rel. height "
-                    << std::setprecision(getPrecision(interval_heignt,rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass,rms)) << interval_relative_mass << ")"
-                    << std::endl;
-            StatsLog << std::endl;
+            std::cout << it->getName() << "  " << v.size() << "  " << std::endl;
+            for (int i = 0; i < v.size(); i++) {
+                StatsLog << "      Smallest interval(s) containing at least " << v[i].total_mass * 100 << "% and local mode(s):"
+                        << std::endl;
+                for (unsigned j = 0; j < v[i].intervals.size(); j++) {
+                    double interval_xmin = v[i].intervals[j].xmin;
+                    double interval_xmax = v[i].intervals[j].xmax;
+                    double interval_mode = v[i].intervals[j].mode;
+                    double interval_heignt = v[i].intervals[j].relative_height;
+                    double interval_relative_mass = v[i].intervals[j].relative_mass;
+                    StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
+                            << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
+                            << std::setprecision(getPrecision(interval_heignt, rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, rms)) << interval_relative_mass << ")"
+                            << std::endl;
+                    StatsLog << std::endl;
+                }
             }
         } else {
             StatsLog << "\nWARNING: The histogram of " << it->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
@@ -974,50 +946,21 @@ std::string MonteCarloEngine::computeStatistics() {
                 intervals.push_back(0.997300203937);
 
                 std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
-
-                StatsLog << "      Smallest interval(s) containing at least " << v[0].total_mass*100 << "% and local mode(s):"
-                        << std::endl;
-                for (unsigned j = 0; j < v[0].intervals.size(); j++) {
-                    double interval_xmin = v[0].intervals[j].xmin;
-                    double interval_xmax = v[0].intervals[j].xmax;
-                    double interval_mode = v[0].intervals[j].mode;
-                    double interval_heignt = v[0].intervals[j].relative_height;
-                    double interval_relative_mass = v[0].intervals[j].relative_mass;
-                    StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
-                            << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
-                            << std::setprecision(getPrecision(interval_heignt, rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, rms)) << interval_relative_mass << ")"
+                for (int i = 0; i = v.size(); i++) {
+                    StatsLog << "      Smallest interval(s) containing at least " << v[0].total_mass * 100 << "% and local mode(s):"
                             << std::endl;
-                    StatsLog << std::endl;
-                }
-
-                StatsLog << "      Smallest interval(s) containing at least " << v[1].total_mass*100 << "% and local mode(s):"
-                        << std::endl;
-                for (unsigned j = 0; j < v[1].intervals.size(); j++) {
-                    double interval_xmin = v[1].intervals[j].xmin;
-                    double interval_xmax = v[1].intervals[j].xmax;
-                    double interval_mode = v[1].intervals[j].mode;
-                    double interval_heignt = v[1].intervals[j].relative_height;
-                    double interval_relative_mass = v[1].intervals[j].relative_mass;
-                    StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
-                            << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
-                            << std::setprecision(getPrecision(interval_heignt, rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, rms)) << interval_relative_mass << ")"
-                            << std::endl;
-                    StatsLog << std::endl;
-                }
-
-                StatsLog << "      Smallest interval(s) containing at least " << v[2].total_mass*100 << "% and local mode(s):"
-                         << std::endl;
-                for (unsigned j = 0; j < v[2].intervals.size(); j++) {
-                    double interval_xmin = v[2].intervals[j].xmin;
-                    double interval_xmax = v[2].intervals[j].xmax;
-                    double interval_mode = v[2].intervals[j].mode;
-                    double interval_heignt = v[2].intervals[j].relative_height;
-                    double interval_relative_mass = v[2].intervals[j].relative_mass;
-                    StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
-                            << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
-                            << std::setprecision(getPrecision(interval_heignt, rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, rms)) << interval_relative_mass << ")"
-                            << std::endl;
-                    StatsLog << std::endl;
+                    for (unsigned j = 0; j < v[0].intervals.size(); j++) {
+                        double interval_xmin = v[0].intervals[j].xmin;
+                        double interval_xmax = v[0].intervals[j].xmax;
+                        double interval_mode = v[0].intervals[j].mode;
+                        double interval_heignt = v[0].intervals[j].relative_height;
+                        double interval_relative_mass = v[0].intervals[j].relative_mass;
+                        StatsLog << "       (" << std::setprecision(getPrecision(interval_xmin, rms)) << interval_xmin << ", " << std::setprecision(getPrecision(interval_xmax, rms)) << interval_xmax
+                                << ") (local mode at " << std::setprecision(getPrecision(interval_mode, rms)) << interval_mode << " with rel. height "
+                                << std::setprecision(getPrecision(interval_heignt, rms)) << interval_heignt << "; rel. area " << std::setprecision(getPrecision(interval_relative_mass, rms)) << interval_relative_mass << ")"
+                                << std::endl;
+                        StatsLog << std::endl;
+                    }
                 }
             } else {
                 StatsLog << "\nWARNING: The histogram of " << it2->getName() << " is empty! Statistics cannot be generated\n" << std::endl;
