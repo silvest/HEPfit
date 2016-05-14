@@ -886,7 +886,6 @@ std::string MonteCarloEngine::computeStatistics() {
             intervals.push_back(0.954499736104);
             intervals.push_back(0.997300203937);
             std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
-            std::cout << it->getName() << "  " << v.size() << "  " << std::endl;
             for (int i = 0; i < v.size(); i++) {
                 StatsLog << "      Smallest interval(s) containing at least " << v[i].total_mass * 100 << "% and local mode(s):"
                         << std::endl;
