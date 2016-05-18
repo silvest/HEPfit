@@ -189,18 +189,18 @@ public:
 
     /**
      *
-     * @return THDM model type
+     * @return Switch for NLO RGE and approximate NLO RGE
      */
-    bool getWFRflag() const {
-        return flag_wfr;
+    std::string getRGEorderflag() const {
+        return flag_RGEorder;
     }
 
     /**
      *
-     * @return Switch for NLO RGE
+     * @return THDM model type
      */
-    bool getRGEorderflag() const {
-        return flag_RGEatNLO;
+    bool getWFRflag() const {
+        return flag_wfr;
     }
 
     /**
@@ -374,6 +374,21 @@ protected:
             return false;
     }
 
+    /**
+     * @brief A method to check if the RGE order name in string form is valid.
+     * @param[in] THDM RGE order
+     * @return a boolean that is true if the RGE order string is valid
+     */
+    bool checkRGEorder(const std::string RGEorder) const
+    {
+        if (RGEorder.compare("LO") == 0
+                || RGEorder.compare("approxNLO") == 0
+                || RGEorder.compare("NLO") == 0)
+            return true;
+        else
+            return false;
+    }
+
     mutable Matching<THDMMatching,THDM> THDMM; ///< An object of type Matching.
 
 private:
@@ -381,8 +396,8 @@ private:
     THDMcache* myTHDMcache;
 
     double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps;
-    std::string flag_model;
-    bool flag_wfr, flag_RGEatNLO;
+    std::string flag_model, flag_RGEorder;
+    bool flag_wfr;
 };
 
 #endif	/* THDM_H */

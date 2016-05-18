@@ -40,7 +40,7 @@ double Runner::computeThValue()
 int RGEs(double t, const double y[], double beta[], void *order)
 {
     (void)(t); /* avoid unused parameter warning */
-    bool ord = *(bool *)order;
+    int ord = *(int *)order;
 
     double g1=y[0];
     double g2=y[1];
@@ -88,7 +88,8 @@ int RGEs(double t, const double y[], double beta[], void *order)
     //beta_lambda_5
     beta[13] = (la5*(-3.0*g1*g1 - 9.0*g2*g2 + 2.0*(la1 + la2 + 4.0*la3 + 6.0*la4 + 3.0*Yb*Yb + 3.0*Yt*Yt + Ytau*Ytau)))/(16.0*pi*pi);
 
-    if(ord==true){
+    if(ord==1||ord==2){
+        std::cout<<"approxNLO"<<std::endl;
     //beta_g1
     beta[0] += 0.;
     //beta_g2
@@ -117,6 +118,10 @@ int RGEs(double t, const double y[], double beta[], void *order)
     beta[12] += 0.;
     //beta_lambda_5
     beta[13] += 0.;
+
+        if(ord==2){
+            std::cout<<"fullNLO"<<std::endl;
+        }
     }
 
     return 0;
@@ -278,7 +283,7 @@ int RGEcheck(const double InitialValues[], const double t1)
     return check;
 }
 
-double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, bool order)
+double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order)
 {
     //Define which stepping function should be used
     const gsl_odeiv2_step_type * T = gsl_odeiv2_step_rk4;

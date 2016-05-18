@@ -4376,7 +4376,14 @@ void THDMcache::runTHDMparameters()
     double cosb=myTHDM->getcosb();
     double sinb=myTHDM->getsinb();
     modelflag=myTHDM->getModelTypeflag();
-    bool RGEorder=myTHDM->getRGEorderflag();
+    std::string RGEorder=myTHDM->getRGEorderflag();
+    int order;
+    if( RGEorder == "LO" ) order=0;
+    else if( RGEorder == "approxNLO" ) order=1;
+    else if( RGEorder == "NLO" ) order=2;
+    else {
+        throw std::runtime_error("RGEorder can be only any of \"LO\", \"approxNLO\" or \"NLO\"");
+    }
 
     double g1_at_MZ=sqrt(4.0*M_PI*Ale/(1-cW2));
     double g2_at_MZ=sqrt(4.0*M_PI*Ale/cW2);
@@ -4455,7 +4462,7 @@ void THDMcache::runTHDMparameters()
         InitVals[12]=lambda4_at_MZ;
         InitVals[13]=lambda5_at_MZ;
 
-        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM, RGEorder);  //Running up to Q_cutoff<=Q_THDM
+        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM, order);  //Running up to Q_cutoff<=Q_THDM
 
         g1_at_Q = InitVals[0];
         g2_at_Q = InitVals[1];

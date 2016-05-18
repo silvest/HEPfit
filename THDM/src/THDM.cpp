@@ -141,6 +141,18 @@ bool THDM::setFlagStr(const std::string name, const std::string value)
                 + name + "=" + value);
         }
     }
+    else if(name.compare("RGEorder") == 0) {
+        if (checkRGEorder(value))
+        {
+            flag_RGEorder = value;
+            res = true;
+        }
+        else
+        {
+            throw std::runtime_error("THDM::setFlagStr(): Invalid flag "
+                + name + "=" + value);
+        }
+    }
     else
     {
         res = StandardModel::setFlagStr(name,value);
@@ -154,10 +166,6 @@ bool THDM::setFlag(const std::string name, const bool value)
     bool res = false;
     if(name.compare("wavefunctionrenormalization") == 0) {
         flag_wfr = value;
-        res = true;
-    }
-    else if(name.compare("RGEatNLO") == 0) {
-        flag_RGEatNLO = value;
         res = true;
     }
     else

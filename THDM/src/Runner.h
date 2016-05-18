@@ -38,7 +38,7 @@ public:
      */
     double computeThValue();
 
-    virtual double RGERunner(/*int RGEs, const*/ double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, bool order);
+    virtual double RGERunner(/*int RGEs, const*/ double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order);
 
     const THDM * myTHDM;
     m11_2 * mym11_2;
