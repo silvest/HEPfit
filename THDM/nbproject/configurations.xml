@@ -4,7 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/B_to_mumu.h</itemPath>
       <itemPath>src/CPoddHiggs.h</itemPath>
       <itemPath>src/EWPO.h</itemPath>
       <itemPath>src/Runner.h</itemPath>
@@ -29,7 +28,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/B_to_mumu.cpp</itemPath>
       <itemPath>src/CPoddHiggs.cpp</itemPath>
       <itemPath>src/EWPO.cpp</itemPath>
       <itemPath>src/Runner.cpp</itemPath>
@@ -79,10 +77,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -175,10 +169,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -271,10 +261,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/B_to_mumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/B_to_mumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">

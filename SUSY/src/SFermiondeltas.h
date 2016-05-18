@@ -606,4 +606,114 @@ private:
     const SUSY& mySUSY;
 };
 
+/**
+ * @class logdeltaRL_13_e
+ * @ingroup SUSY
+ * @brief logdeltaRL_13_e.
+ */
+class logdeltaRL_13_e: public ThObservable {
+public:
+
+    /**
+     * @brief logdeltaRL_13_e constructor.
+     */
+    logdeltaRL_13_e(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\logdeltaRL_13_e@f$
+     */
+    double computeThValue();
+
+private:
+    const SUSY& mySUSY;
+};
+
+/**
+ * @class logdeltaRL_23_e
+ * @ingroup SUSY
+ * @brief logdeltaRL_23_e.
+ */
+class logdeltaRL_23_e: public ThObservable {
+public:
+
+    /**
+     * @brief logdeltaRL_23_e constructor.
+     */
+    logdeltaRL_23_e(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\logdeltaRL_23_e@f$
+     */
+    double computeThValue();
+
+private:
+    const SUSY& mySUSY;
+};
+
+/**
+ * @class logmslepton
+ * @ingroup SUSY
+ * @brief logmslepton.
+ */
+class logmslepton: public ThObservable {
+public:
+
+    /**
+     * @brief logmslepton constructor.
+     */
+    logmslepton(const StandardModel& SM_i);
+
+    /**
+     * @return @f$logmslepton@f$
+     */
+    double computeThValue();
+
+private:
+    const SUSY& mySUSY;
+};
+
+/**
+ * @class deltaTEhat23
+ * @ingroup SUSY
+ * @brief deltaTEhat23.
+ */
+class deltaTEhat23: public ThObservable {
+public:
+
+    /**
+     * @brief deltaTEhat23 constructor.
+     */
+    deltaTEhat23(const StandardModel& SM_i);
+
+    /**
+     * @return @deltaTEhat23@f$
+     */
+    double computeThValue();
+
+private:
+    const SUSY& mySUSY;
+};
+
+/**
+ * @class deltaLLRR_l
+ * @ingroup SUSY
+ * @brief deltaLLRR_l.
+ */
+class deltaLLRR_l: public ThObservable {
+public:
+
+    /**
+     * @brief deltaLLRR_l constructor.
+     */
+    deltaLLRR_l(const StandardModel& SM_i);
+
+    /**
+     * @return @deltaLLRR_l@f$
+     */
+    double computeThValue();
+
+private:
+    const SUSY& mySUSY;
+};
+
 #endif	/* SFERMIONDELTAS_H */

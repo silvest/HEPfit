@@ -156,6 +156,10 @@ bool THDM::setFlag(const std::string name, const bool value)
         flag_wfr = value;
         res = true;
     }
+    else if(name.compare("RGEatNLO") == 0) {
+        flag_RGEatNLO = value;
+        res = true;
+    }
     else
         res = StandardModel::setFlag(name,value);
 

@@ -1073,7 +1073,7 @@ double unitarityNLO26::computeThValue()
 
     double uniNLO26a = -(la3Q+la4Q)/(16.0*M_PI);
     double uniNLO26b = 3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI);
-    gslpp::complex uniNLO26c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO26c = (gslpp::complex::i()*M_PI-1.0)*(la3Q+la4Q)*(la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
     gslpp::complex uniNLO26d = -2.0*(la3Q+la4Q)/(512.0*M_PI*M_PI*M_PI) * (WFRc2-WFRc4);
 
     return (uniNLO26a+uniNLO26b+uniNLO26c+uniNLO26d - gslpp::complex::i()/2.0).abs();
@@ -3136,7 +3136,7 @@ double unitarityRp22::computeThValue()
 
     double uniNLO26a = -(la3Q+la4Q)/(16.0*M_PI);
     double uniNLO26b = 3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI);
-    gslpp::complex uniNLO26c = (gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
+    gslpp::complex uniNLO26c = (gslpp::complex::i()*M_PI-1.0)*(la3Q+la4Q)*(la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
     gslpp::complex uniNLO26d = -2.0*(la3Q+la4Q)/(512.0*M_PI*M_PI*M_PI) * (WFRc2-WFRc4);
 
     double Rp=0.1;

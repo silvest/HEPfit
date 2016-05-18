@@ -197,6 +197,14 @@ public:
 
     /**
      *
+     * @return Switch for NLO RGE
+     */
+    bool getRGEorderflag() const {
+        return flag_RGEatNLO;
+    }
+
+    /**
+     *
      * @return @f$\log_{10}(\tan \beta)@f$
      */
     double getlogtb() const {
@@ -374,7 +382,7 @@ private:
 
     double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps;
     std::string flag_model;
-    bool flag_wfr;
+    bool flag_wfr, flag_RGEatNLO;
 };
 
 #endif	/* THDM_H */

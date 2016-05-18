@@ -37,9 +37,10 @@ double Runner::computeThValue()
     return 0.;
 }
 
-int RGEs(double t, const double y[], double beta[], void *params)
+int RGEs(double t, const double y[], double beta[], void *order)
 {
     (void)(t); /* avoid unused parameter warning */
+    bool ord = *(bool *)order;
 
     double g1=y[0];
     double g2=y[1];
@@ -87,10 +88,41 @@ int RGEs(double t, const double y[], double beta[], void *params)
     //beta_lambda_5
     beta[13] = (la5*(-3.0*g1*g1 - 9.0*g2*g2 + 2.0*(la1 + la2 + 4.0*la3 + 6.0*la4 + 3.0*Yb*Yb + 3.0*Yt*Yt + Ytau*Ytau)))/(16.0*pi*pi);
 
+    if(ord==true){
+    //beta_g1
+    beta[0] += 0.;
+    //beta_g2
+    beta[1] += 0.;
+    //beta_g3
+    beta[2] += 0.;
+    //beta_Yt
+    beta[3] += 0.;
+    //beta_Yb
+    beta[4] += 0.;
+    //beta_Ytau
+    beta[5] += 0.;
+    //beta_m11_2
+    beta[6] += 0.;
+    //beta_m22_2
+    beta[7] += 0.;
+    //beta_m12_2
+    beta[8] += 0.;
+    //beta_lambda_1
+    beta[9] += 0.;
+    //beta_lambda_2
+    beta[10] += 0.;
+    //beta_lambda_3
+    beta[11] += 0.;
+    //beta_lambda_4
+    beta[12] += 0.;
+    //beta_lambda_5
+    beta[13] += 0.;
+    }
+
     return 0;
 }
 
-int Jacobian (double t, const double y[], double *dfdy, double dfdt[], void *params)
+int Jacobian (double t, const double y[], double *dfdy, double dfdt[], void *order)
 {
     return 0;
 }
@@ -192,8 +224,6 @@ int RGEcheck(const double InitialValues[], const double t1)
     gslpp::complex uniNLO17 = -la5Q/(16.0*M_PI) +3.0*betalambda5/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la1Q+la2Q)*la5Q/(256.0*M_PI*M_PI*M_PI);
     double         uniLO24  = -(la3Q+la4Q)/(16.0*M_PI);
     gslpp::complex uniNLO24 = -(la3Q+la4Q)/(16.0*M_PI) +3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la3Q+la4Q)*(la3Q+la4Q)/(256.0*M_PI*M_PI*M_PI);
-    double         uniLO26  = -(la3Q+la4Q)/(16.0*M_PI);
-    gslpp::complex uniNLO26 = -(la3Q+la4Q)/(16.0*M_PI) +3.0*(betalambda3+betalambda4)/(256.0*M_PI*M_PI*M_PI) +(gslpp::complex::i()*M_PI-1.0)*(la3Q*la3Q+la4Q*la4Q)/(256.0*M_PI*M_PI*M_PI);
 
     double uniLOev1  = 0.5*(uniLO1+uniLO2+sqrt((uniLO1-uniLO2)*(uniLO1-uniLO2)+4.0*uniLO3*uniLO3));
     double uniLOev2  = 0.5*(uniLO1+uniLO2-sqrt((uniLO1-uniLO2)*(uniLO1-uniLO2)+4.0*uniLO3*uniLO3));
@@ -228,7 +258,6 @@ int RGEcheck(const double InitialValues[], const double t1)
     if( (uniNLOev14wowfr - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
     if( (uniNLO14 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
     if( (uniNLO24 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
-    if( (uniNLO26 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
 
     double Rpeps=0.01;
     if( fabs(uniLOev1) > Rpeps && (uniNLOev1wowfr/uniLOev1-1.0).abs() > 1.0) check=1;
@@ -243,14 +272,13 @@ int RGEcheck(const double InitialValues[], const double t1)
     if( fabs(uniLOev14) > Rpeps && (uniNLOev14wowfr/uniLOev14-1.0).abs() > 1.0) check=1;
     if( fabs(uniLO14) > Rpeps && (uniNLO14/uniLO14-1.0).abs() > 1.0) check=1;
     if( fabs(uniLO24) > Rpeps && (uniNLO24/uniLO24-1.0).abs() > 1.0) check=1;
-    if( fabs(uniLO26) > Rpeps && (uniNLO26/uniLO26-1.0).abs() > 1.0) check=1;
     
     }
 
     return check;
 }
 
-double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2)
+double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, bool order)
 {
     //Define which stepping function should be used
     const gsl_odeiv2_step_type * T = gsl_odeiv2_step_rk4;
@@ -267,11 +295,11 @@ double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long i
     gsl_odeiv2_evolve * e = gsl_odeiv2_evolve_alloc(NumberOfRGEs);
 
     //Possibility to define a set of parameters which the RGE's depend on
-    double RGEparameters = 0;
+//    double order = 1;
 
     //Definition of the RGE system (the Jacobian is not necessary for the RK4 method; it's an empty function here)
 //    gsl_odeiv2_system RGEsystem = {mySM.RGEs, Jacobian, mySM.NumberOfRGEs, &RGEparameters};
-    gsl_odeiv2_system RGEsystem = {RGEs, Jacobian, NumberOfRGEs, &RGEparameters};
+    gsl_odeiv2_system RGEsystem = {RGEs, Jacobian, NumberOfRGEs, &order};
 
     //Set starting and end point as natural logarithmic scales (conversion from decadic log scale)
     double t1 = Q1*log(10.0);
