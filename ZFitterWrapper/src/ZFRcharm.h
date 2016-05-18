@@ -19,7 +19,7 @@ public:
      * @brief ZFRcharm constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFRcharm(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFRcharm(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the ratio of the c-cbar width to the hadronic width

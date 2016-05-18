@@ -19,7 +19,7 @@ public:
      * @brief ZFsin2thetaEff constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFsin2thetaEff(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFsin2thetaEff(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the effective weak mixing angle for a leptonic channel

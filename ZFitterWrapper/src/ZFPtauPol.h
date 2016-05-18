@@ -19,7 +19,7 @@ public:
      * @brief ZFPtauPol constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFPtauPol(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFPtauPol(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the longitudinal polarization of the tau-taubar channel

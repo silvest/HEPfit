@@ -20,7 +20,7 @@ public:
      * @brief ZFMw constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFMw(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFMw(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the W-boson mass

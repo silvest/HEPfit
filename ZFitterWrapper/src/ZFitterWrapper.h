@@ -82,7 +82,7 @@ using namespace gslpp;
  * @class ZFitterWrapper
  * @brief ZFITTER C++ Interface Class
  */
-class ZFitterWrapper : public ThObsType {
+class ZFitterWrapper {
 public:
 
     /**
@@ -404,6 +404,10 @@ public:
      * @param[in] IMISC 0 for non-scaled @f$\rho_Z^f@f$'s and 1 for scaled @f$\rho_Z^f@f$'s
      */
     void test(const int IMISC) const;
+    
+    const StandardModel& getModel() const {
+        return SM;
+    }
 
     
     ////////////////////////////////////////////////////////////////////////       

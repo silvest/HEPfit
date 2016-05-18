@@ -20,7 +20,7 @@ public:
      * @brief ZFMh0 constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFMh0(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFMh0(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the Higgs mass

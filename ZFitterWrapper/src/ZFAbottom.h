@@ -19,7 +19,7 @@ public:
      * @brief ZFAbottom constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFAbottom(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFAbottom(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the left-right asymmetry of the b-bbar channel

@@ -19,7 +19,7 @@ public:
      * @brief ZFGammaW constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFGammaW(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFGammaW(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the total width of the W boson

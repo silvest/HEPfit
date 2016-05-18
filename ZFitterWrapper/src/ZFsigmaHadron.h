@@ -19,7 +19,7 @@ public:
      * @brief ZFsigmaHadron constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFsigmaHadron(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFsigmaHadron(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the hadronic cross section in nb
