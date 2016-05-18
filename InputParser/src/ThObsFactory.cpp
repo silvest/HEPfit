@@ -372,13 +372,18 @@ ThObsFactory::ThObsFactory()
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  Lepton Flavour observables  -----
     obsThFactory["mu_e_gamma"] = boost::factory<mu_e_gamma*>();
+    obsThFactory["log_meg"] = boost::factory<log_meg*>();
     obsThFactory["tau_mu_gamma"] = boost::factory<tau_mu_gamma*>();
+    obsThFactory["log_tmg"] = boost::factory<log_tmg*>();
     obsThFactory["tau_e_gamma"] = boost::factory<tau_e_gamma*>();
+    obsThFactory["log_teg"] = boost::factory<log_teg*>();
     obsThFactory["mu_3e"] = boost::factory<mu_3e*>();
     obsThFactory["tau_3mu"] = boost::factory<tau_3mu*>();
     obsThFactory["tau_3e"] = boost::factory<tau_3e*>();
     obsThFactory["gminus2_mu"] = boost::factory<gminus2_mu*>();
     obsThFactory["Robs_mu_e_gamma"] = boost::factory<Robs_mu_e_gamma*>();
+    obsThFactory["Robs_tau_mu_gamma"] = boost::factory<Robs_tau_mu_gamma*>();
+    obsThFactory["Robs_tau_e_gamma"] = boost::factory<Robs_tau_e_gamma*>();
 
     obsThFactory["deltaRL_12_u"] = boost::factory<deltaRL_12_u*>();
     obsThFactory["deltaRL_13_u"] = boost::factory<deltaRL_13_u*>();
@@ -424,6 +429,13 @@ ThObsFactory::ThObsFactory()
     obsThFactory["CCBe12"] = boost::factory<CCBe12*>();
     obsThFactory["CCBe13"] = boost::factory<CCBe13*>();
     obsThFactory["CCBe23"] = boost::factory<CCBe23*>();
+    
+    obsThFactory["logdeltaRL_13_e"] = boost::factory<logdeltaRL_13_e*>();
+    obsThFactory["logdeltaRL_23_e"] = boost::factory<logdeltaRL_23_e*>();
+    obsThFactory["logmslepton"] = boost::factory<logmslepton*>();
+    obsThFactory["deltaTEhat23"] = boost::factory<deltaTEhat23*>();
+    obsThFactory["deltaLLRR_l"] = boost::factory<deltaLLRR_l*>();
+
     /** END: REMOVE FROM THE PACKAGE **/
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
@@ -615,8 +627,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DeltaU"] = boost::factory<DeltaU*>();
 
     obsThFactory["B_BtoXsgammaTHDM"] = boost::factory<bsgammaTHDM*>();
-    obsThFactory["BR_BsmumuTHDM"] = boost::factory<BR_BsmumuTHDM*>();
-    obsThFactory["BR_BdmumuTHDM"] = boost::factory<BR_BdmumuTHDM*>();
+//    obsThFactory["BR_BsmumuTHDM"] = boost::factory<BR_BsmumuTHDM*>();
+//    obsThFactory["BR_BdmumuTHDM"] = boost::factory<BR_BdmumuTHDM*>();
 
     obsThFactory["Q_st"] = boost::factory<Q_st*>();
     obsThFactory["DeltaQ_THDM"] = boost::factory<DeltaQ_THDM*>();

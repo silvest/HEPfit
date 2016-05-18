@@ -43,6 +43,36 @@ private:
 };
 
 /**
+ * @class log_meg
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the branching ratio of the process \f$ \mu \to e \gamma \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details The log_meg class calculates the branching ratio of the process \f$ \mu \to e \gamma \f$ in the model.
+ */
+class log_meg : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the value of the process \f$ \mu \to e \gamma \f$.
+     * @return value of the process \f$ \mu \to e \gamma \f$.
+     */
+    log_meg(const StandardModel& SM_i);
+    
+    /**
+     * @return decadic log of the process \f$ \mu \to e \gamma \f$.
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
  * @class Robs_mu_e_gamma
  * @ingroup LeptonFlavour
  * @brief A class for calculating the upper limit ratio for the process \f$ \mu \to e \gamma \f$.
@@ -101,6 +131,36 @@ private:
 };
 
 /**
+ * @class log_tmg
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the branching ratio of the process \f$ \tau \to \mu \gamma \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details The log_tmg class calculates the branching ratio of the process \f$ \tau \to \mu \gamma \f$ in the model.
+ */
+class log_tmg : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the value of the process \f$ \tau \to \mu \gamma \f$.
+     * @return value of the process \f$ \tau \to \mu \gamma \f$.
+     */
+    log_tmg(const StandardModel& SM_i);
+    
+    /**
+     * @return decadic log of the process \f$ \tau \to \mu \gamma \f$.
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
  * @class Robs_tau_mu_gamma
  * @ingroup LeptonFlavour
  * @brief A class for calculating the upper limit ratio for the process \f$ \tau \to \mu \gamma \f$.
@@ -147,6 +207,36 @@ public:
     
     /**
      * @return value of the process \f$ \tau \to e \gamma \f$.
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
+ * @class log_teg
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the branching ratio of the process \f$ \tau \to e \gamma \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details The log_teg class calculates the branching ratio of the process \f$ \tau \to e \gamma \f$ in the model.
+ */
+class log_teg : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the value of the process \f$ \tau \to e \gamma \f$.
+     * @return value of the process \f$ \tau \to e \gamma \f$.
+     */
+    log_teg(const StandardModel& SM_i);
+    
+    /**
+     * @return decadic log of the process \f$ \tau \to e \gamma \f$.
      */
     double computeThValue();
     
