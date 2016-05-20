@@ -37,17 +37,39 @@ double Runner::computeThValue()
     return 0.;
 }
 
-int RGEs(double t, const double y[], double beta[], void *order)
+int RGEs(double t, const double y[], double beta[], void *flags)
 {
     (void)(t); /* avoid unused parameter warning */
-    int ord = *(int *)order;
-
+    int flag = *(int *)flags;
+    int ord = flag%3;
+    int type = flag-ord;
+    double Yb1=0;
+    double Yb2=0;
+    double Ytau1=0;
+    double Ytau2=0;
     double g1=y[0];
     double g2=y[1];
     double g3=y[2];
     double Yt=y[3];
-    double Yb=y[4];
-    double Ytau=y[5];
+    if( type == 0 ) {//type I
+        Yb2=y[4];
+        Ytau2=y[5];
+    }
+    else if( type == 3 ) {//type II
+        Yb1=y[4];
+        Ytau1=y[5];
+    }
+    else if( type == 6 ) {//type X
+        Yb2=y[4];
+        Ytau1=y[5];
+    }
+    else if( type == 9 ) {//type Y
+        Yb1=y[4];
+        Ytau2=y[5];
+    }
+    else {
+        throw std::runtime_error("type should only be any of 0, 3, 6, 9");
+    }
     double m11_2=y[6];
     double m22_2=y[7];
     double m12_2=y[8];
@@ -66,61 +88,319 @@ int RGEs(double t, const double y[], double beta[], void *order)
     //beta_g3
     beta[2] = -7.0*g3*g3*g3/(16.0*pi*pi);
     //beta_Yt
-    beta[3] = (Yt*(-17.0*g1*g1 - 27.0*g2*g2 + 6.0*(-16.0*g3*g3 + Yb*Yb + 9.0*Yt*Yt)))/(192.0*pi*pi);
+    beta[3] = Yt*(-17.0*g1*g1+3.0*(-9.0*g2*g2-32.0*g3*g3+2.0*Yb1*Yb1+6.0*Yb2*Yb2+18.0*Yt*Yt+4.0*Ytau2*Ytau2))/(192.0*pi*pi);
     //beta_Yb
-    beta[4] = (Yb*(-5.0*g1*g1 - 27.0*g2*g2 + 6.0*(-16*g3*g3 + 9.0*Yb*Yb + Yt*Yt + 2.0*Ytau*Ytau)))/(192.0*pi*pi);
+    beta[4] = ((-5.0*g1*g1-27.0*g2*g2-96.0*g3*g3)*(Yb1+Yb2)+(6.0*Yb1+18.0*Yb2)*Yt*Yt
+               +54.0*(Yb1*Yb1*Yb1+Yb2*Yb2*Yb2+Yb1*Yb2*Yb2)+12.0*(Yb1*Ytau1*Ytau1+Yb2*Ytau2*Ytau2))/(192.0*pi*pi);
     //beta_Ytau
-    beta[5] = (Ytau*(-15.0*g1*g1 - 9.0*g2*g2 + 12.0*Yb*Yb + 10.0*Ytau*Ytau))/(64.0*pi*pi);
+    beta[5] = ((-15.0*g1*g1-9.0*g2*g2)*(Ytau1+Ytau2)+Ytau2*(12.0*Yb2*Yb2+12.0*Yt*Yt+10.0*Ytau2*Ytau2)
+               +Ytau1*(12.0*Yb1*Yb1+10.0*Ytau1*Ytau1))/(64.0*pi*pi);
     //beta_m11_2
-    beta[6] = (-3.0*g1*g1*m11_2 - 9.0*g2*g2*m11_2 + 4.0*((2.0*la3 + la4)*m22_2 + m11_2*(3.0*la1 + 3.0*Yb*Yb + Ytau*Ytau)))/(32.0*pi*pi);
+    beta[6] = (-3.0*g1*g1*m11_2-9.0*g2*g2*m11_2
+               +4.0*(m11_2*(3.0*Yb1*Yb1+Ytau1*Ytau1+3.0*la1)+m22_2*(2.0*la3+la4)))/(32.0*pi*pi);
     //beta_m22_2
-    beta[7] = (-3.0*g1*g1*m22_2 - 9.0*g2*g2*m22_2 + 4.0*(2.0*la3*m11_2 + la4*m11_2 + 3.0*la2*m22_2 + 3.0*m22_2*Yt*Yt))/(32.0*pi*pi);
+    beta[7] = (-3.0*g1*g1*m22_2-9.0*g2*g2*m22_2
+               +4.0*(m22_2*(3.0*Yb2*Yb2+3.0*Yt*Yt+Ytau2*Ytau2+3.0*la2)+m11_2*(2.0*la3+la4)))/(32.0*pi*pi);
     //beta_m12_2
-    beta[8] = (m12_2*(-3.0*g1*g1 - 9.0*g2*g2 + 2.0*(2.0*la3 + 4.0*la4 + 6.0*la5 + 3.0*Yb*Yb + 3.0*Yt*Yt + Ytau*Ytau)))/(32.0*pi*pi);
+    beta[8] = m12_2*(-3.0*g1*g1-9.0*g2*g2
+                     +2.0*(3.0*Yb1*Yb1+3.0*Yb2*Yb2+3.0*Yt*Yt+Ytau1*Ytau1+Ytau2*Ytau2+2.0*la3+4.0*la4+6.0*la5))/(32.0*pi*pi);
     //beta_lambda_1
-    beta[9] = (3.0*g1*g1*g1*g1 + 9.0*g2*g2*g2*g2 + 6.0*g1*g1*(g2*g2 - 2.0*la1) - 36.0*g2*g2*la1 + 8.0*(6.0*la1*la1 + 2.0*la3*la3 + 2.0*la3*la4 + la4*la4 + la5*la5 + 6.0*la1*Yb*Yb - 6.0*Yb*Yb*Yb*Yb + 2.0*la1*Ytau*Ytau - 2.0*Ytau*Ytau*Ytau*Ytau))/(64.0*pi*pi);
+    beta[9] = (3.0*g1*g1*g1*g1+9.0*g2*g2*g2*g2+6.0*g1*g1*(g2*g2-2.0*la1)-36.0*g2*g2*la1
+               +8.0*(6.0*la1*la1+2.0*la3*la3+2.0*la3*la4+la4*la4+la5*la5)
+               -16.0*(3.0*Yb1*Yb1*Yb1*Yb1+Ytau1*Ytau1*Ytau1*Ytau1)+16.0*la1*(3.0*Yb1*Yb1+Ytau1*Ytau1))/(64.0*pi*pi);
     //beta_lambda_2
-    beta[10] = (3.0*g1*g1*g1*g1 + 9.0*g2*g2*g2*g2 + 6.0*g1*g1*(g2*g2 - 2.0*la2) - 36.0*g2*g2*la2 + 8.0*(6.0*la2*la2 + 2.0*la3*la3 + 2.0*la3*la4 + la4*la4 + la5*la5 + 6.0*la2*Yt*Yt - 6.0*Yt*Yt*Yt*Yt))/(64.0*pi*pi);
+    beta[10] = (3.0*g1*g1*g1*g1+9.0*g2*g2*g2*g2+6.0*g1*g1*(g2*g2-2.0*la2)-36.0*g2*g2*la2
+                -8.0*(6.0*Yb2*Yb2*Yb2*Yb2+6.0*Yt*Yt*Yt*Yt+2.0*Ytau2*Ytau2*Ytau2*Ytau2-6.0*Yb2*Yb2*la2
+                      -6.0*Yt*Yt*la2-2.0*Ytau2*Ytau2*la2-6.0*la2*la2-2.0*la3*la3-2.0*la3*la4-la4*la4-la5*la5))/(64.0*pi*pi);
     //beta_lambda_3
-    beta[11] = (3.0*g1*g1*g1*g1 + 9.0*g2*g2*g2*g2 - 36.0*g2*g2*la3 - 6.0*g1*g1*(g2*g2 + 2.0*la3) + 8.0*(3.0*la1*la3 + 3.0*la2*la3 + 2.0*la3*la3 + la1*la4 + la2*la4 + la4*la4 + la5*la5 + 3.0*la3*Yt*Yt + Yb*Yb*(3.0*la3 - 6.0*Yt*Yt) + la3*Ytau*Ytau))/(64.0*pi*pi);
+    beta[11] = (3.0*g1*g1*g1*g1+9.0*g2*g2*g2*g2-36.0*g2*g2*la3-6.0*g1*g1*(g2*g2+2.0*la3)
+                +8.0*(3.0*Yb2*Yb2*la3+3.0*Yt*Yt*la3+Ytau1*Ytau1*la3+Ytau2*Ytau2*la3+3.0*la1*la3+3.0*la2*la3+2.0*la3*la3
+                      +Yb1*Yb1*(-6.0*Yt*Yt+3.0*la3)+la1*la4+la2*la4+la4*la4+la5*la5))/(64.0*pi*pi);
     //beta_lambda_4
-    beta[12] = (3.0*g1*g1*(g2*g2 - la4) - 9.0*g2*g2*la4 + 2.0*la1*la4 + 2.0*la2*la4 + 8.0*la3*la4 + 4.0*la4*la4 + 8.0*la5*la5 + 6.0*la4*Yt*Yt + 6.0*Yb*Yb*(la4 + 2.0*Yt*Yt) + 2.0*la4*Ytau*Ytau)/(16.0*pi*pi);
+    beta[12] = (3.0*g1*g1*(g2*g2-la4)-9.0*g2*g2*la4+6.0*Yb2*Yb2*la4+6.0*Yt*Yt*la4+2.0*Ytau1*Ytau1*la4
+                +2.0*Ytau2*Ytau2*la4+2.0*la1*la4+2.0*la2*la4+8.0*la3*la4+4.0*la4*la4+6.0*Yb1*Yb1*(2.0*Yt*Yt+la4)
+                +8.0*la5*la5)/(16.0*pi*pi);
     //beta_lambda_5
-    beta[13] = (la5*(-3.0*g1*g1 - 9.0*g2*g2 + 2.0*(la1 + la2 + 4.0*la3 + 6.0*la4 + 3.0*Yb*Yb + 3.0*Yt*Yt + Ytau*Ytau)))/(16.0*pi*pi);
+    beta[13] = (-3.0*g1*g1-9.0*g2*g2
+                +2.0*(3.0*Yb1*Yb1+3.0*Yb2*Yb2+3.0*Yt*Yt+Ytau1*Ytau1+Ytau2*Ytau2+la1+la2+4.0*la3+6.0*la4))*la5/(16.0*pi*pi);
 
     if(ord==1||ord==2){
-        std::cout<<"approxNLO"<<std::endl;
-    //beta_g1
-    beta[0] += 0.;
-    //beta_g2
-    beta[1] += 0.;
-    //beta_g3
-    beta[2] += 0.;
-    //beta_Yt
-    beta[3] += 0.;
-    //beta_Yb
-    beta[4] += 0.;
-    //beta_Ytau
-    beta[5] += 0.;
-    //beta_m11_2
-    beta[6] += 0.;
-    //beta_m22_2
-    beta[7] += 0.;
-    //beta_m12_2
-    beta[8] += 0.;
-    //beta_lambda_1
-    beta[9] += 0.;
-    //beta_lambda_2
-    beta[10] += 0.;
-    //beta_lambda_3
-    beta[11] += 0.;
-    //beta_lambda_4
-    beta[12] += 0.;
-    //beta_lambda_5
-    beta[13] += 0.;
+        //beta_g1
+        beta[0] += (g1*g1*g1*(88.0*g3*g3-17.0*Yt*Yt))/(1536.0*pi*pi*pi*pi);
+        //beta_g2
+        beta[1] += (3.0*g2*g2*g2*(8.0*g3*g3-Yt*Yt))/(512.0*pi*pi*pi*pi);
+        //beta_g3
+        beta[2] += -((g3*g3*g3*(13.0*g3*g3+Yt*Yt))/(128.0*pi*pi*pi*pi));
+        //beta_Yt
+        beta[3] += (Yt*(-216.0*g3*g3*g3*g3+72.0*g3*g3*Yt*Yt-24.0*Yt*Yt*Yt*Yt-12.0*Yt*Yt*la2
+                        +3.0*la2*la2+2.0*la3*la3+2.0*la3*la4+2.0*la4*la4+3.0*la5*la5))/(512.0*pi*pi*pi*pi);
+        //beta_Yb
+        beta[4] += (-1296.0*g3*g3*g3*g3*(Yb1+Yb2)+16.0*g3*g3*(4.0*Yb1+3.0*Yb2)*Yt*Yt
+                    -3.0*(2.0*Yb1*(5.0*Yt*Yt*Yt*Yt-3.0*la1*la1-2.0*la3*la3
+                                   +4.0*Yt*Yt*(la3-la4)-2.0*la3*la4
+                                   -2.0*la4*la4-3.0*la5*la5)
+                          +Yb2*(Yt*Yt*Yt*Yt-2.0*(3.0*la2*la2+2.0*la3*la3+2.0*la3*la4
+                                                 +2.0*la4*la4+3.0*la5*la5))))
+                   /(3072.0*pi*pi*pi*pi);
+        //beta_Ytau
+        beta[5] += (80.0*g3*g3*Yt*Yt*Ytau2-27.0*Yt*Yt*Yt*Yt*Ytau2+6.0*Ytau1*la1*la1+6.0*Ytau2*la2*la2
+                    +(Ytau1+Ytau2)*(4.0*la3*la3+4.0*la3*la4+4.0*la4*la4+6.0*la5*la5))
+                   /(1024.0*pi*pi*pi*pi);
+        //beta_m11_2
+        beta[6] += -(8.0*m22_2*(2.0*la3*la3+2.0*la3*la4+2.0*la4*la4
+                                +3.0*Yt*Yt*(2.0*la3+la4)+3.0*la5*la5)
+                     +m11_2*(30.0*la1*la1+4.0*la3*la3+4.0*la3*la4
+                             +4.0*la4*la4+6.0*la5*la5))/(512.0*pi*pi*pi*pi);
+        //beta_m22_2
+        beta[7] += -((-80.0*g3*g3*m22_2*Yt*Yt
+                      +8.0*m11_2*(2.0*la3*la3+2.0*la3*la4+2.0*la4*la4+3.0*la5*la5)
+                      +m22_2*(27.0*Yt*Yt*Yt*Yt+72.0*Yt*Yt*la2+30.0*la2*la2+4.0*la3*la3
+                              +4.0*la3*la4+4.0*la4*la4+6.0*la5*la5))/(512.0*pi*pi*pi*pi));
+        //beta_m12_2
+        beta[8] += (m12_2*(72.0*(la1*la1+la2*la2-4.0*la3*la4-8.0*la3*la5-8.0*la4*la5
+                                 +2.0*la5*la5-4.0*(la1+la2)*(la3+la4+la5))
+                           +Yt*Yt*(960.0*g3*g3
+                                   -36.0*(9.0*Yt*Yt+8.0*(la3+2.0*la4+3.0*la5)))))
+                   /(12288.0*pi*pi*pi*pi);
+        //beta_lambda_1
+        beta[9] += -(39.0*la1*la1*la1
+                     +la1*(10.0*la3*la3+10.0*la3*la4+6.0*la4*la4+7.0*la5*la5)
+                     +2.0*(4.0*la3*la3*la3+6.0*la3*la3*la4+8.0*la3*la4*la4
+                     +3.0*la4*la4*la4+10.0*la3*la5*la5+11.0*la4*la5*la5
+                     +3.0*Yt*Yt*(2.0*la3*la3+2.0*la3*la4+la4*la4+la5*la5)))
+                   /(128.0*pi*pi*pi*pi);
+        //beta_lambda_2
+        beta[10] += -(-60.0*pow(Yt,6)+3.0*Yt*Yt*Yt*Yt*la2+72.0*Yt*Yt*la2*la2
+                      +16.0*g3*g3*(4.0*Yt*Yt*Yt*Yt-5.0*Yt*Yt*la2)
+                      +2.0*(39.0*la2*la2*la2+10.0*la2*la3*la3+8.0*la3*la3*la3
+                            +10.0*la2*la3*la4+12.0*la3*la3*la4+6.0*la2*la4*la4
+                            +16.0*la3*la4*la4+6.0*la4*la4*la4+7.0*la2*la5*la5
+                            +20.0*la3*la5*la5+22.0*la4*la5*la5))/(256.0*pi*pi*pi*pi);
+        //beta_lambda_3
+        beta[11] += -(-80.0*g3*g3*Yt*Yt*la3+27.0*Yt*Yt*Yt*Yt*la3
+                      +12.0*Yt*Yt*(2.0*la3*la3+la4*la4+2.0*la2*(3.0*la3+la4)+la5*la5)
+                      +2.0*(la1*la1*(15.0*la3+4.0*la4)+la2*la2*(15.0*la3+4.0*la4)
+                            +2.0*(la1+la2)*(18.0*la3*la3+8.0*la3*la4+7.0*la4*la4+9.0*la5*la5)
+                            +2.0*(6.0*la3*la3*la3+2.0*la3*la3*la4+8.0*la3*la4*la4
+                                  +6.0*la4*la4*la4+9.0*la3*la5*la5+22.0*la4*la5*la5)))
+                     /(512.0*pi*pi*pi*pi);
+        //beta_lambda_4
+        beta[12] += -(-80.0*g3*g3*Yt*Yt*la4+27.0*Yt*Yt*Yt*Yt*la4
+                      +24.0*Yt*Yt*(la2*la4+2.0*la3*la4+la4*la4+2.0*la5*la5)
+                      +2.0*(7.0*la1*la1*la4+7.0*la2*la2*la4+28.0*la3*la3*la4
+                            +28.0*la3*la4*la4+48.0*la3*la5*la5+26.0*la4*la5*la5
+                            +4.0*(la1+la2)*(10.0*la3*la4+5.0*la4*la4+6.0*la5*la5))
+                     )/(512.0*pi*pi*pi*pi);
+        //beta_lambda_5
+        beta[13] += (la5*(80.0*g3*g3*Yt*Yt-3.0*Yt*Yt*Yt*Yt-24.0*Yt*Yt*(la2+2.0*la3+3.0*la4)
+                          -2.0*(7.0*la1*la1+7.0*la2*la2+40.0*la1*la3+40.0*la2*la3+28.0*la3*la3
+                                +44.0*la1*la4+44.0*la2*la4+76.0*la3*la4+32.0*la4*la4-6.0*la5*la5))
+                    )/(512 *pi*pi*pi*pi);
 
         if(ord==2){
-            std::cout<<"fullNLO"<<std::endl;
+            //beta_g1
+            beta[0] += (g1*g1*g1*(208.0*g1*g1+108.0*g2*g2-15.0*Yb1*Yb1-15.0*Yb2*Yb2
+                                  -45.0*Ytau1*Ytau1-45.0*Ytau2*Ytau2))/(4608.0*pi*pi*pi*pi);
+            //beta_g2
+            beta[1] += (g2*g2*g2*(4.0*g1*g1+16.0*g2*g2-3.0*Yb1*Yb1-3.0*Yb2*Yb2
+                        -Ytau1*Ytau1-Ytau2*Ytau2))/(512.0*pi*pi*pi*pi);
+            //beta_g3
+            beta[2] += (g3*g3*g3*(11.0*g1*g1+3.0*(9.0*g2*g2-4.0*(Yb1*Yb1+Yb2*Yb2))))/(1536.0*pi*pi*pi*pi);
+            //beta_Yt
+            beta[3] += (2534.0*g1*g1*g1*g1
+                        +g1*g1*(-324.0*g2*g2+912.0*g3*g3-123.0*Yb1*Yb1+63.0*Yb2*Yb2
+                                +3537.0*Yt*Yt+1350.0*Ytau2*Ytau2)
+                        -9.0*(252.0*g2*g2*g2*g2
+                              -9.0*g2*g2*(48.0*g3*g3+11.0*Yb1*Yb1+33.0*Yb2*Yb2+75.0*Yt*Yt+10.0*Ytau2*Ytau2)
+                              -4.0*(16.0*g3*g3*(4.0*Yb1*Yb1+3.0*Yb2*Yb2)
+                                    -3.0*(10.0*Yb1*Yb1*Yb1*Yb1+Yb2*Yb2*Yb2*Yb2
+                                          +Yb2*Yb2*(11.0*Yt*Yt-5.0*Ytau2*Ytau2)
+                                          +9.0*Ytau2*Ytau2*(Yt*Yt+Ytau2*Ytau2)
+                                          +Yb1*Yb1*(10.0*Yt*Yt+3.0*Ytau1*Ytau1+8.0*la3-8.0*la4)))))
+                       *Yt/(110592.0*pi*pi*pi*pi);
+            //beta_Yb
+            beta[4] += -(226.0*g1*g1*g1*g1*(Yb1+Yb2)
+                         +3.0*g1*g1*(-711.0*Yb1*Yb1*Yb1-711.0*Yb2*Yb2*Yb2+324.0*g2*g2*(Yb1+Yb2)
+                                     -496.0*g3*g3*(Yb1+Yb2)+53.0*Yb1*Yt*Yt-273.0*Yb2*Yt*Yt
+                                     -450.0*Yb1*Ytau1*Ytau1-450.0*Yb2*Ytau2*Ytau2)
+                         +27.0*(84.0*g2*g2*g2*g2*(Yb1+Yb2)
+                                -3.0*g2*g2*(75.0*Yb1*Yb1*Yb1+75.0*Yb2*Yb2*Yb2+48.0*g3*g3*(Yb1+Yb2)
+                                            +11.0*Yb1*Yt*Yt+33.0*Yb2*Yt*Yt+10.0*Yb1*Ytau1*Ytau1
+                                            +10.0*Yb2*Ytau2*Ytau2)
+                                +4.0*(48.0*pow(Yb1,5)-144.0*g3*g3*(Yb1*Yb1*Yb1+Yb2*Yb2*Yb2)
+                                      +3.0*Yb1*(3.0*Ytau1*Ytau1*Ytau1*Ytau1+Yt*Yt*Ytau2*Ytau2)
+                                      +Yb1*Yb1*Yb1*(10.0*Yt*Yt+9.0*Ytau1*Ytau1+24.0*la1)
+                                      +Yb2*(48.0*Yb2*Yb2*Yb2*Yb2-5.0*Yt*Yt*Ytau2*Ytau2
+                                      +9.0*Ytau2*Ytau2*Ytau2*Ytau2
+                                      +Yb2*Yb2*(11.0*Yt*Yt+9.0*Ytau2*Ytau2+24.0*la2)))))
+                        /(110592.0*pi*pi*pi*pi);
+            //beta_Ytau
+            beta[5] += (966.0*g1*g1*g1*g1*(Ytau1+Ytau2)
+                        +g1*g1*(50.0*Yb1*Yb1*Ytau1+537.0*Ytau1*Ytau1*Ytau1+50.0*Yb2*Yb2*Ytau2
+                                +170.0*Yt*Yt*Ytau2+537.0*Ytau2*Ytau2*Ytau2+108.0*g2*g2*(Ytau1+Ytau2))
+                        -3.0*(84.0*g2*g2*g2*g2*(Ytau1+Ytau2)
+                              -15.0*g2*g2*(6.0*Yb1*Yb1*Ytau1+11.0*Ytau1*Ytau1*Ytau1+6.0*Yb2*Yb2*Ytau2
+                                           +6.0*Yt*Yt*Ytau2+11.0*Ytau2*Ytau2*Ytau2)
+                              +4.0*(-80.0*g3*g3*(Yb1*Yb1*Ytau1+Yb2*Yb2*Ytau2)
+                                    +3.0*(9.0*Yb1*Yb1*Yb1*Yb1*Ytau1+4.0*pow(Ytau1,5)+9.0*Yb2*Yb2*Yb2*Yb2*Ytau2
+                                          -2.0*Yb2*Yb2*Yt*Yt*Ytau2+9.0*Yb2*Yb2*Ytau2*Ytau2*Ytau2
+                                          +9.0*Yt*Yt*Ytau2*Ytau2*Ytau2+4.0*pow(Ytau2,5)
+                                          +3.0*Yb1*Yb1*(3.0*Ytau1*Ytau1*Ytau1+Yt*Yt*(Ytau1+Ytau2))
+                                          +8.0*Ytau1*Ytau1*Ytau1*la1+8.0*Ytau2*Ytau2*Ytau2*la2))))
+                       /(12288.0*pi*pi*pi*pi);
+            //beta_m11_2
+            beta[6] += (3.0*g1*g1*g1*g1*(193.0*m11_2+40.0*m22_2)
+                        +2.0*g1*g1*(45.0*g2*g2*m11_2
+                                    +2.0*(m11_2*(25.0*Yb1*Yb1+75.0*Ytau1*Ytau1+144.0*la1)
+                                          +48.0*m22_2*(2.0*la3+la4)))
+                        -3.0*(3.0*g2*g2*g2*g2*(41.0*m11_2-40.0*m22_2)
+                              -12.0*g2*g2*(m11_2*(15.0*Yb1*Yb1+5.0*Ytau1*Ytau1+48.0*la1)
+                                           +16.0*m22_2*(2.0*la3+la4))
+                              +8.0*(-80.0*g3*g3*m11_2*Yb1*Yb1
+                                    +3.0*m11_2*(9.0*Yb1*Yb1*Yb1*Yb1+3.0*Ytau1*Ytau1*Ytau1*Ytau1
+                                                +8.0*Ytau1*Ytau1*la1+3.0*Yb1*Yb1*(Yt*Yt+8.0*la1))
+                                    +8.0*m22_2*(3.0*Yb2*Yb2+Ytau2*Ytau2)*(2.0*la3+la4))))
+                       /(12288.0*pi*pi*pi*pi);
+            //beta_m22_2
+            beta[7] += (3.0*g1*g1*g1*g1*(40.0*m11_2+193.0*m22_2)
+                        +2.0*g1*g1*(45.0*g2*g2*m22_2
+                                    +2.0*(m22_2*(25.0*Yb2*Yb2+85.0*Yt*Yt+75.0*Ytau2*Ytau2+144.0*la2)
+                                          +48.0*m11_2*(2.0*la3+la4)))
+                        +3.0*(3.0*g2*g2*g2*g2*(40.0*m11_2-41.0*m22_2)
+                              +12.0*g2*g2*(m22_2*(15.0*Yb2*Yb2+15.0*Yt*Yt+5.0*Ytau2*Ytau2+48.0*la2)
+                                           +16.0*m11_2*(2.0*la3+la4))
+                              +8.0*(80.0*g3*g3*m22_2*Yb2*Yb2
+                                    -3.0*m22_2*(9.0*Yb2*Yb2*Yb2*Yb2+3.0*Yb1*Yb1*Yt*Yt
+                                                +3.0*Ytau2*Ytau2*Ytau2*Ytau2+8.0*Ytau2*Ytau2*la2
+                                                +2.0*Yb2*Yb2*(7.0*Yt*Yt+12.0*la2))
+                                    -8.0*m11_2*(3.0*Yb1*Yb1+Ytau1*Ytau1)*(2.0*la3+la4))))
+                       /(12288.0*pi*pi*pi*pi);
+            //beta_m12_2
+            beta[8] += (9.0*(51.0*g1*g1*g1*g1+10.0*g1*g1*g2*g2-81.0*g2*g2*g2*g2)
+                        -324.0*(Yb1*Yb1*Yb1*Yb1+Yb2*Yb2*Yb2*Yb2)
+                        +2.0*(85.0*g1*g1+135.0*g2*g2-432.0*Yb1*Yb1)*Yt*Yt
+                        -108.0*(Ytau1*Ytau1*Ytau1*Ytau1+Ytau2*Ytau2*Ytau2*Ytau2)
+                        +2.0*(Yb1*Yb1+Yb2*Yb2)*(25.0*g1*g1
+                                                +3.0*(45.0*g2*g2+4.0*(40.0*g3*g3+3.0*Yt*Yt-12.0*la3
+                                                                      -24.0*la4-36.0*la5)))
+                        +192.0*(g1*g1+3.0*g2*g2)*(la3+2.0*la4+3.0*la5)
+                        +6.0*(Ytau1*Ytau1+Ytau2*Ytau2)*(25.0*g1*g1+15.0*g2*g2
+                                                        -16.0*(la3+2.0*la4+3.0*la5)))
+                       *m12_2/(12288.0*pi*pi*pi*pi);
+            //beta_lambda_1
+            beta[9] += (-393.0*pow(g1,6)
+                        +g1*g1*g1*g1*(-573.0*g2*g2+60.0*Yb1*Yb1-300.0*Ytau1*Ytau1
+                                      +651.0*la1+120.0*la3+60.0*la4)
+                        +3.0*(291.0*pow(g2,6)
+                              -3.0*g2*g2*g2*g2*(12.0*Yb1*Yb1+4.0*Ytau1*Ytau1+17.0*la1-40.0*la3-20.0*la4)
+                              +12.0*g2*g2*(15.0*Yb1*Yb1*la1+5.0*Ytau1*Ytau1*la1
+                                           +4.0*(9.0*la1*la1+(2.0*la3+la4)*(2.0*la3+la4)))
+                              -8.0*(-60.0*pow(Yb1,6)-20.0*pow(Ytau1,6)+Ytau1*Ytau1*Ytau1*Ytau1*la1
+                                    +24.0*Ytau1*Ytau1*la1*la1+3.0*Yb1*Yb1*Yb1*Yb1*(-4.0*Yt*Yt+la1)
+                                    +9.0*Yb1*Yb1*la1*(Yt*Yt+8.0*la1)
+                                    +16.0*g3*g3*(4.0*Yb1*Yb1*Yb1*Yb1-5.0*Yb1*Yb1*la1)
+                                    +24.0*Yb2*Yb2*la3*la3+8.0*Ytau2*Ytau2*la3*la3+24.0*Yb2*Yb2*la3*la4
+                                    +8.0*Ytau2*Ytau2*la3*la4+12.0*Yb2*Yb2*la4*la4+4.0*Ytau2*Ytau2*la4*la4
+                                    +12.0*Yb2*Yb2*la5*la5+4.0*Ytau2*Ytau2*la5*la5))
+                        +g1*g1*(-303.0*g2*g2*g2*g2
+                                +6.0*g2*g2*(36.0*Yb1*Yb1+44.0*Ytau1*Ytau1+39.0*la1+20.0*la4)
+                                +4.0*(16.0*Yb1*Yb1*Yb1*Yb1+25.0*Yb1*Yb1*la1
+                                      +3.0*(-16.0*Ytau1*Ytau1*Ytau1*Ytau1+25.0*Ytau1*Ytau1*la1+36.0*la1*la1
+                                            +16.0*la3*la3+16.0*la3*la4+8.0*la4*la4-4.0*la5*la5))))
+                       /(6144.0*pi*pi*pi*pi);
+            //beta_lambda_2
+            beta[10] += (-393.0*pow(g1,6)
+                         +g1*g1*g1*g1*(-573.0*g2*g2+60.0*Yb2*Yb2-228.0*Yt*Yt-300.0*Ytau2*Ytau2
+                                       +651.0*la2+120.0*la3+60.0*la4)
+                         +g1*g1*(-303.0*g2*g2*g2*g2
+                                 +6.0*g2*g2*(36.0*Yb2*Yb2+84.0*Yt*Yt+44.0*Ytau2*Ytau2+39.0*la2+20.0*la4)
+                                 +4.0*(16.0*Yb2*Yb2*Yb2*Yb2-32.0*Yt*Yt*Yt*Yt-48.0*Ytau2*Ytau2*Ytau2*Ytau2
+                                       +25.0*Yb2*Yb2*la2+85.0*Yt*Yt*la2+75.0*Ytau2*Ytau2*la2
+                                       +108.0*la2*la2+48.0*la3*la3+48.0*la3*la4+24.0*la4*la4-12.0*la5*la5))
+                         +3.0*(291.0*pow(g2,6)
+                               -3.0*g2*g2*g2*g2*(12.0*Yb2*Yb2+12.0*Yt*Yt+4.0*Ytau2*Ytau2
+                                                 +17.0*la2-40.0*la3-20.0*la4)
+                               +12.0*g2*g2*(15.0*Yb2*Yb2*la2+15.0*Yt*Yt*la2+5.0*Ytau2*Ytau2*la2
+                                            +36.0*la2*la2+16.0*la3*la3+16.0*la3*la4+4.0*la4*la4)
+                               -8.0*(-60.0*pow(Yb2,6)-12.0*Yb1*Yb1*Yt*Yt*Yt*Yt-20.0*pow(Ytau2,6)
+                                     +9.0*Yb1*Yb1*Yt*Yt*la2+Ytau2*Ytau2*Ytau2*Ytau2*la2
+                                     +24.0*Ytau2*Ytau2*la2*la2+3.0*Yb2*Yb2*Yb2*Yb2*(4.0*Yt*Yt+la2)
+                                     +16.0*g3*g3*(4.0*Yb2*Yb2*Yb2*Yb2-5.0*Yb2*Yb2*la2)
+                                     +6.0*Yb2*Yb2*(2.0*Yt*Yt*Yt*Yt+7.0*Yt*Yt*la2+12.0*la2*la2)
+                                     +24.0*Yb1*Yb1*la3*la3+8.0*Ytau1*Ytau1*la3*la3+24.0*Yb1*Yb1*la3*la4
+                                     +8.0*Ytau1*Ytau1*la3*la4+12.0*Yb1*Yb1*la4*la4+4.0*Ytau1*Ytau1*la4*la4
+                                     +12.0*Yb1*Yb1*la5*la5+4.0*Ytau1*Ytau1*la5*la5)))/(6144.0*pi*pi*pi*pi);
+            //beta_lambda_3
+            beta[11] += (-393.0*pow(g1,6)
+                         +3.0*g1*g1*g1*g1*(101.0*g2*g2+10.0*Yb1*Yb1+10.0*Yb2*Yb2-38.0*Yt*Yt-50.0*Ytau1*Ytau1
+                                           -50.0*Ytau2*Ytau2+30.0*la1+30.0*la2+197.0*la3+20.0*la4)
+                         +g1*g1*(33.0*g2*g2*g2*g2-6.0*g2*g2*(18.0*Yb1*Yb1+18.0*Yb2*Yb2+42.0*Yt*Yt
+                                                             +22.0*Ytau1*Ytau1+22.0*Ytau2*Ytau2+10.0*la1
+                                                             +10.0*la2-11.0*la3+12.0*la4)
+                                 +2.0*(25.0*Yb2*Yb2*la3+85.0*Yt*Yt*la3+75.0*Ytau1*Ytau1*la3
+                                       +75.0*Ytau2*Ytau2*la3+144.0*la1*la3+144.0*la2*la3+24*la3*la3
+                                       +Yb1*Yb1*(-16.0*Yt*Yt+25.0*la3)
+                                       +48.0*la1*la4+48.0*la2*la4-24.0*la4*la4+48.0*la5*la5))
+                         +3.0*(291.0*pow(g2,6)-3.0*g2*g2*g2*g2*(6.0*Yb1*Yb1+6.0*Yb2*Yb2+6.0*Yt*Yt
+                                                                +2.0*Ytau1*Ytau1+2.0*Ytau2*Ytau2
+                                                                -30.0*la1-30.0*la2+37.0*la3-20.0*la4)
+                               +6.0*g2*g2*(15.0*Yb1*Yb1*la3+15.0*Yb2*Yb2*la3+15.0*Yt*Yt*la3
+                                           +5.0*Ytau1*Ytau1*la3+5.0*Ytau2*Ytau2*la3+48.0*la1*la3
+                                           +48.0*la2*la3+8.0*la3*la3+24.0*la1*la4+24.0*la2*la4
+                                           -16.0*la3*la4+8.0*la4*la4)
+                               -4.0*(-9.0*Yb1*Yb1*Yb1*Yb1*(8.0*Yt*Yt-3.0*la3)+27.0*Yb2*Yb2*Yb2*Yb2*la3
+                                     +42.0*Yb2*Yb2*Yt*Yt*la3+9.0*Ytau1*Ytau1*Ytau1*Ytau1*la3
+                                     +9.0*Ytau2*Ytau2*Ytau2*Ytau2*la3+24.0*Ytau1*Ytau1*la1*la3
+                                     +72.0*Yb2*Yb2*la2*la3+24.0*Ytau2*Ytau2*la2*la3+24.0*Yb2*Yb2*la3*la3
+                                     +8.0*Ytau1*Ytau1*la3*la3+8.0*Ytau2*Ytau2*la3*la3
+                                     +16.0*g3*g3*(Yb1*Yb1*(8.0*Yt*Yt-5.0*la3)-5.0*Yb2*Yb2*la3)
+                                     +48.0*Yb2*Yb2*Yt*Yt*la4+8.0*Ytau1*Ytau1*la1*la4+24.0*Yb2*Yb2*la2*la4
+                                     +8.0*Ytau2*Ytau2*la2*la4+12.0*Yb2*Yb2*la4*la4+4.0*Ytau1*Ytau1*la4*la4
+                                     +4.0*Ytau2*Ytau2*la4*la4+12.0*Yb2*Yb2*la5*la5+4.0*Ytau1*Ytau1*la5*la5
+                                     +4.0*Ytau2*Ytau2*la5*la5
+                                     -6.0*Yb1*Yb1*(12.0*Yt*Yt*Yt*Yt+5.0*Yt*Yt*la3
+                                                   -2.0*(6.0*la1*la3+2.0*la3*la3+2.0*la1*la4+la4*la4+la5*la5)))))
+                        /(6144.0*pi*pi*pi*pi);
+            //beta_lambda_4
+            beta[12] += (g1*g1*g1*g1*(-876.0*g2*g2+471.0*la4)
+                         +2.0*g1*g1*(-168.0*g2*g2*g2*g2+25.0*Yb2*Yb2*la4+85.0*Yt*Yt*la4
+                                     +75.0*Ytau1*Ytau1*la4+75.0*Ytau2*Ytau2*la4
+                                     +48.0*la1*la4+48.0*la2*la4+48.0*la3*la4+96.0*la4*la4
+                                     +Yb1*Yb1*(16.0*Yt*Yt+25.0*la4)
+                                     +3.0*g2*g2*(36.0*Yb1*Yb1+36.0*Yb2*Yb2+84.0*Yt*Yt
+                                                 +44.0*Ytau1*Ytau1+44.0*Ytau2*Ytau2
+                                                 +20.0*la1+20.0*la2+8.0*la3+51.0*la4)
+                                     +192.0*la5*la5)
+                         -3.0*(231.0*g2*g2*g2*g2*la4-90.0*g2*g2*Yb2*Yb2*la4
+                               +108.0*Yb2*Yb2*Yb2*Yb2*la4-90.0*g2*g2*Yt*Yt*la4
+                               -216.0*Yb2*Yb2*Yt*Yt*la4-30.0*g2*g2*Ytau1*Ytau1*la4
+                               +36.0*Ytau1*Ytau1*Ytau1*Ytau1*la4-30.0*g2*g2*Ytau2*Ytau2*la4
+                               +36.0*Ytau2*Ytau2*Ytau2*Ytau2*la4+32.0*Ytau1*Ytau1*la1*la4
+                               +96.0*Yb2*Yb2*la2*la4+32.0*Ytau2*Ytau2*la2*la4-288.0*g2*g2*la3*la4
+                               +192.0*Yb2*Yb2*la3*la4+64.0*Ytau1*Ytau1*la3*la4+64.0*Ytau2*Ytau2*la3*la4
+                               -144.0*g2*g2*la4*la4+96.0*Yb2*Yb2*la4*la4+32.0*Ytau1*Ytau1*la4*la4
+                               +32.0*Ytau2*Ytau2*la4*la4+12.0*Yb1*Yb1*Yb1*Yb1*(16.0*Yt*Yt+9.0*la4)
+                               -64.0*g3*g3*(5.0*Yb2*Yb2*la4+Yb1*Yb1*(8.0*Yt*Yt+5.0*la4))
+                               -432.0*g2*g2*la5*la5+192.0*Yb2*Yb2*la5*la5+64.0*Ytau1*Ytau1*la5*la5
+                               +64.0*Ytau2*Ytau2*la5*la5
+                               +6.0*Yb1*Yb1*(32.0*Yt*Yt*Yt*Yt-15.0*g2*g2*la4
+                                             +4.0*Yt*Yt*(8.0*la3+11.0*la4)
+                                             +16.0*(la1*la4+2.0*la3*la4+la4*la4+2.0*la5*la5))))
+                        /(6144.0*pi*pi*pi*pi);
+            //beta_lambda_5
+            beta[13] += (471.0*g1*g1*g1*g1
+                         +2.0*g1*g1*(57.0*g2*g2+25.0*Yb1*Yb1+25.0*Yb2*Yb2+85.0*Yt*Yt+75.0*Ytau1*Ytau1
+                                     +75.0*Ytau2*Ytau2-24.0*la1-24.0*la2+192.0*la3+288.0*la4)
+                         -3.0*(231.0*g2*g2*g2*g2
+                               -6.0*g2*g2*(15.0*Yb1*Yb1+15.0*Yb2*Yb2+15.0*Yt*Yt+5.0*Ytau1*Ytau1
+                                           +5.0*Ytau2*Ytau2+48.0*la3+96.0*la4)
+                         +4.0*(3.0*Yb1*Yb1*Yb1*Yb1+3.0*Yb2*Yb2*Yb2*Yb2-80.0*g3*g3*(Yb1*Yb1+Yb2*Yb2)
+                               -6.0*Yb2*Yb2*Yt*Yt+Ytau1*Ytau1*Ytau1*Ytau1+Ytau2*Ytau2*Ytau2*Ytau2
+                               +8.0*Ytau1*Ytau1*la1+24.0*Yb2*Yb2*la2+8.0*Ytau2*Ytau2*la2+48.0*Yb2*Yb2*la3
+                               +16.0*Ytau1*Ytau1*la3+16.0*Ytau2*Ytau2*la3+72.0*Yb2*Yb2*la4
+                               +24.0*Ytau1*Ytau1*la4+24.0*Ytau2*Ytau2*la4
+                               +6.0*Yb1*Yb1*(11.0*Yt*Yt+4.0*la1+8.0*la3+12.0*la4))))
+                        *la5/(6144.0*pi*pi*pi*pi);
         }
     }
 
