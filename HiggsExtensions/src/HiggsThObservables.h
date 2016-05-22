@@ -89,6 +89,46 @@ private:
 };
 
 /**
+ * @class mueeWBF
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{eeWBF}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{eeWBF}@f$ between the 
+ * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
+ * cross-section in the current model and in the Standard Model.
+ */
+class mueeWBF : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mueeWBF(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("mueeWBF called with a class whose parent is not NPbase");
+
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{eeWBF}@f$ in the current model.
+     * @return @f$\mu_{eeWBF}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->mueeWBF(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
  * @class muWH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{WH}@f$
@@ -350,6 +390,46 @@ public:
     double computeThValue()
     {
         return myNPbase->muggHpttH(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class mueettH
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{eettH}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{eettH}@f$ between the 
+ * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
+ * cross-section in the current model and in the Standard Model.
+ */
+class mueettH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mueettH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("mueettH called with a class whose parent is not NPbase");
+
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{eettH}@f$ in the current model.
+     * @return @f$\mu_{eettH}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->mueettH(sqrt_s);
     }
 
 private:

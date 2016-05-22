@@ -96,6 +96,11 @@ double HiggsKvKfgen::muVBF(const double sqrt_s) const
             / (sigmaWF_SM + sigmaZF_SM + sigmaZWF_SM);
 }
 
+double HiggsKvKfgen::mueeWBF(const double sqrt_s) const
+{
+    return (computeKW() * computeKW());
+}
+
 double HiggsKvKfgen::muWH(const double sqrt_s) const
 {
     return (computeKW() * computeKW());
@@ -151,6 +156,11 @@ double HiggsKvKfgen::muggHpttH(const double sqrt_s) const
 
     return ((sigmaggH + sigmattH) / (sigmaggH_SM + sigmattH_SM));
 } 
+
+double HiggsKvKfgen::mueettH(const double sqrt_s) const
+{
+    return (computeKt() * computeKt());
+}
 
 double HiggsKvKfgen::BrHggRatio() const
 {
