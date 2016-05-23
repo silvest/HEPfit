@@ -44,67 +44,165 @@ const std::string SUSYMassInsertion::SusyMIvars[NSusyMIvars] = {"Msq", "m3", "Mu
 };
 
 SUSYMassInsertion::SUSYMassInsertion()
-:  StandardModel(), SUSYMIM(*this),
-        Du_LL(3,0.), Du_LR(3,0.), Du_RL(3,0.), Du_RR(3,0.),
-        Dd_LL(3,0.), Dd_LR(3,0.), Dd_RL(3,0.), Dd_RR(3,0.){
+:   StandardModel(),
+    Du_LL(3,0.), Du_LR(3,0.), Du_RL(3,0.), Du_RR(3,0.),
+    Dd_LL(3,0.), Dd_LR(3,0.), Dd_RL(3,0.), Dd_RR(3,0.), 
+    SUSYMIM(*this)
+{
     SMM.setObj((StandardModelMatching&) SUSYMIM.getObj());
-    
-        rDULL11=0.; rDULL12=0.; rDULL13=0.; 
-        rDULL21=0.; rDULL22=0.; rDULL23=0.; 
-        rDULL31=0.; rDULL32=0.; rDULL33=0.;
-        iDULL11=0.; iDULL12=0.; iDULL13=0.; 
-        iDULL21=0.; iDULL22=0.; iDULL23=0.; 
-        iDULL31=0.; iDULL32=0.; iDULL33=0.;
-    
-        rDURL11=0.; rDURL12=0.; rDURL13=0.; 
-        rDURL21=0.; rDURL22=0.; rDURL23=0.; 
-        rDURL31=0.; rDURL32=0.; rDURL33=0.;
-        iDURL11=0.; iDURL12=0.; iDURL13=0.; 
-        iDURL21=0.; iDURL22=0.; iDURL23=0.; 
-        iDURL31=0.; iDURL32=0.; iDURL33=0.;
-    
-        rDULR11=0.; rDULR12=0.; rDULR13=0.; 
-        rDULR21=0.; rDULR22=0.; rDULR23=0.; 
-        rDULR31=0.; rDULR32=0.; rDULR33=0.;
-        iDULR11=0.; iDULR12=0.; iDULR13=0.; 
-        iDULR21=0.; iDULR22=0.; iDULR23=0.; 
-        iDULR31=0.; iDULR32=0.; iDULR33=0.;
-    
-        rDURR11=0.; rDURR12=0.; rDURR13=0.; 
-        rDURR21=0.; rDURR22=0.; rDURR23=0.; 
-        rDURR31=0.; rDURR32=0.; rDURR33=0.;
-        iDURR11=0.; iDURR12=0.; iDURR13=0.; 
-        iDURR21=0.; iDURR22=0.; iDURR23=0.; 
-        iDURR31=0.; iDURR32=0.; iDURR33=0.;
-    
-        rDDLL11=0.; rDDLL12=0.; rDDLL13=0.; 
-        rDDLL21=0.; rDDLL22=0.; rDDLL23=0.; 
-        rDDLL31=0.; rDDLL32=0.; rDDLL33=0.;
-        iDDLL11=0.; iDDLL12=0.; iDDLL13=0.; 
-        iDDLL21=0.; iDDLL22=0.; iDDLL23=0.; 
-        iDDLL31=0.; iDDLL32=0.; iDDLL33=0.;
-    
-        rDDRL11=0.; rDDRL12=0.; rDDRL13=0.; 
-        rDDRL21=0.; rDDRL22=0.; rDDRL23=0.; 
-        rDDRL31=0.; rDDRL32=0.; rDDRL33=0.;
-        iDDRL11=0.; iDDRL12=0.; iDDRL13=0.; 
-        iDDRL21=0.; iDDRL22=0.; iDDRL23=0.; 
-        iDDRL31=0.; iDDRL32=0.; iDDRL33=0.;
-    
-        rDDLR11=0.; rDDLR12=0.; rDDLR13=0.; 
-        rDDLR21=0.; rDDLR22=0.; rDDLR23=0.; 
-        rDDLR31=0.; rDDLR32=0.; rDDLR33=0.;
-        iDDLR11=0.; iDDLR12=0.; iDDLR13=0.; 
-        iDDLR21=0.; iDDLR22=0.; iDDLR23=0.; 
-        iDDLR31=0.; iDDLR32=0.; iDDLR33=0.;
-    
-        rDDRR11=0.; rDDRR12=0.; rDDRR13=0.; 
-        rDDRR21=0.; rDDRR22=0.; rDDRR23=0.; 
-        rDDRR31=0.; rDDRR32=0.; rDDRR33=0.;
-        iDDRR11=0.; iDDRR12=0.; iDDRR13=0.; 
-        iDDRR21=0.; iDDRR22=0.; iDDRR23=0.; 
-        iDDRR31=0.; iDDRR32=0.; iDDRR33=0.;
-    
+
+    rDULL11 = 0.;
+    rDULL12 = 0.;
+    rDULL13 = 0.;
+    rDULL21 = 0.;
+    rDULL22 = 0.;
+    rDULL23 = 0.;
+    rDULL31 = 0.;
+    rDULL32 = 0.;
+    rDULL33 = 0.;
+    iDULL11 = 0.;
+    iDULL12 = 0.;
+    iDULL13 = 0.;
+    iDULL21 = 0.;
+    iDULL22 = 0.;
+    iDULL23 = 0.;
+    iDULL31 = 0.;
+    iDULL32 = 0.;
+    iDULL33 = 0.;
+
+    rDURL11 = 0.;
+    rDURL12 = 0.;
+    rDURL13 = 0.;
+    rDURL21 = 0.;
+    rDURL22 = 0.;
+    rDURL23 = 0.;
+    rDURL31 = 0.;
+    rDURL32 = 0.;
+    rDURL33 = 0.;
+    iDURL11 = 0.;
+    iDURL12 = 0.;
+    iDURL13 = 0.;
+    iDURL21 = 0.;
+    iDURL22 = 0.;
+    iDURL23 = 0.;
+    iDURL31 = 0.;
+    iDURL32 = 0.;
+    iDURL33 = 0.;
+
+    rDULR11 = 0.;
+    rDULR12 = 0.;
+    rDULR13 = 0.;
+    rDULR21 = 0.;
+    rDULR22 = 0.;
+    rDULR23 = 0.;
+    rDULR31 = 0.;
+    rDULR32 = 0.;
+    rDULR33 = 0.;
+    iDULR11 = 0.;
+    iDULR12 = 0.;
+    iDULR13 = 0.;
+    iDULR21 = 0.;
+    iDULR22 = 0.;
+    iDULR23 = 0.;
+    iDULR31 = 0.;
+    iDULR32 = 0.;
+    iDULR33 = 0.;
+
+    rDURR11 = 0.;
+    rDURR12 = 0.;
+    rDURR13 = 0.;
+    rDURR21 = 0.;
+    rDURR22 = 0.;
+    rDURR23 = 0.;
+    rDURR31 = 0.;
+    rDURR32 = 0.;
+    rDURR33 = 0.;
+    iDURR11 = 0.;
+    iDURR12 = 0.;
+    iDURR13 = 0.;
+    iDURR21 = 0.;
+    iDURR22 = 0.;
+    iDURR23 = 0.;
+    iDURR31 = 0.;
+    iDURR32 = 0.;
+    iDURR33 = 0.;
+
+    rDDLL11 = 0.;
+    rDDLL12 = 0.;
+    rDDLL13 = 0.;
+    rDDLL21 = 0.;
+    rDDLL22 = 0.;
+    rDDLL23 = 0.;
+    rDDLL31 = 0.;
+    rDDLL32 = 0.;
+    rDDLL33 = 0.;
+    iDDLL11 = 0.;
+    iDDLL12 = 0.;
+    iDDLL13 = 0.;
+    iDDLL21 = 0.;
+    iDDLL22 = 0.;
+    iDDLL23 = 0.;
+    iDDLL31 = 0.;
+    iDDLL32 = 0.;
+    iDDLL33 = 0.;
+
+    rDDRL11 = 0.;
+    rDDRL12 = 0.;
+    rDDRL13 = 0.;
+    rDDRL21 = 0.;
+    rDDRL22 = 0.;
+    rDDRL23 = 0.;
+    rDDRL31 = 0.;
+    rDDRL32 = 0.;
+    rDDRL33 = 0.;
+    iDDRL11 = 0.;
+    iDDRL12 = 0.;
+    iDDRL13 = 0.;
+    iDDRL21 = 0.;
+    iDDRL22 = 0.;
+    iDDRL23 = 0.;
+    iDDRL31 = 0.;
+    iDDRL32 = 0.;
+    iDDRL33 = 0.;
+
+    rDDLR11 = 0.;
+    rDDLR12 = 0.;
+    rDDLR13 = 0.;
+    rDDLR21 = 0.;
+    rDDLR22 = 0.;
+    rDDLR23 = 0.;
+    rDDLR31 = 0.;
+    rDDLR32 = 0.;
+    rDDLR33 = 0.;
+    iDDLR11 = 0.;
+    iDDLR12 = 0.;
+    iDDLR13 = 0.;
+    iDDLR21 = 0.;
+    iDDLR22 = 0.;
+    iDDLR23 = 0.;
+    iDDLR31 = 0.;
+    iDDLR32 = 0.;
+    iDDLR33 = 0.;
+
+    rDDRR11 = 0.;
+    rDDRR12 = 0.;
+    rDDRR13 = 0.;
+    rDDRR21 = 0.;
+    rDDRR22 = 0.;
+    rDDRR23 = 0.;
+    rDDRR31 = 0.;
+    rDDRR32 = 0.;
+    rDDRR33 = 0.;
+    iDDRR11 = 0.;
+    iDDRR12 = 0.;
+    iDDRR13 = 0.;
+    iDDRR21 = 0.;
+    iDDRR22 = 0.;
+    iDDRR23 = 0.;
+    iDDRR31 = 0.;
+    iDDRR32 = 0.;
+    iDDRR33 = 0.;
+
 }
 
 SUSYMassInsertion::~SUSYMassInsertion(){    

@@ -23,7 +23,8 @@ EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_ew o
     unsigned int p = 0;
     unsigned int q = 0;
     int L = 1;
-    double  b0 = 0., b1 = 0.;
+    double b0; 
+    double b1;
 
   
     vavi.clear();
