@@ -115,7 +115,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             Observable2D tmpObs2D;
             lineNo = tmpObs2D.ParseObservable2D(type, tok, beg, filename, ifile, lineNo, rank);
             tmpObs2D.setTho1Tho2(myObsFactory.CreateThMethod(tmpObs2D.getThname(), *myModel), myObsFactory.CreateThMethod(tmpObs2D.getThname2(), *myModel));
-            IsEOF = tmpObs2D.isEOF();
+            if (!IsEOF) IsEOF = tmpObs2D.isEOF();
             Observables2D.push_back(tmpObs2D);
 
         } else if (type.compare("HiggsObservable") == 0) {
