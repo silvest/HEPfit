@@ -4377,16 +4377,18 @@ void THDMcache::runTHDMparameters()
     double sinb=myTHDM->getsinb();
     modelflag=myTHDM->getModelTypeflag();
     std::string RGEorder=myTHDM->getRGEorderflag();
-    int order;
-    if( RGEorder == "LO" ) order=0;
-    else if( RGEorder == "approxNLO" ) order=1;
-    else if( RGEorder == "NLO" ) order=2;
+    //flag will be used to transport information about model and RGEorder to the Runner:
+    //flag=3*(0 for type I, 1 for type II, 2 for type X and 3 for type Y) + (0 for LO, 1 for approxNLO and 2 for NLO)
+    int flag;
+    if( RGEorder == "LO" ) flag=0;
+    else if( RGEorder == "approxNLO" ) flag=1;
+    else if( RGEorder == "NLO" ) flag=2;
     else {
         throw std::runtime_error("RGEorder can be only any of \"LO\", \"approxNLO\" or \"NLO\"");
     }
 
-    double g1_at_MZ=sqrt(4.0*M_PI*Ale/(1-cW2));
-    double g2_at_MZ=sqrt(4.0*M_PI*Ale/cW2);
+    double g1_at_MZ=sqrt(4.0*M_PI*Ale/cW2);
+    double g2_at_MZ=sqrt(4.0*M_PI*Ale/(1-cW2));
     double g3_at_MZ=sqrt(4.0*M_PI*Als);
 
     double Ytop_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::TOP).getMass())/(vev*sinb);
@@ -4394,21 +4396,29 @@ void THDMcache::runTHDMparameters()
     double Ybottom2_at_MZ=0.0;
     double Ytau1_at_MZ=0.0;
     double Ytau2_at_MZ=0.0;
+
+    /*link these to the SM values*/
+    double Mb_at_MZ=2.96;//GeV
+    double Mtau_at_MZ=1.75;//GeV
+
     if( modelflag == "type1" ) {
-        Ybottom2_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
-        Ytau2_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
+        Ybottom2_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*sinb);
+        Ytau2_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*sinb);
     }
     else if( modelflag == "type2" ) {
-        Ybottom1_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
-        Ytau1_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
+        Ybottom1_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*cosb);
+        Ytau1_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*cosb);
+        flag +=3;
     }
     else if( modelflag == "typeX" ) {
-        Ybottom2_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
-        Ytau1_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
+        Ybottom2_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*sinb);
+        Ytau1_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*cosb);
+        flag +=6;
     }
     else if( modelflag == "typeY" ) {
-        Ybottom1_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
-        Ytau2_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
+        Ybottom1_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*cosb);
+        Ytau2_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*sinb);
+        flag +=9;
     }
     else {
         throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
@@ -4462,7 +4472,7 @@ void THDMcache::runTHDMparameters()
         InitVals[12]=lambda4_at_MZ;
         InitVals[13]=lambda5_at_MZ;
 
-        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM, order);  //Running up to Q_cutoff<=Q_THDM
+        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM, flag);  //Running up to Q_cutoff<=Q_THDM
 
         g1_at_Q = InitVals[0];
         g2_at_Q = InitVals[1];

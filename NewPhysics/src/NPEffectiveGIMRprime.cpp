@@ -1639,6 +1639,44 @@ double NPEffectiveGIMRprime::muVBF(const double sqrt_s) const
     return mu;
 }
 
+double NPEffectiveGIMRprime::mueeWBF(const double sqrt_s) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.25) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;            
+        }
+        
+    } else if (sqrt_s == 0.5) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
+    } else if (sqrt_s == 1.0) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPEffectiveGIMRprime::mueeWBF()");
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 double NPEffectiveGIMRprime::muWH(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -1860,29 +1898,51 @@ double NPEffectiveGIMRprime::mueeZH(const double sqrt_s) const
 {
     double mu = 1.0;
 
-    mu += -4.243 * deltaGL_f(leptons[DOWN])
-        +3.723 * deltaGR_f(leptons[DOWN])
-        +2690.94  * deltaG1_hZZ()
-        -1951.83  * deltaG2_hZZ()
-        +0.059  * deltaG3_hZZ()
-        +126.418  * deltaG1_hZA()
-        -160.3  * deltaG2_hZA()
-        -4179.8  * deltaGL_Zffh(leptons[DOWN])
-        +3668.  * deltaGR_Zffh(leptons[DOWN]);
+    if (sqrt_s < 0.5) {
+        mu += -4.243 * deltaGL_f(leptons[DOWN])
+            +3.723 * deltaGR_f(leptons[DOWN])
+            +2690.94  * deltaG1_hZZ()
+            -1951.83  * deltaG2_hZZ()
+            +0.059  * deltaG3_hZZ()
+            +126.418  * deltaG1_hZA()
+            -160.3  * deltaG2_hZA()
+            -4179.8  * deltaGL_Zffh(leptons[DOWN])
+            +3668.  * deltaGR_Zffh(leptons[DOWN]);
         
-    if (FlagQuadraticTerms) {
+        if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
         //(Only valid under the assumptions of one dim 6 operator at a time)
-        mu += +7.966 * pow(deltaGL_f(leptons[DOWN]),2.0)
-            +7.966 * pow(deltaGR_f(leptons[DOWN]),2.0)
-            +1841343.  * pow(deltaG1_hZZ(),2.0)
-            +952412.  * pow(deltaG2_hZZ(),2.0)
-            +0.001  * pow(deltaG3_hZZ(),2.0)
-            +961714.  * pow(deltaG1_hZA(),2.0)
-            +1520521.  * pow(deltaG2_hZA(),2.0)
-            +7731703.  * pow(deltaGL_Zffh(leptons[DOWN]),2.0)
-            +7731703.  * pow(deltaGR_Zffh(leptons[DOWN]),2.0);
+            mu += +7.966 * pow(deltaGL_f(leptons[DOWN]),2.0)
+                +7.966 * pow(deltaGR_f(leptons[DOWN]),2.0)
+                +1841343.  * pow(deltaG1_hZZ(),2.0)
+                +952412.  * pow(deltaG2_hZZ(),2.0)
+                +0.001  * pow(deltaG3_hZZ(),2.0)
+                +961714.  * pow(deltaG1_hZA(),2.0)
+                +1520521.  * pow(deltaG2_hZA(),2.0)
+                +7731703.  * pow(deltaGL_Zffh(leptons[DOWN]),2.0)
+                +7731703.  * pow(deltaGR_Zffh(leptons[DOWN]),2.0);
+            }
+        
+    } else if (sqrt_s == 0.5) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
         }
+        
+    } else if (sqrt_s == 1.0) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPEffectiveGIMRprime::mueeZH()");
     
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -1985,6 +2045,44 @@ double NPEffectiveGIMRprime::muggHpttH(const double sqrt_s) const
     
     return mu;
 } 
+
+double NPEffectiveGIMRprime::mueettH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.25) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;            
+        }
+        
+    } else if (sqrt_s == 0.5) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
+    } else if (sqrt_s == 1.0) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPEffectiveGIMRprime::mueettH()");
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
 
 double NPEffectiveGIMRprime::BrHggRatio() const
 {
