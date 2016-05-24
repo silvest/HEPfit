@@ -655,7 +655,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
     bch2d.SetBandColor(2, gIdx);
     bch2d.SetNBands(3);
     bch2d.SetBandFillStyle(1001);
-    bch2d.SetNSmooth(1);
+    bch2d.SetNSmooth(0);
     bch2d.SetDrawLocalMode(false);
     bch2d.SetDrawGlobalMode(true);
     bch2d.SetDrawMean(true, true);
