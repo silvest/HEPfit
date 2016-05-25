@@ -1860,8 +1860,10 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
 
 void Bsgamma::computeCoeff(double mu)
 {
-    allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(160.);
-    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(160.);
+    double mu_W=SM.getMuw();
+    
+    allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu_W);
+    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu_W);
     
     C1_0 = (*(allcoeff[LO]))(0);
     C2_0 = (*(allcoeff[LO]))(1);
@@ -1872,14 +1874,14 @@ void Bsgamma::computeCoeff(double mu)
     C7_0 = (*(allcoeff[LO]))(6);
     C8_0 = (*(allcoeff[LO]))(7);
     
-    C1_1 = (*(allcoeff[NLO]))(0)/SM.Alstilde5(160.);
-    C2_1 = (*(allcoeff[NLO]))(1)/SM.Alstilde5(160.);
-    C3_1 = (*(allcoeff[NLO]))(2)/SM.Alstilde5(160.);
-    C4_1 = (*(allcoeff[NLO]))(3)/SM.Alstilde5(160.);
-    C5_1 = (*(allcoeff[NLO]))(4)/SM.Alstilde5(160.);
-    C6_1 = (*(allcoeff[NLO]))(5)/SM.Alstilde5(160.);
-    C7_1 = (*(allcoeff[NLO]))(6)/SM.Alstilde5(160.);
-    C8_1 = (*(allcoeff[NLO]))(7)/SM.Alstilde5(160.);
+    C1_1 = (*(allcoeff[NLO]))(0)/SM.Alstilde5(mu_W);
+    C2_1 = (*(allcoeff[NLO]))(1)/SM.Alstilde5(mu_W);
+    C3_1 = (*(allcoeff[NLO]))(2)/SM.Alstilde5(mu_W);
+    C4_1 = (*(allcoeff[NLO]))(3)/SM.Alstilde5(mu_W);
+    C5_1 = (*(allcoeff[NLO]))(4)/SM.Alstilde5(mu_W);
+    C6_1 = (*(allcoeff[NLO]))(5)/SM.Alstilde5(mu_W);
+    C7_1 = (*(allcoeff[NLO]))(6)/SM.Alstilde5(mu_W);
+    C8_1 = (*(allcoeff[NLO]))(7)/SM.Alstilde5(mu_W);
     
     C7p_0 = (*(allcoeffprime[LO]))(6);
     C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
