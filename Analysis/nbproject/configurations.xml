@@ -13,6 +13,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main.cpp</itemPath>
+      <itemPath>main_EventGeneration_example.cpp</itemPath>
       <itemPath>main_MCMC_example.cpp</itemPath>
       <itemPath>main_libmode_config_example.cpp</itemPath>
       <itemPath>main_libmode_header_example.cpp</itemPath>
