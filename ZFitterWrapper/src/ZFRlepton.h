@@ -19,7 +19,7 @@ public:
      * @brief ZFRlepton constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFRlepton(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFRlepton(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the ratio of the hadronic width to the leptonic width

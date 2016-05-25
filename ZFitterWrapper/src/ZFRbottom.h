@@ -19,7 +19,7 @@ public:
      * @brief ZFRbottom constructor
      * @param[in] ZF_i an object of ZFitter class
      */
-    ZFRbottom(const ZFitterWrapper& ZF_i) : ThObservable(ZF_i), myZF(ZF_i) {};
+    ZFRbottom(const StandardModel& SM_i) : ThObservable(SM_i), myZF(SM_i) {};
 
     /**
      * @return the ratio of the b-bbar width to the hadronic width

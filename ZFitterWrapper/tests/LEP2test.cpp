@@ -58,20 +58,25 @@ int main(int argc, char** argv) {
         cout << "# set " << ModelConf << " for the model config file" << endl;
         cout << "# set " << FileOut << " for the output file" << endl;
         
+        ThObsFactory ThObsF;
+        ModelFactory ModelF;
+        
         // read parameters
-        InputParser myInputParser;
+        InputParser myInputParser(ModelF, ThObsF);
         std::vector<ModelParameter> ModPars;
-        std::vector<Observable> Obs;
+        boost::ptr_vector<Observable> Obs;
         std::vector<Observable2D> Obs2D;
         std::vector<CorrelatedGaussianObservables> CGO;
-        std::vector<ModelParaVsObs> ParaObs;
+        std::vector<CorrelatedGaussianParameters> CGP;
+        //std::vector<ModelParaVsObs> ParaObs;
+        int rank = 0;
         std::map<string, double> DP;
         cout << "# Model: " 
-             << myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs)
+             << myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP)
              << endl;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++)
-            DP[it->name] = it->ave;
-        if (!myInputParser.getMyModel()->Init(DP)) {
+            DP[it->getname()] = it->getave();
+        if (!myInputParser.getModel()->Init(DP)) {
             cout << "parameter(s) missing in model initialization" << endl;
             exit(EXIT_FAILURE);
         }
@@ -81,7 +86,7 @@ int main(int argc, char** argv) {
         // TEST for inputs
         //cout << "Mz = " << myInputParser.getMyModel()->getMz() << endl;
         
-        ZFitterWrapper* ZF = new ZFitterWrapper(*myInputParser.getMyModel());
+        ZFitterWrapper* ZF = new ZFitterWrapper(*myInputParser.getModel());
         ZF->FlagInfo();
         
         // TESTs
@@ -89,7 +94,7 @@ int main(int argc, char** argv) {
         //ZF->printInputs();
         //ZF->printConstants();
         
-        ZFMw* myZFMw = new ZFMw(*ZF);
+        ZFMw* myZFMw = new ZFMw(*myInputParser.getModel());
         cout << "Mw = " << myZFMw->computeThValue() << " " << endl << endl;
         
         //////////////////////////////////////////////////////////////////////        
@@ -103,9 +108,9 @@ int main(int argc, char** argv) {
         cout << "sqrt{s} cos(theta) dsigma(q)/dcos_theta dsigma(mu)/dcos_theta dsigma(tau)/dcos_theta"
              << endl;
         for (int i=0; i<11; i++) {
-            myZFDsigmaQuarks[i] = new ZFDsigmaQuarksLEP2(*ZF,200.0,cos_theta[i]);
-            myZFDsigmaMu[i] = new ZFDsigmaMuLEP2(*ZF,200.0,cos_theta[i]);
-            myZFDsigmaTau[i] = new ZFDsigmaTauLEP2(*ZF,200.0,cos_theta[i]);        
+            myZFDsigmaQuarks[i] = new ZFDsigmaQuarksLEP2(*myInputParser.getModel(),200.0,cos_theta[i]);
+            myZFDsigmaMu[i] = new ZFDsigmaMuLEP2(*myInputParser.getModel(),200.0,cos_theta[i]);
+            myZFDsigmaTau[i] = new ZFDsigmaTauLEP2(*myInputParser.getModel(),200.0,cos_theta[i]);        
             cout << " 200.0  " << setw(6) <<  cos_theta[i]
                  << setw(20) << myZFDsigmaQuarks[i]->computeThValue() 
                  << setw(20) << myZFDsigmaMu[i]->computeThValue() 
@@ -131,11 +136,11 @@ int main(int argc, char** argv) {
         cout << "sqrt{s} sigma(q) sigma(mu) sigma(tau) A_FB(mu) A_FB(tau)"
              << endl;
         for (int i=0; i<12; i++) {
-            myZFsigmaQuarks[i] = new ZFsigmaQuarksLEP2(*ZF,sqrt_s[i]);
-            myZFsigmaMu[i] = new ZFsigmaMuLEP2(*ZF,sqrt_s[i]);
-            myZFsigmaTau[i] = new ZFsigmaTauLEP2(*ZF,sqrt_s[i]);
-            myZFAFBmu[i] = new ZFAFBmuLEP2(*ZF,sqrt_s[i]);
-            myZFAFBtau[i] = new ZFAFBtauLEP2(*ZF,sqrt_s[i]);
+            myZFsigmaQuarks[i] = new ZFsigmaQuarksLEP2(*myInputParser.getModel(),sqrt_s[i]);
+            myZFsigmaMu[i] = new ZFsigmaMuLEP2(*myInputParser.getModel(),sqrt_s[i]);
+            myZFsigmaTau[i] = new ZFsigmaTauLEP2(*myInputParser.getModel(),sqrt_s[i]);
+            myZFAFBmu[i] = new ZFAFBmuLEP2(*myInputParser.getModel(),sqrt_s[i]);
+            myZFAFBtau[i] = new ZFAFBtauLEP2(*myInputParser.getModel(),sqrt_s[i]);
             cout << setw(6) << sqrt_s[i]
                  << setw(10) << myZFsigmaQuarks[i]->computeThValue() 
                  << setw(10) << myZFsigmaMu[i]->computeThValue() 
@@ -159,10 +164,10 @@ int main(int argc, char** argv) {
         ZFAFBcharmLEP2* myZFAFBcharm[10];        
         cout << "sqrt{s}    R_b     A_FB(b)     R_c     A_FB(c)" << endl;
         for (int i=0; i<10; i++) {
-           myZFRbottom[i] = new ZFRbottomLEP2(*ZF,sqrt_s_HF[i]);
-           myZFAFBbottom[i] = new ZFAFBbottomLEP2(*ZF,sqrt_s_HF[i]);
-           myZFRcharm[i] = new ZFRcharmLEP2(*ZF,sqrt_s_HF[i]);
-           myZFAFBcharm[i] = new ZFAFBcharmLEP2(*ZF,sqrt_s_HF[i]);
+           myZFRbottom[i] = new ZFRbottomLEP2(*myInputParser.getModel(),sqrt_s_HF[i]);
+           myZFAFBbottom[i] = new ZFAFBbottomLEP2(*myInputParser.getModel(),sqrt_s_HF[i]);
+           myZFRcharm[i] = new ZFRcharmLEP2(*myInputParser.getModel(),sqrt_s_HF[i]);
+           myZFAFBcharm[i] = new ZFAFBcharmLEP2(*myInputParser.getModel(),sqrt_s_HF[i]);
            cout << setw(6) << sqrt_s_HF[i]
                 << setw(10) << myZFRbottom[i]->computeThValue() 
                 << setw(10) << myZFAFBbottom[i]->computeThValue() 

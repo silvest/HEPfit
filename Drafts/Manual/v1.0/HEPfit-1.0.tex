@@ -8,6 +8,62 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{lmodern}
 \usepackage{xspace}
+\usepackage{color}
+\usepackage{listings}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=none,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+\usepackage{hyperref} 
+\hypersetup{linktocpage=true}
+\usepackage[all]{hypcap}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat�s bookmarks
+    pdftoolbar=true,        % show Acrobat�s toolbar?
+    pdfmenubar=true,        % show Acrobat�s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={HEPfit Manual},    % title
+    pdfauthor={},     % author
+    pdfsubject={hep-ph},   % subject of the document
+    pdfcreator={TeXShop},   % creator of the document
+    pdfproducer={MacTex, PDFLaTeX}, % producer of the document
+    pdfkeywords={Flavour Physics} {Higgs Physics} {EW Physics} {Computational HEP}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links
+    citecolor=magenta,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
 %\usepackage[punctsep]{collref}
 
 \newcommand{\HEPfit}{\texttt{HEPfit}\xspace}
@@ -1062,7 +1118,7 @@ The tabled values, which are depicted in Figure \ref{fig:THDMbsgplot}, are then 
   \centering
   \resizebox{450pt}{!}{
    \begin{picture}(400,150)(0,0)
-    \put(50,0){\includegraphics{THDMbsgplot.pdf}}
+    \put(50,0){\includegraphics{plots/THDMbsgplot.pdf}}
    \end{picture}
   }
   \caption{An illustration of the tabled values of ${\rm Br}(\bar{B}\to X_s\gamma)$ in dependence of the decadic logarithms of $\tan (\beta)$ and the charged Higgs mass.}
@@ -1288,16 +1344,278 @@ We take the formula from \cite{Hou:1992sy}: the SM branching ratio is proportion
 L+M+E, Ayan
 
 
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Usage and Examples}
 \label{sec:Usage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The HEPfit installer generates the 
+library ``libSufyFit.a" along with header files including a combined
+header file, HEPfit.h. To perform a Bayesian statistical analysis with the
+Markov Chain Monte Carlo one can use the given example implementation.
+Alternatively, one can use the library to obtain predictions
+of observables for a given point in the parameter space of the model, 
+allowing our computational tool to be called from the user's own program. We explain both the methods in the following discourse. 
 
-Ayan
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Monte Carlo Mode}
+\label{sec:conf}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The Monte Carlo analysis is performed with the BAT library. First,
+a text configuration file containing a list of model parameters,
+model flags and observables to be analyzed has to be prepared. Another configuration
+file for the Monte Carlo run has to be prepared, too.\\\\
+{\bf Step 1:} Model configuration file
+
+
+The configuration files are the primary way to control the behavior of the code and to detail its input and output. While a lot of checks have be implemented in \HEPfit to make sure the configuration files are of the right format, it is not possible to make it error-proof. Hence, much care should be taken to prepare these files.A configuration file for model parameters, model flags and
+observables are written as follows:\\
+
+\lstinputlisting[language=C++]{codes/ModelConf.conf}
+where the lines beginning with the `\#' are commented out. 
+
+Each line has to be written as follows: 
+
+\begin{enumerate}
+\item The first line must be {\bf the name of the model} to be analyzed,
+   where the available models are listed in the page @ref PageModels.
+  
+\item  {\bf A model parameter} is given in the format:
+\begin{lstlisting}
+ModelParameter <name> <central value> <Gaussian error> <flat error>`
+\end{lstlisting}
+  where all the parameters in a given model (see @ref PageModels) have
+  to be listed in the configuration file.
+
+\item {\bf A set of correlated model parameter} is specified with 
+\begin{lstlisting}
+CorrelatedGaussianParameters name Npar
+\end{lstlisting}
+   which initializes a set of Npars correlated parameters. It must be
+   followed by exactly Npar Parameter lines and then by Npar lines of
+   Npar numbers for the correlation matrix. See the above example.
+
+\item  Optionally, one can set {\bf a model flag} in the format:
+
+\begin{lstlisting}
+ModelFlag <name> <value>
+\end{lstlisting}
+
+  where the available flags for a given model can be found in the page
+  @ref PageModels.
+
+\item  {\bf An observable} to be computed is specified in one of the following formats:
+\begin{lstlisting}
+Observable <name> <obs label> <histolabel> <min> <max> (no)MCMC (no)weight <central value> <Gaussian error> <flat error>
+Observable <name> <obs label> <histolabel> <min> <max> (no)MCMC file <filename> <histoname>
+Observable <name> <obs label> <histolabel> <min> <max> noMCMC noweight
+\end{lstlisting}
+
+  - `<name>` is user given name for different observables which must be unique for each observable
+  - `<obs label>` is the theory label of the observable (see @ref PageModels).
+  - `<histolabel>` is used for the label of the output ROOT histogram,
+  while `<min>` and `<max>` represent the range of the histogram.
+  - (no)MCMC is the flag specifying whether the observable should be included in the Monte Carlo prerun or not 
+  - (no)weight specifies if the observable weight will be computed or not. If weigh is specified with noMCMC
+    then the weight of the observable will be stored in the MCout*.root file
+  - Experimental data is specified as `central value  Gaussian error  flat error`. If weight is specified
+    both the errors cannot be 0.
+  - A histogram in a ROOT file is specifed by the name of the root file (filename) and then the
+    name of the histogram (histoname).
+  <br><br>
+
+\item  {\bf Correlations among the data of observables} can be taken into
+   account with the line "CorrelatedGaussianObservables name Nobs",
+   which initializes a set of Nobs correlated observables. It must be
+   followed by exactly Nobs %Observable lines and then by Nobs lines of
+   Nobs numbers for the correlation matrix. See the above example.
+   One can use the keyword noMCMC and noweight, instead of MCMC and weight.
+   <br><br>
+
+\item  {\bf A correlation between two observables} can be obtained with: 
+
+  `%Observable2D <name> <obs1 label> <histolabel1> <min1> <max1> noMCMC noweight <obs2 label> <histolabel2> <min2> <max2>`<br>
+  `%Observable2D <name> <obs1 label> <histolabel1> <min1> <max1> MCMC file <filename> <histoname> <obs2 label> <histolabel2> <min2> <max2>`
+    <br> or <br>
+  `%Observable2D <name> (no)MCMC (no)weight`<br>
+  `(Binned)%Observable <obs label 1> <histolabel 1> <min> <max> <central value> <Gaussian error> <flat error> (<bin_min> <bin_max>)`<br>
+  `(Binned)%Observable <obs label 2> <histolabel 2> <min> <max> <central value> <Gaussian error> <flat error> (<bin_min> <bin_max>)`<br>
+  `%Observable2D <name> MCMC file filename histoname`<br>
+  `(Binned)%Observable <obs label 1> <histolabel 1> <min> <max> (<bin_min> <bin_max>)`<br>
+  `(Binned)%Observable <obs label 2> <histolabel 2> <min> <max> (<bin_min> <bin_max>)`<br>
+
+\item  {\bf Include configuration files} with the IncludeFile directive. This is useful if one
+   wants to separate the input configurations for better organization and flexibility.
+
+\end{enumerate}
+
+{\bf Step 2:} Monte Carlo configuration file:
+
+The parameters and options of the Monte Carlo run are specified in
+a configuration file, separate from the one for model parameters,
+etc. Each line in the file has a pair of a label
+and its value, separated by space(s) or tab(s). The available
+parameters and options are: \\\\
+{\bf NChains} : The number of chains in the Monte Carlo run. A minimum of 5 is suggested (default). 
+If the theory space is complicated and/or the number of parameters are large then more
+is necessary. The amount of statistics collected in the main run is proportional to the
+numbe rof chains.\\\\
+{\bf PrerunMaxIter} : The maximum number of iterations that the prerun will go through (default: 1000000). 
+The prerun ends automatically when the chains converge (R < 1.1) and all efficiencies 
+are adjusted. While it is not necessary for the prerun to converge for a run to be 
+successful, one should exercise caution in this case.\\\\
+{\bf Iterations} : The number of iterations in the main run. This run is for the purpose of
+collecting statistics and is at the users discretion. (default: 100000)\\\\
+{\bf Seed} : The seed can be fixed for deterministic runs.\\\\
+{\bf PrintAllMarginalized} : All marginalized distributions will be printed in a pdf file
+(MonteCarlo\_plots\_*.pdf).\\\\
+{\bf PrintCorrelationMatrix} : The parametric corellation will be printer in ParamCorrelations*.pdf
+and ParamCorrelations*.tex.\\\\
+{\bf PrintKnowledgeUpdatePlots} : A comparison between prior and posterior knowledge will be 
+printed in a plot stored in ParamUpdate*.pdf.\\\\
+{\bf PrintParameterPlot} : As summary of the paramters will be printed in ParamSummary*.pdf.\\\\
+{\bf OrderParameters} : This determines whether the parameters will be randomized one
+at a time or as a whole set in the entire run. While for quick estimates it is not necessary
+to order the prameters (false), it is suggested to do so for more accurate estimates.\\\\
+{\bf FindModeWithMinuit} : To find global mode with MINUIT starting
+from the best fit parameters in the MCMC run.\\\\
+{\bf MinimumEfficiency}  : This allows the setting of the minimum eifficiency of 
+all the prameters. The default is 0.15.\\\\
+{\bf WriteChain}        : The chains will be written in the root file MCout*.root. 
+This can be used for analyzing the performance of the chains.\\\\
+{\bf CalculateNormalization} : The normalization of the theory space will be calculated
+at the end of the Monte Carlo run. This is useful for model comparison.\\\\
+{\bf WritePreRunData} : The prerun data is written to a file for rerun.      \\\\
+{\bf ReadPreRunData}  : The prerun data will be read from a previously stored prerun file. \\\\
+For example, a Monte Carlo configuration file is written as: 
+
+\lstinputlisting[language=C++]{codes/MCMC.conf}
+
+where a '\#' can be placed at the beginning of each line to comment it out
+
+     
+
+
+{\bf Step 3:} Run:
+
+Library mode with MCMC 
+------------------------- 
+
+An example can be found in examples/MonteCarloMode
+
+\begin{lstlisting}
+  $ cd examples/MonteCarloMode
+  $ make
+\end{lstlisting}
+
+After making the configuration files, run with the command:
+
+\begin{lstlisting}
+  $ analysis <model conf> <Monte Carlo conf>
+\end{lstlisting}
+
+{\bf Alternative:} Run with MPI.
+
+HEPfit allows for parallel processing of the MCMC run and the observable computations.
+To allow for this HEPfit and BAT has to be compiled with MPI support as explained in the
+@ref PageInstallation page. The command
+
+\begin{lstlisting}
+  $ mpiexec -n N analysis <model conf> <Monte Carlo conf>
+\end{lstlisting}
+
+will launch analysis on `N` thread/cores/processors depending on the smallest
+processing unit of the hardware used. Our MPI implementation allows for runs on multi-threaded single processors as
+well as clusters with MPI support.
+
+{\bf NOTE:} Our MPI implementation of HEPfit cannot be used with
+BAT compiled with the `--enable-parallelization` option. It is
+mandatory to use the MPI patched version of BAT as explained in the @ref PageInstallation page.
+
+
+{\bf Output Files:}
+\begin{itemize}
+\item log.txt: This is the log file.
+\item MCout.root: This is the root file containing all the information of the run and
+  the histogram objects.
+\item MonteCarlo\_results.txt: This file contains the fits to the parameters.
+\item MonteCarlo\_plots.pdf: This File contains the histograms for the parameters.
+\item Observables: This directory will contain the histograms of all the observables
+  specified in the config file.
+\item Observables/HistoLog.txt: This file contains the information on over-run and under-run
+  of the histogram filling.
+\item Observables/Statistics.txt: This file contains the compilation of the statistics
+  extracted from the histograms.
+\end{itemize}
+Other files might be generated depending on the options specified in the Monte Carlo 
+configuration file.
+
+
+Single event mode
+------------------
+
+Using the model configuration file used in the Monte Carlo mode, one
+can obtain predictions of observabes for the central values of the
+model parameters with the command: 
+
+\begin{lstlisting}
+  $ analysis <model conf> --noMC
+\end{lstlisting}
+
+where the results are printed on the standard output. 
+
+
+Library mode without MCMC 
+------------------------- 
+
+The library mode allows for access to all the observables implemented in HEPfit
+without a Monte Carlo run. The users can use one of our defined @ref PageModels and vary ModelParameters
+according to their own algorithm and get the corresponding predictions for the observables. 
+
+This is made possible through:
+
+* a combined library: libHEPfit.a (installed in `HEPFIT\_INSTALL\_DIR/lib/`
+* a combined header file: HEPfit.h (installed in `HEPFIT\_INSTALL\_DIR/include/HEPfit/`)
+
+
+The HEPfit library allows for two different implementations of the access algorithm.
+
+{\bf Non-Minimal Mode:}
+
+In the non-minimal mode the user can use the SomeModel.conf file to pass the default value of
+the model parameters. The following elements must be present in the user code to define
+the parameters and access the observable. (For details of model parameters, observables etc. please lookup @ref PageModels.)
+
+\lstinputlisting[language=C++]{codes/nonMinimal.cpp}
+
+
+{\bf Minimal Mode:}
+
+In the minimal mode the user can use the default values in InputParameters header file to define the
+default values of the model parameters therefore not requiring any additional input files to be
+parsed. (For details of model name, flags, parameters, observables etc. please lookup @ref PageModels.)
+
+\lstinputlisting[language=C++]{codes/Minimal.cpp}
 
 
 
+{\bf Use of hepfit-config:}
+
+If `'make install'` has been done, a hepfit-config script can be found in the
+`HEPFIT\_INSTALL\_DIR/bin/` directory, which can be invoked with the 
+following options:
+
+~~~~~~~~~~~~~~~
+Library and Library Path: hepfit-config --libs
+
+Include Path: hepfit-config --cflags
+
+Parameters List: hepfit-config --variable=parameters | sh
+~~~~~~~~~~~~~~~
+
+The last command lists all the mandatory parameters in all the models sorted alphabetically and their
+default values as set in the class InputParameters.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Comparison with Other Codes}
 \label{sec:Comparison}

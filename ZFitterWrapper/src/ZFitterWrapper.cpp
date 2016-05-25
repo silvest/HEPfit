@@ -15,7 +15,7 @@
 
 
 ZFitterWrapper::ZFitterWrapper(const StandardModel& SM_i)
-: ThObsType(SM_i), SM(SM_i)
+: SM(SM_i)
 {
     MzCache = 0.0;
     MtCache = 0.0;

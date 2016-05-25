@@ -58,8 +58,8 @@ public:
     GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF, 
                   const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
-                  const std::string& JobTag_i,
-                  const bool noMC_i);
+                  const std::string& JobTag_i
+                  /*const bool noMC_i*/);
     
     /**
      * @brief The default destructor.
@@ -133,7 +133,7 @@ private:
     std::string SUSYDebugDirName; ///< String for the name of the Correlated Gaussian Observables output directory.
     std::string ParsDirName; ///< String for the name of the parameters output directory.
     std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
-    bool noMC;///< Flag to initiate noMC mode.
+    //bool noMC;///< Flag to initiate noMC mode.
     bool outputTerm; ///< Flag to specify output stream storage.
     int rank;
     int procnum;

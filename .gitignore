@@ -219,3 +219,7 @@ test2/
 .gitignore~
 Analysis/GeneratedEvents/
 Analysis/Observables/
+
+#LaTeX output
+*.bbl
+*.blg

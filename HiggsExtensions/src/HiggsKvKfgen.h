@@ -220,6 +220,14 @@ public:
      */
     virtual double muVBF(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeWBF}@f$
+     */
+    virtual double mueeWBF(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
      * cross-section in the current model and in the Standard Model. 
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -270,6 +278,14 @@ public:
      * @return @f$\mu_{ggH+ttH}@f$
      */
     virtual double muggHpttH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{eettH}@f$ between the 
+     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eettH}@f$
+     */
+    virtual double mueettH(const double sqrt_s) const;
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.

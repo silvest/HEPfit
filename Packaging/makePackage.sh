@@ -167,6 +167,9 @@ eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/LibMode_header/libmode_h
 SED_ARG="-e 's/MonteCarlo.h/HEPfit.h/g'"
 ORGFILE=${ORGDIR}/Analysis/main_MCMC_example.cpp
 eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/MonteCarloMode/MCMC.cpp
+SED_ARG="-e 's/GenerateEvent.h/HEPfit.h/g'"
+ORGFILE=${ORGDIR}/Analysis/main_EventGeneration_example.cpp
+eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/EventGeneration/EventGeneration.cpp
 
 ###########################################################
 # Modify source codes

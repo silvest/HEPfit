@@ -21,8 +21,8 @@ public:
      * @param[in] ZF_i an object of ZFitter class
      * @param[in] sqrt_s_i \sqrt{s} of the e+ e- pair in the initial state
      */
-    ZFsigmaMuLEP2(const ZFitterWrapper& ZF_i, const double sqrt_s_i) : ThObservable(ZF_i), 
-            myZF(ZF_i), sqrt_s(sqrt_s_i) {};
+    ZFsigmaMuLEP2(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), 
+            myZF(SM_i), sqrt_s(sqrt_s_i) {};
 
     /**
      * @return the cross section for e^+ e^- -> mu^+ mu^- in pb at sqrt_s

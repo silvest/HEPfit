@@ -35,46 +35,46 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         csrA_top_8(99, 2, 0.),
         csrA_bottom_8(99, 2, 0.),
         ATLAS_pp_phi_gaga(108, 2, 0.),
-        ATLAS_pp_phi_gaga_e(108, 2, 0.),
         ATLAS_ggF_phi_tautau(92, 2, 0.),
-        ATLAS_ggF_phi_tautau_e(92, 2, 0.),
         ATLAS_bbF_phi_tautau(92, 2, 0.),
-        ATLAS_bbF_phi_tautau_e(92, 2, 0.),
         ATLAS_ggF_A_hZ_tautauZ(79, 2, 0.),
-        ATLAS_ggF_A_hZ_tautauZ_e(79, 2, 0.),
         ATLAS_ggF_A_hZ_bbZ(79, 2, 0.),
-        ATLAS_ggF_A_hZ_bbZ_e(79, 2, 0.),
         ATLAS_ggF_phi_tt(53, 2, 0.),
-        ATLAS_ggF_phi_tt_e(53, 2, 0.),
         ATLAS_ggF_H_WW(13,2,0.),
-        ATLAS_ggF_H_WW_e(13,2,0.),
         ATLAS_VBF_H_WW(13,2,0.),
-        ATLAS_VBF_H_WW_e(13,2,0.),
         ATLAS_ggF_H_ZZ(173,2,0.),
-        ATLAS_ggF_H_ZZ_e(173,2,0.),
         ATLAS_VBF_H_ZZ(173,2,0.),
-        ATLAS_VBF_H_ZZ_e(173,2,0.),
         ATLAS_ggF_H_hh(75,2,0.),
+        ATLAS_pp_phi_gaga_e(108, 2, 0.),
+        ATLAS_ggF_phi_tautau_e(92, 2, 0.),
+        ATLAS_bbF_phi_tautau_e(92, 2, 0.),
+        ATLAS_ggF_A_hZ_tautauZ_e(79, 2, 0.),
+        ATLAS_ggF_A_hZ_bbZ_e(79, 2, 0.),
+        ATLAS_ggF_phi_tt_e(53, 2, 0.),
+        ATLAS_ggF_H_WW_e(13,2,0.),
+        ATLAS_VBF_H_WW_e(13,2,0.),
+        ATLAS_ggF_H_ZZ_e(173,2,0.),
+        ATLAS_VBF_H_ZZ_e(173,2,0.),
         ATLAS_ggF_H_hh_e(75,2,0.),
         CMS_mu_pp_H_VV(172, 2, 0.),
         CMS_mu_pp_H_VV_e(172, 2, 0.),
         CMS_ggF_A_hZ_bbll(16, 2, 0.),
-        CMS_ggF_A_hZ_bbll_e(16, 2, 0.),
         CMS_pp_H_hh_gagabb(85, 2, 0.),
-        CMS_pp_H_hh_gagabb_e(85, 2, 0.),
         CMS_pp_H_hh_bbbb(167, 2, 0.),
-        CMS_pp_H_hh_bbbb_e(167, 2, 0.),
         CMS_bbF_phi_bb(81, 2, 0.),
-        CMS_bbF_phi_bb_e(81, 2, 0.),
         CMS_ggF_phi_tautau(92,2,0.),
-        CMS_ggF_phi_tautau_e(92,2,0.),
         CMS_bbF_phi_tautau(92,2,0.),
-        CMS_bbF_phi_tautau_e(92,2,0.),
         CMS_ggF_phi_gaga(141,2,0.),
-        CMS_ggF_phi_gaga_e(141,2,0.),
         CMS_ggF_H_hh_bbtautau(10,2,0.),
-        CMS_ggF_H_hh_bbtautau_e(10,2,0.),
         CMS_ggF_A_hZ_tautaull(14,2,0.),
+        CMS_ggF_A_hZ_bbll_e(16, 2, 0.),
+        CMS_pp_H_hh_gagabb_e(85, 2, 0.),
+        CMS_pp_H_hh_bbbb_e(167, 2, 0.),
+        CMS_bbF_phi_bb_e(81, 2, 0.),
+        CMS_ggF_phi_tautau_e(92,2,0.),
+        CMS_bbF_phi_tautau_e(92,2,0.),
+        CMS_ggF_phi_gaga_e(141,2,0.),
+        CMS_ggF_H_hh_bbtautau_e(10,2,0.),
         CMS_ggF_A_hZ_tautaull_e(14,2,0.),
         arraybsgamma(1111, 3, 0.),
         myTHDM(static_cast<const THDM*> (&SM_i)),
@@ -4376,9 +4376,19 @@ void THDMcache::runTHDMparameters()
     double cosb=myTHDM->getcosb();
     double sinb=myTHDM->getsinb();
     modelflag=myTHDM->getModelTypeflag();
+    std::string RGEorder=myTHDM->getRGEorderflag();
+    //flag will be used to transport information about model and RGEorder to the Runner:
+    //flag=3*(0 for type I, 1 for type II, 2 for type X and 3 for type Y) + (0 for LO, 1 for approxNLO and 2 for NLO)
+    int flag;
+    if( RGEorder == "LO" ) flag=0;
+    else if( RGEorder == "approxNLO" ) flag=1;
+    else if( RGEorder == "NLO" ) flag=2;
+    else {
+        throw std::runtime_error("RGEorder can be only any of \"LO\", \"approxNLO\" or \"NLO\"");
+    }
 
-    double g1_at_MZ=sqrt(4.0*M_PI*Ale/(1-cW2));
-    double g2_at_MZ=sqrt(4.0*M_PI*Ale/cW2);
+    double g1_at_MZ=sqrt(4.0*M_PI*Ale/cW2);
+    double g2_at_MZ=sqrt(4.0*M_PI*Ale/(1-cW2));
     double g3_at_MZ=sqrt(4.0*M_PI*Als);
 
     double Ytop_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::TOP).getMass())/(vev*sinb);
@@ -4386,21 +4396,29 @@ void THDMcache::runTHDMparameters()
     double Ybottom2_at_MZ=0.0;
     double Ytau1_at_MZ=0.0;
     double Ytau2_at_MZ=0.0;
+
+    /*link these to the SM values*/
+    double Mb_at_MZ=2.96;//GeV
+    double Mtau_at_MZ=1.75;//GeV
+
     if( modelflag == "type1" ) {
-        Ybottom2_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
-        Ytau2_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
+        Ybottom2_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*sinb);
+        Ytau2_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*sinb);
     }
     else if( modelflag == "type2" ) {
-        Ybottom1_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
-        Ytau1_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
+        Ybottom1_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*cosb);
+        Ytau1_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*cosb);
+        flag +=3;
     }
     else if( modelflag == "typeX" ) {
-        Ybottom2_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*sinb);
-        Ytau1_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*cosb);
+        Ybottom2_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*sinb);
+        Ytau1_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*cosb);
+        flag +=6;
     }
     else if( modelflag == "typeY" ) {
-        Ybottom1_at_MZ=(sqrt(2.0)*myTHDM->getQuarks(QCD::BOTTOM).getMass())/(vev*cosb);
-        Ytau2_at_MZ=(sqrt(2.0)*myTHDM->getLeptons(StandardModel::TAU).getMass())/(vev*sinb);
+        Ybottom1_at_MZ=(sqrt(2.0)*Mb_at_MZ)/(vev*cosb);
+        Ytau2_at_MZ=(sqrt(2.0)*Mtau_at_MZ)/(vev*sinb);
+        flag +=9;
     }
     else {
         throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
@@ -4454,7 +4472,7 @@ void THDMcache::runTHDMparameters()
         InitVals[12]=lambda4_at_MZ;
         InitVals[13]=lambda5_at_MZ;
 
-        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM);  //Running up to Q_cutoff<=Q_THDM
+        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM, flag);  //Running up to Q_cutoff<=Q_THDM
 
         g1_at_Q = InitVals[0];
         g2_at_Q = InitVals[1];
