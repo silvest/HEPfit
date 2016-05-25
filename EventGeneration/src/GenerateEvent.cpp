@@ -14,8 +14,8 @@
 GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
                              const std::string& ModelConf_i,
                              const std::string& OutDirName_i,
-                             const std::string& JobTag_i,
-                             const bool noMC_i)
+                             const std::string& JobTag_i
+                             /*const bool noMC_i*/)
 : myInputParser(ModelF, ThObsF)
 {
     outputTerm = 0;
@@ -31,7 +31,7 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
         SUSYDebugDirName = OutDirName + "/SUSYDebug";
         outputTerm = 1;
     }
-    noMC = noMC_i;
+    //noMC = noMC_i;
     
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
@@ -50,8 +50,8 @@ GenerateEvent::~GenerateEvent()
 void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
 {
     weight = weight_i;
-    if (!noMC)
-        throw std::runtime_error("\nGenerateEvent::generate():\n--noMC was not specified as an argument.\nPlease do so for running in Generate Event mode.\n");
+    //if (!noMC)
+      //  throw std::runtime_error("\nGenerateEvent::generate():\n--noMC was not specified as an argument.\nPlease do so for running in Generate Event mode.\n");
     nIteration = nIteration_i;
     if (nIteration == 0) outputTerm = 0;
     int it_comp = 0;
