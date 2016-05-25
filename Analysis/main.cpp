@@ -109,7 +109,7 @@ int main(int argc, char** argv)
                 if (vm.count("weight")) weight = true;
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
-                GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag, noMC);
+                GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag);
 //                GE.addCustomParser("PS", boost::factory<InputParser*>());
 //                GE.addCustomObservableType("Poisson", boost::factory<Observable*>());
 //                GE.linkParserToObservable("Poisson", "PS");
