@@ -452,8 +452,6 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="main_EventGeneration_example.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
@@ -840,8 +838,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
-      </item>
-      <item path="main_EventGeneration_example.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
@@ -1233,8 +1229,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="main_EventGeneration_example.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2038,8 +2032,6 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="main_EventGeneration_example.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
@@ -2468,8 +2460,6 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
-      <item path="main_EventGeneration_example.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
@@ -2847,8 +2837,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
-      </item>
-      <item path="main_EventGeneration_example.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
