@@ -1860,38 +1860,6 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
 
 void Bsgamma::computeCoeff(double mu)
 {
-    double mu_W=SM.getMuw();
-    
-    allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu_W);
-    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu_W);
-    
-    C1_0 = (*(allcoeff[LO]))(0);
-    C2_0 = (*(allcoeff[LO]))(1);
-    C3_0 = (*(allcoeff[LO]))(2);
-    C4_0 = (*(allcoeff[LO]))(3);
-    C5_0 = (*(allcoeff[LO]))(4);
-    C6_0 = (*(allcoeff[LO]))(5);
-    C7_0 = (*(allcoeff[LO]))(6);
-    C8_0 = (*(allcoeff[LO]))(7);
-    
-    C1_1 = (*(allcoeff[NLO]))(0)/SM.Alstilde5(mu_W);
-    C2_1 = (*(allcoeff[NLO]))(1)/SM.Alstilde5(mu_W);
-    C3_1 = (*(allcoeff[NLO]))(2)/SM.Alstilde5(mu_W);
-    C4_1 = (*(allcoeff[NLO]))(3)/SM.Alstilde5(mu_W);
-    C5_1 = (*(allcoeff[NLO]))(4)/SM.Alstilde5(mu_W);
-    C6_1 = (*(allcoeff[NLO]))(5)/SM.Alstilde5(mu_W);
-    C7_1 = (*(allcoeff[NLO]))(6)/SM.Alstilde5(mu_W);
-    C8_1 = (*(allcoeff[NLO]))(7)/SM.Alstilde5(mu_W);
-    
-    C7p_0 = (*(allcoeffprime[LO]))(6);
-    C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
-    
-    /*std::cout << "C_0(160 GeV): (" << C1_0.real() << "," << C2_0.real() << "," 
-            << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
-            << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
-    std::cout << "C_1(160 GeV): (" << C1_1.real() << "," << C2_1.real() << "," 
-            << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
-            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
     
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu);
