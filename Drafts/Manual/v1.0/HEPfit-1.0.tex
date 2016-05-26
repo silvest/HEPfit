@@ -10,12 +10,13 @@
 \usepackage{xspace}
 \usepackage{color}
 \usepackage{listings}
+%\usepackage{courier}
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=none,                    % sets the caption-position to bottom
@@ -1345,13 +1346,201 @@ L+M+E, Ayan
 
 
 \newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{installation}
+\label{sec:Installation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We give a brief description of the installation procedure here. The installation depends on the availability of \texttt{cmake} on the system. A description of cmake and the details of installing it can be found in \href{https://cmake.org/}{the cmake website}. Most package managers for linux distributions should have an package available for installation. for Mac users, it can be either installed from source or from a Unix port like \href{https://www.macports.org/}{Darwin ports} or \href{http://www.finkproject.org/}{Fink}. below we outline further details. 
+\begin{center}
+{\large \bf Dependencies}
+\end{center}
+
+\begin{itemize}
+\item {\bf GSL:}  The GNU Scientific Library (GSL) is a library for numerical computation. It can be found on the \href{http://www.gnu.org/software/gsl/}{GSL website}. Most linux package managers will have a stable version as will any ports for Mac. {\bf NOTE:} We do not support GSL v2.0 or greater. 
+
+\item {\bf ROOT v5 or later:}  ROOT is an object oriented data analysis framework. You can obtain it from the \href{http://root.cern.ch/}{ROOT website}.
+
+\item {\bf BOOST:}  BOOST is a C++ library. You can obtain it from the \href{http://www.boost.org}{BOOST website} or from linux package managers or Mac ports. While we do not need the BOOST libraries, we do need the headers, so one should make sure the headers are installed and not the libraries only. 
+
+\item {\bf BAT v0.9.4 (not required for the Library mode):} Optionally, BAT (Bayesian Analysis Toolkit) can be obtained from 
+    the \href{https://www.mppmu.mpg.de/bat/}{BAT website} for a Monte Carlo run. With the compilation 
+    option \texttt{-DBAT\_INSTALL=ON} explained below, the \HEPfit installation package 
+    will download and install BAT. {\bf NOTE:} that at present \HEPfit is not
+    compatible with BAT compiled with the \texttt{--enable-parallelization} option. the parallelized version of BAT compatible with \HEPfit {\em must} be installed with the option \texttt{-DMPIBAT=ON}
+
+\item {\bf MPI:}    Optionally, HEPfit can be compiled with MPI for usage in parallel 
+    clusters and processors supporting multi-threading. In this case,
+    the \HEPfit installer will patch and compile BAT with MPI support as described above. For this one needs a version of \href{https://www.open-mpi.org/}{openMPI} which is also available through package managers in Linux and ports on Mac.
+\end{itemize}
+
+\begin{center}
+{\large \bf Installation Procedure}
+\end{center}
+In a nutshell, if all dependencies are satisfied for a fully MPI compatible MCMC capable \HEPfit installation from the tarball downloaded from \href{http://hepfit.roma1.infn.it/}{the \HEPfit website}:
+
+\begin{lstlisting}
+$ tar xvzf HEPfit-x.x.tar.gz
+$ mkdir HEPfit-x.x/build 
+$ cd HEPfit-x.x/build 
+$ cmake .. -DLOCAL_INSTALL_ALL=ON -DMPIBAT=ON
+$ make
+$ make install
+\end{lstlisting}
+To run your first example:
+\begin{lstlisting} 
+$ cd examples/MonteCarloMode/
+$ make  
+$ mpiexec -n 5 ./analysis ../config/StandardModel.conf MonteCarlo.conf
+\end{lstlisting} 
+This is all you will need for running a MCMC on 5 cores with the model, parameters and observables specified in \texttt{examples/config/StandardModel.conf} with \HEPfit. For variations please read what follows. \\\\
+%
+Unpack the tarball containing the \HEPfit source which you can obtain from the \href{http://hepfit.roma1.infn.it/}{\HEPfit website} . A directory called 
+\texttt{HEPfit-x.x} will be created containing the source code. To generate 
+Makefiles, enter the source directory and run CMake:
+
+\begin{lstlisting}
+$ cd HEPfit-x.x  
+$ cmake . <options>  
+\end{lstlisting}
+
+{\bf (RECOMMENDED:)} Alternatively, a directory separate from the source directory can be made for
+building \HEPfit (recommended as it allows for easy deletion of the build):
+\begin{lstlisting}
+$ mkdir HEPfit-x.x/build  
+$ cd HEPfit-x.x/build  
+$ cmake .. <options>  
+\end{lstlisting}
+
+where the available options are:
+
+\begin{itemize}
+\item \texttt{-DLOCAL\_INSTALL\_ALL=ON}: to install BAT and \HEPfit in the current directory (default: OFF). 
+    This is equivalent in setting the options \texttt{-DCMAKE\_INSTALL\_PREFIX=./HEPfit}, 
+    \texttt{-BAT\_INSTALL\_DIR=./BAT} and \texttt{-DBAT\_INSTALL=ON}, where these variables cannot 
+    be modified individually when \texttt{-DLOCAL\_INSTALL\_ALL=ON} is set. 
+
+\item \texttt{-DCMAKE\_INSTALL\_PREFIX=<HEPfit installation directory>}: the directory in which \HEPfit will be installed (default: \texttt{/usr/local})  
+  
+\item \texttt{-DNOMCMC=ON}: to enable the mode without MCMC (default: OFF)
+
+\item \texttt{-DDEBUG\_MODE=ON}: to enable the debug mode (default: OFF)
+
+\item \texttt{-DBAT\_INSTALL\_DIR=<BAT installation directory>}: (default: \texttt{/usr/local}). This option is overruled by \texttt{-DLOCAL\_INSTALL\_ALL=ON}
+
+\item \texttt{-DBAT\_INSTALL=ON} to download and install BAT (default: OFF)
+
+\item \texttt{-DMPIBAT=ON}: to enable support for MPI
+    (requires an implementation of MPI, default: OFF)
+
+\item \texttt{-DMPI\_CXX\_COMPILER=<path to mpi>/mpicxx}: You can specify the MPI compiler with this option
+
+\item \texttt{-DBOOST\_INCLUDE\_DIR=<boost custom include path>/boost/}: if BOOST is not installed in the search path then you can specify where it is with this option. The path must end with the \texttt{boost/} directory which contains the headers.
+
+\item \texttt{-DGSL\_CONFIG\_DIR=<path to gsl-config>}: \HEPfit used \texttt{gsl-config} to get the GSL parameters. If this is not in the search path, you can specify it with this option. 
+
+\item \texttt{-DROOT\_CONFIG\_DIR=<path to root-config>}: HEPfit used \texttt{root-config} to get the ROOT parameters. If this is not in the search path, you can specify it with this option. 
+\end{itemize}
+Setting the option \texttt{-DBAT\_INSTALL=ON}, the \HEPfit installer will download, 
+compile and install the BAT libraries.\\\\
+%
+{\bf NOTE:}
+Please make sure that the BAT libraries are not already present in the
+BAT installation directory. If it is present, the installer does not
+build BAT, and uses the pre-installed one. This is particularly problematic
+if switching to or from the MPI version of BAT (\texttt{-DMPIBAT=ON})\\\\
+%
+{\bf No MCMC mode:}
+The generated Makefiles are used for building a \HEPfit library. If
+you do not perform a Bayesian statistical analysis with the Markov
+Chain Monte Carlo (MCMC), you can use the option \texttt{-DNOMCMC=ON}. For
+this case, BAT is not required. \\\\
+%
+{\bf MPI Support:}
+If you want to perform a MCMC run with MPI support, you can specify
+the option \texttt{-DMPIBAT=ON}. This option must be accompanied with
+\texttt{-DBAT\_INSTALL=ON} in order to enable the \HEPfit installer to
+download, patch and compile BAT with MPI support:
+\begin{lstlisting} 
+$ cmake . -DBAT_INSTALL=ON -DMPIBAT=ON <other options>  
+\end{lstlisting}
+please make sure non-MPI BAT libraries are not already installed in the 
+BAT installation directory.\\\\
+%
+{\bf ROOT:}
+CMake checks for ROOT availability in the system and fails if ROOT is
+not installed. You can specify the path to root-config using the
+option \texttt{-DROOT\_CONFIG\_DIR=<path to root-config>}. \\\\
+%
+{\bf BOOST:}
+CMake also checks for BOOST availability in the system and fails if
+BOOST is not installed. You can specify the path to the BOOST include
+files with \texttt{-DBOOST\_INCLUDE\_DIR=<boost custom include path>/boost/}. \\\\
+%
+The {\bf recommended installation} flags for a locally installed \HEPfit with full MPI and MCMC support is:
+\begin{lstlisting} 
+$ cmake . -DLOCAL_INSTALL_ALL=ON -DMPIBAT=ON
+\end{lstlisting}
+This will enable easy portability of all codes and easy upgrading to future version as nothing will be installed system wide.  Also, this is useful if you doo not have root access and cannot install softwares in system folders. After successful CMake run, execute the build commands:
+
+\begin{lstlisting} 
+$ make  
+$ make install  
+\end{lstlisting} 
+to compile and install \HEPfit, where the command \texttt{make VERBOSE=1}
+enables verbose output and \texttt{make -j} allows for parallel compilation.
+Note that depending on the setting of installation prefix you might
+need root privileges to be able to install \HEPfit with \texttt{sudo make
+install} instead of just \texttt{make install}.\\
+
+\begin{center}
+{\large \bf Post Install:}
+\end{center}
+\begin{itemize}
+\item{\bf Executable:} \texttt{<CMAKE\_INSTALL\_PREFIX>/bin/hepfit-config}
+\item{\bf Library:} \texttt{<CMAKE\_INSTALL\_PREFIX>/lib/libHEPfit.a}
+\item{\bf Combined Header:} \texttt{<CMAKE\_INSTALL\_PREFIX>/include/HEPfit/HEPfit.h}
+\end{itemize}
+
+{\bf Using hepfit-config:}
+A hepfit-config script can be found in the \texttt{<CMAKE\_INSTALL\_PREFIX>/bin/}
+directory, which can be invoked with the following options:
+\begin{itemize}
+\item \texttt{--cflags} to obtain the include path needed for compilation against the \HEPfit library
+
+\item \texttt{--libs} to obtain the flags needed for linking against the \HEPfit library
+\end{itemize}
+
+{\bf Examples:}
+
+The example programs can be found in the \HEPfit build directory:  
+\begin{itemize}
+\item \texttt{examples/LibMode\_config/}  
+\item \texttt{examples/LibMode\_header/} 
+\item \texttt{examples/MonteCarloMode/}
+\item \texttt{examples/EventGeneration/}
+\item \texttt{examples/myModel/}
+\end{itemize}
+where the first two demonstrate the usage of the \HEPfit library, while 
+the third one can be used for testing a Monte Carlo run with the \HEPfit 
+executable. The fourth one can be used to generate values of observables with a sample of parameters drawn from the parameter space. The fifth one is an example implementation of a custom 
+model and custom observables. To make an executable to run these examples:
+\begin{lstlisting} 
+$ cd examples/MonteCarloMode/
+$ make  
+\end{lstlisting} 
+This will produce an executable called \texttt{analysis} in the current directory that can be used to run \HEPfit. The details are elaborated on in the next section.
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Usage and Examples}
 \label{sec:Usage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The HEPfit installer generates the 
-library ``libSufyFit.a" along with header files including a combined
-header file, HEPfit.h. To perform a Bayesian statistical analysis with the
+library \texttt{libSufyFit.a} along with header files including a combined
+header file, \texttt{HEPfit.h}. To perform a Bayesian statistical analysis with the
 Markov Chain Monte Carlo one can use the given example implementation.
 Alternatively, one can use the library to obtain predictions
 of observables for a given point in the parameter space of the model, 
@@ -1359,23 +1548,22 @@ allowing our computational tool to be called from the user's own program. We exp
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Monte Carlo Mode}
-\label{sec:conf}
+\label{sec:MC}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The Monte Carlo analysis is performed with the BAT library. First,
 a text configuration file containing a list of model parameters,
 model flags and observables to be analyzed has to be prepared. Another configuration
 file for the Monte Carlo run has to be prepared, too.\\\\
-{\bf Step 1:} Model configuration file
+%
+{\bf \large Step 1: Model configuration file}\\
 
 
 The configuration files are the primary way to control the behavior of the code and to detail its input and output. While a lot of checks have be implemented in \HEPfit to make sure the configuration files are of the right format, it is not possible to make it error-proof. Hence, much care should be taken to prepare these files.A configuration file for model parameters, model flags and
 observables are written as follows:\\
 
 \lstinputlisting[language=C++]{codes/ModelConf.conf}
-where the lines beginning with the `\#' are commented out. 
-
-Each line has to be written as follows: 
+where the lines beginning with the `\#' are commented out. Each line has to be written as follows: 
 
 \begin{enumerate}
 \item The first line must be {\bf the name of the model} to be analyzed,
@@ -1385,14 +1573,14 @@ Each line has to be written as follows:
 \begin{lstlisting}
 ModelParameter <name> <central value> <Gaussian error> <flat error>`
 \end{lstlisting}
-  where all the parameters in a given model (see @ref PageModels) have
+where all the parameters in a given model (see @ref PageModels) have
   to be listed in the configuration file.
 
 \item {\bf A set of correlated model parameter} is specified with 
 \begin{lstlisting}
 CorrelatedGaussianParameters name Npar
 \end{lstlisting}
-   which initializes a set of Npars correlated parameters. It must be
+   which initializes a set of Npar correlated parameters. It must be
    followed by exactly Npar Parameter lines and then by Npar lines of
    Npar numbers for the correlation matrix. See the above example.
 
@@ -1408,49 +1596,54 @@ ModelFlag <name> <value>
 \item  {\bf An observable} to be computed is specified in one of the following formats:
 \begin{lstlisting}
 Observable <name> <obs label> <histolabel> <min> <max> (no)MCMC (no)weight <central value> <Gaussian error> <flat error>
+#
 Observable <name> <obs label> <histolabel> <min> <max> (no)MCMC file <filename> <histoname>
+#
 Observable <name> <obs label> <histolabel> <min> <max> noMCMC noweight
 \end{lstlisting}
-
-  - `<name>` is user given name for different observables which must be unique for each observable
-  - `<obs label>` is the theory label of the observable (see @ref PageModels).
-  - `<histolabel>` is used for the label of the output ROOT histogram,
-  while `<min>` and `<max>` represent the range of the histogram.
-  - (no)MCMC is the flag specifying whether the observable should be included in the Monte Carlo prerun or not 
-  - (no)weight specifies if the observable weight will be computed or not. If weigh is specified with noMCMC
+\begin{itemize}
+  \item {\bf \texttt{<name>}} is user given name for different observables which must be unique for each observable
+  \item {\bf \texttt{<obs label>}} is the theory label of the observable (see @ref PageModels).
+  \item {\bf \texttt{<histolabel>}} is used for the label of the output ROOT histogram,
+  while {\bf \texttt{<min>}} and {\bf \texttt{<max>}} represent the range of the histogram.
+  \item  {\bf \texttt{(no)MCMC}} is the flag specifying whether the observable should be included in the Monte Carlo prerun or not 
+  \item {\bf \texttt{(no)weight}} specifies if the observable weight will be computed or not. If weigh is specified with noMCMC
     then the weight of the observable will be stored in the MCout*.root file
-  - Experimental data is specified as `central value  Gaussian error  flat error`. If weight is specified
+  \item Experimental data is specified as {\bf \texttt{<central value>  <Gaussian error>  <flat error>}}. If weight is specified
     both the errors cannot be 0.
-  - A histogram in a ROOT file is specifed by the name of the root file (filename) and then the
-    name of the histogram (histoname).
-  <br><br>
+  \item A histogram in a ROOT file is specifed by the name of the root file ({\bf \texttt{filename}}) and then the
+    name of the histogram ({\bf \texttt{histoname}}).
+\end{itemize}
 
 \item  {\bf Correlations among the data of observables} can be taken into
    account with the line "CorrelatedGaussianObservables name Nobs",
    which initializes a set of Nobs correlated observables. It must be
-   followed by exactly Nobs %Observable lines and then by Nobs lines of
+   followed by exactly Nobs Observable lines and then by Nobs lines of
    Nobs numbers for the correlation matrix. See the above example.
    One can use the keyword noMCMC and noweight, instead of MCMC and weight.
-   <br><br>
 
-\item  {\bf A correlation between two observables} can be obtained with: 
+\item  {\bf A correlation between two observables} can be obtained with any of the four following specifications: 
 
-  `%Observable2D <name> <obs1 label> <histolabel1> <min1> <max1> noMCMC noweight <obs2 label> <histolabel2> <min2> <max2>`<br>
-  `%Observable2D <name> <obs1 label> <histolabel1> <min1> <max1> MCMC file <filename> <histoname> <obs2 label> <histolabel2> <min2> <max2>`
-    <br> or <br>
-  `%Observable2D <name> (no)MCMC (no)weight`<br>
-  `(Binned)%Observable <obs label 1> <histolabel 1> <min> <max> <central value> <Gaussian error> <flat error> (<bin_min> <bin_max>)`<br>
-  `(Binned)%Observable <obs label 2> <histolabel 2> <min> <max> <central value> <Gaussian error> <flat error> (<bin_min> <bin_max>)`<br>
-  `%Observable2D <name> MCMC file filename histoname`<br>
-  `(Binned)%Observable <obs label 1> <histolabel 1> <min> <max> (<bin_min> <bin_max>)`<br>
-  `(Binned)%Observable <obs label 2> <histolabel 2> <min> <max> (<bin_min> <bin_max>)`<br>
+\begin{lstlisting}
+Observable2D <name> <obs1 label> <histolabel1> <min1> <max1> noMCMC noweight <obs2 label> <histolabel2> <min2> <max2>
+#
+Observable2D <name> <obs1 label> <histolabel1> <min1> <max1> MCMC file <filename> <histoname> <obs2 label> <histolabel2> <min2> <max2>
+#
+Observable2D <name> (no)MCMC (no)weight
+(Binned)Observable <obs label 1> <histolabel 1> <min> <max> <central value> <Gaussian error> <flat error> (<bin_min> <bin_max>)
+(Binned)Observable <obs label 2> <histolabel 2> <min> <max> <central value> <Gaussian error> <flat error> (<bin_min> <bin_max>)
+#
+Observable2D <name> MCMC file filename histoname
+(Binned)Observable <obs label 1> <histolabel 1> <min> <max> (<bin_min> <bin_max>)
+(Binned)Observable <obs label 2> <histolabel 2> <min> <max> (<bin_min> <bin_max>)
+\end{lstlisting}
 
 \item  {\bf Include configuration files} with the IncludeFile directive. This is useful if one
    wants to separate the input configurations for better organization and flexibility.
 
 \end{enumerate}
-
-{\bf Step 2:} Monte Carlo configuration file:
+%
+{\bf \large Step 2:Monte Carlo configuration file:}\\
 
 The parameters and options of the Monte Carlo run are specified in
 a configuration file, separate from the one for model parameters,
@@ -1462,7 +1655,7 @@ If the theory space is complicated and/or the number of parameters are large the
 is necessary. The amount of statistics collected in the main run is proportional to the
 numbe rof chains.\\\\
 {\bf PrerunMaxIter} : The maximum number of iterations that the prerun will go through (default: 1000000). 
-The prerun ends automatically when the chains converge (R < 1.1) and all efficiencies 
+The prerun ends automatically when the chains converge (R$<$1.1) and all efficiencies 
 are adjusted. While it is not necessary for the prerun to converge for a run to be 
 successful, one should exercise caution in this case.\\\\
 {\bf Iterations} : The number of iterations in the main run. This run is for the purpose of
@@ -1492,17 +1685,11 @@ For example, a Monte Carlo configuration file is written as:
 
 \lstinputlisting[language=C++]{codes/MCMC.conf}
 
-where a '\#' can be placed at the beginning of each line to comment it out
-
-     
-
-
-{\bf Step 3:} Run:
-
-Library mode with MCMC 
-------------------------- 
-
-An example can be found in examples/MonteCarloMode
+where a '\#' can be placed at the beginning of each line to comment it out.\\\\
+%
+{\bf \large Step 3: Run:}\\\\
+%
+{\bf 1. Library mode with MCMC:  }An example can be found in examples/MonteCarloMode
 
 \begin{lstlisting}
   $ cd examples/MonteCarloMode
@@ -1510,28 +1697,25 @@ An example can be found in examples/MonteCarloMode
 \end{lstlisting}
 
 After making the configuration files, run with the command:
-
 \begin{lstlisting}
-  $ analysis <model conf> <Monte Carlo conf>
+  $ ./analysis <model conf> <Monte Carlo conf>
 \end{lstlisting}
-
-{\bf Alternative:} Run with MPI.
-
-HEPfit allows for parallel processing of the MCMC run and the observable computations.
-To allow for this HEPfit and BAT has to be compiled with MPI support as explained in the
+%
+{\bf Alternative: Run with MPI}\\ \HEPfit allows for parallel processing of the MCMC run and the observable computations.
+To allow for this \HEPfit and BAT has to be compiled with MPI support as explained in the
 @ref PageInstallation page. The command
 
 \begin{lstlisting}
-  $ mpiexec -n N analysis <model conf> <Monte Carlo conf>
+  $ mpiexec -n N ./analysis <model conf> <Monte Carlo conf>
 \end{lstlisting}
 
 will launch analysis on `N` thread/cores/processors depending on the smallest
 processing unit of the hardware used. Our MPI implementation allows for runs on multi-threaded single processors as
-well as clusters with MPI support.
-
-{\bf NOTE:} Our MPI implementation of HEPfit cannot be used with
-BAT compiled with the `--enable-parallelization` option. It is
-mandatory to use the MPI patched version of BAT as explained in the @ref PageInstallation page.
+well as clusters with MPI support.\\\\
+%
+{\bf NOTE:} Our MPI implementation of \HEPfit cannot be used with
+BAT compiled with the \texttt{--enable-parallelization} option. It is
+mandatory to use the MPI patched version of BAT as explained in the @ref PageInstallation page.\\
 
 
 {\bf Output Files:}
@@ -1549,38 +1733,51 @@ mandatory to use the MPI patched version of BAT as explained in the @ref PageIns
   extracted from the histograms.
 \end{itemize}
 Other files might be generated depending on the options specified in the Monte Carlo 
-configuration file.
-
-
-Single event mode
-------------------
-
+configuration file.\\\\
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Event Generation Mode}
+\label{sec:MC}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Using the model configuration file used in the Monte Carlo mode, one
-can obtain predictions of observabes for the central values of the
-model parameters with the command: 
+can obtain predictions of observables. An example can be found in \texttt{examples/EventGeneration} folder
 
 \begin{lstlisting}
-  $ analysis <model conf> --noMC
+  $ cd examples/EventGeneration
+  $ make
 \end{lstlisting}
 
-where the results are printed on the standard output. 
+After making the configuration files, run with the command:
+\begin{lstlisting}
+  $ ./analysis <model conf> <number of iterations> [output folder]
+\end{lstlisting}
+
+The \texttt{<number of iterations>} defines the number of random points in the parameter space that will be evaluated. Setting this to 0 gives the value of the observables at the central value of all the parameters. If the \texttt{[output folder]} is not specified everything is printed on the screen and no data is saved. Alternately, one can specify the output folder and the run will be saved if \texttt{<number of iterations>} $>$ 0. The output folder can be found in \texttt{./GeneratedEvents}. The structure of the output folder is:\\\\
+%
+{\bf output folder structure:}
+\begin{itemize}
+\item \texttt{CGO}: Contains any correlated Gaussian observables that might have been listed in the model configuration files.
+\item \texttt{Observables}: Contains any observables that might have been listed in the model configuration files.
+\item \texttt{Parameters}: Contains all the parameters that were varied in the model configuration files.
+\item \texttt{Summary.txt}: Contains a list of the model used, the parameters varied, the observables computed and the number of events generated. This can be used, for example, to access all the files from a third party program.
+\end{itemize}
+The parameters and the observables are stored in the respective directories in files that are names after the same. For example, the parameter \texttt{lambda} will be saved in the file \texttt{lambda.txt} in the \texttt{Parameters} folder.
 
 
-Library mode without MCMC 
-------------------------- 
-
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Library mode without MCMC}
+\label{sec:MC}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The library mode allows for access to all the observables implemented in HEPfit
 without a Monte Carlo run. The users can use one of our defined @ref PageModels and vary ModelParameters
-according to their own algorithm and get the corresponding predictions for the observables. 
-
-This is made possible through:
-
-* a combined library: libHEPfit.a (installed in `HEPFIT\_INSTALL\_DIR/lib/`
-* a combined header file: HEPfit.h (installed in `HEPFIT\_INSTALL\_DIR/include/HEPfit/`)
-
-
-The HEPfit library allows for two different implementations of the access algorithm.
-
+according to their own algorithm and get the corresponding predictions for the observables. This is made possible through:
+\begin{itemize}
+\item a combined library: \texttt{libHEPfit.a} (installed in \texttt{HEPFIT\_INSTALL\_DIR/lib})
+\item a combined header file: \texttt{HEPfit.h} (installed in \texttt{HEPFIT\_INSTALL\_DIR/include/HEPfit})
+\end{itemize}
+The HEPfit library allows for two different implementations of the access algorithm.\\\\
+%
 {\bf Non-Minimal Mode:}
 
 In the non-minimal mode the user can use the SomeModel.conf file to pass the default value of
@@ -1588,8 +1785,7 @@ the model parameters. The following elements must be present in the user code to
 the parameters and access the observable. (For details of model parameters, observables etc. please lookup @ref PageModels.)
 
 \lstinputlisting[language=C++]{codes/nonMinimal.cpp}
-
-
+%
 {\bf Minimal Mode:}
 
 In the minimal mode the user can use the default values in InputParameters header file to define the
@@ -1597,22 +1793,16 @@ default values of the model parameters therefore not requiring any additional in
 parsed. (For details of model name, flags, parameters, observables etc. please lookup @ref PageModels.)
 
 \lstinputlisting[language=C++]{codes/Minimal.cpp}
-
-
-
-{\bf Use of hepfit-config:}
-
-If `'make install'` has been done, a hepfit-config script can be found in the
-`HEPFIT\_INSTALL\_DIR/bin/` directory, which can be invoked with the 
+%
+{\bf Use of hepfit-config:} If \texttt{make install} has been done, a hepfit-config script can be found in the
+\texttt{HEPFIT\_INSTALL\_DIR/bin} directory, which can be invoked with the 
 following options:
 
-~~~~~~~~~~~~~~~
+\begin{lstlisting}
 Library and Library Path: hepfit-config --libs
 
 Include Path: hepfit-config --cflags
-
-Parameters List: hepfit-config --variable=parameters | sh
-~~~~~~~~~~~~~~~
+\end{lstlisting}
 
 The last command lists all the mandatory parameters in all the models sorted alphabetically and their
 default values as set in the class InputParameters.
