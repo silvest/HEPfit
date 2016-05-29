@@ -886,7 +886,7 @@ std::string MonteCarloEngine::computeStatistics() {
             intervals.push_back(0.954499736104);
             intervals.push_back(0.997300203937);
             std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
-            for (int i = 0; i < v.size(); i++) {
+            for (unsigned int i = 0; i < v.size(); i++) {
                 StatsLog << "      Smallest interval(s) containing at least " << v[i].total_mass * 100 << "% and local mode(s):"
                         << std::endl;
                 for (unsigned j = 0; j < v[i].intervals.size(); j++) {
@@ -945,7 +945,7 @@ std::string MonteCarloEngine::computeStatistics() {
                 intervals.push_back(0.997300203937);
 
                 std::vector<BCH1D::BCH1DSmallestInterval> v = bch1d.GetSmallestIntervals(intervals);
-                for (int i = 0; i < v.size(); i++) {
+                for (unsigned int i = 0; i < v.size(); i++) {
                     StatsLog << "      Smallest interval(s) containing at least " << v[0].total_mass * 100 << "% and local mode(s):"
                             << std::endl;
                     for (unsigned j = 0; j < v[0].intervals.size(); j++) {
