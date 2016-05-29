@@ -319,6 +319,15 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("false") == 0) {
                         MCEngine.SetProposeMultivariate(false);
                     }
+                } else if (beg->compare("MCMCInitialPosition") == 0) {
+                    ++beg;
+                    if (beg->compare("Center") == 0) {
+                        MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitCenter);/* Default */
+                    } else if (beg->compare("RandomUniform") == 0){
+                        MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomUniform);
+                    } else if (beg->compare("RandomPrior") == 0){
+                        MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomPrior);
+                    } else throw std::runtime_error("\nERROR: Wrong argument for MCMCInitialPosition in MonteCarlo config file: " + *beg + "\n Options: Center, RandomUniform or RandomPrior.\n");
                 } else
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
