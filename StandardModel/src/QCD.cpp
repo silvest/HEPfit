@@ -48,7 +48,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "absh_0_2", "absh_p_2", "absh_m_2", "argh_0_2", "argh_p_2", "argh_m_2",
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
     "absh_0_MP", "argh_0_MP", "absh_0_1_MP", "argh_0_1_MP",
-    "bsgamma_E0", "BLNPcorr", "Gambino_mukin", "Gambino_BRsem", "Gambino_Mbkin", "Gambino_Mcatmuc", "Gambino_mupi2", "Gambino_rhoD3", "Gambino_muG2", "Gambino_rhoLS3",
+    "bsgamma_E0", "BLNPcorr",
     "lambdaB", "alpha1kst", "alpha2kst", "alpha2phi", "alpha1kp", "alpha2kp"
     //"r_2A0", "r_2T1", "r_2T2", "r_2A0phi", "r_2T1phi", "r_2T2phi"
 };
@@ -250,14 +250,6 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_f0", boost::cref(m_fit2_f0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_E0", boost::cref(bsgamma_E0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BLNPcorr", boost::cref(BLNPcorr)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_mukin", boost::cref(Gambino_mukin)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_BRsem", boost::cref(Gambino_BRsem)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_Mbkin", boost::cref(Gambino_Mbkin)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_Mcatmuc", boost::cref(Gambino_Mcatmuc)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_mupi2", boost::cref(Gambino_mupi2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_rhoD3", boost::cref(Gambino_rhoD3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_muG2", boost::cref(Gambino_muG2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Gambino_rhoLS3", boost::cref(Gambino_rhoLS3)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
@@ -352,6 +344,16 @@ bool QCD::PostUpdate()
     myh_m_2 = gslpp::complex(absh_m_2,argh_m_2,true);
     
     return (true);
+}
+
+void QCD::addParameters(std::vector<std::string> params_i)
+{
+    for (std::vector<std::string>::iterator it = params_i.begin(); it < params_i.end(); it++) {
+        if (optionalParameters.find(*it) == optionalParameters.end()){
+            optionalParameters[*it] = 0.;
+            ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >(*it, boost::cref(optionalParameters[*it])));
+        }
+    }
 }
 
 void QCD::setParameter(const std::string name, const double& value)
@@ -791,22 +793,6 @@ void QCD::setParameter(const std::string name, const double& value)
         bsgamma_E0 = value;
     else if (name.compare("BLNPcorr") == 0)
         BLNPcorr = value;
-    else if (name.compare("Gambino_mukin") == 0)
-        Gambino_mukin = value;
-    else if (name.compare("Gambino_BRsem") == 0)
-        Gambino_BRsem = value;
-    else if (name.compare("Gambino_Mbkin") == 0)
-        Gambino_Mbkin = value;
-    else if (name.compare("Gambino_Mcatmuc") == 0)
-        Gambino_Mcatmuc = value;
-    else if (name.compare("Gambino_mupi2") == 0)
-        Gambino_mupi2 = value;
-    else if (name.compare("Gambino_rhoD3") == 0)
-        Gambino_rhoD3 = value;
-    else if (name.compare("Gambino_muG2") == 0)
-        Gambino_muG2 = value;
-    else if (name.compare("Gambino_rhoLS3") == 0)
-        Gambino_rhoLS3 = value;
     else if (name.compare("lambdaB") == 0) {
         mesons[B_D].setLambdaM(value);
         mesons[B_S].setLambdaM(value);
@@ -821,9 +807,13 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[K_P].setGegenalpha(0,value);
     else if (name.compare("alpha2kp") == 0)
         mesons[K_P].setGegenalpha(1,value);
+    else if (optionalParameters.find(name) != optionalParameters.end())
+        setOptionalParameter(name, value);
     else
-        if (unknownParameterWarning && !isSliced)
-        std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
+        if (unknownParameterWarning && !isSliced) {
+            //std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
+            unknownParameters.push_back(name);
+        }
 }
 
 bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
@@ -833,6 +823,12 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
             std::cout << "missing mandatory QCD parameter " << QCDvars[i] << std::endl;
             return false;
         }
+    for (std::map<std::string, double>::iterator it = optionalParameters.begin(); it != optionalParameters.end(); it++) {
+        if (DPars.find(it->first) == DPars.end()) {
+            std::cout << "missing optional parameter " << it->first << std::endl;
+            return false;
+        }
+    }
     return true;
 }
 

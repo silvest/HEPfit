@@ -43,11 +43,12 @@ public:
      * @param[in] model 
      * @return a pointer to an object of the type ThObservable
      */
-    ThObservable* CreateThMethod(const std::string& name, const StandardModel& model) const;
+    ThObservable* CreateThMethod(const std::string& name, StandardModel& model) const;
 
 
 private:
     std::map<std::string, boost::function<ThObservable* (const StandardModel &) > > obsThFactory;
+    std::map<std::string, std::vector<std::string> > parameterForObservable;
 };
 
 #endif	/* THOBSFACTORY_H */

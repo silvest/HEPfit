@@ -751,7 +751,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 190; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 182; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -810,14 +810,49 @@ public:
     virtual bool PostUpdate();
 
     /**
-     * @brief A method to check if all the mandatory parameters for %StandardModel
+     * @brief A method to check if all the mandatory parameters for %QCD
      * have been provided in model initialization.
      * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    
+    /**
+     * @brief A method to add parameters that are specific to only one set of observables
+     * @param[in] params_i a vector of parameters to be added
+     * (including parameters that are varied and those that are held constant)
+     */
+    void addParameters(std::vector<std::string> params_i);
+    
+    /**
+     * @brief A method to get parameters that are specific to only one set of observables.
+     * @param[in] name the name of the parameter
+     * @return a double that is the value of the parameter
+     */
+    double getOptionalParameter(std::string name) const
+    {
+        return optionalParameters.at(name);
+    }
+    
+    /**
+     * @brief A method to set the parameter value for the parameters that are specific to only one set of observables.
+     * @param[in] name the name of the parameter
+     * @param[in] value the value of the parameter
+     */
+    void setOptionalParameter(std::string name, double value)
+    {
+        optionalParameters[name] = value;
+    }
 
+    /**
+     * @brief A method to get the vector of the parameters that have been specified in the configuration file but not being used.
+     * @return a vector of strings that contain the names of the parameters
+     */
+    std::vector<std::string> getUnknownParameters()
+    {
+        return unknownParameters;
+    }
 
     ////////////////////////////////////////////////////////////////////////
     // Flags
@@ -1704,71 +1739,7 @@ public:
     {
         return BLNPcorr;
     }
-    
-    /**
-     * @return the kinetic scale used in arXiv:1411.6560.
-     */
-    double getGambino_mukin() const
-    {
-        return Gambino_mukin;
-    }
-    
-    /**
-     * @return the fit value for the branching ratio of @f$B\to X_c e\nu@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
-     */
-    double getGambino_BRsem() const
-    {
-        return Gambino_BRsem;
-    }
-    
-    /**
-     * @return the fit value for the kinetic b mass @f$M_b^{\rm kin}(\mu^{\rm kin})@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
-     */
-    double getGambino_Mbkin() const
-    {
-        return Gambino_Mbkin;
-    }
-    
-    /**
-     * @return the fit value for the MSbar mass @f$M_c(\mu_c)@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
-     */
-    double getGambino_Mcatmuc() const
-    {
-        return Gambino_Mcatmuc;
-    }
-    
-    /**
-     * @return the fit value for @f$\mu_{\pi}^2@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
-     */
-    double getGambino_mupi2() const
-    {
-        return Gambino_mupi2;
-    }
-    
-    /**
-     * @return the fit value for @f$\rho_D^3@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
-     */
-    double getGambino_rhoD3() const
-    {
-        return Gambino_rhoD3;
-    }
-    
-    /**
-     * @return the fit value for @f$\mu_G^2@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
-     */
-    double getGambino_muG2() const
-    {
-        return Gambino_muG2;
-    }
-    
-    /**
-     * @return the fit value for@f$\rho_{LS}^3@f$ computed as in arXiv:1411.6560, but with @f$\mu_c=2GeV@f$.
-     */
-    double getGambino_rhoLS3() const
-    {
-        return Gambino_rhoLS3;
-    }
-    
+        
     /**
      * @return the decay constant of a transversely polarized @f$K^*@f$ meson at 1 GeV
      */
@@ -2052,7 +2023,6 @@ protected:
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
     double bsgamma_E0, BLNPcorr;
-    double Gambino_mukin, Gambino_BRsem, Gambino_Mbkin, Gambino_Mcatmuc, Gambino_mupi2, Gambino_rhoD3, Gambino_muG2, Gambino_rhoLS3;
     double FKstarp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
@@ -2087,6 +2057,8 @@ private:
     mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
     mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     bool unknownParameterWarning; ///< A flag to stop the unknown parameter warning after the first time.
+    std::map<std::string, double> optionalParameters; ///< A map for containing the list and values of the parameters that are used only by a specific set of observables.
+    std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
 
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.
