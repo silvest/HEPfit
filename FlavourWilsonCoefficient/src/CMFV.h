@@ -28,11 +28,6 @@ public:
     {
         return CMFVM.getObj();
     }
-
-    virtual void setMatching(CMFVMatching& FWCMr)
-    {
-        CMFVM.setObj(FWCMr);
-    }
     
     double getFtt() const
     {

@@ -748,7 +748,7 @@ public:
      * @brief A get method to retrieve the Higgs mass @f$m_h@f$.
      * @return @f$m_h@f$ in GeV
      */
-    double getMHl() const
+    virtual double getMHl() const
     {
         return mHl;
     }
@@ -949,11 +949,6 @@ public:
     virtual StandardModelMatching& getMatching() const
     {
         return SMM.getObj();
-    }
-
-    virtual void setMatching(StandardModelMatching& SMMr)
-    {
-        SMM.setObj(SMMr);
     }
 
     /**

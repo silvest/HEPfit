@@ -40,10 +40,10 @@ public:
         return SUSYMIM.getObj();
     }
  
-    virtual void setMatching(SUSYMassInsertionMatching& SUSYMIMr)
-    {
-        SUSYMIM.setObj(SUSYMIMr);
-    }
+//    virtual void setMatching(SUSYMassInsertionMatching& SUSYMIMr)
+//    {
+//        SUSYMIM.setObj(SUSYMIMr);
+//    }
  
      ///////////////////////////////////////////////////////////////////////////
     // Parameters 

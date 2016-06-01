@@ -51,11 +51,6 @@ public:
     {
         return FWCM.getObj();
     }
-
-    virtual void setMatching(FlavourWilsonCoefficientMatching& FWCMr)
-    {
-        FWCM.setObj(FWCMr);
-    }
     
     /**
      *

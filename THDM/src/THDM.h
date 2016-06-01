@@ -142,12 +142,6 @@ public:
         return THDMM.getObj();
     }
 
-    virtual void setMatching(THDMMatching& THDMMr)
-    {
-        THDMM.setObj(THDMMr);
-    }
-
-
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 

@@ -63,11 +63,6 @@ public:
     {
         return SUSYM.getObj();
     }
-
-    virtual void setMatching(SUSYMatching& SUSYMr)
-    {
-        SUSYM.setObj(SUSYMr);
-    }
     
     ///////////////////////////////////////////////////////////////////////////
     // Parameters 
