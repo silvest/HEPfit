@@ -110,14 +110,14 @@ bool FlavourWilsonCoefficient::PostUpdate()
     DC6 = gslpp::complex(absDC6, argDC6, true);
     DC7 = gslpp::complex(absDC7, argDC7, true);
     DC8 = gslpp::complex(absDC8, argDC8, true);
-    DC9 = gslpp::complex(absDC9, argDC8, true);
+    DC9 = gslpp::complex(absDC9, argDC9, true);
     DC10 = gslpp::complex(absDC10, argDC10, true);
     DC7g = gslpp::complex(absDC7g, argDC7g, true);
     DC8g = gslpp::complex(absDC8g, argDC8g, true);
     
     DC7p = gslpp::complex(absDC7p, argDC7p, true);
     DC8p = gslpp::complex(absDC8p, argDC8p, true);
-    DC9p = gslpp::complex(absDC9p, argDC8p, true);
+    DC9p = gslpp::complex(absDC9p, argDC9p, true);
     DC10p = gslpp::complex(absDC10p, argDC10p, true);
     DC7gp = gslpp::complex(absDC7gp, argDC7gp, true);
     DC8gp = gslpp::complex(absDC8gp, argDC8gp, true);
