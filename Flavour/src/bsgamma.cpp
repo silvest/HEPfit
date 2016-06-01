@@ -2151,14 +2151,14 @@ double Bsgamma::C_sem()
 
 void Bsgamma::updateParameters()
 {
-    mu_kin=SM.getGambino_mukin();
-    BRsl=SM.getGambino_BRsem()/100.;
-    Mb_kin=SM.getGambino_Mbkin();
-    Mc=SM.getGambino_Mcatmuc();
-    mu_pi2=SM.getGambino_mupi2();
-    rho_D3=SM.getGambino_rhoD3();
-    mu_G2=SM.getGambino_muG2();
-    rho_LS3=SM.getGambino_rhoLS3();
+    mu_kin=SM.getOptionalParameter("Gambino_mukin");
+    BRsl=SM.getOptionalParameter("Gambino_BRsem")/100.;
+    Mb_kin=SM.getOptionalParameter("Gambino_Mbkin");
+    Mc=SM.getOptionalParameter("Gambino_Mcatmuc");
+    mu_pi2=SM.getOptionalParameter("Gambino_mupi2");
+    rho_D3=SM.getOptionalParameter("Gambino_rhoD3");
+    mu_G2=SM.getOptionalParameter("Gambino_muG2");
+    rho_LS3=SM.getOptionalParameter("Gambino_rhoLS3");
     C=C_sem();
     
     ale=SM.getAle();
