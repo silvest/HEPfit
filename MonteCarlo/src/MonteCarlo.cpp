@@ -378,7 +378,7 @@ void MonteCarlo::Run(const int rank) {
             if (PrintCorrelationMatrix) {
                 MCEngine.PrintCorrelationMatrix(("CorrelationMatrix" + JobTag + ".pdf").c_str());
                 MCEngine.PrintCorrelationMatrix(("CorrelationMatrix" + JobTag + ".tex").c_str());
-                MCEngine.PrintCorrelationPlot("CorrelationPlots.pdf");
+                MCEngine.PrintCorrelationPlot("CorrelationPlots" + JobTag + ".pdf");
                 MCEngine.PrintCorrelationMatrixToLaTeX(("ParameterCorrelations" + JobTag + ".tex").c_str());
             }
                
