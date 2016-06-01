@@ -123,7 +123,7 @@ private:
     std::vector<std::string> paraNames; ///< The vector of allowed parameter names.
     std::map<std::string, ThObservable*> DThObs;
     const int rank; ///<< Rank of the MPI process. Set to 0 for serial run. 
-
+    std::vector<std::string> unknownParameters;
 };
 
 /**

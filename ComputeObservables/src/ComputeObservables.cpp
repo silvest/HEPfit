@@ -45,6 +45,13 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     Mod = myInputParser.getModel();
     if (!Mod->Init(DP)) 
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
+    
+    unknownParameters = Mod->getUnknownParameters();
+    if (unknownParameters.size() > 0 && rank == 0) {
+        std::cout << "\n" << std::endl;
+        for (std::vector<std::string>::iterator it = unknownParameters.begin(); it != unknownParameters.end(); it++)
+            std::cout << "WARNING: unknown parameter " << *it << " not added." << std::endl;
+    }
 }
 
 ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObsF,
@@ -66,11 +73,17 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     }
     if (!Mod->Init(DPars_i))
         throw std::runtime_error("\nERROR: Model cannot be initialized initialization.\n");
+    
+    unknownParameters = Mod->getUnknownParameters();
+    if (unknownParameters.size() > 0 && rank == 0) {
+        std::cout << "\n" << std::endl;
+        for (std::vector<std::string>::iterator it = unknownParameters.begin(); it != unknownParameters.end(); it++)
+            std::cout << "WARNING: unknown parameter " << *it << " not added to MCMC" << std::endl;
+    }
 }
 
 ComputeObservables::~ComputeObservables()
-{
-}
+{}
 
 void ComputeObservables::setFlags(std::map<std::string, std::string> DFlags_i)
 {
