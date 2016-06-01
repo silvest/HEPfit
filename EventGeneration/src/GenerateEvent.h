@@ -117,7 +117,7 @@ private:
     std::map<std::string, boost::shared_ptr<std::ofstream> > ObsOut;///< Map of output stream for observables.
     std::map<std::string, boost::shared_ptr<std::ofstream> > CGOOut;///< Map of output stream for corellated Gaussian observables.
     std::map<std::string, boost::shared_ptr<std::ofstream> > ParsOut;///< Map of output stream for parameters.
-    Model* Mod; ///< Name of the model as defined in SomeModel.conf
+    StandardModel* Mod; ///< Name of the model as defined in SomeModel.conf
     std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf.
     std::vector<ModelParameter> ModParsVar; ///< Vector for the model parameters varied in SomeModel.conf.
     boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.

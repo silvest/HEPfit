@@ -76,7 +76,7 @@ public:
      * MonteCarloEngine.h.
      * @param[in] Mod_i the pointer to the model defined in SomeModel.conf
      */
-    void Initialize(Model* Mod_i);
+    void Initialize(StandardModel* Mod_i);
 
     /**
      * @brief A member to classify the prior of the model parameters varied in the Monte Carlo
@@ -251,7 +251,7 @@ private:
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.
     std::vector<Observable2D>& Obs2D_ALL; ///< A vector of all pairs of observable for Observable2D.
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
-    Model* Mod; ///< A pointer to an abject of type Model.
+    StandardModel* Mod; ///< A pointer to an abject of type Model.
     std::map<std::string, double> DPars; ///< A map between parameter names and their values.
     std::map<std::string, BCH1D> Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, BCH2D> Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
@@ -274,6 +274,7 @@ private:
     std::vector<double> hMCMCTree_Observables_weight;
     unsigned int cindex;
     std::ofstream ofi;
+    std::vector<std::string> unknownParameters;
 };
 
 #endif

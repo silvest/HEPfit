@@ -50,8 +50,6 @@ GenerateEvent::~GenerateEvent()
 void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
 {
     weight = weight_i;
-    //if (!noMC)
-      //  throw std::runtime_error("\nGenerateEvent::generate():\n--noMC was not specified as an argument.\nPlease do so for running in Generate Event mode.\n");
     nIteration = nIteration_i;
     if (nIteration == 0) outputTerm = 0;
     int it_comp = 0;
@@ -325,39 +323,49 @@ void GenerateEvent::createDirectories()
     }
 }
 
-void GenerateEvent::initModel(){
+void GenerateEvent::initModel() {
     ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, CGP);
     Mod = myInputParser.getModel();
     if (Obs.size() == 0 && CGO.size() == 0) {
-        if (rank == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n");
-        else sleep (2);
+        if (rank == 0) throw std::runtime_error("\nGenerateEvent::initModel(): No observables or correlated Gaussian observables defined in " + ModelConf + " file\n");
+        else sleep(2);
     }
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
         if (it->IsCorrelated()) {
-                for (unsigned int i = 0; i < CGP.size(); i++) {
-                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                        std::string index = it->getname().substr(CGP[i].getName().size());
-                        long int lindex = strtol(index.c_str(), NULL, 10);
-                        if (lindex > 0) DP[CGP[i].getPar(lindex - 1).getname()] = CGP[i].getPar(lindex - 1).getave();
-                        else {
-                            std::stringstream out;
-                            out << it->getname();
-                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
-                        }
+            for (unsigned int i = 0; i < CGP.size(); i++) {
+                if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                    std::string index = it->getname().substr(CGP[i].getName().size());
+                    long int lindex = strtol(index.c_str(), NULL, 10);
+                    if (lindex > 0) DP[CGP[i].getPar(lindex - 1).getname()] = CGP[i].getPar(lindex - 1).getave();
+                    else {
+                        std::stringstream out;
+                        out << it->getname();
+                        throw std::runtime_error("GenerateEvents::initModel(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
                     }
                 }
-            } else DP[it->getname()] = it->getave();
-        
-        if (it->geterrg() > 0. || it->geterrf() > 0.) ModParsVar.push_back(*it);
+            }
+        } else DP[it->getname()] = it->getave();
     }
     if (!myInputParser.getModel()->Init(DP)) {
         if (rank == 0) throw std::runtime_error("\nERROR: Model cannot be initialization");
         else sleep(2);
     }
-    
+    std::vector<std::string> unknownParameters = Mod->getUnknownParameters();
+    for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
+        if (it->geterrg() > 0. || it->geterrf() > 0.) {
+            if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) == unknownParameters.end()) ModParsVar.push_back(*it);
+        }
+    }
+
+    if (unknownParameters.size() > 0 && rank == 0) {
+        std::cout << "\n" << std::endl;
+        for (std::vector<std::string>::iterator it = unknownParameters.begin(); it != unknownParameters.end(); it++)
+            std::cout << "WARNING: unknown parameter " << *it << " in model initialization not added the Event Generation." << std::endl;
+    }
+
     buffersize = ModParsVar.size();
-    for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++){
+    for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         buffersize += it->getObs().size();
     }
     for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
@@ -369,40 +377,37 @@ void GenerateEvent::initModel(){
     }
 }
 
-void GenerateEvent::defineParameterDistributions()
-{
+void GenerateEvent::defineParameterDistributions() {
     if (outputTerm == 0 && rank == 0) std::cout << "\nParameters varied in Event Generation:" << std::endl;
     for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
         if (it->IsCorrelated()) {
-                for (unsigned int i = 0; i < CGP.size(); i++) {
-                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                        std::string index = it->getname().substr(CGP[i].getName().size());
-                        long int lindex = strtol(index.c_str(), NULL, 10);
-                        if (lindex > 0) {
-                            if (outputTerm == 0 && rank == 0) std::cout << CGP[i].getPar(lindex - 1).getname() << ", ";
-                        } else {
-                            std::stringstream out;
-                            out << it->getname();
-                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
-                        }
+            for (unsigned int i = 0; i < CGP.size(); i++) {
+                if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                    std::string index = it->getname().substr(CGP[i].getName().size());
+                    long int lindex = strtol(index.c_str(), NULL, 10);
+                    if (lindex > 0) {
+                        if (outputTerm == 0 && rank == 0) std::cout << CGP[i].getPar(lindex - 1).getname() << ", ";
+                    } else {
+                        std::stringstream out;
+                        out << it->getname();
+                        throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
                     }
                 }
-            } else if (outputTerm == 0 && rank == 0) std::cout << it->getname() << ", "; //<< k << std::endl;
-        if (it->geterrf() == 0. && it->geterrg() != 0.){
+            }
+        } else if (outputTerm == 0 && rank == 0) std::cout << it->getname() << ", "; //<< k << std::endl;
+        if (it->geterrf() == 0. && it->geterrg() != 0.) {
             DDist[it->getname()] = new TF1(it->getname().c_str(),
-            "1./sqrt(2.*TMath::Pi())/[1] * exp(-(x-[0])*(x-[0])/2./[1]/[1])",
-            it->getmin(),it->getmax());
+                    "1./sqrt(2.*TMath::Pi())/[1] * exp(-(x-[0])*(x-[0])/2./[1]/[1])",
+                    it->getmin(), it->getmax());
             DDist[it->getname()]->SetParameter(0, it->getave());
             DDist[it->getname()]->SetParameter(1, it->geterrg());
-        }
-        else if (it->geterrg() == 0. && it->geterrf() != 0.){
+        } else if (it->geterrg() == 0. && it->geterrf() != 0.) {
             DDist[it->getname()] = new TF1(it->getname().c_str(),
                     "1/([1]-[0])",
                     it->getmin(), it->getmax());
-            DDist[it->getname()]->SetParameter(0,it->getmin());
-            DDist[it->getname()]->SetParameter(1,it->getmax());
-        }
-        else {
+            DDist[it->getname()]->SetParameter(0, it->getmin());
+            DDist[it->getname()]->SetParameter(1, it->getmax());
+        } else {
             DDist[it->getname()] = new TF1(it->getname().c_str(),
                     "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
                     it->getmin(), it->getmax());
@@ -411,57 +416,54 @@ void GenerateEvent::defineParameterDistributions()
             DDist[it->getname()]->SetParameter(2, it->geterrf());
         }
     }
-    if (outputTerm == 0) std::cout << std::endl;
+    if (outputTerm == 0 && rank == 0) std::cout << std::endl;
 }
 
-void GenerateEvent::generateRandomEvent(int iterationNo)
-{
+void GenerateEvent::generateRandomEvent(int iterationNo) {
     positionID = 0;
-    
-    std::vector<double> vec(ModParsVar.size(),0.);
-    for (unsigned int i=0; i< vec.size();i++){
+
+    std::vector<double> vec(ModParsVar.size(), 0.);
+    for (unsigned int i = 0; i < vec.size(); i++) {
         if (iterationNo == 0) vec[i] = ModParsVar[i].getave();
         else vec[i] = DDist[ModParsVar[i].getname()]->GetRandom();
     }
-    
-    setDParsFromParameters(vec,DPars);
-    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++){
+
+    setDParsFromParameters(vec, DPars);
+    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
         if (it->IsCorrelated()) {
-                for (unsigned int i = 0; i < CGP.size(); i++) {
-                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                        std::string index = it->getname().substr(CGP[i].getName().size());
-                        long int lindex = strtol(index.c_str(), NULL, 10);
-                        if (lindex > 0) {
-                            sendbuff[positionID] = DPars[CGP[i].getPar(lindex - 1).getname()];
-                            sendbuff_w[positionID] = DPars[CGP[i].getPar(lindex - 1).getname()];
-                            positionID++;
-                        }
-                        else {
-                            std::stringstream out;
-                            out << it->getname();
-                            throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
-                        }
+            for (unsigned int i = 0; i < CGP.size(); i++) {
+                if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                    std::string index = it->getname().substr(CGP[i].getName().size());
+                    long int lindex = strtol(index.c_str(), NULL, 10);
+                    if (lindex > 0) {
+                        sendbuff[positionID] = DPars[CGP[i].getPar(lindex - 1).getname()];
+                        sendbuff_w[positionID] = DPars[CGP[i].getPar(lindex - 1).getname()];
+                        positionID++;
+                    } else {
+                        std::stringstream out;
+                        out << it->getname();
+                        throw std::runtime_error("MonteCarlo::Run(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
                     }
                 }
-            } else {
-                sendbuff[positionID] = DPars[it->getname()];  
-                sendbuff_w[positionID] = DPars[it->getname()];
-                positionID++;
             }
+        } else {
+            sendbuff[positionID] = DPars[it->getname()];
+            sendbuff_w[positionID] = DPars[it->getname()];
+            positionID++;
+        }
     }
     Mod->Update(DPars);
 }
 
-void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string,double>& DPars_i) 
-{
+void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string, double>& DPars_i) {
     std::map<std::string, std::vector<double> > cgpmap;
 
-   unsigned int k = 0;
-    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++){
-        
+    unsigned int k = 0;
+    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
+
         if (it->IsCorrelated()) {
             std::string index = it->getname().substr(it->getCgp_name().size());
-            unsigned long int lindex = strtol(index.c_str(),NULL,10);
+            unsigned long int lindex = strtol(index.c_str(), NULL, 10);
             if (lindex - 1 == cgpmap[it->getCgp_name()].size()) cgpmap[it->getCgp_name()].push_back(parameters[k]);
             else {
                 std::stringstream out;
@@ -472,7 +474,7 @@ void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters
         } else DPars_i[it->getname()] = parameters[k];
         k++;
     }
-    
+
     for (unsigned int j = 0; j < CGP.size(); j++) {
         std::vector<double> current = cgpmap.at(CGP[j].getName());
         if (current.size() != CGP[j].getPars().size()) {
@@ -480,10 +482,10 @@ void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters
             out << CGP[j].getName();
             throw std::runtime_error("GenerateEvent::setDParsFromParameters(): " + out.str() + " appears to be represented in cgpmap with a wrong size");
         }
-        
+
         std::vector<double> porig = CGP[j].getOrigParsValue(current);
 
-        for(unsigned int l = 0; l < porig.size(); l++) {
+        for (unsigned int l = 0; l < porig.size(); l++) {
             DPars_i[CGP[j].getPar(l).getname()] = porig[l];
         }
     }

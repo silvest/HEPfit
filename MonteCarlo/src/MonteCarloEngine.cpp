@@ -46,7 +46,7 @@ MonteCarloEngine::MonteCarloEngine(
 #endif
 };
 
-void MonteCarloEngine::Initialize(Model* Mod_i) 
+void MonteCarloEngine::Initialize(StandardModel* Mod_i) 
 {
     TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", NBINS1D, 1., -1.);
     lhisto->GetXaxis()->SetTitle("LogLikelihood");
@@ -118,6 +118,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
     kmax = k;
     kwmax = kweight;
 
+    unknownParameters = Mod->getUnknownParameters();
     DefineParameters();
     SetMaximumEfficiency(0.5);
 
@@ -165,38 +166,48 @@ void MonteCarloEngine::DefineParameters() {
     unsigned int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin();
             it < ModPars.end(); it++) {
-        if (it->geterrf() == 0. && it->geterrg() == 0.)
-            continue;
-        AddParameter(it->getname().c_str(), it->getmin(), it->getmax());
-        if (rank == 0) std::cout << k << ": " << it->getname() << ", ";
-        if (it->IsCorrelated()) {
-            for (unsigned int i = 0; i < CGP.size(); i++) {
-                if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
-                    std::string index = it->getname().substr(CGP[i].getName().size());
-                    long int lindex = strtol(index.c_str(),NULL,10);
-                    if (lindex > 0)
-                        DPars[CGP[i].getPar(lindex - 1).getname()] = 0.;
-                    else {
-                        std::stringstream out;
-                        out << it->getname();
-                        throw std::runtime_error("MonteCarloEngine::DefineParameters(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+        if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) == unknownParameters.end()) {
+            if (it->geterrf() == 0. && it->geterrg() == 0.)
+                continue;
+
+            AddParameter(it->getname().c_str(), it->getmin(), it->getmax());
+            if (rank == 0) std::cout << k << ": " << it->getname() << ", ";
+
+            if (it->IsCorrelated()) {
+                for (unsigned int i = 0; i < CGP.size(); i++) {
+                    if (CGP[i].getName().compare(it->getCgp_name()) == 0) {
+                        std::string index = it->getname().substr(CGP[i].getName().size());
+                        long int lindex = strtol(index.c_str(), NULL, 10);
+                        if (lindex > 0)
+                            DPars[CGP[i].getPar(lindex - 1).getname()] = 0.;
+                        else {
+                            std::stringstream out;
+                            out << it->getname();
+                            throw std::runtime_error("MonteCarloEngine::DefineParameters(): " + out.str() + "seems to be part of a CorrelatedGaussianParameters object, but I couldn't find the corresponding object");
+                        }
                     }
                 }
+            } else
+                DPars[it->getname()] = 0.;
+            if (it->geterrf() == 0.) GetParameter(k).SetPrior(new BCGaussianPrior(it->getave(), it->geterrg())); //SetPriorGauss(k, it->getave(), it->geterrg());
+            else if (it->geterrg() == 0.) GetParameter(k).SetPriorConstant(); //SetPriorConstant(k);
+            else {
+                TF1 combined = TF1(it->getname().c_str(),
+                        "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
+                        it->getmin(), it->getmax());
+                combined.SetParameter(0, it->getave());
+                combined.SetParameter(1, it->geterrg());
+                combined.SetParameter(2, it->geterrf());
+                GetParameter(k).SetPrior(new BCTF1Prior(combined)); //SetPrior(k, combined);
             }
-        } else
-            DPars[it->getname()] = 0.;
-        if (it->geterrf() == 0.) GetParameter(k).SetPrior(new BCGaussianPrior(it->getave(),it->geterrg()));//SetPriorGauss(k, it->getave(), it->geterrg());
-        else if (it->geterrg() == 0.) GetParameter(k).SetPriorConstant();//SetPriorConstant(k);
-        else {
-            TF1 combined = TF1(it->getname().c_str(),
-                    "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
-                    it->getmin(), it->getmax());
-            combined.SetParameter(0, it->getave());
-            combined.SetParameter(1, it->geterrg());
-            combined.SetParameter(2, it->geterrf());
-            GetParameter(k).SetPrior(new BCTF1Prior(combined));//SetPrior(k, combined);
+            k++;
         }
-        k++;
+
+    }
+    if (unknownParameters.size() > 0 && rank == 0) {
+        std::cout << "\n" << std::endl;
+        for (std::vector<std::string>::iterator it = unknownParameters.begin(); it != unknownParameters.end(); it++)
+            std::cout << "WARNING: unknown parameter " << *it << " not added to MCMC" << std::endl;
     }
 }
 
@@ -208,6 +219,8 @@ void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& paramet
     unsigned int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it < ModPars.end(); it++){
         if(it->IsFixed())
+            continue;
+        if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end())
             continue;
         if(it->getname().compare(GetParameter(k).GetName()) != 0)
             {
