@@ -751,13 +751,13 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 182; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 188; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
      * in a vector of ModelParameter via InputParser::ReadParameters().
      */
-    static const std::string QCDvars[NQCDvars];
+    static std::string QCDvars[NQCDvars];
 
     /**
      * @brief Constructor.
@@ -2038,18 +2038,14 @@ private:
     BParameter BK; ///< The bag parameters for \f$\Delta s=2\f$ processes for the \f$K^0\f$ meson system.
     BParameter BKd1;
     BParameter BKd3;
-    double BBsB0, BBsB1, BBsB2, BBsB3, BBsB4, BBsscale;
-    double FBsSqrtBBs0, FBsSqrtBBs1, FBsSqrtBBs2, FBsSqrtBBs3, FBsSqrtBBs4, csi;
-    //double BBdB0, BBdB1, BBdB2, BBdB3, BBdB4, BBdscale;
-    double BDB0, BDB1, BDB2, BDB3, BDB4, BDscale;
-    double BKB0, BKB1, BKB2, BKB3, BKB4, BKscale;
-    double BKd1B0, BKd1B1, BKd1B2, BKd1B3, BKd1B4, BKd1B5, BKd1B6, BKd1B7, BKd1B8, BKd1B9, BKd_scale;
-    double BKd3B0, BKd3B1, BKd3B2, BKd3B3, BKd3B4, BKd3B5, BKd3B6, BKd3B7, BKd3B8, BKd3B9;
+    double FBsSqrtBBs1, FBsSqrtBBs2, FBsSqrtBBs3, FBsSqrtBBs4, FBsSqrtBBs5, 
+            FBdSqrtBBd2, FBdSqrtBBd3, FBdSqrtBBd4, FBdSqrtBBd5, csi;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
-    bool computeFBd; ///< Swith for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
-    bool computeBd; ///< Swith for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
+    bool computeFBd; ///< Switch for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
+    bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
+    bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
     static const int CacheSize = 5; ///< Defines the depth of the cache.
     mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double logLambda5_cache[4][CacheSize];
@@ -2059,6 +2055,7 @@ private:
     bool unknownParameterWarning; ///< A flag to stop the unknown parameter warning after the first time.
     std::map<std::string, double> optionalParameters; ///< A map for containing the list and values of the parameters that are used only by a specific set of observables.
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
+    bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\csi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
 
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.

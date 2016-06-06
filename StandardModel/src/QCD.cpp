@@ -20,7 +20,7 @@
 #include <Math/BrentRootFinder.h>
 #include "QCD.h"
 
-const std::string QCD::QCDvars[NQCDvars] = {
+std::string QCD::QCDvars[NQCDvars] = {
     "AlsM", "MAls",
     "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
     "muc", "mub", "mut",
@@ -32,6 +32,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
     "csi",
     "FBsSqrtBBs1", "FBsSqrtBBs2", "FBsSqrtBBs3", "FBsSqrtBBs4", "FBsSqrtBBs5", "BBsscale", "BBsscheme",
+    "FBdSqrtBBd2", "FBdSqrtBBd3", "FBdSqrtBBd4", "FBdSqrtBBd5", "BBdscale", "BBdscheme",
     "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5",
     "BK(1/2)6", "BK(1/2)7", "BK(1/2)8", "BK(1/2)9", "BK(1/2)10",
     "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5",
@@ -56,6 +57,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
 QCD::QCD()
 : BBs(5), BBd(5), BD(5), BK(5), BKd1(10), BKd3(10)
 {
+    FlagCsi = true;
     Nc = 3.;
     CF = Nc / 2. - 1. / (2. * Nc);
     //    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
@@ -125,13 +127,18 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD4", boost::cref(BD.getBpars()(3))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD5", boost::cref(BD.getBpars()(4))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDscale", boost::cref(BD.getMu())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("csi", boost::cref(csi)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsoBBd", boost::cref(BBsoBBd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs1", boost::cref(BBs.getBpars()(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs2", boost::cref(BBs.getBpars()(1))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs3", boost::cref(BBs.getBpars()(2))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs4", boost::cref(BBs.getBpars()(3))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs5", boost::cref(BBs.getBpars()(4))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsscale", boost::cref(BBs.getMu())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd2", boost::cref(BBd.getBpars()(1))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd3", boost::cref(BBd.getBpars()(2))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd4", boost::cref(BBd.getBpars()(3))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd5", boost::cref(BBd.getBpars()(4))));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBdscale", boost::cref(BBd.getMu())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)1", boost::cref(BKd1.getBpars()(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)2", boost::cref(BKd1.getBpars()(1))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)3", boost::cref(BKd1.getBpars()(2))));
@@ -294,6 +301,7 @@ bool QCD::PreUpdate()
     requireYu = false;
     requireYd = false;
     computeBd = false;
+    computeBs = false;
     computeFBd = false;
     computemt = false;
 
@@ -320,8 +328,24 @@ bool QCD::PostUpdate()
 {
     if (computeFBd)
         mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
+    if (computeBs)
+    {
+        BBs.setBpars(0, FBsSqrtBBs1*FBsSqrtBBs1/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
+        BBs.setBpars(1, FBsSqrtBBs2*FBsSqrtBBs2/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
+        BBs.setBpars(2, FBsSqrtBBs3*FBsSqrtBBs3/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
+        BBs.setBpars(3, FBsSqrtBBs4*FBsSqrtBBs4/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
+        BBs.setBpars(4, FBsSqrtBBs5*FBsSqrtBBs5/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
+    }
     if (computeBd)
-        BBd.setBpars(0, BBs.getBpars()(0) / csi / csi);
+        if (FlagCsi) {
+        BBd.setBpars(0, FBsoFBd * FBsoFBd * BBs.getBpars()(0) / csi / csi);
+        BBd.setBpars(1, FBdSqrtBBd2 * FBdSqrtBBd2 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BBd.setBpars(2, FBdSqrtBBd3 * FBdSqrtBBd3 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BBd.setBpars(3, FBdSqrtBBd4 * FBdSqrtBBd4 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BBd.setBpars(4, FBdSqrtBBd5 * FBdSqrtBBd5 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        }
+        else
+            BBd.setBpars(0, BBs.getBpars()(0) / BBsoBBd);
     if (computemt) {
         quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
 #if SUSYFIT_DEBUG & 2
@@ -454,148 +478,136 @@ void QCD::setParameter(const std::string name, const double& value)
         computeFBd = true;
     } else if (name.compare("BK1") == 0) {
         BK.setBpars(0, value);
-        BKB0 = value;
     } else if (name.compare("BK2") == 0) {
         BK.setBpars(1, value);
-        BKB1 = value;
     } else if (name.compare("BK3") == 0) {
         BK.setBpars(2, value);
-        BKB2 = value;
     } else if (name.compare("BK4") == 0) {
         BK.setBpars(3, value);
-        BKB3 = value;
     } else if (name.compare("BK5") == 0) {
         BK.setBpars(4, value);
-        BKB4 = value;
     } else if (name.compare("BKscale") == 0) {
         BK.setMu(value);
-        BKscale = value;
     } else if (name.compare("BKscheme") == 0)
         BK.setScheme((schemes) value);
     else if (name.compare("BD1") == 0) {
         BD.setBpars(0, value);
-        BDB0 = value;
     } else if (name.compare("BD2") == 0) {
         BD.setBpars(1, value);
-        BDB1 = value;
     } else if (name.compare("BD3") == 0) {
         BD.setBpars(2, value);
-        BDB2 = value;
     } else if (name.compare("BD4") == 0) {
         BD.setBpars(3, value);
-        BDB3 = value;
     } else if (name.compare("BD5") == 0) {
         BD.setBpars(4, value);
-        BDB4 = value;
     } else if (name.compare("BDscale") == 0) {
         BD.setMu(value);
-        BDscale = value;
     } else if (name.compare("BDscheme") == 0)
         BD.setScheme((schemes) value);
-    else if (name.compare("csi") == 0) {
+    else if (name.compare("csi") == 0  && FlagCsi) {
         csi = value;
         computeBd = true;
-    } else if (name.compare("FBsSqrtBBs1") == 0) {
-        double value2 = value*value;
-        BBs.setBpars(0, value2);
-        BBsB0 = value2;
+    } else if (name.compare("BBsoBBd") == 0 && !FlagCsi) {
+      BBsoBBd = value;
+      computeBd = true;
+    } else if (name.compare("BBs1") == 0 && !FlagCsi) {
+        BBs.setBpars(0, value);
         computeBd = true;
-    } else if (name.compare("FBsSqrtBBs2") == 0) {
-        double value2 = value*value;
-        BBd.setBpars(1, value2);
-        BBs.setBpars(1, value2);
-        BBsB1 = value2;
-        //BBdB1 = value;
-    } else if (name.compare("FBsSqrtBBs3") == 0) {
-        double value2 = value*value;
-        BBd.setBpars(2, value2);
-        BBs.setBpars(2, value2);
-        BBsB2 = value2;
-        //BBdB2 = value;
-    } else if (name.compare("FBsSqrtBBs4") == 0) {
-        double value2 = value*value;
-        BBd.setBpars(3, value2);
-        BBs.setBpars(3, value2);
-        BBsB3 = value2;
-        //BBdB3 = value;
-    } else if (name.compare("FBsSqrtBBs5") == 0) {
-        double value2 = value*value;
-        BBd.setBpars(4, value2);
-        BBs.setBpars(4, value2);
-        BBsB4 = value2;
-        //BBdB4 = value;
+    } else if (name.compare("BBs2") == 0 && !FlagCsi) {
+        BBs.setBpars(1, value);
+    } else if (name.compare("BBs3") == 0 && !FlagCsi) {
+        BBs.setBpars(2, value);
+    } else if (name.compare("BBs4") == 0 && !FlagCsi) {
+        BBs.setBpars(3, value);
+    } else if (name.compare("BBs5") == 0 && !FlagCsi) {
+        BBs.setBpars(4, value);
+    } else if (name.compare("FBsSqrtBBs1") == 0 && FlagCsi) {
+        FBsSqrtBBs1 = value;
+        computeBs = true;
+        computeBd = true;
+    } else if (name.compare("FBsSqrtBBs2") == 0 && FlagCsi) {
+        FBsSqrtBBs2 = value;
+        computeBs = true;
+    } else if (name.compare("FBsSqrtBBs3") == 0 && FlagCsi) {
+        FBsSqrtBBs3 = value;
+        computeBs = true;
+    } else if (name.compare("FBsSqrtBBs4") == 0 && FlagCsi) {
+        FBsSqrtBBs4 = value;
+        computeBs = true;
+    } else if (name.compare("FBsSqrtBBs5") == 0 && FlagCsi) {
+        FBsSqrtBBs5 = value;
+        computeBs = true;
     } else if (name.compare("BBsscale") == 0) {
-        BBd.setMu(value);
         BBs.setMu(value);
-        BBsscale = value;
-        //BBdscale = value;
     } else if (name.compare("BBsscheme") == 0) {
-        BBd.setScheme((schemes) value);
         BBs.setScheme((schemes) value);
+    } else if (name.compare("BBd2") == 0 && !FlagCsi) {
+        BBd.setBpars(1, value);
+    } else if (name.compare("BBd3") == 0 && !FlagCsi) {
+        BBd.setBpars(2, value);
+    } else if (name.compare("BBd4") == 0 && !FlagCsi) {
+        BBd.setBpars(3, value);
+    } else if (name.compare("BBd5") == 0 && !FlagCsi) {
+        BBd.setBpars(4, value);
+    } else if (name.compare("FBdSqrtBBd2") == 0 && FlagCsi) {
+        FBdSqrtBBd2 = value;
+        computeBd = true;
+    } else if (name.compare("FBdSqrtBBd3") == 0 && FlagCsi) {
+        FBdSqrtBBd3 = value;
+        computeBd = true;
+    } else if (name.compare("FBdSqrtBBd4") == 0 && FlagCsi) {
+        FBdSqrtBBd4 = value;
+        computeBd = true;
+    } else if (name.compare("FBdSqrtBBd5") == 0 && FlagCsi) {
+        FBdSqrtBBd5 = value;
+        computeBd = true;
+    } else if (name.compare("BBdscale") == 0) {
+        BBd.setMu(value);
+    } else if (name.compare("BBdscheme") == 0) {
+        BBd.setScheme((schemes) value);
     } else if (name.compare("BK(1/2)1") == 0) {
         BKd1.setBpars(0, value);
-        BKd1B0 = value;
     } else if (name.compare("BK(1/2)2") == 0) {
         BKd1.setBpars(1, value);
-        BKd1B1 = value;
     } else if (name.compare("BK(1/2)3") == 0) {
         BKd1.setBpars(2, value);
-        BKd1B2 = value;
     } else if (name.compare("BK(1/2)4") == 0) {
         BKd1.setBpars(3, value);
-        BKd1B3 = value;
     } else if (name.compare("BK(1/2)5") == 0) {
         BKd1.setBpars(4, value);
-        BKd1B4 = value;
     } else if (name.compare("BK(1/2)6") == 0){
         BKd1.setBpars(5, value);
-        BKd1B5 = value;
     } else if (name.compare("BK(1/2)7") == 0){
         BKd1.setBpars(6, value);
-        BKd1B6 = value;
     } else if (name.compare("BK(1/2)8") == 0) {
         BKd1.setBpars(7, value);
-        BKd1B7 = value;
     } else if (name.compare("BK(1/2)9") == 0) {
         BKd1.setBpars(8, value);
-        BKd1B8 = value;
     } else if (name.compare("BK(1/2)10") == 0) {
         BKd1.setBpars(9, value);
-        BKd1B9 = value;
     } else if (name.compare("BK(3/2)1") == 0) {
         BKd3.setBpars(0, value);
-        BKd3B0 = value;
     } else if (name.compare("BK(3/2)2") == 0) {
         BKd3.setBpars(1, value);
-        BKd3B1 = value;
     } else if (name.compare("BK(3/2)3") == 0) {
         BKd3.setBpars(2, value);
-        BKd3B2 = value;
     } else if (name.compare("BK(3/2)4") == 0) {
         BKd3.setBpars(3, value);
-        BKd3B3 = value;
     } else if (name.compare("BK(3/2)5") == 0) {
         BKd3.setBpars(4, value);
-        BKd3B4 = value;
     } else if (name.compare("BK(3/2)6") == 0) {
         BKd3.setBpars(5, value);
-        BKd3B5 = value;
     } else if (name.compare("BK(3/2)7") == 0) {
         BKd3.setBpars(6, value);
-        BKd3B6 = value;
     } else if (name.compare("BK(3/2)8") == 0) {
         BKd3.setBpars(7, value);
-        BKd3B7 = value;
     } else if (name.compare("BK(3/2)9") == 0) {
         BKd3.setBpars(8, value);
-        BKd3B8 = value;
     } else if (name.compare("BK(3/2)10") == 0) {
         BKd3.setBpars(9, value);
-        BKd3B9 = value;
     } else if (name.compare("BKd_scale") == 0) {
         BKd1.setMu(value);
         BKd3.setMu(value);
-        BKd_scale = value;
     } else if (name.compare("BKd_scheme") == 0) {
         BKd1.setScheme((schemes) value);
         BKd3.setScheme((schemes) value);
@@ -836,8 +848,34 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
 
 bool QCD::setFlag(const std::string name, const bool value)
 {
-    std::cout << "WARNING: wrong name or value for ModelFlag " << name << std::endl;
-    return (false);
+    bool res = false;
+    if (name.compare("FlagCsi") == 0) {
+        FlagCsi = value;
+        res = true;
+        if (!FlagCsi) {
+            auto pippo = std::find(QCDvars,QCDvars+NQCDvars,"csi");
+            QCDvars[pippo-QCDvars] = "BBsoBBd";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs1");
+            QCDvars[pippo-QCDvars] = "BBs1";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs2");
+            QCDvars[pippo-QCDvars] = "BBs2";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs3");
+            QCDvars[pippo-QCDvars] = "BBs3";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs4");
+            QCDvars[pippo-QCDvars] = "BBs4";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs5");
+            QCDvars[pippo-QCDvars] = "BBs5";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd2");
+            QCDvars[pippo-QCDvars] = "BBd2";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd3");
+            QCDvars[pippo-QCDvars] = "BBd3";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd4");
+            QCDvars[pippo-QCDvars] = "BBd4";
+            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd5");
+            QCDvars[pippo-QCDvars] = "BBd5";
+       }
+    }
+    return res;
 }
 
 bool QCD::setFlagStr(const std::string name, const std::string value)

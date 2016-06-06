@@ -238,11 +238,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_bdgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::DOWN, 1);
     obsThFactory["BR_CPodd_bdgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::DOWN, 2);
     obsThFactory["BR_bqgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 1);
-    parameterForObservable["BR_bsgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
-    parameterForObservable["BR_CPodd_bsgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
-    parameterForObservable["BR_bdgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
-    parameterForObservable["BR_CPodd_bdgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
-    parameterForObservable["BR_bqgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
+    //parameterForObservable["BR_bsgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
+    //parameterForObservable["BR_CPodd_bsgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
+    //parameterForObservable["BR_bdgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
+    //parameterForObservable["BR_CPodd_bdgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
+    //parameterForObservable["BR_bqgamma"] = boost::assign::list_of("Gambino_mukin")("Gambino_BRsem")("Gambino_Mbkin")("Gambino_Mcatmuc")("Gambino_mupi2")("Gambino_rhoD3")("Gambino_muG2")("Gambino_rhoLS3");
     //----- B to K* ll  -----
     obsThFactory["P_1_BdKstmu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["P_1_BdKste"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);

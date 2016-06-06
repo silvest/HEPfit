@@ -28,8 +28,6 @@
 #include <LeptonFlavour.h>
 /** END: REMOVE FROM THE PACKAGE **/
 
-
-//NOTICE: lambda, A, rhob and etab MUST be the first four items, otherwise FlagWolfenstein does not work!!!!
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw",
@@ -407,10 +405,14 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("Wolfenstein") == 0) {
         FlagWolfenstein = value;
         if(!FlagWolfenstein) {
-            SMvars[0] = "Vus";
-            SMvars[1] = "Vcb";
-            SMvars[2] = "Vub";
-            SMvars[3] = "gamma";
+            auto pippo = std::find(SMvars,SMvars+NSMvars,"lambda");
+            SMvars[pippo-SMvars] = "Vus";
+            pippo = std::find(SMvars,SMvars+NSMvars,"A");
+            SMvars[pippo-SMvars] = "Vcb";
+            pippo = std::find(SMvars,SMvars+NSMvars,"rhob");
+            SMvars[pippo-SMvars] = "Vub";
+            pippo = std::find(SMvars,SMvars+NSMvars,"etab");
+            SMvars[pippo-SMvars] = "gamma";
         }
         res = true;
     } else if (name.compare("WithoutNonUniversalVC") == 0) {
