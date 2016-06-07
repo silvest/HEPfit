@@ -328,6 +328,11 @@ void MonteCarlo::Run(const int rank) {
                     } else if (beg->compare("RandomPrior") == 0){
                         MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomPrior);
                     } else throw std::runtime_error("\nERROR: Wrong argument for MCMCInitialPosition in MonteCarlo config file: " + *beg + "\n Options: Center, RandomUniform or RandomPrior.\n");
+                } else if (beg->compare("PrintLogo") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        MCEngine.setPrintLogo(true);
+                    }
                 } else
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);

@@ -39,6 +39,7 @@ MonteCarloEngine::MonteCarloEngine(
     TH1::StatOverflows(kTRUE);
     TH1::SetDefaultBufferSize(100000);
     cindex = 0;
+    printLogo = false;
 #ifdef _MPI
     rank = MPI::COMM_WORLD.Get_rank();
 #else
@@ -606,10 +607,12 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     bch1d.Draw();
     
     // draw logo
-    b1.Draw("SAME");
-    b2.Draw("SAME");
-    b3.Draw("SAME");
-    b4.Draw("SAME");
+    if (printLogo) {
+        b1.Draw("SAME");
+        b2.Draw("SAME");
+        b3.Draw("SAME");
+        b4.Draw("SAME");
+    }
     
     // print to file.
     c->Print(filename);
@@ -679,10 +682,12 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
     bch2d.Draw();
 
     //draw logo
-    b1.Draw("SAME");
-    b2.Draw("SAME");
-    b3.Draw("SAME");
-    b4.Draw("SAME");
+    if (printLogo) {
+        b1.Draw("SAME");
+        b2.Draw("SAME");
+        b3.Draw("SAME");
+        b4.Draw("SAME");
+    }
     
     // print to file
     c->Print(filename);

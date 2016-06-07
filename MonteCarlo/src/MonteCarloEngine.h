@@ -225,27 +225,70 @@ public:
         return NumOfUsedEvents;
     }
     
+    /**
+     * @brief A get method to access the map of 1D histograms.
+     * @return the map of 1D histograms
+     */
     std::map<std::string, BCH1D> getHistograms1D() const
     {
         return Histo1D;
     }
 
+    /**
+     * @brief A get method to access the map of 2D histograms.
+     * @return the map of 2D histograms
+     */
     std::map<std::string, BCH2D> getHistograms2D() const
     {
         return Histo2D;
     }
     
+    /**
+     * @brief A method to calculate the normalization based on the Hessian approximation
+     * @return the normalization
+     */
     double computeNormalization();
     
+    /**
+     * @brief A method to calculate the second derivative.
+     * @return the second derivative
+     */
     double SecondDerivative(BCParameter par1, BCParameter par2, std::vector<double> point);
     
+    /**
+     * @brief A method to calculate the first derivative.
+     * @return the first derivative
+     */
     double FirstDerivative(BCParameter par, std::vector<double> point);
     
     double Function_h(std::vector<double> point);
     
+    /**
+     * @brief A method to rotate the diagonalized parameters to the original basis for correlated parameters.
+     * @param[in] parameters the parameters in the diagonal basis
+     * @param[in] DPars_i the parameters in the in the input basis
+     */
     void setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string,double>& DPars_i);
     
+    /**
+     * @brief A set method to toggle the printing of logo on the histogram pdf
+     * @param[in] print a boolean to toggle the printing
+     */
+    void setPrintLogo(bool print)
+    {
+        printLogo = print;
+    };
+    
 private:
+    
+    /**
+     * @brief A get method to calculate the precision of the numbers in the Statistics file based on the rms.
+     * @param[in] value the mean value
+     * @param[in] rms the rms value
+     * @return the number of digits of precision
+     */
+    int getPrecision(double value, double rms);
+    
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.
@@ -266,15 +309,15 @@ private:
     int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
-    int getPrecision(double value, double rms);
-    TTree * hMCMCObservableTree;
-    std::vector<std::vector<double> > hMCMCObservables;
-    std::vector<std::vector<double> > hMCMCObservables_weight;
-    std::vector<double> hMCMCTree_Observables;
-    std::vector<double> hMCMCTree_Observables_weight;
-    unsigned int cindex;
+    TTree * hMCMCObservableTree; ///< A ROOT tree that contains the observables values and weight when the chains are written.
+    std::vector<std::vector<double> > hMCMCObservables; ///< A vector of vectors containing the observables values of all the chains to be put into the ROOT tree.
+    std::vector<std::vector<double> > hMCMCObservables_weight; ///< A vector of vectors containing the observables weight of all the chains to be put into the ROOT tree.
+    std::vector<double> hMCMCTree_Observables; ///< A vector containing the observables values to be put into the ROOT tree.
+    std::vector<double> hMCMCTree_Observables_weight; ///< A vector containing the observables weight to be put into the ROOT tree.
+    unsigned int cindex;///< An index to distinguish between succesive canvases used to draw histograms.
     std::ofstream ofi;
-    std::vector<std::string> unknownParameters;
+    std::vector<std::string> unknownParameters; ///< A vector to contain the unkenown parameters passed in the configuration file.
+    bool printLogo; ///< A flag that is set to true for printing the logo on the histogram pdf.
 };
 
 #endif
