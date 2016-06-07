@@ -336,16 +336,16 @@ bool QCD::PostUpdate()
         BBs.setBpars(3, FBsSqrtBBs4*FBsSqrtBBs4/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
         BBs.setBpars(4, FBsSqrtBBs5*FBsSqrtBBs5/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
     }
-    if (computeBd)
+    if (computeBd) {
         if (FlagCsi) {
         BBd.setBpars(0, FBsoFBd * FBsoFBd * BBs.getBpars()(0) / csi / csi);
         BBd.setBpars(1, FBdSqrtBBd2 * FBdSqrtBBd2 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
         BBd.setBpars(2, FBdSqrtBBd3 * FBdSqrtBBd3 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
         BBd.setBpars(3, FBdSqrtBBd4 * FBdSqrtBBd4 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
         BBd.setBpars(4, FBdSqrtBBd5 * FBdSqrtBBd5 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
-        }
-        else
+        } else 
             BBd.setBpars(0, BBs.getBpars()(0) / BBsoBBd);
+    }
     if (computemt) {
         quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
 #if SUSYFIT_DEBUG & 2
