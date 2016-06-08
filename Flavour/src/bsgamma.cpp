@@ -2162,7 +2162,7 @@ void Bsgamma::updateParameters()
     C=C_sem();
     
     ale=SM.getAle();
-    E0=SM.getbsgamma_E0();
+    E0=SM.getOptionalParameter("bsgamma_E0");
     mu_b=SM.getMub();
     mu_c=SM.getMuc();
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
@@ -2195,7 +2195,7 @@ void Bsgamma::updateParameters()
                 throw std::runtime_error("bqgamma: quark " + out.str() + " not implemented");
         }
     
-    BLNPcorr=SM.getBLNPcorr();
+    BLNPcorr=SM.getOptionalParameter("BLNPcorr");
     
     checkCache();
     

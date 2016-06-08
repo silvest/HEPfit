@@ -49,7 +49,6 @@ std::string QCD::QCDvars[NQCDvars] = {
     "absh_0_2", "absh_p_2", "absh_m_2", "argh_0_2", "argh_p_2", "argh_m_2",
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
     "absh_0_MP", "argh_0_MP", "absh_0_1_MP", "argh_0_1_MP",
-    "bsgamma_E0", "BLNPcorr",
     "lambdaB", "alpha1kst", "alpha2kst", "alpha2phi", "alpha1kp", "alpha2kp"
     //"r_2A0", "r_2T1", "r_2T2", "r_2A0phi", "r_2T1phi", "r_2T2phi"
 };
@@ -255,8 +254,6 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_fT", boost::cref(m_fit2_fT)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_f0", boost::cref(r_2_f0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_f0", boost::cref(m_fit2_f0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_E0", boost::cref(bsgamma_E0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BLNPcorr", boost::cref(BLNPcorr)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
@@ -801,10 +798,6 @@ void QCD::setParameter(const std::string name, const double& value)
         r_2_f0 = value;
     else if (name.compare("m_fit2_f0") == 0)
         m_fit2_f0 = value;
-    else if (name.compare("bsgamma_E0") == 0)
-        bsgamma_E0 = value;
-    else if (name.compare("BLNPcorr") == 0)
-        BLNPcorr = value;
     else if (name.compare("lambdaB") == 0) {
         mesons[B_D].setLambdaM(value);
         mesons[B_S].setLambdaM(value);

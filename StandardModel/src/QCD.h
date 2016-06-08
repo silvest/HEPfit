@@ -751,7 +751,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 188; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 186; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1723,22 +1723,6 @@ public:
     {
         return m_fit2_f0;
     }
-    
-    /**
-     * @return the experimental energy cutoff for @f$b\to s \gamma@f$
-     */
-    double getbsgamma_E0() const
-    {
-        return bsgamma_E0;
-    }
-    
-    /**
-     * @return the Benzke, Lee, Neubert, Paz non perturbative correction for @f$b\to s \gamma@f$ from arXiv:1003.5012.
-     */
-    double getBLNPcorr() const
-    {
-        return BLNPcorr;
-    }
         
     /**
      * @return the decay constant of a transversely polarized @f$K^*@f$ meson at 1 GeV
@@ -2022,7 +2006,6 @@ protected:
     double r_1_fplus, r_2_fplus, m_fit2_fplus;
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
-    double bsgamma_E0, BLNPcorr;
     double FKstarp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
