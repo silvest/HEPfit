@@ -846,26 +846,16 @@ bool QCD::setFlag(const std::string name, const bool value)
         FlagCsi = value;
         res = true;
         if (!FlagCsi) {
-            auto pippo = std::find(QCDvars,QCDvars+NQCDvars,"csi");
-            QCDvars[pippo-QCDvars] = "BBsoBBd";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs1");
-            QCDvars[pippo-QCDvars] = "BBs1";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs2");
-            QCDvars[pippo-QCDvars] = "BBs2";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs3");
-            QCDvars[pippo-QCDvars] = "BBs3";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs4");
-            QCDvars[pippo-QCDvars] = "BBs4";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs5");
-            QCDvars[pippo-QCDvars] = "BBs5";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd2");
-            QCDvars[pippo-QCDvars] = "BBd2";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd3");
-            QCDvars[pippo-QCDvars] = "BBd3";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd4");
-            QCDvars[pippo-QCDvars] = "BBd4";
-            pippo = std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd5");
-            QCDvars[pippo-QCDvars] = "BBd5";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"csi"))] = "BBsoBBd";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs1"))] = "BBs1";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs2"))] = "BBs2";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs3"))] = "BBs3";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs4"))] = "BBs4";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs5"))] = "BBs5";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd2"))] = "BBd2";    
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd3"))] = "BBd3";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd4"))] = "BBd4";
+            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd5"))] = "BBd5";
        }
     }
     return res;

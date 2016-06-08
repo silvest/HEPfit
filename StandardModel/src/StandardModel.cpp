@@ -405,14 +405,10 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("Wolfenstein") == 0) {
         FlagWolfenstein = value;
         if(!FlagWolfenstein) {
-            auto pippo = std::find(SMvars,SMvars+NSMvars,"lambda");
-            SMvars[pippo-SMvars] = "Vus";
-            pippo = std::find(SMvars,SMvars+NSMvars,"A");
-            SMvars[pippo-SMvars] = "Vcb";
-            pippo = std::find(SMvars,SMvars+NSMvars,"rhob");
-            SMvars[pippo-SMvars] = "Vub";
-            pippo = std::find(SMvars,SMvars+NSMvars,"etab");
-            SMvars[pippo-SMvars] = "gamma";
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"lambda"))] = "Vus";
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"A"))] = "Vcb";
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"rhob"))] = "Vub";
+            SMvars[std::distance(SMvars,std::find(SMvars,SMvars+NSMvars,"etab"))] = "gamma";
         }
         res = true;
     } else if (name.compare("WithoutNonUniversalVC") == 0) {
