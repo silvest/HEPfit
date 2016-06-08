@@ -6,3 +6,6 @@ copy files in BATv1.0-dev/src-dev to BAT-1.0.0-RC1/ser
 ./configure --prefix=path
 make
 make install
+
+FOR GCC 5+
+./configure --prefix=path CC=mpicc CXX=mpic++ CXXFLAGS=-D_GLIBCXX_USE_CXX11_ABI=0
