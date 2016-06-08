@@ -33,7 +33,7 @@ int main(int argc, char** argv)
     string ModelConf, JobTag;
     string FolderOut;
     int nIterations = 0;
-    bool noMC;
+    //bool noMC;
 
     try {
         options_description desc("\nAllowed (positional) options");
@@ -102,7 +102,7 @@ int main(int argc, char** argv)
             {
                 if (rank == 0)
                     cout << "\n *** HEPfit Event Generation ***\n" << endl;
-                noMC = true;
+//                noMC = true;
                 FolderOut = vm["output_folder"].as<string > ();
                 bool weight = false;
                 nIterations = vm["it"].as<int > ();
@@ -119,7 +119,7 @@ int main(int argc, char** argv)
             {
                 if (rank == 0)
                     cout << "\n *** HEPfit Markov Chain Monte Carlo ***\n" << endl;
-                noMC = false;
+//                noMC = false;
                 string MCMCConf = vm["mcconf"].as<string > ();
                 string FileOut = vm["rootfile"].as<string > ();
                 
