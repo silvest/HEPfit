@@ -390,7 +390,16 @@ double CKM_VtdoVts::computeThValue()
     return (SM.getCKM().getVtd()/SM.getCKM().getVts());
 }
 
+CKM_rho::CKM_rho(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
+double CKM_rho::computeThValue()
+{
+    return (SM.getCKM().getRhoNB());
+}
 
+CKM_eta::CKM_eta(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
-
+double CKM_eta::computeThValue()
+{
+    return (SM.getCKM().getEtaNB());
+}

@@ -185,6 +185,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["2betapgamma"] = boost::factory<CKM_2BpG*>();
     obsThFactory["s2beta"] = boost::factory<CKM_S2Beta*>();
     obsThFactory["c2beta"] = boost::factory<CKM_C2Beta*>();
+    obsThFactory["CKM_rho"] = boost::factory<CKM_rho*>();
+    obsThFactory["CKM_eta"] = boost::factory<CKM_eta*>();
     obsThFactory["sintheta12"] = boost::factory<CKM_SinTheta12*>();
     obsThFactory["sintheta13"] = boost::factory<CKM_SinTheta13*>();
     obsThFactory["sintheta23"] = boost::factory<CKM_SinTheta23*>();

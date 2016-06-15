@@ -728,6 +728,40 @@ private:
     
 };
 
+class CKM_rho : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    CKM_rho(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\eta @f$
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
+class CKM_eta : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    CKM_eta(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\rho @f$
+     */
+    double computeThValue ();
+    
+private:
+    
+};
+
 
 #endif	/* VCKM_H */
 
