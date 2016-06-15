@@ -53,6 +53,7 @@
       <itemPath>src/alpha.h</itemPath>
       <itemPath>src/alpha_2a.h</itemPath>
       <itemPath>src/bsgamma.h</itemPath>
+      <itemPath>src/dgamma.h</itemPath>
       <itemPath>src/gamma.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -107,6 +108,7 @@
       <itemPath>src/alpha.cpp</itemPath>
       <itemPath>src/alpha_2a.cpp</itemPath>
       <itemPath>src/bsgamma.cpp</itemPath>
+      <itemPath>src/dgamma.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -349,6 +351,10 @@
       </item>
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/dgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/dgamma.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -570,6 +576,10 @@
       </item>
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/dgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/dgamma.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -780,6 +790,10 @@
       <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/dgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/dgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
       </item>
