@@ -39,13 +39,13 @@ void MVgamma::updateParameters()
 
     switch (vectorM) {
         case StandardModel::K_star:
-            a_0T1 = SM.geta_0T1();
+            a_0T1 = SM.getOptionalParameter("a_0T1");
             
             fperp = SM.getFKstarp();
 
             break;
         case StandardModel::PHI:
-            a_0T1 = SM.geta_0T1phi();
+            a_0T1 = SM.getOptionalParameter("a_0T1phi");
             
             fperp = SM.getFphip();
 

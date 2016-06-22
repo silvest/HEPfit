@@ -103,80 +103,80 @@ void MVll::updateParameters()
 
     switch (vectorM) {
         case StandardModel::K_star:
-            a_0V = mySM.geta_0V();
-            a_1V = mySM.geta_1V();
-            a_2V = mySM.geta_2V();
-            MRV_2 = mySM.getMRV() * mySM.getMRV();
+            a_0V = mySM.getOptionalParameter("a_0V");
+            a_1V = mySM.getOptionalParameter("a_1V");
+            a_2V = mySM.getOptionalParameter("a_2V");
+            MRV_2 = mySM.getOptionalParameter("MRV") * mySM.getOptionalParameter("MRV");
 
-            a_0A0 = mySM.geta_0A0();
-            a_1A0 = mySM.geta_1A0();
-            a_2A0 = mySM.geta_2A0();
-            MRA0_2 = mySM.getMRA0() * mySM.getMRA0();
+            a_0A0 = mySM.getOptionalParameter("a_0A0");
+            a_1A0 = mySM.getOptionalParameter("a_1A0");
+            a_2A0 = mySM.getOptionalParameter("a_2A0");
+            MRA0_2 = mySM.getOptionalParameter("MRA0") * mySM.getOptionalParameter("MRA0");
 
-            a_0A1 = mySM.geta_0A1();
-            a_1A1 = mySM.geta_1A1();
-            a_2A1 = mySM.geta_2A1();
-            MRA1_2 = mySM.getMRA1() * mySM.getMRA1();
+            a_0A1 = mySM.getOptionalParameter("a_0A1");
+            a_1A1 = mySM.getOptionalParameter("a_1A1");
+            a_2A1 = mySM.getOptionalParameter("a_2A1");
+            MRA1_2 = mySM.getOptionalParameter("MRA1") * mySM.getOptionalParameter("MRA1");
 
-            a_0A12 = mySM.geta_0A12();
-            a_1A12 = mySM.geta_1A12();
-            a_2A12 = mySM.geta_2A12();
-            MRA12_2 = mySM.getMRA12() * mySM.getMRA12();
+            a_0A12 = mySM.getOptionalParameter("a_0A12");
+            a_1A12 = mySM.getOptionalParameter("a_1A12");
+            a_2A12 = mySM.getOptionalParameter("a_2A12");
+            MRA12_2 = mySM.getOptionalParameter("MRA12") * mySM.getOptionalParameter("MRA12");
 
-            a_0T1 = mySM.geta_0T1();
-            a_1T1 = mySM.geta_1T1();
-            a_2T1 = mySM.geta_2T1();
-            MRT1_2 = mySM.getMRT1() * mySM.getMRT1();
+            a_0T1 = mySM.getOptionalParameter("a_0T1");
+            a_1T1 = mySM.getOptionalParameter("a_1T1");
+            a_2T1 = mySM.getOptionalParameter("a_2T1");
+            MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
 
-            a_0T2 = mySM.geta_0T2();
-            a_1T2 = mySM.geta_1T2();
-            a_2T2 = mySM.geta_2T2();
-            MRT2_2 = mySM.getMRT2() * mySM.getMRT2();
+            a_0T2 = mySM.getOptionalParameter("a_0T2");
+            a_1T2 = mySM.getOptionalParameter("a_1T2");
+            a_2T2 = mySM.getOptionalParameter("a_2T2");
+            MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
 
-            a_0T23 = mySM.geta_0T23();
-            a_1T23 = mySM.geta_1T23();
-            a_2T23 = mySM.geta_2T23();
-            MRT23_2 = mySM.getMRT23() * mySM.getMRT23();
+            a_0T23 = mySM.getOptionalParameter("a_0T23");
+            a_1T23 = mySM.getOptionalParameter("a_1T23");
+            a_2T23 = mySM.getOptionalParameter("a_2T23");
+            MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
             fperp = mySM.getFKstarp();
 
             b = 1;
             break;
         case StandardModel::PHI:
-            a_0V = mySM.geta_0Vphi();
-            a_1V = mySM.geta_1Vphi();
-            a_2V = mySM.geta_2Vphi();
-            MRV_2 = mySM.getMRVphi() * mySM.getMRVphi();
+            a_0V = mySM.getOptionalParameter("a_0Vphi");
+            a_1V = mySM.getOptionalParameter("a_1Vphi");
+            a_2V = mySM.getOptionalParameter("a_2Vphi");
+            MRV_2 = mySM.getOptionalParameter("MRVphi") * mySM.getOptionalParameter("MRVphi");
 
-            a_0A0 = mySM.geta_0A0phi();
-            a_1A0 = mySM.geta_1A0phi();
-            a_2A0 = mySM.geta_2A0phi();
-            MRA0_2 = mySM.getMRA0phi() * mySM.getMRA0phi();
+            a_0A0 = mySM.getOptionalParameter("a_0A0phi");
+            a_1A0 = mySM.getOptionalParameter("a_1A0phi");
+            a_2A0 = mySM.getOptionalParameter("a_2A0phi");
+            MRA0_2 = mySM.getOptionalParameter("MRA0phi") * mySM.getOptionalParameter("MRA0phi");
 
-            a_0A1 = mySM.geta_0A1phi();
-            a_1A1 = mySM.geta_1A1phi();
-            a_2A1 = mySM.geta_2A1phi();
-            MRA1_2 = mySM.getMRA1phi() * mySM.getMRA1phi();
+            a_0A1 = mySM.getOptionalParameter("a_0A1phi");
+            a_1A1 = mySM.getOptionalParameter("a_1A1phi");
+            a_2A1 = mySM.getOptionalParameter("a_2A1phi");
+            MRA1_2 = mySM.getOptionalParameter("MRA1phi") * mySM.getOptionalParameter("MRA1phi");
 
-            a_0A12 = mySM.geta_0A12phi();
-            a_1A12 = mySM.geta_1A12phi();
-            a_2A12 = mySM.geta_2A12phi();
-            MRA12_2 = mySM.getMRA12phi() * mySM.getMRA12phi();
+            a_0A12 = mySM.getOptionalParameter("a_0A12phi");
+            a_1A12 = mySM.getOptionalParameter("a_1A12phi");
+            a_2A12 = mySM.getOptionalParameter("a_2A12phi");
+            MRA12_2 = mySM.getOptionalParameter("MRA12phi") * mySM.getOptionalParameter("MRA12phi");
 
-            a_0T1 = mySM.geta_0T1phi();
-            a_1T1 = mySM.geta_1T1phi();
-            a_2T1 = mySM.geta_2T1phi();
-            MRT1_2 = mySM.getMRT1phi() * mySM.getMRT1phi();
+            a_0T1 = mySM.getOptionalParameter("a_0T1phi");
+            a_1T1 = mySM.getOptionalParameter("a_1T1phi");
+            a_2T1 = mySM.getOptionalParameter("a_2T1phi");
+            MRT1_2 = mySM.getOptionalParameter("MRT1phi") * mySM.getOptionalParameter("MRT1phi");
 
-            a_0T2 = mySM.geta_0T2phi();
-            a_1T2 = mySM.geta_1T2phi();
-            a_2T2 = mySM.geta_2T2phi();
-            MRT2_2 = mySM.getMRT2phi() * mySM.getMRT2phi();
+            a_0T2 = mySM.getOptionalParameter("a_0T2phi");
+            a_1T2 = mySM.getOptionalParameter("a_1T2phi");
+            a_2T2 = mySM.getOptionalParameter("a_2T2phi");
+            MRT2_2 = mySM.getOptionalParameter("MRT2phi") * mySM.getOptionalParameter("MRT2phi");
 
-            a_0T23 = mySM.geta_0T23phi();
-            a_1T23 = mySM.geta_1T23phi();
-            a_2T23 = mySM.geta_2T23phi();
-            MRT23_2 = mySM.getMRT23phi() * mySM.getMRT23phi();
+            a_0T23 = mySM.getOptionalParameter("a_0T23phi");
+            a_1T23 = mySM.getOptionalParameter("a_1T23phi");
+            a_2T23 = mySM.getOptionalParameter("a_2T23phi");
+            MRT23_2 = mySM.getOptionalParameter("MRT23phi") * mySM.getOptionalParameter("MRT23phi");
             
             fperp = mySM.getFphip();
 
