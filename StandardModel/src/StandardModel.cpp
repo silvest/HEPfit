@@ -13,6 +13,7 @@
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
 #include <gsl/gsl_sf_zeta.h>
+#include <algorithm>
 #include "StandardModel.h"
 #include "EWSMcache.h"
 #include "EWSMOneLoopEW.h"
@@ -22,10 +23,10 @@
 #include "EWSMThreeLoopEW2QCD.h"
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
-#include <Flavour.h>
+#include "Flavour.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "EWSMTwoFermionsLEP2.h"
-#include <LeptonFlavour.h>
+#include "LeptonFlavour.h"
 /** END: REMOVE FROM THE PACKAGE **/
 
 std::string StandardModel::SMvars[NSMvars] = {
