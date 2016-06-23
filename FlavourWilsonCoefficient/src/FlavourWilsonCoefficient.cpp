@@ -10,7 +10,8 @@
 const std::string FlavourWilsonCoefficient::FlavourWilsonCoefficientvars[NFlavourWilsonCoefficientvars] = {"absDC1","absDC2","absDC3","absDC4","absDC5","absDC6","absDC7","absDC8","absDC9","absDC10","absDC7g","absDC8g",
                                                                                                            "argDC1","argDC2","argDC3","argDC4","argDC5","argDC6","argDC7","argDC8","argDC9","argDC10","argDC7g","argDC8g",
                                                                                                            "absDC7p","absDC8p","absDC9p","absDC10p","absDC7gp","absDC8gp",
-                                                                                                           "argDC7p","argDC8p","argDC9p","argDC10p","argDC7gp","argDC8gp"};
+                                                                                                           "argDC7p","argDC8p","argDC9p","argDC10p","argDC7gp","argDC8gp",
+                                                                                                           "WCscale"};
 
 FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel(), FWCM(*this) {   
 
@@ -55,6 +56,8 @@ FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel(), FWCM(*th
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC10p", boost::cref(argDC10p)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC7gp", boost::cref(argDC7gp)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC8gp", boost::cref(argDC8gp)));
+    
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("WCscale", boost::cref(WCscale)));
 }
 
 FlavourWilsonCoefficient::~FlavourWilsonCoefficient(){
@@ -202,6 +205,8 @@ void FlavourWilsonCoefficient::setParameter(const std::string name, const double
         argDC7gp = value;
     else if(name.compare("argDC8gp") == 0)
         argDC8gp = value;
+    else if(name.compare("WCscale") == 0)
+        WCscale = value;
     else
         StandardModel::setParameter(name,value);
 }

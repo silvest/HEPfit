@@ -19,7 +19,7 @@
 class FlavourWilsonCoefficient: public StandardModel {
 public:
 
-    static const int NFlavourWilsonCoefficientvars = 36;
+    static const int NFlavourWilsonCoefficientvars = 37;
 
     static const std::string FlavourWilsonCoefficientvars[NFlavourWilsonCoefficientvars];
     
@@ -196,6 +196,14 @@ public:
         return DC8gp;
     }
     
+    /**
+     *
+     * @return the matching scale of the Wilson coefficients
+     */
+    double getWCscale() const {
+        return WCscale;
+    }
+    
 protected: 
     
     virtual void setParameter(const std::string, const double&);
@@ -210,6 +218,7 @@ private:
     double argDC1, argDC2, argDC3, argDC4, argDC5, argDC6, argDC7, argDC8, argDC9, argDC10, argDC7g, argDC8g;
     double absDC7p, absDC8p, absDC9p, absDC10p, absDC7gp, absDC8gp;
     double argDC7p, argDC8p, argDC9p, argDC10p, argDC7gp, argDC8gp;
+    double WCscale;
     
       
 };

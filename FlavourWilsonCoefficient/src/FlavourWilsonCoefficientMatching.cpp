@@ -62,7 +62,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
             throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcbsg.setMu(myFlavourWilsonCoefficient.getMuw());
+    mcbsg.setMu(myFlavourWilsonCoefficient.getWCscale());
 
     switch (mcbsg.getOrder()) {
         case NNLO:
@@ -96,7 +96,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
             throw std::runtime_error("StandardModel::CMprimebsg(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcprimebsg.setMu(myFlavourWilsonCoefficient.getMuw());
+    mcprimebsg.setMu(myFlavourWilsonCoefficient.getWCscale());
 
     switch (mcprimebsg.getOrder()) {
         case NNLO:
@@ -130,7 +130,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll()
             throw std::runtime_error("StandardModel::CMBMll(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcBMll.setMu(myFlavourWilsonCoefficient.getMuw());
+    mcBMll.setMu(myFlavourWilsonCoefficient.getWCscale());
 
     switch (mcBMll.getOrder()) {
         case NNLO:
@@ -166,7 +166,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll()
             throw std::runtime_error("StandardModel::CMprimeBMll(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcprimeBMll.setMu(myFlavourWilsonCoefficient.getMuw());
+    mcprimeBMll.setMu(myFlavourWilsonCoefficient.getWCscale());
 
     switch (mcprimeBMll.getOrder()) {
         case NNLO:
