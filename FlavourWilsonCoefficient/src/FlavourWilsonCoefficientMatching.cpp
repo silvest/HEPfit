@@ -16,6 +16,8 @@ FlavourWilsonCoefficientMatching::FlavourWilsonCoefficientMatching(const Flavour
     myCKM(3, 3, 0.),
     mcbsg(8, NDR, NLO),
     mcprimebsg(8, NDR, NLO),
+    mcbsmm(8, NDR, NNLO, NLO_ewt4),
+    mcbdmm(8, NDR, NNLO, NLO_ewt4),
     mcBMll(13, NDR, NLO),
     mcprimeBMll(13, NDR, NLO)
 {}
@@ -59,7 +61,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
         default:
             std::stringstream out;
             out << mcbsg.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbsg.setMu(myFlavourWilsonCoefficient.getWCscale());
@@ -74,11 +76,79 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
         default:
             std::stringstream out;
             out << mcbsg.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsg(): order " + out.str() + "not implemented"); 
     }
 
     vmcbsg.push_back(mcbsg);
     return (vmcbsg);
+}
+
+std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
+{
+
+    vmcbsmm = StandardModelMatching::CMbsmm();
+
+    switch (mcbsmm.getScheme()) {
+        case NDR:
+
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsmm.getScheme();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsmm(): scheme " + out.str() + "not implemented"); 
+    }
+
+    mcbsmm.setMu(myFlavourWilsonCoefficient.getWCscale());
+
+    switch (mcbsmm.getOrder()) {
+        case NNLO:
+        case NLO:
+            mcbsmm.setCoeff(7, 0., NLO);
+        case LO:
+            mcbsmm.setCoeff(7, DC10, LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsmm.getOrder();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsmm(): order " + out.str() + "not implemented"); 
+    }
+
+    vmcbsmm.push_back(mcbsmm);
+    return (vmcbsmm);
+}
+
+std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
+{
+
+    vmcbdmm = StandardModelMatching::CMbdmm();
+
+    switch (mcbdmm.getScheme()) {
+        case NDR:
+
+            break;
+        default:
+            std::stringstream out;
+            out << mcbdmm.getScheme();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbdmm(): scheme " + out.str() + "not implemented"); 
+    }
+
+    mcbdmm.setMu(myFlavourWilsonCoefficient.getWCscale());
+
+    switch (mcbdmm.getOrder()) {
+        case NNLO:
+        case NLO:
+            mcbdmm.setCoeff(7, 0., NLO);
+        case LO:
+            mcbdmm.setCoeff(7, DC10, LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbdmm.getOrder();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbdmm(): order " + out.str() + "not implemented"); 
+    }
+
+    vmcbdmm.push_back(mcbdmm);
+    return (vmcbdmm);
 }
  
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
@@ -93,7 +163,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
         default:
             std::stringstream out;
             out << mcprimebsg.getScheme();
-            throw std::runtime_error("StandardModel::CMprimebsg(): scheme " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMprimebsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcprimebsg.setMu(myFlavourWilsonCoefficient.getWCscale());
@@ -108,7 +178,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
         default:
             std::stringstream out;
             out << mcprimebsg.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMprimebsg(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMprimebsg(): order " + out.str() + "not implemented"); 
     }
 
     vmcprimebsg.push_back(mcprimebsg);
@@ -127,7 +197,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll()
         default:
             std::stringstream out;
             out << mcBMll.getScheme();
-            throw std::runtime_error("StandardModel::CMBMll(): scheme " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMBMll(): scheme " + out.str() + "not implemented"); 
     }
 
     mcBMll.setMu(myFlavourWilsonCoefficient.getWCscale());
@@ -144,7 +214,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll()
         default:
             std::stringstream out;
             out << mcBMll.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMBMll(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMBMll(): order " + out.str() + "not implemented"); 
     }
 
     vmcBMll.push_back(mcBMll);
@@ -163,7 +233,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll()
         default:
             std::stringstream out;
             out << mcprimeBMll.getScheme();
-            throw std::runtime_error("StandardModel::CMprimeBMll(): scheme " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMprimeBMll(): scheme " + out.str() + "not implemented"); 
     }
 
     mcprimeBMll.setMu(myFlavourWilsonCoefficient.getWCscale());
@@ -180,7 +250,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll()
         default:
             std::stringstream out;
             out << mcprimeBMll.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMprimeBMll(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMprimeBMll(): order " + out.str() + "not implemented"); 
     }
 
     vmcprimeBMll.push_back(mcprimeBMll);

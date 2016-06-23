@@ -35,6 +35,10 @@ public:
     
     std::vector<WilsonCoefficient>& CMbsg();
     
+    std::vector<WilsonCoefficient>& CMbsmm();
+    
+    std::vector<WilsonCoefficient>& CMbdmm();
+    
     std::vector<WilsonCoefficient>& CMprimebsg();
     
     std::vector<WilsonCoefficient>& CMBMll();
@@ -65,8 +69,12 @@ private:
     gslpp::complex DC8gp;
     
     WilsonCoefficient mcbsg, mcprimebsg;
+    WilsonCoefficient mcbsmm;
+    WilsonCoefficient mcbdmm;
     WilsonCoefficient mcBMll, mcprimeBMll;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg;
+    std::vector<WilsonCoefficient> vmcbsmm;
+    std::vector<WilsonCoefficient> vmcbdmm;
     std::vector<WilsonCoefficient> vmcBMll, vmcprimeBMll;
 };
 
