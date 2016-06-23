@@ -751,7 +751,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 130; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 112; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1536,10 +1536,7 @@ protected:
     double Br_Kp_munu;
     double Br_B_Xcenu;
     double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
-    double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
-    double absh_0, absh_p, absh_m, argh_0, argh_p, argh_m;
-    double absh_0_1, absh_p_1, absh_m_1, argh_0_1, argh_p_1, argh_m_1;
-    double absh_0_2, absh_p_2, absh_m_2, argh_0_2, argh_p_2, argh_m_2;
+    double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     double absh_0_MP, argh_0_MP, absh_0_1_MP, argh_0_1_MP;
     double r_1_fplus, r_2_fplus, m_fit2_fplus;
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
