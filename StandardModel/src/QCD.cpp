@@ -18,6 +18,7 @@
 #include <TF1.h>
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
+#include <algorithm>
 #include "QCD.h"
 
 std::string QCD::QCDvars[NQCDvars] = {
