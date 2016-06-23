@@ -58,7 +58,7 @@
  * P(E_0) = P^{(0)}(\mu_b) + \tilde{\alpha}_s(\mu_b)\Big[ P^{(1)}_1(\mu_b) + P^{(1)}_2(\mu_b)\Big] + O\Big(\tilde{\alpha}_s^2(\mu_b)\Big)\,.
  * @f]
  * Here, @f$P^{(0)}@f$ and @f$P_1^{(k)}@f$ mainly originate from the tree-level matrix 
- * element of @f$Q_7@f$ @cite Misiak:2006ab, while a small contribution steams also 
+ * element of @f$Q_7@f$ @cite Misiak:2006ab, while a small contribution stems also 
  * from the penguin operators @cite Kaminski:2012eb :
  * @f[
  * P^{(0)} = \Big(C_7^{\rm (0) eff}(\mu_b)\Big)^2 + P^{(0)}_{\rm 4-body}\,,\\
@@ -224,6 +224,15 @@ public:
     * @return \f$ r_i(z)^{(1)} \f$
     */
     gslpp::complex r1(int i, double z);
+    
+    
+    /**
+    * @brief The funcion \f$ r_{i,ew}^{(1)}(z) \f$ as defined in @cite Gambino:2001au .
+    * @param[in] i function index
+    * @param[in] z squared ratio between m_c and m_b^{\rm kin}
+    * @return \f$ r_i(z)^{(1)} \f$
+    */
+    gslpp::complex r1_ew(int i, double z);
     
     
     /**
@@ -1514,6 +1523,14 @@ public:
     
     
     /**
+    * @brief The NLO electroweak correction to the BR as defined in @cite Gambino:2001au .
+    * @param[in] mu low scale of the decay
+    * @return \f$ P_3^{(2)} \f$
+    */
+    double EW_NLO(double mu);
+    
+    
+    /**
     * @brief The 2 body NLO Vub part of the \f$BR\f$ as defined in @cite Gambino:2001ew , \f$Vub^{NLO}_{2b}\f$.
     * @param[in] CPodd switch to allow for CPodd terms
     * @return \f$Vub^{NLO}_{2b}\f$
@@ -1631,8 +1648,11 @@ private:
     StandardModel::quark quark;/**< Final quark type */
     
     bool SUM;/**< Flag to choose whether the BR will be relative to a single quark (s or d) or their sum */ 
+    bool EWflag;/**< Flag to include EW NLO corrections (currently partialy hard-coded) */ 
+    bool NNLOflag;/**< Flag to include NNLO corrections (currently partialy hard-coded) */ 
     
     double ale; /**<alpha electromagnetic */
+    //double alemz; /**<alpha electromagnetic at Mz */
     double alsUps; /**<alpha strong Upsilon */
     double Alstilde; /**<alpha strong divided by 4 pi */
     double E0; /**<energy cutoff */
@@ -1640,8 +1660,9 @@ private:
     double mu_c; /**<c quark mass scale */
     double mu_kin; /**<kinetic mass scale */
     double Mb_kin; /**<b quark mass in the kinetic scheme */
-    double Mc; /**<c quark mass scale */
-    double Ms;/**<s quark mass scale */
+    double Mc; /**<c quark mass */
+    double Ms;/**<s quark mass */
+    double Mz;/**<Z boson mass */
     double BRsl; /**<BR of the semileptonic decay \f$B \to X_c e \nu\f$ */
     double C; /**<The semileptonic phase space ratio */
     double CKMratio; /**<Vckm factor */
@@ -1682,6 +1703,8 @@ private:
     gslpp::complex C6_1;/**<NLO term of the Wilson coeffients @f$C_6@f$*/
     gslpp::complex C7_1;/**<NLO term of the Wilson coeffients @f$C_7@f$*/
     gslpp::complex C8_1;/**<NLO term of the Wilson coeffients @f$C_8@f$*/
+    
+    gslpp::complex C7_1ew;/**<ew-NLO term of the Wilson coeffients @f$C_7@f$*/
     
     gslpp::complex C7_2;/**<NNLO term of the Wilson coeffients @f$C_7@f$*/
     

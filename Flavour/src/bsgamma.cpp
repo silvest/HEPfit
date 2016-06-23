@@ -31,6 +31,8 @@ Intbc_cache(2, 0.)
     quark = quark_i;
     
     SUM = false;
+    EWflag = true;
+    NNLOflag = true;
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -59,6 +61,8 @@ Intbc_cache(2, 0.)
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");
     
     SUM = true;
+    EWflag = true;
+    NNLOflag = true;
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -300,6 +304,38 @@ gslpp::complex Bsgamma::r1(int i, double z)
             std::stringstream out;
             out << i;
             throw std::runtime_error("Bsgamma::r1(): index " + out.str() + " not implemented");
+    }
+}
+
+gslpp::complex Bsgamma::r1_ew(int i, double z)
+{
+    double Xb = -0.16844083981858157;
+    double PI2 = M_PI*M_PI;
+    gslpp::complex iPI = gslpp::complex::i()*M_PI;
+    
+    switch(i){
+        case 1:
+            return 3332./2187. - 4.*(a(z) + b(z))/9. + 160./729.*iPI;
+        case 2:
+            return 833./729. - (a(z) + b(z))/3. + 40./243.*iPI;
+        case 3:
+            return 748./729. + 2.*M_PI/9./sqrt(3.) - 2./81.*PI2 + 8./27.*Xb 
+                    - a(1.)/12. + 7.*b(1.)/6. - 2.*b(z) + 26./243.*iPI;
+        case 4:
+            return 2680./2187. + 8.*M_PI/27./sqrt(3.) - 8./243.*PI2 + 32./81.*Xb 
+                    - a(1.)/9. + 2.*b(1.)/9. + 56./729.*iPI;
+        case 5:
+            return 78301./729. + 8.*M_PI/9./sqrt(3.) - 40./81.*PI2 + 32./27.*Xb 
+                    - 13.*a(1.)/3. + 38.*b(1.)/3. - 12.*a(z) - 20.*b(z) + 3908./243.*iPI;
+        case 6:
+            return 62440./2187. + 32.*M_PI/27./sqrt(3.) - 160./243.*PI2 + 128./81.*Xb 
+                    - 16.*a(1.)/9. + 32.*b(1.)/9. + 896./729.*iPI;
+        case 7:
+            return -25./27. - 2./9.*iPI;
+        default:
+            std::stringstream out;
+            out << i;
+            throw std::runtime_error("Bsgamma::r1_ew(): index " + out.str() + " not implemented");
     }
 }
 
@@ -1893,7 +1929,8 @@ void Bsgamma::computeCoeff(double mu)
             << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
     
     C7_2 = 18.8595;
-
+    C7_1ew = 4.868;
+    
 }
 
 double Bsgamma::P0(double E0)
@@ -1981,6 +2018,29 @@ double Bsgamma::P32(double E0, double mu)
     return p32;
 }
 
+double Bsgamma::EW_NLO(double mu)
+{
+    if(EWflag) {
+        gslpp::complex ew_nlo = 0.;
+        double ga_eff_ew_7[8] = {-832./729., -208./243., -20./243., -176./729., -22712./243., -6272./729., 16./9.};
+        double Lb = log(mu/Mb_kin);
+        double Lz = 2. * log(Mz/mu);
+    
+        ew_nlo = C1_0 * (r1_ew(1,zeta()) - ga_eff_ew_7[0] * Lb) +
+                C2_0 * (r1_ew(2,zeta()) - ga_eff_ew_7[1] * Lb) +
+                C3_0 * (r1_ew(3,zeta()) - ga_eff_ew_7[2] * Lb) +
+                C4_0 * (r1_ew(4,zeta()) - ga_eff_ew_7[3] * Lb) +
+                C5_0 * (r1_ew(5,zeta()) - ga_eff_ew_7[4] * Lb) +
+                C6_0 * (r1_ew(6,zeta()) - ga_eff_ew_7[5] * Lb) +
+                C7_0 * (r1_ew(7,zeta()) - ga_eff_ew_7[6] * Lb) -
+                2. * C7_0 * Lz + C7_1ew;
+    
+        return 2.*( C7_0.real()*ew_nlo.real() + C7_0.imag()*ew_nlo.imag());
+    }
+    
+    else return 0.;
+}
+
 double Bsgamma::Vub_NLO_2body(bool CPodd)
 {
     double z = zeta();
@@ -2060,16 +2120,19 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order, bool CPodd)
             std::cout << "p12: " << P12() << std::endl;
             std::cout << "p22: " << P22(E0,mu_b,mu_c) << std::endl;
             std::cout << "p32: " << P32(E0,mu_b) << std::endl << std::endl;
-            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;*/
-            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
-                    + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b));
+            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;
+            std::cout << "EW_NLO: " << EW_NLO(mu_b) << std::endl;*/
+            if (NNLOflag){
+                return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
+                        + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b)
+                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b));
+            }
+            else return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
+                    + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
             break;
         case NLO:
-            /*std::cout << "p0 w/ tree, VubLO: " << P0(E0) << std::endl;
-            std::cout << "p11: " << P11() << std::endl;
-            std::cout << "p21: " << P21(E0,mu_b) << std::endl;
-            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;*/
-            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd);
+            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
+                    + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
             break;
         case LO:
             return P0(E0);
@@ -2162,12 +2225,14 @@ void Bsgamma::updateParameters()
     C=C_sem();
     
     ale=SM.getAle();
+    //alemz=SM.ale_OS(SM.getMz());
     E0=SM.getOptionalParameter("bsgamma_E0");
     mu_b=SM.getMub();
     mu_c=SM.getMuc();
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
     Alstilde = SM.Alstilde5(mu_b);
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
+    Mz=SM.getMz();
     V_ub=SM.getCKM().getVub();
     V_cb=SM.getCKM().getVcb();
     V_tb=SM.getCKM().getVtb();
@@ -2235,9 +2300,9 @@ double Bsgamma::computeThValue()
     updateParameters();
     
     if (obs == 1) 
-        return overall *  ( P(E0, mu_b, mu_c, NLO, false) + N(E0,mu_b) );// - 0.0000125145 - 0.000000135643; //
+        return overall *  ( P(E0, mu_b, mu_c, NNLO, false) + N(E0,mu_b) );// - 0.000000135643; //
     if (obs == 2) 
-        return overall *  ( P(E0, mu_b, mu_c, NLO, true) + N(E0,mu_b) );// -0.000000560272 + 0.000000228606; //
+        return overall *  ( P(E0, mu_b, mu_c, NNLO, true) + N(E0,mu_b) );// + 0.000000228606; //
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");
 }
