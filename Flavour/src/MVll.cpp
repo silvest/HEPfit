@@ -179,6 +179,8 @@ void MVll::updateParameters()
             MRT23_2 = mySM.getOptionalParameter("MRT23phi") * mySM.getOptionalParameter("MRT23phi");
             
             fperp = mySM.getFphip();
+            
+            ys = mySM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
 
             b = 0.489;
             break;
@@ -1515,6 +1517,47 @@ double MVll::I_8(double q2)
 double MVll::I_9(double q2) 
 {
     return F(q2, b) * beta2(q2) / 2. * ((H_V_p(q2) * H_V_m(q2).conjugate()).imag() + (H_A_p(q2) * H_A_m(q2).conjugate()).imag());
+}
+
+double MVll::h_1c(double q2) 
+{
+    return F(q2, b)*((H_V_0(q2).abs2() + H_A_0(q2).abs2()) + 2. * H_P(q2).abs2() + 4. * Mlep2 / q2 * (H_V_0(q2).abs2()
+            - H_A_0(q2).abs2()) - 2. * beta2(q2) * H_S(q2).abs2());
+}
+
+double MVll::h_1s(double q2) 
+{
+    return F(q2, b)*( (beta2(q2) + 2.) / 2. * ( (H_V_p(q2) * H_V_m(q2).conjugate()).real()
+            + (H_A_p(q2) * H_A_m(q2).conjugate()).real() ) +
+            4. * Mlep2 / q2 * ( (H_V_p(q2) * H_V_m(q2).conjugate()).real()
+            - (H_A_p(q2) * H_A_m(q2).conjugate()).real() ) );
+}
+
+double MVll::h_2c(double q2) 
+{
+    return -F(q2, b) * beta2(q2) * (H_V_0(q2).abs2() + H_A_0(q2).abs2());
+}
+
+double MVll::h_2s(double q2) 
+{
+    return F(q2, b) * beta2(q2) / 2. * ( (H_V_p(q2) * H_V_m(q2).conjugate()).real()
+            + (H_A_p(q2) * H_A_m(q2).conjugate()).real() );
+}
+
+double MVll::h_3(double q2) 
+{
+    return -F(q2, b) * beta2(q2) / 2. * (H_V_p(q2).abs2() + H_V_m(q2).abs2() + H_A_p(q2).abs2() + H_A_m(q2).abs2());
+}
+
+double MVll::h_4(double q2) 
+{
+    return F(q2, b) * beta2(q2) / 2. * (((H_V_m(q2) + H_V_p(q2)) * H_V_0(q2).conjugate()).real() + ((H_A_m(q2) + H_A_p(q2)) * H_A_0(q2).conjugate()).real());
+}
+
+double MVll::h_7(double q2) 
+{
+    return F(q2, b)*(beta(q2) * (((H_V_m(q2) + H_V_p(q2)) * H_A_0(q2).conjugate()).imag() + ((H_A_m(q2) + H_A_p(q2)) * H_V_0(q2).conjugate()).imag()) -
+            beta(q2) * 2. * Mlep / sqrt(q2)*(H_S(q2).conjugate()*(H_V_m(q2) - H_V_p(q2))).imag());
 }
 
 double MVll::Delta(int i, double q2) 

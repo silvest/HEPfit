@@ -604,6 +604,7 @@ private:
     double Ms;            /**<s quark mass */
     double width;         /**<Initial meson width */
     double fperp;         /**<vector meson perpendicular decay constant*/
+    double ys;            /**<CP-violation factor \f$\frac{\Delta \Gamma}{2\Gamma}\f$*/
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
     double b;             /**<BF of the decay V -> final states */
@@ -1295,6 +1296,55 @@ private:
     double  I_9(double q2);
     
     /**
+    * @brief The angular coefficient \f$ h_1s \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h_1s \f$
+    */
+    double  h_1s(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ h_1c \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h_1c \f$
+    */
+    double  h_1c(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ h_2s \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h_2s \f$
+    */
+    double  h_2s(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ h_2c \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h_2c \f$
+    */
+    double  h_2c(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ h_3 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h_3 \f$
+    */
+    double  h_3(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ h_4 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h_4 \f$
+    */
+    double  h_4(double q2);
+    
+    /**
+    * @brief The angular coefficient \f$ h_7 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ h_7 \f$
+    */
+    double  h_7(double q2);
+    
+    /**
     * @brief The CP asymmetry \f$ \Delta_{i} \f$ .
     * @param[in] i index of the angular coefficient \f$ I_{i} \f$
     * @param[in] q2 \f$q^2\f$ of the decay
@@ -1309,7 +1359,18 @@ private:
     */
     double getSigma1c(double q2)
     {
-        return I_1c(q2);
+        switch(vectorM){
+            case StandardModel::K_star:
+                return I_1c(q2);
+                break;
+            case StandardModel::PHI:
+                return I_1c(q2) - ys * h_1c(q2);
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getSigma1c : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1319,7 +1380,18 @@ private:
     */
     double getSigma1s(double q2)
     {
-        return I_1s(q2);
+        switch(vectorM){
+            case StandardModel::K_star:
+                return I_1s(q2);
+                break;
+            case StandardModel::PHI:
+                return I_1s(q2) - ys * h_1s(q2);
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getSigma1s : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1329,7 +1401,18 @@ private:
     */
     double getSigma2c(double q2)
     {
-        return I_2c(q2);
+        switch(vectorM){
+            case StandardModel::K_star:
+                return I_2c(q2);
+                break;
+            case StandardModel::PHI:
+                return I_2c(q2) - ys * h_2c(q2);
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getSigma2c : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1339,7 +1422,18 @@ private:
     */
     double getSigma2s(double q2)
     {
-        return I_2s(q2);
+        switch(vectorM){
+            case StandardModel::K_star:
+                return I_2s(q2);
+                break;
+            case StandardModel::PHI:
+                return I_2s(q2) - ys * h_2s(q2);
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getSigma2s : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1349,7 +1443,18 @@ private:
     */ 
     double getSigma3(double q2)
     {
-        return I_3(q2);
+        switch(vectorM){
+            case StandardModel::K_star:
+                return I_3(q2);
+                break;
+            case StandardModel::PHI:
+                return I_3(q2) - ys * h_3(q2);
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getSigma3 : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1359,7 +1464,18 @@ private:
     */ 
     double getSigma4(double q2)
     {
-        return I_4(q2);
+        switch(vectorM){
+            case StandardModel::K_star:
+                return I_4(q2);
+                break;
+            case StandardModel::PHI:
+                return I_4(q2) - ys * h_4(q2);
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getSigma4 : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1383,9 +1499,9 @@ private:
     };
     
     /**
-    * @brief The CP average \f$ \Sigma_{7} \f$ .
+    * @brief The CP average \f$ \Sigma_{6c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Sigma_{7} \f$
+    * @return \f$ \Sigma_{6c} \f$
     */ 
     double getSigma6c(double q2)
     {
@@ -1393,19 +1509,30 @@ private:
     };
     
     /**
-    * @brief The CP average \f$ \Sigma_{8} \f$ .
+    * @brief The CP average \f$ \Sigma_{7} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Sigma_{8} \f$
+    * @return \f$ \Sigma_{7} \f$
     */ 
     double getSigma7(double q2)
     {
-        return I_7(q2);
+        switch(vectorM){
+            case StandardModel::K_star:
+                return I_7(q2);
+                break;
+            case StandardModel::PHI:
+                return I_7(q2) - ys * h_7(q2);
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getSigma7 : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
-    * @brief The CP average \f$ \Sigma_{9} \f$ .
+    * @brief The CP average \f$ \Sigma_{8} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Sigma_{9} \f$
+    * @return \f$ \Sigma_{8} \f$
     */ 
     double getSigma8(double q2)
     {

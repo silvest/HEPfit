@@ -201,7 +201,20 @@ double BR_MVll::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return computeGammaPrime(q_min, q_max, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getwidth() / ( q_max - q_min );
+    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
+    
+    switch(vectorM){
+            case StandardModel::K_star:
+                return computeGammaPrime(q_min, q_max, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getwidth() / ( q_max - q_min );
+                break;
+            case StandardModel::PHI:
+                return computeGammaPrime(q_min, q_max, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getwidth()/(1. - ys*ys) / ( q_max - q_min );
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("BR_MVll: vector " + out.str() + " not implemented");
+        }
 }
 
 
