@@ -4072,7 +4072,7 @@ gslpp::vector<gslpp::complex> SUSYMatching::BFunctions(int li_to_lj) {
 //        BFunctions.assign(6, 0. );
 //        BFunctions.assign(7, 0. );
 //    }
-    std::cout<<"BFunctions("<<li_to_lj<<") = "<<BFunctions<<std::endl;
+//    std::cout<<"BFunctions("<<li_to_lj<<") = "<<BFunctions<<std::endl;
 
     return(BFunctions);
 }
@@ -6096,8 +6096,8 @@ gslpp::vector<gslpp::complex> SUSYMatching::gminus2mu() {
     gminus2mu.assign(0, g2ARN + g2ARC );    //g-2_muR
     gminus2mu.assign(1, g2ALN + g2ALC );    //g-2_muL
     
-    std::cout<<"g2AN="<<g2ARN+g2ALN <<std::endl;
-    std::cout<<"g2AC="<<g2ARC+g2ALC <<std::endl;
+//    std::cout<<"g2AN="<<g2ARN+g2ALN <<std::endl;
+//    std::cout<<"g2AC="<<g2ARC+g2ALC <<std::endl;
 
     return(gminus2mu);
 }
@@ -6475,7 +6475,7 @@ double SUSYMatching::gminus2muNLO() {
     Rsmu.eigensystem(Xm,msmu2); //in the 1,2 basis now!
 
     gslpp::vector<gslpp::complex> gminus2muvector=gminus2mu();
-    std::cout<<"gminus2muvector"<<gminus2muvector<<std::endl;
+//    std::cout<<"gminus2muvector"<<gminus2muvector<<std::endl;
 //    double gm21loop = (gminus2muvector(0)+gminus2muvector(1)).abs();
 //    std::cout<<"gm21loop="<<gm21loop<<std::endl;
 
@@ -6605,8 +6605,8 @@ double SUSYMatching::gminus2muNLO() {
     //adding up the photonic Barr-Zee contributions
     res02=res+res1;
 
-    std::cout<<"res="<<res<<std::endl;
-    std::cout<<"res1="<<res1<<std::endl;
+//    std::cout<<"res="<<res<<std::endl;
+//    std::cout<<"res1="<<res1<<std::endl;
 
     ///////////////////////////////////////////////////////////////
     //two-loop corrections to MSSM one-loop diagrams
@@ -6709,7 +6709,7 @@ double SUSYMatching::gminus2muNLO() {
 
     //adding leading log correction and sub-leading terms
     res2=res2+amch+amne;
-    std::cout<<"res2="<<res2<<std::endl;
+//    std::cout<<"res2="<<res2<<std::endl;
 
     ///////////////////////////////////////////////////////////////////////
     //
@@ -6805,11 +6805,11 @@ double SUSYMatching::gminus2muNLO() {
           + abhl*(dg1 + dh + dbh + dtb)
           + abhr*(dg1 + dh + dbh + dtb)
           + ablr*(dg1 + dtb);
-    std::cout<<"awhn="<<awhn<<std::endl;
-    std::cout<<"awhl="<<awhl <<std::endl;
-    std::cout<<"abhl="<<abhl <<std::endl;
-    std::cout<<"abhr="<<abhr<<std::endl;
-    std::cout<<"ablr="<<ablr<<std::endl;
+//    std::cout<<"awhn="<<awhn<<std::endl;
+//    std::cout<<"awhl="<<awhl <<std::endl;
+//    std::cout<<"abhl="<<abhl <<std::endl;
+//    std::cout<<"abhr="<<abhr<<std::endl;
+//    std::cout<<"ablr="<<ablr<<std::endl;
 
 //    std::cout<<"res3="<<res3<<std::endl;
 //    std::cout<<"gm2cor="<<gm2cor<<std::endl;
@@ -6820,7 +6820,7 @@ double SUSYMatching::gminus2muNLO() {
 
     gminus2muNLO=res01+res02;
     
-    std::cout<<"gm2NLO="<<gminus2muNLO<<std::endl;
+//    std::cout<<"gm2NLO="<<gminus2muNLO<<std::endl;
     return(gminus2muNLO);
 }
 
@@ -7023,7 +7023,7 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMgminus2mu() {
     vmcgminus2mu = StandardModelMatching::CMgminus2mu();
 
     gslpp::vector<gslpp::complex> gminus2muvector=gminus2mu();
-    std::cout<<"gminus2muvector in the Wilson coeff"<<gminus2muvector<<std::endl;
+//    std::cout<<"gminus2muvector in the Wilson coeff"<<gminus2muvector<<std::endl;
     double gminus2muvectorNLO=gminus2muNLO();
     switch (mcgminus2mu.getOrder()) {
         case LO:

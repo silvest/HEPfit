@@ -8,7 +8,7 @@
 #include "THDM.h"
 #include "THDMcache.h"
 
-const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2","bsgamma_theoryerror","Q_THDM","Rpeps"};
+const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2","bsgamma_theoryerror","Q_THDM","Rpeps","NLOuniscale"};
 
 THDM::THDM() : StandardModel(), THDMM(*this) {
 
@@ -22,6 +22,7 @@ THDM::THDM() : StandardModel(), THDMM(*this) {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_theoryerror", boost::cref(bsgamma_theoryerror)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_THDM", boost::cref(Q_THDM)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Rpeps", boost::cref(Rpeps)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("NLOuniscale", boost::cref(NLOuniscale)));
 }
 
 THDM::~THDM(){
@@ -108,6 +109,8 @@ void THDM::setParameter(const std::string name, const double& value){
         Q_THDM = value;
     else if(name.compare("Rpeps") == 0)
         Rpeps = value;
+    else if(name.compare("NLOuniscale") == 0)
+        NLOuniscale = value;
     else
         StandardModel::setParameter(name,value);
 }

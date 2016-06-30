@@ -673,6 +673,28 @@ private:
 };
 
 /**
+ * @class mslepton
+ * @ingroup SUSY
+ * @brief mslepton.
+ */
+class mslepton: public ThObservable {
+public:
+
+    /**
+     * @brief mslepton constructor.
+     */
+    mslepton(const StandardModel& SM_i);
+
+    /**
+     * @return @f$mslepton@f$
+     */
+    double computeThValue();
+
+private:
+    const SUSY& mySUSY;
+};
+
+/**
  * @class deltaTEhat23
  * @ingroup SUSY
  * @brief deltaTEhat23.

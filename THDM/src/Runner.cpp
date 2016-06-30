@@ -412,7 +412,7 @@ int Jacobian (double t, const double y[], double *dfdy, double dfdt[], void *ord
     return 0;
 }
 
-int RGEcheck(const double InitialValues[], const double t1)
+int RGEcheck(const double InitialValues[], const double t1, const double Rpeps, const double tNLOuni)
 {
     int check=0;
 
@@ -455,7 +455,7 @@ int RGEcheck(const double InitialValues[], const double t1)
 ////    }
     
 //    if(t1>6.908)    //1 TeV
-    if(t1>6.62)   //750 GeV
+    if(t1>tNLOuni)   //750 GeV
     {
     double la1Q = InitialValues[9];
     double la2Q = InitialValues[10];
@@ -544,7 +544,7 @@ int RGEcheck(const double InitialValues[], const double t1)
     if( (uniNLO14 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
     if( (uniNLO24 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
 
-    double Rpeps=0.01;
+    //double Rpeps=0.01;
     if( fabs(uniLOev1) > Rpeps && (uniNLOev1wowfr/uniLOev1-1.0).abs() > 1.0) check=1;
     if( fabs(uniLOev2) > Rpeps && (uniNLOev2wowfr/uniLOev2-1.0).abs() > 1.0) check=1;
     if( fabs(uniLOev3) > Rpeps && (uniNLOev3wowfr/uniLOev3-1.0).abs() > 1.0) check=1;
@@ -563,7 +563,7 @@ int RGEcheck(const double InitialValues[], const double t1)
     return check;
 }
 
-double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order)
+double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order, double Rpeps, double NLOuniscale)
 {
     //Define which stepping function should be used
     const gsl_odeiv2_step_type * T = gsl_odeiv2_step_rk4;
@@ -589,6 +589,7 @@ double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long i
     //Set starting and end point as natural logarithmic scales (conversion from decadic log scale)
     double t1 = Q1*log(10.0);
     double t2 = Q2*log(10.0);
+    double tNLOuni = NLOuniscale*log(10.0);
 
     //Set initial step size
     double InitialStepSize = 1e-6;
@@ -600,7 +601,7 @@ double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long i
         if(status != GSL_SUCCESS) break;
 
         //intermediate checks if appropriate
-        if(RGEcheck(InitialValues,t1) != 0) break;
+        if(RGEcheck(InitialValues,t1,Rpeps,tNLOuni) != 0) break;
     }
 
     gsl_odeiv2_evolve_free (e);

@@ -544,6 +544,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gminus2_mu"] = boost::factory<gminus2_mu*>();
     obsThFactory["Robs_mu_e_gamma"] = boost::factory<Robs_mu_e_gamma*>();
     obsThFactory["Robs_tau_mu_gamma"] = boost::factory<Robs_tau_mu_gamma*>();
+    obsThFactory["Robs_tau_mu_gamma_BelleII"] = boost::factory<Robs_tau_mu_gamma_BelleII*>();
     obsThFactory["Robs_tau_e_gamma"] = boost::factory<Robs_tau_e_gamma*>();
 
     obsThFactory["deltaRL_12_u"] = boost::factory<deltaRL_12_u*>();
@@ -594,6 +595,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["logdeltaRL_13_e"] = boost::factory<logdeltaRL_13_e*>();
     obsThFactory["logdeltaRL_23_e"] = boost::factory<logdeltaRL_23_e*>();
     obsThFactory["logmslepton"] = boost::factory<logmslepton*>();
+    obsThFactory["mslepton"] = boost::factory<mslepton*>();
     obsThFactory["deltaTEhat23"] = boost::factory<deltaTEhat23*>();
     obsThFactory["deltaLLRR_l"] = boost::factory<deltaLLRR_l*>();
 
@@ -618,6 +620,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Msd4"] = boost::bind(boost::factory<Msdown*>(), _1, 3);
     obsThFactory["Msd5"] = boost::bind(boost::factory<Msdown*>(), _1, 4);
     obsThFactory["Msd6"] = boost::bind(boost::factory<Msdown*>(), _1, 5);
+    obsThFactory["Msl1"] = boost::bind(boost::factory<Mslepton*>(), _1, 0);
+    obsThFactory["Msl2"] = boost::bind(boost::factory<Mslepton*>(), _1, 1);
+    obsThFactory["Msl3"] = boost::bind(boost::factory<Mslepton*>(), _1, 2);
+    obsThFactory["Msl4"] = boost::bind(boost::factory<Mslepton*>(), _1, 3);
+    obsThFactory["Msl5"] = boost::bind(boost::factory<Mslepton*>(), _1, 4);
+    obsThFactory["Msl6"] = boost::bind(boost::factory<Mslepton*>(), _1, 5);
+    obsThFactory["Msnu1"] = boost::bind(boost::factory<Msneutrino*>(), _1, 0);
+    obsThFactory["Msnu2"] = boost::bind(boost::factory<Msneutrino*>(), _1, 1);
+    obsThFactory["Msnu3"] = boost::bind(boost::factory<Msneutrino*>(), _1, 2);
     obsThFactory["Mch1"] = boost::bind(boost::factory<Mchargino*>(), _1, 0);
     obsThFactory["Mch2"] = boost::bind(boost::factory<Mchargino*>(), _1, 1);
     obsThFactory["Mneu1"] = boost::bind(boost::factory<Mneutralino*>(), _1, 0);

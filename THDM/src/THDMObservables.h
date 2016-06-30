@@ -8,7 +8,7 @@
 #ifndef THDMOBSERVABLES_H
 #define	THDMOBSERVABLES_H
 
-#include "bsgamma.h"
+#include "bsgammaTHDM.h"
 #include "CPoddHiggs.h"
 #include "EWPO.h"
 #include "globalminimum.h"

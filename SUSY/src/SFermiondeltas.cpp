@@ -365,6 +365,19 @@ double logmslepton::computeThValue()
     return log10(sqrt(Me2average_32));  //logmslepton
 }
 
+mslepton::mslepton(const StandardModel& SM_i)
+: ThObservable(SM_i), mySUSY(static_cast<const SUSY&> (SM_i))
+{}
+
+double mslepton::computeThValue()
+{
+    gslpp::matrix<gslpp::complex> msLhat2( mySUSY.getMsLhat2() );
+    gslpp::matrix<gslpp::complex> msEhat2( mySUSY.getMsEhat2() );
+    double Me2average_32=(sqrt(msLhat2(2,2)).abs()+sqrt(msEhat2(1,1)).abs())/2.0;
+
+    return Me2average_32;  //mslepton
+}
+
 deltaTEhat23::deltaTEhat23(const StandardModel& SM_i)
 : ThObservable(SM_i), mySUSY(static_cast<const SUSY&> (SM_i))
 {}

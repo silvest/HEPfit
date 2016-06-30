@@ -5,7 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "bsgamma.h"
+#include "bsgammaTHDM.h"
 #include "StandardModel.h"
 
 bsgammaTHDM::bsgammaTHDM(const StandardModel& SM_i): 

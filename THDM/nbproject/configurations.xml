@@ -14,7 +14,7 @@
       <itemPath>src/THDMcache.h</itemPath>
       <itemPath>src/THDMquantities.h</itemPath>
       <itemPath>src/THDMquantitiesatQ.h</itemPath>
-      <itemPath>src/bsgamma.h</itemPath>
+      <itemPath>src/bsgammaTHDM.h</itemPath>
       <itemPath>src/globalminimum.h</itemPath>
       <itemPath>src/heavyHiggs.h</itemPath>
       <itemPath>src/lightHiggs.h</itemPath>
@@ -37,7 +37,7 @@
       <itemPath>src/THDMcache.cpp</itemPath>
       <itemPath>src/THDMquantities.cpp</itemPath>
       <itemPath>src/THDMquantitiesatQ.cpp</itemPath>
-      <itemPath>src/bsgamma.cpp</itemPath>
+      <itemPath>src/bsgammaTHDM.cpp</itemPath>
       <itemPath>src/globalminimum.cpp</itemPath>
       <itemPath>src/heavyHiggs.cpp</itemPath>
       <itemPath>src/lightHiggs.cpp</itemPath>
@@ -115,9 +115,9 @@
       </item>
       <item path="src/THDMquantitiesatQ.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/bsgammaTHDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
+      <item path="src/bsgammaTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -207,9 +207,9 @@
       </item>
       <item path="src/THDMquantitiesatQ.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/bsgammaTHDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
+      <item path="src/bsgammaTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -299,9 +299,9 @@
       </item>
       <item path="src/THDMquantitiesatQ.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/bsgammaTHDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
+      <item path="src/bsgammaTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>

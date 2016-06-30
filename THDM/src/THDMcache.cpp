@@ -4433,6 +4433,9 @@ void THDMcache::runTHDMparameters()
     double lambda4_at_MZ=mylambda4->computeThValue();
     double lambda5_at_MZ=mylambda5->computeThValue();
 
+    double Rpeps=myTHDM->getRpeps();
+    double NLOuniscale=myTHDM->getNLOuniscale();
+
     if(fabs(Q_THDM-log10(MZ))<0.005)   //at MZ scale
     {
         Q_cutoff=log10(MZ);
@@ -4472,7 +4475,7 @@ void THDMcache::runTHDMparameters()
         InitVals[12]=lambda4_at_MZ;
         InitVals[13]=lambda5_at_MZ;
 
-        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM, flag);  //Running up to Q_cutoff<=Q_THDM
+        Q_cutoff=myRunner->RGERunner(InitVals, 14, log10(MZ), Q_THDM, flag, Rpeps, NLOuniscale);  //Running up to Q_cutoff<=Q_THDM
 
         g1_at_Q = InitVals[0];
         g2_at_Q = InitVals[1];

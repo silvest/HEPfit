@@ -94,6 +94,23 @@ double Robs_tau_mu_gamma::computeThValue()
     return (1+(BR_tau_mu_gamma-BR_tau_mu_gamma_obs)/BR_tau_mu_gamma_exp)*ntos;
 }
 
+Robs_tau_mu_gamma_BelleII::Robs_tau_mu_gamma_BelleII(const StandardModel& SM_i)
+: ThObservable(SM_i), mySM(SM_i)
+{}
+
+double Robs_tau_mu_gamma_BelleII::computeThValue()
+{
+    double alph = mySM.getAle();
+    double mTAU = mySM.getLeptons(StandardModel::TAU).getMass();
+    gslpp::vector<gslpp::complex> ** allcoeff_tm = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma(2);
+    double BR_tau_mu_gamma = (alph*pow(mTAU,5) * ((*(allcoeff_tm[LO])) * (*(allcoeff_tm[LO])).conjugate()).abs() / (2.26735e-12) );
+    double BR_tau_mu_gamma_obs=1.0e-9;    //1002.5012
+    double BR_tau_mu_gamma_exp=1.0e-9;    //1002.5012
+    double ntos=1.64485362695147; //90% CL
+    
+    return (1+(BR_tau_mu_gamma-BR_tau_mu_gamma_obs)/BR_tau_mu_gamma_exp)*ntos;
+}
+
 tau_e_gamma::tau_e_gamma(const StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i)
 {}

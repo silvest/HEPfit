@@ -277,43 +277,43 @@ bool SUSYSpectrum::CalcSelectron(gslpp::matrix<gslpp::complex>& Rl_i, gslpp::vec
 
     //  this section is useful to re-define the slepton matrix
     //if you want to use deltas, use this...
-                double delta12=0.1;
-                double delta13=0.;
-                double delta23=0.;
-                gslpp::complex sLmass=mySUSY.msLhat2(0,0);
-                gslpp::matrix<gslpp::complex> msLhat2modified(3,3,0.);
-                    msLhat2modified.assign(0, 0, sLmass);
-                    msLhat2modified.assign(1, 1, sLmass);
-                    msLhat2modified.assign(2, 2, sLmass);
-                    msLhat2modified.assign(0, 1, delta12*sLmass);
-                    msLhat2modified.assign(1, 0, delta12*sLmass);
-                    msLhat2modified.assign(0, 2, 0.);
-                    msLhat2modified.assign(2, 0, 0.);
-                    msLhat2modified.assign(1, 2, 0.);
-                    msLhat2modified.assign(2, 1, 0.);
-                gslpp::matrix<gslpp::complex> msEhat2modified(3,3,0.);
-                    msEhat2modified.assign(0, 0, sLmass);
-                    msEhat2modified.assign(1, 1, sLmass);
-                    msEhat2modified.assign(2, 2, sLmass);
-                    msEhat2modified.assign(0, 1, 0.);
-                    msEhat2modified.assign(1, 0, 0.);
-                    msEhat2modified.assign(0, 2, 0.);
-                    msEhat2modified.assign(2, 0, 0.);
-                    msEhat2modified.assign(1, 2, 0.);
-                    msEhat2modified.assign(2, 1, 0.);
-                gslpp::matrix<gslpp::complex> eLL( msLhat2modified + Me * Me
-                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
-                gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
-                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
-                gslpp::matrix<gslpp::complex> eRR( msEhat2modified + Me * Me - cos2b * Mz2 * sW2 * Id3 );
+//                double delta12=0.1;
+//                double delta13=0.;
+//                double delta23=0.;
+//                gslpp::complex sLmass=mySUSY.msLhat2(0,0);
+//                gslpp::matrix<gslpp::complex> msLhat2modified(3,3,0.);
+//                    msLhat2modified.assign(0, 0, sLmass);
+//                    msLhat2modified.assign(1, 1, sLmass);
+//                    msLhat2modified.assign(2, 2, sLmass);
+//                    msLhat2modified.assign(0, 1, delta12*sLmass);
+//                    msLhat2modified.assign(1, 0, delta12*sLmass);
+//                    msLhat2modified.assign(0, 2, 0.);
+//                    msLhat2modified.assign(2, 0, 0.);
+//                    msLhat2modified.assign(1, 2, 0.);
+//                    msLhat2modified.assign(2, 1, 0.);
+//                gslpp::matrix<gslpp::complex> msEhat2modified(3,3,0.);
+//                    msEhat2modified.assign(0, 0, sLmass);
+//                    msEhat2modified.assign(1, 1, sLmass);
+//                    msEhat2modified.assign(2, 2, sLmass);
+//                    msEhat2modified.assign(0, 1, 0.);
+//                    msEhat2modified.assign(1, 0, 0.);
+//                    msEhat2modified.assign(0, 2, 0.);
+//                    msEhat2modified.assign(2, 0, 0.);
+//                    msEhat2modified.assign(1, 2, 0.);
+//                    msEhat2modified.assign(2, 1, 0.);
+//                gslpp::matrix<gslpp::complex> eLL( msLhat2modified + Me * Me
+//                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
+//                gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
+//                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
+//                gslpp::matrix<gslpp::complex> eRR( msEhat2modified + Me * Me - cos2b * Mz2 * sW2 * Id3 );
 
     // ... until here
     //else use the following...
-//    gslpp::matrix<gslpp::complex> eLL( mySUSY.msLhat2 + Me * Me
-//                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
-//    gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
-//                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
-//    gslpp::matrix<gslpp::complex> eRR( mySUSY.msEhat2 + Me * Me - cos2b * Mz2 * sW2 * Id3 );
+    gslpp::matrix<gslpp::complex> eLL( mySUSY.msLhat2 + Me * Me
+                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
+    gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
+                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
+    gslpp::matrix<gslpp::complex> eRR( mySUSY.msEhat2 + Me * Me - cos2b * Mz2 * sW2 * Id3 );
     // ... until here
 
         for(int i = 0; i < 3; i++)

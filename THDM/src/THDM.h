@@ -80,6 +80,11 @@ class THDMcache; //forward reference to THDMcache class
  *   <td class="mod_symb">@f$\varepsilon_{\text{R'}}@f$</td>
  *   <td class="mod_desc">Minimal value for which the R' perturbativity criterion should be applied for the unitarity bounds.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%NLOuniscale</td>
+ *   <td class="mod_symb">@f$Q_{\text{min}}^{\text{NLOuni}}@f$</td>
+ *   <td class="mod_desc">Minimal scale at which the NLO unitarity conditions are checked.</td>
+ * </tr>
  * </table>
  * 
  *
@@ -108,7 +113,7 @@ class THDMcache; //forward reference to THDMcache class
 class THDM: public StandardModel {
 public:
 
-    static const int NTHDMvars = 9;
+    static const int NTHDMvars = 10;
     static const std::string THDMvars[NTHDMvars];
     
     /**
@@ -347,6 +352,14 @@ public:
         return Rpeps;
     }
 
+    /**
+     *
+     * @return Minimal NLO unitarity check scale
+     */
+    double getNLOuniscale() const {
+        return NLOuniscale;
+    }
+
 protected: 
 
     virtual void setParameter(const std::string, const double&);
@@ -389,7 +402,7 @@ private:
 
     THDMcache* myTHDMcache;
 
-    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps;
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps, NLOuniscale;
     std::string flag_model, flag_RGEorder;
     bool flag_wfr;
 };

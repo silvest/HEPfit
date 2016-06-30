@@ -189,6 +189,34 @@ private:
 };
 
 /**
+ * @class Robs_tau_mu_gamma_BelleII
+ * @ingroup LeptonFlavour
+ * @brief A class for calculating the upper limit ratio for the process \f$ \tau \to \mu \gamma \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ */
+class Robs_tau_mu_gamma_BelleII : public ThObservable {
+public:
+    
+    /**
+     * @brief Calculates the upper limit ratio of the process \f$ \tau \to \mu \gamma \f$.
+     */
+    Robs_tau_mu_gamma_BelleII(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$R=1+(BR_{\text{theo}}-BR_{\text{obs,90\%}})/BR_{\text{exp,90\%}}\cdot \sqrt{2}\text{InvErf}(0.90)@f$
+     */
+    double computeThValue();
+    
+private:
+    /**
+     * @brief Constructor containing the Wilson coefficient 
+     */
+    const StandardModel& mySM;
+
+};
+
+/**
  * @class tau_e_gamma
  * @ingroup LeptonFlavour
  * @brief A class for calculating the branching ratio of the process \f$ \tau \to e \gamma \f$.
