@@ -1479,7 +1479,7 @@ double MVll::I_2s(double q2)
 
 double MVll::I_3(double q2) 
 {
-    return -F(q2, b) / 2. * ((H_V_p(q2) * H_V_m(q2).conjugate()).real() + (H_A_p(q2) * H_A_m(q2).conjugate()).real());
+    return -F(q2, b) * beta2(q2) / 2. * ((H_V_p(q2) * H_V_m(q2).conjugate()).real() + (H_A_p(q2) * H_A_m(q2).conjugate()).real());
 }
 
 double MVll::I_4(double q2) 
