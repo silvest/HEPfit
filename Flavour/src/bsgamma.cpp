@@ -2289,10 +2289,6 @@ void Bsgamma::updateParameters()
     
     overall = BRsl * CKMratio * 6. * ale / (M_PI * C);
     
-    /*std::cout << "bqgamma quark type: " << quark <<  std::endl;
-    std::cout << "CKMratio " <<  CKMratio << std::endl;
-    std::cout << "CKMu " <<  CKMu << std::endl;
-    std::cout << "CKMusq " <<  CKMusq << std::endl << std::endl;*/
 }
 
 double Bsgamma::computeThValue()

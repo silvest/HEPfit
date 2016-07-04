@@ -1012,6 +1012,7 @@ gslpp::complex MVll::Cpar(double q2)
 gslpp::complex MVll::deltaTperp(double q2) 
 {
     tmpq2 = q2;
+    Ee = (MM2 - tmpq2) / twoMM;
     if (deltaTperpCached[q2] == 0) {
         
         DTPPR = convertToGslFunction(boost::bind(&MVll::Integrand_ReTperpplus, &(*this), _1));
@@ -1026,14 +1027,12 @@ gslpp::complex MVll::deltaTperp(double q2)
         deltaTperpCached[q2] = 1;
     }
 
-    return deltaT_0 * Cperp(q2) + deltaT_1perp / T_1(q2) / mySM.getMesons(meson).getLambdaM() * cacheDeltaTperp[q2];
+    return deltaT_0 * Cperp(q2) * MM / 2. / Ee 
+            + deltaT_1perp / V_m(q2) / mySM.getMesons(meson).getLambdaM() * cacheDeltaTperp[q2];
 }
 
 gslpp::complex MVll::deltaTpar(double q2) 
 {
-    double Lambdaplus = mySM.getMesons(meson).getLambdaM();
-    gslpp::complex Lambdamin = exp(-q2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_Ei(q2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
-    double T3q2 = MM2mMV2/lambda(q2) * ( (MM2 + 3.*MV2 - q2) * T_2(q2) - 8.*MM*MV2/MMpMV * FF_fit(q2, a_0T23, a_1T23, a_2T23, MRT23_2) );
     tmpq2 = q2;
     Ee = (MM2 - tmpq2) / twoMM;
     
@@ -1051,7 +1050,8 @@ gslpp::complex MVll::deltaTpar(double q2)
         deltaTparpCached[q2] = 1;
     }
 
-    return deltaT_0 * Cpar(q2) + deltaT_1par * MV/Ee / (T_1(q2) - T3q2) * (cacheDeltaTparp[q2]);
+    return deltaT_0 * Cpar(q2) * MV * sqrt(q2) / (Ee*Ee) 
+            + deltaT_1par * MV/Ee / V_0t(q2) * cacheDeltaTparp[q2];
 }
 
 
