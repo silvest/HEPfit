@@ -1,0 +1,7 @@
+#!/bin/bash
+for i in KD NOKD FULLKD NOq4
+do
+	cd ${i}
+	rm -rf FULL LQBIN* BR* Obs_ee makerun submit_analysis.sh run_long.sh
+	cd ../
+done
