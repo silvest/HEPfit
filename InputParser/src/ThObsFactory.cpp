@@ -340,8 +340,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Argh_m_BdKstmu"] = boost::bind(boost::factory<h_m*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 4);
     
     parameterForObservable["BR_BdKstmu"] = make_vector<std::string>() << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0" 
-                                                                      << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_0A12" << "a_1A12" << "a_2A12" << "MRA12" 
-                                                                      << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_0T2" << "a_1T2" << "a_2T2" << "MRT2" 
+                                                                      << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                                                                      << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2" 
                                                                       << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23" 
                                                                       << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m" 
                                                                       << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1" 
@@ -481,10 +481,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["S_9_Bsphimu"] = boost::bind(boost::factory<S_9*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
     obsThFactory["A_6_Bsphimu"] = boost::bind(boost::factory<A_6*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
     obsThFactory["A_9_Bsphimu"] = boost::bind(boost::factory<A_9*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
-    parameterForObservable["BR_Bsphimu"] = make_vector<std::string>() << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRVphi" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0phi" 
-                                                                      << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1phi" << "a_0A12phi" << "a_1A12phi" << "a_2A12phi" << "MRA12phi" 
-                                                                      << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1phi" << "a_0T2phi" << "a_1T2phi" << "a_2T2phi" << "MRT2phi" 
-                                                                      << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23phi" 
+    parameterForObservable["BR_Bsphimu"] = make_vector<std::string>() << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0" 
+                                                                      << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                                                                      << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2" 
+                                                                      << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23" 
                                                                       << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m" 
                                                                       << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1" 
                                                                       << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2";
