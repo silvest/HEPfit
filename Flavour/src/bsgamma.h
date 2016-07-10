@@ -1532,46 +1532,81 @@ public:
     
     /**
     * @brief The 2 body NLO Vub part of the \f$BR\f$ as defined in @cite Gambino:2001ew , \f$Vub^{NLO}_{2b}\f$.
-    * @param[in] CPodd switch to allow for CPodd terms
     * @return \f$Vub^{NLO}_{2b}\f$
     */
-    double Vub_NLO_2body(bool CPodd);
+    double Vub_NLO_2body();
     
     
     /**
-    * @brief The first piece of the 3 body NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}_{3b,A}\f$.
+    * @brief The CP odd part of the 2 body NLO Vub part of the \f$BR\f$ as 
+    * defined in @cite Gambino:2001ew , \f$Vub^{NLO}_{2b,CPodd}\f$.
+    * @return \f$Vub^{NLO}_{2b}\f$
+    */
+    double Vub_NLO_2body_CPodd();
+    
+    
+    /**
+    * @brief The first piece of the 3 body NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}_{3b,A,CPodd}\f$.
     * @param[in] E0 energy cutoff
-    * @param[in] CPodd switch to allow for CPodd terms
     * @return \f$Vub^{NLO}_{3b}\f$
     */
-    double Vub_NLO_3body_A(double E0, bool CPodd);
+    double Vub_NLO_3body_A(double E0);
     
     
     /**
-    * @brief The second piece of the 3 body NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}_{3b,B}\f$.
+    * @brief The CP odd part of the first piece of the 3 body NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}_{3b,A}\f$.
     * @param[in] E0 energy cutoff
-    * @param[in] CPodd switch to allow for CPodd terms
     * @return \f$Vub^{NLO}_{3b}\f$
     */
-    double Vub_NLO_3body_B(double E0, bool CPodd);
+    double Vub_NLO_3body_A_CPodd(double E0);
     
     
     /**
-    * @brief The 4 body NLO Vub part of the \f$BR\f$ obtained from @cite Huber:2014nna , \f$Vub^{NLO}_{4b}\f$.
+    * @brief The second piece of the 3 body NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}_{3b,B,CPodd}\f$.
     * @param[in] E0 energy cutoff
-    * @param[in] CPodd switch to allow for CPodd terms
+    * @return \f$Vub^{NLO}_{3b}\f$
+    */
+    double Vub_NLO_3body_B(double E0);
+    
+    
+    /**
+    * @brief The CP odd part of the second piece of the 3 body NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}_{3b,B}\f$.
+    * @param[in] E0 energy cutoff
+    * @return \f$Vub^{NLO}_{3b}\f$
+    */
+    double Vub_NLO_3body_B_CPodd(double E0);
+    
+    
+    /**
+    * @brief The 4 body NLO Vub part of the \f$BR\f$ obtained from @cite Huber:2014nna , \f$Vub^{NLO}_{4b,CPodd}\f$.
+    * @param[in] E0 energy cutoff
     * @return \f$Vub^{NLO}_{4b}\f$
     */
-    double Vub_NLO_4body(double E0, bool CPodd);
+    double Vub_NLO_4body(double E0);
+    
+    
+    /**
+    * @brief The CP odd part of the 4 body NLO Vub part of the \f$BR\f$ obtained from @cite Huber:2014nna , \f$Vub^{NLO}_{4b}\f$.
+    * @param[in] E0 energy cutoff
+    * @return \f$Vub^{NLO}_{4b}\f$
+    */
+    double Vub_NLO_4body_CPodd(double E0);
     
     
     /**
     * @brief The total NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}\f$.
     * @param[in] E0 energy cutoff
-    * @param[in] CPodd switch to allow for CPodd terms
     * @return \f$Vub^{NLO}\f$
     */
-    double Vub_NLO(double E0, bool CPodd);
+    double Vub_NLO(double E0);
+    
+    
+    /**
+    * @brief The CP odd part of the total NLO Vub part of the \f$BR\f$, \f$Vub^{NLO}_{CPodd}\f$.
+    * @param[in] E0 energy cutoff
+    * @return \f$Vub^{NLO}\f$
+    */
+    double Vub_NLO_CPodd(double E0);
     
     
     /**
@@ -1588,10 +1623,9 @@ public:
     * @param[in] mu_b b quark scale
     * @param[in] mu_c c quark scale
     * @param[in] order perturbation theory order
-    * @param[in] CPodd switch to allow for CPodd terms
     * @return \f$P\f$
     */
-    double P(double E0, double mu_b, double mu_c, orders order, bool CPodd);
+    double P(double E0, double mu_b, double mu_c, orders order);
     
     
     /**

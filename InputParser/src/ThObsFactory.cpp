@@ -235,16 +235,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_BdmumuOBR_Bsmumu"] = boost::factory<BdmumuOBsmumu*>();
    //----- b to q gamma  -----
     obsThFactory["BR_bsgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::STRANGE, 1);
-    obsThFactory["BR_CPodd_bsgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::STRANGE, 2);
+    obsThFactory["ACP_bsgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::STRANGE, 2);
     obsThFactory["BR_bdgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::DOWN, 1);
-    obsThFactory["BR_CPodd_bdgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::DOWN, 2);
+    obsThFactory["ACP_bdgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::DOWN, 2);
     obsThFactory["BR_bqgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 1);
+    obsThFactory["ACP_bqgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 2);
     parameterForObservable["BR_bsgamma"] = make_vector<std::string>() << "Gambino_mukin" << "Gambino_BRsem" << "Gambino_Mbkin" << "Gambino_Mcatmuc" << "Gambino_mupi2" 
                                                                       << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "bsgamma_E0" << "BLNPcorr";
-    parameterForObservable["BR_CPodd_bsgamma"] = parameterForObservable["BR_bsgamma"];
+    parameterForObservable["ACP_bsgamma"] = parameterForObservable["BR_bsgamma"];
     parameterForObservable["BR_bdgamma"] = parameterForObservable["BR_bsgamma"];
-    parameterForObservable["BR_CPodd_bdgamma"] = parameterForObservable["BR_bsgamma"];
+    parameterForObservable["ACP_bdgamma"] = parameterForObservable["BR_bsgamma"];
     parameterForObservable["BR_bqgamma"] = parameterForObservable["BR_bsgamma"];
+    parameterForObservable["ACP_bqgamma"] = parameterForObservable["BR_bsgamma"];
     //----- B to K* ll  -----
     obsThFactory["P_1_BdKstmu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["P_1_BdKste"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);

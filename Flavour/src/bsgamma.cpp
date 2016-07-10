@@ -26,7 +26,7 @@ Intbc_cache(2, 0.)
     if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
-    else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");
+    else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
     
     quark = quark_i;
     
@@ -58,7 +58,7 @@ Intbc_cache(2, 0.)
     if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
-    else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (BR_CPodd)");
+    else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
     
     SUM = true;
     EWflag = true;
@@ -2041,34 +2041,49 @@ double Bsgamma::EW_NLO(double mu)
     else return 0.;
 }
 
-double Bsgamma::Vub_NLO_2body(bool CPodd)
+double Bsgamma::Vub_NLO_2body()
 {
     double z = zeta();
     
-    return 4. * Alstilde * (C7_0 * ( C2_0 - C1_0/6. )).real() *
-            (CKMu.real()*( a(z) + b(z) ).real() - CPodd * CKMu.imag()*( a(z) + b(z) ).imag());
+    return 4. * Alstilde * (C7_0 * ( C2_0 - C1_0/6. )).real() * CKMu.real()*( a(z) + b(z) ).real();
 }
 
-double Bsgamma::Vub_NLO_3body_A(double E0,bool CPodd)
+double Bsgamma::Vub_NLO_2body_CPodd()
+{
+    double z = zeta();
+    
+    return - 4. * Alstilde * (C7_0 * ( C2_0 - C1_0/6. )).real() * CKMu.imag()*( a(z) + b(z) ).imag();
+}
+
+double Bsgamma::Vub_NLO_3body_A(double E0)
 {
     double d = delta(E0);
     
     return 64./27. * Alstilde * ( C2_0 - C1_0/6. ).abs2() *
             ( CKMu.real() * ( 2. * Int_cc1(E0) - Int_c1(E0).real() )
-            + CKMusq *  ( Int_cc1(E0) - Int_c1(E0).real() + 1./8. * d * ( 1. - 1./3. * d*d ) )
-            - CPodd * CKMu.imag() * Int_c1(E0).imag() );
+            + CKMusq *  ( Int_cc1(E0) - Int_c1(E0).real() + 1./8. * d * ( 1. - 1./3. * d*d ) ));
 }
 
-double Bsgamma::Vub_NLO_3body_B(double E0,bool CPodd)
+double Bsgamma::Vub_NLO_3body_A_CPodd(double E0)
+{
+    return - 64./27. * Alstilde * ( C2_0 - C1_0/6. ).abs2() * CKMu.imag() * Int_c1(E0).imag();
+}
+
+double Bsgamma::Vub_NLO_3body_B(double E0)
 {
     double d = delta(E0);
     
     return 4. * Alstilde * (( C7_0 - C8_0/3. ) * ( C2_0 - C1_0/6. )).real() *
-            ( CKMu.real() * ( Phi27_1(E0,zeta()).real() + 2./9. * d * ( 1. - d + 1./3. * d*d ) )
-            - CPodd * CKMu.imag() * Phi27_1(E0,zeta()).imag() );
+            ( CKMu.real() * ( Phi27_1(E0,zeta()).real() + 2./9. * d * ( 1. - d + 1./3. * d*d ) ) );
 }
 
-double Bsgamma::Vub_NLO_4body(double E0, bool CPodd)
+double Bsgamma::Vub_NLO_3body_B_CPodd(double E0)
+{
+    return - 4. * Alstilde * (( C7_0 - C8_0/3. ) * ( C2_0 - C1_0/6. )).real() *
+            ( CKMu.imag() * Phi27_1(E0,zeta()).imag() );
+}
+
+double Bsgamma::Vub_NLO_4body(double E0)
 {
     if (FOUR_BODY) {
         double d = delta(E0);
@@ -2087,17 +2102,31 @@ double Bsgamma::Vub_NLO_4body(double E0, bool CPodd)
                     - d2 * (127. + 72. * Lq) + 9. * (-12. - 39. * d + 4. * d2) * Ld) 
                     + 108. * (-1. - 4. * d + 2. * d2) * gsl_sf_dilog(d) ) / 729.;
 
-        return 4. * Alstilde * ( ( C2_0 - C1_0/6. ).abs2() * 
-                ( CKMu.real() * 0.005025213076791178 + CPodd * CKMu.imag() * 0.013978889449487913)
+        return 4. * Alstilde * ( 
+                ( C2_0 - C1_0/6. ).abs2() * ( CKMu.real() * 0.005025213076791178 )
                 + ( C2_0 - C1_0/6. ).real() * CKMu.real() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) );
     }
     
     else return 0.;
 }
 
-double Bsgamma::Vub_NLO(double E0, bool CPodd)
+double Bsgamma::Vub_NLO_4body_CPodd(double E0)
 {
-    return Vub_NLO_2body(CPodd) + Vub_NLO_3body_A(E0,CPodd) + Vub_NLO_3body_B(E0,CPodd) + Vub_NLO_4body(E0,CPodd);
+    if (FOUR_BODY) {
+        return 4. * Alstilde * ( ( C2_0 - C1_0/6. ).abs2() * CKMu.imag() * 0.013978889449487913);
+    }
+    
+    else return 0.;
+}
+
+double Bsgamma::Vub_NLO(double E0)
+{
+    return Vub_NLO_2body() + Vub_NLO_3body_A(E0) + Vub_NLO_3body_B(E0) + Vub_NLO_4body(E0);
+}
+
+double Bsgamma::Vub_NLO_CPodd(double E0)
+{
+    return Vub_NLO_2body_CPodd() + Vub_NLO_3body_A_CPodd(E0) + Vub_NLO_3body_B_CPodd(E0) + Vub_NLO_4body_CPodd(E0);
 }
 
 double Bsgamma::Vub_NNLO(double E0)
@@ -2106,11 +2135,11 @@ double Bsgamma::Vub_NNLO(double E0)
     double r78 = (( C7_1 - C8_1/3. )/( C7_0 - C8_0/3. )).real();
     double r7 = (C7_1/C7_0).real();
     
-    return Alstilde * ( (r12 + r7) * Vub_NLO_2body(false) 
-            + 2. * r12 * Vub_NLO_3body_A(E0,false) + (r12 + r78) * Vub_NLO_3body_B(E0,false));
+    return Alstilde * ( (r12 + r7) * Vub_NLO_2body() 
+            + 2. * r12 * Vub_NLO_3body_A(E0) + (r12 + r78) * Vub_NLO_3body_B(E0));
 }
 
-double Bsgamma::P(double E0, double mu_b, double mu_c, orders order, bool CPodd)
+double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
 {
     switch(order) {
         case NNLO:
@@ -2123,15 +2152,16 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order, bool CPodd)
             std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;
             std::cout << "EW_NLO: " << EW_NLO(mu_b) << std::endl;*/
             if (NNLOflag){
-                return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
+                return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
                         + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b)
-                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b));
+                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b))
+                        + Vub_NNLO(E0);
             }
-            else return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
+            else return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
                     + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
             break;
         case NLO:
-            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0, CPodd)
+            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
                     + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
             break;
         case LO:
@@ -2296,9 +2326,9 @@ double Bsgamma::computeThValue()
     updateParameters();
     
     if (obs == 1) 
-        return overall *  ( P(E0, mu_b, mu_c, NNLO, false) + N(E0,mu_b) );// - 0.000000135643; //
+        return overall *  ( P(E0, mu_b, mu_c, NNLO) + N(E0,mu_b) );
     if (obs == 2) 
-        return overall *  ( P(E0, mu_b, mu_c, NNLO, true) + N(E0,mu_b) );// + 0.000000228606; //
+        return Vub_NLO_CPodd(E0) / P(E0, mu_b, mu_c, NNLO) ;
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");
 }
