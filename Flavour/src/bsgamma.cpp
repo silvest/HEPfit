@@ -2021,21 +2021,30 @@ double Bsgamma::P32(double E0, double mu)
 double Bsgamma::EW_NLO(double mu)
 {
     if(EWflag) {
-        gslpp::complex ew_nlo = 0.;
-        double ga_eff_ew_7[8] = {-832./729., -208./243., -20./243., -176./729., -22712./243., -6272./729., 16./9.};
+        double ew_nlo = 0.;
+        double ga_eff_ew_7[7] = {-832./729., -208./243., -20./243., -176./729., -22712./243., -6272./729., 16./9.};
         double Lb = log(mu/Mb_kin);
         double Lz = 2. * log(Mz/mu);
+        gslpp::complex C[7] = {C1_0, C2_0, C3_0, C4_0, C5_0, C6_0, C7_0};
+        gslpp::complex r[7] = {0.};
+        
+        r[0] = r1_ew(1,zeta()) - ga_eff_ew_7[0] * Lb;
+        r[1] = r1_ew(2,zeta()) - ga_eff_ew_7[1] * Lb;
+        r[2] = r1_ew(3,zeta()) - ga_eff_ew_7[2] * Lb;
+        r[3] = r1_ew(4,zeta()) - ga_eff_ew_7[3] * Lb;
+        r[4] = r1_ew(5,zeta()) - ga_eff_ew_7[4] * Lb;
+        r[5] = r1_ew(6,zeta()) - ga_eff_ew_7[5] * Lb;
+        r[6] = r1_ew(7,zeta()) - ga_eff_ew_7[6] * Lb;
     
-        ew_nlo = C1_0 * (r1_ew(1,zeta()) - ga_eff_ew_7[0] * Lb) +
-                C2_0 * (r1_ew(2,zeta()) - ga_eff_ew_7[1] * Lb) +
-                C3_0 * (r1_ew(3,zeta()) - ga_eff_ew_7[2] * Lb) +
-                C4_0 * (r1_ew(4,zeta()) - ga_eff_ew_7[3] * Lb) +
-                C5_0 * (r1_ew(5,zeta()) - ga_eff_ew_7[4] * Lb) +
-                C6_0 * (r1_ew(6,zeta()) - ga_eff_ew_7[5] * Lb) +
-                C7_0 * (r1_ew(7,zeta()) - ga_eff_ew_7[6] * Lb) -
-                2. * C7_0 * Lz + C7_1ew;
-    
-        return 2.*( C7_0.real()*ew_nlo.real() + C7_0.imag()*ew_nlo.imag());
+        for(int i=0;i<7;i++){
+            ew_nlo += 2. * (C7_0.real()*C[i].real() + C7_0.imag()*C[i].imag()) * r[i].real()
+                - 2. * (C7_0.real()*C[i].imag() - C7_0.imag()*C[i].real()) * r[i].imag();
+        }
+        
+        ew_nlo += 2. * (C7_0.real() * (-2. * C7_0 * Lz + C7_1ew).real() 
+                + C7_0.imag() * (-2. * C7_0 * Lz + C7_1ew).imag());
+        
+        return ew_nlo;
     }
     
     else return 0.;
@@ -2045,14 +2054,20 @@ double Bsgamma::Vub_NLO_2body()
 {
     double z = zeta();
     
-    return 4. * Alstilde * (C7_0 * ( C2_0 - C1_0/6. )).real() * CKMu.real()*( a(z) + b(z) ).real();
+    return 4. * Alstilde * 
+            ((C7_0.real()*( C2_0-C1_0/6. ).real() + C7_0.imag()*( C2_0-C1_0/6. ).imag()) * ( a(z)+b(z) ).real() -
+            (C7_0.real()*( C2_0-C1_0/6. ).imag() - C7_0.imag()*( C2_0-C1_0/6. ).real()) * ( a(z)+b(z) ).imag() ) 
+            * CKMu.real();
 }
 
 double Bsgamma::Vub_NLO_2body_CPodd()
 {
     double z = zeta();
     
-    return - 4. * Alstilde * (C7_0 * ( C2_0 - C1_0/6. )).real() * CKMu.imag()*( a(z) + b(z) ).imag();
+    return - 4. * Alstilde * 
+            ((C7_0.real()*( C2_0-C1_0/6. ).real() + C7_0.imag()*( C2_0-C1_0/6. ).imag()) * ( a(z)+b(z) ).imag() -
+            (C7_0.real()*( C2_0-C1_0/6. ).imag() - C7_0.imag()*( C2_0-C1_0/6. ).real()) * ( a(z)+b(z) ).real() ) 
+            * CKMu.imag();
 }
 
 double Bsgamma::Vub_NLO_3body_A(double E0)
@@ -2072,15 +2087,27 @@ double Bsgamma::Vub_NLO_3body_A_CPodd(double E0)
 double Bsgamma::Vub_NLO_3body_B(double E0)
 {
     double d = delta(E0);
+    gslpp::complex wc1 = C7_0 - C8_0/3.;
+    gslpp::complex wc2 = C2_0 - C1_0/6.;
+    gslpp::complex me = Phi27_1(E0,zeta()) + 2./9. * d * ( 1. - d + 1./3. * d*d );
     
-    return 4. * Alstilde * (( C7_0 - C8_0/3. ) * ( C2_0 - C1_0/6. )).real() *
-            ( CKMu.real() * ( Phi27_1(E0,zeta()).real() + 2./9. * d * ( 1. - d + 1./3. * d*d ) ) );
+    return 4. * Alstilde * 
+            (( wc1.real() * wc2.real() + wc1.imag() * wc2.imag()) * me.real() -
+            ( wc1.real() * wc2.imag() - wc1.imag() * wc2.real()) * me.imag())
+            * CKMu.real();
 }
 
 double Bsgamma::Vub_NLO_3body_B_CPodd(double E0)
 {
-    return - 4. * Alstilde * (( C7_0 - C8_0/3. ) * ( C2_0 - C1_0/6. )).real() *
-            ( CKMu.imag() * Phi27_1(E0,zeta()).imag() );
+    double d = delta(E0);
+    gslpp::complex wc1 = C7_0 - C8_0/3.;
+    gslpp::complex wc2 = C2_0 - C1_0/6.;
+    gslpp::complex me = Phi27_1(E0,zeta()) + 2./9. * d * ( 1. - d + 1./3. * d*d );
+    
+    return - 4. * Alstilde * 
+            (( wc1.real() * wc2.real() + wc1.imag() * wc2.imag()) * me.imag() -
+            ( wc1.real() * wc2.imag() - wc1.imag() * wc2.real()) * me.real())
+            * CKMu.imag();
 }
 
 double Bsgamma::Vub_NLO_4body(double E0)
@@ -2103,8 +2130,9 @@ double Bsgamma::Vub_NLO_4body(double E0)
                     + 108. * (-1. - 4. * d + 2. * d2) * gsl_sf_dilog(d) ) / 729.;
 
         return 4. * Alstilde * ( 
-                ( C2_0 - C1_0/6. ).abs2() * ( CKMu.real() * 0.005025213076791178 )
-                + ( C2_0 - C1_0/6. ).real() * CKMu.real() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) );
+                ( C2_0 - C1_0/6. ).abs2() * CKMu.real() * 0.005025213076791178
+                + ( C2_0 - C1_0/6. ).real() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) * CKMu.real()
+                + ( C2_0 - C1_0/6. ).imag() * (C7_0.imag() * uphib427 + C8_0.imag() * uphib428) * CKMu.real() );
     }
     
     else return 0.;
@@ -2113,7 +2141,26 @@ double Bsgamma::Vub_NLO_4body(double E0)
 double Bsgamma::Vub_NLO_4body_CPodd(double E0)
 {
     if (FOUR_BODY) {
-        return 4. * Alstilde * ( ( C2_0 - C1_0/6. ).abs2() * CKMu.imag() * 0.013978889449487913);
+        double d = delta(E0);
+        double d2 = d*d;
+        double d3 = d2*d;
+        double Ld = log(d);
+        double Lumd = log(1. - d);
+        double Lq = log(Ms/Mb_kin);
+
+        double uphib427 = ( 2. * d * (-63. + 30. * d + 35. * d2 - 2. * d3 
+                    + 3. * d * (-18. - 7. * d + d2) * Ld) ) / ( 243. * (d - 1.) );
+        double uphib428 = ( 108. * (d - 1.) * (d - 1.) * Lumd*Lumd 
+                    - 12. * Lumd * (- 25. - 18. * Lq - 18. * d * (5. + 4. * Lq) 
+                    + 9. * d2 * (5. + 4. * Lq) + (9. + 36. * d - 18. * d2) * Ld) 
+                    + d * (24. * (17. + 9. * Lq) + 27. * d * (43. + 26. * Lq) 
+                    - d2 * (127. + 72. * Lq) + 9. * (-12. - 39. * d + 4. * d2) * Ld) 
+                    + 108. * (-1. - 4. * d + 2. * d2) * gsl_sf_dilog(d) ) / 729.;
+        
+        return 4. * Alstilde * ( 
+                ( C2_0 - C1_0/6. ).abs2() * CKMu.imag() * 0.013978889449487913
+                + ( C2_0 - C1_0/6. ).real() * (C7_0.imag() * uphib427 + C8_0.imag() * uphib428) * CKMu.imag()
+                - ( C2_0 - C1_0/6. ).imag() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) * CKMu.imag() );
     }
     
     else return 0.;
