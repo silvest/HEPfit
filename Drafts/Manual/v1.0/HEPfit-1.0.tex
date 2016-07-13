@@ -1,19 +1,47 @@
-\documentclass[aps,superscriptaddress,nofootinbib,floatfix,notitlepage]{revtex4-1}
-\pdfoutput=1
+\documentclass[preprint,3p,12pt]{elsarticle}
+%\documentclass[final,3p,times]{elsarticle}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
+\usepackage{color}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage[all]{hypcap}
 \usepackage[utf8x]{inputenc}
-\usepackage{lmodern}
-\usepackage{xspace}
-\usepackage{color}
+%%switch on for linenumbers%% \usepackage{lineno}
 \usepackage{listings}
-%\usepackage{courier}
+\usepackage{lmodern}
+\usepackage{lscape}
+\usepackage{xspace}
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat�s bookmarks
+    pdftoolbar=true,        % show Acrobat�s toolbar?
+    pdfmenubar=true,        % show Acrobat�s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={HEPfit Manual},    % title
+    pdfauthor={HEPfit Collaboration},     % author
+    pdfsubject={hep-ph},   % subject of the document
+    pdfcreator={TeXShop},   % creator of the document
+    pdfproducer={MacTex, PDFLaTeX}, % producer of the document
+    pdfkeywords={Flavour Physics} {Higgs Physics} {EW Physics} {Computational HEP}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linktocpage=true,
+    linkcolor=blue,          % color of internal links
+    citecolor=red,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=blue           % color of external links
+}
+
+\newcommand{\HEPfit}{\texttt{HEPfit}\xspace}
+
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
+
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
@@ -42,81 +70,82 @@
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
 
-\usepackage{hyperref} 
-\hypersetup{linktocpage=true}
-\usepackage[all]{hypcap}
-\hypersetup{
-    bookmarks=true,         % show bookmarks bar?
-    unicode=false,          % non-Latin characters in Acrobat�s bookmarks
-    pdftoolbar=true,        % show Acrobat�s toolbar?
-    pdfmenubar=true,        % show Acrobat�s menu?
-    pdffitwindow=false,     % window fit to page when opened
-    pdfstartview={FitH},    % fits the width of the page to the window
-    pdftitle={HEPfit Manual},    % title
-    pdfauthor={},     % author
-    pdfsubject={hep-ph},   % subject of the document
-    pdfcreator={TeXShop},   % creator of the document
-    pdfproducer={MacTex, PDFLaTeX}, % producer of the document
-    pdfkeywords={Flavour Physics} {Higgs Physics} {EW Physics} {Computational HEP}, % list of keywords
-    pdfnewwindow=true,      % links in new window
-    colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=blue,          % color of internal links
-    citecolor=magenta,        % color of links to bibliography
-    filecolor=magenta,      % color of file links
-    urlcolor=cyan           % color of external links
-}
-%\usepackage[punctsep]{collref}
+\newcounter{bla}
+\newenvironment{refnummer}{%
+\list{[\arabic{bla}]}%
+{\usecounter{bla}%
+ \setlength{\itemindent}{0pt}%
+ \setlength{\topsep}{0pt}%
+ \setlength{\itemsep}{0pt}%
+ \setlength{\labelsep}{2pt}%
+ \setlength{\listparindent}{0pt}%
+ \settowidth{\labelwidth}{[9]}%
+ \setlength{\leftmargin}{\labelwidth}%
+ \addtolength{\leftmargin}{\labelsep}%
+ \setlength{\rightmargin}{0pt}}}
+ {\endlist}
 
-\newcommand{\HEPfit}{\texttt{HEPfit}\xspace}
+\journal{Computer Physics Communications}
 
 \begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for the associated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for the associated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for the associated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%%
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
 
 \title{\HEPfit: a Code for the Combination of Indirect and Direct
   Constraints\\ on High Energy Physics Models. \\
   v1.0: Precision Electroweak Observables, Higgs Signal Strengths,\\ and Flavour Violation in the
-  Standard Model and Beyond
-  \vspace*{0.5cm}
-%  \begin{figure}[htb!]
-%   \begin{center}
-% %  \includegraphics[width=0.13\textwidth]{logo}
-%   \end{center}
-% \end{figure}
-% \vspace*{-0.8cm}
-}
+  Standard Model and Beyond}
 
-\collaboration{
-%\begin{figure}[h!]
-  %\begin{center}
-  %\includegraphics[width=0.13\textwidth]{logo}
-  %\end{center}
- %\end{figure}
-\HEPfit Collaboration
-}
-%\homepage{http://www.susyfit.org} 
-\homepage{http://hepfit.roma1.infn.it} 
-%\affiliation{}
-\author{M.~Ciuchini}
-\affiliation{INFN,  Sezione di Roma Tre, Via della Vasca Navale 84, I-00146 Roma, Italy}
-\author{J.~de Blas}
-\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
-\author{D.~Chowdhury}
-\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
-\author{O.~Eberhardt}
-\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
-\author{M.~Fedele}
-\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
-\author{E.~Franco}
-\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
-\author{S.~Mishima}
-\affiliation{Institute of Particle and Nuclear Studies, KEK, Tsukuba 305-0801, Japan}
-\author{A.~Paul}
-\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
-\author{L.~Reina}
-\affiliation{Physics Department, Florida State University, Tallahassee, FL 32306-4350, USA}
-\author{L.~Silvestrini}
-\affiliation{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
-\author{M.~Valli}
-\affiliation{SISSA, via Bonomea 265, I-34136 Trieste, Italy and INFN, Sezione di Trieste, via Valerio 2, I-34127 Trieste, Italy}
+%\ead[url]{http://hepfit.roma1.infn.it}
+\author[]{\HEPfit Collaboration \corref{hf}}
+\cortext[hf]{http://hepfit.roma1.infn.it}
+\ead{hepfit-support@roma1.infn.it}
+\author[a]{\hspace*{-8pt}\colorbox{white}{}\hspace*{-4pt}: M.~Ciuchini}
+\author[b]{J.~de Blas}
+\author[b]{D.~Chowdhury}
+\author[b]{O.~Eberhardt}
+\author[b]{M.~Fedele}
+\author[b]{E.~Franco}
+\author[c]{S.~Mishima}
+\author[b]{A.~Paul}
+\author[d]{M.~Pierini}
+\author[e]{L.~Reina}
+\author[b]{L.~Silvestrini}
+\author[f]{M.~Valli}
+\author[g]{N.~Yokozaki}
+
+\address[a]{INFN,  Sezione di Roma Tre, Via della Vasca Navale 84, I-00146 Roma, Italy}
+\address[b]{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
+\address[c]{Institute of Particle and Nuclear Studies, KEK, Tsukuba 305-0801, Japan}
+\address[d]{CERN}
+\address[e]{Physics Department, Florida State University, Tallahassee, FL 32306-4350, USA}
+\address[f]{SISSA, via Bonomea 265, I-34136 Trieste, Italy and INFN, Sezione di Trieste, via Valerio 2, I-34127 Trieste, Italy}
+\address[g]{Department of Physics, Tohoku University, Sendai, Miyagi 980-8578, Japan}
+
+%%\author[a]{First Author\corref{author}}
+%%\cortext[author] {Corresponding author.\\\textit{E-mail address:} firstAuthor@somewhere.edu}
+
 \begin{abstract}
 \HEPfit is a flexible %open-source
 tool which, given the Standard Model or any extension, allows to \textit{i)} fit the model
@@ -127,11 +156,62 @@ analysis of the given model, or as a library, to obtain predictions of
 observables for a given point in the parameter space of the model, allowing our computational tool to be used in
 any statistical framework. In the present version, Electroweak Precision Observables have been implemented
 in the Standard Model and in several New Physics scenarios.
-
-
 \end{abstract}
- 
-\maketitle
+
+\begin{keyword}
+Model fits%%keyword1; keyword2; keyword3; etc.
+\end{keyword}
+
+\end{frontmatter}
+
+%%switch on for linenumbers%% \linenumbers
+
+% Computer program descriptions should contain the following
+% PROGRAM SUMMARY.
+
+{\bf PROGRAM SUMMARY}
+
+\begin{small}
+\noindent
+{\em Program Title: HEPfit}                                          \\
+{\em Licensing provisions(delete as appropriate): CC0 1.0/CC By 4.0/MIT/Apache-2.0/BSD 3-clause/BSD 2-clause/GPLv3/CC BY NC 3.0 }                                   \\
+{\em Programming language: C++}                                   \\
+
+{\em Supplementary material:}                                 \\
+  % Fill in if necessary, otherwise leave out.
+
+{\em Nature of problem(approx. 50-250 words): The precise calculation of many high-energy physics observables, especially with the goal to use them for a global fit to a specific model, usually involves an intricate numerical set-up. Due to their complexity, most developers do not make their programs public and it is almost impossible for the rest of the community to reproduce their results.}\\
+  %Describe the nature of the problem here. \\
+{\em Solution method(approx. 50-250 words):}\\
+  %Describe the method solution here.
+{\em Additional comments including Restrictions and Unusual features (approx. 50-250 words):}\\
+  %Provide any additional comments here.
+   \\
+
+%%\begin{thebibliography}{0}
+%%\bibitem{1}Reference 1         % This list should only contain those items referenced in the                 
+%%\bibitem{2}Reference 2         % Program Summary section.   
+%%\bibitem{3}Reference 3         % Type references in text as [1], [2], etc.
+%%                               % This list is different from the bibliography at the end of 
+%%                               % the Long Write-Up.
+%%\end{thebibliography}
+\end{small}
+
+
+
+
+
+
+\tableofcontents
+
+
+
+
+
+
+
+
+
 
 
 
@@ -295,7 +375,356 @@ $G_F=1/(\sqrt{2} v^2)$ and $m_h$ are defined in the Standard Model configuration
 \label{sec:MSSM}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-Norimi, Luca
+The supersymmetry (SUSY) is one of the leading candidates for the physics beyond the standard model, which guarantees the absence of the quadratic divergence in the Higgs potential. The minimal SUSY extension of the SM is called the minimal supersymmetric standard model (MSSM). In the MSSM, the three gauge couplings unify around $2\cdot 10^{16}$ GeV, suggesting the existence of the grand unified theory (GUT)~\cite{Georgi:1974sy, Pati:1974yy}.
+ 
+In the MSSM, SM fields are extended to chiral superfields, which have both scalar fields and fermion fields. The SM gauge bosons are contained in the vector superfields, which also contain fermions, gauginos. There are two Higgs superfields, which are required to write the all %?correct?
+Yukawa couplings and avoid gauge anomalies. The chiral superfields having $SU(3)_C \times SU(2)_L \times U(1)_Y$ quantum numbers are summarized as 
+\begin{eqnarray}
+&& Q_i: ({\bf 3}, {\bf 2},1/6), \ \bar U_i: ({\bf \bar 3}, {\bf 1}, -2/3), \  \bar D_i: ({\bf \bar 3}, {\bf 1}, 1/3),  \nonumber \\ 
+&& L_i: ({\bf 1}, {\bf 2}, -1/2),  \ \bar E_i:({\bf 1},{\bf 1},1), \nonumber \\
+&& H_u: ({\bf 1},{\bf 2},1/2), \ H_d:({\bf 1}, {\bf 2},-1/2),
+\end{eqnarray}
+where $i(=1 \dots 3)$ represents a generation number.
+%
+The Lagrangian of the MSSM is given by\,\footnote{
+We have omitted the QCD $\theta$-term as well as CP-violating terms involving dual-tensors.
+}
+\begin{eqnarray}
+\mathcal{L} = \int d^4 \theta \, K_{\rm MSSM}  + \left[ 
+\int d^2 \theta \, W_{\rm MSSM}  + \frac{1}{4} \int d^2 \theta (\mathcal{W}_{\alpha})_A (\mathcal{W}^{\alpha})_A + h.c.
+\right] + \mathcal{L}_{\rm soft},
+\end{eqnarray}
+where $K_{\rm MSSM}$, $W_{\rm MSSM}$ and $(\mathcal{W}_{\alpha})_A$
+are the K{\" a}hler potential, superpotential and gauge field-strength superfields, respectively, 
+and $\mathcal{L}_{\rm soft}$ consists of soft SUSY breaking terms. 
+The field-strength superfields, $(\mathcal{W}_{\alpha})_1$, $(\mathcal{W}_{\alpha}^k)_2$ $(k=1\dots 3)$ and $(\mathcal{W}_{\alpha}^I)_3$\,$(I=1\dots 8)$, consist of the vector superfields of $U(1)_Y$, $SU(2)_L$ and $SU(3)_C$, respectively. 
+In the limit of $\mathcal{L}_{\rm soft}=0$, the Lagrangian is invariant under the SUSY transformation, 
+and $\mathcal{L}_{\rm soft} \neq 0$ does not reintroduce quadratic divergences.
+%
+
+\vspace{10pt}
+The superpotential  with the conserved $R$-parity is 
+\begin{eqnarray}
+W_{\rm MSSM} = \epsilon_{ab} \left[ \mu H_u^a H_d^b +  (Y_E)_{ij} H_d^a L^b_i \bar E_j
++  (Y_D)_{ij} H_d^a Q^b_i \bar D_j
++  (Y_U)_{ij} Q^a_i H_u^b \bar U_j
+\right],
+\end{eqnarray}
+where $a,b$ are gauge indices of $SU(2)_L$, $\epsilon_{12}=-\epsilon_{21}=1$ and $\epsilon_{11}=\epsilon_{22}=0$. Here, we present only renormalizable terms. The $R$-parity is defined as
+\begin{eqnarray}
+R_P = (-1)^{3(B-L)+2 s},  
+\end{eqnarray}
+where $B$ and $L$ are baryon number and lepton number, and $s$ is the spin.
+The $R$-parity guarantees the stability of the lightest SUSY particle (LSP) and prevents the proton decay.\footnote{
+%
+Nonrenormalizable operators, $QQQL$ and $\bar U \bar U \bar D\bar E$, which can not be prohibited by the $R$-parity induce the proton decay with an unacceptable life-time even if they are suppressed by the Planck mass~\cite{Murayama:1994tc,Harnik:2004yp}. Therefore, we need an additional mechanism or symmetry to suppress those operators further. 
+%
+}
+Due to the $R$-parity, the lightest neutralino is often a candidate for dark matter, depending on the gravitino mass. %?put the definition of and motivation for RP before the superpotential?
+
+%\vspace{10pt}
+The soft SUSY breaking terms contain gaugino mass terms, sfermion mass terms, 
+trilinear couplings and the Higgs $B$-term. 
+The gaugino mass terms are given by
+\begin{eqnarray}
+\label{eq:Lsoft_gaugino}
+-\mathcal{L}_{\rm soft} \ni  \frac{1}{2} 
+\left( M_{1} \lambda_{\tilde b} \lambda_{\tilde b} +  M_{2} \lambda_{\tilde w}^k \lambda_{\tilde w}^k 
++ M_{3} \lambda_{\tilde g}^I \lambda_{\tilde g}^I + h.c. \right),
+\end{eqnarray}
+where $\lambda_{\tilde b}$, $\lambda_{\tilde w}^k$ and $\lambda_{\tilde g}^I$ are bino, wino and gluino, respectively, and $M_1$, $M_2$ and $M_3$ are complex parameters. Although $M_1$, $M_2$ and $M_3$ are free parameters in general,
+the relation $M_1: M_2: M_3 \simeq \frac{5}{3} g_Y^2: g_2^2: g_3^2$ is hold at a given renormalization scale in a case that the gaugino masses unify at the GUT scale,\footnote{
+For instance, in minimal gauge mediation and constrained MSSM (CMSSM), the gaugino masses satisfy this relation.
+}
+where $g_Y$, $g_2$ and $g_3$ are gauge coupling constants of $U(1)_Y$, $SU(2)_L$ and $SU(3)_C$, respectively. 
+
+
+%\vspace{10pt}
+The trilinear couplings and Higgs $B$-term are give by
+\begin{eqnarray}
+-\mathcal{L}_{\rm soft} &\ni& \epsilon_{ab} \Bigl[ B_\mu H_u^a H_d^b +  (T_E)_{ij} H_d^a L^b_i \bar E_j \nonumber \\
+&&+  (T_D)_{ij} H_d^a Q^b_i \bar D_j +  (T_U)_{ij} Q^a_i H_u^b \bar U_j + h.c.
+\Bigr], \label{eq:Lsoft_trilinear}
+\end{eqnarray}
+where $B_\mu$ is taken to be real positive without a loss of generality. 
+The above $T_{U,D,E}$ is usually decomposed as 
+\begin{eqnarray}
+(T_{U, D, E})_{ij} = (A_{U, D, E})_{ij}  (Y_{U, D, E})_{ij} \ \ ({\rm no\,\, summation\,\, over} \,\, i, j).
+\end{eqnarray}
+It should be noted that $(\hat T_{U})_{33}$ (in the super-CKM basis) usually plays an important role to explain the observed Higgs boson mass, since the quantum corrections to the Higgs boson mass involving it is quite large. 
+
+The sfermion masses are 
+\begin{eqnarray}
+-\mathcal{L}_{\rm soft} &\ni& 
+(m_{Q}^2)_{ij} Q_i^\dag Q_j + (m_{U}^2)_{ij} \bar U_i^\dag \bar U_j + (m_{D}^2)_{ij} \bar D_i^\dag \bar D_j \nonumber \\
+&&+ (m_{L}^2)_{ij} L_i^\dag L_j + (m_{E}^2)_{ij} \bar E_i^\dag \bar E_j  \nonumber \\
+&&+ m_{H_u}^2 H_u^\dag H_u + m_{H_d}^2 H_d^\dag H_d 
+, \label{eq:Lsoft_mass}
+\end{eqnarray}
+where the mass matrices (apart from $m_{H_u}^2$ and $m_{H_d}^2$) are hermitian matrices. For instance, the above sfermion masses are flavor diagonal in gauge mediation~\cite{Dine:1993yw,Dine:1994vc,Dine:1995ag} and gaugino mediation~\cite{Inoue:1991rk,Kaplan:1999ac,Chacko:1999mi} at the leading order. 
+However, in more general cases, e.g. in gravity mediation models, 
+the sfermion mass matrices are not flavor diagonal, affecting many flavor observables significantly. 
+Also, off-diagonal elements of the sfermion mass matrices may arise as results of quantum corrections involving heavy particles, such as right-handed (s)neutrinos~\cite{Borzumati:1986qx, Hisano:1995nq, Hisano:1995cp} and  particles existing in grand unified theories~\cite{Barbieri:1995tw, Moroi:2000mr, Barenboim:2000ev,  Moroi:2000tk}.
+%
+Next, we discuss the tree-level mass matrices with the soft SUSY breaking parameters shown above. 
+
+\subsubsection{Squark masses in the super-CKM basis}
+To evaluate the low-energy physical observables, it is convenient to consider the soft SUSY breaking masses in the super-CKM basis. We define the chiral superfields in the super-CKM basis using a {\it hat} as
+\begin{eqnarray}
+Q = (u_L, d_L)^T= (V_u \hat u_L, V_d \hat d_L)^T,  \ \  \bar U = U_{\bar U} \hat{\bar U}, \ \ \bar D = U_{\bar D} \hat {\bar D},
+\end{eqnarray}
+with
+\begin{eqnarray}
+\hat Y_u = V_u^T Y_u U_{\bar U} = \frac{m_u}{v_u}, \ \ 
+\hat Y_d = V_d^T Y_d U_{\bar D} = \frac{m_d}{v_d},
+\end{eqnarray}
+where $v_u$ and $v_d$ are vacuum expectation values of the Higgs fields: $v_u = \left<H_u^0\right>$ and $v_d = \left<H_d^0\right>$ ($H_u^0 = H_u^2, \ H_d^0 = H_d^1$). The CKM matrix is defined by 
+\begin{eqnarray}
+V_{\rm CKM} = V_u^\dag V_d.
+\end{eqnarray}
+Then, we have squark mass matrices as
+\begin{eqnarray}
+-\mathcal{L} &\ni& \Phi_u^\dag  M_{\tilde u}^2 \Phi_u + \Phi_d^\dag  M_{\tilde d}^2 \Phi_d, \nonumber \\
+M_{\tilde u}^2 &=& 
+\left(
+\begin{array}{cc}
+V_{\rm CKM} \hat m_Q^2 V_{\rm CKM}^\dag + m_u^2 + D_{u_L}&    v_u \hat T_U^\dag - \mu m_u /\tan\beta  \\
+v_u \hat T_U  - \mu^* m_u /\tan\beta&    \hat m_{U}^2 + m_u^2 + D_{u_R}\\
+\end{array}
+\right),
+\nonumber \\  
+M_{\tilde d}^2 &=& 
+\left(
+\begin{array}{cc}
+\hat m_Q^2  + m_d^2 + D_{d_L} &   v_d \hat T_D^\dag - \mu m_d \tan\beta  \\
+ v_d \hat T_D - \mu^* m_d \tan\beta  &    \hat m_{D}^2 + m_d^2 + D_{d_R} \\
+\end{array}
+\right),
+\end{eqnarray}
+where $\Phi_u = \left( \tilde u_L, \tilde c_L,  \tilde t_L,  \tilde u_R, \tilde c_R,  \tilde t_R
+\right)^T$ and 
+$\Phi_d = \left( \tilde d_L,  \tilde s_L,  \tilde b_L,
+\tilde d_R,  \tilde s_R,  \tilde b_R
+ \right)^T$. The ratio of the Higgs vacuum expectation values is denoted by $\tan\beta ( \equiv v_u/v_d)$. 
+ Here, $(\tilde u_L)_i$ and $(\tilde u_R)_i$ are scalar components of $(\hat u_L)_i$ and $(\hat{\bar U}^*)_i$, and 
+ $(\tilde d_L)_i$ and $(\tilde d_R)_i$ are scalar components of $(\hat d_L)_i$ and $(\hat{\bar D}^*)_i$. The $D$-term contributions are flavor diagonal and given by
+\begin{eqnarray}
+D_{u_L} &=& (\frac{1}{2} - \frac{2}{3} \sin^2\theta_W) m_Z^2 \cos2 \beta \, \frac{1}{3}, \ \
+D_{d_L} = (-\frac{1}{2} + \frac{1}{3} \sin^2\theta_W) m_Z^2 \cos2 \beta \, \frac{1}{3}, \nonumber \\
+D_{u_R}&=& \frac{2}{3} \sin^2\theta_W m_Z^2 \cos2 \beta \, \frac{1}{3}, \ \ 
+D_{d_L} =  -\frac{1}{3} \sin^2\theta_W m_Z^2 \cos2 \beta \, \frac{1}{3}.
+\end{eqnarray}
+
+ The mass parameters with {\it hats} in the super-CKM basis are related to the original parameters in Eqs. (\ref{eq:soft_trilinear}) and (\ref{eq:sq_softmass}) as
+ \begin{eqnarray}
+&& \hat m_{Q}^2 = V_{d}^\dag m_{Q}^2 V_d, \ \ \hat m_U^2  = (U_{\bar U}^\dag m_{U}^2 U_{\bar U})^T, 
+\ \ \hat m_D^2  = (U_{\bar D}^\dag m_{D}^2 U_{\bar D})^T, \nonumber \\
+&& \hat T_U = (V_u^T T_U U_{\bar U})^T, \ \ 
+\hat T_D = (V_d^T T_D U_{\bar D})^T.
+\end{eqnarray}
+
+
+
+\subsubsection{Slepton masses}
+Similarly, we define the slepton mass matrix in the basis that the lepton mass matrix is diagonal:
+\begin{eqnarray}
+\hat Y_e = V_e^T Y_e U_{\bar E} = \frac{m_e}{v_d} , \, 
+\end{eqnarray}
+where the chiral superfields are rotated as $L^{1,2} = V_e \hat L^{1,2}$ and $\bar E = U_{\bar E} \hat{\bar E}$.
+Then, we have
+\begin{eqnarray}
+-\mathcal{L} &\ni& \Phi_e^\dag  M_{\tilde e}^2 \Phi_e, \nonumber \\
+M_{\tilde e}^2 &=& 
+\left(
+\begin{array}{cc}
+\hat m_L^2  + m_e^2 + D_{e_L}&    v_d \hat T_E^\dag - \mu m_e \tan\beta  \\
+v_d \hat T_E  - \mu^* m_e \tan\beta&    \hat m_{E}^2 + m_e^2 + D_{e_R}\\
+\end{array}
+\right),
+\end{eqnarray}
+where $\Phi_e = \left( \tilde e_L, \tilde \mu_L,  \tilde \tau_L,  \tilde e_R, \tilde \mu_R,  \tilde \tau_R
+\right)^T$ with $(\tilde e_L)_i$ and $(\tilde e_R)_i$ being scalar components of $(\hat e_L)_i$ and $(\hat{\bar E}^*)_i$. The D-term contributions are flavor diagonal and given by
+\begin{eqnarray}
+D_{e_L} = (-\frac{1}{2}  + \sin^2\theta_W) m_Z^2 \cos2 \beta \, \frac{1}{3}, \ \
+D_{e_R}= - \sin^2\theta_W m_Z^2 \cos2 \beta \, \frac{1}{3}\ \ 
+\end{eqnarray}
+The soft mass parameters in this basis are related to the original ones in Eqs. (\ref{eq:soft_trilinear}) and (\ref{eq:sq_softmass}) as
+ \begin{eqnarray}
+&& \hat m_{L}^2 = V_{e}^\dag m_{L}^2 V_e, \ \ \hat m_E^2  = (U_{\bar E}^\dag m_{E}^2 U_{\bar E})^T, \ \ 
+ \hat T_E = (V_e^T T_E U_{\bar E})^T.
+\end{eqnarray}
+The sneutrino mass matrix is\,\footnote{
+%
+Alternatively, in the super-PMNS basis, the sneutrino mass matrix is given by
+\begin{eqnarray}
+M_{\tilde \nu}^2 = U_{\rm PMNS}^\dag \hat m_{L}^2 U_{\rm PMNS} +  \frac{1}{2}\cos2\beta m_Z^2 \frac{1}{3},
+\end{eqnarray}
+where $U_{\rm PMNS} ( = V_e^\dag V_{\nu} )$ is the PMNS matrix with $L^{1} = V_{\nu} \hat L^{1}$ and $L^{2} = V_{e} \hat L^{2}$.
+Here, $V_{\nu}$ diagonalizes a neutrino mass matrix.
+%
+}
+\begin{eqnarray}
+M_{\tilde \nu}^2 = \hat m_{L}^2  +  \frac{1}{2}\cos2\beta m_Z^2 \frac{1}{3}.
+\end{eqnarray}
+
+
+
+
+\subsubsection{Neutralino masses}
+After the electroweak symmetry (EWSB) is broken, the gauginos and higgsino mix with each other. 
+This mixed state which is electrically neutral is called neutralino. The mass terms are written as
+\begin{eqnarray}
+-\mathcal{L} \ni \frac{1}{2}\tilde \psi_0^T M_{\tilde \psi_0} \tilde \psi_0 + h.c.,
+\end{eqnarray}
+where $\tilde \psi_0 = (\lambda_{\tilde b}, \lambda_{\tilde w}^0, \tilde h_u^0, \tilde h_d^0)^T$. Here, $\lambda_{\tilde w}^0$, $\tilde h_u^0$ and $\tilde h_d^0$ are neutral components of the wino, up-type higgsino and down-type higgsino, respectively. The mass matrix $M_{\tilde \psi_0}$ is symmetric and given by
+\begin{eqnarray}
+M_{\tilde \psi_0} = 
+\left(
+\begin{array}{cccc}
+M_1  &  0  & -m_Z \cos\beta\sin\theta_W & m_Z \sin\beta\sin\theta_W   \\
+0  &  M_2  & m_Z \cos\beta \cos\theta_W & -m_Z\sin\beta \cos\theta_W \\
+-m_Z \cos\beta\sin\theta_W &  m_Z\cos\beta \cos\theta_W  &  0& -\mu \\
+ m_Z\sin\beta\sin\theta_W &  -m_Z\sin\beta \cos\theta_W  &  -\mu  & 0\\
+\end{array}
+\right). \nonumber \\
+\end{eqnarray}
+This mass matrix is diagonalized as
+\begin{eqnarray}
+N^* M_{\tilde \chi_0} N^\dag = {\rm diag}(m_{\tilde \chi_1^0},\,
+m_{\tilde \chi_2^0}, \,
+m_{\tilde \chi_3^0},\, m_{\tilde \chi_4^0}),
+\end{eqnarray}
+where $m_{\tilde \chi_i^0}$ are real positive. 
+%
+%
+The lightest neutralino may or may not be a dark matter candidate, depending on the mediation scale of SUSY breaking effects.  
+If the mediation scale is much lower than the Planck scale (e.g. in gauge mediation), 
+the gravitino is the lightest SUSY particle (LSP) and candidate for a dark matter. 
+If the mediation scale is around the Planck scale (e.g. in gravity mediation and gaugino mediation), 
+the gravitino is usually heavier than the lightest neutralino. Then, the lightest neutralino is the LSP and a dark matter candidate.\footnote{
+%
+In setups where the strong CP problem is solved by the PQ-symmetry, 
+the QCD-axion as well as its superpartner, axino, can be a viable dark matter candidate.  
+%
+} 
+
+
+
+
+\subsubsection{Chargino masses}
+Mixed states of the wino and higgsinos which has a electric charge are called charginos. 
+The mass terms are written as
+\begin{eqnarray}
+-\mathcal{L} \ni \tilde \psi_{-}^T M_{\tilde \psi^{\pm}} \tilde \psi_{+} + h.c.,
+\end{eqnarray}
+where $\tilde \psi_{+} = (\lambda_{\tilde W}^+, \tilde h_u^+)^T$ and $(\lambda_{\tilde W}^-, \tilde h_d^-)^T$. We denote charged components of the wino and up-type higgsino and down-type higgsino as $\lambda_{\tilde W}^{\pm}$, $\tilde h_u^+$ and $\tilde h_d^-$. The mass matrix is given by 
+\begin{eqnarray}
+M_{\tilde \psi^{\pm}}=
+\left(
+\begin{array}{cc}
+M_2  &  \sqrt{2} m_W \sin\beta    \\
+ \sqrt{2} m_W \cos\beta  &  \mu    \\
+\end{array}
+\right).
+\end{eqnarray}
+The mass matrix is diagonalized using two different  unitary matrices as
+\begin{eqnarray}
+U^* M_{\tilde \psi^{\pm}} V^\dag = \left(
+\begin{array}{cc}
+m_{{\tilde \chi}_1^\pm}  &  0  \\
+  0 &   m_{{\tilde \chi}_2^\pm}
+\end{array}
+\right),
+\end{eqnarray}
+where $m_{{\tilde \chi}_i^\pm}$ are real positive.
+
+
+\subsubsection{The electroweak symmetry breaking and Higgs boson mass}
+The Higgs potential at the tree-level is given by
+\begin{eqnarray}
+V_{h}^{\rm tree} &=& \frac{g_Y^2 + g_2^2}{8}(|H_d|^2 - |H_u|^2)^2 + \frac{g_2^2}{2} |H_d^\dag H_u|^2 
++ |\mu|^2 ( |H_u|^2 + |H_d|^2) \nonumber \\
+&+& m_{H_u}^2 |H_u|^2 + m_{H_d}^2 |H_u|^2 + \epsilon_{ab} (B_\mu H_u^a H_d^b + h.c),
+\end{eqnarray}
+where the first and second terms come from $D$-terms, third term comes from $F$-terms and the others are from soft SUSY breaking terms. The EWSB is broken if the determinant of the mass matrix at the origin is negative: $(m_{H_u}^2 + |\mu|^2)(m_{H_d}^2 + |\mu|^2) < B_\mu^2$. 
+In the MSSM, the quartic couplings are related to squared of gauge couplings, and hence, the stability of the Higgs potential is guaranteed up to a cut-off scale at the high energy. 
+
+The EWSB scale and $\tan\beta$ are related to the soft SUSY breaking mass parameters and $\mu$ through the minimization conditions:
+\begin{eqnarray}
+\frac{1}{2} (g_Y^2 + g_2^2) v^2   &=& - |\mu|^2 - \frac{m_{H_u}^2\tan^2\beta - m_{H_d}^2}{\tan^2\beta-1} , \nonumber \\
+B_\mu (\tan\beta + \tan^{-1}\beta) &=& m_{H_d}^2 + m_{H_u}^2 + 2|\mu|^2,
+\end{eqnarray}
+where $v = \sqrt{v_u^2 + v_d^2} \approx 174.1$\,GeV. Then, among five parameters, $B_\mu, m_{H_u}^2, m_{H_d}^2, \mu$ and $\tan\beta$, 
+only three of them are independent. The above minimization conditions are modified by radiative corrections, which are important to evaluate the fine-tuning of the EWSB scale.
+
+
+In the MSSM, the two Higgs fields contains eight real degrees of freedom, and three of them are Goldstone modes. 
+The physical Higgs bosons consist of two CP-even Higgs bosons, 
+one CP-odd Higgs boson and one charged Higgs boson.
+%
+The CP-even Higgs masses are
+\begin{eqnarray}
+m_{H,h}^2 = \frac{1}{2} \left[ 
+m_A^2 + m_Z^2 \pm \sqrt{(m_A^2-m_Z^2)^2+4 m_A^2 m_Z^2 \sin^2 (2\beta)}
+\right],
+\end{eqnarray}
+where $m_A$ is the mass of the CP-odd Higgs and $m_A^2 = B_\mu (\tan\beta + \tan^{-1}\beta)$. 
+Here, $H$ and $h$ are the heavy Higgs and SM-like Higgs, respectively. 
+At the tree-level, the mass of the SM-like Higgs is bounded from above as $m_{h} < m_Z$, and in the decoupling limit $m_A \gg m_Z$, $m_h = m_Z |\cos(2\beta)|$. To explain the observed value around 125 GeV, 
+radiative corrections play important roles in the evaluation of $m_h$.
+The above mass eigenstates are related to $H_u$ and $H_d$ as
+\begin{eqnarray}
+\left(
+\begin{array}{c}
+ H    \\
+ h
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+  \cos\alpha &  \sin\alpha    \\
+-\sin\alpha  &  \cos\alpha     
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+ {\rm Re}(H_d^0)/\sqrt{2} \\
+ {\rm Re}(H_u^0)/\sqrt{2} 
+\end{array}
+\right),
+\end{eqnarray}
+where
+\begin{eqnarray}
+\cos(2\alpha) = -\cos (2\beta) \frac{m_A^2-m_Z^2}{m_H^2-m_h^2}, \ \ 
+\sin(2\alpha) = -\sin (2\beta)\frac{m_H^2 + m_h^2}{m_H^2-m_h^2}.
+\end{eqnarray}
+The charged Higgs mass is 
+\begin{eqnarray}
+m_{H^{\pm}}^2 = m_A^2 + m_W^2.
+\end{eqnarray}
+The CP-odd and charged Higgs bosons are related to $H_u$ and $H_d$ with the angle $\beta$:
+\begin{eqnarray}
+A &=& -\sin\beta \, \frac{{\rm Im}(H_d^0)}{\sqrt{2}} + \cos\beta \, \frac{{\rm Im}(H_u^0)}{\sqrt{2}}, \nonumber \\
+H^{-} &=& -\sin\beta H_d^- + \cos\beta (H_u^+)^*, 
+\end{eqnarray}
+which are orthogonal to the Goldstone modes.
+
+
+\vspace{10pt}
+As mentioned above, 
+the radiative corrections to $m_h$ are very important to be consistent with the observed value of $\simeq\, 125$ GeV, 
+since it can not be larger than $m_Z$ at the tree-level. Neglecting flavor violating effects, the leading one-loop corrections are given by~\cite{Okada:1990vk, Ellis:1990nz, Haber:1990aw}
+\begin{eqnarray}
+\Delta m_h^2 \approx \frac{3}{4\pi^2} \frac{m_t^4}{v^2} \Bigl[
+\ln  \frac{M_S^2}{m_t^2}  
++ \frac{|X_t|^2}{M_S^2} \left(1 - \frac{|X_t|^2}{12 M_S^2} \right)
+\Bigr],
+\end{eqnarray}
+where $X_t = (\hat T_U)_{33}/ (\hat Y_u)_3 - \mu^*/\tan\beta $ and $M_S^2 = (\hat m_{Q})_{33}^2 + m_t^2$ with $(\hat m_{U})_{33} = (\hat m_{Q})_{33}$. 
+We see that the predicted Higgs boson mass is enhanced when the mass of the scalar top is significantly larger than the top mass and/or the trilinear coupling is large as $|X_t| \gg M_S$ (maximized for $|X_t| \simeq \sqrt{6} M_S$). 
+Note that although the above one-loop result show us insights about the radiative corrections, 
+the higher order terms at the two-loop level and beyond are important to evaluate the Higgs boson mass.
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dimension 6 Effective Theory above the Electroweak Scale }
@@ -316,10 +745,11 @@ In Eq.~(\ref{eq:EffLag}) ${\cal L}_{\mathrm{SM}}$ is the SM Lagrangian, $\Lambda
 \end{equation}
 %
 contains only (Lorentz and) gauge invariant operators of mass dimension $d$, built using exclusively the SM fields and symmetries. At any order in the effective Lagrangian expansion a complete basis of physically independent operators contains only a finite number of higher-dimensional interactions. In particular, for new physics in the multi-TeV region, the precision of current EW measurements only allows to be sensitive to the next-to-leading order contributions in  Eq.~(\ref{eq:EffLag}), i.e., the {\it dimension-six effective Lagrangian}. (To dimension five there is only one interaction: the Weinberg operator giving Majorana masses to the SM neutrinos and which plays a negligible role in EW processes.)
-The first complete basis of independent dimension six operators was introduced by Grzadkowski, Iskrzynski, Misiak and Rosiek (GIMR) and contains a total of 59 independent operators, barring flavor indices and hermitian conjugates.
+The first complete basis of independent dimension six operators was introduced by Grzadkowski, Iskrzynski, Misiak and Rosiek (GIMR) and contains a total of 59 independent operators, barring flavor indices and hermitian conjugates \cite{Grzadkowski:2010es}.
 
-The main implementation of the dimension-six Standard Model effective Lagrangian in {\tt HEPfit} is based in the GIMR basis. Currently, all the dimension-six interactions entering in the electroweak precision observables as well as Higgs signal strengths have been included in the so called {\tt NPEffectiveGIMR} model class, as well as in its variant {\tt NPEffectiveGIMR\_LFU\_QFU}, where lepton and quark flavor universality is asumed. These implementations assume that we use the Fermi constant as extracted from $\mu$ decay, $G_\mu$, as one of the SM input parameters. The complete list of operators as well the corresponding names for the {\tt HEPfit} model parameters can be found in Table~\ref{tab:GIMRpars}. The model flags are are described in Table~\ref{tab:GIMRflags}.
+The main implementation of the dimension-six Standard Model effective Lagrangian in {\tt HEPfit} is based in the GIMR basis. Currently, all the dimension-six interactions entering in the electroweak precision observables as well as Higgs signal strengths have been included in the so called {\tt NPEffectiveGIMR} model class, as well as in its variant {\tt NPEffectiveGIMR\_LFU\_QFU}, where lepton and quark flavor universality is asumed. These implementations assume that we use the Fermi constant as extracted from $\mu$ decay, $G_\mu$, as one of the SM input parameters. The complete list of operators as well the corresponding names for the {\tt HEPfit} model parameters can be found in Table \ref{tab:GIMRpars1} and \ref{tab:GIMRpars2}. The model flags are are described in Table \ref{tab:GIMRflags}.
 
+\begin{landscape}
 \begin{table}[tb]
  \centering
  \caption{Model parameters in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
@@ -412,6 +842,26 @@ $\mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] $&\\
 %
 \hline
 %
+  \end{tabular}
+ \label{tab:GIMRpars1}
+\end{table}
+
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
+  \begin{tabular}{| c c c c c c | }
+\hline
+%
+&\textbf{\HEPfit name}&&&
+\textbf{Parameter}&
+\textbf{Operator}\\
+%
+\textbf{{\tt NPEffectiveGIMR}}&&\textbf{{\tt NPEffectiveGIMR\_LFU\_QFU}}&&
+&
+\\
+%
+\hline
+%
 \tt{CHu\_kk}&&\tt{CHu}&&$(C_{HU})_{kk}$&$({\cal O}_{HU})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
 \big(\overline{U^i}\,\gamma^\mu U^j\big)$\\
 \tt{CHu\_klr}&&&&$\mbox{Re}\big[(C_{HU})_{kl}\big]$&$i,j=1,2,3$\\
@@ -468,8 +918,9 @@ $\Lambda $&
 The new physics scale in GeV.\\
 \hline
   \end{tabular}
- \label{tab:GIMRpars}
+ \label{tab:GIMRpars2}
 \end{table}
+\end{landscape}
 
 
 \begin{table}[tb]
@@ -1119,7 +1570,7 @@ The tabled values, which are depicted in Figure \ref{fig:THDMbsgplot}, are then 
   \centering
   \resizebox{450pt}{!}{
    \begin{picture}(400,150)(0,0)
-    \put(50,0){\includegraphics{plots/THDMbsgplot.pdf}}
+%    \put(50,0){\includegraphics{plots/THDMbsgplot.pdf}}
    \end{picture}
   }
   \caption{An illustration of the tabled values of ${\rm Br}(\bar{B}\to X_s\gamma)$ in dependence of the decadic logarithms of $\tan (\beta)$ and the charged Higgs mass.}
@@ -1137,205 +1588,264 @@ We take the formula from \cite{Hou:1992sy}: the SM branching ratio is proportion
 
 
 
-
-\begin{table}
-  \centering
-  \begin{tabular}{|l|l|c|c|c|c|c|}
-    \hline
-    \textbf{Theory observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
-    \hline
-	$\lambda_1$ & \tt{lambda1} & & \checkmark & & &\\
-    \hline
-	$\lambda_2$ & \tt{lambda2} & & \checkmark & & &\\
-    \hline
-	$\lambda_3$ & \tt{lambda3} & & \checkmark & & &\\
-    \hline
-	$\lambda_4$ & \tt{lambda4} & & \checkmark & & &\\
-    \hline
-	$\lambda_5$ & \tt{lambda5} & & \checkmark & & &\\
-    \hline
-	\texttt{globalminimum}\:[GeV$^4$] & \tt{globalminimum} & & \checkmark & & &\\
-    \hline
-	\tt{positivity1} & \tt{positivity1} & & \checkmark & & &\\
-    \hline
-	\tt{positivity2} & \tt{positivity2} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{even}}_{21+}$ & \tt{unitarity1} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{even}}_{21-}$ & \tt{unitarity2} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{even}}_{01+}$ & \tt{unitarity3} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{even}}_{01-}$ & \tt{unitarity4} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{even}}_{00+}$ & \tt{unitarity5} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{even}}_{00-}$ & \tt{unitarity6} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{odd}}_{21}$ & \tt{unitarity7} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{odd}}_{20}$ & \tt{unitarity8} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{odd}}_{01+}$ & \tt{unitarity9} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{odd}}_{01-}$ & \tt{unitarity10} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{odd}}_{00+}$ & \tt{unitarity11} & & \checkmark & & &\\
-    \hline
-	$\Lambda^{\text{odd}}_{00-}$ & \tt{unitarity12} & & \checkmark & & &\\
-    \hline
-  \end{tabular}
-  \caption{This table summarizes the theory observables of the models
-    implemented in the code.}
-  \label{tab:summarytheory}
-\end{table}
-
-\begin{table}
-  \centering
-  \begin{tabular}{|l|l|c|c|c|c|c|}
-    \hline
-    \textbf{Electroweak precision observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
-    \hline
-	$\Delta S$ & \tt{DeltaS} & & \checkmark & & &\\
-    \hline
-	$\Delta T$ & \tt{DeltaT} & & \checkmark & & &\\
-    \hline
-	$\Delta U$ & \tt{DeltaU} & & \checkmark & & &\\
-    \hline
-  \end{tabular}
-  \caption{This table summarizes the electroweak precision observables of the models
-    implemented in the code.}
-  \label{tab:summaryewpo}
-\end{table}
-
-\begin{table}
-  \centering
-  \begin{tabular}{|l|l|c|c|c|c|c|}
-    \hline
-    \textbf{Higgs observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
-    \hline
-	$\Gamma_h$ [GeV] & \tt{a} & & \checkmark & & &\\
-    \hline
-	$r^{(h)}_{\gamma\gamma}$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$r^{(h)}_{Z\gamma}$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$r^{(h)}_{gg}$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{ggF+tth}}}(h\to bb)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{VBF+Vh}}}(h\to bb)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{ggF+tth}}}(h\to WW)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{VBF+Vh}}}(h\to WW)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{ggF+tth}}}(h\to \tau \tau)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{VBF+Vh}}}(h\to \tau \tau)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{ggF+tth}}}(h\to ZZ)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{VBF+Vh}}}(h\to ZZ)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{ggF+tth}}}(h\to \gamma\gamma)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\mu_{\text{\tiny{VBF+Vh}}}(h\to \gamma\gamma)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\Gamma^{(H)}_{\text{tot}}$ [GeV] & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\Gamma^{(H)}_{\gamma\gamma}$ [GeV] & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\Gamma^{(H)}_{Z\gamma}$ [GeV] & \tt{a} & & \checkmark & & &\\
-    \hline
-	$\Gamma^{(H)}_{gg}$ [GeV] & \tt{a} & & \checkmark & & &\\
-    \hline
-	${\rm Br}(H\to hh)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	${\rm Br}(H\to AA)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	${\rm Br}(H\to H^+H^-)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	${\rm Br}(H\to AZ)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	${\rm Br}(H\to H^\pm W^\mp)$ & \tt{a} & & \checkmark & & &\\
-    \hline
-	${\rm Br}(H\to t\bar{t})$ & \tt{a} & & \checkmark & & &\\
-    \hline
 %%%
-%%%\begin{align}
-%%%& \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to \tau \tau ) , \quad \sigma ^{(H)}_{\text{\tiny{bbH}}} \cdot {\rm Br}(H\to \tau \tau ), \quad\sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to \gamma \gamma ) , \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to \gamma \gamma ), \nonumber \\ %C8
-%%%%& \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to tt) \nonumber \\ %A8
-%%%& \sigma ^{(H)}_{\text{\tiny{bbH}}} \cdot {\rm Br}(H\to bb), \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to WW) , \quad , \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to ZZ), \nonumber \\ %A8
-%%%& \sigma ^{(H)}_{\text{\tiny{VBF}}} \cdot {\rm Br}(H\to ZZ), \quad \sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to VV) /  (\sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to VV) )_{SM}, \nonumber \\ %C8
-%%%& \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to hh) , \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to hh \to (bb)(\tau \tau )), \nonumber \\ %C8
-%%%& \sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to hh \to (bb)(bb)) , \quad \sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to hh \to (\gamma \gamma )(bb)) \nonumber %C8
-%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! \tau\tau)$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{bbH}}\!\cdot\! BR(H\!\to\! \tau\tau)$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! \gamma\gamma)$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\mu_{\text{ggH}}(H\!\to\! ZZ)$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! WW)$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-	$R^{(H)}_\text{\tiny Gauss} \left( \sigma ^{(H)}_{\text{\tiny{VBF}}} \cdot {\rm Br}(H\to WW)\right) $ & \tt{Robs\_VBF\_H\_WW\_ATLAS} & & \checkmark & & &\\
-    \hline
-%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! hh)$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! hh\!\to\! b\bar{b}\tau\tau)$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{ppH}}\!\cdot\! BR(H\!\to\! hh\!\to\! b\bar{b}b\bar{b})$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{ppH}}\!\cdot\! BR(H\!\to\! hh\!\to\! \gamma\gamma b\bar{b})$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{ppH}}\!\cdot\! BR(H\!\to\! t\bar{t})$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\sigma_{\text{bbH}}\!\cdot\! BR(H\!\to\! b\bar{b})$ [pb] & \tt{a} & & \checkmark & & &\\
-%    \hline
-%	$\Gamma_A$\:[GeV] & $36.29233235$ & $36.91...$ & $36.29233685502$ & $-1.24\cdot 10^{-7}$\\
-%	$\Gamma^{(A)}_{\gamma\gamma}$\:[keV] & $115.7310131$ & ? & $115.730932428$ & $6.97\cdot 10^{-7}$\\
-%	$\Gamma^{(A)}_{Z\gamma}$\:[keV] & $26.45319592$ & -- & $26.4531773199$ & $7.03\cdot 10^{-7}$\\
-%	$\Gamma^{(A)}_{gg}$\:[MeV] & $34.54622361$ & ? & $34.5470976006$ & $-2.53\cdot 10^{-5}$\\
-%	${\rm Br}(A\!\to\! HZ)$\:[\%] & $0$ & $0$ & $0$ & $0$\\
-%	${\rm Br}(A\!\to\! hZ)$\:[\%] & $0.2266869081$ & $0.2226...$ & $0.226687$ & $1.24\cdot 10^{-7}$\\
-%	${\rm Br}(A\!\to\! H^\pm W^\mp)$\:[\%] & $55.35440718$ & $54.58...$ & $55.35440031326$ & $1.24\cdot 10^{-7}$\\
-%	${\rm Br}(A\!\to\! t\bar{t})$\:[\%] & $44.245441475$ & ? & $44.24543599800$ & $1.24\cdot 10^{-7}$\\
-%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! \tau\tau)$\:[ab] & $11.963695367$ & $11.74...$ & $11.40262184364$ & $4.69\cdot 10^{-2}$\\
-%	$\sigma_{\text{bbA}}\!\cdot\! BR(A\!\to\! \tau\tau)$\:[zb] & $20.73324124$ & $20.36...$ & $18.01168794027$ & $1.31\cdot 10^{-1}$\\
-%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! \gamma\gamma)$\:[ab] & $0.4310178090807$ & $1.262...$ & $0.410782470058$ & $4.69\cdot 10^{-2}$\\
-%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! b\bar{b}\ell\ell)$\:[ab] & $12.3003$ & $12.43...$ & $12.965$ & $-5.40\cdot 10^{-2}$\\
-%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! b\bar{b}Z)$\:[fb] & $0.182795$ & $0.1847...$ & $0.192599$ & $-5.36\cdot 10^{-2}$\\
-%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! \tau\tau \ell\ell)$\:[ab] & $2.02201$ & $1.787...$ & $2.13012$ & $-5.35\cdot 10^{-2}$\\
-%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! \tau\tau Z)$\:[ab] & $20.0219$ & $17.70...$ & $21.0958$ & $-5.36\cdot 10^{-2}$\\
-%	$\sigma_{\text{ppA}}\!\cdot\! BR(A\!\to\! t\bar{t})$\:[fb] & $59.9075$ & $60.87...$ & $57.08623$ & $4.71\cdot 10^{-2}$\\
-%	$\sigma_{\text{bbA}}\!\cdot\! BR(A\!\to\! b\bar{b})$\:[ab] & $0.16017$ & $0.1573...$ & $0.13916214$ & $1.31\cdot 10^{-1}$\\
-  \end{tabular}
-  \caption{This table summarizes the Higgs observables of the models
-    implemented in the code.}
-  \label{tab:summaryhiggs}
-\end{table}
+%%%\begin{table}
+%%%  \centering
+%%%  \begin{tabular}{|l|l|c|c|c|c|c|}
+%%%    \hline
+%%%    \textbf{Theory observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
+%%%    \hline
+%%%	$\lambda_1$ & \tt{lambda1} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\lambda_2$ & \tt{lambda2} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\lambda_3$ & \tt{lambda3} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\lambda_4$ & \tt{lambda4} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\lambda_5$ & \tt{lambda5} & & \checkmark & & &\\
+%%%    \hline
+%%%	\texttt{globalminimum}\:[GeV$^4$] & \tt{globalminimum} & & \checkmark & & &\\
+%%%    \hline
+%%%	\tt{positivity1} & \tt{positivity1} & & \checkmark & & &\\
+%%%    \hline
+%%%	\tt{positivity2} & \tt{positivity2} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{even}}_{21+}$ & \tt{unitarity1} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{even}}_{21-}$ & \tt{unitarity2} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{even}}_{01+}$ & \tt{unitarity3} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{even}}_{01-}$ & \tt{unitarity4} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{even}}_{00+}$ & \tt{unitarity5} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{even}}_{00-}$ & \tt{unitarity6} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{odd}}_{21}$ & \tt{unitarity7} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{odd}}_{20}$ & \tt{unitarity8} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{odd}}_{01+}$ & \tt{unitarity9} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{odd}}_{01-}$ & \tt{unitarity10} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{odd}}_{00+}$ & \tt{unitarity11} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Lambda^{\text{odd}}_{00-}$ & \tt{unitarity12} & & \checkmark & & &\\
+%%%    \hline
+%%%  \end{tabular}
+%%%  \caption{This table summarizes the theory observables of the models
+%%%    implemented in the code.}
+%%%  \label{tab:summarytheory}
+%%%\end{table}
+%%%
+%%%\begin{table}
+%%%  \centering
+%%%  \begin{tabular}{|l|l|c|c|c|c|c|}
+%%%    \hline
+%%%    \textbf{Electroweak precision observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
+%%%    \hline
+%%%	$\Delta S$ & \tt{DeltaS} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Delta T$ & \tt{DeltaT} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Delta U$ & \tt{DeltaU} & & \checkmark & & &\\
+%%%    \hline
+%%%  \end{tabular}
+%%%  \caption{This table summarizes the electroweak precision observables of the models
+%%%    implemented in the code.}
+%%%  \label{tab:summaryewpo}
+%%%\end{table}
+%%%
+%%%\begin{table}
+%%%  \centering
+%%%  \begin{tabular}{|l|l|c|c|c|c|c|}
+%%%    \hline
+%%%    \textbf{Higgs observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
+%%%    \hline
+%%%	$\Gamma_h$ [GeV] & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$r^{(h)}_{\gamma\gamma}$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$r^{(h)}_{Z\gamma}$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$r^{(h)}_{gg}$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{ggF+tth}}}(h\to bb)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{VBF+Vh}}}(h\to bb)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{ggF+tth}}}(h\to WW)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{VBF+Vh}}}(h\to WW)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{ggF+tth}}}(h\to \tau \tau)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{VBF+Vh}}}(h\to \tau \tau)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{ggF+tth}}}(h\to ZZ)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{VBF+Vh}}}(h\to ZZ)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{ggF+tth}}}(h\to \gamma\gamma)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\mu_{\text{\tiny{VBF+Vh}}}(h\to \gamma\gamma)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Gamma^{(H)}_{\text{tot}}$ [GeV] & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Gamma^{(H)}_{\gamma\gamma}$ [GeV] & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Gamma^{(H)}_{Z\gamma}$ [GeV] & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Gamma^{(H)}_{gg}$ [GeV] & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	${\rm Br}(H\to hh)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	${\rm Br}(H\to AA)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	${\rm Br}(H\to H^+H^-)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	${\rm Br}(H\to AZ)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	${\rm Br}(H\to H^\pm W^\mp)$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%	${\rm Br}(H\to t\bar{t})$ & \tt{a} & & \checkmark & & &\\
+%%%    \hline
+%%%%%%
+%%%%%%\begin{align}
+%%%%%%& \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to \tau \tau ) , \quad \sigma ^{(H)}_{\text{\tiny{bbH}}} \cdot {\rm Br}(H\to \tau \tau ), \quad\sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to \gamma \gamma ) , \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to \gamma \gamma ), \nonumber \\ %C8
+%%%%%%%& \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to tt) \nonumber \\ %A8
+%%%%%%& \sigma ^{(H)}_{\text{\tiny{bbH}}} \cdot {\rm Br}(H\to bb), \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to WW) , \quad , \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to ZZ), \nonumber \\ %A8
+%%%%%%& \sigma ^{(H)}_{\text{\tiny{VBF}}} \cdot {\rm Br}(H\to ZZ), \quad \sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to VV) /  (\sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to VV) )_{SM}, \nonumber \\ %C8
+%%%%%%& \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to hh) , \quad \sigma ^{(H)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(H\to hh \to (bb)(\tau \tau )), \nonumber \\ %C8
+%%%%%%& \sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to hh \to (bb)(bb)) , \quad \sigma ^{(H)}_{\text{\tiny{pp}}} \cdot {\rm Br}(H\to hh \to (\gamma \gamma )(bb)) \nonumber %C8
+%%%%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! \tau\tau)$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{bbH}}\!\cdot\! BR(H\!\to\! \tau\tau)$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! \gamma\gamma)$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\mu_{\text{ggH}}(H\!\to\! ZZ)$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! WW)$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%	$R^{(H)}_\text{\tiny Gauss} \left( \sigma ^{(H)}_{\text{\tiny{VBF}}} \cdot {\rm Br}(H\to WW)\right) $ & \tt{Robs\_VBF\_H\_WW\_ATLAS} & & \checkmark & & &\\
+%%%    \hline
+%%%%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! hh)$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{ggH}}\!\cdot\! BR(H\!\to\! hh\!\to\! b\bar{b}\tau\tau)$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{ppH}}\!\cdot\! BR(H\!\to\! hh\!\to\! b\bar{b}b\bar{b})$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{ppH}}\!\cdot\! BR(H\!\to\! hh\!\to\! \gamma\gamma b\bar{b})$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{ppH}}\!\cdot\! BR(H\!\to\! t\bar{t})$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\sigma_{\text{bbH}}\!\cdot\! BR(H\!\to\! b\bar{b})$ [pb] & \tt{a} & & \checkmark & & &\\
+%%%%    \hline
+%%%%	$\Gamma_A$\:[GeV] & $36.29233235$ & $36.91...$ & $36.29233685502$ & $-1.24\cdot 10^{-7}$\\
+%%%%	$\Gamma^{(A)}_{\gamma\gamma}$\:[keV] & $115.7310131$ & ? & $115.730932428$ & $6.97\cdot 10^{-7}$\\
+%%%%	$\Gamma^{(A)}_{Z\gamma}$\:[keV] & $26.45319592$ & -- & $26.4531773199$ & $7.03\cdot 10^{-7}$\\
+%%%%	$\Gamma^{(A)}_{gg}$\:[MeV] & $34.54622361$ & ? & $34.5470976006$ & $-2.53\cdot 10^{-5}$\\
+%%%%	${\rm Br}(A\!\to\! HZ)$\:[\%] & $0$ & $0$ & $0$ & $0$\\
+%%%%	${\rm Br}(A\!\to\! hZ)$\:[\%] & $0.2266869081$ & $0.2226...$ & $0.226687$ & $1.24\cdot 10^{-7}$\\
+%%%%	${\rm Br}(A\!\to\! H^\pm W^\mp)$\:[\%] & $55.35440718$ & $54.58...$ & $55.35440031326$ & $1.24\cdot 10^{-7}$\\
+%%%%	${\rm Br}(A\!\to\! t\bar{t})$\:[\%] & $44.245441475$ & ? & $44.24543599800$ & $1.24\cdot 10^{-7}$\\
+%%%%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! \tau\tau)$\:[ab] & $11.963695367$ & $11.74...$ & $11.40262184364$ & $4.69\cdot 10^{-2}$\\
+%%%%	$\sigma_{\text{bbA}}\!\cdot\! BR(A\!\to\! \tau\tau)$\:[zb] & $20.73324124$ & $20.36...$ & $18.01168794027$ & $1.31\cdot 10^{-1}$\\
+%%%%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! \gamma\gamma)$\:[ab] & $0.4310178090807$ & $1.262...$ & $0.410782470058$ & $4.69\cdot 10^{-2}$\\
+%%%%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! b\bar{b}\ell\ell)$\:[ab] & $12.3003$ & $12.43...$ & $12.965$ & $-5.40\cdot 10^{-2}$\\
+%%%%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! b\bar{b}Z)$\:[fb] & $0.182795$ & $0.1847...$ & $0.192599$ & $-5.36\cdot 10^{-2}$\\
+%%%%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! \tau\tau \ell\ell)$\:[ab] & $2.02201$ & $1.787...$ & $2.13012$ & $-5.35\cdot 10^{-2}$\\
+%%%%	$\sigma_{\text{ggA}}\!\cdot\! BR(A\!\to\! hZ\!\to\! \tau\tau Z)$\:[ab] & $20.0219$ & $17.70...$ & $21.0958$ & $-5.36\cdot 10^{-2}$\\
+%%%%	$\sigma_{\text{ppA}}\!\cdot\! BR(A\!\to\! t\bar{t})$\:[fb] & $59.9075$ & $60.87...$ & $57.08623$ & $4.71\cdot 10^{-2}$\\
+%%%%	$\sigma_{\text{bbA}}\!\cdot\! BR(A\!\to\! b\bar{b})$\:[ab] & $0.16017$ & $0.1573...$ & $0.13916214$ & $1.31\cdot 10^{-1}$\\
+%%%  \end{tabular}
+%%%  \caption{This table summarizes the Higgs observables of the models
+%%%    implemented in the code.}
+%%%  \label{tab:summaryhiggs}
+%%%\end{table}
+%%%
+%%%\begin{table}
+%%%  \centering
+%%%  \begin{tabular}{|l|l|c|c|c|c|c|}
+%%%    \hline
+%%%    \textbf{Flavour observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
+%%%    \hline
+%%%	${\rm Br}(\bar{B}\to X_s\gamma)$ & \tt{BR\_bsgamma} & \checkmark & & & &\\
+%%%    \hline
+%%%	${\rm Br}(\bar{B}\to X_s\gamma)$ & \tt{B\_BtoXsgammaTHDM} & & \checkmark & & &\\
+%%%    \hline
+%%%	$\Delta m_{B_s}$ & \tt{DmBs} & \checkmark & \checkmark & & &\\
+%%%    \hline
+%%%	${\rm Br}(B^-\to \tau \bar{\nu})$ & \tt{btaunu} & \checkmark & \checkmark & & &\\
+%%%    \hline
+%%%  \end{tabular}
+%%%  \caption{This table summarizes the flavour observables of the models
+%%%    implemented in the code.}
+%%%  \label{tab:summaryflavour}
+%%%\end{table}
 
-\begin{table}
-  \centering
-  \begin{tabular}{|l|l|c|c|c|c|c|}
-    \hline
-    \textbf{Flavour observable} & \textbf{\HEPfit name} & \textbf{SM} & \textbf{THDM} & \textbf{MSSM} & \textbf{Dim-6} & \textbf{MHC} \\
-    \hline
-	${\rm Br}(\bar{B}\to X_s\gamma)$ & \tt{BR\_bsgamma} & \checkmark & & & &\\
-    \hline
-	${\rm Br}(\bar{B}\to X_s\gamma)$ & \tt{B\_BtoXsgammaTHDM} & & \checkmark & & &\\
-    \hline
-	$\Delta m_{B_s}$ & \tt{DmBs} & \checkmark & \checkmark & & &\\
-    \hline
-	${\rm Br}(B^-\to \tau \bar{\nu})$ & \tt{btaunu} & \checkmark & \checkmark & & &\\
-    \hline
-  \end{tabular}
-  \caption{This table summarizes the flavour observables of the models
-    implemented in the code.}
-  \label{tab:summaryflavour}
-\end{table}
+%%%%%
+\subsubsection{MSSM}
+\label{sec:Flavour:MSSM}
+%%%%%
+
+\newcommand{\ljli}{\ell_j \to \ell_i\, \gamma}
+\newcommand{\ljtli}{\ell_j \to 3\, \ell_i}
+\newcommand{\lilj}{\ell_i \to \ell_j\, \gamma}
+\newcommand{\litlj}{\ell_i \to 3\, \ell_j}
+%
+\newcommand{\hf}{\texttt{HEPfit}}
+\newcommand{\lfv}{\texttt{LFV}}
+\newcommand{\df}{\Delta F}
+%
+\newcommand{\C}[1]{\mathcal{C}_{#1\ell}}
+\newcommand{\Op}[1]{\mathcal{O}_{#1\ell}}
+\newcommand{\Cq}[1]{\mathcal{C}_{#1\ell q}}
+\newcommand{\Opq}[1]{\mathcal{O}_{#1\ell q}}
+%
+\newcommand{\pr}[1]{#1^{\prime}}
+%
+\newcommand{\gf}{G_F}
+%
+\newcommand{\meg}{\mu \to e \gamma}
+
+%\subsubsection{MSSM}
+
+The Higgs sector in MSSM being $Z_2$ symmetric forbids any tree-level flavour changing neutral currents (FCNC). However, this does not preclude the possibility of FCNC decays in general MSSM. The parameters in the soft-SUSY breaking Lagrangian defined in Eq.\eqref{eq:Lsoft_trilinear} and Eq.\eqref{eq:Lsoft_mass} are not necessarily flavour diagonal. For instance, the sfermion masses in Eq.\eqref{eq:Lsoft_mass} are flavor diagonal in gauge mediation~\cite{Dine:1993yw,Dine:1994vc,Dine:1995ag} and gaugino mediation~\cite{Inoue:1991rk,Kaplan:1999ac,Chacko:1999mi} at the leading order. However, in more general cases, e.g. in gravity mediation models, the sfermion mass matrices are not flavour diagonal, that generates various loop-induced FCNC decays. Also, off-diagonal elements of the sfermion mass matrices may arise as results of quantum corrections involving heavy particles, such as right-handed (s)neutrinos~\cite{Borzumati:1986qx, Hisano:1995nq, Hisano:1995cp} and  particles existing in grand unified theories~\cite{Barbieri:1995tw, Moroi:2000mr, Barenboim:2000ev,  Moroi:2000tk}. The present version of \HEPfit calculates various FCNC decays related to the leptonic sector in general MSSM. The SUSY contribution to the quark sector FCNC decays will be added in the future version of \HEPfit.
+
+The \lfv\ module in \hf\ calculates the decay rates for various lepton flavour violating observables in a given new physics model. The expression for various $\df = 1$ and $\df=0$ processes are calculated in terms of the Wilson coefficients of the responsible operators. Therefore, given any new physics model, once the user provides the Wilson coefficients generated in the model, \hf\ will calculate the decay rates for all the lepton flavour violating observables generated by those operators. This enables the user to include any new physics model to \hf\ and analyze the lepton flavour violating processes efficiently. For example, the effective weak Hamiltonian for the $\lilj$ process is given by
+\begin{align}
+\mathcal{H}_{\rm eff}^{\df=1} &=  
+\C{7} \Op{7} + \C{7}^{\prime} \Op{7}^{\prime} , \nonumber
+\end{align}
+where
+\begin{align}
+\Op{7} &= e\, m_{l_i} 
+\overline{\ell}_j \sigma_{\mu \nu} P_R \ell_i F^{\mu \nu}\ , \notag \\
+\Op{7}^{\prime} &= e\, m_{l_i} 
+\overline{\ell}_j \sigma_{\mu \nu} P_L \ell_i F^{\mu \nu}\ , \nonumber
+\end{align}
+$\sigma_{\mu \nu} = \frac{i}{2}[\gamma^{\mu},\gamma^{\nu}]$, $P_{R,L} = \frac{1}{2} (1\pm\gamma_5)$, and $F_{\mu\nu} = (\partial_{\mu} A_{\nu} - \partial_{\nu} A_{\mu})$. $m_{l_i}$ is the mass of the initial state fermion. The decay rate for the process is
+\begin{align}
+\Gamma (\lilj) &= \frac{e^2}{4\pi} m_{l_i}^5 
+\bigg(|\C{7}|^2 + |\C{7}^\prime|^2\bigg) \ . \nonumber
+\end{align}
+
+\begin{itemize}
+	\item Anomalous magnetic moment of muon ($(g-2)_{\mu}$): At one-loop the contribution from the supersymmetric particles to $(g-2)_{\mu}$ is through neutralino--charged slepton loop and chargino--sneutrino loop \cite{Chattopadhyay:1995ae,Moroi:1995yh,Hisano:1995cp}. In \hf\ the two-loop contribution to $(g-2)_{\mu}$ is also computed. The following two-loop corrections  are included in the present version of \hf\ :
+		(1) $\tan\beta$-enhanced corrections to the muon Yukawa coupling \cite{Marchetti:2008hw},
+		(2) QED corrections to the SUSY contributions to the muon $g-2$ \cite{vonWeitershausen:2010zr} (for the leading term, see also \cite{Degrassi:1998es}),
+		(3) leading logarithmic corrections from fermion/sfermion loops \cite{Fargnoli:2013zia}, which are enhanced for heavy sfermions,
+		(4) corrections from photonic Barr-Zee diagrams involving the neutral Higgs bosons with charginos or sfermions \cite{Stockinger:2006zn}, which are enhanced by $\tan\beta$ or potentially large Yukawa couplings.
+		The first three corrections can be regarded as corrections to one-loop SUSY contributions.
+	\item $\lilj$ decay: At one-loop in MSSM the $\lilj$ decay is mediated through the neutralino-charged slepton and the chargino-sneutrino loop. In the present version of \hf\ we include the contribution to $\lilj$ in the general MSSM scenario \cite{Hisano:1995cp}, keeping the final final state fermion masses non-zero \cite{Arganda:2005ji}.
+	\item $\litlj$ decay: In the general MSSM, the $\litlj$ receives contribution from $\gamma$, $Z$ and $H$-penguin type and box-type diagrams. The present version of \hf\ includes all of these 4-types of contribution for finite final state fermion masses \cite{Hisano:1995cp,Arganda:2005ji}. 
+	\item Coherent $\mu \to e$ conversion in nuclei: The coherent $\mu \to e$ conversion in a nucleus corresponds to the process $X_{\mu}(Z,A) \to e^{-} + X^{+}(Z,A)$, where $X_{\mu}(Z,A)$ is an atom of nucleus $X$ with proton number $Z$ and atomic number $A$ with one orbital electron replaced by a muon and $X^{+}(Z,A)$ is the corresponding ion without the muon. The coherent $\mu \to e$ conversion receives contribution from $\gamma$, $Z$-penguin-type and box-type diagrams \cite{Hisano:1995cp}. Present version of \hf\ includes both of these contribution in the general MSSM scenario.  
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Code Description}
@@ -1348,14 +1858,13 @@ L+M+E, Ayan
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{installation}
+\section{Installation}
 \label{sec:Installation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We give a brief description of the installation procedure here. The installation depends on the availability of \texttt{cmake} on the system. A description of cmake and the details of installing it can be found in \href{https://cmake.org/}{the cmake website}. Most package managers for linux distributions should have an package available for installation. for Mac users, it can be either installed from source or from a Unix port like \href{https://www.macports.org/}{Darwin ports} or \href{http://www.finkproject.org/}{Fink}. below we outline further details. 
-\begin{center}
-{\large \bf Dependencies}
-\end{center}
+We give a brief description of the installation procedure here. The installation depends on the availability of \texttt{cmake} on the system. A description of cmake and the details of installing it can be found in \href{https://cmake.org/}{the cmake website}. Most package managers for linux distributions should have an package available for installation. For Mac users, it can be either installed from source or from a Unix port like \href{https://www.macports.org/}{Darwin ports} or \href{http://www.finkproject.org/}{Fink}. Below we outline further details. 
+
+\subsection{Dependencies}
 
 \begin{itemize}
 \item {\bf GSL:}  The GNU Scientific Library (GSL) is a library for numerical computation. It can be found on the \href{http://www.gnu.org/software/gsl/}{GSL website}. Most linux package managers will have a stable version as will any ports for Mac. {\bf NOTE:} We do not support GSL v2.0 or greater. 
@@ -1368,16 +1877,15 @@ We give a brief description of the installation procedure here. The installation
     the \href{https://www.mppmu.mpg.de/bat/}{BAT website} for a Monte Carlo run. With the compilation 
     option \texttt{-DBAT\_INSTALL=ON} explained below, the \HEPfit installation package 
     will download and install BAT. {\bf NOTE:} that at present \HEPfit is not
-    compatible with BAT compiled with the \texttt{--enable-parallelization} option. the parallelized version of BAT compatible with \HEPfit {\em must} be installed with the option \texttt{-DMPIBAT=ON}
+    compatible with BAT compiled with the \texttt{--enable-parallelization} option. the parallelized version of BAT compatible with \HEPfit\ {\em must} be installed with the option \texttt{-DMPIBAT=ON}
 
 \item {\bf MPI:}    Optionally, HEPfit can be compiled with MPI for usage in parallel 
     clusters and processors supporting multi-threading. In this case,
     the \HEPfit installer will patch and compile BAT with MPI support as described above. For this one needs a version of \href{https://www.open-mpi.org/}{openMPI} which is also available through package managers in Linux and ports on Mac.
 \end{itemize}
 
-\begin{center}
-{\large \bf Installation Procedure}
-\end{center}
+\subsection{Installation Procedure}
+
 In a nutshell, if all dependencies are satisfied for a fully MPI compatible MCMC capable \HEPfit installation from the tarball downloaded from \href{http://hepfit.roma1.infn.it/}{the \HEPfit website}:
 
 \begin{lstlisting}
@@ -1396,7 +1904,7 @@ $ mpiexec -n 5 ./analysis ../config/StandardModel.conf MonteCarlo.conf
 \end{lstlisting} 
 This is all you will need for running a MCMC on 5 cores with the model, parameters and observables specified in \texttt{examples/config/StandardModel.conf} with \HEPfit. For variations please read what follows. \\\\
 %
-Unpack the tarball containing the \HEPfit source which you can obtain from the \href{http://hepfit.roma1.infn.it/}{\HEPfit website} . A directory called 
+Unpack the tarball containing the \HEPfit source which you can obtain from the \href{http://hepfit.roma1.infn.it/}{\HEPfit website}. A directory called 
 \texttt{HEPfit-x.x} will be created containing the source code. To generate 
 Makefiles, enter the source directory and run CMake:
 
@@ -1449,7 +1957,7 @@ compile and install the BAT libraries.\\\\
 Please make sure that the BAT libraries are not already present in the
 BAT installation directory. If it is present, the installer does not
 build BAT, and uses the pre-installed one. This is particularly problematic
-if switching to or from the MPI version of BAT (\texttt{-DMPIBAT=ON})\\\\
+if switching to or from the MPI version of BAT (\texttt{-DMPIBAT=ON}).\\\\
 %
 {\bf No MCMC mode:}
 The generated Makefiles are used for building a \HEPfit library. If
@@ -1458,14 +1966,14 @@ Chain Monte Carlo (MCMC), you can use the option \texttt{-DNOMCMC=ON}. For
 this case, BAT is not required. \\\\
 %
 {\bf MPI Support:}
-If you want to perform a MCMC run with MPI support, you can specify
+If you want to perform an MCMC run with MPI support, you can specify
 the option \texttt{-DMPIBAT=ON}. This option must be accompanied with
 \texttt{-DBAT\_INSTALL=ON} in order to enable the \HEPfit installer to
 download, patch and compile BAT with MPI support:
 \begin{lstlisting} 
 $ cmake . -DBAT_INSTALL=ON -DMPIBAT=ON <other options>  
 \end{lstlisting}
-please make sure non-MPI BAT libraries are not already installed in the 
+Please make sure non-MPI BAT libraries are not already installed in the 
 BAT installation directory.\\\\
 %
 {\bf ROOT:}
@@ -1482,7 +1990,7 @@ The {\bf recommended installation} flags for a locally installed \HEPfit with fu
 \begin{lstlisting} 
 $ cmake . -DLOCAL_INSTALL_ALL=ON -DMPIBAT=ON
 \end{lstlisting}
-This will enable easy portability of all codes and easy upgrading to future version as nothing will be installed system wide.  Also, this is useful if you doo not have root access and cannot install softwares in system folders. After successful CMake run, execute the build commands:
+This will enable easy portability of all codes and easy upgrading to future version as nothing will be installed system wide.  Also, this is useful if you do not have root access and cannot install softwares in system folders. After successful CMake run, execute the build commands:
 
 \begin{lstlisting} 
 $ make  
@@ -1494,9 +2002,8 @@ Note that depending on the setting of installation prefix you might
 need root privileges to be able to install \HEPfit with \texttt{sudo make
 install} instead of just \texttt{make install}.\\
 
-\begin{center}
-{\large \bf Post Install:}
-\end{center}
+\subsection{Post Install:}
+
 \begin{itemize}
 \item{\bf Executable:} \texttt{<CMAKE\_INSTALL\_PREFIX>/bin/hepfit-config}
 \item{\bf Library:} \texttt{<CMAKE\_INSTALL\_PREFIX>/lib/libHEPfit.a}
@@ -1522,9 +2029,9 @@ The example programs can be found in the \HEPfit build directory:
 \item \texttt{examples/EventGeneration/}
 \item \texttt{examples/myModel/}
 \end{itemize}
-where the first two demonstrate the usage of the \HEPfit library, while 
+The first two demonstrate the usage of the \HEPfit library, while 
 the third one can be used for testing a Monte Carlo run with the \HEPfit 
-executable. The fourth one can be used to generate values of observables with a sample of parameters drawn from the parameter space. The fifth one is an example implementation of a custom 
+executable. The fourth example can be used to generate values of observables with a sample of parameters drawn from the parameter space. The fifth one is an example implementation of a custom 
 model and custom observables. To make an executable to run these examples:
 \begin{lstlisting} 
 $ cd examples/MonteCarloMode/
@@ -1643,7 +2150,7 @@ Observable2D <name> MCMC file filename histoname
 
 \end{enumerate}
 %
-{\bf \large Step 2:Monte Carlo configuration file:}\\
+{\bf \large Step 2: Monte Carlo configuration file:}\\
 
 The parameters and options of the Monte Carlo run are specified in
 a configuration file, separate from the one for model parameters,
@@ -1687,7 +2194,7 @@ For example, a Monte Carlo configuration file is written as:
 
 where a '\#' can be placed at the beginning of each line to comment it out.\\\\
 %
-{\bf \large Step 3: Run:}\\\\
+{\bf \large Step 3: Run}\\\\
 %
 {\bf 1. Library mode with MCMC:  }An example can be found in examples/MonteCarloMode
 
@@ -1754,7 +2261,7 @@ After making the configuration files, run with the command:
 
 The \texttt{<number of iterations>} defines the number of random points in the parameter space that will be evaluated. Setting this to 0 gives the value of the observables at the central value of all the parameters. If the \texttt{[output folder]} is not specified everything is printed on the screen and no data is saved. Alternately, one can specify the output folder and the run will be saved if \texttt{<number of iterations>} $>$ 0. The output folder can be found in \texttt{./GeneratedEvents}. The structure of the output folder is:\\\\
 %
-{\bf output folder structure:}
+{\bf Output folder structure:}
 \begin{itemize}
 \item \texttt{CGO}: Contains any correlated Gaussian observables that might have been listed in the model configuration files.
 \item \texttt{Observables}: Contains any observables that might have been listed in the model configuration files.
@@ -1817,6 +2324,7 @@ default values as set in the class InputParameters.
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 Satoshi
+\cite{Bardin:1992jc,Bardin:1999yd,Arbuzov:2005ma,Akhundov:2013ons}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with UTfit}
@@ -1840,23 +2348,44 @@ Jorge
 Debtosh
 
 %%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{More comparisons....}
-\label{sec:more}
+\subsection{Comparison with the THDM implementation in CKMfitter}
+\label{sec:CKMfitter}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-Otto
+All THDM observables were compared to the CKMfitter implementation used in \cite{Eberhardt:2013uba,Eberhardt:2013wia,Baglio:2014nea,Chowdhury:2015yja}. For most of them, the relative difference was less than $10^{-9}$, except for the heavy Higgs search observables, where HEPfit uses updated reference tables for the cross sections, and no interpolation was used on the CKMfitter side, such that the relative error amounts to maximally a few percent, which we assume to be sufficient given the experimental precision.
 
 
-\cite{hep-ph/9412201,hep-ph/9908433,hep-ph/0507146,1302.1395}.
 
 
-\acknowledgments
+\section*{Acknowledgments}
 M.C. is associated to the Dipartimento di Fisica, Universit\`a di Roma
 Tre. E.F. and L.S. are associated to the Dipartimento di Fisica,
 Universit\`a di Roma ``La Sapienza''. We acknowledge partial support
 from ERC Ideas Starting Grant n.~279972 ``NPFlavour'' and ERC Ideas
 Advanced Grant n.~267985 ``DaMeSyFla''.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%% \appendix
+
+%% \section{}
+%% \label{}
+
+\bibliographystyle{elsarticle-num}
 \bibliography{HEPfit-1.0}
 
 \end{document}
