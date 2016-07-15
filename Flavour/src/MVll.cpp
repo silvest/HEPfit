@@ -118,7 +118,7 @@ void MVll::updateParameters()
             a_2A1 = mySM.getOptionalParameter("a_2A1");
             MRA1_2 = mySM.getOptionalParameter("MRA1") * mySM.getOptionalParameter("MRA1");
 
-            a_0A12 = mySM.getOptionalParameter("a_0A12");
+            a_0A12 = a_0A0 * (MM*MM - MV*MV) / (8. * MM*MV);
             a_1A12 = mySM.getOptionalParameter("a_1A12");
             a_2A12 = mySM.getOptionalParameter("a_2A12");
             MRA12_2 = mySM.getOptionalParameter("MRA12") * mySM.getOptionalParameter("MRA12");
@@ -128,7 +128,7 @@ void MVll::updateParameters()
             a_2T1 = mySM.getOptionalParameter("a_2T1");
             MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
 
-            a_0T2 = mySM.getOptionalParameter("a_0T2");
+            a_0T2 = a_0T1;
             a_1T2 = mySM.getOptionalParameter("a_1T2");
             a_2T2 = mySM.getOptionalParameter("a_2T2");
             MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
@@ -158,7 +158,7 @@ void MVll::updateParameters()
             a_2A1 = mySM.getOptionalParameter("a_2A1phi");
             MRA1_2 = mySM.getOptionalParameter("MRA1") * mySM.getOptionalParameter("MRA1");
 
-            a_0A12 = mySM.getOptionalParameter("a_0A12phi");
+            a_0A12 = a_0A0 * (MM*MM - MV*MV) / (8. * MM*MV);
             a_1A12 = mySM.getOptionalParameter("a_1A12phi");
             a_2A12 = mySM.getOptionalParameter("a_2A12phi");
             MRA12_2 = mySM.getOptionalParameter("MRA12") * mySM.getOptionalParameter("MRA12");
@@ -168,7 +168,7 @@ void MVll::updateParameters()
             a_2T1 = mySM.getOptionalParameter("a_2T1phi");
             MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
 
-            a_0T2 = mySM.getOptionalParameter("a_0T2phi");
+            a_0T2 = a_0T1;
             a_1T2 = mySM.getOptionalParameter("a_1T2phi");
             a_2T2 = mySM.getOptionalParameter("a_2T2phi");
             MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
@@ -329,9 +329,6 @@ void MVll::updateParameters()
     F27_L1_1 = (-0.031936 - 0.10981 * gslpp::complex::i());
     F27_L1_2 = (-0.14169 - 0.035553 * gslpp::complex::i());
     F27_L1_3 = (-0.13592 + 0.093 * gslpp::complex::i()); 
-
-    a_0A12_LCSR = a_0A0 * (MM2mMV2) / (8. * MMMV);
-    a_0T2_LCSR = a_0T1;
 
     NN = ((4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI)).abs2();
     
@@ -781,7 +778,7 @@ double MVll::A_1(double q2)
 
 double MVll::A_2(double q2) 
 {
-    return (MMpMV2 * (MM2mMV2 - q2) * A_1(q2) - 16. * MM * MV2 * MMpMV * FF_fit(q2, a_0A12_LCSR, a_1A12, a_2A12, MRA12_2)) / lambda(q2);
+    return (MMpMV2 * (MM2mMV2 - q2) * A_1(q2) - 16. * MM * MV2 * MMpMV * FF_fit(q2, a_0A12, a_1A12, a_2A12, MRA12_2)) / lambda(q2);
 }
 
 double MVll::T_1(double q2) 
@@ -791,12 +788,12 @@ double MVll::T_1(double q2)
 
 double MVll::T_2(double q2) 
 {
-    return FF_fit(q2, a_0T2_LCSR, a_1T2, a_2T2, MRT2_2);
+    return FF_fit(q2, a_0T2, a_1T2, a_2T2, MRT2_2);
 }
 
 double MVll::V_0t(double q2) 
 {
-    return fourMV / sqrt(q2) * FF_fit(q2, a_0A12_LCSR, a_1A12, a_2A12, MRA12_2);
+    return fourMV / sqrt(q2) * FF_fit(q2, a_0A12, a_1A12, a_2A12, MRA12_2);
 }
 
 double MVll::V_p(double q2) 
