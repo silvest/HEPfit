@@ -2313,7 +2313,6 @@ void Bsgamma::updateParameters()
     
     ale=SM.getAle();
     //alemz=SM.ale_OS(SM.getMz());
-    E0=SM.getOptionalParameter("bsgamma_E0");
     mu_b=SM.getMub();
     mu_c=SM.getMuc();
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
@@ -2381,6 +2380,8 @@ void Bsgamma::updateParameters()
 
 double Bsgamma::computeThValue()
 {
+    double E0 = getBinMin();
+    
     updateParameters();
     
     if (obs == 1) 

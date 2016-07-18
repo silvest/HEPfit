@@ -241,7 +241,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_bqgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 1);
     obsThFactory["ACP_bqgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 2);
     parameterForObservable["BR_bsgamma"] = make_vector<std::string>() << "Gambino_mukin" << "Gambino_BRsem" << "Gambino_Mbkin" << "Gambino_Mcatmuc" << "Gambino_mupi2" 
-                                                                      << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "bsgamma_E0" << "BLNPcorr";
+                                                                      << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "BLNPcorr";
     parameterForObservable["ACP_bsgamma"] = parameterForObservable["BR_bsgamma"];
     parameterForObservable["BR_bdgamma"] = parameterForObservable["BR_bsgamma"];
     parameterForObservable["ACP_bdgamma"] = parameterForObservable["BR_bsgamma"];
