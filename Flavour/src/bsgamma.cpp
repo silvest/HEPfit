@@ -47,6 +47,7 @@ Intbc_cache(2, 0.)
     Intc2Cached = 0;
     Intc3Cached = 0;
     Intcc1Cached = 0;
+    IntPhi772rCached = 0;
     
     w_INT = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -77,6 +78,7 @@ Intbc_cache(2, 0.)
     Intc2Cached = 0;
     Intc3Cached = 0;
     Intcc1Cached = 0;
+    IntPhi772rCached = 0;
     
     w_INT = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -1776,7 +1778,7 @@ double Bsgamma::omega77(double z)
             + 4./9. * (z3 + 36. * z - 43.)/omz * Poly.Li3(z) 
             + 8./9. * (z3 - 2. * z2 + 19. * z - 22.)/omz * Poly.Li3(1.-z) 
             - 16./9. * omz2 * Poly.Li3(z-1.) 
-            - 4./9. * (z3 + 35. * z - 44)/omz * Li2omz * Lomz 
+            - 4./9. * (z3 + 35. * z - 44.)/omz * Li2omz * Lomz 
             - 4./9. * (z3 - 2. * z2 + 2. * z - 3.)/omz * Li2zmo * Lomz 
             - 4./27. * (23. * z6 - 106. * z5 + 145. * z4 + 3. * z3 
             - 180. * z2 + 147. * z - 36.)/(z * omz3) * (Li2omz + Lomz * Lz) 
@@ -1827,7 +1829,7 @@ double Bsgamma::K77_2_z1(double E0, double mu)
     double Lb = 2.*log(mu_b/Mb_kin);
     
     return ( K77_1 - 4. * Phi77_1(E0) ) * K77_1 - 1178948./729. + 18593./729. * Pi2 
-            - 628./405. * Pi2*Pi2 + 428./27. * Pi2 * log(2) + 61294./81. * gsl_sf_zeta(3.) 
+            - 628./405. * Pi2*Pi2 + 428./27. * Pi2 * log(2.) + 61294./81. * gsl_sf_zeta(3.) 
             - 880./9. * Lb * Lb + ( 440./27. * Pi2 - 14698./27. ) * Lb 
             + 64./3. * xm + 4. * (Phi77_2beta0(E0,mu) + Phi77_2rem(E0));
 }
@@ -2202,21 +2204,21 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
             std::cout << "p21: " << P21(E0,mu_b) << std::endl;
             std::cout << "p12: " << P12() << std::endl;
             std::cout << "p22: " << P22(E0,mu_b,mu_c) << std::endl;
-            std::cout << "p32: " << P32(E0,mu_b) << std::endl << std::endl;
-            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;
+            std::cout << "p32: " << P32(E0,mu_b) << std::endl;
+            std::cout << "Vub_NLO: " << Vub_NLO(E0) << std::endl;
+            std::cout << "Vub_NNLO: " << Vub_NNLO(E0) << std::endl;
             std::cout << "EW_NLO: " << EW_NLO(mu_b) << std::endl;*/
             if (NNLOflag){
-                return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
-                        + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b)
-                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b))
-                        + Vub_NNLO(E0);
+                return P0(E0) 
+                        + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b)
+                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b)) + Vub_NNLO(E0);
             }
-            else return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
-                    + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
+            else return P0(E0) 
+                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b);
             break;
         case NLO:
-            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
-                    + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
+            return P0(E0) 
+                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b);
             break;
         case LO:
             return P0(E0);
@@ -2309,12 +2311,11 @@ void Bsgamma::updateParameters()
     C=C_sem();
     
     ale=SM.getAle();
-    //alemz=SM.ale_OS(SM.getMz());
-    E0=SM.getOptionalParameter("bsgamma_E0");
     mu_b=SM.getMub();
     mu_c=SM.getMuc();
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
     Alstilde = SM.Alstilde5(mu_b);
+    AleatMztilde=SM.ale_OS(SM.getMz())/4./M_PI;
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
     Mz=SM.getMz();
     V_ub=SM.getCKM().V_ub();
@@ -2356,6 +2357,7 @@ void Bsgamma::updateParameters()
         Intbb1Cached = 0;
         Intbb2Cached = 0;
         Intbb4Cached = 0;
+        IntPhi772rCached = 0;
     }
     if (Intbc_updated == 0) {
         Intbc1Cached = 0;
@@ -2377,12 +2379,14 @@ void Bsgamma::updateParameters()
 
 double Bsgamma::computeThValue()
 {
+    double E0 = getBinMin();
+    
     updateParameters();
     
     if (obs == 1) 
-        return overall *  ( P(E0, mu_b, mu_c, NNLO) + N(E0,mu_b) );
+        return overall *  ( P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
     if (obs == 2) 
-        return (Alstilde * P21_CPodd(E0,mu_b) + Vub_NLO_CPodd(E0) ) / (P(E0, mu_b, mu_c, NNLO) + N(E0,mu_b) );
+        return (Alstilde * P21_CPodd(E0, mu_b) + Vub_NLO_CPodd(E0) ) / (P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");
 }

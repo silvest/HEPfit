@@ -1695,10 +1695,9 @@ private:
     bool NNLOflag;/**< Flag to include NNLO corrections (currently partialy hard-coded) */ 
     
     double ale; /**<alpha electromagnetic */
-    //double alemz; /**<alpha electromagnetic at Mz */
+    double AleatMztilde; /**<alpha electromagnetic at Mz divided by 4 pi */
     double alsUps; /**<alpha strong Upsilon */
     double Alstilde; /**<alpha strong divided by 4 pi */
-    double E0; /**<energy cutoff */
     double mu_b; /**<b quark mass scale */
     double mu_c; /**<c quark mass scale */
     double mu_kin; /**<kinetic mass scale */

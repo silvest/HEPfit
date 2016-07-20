@@ -528,6 +528,48 @@ private:
 };
 
 /**
+ * @class Hobs_pp_H_hh_CMS
+ * @ingroup THDM
+ * @brief 
+ */
+class Hobs_pp_H_hh_CMS: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_H_hh_CMS constructor.
+     */
+    Hobs_pp_H_hh_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_pp_H_hh_CMS
+ * @ingroup THDM
+ * @brief 
+ */
+class Robs_pp_H_hh_CMS: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_pp_H_hh_CMS constructor.
+     */
+    Robs_pp_H_hh_CMS(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_ggF_H_hh_bbtautau_CMS
  * @ingroup THDM
  * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg \to H\to hh\to b\bar b \tau\tau@f$.
@@ -941,6 +983,27 @@ public:
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class log10_pp_H_hh_TH
+ * @ingroup THDM
+ * @brief 
+ */
+class log10_pp_H_hh_TH: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_H_hh_TH constructor.
+     */
+    log10_pp_H_hh_TH(const StandardModel& SM_i);
+
+    /**
+     * @return 
      */
     double computeThValue();
 private:
