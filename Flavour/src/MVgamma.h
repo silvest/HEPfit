@@ -322,6 +322,43 @@ private:
     double arg;
 };
 
+/**
+ * @class ADG_MVgamma
+ * @ingroup Flavour
+ * @brief A class for the @f$A_{\Delta\Gamma}@f$ parameter for @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$A_{\Delta\Gamma}@f$ parameter for @f$M \to V \gamma@f$ 
+ * in terms of the helicity amplitudes @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$, 
+ * computed in the MVgamma class:
+ * @f[
+ * A_{\Delta\Gamma} = \frac {2Re(q/p * ( H_V^{+*} \overline{H}_V^+ + H_V^{-*} \overline{H}_V^-))}{( |H_V^+|^2 + |H_V^-|^2 +|\overline{H}_V^+|^2 + |\overline{H}_V^-|^2)} \,.
+ * @f]
+ */
+class ADG_MVgamma : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    ADG_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    
+    /**
+    * @brief The @f$S@f$ parameter for CPV in @f$M \to V \gamma@f$.
+    * @return @f$S@f$
+    */
+    double computeThValue ();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+    AmpDB2 myAmpDB2;
+    double arg;
+};
+
 
 /**
  * @class DC7_1
