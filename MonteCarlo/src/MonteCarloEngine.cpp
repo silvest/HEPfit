@@ -48,13 +48,17 @@ MonteCarloEngine::MonteCarloEngine(
 };
 
 void MonteCarloEngine::Initialize(StandardModel* Mod_i) 
-{
-    TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", NBINS1D, 1., -1.);
-    lhisto->GetXaxis()->SetTitle("LogLikelihood");
-    BCH1D bclhisto = BCH1D(lhisto);
-    Histo1D["LogLikelihood"] = bclhisto;
+{   
     Mod = Mod_i;
     int k = 0, kweight = 0;
+    
+    if (rank == 0) {
+        TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", NBINS1D, 1., -1.);
+        lhisto->GetXaxis()->SetTitle("LogLikelihood");
+        BCH1D bclhisto = BCH1D(lhisto);
+        Histo1D["LogLikelihood"] = bclhisto;
+    }
+    
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
             k++;
@@ -62,13 +66,13 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
                 kweight++;
         }
         std::string HistName = it->getName();
-        if (Histo1D.find(HistName) == Histo1D.end()) {
+        thMin[it->getName()] = std::numeric_limits<double>::max();
+        thMax[it->getName()] = -std::numeric_limits<double>::max();
+        if (rank == 0 && Histo1D.find(HistName) == Histo1D.end()) {
             TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(), NBINS1D, it->getMin(), it->getMax());
             histo->GetXaxis()->SetTitle(it->getLabel().c_str());
             BCH1D bchisto = BCH1D(histo);
             Histo1D[HistName] = bchisto;
-            thMin[it->getName()] = std::numeric_limits<double>::max();
-            thMax[it->getName()] = -std::numeric_limits<double>::max();
         }
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
@@ -78,7 +82,7 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
         } else if (it->getDistr().compare("weight") == 0)
             throw std::runtime_error("ERROR: do not use Observable2D for analytic 2D weights!");
         std::string HistName = it->getName();
-        if (Histo2D.find(HistName) == Histo2D.end()) {
+        if (rank == 0 && Histo2D.find(HistName) == Histo2D.end()) {
             TH2D * histo2 = new TH2D(HistName.c_str(),
                     (it->getLabel() + " vs " + it->getLabel2()).c_str(),
                     NBINS2D, it->getMin(), it->getMax(),
@@ -102,14 +106,14 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
                     throw std::runtime_error("Cannot use weight in CorrelatedGaussianObservables!");
             }
             std::string HistName = it->getName();
-            if (Histo1D.find(HistName) == Histo1D.end()) {
+            thMin[HistName] = std::numeric_limits<double>::max();
+            thMax[HistName] = -std::numeric_limits<double>::max();
+            if (rank == 0 && Histo1D.find(HistName) == Histo1D.end()) {
                 TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(),
                         NBINS1D, it->getMin(), it->getMax());
                 histo->GetXaxis()->SetTitle(it->getLabel().c_str());
                 BCH1D bchisto = BCH1D(histo);
                 Histo1D[HistName] = bchisto;
-                thMin[HistName] = std::numeric_limits<double>::max();
-                thMax[HistName] = -std::numeric_limits<double>::max();
             }
         }
         if (it1->isPrediction()) {
