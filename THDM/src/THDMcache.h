@@ -164,12 +164,12 @@ public:
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
      */
-    gslpp::matrix<double> CMS_ggF_A_hZ_bbll, CMS_pp_H_hh_gagabb, CMS_pp_H_hh_bbbb, CMS_bbF_phi_bb, CMS_ggF_phi_tautau, CMS_bbF_phi_tautau, CMS_ggF_phi_gaga, CMS_ggF_H_hh_bbtautau, CMS_ggF_A_hZ_tautaull;
+    gslpp::matrix<double> CMS_ggF_A_hZ_bbll, CMS_pp_H_hh, CMS_pp_H_hh_gagabb, CMS_pp_H_hh_bbbb, CMS_bbF_phi_bb, CMS_ggF_phi_tautau, CMS_bbF_phi_tautau, CMS_ggF_phi_gaga, CMS_pp_A_Zga_llga, CMS_ggF_H_hh_bbtautau, CMS_ggF_A_hZ_tautaull;
 
     /**
      * @brief CMS expected @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
      */
-    gslpp::matrix<double> CMS_ggF_A_hZ_bbll_e, CMS_pp_H_hh_gagabb_e, CMS_pp_H_hh_bbbb_e, CMS_bbF_phi_bb_e, CMS_ggF_phi_tautau_e, CMS_bbF_phi_tautau_e, CMS_ggF_phi_gaga_e, CMS_ggF_H_hh_bbtautau_e, CMS_ggF_A_hZ_tautaull_e;
+    gslpp::matrix<double> CMS_ggF_A_hZ_bbll_e, CMS_pp_H_hh_e, CMS_pp_H_hh_gagabb_e, CMS_pp_H_hh_bbbb_e, CMS_bbF_phi_bb_e, CMS_ggF_phi_tautau_e, CMS_bbF_phi_tautau_e, CMS_ggF_phi_gaga_e, CMS_pp_A_Zga_llga_e, CMS_ggF_H_hh_bbtautau_e, CMS_ggF_A_hZ_tautaull_e;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -484,6 +484,10 @@ public:
      */
     double ip_ex_ggF_A_hZ_bbll_CMS_e(double mass);
 
+    double ip_ex_pp_H_hh_CMS(double mass);
+
+    double ip_ex_pp_H_hh_CMS_e(double mass);
+
     /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to a photon pair and a bottom quark pair.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to hh\to \gamma \gamma b\bar b)]_{\text{CMS,95\%}}@f$
@@ -553,6 +557,10 @@ public:
      * @details Taken from CMS-PAS-HIG-14-029, Figure 10-b @cite CMS:2015mca.
      */
     double ip_ex_bbF_phi_tautau_CMS_e(double mass);
+
+    double ip_ex_pp_A_Zga_llga_CMS(double mass);
+
+    double ip_ex_pp_A_Zga_llga_CMS_e(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced scalar resonance decaying to two photons.
@@ -1029,6 +1037,8 @@ public:
     double R_VBF_H_ZZ_ATLAS;
     double THoEX_ggF_H_hh_ATLAS;
     double R_ggF_H_hh_ATLAS;
+    double THoEX_pp_H_hh_CMS;
+    double R_pp_H_hh_CMS;
     double THoEX_ggF_H_hh_bbtautau_CMS;
     double R_ggF_H_hh_bbtautau_CMS;
     double THoEX_pp_H_hh_bbbb_CMS;
@@ -1057,6 +1067,8 @@ public:
      * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
      */
     double pp_A_gaga_TH;
+
+    double pp_A_Zga_llga_TH;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
@@ -1156,6 +1168,8 @@ public:
     double R_pp_A_gaga_ATLAS;
     double THoEX_ggF_A_gaga_CMS;
     double R_ggF_A_gaga_CMS;
+    double THoEX_pp_A_Zga_llga_CMS;
+    double R_pp_A_Zga_llga_CMS;
     double THoEX_ggF_A_hZ_bbll_CMS;
     double R_ggF_A_hZ_bbll_CMS;
     double THoEX_ggF_A_hZ_bbZ_ATLAS;
@@ -1379,6 +1393,8 @@ private:
     mutable double ip_ex_mu_pp_H_VV_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_A_hZ_bbll_CMS_cache[2][CacheSize];
     mutable double ip_ex_ggF_A_hZ_bbll_CMS_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_H_hh_CMS_cache[2][CacheSize];
+    mutable double ip_ex_pp_H_hh_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_gagabb_CMS_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_gagabb_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS_cache[2][CacheSize];
@@ -1391,6 +1407,8 @@ private:
     mutable double ip_ex_bbF_phi_tautau_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_phi_gaga_CMS_cache[2][CacheSize];
     mutable double ip_ex_ggF_phi_gaga_CMS_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_A_Zga_llga_CMS_cache[2][CacheSize];
+    mutable double ip_ex_pp_A_Zga_llga_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbtautau_CMS_cache[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbtautau_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_A_hZ_tautaull_CMS_cache[2][CacheSize];

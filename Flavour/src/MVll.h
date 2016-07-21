@@ -714,9 +714,6 @@ private:
     double F89_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     double F89_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
-    double a_0A12_LCSR;/**<LCSR fit parameter */
-    double a_0T2_LCSR;/**<LCSR fit parameter */
-    
     double a_0V;/**<LCSR fit parameter */
     double a_1V;/**<LCSR fit parameter */
     double a_2V;/**<LCSR fit parameter */

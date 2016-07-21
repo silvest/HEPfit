@@ -47,6 +47,7 @@ Intbc_cache(2, 0.)
     Intc2Cached = 0;
     Intc3Cached = 0;
     Intcc1Cached = 0;
+    IntPhi772rCached = 0;
     
     w_INT = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -77,6 +78,7 @@ Intbc_cache(2, 0.)
     Intc2Cached = 0;
     Intc3Cached = 0;
     Intcc1Cached = 0;
+    IntPhi772rCached = 0;
     
     w_INT = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -1776,7 +1778,7 @@ double Bsgamma::omega77(double z)
             + 4./9. * (z3 + 36. * z - 43.)/omz * Poly.Li3(z) 
             + 8./9. * (z3 - 2. * z2 + 19. * z - 22.)/omz * Poly.Li3(1.-z) 
             - 16./9. * omz2 * Poly.Li3(z-1.) 
-            - 4./9. * (z3 + 35. * z - 44)/omz * Li2omz * Lomz 
+            - 4./9. * (z3 + 35. * z - 44.)/omz * Li2omz * Lomz 
             - 4./9. * (z3 - 2. * z2 + 2. * z - 3.)/omz * Li2zmo * Lomz 
             - 4./27. * (23. * z6 - 106. * z5 + 145. * z4 + 3. * z3 
             - 180. * z2 + 147. * z - 36.)/(z * omz3) * (Li2omz + Lomz * Lz) 
@@ -1827,7 +1829,7 @@ double Bsgamma::K77_2_z1(double E0, double mu)
     double Lb = 2.*log(mu_b/Mb_kin);
     
     return ( K77_1 - 4. * Phi77_1(E0) ) * K77_1 - 1178948./729. + 18593./729. * Pi2 
-            - 628./405. * Pi2*Pi2 + 428./27. * Pi2 * log(2) + 61294./81. * gsl_sf_zeta(3.) 
+            - 628./405. * Pi2*Pi2 + 428./27. * Pi2 * log(2.) + 61294./81. * gsl_sf_zeta(3.) 
             - 880./9. * Lb * Lb + ( 440./27. * Pi2 - 14698./27. ) * Lb 
             + 64./3. * xm + 4. * (Phi77_2beta0(E0,mu) + Phi77_2rem(E0));
 }
@@ -1955,8 +1957,7 @@ double Bsgamma::P21(double E0, double mu)
     {
         for(j=0;j<8;j++)
         {
-            p21 += ( C0[i].real()*C0[j].real() + C0[i].imag()*C0[j].imag() ) * Kij_1(i+1,j+1,E0,mu).real()
-                    - ( C0[i].real()*C0[j].imag() - C0[i].imag()*C0[j].real() ) * Kij_1(i+1,j+1,E0,mu).imag();
+            p21 += ( C0[i].real()*C0[j].real() + C0[i].imag()*C0[j].imag() ) * Kij_1(i+1,j+1,E0,mu).real();
         }
     }
     
@@ -1964,8 +1965,33 @@ double Bsgamma::P21(double E0, double mu)
     {
         for(j=6;j<7;j++)
         {
-            p21 += (C0p[i].real()*C0p[j].real() + C0p[i].imag()*C0p[j].imag()) * Kij_1(i+1,j+1,E0,mu).real()
-                    - ( C0p[i].real()*C0p[j].imag() - C0p[i].imag()*C0p[j].real() ) * Kij_1(i+1,j+1,E0,mu).imag();
+            p21 += (C0p[i].real()*C0p[j].real() + C0p[i].imag()*C0p[j].imag()) * Kij_1(i+1,j+1,E0,mu).real();
+        }
+    }
+    
+    return p21;
+}
+
+double Bsgamma::P21_CPodd(double E0, double mu)
+{
+    int i,j;
+    gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
+    gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
+    double p21=0.;
+    
+    for(i=0;i<8;i++)
+    {
+        for(j=0;j<8;j++)
+        {
+            p21 += - ( C0[i].real()*C0[j].imag() - C0[i].imag()*C0[j].real() ) * Kij_1(i+1,j+1,E0,mu).imag();
+        }
+    }
+    
+    for(i=6;i<7;i++) /*CHECK ALGORITHM*/
+    {
+        for(j=6;j<7;j++)
+        {
+            p21 += - ( C0p[i].real()*C0p[j].imag() - C0p[i].imag()*C0p[j].real() ) * Kij_1(i+1,j+1,E0,mu).imag();
         }
     }
     
@@ -2055,9 +2081,9 @@ double Bsgamma::Vub_NLO_2body()
     double z = zeta();
     
     return 4. * Alstilde * 
-            ((C7_0.real()*( C2_0-C1_0/6. ).real() + C7_0.imag()*( C2_0-C1_0/6. ).imag()) * ( a(z)+b(z) ).real() -
-            (C7_0.real()*( C2_0-C1_0/6. ).imag() - C7_0.imag()*( C2_0-C1_0/6. ).real()) * ( a(z)+b(z) ).imag() ) 
-            * CKMu.real();
+            ((C7_0.real()*( C2_0-C1_0/6. ).real() + C7_0.imag()*( C2_0-C1_0/6. ).imag()) * CKMu.real() +
+            (C7_0.real()*( C2_0-C1_0/6. ).imag() - C7_0.imag()*( C2_0-C1_0/6. ).real()) * CKMu.imag())
+            * ( a(z)+b(z) ).real();
 }
 
 double Bsgamma::Vub_NLO_2body_CPodd()
@@ -2065,9 +2091,9 @@ double Bsgamma::Vub_NLO_2body_CPodd()
     double z = zeta();
     
     return - 4. * Alstilde * 
-            ((C7_0.real()*( C2_0-C1_0/6. ).real() + C7_0.imag()*( C2_0-C1_0/6. ).imag()) * ( a(z)+b(z) ).imag() -
-            (C7_0.real()*( C2_0-C1_0/6. ).imag() - C7_0.imag()*( C2_0-C1_0/6. ).real()) * ( a(z)+b(z) ).real() ) 
-            * CKMu.imag();
+            ((C7_0.real()*( C2_0-C1_0/6. ).real() + C7_0.imag()*( C2_0-C1_0/6. ).imag()) * CKMu.imag() +
+            (C7_0.real()*( C2_0-C1_0/6. ).imag() - C7_0.imag()*( C2_0-C1_0/6. ).real()) * CKMu.real() ) 
+            * ( a(z)+b(z) ).imag();
 }
 
 double Bsgamma::Vub_NLO_3body_A(double E0)
@@ -2092,9 +2118,9 @@ double Bsgamma::Vub_NLO_3body_B(double E0)
     gslpp::complex me = Phi27_1(E0,zeta()) + 2./9. * d * ( 1. - d + 1./3. * d*d );
     
     return 4. * Alstilde * 
-            (( wc1.real() * wc2.real() + wc1.imag() * wc2.imag()) * me.real() -
-            ( wc1.real() * wc2.imag() - wc1.imag() * wc2.real()) * me.imag())
-            * CKMu.real();
+            (( wc1.real() * wc2.real() + wc1.imag() * wc2.imag()) * CKMu.real() +
+            ( wc1.real() * wc2.imag() - wc1.imag() * wc2.real()) * CKMu.imag() )
+            * me.real();
 }
 
 double Bsgamma::Vub_NLO_3body_B_CPodd(double E0)
@@ -2105,9 +2131,9 @@ double Bsgamma::Vub_NLO_3body_B_CPodd(double E0)
     gslpp::complex me = Phi27_1(E0,zeta()) + 2./9. * d * ( 1. - d + 1./3. * d*d );
     
     return - 4. * Alstilde * 
-            (( wc1.real() * wc2.real() + wc1.imag() * wc2.imag()) * me.imag() -
-            ( wc1.real() * wc2.imag() - wc1.imag() * wc2.real()) * me.real())
-            * CKMu.imag();
+            (( wc1.real() * wc2.real() + wc1.imag() * wc2.imag()) * CKMu.imag() +
+            ( wc1.real() * wc2.imag() - wc1.imag() * wc2.real()) * CKMu.real() )
+            * me.imag();
 }
 
 double Bsgamma::Vub_NLO_4body(double E0)
@@ -2131,8 +2157,10 @@ double Bsgamma::Vub_NLO_4body(double E0)
 
         return 4. * Alstilde * ( 
                 ( C2_0 - C1_0/6. ).abs2() * CKMu.real() * 0.005025213076791178
-                + ( C2_0 - C1_0/6. ).real() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) * CKMu.real()
-                + ( C2_0 - C1_0/6. ).imag() * (C7_0.imag() * uphib427 + C8_0.imag() * uphib428) * CKMu.real() );
+                + (( C2_0 - C1_0/6. ).real() * (C7_0.real() * uphib427 + C8_0.real() * uphib428)
+                + ( C2_0 - C1_0/6. ).imag() * (C7_0.imag() * uphib427 + C8_0.imag() * uphib428) ) * CKMu.real() 
+                + (( C2_0 - C1_0/6. ).real() * (C7_0.imag() * uphib427 + C8_0.imag() * uphib428)
+                - ( C2_0 - C1_0/6. ).imag() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) ) * CKMu.imag() );
     }
     
     else return 0.;
@@ -2141,26 +2169,7 @@ double Bsgamma::Vub_NLO_4body(double E0)
 double Bsgamma::Vub_NLO_4body_CPodd(double E0)
 {
     if (FOUR_BODY) {
-        double d = delta(E0);
-        double d2 = d*d;
-        double d3 = d2*d;
-        double Ld = log(d);
-        double Lumd = log(1. - d);
-        double Lq = log(Ms/Mb_kin);
-
-        double uphib427 = ( 2. * d * (-63. + 30. * d + 35. * d2 - 2. * d3 
-                    + 3. * d * (-18. - 7. * d + d2) * Ld) ) / ( 243. * (d - 1.) );
-        double uphib428 = ( 108. * (d - 1.) * (d - 1.) * Lumd*Lumd 
-                    - 12. * Lumd * (- 25. - 18. * Lq - 18. * d * (5. + 4. * Lq) 
-                    + 9. * d2 * (5. + 4. * Lq) + (9. + 36. * d - 18. * d2) * Ld) 
-                    + d * (24. * (17. + 9. * Lq) + 27. * d * (43. + 26. * Lq) 
-                    - d2 * (127. + 72. * Lq) + 9. * (-12. - 39. * d + 4. * d2) * Ld) 
-                    + 108. * (-1. - 4. * d + 2. * d2) * gsl_sf_dilog(d) ) / 729.;
-        
-        return 4. * Alstilde * ( 
-                ( C2_0 - C1_0/6. ).abs2() * CKMu.imag() * 0.013978889449487913
-                + ( C2_0 - C1_0/6. ).real() * (C7_0.imag() * uphib427 + C8_0.imag() * uphib428) * CKMu.imag()
-                - ( C2_0 - C1_0/6. ).imag() * (C7_0.real() * uphib427 + C8_0.real() * uphib428) * CKMu.imag() );
+        return 4. * Alstilde * ( C2_0 - C1_0/6. ).abs2() * CKMu.imag() * 0.013978889449487913;
     }
     
     else return 0.;
@@ -2195,21 +2204,21 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
             std::cout << "p21: " << P21(E0,mu_b) << std::endl;
             std::cout << "p12: " << P12() << std::endl;
             std::cout << "p22: " << P22(E0,mu_b,mu_c) << std::endl;
-            std::cout << "p32: " << P32(E0,mu_b) << std::endl << std::endl;
-            std::cout << "Vub_NLO: " << Vub_NLO(E0,CPodd) << std::endl;
+            std::cout << "p32: " << P32(E0,mu_b) << std::endl;
+            std::cout << "Vub_NLO: " << Vub_NLO(E0) << std::endl;
+            std::cout << "Vub_NNLO: " << Vub_NNLO(E0) << std::endl;
             std::cout << "EW_NLO: " << EW_NLO(mu_b) << std::endl;*/
             if (NNLOflag){
-                return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
-                        + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b)
-                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b))
-                        + Vub_NNLO(E0);
+                return P0(E0) 
+                        + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b)
+                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b)) + Vub_NNLO(E0);
             }
-            else return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
-                    + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
+            else return P0(E0) 
+                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b);
             break;
         case NLO:
-            return P0(E0) + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0)
-                    + SM.ale_OS(SM.getMz())/4./M_PI * EW_NLO(mu_b);
+            return P0(E0) 
+                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b);
             break;
         case LO:
             return P0(E0);
@@ -2302,22 +2311,21 @@ void Bsgamma::updateParameters()
     C=C_sem();
     
     ale=SM.getAle();
-    //alemz=SM.ale_OS(SM.getMz());
-    E0=SM.getOptionalParameter("bsgamma_E0");
     mu_b=SM.getMub();
     mu_c=SM.getMuc();
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
     Alstilde = SM.Alstilde5(mu_b);
+    AleatMztilde=SM.ale_OS(SM.getMz())/4./M_PI;
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
     Mz=SM.getMz();
-    V_ub=SM.getCKM().getVub();
-    V_cb=SM.getCKM().getVcb();
-    V_tb=SM.getCKM().getVtb();
+    V_ub=SM.getCKM().V_ub();
+    V_cb=SM.getCKM().V_cb();
+    V_tb=SM.getCKM().V_tb();
     
     if (SUM) {
-        CKMratio=(V_tb*V_tb/V_cb/V_cb)*(1. - V_tb*V_tb);
-        CKMu=-V_ub*V_ub/(1. - V_tb*V_tb);
-        CKMusq = V_ub*V_ub/V_tb/V_tb * (1. - V_ub*V_ub)/(1. - V_tb*V_tb);
+        CKMratio=(V_tb/V_cb).abs2()*(1. - V_tb.abs2());
+        CKMu=-V_ub.abs2()/(1. - V_tb.abs2());
+        CKMusq = (V_ub/V_tb).abs2() * (1. - V_ub.abs2())/(1. - V_tb.abs2());
         }
     else
         switch (quark) {
@@ -2349,6 +2357,7 @@ void Bsgamma::updateParameters()
         Intbb1Cached = 0;
         Intbb2Cached = 0;
         Intbb4Cached = 0;
+        IntPhi772rCached = 0;
     }
     if (Intbc_updated == 0) {
         Intbc1Cached = 0;
@@ -2370,12 +2379,14 @@ void Bsgamma::updateParameters()
 
 double Bsgamma::computeThValue()
 {
+    double E0 = getBinMin();
+    
     updateParameters();
     
     if (obs == 1) 
-        return overall *  ( P(E0, mu_b, mu_c, NNLO) + N(E0,mu_b) );
+        return overall *  ( P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
     if (obs == 2) 
-        return Vub_NLO_CPodd(E0) / P(E0, mu_b, mu_c, NNLO) ;
+        return (Alstilde * P21_CPodd(E0, mu_b) + Vub_NLO_CPodd(E0) ) / (P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");
 }

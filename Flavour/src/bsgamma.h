@@ -1497,6 +1497,15 @@ public:
     
     
     /**
+    * @brief The CP odd part of the perturbative part \f$ P_2^{(1)} \f$ of the BR as defined in @cite Misiak:2006ab .
+    * @param[in] E0 energy cutoff
+    * @param[in] mu low scale of the decay
+    * @return \f$ P_2^{(1)} \f$
+    */
+    double P21_CPodd(double E0, double mu);
+    
+    
+    /**
     * @brief The perturbative part \f$ P_1^{(2)} \f$ of the BR as defined in @cite Misiak:2006ab .
     * @return \f$ P_1^{(2)} \f$
     */
@@ -1686,10 +1695,9 @@ private:
     bool NNLOflag;/**< Flag to include NNLO corrections (currently partialy hard-coded) */ 
     
     double ale; /**<alpha electromagnetic */
-    //double alemz; /**<alpha electromagnetic at Mz */
+    double AleatMztilde; /**<alpha electromagnetic at Mz divided by 4 pi */
     double alsUps; /**<alpha strong Upsilon */
     double Alstilde; /**<alpha strong divided by 4 pi */
-    double E0; /**<energy cutoff */
     double mu_b; /**<b quark mass scale */
     double mu_c; /**<c quark mass scale */
     double mu_kin; /**<kinetic mass scale */
@@ -1700,9 +1708,9 @@ private:
     double BRsl; /**<BR of the semileptonic decay \f$B \to X_c e \nu\f$ */
     double C; /**<The semileptonic phase space ratio */
     double CKMratio; /**<Vckm factor */
-    double V_ub; /**<Vckm factor */
-    double V_cb; /**<Vckm factor */
-    double V_tb; /**<Vckm factor */
+    gslpp::complex V_ub; /**<Vckm factor */
+    gslpp::complex V_cb; /**<Vckm factor */
+    gslpp::complex V_tb; /**<Vckm factor */
     gslpp::complex CKMu; /**<Vckm factor */
     double CKMusq; /**<Vckm factor */
     double overall; /**<overall BR factor */

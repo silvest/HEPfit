@@ -493,11 +493,6 @@
  *   <td class="mod_desc">The constant and linear terms of the immaginary part of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%bsgamma_E0</td>
- *   <td class="mod_symb">@f$E_0^{b\to s\gamma}@f$</td>
- *   <td class="mod_desc">The experimental energy cutoff @f$E_0@f$ of the @f$b\to s\gamma@f$.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%BLNPcorr</td>
  *   <td class="mod_symb">@f$N_{b\to s\gamma}@f$</td>
  *   <td class="mod_desc">The non perturbative uncertainty associated to the @f$b\to s\gamma@f$ BR.</td>
