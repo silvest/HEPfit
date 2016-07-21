@@ -19,6 +19,7 @@
 #include "SigmaBR.h"
 #include "HiggsKvKf.h"
 #include "HiggsKvKfgen.h"
+#include "HiggsKvgenKfgen.h"
 #include "HiggsKvgenKf.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "pMSSM.h"
@@ -61,6 +62,7 @@ ModelFactory::ModelFactory()
     modelFactory["NPEffectiveGIMRprime_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveGIMRprime*>(), true, true);
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
+    modelFactory["HiggsKvgenKfgen"] = boost::factory<HiggsKvgenKfgen*>();
     modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["MFV"] = boost::factory<MFV*>();

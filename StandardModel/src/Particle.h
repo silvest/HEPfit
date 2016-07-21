@@ -11,7 +11,7 @@
 #include <vector>
 #include <string>
 
-#define HCUT 6.58211899E-13 // GeV psec
+#define HCUT 6.5821195E-13 // GeV psec
 
 /**
  * @class Particle

@@ -1198,6 +1198,15 @@ public:
      */
     double alphaMz() const;
 
+    /**
+     * @brief The value of \f$\frac{\alpha_s^{\mathrm{FULLNLO}}}{4\pi}\f$ at any scale \f$\mu\f$ with the number of flavours
+     * \f$n_f = 4\f$ and full EW corrections.
+     * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
+     * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\5$
+     */
+    double Alstilde5(const double mu) const;
+
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Higgs VEV
