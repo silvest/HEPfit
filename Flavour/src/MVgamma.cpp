@@ -76,12 +76,12 @@ void MVgamma::updateParameters()
     /* Defined with a -ve sign since Jager et. al. 2013 define C7prime with a -ve sign while others define C7 with a _ve sign in the amplitude. See Altmannshofer et. al. 2008.*/
     /* Done in the dirty way to remove from the effective basis since C7p is not in the effective basis according to EOS.*/
     C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
-    C_2 = (*(allcoeff[LO]))(1);
+    C_2_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
     C_8 = (*(allcoeff[LO]))(7);
 
     allcoeffh = SM.getMyFlavour()->ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
 
-    C_2h = (*(allcoeffh[LO]))(1);
+    C_2h_bar = (*(allcoeffh[LO]))(1) - (*(allcoeffh[LO]))(0)/6.;
     C_8h = (*(allcoeffh[LO]))(7);
     
 }
@@ -145,8 +145,8 @@ gslpp::complex MVgamma::H8()
 gslpp::complex MVgamma::H_V_m()
 {
     double s = Mc * Mc / Mb / Mb;
-    return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2 * G1(s) + C_8 * G8())
-            + SM.Als(mu_h) / 3. / M_PI * (C_2h * H1(s) + C_8h * H8())) * T_1()
+    return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
+            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1()
             * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
@@ -158,8 +158,8 @@ gslpp::complex MVgamma::H_V_p()
 gslpp::complex MVgamma::H_V_m_bar()
 {
     double s = Mc * Mc / Mb / Mb;
-    return lambda_t.conjugate() * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2 * G1(s) + C_8 * G8())
-            + SM.Als(mu_h) / 3. / M_PI * (C_2h * H1(s) + C_8h * H8())) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t.conjugate() * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
+            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar()
