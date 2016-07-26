@@ -246,6 +246,11 @@ public:
 private:
     StandardModel::meson meson; /**< Initial meson type. */
     StandardModel::meson vectorM; /**< Final vector meson type. */
+    AmpDB2 myAmpDB2;
+    double arg;
+    double ADG; /**< @f$A_{\Delta\Gamma}@f$ */
+    double ys; /** @f$\frac{\Delta\Gamma}{\Gamma}@f$ */
+    double t_int; /** The factor that comes into CP averaged measurements due to finite lifetime differences. */
 };
 
 

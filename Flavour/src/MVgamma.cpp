@@ -173,7 +173,7 @@ gslpp::complex MVgamma::H_V_p_bar()
 
 
 BR_MVgamma::BR_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
-: MVgamma(SM_i, meson_i, vector_i)
+: MVgamma(SM_i, meson_i, vector_i), myAmpDB2(SM_i)
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -183,7 +183,28 @@ double BR_MVgamma::computeThValue()
 {
     updateParameters();
     
-    return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda / (4. * width) * (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
+    switch (vectorM) {
+        case StandardModel::K_star:
+            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            t_int = 1.;
+            break;
+        case StandardModel::PHI:
+            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
+            /* See discussion around eq.53 in hep-ph/0510104*/
+            ADG = 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*H_V_m_bar() + H_V_m().conjugate()*H_V_p_bar())).real() / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
+            ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
+            t_int = (1. - ADG * ys)/(1. - ys*ys);
+            break;
+        default:
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
+    }
+
+    
+    
+    return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda / (4. * width) * (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2()) * t_int;
 }
 
 C_MVgamma::C_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : MVgamma(SM_i, meson_i, vector_i)

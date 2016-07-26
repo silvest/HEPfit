@@ -36,8 +36,6 @@ MonteCarloEngine::MonteCarloEngine(
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
-    TH1::StatOverflows(kTRUE);
-    TH1::SetDefaultBufferSize(100000);
     cindex = 0;
     printLogo = false;
 #ifdef _MPI
@@ -45,6 +43,10 @@ MonteCarloEngine::MonteCarloEngine(
 #else
     rank = 0;
 #endif
+    if (rank == 0) {
+        TH1::StatOverflows(kTRUE);
+        TH1::SetDefaultBufferSize(100000);
+    }
 };
 
 void MonteCarloEngine::Initialize(StandardModel* Mod_i) 
