@@ -59,7 +59,7 @@ void MVgamma::updateParameters()
 
     h[0] = SM.geth_p(); //h_plus
     h[1] = SM.geth_m(); //h_minus
-
+    
     allcoeff = SM.getMyFlavour()->ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
     
@@ -300,4 +300,17 @@ double DC7_2::computeThValue()
 {
     updateParameters();
     return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[1] + h[0])).abs();
+}
+
+hp0_hm0::hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double hp0_hm0::computeThValue()
+{
+    return SM.geth_p().abs()/SM.geth_m().abs();
 }

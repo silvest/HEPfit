@@ -434,5 +434,38 @@ private:
     StandardModel::meson meson; /**< Initial meson type. */
     StandardModel::meson vectorM; /**< Final vector meson type. */
 };
+
+/**
+ * @class hp0_hm0
+ * @ingroup Flavour
+ * @brief A class for the absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in @f$B \to K^*@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in 
+ * @f$B \to K^*@f$
+ */
+class hp0_hm0 : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] typ_i observable type
+     */
+    hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    /**
+    * @brief The absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in @f$B \to K^*@f$.
+    * @return @f$h_+^{(0)}/h_-^{(0)}@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
 #endif	/* MVLL_H */
 

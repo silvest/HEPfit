@@ -746,32 +746,6 @@ double h_m::computeThValue()
     else throw std::runtime_error("MVllObservables::h_m: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
 
-hp0_hm0::hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
-: ThObservable(SM_i)
-{
-   lep = lep_i;
-   meson = meson_i;
-   vectorM = vector_i;
-}
-
-double hp0_hm0::computeThValue()
-{
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->gethp0_hm0_abs();
-}
-
-hm0_h00::hm0_h00(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
-: ThObservable(SM_i)
-{
-   lep = lep_i;
-   meson = meson_i;
-   vectorM = vector_i;
-}
-
-double hm0_h00::computeThValue()
-{
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->gethm0_h00_abs();
-}
-
 /***********************************************************************************************************************************
 FUNCTIONAL
 ***********************************************************************************************************************************/
