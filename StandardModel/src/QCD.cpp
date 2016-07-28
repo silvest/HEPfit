@@ -272,17 +272,15 @@ bool QCD::PostUpdate()
 #endif
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
-    if ( optionalParameters.find("absh_0") != optionalParameters.end() ) {
-        myh_0 = gslpp::complex(getOptionalParameter("absh_0"), getOptionalParameter("argh_0"), true);
-        myh_p = gslpp::complex(getOptionalParameter("absh_p"), getOptionalParameter("argh_p"), true);
-        myh_m = gslpp::complex(getOptionalParameter("absh_m"), getOptionalParameter("argh_m"), true);
-        myh_0_1 = gslpp::complex(getOptionalParameter("absh_0_1"), getOptionalParameter("argh_0_1"), true);
-        myh_p_1 = gslpp::complex(getOptionalParameter("absh_p_1"), getOptionalParameter("argh_p_1"), true);
-        myh_m_1 = gslpp::complex(getOptionalParameter("absh_m_1"), getOptionalParameter("argh_m_1"), true);
-        myh_0_2 = gslpp::complex(getOptionalParameter("absh_0_2"), getOptionalParameter("argh_0_2"), true);
-        myh_p_2 = gslpp::complex(getOptionalParameter("absh_p_2"), getOptionalParameter("argh_p_2"), true);
-        myh_m_2 = gslpp::complex(getOptionalParameter("absh_m_2"), getOptionalParameter("argh_m_2"), true);
-    }
+    if (optionalParameters.find("absh_0") != optionalParameters.end()) myh_0 = gslpp::complex(getOptionalParameter("absh_0"), getOptionalParameter("argh_0"), true);
+    if (optionalParameters.find("absh_p") != optionalParameters.end()) myh_p = gslpp::complex(getOptionalParameter("absh_p"), getOptionalParameter("argh_p"), true);
+    if (optionalParameters.find("absh_m") != optionalParameters.end()) myh_m = gslpp::complex(getOptionalParameter("absh_m"), getOptionalParameter("argh_m"), true);
+    if (optionalParameters.find("absh_0_1") != optionalParameters.end()) myh_0_1 = gslpp::complex(getOptionalParameter("absh_0_1"), getOptionalParameter("argh_0_1"), true);
+    if (optionalParameters.find("absh_p_1") != optionalParameters.end()) myh_p_1 = gslpp::complex(getOptionalParameter("absh_p_1"), getOptionalParameter("argh_p_1"), true);
+    if (optionalParameters.find("absh_m_1") != optionalParameters.end()) myh_m_1 = gslpp::complex(getOptionalParameter("absh_m_1"), getOptionalParameter("argh_m_1"), true);
+    if (optionalParameters.find("absh_0_2") != optionalParameters.end()) myh_0_2 = gslpp::complex(getOptionalParameter("absh_0_2"), getOptionalParameter("argh_0_2"), true);
+    if (optionalParameters.find("absh_p_2") != optionalParameters.end()) myh_p_2 = gslpp::complex(getOptionalParameter("absh_p_2"), getOptionalParameter("argh_p_2"), true);
+    if (optionalParameters.find("absh_m_2") != optionalParameters.end()) myh_m_2 = gslpp::complex(getOptionalParameter("absh_m_2"), getOptionalParameter("argh_m_2"), true);
     
     return (true);
 }
