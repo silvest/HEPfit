@@ -447,16 +447,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ADG_BKstgamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["DC7_1"] = boost::bind(boost::factory<DC7_1*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["DC7_2"] = boost::bind(boost::factory<DC7_2*>(), _1, StandardModel::B_D, StandardModel::K_star);
-    parameterForObservable["BR_BKstgamma"] = make_vector<std::string>() << "a_0T1";
+    obsThFactory["hp0_hm0"] = boost::bind(boost::factory<hp0_hm0*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    parameterForObservable["BR_BKstgamma"] = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
     parameterForObservable["C_BKstgamma"] = parameterForObservable["BR_BKstgamma"];
     parameterForObservable["S_BKstgamma"] = parameterForObservable["BR_BKstgamma"];
     parameterForObservable["ADG_BKstgamma"] = parameterForObservable["BR_BKstgamma"];
     parameterForObservable["DC7_1"] = parameterForObservable["BR_BKstgamma"];
-    parameterForObservable["DC7_2"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["DC7_2"] = parameterForObservable["BR_BKstgamma"];    
+    parameterForObservable["hp0_hm0"] = make_vector<std::string>() << "absh_p" << "absh_m" << "argh_p" << "argh_m";
     
-    obsThFactory["hp0_hm0"] = boost::bind(boost::factory<hp0_hm0*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-    obsThFactory["hm0_h00"] = boost::bind(boost::factory<hm0_h00*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-
     //----- B to phi ll  -----
     obsThFactory["P_1_Bsphimu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
     obsThFactory["P_2_Bsphimu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
@@ -524,7 +523,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["C_Bsphigamma"] = boost::bind(boost::factory<C_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
     obsThFactory["S_Bsphigamma"] = boost::bind(boost::factory<S_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
     obsThFactory["ADG_Bsphigamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
-    parameterForObservable["BR_Bsphigamma"] = make_vector<std::string>() << "a_0T1";
+    parameterForObservable["BR_Bsphigamma"] = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m";;
     parameterForObservable["C_Bsphigamma"] = parameterForObservable["BR_Bsphigamma"];
     parameterForObservable["S_Bsphigamma"] = parameterForObservable["BR_Bsphigamma"];
     parameterForObservable["ADG_Bsphigamma"] = parameterForObservable["BR_Bsphigamma"];
