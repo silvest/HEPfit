@@ -242,8 +242,10 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
 
 bool QCD::PostUpdate()
 {
-    if (computeFBd)
+    if (computeFBd){
         mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
+        mesons[B_P].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd); /**** FOR NOW FB+ = FBd ****/
+    }
     if (computeBs)
     {
         BBs.setBpars(0, FBsSqrtBBs1*FBsSqrtBBs1/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
