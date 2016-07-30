@@ -456,6 +456,16 @@ ThObsFactory::ThObsFactory()
     parameterForObservable["DC7_2"] = parameterForObservable["BR_BKstgamma"];    
     parameterForObservable["hp0_hm0"] = make_vector<std::string>() << "absh_p" << "absh_m" << "argh_p" << "argh_m";
     
+    //----- B+ to K*+ gamma  -----
+    obsThFactory["BR_BpKstgamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_P, StandardModel::K_star);/*** NOTE: K_star+ is NOT distinguished from K_star ***/
+    obsThFactory["C_BpKstgamma"] = boost::bind(boost::factory<C_MVgamma*>(), _1, StandardModel::B_P, StandardModel::K_star);/*** NOTE: K_star+ is NOT distinguished from K_star ***/
+    obsThFactory["S_BpKstgamma"] = boost::bind(boost::factory<S_MVgamma*>(), _1, StandardModel::B_P, StandardModel::K_star);/*** NOTE: K_star+ is NOT distinguished from K_star ***/
+    obsThFactory["ADG_BpKstgamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_P, StandardModel::K_star);/*** NOTE: K_star+ is NOT distinguished from K_star ***/
+    parameterForObservable["BR_BpKstgamma"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["C_BpKstgamma"] = parameterForObservable["BR_BpKstgamma"];
+    parameterForObservable["S_BpKstgamma"] = parameterForObservable["BR_BpKstgamma"];
+    parameterForObservable["ADG_BpKstgamma"] = parameterForObservable["BR_BpKstgamma"];
+    
     //----- B to phi ll  -----
     obsThFactory["P_1_Bsphimu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
     obsThFactory["P_2_Bsphimu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
