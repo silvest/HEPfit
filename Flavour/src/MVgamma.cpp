@@ -314,3 +314,29 @@ double hp0_hm0::computeThValue()
 {
     return SM.geth_p().abs()/SM.geth_m().abs();
 }
+
+DC7_L::DC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double DC7_L::computeThValue()
+{
+    updateParameters();
+    return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[1])).abs();
+}
+
+DC7_R::DC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double DC7_R::computeThValue()
+{
+    updateParameters();
+    return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[0])).abs();
+}
