@@ -73,7 +73,7 @@ void MVgamma::updateParameters()
     C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
     C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
-    /* Defined with a -ve sign since Jager et. al. 2013 define C7prime with a -ve sign while others define C7 with a _ve sign in the amplitude. See Altmannshofer et. al. 2008.*/
+    /* Defined with a -ve sign since Jager et. al. 2013 define C7prime with a -ve sign while others define C7 with a +ve sign in the amplitude. See Altmannshofer et. al. 2008.*/
     /* Done in the dirty way to remove from the effective basis since C7p is not in the effective basis according to EOS.*/
     C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
     C_2_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
@@ -315,28 +315,80 @@ double hp0_hm0::computeThValue()
     return SM.geth_p().abs()/SM.geth_m().abs();
 }
 
-DC7_L::DC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+AbsDC7_L::AbsDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
 : MVgamma(SM_i, meson_i, vector_i)
 {
     meson = meson_i;
     vectorM = vector_i;
 }
 
-double DC7_L::computeThValue()
+double AbsDC7_L::computeThValue()
 {
     updateParameters();
     return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[1])).abs();
 }
 
-DC7_R::DC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+AbsDC7_R::AbsDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
 : MVgamma(SM_i, meson_i, vector_i)
 {
     meson = meson_i;
     vectorM = vector_i;
 }
 
-double DC7_R::computeThValue()
+double AbsDC7_R::computeThValue()
 {
     updateParameters();
     return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[0])).abs();
+}
+
+ReDC7_L::ReDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double ReDC7_L::computeThValue()
+{
+    updateParameters();
+    return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[1])).real();
+}
+
+ReDC7_R::ReDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double ReDC7_R::computeThValue()
+{
+    updateParameters();
+    return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[0])).real();
+}
+
+ImDC7_L::ImDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double ImDC7_L::computeThValue()
+{
+    updateParameters();
+    return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[1])).imag();
+}
+
+ImDC7_R::ImDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double ImDC7_R::computeThValue()
+{
+    updateParameters();
+    return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[0])).imag();
 }

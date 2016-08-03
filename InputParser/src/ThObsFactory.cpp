@@ -447,8 +447,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ADG_BKstgamma"] = boost::bind(boost::factory<ADG_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["DC7_1"] = boost::bind(boost::factory<DC7_1*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["DC7_2"] = boost::bind(boost::factory<DC7_2*>(), _1, StandardModel::B_D, StandardModel::K_star);
-    obsThFactory["DC7_L"] = boost::bind(boost::factory<DC7_L*>(), _1, StandardModel::B_D, StandardModel::K_star);
-    obsThFactory["DC7_R"] = boost::bind(boost::factory<DC7_R*>(), _1, StandardModel::B_D, StandardModel::K_star);
+    obsThFactory["AbsDC7_L"] = boost::bind(boost::factory<AbsDC7_L*>(), _1, StandardModel::B_D, StandardModel::K_star);
+    obsThFactory["AbsDC7_R"] = boost::bind(boost::factory<AbsDC7_R*>(), _1, StandardModel::B_D, StandardModel::K_star);
+    obsThFactory["ReDC7_L"] = boost::bind(boost::factory<ReDC7_L*>(), _1, StandardModel::B_D, StandardModel::K_star);
+    obsThFactory["ReDC7_R"] = boost::bind(boost::factory<ReDC7_R*>(), _1, StandardModel::B_D, StandardModel::K_star);
+    obsThFactory["ImDC7_L"] = boost::bind(boost::factory<ImDC7_L*>(), _1, StandardModel::B_D, StandardModel::K_star);
+    obsThFactory["ImDC7_R"] = boost::bind(boost::factory<ImDC7_R*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["hp0_hm0"] = boost::bind(boost::factory<hp0_hm0*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     parameterForObservable["BR_BKstgamma"] = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
     parameterForObservable["C_BKstgamma"] = parameterForObservable["BR_BKstgamma"];
@@ -456,8 +460,12 @@ ThObsFactory::ThObsFactory()
     parameterForObservable["ADG_BKstgamma"] = parameterForObservable["BR_BKstgamma"];
     parameterForObservable["DC7_1"] = parameterForObservable["BR_BKstgamma"];
     parameterForObservable["DC7_2"] = parameterForObservable["BR_BKstgamma"];
-    parameterForObservable["DC7_L"] = parameterForObservable["BR_BKstgamma"];
-    parameterForObservable["DC7_R"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["AbsDC7_L"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["AbsDC7_R"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["ReDC7_L"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["ReDC7_R"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["ImDC7_L"] = parameterForObservable["BR_BKstgamma"];
+    parameterForObservable["ImDC7_R"] = parameterForObservable["BR_BKstgamma"];
     parameterForObservable["hp0_hm0"] = make_vector<std::string>() << "absh_p" << "absh_m" << "argh_p" << "argh_m";
     
     //----- B+ to K*+ gamma  -----
