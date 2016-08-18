@@ -1847,7 +1847,7 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
     
     if (i > j) {temp=i; i=j; j=temp;}
     
-    double K_ij[8][8];
+    double K_ij[8][8] = {{0.}};
     double z = zeta();
     double d = delta(E0);
     double r = sqrt(z);
