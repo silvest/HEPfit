@@ -490,7 +490,7 @@ public:
     double getgtilde_3_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_lambda(0,q2)-
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_lambda(0,q2)/q2-
                 (MM2mMV2 - q2)/(4.*MV) * (h_lambda(1,q2)+h_lambda(2,q2))/q2)).real();
     }
 
