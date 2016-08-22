@@ -596,4 +596,234 @@ public:
     const THDM * myTHDM;
 };
 
+/**
+ * @class Y1_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Y_1@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_1@f$ in the Higgs basis.
+ */
+class Y1_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Y1_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quadratic coupling @f$Y_1@f$.
+     * @return @f$Y_1@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Y2_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Y_2@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_2@f$ in the Higgs basis.
+ */
+class Y2_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Y2_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quadratic coupling @f$Y_2@f$.
+     * @return @f$Y_2@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Y3_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Y_3@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_3@f$ in the Higgs basis.
+ */
+class Y3_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Y3_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quadratic coupling @f$Y_3@f$.
+     * @return @f$Y_3@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Z1_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Z_1@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_1@f$ in the Higgs basis.
+ */
+class Z1_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Z1_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$Z_1@f$.
+     * @return @f$Z_1@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Z2_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Z_2@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_2@f$ in the Higgs basis.
+ */
+class Z2_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Z2_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$Z_2@f$.
+     * @return @f$Z_2@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Z3_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Z_3@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_3@f$ in the Higgs basis.
+ */
+class Z3_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Z3_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$Z_3@f$.
+     * @return @f$Z_3@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Z4_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Z_4@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_4@f$ in the Higgs basis.
+ */
+class Z4_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Z4_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$Z_4@f$.
+     * @return @f$Z_4@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Z5_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Z_5@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_5@f$ in the Higgs basis.
+ */
+class Z5_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Z5_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$Z_5@f$.
+     * @return @f$Z_5@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Z6_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Z_6@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_6@f$ in the Higgs basis.
+ */
+class Z6_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Z6_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$Z_6@f$.
+     * @return @f$Z_6@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class Z7_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the Higgs basis parameter @f$Z_7@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_7@f$ in the Higgs basis.
+ */
+class Z7_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    Z7_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$Z_7@f$.
+     * @return @f$Z_7@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
 #endif	/* THDMQUANTITIES_H */

@@ -767,6 +767,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["log10_bbF_A_tautau_TH"] = boost::factory<log10_bbF_A_tautau_TH*>();
     obsThFactory["log10_pp_A_gaga_TH"] = boost::factory<log10_pp_A_gaga_TH*>();
     obsThFactory["log10_ggF_A_gaga_TH"] = boost::factory<log10_ggF_A_gaga_TH*>();
+    obsThFactory["log10_pp_A_Zga_llga_TH"] = boost::factory<log10_pp_A_Zga_llga_TH*>();
     obsThFactory["log10_ggF_A_hZ_bbll_TH"] = boost::factory<log10_ggF_A_hZ_bbll_TH*>();
     obsThFactory["log10_ggF_A_hZ_bbZ_TH"] = boost::factory<log10_ggF_A_hZ_bbZ_TH*>();
     obsThFactory["log10_ggF_A_hZ_tautaull_TH"] = boost::factory<log10_ggF_A_hZ_tautaull_TH*>();
@@ -803,6 +804,16 @@ ThObsFactory::ThObsFactory()
     obsThFactory["g_HhAA"] = boost::factory<g_HhAA*>();
     obsThFactory["g_hHpHm"] = boost::factory<g_hHpHm*>();
     obsThFactory["g_HhHpHm"] = boost::factory<g_HhHpHm*>();
+    obsThFactory["Y1_THDM"] = boost::factory<Y1_THDM*>();
+    obsThFactory["Y2_THDM"] = boost::factory<Y2_THDM*>();
+    obsThFactory["Y3_THDM"] = boost::factory<Y3_THDM*>();
+    obsThFactory["Z1_THDM"] = boost::factory<Z1_THDM*>();
+    obsThFactory["Z2_THDM"] = boost::factory<Z2_THDM*>();
+    obsThFactory["Z3_THDM"] = boost::factory<Z3_THDM*>();
+    obsThFactory["Z4_THDM"] = boost::factory<Z4_THDM*>();
+    obsThFactory["Z5_THDM"] = boost::factory<Z5_THDM*>();
+    obsThFactory["Z6_THDM"] = boost::factory<Z6_THDM*>();
+    obsThFactory["Z7_THDM"] = boost::factory<Z7_THDM*>();
 
     obsThFactory["positivity1"] = boost::factory<positivity1*>();
     obsThFactory["positivity2"] = boost::factory<positivity2*>();

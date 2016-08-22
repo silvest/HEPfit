@@ -37,6 +37,8 @@
 }
 
 \newcommand{\HEPfit}{\texttt{HEPfit}\xspace}
+%\newcommand{\satoshisnotes}[1]{{\color{green}  #1}}
+\newcommand{\satoshisnotes}[1]{{\color{blue}  #1}}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -1380,47 +1382,90 @@ For the \HEPfit code, we translated these formulae to the physical basis and sim
 \label{sec:EWPO}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
+\satoshisnotes{%1
+In our codes, we adopt the 
+on-mass-shell renormalization
+scheme~\cite{Sirlin:1980nh,Marciano:1980pb,Bardin:1980fe,Bardin:1981sv}.
+The $W$-boson mass is calculated with the approximate formula given in
+Ref.~\cite{Awramik:2003rn}, which takes 
+into account the complete two-loop EW corrections. 
+The $Zf\bar{f}$ couplings $\rho_Z^f$ and $\kappa_Z^f$ in the effective
+Lagrangian 
+\begin{eqnarray}
+\label{eq:gvga}
+{\cal L}
+=
+\frac{e}{2 s_W c_W}\sqrt{\rho_Z^f}\,
+Z_\mu \sum_f \bar{f}
+\left[( I_3^f - 2Q_f\kappa_Z^f s_W^2)\gamma^\mu 
+  - I_3^f\gamma^\mu\gamma_5\right]f\,,
+\end{eqnarray}
+are calculated following up-to-date theoretical studies. The couplings 
+$\kappa_Z^f$ are derived from the two-loop approximate formulae of 
+$\sin^2\theta_{\rm eff}^{f}$ in
+Refs.~\cite{Awramik:2004ge,Awramik:2006uz,Awramik:2008gi}, where the
+bosonic two-loop EW contribution is still missing in the case of $f=b$. 
+For the couplings $\rho_Z^f$, we take into account 
+the full one-loop EW corrections of
+$O(\alpha)$~\cite{Sirlin:1980nh,Marciano:1980pb}, the full two-loop
+QCD corrections of $O(\alpha\alpha_s)$~\cite{Djouadi:1987gn,
+  Djouadi:1987di,Kniehl:1989yc,Halzen:1990je,Kniehl:1991gu,Kniehl:1992dx,Djouadi:1993ss}, 
+the three-loop QCD corrections of
+$O\left(G_\mu\alpha_s^2m_t^2(1+M_Z^2/m_t^2
+  +(M_Z^2/m_t^2)^2)\right)$~\cite{Avdeev:1994db,Chetyrkin:1995ix,Chetyrkin:1995js},
+the leading and subleading two-loop EW corrections of
+$O(G_\mu^2m_t^4(1+M_Z^2/m_t^2))$~\cite{Barbieri:1992nz,Barbieri:1992dq,
+  Fleischer:1993ub,Fleischer:1994cb,Degrassi:1996mg,Degrassi:1996ps,Degrassi:1999jd}, 
+and leading
+three-loop corrections of $O(G_\mu^2\alpha_s m_t^4)$ and
+$O(G_\mu^3m_t^6)$~\cite{vanderBij:2000cg,Faisst:2003px}.
+Moreover, we keep the $O(\alpha)$ and $O(\alpha\alpha_s)$
+contributions to the imaginary parts of the effective couplings. 
+For the observables $R_b^0$, 
+we use the fermionic two-loop formula given in Ref.~\cite{Freitas:2012sy}. 
+The formulae used in our codes are referred mostly to 
+the above references and 
+Bardin and Passarino's book~\cite{Bardin:1999ak}. 
+For the strong coupling constant and the fermion masses, we take into
+account renormalization group runnings up to three-loop level. 
+}%satoshisnotes %1
 
 
 %
 %    //-----  Electroweak precision observables  -----
-%    SM
-%    obsThFactory["Mw"] = boost::factory<Mw*>();
-%    obsThFactory["GammaW"] = boost::factory<GammaW*>();
-%    obsThFactory["GammaZ"] = boost::factory<GammaZ*>();
-%    obsThFactory["sigmaHadron"] = boost::factory<sigmaHadron*>();
-%    obsThFactory["sin2thetaEff"] = boost::factory<sin2thetaEff*>();
-%    obsThFactory["PtauPol"] = boost::factory<PtauPol*>();
-%    obsThFactory["Alepton"] = boost::factory<Alepton*>();
-%    obsThFactory["Acharm"] = boost::factory<Acharm*>();
-%    obsThFactory["Abottom"] = boost::factory<Abottom*>();
-%    obsThFactory["AFBlepton"] = boost::factory<AFBlepton*>();
-%    obsThFactory["AFBcharm"] = boost::factory<AFBcharm*>();
-%    obsThFactory["AFBbottom"] = boost::factory<AFBbottom*>();
-%    obsThFactory["Rlepton"] = boost::factory<Rlepton*>();
-%    obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
-%    obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
+
+\begin{align}
+M_W &=\nonumber \\
+\Gamma_W &=\nonumber \\
+\Gamma_Z &=\nonumber \\
+\sigma_{h}^0 &=\nonumber \\
+\sin^2\theta_{\rm eff}^\ell &=\nonumber \\
+P_\tau^{\rm Pol} &=\nonumber \\
+A_\ell &=\nonumber \\
+A_c &=\nonumber \\
+A_b &=\nonumber \\
+A_{\rm FB}^{\ell,0} &=\nonumber \\
+A_{\rm FB}^{c,0} &=\nonumber \\
+A_{\rm FB}^{b,0} &=\nonumber \\
+R_\ell^0 &=\nonumber \\
+R_c^0 &=\nonumber \\
+R_b^0 &=\nonumber \\
+\end{align}
 
 %//-----  Epsilon parameters  -----
-%obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();
-%obsThFactory["epsilon2"] = boost::factory<Epsilon2*>();
-%obsThFactory["epsilon3"] = boost::factory<Epsilon3*>();
-%obsThFactory["epsilonb"] = boost::factory<Epsilonb*>();
-
-
+\begin{align}
+\epsilon_1&=\nonumber \\
+\epsilon_2&=\nonumber \\
+\epsilon_3&=\nonumber \\
+\epsilon_b&=\nonumber \\
+\end{align}
 
 %	THDM
-%    obsThFactory["DeltaS"] = boost::factory<DeltaS*>();
-%    obsThFactory["DeltaT"] = boost::factory<DeltaT*>();
-%    obsThFactory["DeltaU"] = boost::factory<DeltaU*>();
-
-
-
-
-
-
+\begin{align}
+\Delta S&=\nonumber \\
+\Delta T&=\nonumber \\
+\Delta U&=\nonumber \\
+\end{align}
 
 
 
@@ -2052,7 +2097,7 @@ The tabled values, which are depicted in Figure \ref{fig:THDMbsgplot}, are then 
   \centering
   \resizebox{450pt}{!}{
    \begin{picture}(400,150)(0,0)
-%    \put(50,0){\includegraphics{plots/THDMbsgplot.pdf}}
+    \put(50,0){\includegraphics{plots/THDMbsgplot.pdf}}
    \end{picture}
   }
   \caption{An illustration of the tabled values of ${\rm Br}(\bar{B}\to X_s\gamma)$ in dependence of the decadic logarithms of $\tan (\beta)$ and the charged Higgs mass.}
@@ -2812,8 +2857,28 @@ default values as set in the class InputParameters.
 \label{sec:ZFitter}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-Satoshi
-\cite{Bardin:1992jc,Bardin:1999yd,Arbuzov:2005ma,Akhundov:2013ons}
+\satoshisnotes{%2
+%otto:
+The pseudo $Z$-pole observables introduced in section \ref{sec:EWPO} are in good agreement with the ones calculated with the ZFITTER setup \cite{Bardin:1992jc,Bardin:1999yd,Arbuzov:2005ma,Akhundov:2013ons} with relative errors well below the relative experimental uncertainty.
+%satoshi:
+It is noted that we keep only one-loop contributions in the imaginary
+parts. A relatively larger difference in Re$(\rho_Z^b)$ is due to the
+fact that the one-loop remainder contribution in Re$(\rho_Z^b)$ is
+defined with the coupling $\alpha(0)$ in ZFITTER, while 
+$G_\mu$ has been adopted in \HEPfit.
+The small difference in Re$(\kappa_Z^b)$ originates from the
+fact that ZFITTER does not use the two-loop approximate formula for 
+$\sin^2\theta_{\rm eff}^b$. Moreover, 
+the differences in Im$(\kappa_Z^f)$ are attributed
+to the $O(\alpha\alpha_s)$ term in ZFITTER codes: 
+\begin{align}
+{\rm Im}(\kappa_Z^f) &= 
+{\rm Im}(\delta\kappa_{\rm rem}^{f,\alpha})
+- \frac{\alpha(0)\alpha_s(M_Z^2)}{24\pi}
+  \frac{\left( c_W^2- s_W^2 \right)}{s_W^4}\,. 
+\end{align}
+
+}%satoshisnotes %2
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comparison with UTfit}
