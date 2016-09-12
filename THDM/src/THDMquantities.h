@@ -405,6 +405,29 @@ public:
 };
 
 /**
+ * @class lambda345
+ * @ingroup THDM 
+ * @brief An observable class for the quartic Higgs potential coupling combination @f$\lambda_3+\lambda_4+\lambda_5@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_3+\lambda_4+\lambda_5@f$.
+ */
+class lambda345 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    lambda345(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling combination @f$\lambda_3+\lambda_4+\lambda_5@f$.
+     * @return @f$\lambda_3+\lambda_4+\lambda_5@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
  * @class g_hhh
  * @ingroup THDM 
  * @brief An observable class for the triple Higgs coupling @f$g_{hhh}@f$.

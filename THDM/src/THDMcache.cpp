@@ -5120,13 +5120,18 @@ void THDMcache::updateCache()
     bma=myTHDM->getbma();
     tanb=myTHDM->gettanb();
     m12_2=myTHDM->getm12_2();
-    mHh2=myTHDM->getmHh2();
     mA2=myTHDM->getmA2();
     mHp2=myTHDM->getmHp2();
     Rpeps=myTHDM->getRpeps();
     MW=MWTHDM(myTHDM->Mw_tree());
     cW2=cW2THDM(myTHDM->c02());
     mHl=myTHDM->getMHl();
+    mHh2=myTHDM->getmHh2();
+    double mHl2=mHl*mHl;
+    if(mHh2 < mHl2) {
+        mHl=sqrt(mHh2);
+        mHh2=mHl2;
+    }
     vev=myTHDM->v();
     Ale=myTHDM->getAle();
     Als=myTHDM->getAlsMz();

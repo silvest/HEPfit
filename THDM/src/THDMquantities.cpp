@@ -166,6 +166,9 @@ double lambda1::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
+    std::cout<<"mHl="<<mHl<<std::endl;
+    std::cout<<"mHh="<<sqrt(mHh2)<<std::endl;
+    
     return (mHh2*cosa*cosa+mHl*mHl*sina*sina-m12_2*tanb)/(vev*vev*cosb*cosb);
 }
 
@@ -239,6 +242,25 @@ double lambda5::computeThValue()
     double m12_2=myTHDM->getm12_2();
 
     return (m12_2-mA2*sinb*cosb)/(vev*vev*sinb*cosb);
+}
+
+
+lambda345::lambda345(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{}
+
+double lambda345::computeThValue()
+{
+    double mHl=myTHDM->getMHl();
+    double vev=myTHDM->v();
+    double sinb=myTHDM->getsinb();
+    double cosb=myTHDM->getcosb();
+    double mHh2=myTHDM->getmHh2();
+    double sina=myTHDM->getsina();
+    double cosa=myTHDM->getcosa();
+    double m12_2=myTHDM->getm12_2();
+
+    return (m12_2+(mHh2-mHl*mHl)*cosa*sina)/(vev*vev*sinb*cosb);
 }
 
 

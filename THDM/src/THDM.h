@@ -27,7 +27,7 @@ class THDMcache; //forward reference to THDMcache class
  *
  * The model parameters of %THDM are summarized below.
  * The current implementation only allows for a Two-Higgs-Doublet model with a softly broken @f$Z_2@f$ symmetry and without CP violation in the Higgs potential.
- * The scalar 125 GeV resonance is assumed to be the lighter CP-even Higgs state of the model.
+ * The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs states of the model; the other is attributed to mHh in the THDM configuration.
  * 
  * <table class="model">
  * <tr>
@@ -48,7 +48,7 @@ class THDMcache; //forward reference to THDMcache class
  * <tr>
  *   <td class="mod_name">%mHh2</td>
  *   <td class="mod_symb">@f$m_H^2@f$</td>
- *   <td class="mod_desc">The mass square of the heavier CP-even Higgs state.</td>
+ *   <td class="mod_desc">The mass square of the "non-125 GeV" CP-even Higgs state.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%mA2</td>
@@ -196,7 +196,7 @@ public:
 
     /**
      *
-     * @return THDM model type
+     * @return Flag to switch on wavefunction renormalization for the NLO unitarity conditions
      */
     bool getWFRflag() const {
         return flag_wfr;
@@ -268,7 +268,7 @@ public:
 
     /**
      *
-     * @return mass squared heavy neutral scalar Higgs
+     * @return squared mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh2() const {
         return mHh2;
@@ -276,7 +276,7 @@ public:
 
     /**
      *
-     * @return mass heavy neutral scalar Higgs
+     * @return mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh() const {
         return sqrt(mHh2);
@@ -284,7 +284,7 @@ public:
 
     /**
      *
-     * @return mass squared pseudoscalar Higgs A
+     * @return squared mass of the pseudoscalar Higgs A
      */
     double getmA2() const {
         return mA2;
@@ -292,7 +292,7 @@ public:
 
     /**
      *
-     * @return mass pseudoscalar Higgs A
+     * @return mass of the pseudoscalar Higgs A
      */
     double getmA() const {
     if(mA2 < 0.) {
@@ -303,7 +303,7 @@ public:
 
     /**
      *
-     * @return charged Higgs mass squared
+     * @return squared charged Higgs mass
      */
     double getmHp2() const {
         return mHp2;

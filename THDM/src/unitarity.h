@@ -1684,5 +1684,467 @@ private:
     const THDM& myTHDM;
 };
 
+/**
+ * @class unitarityR1
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR1: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR1 constructor.
+     */
+    unitarityR1(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR1@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR2
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR2: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR2 constructor.
+     */
+    unitarityR2(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR2@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR3
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR3: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR3 constructor.
+     */
+    unitarityR3(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR3@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR4
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR4: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR4 constructor.
+     */
+    unitarityR4(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR4@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR5
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR5: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR5 constructor.
+     */
+    unitarityR5(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR5@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR6
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR6: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR6 constructor.
+     */
+    unitarityR6(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR6@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR7
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR7: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR7 constructor.
+     */
+    unitarityR7(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR7@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR8
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR8: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR8 constructor.
+     */
+    unitarityR8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR8@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR9
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR9: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR9 constructor.
+     */
+    unitarityR9(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR9@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR10
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR10: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR10 constructor.
+     */
+    unitarityR10(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR10@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR11
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR11: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR11 constructor.
+     */
+    unitarityR11(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR11@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR12
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR12: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR12 constructor.
+     */
+    unitarityR12(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR12@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR13
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR13: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR13 constructor.
+     */
+    unitarityR13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR13@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR14
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR14: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR14 constructor.
+     */
+    unitarityR14(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR14@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR15
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR15: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR15 constructor.
+     */
+    unitarityR15(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR15@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR16
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR16: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR16 constructor.
+     */
+    unitarityR16(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR16@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR17
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR17: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR17 constructor.
+     */
+    unitarityR17(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR17@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR18
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR18: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR18 constructor.
+     */
+    unitarityR18(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR18@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR19
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR19: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR19 constructor.
+     */
+    unitarityR19(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR19@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR20
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR20: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR20 constructor.
+     */
+    unitarityR20(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR20@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR21
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR21: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR21 constructor.
+     */
+    unitarityR21(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR21@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitarityR22
+ * @ingroup THDM
+ * @brief .
+ */
+class unitarityR22: public ThObservable {
+public:
+
+    /**
+     * @brief unitarityR22 constructor.
+     */
+    unitarityR22(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitarityR22@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
 #endif	/* UNITARITY_H */
 
