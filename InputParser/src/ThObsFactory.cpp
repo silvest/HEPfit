@@ -815,6 +815,20 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Z5_THDM"] = boost::factory<Z5_THDM*>();
     obsThFactory["Z6_THDM"] = boost::factory<Z6_THDM*>();
     obsThFactory["Z7_THDM"] = boost::factory<Z7_THDM*>();
+    obsThFactory["xi0_THDM"] = boost::factory<xi0_THDM*>();
+    obsThFactory["xi1_THDM"] = boost::factory<xi1_THDM*>();
+    obsThFactory["xi3_THDM"] = boost::factory<xi3_THDM*>();
+    obsThFactory["eta00_THDM"] = boost::factory<eta00_THDM*>();
+    obsThFactory["eta3_THDM"] = boost::factory<eta3_THDM*>();
+    obsThFactory["E11_THDM"] = boost::factory<E11_THDM*>();
+    obsThFactory["E22_THDM"] = boost::factory<E22_THDM*>();
+    obsThFactory["E33_THDM"] = boost::factory<E33_THDM*>();
+    obsThFactory["HHlambda1"] = boost::factory<HHlambda1*>();
+    obsThFactory["HHlambda2"] = boost::factory<HHlambda2*>();
+    obsThFactory["HHlambda3"] = boost::factory<HHlambda3*>();
+    obsThFactory["HHlambda4"] = boost::factory<HHlambda4*>();
+    obsThFactory["HHlambda5"] = boost::factory<HHlambda5*>();
+    obsThFactory["HHlambda6"] = boost::factory<HHlambda6*>();
 
     obsThFactory["positivity1"] = boost::factory<positivity1*>();
     obsThFactory["positivity2"] = boost::factory<positivity2*>();
@@ -945,6 +959,30 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitarityR20"] = boost::factory<unitarityR20*>();
     obsThFactory["unitarityR21"] = boost::factory<unitarityR21*>();
     obsThFactory["unitarityR22"] = boost::factory<unitarityR22*>();
+    obsThFactory["unitaritya00evenpRe"] = boost::factory<unitaritya00evenpRe*>();
+    obsThFactory["unitaritya00evenpIm"] = boost::factory<unitaritya00evenpIm*>();
+    obsThFactory["unitaritya00evenmRe"] = boost::factory<unitaritya00evenmRe*>();
+    obsThFactory["unitaritya00evenmIm"] = boost::factory<unitaritya00evenmIm*>();
+    obsThFactory["unitaritya00oddpRe"] = boost::factory<unitaritya00oddpRe*>();
+    obsThFactory["unitaritya00oddpIm"] = boost::factory<unitaritya00oddpIm*>();
+    obsThFactory["unitaritya00oddmRe"] = boost::factory<unitaritya00oddmRe*>();
+    obsThFactory["unitaritya00oddmIm"] = boost::factory<unitaritya00oddmIm*>();
+    obsThFactory["unitaritya01evenpRe"] = boost::factory<unitaritya01evenpRe*>();
+    obsThFactory["unitaritya01evenpIm"] = boost::factory<unitaritya01evenpIm*>();
+    obsThFactory["unitaritya01evenmRe"] = boost::factory<unitaritya01evenmRe*>();
+    obsThFactory["unitaritya01evenmIm"] = boost::factory<unitaritya01evenmIm*>();
+    obsThFactory["unitaritya01oddpRe"] = boost::factory<unitaritya01oddpRe*>();
+    obsThFactory["unitaritya01oddpIm"] = boost::factory<unitaritya01oddpIm*>();
+    obsThFactory["unitaritya01oddmRe"] = boost::factory<unitaritya01oddmRe*>();
+    obsThFactory["unitaritya01oddmIm"] = boost::factory<unitaritya01oddmIm*>();
+    obsThFactory["unitaritya10oddRe"] = boost::factory<unitaritya10oddRe*>();
+    obsThFactory["unitaritya10oddIm"] = boost::factory<unitaritya10oddIm*>();
+    obsThFactory["unitaritya11evenpRe"] = boost::factory<unitaritya11evenpRe*>();
+    obsThFactory["unitaritya11evenpIm"] = boost::factory<unitaritya11evenpIm*>();
+    obsThFactory["unitaritya11evenmRe"] = boost::factory<unitaritya11evenmRe*>();
+    obsThFactory["unitaritya11evenmIm"] = boost::factory<unitaritya11evenmIm*>();
+    obsThFactory["unitaritya11oddRe"] = boost::factory<unitaritya11oddRe*>();
+    obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
     /** END: REMOVE FROM THE PACKAGE **/
 
     /** BEGIN: REMOVE FROM THE PACKAGE **/

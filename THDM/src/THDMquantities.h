@@ -849,4 +849,326 @@ public:
     const THDM * myTHDM;
 };
 
+/**
+ * @class xi0_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$\xi_0@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_0@f$ in the bilinear basis.
+ */
+class xi0_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    xi0_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quadratic coupling @f$\xi_0@f$.
+     * @return @f$\xi_0@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class xi1_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$\xi_1@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_1@f$ in the bilinear basis.
+ */
+class xi1_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    xi1_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quadratic coupling @f$\xi_1@f$.
+     * @return @f$\xi_1@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class xi3_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$\xi_3@f$.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_3@f$ in the bilinear basis.
+ */
+class xi3_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    xi3_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quadratic coupling @f$\xi_3@f$.
+     * @return @f$\xi_3@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class eta00_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$\eta_{00}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\eta_{00}@f$ in the bilinear basis.
+ */
+class eta00_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    eta00_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\eta_{00}@f$.
+     * @return @f$\eta_{00}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class eta3_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$\eta_3@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\eta_3@f$ in the bilinear basis.
+ */
+class eta3_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    eta3_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\eta_3@f$.
+     * @return @f$\eta_3@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class E11_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$E_{11}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$E_{11}@f$ in the bilinear basis.
+ */
+class E11_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    E11_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$E_{11}@f$.
+     * @return @f$E_{11}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class E22_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$E_{22}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$E_{22}@f$ in the bilinear basis.
+ */
+class E22_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    E22_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$E_{22}@f$.
+     * @return @f$E_{22}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class E33_THDM
+ * @ingroup THDM 
+ * @brief An observable class for the bilinear basis parameter @f$E_{33}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$E_{33}@f$ in the bilinear basis.
+ */
+class E33_THDM : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    E33_THDM(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$E_{33}@f$.
+     * @return @f$E_{33}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class HHlambda1 
+ * @ingroup THDM 
+ * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_1^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_1^\text{HH}@f$.
+ */
+class HHlambda1 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    HHlambda1(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\lambda_1^\text{HH}@f$.
+     * @return @f$\lambda_1^\text{HH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class HHlambda2 
+ * @ingroup THDM 
+ * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_2^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_2^\text{HH}@f$.
+ */
+class HHlambda2 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    HHlambda2(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\lambda_2^\text{HH}@f$.
+     * @return @f$\lambda_2^\text{HH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class HHlambda3 
+ * @ingroup THDM 
+ * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_3^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_3^\text{HH}@f$.
+ */
+class HHlambda3 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    HHlambda3(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\lambda_3^\text{HH}@f$.
+     * @return @f$\lambda_3^\text{HH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class HHlambda4 
+ * @ingroup THDM 
+ * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_4^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_4^\text{HH}@f$.
+ */
+class HHlambda4 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    HHlambda4(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\lambda_4^\text{HH}@f$.
+     * @return @f$\lambda_4^\text{HH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class HHlambda5 
+ * @ingroup THDM 
+ * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_5^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_5^\text{HH}@f$.
+ */
+class HHlambda5 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    HHlambda5(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\lambda_5^\text{HH}@f$.
+     * @return @f$\lambda_5^\text{HH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class HHlambda6 
+ * @ingroup THDM 
+ * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_6^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_6^\text{HH}@f$.
+ */
+class HHlambda6 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    HHlambda6(const StandardModel& SM_i);
+
+    /**
+     * @brief The quartic coupling @f$\lambda_6^\text{HH}@f$.
+     * @return @f$\lambda_6^\text{HH}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
 #endif	/* THDMQUANTITIES_H */

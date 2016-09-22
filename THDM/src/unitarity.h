@@ -2146,5 +2146,509 @@ private:
     const THDM& myTHDM;
 };
 
+/**
+ * @class unitaritya00evenpRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00evenpRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00evenpRe constructor.
+     */
+    unitaritya00evenpRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00evenpRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya00evenpIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00evenpIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00evenpIm constructor.
+     */
+    unitaritya00evenpIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00evenpIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya00evenmRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00evenmRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00evenmRe constructor.
+     */
+    unitaritya00evenmRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00evenmRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya00evenmIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00evenmIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00evenmIm constructor.
+     */
+    unitaritya00evenmIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00evenmIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya00oddpRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00oddpRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00oddpRe constructor.
+     */
+    unitaritya00oddpRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00oddpRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya00oddpIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00oddpIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00oddpIm constructor.
+     */
+    unitaritya00oddpIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00oddpIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya00oddmRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00oddmRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00oddmRe constructor.
+     */
+    unitaritya00oddmRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00oddmRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya00oddmIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya00oddmIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya00oddmIm constructor.
+     */
+    unitaritya00oddmIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya00oddmIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01evenpRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01evenpRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01evenpRe constructor.
+     */
+    unitaritya01evenpRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01evenpRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01evenpIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01evenpIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01evenpIm constructor.
+     */
+    unitaritya01evenpIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01evenpIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01evenmRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01evenmRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01evenmRe constructor.
+     */
+    unitaritya01evenmRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01evenmRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01evenmIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01evenmIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01evenmIm constructor.
+     */
+    unitaritya01evenmIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01evenmIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01oddpRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01oddpRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01oddpRe constructor.
+     */
+    unitaritya01oddpRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01oddpRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01oddpIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01oddpIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01oddpIm constructor.
+     */
+    unitaritya01oddpIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01oddpIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01oddmRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01oddmRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01oddmRe constructor.
+     */
+    unitaritya01oddmRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01oddmRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya01oddmIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya01oddmIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya01oddmIm constructor.
+     */
+    unitaritya01oddmIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya01oddmIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya10oddRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya10oddRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya10oddRe constructor.
+     */
+    unitaritya10oddRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya10oddRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya10oddIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya10oddIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya10oddIm constructor.
+     */
+    unitaritya10oddIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya10oddIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya11evenpRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya11evenpRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya11evenpRe constructor.
+     */
+    unitaritya11evenpRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya11evenpRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya11evenpIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya11evenpIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya11evenpIm constructor.
+     */
+    unitaritya11evenpIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya11evenpIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya11evenmRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya11evenmRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya11evenmRe constructor.
+     */
+    unitaritya11evenmRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya11evenmRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya11evenmIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya11evenmIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya11evenmIm constructor.
+     */
+    unitaritya11evenmIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya11evenmIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya11oddRe
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya11oddRe: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya11oddRe constructor.
+     */
+    unitaritya11oddRe(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya11oddRe@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class unitaritya11oddIm
+ * @ingroup THDM
+ * @brief .
+ */
+class unitaritya11oddIm: public ThObservable {
+public:
+
+    /**
+     * @brief unitaritya11oddIm constructor.
+     */
+    unitaritya11oddIm(const StandardModel& SM_i);
+
+    /**
+     * @return @f$unitaritya11oddIm@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
 #endif	/* UNITARITY_H */
 
