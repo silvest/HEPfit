@@ -5,7 +5,7 @@
 #   sh makePackage.sh --doxygen : generate Doxygen documentations
 #
 
-VERSION="0.3"
+VERSION="core-1.0"
 
 ###########################################################
 # Original source codes
@@ -18,7 +18,7 @@ ORGDIR="${HOME}/NetBeansProjects/HEPfit"
 PROJECTARRAY=()
 #PROJECTARRAY+=( "Analysis" )
 PROJECTARRAY+=( "ComputeObservables" )
-#PROJECTARRAY+=( "EventGeneration" )
+PROJECTARRAY+=( "EventGeneration" )
 PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
 PROJECTARRAY+=( "FlavourWilsonCoefficient" )
@@ -154,6 +154,7 @@ cp -r ${SCRIPTPATH}/etc/examples-src/config/input ${OUTDIR}/examples-src/config/
 cp -r ${SCRIPTPATH}/etc/examples-src/LibMode_config ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/LibMode_header ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/MonteCarloMode ${OUTDIR}/examples-src/
+cp -r ${SCRIPTPATH}/etc/examples-src/EventGeneration ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/myModel ${OUTDIR}/examples-src/
 
 ###########################################################
