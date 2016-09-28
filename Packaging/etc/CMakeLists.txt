@@ -7,6 +7,7 @@
 #   -DBOOST_INCLUDE_DIR:PATH=<include path>/boost/
 #   -DGSL_CONFIG_DIR:PATH=<gsl-config directory>
 #   -DROOT_CONFIG_DIR:PATH=<root-config directory>
+#   -DMPICXX:BOOL=<ON or OFF>
 #   -DMPIBAT:BOOL=<ON or OFF>
 #   -DBAT_INSTALL:BOOL=<ON or OFF>
 #   -DBAT_INSTALL_DIR:PATH=<BAT installation directory>
@@ -32,6 +33,7 @@ project(HEPfit)
 option(DEBUG_MODE "Debug mode" OFF)
 option(LOCAL_INSTALL_ALL "Local installation" OFF)
 option(NOMCMC "No MCMC mode" OFF)
+option(MPICXX "Use MPI" OFF)
 option(MPIBAT "Use MPI BAT" OFF)
 option(BAT_INSTALL "Download and install BAT" OFF)
 option(LOOPTOOLS "Use LoopTools library" OFF)
@@ -45,6 +47,11 @@ if(LOCAL_INSTALL_ALL)
       CACHE PATH "BAT installation directory" FORCE)
   #set(MPIBAT ON CACHE BOOL "Use MPI BAT" FORCE)
   set(BAT_INSTALL ON CACHE BOOL "Download and install BAT" FORCE)
+endif()
+
+# MPIBAT forces use of MPI
+if(MPIBAT)
+  set(MPICXX ON CACHE BOOL "Use MPI" FORCE)
 endif()
 
 # ExternalProject module is available since 2.8.0
@@ -204,11 +211,9 @@ else()
   unset(ROOT_CONFIG CACHE)
 endif()
 
-##########  BAT  ##########
+##########  MPI  ##########
 
-if(NOT NOMCMC)
-
-if(MPIBAT)
+if(MPICXX)
   add_definitions(-D_MPI)
   if(CMAKE_CXX_COMPILER MATCHES "(^.*)mpic..$")
     set(MPI_CXX_COMPILER ${CMAKE_CXX_COMPILER} CACHE FILEPATH "MPI CXX compiler wrapper" FORCE)
@@ -217,16 +222,16 @@ if(MPIBAT)
     # MPI_CXX_COMPILER is available since 2.8.5
     set(MPI_COMPILER ${MPI_CXX_COMPILER} CACHE FILEPATH "MPI CXX compiler wrapper" FORCE)
   endif()
-  # FindMPI attempts to determine MPI variables using MPI_CXX_COMPILER (or MPI_COMPILER) if available. 
+  # FindMPI attempts to determine MPI variables using MPI_CXX_COMPILER (or MPI_COMPILER) if available.
   find_package(MPI)
   if(${CMAKE_VERSION} VERSION_LESS 2.8.5)
-      # MPI_CXX_FOUND, etc. are available since 2.8.5
-      set(MPI_CXX_FOUND ${MPI_FOUND})
-      set(MPI_CXX_COMPILER ${MPI_COMPILER} CACHE FILEPATH "MPI CXX compiler wrapper" FORCE)
-      set(MPI_CXX_INCLUDE_PATH ${MPI_INCLUDE_PATH} CACHE PATH "MPI CXX include path" FORCE)
+    # MPI_CXX_FOUND, etc. are available since 2.8.5
+    set(MPI_CXX_FOUND ${MPI_FOUND})
+    set(MPI_CXX_COMPILER ${MPI_COMPILER} CACHE FILEPATH "MPI CXX compiler wrapper" FORCE)
+    set(MPI_CXX_INCLUDE_PATH ${MPI_INCLUDE_PATH} CACHE PATH "MPI CXX include path" FORCE)
   endif()
   if(NOT MPI_CXX_FOUND)
-    string(REGEX REPLACE "/bin/mpic..$" "" TMP_MPI_PATH ${MPI_CXX_COMPILER}) 
+    string(REGEX REPLACE "/bin/mpic..$" "" TMP_MPI_PATH ${MPI_CXX_COMPILER})
     find_path(TMP_MPI_BIN_PATH "mpicxx" PATHS ${TMP_MPI_PATH}/bin)
     find_path(TMP_MPI_INC_PATH "mpi.h" PATHS ${TMP_MPI_PATH}/include)
     unset(TMP_MPI_PATH)
@@ -244,7 +249,7 @@ if(MPIBAT)
     endif()
   endif(NOT MPI_CXX_FOUND)
   include_directories(${MPI_CXX_INCLUDE_PATH})
-  string(REGEX REPLACE "/bin/mpic..$" "" TMP_MPI_PATH ${MPI_CXX_COMPILER}) 
+  string(REGEX REPLACE "/bin/mpic..$" "" TMP_MPI_PATH ${MPI_CXX_COMPILER})
   if(IS_DIRECTORY "${TMP_MPI_PATH}/lib")
     set(MPI_LIB_PATH ${TMP_MPI_PATH}/lib)
   elseif(IS_DIRECTORY "${TMP_MPI_PATH}/lib64")
@@ -253,7 +258,12 @@ if(MPIBAT)
     message(STATUS "Not defined MPI_LIB_PATH")
   endif()
   unset(TMP_MPI_PATH)
-endif(MPIBAT)
+endif(MPICXX)
+
+
+##########  BAT  ##########
+
+if(NOT NOMCMC)
 
 message(STATUS "Looking for BAT in ${BAT_INSTALL_DIR}")
 find_path(IBAT "BCModel.h" PATHS ${BAT_INSTALL_DIR}/include/BAT NO_DEFAULT_PATH)
@@ -267,6 +277,8 @@ if(IBAT AND LBAT)
   endif()
   if(MPIBAT)
     message(STATUS "${RedBold}Please make sure that the installed BAT library has been compiled with our patch for MPI support.${ColReset}")
+  else()
+    message(STATUS "${RedBold}Please make sure that the installed BAT library has been compiled with our patch for BAT.${ColReset}")
   endif()
 else(IBAT AND LBAT)
   if(NOT BAT_INSTALL)
@@ -440,6 +452,7 @@ if(DEBUG_MODE)
   message("  BOOST_INCLUDE_DIR:PATH = ${BOOST_INCLUDE_DIR}")
   message("  GSL_CONFIG_DIR:PATH = ${GSL_CONFIG_DIR}")
   message("  ROOT_CONFIG_DIR:PATH = ${ROOT_CONFIG_DIR}")
+  message("  MPICXX:BOOL = ${MPICXX}")
   message("  MPI_CXX_COMPILER:FILEPATH = ${MPI_CXX_COMPILER}")
   #message("  MPI_CXX_INCLUDE_PATH:PATH = ${MPI_CXX_INCLUDE_PATH}")
   message("  MPIBAT:BOOL = ${MPIBAT}")
@@ -574,13 +587,13 @@ endif(LOOPTOOLS)
 set(EXAMPLE_NOMCMC_CXXFLAGS "${EXAMPLE_CXXFLAGS}")
 set(EXAMPLE_NOMCMC_LIBS "${EXAMPLE_LIBS}")
 set(EXAMPLE_NOMCMC_RPATHS "${EXAMPLE_RPATHS}")
+if(MPICXX)
+  set(EXAMPLE_MCMC_CXX "${MPI_CXX_COMPILER}")
+  set(EXAMPLE_CXXFLAGS "-D_MPI ${EXAMPLE_CXXFLAGS}")
+else(MPICXX)
+  set(EXAMPLE_MCMC_CXX "${CMAKE_CXX_COMPILER}")
+endif(MPICXX)
 if(NOT NOMCMC)
-  if(MPIBAT)
-    set(EXAMPLE_MCMC_CXX "${MPI_CXX_COMPILER}")
-    set(EXAMPLE_CXXFLAGS "-D_MPI ${EXAMPLE_CXXFLAGS}")
-  else(MPIBAT)
-    set(EXAMPLE_MCMC_CXX "${CMAKE_CXX_COMPILER}")
-  endif(MPIBAT)
   set(EXAMPLE_CXXFLAGS "-I${BAT_INCLUDE_PATH} ${EXAMPLE_CXXFLAGS}")
   set(EXAMPLE_LIBS "-L${BAT_LIB_PATH} -lBATmodels -lBAT ${EXAMPLE_LIBS}")
   set(EXAMPLE_RPATHS "-Wl,-rpath,${BAT_LIB_PATH} ${EXAMPLE_RPATHS}")
