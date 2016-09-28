@@ -477,7 +477,7 @@ endif(DEBUG_MODE)
 ##############################
 
 #set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour LeptonFlavour NewPhysics Observables GeneralSUSY pMSSM MFV SUSY THDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
-set(PROJECTLIST ComputeObservables InputParser EW Flavour NewPhysics Observables HiggsExtensions StandardModel LoopFunctions gslpp)
+set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour NewPhysics Observables HiggsExtensions StandardModel LoopFunctions gslpp)
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
 endif(NOT NOMCMC)
@@ -591,6 +591,10 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/LibMode_header/Makefile
                "${CMAKE_CURRENT_BINARY_DIR}/examples/LibMode_header/Makefile" @ONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/LibMode_header/libmode_header.cpp"
                "${CMAKE_CURRENT_BINARY_DIR}/examples/LibMode_header/libmode_header.cpp" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/EventGeneration/Makefile.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/examples/EventGeneration/Makefile" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/EventGeneration/EventGeneration.cpp"
+               "${CMAKE_CURRENT_BINARY_DIR}/examples/EventGeneration/EventGeneration.cpp" @ONLY)
 file(GLOB CONF_FILES ${CMAKE_CURRENT_SOURCE_DIR}/examples-src/config/*.conf)
 foreach(_confFile ${CONF_FILES})
   get_filename_component(_confFileName ${_confFile} NAME)
