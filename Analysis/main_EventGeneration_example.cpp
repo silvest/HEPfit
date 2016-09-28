@@ -36,7 +36,7 @@ int main(int argc, char** argv)
         
         if(argc < 3){
             /* Print usage and exit. */
-            if (rank == 0) std::cout << "\nusage: " << argv[0] << " ModelConf.conf nEvents [OutputFolder]" << std::endl;
+            if (rank == 0) std::cout << "\nusage: " << argv[0] << " ModelConf.conf nEvents [OutputFolder]\n" << std::endl;
             return EXIT_SUCCESS;
         }
 
