@@ -281,7 +281,7 @@ if(BAT_INSTALL)
     message(STATUS "Not found BAT in ${BAT_INSTALL_DIR}")
     message(STATUS "${RedBold}I'll download and install BAT into ${BAT_INSTALL_DIR}.${ColReset}")
     include(ExternalProject)
-    set(BAT_VERSION "0.9.4.1")
+    set(BAT_VERSION "1.0.0-RC1")
     set(BAT_FILENAME "BAT-${BAT_VERSION}.tar.gz")
     find_file(BAT_URL ${BAT_FILENAME} PATHS ${CMAKE_CURRENT_BINARY_DIR} NO_DEFAULT_PATH)
     if(NOT BAT_URL)
@@ -289,7 +289,7 @@ if(BAT_INSTALL)
     else()
       message(STATUS "Found ${BAT_FILENAME} in the current directory")
     endif()
-    set(BAT_MD5 e1a09dc5e379dd5b5d665729ea45b535)
+    set(BAT_MD5 8655C961B1BB44905ECCC05ED652DC25)
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/BAT_make_wrapper.sh.in"
                    "${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh" @ONLY)
     # The make command to the top-level make will be inherited to the BAT make. 
@@ -303,7 +303,7 @@ if(BAT_INSTALL)
     endif()
     if(MPIBAT)
       message(STATUS "${RedBold}Enable MPI support${ColReset}")
-      set(PATCH patch -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/BAT_mpi_patch.txt)
+      set(PATCH patch -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/BAT-${BAT_VERSION}_mpi_patch.txt)
       ExternalProject_Add(
         BATBUILD
         PREFIX BATBUILD

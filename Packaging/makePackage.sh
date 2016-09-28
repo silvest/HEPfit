@@ -11,6 +11,7 @@ VERSION="core-1.0"
 # Original source codes
 
 ORGDIR="${HOME}/NetBeansProjects/HEPfit"
+BAT_VERSION="1.0.0-RC1"
 
 ###########################################################
 # List of Netbeans projects
@@ -146,7 +147,7 @@ cp ${SCRIPTPATH}/etc/cmake_uninstall.cmake.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/hepfit-config.in ${OUTDIR}/
 eval sed "$SED_ARG" ${SCRIPTPATH}/etc/HEPfit.pc.in > ${OUTDIR}/HEPfit.pc.in
 cp ${SCRIPTPATH}/etc/HEPfit.h.in ${OUTDIR}/
-cp ${SCRIPTPATH}/etc/BAT_mpi_patch.txt ${OUTDIR}/
+cp ${SCRIPTPATH}/etc/BAT-${BAT_VERSION}_mpi_patch.txt ${OUTDIR}/
 
 # examples
 cp -r ${SCRIPTPATH}/etc/examples-src/config ${OUTDIR}/examples-src/
