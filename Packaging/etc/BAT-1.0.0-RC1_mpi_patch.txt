@@ -1,0 +1,674 @@
+diff -Naur BAT-1.0.0-RC1/BAT/BCEngineMCMC.h BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h
+--- BAT-1.0.0-RC1/BAT/BCEngineMCMC.h	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h	2016-09-28 15:17:23.000000000 +0200
+@@ -1237,13 +1237,13 @@
+     /** Generates a new point using the Metropolis algorithm for one chain.
+      * @param chain chain index
+      * @return Whether proposed point was accepted (true) or previous point was kept (false). */
+-    bool GetNewPointMetropolis(unsigned chain);
++    bool GetNewPointMetropolisAllChains();
+ 
+     /** Generates a new point using the Metropolis algorithm for one chain, varying only one parameter's value
+      * @param chain chain index
+      * @param parameter index of parameter to vary
+      * @return Whether proposed point was accepted (true) or previous point was kept (false). */
+-    bool GetNewPointMetropolis(unsigned chain, unsigned parameter);
++    bool GetNewPointMetropolisAllChains(unsigned parameter);
+ 
+     /**
+      * Updates statistics: fill marginalized distributions */
+@@ -1401,6 +1401,10 @@
+     void UpdateChainIndex(int chain);
+ 
+     /** @} */
++    
++    /* Begin MPI MOD */
++    int procnum;
++    /* End MPI MOD */
+ 
+ private:
+     /**
+diff -Naur BAT-1.0.0-RC1/BAT/BCLog.h BAT-1.0.0-RC1_OMPI/BAT/BCLog.h
+--- BAT-1.0.0-RC1/BAT/BCLog.h	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/BAT/BCLog.h	2016-09-28 15:17:23.000000000 +0200
+@@ -41,6 +41,8 @@
+ 
+ #define BCLOG_WARNING(s) BCLOG_INTERNAL_OUT(OutWarning, s)
+ 
++#define BCLOG_RESULTS(s) BCLOG_INTERNAL_OUT(OutResults, s)
++/* Modifications made to write summary to file without the prefix. */
+ // ---------------------------------------------------------
+ 
+ #include <fstream>
+@@ -60,9 +62,11 @@
+         debug,                  ///< Print everything, including debug info
+         detail,                 ///< Print all details of operation
+         summary,                ///< Print only results summary, warnings, and errors
++        results,                ///< Print summary (results) to file without prefix
+         warning,                ///< Print only warnings and errors
+         error,                  ///< Print only errors
+         nothing                 ///< Print nothing
++        /* Modifications made to write summary to file without the prefix. LogLevel "results" added. */
+     };
+ 
+     /** \name Constructor and destructor */
+@@ -158,7 +162,11 @@
+     { Out(warning, message); };
+ 
+     static void OutSummary(const std::string& message)
+-    { Out(summary, message); };
++    { 
++      if (fMinimumLogLevelFile == results) Out(results, message);
++      else Out(summary, message);
++      /* Modifications made to write summary to file without the prefix. */
++    };
+ 
+     static void OutDetail(const std::string& message)
+     { Out(detail, message); };
+diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx
+--- BAT-1.0.0-RC1/src/BCEngineMCMC.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx	2016-09-28 15:17:30.000000000 +0200
+@@ -56,6 +56,10 @@
+ #include <omp.h>
+ #endif
+ 
++/* Begin MPI MOD */
++#include <mpi.h>
++/* End MPI MOD */
++
+ namespace
+ {
+ #if ROOTMATHMORE
+@@ -97,6 +101,9 @@
+     SetName(name);
+     SetPrecision(BCEngineMCMC::kMedium);
+     SetRandomSeed(0);
++    /* Begin MPI MOD */
++    procnum = MPI::COMM_WORLD.Get_size();
++    /* End MPI MOD */
+ }
+ 
+ // ---------------------------------------------------------
+@@ -134,6 +141,9 @@
+     SetPrecision(BCEngineMCMC::kMedium);
+     SetRandomSeed(0);
+     LoadMCMC(filename, "", "", loadObservables);
++    /* Begin MPI MOD */
++    procnum = MPI::COMM_WORLD.Get_size();
++    /* End MPI MOD */
+ }
+ 
+ // ---------------------------------------------------------
+@@ -216,6 +226,9 @@
+                     fH2Marginalized[i][j] = dynamic_cast<TH2*>(other.fH2Marginalized[i][j]->Clone());
+         }
+     }
++    /* Begin MPI MOD */
++    procnum = MPI::COMM_WORLD.Get_size();
++    /* End MPI MOD */
+ }
+ 
+ // ---------------------------------------------------------
+@@ -519,7 +532,7 @@
+                 fOut->WriteTObject(GetMarginalizedHistogram(i, j));
+     }
+ 
+-    fOut->Write();
++    //fOut->Write(); /* Causes multiple instances of any tree that already exists in the root file. */
+     if (closeExistingFile)
+         fOut->Close();
+ 
+@@ -1481,92 +1494,246 @@
+ }
+ 
+ // --------------------------------------------------------
+-bool BCEngineMCMC::GetNewPointMetropolis(unsigned chain, unsigned parameter)
++bool BCEngineMCMC::GetNewPointMetropolisAllChains(unsigned parameter)
+ {
+-    // increase counter
+-    fMCMCNIterations[chain]++;
+-
+-    // get proposal point
+-    if ( GetProposalPointMetropolis(chain, parameter, fMCMCThreadLocalStorage[chain].xLocal) ) {
+-        // calculate probabilities of the old and new points
+-        double p0 = (std::isfinite(fMCMCprob[chain])) ? fMCMCprob[chain] : -std::numeric_limits<double>::max();
+-        double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
+-
+-        if (std::isfinite(p1)) {
+-            // if the new point is more probable, keep it; or else throw dice
+-            if ( p1 >= p0 || log(fMCMCThreadLocalStorage[chain].rng->Rndm()) < (p1 - p0) ) {
+-                // increase efficiency
+-                fMCMCStatistics[chain].efficiency[parameter] += (1. - fMCMCStatistics[chain].efficiency[parameter]) / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
+-                // copy the point
+-                fMCMCx[chain][parameter] = fMCMCThreadLocalStorage[chain].xLocal[parameter];
+-                // save the probability of the point
+-                fMCMCprob[chain] = p1;
+-                fMCMCLogLikelihood[chain] = fMCMCLogLikelihood_Provisional[chain];
+-                fMCMCLogPrior[chain] = fMCMCLogPrior_Provisional[chain];
+-
+-                // execute user code
+-                MCMCCurrentPointInterface(fMCMCThreadLocalStorage[chain].xLocal, chain, true);
+-                return true;
+-            } else {
+-                // decrease efficiency
+-                fMCMCStatistics[chain].efficiency[parameter] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
++    unsigned mychain = 0;
++    int iproc = 0;
++    unsigned npars = fParameters.Size();
++    int buffsize = npars + 1;
++    double p0[procnum];
++    int index_chain[procnum];
++    double *recvbuff = new double[buffsize];
++    std::vector<double> pars;
++    double **buff;
++    
++    
++    //------------------
++    buff = new double*[procnum];
++    buff[0]=new double[procnum];
++    for(int i=1;i<procnum;i++)
++        buff[i]=buff[i-1]+1;
++    //------------------
++    
++    double ** sendbuff = new double *[procnum];
++    sendbuff[0] = new double[procnum * buffsize];
++    for (int il = 1; il < procnum; il++)
++        sendbuff[il] = sendbuff[il - 1] + buffsize;
++    
++    
++    double ll;
++    std::vector<std::vector<double> > fMCMCxvect;
++    bool last = false;
++    
++    
++    while (mychain < fMCMCNChains) {
++        
++        bool accept = false;
++        // increase counter
++        fMCMCNIterations[mychain]++;
++        UpdateChainIndex(mychain);
++        
++        // get proposal point
++        if ( GetProposalPointMetropolis(mychain, parameter, fMCMCThreadLocalStorage[mychain].xLocal) ) {
++            
++            if (!last) {
++                // calculate probabilities of the old and new points
++                p0[iproc] = (std::isfinite(fMCMCprob[mychain])) ? fMCMCprob[mychain] : -std::numeric_limits<double>::max();
++                fMCMCxvect.push_back(fMCMCThreadLocalStorage[mychain].xLocal);
++                index_chain[iproc] = mychain;
++                iproc++;
++                mychain++;
++                if (iproc < procnum && mychain < fMCMCNChains) continue;
++            } else if (iproc == 0) break;
++            
++            for(int unsigned il = 0; il < fMCMCxvect.size() ; il++) {
++                //The first entry of the array specifies the task to be executed.
++                sendbuff[il][0] = 1.; // 1 = likelihood calculation
++                for (int im = 1; im < buffsize; im++) sendbuff[il][im] = fMCMCxvect[il][im-1];
++            }
++            
++            for(int il = fMCMCxvect.size() ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
++            
++            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE, recvbuff, buffsize, MPI::DOUBLE, 0);
++            
++            if (recvbuff[0] == 1.) {
++                pars.assign(recvbuff + 1, recvbuff + buffsize);
++                ll = LogEval(pars);
++            } else
++                ll = log(0.);
++            
++            //        double calctime = MPI::Wtime() - inittime;
++            //        inittime = MPI::Wtime();
++            MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff[0], 1, MPI::DOUBLE, 0);
++            
++            //double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
++            for (int unsigned j = 0; j < fMCMCxvect.size(); j++) {
++                
++                if (std::isfinite(*buff[j])) {
++                    // if the new point is more probable, keep it; or else throw dice
++                    if ( *buff[j] >= p0[j] || log(fMCMCThreadLocalStorage[index_chain[j]].rng->Rndm()) < (*buff[j] - p0[j]) ) {
++                        // increase efficiency
++                        fMCMCStatistics[index_chain[j]].efficiency[parameter] += (1. - fMCMCStatistics[index_chain[j]].efficiency[parameter]) / (fMCMCStatistics[index_chain[j]].n_samples_efficiency + 1.);
++                        // copy the point
++                        fMCMCx[index_chain[j]][parameter] = fMCMCxvect[j][parameter];
++                        // save the probability of the point
++                        fMCMCprob[index_chain[j]] = *buff[j];
++                        fMCMCLogLikelihood[index_chain[j]] = fMCMCLogLikelihood_Provisional[index_chain[j]];
++                        fMCMCLogPrior[index_chain[j]] = fMCMCLogPrior_Provisional[index_chain[j]];
++                        
++                        accept = true;
++                    } else {
++                        // decrease efficiency
++                        fMCMCStatistics[index_chain[j]].efficiency[parameter] *= 1.*fMCMCStatistics[index_chain[j]].n_samples_efficiency / (fMCMCStatistics[index_chain[j]].n_samples_efficiency + 1.);
++                    }
++                } else {						// new log(likelihood) was not a finite number
++                    //BCLog::OutDebug(Form("Log(likelihood) evaluated to nan or inf in chain %i while varying parameter %s to %.3e", chain, GetParameter(parameter).GetName().data(), fMCMCThreadLocalStorage[chain].xLocal[parameter]));
++                    // decrease efficiency
++                    fMCMCStatistics[index_chain[j]].efficiency[parameter] *= 1.*fMCMCStatistics[index_chain[j]].n_samples_efficiency / (fMCMCStatistics[index_chain[j]].n_samples_efficiency + 1.);
++                    accept = false;
++                    // print parameter point
++                }
++                // execute user code for every point
++                MCMCCurrentPointInterface(fMCMCxvect[j], index_chain[j], accept);
+             }
+-        } else {						// new log(likelihood) was not a finite number
+-            BCLog::OutDebug(Form("Log(likelihood) evaluated to nan or inf in chain %i while varying parameter %s to %.3e", chain, GetParameter(parameter).GetName().data(), fMCMCThreadLocalStorage[chain].xLocal[parameter]));
+-            // decrease efficiency
+-            fMCMCStatistics[chain].efficiency[parameter] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
+-            // print parameter point
+-        }
+-    }
+-
+-    // execute user code
+-    MCMCCurrentPointInterface(fMCMCThreadLocalStorage[chain].xLocal, chain, false);
+-    return false;
++            iproc = 0;
++            fMCMCxvect.clear();
++        } else {
++            mychain++;
++            if (mychain < fMCMCNChains) continue;
++            else last = true;
++            accept = false;
++        }
++        // execute user code for every point
++        MCMCCurrentPointInterface(fMCMCThreadLocalStorage[mychain].xLocal, mychain, accept);
++    }
++    delete sendbuff[0];
++    delete [] sendbuff;
++    delete [] recvbuff;
++    delete buff[0];
++    delete [] buff;
++    
++    return true;
+ }
+ 
+ // --------------------------------------------------------
+-bool BCEngineMCMC::GetNewPointMetropolis(unsigned chain)
++bool BCEngineMCMC::GetNewPointMetropolisAllChains()
+ {
+-    // increase counter
+-    fMCMCNIterations[chain]++;
+-
+-    // get proposal point
+-    if ( GetProposalPointMetropolis(chain, fMCMCThreadLocalStorage[chain].xLocal) ) {
+-        // calculate probabilities of the old and new points
+-        double p0 = (std::isfinite(fMCMCprob[chain])) ? fMCMCprob[chain] : -std::numeric_limits<double>::max();
+-        double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
+-
+-        if (std::isfinite(p1)) {
+-            // if the new point is more probable, keep it; or else throw dice
+-            if ( p1 >= p0 || log(fMCMCThreadLocalStorage[chain].rng->Rndm()) < (p1 - p0) ) {
+-                // increase efficiency
+-                fMCMCStatistics[chain].efficiency[0] += (1. - fMCMCStatistics[chain].efficiency[0]) / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
+-
+-                // copy the point
+-                fMCMCx[chain] = fMCMCThreadLocalStorage[chain].xLocal;
+-                // save the probability of the point
+-                fMCMCprob[chain] = p1;
+-                fMCMCLogLikelihood[chain] = fMCMCLogLikelihood_Provisional[chain];
+-                fMCMCLogPrior[chain] = fMCMCLogPrior_Provisional[chain];
+-
+-                // execute user code
+-                MCMCCurrentPointInterface(fMCMCThreadLocalStorage[chain].xLocal, chain, true);
+-                return true;
+-            } else {
+-                // decrease efficiency
+-                fMCMCStatistics[chain].efficiency[0] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
++    unsigned mychain = 0;
++    int iproc = 0;
++    unsigned npars = fParameters.Size();
++    int buffsize = npars + 1;
++    double p0[procnum];
++    int index_chain[procnum];
++    double *recvbuff = new double[buffsize];
++    std::vector<double> pars;
++    double **buff;
++    
++    
++    //------------------
++    buff = new double*[procnum];
++    buff[0]=new double[procnum];
++    for(int i=1;i<procnum;i++) buff[i]=buff[i-1]+1;
++    //------------------
++    
++    double ** sendbuff = new double *[procnum];
++    sendbuff[0] = new double[procnum * buffsize];
++    for (int il = 1; il < procnum; il++)
++        sendbuff[il] = sendbuff[il - 1] + buffsize;
++    
++    
++    double ll;
++    std::vector<std::vector<double> > fMCMCxvect;
++    bool last = false;
++    
++    
++    while (mychain < fMCMCNChains) {
++        
++        bool accept = false;
++        // increase counter
++        fMCMCNIterations[mychain]++;
++        UpdateChainIndex(mychain);
++        
++        // get proposal point
++        if ( GetProposalPointMetropolis(mychain, fMCMCThreadLocalStorage[mychain].xLocal) ) {
++            
++            if (!last) {
++                // calculate probabilities of the old and new points
++                p0[iproc] = (std::isfinite(fMCMCprob[mychain])) ? fMCMCprob[mychain] : -std::numeric_limits<double>::max();
++                fMCMCxvect.push_back(fMCMCThreadLocalStorage[mychain].xLocal);
++                index_chain[iproc] = mychain;
++                iproc++;
++                mychain++;
++                if (iproc < procnum && mychain < fMCMCNChains) continue;
++            } else if (iproc == 0) break;
++            
++            for(int unsigned il = 0; il < fMCMCxvect.size() ; il++) {
++                //The first entry of the array specifies the task to be executed.
++                sendbuff[il][0] = 1.; // 1 = likelihood calculation
++                for (int im = 1; im < buffsize; im++) sendbuff[il][im] = fMCMCxvect[il][im-1];
++            }
++            
++            for(int il = fMCMCxvect.size() ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
++            
++            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE, recvbuff, buffsize, MPI::DOUBLE, 0);
++            
++            if (recvbuff[0] == 1.) {
++                pars.assign(recvbuff + 1, recvbuff + buffsize);
++                ll = LogEval(pars);
++            } else
++                ll = log(0.);
++            
++            //        double calctime = MPI::Wtime() - inittime;
++            //        inittime = MPI::Wtime();
++            MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff[0], 1, MPI::DOUBLE, 0);
++            
++            //double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
++            for (int unsigned j = 0; j < fMCMCxvect.size(); j++) {
++                
++                if (std::isfinite(*buff[j])) {
++                    // if the new point is more probable, keep it; or else throw dice
++                    if ( *buff[j] >= p0[j] || log(fMCMCThreadLocalStorage[index_chain[j]].rng->Rndm()) < (*buff[j] - p0[j]) ) {
++                        // increase efficiency
++                        fMCMCStatistics[index_chain[j]].efficiency[0] += (1. - fMCMCStatistics[index_chain[j]].efficiency[0]) / (fMCMCStatistics[index_chain[j]].n_samples_efficiency + 1.);
++                        // copy the point
++                        fMCMCx[index_chain[j]] = fMCMCxvect[j];
++                        // save the probability of the point
++                        fMCMCprob[index_chain[j]] = *buff[j];
++                        fMCMCLogLikelihood[index_chain[j]] = fMCMCLogLikelihood_Provisional[index_chain[j]];
++                        fMCMCLogPrior[index_chain[j]] = fMCMCLogPrior_Provisional[index_chain[j]];
++                        
++                        accept = true;
++                    } else {
++                        // decrease efficiency
++                        fMCMCStatistics[index_chain[j]].efficiency[0] *= 1.*fMCMCStatistics[index_chain[j]].n_samples_efficiency / (fMCMCStatistics[index_chain[j]].n_samples_efficiency + 1.);
++                    }
++                } else {						// new log(likelihood) was not a finite number
++                    //BCLog::OutDebug(Form("Log(likelihood) evaluated to nan or inf in chain %i while varying parameter %s to %.3e", chain, GetParameter(parameter).GetName().data(), fMCMCThreadLocalStorage[chain].xLocal[parameter]));
++                    // decrease efficiency
++                    fMCMCStatistics[index_chain[j]].efficiency[0] *= 1.*fMCMCStatistics[index_chain[j]].n_samples_efficiency / (fMCMCStatistics[index_chain[j]].n_samples_efficiency + 1.);
++                    accept = false;
++                    // print parameter point
++                }
++                // execute user code for every point
++                MCMCCurrentPointInterface(fMCMCxvect[j], index_chain[j], accept);
+             }
+-        } else { // new log(likelihood) was not a finite number
+-            BCLog::OutDebug("LogEval is nan or inf at ");
+-            PrintParameters(fMCMCThreadLocalStorage[chain].xLocal, BCLog::OutDebug);
+-            // decrease efficiency
+-            fMCMCStatistics[chain].efficiency[0] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
+-        }
+-    }
+-
+-    // execute user code for every point
+-    MCMCCurrentPointInterface(fMCMCThreadLocalStorage[chain].xLocal, chain, false);
+-    return false;
++            iproc = 0;
++            fMCMCxvect.clear();
++        } else {
++            mychain++;
++            if (mychain < fMCMCNChains) continue;
++            else last = true;
++            accept = false;
++        }
++        // execute user code for every point
++        MCMCCurrentPointInterface(fMCMCThreadLocalStorage[mychain].xLocal, mychain, accept);
++    }
++    delete sendbuff[0];
++    delete [] sendbuff;
++    delete [] recvbuff;
++    delete buff[0];
++    delete [] buff;
++    
++    return true;
+ }
+ 
+ //--------------------------------------------------------
+@@ -1592,10 +1759,11 @@
+ 
+             //loop over chains
+             #pragma omp parallel for shared(chunk) private(ichain) schedule(static, chunk)
+-            for (unsigned ichain = 0; ichain < fMCMCNChains; ++ichain) {
+-                UpdateChainIndex(ichain);
+-                return_value *= GetNewPointMetropolis(ichain, ipar);
+-            }
++            //for (unsigned ichain = 0; ichain < fMCMCNChains; ++ichain) {
++                //UpdateChainIndex(ichain);
++            return_value *= GetNewPointMetropolisAllChains(ipar);
++                //return_value *= GetNewPointMetropolis(ichain, ipar);
++            //}
+         }
+ 
+     } else {
+@@ -1603,10 +1771,10 @@
+ 
+         //loop over chains
+         #pragma omp parallel for shared(chunk) private(ichain) schedule(static, chunk)
+-        for (unsigned ichain = 0; ichain < fMCMCNChains; ++ichain) {
+-            UpdateChainIndex(ichain);
+-            return_value *= GetNewPointMetropolis(ichain);
+-        }
++        //for (unsigned ichain = 0; ichain < fMCMCNChains; ++ichain) {
++            //UpdateChainIndex(ichain);
++        return_value *= GetNewPointMetropolisAllChains();
++        //}
+     }
+ 
+     // leave with an empty thread->chain map
+@@ -1679,7 +1847,7 @@
+     // initialize Markov chain
+     MCMCInitialize();
+ 
+-    if (fMCMCFlagWritePreRunToFile)
++    if (!fMCMCOutputFile && fMCMCFlagWritePreRunToFile)
+         InitializeMarkovChainTree();
+ 
+     // perform run
+@@ -2098,11 +2266,11 @@
+     if (fMCMCFlagPreRun) {
+         if (!MetropolisPreRun())
+             return false;
+-        if (!fMCMCFlagWritePreRunToFile && fMCMCFlagWriteChainToFile)
++        if (!fMCMCOutputFile && !fMCMCFlagWritePreRunToFile && fMCMCFlagWriteChainToFile)
+             InitializeMarkovChainTree();
+     } else {
+         BCLog::OutWarning("BCEngineMCMC::MCMCMetropolis. Not running prerun. This can cause trouble if the data have changed.");
+-        if (fMCMCFlagWriteChainToFile)
++        if (!fMCMCOutputFile && fMCMCFlagWriteChainToFile)
+             InitializeMarkovChainTree();
+     }
+ 
+@@ -2328,7 +2496,7 @@
+     /* set initial position */
+ 
+     // this can be extended to user-settable member
+-    unsigned max_tries = 10;
++    unsigned max_tries = 1000;
+ 
+     // initialize markov chain positions
+     switch (fInitialPositionScheme) {
+@@ -2497,7 +2665,7 @@
+         if (GetVariable(i).FillH1()) {
+             if (i < GetNParameters()) {	// parameter
+                 if (!GetParameter(i).Fixed()) {
+-                    fH1Marginalized[i] = GetVariable(i).CreateH1(Form("h1_%s_parameter_%i", GetSafeName().data() , i));
++                    fH1Marginalized[i] = GetVariable(i).CreateH1(Form("h1_%s_parameter_%s", GetSafeName().data() , GetParameter(i).GetSafeName().data()));
+                     ++filling;
+                 }
+             } else {									// user-defined observable
+@@ -2529,8 +2697,8 @@
+             if (h->second >= 0) { // par vs par
+                 if (j >= GetNParameters())
+                     continue;
+-                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%i_vs_par_%i", GetSafeName().data(), j, i), GetParameter(j));
+-
++                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%s_vs_par_%s", GetSafeName().data(), GetParameter(j).GetSafeName().data(), GetParameter(i).GetSafeName().data()), GetParameter(j));
++                /* Modified to include the name of the parameters in the histogram name */
+             } else {              // obs vs par
+                 if (j >= GetNObservables())
+                     continue;
+@@ -2544,12 +2712,13 @@
+             if (h->second >= 0) { // par vs obs
+                 if (j >= GetNParameters())
+                     continue;
+-                fH2Marginalized[i + GetNParameters()][j] = GetObservable(i).CreateH2(Form("h2_%s_par_%i_vs_obs_%i", GetSafeName().data(), j, i), GetParameter(j));
+-
++                fH2Marginalized[i + GetNParameters()][j] = GetObservable(i).CreateH2(Form("h2_%s_par_%s_vs_obs_%s", GetSafeName().data(), GetParameter(j).GetSafeName().data(), GetObservable(i).GetSafeName().data()), GetParameter(j));
++                 /* Modified to include the name of the parameters/observables in the histogram name */
+             } else { // obs vs obs
+                 if (j >= GetNObservables())
+                     continue;
+-                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%i_vs_obs_%i", GetSafeName().data(), j, i), GetObservable(j));
++                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%s_vs_obs_%s", GetSafeName().data(),GetObservable(j).GetSafeName().data(), GetObservable(i).GetSafeName().data()), GetObservable(j));
++                 /* Modified to include the name of the observables in the histogram name */
+             }
+         }
+         ++filling;
+@@ -2565,13 +2734,15 @@
+         // parameter j as ordinate
+         for (unsigned j = i + 1; j < GetNParameters(); ++j)
+             if (!GetParameter(j).Fixed() && GetParameter(j).FillH2() && !fH2Marginalized[i][j]) {
+-                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%i_vs_par_%i", GetSafeName().data(), j, i), GetParameter(j));
++                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%s_vs_par_%s", GetSafeName().data(), GetParameter(j).GetSafeName().data(), GetParameter(i).GetSafeName().data()), GetParameter(j));
+                 ++filling;
++                /* Modified to include the name of the parameters in the histogram name */
+             }
+         // user-defined observable j as ordinate
+         for (unsigned j = 0; j < GetNObservables(); ++j)
+             if (GetObservable(j).FillH2() && !fH2Marginalized[i][j + GetNParameters()]) {
+-                fH2Marginalized[i][j + GetNParameters()] = GetParameter(i).CreateH2(Form("h2_%s_obs_%i_vs_par_%i", GetSafeName().data(), j, i), GetObservable(j));
++                fH2Marginalized[i][j + GetNParameters()] = GetParameter(i).CreateH2(Form("h2_%s_obs_%s_vs_par_%s", GetSafeName().data(), GetObservable(j).GetSafeName().data(), GetParameter(i).GetSafeName().data()), GetObservable(j));
++                /* Modified to include the name of the parameters/observables in the histogram name */
+                 ++filling;
+             }
+     }
+@@ -2584,7 +2755,8 @@
+         // user-defined observable j as ordinate
+         for (unsigned j = i + 1; j < GetNObservables(); ++j)
+             if (GetObservable(j).FillH2() && !fH2Marginalized[i + GetNParameters()][j + GetNParameters()]) {
+-                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%i_vs_obs_%i", GetSafeName().data(), j, i), GetObservable(j));
++                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%s_vs_obs_%s", GetSafeName().data(), GetObservable(j).GetSafeName().data(), GetObservable(i).GetSafeName().data()), GetObservable(j));
++                /* Modified to include the name of the observables in the histogram name */
+                 ++filling;
+             }
+     }
+diff -Naur BAT-1.0.0-RC1/src/BCH1D.cxx BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx
+--- BAT-1.0.0-RC1/src/BCH1D.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx	2016-09-28 15:17:30.000000000 +0200
+@@ -420,7 +420,8 @@
+ 
+     std::vector<BCH1D::BCH1DSmallestInterval> v = GetSmallestIntervals(intervals);
+     for (unsigned i = 0; i < v.size(); ++i) {
+-        BCLog::OutSummary(prefix + Form("Smallest interval%s containing %.1f%% and local mode%s:", (v[i].intervals.size() > 1 ? "s" : ""), v[i].total_mass, (v[i].intervals.size() > 1 ? "s" : "")));
++        BCLog::OutSummary(prefix + Form("Smallest interval%s containing %.1f%% and local mode%s:", (v[i].intervals.size() > 1 ? "s" : ""), v[i].total_mass*100., (v[i].intervals.size() > 1 ? "s" : "")));
++        /* Multiplied by 100 to get numbers in %*/
+         for (unsigned j = 0; j < v[i].intervals.size(); ++j)
+             BCLog::OutSummary(prefix + Form("(%.*g, %.*g) (local mode at %.*g with rel. height %.*g; rel. area %.*g)",
+                                             prec, v[i].intervals[j].xmin,
+@@ -442,7 +443,7 @@
+         BCH1D::BCH1DSmallestInterval smallest_interval;
+         smallest_interval.total_mass = 0;
+         for (int b = 1; b <= GetHistogram()->GetNbinsX(); ++b)
+-            if (GetHistogram()->GetBinContent(b) >= bounds[i].first) {
++            if (GetHistogram()->GetBinContent(b) > bounds[i].first) {
+                 BCH1D::BCH1DInterval interval;
+                 interval.xmin = GetHistogram()->GetXaxis()->GetBinLowEdge(b);
+                 interval.xmax = GetHistogram()->GetXaxis()->GetBinUpEdge(b);
+diff -Naur BAT-1.0.0-RC1/src/BCH2D.cxx BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx
+--- BAT-1.0.0-RC1/src/BCH2D.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx	2016-09-28 15:17:30.000000000 +0200
+@@ -147,7 +147,7 @@
+     } else {
+         gStyle->SetPalette(colors.size(), &colors[0]);
+         GetHistogram()->SetFillStyle(fBandFillStyle);
+-        GetHistogram()->Draw((options + "cont").data());
++        GetHistogram()->Draw((options + "col").data());
+     }
+     gPad->Update();
+ 
+diff -Naur BAT-1.0.0-RC1/src/BCHistogramBase.cxx BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx
+--- BAT-1.0.0-RC1/src/BCHistogramBase.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx	2016-09-28 15:17:30.000000000 +0200
+@@ -194,7 +194,7 @@
+         return;
+     }
+ 
+-    fHistogram = (TH1*) (hist->Clone(Form("%s_bch", hist->GetName())));
++    fHistogram = (TH1*) (hist->Clone(Form("%s", hist->GetName())));
+     fHistogram->SetStats(false);
+     fDimension = fHistogram->GetDimension();
+ 
+diff -Naur BAT-1.0.0-RC1/src/BCLog.cxx BAT-1.0.0-RC1_OMPI/src/BCLog.cxx
+--- BAT-1.0.0-RC1/src/BCLog.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/src/BCLog.cxx	2016-09-28 15:17:30.000000000 +0200
+@@ -72,12 +72,14 @@
+     if (BCLog::IsOpen()) {
+         // write message in to log file
+         if (loglevelfile >= BCLog::fMinimumLogLevelFile)
+-            BCLog::fOutputStream << BCLog::ToString(loglevelfile) << " : " << message << std::endl;
++            BCLog::fOutputStream << BCLog::ToString(loglevelfile) << message << std::endl;
++        /* Modifications made to write summary to file without the prefix. */
+     }
+ 
+     // write message to screen
+     if (loglevelscreen >= BCLog::fMinimumLogLevelScreen)
+-        std::cout << BCLog::ToString(loglevelscreen) << " : " << message << std::endl;
++        std::cout << BCLog::ToString(loglevelscreen) << message << std::endl;
++    /* Modifications made to write summary to file without the prefix. */
+ }
+ 
+ // ---------------------------------------------------------
+@@ -87,7 +89,7 @@
+     const char* message = Form(
+                               " +------------------------------------------------------+\n"
+                               " |                                                      |\n"
+-                              " | BAT version %7s                                  |\n"
++                              " | BAT version %7s                                |\n"
+                               " | Copyright (C) 2007-2015, the BAT core developer team |\n"
+                               " | All rights reserved.                                 |\n"
+                               " |                                                      |\n"
+@@ -115,16 +117,19 @@
+ {
+     switch (loglevel) {
+         case debug:
+-            return "Debug  ";
++            return "Debug   : ";
+         case detail:
+-            return "Detail ";
++            return "Detail  : ";
+         case summary:
+-            return "Summary";
++            return "Summary : ";
++        case results:
++            return "";
+         case warning:
+-            return "Warning";
++            return "Warning : ";
+         case error:
+-            return "Error  ";
++            return "Error   : ";
+         default:
+             return "";
++        /* Modifications made to write summary to file without the prefix. Case "results" added. */
+     }
+ }
