@@ -321,6 +321,7 @@ if(BAT_INSTALL)
         INSTALL_COMMAND make install
         )
     else(MPIBAT)
+      set(PATCH patch -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/BAT-${BAT_VERSION}_patch.txt)
       ExternalProject_Add(
         BATBUILD
         PREFIX BATBUILD
@@ -332,6 +333,7 @@ if(BAT_INSTALL)
         DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
         URL ${BAT_URL}
         URL_MD5 ${BAT_MD5}
+        PATCH_COMMAND ${PATCH}
         CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE}
         BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
         INSTALL_COMMAND make install

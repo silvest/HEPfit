@@ -148,6 +148,7 @@ cp ${SCRIPTPATH}/etc/hepfit-config.in ${OUTDIR}/
 eval sed "$SED_ARG" ${SCRIPTPATH}/etc/HEPfit.pc.in > ${OUTDIR}/HEPfit.pc.in
 cp ${SCRIPTPATH}/etc/HEPfit.h.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/BAT-${BAT_VERSION}_mpi_patch.txt ${OUTDIR}/
+cp ${SCRIPTPATH}/etc/BAT-${BAT_VERSION}_patch.txt ${OUTDIR}/
 
 # examples
 cp -r ${SCRIPTPATH}/etc/examples-src/config ${OUTDIR}/examples-src/

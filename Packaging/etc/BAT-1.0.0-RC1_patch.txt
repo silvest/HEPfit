@@ -1,0 +1,246 @@
+diff -Naur BAT-1.0.0-RC1/BAT/BCLog.h BAT-1.0.0-RC1_DBG/BAT/BCLog.h
+--- BAT-1.0.0-RC1/BAT/BCLog.h	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_DBG/BAT/BCLog.h	2016-09-28 18:50:09.000000000 +0200
+@@ -41,6 +41,8 @@
+ 
+ #define BCLOG_WARNING(s) BCLOG_INTERNAL_OUT(OutWarning, s)
+ 
++#define BCLOG_RESULTS(s) BCLOG_INTERNAL_OUT(OutResults, s)
++/* Modifications made to write summary to file without the prefix. */
+ // ---------------------------------------------------------
+ 
+ #include <fstream>
+@@ -60,9 +62,11 @@
+         debug,                  ///< Print everything, including debug info
+         detail,                 ///< Print all details of operation
+         summary,                ///< Print only results summary, warnings, and errors
++        results,                ///< Print summary (results) to file without prefix
+         warning,                ///< Print only warnings and errors
+         error,                  ///< Print only errors
+         nothing                 ///< Print nothing
++        /* Modifications made to write summary to file without the prefix. LogLevel "results" added. */
+     };
+ 
+     /** \name Constructor and destructor */
+@@ -158,7 +162,11 @@
+     { Out(warning, message); };
+ 
+     static void OutSummary(const std::string& message)
+-    { Out(summary, message); };
++    { 
++      if (fMinimumLogLevelFile == results) Out(results, message);
++      else Out(summary, message);
++      /* Modifications made to write summary to file without the prefix. */
++    };
+ 
+     static void OutDetail(const std::string& message)
+     { Out(detail, message); };
+diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_DBG/src/BCEngineMCMC.cxx
+--- BAT-1.0.0-RC1/src/BCEngineMCMC.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_DBG/src/BCEngineMCMC.cxx	2016-09-28 18:50:20.000000000 +0200
+@@ -519,7 +519,7 @@
+                 fOut->WriteTObject(GetMarginalizedHistogram(i, j));
+     }
+ 
+-    fOut->Write();
++    //fOut->Write(); /* Causes multiple instances of any tree that already exists in the root file. */
+     if (closeExistingFile)
+         fOut->Close();
+ 
+@@ -1679,7 +1679,7 @@
+     // initialize Markov chain
+     MCMCInitialize();
+ 
+-    if (fMCMCFlagWritePreRunToFile)
++    if (!fMCMCOutputFile && fMCMCFlagWritePreRunToFile)
+         InitializeMarkovChainTree();
+ 
+     // perform run
+@@ -2098,11 +2098,11 @@
+     if (fMCMCFlagPreRun) {
+         if (!MetropolisPreRun())
+             return false;
+-        if (!fMCMCFlagWritePreRunToFile && fMCMCFlagWriteChainToFile)
++        if (!fMCMCOutputFile && !fMCMCFlagWritePreRunToFile && fMCMCFlagWriteChainToFile)
+             InitializeMarkovChainTree();
+     } else {
+         BCLog::OutWarning("BCEngineMCMC::MCMCMetropolis. Not running prerun. This can cause trouble if the data have changed.");
+-        if (fMCMCFlagWriteChainToFile)
++        if (!fMCMCOutputFile && fMCMCFlagWriteChainToFile)
+             InitializeMarkovChainTree();
+     }
+ 
+@@ -2328,7 +2328,7 @@
+     /* set initial position */
+ 
+     // this can be extended to user-settable member
+-    unsigned max_tries = 10;
++    unsigned max_tries = 1000;
+ 
+     // initialize markov chain positions
+     switch (fInitialPositionScheme) {
+@@ -2497,7 +2497,7 @@
+         if (GetVariable(i).FillH1()) {
+             if (i < GetNParameters()) {	// parameter
+                 if (!GetParameter(i).Fixed()) {
+-                    fH1Marginalized[i] = GetVariable(i).CreateH1(Form("h1_%s_parameter_%i", GetSafeName().data() , i));
++                    fH1Marginalized[i] = GetVariable(i).CreateH1(Form("h1_%s_parameter_%s", GetSafeName().data() , GetParameter(i).GetSafeName().data()));
+                     ++filling;
+                 }
+             } else {									// user-defined observable
+@@ -2529,8 +2529,8 @@
+             if (h->second >= 0) { // par vs par
+                 if (j >= GetNParameters())
+                     continue;
+-                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%i_vs_par_%i", GetSafeName().data(), j, i), GetParameter(j));
+-
++                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%s_vs_par_%s", GetSafeName().data(), GetParameter(j).GetSafeName().data(), GetParameter(i).GetSafeName().data()), GetParameter(j));
++                /* Modified to include the name of the parameters in the histogram name */
+             } else {              // obs vs par
+                 if (j >= GetNObservables())
+                     continue;
+@@ -2544,12 +2544,13 @@
+             if (h->second >= 0) { // par vs obs
+                 if (j >= GetNParameters())
+                     continue;
+-                fH2Marginalized[i + GetNParameters()][j] = GetObservable(i).CreateH2(Form("h2_%s_par_%i_vs_obs_%i", GetSafeName().data(), j, i), GetParameter(j));
+-
++                fH2Marginalized[i + GetNParameters()][j] = GetObservable(i).CreateH2(Form("h2_%s_par_%s_vs_obs_%s", GetSafeName().data(), GetParameter(j).GetSafeName().data(), GetObservable(i).GetSafeName().data()), GetParameter(j));
++                 /* Modified to include the name of the parameters/observables in the histogram name */
+             } else { // obs vs obs
+                 if (j >= GetNObservables())
+                     continue;
+-                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%i_vs_obs_%i", GetSafeName().data(), j, i), GetObservable(j));
++                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%s_vs_obs_%s", GetSafeName().data(),GetObservable(j).GetSafeName().data(), GetObservable(i).GetSafeName().data()), GetObservable(j));
++                 /* Modified to include the name of the observables in the histogram name */
+             }
+         }
+         ++filling;
+@@ -2565,13 +2566,15 @@
+         // parameter j as ordinate
+         for (unsigned j = i + 1; j < GetNParameters(); ++j)
+             if (!GetParameter(j).Fixed() && GetParameter(j).FillH2() && !fH2Marginalized[i][j]) {
+-                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%i_vs_par_%i", GetSafeName().data(), j, i), GetParameter(j));
++                fH2Marginalized[i][j] = GetParameter(i).CreateH2(Form("h2_%s_par_%s_vs_par_%s", GetSafeName().data(), GetParameter(j).GetSafeName().data(), GetParameter(i).GetSafeName().data()), GetParameter(j));
+                 ++filling;
++                /* Modified to include the name of the parameters in the histogram name */
+             }
+         // user-defined observable j as ordinate
+         for (unsigned j = 0; j < GetNObservables(); ++j)
+             if (GetObservable(j).FillH2() && !fH2Marginalized[i][j + GetNParameters()]) {
+-                fH2Marginalized[i][j + GetNParameters()] = GetParameter(i).CreateH2(Form("h2_%s_obs_%i_vs_par_%i", GetSafeName().data(), j, i), GetObservable(j));
++                fH2Marginalized[i][j + GetNParameters()] = GetParameter(i).CreateH2(Form("h2_%s_obs_%s_vs_par_%s", GetSafeName().data(), GetObservable(j).GetSafeName().data(), GetParameter(i).GetSafeName().data()), GetObservable(j));
++                /* Modified to include the name of the parameters/observables in the histogram name */
+                 ++filling;
+             }
+     }
+@@ -2584,7 +2587,8 @@
+         // user-defined observable j as ordinate
+         for (unsigned j = i + 1; j < GetNObservables(); ++j)
+             if (GetObservable(j).FillH2() && !fH2Marginalized[i + GetNParameters()][j + GetNParameters()]) {
+-                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%i_vs_obs_%i", GetSafeName().data(), j, i), GetObservable(j));
++                fH2Marginalized[i + GetNParameters()][j + GetNParameters()] = GetObservable(i).CreateH2(Form("h2_%s_obs_%s_vs_obs_%s", GetSafeName().data(), GetObservable(j).GetSafeName().data(), GetObservable(i).GetSafeName().data()), GetObservable(j));
++                /* Modified to include the name of the observables in the histogram name */
+                 ++filling;
+             }
+     }
+diff -Naur BAT-1.0.0-RC1/src/BCH1D.cxx BAT-1.0.0-RC1_DBG/src/BCH1D.cxx
+--- BAT-1.0.0-RC1/src/BCH1D.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_DBG/src/BCH1D.cxx	2016-09-28 18:50:20.000000000 +0200
+@@ -420,7 +420,8 @@
+ 
+     std::vector<BCH1D::BCH1DSmallestInterval> v = GetSmallestIntervals(intervals);
+     for (unsigned i = 0; i < v.size(); ++i) {
+-        BCLog::OutSummary(prefix + Form("Smallest interval%s containing %.1f%% and local mode%s:", (v[i].intervals.size() > 1 ? "s" : ""), v[i].total_mass, (v[i].intervals.size() > 1 ? "s" : "")));
++        BCLog::OutSummary(prefix + Form("Smallest interval%s containing %.1f%% and local mode%s:", (v[i].intervals.size() > 1 ? "s" : ""), v[i].total_mass*100., (v[i].intervals.size() > 1 ? "s" : "")));
++        /* Multiplied by 100 to get numbers in %*/
+         for (unsigned j = 0; j < v[i].intervals.size(); ++j)
+             BCLog::OutSummary(prefix + Form("(%.*g, %.*g) (local mode at %.*g with rel. height %.*g; rel. area %.*g)",
+                                             prec, v[i].intervals[j].xmin,
+@@ -442,7 +443,7 @@
+         BCH1D::BCH1DSmallestInterval smallest_interval;
+         smallest_interval.total_mass = 0;
+         for (int b = 1; b <= GetHistogram()->GetNbinsX(); ++b)
+-            if (GetHistogram()->GetBinContent(b) >= bounds[i].first) {
++            if (GetHistogram()->GetBinContent(b) > bounds[i].first) {
+                 BCH1D::BCH1DInterval interval;
+                 interval.xmin = GetHistogram()->GetXaxis()->GetBinLowEdge(b);
+                 interval.xmax = GetHistogram()->GetXaxis()->GetBinUpEdge(b);
+diff -Naur BAT-1.0.0-RC1/src/BCH2D.cxx BAT-1.0.0-RC1_DBG/src/BCH2D.cxx
+--- BAT-1.0.0-RC1/src/BCH2D.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_DBG/src/BCH2D.cxx	2016-09-28 18:50:20.000000000 +0200
+@@ -147,7 +147,7 @@
+     } else {
+         gStyle->SetPalette(colors.size(), &colors[0]);
+         GetHistogram()->SetFillStyle(fBandFillStyle);
+-        GetHistogram()->Draw((options + "cont").data());
++        GetHistogram()->Draw((options + "col").data());
+     }
+     gPad->Update();
+ 
+diff -Naur BAT-1.0.0-RC1/src/BCHistogramBase.cxx BAT-1.0.0-RC1_DBG/src/BCHistogramBase.cxx
+--- BAT-1.0.0-RC1/src/BCHistogramBase.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_DBG/src/BCHistogramBase.cxx	2016-09-28 18:50:20.000000000 +0200
+@@ -194,7 +194,7 @@
+         return;
+     }
+ 
+-    fHistogram = (TH1*) (hist->Clone(Form("%s_bch", hist->GetName())));
++    fHistogram = (TH1*) (hist->Clone(Form("%s", hist->GetName())));
+     fHistogram->SetStats(false);
+     fDimension = fHistogram->GetDimension();
+ 
+diff -Naur BAT-1.0.0-RC1/src/BCLog.cxx BAT-1.0.0-RC1_DBG/src/BCLog.cxx
+--- BAT-1.0.0-RC1/src/BCLog.cxx	2015-12-12 00:00:33.000000000 +0100
++++ BAT-1.0.0-RC1_DBG/src/BCLog.cxx	2016-09-28 18:50:20.000000000 +0200
+@@ -72,12 +72,14 @@
+     if (BCLog::IsOpen()) {
+         // write message in to log file
+         if (loglevelfile >= BCLog::fMinimumLogLevelFile)
+-            BCLog::fOutputStream << BCLog::ToString(loglevelfile) << " : " << message << std::endl;
++            BCLog::fOutputStream << BCLog::ToString(loglevelfile) << message << std::endl;
++        /* Modifications made to write summary to file without the prefix. */
+     }
+ 
+     // write message to screen
+     if (loglevelscreen >= BCLog::fMinimumLogLevelScreen)
+-        std::cout << BCLog::ToString(loglevelscreen) << " : " << message << std::endl;
++        std::cout << BCLog::ToString(loglevelscreen) << message << std::endl;
++    /* Modifications made to write summary to file without the prefix. */
+ }
+ 
+ // ---------------------------------------------------------
+@@ -87,7 +89,7 @@
+     const char* message = Form(
+                               " +------------------------------------------------------+\n"
+                               " |                                                      |\n"
+-                              " | BAT version %7s                                  |\n"
++                              " | BAT version %7s                                |\n"
+                               " | Copyright (C) 2007-2015, the BAT core developer team |\n"
+                               " | All rights reserved.                                 |\n"
+                               " |                                                      |\n"
+@@ -115,16 +117,19 @@
+ {
+     switch (loglevel) {
+         case debug:
+-            return "Debug  ";
++            return "Debug   : ";
+         case detail:
+-            return "Detail ";
++            return "Detail  : ";
+         case summary:
+-            return "Summary";
++            return "Summary : ";
++        case results:
++            return "";
+         case warning:
+-            return "Warning";
++            return "Warning : ";
+         case error:
+-            return "Error  ";
++            return "Error   : ";
+         default:
+             return "";
++        /* Modifications made to write summary to file without the prefix. Case "results" added. */
+     }
+ }
