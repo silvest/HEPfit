@@ -30,6 +30,7 @@
 #include "MPllObservables.h"
 #include "MVgamma.h"
 #include "BdmumuOBsmumu.h"
+#include "BXqllObservables.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 
