@@ -14,6 +14,8 @@
       <itemPath>src/BR_Kmumu.h</itemPath>
       <itemPath>src/BR_Kp0nunu.h</itemPath>
       <itemPath>src/BR_Kppnunu.h</itemPath>
+      <itemPath>src/BXqll.h</itemPath>
+      <itemPath>src/BXqllObservables.h</itemPath>
       <itemPath>src/Bdmumu.h</itemPath>
       <itemPath>src/BdmumuOBsmumu.h</itemPath>
       <itemPath>src/Betas_JPsiPhi.h</itemPath>
@@ -34,6 +36,8 @@
       <itemPath>src/EvolDC1Buras.h</itemPath>
       <itemPath>src/EvolDF1nlep.h</itemPath>
       <itemPath>src/EvolDF2.h</itemPath>
+      <itemPath>src/F_1.h</itemPath>
+      <itemPath>src/F_2.h</itemPath>
       <itemPath>src/Flavour.h</itemPath>
       <itemPath>src/FlavourObservables.h</itemPath>
       <itemPath>src/HeffDB1.h</itemPath>
@@ -54,6 +58,7 @@
       <itemPath>src/alpha_2a.h</itemPath>
       <itemPath>src/bsgamma.h</itemPath>
       <itemPath>src/gamma.h</itemPath>
+      <itemPath>src/hpl.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -71,6 +76,8 @@
       <itemPath>src/BR_Kmumu.cpp</itemPath>
       <itemPath>src/BR_Kp0nunu.cpp</itemPath>
       <itemPath>src/BR_Kppnunu.cpp</itemPath>
+      <itemPath>src/BXqll.cpp</itemPath>
+      <itemPath>src/BXqllObservables.cpp</itemPath>
       <itemPath>src/Bdmumu.cpp</itemPath>
       <itemPath>src/BdmumuOBsmumu.cpp</itemPath>
       <itemPath>src/Betas_JPsiPhi.cpp</itemPath>
@@ -194,6 +201,14 @@
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BXqll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BXqllObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
@@ -274,6 +289,10 @@
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Flavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/FlavourObservables.h" ex="false" tool="3" flavor2="0">
@@ -350,6 +369,8 @@
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -420,6 +441,14 @@
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BXqll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BXqllObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
@@ -500,6 +529,10 @@
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Flavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/FlavourObservables.h" ex="false" tool="3" flavor2="0">
@@ -571,6 +604,8 @@
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="3">
@@ -631,6 +666,14 @@
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/BXqll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BXqll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BXqllObservables.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BXqllObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
@@ -711,6 +754,10 @@
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Flavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/FlavourObservables.h" ex="false" tool="3" flavor2="0">
@@ -782,6 +829,8 @@
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gamma.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/hpl.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
