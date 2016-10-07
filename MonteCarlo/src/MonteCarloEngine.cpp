@@ -39,7 +39,7 @@ MonteCarloEngine::MonteCarloEngine(
     cindex = 0;
     printLogo = false;
 #ifdef _MPI
-    rank = MPI::COMM_WORLD.Get_rank();
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
     rank = 0;
 #endif
@@ -367,9 +367,9 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             index_chain[il] = -1;
         }
         //       double inittime = MPI::Wtime();
-        MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
+        MPI_Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
                 recvbuff, buffsize, MPI::DOUBLE,
-                0);
+                0, MPI_COMM_WORLD);
 
         if (recvbuff[0] == 2.) { // compute observables
             double sbuff[obsbuffsize];
@@ -392,10 +392,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it)
                     sbuff[k++] = it->computeTheoryValue();
             }
-            MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0);
+            MPI_Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
         } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
             double sbuff[obsbuffsize];
-            MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0);
+            MPI_Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
         }
 
         for (int il = 0; il < procnum; il++) {
