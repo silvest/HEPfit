@@ -367,8 +367,8 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             index_chain[il] = -1;
         }
         //       double inittime = MPI::Wtime();
-        MPI_Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                recvbuff, buffsize, MPI::DOUBLE,
+        MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
+                recvbuff, buffsize, MPI_DOUBLE,
                 0, MPI_COMM_WORLD);
 
         if (recvbuff[0] == 2.) { // compute observables
@@ -392,10 +392,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it)
                     sbuff[k++] = it->computeTheoryValue();
             }
-            MPI_Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+            MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, buff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
         } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
             double sbuff[obsbuffsize];
-            MPI_Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+            MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, buff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
         }
 
         for (int il = 0; il < procnum; il++) {

@@ -180,16 +180,16 @@ void MonteCarlo::Run(const int rank) {
                 obsbuffsize += it1->getObs().size();
 
             while (true) {
-                MPI_Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                        recvbuff, buffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+                MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
+                        recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
                 if (recvbuff[0] == 0.) { // do nothing and return ll
                     double ll = log(0.);
-                    MPI_Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+                    MPI_Gather(&ll, 1, MPI_DOUBLE, sendbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == 1.) { //compute log likelihood
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
                     double ll = MCEngine.LogEval(pars);
-                    MPI_Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+                    MPI_Gather(&ll, 1, MPI_DOUBLE, sendbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == 2.) { // compute observables
                     double sbuff[obsbuffsize];
                     std::map<std::string, double> DPars;
@@ -211,10 +211,10 @@ void MonteCarlo::Run(const int rank) {
                         for (std::vector<Observable>::iterator it = pino.begin(); it != pino.end(); ++it)
                             sbuff[k++] = it->computeTheoryValue();
                     }
-                    MPI_Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+                    MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
                     double sbuff[obsbuffsize];
-                    MPI_Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+                    MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == -1.)
                     break;
                 else {
@@ -446,8 +446,8 @@ void MonteCarlo::Run(const int rank) {
                 sendbuff[il] = sendbuff[il - 1] + buffsize;
                 sendbuff[il][0] = -1.; //Exit command
             }
-            MPI_Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                    recvbuff, buffsize, MPI::DOUBLE, 0, MPI_COMM_WORLD);
+            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
+                    recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             delete sendbuff[0];
             delete [] sendbuff;
 #endif
