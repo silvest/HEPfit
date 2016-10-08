@@ -102,7 +102,7 @@ BCEngineMCMC::BCEngineMCMC(const std::string& name)
     SetPrecision(BCEngineMCMC::kMedium);
     SetRandomSeed(0);
     /* Begin MPI MOD */
-    procnum = MPI::COMM_WORLD.Get_size();
+    MPI_Comm_size(MPI_COMM_WORLD, &procnum);
     /* End MPI MOD */
 }
 
@@ -142,7 +142,7 @@ BCEngineMCMC::BCEngineMCMC(const std::string& filename, const std::string& name,
     SetRandomSeed(0);
     LoadMCMC(filename, "", "", loadObservables);
     /* Begin MPI MOD */
-    procnum = MPI::COMM_WORLD.Get_size();
+    MPI_Comm_size(MPI_COMM_WORLD, &procnum);
     /* End MPI MOD */
 }
 
@@ -227,7 +227,7 @@ BCEngineMCMC::BCEngineMCMC(const BCEngineMCMC& other)
         }
     }
     /* Begin MPI MOD */
-    procnum = MPI::COMM_WORLD.Get_size();
+    MPI_Comm_size(MPI_COMM_WORLD, &procnum);
     /* End MPI MOD */
 }
 
@@ -1553,7 +1553,7 @@ bool BCEngineMCMC::GetNewPointMetropolisAllChains(unsigned parameter)
             
             for(int il = fMCMCxvect.size() ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
             
-            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE, recvbuff, buffsize, MPI::DOUBLE, 0);
+            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             
             if (recvbuff[0] == 1.) {
                 pars.assign(recvbuff + 1, recvbuff + buffsize);
@@ -1563,7 +1563,7 @@ bool BCEngineMCMC::GetNewPointMetropolisAllChains(unsigned parameter)
             
             //        double calctime = MPI::Wtime() - inittime;
             //        inittime = MPI::Wtime();
-            MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff[0], 1, MPI::DOUBLE, 0);
+            MPI_Gather(&ll, 1, MPI_DOUBLE, buff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             
             //double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
             for (int unsigned j = 0; j < fMCMCxvect.size(); j++) {
@@ -1674,7 +1674,7 @@ bool BCEngineMCMC::GetNewPointMetropolisAllChains()
             
             for(int il = fMCMCxvect.size() ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
             
-            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE, recvbuff, buffsize, MPI::DOUBLE, 0);
+            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             
             if (recvbuff[0] == 1.) {
                 pars.assign(recvbuff + 1, recvbuff + buffsize);
@@ -1684,7 +1684,7 @@ bool BCEngineMCMC::GetNewPointMetropolisAllChains()
             
             //        double calctime = MPI::Wtime() - inittime;
             //        inittime = MPI::Wtime();
-            MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff[0], 1, MPI::DOUBLE, 0);
+            MPI_Gather(&ll, 1, MPI_DOUBLE, buff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             
             //double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
             for (int unsigned j = 0; j < fMCMCxvect.size(); j++) {
