@@ -1110,7 +1110,7 @@ The default behaviour described above can be altered for some observables by usi
 \label{sec:Higgs}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-In many scenarios of new physics one of the main predictions are deviations in the Higgs boson couplings with respect to the SM ones. Such an scenario can be described in general by considering the following effective Lagrangian for a light Higgs-like scalar field $h$:
+In many scenarios of new physics one of the main predictions are deviations in the Higgs boson couplings with respect to the SM ones. Such an scenario can be described in general by considering the following effective Lagrangian for a light Higgs-like scalar field $h$ \cite{Contino:2010mh,Azatov:2012bz}:
 %
 \begin{equation}
 \begin{split}
@@ -1188,6 +1188,20 @@ Br$(H\to \mathrm{invisible})$\\
   \end{tabular}
  \label{tab:HiggsKvKfgenpars}
 \end{table} 
+
+Note that, while both $\kappa_V$ and $\kappa_f$ can modify the different Higgs production cross sections and decay widths, the leading corrections to EWPO come only from $\kappa_V$. These are given by the following 1-loop contributions to the oblique $S$ and $T$ parameters:
+%
+\begin{align}
+S &= \frac{1}{12\pi} (1 - \kappa_V^2)
+  \ln\bigg(\frac{\Lambda^2}{m_H^2}\bigg)\,,
+&
+T &= - \frac{3}{16\pi c_W^2} (1 - \kappa_V^2)
+  \ln\bigg(\frac{\Lambda^2}{m_H^2}\bigg)\,,
+\label{eq:ST}
+\end{align}
+where $\Lambda$ is the cutoff of the effective Lagrangian in Eq. \ref{eq:Lagh}.
+We set $\Lambda = 4\pi v/\sqrt{|1-\kappa_V^2|}$, as given by the scale of 
+violation of perturbative unitarity in $WW$ scattering.
 
 Finally, relaxing the assumption of custodial symmetry, the Higgs couplings to the $W$ and $Z$ bosons can be different. The model class {\tt HiggsKvgenKf} considers this possibility, replacing $\kappa_V\rightarrow \kappa_Z,~\kappa_W$, with $\kappa_Z$ and $\kappa_W$ being two completely independent parameters. One must be aware that for $\kappa_W\not = \kappa_Z$ power divergences appear in the contributions to oblique corrections, and the detailed information of the UV theory is necessary for calculating the contributions to electroweak precision observables.
 Therefore, this class is constructed solely for the purpose of testing custodial symmetry in the experimental Higgs observables. Because of this, and also for simplicity, in this class we assume again universality on the deviations in the fermionic couplings, described by a single parameter $\kappa_f$. The corresponding model parameters for this class are described in Table~\ref{tab:HiggsKvgenKfpars}.
