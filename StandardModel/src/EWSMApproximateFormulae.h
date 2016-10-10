@@ -296,6 +296,26 @@ private:
      * @return the effective weak mixing angle for @f$Z\to q\bar{q}@f$
      */
     double sin2thetaEff_q(const QCD::quark q) const;
+    
+    /**
+     * @brief @f$\sin^2\theta_{\rm eff}^b@f$ with the full two-loop %EW
+     * corrections.
+     * @details This function is based on the approximate formulae for the
+     * weak mixing angle presented in [arXiv:1607.08375 hep-ph] (add citation),
+     * which include the complete two-loop %EW corrections as well as leading
+     * three-loop corrections.
+     * The approximate formulae reproduce the full results with average and 
+     * maximal deviations of @f$2\times 10^{-7}@f$ and
+     * @f$1.3\times 10^{-6}@f$, respectively, for the input parameters in the
+     * following ranges:
+     * @f$m_h = 125.1 \pm 5@f$ GeV, 
+     * @f$\alpha_s(M_Z^2) = 0.1184\pm 0.005@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.059\pm 0.0005@f$, 
+     * @f$M_Z = 91.1876\pm 0.0042@f$ GeV and
+     * @f$m_t = 173.2\pm 4.0@f$ GeV.
+     * @return the effective weak mixing angle for @f$Z\to b\bar{b}@f$
+     */
+    double sin2thetaEff_b() const;
 
 
 
