@@ -731,6 +731,7 @@ public:
         B_S, /**< @f$B_s@f$ meson */
         PHI, /**< @f$\phi@f$ meson */
         K_star, /**< @f$K^*@f$ meson */
+        K_star_P, /**< @f$K^{*,\pm}@f$ meson */
         MESON_END /**< The size of this enum. */
     };
 
@@ -746,7 +747,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 112; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 113; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1278,6 +1279,14 @@ public:
     {
         return FKstarp;
     }
+        
+    /**
+     * @return the decay constant of a transversely polarized @f$K^{*\pm}@f$ meson at 1 GeV
+     */
+    double getFKstarPp() const
+    {
+        return FKstarPp;
+    }
     
     /**
      * @return the decay constant of a transversely polarized @f$\phi@f$ meson at 1 GeV
@@ -1536,7 +1545,7 @@ protected:
     double r_1_fplus, r_2_fplus, m_fit2_fplus;
     double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
     double r_2_f0, m_fit2_f0;
-    double FKstarp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
+    double FKstarp, FKstarPp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
     double Nc; ///< The number of colours.

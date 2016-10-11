@@ -602,6 +602,7 @@ private:
     double mu_h;          /**<\f$\sqrt{\mu_b*\lambda_{QCD}}\f$ */
     double Mc;            /**<c quark mass */
     double Ms;            /**<s quark mass */
+    double spectator_charge;  /**<spectator quark charge */
     double width;         /**<Initial meson width */
     double fperp;         /**<vector meson perpendicular decay constant*/
     double ys;            /**<CP-violation factor \f$\frac{\Delta \Gamma}{2\Gamma}\f$*/
@@ -1353,6 +1354,9 @@ private:
             case StandardModel::K_star:
                 return (I_1c(q2, 0) + I_1c(q2, 1))/2.;
                 break;
+            case StandardModel::K_star_P:
+                return (I_1c(q2, 0) + I_1c(q2, 1))/2.;
+                break;
             case StandardModel::PHI:
                 return (I_1c(q2, 0) - ys * h_1c(q2, 0) + I_1c(q2, 1) - ys * h_1c(q2, 1))/2.;
                 break;
@@ -1372,6 +1376,9 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
+                return (I_1s(q2, 0) + I_1s(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
                 return (I_1s(q2, 0) + I_1s(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
@@ -1395,6 +1402,9 @@ private:
             case StandardModel::K_star:
                 return (I_2c(q2, 0) + I_2c(q2, 1))/2.;
                 break;
+            case StandardModel::K_star_P:
+                return (I_2c(q2, 0) + I_2c(q2, 1))/2.;
+                break;
             case StandardModel::PHI:
                 return (I_2c(q2, 0) - ys * h_2c(q2, 0) + I_2c(q2, 1) - ys * h_2c(q2, 1))/2.;
                 break;
@@ -1414,6 +1424,9 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
+                return (I_2s(q2, 0) + I_2s(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
                 return (I_2s(q2, 0) + I_2s(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
@@ -1437,6 +1450,9 @@ private:
             case StandardModel::K_star:
                 return (I_3(q2, 0) + I_3(q2, 1))/2.;
                 break;
+            case StandardModel::K_star_P:
+                return (I_3(q2, 0) + I_3(q2, 1))/2.;
+                break;
             case StandardModel::PHI:
                 return (I_3(q2, 0) - ys * h_3(q2, 0) + I_3(q2, 1) - ys * h_3(q2, 1))/2.;
                 break;
@@ -1456,6 +1472,9 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
+                return (I_4(q2, 0) + I_4(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
                 return (I_4(q2, 0) + I_4(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
@@ -1507,6 +1526,9 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
+                return (I_7(q2, 0) + I_7(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
                 return (I_7(q2, 0) + I_7(q2, 1))/2.;
                 break;
             case StandardModel::PHI:

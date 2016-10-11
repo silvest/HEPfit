@@ -86,7 +86,7 @@ void MVll::updateParameters()
 {
     if (!mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)) return;
 
-
+    
     GF = mySM.getGF();
     ale = mySM.getAle();
     Mlep = mySM.getLeptons(lep).getMass();
@@ -138,7 +138,51 @@ void MVll::updateParameters()
             a_2T23 = mySM.getOptionalParameter("a_2T23");
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
+            spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
+            
             fperp = mySM.getFKstarp();
+
+            b = 1;
+            break;
+        case StandardModel::K_star_P:
+            a_0V = mySM.getOptionalParameter("a_0V");
+            a_1V = mySM.getOptionalParameter("a_1V");
+            a_2V = mySM.getOptionalParameter("a_2V");
+            MRV_2 = mySM.getOptionalParameter("MRV") * mySM.getOptionalParameter("MRV");
+
+            a_0A0 = mySM.getOptionalParameter("a_0A0");
+            a_1A0 = mySM.getOptionalParameter("a_1A0");
+            a_2A0 = mySM.getOptionalParameter("a_2A0");
+            MRA0_2 = mySM.getOptionalParameter("MRA0") * mySM.getOptionalParameter("MRA0");
+
+            a_0A1 = mySM.getOptionalParameter("a_0A1");
+            a_1A1 = mySM.getOptionalParameter("a_1A1");
+            a_2A1 = mySM.getOptionalParameter("a_2A1");
+            MRA1_2 = mySM.getOptionalParameter("MRA1") * mySM.getOptionalParameter("MRA1");
+
+            a_0A12 = a_0A0 * (MM*MM - MV*MV) / (8. * MM*MV);
+            a_1A12 = mySM.getOptionalParameter("a_1A12");
+            a_2A12 = mySM.getOptionalParameter("a_2A12");
+            MRA12_2 = mySM.getOptionalParameter("MRA12") * mySM.getOptionalParameter("MRA12");
+
+            a_0T1 = mySM.getOptionalParameter("a_0T1");
+            a_1T1 = mySM.getOptionalParameter("a_1T1");
+            a_2T1 = mySM.getOptionalParameter("a_2T1");
+            MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
+
+            a_0T2 = a_0T1;
+            a_1T2 = mySM.getOptionalParameter("a_1T2");
+            a_2T2 = mySM.getOptionalParameter("a_2T2");
+            MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
+
+            a_0T23 = mySM.getOptionalParameter("a_0T23");
+            a_1T23 = mySM.getOptionalParameter("a_1T23");
+            a_2T23 = mySM.getOptionalParameter("a_2T23");
+            MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
+            
+            spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
+            
+            fperp = mySM.getFKstarPp();
 
             b = 1;
             break;
@@ -178,6 +222,8 @@ void MVll::updateParameters()
             a_2T23 = mySM.getOptionalParameter("a_2T23phi");
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
+            spectator_charge = mySM.getQuarks(QCD::STRANGE).getCharge();
+                    
             fperp = mySM.getFphip();
             
             ys = mySM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
@@ -883,7 +929,7 @@ gslpp::complex MVll::Tparplus(double u, double q2)
 gslpp::complex MVll::Tparminus(double u, double q2) 
 {
     double ubar = 1. - u;
-    return mySM.getQuarks(QCD::DOWN).getCharge()*(8. * C_8Lh / (ubar + u * q2 / MM2)
+    return spectator_charge*(8. * C_8Lh / (ubar + u * q2 / MM2)
             + sixMMoMb * H_c(ubar * MM2 + u * q2,mu_h*mu_h) * C_2Lh_bar);
 }
 //////////////////////////////////////////////////////////////////
@@ -1571,11 +1617,11 @@ double MVll::h_7(double q2, bool bar)
 double MVll::integrateSigma(int i, double q_min, double q_max) 
 {
     updateParameters();
-
+    
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
     old_handler = gsl_set_error_handler_off();
-
+    
     switch (i) {
         case 0:
             if (sigma0Cached[qbin] == 0) {
