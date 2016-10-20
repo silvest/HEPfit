@@ -454,12 +454,13 @@ ThObsFactory::ThObsFactory()
                                                                       << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2";
     parameterForObservable["F_L_BpKstmu"] = parameterForObservable["A_FB_BpKstmu"];
     
-
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     //----- B to X_q ll -----
     obsThFactory["R_BXsee"] = boost::bind(boost::factory<R_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["Rlow_BXsee"] = boost::bind(boost::factory<Rlow_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
     obsThFactory["Rhigh_BXsee"] = boost::bind(boost::factory<Rhigh_BXqll*>(), _1, StandardModel::STRANGE, StandardModel::ELECTRON);
-
+/** END: REMOVE FROM THE PACKAGE **/
+    
     //----- B to K* gamma  -----
     obsThFactory["BR_BKstgamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["C_BKstgamma"] = boost::bind(boost::factory<C_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
