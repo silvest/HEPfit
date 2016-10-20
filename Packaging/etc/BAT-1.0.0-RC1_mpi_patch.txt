@@ -1,6 +1,6 @@
 diff -Naur BAT-1.0.0-RC1/BAT/BCEngineMCMC.h BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h
 --- BAT-1.0.0-RC1/BAT/BCEngineMCMC.h	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h	2016-09-28 15:17:23.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h	2016-10-20 03:53:56.000000000 +0200
 @@ -1237,13 +1237,13 @@
      /** Generates a new point using the Metropolis algorithm for one chain.
       * @param chain chain index
@@ -30,7 +30,7 @@ diff -Naur BAT-1.0.0-RC1/BAT/BCEngineMCMC.h BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.
      /**
 diff -Naur BAT-1.0.0-RC1/BAT/BCLog.h BAT-1.0.0-RC1_OMPI/BAT/BCLog.h
 --- BAT-1.0.0-RC1/BAT/BCLog.h	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/BAT/BCLog.h	2016-09-28 15:17:23.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/BAT/BCLog.h	2016-10-20 03:53:56.000000000 +0200
 @@ -41,6 +41,8 @@
  
  #define BCLOG_WARNING(s) BCLOG_INTERNAL_OUT(OutWarning, s)
@@ -67,7 +67,7 @@ diff -Naur BAT-1.0.0-RC1/BAT/BCLog.h BAT-1.0.0-RC1_OMPI/BAT/BCLog.h
      { Out(detail, message); };
 diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx
 --- BAT-1.0.0-RC1/src/BCEngineMCMC.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx	2016-09-28 15:17:30.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx	2016-10-20 03:54:09.000000000 +0200
 @@ -56,6 +56,10 @@
  #include <omp.h>
  #endif
@@ -84,7 +84,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
      SetPrecision(BCEngineMCMC::kMedium);
      SetRandomSeed(0);
 +    /* Begin MPI MOD */
-+    procnum = MPI::COMM_WORLD.Get_size();
++    MPI_Comm_size(MPI_COMM_WORLD, &procnum);
 +    /* End MPI MOD */
  }
  
@@ -94,7 +94,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
      SetRandomSeed(0);
      LoadMCMC(filename, "", "", loadObservables);
 +    /* Begin MPI MOD */
-+    procnum = MPI::COMM_WORLD.Get_size();
++    MPI_Comm_size(MPI_COMM_WORLD, &procnum);
 +    /* End MPI MOD */
  }
  
@@ -104,7 +104,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
          }
      }
 +    /* Begin MPI MOD */
-+    procnum = MPI::COMM_WORLD.Get_size();
++    MPI_Comm_size(MPI_COMM_WORLD, &procnum);
 +    /* End MPI MOD */
  }
  
@@ -209,7 +209,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
 +            
 +            for(int il = fMCMCxvect.size() ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
 +            
-+            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE, recvbuff, buffsize, MPI::DOUBLE, 0);
++            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 +            
 +            if (recvbuff[0] == 1.) {
 +                pars.assign(recvbuff + 1, recvbuff + buffsize);
@@ -219,7 +219,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
 +            
 +            //        double calctime = MPI::Wtime() - inittime;
 +            //        inittime = MPI::Wtime();
-+            MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff[0], 1, MPI::DOUBLE, 0);
++            MPI_Gather(&ll, 1, MPI_DOUBLE, buff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 +            
 +            //double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
 +            for (int unsigned j = 0; j < fMCMCxvect.size(); j++) {
@@ -370,7 +370,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
 +            
 +            for(int il = fMCMCxvect.size() ; il < procnum; il++) sendbuff[il][0] = 0.; // 0 = nothing to execute
 +            
-+            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE, recvbuff, buffsize, MPI::DOUBLE, 0);
++            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 +            
 +            if (recvbuff[0] == 1.) {
 +                pars.assign(recvbuff + 1, recvbuff + buffsize);
@@ -380,7 +380,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
 +            
 +            //        double calctime = MPI::Wtime() - inittime;
 +            //        inittime = MPI::Wtime();
-+            MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff[0], 1, MPI::DOUBLE, 0);
++            MPI_Gather(&ll, 1, MPI_DOUBLE, buff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 +            
 +            //double p1 = LogEval(fMCMCThreadLocalStorage[chain].xLocal);
 +            for (int unsigned j = 0; j < fMCMCxvect.size(); j++) {
@@ -574,7 +574,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
      }
 diff -Naur BAT-1.0.0-RC1/src/BCH1D.cxx BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx
 --- BAT-1.0.0-RC1/src/BCH1D.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx	2016-09-28 15:17:30.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx	2016-10-20 03:54:09.000000000 +0200
 @@ -420,7 +420,8 @@
  
      std::vector<BCH1D::BCH1DSmallestInterval> v = GetSmallestIntervals(intervals);
@@ -596,7 +596,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCH1D.cxx BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx
                  interval.xmax = GetHistogram()->GetXaxis()->GetBinUpEdge(b);
 diff -Naur BAT-1.0.0-RC1/src/BCH2D.cxx BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx
 --- BAT-1.0.0-RC1/src/BCH2D.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx	2016-09-28 15:17:30.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx	2016-10-20 03:54:09.000000000 +0200
 @@ -147,7 +147,7 @@
      } else {
          gStyle->SetPalette(colors.size(), &colors[0]);
@@ -608,7 +608,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCH2D.cxx BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx
  
 diff -Naur BAT-1.0.0-RC1/src/BCHistogramBase.cxx BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx
 --- BAT-1.0.0-RC1/src/BCHistogramBase.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx	2016-09-28 15:17:30.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx	2016-10-20 03:54:09.000000000 +0200
 @@ -194,7 +194,7 @@
          return;
      }
@@ -620,7 +620,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCHistogramBase.cxx BAT-1.0.0-RC1_OMPI/src/BCHistog
  
 diff -Naur BAT-1.0.0-RC1/src/BCLog.cxx BAT-1.0.0-RC1_OMPI/src/BCLog.cxx
 --- BAT-1.0.0-RC1/src/BCLog.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCLog.cxx	2016-09-28 15:17:30.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCLog.cxx	2016-10-20 03:54:09.000000000 +0200
 @@ -72,12 +72,14 @@
      if (BCLog::IsOpen()) {
          // write message in to log file
