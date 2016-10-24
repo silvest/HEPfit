@@ -128,6 +128,11 @@ private:
     double F_27im(double muh, double z, double sh, int maxpow);
     double F_29re(double muh, double z, double sh, int maxpow);
     double F_29im(double muh, double z, double sh, int maxpow);
+    
+    double DeltaF_19re(double muh, double z, double sh, int maxpow);
+    double DeltaF_19im(double muh, double z, double sh, int maxpow);
+    double DeltaF_29re(double muh, double z, double sh, int maxpow);
+    double DeltaF_29im(double muh, double z, double sh, int maxpow);
     /**
     * @brief The correction \f$ F_{17} \f$ from @cite Greub:2008cy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay
