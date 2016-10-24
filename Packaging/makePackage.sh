@@ -112,10 +112,11 @@ rm -f ${OUTDIR}/NewPhysics/src/EW_TEST.*
 rm -f ${OUTDIR}/NewPhysics/src/NPSTUVWXY.*
 
 #FLAVORFILES="AmpDD2.cpp AmpDD2.h AmpDS1.cpp AmpDS1.h ArgD.h BR_Bdnunu.cpp BR_Bdnunu.h BR_Bsnunu.cpp BR_Bsnunu.h BR_Kmumu.cpp BR_Kmumu.h BR_Kp0nunu.cpp BR_Kp0nunu.h BR_Kppnunu.cpp BR_Kppnunu.h CPenguinBox.cpp CPenguinBox.h CPenguinBoxMu.cpp CPenguinBoxMu.h Charm_Kpnunu.cpp Charm_Kpnunu.h EpsilonP_O_Epsilon.cpp EpsilonP_O_Epsilon.h EvolDC1.cpp EvolDC1.h EvolDC1Buras.cpp EvolDC1Buras.h EvolDF1nlep.cpp EvolDF1nlep.h HeffDC1.cpp HeffDC1.h HeffDF1bnlep.cpp HeffDF1bnlep.h HeffDS1.cpp HeffDS1.h M12D.h"
-#for FLAVOR in $FLAVORFILES
-#do
-#    rm -f ${OUTDIR}/Flavour/src/${FLAVOR}
-#done
+FLAVORFILES="F_1.h F_2.h hpl.h BXqll.cpp BXqll.h BXqllObservables.cpp BXqllObservables.h"
+for FLAVOR in $FLAVORFILES
+do
+    rm -f ${OUTDIR}/Flavour/src/${FLAVOR}
+done
 
 ###########################################################
 # generate CMakeLists.txt in each project
@@ -178,7 +179,7 @@ eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/EventGeneration/EventGen
 # Modify source codes
 
 echo "modifing souce codes..."
-MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h"
+MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h ${OUTDIR}/Flavour/src/FlavourObservables.h"
 for MODFILE in $MODFILELIST
 do
     perl ${SCRIPTPATH}/remove.pl $MODFILE
