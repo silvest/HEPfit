@@ -1147,7 +1147,7 @@ void MVll::fit_DeltaC9_p_mumu()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.4) {
+    for (double i=SWITCH; i<SWITCH; i+=0.4) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p_mumu.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1159,8 +1159,8 @@ void MVll::fit_DeltaC9_p_mumu()
     gr1 =TGraph(dim, myq2.data(), ReDeltaC9_p_mumu.data());
     gr2 =TGraph(dim, myq2.data(), ImDeltaC9_p_mumu.data());
     
-    reffit = TF1("reffit",this,&MVll::reDC9fit,0.1,8.1,7,"MVll","reDC9fit");
-    imffit = TF1("imffit",this,&MVll::imDC9fit,0.1,8.1,8,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0.1,SWITCH,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0.1,SWITCH,8,"MVll","imDC9fit");
     
     refres_p_mumu = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres_p_mumu = gr2.Fit(&imffit, "SQN0+rob=0.99");
@@ -1209,7 +1209,7 @@ void MVll::fit_DeltaC9_m_mumu()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.4) {
+    for (double i=SWITCH; i<SWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m_mumu.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1222,8 +1222,8 @@ void MVll::fit_DeltaC9_m_mumu()
     gr1 = TGraph(dim, myq2.data(), ReDeltaC9_m_mumu.data());
     gr2 = TGraph(dim, myq2.data(), ImDeltaC9_m_mumu.data());
     
-    reffit = TF1("reffit",this,&MVll::reDC9fit,0,8.1,7,"MVll","reDC9fit");
-    imffit = TF1("imffit",this,&MVll::imDC9fit,0,8.1,8,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0,SWITCH,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0,SWITCH,8,"MVll","imDC9fit");
     
     refres_m_mumu = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres_m_mumu = gr2.Fit(&imffit, "SQN0+rob=0.99");
@@ -1272,7 +1272,7 @@ void MVll::fit_DeltaC9_0_mumu()
                                                              Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.4) {
+    for (double i=SWITCH; i<SWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0_mumu.push_back(q2tmp * (1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
@@ -1285,8 +1285,8 @@ void MVll::fit_DeltaC9_0_mumu()
     gr1 = TGraph(dim, myq2.data(), ReDeltaC9_0_mumu.data());
     gr2 = TGraph(dim, myq2.data(), ImDeltaC9_0_mumu.data());
     
-    reffit = TF1("reffit",this,&MVll::reDC9fit,0,8.1,7,"MVll","reDC9fit");
-    imffit = TF1("imffit",this,&MVll::imDC9fit,0,8.1,8,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0,SWITCH,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0,SWITCH,8,"MVll","imDC9fit");
     
     refres_0_mumu = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres_0_mumu = gr2.Fit(&imffit, "SQN0+rob=0.99");
