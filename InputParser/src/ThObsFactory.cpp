@@ -16,8 +16,8 @@
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
 #include "GeneralTHDMObservables.h"
-#include "THDMObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
+#include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 
@@ -308,6 +308,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Tp_BdKstmu"] = boost::bind(boost::factory<Tp*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["Tm_BdKstmu"] = boost::bind(boost::factory<Tm*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["S_BdKstmu"] = boost::bind(boost::factory<S*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    
+    obsThFactory["QCDf_1f"] = boost::bind(boost::factory<QCDf_1f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDf_2f"] = boost::bind(boost::factory<QCDf_2f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDf_3f"] = boost::bind(boost::factory<QCDf_3f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
     obsThFactory["Regtilde_1_BdKstmu"] = boost::bind(boost::factory<gtilde_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 1);
     obsThFactory["Regtilde_2_BdKstmu"] = boost::bind(boost::factory<gtilde_2*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 1);
@@ -408,7 +412,11 @@ ThObsFactory::ThObsFactory()
     parameterForObservable["Tp_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["Tm_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["S_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
-
+    
+    parameterForObservable["QCDf_1f"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDf_2f"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDf_3f"] = parameterForObservable["BR_BdKstmu"];
+    
     parameterForObservable["Regtilde_1_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["Regtilde_2_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["Regtilde_3_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
@@ -1005,7 +1013,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya11oddRe"] = boost::factory<unitaritya11oddRe*>();
     obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
     /** END: REMOVE FROM THE PACKAGE **/
-
+    
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  GeneralTHDM observables  -----
     //obsThFactory["Re_sigma_u"] = boost::factory<Re_sigma_u*>();
