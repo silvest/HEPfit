@@ -41,7 +41,6 @@ protected:
 
 private:
     const THDM * myTHDM;
-    const StandardModel& mySM;
 };
 
 #endif	/* BSGAMMATHDM_H */

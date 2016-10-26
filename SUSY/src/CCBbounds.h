@@ -14,7 +14,7 @@
 
 /**
  * @class CCBu11
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBu11.
  */
 class CCBu11: public ThObservable {
@@ -26,7 +26,7 @@ public:
     CCBu11(const StandardModel& SM_i);
 
     /**
-     * @return @CCBu11@f$
+     * @return @f$CCBu11@f$
      */
     double computeThValue();
 
@@ -36,7 +36,7 @@ private:
 
 /**
  * @class CCBu22
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBu22.
  */
 class CCBu22: public ThObservable {
@@ -48,7 +48,7 @@ public:
     CCBu22(const StandardModel& SM_i);
 
     /**
-     * @return @CCBu22@f$
+     * @return @f$CCBu22@f$
      */
     double computeThValue();
 
@@ -58,7 +58,7 @@ private:
 
 /**
  * @class CCBu33
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBu33.
  */
 class CCBu33: public ThObservable {
@@ -70,7 +70,7 @@ public:
     CCBu33(const StandardModel& SM_i);
 
     /**
-     * @return @CCBu33@f$
+     * @return @f$CCBu33@f$
      */
     double computeThValue();
 
@@ -80,7 +80,7 @@ private:
 
 /**
  * @class CCBu12
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBu12.
  */
 class CCBu12: public ThObservable {
@@ -92,7 +92,7 @@ public:
     CCBu12(const StandardModel& SM_i);
 
     /**
-     * @return @CCBu12@f$
+     * @return @f$CCBu12@f$
      */
     double computeThValue();
 
@@ -102,7 +102,7 @@ private:
 
 /**
  * @class CCBu13
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBu13.
  */
 class CCBu13: public ThObservable {
@@ -114,7 +114,7 @@ public:
     CCBu13(const StandardModel& SM_i);
 
     /**
-     * @return @CCBu13@f$
+     * @return @f$CCBu13@f$
      */
     double computeThValue();
 
@@ -124,7 +124,7 @@ private:
 
 /**
  * @class CCBu23
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBu23.
  */
 class CCBu23: public ThObservable {
@@ -136,7 +136,7 @@ public:
     CCBu23(const StandardModel& SM_i);
 
     /**
-     * @return @CCBu23@f$
+     * @return @f$CCBu23@f$
      */
     double computeThValue();
 
@@ -146,7 +146,7 @@ private:
 
 /**
  * @class CCBd11
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBd11.
  */
 class CCBd11: public ThObservable {
@@ -158,7 +158,7 @@ public:
     CCBd11(const StandardModel& SM_i);
 
     /**
-     * @return @CCBd11@f$
+     * @return @f$CCBd11@f$
      */
     double computeThValue();
 
@@ -168,7 +168,7 @@ private:
 
 /**
  * @class CCBd22
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBd22.
  */
 class CCBd22: public ThObservable {
@@ -180,7 +180,7 @@ public:
     CCBd22(const StandardModel& SM_i);
 
     /**
-     * @return @CCBd22@f$
+     * @return @f$CCBd22@f$
      */
     double computeThValue();
 
@@ -190,7 +190,7 @@ private:
 
 /**
  * @class CCBd33
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBd33.
  */
 class CCBd33: public ThObservable {
@@ -202,7 +202,7 @@ public:
     CCBd33(const StandardModel& SM_i);
 
     /**
-     * @return @CCBd33@f$
+     * @return @f$CCBd33@f$
      */
     double computeThValue();
 
@@ -212,7 +212,7 @@ private:
 
 /**
  * @class CCBd12
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBd12.
  */
 class CCBd12: public ThObservable {
@@ -224,7 +224,7 @@ public:
     CCBd12(const StandardModel& SM_i);
 
     /**
-     * @return @CCBd12@f$
+     * @return @f$CCBd12@f$
      */
     double computeThValue();
 
@@ -234,7 +234,7 @@ private:
 
 /**
  * @class CCBd13
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBd13.
  */
 class CCBd13: public ThObservable {
@@ -246,7 +246,7 @@ public:
     CCBd13(const StandardModel& SM_i);
 
     /**
-     * @return @CCBd13@f$
+     * @return @f$CCBd13@f$
      */
     double computeThValue();
 
@@ -256,7 +256,7 @@ private:
 
 /**
  * @class CCBd23
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBd23.
  */
 class CCBd23: public ThObservable {
@@ -268,7 +268,7 @@ public:
     CCBd23(const StandardModel& SM_i);
 
     /**
-     * @return @CCBd23@f$
+     * @return @f$CCBd23@f$
      */
     double computeThValue();
 
@@ -278,7 +278,7 @@ private:
 
 /**
  * @class CCBe11
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBe11.
  */
 class CCBe11: public ThObservable {
@@ -290,7 +290,7 @@ public:
     CCBe11(const StandardModel& SM_i);
 
     /**
-     * @return @CCBe11@f$
+     * @return @f$CCBe11@f$
      */
     double computeThValue();
 
@@ -300,7 +300,7 @@ private:
 
 /**
  * @class CCBe22
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBe22.
  */
 class CCBe22: public ThObservable {
@@ -312,7 +312,7 @@ public:
     CCBe22(const StandardModel& SM_i);
 
     /**
-     * @return @CCBe22@f$
+     * @return @f$CCBe22@f$
      */
     double computeThValue();
 
@@ -322,7 +322,7 @@ private:
 
 /**
  * @class CCBe33
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBe33.
  */
 class CCBe33: public ThObservable {
@@ -334,7 +334,7 @@ public:
     CCBe33(const StandardModel& SM_i);
 
     /**
-     * @return @CCBe33@f$
+     * @return @f$CCBe33@f$
      */
     double computeThValue();
 
@@ -344,7 +344,7 @@ private:
 
 /**
  * @class CCBe12
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBe12.
  */
 class CCBe12: public ThObservable {
@@ -356,7 +356,7 @@ public:
     CCBe12(const StandardModel& SM_i);
 
     /**
-     * @return @CCBe12@f$
+     * @return @f$CCBe12@f$
      */
     double computeThValue();
 
@@ -366,7 +366,7 @@ private:
 
 /**
  * @class CCBe13
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBe13.
  */
 class CCBe13: public ThObservable {
@@ -378,7 +378,7 @@ public:
     CCBe13(const StandardModel& SM_i);
 
     /**
-     * @return @CCBe13@f$
+     * @return @f$CCBe13@f$
      */
     double computeThValue();
 
@@ -388,7 +388,7 @@ private:
 
 /**
  * @class CCBe23
- * @ingroup LeptonFlavour
+ * @ingroup SUSY
  * @brief CCBe23.
  */
 class CCBe23: public ThObservable {
@@ -400,7 +400,7 @@ public:
     CCBe23(const StandardModel& SM_i);
 
     /**
-     * @return @CCBe23@f$
+     * @return @f$CCBe23@f$
      */
     double computeThValue();
 
