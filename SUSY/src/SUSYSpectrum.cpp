@@ -14,8 +14,8 @@
 
 SUSYSpectrum::SUSYSpectrum(const SUSY & SUSY_in)
 : mySUSY(SUSY_in), Mchargino(2,2,0.), Mneutralino(4,4,0.),
-        Msup2(6,0.), Msdown2(6,0.), Msneutrino2(6,0.), Mselectron2(6,0.),
         U(2,2,0.), V(2,2,0.), N(4,4,0.),
+        Msup2(6,0.), Msdown2(6,0.), Msneutrino2(6,0.), Mselectron2(6,0.),
         mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sn2(6,0.), m_se2(6,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)
 {
@@ -338,6 +338,29 @@ bool SUSYSpectrum::CalcSelectron(gslpp::matrix<gslpp::complex>& Rl_i, gslpp::vec
 
     return true;
 
+}
+
+void SUSYSpectrum::SortSfermionMasses(gslpp::vector<double>& m_sf2, gslpp::matrix<gslpp::complex>& Rf) const
+{
+    int newIndex[6];
+    for (int i = 0; i < 6; i++)
+        newIndex[i] = i;
+
+    /* sort sfermion masses in increasing order */
+    for (int i = 0; i < 5; i++)
+        for (int k = i + 1; k < 6; k++)
+            if (m_sf2(i) > m_sf2(k)) {
+                std::swap(m_sf2(i), m_sf2(k));
+                std::swap(newIndex[i], newIndex[k]);
+            }
+
+    /* sort the corresponding rotation matrix, where the first(second) index
+     * denotes mass(gauge) eigenstates. */
+    gslpp::matrix<gslpp::complex> myRf(6, 6, 0.);
+    for (int i = 0; i < 6; i++)
+        for (int k = 0; k < 6; k++)
+            myRf.assign(k, i, Rf(newIndex[k], i));
+    Rf = myRf;
 }
 //
 //bool SUSYSpectrum::CalcSpectrum()

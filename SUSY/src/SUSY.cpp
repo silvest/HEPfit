@@ -156,13 +156,13 @@ bool SUSY::PostUpdate()
     if(!mySUSYSpectrum->CalcChargino(U,V,mch)) return (false);
     if(!mySUSYSpectrum->CalcNeutralino(N,mneu)) return (false);
     if(!mySUSYSpectrum->CalcSup(Ru,m_su2)) return (false);
-    myFH->SortSfermionMasses(m_su2, Ru);
+    mySUSYSpectrum->SortSfermionMasses(m_su2, Ru);
     if(!mySUSYSpectrum->CalcSdown(Rd,m_sd2)) return (false);
-    myFH->SortSfermionMasses(m_sd2, Rd);
+    mySUSYSpectrum->SortSfermionMasses(m_sd2, Rd);
     if(!mySUSYSpectrum->CalcSneutrino(Rn,m_sn2)) return (false);
-    myFH->SortSfermionMasses(m_sn2, Rn);
+    mySUSYSpectrum->SortSfermionMasses(m_sn2, Rn);
     if(!mySUSYSpectrum->CalcSelectron(Rl,m_se2)) return (false);
-    myFH->SortSfermionMasses(m_se2, Rl);
+    mySUSYSpectrum->SortSfermionMasses(m_se2, Rl);
     }
 
 //    std::cout<<"muH S = "<<muH<<std::endl;
