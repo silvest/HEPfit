@@ -484,8 +484,18 @@ public:
      */
     double ip_ex_ggF_A_hZ_bbll_CMS_e(double mass);
 
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to hh)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-15-013, Figure 5a @cite CMS:2016zxv.
+     */
     double ip_ex_pp_H_hh_CMS(double mass);
 
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to hh)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-15-013, Figure 5a @cite CMS:2016zxv.
+     */
     double ip_ex_pp_H_hh_CMS_e(double mass);
 
     /**
@@ -558,8 +568,18 @@ public:
      */
     double ip_ex_bbF_phi_tautau_CMS_e(double mass);
 
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a pseudoscalar resonance decaying to a Z boson and a photon which further decay into two leptons and a photon.
+     * @return @f$[\sigma_{pp\to A}\cdot BR(A\to Z\gamma \to \ell \ell \gamma)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-16-014, Figure 2 @cite CMS:2016all.
+     */
     double ip_ex_pp_A_Zga_llga_CMS(double mass);
 
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a pseudoscalar resonance decaying to a Z boson and a photon which further decay into two leptons and a photon.
+     * @return @f$[\sigma_{pp\to A}\cdot BR(A\to Z\gamma \to \ell \ell \gamma)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-16-014, Figure 2 @cite CMS:2016all.
+     */
     double ip_ex_pp_A_Zga_llga_CMS_e(double mass);
 
     /**
@@ -1068,6 +1088,10 @@ public:
      */
     double pp_A_gaga_TH;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma \to \ell \ell \gamma)@f$
+     */
     double pp_A_Zga_llga_TH;
 
     /**

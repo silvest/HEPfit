@@ -26,19 +26,18 @@ public:
     THDMMatching(const THDM & THDM_i);
 
     /**
-     * @return THDM Wilson coefficients for \f$ B_s \to \bar{B_s}\f$
+     * @return THDM Wilson coefficients for \f$ B_s \to \bar{B_s}\f$ according to @cite Geng:1988bq, @cite Deschamps:2009rh
      */
     virtual  std::vector<WilsonCoefficient>& CMdbs2();
 
     /**
-     * @return THDM Wilson coefficient for \f$ B \to \tau \nu \f$
+     * @return THDM Wilson coefficient for \f$ B \to \tau \nu \f$ from @cite Hou:1992sy
      */
     virtual  std::vector<WilsonCoefficient>& CMbtaunu();
 
 private:
     const THDM & myTHDM;
     gslpp::matrix<gslpp::complex> myCKM;
-
     WilsonCoefficient mcdbs2, mcbtaunu;
 
 };

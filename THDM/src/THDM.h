@@ -103,6 +103,11 @@ class THDMcache; //forward reference to THDMcache class
  *   <td class="mod_desc">This flag determines the type of @f$Z_2@f$ symmetry.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%RGEorder</td>
+ *   <td class="mod_valu">LO / approxNLO / NLO</td>
+ *   <td class="mod_desc">This flag determines the order in perturbation theory of the renormalization group equations.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%wavefunctionrenormalization</td>
  *   <td class="mod_valu">true / false</td>
  *   <td class="mod_desc">Whether to use wavefunction renormalization for NLO unitarity constraints.</td>

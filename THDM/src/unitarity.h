@@ -301,7 +301,7 @@ public:
 /**
  * @class unitarityNLO1
  * @ingroup THDM
- * @brief .
+ * @brief (B.1) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO1: public ThObservable {
 public:
@@ -311,9 +311,6 @@ public:
      */
     unitarityNLO1(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO1@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -322,7 +319,7 @@ private:
 /**
  * @class unitarityNLO2
  * @ingroup THDM
- * @brief .
+ * @brief (B.2) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO2: public ThObservable {
 public:
@@ -332,9 +329,6 @@ public:
      */
     unitarityNLO2(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO2@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -343,7 +337,7 @@ private:
 /**
  * @class unitarityNLO3
  * @ingroup THDM
- * @brief .
+ * @brief (B.3) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO3: public ThObservable {
 public:
@@ -353,9 +347,6 @@ public:
      */
     unitarityNLO3(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO3@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -364,7 +355,7 @@ private:
 /**
  * @class unitarityNLO4
  * @ingroup THDM
- * @brief .
+ * @brief (B.4) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO4: public ThObservable {
 public:
@@ -374,9 +365,6 @@ public:
      */
     unitarityNLO4(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO4@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -385,7 +373,7 @@ private:
 /**
  * @class unitarityNLO5
  * @ingroup THDM
- * @brief .
+ * @brief (B.6) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO5: public ThObservable {
 public:
@@ -395,9 +383,6 @@ public:
      */
     unitarityNLO5(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO5@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -406,7 +391,7 @@ private:
 /**
  * @class unitarityNLO6
  * @ingroup THDM
- * @brief .
+ * @brief (B.7) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO6: public ThObservable {
 public:
@@ -416,9 +401,6 @@ public:
      */
     unitarityNLO6(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO6@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -427,7 +409,7 @@ private:
 /**
  * @class unitarityNLO7
  * @ingroup THDM
- * @brief .
+ * @brief (B.8) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO7: public ThObservable {
 public:
@@ -437,9 +419,6 @@ public:
      */
     unitarityNLO7(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO7@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -448,7 +427,7 @@ private:
 /**
  * @class unitarityNLO8
  * @ingroup THDM
- * @brief .
+ * @brief (B.9) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO8: public ThObservable {
 public:
@@ -458,9 +437,6 @@ public:
      */
     unitarityNLO8(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO8@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -469,7 +445,7 @@ private:
 /**
  * @class unitarityNLO9
  * @ingroup THDM
- * @brief .
+ * @brief (B.12) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO9: public ThObservable {
 public:
@@ -479,9 +455,6 @@ public:
      */
     unitarityNLO9(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO9@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -490,7 +463,7 @@ private:
 /**
  * @class unitarityNLO10
  * @ingroup THDM
- * @brief .
+ * @brief (B.13) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO10: public ThObservable {
 public:
@@ -500,9 +473,6 @@ public:
      */
     unitarityNLO10(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO10@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -511,7 +481,7 @@ private:
 /**
  * @class unitarityNLO11
  * @ingroup THDM
- * @brief .
+ * @brief (B.15) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO11: public ThObservable {
 public:
@@ -521,9 +491,6 @@ public:
      */
     unitarityNLO11(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO11@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -532,7 +499,7 @@ private:
 /**
  * @class unitarityNLO12
  * @ingroup THDM
- * @brief .
+ * @brief (B.16) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO12: public ThObservable {
 public:
@@ -542,9 +509,6 @@ public:
      */
     unitarityNLO12(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO12@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -553,7 +517,7 @@ private:
 /**
  * @class unitarityNLO13
  * @ingroup THDM
- * @brief .
+ * @brief (B.18) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO13: public ThObservable {
 public:
@@ -563,9 +527,6 @@ public:
      */
     unitarityNLO13(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO13@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -574,7 +535,7 @@ private:
 /**
  * @class unitarityNLO14
  * @ingroup THDM
- * @brief .
+ * @brief (B.19) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO14: public ThObservable {
 public:
@@ -584,9 +545,6 @@ public:
      */
     unitarityNLO14(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO14@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -595,7 +553,7 @@ private:
 /**
  * @class unitarityNLO15
  * @ingroup THDM
- * @brief .
+ * @brief (B.20) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO15: public ThObservable {
 public:
@@ -605,9 +563,6 @@ public:
      */
     unitarityNLO15(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO15@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -616,7 +571,7 @@ private:
 /**
  * @class unitarityNLO16
  * @ingroup THDM
- * @brief .
+ * @brief (B.21) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO16: public ThObservable {
 public:
@@ -626,9 +581,6 @@ public:
      */
     unitarityNLO16(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO16@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -637,7 +589,7 @@ private:
 /**
  * @class unitarityNLO17
  * @ingroup THDM
- * @brief .
+ * @brief (B.22) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO17: public ThObservable {
 public:
@@ -647,9 +599,6 @@ public:
      */
     unitarityNLO17(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO17@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -658,7 +607,7 @@ private:
 /**
  * @class unitarityNLO18
  * @ingroup THDM
- * @brief .
+ * @brief (B.24) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO18: public ThObservable {
 public:
@@ -668,9 +617,6 @@ public:
      */
     unitarityNLO18(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO18@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -679,7 +625,7 @@ private:
 /**
  * @class unitarityNLO19
  * @ingroup THDM
- * @brief .
+ * @brief (B.25) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO19: public ThObservable {
 public:
@@ -689,9 +635,6 @@ public:
      */
     unitarityNLO19(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO19@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -700,7 +643,7 @@ private:
 /**
  * @class unitarityNLO20
  * @ingroup THDM
- * @brief .
+ * @brief (B.26) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO20: public ThObservable {
 public:
@@ -710,9 +653,6 @@ public:
      */
     unitarityNLO20(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO20@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -721,7 +661,7 @@ private:
 /**
  * @class unitarityNLO21
  * @ingroup THDM
- * @brief .
+ * @brief (B.27) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO21: public ThObservable {
 public:
@@ -731,9 +671,6 @@ public:
      */
     unitarityNLO21(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO21@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -742,7 +679,7 @@ private:
 /**
  * @class unitarityNLO22
  * @ingroup THDM
- * @brief .
+ * @brief (B.28) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO22: public ThObservable {
 public:
@@ -752,9 +689,6 @@ public:
      */
     unitarityNLO22(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO22@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -763,7 +697,7 @@ private:
 /**
  * @class unitarityNLO23
  * @ingroup THDM
- * @brief .
+ * @brief (B.29) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO23: public ThObservable {
 public:
@@ -773,9 +707,6 @@ public:
      */
     unitarityNLO23(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO23@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -784,7 +715,7 @@ private:
 /**
  * @class unitarityNLO24
  * @ingroup THDM
- * @brief .
+ * @brief (B.30) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO24: public ThObservable {
 public:
@@ -794,9 +725,6 @@ public:
      */
     unitarityNLO24(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO24@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -805,7 +733,7 @@ private:
 /**
  * @class unitarityNLO25
  * @ingroup THDM
- * @brief .
+ * @brief (B.32) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO25: public ThObservable {
 public:
@@ -815,9 +743,6 @@ public:
      */
     unitarityNLO25(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO25@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -826,7 +751,7 @@ private:
 /**
  * @class unitarityNLO26
  * @ingroup THDM
- * @brief .
+ * @brief (B.33) of @cite Grinstein:2015rtl.
  */
 class unitarityNLO26: public ThObservable {
 public:
@@ -836,9 +761,6 @@ public:
      */
     unitarityNLO26(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLO26@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -847,7 +769,7 @@ private:
 /**
  * @class unitarityNLOev1
  * @ingroup THDM
- * @brief .
+ * @brief First eigenvalue of the even 00 block.
  */
 class unitarityNLOev1: public ThObservable {
 public:
@@ -858,7 +780,7 @@ public:
     unitarityNLOev1(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev1@f$
+     * @return @f$a^{\text{even}}_{00+}@f$
      */
     double computeThValue();
 private:
@@ -868,7 +790,7 @@ private:
 /**
  * @class unitarityNLOev2
  * @ingroup THDM
- * @brief .
+ * @brief Second eigenvalue of the even 00 block.
  */
 class unitarityNLOev2: public ThObservable {
 public:
@@ -879,7 +801,7 @@ public:
     unitarityNLOev2(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev2@f$
+     * @return @f$a^{\text{even}}_{00-}@f$
      */
     double computeThValue();
 private:
@@ -889,7 +811,7 @@ private:
 /**
  * @class unitarityNLOev3
  * @ingroup THDM
- * @brief .
+ * @brief First eigenvalue of the odd 00 block.
  */
 class unitarityNLOev3: public ThObservable {
 public:
@@ -900,7 +822,7 @@ public:
     unitarityNLOev3(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev3@f$
+     * @return @f$a^{\text{odd}}_{00+}@f$
      */
     double computeThValue();
 private:
@@ -910,7 +832,7 @@ private:
 /**
  * @class unitarityNLOev4
  * @ingroup THDM
- * @brief .
+ * @brief Second eigenvalue of the odd 00 block.
  */
 class unitarityNLOev4: public ThObservable {
 public:
@@ -921,7 +843,7 @@ public:
     unitarityNLOev4(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev4@f$
+     * @return @f$a^{\text{odd}}_{00-}@f$
      */
     double computeThValue();
 private:
@@ -931,7 +853,7 @@ private:
 /**
  * @class unitarityNLOev5
  * @ingroup THDM
- * @brief .
+ * @brief First eigenvalue of the even 01 block.
  */
 class unitarityNLOev5: public ThObservable {
 public:
@@ -942,7 +864,7 @@ public:
     unitarityNLOev5(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev5@f$
+     * @return @f$a^{\text{even}}_{01+}@f$
      */
     double computeThValue();
 private:
@@ -952,7 +874,7 @@ private:
 /**
  * @class unitarityNLOev6
  * @ingroup THDM
- * @brief .
+ * @brief Second eigenvalue of the even 01 block.
  */
 class unitarityNLOev6: public ThObservable {
 public:
@@ -963,7 +885,7 @@ public:
     unitarityNLOev6(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev6@f$
+     * @return @f$a^{\text{even}}_{01-}@f$
      */
     double computeThValue();
 private:
@@ -973,7 +895,7 @@ private:
 /**
  * @class unitarityNLOev7
  * @ingroup THDM
- * @brief .
+ * @brief Third eigenvalue of the even 01 block (equivalent to the first without wavefunction renormalization).
  */
 class unitarityNLOev7: public ThObservable {
 public:
@@ -983,9 +905,6 @@ public:
      */
     unitarityNLOev7(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev7@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -994,7 +913,7 @@ private:
 /**
  * @class unitarityNLOev8
  * @ingroup THDM
- * @brief .
+ * @brief Fourth eigenvalue of the even 01 block (equivalent to the second without wavefunction renormalization).
  */
 class unitarityNLOev8: public ThObservable {
 public:
@@ -1004,9 +923,6 @@ public:
      */
     unitarityNLOev8(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev8@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1015,7 +931,7 @@ private:
 /**
  * @class unitarityNLOev9
  * @ingroup THDM
- * @brief .
+ * @brief First eigenvalue of the odd 01 block.
  */
 class unitarityNLOev9: public ThObservable {
 public:
@@ -1026,7 +942,7 @@ public:
     unitarityNLOev9(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev9@f$
+     * @return @f$a^{\text{odd}}_{01+}@f$
      */
     double computeThValue();
 private:
@@ -1036,7 +952,7 @@ private:
 /**
  * @class unitarityNLOev10
  * @ingroup THDM
- * @brief .
+ * @brief Second eigenvalue of the odd 01 block.
  */
 class unitarityNLOev10: public ThObservable {
 public:
@@ -1047,7 +963,7 @@ public:
     unitarityNLOev10(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev10@f$
+     * @return @f$a^{\text{odd}}_{01-}@f$
      */
     double computeThValue();
 private:
@@ -1057,7 +973,7 @@ private:
 /**
  * @class unitarityNLOev11
  * @ingroup THDM
- * @brief .
+ * @brief Third eigenvalue of the odd 01 block (equivalent to the first without wavefunction renormalization).
  */
 class unitarityNLOev11: public ThObservable {
 public:
@@ -1067,9 +983,6 @@ public:
      */
     unitarityNLOev11(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev11@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1078,7 +991,7 @@ private:
 /**
  * @class unitarityNLOev12
  * @ingroup THDM
- * @brief .
+ * @brief Fourth eigenvalue of the odd 01 block (equivalent to the second without wavefunction renormalization).
  */
 class unitarityNLOev12: public ThObservable {
 public:
@@ -1088,9 +1001,6 @@ public:
      */
     unitarityNLOev12(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev12@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1099,7 +1009,7 @@ private:
 /**
  * @class unitarityNLOev13
  * @ingroup THDM
- * @brief .
+ * @brief First eigenvalue of the even 11 block.
  */
 class unitarityNLOev13: public ThObservable {
 public:
@@ -1110,7 +1020,7 @@ public:
     unitarityNLOev13(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev13@f$
+     * @return @f$a^{\text{even}}_{11+}@f$
      */
     double computeThValue();
 private:
@@ -1120,7 +1030,7 @@ private:
 /**
  * @class unitarityNLOev14
  * @ingroup THDM
- * @brief .
+ * @brief Second eigenvalue of the even 11 block.
  */
 class unitarityNLOev14: public ThObservable {
 public:
@@ -1131,7 +1041,7 @@ public:
     unitarityNLOev14(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityNLOev14@f$
+     * @return @f$a^{\text{even}}_{11-}@f$
      */
     double computeThValue();
 private:
@@ -1141,7 +1051,7 @@ private:
 /**
  * @class unitarityNLOev15
  * @ingroup THDM
- * @brief .
+ * @brief Third eigenvalue of the even 11 block (equivalent to the first without wavefunction renormalization).
  */
 class unitarityNLOev15: public ThObservable {
 public:
@@ -1151,9 +1061,6 @@ public:
      */
     unitarityNLOev15(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev15@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1162,7 +1069,7 @@ private:
 /**
  * @class unitarityNLOev16
  * @ingroup THDM
- * @brief .
+ * @brief Fourth eigenvalue of the even 11 block (equivalent to the second without wavefunction renormalization).
  */
 class unitarityNLOev16: public ThObservable {
 public:
@@ -1172,9 +1079,6 @@ public:
      */
     unitarityNLOev16(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev16@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1183,7 +1087,7 @@ private:
 /**
  * @class unitarityNLOev17
  * @ingroup THDM
- * @brief .
+ * @brief Fifth eigenvalue of the even 11 block (equivalent to the first without wavefunction renormalization).
  */
 class unitarityNLOev17: public ThObservable {
 public:
@@ -1193,9 +1097,6 @@ public:
      */
     unitarityNLOev17(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev17@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1204,7 +1105,7 @@ private:
 /**
  * @class unitarityNLOev18
  * @ingroup THDM
- * @brief .
+ * @brief Sixth eigenvalue of the even 11 block (equivalent to the second without wavefunction renormalization).
  */
 class unitarityNLOev18: public ThObservable {
 public:
@@ -1214,9 +1115,6 @@ public:
      */
     unitarityNLOev18(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityNLOev18@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1225,7 +1123,7 @@ private:
 /**
  * @class unitarityRp1
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the first Z2-even 00 eigenvalue (corresponding to unitarityNLOev1).
  */
 class unitarityRp1: public ThObservable {
 public:
@@ -1236,7 +1134,7 @@ public:
     unitarityRp1(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp1@f$
+     * @return @f$|a^{\text{even,NLO}}_{00+}/a^{\text{even,LO}}_{00+}|@f$
      */
     double computeThValue();
 private:
@@ -1246,7 +1144,7 @@ private:
 /**
  * @class unitarityRp2
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the second Z2-even 00 eigenvalue (corresponding to unitarityNLOev2).
  */
 class unitarityRp2: public ThObservable {
 public:
@@ -1257,7 +1155,7 @@ public:
     unitarityRp2(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp2@f$
+     * @return @f$|a^{\text{even,NLO}}_{00-}/a^{\text{even,LO}}_{00-}|@f$
      */
     double computeThValue();
 private:
@@ -1267,7 +1165,7 @@ private:
 /**
  * @class unitarityRp3
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the first Z2-odd 00 eigenvalue (corresponding to unitarityNLOev3).
  */
 class unitarityRp3: public ThObservable {
 public:
@@ -1278,7 +1176,7 @@ public:
     unitarityRp3(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp3@f$
+     * @return @f$|a^{\text{odd,NLO}}_{00+}/a^{\text{odd,LO}}_{00+}|@f$
      */
     double computeThValue();
 private:
@@ -1288,7 +1186,7 @@ private:
 /**
  * @class unitarityRp4
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the second Z2-odd 00 eigenvalue (corresponding to unitarityNLOev3).
  */
 class unitarityRp4: public ThObservable {
 public:
@@ -1299,7 +1197,7 @@ public:
     unitarityRp4(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp4@f$
+     * @return @f$|a^{\text{odd,NLO}}_{00-}/a^{\text{odd,LO}}_{00-}|@f$
      */
     double computeThValue();
 private:
@@ -1309,7 +1207,7 @@ private:
 /**
  * @class unitarityRp5
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the first Z2-even 01 eigenvalue (corresponding to unitarityNLOev5).
  */
 class unitarityRp5: public ThObservable {
 public:
@@ -1320,7 +1218,7 @@ public:
     unitarityRp5(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp5@f$
+     * @return @f$|a^{\text{even,NLO}}_{01+}/a^{\text{even,LO}}_{01+}|@f$
      */
     double computeThValue();
 private:
@@ -1330,7 +1228,7 @@ private:
 /**
  * @class unitarityRp6
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the second Z2-even 01 eigenvalue (corresponding to unitarityNLOev6).
  */
 class unitarityRp6: public ThObservable {
 public:
@@ -1341,7 +1239,7 @@ public:
     unitarityRp6(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp6@f$
+     * @return @f$|a^{\text{even,NLO}}_{01-}/a^{\text{even,LO}}_{01-}|@f$
      */
     double computeThValue();
 private:
@@ -1351,7 +1249,6 @@ private:
 /**
  * @class unitarityRp7
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp7: public ThObservable {
 public:
@@ -1361,9 +1258,6 @@ public:
      */
     unitarityRp7(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp7@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1372,7 +1266,6 @@ private:
 /**
  * @class unitarityRp8
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp8: public ThObservable {
 public:
@@ -1382,9 +1275,6 @@ public:
      */
     unitarityRp8(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp8@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1393,7 +1283,7 @@ private:
 /**
  * @class unitarityRp9
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the first Z2-odd 01 eigenvalue (corresponding to unitarityNLOev9).
  */
 class unitarityRp9: public ThObservable {
 public:
@@ -1404,7 +1294,7 @@ public:
     unitarityRp9(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp9@f$
+     * @return @f$|a^{\text{odd,NLO}}_{01+}/a^{\text{odd,LO}}_{01+}|@f$
      */
     double computeThValue();
 private:
@@ -1414,7 +1304,7 @@ private:
 /**
  * @class unitarityRp10
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the second Z2-odd 01 eigenvalue (corresponding to unitarityNLOev10).
  */
 class unitarityRp10: public ThObservable {
 public:
@@ -1425,7 +1315,7 @@ public:
     unitarityRp10(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp10@f$
+     * @return @f$|a^{\text{odd,NLO}}_{01-}/a^{\text{odd,LO}}_{01-}|@f$
      */
     double computeThValue();
 private:
@@ -1435,7 +1325,6 @@ private:
 /**
  * @class unitarityRp11
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp11: public ThObservable {
 public:
@@ -1445,9 +1334,6 @@ public:
      */
     unitarityRp11(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp11@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1456,7 +1342,6 @@ private:
 /**
  * @class unitarityRp12
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp12: public ThObservable {
 public:
@@ -1466,9 +1351,6 @@ public:
      */
     unitarityRp12(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp12@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1477,7 +1359,7 @@ private:
 /**
  * @class unitarityRp13
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the first Z2-even 11 eigenvalue (corresponding to unitarityNLOev13).
  */
 class unitarityRp13: public ThObservable {
 public:
@@ -1488,7 +1370,7 @@ public:
     unitarityRp13(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp13@f$
+     * @return @f$|a^{\text{even,NLO}}_{11+}/a^{\text{even,LO}}_{11+}|@f$
      */
     double computeThValue();
 private:
@@ -1498,7 +1380,7 @@ private:
 /**
  * @class unitarityRp14
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the second Z2-even 11 eigenvalue (corresponding to unitarityNLOev14).
  */
 class unitarityRp14: public ThObservable {
 public:
@@ -1509,7 +1391,7 @@ public:
     unitarityRp14(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp14@f$
+     * @return @f$|a^{\text{even,NLO}}_{11-}/a^{\text{even,LO}}_{11-}|@f$
      */
     double computeThValue();
 private:
@@ -1519,7 +1401,6 @@ private:
 /**
  * @class unitarityRp15
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp15: public ThObservable {
 public:
@@ -1529,9 +1410,6 @@ public:
      */
     unitarityRp15(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp15@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1540,7 +1418,6 @@ private:
 /**
  * @class unitarityRp16
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp16: public ThObservable {
 public:
@@ -1550,9 +1427,6 @@ public:
      */
     unitarityRp16(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp16@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1561,7 +1435,6 @@ private:
 /**
  * @class unitarityRp17
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp17: public ThObservable {
 public:
@@ -1571,9 +1444,6 @@ public:
      */
     unitarityRp17(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp17@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1582,7 +1452,6 @@ private:
 /**
  * @class unitarityRp18
  * @ingroup THDM
- * @brief .
  */
 class unitarityRp18: public ThObservable {
 public:
@@ -1592,9 +1461,6 @@ public:
      */
     unitarityRp18(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityRp18@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1603,7 +1469,7 @@ private:
 /**
  * @class unitarityRp19
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the Z2-odd 10 eigenvalue (corresponding to unitarityNLO14).
  */
 class unitarityRp19: public ThObservable {
 public:
@@ -1614,7 +1480,7 @@ public:
     unitarityRp19(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp19@f$
+     * @return @f$|a^{\text{odd,NLO}}_{10}/a^{\text{odd,LO}}_{10}|@f$
      */
     double computeThValue();
 private:
@@ -1624,7 +1490,7 @@ private:
 /**
  * @class unitarityRp20
  * @ingroup THDM
- * @brief .
+ * @brief NLO over LO ratio for the Z2-odd 11 eigenvalue (corresponding to unitarityNLO24).
  */
 class unitarityRp20: public ThObservable {
 public:
@@ -1635,49 +1501,7 @@ public:
     unitarityRp20(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityRp20@f$
-     */
-    double computeThValue();
-private:
-    const THDM& myTHDM;
-};
-
-/**
- * @class unitarityRp21
- * @ingroup THDM
- * @brief .
- */
-class unitarityRp21: public ThObservable {
-public:
-
-    /**
-     * @brief unitarityRp21 constructor.
-     */
-    unitarityRp21(const StandardModel& SM_i);
-
-    /**
-     * @return @f$unitarityRp21@f$
-     */
-    double computeThValue();
-private:
-    const THDM& myTHDM;
-};
-
-/**
- * @class unitarityRp22
- * @ingroup THDM
- * @brief .
- */
-class unitarityRp22: public ThObservable {
-public:
-
-    /**
-     * @brief unitarityRp22 constructor.
-     */
-    unitarityRp22(const StandardModel& SM_i);
-
-    /**
-     * @return @f$unitarityRp22@f$
+     * @return @f$|a^{\text{odd,NLO}}_{11}/a^{\text{odd,LO}}_{11}|@f$
      */
     double computeThValue();
 private:
@@ -1687,7 +1511,7 @@ private:
 /**
  * @class unitarityR1
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total first Z2-even 00 eigenvalue (corresponding to unitarityNLOev1).
  */
 class unitarityR1: public ThObservable {
 public:
@@ -1698,7 +1522,7 @@ public:
     unitarityR1(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR1@f$
+     * @return @f$|a^{\text{even,NLO}}_{00+}/a^{\text{even}}_{00+}|@f$
      */
     double computeThValue();
 private:
@@ -1708,7 +1532,7 @@ private:
 /**
  * @class unitarityR2
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total second Z2-even 00 eigenvalue (corresponding to unitarityNLOev2).
  */
 class unitarityR2: public ThObservable {
 public:
@@ -1719,7 +1543,7 @@ public:
     unitarityR2(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR2@f$
+     * @return @f$|a^{\text{even,NLO}}_{00-}/a^{\text{even}}_{00-}|@f$
      */
     double computeThValue();
 private:
@@ -1729,7 +1553,7 @@ private:
 /**
  * @class unitarityR3
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total first Z2-odd 00 eigenvalue (corresponding to unitarityNLOev3).
  */
 class unitarityR3: public ThObservable {
 public:
@@ -1740,7 +1564,7 @@ public:
     unitarityR3(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR3@f$
+     * @return @f$|a^{\text{odd,NLO}}_{00+}/a^{\text{odd}}_{00+}|@f$
      */
     double computeThValue();
 private:
@@ -1750,7 +1574,7 @@ private:
 /**
  * @class unitarityR4
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total second Z2-odd 00 eigenvalue (corresponding to unitarityNLOev4).
  */
 class unitarityR4: public ThObservable {
 public:
@@ -1761,7 +1585,7 @@ public:
     unitarityR4(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR4@f$
+     * @return @f$|a^{\text{odd,NLO}}_{00-}/a^{\text{odd}}_{00-}|@f$
      */
     double computeThValue();
 private:
@@ -1771,7 +1595,7 @@ private:
 /**
  * @class unitarityR5
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total first Z2-even 01 eigenvalue (corresponding to unitarityNLOev5).
  */
 class unitarityR5: public ThObservable {
 public:
@@ -1782,7 +1606,7 @@ public:
     unitarityR5(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR5@f$
+     * @return @f$|a^{\text{even,NLO}}_{01+}/a^{\text{even}}_{01+}|@f$
      */
     double computeThValue();
 private:
@@ -1792,7 +1616,7 @@ private:
 /**
  * @class unitarityR6
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total second Z2-even 01 eigenvalue (corresponding to unitarityNLOev6).
  */
 class unitarityR6: public ThObservable {
 public:
@@ -1803,7 +1627,7 @@ public:
     unitarityR6(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR6@f$
+     * @return @f$|a^{\text{even,NLO}}_{01-}/a^{\text{even}}_{01-}|@f$
      */
     double computeThValue();
 private:
@@ -1813,7 +1637,6 @@ private:
 /**
  * @class unitarityR7
  * @ingroup THDM
- * @brief .
  */
 class unitarityR7: public ThObservable {
 public:
@@ -1823,9 +1646,6 @@ public:
      */
     unitarityR7(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR7@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1834,7 +1654,6 @@ private:
 /**
  * @class unitarityR8
  * @ingroup THDM
- * @brief .
  */
 class unitarityR8: public ThObservable {
 public:
@@ -1844,9 +1663,6 @@ public:
      */
     unitarityR8(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR8@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1855,7 +1671,7 @@ private:
 /**
  * @class unitarityR9
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total first Z2-odd 01 eigenvalue (corresponding to unitarityNLOev9).
  */
 class unitarityR9: public ThObservable {
 public:
@@ -1866,7 +1682,7 @@ public:
     unitarityR9(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR9@f$
+     * @return @f$|a^{\text{odd,NLO}}_{01+}/a^{\text{odd}}_{01+}|@f$
      */
     double computeThValue();
 private:
@@ -1876,7 +1692,7 @@ private:
 /**
  * @class unitarityR10
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total second Z2-odd 01 eigenvalue (corresponding to unitarityNLOev10).
  */
 class unitarityR10: public ThObservable {
 public:
@@ -1887,7 +1703,7 @@ public:
     unitarityR10(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR10@f$
+     * @return @f$|a^{\text{odd,NLO}}_{01-}/a^{\text{odd}}_{01-}|@f$
      */
     double computeThValue();
 private:
@@ -1897,7 +1713,6 @@ private:
 /**
  * @class unitarityR11
  * @ingroup THDM
- * @brief .
  */
 class unitarityR11: public ThObservable {
 public:
@@ -1907,9 +1722,6 @@ public:
      */
     unitarityR11(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR11@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1918,7 +1730,6 @@ private:
 /**
  * @class unitarityR12
  * @ingroup THDM
- * @brief .
  */
 class unitarityR12: public ThObservable {
 public:
@@ -1928,9 +1739,6 @@ public:
      */
     unitarityR12(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR12@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -1939,7 +1747,7 @@ private:
 /**
  * @class unitarityR13
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total first Z2-even 11 eigenvalue (corresponding to unitarityNLOev13).
  */
 class unitarityR13: public ThObservable {
 public:
@@ -1950,7 +1758,7 @@ public:
     unitarityR13(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR13@f$
+     * @return @f$|a^{\text{even,NLO}}_{11+}/a^{\text{even}}_{11+}|@f$
      */
     double computeThValue();
 private:
@@ -1960,7 +1768,7 @@ private:
 /**
  * @class unitarityR14
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total second Z2-even 11 eigenvalue (corresponding to unitarityNLOev14).
  */
 class unitarityR14: public ThObservable {
 public:
@@ -1971,7 +1779,7 @@ public:
     unitarityR14(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR14@f$
+     * @return @f$|a^{\text{even,NLO}}_{11-}/a^{\text{even}}_{11-}|@f$
      */
     double computeThValue();
 private:
@@ -1981,7 +1789,6 @@ private:
 /**
  * @class unitarityR15
  * @ingroup THDM
- * @brief .
  */
 class unitarityR15: public ThObservable {
 public:
@@ -1991,9 +1798,6 @@ public:
      */
     unitarityR15(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR15@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -2002,7 +1806,6 @@ private:
 /**
  * @class unitarityR16
  * @ingroup THDM
- * @brief .
  */
 class unitarityR16: public ThObservable {
 public:
@@ -2012,9 +1815,6 @@ public:
      */
     unitarityR16(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR16@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -2023,7 +1823,6 @@ private:
 /**
  * @class unitarityR17
  * @ingroup THDM
- * @brief .
  */
 class unitarityR17: public ThObservable {
 public:
@@ -2033,9 +1832,6 @@ public:
      */
     unitarityR17(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR17@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -2044,7 +1840,6 @@ private:
 /**
  * @class unitarityR18
  * @ingroup THDM
- * @brief .
  */
 class unitarityR18: public ThObservable {
 public:
@@ -2054,9 +1849,6 @@ public:
      */
     unitarityR18(const StandardModel& SM_i);
 
-    /**
-     * @return @f$unitarityR18@f$
-     */
     double computeThValue();
 private:
     const THDM& myTHDM;
@@ -2065,7 +1857,7 @@ private:
 /**
  * @class unitarityR19
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total Z2-odd 10 eigenvalue (corresponding to unitarityNLO14).
  */
 class unitarityR19: public ThObservable {
 public:
@@ -2076,7 +1868,7 @@ public:
     unitarityR19(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR19@f$
+     * @return @f$|a^{\text{odd,NLO}}_{10}/a^{\text{odd}}_{10}|@f$
      */
     double computeThValue();
 private:
@@ -2086,7 +1878,7 @@ private:
 /**
  * @class unitarityR20
  * @ingroup THDM
- * @brief .
+ * @brief NLO part over total Z2-odd 11 eigenvalue (corresponding to unitarityNLO24).
  */
 class unitarityR20: public ThObservable {
 public:
@@ -2097,49 +1889,7 @@ public:
     unitarityR20(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitarityR20@f$
-     */
-    double computeThValue();
-private:
-    const THDM& myTHDM;
-};
-
-/**
- * @class unitarityR21
- * @ingroup THDM
- * @brief .
- */
-class unitarityR21: public ThObservable {
-public:
-
-    /**
-     * @brief unitarityR21 constructor.
-     */
-    unitarityR21(const StandardModel& SM_i);
-
-    /**
-     * @return @f$unitarityR21@f$
-     */
-    double computeThValue();
-private:
-    const THDM& myTHDM;
-};
-
-/**
- * @class unitarityR22
- * @ingroup THDM
- * @brief .
- */
-class unitarityR22: public ThObservable {
-public:
-
-    /**
-     * @brief unitarityR22 constructor.
-     */
-    unitarityR22(const StandardModel& SM_i);
-
-    /**
-     * @return @f$unitarityR22@f$
+     * @return @f$|a^{\text{odd,NLO}}_{11}/a^{\text{odd}}_{11}|@f$
      */
     double computeThValue();
 private:
@@ -2149,7 +1899,7 @@ private:
 /**
  * @class unitaritya00evenpRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{even}}_{00+}@f$.
  */
 class unitaritya00evenpRe: public ThObservable {
 public:
@@ -2160,7 +1910,7 @@ public:
     unitaritya00evenpRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00evenpRe@f$
+     * @return @f$\Re[a^{\text{even}}_{00+}]@f$
      */
     double computeThValue();
 private:
@@ -2170,7 +1920,7 @@ private:
 /**
  * @class unitaritya00evenpIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{even}}_{00+}@f$.
  */
 class unitaritya00evenpIm: public ThObservable {
 public:
@@ -2181,7 +1931,7 @@ public:
     unitaritya00evenpIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00evenpIm@f$
+     * @return @f$\Im[a^{\text{even}}_{00+}]@f$
      */
     double computeThValue();
 private:
@@ -2191,7 +1941,7 @@ private:
 /**
  * @class unitaritya00evenmRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{even}}_{00-}@f$.
  */
 class unitaritya00evenmRe: public ThObservable {
 public:
@@ -2202,7 +1952,7 @@ public:
     unitaritya00evenmRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00evenmRe@f$
+     * @return @f$\Re[a^{\text{even}}_{00-}]@f$
      */
     double computeThValue();
 private:
@@ -2212,7 +1962,7 @@ private:
 /**
  * @class unitaritya00evenmIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{even}}_{00-}@f$.
  */
 class unitaritya00evenmIm: public ThObservable {
 public:
@@ -2223,7 +1973,7 @@ public:
     unitaritya00evenmIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00evenmIm@f$
+     * @return @f$\Im[a^{\text{even}}_{00-}]@f$
      */
     double computeThValue();
 private:
@@ -2233,7 +1983,7 @@ private:
 /**
  * @class unitaritya00oddpRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{odd}}_{00+}@f$.
  */
 class unitaritya00oddpRe: public ThObservable {
 public:
@@ -2244,7 +1994,7 @@ public:
     unitaritya00oddpRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00oddpRe@f$
+     * @return @f$\Re[a^{\text{odd}}_{00+}]@f$
      */
     double computeThValue();
 private:
@@ -2254,7 +2004,7 @@ private:
 /**
  * @class unitaritya00oddpIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{odd}}_{00+}@f$.
  */
 class unitaritya00oddpIm: public ThObservable {
 public:
@@ -2265,7 +2015,7 @@ public:
     unitaritya00oddpIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00oddpIm@f$
+     * @return @f$\Im[a^{\text{odd}}_{00+}]@f$
      */
     double computeThValue();
 private:
@@ -2275,7 +2025,7 @@ private:
 /**
  * @class unitaritya00oddmRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{odd}}_{00-}@f$.
  */
 class unitaritya00oddmRe: public ThObservable {
 public:
@@ -2286,7 +2036,7 @@ public:
     unitaritya00oddmRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00oddmRe@f$
+     * @return @f$\Re[a^{\text{odd}}_{00-}]@f$
      */
     double computeThValue();
 private:
@@ -2296,7 +2046,7 @@ private:
 /**
  * @class unitaritya00oddmIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{odd}}_{00-}@f$.
  */
 class unitaritya00oddmIm: public ThObservable {
 public:
@@ -2307,7 +2057,7 @@ public:
     unitaritya00oddmIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya00oddmIm@f$
+     * @return @f$\Im[a^{\text{odd}}_{00-}]@f$
      */
     double computeThValue();
 private:
@@ -2317,7 +2067,7 @@ private:
 /**
  * @class unitaritya01evenpRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{even}}_{01+}@f$.
  */
 class unitaritya01evenpRe: public ThObservable {
 public:
@@ -2328,7 +2078,7 @@ public:
     unitaritya01evenpRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01evenpRe@f$
+     * @return @f$\Re[a^{\text{even}}_{01+}]@f$
      */
     double computeThValue();
 private:
@@ -2338,7 +2088,7 @@ private:
 /**
  * @class unitaritya01evenpIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{even}}_{01+}@f$.
  */
 class unitaritya01evenpIm: public ThObservable {
 public:
@@ -2349,7 +2099,7 @@ public:
     unitaritya01evenpIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01evenpIm@f$
+     * @return @f$\Im[a^{\text{even}}_{01+}]@f$
      */
     double computeThValue();
 private:
@@ -2359,7 +2109,7 @@ private:
 /**
  * @class unitaritya01evenmRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{even}}_{01-}@f$.
  */
 class unitaritya01evenmRe: public ThObservable {
 public:
@@ -2370,7 +2120,7 @@ public:
     unitaritya01evenmRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01evenmRe@f$
+     * @return @f$\Re[a^{\text{even}}_{01-}]@f$
      */
     double computeThValue();
 private:
@@ -2380,7 +2130,7 @@ private:
 /**
  * @class unitaritya01evenmIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{even}}_{01-}@f$.
  */
 class unitaritya01evenmIm: public ThObservable {
 public:
@@ -2391,7 +2141,7 @@ public:
     unitaritya01evenmIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01evenmIm@f$
+     * @return @f$\Im[a^{\text{even}}_{01-}]@f$
      */
     double computeThValue();
 private:
@@ -2401,7 +2151,7 @@ private:
 /**
  * @class unitaritya01oddpRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{odd}}_{01+}@f$.
  */
 class unitaritya01oddpRe: public ThObservable {
 public:
@@ -2412,7 +2162,7 @@ public:
     unitaritya01oddpRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01oddpRe@f$
+     * @return @f$\Re[a^{\text{odd}}_{01+}]@f$
      */
     double computeThValue();
 private:
@@ -2422,7 +2172,7 @@ private:
 /**
  * @class unitaritya01oddpIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{odd}}_{01+}@f$.
  */
 class unitaritya01oddpIm: public ThObservable {
 public:
@@ -2433,7 +2183,7 @@ public:
     unitaritya01oddpIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01oddpIm@f$
+     * @return @f$\Im[a^{\text{odd}}_{01+}]@f$
      */
     double computeThValue();
 private:
@@ -2443,7 +2193,7 @@ private:
 /**
  * @class unitaritya01oddmRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{odd}}_{01-}@f$.
  */
 class unitaritya01oddmRe: public ThObservable {
 public:
@@ -2454,7 +2204,7 @@ public:
     unitaritya01oddmRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01oddmRe@f$
+     * @return @f$\Re[a^{\text{odd}}_{01-}]@f$
      */
     double computeThValue();
 private:
@@ -2464,7 +2214,7 @@ private:
 /**
  * @class unitaritya01oddmIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{odd}}_{01-}@f$.
  */
 class unitaritya01oddmIm: public ThObservable {
 public:
@@ -2475,7 +2225,7 @@ public:
     unitaritya01oddmIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya01oddmIm@f$
+     * @return @f$\Im[a^{\text{odd}}_{01-}]@f$
      */
     double computeThValue();
 private:
@@ -2485,7 +2235,7 @@ private:
 /**
  * @class unitaritya10oddRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{odd}}_{10}@f$.
  */
 class unitaritya10oddRe: public ThObservable {
 public:
@@ -2496,7 +2246,7 @@ public:
     unitaritya10oddRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya10oddRe@f$
+     * @return @f$\Re[a^{\text{odd}}_{10}]@f$
      */
     double computeThValue();
 private:
@@ -2506,7 +2256,7 @@ private:
 /**
  * @class unitaritya10oddIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{odd}}_{10}@f$.
  */
 class unitaritya10oddIm: public ThObservable {
 public:
@@ -2517,7 +2267,7 @@ public:
     unitaritya10oddIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya10oddIm@f$
+     * @return @f$\Im[a^{\text{odd}}_{10}]@f$
      */
     double computeThValue();
 private:
@@ -2527,7 +2277,7 @@ private:
 /**
  * @class unitaritya11evenpRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{even}}_{11+}@f$.
  */
 class unitaritya11evenpRe: public ThObservable {
 public:
@@ -2538,7 +2288,7 @@ public:
     unitaritya11evenpRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya11evenpRe@f$
+     * @return @f$\Re[a^{\text{even}}_{11+}]@f$
      */
     double computeThValue();
 private:
@@ -2548,7 +2298,7 @@ private:
 /**
  * @class unitaritya11evenpIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{even}}_{11+}@f$.
  */
 class unitaritya11evenpIm: public ThObservable {
 public:
@@ -2559,7 +2309,7 @@ public:
     unitaritya11evenpIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya11evenpIm@f$
+     * @return @f$\Im[a^{\text{even}}_{11+}]@f$
      */
     double computeThValue();
 private:
@@ -2569,7 +2319,7 @@ private:
 /**
  * @class unitaritya11evenmRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{even}}_{11-}@f$.
  */
 class unitaritya11evenmRe: public ThObservable {
 public:
@@ -2580,7 +2330,7 @@ public:
     unitaritya11evenmRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya11evenmRe@f$
+     * @return @f$\Re[a^{\text{even}}_{11-}]@f$
      */
     double computeThValue();
 private:
@@ -2590,7 +2340,7 @@ private:
 /**
  * @class unitaritya11evenmIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{even}}_{11-}@f$.
  */
 class unitaritya11evenmIm: public ThObservable {
 public:
@@ -2601,7 +2351,7 @@ public:
     unitaritya11evenmIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya11evenmIm@f$
+     * @return @f$\Im[a^{\text{even}}_{11-}]@f$
      */
     double computeThValue();
 private:
@@ -2611,7 +2361,7 @@ private:
 /**
  * @class unitaritya11oddRe
  * @ingroup THDM
- * @brief .
+ * @brief Real part of @f$a^{\text{odd}}_{11}@f$.
  */
 class unitaritya11oddRe: public ThObservable {
 public:
@@ -2622,7 +2372,7 @@ public:
     unitaritya11oddRe(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya11oddRe@f$
+     * @return @f$\Re[a^{\text{odd}}_{11}]@f$
      */
     double computeThValue();
 private:
@@ -2632,7 +2382,7 @@ private:
 /**
  * @class unitaritya11oddIm
  * @ingroup THDM
- * @brief .
+ * @brief Imaginary part of @f$a^{\text{odd}}_{11}@f$.
  */
 class unitaritya11oddIm: public ThObservable {
 public:
@@ -2643,7 +2393,7 @@ public:
     unitaritya11oddIm(const StandardModel& SM_i);
 
     /**
-     * @return @f$unitaritya11oddIm@f$
+     * @return @f$\Im[a^{\text{odd}}_{11}]@f$
      */
     double computeThValue();
 private:

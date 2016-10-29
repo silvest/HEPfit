@@ -76,48 +76,6 @@ public:
 };
 
 /**
- * @class masssquare_mA
- * @ingroup THDM 
- * @brief The squared mass of the CP-odd Higgs state.
- */
-class masssquare_mA: public ThObservable {
-public:
-
-    /**
-     * @brief masssquare_mA constructor.
-     */
-    masssquare_mA(const StandardModel& SM_i);
-
-    /**
-     * @return @f$m_A^2@f$
-     */
-    double computeThValue();
-
-    const THDM * myTHDM;
-};
-
-/**
- * @class masssquare_mHp
- * @ingroup THDM 
- * @brief The squared mass of the charged Higgs state.
- */
-class masssquare_mHp: public ThObservable {
-public:
-
-    /**
-     * @brief masssquare_mHp constructor.
-     */
-    masssquare_mHp(const StandardModel& SM_i);
-
-    /**
-     * @return @f$m_{H^+}^2@f$
-     */
-    double computeThValue();
-
-    const THDM * myTHDM;
-};
-
-/**
  * @class massdifference_mHhmmA
  * @ingroup THDM 
  * @brief The difference between the masses of the heavy CP-even and the CP-odd Higgs.
@@ -623,7 +581,7 @@ public:
  * @class Y1_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Y_1@f$.
- * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_1@f$ in the Higgs basis.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_1@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Y1_THDM : public ThObservable {
 public:
@@ -646,7 +604,7 @@ public:
  * @class Y2_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Y_2@f$.
- * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_2@f$ in the Higgs basis.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_2@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Y2_THDM : public ThObservable {
 public:
@@ -669,7 +627,7 @@ public:
  * @class Y3_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Y_3@f$.
- * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_3@f$ in the Higgs basis.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$Y_3@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Y3_THDM : public ThObservable {
 public:
@@ -692,7 +650,7 @@ public:
  * @class Z1_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Z_1@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$Z_1@f$ in the Higgs basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_1@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Z1_THDM : public ThObservable {
 public:
@@ -715,7 +673,7 @@ public:
  * @class Z2_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Z_2@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$Z_2@f$ in the Higgs basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_2@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Z2_THDM : public ThObservable {
 public:
@@ -738,7 +696,7 @@ public:
  * @class Z3_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Z_3@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$Z_3@f$ in the Higgs basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_3@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Z3_THDM : public ThObservable {
 public:
@@ -761,7 +719,7 @@ public:
  * @class Z4_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Z_4@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$Z_4@f$ in the Higgs basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_4@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Z4_THDM : public ThObservable {
 public:
@@ -784,7 +742,7 @@ public:
  * @class Z5_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Z_5@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$Z_5@f$ in the Higgs basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_5@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Z5_THDM : public ThObservable {
 public:
@@ -807,7 +765,7 @@ public:
  * @class Z6_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Z_6@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$Z_6@f$ in the Higgs basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_6@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Z6_THDM : public ThObservable {
 public:
@@ -830,7 +788,7 @@ public:
  * @class Z7_THDM
  * @ingroup THDM 
  * @brief An observable class for the Higgs basis parameter @f$Z_7@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$Z_7@f$ in the Higgs basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$Z_7@f$ in the Higgs basis, see @cite Bernon:2015qea.
  */
 class Z7_THDM : public ThObservable {
 public:
@@ -853,7 +811,7 @@ public:
  * @class xi0_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$\xi_0@f$.
- * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_0@f$ in the bilinear basis.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_0@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class xi0_THDM : public ThObservable {
 public:
@@ -876,7 +834,7 @@ public:
  * @class xi1_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$\xi_1@f$.
- * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_1@f$ in the bilinear basis.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_1@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class xi1_THDM : public ThObservable {
 public:
@@ -899,7 +857,7 @@ public:
  * @class xi3_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$\xi_3@f$.
- * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_3@f$ in the bilinear basis.
+ * @details This class is used to compute the quadratic Higgs potential coupling @f$\xi_3@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class xi3_THDM : public ThObservable {
 public:
@@ -922,7 +880,7 @@ public:
  * @class eta00_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$\eta_{00}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\eta_{00}@f$ in the bilinear basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\eta_{00}@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class eta00_THDM : public ThObservable {
 public:
@@ -945,7 +903,7 @@ public:
  * @class eta3_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$\eta_3@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\eta_3@f$ in the bilinear basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\eta_3@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class eta3_THDM : public ThObservable {
 public:
@@ -968,7 +926,7 @@ public:
  * @class E11_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$E_{11}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$E_{11}@f$ in the bilinear basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$E_{11}@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class E11_THDM : public ThObservable {
 public:
@@ -991,7 +949,7 @@ public:
  * @class E22_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$E_{22}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$E_{22}@f$ in the bilinear basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$E_{22}@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class E22_THDM : public ThObservable {
 public:
@@ -1014,7 +972,7 @@ public:
  * @class E33_THDM
  * @ingroup THDM 
  * @brief An observable class for the bilinear basis parameter @f$E_{33}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$E_{33}@f$ in the bilinear basis.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$E_{33}@f$ in the bilinear basis, see @cite Maniatis:2011qu.
  */
 class E33_THDM : public ThObservable {
 public:
@@ -1037,7 +995,7 @@ public:
  * @class HHlambda1 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_1^\text{HH}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_1^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_1^\text{HH}@f$, see (4.8) in @cite Gunion:1989we.
  */
 class HHlambda1 : public ThObservable {
 public:
@@ -1060,7 +1018,7 @@ public:
  * @class HHlambda2 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_2^\text{HH}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_2^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_2^\text{HH}@f$, see (4.8) in @cite Gunion:1989we.
  */
 class HHlambda2 : public ThObservable {
 public:
@@ -1083,7 +1041,7 @@ public:
  * @class HHlambda3 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_3^\text{HH}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_3^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_3^\text{HH}@f$, see (4.8) in @cite Gunion:1989we.
  */
 class HHlambda3 : public ThObservable {
 public:
@@ -1106,7 +1064,7 @@ public:
  * @class HHlambda4 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_4^\text{HH}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_4^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_4^\text{HH}@f$, see (4.8) in @cite Gunion:1989we.
  */
 class HHlambda4 : public ThObservable {
 public:
@@ -1129,7 +1087,7 @@ public:
  * @class HHlambda5 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_5^\text{HH}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_5^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_5^\text{HH}@f$, see (4.8) in @cite Gunion:1989we.
  */
 class HHlambda5 : public ThObservable {
 public:
@@ -1152,7 +1110,7 @@ public:
  * @class HHlambda6 
  * @ingroup THDM 
  * @brief An observable class for the quartic Higgs potential coupling @f$\lambda_6^\text{HH}@f$.
- * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_6^\text{HH}@f$.
+ * @details This class is used to compute the quartic Higgs potential coupling @f$\lambda_6^\text{HH}@f$, see (4.8) in @cite Gunion:1989we.
  */
 class HHlambda6 : public ThObservable {
 public:
