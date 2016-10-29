@@ -12,9 +12,9 @@
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
+/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include "THDMObservables.h"
@@ -582,7 +582,6 @@ ThObsFactory::ThObsFactory()
     //----- B to tau nu  -----
     obsThFactory["btaunu"] = boost::factory<Btaunu*>();
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  Lepton Flavour observables  -----
     obsThFactory["mu_e_gamma"] = boost::factory<mu_e_gamma*>();
     obsThFactory["log_meg"] = boost::factory<log_meg*>();
@@ -650,10 +649,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mslepton"] = boost::factory<mslepton*>();
     obsThFactory["deltaTEhat23"] = boost::factory<deltaTEhat23*>();
     obsThFactory["deltaLLRR_l"] = boost::factory<deltaLLRR_l*>();
-
-    /** END: REMOVE FROM THE PACKAGE **/
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  SUSY spectra and observables  -----
     obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(); // for debug
     obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);
@@ -688,9 +684,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
     obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
     obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>();
-    /** END: REMOVE FROM THE PACKAGE **/
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  THDM observables  -----
     obsThFactory["globalminimum"] = boost::factory<globalminimum*>();
 
@@ -962,7 +956,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya11evenmIm"] = boost::factory<unitaritya11evenmIm*>();
     obsThFactory["unitaritya11oddRe"] = boost::factory<unitaritya11oddRe*>();
     obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
-    /** END: REMOVE FROM THE PACKAGE **/
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  GeneralTHDM observables  -----
