@@ -12,7 +12,9 @@
 #include "SUSY.h"
 #include "SUSYSpectrum.h"
 #include "EWSUSY.h"
+/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "FeynHiggsWrapper.h"
+/** END: REMOVE FROM THE PACKAGE **/
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {
@@ -38,14 +40,19 @@ SUSY::SUSY()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHptree", boost::cref(mHptree)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tanb", boost::cref(tanb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_SUSY", boost::cref(Q_SUSY)));
+    
+    flag_fh = false;
 }
 
-SUSY::~SUSY(){
+SUSY::~SUSY() 
+{
     if (IsModelInitialized()) {
-            if (myFH != NULL) delete(myFH);
-            if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
-            if (myEWSUSY != NULL) delete(myEWSUSY);
-        }
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+        if (myFH != NULL) delete(myFH);
+/** END: REMOVE FROM THE PACKAGE **/
+        if (mySUSYSpectrum != NULL) delete(mySUSYSpectrum);
+        if (myEWSUSY != NULL) delete(myEWSUSY);
+    }
 }
 ///////////////////////////////////////////////////////////////////////////
 // Initialization
@@ -53,7 +60,9 @@ SUSY::~SUSY(){
 bool SUSY::InitializeModel()
 {
     mySUSYSpectrum = new SUSYSpectrum(*this);
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     myFH = new FeynHiggsWrapper(*this);
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
     setModelInitialized(StandardModel::InitializeModel());
@@ -105,12 +114,13 @@ bool SUSY::PostUpdate()
         m2.real() = m3/3.;
     }
     
-    bool IsFlag_FH = false;
     /* Compute Higgs and sparticle spectra with FeynHiggs */
-    if (IsFlag_FH) {
+    if (IsFlag_FH()) {
+/** BEGIN: REMOVE FROM THE PACKAGE **/
         if(!myFH->SetFeynHiggsPars()) return (false);
         if(!myFH->CalcHiggsSpectrum()) return (false);
         if(!myFH->CalcSpectrum()) return (false); /* FH does not calculate Sneutrino masses. */
+/** END: REMOVE FROM THE PACKAGE **/
     }
     else {
     /* Compute Higgs and sparticle spectra without FeynHiggs */
@@ -334,6 +344,10 @@ bool SUSY::setFlag(const std::string name, const bool value)
         flag_ne = value;
         res = true;
     }
+    else if(name.compare("Flag_FH") == 0) {
+        flag_fh = value;
+        res = true;
+    }
     else
         res = StandardModel::setFlag(name,value);
 
@@ -355,7 +369,10 @@ double SUSY::v2() const
 
 double SUSY::getMGl() const
 {
-    return myFH->getMGl();
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+    if (IsFlag_FH()) return myFH->getMGl();
+/** END: REMOVE FROM THE PACKAGE **/
+    return m3;
 }
 
 
@@ -375,5 +392,8 @@ double SUSY::Mw_dRho() const
     double Mw_SM = StandardModel::Mw();
     double cW2_SM = Mw_SM*Mw_SM/Mz/Mz;
     double sW2_SM = 1.0 - cW2_SM;
-    return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+    if (IsFlag_FH()) return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
+/** END: REMOVE FROM THE PACKAGE **/
+    else throw std::runtime_error("SUSY::Mw_dRho(): set Flag_FH to true to use Mw_dRho()");
 }
