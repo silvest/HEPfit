@@ -20,7 +20,7 @@ BXqll::BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardMo
 {    
     lep = lep_i;
     quark = quark_i;
-    w_Rquark = gsl_integration_cquad_workspace_alloc (100);
+    w_Rquark = gsl_integration_cquad_workspace_alloc(100);
 }
 
 BXqll::~BXqll() 
@@ -40,7 +40,7 @@ void BXqll::updateParameters()
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
     MW = mySM.Mw();
     abslambdat_over_Vcb = mySM.computelamt_s().abs()/mySM.getCKM().V_cb().abs();
-    Vts_over_Vcb = mySM.getCKM().V_ts().abs()/mySM.getCKM().V_cb().abs();
+    Vts_over_Vcb = mySM.getCKM().V_ts().abs()/mySM.getCKM().V_cb().abs();    
     muh = mu_b/Mb;
     alsmu = mySM.Als(mu_b);
     alsmuc = mySM.Als(mu_c);
@@ -48,7 +48,7 @@ void BXqll::updateParameters()
     //Mc_pole = mySM.Mbar2Mp(Mc, FULLNNLO); //*** Mbar2Mp does not receive Mc ***/
     Mc_pole = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
     z = Mc_pole*Mc_pole/Mb_pole/Mb_pole; //****** Must be pole masses ****/
-    lambda_2 = 0.04578/4.;
+    lambda_2 = (5.32483*5.32483-5.27955*5.27955)/4.;
 
     //ISIDORI VALUES
     z = 0.29*0.29;
@@ -57,6 +57,7 @@ void BXqll::updateParameters()
     muh = mu_b/Mb;
     ale = 0.0078125;
     abslambdat_over_Vcb = 0.97;
+    Vts_over_Vcb = 0.97;
     alsmu = 0.215;
 
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
@@ -142,14 +143,14 @@ double BXqll::integrate_Rquark(double sh_min, double sh_max, q2regions q2region)
         case LOWQ2:
             FR = convertToGslFunction(boost::bind(&BXqll::getR_LOWQ2, &(*this), _1));
     
-            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-2, 1.e-1, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
+            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
                 return std::numeric_limits<double>::quiet_NaN();
             return avaRquark;
             break;
         case HIGHQ2:
             FR = convertToGslFunction(boost::bind(&BXqll::getR_HIGHQ2, &(*this), _1));
     
-            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-2, 1.e-1, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
+            if (gsl_integration_cquad(&FR, sh_min, sh_max, 1.e-5, 1.e-4, w_Rquark, &avaRquark, &errRquark, NULL) != 0)
                 return std::numeric_limits<double>::quiet_NaN();
             return avaRquark;
             break;
@@ -163,12 +164,15 @@ double BXqll::integrate_Rquark(double sh_min, double sh_max, q2regions q2region)
 
 double BXqll::getR_LOWQ2(double sh)
 {
-    return (R_quark(sh, LOWQ2) + deltaMb2_Rquark(sh,LOWQ2));
+    updateParameters();
+    return (R_quark(sh,LOWQ2) + deltaMb2_Rquark(sh,LOWQ2));
+//    return (deltaMb2_Rquark(sh,LOWQ2));
 }
 
 double BXqll::getR_HIGHQ2(double sh)
 {
-    return (R_quark(sh, HIGHQ2) + deltaMb2_Rquark(sh,HIGHQ2));
+    updateParameters();
+    return (R_quark(sh,HIGHQ2) + deltaMb2_Rquark(sh,HIGHQ2));
 }
 
 
@@ -177,16 +181,14 @@ double BXqll::deltaMb2_Rquark(double sh, q2regions q2region)
     double pre;
     double delta_R;
     
-    updateParameters();
-    
     pre = ale/2./M_PI*Vts_over_Vcb;
     
-    delta_R = -4.*(6.+3.*sh-5.*sh*sh)/sh*(C7eff(sh, LO).abs2() + 2.*(C7eff(sh, LO).conjugate()*C7eff(sh, NLO)).real());
+    delta_R = -4.*(6.+3.*sh-5.*sh*sh*sh)/sh*(C7eff(sh, LO).abs2() + 2.*(C7eff(sh, LO).conjugate()*C7eff(sh, NLO)).real());
     delta_R += (1.-15.*sh*sh+10.*sh*sh*sh)*(C9eff(sh, LO).abs2() + 2.*(C9eff(sh, LO).conjugate()*C9eff(sh, NLO)).real());
     delta_R += (1.-15.*sh*sh+10.*sh*sh*sh)*(C10eff(sh, LO).abs2() + 2.*(C10eff(sh, LO).conjugate()*C10eff(sh, NLO)).real());
-    delta_R += -4.*(5.*6.*sh-7.*sh*sh)*(C9eff(sh, LO).conjugate()*C7eff(sh, LO)+
-            (C9eff(sh, NLO)+(alsmu/M_PI*(omega79(sh)-omega9(sh))*C9eff(sh,LO))).conjugate()*C7eff(sh, LO)+
-            C9eff(sh, LO).conjugate()*(C7eff(sh, NLO)+(alsmu/M_PI*(omega79(sh)-omega7(sh))*C7eff(sh,LO)))).real();
+    delta_R += -4.*(5.+6.*sh-7.*sh*sh)*(C9eff(sh, LO).conjugate()*C7eff(sh, LO)+
+            (C9eff(sh, NLO)+alsmu/M_PI*(omega79(sh)-omega9(sh))*C9eff(sh,LO)).conjugate()*C7eff(sh, LO)+
+             C9eff(sh, LO).conjugate()*(C7eff(sh, NLO)+alsmu/M_PI*(omega79(sh)-omega7(sh))*C7eff(sh,LO))).real();
     
     if(q2region <= HIGHQ2)
         return (3.*lambda_2/2./Mb/Mb*(pre*pre/f_sl(z)*delta_R + g_lambda(z)/g(z)*R_quark(sh,q2region)));
@@ -198,20 +200,18 @@ double BXqll::R_quark(double sh, q2regions q2region)
 {
     double pre;
     double gamma;
-    
-    updateParameters();
-    
+   
     pre = ale/2./M_PI*abslambdat_over_Vcb;
  
-    gamma = (1+2.*sh)*(C9eff(sh, LO).abs2() + 2.*(C9eff(sh, LO).conjugate()*C9eff(sh, NLO)).real());
-    gamma += (1+2.*sh)*(C10eff(sh, LO).abs2() + 2.*(C10eff(sh, LO).conjugate()*C10eff(sh, NLO)).real());
-    gamma += 4.*(1+2./sh)*(C7eff(sh, LO).abs2() + 2.*(C7eff(sh, LO).conjugate()*C7eff(sh, NLO)).real());
+    gamma = (1.+2.*sh)*(C9eff(sh, LO).abs2() + 2.*(C9eff(sh, LO).conjugate()*C9eff(sh, NLO)).real());
+    gamma += (1.+2.*sh)*(C10eff(sh, LO).abs2() + 2.*(C10eff(sh, LO).conjugate()*C10eff(sh, NLO)).real());
+    gamma += 4.*(1.+2./sh)*(C7eff(sh, LO).abs2() + 2.*(C7eff(sh, LO).conjugate()*C7eff(sh, NLO)).real());
     // omega_7,9 replaced with omega_79 for the interaction term
     gamma += 12.*(C9eff(sh, LO).conjugate()*C7eff(sh, LO)+
             (C9eff(sh, NLO)+(alsmu/M_PI*(omega79(sh)-omega9(sh))*C9eff(sh,LO))).conjugate()*C7eff(sh, LO)+
              C9eff(sh, LO).conjugate()*(C7eff(sh, NLO)+(alsmu/M_PI*(omega79(sh)-omega7(sh))*C7eff(sh,LO)))).real();
 
-    //Without finite bremsstrahlung corrections
+//    Without finite bremsstrahlung corrections
 //    return (pre*pre/f_sl*(1.-sh)*(1.-sh)*gamma);
     
     if(q2region <= HIGHQ2)
@@ -237,7 +237,7 @@ double BXqll::g(double z)
 
 double BXqll::g_lambda(double z)
 {
-    return (3.-8.*z+24.*z*z-24*z*z*z+5*z*z*z*z+12*z*z*log(z));
+    return (3.-8.*z+24.*z*z-24.*z*z*z+5.*z*z*z*z+12.*z*z*log(z));
 }
 
 double BXqll::omega7(double sh)
@@ -272,7 +272,7 @@ gslpp::complex BXqll::h_z(double zed, double sh)
     gslpp::complex i = gslpp::complex::i();
     gslpp::complex h_z;
     
-    if (zed == 0)
+    if (zed == 0.)
     {
         h_z = 8./27.-4./9.*(log(sh)-i*M_PI);
     }
@@ -420,6 +420,7 @@ double BXqll::R_bremsstrahlung(double sh, q2regions q2region)
     c11 = ctau1*C_1[LO].abs2();
     c12 = ctau2*2.*(C_1[LO]*C_2[LO].conjugate()).real();
     c22 = CF*C_2[LO].abs2();
+    
     c17 = ctau2*C_1[LO]*C7eff(sh, LO).conjugate();
     c27 = CF*C_2[LO]*C7eff(sh, LO).conjugate();
     c18 = ctau2*C_1[LO]*C_8L[LO].conjugate();
@@ -427,7 +428,7 @@ double BXqll::R_bremsstrahlung(double sh, q2regions q2region)
     c19 = ctau2*C_1[LO]*C9eff(sh, LO).conjugate();
     c29 = CF*C_2[LO]*C9eff(sh, LO).conjugate();
     
-    Brem_a = 2.*(c78*tau78(sh) + c89*tau89(sh)).real() + c88*tau88(sh);
+    Brem_a = 2.*(c78*tau78(sh)+c89*tau89(sh)).real() + c88*tau88(sh);
     
     if(q2region <= HIGHQ2)
         Brem_b = (c11 + c12 + c22)*tau22fit(sh,q2region)+2.*(c17 + c27).real()*tau27fit_Re(sh,q2region)-
@@ -436,22 +437,6 @@ double BXqll::R_bremsstrahlung(double sh, q2regions q2region)
             2.*(c19 + c29).imag()*tau29fit_Im(sh,q2region);
     else
         throw std::runtime_error("BXqll::R_bremsstrahlung: q2 region not implemented");
-    
-    /*switch(q2region)
-    {
-        case LOWQ2:
-            Brem_b = -258.3404643+1867.2340295*sh-12851.3564761*sh*sh+67384.2969086*sh*sh*sh-
-                    229789.7121478*sh*sh*sh*sh+448183.3335830*sh*sh*sh*sh*sh-378575.0021283*sh*sh*sh*sh*sh*sh-
-                    71.3390149*log(sh);
-            break;
-        case HIGHQ2:
-            Brem_b = -106.7600293+320.7009626*sh-499.9170946*sh*sh+506.3982345*sh*sh*sh-
-                    313.3037437*sh*sh*sh*sh+109.9557849*sh*sh*sh*sh*sh-17.0741157*sh*sh*sh*sh*sh*sh-
-                    34.1809391*log(sh);
-            break;
-        default:
-            throw std::runtime_error("BXqll::R_bremsstrahlung: region of q^2 not implemented");         
-    }*/
     
     return (Brem_a + Brem_b);
 }
@@ -500,14 +485,14 @@ double BXqll::tau22fit(double sh, q2regions q2region)
     switch(q2region)
     {
         case LOWQ2:
-            fit = -186.96738127+1313.45792139*sh-8975.40399683*sh*sh+47018.56440838*sh*sh*sh-
-                    159603.3217871*sh*sh*sh*sh+309228.13379963*sh*sh*sh*sh*sh-258317.14719949*sh*sh*sh*sh*sh*sh-
+            fit = -186.96738127 + 1313.45792139*sh - 8975.40399683*sh*sh + 47018.56440838*sh*sh*sh -
+                    159603.3217871*sh*sh*sh*sh + 309228.13379963*sh*sh*sh*sh*sh - 258317.14719949*sh*sh*sh*sh*sh*sh -
                     51.2467544*log(sh);
             break;
         case HIGHQ2:
-            fit = -322.73989723+4.75813656/sh/sh-80.36414222/sh+687.70415138*sh-491.08241967*sh*sh+
-                    303.28125994*sh*sh*sh-132.82124268*sh*sh*sh*sh+35.63127394*sh*sh*sh*sh*sh-
-                    4.36712003*sh*sh*sh*sh*sh*sh-306.899641*log(sh);
+            fit = -322.73989723 + 4.75813656/sh/sh - 80.36414222/sh + 687.70415138*sh - 491.08241967*sh*sh +
+                    303.28125994*sh*sh*sh - 132.82124268*sh*sh*sh*sh + 35.63127394*sh*sh*sh*sh*sh -
+                    4.36712003*sh*sh*sh*sh*sh*sh - 306.899641*log(sh);
             break;
         default:
             throw std::runtime_error("BXqll::tau22fit: region of q^2 not implemented");
