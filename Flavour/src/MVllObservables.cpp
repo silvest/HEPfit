@@ -1120,7 +1120,7 @@ double QCDf_1f::computeThValue()
     double q2 = getBinMin();
     double cutoff = getBinMax();
 
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_1(q2) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_1(cutoff);
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_1(q2) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_1(cutoff) * cutoff/q2;
 }
 
 QCDf_2f::QCDf_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -1136,7 +1136,7 @@ double QCDf_2f::computeThValue()
     double q2 = getBinMin();
     double cutoff = getBinMax();
 
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_2(q2) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_2(cutoff);
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_2(q2) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_2(cutoff) * cutoff/q2;
 }
 
 QCDf_3f::QCDf_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
@@ -1152,5 +1152,5 @@ double QCDf_3f::computeThValue()
     double q2 = getBinMin();
     double cutoff = getBinMax();
 
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_3(q2) -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_3(cutoff);
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_3(q2) -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_3(cutoff) * cutoff/q2;
 }
