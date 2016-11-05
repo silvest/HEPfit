@@ -1651,6 +1651,15 @@ double NPEffectiveGIMRprime::mueeWBF(const double sqrt_s) const
             mu +=  +0.0;            
         }
         
+    } else if (sqrt_s == 0.35) {
+        mu +=  +0.0;
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
     } else if (sqrt_s == 0.5) {
         mu +=  +0.0;
         

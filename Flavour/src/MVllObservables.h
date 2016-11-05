@@ -2306,6 +2306,108 @@ private:
     StandardModel::meson vectorM; /**< Final vector meson type. */
 
 };
+
+/**
+ * @class QCDf_1f
+ * @ingroup Flavour
+ * @brief A class for the observable @f$QCDf_1@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the observable @f$QCDf_1@f$ in 
+ * @f$M \to V l^+l^-@f$
+ */
+class QCDf_1f : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    QCDf_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$QCDf_1f@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$QCDf_1f@f$
+    */
+    double computeThValue ();
+   
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+
+};
+
+/**
+ * @class QCDf_2f
+ * @ingroup Flavour
+ * @brief A class for the observable @f$QCDf_2@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the observable @f$QCDf_2@f$ in 
+ * @f$M \to V l^+l^-@f$
+ */
+class QCDf_2f : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    QCDf_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$QCDf_2f@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$QCDf_2f@f$
+    */
+    double computeThValue ();
+   
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+
+};
+
+/**
+ * @class QCDf_3f
+ * @ingroup Flavour
+ * @brief A class for the observable @f$QCDf_3@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the observable @f$QCDf_3@f$ in 
+ * @f$M \to V l^+l^-@f$
+ */
+class QCDf_3f : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    QCDf_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$QCDf_3f@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$QCDf_3f@f$
+    */
+    double computeThValue ();
+   
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+
+};
 #endif	/* MVLLOBSERVABLES_H */
 
     

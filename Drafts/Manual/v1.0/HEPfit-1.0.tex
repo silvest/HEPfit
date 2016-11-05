@@ -255,15 +255,15 @@ of NP contributions. In the near future, we plan to add flavour
 observables and several incarnations of the Minimal Supersymmetric
 Standard Model (MSSM).
 
-The paper is organised as follows. In Section~\ref{sec:Physics} we
+The paper is organised as follows. In Sections \ref{sec:Models} and \ref{sec:Observables} we
 summarize models and observables implemented in the present
-version. In Section~\ref{sec:Code} we describe the structure of our
-code. Section~\ref{sec:Usage} contains the instructions for using our
-code and some examples. In Section~\ref{sec:Comparison} we compare our
+version. In Section \ref{sec:Code} we describe the structure of our
+code. Section \ref{sec:Usage} contains the instructions for using our
+code and some examples. In Section \ref{sec:Comparison} we compare our
 numerical results with other existing public codes.
 
-Updated information and online documentation can be found at the
-\HEPfit collaboration web site~\cite{website}.
+Updated information and online documentation can be found on the
+\HEPfit collaboration web site \cite{website}.
 
 
 
@@ -346,31 +346,6 @@ The eight parameters from the Higgs potential \eqref{eq:THDMVH} can be transform
 \end{itemize}
 
 $G_F=1/(\sqrt{2} v^2)$ and $m_h$ are defined in the Standard Model configuration file. For practical reasons, the \HEPfit implementation uses $\beta-\alpha$ and $\log_{10}\tan\beta$ instead of $\alpha$ and $\beta$ and squared $H$, $A$ and $H^+$ masses. The THDM configuration file contains as an additional parameter the theoretical uncertainty of the observable ${\rm Br}(\bar{B}\to X_s\gamma)$.
-
-\begin{table}[tb]
- \centering
- \caption{THDM parameters}\vspace{0.2cm}
-  \begin{tabular}{|l|l|}
-    \hline
-      \textbf{Parameter} & \textbf{\HEPfit name} \\
-    \hline
-      $\log_{10}\tan\beta$ & \tt{logtb}\\
-    \hline
-      $\beta-\alpha$ & \tt{bma}\\
-    \hline
-      $m_H^2$ & \tt{mHh2}\\
-    \hline
-      $m_A^2$ & \tt{mA2}\\
-    \hline
-      $m_{H^+}^2$ & \tt{mHp2}\\
-    \hline
-      $m_{12}^2$ & \tt{m12\_2}\\
-    \hline
-      $\Delta _{\text{\tiny{theo}}}{\rm Br}(\bar{B}\to X_s\gamma)$ & \tt{bsgamma\_theoryerror}\\
-    \hline
-  \end{tabular}
- \label{tab:HandAsearchlimits}
-\end{table} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Minimal Supersymmetric Standard Model}
@@ -751,200 +726,6 @@ The first complete basis of independent dimension six operators was introduced b
 
 The main implementation of the dimension-six Standard Model effective Lagrangian in {\tt HEPfit} is based in the GIMR basis. Currently, all the dimension-six interactions entering in the electroweak precision observables as well as Higgs signal strengths have been included in the so called {\tt NPEffectiveGIMR} model class, as well as in its variant {\tt NPEffectiveGIMR\_LFU\_QFU}, where lepton and quark flavor universality is asumed. These implementations assume that we use the Fermi constant as extracted from $\mu$ decay, $G_\mu$, as one of the SM input parameters. The complete list of operators as well the corresponding names for the {\tt HEPfit} model parameters can be found in Table \ref{tab:GIMRpars1} and \ref{tab:GIMRpars2}. The model flags are are described in Table \ref{tab:GIMRflags}.
 
-\begin{landscape}
-\begin{table}[tb]
- \centering
- \caption{Model parameters in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
-  \begin{tabular}{| c c c c c c | }
-\hline
-%
-&\textbf{\HEPfit name}&&&
-\textbf{Parameter}&
-\textbf{Operator}\\
-%
-\textbf{{\tt NPEffectiveGIMR}}&&\textbf{{\tt NPEffectiveGIMR\_LFU\_QFU}}&&
-&
-\\
-%
-\hline
-%
-&\tt{CHG}& & &
-$C_{HG} $&
-${\cal O}_{HG}=\big(H^\dagger H\big)G_{\mu\nu}^A G^{A\mu\nu}$\\
-%
-\hline
-%
-&\tt{CHW}& & &
-$C_{HW} $&
-${\cal O}_{HW}=\big(H^\dagger H\big)W_{\mu\nu}^a W^{a\mu\nu}$ \\
-%
-\hline
-%
-&\tt{CHB}& & &
-$C_{HB} $&
-${\cal O}_{HB}=\big(H^\dagger H\big)B_{\mu\nu} B^{\mu\nu}$ \\
-%
-\hline
-%
-&\tt{CWB}& & &
-$C_{WB} $&
-${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}$ \\
-%
-\hline
-%
-&\tt{CHD}& & &
-$C_{HD}$&
-${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2$ \\
-%
-\hline
-%
-&\tt{CHbox}& & &
-$C_{H\Box}$&
-${\cal O}_{H\Box}=\big(H^\dagger H\big)\Box\big(H^\dagger H\big)$ \\
-%
-\hline
-%
-\tt{CHL1\_kk}&&\tt{CHL1}&&$ (C_{HL}^{(1)})_{kk}$&$({\cal O}_{HL}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
-\big(\overline{L^i}\,\gamma^\mu L^j\big)$\\
-\tt{CHL1\_klr}&&&&$\mbox{Re}\big[(C_{HL}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
-\tt{CHL1\_kli} &&&&
-$\mbox{Im}\big[(C_{HL}^{(1)})_{kl}\big] $&\\
-%
-\hline
-%
-\tt{CHL3\_kk}&&\tt{CHL3}&&$(C_{HL}^{(3)})_{kk}$&$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
-\big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)$\\
-\tt{CHL3\_klr}&&&&$\mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
-\tt{CHL3\_kli} &&&&
-$\mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] $&\\
-%
-\hline
-%
-\tt{CHe\_kk}&&\tt{CHe}&&$(C_{HE})_{kk}$&$({\cal O}_{HE})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
-\big(\overline{E^i}\,\gamma^\mu E^j\big)$\\
-\tt{CHe\_klr}&&&&$\mbox{Re}\big[(C_{HE})_{kl}\big]$&$i,j=1,2,3$\\
-\tt{CHe\_kli} &&&&
-$\mbox{Im}\big[(C_{HE})_{kl}\big] $&\\
-%
-\hline
-%
-\tt{CHQ1\_kk}&&\tt{CHQ1}&&$(C_{HQ}^{(1)})_{kk}$&$({\cal O}_{HQ}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
-\big(\overline{Q^i}\,\gamma^\mu Q^j\big)$\\
-\tt{CHQ1\_klr}&&&&$\mbox{Re}\big[(C_{HQ}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
-\tt{CHQ1\_kli} &&&&
-$\mbox{Im}\big[(C_{HQ}^{(1)})_{kl}\big] $&\\
-%
-\hline
-%
-\tt{CHQ3\_kk}&&\tt{CHQ3}&&$(C_{HQ}^{(3)})_{kk}$&$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
-\big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)$\\
-\tt{CHQ3\_klr}&&&&$\mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
-\tt{CHQ3\_kli} &&&&
-$\mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] $&\\
-%
-\hline
-%
-  \end{tabular}
- \label{tab:GIMRpars1}
-\end{table}
-
-\begin{table}[tb]
- \centering
- \caption{Model parameters in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
-  \begin{tabular}{| c c c c c c | }
-\hline
-%
-&\textbf{\HEPfit name}&&&
-\textbf{Parameter}&
-\textbf{Operator}\\
-%
-\textbf{{\tt NPEffectiveGIMR}}&&\textbf{{\tt NPEffectiveGIMR\_LFU\_QFU}}&&
-&
-\\
-%
-\hline
-%
-\tt{CHu\_kk}&&\tt{CHu}&&$(C_{HU})_{kk}$&$({\cal O}_{HU})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
-\big(\overline{U^i}\,\gamma^\mu U^j\big)$\\
-\tt{CHu\_klr}&&&&$\mbox{Re}\big[(C_{HU})_{kl}\big]$&$i,j=1,2,3$\\
-\tt{CHu\_kli} &&&&
-$\mbox{Im}\big[(C_{HU})_{kl}\big] $&\\
-%
-\hline
-%
-\tt{CHd\_kk}&&\tt{CHd}&&$(C_{HD})_{kk}$&$({\cal O}_{HD})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
-\big(\overline{D^i}\,\gamma^\mu D^j\big)$\\
-\tt{CHd\_klr}&&&&$\mbox{Re}\big[(C_{HD})_{kl}\big]$&$i,j=1,2,3$\\
-\tt{CHd\_kli} &&&&
-$\mbox{Im}\big[(C_{HD})_{kl}\big] $&$i,j=1,2,3$ \\
-%
-\hline
-%
-\tt{CHud\_klr}&&\tt{CHud}&&$\mbox{Re}\big[(C_{HUD})_{kl}\big]$&$({\cal O}_{HUD})_{ij} =i\big(\widetilde{H}^\dagger D_\mu H\big)
-\big(\overline{U^i}\,\gamma^\mu D^j\big)$\\
-\tt{CHud\_kli} &&&&
-$\mbox{Im}\big[(C_{HUD})_{kl}\big] $&$i,j=1,2,3$\\
-%
-\hline
-%
-\tt{CeH\_klr}&&\tt{CeH}&&$\mbox{Re}\big[(C_{EH})_{kl}\big]$&$({\cal O}_{EH})_{ij} =\big(H^\dagger H\big)
-\big(\overline{L^i}\,H E^j\big)$\\
-\tt{CeH\_kli} &&&&
-$\mbox{Im}\big[(C_{EH})_{kl}\big] $&$i,j=1,2,3$\\
-%
-\hline
-%
-\tt{CuH\_klr}&&\tt{CuH}&&$\mbox{Re}\big[(C_{UH})_{kl}\big]$&$({\cal O}_{UH})_{ij} =\big(H^\dagger H\big)
-\big(\overline{Q^i}\,\widetilde{H} U^j\big)$\\
-\tt{CuH\_kli} &&&&
-$\mbox{Im}\big[(C_{UH})_{kl}\big] $&$i,j=1,2,3$\\
-%
-\hline
-%
-\tt{CdH\_klr}&&\tt{CdH}&&$\mbox{Re}\big[(C_{DH})_{kl}\big]$&$({\cal O}_{DH})_{ij} =\big(H^\dagger H\big)
-\big(\overline{Q^i}\,H D^j\big)$\\
-\tt{CdH\_kli} &&&&
-$\mbox{Im}\big[(C_{DH})_{kl}\big] $&$i,j=1,2,3$\\
-%
-\hline
-%
-\tt{CLL\_1221}&&\tt{CLL}&&
-$(C_{LL})_{1221,2112}$&$({\cal O}_{LL})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
-\big(\overline{L^k}\,\gamma_\mu L^l\big)$\\
-\tt{CLL\_2112}&&&&&$ijkl=1221,2112$ \\
-%
-\hline
-%
-&\tt{Lambda\_NP}&&&
-$\Lambda $&
-The new physics scale in GeV.\\
-\hline
-  \end{tabular}
- \label{tab:GIMRpars2}
-\end{table}
-\end{landscape}
-
-
-\begin{table}[tb]
- \centering
-\caption{Model flags in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
-  \begin{tabular}{|l|l|}
-    \hline
-      \textbf{Flag} & \textbf{Description} \\
-    \hline
-      {\tt MwInput} & If ``true'' the $W$ mass is taken as an input parameter \\
-    \hline
-      {\tt QuadraticTerms} &  If ``true'' the contributions from quadratic terms are\\
-      &  switched on in the calculation of Higgs cross sections\\
-      &  and decay widths. (Currently implemented only for \\
-      &  fits assuming one operator at a time.)\\
-    \hline
-  \end{tabular}
-  \label{tab:GIMRflags}
-\end{table} 
-
-
-
 
 %\begin{table}[tb]
 % \centering
@@ -1137,6 +918,7 @@ The Lagrangian above describing an SM extension with {\it Modified Higgs Couplin
 %
 \end{itemize}
 %
+<<<<<<< Updated upstream
 \begin{table}[tb]
  \centering
  \caption{Model parameters in the {\tt HiggsKvKf} class. }\vspace{0.2cm}
@@ -1233,6 +1015,10 @@ Br$(H\to \mathrm{invisible})$\\
 \end{table} 
 
 
+=======
+Finally, relaxing the assumption of custodial symmetry, the Higgs couplings to the $W$ and $Z$ bosons can be different. The model class {\tt HiggsKvgenKf} considers this possibility, replacing $\kappa_V\rightarrow \kappa_Z,~\kappa_W$, with $\kappa_Z$ and $\kappa_W$ being two completely independent parameters. One must be aware that for $\kappa_W\not = \kappa_Z$ power divergences appear in the contributions to oblique corrections, and the detailed information of the UV theory is necessary for calculating the contributions to electroweak precision observables.
+Therefore, this class is constructed solely for the purpose of testing custodial symmetry in the experimental Higgs observables. Because of this, and also for simplicity, in this class we assume again universality on the deviations in the fermionic couplings, described by a single parameter $\kappa_f$. The corresponding model parameters for this class are described in Table~\ref{tab:HiggsKvgenKfpars}.
+>>>>>>> Stashed changes
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Observables}
@@ -1445,74 +1231,47 @@ account renormalization group runnings up to three-loop level.
 }%satoshisnotes %1
 
 
-%
-%    //-----  Electroweak precision observables  -----
-
-\begin{align}
-M_W &=\nonumber \\
-\Gamma_W &=\nonumber \\
-\Gamma_Z &=\nonumber \\
-\sigma_{h}^0 &=\nonumber \\
-\sin^2\theta_{\rm eff}^\ell &=\nonumber \\
-P_\tau^{\rm Pol} &=\nonumber \\
-A_\ell &=\nonumber \\
-A_c &=\nonumber \\
-A_b &=\nonumber \\
-A_{\rm FB}^{\ell,0} &=\nonumber \\
-A_{\rm FB}^{c,0} &=\nonumber \\
-A_{\rm FB}^{b,0} &=\nonumber \\
-R_\ell^0 &=\nonumber \\
-R_c^0 &=\nonumber \\
-R_b^0 &=\nonumber \\
-\end{align}
-
-%//-----  Epsilon parameters  -----
-\begin{align}
-\epsilon_1&=\nonumber \\
-\epsilon_2&=\nonumber \\
-\epsilon_3&=\nonumber \\
-\epsilon_b&=\nonumber \\
-\end{align}
-
-%	THDM
-\begin{align}
-\Delta S&=\nonumber \\
-\Delta T&=\nonumber \\
-\Delta U&=\nonumber \\
-\end{align}
-
-
-
-Satoshi
+%%%
+%%%    //-----  Electroweak precision observables  -----
+%%
+%%\begin{align}
+%%M_W &=\nonumber \\
+%%\Gamma_W &=\nonumber \\
+%%\Gamma_Z &=\nonumber \\
+%%\sigma_{h}^0 &=\nonumber \\
+%%\sin^2\theta_{\rm eff}^\ell &=\nonumber \\
+%%P_\tau^{\rm Pol} &=\nonumber \\
+%%A_\ell &=\nonumber \\
+%%A_c &=\nonumber \\
+%%A_b &=\nonumber \\
+%%A_{\rm FB}^{\ell,0} &=\nonumber \\
+%%A_{\rm FB}^{c,0} &=\nonumber \\
+%%A_{\rm FB}^{b,0} &=\nonumber \\
+%%R_\ell^0 &=\nonumber \\
+%%R_c^0 &=\nonumber \\
+%%R_b^0 &=\nonumber \\
+%%\end{align}
+%%
+%%%//-----  Epsilon parameters  -----
+%%\begin{align}
+%%\epsilon_1&=\nonumber \\
+%%\epsilon_2&=\nonumber \\
+%%\epsilon_3&=\nonumber \\
+%%\epsilon_b&=\nonumber \\
+%%\end{align}
+%%
+%%%	THDM
+%%\begin{align}
+%%\Delta S&=\nonumber \\
+%%\Delta T&=\nonumber \\
+%%\Delta U&=\nonumber \\
+%%\end{align}
+%%
+%%
 
 \subsubsection{THDM}
 
-Like most New Physics models, also the THDM is strongly constrained by the precise measurement of the couplings of massive gauge bosons to fermions. Usually, the New Physics contributions are expressed in a small set of pseudo-observables, the so-called oblique parameters $\Delta S$, $\Delta T$ and $\Delta U$ \cite{Peskin:1990zt,Peskin:1991sw}. They combine the THDM contributions to the self-energies of the electroweak bosons $\gamma$, $Z$ and $W$ in a divergence free formulation. Their formulae are taken from \cite{Haber:1993wf} and read
-
-\begin{align}
- \Delta S &= \frac{1}{\pi m_Z^2} \Big[ \sin^2 (\beta-\alpha ) {\cal B}_{00}(m_Z^2,m_H^2,m_A^2) - {\cal B}_{00}(m_Z^2,m_{H^+}^2,m_{H^+}^2) \phantom{\Big]} \nonumber \\
- & \hspace*{50pt} + \cos^2 (\beta-\alpha ) \Big( {\cal B}_{00}(m_Z^2,m_h^2,m_A^2) + {\cal B}_{00}(m_Z^2,m_Z^2,m_H^2) - {\cal B}_{00}(m_Z^2,m_Z^2,m_h^2) \phantom{\Big)} \nonumber \\
- & \phantom{\Big[} \phantom{\Big(} \hspace*{180pt} - m_Z^2 {\cal B}_0(m_Z^2,m_Z^2,m_H^2) + m_Z^2 {\cal B}_0(m_Z^2,m_Z^2,m_h^2) \Big) \Big] ,\nonumber \\
-\Delta T &= \frac{1}{16\pi m_W^2 \sin^2 (\theta_W)} \Big[ F(m_{H^+}^2,m_A^2) + \sin^2 (\beta -\alpha ) \big[ F(m_{H^+}^2,m_H^2) - F(m_A^2,m_H^2)\big] \phantom{\Big]} \nonumber \\
- & \hspace*{110pt} + \cos^2 (\beta-\alpha ) \Big( F(m_{H^+}^2,m_h^2) - F(m_A^2,m_h^2) + F(m_W^2,m_H^2) \phantom{\Big)} \nonumber \\
- & \hspace*{190pt} - F(m_W^2,m_h^2) - F(m_Z^2,m_H^2) + F(m_Z^2,m_h^2) \nonumber \\
- & \hspace*{190pt} + 4 m_Z^2 \big[ B_0(0,m_Z^2,m_H^2) - B_0(0,m_Z^2,m_h^2)\big] \nonumber \\
- & \phantom{\Big[} \phantom{\Big(} \hspace*{180pt} - 4 m_W^2 \big[ B_0(0,m_W^2,m_H^2) - B_0(0,m_W^2,m_h^2)\big] \Big) \Big] ,\nonumber \\
-\Delta U &= - \Delta S + \frac{1}{\pi m_Z^2} \Big[ {\cal B}_{00}(m_W^2,m_A^2,m_{H^+}^2) - 2 {\cal B}_{00}(m_W^2,m_{H^+}^2,m_{H^+}^2) \phantom{\Big]} \nonumber \\
- & \hspace*{90pt} + \sin^2 (\beta -\alpha ) {\cal B}_{00}(m_W^2,m_H^2,m_{H^+}^2) \nonumber \\
- & \hspace*{90pt} + \cos^2 (\beta-\alpha ) \Big( {\cal B}_{00}(m_W^2,m_h^2,m_{H^+}^2) + {\cal B}_{00}(m_W^2,m_W^2,m_H^2) \phantom{\Big)} \nonumber \\
- & \hspace*{170pt} - {\cal B}_{00}(m_W^2,m_W^2,m_h^2) - m_W^2 {\cal B}_0(m_W^2,m_W^2,m_H^2) \nonumber \\
- & \phantom{\Big[} \phantom{\Big(} \hspace*{270pt} + m_W^2 {\cal B}_0(m_W^2,m_W^2,m_h^2) \Big) \Big] .\nonumber
-\end{align}
-
-The functions therein are defined as
-
-\begin{align}
- {\cal B}_{0,00}(m_1^2,m_2^2,m_3^2) &= B_{0,00}(m_1^2,m_2^2,m_3^2)-B_{0,00}(0,m_2^2,m_3^2), \nonumber \\
- F(m_1^2,m_2^2) &= \frac{m_1^2+m_2^2}{2} - \frac{m_1^2 m_2^2}{m_1^2-m_2^2} \ln \left( \frac{m_1^2}{m_2^2} \right) . \nonumber
-\end{align}
-
-$B_0(m_1^2,m_2^2,m_3^2)$ and $B_{00}(m_1^2,m_2^2,m_3^2)$ are the Passarino-Veltman functions at the renormalisation scale $\mu^2=m_Z^2$.
+Like most New Physics models, also the THDM is strongly constrained by the precise measurement of the couplings of massive gauge bosons to fermions. Usually, the New Physics contributions are expressed in a small set of pseudo-observables, the so-called oblique parameters $S$, $T$ and $U$ \cite{Peskin:1990zt,Peskin:1991sw}. They combine the THDM contributions to the self-energies of the electroweak bosons $\gamma$, $Z$ and $W$ in a divergence free formulation. The formulae can be found in \cite{Haber:1993wf}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Higgs Observables}
@@ -2935,23 +2694,308 @@ Advanced Grant n.~267985 ``DaMeSyFla''.
 
 
 
+\appendix
+
+\section{Model parameters}
+\label{sec:appModelParameters}
 
 
+\begin{table}[tb]
+ \centering
+ \caption{THDM parameters}\vspace{0.2cm}
+  \begin{tabular}{|l|l|}
+    \hline
+      \textbf{\HEPfit name} & \textbf{Parameter} \\
+    \hline
+      \tt{logtb} & $\log_{10}\tan\beta$\\
+    \hline
+      \tt{bma} & $\beta-\alpha$\\
+    \hline
+      \tt{mHh2} & $m_H^2$\\
+    \hline
+      \tt{mA2} & $m_A^2$\\
+    \hline
+      \tt{mHp2} & $m_{H^+}^2$\\
+    \hline
+      \tt{m12\_2} & $m_{12}^2$\\
+    \hline
+      \tt{bsgamma\_theoryerror} & $\Delta _{\text{\tiny{theo}}}{\rm Br}(\bar{B}\to X_s\gamma)$\\
+    \hline
+  \end{tabular}
+ \label{tab:HandAsearchlimits}
+\end{table} 
 
 
+\begin{landscape}
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
+  \begin{tabular}{| c c c c c c | }
+\hline
+%
+&\textbf{\HEPfit name}&&&
+\textbf{Parameter}&
+\textbf{Operator}\\
+%
+\textbf{{\tt NPEffectiveGIMR}}&&\textbf{{\tt NPEffectiveGIMR\_LFU\_QFU}}&&
+&
+\\
+%
+\hline
+%
+&\tt{CHG}& & &
+$C_{HG} $&
+${\cal O}_{HG}=\big(H^\dagger H\big)G_{\mu\nu}^A G^{A\mu\nu}$\\
+%
+\hline
+%
+&\tt{CHW}& & &
+$C_{HW} $&
+${\cal O}_{HW}=\big(H^\dagger H\big)W_{\mu\nu}^a W^{a\mu\nu}$ \\
+%
+\hline
+%
+&\tt{CHB}& & &
+$C_{HB} $&
+${\cal O}_{HB}=\big(H^\dagger H\big)B_{\mu\nu} B^{\mu\nu}$ \\
+%
+\hline
+%
+&\tt{CWB}& & &
+$C_{WB} $&
+${\cal O}_{HWB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}$ \\
+%
+\hline
+%
+&\tt{CHD}& & &
+$C_{HD}$&
+${\cal O}_{HD}=\big|H^\dagger D_\mu H\big|^2$ \\
+%
+\hline
+%
+&\tt{CHbox}& & &
+$C_{H\Box}$&
+${\cal O}_{H\Box}=\big(H^\dagger H\big)\Box\big(H^\dagger H\big)$ \\
+%
+\hline
+%
+\tt{CHL1\_kk}&&\tt{CHL1}&&$ (C_{HL}^{(1)})_{kk}$&$({\cal O}_{HL}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{L^i}\,\gamma^\mu L^j\big)$\\
+\tt{CHL1\_klr}&&&&$\mbox{Re}\big[(C_{HL}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHL1\_kli} &&&&
+$\mbox{Im}\big[(C_{HL}^{(1)})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHL3\_kk}&&\tt{CHL3}&&$(C_{HL}^{(3)})_{kk}$&$({\cal O}_{HL}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
+\big(\overline{L^i}\,\gamma^\mu \tau^a L^j\big)$\\
+\tt{CHL3\_klr}&&&&$\mbox{Re}\big[(C_{HL}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHL3\_kli} &&&&
+$\mbox{Im}\big[(C_{HL}^{(3)})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHe\_kk}&&\tt{CHe}&&$(C_{HE})_{kk}$&$({\cal O}_{HE})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{E^i}\,\gamma^\mu E^j\big)$\\
+\tt{CHe\_klr}&&&&$\mbox{Re}\big[(C_{HE})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHe\_kli} &&&&
+$\mbox{Im}\big[(C_{HE})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHQ1\_kk}&&\tt{CHQ1}&&$(C_{HQ}^{(1)})_{kk}$&$({\cal O}_{HQ}^{(1)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{Q^i}\,\gamma^\mu Q^j\big)$\\
+\tt{CHQ1\_klr}&&&&$\mbox{Re}\big[(C_{HQ}^{(1)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHQ1\_kli} &&&&
+$\mbox{Im}\big[(C_{HQ}^{(1)})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHQ3\_kk}&&\tt{CHQ3}&&$(C_{HQ}^{(3)})_{kk}$&$({\cal O}_{HQ}^{(3)})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D^a_\mu} H\big)
+\big(\overline{Q^i}\,\gamma^\mu \tau^a Q^j\big)$\\
+\tt{CHQ3\_klr}&&&&$\mbox{Re}\big[(C_{HQ}^{(3)})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHQ3\_kli} &&&&
+$\mbox{Im}\big[(C_{HQ}^{(3)})_{kl}\big] $&\\
+%
+\hline
+%
+  \end{tabular}
+ \label{tab:GIMRpars1}
+\end{table}
+
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
+  \begin{tabular}{| c c c c c c | }
+\hline
+%
+&\textbf{\HEPfit name}&&&
+\textbf{Parameter}&
+\textbf{Operator}\\
+%
+\textbf{{\tt NPEffectiveGIMR}}&&\textbf{{\tt NPEffectiveGIMR\_LFU\_QFU}}&&
+&
+\\
+%
+\hline
+%
+\tt{CHu\_kk}&&\tt{CHu}&&$(C_{HU})_{kk}$&$({\cal O}_{HU})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{U^i}\,\gamma^\mu U^j\big)$\\
+\tt{CHu\_klr}&&&&$\mbox{Re}\big[(C_{HU})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHu\_kli} &&&&
+$\mbox{Im}\big[(C_{HU})_{kl}\big] $&\\
+%
+\hline
+%
+\tt{CHd\_kk}&&\tt{CHd}&&$(C_{HD})_{kk}$&$({\cal O}_{HD})_{ij} =i\big(H^\dagger \overset{\leftrightarrow}{D}_\mu H\big)
+\big(\overline{D^i}\,\gamma^\mu D^j\big)$\\
+\tt{CHd\_klr}&&&&$\mbox{Re}\big[(C_{HD})_{kl}\big]$&$i,j=1,2,3$\\
+\tt{CHd\_kli} &&&&
+$\mbox{Im}\big[(C_{HD})_{kl}\big] $&$i,j=1,2,3$ \\
+%
+\hline
+%
+\tt{CHud\_klr}&&\tt{CHud}&&$\mbox{Re}\big[(C_{HUD})_{kl}\big]$&$({\cal O}_{HUD})_{ij} =i\big(\widetilde{H}^\dagger D_\mu H\big)
+\big(\overline{U^i}\,\gamma^\mu D^j\big)$\\
+\tt{CHud\_kli} &&&&
+$\mbox{Im}\big[(C_{HUD})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CeH\_klr}&&\tt{CeH}&&$\mbox{Re}\big[(C_{EH})_{kl}\big]$&$({\cal O}_{EH})_{ij} =\big(H^\dagger H\big)
+\big(\overline{L^i}\,H E^j\big)$\\
+\tt{CeH\_kli} &&&&
+$\mbox{Im}\big[(C_{EH})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CuH\_klr}&&\tt{CuH}&&$\mbox{Re}\big[(C_{UH})_{kl}\big]$&$({\cal O}_{UH})_{ij} =\big(H^\dagger H\big)
+\big(\overline{Q^i}\,\widetilde{H} U^j\big)$\\
+\tt{CuH\_kli} &&&&
+$\mbox{Im}\big[(C_{UH})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CdH\_klr}&&\tt{CdH}&&$\mbox{Re}\big[(C_{DH})_{kl}\big]$&$({\cal O}_{DH})_{ij} =\big(H^\dagger H\big)
+\big(\overline{Q^i}\,H D^j\big)$\\
+\tt{CdH\_kli} &&&&
+$\mbox{Im}\big[(C_{DH})_{kl}\big] $&$i,j=1,2,3$\\
+%
+\hline
+%
+\tt{CLL\_1221}&&\tt{CLL}&&
+$(C_{LL})_{1221,2112}$&$({\cal O}_{LL})_{ijkl}=\big(\overline{L^i}\,\gamma^\mu L^j\big)
+\big(\overline{L^k}\,\gamma_\mu L^l\big)$\\
+\tt{CLL\_2112}&&&&&$ijkl=1221,2112$ \\
+%
+\hline
+%
+&\tt{Lambda\_NP}&&&
+$\Lambda $&
+The new physics scale in GeV.\\
+\hline
+  \end{tabular}
+ \label{tab:GIMRpars2}
+\end{table}
+\end{landscape}
 
 
+\begin{table}[tb]
+ \centering
+\caption{Model flags in the {\tt NPEffectiveGIMR} and {\tt NPEffectiveGIMR\_LFU\_QFU} classes.}\vspace{0.2cm}
+  \begin{tabular}{|l|l|}
+    \hline
+      \textbf{Flag} & \textbf{Description} \\
+    \hline
+      {\tt MwInput} & If ``true'' the $W$ mass is taken as an input parameter \\
+    \hline
+      {\tt QuadraticTerms} &  If ``true'' the contributions from quadratic terms are\\
+      &  switched on in the calculation of Higgs cross sections\\
+      &  and decay widths. (Currently implemented only for \\
+      &  fits assuming one operator at a time.)\\
+    \hline
+  \end{tabular}
+  \label{tab:GIMRflags}
+\end{table} 
 
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKf} class. }\vspace{0.2cm}
+  \begin{tabular}{| c | c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvKfpars}
+\end{table} 
 
+ \begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKfgen} class.}\vspace{0.2cm}
+  \begin{tabular}{| c | c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Ku}&
+$\kappa_u$\\
+%
+ {\tt Kd}&
+$\kappa_d$\\
+%
+ {\tt Kl}&
+$\kappa_l$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvKfgenpars}
+\end{table} 
 
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvgenKf} class.}\vspace{0.2cm}
+  \begin{tabular}{| c | c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt KZ}&
+$\kappa_Z$\\
+%
+ {\tt KW}&
+$\kappa_W$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvgenKfpars}
+\end{table} 
 
-
-%% The Appendices part is started with the command \appendix;
-%% appendix sections are then done as normal sections
-%% \appendix
-
-%% \section{}
-%% \label{}
 
 \bibliographystyle{elsarticle-num}
 \bibliography{HEPfit-1.0}

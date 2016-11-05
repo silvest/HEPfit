@@ -4645,16 +4645,6 @@ void THDMcache::runTHDMparameters()
         lambda3_at_Q = InitVals[11];
         lambda4_at_Q = InitVals[12];
         lambda5_at_Q = InitVals[13];
-//    std::cout<<"Ytop_at_Q = "<<Ytop_at_Q<<std::endl;
-//    std::cout<<"Ybottom1_at_Q = "<<Ybottom1_at_Q<<std::endl;
-//    std::cout<<"Ybottom2_at_Q = "<<Ybottom2_at_Q<<std::endl;
-//    std::cout<<"Ytau1_at_Q = "<<Ytau1_at_Q<<std::endl;
-//    std::cout<<"Ytau2_at_Q = "<<Ytau2_at_Q<<std::endl;
-//    std::cout<<"lambda1_at_Q = "<<lambda1_at_Q<<std::endl;
-//    std::cout<<"lambda2_at_Q = "<<lambda2_at_Q<<std::endl;
-//    std::cout<<"lambda3_at_Q = "<<lambda3_at_Q<<std::endl;
-//    std::cout<<"lambda4_at_Q = "<<lambda4_at_Q<<std::endl;
-//    std::cout<<"lambda5_at_Q = "<<lambda5_at_Q<<std::endl;
     }
 
 }
@@ -4669,18 +4659,11 @@ void THDMcache::computeWFRcombinations()
     double WFRcomb4a = 0.0;
 
     if(WFRflag)
-    {    
-//    bma=myTHDM->getbma();
-//    tanb=myTHDM->gettanb();
+    {
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
     double beta=atan(tanb);
     double alpha=beta-bma;
-//    m12_2=myTHDM->getm12_2();
-//    mHh2=myTHDM->getmHh2();
-//    mA2=myTHDM->getmA2();
-//    mHp2=myTHDM->getmHp2();
-//    mHl=myTHDM->getMHl();
     double mHl2=mHl*mHl;
     double MZ2=MZ*MZ;
 
@@ -5038,75 +5021,6 @@ void THDMcache::computeWFRcombinations()
               +cos(alpha+beta)*(8.0*m12_2-(2.0*mA2+3.0*mHl2)*2.0*cosb*sinb),2)/(128.0*pow(cosb*sinb,4)) * ddpB0mAmAmh
         + pow((2.0*mA2-mHh2)*cos(alpha-5.0*beta)-2.0*(2.0*mA2+mHh2)*cos(bma)+(2.0*mA2+3.0*mHh2)*cos(alpha+3.0*beta)
               +16.0*m12_2*sin(alpha+beta),2)/(512.0*pow(cosb*sinb,4)) * ddpB0mAmAmH;
-//    std::cout<<"B00mHpmH = "<<B00mHpmH<<std::endl;
-//    std::cout<<"B00mHpmh = "<<B00mHpmh<<std::endl;
-//    std::cout<<"B0mh0mHp = "<<B0mh0mHp<<std::endl;
-//    std::cout<<"B00mAmh = "<<B00mAmh<<std::endl;
-//    std::cout<<"B00mAmH = "<<B00mAmH<<std::endl;
-//    std::cout<<"B000mh = "<<B000mh<<std::endl;
-//    std::cout<<"B000mH = "<<B000mH<<std::endl;
-//    std::cout<<"B0mA0mh = "<<B0mA0mh<<std::endl;
-//    std::cout<<"B0mA0mH = "<<B0mA0mH<<std::endl;
-//    std::cout<<"B0mHmAmA = "<<B0mHmAmA<<std::endl;
-//    std::cout<<"B0mhmAmA = "<<B0mhmAmA<<std::endl;
-//    std::cout<<"B0mH0mHp = "<<B0mH0mHp<<std::endl;
-//    std::cout<<"B0mh00 = "<<B0mh00<<std::endl;
-//    std::cout<<"B0mH00 = "<<B0mH00<<std::endl;
-//    std::cout<<"B0mh0mA = "<<B0mh0mA<<std::endl;
-//    std::cout<<"B0mH0mA = "<<B0mH0mA<<std::endl;
-//    std::cout<<"B0mAmAmh = "<<B0mAmAmh<<std::endl;
-//    std::cout<<"B0mAmAmH = "<<B0mAmAmH<<std::endl;
-//    std::cout<<"B0mHp0mh = "<<B0mHp0mh<<std::endl;
-//    std::cout<<"B0mHp0mH = "<<B0mHp0mH<<std::endl;
-//    std::cout<<"B0mHpmHpmH = "<<B0mHpmHpmH<<std::endl;
-//    std::cout<<"B0mHpmHpmh = "<<B0mHpmHpmh<<std::endl;
-//    std::cout<<"B0mhmhmh = "<<B0mhmhmh<<std::endl;
-//    std::cout<<"B0mhmHmh = "<<B0mhmHmh<<std::endl;
-//    std::cout<<"B0mhmHmH = "<<B0mhmHmH<<std::endl;
-//    std::cout<<"B0mHmHmH = "<<B0mHmHmH<<std::endl;
-//    std::cout<<"B0mhmHpmHp = "<<B0mhmHpmHp<<std::endl;
-//    std::cout<<"B0mHmHpmHp = "<<B0mHmHpmHp<<std::endl;
-//    std::cout<<"B0mHmhmh = "<<B0mHmhmh<<std::endl;
-//    std::cout<<"B0mHmHmh = "<<B0mHmHmh<<std::endl;
-//    std::cout<<"ddpB00mHpmA = "<<ddpB00mHpmA<<std::endl;
-//    std::cout<<"ddpB000mh = "<<ddpB000mh<<std::endl;
-//    std::cout<<"ddpB000mH = "<<ddpB000mH<<std::endl;
-//    std::cout<<"ddpB00mAmh = "<<ddpB00mAmh<<std::endl;
-//    std::cout<<"ddpB00mAmH = "<<ddpB00mAmH<<std::endl;
-//    std::cout<<"ddpB00mHpmh = "<<ddpB00mHpmh<<std::endl;
-//    std::cout<<"ddpB00mHpmH = "<<ddpB00mHpmH<<std::endl;
-//    std::cout<<"ddpB0mA0mh = "<<ddpB0mA0mh<<std::endl;
-//    std::cout<<"ddpB0mA0mH = "<<ddpB0mA0mH<<std::endl;
-//    std::cout<<"ddpB0mA0mHp = "<<ddpB0mA0mHp<<std::endl;
-//    std::cout<<"ddpB0mAmAmh = "<<ddpB0mAmAmh<<std::endl;
-//    std::cout<<"ddpB0mAmAmH = "<<ddpB0mAmAmH<<std::endl;
-//    std::cout<<"ddpB0mh00 = "<<ddpB0mh00<<std::endl;
-//    std::cout<<"ddpB0mH00 = "<<ddpB0mH00<<std::endl;
-//    std::cout<<"ddpB0mh0mA = "<<ddpB0mh0mA<<std::endl;
-//    std::cout<<"ddpB0mH0mA = "<<ddpB0mH0mA<<std::endl;
-//    std::cout<<"ddpB0mh0mHp = "<<ddpB0mh0mHp<<std::endl;
-//    std::cout<<"ddpB0mH0mHp = "<<ddpB0mH0mHp<<std::endl;
-//    std::cout<<"ddpB0mhmAmA = "<<ddpB0mhmAmA<<std::endl;
-//    std::cout<<"ddpB0mHmAmA = "<<ddpB0mHmAmA<<std::endl;
-//    std::cout<<"ddpB0mhmhmh = "<<ddpB0mhmhmh<<std::endl;
-//    std::cout<<"ddpB0mhmHmh = "<<ddpB0mhmHmh<<std::endl;
-//    std::cout<<"ddpB0mhmHmH = "<<ddpB0mhmHmH<<std::endl;
-//    std::cout<<"ddpB0mHmhmh = "<<ddpB0mHmhmh<<std::endl;
-//    std::cout<<"ddpB0mHmHmh = "<<ddpB0mHmHmh<<std::endl;
-//    std::cout<<"ddpB0mHmHmH = "<<ddpB0mHmHmH<<std::endl;
-//    std::cout<<"ddpB0mhmHpmHp = "<<ddpB0mhmHpmHp<<std::endl;
-//    std::cout<<"ddpB0mHmHpmHp = "<<ddpB0mHmHpmHp<<std::endl;
-//    std::cout<<"ddpB0mHp0mA = "<<ddpB0mHp0mA<<std::endl;
-//    std::cout<<"ddpB0mHp0mh = "<<ddpB0mHp0mh<<std::endl;
-//    std::cout<<"ddpB0mHp0mH = "<<ddpB0mHp0mH<<std::endl;
-//    std::cout<<"ddpB0mHpmHpmh = "<<ddpB0mHpmHpmh<<std::endl;
-//    std::cout<<"ddpB0mHpmHpmH = "<<ddpB0mHpmHpmH<<std::endl;
-//    std::cout<<"WFRcomb1a = "<<WFRcomb1a<<std::endl;
-//    std::cout<<"WFRcomb1b = "<<WFRcomb1b<<std::endl;
-//    std::cout<<"WFRcomb2a = "<<WFRcomb2a<<std::endl;
-//    std::cout<<"WFRcomb3a = "<<WFRcomb3a<<std::endl;
-//    std::cout<<"WFRcomb3b = "<<WFRcomb3b<<std::endl;
-//    std::cout<<"WFRcomb4a = "<<WFRcomb4a<<std::endl;
     }
     WFRcomb1=-(WFRcomb1a+WFRcomb1b)/(vev*vev);
     WFRcomb2=-WFRcomb2a/(vev*vev);

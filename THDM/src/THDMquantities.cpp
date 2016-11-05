@@ -37,26 +37,6 @@ double mass_mHp::computeThValue()
 }
 
 
-masssquare_mA::masssquare_mA(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
-{}
-
-double masssquare_mA::computeThValue()
-{
-    return myTHDM->getmA2();
-}
-
-
-masssquare_mHp::masssquare_mHp(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
-{}
-
-double masssquare_mHp::computeThValue()
-{
-    return myTHDM->getmHp2();
-}
-
-
 massdifference_mHhmmA::massdifference_mHhmmA(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
 {}
