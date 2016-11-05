@@ -42,6 +42,10 @@ SUSY::SUSY()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_SUSY", boost::cref(Q_SUSY)));
     
     flag_fh = false;
+    flag_h = false;
+    flag_g = false;
+    flag_ch = false;
+    flag_ne = false;
 }
 
 SUSY::~SUSY() 
@@ -62,7 +66,7 @@ bool SUSY::InitializeModel()
     mySUSYSpectrum = new SUSYSpectrum(*this);
 /** BEGIN: REMOVE FROM THE PACKAGE **/
     myFH = new FeynHiggsWrapper(*this);
-/** BEGIN: REMOVE FROM THE PACKAGE **/
+/** END: REMOVE FROM THE PACKAGE **/
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
     setModelInitialized(StandardModel::InitializeModel());
@@ -385,6 +389,7 @@ double SUSY::Mw() const
 
 double SUSY::Mw_dRho() const
 {
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     //double delRho = myFH->getFHdeltarho();
     //std::cout << "DeltaRho = " << delRho << std::endl;
 
@@ -392,8 +397,7 @@ double SUSY::Mw_dRho() const
     double Mw_SM = StandardModel::Mw();
     double cW2_SM = Mw_SM*Mw_SM/Mz/Mz;
     double sW2_SM = 1.0 - cW2_SM;
-/** BEGIN: REMOVE FROM THE PACKAGE **/
     if (IsFlag_FH()) return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
 /** END: REMOVE FROM THE PACKAGE **/
-    else throw std::runtime_error("SUSY::Mw_dRho(): set Flag_FH to true to use Mw_dRho()");
+    throw std::runtime_error("SUSY::Mw_dRho(): set Flag_FH to true to use Mw_dRho()");
 }

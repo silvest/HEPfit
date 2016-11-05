@@ -651,7 +651,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltaLLRR_l"] = boost::factory<deltaLLRR_l*>();
     
     //-----  SUSY spectra and observables  -----
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(); // for debug
+/** END: REMOVE FROM THE PACKAGE **/
     obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);
     obsThFactory["MHh"] = boost::bind(boost::factory<Mhiggs*>(), _1, 1);
     obsThFactory["MHa"] = boost::bind(boost::factory<Mhiggs*>(), _1, 2);

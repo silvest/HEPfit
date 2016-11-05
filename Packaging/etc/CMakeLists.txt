@@ -491,8 +491,12 @@ endif(DEBUG_MODE)
 
 ##############################
 
-#set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour LeptonFlavour NewPhysics Observables GeneralSUSY pMSSM MFV SUSY THDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
-set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour NewPhysics Observables HiggsExtensions StandardModel LoopFunctions gslpp)
+# set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY pMSSM MFV SUSY THDM GeneralTHDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
+
+set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
+
+# set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour NewPhysics THDM Observables HiggsExtensions StandardModel LoopFunctions gslpp)
+
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
 endif(NOT NOMCMC)
@@ -648,6 +652,15 @@ if(NOT NOMCMC)
   endforeach(_myDir)
 endif(NOT NOMCMC)
 message(STATUS "Generated example codes in examples/")
+
+file(GLOB INPUT_FILES ${CMAKE_CURRENT_SOURCE_DIR}/InputFiles/THDM/tabs/*.dat)
+foreach(_inputFile ${INPUT_FILES})
+    get_filename_component(_inputFileName ${_inputFile} NAME)
+    configure_file("${_inputFile}"
+                   "${CMAKE_CURRENT_BINARY_DIR}/InputFiles/THDM/tabs/${_inputFileName}" COPYONLY)
+endforeach(_inputFile)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp.in"
+               "${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp" @ONLY)
 
 message(STATUS "CMAKE_INSTALL_PREFIX has been set to ${CMAKE_INSTALL_PREFIX}")
 
