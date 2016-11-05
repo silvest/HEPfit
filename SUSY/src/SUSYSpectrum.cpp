@@ -215,26 +215,6 @@ bool SUSYSpectrum::CalcSneutrino(gslpp::matrix<gslpp::complex>& Rn_i, gslpp::vec
     double cos2b = 2.0 * mySUSY.getCosb() * mySUSY.getCosb() - 1.0;
     gslpp::matrix<gslpp::complex> Id3 = gslpp::matrix<gslpp::complex>::Id(3);
 
-    //  this section is useful to re-define the sneutrino matrix...
-    
-//                double delta12=0.;
-//                double delta13=0.1;
-//                double delta23=0.1;
-//                gslpp::complex sLmass=mySUSY.msLhat2(0,0);
-//                gslpp::matrix<gslpp::complex> msLhat2modified(3,3,0.);
-//                    msLhat2modified.assign(0, 0, sLmass);
-//                    msLhat2modified.assign(1, 1, sLmass);
-//                    msLhat2modified.assign(2, 2, sLmass);
-//                    msLhat2modified.assign(0, 1, 0.);
-//                    msLhat2modified.assign(1, 0, 0.);
-//                    msLhat2modified.assign(0, 2, delta13*sLmass);
-//                    msLhat2modified.assign(2, 0, delta13*sLmass);
-//                    msLhat2modified.assign(1, 2, delta23*sLmass);
-//                    msLhat2modified.assign(2, 1, delta23*sLmass);
-//                    gslpp::matrix<gslpp::complex> nLL( msLhat2modified + cos2b * Mz2 /2.0 * Id3 );
- 
-    // ... until here
-
     gslpp::matrix<gslpp::complex> nLL( mySUSY.msLhat2 + cos2b * Mz2 /2.0 * Id3 );
     gslpp::matrix<gslpp::complex> nLR( mySUSY.v2()/sqrt(2.0) * mySUSY.getTNhat().hconjugate() );
     gslpp::matrix<gslpp::complex> nRR( mySUSY.msNhat2 );
@@ -275,46 +255,11 @@ bool SUSYSpectrum::CalcSelectron(gslpp::matrix<gslpp::complex>& Rl_i, gslpp::vec
     Me(1, 1) = mySUSY.Ml_Q(mySUSY.MU);
     Me(2, 2) = mySUSY.Ml_Q(mySUSY.TAU);
 
-    //  this section is useful to re-define the slepton matrix
-    //if you want to use deltas, use this...
-//                double delta12=0.1;
-//                double delta13=0.;
-//                double delta23=0.;
-//                gslpp::complex sLmass=mySUSY.msLhat2(0,0);
-//                gslpp::matrix<gslpp::complex> msLhat2modified(3,3,0.);
-//                    msLhat2modified.assign(0, 0, sLmass);
-//                    msLhat2modified.assign(1, 1, sLmass);
-//                    msLhat2modified.assign(2, 2, sLmass);
-//                    msLhat2modified.assign(0, 1, delta12*sLmass);
-//                    msLhat2modified.assign(1, 0, delta12*sLmass);
-//                    msLhat2modified.assign(0, 2, 0.);
-//                    msLhat2modified.assign(2, 0, 0.);
-//                    msLhat2modified.assign(1, 2, 0.);
-//                    msLhat2modified.assign(2, 1, 0.);
-//                gslpp::matrix<gslpp::complex> msEhat2modified(3,3,0.);
-//                    msEhat2modified.assign(0, 0, sLmass);
-//                    msEhat2modified.assign(1, 1, sLmass);
-//                    msEhat2modified.assign(2, 2, sLmass);
-//                    msEhat2modified.assign(0, 1, 0.);
-//                    msEhat2modified.assign(1, 0, 0.);
-//                    msEhat2modified.assign(0, 2, 0.);
-//                    msEhat2modified.assign(2, 0, 0.);
-//                    msEhat2modified.assign(1, 2, 0.);
-//                    msEhat2modified.assign(2, 1, 0.);
-//                gslpp::matrix<gslpp::complex> eLL( msLhat2modified + Me * Me
-//                         + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
-//                gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
-//                         - mySUSY.getMuH() * Me * mySUSY.getTanb() );
-//                gslpp::matrix<gslpp::complex> eRR( msEhat2modified + Me * Me - cos2b * Mz2 * sW2 * Id3 );
-
-    // ... until here
-    //else use the following...
     gslpp::matrix<gslpp::complex> eLL( mySUSY.msLhat2 + Me * Me
                          + cos2b * Mz2 * (- 1.0/2.0 + sW2) * Id3 );
     gslpp::matrix<gslpp::complex> eLR( mySUSY.v1()/sqrt(2.0) * mySUSY.getTEhat().hconjugate()
                          - mySUSY.getMuH() * Me * mySUSY.getTanb() );
     gslpp::matrix<gslpp::complex> eRR( mySUSY.msEhat2 + Me * Me - cos2b * Mz2 * sW2 * Id3 );
-    // ... until here
 
         for(int i = 0; i < 3; i++)
         {
