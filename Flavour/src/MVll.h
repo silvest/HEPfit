@@ -420,25 +420,58 @@ public:
     */
     gslpp::complex H_P(double q2, bool bar);
     
-    double getQCDf_1(double q2)
+    gslpp::complex getQCDf_1(double q2)
     {
-        /* NOTE THE ZEROS */
         updateParameters();
-        return (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) - fDeltaC9_p(q2) * V_p(q2))).abs();
+        return (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) - fDeltaC9_p(q2) * V_p(q2)));
     }
     
-    double getQCDf_2(double q2)
+    gslpp::complex getQCDf_2(double q2)
     {
-        /* NOTE THE ZEROS */
         updateParameters();
-        return (gtilde_2_pre/A_1(q2) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2))).abs();
+        return (gtilde_2_pre/A_1(q2) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2)));
     }
     
-    double getQCDf_3(double q2)
+    gslpp::complex getQCDf_3(double q2)
     {
-        /* NOTE THE ZEROS */
         updateParameters();
-        return (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2) * 1./(16. * M_PI * M_PI * MM*MM) * fDeltaC9_0(q2) * V_0t(q2) - (MM2mMV2 - q2)/(4.*MV) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2)))).abs();
+        return (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2) * 1./(16. * M_PI * M_PI * MM*MM) * fDeltaC9_0(q2) * V_0t(q2) - (MM2mMV2 - q2)/(4.*MV) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2))));
+    }
+    
+    double getQCDfC9_1(double q2, double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_1(q2) - getQCDf_1(cutoff) * cutoff/q2).abs();
+    }
+    
+    double getQCDfC9_2(double q2, double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_2(q2) - getQCDf_2(cutoff) * cutoff/q2).abs();
+    }
+    
+    double getQCDfC9_3(double q2, double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_3(q2) - getQCDf_3(cutoff) * cutoff/q2).abs();
+    }
+    
+    double getQCDfC9p_1(double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_1(cutoff) * cutoff).abs();
+    }
+    
+    double getQCDfC9p_2(double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_2(cutoff) * cutoff).abs();
+    }
+    
+    double getQCDfC9p_3(double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_3(cutoff) * cutoff).abs();
     }
     
     /**

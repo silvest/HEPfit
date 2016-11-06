@@ -311,9 +311,13 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Tm_BdKstmu"] = boost::bind(boost::factory<Tm*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["S_BdKstmu"] = boost::bind(boost::factory<S*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     
-    obsThFactory["QCDf_1f"] = boost::bind(boost::factory<QCDf_1f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-    obsThFactory["QCDf_2f"] = boost::bind(boost::factory<QCDf_2f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-    obsThFactory["QCDf_3f"] = boost::bind(boost::factory<QCDf_3f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDfC9_1f_BdKstmu"] = boost::bind(boost::factory<QCDfC9_1f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDfC9_2f_BdKstmu"] = boost::bind(boost::factory<QCDfC9_2f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDfC9_3f_BdKstmu"] = boost::bind(boost::factory<QCDfC9_3f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    
+    obsThFactory["QCDfC9p_1f_BdKstmu"] = boost::bind(boost::factory<QCDfC9p_1f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDfC9p_2f_BdKstmu"] = boost::bind(boost::factory<QCDfC9p_2f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDfC9p_3f_BdKstmu"] = boost::bind(boost::factory<QCDfC9p_3f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
     obsThFactory["Regtilde_1_BdKstmu"] = boost::bind(boost::factory<gtilde_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 1);
     obsThFactory["Regtilde_2_BdKstmu"] = boost::bind(boost::factory<gtilde_2*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 1);
@@ -415,9 +419,13 @@ ThObsFactory::ThObsFactory()
     parameterForObservable["Tm_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["S_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     
-    parameterForObservable["QCDf_1f"] = parameterForObservable["BR_BdKstmu"];
-    parameterForObservable["QCDf_2f"] = parameterForObservable["BR_BdKstmu"];
-    parameterForObservable["QCDf_3f"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDfC9_1f_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDfC9_2f_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDfC9_3f_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
+    
+    parameterForObservable["QCDfC9p_1f_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDfC9p_2f_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDfC9p_3f_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     
     parameterForObservable["Regtilde_1_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["Regtilde_2_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
@@ -454,6 +462,7 @@ ThObsFactory::ThObsFactory()
     //----- B+ to K*+ ll  -----
     obsThFactory["A_FB_BpKstmu"] = boost::bind(boost::factory<A_FB*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
     obsThFactory["F_L_BpKstmu"] = boost::bind(boost::factory<F_L*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
+    obsThFactory["BR_BpKstmu"] = boost::bind(boost::factory<BR_MVll*>(), _1, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
     
     parameterForObservable["A_FB_BpKstmu"] = make_vector<std::string>() << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0" 
                                                                       << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -463,6 +472,7 @@ ThObsFactory::ThObsFactory()
                                                                       << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1" 
                                                                       << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2";
     parameterForObservable["F_L_BpKstmu"] = parameterForObservable["A_FB_BpKstmu"];
+    parameterForObservable["BR_BpKstmu"] = parameterForObservable["A_FB_BpKstmu"];
     
 /** BEGIN: REMOVE FROM THE PACKAGE **/
     //----- B to X_q ll -----
