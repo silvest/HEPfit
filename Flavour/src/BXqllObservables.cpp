@@ -33,8 +33,8 @@ R_BXqll::R_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, Standa
 
 double R_BXqll::computeThValue()
 { 
-   return myBXqll.getR_LOWQ2(0.2);
-   //return myBXqll.getR_HIGHQ2(0.8);
+//   return myBXqll.getR_LOWQ2(0.15);
+   return myBXqll.getR_HIGHQ2(0.8);
 }
 
 

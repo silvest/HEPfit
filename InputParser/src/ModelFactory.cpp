@@ -20,19 +20,19 @@
 #include "HiggsKvKf.h"
 #include "HiggsKvKfgen.h"
 #include "HiggsKvgenKf.h"
+#include "GeneralSUSY.h"
+#include "SUSYMassInsertion.h"
+#include "SUSY.h"
+#include "THDM.h"
+#include "FlavourWilsonCoefficient.h"
+#include "NPDF2.h"
+#include "CMFV.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "pMSSM.h"
 #include "MFV.h"
 #include "NPSTUVWXY.h"
-#include "GeneralSUSY.h"
-#include "SUSYMassInsertion.h"
-#include "SUSY.h"
 #include "GeneralTHDM.h"
-#include "THDM.h"
-#include "FlavourWilsonCoefficient.h"
 #include "LeftRightSymmetricModel.h"
-#include "NPDF2.h"
-#include "CMFV.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
 
@@ -62,19 +62,18 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
     modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
+    modelFactory["NPDF2"] = boost::factory<NPDF2*>();
+    modelFactory["CMFV"] = boost::factory<CMFV*>();
+    modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
+    modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
+    modelFactory["THDM"] = boost::factory<THDM*>();
+    modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
-    modelFactory["MFV"] = boost::factory<MFV*>();
-    modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
-    modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
-    modelFactory["THDM"] = boost::factory<THDM*>();
-    modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
     modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
-    modelFactory["NPDF2"] = boost::factory<NPDF2*>();
-    modelFactory["CMFV"] = boost::factory<CMFV*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

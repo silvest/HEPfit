@@ -1106,3 +1106,51 @@ double P_relation_exactf::computeThValue()
 
     return 1./2./k1*((P4p*P5p + delta_1) + 1./beta *sqrt(std::abs((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p) + delta_2 + delta_3*P1 + delta_4*P1*P1))) - P2;
 }
+
+QCDf_1f::QCDf_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDf_1f::computeThValue() 
+{
+    double q2 = getBinMin();
+    double cutoff = getBinMax();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_1(q2) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_1(cutoff) * cutoff/q2;
+}
+
+QCDf_2f::QCDf_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDf_2f::computeThValue() 
+{
+    double q2 = getBinMin();
+    double cutoff = getBinMax();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_2(q2) - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_2(cutoff) * cutoff/q2;
+}
+
+QCDf_3f::QCDf_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDf_3f::computeThValue() 
+{
+    double q2 = getBinMin();
+    double cutoff = getBinMax();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_3(q2) -SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDf_3(cutoff) * cutoff/q2;
+}

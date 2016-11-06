@@ -12,12 +12,12 @@
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
+/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
-#include "THDMObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
+#include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 
@@ -49,7 +49,8 @@ ThObsFactory::ThObsFactory()
     const double sqrt_s_LHC14 = 14.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_FCC100 = 100.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_TeV = 1.96;
-    const double sqrt_s_TLEP = .24;
+    const double sqrt_s_FCCee240 = .24;
+    const double sqrt_s_FCCee350 = .35;
     const double sqrt_s_ILC250 = .25;
     const double sqrt_s_ILC500 = .5;
     const double sqrt_s_ILC1000 = 1.0;
@@ -103,11 +104,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["VBF196"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_TeV);
     obsThFactory["VH196"] = boost::bind(boost::factory<muVH*>(), _1, sqrt_s_TeV);
     obsThFactory["ttH196"] = boost::bind(boost::factory<muttH*>(), _1, sqrt_s_TeV);
-    obsThFactory["eeZH240"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_TLEP);
+    obsThFactory["eeZH240"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_FCCee240);
     obsThFactory["eeZH250"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_ILC250);
     obsThFactory["eeZH500"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_ILC500);
     obsThFactory["eeZH1000"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_ILC1000);
     obsThFactory["eeWBF250"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_ILC250);
+    obsThFactory["eeWBF350"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_FCCee350);
     obsThFactory["eeWBF500"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_ILC500);
     obsThFactory["eeWBF1000"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_ILC1000);
     obsThFactory["eettH500"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_ILC500);
@@ -308,6 +310,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Tp_BdKstmu"] = boost::bind(boost::factory<Tp*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["Tm_BdKstmu"] = boost::bind(boost::factory<Tm*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["S_BdKstmu"] = boost::bind(boost::factory<S*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    
+    obsThFactory["QCDf_1f"] = boost::bind(boost::factory<QCDf_1f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDf_2f"] = boost::bind(boost::factory<QCDf_2f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["QCDf_3f"] = boost::bind(boost::factory<QCDf_3f*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
     obsThFactory["Regtilde_1_BdKstmu"] = boost::bind(boost::factory<gtilde_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 1);
     obsThFactory["Regtilde_2_BdKstmu"] = boost::bind(boost::factory<gtilde_2*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU, 1);
@@ -408,7 +414,11 @@ ThObsFactory::ThObsFactory()
     parameterForObservable["Tp_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["Tm_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["S_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
-
+    
+    parameterForObservable["QCDf_1f"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDf_2f"] = parameterForObservable["BR_BdKstmu"];
+    parameterForObservable["QCDf_3f"] = parameterForObservable["BR_BdKstmu"];
+    
     parameterForObservable["Regtilde_1_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["Regtilde_2_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
     parameterForObservable["Regtilde_3_BdKstmu"] = parameterForObservable["BR_BdKstmu"];
@@ -572,7 +582,6 @@ ThObsFactory::ThObsFactory()
     //----- B to tau nu  -----
     obsThFactory["btaunu"] = boost::factory<Btaunu*>();
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  Lepton Flavour observables  -----
     obsThFactory["mu_e_gamma"] = boost::factory<mu_e_gamma*>();
     obsThFactory["log_meg"] = boost::factory<log_meg*>();
@@ -640,12 +649,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mslepton"] = boost::factory<mslepton*>();
     obsThFactory["deltaTEhat23"] = boost::factory<deltaTEhat23*>();
     obsThFactory["deltaLLRR_l"] = boost::factory<deltaLLRR_l*>();
-
-    /** END: REMOVE FROM THE PACKAGE **/
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  SUSY spectra and observables  -----
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(); // for debug
+/** END: REMOVE FROM THE PACKAGE **/
     obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);
     obsThFactory["MHh"] = boost::bind(boost::factory<Mhiggs*>(), _1, 1);
     obsThFactory["MHa"] = boost::bind(boost::factory<Mhiggs*>(), _1, 2);
@@ -678,9 +686,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
     obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
     obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>();
-    /** END: REMOVE FROM THE PACKAGE **/
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  THDM observables  -----
     obsThFactory["globalminimum"] = boost::factory<globalminimum*>();
 
@@ -892,94 +898,42 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda4atQ"] = boost::factory<lambda4atQ*>();
     obsThFactory["lambda5atQ"] = boost::factory<lambda5atQ*>();
 
-    obsThFactory["unitarityNLO1"] = boost::factory<unitarityNLO1*>();
-    obsThFactory["unitarityNLO2"] = boost::factory<unitarityNLO2*>();
-    obsThFactory["unitarityNLO3"] = boost::factory<unitarityNLO3*>();
-    obsThFactory["unitarityNLO4"] = boost::factory<unitarityNLO4*>();
-    obsThFactory["unitarityNLO5"] = boost::factory<unitarityNLO5*>();
-    obsThFactory["unitarityNLO6"] = boost::factory<unitarityNLO6*>();
-    obsThFactory["unitarityNLO7"] = boost::factory<unitarityNLO7*>();
-    obsThFactory["unitarityNLO8"] = boost::factory<unitarityNLO8*>();
-    obsThFactory["unitarityNLO9"] = boost::factory<unitarityNLO9*>();
-    obsThFactory["unitarityNLO10"] = boost::factory<unitarityNLO10*>();
-    obsThFactory["unitarityNLO11"] = boost::factory<unitarityNLO11*>();
-    obsThFactory["unitarityNLO12"] = boost::factory<unitarityNLO12*>();
-    obsThFactory["unitarityNLO13"] = boost::factory<unitarityNLO13*>();
-    obsThFactory["unitarityNLO14"] = boost::factory<unitarityNLO14*>();
-    obsThFactory["unitarityNLO15"] = boost::factory<unitarityNLO15*>();
-    obsThFactory["unitarityNLO16"] = boost::factory<unitarityNLO16*>();
-    obsThFactory["unitarityNLO17"] = boost::factory<unitarityNLO17*>();
-    obsThFactory["unitarityNLO18"] = boost::factory<unitarityNLO18*>();
-    obsThFactory["unitarityNLO19"] = boost::factory<unitarityNLO19*>();
-    obsThFactory["unitarityNLO20"] = boost::factory<unitarityNLO20*>();
-    obsThFactory["unitarityNLO21"] = boost::factory<unitarityNLO21*>();
-    obsThFactory["unitarityNLO22"] = boost::factory<unitarityNLO22*>();
-    obsThFactory["unitarityNLO23"] = boost::factory<unitarityNLO23*>();
-    obsThFactory["unitarityNLO24"] = boost::factory<unitarityNLO24*>();
-    obsThFactory["unitarityNLO25"] = boost::factory<unitarityNLO25*>();
-    obsThFactory["unitarityNLO26"] = boost::factory<unitarityNLO26*>();
-    obsThFactory["unitarityNLOev1"] = boost::factory<unitarityNLOev1*>();
-    obsThFactory["unitarityNLOev2"] = boost::factory<unitarityNLOev2*>();
-    obsThFactory["unitarityNLOev3"] = boost::factory<unitarityNLOev3*>();
-    obsThFactory["unitarityNLOev4"] = boost::factory<unitarityNLOev4*>();
-    obsThFactory["unitarityNLOev5"] = boost::factory<unitarityNLOev5*>();
-    obsThFactory["unitarityNLOev6"] = boost::factory<unitarityNLOev6*>();
-    obsThFactory["unitarityNLOev7"] = boost::factory<unitarityNLOev7*>();
-    obsThFactory["unitarityNLOev8"] = boost::factory<unitarityNLOev8*>();
-    obsThFactory["unitarityNLOev9"] = boost::factory<unitarityNLOev9*>();
-    obsThFactory["unitarityNLOev10"] = boost::factory<unitarityNLOev10*>();
-    obsThFactory["unitarityNLOev11"] = boost::factory<unitarityNLOev11*>();
-    obsThFactory["unitarityNLOev12"] = boost::factory<unitarityNLOev12*>();
-    obsThFactory["unitarityNLOev13"] = boost::factory<unitarityNLOev13*>();
-    obsThFactory["unitarityNLOev14"] = boost::factory<unitarityNLOev14*>();
-    obsThFactory["unitarityNLOev15"] = boost::factory<unitarityNLOev15*>();
-    obsThFactory["unitarityNLOev16"] = boost::factory<unitarityNLOev16*>();
-    obsThFactory["unitarityNLOev17"] = boost::factory<unitarityNLOev17*>();
-    obsThFactory["unitarityNLOev18"] = boost::factory<unitarityNLOev18*>();
+    obsThFactory["unitaritya10odd"] = boost::factory<unitarityNLO14*>();
+    obsThFactory["unitaritya11odd"] = boost::factory<unitarityNLO24*>();
+    obsThFactory["unitaritya00evenp"] = boost::factory<unitarityNLOev1*>();
+    obsThFactory["unitaritya00evenm"] = boost::factory<unitarityNLOev2*>();
+    obsThFactory["unitaritya00oddp"] = boost::factory<unitarityNLOev3*>();
+    obsThFactory["unitaritya00oddm"] = boost::factory<unitarityNLOev4*>();
+    obsThFactory["unitaritya01evenp"] = boost::factory<unitarityNLOev5*>();
+    obsThFactory["unitaritya01evenm"] = boost::factory<unitarityNLOev6*>();
+    obsThFactory["unitaritya01oddp"] = boost::factory<unitarityNLOev9*>();
+    obsThFactory["unitaritya01oddp"] = boost::factory<unitarityNLOev10*>();
+    obsThFactory["unitaritya11evenp"] = boost::factory<unitarityNLOev13*>();
+    obsThFactory["unitaritya11evenp"] = boost::factory<unitarityNLOev14*>();
     obsThFactory["unitarityRp1"] = boost::factory<unitarityRp1*>();
     obsThFactory["unitarityRp2"] = boost::factory<unitarityRp2*>();
     obsThFactory["unitarityRp3"] = boost::factory<unitarityRp3*>();
     obsThFactory["unitarityRp4"] = boost::factory<unitarityRp4*>();
     obsThFactory["unitarityRp5"] = boost::factory<unitarityRp5*>();
     obsThFactory["unitarityRp6"] = boost::factory<unitarityRp6*>();
-    obsThFactory["unitarityRp7"] = boost::factory<unitarityRp7*>();
-    obsThFactory["unitarityRp8"] = boost::factory<unitarityRp8*>();
     obsThFactory["unitarityRp9"] = boost::factory<unitarityRp9*>();
     obsThFactory["unitarityRp10"] = boost::factory<unitarityRp10*>();
-    obsThFactory["unitarityRp11"] = boost::factory<unitarityRp11*>();
-    obsThFactory["unitarityRp12"] = boost::factory<unitarityRp12*>();
     obsThFactory["unitarityRp13"] = boost::factory<unitarityRp13*>();
     obsThFactory["unitarityRp14"] = boost::factory<unitarityRp14*>();
-    obsThFactory["unitarityRp15"] = boost::factory<unitarityRp15*>();
-    obsThFactory["unitarityRp16"] = boost::factory<unitarityRp16*>();
-    obsThFactory["unitarityRp17"] = boost::factory<unitarityRp17*>();
-    obsThFactory["unitarityRp18"] = boost::factory<unitarityRp18*>();
     obsThFactory["unitarityRp19"] = boost::factory<unitarityRp19*>();
     obsThFactory["unitarityRp20"] = boost::factory<unitarityRp20*>();
-    obsThFactory["unitarityRp21"] = boost::factory<unitarityRp21*>();
-    obsThFactory["unitarityRp22"] = boost::factory<unitarityRp22*>();
     obsThFactory["unitarityR1"] = boost::factory<unitarityR1*>();
     obsThFactory["unitarityR2"] = boost::factory<unitarityR2*>();
     obsThFactory["unitarityR3"] = boost::factory<unitarityR3*>();
     obsThFactory["unitarityR4"] = boost::factory<unitarityR4*>();
     obsThFactory["unitarityR5"] = boost::factory<unitarityR5*>();
     obsThFactory["unitarityR6"] = boost::factory<unitarityR6*>();
-    obsThFactory["unitarityR7"] = boost::factory<unitarityR7*>();
-    obsThFactory["unitarityR8"] = boost::factory<unitarityR8*>();
     obsThFactory["unitarityR9"] = boost::factory<unitarityR9*>();
     obsThFactory["unitarityR10"] = boost::factory<unitarityR10*>();
-    obsThFactory["unitarityR11"] = boost::factory<unitarityR11*>();
-    obsThFactory["unitarityR12"] = boost::factory<unitarityR12*>();
     obsThFactory["unitarityR13"] = boost::factory<unitarityR13*>();
     obsThFactory["unitarityR14"] = boost::factory<unitarityR14*>();
-    obsThFactory["unitarityR15"] = boost::factory<unitarityR15*>();
-    obsThFactory["unitarityR16"] = boost::factory<unitarityR16*>();
-    obsThFactory["unitarityR17"] = boost::factory<unitarityR17*>();
-    obsThFactory["unitarityR18"] = boost::factory<unitarityR18*>();
     obsThFactory["unitarityR19"] = boost::factory<unitarityR19*>();
     obsThFactory["unitarityR20"] = boost::factory<unitarityR20*>();
-    obsThFactory["unitarityR21"] = boost::factory<unitarityR21*>();
-    obsThFactory["unitarityR22"] = boost::factory<unitarityR22*>();
     obsThFactory["unitaritya00evenpRe"] = boost::factory<unitaritya00evenpRe*>();
     obsThFactory["unitaritya00evenpIm"] = boost::factory<unitaritya00evenpIm*>();
     obsThFactory["unitaritya00evenmRe"] = boost::factory<unitaritya00evenmRe*>();
@@ -1004,8 +958,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya11evenmIm"] = boost::factory<unitaritya11evenmIm*>();
     obsThFactory["unitaritya11oddRe"] = boost::factory<unitaritya11oddRe*>();
     obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
-    /** END: REMOVE FROM THE PACKAGE **/
-
+    
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  GeneralTHDM observables  -----
     //obsThFactory["Re_sigma_u"] = boost::factory<Re_sigma_u*>();

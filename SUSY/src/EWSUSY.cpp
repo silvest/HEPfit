@@ -9,7 +9,9 @@
 #include <iomanip>
 #include <stdexcept>
 #include <cmath>
+/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "FeynHiggsWrapper.h"
+/** END: REMOVE FROM THE PACKAGE **/
 #include "EWSUSY.h"
 #include "SUSY.h"
 #include <EWSMcache.h>
@@ -21,7 +23,9 @@
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
 #include "EWSMOneLoopEW_HV.h"
+/** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "EWSMTwoFermionsLEP2.h"
+/** END: REMOVE FROM THE PACKAGE **/
 
 
 const double EWSUSY::Mw_unphysical = 2.0;
@@ -1313,8 +1317,12 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
 double EWSUSY::Mw_MSSM() const
 {
     /* initial value for Mw */
-    double Mw_org = mySUSY.getMyFH()->getMw_FHinput();
-
+    double Mw_org; 
+    Mw_org = mySUSY.Mw_tree(); /** This is kep this way for packaging: MUST BE INSPECTED **/
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    if(mySUSY.IsFlag_FH()) Mw_org = mySUSY.getMyFH()->getMw_FHinput(); /** This is kep this way for packaging: MUST BE INSPECTED **/
+    /** END: REMOVE FROM THE PACKAGE **/
+    
     double Mw = Mw_MSSM_TMP(Mw_org);
     //std::cout << std::endl << std::setprecision(12)
     //          << "EWSUSY::Mw_MSSM(): Mw_org = " << Mw_org

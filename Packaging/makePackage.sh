@@ -23,11 +23,11 @@ PROJECTARRAY+=( "EventGeneration" )
 PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
 PROJECTARRAY+=( "FlavourWilsonCoefficient" )
-#PROJECTARRAY+=( "GeneralSUSY" )
+PROJECTARRAY+=( "GeneralSUSY" )
 PROJECTARRAY+=( "gslpp" )
 PROJECTARRAY+=( "HiggsExtensions" )
 PROJECTARRAY+=( "InputParser" )
-#PROJECTARRAY+=( "LeptonFlavour" )
+PROJECTARRAY+=( "LeptonFlavour" )
 PROJECTARRAY+=( "LoopFunctions" )
 #PROJECTARRAY+=( "MFV" )
 PROJECTARRAY+=( "MonteCarlo" )
@@ -35,9 +35,9 @@ PROJECTARRAY+=( "NewPhysics" )
 PROJECTARRAY+=( "Observables" )
 #PROJECTARRAY+=( "pMSSM" )
 PROJECTARRAY+=( "StandardModel" )
-#PROJECTARRAY+=( "SUSY" )
-#PROJECTARRAY+=( "SUSYMassInsertion" )
-#PROJECTARRAY+=( "THDM" )
+PROJECTARRAY+=( "SUSY" )
+PROJECTARRAY+=( "SUSYMassInsertion" )
+PROJECTARRAY+=( "THDM" )
 #PROJECTARRAY+=( "Utils" )
 #PROJECTARRAY+=( "ZFitterWrapper" )
 
@@ -100,7 +100,7 @@ cp -af ${ORGDIR}/doc/LICENSE ${OUTDIR}/doc/
 ###########################################################
 # remove unnecessary files
 
-rm -f ${OUTDIR}/StandardModel/src/EWSMOneLoopEW_HV.*
+# rm -f ${OUTDIR}/StandardModel/src/EWSMOneLoopEW_HV.*
 rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2.*
 rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2_Hollik.*
 rm -f ${OUTDIR}/StandardModel/src/EWSM_Output.*
@@ -112,11 +112,25 @@ rm -f ${OUTDIR}/NewPhysics/src/EW_TEST.*
 rm -f ${OUTDIR}/NewPhysics/src/NPSTUVWXY.*
 
 #FLAVORFILES="AmpDD2.cpp AmpDD2.h AmpDS1.cpp AmpDS1.h ArgD.h BR_Bdnunu.cpp BR_Bdnunu.h BR_Bsnunu.cpp BR_Bsnunu.h BR_Kmumu.cpp BR_Kmumu.h BR_Kp0nunu.cpp BR_Kp0nunu.h BR_Kppnunu.cpp BR_Kppnunu.h CPenguinBox.cpp CPenguinBox.h CPenguinBoxMu.cpp CPenguinBoxMu.h Charm_Kpnunu.cpp Charm_Kpnunu.h EpsilonP_O_Epsilon.cpp EpsilonP_O_Epsilon.h EvolDC1.cpp EvolDC1.h EvolDC1Buras.cpp EvolDC1Buras.h EvolDF1nlep.cpp EvolDF1nlep.h HeffDC1.cpp HeffDC1.h HeffDF1bnlep.cpp HeffDF1bnlep.h HeffDS1.cpp HeffDS1.h M12D.h"
-FLAVORFILES="F_1.h F_2.h hpl.h BXqll.cpp BXqll.h BXqllObservables.cpp BXqllObservables.h"
-for FLAVOR in $FLAVORFILES
+SUSYFILES="FeynHiggsWrapper.cpp FeynHiggsWrapper.h OutputSLHAfromFH.h"
+#FLAVOURFILES="F_1.h F_2.h hpl.h BXqll.cpp BXqll.h BXqllObservables.cpp BXqllObservables.h"
+
+for SUSY in $SUSYFILES
 do
-    rm -f ${OUTDIR}/Flavour/src/${FLAVOR}
+rm -f ${OUTDIR}/SUSY/src/${SUSY}
 done
+
+for FLAVOUR in $FLAVOURFILES
+do
+    rm -f ${OUTDIR}/Flavour/src/${FLAVOUR}
+done
+
+###########################################################
+# Modify and source code and make input files
+#!!! No way of doing inplace replacement that works for both GNU and OSX
+
+eval sed -e 's#getenv\(\"HEPFITPATH\"\)#\"@CMAKE_BINARY_DIR@/InputFiles\"#' ${OUTDIR}/THDM/src/THDMcache.cpp > ${OUTDIR}/THDM/src/THDMcache.cpp.in
+rm ${OUTDIR}/THDM/src/THDMcache.cpp
 
 ###########################################################
 # generate CMakeLists.txt in each project
@@ -151,6 +165,10 @@ cp ${SCRIPTPATH}/etc/HEPfit.h.in ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/BAT-${BAT_VERSION}_mpi_patch.txt ${OUTDIR}/
 cp ${SCRIPTPATH}/etc/BAT-${BAT_VERSION}_patch.txt ${OUTDIR}/
 
+# Tables for THDM
+mkdir -p ${OUTDIR}/InputFiles/THDM
+cp -r ${ORGDIR}/THDM/tabs ${OUTDIR}/InputFiles/THDM/
+
 # examples
 cp -r ${SCRIPTPATH}/etc/examples-src/config ${OUTDIR}/examples-src/
 cp -r ${SCRIPTPATH}/etc/examples-src/config/input ${OUTDIR}/examples-src/config/
@@ -179,7 +197,7 @@ eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/EventGeneration/EventGen
 # Modify source codes
 
 echo "modifing souce codes..."
-MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h ${OUTDIR}/Flavour/src/FlavourObservables.h"
+MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
 for MODFILE in $MODFILELIST
 do
     perl ${SCRIPTPATH}/remove.pl $MODFILE

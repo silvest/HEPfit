@@ -10,6 +10,7 @@
 
 #include <gslpp.h>
 #include <PVfunctions.h>
+#include "StandardModel.h"
 
 class SUSY;
 

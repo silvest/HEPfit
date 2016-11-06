@@ -13,7 +13,9 @@
 #include "SUSYMatching.h"
 
 class EWSUSY; // forward reference to EWSUSY class
+/** BEGIN: REMOVE FROM THE PACKAGE **/
 class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
+/** END: REMOVE FROM THE PACKAGE **/
 class SUSYSpectrum; // forward reference to Spectrum class
 
 /**
@@ -34,7 +36,9 @@ public:
      * @brief Friend classes of SUSY class.
      */
     friend class SUSYSpectrum;
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     friend class FeynHiggsWrapper;
+/** END: REMOVE FROM THE PACKAGE **/
 
     /**
      * @brief A SUSY constructor.
@@ -49,7 +53,8 @@ public:
     // Initialization
 
     virtual bool InitializeModel();
-
+    
+/** BEGIN: REMOVE FROM THE PACKAGE **/    
     /**
      * @brief
      * @return
@@ -58,6 +63,7 @@ public:
     {
         return myFH;
     }
+/** END: REMOVE FROM THE PACKAGE **/    
 
     virtual SUSYMatching& getMatching() const
     {
@@ -101,6 +107,11 @@ public:
     bool IsFlag_ne() const
     {
         return flag_ne;
+    }
+    
+    bool IsFlag_FH() const
+    {
+        return flag_fh;
     }
 
 
@@ -534,8 +545,9 @@ protected:
     virtual void SetTanb(const double tanb);
     virtual void computeYukawas();
     virtual void SetSoftTerms();
-
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     FeynHiggsWrapper* myFH;
+/** END: REMOVE FROM THE PACKAGE **/
 
     SUSYSpectrum* mySUSYSpectrum;
 
@@ -565,7 +577,7 @@ protected:
     
     ///////////////////////////////////////////////////////////////////////////
 private:    
-    bool flag_h, flag_g, flag_ch, flag_ne;
+    bool flag_h, flag_g, flag_ch, flag_ne, flag_fh;
     mutable Matching<SUSYMatching,SUSY>  SUSYM;
     EWSUSY* myEWSUSY;
 
