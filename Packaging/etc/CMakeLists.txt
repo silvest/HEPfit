@@ -501,6 +501,13 @@ if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
 endif(NOT NOMCMC)
 
+##########  THDM file modification  ##########
+
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp.in"
+               "${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp" @ONLY)
+
+##########  THDM file modification  ##########
+
 # sub-directories
 foreach(_project ${PROJECTLIST})
   add_subdirectory(${_project})
@@ -659,8 +666,6 @@ foreach(_inputFile ${INPUT_FILES})
     configure_file("${_inputFile}"
                    "${CMAKE_CURRENT_BINARY_DIR}/InputFiles/THDM/tabs/${_inputFileName}" COPYONLY)
 endforeach(_inputFile)
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp.in"
-               "${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp" @ONLY)
 
 message(STATUS "CMAKE_INSTALL_PREFIX has been set to ${CMAKE_INSTALL_PREFIX}")
 
