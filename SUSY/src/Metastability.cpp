@@ -241,7 +241,7 @@ double FindAction::computeThValue()
                                   -mySUSYScalarPotential->potential(potentialcoefficients, (delta_phi0+2.0*eps)*x1/distance, (delta_phi0+2.0*eps)*x2/distance, (delta_phi0+2.0*eps)*x3/distance) ) / (12.0*eps*eps);
 
             inconds = InitialConditions(delta_phi0, rmin, delta_phi_cutoff, distance, dV_at_delta_phi0, d2V_at_phi0);
-            if(!isfinite(inconds(0)) || !isfinite(x))
+            if(!std::isfinite(inconds(0)) || !std::isfinite(x))
             {
                 break;                
             }
@@ -355,8 +355,8 @@ gslpp::vector<double> FindAction::InitialConditions(double delta_phi0, double rm
     if(fabs(phi_r0)<fabs(delta_phi_cutoff) || dphi_r0*delta_phi0>0)
     {
         double r = rmin;
-        double rlast;
-        while(isfinite(r))
+        double rlast=r;
+        while(std::isfinite(r))
         {
             rlast = r;
             r *= 10;
