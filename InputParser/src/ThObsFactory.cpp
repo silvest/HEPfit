@@ -653,6 +653,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["CCBe13"] = boost::factory<CCBe13*>();
     obsThFactory["CCBe23"] = boost::factory<CCBe23*>();
     
+    obsThFactory["VacuumTunnelingRate"] = boost::factory<FindAction*>();
+    
     obsThFactory["logdeltaRL_13_e"] = boost::factory<logdeltaRL_13_e*>();
     obsThFactory["logdeltaRL_23_e"] = boost::factory<logdeltaRL_23_e*>();
     obsThFactory["logmslepton"] = boost::factory<logmslepton*>();
@@ -971,7 +973,29 @@ ThObsFactory::ThObsFactory()
     
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  GeneralTHDM observables  -----
-    //obsThFactory["Re_sigma_u"] = boost::factory<Re_sigma_u*>();
+    obsThFactory["mH1"] = boost::factory<mH1_GTHDM*>();
+    obsThFactory["mH2"] = boost::factory<mH2_GTHDM*>();
+    obsThFactory["mH3"] = boost::factory<mH3_GTHDM*>();
+    obsThFactory["mH1sq"] = boost::factory<mH1sq_GTHDM*>();
+    obsThFactory["mH2sq"] = boost::factory<mH2sq_GTHDM*>();
+    obsThFactory["mH3sq"] = boost::factory<mH3sq_GTHDM*>();
+    obsThFactory["Msq11"] = boost::factory<Msq11_GTHDM*>();
+    obsThFactory["Msq12"] = boost::factory<Msq12_GTHDM*>();
+    obsThFactory["Msq13"] = boost::factory<Msq13_GTHDM*>();
+    obsThFactory["Msq22"] = boost::factory<Msq22_GTHDM*>();
+    obsThFactory["Msq23"] = boost::factory<Msq23_GTHDM*>();
+    obsThFactory["Msq33"] = boost::factory<Msq33_GTHDM*>();
+    obsThFactory["M2_GTHDM"] = boost::factory<M2_GTHDM*>();
+    obsThFactory["m11_2_GTHDM"] = boost::factory<m11_2_GTHDM*>();
+    obsThFactory["m22_2_GTHDM"] = boost::factory<m22_2_GTHDM*>();
+    obsThFactory["Imm12_2_GTHDM"] = boost::factory<Imm12_2_GTHDM*>();
+    obsThFactory["lambda1_GTHDM"] = boost::factory<lambda1_GTHDM*>();
+    obsThFactory["lambda2_GTHDM"] = boost::factory<lambda2_GTHDM*>();
+    obsThFactory["lambda3_GTHDM"] = boost::factory<lambda3_GTHDM*>();
+    obsThFactory["lambda4_GTHDM"] = boost::factory<lambda4_GTHDM*>();
+    obsThFactory["Relambda5_GTHDM"] = boost::factory<Relambda5_GTHDM*>();
+    obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
+    obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

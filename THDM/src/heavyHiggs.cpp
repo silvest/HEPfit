@@ -631,3 +631,29 @@ double BR_HH_HpW_THDM::computeThValue()
 {
     return myTHDM.getMyTHDMCache()->Br_HtoHpW;
 }
+
+
+
+
+
+
+
+
+
+LIMITmLIMEST::LIMITmLIMEST(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double LIMITmLIMEST::computeThValue()
+{
+    return (myTHDM.getMyTHDMCache()->LIMIT_ggF_H_gaga_CMS) - (myTHDM.getMyTHDMCache()->LIMEST_ggF_H_gaga_CMS);
+}
+
+DEVIATIONoBANDSIZE::DEVIATIONoBANDSIZE(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double DEVIATIONoBANDSIZE::computeThValue()
+{
+    return (myTHDM.getMyTHDMCache()->DEVIATION_ggF_H_gaga_CMS) / (myTHDM.getMyTHDMCache()->BANDSIZE_ggF_H_gaga_CMS);
+}

@@ -188,6 +188,14 @@ public:
     bool isModelTHDM() const{
         return flagTHDMmodel;
     }
+
+    void setModelGeneralTHDM(){
+        flagGTHDMmodel = true;
+    }
+    
+    bool isModelGeneralTHDM() const{
+        return flagGTHDMmodel;
+    }
     
     bool isModelLinearized() const{
         return flagLinearized;
@@ -221,6 +229,7 @@ private:
     bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
     bool flagSUSYmodel;///< A flag identifying the model as a SUSY model
     bool flagTHDMmodel;///< A flag identifying the model as a THDM model
+    bool flagGTHDMmodel;///< A flag identifying the model as a GeneralTHDM model
     bool flagLinearized; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
 
 };

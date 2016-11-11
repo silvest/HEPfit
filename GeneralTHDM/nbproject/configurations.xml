@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/GeneralTHDM.h</itemPath>
       <itemPath>src/GeneralTHDMObservables.h</itemPath>
+      <itemPath>src/GeneralTHDMcache.h</itemPath>
       <itemPath>src/GeneralTHDMquantities.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -16,6 +17,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/GeneralTHDM.cpp</itemPath>
+      <itemPath>src/GeneralTHDMcache.cpp</itemPath>
       <itemPath>src/GeneralTHDMquantities.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -56,6 +58,10 @@
       <item path="src/GeneralTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMcache.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -98,6 +104,10 @@
       </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMcache.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMquantities.h" ex="false" tool="3" flavor2="0">
@@ -127,6 +137,10 @@
       <item path="src/GeneralTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMcache.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>

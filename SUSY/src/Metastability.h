@@ -14,38 +14,6 @@
 #include "ScalarPotential.h"
 #include "SUSY.h"
 
-/*******************************************************************************
- * GSL Function Conversion BEGIN                                                  *
- * ****************************************************************************/
-
-template<class F>
-static double gslFunctionAdapter( double x, void* p)
-{
-    // Here I do recover the "right" pointer, safer to use static_cast
-    // than reinterpret_cast.
-    F* function = static_cast<F*>( p );
-    return (*function)( x );
-}
-
-template<class F>
-gsl_function convertToGslFunction( const F& f )
-{
-    gsl_function gslFunction;
-    
-    const void* p = &f;
-    assert (p != 0);
-    
-    gslFunction.function = &gslFunctionAdapter<F>;
-    // Just to eliminate the const.
-    gslFunction.params = const_cast<void*>( p );
-    
-    return gslFunction;
-}
-
-/*******************************************************************************
- * GSL Function conversion END                                                     *
- * ****************************************************************************/
-
 /**
  * @class FindAction
  * @ingroup SUSY
@@ -101,6 +69,38 @@ private:
     gslpp::vector<double> dY(double y1, double y2, double r);
     int dYfunc(double r, const double y[], double ODE[], void *flags);
     int dYJac(double r, const double y[], double *dfdy, double dfdt[], void *order);
+
+/*******************************************************************************
+ * GSL Function Conversion BEGIN                                                  *
+ * ****************************************************************************/
+
+template<class F>
+static double gslFunctionAdapterS( double x, void* p)
+{
+    // Here I do recover the "right" pointer, safer to use static_cast
+    // than reinterpret_cast.
+    F* function = static_cast<F*>( p );
+    return (*function)( x );
+}
+
+template<class F>
+gsl_function convertToGslFunctionS( const F& f )
+{
+    gsl_function gslFunction;
+    
+    const void* p = &f;
+    assert (p != 0);
+    
+    gslFunction.function = &gslFunctionAdapterS<F>;
+    // Just to eliminate the const.
+    gslFunction.params = const_cast<void*>( p );
+    
+    return gslFunction;
+}
+
+/*******************************************************************************
+ * GSL Function conversion END                                                     *
+ * ****************************************************************************/
 
 };
 

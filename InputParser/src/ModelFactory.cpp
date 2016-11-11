@@ -74,7 +74,8 @@ ModelFactory::ModelFactory()
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
-    /** END: REMOVE FROM THE PACKAGE **/
+    modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
+/** END: REMOVE FROM THE PACKAGE **/
 }
 
 void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)

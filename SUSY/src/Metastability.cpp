@@ -37,7 +37,12 @@ double FindAction::computeThValue()
     gslpp::vector<double> potentialcoefficients=mySUSYScalarPotential->coefficients();
 
     double Vmin0=mySUSYScalarPotential->potential(potentialcoefficients, 0.0, 0.0, 0.0);
+
+//    std::cout << "Vmin0 = " << Vmin0 << std::endl;
+
     gslpp::vector<double> dV0=mySUSYScalarPotential->potentialderivative(potentialcoefficients, 0.0, 0.0, 0.0);
+
+//    std::cout << "dV0 = " << dV0 << std::endl;
 
     // calculate all minima (Ayan)
     // calculate V and dV at origin (V0 and dV0)
@@ -45,21 +50,22 @@ double FindAction::computeThValue()
 //    double S_0=0.0;
     gslpp::vector<double> S(10,0.);
     //define toy minima (remove this as soon as the true minimum finder is available)
-    gslpp::vector<double> minimavector(9,0.);
-    minimavector(0)=1.0;
-    minimavector(1)=2.0;
-    minimavector(2)=3.0;
-    minimavector(3)=4.0;
-    minimavector(4)=5.0;
-    minimavector(5)=6.0;
-    minimavector(6)=7.0;
-    minimavector(7)=8.0;
-    minimavector(8)=9.0;
+    gslpp::vector<double> minimavector(3,0.);
+    minimavector(0)=-807192.888;
+    minimavector(1)=807260.056;
+    minimavector(2)=-803413.309;
+//    minimavector(3)=4.0;
+//    minimavector(4)=5.0;
+//    minimavector(5)=6.0;
+//    minimavector(6)=7.0;
+//    minimavector(7)=8.0;
+//    minimavector(8)=9.0;
     //if mod3 length of minima is not zero, throw error
-    int lengthofminima=9;
+    int lengthofminima=3;
     int NofMinima=lengthofminima/3;
 
-    gslpp::vector<double> deeperminima(lengthofminima,0.), dV(3,0.);
+    gslpp::vector<double> deeperminima(lengthofminima+NofMinima,0.), dV(3,0.);
+//    gslpp::vector<double> deeperminima(3,0.), dV(3,0.);
     int i,n=0;
     double x1, x2, x3, Vmin;
 
@@ -69,6 +75,7 @@ double FindAction::computeThValue()
         x2=minimavector(3*i+1);
         x3=minimavector(3*i+2);
         Vmin=mySUSYScalarPotential->potential(potentialcoefficients, x1, x2, x3);
+    std::cout << "Vmin = " << Vmin << std::endl;
         if(Vmin>=Vmin0)
         {
             continue;
@@ -82,6 +89,8 @@ double FindAction::computeThValue()
             n++;
         }
     }
+
+    std::cout << "2." << std::endl;
 
     /* 2. Calculation of the tunneling rate for each of the minima */
 
@@ -125,7 +134,10 @@ double FindAction::computeThValue()
 
                 }
 
+
     /* 2.1 Calculation of the tunneling rate along the undeformed (straight) path */
+
+                    std::cout << "2.1.1" << std::endl;
 
 //        double xmin = 0.001;
 //        double xmax = std::numeric_limits<double>::infinity();
@@ -153,17 +165,20 @@ double FindAction::computeThValue()
 
     /* 2.1.2 Finding the typical scale of the barrier (using gsl 1D minimization) */
 
+                    std::cout << "2.1.2" << std::endl;
+
         int status;
         int iter = 0, max_iter = 100;
         const gsl_min_fminimizer_type *T;
         gsl_min_fminimizer *s;
         double m=0.5*pos;
         double a=0.0, b=pos;
+                    std::cout << "pos =" << pos << std::endl;
         potentialcoefficientspar=potentialcoefficients;
         x1par=x1;
         x2par=x2;
         x3par=x3;
-        gsl_function F = convertToGslFunction(boost::bind(&FindAction::invertedpotential, &(*this), _1));
+        gsl_function F = convertToGslFunctionS(boost::bind(&FindAction::invertedpotential, &(*this), _1));
 //        F.function = -&invertedpotential; //pointer?
         T = gsl_min_fminimizer_brent;
         s = gsl_min_fminimizer_alloc(T);
@@ -173,13 +188,14 @@ double FindAction::computeThValue()
             iter++;
             status = gsl_min_fminimizer_iterate(s);
             m = gsl_min_fminimizer_x_minimum(s);
+                    std::cout << "m =" << m << std::endl;
             a = gsl_min_fminimizer_x_lower(s);
             b = gsl_min_fminimizer_x_upper(s);
-            status = gsl_min_test_interval(a, b, 1.0e-3, 0.0);
-        } while(iter<max_iter);
+            status = gsl_min_test_interval(a, b, 0.0, 1.0e-3);
+        } while(status == GSL_CONTINUE && iter<max_iter);
         gsl_min_fminimizer_free(s);
         double barriertop=m;
-        if(!(0.0<barriertop<pos))
+        if(barriertop<=0.0 || barriertop>=pos)
         {
             throw std::runtime_error("Error in Metastability.cpp: Potential barrier top outside the barrier range!");
         }
@@ -357,7 +373,7 @@ gslpp::vector<double> FindAction::InitialConditions(double delta_phi0, double rm
         d2Vpar=d2V;
         delta_phi_cutoffpar=delta_phi_cutoff;
 
-        gsl_function F = convertToGslFunction(boost::bind(&FindAction::func, &(*this), _1));
+        gsl_function F = convertToGslFunctionS(boost::bind(&FindAction::func, &(*this), _1));
         //gsl root finding algorithm
                       int status;
                       int iter = 0, max_iter = 100;

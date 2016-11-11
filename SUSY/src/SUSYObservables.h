@@ -21,6 +21,7 @@
 #include "Mw_dRho.h"
 #include "CCBbounds.h"
 #include "SFermiondeltas.h"
+#include "Metastability.h"
 
 #endif	/* SUSYOBSERVABLES_H */
 

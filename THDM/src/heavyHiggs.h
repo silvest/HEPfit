@@ -1281,4 +1281,57 @@ private:
     const THDM& myTHDM;
 };
 
+
+
+
+
+
+
+
+/**
+ * @class LIMITmLIMEST
+ * @ingroup THDM
+ * @brief 
+ */
+class LIMITmLIMEST : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    LIMITmLIMEST(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class DEVIATIONoBANDSIZE
+ * @ingroup THDM
+ * @brief 
+ */
+class DEVIATIONoBANDSIZE : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    DEVIATIONoBANDSIZE(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const THDM& myTHDM;
+};
+
+
+
+
+
 #endif	/* HEAVYHIGGS_H */

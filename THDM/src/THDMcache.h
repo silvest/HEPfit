@@ -171,6 +171,8 @@ public:
      */
     gslpp::matrix<double> CMS_ggF_A_hZ_bbll_e, CMS_pp_H_hh_e, CMS_pp_H_hh_gagabb_e, CMS_pp_H_hh_bbbb_e, CMS_bbF_phi_bb_e, CMS_ggF_phi_tautau_e, CMS_bbF_phi_tautau_e, CMS_ggF_phi_gaga_e, CMS_pp_A_Zga_llga_e, CMS_ggF_H_hh_bbtautau_e, CMS_ggF_A_hZ_tautaull_e;
 
+    gslpp::matrix<double> CMS_ggF_phi_gaga_ep2, CMS_ggF_phi_gaga_em2;
+
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
      */
@@ -595,6 +597,10 @@ public:
      * @details Taken from arXiv:1506.02301, Figure 7, left @cite Khachatryan:2015qba.
      */
     double ip_ex_ggF_phi_gaga_CMS_e(double mass);
+
+        double ip_ex_ggF_phi_gaga_CMS_ep2(double mass);
+
+        double ip_ex_ggF_phi_gaga_CMS_em2(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons which further decay to a bottom quark pair and a @f$\tau@f$ lepton pair.
@@ -1045,6 +1051,10 @@ public:
     double R_pp_H_gaga_ATLAS;
     double THoEX_ggF_H_gaga_CMS;
     double R_ggF_H_gaga_CMS;
+    double LIMIT_ggF_H_gaga_CMS;
+    double LIMEST_ggF_H_gaga_CMS;
+    double DEVIATION_ggF_H_gaga_CMS;
+    double BANDSIZE_ggF_H_gaga_CMS;
     double THoEX_mu_pp_H_VV_CMS;
     double R_mu_pp_H_VV_CMS;
     double THoEX_ggF_H_WW_ATLAS;
@@ -1431,6 +1441,8 @@ private:
     mutable double ip_ex_bbF_phi_tautau_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_phi_gaga_CMS_cache[2][CacheSize];
     mutable double ip_ex_ggF_phi_gaga_CMS_cache_e[2][CacheSize];
+            mutable double ip_ex_ggF_phi_gaga_CMS_cache_ep2[2][CacheSize];
+            mutable double ip_ex_ggF_phi_gaga_CMS_cache_em2[2][CacheSize];
     mutable double ip_ex_pp_A_Zga_llga_CMS_cache[2][CacheSize];
     mutable double ip_ex_pp_A_Zga_llga_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbtautau_CMS_cache[2][CacheSize];

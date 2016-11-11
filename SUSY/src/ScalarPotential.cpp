@@ -23,7 +23,8 @@ gslpp::vector<double> SUSYScalarPotential::coefficients()
 //	mhusq = ((mAsq/(1 + tb**2) + (self.mzsq/2)*((1 - tb**2)/(1 + tb**2)) - mu**2))
 //	mhdsq = ((mAsq * tb**2/(1 + tb**2) - (self.mzsq/2)*((1 - tb**2)/(1 + tb**2)) - mu**2))
 //	bmu = (mAsq) * tb/(1 + tb**2)
-    double mA = mySUSY.getMHa();
+//    double mA = mySUSY.getMHa();
+    double mA = 1000.;
     double tanb = mySUSY.getTanb();
     double MZ = mySUSY.getMz();
     gslpp::complex muH = mySUSY.getMuH();
@@ -32,15 +33,24 @@ gslpp::vector<double> SUSYScalarPotential::coefficients()
     double vd = mySUSY.v1();
     double Mw = mySUSY.Mw_tree();
     double sw2 = mySUSY.StandardModel::sW2(Mw);
-    double stw = sqrt(sw2);
-    double ctw = sqrt(1.0 - sw2);
-    double ttw = stw/ctw;
+    double ttw2 = sw2/(1.0 - sw2);
     double g2sq = 8. * mySUSY.getGF() / sqrt(2.0) * Mw * Mw;
-    double g1sq = g2sq/ttw;
+    double g1sq = g2sq*ttw2;
     double mMU = mySUSY.getLeptons(StandardModel::MU).getMass();
     double mTAU = mySUSY.getLeptons(StandardModel::TAU).getMass();
     gslpp::matrix<gslpp::complex> TEhat = mySUSY.getTEhat();
-    double Al23 = TEhat(2,1).abs();
+    double Al23 = TEhat(1,2).abs();
+
+    std::cout << "tanb = " << tanb << std::endl;
+    std::cout << "MZ = " << MZ << std::endl;
+    std::cout << "mHdsq = " << mHdsq << std::endl;
+    std::cout << "g1 = " << sqrt(g1sq) << std::endl;
+    std::cout << "g2 = " << sqrt(g2sq) << std::endl;
+    std::cout << "Al23 = " << Al23 << std::endl;
+    std::cout << "vd = " << vd << std::endl;
+    std::cout << "ytau = " << mMU/vd*sqrt(2.) << std::endl;
+    std::cout << "ymu = " << mTAU/vd*sqrt(2.) << std::endl;
+
 
     gslpp::vector<double> coefficients(35, 0.);
 
@@ -107,7 +117,20 @@ gslpp::vector<double> SUSYScalarPotential::coefficients()
 
 double SUSYScalarPotential::potential(gslpp::vector<double> coefficients, double field1, double field2, double field3)
 {
-    double pot=0.0;
+    gslpp::vector<double> a=coefficients;
+    double x1=field1;
+    double x2=field2;
+    double x3=field3;
+    double pot=a(0)
+               +a(1)*x1 +a(2)*x2 +a(3)*x3
+               +a(4)*x1*x1 +a(5)*x1*x2 +a(6)*x1*x3 +a(7)*x2*x2 +a(8)*x2*x3 +a(9)*x3*x3
+               +a(10)*x1*x1*x1 +a(11)*x1*x1*x2 +a(12)*x1*x1*x3 +a(13)*x1*x2*x2 +a(14)*x1*x2*x3 +a(15)*x1*x3*x3
+                               +a(16)*x2*x2*x2 +a(17)*x2*x2*x3 +a(18)*x2*x3*x3 +a(19)*x3*x3*x3
+               +a(20)*x1*x1*x1*x1 +a(21)*x1*x1*x1*x2 +a(22)*x1*x1*x1*x3 +a(23)*x1*x1*x2*x2 +a(24)*x1*x1*x2*x3
+                                  +a(25)*x1*x1*x3*x3 +a(26)*x1*x2*x2*x2 +a(27)*x1*x2*x2*x3 +a(28)*x1*x2*x3*x3
+                                  +a(29)*x1*x3*x3*x3 +a(30)*x2*x2*x2*x2 +a(31)*x2*x2*x2*x3 +a(32)*x2*x2*x3*x3
+                                  +a(33)*x2*x3*x3*x3 +a(34)*x3*x3*x3*x3;
+//    double pot=0.0017924;
     return pot;
 }
 
@@ -118,6 +141,10 @@ gslpp::vector<double> SUSYScalarPotential::potentialderivative(gslpp::vector<dou
     double x1=field1;
     double x2=field2;
     double x3=field3;
+    std::cout << "coefficients = " << coefficients << std::endl;
+    std::cout << "x1 = " << x1 << std::endl;
+    std::cout << "x2 = " << x2 << std::endl;
+    std::cout << "x3 = " << x3 << std::endl;
 
     //derivative wrt x1
     dV(0)=a(1) + 2.0*a(4)*x1 + 3.0*a(10)*x1*x1 + 4.0*a(20)*x1*x1*x1 

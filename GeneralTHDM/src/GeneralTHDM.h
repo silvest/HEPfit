@@ -11,7 +11,14 @@
 #include "StandardModel.h"
 //#include "GeneralTHDMMatching.h"
 
-//class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
+/**
+ * @addtogroup GeneralTHDM
+ * @brief A module for general Two-Higgs-Doublet models.
+ * @{
+ */
+
+
+class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
 
 /**
  * @class GeneralTHDM
@@ -28,14 +35,14 @@
 class GeneralTHDM: public StandardModel {
 public:
 
-    static const int NGeneralTHDMvars = 18;
+    static const int NGeneralTHDMvars = 12;
     static const std::string GeneralTHDMvars[NGeneralTHDMvars];
-    
+
     /**
      * @brief GeneralTHDM constructor
      */
     GeneralTHDM();
-    
+
     /**
      * @brief GeneralTHDM destructor
      */
@@ -57,14 +64,14 @@ public:
 //     * @brief A get method to access the member reference of type StandardModelMatching.
 //     * @return a reference to a StandardModelMatching object
 //     */
-//    virtual THDMMatching& getMatching() const
+//    virtual GeneralTHDMMatching& getMatching() const
 //    {
-//        return THDMM.getObj();
+//        return GTHDMM.getObj();
 //    }
 
-//    virtual void setMatching(THDMMatching& THDMMr)
+//    virtual void setMatching(GeneralTHDMMatching& GTHDMMr)
 //    {
-//        THDMM.setObj(THDMMr);
+//        GTHDMM.setObj(GTHDMMr);
 //    }
 
 
@@ -73,11 +80,11 @@ public:
 
 //    virtual bool setFlagStr(const std::string name, const std::string value);
 //    virtual bool setFlag(const std::string, const bool);
-//
-//    THDMcache* getMyTHDMCache() const
-//    {
-//        return myTHDMcache;
-//    }
+
+    GeneralTHDMcache* getMyGTHDMCache() const
+    {
+        return myGTHDMcache;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -110,7 +117,7 @@ public:
     }
 
     /**
-     * @return mass squared charged Higgs
+     * @return mass squared of the charged Higgs
      */
     double getmHp2() const {
         return mHp2;
@@ -121,114 +128,114 @@ public:
      */
     double getmHp() const {
     if(mHp2 < 0.) {
-        return 0.;
+            throw std::runtime_error("error in GeneralTHDM: mHp2 < 0!");
     }
         return sqrt(mHp2);
     }
 
     /**
-     * @return alpha1
+     * @return rotation angle between the first and second neutral mass eigenstate
      */
     double getalpha1() const {
         return alpha1;
     }
 
     /**
-     * @return alpha2
+     * @return cos of the rotation angle between the first and second neutral mass eigenstate
+     */
+    double getcosalpha1() const {
+        return cosalpha1;
+    }
+
+    /**
+     * @return sin of the rotation angle between the first and second neutral mass eigenstate
+     */
+    double getsinalpha1() const {
+        return sinalpha1;
+    }
+
+    /**
+     * @return rotation angle between the first and third neutral mass eigenstate
      */
     double getalpha2() const {
         return alpha2;
     }
 
     /**
-     * @return alpha3
+     * @return cos of the rotation angle between the first and third neutral mass eigenstate
+     */
+    double getcosalpha2() const {
+        return cosalpha2;
+    }
+
+    /**
+     * @return sin of the rotation angle between the first and third neutral mass eigenstate
+     */
+    double getsinalpha2() const {
+        return sinalpha2;
+    }
+
+    /**
+     * @return rotation angle between the second and third neutral mass eigenstate
      */
     double getalpha3() const {
         return alpha3;
     }
 
     /**
-     * @return m2_2
+     * @return cos of the rotation angle between the second and third neutral mass eigenstate
      */
-    double getm2_2() const {
-        return m2_2;
+    double getcosalpha3() const {
+        return cosalpha3;
     }
 
     /**
-     * @return parameter of the Higgs potential @f$Re(m_{12}^2)@f$ 
+     * @return sin of the rotation angle between the second and third neutral mass eigenstate
+     */
+    double getsinalpha3() const {
+        return sinalpha3;
+    }
+
+    /**
+     * @return Real part of the Higgs potential parameter @f$m_{12}^2@f$
      */
     double getRem12_2() const {
         return Rem12_2;
     }
-
+    
     /**
-     * @return Relambda6
+     * @return Imaginary part of the Higgs potential parameter @f$lambda_{5}@f$
+     */
+    double getImlambda5() const {
+        return Imlambda5;
+    }
+    
+    /**
+     * @return Real part of the Higgs potential parameter @f$lambda_{6}@f$
      */
     double getRelambda6() const {
         return Relambda6;
     }
 
     /**
-     * @return Imlambda6
+     * @return Imaginary part of the Higgs potential parameter @f$lambda_{6}@f$
      */
     double getImlambda6() const {
         return Imlambda6;
     }
 
     /**
-     * @return Relambda7
+     * @return Real part of the Higgs potential parameter @f$lambda_{7}@f$
      */
     double getRelambda7() const {
         return Relambda7;
     }
 
     /**
-     * @return Imlambda7
+     * @return Imaginary part of the Higgs potential parameter @f$lambda_{7}@f$
      */
     double getImlambda7() const {
         return Imlambda7;
-    }
-
-    /**
-     * @return abssigma_u
-     */
-    double getabssigma_u() const {
-        return abssigma_u;
-    }
-
-    /**
-     * @return phi_u
-     */
-    double getphi_u() const {
-        return phi_u;
-    }
-
-    /**
-     * @return abssigma_d
-     */
-    double getabssigma_d() const {
-        return abssigma_d;
-    }
-
-    /**
-     * @return phi_d
-     */
-    double getphi_d() const {
-        return phi_d;
-    }
-
-    /**
-     * @return abssigma_l
-     */
-    double getabssigma_l() const {
-        return abssigma_l;
-    }
-
-    /**
-     * @return phi_l
-     */
-    double getphi_l() const {
-        return phi_l;
     }
 
     /**
@@ -237,8 +244,16 @@ public:
     double getQ_GTHDM() const {
         return Q_GTHDM;
     }
+    
+    /**
+     * 
+     * @return @f$M^2@f$ of @cite Kanemura:2015ska
+     */
+    double getM2() const {
+            return Rem12_2/sinb/cosb;
+    }
 
-protected: 
+protected:
 
     virtual void setParameter(const std::string, const double&);
 
@@ -262,9 +277,14 @@ protected:
 
 private:
 
-//    THDMcache* myTHDMcache;
+    GeneralTHDMcache* myGTHDMcache;
 
-    double logtb, tanb, sinb, cosb, mHp2, alpha1, alpha2, alpha3, m2_2, Rem12_2, Relambda6, Imlambda6, Relambda7, Imlambda7, abssigma_u, phi_u, abssigma_d, phi_d, abssigma_l, phi_l, Q_GTHDM;
+    double logtb, tanb, sinb, cosb, mHp2, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
+            alpha3, cosalpha3, sinalpha3, Rem12_2, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7, Q_GTHDM;
 };
+
+/**
+ * @}
+ */
 
 #endif	/* GENERALTHDM_H */

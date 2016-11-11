@@ -77,6 +77,10 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         CMS_ggF_phi_tautau_e(92,2,0.),
         CMS_bbF_phi_tautau_e(92,2,0.),
         CMS_ggF_phi_gaga_e(141,2,0.),
+//        CMS_ggF_phi_gaga_ep1(141,2,0.),
+        CMS_ggF_phi_gaga_ep2(141,2,0.),
+//        CMS_ggF_phi_gaga_em1(141,2,0.),
+        CMS_ggF_phi_gaga_em2(141,2,0.),
         CMS_pp_A_Zga_llga_e(101,2,0.),
         CMS_ggF_H_hh_bbtautau_e(10,2,0.),
         CMS_ggF_A_hZ_tautaull_e(14,2,0.),
@@ -1465,6 +1469,7 @@ void THDMcache::read(){
     std::stringstream csr1,csr2,csr3,csr4;
     std::stringstream ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15,ex16,ex17,ex18,ex19,ex20,ex21,ex22,ex23;
     std::stringstream ex1e,ex2e,ex3e,ex4e,ex5e,ex6e,ex7e,ex8e,ex9e,ex10e,ex11e,ex12e,ex13e,ex14e,ex15e,ex16e,ex17e,ex18e,ex19e,ex20e,ex21e,ex22e,ex23e;
+    std::stringstream ex14ep2,ex14em2;
     std::stringstream bsg1;
 
     std::cout<<"reading tables"<<std::endl;
@@ -1572,6 +1577,18 @@ void THDMcache::read(){
     CMS_ggF_phi_gaga = readTable(ex14.str(),141,2);
     ex14e << tablepath << "150602301_e.dat";
     CMS_ggF_phi_gaga_e = readTable(ex14e.str(),141,2);
+
+//    ex14ep1 << tablepath << "150602301_ep1.dat";
+//    CMS_ggF_phi_gaga_ep1 = readTable(ex14ep1.str(),141,2);
+    //CHANGE THIS DEFINITION!
+    ex14ep2 << tablepath << "150602301_e.dat";
+    CMS_ggF_phi_gaga_ep2 = readTable(ex14ep2.str(),141,2);
+//    ex14em1 << tablepath << "150602301_em1.dat";
+//    CMS_ggF_phi_gaga_em1 = readTable(ex14em1.str(),141,2);
+    //CHANGE THIS DEFINITION!
+    ex14em2 << tablepath << "150602301_e.dat";
+    CMS_ggF_phi_gaga_em2 = readTable(ex14em2.str(),141,2);
+
     ex15 << tablepath << "150900389_a.dat";
     ATLAS_ggF_H_WW = readTable(ex15.str(),13,2);
     ex15e << tablepath << "150900389_a_e.dat";
@@ -2619,6 +2636,65 @@ double THDMcache::ip_ex_ggF_phi_gaga_CMS_e(double mass){
 
 
 
+//
+//double THDMcache::ip_ex_ggF_phi_gaga_CMS_ep1(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+//
+//    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_ep1, NumPar, params);
+//    if (i>=0) {
+//        return ( ip_ex_ggF_phi_gaga_CMS_cache_ep1[NumPar][i] );
+//    } else {
+//        double newResult = interpolate (CMS_ggF_phi_gaga_ep1,mass);
+//        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_ep1, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+
+double THDMcache::ip_ex_ggF_phi_gaga_CMS_ep2(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_ep2, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_ggF_phi_gaga_CMS_cache_ep2[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS_ggF_phi_gaga_ep2,mass);
+        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_ep2, NumPar, params, newResult);
+        return newResult;
+    }
+}
+//
+//double THDMcache::ip_ex_ggF_phi_gaga_CMS_em1(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+//
+//    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_em1, NumPar, params);
+//    if (i>=0) {
+//        return ( ip_ex_ggF_phi_gaga_CMS_cache_em1[NumPar][i] );
+//    } else {
+//        double newResult = interpolate (CMS_ggF_phi_gaga_em1,mass);
+//        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_em1, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+
+double THDMcache::ip_ex_ggF_phi_gaga_CMS_em2(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_em2, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_ggF_phi_gaga_CMS_cache_em2[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS_ggF_phi_gaga_em2,mass);
+        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_em2, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_ex_pp_A_Zga_llga_CMS(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -3658,6 +3734,10 @@ void THDMcache::computeHHquantities()
     R_pp_H_gaga_ATLAS=0.0;
     THoEX_ggF_H_gaga_CMS=0.0;
     R_ggF_H_gaga_CMS=0.0;
+    LIMIT_ggF_H_gaga_CMS=0.0;
+    LIMEST_ggF_H_gaga_CMS=0.0;
+    DEVIATION_ggF_H_gaga_CMS=0.0;
+    BANDSIZE_ggF_H_gaga_CMS=0.0;
     THoEX_mu_pp_H_VV_CMS=0.0;
     R_mu_pp_H_VV_CMS=0.0;
     THoEX_ggF_H_WW_ATLAS=0.0;
@@ -3773,6 +3853,10 @@ void THDMcache::computeHHquantities()
         R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
         R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
+    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
+    LIMEST_ggF_H_gaga_CMS=(ggF_H_gaga_TH+ip_ex_ggF_phi_gaga_CMS_e(mHh)-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ;
+    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
+    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
         THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
         R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
         THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
@@ -3796,6 +3880,10 @@ void THDMcache::computeHHquantities()
         R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
         R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
+    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
+    LIMEST_ggF_H_gaga_CMS=0.0;
+    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
+    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
         THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
         R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
         THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
@@ -3825,6 +3913,10 @@ void THDMcache::computeHHquantities()
         R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
         R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
+    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
+    LIMEST_ggF_H_gaga_CMS=0.0;
+    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
+    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
         THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
         R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
         THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
@@ -3856,6 +3948,10 @@ void THDMcache::computeHHquantities()
         R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
         R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
+    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
+    LIMEST_ggF_H_gaga_CMS=0.0;
+    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
+    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
         THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
         R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
         THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
@@ -3893,6 +3989,10 @@ void THDMcache::computeHHquantities()
         R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
         R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
+    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
+    LIMEST_ggF_H_gaga_CMS=0.0;
+    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
+    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
         THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
         R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
         THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
@@ -3928,6 +4028,10 @@ void THDMcache::computeHHquantities()
         R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
         R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
+    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
+    LIMEST_ggF_H_gaga_CMS=0.0;
+    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
+    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
         THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
         R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
         THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
@@ -3963,6 +4067,10 @@ void THDMcache::computeHHquantities()
         R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
         R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
+    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
+    LIMEST_ggF_H_gaga_CMS=0.0;
+    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
+    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
         THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
         R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
         THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
@@ -5041,11 +5149,11 @@ void THDMcache::updateCache()
     cW2=cW2THDM(myTHDM->c02());
     mHl=myTHDM->getMHl();
     mHh2=myTHDM->getmHh2();
-    double mHl2=mHl*mHl;
-    if(mHh2 < mHl2) {
-        mHl=sqrt(mHh2);
-        mHh2=mHl2;
-    }
+//    double mHl2=mHl*mHl;
+//    if(mHh2 < mHl2) {
+//        mHl=sqrt(mHh2);
+//        mHh2=mHl2;
+//    }
     vev=myTHDM->v();
     Ale=myTHDM->getAle();
     Als=myTHDM->getAlsMz();
