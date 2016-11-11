@@ -10,7 +10,7 @@ VERSION="core-1.0"
 ###########################################################
 # Original source codes
 
-ORGDIR="${HOME}/NetBeansProjects/HEPfit"
+ORGDIR=".."
 BAT_VERSION="1.0.0-RC1"
 
 ###########################################################
