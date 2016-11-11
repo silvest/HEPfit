@@ -126,13 +126,6 @@ do
 done
 
 ###########################################################
-# Modify and source code and make input files
-#!!! No way of doing inplace replacement that works for both GNU and OSX
-
-eval sed -e 's#getenv\(\"HEPFITPATH\"\)#\"@CMAKE_BINARY_DIR@/InputFiles\"#' ${OUTDIR}/THDM/src/THDMcache.cpp > ${OUTDIR}/THDM/src/THDMcache.cpp.in
-rm ${OUTDIR}/THDM/src/THDMcache.cpp
-
-###########################################################
 # generate CMakeLists.txt in each project
 
 for PROJECT in ${PROJECTARRAY[@]}
@@ -146,6 +139,13 @@ do
     echo "generating ${PROJECT}/CMakeLists.txt"
     python3 $PYSCRIPT $PROJECT $CONF > ${OUTDIR}/${PROJECT}/CMakeLists.txt
 done
+
+###########################################################
+# Modify and source code and make input files
+#!!! No way of doing inplace replacement that works for both GNU and OSX
+
+eval sed -e 's#getenv\(\"HEPFITPATH\"\)#\"@CMAKE_BINARY_DIR@/InputFiles\"#' ${OUTDIR}/THDM/src/THDMcache.cpp > ${OUTDIR}/THDM/src/THDMcache.cpp.in
+rm ${OUTDIR}/THDM/src/THDMcache.cpp
 
 ###########################################################
 # copy other necessary files
