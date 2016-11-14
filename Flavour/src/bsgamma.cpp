@@ -22,9 +22,7 @@
 Bsgamma::Bsgamma(const StandardModel& SM_i, StandardModel::quark quark_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
-{
-    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
-    
+{    
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
     
@@ -56,8 +54,6 @@ Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
 {
-    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
-    
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
     
@@ -1899,6 +1895,33 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
 void Bsgamma::computeCoeff(double mu)
 {
     
+    /*allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(160.);
+    
+    C1_0 = (*(allcoeff[LO]))(0);
+    C2_0 = (*(allcoeff[LO]))(1);
+    C3_0 = (*(allcoeff[LO]))(2);
+    C4_0 = (*(allcoeff[LO]))(3);
+    C5_0 = (*(allcoeff[LO]))(4);
+    C6_0 = (*(allcoeff[LO]))(5);
+    C7_0 = (*(allcoeff[LO]))(6);
+    C8_0 = (*(allcoeff[LO]))(7);
+    
+    C1_1 = (*(allcoeff[NLO]))(0)/Alstilde;
+    C2_1 = (*(allcoeff[NLO]))(1)/Alstilde;
+    C3_1 = (*(allcoeff[NLO]))(2)/Alstilde;
+    C4_1 = (*(allcoeff[NLO]))(3)/Alstilde;
+    C5_1 = (*(allcoeff[NLO]))(4)/Alstilde;
+    C6_1 = (*(allcoeff[NLO]))(5)/Alstilde;
+    C7_1 = (*(allcoeff[NLO]))(6)/Alstilde;
+    C8_1 = (*(allcoeff[NLO]))(7)/Alstilde;
+    
+    std::cout << "C_0(MuW): (" << C1_0.real() << "," << C2_0.real() << "," 
+            << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
+            << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
+    std::cout << "C_1(MuW): (" << C1_1.real() << "," << C2_1.real() << "," 
+            << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
+            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
+    
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu);
     
@@ -1923,14 +1946,19 @@ void Bsgamma::computeCoeff(double mu)
     C7p_0 = (*(allcoeffprime[LO]))(6);
     C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
     
-    /*std::cout << "C_0(2 GeV): (" << C1_0.real() << "," << C2_0.real() << "," 
+    /*std::cout << "C_0(mu): (" << C1_0.real() << "," << C2_0.real() << "," 
             << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
             << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
-    std::cout << "C_1(2 GeV): (" << C1_1.real() << "," << C2_1.real() << "," 
+    std::cout << "C_1(mu): (" << C1_1.real() << "," << C2_1.real() << "," 
             << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
             << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
     
-    C7_2 = 18.8595;
+    if (SM.getModelName().compare("StandardModel") == 0) C7_2 = 18.8595;
+    else if (SM.getModelName().compare("THDM") == 0) C7_2 = 16.518;
+    else {
+        C7_2 = 18.8595;
+        std::cout << "\nWARNING: using Standard Model value for C7_NNLO.\n" << std::endl;
+    }
     C7_1ew = 4.868;
     
 }

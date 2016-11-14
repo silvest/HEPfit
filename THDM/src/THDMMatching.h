@@ -34,11 +34,41 @@ public:
      * @return THDM Wilson coefficient for \f$ B \to \tau \nu \f$ from @cite Hou:1992sy
      */
     virtual  std::vector<WilsonCoefficient>& CMbtaunu();
+    
+    /** 
+     * 
+     * @brief operator basis: current current; qcd penguins; 
+     * magnetic and chromomagnetic penguins; semileptonic 
+     * @return THDM Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMbsg() ;
+    
+    /** 
+     * 
+     * @brief operator basis: current current; qcd penguins; 
+     * magnetic and chromomagnetic penguins; semileptonic 
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     */
+    virtual   std::vector<WilsonCoefficient>& CMprimebsg() ;
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and charged Higgs mass
+     * @param tan \f$ \tan(\beta) \f$
+     * @param mu matching scale
+     * @param order
+     * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     */
+    double setWCbsg (int i, double x, double tan, double mu, orders order);
 
 private:
     const THDM & myTHDM;
     gslpp::matrix<gslpp::complex> myCKM;
-    WilsonCoefficient mcdbs2, mcbtaunu;
+    WilsonCoefficient mcdbs2, mcbtaunu, mcbsg, mcprimebsg;
+    
+    double CWbsgArrayLO[8], CWbsgArrayNLO[8];
+    double tanbsg, xbsg, mubsg; // caching
 
 };
 
