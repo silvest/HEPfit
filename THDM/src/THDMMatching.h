@@ -54,21 +54,22 @@ public:
     /**
      * 
      * @param i int, flag for the caching
-     * @param x the square ratio between top mass and charged Higgs mass
      * @param tan \f$ \tan(\beta) \f$
+     * @param mt top mass
+     * @param mhp charged Higgs mass
      * @param mu matching scale
      * @param order
      * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
      */
-    double setWCbsg (int i, double x, double tan, double mu, orders order);
+    double setWCbsg (int i, double tan, double mt, double mhp, double mu, orders order);
 
 private:
     const THDM & myTHDM;
     gslpp::matrix<gslpp::complex> myCKM;
     WilsonCoefficient mcdbs2, mcbtaunu, mcbsg, mcprimebsg;
     
-    double CWbsgArrayLO[8], CWbsgArrayNLO[8];
-    double tanbsg, xbsg, mubsg; // caching
+    double CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
+    double tanbsg, mtbsg, mhpbsg, mubsg; // caching
 
 };
 
