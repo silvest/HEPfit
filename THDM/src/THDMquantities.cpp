@@ -103,14 +103,14 @@ m11_2::m11_2(const StandardModel& SM_i)
 
 double m11_2::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double tanb=myTHDM->gettanb();
     double mHh2=myTHDM->getmHh2();
     double sina=myTHDM->getsina();
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return (-(cosa*cosa*mHh2) - mHl*mHl*sina*sina + 2*m12_2*tanb + cosa*(mHl*mHl - mHh2)*sina*tanb)/2.;
+    return (-(cosa*cosa*mHh2) - mHl2*sina*sina + 2*m12_2*tanb + cosa*(mHl2 - mHh2)*sina*tanb)/2.;
 }
 
 
@@ -120,14 +120,14 @@ m22_2::m22_2(const StandardModel& SM_i)
 
 double m22_2::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double tanb=myTHDM->gettanb();
     double mHh2=myTHDM->getmHh2();
     double sina=myTHDM->getsina();
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return (2.0*m12_2 + sina*cosa*(mHl*mHl - mHh2) - (cosa*cosa*mHl*mHl + sina*sina*mHh2)*tanb)/(2.0*tanb);
+    return (2.0*m12_2 + sina*cosa*(mHl2 - mHh2) - (cosa*cosa*mHl2 + sina*sina*mHh2)*tanb)/(2.0*tanb);
 }
 
 
@@ -137,7 +137,7 @@ lambda1::lambda1(const StandardModel& SM_i)
 
 double lambda1::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double tanb=myTHDM->gettanb();
     double cosb=myTHDM->getcosb();
@@ -146,10 +146,7 @@ double lambda1::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-//    std::cout<<"mHl="<<mHl<<std::endl;
-//    std::cout<<"mHh="<<sqrt(mHh2)<<std::endl;
-    
-    return (mHh2*cosa*cosa+mHl*mHl*sina*sina-m12_2*tanb)/(vev*vev*cosb*cosb);
+    return (mHh2*cosa*cosa+mHl2*sina*sina-m12_2*tanb)/(vev*vev*cosb*cosb);
 }
 
 
@@ -159,7 +156,7 @@ lambda2::lambda2(const StandardModel& SM_i)
 
 double lambda2::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double tanb=myTHDM->gettanb();
     double sinb=myTHDM->getsinb();
@@ -168,7 +165,7 @@ double lambda2::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return (mHh2*sina*sina+mHl*mHl*cosa*cosa-m12_2/tanb)/(vev*vev*sinb*sinb);
+    return (mHh2*sina*sina+mHl2*cosa*cosa-m12_2/tanb)/(vev*vev*sinb*sinb);
 }
 
 
@@ -178,7 +175,7 @@ lambda3::lambda3(const StandardModel& SM_i)
 
 double lambda3::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -188,7 +185,7 @@ double lambda3::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return ((mHh2-mHl*mHl)*cosa*sina+2*mHp2*sinb*cosb-m12_2)/(vev*vev*sinb*cosb);
+    return ((mHh2-mHl2)*cosa*sina+2*mHp2*sinb*cosb-m12_2)/(vev*vev*sinb*cosb);
 }
 
 
@@ -231,7 +228,7 @@ lambda345::lambda345(const StandardModel& SM_i)
 
 double lambda345::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -240,7 +237,7 @@ double lambda345::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return (m12_2+(mHh2-mHl*mHl)*cosa*sina)/(vev*vev*sinb*cosb);
+    return (m12_2+(mHh2-mHl2)*cosa*sina)/(vev*vev*sinb*cosb);
 }
 
 
@@ -250,7 +247,7 @@ g_hhh::g_hhh(const StandardModel& SM_i)
 
 double g_hhh::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -259,7 +256,7 @@ double g_hhh::computeThValue()
     double bma=myTHDM->getbma();
     double m12_2=myTHDM->getm12_2();
 
-    return 3.0*( -mHl*mHl*(cosa*cosa*cosa/sinb - sina*sina*sina/cosb)
+    return 3.0*( -mHl2*(cosa*cosa*cosa/sinb - sina*sina*sina/cosb)
                  +cos(bma)*m12_2*(cosa*cosa/(sinb*sinb) - sina*sina/(cosb*cosb)) )/vev;
 }
 
@@ -270,7 +267,7 @@ g_hhHh::g_hhHh(const StandardModel& SM_i)
 
 double g_hhHh::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
@@ -281,7 +278,7 @@ double g_hhHh::computeThValue()
     double m12_2=myTHDM->getm12_2();
 
     return -cos(bma)*(sinb*cosb*m12_2 
-                      +sina*cosa*(sinb*cosb*(2.0*mHl*mHl + mHh2) - 3.0*m12_2))/(sinb*sinb*cosb*cosb*vev);
+                      +sina*cosa*(sinb*cosb*(2.0*mHl2 + mHh2) - 3.0*m12_2))/(sinb*sinb*cosb*cosb*vev);
 }
 
 
@@ -291,7 +288,7 @@ g_hHhHh::g_hHhHh(const StandardModel& SM_i)
 
 double g_hHhHh::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
@@ -302,7 +299,7 @@ double g_hHhHh::computeThValue()
     double m12_2=myTHDM->getm12_2();
 
     return -sin(bma)*(sinb*cosb*m12_2
-                      -sina*cosa*(sinb*cosb*(mHl*mHl + 2.0*mHh2) - 3.0*m12_2))/(sinb*sinb*cosb*cosb*vev);
+                      -sina*cosa*(sinb*cosb*(mHl2 + 2.0*mHh2) - 3.0*m12_2))/(sinb*sinb*cosb*cosb*vev);
 }
 
 
@@ -332,7 +329,7 @@ g_hAA::g_hAA(const StandardModel& SM_i)
 
 double g_hAA::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mA2=myTHDM->getmA2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
@@ -342,8 +339,8 @@ double g_hAA::computeThValue()
     double bma=myTHDM->getbma();
     double m12_2=myTHDM->getm12_2();
 
-    return ( (cosa*cosb-sina*sinb)*(m12_2-sinb*cosb*mHl*mHl)
-             +(mHl*mHl-2.0*mA2)*sinb*sinb*cosb*cosb*sin(bma) )/(sinb*sinb*cosb*cosb*vev);
+    return ( (cosa*cosb-sina*sinb)*(m12_2-sinb*cosb*mHl2)
+             +(mHl2-2.0*mA2)*sinb*sinb*cosb*cosb*sin(bma) )/(sinb*sinb*cosb*cosb*vev);
 }
 
 
@@ -374,7 +371,7 @@ g_hHpHm::g_hHpHm(const StandardModel& SM_i)
 
 double g_hHpHm::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mHp2=myTHDM->getmHp2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
@@ -384,8 +381,8 @@ double g_hHpHm::computeThValue()
     double bma=myTHDM->getbma();
     double m12_2=myTHDM->getm12_2();
 
-    return ( (cosa*cosb-sina*sinb)*(m12_2-sinb*cosb*mHl*mHl)
-             +(mHl*mHl-2.0*mHp2)*sinb*sinb*cosb*cosb*sin(bma) )/(sinb*sinb*cosb*cosb*vev);
+    return ( (cosa*cosb-sina*sinb)*(m12_2-sinb*cosb*mHl2)
+             +(mHl2-2.0*mHp2)*sinb*sinb*cosb*cosb*sin(bma) )/(sinb*sinb*cosb*cosb*vev);
 }
 
 
@@ -416,11 +413,11 @@ Y1_THDM::Y1_THDM(const StandardModel& SM_i)
 
 double Y1_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double bma=myTHDM->getbma();
 
-    return 0.25*(-mHl*mHl-mHh2+(mHl*mHl-mHh2)*cos(2.0*bma));
+    return 0.25*(-mHl2-mHh2+(mHl2-mHh2)*cos(2.0*bma));
 }
 
 
@@ -430,7 +427,7 @@ Y2_THDM::Y2_THDM(const StandardModel& SM_i)
 
 double Y2_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
     double sin2b=2.0*sinb*cosb;
@@ -442,9 +439,9 @@ double Y2_THDM::computeThValue()
     double m12_2=myTHDM->getm12_2();
 
     
-    return 0.125*((mHl*mHl-mHh2)*(3.0*sin2a-sin2b*cos(2.0*bma)
+    return 0.125*((mHl2-mHh2)*(3.0*sin2a-sin2b*cos(2.0*bma)
                                   -sin(2.0*bma)*(cosb*cosb-sinb*sinb))
-                  +2.0*(8.0*m12_2-(mHl*mHl+mHh2)*sin2b))/sin2b;
+                  +2.0*(8.0*m12_2-(mHl2+mHh2)*sin2b))/sin2b;
 }
 
 
@@ -454,11 +451,11 @@ Y3_THDM::Y3_THDM(const StandardModel& SM_i)
 
 double Y3_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double bma=myTHDM->getbma();
 
-    return 0.25*(mHh2-mHl*mHl)*sin(2.0*bma);
+    return 0.25*(mHh2-mHl2)*sin(2.0*bma);
 }
 
 
@@ -468,12 +465,12 @@ Z1_THDM::Z1_THDM(const StandardModel& SM_i)
 
 double Z1_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double mHh2=myTHDM->getmHh2();
     double bma=myTHDM->getbma();
 
-    return (mHl*mHl+mHh2+(mHh2-mHl*mHl)*cos(2.0*bma))/(2.0*vev*vev);
+    return (mHl2+mHh2+(mHh2-mHl2)*cos(2.0*bma))/(2.0*vev*vev);
 }
 
 
@@ -483,7 +480,7 @@ Z2_THDM::Z2_THDM(const StandardModel& SM_i)
 
 double Z2_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -494,8 +491,8 @@ double Z2_THDM::computeThValue()
     double m12_2=myTHDM->getm12_2();
 
     return (-128.0*m12_2*cos2b*cos2b
-            +4.0*(mHl*mHl+mHh2)*(5.0+3.0*(cos2b*cos2b-sin2b*sin2b))*sin2b
-            +2.0*(mHl*mHl-mHh2)*((6.0+10.0*(cos2b*cos2b-sin2b*sin2b))*cos(2.0*bma)
+            +4.0*(mHl2+mHh2)*(5.0+3.0*(cos2b*cos2b-sin2b*sin2b))*sin2b
+            +2.0*(mHl2-mHh2)*((6.0+10.0*(cos2b*cos2b-sin2b*sin2b))*cos(2.0*bma)
                                  +16.0*sin2b*cos2b*sin(2.0*bma))*sin2b)
            /(16.0*sin2b*sin2b*sin2b*vev*vev);
 }
@@ -507,7 +504,7 @@ Z3_THDM::Z3_THDM(const StandardModel& SM_i)
 
 double Z3_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -521,8 +518,8 @@ double Z3_THDM::computeThValue()
     double sin2a=2.0*sina*cosa;
     double m12_2=myTHDM->getm12_2();
 
-    return ((mHh2-mHl*mHl)*(3.0*sin2a-sin(2.0*bma)*cos2b-cos(2.0*bma)*sin2b)
-            +2.0*(-8.0*m12_2+(mHh2+mHl*mHl+4.0*mHp2)*sin2b))/(4.0*sin2b*vev*vev);
+    return ((mHh2-mHl2)*(3.0*sin2a-sin(2.0*bma)*cos2b-cos(2.0*bma)*sin2b)
+            +2.0*(-8.0*m12_2+(mHh2+mHl2+4.0*mHp2)*sin2b))/(4.0*sin2b*vev*vev);
 }
 
 
@@ -532,14 +529,14 @@ Z4_THDM::Z4_THDM(const StandardModel& SM_i)
 
 double Z4_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double mHh2=myTHDM->getmHh2();
     double mA2=myTHDM->getmA2();
     double mHp2=myTHDM->getmHp2();
     double bma=myTHDM->getbma();
 
-    return (2.0*mA2+mHl*mHl+mHh2-4.0*mHp2+(mHl*mHl-mHh2)*cos(2.0*bma))/(2.0*vev*vev);
+    return (2.0*mA2+mHl2+mHh2-4.0*mHp2+(mHl2-mHh2)*cos(2.0*bma))/(2.0*vev*vev);
 }
 
 
@@ -549,13 +546,13 @@ Z5_THDM::Z5_THDM(const StandardModel& SM_i)
 
 double Z5_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double mHh2=myTHDM->getmHh2();
     double mA2=myTHDM->getmA2();
     double bma=myTHDM->getbma();
 
-    return (-2.0*mA2+mHl*mHl+mHh2+(mHl*mHl-mHh2)*cos(2.0*bma))/(2.0*vev*vev);
+    return (-2.0*mA2+mHl2+mHh2+(mHl2-mHh2)*cos(2.0*bma))/(2.0*vev*vev);
 }
 
 
@@ -565,12 +562,12 @@ Z6_THDM::Z6_THDM(const StandardModel& SM_i)
 
 double Z6_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double mHh2=myTHDM->getmHh2();
     double bma=myTHDM->getbma();
 
-    return ((mHl*mHl-mHh2)*sin(2.0*bma))/(2.0*vev*vev);
+    return ((mHl2-mHh2)*sin(2.0*bma))/(2.0*vev*vev);
 }
 
 
@@ -580,7 +577,7 @@ Z7_THDM::Z7_THDM(const StandardModel& SM_i)
 
 double Z7_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -592,8 +589,8 @@ double Z7_THDM::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return (4.0*cos2b*(-4.0*m12_2+(mHl*mHl+mHh2)*sin2b)
-            +(mHl*mHl-mHh2)*(3.0*(cosa*cosa-sina*sina)
+    return (4.0*cos2b*(-4.0*m12_2+(mHl2+mHh2)*sin2b)
+            +(mHl2-mHh2)*(3.0*(cosa*cosa-sina*sina)
                              +cos(2.0*bma)*cos2b-sin(2.0*bma)*sin2b)*sin2b)
            /(4.0*sin2b*sin2b*vev*vev);
 }
@@ -605,7 +602,7 @@ xi0_THDM::xi0_THDM(const StandardModel& SM_i)
 
 double xi0_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
     double sin2b=2.0*sinb*cosb;
@@ -615,7 +612,7 @@ double xi0_THDM::computeThValue()
     double sin2a=2.0*sina*cosa;
     double m12_2=myTHDM->getm12_2();
 
-    return -((mHh2+mHl*mHl)*sin2b+(mHh2-mHl*mHl)*sin2a-4.0*m12_2)/(4.0*sin2b);
+    return -((mHh2+mHl2)*sin2b+(mHh2-mHl2)*sin2a-4.0*m12_2)/(4.0*sin2b);
 }
 
 
@@ -637,7 +634,7 @@ xi3_THDM::xi3_THDM(const StandardModel& SM_i)
 
 double xi3_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
     double sin2b=2.0*sinb*cosb;
@@ -646,7 +643,7 @@ double xi3_THDM::computeThValue()
     double bma=myTHDM->getbma();
     double m12_2=myTHDM->getm12_2();
 
-    return ((mHl*mHl-mHh2)*sin(2.0*bma)-4.0*m12_2*cos2b)/(4.0*sin2b);
+    return ((mHl2-mHh2)*sin(2.0*bma)-4.0*m12_2*cos2b)/(4.0*sin2b);
 }
 
 
@@ -656,7 +653,7 @@ eta00_THDM::eta00_THDM(const StandardModel& SM_i)
 
 double eta00_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -670,7 +667,7 @@ double eta00_THDM::computeThValue()
     double cos2a=cosa*cosa-sina*sina;
     double m12_2=myTHDM->getm12_2();
 
-    return ((mHh2+mHl*mHl-(mHh2-mHl*mHl)*(cos2a*cos2b-sin2a*sin2b)
+    return ((mHh2+mHl2-(mHh2-mHl2)*(cos2a*cos2b-sin2a*sin2b)
              -4.0*m12_2/sin2b)/(sin2b*sin2b)
             +2.0*mHp2)/(4.0*vev*vev);
 }
@@ -682,7 +679,7 @@ eta3_THDM::eta3_THDM(const StandardModel& SM_i)
 
 double eta3_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double tanb=myTHDM->gettanb();
     double sinb=myTHDM->getsinb();
@@ -695,8 +692,8 @@ double eta3_THDM::computeThValue()
     double cos2a=cosa*cosa-sina*sina;
     double m12_2=myTHDM->getm12_2();
 
-    return ((mHh2+mHl*mHl)*(0.5*tanb-0.5/tanb)
-            +(mHh2-mHl*mHl)*cos2a/sin2b
+    return ((mHh2+mHl2)*(0.5*tanb-0.5/tanb)
+            +(mHh2-mHl2)*cos2a/sin2b
             +4.0*m12_2*cos2b/(sin2b*sin2b))/(4.0*vev*vev*sin2b);
 }
 
@@ -738,7 +735,7 @@ E33_THDM::E33_THDM(const StandardModel& SM_i)
 
 double E33_THDM::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -749,7 +746,7 @@ double E33_THDM::computeThValue()
     double bma=myTHDM->getbma();
     double m12_2=myTHDM->getm12_2();
 
-    return ((mHh2+mHl*mHl-(mHh2-mHl*mHl)*cos(2.0*bma)
+    return ((mHh2+mHl2-(mHh2-mHl2)*cos(2.0*bma)
              -4.0*m12_2*cos2b*cos2b/sin2b)/(sin2b*sin2b)
             -2.0*mHp2)/(4.0*vev*vev);
 }
@@ -762,7 +759,7 @@ HHlambda1::HHlambda1(const StandardModel& SM_i)
 
 double HHlambda1::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double tanb=myTHDM->gettanb();
     double sinb=myTHDM->getsinb();
@@ -776,8 +773,8 @@ double HHlambda1::computeThValue()
     double cos2a=cosa*cosa-sina*sina;
     double m12_2=myTHDM->getm12_2();
     
-    return (mHh2+mHl*mHl+4.0*m12_2*cos2b/sin2b
-            +(mHh2-mHl*mHl)*(cos2a-sin2a/tanb))/(4.0*vev*vev*cosb*cosb);
+    return (mHh2+mHl2+4.0*m12_2*cos2b/sin2b
+            +(mHh2-mHl2)*(cos2a-sin2a/tanb))/(4.0*vev*vev*cosb*cosb);
 }
 
 
@@ -787,7 +784,7 @@ HHlambda2::HHlambda2(const StandardModel& SM_i)
 
 double HHlambda2::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double tanb=myTHDM->gettanb();
     double sinb=myTHDM->getsinb();
@@ -801,8 +798,8 @@ double HHlambda2::computeThValue()
     double cos2a=cosa*cosa-sina*sina;
     double m12_2=myTHDM->getm12_2();
     
-    return (mHh2+mHl*mHl-4.0*m12_2*cos2b/sin2b
-            -(mHh2-mHl*mHl)*(cos2a+sin2a*tanb))/(4.0*vev*vev*sinb*sinb);
+    return (mHh2+mHl2-4.0*m12_2*cos2b/sin2b
+            -(mHh2-mHl2)*(cos2a+sin2a*tanb))/(4.0*vev*vev*sinb*sinb);
 }
 
 
@@ -812,7 +809,7 @@ HHlambda3::HHlambda3(const StandardModel& SM_i)
 
 double HHlambda3::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double vev=myTHDM->v();
     double sinb=myTHDM->getsinb();
     double cosb=myTHDM->getcosb();
@@ -823,7 +820,7 @@ double HHlambda3::computeThValue()
     double sin2a=2.0*sina*cosa;
     double m12_2=myTHDM->getm12_2();
     
-    return ((mHh2-mHl*mHl)*sin2a-2.0*m12_2)/(2.0*vev*vev*sin2b);
+    return ((mHh2-mHl2)*sin2a-2.0*m12_2)/(2.0*vev*vev*sin2b);
 }
 
 

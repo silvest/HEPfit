@@ -8,6 +8,7 @@
 #ifndef THDMOBSERVABLES_H
 #define	THDMOBSERVABLES_H
 
+#include "BDtaunu.h"
 #include "bsgammaTHDM.h"
 #include "CPoddHiggs.h"
 #include "EWPO.h"

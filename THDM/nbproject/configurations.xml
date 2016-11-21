@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/BDtaunu.h</itemPath>
       <itemPath>src/CPoddHiggs.h</itemPath>
       <itemPath>src/EWPO.h</itemPath>
       <itemPath>src/Runner.h</itemPath>
@@ -18,6 +19,7 @@
       <itemPath>src/globalminimum.h</itemPath>
       <itemPath>src/heavyHiggs.h</itemPath>
       <itemPath>src/lightHiggs.h</itemPath>
+      <itemPath>src/log_cs_ggH_13.h</itemPath>
       <itemPath>src/positivity.h</itemPath>
       <itemPath>src/unitarity.h</itemPath>
     </logicalFolder>
@@ -28,6 +30,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/BDtaunu.cpp</itemPath>
       <itemPath>src/CPoddHiggs.cpp</itemPath>
       <itemPath>src/EWPO.cpp</itemPath>
       <itemPath>src/Runner.cpp</itemPath>
@@ -77,6 +80,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -130,6 +137,8 @@
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lightHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/log_cs_ggH_13.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -169,6 +178,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -222,6 +235,8 @@
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lightHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/log_cs_ggH_13.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -261,6 +276,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -314,6 +333,8 @@
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lightHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/log_cs_ggH_13.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
       </item>

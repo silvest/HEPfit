@@ -31,8 +31,7 @@ double EWPO::dDelta_r()
 //    double bma=myTHDM->getbma();
 //    double CBA2=cos(bma)*cos(bma);
 //    double SBA2=sin(bma)*sin(bma);
-//    double mHl=myTHDM->getMHl();
-//    double mHl2=mHl*mHl;
+//    double mHl2=myTHDM->getmHl2();
 //    double mHh2=myTHDM->getmHh2();
 //    double mA2=myTHDM->getmA2();
 //    double mHp2=myTHDM->getmHp2();
@@ -134,7 +133,7 @@ double EWPO::dDelta_r()
 
 void EWPO::computeTHDMcouplings()
 {
-//    double mHl=myTHDM->getMHl();
+//    double mHl2=myTHDM->getmHl2();
 //    double mA=myTHDM->getMA();
 //    double mHh=myTHDM->getMHh();
 //    double mHp=myTHDM->getMHp();

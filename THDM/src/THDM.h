@@ -118,7 +118,7 @@ class THDMcache; //forward reference to THDMcache class
 class THDM: public StandardModel {
 public:
 
-    static const int NTHDMvars = 10;
+    static const int NTHDMvars = 16;
     static const std::string THDMvars[NTHDMvars];
     
     /**
@@ -273,10 +273,33 @@ public:
 
     /**
      *
+     * @return squared mass of the lighter neutral scalar Higgs
+     */
+    double getmHl2() const {
+        if(mHh2 < mHl2) {
+            return mHh2;
+        }
+        else
+        {
+            return mHl2;
+        }
+    }
+
+    /**
+     *
      * @return squared mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh2() const {
-        return mHh2;
+        if(mHh2 < 0.) {
+            return 0.;
+        }
+        else if(mHh2 < mHl2) {
+            return mHl2;
+        }
+        else
+        {
+            return mHh2;
+        }
     }
 
     /**
@@ -284,7 +307,16 @@ public:
      * @return mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh() const {
-        return sqrt(mHh2);
+        if(mHh2 < 0.) {
+            return 0.;
+        }
+        else if(mHh2 < mHl2) {
+            return sqrt(mHl2);
+        }
+        else
+        {
+            return sqrt(mHh2);
+        }
     }
 
     /**
@@ -331,6 +363,54 @@ public:
      */
     double getm12_2() const {
         return m12_2;
+    }
+
+    /**
+     *
+     * @return BDtaunu SM expectation
+     */
+    double getBDtaunu_SM() const {
+        return BDtaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient A
+     */
+    double getBDtaunu_A() const {
+        return BDtaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDtaunu_B() const {
+        return BDtaunu_B;
+    }
+
+    /**
+     *
+     * @return BDstartaunu SM expectation
+     */
+    double getBDstartaunu_SM() const {
+        return BDstartaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDstartaunu coefficient A
+     */
+    double getBDstartaunu_A() const {
+        return BDstartaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDstartaunu_B() const {
+        return BDstartaunu_B;
     }
 
     /**
@@ -408,6 +488,8 @@ private:
     THDMcache* myTHDMcache;
 
     double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps, NLOuniscale;
+    double mHl2;
+    double BDtaunu_SM, BDtaunu_A, BDtaunu_B, BDstartaunu_SM, BDstartaunu_A, BDstartaunu_B;
     std::string flag_model, flag_RGEorder;
     bool flag_wfr;
 };

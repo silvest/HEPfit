@@ -114,7 +114,7 @@ public:
     /**
      * @brief Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass.
      */
-    gslpp::matrix<double> GammaHtotSM;
+    gslpp::matrix<double> GammaHtot_SM;
 
     /**
      * @brief SM Higgs production cross section tables at 8 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
@@ -735,28 +735,28 @@ public:
     gslpp::complex B00_MZ2_MZ2_MZ2_mHh2(const double MZ2, const double mHh2) const;
     gslpp::complex B00_MZ2_MZ2_MZ2_mHl2(const double MZ2, const double mHl2) const;
 
-    double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl, const double vev) const;
+    double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const;
     double g_HH_HpHm(const double mHp2, const double mHh2, const double tanb, const double m12_2, const double bma, const double vev) const;
 
-    gslpp::complex I_h_U(const double mHl, const double Mu, const double Mc, const double Mt) const;
+    gslpp::complex I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const;
     gslpp::complex I_HH_U(const double mHh2, const double Mc, const double Mt) const;
     gslpp::complex I_A_U(const double mA2, const double Mc, const double Mt) const;
-    gslpp::complex I_h_D(const double mHl, const double Md, const double Ms, const double Mb) const;
+    gslpp::complex I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const;
     gslpp::complex I_HH_D(const double mHh2, const double Ms, const double Mb) const;
     gslpp::complex I_A_D(const double mA2, const double Ms, const double Mb) const;
-    gslpp::complex I_h_L(const double mHl, const double Me, const double Mmu, const double Mtau) const;
+    gslpp::complex I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const;
     gslpp::complex I_HH_L(const double mHh2, const double Mmu, const double Mtau) const;
     gslpp::complex I_A_L(const double mA2, const double Mmu, const double Mtau) const;
     gslpp::complex I_H_W(const double mH, const double MW) const;
     gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
 
-    gslpp::complex A_h_U(const double mHl, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
+    gslpp::complex A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
     gslpp::complex A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const;
     gslpp::complex A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const;
-    gslpp::complex A_h_D(const double mHl, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
+    gslpp::complex A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
     gslpp::complex A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const;
     gslpp::complex A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const;
-    gslpp::complex A_h_L(const double mHl, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
+    gslpp::complex A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
     gslpp::complex A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
     gslpp::complex A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
     gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
@@ -784,7 +784,7 @@ public:
     void computeWFRcombinations();
 
     ////////////////////////////////////////////////////////////////////////////
-    void updateCache();
+    double updateCache();
 
     /**
      * @brief SM branching ratio of @f$h\to b \bar b@f$.
@@ -1257,12 +1257,19 @@ private:
     double bma;
     double tanb;
     double m12_2;
+    double BDtaunu_SM;
+    double BDtaunu_A;
+    double BDtaunu_B;
+    double BDstartaunu_SM;
+    double BDstartaunu_A;
+    double BDstartaunu_B;
+    double mHl;
+    double mHl2;
     double mHh2;
     double mA2;
     double mHp2;
     double MW;
     double cW2;
-    double mHl;
     double vev;
     double Ale;
     double Als;

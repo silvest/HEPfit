@@ -892,6 +892,14 @@ ThObsFactory::ThObsFactory()
     obsThFactory["B_BtoXsgammaTHDM"] = boost::factory<bsgammaTHDM*>();
 //    obsThFactory["BR_BsmumuTHDM"] = boost::factory<BR_BsmumuTHDM*>();
 //    obsThFactory["BR_BdmumuTHDM"] = boost::factory<BR_BdmumuTHDM*>();
+    obsThFactory["RBDstartaunu"] = boost::factory<RBDstartaunu*>();
+    obsThFactory["RBDtaunu"] = boost::factory<RBDtaunu*>();
+    obsThFactory["obsBDtaunu_SM"] = boost::factory<obsBDtaunu_SM*>();
+    obsThFactory["obsBDtaunu_A"] = boost::factory<obsBDtaunu_A*>();
+    obsThFactory["obsBDtaunu_B"] = boost::factory<obsBDtaunu_B*>();
+    obsThFactory["obsBDstartaunu_SM"] = boost::factory<obsBDstartaunu_SM*>();
+    obsThFactory["obsBDstartaunu_A"] = boost::factory<obsBDstartaunu_A*>();
+    obsThFactory["obsBDstartaunu_B"] = boost::factory<obsBDstartaunu_B*>();
 
     obsThFactory["Q_st"] = boost::factory<Q_st*>();
     obsThFactory["DeltaQ_THDM"] = boost::factory<DeltaQ_THDM*>();

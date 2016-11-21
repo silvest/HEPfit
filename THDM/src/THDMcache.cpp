@@ -11,6 +11,8 @@
 #include <sstream>
 #include <string>
 
+#include "log_cs_ggH_13.h"
+
 THDMcache::THDMcache(const StandardModel& SM_i)
         
         :br_tt(19861, 2, 0.),
@@ -20,7 +22,7 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         br_mumu(19861, 2, 0.),
         br_ZZ(19861, 2, 0.),
         br_WW(19861, 2, 0.),
-        GammaHtotSM(19861, 2, 0.),
+        GammaHtot_SM(19861, 2, 0.),
         log_cs_ggH_8(93, 2, 0.),
         log_cs_VBF_8(93, 2, 0.),
         log_cs_WH_8(33, 2, 0.),
@@ -1481,6 +1483,18 @@ void THDMcache::read(){
 
     br1 << tablepath << "br1.dat";
     br_tt = readTable(br1.str(),19861,2);
+
+//    std::cout<<"bla-"<<br_tt<<std::endl;
+//    double bla1[4][2];
+//    bla1[0][1]=1;
+//        gslpp::matrix<double> bla1(19861,2,0.);
+//    std::stringstream br1x;
+//    br1x << "log_cs_ggH_13.h";
+//      //bla1(2)=(3.,4.);
+//      bla1=readTable(br1x.str(),20,2);
+//    std::cout<<"bla1-"<<bla1<<std::endl;
+
+
     br2 << tablepath << "br2.dat";
     br_bb = readTable(br2.str(),19861,2);
     br3 << tablepath << "br3.dat";
@@ -1494,7 +1508,7 @@ void THDMcache::read(){
     br7 << tablepath << "br7.dat";
     br_WW = readTable(br7.str(),19861,2);
     dw1 << tablepath << "dw1.dat";
-    GammaHtotSM = readTable(dw1.str(),19861,2);
+    GammaHtot_SM = readTable(dw1.str(),19861,2);
     cs1 << tablepath << "log_cs_ggH_8.dat";
     log_cs_ggH_8 = readTable(cs1.str(),93,2);
     cs2 << tablepath << "log_cs_VBF_8.dat";
@@ -1751,7 +1765,7 @@ double THDMcache::ip_GammaHPtotSM(double mass){
     if (i>=0) {
         return ( ip_GammaHPtotSM_cache[NumPar][i] );
     } else {
-        double newResult = pow(10.0,interpolate(GammaHtotSM,mass));
+        double newResult = pow(10.0,interpolate(GammaHtot_SM,mass));
         CacheShiftReal(ip_GammaHPtotSM_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -2902,16 +2916,16 @@ double THDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x, double
     }
 }
 
-double THDMcache::ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl, const double vev) const {
+double THDMcache::ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const {
     int NumPar = 6;
-    double params[] = {mHp2, tanb, m12_2, bma, mHl, vev};
+    double params[] = {mHp2, tanb, m12_2, bma, mHl2, vev};
 
     int i = CacheCheckReal(ghHpHm_cache, NumPar, params);
     if (i>=0) {
         return ( ghHpHm_cache[NumPar][i] );
     } else {
-        double newResult = ((cos(bma)*mHl*mHl*(tanb*tanb-1.0))/tanb 
-                                    -(mHl*mHl+2.0*mHp2)*sin(bma) 
+        double newResult = ((cos(bma)*mHl2*(tanb*tanb-1.0))/tanb 
+                                    -(mHl2+2.0*mHp2)*sin(bma) 
                                     +(m12_2*(cos(bma)*(1.0-tanb*tanb)+2.0*sin(bma)*tanb)*(1.0+tanb*tanb))/(tanb*tanb))/vev;
         CacheShiftReal(ghHpHm_cache, NumPar, params, newResult);
         return newResult;
@@ -2934,17 +2948,17 @@ double THDMcache::g_HH_HpHm(const double mHp2, const double mHh2, const double t
     }
 }
 
-gslpp::complex THDMcache::I_h_U(const double mHl, const double Mu, const double Mc, const double Mt) const {
+gslpp::complex THDMcache::I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const {
     int NumPar = 4;
-    double params[] = {mHl, Mu, Mc, Mt};
+    double params[] = {mHl2, Mu, Mc, Mt};
 
     int i = CacheCheck(I_h_U_cache, NumPar, params);
     if (i>=0) {
         return ( I_h_U_cache[NumPar][i] );
     } else {
-    	double TAUu=4.0*Mu*Mu/(mHl*mHl);
-    	double TAUc=4.0*Mc*Mc/(mHl*mHl);
-    	double TAUt=4.0*Mt*Mt/(mHl*mHl);
+    	double TAUu=4.0*Mu*Mu/mHl2;
+    	double TAUc=4.0*Mc*Mc/mHl2;
+    	double TAUt=4.0*Mt*Mt/mHl2;
         gslpp::complex newResult = -(8./3.)*(TAUu*(1+(1-TAUu)*f_func(TAUu))
                          +TAUc*(1+(1-TAUc)*f_func(TAUc))+TAUt*(1+(1-TAUt)*f_func(TAUt)));
         CacheShift(I_h_U_cache, NumPar, params, newResult);
@@ -2985,17 +2999,17 @@ gslpp::complex THDMcache::I_A_U(const double mA2, const double Mc, const double 
     }
 }
 
-gslpp::complex THDMcache::I_h_D(const double mHl, const double Md, const double Ms, const double Mb) const {
+gslpp::complex THDMcache::I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const {
     int NumPar = 4;
-    double params[] = {mHl, Md, Ms, Mb};
+    double params[] = {mHl2, Md, Ms, Mb};
 
     int i = CacheCheck(I_h_D_cache, NumPar, params);
     if (i>=0) {
         return ( I_h_D_cache[NumPar][i] );
     } else {
-    	double TAUd=4.0*Md*Md/(mHl*mHl);
-    	double TAUs=4.0*Ms*Ms/(mHl*mHl);
-    	double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    	double TAUd=4.0*Md*Md/mHl2;
+    	double TAUs=4.0*Ms*Ms/mHl2;
+    	double TAUb=4.0*Mb*Mb/mHl2;
         gslpp::complex newResult = -(2./3.)*(TAUd*(1+(1-TAUd)*f_func(TAUd))
                          +TAUs*(1+(1-TAUs)*f_func(TAUs))+TAUb*(1+(1-TAUb)*f_func(TAUb)));
         CacheShift(I_h_D_cache, NumPar, params, newResult);
@@ -3036,17 +3050,17 @@ gslpp::complex THDMcache::I_A_D(const double mA2, const double Ms, const double 
     }
 }
 
-gslpp::complex THDMcache::I_h_L(const double mHl, const double Me, const double Mmu, const double Mtau) const {
+gslpp::complex THDMcache::I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const {
     int NumPar = 4;
-    double params[] = {mHl, Me, Mmu, Mtau};
+    double params[] = {mHl2, Me, Mmu, Mtau};
 
     int i = CacheCheck(I_h_L_cache, NumPar, params);
     if (i>=0) {
         return ( I_h_L_cache[NumPar][i] );
     } else {
-    	double TAUe=4.0*Me*Me/(mHl*mHl);
-    	double TAUmu=4.0*Mmu*Mmu/(mHl*mHl);
-    	double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
+    	double TAUe=4.0*Me*Me/mHl2;
+    	double TAUmu=4.0*Mmu*Mmu/mHl2;
+    	double TAUtau=4.0*Mtau*Mtau/mHl2;
         gslpp::complex newResult = -2.0*(TAUe*(1+(1-TAUe)*f_func(TAUe))
                          +TAUmu*(1+(1-TAUmu)*f_func(TAUmu))
                          +TAUtau*(1+(1-TAUtau)*f_func(TAUtau)));
@@ -3118,17 +3132,17 @@ gslpp::complex THDMcache::I_H_Hp(const double mHp2, const double mH) const {
     }
 }
 
-gslpp::complex THDMcache::A_h_U(const double mHl, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const {
+gslpp::complex THDMcache::A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const {
     int NumPar = 6;
-    double params[] = {mHl, cW2, Mu, Mc, Mt, MZ};
+    double params[] = {mHl2, cW2, Mu, Mc, Mt, MZ};
 
     int i = CacheCheck(A_h_U_cache, NumPar, params);
     if (i>=0) {
         return ( A_h_U_cache[NumPar][i] );
     } else {
-    	double TAUu=4.0*Mu*Mu/(mHl*mHl);
-    	double TAUc=4.0*Mc*Mc/(mHl*mHl);
-    	double TAUt=4.0*Mt*Mt/(mHl*mHl);
+    	double TAUu=4.0*Mu*Mu/mHl2;
+    	double TAUc=4.0*Mc*Mc/mHl2;
+    	double TAUt=4.0*Mt*Mt/mHl2;
     	double LAMu=4.0*Mu*Mu/(MZ*MZ);
     	double LAMc=4.0*Mc*Mc/(MZ*MZ);
     	double LAMt=4.0*Mt*Mt/(MZ*MZ);
@@ -3179,17 +3193,17 @@ gslpp::complex THDMcache::A_A_U(const double mA2, const double cW2, const double
     }
 }
 
-gslpp::complex THDMcache::A_h_D(const double mHl, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const {
+gslpp::complex THDMcache::A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const {
     int NumPar = 6;
-    double params[] = {mHl, cW2, Md, Ms, Mb, MZ};
+    double params[] = {mHl2, cW2, Md, Ms, Mb, MZ};
 
     int i = CacheCheck(A_h_D_cache, NumPar, params);
     if (i>=0) {
         return ( A_h_D_cache[NumPar][i] );
     } else {
-    	double TAUd=4.0*Md*Md/(mHl*mHl);
-    	double TAUs=4.0*Ms*Ms/(mHl*mHl);
-    	double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    	double TAUd=4.0*Md*Md/mHl2;
+    	double TAUs=4.0*Ms*Ms/mHl2;
+    	double TAUb=4.0*Mb*Mb/mHl2;
     	double LAMd=4.0*Md*Md/(MZ*MZ);
     	double LAMs=4.0*Ms*Ms/(MZ*MZ);
 	double LAMb=4.0*Mb*Mb/(MZ*MZ);
@@ -3240,17 +3254,17 @@ gslpp::complex THDMcache::A_A_D(const double mA2, const double cW2, const double
     }
 }
 
-gslpp::complex THDMcache::A_h_L(const double mHl, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const {
+gslpp::complex THDMcache::A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const {
     int NumPar = 6;
-    double params[] = {mHl, cW2, Me, Mmu, Mtau, MZ};
+    double params[] = {mHl2, cW2, Me, Mmu, Mtau, MZ};
 
     int i = CacheCheck(A_h_L_cache, NumPar, params);
     if (i>=0) {
         return ( A_h_L_cache[NumPar][i] );
     } else {
-    	double TAUe=4.0*Me*Me/(mHl*mHl);
-    	double TAUmu=4.0*Mmu*Mmu/(mHl*mHl);
-    	double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
+    	double TAUe=4.0*Me*Me/mHl2;
+    	double TAUmu=4.0*Mmu*Mmu/mHl2;
+    	double TAUtau=4.0*Mtau*Mtau/mHl2;
     	double LAMe=4.0*Me*Me/(MZ*MZ);
     	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
 	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
@@ -3454,12 +3468,12 @@ void THDMcache::computeSignalStrengthQuantities()
     //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
 
     gslpp::complex I_h_F=0.0;//It depends on the modelType
-    gslpp::complex fermU=I_h_U(mHl,Mu,Mc,Mt);
-    gslpp::complex fermD=I_h_D(mHl,Md,Ms,Mb);
-    gslpp::complex fermL=I_h_L(mHl,Me,Mmu,Mtau);
-    gslpp::complex I_hSM_W=I_H_W(mHl,MW);
+    gslpp::complex fermU=I_h_U(mHl2,Mu,Mc,Mt);
+    gslpp::complex fermD=I_h_D(mHl2,Md,Ms,Mb);
+    gslpp::complex fermL=I_h_L(mHl2,Me,Mmu,Mtau);
+    gslpp::complex I_hSM_W=I_H_W(mHl2,MW);
     gslpp::complex I_h_W=sin_ba*I_hSM_W;
-    gslpp::complex I_h_Hp=I_H_Hp(mHp2,mHl)*ghHpHm(mHp2,tanb,m12_2,bma,mHl,vev)*vev/(2.0*mHp2);
+    gslpp::complex I_h_Hp=I_H_Hp(mHp2,mHl2)*ghHpHm(mHp2,tanb,m12_2,bma,mHl2,vev)*vev/(2.0*mHp2);
 
     double ABSgagaTHDM=0.0;
     double ABSgagaSM=0.0;
@@ -3467,12 +3481,12 @@ void THDMcache::computeSignalStrengthQuantities()
     //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
 
     gslpp::complex A_h_F = 0.0;//It depends on the modelType
-    gslpp::complex A_h_Ux = A_h_U(mHl,cW2,Mu,Mc,Mt,MZ);
-    gslpp::complex A_h_Dx = A_h_D(mHl,cW2,Md,Ms,Mb,MZ);
-    gslpp::complex A_h_Lx  = A_h_L(mHl,cW2,Me,Mmu,Mtau,MZ);
-    gslpp::complex A_hSM_W = A_H_W(mHl,cW2,MW,MZ);
+    gslpp::complex A_h_Ux = A_h_U(mHl2,cW2,Mu,Mc,Mt,MZ);
+    gslpp::complex A_h_Dx = A_h_D(mHl2,cW2,Md,Ms,Mb,MZ);
+    gslpp::complex A_h_Lx  = A_h_L(mHl2,cW2,Me,Mmu,Mtau,MZ);
+    gslpp::complex A_hSM_W = A_H_W(mHl2,cW2,MW,MZ);
     gslpp::complex A_h_W = sin_ba*A_hSM_W;
-    gslpp::complex A_h_Hp = A_H_Hp(mHp2,mHl,cW2,MZ)*ghHpHm(mHp2,tanb,m12_2,bma,mHl,vev)*vev/(2.0*mHp2);
+    gslpp::complex A_h_Hp = A_H_Hp(mHp2,mHl2,cW2,MZ)*ghHpHm(mHp2,tanb,m12_2,bma,mHl2,vev)*vev/(2.0*mHp2);
 
     double ABSZgaTHDM=0.0;
     double ABSZgaSM=0.0;
@@ -3662,9 +3676,9 @@ void THDMcache::computeHHquantities()
 
     double GammaHtotSM=ip_GammaHPtotSM(mHh);
 
-    double GammaHhh=HSTheta(mHh - 2.0*mHl)*sqrt(std::fabs(1.0 - (4.0*mHl*mHl)/mHh2))
+    double GammaHhh=HSTheta(mHh - 2.0*sqrt(mHl2))*sqrt(std::fabs(1.0 - (4.0*mHl2)/mHh2))
                     *std::fabs((cos_ba*cos_ba/(4.0*sinb*cosb*sinb*cosb)
-                    *pow(m12_2 + mHh2*cosa*sina + (2.0*mHl*mHl - 3.0*m12_2/(sinb*cosb))
+                    *pow(m12_2 + mHh2*cosa*sina + (2.0*mHl2 - 3.0*m12_2/(sinb*cosb))
                     *sina*cosa,2))/(vev*vev))/(8.0*mHh*M_PI);
 
     double GammaHHpHm=HSTheta(mHh - 2.0*sqrt(mHp2))*sqrt(std::fabs(1.0 - (4.0*mHp2)/mHh2))
@@ -4293,7 +4307,7 @@ void THDMcache::computeAquantities()
     double GammaAHZ=HSTheta(mA-MZ-mHh)*pow(KaellenFunction(mA2,MZ*MZ,mHh*mHh),3)
                     *sin_ba*sin_ba/(2.0*M_PI*vev*vev);
 
-    double GammaAhZ=HSTheta(mA-MZ-mHl)*pow(KaellenFunction(mA2,MZ*MZ,mHl*mHl),3)
+    double GammaAhZ=HSTheta(mA-MZ-sqrt(mHl2))*pow(KaellenFunction(mA2,MZ*MZ,mHl2),3)
                     *cos_ba*cos_ba/(2.0*M_PI*vev*vev);
 
     double GammaAHpW=2.*HSTheta(mA-MW-mHp)*pow(KaellenFunction(mA2,MW*MW,mHp*mHp),3)
@@ -4772,7 +4786,6 @@ void THDMcache::computeWFRcombinations()
     double cosb=myTHDM->getcosb();
     double beta=atan(tanb);
     double alpha=beta-bma;
-    double mHl2=mHl*mHl;
     double MZ2=MZ*MZ;
 
     double B000mh = B0_MZ2_0_0_mHl2(MZ2,mHl2).real();
@@ -5136,7 +5149,7 @@ void THDMcache::computeWFRcombinations()
     WFRcomb4=-WFRcomb4a/(vev*vev);
 }
 
-void THDMcache::updateCache()
+double THDMcache::updateCache()
 {
     Q_THDM=myTHDM->getQ_THDM();
     bma=myTHDM->getbma();
@@ -5147,13 +5160,16 @@ void THDMcache::updateCache()
     Rpeps=myTHDM->getRpeps();
     MW=MWTHDM(myTHDM->Mw_tree());
     cW2=cW2THDM(myTHDM->c02());
+    /*This should be the only reference to the SM Higgs mass!*/
     mHl=myTHDM->getMHl();
+    mHl2=mHl*mHl;
     mHh2=myTHDM->getmHh2();
-//    double mHl2=mHl*mHl;
-//    if(mHh2 < mHl2) {
-//        mHl=sqrt(mHh2);
-//        mHh2=mHl2;
-//    }
+    BDtaunu_SM=myTHDM->getBDtaunu_SM();
+    BDtaunu_A=myTHDM->getBDtaunu_A();
+    BDtaunu_B=myTHDM->getBDtaunu_B();
+    BDstartaunu_SM=myTHDM->getBDstartaunu_SM();
+    BDstartaunu_A=myTHDM->getBDstartaunu_A();
+    BDstartaunu_B=myTHDM->getBDstartaunu_B();
     vev=myTHDM->v();
     Ale=myTHDM->getAle();
     Als=myTHDM->getAlsMz();
@@ -5175,4 +5191,6 @@ void THDMcache::updateCache()
     computeAquantities();
     runTHDMparameters();
     computeWFRcombinations();
+    
+    return mHl2;
 }

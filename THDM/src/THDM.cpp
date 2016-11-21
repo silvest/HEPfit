@@ -8,7 +8,9 @@
 #include "THDM.h"
 #include "THDMcache.h"
 
-const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2","bsgamma_theoryerror","Q_THDM","Rpeps","NLOuniscale"};
+const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2",
+                                               "BDtaunu_SM","BDtaunu_A","BDtaunu_B","BDstartaunu_SM","BDstartaunu_A","BDstartaunu_B",
+                                               "bsgamma_theoryerror","Q_THDM","Rpeps","NLOuniscale"};
 
 THDM::THDM() : StandardModel(), THDMM(*this) {
 
@@ -19,6 +21,12 @@ THDM::THDM() : StandardModel(), THDMM(*this) {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA2", boost::cref(mA2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp2", boost::cref(mHp2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m12_2", boost::cref(m12_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_SM", boost::cref(BDtaunu_SM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_A", boost::cref(BDtaunu_A)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDtaunu_B", boost::cref(BDtaunu_B)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_SM", boost::cref(BDstartaunu_SM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_A", boost::cref(BDstartaunu_A)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDstartaunu_B", boost::cref(BDstartaunu_B)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bsgamma_theoryerror", boost::cref(bsgamma_theoryerror)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_THDM", boost::cref(Q_THDM)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Rpeps", boost::cref(Rpeps)));
@@ -73,7 +81,7 @@ bool THDM::PostUpdate()
 {
     if(!StandardModel::PostUpdate()) return (false);
 
-    myTHDMcache->updateCache();
+    mHl2=myTHDMcache->updateCache();
 
     return (true);
 }
@@ -103,6 +111,18 @@ void THDM::setParameter(const std::string name, const double& value){
         mHp2 = value;
     else if(name.compare("m12_2") == 0)
         m12_2 = value;
+    else if(name.compare("BDtaunu_SM") == 0)
+        BDtaunu_SM = value;
+    else if(name.compare("BDtaunu_A") == 0)
+        BDtaunu_A = value;
+    else if(name.compare("BDtaunu_B") == 0)
+        BDtaunu_B = value;
+    else if(name.compare("BDstartaunu_SM") == 0)
+        BDstartaunu_SM = value;
+    else if(name.compare("BDstartaunu_A") == 0)
+        BDstartaunu_A = value;
+    else if(name.compare("BDstartaunu_B") == 0)
+        BDstartaunu_B = value;
     else if(name.compare("bsgamma_theoryerror") == 0)
         bsgamma_theoryerror = value;
     else if(name.compare("Q_THDM") == 0)
