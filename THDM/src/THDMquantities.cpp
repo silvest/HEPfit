@@ -7,6 +7,16 @@
 
 #include "THDMquantities.h"
 
+mass_mHl::mass_mHl(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{}
+
+double mass_mHl::computeThValue()
+{
+    return sqrt(myTHDM->getmHl2());
+}
+
+
 mass_mHh::mass_mHh(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
 {}
@@ -34,6 +44,46 @@ mass_mHp::mass_mHp(const StandardModel& SM_i)
 double mass_mHp::computeThValue()
 {
     return myTHDM->getmHp();
+}
+
+
+massdifference_mHlmmA::massdifference_mHlmmA(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{}
+
+double massdifference_mHlmmA::computeThValue()
+{
+    return sqrt(myTHDM->getmHl2()) - myTHDM->getmA();
+}
+
+
+massdifference_mAmmHl::massdifference_mAmmHl(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{}
+
+double massdifference_mAmmHl::computeThValue()
+{
+    return myTHDM->getmA() - sqrt(myTHDM->getmHl2());
+}
+
+
+massdifference_mHlmmHp::massdifference_mHlmmHp(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{}
+
+double massdifference_mHlmmHp::computeThValue()
+{
+    return sqrt(myTHDM->getmHl2()) - myTHDM->getmHp();
+}
+
+
+massdifference_mHpmmHl::massdifference_mHpmmHl(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{}
+
+double massdifference_mHpmmHl::computeThValue()
+{
+    return myTHDM->getmHp() - sqrt(myTHDM->getmHl2());
 }
 
 

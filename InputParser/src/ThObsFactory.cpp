@@ -819,9 +819,14 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_A_hZ_THDM"] = boost::factory<BR_A_hZ_THDM*>();
     obsThFactory["BR_A_HpW_THDM"] = boost::factory<BR_A_HpW_THDM*>();
 
+    obsThFactory["mHl_THDM"] = boost::factory<mass_mHl*>();
     obsThFactory["mHh"] = boost::factory<mass_mHh*>();
     obsThFactory["mA"] = boost::factory<mass_mA*>();
     obsThFactory["mHp"] = boost::factory<mass_mHp*>();
+    obsThFactory["mHlmmA"] = boost::factory<massdifference_mHlmmA*>();
+    obsThFactory["mAmmHl"] = boost::factory<massdifference_mAmmHl*>();
+    obsThFactory["mHlmmHp"] = boost::factory<massdifference_mHlmmHp*>();
+    obsThFactory["mHpmmHl"] = boost::factory<massdifference_mHpmmHl*>();
     obsThFactory["mHhmmA"] = boost::factory<massdifference_mHhmmA*>();
     obsThFactory["mAmmHh"] = boost::factory<massdifference_mAmmHh*>();
     obsThFactory["mHhmmHp"] = boost::factory<massdifference_mHhmmHp*>();
@@ -927,9 +932,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya01evenp"] = boost::factory<unitarityNLOev5*>();
     obsThFactory["unitaritya01evenm"] = boost::factory<unitarityNLOev6*>();
     obsThFactory["unitaritya01oddp"] = boost::factory<unitarityNLOev9*>();
-    obsThFactory["unitaritya01oddp"] = boost::factory<unitarityNLOev10*>();
+    obsThFactory["unitaritya01oddm"] = boost::factory<unitarityNLOev10*>();
     obsThFactory["unitaritya11evenp"] = boost::factory<unitarityNLOev13*>();
-    obsThFactory["unitaritya11evenp"] = boost::factory<unitarityNLOev14*>();
+    obsThFactory["unitaritya11evenm"] = boost::factory<unitarityNLOev14*>();
     obsThFactory["unitarityRp1"] = boost::factory<unitarityRp1*>();
     obsThFactory["unitarityRp2"] = boost::factory<unitarityRp2*>();
     obsThFactory["unitarityRp3"] = boost::factory<unitarityRp3*>();

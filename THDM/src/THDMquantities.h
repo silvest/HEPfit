@@ -13,6 +13,27 @@
 #include "THDM.h"
 
 /**
+ * @class mass_mHl
+ * @ingroup THDM 
+ * @brief The mass of the light CP-even Higgs state.
+ */
+class mass_mHl: public ThObservable {
+public:
+
+    /**
+     * @brief mass_mHl constructor.
+     */
+    mass_mHl(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_h@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
  * @class mass_mHh
  * @ingroup THDM 
  * @brief The mass of the heavy CP-even Higgs state.
@@ -69,6 +90,90 @@ public:
 
     /**
      * @return @f$m_{H^+}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class massdifference_mHlmmA
+ * @ingroup THDM 
+ * @brief The difference between the masses of the heavy CP-even and the CP-odd Higgs.
+ */
+class massdifference_mHlmmA: public ThObservable {
+public:
+
+    /**
+     * @brief massdifference_mHlmmA constructor.
+     */
+    massdifference_mHlmmA(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_h-m_A@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class massdifference_mAmmHl
+ * @ingroup THDM 
+ * @brief The difference between the masses of the CP-odd and the heavy CP-even Higgs.
+ */
+class massdifference_mAmmHl: public ThObservable {
+public:
+
+    /**
+     * @brief massdifference_mAmmHl constructor.
+     */
+    massdifference_mAmmHl(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_A-m_h@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class massdifference_mHlmmHp
+ * @ingroup THDM 
+ * @brief The difference between the masses of the heavy CP-even and the charged Higgs.
+ */
+class massdifference_mHlmmHp: public ThObservable {
+public:
+
+    /**
+     * @brief massdifference_mHlmmHp constructor.
+     */
+    massdifference_mHlmmHp(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_h-m_{H^+}@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
+ * @class massdifference_mHpmmHl
+ * @ingroup THDM 
+ * @brief The difference between the masses of the charged and the heavy CP-even Higgs.
+ */
+class massdifference_mHpmmHl: public ThObservable {
+public:
+
+    /**
+     * @brief massdifference_mHpmmHl constructor.
+     */
+    massdifference_mHpmmHl(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{H^+}-m_h@f$
      */
     double computeThValue();
 
