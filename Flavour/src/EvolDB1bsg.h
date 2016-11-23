@@ -80,7 +80,7 @@ private:
      * @param c array of double for the magic numbers of the evolutor ( NLO evolution, associated to \f$ \alpha_{strong}(\mu) \f$ )
      * @param d array of double for the magic numbers of the evolutor ( NLO evolution, associated to \f$ \alpha_{strong}(M) \f$ )
      */
-    double a[3][13], b[3][13][13][13], c[3][13][13][13], d[3][13][13][13];
+    double a[3][13], b[3][13][13][13], c[3][13][13][13], d[3][13][13][13], c2[3][13][13][13], d2[3][13][13][13], e2[3][13][13][13], f2[3][13][13][13];
     const StandardModel& model;
     /**
      * @brief a void type method storing properly the magic numbers for the implementation of the evolutor
@@ -90,7 +90,7 @@ private:
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      */
     void Df1Evolbsg(double mu, double M, double nf, schemes scheme);
-    gslpp::matrix<gslpp::complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
+    gslpp::matrix<gslpp::complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij, gg2, s_s2, h2, js2, j2v, vijj, vij2;
     gslpp::vector<gslpp::complex> e;
     unsigned int dim;
     double alsMZ_cache;
