@@ -22,8 +22,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcdk2(5, NDR, NLO),
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
-        mcbsg(8, NDR, NLO),
-        mcprimebsg(8, NDR, NLO),
+        mcbsg(8, NDR, NNLO),
+        mcprimebsg(8, NDR, NNLO),
         mcBMll(13, NDR, NLO),
         mcprimeBMll(13, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
@@ -69,6 +69,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     for(int j=0; j<8; j++){
         CWbsgArrayLO[j] = 0.;
         CWbsgArrayNLO[j] = 0.;
+        CWbsgArrayNNLO[j] = 0.;
         CWprimebsgArrayLO[j] = 0.;
         CWprimebsgArrayNLO[j] = 0.;
     }
@@ -376,9 +377,84 @@ return (10. * x4 - 100. * x3 + 30. * x2 + 160. * x - 40.)/(27. * xm4) * gsl_sf_d
 (35. * x3 + 105. * x2 - 210. * x - 20.)/(81. * xm3) ) * 2. * log(mu / mt);
  }
 
+double StandardModelMatching::C7c_3L_at_mW(double x) const
+
+{
+   double z = 1./x;
+   return (1.525 - 0.1165*z + 0.01975*z*log(z) + 0.06283*z*z + 0.005349*z*z*log(z)+ 0.01005*z*z*log(z)*log(z) 
+           - 0.04202*z*z*z + 0.01535*z*z*z*log(z) - 0.00329*z*z*z*log(z)*log(z) + 0.002372*z*z*z*z - 0.0007910*z*z*z*z*log(z)); 
+}
+
+double StandardModelMatching::C7t_3L_at_mt(double x) const
+
+{
+   double z = 1./x;
+   return (12.06 + 12.93*z + 3.013*z*log(z) + 96.71*z*z + 52.73*z*z*log(z) 
+           + 147.9*z*z*z +187.7*z*z*z*log(z) - 144.9*z*z*z*z + 236.1*z*z*z*z*log(z)); 
+}
+
+double StandardModelMatching::C7t_3L_func(double x, double mu) const
+
+{
+double x2 = x * x;
+double x3 = x * x2;
+double x4 = x * x3;
+double x5 = x * x3;
+double xm1to5 = (x-1.)*(x-1.)*(x-1.)*(x-1.)*(x-1.);
+double xm1to6 = xm1to5*(x-1.);
+
+double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+  
+return ( 2. * log(mu/mt) * (gsl_sf_dilog(1.- 1./x) * (-592. * x5 - 22.* x4 + 12814. * x3 - 6376. * x2 + 512. * x )/27./xm1to5 
+        + log(x) * (-26838. * x5 + 25938. * x4 + 627367. * x3 - 331956. * x2 + 16989. * x - 460.)/729./xm1to6 
+        + (34400. * x5 + 276644.*x4 - 2668324. * x3 + 1694437.*x2 - 323354.*x + 53077.)/2187./xm1to5) 
+        + 4.*log(mu/mt)*log(mu/mt) * (log(x)*(-63. * x5 + 532. * x4 + 2089. * x3 - 1118. * x2)/9./xm1to6  
+        + (1186.*x5 - 2705.*x4 - 24791.*x3 - 16099.*x2 + 19229.*x - 2740.)/162./xm1to5) );    
+    
+}
+
+double StandardModelMatching::C8c_3L_at_mW(double x) const
+
+{
+   double z = 1./x;
+   return (- 1.870 + 0.1010*z - 0.1218*z*log(z) + 0.1045*z*z - 0.03748*z*z*log(z) 
+           + 0.01151*z*z*log(z)*log(z) - 0.01023*z*z*z + 0.004342*z*z*z*log(z) 
+           + 0.0003031*z*z*z*log(z)*log(z) - 0.001537*z*z*z*z + 0.0007532*z*z*z*z*log(z));    
+}
+
+double StandardModelMatching::C8t_3L_at_mt(double x) const
+
+{
+   double z = 1./x;
+   return (- 0.8954 - 7.043*z - 98.34*z*z - 46.21*z*z*log(z) - 127.1*z*z*z 
+           - 181.6*z*z*z*log(z) + 535.8*z*z*z*z - 76.76*z*z*z*z*log(z));    
+}
+
+double StandardModelMatching::C8t_3L_func(double x, double mu) const
+
+{
+double x2 = x * x;
+double x3 = x * x2;
+double x4 = x * x3;
+double x5 = x * x3;
+double xm1to5 = (x-1.)*(x-1.)*(x-1.)*(x-1.)*(x-1.);
+double xm1to6 = xm1to5*(x-1.);
+
+double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+  
+return ( 2. * log(mu/mt) * (gsl_sf_dilog(1.- 1./x) * (-148. * x5 + 1052. * x4 - 4811. * x3 - 3520. * x2 - 61. * x)/18./xm1to5 
+        + log(x) * (-15984. * x5 + 152379. * x4 - 1358060. * x3 - 1201653. * x2 - 74190. * x + 9188.)/1944./xm1to6 
+        + (109669. * x5 - 1112675. * x4 + 6239377. * x3 + 8967623. * x2 + 768722. * x - 42796.)/11664./xm1to5) 
+        + 4. * log(mu/mt) * log(mu/mt) * (log(x) * (-139. * x4 - 2938. * x3 - 2683. * x2)/12./xm1to6 
+        + (1295. * x5 - 7009. * x4 + 29495. * x3 + 64513. * x2 + 17458. * x - 2072.)/216./xm1to5) );    
+    
+}
+
 double StandardModelMatching::Tt(double x) const
 {
-return ((-(16. * x +8.) * sqrt(4. * x - 1) * gsl_sf_clausen(2. * asin(1./2./sqrt(x)))) +((16. * x + 20./3.) * log(x)) + (32. * x) + (112./9)) ;
+return ((-(16. * x + 8.) * sqrt(4. * x - 1.) * gsl_sf_clausen(2. * asin(1./2./sqrt(x)))) +((16. * x + 20./3.) * log(x)) + (32. * x) + (112./9.)) ;
 }
 
 double StandardModelMatching::Wt(double x) const
@@ -1069,16 +1145,14 @@ double StandardModelMatching::phi2(double x, double y) const{
 
     
 /*******************************************************************************
- * Wilson coefficients misiak base for b -> s gamma                            * 
+ * Wilson coefficients misiak base for b -> s g                            * 
  * operator basis: - current current                                           *         
  *                 - qcd penguins                                              * 
- *                 - magnetic and chromomagnetic penguins                      *         
- *                 - semileptonic                                              * 
+ *                 - magnetic and chromomagnetic penguins                      *
  * ****************************************************************************/
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
-    gslpp::complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
     
     vmcbsg.clear();
     
@@ -1094,16 +1168,20 @@ double StandardModelMatching::phi2(double x, double y) const{
     }
 
     mcbsg.setMu(Muw);
+    double alSo4pi = SM.Alstilde5(Muw);
     
     switch (mcbsg.getOrder()) {
         case NNLO:
+            for (int j=0; j<8; j++){
+            mcbsg.setCoeff(j, alSo4pi * alSo4pi * setWCbsg(j, xt,  NNLO) , NNLO);
+            }
         case NLO:
             for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, co * SM.Alstilde5(Muw) * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
+            mcbsg.setCoeff(j, alSo4pi * setWCbsg(j, xt,  NLO) , NLO);
             }
         case LO:
             for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, co * setWCbsg(j, xt,  LO), LO);
+            mcbsg.setCoeff(j, setWCbsg(j, xt,  LO), LO);
             }
             break;
         default:
@@ -1136,6 +1214,9 @@ double StandardModelMatching::phi2(double x, double y) const{
     
     switch (mcprimebsg.getOrder()) {
         case NNLO:
+            for (int j=0; j<8; j++){
+            mcprimebsg.setCoeff(j, 0., NNLO);//* CHECK ORDER *//
+            }
         case NLO:
             for (int j=0; j<8; j++){
             mcprimebsg.setCoeff(j, 0., NLO);//* CHECK ORDER *//
@@ -1161,11 +1242,13 @@ double StandardModelMatching::phi2(double x, double y) const{
 
 double StandardModelMatching::setWCbsg(int i, double x, orders order)
 {    
-    sw =  sqrt( sW2 );//sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
+    sw =  sqrt( sW2 );
 
     if ( swf == sw && xcachef == x){
         switch (order){
         case NNLO:
+            return ( CWbsgArrayNNLO[i] );
+            break;        
         case NLO:
             return ( CWbsgArrayNLO[i] );
             break;
@@ -1180,18 +1263,28 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     }
     
     swf = sw; xcachef = x;
-    
+
     switch (order){
         case NNLO:
+            // One and two loop matching from arXiv:9910220.
+            CWbsgArrayNNLO[0] = -Tt(x)+7987./72.+17./3.*M_PI*M_PI+475./6.*L+17.*L*L;
+            CWbsgArrayNNLO[1] = 127./18.+4./3.*M_PI*M_PI+46./3.*L+4.*L*L;
+            CWbsgArrayNNLO[2] = G1t(x,Muw)-680./243.-20./81.*M_PI*M_PI-68./81.*L-20./27*L*L;
+            CWbsgArrayNNLO[3] = E1t(x,Muw)+950./243.+10./81.*M_PI*M_PI+124./27.*L+10./27.*L*L;
+            CWbsgArrayNNLO[4] = -0.1*G1t(x,Muw)+2./15.*E0t(x)+68./243.+2./81.*M_PI*M_PI+14./81.*L+2./27.*L*L;
+            CWbsgArrayNNLO[5] = -3./16.*G1t(x,Muw)+0.25*E0t(x)+85./162.+5./108.*M_PI*M_PI+35./108.*L+5./36*L*L;
+            // 3-loop matching from arXiv:0401041. Expansion around x = 1, on the basis of Fig.3 of the paper. 
+            CWbsgArrayNNLO[6] = (C7t_3L_at_mt(x) + C7t_3L_func(x,Muw)-(C7c_3L_at_mW(x)+ 13763./2187.*L+814./729.*L*L)) - 1./3.*CWbsgArrayNNLO[2] - 4./9.*CWbsgArrayNNLO[3] - 20./3.*CWbsgArrayNNLO[4] - 80./9.*CWbsgArrayNNLO[5]; //effective C7
+            CWbsgArrayNNLO[7] = (C8t_3L_at_mt(x) + C8t_3L_func(x,Muw)-(C8c_3L_at_mW(x) + 16607./5832.*L+397./486.*L*L)) + CWbsgArrayNNLO[2]-1./6.*CWbsgArrayNNLO[3]-20.*CWbsgArrayNNLO[4]-10./3.*CWbsgArrayNNLO[5]; //effective C8
         case NLO:
             CWbsgArrayNLO[0] = 15. + 6*L;
-            CWbsgArrayNLO[3] = E0t(x) - (7./9.) + (2./3.* L);
-            CWbsgArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWbsgArrayNLO[3];
-            CWbsgArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWbsgArrayNLO[3];
+            CWbsgArrayNLO[3] = E0t(x) - 7./9. + 2./3.* L;
+            CWbsgArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWbsgArrayNLO[3]; //effective C7
+            CWbsgArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWbsgArrayNLO[3]; //effective C8
         case LO:
             CWbsgArrayLO[1] = 1.;
-            CWbsgArrayLO[6] = -0.5*A0t(x) - 23./36.;
-            CWbsgArrayLO[7] = -0.5*F0t(x) - 1./3.;
+            CWbsgArrayLO[6] = -0.5*A0t(x) - 23./36.; //effective C7
+            CWbsgArrayLO[7] = -0.5*F0t(x) - 1./3.; //effective C8
             break;
         default:
             std::stringstream out;
@@ -1201,6 +1294,8 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     
     switch (order){
         case NNLO:
+            return ( CWbsgArrayNNLO[i] );
+            break;
         case NLO:
             return ( CWbsgArrayNLO[i] );
             break;

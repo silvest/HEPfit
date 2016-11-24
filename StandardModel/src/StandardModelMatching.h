@@ -322,6 +322,60 @@ public:
      * @param[in] mu the matching scale of the Wilson coefficients
      */
     double G1t(double x, double mu) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C7c_3L_at_mW(double x) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C7t_3L_at_mt(double x) const;
+    
+     /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient 
+     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C7t_3L_func(double x, double mu) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C8c_3L_at_mW(double x) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C8t_3L_at_mt(double x) const;
+    
+     /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient 
+     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C8t_3L_func(double x, double mu) const;
 
     /**
      * 
@@ -619,7 +673,7 @@ private:
      */
     double phi2 (double x, double y) const;
     
-    double CWbsgArrayLO[8], CWbsgArrayNLO[8];
+    double CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
     double CWprimebsgArrayLO[8], CWprimebsgArrayNLO[8];
     double CWBMllArrayLO[19], CWBMllArrayNLO[19];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];
