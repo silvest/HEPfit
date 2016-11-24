@@ -6,9 +6,8 @@
  */
 
 /* 
- * Gambino's parameters hardcoded
- * phi1.4body partially hardcoded, currently switched off through the macro FOUR_BODY set to false
- * VubNNLO and EW parts missing
+ * phi1.4body partially hardcoded, currently switched off by setting FOUR_BODY to false
+ * EW matching missing
  */
 
 #include "Flavour.h"
@@ -30,7 +29,7 @@ Intbc_cache(2, 0.)
     
     SUM = false;
     EWflag = true;
-    NNLOflag = true;
+    FOUR_BODY = false;
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -59,7 +58,7 @@ Intbc_cache(2, 0.)
     
     SUM = true;
     EWflag = true;
-    NNLOflag = true;
+    FOUR_BODY = false;
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -1943,6 +1942,8 @@ void Bsgamma::computeCoeff(double mu)
     C7_1 = (*(allcoeff[NLO]))(6)/Alstilde;
     C8_1 = (*(allcoeff[NLO]))(7)/Alstilde;
     
+    C7_2 = (*(allcoeff[NNLO]))(6)/Alstilde/Alstilde;
+    
     C7p_0 = (*(allcoeffprime[LO]))(6);
     C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
     
@@ -1951,14 +1952,9 @@ void Bsgamma::computeCoeff(double mu)
             << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
     std::cout << "C_1(mu): (" << C1_1.real() << "," << C2_1.real() << "," 
             << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
-            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
+            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;
+    std::cout << "C_2^7(mu): " << C7_2.real() << std::endl << std::endl;*/
     
-    if (SM.getModelName().compare("StandardModel") == 0) C7_2 = 18.8595;
-    else if (SM.getModelName().compare("THDM") == 0) C7_2 = 16.518;
-    else {
-        C7_2 = 18.8595;
-        std::cout << "\nWARNING: using Standard Model value for C7_NNLO.\n" << std::endl;
-    }
     C7_1ew = 4.868;
     
 }
@@ -2236,13 +2232,9 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
             std::cout << "Vub_NLO: " << Vub_NLO(E0) << std::endl;
             std::cout << "Vub_NNLO: " << Vub_NNLO(E0) << std::endl;
             std::cout << "EW_NLO: " << EW_NLO(mu_b) << std::endl;*/
-            if (NNLOflag){
-                return P0(E0) 
-                        + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b)
-                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b)) + Vub_NNLO(E0);
-            }
-            else return P0(E0) 
-                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b);
+            return P0(E0) 
+                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b)
+                    + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b)) + Vub_NNLO(E0);
             break;
         case NLO:
             return P0(E0) 
