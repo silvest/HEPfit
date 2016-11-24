@@ -19,7 +19,7 @@ THDMMatching::THDMMatching(const THDM & THDM_i) :
     mcdbs2(5, NDR, NLO),
     mcbtaunu(3, NDR, LO),
     mcbsg(8, NDR, NNLO),
-    mcprimebsg(8, NDR, NLO)
+    mcprimebsg(8, NDR, NNLO)
 {}
 
 std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
@@ -353,13 +353,15 @@ double THDMMatching::setWCbsg(int i, double tan, double mt, double mhp, double m
             CWbsgArrayNNLO[4] = 2./15. * n41ct / tan2 - CWbsgArrayNNLO[2] / 10.;
             CWbsgArrayNNLO[5] = 1./4. * n41ct / tan2 - CWbsgArrayNNLO[2] * 3./16.;
             CWbsgArrayNNLO[6] = ( n72ct + cd72ct * lstmu + ce72ct * lstmu * lstmu)/tan2 +
-                                n72fr + cd72fr * lstmu + ce72fr * lstmu * lstmu;
+                                n72fr + cd72fr * lstmu + ce72fr * lstmu * lstmu
+                     - 1./3.*CWbsgArrayNNLO[2] - 4./9.*CWbsgArrayNNLO[3] - 20./3.*CWbsgArrayNNLO[4] - 80./9.*CWbsgArrayNNLO[5];
             CWbsgArrayNNLO[7] = ( n82ct + cd82ct * lstmu + ce82ct * lstmu * lstmu)/tan2 + 
-                                n82fr + cd82fr * lstmu + ce82fr * lstmu * lstmu;
+                                n82fr + cd82fr * lstmu + ce82fr * lstmu * lstmu
+                    + CWbsgArrayNNLO[2] - 1./6.*CWbsgArrayNNLO[3] - 20.*CWbsgArrayNNLO[4] - 10./3.*CWbsgArrayNNLO[5];
         case NLO:
             CWbsgArrayNLO[3] = n41ct / tan2;
-            CWbsgArrayNLO[6] = ( n71ct + cd71ct * lstmu ) / tan2 + n71fr + cd71fr * lstmu ;
-            CWbsgArrayNLO[7] = ( n81ct + cd81ct * lstmu ) / tan2 + n81fr + cd81fr * lstmu ;
+            CWbsgArrayNLO[6] = ( n71ct + cd71ct * lstmu ) / tan2 + n71fr + cd71fr * lstmu  - 4./9.*CWbsgArrayNLO[3];
+            CWbsgArrayNLO[7] = ( n81ct + cd81ct * lstmu ) / tan2 + n81fr + cd81fr * lstmu  - 1./6.*CWbsgArrayNLO[3];
         case LO:
             CWbsgArrayLO[6] = n70ct /tan2 + n70fr ;
             CWbsgArrayLO[7] = n80ct /tan2 + n80fr ;
