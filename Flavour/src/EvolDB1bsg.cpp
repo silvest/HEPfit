@@ -74,29 +74,16 @@ EvolDB1bsg::EvolDB1bsg(unsigned int dim_i, schemes scheme, orders order, const S
                 }
             }
         }
-    gg2 = vi * (AnomalousDimension_M(NNLO,nu,nd)).transpose() * v;
-    std::cout << "  " << std::endl;    
-    std::cout << " Evolution matrix at NNLO " << std::endl;
-    std::cout << "  " << std::endl; 
-    for (int i=0; i<dim; i++){
-        std::cout << " { ";
-        for (int j=0; j<dim; j++){
-            std::cout << " " << gg2(i,j).real() << " ";
-            if(j<dim-1) std::cout << ",";
-        }
-        std::cout << " } , ";
-    }
-    std::cout << " " << std::endl; 
-    std::cout << "  " << std::endl;
+    gg2 = vi * ( AnomalousDimension_M(NNLO,nu,nd).transpose() ) * v ;
     double b2 = model.Beta2(nu+nd);
     for (unsigned int i = 0; i < dim; i++){
         for (unsigned int j = 0; j < dim; j++){
             gslpp::complex s_s2_temp = 0.;
             for (unsigned int k = 0; k < dim; k++){
                 s_s2_temp += (2. * b0 + e(i).real() - e(k).real()) * 
-                2. * b0 * ( s_s(i,k) * s_s(k,j) - b1/b0 * s_s(i,j) * (j==k));
+                ( h(i,k) * h(k,j) - b1/b0 * h(i,j) * (j==k) );
             }
-            s_s2.assign( i, j, s_s2_temp + 2.*b2 * (i==j) * e(i).real() - gg2(i,j));
+            s_s2.assign( i, j, s_s2_temp + b2/b0 * (i==j) * e(i).real() - gg2(i,j));
             if(fabs(e(i).real() - e(j).real() + 4. * b0)>0.00000000001){
                 h2.assign( i, j, s_s2(i,j) / (4. * b0 + e(i) - e(j)));
                 }
@@ -450,10 +437,8 @@ gslpp::matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order,
     gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int L = 6 - (int) nf;
-    double alsM = model.Als(M) / 4. / M_PI;
-    std::cout << " Als Lambda " << alsM << std::endl;
-    double alsmu = model.Als(mu) / 4. / M_PI;
-    std::cout << " Als mu " << alsmu << std::endl;
+    double alsM = model.Alstilde5(M); 
+    double alsmu = model.Alstilde5(mu);
     
     double eta = alsM / alsmu;
     
