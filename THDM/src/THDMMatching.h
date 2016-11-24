@@ -39,7 +39,7 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return THDM Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return THDM Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMbsg() ;
     
@@ -47,7 +47,7 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMprimebsg() ;
     
@@ -59,7 +59,7 @@ public:
      * @param mhp charged Higgs mass
      * @param mu matching scale
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     double setWCbsg (int i, double tan, double mt, double mhp, double mu, orders order);
 

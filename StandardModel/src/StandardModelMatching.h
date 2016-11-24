@@ -84,7 +84,7 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMbsg() ;
     
@@ -92,7 +92,7 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMprimebsg() ;
     
@@ -100,14 +100,14 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMBMll() ;
     /** 
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMprimeBMll() ;
     
@@ -592,7 +592,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBsmm(int i, double x, orders order);
     
@@ -601,7 +601,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order_ew
-     * @return return the electroweak value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBsmmEW(int i, double x, orders_ew order_ew);
     
@@ -610,7 +610,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBdmm(int i, double x, orders order);
     
@@ -619,7 +619,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order_ew
-     * @return return the electroweak value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBdmmEW(int i, double x, orders_ew order_ew);
     
@@ -628,7 +628,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     double setWCbsg (int i, double x, orders order);
     
@@ -637,7 +637,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B \rightarrow k^* l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B \rightarrow k^* l^{+} l^{-} \f$
      */
     double setWCBMll (int i, double x, orders order);
     
