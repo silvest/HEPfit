@@ -3468,12 +3468,12 @@ void THDMcache::computeSignalStrengthQuantities()
     //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
 
     gslpp::complex I_h_F=0.0;//It depends on the modelType
-    gslpp::complex fermU=I_h_U(mHl2,Mu,Mc,Mt);
-    gslpp::complex fermD=I_h_D(mHl2,Md,Ms,Mb);
-    gslpp::complex fermL=I_h_L(mHl2,Me,Mmu,Mtau);
-    gslpp::complex I_hSM_W=I_H_W(mHl2,MW);
+    gslpp::complex fermU=I_h_U(mHl*mHl,Mu,Mc,Mt);
+    gslpp::complex fermD=I_h_D(mHl*mHl,Md,Ms,Mb);
+    gslpp::complex fermL=I_h_L(mHl*mHl,Me,Mmu,Mtau);
+    gslpp::complex I_hSM_W=I_H_W(mHl*mHl,MW);
     gslpp::complex I_h_W=sin_ba*I_hSM_W;
-    gslpp::complex I_h_Hp=I_H_Hp(mHp2,mHl2)*ghHpHm(mHp2,tanb,m12_2,bma,mHl2,vev)*vev/(2.0*mHp2);
+    gslpp::complex I_h_Hp=I_H_Hp(mHp2,mHl*mHl)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
 
     double ABSgagaTHDM=0.0;
     double ABSgagaSM=0.0;
@@ -3481,12 +3481,12 @@ void THDMcache::computeSignalStrengthQuantities()
     //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
 
     gslpp::complex A_h_F = 0.0;//It depends on the modelType
-    gslpp::complex A_h_Ux = A_h_U(mHl2,cW2,Mu,Mc,Mt,MZ);
-    gslpp::complex A_h_Dx = A_h_D(mHl2,cW2,Md,Ms,Mb,MZ);
-    gslpp::complex A_h_Lx  = A_h_L(mHl2,cW2,Me,Mmu,Mtau,MZ);
-    gslpp::complex A_hSM_W = A_H_W(mHl2,cW2,MW,MZ);
+    gslpp::complex A_h_Ux = A_h_U(mHl*mHl,cW2,Mu,Mc,Mt,MZ);
+    gslpp::complex A_h_Dx = A_h_D(mHl*mHl,cW2,Md,Ms,Mb,MZ);
+    gslpp::complex A_h_Lx  = A_h_L(mHl*mHl,cW2,Me,Mmu,Mtau,MZ);
+    gslpp::complex A_hSM_W = A_H_W(mHl*mHl,cW2,MW,MZ);
     gslpp::complex A_h_W = sin_ba*A_hSM_W;
-    gslpp::complex A_h_Hp = A_H_Hp(mHp2,mHl2,cW2,MZ)*ghHpHm(mHp2,tanb,m12_2,bma,mHl2,vev)*vev/(2.0*mHp2);
+    gslpp::complex A_h_Hp = A_H_Hp(mHp2,mHl*mHl,cW2,MZ)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
 
     double ABSZgaTHDM=0.0;
     double ABSZgaSM=0.0;

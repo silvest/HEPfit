@@ -35,7 +35,7 @@ class GeneralTHDMcache; //forward reference to GeneralTHDMcache class
 class GeneralTHDM: public StandardModel {
 public:
 
-    static const int NGeneralTHDMvars = 12;
+    static const int NGeneralTHDMvars = 66;
     static const std::string GeneralTHDMvars[NGeneralTHDMvars];
 
     /**
@@ -280,7 +280,17 @@ private:
     GeneralTHDMcache* myGTHDMcache;
 
     double logtb, tanb, sinb, cosb, mHp2, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
-            alpha3, cosalpha3, sinalpha3, Rem12_2, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7, Q_GTHDM;
+            alpha3, cosalpha3, sinalpha3, Rem12_2, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7, 
+            Ytu_11r, Ytu_11i, Ytu_12r, Ytu_12i, Ytu_13r, Ytu_13i, 
+            Ytu_21r, Ytu_21i, Ytu_22r, Ytu_22i, Ytu_23r, Ytu_23i, 
+            Ytu_31r, Ytu_31i, Ytu_32r, Ytu_32i, Ytu_33r, Ytu_33i, 
+            Ytd_11r, Ytd_11i, Ytd_12r, Ytd_12i, Ytd_13r, Ytd_13i, 
+            Ytd_21r, Ytd_21i, Ytd_22r, Ytd_22i, Ytd_23r, Ytd_23i, 
+            Ytd_31r, Ytd_31i, Ytd_32r, Ytd_32i, Ytd_33r, Ytd_33i, 
+            Ytl_11r, Ytl_11i, Ytl_12r, Ytl_12i, Ytl_13r, Ytl_13i, 
+            Ytl_21r, Ytl_21i, Ytl_22r, Ytl_22i, Ytl_23r, Ytl_23i, 
+            Ytl_31r, Ytl_31i, Ytl_32r, Ytl_32i, Ytl_33r, Ytl_33i, 
+            Q_GTHDM;
 };
 
 /**
