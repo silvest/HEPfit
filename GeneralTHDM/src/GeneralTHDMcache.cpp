@@ -36,22 +36,6 @@ void GeneralTHDMcache::updateCache()
     Relambda6=myGTHDM->getRelambda6();
     Relambda7=myGTHDM->getRelambda7();
 
-    std::cout<<"mHl = "<<mHl<<std::endl;
-    std::cout<<"vev = "<<vev<<std::endl;
-    std::cout<<"tanb = "<<tanb<<std::endl;
-    std::cout<<"cosalpha1 = "<<cosalpha1<<std::endl;
-    std::cout<<"cosalpha2 = "<<cosalpha2<<std::endl;
-    std::cout<<"cosalpha3 = "<<cosalpha3<<std::endl;
-    std::cout<<"sinalpha1 = "<<sinalpha1<<std::endl;
-    std::cout<<"sinalpha2 = "<<sinalpha2<<std::endl;
-    std::cout<<"sinalpha3 = "<<sinalpha3<<std::endl;
-    std::cout<<"Imlambda5 = "<<Imlambda5<<std::endl;
-    std::cout<<"Imlambda6 = "<<Imlambda6<<std::endl;
-    std::cout<<"Imlambda7 = "<<Imlambda7<<std::endl;
-    std::cout<<"M2 = "<<M2_GTHDM<<std::endl;
-    std::cout<<"mHp2 = "<<mHp2<<std::endl;
-    std::cout<<"Relambda6 = "<<Relambda6<<std::endl;
-    std::cout<<"Relambda7 = "<<Relambda7<<std::endl;
     mH2_2 = -(cosalpha2*sinalpha3*(vev*vev*(cosb*cosb*Imlambda6 + sinb*(cosb*Imlambda5 + sinb*Imlambda7))
                                    +mH1_2*cosalpha1*cosalpha2*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3))
               +sinalpha2*(vev*vev/2.0*((cosb*cosb - sinb*sinb)*Imlambda5 + 2.0*sinb*cosb*(Imlambda7 - Imlambda6)) 
@@ -66,9 +50,9 @@ void GeneralTHDMcache::updateCache()
              +vev*vev*(cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7)*(cosalpha1/sinalpha2 + sinalpha1*sinalpha3/cosalpha3)/(cosalpha2*cosalpha3))
             /(cosalpha1 + sinalpha1*sinalpha3/(cosalpha3*sinalpha2));
 
-        std::cout<<"mH1_2 before ordering = "<<mH1_2<<std::endl;
-        std::cout<<"mH2_2 before ordering = "<<mH2_2<<std::endl;
-        std::cout<<"mH3_2 before ordering = "<<mH3_2<<std::endl;
+//        std::cout<<"mH1_2 before ordering = "<<mH1_2<<std::endl;
+//        std::cout<<"mH2_2 before ordering = "<<mH2_2<<std::endl;
+//        std::cout<<"mH3_2 before ordering = "<<mH3_2<<std::endl;
 
     double mHa_2;
     if(mH1_2<mH3_2 && mH3_2<mH2_2)
@@ -137,21 +121,22 @@ void GeneralTHDMcache::updateCache()
     lambda4_GTHDM = (M2_GTHDM + M33_2 - 2.0*mHp2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
     Relambda5_GTHDM = (M2_GTHDM - M33_2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
 
-    std::cout<<"mH1_2 = "<<mH1_2<<std::endl;
-    std::cout<<"mH2_2 = "<<mH2_2<<std::endl;
-    std::cout<<"mH3_2 = "<<mH3_2<<std::endl;
-    std::cout<<"M11_2 = "<<M11_2<<std::endl;
-    std::cout<<"M12_2 = "<<M12_2<<std::endl;
-    std::cout<<"M22_2 = "<<M22_2<<std::endl;
-    std::cout<<"M33_2 = "<<M33_2<<std::endl;
-    std::cout<<"m11_2_GTHDM = "<<m11_2_GTHDM<<std::endl;
-    std::cout<<"m22_2_GTHDM = "<<m22_2_GTHDM<<std::endl;
-    std::cout<<"Imm12_2_GTHDM = "<<Imm12_2_GTHDM<<std::endl;
-    std::cout<<"lambda1_GTHDM = "<<lambda1_GTHDM<<std::endl;
-    std::cout<<"lambda2_GTHDM = "<<lambda2_GTHDM<<std::endl;
-    std::cout<<"lambda3_GTHDM = "<<lambda3_GTHDM<<std::endl;
-    std::cout<<"lambda4_GTHDM = "<<lambda4_GTHDM<<std::endl;
-    std::cout<<"Relambda5_GTHDM = "<<Relambda5_GTHDM<<std::endl;
+//    std::cout<<"mH1_2 = "<<mH1_2<<std::endl;
+//    std::cout<<"mH2_2 = "<<mH2_2<<std::endl;
+//    std::cout<<"mH3_2 = "<<mH3_2<<std::endl;
+//    std::cout<<"M11_2 = "<<M11_2<<std::endl;
+//    std::cout<<"M12_2 = "<<M12_2<<std::endl;
+//    std::cout<<"M22_2 = "<<M22_2<<std::endl;
+//    std::cout<<"M33_2 = "<<M33_2<<std::endl;
+//    std::cout<<"m11_2_GTHDM = "<<m11_2_GTHDM<<std::endl;
+//    std::cout<<"m22_2_GTHDM = "<<m22_2_GTHDM<<std::endl;
+//    std::cout<<"Imm12_2_GTHDM = "<<Imm12_2_GTHDM<<std::endl;
+//    std::cout<<"lambda1_GTHDM = "<<lambda1_GTHDM<<std::endl;
+//    std::cout<<"lambda2_GTHDM = "<<lambda2_GTHDM<<std::endl;
+//    std::cout<<"lambda3_GTHDM = "<<lambda3_GTHDM<<std::endl;
+//    std::cout<<"lambda4_GTHDM = "<<lambda4_GTHDM<<std::endl;
+//    std::cout<<"Relambda5_GTHDM = "<<Relambda5_GTHDM<<std::endl;
+
 //    Q_THDM=myTHDM->getQ_THDM();
 //    m12_2=myTHDM->getm12_2();
 //    MW=MWTHDM(myTHDM->Mw_tree());

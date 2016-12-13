@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -77,6 +77,9 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <commandLine>`gsl-config --libs`</commandLine>
         </linkerTool>
       </folder>
@@ -93,6 +96,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -108,6 +114,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="src/gslpp.h" ex="false" tool="3" flavor2="0">
@@ -168,6 +177,13 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -181,6 +197,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -196,6 +215,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="src/gslpp.h" ex="false" tool="3" flavor2="0">
@@ -256,6 +278,13 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -269,6 +298,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -284,6 +316,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="src/gslpp.h" ex="false" tool="3" flavor2="0">

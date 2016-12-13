@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -121,6 +121,7 @@
             <pElem>../NewPhysics/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -137,6 +138,10 @@
           <linkerAddLib>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerOptionItem>-Wl,--start-group</linkerOptionItem>
             <linkerLibProjectItem>
@@ -245,6 +250,10 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
           </linkerLibItems>
@@ -423,6 +432,22 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
       <item path="src/AFBbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AFBbottom.h" ex="false" tool="3" flavor2="0">
@@ -596,6 +621,22 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
+      </folder>
       <item path="src/AFBbottom.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/AFBbottom.h" ex="false" tool="3" flavor2="0">
