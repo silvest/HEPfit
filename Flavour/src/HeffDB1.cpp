@@ -749,11 +749,13 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdnunu()
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes scheme) 
 {
     
+    std::cout<<"cc1"<<std::endl;
     coeffsgamma.setScheme(scheme);
     orders ordDF1 = coeffsgamma.getOrder();   
     
     const std::vector<WilsonCoefficient>& mcbsg = model.getMatching().CMbsg();
 
+    std::cout<<"cc2"<<std::endl;
     if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
         int check = 1;
         for (unsigned int i = 0; i < mcbsg.size(); i++) {
@@ -770,6 +772,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
         if (check == 1) return coeffsgamma.getCoeff();
     } 
     
+    std::cout<<"cc3"<<std::endl;
     Bsgamma_mu_cache = mu;
     Bsgamma_scheme_cache = scheme;
     Bsgamma_WC_cache.clear();
@@ -777,6 +780,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
     
     coeffsgamma.setMu(mu); 
     
+    std::cout<<"cc4"<<std::endl;
     for (unsigned int i = 0; i < mcbsg.size(); i++){
         Bsgamma_Mu_cache[i] = mcbsg[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
@@ -788,6 +792,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
         }
     }
     
+    std::cout<<"cc5"<<std::endl;
     return coeffsgamma.getCoeff(); 
 }
 

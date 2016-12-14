@@ -1009,6 +1009,25 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Relambda5_GTHDM"] = boost::factory<Relambda5_GTHDM*>();
     obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
     obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
+
+    obsThFactory["unitarity1_GTHDM"] = boost::factory<unitarity1_GTHDM*>();
+    obsThFactory["unitarity2_GTHDM"] = boost::factory<unitarity2_GTHDM*>();
+    obsThFactory["unitarity3_GTHDM"] = boost::factory<unitarity3_GTHDM*>();
+    obsThFactory["unitarity4_GTHDM"] = boost::factory<unitarity4_GTHDM*>();
+    obsThFactory["unitarity5_GTHDM"] = boost::factory<unitarity5_GTHDM*>();
+    obsThFactory["unitarity6_GTHDM"] = boost::factory<unitarity6_GTHDM*>();
+    obsThFactory["unitarity7_GTHDM"] = boost::factory<unitarity7_GTHDM*>();
+    obsThFactory["unitarity8_GTHDM"] = boost::factory<unitarity8_GTHDM*>();
+    obsThFactory["unitarity9_GTHDM"] = boost::factory<unitarity9_GTHDM*>();
+    obsThFactory["unitarity10_GTHDM"] = boost::factory<unitarity10_GTHDM*>();
+    obsThFactory["unitarity11_GTHDM"] = boost::factory<unitarity11_GTHDM*>();
+    obsThFactory["unitarity12_GTHDM"] = boost::factory<unitarity12_GTHDM*>();
+
+    obsThFactory["stability1_GTHDM"] = boost::factory<stability1_GTHDM*>();
+    obsThFactory["stability2_GTHDM"] = boost::factory<stability2_GTHDM*>();
+    obsThFactory["stability3_GTHDM"] = boost::factory<stability3_GTHDM*>();
+    obsThFactory["stability4_GTHDM"] = boost::factory<stability4_GTHDM*>();
+
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

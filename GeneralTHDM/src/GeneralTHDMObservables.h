@@ -9,6 +9,8 @@
 #define	GENERALTHDMOBSERVABLES_H
 
 #include "GeneralTHDMquantities.h"
+#include "GeneralTHDMunitarity.h"
+#include "GeneralTHDMstability.h"
 
 #endif	/* GENERALTHDMOBSERVABLES_H */
 

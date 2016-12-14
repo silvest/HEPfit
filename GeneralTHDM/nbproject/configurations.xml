@@ -8,6 +8,8 @@
       <itemPath>src/GeneralTHDMObservables.h</itemPath>
       <itemPath>src/GeneralTHDMcache.h</itemPath>
       <itemPath>src/GeneralTHDMquantities.h</itemPath>
+      <itemPath>src/GeneralTHDMstability.h</itemPath>
+      <itemPath>src/GeneralTHDMunitarity.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -19,6 +21,30 @@
       <itemPath>src/GeneralTHDM.cpp</itemPath>
       <itemPath>src/GeneralTHDMcache.cpp</itemPath>
       <itemPath>src/GeneralTHDMquantities.cpp</itemPath>
+      <itemPath>src/GeneralTHDMstability.cpp</itemPath>
+      <itemPath>src/GeneralTHDMunitarity.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -68,6 +94,14 @@
       </item>
       <item path="src/GeneralTHDMquantities.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMstability.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMstability.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
@@ -113,6 +147,14 @@
       </item>
       <item path="src/GeneralTHDMquantities.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMstability.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMstability.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
@@ -146,6 +188,14 @@
       <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMstability.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMstability.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMunitarity.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
