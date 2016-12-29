@@ -36,7 +36,7 @@ MonteCarlo::MonteCarlo(
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
-    CalculateNormalization = false;
+    CalculateNormalization = "false";
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
@@ -283,9 +283,7 @@ void MonteCarlo::Run(const int rank) {
                     }
                 } else if (beg->compare("CalculateNormalization") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        CalculateNormalization = true;
-                    }
+                    CalculateNormalization = *beg;
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
@@ -370,7 +368,6 @@ void MonteCarlo::Run(const int rank) {
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
-            if (CalculateNormalization) normalization = MCEngine.computeNormalization();
 
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
@@ -412,7 +409,6 @@ void MonteCarlo::Run(const int rank) {
             // print statistics for the theory values of the observables into a text file
             std::ofstream outStatLog;
             outStatLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::out);
-            if (CalculateNormalization) outStatLog << "Normalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
             outStatLog << MCEngine.computeStatistics();
             outStatLog.close();
             
@@ -438,6 +434,27 @@ void MonteCarlo::Run(const int rank) {
             BCLog::OpenLog(("MonteCarlo_results" + JobTag + ".txt").c_str(), BCLog::results, BCLog::nothing);
             MCEngine.PrintSummary();
             BCLog::CloseLog();
+            
+            // Calculate and print normalization        
+            if (CalculateNormalization.compare("false") != 0) {
+                std::ofstream outStatLog;
+                outStatLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::app);
+                
+                if (CalculateNormalization.compare("LME") == 0) {
+                    // Make sure mode is found by MINUIT for normalization computation.
+                    if (!FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
+                    normalization = MCEngine.computeNormalizationLME();
+                } 
+                else if (CalculateNormalization.compare("MC") == 0) {
+                    normalization = MCEngine.computeNormalizationMC();
+                }
+                else 
+                    throw std::runtime_error(("\n ERROR: Normalization method" + CalculateNormalization + " not implemented.\n").c_str());
+                
+                outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
+                outStatLog.close();
+            }
+            
             
 #ifdef _MPI
             double ** sendbuff = new double *[MCEngine.procnum];
