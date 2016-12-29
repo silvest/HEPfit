@@ -37,6 +37,7 @@ MonteCarlo::MonteCarlo(
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
     CalculateNormalization = "false";
+    NIterationNormalizationMC = 0;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
@@ -284,6 +285,9 @@ void MonteCarlo::Run(const int rank) {
                 } else if (beg->compare("CalculateNormalization") == 0) {
                     ++beg;
                     CalculateNormalization = *beg;
+                } else if (beg->compare("NIterationNormalizationMC") == 0) {
+                    ++beg;
+                    NIterationNormalizationMC = atoi((*beg).c_str());
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
@@ -335,6 +339,9 @@ void MonteCarlo::Run(const int rank) {
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
 
+            if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
+                throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
+            
             /* Open root file for storing data. */
             if (writechains) {
                 MCEngine.WriteMarkovChain(OutFile, "RECREATE", true, false); /*Run: true, PreRun: false*/
@@ -446,7 +453,7 @@ void MonteCarlo::Run(const int rank) {
                     normalization = MCEngine.computeNormalizationLME();
                 } 
                 else if (CalculateNormalization.compare("MC") == 0) {
-                    normalization = MCEngine.computeNormalizationMC();
+                    normalization = MCEngine.computeNormalizationMC(NIterationNormalizationMC);
                 }
                 else 
                     throw std::runtime_error(("\n ERROR: Normalization method" + CalculateNormalization + " not implemented.\n").c_str());

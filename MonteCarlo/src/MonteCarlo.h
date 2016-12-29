@@ -167,6 +167,7 @@ private:
     std::string ObsDirName; ///< String for the output directory name.
     bool FindModeWithMinuit; ///< Flag for using Minuit libraries.
     std::string CalculateNormalization; ///<< Flag for calculating the evidence.
+    int NIterationNormalizationMC; ///<< Number of iterations for MC integral done to compute normalization of a model
     bool PrintAllMarginalized; ///< Flag for printing all Marginalized distributions to be passed on to the <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> routines.
     bool PrintCorrelationMatrix; ///< Flag for printing the correlation matrix.
     bool PrintKnowledgeUpdatePlots; ///< Flag for printing plots to compare prior vs. posterior knowledge of parameters.

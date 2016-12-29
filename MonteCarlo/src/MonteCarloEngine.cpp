@@ -1062,9 +1062,9 @@ std::string MonteCarloEngine::writePreRunData()
     return StatsLog.str().c_str();
 }
 
-double MonteCarloEngine::computeNormalizationMC() {
+double MonteCarloEngine::computeNormalizationMC(int NIterationNormalizationMC) {
     // Number of MC iterations
-    SetNIterationsMin(3000000);
+    SetNIterationsMin(NIterationNormalizationMC);
     SetIntegrationMethod(BCIntegrate::kIntMonteCarlo);
     Integrate();
     double norm = GetIntegral();
