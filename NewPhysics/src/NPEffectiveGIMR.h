@@ -54,6 +54,12 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%CG </td>
+ *   <td class="mod_symb">\f$C_{G} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{G}=f_{ABC}G_{\mu}^{A\nu} G_{\nu}^{B\rho}W_{\rho}^{C\mu}\f$. </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CW </td>
  *   <td class="mod_symb">\f$C_{W} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -177,6 +183,24 @@
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{DH})_{ij} =\big(H^\dagger H\big)
  *   \big(\overline{Q^i}\,H D^j\big)\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CuG_klr, CuG_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uG})_{kl}\big], \mbox{Im}\big[(C_{uG})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{uG})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} T_A U^j\big)\widetilde{H} G_{\mu\nu}^A\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CuW_klr, CuW_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{kl}\big], \mbox{Im}\big[(C_{uW})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \tau_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CuB_klr, CuB_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uB})_{kl}\big], \mbox{Im}\big[(C_{uB})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{uB})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} U^j\big)\widetilde{H} B_{\mu\nu}\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CLL_1221, CLL_2112 </td>
@@ -308,6 +332,12 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%CG </td>
+ *   <td class="mod_symb">\f$C_{G} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{G}=f_{ABC}G_{\mu}^{A\nu} G_{\nu}^{B\rho}W_{\rho}^{C\mu}\f$. </td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%CW </td>
  *   <td class="mod_symb">\f$C_{W} \f$</td>
  *   <td class="mod_desc">The coefficient of the operator
@@ -431,6 +461,24 @@
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
  *   \f$({\cal O}_{DH})_{ii} =\big(H^\dagger H\big)
  *   \big(\overline{Q^i}\,H D^i\big)\f$ (flavor universal). </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CuG_klr, CuG_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uG})_{kl}\big], \mbox{Im}\big[(C_{uG})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{uG})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} T_A U^j\big)\widetilde{H} G_{\mu\nu}^A\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CuW_klr, CuW_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uW})_{kl}\big], \mbox{Im}\big[(C_{uW})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{uW})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} \tau_a U^j\big)\widetilde{H} W_{\mu\nu}^a\f$, for \f$i,j=1,2,3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%CuB_klr, CuB_kli </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uB})_{kl}\big], \mbox{Im}\big[(C_{uB})_{kl}\big] \f$</td>
+ *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
+ *   \f$({\cal O}_{uB})_{ij} =\big(\overline{Q^i}\sigma^{\mu\nu} U^j\big)\widetilde{H} B_{\mu\nu}\f$, for \f$i,j=1,2,3\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CLL </td>
@@ -564,7 +612,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 264;
+    static const int NNPEffectiveGIMRVars = 301;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -576,7 +624,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 114;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 121;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -841,6 +889,60 @@ public:
      */
     // no generation mixing 
     double deltaGR_Zffh(const Particle p) const;
+      
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{hGff}@f$
+     */
+    // no generation mixing
+    gslpp::complex deltaG_hGff(const Particle p) const;
+      
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{hZff}@f$
+     */
+    // no generation mixing
+    gslpp::complex deltaG_hZff(const Particle p) const;
+      
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H A_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{hAff}@f$
+     */
+    // no generation mixing
+    gslpp::complex deltaG_hAff(const Particle p) const;
+      
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$G_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Gff}@f$
+     */
+    // no generation mixing
+    gslpp::complex deltaG_Gff(const Particle p) const;
+      
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$Z_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Zff}@f$
+     */
+    // no generation mixing
+    gslpp::complex deltaG_Zff(const Particle p) const;
+      
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$A_{\mu\nu} \bar{f}\sigmma^{\mu\nu} f@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Aff}@f$
+     */
+    // no generation mixing
+    gslpp::complex deltaG_Aff(const Particle p) const;
+      
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$f_{ABC} G_{\mu\nu}^A G_{\nu\rho}^B G_{\rho\mu}^C@f$.
+     * @return @f$\delta g_{3G}@f$
+     */
+    double deltag3G() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1179,6 +1281,7 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
+    double CG; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
     double CHG; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
     double CHW; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
@@ -1298,6 +1401,42 @@ protected:
     double CdH_22i; ///< The dimension-6 operator coefficient \f$(C_{DH})_{22}\f$ (imaginary part).
     double CdH_23i; ///< The dimension-6 operator coefficient \f$(C_{DH})_{23}\f$ (imaginary part).
     double CdH_33i; ///< The dimension-6 operator coefficient \f$(C_{DH})_{33}\f$ (imaginary part).
+    double CuG_11r; ///< The dimension-6 operator coefficient \f$(C_{uG})_{11}\f$ (real part).
+    double CuG_12r; ///< The dimension-6 operator coefficient \f$(C_{uG})_{12}\f$ (real part).
+    double CuG_13r; ///< The dimension-6 operator coefficient \f$(C_{uG})_{13}\f$ (real part).
+    double CuG_22r; ///< The dimension-6 operator coefficient \f$(C_{uG})_{22}\f$ (real part).
+    double CuG_23r; ///< The dimension-6 operator coefficient \f$(C_{uG})_{23}\f$ (real part).
+    double CuG_33r; ///< The dimension-6 operator coefficient \f$(C_{uG})_{33}\f$ (real part).
+    double CuG_11i; ///< The dimension-6 operator coefficient \f$(C_{uG})_{11}\f$ (imaginary part).
+    double CuG_12i; ///< The dimension-6 operator coefficient \f$(C_{uG})_{12}\f$ (imaginary part).
+    double CuG_13i; ///< The dimension-6 operator coefficient \f$(C_{uG})_{13}\f$ (imaginary part).
+    double CuG_22i; ///< The dimension-6 operator coefficient \f$(C_{uG})_{22}\f$ (imaginary part).
+    double CuG_23i; ///< The dimension-6 operator coefficient \f$(C_{uG})_{23}\f$ (imaginary part).
+    double CuG_33i; ///< The dimension-6 operator coefficient \f$(C_{uG})_{33}\f$ (imaginary part).
+    double CuW_11r; ///< The dimension-6 operator coefficient \f$(C_{uW})_{11}\f$ (real part).
+    double CuW_12r; ///< The dimension-6 operator coefficient \f$(C_{uW})_{12}\f$ (real part).
+    double CuW_13r; ///< The dimension-6 operator coefficient \f$(C_{uW})_{13}\f$ (real part).
+    double CuW_22r; ///< The dimension-6 operator coefficient \f$(C_{uW})_{22}\f$ (real part).
+    double CuW_23r; ///< The dimension-6 operator coefficient \f$(C_{uW})_{23}\f$ (real part).
+    double CuW_33r; ///< The dimension-6 operator coefficient \f$(C_{uW})_{33}\f$ (real part).
+    double CuW_11i; ///< The dimension-6 operator coefficient \f$(C_{uW})_{11}\f$ (imaginary part).
+    double CuW_12i; ///< The dimension-6 operator coefficient \f$(C_{uW})_{12}\f$ (imaginary part).
+    double CuW_13i; ///< The dimension-6 operator coefficient \f$(C_{uW})_{13}\f$ (imaginary part).
+    double CuW_22i; ///< The dimension-6 operator coefficient \f$(C_{uW})_{22}\f$ (imaginary part).
+    double CuW_23i; ///< The dimension-6 operator coefficient \f$(C_{uW})_{23}\f$ (imaginary part).
+    double CuW_33i; ///< The dimension-6 operator coefficient \f$(C_{uW})_{33}\f$ (imaginary part).
+    double CuB_11r; ///< The dimension-6 operator coefficient \f$(C_{uB})_{11}\f$ (real part).
+    double CuB_12r; ///< The dimension-6 operator coefficient \f$(C_{uB})_{12}\f$ (real part).
+    double CuB_13r; ///< The dimension-6 operator coefficient \f$(C_{uB})_{13}\f$ (real part).
+    double CuB_22r; ///< The dimension-6 operator coefficient \f$(C_{uB})_{22}\f$ (real part).
+    double CuB_23r; ///< The dimension-6 operator coefficient \f$(C_{uB})_{23}\f$ (real part).
+    double CuB_33r; ///< The dimension-6 operator coefficient \f$(C_{uB})_{33}\f$ (real part).
+    double CuB_11i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{11}\f$ (imaginary part).
+    double CuB_12i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{12}\f$ (imaginary part).
+    double CuB_13i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{13}\f$ (imaginary part).
+    double CuB_22i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{22}\f$ (imaginary part).
+    double CuB_23i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{23}\f$ (imaginary part).
+    double CuB_33i; ///< The dimension-6 operator coefficient \f$(C_{uB})_{33}\f$ (imaginary part).
     double CLL_1111;
     double CLL_1221, CLL_2112, CLL_1122, CLL_2211;
     double CLL_1331, CLL_3113, CLL_1133, CLL_3311;
@@ -1461,6 +1600,27 @@ protected:
      * @return @f$(\f$C_{fH})_{ff}\f$@f$
      */
     gslpp::complex CfH_diag(const Particle f) const;
+
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{UG,DG}\f$ corresponding to particle f.
+     * @param[in] f a lepton or quark
+     * @return @f$(\f$C_{fG})_{ff}\f$@f$
+     */
+    gslpp::complex CfG_diag(const Particle f) const;
+      
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{EW,UW,DW}\f$ corresponding to particle f.
+     * @param[in] f a lepton or quark
+     * @return @f$(\f$C_{fW})_{ff}\f$@f$
+     */
+    gslpp::complex CfW_diag(const Particle f) const;
+      
+    /**
+     * @brief The diagonal entry of the dimension-6 operator coefficient \f$C_{EB,UB,DB}\f$ corresponding to particle f.
+     * @param[in] f a lepton or quark
+     * @return @f$(\f$C_{fB})_{ff}\f$@f$
+     */
+    gslpp::complex CfB_diag(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////
