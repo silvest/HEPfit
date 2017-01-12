@@ -2769,6 +2769,26 @@ double NPEffectiveGIMR::BrHgagaRatio() const
 
 }
 
+double NPEffectiveGIMR::BrHmumuRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHmumuRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHmumuRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHmumuRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
+}
+
 double NPEffectiveGIMR::BrHtautauRatio() const
 {
     double Br = 1.0;
@@ -2836,6 +2856,7 @@ double NPEffectiveGIMR::computeGammaTotalRatio() const
             + trueSM.computeBrHtoZZ() * GammaHZZRatio()
             + trueSM.computeBrHtoZga() * GammaHZgaRatio()
             + trueSM.computeBrHtogaga() * GammaHgagaRatio()
+            + trueSM.computeBrHtomumu() * GammaHmumuRatio()
             + trueSM.computeBrHtotautau() * GammaHtautauRatio()
             + trueSM.computeBrHtocc() * GammaHccRatio()
             + trueSM.computeBrHtobb() * GammaHbbRatio());
@@ -2848,6 +2869,7 @@ double NPEffectiveGIMR::deltaGammaTotalRatio1() const
             + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio1()
             + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio1()
+            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio1());
@@ -2860,6 +2882,7 @@ double NPEffectiveGIMR::deltaGammaTotalRatio2() const
             + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
             + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
+            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio2());
@@ -3046,6 +3069,36 @@ double NPEffectiveGIMR::deltaGammaHgagaRatio2() const
             +1.828 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
             +6.672 * pow(deltaG_hff(leptons[TAU]).real(),2.0)
             +9.962 * pow(deltaG_hff(quarks[CHARM]).real(),2.0) );            
+    
+}
+
+double NPEffectiveGIMR::GammaHmumuRatio() const
+{
+    double width = 1.0;
+
+    width += deltaGammaHmumuRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+        width += deltaGammaHmumuRatio2();
+        }
+    
+    return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHmumuRatio1() const
+{
+    return ( -4653.43 * deltaG_hff(leptons[MU]).real() );
+        
+}
+
+double NPEffectiveGIMR::deltaGammaHmumuRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return 0.0;
     
 }
 
