@@ -7,6 +7,7 @@
 
 #include "THDMMatching.h"
 #include "THDM.h"
+#include <gsl/gsl_integration.h>
 #include <gsl/gsl_sf_dilog.h>
 #include <math.h>
 #include <stdexcept>
@@ -19,7 +20,8 @@ THDMMatching::THDMMatching(const THDM & THDM_i) :
     mcdbs2(5, NDR, NLO),
     mcbtaunu(3, NDR, LO),
     mcbsg(8, NDR, NNLO),
-    mcprimebsg(8, NDR, NNLO)
+    mcprimebsg(8, NDR, NNLO),
+    mcgminus2mu(2,NDR,NLO)
 {}
 
 std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
@@ -399,4 +401,258 @@ double THDMMatching::setWCbsg(int i, double tan, double mt, double mhp, double m
             out << order;
             throw std::runtime_error("order" + out.str() + "not implemeted"); 
         }
+}
+
+
+/*******************************************************************************
+ * Muon g-2 (according to arxiv:1409.3199                                      *
+ * ****************************************************************************/
+
+double THDMMatching::gminus2muLO() {
+
+    double gminus2muLO;
+    
+    double pi=M_PI;
+    double GF=myTHDM.getGF();
+    double mMU=myTHDM.getLeptons(StandardModel::MU).getMass();
+    std::string modelflag=myTHDM.getModelTypeflag();
+    double mHl2=myTHDM.getmHl2();
+    double mHh2=myTHDM.getmHh2();
+    double mA2=myTHDM.getmA2();
+    double mHp2=myTHDM.getmHp2();
+    double tanb=myTHDM.gettanb();
+    double sinb=tanb/sqrt(1.0+tanb*tanb);
+    double cosb=1.0/sqrt(1.0+tanb*tanb);
+    double bma=myTHDM.getbma();
+    double sina=sinb*cos(bma)-cosb*sin(bma);
+    double cosa=cosb*cos(bma)+sinb*sin(bma);
+
+    double ymu_h, ymu_H, ymu_A;
+    double rmu_hSM, rmu_h, rmu_H, rmu_A, rmu_Hp;
+    double part_hSM, part_h, part_H, part_A, part_Hp;
+
+    if( modelflag == "type1" ) {
+        ymu_h=cosa/sinb;
+        ymu_H=sina/sinb;
+        ymu_A=-1.0/tanb;
+    }
+    else if( modelflag == "type2" ) {
+        ymu_h=-sina/cosb;
+        ymu_H=cosa/cosb;
+        ymu_A=tanb;
+    }
+    else if( modelflag == "typeX" ) {
+        ymu_h=-sina/cosb;
+        ymu_H=cosa/cosb;
+        ymu_A=tanb;
+    }
+    else if( modelflag == "typeY" ) {
+        ymu_h=cosa/sinb;
+        ymu_H=sina/sinb;
+        ymu_A=-1.0/tanb;
+    }
+    else {
+        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
+    }
+    
+    if( mHl2<1.0 || mHh2<1.0 || mA2<1.0 || mHp2<1.0)
+    {
+        throw std::runtime_error("The implemented approximation for g-2_\\mu only works for Higgs masses above 1 GeV.");
+    }
+    rmu_hSM=mMU*mMU/15647.5081;
+    rmu_h=mMU*mMU/mHl2;
+    rmu_H=mMU*mMU/mHh2;
+    rmu_A=mMU*mMU/mA2;
+    rmu_Hp=mMU*mMU/mHp2;
+
+    //https://arxiv.org/pdf/1409.3199.pdf
+    
+    part_hSM=rmu_hSM*(-7.0/6.0-log(rmu_hSM));
+    part_h=ymu_h*ymu_h*rmu_h*(-7.0/6.0-log(rmu_h));
+    part_H=ymu_H*ymu_H*rmu_H*(-7.0/6.0-log(rmu_H));
+    part_A=ymu_A*ymu_A*rmu_A*(11.0/6.0+log(rmu_A));
+    part_Hp=-ymu_A*ymu_h*rmu_h*1.0/6.0;
+
+    gminus2muLO=GF*mMU*mMU/(4.0*pi*pi*sqrt(2.0)) * (-part_hSM+part_h+part_H+part_A+part_Hp);
+
+    return(gminus2muLO);
+}
+
+struct __f_params{
+  double a;
+};
+
+double __fS_integrand(double x, void* p){
+  __f_params &params= *reinterpret_cast<__f_params *>(p);
+  double integ = (2.0*x*(1.0-x)-1.0) * log(x*(1.0-x)/params.a) / (x*(1.0-x)-params.a);
+  return integ;
+}
+
+double __fPS_integrand(double x, void* p){
+  __f_params &params= *reinterpret_cast<__f_params *>(p);
+  double integ = log(x*(1.0-x)/params.a) / (x*(1.0-x)-params.a);
+  return integ;
+}
+
+double gscalar(double r)
+{
+    __f_params params;
+    params.a=r;
+
+    double result;
+    gsl_integration_glfixed_table * w
+        = gsl_integration_glfixed_table_alloc(100);
+    gsl_function F;
+
+    F.function = &__fS_integrand;
+    F.params = reinterpret_cast<void *>(&params);
+
+    result = gsl_integration_glfixed (&F, 0, 1, w);
+
+    gsl_integration_glfixed_table_free (w);
+    
+  return result;
+}
+
+
+double gpseudoscalar(double r)
+{
+    __f_params params;
+    params.a=r;
+
+    double result;
+    gsl_integration_glfixed_table * w
+        = gsl_integration_glfixed_table_alloc(100);
+    gsl_function F;
+
+    F.function = &__fPS_integrand;
+    F.params = reinterpret_cast<void *>(&params);
+
+    result = gsl_integration_glfixed (&F, 0, 1, w);
+
+    gsl_integration_glfixed_table_free (w);
+
+  return result;
+}
+
+double THDMMatching::gminus2muNLO() {
+
+    double gminus2muNLO;
+
+    double pi=M_PI;
+    double GF=myTHDM.getGF();
+    double aem=myTHDM.getAle();
+    double mMU=myTHDM.getLeptons(StandardModel::MU).getMass();
+    double mTAU=myTHDM.getLeptons(StandardModel::TAU).getMass();
+    double mt=myTHDM.getQuarks(QCD::TOP).getMass();
+    double mb=myTHDM.getQuarks(QCD::BOTTOM).getMass();
+    std::string modelflag=myTHDM.getModelTypeflag();
+    double mHl2=myTHDM.getmHl2();
+    double mHh2=myTHDM.getmHh2();
+    double mA2=myTHDM.getmA2();
+    double mHp2=myTHDM.getmHp2();
+    double tanb=myTHDM.gettanb();
+    double sinb=tanb/sqrt(1.0+tanb*tanb);
+    double cosb=1.0/sqrt(1.0+tanb*tanb);
+    double bma=myTHDM.getbma();
+    double sina=sinb*cos(bma)-cosb*sin(bma);
+    double cosa=cosb*cos(bma)+sinb*sin(bma);
+
+    double ymu_h, ymu_H, ymu_A, yb_h, yb_H, yb_A, yt_h, yt_H, yt_A;
+    double rtau_hSM, rtau_h, rtau_H, rtau_A, rt_hSM, rt_h, rt_H, rt_A, rb_hSM, rb_h, rb_H, rb_A;
+    double part_hSM, part_h, part_H, part_A;
+
+        yt_h=cosa/sinb;
+        yt_H=sina/sinb;
+        yt_A=1.0/tanb;
+
+    if( modelflag == "type1" ) {
+        ymu_h=cosa/sinb;
+        ymu_H=sina/sinb;
+        ymu_A=-1.0/tanb;
+        yb_h=ymu_h;
+        yb_H=ymu_H;
+        yb_A=ymu_A;
+    }
+    else if( modelflag == "type2" ) {
+        ymu_h=-sina/cosb;
+        ymu_H=cosa/cosb;
+        ymu_A=tanb;
+        yb_h=ymu_h;
+        yb_H=ymu_H;
+        yb_A=ymu_A;
+    }
+    else if( modelflag == "typeX" ) {
+        ymu_h=-sina/cosb;
+        ymu_H=cosa/cosb;
+        ymu_A=tanb;
+        yb_h=yt_h;
+        yb_H=yt_H;
+        yb_A=-yt_A;
+    }
+    else if( modelflag == "typeY" ) {
+        ymu_h=cosa/sinb;
+        ymu_H=sina/sinb;
+        ymu_A=-1.0/tanb;
+        yb_h=-sina/cosb;
+        yb_H=cosa/cosb;
+        yb_A=tanb;
+    }
+    else {
+        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
+    }
+    
+    if( mHl2<mMU*mMU || mHh2<mMU*mMU || mA2<mMU*mMU || mHp2<mMU*mMU)
+    {
+        throw std::runtime_error("The implemented two-loop approximation for g-2_\\mu only works for Higgs masses above m_mu^2.");
+    }
+    rtau_hSM=mTAU*mTAU/15647.5081;
+    rtau_h=mTAU*mTAU/mHl2;
+    rtau_H=mTAU*mTAU/mHh2;
+    rtau_A=mTAU*mTAU/mA2;
+    rt_hSM=mt*mt/15647.5081;
+    rt_h=mt*mt/mHl2;
+    rt_H=mt*mt/mHh2;
+    rt_A=mt*mt/mA2;
+    rb_hSM=mb*mb/15647.5081;
+    rb_h=mb*mb/mHl2;
+    rb_H=mb*mb/mHh2;
+    rb_A=mb*mb/mA2;
+
+    part_hSM=rtau_hSM*gscalar(rtau_hSM)+(4.0/3.0)*rt_hSM*gscalar(rt_hSM)+(1.0/3.0)*rb_hSM*gscalar(rb_hSM);
+    part_h=ymu_h*(ymu_h*rtau_h*gscalar(rtau_h)+(4.0/3.0)*yt_h*rt_h*gscalar(rt_h)+(1.0/3.0)*yb_h*rb_h*gscalar(rb_h));
+    part_H=ymu_H*(ymu_H*rtau_H*gscalar(rtau_H)+(4.0/3.0)*yt_H*rt_H*gscalar(rt_H)+(1.0/3.0)*yb_H*rb_H*gscalar(rb_H));
+    part_A=ymu_A*(ymu_A*rtau_A*gpseudoscalar(rtau_A)+(4.0/3.0)*yt_A*rt_A*gpseudoscalar(rt_A)+(1.0/3.0)*yb_A*rb_A*gpseudoscalar(rb_A));
+
+    gminus2muNLO=GF*mMU*mMU/(4.0*pi*pi*pi*sqrt(2.0)) * aem * (-part_hSM+part_h+part_H+part_A);
+
+    return(gminus2muNLO);
+}
+
+std::vector<WilsonCoefficient>& THDMMatching::CMgminus2mu() {
+
+    vmcgminus2mu = StandardModelMatching::CMgminus2mu();
+
+    double gminus2muLOvalue=gminus2muLO();
+    double gminus2muNLOvalue=gminus2muNLO();
+
+    switch (mcgminus2mu.getOrder()) {
+        case LO:
+            mcgminus2mu.setCoeff(0, gminus2muLOvalue, LO);  //g-2_muR
+            mcgminus2mu.setCoeff(1, 0., LO);  //g-2_muL
+            break;
+        case NLO:
+            mcgminus2mu.setCoeff(0, gminus2muLOvalue+gminus2muNLOvalue, NLO);  //g-2_muR
+            mcgminus2mu.setCoeff(1, 0., NLO);  //g-2_muL
+            break;
+        case NNLO:
+        default:
+            std::stringstream out;
+            out << mcgminus2mu.getOrder();
+            throw std::runtime_error("THDMMatching::CMgminus2mu(): order " + out.str() + " not implemented.\nOnly leading order (LO) or next-to-leading order (NLO) are allowed.");
+    }
+
+    vmcgminus2mu.push_back(mcgminus2mu);
+    return(vmcgminus2mu);
+
 }

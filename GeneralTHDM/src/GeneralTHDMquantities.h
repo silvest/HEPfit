@@ -508,154 +508,25 @@ public:
     const GeneralTHDM * myGTHDM;
 };
 
-//    const GeneralTHDM * myGeneralTHDM;
-//};
-//
-///**
-// * @class 
-// * @ingroup GeneralTHDM 
-// * @brief parameter of the Higgs potential @f$lambda_{1}@f$
-// */
-//class GTHDM_lambda1: public ThObservable {
-//public:
-//
-//    /**
-//     * @brief lambda1 constructor.
-//     */
-//    GTHDM_lambda1(const StandardModel& SM_i);
-//
-//    /**
-//     * @return lambda1
-//     */
-//    double computeThValue();
-//
-//    const GeneralTHDM * myGeneralTHDM;
-//};
-//
-///**
-// * @class 
-// * @ingroup GeneralTHDM 
-// * @brief parameter of the Higgs potential @f$lambda_{2}@f$
-// */
-//class GTHDM_lambda2: public ThObservable {
-//public:
-//
-//    /**
-//     * @brief lambda2 constructor.
-//     */
-//    GTHDM_lambda2(const StandardModel& SM_i);
-//
-//    /**
-//     * @return lambda2
-//     */
-//    double computeThValue();
-//
-//    const GeneralTHDM * myGeneralTHDM;
-//};
-//
-///**
-// * @class 
-// * @ingroup GeneralTHDM 
-// * @brief parameter of the Higgs potential @f$lambda_{3}@f$
-// */
-//class GTHDM_lambda3: public ThObservable {
-//public:
-//
-//    /**
-//     * @brief lambda3 constructor.
-//     */
-//    GTHDM_lambda3(const StandardModel& SM_i);
-//
-//    /**
-//     * @return lambda3
-//     */
-//    double computeThValue();
-//
-//    const GeneralTHDM * myGeneralTHDM;
-//};
-//
-///**
-// * @class 
-// * @ingroup GeneralTHDM 
-// * @brief parameter of the Higgs potential @f$lambda_{4}@f$
-// */
-//class GTHDM_lambda4: public ThObservable {
-//public:
-//
-//    /**
-//     * @brief lambda4 constructor.
-//     */
-//    GTHDM_lambda4(const StandardModel& SM_i);
-//
-//    /**
-//     * @return lambda4
-//     */
-//    double computeThValue();
-//
-//    const GeneralTHDM * myGeneralTHDM;
-//};
-//
-///**
-// * @class 
-// * @ingroup GeneralTHDM 
-// * @brief parameter @f$M^2@f$ of @cite Kanemura:2015ska
-// */
-//class GTHDM_M_2: public ThObservable {
-//public:
-//
-//    /**
-//     * @brief M_2 constructor.
-//     */
-//    GTHDM_M_2(const StandardModel& SM_i);
-//
-//    /**
-//     * @return M_2
-//     */
-//    double computeThValue();
-//
-//    const GeneralTHDM * myGeneralTHDM;
-//};
-//
-///**
-// * @class 
-// * @ingroup GeneralTHDM 
-// * @brief mass squared of neutral Higgs
-// */
-//class GTHDM_mH2_2: public ThObservable {
-//public:
-//
-//    /**
-//     * @brief mH2_2 constructor.
-//     */
-//    GTHDM_mH2_2(const StandardModel& SM_i);
-//
-//    /**
-//     * @return mH2_2
-//     */
-//    double computeThValue();
-//
-//    const GeneralTHDM * myGeneralTHDM;
-//};
-//
-///**
-// * @class 
-// * @ingroup GeneralTHDM 
-// * @brief mass squared of neutral Higgs
-// */
-//class GTHDM_mH3_2: public ThObservable {
-//public:
-//
-//    /**
-//     * @brief mH3_2 constructor.
-//     */
-//    GTHDM_mH3_2(const StandardModel& SM_i);
-//
-//    /**
-//     * @return mH3_2
-//     */
-//    double computeThValue();
-//
-//    const GeneralTHDM * myGeneralTHDM;
-//};
+/**
+ * @class Resigmau
+ * @ingroup GeneralTHDM 
+ * @brief Real part of the up-type Yukawa coupling parameter sigma
+ */
+class Resigmau: public ThObservable {
+public:
+
+    /**
+     * @brief Resigmau constructor.
+     */
+    Resigmau(const StandardModel& SM_i);
+
+    /**
+     * @return Resigmau
+     */
+    double computeThValue();
+
+    const GeneralTHDM * myGTHDM;
+};
 
 #endif	/* GENERALTHDMQUANTITIES_H */

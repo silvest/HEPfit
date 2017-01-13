@@ -18,6 +18,7 @@
 #include "positivity.h"
 #include "Runner.h"
 #include "STU.h"
+#include "THDMgminus2.h"
 #include "THDMquantities.h"
 #include "THDMquantitiesatQ.h"
 #include "unitarity.h"

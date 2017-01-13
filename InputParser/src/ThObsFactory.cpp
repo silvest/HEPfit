@@ -905,6 +905,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["obsBDstartaunu_SM"] = boost::factory<obsBDstartaunu_SM*>();
     obsThFactory["obsBDstartaunu_A"] = boost::factory<obsBDstartaunu_A*>();
     obsThFactory["obsBDstartaunu_B"] = boost::factory<obsBDstartaunu_B*>();
+    obsThFactory["THDMgminus2_mu"] = boost::factory<THDMgminus2_mu*>();
 
     obsThFactory["Q_st"] = boost::factory<Q_st*>();
     obsThFactory["DeltaQ_THDM"] = boost::factory<DeltaQ_THDM*>();
@@ -1027,6 +1028,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["stability2_GTHDM"] = boost::factory<stability2_GTHDM*>();
     obsThFactory["stability3_GTHDM"] = boost::factory<stability3_GTHDM*>();
     obsThFactory["stability4_GTHDM"] = boost::factory<stability4_GTHDM*>();
+
+//    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
 
     /** END: REMOVE FROM THE PACKAGE **/
 }

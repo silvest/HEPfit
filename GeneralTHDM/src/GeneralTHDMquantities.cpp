@@ -222,124 +222,17 @@ double v2_GTHDM::computeThValue()
 }
 
 
-//GTHDM_Relambda5::GTHDM_Relambda5(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_Relambda5e::computeThValue()
-//{   
-//    double M_2 = myGeneralTHDM->getM_2();
-//    double M33_2 = myGeneralTHDM->getM33_2();
-//    double v = myGeneralTHDM->v();
-//    double tanb = myGeneralTHDM->gettanb();
-//    double Relambda6 = myGeneralTHDM->getRelambda6();
-//    double Relambda7 = myGeneralTHDM->getRelambda7();
-//    
-//    return ((M_2 - M33_2)/v/v - lambda6_Re/tanb/2. - tanb*lambda7_Re/2.);
-//}
+Resigmau::Resigmau(const StandardModel& SM_i)
+: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
+{}
 
-//
-//GTHDM_lambda1::GTHDM_lambda1(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_lambda1::computeThValue()
-//{   
-//    double M_2 = myGeneralTHDM->getM_2();
-//    double M11_2 = myGeneralTHDM->getM11_2();
-//    double M12_2 = myGeneralTHDM->getM12_2();
-//    double M22_2 = myGeneralTHDM->getM22_2();
-//    double v = myGeneralTHDM->v();
-//    double tanb = myGeneralTHDM->gettanb();
-//    double lambda6_Re = myGeneralTHDM->getlambda6_Re();
-//    double lambda7_Re = myGeneralTHDM->getlambda7_Re();
-//    
-//    return ((M11_2 + tanb*tanb*(M22_2-M_2) - 2.*tanb*M12_2)/v/v + tanb*(tanb*tanb*lambda7_Re - 3.*lambda6_Re)/2.);
-//}
-//
-//
-//GTHDM_lambda2::GTHDM_lambda2(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_lambda2::computeThValue()
-//{   
-//    double M_2 = myGeneralTHDM->getM_2();
-//    double M11_2 = myGeneralTHDM->getM11_2();
-//    double M12_2 = myGeneralTHDM->getM12_2();
-//    double M22_2 = myGeneralTHDM->getM22_2();
-//    double v = myGeneralTHDM->v();
-//    double tanb = myGeneralTHDM->gettanb();
-//    double lambda6_Re = myGeneralTHDM->getlambda6_Re();
-//    double lambda7_Re = myGeneralTHDM->getlambda7_Re();
-//    
-//    return ((M11_2 + (M22_2-M_2)/tanb/tanb + 2.*M12_2/tanb)/v/v + (lambda6_Re/tanb/tanb - 3.*lambda7_Re)/tanb/2.);
-//}
-//
-//
-//GTHDM_lambda3::GTHDM_lambda3(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_lambda3::computeThValue()
-//{
-//    double mHp_2 = myGeneralTHDM->getmHp_2();
-//    double M_2 = myGeneralTHDM->getM_2();
-//    double M11_2 = myGeneralTHDM->getM11_2();
-//    double M12_2 = myGeneralTHDM->getM12_2();
-//    double M22_2 = myGeneralTHDM->getM22_2();
-//    double v = myGeneralTHDM->v();
-//    double tanb = myGeneralTHDM->gettanb();
-//    double lambda6_Re = myGeneralTHDM->getlambda6_Re();
-//    double lambda7_Re = myGeneralTHDM->getlambda7_Re();
-//    
-//    return ((M11_2 - M22_2 - M_2 + (1./tanb - tanb)*M12_2 + 2.*mHp_2)/v/v - (lambda6_Re/tanb + tanb*lambda7_Re)/2.);
-//}
-//
-//
-//GTHDM_lambda4::GTHDM_lambda4(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_lambda4::computeThValue()
-//{
-//    double mHp_2 = myGeneralTHDM->getmHp_2();
-//    double M_2 = myGeneralTHDM->getM_2();
-//    double M33_2 = myGeneralTHDM->getM33_2();
-//    double v = myGeneralTHDM->v();
-//    double tanb = myGeneralTHDM->gettanb();
-//    double lambda6_Re = myGeneralTHDM->getlambda6_Re();
-//    double lambda7_Re = myGeneralTHDM->getlambda7_Re();
-//    
-//    return ((M_2 + M33_2 - 2.*mHp_2)/v/v - (lambda6_Re/tanb + tanb*lambda7_Re)/2.);
-//}
-//
-//
-//GTHDM_M_2::GTHDM_M_2(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_M_2::computeThValue()
-//{    
-//    return (myGeneralTHDM->getM_2());
-//}
-//
-//
-//GTHDM_mH2_2::GTHDM_mH2_2(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_mH2_2::computeThValue()
-//{    
-//    return (myGeneralTHDM->getmH2_2());
-//}
-//
-//
-//GTHDM_mH3_2::GTHDM_mH3_2(const StandardModel& SM_i)
-//: ThObservable(SM_i), myGeneralTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-//{}
-//
-//double GTHDM_mH3_2::computeThValue()
-//{    
-//    return (myGeneralTHDM->getmH3_2());
-//}
+double Resigmau::computeThValue()
+{
+    double v = myGTHDM->v();
+    double Ytu_33r = myGTHDM->getYtu_33r();
+    double cosb = myGTHDM->getcosb();
+    double mtop = myGTHDM->getQuarks(QCD::TOP).getMass();
+    double tanb = myGTHDM->gettanb();
+
+    return v*Ytu_33r/(sqrt(2.)*cosb*mtop)-tanb;
+}

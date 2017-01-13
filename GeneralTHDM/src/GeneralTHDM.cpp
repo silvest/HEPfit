@@ -20,9 +20,9 @@ const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mH
 "Ytl_31r", "Ytl_31i", "Ytl_32r", "Ytl_32i", "Ytl_33r", "Ytl_33i", 
 "Q_GTHDM"};
 
-GeneralTHDM::GeneralTHDM() : StandardModel()/*, GTHDMM(*this)*/ {
+GeneralTHDM::GeneralTHDM() : StandardModel(), GTHDMM(*this) {
 
-//    SMM.setObj((StandardModelMatching&) THDMM.getObj());
+    SMM.setObj((StandardModelMatching&) GTHDMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp2", boost::cref(mHp2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1", boost::cref(alpha1)));
@@ -312,11 +312,11 @@ bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
 
 ///////////////////////////////////////////////////////////////////////////
 // Flags
-//
-//bool THDM::setFlagStr(const std::string name, const std::string value)
+
+//bool GeneralTHDM::setFlagStr(const std::string name, const std::string value)
 //{
 //    bool res = false;
-//    if(name.compare("modelTypeflag") == 0)
+//    if(name.compare("ATHDMflag") == 0)
 //    {
 //        if (checkmodelType(value))
 //        {
@@ -325,7 +325,7 @@ bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
 //        }
 //        else
 //        {
-//            throw std::runtime_error("THDM::setFlagStr(): Invalid flag "
+//            throw std::runtime_error("GeneralTHDM::setFlagStr(): Invalid flag "
 //                + name + "=" + value);
 //        }
 //    }
@@ -336,16 +336,16 @@ bool GeneralTHDM::CheckParameters(const std::map<std::string, double>& DPars) {
 //
 //    return(res);
 //}
-//
-//bool THDM::setFlag(const std::string name, const bool value)
-//{
-//    bool res = false;
-//    if(name.compare("wavefunctionrenormalization") == 0) {
-//        flag_wfr = value;
-//        res = true;
-//    }
-//    else
-//        res = StandardModel::setFlag(name,value);
-//
-//    return(res);
-//}
+
+bool GeneralTHDM::setFlag(const std::string name, const bool value)
+{
+    bool res = false;
+    if(name.compare("ATHDMflag") == 0) {
+        flag_ATHDM = value;
+        res = true;
+    }
+    else
+        res = StandardModel::setFlag(name,value);
+
+    return(res);
+}

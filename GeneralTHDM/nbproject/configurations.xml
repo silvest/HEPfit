@@ -5,8 +5,10 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/GeneralTHDM.h</itemPath>
+      <itemPath>src/GeneralTHDMMatching.h</itemPath>
       <itemPath>src/GeneralTHDMObservables.h</itemPath>
       <itemPath>src/GeneralTHDMcache.h</itemPath>
+      <itemPath>src/GeneralTHDMgminus2.h</itemPath>
       <itemPath>src/GeneralTHDMquantities.h</itemPath>
       <itemPath>src/GeneralTHDMstability.h</itemPath>
       <itemPath>src/GeneralTHDMunitarity.h</itemPath>
@@ -19,7 +21,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/GeneralTHDM.cpp</itemPath>
+      <itemPath>src/GeneralTHDMMatching.cpp</itemPath>
       <itemPath>src/GeneralTHDMcache.cpp</itemPath>
+      <itemPath>src/GeneralTHDMgminus2.cpp</itemPath>
       <itemPath>src/GeneralTHDMquantities.cpp</itemPath>
       <itemPath>src/GeneralTHDMstability.cpp</itemPath>
       <itemPath>src/GeneralTHDMunitarity.cpp</itemPath>
@@ -74,6 +78,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -84,11 +89,19 @@
       </item>
       <item path="src/GeneralTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -137,11 +150,19 @@
       </item>
       <item path="src/GeneralTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -179,11 +200,19 @@
       </item>
       <item path="src/GeneralTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMMatching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMMatching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMgminus2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>

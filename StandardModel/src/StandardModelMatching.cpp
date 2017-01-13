@@ -40,7 +40,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcDLij(2, NDR, LO),
         mcDLi3j(20, NDR, LO),
         mcmueconv(8, NDR, LO),
-        mcgminus2mu(2, NDR, LO),
+        mcgminus2mu(2, NDR, NLO),
         Vckm(3, 3, 0)
 {
     swa = 0.;
@@ -132,6 +132,9 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
+
+    //msbar mass here?
+    //mt=163.836;
     return mt*mt/Mw/Mw;   
 }
 
@@ -1178,6 +1181,7 @@ double StandardModelMatching::phi2(double x, double y) const{
         case NLO:
             for (int j=0; j<8; j++){
             mcbsg.setCoeff(j, alSo4pi * setWCbsg(j, xt,  NLO) , NLO);
+    std::cout<<"setWCbsg(j, xt,  NLO) = "<<setWCbsg(j, xt,  NLO)<<std::endl;
             }
         case LO:
             for (int j=0; j<8; j++){
@@ -1276,6 +1280,16 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
             // 3-loop matching from arXiv:0401041. Expansion around x = 1, on the basis of Fig.3 of the paper. 
             CWbsgArrayNNLO[6] = (C7t_3L_at_mt(x) + C7t_3L_func(x,Muw)-(C7c_3L_at_mW(x)+ 13763./2187.*L+814./729.*L*L)) - 1./3.*CWbsgArrayNNLO[2] - 4./9.*CWbsgArrayNNLO[3] - 20./3.*CWbsgArrayNNLO[4] - 80./9.*CWbsgArrayNNLO[5]; //effective C7
             CWbsgArrayNNLO[7] = (C8t_3L_at_mt(x) + C8t_3L_func(x,Muw)-(C8c_3L_at_mW(x) + 16607./5832.*L+397./486.*L*L)) + CWbsgArrayNNLO[2]-1./6.*CWbsgArrayNNLO[3]-20.*CWbsgArrayNNLO[4]-10./3.*CWbsgArrayNNLO[5]; //effective C8
+    std::cout<<"C72c = "<<-(C7c_3L_at_mW(x)+ 13763./2187.*L+814./729.*L*L)<<std::endl;
+    std::cout<<"C72t = "<<(C7t_3L_at_mt(x) + C7t_3L_func(x,Muw))<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[0] = "<<CWbsgArrayNNLO[0]<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[1] = "<<CWbsgArrayNNLO[1]<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[2] = "<<CWbsgArrayNNLO[2]<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[3] = "<<CWbsgArrayNNLO[3]<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[4] = "<<CWbsgArrayNNLO[4]<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[5] = "<<CWbsgArrayNNLO[5]<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[6] = "<<CWbsgArrayNNLO[6]<<std::endl;
+    std::cout<<"CWbsgArrayNNLO[7] = "<<CWbsgArrayNNLO[7]<<std::endl;
         case NLO:
             CWbsgArrayNLO[0] = 15. + 6*L;
             CWbsgArrayNLO[3] = E0t(x) - 7./9. + 2./3.* L;
@@ -1284,6 +1298,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
         case LO:
             CWbsgArrayLO[1] = 1.;
             CWbsgArrayLO[6] = -0.5*A0t(x) - 23./36.; //effective C7
+//    std::cout<<"C7eff = "<<CWbsgArrayLO[6]<<std::endl;
             CWbsgArrayLO[7] = -0.5*F0t(x) - 1./3.; //effective C8
             break;
         default:
@@ -2487,7 +2502,7 @@ gslpp::complex StandardModelMatching::S0tt() const
         default:
             std::stringstream out;
             out << mcgminus2mu.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMmueconv(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+            throw std::runtime_error("StandardModelMatching::CMgminus2mu(): order " + out.str() + " not implemented.");
     }
     
     vmcgminus2mu.push_back(mcgminus2mu);

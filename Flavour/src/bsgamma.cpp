@@ -652,20 +652,14 @@ double Bsgamma::Int_cc(double E0)
 
 double Bsgamma::Int_cc1(double E0)
 {
-    std::cout<<"Int_cc1"<<std::endl;
     if (Intcc1Cached == 0) {
         double t1 = (1. - delta(E0));
 
-    std::cout<<"Int_cc1a"<<std::endl;
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_abs2_1mt, &(*this), _1));
-    std::cout<<"Int_cc1a1"<<std::endl;
-    std::cout<<gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL)<<std::endl;
     
         if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-    std::cout<<"Int_cc1a2"<<std::endl;
         double mt = avaINT;
 
-    std::cout<<"Int_cc1b"<<std::endl;
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_abs2_1mt2, &(*this), _1));
         if (gsl_integration_cquad(&INT, t1, 1., 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt2 = avaINT;
@@ -673,7 +667,7 @@ double Bsgamma::Int_cc1(double E0)
         CacheIntcc1 = delta(E0)*mt + mt2;
         Intcc1Cached = 1;
     }
-    
+
     return CacheIntcc1;
 }
 
@@ -768,7 +762,6 @@ double Bsgamma::ff8_sMP(double E0)
 
 double Bsgamma::Phi11_1(double E0)
 {
-    std::cout<<"Phi11_1"<<std::endl;
     return Phi22_1(E0)/36.;
 }
 
@@ -809,7 +802,6 @@ gslpp::complex Bsgamma::Phi18_1(double E0, double z)
 
 double Bsgamma::Phi22_1(double E0)
 {
-    std::cout<<"Phi22_1"<<std::endl;
     return 16./27. * Int_cc1(E0);
 }
 
@@ -1095,7 +1087,6 @@ double Bsgamma::Phi88_1(double E0)
 
 gslpp::complex Bsgamma::Kij_1(int i, int j, double E0, double mu)
 {
-    std::cout<<"Kij_1"<<std::endl;
     if (i > 8 || j>8 || i<1 || j<1) throw std::runtime_error("Bsgamma::Kij_1(): indices (i,j) must be included in (1,..,8)");
     
     double gamma_i7[8] = {-208./243., 416./81., -176./81., -152./243., -6272./81., 4624./243., 32./3., -32./9.};
@@ -1111,7 +1102,6 @@ gslpp::complex Bsgamma::Kij_1(int i, int j, double E0, double mu)
     K_ij[0][6] = r1(1,zeta()) - gamma_i7[0]*Lb + 2.*Phi17_1(E0, zeta());
     K_ij[0][7] = 2.*Phi18_1(E0, zeta());
     
-    std::cout<<"Kij_1a"<<std::endl;
     K_ij[1][1] = 4.*Phi22_1(E0);
     K_ij[1][2] = 2.*Phi23_1(E0);
     K_ij[1][3] = 2.*Phi24_1(E0);
@@ -1145,7 +1135,6 @@ gslpp::complex Bsgamma::Kij_1(int i, int j, double E0, double mu)
     K_ij[6][6] = -182./9. + 8./9.*M_PI*M_PI - gamma_i7[6]*2.*Lb + 4.*Phi77_1(E0);
     K_ij[6][7] =  r1(8,zeta()) - gamma_i7[7]*Lb + 2.*Phi78_1(E0);
     
-    std::cout<<"Kij_1b"<<std::endl;
     K_ij[7][7] = 4.*Phi88_1(E0);
     
     if (j >= i ) return K_ij[i-1][j-1];
@@ -1953,12 +1942,12 @@ void Bsgamma::computeCoeff(double mu)
     C6_1 = (*(allcoeff[NLO]))(5)/Alstilde;
     C7_1 = (*(allcoeff[NLO]))(6)/Alstilde;
     C8_1 = (*(allcoeff[NLO]))(7)/Alstilde;
-    
+
     C7_2 = (*(allcoeff[NNLO]))(6)/Alstilde/Alstilde;
-    
+
     C7p_0 = (*(allcoeffprime[LO]))(6);
     C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
-    
+
     /*std::cout << "C_0(mu): (" << C1_0.real() << "," << C2_0.real() << "," 
             << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
             << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
@@ -1973,37 +1962,30 @@ void Bsgamma::computeCoeff(double mu)
 
 double Bsgamma::P0(double E0)
 {
-    std::cout<<"P0"<<std::endl;
     return C7_0.abs2() + C7p_0.abs2() + P0_4body(E0,Mb_kin*Mb_kin/Ms/Ms);
 }
 
 double Bsgamma::P11()
 {
-    std::cout<<"P11"<<std::endl;
     return 2.*( C7_0.real()*C7_1.real() + C7_0.imag()*C7_1.imag()
             + C7p_0.real()*C7p_1.real() + C7p_0.imag()*C7p_1.imag() ); /*CHECK SIGN*/
 }
 
 double Bsgamma::P21(double E0, double mu)
 {
-    std::cout<<"P21"<<std::endl;
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
     gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
     double p21=0.;
     
-    std::cout<<"P21a"<<std::endl;
     for(i=0;i<8;i++)
     {
         for(j=0;j<8;j++)
         {
-    std::cout<<"P21a1"<<i<<j<<std::endl;
             p21 += ( C0[i].real()*C0[j].real() + C0[i].imag()*C0[j].imag() ) * Kij_1(i+1,j+1,E0,mu).real();
-    std::cout<<"P21a2"<<i<<j<<std::endl;
         }
     }
     
-    std::cout<<"P21b"<<std::endl;
     for(i=6;i<7;i++) /*CHECK ALGORITHM*/
     {
         for(j=6;j<7;j++)
@@ -2012,13 +1994,11 @@ double Bsgamma::P21(double E0, double mu)
         }
     }
     
-    std::cout<<"P21c"<<std::endl;
     return p21;
 }
 
 double Bsgamma::P21_CPodd(double E0, double mu)
 {
-    std::cout<<"P21_CPodd"<<std::endl;
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
     gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
@@ -2045,14 +2025,12 @@ double Bsgamma::P21_CPodd(double E0, double mu)
 
 double Bsgamma::P12()
 {
-    std::cout<<"P12"<<std::endl;
     
    return C7_1.abs2() + C7p_1.abs2() + 2.*(C7_0*C7_2).real(); /*CHECK SIGN*/
 }
 
 double Bsgamma::P22(double E0, double mu_b, double mu_c)
 {
-    std::cout<<"P22"<<std::endl;
     
     int i,j, temp_i,temp_j;
     gslpp::complex C0[4]={C1_0,C2_0,C7_0,C8_0};
@@ -2077,7 +2055,6 @@ double Bsgamma::P22(double E0, double mu_b, double mu_c)
 
 double Bsgamma::P32(double E0, double mu)
 {
-    std::cout<<"P32"<<std::endl;
     
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
@@ -2097,7 +2074,6 @@ double Bsgamma::P32(double E0, double mu)
 
 double Bsgamma::EW_NLO(double mu)
 {
-    std::cout<<"EW_NLO"<<std::endl;
     
     if(EWflag) {
         double ew_nlo = 0.;
@@ -2230,7 +2206,6 @@ double Bsgamma::Vub_NLO_4body_CPodd(double E0)
 
 double Bsgamma::Vub_NLO(double E0)
 {
-    std::cout<<"Vub_NLO"<<std::endl;
     return Vub_NLO_2body() + Vub_NLO_3body_A(E0) + Vub_NLO_3body_B(E0) + Vub_NLO_4body(E0);
 }
 
@@ -2251,7 +2226,6 @@ double Bsgamma::Vub_NNLO(double E0)
 
 double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
 {
-    std::cout<<"1"<<std::endl;
 
     switch(order) {
         case NNLO:
@@ -2264,18 +2238,15 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
             std::cout << "Vub_NLO: " << Vub_NLO(E0) << std::endl;
             std::cout << "Vub_NNLO: " << Vub_NNLO(E0) << std::endl;
             std::cout << "EW_NLO: " << EW_NLO(mu_b) << std::endl;*/
-    std::cout<<"NNLO"<<std::endl;
             return P0(E0) 
                     + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b)
                     + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b)) + Vub_NNLO(E0);
             break;
         case NLO:
-    std::cout<<"NLO"<<std::endl;
             return P0(E0) 
                     + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b);
             break;
         case LO:
-    std::cout<<"LO"<<std::endl;
             return P0(E0);
             break;
         default:
@@ -2342,8 +2313,6 @@ double Bsgamma::N_77(double E0, double mu)
 
 double Bsgamma::N(double E0, double mu)
 {
-    std::cout<<"2"<<std::endl;
-
     return N_27() + N_77(E0,mu) + BLNPcorr * P0(E0);
 }
 
@@ -2440,9 +2409,9 @@ double Bsgamma::computeThValue()
     
     updateParameters();
     
-    if (obs == 1) 
+    if (obs == 1)
         return overall *  ( P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
-    if (obs == 2) 
+    if (obs == 2)
         return (Alstilde * P21_CPodd(E0, mu_b) + Vub_NLO_CPodd(E0) ) / (P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");

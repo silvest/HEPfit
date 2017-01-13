@@ -9,7 +9,7 @@
 
 Heffgminus2::Heffgminus2(const StandardModel & SM_i) :
         model(SM_i),
-        coeffgminus2mu(2, NDR , LO){
+        coeffgminus2mu(2, NDR , NLO){
 }
 
 Heffgminus2::~Heffgminus2() {
@@ -17,7 +17,7 @@ Heffgminus2::~Heffgminus2() {
 
 gslpp::vector<gslpp::complex>** Heffgminus2::ComputeCoeffgm2mu() {
 
-    std::vector<WilsonCoefficient>& mcb9 = model.getMatching().CMgminus2mu();
+   std::vector<WilsonCoefficient>& mcb9 = model.getMatching().CMgminus2mu();
     orders ordgminus2mu = coeffgminus2mu.getOrder();
     coeffgminus2mu.resetCoefficient();
     for (unsigned int i = 0; i < mcb9.size(); i++){

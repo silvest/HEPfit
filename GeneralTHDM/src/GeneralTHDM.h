@@ -9,7 +9,7 @@
 #define	GENERALTHDM_H
 
 #include "StandardModel.h"
-//#include "GeneralTHDMMatching.h"
+#include "GeneralTHDMMatching.h"
 
 /**
  * @addtogroup GeneralTHDM
@@ -60,14 +60,14 @@ public:
     
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-//    /**
-//     * @brief A get method to access the member reference of type StandardModelMatching.
-//     * @return a reference to a StandardModelMatching object
-//     */
-//    virtual GeneralTHDMMatching& getMatching() const
-//    {
-//        return GTHDMM.getObj();
-//    }
+    /**
+     * @brief A get method to access the member reference of type StandardModelMatching.
+     * @return a reference to a StandardModelMatching object
+     */
+    virtual GeneralTHDMMatching& getMatching() const
+    {
+        return GTHDMM.getObj();
+    }
 
 //    virtual void setMatching(GeneralTHDMMatching& GTHDMMr)
 //    {
@@ -79,7 +79,7 @@ public:
     // Flags
 
 //    virtual bool setFlagStr(const std::string name, const std::string value);
-//    virtual bool setFlag(const std::string, const bool);
+    virtual bool setFlag(const std::string, const bool);
 
     GeneralTHDMcache* getMyGTHDMCache() const
     {
@@ -238,6 +238,222 @@ public:
         return Imlambda7;
     }
 
+    double getYtu_11r() const {
+        return Ytu_11r;
+    }
+
+    double getYtu_11i() const {
+        return Ytu_11i;
+    }
+
+    double getYtu_12r() const {
+        return Ytu_12r;
+    }
+
+    double getYtu_12i() const {
+        return Ytu_12i;
+    }
+
+    double getYtu_13r() const {
+        return Ytu_13r;
+    }
+
+    double getYtu_13i() const {
+        return Ytu_13i;
+    }
+
+    double getYtu_21r() const {
+        return Ytu_21r;
+    }
+
+    double getYtu_21i() const {
+        return Ytu_21i;
+    }
+
+    double getYtu_22r() const {
+        return Ytu_22r;
+    }
+
+    double getYtu_22i() const {
+        return Ytu_22i;
+    }
+
+    double getYtu_23r() const {
+        return Ytu_23r;
+    }
+
+    double getYtu_23i() const {
+        return Ytu_23i;
+    }
+
+    double getYtu_31r() const {
+        return Ytu_31r;
+    }
+
+    double getYtu_31i() const {
+        return Ytu_31i;
+    }
+
+    double getYtu_32r() const {
+        return Ytu_32r;
+    }
+
+    double getYtu_32i() const {
+        return Ytu_32i;
+    }
+
+    double getYtu_33r() const {
+        return Ytu_33r;
+    }
+
+    double getYtu_33i() const {
+        return Ytu_33i;
+    }
+
+    double getYtd_11r() const {
+        return Ytd_11r;
+    }
+
+    double getYtd_11i() const {
+        return Ytd_11i;
+    }
+
+    double getYtd_12r() const {
+        return Ytd_12r;
+    }
+
+    double getYtd_12i() const {
+        return Ytd_12i;
+    }
+
+    double getYtd_13r() const {
+        return Ytd_13r;
+    }
+
+    double getYtd_13i() const {
+        return Ytd_13i;
+    }
+
+    double getYtd_21r() const {
+        return Ytd_21r;
+    }
+
+    double getYtd_21i() const {
+        return Ytd_21i;
+    }
+
+    double getYtd_22r() const {
+        return Ytd_22r;
+    }
+
+    double getYtd_22i() const {
+        return Ytd_22i;
+    }
+
+    double getYtd_23r() const {
+        return Ytd_23r;
+    }
+
+    double getYtd_23i() const {
+        return Ytd_23i;
+    }
+
+    double getYtd_31r() const {
+        return Ytd_31r;
+    }
+
+    double getYtd_31i() const {
+        return Ytd_31i;
+    }
+
+    double getYtd_32r() const {
+        return Ytd_32r;
+    }
+
+    double getYtd_32i() const {
+        return Ytd_32i;
+    }
+
+    double getYtd_33r() const {
+        return Ytd_33r;
+    }
+
+    double getYtd_33i() const {
+        return Ytd_33i;
+    }
+
+    double getYtl_11r() const {
+        return Ytl_11r;
+    }
+
+    double getYtl_11i() const {
+        return Ytl_11i;
+    }
+
+    double getYtl_12r() const {
+        return Ytl_12r;
+    }
+
+    double getYtl_12i() const {
+        return Ytl_12i;
+    }
+
+    double getYtl_13r() const {
+        return Ytl_13r;
+    }
+
+    double getYtl_13i() const {
+        return Ytl_13i;
+    }
+
+    double getYtl_21r() const {
+        return Ytl_21r;
+    }
+
+    double getYtl_21i() const {
+        return Ytl_21i;
+    }
+
+    double getYtl_22r() const {
+        return Ytl_22r;
+    }
+
+    double getYtl_22i() const {
+        return Ytl_22i;
+    }
+
+    double getYtl_23r() const {
+        return Ytl_23r;
+    }
+
+    double getYtl_23i() const {
+        return Ytl_23i;
+    }
+
+    double getYtl_31r() const {
+        return Ytl_31r;
+    }
+
+    double getYtl_31i() const {
+        return Ytl_31i;
+    }
+
+    double getYtl_32r() const {
+        return Ytl_32r;
+    }
+
+    double getYtl_32i() const {
+        return Ytl_32i;
+    }
+
+    double getYtl_33r() const {
+        return Ytl_33r;
+    }
+
+    double getYtl_33i() const {
+        return Ytl_33i;
+    }
+
     /**
      * @return General THDM scale
      */
@@ -273,7 +489,7 @@ protected:
 //            return false;
 //    }
 
-//    mutable Matching<THDMMatching,THDM> THDMM; ///< An object of type Matching.
+    mutable Matching<GeneralTHDMMatching,GeneralTHDM> GTHDMM; ///< An object of type Matching.
 
 private:
 
@@ -291,6 +507,7 @@ private:
             Ytl_21r, Ytl_21i, Ytl_22r, Ytl_22i, Ytl_23r, Ytl_23i, 
             Ytl_31r, Ytl_31i, Ytl_32r, Ytl_32i, Ytl_33r, Ytl_33i, 
             Q_GTHDM;
+    bool flag_ATHDM;
 };
 
 /**

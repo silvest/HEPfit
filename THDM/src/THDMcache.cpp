@@ -5174,7 +5174,7 @@ double THDMcache::updateCache()
     Ale=myTHDM->getAle();
     Als=myTHDM->getAlsMz();
     Mt=myTHDM->getQuarks(QCD::TOP).getMass();
-    Mb=myTHDM->getQuarks(QCD::BOTTOM).getMass();   
+    Mb=myTHDM->getQuarks(QCD::BOTTOM).getMass();
     Mtau=myTHDM->getLeptons(StandardModel::TAU).getMass();
     Mc=myTHDM->getQuarks(QCD::CHARM).getMass();
     Ms=myTHDM->getQuarks(QCD::STRANGE).getMass();
