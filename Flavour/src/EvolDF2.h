@@ -75,6 +75,14 @@ public:
      */
     double etatt(double mu) const;    
     
+    /**
+     * 
+     * @brief Buras et al, hep-ph/9512380
+     * @param mu
+     * @return the NLO corrective factor for the top-top contribution to the bottom oscillations times the LO matching
+     */
+    double etabS0(double mu) const;    
+    
 private:
     // c and d are the coefficient of als(mu) e als(M)
     // first index number of flavours

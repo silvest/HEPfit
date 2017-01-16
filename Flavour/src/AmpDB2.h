@@ -30,9 +30,19 @@ public:
         return AmpBs(order);
     }
 
+    gslpp::complex getPBd(){
+        return PBd();
+    }
+    
+    gslpp::complex getPBs(){
+        return PBs();
+    }
+    
 protected:
     gslpp::complex AmpBd(orders order);
     gslpp::complex AmpBs(orders order);
+    gslpp::complex PBd();
+    gslpp::complex PBs();
 
 private:
     

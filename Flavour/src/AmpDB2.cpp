@@ -95,3 +95,62 @@ gslpp::complex AmpDB2::AmpBs(orders order)
             throw std::runtime_error("AmpDB2::AmpBs(): order not implemented"); 
     }
 }
+
+gslpp::complex AmpDB2::PBd()
+{
+    double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
+    double Mw = mySM.Mw();
+    double kappa = -2. * M_PI * mbpole * mbpole / 
+    (3. * Mw * Mw * mySM.getMyFlavour()->getHDF2().getUDF2().etabS0(mySM.getBBd().getMu()));
+    
+    double n[13] = {0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.};
+    
+    n[0] = 0.1797;
+    n[1] = 0.1391;
+    n[5] = 1.0116;
+    n[6] = 0.0455;
+    n[8] = -0.0714;
+    n[10] = -0.3331;
+    
+    double B1 = mySM.getBBd().getBpars()(0);
+    double B2 = mySM.getBBd().getBpars()(1);
+    
+    gslpp::complex PBd = -2. * kappa / mySM.getCBd() * 
+            (gslpp::complex(1,2.*mySM.getPhiBd(),true) * (n[0] + (n[5] * B2 + n[10])/B1)
+            - gslpp::complex(1./mySM.getCKM().getRt(),mySM.getCKM().computeBeta()+2.*mySM.getPhiBd(),true)
+            * (n[1] + (n[6] * B2 + n[11])/B1)
+            + gslpp::complex(1./mySM.getCKM().getRt()/mySM.getCKM().getRt(),2.*(mySM.getCKM().computeBeta()+mySM.getPhiBd()),true)
+            * (n[2] + (n[7] * B2 + n[12])/B1));
+
+    return PBd;
+}
+
+gslpp::complex AmpDB2::PBs()
+{
+    double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
+    double Mw = mySM.Mw();
+    double kappa = -2. * M_PI * mbpole * mbpole / 
+    (3. * Mw * Mw * mySM.getMyFlavour()->getHDF2().getUDF2().etabS0(mySM.getBBs().getMu()));
+    
+    double n[13] = {0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.};
+    
+    n[0] = 0.1797;
+    n[1] = 0.1391;
+    n[5] = 1.0116;
+    n[6] = 0.0455;
+    n[8] = -0.0714;
+    n[10] = -0.3331;
+    
+    double B1 = mySM.getBBs().getBpars()(0);
+    double B2 = mySM.getBBs().getBpars()(1);
+    
+    gslpp::complex PBs = -2. * kappa / mySM.getCBs() * 
+            (gslpp::complex(1,2.*mySM.getPhiBs(),true) * (n[0] + (n[5] * B2 + n[10])/B1)
+            - gslpp::complex(1./mySM.getCKM().getRts(),-mySM.getCKM().computeBetas()+2.*mySM.getPhiBs(),true)
+            * (n[1] + (n[6] * B2 + n[11])/B1)
+            + gslpp::complex(1./mySM.getCKM().getRts()/mySM.getCKM().getRts(),2.*(-mySM.getCKM().computeBetas()+mySM.getPhiBs()),true)
+            * (n[2] + (n[7] * B2 + n[12])/B1));
+
+    return PBs;
+}
+
