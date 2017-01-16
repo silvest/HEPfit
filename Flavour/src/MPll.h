@@ -226,6 +226,7 @@ private:
     double mu_h;          /**<\f$\sqrt{\mu_b*\lambda_{QCD}}\f$ */
     double Mc;            /**<c quark mass */
     double Ms;            /**<s quark mass */
+    double spectator_charge;  /**<spectator quark charge */
     double width;         /**<initial meson width */
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
@@ -759,7 +760,7 @@ private:
     gslpp::complex I1(double u, double q2);
     
     /**
-    * @brief The \f$ T^{\parallel}_+ \f$ function from @cite Beneke:2001at .
+    * @brief The \f$ T^{\parallel}_+ \f$ function from @cite Khodjamirian:2012rm .
     * @param[in] u dummy variable to be integrated out
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T^{\parallel}_+ \f$
@@ -767,7 +768,7 @@ private:
     gslpp::complex Tparplus(double u, double q2);
     
     /**
-    * @brief The \f$ T^{\parallel}_- \f$ function from @cite Beneke:2001at .
+    * @brief The \f$ T^{\parallel}_- \f$ function from @cite Khodjamirian:2012rm .
     * @param[in] u dummy variable to be integrated out
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ T^{\parallel}_- \f$

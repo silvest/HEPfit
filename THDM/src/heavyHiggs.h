@@ -58,7 +58,7 @@ public:
     Robs_ggF_H_tautau_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{gg\to H}\cdot BR(H\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{gg\to H}\cdot BR(H\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -100,7 +100,7 @@ public:
     Robs_ggF_H_tautau_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma_{gg\to H}\cdot BR(H\to \tau\tau)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma_{gg\to H}\cdot BR(H\to \tau\tau)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -142,7 +142,7 @@ public:
     Robs_bbF_H_tautau_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -184,7 +184,7 @@ public:
     Robs_bbF_H_tautau_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)]_{\text{theo}} - [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma_{b\bar b\to H}\cdot BR(H\to \tau\tau)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -226,7 +226,7 @@ public:
     Robs_pp_H_gaga_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -268,7 +268,7 @@ public:
     Robs_ggF_H_gaga_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -310,7 +310,7 @@ public:
     Robs_mu_pp_H_VV_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\mu_H^{\text{THDM}}(H\to VV)]_{\text{theo}} - [\mu_H^{\text{THDM}}(H\to VV)]_{\text{CMS,95\% observed}} \right) / [\mu_H^{\text{THDM}}(H\to VV)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\mu_H^{\text{THDM}}(H\to VV)]_{\text{theo}} - [\mu_H^{\text{THDM}}(H\to VV)]_{\text{CMS,95\% observed}} \right) / [\mu_H^{\text{THDM}}(H\to VV)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -352,7 +352,7 @@ public:
     Robs_ggF_H_ZZ_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -394,7 +394,7 @@ public:
     Robs_VBF_H_ZZ_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{theo}} - [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{theo}} - [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -436,7 +436,7 @@ public:
     Robs_ggF_H_WW_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -478,7 +478,7 @@ public:
     Robs_VBF_H_WW_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{theo}} - [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{theo}} - [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -520,7 +520,7 @@ public:
     Robs_ggF_H_hh_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -530,7 +530,7 @@ private:
 /**
  * @class Hobs_pp_H_hh_CMS
  * @ingroup THDM
- * @brief 
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp \to H\to hh@f$.
  */
 class Hobs_pp_H_hh_CMS: public ThObservable {
 public:
@@ -541,7 +541,7 @@ public:
     Hobs_pp_H_hh_CMS(const StandardModel& SM_i);
 
     /**
-     * @return 
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{theo}} / [\sigma_{pp\to H}\cdot BR(H\to hh)]_{\text{CMS,95\%}}@f$
      */
     double computeThValue();
 private:
@@ -551,7 +551,7 @@ private:
 /**
  * @class Robs_pp_H_hh_CMS
  * @ingroup THDM
- * @brief 
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$pp \to H\to hh@f$ assuming a Gaussian likelihood.
  */
 class Robs_pp_H_hh_CMS: public ThObservable {
 public:
@@ -562,7 +562,7 @@ public:
     Robs_pp_H_hh_CMS(const StandardModel& SM_i);
 
     /**
-     * @return 
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -604,7 +604,7 @@ public:
     Robs_ggF_H_hh_bbtautau_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -646,7 +646,7 @@ public:
     Robs_pp_H_hh_bbbb_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -688,7 +688,7 @@ public:
     Robs_pp_H_hh_gagabb_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -730,7 +730,7 @@ public:
     Robs_ggF_H_tt_ATLAS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -772,7 +772,7 @@ public:
     Robs_bbF_H_bb_CMS(const StandardModel& SM_i);
 
     /**
-     * @return @f$1 + \left( [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)]_{\text{CMS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -992,7 +992,7 @@ private:
 /**
  * @class log10_pp_H_hh_TH
  * @ingroup THDM
- * @brief 
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H\to hh@f$.
  */
 class log10_pp_H_hh_TH: public ThObservable {
 public:
@@ -1003,7 +1003,7 @@ public:
     log10_pp_H_hh_TH(const StandardModel& SM_i);
 
     /**
-     * @return 
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)]@f$
      */
     double computeThValue();
 private:
@@ -1280,5 +1280,58 @@ public:
 private:
     const THDM& myTHDM;
 };
+
+
+
+
+
+
+
+
+/**
+ * @class LIMITmLIMEST
+ * @ingroup THDM
+ * @brief 
+ */
+class LIMITmLIMEST : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    LIMITmLIMEST(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class DEVIATIONoBANDSIZE
+ * @ingroup THDM
+ * @brief 
+ */
+class DEVIATIONoBANDSIZE : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    DEVIATIONoBANDSIZE(const StandardModel& SM_i);
+    
+    /**
+     * @return 
+     */
+    double computeThValue ();
+private:
+    const THDM& myTHDM;
+};
+
+
+
+
 
 #endif	/* HEAVYHIGGS_H */

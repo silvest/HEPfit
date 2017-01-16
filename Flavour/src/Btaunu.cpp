@@ -20,6 +20,7 @@ double Btaunu::computeThValue()
     double mtau = SM.getLeptons(StandardModel::TAU).getMass();
     double mB = SM.getMesons(QCD::B_P).getMass();
     double mb = SM.getQuarks(QCD::BOTTOM).getMass();
-    double fact = 0.989;
+    double fact = 1.;/*factor introduced to scale the decay constant from that of the neutral B to the charged B.*/
+    //double fact = 0.989;
     return 1./(64. * M_PI) * mtau * mtau * pow(fact * SM.getMesons(QCD::B_D).getDecayconst(), 2.) * mB * pow(1. - mtau * mtau / mB / mB, 2.) / SM.getMesons(QCD::B_P).computeWidth() * ((*(allcoeff[LO]))(0) + mB * mB/mb/mtau * ((*(allcoeff[LO]))(1) + (*(allcoeff[LO]))(2))).abs2();// PLEASE NOTE THE DECAY CONST
 }

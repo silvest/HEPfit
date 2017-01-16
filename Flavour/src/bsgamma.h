@@ -13,8 +13,6 @@
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
 
-#define FOUR_BODY false
-
 /**
  * @class Bsgamma
  * @ingroup Flavour
@@ -1692,7 +1690,7 @@ private:
     
     bool SUM;/**< Flag to choose whether the BR will be relative to a single quark (s or d) or their sum */ 
     bool EWflag;/**< Flag to include EW NLO corrections (currently partialy hard-coded) */ 
-    bool NNLOflag;/**< Flag to include NNLO corrections (currently partialy hard-coded) */ 
+    bool FOUR_BODY;/**< Flag to include NLO 4_body corrections (currently partialy hard-coded) */ 
     
     double ale; /**<alpha electromagnetic */
     double AleatMztilde; /**<alpha electromagnetic at Mz divided by 4 pi */

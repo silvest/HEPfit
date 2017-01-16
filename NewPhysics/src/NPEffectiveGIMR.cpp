@@ -9,7 +9,7 @@
 #include <limits>
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
-        = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
     "CHL1_12i", "CHL1_13i", "CHL1_23i",
     "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
@@ -32,6 +32,12 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "CuH_11i", "CuH_12i", "CuH_13i", "CuH_22i", "CuH_23i", "CuH_33i",
     "CdH_11r", "CdH_12r", "CdH_13r", "CdH_22r", "CdH_23r", "CdH_33r",
     "CdH_11i", "CdH_12i", "CdH_13i", "CdH_22i", "CdH_23i", "CdH_33i",
+    "CuG_11r", "CuG_12r", "CuG_13r", "CuG_22r", "CuG_23r", "CuG_33r",
+    "CuG_11i", "CuG_12i", "CuG_13i", "CuG_22i", "CuG_23i", "CuG_33i",
+    "CuW_11r", "CuW_12r", "CuW_13r", "CuW_22r", "CuW_23r", "CuW_33r",
+    "CuW_11i", "CuW_12i", "CuW_13i", "CuW_22i", "CuW_23i", "CuW_33i",
+    "CuB_11r", "CuB_12r", "CuB_13r", "CuB_22r", "CuB_23r", "CuB_33r",
+    "CuB_11i", "CuB_12i", "CuB_13i", "CuB_22i", "CuB_23i", "CuB_33i",
     "CLL_1111","CLL_1221","CLL_2112","CLL_2211","CLL_1122",
     "CLL_1133","CLL_3311","CLL_1331","CLL_3113",
     "CLQ1_1111","CLQ1_1122","CLQ1_2211","CLQ1_1221","CLQ1_2112",
@@ -63,9 +69,11 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "ettH78_Htt", "ettH78_Hgg"};
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU]
-        = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
+        = {"CG", "CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
-    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL", "CLQ1", "CLQ3",
+    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i",
+    "CuG_r", "CuG_i", "CuW_r", "CuW_i", "CuB_r", "CuB_i",
+    "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP",
     "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
     "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
@@ -95,7 +103,8 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
     FlagMwInput = false;
     FlagQuadraticTerms = false;
     setModelLinearized();
-    
+
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CG", boost::cref(CG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CW", boost::cref(CW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHG", boost::cref(CHG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
@@ -178,6 +187,12 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_i", boost::cref(CuH_11i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_r", boost::cref(CdH_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_i", boost::cref(CdH_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_r", boost::cref(CuG_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_i", boost::cref(CuG_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_r", boost::cref(CuW_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_i", boost::cref(CuW_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_r", boost::cref(CuB_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_i", boost::cref(CuB_11i)));
     } else {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_11", boost::cref(CHQ1_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_12r", boost::cref(CHQ1_12r)));
@@ -251,6 +266,42 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_22i", boost::cref(CdH_22i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_23i", boost::cref(CdH_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_33i", boost::cref(CdH_33i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_11r", boost::cref(CuG_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_12r", boost::cref(CuG_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_13r", boost::cref(CuG_13r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_22r", boost::cref(CuG_22r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_23r", boost::cref(CuG_23r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_33r", boost::cref(CuG_33r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_11i", boost::cref(CuG_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_12i", boost::cref(CuG_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_13i", boost::cref(CuG_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_22i", boost::cref(CuG_22i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_23i", boost::cref(CuG_23i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_33i", boost::cref(CuG_33i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_11r", boost::cref(CuW_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_12r", boost::cref(CuW_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_13r", boost::cref(CuW_13r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_22r", boost::cref(CuW_22r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_23r", boost::cref(CuW_23r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_33r", boost::cref(CuW_33r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_11i", boost::cref(CuW_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_12i", boost::cref(CuW_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_13i", boost::cref(CuW_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_22i", boost::cref(CuW_22i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_23i", boost::cref(CuW_23i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_33i", boost::cref(CuW_33i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_11r", boost::cref(CuB_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_12r", boost::cref(CuB_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_13r", boost::cref(CuB_13r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_22r", boost::cref(CuB_22r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_23r", boost::cref(CuB_23r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_33r", boost::cref(CuB_33r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_11i", boost::cref(CuB_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_12i", boost::cref(CuB_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_13i", boost::cref(CuB_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_22i", boost::cref(CuB_22i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_23i", boost::cref(CuB_23i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuB_33i", boost::cref(CuB_33i)));
     }
     if(FlagLeptonUniversal && FlagQuarkUniversal){
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1111", boost::cref(CLQ1_1111)));
@@ -414,7 +465,9 @@ bool NPEffectiveGIMR::PostUpdate()
 
 void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("CW") == 0)
+    if (name.compare("CG") == 0)
+        CG = value;
+    else if (name.compare("CW") == 0)
         CW = value;
     else if (name.compare("CHG") == 0)
         CHG = value;
@@ -778,6 +831,120 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CdH_22i = value;
         CdH_23i = 0.0;
         CdH_33i = value;
+    } else if (name.compare("CuG_11r") == 0)
+        CuG_11r = value;
+    else if (name.compare("CuG_12r") == 0)
+        CuG_12r = value;
+    else if (name.compare("CuG_13r") == 0)
+        CuG_13r = value;
+    else if (name.compare("CuG_22r") == 0)
+        CuG_22r = value;
+    else if (name.compare("CuG_23r") == 0)
+        CuG_23r = value;
+    else if (name.compare("CuG_33r") == 0)
+        CuG_33r = value;
+    else if (name.compare("CuG_r") == 0) {
+        CuG_11r = value;
+        CuG_12r = 0.0;
+        CuG_13r = 0.0;
+        CuG_22r = value;
+        CuG_23r = 0.0;
+        CuG_33r = value;
+    } else if (name.compare("CuG_11i") == 0)
+        CuG_11i = value;
+    else if (name.compare("CuG_12i") == 0)
+        CuG_12i = value;
+    else if (name.compare("CuG_13i") == 0)
+        CuG_13i = value;
+    else if (name.compare("CuG_22i") == 0)
+        CuG_22i = value;
+    else if (name.compare("CuG_23i") == 0)
+        CuG_23i = value;
+    else if (name.compare("CuG_33i") == 0)
+        CuG_33i = value;
+    else if (name.compare("CuG_i") == 0) {
+        CuG_11i = value;
+        CuG_12i = 0.0;
+        CuG_13i = 0.0;
+        CuG_22i = value;
+        CuG_23i = 0.0;
+        CuG_33i = value;
+    } else if (name.compare("CuW_11r") == 0)
+        CuW_11r = value;
+    else if (name.compare("CuW_12r") == 0)
+        CuW_12r = value;
+    else if (name.compare("CuW_13r") == 0)
+        CuW_13r = value;
+    else if (name.compare("CuW_22r") == 0)
+        CuW_22r = value;
+    else if (name.compare("CuW_23r") == 0)
+        CuW_23r = value;
+    else if (name.compare("CuW_33r") == 0)
+        CuW_33r = value;
+    else if (name.compare("CuW_r") == 0) {
+        CuW_11r = value;
+        CuW_12r = 0.0;
+        CuW_13r = 0.0;
+        CuW_22r = value;
+        CuW_23r = 0.0;
+        CuW_33r = value;
+    } else if (name.compare("CuW_11i") == 0)
+        CuW_11i = value;
+    else if (name.compare("CuW_12i") == 0)
+        CuW_12i = value;
+    else if (name.compare("CuW_13i") == 0)
+        CuW_13i = value;
+    else if (name.compare("CuW_22i") == 0)
+        CuW_22i = value;
+    else if (name.compare("CuW_23i") == 0)
+        CuW_23i = value;
+    else if (name.compare("CuW_33i") == 0)
+        CuW_33i = value;
+    else if (name.compare("CuW_i") == 0) {
+        CuW_11i = value;
+        CuW_12i = 0.0;
+        CuW_13i = 0.0;
+        CuW_22i = value;
+        CuW_23i = 0.0;
+        CuW_33i = value;
+    } else if (name.compare("CuB_11r") == 0)
+        CuB_11r = value;
+    else if (name.compare("CuB_12r") == 0)
+        CuB_12r = value;
+    else if (name.compare("CuB_13r") == 0)
+        CuB_13r = value;
+    else if (name.compare("CuB_22r") == 0)
+        CuB_22r = value;
+    else if (name.compare("CuB_23r") == 0)
+        CuB_23r = value;
+    else if (name.compare("CuB_33r") == 0)
+        CuB_33r = value;
+    else if (name.compare("CuB_r") == 0) {
+        CuB_11r = value;
+        CuB_12r = 0.0;
+        CuB_13r = 0.0;
+        CuB_22r = value;
+        CuB_23r = 0.0;
+        CuB_33r = value;
+    } else if (name.compare("CuB_11i") == 0)
+        CuB_11i = value;
+    else if (name.compare("CuB_12i") == 0)
+        CuB_12i = value;
+    else if (name.compare("CuB_13i") == 0)
+        CuB_13i = value;
+    else if (name.compare("CuB_22i") == 0)
+        CuB_22i = value;
+    else if (name.compare("CuB_23i") == 0)
+        CuB_23i = value;
+    else if (name.compare("CuB_33i") == 0)
+        CuB_33i = value;
+    else if (name.compare("CuB_i") == 0) {
+        CuB_11i = value;
+        CuB_12i = 0.0;
+        CuB_13i = 0.0;
+        CuB_22i = value;
+        CuB_23i = 0.0;
+        CuB_33i = value;
     } else if (name.compare("CLL_1111") == 0) {
         CLL_1111 = value;
     } else if (name.compare("CLL_1221") == 0) {
@@ -1282,6 +1449,84 @@ gslpp::complex NPEffectiveGIMR::CfH_diag(const Particle f) const
         throw std::runtime_error("NPEffectiveGIMR::CfH_diag(): wrong argument");
 }
 
+gslpp::complex NPEffectiveGIMR::CfG_diag(const Particle f) const
+{
+    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
+        return 0.0;
+    else if (f.is("ELECTRON"))
+        return 0.0;
+    else if (f.is("MU"))
+        return 0.0;
+    else if (f.is("TAU"))
+        return 0.0;
+    else if (f.is("UP"))
+        return gslpp::complex(CuG_11r, CuG_11i, false);
+    else if (f.is("CHARM"))
+        return gslpp::complex(CuG_22r, CuG_22i, false);
+    else if (f.is("TOP"))
+        return gslpp::complex(CuG_33r, CuG_33i, false);
+    else if (f.is("DOWN"))
+        return 0.0;
+    else if (f.is("STRANGE"))
+        return 0.0;
+    else if (f.is("BOTTOM"))
+        return 0.0;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CfG_diag(): wrong argument");
+}
+      
+gslpp::complex NPEffectiveGIMR::CfW_diag(const Particle f) const
+{
+    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
+        return 0.0;
+    else if (f.is("ELECTRON"))
+        return 0.0;
+    else if (f.is("MU"))
+        return 0.0;
+    else if (f.is("TAU"))
+        return 0.0;
+    else if (f.is("UP"))
+        return gslpp::complex(CuW_11r, CuW_11i, false);
+    else if (f.is("CHARM"))
+        return gslpp::complex(CuW_22r, CuW_22i, false);
+    else if (f.is("TOP"))
+        return gslpp::complex(CuW_33r, CuW_33i, false);
+    else if (f.is("DOWN"))
+        return 0.0;
+    else if (f.is("STRANGE"))
+        return 0.0;
+    else if (f.is("BOTTOM"))
+        return 0.0;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CfW_diag(): wrong argument");
+}
+      
+gslpp::complex NPEffectiveGIMR::CfB_diag(const Particle f) const
+{
+    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
+        return 0.0;
+    else if (f.is("ELECTRON"))
+        return 0.0;
+    else if (f.is("MU"))
+        return 0.0;
+    else if (f.is("TAU"))
+        return 0.0;
+    else if (f.is("UP"))
+        return gslpp::complex(CuB_11r, CuB_11i, false);
+    else if (f.is("CHARM"))
+        return gslpp::complex(CuB_22r, CuB_22i, false);
+    else if (f.is("TOP"))
+        return gslpp::complex(CuB_33r, CuB_33i, false);
+    else if (f.is("DOWN"))
+        return 0.0;
+    else if (f.is("STRANGE"))
+        return 0.0;
+    else if (f.is("BOTTOM"))
+        return 0.0;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CfB_diag(): wrong argument");
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -1515,6 +1760,55 @@ double NPEffectiveGIMR::deltaGR_Zffh(const Particle p) const
 {
     double CHf = CHf_diag(p);
     return (-2.0 * Mz / v() / v() * CHf * v2_over_LambdaNP2);
+}
+
+gslpp::complex NPEffectiveGIMR::deltaG_hGff(const Particle p) const
+{
+    /* Set to 0. for the moment */
+
+    return 0.;
+}
+      
+gslpp::complex NPEffectiveGIMR::deltaG_hZff(const Particle p) const
+{
+    /* Set to 0. for the moment */
+
+    return 0.;
+}
+      
+gslpp::complex NPEffectiveGIMR::deltaG_hAff(const Particle p) const
+{
+    /* Set to 0. for the moment */
+
+    return 0.;
+}
+      
+gslpp::complex NPEffectiveGIMR::deltaG_Gff(const Particle p) const
+{
+    /* Set to 0. for the moment */
+
+    return 0.;
+}
+      
+gslpp::complex NPEffectiveGIMR::deltaG_Zff(const Particle p) const
+{
+    /* Set to 0. for the moment */
+
+    return 0.;
+}
+      
+gslpp::complex NPEffectiveGIMR::deltaG_Aff(const Particle p) const
+{
+    /* Set to 0. for the moment */
+
+    return 0.;
+}
+      
+double NPEffectiveGIMR::deltag3G() const
+{
+    /* Set to 0. for the moment */
+
+    return 0.;
 }
 
 
@@ -1763,17 +2057,95 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
 double NPEffectiveGIMR::mueeWBF(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == 0.25) {
-        mu +=  +0.0;
+    if (sqrt_s == 0.24) {
+        mu +=  985.974 * deltaG1_hZZ()
+                +23.622 * deltaG2_hZZ()
+                +0. * deltaG3_hZZ()
+                +377.441 * deltaG1_hZA()
+                -394.144 * deltaG2_hZA()
+                -30.997 * deltaG1_hWW()
+                +273.526 * deltaG2_hWW()
+                +0.038 * deltaG3_hWW()
+                -62.505 * deltaGL_Zffh(leptons[NEUTRINO_1])
+                -1781.02 * deltaGL_Zffh(leptons[ELECTRON])
+                +183.495 * deltaGR_Zffh(leptons[ELECTRON])
+                -4.991 * deltaGL_Wffh(leptons[NEUTRINO_1],leptons[ELECTRON]).real()
+                -0.062 * deltaGL_f(leptons[NEUTRINO_1])
+                -1.436 * deltaGL_f(leptons[ELECTRON])
+                +0.004 * deltaGR_f(leptons[ELECTRON])
+                +4.07 * deltaGL_Wff(leptons[NEUTRINO_1],leptons[ELECTRON]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
             //(Only valid under the assumptions of one dim 6 operator at a time)
             mu +=  +0.0;            
         }
+          
+    } else if (sqrt_s == 0.25) {
+        mu +=  903.947 * deltaG1_hZZ()
+                +93.416 * deltaG2_hZZ()
+                -0.002 * deltaG3_hZZ()
+                +277.754 * deltaG1_hZA()
+                -271.135 * deltaG2_hZA()
+                -29.647 * deltaG1_hWW()
+                +298.034 * deltaG2_hWW()
+                +0.039 * deltaG3_hWW()
+                -61.73 * deltaGL_Zffh(leptons[NEUTRINO_1])
+                -1409.1 * deltaGL_Zffh(leptons[ELECTRON])
+                +182.068 * deltaGR_Zffh(leptons[ELECTRON])
+                -5.518 * deltaGL_Wffh(leptons[NEUTRINO_1],leptons[ELECTRON]).real()
+                -0.174 * deltaGL_f(leptons[NEUTRINO_1])
+                -1.003 * deltaGL_f(leptons[ELECTRON])
+                +0. * deltaGR_f(leptons[ELECTRON])
+                +4.203 * deltaGL_Wff(leptons[NEUTRINO_1],leptons[ELECTRON]).real();
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
+    } else if (sqrt_s == 0.35) {
+        mu +=  -63.056 * deltaG1_hZZ()
+                +99.834 * deltaG2_hZZ()
+                -0.001 * deltaG3_hZZ()
+                -100.006 * deltaG1_hZA()
+                +120.858 * deltaG2_hZA()
+                -77.085 * deltaG1_hWW()
+                +424.21 * deltaG2_hWW()
+                +0.039 * deltaG3_hWW()
+                -36.176 * deltaGL_Zffh(leptons[NEUTRINO_1])
+                +108.441 * deltaGL_Zffh(leptons[ELECTRON])
+                +137.702 * deltaGR_Zffh(leptons[ELECTRON])
+                -8.003 * deltaGL_Wffh(leptons[NEUTRINO_1],leptons[ELECTRON]).real()
+                -0.091 * deltaGL_f(leptons[NEUTRINO_1])
+                +0.074 * deltaGL_f(leptons[ELECTRON])
+                +0.033 * deltaGR_f(leptons[ELECTRON])
+                +4.102 * deltaGL_Wff(leptons[NEUTRINO_1],leptons[ELECTRON]).real();
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
         
     } else if (sqrt_s == 0.5) {
-        mu +=  +0.0;
+        mu +=  -82.771 * deltaG1_hZZ()
+                +48.73 * deltaG2_hZZ()
+                +0. * deltaG3_hZZ()
+                -78.056 * deltaG1_hZA()
+                +78.264 * deltaG2_hZA()
+                -98.794 * deltaG1_hWW()
+                +579.5 * deltaG2_hWW()
+                +0.039 * deltaG3_hWW()
+                -26.448 * deltaGL_Zffh(leptons[NEUTRINO_1])
+                +163.236 * deltaGL_Zffh(leptons[ELECTRON])
+                +56.583 * deltaGR_Zffh(leptons[ELECTRON])
+                -9.491 * deltaGL_Wffh(leptons[NEUTRINO_1],leptons[ELECTRON]).real()
+                -0.02 * deltaGL_f(leptons[NEUTRINO_1])
+                +0.037 * deltaGL_f(leptons[ELECTRON])
+                +0.009 * deltaGR_f(leptons[ELECTRON])
+                +4.025 * deltaGL_Wff(leptons[NEUTRINO_1],leptons[ELECTRON]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -1782,7 +2154,22 @@ double NPEffectiveGIMR::mueeWBF(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 1.0) {
-        mu +=  +0.0;
+        mu +=  -32.198 * deltaG1_hZZ()
+                +13.389 * deltaG2_hZZ()
+                +0. * deltaG3_hZZ()
+                -27.018 * deltaG1_hZA()
+                +18.957 * deltaG2_hZA()
+                -100.42 * deltaG1_hWW()
+                +884.402 * deltaG2_hWW()
+                +0.039 * deltaG3_hWW()
+                -11.556 * deltaGL_Zffh(leptons[NEUTRINO_1])
+                +56.187 * deltaGL_Zffh(leptons[ELECTRON])
+                +16.258 * deltaGR_Zffh(leptons[ELECTRON])
+                -12.168 * deltaGL_Wffh(leptons[NEUTRINO_1],leptons[ELECTRON]).real()
+                -0.001 * deltaGL_f(leptons[NEUTRINO_1])
+                +0.004 * deltaGL_f(leptons[ELECTRON])
+                +0.002 * deltaGR_f(leptons[ELECTRON])
+                +4.003 * deltaGL_Wff(leptons[NEUTRINO_1],leptons[ELECTRON]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -2019,16 +2406,16 @@ double NPEffectiveGIMR::mueeZH(const double sqrt_s) const
 {
     double mu = 1.0;
 
-    if (sqrt_s < 0.5) {
-        mu += -4.243 * deltaGL_f(leptons[DOWN])
-            +3.723 * deltaGR_f(leptons[DOWN])
-            +2690.94  * deltaG1_hZZ()
-            -1951.83  * deltaG2_hZZ()
-            +0.059  * deltaG3_hZZ()
-            +126.418  * deltaG1_hZA()
-            -160.3  * deltaG2_hZA()
-            -4179.8  * deltaGL_Zffh(leptons[DOWN])
-            +3668.  * deltaGR_Zffh(leptons[DOWN]);
+    if (sqrt_s == 0.24) {
+        mu += 2690.84 * deltaG1_hZZ()
+                -1951.93 * deltaG2_hZZ()
+                +0.059 * deltaG3_hZZ()
+                +147.761 * deltaG1_hZA()
+                -185.735 * deltaG2_hZA()
+                -4217.73 * deltaGL_Zffh(leptons[ELECTRON])
+                +3619.82 * deltaGR_Zffh(leptons[ELECTRON])
+                -4.282 * deltaGL_f(leptons[ELECTRON])
+                +3.674 * deltaGR_f(leptons[ELECTRON]);
         
         if (FlagQuadraticTerms) {
         //Add contributions that are quadratic in the effective coefficients
@@ -2043,8 +2430,51 @@ double NPEffectiveGIMR::mueeZH(const double sqrt_s) const
                 +7731703.  * pow(deltaGL_Zffh(leptons[DOWN]),2.0)
                 +7731703.  * pow(deltaGR_Zffh(leptons[DOWN]),2.0);
             }
+
+    } else if (sqrt_s == 0.25) {
+        mu +=  2829.45 * deltaG1_hZZ()
+                -2097.01 * deltaG2_hZZ()
+                +0.059 * deltaG3_hZZ()
+                +156.787 * deltaG1_hZA()
+                -204.357 * deltaG2_hZA()
+                -4635.23 * deltaGL_Zffh(leptons[ELECTRON])
+                +3979.84 * deltaGR_Zffh(leptons[ELECTRON])
+                -4.282 * deltaGL_f(leptons[ELECTRON])
+                +3.674 * deltaGR_f(leptons[ELECTRON]);
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+        
+    } else if (sqrt_s == 0.35) {
+        mu +=  3893.41 * deltaG1_hZZ()
+                -3873.83 * deltaG2_hZZ()
+                +0.059 * deltaG3_hZZ()
+                +231.963 * deltaG1_hZA()
+                -424.266 * deltaG2_hZA()
+                -9763.89 * deltaGL_Zffh(leptons[ELECTRON])
+                +8387.72 * deltaGR_Zffh(leptons[ELECTRON])
+                -4.282 * deltaGL_f(leptons[ELECTRON])
+                +3.674 * deltaGR_f(leptons[ELECTRON]);
+        
+        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+            mu +=  +0.0;
+        }
+          
     } else if (sqrt_s == 0.5) {
-        mu +=  +0.0;
+        mu +=  4747.11 * deltaG1_hZZ()
+                -7649.28 * deltaG2_hZZ()
+                +0.059 * deltaG3_hZZ()
+                +291.854 * deltaG1_hZA()
+                -902.663 * deltaG2_hZA()
+                -20668.9 * deltaGL_Zffh(leptons[ELECTRON])
+                +17754.2 * deltaGR_Zffh(leptons[ELECTRON])
+                -4.282 * deltaGL_f(leptons[ELECTRON])
+                +3.674 * deltaGR_f(leptons[ELECTRON]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -2053,7 +2483,15 @@ double NPEffectiveGIMR::mueeZH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 1.0) {
-        mu +=  +0.0;
+        mu +=  5576.18 * deltaG1_hZZ()
+                -29856.9 * deltaG2_hZZ()
+                +0.059 * deltaG3_hZZ()
+                +351.186 * deltaG1_hZA()
+                -3727.98 * deltaG2_hZA()
+                -84814.3 * deltaGL_Zffh(leptons[ELECTRON])
+                +72844.9 * deltaGR_Zffh(leptons[ELECTRON])
+                -4.282 * deltaGL_f(leptons[ELECTRON])
+                +3.673 * deltaGR_f(leptons[ELECTRON]);
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -2169,17 +2607,26 @@ double NPEffectiveGIMR::muggHpttH(const double sqrt_s) const
 double NPEffectiveGIMR::mueettH(const double sqrt_s) const
 {
     double mu = 1.0;
-    if (sqrt_s == 0.25) {
-        mu +=  +0.0;
-        
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-            //(Only valid under the assumptions of one dim 6 operator at a time)
-            mu +=  +0.0;            
-        }
-        
-    } else if (sqrt_s == 0.5) {
-        mu +=  +0.0;
+    if (sqrt_s == 0.5) {
+        mu +=  85.139 * deltaG1_hZZ()
+                -51.41 * deltaG2_hZZ()
+                +0. * deltaG3_hZZ()
+                +276.673 * deltaG1_hZA()
+                -159.708 * deltaG2_hZA()
+                +1017.44 * deltaG_hAA()
+                -2.833 * deltaG_hff(quarks[TOP]).real()
+                -287.92 * deltaGL_Zffh(leptons[ELECTRON])
+                -132.849 * deltaGR_Zffh(leptons[ELECTRON])
+                +84.883 * deltaGL_Zffh(quarks[TOP])
+                +72.935 * deltaGR_Zffh(quarks[TOP])
+                +863716. * deltaG_hAff(quarks[TOP]).real()
+                +154393. * deltaG_hZff(quarks[TOP]).real()
+                -1.046 * deltaGL_f(leptons[ELECTRON])
+                -0.608 * deltaGR_f(leptons[ELECTRON])
+                +0.663 * deltaGL_f(quarks[TOP])
+                +0.585 * deltaGR_f(quarks[TOP])
+                +8833.35 * deltaG_Aff(quarks[TOP]).real()
+                +1650.94 * deltaG_Zff(quarks[TOP]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -2188,7 +2635,25 @@ double NPEffectiveGIMR::mueettH(const double sqrt_s) const
         }
         
     } else if (sqrt_s == 1.0) {
-        mu +=  +0.0;
+        mu +=  446.758 * deltaG1_hZZ()
+                -1500.92 * deltaG2_hZZ()
+                +0.003 * deltaG3_hZZ()
+                +657.283 * deltaG1_hZA()
+                -572.102 * deltaG2_hZA()
+                +2443.18 * deltaG_hAA()
+                -2.701 * deltaG_hff(quarks[TOP]).real()
+                -4591.53 * deltaGL_Zffh(leptons[ELECTRON])
+                +2945.96 * deltaGR_Zffh(leptons[ELECTRON])
+                +251.003 * deltaGL_Zffh(quarks[TOP])
+                +49.581 * deltaGR_Zffh(quarks[TOP])
+                +3025550. * deltaG_hAff(quarks[TOP]).real()
+                +519896. * deltaG_hZff(quarks[TOP]).real()
+                -1.426 * deltaGL_f(leptons[ELECTRON])
+                -0.041 * deltaGR_f(leptons[ELECTRON])
+                +1.066 * deltaGL_f(quarks[TOP])
+                -0.038 * deltaGR_f(quarks[TOP])
+                +12745.4 * deltaG_Aff(quarks[TOP]).real()
+                +2238.61 * deltaG_Zff(quarks[TOP]).real();
         
         if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
@@ -2304,6 +2769,26 @@ double NPEffectiveGIMR::BrHgagaRatio() const
 
 }
 
+double NPEffectiveGIMR::BrHmumuRatio() const
+{
+    double Br = 1.0;
+    
+    Br += deltaGammaHmumuRatio1() - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+        //Add contributions that are quadratic in the effective coefficients
+        //(Only valid under the assumptions of one dim 6 operator at a time)
+        Br += - deltaGammaHmumuRatio1() * deltaGammaTotalRatio1()
+                + deltaGammaHmumuRatio2() - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+
+}
+
 double NPEffectiveGIMR::BrHtautauRatio() const
 {
     double Br = 1.0;
@@ -2371,6 +2856,7 @@ double NPEffectiveGIMR::computeGammaTotalRatio() const
             + trueSM.computeBrHtoZZ() * GammaHZZRatio()
             + trueSM.computeBrHtoZga() * GammaHZgaRatio()
             + trueSM.computeBrHtogaga() * GammaHgagaRatio()
+            + trueSM.computeBrHtomumu() * GammaHmumuRatio()
             + trueSM.computeBrHtotautau() * GammaHtautauRatio()
             + trueSM.computeBrHtocc() * GammaHccRatio()
             + trueSM.computeBrHtobb() * GammaHbbRatio());
@@ -2383,6 +2869,7 @@ double NPEffectiveGIMR::deltaGammaTotalRatio1() const
             + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio1()
             + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio1()
+            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio1());
@@ -2395,6 +2882,7 @@ double NPEffectiveGIMR::deltaGammaTotalRatio2() const
             + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
             + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
+            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio2());
@@ -2581,6 +3069,36 @@ double NPEffectiveGIMR::deltaGammaHgagaRatio2() const
             +1.828 * pow(deltaG_hff(quarks[BOTTOM]).real(),2.0)
             +6.672 * pow(deltaG_hff(leptons[TAU]).real(),2.0)
             +9.962 * pow(deltaG_hff(quarks[CHARM]).real(),2.0) );            
+    
+}
+
+double NPEffectiveGIMR::GammaHmumuRatio() const
+{
+    double width = 1.0;
+
+    width += deltaGammaHmumuRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            //(Only valid under the assumptions of one dim 6 operator at a time)
+        width += deltaGammaHmumuRatio2();
+        }
+    
+    return width;
+    
+}
+
+double NPEffectiveGIMR::deltaGammaHmumuRatio1() const
+{
+    return ( -4653.43 * deltaG_hff(leptons[MU]).real() );
+        
+}
+
+double NPEffectiveGIMR::deltaGammaHmumuRatio2() const
+{
+    //Contributions that are quadratic in the effective coefficients
+    //(Only valid under the assumptions of one dim 6 operator at a time)
+    return 0.0;
     
 }
 

@@ -433,29 +433,7 @@ int RGEcheck(const double InitialValues[], const double t1, const double Rpeps, 
     if(InitialValues[11]+InitialValues[12]-fabs(InitialValues[13])+sqrt(fabs(InitialValues[9]*InitialValues[10]))<0.0) check=1;
     //NLO unitarity
     double YtQ = InitialValues[3];
-//    double Yb1Q = 0.;
-//    double Yb2Q = 0.;
-//    double Ytau1Q = 0.;
-//    double Ytau2Q = 0.;
-////    if( modelflag == "type1" ) {
-////        Yb2Q=InitialValues[4];
-////        Ytau2Q=InitialValues[5];
-////    }
-////    else if( modelflag == "type2" ) {
-//        Yb1Q=InitialValues[4];
-//        Ytau1Q=InitialValues[5];
-////    }
-////    else if( modelflag == "typeX" ) {
-////        Yb2Q=InitialValues[4];
-////        Ytau1Q=InitialValues[5];
-////    }
-////    else if( modelflag == "typeY" ) {
-////        Yb1Q=InitialValues[4];
-////        Ytau2Q=InitialValues[5];
-////    }
-    
-//    if(t1>6.908)    //1 TeV
-    if(t1>tNLOuni)   //750 GeV
+    if(t1>tNLOuni)
     {
     double la1Q = InitialValues[9];
     double la2Q = InitialValues[10];
@@ -544,7 +522,6 @@ int RGEcheck(const double InitialValues[], const double t1, const double Rpeps, 
     if( (uniNLO14 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
     if( (uniNLO24 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
 
-    //double Rpeps=0.01;
     if( fabs(uniLOev1) > Rpeps && (uniNLOev1wowfr/uniLOev1-1.0).abs() > 1.0) check=1;
     if( fabs(uniLOev2) > Rpeps && (uniNLOev2wowfr/uniLOev2-1.0).abs() > 1.0) check=1;
     if( fabs(uniLOev3) > Rpeps && (uniNLOev3wowfr/uniLOev3-1.0).abs() > 1.0) check=1;
@@ -563,7 +540,7 @@ int RGEcheck(const double InitialValues[], const double t1, const double Rpeps, 
     return check;
 }
 
-double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order, double Rpeps, double NLOuniscale)
+double Runner::RGERunner(double InitialValues[], unsigned long int NumberOfRGEs, double Q1, double Q2, int order, double Rpeps, double NLOuniscale)
 {
     //Define which stepping function should be used
     const gsl_odeiv2_step_type * T = gsl_odeiv2_step_rk4;
@@ -579,11 +556,7 @@ double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long i
     //Allocate space for the evolutor
     gsl_odeiv2_evolve * e = gsl_odeiv2_evolve_alloc(NumberOfRGEs);
 
-    //Possibility to define a set of parameters which the RGE's depend on
-//    double order = 1;
-
     //Definition of the RGE system (the Jacobian is not necessary for the RK4 method; it's an empty function here)
-//    gsl_odeiv2_system RGEsystem = {mySM.RGEs, Jacobian, mySM.NumberOfRGEs, &RGEparameters};
     gsl_odeiv2_system RGEsystem = {RGEs, Jacobian, NumberOfRGEs, &order};
 
     //Set starting and end point as natural logarithmic scales (conversion from decadic log scale)
@@ -607,8 +580,6 @@ double Runner::RGERunner(/*int RGEs(), */double InitialValues[], unsigned long i
     gsl_odeiv2_evolve_free (e);
     gsl_odeiv2_control_free (c);
     gsl_odeiv2_step_free (s);
-
-//    for(int i=0;i<14;i++) std::cout<<InitialValues[i]<<std::endl;
 
     //Return the decadic log scale at which the evolution stopped
     return t1/log(10.0);

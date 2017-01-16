@@ -83,6 +83,7 @@ void MPll::updateParameters()
             m_fit2_fT = mySM.getm_fit2_fT();
             r_2_f0 = mySM.getr_2_f0();
             m_fit2_f0 = mySM.getm_fit2_f0();
+            spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
     
             break;
         default:
@@ -559,7 +560,7 @@ gslpp::complex MPll::Tparplus(double u, double q2)
 gslpp::complex MPll::Tparminus(double u, double q2) 
 {
     double ubar = 1. - u;
-    return - mySM.getQuarks(QCD::UP).getCharge()*(8. * C_8Lh / (ubar + u * q2 / MM2)
+    return - spectator_charge*(8. * C_8Lh / (ubar + u * q2 / MM2)
             + sixMMoMb * H_c(ubar * MM2 + u * q2,mu_h*mu_h) * C_2Lh_bar);
 }
 

@@ -114,7 +114,7 @@ public:
     /**
      * @brief Total SM decay width (obtained with HDECAY 6.10), depending on the Higgs mass.
      */
-    gslpp::matrix<double> GammaHtotSM;
+    gslpp::matrix<double> GammaHtot_SM;
 
     /**
      * @brief SM Higgs production cross section tables at 8 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
@@ -170,6 +170,8 @@ public:
      * @brief CMS expected @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
      */
     gslpp::matrix<double> CMS_ggF_A_hZ_bbll_e, CMS_pp_H_hh_e, CMS_pp_H_hh_gagabb_e, CMS_pp_H_hh_bbbb_e, CMS_bbF_phi_bb_e, CMS_ggF_phi_tautau_e, CMS_bbF_phi_tautau_e, CMS_ggF_phi_gaga_e, CMS_pp_A_Zga_llga_e, CMS_ggF_H_hh_bbtautau_e, CMS_ggF_A_hZ_tautaull_e;
+
+    gslpp::matrix<double> CMS_ggF_phi_gaga_ep2, CMS_ggF_phi_gaga_em2;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -484,8 +486,18 @@ public:
      */
     double ip_ex_ggF_A_hZ_bbll_CMS_e(double mass);
 
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to hh)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-15-013, Figure 5a @cite CMS:2016zxv.
+     */
     double ip_ex_pp_H_hh_CMS(double mass);
 
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to hh)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-15-013, Figure 5a @cite CMS:2016zxv.
+     */
     double ip_ex_pp_H_hh_CMS_e(double mass);
 
     /**
@@ -558,8 +570,18 @@ public:
      */
     double ip_ex_bbF_phi_tautau_CMS_e(double mass);
 
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a pseudoscalar resonance decaying to a Z boson and a photon which further decay into two leptons and a photon.
+     * @return @f$[\sigma_{pp\to A}\cdot BR(A\to Z\gamma \to \ell \ell \gamma)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-16-014, Figure 2 @cite CMS:2016all.
+     */
     double ip_ex_pp_A_Zga_llga_CMS(double mass);
 
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a pseudoscalar resonance decaying to a Z boson and a photon which further decay into two leptons and a photon.
+     * @return @f$[\sigma_{pp\to A}\cdot BR(A\to Z\gamma \to \ell \ell \gamma)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-16-014, Figure 2 @cite CMS:2016all.
+     */
     double ip_ex_pp_A_Zga_llga_CMS_e(double mass);
 
     /**
@@ -575,6 +597,10 @@ public:
      * @details Taken from arXiv:1506.02301, Figure 7, left @cite Khachatryan:2015qba.
      */
     double ip_ex_ggF_phi_gaga_CMS_e(double mass);
+
+        double ip_ex_ggF_phi_gaga_CMS_ep2(double mass);
+
+        double ip_ex_ggF_phi_gaga_CMS_em2(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$h@f$ bosons which further decay to a bottom quark pair and a @f$\tau@f$ lepton pair.
@@ -709,28 +735,28 @@ public:
     gslpp::complex B00_MZ2_MZ2_MZ2_mHh2(const double MZ2, const double mHh2) const;
     gslpp::complex B00_MZ2_MZ2_MZ2_mHl2(const double MZ2, const double mHl2) const;
 
-    double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl, const double vev) const;
+    double ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const;
     double g_HH_HpHm(const double mHp2, const double mHh2, const double tanb, const double m12_2, const double bma, const double vev) const;
 
-    gslpp::complex I_h_U(const double mHl, const double Mu, const double Mc, const double Mt) const;
+    gslpp::complex I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const;
     gslpp::complex I_HH_U(const double mHh2, const double Mc, const double Mt) const;
     gslpp::complex I_A_U(const double mA2, const double Mc, const double Mt) const;
-    gslpp::complex I_h_D(const double mHl, const double Md, const double Ms, const double Mb) const;
+    gslpp::complex I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const;
     gslpp::complex I_HH_D(const double mHh2, const double Ms, const double Mb) const;
     gslpp::complex I_A_D(const double mA2, const double Ms, const double Mb) const;
-    gslpp::complex I_h_L(const double mHl, const double Me, const double Mmu, const double Mtau) const;
+    gslpp::complex I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const;
     gslpp::complex I_HH_L(const double mHh2, const double Mmu, const double Mtau) const;
     gslpp::complex I_A_L(const double mA2, const double Mmu, const double Mtau) const;
     gslpp::complex I_H_W(const double mH, const double MW) const;
     gslpp::complex I_H_Hp(const double mHp2, const double mH) const;
 
-    gslpp::complex A_h_U(const double mHl, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
+    gslpp::complex A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const;
     gslpp::complex A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const;
     gslpp::complex A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const;
-    gslpp::complex A_h_D(const double mHl, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
+    gslpp::complex A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const;
     gslpp::complex A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const;
     gslpp::complex A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const;
-    gslpp::complex A_h_L(const double mHl, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
+    gslpp::complex A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const;
     gslpp::complex A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
     gslpp::complex A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const;
     gslpp::complex A_H_W(const double mH, const double cW2, const double MW, const double MZ) const;
@@ -758,7 +784,7 @@ public:
     void computeWFRcombinations();
 
     ////////////////////////////////////////////////////////////////////////////
-    void updateCache();
+    double updateCache();
 
     /**
      * @brief SM branching ratio of @f$h\to b \bar b@f$.
@@ -1025,6 +1051,10 @@ public:
     double R_pp_H_gaga_ATLAS;
     double THoEX_ggF_H_gaga_CMS;
     double R_ggF_H_gaga_CMS;
+    double LIMIT_ggF_H_gaga_CMS;
+    double LIMEST_ggF_H_gaga_CMS;
+    double DEVIATION_ggF_H_gaga_CMS;
+    double BANDSIZE_ggF_H_gaga_CMS;
     double THoEX_mu_pp_H_VV_CMS;
     double R_mu_pp_H_VV_CMS;
     double THoEX_ggF_H_WW_ATLAS;
@@ -1068,6 +1098,10 @@ public:
      */
     double pp_A_gaga_TH;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma \to \ell \ell \gamma)@f$
+     */
     double pp_A_Zga_llga_TH;
 
     /**
@@ -1223,12 +1257,19 @@ private:
     double bma;
     double tanb;
     double m12_2;
+    double BDtaunu_SM;
+    double BDtaunu_A;
+    double BDtaunu_B;
+    double BDstartaunu_SM;
+    double BDstartaunu_A;
+    double BDstartaunu_B;
+    double mHl;
+    double mHl2;
     double mHh2;
     double mA2;
     double mHp2;
     double MW;
     double cW2;
-    double mHl;
     double vev;
     double Ale;
     double Als;
@@ -1407,6 +1448,8 @@ private:
     mutable double ip_ex_bbF_phi_tautau_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_phi_gaga_CMS_cache[2][CacheSize];
     mutable double ip_ex_ggF_phi_gaga_CMS_cache_e[2][CacheSize];
+            mutable double ip_ex_ggF_phi_gaga_CMS_cache_ep2[2][CacheSize];
+            mutable double ip_ex_ggF_phi_gaga_CMS_cache_em2[2][CacheSize];
     mutable double ip_ex_pp_A_Zga_llga_CMS_cache[2][CacheSize];
     mutable double ip_ex_pp_A_Zga_llga_CMS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_H_hh_bbtautau_CMS_cache[2][CacheSize];

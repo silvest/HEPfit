@@ -24,9 +24,9 @@ int main(int argc, char** argv)
 
     /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
-    MPI::Init();
-    int rank = MPI::COMM_WORLD.Get_rank();
-    MPI::Status status;
+    MPI_Init(&argc, &argv);
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
     /* In our MPI implementation the process with rank 0 is the master. */
     int rank = 0;
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
 
     /* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
-        MPI::Finalize();
+        MPI_Finalize();
 #endif
         
         return EXIT_SUCCESS;

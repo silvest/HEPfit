@@ -205,6 +205,7 @@ double BR_MVll::computeThValue()
     
     switch(vectorM){
             case StandardModel::K_star:
+            case StandardModel::K_star_P:
                 return computeGammaPrime(q_min, q_max, lep)/SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getwidth() / ( q_max - q_min );
                 break;
             case StandardModel::PHI:
@@ -365,8 +366,8 @@ double M_1Prime::computeThValue()
 {
     double q_min = getBinMin();
     
-    return ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_p(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_m(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_p(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_m(q_min).abs2() )/
-            ( 2.*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_p(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_m(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_p(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_m(q_min).abs2() ) );
+    return ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_p(q_min, 0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_m(q_min, 0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_p(q_min, 0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_m(q_min, 0).abs2() )/
+            ( 2.*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_p(q_min, 0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_m(q_min, 0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_p(q_min, 0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_m(q_min, 0).abs2() ) );
 }
 
 
@@ -382,8 +383,8 @@ double M_2Prime::computeThValue()
 {
     double q_min = getBinMin();
     
-    return ( q_min/(2.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getMlep()*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getMlep())*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min).abs2() ) + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min).abs2() )/
-            ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min).abs2() );  
+    return ( q_min/(2.*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getMlep()*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getMlep())*( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min, 0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min, 0).abs2() ) + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min, 0).abs2() - SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min, 0).abs2() )/
+            ( SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V_0(q_min, 0).abs2() + SM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A_0(q_min, 0).abs2() );  
 }
 
 
@@ -746,32 +747,6 @@ double h_m::computeThValue()
     else throw std::runtime_error("MVllObservables::h_m: type can only be 1:real, 2:imaginary, 3:absolute and 4:argument");
 }
 
-hp0_hm0::hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
-: ThObservable(SM_i)
-{
-   lep = lep_i;
-   meson = meson_i;
-   vectorM = vector_i;
-}
-
-double hp0_hm0::computeThValue()
-{
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->gethp0_hm0_abs();
-}
-
-hm0_h00::hm0_h00(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
-: ThObservable(SM_i)
-{
-   lep = lep_i;
-   meson = meson_i;
-   vectorM = vector_i;
-}
-
-double hm0_h00::computeThValue()
-{
-    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->gethm0_h00_abs();
-}
-
 /***********************************************************************************************************************************
 FUNCTIONAL
 ***********************************************************************************************************************************/
@@ -1131,4 +1106,97 @@ double P_relation_exactf::computeThValue()
     double delta_4 = 1. - k1*k1;
 
     return 1./2./k1*((P4p*P5p + delta_1) + 1./beta *sqrt(std::abs((-1. + P1 + P4p*P4p)*(-1. - P1 + beta*beta*P5p*P5p) + delta_2 + delta_3*P1 + delta_4*P1*P1))) - P2;
+}
+
+QCDfC9_1f::QCDfC9_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDfC9_1f::computeThValue() 
+{
+    double q2 = getBinMin();
+    double cutoff = getBinMax();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDfC9_1(q2, cutoff);
+}
+
+QCDfC9_2f::QCDfC9_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDfC9_2f::computeThValue() 
+{
+    double q2 = getBinMin();
+    double cutoff = getBinMax();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDfC9_2(q2, cutoff);
+}
+
+QCDfC9_3f::QCDfC9_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDfC9_3f::computeThValue() 
+{
+    double q2 = getBinMin();
+    double cutoff = getBinMax();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDfC9_3(q2, cutoff);
+}
+
+QCDfC9p_1f::QCDfC9p_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDfC9p_1f::computeThValue() 
+{
+    double cutoff = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDfC9p_1(cutoff);
+}
+
+QCDfC9p_2f::QCDfC9p_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDfC9p_2f::computeThValue() 
+{
+    double cutoff = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDfC9p_2(cutoff);
+}
+
+QCDfC9p_3f::QCDfC9p_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) 
+: ThObservable(SM_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double QCDfC9p_3f::computeThValue() 
+{
+    double cutoff = getBinMin();
+
+    return SM.getMyFlavour()->getMVll(meson, vectorM, lep)->getQCDfC9p_3(cutoff);
 }

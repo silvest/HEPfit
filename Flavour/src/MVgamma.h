@@ -144,9 +144,9 @@ public:
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
     gslpp::complex C_7p;/**<Wilson coeffients @f$C_7'@f$*/
-    gslpp::complex C_2;/**<Wilson coeffients @f$C_2(mu_b)@f$*/
+    gslpp::complex C_2_bar;/**<Wilson coeffients @f$C_2(mu_b)@f$*/
     gslpp::complex C_8;/**<Wilson coeffients @f$C_8(mu_b)@f$*/
-    gslpp::complex C_2h;/**<Wilson coeffients @f$C_2(mu_h)@f$*/
+    gslpp::complex C_2h_bar;/**<Wilson coeffients @f$C_2(mu_h)@f$*/
     gslpp::complex C_8h;/**<Wilson coeffients @f$C_8(mu_h)@f$*/
     
     
@@ -423,6 +423,249 @@ public:
      * @param[in] vector_i final vector meson of the decay
      */
     DC7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    /**
+    * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^2@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+/**
+ * @class hp0_hm0
+ * @ingroup Flavour
+ * @brief A class for the absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in @f$B \to K^*@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in 
+ * @f$B \to K^*@f$
+ */
+class hp0_hm0 : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] typ_i observable type
+     */
+    hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    /**
+    * @brief The absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in @f$B \to K^*@f$.
+    * @return @f$h_+^{(0)}/h_-^{(0)}@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::lepton lep; /**< Final leptons type. */
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+/**
+ * @class AbsDC7_L
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^L@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^1@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^L = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_-| \,.
+ * @f]
+ */
+class AbsDC7_L : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    AbsDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    /**
+    * @brief The @f$\Delta C_7^L@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^L@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+
+
+/**
+ * @class AbsDC7_R
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^R@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^R = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_+| \,.
+ * @f]
+ */
+class AbsDC7_R : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    AbsDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    /**
+    * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^2@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+/**
+ * @class ReDC7_L
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^L@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^1@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^L = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_-| \,.
+ * @f]
+ */
+class ReDC7_L : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    ReDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    /**
+    * @brief The @f$\Delta C_7^L@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^L@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+
+
+/**
+ * @class ReDC7_R
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^R@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^R = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_+| \,.
+ * @f]
+ */
+class ReDC7_R : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    ReDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    /**
+    * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^2@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+/**
+ * @class ImDC7_L
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^L@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^1@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^L = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_-| \,.
+ * @f]
+ */
+class ImDC7_L : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    ImDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+
+    /**
+    * @brief The @f$\Delta C_7^L@f$ in @f$M \to V \gamma@f$.
+    * @return @f$\Delta C_7^L@f$
+    */
+    double computeThValue();
+
+private:
+    StandardModel::meson meson; /**< Initial meson type. */
+    StandardModel::meson vectorM; /**< Final vector meson type. */
+};
+
+
+
+/**
+ * @class ImDC7_R
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta C_7^R@f$ correction in @f$M \to V \gamma@f$ decay. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$ 
+ * due to the hadronic parameters  @f$h_{+,-}@f$, computed in the MVgamma class:
+ * @f[
+ * \Delta C_7^R = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_+| \,.
+ * @f]
+ */
+class ImDC7_R : public MVgamma{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     */
+    ImDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.

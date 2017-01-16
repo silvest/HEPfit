@@ -34,9 +34,9 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
     //noMC = noMC_i;
     
 #ifdef _MPI
-    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-    MPI_Comm_size(MPI_COMM_WORLD,&procnum);
-    MPI_Get_processor_name(processorName,&nameLen);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &procnum);
+    MPI_Get_processor_name(processorName, &nameLen);
 #else
     rank = 0;
     procnum = 1;
@@ -134,9 +134,9 @@ void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)
             }
             
 #ifdef _MPI
-                MPI::COMM_WORLD.Gather(sendbuff, buffersize, MPI::DOUBLE, buff[0], buffersize, MPI::DOUBLE, 0);
-                if (weight) MPI::COMM_WORLD.Gather(sendbuff_w, buffersize, MPI::DOUBLE, buff_w[0], buffersize, MPI::DOUBLE, 0);
-                MPI::COMM_WORLD.Allgather(sendbuff_int, 1, MPI::INT, buff_int[0], 1, MPI::INT);
+                MPI_Gather(sendbuff, buffersize, MPI_DOUBLE, buff[0], buffersize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                if (weight) MPI_Gather(sendbuff_w, buffersize, MPI_DOUBLE, buff_w[0], buffersize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                MPI_Allgather(sendbuff_int, 1, MPI_INT, buff_int[0], 1, MPI_INT, MPI_COMM_WORLD);
 #else
                 buff[0] = sendbuff;
                 buff_w[0] = sendbuff_w;

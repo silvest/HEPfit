@@ -46,8 +46,7 @@ DeltaS::DeltaS(const StandardModel& SM_i)
 
 double DeltaS::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
-    double mHl2=mHl*mHl;
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double mA2=myTHDM->getmA2();
     double mHp2=myTHDM->getmHp2();
@@ -85,8 +84,7 @@ DeltaT::DeltaT(const StandardModel& SM_i)
 
 double DeltaT::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
-    double mHl2=mHl*mHl;
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double mA2=myTHDM->getmA2();
     double mHp2=myTHDM->getmHp2();
@@ -124,8 +122,7 @@ DeltaU::DeltaU(const StandardModel& SM_i)
 
 double DeltaU::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
-    double mHl2=mHl*mHl;
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double mA2=myTHDM->getmA2();
     double mHp2=myTHDM->getmHp2();

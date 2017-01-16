@@ -8,6 +8,7 @@
 #ifndef THDMOBSERVABLES_H
 #define	THDMOBSERVABLES_H
 
+#include "BDtaunu.h"
 #include "bsgammaTHDM.h"
 #include "CPoddHiggs.h"
 #include "EWPO.h"
@@ -17,6 +18,7 @@
 #include "positivity.h"
 #include "Runner.h"
 #include "STU.h"
+#include "THDMgminus2.h"
 #include "THDMquantities.h"
 #include "THDMquantitiesatQ.h"
 #include "unitarity.h"

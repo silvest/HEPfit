@@ -36,7 +36,8 @@ MonteCarlo::MonteCarlo(
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
-    CalculateNormalization = false;
+    CalculateNormalization = "false";
+    NIterationNormalizationMC = 0;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
@@ -111,7 +112,7 @@ void MonteCarlo::Run(const int rank) {
     } else {
         checkrun = true;
     }
-
+    
     try {
 
         /* set model parameters */
@@ -180,16 +181,16 @@ void MonteCarlo::Run(const int rank) {
                 obsbuffsize += it1->getObs().size();
 
             while (true) {
-                MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                        recvbuff, buffsize, MPI::DOUBLE, 0);
+                MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
+                        recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
                 if (recvbuff[0] == 0.) { // do nothing and return ll
                     double ll = log(0.);
-                    MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0);
+                    MPI_Gather(&ll, 1, MPI_DOUBLE, sendbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == 1.) { //compute log likelihood
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
                     double ll = MCEngine.LogEval(pars);
-                    MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0);
+                    MPI_Gather(&ll, 1, MPI_DOUBLE, sendbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == 2.) { // compute observables
                     double sbuff[obsbuffsize];
                     std::map<std::string, double> DPars;
@@ -211,10 +212,10 @@ void MonteCarlo::Run(const int rank) {
                         for (std::vector<Observable>::iterator it = pino.begin(); it != pino.end(); ++it)
                             sbuff[k++] = it->computeTheoryValue();
                     }
-                    MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0);
+                    MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
                     double sbuff[obsbuffsize];
-                    MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0);
+                    MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == -1.)
                     break;
                 else {
@@ -283,9 +284,10 @@ void MonteCarlo::Run(const int rank) {
                     }
                 } else if (beg->compare("CalculateNormalization") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        CalculateNormalization = true;
-                    }
+                    CalculateNormalization = *beg;
+                } else if (beg->compare("NIterationNormalizationMC") == 0) {
+                    ++beg;
+                    NIterationNormalizationMC = atoi((*beg).c_str());
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
@@ -337,6 +339,9 @@ void MonteCarlo::Run(const int rank) {
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
 
+            if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
+                throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
+            
             /* Open root file for storing data. */
             if (writechains) {
                 MCEngine.WriteMarkovChain(OutFile, "RECREATE", true, false); /*Run: true, PreRun: false*/
@@ -370,7 +375,6 @@ void MonteCarlo::Run(const int rank) {
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
-            if (CalculateNormalization) normalization = MCEngine.computeNormalization();
 
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
@@ -412,7 +416,6 @@ void MonteCarlo::Run(const int rank) {
             // print statistics for the theory values of the observables into a text file
             std::ofstream outStatLog;
             outStatLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::out);
-            if (CalculateNormalization) outStatLog << "Normalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
             outStatLog << MCEngine.computeStatistics();
             outStatLog.close();
             
@@ -439,6 +442,27 @@ void MonteCarlo::Run(const int rank) {
             MCEngine.PrintSummary();
             BCLog::CloseLog();
             
+            // Calculate and print normalization        
+            if (CalculateNormalization.compare("false") != 0) {
+                std::ofstream outStatLog;
+                outStatLog.open((ObsDirName + "/Statistics" + JobTag + ".txt").c_str(), std::ios::app);
+                
+                if (CalculateNormalization.compare("LME") == 0) {
+                    // Make sure mode is found by MINUIT for normalization computation.
+                    if (!FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
+                    normalization = MCEngine.computeNormalizationLME();
+                } 
+                else if (CalculateNormalization.compare("MC") == 0) {
+                    normalization = MCEngine.computeNormalizationMC(NIterationNormalizationMC);
+                }
+                else 
+                    throw std::runtime_error(("\n ERROR: Normalization method" + CalculateNormalization + " not implemented.\n").c_str());
+                
+                outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
+                outStatLog.close();
+            }
+            
+            
 #ifdef _MPI
             double ** sendbuff = new double *[MCEngine.procnum];
             sendbuff[0] = new double[MCEngine.procnum * buffsize];
@@ -446,8 +470,8 @@ void MonteCarlo::Run(const int rank) {
                 sendbuff[il] = sendbuff[il - 1] + buffsize;
                 sendbuff[il][0] = -1.; //Exit command
             }
-            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                    recvbuff, buffsize, MPI::DOUBLE, 0);
+            MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
+                    recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
             delete sendbuff[0];
             delete [] sendbuff;
 #endif

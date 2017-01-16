@@ -34,7 +34,7 @@ positivity1::positivity1(const StandardModel& SM_i)
 
 double positivity1::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mHh2=myTHDM->getmHh2();
     double mHp2=myTHDM->getmHp2();
     double sina=myTHDM->getsina();
@@ -46,15 +46,11 @@ double positivity1::computeThValue()
     double lambda1=mylambda1->computeThValue();
     double lambda2=mylambda2->computeThValue();
 
-//    std::cout<<(2.0*mHp2*cosb*sinb -m12_2 +(mHh2-mHl*mHl)*cosa*sina
-//                       +sqrt(std::fabs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
-//                             *(mHh2*cosa*cosa +mHl*mHl*sina*sina -m12_2*tanb))))<<std::endl;
-    
     if (lambda1>0 && lambda2>0)
     {
-        return 0.0001*(2.0*mHp2*cosb*sinb -m12_2 +(mHh2-mHl*mHl)*cosa*sina
-                       +sqrt(fabs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
-                             *(mHh2*cosa*cosa +mHl*mHl*sina*sina -m12_2*tanb))));
+        return 0.0001*(2.0*mHp2*cosb*sinb -m12_2 +(mHh2-mHl2)*cosa*sina
+                       +sqrt(fabs((mHl2*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
+                             *(mHh2*cosa*cosa +mHl2*sina*sina -m12_2*tanb))));
     }
     else
     {
@@ -68,7 +64,7 @@ positivity2::positivity2(const StandardModel& SM_i)
 
 double positivity2::computeThValue()
 {
-    double mHl=myTHDM->getMHl();
+    double mHl2=myTHDM->getmHl2();
     double mA2=myTHDM->getmA2();
     double mHh2=myTHDM->getmHh2();
     double sina=myTHDM->getsina();
@@ -80,18 +76,12 @@ double positivity2::computeThValue()
     double lambda1=mylambda1->computeThValue();
     double lambda2=mylambda2->computeThValue();
 
-//    std::cout<<(mA2 -std::fabs(mA2-m12_2/cosb/sinb)
-//                       +((mHh2-mHl*mHl)*cosa*sina
-//                         +sqrt(std::fabs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
-//                               *(mHh2*cosa*cosa +mHl*mHl*sina*sina - m12_2*tanb))))
-//                        /cosb/sinb)<<std::endl;
-
     if (lambda1>0 && lambda2>0)
     {
         return 0.0001*(mA2 -fabs(mA2-m12_2/cosb/sinb)
-                       +((mHh2-mHl*mHl)*cosa*sina
-                         +sqrt(fabs((mHl*mHl*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
-                               *(mHh2*cosa*cosa +mHl*mHl*sina*sina - m12_2*tanb))))
+                       +((mHh2-mHl2)*cosa*sina
+                         +sqrt(fabs((mHl2*cosa*cosa +mHh2*sina*sina -m12_2/tanb)
+                               *(mHh2*cosa*cosa +mHl2*sina*sina - m12_2*tanb))))
                         /cosb/sinb);
     }
     else

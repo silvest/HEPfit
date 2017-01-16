@@ -21,10 +21,14 @@ FeynHiggsWrapper::FeynHiggsWrapper(SUSY& SUSY_in)
                0, // DRbar
                3, // full 3x3 neutral Higgs mixing in cMSSM (complex MSSM)
                4, // full determination of the propagator matrices’s poles with UHiggs at q^2=0
-               2, // two loops where available
-               1, // running top mass is used in the 1-/2-loop corrections
+               2, // include various two-loop contributions
+               2, // NLL resummation (for large MCha,MNeu,MGlu,MSUSY)
+               1, // running top mass is used in the 1-/2-loop corrections (SM MSbar 2L)
                1, // resum tan beta contributions
-               3  // interpolation in phases for missing 2-loop corrections
+               3  // interpolation in phases for missing 2-loop corrections.
+                  // The cMSSM a_s a_t corrections are combined with the remaining
+                  // corrections, whose complex phases are interpolated in
+                  // At, Ab, M_3, MUE
               );
     if (err != 0) {
         std::stringstream ss;

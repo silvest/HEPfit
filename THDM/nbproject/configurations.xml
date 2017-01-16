@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/BDtaunu.h</itemPath>
       <itemPath>src/CPoddHiggs.h</itemPath>
       <itemPath>src/EWPO.h</itemPath>
       <itemPath>src/Runner.h</itemPath>
@@ -12,12 +13,14 @@
       <itemPath>src/THDMMatching.h</itemPath>
       <itemPath>src/THDMObservables.h</itemPath>
       <itemPath>src/THDMcache.h</itemPath>
+      <itemPath>src/THDMgminus2.h</itemPath>
       <itemPath>src/THDMquantities.h</itemPath>
       <itemPath>src/THDMquantitiesatQ.h</itemPath>
       <itemPath>src/bsgammaTHDM.h</itemPath>
       <itemPath>src/globalminimum.h</itemPath>
       <itemPath>src/heavyHiggs.h</itemPath>
       <itemPath>src/lightHiggs.h</itemPath>
+      <itemPath>src/log_cs_ggH_13.h</itemPath>
       <itemPath>src/positivity.h</itemPath>
       <itemPath>src/unitarity.h</itemPath>
     </logicalFolder>
@@ -28,6 +31,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/BDtaunu.cpp</itemPath>
       <itemPath>src/CPoddHiggs.cpp</itemPath>
       <itemPath>src/EWPO.cpp</itemPath>
       <itemPath>src/Runner.cpp</itemPath>
@@ -35,6 +39,7 @@
       <itemPath>src/THDM.cpp</itemPath>
       <itemPath>src/THDMMatching.cpp</itemPath>
       <itemPath>src/THDMcache.cpp</itemPath>
+      <itemPath>src/THDMgminus2.cpp</itemPath>
       <itemPath>src/THDMquantities.cpp</itemPath>
       <itemPath>src/THDMquantitiesatQ.cpp</itemPath>
       <itemPath>src/bsgammaTHDM.cpp</itemPath>
@@ -71,12 +76,18 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -107,6 +118,10 @@
       </item>
       <item path="src/THDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
@@ -130,6 +145,8 @@
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lightHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/log_cs_ggH_13.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -169,6 +186,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -199,6 +220,10 @@
       </item>
       <item path="src/THDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
@@ -222,6 +247,8 @@
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lightHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/log_cs_ggH_13.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -261,6 +288,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/BDtaunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BDtaunu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/CPoddHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CPoddHiggs.h" ex="false" tool="3" flavor2="0">
@@ -291,6 +322,10 @@
       </item>
       <item path="src/THDMcache.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMgminus2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMgminus2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMquantities.h" ex="false" tool="3" flavor2="0">
@@ -314,6 +349,8 @@
       <item path="src/lightHiggs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/lightHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/log_cs_ggH_13.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/positivity.cpp" ex="false" tool="1" flavor2="0">
       </item>

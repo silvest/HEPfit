@@ -24,18 +24,17 @@ double EWPO::dDelta_r()
     double Ale=myTHDM->getAle();
     double MZ=myTHDM->getMz();
     double MZ2=MZ*MZ;
-    double MW=myTHDM->Mw_tree();
-    double MW2=MW*MW;
+//    double MW=myTHDM->Mw_tree();
+//    double MW2=MW*MW;
     double s02=myTHDM->s02();
     double c02=myTHDM->c02();
-    double bma=myTHDM->getbma();
-    double CBA2=cos(bma)*cos(bma);
-    double SBA2=sin(bma)*sin(bma);
-    double mHl=myTHDM->getMHl();
-    double mHl2=mHl*mHl;
-    double mHh2=myTHDM->getmHh2();
-    double mA2=myTHDM->getmA2();
-    double mHp2=myTHDM->getmHp2();
+//    double bma=myTHDM->getbma();
+//    double CBA2=cos(bma)*cos(bma);
+//    double SBA2=sin(bma)*sin(bma);
+//    double mHl2=myTHDM->getmHl2();
+//    double mHh2=myTHDM->getmHh2();
+//    double mA2=myTHDM->getmA2();
+//    double mHp2=myTHDM->getmHp2();
 
     double prefactor=Ale/(4.*c02*MZ2*M_PI*s02*s02);
 
@@ -134,7 +133,7 @@ double EWPO::dDelta_r()
 
 void EWPO::computeTHDMcouplings()
 {
-//    double mHl=myTHDM->getMHl();
+//    double mHl2=myTHDM->getmHl2();
 //    double mA=myTHDM->getMA();
 //    double mHh=myTHDM->getMHh();
 //    double mHp=myTHDM->getMHp();
@@ -248,8 +247,7 @@ double AFBc0THDM::computeThValue()
     computeTHDMcouplings();
     double DeltaAFBc0=0.0;
     double AFBc0SM=myTHDM->AFB(SM.getQuarks(SM.CHARM));
-    double AFBc0THDM = AFBc0SM+DeltaAFBc0;
-    return 0.0;
+    return AFBc0SM+DeltaAFBc0;
 }
 
 AFBb0THDM::AFBb0THDM(const StandardModel& SM_i)
@@ -261,8 +259,7 @@ double AFBb0THDM::computeThValue()
     computeTHDMcouplings();
     double DeltaAFBb0=0.0;
     double AFBb0SM=myTHDM->AFB(SM.getQuarks(SM.BOTTOM));
-    double AFBb0THDM = AFBb0SM+DeltaAFBb0;
-    return 0.0;
+    return AFBb0SM+DeltaAFBb0;
 }
 
 GammaZTHDM::GammaZTHDM(const StandardModel& SM_i)
@@ -274,8 +271,7 @@ double GammaZTHDM::computeThValue()
     computeTHDMcouplings();
     double DeltaGammaZ=0.0;
     double GammaZSM=myTHDM->Gamma_Z();
-    double GammaZTHDM = GammaZSM+DeltaGammaZ;
-    return 0.0;
+    return GammaZSM+DeltaGammaZ;
 }
 
 Rl0THDM::Rl0THDM(const StandardModel& SM_i)
@@ -287,8 +283,7 @@ double Rl0THDM::computeThValue()
     computeTHDMcouplings();
     double DeltaRl0=0.0;
     double Rl0SM=myTHDM->R0_f(SM.getLeptons(SM.ELECTRON));
-    double Rl0THDM = Rl0SM+DeltaRl0;
-    return 0.0;
+    return Rl0SM+DeltaRl0;
 }
 
 Rc0THDM::Rc0THDM(const StandardModel& SM_i)
@@ -300,8 +295,7 @@ double Rc0THDM::computeThValue()
     computeTHDMcouplings();
     double DeltaRc0=0.0;
     double Rc0SM=myTHDM->R0_f(SM.getQuarks(SM.CHARM));
-    double Rc0THDM = Rc0SM+DeltaRc0;
-    return 0.0;
+    return Rc0SM+DeltaRc0;
 }
 
 Rb0THDM::Rb0THDM(const StandardModel& SM_i)
@@ -313,8 +307,7 @@ double Rb0THDM::computeThValue()
     computeTHDMcouplings();
     double DeltaRb0=0.0;
     double Rb0SM=myTHDM->R0_f(SM.getQuarks(SM.BOTTOM));
-    double Rb0THDM = Rb0SM+DeltaRb0;
-    return 0.0;
+    return Rb0SM+DeltaRb0;
 }
 
 SigmahadTHDM::SigmahadTHDM(const StandardModel& SM_i)
@@ -326,8 +319,7 @@ double SigmahadTHDM::computeThValue()
     computeTHDMcouplings();
     double DeltaSigmahad=0.0;
     double SigmahadSM=myTHDM->sigma0_had();
-    double SigmahadTHDM = SigmahadSM+DeltaSigmahad;
-    return 0.0;
+    return SigmahadSM+DeltaSigmahad;
 }
 
 GammaWTHDM::GammaWTHDM(const StandardModel& SM_i)
@@ -339,8 +331,7 @@ double GammaWTHDM::computeThValue()
     computeTHDMcouplings();
     double DeltaGammaW=0.0;
     double GammaWSM=myTHDM->GammaW();
-    double GammaWTHDM = GammaWSM+DeltaGammaW;
-    return 0.0;
+    return GammaWSM+DeltaGammaW;
 }
 
 sinthetaeffl_2THDM::sinthetaeffl_2THDM(const StandardModel& SM_i)
@@ -352,8 +343,7 @@ double sinthetaeffl_2THDM::computeThValue()
     computeTHDMcouplings();
     double Deltasinthetaeffl_2=0.0;
     double sinthetaeffl_2SM=myTHDM->sin2thetaEff(SM.getLeptons(SM.ELECTRON));
-    double sinthetaeffl_2THDM = sinthetaeffl_2SM+Deltasinthetaeffl_2;
-    return 0.0;
+    return sinthetaeffl_2SM+Deltasinthetaeffl_2;
 }
 
 MWTHDM::MWTHDM(const StandardModel& SM_i)

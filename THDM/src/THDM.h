@@ -27,7 +27,7 @@ class THDMcache; //forward reference to THDMcache class
  *
  * The model parameters of %THDM are summarized below.
  * The current implementation only allows for a Two-Higgs-Doublet model with a softly broken @f$Z_2@f$ symmetry and without CP violation in the Higgs potential.
- * The scalar 125 GeV resonance is assumed to be the lighter CP-even Higgs state of the model.
+ * The scalar 125 GeV resonance is assumed to be the one of the CP-even Higgs states of the model; the other is attributed to mHh in the THDM configuration.
  * 
  * <table class="model">
  * <tr>
@@ -48,7 +48,7 @@ class THDMcache; //forward reference to THDMcache class
  * <tr>
  *   <td class="mod_name">%mHh2</td>
  *   <td class="mod_symb">@f$m_H^2@f$</td>
- *   <td class="mod_desc">The mass square of the heavier CP-even Higgs state.</td>
+ *   <td class="mod_desc">The mass square of the "non-125 GeV" CP-even Higgs state.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%mA2</td>
@@ -103,6 +103,11 @@ class THDMcache; //forward reference to THDMcache class
  *   <td class="mod_desc">This flag determines the type of @f$Z_2@f$ symmetry.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%RGEorder</td>
+ *   <td class="mod_valu">LO / approxNLO / NLO</td>
+ *   <td class="mod_desc">This flag determines the order in perturbation theory of the renormalization group equations.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%wavefunctionrenormalization</td>
  *   <td class="mod_valu">true / false</td>
  *   <td class="mod_desc">Whether to use wavefunction renormalization for NLO unitarity constraints.</td>
@@ -113,7 +118,7 @@ class THDMcache; //forward reference to THDMcache class
 class THDM: public StandardModel {
 public:
 
-    static const int NTHDMvars = 10;
+    static const int NTHDMvars = 16;
     static const std::string THDMvars[NTHDMvars];
     
     /**
@@ -196,7 +201,7 @@ public:
 
     /**
      *
-     * @return THDM model type
+     * @return Flag to switch on wavefunction renormalization for the NLO unitarity conditions
      */
     bool getWFRflag() const {
         return flag_wfr;
@@ -268,23 +273,55 @@ public:
 
     /**
      *
-     * @return mass squared heavy neutral scalar Higgs
+     * @return squared mass of the lighter neutral scalar Higgs
+     */
+    double getmHl2() const {
+        if(mHh2 < mHl2) {
+            return mHh2;
+        }
+        else
+        {
+            return mHl2;
+        }
+    }
+
+    /**
+     *
+     * @return squared mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh2() const {
-        return mHh2;
+        if(mHh2 < 0.) {
+            return 0.;
+        }
+        else if(mHh2 < mHl2) {
+            return mHl2;
+        }
+        else
+        {
+            return mHh2;
+        }
     }
 
     /**
      *
-     * @return mass heavy neutral scalar Higgs
+     * @return mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh() const {
-        return sqrt(mHh2);
+        if(mHh2 < 0.) {
+            return 0.;
+        }
+        else if(mHh2 < mHl2) {
+            return sqrt(mHl2);
+        }
+        else
+        {
+            return sqrt(mHh2);
+        }
     }
 
     /**
      *
-     * @return mass squared pseudoscalar Higgs A
+     * @return squared mass of the pseudoscalar Higgs A
      */
     double getmA2() const {
         return mA2;
@@ -292,7 +329,7 @@ public:
 
     /**
      *
-     * @return mass pseudoscalar Higgs A
+     * @return mass of the pseudoscalar Higgs A
      */
     double getmA() const {
     if(mA2 < 0.) {
@@ -303,7 +340,7 @@ public:
 
     /**
      *
-     * @return charged Higgs mass squared
+     * @return squared charged Higgs mass
      */
     double getmHp2() const {
         return mHp2;
@@ -326,6 +363,54 @@ public:
      */
     double getm12_2() const {
         return m12_2;
+    }
+
+    /**
+     *
+     * @return BDtaunu SM expectation
+     */
+    double getBDtaunu_SM() const {
+        return BDtaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient A
+     */
+    double getBDtaunu_A() const {
+        return BDtaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDtaunu_B() const {
+        return BDtaunu_B;
+    }
+
+    /**
+     *
+     * @return BDstartaunu SM expectation
+     */
+    double getBDstartaunu_SM() const {
+        return BDstartaunu_SM;
+    }
+
+    /**
+     *
+     * @return BDstartaunu coefficient A
+     */
+    double getBDstartaunu_A() const {
+        return BDstartaunu_A;
+    }
+
+    /**
+     *
+     * @return BDtaunu coefficient B
+     */
+    double getBDstartaunu_B() const {
+        return BDstartaunu_B;
     }
 
     /**
@@ -403,6 +488,8 @@ private:
     THDMcache* myTHDMcache;
 
     double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps, NLOuniscale;
+    double mHl2;
+    double BDtaunu_SM, BDtaunu_A, BDtaunu_B, BDstartaunu_SM, BDstartaunu_A, BDstartaunu_B;
     std::string flag_model, flag_RGEorder;
     bool flag_wfr;
 };

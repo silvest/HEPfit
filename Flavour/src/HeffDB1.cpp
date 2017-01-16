@@ -17,12 +17,12 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         coeffsmumu (8, NDR, NNLO, NLO_ewt4), coeffdmumu (8, NDR, NNLO, NLO_ewt4),
         coeffbtaunu (3, NDR, LO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
-        coeffsgamma(8,NDR, NLO),
-        coeffprimesgamma(8,NDR, NLO),
+        coeffsgamma(8,NDR, NNLO),
+        coeffprimesgamma(8,NDR, NNLO),
         coeffBMll (13,NDR, NLO),
         coeffprimeBMll (13, NDR, NLO),
         evolDF1BMll(13, NDR, NLO, SM),
-        evolDB1bsg(8, NDR, NLO, SM),
+        evolDB1bsg(8, NDR, NNLO, SM),
         u(10, NDR, NLO, NLO_ew, SM),
         evolbs(8, NDR, NNLO, NLO_ewt4, SM), evolbd(8, NDR, NNLO, NLO_ewt4, SM),
         nlep (12, 0.), nlep2(10, 0.),        
@@ -769,7 +769,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, schemes s
         }
         if (check == 1) return coeffsgamma.getCoeff();
     } 
-    
+
     Bsgamma_mu_cache = mu;
     Bsgamma_scheme_cache = scheme;
     Bsgamma_WC_cache.clear();

@@ -23,9 +23,10 @@ int main(int argc, char** argv)
 {
 
 #ifdef _MPI
-    MPI::Init();
-    int rank = MPI::COMM_WORLD.Get_rank();
-    MPI::Status status;
+    MPI_Init(&argc, &argv);
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    //MPI_Status status;
 #else
     int rank = 0;
 #endif
@@ -155,7 +156,7 @@ int main(int argc, char** argv)
         }
         
 #ifdef _MPI
-        MPI::Finalize();
+        MPI_Finalize();
 #endif
         
         return EXIT_SUCCESS;

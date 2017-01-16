@@ -40,6 +40,8 @@ public:
     {
         myMVll_BdKstarmu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
         myMVll_BdKstarel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
+        myMVll_BpKstarmu = new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
+        myMVll_BpKstarel = new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::ELECTRON);
         myMVll_Bsphimu = new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
         myMVll_Bsphiel = new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
         myMPll_BpKmu = new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);
@@ -47,6 +49,8 @@ public:
         
         update_BdKstarmu = true;
         update_BdKstarel = true;
+        update_BpKstarmu = true;
+        update_BpKstarel = true;
         update_Bsphimu = true;
         update_Bsphiel = true;
         update_BpKmu = true;
@@ -222,6 +226,8 @@ public:
     MVll* getMVll(StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) {
         if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::MU) return myMVll_BdKstarmu;
         if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return myMVll_BdKstarel;
+        if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::MU) return myMVll_BpKstarmu;
+        if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) return myMVll_BpKstarel;
         if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::MU) return myMVll_Bsphimu;
         if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return myMVll_Bsphiel;
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
@@ -251,6 +257,8 @@ public:
     void setUpdateFlag(StandardModel::meson meson_i, StandardModel::meson meson_j, StandardModel::lepton lep_i, bool updated_i){
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) {update_BdKstarmu = updated_i; return;}
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) {update_BdKstarel = updated_i; return;}
+        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) {update_BpKstarmu = updated_i; return;}
+        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) {update_BpKstarel = updated_i; return;}
         if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) {update_Bsphimu = updated_i; return;}
         if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) {update_Bsphiel = updated_i; return;}
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) {update_BpKmu = updated_i; return;}
@@ -268,6 +276,8 @@ public:
     bool getUpdateFlag(StandardModel::meson meson_i, StandardModel::meson meson_j, StandardModel::lepton lep_i){
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) return update_BdKstarmu;
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return update_BdKstarel;
+        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) return update_BpKstarmu;
+        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) return update_BpKstarel;
         if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) return update_Bsphimu;
         if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return update_Bsphiel;
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) return update_BpKmu;
@@ -282,6 +292,8 @@ public:
     void setSMupdated(){
         update_BdKstarmu = true;
         update_BdKstarel = true;
+        update_BpKstarmu = true;
+        update_BpKstarel = true;
         update_Bsphimu = true;
         update_Bsphiel = true;
         update_BpKmu = true;
@@ -295,12 +307,16 @@ private:
     HeffDS1 HDS1;///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
     MVll* myMVll_BdKstarmu;///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
     MVll* myMVll_BdKstarel;///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
+    MVll* myMVll_BpKstarmu;///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
+    MVll* myMVll_BpKstarel;///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
     MVll* myMVll_Bsphimu;///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
     MVll* myMVll_Bsphiel;///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
     MPll* myMPll_BpKmu;///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
     MPll* myMPll_BpKel;///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
     bool update_BdKstarmu;///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
     bool update_BdKstarel;///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
+    bool update_BpKstarmu;///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.
+    bool update_BpKstarel;///< A flag used for caching of \f$ B_d \to K^{*\pm} \e^+ \e^- \f$.
     bool update_Bsphimu;///< A flag used for caching of \f$ B_s \to \phi \mu^+ \mu^- \f$.
     bool update_Bsphiel;///< A flag used for caching of \f$ B_s \to \phi \e^+ \e^- \f$.
     bool update_BpKmu;///< A flag used for caching of \f$ B^+ \to K^+ \mu^+ \mu^- \f$.

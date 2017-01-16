@@ -86,7 +86,7 @@ void MVll::updateParameters()
 {
     if (!mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)) return;
 
-
+    
     GF = mySM.getGF();
     ale = mySM.getAle();
     Mlep = mySM.getLeptons(lep).getMass();
@@ -138,7 +138,51 @@ void MVll::updateParameters()
             a_2T23 = mySM.getOptionalParameter("a_2T23");
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
+            spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
+            
             fperp = mySM.getFKstarp();
+
+            b = 1;
+            break;
+        case StandardModel::K_star_P:
+            a_0V = mySM.getOptionalParameter("a_0V");
+            a_1V = mySM.getOptionalParameter("a_1V");
+            a_2V = mySM.getOptionalParameter("a_2V");
+            MRV_2 = mySM.getOptionalParameter("MRV") * mySM.getOptionalParameter("MRV");
+
+            a_0A0 = mySM.getOptionalParameter("a_0A0");
+            a_1A0 = mySM.getOptionalParameter("a_1A0");
+            a_2A0 = mySM.getOptionalParameter("a_2A0");
+            MRA0_2 = mySM.getOptionalParameter("MRA0") * mySM.getOptionalParameter("MRA0");
+
+            a_0A1 = mySM.getOptionalParameter("a_0A1");
+            a_1A1 = mySM.getOptionalParameter("a_1A1");
+            a_2A1 = mySM.getOptionalParameter("a_2A1");
+            MRA1_2 = mySM.getOptionalParameter("MRA1") * mySM.getOptionalParameter("MRA1");
+
+            a_0A12 = a_0A0 * (MM*MM - MV*MV) / (8. * MM*MV);
+            a_1A12 = mySM.getOptionalParameter("a_1A12");
+            a_2A12 = mySM.getOptionalParameter("a_2A12");
+            MRA12_2 = mySM.getOptionalParameter("MRA12") * mySM.getOptionalParameter("MRA12");
+
+            a_0T1 = mySM.getOptionalParameter("a_0T1");
+            a_1T1 = mySM.getOptionalParameter("a_1T1");
+            a_2T1 = mySM.getOptionalParameter("a_2T1");
+            MRT1_2 = mySM.getOptionalParameter("MRT1") * mySM.getOptionalParameter("MRT1");
+
+            a_0T2 = a_0T1;
+            a_1T2 = mySM.getOptionalParameter("a_1T2");
+            a_2T2 = mySM.getOptionalParameter("a_2T2");
+            MRT2_2 = mySM.getOptionalParameter("MRT2") * mySM.getOptionalParameter("MRT2");
+
+            a_0T23 = mySM.getOptionalParameter("a_0T23");
+            a_1T23 = mySM.getOptionalParameter("a_1T23");
+            a_2T23 = mySM.getOptionalParameter("a_2T23");
+            MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
+            
+            spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
+            
+            fperp = mySM.getFKstarPp();
 
             b = 1;
             break;
@@ -178,6 +222,8 @@ void MVll::updateParameters()
             a_2T23 = mySM.getOptionalParameter("a_2T23phi");
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
+            spectator_charge = mySM.getQuarks(QCD::STRANGE).getCharge();
+                    
             fperp = mySM.getFphip();
             
             ys = mySM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
@@ -330,7 +376,8 @@ void MVll::updateParameters()
     F27_L1_2 = (-0.14169 - 0.035553 * gslpp::complex::i());
     F27_L1_3 = (-0.13592 + 0.093 * gslpp::complex::i()); 
 
-    NN = ((4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI)).abs2();
+    NN = - (4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI);
+    NN_conjugate = - (4. * GF * MM * ale * lambda_t.conjugate()) / (sqrt(2.)*4. * M_PI);
     
     if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)) {
         switch (lep) {
@@ -882,7 +929,7 @@ gslpp::complex MVll::Tparplus(double u, double q2)
 gslpp::complex MVll::Tparminus(double u, double q2) 
 {
     double ubar = 1. - u;
-    return mySM.getQuarks(QCD::DOWN).getCharge()*(8. * C_8Lh / (ubar + u * q2 / MM2)
+    return spectator_charge*(8. * C_8Lh / (ubar + u * q2 / MM2)
             + sixMMoMb * H_c(ubar * MM2 + u * q2,mu_h*mu_h) * C_2Lh_bar);
 }
 //////////////////////////////////////////////////////////////////
@@ -1100,7 +1147,7 @@ void MVll::fit_DeltaC9_p_mumu()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.4) {
+    for (double i=SWITCH; i<SWITCH; i+=0.4) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p_mumu.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1112,8 +1159,8 @@ void MVll::fit_DeltaC9_p_mumu()
     gr1 =TGraph(dim, myq2.data(), ReDeltaC9_p_mumu.data());
     gr2 =TGraph(dim, myq2.data(), ImDeltaC9_p_mumu.data());
     
-    reffit = TF1("reffit",this,&MVll::reDC9fit,0.1,8.1,7,"MVll","reDC9fit");
-    imffit = TF1("imffit",this,&MVll::imDC9fit,0.1,8.1,8,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0.1,SWITCH,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0.1,SWITCH,8,"MVll","imDC9fit");
     
     refres_p_mumu = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres_p_mumu = gr2.Fit(&imffit, "SQN0+rob=0.99");
@@ -1162,7 +1209,7 @@ void MVll::fit_DeltaC9_m_mumu()
                                               sqrt(lambda(q2tmp))) * deltaTperp(q2tmp)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.4) {
+    for (double i=SWITCH; i<SWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m_mumu.push_back(q2tmp * (1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1175,8 +1222,8 @@ void MVll::fit_DeltaC9_m_mumu()
     gr1 = TGraph(dim, myq2.data(), ReDeltaC9_m_mumu.data());
     gr2 = TGraph(dim, myq2.data(), ImDeltaC9_m_mumu.data());
     
-    reffit = TF1("reffit",this,&MVll::reDC9fit,0,8.1,7,"MVll","reDC9fit");
-    imffit = TF1("imffit",this,&MVll::imDC9fit,0,8.1,8,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0,SWITCH,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0,SWITCH,8,"MVll","imDC9fit");
     
     refres_m_mumu = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres_m_mumu = gr2.Fit(&imffit, "SQN0+rob=0.99");
@@ -1225,7 +1272,7 @@ void MVll::fit_DeltaC9_0_mumu()
                                                              Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).imag());
         dim++;
     }
-    for (double i=SWITCH; i<8.2; i+=0.4) {
+    for (double i=SWITCH; i<SWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0_mumu.push_back(q2tmp * (1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
@@ -1238,8 +1285,8 @@ void MVll::fit_DeltaC9_0_mumu()
     gr1 = TGraph(dim, myq2.data(), ReDeltaC9_0_mumu.data());
     gr2 = TGraph(dim, myq2.data(), ImDeltaC9_0_mumu.data());
     
-    reffit = TF1("reffit",this,&MVll::reDC9fit,0,8.1,7,"MVll","reDC9fit");
-    imffit = TF1("imffit",this,&MVll::imDC9fit,0,8.1,8,"MVll","imDC9fit");
+    reffit = TF1("reffit",this,&MVll::reDC9fit,0,SWITCH,7,"MVll","reDC9fit");
+    imffit = TF1("imffit",this,&MVll::imDC9fit,0,SWITCH,8,"MVll","imDC9fit");
     
     refres_0_mumu = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres_0_mumu = gr2.Fit(&imffit, "SQN0+rob=0.99");
@@ -1384,45 +1431,55 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
         throw std::runtime_error("MVll::h: helicity index "+ boost::lexical_cast<std::string>(hel) + " out of range");
 }
 
-gslpp::complex MVll::H_V_0(double q2) 
+gslpp::complex MVll::H_V_0(double q2, bool bar) 
 {
-    return -(((C_9 + fDeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_0(q2) + Y(q2)) - C_9p.conjugate()) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7.conjugate() - C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    
 }
 
-gslpp::complex MVll::H_V_p(double q2) 
+gslpp::complex MVll::H_V_p(double q2, bool bar) 
 {
-    return -(((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_p(q2) - C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
 }
 
-gslpp::complex MVll::H_V_m(double q2) 
+gslpp::complex MVll::H_V_m(double q2, bool bar) 
 {
-    return -(((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p.conjugate() * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_m(q2) - C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
 }
 
-gslpp::complex MVll::H_A_0(double q2) 
+gslpp::complex MVll::H_A_0(double q2, bool bar) 
 {
-    return ( -C_10 + C_10p) * V_0t(q2);
+    if (!bar) return gslpp::complex::i() * NN * ( -C_10 + C_10p) * V_0t(q2);
+    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() + C_10p.conjugate()) * V_0t(q2);
 }
 
-gslpp::complex MVll::H_A_p(double q2) 
+gslpp::complex MVll::H_A_p(double q2, bool bar) 
 {
-    return ( -C_10 * V_p(q2) + C_10p * V_m(q2));
+    if (!bar) return gslpp::complex::i() * NN * ( -C_10 * V_p(q2) + C_10p * V_m(q2));
+    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() * V_p(q2) + C_10p.conjugate() * V_m(q2));
 }
 
-gslpp::complex MVll::H_A_m(double q2) 
+gslpp::complex MVll::H_A_m(double q2, bool bar) 
 {
-    return ( -C_10 * V_m(q2) + C_10p * V_p(q2));
+    if (!bar) return gslpp::complex::i() * NN * ( -C_10 * V_m(q2) + C_10p * V_p(q2));
+    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() * V_m(q2) + C_10p.conjugate() * V_p(q2));
 }
 
-gslpp::complex MVll::H_S(double q2) 
+gslpp::complex MVll::H_S(double q2, bool bar) 
 {
-    return MboMW * (C_S - C_Sp) * S_L(q2);
+    if (!bar) return gslpp::complex::i() * NN * MboMW * (C_S - C_Sp) * S_L(q2);
+    return gslpp::complex::i() * NN_conjugate * MboMW * (C_S.conjugate() - C_Sp.conjugate()) * S_L(q2);
 }
 
-gslpp::complex MVll::H_P(double q2) 
+gslpp::complex MVll::H_P(double q2, bool bar) 
 {
-    return ( MboMW * (C_P - C_Pp) + twoMlepMb / q2 * (C_10 - C_10p) * (1. + MsoMb)) * S_L(q2);
+    if (!bar) return gslpp::complex::i() * NN * ( MboMW * (C_P - C_Pp) + twoMlepMb / q2 * (C_10 - C_10p) * (1. + MsoMb)) * S_L(q2);
+    return gslpp::complex::i() * NN_conjugate * ( MboMW * (C_P.conjugate() - C_Pp.conjugate()) + twoMlepMb / q2 * (C_10.conjugate() - C_10p.conjugate()) * (1. + MsoMb)) * S_L(q2);
 }
+
 
 /*******************************************************************************
  * Angular coefficients                                                         *
@@ -1452,132 +1509,125 @@ double MVll::F(double q2, double b_i)
     return sqrt(lambda(q2)) * beta(q2) * q2 * b_i / (ninetysixM_PI3MM3);
 }
 
-double MVll::I_1c(double q2) 
+double MVll::I_1c(double q2, bool bar) 
 {
-    return F(q2, b)*((H_V_0(q2).abs2() + H_A_0(q2).abs2()) / 2. + H_P(q2).abs2() + 2. * Mlep2 / q2 * (H_V_0(q2).abs2()
-            - H_A_0(q2).abs2()) + beta2(q2) * H_S(q2).abs2());
+    return F(q2, b)*((H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2()) / 2. + H_P(q2, bar).abs2() + 2. * Mlep2 / q2 * (H_V_0(q2, bar).abs2()
+            - H_A_0(q2, bar).abs2()) + beta2(q2) * H_S(q2, bar).abs2());
 }
 
-double MVll::I_1s(double q2) 
+double MVll::I_1s(double q2, bool bar) 
 {
-    return F(q2, b)*((beta2(q2) + 2.) / 8. * (H_V_p(q2).abs2() + H_V_m(q2).abs2() + H_A_p(q2).abs2() + H_A_m(q2).abs2()) +
-            Mlep2 / q2 * (H_V_p(q2).abs2() + H_V_m(q2).abs2() - H_A_p(q2).abs2() - H_A_m(q2).abs2()));
+    return F(q2, b)*((beta2(q2) + 2.) / 8. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2()) +
+            Mlep2 / q2 * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() - H_A_p(q2, bar).abs2() - H_A_m(q2, bar).abs2()));
 }
 
-double MVll::I_2c(double q2) 
+double MVll::I_2c(double q2, bool bar) 
 {
-    return -F(q2, b) * beta2(q2) / 2. * (H_V_0(q2).abs2() + H_A_0(q2).abs2());
+    return -F(q2, b) * beta2(q2) / 2. * (H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2());
 }
 
-double MVll::I_2s(double q2) 
+double MVll::I_2s(double q2, bool bar) 
 {
-    return F(q2, b) * beta2(q2) / 8. * (H_V_p(q2).abs2() + H_V_m(q2).abs2() + H_A_p(q2).abs2() + H_A_m(q2).abs2());
+    return F(q2, b) * beta2(q2) / 8. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2());
 }
 
-double MVll::I_3(double q2) 
+double MVll::I_3(double q2, bool bar) 
 {
-    return -F(q2, b) * beta2(q2) / 2. * ((H_V_p(q2) * H_V_m(q2).conjugate()).real() + (H_A_p(q2) * H_A_m(q2).conjugate()).real());
+    return -F(q2, b) * beta2(q2) / 2. * ((H_V_p(q2, bar) * H_V_m(q2, bar).conjugate()).real() + (H_A_p(q2, bar) * H_A_m(q2, bar).conjugate()).real());
 }
 
-double MVll::I_4(double q2) 
+double MVll::I_4(double q2, bool bar) 
 {
-    return F(q2, b) * beta2(q2) / 4. * (((H_V_m(q2) + H_V_p(q2)) * H_V_0(q2).conjugate()).real() + ((H_A_m(q2) + H_A_p(q2)) * H_A_0(q2).conjugate()).real());
+    return F(q2, b) * beta2(q2) / 4. * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_V_0(q2, bar).conjugate()).real() + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_A_0(q2, bar).conjugate()).real());
 }
 
-double MVll::I_5(double q2) 
+double MVll::I_5(double q2, bool bar) 
 {
-    return F(q2, b)*(beta(q2) / 2. * (((H_V_m(q2) - H_V_p(q2)) * H_A_0(q2).conjugate()).real() + ((H_A_m(q2) - H_A_p(q2)) * H_V_0(q2).conjugate()).real()) -
-            beta(q2) * Mlep / sqrt(q2)*(H_S(q2).conjugate()*(H_V_p(q2) + H_V_m(q2))).real());
+    return F(q2, b)*(beta(q2) / 2. * (((H_V_m(q2, bar) - H_V_p(q2, bar)) * H_A_0(q2, bar).conjugate()).real() + ((H_A_m(q2, bar) - H_A_p(q2, bar)) * H_V_0(q2, bar).conjugate()).real()) -
+            beta(q2) * Mlep / sqrt(q2)*(H_S(q2, bar).conjugate()*(H_V_p(q2, bar) + H_V_m(q2, bar))).real());
 }
 
-double MVll::I_6s(double q2) 
+double MVll::I_6s(double q2, bool bar) 
 {
-    return F(q2, b) * beta(q2)*(H_V_m(q2)*(H_A_m(q2).conjugate()) - H_V_p(q2)*(H_A_p(q2).conjugate())).real();
+    return F(q2, b) * beta(q2)*(H_V_m(q2, bar)*(H_A_m(q2, bar).conjugate()) - H_V_p(q2, bar)*(H_A_p(q2, bar).conjugate())).real();
 }
 
-double MVll::I_6c(double q2) 
+double MVll::I_6c(double q2, bool bar) 
 {
-    return 2. * F(q2, b) * beta(q2) * Mlep / sqrt(q2)*(H_S(q2).conjugate() * H_V_0(q2)).real();
+    return 2. * F(q2, b) * beta(q2) * Mlep / sqrt(q2)*(H_S(q2, bar).conjugate() * H_V_0(q2, bar)).real();
 }
 
-double MVll::I_7(double q2) 
+double MVll::I_7(double q2, bool bar) 
 {
-    return F(q2, b)*(beta(q2) / 2. * (((H_V_m(q2) + H_V_p(q2)) * H_A_0(q2).conjugate()).imag() + ((H_A_m(q2) + H_A_p(q2)) * H_V_0(q2).conjugate()).imag()) -
-            beta(q2) * Mlep / sqrt(q2)*(H_S(q2).conjugate()*(H_V_m(q2) - H_V_p(q2))).imag());
+    return F(q2, b)*(beta(q2) / 2. * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_A_0(q2, bar).conjugate()).imag() + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_V_0(q2, bar).conjugate()).imag()) -
+            beta(q2) * Mlep / sqrt(q2)*(H_S(q2, bar).conjugate()*(H_V_m(q2, bar) - H_V_p(q2, bar))).imag());
 }
 
-double MVll::I_8(double q2) 
+double MVll::I_8(double q2, bool bar) 
 {
-    return F(q2, b) * beta2(q2) / 4. * (((H_V_m(q2) - H_V_p(q2)) * H_V_0(q2).conjugate()).imag() + ((H_A_m(q2) - H_A_p(q2)) * H_A_0(q2).conjugate()).imag());
+    return F(q2, b) * beta2(q2) / 4. * (((H_V_m(q2, bar) - H_V_p(q2, bar)) * H_V_0(q2, bar).conjugate()).imag() + ((H_A_m(q2, bar) - H_A_p(q2, bar)) * H_A_0(q2, bar).conjugate()).imag());
 }
 
-double MVll::I_9(double q2) 
+double MVll::I_9(double q2, bool bar) 
 {
-    return F(q2, b) * beta2(q2) / 2. * ((H_V_p(q2) * H_V_m(q2).conjugate()).imag() + (H_A_p(q2) * H_A_m(q2).conjugate()).imag());
+    return F(q2, b) * beta2(q2) / 2. * ((H_V_p(q2, bar) * H_V_m(q2, bar).conjugate()).imag() + (H_A_p(q2, bar) * H_A_m(q2, bar).conjugate()).imag());
 }
 
-double MVll::h_1c(double q2) 
+double MVll::h_1c(double q2, bool bar) 
 {
-    return F(q2, b)*((H_V_0(q2).abs2() + H_A_0(q2).abs2()) + 2. * H_P(q2).abs2() + 4. * Mlep2 / q2 * (H_V_0(q2).abs2()
-            - H_A_0(q2).abs2()) - 2. * beta2(q2) * H_S(q2).abs2());
+    return F(q2, b)*((H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2()) + 2. * H_P(q2, bar).abs2() + 4. * Mlep2 / q2 * (H_V_0(q2, bar).abs2()
+            - H_A_0(q2, bar).abs2()) - 2. * beta2(q2) * H_S(q2, bar).abs2());
 }
 
-double MVll::h_1s(double q2) 
+double MVll::h_1s(double q2, bool bar) 
 {
-    return F(q2, b)*( (beta2(q2) + 2.) / 2. * ( (H_V_p(q2) * H_V_m(q2).conjugate()).real()
-            + (H_A_p(q2) * H_A_m(q2).conjugate()).real() ) +
-            4. * Mlep2 / q2 * ( (H_V_p(q2) * H_V_m(q2).conjugate()).real()
-            - (H_A_p(q2) * H_A_m(q2).conjugate()).real() ) );
+    return F(q2, b)*( (beta2(q2) + 2.) / 2. * ( (H_V_p(q2, bar) * H_V_m(q2, bar).conjugate()).real()
+            + (H_A_p(q2, bar) * H_A_m(q2, bar).conjugate()).real() ) +
+            4. * Mlep2 / q2 * ( (H_V_p(q2, bar) * H_V_m(q2, bar).conjugate()).real()
+            - (H_A_p(q2, bar) * H_A_m(q2, bar).conjugate()).real() ) );
 }
 
-double MVll::h_2c(double q2) 
+double MVll::h_2c(double q2, bool bar) 
 {
-    return -F(q2, b) * beta2(q2) * (H_V_0(q2).abs2() + H_A_0(q2).abs2());
+    return -F(q2, b) * beta2(q2) * (H_V_0(q2, bar).abs2() + H_A_0(q2, bar).abs2());
 }
 
-double MVll::h_2s(double q2) 
+double MVll::h_2s(double q2, bool bar) 
 {
-    return F(q2, b) * beta2(q2) / 2. * ( (H_V_p(q2) * H_V_m(q2).conjugate()).real()
-            + (H_A_p(q2) * H_A_m(q2).conjugate()).real() );
+    return F(q2, b) * beta2(q2) / 2. * ( (H_V_p(q2, bar) * H_V_m(q2, bar).conjugate()).real()
+            + (H_A_p(q2, bar) * H_A_m(q2, bar).conjugate()).real() );
 }
 
-double MVll::h_3(double q2) 
+double MVll::h_3(double q2, bool bar) 
 {
-    return -F(q2, b) * beta2(q2) / 2. * (H_V_p(q2).abs2() + H_V_m(q2).abs2() + H_A_p(q2).abs2() + H_A_m(q2).abs2());
+    return -F(q2, b) * beta2(q2) / 2. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2());
 }
 
-double MVll::h_4(double q2) 
+double MVll::h_4(double q2, bool bar) 
 {
-    return F(q2, b) * beta2(q2) / 2. * (((H_V_m(q2) + H_V_p(q2)) * H_V_0(q2).conjugate()).real() + ((H_A_m(q2) + H_A_p(q2)) * H_A_0(q2).conjugate()).real());
+    return F(q2, b) * beta2(q2) / 2. * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_V_0(q2, bar).conjugate()).real() + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_A_0(q2, bar).conjugate()).real());
 }
 
-double MVll::h_7(double q2) 
+double MVll::h_7(double q2, bool bar) 
 {
-    return F(q2, b)*(beta(q2) * (((H_V_m(q2) + H_V_p(q2)) * H_A_0(q2).conjugate()).imag() + ((H_A_m(q2) + H_A_p(q2)) * H_V_0(q2).conjugate()).imag()) -
-            beta(q2) * 2. * Mlep / sqrt(q2)*(H_S(q2).conjugate()*(H_V_m(q2) - H_V_p(q2))).imag());
+    return F(q2, b)*(beta(q2) * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_A_0(q2, bar).conjugate()).imag() + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_V_0(q2, bar).conjugate()).imag()) -
+            beta(q2) * 2. * Mlep / sqrt(q2)*(H_S(q2, bar).conjugate()*(H_V_m(q2, bar) - H_V_p(q2, bar))).imag());
 }
-
-double MVll::Delta(int i, double q2) 
-{
-    return 0; /* FIX CPV */
-    //return (I(i, q2,0) - I(i, q2,1))/2;
-}
-
 
 double MVll::integrateSigma(int i, double q_min, double q_max) 
 {
     updateParameters();
-
+    
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
     old_handler = gsl_set_error_handler_off();
-
+    
     switch (i) {
         case 0:
             if (sigma0Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma1c, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma0[qbin] = NN*avaSigma;
+                cacheSigma0[qbin] = avaSigma;
                 sigma0Cached[qbin] = 1;
             }
             return cacheSigma0[qbin];
@@ -1586,7 +1636,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma1Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma1s, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma1[qbin] = NN*avaSigma;
+                cacheSigma1[qbin] = avaSigma;
                 sigma1Cached[qbin] = 1;
             }
             return cacheSigma1[qbin];
@@ -1595,7 +1645,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma2Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma2c, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma2[qbin] = NN*avaSigma;
+                cacheSigma2[qbin] = avaSigma;
                 sigma2Cached[qbin] = 1;
             }
             return cacheSigma2[qbin];
@@ -1604,7 +1654,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma3Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma2s, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma3[qbin] = NN*avaSigma;
+                cacheSigma3[qbin] = avaSigma;
                 sigma3Cached[qbin] = 1;
             }
             return cacheSigma3[qbin];
@@ -1613,7 +1663,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma4Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma3, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma4[qbin] = NN*avaSigma;
+                cacheSigma4[qbin] = avaSigma;
                 sigma4Cached[qbin] = 1;
             }
             return cacheSigma4[qbin];
@@ -1622,7 +1672,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma5Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma4, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma5[qbin] = NN*avaSigma;
+                cacheSigma5[qbin] = avaSigma;
                 sigma5Cached[qbin] = 1;
             }
             return cacheSigma5[qbin];
@@ -1631,7 +1681,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma6Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma5, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma6[qbin] = NN*avaSigma;
+                cacheSigma6[qbin] = avaSigma;
                 sigma6Cached[qbin] = 1;
             }
             return cacheSigma6[qbin];
@@ -1640,7 +1690,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma7Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma6s, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma7[qbin] = NN*avaSigma;
+                cacheSigma7[qbin] = avaSigma;
                 sigma7Cached[qbin] = 1;
             }
             return cacheSigma7[qbin];
@@ -1649,7 +1699,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma9Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma7, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma9[qbin] = NN*avaSigma;
+                cacheSigma9[qbin] = avaSigma;
                 sigma9Cached[qbin] = 1;
             }
             return cacheSigma9[qbin];
@@ -1658,7 +1708,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma10Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma8, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma10[qbin] = NN*avaSigma;
+                cacheSigma10[qbin] = avaSigma;
                 sigma10Cached[qbin] = 1;
             }
             return cacheSigma10[qbin];
@@ -1667,7 +1717,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             if (sigma11Cached[qbin] == 0) {
                 FS = convertToGslFunction(boost::bind(&MVll::getSigma9, &(*this), _1));
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
-                cacheSigma11[qbin] = NN*avaSigma;
+                cacheSigma11[qbin] = avaSigma;
                 sigma11Cached[qbin] = 1;
             }
             return cacheSigma11[qbin];
@@ -1738,7 +1788,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
     switch (i) {
         case 0:
             if (delta0Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MVll::getDelta0, &(*this), _1));
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta1c, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta0[qbin] = avaDelta;
                 delta0Cached[qbin] = 1;
@@ -1747,7 +1797,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             break;
         case 1:
             if (delta1Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MVll::getDelta1, &(*this), _1));
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta1s, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta1[qbin] = avaDelta;
                 delta1Cached[qbin] = 1;
@@ -1756,7 +1806,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             break;
         case 2:
             if (delta2Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MVll::getDelta2, &(*this), _1));
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta2c, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta2[qbin] = avaDelta;
                 delta2Cached[qbin] = 1;
@@ -1765,7 +1815,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             break;
         case 3:
             if (delta3Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MVll::getDelta3, &(*this), _1));
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta2s, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta3[qbin] = avaDelta;
                 delta3Cached[qbin] = 1;
@@ -1774,7 +1824,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             break;
         case 7:
             if (delta7Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MVll::getDelta7, &(*this), _1));
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta6s, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta7[qbin] = avaDelta;
                 delta7Cached[qbin] = 1;
@@ -1783,7 +1833,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             break;
         case 11:
             if (delta11Cached[qbin] == 0) {
-                FD = convertToGslFunction(boost::bind(&MVll::getDelta11, &(*this), _1));
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta9, &(*this), _1));
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta11[qbin] = avaDelta;
                 delta11Cached[qbin] = 1;

@@ -84,7 +84,7 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMbsg() ;
     
@@ -92,7 +92,7 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMprimebsg() ;
     
@@ -100,14 +100,14 @@ public:
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMBMll() ;
     /** 
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
-     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
     virtual   std::vector<WilsonCoefficient>& CMprimeBMll() ;
     
@@ -322,6 +322,60 @@ public:
      * @param[in] mu the matching scale of the Wilson coefficients
      */
     double G1t(double x, double mu) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C7c_3L_at_mW(double x) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C7t_3L_at_mt(double x) const;
+    
+     /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient 
+     * C7 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C7t_3L_func(double x, double mu) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C8c_3L_at_mW(double x) const;
+    
+     /**
+     * 
+     * @brief power expansion appearing in the Wilson coefficient 
+     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C8t_3L_at_mt(double x) const;
+    
+     /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient 
+     * C8 at NNLO, see Misiak and Steinhauser hep-ph/0401041
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C8t_3L_func(double x, double mu) const;
 
     /**
      * 
@@ -538,7 +592,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBsmm(int i, double x, orders order);
     
@@ -547,7 +601,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order_ew
-     * @return return the electroweak value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l{-} \f$
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBsmmEW(int i, double x, orders_ew order_ew);
     
@@ -556,7 +610,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBdmm(int i, double x, orders order);
     
@@ -565,7 +619,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order_ew
-     * @return return the electroweak value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l{-} \f$
+     * @return return the electroweak value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l^{-} \f$
      */
     double setWCBdmmEW(int i, double x, orders_ew order_ew);
     
@@ -574,7 +628,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l^{-} \f$
      */
     double setWCbsg (int i, double x, orders order);
     
@@ -583,7 +637,7 @@ private:
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
      * @param order
-     * @return return the value of the wilson coefficients for \f$ B \rightarrow k^* l^{+} l{-} \f$
+     * @return return the value of the wilson coefficients for \f$ B \rightarrow k^* l^{+} l^{-} \f$
      */
     double setWCBMll (int i, double x, orders order);
     
@@ -619,7 +673,7 @@ private:
      */
     double phi2 (double x, double y) const;
     
-    double CWbsgArrayLO[8], CWbsgArrayNLO[8];
+    double CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
     double CWprimebsgArrayLO[8], CWprimebsgArrayNLO[8];
     double CWBMllArrayLO[19], CWBMllArrayNLO[19];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];

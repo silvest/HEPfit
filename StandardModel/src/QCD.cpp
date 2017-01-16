@@ -25,7 +25,7 @@ std::string QCD::QCDvars[NQCDvars] = {
     "AlsM", "MAls",
     "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
     "muc", "mub", "mut",
-    "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "Mphi",
+    "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "MKstarP", "Mphi",
     "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
     "DGs_Gs",
     "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi", "Fphip",
@@ -90,6 +90,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBp", boost::cref(mesons[B_P].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBs", boost::cref(mesons[B_S].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstar", boost::cref(mesons[K_star].getMass())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstarP", boost::cref(mesons[K_star_P].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mphi", boost::cref(mesons[PHI].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKl", boost::cref(mesons[K_0].getWidth())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKp", boost::cref(mesons[K_P].getWidth())));
@@ -242,8 +243,10 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
 
 bool QCD::PostUpdate()
 {
-    if (computeFBd)
+    if (computeFBd){
         mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
+        mesons[B_P].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd); /**** FOR NOW FB+ = FBd ****/
+    }
     if (computeBs)
     {
         BBs.setBpars(0, FBsSqrtBBs1*FBsSqrtBBs1/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
@@ -272,17 +275,15 @@ bool QCD::PostUpdate()
 #endif
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
-    if ( optionalParameters.find("absh_0") != optionalParameters.end() ) {
-        myh_0 = gslpp::complex(getOptionalParameter("absh_0"), getOptionalParameter("argh_0"), true);
-        myh_p = gslpp::complex(getOptionalParameter("absh_p"), getOptionalParameter("argh_p"), true);
-        myh_m = gslpp::complex(getOptionalParameter("absh_m"), getOptionalParameter("argh_m"), true);
-        myh_0_1 = gslpp::complex(getOptionalParameter("absh_0_1"), getOptionalParameter("argh_0_1"), true);
-        myh_p_1 = gslpp::complex(getOptionalParameter("absh_p_1"), getOptionalParameter("argh_p_1"), true);
-        myh_m_1 = gslpp::complex(getOptionalParameter("absh_m_1"), getOptionalParameter("argh_m_1"), true);
-        myh_0_2 = gslpp::complex(getOptionalParameter("absh_0_2"), getOptionalParameter("argh_0_2"), true);
-        myh_p_2 = gslpp::complex(getOptionalParameter("absh_p_2"), getOptionalParameter("argh_p_2"), true);
-        myh_m_2 = gslpp::complex(getOptionalParameter("absh_m_2"), getOptionalParameter("argh_m_2"), true);
-    }
+    if (optionalParameters.find("absh_0") != optionalParameters.end()) myh_0 = gslpp::complex(getOptionalParameter("absh_0"), getOptionalParameter("argh_0"), true);
+    if (optionalParameters.find("absh_p") != optionalParameters.end()) myh_p = gslpp::complex(getOptionalParameter("absh_p"), getOptionalParameter("argh_p"), true);
+    if (optionalParameters.find("absh_m") != optionalParameters.end()) myh_m = gslpp::complex(getOptionalParameter("absh_m"), getOptionalParameter("argh_m"), true);
+    if (optionalParameters.find("absh_0_1") != optionalParameters.end()) myh_0_1 = gslpp::complex(getOptionalParameter("absh_0_1"), getOptionalParameter("argh_0_1"), true);
+    if (optionalParameters.find("absh_p_1") != optionalParameters.end()) myh_p_1 = gslpp::complex(getOptionalParameter("absh_p_1"), getOptionalParameter("argh_p_1"), true);
+    if (optionalParameters.find("absh_m_1") != optionalParameters.end()) myh_m_1 = gslpp::complex(getOptionalParameter("absh_m_1"), getOptionalParameter("argh_m_1"), true);
+    if (optionalParameters.find("absh_0_2") != optionalParameters.end()) myh_0_2 = gslpp::complex(getOptionalParameter("absh_0_2"), getOptionalParameter("argh_0_2"), true);
+    if (optionalParameters.find("absh_p_2") != optionalParameters.end()) myh_p_2 = gslpp::complex(getOptionalParameter("absh_p_2"), getOptionalParameter("argh_p_2"), true);
+    if (optionalParameters.find("absh_m_2") != optionalParameters.end()) myh_m_2 = gslpp::complex(getOptionalParameter("absh_m_2"), getOptionalParameter("argh_m_2"), true);
     
     return (true);
 }
@@ -353,6 +354,8 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[B_S].setMass(value);
     else if (name.compare("MKstar") == 0)
         mesons[K_star].setMass(value);
+    else if (name.compare("MKstarP") == 0)
+        mesons[K_star_P].setMass(value);
     else if (name.compare("Mphi") == 0)
         mesons[PHI].setMass(value);
     else if (name.compare("tKl") == 0)
@@ -367,9 +370,10 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[B_S].setLifetime(value);
     else if (name.compare("DGs_Gs") == 0)
         mesons[B_S].setDgamma_gamma(value);
-    else if (name.compare("tKstar") == 0)
+    else if (name.compare("tKstar") == 0){
         mesons[K_star].setLifetime(value);
-    else if (name.compare("tphi") == 0)
+        mesons[K_star_P].setLifetime(value);
+    } else if (name.compare("tphi") == 0)
         mesons[PHI].setLifetime(value);
         //else if(name.compare("FP")==0) {
         //    mesons[P_0].setDecayconst(value);
@@ -379,11 +383,13 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[K_0].setDecayconst(value);
     else if (name.compare("FD") == 0)
         mesons[D_0].setDecayconst(value);
-    else if (name.compare("FKstar") == 0)
+    else if (name.compare("FKstar") == 0){
         mesons[K_star].setDecayconst(value);
-    else if (name.compare("FKstarp") == 0)
+        mesons[K_star_P].setDecayconst(value);
+    } else if (name.compare("FKstarp") == 0){
         FKstarp = value;
-    else if (name.compare("Fphi") == 0)
+        FKstarPp = value;
+    } else if (name.compare("Fphi") == 0)
         mesons[PHI].setDecayconst(value);
     else if (name.compare("Fphip") == 0)
         Fphip = value;
@@ -574,11 +580,13 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[B_D].setLambdaM(value);
         mesons[B_S].setLambdaM(value);
         mesons[B_P].setLambdaM(value);
-    } else if (name.compare("alpha1kst") == 0)
+    } else if (name.compare("alpha1kst") == 0){
         mesons[K_star].setGegenalpha(0,value);
-    else if (name.compare("alpha2kst") == 0)
+        mesons[K_star_P].setGegenalpha(0,value);
+    } else if (name.compare("alpha2kst") == 0){
         mesons[K_star].setGegenalpha(1,value);
-    else if (name.compare("alpha2phi") == 0)
+        mesons[K_star_P].setGegenalpha(1,value);
+    } else if (name.compare("alpha2phi") == 0)
         mesons[PHI].setGegenalpha(1,value);
     else if (name.compare("alpha1kp") == 0)
         mesons[K_P].setGegenalpha(0,value);

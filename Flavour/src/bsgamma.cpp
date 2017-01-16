@@ -6,9 +6,8 @@
  */
 
 /* 
- * Gambino's parameters hardcoded
- * phi1.4body partially hardcoded, currently switched off through the macro FOUR_BODY set to false
- * VubNNLO and EW parts missing
+ * phi1.4body partially hardcoded, currently switched off by setting FOUR_BODY to false
+ * EW matching missing
  */
 
 #include "Flavour.h"
@@ -22,9 +21,7 @@
 Bsgamma::Bsgamma(const StandardModel& SM_i, StandardModel::quark quark_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
-{
-    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
-    
+{    
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
     
@@ -32,7 +29,7 @@ Intbc_cache(2, 0.)
     
     SUM = false;
     EWflag = true;
-    NNLOflag = true;
+    FOUR_BODY = false;
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -56,14 +53,12 @@ Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
 {
-    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: b to s gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
-    
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
     
     SUM = true;
     EWflag = true;
-    NNLOflag = true;
+    FOUR_BODY = false;
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -661,6 +656,7 @@ double Bsgamma::Int_cc1(double E0)
         double t1 = (1. - delta(E0));
 
         INT = convertToGslFunction(boost::bind(&Bsgamma::getKc_abs2_1mt, &(*this), _1));
+    
         if (gsl_integration_cquad(&INT, 0., t1, 1.e-2, 1.e-1, w_INT, &avaINT, &errINT, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
         double mt = avaINT;
 
@@ -671,7 +667,7 @@ double Bsgamma::Int_cc1(double E0)
         CacheIntcc1 = delta(E0)*mt + mt2;
         Intcc1Cached = 1;
     }
-    
+
     return CacheIntcc1;
 }
 
@@ -1091,7 +1087,7 @@ double Bsgamma::Phi88_1(double E0)
 
 gslpp::complex Bsgamma::Kij_1(int i, int j, double E0, double mu)
 {
-    if (i > 8 || j>8 || i<1 || j<1) throw std::runtime_error("Bsgamma::Kij_1(): indexes (i,j) must be included in (1,..,8)");
+    if (i > 8 || j>8 || i<1 || j<1) throw std::runtime_error("Bsgamma::Kij_1(): indices (i,j) must be included in (1,..,8)");
     
     double gamma_i7[8] = {-208./243., 416./81., -176./81., -152./243., -6272./81., 4624./243., 32./3., -32./9.};
     gslpp::complex K_ij[8][8] = {{0.}};
@@ -1847,7 +1843,7 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
     
     if (i > j) {temp=i; i=j; j=temp;}
     
-    double K_ij[8][8];
+    double K_ij[8][8] = {{0.}};
     double z = zeta();
     double d = delta(E0);
     double r = sqrt(z);
@@ -1899,6 +1895,33 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
 void Bsgamma::computeCoeff(double mu)
 {
     
+    /*allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(160.);
+    
+    C1_0 = (*(allcoeff[LO]))(0);
+    C2_0 = (*(allcoeff[LO]))(1);
+    C3_0 = (*(allcoeff[LO]))(2);
+    C4_0 = (*(allcoeff[LO]))(3);
+    C5_0 = (*(allcoeff[LO]))(4);
+    C6_0 = (*(allcoeff[LO]))(5);
+    C7_0 = (*(allcoeff[LO]))(6);
+    C8_0 = (*(allcoeff[LO]))(7);
+    
+    C1_1 = (*(allcoeff[NLO]))(0)/Alstilde;
+    C2_1 = (*(allcoeff[NLO]))(1)/Alstilde;
+    C3_1 = (*(allcoeff[NLO]))(2)/Alstilde;
+    C4_1 = (*(allcoeff[NLO]))(3)/Alstilde;
+    C5_1 = (*(allcoeff[NLO]))(4)/Alstilde;
+    C6_1 = (*(allcoeff[NLO]))(5)/Alstilde;
+    C7_1 = (*(allcoeff[NLO]))(6)/Alstilde;
+    C8_1 = (*(allcoeff[NLO]))(7)/Alstilde;
+    
+    std::cout << "C_0(MuW): (" << C1_0.real() << "," << C2_0.real() << "," 
+            << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
+            << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
+    std::cout << "C_1(MuW): (" << C1_1.real() << "," << C2_1.real() << "," 
+            << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
+            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
+    
     allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
     allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu);
     
@@ -1919,18 +1942,20 @@ void Bsgamma::computeCoeff(double mu)
     C6_1 = (*(allcoeff[NLO]))(5)/Alstilde;
     C7_1 = (*(allcoeff[NLO]))(6)/Alstilde;
     C8_1 = (*(allcoeff[NLO]))(7)/Alstilde;
-    
+
+    C7_2 = (*(allcoeff[NNLO]))(6)/Alstilde/Alstilde;
+
     C7p_0 = (*(allcoeffprime[LO]))(6);
     C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
-    
-    /*std::cout << "C_0(2 GeV): (" << C1_0.real() << "," << C2_0.real() << "," 
+
+    /*std::cout << "C_0(mu): (" << C1_0.real() << "," << C2_0.real() << "," 
             << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
             << C6_0.real() << "," << C7_0.real() << "," << C8_0.real() << ")" << std::endl;
-    std::cout << "C_1(2 GeV): (" << C1_1.real() << "," << C2_1.real() << "," 
+    std::cout << "C_1(mu): (" << C1_1.real() << "," << C2_1.real() << "," 
             << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
-            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
+            << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;
+    std::cout << "C_2^7(mu): " << C7_2.real() << std::endl << std::endl;*/
     
-    C7_2 = 18.8595;
     C7_1ew = 4.868;
     
 }
@@ -2000,11 +2025,13 @@ double Bsgamma::P21_CPodd(double E0, double mu)
 
 double Bsgamma::P12()
 {
+    
    return C7_1.abs2() + C7p_1.abs2() + 2.*(C7_0*C7_2).real(); /*CHECK SIGN*/
 }
 
 double Bsgamma::P22(double E0, double mu_b, double mu_c)
 {
+    
     int i,j, temp_i,temp_j;
     gslpp::complex C0[4]={C1_0,C2_0,C7_0,C8_0};
     double p22=0.;
@@ -2028,6 +2055,7 @@ double Bsgamma::P22(double E0, double mu_b, double mu_c)
 
 double Bsgamma::P32(double E0, double mu)
 {
+    
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
     gslpp::complex C1[8]={C1_1,C2_1,C3_1,C4_1,C5_1,C6_1,C7_1,C8_1};
@@ -2046,6 +2074,7 @@ double Bsgamma::P32(double E0, double mu)
 
 double Bsgamma::EW_NLO(double mu)
 {
+    
     if(EWflag) {
         double ew_nlo = 0.;
         double ga_eff_ew_7[7] = {-832./729., -208./243., -20./243., -176./729., -22712./243., -6272./729., 16./9.};
@@ -2197,6 +2226,7 @@ double Bsgamma::Vub_NNLO(double E0)
 
 double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
 {
+
     switch(order) {
         case NNLO:
             /*std::cout << "p0 w/ tree, VubLO: " << P0(E0) << std::endl;
@@ -2208,13 +2238,9 @@ double Bsgamma::P(double E0, double mu_b, double mu_c, orders order)
             std::cout << "Vub_NLO: " << Vub_NLO(E0) << std::endl;
             std::cout << "Vub_NNLO: " << Vub_NNLO(E0) << std::endl;
             std::cout << "EW_NLO: " << EW_NLO(mu_b) << std::endl;*/
-            if (NNLOflag){
-                return P0(E0) 
-                        + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b)
-                        + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b)) + Vub_NNLO(E0);
-            }
-            else return P0(E0) 
-                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b);
+            return P0(E0) 
+                    + Alstilde * (P11() + P21(E0,mu_b)) + Vub_NLO(E0) + AleatMztilde * EW_NLO(mu_b)
+                    + Alstilde * Alstilde * (P12() + P22(E0,mu_b,mu_c) + P32(E0,mu_b)) + Vub_NNLO(E0);
             break;
         case NLO:
             return P0(E0) 
@@ -2383,9 +2409,9 @@ double Bsgamma::computeThValue()
     
     updateParameters();
     
-    if (obs == 1) 
+    if (obs == 1)
         return overall *  ( P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
-    if (obs == 2) 
+    if (obs == 2)
         return (Alstilde * P21_CPodd(E0, mu_b) + Vub_NLO_CPodd(E0) ) / (P(E0, mu_b, mu_c, NNLO) + N(E0, mu_b) );
     
     throw std::runtime_error("Bsgamma::computeThValue(): Observable type not defined. Can be only 1 or 2");

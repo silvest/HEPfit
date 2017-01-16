@@ -30,6 +30,9 @@
 #include "MPllObservables.h"
 #include "MVgamma.h"
 #include "BdmumuOBsmumu.h"
+/** BEGIN: REMOVE FROM THE PACKAGE **/
+#include "BXqllObservables.h"
+/** END: REMOVE FROM THE PACKAGE **/
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

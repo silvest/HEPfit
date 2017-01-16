@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -88,6 +88,9 @@
           <linkerAddLib>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
@@ -120,6 +123,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -135,6 +141,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
@@ -150,6 +159,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
           </linkerLibItems>
@@ -221,6 +233,9 @@
           <linkerAddLib>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
@@ -253,6 +268,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -268,6 +286,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
@@ -283,6 +304,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
           </linkerLibItems>
@@ -358,6 +382,9 @@
           <linkerAddLib>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
@@ -390,6 +417,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -405,6 +435,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
@@ -420,6 +453,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">
@@ -487,6 +523,9 @@
           <linkerAddLib>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
@@ -518,6 +557,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -533,6 +575,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f3">
@@ -548,6 +593,9 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+          </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">

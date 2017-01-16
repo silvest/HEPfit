@@ -369,56 +369,110 @@ public:
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_V^0 \f$
     */
-    gslpp::complex H_V_0(double q2);
+    gslpp::complex H_V_0(double q2, bool bar);
     
     /**
     * @brief The helicity amplitude \f$ H_V^+ \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_V^+ \f$
     */
-    gslpp::complex H_V_p(double q2);
+    gslpp::complex H_V_p(double q2, bool bar);
     
     /**
     * @brief The helicity amplitude \f$ H_V^- \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_V^- \f$
     */
-    gslpp::complex H_V_m(double q2);
+    gslpp::complex H_V_m(double q2, bool bar);
 
     /**
     * @brief The helicity amplitude \f$ H_A^0 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_A^0 \f$
     */
-    gslpp::complex H_A_0(double q2);
+    gslpp::complex H_A_0(double q2, bool bar);
 
     /**
     * @brief The helicity amplitude \f$ H_A^+ \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_A^+ \f$
     */
-    gslpp::complex H_A_p(double q2);
+    gslpp::complex H_A_p(double q2, bool bar);
 
     /**
     * @brief The helicity amplitude \f$ H_A^- \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_A^- \f$
     */
-    gslpp::complex H_A_m(double q2);
+    gslpp::complex H_A_m(double q2, bool bar);
 
     /**
     * @brief The helicity amplitude \f$ H_S \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_S \f$
     */
-    gslpp::complex H_S(double q2);
+    gslpp::complex H_S(double q2, bool bar);
 
     /**
     * @brief The helicity amplitude \f$ H_P \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ H_P \f$
     */
-    gslpp::complex H_P(double q2);
+    gslpp::complex H_P(double q2, bool bar);
+    
+    gslpp::complex getQCDf_1(double q2)
+    {
+        updateParameters();
+        return (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) - fDeltaC9_p(q2) * V_p(q2)));
+    }
+    
+    gslpp::complex getQCDf_2(double q2)
+    {
+        updateParameters();
+        return (gtilde_2_pre/A_1(q2) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2)));
+    }
+    
+    gslpp::complex getQCDf_3(double q2)
+    {
+        updateParameters();
+        return (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2) * 1./(16. * M_PI * M_PI * MM*MM) * fDeltaC9_0(q2) * V_0t(q2) - (MM2mMV2 - q2)/(4.*MV) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2))));
+    }
+    
+    double getQCDfC9_1(double q2, double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_1(q2) - getQCDf_1(cutoff) * cutoff/q2).abs();
+    }
+    
+    double getQCDfC9_2(double q2, double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_2(q2) - getQCDf_2(cutoff) * cutoff/q2).abs();
+    }
+    
+    double getQCDfC9_3(double q2, double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_3(q2) - getQCDf_3(cutoff) * cutoff/q2).abs();
+    }
+    
+    double getQCDfC9p_1(double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_1(cutoff) * cutoff).abs();
+    }
+    
+    double getQCDfC9p_2(double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_2(cutoff) * cutoff).abs();
+    }
+    
+    double getQCDfC9p_3(double cutoff)
+    {
+        updateParameters();
+        return (getQCDf_3(cutoff) * cutoff).abs();
+    }
     
     /**
     * @brief The real part of \f$ \tilde{g}^1 \f$.
@@ -440,24 +494,6 @@ public:
     {
         updateParameters();
         return C2_inv * (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * (h_lambda(2,q2)-h_lambda(1,q2))).imag()/q2;
-    }
-    
-    double getQCDf_1(double q2)
-    {
-        /* NOTE THE ZEROS */
-        return (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * 1./(16. * M_PI * M_PI * MM*MM) * ((0.*C_9 + fDeltaC9_m(q2) + 0.*Y(q2)) * V_m(q2) - (C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2))).abs();
-    }
-    
-    double getQCDf_2(double q2)
-    {
-        /* NOTE THE ZEROS */
-        return (gtilde_2_pre/A_1(q2) * 1./(16. * M_PI * M_PI * MM*MM) * ((0.*C_9 + fDeltaC9_m(q2) + 0.*Y(q2)) * V_m(q2) + (0.*C_9 + fDeltaC9_p(q2) + 0.*Y(q2)) * V_p(q2))).abs();
-    }
-    
-    double getQCDf_3(double q2)
-    {
-        /* NOTE THE ZEROS */
-        return (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2) * 1./(16. * M_PI * M_PI * MM*MM) * (0.*C_9 + fDeltaC9_0(q2) + 0.*Y(q2)) * V_0t(q2) - (MM2mMV2 - q2)/(4.*MV) * 1./(16. * M_PI * M_PI * MM*MM) * ((0.*C_9 + fDeltaC9_m(q2) + 0.*Y(q2)) * V_m(q2) + (0.*C_9 + fDeltaC9_p(q2) + 0.*Y(q2)) * V_p(q2)))).abs();
     }
     
     /**
@@ -490,7 +526,7 @@ public:
     double getgtilde_3_re(double q2)
     {
         updateParameters();
-        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_lambda(0,q2)-
+        return C2_inv * (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2)*h_lambda(0,q2)/q2-
                 (MM2mMV2 - q2)/(4.*MV) * (h_lambda(1,q2)+h_lambda(2,q2))/q2)).real();
     }
 
@@ -602,6 +638,7 @@ private:
     double mu_h;          /**<\f$\sqrt{\mu_b*\lambda_{QCD}}\f$ */
     double Mc;            /**<c quark mass */
     double Ms;            /**<s quark mass */
+    double spectator_charge;  /**<spectator quark charge */
     double width;         /**<Initial meson width */
     double fperp;         /**<vector meson perpendicular decay constant*/
     double ys;            /**<CP-violation factor \f$\frac{\Delta \Gamma}{2\Gamma}\f$*/
@@ -668,7 +705,8 @@ private:
     double gtilde_3_pre;/**< Cache variable */
     double C2_inv;/**< Cache variable */
     double S_L_pre;/**< Cache variable */
-    double NN;/**< Cache variable */
+    gslpp::complex NN;/**< coupling including the CKM element */
+    gslpp::complex NN_conjugate;/**< conjugate of the coupling including the CKM element */
     double sixMMoMb;/**< Cache variable */
     double CF;/**< Cache variable */
     double deltaT_0;/**< Cache variable */
@@ -1213,141 +1251,133 @@ private:
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_{1c} \f$
     */
-    double  I_1c(double q2);
+    double  I_1c(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_{1s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_{1s} \f$
     */
-    double  I_1s(double q2);
+    double  I_1s(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_{2c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_{2c} \f$
     */
-    double  I_2c(double q2);
+    double  I_2c(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_{2s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_{2s} \f$
     */
-    double  I_2s(double q2);
+    double  I_2s(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_3 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_3 \f$
     */
-    double  I_3(double q2);
+    double  I_3(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_4 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_4 \f$
     */
-    double  I_4(double q2);
+    double  I_4(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_5 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_5 \f$
     */
-    double  I_5(double q2);
+    double  I_5(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_{6c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_{6c} \f$
     */
-    double  I_6c(double q2);
+    double  I_6c(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_{6s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_{6s} \f$
     */
-    double  I_6s(double q2);
+    double  I_6s(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_7 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_7 \f$
     */
-    double  I_7(double q2);
+    double  I_7(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_8 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_8 \f$
     */
-    double  I_8(double q2);
+    double  I_8(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ I_9 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ I_9 \f$
     */
-    double  I_9(double q2);
+    double  I_9(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ h_1s \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ h_1s \f$
     */
-    double  h_1s(double q2);
+    double  h_1s(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ h_1c \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ h_1c \f$
     */
-    double  h_1c(double q2);
+    double  h_1c(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ h_2s \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ h_2s \f$
     */
-    double  h_2s(double q2);
+    double  h_2s(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ h_2c \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ h_2c \f$
     */
-    double  h_2c(double q2);
+    double  h_2c(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ h_3 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ h_3 \f$
     */
-    double  h_3(double q2);
+    double  h_3(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ h_4 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ h_4 \f$
     */
-    double  h_4(double q2);
+    double  h_4(double q2, bool bar);
     
     /**
     * @brief The angular coefficient \f$ h_7 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ h_7 \f$
     */
-    double  h_7(double q2);
-    
-    /**
-    * @brief The CP asymmetry \f$ \Delta_{i} \f$ .
-    * @param[in] i index of the angular coefficient \f$ I_{i} \f$
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta_{i} \f$
-    */
-    double Delta(int i, double q2);
+    double  h_7(double q2, bool bar);
     
     /**
     * @brief The CP average \f$ \Sigma_{1s} \f$ .
@@ -1358,10 +1388,13 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
-                return I_1c(q2);
+                return (I_1c(q2, 0) + I_1c(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
+                return (I_1c(q2, 0) + I_1c(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
-                return I_1c(q2) - ys * h_1c(q2);
+                return (I_1c(q2, 0) - ys * h_1c(q2, 0) + I_1c(q2, 1) - ys * h_1c(q2, 1))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1379,10 +1412,13 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
-                return I_1s(q2);
+                return (I_1s(q2, 0) + I_1s(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
+                return (I_1s(q2, 0) + I_1s(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
-                return I_1s(q2) - ys * h_1s(q2);
+                return (I_1s(q2, 0) - ys * h_1s(q2, 0) + I_1s(q2, 1) - ys * h_1s(q2, 1))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1400,10 +1436,13 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
-                return I_2c(q2);
+                return (I_2c(q2, 0) + I_2c(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
+                return (I_2c(q2, 0) + I_2c(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
-                return I_2c(q2) - ys * h_2c(q2);
+                return (I_2c(q2, 0) - ys * h_2c(q2, 0) + I_2c(q2, 1) - ys * h_2c(q2, 1))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1421,10 +1460,13 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
-                return I_2s(q2);
+                return (I_2s(q2, 0) + I_2s(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
+                return (I_2s(q2, 0) + I_2s(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
-                return I_2s(q2) - ys * h_2s(q2);
+                return (I_2s(q2, 0) - ys * h_2s(q2, 0) + I_2s(q2, 1) - ys * h_2s(q2, 1))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1442,10 +1484,13 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
-                return I_3(q2);
+                return (I_3(q2, 0) + I_3(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
+                return (I_3(q2, 0) + I_3(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
-                return I_3(q2) - ys * h_3(q2);
+                return (I_3(q2, 0) - ys * h_3(q2, 0) + I_3(q2, 1) - ys * h_3(q2, 1))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1463,10 +1508,13 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
-                return I_4(q2);
+                return (I_4(q2, 0) + I_4(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
+                return (I_4(q2, 0) + I_4(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
-                return I_4(q2) - ys * h_4(q2);
+                return (I_4(q2, 0) - ys * h_4(q2, 0) + I_4(q2, 1) - ys * h_4(q2, 1))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1482,7 +1530,7 @@ private:
     */ 
     double getSigma5(double q2)
     {
-        return I_5(q2);
+        return (I_5(q2, 0) + I_5(q2, 1))/2.;
     };
     
     /**
@@ -1492,7 +1540,7 @@ private:
     */ 
     double getSigma6s(double q2)
     {
-        return I_6s(q2);
+        return (I_6s(q2, 0) + I_6s(q2, 1))/2.;
     };
     
     /**
@@ -1502,7 +1550,7 @@ private:
     */ 
     double getSigma6c(double q2)
     {
-        return I_6c(q2);
+        return (I_6c(q2, 0) + I_6c(q2, 1))/2.;
     };
     
     /**
@@ -1514,10 +1562,13 @@ private:
     {
         switch(vectorM){
             case StandardModel::K_star:
-                return I_7(q2);
+                return (I_7(q2, 0) + I_7(q2, 1))/2.;
+                break;
+            case StandardModel::K_star_P:
+                return (I_7(q2, 0) + I_7(q2, 1))/2.;
                 break;
             case StandardModel::PHI:
-                return I_7(q2) - ys * h_7(q2);
+                return (I_7(q2, 0) - ys * h_7(q2, 0) + I_7(q2, 1) - ys * h_7(q2, 1))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1533,7 +1584,7 @@ private:
     */ 
     double getSigma8(double q2)
     {
-        return I_8(q2);
+        return (I_8(q2, 0) + I_8(q2, 1))/2.;
     };
     
     /**
@@ -1543,69 +1594,128 @@ private:
     */ 
     double getSigma9(double q2)
     {
-        return I_9(q2);
+        return (I_9(q2, 0) + I_9(q2, 1))/2.;
     };
     
-    /**
-    * @brief The CP asymmetry \f$ \Delta_{1s} \f$ .
+        /**
+    * @brief The CP difference \f$ \Delta_{1s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{1s} \f$
     */
-    double getDelta0(double q2)
+    double getDelta1c(double q2)
     {
-        return Delta(0, q2);
+        return (I_1c(q2, 0) - I_1c(q2, 1)) / 2.;
     };
     
     /**
-    * @brief The CP asymmetry \f$ \Delta_{1c} \f$ .
+    * @brief The CP difference \f$ \Delta_{1c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{1c} \f$
     */
-    double getDelta1(double q2)
+    double getDelta1s(double q2)
     {
-        return Delta(1, q2);
+        return (I_1s(q2, 0) - I_1s(q2, 1)) / 2.;
     };
     
     /**
-    * @brief The CP asymmetry \f$ \Delta_{2s} \f$ .
+    * @brief The CP difference \f$ \Delta_{2s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{2s} \f$
     */
-    double getDelta2(double q2)
+    double getDelta2c(double q2)
     {
-        return Delta(2, q2);
+        return (I_2c(q2, 0) - I_2c(q2, 1)) / 2.;
     };
     
     /**
-    * @brief The CP asymmetry \f$ \Delta_{2c} \f$ .
+    * @brief The CP difference \f$ \Delta_{2c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{2c} \f$
     */
+    double getDelta2s(double q2)
+    {
+        return (I_2s(q2, 0) - I_2s(q2, 1))/2.;
+    };
+    
+    /**
+    * @brief The CP difference \f$ \Delta_{3} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{3} \f$
+    */ 
     double getDelta3(double q2)
     {
-        return Delta(3, q2);
+        return (I_3(q2, 0) - I_3(q2, 1))/2.;
     };
     
     /**
-    * @brief The CP asymmetry \f$ \Delta_{6s} \f$ .
+    * @brief The CP difference \f$ \Delta_{4} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{4} \f$
+    */ 
+    double getDelta4(double q2)
+    {
+        return (I_4(q2, 0) - I_4(q2, 1))/2.;
+    };
+    
+    /**
+    * @brief The CP difference \f$ \Delta_{5} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{5} \f$
+    */ 
+    double getDelta5(double q2)
+    {
+        return (I_5(q2, 0) - I_5(q2, 1))/2.;
+    };
+    
+    /**
+    * @brief The CP difference \f$ \Delta_{6s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{6s} \f$
-    */
-    double getDelta7(double q2)
+    */ 
+    double getDelta6s(double q2)
     {
-        return Delta(7, q2);
+        return (I_6s(q2, 0) - I_6s(q2, 1))/2.;
     };
     
     /**
-    * @brief The CP asymmetry \f$ \Delta_{9} \f$ .
+    * @brief The CP difference \f$ \Delta_{6c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta_{9} \f$
-    */
-    double getDelta11(double q2)
+    * @return \f$ \Delta_{6c} \f$
+    */ 
+    double getDelta6c(double q2)
     {
-        return Delta(11, q2);
+        return (I_6c(q2, 0) - I_6c(q2, 1))/2.;
     };
     
+    /**
+    * @brief The CP difference \f$ \Delta_{7} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{7} \f$
+    */ 
+    double getDelta7(double q2)
+    {
+        return (I_7(q2, 0) - I_7(q2, 1))/2.;
+    };
+    
+    /**
+    * @brief The CP difference \f$ \Delta_{8} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{8} \f$
+    */ 
+    double getDelta8(double q2)
+    {
+        return (I_8(q2, 0) - I_8(q2, 1))/2.;
+    };
+    
+    /**
+    * @brief The CP difference \f$ \Delta_{9} \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \Delta_{9} \f$
+    */ 
+    double getDelta9(double q2)
+    {
+        return (I_9(q2, 0) - I_9(q2, 1))/2.;
+    };
     
     /**
     * @brief The fit function from @cite Straub:2015ica, \f$ FF^{\rm fit} \f$.

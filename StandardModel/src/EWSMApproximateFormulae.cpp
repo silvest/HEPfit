@@ -170,18 +170,24 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d10 = -6.55 * 0.1;
             break;
         case QCD::BOTTOM:
-            s0 = 0.2327580;
-            d1 = 4.749 * 0.0001;
-            d2 = 2.03 * 0.00001;
-            d3 = 3.94 * 0.000001;
-            d4 = -1.84 * 0.000001;
-            d5 = 2.08 * 0.01;
-            d6 = -0.993 * 0.001;
-            d7 = 0.708 * 0.0001;
-            d8 = -7.61 * 0.000001;
-            d9 = 4.03 * 0.0001;
-            d10 = 6.61 * 0.1;
-            break;
+            
+            if (mycache.getSM().getMHl() < 120.1 || mycache.getSM().getMHl() > 130.1) {
+                s0 = 0.2327580;
+                d1 = 4.749 * 0.0001;
+                d2 = 2.03 * 0.00001;
+                d3 = 3.94 * 0.000001;
+                d4 = -1.84 * 0.000001;
+                d5 = 2.08 * 0.01;
+                d6 = -0.993 * 0.001;
+                d7 = 0.708 * 0.0001;
+                d8 = -7.61 * 0.000001;
+                d9 = 4.03 * 0.0001;
+                d10 = 6.61 * 0.1;
+                break;
+
+            } else {
+                return sin2thetaEff_b();
+            }
         case QCD::TOP:
             return 0.0;
         default:
@@ -199,6 +205,41 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             + d4 * (Delta_H * Delta_H - 1.0) + d5 * Delta_ale + d6 * Delta_t
             + d7 * Delta_t * Delta_t + d8 * Delta_t * (Delta_H - 1.0)
             + d9 * Delta_alphas + d10 * Delta_Z);
+}
+
+double EWSMApproximateFormulae::sin2thetaEff_b() const
+{
+    // applicable for 120.1 GeV <= mHl <= 130.1 GeV
+    if (mycache.getSM().getMHl() < 120.1 || mycache.getSM().getMHl() > 130.1) {
+        std::stringstream out;
+        out << mycache.getSM().getMHl();
+        throw std::runtime_error("ApproximateFormulae::sin2thetaEff_b(): mh=" + out.str() + " is out of range");
+    }
+
+    double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9;
+
+    s0 = 0.232704;
+    d1 = 4.723 * 0.0001;
+    d2 = 1.97 * 0.0001;
+    d3 = 2.07 * 0.01;
+    d4 = -9.733 * 0.0001;
+    d5 = 3.93 * 0.0001;
+    d6 = -1.38 * 0.0001;
+    d7 = 2.42 * 0.0001;
+    d8 = -8.10 * 0.0001;
+    d9 = -0.664;
+
+    double L_H = log(mycache.getSM().getMHl() / 125.7);
+    double Delta_ale = mycache.getSM().DeltaAlphaL5q() / 0.059 - 1.0;
+    double Delta_t = pow((mycache.getSM().getMtpole() / 173.2), 2.0) - 1.0;
+    double Delta_alphas = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
+    double Delta_Z = mycache.getSM().getMz() / 91.1876 - 1.0;
+
+    return (s0 + d1 * L_H + d2 * L_H * L_H 
+            + d3 * Delta_ale
+            + d4 * Delta_t + d5 * Delta_t * Delta_t + d6 * Delta_t * L_H
+            + d7 * Delta_alphas + d8 * Delta_t * Delta_alphas
+            + d9 * Delta_Z);
 }
 
 double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double Mw_i) const

@@ -39,7 +39,7 @@ MonteCarloEngine::MonteCarloEngine(
     cindex = 0;
     printLogo = false;
 #ifdef _MPI
-    rank = MPI::COMM_WORLD.Get_rank();
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
     rank = 0;
 #endif
@@ -367,9 +367,9 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             index_chain[il] = -1;
         }
         //       double inittime = MPI::Wtime();
-        MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                recvbuff, buffsize, MPI::DOUBLE,
-                0);
+        MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE,
+                recvbuff, buffsize, MPI_DOUBLE,
+                0, MPI_COMM_WORLD);
 
         if (recvbuff[0] == 2.) { // compute observables
             double sbuff[obsbuffsize];
@@ -392,10 +392,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it)
                     sbuff[k++] = it->computeTheoryValue();
             }
-            MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0);
+            MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, buff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
         } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
             double sbuff[obsbuffsize];
-            MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0);
+            MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, buff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
         }
 
         for (int il = 0; il < procnum; il++) {
@@ -1052,6 +1052,9 @@ std::string MonteCarloEngine::computeStatistics() {
 std::string MonteCarloEngine::writePreRunData() 
 {
     std::vector<double> mode(GetBestFitParameters());
+    if (mode.size() == 0) {
+        throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. PreRun Data cannot be stored.\n");
+    }
     std::vector<double> scales(GetScaleFactors().at(0));
     std::ostringstream StatsLog;
     for (unsigned int i = 0; i < mode.size(); i++)
@@ -1059,16 +1062,32 @@ std::string MonteCarloEngine::writePreRunData()
     return StatsLog.str().c_str();
 }
 
-double MonteCarloEngine::computeNormalization() {
+double MonteCarloEngine::computeNormalizationMC(int NIterationNormalizationMC) {
+    // Number of MC iterations
+    SetNIterationsMin(NIterationNormalizationMC);
+    SetIntegrationMethod(BCIntegrate::kIntMonteCarlo);
+    Integrate();
+    double norm = GetIntegral();
+    if (norm < 0.) {
+        throw std::runtime_error("\n ERROR: Normalization computation cannot be completed since integral is negative.\n");
+    }
+    
+    return norm;
+}
+
+double MonteCarloEngine::computeNormalizationLME() {
 /* PENDING REVIEW FOR USE WITH BAT v1.0. */
     unsigned int Npars = GetNParameters();
     std::vector<double> mode(GetBestFitParameters());
+    if (mode.size() == 0) {
+        throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Normalization computation cannot be completed.\n");
+    }
     gslpp::matrix<double> Hessian(Npars, Npars, 0.);
     
     for (unsigned int i = 0; i < Npars; i++)
         for (unsigned int j = 0; j < Npars; j++) {
             // calculate Hessian matrix element
-            Hessian.assign(i, j, -SecondDerivative(GetParameter(i), GetParameter(j), GetBestFitParameters()));
+            Hessian.assign(i, j, -SecondDerivative(GetParameter(i), GetParameter(j), mode));
         }
     double det_Hessian = Hessian.determinant();
 
