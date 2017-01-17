@@ -1062,13 +1062,16 @@ std::string MonteCarloEngine::writePreRunData()
     return StatsLog.str().c_str();
 }
 
-double MonteCarloEngine::computeNormalizationMC(int NIterationNormalizationMC) {
+std::vector<double> MonteCarloEngine::computeNormalizationMC(int NIterationNormalizationMC) {
     // Number of MC iterations
     SetNIterationsMin(NIterationNormalizationMC);
     SetIntegrationMethod(BCIntegrate::kIntMonteCarlo);
     Integrate();
-    double norm = GetIntegral();
-    if (norm < 0.) {
+    std::vector<double> norm;
+    norm.clear();
+    norm.push_back(GetIntegral());
+    norm.push_back(GetError());
+    if (norm[0] < 0.) {
         throw std::runtime_error("\n ERROR: Normalization computation cannot be completed since integral is negative.\n");
     }
     

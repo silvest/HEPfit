@@ -44,7 +44,8 @@ MonteCarlo::MonteCarlo(
     PrintParameterPlot = false;
     WritePreRunData = false;
     checkrun = false;
-    normalization = 0.;
+    normalizationLME = 0.;
+    normalizationMC.clear();
 }
 
 MonteCarlo::~MonteCarlo() {}
@@ -375,7 +376,6 @@ void MonteCarlo::Run(const int rank) {
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
-
             // draw all marginalized distributions into a pdf file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
@@ -450,15 +450,16 @@ void MonteCarlo::Run(const int rank) {
                 if (CalculateNormalization.compare("LME") == 0) {
                     // Make sure mode is found by MINUIT for normalization computation.
                     if (!FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
-                    normalization = MCEngine.computeNormalizationLME();
+                    normalizationLME = MCEngine.computeNormalizationLME();
+                    outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << normalizationLME << "\n" << std::endl;
                 } 
                 else if (CalculateNormalization.compare("MC") == 0) {
-                    normalization = MCEngine.computeNormalizationMC(NIterationNormalizationMC);
+                    normalizationMC = MCEngine.computeNormalizationMC(NIterationNormalizationMC);
+                    outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << normalizationMC[0] << " +- " << normalizationMC[1] << "\n" << std::endl;
                 }
                 else 
                     throw std::runtime_error(("\n ERROR: Normalization method" + CalculateNormalization + " not implemented.\n").c_str());
                 
-                outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << normalization << "\n" << std::endl;
                 outStatLog.close();
             }
             

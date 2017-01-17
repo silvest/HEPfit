@@ -253,7 +253,7 @@ public:
      * @brief A method to calculate the normalization based on the Monte Carlo Simulation
      * @return the normalization
      */
-    double computeNormalizationMC(int NIterationNormalizationMC);
+    std::vector<double> computeNormalizationMC(int NIterationNormalizationMC);
     
     /**
      * @brief A method to calculate the second derivative.
