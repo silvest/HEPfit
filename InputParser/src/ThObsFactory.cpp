@@ -819,6 +819,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_A_hZ_THDM"] = boost::factory<BR_A_hZ_THDM*>();
     obsThFactory["BR_A_HpW_THDM"] = boost::factory<BR_A_HpW_THDM*>();
 
+    obsThFactory["tanbeta"] = boost::factory<tanbeta*>();
     obsThFactory["mHl_THDM"] = boost::factory<mass_mHl*>();
     obsThFactory["mHh"] = boost::factory<mass_mHh*>();
     obsThFactory["mA"] = boost::factory<mass_mA*>();

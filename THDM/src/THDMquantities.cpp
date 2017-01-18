@@ -7,6 +7,15 @@
 
 #include "THDMquantities.h"
 
+tanbeta::tanbeta(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
+{}
+
+double tanbeta::computeThValue()
+{
+    return myTHDM->gettanb();
+}
+
 mass_mHl::mass_mHl(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))
 {}
@@ -15,7 +24,6 @@ double mass_mHl::computeThValue()
 {
     return sqrt(myTHDM->getmHl2());
 }
-
 
 mass_mHh::mass_mHh(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDM(static_cast<const THDM*> (&SM_i))

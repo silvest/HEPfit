@@ -471,7 +471,7 @@ double THDMMatching::gminus2muLO() {
     part_h=ymu_h*ymu_h*rmu_h*(-7.0/6.0-log(rmu_h));
     part_H=ymu_H*ymu_H*rmu_H*(-7.0/6.0-log(rmu_H));
     part_A=ymu_A*ymu_A*rmu_A*(11.0/6.0+log(rmu_A));
-    part_Hp=-ymu_A*ymu_h*rmu_h*1.0/6.0;
+    part_Hp=-ymu_A*ymu_A*rmu_Hp*1.0/6.0;
 
     gminus2muLO=GF*mMU*mMU/(4.0*pi*pi*sqrt(2.0)) * (-part_hSM+part_h+part_H+part_A+part_Hp);
 

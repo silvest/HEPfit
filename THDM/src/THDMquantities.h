@@ -13,6 +13,27 @@
 #include "THDM.h"
 
 /**
+ * @class tanbeta
+ * @ingroup THDM 
+ * @brief The tangent of beta.
+ */
+class tanbeta: public ThObservable {
+public:
+
+    /**
+     * @brief tanbeta constructor.
+     */
+    tanbeta(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\tan \beta@f$
+     */
+    double computeThValue();
+
+    const THDM * myTHDM;
+};
+
+/**
  * @class mass_mHl
  * @ingroup THDM 
  * @brief The mass of the light CP-even Higgs state.
