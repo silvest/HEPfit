@@ -27,15 +27,28 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         log_cs_VBF_8(93, 2, 0.),
         log_cs_WH_8(33, 2, 0.),
         log_cs_ZH_8(33, 2, 0.),
+        log_cs_ggH_13(93, 2, 0.),
+        log_cs_VBF_13(93, 2, 0.),
+        log_cs_WH_13(33, 2, 0.),
+        log_cs_ZH_13(33, 2, 0.),
         log_cs_ttH_8(99, 2, 0.),
+        log_cs_ttH_13(99, 2, 0.),
         log_cs_bbH_8(99, 2, 0.),
+        log_cs_bbH_13(99, 2, 0.),
         log_cs_ggA_8(99, 2, 0.),
         log_cs_ttA_8(99, 2, 0.),
         log_cs_bbA_8(99, 2, 0.),
+        log_cs_ggA_13(99, 2, 0.),
+        log_cs_ttA_13(99, 2, 0.),
+        log_cs_bbA_13(99, 2, 0.),
         csrH_top_8(99, 2, 0.),
         csrH_bottom_8(99, 2, 0.),
         csrA_top_8(99, 2, 0.),
         csrA_bottom_8(99, 2, 0.),
+        csrH_top_13(99, 2, 0.),
+        csrH_bottom_13(99, 2, 0.),
+        csrA_top_13(99, 2, 0.),
+        csrA_bottom_13(99, 2, 0.),
         ATLAS_pp_phi_gaga(108, 2, 0.),
         ATLAS_ggF_phi_tautau(92, 2, 0.),
         ATLAS_bbF_phi_tautau(92, 2, 0.),
@@ -1468,7 +1481,9 @@ void THDMcache::read(){
     std::stringstream br1,br2,br3,br4,br5,br6,br7;
     std::stringstream dw1;
     std::stringstream cs1,cs2,cs3,cs4,cs5,cs6,cs7,cs8,cs9;
+    std::stringstream cs11,cs12,cs13,cs14,cs15,cs16,cs17,cs18,cs19;
     std::stringstream csr1,csr2,csr3,csr4;
+    std::stringstream csr11,csr12,csr13,csr14;
     std::stringstream ex1,ex2,ex3,ex4,ex5,ex6,ex7,ex8,ex9,ex10,ex11,ex12,ex13,ex14,ex15,ex16,ex17,ex18,ex19,ex20,ex21,ex22,ex23;
     std::stringstream ex1e,ex2e,ex3e,ex4e,ex5e,ex6e,ex7e,ex8e,ex9e,ex10e,ex11e,ex12e,ex13e,ex14e,ex15e,ex16e,ex17e,ex18e,ex19e,ex20e,ex21e,ex22e,ex23e;
     std::stringstream ex14ep2,ex14em2;
@@ -1484,15 +1499,16 @@ void THDMcache::read(){
     br1 << tablepath << "br1.dat";
     br_tt = readTable(br1.str(),19861,2);
 
-//    std::cout<<"bla-"<<br_tt<<std::endl;
-//    double bla1[4][2];
-//    bla1[0][1]=1;
-//        gslpp::matrix<double> bla1(19861,2,0.);
+//// THIS IS FOR THE FUTURE IMPLEMENTATION INTO HEADERS:
+//    std::cout<<"br_tt="<<br_tt<<std::endl;
+//    double brtt1[4][2];
+//    brtt1[0][1]=1;
+//        gslpp::matrix<double> brtt1(19861,2,0.);
 //    std::stringstream br1x;
 //    br1x << "log_cs_ggH_13.h";
-//      //bla1(2)=(3.,4.);
-//      bla1=readTable(br1x.str(),20,2);
-//    std::cout<<"bla1-"<<bla1<<std::endl;
+//      //brtt1(2)=(3.,4.);
+//      brtt1=readTable(br1x.str(),20,2);
+//    std::cout<<"brtt1="<<bla1<<std::endl;
 
 
     br2 << tablepath << "br2.dat";
@@ -1511,30 +1527,56 @@ void THDMcache::read(){
     GammaHtot_SM = readTable(dw1.str(),19861,2);
     cs1 << tablepath << "log_cs_ggH_8.dat";
     log_cs_ggH_8 = readTable(cs1.str(),93,2);
+    cs11 << tablepath << "log_cs_ggH_13.dat";
+    log_cs_ggH_13 = readTable(cs11.str(),93,2);
     cs2 << tablepath << "log_cs_VBF_8.dat";
     log_cs_VBF_8 = readTable(cs2.str(),93,2);
+    cs12 << tablepath << "log_cs_VBF_13.dat";
+    log_cs_VBF_13 = readTable(cs12.str(),93,2);
     cs3 << tablepath << "log_cs_WH_8.dat";
     log_cs_WH_8 = readTable(cs3.str(),33,2);
+    cs13 << tablepath << "log_cs_WH_13.dat";
+    log_cs_WH_13 = readTable(cs13.str(),33,2);
     cs4 << tablepath << "log_cs_ZH_8.dat";
     log_cs_ZH_8 = readTable(cs4.str(),33,2);
+    cs14 << tablepath << "log_cs_ZH_13.dat";
+    log_cs_ZH_13 = readTable(cs14.str(),33,2);
     cs5 << tablepath << "log_cs_ttH_8.dat";
     log_cs_ttH_8 = readTable(cs5.str(),99,2);
+    cs15 << tablepath << "log_cs_ttH_13.dat";
+    log_cs_ttH_13 = readTable(cs15.str(),99,2);
     cs6 << tablepath << "log_cs_bbH_8.dat";
     log_cs_bbH_8 = readTable(cs6.str(),99,2);
+    cs16 << tablepath << "log_cs_bbH_13.dat";
+    log_cs_bbH_13 = readTable(cs16.str(),99,2);
     cs7 << tablepath << "log_cs_ggA_8.dat";
     log_cs_ggA_8 = readTable(cs7.str(),99,2);
+    cs17 << tablepath << "log_cs_ggA_13.dat";
+    log_cs_ggA_13 = readTable(cs17.str(),99,2);
     cs8 << tablepath << "log_cs_ttA_8.dat";
     log_cs_ttA_8 = readTable(cs8.str(),99,2);
+    cs18 << tablepath << "log_cs_ttA_13.dat";
+    log_cs_ttA_13 = readTable(cs18.str(),99,2);
     cs9 << tablepath << "log_cs_bbA_8.dat";
     log_cs_bbA_8 = readTable(cs9.str(),99,2);
+    cs19 << tablepath << "log_cs_bbA_13.dat";
+    log_cs_bbA_13 = readTable(cs19.str(),99,2);
     csr1 << tablepath << "csrH_top_8.dat";
     csrH_top_8 = readTable(csr1.str(),99,2);
+    csr11 << tablepath << "csrH_top_13.dat";
+    csrH_top_13 = readTable(csr11.str(),99,2);
     csr2 << tablepath << "csrH_bottom_8.dat";
     csrH_bottom_8 = readTable(csr2.str(),99,2);
+    csr12 << tablepath << "csrH_bottom_13.dat";
+    csrH_bottom_13 = readTable(csr12.str(),99,2);
     csr3 << tablepath << "csrA_top_8.dat";
     csrA_top_8 = readTable(csr3.str(),99,2);
+    csr13 << tablepath << "csrA_top_13.dat";
+    csrA_top_13 = readTable(csr13.str(),99,2);
     csr4 << tablepath << "csrA_bottom_8.dat";
     csrA_bottom_8 = readTable(csr4.str(),99,2);
+    csr14 << tablepath << "csrA_bottom_13.dat";
+    csrA_bottom_13 = readTable(csr14.str(),99,2);
     ex1 << tablepath << "150400936.dat";
     CMS_mu_pp_H_VV = readTable(ex1.str(),172,2);
     ex1e << tablepath << "150400936_e.dat";
@@ -1792,6 +1834,25 @@ double THDMcache::ip_cs_ggtoH_8(double mass){
 
 
 
+double THDMcache::ip_cs_ggtoH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ggtoH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=80. && mass <=1000.) {
+            newResult = pow(10.0,interpolate (log_cs_ggH_13,mass));
+        }
+        CacheShiftReal(ip_cs_ggtoH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_cs_VBFtoH_8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -1805,6 +1866,25 @@ double THDMcache::ip_cs_VBFtoH_8(double mass){
             newResult = pow(10.0,interpolate (log_cs_VBF_8,mass));
         }
         CacheShiftReal(ip_cs_VBFtoH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_cs_VBFtoH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_VBFtoH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_VBFtoH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=80. && mass <=1000.) {
+            newResult = pow(10.0,interpolate (log_cs_VBF_13,mass));
+        }
+        CacheShiftReal(ip_cs_VBFtoH_13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -1830,6 +1910,25 @@ double THDMcache::ip_cs_WtoWH_8(double mass){
 
 
 
+double THDMcache::ip_cs_WtoWH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_WtoWH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_WtoWH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=80. && mass <=400.) {
+            newResult = pow(10.0,interpolate (log_cs_WH_13,mass));
+        }
+        CacheShiftReal(ip_cs_WtoWH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_cs_ZtoZH_8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -1843,6 +1942,25 @@ double THDMcache::ip_cs_ZtoZH_8(double mass){
             newResult = pow(10.0,interpolate (log_cs_ZH_8,mass));
         }
         CacheShiftReal(ip_cs_ZtoZH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_cs_ZtoZH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ZtoZH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ZtoZH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=80. && mass <=400.) {
+            newResult = pow(10.0,interpolate (log_cs_ZH_13,mass));
+        }
+        CacheShiftReal(ip_cs_ZtoZH_13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -1868,6 +1986,25 @@ double THDMcache::ip_cs_pptottH_8(double mass){
 
 
 
+double THDMcache::ip_cs_pptottH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptottH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptottH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=1000.) {
+            newResult = pow(10.0,interpolate (log_cs_ttH_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptottH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_cs_pptobbH_8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -1881,6 +2018,25 @@ double THDMcache::ip_cs_pptobbH_8(double mass){
             newResult = pow(10.0,interpolate (log_cs_bbH_8,mass));
         }
         CacheShiftReal(ip_cs_pptobbH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_cs_pptobbH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptobbH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptobbH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=1000.) {
+            newResult = pow(10.0,interpolate (log_cs_bbH_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptobbH_13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -1906,6 +2062,25 @@ double THDMcache::ip_cs_ggtoA_8(double mass){
 
 
 
+double THDMcache::ip_cs_ggtoA_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ggtoA_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoA_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=1000.) {
+            newResult = pow(10.0,interpolate (log_cs_ggA_13,mass));
+        }
+        CacheShiftReal(ip_cs_ggtoA_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_cs_pptottA_8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -1919,6 +2094,25 @@ double THDMcache::ip_cs_pptottA_8(double mass){
             newResult = pow(10.0,interpolate (log_cs_ttA_8,mass));
         }
         CacheShiftReal(ip_cs_pptottA_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_cs_pptottA_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptottA_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptottA_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=1000.) {
+            newResult = pow(10.0,interpolate (log_cs_ttA_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptottA_13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -1944,6 +2138,25 @@ double THDMcache::ip_cs_pptobbA_8(double mass){
 
 
 
+double THDMcache::ip_cs_pptobbA_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptobbA_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptobbA_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=1000.) {
+            newResult = pow(10.0,interpolate (log_cs_bbA_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptobbA_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_csr_ggH_t(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -1954,6 +2167,22 @@ double THDMcache::ip_csr_ggH_t(double mass){
     } else {
         double newResult = interpolate (csrH_top_8,mass);
         CacheShiftReal(ip_csr_ggH_t_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_csr_ggH_t_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_csr_ggH_t_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_csr_ggH_t_13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (csrH_top_13,mass);
+        CacheShiftReal(ip_csr_ggH_t_13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -1976,6 +2205,22 @@ double THDMcache::ip_csr_ggH_b(double mass){
 
 
 
+double THDMcache::ip_csr_ggH_b_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_csr_ggH_b_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_csr_ggH_b_13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (csrH_bottom_13,mass);
+        CacheShiftReal(ip_csr_ggH_b_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_csr_ggA_t(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -1992,6 +2237,22 @@ double THDMcache::ip_csr_ggA_t(double mass){
 
 
 
+double THDMcache::ip_csr_ggA_t_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_csr_ggA_t_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_csr_ggA_t_13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (csrA_top_13,mass);
+        CacheShiftReal(ip_csr_ggA_t_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
 double THDMcache::ip_csr_ggA_b(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -2002,6 +2263,22 @@ double THDMcache::ip_csr_ggA_b(double mass){
     } else {
         double newResult = interpolate (csrA_bottom_8,mass);
         CacheShiftReal(ip_csr_ggA_b_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_csr_ggA_b_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_csr_ggA_b_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_csr_ggA_b_13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (csrA_bottom_13,mass);
+        CacheShiftReal(ip_csr_ggA_b_13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -3446,14 +3723,22 @@ void THDMcache::computeSignalStrengthQuantities()
     double BrSM_htoZga = 1.54e-3;
     double BrSM_htocc = 2.91e-2;
 
-    //The ggH cross section in the SM.
-    double SigmaggF = myTHDM->computeSigmaggH(8.0);
-    //The square of the top-quark contribution to the ggH cross section in the SM
-    double Sigmaggh_tt = myTHDM->computeSigmaggH_tt(8.0);
-    //The square of the bottom-quark contribution to the ggH cross section in the SM
-    double Sigmaggh_bb = myTHDM->computeSigmaggH_bb(8.0);
-    //The ttH production cross section in the SM
-    double Sigmatth = myTHDM->computeSigmattH(8.0);
+    //The ggH cross section in the SM at 8 TeV.
+    double SigmaggF8 = myTHDM->computeSigmaggH(8.0);
+    //The ggH cross section in the SM at 13 TeV.
+    double SigmaggF13 = myTHDM->computeSigmaggH(13.0);
+    //The square of the top-quark contribution to the ggH cross section in the SM at 8 TeV
+    double Sigmaggh_tt8 = myTHDM->computeSigmaggH_tt(8.0);
+    //The square of the top-quark contribution to the ggH cross section in the SM at 13 TeV
+//    double Sigmaggh_tt13 = myTHDM->computeSigmaggH_tt(13.0);
+    //The square of the bottom-quark contribution to the ggH cross section in the SM at 8 TeV
+    double Sigmaggh_bb8 = myTHDM->computeSigmaggH_bb(8.0);
+    //The square of the bottom-quark contribution to the ggH cross section in the SM at 13 TeV
+//    double Sigmaggh_bb13 = myTHDM->computeSigmaggH_bb(13.0);
+    //The ttH production cross section in the SM at 8 TeV
+    double Sigmatth8 = myTHDM->computeSigmattH(8.0);
+    //The ttH production cross section in the SM at 13 TeV
+    double Sigmatth13 = myTHDM->computeSigmattH(13.0);
 
     /* r_ii is the ratio of the squared 2HDM vertex coupling of h to
      * the particle i and the respective squared SM coupling.*/
@@ -3500,7 +3785,7 @@ void THDMcache::computeSignalStrengthQuantities()
     }
     else if( modelflag == "type2" ) {
         rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
-             *(Sigmaggh_tt*cosa/sinb+Sigmaggh_bb*sina/cosb)/SigmaggF;
+             *(Sigmaggh_tt8*cosa/sinb+Sigmaggh_bb8*sina/cosb)/SigmaggF8;
         rh_QdQd=sina/cosb*sina/cosb;
         rh_ll=sina/cosb*sina/cosb;
         I_h_F=cosa/sinb*fermU -sina/cosb*(fermD+fermL);
@@ -3515,7 +3800,7 @@ void THDMcache::computeSignalStrengthQuantities()
     }
     else if( modelflag == "typeY" ) {
         rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
-             *(Sigmaggh_tt*cosa/sinb+Sigmaggh_bb*sina/cosb)/SigmaggF;
+             *(Sigmaggh_tt8*cosa/sinb+Sigmaggh_bb8*sina/cosb)/SigmaggF8;
         rh_QdQd=sina/cosb*sina/cosb;
         rh_ll=cosa/sinb*cosa/sinb;
         I_h_F = cosa/sinb*(fermU+fermL) -sina/cosb*fermD;
@@ -3534,8 +3819,10 @@ void THDMcache::computeSignalStrengthQuantities()
     rh_Zga=ABSZgaTHDM/ABSZgaSM;
     //Calulation of rh_gg, rh_QdQd, rh_ll, rh_gaga, rh_Zga (they depend on the model type): END
 
-    /* ggF_tth is the ratio of the THDM and SM cross sections for ggF or tth production */
-    ggF_tth = (SigmaggF*rh_gg + Sigmatth*rh_QuQu)/(SigmaggF + Sigmatth);
+    /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
+    ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*rh_QuQu)/(SigmaggF8 + Sigmatth8);
+    /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
+    ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth13*rh_QuQu)/(SigmaggF13 + Sigmatth13);
     /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
     VBF_Vh = rh_VV;
 
@@ -3564,9 +3851,9 @@ void THDMcache::computeHHquantities()
 
     //These cross sections ratios are necessary for rHH_gg
     //SM gg -> H production cross section ratio at 8 TeV, top loop only over total
-    double rSigmaggH_t = ip_csr_ggH_t(mHh);
+    double rSigmaggH_t8 = ip_csr_ggH_t(mHh);
     //SM gg -> H production cross section ratio at 8 TeV, bottom loop only over total
-    double rSigmaggH_b = ip_csr_ggH_b(mHh);
+    double rSigmaggH_b8 = ip_csr_ggH_b(mHh);
 
     /* r_ii is the ratio between the squared 2HDM vertex coupling of the heavy Higgs to
      * the particle i and the corresponding coupling of the SM Higgs boson.*/
@@ -3613,8 +3900,8 @@ void THDMcache::computeHHquantities()
         A_HH_F = sina/sinb*(A_HH_Ux+A_HH_Dx+A_HH_Lx)/sqrt(sW2*cW2);
     }
     else if( modelflag == "type2" ) {
-        rHH_gg=sina/sinb*cosa/cosb+rSigmaggH_t*sina/sinb*(sina/sinb-cosa/cosb)
-             +rSigmaggH_b*cosa/cosb*(cosa/cosb-sina/sinb);
+        rHH_gg=sina/sinb*cosa/cosb+rSigmaggH_t8*sina/sinb*(sina/sinb-cosa/cosb)
+             +rSigmaggH_b8*cosa/cosb*(cosa/cosb-sina/sinb);
         rHH_QdQd=cosa/cosb*cosa/cosb;
         rHH_ll=cosa/cosb*cosa/cosb;
         I_HH_F=sina/sinb*I_HH_Ux+cosa/cosb*(I_HH_Dx+I_HH_Lx);
@@ -3628,8 +3915,8 @@ void THDMcache::computeHHquantities()
         A_HH_F = (sina/sinb*(A_HH_Ux+A_HH_Dx)+cosa/cosb*A_HH_Lx)/sqrt(sW2*cW2);
     }
     else if( modelflag == "typeY" ) {
-        rHH_gg=sina/sinb*cosa/cosb+rSigmaggH_t*sina/sinb*(sina/sinb-cosa/cosb)
-             +rSigmaggH_b*cosa/cosb*(cosa/cosb-sina/sinb);
+        rHH_gg=sina/sinb*cosa/cosb+rSigmaggH_t8*sina/sinb*(sina/sinb-cosa/cosb)
+             +rSigmaggH_b8*cosa/cosb*(cosa/cosb-sina/sinb);
         rHH_QdQd=cosa/cosb*cosa/cosb;
         rHH_ll=sina/sinb*sina/sinb;
         I_HH_F=sina/sinb*(I_HH_Ux+I_HH_Lx)+cosa/cosb*I_HH_Dx;
@@ -3654,17 +3941,27 @@ void THDMcache::computeHHquantities()
 
     /*Calulation of rHH_QdQd, rHH_ll, rHH_gg, Gamma_Hgaga, Gamma_HZga, Gamma_Hgg: END*/
 
-    double SigmaggF_H=ip_cs_ggtoH_8(mHh)*rHH_gg;
-    double SigmabbF_H=ip_cs_pptobbH_8(mHh)*rHH_QdQd;
-    double SigmaVBF_H=ip_cs_VBFtoH_8(mHh)*rHH_VV;
-    double SigmattF_H=ip_cs_pptottH_8(mHh)*rHH_QuQu;
-    double SigmaVH_H=(ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh))*rHH_VV;
-    double SigmaTotSM_H = 0.000000001;
+    double SigmaggF_H8=ip_cs_ggtoH_8(mHh)*rHH_gg;
+    double SigmabbF_H8=ip_cs_pptobbH_8(mHh)*rHH_QdQd;
+    double SigmaVBF_H8=ip_cs_VBFtoH_8(mHh)*rHH_VV;
+    double SigmattF_H8=ip_cs_pptottH_8(mHh)*rHH_QuQu;
+    double SigmaVH_H8=(ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh))*rHH_VV;
+    double SigmaTotSM_H8 = 1.0e-15;
     if (mHh>=20. && mHh <=1000.) {
-            SigmaTotSM_H=ip_cs_ggtoH_8(mHh)+ip_cs_VBFtoH_8(mHh)+ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh)+ip_cs_pptottH_8(mHh)+ip_cs_pptobbH_8(mHh);
+            SigmaTotSM_H8=ip_cs_ggtoH_8(mHh)+ip_cs_VBFtoH_8(mHh)+ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh)+ip_cs_pptottH_8(mHh)+ip_cs_pptobbH_8(mHh);
     }
+    double SigmaSum8 = SigmaggF_H8 + SigmaVBF_H8 + SigmaVH_H8 + SigmattF_H8 + SigmabbF_H8;
 
-    double SigmaSum = SigmaggF_H + SigmaVBF_H + SigmaVH_H + SigmattF_H + SigmabbF_H;
+    double SigmaggF_H13=ip_cs_ggtoH_13(mHh)*rHH_gg;
+    double SigmabbF_H13=ip_cs_pptobbH_13(mHh)*rHH_QdQd;
+    double SigmaVBF_H13=ip_cs_VBFtoH_13(mHh)*rHH_VV;
+    double SigmattF_H13=ip_cs_pptottH_13(mHh)*rHH_QuQu;
+    double SigmaVH_H13=(ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh))*rHH_VV;
+    double SigmaTotSM_H13 = 1.0e-15;
+    if (mHh>=20. && mHh <=1000.) {
+            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
+    }
+    double SigmaSum13 = SigmaggF_H13 + SigmaVBF_H13 + SigmaVH_H13 + SigmattF_H13 + SigmabbF_H13;
 
     double BrSM_Htott=ip_Br_HPtott(mHh);
     double BrSM_Htocc=ip_Br_HPtocc(mHh);
@@ -3717,22 +4014,22 @@ void THDMcache::computeHHquantities()
 
     //Theoretical expressions for the Heavy Higgs cross sections times branching ratios
 
-    ggF_H_tautau_TH=SigmaggF_H*Br_Htotautau;
-    bbF_H_tautau_TH=SigmabbF_H*Br_Htotautau;
-    pp_H_gaga_TH=SigmaSum*Br_Htogaga;
-    ggF_H_gaga_TH=SigmaggF_H*Br_Htogaga;
-    mu_pp_H_VV_TH=SigmaSum/SigmaTotSM_H*rHH_VV*GammaHtotSM/GammaHtot;
-    ggF_H_ZZ_TH=SigmaggF_H*Br_HtoZZ;
-    VBF_H_ZZ_TH=SigmaVBF_H*Br_HtoZZ;
-    ggF_H_WW_TH=SigmaggF_H*Br_HtoWW;
-    VBF_H_WW_TH=SigmaVBF_H*Br_HtoWW;
-    ggF_H_hh_TH=SigmaggF_H*Br_Htohh;
-    pp_H_hh_TH=SigmaSum*Br_Htohh;
-    ggF_H_hh_bbtautau_TH=SigmaggF_H*Br_Htohh*THDM_BR_h_bb*THDM_BR_h_tautau;
-    pp_H_hh_bbbb_TH=SigmaSum*Br_Htohh*THDM_BR_h_bb*THDM_BR_h_bb;
-    pp_H_hh_gagabb_TH=SigmaSum*Br_Htohh*THDM_BR_h_gaga*THDM_BR_h_bb;
-    ggF_H_tt_TH=SigmaggF_H*Br_Htott;
-    bbF_H_bb_TH=SigmabbF_H*Br_Htobb;
+    ggF_H_tautau_TH=SigmaggF_H8*Br_Htotautau;
+    bbF_H_tautau_TH=SigmabbF_H8*Br_Htotautau;
+    pp_H_gaga_TH=SigmaSum8*Br_Htogaga;
+    ggF_H_gaga_TH=SigmaggF_H8*Br_Htogaga;
+    mu_pp_H_VV_TH=SigmaSum8/SigmaTotSM_H8*rHH_VV*GammaHtotSM/GammaHtot;
+    ggF_H_ZZ_TH=SigmaggF_H8*Br_HtoZZ;
+    VBF_H_ZZ_TH=SigmaVBF_H8*Br_HtoZZ;
+    ggF_H_WW_TH=SigmaggF_H8*Br_HtoWW;
+    VBF_H_WW_TH=SigmaVBF_H8*Br_HtoWW;
+    ggF_H_hh_TH=SigmaggF_H8*Br_Htohh;
+    pp_H_hh_TH=SigmaSum8*Br_Htohh;
+    ggF_H_hh_bbtautau_TH=SigmaggF_H8*Br_Htohh*THDM_BR_h_bb*THDM_BR_h_tautau;
+    pp_H_hh_bbbb_TH=SigmaSum8*Br_Htohh*THDM_BR_h_bb*THDM_BR_h_bb;
+    pp_H_hh_gagabb_TH=SigmaSum8*Br_Htohh*THDM_BR_h_gaga*THDM_BR_h_bb;
+    ggF_H_tt_TH=SigmaggF_H8*Br_Htott;
+    bbF_H_bb_TH=SigmabbF_H8*Br_Htobb;
     
     //Ratios of theoretical Heavy Higgs cross sections and experimental upper limits
 
@@ -4214,9 +4511,9 @@ void THDMcache::computeAquantities()
 
     //These cross sections ratios are necessary for rA_gg
     //gg -> A production cross section ratio at 8 TeV, top loop only over total
-    double rSigmaggA_t = ip_csr_ggA_t(mA);
+    double rSigmaggA_t8 = ip_csr_ggA_t(mA);
     //gg -> A production cross section ratio at 8 TeV, bottom loop only over total
-    double rSigmaggA_b = ip_csr_ggA_b(mA);
+    double rSigmaggA_b8 = ip_csr_ggA_b(mA);
 
     /* r_ii is the ratio between the squared 2HDM vertex coupling of the CP-odd
      * Higgs to the particle i and the corresponding coupling of the SM Higgs boson.*/
@@ -4247,28 +4544,28 @@ void THDMcache::computeAquantities()
     gslpp::complex A_A_Lx = A_A_L(mA2,cW2,Mmu,Mtau,MZ);
 
     if( modelflag == "type1" ) {
-        rA_gg=-cosb/sinb*cosb/sinb+2.0*cosb/sinb*cosb/sinb*(rSigmaggA_t+rSigmaggA_b);
+        rA_gg=-cosb/sinb*cosb/sinb+2.0*cosb/sinb*cosb/sinb*(rSigmaggA_t8+rSigmaggA_b8);
         rA_QdQd=cosb/sinb*cosb/sinb;
         rA_ll=cosb/sinb*cosb/sinb;
         I_A_F=cosb/sinb*(I_A_Ux-I_A_Dx-I_A_Lx);
         A_A_F=cosb/sinb*(A_A_Ux-A_A_Dx-A_A_Lx);
     }
     else if( modelflag == "type2" ) {
-        rA_gg= 1.0+(cosb/sinb-sinb/cosb)*(rSigmaggA_t*cosb/sinb-rSigmaggA_b*sinb/cosb);
+        rA_gg= 1.0+(cosb/sinb-sinb/cosb)*(rSigmaggA_t8*cosb/sinb-rSigmaggA_b8*sinb/cosb);
         rA_QdQd=sinb/cosb*sinb/cosb;
         rA_ll=sinb/cosb*sinb/cosb;
         I_A_F=cosb/sinb*I_A_Ux+sinb/cosb*(I_A_Dx+I_A_Lx);
         A_A_F=cosb/sinb*A_A_Ux+sinb/cosb*(A_A_Dx+A_A_Lx);
     }
     else if( modelflag == "typeX" ) {
-        rA_gg=-cosb/sinb*cosb/sinb+2.0*cosb/sinb*cosb/sinb*(rSigmaggA_t+rSigmaggA_b);
+        rA_gg=-cosb/sinb*cosb/sinb+2.0*cosb/sinb*cosb/sinb*(rSigmaggA_t8+rSigmaggA_b8);
         rA_QdQd=cosb/sinb*cosb/sinb;
         rA_ll=sinb/cosb*sinb/cosb;
         I_A_F=cosb/sinb*(I_A_Ux-I_A_Dx)+sinb/cosb*I_A_Lx;
         A_A_F=cosb/sinb*(A_A_Ux-A_A_Dx)+sinb/cosb*A_A_Lx;
     }
     else if( modelflag == "typeY" ) {
-        rA_gg=1.0+(cosb/sinb-sinb/cosb)*(rSigmaggA_t*cosb/sinb-rSigmaggA_b*sinb/cosb);
+        rA_gg=1.0+(cosb/sinb-sinb/cosb)*(rSigmaggA_t8*cosb/sinb-rSigmaggA_b8*sinb/cosb);
         rA_QdQd=sinb/cosb*sinb/cosb;
         rA_ll=cosb/sinb*cosb/sinb;
         I_A_F=cosb/sinb*(I_A_Ux-I_A_Lx)+sinb/cosb*I_A_Dx;
@@ -4291,10 +4588,10 @@ void THDMcache::computeAquantities()
 
     /*Calulation of rA_QdQd, rA_ll, rA_gg, Gamma_Agaga, Gamma_AZga, Gamma_Agg: END*/
 
-    double SigmaggF_A=ip_cs_ggtoA_8(mA)*rA_gg;
-    double SigmattF_A=ip_cs_pptottA_8(mA)*rA_QuQu;
-    double SigmabbF_A=ip_cs_pptobbA_8(mA)*rA_QdQd;
-    double SigmaSum = SigmaggF_A + SigmattF_A + SigmabbF_A;
+    double SigmaggF_A8=ip_cs_ggtoA_8(mA)*rA_gg;
+    double SigmattF_A8=ip_cs_pptottA_8(mA)*rA_QuQu;
+    double SigmabbF_A8=ip_cs_pptobbA_8(mA)*rA_QdQd;
+    double SigmaSum8 = SigmaggF_A8 + SigmattF_A8 + SigmabbF_A8;
 
     double BrSM_Atocc=ip_Br_HPtocc(mA);
     double BrSM_Atobb=ip_Br_HPtobb(mA);
@@ -4331,17 +4628,17 @@ void THDMcache::computeAquantities()
     double Br_Ztoee=0.03363; //K.A. Olive et al. (Particle Data Group), Chin. Phys. C38, 090001 (2014)
     double Br_Ztomumu=0.03366; //K.A. Olive et al. (Particle Data Group), Chin. Phys. C38, 090001 (2014)
 
-    ggF_A_tautau_TH=SigmaggF_A*Br_Atotautau;
-    bbF_A_tautau_TH=SigmabbF_A*Br_Atotautau;
-    pp_A_gaga_TH=SigmaSum*Br_Atogaga;
-    ggF_A_gaga_TH=SigmaggF_A*Br_Atogaga;
-    pp_A_Zga_llga_TH=SigmaSum*Gamma_AZga/GammaAtot*(Br_Ztoee+Br_Ztomumu);
-    ggF_A_hZ_bbll_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_bb*(Br_Ztoee+Br_Ztomumu);
-    ggF_A_hZ_bbZ_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_bb;
-    ggF_A_hZ_tautaull_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu);
-    ggF_A_hZ_tautauZ_TH=SigmaggF_A*Br_AtohZ*THDM_BR_h_tautau;
-    ggF_A_tt_TH=SigmaggF_A*Br_Atott;
-    bbF_A_bb_TH=SigmabbF_A*Br_Atobb;
+    ggF_A_tautau_TH=SigmaggF_A8*Br_Atotautau;
+    bbF_A_tautau_TH=SigmabbF_A8*Br_Atotautau;
+    pp_A_gaga_TH=SigmaSum8*Br_Atogaga;
+    ggF_A_gaga_TH=SigmaggF_A8*Br_Atogaga;
+    pp_A_Zga_llga_TH=SigmaSum8*Gamma_AZga/GammaAtot*(Br_Ztoee+Br_Ztomumu);
+    ggF_A_hZ_bbll_TH=SigmaggF_A8*Br_AtohZ*THDM_BR_h_bb*(Br_Ztoee+Br_Ztomumu);
+    ggF_A_hZ_bbZ_TH=SigmaggF_A8*Br_AtohZ*THDM_BR_h_bb;
+    ggF_A_hZ_tautaull_TH=SigmaggF_A8*Br_AtohZ*THDM_BR_h_tautau*(Br_Ztoee+Br_Ztomumu);
+    ggF_A_hZ_tautauZ_TH=SigmaggF_A8*Br_AtohZ*THDM_BR_h_tautau;
+    ggF_A_tt_TH=SigmaggF_A8*Br_Atott;
+    bbF_A_bb_TH=SigmabbF_A8*Br_Atobb;
 
     //Ratios of theoretical CP-odd Higgs cross sections and experimental upper limits
 

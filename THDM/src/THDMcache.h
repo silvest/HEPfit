@@ -122,9 +122,19 @@ public:
     gslpp::matrix<double> log_cs_ggH_8, log_cs_VBF_8, log_cs_WH_8, log_cs_ZH_8;
 
     /**
+     * @brief SM Higgs production cross section tables at 13 TeV from the LHC Higgs Cross Section Working Group, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> log_cs_ggH_13, log_cs_VBF_13, log_cs_WH_13, log_cs_ZH_13;
+
+    /**
      * @brief SM Higgs production cross section table at 8 TeV obtained with MadGraph 5, depending on the Higgs mass.
      */
     gslpp::matrix<double> log_cs_ttH_8;
+
+    /**
+     * @brief SM Higgs production cross section table at 13 TeV obtained with MadGraph 5, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> log_cs_ttH_13;
 
     /**
      * @brief SM Higgs production cross section table at 8 TeV obtained with SusHi 1.5, depending on the Higgs mass.
@@ -132,14 +142,29 @@ public:
     gslpp::matrix<double> log_cs_bbH_8;
 
     /**
+     * @brief SM Higgs production cross section table at 13 TeV obtained with SusHi 1.5, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> log_cs_bbH_13;
+
+    /**
      * @brief CP-odd Higgs production cross section tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
      */
     gslpp::matrix<double> log_cs_ggA_8, log_cs_ttA_8, log_cs_bbA_8;
 
     /**
+     * @brief CP-odd Higgs production cross section tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> log_cs_ggA_13, log_cs_ttA_13, log_cs_bbA_13;
+
+    /**
      * @brief Production cross section ratio tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
      */
     gslpp::matrix<double> csrH_top_8, csrH_bottom_8, csrA_top_8, csrA_bottom_8;
+
+    /**
+     * @brief Production cross section ratio tables at 13 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
+     */
+    gslpp::matrix<double> csrH_top_13, csrH_bottom_13, csrA_top_13, csrA_bottom_13;
 
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits, depending on the Higgs mass.
@@ -233,10 +258,22 @@ public:
     double ip_cs_ggtoH_8(double mass);
 
     /**
+     * @brief Interpolating function for the H production cross section via gluon-gluon fusion at 13 TeV.
+     * @return @f$\sigma(gg\to H)@f$
+     */
+    double ip_cs_ggtoH_13(double mass);
+
+    /**
      * @brief Interpolating function for the H production cross section via vector boson fusion at 8 TeV.
      * @return @f$\sigma(VV\to H)@f$
      */
     double ip_cs_VBFtoH_8(double mass);
+
+    /**
+     * @brief Interpolating function for the H production cross section via vector boson fusion at 13 TeV.
+     * @return @f$\sigma(VV\to H)@f$
+     */
+    double ip_cs_VBFtoH_13(double mass);
 
     /**
      * @brief Interpolating function for the W associated H production cross section at 8 TeV.
@@ -245,10 +282,22 @@ public:
     double ip_cs_WtoWH_8(double mass);
 
     /**
+     * @brief Interpolating function for the W associated H production cross section at 13 TeV.
+     * @return @f$\sigma(W\to WH)@f$
+     */
+    double ip_cs_WtoWH_13(double mass);
+
+    /**
      * @brief Interpolating function for the Z associated H production cross section at 8 TeV.
      * @return @f$\sigma(Z\to ZH)@f$
      */
     double ip_cs_ZtoZH_8(double mass);
+
+    /**
+     * @brief Interpolating function for the Z associated H production cross section at 13 TeV.
+     * @return @f$\sigma(Z\to ZH)@f$
+     */
+    double ip_cs_ZtoZH_13(double mass);
 
     /**
      * @brief Interpolating function for the top associated H production cross section at 8 TeV.
@@ -257,10 +306,22 @@ public:
     double ip_cs_pptottH_8(double mass);
 
     /**
+     * @brief Interpolating function for the top associated H production cross section at 13 TeV.
+     * @return @f$\sigma(pp\to t \bar t H)@f$
+     */
+    double ip_cs_pptottH_13(double mass);
+
+    /**
      * @brief Interpolating function for the bottom associated H production cross section at 8 TeV.
      * @return @f$\sigma(pp\to b \bar b H)@f$
      */
     double ip_cs_pptobbH_8(double mass);
+
+    /**
+     * @brief Interpolating function for the bottom associated H production cross section at 13 TeV.
+     * @return @f$\sigma(pp\to b \bar b H)@f$
+     */
+    double ip_cs_pptobbH_13(double mass);
 
     /**
      * @brief Interpolating function for the A production cross section via gluon-gluon fusion at 8 TeV.
@@ -269,10 +330,22 @@ public:
     double ip_cs_ggtoA_8(double mass);
 
     /**
+     * @brief Interpolating function for the A production cross section via gluon-gluon fusion at 13 TeV.
+     * @return @f$\sigma(gg\to A)@f$
+     */
+    double ip_cs_ggtoA_13(double mass);
+
+    /**
      * @brief Interpolating function for the top associated A production cross section at 8 TeV.
      * @return @f$\sigma(pp\to t \bar t A)@f$
      */
     double ip_cs_pptottA_8(double mass);
+
+    /**
+     * @brief Interpolating function for the top associated A production cross section at 13 TeV.
+     * @return @f$\sigma(pp\to t \bar t A)@f$
+     */
+    double ip_cs_pptottA_13(double mass);
 
     /**
      * @brief Interpolating function for the bottom associated A production cross section at 8 TeV.
@@ -281,28 +354,58 @@ public:
     double ip_cs_pptobbA_8(double mass);
 
     /**
-     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution.
+     * @brief Interpolating function for the bottom associated A production cross section at 13 TeV.
+     * @return @f$\sigma(pp\to b \bar b A)@f$
+     */
+    double ip_cs_pptobbA_13(double mass);
+
+    /**
+     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_t(gg\to H)/\sigma(gg\to H)@f$
      */
     double ip_csr_ggH_t(double mass);
 
     /**
-     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the bottom-loop and the total contribution.
+     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution at 13 TeV.
+     * @return @f$\sigma_t(gg\to H)/\sigma(gg\to H)@f$
+     */
+    double ip_csr_ggH_t_13(double mass);
+
+    /**
+     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the bottom-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_b(gg\to H)/\sigma(gg\to H)@f$
      */
     double ip_csr_ggH_b(double mass);
 
     /**
-     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution.
+     * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the bottom-loop and the total contribution at 13 TeV.
+     * @return @f$\sigma_b(gg\to H)/\sigma(gg\to H)@f$
+     */
+    double ip_csr_ggH_b_13(double mass);
+
+    /**
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_t(gg\to A)/\sigma(gg\to A)@f$
      */
     double ip_csr_ggA_t(double mass);
 
     /**
-     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the bottom-loop and the total contribution.
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution at 13 TeV.
+     * @return @f$\sigma_t(gg\to A)/\sigma(gg\to A)@f$
+     */
+    double ip_csr_ggA_t_13(double mass);
+
+    /**
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the bottom-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_b(gg\to A)/\sigma(gg\to A)@f$
      */
     double ip_csr_ggA_b(double mass);
+
+    /**
+     * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the bottom-loop and the total contribution at 13 TeV.
+     * @return @f$\sigma_b(gg\to A)/\sigma(gg\to A)@f$
+     */
+    double ip_csr_ggA_b_13(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance decaying to two photons.
@@ -839,10 +942,16 @@ public:
     double rh_gg;
 
     /**
-     * @brief Ratio of THDM and SM cross sections for ggF and tth production of h.
+     * @brief Ratio of THDM and SM cross sections for ggF and tth production of h at 8 TeV.
      * @return @f$\sigma^{\text THDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$
      */
-    double ggF_tth;
+    double ggF_tth8;
+
+    /**
+     * @brief Ratio of THDM and SM cross sections for ggF and tth production of h at 13 TeV.
+     * @return @f$\sigma^{\text THDM}_{\text ggF+tth}/\sigma^{\text SM}_{\text ggF+tth}@f$
+     */
+    double ggF_tth13;
 
     /**
      * @brief Ratio of THDM and SM cross sections for VBF and Vh production of h.
@@ -1396,18 +1505,31 @@ private:
     mutable double ip_Br_HPtoWW_cache[2][CacheSize];
     mutable double ip_GammaHPtotSM_cache[2][CacheSize];
     mutable double ip_cs_ggtoH_8_cache[2][CacheSize];
+    mutable double ip_cs_ggtoH_13_cache[2][CacheSize];
     mutable double ip_cs_VBFtoH_8_cache[2][CacheSize];
+    mutable double ip_cs_VBFtoH_13_cache[2][CacheSize];
     mutable double ip_cs_WtoWH_8_cache[2][CacheSize];
+    mutable double ip_cs_WtoWH_13_cache[2][CacheSize];
     mutable double ip_cs_ZtoZH_8_cache[2][CacheSize];
+    mutable double ip_cs_ZtoZH_13_cache[2][CacheSize];
     mutable double ip_cs_pptottH_8_cache[2][CacheSize];
+    mutable double ip_cs_pptottH_13_cache[2][CacheSize];
     mutable double ip_cs_pptobbH_8_cache[2][CacheSize];
+    mutable double ip_cs_pptobbH_13_cache[2][CacheSize];
     mutable double ip_cs_ggtoA_8_cache[2][CacheSize];
+    mutable double ip_cs_ggtoA_13_cache[2][CacheSize];
     mutable double ip_cs_pptottA_8_cache[2][CacheSize];
+    mutable double ip_cs_pptottA_13_cache[2][CacheSize];
     mutable double ip_cs_pptobbA_8_cache[2][CacheSize];
+    mutable double ip_cs_pptobbA_13_cache[2][CacheSize];
     mutable double ip_csr_ggH_t_cache[2][CacheSize];
+    mutable double ip_csr_ggH_t_13_cache[2][CacheSize];
     mutable double ip_csr_ggH_b_cache[2][CacheSize];
+    mutable double ip_csr_ggH_b_13_cache[2][CacheSize];
     mutable double ip_csr_ggA_t_cache[2][CacheSize];
+    mutable double ip_csr_ggA_t_13_cache[2][CacheSize];
     mutable double ip_csr_ggA_b_cache[2][CacheSize];
+    mutable double ip_csr_ggA_b_13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_gaga_ATLAS_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_gaga_ATLAS_cache_e[2][CacheSize];
     mutable double ip_ex_ggF_phi_tautau_ATLAS_cache[2][CacheSize];

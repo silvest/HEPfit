@@ -29,7 +29,7 @@ public:
     /**
      * @return @return @f$BR{\text THDM}(h\to b \bar b)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -50,7 +50,7 @@ public:
     /**
      * @return @f$BR{\text THDM}(h\to \gamma \gamma)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -71,7 +71,7 @@ public:
     /**
      * @return @f$BR{\text THDM}(h\to \tau \tau)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -92,7 +92,7 @@ public:
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to b\bar b)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -113,7 +113,7 @@ public:
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to WW)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -134,7 +134,7 @@ public:
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to \tau\tau)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -155,7 +155,7 @@ public:
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to ZZ)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -176,7 +176,112 @@ public:
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to \gamma\gamma)@f$
      */
-    double computeThValue ();
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_tth_htobb13
+ * @ingroup THDM
+ * @brief Signal strength of a ggF or tth produced h decaying to two b quarks at 13 TeV.
+ */
+class ggF_tth_htobb13 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_tth_htobb13(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF+tth}(h\to b\bar b)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_tth_htoWW13
+ * @ingroup THDM
+ * @brief Signal strength of a ggF or tth produced h decaying to two @f$W@f$ bosons at 13 TeV.
+ */
+class ggF_tth_htoWW13 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_tth_htoWW13(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF+tth}(h\to WW)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_tth_htotautau13
+ * @ingroup THDM
+ * @brief Signal strength of a ggF or tth produced h decaying to two @f$\tau@f$ leptons at 13 TeV.
+ */
+class ggF_tth_htotautau13 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_tth_htotautau13(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF+tth}(h\to \tau\tau)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_tth_htoZZ13
+ * @ingroup THDM
+ * @brief Signal strength of a ggF or tth produced h decaying to two @f$Z@f$ bosons at 13 TeV.
+ */
+class ggF_tth_htoZZ13 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_tth_htoZZ13(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF+tth}(h\to ZZ)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_tth_htogaga13
+ * @ingroup THDM
+ * @brief Signal strength of a ggF or tth produced h decaying to two photons at 13 TeV.
+ */
+class ggF_tth_htogaga13 : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_tth_htogaga13(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF+tth}(h\to \gamma\gamma)@f$
+     */
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -197,7 +302,7 @@ public:
     /**
      * @return @f$\mu_{\text VBF+Vh}(h\to b\bar b)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -218,7 +323,7 @@ public:
     /**
      * @return @f$\mu_{\text VBF+Vh}(h\to WW)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -239,7 +344,7 @@ public:
     /**
      * @return @f$\mu_{\text VBF+Vh}(h\to \tau\tau)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -260,7 +365,7 @@ public:
     /**
      * @return @f$\mu_{\text VBF+Vh}(h\to ZZ)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -281,7 +386,7 @@ public:
     /**
      * @return @f$\mu_{\text VBF+Vh}(h\to \gamma\gamma)@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -302,7 +407,7 @@ public:
     /**
      * @return @f$\Gamma_h@f$ in units of GeV
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -323,7 +428,7 @@ public:
     /**
      * @return @f$r^{(h)}_{\gamma \gamma}@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };
@@ -344,7 +449,7 @@ public:
     /**
      * @return @f$r^{(h)}_{gg}@f$
      */
-    double computeThValue ();
+    double computeThValue();
 private:
     const THDM& myTHDM;
 };

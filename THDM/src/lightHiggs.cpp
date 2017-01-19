@@ -49,7 +49,7 @@ ggF_tth_htobb::ggF_tth_htobb(const StandardModel& SM_i)
 
 double ggF_tth_htobb::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->ggF_tth*myTHDM.getMyTHDMCache()->rh_QdQd/myTHDM.getMyTHDMCache()->sumModBRs;
+    return myTHDM.getMyTHDMCache()->ggF_tth8*myTHDM.getMyTHDMCache()->rh_QdQd/myTHDM.getMyTHDMCache()->sumModBRs;
 }
 
 
@@ -60,7 +60,7 @@ ggF_tth_htoWW::ggF_tth_htoWW(const StandardModel& SM_i)
 
 double ggF_tth_htoWW::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->ggF_tth*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
+    return myTHDM.getMyTHDMCache()->ggF_tth8*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
 }
 
 
@@ -71,7 +71,7 @@ ggF_tth_htotautau::ggF_tth_htotautau(const StandardModel& SM_i)
 
 double ggF_tth_htotautau::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->ggF_tth*myTHDM.getMyTHDMCache()->rh_ll/myTHDM.getMyTHDMCache()->sumModBRs;
+    return myTHDM.getMyTHDMCache()->ggF_tth8*myTHDM.getMyTHDMCache()->rh_ll/myTHDM.getMyTHDMCache()->sumModBRs;
 }
 
 
@@ -82,7 +82,7 @@ ggF_tth_htoZZ::ggF_tth_htoZZ(const StandardModel& SM_i)
 
 double ggF_tth_htoZZ::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->ggF_tth*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
+    return myTHDM.getMyTHDMCache()->ggF_tth8*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
 }
 
 
@@ -93,7 +93,62 @@ ggF_tth_htogaga::ggF_tth_htogaga(const StandardModel& SM_i)
 
 double ggF_tth_htogaga::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->ggF_tth*myTHDM.getMyTHDMCache()->rh_gaga/myTHDM.getMyTHDMCache()->sumModBRs;
+    return myTHDM.getMyTHDMCache()->ggF_tth8*myTHDM.getMyTHDMCache()->rh_gaga/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
+ggF_tth_htobb13::ggF_tth_htobb13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double ggF_tth_htobb13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->ggF_tth13*myTHDM.getMyTHDMCache()->rh_QdQd/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
+ggF_tth_htoWW13::ggF_tth_htoWW13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double ggF_tth_htoWW13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->ggF_tth13*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
+ggF_tth_htotautau13::ggF_tth_htotautau13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double ggF_tth_htotautau13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->ggF_tth13*myTHDM.getMyTHDMCache()->rh_ll/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
+ggF_tth_htoZZ13::ggF_tth_htoZZ13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double ggF_tth_htoZZ13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->ggF_tth13*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
+ggF_tth_htogaga13::ggF_tth_htogaga13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double ggF_tth_htogaga13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->ggF_tth13*myTHDM.getMyTHDMCache()->rh_gaga/myTHDM.getMyTHDMCache()->sumModBRs;
 }
 
 
@@ -140,6 +195,8 @@ double VBF_Vh_htoZZ::computeThValue()
     return myTHDM.getMyTHDMCache()->VBF_Vh*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
 }
 
+
+
 VBF_Vh_htogaga::VBF_Vh_htogaga(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
@@ -148,6 +205,8 @@ double VBF_Vh_htogaga::computeThValue()
 {
     return myTHDM.getMyTHDMCache()->VBF_Vh*myTHDM.getMyTHDMCache()->rh_gaga/myTHDM.getMyTHDMCache()->sumModBRs;
 }
+
+
 
 Gamma_h_THDM::Gamma_h_THDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
@@ -158,6 +217,8 @@ double Gamma_h_THDM::computeThValue()
     return myTHDM.getMyTHDMCache()->Gamma_h;
 }
 
+
+
 rh_gaga_THDM::rh_gaga_THDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
@@ -166,6 +227,8 @@ double rh_gaga_THDM::computeThValue()
 {
     return myTHDM.getMyTHDMCache()->rh_gaga;
 }
+
+
 
 rh_gg_THDM::rh_gg_THDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
