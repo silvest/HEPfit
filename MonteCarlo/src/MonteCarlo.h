@@ -174,8 +174,6 @@ private:
     bool PrintParameterPlot; ///< Flag for printing the overview parameter plots.
     bool WritePreRunData; ///< Flag for printing the overview parameter plots.
     bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
-    double normalizationLME; ///< A variable to store the evidence of a model computed using the LME algorithm.
-    std::vector<double> normalizationMC; ///< A variable to store the evidence of a model computed performin a MC integration.
     
     void ReadPreRunData (std::string file);
 };

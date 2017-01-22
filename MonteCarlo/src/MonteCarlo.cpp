@@ -44,8 +44,6 @@ MonteCarlo::MonteCarlo(
     PrintParameterPlot = false;
     WritePreRunData = false;
     checkrun = false;
-    normalizationLME = 0.;
-    normalizationMC.clear();
 }
 
 MonteCarlo::~MonteCarlo() {}
@@ -450,11 +448,10 @@ void MonteCarlo::Run(const int rank) {
                 if (CalculateNormalization.compare("LME") == 0) {
                     // Make sure mode is found by MINUIT for normalization computation.
                     if (!FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
-                    normalizationLME = MCEngine.computeNormalizationLME();
-                    outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << normalizationLME << "\n" << std::endl;
+                    outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << MCEngine.computeNormalizationLME() << "\n" << std::endl;
                 } 
                 else if (CalculateNormalization.compare("MC") == 0) {
-                    normalizationMC = MCEngine.computeNormalizationMC(NIterationNormalizationMC);
+                    std::vector<double> normalizationMC = MCEngine.computeNormalizationMC(NIterationNormalizationMC);
                     outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << normalizationMC[0] << " +- " << normalizationMC[1] << "\n" << std::endl;
                 }
                 else 
