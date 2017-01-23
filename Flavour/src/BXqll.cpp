@@ -60,8 +60,8 @@ void BXqll::updateParameters()
     Vts_over_Vcb = 0.97;
     alsmu = 0.215;
 
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
 
     for(int ord=LO; ord <= NLO; ord++)
     {

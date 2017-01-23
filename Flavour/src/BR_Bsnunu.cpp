@@ -26,14 +26,14 @@ double BR_Bsnunu::computeThValue()
 
 gslpp::complex BR_Bsnunu::BRBsnunu(orders order)
 {
-    if (mySM.getMyFlavour()->getHDB1().getCoeffsnunu().getOrder() < order){
+    if (mySM.getFlavour().getHDB1().getCoeffsnunu().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("BRBsnunu::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     
-    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffsnunu();
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffsnunu();
     
     switch(order) {
         case NLO:

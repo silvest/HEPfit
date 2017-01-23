@@ -16,14 +16,14 @@ AmpDS1::AmpDS1(const StandardModel& SM_i)
 
 gslpp::complex AmpDS1::AmpDS1pp0(orders order) 
 {
-    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
+    if (mySM.getFlavour().getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("AmpDK1::computeThValue(): requires cofficient of order" 
                                  + out.str() + "not computed");
     }
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
+    vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1PP(
             mySM.getBKd1().getMu(),
             mySM.getBKd1().getScheme());
 
@@ -71,14 +71,14 @@ gslpp::complex AmpDS1::AmpDS1pp0(orders order)
 
 gslpp::complex AmpDS1::AmpDS1pp2(orders order) 
 {
-    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
+    if (mySM.getFlavour().getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("AmpDK1::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
+    vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1PP(
             mySM.getBKd3().getMu(),
             mySM.getBKd3().getScheme());
     

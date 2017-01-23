@@ -28,7 +28,7 @@ R_BXqll::R_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, Standa
 //    double q_max = qmax;
 //    StandardModel::lepton lep_i = lep;
 //
-//    return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(0,q_min,q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->integrateSigma(2,q_min,q_max))/(4. * SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i)->getwidth());
+//    return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i).integrateSigma(0,q_min,q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i).integrateSigma(2,q_min,q_max))/(4. * SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i).getwidth());
 //}
 
 double R_BXqll::computeThValue()

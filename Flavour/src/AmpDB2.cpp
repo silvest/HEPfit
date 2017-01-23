@@ -15,10 +15,10 @@ AmpDB2::AmpDB2(const StandardModel& SM_i)
 
 gslpp::complex AmpDB2::AmpBd(orders order) 
 {
-    if (mySM.getMyFlavour()->getHDF2().getCoeffBd().getOrder() < order % 3)
+    if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
+    vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBd( 
             mySM.getBBd().getMu(),
         mySM.getBBd().getScheme());
     
@@ -45,8 +45,8 @@ gslpp::complex AmpDB2::AmpBd(orders order)
     std::cout << "coefficient Bd: " << (*(allcoeff[LO]) + *(allcoeff[NLO]))(0) << std::endl;
     std::cout << "M: " << me << std::endl;
     std::cout << "mu : " << mySM.getBBd().getMu() << ", mut: " << mySM.getMut() << ", scheme: " << mySM.getBBd().getScheme() << ", B par.: " <<  mySM.getBBd().getBpars()(0) << std::endl;
-    std::cout << "U (mut): " << (mySM.getMyFlavour()->getHDF2().getUDF2().Df2Evol(mySM.getBBd().getMu(),mySM.getMut(),LO)(0,0) +  
-            mySM.getMyFlavour()->getHDF2().getUDF2().Df2Evol(mySM.getBBd().getMu(),mySM.getMut(),NLO)(0,0))<< std::endl;
+    std::cout << "U (mut): " << (mySM.getFlavour().getHDF2().getUDF2().Df2Evol(mySM.getBBd().getMu(),mySM.getMut(),LO)(0,0) +  
+            mySM.getFlavour().getHDF2().getUDF2().Df2Evol(mySM.getBBd().getMu(),mySM.getMut(),NLO)(0,0))<< std::endl;
 #endif
 
     switch(order) {
@@ -61,10 +61,10 @@ gslpp::complex AmpDB2::AmpBd(orders order)
 
 gslpp::complex AmpDB2::AmpBs(orders order) 
 {
-    if (mySM.getMyFlavour()->getHDF2().getCoeffBs().getOrder() < order % 3)
+    if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
+    vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffBs(
             mySM.getBBs().getMu(),
             mySM.getBBs().getScheme());
 
@@ -101,7 +101,7 @@ gslpp::complex AmpDB2::PBd()
     double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
     double Mw = mySM.Mw();
     double kappa = -2. * M_PI * mbpole * mbpole / 
-    (3. * Mw * Mw * mySM.getMyFlavour()->getHDF2().getUDF2().etabS0(mySM.getBBd().getMu()));
+    (3. * Mw * Mw * mySM.getFlavour().getHDF2().getUDF2().etabS0(mySM.getBBd().getMu()));
     
     double n[13] = {0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.};
     
@@ -130,7 +130,7 @@ gslpp::complex AmpDB2::PBs()
     double mbpole = mySM.Mbar2Mp(mySM.getQuarks(QCD::BOTTOM).getMass());
     double Mw = mySM.Mw();
     double kappa = -2. * M_PI * mbpole * mbpole / 
-    (3. * Mw * Mw * mySM.getMyFlavour()->getHDF2().getUDF2().etabS0(mySM.getBBs().getMu()));
+    (3. * Mw * Mw * mySM.getFlavour().getHDF2().getUDF2().etabS0(mySM.getBBs().getMu()));
     
     double n[13] = {0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.};
     

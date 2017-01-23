@@ -1922,8 +1922,8 @@ void Bsgamma::computeCoeff(double mu)
             << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
             << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
     
-    allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
-    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu);
+    allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu);
+    allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu);
     
     C1_0 = (*(allcoeff[LO]))(0);
     C2_0 = (*(allcoeff[LO]))(1);

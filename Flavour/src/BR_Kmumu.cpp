@@ -19,14 +19,14 @@ double BR_Kmumu::computeThValue()
 
 gslpp::complex BR_Kmumu::BRKmumu(orders order)
 {
-    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1mumu().getOrder() < order){
+    if (mySM.getFlavour().getHDS1().getCoeffDS1mumu().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("BRKmumu::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     
-    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1mumu();
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1mumu();
     
     switch(order) {
         case NLO:

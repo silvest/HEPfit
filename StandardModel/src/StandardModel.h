@@ -1014,9 +1014,9 @@ public:
         return myTwoLoopQCD;
     }
 
-    Flavour* getMyFlavour() const
+    const Flavour& getFlavour() const
     {
-        return myFlavour;
+        return SMFlavour;
     }
 
     LeptonFlavour* getMyLeptonFlavour() const
@@ -2726,6 +2726,7 @@ protected:
     bool requireYe; ///< An internal flag to control whether the charged-lepton Yukawa matrix has to be recomputed.
     bool requireYn; ///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
 
+    const Flavour& SMFlavour; ///< A reference to an object of the type Flavour.
 
     ////////////////////////////////////////////////////////////////////////    
 private:
@@ -2738,7 +2739,6 @@ private:
     EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD; ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
     EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
-    Flavour* myFlavour; ///< A pointer to an object of the type Flavour.
     LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.

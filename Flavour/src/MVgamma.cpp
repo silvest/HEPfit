@@ -60,8 +60,8 @@ void MVgamma::updateParameters()
     h[0] = SM.geth_p(); //h_plus
     h[1] = SM.geth_m(); //h_minus
     
-    allcoeff = SM.getMyFlavour()->ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
-    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
     
     double ms_over_mb = SM.Mrun(mu_b, SM.getQuarks(QCD::STRANGE).getMass_scale(), 
                         SM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO)
@@ -79,7 +79,7 @@ void MVgamma::updateParameters()
     C_2_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
     C_8 = (*(allcoeff[LO]))(7);
 
-    allcoeffh = SM.getMyFlavour()->ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
+    allcoeffh = SM.getFlavour().ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
 
     C_2h_bar = (*(allcoeffh[LO]))(1) - (*(allcoeffh[LO]))(0)/6.;
     C_8h = (*(allcoeffh[LO]))(7);

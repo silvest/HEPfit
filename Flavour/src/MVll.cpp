@@ -84,7 +84,7 @@ MVll::~MVll()
 
 void MVll::updateParameters() 
 {
-    if (!mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)) return;
+    if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
 
     
     GF = mySM.getGF();
@@ -249,8 +249,8 @@ void MVll::updateParameters()
     h_2[1] = mySM.geth_p_2();
     h_2[2] = mySM.geth_m_2();
 
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
 
     C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
     C_1L_bar = (*(allcoeff[LO]))(0)/2.;
@@ -273,7 +273,7 @@ void MVll::updateParameters()
     C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
     C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
     
-    allcoeffh = mySM.getMyFlavour()->ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
+    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
 
     C_1Lh_bar = (*(allcoeffh[LO]))(0)/2.;
     C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
@@ -379,7 +379,7 @@ void MVll::updateParameters()
     NN = - (4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI);
     NN_conjugate = - (4. * GF * MM * ale * lambda_t.conjugate()) / (sqrt(2.)*4. * M_PI);
     
-    if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)) {
+    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) {
         switch (lep) {
             case StandardModel::MU:
                 fit_DeltaC9_p_mumu();
@@ -425,7 +425,7 @@ void MVll::updateParameters()
     
     if (deltaTparpupdated*deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
-    mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
+    mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
     
     return;
 }

@@ -64,13 +64,13 @@ double Bdmumu::computeSmumu(orders order)
 
 void Bdmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
 {
-    if (SM.getMyFlavour()->getHDB1().getCoeffdmumu().getOrder() < order % 3){
+    if (SM.getFlavour().getHDB1().getCoeffdmumu().getOrder() < order % 3){
         std::stringstream out;
         out << order;
         throw std::runtime_error("Bdmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffdmumu(mu, NDR);
+    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffdmumu(mu, NDR);
     
     double alsmu = evolbdmm.alphatilde_s(mu);
     double alemu = evolbdmm.alphatilde_e(mu);
