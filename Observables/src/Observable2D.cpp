@@ -91,6 +91,7 @@ Observable2D::Observable2D(const Observable2D& orig)
     filepath = orig.filepath;
     iterationNo2 = orig.iterationNo2;
     IsEOF = orig.IsEOF;
+    inhisto2d = orig.inhisto2d;
 }
 
 Observable2D::~Observable2D()

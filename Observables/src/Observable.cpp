@@ -59,6 +59,7 @@ Observable::Observable(const Observable& orig)
     bin_min = orig.bin_min;
     bin_min = orig.bin_max;
     iterationNo = orig.iterationNo;
+    inhisto = orig.inhisto;
 }
 
 Observable::Observable() 
