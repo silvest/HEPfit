@@ -293,8 +293,10 @@ private:
     double min2; ///< The minimum value of the second observable.
     double max2; ///< The maximum valus of the second observable.
     double ave2; ///< The average value of the second observable.
-    double errg2; ///< The gaussian error of the second observable.
+    double errg2; ///< The Gaussian error of the second observable.
     double errf2; ///< the flat error of the second observable.
+    double errgl2; ///< The left Gaussian error of the second observable.
+    double errgr2; ///< The right Gaussian error of the second observable.
     std::string obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable, 3: FunctionObservable.
     ThObservable * tho2; ///< A pointer to an object of the ThObservable class.
     TH2D * inhisto2d;  ///< 2D Histogram containing the experimental likelihood for the observable.

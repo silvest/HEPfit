@@ -103,7 +103,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             IsEOF = tmpCGP.isEOF();
             CGP.push_back(tmpCGP);
 
-        } else if (type.compare("Observable") == 0 || type.compare("BinnedObservable") == 0 || type.compare("FunctionObservable") == 0) {
+        } else if (type.compare("Observable") == 0 || type.compare("BinnedObservable") == 0 || type.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
             
             Observable * tmpObs = new Observable();
             beg = tmpObs->ParseObservable(type, tok, beg, filepath, filename, rank);

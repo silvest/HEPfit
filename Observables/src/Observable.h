@@ -185,6 +185,24 @@ public:
     {
         this->errg = errg;
     }
+    
+    /**
+     * @brief A set method to fix the left Gaussian error of the observable.
+     * @param[in] errgl the left Gaussian error of the observable
+     */
+    void setErrgl(double errgl)
+    {
+        this->errgl = errgl;
+    }
+    
+    /**
+     * @brief A set method to fix the right Gaussian error of the observable.
+     * @param[in] errgl the right Gaussian error of the observable
+     */
+    void setErrgr(double errgr)
+    {
+        this->errgr = errgr;
+    }
 
     /**
      * @brief A get method to access the filename of the observables experimental likelihood file.
@@ -445,7 +463,9 @@ protected:
     std::string histoname; ///< The name of the histogram for the observable.
     double ave; ///< The average value of the observable.
     double errg; ///< The gaussian error of the observable.
-    double errf; ///< the flat error of the observable.
+    double errf; ///< The flat error of the observable.
+    double errgl; ///< The lower gaussian error of the observable.
+    double errgr; ///< The upper gaussian error of the observable.
     double min; ///< The minimum value of the observable.
     double max; ///< The maximum valus of the observable.
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.

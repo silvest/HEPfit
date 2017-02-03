@@ -34,6 +34,8 @@ Observable::Observable (const std::string name_i,
     ave = 0.;
     errg = 0.;
     errf = 0.;
+    errgl = 0.;
+    errgr = 0.;
     obsType = "";
     bin_min = 0.;
     bin_max = 0.;
@@ -55,6 +57,8 @@ Observable::Observable(const Observable& orig)
     ave = orig.ave; 
     errg = orig.errg; 
     errf = orig.errf;
+    errgl = orig.errgl;
+    errgr = orig.errgr;
     obsType = orig.obsType;
     bin_min = orig.bin_min;
     bin_min = orig.bin_max;
@@ -77,6 +81,8 @@ Observable::Observable()
     ave = 0.; 
     errg = 0.; 
     errf = 0.;
+    errgl = 0.;
+    errgr = 0.;
     obsType = "";
     bin_min = 0.;
     bin_max = 0.;
@@ -139,16 +145,19 @@ double Observable::computeWeight(double th)
 {
     double logprob;
     if (distr.compare("weight") == 0) {
-        if (errf == 0.)
-            logprob = LogGaussian(th, ave, errg);
-        else if (errg == 0.) {
-            if (th < ave + errf && th > ave - errf)
-                logprob = 1.;
-            else
-                logprob = log(0.);
-        } else
-            logprob = log(TMath::Erf((th - ave + errf) / sqrt(2.) / errg)
-                - TMath::Erf((th - ave - errf) / sqrt(2.) / errg));
+        if (getObsType().compare("AsyGausObservable") == 0) logprob = LogSplitGaussian(th, ave, errgl, errgr);
+        else {
+            if (errf == 0.)
+                logprob = LogGaussian(th, ave, errg);
+            else if (errg == 0.) {
+                if (th < ave + errf && th > ave - errf)
+                    logprob = 1.;
+                else
+                    logprob = log(0.);
+            } else
+                logprob = log(TMath::Erf((th - ave + errf) / sqrt(2.) / errg)
+                    - TMath::Erf((th - ave - errf) / sqrt(2.) / errg));
+        }
     } else if (distr.compare("file") == 0) {
         int i = inhisto->FindBin(th);
         if (inhisto->IsBinOverflow(i) || inhisto->IsBinUnderflow(i))
@@ -223,7 +232,7 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
             else sleep (2);
         }
 
-        if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0) {
+        if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
             ++beg;
             distr = *beg;
             if (distr.compare("file") == 0) {
@@ -244,11 +253,17 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                 ++beg;
                 ave = atof((*beg).c_str());
                 ++beg;
-                errg = atof((*beg).c_str());
+                if (type.compare("AsyGausObservable") == 0) errgl = atof((*beg).c_str());
+                else errg = atof((*beg).c_str());
                 ++beg;
-                errf = atof((*beg).c_str());
-                if (errf == 0. && errg == 0.) {
+                if (type.compare("AsyGausObservable") == 0) errgr = atof((*beg).c_str());
+                else errf = atof((*beg).c_str());
+                if (type.compare("AsyGausObservable") != 0 && errf == 0. && errg == 0.) {
                     if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + infilename + " .\n");
+                    else sleep(2);
+                }
+                if (type.compare("AsyGausObservable") == 0 && errgl == 0. && errgr == 0.) {
+                    if (rank == 0) throw std::runtime_error("ERROR: The left Gaussian and right Gaussian error in weight for " + name + " cannot both be 0. in the " + infilename + " .\n");
                     else sleep(2);
                 }
             } else if (distr.compare("noweight") == 0) {

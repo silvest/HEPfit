@@ -81,7 +81,13 @@ Observable2D::Observable2D(const Observable2D& orig)
     histoname = orig.histoname;
     ave = orig.ave;
     errg = orig.errg;
+    errg2 = orig.errg2;
     errf = orig.errf;
+    errf2 = orig.errf2;
+    errgl = orig.errgl;
+    errgl2 = orig.errgl2;
+    errgr = orig.errgr;
+    errgr2 = orig.errgr2;
 
     thname2 = orig.thname2;
     label2 = orig.label2;
@@ -189,6 +195,8 @@ int Observable2D::ParseObservable2D(std::string& type,
         std::vector<double> ave(2, 0.);
         std::vector<double> errg(2, 0.);
         std::vector<double> errf(2, 0.);
+        std::vector<double> errgl(2, 0.);
+        std::vector<double> errgr(2, 0.);
         std::vector<std::string> thname(2, "");
         std::vector<std::string> label(2, "");
         std::vector<std::string> type2D(2, "");
@@ -205,7 +213,7 @@ int Observable2D::ParseObservable2D(std::string& type,
             boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
             beg = mytok.begin();
             type2D[i] = *beg;
-            if (type2D[i].compare("Observable") != 0 && type2D[i].compare("BinnedObservable") != 0 && type2D[i].compare("FunctionObservable") != 0) {
+            if (type2D[i].compare("Observable") != 0 && type2D[i].compare("BinnedObservable") != 0 && type2D[i].compare("FunctionObservable") != 0 && type2D[i].compare("AsyGausObservable") != 0) {
                 if (rank == 0) throw std::runtime_error("ERROR: in line no." + boost::lexical_cast<std::string>(lineNo) + " of file " + infilename + ", expecting an Observable or BinnedObservable or FunctionObservable type here...\n");
                 else sleep(2);
             }
@@ -223,11 +231,17 @@ int Observable2D::ParseObservable2D(std::string& type,
                 ++beg;
                 ave[i] = atof((*beg).c_str());
                 ++beg;
-                errg[i] = atof((*beg).c_str());
+                if (type.compare("AsyGausObservable") == 0) errgl[i] = atof((*beg).c_str());
+                else errg[i] = atof((*beg).c_str());
                 ++beg;
-                errf[i] = atof((*beg).c_str());
-                if (errg[i] == 0. && errg[i] == 0.) {
+                if (type.compare("AsyGausObservable") == 0) errgr[i] = atof((*beg).c_str());
+                else errf[i] = atof((*beg).c_str());
+                if (type.compare("AsyGausObservable") != 0 && errg[i] == 0. && errf[i] == 0.) {
                     if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + infilename + " file, line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
+                    else sleep(2);
+                }
+                if (type.compare("AsyGausObservable") == 0 && errgl[i] == 0. && errgr[i] == 0.) {
+                    if (rank == 0) throw std::runtime_error("ERROR: The left Gaussian and right Gaussian error in weight for " + name + " cannot both be 0. in the " + infilename + " file, line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
                     else sleep(2);
                 }
             } else if (distr.compare("noweight") == 0 || distr.compare("file") == 0) {
@@ -267,6 +281,10 @@ int Observable2D::ParseObservable2D(std::string& type,
         errg2 = errg[1];
         setErrf(errf[0]);
         errf2 = errf[1];
+        setErrgl(errgl[0]);
+        errgl2 = errgl[1];
+        setErrgr(errgr[0]);
+        errgr2 = errgr[1];
         if (distr.compare("file") == 0) {
             setLikelihoodFromHisto(filename, histoname);
             if (rank == 0) std::cout << "added input histogram " << filename << "/" << histoname << std::endl;
