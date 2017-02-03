@@ -146,7 +146,10 @@ double Observable2D::computeWeight(double th1, double th2)
             logprob = log(inhisto2d->GetBinContent(i));
         //logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
     } else if (distr.compare("weight") == 0) {
-        logprob = Observable::computeWeight(th1) + Observable::computeWeight(th2, ave2, errg2, errf2);
+        double wt2;
+        if (obsType2.compare("AsyGausObservable") == 0) wt2 = Observable::LogSplitGaussian(th2, ave2, errgl, errgr);
+        else wt2 = Observable::computeWeight(th2, ave2, errg2, errf2);
+        logprob = Observable::computeWeight(th1) + wt2;
     } else
         throw std::runtime_error("ERROR: 2D MonteCarloEngine::Weight() called without file for "
             + name);
