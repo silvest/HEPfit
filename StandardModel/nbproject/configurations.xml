@@ -18,6 +18,7 @@
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
       <itemPath>src/EWSM_Output.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
+      <itemPath>src/EffectiveEDMcouplings.h</itemPath>
       <itemPath>src/Matching.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
@@ -53,6 +54,7 @@
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
       <itemPath>src/EWSM_Output.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>
+      <itemPath>src/EffectiveEDMcouplings.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/MtMSbar.cpp</itemPath>
       <itemPath>src/PMNS.cpp</itemPath>
@@ -251,9 +253,6 @@
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -311,9 +310,6 @@
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibLibItem>gsl</linkerLibLibItem>
@@ -365,9 +361,6 @@
           <output>${TESTDIR}/TestFiles/f10</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
@@ -384,9 +377,6 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -394,9 +384,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -419,9 +406,6 @@
           <output>${TESTDIR}/TestFiles/f4</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
@@ -442,9 +426,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f5</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -467,9 +448,6 @@
           <output>${TESTDIR}/TestFiles/f6</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
@@ -491,9 +469,6 @@
           <output>${TESTDIR}/TestFiles/f7</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
@@ -509,9 +484,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f8</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -530,9 +502,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f9</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -593,6 +562,10 @@
       <item path="src/EWSMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EffectiveEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EffectiveEDMcouplings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Matching.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -734,9 +707,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -777,18 +747,12 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f10">
         <linkerTool>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -803,9 +767,6 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -813,9 +774,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -825,9 +783,6 @@
           <output>${TESTDIR}/TestFiles/f4</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -835,9 +790,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f5</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -847,9 +799,6 @@
           <output>${TESTDIR}/TestFiles/f6</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -857,9 +806,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f7</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -869,9 +815,6 @@
           <output>${TESTDIR}/TestFiles/f8</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -879,9 +822,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f9</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -939,6 +879,10 @@
       <item path="src/EWSMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EffectiveEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EffectiveEDMcouplings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Matching.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1080,9 +1024,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -1123,18 +1064,12 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f10">
         <linkerTool>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1149,9 +1084,6 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1159,9 +1091,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f3</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1171,9 +1100,6 @@
           <output>${TESTDIR}/TestFiles/f4</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1181,9 +1107,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f5</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1193,9 +1116,6 @@
           <output>${TESTDIR}/TestFiles/f6</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1204,9 +1124,6 @@
           <output>${TESTDIR}/TestFiles/f7</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1214,18 +1131,12 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f9">
         <linkerTool>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1283,6 +1194,10 @@
       <item path="src/EWSMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EffectiveEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EffectiveEDMcouplings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Matching.h" ex="false" tool="3" flavor2="0">
       </item>

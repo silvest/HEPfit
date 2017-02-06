@@ -19,6 +19,7 @@
       <itemPath>src/OutputSLHAfromFH.h</itemPath>
       <itemPath>src/SFermiondeltas.h</itemPath>
       <itemPath>src/SUSY.h</itemPath>
+      <itemPath>src/SUSYEDMcouplings.h</itemPath>
       <itemPath>src/SUSYMatching.h</itemPath>
       <itemPath>src/SUSYObservables.h</itemPath>
       <itemPath>src/SUSYSpectrum.h</itemPath>
@@ -37,6 +38,7 @@
       <itemPath>src/Metastability.cpp</itemPath>
       <itemPath>src/SFermiondeltas.cpp</itemPath>
       <itemPath>src/SUSY.cpp</itemPath>
+      <itemPath>src/SUSYEDMcouplings.cpp</itemPath>
       <itemPath>src/SUSYMatching.cpp</itemPath>
       <itemPath>src/SUSYSpectrum.cpp</itemPath>
       <itemPath>src/ScalarPotential.cpp</itemPath>
@@ -120,6 +122,10 @@
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SUSY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SUSYEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SUSYEDMcouplings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSYMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -208,6 +214,10 @@
       </item>
       <item path="src/SUSY.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/SUSYEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SUSYEDMcouplings.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/SUSYMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SUSYMatching.h" ex="false" tool="3" flavor2="0">
@@ -294,6 +304,10 @@
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SUSY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SUSYEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/SUSYEDMcouplings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSYMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
