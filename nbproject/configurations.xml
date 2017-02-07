@@ -13,6 +13,7 @@
       <itemPath>src/gslpp_vector_base.h</itemPath>
       <itemPath>src/gslpp_vector_complex.h</itemPath>
       <itemPath>src/gslpp_vector_double.h</itemPath>
+      <itemPath>src/std_make_vector.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -149,6 +150,8 @@
       </item>
       <item path="src/gslpp_vector_double.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/std_make_vector.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/gslpptest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
@@ -250,6 +253,8 @@
       </item>
       <item path="src/gslpp_vector_double.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/std_make_vector.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/gslpptest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
@@ -350,6 +355,8 @@
       <item path="src/gslpp_vector_double.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gslpp_vector_double.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/std_make_vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/gslpptest.cpp" ex="false" tool="1" flavor2="0">
       </item>
