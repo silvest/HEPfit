@@ -9,12 +9,14 @@
 #include "MVgamma.h"
 #include "StandardModel.h"
 #include <gsl/gsl_sf_zeta.h>
+#include "std_make_vector.h"
 
 MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : ThObservable(SM_i)
 {
-    if (SM.getModelName().compare("StandardModel") != 0 && SM.getModelName().compare("FlavourWilsonCoefficient") != 0) std::cout << "\nWARNING: B to V gamma not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     meson = meson_i;
     vectorM = vector_i;
+    if (vectorM == StandardModel::PHI) setParametersForObservable(make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m");
+    if (vectorM == StandardModel::K_star) setParametersForObservable(make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m");
 }
 
 MVgamma::~MVgamma()

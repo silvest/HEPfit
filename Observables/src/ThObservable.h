@@ -10,6 +10,8 @@
 
 class StandardModel;
 
+#include <vector>
+
 /**
  * @class ThObservable
  * @ingroup Observable
@@ -94,14 +96,34 @@ public:
      * @brief A get method to get the model
      * @return a reference to the model
      */
-    const StandardModel& getModel(){
+    const StandardModel& getModel()
+    {
       return SM;  
+    };
+    
+    /**
+     * @brief A set method to get the parameters for the specific observable
+     * @param a vector of parameter names
+     */
+    void setParametersForObservable(std::vector<std::string> parametersForObservable_i)
+    {
+        this->parametersForObservable = parametersForObservable_i;
+    }
+    
+    /**
+     * @brief A get method to get the parameters for the specific observable
+     * @return a vector of parameter names
+     */
+    const std::vector<std::string> getParametersForObservable()
+    {
+        return parametersForObservable;
     };
 
 protected:
     const StandardModel& SM; ///< A reference to an object of StandardMode class.
     double min;///< The bin minimum.
     double max;///< the bin maximum.
+    std::vector<std::string> parametersForObservable;///< a vector of parameter namesfor the specific observable
 };
 
 #endif	/* THOBSERVABLE_H */

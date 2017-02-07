@@ -112,6 +112,8 @@ public:
      */
     void updateParameters();
     
+    std::vector<std::string> parametersForMVgamma;
+    
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */
     double MM;            /**<initial meson mass */
