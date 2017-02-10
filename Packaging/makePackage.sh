@@ -12,7 +12,11 @@ VERSION="core-1.0"
 
 ORGDIR=".."
 BAT_VERSION="1.0.0-RC1"
-
+COMMIT=`git log | awk 'NR==1{print substr($2,1,7)}'`
+CUSTOM=`git status -uno | grep '\.cpp\|\.h' | wc -l | bc`
+if [ $CUSTOM -gt 0 ]; then
+    COMMIT=${COMMIT}-CUSTOM
+fi
 ###########################################################
 # List of Netbeans projects
 
@@ -58,7 +62,7 @@ if [ ! -d "$ORGDIR" ]; then
 fi
 
 # output directory
-OUTDIR="${CURRENTDIR}/HEPfit-${VERSION}"
+OUTDIR="${CURRENTDIR}/HEPfit-${VERSION}-${COMMIT}"
 if [ ! -d "$OUTDIR" ]; then
     echo "mkdir $OUTDIR"
     mkdir $OUTDIR
@@ -206,8 +210,8 @@ done
 ###########################################################
 # Archive
 
-echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}"
-tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}
+echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}-${COMMIT}"
+tar zcf HEPfit-${VERSION}-${COMMIT}.tar.gz HEPfit-${VERSION}-${COMMIT}
 
 ###########################################################
 # Documentation
