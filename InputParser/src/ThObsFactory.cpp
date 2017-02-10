@@ -1037,7 +1037,8 @@ ThObsFactory::ThObsFactory()
 
 void ThObsFactory::addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) > funct)
 {
-    obsThFactory[name] = funct;
+    if (obsThFactory.find(name) == obsThFactory.end()) obsThFactory[name] = funct;
+    else throw std::runtime_error("ERROR: Observable named: " + name + " already exists. Please give a different name to the user-defined observable " + name + ".");
 }
 
 ThObservable * ThObsFactory::CreateThMethod(const std::string& name, StandardModel& model) const
