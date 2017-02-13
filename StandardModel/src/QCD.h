@@ -718,6 +718,30 @@ class QCD : public Model {
 public:
 
     /**
+     * @brief An enum type for leptons.
+     */
+    enum lepton {
+        NEUTRINO_1, /**< The 1st-generation neutrino */
+        ELECTRON, /**< Electron */
+        NEUTRINO_2, /**< The 2nd-generation neutrino */
+        MU, /**< Muon */
+        NEUTRINO_3, /**< The 3rd-generation neutrino */
+        TAU /**< Tau */
+    };
+
+    /**
+     * @brief An enum type for quarks.
+     */
+    enum quark {
+        UP, /**< Up quark */
+        DOWN, /**< Down quark */
+        CHARM, /**< Charm quark */
+        STRANGE, /**< Strange quark */
+        TOP, /**< Top quark */
+        BOTTOM /**< Bottom quark */
+    };
+
+    /**
      * @brief An enum type for mesons.
      */
     enum meson {
@@ -734,19 +758,7 @@ public:
         K_star_P, /**< @f$K^{*,\pm}@f$ meson */
         MESON_END /**< The size of this enum. */
     };
-
-    /**
-     * @brief An enum type for quarks.
-     */
-    enum quark {
-        UP, /**< Up quark */
-        DOWN, /**< Down quark */
-        CHARM, /**< Charm quark */
-        STRANGE, /**< Strange quark */
-        TOP, /**< Top quark */
-        BOTTOM /**< Bottom quark */
-    };
-
+    
     static const int NQCDvars = 113; ///< The number of model parameters in %QCD. 
 
     /**
@@ -759,7 +771,7 @@ public:
      * @brief Constructor.
      */
     QCD();
-
+    
     /**
      * @brief Converts an object of the enum type "orders" to the corresponding string.
      * @param[in] order an object of the enum type "orders"
@@ -902,7 +914,7 @@ public:
      * @param[in] m the name of a meson
      * @return the object of the meson specified in the argument
      */
-    Meson getMesons(const meson m) const
+    Meson getMesons(const QCD::meson m) const
     {
         return mesons[m];
     }
@@ -912,7 +924,7 @@ public:
      * @param[in] q the name of a quark
      * @return the object of the quark found in the argument
      */
-    Particle getQuarks(const quark q) const
+    Particle getQuarks(const QCD::quark q) const
     {
         return quarks[q];
     }

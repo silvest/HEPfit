@@ -224,7 +224,6 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -232,6 +231,7 @@
             <pElem>../LeptonFlavour/src</pElem>
             <pElem>../GeneralTHDM/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>

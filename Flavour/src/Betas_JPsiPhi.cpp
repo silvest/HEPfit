@@ -6,6 +6,7 @@
  */
 
 #include "Betas_JPsiPhi.h"
+#include "StandardModel.h"
 
 double Betas_JPsiPhi::computeThValue() 
 {

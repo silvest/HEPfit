@@ -6,6 +6,7 @@
  */
 
 #include "Flavour.h"
+#include "StandardModel.h"
 #include "MPll.h"
 #include <gslpp_complex.h>
 #include <gsl/gsl_sf.h>
@@ -17,7 +18,7 @@
 
 
 
-MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
+MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
 :       mySM(SM_i),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
@@ -55,7 +56,7 @@ MPll::~MPll()
 
 void MPll::updateParameters()
 {
-    if (!mySM.getMyFlavour()->getUpdateFlag(meson, pseudoscalar, lep)) return;
+    if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) return;
 
     
 
@@ -95,8 +96,8 @@ void MPll::updateParameters()
     h_0 = mySM.geth_0_MP();
     h_0_1 = mySM.geth_0_1_MP();
     
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
 
     C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
     C_1L_bar = (*(allcoeff[LO]))(0)/2.;
@@ -119,7 +120,7 @@ void MPll::updateParameters()
     C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
     C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
     
-    allcoeffh = mySM.getMyFlavour()->ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
+    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
 
     C_1Lh_bar = (*(allcoeffh[LO]))(0)/2.;
     C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
@@ -217,7 +218,7 @@ void MPll::updateParameters()
     
     if (deltaTparpupdated*deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
-    mySM.getMyFlavour()->setUpdateFlag(meson, pseudoscalar, lep, false);
+    mySM.getFlavour().setUpdateFlag(meson, pseudoscalar, lep, false);
     
     return;
     

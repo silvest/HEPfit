@@ -5,6 +5,7 @@
  */
 
 #include "BdmumuOBsmumu.h"
+#include "StandardModel.h"
 
 BdmumuOBsmumu::BdmumuOBsmumu(const StandardModel& SM_i) : 
 ThObservable(SM_i) { };

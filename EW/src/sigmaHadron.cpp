@@ -6,6 +6,7 @@
  */
 
 #include "sigmaHadron.h"
+#include "StandardModel.h"
 
 double sigmaHadron::computeThValue()
 {

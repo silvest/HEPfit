@@ -8,7 +8,7 @@
 #ifndef MVGAMMA_H
 #define	MVGAMMA_H
 
-#include "StandardModel.h"
+class StandardModel;
 #include "ThObservable.h"
 #include "AmpDB2.h"
 
@@ -100,7 +100,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
     
     /**
      * @brief Destructor.
@@ -207,8 +207,8 @@ public:
     gslpp::complex H8();
     
 private:
-    StandardModel::meson meson;
-    StandardModel::meson vectorM;
+    QCD::meson meson;
+    QCD::meson vectorM;
 };
 
 
@@ -235,7 +235,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    BR_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    BR_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
     
     /**
     * @brief The @f$BR@f$ in @f$M \to V \gamma@f$.
@@ -244,8 +244,8 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     AmpDB2 myAmpDB2;
     double arg;
     double ADG; /**< @f$A_{\Delta\Gamma}@f$ */
@@ -277,7 +277,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    C_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    C_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
     
     /**
     * @brief The @f$C@f$ parameter of CPV in @f$M \to V \gamma@f$.
@@ -286,8 +286,8 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 /**
@@ -312,7 +312,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    S_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    S_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
     
     /**
     * @brief The @f$S@f$ parameter for CPV in @f$M \to V \gamma@f$.
@@ -321,8 +321,8 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     AmpDB2 myAmpDB2;
     double arg;
 };
@@ -349,7 +349,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    ADG_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    ADG_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
     
     /**
     * @brief The @f$S@f$ parameter for CPV in @f$M \to V \gamma@f$.
@@ -358,8 +358,8 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     AmpDB2 myAmpDB2;
     double arg;
 };
@@ -386,7 +386,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    DC7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    DC7_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^1@f$ in @f$M \to V \gamma@f$.
@@ -395,8 +395,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -422,7 +422,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    DC7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    DC7_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
@@ -431,8 +431,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 /**
@@ -454,7 +454,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] typ_i observable type
      */
-    hp0_hm0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    hp0_hm0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in @f$B \to K^*@f$.
@@ -463,9 +463,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 /**
@@ -489,7 +489,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    AbsDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    AbsDC7_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^L@f$ in @f$M \to V \gamma@f$.
@@ -498,8 +498,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -525,7 +525,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    AbsDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    AbsDC7_R(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
@@ -534,8 +534,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 /**
@@ -559,7 +559,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    ReDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    ReDC7_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^L@f$ in @f$M \to V \gamma@f$.
@@ -568,8 +568,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -595,7 +595,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    ReDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    ReDC7_R(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
@@ -604,8 +604,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 /**
@@ -629,7 +629,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    ImDC7_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    ImDC7_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^L@f$ in @f$M \to V \gamma@f$.
@@ -638,8 +638,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -665,7 +665,7 @@ public:
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
      */
-    ImDC7_R(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    ImDC7_R(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The @f$\Delta C_7^2@f$ in @f$M \to V \gamma@f$.
@@ -674,8 +674,8 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 #endif	/* MVLL_H */
 

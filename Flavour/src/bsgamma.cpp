@@ -10,7 +10,7 @@
  * EW matching missing
  */
 
-#include "Flavour.h"
+#include "StandardModel.h"
 #include "bsgamma.h"
 #include <gslpp_complex.h>
 #include <gsl/gsl_sf_dilog.h>
@@ -18,7 +18,7 @@
 #include <gsl/gsl_sf_clausen.h>
 #include <boost/bind.hpp>
 
-Bsgamma::Bsgamma(const StandardModel& SM_i, StandardModel::quark quark_i, int obsFlag)
+Bsgamma::Bsgamma(const StandardModel& SM_i, QCD::quark quark_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
 {    
@@ -1922,8 +1922,8 @@ void Bsgamma::computeCoeff(double mu)
             << C3_1.real() << "," << C4_1.real() << "," << C5_1.real() << "," 
             << C6_1.real() << "," << C7_1.real() << "," << C8_1.real() << ")" << std::endl << std::endl;*/
     
-    allcoeff = SM.getMyFlavour()->ComputeCoeffsgamma(mu);
-    allcoeffprime = SM.getMyFlavour()->ComputeCoeffprimesgamma(mu);
+    allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu);
+    allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu);
     
     C1_0 = (*(allcoeff[LO]))(0);
     C2_0 = (*(allcoeff[LO]))(1);

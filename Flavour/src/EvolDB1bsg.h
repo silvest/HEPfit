@@ -10,7 +10,7 @@
 
 
 #include "RGEvolutor.h"
-#include "StandardModel.h"
+class StandardModel;
 
 class EvolDB1bsg : public RGEvolutor {
 /**

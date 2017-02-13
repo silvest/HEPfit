@@ -80,7 +80,7 @@ void EWSUSY::SetRosiekParameters()
         /* down-type quarks */
         m_d[I] = mySUSY.getMyEWSMcache()->mf(mySUSY.getQuarks((QCD::quark)(2*I + 1)), mySUSY.getMz(), FULLNNLO);
         /* charged leptons */
-        m_l[I] = mySUSY.getLeptons((StandardModel::lepton)(2*I + 1)).getMass();
+        m_l[I] = mySUSY.getLeptons((QCD::lepton)(2*I + 1)).getMass();
     }
     /* H^0_i = (H^0, h^0, A^0, G^0) */
     mH02[0] = mySUSY.getMHh()*mySUSY.getMHh();
@@ -961,8 +961,8 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
     return ( sW2*Mw_i*Mw_i/4.0/M_PI/mySUSY.getAle()*a2.real() );
 }
 
-gslpp::complex EWSUSY::v(const double mu, const StandardModel::lepton M,
-                  const StandardModel::lepton J, const double Mw_i) const
+gslpp::complex EWSUSY::v(const double mu, const QCD::lepton M,
+                  const QCD::lepton J, const double Mw_i) const
 {
     int intM, intJ;
     switch (M) {
@@ -1032,8 +1032,8 @@ gslpp::complex EWSUSY::v(const double mu, const StandardModel::lepton M,
     return ( v/16.0/M_PI/M_PI );
 }
 
-gslpp::complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
-                        const StandardModel::lepton J, const double Mw_i) const
+gslpp::complex EWSUSY::delta_v(const double mu, const QCD::lepton M,
+                        const QCD::lepton J, const double Mw_i) const
 {
     int intM, intJ;
     switch (M) {
@@ -1091,8 +1091,8 @@ double EWSUSY::DeltaR_vertex_SUSY(const double Mw_i) const
             + delta_v(mu, mySUSY.MU, mySUSY.NEUTRINO_2, Mw_i).real() );
 }
 
-gslpp::complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
-                           const StandardModel::lepton J, const double Mw_i) const
+gslpp::complex EWSUSY::Sigma_nu_0(const double mu, const QCD::lepton I,
+                           const QCD::lepton J, const double Mw_i) const
 {
     int intI, intJ;
     switch (I) {

@@ -6,6 +6,7 @@
  */
 
 #include "HeffDS1.h"
+#include "StandardModel.h"
 
 HeffDS1::HeffDS1(const StandardModel & SM) 
 :       model(SM), 

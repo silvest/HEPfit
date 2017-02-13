@@ -6,6 +6,7 @@
  */
 
 #include "EvolBsmm.h"
+#include "StandardModel.h"
 #include <gsl/gsl_sf.h>
 
 EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_ew order_ew, const StandardModel & model)

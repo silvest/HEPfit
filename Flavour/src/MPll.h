@@ -8,7 +8,8 @@
 #ifndef MPLL_H
 #define	MPLL_H
 
-#include <StandardModel.h>
+class StandardModel;
+#include "QCD.h"
 #include <ThObservable.h>
 #include <math.h>
 #include <gsl/gsl_math.h>
@@ -135,7 +136,7 @@ public:
      * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i);
+    MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
     
     /**
      * @brief Destructor.
@@ -212,9 +213,9 @@ public:
 
 private:
     const StandardModel& mySM;/**< Model type */
-    StandardModel::lepton lep;/**< Final leptons type */
-    StandardModel::meson meson;/**< Initial meson type */
-    StandardModel::meson pseudoscalar;/**< Final pseudoscalar meson type */
+    QCD::lepton lep;/**< Final leptons type */
+    QCD::meson meson;/**< Initial meson type */
+    QCD::meson pseudoscalar;/**< Final pseudoscalar meson type */
     
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */

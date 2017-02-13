@@ -10,7 +10,7 @@
 
 #include "gslpp_complex.h"
 #include "Flavour.h"
-#include "StandardModel.h"
+class StandardModel;
 
 class AmpDD2 {
 /**

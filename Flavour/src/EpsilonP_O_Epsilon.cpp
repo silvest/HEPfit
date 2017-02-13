@@ -6,6 +6,7 @@
  */
 
 #include "EpsilonP_O_Epsilon.h"
+#include "StandardModel.h"
 
 double EpsilonP_O_Epsilon::computeThValue()
 {

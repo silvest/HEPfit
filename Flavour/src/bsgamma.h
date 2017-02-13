@@ -121,7 +121,7 @@ public:
     * @param[in] quark_i final quark type of the decay
     * @param[in] obsFlag flag to choose which observable to compute
     */
-    Bsgamma(const StandardModel& SM_i, StandardModel::quark quark_i, int obsFlag);
+    Bsgamma(const StandardModel& SM_i, QCD::quark quark_i, int obsFlag);
     
     
     /**
@@ -1686,7 +1686,7 @@ public:
     
     
 private:
-    StandardModel::quark quark;/**< Final quark type */
+    QCD::quark quark;/**< Final quark type */
     
     bool SUM;/**< Flag to choose whether the BR will be relative to a single quark (s or d) or their sum */ 
     bool EWflag;/**< Flag to include EW NLO corrections (currently partialy hard-coded) */ 

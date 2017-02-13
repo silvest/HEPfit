@@ -313,8 +313,8 @@ public:
      * Eq. (A.19) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    gslpp::complex v(const double mu, const StandardModel::lepton M,
-              const StandardModel::lepton J, const double Mw_i) const;
+    gslpp::complex v(const double mu, const QCD::lepton M,
+              const QCD::lepton J, const double Mw_i) const;
 
     /**
      * @brief
@@ -327,8 +327,8 @@ public:
      * Eq. (A.21) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    gslpp::complex delta_v(const double mu, const StandardModel::lepton M,
-                    const StandardModel::lepton J, const double Mw_i) const;
+    gslpp::complex delta_v(const double mu, const QCD::lepton M,
+                    const QCD::lepton J, const double Mw_i) const;
 
     /**
      * @brief The renormalized SUSY vertex corrections to @f$\Delta r@f$
@@ -355,8 +355,8 @@ public:
      * Eq. (A.24) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    gslpp::complex Sigma_nu_0(const double mu, const StandardModel::lepton I,
-                       const StandardModel::lepton J, const double Mw_i) const;
+    gslpp::complex Sigma_nu_0(const double mu, const QCD::lepton I,
+                       const QCD::lepton J, const double Mw_i) const;
 
     /**
      * @brief The renormalized SUSY neutrino wave-function contribution to

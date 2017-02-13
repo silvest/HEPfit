@@ -60,7 +60,7 @@ gslpp::complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muFor
 {
     double ml[6], mq[6], ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml[i] = this->ml((StandardModel::lepton) i);
+        ml[i] = this->ml((QCD::lepton) i);
         mq[i] = this->mq((QCD::quark) i, muForMq);
         ml2[i] = ml[i] * ml[i];
         mq2[i] = mq[i] * mq[i];
@@ -137,7 +137,7 @@ gslpp::complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muFor
 {
     double ml[6], mq[6], ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml[i] = this->ml((StandardModel::lepton) i);
+        ml[i] = this->ml((QCD::lepton) i);
         mq[i] = this->mq((QCD::quark) i, muForMq);
         ml2[i] = ml[i] * ml[i];
         mq2[i] = mq[i] * mq[i];
@@ -160,8 +160,8 @@ gslpp::complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muFor
         double mf2, vf2, af2;
         for (int i = 0; i < 6; i++) {
             mf2 = ml2[i];
-            vf2 = pow(vl((StandardModel::lepton) i, Mw), 2.0);
-            af2 = pow(al((StandardModel::lepton) i), 2.0);
+            vf2 = pow(vl((QCD::lepton) i, Mw), 2.0);
+            af2 = pow(al((QCD::lepton) i), 2.0);
             Sigma += -(vf2 + af2) * s * Bf_s_ml2_ml2[i];
             Sigma += -2.0 * af2 * mf2 * B0_s_ml2_ml2[i];
             //
@@ -207,14 +207,14 @@ gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_bos(const double mu, const double 
 }
 
 gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
-        const StandardModel::lepton l) const
+        const QCD::lepton l) const
 {
     // Neutrinos do not contribute, since Qf=0.
     if ((l == StandardModel::NEUTRINO_1) || (l == StandardModel::NEUTRINO_2)
             || (l == StandardModel::NEUTRINO_3))
         return 0.0;
 
-    double mf = this->ml((StandardModel::lepton) l);
+    double mf = this->ml((QCD::lepton) l);
     double Qf = SM.getLeptons(l).getCharge();
 
     /* Loop functions */
@@ -248,7 +248,7 @@ gslpp::complex EWSMOneLoopEW_HV::PiGammaGamma_fer(const double mu, const double 
 {
     gslpp::complex Pi(0.0, 0.0, false);
     for (int i = 0; i < 6; i++) {
-        Pi += PiGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
+        Pi += PiGammaGamma_fer_l(mu, s, (QCD::lepton) i);
         Pi += PiGammaGamma_fer_q(mu, muForMq, s, (QCD::quark) i);
     }
     return Pi;
@@ -281,7 +281,7 @@ gslpp::complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double m
 {
     double ml[6], mq[6], ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml[i] = this->ml((StandardModel::lepton) i);
+        ml[i] = this->ml((QCD::lepton) i);
         mq[i] = this->mq((QCD::quark) i, muForMq);
         ml2[i] = ml[i] * ml[i];
         mq2[i] = mq[i] * mq[i];
@@ -303,7 +303,7 @@ gslpp::complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double m
     gslpp::complex Pi(0.0, 0.0, false);
     double Ql, Qq;
     for (int i = 0; i < 6; i++) {
-        Ql = SM.getLeptons((StandardModel::lepton) i).getCharge();
+        Ql = SM.getLeptons((QCD::lepton) i).getCharge();
         Pi += -(fabs(Ql) - 4.0 * sW2 * Ql * Ql) * Bf_s_ml2_ml2[i];
         //
         Qq = SM.getQuarks((QCD::quark) i).getCharge();

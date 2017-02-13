@@ -6,6 +6,7 @@
  */
 
 #include "EpsilonK.h"
+#include "StandardModel.h"
 
 double EpsilonK::computeThValue()
 {

@@ -16,7 +16,7 @@ LEP2oblique::LEP2oblique(const StandardModel& SM_i)
 
 ////////////////////////////////////////////////////////////////////////
 
-double LEP2oblique::sigma_l_LEP2_NP(const StandardModel::lepton l, 
+double LEP2oblique::sigma_l_LEP2_NP(const QCD::lepton l, 
                                     const double s, const double ml,
                                     const double ObParam_i[]) const 
 {
@@ -42,7 +42,7 @@ double LEP2oblique::sigma_q_LEP2_NP(const QCD::quark q,
 }
 
 
-double LEP2oblique::AFB_l_LEP2_NP(const StandardModel::lepton l, 
+double LEP2oblique::AFB_l_LEP2_NP(const QCD::lepton l, 
                                   const double s, const double ml,
                                   const double ObParam_i[]) const
 {
@@ -159,7 +159,7 @@ double LEP2oblique::epsilonGammaZ(const double alpha0,
 }
 
 
-double LEP2oblique::vl(const StandardModel::lepton l, const double alpha0) const 
+double LEP2oblique::vl(const QCD::lepton l, const double alpha0) const 
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
     double Q = SM.getLeptons(l).getCharge();
@@ -177,7 +177,7 @@ double LEP2oblique::vq(const QCD::quark q, const double alpha0) const
 }
 
 
-double LEP2oblique::al(const StandardModel::lepton l, const double alpha0) const
+double LEP2oblique::al(const QCD::lepton l, const double alpha0) const
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
     return ( - SM.getLeptons(l).getIsospin()/(2.0*s0*c0) ); 
@@ -225,7 +225,7 @@ double LEP2oblique::G1_NP(const double s, const double alpha0, const double Qf,
 }
 
 
-double LEP2oblique::G1_l_NP(const StandardModel::lepton l, 
+double LEP2oblique::G1_l_NP(const QCD::lepton l, 
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const 
 {
@@ -274,7 +274,7 @@ double LEP2oblique::G3_NP(const double s, const double alpha0, const double Qf,
 }
 
 
-double LEP2oblique::G3_l_NP(const StandardModel::lepton l, 
+double LEP2oblique::G3_l_NP(const QCD::lepton l, 
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const
 {
@@ -312,7 +312,7 @@ double LEP2oblique::G1_SM0(const double s, const double alpha0, const double Qf,
 }    
 
 
-double LEP2oblique::G1_l_SM0(const StandardModel::lepton l, 
+double LEP2oblique::G1_l_SM0(const QCD::lepton l, 
                              const double s, const double alpha0) const 
 {
     double Qf = SM.getLeptons(l).getCharge();
@@ -348,7 +348,7 @@ double LEP2oblique::G2_SM0(const double s, const double alpha0, const double Qf,
 }
 
 
-double LEP2oblique::G2_l_SM0(const StandardModel::lepton l, 
+double LEP2oblique::G2_l_SM0(const QCD::lepton l, 
                              const double s, const double alpha0) const
 {
     double Qf = SM.getLeptons(l).getCharge();
@@ -382,7 +382,7 @@ double LEP2oblique::G3_SM0(const double s, const double alpha0, const double Qf,
 }
 
 
-double LEP2oblique::G3_l_SM0(const StandardModel::lepton l, 
+double LEP2oblique::G3_l_SM0(const QCD::lepton l, 
                              const double s, const double alpha0) const 
 {
     double Qf = SM.getLeptons(l).getCharge();
@@ -400,7 +400,7 @@ double LEP2oblique::G3_q_SM0(const QCD::quark q,
 }
 
 
-double LEP2oblique::sigma_l_LEP2_SM0(const StandardModel::lepton l, 
+double LEP2oblique::sigma_l_LEP2_SM0(const QCD::lepton l, 
                                      const double s, const double alpha0, 
                                      const double ml) const 
 {

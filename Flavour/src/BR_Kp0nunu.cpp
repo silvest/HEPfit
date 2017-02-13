@@ -6,6 +6,7 @@
  */
 
 #include "BR_Kp0nunu.h"
+#include "StandardModel.h"
 
 double BR_Kp0nunu::computeThValue()
 {
@@ -19,14 +20,14 @@ double BR_Kp0nunu::computeThValue()
 
 gslpp::complex BR_Kp0nunu::BRKp0nunu(orders order, orders_ew order_ew)
 {
-    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1pnunu().getOrder() < order){
+    if (mySM.getFlavour().getHDS1().getCoeffDS1pnunu().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("BRKp0nunu::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     
-    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1pnunu();
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1pnunu();
     
     switch(order_ew) {
         case NLO_ew:

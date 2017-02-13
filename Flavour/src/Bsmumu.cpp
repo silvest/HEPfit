@@ -6,6 +6,7 @@
  */
 
 #include "Bsmumu.h"
+#include "StandardModel.h"
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
@@ -64,13 +65,13 @@ double Bsmumu::computeSmumu(orders order)
 
 void Bsmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
 {  
-    if (SM.getMyFlavour()->getHDB1().getCoeffsmumu().getOrder() < order % 3){
+    if (SM.getFlavour().getHDB1().getCoeffsmumu().getOrder() < order % 3){
         std::stringstream out;
         out << order;
         throw std::runtime_error("Bsmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getMyFlavour()->ComputeCoeffsmumu(mu, NDR);
+    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
 
     double alsmu = evolbsmm.alphatilde_s(mu);
     double alemu = evolbsmm.alphatilde_e(mu);

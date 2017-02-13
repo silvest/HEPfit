@@ -6,6 +6,7 @@
  */
 
 #include "Rlepton.h"
+#include "StandardModel.h"
 
 double Rlepton::computeThValue()
 {

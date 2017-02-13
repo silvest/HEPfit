@@ -8,8 +8,11 @@
 #ifndef BXQLL_H
 #define	BXQLL_H
 
-#include "StandardModel.h"
+class StandardModel;
+#include "QCD.h"
 #include "ThObservable.h"
+#include "Particle.h"
+#include "gslpp.h"
 #include <gsl/gsl_integration.h>
 
 /**
@@ -44,7 +47,7 @@ public:
      * @param[in] quark_i quark defining the inclusive final hadronic state @f$X_q@f$ of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i);
+    BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i);
     
     /**
      * @brief Destructor.
@@ -75,8 +78,8 @@ public:
 
 private:
 //    const StandardModel& mySM;/**< Model type */
-    StandardModel::lepton lep;/**< Final leptons type */
-    StandardModel::quark quark;/**< Initial meson type */
+    QCD::lepton lep;/**< Final leptons type */
+    QCD::quark quark;/**< Initial meson type */
     double CF, GF, ale, Mlep, mu_b, mu_c, Mb, Mc, Mb_pole, Mc_pole, Ms, MW, abslambdat_over_Vcb, Vts_over_Vcb, z, muh, alsmu, alsmuc, lambda_2;
 
 

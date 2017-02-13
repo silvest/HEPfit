@@ -6,6 +6,7 @@
  */
 
 #include "Rbottom.h"
+#include "StandardModel.h"
 
 double Rbottom::computeThValue()
 {

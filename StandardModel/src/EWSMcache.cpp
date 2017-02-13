@@ -614,8 +614,8 @@ gslpp::complex EWSMcache::B1_Mz2_0_mf2_mfprime2(const int gen) const
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -641,8 +641,8 @@ gslpp::complex EWSMcache::B1_Mz2_0_mfprime2_mf2(const int gen) const
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -668,8 +668,8 @@ gslpp::complex EWSMcache::B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -695,8 +695,8 @@ gslpp::complex EWSMcache::B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -722,8 +722,8 @@ gslpp::complex EWSMcache::B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double M
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -749,8 +749,8 @@ gslpp::complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double M
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -808,8 +808,8 @@ gslpp::complex EWSMcache::Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -834,8 +834,8 @@ gslpp::complex EWSMcache::Bf_Mz2_0_mfprime2_mf2(const int gen) const
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -861,8 +861,8 @@ gslpp::complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
@@ -903,8 +903,8 @@ gslpp::complex EWSMcache::Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double M
     double mymf, mymfprime;
     double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
+        mymf = mf(SM.getLeptons((QCD::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((QCD::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
         mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);

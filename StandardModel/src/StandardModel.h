@@ -8,6 +8,7 @@
 #ifndef STANDARDMODEL_H
 #define	STANDARDMODEL_H
 
+#include "Flavour.h"
 #include <gslpp.h>
 #include "QCD.h"
 #include "CKM.h"
@@ -23,7 +24,6 @@ class EWSMThreeLoopQCD;
 class EWSMThreeLoopEW2QCD;
 class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
-class Flavour;
 class LeptonFlavour;
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 class EWSMTwoFermionsLEP2;
@@ -462,17 +462,6 @@ class EWSMTwoFermionsLEP2;
 class StandardModel : public QCD {
 public:
 
-    /**
-     * @brief An enum type for leptons.
-     */
-    enum lepton {
-        NEUTRINO_1, /**< The 1st-generation neutrino */
-        ELECTRON, /**< Electron */
-        NEUTRINO_2, /**< The 2nd-generation neutrino */
-        MU, /**< Muon */
-        NEUTRINO_3, /**< The 3rd-generation neutrino */
-        TAU /**< Tau */
-    };
 
     /**
      * @brief An enumerated type representing perturbative orders of radiative
@@ -692,7 +681,7 @@ public:
      * @param[in] p name of a lepton
      * @return an object of the lepton specified by name
      */
-    Particle getLeptons(const StandardModel::lepton p) const
+    Particle getLeptons(const QCD::lepton p) const
     {
         return leptons[p];
     }
@@ -1014,9 +1003,9 @@ public:
         return myTwoLoopQCD;
     }
 
-    Flavour* getMyFlavour() const
+    const Flavour& getFlavour() const
     {
-        return myFlavour;
+        return SMFlavour;
     }
 
     LeptonFlavour* getMyLeptonFlavour() const
@@ -2726,6 +2715,7 @@ protected:
     bool requireYe; ///< An internal flag to control whether the charged-lepton Yukawa matrix has to be recomputed.
     bool requireYn; ///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
 
+    Flavour SMFlavour; ///< An object of type Flavour.
 
     ////////////////////////////////////////////////////////////////////////    
 private:
@@ -2738,7 +2728,6 @@ private:
     EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD; ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
     EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
-    Flavour* myFlavour; ///< A pointer to an object of the type Flavour.
     LeptonFlavour* myLeptonFlavour; ///< A pointer to an object of the type LeptonFlavour.
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.

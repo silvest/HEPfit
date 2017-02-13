@@ -10,7 +10,7 @@
 
 #include "gslpp.h"
 #include "Flavour.h"
-#include "StandardModel.h"
+class StandardModel;
 
 /**
  * @class AmpDK2

@@ -9,8 +9,9 @@
 #define	EVOLBSMM_H
 
 #include "RGEvolutor.h"
-#include "StandardModel.h"
+class StandardModel;
 #include <sstream>
+#include <vector>
 
 class EvolBsmm : public RGEvolutor {
 public:

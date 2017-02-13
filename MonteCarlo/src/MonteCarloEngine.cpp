@@ -6,6 +6,7 @@
  */
 
 #include "MonteCarloEngine.h"
+#include "StandardModel.h"
 #include <BAT/BCParameter.h>
 #include <BAT/BCMath.h>
 #include <BAT/BCGaussianPrior.h>

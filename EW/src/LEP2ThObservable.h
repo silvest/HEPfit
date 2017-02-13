@@ -155,7 +155,7 @@ public:
     
 protected:
     // These variables have to be initialized in child classes. 
-    StandardModel::lepton l_flavor;
+    QCD::lepton l_flavor;
     QCD::quark q_flavor;
     
     const LEP2TwoFermions myTwoFermions;
@@ -194,7 +194,7 @@ protected:
         }
     }
 
-    double m_l(const StandardModel::lepton l) const
+    double m_l(const QCD::lepton l) const
     {
         return SM.getLeptons(l).getMass();
     }

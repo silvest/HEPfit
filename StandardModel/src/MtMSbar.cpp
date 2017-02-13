@@ -5,7 +5,7 @@
  */
 
 #include "MtMSbar.h"
-#include "QCD.h"
+#include "StandardModel.h"
 
 double MtMSbar::computeThValue() 
 {

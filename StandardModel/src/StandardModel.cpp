@@ -23,7 +23,6 @@
 #include "EWSMThreeLoopEW2QCD.h"
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
-#include "Flavour.h"
 #include "LeptonFlavour.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "EWSMTwoFermionsLEP2.h"
@@ -40,7 +39,7 @@ const double StandardModel::Mw_error = 0.00001; /* 0.01 MeV */
 
 StandardModel::StandardModel()
 : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
-Ye(3, 3, 0.), SMM(*this)
+Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
 {
     FlagWithoutNonUniversalVC = false;
     FlagNoApproximateGammaZ = false;
@@ -135,7 +134,6 @@ StandardModel::~StandardModel()
         if (myTwoLoopEW != NULL) delete(myTwoLoopEW);
         if (myThreeLoopEW2QCD != NULL) delete(myThreeLoopEW2QCD);
         if (myApproximateFormulae != NULL) delete(myApproximateFormulae);
-        if (myFlavour != NULL) delete(myFlavour);
         if (myLeptonFlavour != NULL) delete(myLeptonFlavour);
         /** BEGIN: REMOVE FROM THE PACKAGE **/
         if (myTwoFermionsLEP2 != NULL) delete(myTwoFermionsLEP2);
@@ -157,7 +155,6 @@ bool StandardModel::InitializeModel()
     myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
     myThreeLoopEW = new EWSMThreeLoopEW(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW.
     myApproximateFormulae = new EWSMApproximateFormulae(*myEWSMcache); ///< A pointer to an object of type EWSMApproximateFormulae.
-    myFlavour = new Flavour(*this);
     myLeptonFlavour = new LeptonFlavour(*this);
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(*myEWSMcache); ///< A pointer to an object of type EWSMTwoFermionsLEP2.
@@ -237,7 +234,7 @@ bool StandardModel::PostUpdate()
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
     SMM.getObj().updateSMParameters();
 
-    myFlavour->setSMupdated();
+    SMFlavour.setSMupdated();
     iterationNo++;
 
     return (true);

@@ -8,14 +8,14 @@
 #ifndef FLAVOUR_H
 #define	FLAVOUR_H
 
+class StandardModel;
+#include "QCD.h"
 #include "HeffDF2.h"
 #include "HeffDS1.h"
 #include "HeffDB1.h"
 #include "MVll.h"
 #include "MPll.h"
 #include <boost/tuple/tuple.hpp>
-
-class StandardModel;
 
 /**
  * @class Flavour
@@ -33,29 +33,7 @@ public:
      * @brief The constructor.
      * @param[in] SM_i a reference to an object of the class StandardModel
      */
-    Flavour(const StandardModel& SM_i) : 
-        HDF2(SM_i), 
-        HDB1(SM_i), 
-        HDS1(SM_i)
-    {
-        myMVll_BdKstarmu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-        myMVll_BdKstarel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
-        myMVll_BpKstarmu = new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU);
-        myMVll_BpKstarel = new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::ELECTRON);
-        myMVll_Bsphimu = new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
-        myMVll_Bsphiel = new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
-        myMPll_BpKmu = new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);
-        myMPll_BpKel = new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON);
-        
-        update_BdKstarmu = true;
-        update_BdKstarel = true;
-        update_BpKstarmu = true;
-        update_BpKstarel = true;
-        update_Bsphimu = true;
-        update_Bsphiel = true;
-        update_BpKmu = true;
-        update_BpKel = true;
-    };
+    Flavour(const StandardModel& SM_i);
     
     /**
      * @brief The member that returns an object of the class HeffDF2.
@@ -91,44 +69,11 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B_d \to \mu \mu \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) {
-        return HDF2.ComputeCoeffBd(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) const;
 
-    /**
-     * @brief Computes the Wilson coefficient for the process \f$ B_s \to \mu \mu \f$.
-     * @param[in] mu the lower matching scale for the process
-     * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
-     * @return returns the Wilson coefficients for the process \f$ B_s \to \mu \mu \f$
-     * 
-     */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR) {
-        return HDF2.ComputeCoeffBs(mu, scheme);
-    }
-
-    gslpp::vector<gslpp::complex>** ComputeCoeffdd(double mu, schemes scheme = NDR) {
-        return HDF2.ComputeCoeffdd(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu() const;
     
-    gslpp::vector<gslpp::complex>** ComputeCoeffK(double mu, schemes scheme = NDR) {
-        return HDF2.ComputeCoeffK(mu, scheme);
-    }
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) {
-        return HDF2.ComputeCoeffmK(mu, scheme);
-    }
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) {
-        return HDS1.ComputeCoeffDS1PP(mu, scheme);
-    }
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1pnunu() {
-        return HDS1.ComputeCoeffDS1pnunu();
-    }
-    
-    gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu() {
-        return HDS1.ComputeCoeffDS1mumu();
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1mumu() const;
     
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B_s \to \mu \mu \f$.
@@ -137,9 +82,24 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B_s \to \mu \mu \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffsmumu(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffsmumu(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffBs(double mu, schemes scheme = NDR) const;
+
+    gslpp::vector<gslpp::complex>** ComputeCoeffdd(double mu, schemes scheme = NDR) const;
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffK(double mu, schemes scheme = NDR) const;
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) const;
+    
+    gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) const;
+    
+    /**
+     * @brief Computes the Wilson coefficient for the process \f$ B_s \to \mu \mu \f$.
+     * @param[in] mu the lower matching scale for the process
+     * @param[in] scheme the scheme in which the Wilson Coefficients need to be calculated
+     * @return returns the Wilson coefficients for the process \f$ B_s \to \mu \mu \f$
+     * 
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffsmumu(double mu, schemes scheme = NDR) const;
     
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B_d \to \mu \mu \f$.
@@ -148,9 +108,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B_d \to \mu \mu \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffdmumu(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR) const;
     
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B_d \to \tau \nu \f$.
@@ -159,17 +117,11 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B_d \to \tau \nu \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu() {
-        return HDB1.ComputeCoeffbtaunu();
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffbtaunu() const;
     
-    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu() {
-        return HDB1.ComputeCoeffsnunu();
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffsnunu() const;
     
-    gslpp::vector<gslpp::complex>** ComputeCoeffdnunu() {
-        return HDB1.ComputeCoeffdnunu();
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffdnunu() const;
     
     /**
      * @brief Computes the Wilson coefficient for the process \f$ b \to s \gamma \f$.
@@ -178,9 +130,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ b \to s \gamma \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffsgamma(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR) const;
     
     /**
      * @brief Computes the chirality flipped Wilson coefficient for the process \f$ b \to s \gamma \f$.
@@ -189,9 +139,7 @@ public:
      * @return returns the chirality flipped Wilson coefficients for the process \f$ b \to s \gamma \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffprimesgamma(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffprimesgamma(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffprimesgamma(double mu, schemes scheme = NDR) const;
     
     /**
      * @brief Computes the Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
@@ -200,9 +148,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B \to V/P \ell^+ \ell^- \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffBMll(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) const;
     
     /**
      * @brief Computes the chirality flipped Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
@@ -211,9 +157,7 @@ public:
      * @return returns the chirality flipped Wilson coefficients for the process \f$ B \to V/P \ell^+ \ell^- \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffprimeBMll(mu, scheme);
-    }
+    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR) const;
     
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -223,15 +167,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell^+ \ell^- \f$
      * 
      */
-    MVll* getMVll(StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) {
-        if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::MU) return myMVll_BdKstarmu;
-        if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return myMVll_BdKstarel;
-        if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::MU) return myMVll_BpKstarmu;
-        if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) return myMVll_BpKstarel;
-        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::MU) return myMVll_Bsphimu;
-        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return myMVll_Bsphiel;
-        else throw std::runtime_error("Flavour: Decay channel not implemented.");
-    }
+    MVll& getMVll(uint meson_i, uint vector_i, uint lep_i) const;
     
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to P \ell^+ \ell^- \f$.
@@ -241,11 +177,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to P \ell^+ \ell^- \f$
      * 
      */
-    MPll* getMPll(StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) {
-        if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::MU) return myMPll_BpKmu;
-        if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return myMPll_BpKel;
-        else throw std::runtime_error("Flavour: Decay channel not implemented.");
-    }
+    MPll& getMPll(uint meson_i, uint pseudoscalar_i, uint lep_i) const;
     
     /**
      * @brief sets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -254,17 +186,7 @@ public:
      * @param[in] lepton_i specifies the lepton in the final state
      * 
      */
-    void setUpdateFlag(StandardModel::meson meson_i, StandardModel::meson meson_j, StandardModel::lepton lep_i, bool updated_i){
-        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) {update_BdKstarmu = updated_i; return;}
-        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) {update_BdKstarel = updated_i; return;}
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) {update_BpKstarmu = updated_i; return;}
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) {update_BpKstarel = updated_i; return;}
-        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) {update_Bsphimu = updated_i; return;}
-        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) {update_Bsphiel = updated_i; return;}
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) {update_BpKmu = updated_i; return;}
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::ELECTRON) {update_BpKel = updated_i; return;}
-        else throw std::runtime_error("Flavour: Wrong update flag requested.");
-    }
+    void setUpdateFlag(uint meson_i, uint meson_j, uint lep_i, bool updated_i) const;
     
     /**
      * @brief gets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -273,54 +195,35 @@ public:
      * @param[in] lepton_i specifies the lepton in the final state
      * 
      */
-    bool getUpdateFlag(StandardModel::meson meson_i, StandardModel::meson meson_j, StandardModel::lepton lep_i){
-        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) return update_BdKstarmu;
-        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return update_BdKstarel;
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) return update_BpKstarmu;
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) return update_BpKstarel;
-        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) return update_Bsphimu;
-        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return update_Bsphiel;
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) return update_BpKmu;
-        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return update_BpKel;
-        else throw std::runtime_error("Flavour: Wrong update flags requested.");
-    }
+    bool getUpdateFlag(uint meson_i, uint meson_j, uint lep_i) const;
     
     /**
      * @brief a member used for the caching for \f$ B \to V \ell^+ \ell^- \f$.
      * 
      */
-    void setSMupdated(){
-        update_BdKstarmu = true;
-        update_BdKstarel = true;
-        update_BpKstarmu = true;
-        update_BpKstarel = true;
-        update_Bsphimu = true;
-        update_Bsphiel = true;
-        update_BpKmu = true;
-        update_BpKel = true;
-    }
+    void setSMupdated() const;
     
 private:
     
-    HeffDF2 HDF2;///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
-    HeffDB1 HDB1;///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
-    HeffDS1 HDS1;///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
-    MVll* myMVll_BdKstarmu;///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
-    MVll* myMVll_BdKstarel;///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
-    MVll* myMVll_BpKstarmu;///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
-    MVll* myMVll_BpKstarel;///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
-    MVll* myMVll_Bsphimu;///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
-    MVll* myMVll_Bsphiel;///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
-    MPll* myMPll_BpKmu;///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
-    MPll* myMPll_BpKel;///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
-    bool update_BdKstarmu;///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
-    bool update_BdKstarel;///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
-    bool update_BpKstarmu;///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.
-    bool update_BpKstarel;///< A flag used for caching of \f$ B_d \to K^{*\pm} \e^+ \e^- \f$.
-    bool update_Bsphimu;///< A flag used for caching of \f$ B_s \to \phi \mu^+ \mu^- \f$.
-    bool update_Bsphiel;///< A flag used for caching of \f$ B_s \to \phi \e^+ \e^- \f$.
-    bool update_BpKmu;///< A flag used for caching of \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
-    bool update_BpKel;///< A flag used for caching of \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    mutable HeffDF2 HDF2;///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
+    mutable HeffDB1 HDB1;///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
+    mutable HeffDS1 HDS1;///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
+    mutable MVll MVll_BdKstarmu;///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
+    mutable MVll MVll_BdKstarel;///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
+    mutable MVll MVll_BpKstarmu;///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
+    mutable MVll MVll_BpKstarel;///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
+    mutable MVll MVll_Bsphimu;///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
+    mutable MVll MVll_Bsphiel;///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
+    mutable MPll MPll_BpKmu;///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
+    mutable MPll MPll_BpKel;///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    mutable bool update_BdKstarmu;///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
+    mutable bool update_BdKstarel;///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
+    mutable bool update_BpKstarmu;///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.
+    mutable bool update_BpKstarel;///< A flag used for caching of \f$ B_d \to K^{*\pm} \e^+ \e^- \f$.
+    mutable bool update_Bsphimu;///< A flag used for caching of \f$ B_s \to \phi \mu^+ \mu^- \f$.
+    mutable bool update_Bsphiel;///< A flag used for caching of \f$ B_s \to \phi \e^+ \e^- \f$.
+    mutable bool update_BpKmu;///< A flag used for caching of \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
+    mutable bool update_BpKel;///< A flag used for caching of \f$ B^+ \to K^+ \e^+ \e^- \f$.
 };
 
 /**

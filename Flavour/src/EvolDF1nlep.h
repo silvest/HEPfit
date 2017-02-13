@@ -9,8 +9,8 @@
 #define	EVOLDF1NLEP_H
 
 
+class StandardModel;
 #include "RGEvolutor.h"
-#include "StandardModel.h"
 #include <sstream>
 
 class EvolDF1nlep : public RGEvolutor {

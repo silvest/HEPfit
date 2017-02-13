@@ -42,7 +42,7 @@ double EW_CHMN::DeltaTz() const
     return ( T() + 1.49 * DeltaRz() + DeltaTz_SM());
 }
 
-double EW_CHMN::gL_l(const StandardModel::lepton l) const
+double EW_CHMN::gL_l(const QCD::lepton l) const
 {
     double c1, c2, c3;
     switch (l) {
@@ -74,7 +74,7 @@ double EW_CHMN::gL_l(const StandardModel::lepton l) const
             + (deltaGVl + deltaGAl) / 2.0);
 }
 
-double EW_CHMN::gR_l(const StandardModel::lepton l) const
+double EW_CHMN::gR_l(const QCD::lepton l) const
 {
     double c1, c2, c3;
     switch (l) {
@@ -180,7 +180,7 @@ double EW_CHMN::gR_q(const QCD::quark q) const
             + (deltaGVq - deltaGAq) / 2.0);
 }
 
-double EW_CHMN::GammaZ_l(StandardModel::lepton l) const
+double EW_CHMN::GammaZ_l(QCD::lepton l) const
 {
     double Qf = SM.getLeptons(l).getCharge();
     double gL = gL_l(l);
@@ -224,7 +224,7 @@ double EW_CHMN::GammaZ() const
             + GammaZ_had());
 }
 
-double EW_CHMN::R_l(const StandardModel::lepton l) const
+double EW_CHMN::R_l(const QCD::lepton l) const
 {
     return ( GammaZ_had() / GammaZ_l(l));
 }
@@ -245,7 +245,7 @@ double EW_CHMN::sigma0_had() const
             * GammaZ_l(StandardModel::ELECTRON) * GammaZ_had() / GammaZ() / GammaZ());
 }
 
-double EW_CHMN::A_l(const StandardModel::lepton l) const
+double EW_CHMN::A_l(const QCD::lepton l) const
 {
     double gL = gL_l(l);
     double gR = gR_l(l);
@@ -259,7 +259,7 @@ double EW_CHMN::A_q(const QCD::quark q) const
     return ( (gL * gL - gR * gR) / (gL * gL + gR * gR));
 }
 
-double EW_CHMN::AFB_l(const StandardModel::lepton l) const
+double EW_CHMN::AFB_l(const QCD::lepton l) const
 {
     return ( 3.0 / 4.0 * A_l(StandardModel::ELECTRON)
             * A_l(l));
@@ -383,7 +383,7 @@ double EW_CHMN::DeltaRw_SM() const
             - log(1.0 + (23.0 / 100.0)*(23.0 / 100.0))));
 }
 
-double EW_CHMN::CV_l(StandardModel::lepton l) const
+double EW_CHMN::CV_l(QCD::lepton l) const
 {
     switch (l) {
         case StandardModel::NEUTRINO_1:
@@ -415,7 +415,7 @@ double EW_CHMN::CV_q(QCD::quark q) const
     }
 }
 
-double EW_CHMN::CA_l(StandardModel::lepton l) const
+double EW_CHMN::CA_l(QCD::lepton l) const
 {
     switch (l) {
         case StandardModel::NEUTRINO_1:
@@ -449,7 +449,7 @@ double EW_CHMN::CA_q(QCD::quark q) const
     }
 }
 
-double EW_CHMN::deltaImKappa_l(StandardModel::lepton l) const
+double EW_CHMN::deltaImKappa_l(QCD::lepton l) const
 {
     switch (l) {
         case StandardModel::NEUTRINO_1:
@@ -482,7 +482,7 @@ double EW_CHMN::deltaImKappa_q(QCD::quark q) const
     }
 }
 
-double EW_CHMN::DeltaEWQCD_l(StandardModel::lepton l) const
+double EW_CHMN::DeltaEWQCD_l(QCD::lepton l) const
 {
     switch (l) {
         case StandardModel::NEUTRINO_1:

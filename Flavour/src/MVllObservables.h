@@ -35,7 +35,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     
     /**
@@ -45,9 +45,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -75,7 +75,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<P_2>@f$ in @f$M \to V l^+l^-@f$.
@@ -84,9 +84,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -114,7 +114,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<P_3>@f$ in @f$M \to V l^+l^-@f$.
@@ -123,9 +123,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -153,7 +153,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_4Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_4Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<P_4'>@f$ in @f$M \to V l^+l^-@f$.
@@ -165,9 +165,9 @@ protected:
     
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -194,7 +194,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_5Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_5Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<P_5'>@f$ in @f$M \to V l^+l^-@f$.
@@ -206,9 +206,9 @@ protected:
     
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -236,7 +236,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_6Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_6Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The binned observable @f$<P_6'>@f$ in @f$M \to V l^+l^-@f$.
@@ -245,9 +245,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -275,7 +275,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_8Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The binned observable @f$<P_8'>@f$ in @f$M \to V l^+l^-@f$.
@@ -284,9 +284,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -314,7 +314,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    GammaPrime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    GammaPrime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
      * @brief A method to compute the binned observable @f$<\Gamma'>@f$ in @f$M \to V l^+l^-@f$ in a generic bin.
@@ -323,7 +323,7 @@ public:
      * @param[in] lep final leptons of the decay
      * @return @f$<\Gamma'>_{[qmin,qmax]}@f$
      */
-    double computeGammaPrime(double qmin, double qmax, StandardModel::lepton lep);
+    double computeGammaPrime(double qmin, double qmax, QCD::lepton lep);
     
     /**
     * @brief The binned observable @f$<\Gamma'>@f$ in @f$M \to V l^+l^-@f$.
@@ -332,9 +332,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -362,7 +362,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    A_FB(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    A_FB(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<A_{FB}>@f$ in @f$M \to V l^+l^-@f$.
@@ -371,9 +371,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -401,7 +401,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    BR_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    BR_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<BR>@f$ in @f$M \to V l^+l^-@f$.
@@ -410,9 +410,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -440,7 +440,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    F_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    F_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
      * @brief A method to compute the binned observable @f$<F_L>@f$ in @f$M \to V l^+l^-@f$ in a generic bin.
@@ -449,7 +449,7 @@ public:
      * @param[in] lep final leptons of the decay
      * @return @f$<F_L>_{[qmin,qmax]}@f$
      */
-    double computeFL(double qmin, double qmax, StandardModel::lepton lep);
+    double computeFL(double qmin, double qmax, QCD::lepton lep);
 
     /**
     * @brief The binned observable @f$<F_L>@f$ in @f$M \to V l^+l^-@f$.
@@ -458,9 +458,9 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -489,7 +489,7 @@ public:
      * @param[in] lep_1 first final leptons of the decay
      * @param[in] lep_1 second final leptons of the decay
      */
-    R_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
+    R_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
     /**
     * @brief The binned observable ratio @f$\frac {<BR>_{M \to V l_1^+l_1^-}}{<BR>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$.
@@ -498,10 +498,10 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep1; /**< First final leptons type. */
-    StandardModel::lepton lep2; /**< Second final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep1; /**< First final leptons type. */
+    QCD::lepton lep2; /**< Second final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -530,7 +530,7 @@ public:
      * @param[in] lep_1 first final leptons of the decay
      * @param[in] lep_1 second final leptons of the decay
      */
-    RL_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
+    RL_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
     /**
     * @brief The binned observable ratio @f$\frac {<BR_L>_{M \to V l_1^+l_1^-}}{<BR_L>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$.
@@ -539,10 +539,10 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep1; /**< First final leptons type. */
-    StandardModel::lepton lep2; /**< Second final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep1; /**< First final leptons type. */
+    QCD::lepton lep2; /**< Second final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -571,7 +571,7 @@ public:
      * @param[in] lep_1 first final leptons of the decay
      * @param[in] lep_1 second final leptons of the decay
      */
-    RT_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
+    RT_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
     /**
     * @brief The binned observable ratio @f$\frac {<BR_T>_{M \to V l_1^+l_1^-}}{<BR_T>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$.
@@ -580,10 +580,10 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep1; /**< First final leptons type. */
-    StandardModel::lepton lep2; /**< Second final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep1; /**< First final leptons type. */
+    QCD::lepton lep2; /**< Second final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -612,7 +612,7 @@ public:
      * @param[in] lep_1 first final leptons of the decay
      * @param[in] lep_1 second final leptons of the decay
      */
-    R_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
+    R_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
     /**
     * @brief The binned observable ratio @f$\frac {<BR_6>_{M \to V l_1^+l_1^-}}{<BR_6>_{M \to V l_2^+l_2^-}}@f$ in @f$M \to V l^+l^-@f$.
@@ -621,10 +621,10 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep1; /**< First final leptons type. */
-    StandardModel::lepton lep2; /**< Second final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep1; /**< First final leptons type. */
+    QCD::lepton lep2; /**< Second final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -651,7 +651,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    ACP_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    ACP_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<A_{CP}>@f$ in @f$M \to V l^+l^-@f$.
@@ -660,9 +660,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -691,7 +691,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P3CP(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P3CP(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<P_3^{CP}>@f$ in @f$M \to V l^+l^-@f$.
@@ -700,9 +700,9 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -730,7 +730,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    M_1Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    M_1Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$M_1'@f$ in @f$M \to V l^+l^-@f$.
@@ -739,9 +739,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -769,7 +769,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    M_2Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    M_2Prime(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$M_2'@f$ in @f$M \to V l^+l^-@f$.
@@ -778,9 +778,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -808,7 +808,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<S_3>@f$ in @f$M \to V l^+l^-@f$.
@@ -817,9 +817,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -847,7 +847,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_4(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<S_4>@f$ in @f$M \to V l^+l^-@f$.
@@ -856,9 +856,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -886,7 +886,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_5(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_5(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<S_5>@f$ in @f$M \to V l^+l^-@f$.
@@ -895,9 +895,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -925,7 +925,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_7(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<S_7>@f$ in @f$M \to V l^+l^-@f$.
@@ -934,9 +934,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -964,7 +964,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_8(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<S_8>@f$ in @f$M \to V l^+l^-@f$.
@@ -973,9 +973,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1003,7 +1003,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_9(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<S_9>@f$ in @f$M \to V l^+l^-@f$.
@@ -1012,9 +1012,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1042,7 +1042,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    A_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    A_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<A_6>@f$ in @f$M \to V l^+l^-@f$.
@@ -1051,9 +1051,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1081,7 +1081,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    A_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    A_9(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$<A_9>@f$ in @f$M \to V l^+l^-@f$.
@@ -1090,9 +1090,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1116,7 +1116,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    V0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    V0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The averaged form factor @f$<V_0>@f$ in @f$B \to K^*@f$.
@@ -1125,9 +1125,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1151,7 +1151,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    Vp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Vp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The averaged form factor @f$<V_+>@f$ in @f$B \to K^*@f$.
@@ -1160,9 +1160,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1186,7 +1186,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Vm(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The averaged form factor @f$<V_->@f$ in @f$B \to K^*@f$.
@@ -1195,9 +1195,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1221,7 +1221,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    T0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The averaged form factor @f$<T_0>@f$ in @f$B \to K^*@f$.
@@ -1230,9 +1230,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1256,7 +1256,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    Tp(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Tp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The averaged form factor @f$<T_+>@f$ in @f$B \to K^*@f$.
@@ -1265,9 +1265,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1291,7 +1291,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    Tm(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The averaged form factor @f$<T_->@f$ in @f$B \to K^*@f$.
@@ -1300,9 +1300,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1326,7 +1326,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The averaged form factor @f$<S>@f$ in @f$B \to K^*@f$.
@@ -1335,9 +1335,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1362,7 +1362,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] typ_i observable type
      */
-    gtilde_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    gtilde_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i);
 
     /**
     * @brief The averaged correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$.
@@ -1371,9 +1371,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     unsigned int typ;/**< Observable type: 1 for averaged real part, 2 for averaged 
                       * immaginary part, 3 for averaged absolute part, 4 for averaged
                       * argument part, 5 for real part, 6 for immaginary part,
@@ -1401,7 +1401,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] typ_i observable type
      */
-    gtilde_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    gtilde_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i);
 
     /**
     * @brief The averaged correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$.
@@ -1410,9 +1410,9 @@ public:
     double computeThValue();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     unsigned int typ;/**< Observable type: 1 for averaged real part, 2 for averaged 
                       * immaginary part, 3 for averaged absolute part, 4 for averaged
                       * argument part, 5 for real part, 6 for immaginary part,
@@ -1440,7 +1440,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] typ_i observable type
      */
-    gtilde_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    gtilde_3(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i);
 
     /**
     * @brief The averaged correction @f$\tilde{g}_1@f$ in @f$B \to K^*@f$.
@@ -1449,9 +1449,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     unsigned int typ;/**< Observable type: 1 for averaged real part, 2 for averaged 
                       * immaginary part, 3 for averaged absolute part, 4 for averaged
                       * argument part, 5 for real part, 6 for immaginary part,
@@ -1477,7 +1477,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] typ_i observable type
      */
-    h_0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    h_0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i);
 
     /**
     * @brief The correction @f$h_0@f$ in @f$B \to K^*@f$.
@@ -1486,9 +1486,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     unsigned int typ;/**< Observable type: 1 for averaged real part, 2 for averaged 
                       * immaginary part, 3 for averaged absolute part, 4 for averaged
                       * argument part. */
@@ -1515,7 +1515,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] typ_i observable type
      */
-    h_p(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    h_p(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i);
 
     /**
     * @brief The correction @f$h_+@f$ in @f$B \to K^*@f$.
@@ -1524,9 +1524,9 @@ public:
     double computeThValue();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     unsigned int typ;/**< Observable type: 1 for averaged real part, 2 for averaged 
                       * immaginary part, 3 for averaged absolute part, 4 for averaged
                       * argument part. */
@@ -1553,7 +1553,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] typ_i observable type
      */
-    h_m(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i, unsigned int typ_i);
+    h_m(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i, unsigned int typ_i);
 
     /**
     * @brief The correction @f$h_-@f$ in @f$B \to K^*@f$.
@@ -1562,9 +1562,9 @@ public:
     double computeThValue();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     unsigned int typ;/**< Observable type: 1 for averaged real part, 2 for averaged 
                       * immaginary part, 3 for averaged absolute part, 4 for averaged
                       * argument part. */
@@ -1597,7 +1597,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     
     /**
@@ -1607,9 +1607,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -1637,7 +1637,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$P_2@f$ in @f$M \to V l^+l^-@f$.
@@ -1646,9 +1646,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -1676,7 +1676,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$P_3@f$ in @f$M \to V l^+l^-@f$.
@@ -1685,9 +1685,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1715,7 +1715,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_4Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_4Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$P_4'@f$ in @f$M \to V l^+l^-@f$.
@@ -1727,9 +1727,9 @@ protected:
     
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 };
 
 
@@ -1756,7 +1756,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_5Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_5Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$P_5'@f$ in @f$M \to V l^+l^-@f$.
@@ -1768,9 +1768,9 @@ protected:
     
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -1798,7 +1798,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_6Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_6Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The observable @f$P_6'@f$ in @f$M \to V l^+l^-@f$.
@@ -1807,9 +1807,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1837,7 +1837,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_8Primef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_8Primef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The observable @f$P_8'@f$ in @f$M \to V l^+l^-@f$.
@@ -1846,9 +1846,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1876,7 +1876,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    GammaPrimef(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    GammaPrimef(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
      * @brief A method to compute the observable @f$\Gamma'@f$ in @f$M \to V l^+l^-@f$ at a generic @f$q^2@f$.
@@ -1884,7 +1884,7 @@ public:
      * @param[in] lep final leptons of the decay
      * @return @f$\Gamma'(q^2)@f$
      */
-    double computeGammaPrimef(double qmin, StandardModel::lepton lep);
+    double computeGammaPrimef(double qmin, QCD::lepton lep);
     
     /**
     * @brief The observable @f$\Gamma'@f$ in @f$M \to V l^+l^-@f$.
@@ -1893,9 +1893,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1923,7 +1923,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    A_FBf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    A_FBf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$A_{FB}@f$ in @f$M \to V l^+l^-@f$.
@@ -1932,9 +1932,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -1962,7 +1962,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    BRf_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    BRf_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$BR@f$ in @f$M \to V l^+l^-@f$.
@@ -1971,9 +1971,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
     
 };
 
@@ -2001,7 +2001,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    F_Lf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    F_Lf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
      * @brief A method to compute the observable @f$F_L@f$ in @f$M \to V l^+l^-@f$ at a generic @f$ q^2@f$.
@@ -2009,7 +2009,7 @@ public:
      * @param[in] lep final leptons of the decay
      * @return @f$F_L(q^2)@f$
      */
-    double computeFLf(double qmin, StandardModel::lepton lep);
+    double computeFLf(double qmin, QCD::lepton lep);
 
     /**
     * @brief The observable @f$F_L@f$ in @f$M \to V l^+l^-@f$.
@@ -2018,9 +2018,9 @@ public:
     double computeThValue ();
 
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };      
 
@@ -2047,7 +2047,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$S_3@f$ in @f$M \to V l^+l^-@f$.
@@ -2056,9 +2056,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2086,7 +2086,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_4f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_4f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$S_4@f$ in @f$M \to V l^+l^-@f$.
@@ -2095,9 +2095,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2125,7 +2125,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_5f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_5f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$S_5@f$ in @f$M \to V l^+l^-@f$.
@@ -2134,9 +2134,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2164,7 +2164,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_7f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_7f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$S_7@f$ in @f$M \to V l^+l^-@f$.
@@ -2173,9 +2173,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2203,7 +2203,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_8f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_8f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$S_8@f$ in @f$M \to V l^+l^-@f$.
@@ -2212,9 +2212,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2242,7 +2242,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    S_9f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    S_9f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$S_9@f$ in @f$M \to V l^+l^-@f$.
@@ -2251,9 +2251,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2267,7 +2267,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_relationf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_relationf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The observable @f$P_8'@f$ in @f$M \to V l^+l^-@f$.
@@ -2276,9 +2276,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2292,7 +2292,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    P_relation_exactf(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    P_relation_exactf(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
 
     /**
     * @brief The observable @f$P_8'@f$ in @f$M \to V l^+l^-@f$.
@@ -2301,9 +2301,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2326,7 +2326,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    QCDfC9_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    QCDfC9_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$QCDfC9_1f@f$ in @f$M \to V l^+l^-@f$.
@@ -2335,9 +2335,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2360,7 +2360,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    QCDfC9_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    QCDfC9_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$QCDfC9_2f@f$ in @f$M \to V l^+l^-@f$.
@@ -2369,9 +2369,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2394,7 +2394,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    QCDfC9_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    QCDfC9_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$QCDfC9_3f@f$ in @f$M \to V l^+l^-@f$.
@@ -2403,9 +2403,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2428,7 +2428,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    QCDfC9p_1f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    QCDfC9p_1f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$QCDfC9p_1f@f$ in @f$M \to V l^+l^-@f$.
@@ -2437,9 +2437,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2462,7 +2462,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    QCDfC9p_2f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    QCDfC9p_2f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$QCDfC9p_2f@f$ in @f$M \to V l^+l^-@f$.
@@ -2471,9 +2471,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 
@@ -2496,7 +2496,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    QCDfC9p_3f(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    QCDfC9p_3f(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
     * @brief The observable @f$QCDfC9p_3f@f$ in @f$M \to V l^+l^-@f$.
@@ -2505,9 +2505,9 @@ public:
     double computeThValue ();
    
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson vectorM; /**< Final vector meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
 
 };
 

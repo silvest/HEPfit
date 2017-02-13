@@ -70,7 +70,7 @@ public:
         if (p.is("QUARK"))
             return sin2thetaEff_q((QCD::quark) (p.getIndex() - 6));
         else if (p.is("LEPTON"))
-            return sin2thetaEff_l((StandardModel::lepton) p.getIndex());
+            return sin2thetaEff_l((QCD::lepton) p.getIndex());
         else
             throw std::runtime_error("EWSMApproximateFormulae::sin2thetaEff() called with wrong argument");
     }
@@ -270,10 +270,10 @@ private:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] l name of a lepton (see QCD::lepton)
      * @return the effective weak mixing angle for @f$Z\to\ell\bar{\ell}@f$
      */
-    double sin2thetaEff_l(const StandardModel::lepton l) const;
+    double sin2thetaEff_l(const QCD::lepton l) const;
 
     /**
      * @brief @f$\sin^2\theta_{\rm eff}^q@f$ with the full two-loop %EW

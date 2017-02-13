@@ -9,6 +9,7 @@
 #define	CORRELATEDGAUSSIANOBSERVABLES_H
 
 #include "Observable.h"
+#include "gslpp.h"
 #include <boost/ptr_container/ptr_vector.hpp>
 
 class ThObsFactory;

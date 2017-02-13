@@ -79,6 +79,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
@@ -181,6 +182,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
@@ -289,6 +291,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>

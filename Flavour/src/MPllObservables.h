@@ -37,7 +37,7 @@ public:
      * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i);
+    BR_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
     
     /**
      * @brief A method to compute the binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$ in a generic bin.
@@ -46,7 +46,7 @@ public:
      * @param[in] lep final leptons of the decay
      * @return @f$<BR>_{[qmin,qmax]}@f$
      */
-    double computeBR_MPll(double qmin, double qmax, StandardModel::lepton lep_i);
+    double computeBR_MPll(double qmin, double qmax, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$.
@@ -55,9 +55,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
 };
 
 
@@ -85,7 +85,7 @@ public:
      * @param[in] lep_1 first final leptons of the decay
      * @param[in] lep_1 second final leptons of the decay
      */
-    R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
+    R_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2);
     
     /**
     * @brief The binned observable ratio @f$\frac {<BR>_{M \to P l_1^+l_1^-}}{<BR>_{M \to P l_2^+l_2^-}}@f$ in @f$M \to P l^+l^-@f$.
@@ -94,10 +94,10 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep1; /**< First final leptons type. */
-    StandardModel::lepton lep2; /**< Second final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+    QCD::lepton lep1; /**< First final leptons type. */
+    QCD::lepton lep2; /**< Second final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
 };
 
 
@@ -124,7 +124,7 @@ public:
      * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    ACP_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i);
+    ACP_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<A_{CP}>@f$ in @f$M \to P l^+l^-@f$.
@@ -133,9 +133,9 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::meson meson; /**< Initial meson type. */
-    StandardModel::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
 };
 
 

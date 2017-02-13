@@ -6,6 +6,7 @@
  */
 
 #include "AmpDK2.h"
+#include "StandardModel.h"
 
 using namespace gslpp;
 
@@ -15,10 +16,10 @@ AmpDK2::AmpDK2(const StandardModel& SM_i)
 
 gslpp::complex AmpDK2::AmpDK(orders order) 
 {
-    if (mySM.getMyFlavour()->getHDF2().getCoeffK().getOrder() < order % 3)
+    if (mySM.getFlavour().getHDF2().getCoeffK().getOrder() < order % 3)
         throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed"); 
 
-    gslpp::vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffK(
+    gslpp::vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffK(
             mySM.getBK().getMu(),
             mySM.getBK().getScheme());
             
@@ -59,10 +60,10 @@ gslpp::complex AmpDK2::AmpDK(orders order)
 
 gslpp::complex AmpDK2::AmpMK(orders order) 
 {
-    if (mySM.getMyFlavour()->getHDF2().getCoeffmK().getOrder() < order % 3)
+    if (mySM.getFlavour().getHDF2().getCoeffmK().getOrder() < order % 3)
         throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed");
 
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffmK(
+    vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffmK(
             mySM.getBK().getMu(),
             mySM.getBK().getScheme());
 

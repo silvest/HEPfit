@@ -6,6 +6,7 @@
  */
 
 #include "Acharm.h"
+#include "StandardModel.h"
 
 double Acharm::computeThValue()
 {

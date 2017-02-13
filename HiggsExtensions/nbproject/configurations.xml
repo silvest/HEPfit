@@ -50,6 +50,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -89,6 +90,8 @@
             <pElem>../Observables/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -128,9 +131,11 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../Observables/dist</pElem>
+            <pElem>../Observables/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>

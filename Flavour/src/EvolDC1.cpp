@@ -8,6 +8,7 @@
 #include <gsl/gsl_sf_zeta.h>
 #include "EvolDC1.h"
 #include <stdexcept>
+#include "StandardModel.h"
 
 
 EvolDC1::EvolDC1(unsigned int dim_i, schemes scheme, orders order, const StandardModel& model) 

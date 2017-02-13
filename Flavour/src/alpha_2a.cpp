@@ -6,6 +6,7 @@
  */
 
 #include "alpha_2a.h"
+#include "StandardModel.h"
 
 double Alpha_2a::computeThValue() 
 { 

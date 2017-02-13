@@ -6,6 +6,7 @@
  */
     
 #include "HeffDC1.h"
+#include "StandardModel.h"
 
 HeffDC1::HeffDC1(const StandardModel & SM, StandardModelMatching & SM_Matching) 
 :       model(SM), coeffdc1(10, NDR, NLO), 

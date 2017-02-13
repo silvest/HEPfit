@@ -10,7 +10,7 @@
 
 
 #include "RGEvolutor.h"
-#include "StandardModel.h"
+class StandardModel;
 #include <sstream>
 
 class EvolDC1Buras : public RGEvolutor {

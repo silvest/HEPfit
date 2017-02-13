@@ -32,7 +32,7 @@ public:
      * @param[in] quark_i quark defining the inclusive final hadronic state @f$X_q@f$ of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    R_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i);
+    R_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$.
@@ -41,8 +41,8 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::quark quark; /**< Final quark type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::quark quark; /**< Final quark type. */
     BXqll myBXqll;
 };
 
@@ -67,7 +67,7 @@ public:
      * @param[in] quark_i quark defining the inclusive final hadronic state @f$X_q@f$ of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    Rlow_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i);
+    Rlow_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$.
@@ -76,8 +76,8 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::quark quark; /**< Final quark type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::quark quark; /**< Final quark type. */
     BXqll myBXqll;
 };
 
@@ -102,7 +102,7 @@ public:
      * @param[in] quark_i quark defining the inclusive final hadronic state @f$X_q@f$ of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    Rhigh_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i);
+    Rhigh_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i);
     
     /**
     * @brief The binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$.
@@ -111,8 +111,8 @@ public:
     double computeThValue ();
     
 private:
-    StandardModel::lepton lep; /**< Final leptons type. */
-    StandardModel::quark quark; /**< Final quark type. */
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::quark quark; /**< Final quark type. */
     BXqll myBXqll;
 };
 

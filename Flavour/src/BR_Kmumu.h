@@ -11,7 +11,7 @@
 #include "ThObservable.h"
 #include "Flavour.h"
 #include "CPenguinBoxMu.h"
-#include "StandardModel.h"
+class StandardModel;
 
 class BR_Kmumu : public ThObservable {
 public:   

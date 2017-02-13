@@ -37,7 +37,7 @@ public:
      * @param[in] l name of lepton
      * @return mass of lepton
      */
-    double ml(const StandardModel::lepton l) const
+    double ml(const QCD::lepton l) const
     {
         return SM.getLeptons(l).getMass();
     }
@@ -72,7 +72,7 @@ public:
      *
      * @attention depends on sW2
      */
-    double vl(const StandardModel::lepton l, const double Mw) const
+    double vl(const QCD::lepton l, const double Mw) const
     {
         double sW2 = 1.0 - Mw * Mw / SM.getMz() / SM.getMz();
         return ( al(l) - 2.0 * SM.getLeptons(l).getCharge() * sW2);
@@ -95,7 +95,7 @@ public:
      * @param[in] l name of lepton
      * @return the tree-level axial-vector coupling for Z->l lbar
      */
-    double al(const StandardModel::lepton l) const
+    double al(const QCD::lepton l) const
     {
         return ( SM.getLeptons(l).getIsospin());
     }
@@ -176,7 +176,7 @@ public:
      * @param[in] l name of lepton
      * @return contribution to the self-energy function of photon from lepton l
      */
-    gslpp::complex PiGammaGamma_fer_l(const double mu, const double s, const StandardModel::lepton l) const;
+    gslpp::complex PiGammaGamma_fer_l(const double mu, const double s, const QCD::lepton l) const;
 
     /**
      * @param[in] mu renormalization scale
