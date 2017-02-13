@@ -93,7 +93,7 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
         p = (int)mySUSY.DOWN + 2*i;
         AD.assign(i, KD(i,i) / mySUSY.Mq_Q((QCD::quark)p));
         p = (int)mySUSY.ELECTRON + 2*i;
-        AE.assign(i, KE(i,i) / mySUSY.Ml_Q((StandardModel::lepton)p));
+        AE.assign(i, KE(i,i) / mySUSY.Ml_Q((QCD::lepton)p));
     }
 
     /* Check if non-minimal flavor-violating (NMFV) entries exist in the

@@ -208,10 +208,10 @@ void EWSM_Output::outputEachDeltaR(const double Mw_i) const
             << getFlagMw() << std::endl;
 }
 
-void EWSM_Output::outputEachDeltaRhoZ_l(const StandardModel::lepton l, const double Mw_i) const
+void EWSM_Output::outputEachDeltaRhoZ_l(const QCD::lepton l, const double Mw_i) const
 {
     std::cout << "================================================" << std::endl;
-    std::cout << "rhoZ_l[(StandardModel::lepton)" << l << "]" << std::endl;
+    std::cout << "rhoZ_l[(QCD::lepton)" << l << "]" << std::endl;
     std::cout << "Mw(input)   = " << Mw_i << std::endl;
 
     double cW2_TMP = Mw_i * Mw_i / getMz() / getMz();
@@ -440,10 +440,10 @@ void EWSM_Output::outputEachDeltaRhoZ(const double f_AlphaToGF,
             << getFlagRhoZ() << std::endl;
 }
 
-void EWSM_Output::outputEachDeltaKappaZ_l(const StandardModel::lepton l, const double Mw_i) const
+void EWSM_Output::outputEachDeltaKappaZ_l(const QCD::lepton l, const double Mw_i) const
 {
     std::cout << "================================================" << std::endl;
-    std::cout << "kappaZ_l[(StandardModel::lepton)" << l << "]" << std::endl;
+    std::cout << "kappaZ_l[(QCD::lepton)" << l << "]" << std::endl;
     std::cout << "Mw(input)   = " << Mw_i << std::endl;
 
     double cW2_TMP = Mw_i * Mw_i / getMz() / getMz();

@@ -6,6 +6,7 @@
  */
 
 #include "Bsmumu.h"
+#include "StandardModel.h"
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),

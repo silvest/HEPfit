@@ -43,13 +43,13 @@ public:
     double DeltaTz() const;
 
     // Effective couplings
-    double gL_l(const StandardModel::lepton l) const;
-    double gR_l(const StandardModel::lepton l) const;
+    double gL_l(const QCD::lepton l) const;
+    double gR_l(const QCD::lepton l) const;
     double gL_q(const QCD::quark q) const;
     double gR_q(const QCD::quark q) const;
 
     // Z-boson partial width
-    double GammaZ_l(StandardModel::lepton l) const;
+    double GammaZ_l(QCD::lepton l) const;
     double GammaZ_q(QCD::quark q) const;
 
     // Z-boson hadronic width
@@ -58,7 +58,7 @@ public:
     // Z-boson total width
     double GammaZ() const;
 
-    double R_l(const StandardModel::lepton l) const;
+    double R_l(const QCD::lepton l) const;
     double R_c() const;
     double R_b() const;
 
@@ -66,11 +66,11 @@ public:
     double sigma0_had() const;
 
     // left-right asymmetry parameter
-    double A_l(const StandardModel::lepton l) const;
+    double A_l(const QCD::lepton l) const;
     double A_q(const QCD::quark q) const;
 
     // forward-backward asymmetry
-    double AFB_l(const StandardModel::lepton l) const;
+    double AFB_l(const QCD::lepton l) const;
     double AFB_q(const QCD::quark q) const;
 
     // effective weak mixing angle
@@ -118,17 +118,17 @@ private:
     double DeltaRw_SM() const;
 
     // the color factors, including mass and QCD corrections
-    double CV_l(StandardModel::lepton l) const;
+    double CV_l(QCD::lepton l) const;
     double CV_q(QCD::quark q) const;
-    double CA_l(StandardModel::lepton l) const;
+    double CA_l(QCD::lepton l) const;
     double CA_q(QCD::quark q) const;
 
     // corrections from the imaginary part of loop-induced mixing between the photon and the Z boson
-    double deltaImKappa_l(StandardModel::lepton l) const;
+    double deltaImKappa_l(QCD::lepton l) const;
     double deltaImKappa_q(QCD::quark q) const;
 
     // non-factorizable mixed EW/QCD corrections
-    double DeltaEWQCD_l(StandardModel::lepton l) const;
+    double DeltaEWQCD_l(QCD::lepton l) const;
     double DeltaEWQCD_q(QCD::quark q) const;
 
 

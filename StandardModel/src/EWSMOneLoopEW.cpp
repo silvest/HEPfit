@@ -288,7 +288,7 @@ gslpp::complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s, co
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml2[i] = cache.mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+        ml2[i] = cache.mf2(cache.getSM().getLeptons((QCD::lepton) i));
         mq2[i] = cache.mf2(cache.getSM().getQuarks((QCD::quark) i), mu);
     }
     double mu2 = mu*mu;
@@ -400,7 +400,7 @@ gslpp::complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, co
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml2[i] = cache.mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+        ml2[i] = cache.mf2(cache.getSM().getLeptons((QCD::lepton) i));
         mq2[i] = cache.mf2(cache.getSM().getQuarks((QCD::quark) i), mu);
     }
     double mu2 = mu*mu;
@@ -413,9 +413,9 @@ gslpp::complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, co
     gslpp::complex B0_s_ml2_ml2[6], B0_s_mq2_mq2[6];
     if (mu == Mz && s == Mz2) {
         for (int i = 0; i < 6; i++) {
-            Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+            Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((QCD::lepton) i));
             Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getQuarks((QCD::quark) i));
-            B0_s_ml2_ml2[i] = cache.B0_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+            B0_s_ml2_ml2[i] = cache.B0_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((QCD::lepton) i));
             B0_s_mq2_mq2[i] = cache.B0_Mz2_Mz2_mf2_mf2(cache.getSM().getQuarks((QCD::quark) i));
         }
     } else {
@@ -434,8 +434,8 @@ gslpp::complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s, co
         double mf2, vf2, af2;
         for (int i = 0; i < 6; i++) {
             mf2 = ml2[i];
-            vf2 = pow(cache.v_f(cache.getSM().getLeptons((StandardModel::lepton) i), Mw), 2.0);
-            af2 = pow(cache.a_f(cache.getSM().getLeptons((StandardModel::lepton) i)), 2.0);
+            vf2 = pow(cache.v_f(cache.getSM().getLeptons((QCD::lepton) i), Mw), 2.0);
+            af2 = pow(cache.a_f(cache.getSM().getLeptons((QCD::lepton) i)), 2.0);
             if (s != 0.0) Sigma += -(vf2 + af2) * s * Bf_s_ml2_ml2[i];
             Sigma += -2.0 * af2 * mf2 * B0_s_ml2_ml2[i];
             //
@@ -525,7 +525,7 @@ gslpp::complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double 
 {
     gslpp::complex Pi(0.0, 0.0, false);
     for (int i = 0; i < 6; i++) {
-        Pi += PibarGammaGamma_fer(mu, s, cache.getSM().getLeptons((StandardModel::lepton) i));
+        Pi += PibarGammaGamma_fer(mu, s, cache.getSM().getLeptons((QCD::lepton) i));
         Pi += PibarGammaGamma_fer(mu, s, cache.getSM().getQuarks((QCD::quark) i));
     }
     return Pi;
@@ -542,7 +542,7 @@ gslpp::complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, c
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml2[i] = cache.mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+        ml2[i] = cache.mf2(cache.getSM().getLeptons((QCD::lepton) i));
         mq2[i] = cache.mf2(cache.getSM().getQuarks((QCD::quark) i), mu);
     }
     double mu2 = mu*mu;
@@ -558,7 +558,7 @@ gslpp::complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, c
             if (i == 0 || i == 2 || i == 4)
                 Bf_s_ml2_ml2[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
             else
-                Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+                Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((QCD::lepton) i));
             Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getQuarks((QCD::quark) i));
         }
     } else {
@@ -574,7 +574,7 @@ gslpp::complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s, c
     gslpp::complex Pi(0.0, 0.0, false);
     double Ql, Qq;
     for (int i = 0; i < 6; i++) {
-        Ql = cache.Q_f(cache.getSM().getLeptons((StandardModel::lepton) i));
+        Ql = cache.Q_f(cache.getSM().getLeptons((QCD::lepton) i));
         Pi += -(fabs(Ql) - 4.0 * sW2 * Ql * Ql) * Bf_s_ml2_ml2[i];
         //
         Qq = cache.Q_f(cache.getSM().getQuarks((QCD::quark) i));
@@ -643,7 +643,7 @@ gslpp::complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu, const do
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml2[i] = cache.mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+        ml2[i] = cache.mf2(cache.getSM().getLeptons((QCD::lepton) i));
         mq2[i] = cache.mf2(cache.getSM().getQuarks((QCD::quark) i), mu);
     }
     double mu2 = mu*mu;
@@ -747,7 +747,7 @@ gslpp::complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const do
 {
     double ml2[6], mq2[6];
     for (int i = 0; i < 6; i++) {
-        ml2[i] = cache.mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+        ml2[i] = cache.mf2(cache.getSM().getLeptons((QCD::lepton) i));
         mq2[i] = cache.mf2(cache.getSM().getQuarks((QCD::quark) i), mu);
     }
     double mu2 = mu*mu;
@@ -761,11 +761,11 @@ gslpp::complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const do
     gslpp::complex B0p_Mz2_ml2_ml2[6], B0p_Mz2_mq2_mq2[6];
     if (mu == Mz) {
         for (int i = 0; i < 6; i++) {
-            Bf_Mz2_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+            Bf_Mz2_ml2_ml2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((QCD::lepton) i));
             Bf_Mz2_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mf2_mf2(cache.getSM().getQuarks((QCD::quark) i));
-            Bfp_Mz2_ml2_ml2[i] = cache.Bfp_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+            Bfp_Mz2_ml2_ml2[i] = cache.Bfp_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((QCD::lepton) i));
             Bfp_Mz2_mq2_mq2[i] = cache.Bfp_Mz2_Mz2_mf2_mf2(cache.getSM().getQuarks((QCD::quark) i));
-            B0p_Mz2_ml2_ml2[i] = cache.B0p_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((StandardModel::lepton) i));
+            B0p_Mz2_ml2_ml2[i] = cache.B0p_Mz2_Mz2_mf2_mf2(cache.getSM().getLeptons((QCD::lepton) i));
             B0p_Mz2_mq2_mq2[i] = cache.B0p_Mz2_Mz2_mf2_mf2(cache.getSM().getQuarks((QCD::quark) i));
         }
     } else {
@@ -783,8 +783,8 @@ gslpp::complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const do
     double mf2, vf2, af2;
     for (int i = 0; i < 6; i++) {
         mf2 = ml2[i];
-        vf2 = pow(cache.v_f(cache.getSM().getLeptons((StandardModel::lepton) i), Mw), 2.0);
-        af2 = pow(cache.a_f(cache.getSM().getLeptons((StandardModel::lepton) i)), 2.0);
+        vf2 = pow(cache.v_f(cache.getSM().getLeptons((QCD::lepton) i), Mw), 2.0);
+        af2 = pow(cache.a_f(cache.getSM().getLeptons((QCD::lepton) i)), 2.0);
         Sigma += -(vf2 + af2)*(Bf_Mz2_ml2_ml2[i] + Mz2 * Bfp_Mz2_ml2_ml2[i])
                 - 2.0 * af2 * mf2 * B0p_Mz2_ml2_ml2[i];
         //
@@ -1073,7 +1073,7 @@ gslpp::complex EWSMOneLoopEW::FW(const double s, const Particle f, const double 
     double cW2 = cache.getSM().cW2(Mw);
 
     if (f.is("LEPTON")) {
-        StandardModel::lepton lprime;
+        QCD::lepton lprime;
         if (f.is("NEUTRINO_1"))
             lprime = StandardModel::ELECTRON;
         else if (f.is("NEUTRINO_2"))

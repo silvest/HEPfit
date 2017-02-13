@@ -40,7 +40,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the differential cross section d sigma(e^+ e^- -> l lbar)/d cosTheta in GeV^{-2}
      */
-    double dsigma_l(const StandardModel::lepton l, const double mf, 
+    double dsigma_l(const QCD::lepton l, const double mf, 
                     const double s, const double cosTheta,
                     const double Mw, const double GammaZ, const bool bWeak) const;
 
@@ -67,7 +67,7 @@ public:
      * @param[in] GammaZ the Z-boson decay width
      * @return the box contribution to the differential cross section d sigma(e^+ e^- -> l lbar)/d cosTheta in GeV^{-2}
      */
-    double dsigma_l_box(const StandardModel::lepton l, const double mf, 
+    double dsigma_l_box(const QCD::lepton l, const double mf, 
                         const double s, const double cosTheta,
                         const double Mw, const double GammaZ) const;
       
@@ -93,7 +93,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
-    double sigma_l(const StandardModel::lepton l, const double mf, const double s, 
+    double sigma_l(const QCD::lepton l, const double mf, const double s, 
                    const double Mw, const double GammaZ, const bool bWeak) const;
     
     /**
@@ -117,7 +117,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the forward-backward asymmetry for e^+ e^- -> l lbar
      */
-    double AFB_l(const StandardModel::lepton l, const double mf, const double s, 
+    double AFB_l(const QCD::lepton l, const double mf, const double s, 
                  const double Mw, const double GammaZ, const bool bWeak) const;
     
     /**
@@ -177,7 +177,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the form factor beta_f^2*G_3(s) for e^+ e^- -> l lbar
      */
-    double G_3prime_l(const StandardModel::lepton l, const double mf, 
+    double G_3prime_l(const QCD::lepton l, const double mf, 
                       const double s, const double Mw, const double GammaZ, 
                       const bool bWeak) const;
     

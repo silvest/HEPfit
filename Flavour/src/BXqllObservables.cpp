@@ -6,7 +6,7 @@
  */
 
 #include "BXqllObservables.h"
-#include "Flavour.h"
+#include "StandardModel.h"
 #include <TMath.h>
 
 /*******************************************************************************
@@ -14,7 +14,7 @@
  * ****************************************************************************/
 
 
-R_BXqll::R_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i) 
+R_BXqll::R_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i) 
 : ThObservable(SM_i), myBXqll(SM_i, quark_i, lep_i) 
 {  
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: R_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
@@ -22,11 +22,11 @@ R_BXqll::R_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, Standa
     quark = quark_i;
 }
 
-//double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton lep) 
+//double BR_MPll::computeBR_MPll(double qmin, double qmax, QCD::lepton lep) 
 //{
 //    double q_min = qmin;
 //    double q_max = qmax;
-//    StandardModel::lepton lep_i = lep;
+//    QCD::lepton lep_i = lep;
 //
 //    return (3.*SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i).integrateSigma(0,q_min,q_max) - SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i).integrateSigma(2,q_min,q_max))/(4. * SM.getMyFlavour()->getMPll(meson, pseudoscalar, lep_i).getwidth());
 //}
@@ -38,7 +38,7 @@ double R_BXqll::computeThValue()
 }
 
 
-Rlow_BXqll::Rlow_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i) 
+Rlow_BXqll::Rlow_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i) 
 : ThObservable(SM_i), myBXqll(SM_i, quark_i, lep_i) 
 {  
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: Rlow_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
@@ -54,7 +54,7 @@ double Rlow_BXqll::computeThValue()
 }
 
 
-Rhigh_BXqll::Rhigh_BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i) 
+Rhigh_BXqll::Rhigh_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i) 
 : ThObservable(SM_i), myBXqll(SM_i, quark_i, lep_i) 
 {  
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: Rhigh_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;

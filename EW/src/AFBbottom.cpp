@@ -6,6 +6,7 @@
  */
 
 #include "AFBbottom.h"
+#include "StandardModel.h"
 
 double AFBbottom::computeThValue()
 {

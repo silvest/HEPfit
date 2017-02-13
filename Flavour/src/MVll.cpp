@@ -5,7 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "Flavour.h"
+#include "StandardModel.h"
 #include "MVll.h"
 #include <gslpp_complex.h>
 #include <gsl/gsl_sf.h>
@@ -13,7 +13,7 @@
 #include <limits>
 #include <TFitResult.h>
 
-MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i)
+MVll::MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : mySM(SM_i),
 N_cache(3, 0.),
 V_cache(3, 0.),

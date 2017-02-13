@@ -13,9 +13,10 @@
 #include "BXqll.h"
 #include "F_1.h"
 #include "F_2.h"
+#include "StandardModel.h"
 
 
-BXqll::BXqll(const StandardModel& SM_i, StandardModel::quark quark_i, StandardModel::lepton lep_i)
+BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)
 : mySM(SM_i)
 {    
     lep = lep_i;

@@ -6,6 +6,7 @@
  */
 
 #include "sin2thetaEff.h"
+#include "StandardModel.h"
 
 double sin2thetaEff::computeThValue()
 {

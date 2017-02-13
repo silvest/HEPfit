@@ -10,7 +10,7 @@
  * EW matching missing
  */
 
-#include "Flavour.h"
+#include "StandardModel.h"
 #include "bsgamma.h"
 #include <gslpp_complex.h>
 #include <gsl/gsl_sf_dilog.h>
@@ -18,7 +18,7 @@
 #include <gsl/gsl_sf_clausen.h>
 #include <boost/bind.hpp>
 
-Bsgamma::Bsgamma(const StandardModel& SM_i, StandardModel::quark quark_i, int obsFlag)
+Bsgamma::Bsgamma(const StandardModel& SM_i, QCD::quark quark_i, int obsFlag)
 : ThObservable(SM_i),
 Intbc_cache(2, 0.)
 {    

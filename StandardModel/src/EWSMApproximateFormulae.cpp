@@ -71,7 +71,7 @@ double EWSMApproximateFormulae::Mw() const
             + mycache.getSM().getDelMw());
 }
 
-double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l) const
+double EWSMApproximateFormulae::sin2thetaEff_l(const QCD::lepton l) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {

@@ -9,6 +9,7 @@
 #define	PARAMOBS_H
 
 #include "ThObservable.h"
+#include <string>
 
 /**
  * @class ParamObs

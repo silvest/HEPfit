@@ -6,6 +6,8 @@
  */
 
 #include "VCKM.h"
+#include <stdexcept>
+#include "StandardModel.h"
 
 VCKM::VCKM(const StandardModel& SM_i, unsigned int obsFlag_1, unsigned int obsFlag_2) 
 : ThObservable(SM_i) 

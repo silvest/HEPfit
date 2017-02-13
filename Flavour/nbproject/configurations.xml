@@ -137,6 +137,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>src/Flavour.cpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -155,6 +156,7 @@
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>
@@ -293,6 +295,8 @@
       <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Flavour.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Flavour.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -534,6 +538,8 @@
       </item>
       <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Flavour.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/Flavour.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/FlavourObservables.h" ex="false" tool="3" flavor2="0">
@@ -758,6 +764,8 @@
       <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Flavour.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Flavour.h" ex="false" tool="3" flavor2="0">
       </item>

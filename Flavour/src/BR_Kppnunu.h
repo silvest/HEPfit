@@ -11,7 +11,7 @@
 #include "ThObservable.h"
 #include "Flavour.h"
 #include "Charm_Kpnunu.h"
-#include "StandardModel.h"
+class StandardModel;
 
 class BR_Kppnunu : public ThObservable {
 public:   

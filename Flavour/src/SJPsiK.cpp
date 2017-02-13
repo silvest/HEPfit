@@ -6,6 +6,7 @@
  */
 
 #include "SJPsiK.h"
+#include "StandardModel.h"
 
 double SJPsiK::computeThValue() 
 {

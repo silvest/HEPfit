@@ -6,6 +6,7 @@
  */
 
 #include "Flavour.h"
+#include "StandardModel.h"
 #include "MPll.h"
 #include <gslpp_complex.h>
 #include <gsl/gsl_sf.h>
@@ -17,7 +18,7 @@
 
 
 
-MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
+MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
 :       mySM(SM_i),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),

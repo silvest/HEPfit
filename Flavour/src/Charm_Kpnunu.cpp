@@ -6,6 +6,7 @@
  */
 
 #include "Charm_Kpnunu.h"
+#include "StandardModel.h"
 
 Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i) 
 : model(model_i),

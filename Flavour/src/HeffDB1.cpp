@@ -7,6 +7,7 @@
     
 #include "HeffDB1.h"
 #include "gslpp_complex.h"
+#include "StandardModel.h"
 
 HeffDB1::HeffDB1(const StandardModel & SM) 
 :       model(SM), 

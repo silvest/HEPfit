@@ -6,6 +6,7 @@
  */
 
 #include "GammaW.h"
+#include "StandardModel.h"
 
 double GammaW::computeThValue()
 {

@@ -7,6 +7,7 @@
     
 #include "HeffDF1bnlep.h"
 #include "gslpp.h"
+#include "StandardModel.h"
 
 HeffDF1bnlep::HeffDF1bnlep(const StandardModel & SM, StandardModelMatching & SM_Matching) 
 :       model(SM), 

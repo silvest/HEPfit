@@ -6,6 +6,7 @@
  */
 
 #include "BR_Kmumu.h"
+#include "StandardModel.h"
 
 double BR_Kmumu::computeThValue()
 {

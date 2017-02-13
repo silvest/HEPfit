@@ -6,6 +6,7 @@
  */
 
 #include "GammaZ.h"
+#include "StandardModel.h"
 
 double GammaZ::computeThValue()
 {

@@ -6,6 +6,7 @@
  */
 
 #include "Abottom.h"
+#include "StandardModel.h"
 
 double Abottom::computeThValue()
 {

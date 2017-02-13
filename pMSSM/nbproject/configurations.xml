@@ -44,6 +44,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -73,6 +75,9 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -108,6 +113,9 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>

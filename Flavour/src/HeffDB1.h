@@ -8,7 +8,7 @@
 #ifndef HEFFDB1_H
 #define	HEFFDB1_H
 
-#include "StandardModel.h"
+class StandardModel;
 #include "StandardModelMatching.h"
 #include "WilsonCoefficient.h"
 #include "EvolDF1nlep.h"

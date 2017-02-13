@@ -8,9 +8,8 @@
 #ifndef EVOLDB1MLL_H
 #define	EVOLDB1MLL_H
 
-
+class StandardModel;
 #include "RGEvolutor.h"
-#include "StandardModel.h"
 
 class EvolDB1Mll : public RGEvolutor {
 /**

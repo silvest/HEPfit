@@ -33,7 +33,7 @@ public:
 
     void outputEachDeltaR(const double Mw_i) const;
 
-    void outputEachDeltaRhoZ_l(const StandardModel::lepton l, const double Mw_i) const;
+    void outputEachDeltaRhoZ_l(const QCD::lepton l, const double Mw_i) const;
 
     void outputEachDeltaRhoZ_q(const QCD::quark q, const double Mw_i) const;
 
@@ -44,7 +44,7 @@ public:
             const double taub[StandardModel::orders_EW_size],
             const double ZbbSubtract) const;
 
-    void outputEachDeltaKappaZ_l(const StandardModel::lepton l, const double Mw_i) const;
+    void outputEachDeltaKappaZ_l(const QCD::lepton l, const double Mw_i) const;
 
     void outputEachDeltaKappaZ_q(const QCD::quark q, const double Mw_i) const;
 

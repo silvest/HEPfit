@@ -34,19 +34,19 @@ public:
      */
     LEP2GIMR(const StandardModel& SM_i);
     
-    double sigma_l_LEP2_GIMR(const StandardModel::lepton l, const double s,
+    double sigma_l_LEP2_GIMR(const QCD::lepton l, const double s,
                              const double GIMRParam_i[]) const;
     double sigma_q_LEP2_GIMR(const QCD::quark q, const double s,
                              const double GIMRParam_i[]) const;
 
-    double AFB_l_LEP2_GIMR(const StandardModel::lepton l, const double s, 
+    double AFB_l_LEP2_GIMR(const QCD::lepton l, const double s, 
                            const double GIMRParam_i[]) const;
     double AFB_q_LEP2_GIMR(const QCD::quark q, const double s, 
                            const double GIMRParam_i[]) const;
 
-    double sigmaF_l_LEP2_GIMR(const StandardModel::lepton l, const double s,
+    double sigmaF_l_LEP2_GIMR(const QCD::lepton l, const double s,
                              const double GIMRParam_i[]) const;
-    double sigmaB_l_LEP2_GIMR(const StandardModel::lepton l, const double s,
+    double sigmaB_l_LEP2_GIMR(const QCD::lepton l, const double s,
                              const double GIMRParam_i[]) const;
     double sigmaF_q_LEP2_GIMR(const QCD::quark q, const double s,
                              const double GIMRParam_i[]) const;
@@ -61,8 +61,8 @@ public:
     
     
     
-    double gL_l(const StandardModel::lepton l) const;
-    double gR_l(const StandardModel::lepton l) const;
+    double gL_l(const QCD::lepton l) const;
+    double gR_l(const QCD::lepton l) const;
 
     double gL_q(const QCD::quark q) const;
     double gR_q(const QCD::quark q) const;

@@ -6,6 +6,7 @@
  */
 
 #include "Rcharm.h"
+#include "StandardModel.h"
 
 double Rcharm::computeThValue()
 {

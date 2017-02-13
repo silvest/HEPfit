@@ -6,14 +6,14 @@
  */
 
 #include "MPllObservables.h"
-#include "Flavour.h"
+#include "StandardModel.h"
 
 /*******************************************************************************
  * Observables                                                                 *
  * ****************************************************************************/
 
 
-BR_MPll::BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
+BR_MPll::BR_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
 : ThObservable(SM_i) 
 {  
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: BR_MPll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
@@ -22,11 +22,11 @@ BR_MPll::BR_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, Standa
     pseudoscalar = pseudoscalar_i;
 }
 
-double BR_MPll::computeBR_MPll(double qmin, double qmax, StandardModel::lepton lep) 
+double BR_MPll::computeBR_MPll(double qmin, double qmax, QCD::lepton lep) 
 {
     double q_min = qmin;
     double q_max = qmax;
-    StandardModel::lepton lep_i = lep;
+    QCD::lepton lep_i = lep;
     
     return (3.*SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).integrateSigma(0,q_min,q_max) - SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).integrateSigma(2,q_min,q_max))/(4. * SM.getFlavour().getMPll(meson, pseudoscalar, lep_i).getwidth());
 }
@@ -39,7 +39,7 @@ double BR_MPll::computeThValue()
     return computeBR_MPll(q_min, q_max, lep) / ( q_max - q_min );
 }
 
-R_MPll::R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) 
+R_MPll::R_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_1, QCD::lepton lep_2) 
 : BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_1) 
 {  
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: R_MPll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
@@ -57,7 +57,7 @@ double R_MPll::computeThValue()
     return computeBR_MPll(q_min, q_max, lep1)/computeBR_MPll(q_min, q_max, lep2);
 }
 
-ACP_MPll::ACP_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) 
+ACP_MPll::ACP_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
 : BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_i) 
 {
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to P l+ l-: ACP not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;

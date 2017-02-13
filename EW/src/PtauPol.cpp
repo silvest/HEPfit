@@ -6,6 +6,7 @@
  */
 
 #include "PtauPol.h"
+#include "StandardModel.h"
 
 double PtauPol::computeThValue()
 {

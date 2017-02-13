@@ -6,6 +6,7 @@
  */
 
 #include "ParamObs.h"
+#include "StandardModel.h"
 
 ParamObs::ParamObs(const StandardModel& SM_i, std::string name) 
 : ThObservable(SM_i), param(SM_i.getModelParam(name))

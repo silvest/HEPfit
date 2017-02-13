@@ -6,6 +6,7 @@
  */
 
 #include "CPenguinBox.h"
+#include "StandardModel.h"
 
 CPenguinBox::CPenguinBox(const StandardModel& model_i) 
 : model(model_i),

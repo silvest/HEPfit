@@ -8,7 +8,9 @@
 #ifndef MVLL_H
 #define	MVLL_H
 
-#include "StandardModel.h"
+class StandardModel;
+#include "QCD.h"
+#include "Meson.h"
 #include "ThObservable.h"
 #include <math.h>
 #include <gsl/gsl_math.h>
@@ -222,7 +224,7 @@ public:
      * @param[in] vector_i final vector meson of the decay
      * @param[in] lep_i final leptons of the decay
      */
-    MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
     
     /**
      * @brief Destructor.
@@ -624,9 +626,9 @@ public:
     
 private:
     const StandardModel& mySM;/**< Model type */
-    StandardModel::lepton lep;/**< Final leptons type */
-    StandardModel::meson meson;/**< Initial meson type */
-    StandardModel::meson vectorM;/**< Final vector meson type */
+    QCD::lepton lep;/**< Final leptons type */
+    QCD::meson meson;/**< Initial meson type */
+    QCD::meson vectorM;/**< Final vector meson type */
     
     double GF;            /**<Fermi constant */
     double ale;           /**<Alpha electromagnetic */
@@ -1387,13 +1389,13 @@ private:
     double getSigma1c(double q2)
     {
         switch(vectorM){
-            case StandardModel::K_star:
+            case QCD::K_star:
                 return (I_1c(q2, 0) + I_1c(q2, 1))/2.;
                 break;
-            case StandardModel::K_star_P:
+            case QCD::K_star_P:
                 return (I_1c(q2, 0) + I_1c(q2, 1))/2.;
                 break;
-            case StandardModel::PHI:
+            case QCD::PHI:
                 return (I_1c(q2, 0) - ys * h_1c(q2, 0) + I_1c(q2, 1) - ys * h_1c(q2, 1))/2.;
                 break;
             default:
@@ -1411,13 +1413,13 @@ private:
     double getSigma1s(double q2)
     {
         switch(vectorM){
-            case StandardModel::K_star:
+            case QCD::K_star:
                 return (I_1s(q2, 0) + I_1s(q2, 1))/2.;
                 break;
-            case StandardModel::K_star_P:
+            case QCD::K_star_P:
                 return (I_1s(q2, 0) + I_1s(q2, 1))/2.;
                 break;
-            case StandardModel::PHI:
+            case QCD::PHI:
                 return (I_1s(q2, 0) - ys * h_1s(q2, 0) + I_1s(q2, 1) - ys * h_1s(q2, 1))/2.;
                 break;
             default:
@@ -1435,13 +1437,13 @@ private:
     double getSigma2c(double q2)
     {
         switch(vectorM){
-            case StandardModel::K_star:
+            case QCD::K_star:
                 return (I_2c(q2, 0) + I_2c(q2, 1))/2.;
                 break;
-            case StandardModel::K_star_P:
+            case QCD::K_star_P:
                 return (I_2c(q2, 0) + I_2c(q2, 1))/2.;
                 break;
-            case StandardModel::PHI:
+            case QCD::PHI:
                 return (I_2c(q2, 0) - ys * h_2c(q2, 0) + I_2c(q2, 1) - ys * h_2c(q2, 1))/2.;
                 break;
             default:
@@ -1459,13 +1461,13 @@ private:
     double getSigma2s(double q2)
     {
         switch(vectorM){
-            case StandardModel::K_star:
+            case QCD::K_star:
                 return (I_2s(q2, 0) + I_2s(q2, 1))/2.;
                 break;
-            case StandardModel::K_star_P:
+            case QCD::K_star_P:
                 return (I_2s(q2, 0) + I_2s(q2, 1))/2.;
                 break;
-            case StandardModel::PHI:
+            case QCD::PHI:
                 return (I_2s(q2, 0) - ys * h_2s(q2, 0) + I_2s(q2, 1) - ys * h_2s(q2, 1))/2.;
                 break;
             default:
@@ -1483,13 +1485,13 @@ private:
     double getSigma3(double q2)
     {
         switch(vectorM){
-            case StandardModel::K_star:
+            case QCD::K_star:
                 return (I_3(q2, 0) + I_3(q2, 1))/2.;
                 break;
-            case StandardModel::K_star_P:
+            case QCD::K_star_P:
                 return (I_3(q2, 0) + I_3(q2, 1))/2.;
                 break;
-            case StandardModel::PHI:
+            case QCD::PHI:
                 return (I_3(q2, 0) - ys * h_3(q2, 0) + I_3(q2, 1) - ys * h_3(q2, 1))/2.;
                 break;
             default:
@@ -1507,13 +1509,13 @@ private:
     double getSigma4(double q2)
     {
         switch(vectorM){
-            case StandardModel::K_star:
+            case QCD::K_star:
                 return (I_4(q2, 0) + I_4(q2, 1))/2.;
                 break;
-            case StandardModel::K_star_P:
+            case QCD::K_star_P:
                 return (I_4(q2, 0) + I_4(q2, 1))/2.;
                 break;
-            case StandardModel::PHI:
+            case QCD::PHI:
                 return (I_4(q2, 0) - ys * h_4(q2, 0) + I_4(q2, 1) - ys * h_4(q2, 1))/2.;
                 break;
             default:
@@ -1561,13 +1563,13 @@ private:
     double getSigma7(double q2)
     {
         switch(vectorM){
-            case StandardModel::K_star:
+            case QCD::K_star:
                 return (I_7(q2, 0) + I_7(q2, 1))/2.;
                 break;
-            case StandardModel::K_star_P:
+            case QCD::K_star_P:
                 return (I_7(q2, 0) + I_7(q2, 1))/2.;
                 break;
-            case StandardModel::PHI:
+            case QCD::PHI:
                 return (I_7(q2, 0) - ys * h_7(q2, 0) + I_7(q2, 1) - ys * h_7(q2, 1))/2.;
                 break;
             default:

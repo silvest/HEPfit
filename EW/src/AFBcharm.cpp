@@ -6,6 +6,7 @@
  */
 
 #include "AFBcharm.h"
+#include "StandardModel.h"
 
 double AFBcharm::computeThValue()
 {

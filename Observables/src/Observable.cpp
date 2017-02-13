@@ -6,6 +6,7 @@
  */
 
 #include "Observable.h"
+#include "StandardModel.h"
 #include <TNamed.h>
 #include <TFile.h>
 #include <TROOT.h>

@@ -10,7 +10,7 @@
 
 #include "ThObservable.h"
 #include "Flavour.h"
-#include "StandardModel.h"
+class StandardModel;
 
 class Bsmumu : public ThObservable {
 public:   

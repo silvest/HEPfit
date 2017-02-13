@@ -15,7 +15,7 @@ LEP2GIMR::LEP2GIMR(const StandardModel& SM_i)
 
 
 
-double LEP2GIMR::sigma_l_LEP2_GIMR(const StandardModel::lepton l, const double s,
+double LEP2GIMR::sigma_l_LEP2_GIMR(const QCD::lepton l, const double s,
                                    const double GIMRParam_i[]) const 
 {
     double Mz = SM.getMz();
@@ -107,7 +107,7 @@ double LEP2GIMR::sigma_q_LEP2_GIMR(const QCD::quark q, const double s,
     return ds;
     }
 
-double LEP2GIMR::AFB_l_LEP2_GIMR(const StandardModel::lepton l, 
+double LEP2GIMR::AFB_l_LEP2_GIMR(const QCD::lepton l, 
                                   const double s, const double Dim6Coef_i[]) const
 {
     
@@ -124,7 +124,7 @@ double LEP2GIMR::AFB_q_LEP2_GIMR(const QCD::quark q,
 
 
 
-double LEP2GIMR::gL_l(const StandardModel::lepton l) const
+double LEP2GIMR::gL_l(const QCD::lepton l) const
 {
     double gA = SM.getLeptons(l).getIsospin();
     double gV = SM.getLeptons(l).getIsospin()-2.0*SM.getLeptons(l).getCharge()*SM.sW2();
@@ -134,7 +134,7 @@ double LEP2GIMR::gL_l(const StandardModel::lepton l) const
     }
 
 
-double LEP2GIMR::gR_l(const StandardModel::lepton l) const
+double LEP2GIMR::gR_l(const QCD::lepton l) const
 {
     double gA = SM.getLeptons(l).getIsospin();
     double gV = SM.getLeptons(l).getIsospin()-2.0*SM.getLeptons(l).getCharge()*SM.sW2();
@@ -164,7 +164,7 @@ double LEP2GIMR::gR_q(const QCD::quark q) const
     }
 
 
-double LEP2GIMR::sigmaF_l_LEP2_GIMR(const StandardModel::lepton l, const double s,
+double LEP2GIMR::sigmaF_l_LEP2_GIMR(const QCD::lepton l, const double s,
                                    const double GIMRParam_i[]) const 
 {
     double Mz = SM.getMz();
@@ -209,7 +209,7 @@ double LEP2GIMR::sigmaF_l_LEP2_GIMR(const StandardModel::lepton l, const double 
     return ds;
    }
 
-double LEP2GIMR::sigmaB_l_LEP2_GIMR(const StandardModel::lepton l, const double s,
+double LEP2GIMR::sigmaB_l_LEP2_GIMR(const QCD::lepton l, const double s,
                                    const double GIMRParam_i[]) const 
 {
     double Mz = SM.getMz();

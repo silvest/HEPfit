@@ -6,6 +6,7 @@
  */
 
 #include "AmpDS1.h"
+#include "StandardModel.h"
 #include <sstream>
 
 using namespace gslpp;

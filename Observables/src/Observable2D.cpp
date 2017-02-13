@@ -6,6 +6,7 @@
  */
 
 #include "Observable2D.h"
+#include "StandardModel.h"
 #include <TFile.h>
 #include <fstream>
 #include <TROOT.h>

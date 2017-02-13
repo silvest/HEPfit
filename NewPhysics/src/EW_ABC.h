@@ -29,7 +29,7 @@ public:
     EW_ABC(const NPEpsilons& NPE_i);
 
     double Mw(const bool bAlternative) const;
-    double Gamma_l(StandardModel::lepton l) const;
+    double Gamma_l(QCD::lepton l) const;
     double Gamma_q(QCD::quark q) const;
     double Gamma_b() const;
 
@@ -42,11 +42,11 @@ public:
 
     double sigma0_had(const bool bAlternative) const;
 
-    double A_l(StandardModel::lepton l, const bool bAlternative) const;
+    double A_l(QCD::lepton l, const bool bAlternative) const;
     double A_q(QCD::quark q) const;
     double A_b() const;
 
-    double AFB_l(StandardModel::lepton l, const bool bAlternative) const;
+    double AFB_l(QCD::lepton l, const bool bAlternative) const;
     double AFB_c() const;
     double AFB_b() const;
 
@@ -63,9 +63,9 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    gslpp::complex gVl(StandardModel::lepton l) const;
-    gslpp::complex gAl(StandardModel::lepton l) const;
-    gslpp::complex gVl_over_gAl(StandardModel::lepton l) const;
+    gslpp::complex gVl(QCD::lepton l) const;
+    gslpp::complex gAl(QCD::lepton l) const;
+    gslpp::complex gVl_over_gAl(QCD::lepton l) const;
     gslpp::complex gVq(QCD::quark q) const;
     gslpp::complex gAq(QCD::quark q) const;
     gslpp::complex gVq_over_gAq(QCD::quark q) const;

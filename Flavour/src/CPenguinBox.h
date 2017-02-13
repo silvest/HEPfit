@@ -9,7 +9,9 @@
 #define	CPENGUINBOX_H
 
 
-#include "StandardModel.h"
+class StandardModel;
+#include "QCD.h"
+#include "gslpp.h"
 #include <sstream>
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>

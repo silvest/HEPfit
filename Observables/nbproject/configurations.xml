@@ -55,6 +55,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../InputParser/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -118,6 +120,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../InputParser/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -187,6 +191,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../InputParser/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>

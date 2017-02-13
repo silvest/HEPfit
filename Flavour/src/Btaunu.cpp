@@ -6,6 +6,7 @@
  */
 
 #include "Btaunu.h"
+#include "StandardModel.h"
 
 Btaunu::Btaunu(const StandardModel& SM_i)
 : ThObservable(SM_i)

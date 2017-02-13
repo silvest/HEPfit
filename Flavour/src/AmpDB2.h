@@ -8,9 +8,10 @@
 #ifndef AMPDB2_H
 #define	AMPDB2_H
 
+class StandardModel;
 #include "gslpp_complex.h"
 #include "Flavour.h"
-#include "StandardModel.h"
+
 
 /**
  * @addtogroup Flavour

@@ -6,6 +6,7 @@
  */
 
 #include "AmpDK2.h"
+#include "StandardModel.h"
 
 using namespace gslpp;
 

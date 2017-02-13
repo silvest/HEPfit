@@ -6,6 +6,7 @@
  */
 
 #include "AFBlepton.h"
+#include "StandardModel.h"
 
 double AFBlepton::computeThValue()
 {

@@ -23,7 +23,6 @@
 #include "EWSMThreeLoopEW2QCD.h"
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
-#include "Flavour.h"
 #include "LeptonFlavour.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "EWSMTwoFermionsLEP2.h"

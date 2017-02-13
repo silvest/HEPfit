@@ -44,7 +44,7 @@ public:
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
-    double sigma_l(const StandardModel::lepton l, const double s,
+    double sigma_l(const QCD::lepton l, const double s,
             const double Mw, const double GammaZ,
             const bool bDP, const bool bWEAK, const bool bQED) const;
 
@@ -72,7 +72,7 @@ public:
      * @param[in] bQED with/without QED corrections
      * @return the forward-backward asymmetry for e^+ e^- -> l lbar
      */
-    double AFB_l(const StandardModel::lepton l, const double s,
+    double AFB_l(const QCD::lepton l, const double s,
             const double Mw, const double GammaZ,
             const bool bDP, const bool bWEAK, const bool bQED) const;
 
@@ -102,7 +102,7 @@ public:
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
-    double sigma_l_old(const StandardModel::lepton l, const double s,
+    double sigma_l_old(const QCD::lepton l, const double s,
             const double Mw, const double GammaZ,
             const bool bDP, const bool bQED) const;
 
@@ -143,7 +143,7 @@ private:
      * @param[in] Mw the W-boson mass
      * @return the tree-level vector coupling for Z->l lbar
      */
-    double vl(const StandardModel::lepton l, const double Mw) const;
+    double vl(const QCD::lepton l, const double Mw) const;
 
     /**
      * @param[in] q name of quark
@@ -157,7 +157,7 @@ private:
      * @param[in] Mw the W-boson mass
      * @return the tree-level axial-vector coupling for Z->l lbar
      */
-    double al(const StandardModel::lepton l, const double Mw) const;
+    double al(const QCD::lepton l, const double Mw) const;
 
     /**
      * @param[in] q name of quark
@@ -183,11 +183,11 @@ private:
             const bool bDP) const;
 
     // Renormalized vertex form factors for the Z-f-f vertex (non-QED part)
-    gslpp::complex FVZ_l(const StandardModel::lepton l, const double s, const double Mw) const;
-    gslpp::complex FAZ_l(const StandardModel::lepton l, const double s, const double Mw) const;
+    gslpp::complex FVZ_l(const QCD::lepton l, const double s, const double Mw) const;
+    gslpp::complex FAZ_l(const QCD::lepton l, const double s, const double Mw) const;
     gslpp::complex FVZ_q(const QCD::quark q, const double s, const double Mw) const;
     gslpp::complex FAZ_q(const QCD::quark q, const double s, const double Mw) const;
-    gslpp::complex FL_l(const StandardModel::lepton l, const double s, const double Mw) const;
+    gslpp::complex FL_l(const QCD::lepton l, const double s, const double Mw) const;
     gslpp::complex FL_q(const QCD::quark q, const double s, const double Mw) const;
     gslpp::complex FL_u(const double s, const double Mw) const;
     gslpp::complex FL_d(const double s, const double Mw) const;
@@ -203,11 +203,11 @@ private:
     gslpp::complex Fg(const double s, const double Mw) const;
 
     // Renormalized vertex form factors for the gamma-f-f vertex (non-QED part)
-    gslpp::complex FVgamma_l(const StandardModel::lepton l, const double s, const double Mw) const;
-    gslpp::complex FAgamma_l(const StandardModel::lepton l, const double s, const double Mw) const;
+    gslpp::complex FVgamma_l(const QCD::lepton l, const double s, const double Mw) const;
+    gslpp::complex FAgamma_l(const QCD::lepton l, const double s, const double Mw) const;
     gslpp::complex FVgamma_q(const QCD::quark q, const double s, const double Mw) const;
     gslpp::complex FAgamma_q(const QCD::quark q, const double s, const double Mw) const;
-    gslpp::complex GL_l(const StandardModel::lepton l, const double s, const double Mw) const;
+    gslpp::complex GL_l(const QCD::lepton l, const double s, const double Mw) const;
     gslpp::complex GL_q(const QCD::quark q, const double s, const double Mw) const;
     gslpp::complex GL_u(const double s, const double Mw) const;
     gslpp::complex GL_d(const double s, const double Mw) const;
@@ -222,11 +222,11 @@ private:
     // Born + dressed propagators + non-QED vertex corrections 
     gslpp::complex V_e(const int j, const double s, const double Mw, const bool bWEAK) const;
     gslpp::complex A_e(const int j, const double s, const double Mw, const bool bWEAK) const;
-    gslpp::complex V_l(const int j, const StandardModel::lepton l, const double s,
+    gslpp::complex V_l(const int j, const QCD::lepton l, const double s,
             const double Mw, const bool bWEAK) const;
     gslpp::complex V_q(const int j, const QCD::quark q, const double s,
             const double Mw, const bool bWEAK) const;
-    gslpp::complex A_l(const int j, const StandardModel::lepton l, const double s,
+    gslpp::complex A_l(const int j, const QCD::lepton l, const double s,
             const double Mw, const bool bWEAK) const;
     gslpp::complex A_q(const int j, const QCD::quark q, const double s,
             const double Mw, const bool bWEAK) const;
@@ -247,17 +247,17 @@ private:
     double C22V(const double s, const double GammaZ, const double mf, const double Qf) const;
     double C22A(const double s, const double mf, const double Qf) const;
 
-    double G1_l(const StandardModel::lepton l, const double s,
+    double G1_l(const QCD::lepton l, const double s,
             const double Mw, const double GammaZ,
             const bool bDP, const bool bWEAK, const bool bQED) const;
     double G1_q(const QCD::quark q, const double s, const
             double Mw, const double GammaZ,
             const bool bDP, const bool bWEAK, const bool bQED) const;
-    double G2_l(const StandardModel::lepton l, const double s, const double Mw,
+    double G2_l(const QCD::lepton l, const double s, const double Mw,
             const bool bDP) const;
     double G2_q(const QCD::quark q, const double s, const double Mw,
             const bool bDP) const;
-    double G3_l(const StandardModel::lepton l, const double s,
+    double G3_l(const QCD::lepton l, const double s,
             const double Mw, const double GammaZ,
             const bool bDP, const bool bWEAK, const bool bQED) const;
     double G3_q(const QCD::quark q, const double s,

@@ -24,7 +24,7 @@ double EW_ABC::Mw(const bool bAlternative) const
     }
 }
 
-double EW_ABC::Gamma_l(StandardModel::lepton l) const
+double EW_ABC::Gamma_l(QCD::lepton l) const
 {
     double Qf = NPE.getLeptons(l).getCharge();
     double RQED = 1.0 + 3.0 * NPE.alphaMz() / 4.0 / M_PI * Qf*Qf;
@@ -137,7 +137,7 @@ double EW_ABC::sigma0_had(const bool bAlternative) const
     }
 }
 
-double EW_ABC::A_l(StandardModel::lepton l, const bool bAlternative) const
+double EW_ABC::A_l(QCD::lepton l, const bool bAlternative) const
 {
     if (!bAlternative) {
         double x = gVl_over_gAl(l).real();
@@ -164,7 +164,7 @@ double EW_ABC::A_b() const
     return ( 2.0 * x / (1.0 + x * x));
 }
 
-double EW_ABC::AFB_l(StandardModel::lepton l, const bool bAlternative) const
+double EW_ABC::AFB_l(QCD::lepton l, const bool bAlternative) const
 {
     if (!bAlternative) {
         double x = gVl_over_gAl(l).real();
@@ -229,17 +229,17 @@ double EW_ABC::epsb() const
 
 ////////////////////////////////////////////////////////////////////////
 
-gslpp::complex EW_ABC::gVl(StandardModel::lepton l) const
+gslpp::complex EW_ABC::gVl(QCD::lepton l) const
 {
     return NPE.gV_f_eps(NPE.getLeptons(l), eps1(), eps3());
 }
 
-gslpp::complex EW_ABC::gAl(StandardModel::lepton l) const
+gslpp::complex EW_ABC::gAl(QCD::lepton l) const
 {
     return NPE.gA_f_eps(NPE.getLeptons(l), eps1());
 }
 
-gslpp::complex EW_ABC::gVl_over_gAl(StandardModel::lepton l) const
+gslpp::complex EW_ABC::gVl_over_gAl(QCD::lepton l) const
 {
     return ( gVl(l) / gAl(l));
 }

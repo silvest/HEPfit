@@ -6,6 +6,7 @@
  */
 
 #include "Alepton.h"
+#include "StandardModel.h"
 
 double Alepton::computeThValue()
 {

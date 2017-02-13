@@ -6,7 +6,7 @@
  */
 
 #include "HeffDF2.h"
-#include "QCD.h"
+#include "StandardModel.h"
 
 HeffDF2::HeffDF2(const StandardModel& SM)
 :       model(SM),

@@ -6,6 +6,7 @@
  */
 
 #include "AmpDB2.h"
+#include "StandardModel.h"
 
 using namespace gslpp;
 

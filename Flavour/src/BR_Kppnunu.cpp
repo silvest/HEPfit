@@ -6,6 +6,7 @@
  */
 
 #include "BR_Kppnunu.h"
+#include "StandardModel.h"
 
 double BR_Kppnunu::computeThValue()
 {

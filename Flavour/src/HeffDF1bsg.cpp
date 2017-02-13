@@ -6,6 +6,7 @@
  */
     
 #include "HeffDF1bsg.h"
+#include "StandardModel.h"
 
 HeffDF1bsg::HeffDF1bsg(const StandardModel & SM) 
 :       model(SM), coeffbsg(10, NDR, NLO), 

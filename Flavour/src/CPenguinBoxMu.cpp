@@ -6,6 +6,7 @@
  */
 
 #include "CPenguinBoxMu.h"
+#include "StandardModel.h"
 
 CPenguinBoxMu::CPenguinBoxMu(const StandardModel& model_i) 
 : model(model_i), modelmatching(model_i.getMatching())
