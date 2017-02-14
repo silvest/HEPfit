@@ -396,6 +396,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -629,6 +631,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>

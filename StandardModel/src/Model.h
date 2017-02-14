@@ -10,6 +10,7 @@
 
 #include <map>
 #include <boost/ref.hpp>
+#include <string>
 
 /**
  * @class Model
