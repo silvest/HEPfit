@@ -11,6 +11,7 @@
 class StandardModel;
 
 #include <vector>
+#include <string>
 
 /**
  * @class ThObservable
