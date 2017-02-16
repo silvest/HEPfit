@@ -85,13 +85,13 @@ void MonteCarlo::TestRun(int rank) {
             else sleep (2);
         }
 
-        if (Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
+        if (Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
             double th = it->computeTheoryValue();
             std::cout << it->getName() << " = " << th << std::endl;
         }
 
-        if (CGO.size() > 0) std::cout << "\nCorrelated Gaussian Oservables: \n" << std::endl;
+        if (CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
             std::cout << it1->getName() << ":" << std::endl;
             std::vector<Observable> ObsInCGO = it1->getObs();
