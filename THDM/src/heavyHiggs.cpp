@@ -10,362 +10,362 @@
 
 
 
-Hobs_ggF_H_tautau_ATLAS::Hobs_ggF_H_tautau_ATLAS(const StandardModel& SM_i)
+Hobs_ggF_H_tautau_ATLAS8::Hobs_ggF_H_tautau_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_ggF_H_tautau_ATLAS::computeThValue()
+double Hobs_ggF_H_tautau_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_tautau_ATLAS;
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_tautau_ATLAS8;
 }
 
-Robs_ggF_H_tautau_ATLAS::Robs_ggF_H_tautau_ATLAS(const StandardModel& SM_i)
+Robs_ggF_H_tautau_ATLAS8::Robs_ggF_H_tautau_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_ggF_H_tautau_ATLAS::computeThValue()
+double Robs_ggF_H_tautau_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_ggF_H_tautau_ATLAS;
-}
-
-
-
-Hobs_ggF_H_tautau_CMS::Hobs_ggF_H_tautau_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_ggF_H_tautau_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_tautau_CMS;
-}
-
-Robs_ggF_H_tautau_CMS::Robs_ggF_H_tautau_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_ggF_H_tautau_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_ggF_H_tautau_CMS;
+    return myTHDM.getMyTHDMCache()->R_ggF_H_tautau_ATLAS8;
 }
 
 
 
-Hobs_bbF_H_tautau_ATLAS::Hobs_bbF_H_tautau_ATLAS(const StandardModel& SM_i)
+Hobs_ggF_H_tautau_CMS8::Hobs_ggF_H_tautau_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_bbF_H_tautau_ATLAS::computeThValue()
+double Hobs_ggF_H_tautau_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_bbF_H_tautau_ATLAS;
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_tautau_CMS8;
 }
 
-Robs_bbF_H_tautau_ATLAS::Robs_bbF_H_tautau_ATLAS(const StandardModel& SM_i)
+Robs_ggF_H_tautau_CMS8::Robs_ggF_H_tautau_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_bbF_H_tautau_ATLAS::computeThValue()
+double Robs_ggF_H_tautau_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_bbF_H_tautau_ATLAS;
-}
-
-
-
-Hobs_bbF_H_tautau_CMS::Hobs_bbF_H_tautau_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_bbF_H_tautau_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_bbF_H_tautau_CMS;
-}
-
-Robs_bbF_H_tautau_CMS::Robs_bbF_H_tautau_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_bbF_H_tautau_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_bbF_H_tautau_CMS;
+    return myTHDM.getMyTHDMCache()->R_ggF_H_tautau_CMS8;
 }
 
 
 
-Hobs_pp_H_gaga_ATLAS::Hobs_pp_H_gaga_ATLAS(const StandardModel& SM_i)
+Hobs_bbF_H_tautau_ATLAS8::Hobs_bbF_H_tautau_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_pp_H_gaga_ATLAS::computeThValue()
+double Hobs_bbF_H_tautau_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_pp_H_gaga_ATLAS;
+    return myTHDM.getMyTHDMCache()->THoEX_bbF_H_tautau_ATLAS8;
 }
 
-Robs_pp_H_gaga_ATLAS::Robs_pp_H_gaga_ATLAS(const StandardModel& SM_i)
+Robs_bbF_H_tautau_ATLAS8::Robs_bbF_H_tautau_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_pp_H_gaga_ATLAS::computeThValue()
+double Robs_bbF_H_tautau_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_pp_H_gaga_ATLAS;
-}
-
-
-
-Hobs_ggF_H_gaga_CMS::Hobs_ggF_H_gaga_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_ggF_H_gaga_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_gaga_CMS;
-}
-
-Robs_ggF_H_gaga_CMS::Robs_ggF_H_gaga_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_ggF_H_gaga_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_ggF_H_gaga_CMS;
+    return myTHDM.getMyTHDMCache()->R_bbF_H_tautau_ATLAS8;
 }
 
 
 
-Hobs_mu_pp_H_VV_CMS::Hobs_mu_pp_H_VV_CMS(const StandardModel& SM_i)
+Hobs_bbF_H_tautau_CMS8::Hobs_bbF_H_tautau_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_mu_pp_H_VV_CMS::computeThValue()
+double Hobs_bbF_H_tautau_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_mu_pp_H_VV_CMS;
+    return myTHDM.getMyTHDMCache()->THoEX_bbF_H_tautau_CMS8;
 }
 
-Robs_mu_pp_H_VV_CMS::Robs_mu_pp_H_VV_CMS(const StandardModel& SM_i)
+Robs_bbF_H_tautau_CMS8::Robs_bbF_H_tautau_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_mu_pp_H_VV_CMS::computeThValue()
+double Robs_bbF_H_tautau_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_mu_pp_H_VV_CMS;
-}
-
-
-
-Hobs_ggF_H_ZZ_ATLAS::Hobs_ggF_H_ZZ_ATLAS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_ggF_H_ZZ_ATLAS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_ZZ_ATLAS;
-}
-
-Robs_ggF_H_ZZ_ATLAS::Robs_ggF_H_ZZ_ATLAS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_ggF_H_ZZ_ATLAS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_ggF_H_ZZ_ATLAS;
+    return myTHDM.getMyTHDMCache()->R_bbF_H_tautau_CMS8;
 }
 
 
 
-Hobs_VBF_H_ZZ_ATLAS::Hobs_VBF_H_ZZ_ATLAS(const StandardModel& SM_i)
+Hobs_pp_H_gaga_ATLAS8::Hobs_pp_H_gaga_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_VBF_H_ZZ_ATLAS::computeThValue()
+double Hobs_pp_H_gaga_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_VBF_H_ZZ_ATLAS;
+    return myTHDM.getMyTHDMCache()->THoEX_pp_H_gaga_ATLAS8;
 }
 
-Robs_VBF_H_ZZ_ATLAS::Robs_VBF_H_ZZ_ATLAS(const StandardModel& SM_i)
+Robs_pp_H_gaga_ATLAS8::Robs_pp_H_gaga_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_VBF_H_ZZ_ATLAS::computeThValue()
+double Robs_pp_H_gaga_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_VBF_H_ZZ_ATLAS;
-}
-
-
-
-Hobs_ggF_H_WW_ATLAS::Hobs_ggF_H_WW_ATLAS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_ggF_H_WW_ATLAS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_WW_ATLAS;
-}
-
-Robs_ggF_H_WW_ATLAS::Robs_ggF_H_WW_ATLAS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_ggF_H_WW_ATLAS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_ggF_H_WW_ATLAS;
+    return myTHDM.getMyTHDMCache()->R_pp_H_gaga_ATLAS8;
 }
 
 
 
-Hobs_VBF_H_WW_ATLAS::Hobs_VBF_H_WW_ATLAS(const StandardModel& SM_i)
+Hobs_ggF_H_gaga_CMS8::Hobs_ggF_H_gaga_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_VBF_H_WW_ATLAS::computeThValue()
+double Hobs_ggF_H_gaga_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_VBF_H_WW_ATLAS;
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_gaga_CMS8;
 }
 
-Robs_VBF_H_WW_ATLAS::Robs_VBF_H_WW_ATLAS(const StandardModel& SM_i)
+Robs_ggF_H_gaga_CMS8::Robs_ggF_H_gaga_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_VBF_H_WW_ATLAS::computeThValue()
+double Robs_ggF_H_gaga_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_VBF_H_WW_ATLAS;
-}
-
-
-
-Hobs_ggF_H_hh_ATLAS::Hobs_ggF_H_hh_ATLAS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_ggF_H_hh_ATLAS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_hh_ATLAS;
-}
-
-Robs_ggF_H_hh_ATLAS::Robs_ggF_H_hh_ATLAS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_ggF_H_hh_ATLAS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_ggF_H_hh_ATLAS;
+    return myTHDM.getMyTHDMCache()->R_ggF_H_gaga_CMS8;
 }
 
 
 
-Hobs_pp_H_hh_CMS::Hobs_pp_H_hh_CMS(const StandardModel& SM_i)
+Hobs_mu_pp_H_VV_CMS8::Hobs_mu_pp_H_VV_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_pp_H_hh_CMS::computeThValue()
+double Hobs_mu_pp_H_VV_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_CMS;
+    return myTHDM.getMyTHDMCache()->THoEX_mu_pp_H_VV_CMS8;
 }
 
-Robs_pp_H_hh_CMS::Robs_pp_H_hh_CMS(const StandardModel& SM_i)
+Robs_mu_pp_H_VV_CMS8::Robs_mu_pp_H_VV_CMS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_pp_H_hh_CMS::computeThValue()
+double Robs_mu_pp_H_VV_CMS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_pp_H_hh_CMS;
-}
-
-
-
-Hobs_ggF_H_hh_bbtautau_CMS::Hobs_ggF_H_hh_bbtautau_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_ggF_H_hh_bbtautau_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_hh_bbtautau_CMS;
-}
-
-Robs_ggF_H_hh_bbtautau_CMS::Robs_ggF_H_hh_bbtautau_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_ggF_H_hh_bbtautau_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_ggF_H_hh_bbtautau_CMS;
+    return myTHDM.getMyTHDMCache()->R_mu_pp_H_VV_CMS8;
 }
 
 
 
-Hobs_pp_H_hh_bbbb_CMS::Hobs_pp_H_hh_bbbb_CMS(const StandardModel& SM_i)
+Hobs_ggF_H_ZZ_ATLAS8::Hobs_ggF_H_ZZ_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_pp_H_hh_bbbb_CMS::computeThValue()
+double Hobs_ggF_H_ZZ_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_bbbb_CMS;
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_ZZ_ATLAS8;
 }
 
-Robs_pp_H_hh_bbbb_CMS::Robs_pp_H_hh_bbbb_CMS(const StandardModel& SM_i)
+Robs_ggF_H_ZZ_ATLAS8::Robs_ggF_H_ZZ_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_pp_H_hh_bbbb_CMS::computeThValue()
+double Robs_ggF_H_ZZ_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_pp_H_hh_bbbb_CMS;
-}
-
-
-
-Hobs_pp_H_hh_gagabb_CMS::Hobs_pp_H_hh_gagabb_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Hobs_pp_H_hh_gagabb_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_gagabb_CMS;
-}
-
-Robs_pp_H_hh_gagabb_CMS::Robs_pp_H_hh_gagabb_CMS(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double Robs_pp_H_hh_gagabb_CMS::computeThValue()
-{
-    return myTHDM.getMyTHDMCache()->R_pp_H_hh_gagabb_CMS;
+    return myTHDM.getMyTHDMCache()->R_ggF_H_ZZ_ATLAS8;
 }
 
 
 
-Hobs_ggF_H_tt_ATLAS::Hobs_ggF_H_tt_ATLAS(const StandardModel& SM_i)
+Hobs_VBF_H_ZZ_ATLAS8::Hobs_VBF_H_ZZ_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_ggF_H_tt_ATLAS::computeThValue()
+double Hobs_VBF_H_ZZ_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_tt_ATLAS;
+    return myTHDM.getMyTHDMCache()->THoEX_VBF_H_ZZ_ATLAS8;
 }
 
-Robs_ggF_H_tt_ATLAS::Robs_ggF_H_tt_ATLAS(const StandardModel& SM_i)
+Robs_VBF_H_ZZ_ATLAS8::Robs_VBF_H_ZZ_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_ggF_H_tt_ATLAS::computeThValue()
+double Robs_VBF_H_ZZ_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_ggF_H_tt_ATLAS;
+    return myTHDM.getMyTHDMCache()->R_VBF_H_ZZ_ATLAS8;
 }
 
 
 
-Hobs_bbF_H_bb_CMS::Hobs_bbF_H_bb_CMS(const StandardModel& SM_i)
+Hobs_ggF_H_WW_ATLAS8::Hobs_ggF_H_WW_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_bbF_H_bb_CMS::computeThValue()
+double Hobs_ggF_H_WW_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_bbF_H_bb_CMS;
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_WW_ATLAS8;
 }
 
-Robs_bbF_H_bb_CMS::Robs_bbF_H_bb_CMS(const StandardModel& SM_i)
+Robs_ggF_H_WW_ATLAS8::Robs_ggF_H_WW_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_bbF_H_bb_CMS::computeThValue()
+double Robs_ggF_H_WW_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_bbF_H_bb_CMS;
+    return myTHDM.getMyTHDMCache()->R_ggF_H_WW_ATLAS8;
+}
+
+
+
+Hobs_VBF_H_WW_ATLAS8::Hobs_VBF_H_WW_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_VBF_H_WW_ATLAS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_VBF_H_WW_ATLAS8;
+}
+
+Robs_VBF_H_WW_ATLAS8::Robs_VBF_H_WW_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_VBF_H_WW_ATLAS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_VBF_H_WW_ATLAS8;
+}
+
+
+
+Hobs_ggF_H_hh_ATLAS8::Hobs_ggF_H_hh_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_ggF_H_hh_ATLAS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_hh_ATLAS8;
+}
+
+Robs_ggF_H_hh_ATLAS8::Robs_ggF_H_hh_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_ggF_H_hh_ATLAS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_ggF_H_hh_ATLAS8;
+}
+
+
+
+Hobs_pp_H_hh_CMS8::Hobs_pp_H_hh_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_pp_H_hh_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_CMS8;
+}
+
+Robs_pp_H_hh_CMS8::Robs_pp_H_hh_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_pp_H_hh_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_pp_H_hh_CMS8;
+}
+
+
+
+Hobs_ggF_H_hh_bbtautau_CMS8::Hobs_ggF_H_hh_bbtautau_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_ggF_H_hh_bbtautau_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_hh_bbtautau_CMS8;
+}
+
+Robs_ggF_H_hh_bbtautau_CMS8::Robs_ggF_H_hh_bbtautau_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_ggF_H_hh_bbtautau_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_ggF_H_hh_bbtautau_CMS8;
+}
+
+
+
+Hobs_pp_H_hh_bbbb_CMS8::Hobs_pp_H_hh_bbbb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_pp_H_hh_bbbb_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_bbbb_CMS8;
+}
+
+Robs_pp_H_hh_bbbb_CMS8::Robs_pp_H_hh_bbbb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_pp_H_hh_bbbb_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_pp_H_hh_bbbb_CMS8;
+}
+
+
+
+Hobs_pp_H_hh_gagabb_CMS8::Hobs_pp_H_hh_gagabb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_pp_H_hh_gagabb_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_gagabb_CMS8;
+}
+
+Robs_pp_H_hh_gagabb_CMS8::Robs_pp_H_hh_gagabb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_pp_H_hh_gagabb_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_pp_H_hh_gagabb_CMS8;
+}
+
+
+
+Hobs_ggF_H_tt_ATLAS8::Hobs_ggF_H_tt_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_ggF_H_tt_ATLAS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_tt_ATLAS8;
+}
+
+Robs_ggF_H_tt_ATLAS8::Robs_ggF_H_tt_ATLAS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_ggF_H_tt_ATLAS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_ggF_H_tt_ATLAS8;
+}
+
+
+
+Hobs_bbF_H_bb_CMS8::Hobs_bbF_H_bb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_bbF_H_bb_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_bbF_H_bb_CMS8;
+}
+
+Robs_bbF_H_bb_CMS8::Robs_bbF_H_bb_CMS8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_bbF_H_bb_CMS8::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_bbF_H_bb_CMS8;
 }
 
 
@@ -640,20 +640,20 @@ double BR_HH_HpW_THDM::computeThValue()
 
 
 
-LIMITmLIMEST::LIMITmLIMEST(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double LIMITmLIMEST::computeThValue()
-{
-    return (myTHDM.getMyTHDMCache()->LIMIT_ggF_H_gaga_CMS) - (myTHDM.getMyTHDMCache()->LIMEST_ggF_H_gaga_CMS);
-}
-
-DEVIATIONoBANDSIZE::DEVIATIONoBANDSIZE(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double DEVIATIONoBANDSIZE::computeThValue()
-{
-    return (myTHDM.getMyTHDMCache()->DEVIATION_ggF_H_gaga_CMS) / (myTHDM.getMyTHDMCache()->BANDSIZE_ggF_H_gaga_CMS);
-}
+//LIMITmLIMEST::LIMITmLIMEST(const StandardModel& SM_i)
+//: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+//{}
+//
+//double LIMITmLIMEST::computeThValue()
+//{
+//    return (myTHDM.getMyTHDMCache()->LIMIT_ggF_H_gaga_CMS8) - (myTHDM.getMyTHDMCache()->LIMEST_ggF_H_gaga_CMS8);
+//}
+//
+//DEVIATIONoBANDSIZE::DEVIATIONoBANDSIZE(const StandardModel& SM_i)
+//: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+//{}
+//
+//double DEVIATIONoBANDSIZE::computeThValue()
+//{
+//    return (myTHDM.getMyTHDMCache()->DEVIATION_ggF_H_gaga_CMS8) / (myTHDM.getMyTHDMCache()->BANDSIZE_ggF_H_gaga_CMS8);
+//}

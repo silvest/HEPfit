@@ -14,91 +14,158 @@
 #include "log_cs_ggH_13.h"
 
 THDMcache::THDMcache(const StandardModel& SM_i)
-        
-        :br_tt(19861, 2, 0.),
-        br_bb(19861, 2, 0.),
-        br_tautau(19861, 2, 0.),
-        br_cc(19861, 2, 0.),
-        br_mumu(19861, 2, 0.),
-        br_ZZ(19861, 2, 0.),
-        br_WW(19861, 2, 0.),
-        GammaHtot_SM(19861, 2, 0.),
-        log_cs_ggH_8(93, 2, 0.),
-        log_cs_VBF_8(93, 2, 0.),
-        log_cs_WH_8(33, 2, 0.),
-        log_cs_ZH_8(33, 2, 0.),
-        log_cs_ggH_13(93, 2, 0.),
-        log_cs_VBF_13(93, 2, 0.),
-        log_cs_WH_13(33, 2, 0.),
-        log_cs_ZH_13(33, 2, 0.),
-        log_cs_ttH_8(99, 2, 0.),
-        log_cs_ttH_13(99, 2, 0.),
-        log_cs_bbH_8(99, 2, 0.),
-        log_cs_bbH_13(99, 2, 0.),
-        log_cs_ggA_8(99, 2, 0.),
+
+        :br_tt(19961, 2, 0.),
+        br_bb(19961, 2, 0.),
+        br_tautau(19961, 2, 0.),
+        br_cc(19961, 2, 0.),
+        br_mumu(19961, 2, 0.),
+        br_ZZ(19961, 2, 0.),
+        br_WW(19961, 2, 0.),
+        GammaHtot_SM(19961, 2, 0.),
+        log_cs_ggH_8(199, 2, 0.),
+        log_cs_VBF_8(199, 2, 0.),
+        log_cs_WH_8(199, 2, 0.),
+        log_cs_ZH_8(199, 2, 0.),
+        log_cs_ggH_13(199, 2, 0.),
+        log_cs_VBF_13(199, 2, 0.),
+        log_cs_WH_13(199, 2, 0.),
+        log_cs_ZH_13(199, 2, 0.),
+        log_cs_ttH_8(199, 2, 0.),
+        log_cs_ttH_13(199, 2, 0.),
+        log_cs_bbH_8(199, 2, 0.),
+        log_cs_bbH_13(199, 2, 0.),
+        log_cs_ggA_8(199, 2, 0.),
         log_cs_ttA_8(99, 2, 0.),
         log_cs_bbA_8(99, 2, 0.),
-        log_cs_ggA_13(99, 2, 0.),
+        log_cs_ggA_13(199, 2, 0.),
         log_cs_ttA_13(99, 2, 0.),
-        log_cs_bbA_13(99, 2, 0.),
-        csrH_top_8(99, 2, 0.),
-        csrH_bottom_8(99, 2, 0.),
-        csrA_top_8(99, 2, 0.),
-        csrA_bottom_8(99, 2, 0.),
-        csrH_top_13(99, 2, 0.),
-        csrH_bottom_13(99, 2, 0.),
-        csrA_top_13(99, 2, 0.),
-        csrA_bottom_13(99, 2, 0.),
-        ATLAS_pp_phi_gaga(108, 2, 0.),
-        ATLAS_ggF_phi_tautau(92, 2, 0.),
-        ATLAS_bbF_phi_tautau(92, 2, 0.),
-        ATLAS_ggF_A_hZ_tautauZ(79, 2, 0.),
-        ATLAS_ggF_A_hZ_bbZ(79, 2, 0.),
-        ATLAS_ggF_phi_tt(53, 2, 0.),
-        ATLAS_ggF_H_WW(13,2,0.),
-        ATLAS_VBF_H_WW(13,2,0.),
-        ATLAS_ggF_H_ZZ(173,2,0.),
-        ATLAS_VBF_H_ZZ(173,2,0.),
-        ATLAS_ggF_H_hh(75,2,0.),
-        ATLAS_pp_phi_gaga_e(108, 2, 0.),
-        ATLAS_ggF_phi_tautau_e(92, 2, 0.),
-        ATLAS_bbF_phi_tautau_e(92, 2, 0.),
-        ATLAS_ggF_A_hZ_tautauZ_e(79, 2, 0.),
-        ATLAS_ggF_A_hZ_bbZ_e(79, 2, 0.),
-        ATLAS_ggF_phi_tt_e(53, 2, 0.),
-        ATLAS_ggF_H_WW_e(13,2,0.),
-        ATLAS_VBF_H_WW_e(13,2,0.),
-        ATLAS_ggF_H_ZZ_e(173,2,0.),
-        ATLAS_VBF_H_ZZ_e(173,2,0.),
-        ATLAS_ggF_H_hh_e(75,2,0.),
-        CMS_mu_pp_H_VV(172, 2, 0.),
-        CMS_mu_pp_H_VV_e(172, 2, 0.),
-        CMS_ggF_A_hZ_bbll(16, 2, 0.),
-        CMS_pp_H_hh(71, 2, 0.),
-        CMS_pp_H_hh_gagabb(85, 2, 0.),
-        CMS_pp_H_hh_bbbb(167, 2, 0.),
-        CMS_bbF_phi_bb(81, 2, 0.),
-        CMS_ggF_phi_tautau(92,2,0.),
-        CMS_bbF_phi_tautau(92,2,0.),
-        CMS_ggF_phi_gaga(141,2,0.),
-        CMS_pp_A_Zga_llga(101,2,0.),
-        CMS_ggF_H_hh_bbtautau(10,2,0.),
-        CMS_ggF_A_hZ_tautaull(14,2,0.),
-        CMS_ggF_A_hZ_bbll_e(16, 2, 0.),
-        CMS_pp_H_hh_e(71, 2, 0.),
-        CMS_pp_H_hh_gagabb_e(85, 2, 0.),
-        CMS_pp_H_hh_bbbb_e(167, 2, 0.),
-        CMS_bbF_phi_bb_e(81, 2, 0.),
-        CMS_ggF_phi_tautau_e(92,2,0.),
-        CMS_bbF_phi_tautau_e(92,2,0.),
-        CMS_ggF_phi_gaga_e(141,2,0.),
-        CMS_pp_A_Zga_llga_e(101,2,0.),
-        CMS_ggF_H_hh_bbtautau_e(10,2,0.),
-        CMS_ggF_A_hZ_tautaull_e(14,2,0.),
+        log_cs_bbA_13(199, 2, 0.),
+        csrH_top_8(199, 2, 0.),
+        csrH_bottom_8(199, 2, 0.),
+        csrA_top_8(199, 2, 0.),
+        csrA_bottom_8(199, 2, 0.),
+        csrH_top_13(199, 2, 0.),
+        csrH_bottom_13(199, 2, 0.),
+        csrA_top_13(199, 2, 0.),
+        csrA_bottom_13(199, 2, 0.),
+        ATLAS8_pp_phi_gaga(108, 2, 0.),
+        ATLAS8_gg_phi_tautau(92, 2, 0.),
+        ATLAS8_bb_phi_tautau(92, 2, 0.),
+        ATLAS8_gg_A_hZ_tautauZ(79, 2, 0.),
+        ATLAS8_gg_A_hZ_bbZ(79, 2, 0.),
+        ATLAS8_gg_phi_tt(53, 2, 0.),
+        ATLAS8_gg_H_WW(13,2,0.),
+        ATLAS8_VBF_H_WW(13,2,0.),
+        ATLAS8_gg_H_ZZ(173,2,0.),
+        ATLAS8_VBF_H_ZZ(173,2,0.),
+        ATLAS8_gg_H_hh(75,2,0.),
+        ATLAS8_pp_phi_gaga_e(108, 2, 0.),
+        ATLAS8_gg_phi_tautau_e(92, 2, 0.),
+        ATLAS8_bb_phi_tautau_e(92, 2, 0.),
+        ATLAS8_gg_A_hZ_tautauZ_e(79, 2, 0.),
+        ATLAS8_gg_A_hZ_bbZ_e(79, 2, 0.),
+        ATLAS8_gg_phi_tt_e(53, 2, 0.),
+        ATLAS8_gg_H_WW_e(13,2,0.),
+        ATLAS8_VBF_H_WW_e(13,2,0.),
+        ATLAS8_gg_H_ZZ_e(173,2,0.),
+        ATLAS8_VBF_H_ZZ_e(173,2,0.),
+        ATLAS8_gg_H_hh_e(75,2,0.),
+        CMS8_mu_pp_H_VV(172, 2, 0.),
+        CMS8_mu_pp_H_VV_e(172, 2, 0.),
+        CMS8_gg_A_hZ_bbll(16, 2, 0.),
+        CMS8_pp_H_hh(71, 2, 0.),
+        CMS8_pp_H_hh_gagabb(85, 2, 0.),
+        CMS8_pp_H_hh_bbbb(167, 2, 0.),
+        CMS8_bb_phi_bb(81, 2, 0.),
+        CMS8_gg_phi_tautau(92,2,0.),
+        CMS8_bb_phi_tautau(92,2,0.),
+        CMS8_gg_phi_gaga(141,2,0.),
+        CMS8_pp_A_Zga_llga(101,2,0.),
+        CMS8_pp_phi_Zga(101,2,0.),
+        CMS8_gg_H_hh_bbtautau(10,2,0.),
+        CMS8_gg_A_hZ_tautaull(14,2,0.),
+        CMS8_gg_A_hZ_bbll_e(16, 2, 0.),
+        CMS8_pp_H_hh_e(71, 2, 0.),
+        CMS8_pp_H_hh_gagabb_e(85, 2, 0.),
+        CMS8_pp_H_hh_bbbb_e(167, 2, 0.),
+        CMS8_bb_phi_bb_e(81, 2, 0.),
+        CMS8_gg_phi_tautau_e(92,2,0.),
+        CMS8_bb_phi_tautau_e(92,2,0.),
+        CMS8_gg_phi_gaga_e(141,2,0.),
+        CMS8_pp_A_Zga_llga_e(101,2,0.),
+        CMS8_gg_H_hh_bbtautau_e(10,2,0.),
+        CMS8_gg_A_hZ_tautaull_e(14,2,0.),
 //        CMS_ggF_phi_gaga_ep1(141,2,0.),
-        CMS_ggF_phi_gaga_ep2(141,2,0.),
+//        CMS_gg_phi_gaga_ep2(141,2,0.),
 //        CMS_ggF_phi_gaga_em1(141,2,0.),
-        CMS_ggF_phi_gaga_em2(141,2,0.),
+//        CMS_ggF_phi_gaga_em2(141,2,0.),
+        ATLAS13_bb_phi_tt(61,2,0.),
+        ATLAS13_tt_phi_tt(61,2,0.),
+        ATLAS13_gg_phi_tautau(101,2,0.),
+        ATLAS13_bb_phi_tautau(101,2,0.),
+        ATLAS13_pp_phi_gaga(221,2,0.),
+        ATLAS13_pp_phi_Zga(216,2,0.),
+        ATLAS13_gg_H_ZZ_llnunu(71,2,0.),
+        ATLAS13_gg_H_ZZ_llll(81,2,0.),
+        ATLAS13_VBF_H_ZZ_llll(81,2,0.),
+        ATLAS13_gg_H_ZZ_llqq(271,2,0.),
+        ATLAS13_VBF_H_ZZ_llqq(271,2,0.),
+        ATLAS13_gg_H_ZZ_nunuqq(251,2,0.),
+        ATLAS13_gg_H_WW_enumumu(271,2,0.),
+        ATLAS13_VBF_H_WW_enumumu(271,2,0.),
+        ATLAS13_gg_H_WW_lnuqq(251,2,0.),
+        ATLAS13_pp_H_hh_bbbb(251,2,0.),
+        ATLAS13_pp_H_hh_gagabb(26,2,0.),
+        ATLAS13_pp_H_hh_gagaWW(25,2,0.),
+        ATLAS13_gg_A_Zh_Zbb(179,2,0.),
+        ATLAS13_bb_A_Zh_Zbb(179,2,0.),
+        ATLAS13_bb_phi_tt_e(61,2,0.),
+        ATLAS13_tt_phi_tt_e(61,2,0.),
+        ATLAS13_gg_phi_tautau_e(101,2,0.),
+        ATLAS13_bb_phi_tautau_e(101,2,0.),
+        ATLAS13_pp_phi_gaga_e(221,2,0.),
+        ATLAS13_pp_phi_Zga_e(216,2,0.),
+        ATLAS13_gg_H_ZZ_llnunu_e(71,2,0.),
+        ATLAS13_gg_H_ZZ_llll_e(81,2,0.),
+        ATLAS13_VBF_H_ZZ_llll_e(81,2,0.),
+        ATLAS13_gg_H_ZZ_llqq_e(271,2,0.),
+        ATLAS13_VBF_H_ZZ_llqq_e(271,2,0.),
+        ATLAS13_gg_H_ZZ_nunuqq_e(251,2,0.),
+        ATLAS13_gg_H_WW_enumumu_e(271,2,0.),
+        ATLAS13_VBF_H_WW_enumumu_e(271,2,0.),
+        ATLAS13_gg_H_WW_lnuqq_e(251,2,0.),
+        ATLAS13_pp_H_hh_bbbb_e(251,2,0.),
+        ATLAS13_pp_H_hh_gagabb_e(26,2,0.),
+        ATLAS13_pp_H_hh_gagaWW_e(25,2,0.),
+        ATLAS13_gg_A_Zh_Zbb_e(179,2,0.),
+        ATLAS13_bb_A_Zh_Zbb_e(179,2,0.),
+        CMS13_pp_phi_bb(66,2,0.),
+        CMS13_gg_phi_tautau(312,2,0.),
+        CMS13_bb_phi_tautau(312,2,0.),
+        CMS13_gg_phi_gaga(351,2,0.),
+        CMS13_pp_phi_Zga_llga(171,2,0.),
+        CMS13_pp_phi_Zga_qqga(236,2,0.),
+        CMS13_pp_H_ZZ_llll(241,2,0.),
+        CMS13_VBFVH_H_ZZ_llll(241,2,0.),
+        CMS13_ggFVBF_H_WW_lnulnu(81,2,0.),
+        CMS13_pp_H_hh_bbbb(95,2,0.),
+        CMS13_pp_H_hh_gagabb(66,2,0.),
+        CMS13_pp_H_hh_bbtautau(66,2,0.),
+        CMS13_pp_H_hh_bblnulnu(65,2,0.),
+        CMS13_pp_phi_bb_e(66,2,0.),
+        CMS13_gg_phi_tautau_e(312,2,0.),
+        CMS13_bb_phi_tautau_e(312,2,0.),
+        CMS13_gg_phi_gaga_e(351,2,0.),
+        CMS13_pp_phi_Zga_llga_e(171,2,0.),
+        CMS13_pp_phi_Zga_qqga_e(236,2,0.),
+        CMS13_pp_H_ZZ_llll_e(241,2,0.),
+        CMS13_VBFVH_H_ZZ_llll_e(241,2,0.),
+        CMS13_ggFVBF_H_WW_lnulnu_e(81,2,0.),
+        CMS13_pp_H_hh_bbbb_e(95,2,0.),
+        CMS13_pp_H_hh_gagabb_e(66,2,0.),
+        CMS13_pp_H_hh_bbtautau_e(66,2,0.),
+        CMS13_pp_H_hh_bblnulnu_e(65,2,0.),
         arraybsgamma(1111, 3, 0.),
         myTHDM(static_cast<const THDM*> (&SM_i)),
         PV(true)
@@ -1578,109 +1645,109 @@ void THDMcache::read(){
     csr14 << tablepath << "csrA_bottom_13.dat";
     csrA_bottom_13 = readTable(csr14.str(),99,2);
     ex1 << tablepath << "150400936.dat";
-    CMS_mu_pp_H_VV = readTable(ex1.str(),172,2);
+    CMS8_mu_pp_H_VV = readTable(ex1.str(),172,2);
     ex1e << tablepath << "150400936_e.dat";
-    CMS_mu_pp_H_VV_e = readTable(ex1e.str(),172,2);
+    CMS8_mu_pp_H_VV_e = readTable(ex1e.str(),172,2);
     ex2 << tablepath << "150404710.dat";
-    CMS_ggF_A_hZ_bbll = readTable(ex2.str(),16,2);
+    CMS8_gg_A_hZ_bbll = readTable(ex2.str(),16,2);
     ex2e << tablepath << "150404710_e.dat";
-    CMS_ggF_A_hZ_bbll_e = readTable(ex2e.str(),16,2);
+    CMS8_gg_A_hZ_bbll_e = readTable(ex2e.str(),16,2);
     ex3 << tablepath << "CMS-PAS-HIG-13-032.dat";
-    CMS_pp_H_hh_gagabb = readTable(ex3.str(),85,2);
+    CMS8_pp_H_hh_gagabb = readTable(ex3.str(),85,2);
     ex3e << tablepath << "CMS-PAS-HIG-13-032_e.dat";
-    CMS_pp_H_hh_gagabb_e = readTable(ex3e.str(),85,2);
+    CMS8_pp_H_hh_gagabb_e = readTable(ex3e.str(),85,2);
     ex4 << tablepath << "150304114.dat";
-    CMS_pp_H_hh_bbbb = readTable(ex4.str(),167,2);
+    CMS8_pp_H_hh_bbbb = readTable(ex4.str(),167,2);
     ex4e << tablepath << "150304114_e.dat";
-    CMS_pp_H_hh_bbbb_e = readTable(ex4e.str(),167,2);
+    CMS8_pp_H_hh_bbbb_e = readTable(ex4e.str(),167,2);
     ex5 << tablepath << "14076583.dat";
-    ATLAS_pp_phi_gaga = readTable(ex5.str(),108,2);
+    ATLAS8_pp_phi_gaga = readTable(ex5.str(),108,2);
     ex5e << tablepath << "14076583_e.dat";
-    ATLAS_pp_phi_gaga_e = readTable(ex5e.str(),108,2);
+    ATLAS8_pp_phi_gaga_e = readTable(ex5e.str(),108,2);
     ex6 << tablepath << "14096064_a.dat";
-    ATLAS_ggF_phi_tautau = readTable(ex6.str(),92,2);
+    ATLAS8_gg_phi_tautau = readTable(ex6.str(),92,2);
     ex6e << tablepath << "14096064_a_e.dat";
-    ATLAS_ggF_phi_tautau_e = readTable(ex6e.str(),92,2);
+    ATLAS8_gg_phi_tautau_e = readTable(ex6e.str(),92,2);
     ex7 << tablepath << "14096064_b.dat";
-    ATLAS_bbF_phi_tautau = readTable(ex7.str(),92,2);
+    ATLAS8_bb_phi_tautau = readTable(ex7.str(),92,2);
     ex7e << tablepath << "14096064_b_e.dat";
-    ATLAS_bbF_phi_tautau_e = readTable(ex7e.str(),92,2);
+    ATLAS8_bb_phi_tautau_e = readTable(ex7e.str(),92,2);
     ex8 << tablepath << "150204478_a.dat";
-    ATLAS_ggF_A_hZ_tautauZ = readTable(ex8.str(),79,2);
+    ATLAS8_gg_A_hZ_tautauZ = readTable(ex8.str(),79,2);
     ex8e << tablepath << "150204478_a_e.dat";
-    ATLAS_ggF_A_hZ_tautauZ_e = readTable(ex8e.str(),79,2);
+    ATLAS8_gg_A_hZ_tautauZ_e = readTable(ex8e.str(),79,2);
     ex9 << tablepath << "150204478_b.dat";
-    ATLAS_ggF_A_hZ_bbZ = readTable(ex9.str(),79,2);
+    ATLAS8_gg_A_hZ_bbZ = readTable(ex9.str(),79,2);
     ex9e << tablepath << "150204478_b_e.dat";
-    ATLAS_ggF_A_hZ_bbZ_e = readTable(ex9e.str(),79,2);
+    ATLAS8_gg_A_hZ_bbZ_e = readTable(ex9e.str(),79,2);
     ex10 << tablepath << "150608329.dat";
-    CMS_bbF_phi_bb = readTable(ex10.str(),81,2);
+    CMS8_bb_phi_bb = readTable(ex10.str(),81,2);
     ex10e << tablepath << "150608329_e.dat";
-    CMS_bbF_phi_bb_e = readTable(ex10e.str(),81,2);
+    CMS8_bb_phi_bb_e = readTable(ex10e.str(),81,2);
     ex11 << tablepath << "150507018.dat";
-    ATLAS_ggF_phi_tt = readTable(ex11.str(),53,2);
+    ATLAS8_gg_phi_tt = readTable(ex11.str(),53,2);
     ex11e << tablepath << "150507018_e.dat";
-    ATLAS_ggF_phi_tt_e = readTable(ex11e.str(),53,2);
+    ATLAS8_gg_phi_tt_e = readTable(ex11e.str(),53,2);
     ex12 << tablepath << "CMS-PAS-HIG-14-029_a.dat";
-    CMS_ggF_phi_tautau = readTable(ex12.str(),92,2);
+    CMS8_gg_phi_tautau = readTable(ex12.str(),92,2);
     ex12e << tablepath << "CMS-PAS-HIG-14-029_a_e.dat";
-    CMS_ggF_phi_tautau_e = readTable(ex12e.str(),92,2);
+    CMS8_gg_phi_tautau_e = readTable(ex12e.str(),92,2);
     ex13 << tablepath << "CMS-PAS-HIG-14-029_b.dat";
-    CMS_bbF_phi_tautau = readTable(ex13.str(),92,2);
+    CMS8_bb_phi_tautau = readTable(ex13.str(),92,2);
     ex13e << tablepath << "CMS-PAS-HIG-14-029_b_e.dat";
-    CMS_bbF_phi_tautau_e = readTable(ex13e.str(),92,2);
+    CMS8_bb_phi_tautau_e = readTable(ex13e.str(),92,2);
     ex14 << tablepath << "150602301.dat";
-    CMS_ggF_phi_gaga = readTable(ex14.str(),141,2);
+    CMS8_gg_phi_gaga = readTable(ex14.str(),141,2);
     ex14e << tablepath << "150602301_e.dat";
-    CMS_ggF_phi_gaga_e = readTable(ex14e.str(),141,2);
+    CMS8_gg_phi_gaga_e = readTable(ex14e.str(),141,2);
 
 //    ex14ep1 << tablepath << "150602301_ep1.dat";
 //    CMS_ggF_phi_gaga_ep1 = readTable(ex14ep1.str(),141,2);
     //CHANGE THIS DEFINITION!
-    ex14ep2 << tablepath << "150602301_e.dat";
-    CMS_ggF_phi_gaga_ep2 = readTable(ex14ep2.str(),141,2);
+//    ex14ep2 << tablepath << "150602301_e.dat";
+//    CMS_ggF_phi_gaga_ep2 = readTable(ex14ep2.str(),141,2);
 //    ex14em1 << tablepath << "150602301_em1.dat";
 //    CMS_ggF_phi_gaga_em1 = readTable(ex14em1.str(),141,2);
     //CHANGE THIS DEFINITION!
-    ex14em2 << tablepath << "150602301_e.dat";
-    CMS_ggF_phi_gaga_em2 = readTable(ex14em2.str(),141,2);
+//    ex14em2 << tablepath << "150602301_e.dat";
+//    CMS_ggF_phi_gaga_em2 = readTable(ex14em2.str(),141,2);
 
     ex15 << tablepath << "150900389_a.dat";
-    ATLAS_ggF_H_WW = readTable(ex15.str(),13,2);
+    ATLAS8_gg_H_WW = readTable(ex15.str(),13,2);
     ex15e << tablepath << "150900389_a_e.dat";
-    ATLAS_ggF_H_WW_e = readTable(ex15e.str(),13,2);
+    ATLAS8_gg_H_WW_e = readTable(ex15e.str(),13,2);
     ex16 << tablepath << "150900389_b.dat";
-    ATLAS_VBF_H_WW = readTable(ex16.str(),13,2);
+    ATLAS8_VBF_H_WW = readTable(ex16.str(),13,2);
     ex16e << tablepath << "150900389_b_e.dat";
-    ATLAS_VBF_H_WW_e = readTable(ex16e.str(),13,2);
+    ATLAS8_VBF_H_WW_e = readTable(ex16e.str(),13,2);
     ex17 << tablepath << "150904670.dat";
-    ATLAS_ggF_H_hh = readTable(ex17.str(),75,2);
+    ATLAS8_gg_H_hh = readTable(ex17.str(),75,2);
     ex17e << tablepath << "150904670_e.dat";
-    ATLAS_ggF_H_hh_e = readTable(ex17e.str(),75,2);
+    ATLAS8_gg_H_hh_e = readTable(ex17e.str(),75,2);
     ex18 << tablepath << "151001181_a.dat";
-    CMS_ggF_H_hh_bbtautau = readTable(ex18.str(),10,2);
+    CMS8_gg_H_hh_bbtautau = readTable(ex18.str(),10,2);
     ex18e << tablepath << "151001181_a_e.dat";
-    CMS_ggF_H_hh_bbtautau_e = readTable(ex18e.str(),10,2);
+    CMS8_gg_H_hh_bbtautau_e = readTable(ex18e.str(),10,2);
     ex19 << tablepath << "151001181_b.dat";
-    CMS_ggF_A_hZ_tautaull = readTable(ex19.str(),14,2);
+    CMS8_gg_A_hZ_tautaull = readTable(ex19.str(),14,2);
     ex19e << tablepath << "151001181_b_e.dat";
-    CMS_ggF_A_hZ_tautaull_e = readTable(ex19e.str(),14,2);
+    CMS8_gg_A_hZ_tautaull_e = readTable(ex19e.str(),14,2);
     ex20 << tablepath << "150705930_a.dat";
-    ATLAS_ggF_H_ZZ = readTable(ex20.str(),173,2);
+    ATLAS8_gg_H_ZZ = readTable(ex20.str(),173,2);
     ex20e << tablepath << "150705930_a_e.dat";
-    ATLAS_ggF_H_ZZ_e = readTable(ex20e.str(),173,2);
+    ATLAS8_gg_H_ZZ_e = readTable(ex20e.str(),173,2);
     ex21 << tablepath << "150705930_b.dat";
-    ATLAS_VBF_H_ZZ = readTable(ex21.str(),173,2);
+    ATLAS8_VBF_H_ZZ = readTable(ex21.str(),173,2);
     ex21e << tablepath << "150705930_b_e.dat";
-    ATLAS_VBF_H_ZZ_e = readTable(ex21e.str(),173,2);
+    ATLAS8_VBF_H_ZZ_e = readTable(ex21e.str(),173,2);
     ex22 << tablepath << "CMS-PAS-HIG-15-013.dat";
-    CMS_pp_H_hh = readTable(ex22.str(),71,2);
+    CMS8_pp_H_hh = readTable(ex22.str(),71,2);
     ex22e << tablepath << "CMS-PAS-HIG-15-013_e.dat";
-    CMS_pp_H_hh_e = readTable(ex22e.str(),71,2);
+    CMS8_pp_H_hh_e = readTable(ex22e.str(),71,2);
     ex23 << tablepath << "CMS-PAS-HIG-16-014.dat";
-    CMS_pp_A_Zga_llga = readTable(ex23.str(),101,2);
+    CMS8_pp_A_Zga_llga = readTable(ex23.str(),101,2);
     ex23e << tablepath << "CMS-PAS-HIG-16-014_e.dat";
-    CMS_pp_A_Zga_llga_e = readTable(ex23e.str(),101,2);
+    CMS8_pp_A_Zga_llga_e = readTable(ex23e.str(),101,2);
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
 }    
@@ -2285,144 +2352,144 @@ double THDMcache::ip_csr_ggA_b_13(double mass){
 
 
 
-double THDMcache::ip_ex_pp_phi_gaga_ATLAS(double mass){
+double THDMcache::ip_ex_pp_phi_gaga_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_gaga_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_gaga_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_gaga_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_pp_phi_gaga_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_pp_phi_gaga,mass);
-        CacheShiftReal(ip_ex_pp_phi_gaga_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_pp_phi_gaga,mass);
+        CacheShiftReal(ip_ex_pp_phi_gaga_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_gaga_ATLAS_e(double mass){
+double THDMcache::ip_ex_pp_phi_gaga_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_gaga_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_gaga_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_gaga_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_pp_phi_gaga_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_pp_phi_gaga_e,mass);
-        CacheShiftReal(ip_ex_pp_phi_gaga_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_pp_phi_gaga_e,mass);
+        CacheShiftReal(ip_ex_pp_phi_gaga_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tautau_ATLAS(double mass){
+double THDMcache::ip_ex_gg_phi_tautau_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_tautau_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_tautau_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_gg_phi_tautau_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_ggF_phi_tautau,mass);
-        CacheShiftReal(ip_ex_ggF_phi_tautau_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tautau_ATLAS_e(double mass){
+double THDMcache::ip_ex_gg_phi_tautau_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_tautau_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_tautau_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_phi_tautau_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_ggF_phi_tautau_e,mass);
-        CacheShiftReal(ip_ex_ggF_phi_tautau_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_gg_phi_tautau_e,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_tautau_ATLAS(double mass){
+double THDMcache::ip_ex_bb_phi_tautau_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_bbF_phi_tautau_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_bbF_phi_tautau_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_bb_phi_tautau_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_bbF_phi_tautau,mass);
-        CacheShiftReal(ip_ex_bbF_phi_tautau_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_tautau_ATLAS_e(double mass){
+double THDMcache::ip_ex_bb_phi_tautau_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_bbF_phi_tautau_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_bbF_phi_tautau_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_bb_phi_tautau_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_bbF_phi_tautau_e,mass);
-        CacheShiftReal(ip_ex_bbF_phi_tautau_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_bb_phi_tautau_e,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_tautauZ_ATLAS(double mass){
+double THDMcache::ip_ex_gg_A_hZ_tautauZ_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_ggF_A_hZ_tautauZ,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_gg_A_hZ_tautauZ,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(double mass){
+double THDMcache::ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_ggF_A_hZ_tautauZ_e,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_tautauZ_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_gg_A_hZ_tautauZ_e,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_bbZ_ATLAS(double mass){
+double THDMcache::ip_ex_gg_A_hZ_bbZ_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_bbZ_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbZ_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_bbZ_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_bbZ_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_ggF_A_hZ_bbZ,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_bbZ_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_gg_A_hZ_bbZ,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbZ_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2431,496 +2498,496 @@ double THDMcache::ip_ex_ggF_A_hZ_bbZ_ATLAS(double mass){
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_bbZ_ATLAS_e(double mass){
+double THDMcache::ip_ex_gg_A_hZ_bbZ_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_bbZ_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbZ_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_bbZ_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_bbZ_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS_ggF_A_hZ_bbZ_e,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_bbZ_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_gg_A_hZ_bbZ_e,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbZ_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tt_ATLAS(double mass){
+double THDMcache::ip_ex_gg_phi_tt_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_tt_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_tt_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_tt_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_gg_phi_tt_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_phi_tt,mass);
-        CacheShiftReal(ip_ex_ggF_phi_tt_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_phi_tt,mass);
+        CacheShiftReal(ip_ex_gg_phi_tt_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tt_ATLAS_e(double mass){
+double THDMcache::ip_ex_gg_phi_tt_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_tt_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_tt_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_tt_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_phi_tt_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_phi_tt_e,mass);
-        CacheShiftReal(ip_ex_ggF_phi_tt_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_phi_tt_e,mass);
+        CacheShiftReal(ip_ex_gg_phi_tt_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_WW_ATLAS(double mass){
+double THDMcache::ip_ex_gg_H_WW_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_WW_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_WW_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_WW_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_gg_H_WW_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_H_WW,mass);
-        CacheShiftReal(ip_ex_ggF_H_WW_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_H_WW,mass);
+        CacheShiftReal(ip_ex_gg_H_WW_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_WW_ATLAS_e(double mass){
+double THDMcache::ip_ex_gg_H_WW_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_WW_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_WW_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_WW_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_H_WW_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_H_WW_e,mass);
-        CacheShiftReal(ip_ex_ggF_H_WW_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_H_WW_e,mass);
+        CacheShiftReal(ip_ex_gg_H_WW_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_VBF_H_WW_ATLAS(double mass){
+double THDMcache::ip_ex_VBF_H_WW_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_VBF_H_WW_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_VBF_H_WW_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_VBF_H_WW_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_VBF_H_WW_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_VBF_H_WW,mass);
-        CacheShiftReal(ip_ex_VBF_H_WW_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_VBF_H_WW,mass);
+        CacheShiftReal(ip_ex_VBF_H_WW_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_VBF_H_WW_ATLAS_e(double mass){
+double THDMcache::ip_ex_VBF_H_WW_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_VBF_H_WW_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_VBF_H_WW_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_VBF_H_WW_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_VBF_H_WW_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_VBF_H_WW_e,mass);
-        CacheShiftReal(ip_ex_VBF_H_WW_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_VBF_H_WW_e,mass);
+        CacheShiftReal(ip_ex_VBF_H_WW_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_ZZ_ATLAS(double mass){
+double THDMcache::ip_ex_gg_H_ZZ_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_ZZ_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_ZZ_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_ZZ_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_gg_H_ZZ_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_H_ZZ,mass);
-        CacheShiftReal(ip_ex_ggF_H_ZZ_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_H_ZZ,mass);
+        CacheShiftReal(ip_ex_gg_H_ZZ_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_ZZ_ATLAS_e(double mass){
+double THDMcache::ip_ex_gg_H_ZZ_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_ZZ_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_ZZ_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_ZZ_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_H_ZZ_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_H_ZZ_e,mass);
-        CacheShiftReal(ip_ex_ggF_H_ZZ_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_H_ZZ_e,mass);
+        CacheShiftReal(ip_ex_gg_H_ZZ_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_VBF_H_ZZ_ATLAS(double mass){
+double THDMcache::ip_ex_VBF_H_ZZ_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_VBF_H_ZZ_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_VBF_H_ZZ_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_VBF_H_ZZ_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_VBF_H_ZZ_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_VBF_H_ZZ,mass);
-        CacheShiftReal(ip_ex_VBF_H_ZZ_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_VBF_H_ZZ,mass);
+        CacheShiftReal(ip_ex_VBF_H_ZZ_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_VBF_H_ZZ_ATLAS_e(double mass){
+double THDMcache::ip_ex_VBF_H_ZZ_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_VBF_H_ZZ_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_VBF_H_ZZ_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_VBF_H_ZZ_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_VBF_H_ZZ_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_VBF_H_ZZ_e,mass);
-        CacheShiftReal(ip_ex_VBF_H_ZZ_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_VBF_H_ZZ_e,mass);
+        CacheShiftReal(ip_ex_VBF_H_ZZ_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_hh_ATLAS(double mass){
+double THDMcache::ip_ex_gg_H_hh_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_hh_ATLAS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_hh_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_hh_ATLAS_cache[NumPar][i] );
+        return ( ip_ex_gg_H_hh_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_H_hh,mass);
-        CacheShiftReal(ip_ex_ggF_H_hh_ATLAS_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_H_hh,mass);
+        CacheShiftReal(ip_ex_gg_H_hh_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_hh_ATLAS_e(double mass){
+double THDMcache::ip_ex_gg_H_hh_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_hh_ATLAS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_hh_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_hh_ATLAS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_H_hh_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS_ggF_H_hh_e,mass);
-        CacheShiftReal(ip_ex_ggF_H_hh_ATLAS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_gg_H_hh_e,mass);
+        CacheShiftReal(ip_ex_gg_H_hh_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_mu_pp_H_VV_CMS(double mass){
+double THDMcache::ip_ex_mu_pp_H_VV_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_mu_pp_H_VV_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_mu_pp_H_VV_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_mu_pp_H_VV_CMS_cache[NumPar][i] );
+        return ( ip_ex_mu_pp_H_VV_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_mu_pp_H_VV,mass);
-        CacheShiftReal(ip_ex_mu_pp_H_VV_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_mu_pp_H_VV,mass);
+        CacheShiftReal(ip_ex_mu_pp_H_VV_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_mu_pp_H_VV_CMS_e(double mass){
+double THDMcache::ip_ex_mu_pp_H_VV_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_mu_pp_H_VV_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_mu_pp_H_VV_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_mu_pp_H_VV_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_mu_pp_H_VV_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_mu_pp_H_VV_e,mass);
-        CacheShiftReal(ip_ex_mu_pp_H_VV_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_mu_pp_H_VV_e,mass);
+        CacheShiftReal(ip_ex_mu_pp_H_VV_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_bbll_CMS(double mass){
+double THDMcache::ip_ex_gg_A_hZ_bbll_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_bbll_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbll_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_bbll_CMS_cache[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_bbll_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_ggF_A_hZ_bbll,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_bbll_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_gg_A_hZ_bbll,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbll_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_bbll_CMS_e(double mass){
+double THDMcache::ip_ex_gg_A_hZ_bbll_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_bbll_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbll_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_bbll_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_bbll_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_ggF_A_hZ_bbll_e,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_bbll_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_gg_A_hZ_bbll_e,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbll_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_H_hh_CMS(double mass){
+double THDMcache::ip_ex_pp_H_hh_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_H_hh_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_H_hh_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_H_hh_CMS_cache[NumPar][i] );
+        return ( ip_ex_pp_H_hh_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_pp_H_hh,mass);
-        CacheShiftReal(ip_ex_pp_H_hh_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_pp_H_hh,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_H_hh_CMS_e(double mass){
+double THDMcache::ip_ex_pp_H_hh_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_H_hh_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_H_hh_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_H_hh_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_pp_H_hh_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_pp_H_hh_e,mass);
-        CacheShiftReal(ip_ex_pp_H_hh_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_pp_H_hh_e,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_hh_gagabb_CMS(double mass){
+double THDMcache::ip_ex_pp_phi_hh_gagabb_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_hh_gagabb_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_gagabb_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_hh_gagabb_CMS_cache[NumPar][i] );
+        return ( ip_ex_pp_phi_hh_gagabb_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_pp_H_hh_gagabb,mass);
-        CacheShiftReal(ip_ex_pp_phi_hh_gagabb_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_pp_H_hh_gagabb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_gagabb_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_hh_gagabb_CMS_e(double mass){
+double THDMcache::ip_ex_pp_phi_hh_gagabb_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_hh_gagabb_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_gagabb_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_hh_gagabb_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_pp_phi_hh_gagabb_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_pp_H_hh_gagabb_e,mass);
-        CacheShiftReal(ip_ex_pp_phi_hh_gagabb_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_pp_H_hh_gagabb_e,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_gagabb_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_hh_bbbb_CMS(double mass){
+double THDMcache::ip_ex_pp_phi_hh_bbbb_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_hh_bbbb_CMS_cache[NumPar][i] );
+        return ( ip_ex_pp_phi_hh_bbbb_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_pp_H_hh_bbbb,mass);
-        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_pp_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_phi_hh_bbbb_CMS_e(double mass){
+double THDMcache::ip_ex_pp_phi_hh_bbbb_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_phi_hh_bbbb_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_pp_phi_hh_bbbb_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS_pp_H_hh_bbbb_e,mass);
-        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate(CMS8_pp_H_hh_bbbb_e,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_bb_CMS(double mass){
+double THDMcache::ip_ex_bb_phi_bb_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_bbF_phi_bb_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_bb_phi_bb_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_bbF_phi_bb_CMS_cache[NumPar][i] );
+        return ( ip_ex_bb_phi_bb_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_bbF_phi_bb,mass);
-        CacheShiftReal(ip_ex_bbF_phi_bb_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_bb_phi_bb,mass);
+        CacheShiftReal(ip_ex_bb_phi_bb_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_bb_CMS_e(double mass){
+double THDMcache::ip_ex_bb_phi_bb_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_bbF_phi_bb_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_bb_phi_bb_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_bbF_phi_bb_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_bb_phi_bb_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_bbF_phi_bb_e,mass);
-        CacheShiftReal(ip_ex_bbF_phi_bb_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_bb_phi_bb_e,mass);
+        CacheShiftReal(ip_ex_bb_phi_bb_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tautau_CMS(double mass){
+double THDMcache::ip_ex_gg_phi_tautau_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_tautau_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_tautau_CMS_cache[NumPar][i] );
+        return ( ip_ex_gg_phi_tautau_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_phi_tautau,mass);
-        CacheShiftReal(ip_ex_ggF_phi_tautau_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_tautau_CMS_e(double mass){
+double THDMcache::ip_ex_gg_phi_tautau_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_tautau_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_tautau_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_phi_tautau_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_phi_tautau_e,mass);
-        CacheShiftReal(ip_ex_ggF_phi_tautau_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_phi_tautau_e,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_tautau_CMS(double mass){
+double THDMcache::ip_ex_bb_phi_tautau_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_bbF_phi_tautau_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_bbF_phi_tautau_CMS_cache[NumPar][i] );
+        return ( ip_ex_bb_phi_tautau_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_bbF_phi_tautau,mass);
-        CacheShiftReal(ip_ex_bbF_phi_tautau_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_bbF_phi_tautau_CMS_e(double mass){
+double THDMcache::ip_ex_bb_phi_tautau_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_bbF_phi_tautau_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_bbF_phi_tautau_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_bb_phi_tautau_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_bbF_phi_tautau_e,mass);
-        CacheShiftReal(ip_ex_bbF_phi_tautau_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_bb_phi_tautau_e,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_gaga_CMS(double mass){
+double THDMcache::ip_ex_gg_phi_gaga_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_gaga_CMS_cache[NumPar][i] );
+        return ( ip_ex_gg_phi_gaga_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_phi_gaga,mass);
-        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_phi_gaga,mass);
+        CacheShiftReal(ip_ex_gg_phi_gaga_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_phi_gaga_CMS_e(double mass){
+double THDMcache::ip_ex_gg_phi_gaga_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_gaga_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_phi_gaga_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_phi_gaga_e,mass);
-        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_phi_gaga_e,mass);
+        CacheShiftReal(ip_ex_gg_phi_gaga_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2928,154 +2995,682 @@ double THDMcache::ip_ex_ggF_phi_gaga_CMS_e(double mass){
 
 
 //
-//double THDMcache::ip_ex_ggF_phi_gaga_CMS_ep1(double mass){
+//double THDMcache::ip_ex_gg_phi_gaga_CMS_ep1(double mass){
 //    int NumPar = 1;
 //    double params[] = {mass};
 //
-//    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_ep1, NumPar, params);
+//    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS_cache_ep1, NumPar, params);
 //    if (i>=0) {
-//        return ( ip_ex_ggF_phi_gaga_CMS_cache_ep1[NumPar][i] );
+//        return ( ip_ex_gg_phi_gaga_CMS_cache_ep1[NumPar][i] );
 //    } else {
 //        double newResult = interpolate (CMS_ggF_phi_gaga_ep1,mass);
-//        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_ep1, NumPar, params, newResult);
+//        CacheShiftReal(ip_ex_gg_phi_gaga_CMS_cache_ep1, NumPar, params, newResult);
 //        return newResult;
 //    }
 //}
 
-double THDMcache::ip_ex_ggF_phi_gaga_CMS_ep2(double mass){
-    int NumPar = 1;
-    double params[] = {mass};
-
-    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_ep2, NumPar, params);
-    if (i>=0) {
-        return ( ip_ex_ggF_phi_gaga_CMS_cache_ep2[NumPar][i] );
-    } else {
-        double newResult = interpolate (CMS_ggF_phi_gaga_ep2,mass);
-        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_ep2, NumPar, params, newResult);
-        return newResult;
-    }
-}
-//
-//double THDMcache::ip_ex_ggF_phi_gaga_CMS_em1(double mass){
+//double THDMcache::ip_ex_gg_phi_gaga_CMS_ep2(double mass){
 //    int NumPar = 1;
 //    double params[] = {mass};
 //
-//    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_em1, NumPar, params);
+//    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS_cache_ep2, NumPar, params);
 //    if (i>=0) {
-//        return ( ip_ex_ggF_phi_gaga_CMS_cache_em1[NumPar][i] );
+//        return ( ip_ex_gg_phi_gaga_CMS_cache_ep2[NumPar][i] );
 //    } else {
-//        double newResult = interpolate (CMS_ggF_phi_gaga_em1,mass);
-//        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_em1, NumPar, params, newResult);
+//        double newResult = interpolate (CMS_ggF_phi_gaga_ep2,mass);
+//        CacheShiftReal(ip_ex_gg_phi_gaga_CMS_cache_ep2, NumPar, params, newResult);
 //        return newResult;
 //    }
 //}
+//
+//double THDMcache::ip_ex_gg_phi_gaga_CMS_em1(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+//
+//    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS_cache_em1, NumPar, params);
+//    if (i>=0) {
+//        return ( ip_ex_gg_phi_gaga_CMS_cache_em1[NumPar][i] );
+//    } else {
+//        double newResult = interpolate (CMS_ggF_phi_gaga_em1,mass);
+//        CacheShiftReal(ip_ex_gg_phi_gaga_CMS_cache_em1, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//double THDMcache::ip_ex_gg_phi_gaga_CMS_em2(double mass){
+//    int NumPar = 1;
+//    double params[] = {mass};
+//
+//    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS_cache_em2, NumPar, params);
+//    if (i>=0) {
+//        return ( ip_ex_gg_phi_gaga_CMS_cache_em2[NumPar][i] );
+//    } else {
+//        double newResult = interpolate (CMS_ggF_phi_gaga_em2,mass);
+//        CacheShiftReal(ip_ex_gg_phi_gaga_CMS_cache_em2, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
 
-double THDMcache::ip_ex_ggF_phi_gaga_CMS_em2(double mass){
+
+double THDMcache::ip_ex_pp_A_Zga_llga_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_phi_gaga_CMS_cache_em2, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_A_Zga_llga_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_phi_gaga_CMS_cache_em2[NumPar][i] );
+        return ( ip_ex_pp_A_Zga_llga_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_phi_gaga_em2,mass);
-        CacheShiftReal(ip_ex_ggF_phi_gaga_CMS_cache_em2, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_pp_A_Zga_llga,mass);
+        CacheShiftReal(ip_ex_pp_A_Zga_llga_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_A_Zga_llga_CMS(double mass){
+double THDMcache::ip_ex_pp_A_Zga_llga_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_A_Zga_llga_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_A_Zga_llga_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_A_Zga_llga_CMS_cache[NumPar][i] );
+        return ( ip_ex_pp_A_Zga_llga_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_pp_A_Zga_llga,mass);
-        CacheShiftReal(ip_ex_pp_A_Zga_llga_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_pp_A_Zga_llga_e,mass);
+        CacheShiftReal(ip_ex_pp_A_Zga_llga_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_A_Zga_llga_CMS_e(double mass){
+double THDMcache::ip_ex_gg_H_hh_bbtautau_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_A_Zga_llga_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_hh_bbtautau_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_pp_A_Zga_llga_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_H_hh_bbtautau_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_pp_A_Zga_llga_e,mass);
-        CacheShiftReal(ip_ex_pp_A_Zga_llga_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_H_hh_bbtautau,mass);
+        CacheShiftReal(ip_ex_gg_H_hh_bbtautau_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_hh_bbtautau_CMS(double mass){
+double THDMcache::ip_ex_gg_H_hh_bbtautau_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_hh_bbtautau_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_H_hh_bbtautau_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_hh_bbtautau_CMS_cache[NumPar][i] );
+        return ( ip_ex_gg_H_hh_bbtautau_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_H_hh_bbtautau,mass);
-        CacheShiftReal(ip_ex_ggF_H_hh_bbtautau_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_H_hh_bbtautau_e,mass);
+        CacheShiftReal(ip_ex_gg_H_hh_bbtautau_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_H_hh_bbtautau_CMS_e(double mass){
+double THDMcache::ip_ex_gg_A_hZ_tautaull_CMS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_H_hh_bbtautau_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_tautaull_CMS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_H_hh_bbtautau_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_tautaull_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_H_hh_bbtautau_e,mass);
-        CacheShiftReal(ip_ex_ggF_H_hh_bbtautau_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_A_hZ_tautaull,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_tautaull_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_tautaull_CMS(double mass){
+double THDMcache::ip_ex_gg_A_hZ_tautaull_CMS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_tautaull_CMS_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_tautaull_CMS8_cache_e, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_tautaull_CMS_cache[NumPar][i] );
+        return ( ip_ex_gg_A_hZ_tautaull_CMS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_A_hZ_tautaull,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_tautaull_CMS_cache, NumPar, params, newResult);
+        double newResult = interpolate (CMS8_gg_A_hZ_tautaull_e,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_tautaull_CMS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_ggF_A_hZ_tautaull_CMS_e(double mass){
+double THDMcache::ip_ex_bb_phi_tt_ATLAS13(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_ggF_A_hZ_tautaull_CMS_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_bb_phi_tt_ATLAS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_ggF_A_hZ_tautaull_CMS_cache_e[NumPar][i] );
+        return ( ip_ex_bb_phi_tt_ATLAS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS_ggF_A_hZ_tautaull_e,mass);
-        CacheShiftReal(ip_ex_ggF_A_hZ_tautaull_CMS_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS13_bb_phi_tt,mass);
+        CacheShiftReal(ip_ex_bb_phi_tt_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_tt_phi_tt_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_tt_phi_tt_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_tt_phi_tt_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_tt_phi_tt,mass);
+        CacheShiftReal(ip_ex_tt_phi_tt_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_phi_tautau_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_phi_tautau_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_bb_phi_tautau_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_bb_phi_tautau_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_phi_gaga_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_gaga_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_gaga_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_phi_gaga,mass);
+        CacheShiftReal(ip_ex_pp_phi_gaga_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_phi_Zga_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_Zga_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_Zga_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_phi_Zga,mass);
+        CacheShiftReal(ip_ex_pp_phi_Zga_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_H_ZZ_llnunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_H_ZZ_llnunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_H_ZZ_llnunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_H_ZZ_llnunu,mass);
+        CacheShiftReal(ip_ex_gg_H_ZZ_llnunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_H_ZZ_llll_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_H_ZZ_llll_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_H_ZZ_llll_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_H_ZZ_llll,mass);
+        CacheShiftReal(ip_ex_gg_H_ZZ_llll_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_VBF_H_ZZ_llll_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VBF_H_ZZ_llll_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_VBF_H_ZZ_llll_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_VBF_H_ZZ_llll,mass);
+        CacheShiftReal(ip_ex_VBF_H_ZZ_llll_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_H_ZZ_llqq_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_H_ZZ_llqq_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_H_ZZ_llqq_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_H_ZZ_llqq,mass);
+        CacheShiftReal(ip_ex_gg_H_ZZ_llqq_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_VBF_H_ZZ_llqq_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VBF_H_ZZ_llqq_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_VBF_H_ZZ_llqq_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_VBF_H_ZZ_llqq,mass);
+        CacheShiftReal(ip_ex_VBF_H_ZZ_llqq_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_H_ZZ_nunuqq_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_H_ZZ_nunuqq_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_H_ZZ_nunuqq_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_H_ZZ_nunuqq,mass);
+        CacheShiftReal(ip_ex_gg_H_ZZ_nunuqq_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_H_WW_enumunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_H_WW_enumunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_H_WW_enumunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_H_WW_enumumu,mass);
+        CacheShiftReal(ip_ex_gg_H_WW_enumunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_VBF_H_WW_enumunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VBF_H_WW_enumunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_VBF_H_WW_enumunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_VBF_H_WW_enumumu,mass);
+        CacheShiftReal(ip_ex_VBF_H_WW_enumunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_H_WW_lnuqq_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_H_WW_lnuqq_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_H_WW_lnuqq_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_H_WW_lnuqq,mass);
+        CacheShiftReal(ip_ex_gg_H_WW_lnuqq_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_H_hh_bbbb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_H_hh_gagabb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_gagabb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_gagabb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_H_hh_gagabb,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_gagabb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_H_hh_gagaWW_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_gagaWW_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_gagaWW_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_pp_H_hh_gagaWW,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_gagaWW_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_A_Zh_Zbb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_Zh_Zbb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_A_Zh_Zbb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_gg_A_Zh_Zbb,mass);
+        CacheShiftReal(ip_ex_gg_A_Zh_Zbb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_bb_A_Zh_Zbb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_A_Zh_Zbb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_bb_A_Zh_Zbb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (ATLAS13_bb_A_Zh_Zbb,mass);
+        CacheShiftReal(ip_ex_bb_A_Zh_Zbb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_phi_bb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_bb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_bb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_phi_bb,mass);
+        CacheShiftReal(ip_ex_pp_phi_bb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_phi_tautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_phi_tautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_bb_phi_tautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_bb_phi_tautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_phi_gaga_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_phi_gaga_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_gg_phi_gaga,mass);
+        CacheShiftReal(ip_ex_gg_phi_gaga_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_phi_Zga_llga_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_Zga_llga_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_Zga_llga_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_phi_Zga_llga,mass);
+        CacheShiftReal(ip_ex_pp_phi_Zga_llga_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_phi_Zga_qqga_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_Zga_qqga_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_phi_Zga_qqga_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_phi_Zga_qqga,mass);
+        CacheShiftReal(ip_ex_pp_phi_Zga_qqga_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_gg_H_ZZ_llll_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_H_ZZ_llll_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_gg_H_ZZ_llll_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_ZZ_llll,mass);
+        CacheShiftReal(ip_ex_gg_H_ZZ_llll_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_VBF_H_ZZ_llll_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VBF_H_ZZ_llll_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_VBF_H_ZZ_llll_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_VBFVH_H_ZZ_llll,mass);
+        CacheShiftReal(ip_ex_VBF_H_ZZ_llll_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_ggVV_H_WW_lnulnu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_ggVV_H_WW_lnulnu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_ggVV_H_WW_lnulnu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_ggFVBF_H_WW_lnulnu,mass);
+        CacheShiftReal(ip_ex_ggVV_H_WW_lnulnu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_H_hh_bbbb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_H_hh_gagabb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_gagabb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_gagabb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_gagabb,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_gagabb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_H_hh_bbtautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbtautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbtautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_bbtautau,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbtautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double THDMcache::ip_ex_pp_H_hh_bblnulnu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bblnulnu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bblnulnu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_bblnulnu,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bblnulnu_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -4033,468 +4628,468 @@ void THDMcache::computeHHquantities()
     
     //Ratios of theoretical Heavy Higgs cross sections and experimental upper limits
 
-    THoEX_ggF_H_tautau_ATLAS=0.0;
-    R_ggF_H_tautau_ATLAS=0.0;
-    THoEX_ggF_H_tautau_CMS=0.0;
-    R_ggF_H_tautau_CMS=0.0;
-    THoEX_bbF_H_tautau_ATLAS=0.0;
-    R_bbF_H_tautau_ATLAS=0.0;
-    THoEX_bbF_H_tautau_CMS=0.0;
-    R_bbF_H_tautau_CMS=0.0;
-    THoEX_pp_H_gaga_ATLAS=0.0;
-    R_pp_H_gaga_ATLAS=0.0;
-    THoEX_ggF_H_gaga_CMS=0.0;
-    R_ggF_H_gaga_CMS=0.0;
-    LIMIT_ggF_H_gaga_CMS=0.0;
-    LIMEST_ggF_H_gaga_CMS=0.0;
-    DEVIATION_ggF_H_gaga_CMS=0.0;
-    BANDSIZE_ggF_H_gaga_CMS=0.0;
-    THoEX_mu_pp_H_VV_CMS=0.0;
-    R_mu_pp_H_VV_CMS=0.0;
-    THoEX_ggF_H_WW_ATLAS=0.0;
-    R_ggF_H_WW_ATLAS=0.0;
-    THoEX_VBF_H_WW_ATLAS=0.0;
-    R_VBF_H_WW_ATLAS=0.0;
-    THoEX_ggF_H_ZZ_ATLAS=0.0;
-    R_ggF_H_ZZ_ATLAS=0.0;
-    THoEX_VBF_H_ZZ_ATLAS=0.0;
-    R_VBF_H_ZZ_ATLAS=0.0;
-    THoEX_ggF_H_hh_ATLAS=0.0;
-    R_ggF_H_hh_ATLAS=0.0;
-    THoEX_pp_H_hh_CMS=0.0;
-    R_pp_H_hh_CMS=0.0;
-    THoEX_ggF_H_hh_bbtautau_CMS=0.0;
-    R_ggF_H_hh_bbtautau_CMS=0.0;
-    THoEX_pp_H_hh_bbbb_CMS=0.0;
-    R_pp_H_hh_bbbb_CMS=0.0;
-    THoEX_pp_H_hh_gagabb_CMS=0.0;
-    R_pp_H_hh_gagabb_CMS=0.0;
-    THoEX_ggF_H_tt_ATLAS=0.0;
-    R_ggF_H_tt_ATLAS=0.0;
-    THoEX_bbF_H_bb_CMS=0.0;
-    R_bbF_H_bb_CMS=0.0;
+    THoEX_ggF_H_tautau_ATLAS8=0.0;
+    R_ggF_H_tautau_ATLAS8=0.0;
+    THoEX_ggF_H_tautau_CMS8=0.0;
+    R_ggF_H_tautau_CMS8=0.0;
+    THoEX_bbF_H_tautau_ATLAS8=0.0;
+    R_bbF_H_tautau_ATLAS8=0.0;
+    THoEX_bbF_H_tautau_CMS8=0.0;
+    R_bbF_H_tautau_CMS8=0.0;
+    THoEX_pp_H_gaga_ATLAS8=0.0;
+    R_pp_H_gaga_ATLAS8=0.0;
+    THoEX_ggF_H_gaga_CMS8=0.0;
+    R_ggF_H_gaga_CMS8=0.0;
+    LIMIT_ggF_H_gaga_CMS8=0.0;
+    LIMEST_ggF_H_gaga_CMS8=0.0;
+    DEVIATION_ggF_H_gaga_CMS8=0.0;
+    BANDSIZE_ggF_H_gaga_CMS8=0.0;
+    THoEX_mu_pp_H_VV_CMS8=0.0;
+    R_mu_pp_H_VV_CMS8=0.0;
+    THoEX_ggF_H_WW_ATLAS8=0.0;
+    R_ggF_H_WW_ATLAS8=0.0;
+    THoEX_VBF_H_WW_ATLAS8=0.0;
+    R_VBF_H_WW_ATLAS8=0.0;
+    THoEX_ggF_H_ZZ_ATLAS8=0.0;
+    R_ggF_H_ZZ_ATLAS8=0.0;
+    THoEX_VBF_H_ZZ_ATLAS8=0.0;
+    R_VBF_H_ZZ_ATLAS8=0.0;
+    THoEX_ggF_H_hh_ATLAS8=0.0;
+    R_ggF_H_hh_ATLAS8=0.0;
+    THoEX_pp_H_hh_CMS8=0.0;
+    R_pp_H_hh_CMS8=0.0;
+    THoEX_ggF_H_hh_bbtautau_CMS8=0.0;
+    R_ggF_H_hh_bbtautau_CMS8=0.0;
+    THoEX_pp_H_hh_bbbb_CMS8=0.0;
+    R_pp_H_hh_bbbb_CMS8=0.0;
+    THoEX_pp_H_hh_gagabb_CMS8=0.0;
+    R_pp_H_hh_gagabb_CMS8=0.0;
+    THoEX_ggF_H_tt_ATLAS8=0.0;
+    R_ggF_H_tt_ATLAS8=0.0;
+    THoEX_bbF_H_bb_CMS8=0.0;
+    R_bbF_H_bb_CMS8=0.0;
 
     //95% to 1 sigma conversion factor, roughly sqrt(3.84)
     double nftos=1.95996398454;
 
     if(mHh>=65.0 && mHh<90.0)
     {
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
     }
     else if(mHh>=90.0 && mHh<100.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
     }
     else if(mHh>=100.0 && mHh<140.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=140.0 && mHh<145.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=145.0 && mHh<150.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=150.0 && mHh<260.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
-        R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
-    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
-    LIMEST_ggF_H_gaga_CMS=(ggF_H_gaga_TH+ip_ex_ggF_phi_gaga_CMS_e(mHh)-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ;
-    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
-    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mHh);
+        R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
+//    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
+//    LIMEST_ggF_H_gaga_CMS8=(ggF_H_gaga_TH+ip_ex_gg_phi_gaga_CMS8_e(mHh)-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ;
+//    DEVIATION_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh)-ip_ex_gg_phi_gaga_CMS8_e(mHh);
+//    BANDSIZE_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8_ep2(mHh)-ip_ex_gg_phi_gaga_CMS8_em2(mHh);
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=260.0 && mHh<270.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
-        R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
-    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
-    LIMEST_ggF_H_gaga_CMS=0.0;
-    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
-    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_bbtautau_CMS=ggF_H_hh_bbtautau_TH/ip_ex_ggF_H_hh_bbtautau_CMS(mHh);
-        R_ggF_H_hh_bbtautau_CMS=(1+(ggF_H_hh_bbtautau_TH-ip_ex_ggF_H_hh_bbtautau_CMS(mHh))/ip_ex_ggF_H_hh_bbtautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mHh);
+        R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
+//    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
+//    LIMEST_ggF_H_gaga_CMS8=0.0;
+//    DEVIATION_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh)-ip_ex_gg_phi_gaga_CMS8_e(mHh);
+//    BANDSIZE_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8_ep2(mHh)-ip_ex_gg_phi_gaga_CMS8_em2(mHh);
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_bbtautau_CMS8=ggF_H_hh_bbtautau_TH/ip_ex_gg_H_hh_bbtautau_CMS8(mHh);
+        R_ggF_H_hh_bbtautau_CMS8=(1+(ggF_H_hh_bbtautau_TH-ip_ex_gg_H_hh_bbtautau_CMS8(mHh))/ip_ex_gg_H_hh_bbtautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=270.0 && mHh<300.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
-        R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
-    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
-    LIMEST_ggF_H_gaga_CMS=0.0;
-    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
-    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_bbtautau_CMS=ggF_H_hh_bbtautau_TH/ip_ex_ggF_H_hh_bbtautau_CMS(mHh);
-        R_ggF_H_hh_bbtautau_CMS=(1+(ggF_H_hh_bbtautau_TH-ip_ex_ggF_H_hh_bbtautau_CMS(mHh))/ip_ex_ggF_H_hh_bbtautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mHh);
+        R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
+//    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
+//    LIMEST_ggF_H_gaga_CMS8=0.0;
+//    DEVIATION_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh)-ip_ex_gg_phi_gaga_CMS8_e(mHh);
+//    BANDSIZE_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8_ep2(mHh)-ip_ex_gg_phi_gaga_CMS8_em2(mHh);
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_bbtautau_CMS8=ggF_H_hh_bbtautau_TH/ip_ex_gg_H_hh_bbtautau_CMS8(mHh);
+        R_ggF_H_hh_bbtautau_CMS8=(1+(ggF_H_hh_bbtautau_TH-ip_ex_gg_H_hh_bbtautau_CMS8(mHh))/ip_ex_gg_H_hh_bbtautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=300.0 && mHh<350.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
-        R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
-    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
-    LIMEST_ggF_H_gaga_CMS=0.0;
-    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
-    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_CMS=pp_H_hh_TH/ip_ex_pp_H_hh_CMS(mHh);
-        R_pp_H_hh_CMS=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS(mHh))/ip_ex_pp_H_hh_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_bbtautau_CMS=ggF_H_hh_bbtautau_TH/ip_ex_ggF_H_hh_bbtautau_CMS(mHh);
-        R_ggF_H_hh_bbtautau_CMS=(1+(ggF_H_hh_bbtautau_TH-ip_ex_ggF_H_hh_bbtautau_CMS(mHh))/ip_ex_ggF_H_hh_bbtautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mHh);
+        R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
+//    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
+//    LIMEST_ggF_H_gaga_CMS8=0.0;
+//    DEVIATION_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh)-ip_ex_gg_phi_gaga_CMS8_e(mHh);
+//    BANDSIZE_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8_ep2(mHh)-ip_ex_gg_phi_gaga_CMS8_em2(mHh);
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_CMS8=pp_H_hh_TH/ip_ex_pp_H_hh_CMS8(mHh);
+        R_pp_H_hh_CMS8=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS8(mHh))/ip_ex_pp_H_hh_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_bbtautau_CMS8=ggF_H_hh_bbtautau_TH/ip_ex_gg_H_hh_bbtautau_CMS8(mHh);
+        R_ggF_H_hh_bbtautau_CMS8=(1+(ggF_H_hh_bbtautau_TH-ip_ex_gg_H_hh_bbtautau_CMS8(mHh))/ip_ex_gg_H_hh_bbtautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=350.0 && mHh<400.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
-        R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
-    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
-    LIMEST_ggF_H_gaga_CMS=0.0;
-    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
-    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_CMS=pp_H_hh_TH/ip_ex_pp_H_hh_CMS(mHh);
-        R_pp_H_hh_CMS=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS(mHh))/ip_ex_pp_H_hh_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mHh);
+        R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
+//    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
+//    LIMEST_ggF_H_gaga_CMS8=0.0;
+//    DEVIATION_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh)-ip_ex_gg_phi_gaga_CMS8_e(mHh);
+//    BANDSIZE_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8_ep2(mHh)-ip_ex_gg_phi_gaga_CMS8_em2(mHh);
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_CMS8=pp_H_hh_TH/ip_ex_pp_H_hh_CMS8(mHh);
+        R_pp_H_hh_CMS8=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS8(mHh))/ip_ex_pp_H_hh_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=400.0 && mHh<600.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mHh);
-        R_pp_H_gaga_ATLAS=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mHh))/ip_ex_pp_phi_gaga_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
-        R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
-    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
-    LIMEST_ggF_H_gaga_CMS=0.0;
-    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
-    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_CMS=pp_H_hh_TH/ip_ex_pp_H_hh_CMS(mHh);
-        R_pp_H_hh_CMS=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS(mHh))/ip_ex_pp_H_hh_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tt_ATLAS=ggF_H_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mHh);
-        R_ggF_H_tt_ATLAS=(1+(ggF_H_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mHh))/ip_ex_ggF_phi_tt_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mHh);
+        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mHh);
+        R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
+//    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
+//    LIMEST_ggF_H_gaga_CMS8=0.0;
+//    DEVIATION_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh)-ip_ex_gg_phi_gaga_CMS8_e(mHh);
+//    BANDSIZE_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8_ep2(mHh)-ip_ex_gg_phi_gaga_CMS8_em2(mHh);
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_CMS8=pp_H_hh_TH/ip_ex_pp_H_hh_CMS8(mHh);
+        R_pp_H_hh_CMS8=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS8(mHh))/ip_ex_pp_H_hh_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tt_ATLAS8=ggF_H_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mHh);
+        R_ggF_H_tt_ATLAS8=(1+(ggF_H_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mHh))/ip_ex_gg_phi_tt_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=600.0 && mHh<850.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_gaga_CMS=ggF_H_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mHh);
-        R_ggF_H_gaga_CMS=(1+(ggF_H_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mHh))/ip_ex_ggF_phi_gaga_CMS_e(mHh) ) * nftos;
-    LIMIT_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh);
-    LIMEST_ggF_H_gaga_CMS=0.0;
-    DEVIATION_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS(mHh)-ip_ex_ggF_phi_gaga_CMS_e(mHh);
-    BANDSIZE_ggF_H_gaga_CMS=ip_ex_ggF_phi_gaga_CMS_ep2(mHh)-ip_ex_ggF_phi_gaga_CMS_em2(mHh);
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_CMS=pp_H_hh_TH/ip_ex_pp_H_hh_CMS(mHh);
-        R_pp_H_hh_CMS=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS(mHh))/ip_ex_pp_H_hh_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tt_ATLAS=ggF_H_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mHh);
-        R_ggF_H_tt_ATLAS=(1+(ggF_H_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mHh))/ip_ex_ggF_phi_tt_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mHh);
+        R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
+//    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
+//    LIMEST_ggF_H_gaga_CMS8=0.0;
+//    DEVIATION_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh)-ip_ex_gg_phi_gaga_CMS8_e(mHh);
+//    BANDSIZE_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8_ep2(mHh)-ip_ex_gg_phi_gaga_CMS8_em2(mHh);
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_CMS8=pp_H_hh_TH/ip_ex_pp_H_hh_CMS8(mHh);
+        R_pp_H_hh_CMS8=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS8(mHh))/ip_ex_pp_H_hh_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tt_ATLAS8=ggF_H_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mHh);
+        R_ggF_H_tt_ATLAS8=(1+(ggF_H_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mHh))/ip_ex_gg_phi_tt_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=850.0 && mHh<900.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_CMS=pp_H_hh_TH/ip_ex_pp_H_hh_CMS(mHh);
-        R_pp_H_hh_CMS=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS(mHh))/ip_ex_pp_H_hh_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tt_ATLAS=ggF_H_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mHh);
-        R_ggF_H_tt_ATLAS=(1+(ggF_H_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mHh))/ip_ex_ggF_phi_tt_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_bb_CMS=bbF_H_bb_TH/ip_ex_bbF_phi_bb_CMS(mHh);
-        R_bbF_H_bb_CMS=(1+(bbF_H_bb_TH-ip_ex_bbF_phi_bb_CMS(mHh))/ip_ex_bbF_phi_bb_CMS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_CMS8=pp_H_hh_TH/ip_ex_pp_H_hh_CMS8(mHh);
+        R_pp_H_hh_CMS8=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS8(mHh))/ip_ex_pp_H_hh_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tt_ATLAS8=ggF_H_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mHh);
+        R_ggF_H_tt_ATLAS8=(1+(ggF_H_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mHh))/ip_ex_gg_phi_tt_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_bb_CMS8=bbF_H_bb_TH/ip_ex_bb_phi_bb_CMS8(mHh);
+        R_bbF_H_bb_CMS8=(1+(bbF_H_bb_TH-ip_ex_bb_phi_bb_CMS8(mHh))/ip_ex_bb_phi_bb_CMS8_e(mHh) ) * nftos;
     }
     else if(mHh>=900.0 && mHh<1000.0)
     {
-        THoEX_ggF_H_tautau_ATLAS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mHh);
-        R_ggF_H_tautau_ATLAS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mHh))/ip_ex_ggF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tautau_CMS=ggF_H_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mHh);
-        R_ggF_H_tautau_CMS=(1+(ggF_H_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mHh))/ip_ex_ggF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_ATLAS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mHh);
-        R_bbF_H_tautau_ATLAS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mHh))/ip_ex_bbF_phi_tautau_ATLAS_e(mHh) ) * nftos;
-        THoEX_bbF_H_tautau_CMS=bbF_H_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mHh);
-        R_bbF_H_tautau_CMS=(1+(bbF_H_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mHh))/ip_ex_bbF_phi_tautau_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_ZZ_ATLAS=ggF_H_ZZ_TH/ip_ex_ggF_H_ZZ_ATLAS(mHh);
-        R_ggF_H_ZZ_ATLAS=(1+(ggF_H_ZZ_TH-ip_ex_ggF_H_ZZ_ATLAS(mHh))/ip_ex_ggF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_ZZ_ATLAS=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS(mHh);
-        R_VBF_H_ZZ_ATLAS=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS(mHh))/ip_ex_VBF_H_ZZ_ATLAS_e(mHh) ) * nftos;
-        THoEX_mu_pp_H_VV_CMS=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS(mHh);
-        R_mu_pp_H_VV_CMS=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS(mHh))/ip_ex_mu_pp_H_VV_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_hh_ATLAS=ggF_H_hh_TH/ip_ex_ggF_H_hh_ATLAS(mHh);
-        R_ggF_H_hh_ATLAS=(1+(ggF_H_hh_TH-ip_ex_ggF_H_hh_ATLAS(mHh))/ip_ex_ggF_H_hh_ATLAS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_CMS=pp_H_hh_TH/ip_ex_pp_H_hh_CMS(mHh);
-        R_pp_H_hh_CMS=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS(mHh))/ip_ex_pp_H_hh_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tt_ATLAS=ggF_H_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mHh);
-        R_ggF_H_tt_ATLAS=(1+(ggF_H_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mHh))/ip_ex_ggF_phi_tt_ATLAS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tautau_CMS8=ggF_H_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mHh);
+        R_ggF_H_tautau_CMS8=(1+(ggF_H_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mHh))/ip_ex_gg_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mHh);
+        R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_ZZ_ATLAS8=ggF_H_ZZ_TH/ip_ex_gg_H_ZZ_ATLAS8(mHh);
+        R_ggF_H_ZZ_ATLAS8=(1+(ggF_H_ZZ_TH-ip_ex_gg_H_ZZ_ATLAS8(mHh))/ip_ex_gg_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_ZZ_ATLAS8=VBF_H_ZZ_TH/ip_ex_VBF_H_ZZ_ATLAS8(mHh);
+        R_VBF_H_ZZ_ATLAS8=(1+(VBF_H_ZZ_TH-ip_ex_VBF_H_ZZ_ATLAS8(mHh))/ip_ex_VBF_H_ZZ_ATLAS8_e(mHh) ) * nftos;
+        THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH/ip_ex_mu_pp_H_VV_CMS8(mHh);
+        R_mu_pp_H_VV_CMS8=(1+(mu_pp_H_VV_TH-ip_ex_mu_pp_H_VV_CMS8(mHh))/ip_ex_mu_pp_H_VV_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_hh_ATLAS8=ggF_H_hh_TH/ip_ex_gg_H_hh_ATLAS8(mHh);
+        R_ggF_H_hh_ATLAS8=(1+(ggF_H_hh_TH-ip_ex_gg_H_hh_ATLAS8(mHh))/ip_ex_gg_H_hh_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_CMS8=pp_H_hh_TH/ip_ex_pp_H_hh_CMS8(mHh);
+        R_pp_H_hh_CMS8=(1+(pp_H_hh_TH-ip_ex_pp_H_hh_CMS8(mHh))/ip_ex_pp_H_hh_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tt_ATLAS8=ggF_H_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mHh);
+        R_ggF_H_tt_ATLAS8=(1+(ggF_H_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mHh))/ip_ex_gg_phi_tt_ATLAS8_e(mHh) ) * nftos;
     }
     else if(mHh>=1000.0 && mHh<1100.0)
     {
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_bbbb_CMS=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS(mHh);
-        R_pp_H_hh_bbbb_CMS=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS(mHh))/ip_ex_pp_phi_hh_bbbb_CMS_e(mHh) ) * nftos;
-        THoEX_pp_H_hh_gagabb_CMS=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS(mHh);
-        R_pp_H_hh_gagabb_CMS=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS(mHh))/ip_ex_pp_phi_hh_gagabb_CMS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tt_ATLAS=ggF_H_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mHh);
-        R_ggF_H_tt_ATLAS=(1+(ggF_H_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mHh))/ip_ex_ggF_phi_tt_ATLAS_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+        R_pp_H_hh_bbbb_CMS8=(1+(pp_H_hh_bbbb_TH-ip_ex_pp_phi_hh_bbbb_CMS8(mHh))/ip_ex_pp_phi_hh_bbbb_CMS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+        R_pp_H_hh_gagabb_CMS8=(1+(pp_H_hh_gagabb_TH-ip_ex_pp_phi_hh_gagabb_CMS8(mHh))/ip_ex_pp_phi_hh_gagabb_CMS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tt_ATLAS8=ggF_H_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mHh);
+        R_ggF_H_tt_ATLAS8=(1+(ggF_H_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mHh))/ip_ex_gg_phi_tt_ATLAS8_e(mHh) ) * nftos;
     }
     else if(mHh>=1100.0 && mHh<1500.0)
     {
-        THoEX_ggF_H_WW_ATLAS=ggF_H_WW_TH/ip_ex_ggF_H_WW_ATLAS(mHh);
-        R_ggF_H_WW_ATLAS=(1+(ggF_H_WW_TH-ip_ex_ggF_H_WW_ATLAS(mHh))/ip_ex_ggF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_VBF_H_WW_ATLAS=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS(mHh);
-        R_VBF_H_WW_ATLAS=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS(mHh))/ip_ex_VBF_H_WW_ATLAS_e(mHh) ) * nftos;
-        THoEX_ggF_H_tt_ATLAS=ggF_H_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mHh);
-        R_ggF_H_tt_ATLAS=(1+(ggF_H_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mHh))/ip_ex_ggF_phi_tt_ATLAS_e(mHh) ) * nftos;
+        THoEX_ggF_H_WW_ATLAS8=ggF_H_WW_TH/ip_ex_gg_H_WW_ATLAS8(mHh);
+        R_ggF_H_WW_ATLAS8=(1+(ggF_H_WW_TH-ip_ex_gg_H_WW_ATLAS8(mHh))/ip_ex_gg_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_VBF_H_WW_ATLAS8=VBF_H_WW_TH/ip_ex_VBF_H_WW_ATLAS8(mHh);
+        R_VBF_H_WW_ATLAS8=(1+(VBF_H_WW_TH-ip_ex_VBF_H_WW_ATLAS8(mHh))/ip_ex_VBF_H_WW_ATLAS8_e(mHh) ) * nftos;
+        THoEX_ggF_H_tt_ATLAS8=ggF_H_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mHh);
+        R_ggF_H_tt_ATLAS8=(1+(ggF_H_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mHh))/ip_ex_gg_phi_tt_ATLAS8_e(mHh) ) * nftos;
     }
     else if(mHh>=1500.0 && mHh<3000.0)
     {
-        THoEX_ggF_H_tt_ATLAS=ggF_H_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mHh);
-        R_ggF_H_tt_ATLAS=(1+(ggF_H_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mHh))/ip_ex_ggF_phi_tt_ATLAS_e(mHh) ) * nftos;
+        THoEX_ggF_H_tt_ATLAS8=ggF_H_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mHh);
+        R_ggF_H_tt_ATLAS8=(1+(ggF_H_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mHh))/ip_ex_gg_phi_tt_ATLAS8_e(mHh) ) * nftos;
     }
 }
 
@@ -4642,283 +5237,283 @@ void THDMcache::computeAquantities()
 
     //Ratios of theoretical CP-odd Higgs cross sections and experimental upper limits
 
-    THoEX_ggF_A_tautau_ATLAS=0.0;
-    R_ggF_A_tautau_ATLAS=0.0;
-    THoEX_ggF_A_tautau_CMS=0.0;
-    R_ggF_A_tautau_CMS=0.0;
-    THoEX_bbF_A_tautau_ATLAS=0.0;
-    R_bbF_A_tautau_ATLAS=0.0;
-    THoEX_bbF_A_tautau_CMS=0.0;
-    R_bbF_A_tautau_CMS=0.0;
-    THoEX_pp_A_gaga_ATLAS=0.0;
-    R_pp_A_gaga_ATLAS=0.0;
-    THoEX_ggF_A_gaga_CMS=0.0;
-    R_ggF_A_gaga_CMS=0.0;
-    THoEX_pp_A_Zga_llga_CMS=0.0;
-    R_pp_A_Zga_llga_CMS=0.0;
-    THoEX_ggF_A_hZ_bbll_CMS=0.0;
-    R_ggF_A_hZ_bbll_CMS=0.0;
-    THoEX_ggF_A_hZ_bbZ_ATLAS=0.0;
-    R_ggF_A_hZ_bbZ_ATLAS=0.0;
-    THoEX_ggF_A_hZ_tautaull_CMS=0.0;
-    R_ggF_A_hZ_tautaull_CMS=0.0;
-    THoEX_ggF_A_hZ_tautauZ_ATLAS=0.0;
-    R_ggF_A_hZ_tautauZ_ATLAS=0.0;
-    THoEX_ggF_A_tt_ATLAS=0.0;
-    R_ggF_A_tt_ATLAS=0.0;
-    THoEX_bbF_A_bb_CMS=0.0;
-    R_bbF_A_bb_CMS=0.0;
+    THoEX_ggF_A_tautau_ATLAS8=0.0;
+    R_ggF_A_tautau_ATLAS8=0.0;
+    THoEX_ggF_A_tautau_CMS8=0.0;
+    R_ggF_A_tautau_CMS8=0.0;
+    THoEX_bbF_A_tautau_ATLAS8=0.0;
+    R_bbF_A_tautau_ATLAS8=0.0;
+    THoEX_bbF_A_tautau_CMS8=0.0;
+    R_bbF_A_tautau_CMS8=0.0;
+    THoEX_pp_A_gaga_ATLAS8=0.0;
+    R_pp_A_gaga_ATLAS8=0.0;
+    THoEX_ggF_A_gaga_CMS8=0.0;
+    R_ggF_A_gaga_CMS8=0.0;
+    THoEX_pp_A_Zga_llga_CMS8=0.0;
+    R_pp_A_Zga_llga_CMS8=0.0;
+    THoEX_ggF_A_hZ_bbll_CMS8=0.0;
+    R_ggF_A_hZ_bbll_CMS8=0.0;
+    THoEX_ggF_A_hZ_bbZ_ATLAS8=0.0;
+    R_ggF_A_hZ_bbZ_ATLAS8=0.0;
+    THoEX_ggF_A_hZ_tautaull_CMS8=0.0;
+    R_ggF_A_hZ_tautaull_CMS8=0.0;
+    THoEX_ggF_A_hZ_tautauZ_ATLAS8=0.0;
+    R_ggF_A_hZ_tautauZ_ATLAS8=0.0;
+    THoEX_ggF_A_tt_ATLAS8=0.0;
+    R_ggF_A_tt_ATLAS8=0.0;
+    THoEX_bbF_A_bb_CMS8=0.0;
+    R_bbF_A_bb_CMS8=0.0;
 
     //95% to 1 sigma conversion factor, roughly sqrt(3.84)
     double nftos=1.95996398454;
 
     if(mA>=65.0 && mA<90.0)
     {
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
     }
     if(mA>=90.0 && mA<100.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
     }
     else if(mA>=100.0 && mA<150.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=150.0 && mA<200.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_gaga_CMS=ggF_A_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mA);
-        R_ggF_A_gaga_CMS=(1+(ggF_A_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mA))/ip_ex_ggF_phi_gaga_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_gaga_CMS8=ggF_A_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mA);
+        R_ggF_A_gaga_CMS8=(1+(ggF_A_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mA))/ip_ex_gg_phi_gaga_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=200.0 && mA<220.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_gaga_CMS=ggF_A_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mA);
-        R_ggF_A_gaga_CMS=(1+(ggF_A_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mA))/ip_ex_ggF_phi_gaga_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_gaga_CMS8=ggF_A_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mA);
+        R_ggF_A_gaga_CMS8=(1+(ggF_A_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mA))/ip_ex_gg_phi_gaga_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=220.0 && mA<225.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_gaga_CMS=ggF_A_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mA);
-        R_ggF_A_gaga_CMS=(1+(ggF_A_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mA))/ip_ex_ggF_phi_gaga_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbZ_ATLAS=ggF_A_hZ_bbZ_TH/ip_ex_ggF_A_hZ_bbZ_ATLAS(mA);
-        R_ggF_A_hZ_bbZ_ATLAS=(1+(ggF_A_hZ_bbZ_TH-ip_ex_ggF_A_hZ_bbZ_ATLAS(mA))/ip_ex_ggF_A_hZ_bbZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautaull_CMS=ggF_A_hZ_tautaull_TH/ip_ex_ggF_A_hZ_tautaull_CMS(mA);
-        R_ggF_A_hZ_tautaull_CMS=(1+(ggF_A_hZ_tautaull_TH-ip_ex_ggF_A_hZ_tautaull_CMS(mA))/ip_ex_ggF_A_hZ_tautaull_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautauZ_ATLAS=ggF_A_hZ_tautauZ_TH/ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA);
-        R_ggF_A_hZ_tautauZ_ATLAS=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA))/ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_gaga_CMS8=ggF_A_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mA);
+        R_ggF_A_gaga_CMS8=(1+(ggF_A_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mA))/ip_ex_gg_phi_gaga_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbZ_ATLAS8=ggF_A_hZ_bbZ_TH/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+        R_ggF_A_hZ_bbZ_ATLAS8=(1+(ggF_A_hZ_bbZ_TH-ip_ex_gg_A_hZ_bbZ_ATLAS8(mA))/ip_ex_gg_A_hZ_bbZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautaull_CMS8=ggF_A_hZ_tautaull_TH/ip_ex_gg_A_hZ_tautaull_CMS8(mA);
+        R_ggF_A_hZ_tautaull_CMS8=(1+(ggF_A_hZ_tautaull_TH-ip_ex_gg_A_hZ_tautaull_CMS8(mA))/ip_ex_gg_A_hZ_tautaull_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautauZ_ATLAS8=ggF_A_hZ_tautauZ_TH/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+        R_ggF_A_hZ_tautauZ_ATLAS8=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA))/ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=225.0 && mA<350.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_gaga_CMS=ggF_A_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mA);
-        R_ggF_A_gaga_CMS=(1+(ggF_A_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mA))/ip_ex_ggF_phi_gaga_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbll_CMS=ggF_A_hZ_bbll_TH/ip_ex_ggF_A_hZ_bbll_CMS(mA);
-        R_ggF_A_hZ_bbll_CMS=(1+(ggF_A_hZ_bbll_TH-ip_ex_ggF_A_hZ_bbll_CMS(mA))/ip_ex_ggF_A_hZ_bbll_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbZ_ATLAS=ggF_A_hZ_bbZ_TH/ip_ex_ggF_A_hZ_bbZ_ATLAS(mA);
-        R_ggF_A_hZ_bbZ_ATLAS=(1+(ggF_A_hZ_bbZ_TH-ip_ex_ggF_A_hZ_bbZ_ATLAS(mA))/ip_ex_ggF_A_hZ_bbZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautaull_CMS=ggF_A_hZ_tautaull_TH/ip_ex_ggF_A_hZ_tautaull_CMS(mA);
-        R_ggF_A_hZ_tautaull_CMS=(1+(ggF_A_hZ_tautaull_TH-ip_ex_ggF_A_hZ_tautaull_CMS(mA))/ip_ex_ggF_A_hZ_tautaull_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautauZ_ATLAS=ggF_A_hZ_tautauZ_TH/ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA);
-        R_ggF_A_hZ_tautauZ_ATLAS=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA))/ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_gaga_CMS8=ggF_A_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mA);
+        R_ggF_A_gaga_CMS8=(1+(ggF_A_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mA))/ip_ex_gg_phi_gaga_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbll_CMS8=ggF_A_hZ_bbll_TH/ip_ex_gg_A_hZ_bbll_CMS8(mA);
+        R_ggF_A_hZ_bbll_CMS8=(1+(ggF_A_hZ_bbll_TH-ip_ex_gg_A_hZ_bbll_CMS8(mA))/ip_ex_gg_A_hZ_bbll_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbZ_ATLAS8=ggF_A_hZ_bbZ_TH/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+        R_ggF_A_hZ_bbZ_ATLAS8=(1+(ggF_A_hZ_bbZ_TH-ip_ex_gg_A_hZ_bbZ_ATLAS8(mA))/ip_ex_gg_A_hZ_bbZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautaull_CMS8=ggF_A_hZ_tautaull_TH/ip_ex_gg_A_hZ_tautaull_CMS8(mA);
+        R_ggF_A_hZ_tautaull_CMS8=(1+(ggF_A_hZ_tautaull_TH-ip_ex_gg_A_hZ_tautaull_CMS8(mA))/ip_ex_gg_A_hZ_tautaull_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautauZ_ATLAS8=ggF_A_hZ_tautauZ_TH/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+        R_ggF_A_hZ_tautauZ_ATLAS8=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA))/ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=350.0 && mA<400.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_gaga_CMS=ggF_A_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mA);
-        R_ggF_A_gaga_CMS=(1+(ggF_A_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mA))/ip_ex_ggF_phi_gaga_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbll_CMS=ggF_A_hZ_bbll_TH/ip_ex_ggF_A_hZ_bbll_CMS(mA);
-        R_ggF_A_hZ_bbll_CMS=(1+(ggF_A_hZ_bbll_TH-ip_ex_ggF_A_hZ_bbll_CMS(mA))/ip_ex_ggF_A_hZ_bbll_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbZ_ATLAS=ggF_A_hZ_bbZ_TH/ip_ex_ggF_A_hZ_bbZ_ATLAS(mA);
-        R_ggF_A_hZ_bbZ_ATLAS=(1+(ggF_A_hZ_bbZ_TH-ip_ex_ggF_A_hZ_bbZ_ATLAS(mA))/ip_ex_ggF_A_hZ_bbZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautauZ_ATLAS=ggF_A_hZ_tautauZ_TH/ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA);
-        R_ggF_A_hZ_tautauZ_ATLAS=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA))/ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_gaga_CMS8=ggF_A_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mA);
+        R_ggF_A_gaga_CMS8=(1+(ggF_A_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mA))/ip_ex_gg_phi_gaga_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbll_CMS8=ggF_A_hZ_bbll_TH/ip_ex_gg_A_hZ_bbll_CMS8(mA);
+        R_ggF_A_hZ_bbll_CMS8=(1+(ggF_A_hZ_bbll_TH-ip_ex_gg_A_hZ_bbll_CMS8(mA))/ip_ex_gg_A_hZ_bbll_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbZ_ATLAS8=ggF_A_hZ_bbZ_TH/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+        R_ggF_A_hZ_bbZ_ATLAS8=(1+(ggF_A_hZ_bbZ_TH-ip_ex_gg_A_hZ_bbZ_ATLAS8(mA))/ip_ex_gg_A_hZ_bbZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautauZ_ATLAS8=ggF_A_hZ_tautauZ_TH/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+        R_ggF_A_hZ_tautauZ_ATLAS8=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA))/ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=400.0 && mA<600.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_gaga_ATLAS=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS(mA);
-        R_pp_A_gaga_ATLAS=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS(mA))/ip_ex_pp_phi_gaga_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_gaga_CMS=ggF_A_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mA);
-        R_ggF_A_gaga_CMS=(1+(ggF_A_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mA))/ip_ex_ggF_phi_gaga_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbll_CMS=ggF_A_hZ_bbll_TH/ip_ex_ggF_A_hZ_bbll_CMS(mA);
-        R_ggF_A_hZ_bbll_CMS=(1+(ggF_A_hZ_bbll_TH-ip_ex_ggF_A_hZ_bbll_CMS(mA))/ip_ex_ggF_A_hZ_bbll_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbZ_ATLAS=ggF_A_hZ_bbZ_TH/ip_ex_ggF_A_hZ_bbZ_ATLAS(mA);
-        R_ggF_A_hZ_bbZ_ATLAS=(1+(ggF_A_hZ_bbZ_TH-ip_ex_ggF_A_hZ_bbZ_ATLAS(mA))/ip_ex_ggF_A_hZ_bbZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautauZ_ATLAS=ggF_A_hZ_tautauZ_TH/ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA);
-        R_ggF_A_hZ_tautauZ_ATLAS=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA))/ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tt_ATLAS=ggF_A_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mA);
-        R_ggF_A_tt_ATLAS=(1+(ggF_A_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mA))/ip_ex_ggF_phi_tt_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH/ip_ex_pp_phi_gaga_ATLAS8(mA);
+        R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_gaga_CMS8=ggF_A_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mA);
+        R_ggF_A_gaga_CMS8=(1+(ggF_A_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mA))/ip_ex_gg_phi_gaga_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbll_CMS8=ggF_A_hZ_bbll_TH/ip_ex_gg_A_hZ_bbll_CMS8(mA);
+        R_ggF_A_hZ_bbll_CMS8=(1+(ggF_A_hZ_bbll_TH-ip_ex_gg_A_hZ_bbll_CMS8(mA))/ip_ex_gg_A_hZ_bbll_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbZ_ATLAS8=ggF_A_hZ_bbZ_TH/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+        R_ggF_A_hZ_bbZ_ATLAS8=(1+(ggF_A_hZ_bbZ_TH-ip_ex_gg_A_hZ_bbZ_ATLAS8(mA))/ip_ex_gg_A_hZ_bbZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautauZ_ATLAS8=ggF_A_hZ_tautauZ_TH/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+        R_ggF_A_hZ_tautauZ_ATLAS8=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA))/ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tt_ATLAS8=ggF_A_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mA);
+        R_ggF_A_tt_ATLAS8=(1+(ggF_A_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mA))/ip_ex_gg_phi_tt_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=600.0 && mA<850.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_gaga_CMS=ggF_A_gaga_TH/ip_ex_ggF_phi_gaga_CMS(mA);
-        R_ggF_A_gaga_CMS=(1+(ggF_A_gaga_TH-ip_ex_ggF_phi_gaga_CMS(mA))/ip_ex_ggF_phi_gaga_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbZ_ATLAS=ggF_A_hZ_bbZ_TH/ip_ex_ggF_A_hZ_bbZ_ATLAS(mA);
-        R_ggF_A_hZ_bbZ_ATLAS=(1+(ggF_A_hZ_bbZ_TH-ip_ex_ggF_A_hZ_bbZ_ATLAS(mA))/ip_ex_ggF_A_hZ_bbZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautauZ_ATLAS=ggF_A_hZ_tautauZ_TH/ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA);
-        R_ggF_A_hZ_tautauZ_ATLAS=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA))/ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tt_ATLAS=ggF_A_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mA);
-        R_ggF_A_tt_ATLAS=(1+(ggF_A_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mA))/ip_ex_ggF_phi_tt_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_gaga_CMS8=ggF_A_gaga_TH/ip_ex_gg_phi_gaga_CMS8(mA);
+        R_ggF_A_gaga_CMS8=(1+(ggF_A_gaga_TH-ip_ex_gg_phi_gaga_CMS8(mA))/ip_ex_gg_phi_gaga_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbZ_ATLAS8=ggF_A_hZ_bbZ_TH/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+        R_ggF_A_hZ_bbZ_ATLAS8=(1+(ggF_A_hZ_bbZ_TH-ip_ex_gg_A_hZ_bbZ_ATLAS8(mA))/ip_ex_gg_A_hZ_bbZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautauZ_ATLAS8=ggF_A_hZ_tautauZ_TH/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+        R_ggF_A_hZ_tautauZ_ATLAS8=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA))/ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tt_ATLAS8=ggF_A_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mA);
+        R_ggF_A_tt_ATLAS8=(1+(ggF_A_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mA))/ip_ex_gg_phi_tt_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=850.0 && mA<900.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbZ_ATLAS=ggF_A_hZ_bbZ_TH/ip_ex_ggF_A_hZ_bbZ_ATLAS(mA);
-        R_ggF_A_hZ_bbZ_ATLAS=(1+(ggF_A_hZ_bbZ_TH-ip_ex_ggF_A_hZ_bbZ_ATLAS(mA))/ip_ex_ggF_A_hZ_bbZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautauZ_ATLAS=ggF_A_hZ_tautauZ_TH/ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA);
-        R_ggF_A_hZ_tautauZ_ATLAS=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA))/ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tt_ATLAS=ggF_A_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mA);
-        R_ggF_A_tt_ATLAS=(1+(ggF_A_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mA))/ip_ex_ggF_phi_tt_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_bb_CMS=bbF_A_bb_TH/ip_ex_bbF_phi_bb_CMS(mA);
-        R_bbF_A_bb_CMS=(1+(bbF_A_bb_TH-ip_ex_bbF_phi_bb_CMS(mA))/ip_ex_bbF_phi_bb_CMS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbZ_ATLAS8=ggF_A_hZ_bbZ_TH/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+        R_ggF_A_hZ_bbZ_ATLAS8=(1+(ggF_A_hZ_bbZ_TH-ip_ex_gg_A_hZ_bbZ_ATLAS8(mA))/ip_ex_gg_A_hZ_bbZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautauZ_ATLAS8=ggF_A_hZ_tautauZ_TH/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+        R_ggF_A_hZ_tautauZ_ATLAS8=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA))/ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tt_ATLAS8=ggF_A_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mA);
+        R_ggF_A_tt_ATLAS8=(1+(ggF_A_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mA))/ip_ex_gg_phi_tt_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_bb_CMS8=bbF_A_bb_TH/ip_ex_bb_phi_bb_CMS8(mA);
+        R_bbF_A_bb_CMS8=(1+(bbF_A_bb_TH-ip_ex_bb_phi_bb_CMS8(mA))/ip_ex_bb_phi_bb_CMS8_e(mA) ) * nftos;
     }
     else if(mA>=900.0 && mA<1000.0)
     {
-        THoEX_ggF_A_tautau_ATLAS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_ATLAS(mA);
-        R_ggF_A_tautau_ATLAS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_ATLAS(mA))/ip_ex_ggF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tautau_CMS=ggF_A_tautau_TH/ip_ex_ggF_phi_tautau_CMS(mA);
-        R_ggF_A_tautau_CMS=(1+(ggF_A_tautau_TH-ip_ex_ggF_phi_tautau_CMS(mA))/ip_ex_ggF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_ATLAS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_ATLAS(mA);
-        R_bbF_A_tautau_ATLAS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_ATLAS(mA))/ip_ex_bbF_phi_tautau_ATLAS_e(mA) ) * nftos;
-        THoEX_bbF_A_tautau_CMS=bbF_A_tautau_TH/ip_ex_bbF_phi_tautau_CMS(mA);
-        R_bbF_A_tautau_CMS=(1+(bbF_A_tautau_TH-ip_ex_bbF_phi_tautau_CMS(mA))/ip_ex_bbF_phi_tautau_CMS_e(mA) ) * nftos;
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_bbZ_ATLAS=ggF_A_hZ_bbZ_TH/ip_ex_ggF_A_hZ_bbZ_ATLAS(mA);
-        R_ggF_A_hZ_bbZ_ATLAS=(1+(ggF_A_hZ_bbZ_TH-ip_ex_ggF_A_hZ_bbZ_ATLAS(mA))/ip_ex_ggF_A_hZ_bbZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_hZ_tautauZ_ATLAS=ggF_A_hZ_tautauZ_TH/ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA);
-        R_ggF_A_hZ_tautauZ_ATLAS=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_ggF_A_hZ_tautauZ_ATLAS(mA))/ip_ex_ggF_A_hZ_tautauZ_ATLAS_e(mA) ) * nftos;
-        THoEX_ggF_A_tt_ATLAS=ggF_A_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mA);
-        R_ggF_A_tt_ATLAS=(1+(ggF_A_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mA))/ip_ex_ggF_phi_tt_ATLAS_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_ATLAS8(mA);
+        R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tautau_CMS8=ggF_A_tautau_TH/ip_ex_gg_phi_tautau_CMS8(mA);
+        R_ggF_A_tautau_CMS8=(1+(ggF_A_tautau_TH-ip_ex_gg_phi_tautau_CMS8(mA))/ip_ex_gg_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_ATLAS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_ATLAS8(mA);
+        R_bbF_A_tautau_ATLAS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_ATLAS8(mA))/ip_ex_bb_phi_tautau_ATLAS8_e(mA) ) * nftos;
+        THoEX_bbF_A_tautau_CMS8=bbF_A_tautau_TH/ip_ex_bb_phi_tautau_CMS8(mA);
+        R_bbF_A_tautau_CMS8=(1+(bbF_A_tautau_TH-ip_ex_bb_phi_tautau_CMS8(mA))/ip_ex_bb_phi_tautau_CMS8_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_bbZ_ATLAS8=ggF_A_hZ_bbZ_TH/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+        R_ggF_A_hZ_bbZ_ATLAS8=(1+(ggF_A_hZ_bbZ_TH-ip_ex_gg_A_hZ_bbZ_ATLAS8(mA))/ip_ex_gg_A_hZ_bbZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_hZ_tautauZ_ATLAS8=ggF_A_hZ_tautauZ_TH/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+        R_ggF_A_hZ_tautauZ_ATLAS8=(1+(ggF_A_hZ_tautauZ_TH-ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA))/ip_ex_gg_A_hZ_tautauZ_ATLAS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tt_ATLAS8=ggF_A_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mA);
+        R_ggF_A_tt_ATLAS8=(1+(ggF_A_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mA))/ip_ex_gg_phi_tt_ATLAS8_e(mA) ) * nftos;
     }
     else if(mA>=1000.0 && mA<1200.0)
     {
-        THoEX_pp_A_Zga_llga_CMS=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS(mA);
-        R_pp_A_Zga_llga_CMS=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS(mA))/ip_ex_pp_A_Zga_llga_CMS_e(mA) ) * nftos;
-        THoEX_ggF_A_tt_ATLAS=ggF_A_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mA);
-        R_ggF_A_tt_ATLAS=(1+(ggF_A_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mA))/ip_ex_ggF_phi_tt_ATLAS_e(mA) ) * nftos;
+        THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH/ip_ex_pp_A_Zga_llga_CMS8(mA);
+        R_pp_A_Zga_llga_CMS8=(1+(pp_A_Zga_llga_TH-ip_ex_pp_A_Zga_llga_CMS8(mA))/ip_ex_pp_A_Zga_llga_CMS8_e(mA) ) * nftos;
+        THoEX_ggF_A_tt_ATLAS8=ggF_A_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mA);
+        R_ggF_A_tt_ATLAS8=(1+(ggF_A_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mA))/ip_ex_gg_phi_tt_ATLAS8_e(mA) ) * nftos;
     }
     else if(mA>=1200.0 && mA<3000.0)
     {
-        THoEX_ggF_A_tt_ATLAS=ggF_A_tt_TH/ip_ex_ggF_phi_tt_ATLAS(mA);
-        R_ggF_A_tt_ATLAS=(1+(ggF_A_tt_TH-ip_ex_ggF_phi_tt_ATLAS(mA))/ip_ex_ggF_phi_tt_ATLAS_e(mA) ) * nftos;
+        THoEX_ggF_A_tt_ATLAS8=ggF_A_tt_TH/ip_ex_gg_phi_tt_ATLAS8(mA);
+        R_ggF_A_tt_ATLAS8=(1+(ggF_A_tt_TH-ip_ex_gg_phi_tt_ATLAS8(mA))/ip_ex_gg_phi_tt_ATLAS8_e(mA) ) * nftos;
     }
 }
 

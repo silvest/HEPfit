@@ -11,6 +11,8 @@
 #include "StandardModel.h"
 //#include "LeftRightSymmetricModelMatching.h"
 
+class LRSMquantities; // forward reference to the class that generates the neutral scalar spectrum
+
 /**
  * @class LeftRightSymmetricModel
  * @ingroup LeftRightSymmetricModel
@@ -26,7 +28,9 @@
 class LeftRightSymmetricModel: public StandardModel {
 public:
 
-    static const int NLeftRightSymmetricModelvars = 18;
+    friend class LRSMquantities;
+
+    static const int NLeftRightSymmetricModelvars = 14;
     static const std::string LeftRightSymmetricModelvars[NLeftRightSymmetricModelvars];
     
     /**
@@ -79,173 +83,221 @@ public:
     /*------------------------------------------------------------------------*/
 
     /**
-     * @return @f$\log_{10}(\tan \beta)@f$
+     *
+     * @return Flag to switch on CP violation
      */
-    double getlogtb() const {
-        return logtb;
+    bool getCPVflag() const {
+//        if(alpha_LRSM==0.0 && delta2_LRSM==0.0 && thetaL==0.0) flag_CPV=false;
+        return flag_CPV;
+    }
+
+    //Parametrization according to 0712.4218
+
+    /**
+     * @brief Gets the first scalar mass square.
+     * @return 
+     */
+    double getmH0sq1() const
+    {
+        return mH0sq[0];
     }
 
     /**
-     * @return @f$\tan \beta@f$
+     * @brief Gets the second scalar mass square.
+     * @return 
      */
-    double gettanb() const {
-        return tanb;
+    double getmH0sq2() const
+    {
+        return mH0sq[1];
     }
 
     /**
-     * @return @f$\sin \beta@f$
+     * @brief Gets the third scalar mass square.
+     * @return 
      */
-    double getsinb() const {
-        return sinb;
+    double getmH0sq3() const
+    {
+        return mH0sq[2];
     }
 
     /**
-     * @return @f$\cos \beta@f$
+     * @brief Gets the fourth scalar mass square.
+     * @return 
      */
-    double getcosb() const {
-        return cosb;
+    double getmH0sq4() const
+    {
+        return mH0sq[3];
     }
 
     /**
-     * @return mass squared charged Higgs
+     * @brief Gets the fifth scalar mass square.
+     * @return 
      */
-    double getmHp2() const {
-        return mHp2;
+    double getmH0sq5() const
+    {
+        return mH0sq[4];
+    }
+
+    
+    
+    
+    
+    /**
+     * @brief Gets the first scalar mass square.
+     * @return 
+     */
+    double getmH0sq1_app() const
+    {
+        return mH0sq_app[0];
     }
 
     /**
-     * @return mass of the charged Higgs
+     * @brief Gets the second scalar mass square.
+     * @return 
      */
-    double getmHp() const {
-    if(mHp2 < 0.) {
-        return 0.;
-    }
-        return sqrt(mHp2);
-    }
-
-    /**
-     * @return alpha1
-     */
-    double getalpha1() const {
-        return alpha1;
+    double getmH0sq2_app() const
+    {
+        return mH0sq_app[1];
     }
 
     /**
-     * @return alpha2
+     * @brief Gets the third scalar mass square.
+     * @return 
      */
-    double getalpha2() const {
-        return alpha2;
+    double getmH0sq3_app() const
+    {
+        return mH0sq_app[2];
     }
 
     /**
-     * @return alpha3
+     * @brief Gets the fourth scalar mass square.
+     * @return 
      */
-    double getalpha3() const {
-        return alpha3;
+    double getmH0sq4_app() const
+    {
+        return mH0sq_app[3];
+    }
+
+    
+    
+    
+    
+    
+    /**
+     * @return @f$m_{H_1^+}^2@f$
+     */
+    double getmH1p_2() const {
+        return mH1p_2;
     }
 
     /**
-     * @return m2_2
+     * @return @f$m_{H_2^+}^2@f$
      */
-    double getm2_2() const {
-        return m2_2;
+    double getmH2p_2() const {
+        return mH2p_2;
     }
 
     /**
-     * @return parameter of the Higgs potential @f$Re(m_{12}^2)@f$ 
+     * @return @f$m_{\delta^{++}_R}^2@f$
      */
-    double getRem12_2() const {
-        return Rem12_2;
+    double getmdeltappR_2() const {
+        return mdeltappR_2;
     }
 
     /**
-     * @return Relambda6
+     * @return @f$\xi_{\text{LRSM}}@f$
      */
-    double getRelambda6() const {
-        return Relambda6;
+    double getxi_LRSM() const {
+        return xi_LRSM;
     }
 
     /**
-     * @return Imlambda6
+     * @return @f$mWR@f$
      */
-    double getImlambda6() const {
-        return Imlambda6;
+    double getmWR() const {
+        return mWR;
     }
 
     /**
-     * @return Relambda7
+     * @return @f$\lambda_1@f$
      */
-    double getRelambda7() const {
-        return Relambda7;
+    double getlambda1_LRSM() const {
+        return lambda1_LRSM;
     }
 
     /**
-     * @return Imlambda7
+     * @return @f$\lambda_2@f$
      */
-    double getImlambda7() const {
-        return Imlambda7;
+    double getlambda2_LRSM() const {
+        return lambda2_LRSM;
     }
 
     /**
-     * @return abssigma_u
+     * @return @f$\lambda_3@f$
      */
-    double getabssigma_u() const {
-        return abssigma_u;
+    double getlambda3_LRSM() const {
+        return lambda3_LRSM;
     }
 
     /**
-     * @return phi_u
+     * @return @f$\lambda_4@f$
      */
-    double getphi_u() const {
-        return phi_u;
+    double getlambda4_LRSM() const {
+        return lambda4_LRSM;
     }
 
     /**
-     * @return abssigma_d
+     * @return @f$\rho_1@f$
      */
-    double getabssigma_d() const {
-        return abssigma_d;
+    double getrho1_LRSM() const {
+        return rho1_LRSM;
     }
 
     /**
-     * @return phi_d
+     * @return @f$\rho_4@f$
      */
-    double getphi_d() const {
-        return phi_d;
+    double getrho4_LRSM() const {
+        return rho4_LRSM;
     }
 
     /**
-     * @return abssigma_l
+     * @return @f$\alpha_1@f$
      */
-    double getabssigma_l() const {
-        return abssigma_l;
+    double getalpha1_LRSM() const {
+        return alpha1_LRSM;
     }
 
     /**
-     * @return phi_l
+     * @return @f$\alpha_2@f$
      */
-    double getphi_l() const {
-        return phi_l;
+    double getalpha2_LRSM() const {
+        return alpha2_LRSM;
     }
 
     /**
-     * @return General THDM scale
+     * @return LRSM scale
      */
-    double getQ_GTHDM() const {
-        return Q_GTHDM;
+    double getQ_LRSM() const {
+        return Q_LRSM;
     }
 
 protected: 
 
     virtual void setParameter(const std::string, const double&);
     
+    LRSMquantities* myLRSMquantities;
+
+    double mH0sq[5];
+    double mH0sq_app[4];
+    gslpp::matrix<gslpp::complex> U;
 
 //    mutable Matching<LeftRightSymmetricModelMatching,LeftRightSymmetricModel> LRSMM; ///< An object of type Matching.
 
 private:
 
-    double logtb, tanb, sinb, cosb, mHp2, alpha1, alpha2, alpha3, m2_2, Rem12_2, Relambda6, Imlambda6, Relambda7, Imlambda7, abssigma_u, phi_u, abssigma_d, phi_d, abssigma_l, phi_l, Q_GTHDM;
+    double mH1p_2, mH2p_2, mdeltappR_2, xi_LRSM, mWR, lambda1_LRSM, lambda2_LRSM, lambda3_LRSM, lambda4_LRSM, rho1_LRSM, rho4_LRSM, alpha1_LRSM, alpha2_LRSM, Q_LRSM;
     bool flagLeftRightSymmetricModel;
+    bool flag_CPV;
 };
 
 #endif	/* LEFTRIGHTSYMMETRICMODEL_H */

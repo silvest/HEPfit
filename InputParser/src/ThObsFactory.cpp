@@ -16,6 +16,7 @@
 #include "SUSYObservables.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
+#include "LRSMObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
@@ -717,42 +718,42 @@ ThObsFactory::ThObsFactory()
     obsThFactory["rh_gaga_THDM"] = boost::factory<rh_gaga_THDM*>();
     obsThFactory["rh_gg_THDM"] = boost::factory<rh_gg_THDM*>();
 
-    obsThFactory["Hobs_ggF_H_tautau_ATLAS"] = boost::factory<Hobs_ggF_H_tautau_ATLAS*>();
-    obsThFactory["Hobs_ggF_H_tautau_CMS"] = boost::factory<Hobs_ggF_H_tautau_CMS*>();
-    obsThFactory["Hobs_bbF_H_tautau_ATLAS"] = boost::factory<Hobs_bbF_H_tautau_ATLAS*>();
-    obsThFactory["Hobs_bbF_H_tautau_CMS"] = boost::factory<Hobs_bbF_H_tautau_CMS*>();
-    obsThFactory["Hobs_pp_H_gaga_ATLAS"] = boost::factory<Hobs_pp_H_gaga_ATLAS*>();
-    obsThFactory["Hobs_ggF_H_gaga_CMS"] = boost::factory<Hobs_ggF_H_gaga_CMS*>();
-    obsThFactory["Hobs_mu_pp_H_VV_CMS"] = boost::factory<Hobs_mu_pp_H_VV_CMS*>();
-    obsThFactory["Hobs_ggF_H_ZZ_ATLAS"] = boost::factory<Hobs_ggF_H_ZZ_ATLAS*>();
-    obsThFactory["Hobs_VBF_H_ZZ_ATLAS"] = boost::factory<Hobs_VBF_H_ZZ_ATLAS*>();
-    obsThFactory["Hobs_ggF_H_WW_ATLAS"] = boost::factory<Hobs_ggF_H_WW_ATLAS*>();
-    obsThFactory["Hobs_VBF_H_WW_ATLAS"] = boost::factory<Hobs_VBF_H_WW_ATLAS*>();
-    obsThFactory["Hobs_ggF_H_hh_ATLAS"] = boost::factory<Hobs_ggF_H_hh_ATLAS*>();
-    obsThFactory["Hobs_pp_H_hh_CMS"] = boost::factory<Hobs_pp_H_hh_CMS*>();
-    obsThFactory["Hobs_ggF_H_hh_bbtautau_CMS"] = boost::factory<Hobs_ggF_H_hh_bbtautau_CMS*>();
-    obsThFactory["Hobs_pp_H_hh_bbbb_CMS"] = boost::factory<Hobs_pp_H_hh_bbbb_CMS*>();
-    obsThFactory["Hobs_pp_H_hh_gagabb_CMS"] = boost::factory<Hobs_pp_H_hh_gagabb_CMS*>();
-    obsThFactory["Hobs_ggF_H_tt_ATLAS"] = boost::factory<Hobs_ggF_H_tt_ATLAS*>();
-    obsThFactory["Hobs_bbF_H_bb_CMS"] = boost::factory<Hobs_bbF_H_bb_CMS*>();
-    obsThFactory["Robs_ggF_H_tautau_ATLAS"] = boost::factory<Robs_ggF_H_tautau_ATLAS*>();
-    obsThFactory["Robs_ggF_H_tautau_CMS"] = boost::factory<Robs_ggF_H_tautau_CMS*>();
-    obsThFactory["Robs_bbF_H_tautau_ATLAS"] = boost::factory<Robs_bbF_H_tautau_ATLAS*>();
-    obsThFactory["Robs_bbF_H_tautau_CMS"] = boost::factory<Robs_bbF_H_tautau_CMS*>();
-    obsThFactory["Robs_pp_H_gaga_ATLAS"] = boost::factory<Robs_pp_H_gaga_ATLAS*>();
-    obsThFactory["Robs_ggF_H_gaga_CMS"] = boost::factory<Robs_ggF_H_gaga_CMS*>();
-    obsThFactory["Robs_mu_pp_H_VV_CMS"] = boost::factory<Robs_mu_pp_H_VV_CMS*>();
-    obsThFactory["Robs_ggF_H_ZZ_ATLAS"] = boost::factory<Robs_ggF_H_ZZ_ATLAS*>();
-    obsThFactory["Robs_VBF_H_ZZ_ATLAS"] = boost::factory<Robs_VBF_H_ZZ_ATLAS*>();
-    obsThFactory["Robs_ggF_H_WW_ATLAS"] = boost::factory<Robs_ggF_H_WW_ATLAS*>();
-    obsThFactory["Robs_VBF_H_WW_ATLAS"] = boost::factory<Robs_VBF_H_WW_ATLAS*>();
-    obsThFactory["Robs_ggF_H_hh_ATLAS"] = boost::factory<Robs_ggF_H_hh_ATLAS*>();
-    obsThFactory["Robs_pp_H_hh_CMS"] = boost::factory<Robs_pp_H_hh_CMS*>();
-    obsThFactory["Robs_ggF_H_hh_bbtautau_CMS"] = boost::factory<Robs_ggF_H_hh_bbtautau_CMS*>();
-    obsThFactory["Robs_pp_H_hh_bbbb_CMS"] = boost::factory<Robs_pp_H_hh_bbbb_CMS*>();
-    obsThFactory["Robs_pp_H_hh_gagabb_CMS"] = boost::factory<Robs_pp_H_hh_gagabb_CMS*>();
-    obsThFactory["Robs_ggF_H_tt_ATLAS"] = boost::factory<Robs_ggF_H_tt_ATLAS*>();
-    obsThFactory["Robs_bbF_H_bb_CMS"] = boost::factory<Robs_bbF_H_bb_CMS*>();
+    obsThFactory["Hobs_ggF_H_tautau_ATLAS8"] = boost::factory<Hobs_ggF_H_tautau_ATLAS8*>();
+    obsThFactory["Hobs_ggF_H_tautau_CMS8"] = boost::factory<Hobs_ggF_H_tautau_CMS8*>();
+    obsThFactory["Hobs_bbF_H_tautau_ATLAS8"] = boost::factory<Hobs_bbF_H_tautau_ATLAS8*>();
+    obsThFactory["Hobs_bbF_H_tautau_CMS8"] = boost::factory<Hobs_bbF_H_tautau_CMS8*>();
+    obsThFactory["Hobs_pp_H_gaga_ATLAS8"] = boost::factory<Hobs_pp_H_gaga_ATLAS8*>();
+    obsThFactory["Hobs_ggF_H_gaga_CMS8"] = boost::factory<Hobs_ggF_H_gaga_CMS8*>();
+    obsThFactory["Hobs_mu_pp_H_VV_CMS8"] = boost::factory<Hobs_mu_pp_H_VV_CMS8*>();
+    obsThFactory["Hobs_ggF_H_ZZ_ATLAS8"] = boost::factory<Hobs_ggF_H_ZZ_ATLAS8*>();
+    obsThFactory["Hobs_VBF_H_ZZ_ATLAS8"] = boost::factory<Hobs_VBF_H_ZZ_ATLAS8*>();
+    obsThFactory["Hobs_ggF_H_WW_ATLAS8"] = boost::factory<Hobs_ggF_H_WW_ATLAS8*>();
+    obsThFactory["Hobs_VBF_H_WW_ATLAS8"] = boost::factory<Hobs_VBF_H_WW_ATLAS8*>();
+    obsThFactory["Hobs_ggF_H_hh_ATLAS8"] = boost::factory<Hobs_ggF_H_hh_ATLAS8*>();
+    obsThFactory["Hobs_pp_H_hh_CMS8"] = boost::factory<Hobs_pp_H_hh_CMS8*>();
+    obsThFactory["Hobs_ggF_H_hh_bbtautau_CMS8"] = boost::factory<Hobs_ggF_H_hh_bbtautau_CMS8*>();
+    obsThFactory["Hobs_pp_H_hh_bbbb_CMS8"] = boost::factory<Hobs_pp_H_hh_bbbb_CMS8*>();
+    obsThFactory["Hobs_pp_H_hh_gagabb_CMS8"] = boost::factory<Hobs_pp_H_hh_gagabb_CMS8*>();
+    obsThFactory["Hobs_ggF_H_tt_ATLAS8"] = boost::factory<Hobs_ggF_H_tt_ATLAS8*>();
+    obsThFactory["Hobs_bbF_H_bb_CMS8"] = boost::factory<Hobs_bbF_H_bb_CMS8*>();
+    obsThFactory["Robs_ggF_H_tautau_ATLAS8"] = boost::factory<Robs_ggF_H_tautau_ATLAS8*>();
+    obsThFactory["Robs_ggF_H_tautau_CMS8"] = boost::factory<Robs_ggF_H_tautau_CMS8*>();
+    obsThFactory["Robs_bbF_H_tautau_ATLAS8"] = boost::factory<Robs_bbF_H_tautau_ATLAS8*>();
+    obsThFactory["Robs_bbF_H_tautau_CMS8"] = boost::factory<Robs_bbF_H_tautau_CMS8*>();
+    obsThFactory["Robs_pp_H_gaga_ATLAS8"] = boost::factory<Robs_pp_H_gaga_ATLAS8*>();
+    obsThFactory["Robs_ggF_H_gaga_CMS8"] = boost::factory<Robs_ggF_H_gaga_CMS8*>();
+    obsThFactory["Robs_mu_pp_H_VV_CMS8"] = boost::factory<Robs_mu_pp_H_VV_CMS8*>();
+    obsThFactory["Robs_ggF_H_ZZ_ATLAS8"] = boost::factory<Robs_ggF_H_ZZ_ATLAS8*>();
+    obsThFactory["Robs_VBF_H_ZZ_ATLAS8"] = boost::factory<Robs_VBF_H_ZZ_ATLAS8*>();
+    obsThFactory["Robs_ggF_H_WW_ATLAS8"] = boost::factory<Robs_ggF_H_WW_ATLAS8*>();
+    obsThFactory["Robs_VBF_H_WW_ATLAS8"] = boost::factory<Robs_VBF_H_WW_ATLAS8*>();
+    obsThFactory["Robs_ggF_H_hh_ATLAS8"] = boost::factory<Robs_ggF_H_hh_ATLAS8*>();
+    obsThFactory["Robs_pp_H_hh_CMS8"] = boost::factory<Robs_pp_H_hh_CMS8*>();
+    obsThFactory["Robs_ggF_H_hh_bbtautau_CMS8"] = boost::factory<Robs_ggF_H_hh_bbtautau_CMS8*>();
+    obsThFactory["Robs_pp_H_hh_bbbb_CMS8"] = boost::factory<Robs_pp_H_hh_bbbb_CMS8*>();
+    obsThFactory["Robs_pp_H_hh_gagabb_CMS8"] = boost::factory<Robs_pp_H_hh_gagabb_CMS8*>();
+    obsThFactory["Robs_ggF_H_tt_ATLAS8"] = boost::factory<Robs_ggF_H_tt_ATLAS8*>();
+    obsThFactory["Robs_bbF_H_bb_CMS8"] = boost::factory<Robs_bbF_H_bb_CMS8*>();
     obsThFactory["log10_ggF_H_tautau_TH"] = boost::factory<log10_ggF_H_tautau_TH*>();
     obsThFactory["log10_bbF_H_tautau_TH"] = boost::factory<log10_bbF_H_tautau_TH*>();
     obsThFactory["log10_pp_H_gaga_TH"] = boost::factory<log10_pp_H_gaga_TH*>();
@@ -777,32 +778,32 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BR_HH_AZ_THDM"] = boost::factory<BR_HH_AZ_THDM*>();
     obsThFactory["BR_HH_HpW_THDM"] = boost::factory<BR_HH_HpW_THDM*>();
 
-    obsThFactory["Hobs_ggF_A_tautau_ATLAS"] = boost::factory<Hobs_ggF_A_tautau_ATLAS*>();
-    obsThFactory["Hobs_ggF_A_tautau_CMS"] = boost::factory<Hobs_ggF_A_tautau_CMS*>();
-    obsThFactory["Hobs_bbF_A_tautau_ATLAS"] = boost::factory<Hobs_bbF_A_tautau_ATLAS*>();
-    obsThFactory["Hobs_bbF_A_tautau_CMS"] = boost::factory<Hobs_bbF_A_tautau_CMS*>();
-    obsThFactory["Hobs_pp_A_gaga_ATLAS"] = boost::factory<Hobs_pp_A_gaga_ATLAS*>();
-    obsThFactory["Hobs_ggF_A_gaga_CMS"] = boost::factory<Hobs_ggF_A_gaga_CMS*>();
-    obsThFactory["Hobs_pp_A_Zga_llga_CMS"] = boost::factory<Hobs_pp_A_Zga_llga_CMS*>();
-    obsThFactory["Hobs_ggF_A_hZ_bbll_CMS"] = boost::factory<Hobs_ggF_A_hZ_bbll_CMS*>();
-    obsThFactory["Hobs_ggF_A_hZ_bbZ_ATLAS"] = boost::factory<Hobs_ggF_A_hZ_bbZ_ATLAS*>();
-    obsThFactory["Hobs_ggF_A_hZ_tautaull_CMS"] = boost::factory<Hobs_ggF_A_hZ_tautaull_CMS*>();
-    obsThFactory["Hobs_ggF_A_hZ_tautauZ_ATLAS"] = boost::factory<Hobs_ggF_A_hZ_tautauZ_ATLAS*>();
-    obsThFactory["Hobs_ggF_A_tt_ATLAS"] = boost::factory<Hobs_ggF_A_tt_ATLAS*>();
-    obsThFactory["Hobs_bbF_A_bb_CMS"] = boost::factory<Hobs_bbF_A_bb_CMS*>();
-    obsThFactory["Robs_ggF_A_tautau_ATLAS"] = boost::factory<Robs_ggF_A_tautau_ATLAS*>();
-    obsThFactory["Robs_ggF_A_tautau_CMS"] = boost::factory<Robs_ggF_A_tautau_CMS*>();
-    obsThFactory["Robs_bbF_A_tautau_ATLAS"] = boost::factory<Robs_bbF_A_tautau_ATLAS*>();
-    obsThFactory["Robs_bbF_A_tautau_CMS"] = boost::factory<Robs_bbF_A_tautau_CMS*>();
-    obsThFactory["Robs_pp_A_gaga_ATLAS"] = boost::factory<Robs_pp_A_gaga_ATLAS*>();
-    obsThFactory["Robs_ggF_A_gaga_CMS"] = boost::factory<Robs_ggF_A_gaga_CMS*>();
-    obsThFactory["Robs_pp_A_Zga_llga_CMS"] = boost::factory<Robs_pp_A_Zga_llga_CMS*>();
-    obsThFactory["Robs_ggF_A_hZ_bbll_CMS"] = boost::factory<Robs_ggF_A_hZ_bbll_CMS*>();
-    obsThFactory["Robs_ggF_A_hZ_bbZ_ATLAS"] = boost::factory<Robs_ggF_A_hZ_bbZ_ATLAS*>();
-    obsThFactory["Robs_ggF_A_hZ_tautaull_CMS"] = boost::factory<Robs_ggF_A_hZ_tautaull_CMS*>();
-    obsThFactory["Robs_ggF_A_hZ_tautauZ_ATLAS"] = boost::factory<Robs_ggF_A_hZ_tautauZ_ATLAS*>();
-    obsThFactory["Robs_ggF_A_tt_ATLAS"] = boost::factory<Robs_ggF_A_tt_ATLAS*>();
-    obsThFactory["Robs_bbF_A_bb_CMS"] = boost::factory<Robs_bbF_A_bb_CMS*>();
+    obsThFactory["Hobs_ggF_A_tautau_ATLAS8"] = boost::factory<Hobs_ggF_A_tautau_ATLAS8*>();
+    obsThFactory["Hobs_ggF_A_tautau_CMS8"] = boost::factory<Hobs_ggF_A_tautau_CMS8*>();
+    obsThFactory["Hobs_bbF_A_tautau_ATLAS8"] = boost::factory<Hobs_bbF_A_tautau_ATLAS8*>();
+    obsThFactory["Hobs_bbF_A_tautau_CMS8"] = boost::factory<Hobs_bbF_A_tautau_CMS8*>();
+    obsThFactory["Hobs_pp_A_gaga_ATLAS8"] = boost::factory<Hobs_pp_A_gaga_ATLAS8*>();
+    obsThFactory["Hobs_ggF_A_gaga_CMS8"] = boost::factory<Hobs_ggF_A_gaga_CMS8*>();
+    obsThFactory["Hobs_pp_A_Zga_llga_CMS8"] = boost::factory<Hobs_pp_A_Zga_llga_CMS8*>();
+    obsThFactory["Hobs_ggF_A_hZ_bbll_CMS8"] = boost::factory<Hobs_ggF_A_hZ_bbll_CMS8*>();
+    obsThFactory["Hobs_ggF_A_hZ_bbZ_ATLAS8"] = boost::factory<Hobs_ggF_A_hZ_bbZ_ATLAS8*>();
+    obsThFactory["Hobs_ggF_A_hZ_tautaull_CMS8"] = boost::factory<Hobs_ggF_A_hZ_tautaull_CMS8*>();
+    obsThFactory["Hobs_ggF_A_hZ_tautauZ_ATLAS8"] = boost::factory<Hobs_ggF_A_hZ_tautauZ_ATLAS8*>();
+    obsThFactory["Hobs_ggF_A_tt_ATLAS8"] = boost::factory<Hobs_ggF_A_tt_ATLAS8*>();
+    obsThFactory["Hobs_bbF_A_bb_CMS8"] = boost::factory<Hobs_bbF_A_bb_CMS8*>();
+    obsThFactory["Robs_ggF_A_tautau_ATLAS8"] = boost::factory<Robs_ggF_A_tautau_ATLAS8*>();
+    obsThFactory["Robs_ggF_A_tautau_CMS8"] = boost::factory<Robs_ggF_A_tautau_CMS8*>();
+    obsThFactory["Robs_bbF_A_tautau_ATLAS8"] = boost::factory<Robs_bbF_A_tautau_ATLAS8*>();
+    obsThFactory["Robs_bbF_A_tautau_CMS8"] = boost::factory<Robs_bbF_A_tautau_CMS8*>();
+    obsThFactory["Robs_pp_A_gaga_ATLAS8"] = boost::factory<Robs_pp_A_gaga_ATLAS8*>();
+    obsThFactory["Robs_ggF_A_gaga_CMS8"] = boost::factory<Robs_ggF_A_gaga_CMS8*>();
+    obsThFactory["Robs_pp_A_Zga_llga_CMS8"] = boost::factory<Robs_pp_A_Zga_llga_CMS8*>();
+    obsThFactory["Robs_ggF_A_hZ_bbll_CMS8"] = boost::factory<Robs_ggF_A_hZ_bbll_CMS8*>();
+    obsThFactory["Robs_ggF_A_hZ_bbZ_ATLAS8"] = boost::factory<Robs_ggF_A_hZ_bbZ_ATLAS8*>();
+    obsThFactory["Robs_ggF_A_hZ_tautaull_CMS8"] = boost::factory<Robs_ggF_A_hZ_tautaull_CMS8*>();
+    obsThFactory["Robs_ggF_A_hZ_tautauZ_ATLAS8"] = boost::factory<Robs_ggF_A_hZ_tautauZ_ATLAS8*>();
+    obsThFactory["Robs_ggF_A_tt_ATLAS8"] = boost::factory<Robs_ggF_A_tt_ATLAS8*>();
+    obsThFactory["Robs_bbF_A_bb_CMS8"] = boost::factory<Robs_bbF_A_bb_CMS8*>();
     obsThFactory["log10_ggF_A_tautau_TH"] = boost::factory<log10_ggF_A_tautau_TH*>();
     obsThFactory["log10_bbF_A_tautau_TH"] = boost::factory<log10_bbF_A_tautau_TH*>();
     obsThFactory["log10_pp_A_gaga_TH"] = boost::factory<log10_pp_A_gaga_TH*>();
@@ -1032,6 +1033,29 @@ ThObsFactory::ThObsFactory()
     obsThFactory["stability4_GTHDM"] = boost::factory<stability4_GTHDM*>();
 
 //    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
+
+    /** END: REMOVE FROM THE PACKAGE **/
+    
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    //-----  LeftRightSymmetric model observables  -----
+    obsThFactory["mu1_2_LRSM"] = boost::factory<mu1_2_LRSM*>();
+    obsThFactory["mu2_2_LRSM"] = boost::factory<mu2_2_LRSM*>();
+    obsThFactory["mu3_2_LRSM"] = boost::factory<mu3_2_LRSM*>();
+    obsThFactory["rho2_LRSM"] = boost::factory<rho2_LRSM*>();
+    obsThFactory["rho3_LRSM"] = boost::factory<rho3_LRSM*>();
+    obsThFactory["alpha3_LRSM"] = boost::factory<alpha3_LRSM*>();
+    obsThFactory["mH00_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 0);
+    obsThFactory["mH01_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 1);
+    obsThFactory["mH02_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 2);
+    obsThFactory["mH03_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 3);
+    obsThFactory["mH04_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 4);
+    obsThFactory["mH05_LRSM"] = boost::factory<MH05_LRSM*>();
+    obsThFactory["mH06_LRSM"] = boost::factory<MH06_LRSM*>();
+    obsThFactory["MH01_app1"] = boost::factory<MH01_app1*>();
+    obsThFactory["MH01_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 0);
+    obsThFactory["MH02_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 1);
+    obsThFactory["MH03_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 2);
+    obsThFactory["MH04_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 3);
 
     /** END: REMOVE FROM THE PACKAGE **/
 }
