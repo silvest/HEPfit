@@ -624,11 +624,21 @@ public:
         return (h_0[2]/h_0[0]).abs();
     }
     
+    /**
+    * @brief A get method for the parameters necessary for MVll.
+    * @return the vector of MVll specific parameters
+    */
+    std::vector<std::string> getMVllParameters()
+    {
+        return mvllParameters;
+    }
+    
 private:
     const StandardModel& mySM;/**< Model type */
     QCD::lepton lep;/**< Final leptons type */
     QCD::meson meson;/**< Initial meson type */
     QCD::meson vectorM;/**< Final vector meson type */
+    std::vector<std::string> mvllParameters;
     
     double GF;            /**<Fermi constant */
     double ale;           /**<Alpha electromagnetic */
