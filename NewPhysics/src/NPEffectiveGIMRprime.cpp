@@ -1737,11 +1737,17 @@ double NPEffectiveGIMRprime::muggH(const double sqrt_s) const
     //        + 2.0 * dKappa_b * sigma_bb_SM
     //        + (dKappa_t + dKappa_b) * sigma_tb_SM)
     //        / (sigma_tt_SM + sigma_bb_SM + sigma_tb_SM);
-    gslpp::complex tmp = 2.0 * dKappa_t;
-
-    gslpp::complex tmp2 = 2.0 * CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
+    gslpp::complex tmp = CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
     
-    double mu = (1.0 + tmp.real() + tmp2.real());
+    double mu = (1.0 + 2.0 * ( dKappa_t.real() + tmp.real() ) );
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        gslpp::complex tmp2 = dKappa_t + tmp;
+        
+        mu += tmp2.abs2();
+        
+    }
     
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
