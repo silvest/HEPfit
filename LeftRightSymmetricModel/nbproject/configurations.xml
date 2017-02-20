@@ -4,7 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/LRSMobservables.h</itemPath>
+      <itemPath>src/LRSMObservables.h</itemPath>
       <itemPath>src/LRSMquantities.h</itemPath>
       <itemPath>src/LeftRightSymmetricModel.h</itemPath>
       <itemPath>src/LeftRightSymmetricModelMatching.h</itemPath>
@@ -54,7 +54,7 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/LRSMobservables.h" ex="false" tool="3" flavor2="0">
+      <item path="src/LRSMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LRSMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -105,7 +105,7 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/LRSMobservables.h" ex="false" tool="3" flavor2="0">
+      <item path="src/LRSMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LRSMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -146,7 +146,7 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/LRSMobservables.h" ex="false" tool="3" flavor2="0">
+      <item path="src/LRSMObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/LRSMquantities.cpp" ex="false" tool="1" flavor2="0">
       </item>
