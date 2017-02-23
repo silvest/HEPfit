@@ -77,17 +77,17 @@ private:
 };
 
 /**
- * @class ggF_tth_htobb
+ * @class ggF_tth_htobb8
  * @ingroup THDM
- * @brief Signal strength of a ggF or tth produced h decaying to two b quarks.
+ * @brief Signal strength of a ggF or tth produced h decaying to two b quarks at 8 TeV.
  */
-class ggF_tth_htobb : public ThObservable {
+class ggF_tth_htobb8 : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    ggF_tth_htobb(const StandardModel& SM_i);
+    ggF_tth_htobb8(const StandardModel& SM_i);
     
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to b\bar b)@f$
@@ -98,17 +98,17 @@ private:
 };
 
 /**
- * @class ggF_tth_htoWW
+ * @class ggF_tth_htoWW8
  * @ingroup THDM
- * @brief Signal strength of a ggF or tth produced h decaying to two @f$W@f$ bosons.
+ * @brief Signal strength of a ggF or tth produced h decaying to two @f$W@f$ bosons at 8 TeV.
  */
-class ggF_tth_htoWW : public ThObservable {
+class ggF_tth_htoWW8 : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    ggF_tth_htoWW(const StandardModel& SM_i);
+    ggF_tth_htoWW8(const StandardModel& SM_i);
     
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to WW)@f$
@@ -119,17 +119,17 @@ private:
 };
 
 /**
- * @class ggF_tth_htotautau
+ * @class ggF_tth_htotautau8
  * @ingroup THDM
- * @brief Signal strength of a ggF or tth produced h decaying to two @f$\tau@f$ leptons.
+ * @brief Signal strength of a ggF or tth produced h decaying to two @f$\tau@f$ leptons at 8 TeV.
  */
-class ggF_tth_htotautau : public ThObservable {
+class ggF_tth_htotautau8 : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    ggF_tth_htotautau(const StandardModel& SM_i);
+    ggF_tth_htotautau8(const StandardModel& SM_i);
     
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to \tau\tau)@f$
@@ -140,17 +140,17 @@ private:
 };
 
 /**
- * @class ggF_tth_htoZZ
+ * @class ggF_tth_htoZZ8
  * @ingroup THDM
- * @brief Signal strength of a ggF or tth produced h decaying to two @f$Z@f$ bosons.
+ * @brief Signal strength of a ggF or tth produced h decaying to two @f$Z@f$ bosons at 8 TeV.
  */
-class ggF_tth_htoZZ : public ThObservable {
+class ggF_tth_htoZZ8 : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    ggF_tth_htoZZ(const StandardModel& SM_i);
+    ggF_tth_htoZZ8(const StandardModel& SM_i);
     
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to ZZ)@f$
@@ -161,17 +161,17 @@ private:
 };
 
 /**
- * @class ggF_tth_htogaga
+ * @class ggF_tth_htogaga8
  * @ingroup THDM
- * @brief Signal strength of a ggF or tth produced h decaying to two photons.
+ * @brief Signal strength of a ggF or tth produced h decaying to two photons at 8 TeV.
  */
-class ggF_tth_htogaga : public ThObservable {
+class ggF_tth_htogaga8 : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
      */
-    ggF_tth_htogaga(const StandardModel& SM_i);
+    ggF_tth_htogaga8(const StandardModel& SM_i);
     
     /**
      * @return @f$\mu_{\text ggF+tth}(h\to \gamma\gamma)@f$
@@ -390,6 +390,221 @@ public:
 private:
     const THDM& myTHDM;
 };
+
+/**
+ * @class ggF_htobb
+ * @ingroup THDM
+ * @brief Signal strength of a ggF produced h decaying to two b quarks at 13 TeV.
+ */
+class ggF_htobb : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_htobb(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF}(h\to b\bar b)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_htoWW
+ * @ingroup THDM
+ * @brief Signal strength of a ggF produced h decaying to two @f$W@f$ bosons at 13 TeV.
+ */
+class ggF_htoWW : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_htoWW(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF}(h\to WW)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_htotautau
+ * @ingroup THDM
+ * @brief Signal strength of a ggF produced h decaying to two @f$\tau@f$ leptons at 13 TeV.
+ */
+class ggF_htotautau : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_htotautau(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF}(h\to \tau \tau)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_htoZZ
+ * @ingroup THDM
+ * @brief Signal strength of a ggF produced h decaying to two @f$Z@f$ bosons at 13 TeV.
+ */
+class ggF_htoZZ : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_htoZZ(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF}(h\to ZZ)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class ggF_htogaga
+ * @ingroup THDM
+ * @brief Signal strength of a ggF produced h decaying to two photons at 13 TeV.
+ */
+class ggF_htogaga : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    ggF_htogaga(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text ggF}(h\to \gamma \gamma)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class tth_htobb
+ * @ingroup THDM
+ * @brief Signal strength of a tth produced h decaying to two b quarks at 13 TeV.
+ */
+class tth_htobb : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    tth_htobb(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text tth}(h\to b\bar b)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class tth_htoWW
+ * @ingroup THDM
+ * @brief Signal strength of a tth produced h decaying to two @f$W@f$ bosons at 13 TeV.
+ */
+class tth_htoWW : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    tth_htoWW(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text tth}(h\to WW)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class tth_htotautau
+ * @ingroup THDM
+ * @brief Signal strength of a tth produced h decaying to two @f$\tau@f$ leptons at 13 TeV.
+ */
+class tth_htotautau : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    tth_htotautau(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text tth}(h\to \tau \tau)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class tth_htoZZ
+ * @ingroup THDM
+ * @brief Signal strength of a tth produced h decaying to two @f$Z@f$ bosons at 13 TeV.
+ */
+class tth_htoZZ : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    tth_htoZZ(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text tth}(h\to ZZ)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class tth_htogaga
+ * @ingroup THDM
+ * @brief Signal strength of a tth produced h decaying to two photons at 13 TeV.
+ */
+class tth_htogaga : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    tth_htogaga(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text tth}(h\to \gamma \gamma)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+
+
+
+
 
 /**
  * @class Gamma_h_THDM

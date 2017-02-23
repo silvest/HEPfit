@@ -1,5 +1,5 @@
 # CMS-PAS-EXO-16-034, Fig. 4
-# expected 95% exclusion limits on sigBR(pp->X->Zgamma)
+# expected 95% exclusion limits on sigBR(pp->X->Zgamma[->llgamma])
 # mX[GeV] | sig*BR_95% [pb]
 300.0	7.66E-02
 310.0	7.38E-02

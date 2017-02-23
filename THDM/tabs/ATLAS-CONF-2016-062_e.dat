@@ -1,5 +1,5 @@
 # ATLAS-CONF-2016-062, Fig. 5
-# expected 95% exclusion limits on sigBR(gg->H->WW)
+# expected 95% exclusion limits on sigBR(gg->H->WW[->lnuqq])
 # mH[GeV] | sig*BR_95% [pb]
 500.0	5.95E-01
 510.0	5.37E-01

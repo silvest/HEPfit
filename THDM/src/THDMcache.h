@@ -219,15 +219,27 @@ public:
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
      */
     gslpp::matrix<double> CMS13_pp_phi_bb, CMS13_gg_phi_tautau, CMS13_bb_phi_tautau, CMS13_gg_phi_gaga, CMS13_pp_phi_Zga_llga,\
-                          CMS13_pp_phi_Zga_qqga, CMS13_pp_H_ZZ_llll, CMS13_VBFVH_H_ZZ_llll, CMS13_ggFVBF_H_WW_lnulnu,\
+                          CMS13_pp_phi_Zga_qqga, CMS13_pp_H_ZZ_llll, CMS13_VBFVH_H_ZZ_llll, CMS13_pp_H_ZZ_llqq, CMS13_ggFVBF_H_WW_lnulnu,\
                           CMS13_pp_H_hh_bbbb, CMS13_pp_H_hh_gagabb, CMS13_pp_H_hh_bbtautau, CMS13_pp_H_hh_bblnulnu;
 
     /**
      * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
      */
     gslpp::matrix<double> CMS13_pp_phi_bb_e, CMS13_gg_phi_tautau_e, CMS13_bb_phi_tautau_e, CMS13_gg_phi_gaga_e, CMS13_pp_phi_Zga_llga_e,\
-                          CMS13_pp_phi_Zga_qqga_e, CMS13_pp_H_ZZ_llll_e, CMS13_VBFVH_H_ZZ_llll_e, CMS13_ggFVBF_H_WW_lnulnu_e,\
+                          CMS13_pp_phi_Zga_qqga_e, CMS13_pp_H_ZZ_llll_e, CMS13_VBFVH_H_ZZ_llll_e, CMS13_pp_H_ZZ_llqq_e, CMS13_ggFVBF_H_WW_lnulnu_e,\
                           CMS13_pp_H_hh_bbbb_e, CMS13_pp_H_hh_gagabb_e, CMS13_pp_H_hh_bbtautau_e, CMS13_pp_H_hh_bblnulnu_e;
+
+    /**
+     * @brief data templates
+     */
+    gslpp::matrix<double> temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, temp9, temp10;
+    gslpp::matrix<double> temp11, temp12, temp13, temp14, temp15, temp16, temp17, temp18, temp19, temp20;
+    gslpp::matrix<double> temp21, temp22, temp23, temp24, temp25, temp26, temp27, temp28, temp29, temp30;
+    gslpp::matrix<double> temp31, temp32, temp33, temp34, temp35, temp36, temp37, temp38, temp39, temp40;
+    gslpp::matrix<double> temp1e, temp2e, temp3e, temp4e, temp5e, temp6e, temp7e, temp8e, temp9e, temp10e;
+    gslpp::matrix<double> temp11e, temp12e, temp13e, temp14e, temp15e, temp16e, temp17e, temp18e, temp19e, temp20e;
+    gslpp::matrix<double> temp21e, temp22e, temp23e, temp24e, temp25e, temp26e, temp27e, temp28e, temp29e, temp30e;
+    gslpp::matrix<double> temp31e, temp32e, temp33e, temp34e, temp35e, temp36e, temp37e, temp38e, temp39e, temp40e;
         
 
     /**
@@ -395,7 +407,7 @@ public:
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_t(gg\to H)/\sigma(gg\to H)@f$
      */
-    double ip_csr_ggH_t(double mass);
+    double ip_csr_ggH_t_8(double mass);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution at 13 TeV.
@@ -407,7 +419,7 @@ public:
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the bottom-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_b(gg\to H)/\sigma(gg\to H)@f$
      */
-    double ip_csr_ggH_b(double mass);
+    double ip_csr_ggH_b_8(double mass);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the bottom-loop and the total contribution at 13 TeV.
@@ -419,7 +431,7 @@ public:
      * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_t(gg\to A)/\sigma(gg\to A)@f$
      */
-    double ip_csr_ggA_t(double mass);
+    double ip_csr_ggA_t_8(double mass);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the top-loop and the total contribution at 13 TeV.
@@ -431,7 +443,7 @@ public:
      * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the bottom-loop and the total contribution at 8 TeV.
      * @return @f$\sigma_b(gg\to A)/\sigma(gg\to A)@f$
      */
-    double ip_csr_ggA_b(double mass);
+    double ip_csr_ggA_b_8(double mass);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion A cross section ratio of the bottom-loop and the total contribution at 13 TeV.
@@ -840,14 +852,14 @@ public:
      * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to Z \gamma)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from ATLAS-CONF-2016-044, Figure 6 @cite ATLAS:2016lri.
      */
-    double ip_ex_pp_phi_Zga_ATLAS13(double mass);
+    double ip_ex_pp_phi_Zga_llga_ATLAS13(double mass);
 
     /**
      * @brief Interpolating function for the expected ATLAS upper limit on a scalar resonance decaying to a @f$Z@f$ boson and a photon, of which the @f$Z@f$ further decays to two leptons.
      * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to Z \gamma)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from ATLAS-CONF-2016-044, Figure 6 @cite ATLAS:2016lri.
      */
-    double ip_ex_pp_phi_Zga_ATLAS13_e(double mass);
+    double ip_ex_pp_phi_Zga_llga_ATLAS13_e(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$Z@f$ bosons which further decay to two leptons and two neutrinos.
@@ -1134,28 +1146,42 @@ public:
      * @return @f$[\sigma_{gg\to H}\cdot BR(H\to ZZ\to \ell \ell \ell \ell)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-HIG-PAS-16-033, Figure 16-a @cite CMS:2016ilx.
      */
-    double ip_ex_gg_H_ZZ_llll_CMS13(double mass);
+    double ip_ex_pp_H_ZZ_llll_CMS13(double mass);
 
     /**
      * @brief Interpolating function for the expected CMS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$Z@f$ bosons which further decay to four leptons.
      * @return @f$[\sigma_{gg\to H}\cdot BR(H\to ZZ\to \ell \ell \ell \ell)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-HIG-PAS-16-033, Figure 16-a @cite CMS:2016ilx.
      */
-    double ip_ex_gg_H_ZZ_llll_CMS13_e(double mass);
+    double ip_ex_pp_H_ZZ_llll_CMS13_e(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a vector boson fusion produced scalar resonance decaying to two @f$Z@f$ bosons which further decay to four leptons.
      * @return @f$[\sigma_{VV\to H}\cdot BR(H\to ZZ\to \ell \ell \ell \ell)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-HIG-PAS-16-033, Figure 16-b @cite CMS:2016ilx.
      */
-    double ip_ex_VBF_H_ZZ_llll_CMS13(double mass);
+    double ip_ex_VBF_VH_H_ZZ_llll_CMS13(double mass);
 
     /**
      * @brief Interpolating function for the expected CMS upper limit on a vector boson fusion produced scalar resonance decaying to two @f$Z@f$ bosons which further decay to four leptons.
      * @return @f$[\sigma_{VV\to H}\cdot BR(H\to ZZ\to \ell \ell \ell \ell)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-HIG-PAS-16-033, Figure 16-b @cite CMS:2016ilx.
      */
-    double ip_ex_VBF_H_ZZ_llll_CMS13_e(double mass);
+    double ip_ex_VBF_VH_H_ZZ_llll_CMS13_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$Z@f$ bosons which further decay to two leptons and two quarks.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to ZZ)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-HIG-PAS-16-034, Figure 4-a @cite CMS:2017sbi.
+     */
+    double ip_ex_pp_H_ZZ_llqq_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two @f$Z@f$ bosons which further decay to two leptons and two quarks.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to ZZ)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-HIG-PAS-16-034, Figure 4-a @cite CMS:2017sbi.
+     */
+    double ip_ex_pp_H_ZZ_llqq_CMS13_e(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon or vector boson fusion produced scalar resonance decaying to two @f$W@f$ bosons which further decay to two lepton-neutrino pairs.
@@ -1226,6 +1252,88 @@ public:
      * @details Taken from CMS-HIG-PAS-16-011, Figure 5-a @cite CMS:2016rec.
      */
     double ip_ex_pp_H_hh_bblnulnu_CMS13_e(double mass);
+
+    /*Empty interpolation templates*/
+    double ie1(double mass);
+    double ie1e(double mass);
+    double ie2(double mass);
+    double ie2e(double mass);
+    double ie3(double mass);
+    double ie3e(double mass);
+    double ie4(double mass);
+    double ie4e(double mass);
+    double ie5(double mass);
+    double ie5e(double mass);
+    double ie6(double mass);
+    double ie6e(double mass);
+    double ie7(double mass);
+    double ie7e(double mass);
+    double ie8(double mass);
+    double ie8e(double mass);
+    double ie9(double mass);
+    double ie9e(double mass);
+    double ie10(double mass);
+    double ie10e(double mass);
+    double ie11(double mass);
+    double ie11e(double mass);
+    double ie12(double mass);
+    double ie12e(double mass);
+    double ie13(double mass);
+    double ie13e(double mass);
+    double ie14(double mass);
+    double ie14e(double mass);
+    double ie15(double mass);
+    double ie15e(double mass);
+    double ie16(double mass);
+    double ie16e(double mass);
+    double ie17(double mass);
+    double ie17e(double mass);
+    double ie18(double mass);
+    double ie18e(double mass);
+    double ie19(double mass);
+    double ie19e(double mass);
+    double ie20(double mass);
+    double ie20e(double mass);
+    double ie21(double mass);
+    double ie21e(double mass);
+    double ie22(double mass);
+    double ie22e(double mass);
+    double ie23(double mass);
+    double ie23e(double mass);
+    double ie24(double mass);
+    double ie24e(double mass);
+    double ie25(double mass);
+    double ie25e(double mass);
+    double ie26(double mass);
+    double ie26e(double mass);
+    double ie27(double mass);
+    double ie27e(double mass);
+    double ie28(double mass);
+    double ie28e(double mass);
+    double ie29(double mass);
+    double ie29e(double mass);
+    double ie30(double mass);
+    double ie30e(double mass);
+    double ie31(double mass);
+    double ie31e(double mass);
+    double ie32(double mass);
+    double ie32e(double mass);
+    double ie33(double mass);
+    double ie33e(double mass);
+    double ie34(double mass);
+    double ie34e(double mass);
+    double ie35(double mass);
+    double ie35e(double mass);
+    double ie36(double mass);
+    double ie36e(double mass);
+    double ie37(double mass);
+    double ie37e(double mass);
+    double ie38(double mass);
+    double ie38e(double mass);
+    double ie39(double mass);
+    double ie39e(double mass);
+    double ie40(double mass);
+    double ie40e(double mass);
 
     /**
      * @brief Interpolating function for the NNLO value for the branching ratio of @f$b\to s \gamma@f$ decays in the THDM.
@@ -1497,100 +1605,250 @@ public:
     double THDM_BR_h_tautau;
 
     /**
+     * @brief @f$h@f$ branching ratio to two @f$W@f$ bosons in the %THDM.
+     * @return @f$BR^{\text{THDM}}(h\to WW)@f$
+     */
+    double THDM_BR_h_WW;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
      */
-    double ggF_H_tautau_TH;
+    double ggF_H_tautau_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
      */
-    double bbF_H_tautau_TH;
+    double bbF_H_tautau_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H\to \gamma\gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
      */
-    double pp_H_gaga_TH;
+    double pp_H_gaga_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
      */
-    double ggF_H_gaga_TH;
+    double ggF_H_gaga_TH8;
 
     /**
      * @brief Signal strength for the process @f$pp\to H\to VV@f$ with $VV=WW,ZZ$ at the LHC with 8 TeV.
      * @return @f$\mu_H^{\text{THDM}}(H\to VV)=[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to VV)] / [\sigma^{\text{SM}}_{pp\to H}\cdot BR^{\text{SM}}(H\to VV)]@f$
      */
-    double mu_pp_H_VV_TH;
+    double mu_pp_H_VV_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to ZZ@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
      */
-    double ggF_H_ZZ_TH;
+    double ggF_H_ZZ_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$VV\to H\to ZZ@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
      */
-    double VBF_H_ZZ_TH;
+    double VBF_H_ZZ_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
      */
-    double ggF_H_WW_TH;
+    double ggF_H_WW_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$VV\to H\to WW@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
      */
-    double VBF_H_WW_TH;
+    double VBF_H_WW_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to hh@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
      */
-    double ggF_H_hh_TH;
+    double ggF_H_hh_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
      */
-    double pp_H_hh_TH;
+    double pp_H_hh_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to hh\to b\bar b \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)@f$
      */
-    double ggF_H_hh_bbtautau_TH;
+    double ggF_H_hh_bbtautau_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
      */
-    double pp_H_hh_bbbb_TH;
+    double pp_H_hh_bbbb_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)@f$
      */
-    double pp_H_hh_gagabb_TH;
+    double pp_H_hh_gagabb_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to t\bar t@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
      */
-    double ggF_H_tt_TH;
+    double ggF_H_tt_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to b\bar b@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$
      */
-    double bbF_H_bb_TH;
+    double bbF_H_bb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
+     */
+    double ggF_H_tautau_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
+     */
+    double bbF_H_tautau_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to \gamma\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
+     */
+    double pp_H_gaga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to \gamma\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)@f$
+     */
+    double ggF_H_gaga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to Z\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)@f$
+     */
+    double pp_H_Zga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
+     */
+    double pp_H_ZZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
+     */
+    double ggF_H_ZZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to H\to ZZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
+     */
+    double VBF_H_ZZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
+     */
+    double ggF_H_ZZ_llll_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
+     */
+    double VBF_H_ZZ_llll_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
+     */
+    double pp_H_ZZ_llll_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV+VH\to H\to ZZ\to 4\ell@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{VV+VH\to H}\cdot BR^{\text{THDM}}(H\to ZZ\to 4\ell)@f$
+     */
+    double VBF_VH_H_ZZ_llll_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
+     */
+    double ggF_H_WW_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$VV\to H\to WW@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{VV\to H}\cdot BR^{\text{THDM}}(H\to WW)@f$
+     */
+    double VBF_H_WW_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$(gg+VV)\to H\to WW\to \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{(gg+VV)\to H}\cdot BR^{\text{THDM}}(H\to WW\to \ell \nu \ell \nu)@f$
+     */
+    double ggF_VBF_H_WW_lnulnu_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
+     */
+    double ggF_H_hh_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh)@f$
+     */
+    double pp_H_hh_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
+     */
+    double pp_H_hh_bbbb_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to \gamma\gamma b\bar b)@f$
+     */
+    double pp_H_hh_gagabb_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b \tau\tau@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b \tau\tau)@f$
+     */
+    double pp_H_hh_bbtautau_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b WW\to b\bar b \ell \nu \ell \nu)@f$
+     */
+    double pp_H_hh_bblnulnu_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$t\bar t\to H\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{t\bar t\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
+     */
+    double ttF_H_tt_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to t\bar t)@f$
+     */
+    double bbF_H_tt_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$
+     */
+    double pp_H_bb_TH13;
 
     /**
      * @brief Total decay width of the heavy CP-even Higgs @f$H@f$.
@@ -1654,10 +1912,10 @@ public:
     double R_pp_H_gaga_ATLAS8;
     double THoEX_ggF_H_gaga_CMS8;
     double R_ggF_H_gaga_CMS8;
-    double LIMIT_ggF_H_gaga_CMS8;
-    double LIMEST_ggF_H_gaga_CMS8;
-    double DEVIATION_ggF_H_gaga_CMS8;
-    double BANDSIZE_ggF_H_gaga_CMS8;
+//    double LIMIT_ggF_H_gaga_CMS8;
+//    double LIMEST_ggF_H_gaga_CMS8;
+//    double DEVIATION_ggF_H_gaga_CMS8;
+//    double BANDSIZE_ggF_H_gaga_CMS8;
     double THoEX_mu_pp_H_VV_CMS8;
     double R_mu_pp_H_VV_CMS8;
     double THoEX_ggF_H_WW_ATLAS8;
@@ -1683,101 +1941,202 @@ public:
     double THoEX_bbF_H_bb_CMS8;
     double R_bbF_H_bb_CMS8;
 
-//    gslpp::matrix<double> ATLAS13_bb_phi_tt_e, ATLAS13_tt_phi_tt_e, ATLAS13_gg_phi_tautau_e, ATLAS13_bb_phi_tautau_e,\
-//                          ATLAS13_pp_phi_gaga_e, ATLAS13_pp_phi_Zga_e, ATLAS13_gg_H_ZZ_llnunu_e, ATLAS13_gg_H_ZZ_llll_e,\
-//                          ATLAS13_VBF_H_ZZ_llll_e, ATLAS13_gg_H_ZZ_llqq_e, ATLAS13_VBF_H_ZZ_llqq_e, ATLAS13_gg_H_ZZ_nunuqq_e,\
-//                          ATLAS13_gg_H_WW_enumumu_e, ATLAS13_VBF_H_WW_enumumu_e, ATLAS13_gg_H_WW_lnuqq_e, ATLAS13_pp_H_hh_bbbb_e,\
-//                          ATLAS13_pp_H_hh_gagabb_e, ATLAS13_pp_H_hh_gagaWW_e, ATLAS13_gg_A_Zh_Zbb_e, ATLAS13_bb_A_Zh_Zbb_e;
-//
-//    /**
-//     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-//     */
-//    gslpp::matrix<double> CMS13_pp_phi_bb, CMS13_gg_phi_tautau, CMS13_bb_phi_tautau, CMS13_gg_phi_gaga, CMS13_pp_phi_Zga_llga,\
-//                          CMS13_pp_phi_Zga_qqga, CMS13_pp_H_ZZ_llll, CMS13_VBFVH_H_ZZ_llll, CMS13_ggFVBF_H_WW_lnulnu,\
-//                          CMS13_pp_H_hh_bbbb, CMS13_pp_H_hh_gagabb, CMS13_pp_H_hh_bbtautau, CMS13_pp_H_hh_bblnulnu;
-//
+    double THoEX_ttF_H_tt_ATLAS13;
+    double R_ttF_H_tt_ATLAS13;
+    double THoEX_bbF_H_tt_ATLAS13;
+    double R_bbF_H_tt_ATLAS13;
+    double THoEX_ggF_H_tautau_ATLAS13;
+    double R_ggF_H_tautau_ATLAS13;
+    double THoEX_bbF_H_tautau_ATLAS13;
+    double R_bbF_H_tautau_ATLAS13;
+    double THoEX_ggF_H_tautau_CMS13;
+    double R_ggF_H_tautau_CMS13;
+    double THoEX_bbF_H_tautau_CMS13;
+    double R_bbF_H_tautau_CMS13;
+    double THoEX_pp_H_gaga_ATLAS13;
+    double R_pp_H_gaga_ATLAS13;
+    double THoEX_ggF_H_gaga_CMS13;
+    double R_ggF_H_gaga_CMS13;
+    double THoEX_pp_H_Zga_ATLAS13;
+    double R_pp_H_Zga_ATLAS13;
+    double THoEX_pp_H_Zga_llga_CMS13;
+    double R_pp_H_Zga_llga_CMS13;
+    double THoEX_pp_H_Zga_qqga_CMS13;
+    double R_pp_H_Zga_qqga_CMS13;
+    double THoEX_ggF_H_ZZ_llnunu_ATLAS13;
+    double R_ggF_H_ZZ_llnunu_ATLAS13;
+    double THoEX_ggF_H_ZZ_llll_ATLAS13;
+    double R_ggF_H_ZZ_llll_ATLAS13;
+    double THoEX_VBF_H_ZZ_llll_ATLAS13;
+    double R_VBF_H_ZZ_llll_ATLAS13;
+    double THoEX_pp_H_ZZ_llll_CMS13;
+    double R_pp_H_ZZ_llll_CMS13;
+    double THoEX_VBF_VH_H_ZZ_llll_CMS13;
+    double R_VBF_VH_H_ZZ_llll_CMS13;
+    double THoEX_ggF_H_ZZ_llqq_ATLAS13;
+    double R_ggF_H_ZZ_llqq_ATLAS13;
+    double THoEX_VBF_H_ZZ_llqq_ATLAS13;
+    double R_VBF_H_ZZ_llqq_ATLAS13;
+    double THoEX_ggF_H_ZZ_nunuqq_ATLAS13;
+    double R_ggF_H_ZZ_nunuqq_ATLAS13;
+    double THoEX_pp_H_ZZ_llqq_CMS13;
+    double R_pp_H_ZZ_llqq_CMS13;
+    double THoEX_ggF_H_WW_lnuqq_ATLAS13;
+    double R_ggF_H_WW_lnuqq_ATLAS13;
+    double THoEX_ggF_H_WW_enumunu_ATLAS13;
+    double R_ggF_H_WW_enumunu_ATLAS13;
+    double THoEX_VBF_H_WW_enumunu_ATLAS13;
+    double R_VBF_H_WW_enumunu_ATLAS13;
+    double THoEX_ggF_VBF_H_WW_lnulnu_CMS13;
+    double R_ggF_VBF_H_WW_lnulnu_CMS13;
+    double THoEX_pp_H_hh_bbgaga_ATLAS13;
+    double R_pp_H_hh_bbgaga_ATLAS13;
+    double THoEX_pp_H_hh_bbgaga_CMS13;
+    double R_pp_H_hh_bbgaga_CMS13;
+    double THoEX_pp_H_hh_bbbb_ATLAS13;
+    double R_pp_H_hh_bbbb_ATLAS13;
+    double THoEX_pp_H_hh_bbbb_CMS13;
+    double R_pp_H_hh_bbbb_CMS13;
+    double THoEX_ggF_H_hh_gagaWW_ATLAS13;
+    double R_ggF_H_hh_gagaWW_ATLAS13;
+    double THoEX_pp_H_hh_bbtautau_CMS13;
+    double R_pp_H_hh_bbtautau_CMS13;
+    double THoEX_pp_H_hh_bblnulnu_CMS13;
+    double R_pp_H_hh_bblnulnu_CMS13;
+    double THoEX_pp_H_bb_CMS13;
+    double R_pp_H_bb_CMS13;
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
      */
-    double ggF_A_tautau_TH;
+    double ggF_A_tautau_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
      */
-    double bbF_A_tautau_TH;
+    double bbF_A_tautau_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
      */
-    double pp_A_gaga_TH;
+    double pp_A_gaga_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to A\to Z\gamma \to \ell \ell \gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma \to \ell \ell \gamma)@f$
      */
-    double pp_A_Zga_llga_TH;
+    double pp_A_Zga_llga_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma\gamma@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma\gamma)@f$
      */
-    double ggF_A_gaga_TH;
+    double ggF_A_gaga_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ)@f$
      */
-    double ggF_A_hZ_TH;
+    double ggF_A_hZ_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b \ell \ell)@f$
      */
-    double ggF_A_hZ_bbll_TH;
+    double ggF_A_hZ_bbll_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to b\bar b Z@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to b\bar b Z)@f$
      */
-    double ggF_A_hZ_bbZ_TH;
+    double ggF_A_hZ_bbZ_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau \ell \ell@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau \ell \ell)@f$
      */
-    double ggF_A_hZ_tautaull_TH;
+    double ggF_A_hZ_tautaull_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ \to \tau \tau Z@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ \to \tau \tau Z)@f$
      */
-    double ggF_A_hZ_tautauZ_TH;
+    double ggF_A_hZ_tautauZ_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to t\bar t@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
      */
-    double ggF_A_tt_TH;
+    double ggF_A_tt_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to b\bar b@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$
      */
-    double bbF_A_bb_TH;
+    double bbF_A_bb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau \tauZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau \tau)@f$
+     */
+    double ggF_A_tautau_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to \tau \tauZ@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to \tau \tau)@f$
+     */
+    double bbF_A_tautau_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to \gamma \gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to \gamma \gamma)@f$
+     */
+    double pp_A_gaga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to \gamma \gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \gamma \gamma)@f$
+     */
+    double ggF_A_gaga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to Z\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)@f$
+     */
+    double pp_A_Zga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ\to b\bar b Z@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b Z)@f$
+     */
+    double ggF_A_hZ_bbZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to hZ\to b\bar b Z@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to hZ\to b\bar b Z)@f$
+     */
+    double bbF_A_hZ_bbZ_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$t\bar t\to A\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{t\bar t\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
+     */
+    double ttF_A_tt_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$b\bar b\to A\to t\bar t@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to t\bar t)@f$
+     */
+    double bbF_A_tt_TH13;
+    
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$
+     */
+    double pp_A_bb_TH13;
 
     /**
      * @brief Total decay width of the CP-odd Higgs @f$A@f$.
@@ -1843,6 +2202,35 @@ public:
     double R_ggF_A_tt_ATLAS8;
     double THoEX_bbF_A_bb_CMS8;
     double R_bbF_A_bb_CMS8;
+
+    double THoEX_ttF_A_tt_ATLAS13;
+    double R_ttF_A_tt_ATLAS13;
+    double THoEX_bbF_A_tt_ATLAS13;
+    double R_bbF_A_tt_ATLAS13;
+    double THoEX_ggF_A_tautau_ATLAS13;
+    double R_ggF_A_tautau_ATLAS13;
+    double THoEX_bbF_A_tautau_ATLAS13;
+    double R_bbF_A_tautau_ATLAS13;
+    double THoEX_ggF_A_tautau_CMS13;
+    double R_ggF_A_tautau_CMS13;
+    double THoEX_bbF_A_tautau_CMS13;
+    double R_bbF_A_tautau_CMS13;
+    double THoEX_pp_A_gaga_ATLAS13;
+    double R_pp_A_gaga_ATLAS13;
+    double THoEX_ggF_A_gaga_CMS13;
+    double R_ggF_A_gaga_CMS13;
+    double THoEX_pp_A_Zga_llga_ATLAS13;
+    double R_pp_A_Zga_llga_ATLAS13;
+    double THoEX_pp_A_Zga_llga_CMS13;
+    double R_pp_A_Zga_llga_CMS13;
+    double THoEX_pp_A_Zga_qqga_CMS13;
+    double R_pp_A_Zga_qqga_CMS13;
+    double THoEX_ggF_A_hZ_bbZ_ATLAS13;
+    double R_ggF_A_hZ_bbZ_ATLAS13;
+    double THoEX_bbF_A_hZ_bbZ_ATLAS13;
+    double R_bbF_A_hZ_bbZ_ATLAS13;
+    double THoEX_pp_A_bb_CMS13;
+    double R_pp_A_bb_CMS13;
 
     double Q_cutoff;
     double g1_at_Q;
@@ -2040,13 +2428,13 @@ private:
     mutable double ip_cs_pptottA_13_cache[2][CacheSize];
     mutable double ip_cs_pptobbA_8_cache[2][CacheSize];
     mutable double ip_cs_pptobbA_13_cache[2][CacheSize];
-    mutable double ip_csr_ggH_t_cache[2][CacheSize];
+    mutable double ip_csr_ggH_t_8_cache[2][CacheSize];
     mutable double ip_csr_ggH_t_13_cache[2][CacheSize];
-    mutable double ip_csr_ggH_b_cache[2][CacheSize];
+    mutable double ip_csr_ggH_b_8_cache[2][CacheSize];
     mutable double ip_csr_ggH_b_13_cache[2][CacheSize];
-    mutable double ip_csr_ggA_t_cache[2][CacheSize];
+    mutable double ip_csr_ggA_t_8_cache[2][CacheSize];
     mutable double ip_csr_ggA_t_13_cache[2][CacheSize];
-    mutable double ip_csr_ggA_b_cache[2][CacheSize];
+    mutable double ip_csr_ggA_b_8_cache[2][CacheSize];
     mutable double ip_csr_ggA_b_13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_gaga_ATLAS8_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_gaga_ATLAS8_cache_e[2][CacheSize];
@@ -2107,8 +2495,8 @@ private:
     mutable double ip_ex_bb_phi_tautau_ATLAS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_gaga_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_gaga_ATLAS13_cache_e[2][CacheSize];
-    mutable double ip_ex_pp_phi_Zga_ATLAS13_cache[2][CacheSize];
-    mutable double ip_ex_pp_phi_Zga_ATLAS13_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_phi_Zga_llga_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_Zga_llga_ATLAS13_cache_e[2][CacheSize];
     mutable double ip_ex_gg_H_ZZ_llnunu_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_H_ZZ_llnunu_ATLAS13_cache_e[2][CacheSize];
     mutable double ip_ex_gg_H_ZZ_llll_ATLAS13_cache[2][CacheSize];
@@ -2121,6 +2509,8 @@ private:
     mutable double ip_ex_VBF_H_ZZ_llqq_ATLAS13_cache_e[2][CacheSize];
     mutable double ip_ex_gg_H_ZZ_nunuqq_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_H_ZZ_nunuqq_ATLAS13_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_H_ZZ_llqq_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_H_ZZ_llqq_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_gg_H_WW_enumunu_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_gg_H_WW_enumunu_ATLAS13_cache_e[2][CacheSize];
     mutable double ip_ex_VBF_H_WW_enumunu_ATLAS13_cache[2][CacheSize];
@@ -2149,10 +2539,10 @@ private:
     mutable double ip_ex_pp_phi_Zga_llga_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_Zga_qqga_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_Zga_qqga_CMS13_cache_e[2][CacheSize];
-    mutable double ip_ex_gg_H_ZZ_llll_CMS13_cache[2][CacheSize];
-    mutable double ip_ex_gg_H_ZZ_llll_CMS13_cache_e[2][CacheSize];
-    mutable double ip_ex_VBF_H_ZZ_llll_CMS13_cache[2][CacheSize];
-    mutable double ip_ex_VBF_H_ZZ_llll_CMS13_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_H_ZZ_llll_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_H_ZZ_llll_CMS13_cache_e[2][CacheSize];
+    mutable double ip_ex_VBF_VH_H_ZZ_llll_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_VBF_VH_H_ZZ_llll_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_ggVV_H_WW_lnulnu_CMS13_cache[2][CacheSize];
     mutable double ip_ex_ggVV_H_WW_lnulnu_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bbbb_CMS13_cache[2][CacheSize];
@@ -2163,6 +2553,87 @@ private:
     mutable double ip_ex_pp_H_hh_bbtautau_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bblnulnu_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bblnulnu_CMS13_cache_e[2][CacheSize];
+
+    mutable double ie1c[2][CacheSize];
+    mutable double ie1ec[2][CacheSize];
+    mutable double ie2c[2][CacheSize];
+    mutable double ie2ec[2][CacheSize];
+    mutable double ie3c[2][CacheSize];
+    mutable double ie3ec[2][CacheSize];
+    mutable double ie4c[2][CacheSize];
+    mutable double ie4ec[2][CacheSize];
+    mutable double ie5c[2][CacheSize];
+    mutable double ie5ec[2][CacheSize];
+    mutable double ie6c[2][CacheSize];
+    mutable double ie6ec[2][CacheSize];
+    mutable double ie7c[2][CacheSize];
+    mutable double ie7ec[2][CacheSize];
+    mutable double ie8c[2][CacheSize];
+    mutable double ie8ec[2][CacheSize];
+    mutable double ie9c[2][CacheSize];
+    mutable double ie9ec[2][CacheSize];
+    mutable double ie10c[2][CacheSize];
+    mutable double ie10ec[2][CacheSize];
+    mutable double ie11c[2][CacheSize];
+    mutable double ie11ec[2][CacheSize];
+    mutable double ie12c[2][CacheSize];
+    mutable double ie12ec[2][CacheSize];
+    mutable double ie13c[2][CacheSize];
+    mutable double ie13ec[2][CacheSize];
+    mutable double ie14c[2][CacheSize];
+    mutable double ie14ec[2][CacheSize];
+    mutable double ie15c[2][CacheSize];
+    mutable double ie15ec[2][CacheSize];
+    mutable double ie16c[2][CacheSize];
+    mutable double ie16ec[2][CacheSize];
+    mutable double ie17c[2][CacheSize];
+    mutable double ie17ec[2][CacheSize];
+    mutable double ie18c[2][CacheSize];
+    mutable double ie18ec[2][CacheSize];
+    mutable double ie19c[2][CacheSize];
+    mutable double ie19ec[2][CacheSize];
+    mutable double ie20c[2][CacheSize];
+    mutable double ie20ec[2][CacheSize];
+    mutable double ie21c[2][CacheSize];
+    mutable double ie21ec[2][CacheSize];
+    mutable double ie22c[2][CacheSize];
+    mutable double ie22ec[2][CacheSize];
+    mutable double ie23c[2][CacheSize];
+    mutable double ie23ec[2][CacheSize];
+    mutable double ie24c[2][CacheSize];
+    mutable double ie24ec[2][CacheSize];
+    mutable double ie25c[2][CacheSize];
+    mutable double ie25ec[2][CacheSize];
+    mutable double ie26c[2][CacheSize];
+    mutable double ie26ec[2][CacheSize];
+    mutable double ie27c[2][CacheSize];
+    mutable double ie27ec[2][CacheSize];
+    mutable double ie28c[2][CacheSize];
+    mutable double ie28ec[2][CacheSize];
+    mutable double ie29c[2][CacheSize];
+    mutable double ie29ec[2][CacheSize];
+    mutable double ie30c[2][CacheSize];
+    mutable double ie30ec[2][CacheSize];
+    mutable double ie31c[2][CacheSize];
+    mutable double ie31ec[2][CacheSize];
+    mutable double ie32c[2][CacheSize];
+    mutable double ie32ec[2][CacheSize];
+    mutable double ie33c[2][CacheSize];
+    mutable double ie33ec[2][CacheSize];
+    mutable double ie34c[2][CacheSize];
+    mutable double ie34ec[2][CacheSize];
+    mutable double ie35c[2][CacheSize];
+    mutable double ie35ec[2][CacheSize];
+    mutable double ie36c[2][CacheSize];
+    mutable double ie36ec[2][CacheSize];
+    mutable double ie37c[2][CacheSize];
+    mutable double ie37ec[2][CacheSize];
+    mutable double ie38c[2][CacheSize];
+    mutable double ie38ec[2][CacheSize];
+    mutable double ie39c[2][CacheSize];
+    mutable double ie39ec[2][CacheSize];
+    mutable double ie40c[2][CacheSize];
+    mutable double ie40ec[2][CacheSize];
 
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 
