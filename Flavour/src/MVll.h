@@ -654,6 +654,7 @@ private:
     double width;         /**<Initial meson width */
     double fperp;         /**<vector meson perpendicular decay constant*/
     double ys;            /**<CP-violation factor \f$\frac{\Delta \Gamma}{2\Gamma}\f$*/
+    double xs;            /**<CP-violation factor \f$\frac{\Delta m}{\Gamma}\f$*/
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
     double b;             /**<BF of the decay V -> final states */
@@ -893,7 +894,10 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta1;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta2;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta3;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta6;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta7;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta8;/**< Cache variable */
+    std::map<std::pair<double, double>, double > cacheDelta10;/**< Cache variable */
     std::map<std::pair<double, double>, double > cacheDelta11;/**< Cache variable */
     
     unsigned int N_updated;/**< Cache variable */
@@ -1071,7 +1075,10 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta1Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta2Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta3Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta6Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta7Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta8Cached;/**< Cache variable */
+    std::map<std::pair<double, double>, unsigned int > delta10Cached;/**< Cache variable */
     std::map<std::pair<double, double>, unsigned int > delta11Cached;/**< Cache variable */
     
     std::map<double, unsigned int> deltaTparpCached;/**< Cache variable */
@@ -1261,6 +1268,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_{1c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_{1c} \f$
     */
     double  I_1c(double q2, bool bar);
@@ -1268,6 +1276,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_{1s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_{1s} \f$
     */
     double  I_1s(double q2, bool bar);
@@ -1275,6 +1284,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_{2c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_{2c} \f$
     */
     double  I_2c(double q2, bool bar);
@@ -1282,6 +1292,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_{2s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_{2s} \f$
     */
     double  I_2s(double q2, bool bar);
@@ -1289,6 +1300,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_3 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_3 \f$
     */
     double  I_3(double q2, bool bar);
@@ -1296,6 +1308,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_4 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_4 \f$
     */
     double  I_4(double q2, bool bar);
@@ -1303,6 +1316,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_5 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_5 \f$
     */
     double  I_5(double q2, bool bar);
@@ -1310,6 +1324,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_{6c} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_{6c} \f$
     */
     double  I_6c(double q2, bool bar);
@@ -1317,6 +1332,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_{6s} \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_{6s} \f$
     */
     double  I_6s(double q2, bool bar);
@@ -1324,6 +1340,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_7 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_7 \f$
     */
     double  I_7(double q2, bool bar);
@@ -1331,6 +1348,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_8 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_8 \f$
     */
     double  I_8(double q2, bool bar);
@@ -1338,6 +1356,7 @@ private:
     /**
     * @brief The angular coefficient \f$ I_9 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ I_9 \f$
     */
     double  I_9(double q2, bool bar);
@@ -1345,6 +1364,7 @@ private:
     /**
     * @brief The angular coefficient \f$ h_1s \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ h_1s \f$
     */
     double  h_1s(double q2, bool bar);
@@ -1352,6 +1372,7 @@ private:
     /**
     * @brief The angular coefficient \f$ h_1c \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ h_1c \f$
     */
     double  h_1c(double q2, bool bar);
@@ -1359,6 +1380,7 @@ private:
     /**
     * @brief The angular coefficient \f$ h_2s \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ h_2s \f$
     */
     double  h_2s(double q2, bool bar);
@@ -1366,6 +1388,7 @@ private:
     /**
     * @brief The angular coefficient \f$ h_2c \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ h_2c \f$
     */
     double  h_2c(double q2, bool bar);
@@ -1373,6 +1396,7 @@ private:
     /**
     * @brief The angular coefficient \f$ h_3 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ h_3 \f$
     */
     double  h_3(double q2, bool bar);
@@ -1380,6 +1404,7 @@ private:
     /**
     * @brief The angular coefficient \f$ h_4 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ h_4 \f$
     */
     double  h_4(double q2, bool bar);
@@ -1387,9 +1412,50 @@ private:
     /**
     * @brief The angular coefficient \f$ h_7 \f$ .
     * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
     * @return \f$ h_7 \f$
     */
     double  h_7(double q2, bool bar);
+    
+    /**
+    * @brief The angular coefficient \f$ s_5 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
+    * @return \f$ s_5 \f$
+    */
+    double  s_5(double q2, bool bar);
+    
+    /**
+    * @brief The angular coefficient \f$ s_6s \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
+    * @return \f$ s_6s \f$
+    */
+    double  s_6s(double q2, bool bar);
+    
+    /**
+    * @brief The angular coefficient \f$ s_6c \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
+    * @return \f$ s_6c \f$
+    */
+    double  s_6c(double q2, bool bar);
+    
+    /**
+    * @brief The angular coefficient \f$ s_8 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
+    * @return \f$ s_8 \f$
+    */
+    double  s_8(double q2, bool bar);
+    
+    /**
+    * @brief The angular coefficient \f$ s_9 \f$ .
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] bar boolean variable to distinguish the decay \f$ M \to V \ell \ell \f$ (true) from the CP-conjugate \f$ \bar{M} \to \bar{V} \ell \ell \f$ (false)
+    * @return \f$ s_9 \f$
+    */
+    double  s_9(double q2, bool bar);
     
     /**
     * @brief The CP average \f$ \Sigma_{1s} \f$ .
@@ -1406,7 +1472,7 @@ private:
                 return (I_1c(q2, 0) + I_1c(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (I_1c(q2, 0) - ys * h_1c(q2, 0) + I_1c(q2, 1) - ys * h_1c(q2, 1))/2.;
+                return (I_1c(q2, 0) + I_1c(q2, 1) - ys * h_1c(q2, 0) )/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1430,7 +1496,7 @@ private:
                 return (I_1s(q2, 0) + I_1s(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (I_1s(q2, 0) - ys * h_1s(q2, 0) + I_1s(q2, 1) - ys * h_1s(q2, 1))/2.;
+                return (I_1s(q2, 0) + I_1s(q2, 1) - ys * h_1s(q2, 0))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1454,7 +1520,7 @@ private:
                 return (I_2c(q2, 0) + I_2c(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (I_2c(q2, 0) - ys * h_2c(q2, 0) + I_2c(q2, 1) - ys * h_2c(q2, 1))/2.;
+                return (I_2c(q2, 0) + I_2c(q2, 1) - ys * h_2c(q2, 0))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1478,7 +1544,7 @@ private:
                 return (I_2s(q2, 0) + I_2s(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (I_2s(q2, 0) - ys * h_2s(q2, 0) + I_2s(q2, 1) - ys * h_2s(q2, 1))/2.;
+                return (I_2s(q2, 0) + I_2s(q2, 1) - ys * h_2s(q2, 0))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1502,7 +1568,7 @@ private:
                 return (I_3(q2, 0) + I_3(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (I_3(q2, 0) - ys * h_3(q2, 0) + I_3(q2, 1) - ys * h_3(q2, 1))/2.;
+                return (I_3(q2, 0) + I_3(q2, 1) - ys * h_3(q2, 0))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1526,7 +1592,7 @@ private:
                 return (I_4(q2, 0) + I_4(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (I_4(q2, 0) - ys * h_4(q2, 0) + I_4(q2, 1) - ys * h_4(q2, 1))/2.;
+                return (I_4(q2, 0) + I_4(q2, 1) - ys * h_4(q2, 0))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1580,7 +1646,7 @@ private:
                 return (I_7(q2, 0) + I_7(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (I_7(q2, 0) - ys * h_7(q2, 0) + I_7(q2, 1) - ys * h_7(q2, 1))/2.;
+                return (I_7(q2, 0) + I_7(q2, 1) - ys * h_7(q2, 0))/2.;
                 break;
             default:
                 std::stringstream out;
@@ -1676,7 +1742,21 @@ private:
     */ 
     double getDelta5(double q2)
     {
-        return (I_5(q2, 0) - I_5(q2, 1))/2.;
+        switch(vectorM){
+            case QCD::K_star:
+                return (I_5(q2, 0) - I_5(q2, 1))/2.;
+                break;
+            case QCD::K_star_P:
+                return (I_5(q2, 0) - I_5(q2, 1))/2.;
+                break;
+            case QCD::PHI:
+                return (1. - ys*ys)/(1. + xs*xs) * (I_5(q2, 0) - I_5(q2, 1) - xs * s_5(q2, 0))/2.;
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getDelta5 : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1686,7 +1766,21 @@ private:
     */ 
     double getDelta6s(double q2)
     {
-        return (I_6s(q2, 0) - I_6s(q2, 1))/2.;
+        switch(vectorM){
+            case QCD::K_star:
+                return (I_6s(q2, 0) - I_6s(q2, 1))/2.;
+                break;
+            case QCD::K_star_P:
+                return (I_6s(q2, 0) - I_6s(q2, 1))/2.;
+                break;
+            case QCD::PHI:
+                return (1. - ys*ys)/(1. + xs*xs) * (I_6s(q2, 0) - I_6s(q2, 1) - xs * s_6s(q2, 0))/2.;
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getDelta6s : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1696,7 +1790,21 @@ private:
     */ 
     double getDelta6c(double q2)
     {
-        return (I_6c(q2, 0) - I_6c(q2, 1))/2.;
+        switch(vectorM){
+            case QCD::K_star:
+                return (I_6c(q2, 0) - I_6c(q2, 1))/2.;
+                break;
+            case QCD::K_star_P:
+                return (I_6c(q2, 0) - I_6c(q2, 1))/2.;
+                break;
+            case QCD::PHI:
+                return (1. - ys*ys)/(1. + xs*xs) * (I_6c(q2, 0) - I_6c(q2, 1) - xs * s_6c(q2, 0))/2.;
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getDelta6c : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1716,7 +1824,21 @@ private:
     */ 
     double getDelta8(double q2)
     {
-        return (I_8(q2, 0) - I_8(q2, 1))/2.;
+        switch(vectorM){
+            case QCD::K_star:
+                return (I_8(q2, 0) - I_8(q2, 1))/2.;
+                break;
+            case QCD::K_star_P:
+                return (I_8(q2, 0) - I_8(q2, 1))/2.;
+                break;
+            case QCD::PHI:
+                return (1. - ys*ys)/(1. + xs*xs) * (I_8(q2, 0) - I_8(q2, 1) - xs * s_8(q2, 0))/2.;
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getDelta8 : vector " + out.str() + " not implemented");
+        }
     };
     
     /**
@@ -1726,7 +1848,21 @@ private:
     */ 
     double getDelta9(double q2)
     {
-        return (I_9(q2, 0) - I_9(q2, 1))/2.;
+        switch(vectorM){
+            case QCD::K_star:
+                return (I_9(q2, 0) - I_9(q2, 1))/2.;
+                break;
+            case QCD::K_star_P:
+                return (I_9(q2, 0) - I_9(q2, 1))/2.;
+                break;
+            case QCD::PHI:
+                return (1. - ys*ys)/(1. + xs*xs) * (I_9(q2, 0) - I_9(q2, 1) - xs * s_9(q2, 0))/2.;
+                break;
+            default:
+                std::stringstream out;
+                out << vectorM;
+                throw std::runtime_error("MVll::getDelta9 : vector " + out.str() + " not implemented");
+        }
     };
     
     /**

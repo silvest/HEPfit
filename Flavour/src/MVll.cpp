@@ -252,6 +252,7 @@ void MVll::updateParameters()
             fperp = mySM.getFphip();
             
             ys = mySM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
+            xs = 27.;  // add implementation mySM.getMesons(QCD::B_S).getDmass_gamma();
 
             b = 0.489;
             break;
@@ -1625,18 +1626,50 @@ double MVll::h_2s(double q2, bool bar)
 
 double MVll::h_3(double q2, bool bar) 
 {
-    return -F(q2, b) * beta2(q2) / 2. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2());
+    return -F(q2, b) * beta2(q2) / 2. * (H_V_p(q2, bar).abs2() + H_V_m(q2, bar).abs2() 
+            + H_A_p(q2, bar).abs2() + H_A_m(q2, bar).abs2());
 }
 
 double MVll::h_4(double q2, bool bar) 
 {
-    return F(q2, b) * beta2(q2) / 2. * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_V_0(q2, bar).conjugate()).real() + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_A_0(q2, bar).conjugate()).real());
+    return F(q2, b) * beta2(q2) / 2. * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_V_0(q2, bar).conjugate()).real() 
+            + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_A_0(q2, bar).conjugate()).real());
 }
 
 double MVll::h_7(double q2, bool bar) 
 {
-    return F(q2, b)*(beta(q2) * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_A_0(q2, bar).conjugate()).imag() + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_V_0(q2, bar).conjugate()).imag()) -
+    return F(q2, b)*(beta(q2) * (((H_V_m(q2, bar) + H_V_p(q2, bar)) * H_A_0(q2, bar).conjugate()).imag() 
+            + ((H_A_m(q2, bar) + H_A_p(q2, bar)) * H_V_0(q2, bar).conjugate()).imag()) -
             beta(q2) * 2. * Mlep / sqrt(q2)*(H_S(q2, bar).conjugate()*(H_V_m(q2, bar) - H_V_p(q2, bar))).imag());
+}
+
+double MVll::s_5(double q2, bool bar) 
+{
+    return beta(q2) * (2. * Mlep * (H_V_m(q2, bar) + H_V_p(q2, bar)*F(q2, b)*H_S(q2, bar).conjugate()).imag() / sqrt(q2) 
+            - F(q2, b)*((H_A_m(q2, bar) - H_A_p(q2, bar)) * H_V_0(q2, bar).conjugate() 
+            + (H_V_m(q2, bar) - H_V_p(q2, bar)) * H_A_0(q2, bar).conjugate()).imag());
+}
+
+double MVll::s_6s(double q2, bool bar) 
+{
+    return 2. * beta(q2) * F(q2, b) * (H_A_p(q2, bar)*H_V_m(q2, bar).conjugate() + H_V_p(q2, bar)*H_A_m(q2, bar).conjugate()).imag();
+}
+
+double MVll::s_6c(double q2, bool bar) 
+{
+    return - 8. * beta(q2) * Mlep * (H_V_0(q2, bar)*F(q2, b)*H_S(q2, bar).conjugate()).imag() / sqrt(q2);
+}
+
+double MVll::s_8(double q2, bool bar) 
+{
+    return beta2(q2) * F(q2, b) * ((H_A_m(q2, bar) - H_A_p(q2, bar)) * H_A_0(q2, bar).conjugate() 
+            + (H_V_m(q2, bar) - H_V_p(q2, bar)) * H_V_0(q2, bar).conjugate()).real() / 2.;
+}
+
+double MVll::s_9(double q2, bool bar) 
+{
+    return beta2(q2) * F(q2, b) * (H_A_p(q2, bar).abs2() - H_A_m(q2, bar).abs2() 
+            + H_V_p(q2, bar).abs2() - H_V_m(q2, bar).abs2()) / 2.;
 }
 
 double MVll::integrateSigma(int i, double q_min, double q_max) 
@@ -1847,6 +1880,15 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             }
             return cacheDelta3[qbin];
             break;
+        case 6:
+            if (delta6Cached[qbin] == 0) {
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta5, &(*this), _1));
+                if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+                cacheDelta6[qbin] = avaDelta;
+                delta6Cached[qbin] = 1;
+            }
+            return cacheDelta6[qbin];
+            break;
         case 7:
             if (delta7Cached[qbin] == 0) {
                 FD = convertToGslFunction(boost::bind(&MVll::getDelta6s, &(*this), _1));
@@ -1855,6 +1897,24 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
                 delta7Cached[qbin] = 1;
             }
             return cacheDelta7[qbin];
+            break;
+        case 8:
+            if (delta8Cached[qbin] == 0) {
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta6c, &(*this), _1));
+                if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+                cacheDelta8[qbin] = avaDelta;
+                delta8Cached[qbin] = 1;
+            }
+            return cacheDelta8[qbin];
+            break;
+        case 10:
+            if (delta10Cached[qbin] == 0) {
+                FD = convertToGslFunction(boost::bind(&MVll::getDelta8, &(*this), _1));
+                if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+                cacheDelta10[qbin] = avaDelta;
+                delta10Cached[qbin] = 1;
+            }
+            return cacheDelta10[qbin];
             break;
         case 11:
             if (delta11Cached[qbin] == 0) {
