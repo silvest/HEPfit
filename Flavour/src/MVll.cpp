@@ -45,7 +45,7 @@ T_cache(5, 0.)
                                                                                    << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23" 
                                                                                    << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m" 
                                                                                    << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1" 
-                                                                                   << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2";;
+                                                                                   << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2" << "xs_phi";;
     if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>() << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0" 
                                                                                       << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
                                                                                       << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2" 
@@ -251,8 +251,8 @@ void MVll::updateParameters()
             fperp = mySM.getFphip();
             
             ys = mySM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
-            xs = 27.;  // add implementation mySM.getMesons(QCD::B_S).getDmass_gamma();
-
+            xs = mySM.getOptionalParameter("xs_phi");
+            
             b = 0.489;
             break;
         default:
@@ -1644,7 +1644,7 @@ double MVll::h_7(double q2, bool bar)
 
 double MVll::s_5(double q2, bool bar) 
 {
-    return beta(q2) * (2. * Mlep * (H_V_m(q2, bar) + H_V_p(q2, bar)*F(q2, b)*H_S(q2, bar).conjugate()).imag() / sqrt(q2) 
+    return beta(q2) * (2. * Mlep * ((H_V_m(q2, bar) + H_V_p(q2, bar))*F(q2, b)*H_S(q2, bar).conjugate()).imag() / sqrt(q2) 
             - F(q2, b)*((H_A_m(q2, bar) - H_A_p(q2, bar)) * H_V_0(q2, bar).conjugate() 
             + (H_V_m(q2, bar) - H_V_p(q2, bar)) * H_A_0(q2, bar).conjugate()).imag());
 }
