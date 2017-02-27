@@ -2209,7 +2209,7 @@ double THDMcache::ip_cs_ggtoH_8(double mass){
         return ( ip_cs_ggtoH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ggH_8,mass));
         }
         CacheShiftReal(ip_cs_ggtoH_8_cache, NumPar, params, newResult);
@@ -2228,7 +2228,7 @@ double THDMcache::ip_cs_ggtoH_13(double mass){
         return ( ip_cs_ggtoH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ggH_13,mass));
         }
         CacheShiftReal(ip_cs_ggtoH_13_cache, NumPar, params, newResult);
@@ -2247,7 +2247,7 @@ double THDMcache::ip_cs_VBFtoH_8(double mass){
         return ( ip_cs_VBFtoH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_VBF_8,mass));
         }
         CacheShiftReal(ip_cs_VBFtoH_8_cache, NumPar, params, newResult);
@@ -2266,7 +2266,7 @@ double THDMcache::ip_cs_VBFtoH_13(double mass){
         return ( ip_cs_VBFtoH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_VBF_13,mass));
         }
         CacheShiftReal(ip_cs_VBFtoH_13_cache, NumPar, params, newResult);
@@ -2285,7 +2285,7 @@ double THDMcache::ip_cs_WtoWH_8(double mass){
         return ( ip_cs_WtoWH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=400.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_WH_8,mass));
         }
         CacheShiftReal(ip_cs_WtoWH_8_cache, NumPar, params, newResult);
@@ -2304,7 +2304,7 @@ double THDMcache::ip_cs_WtoWH_13(double mass){
         return ( ip_cs_WtoWH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=400.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_WH_13,mass));
         }
         CacheShiftReal(ip_cs_WtoWH_13_cache, NumPar, params, newResult);
@@ -2323,7 +2323,7 @@ double THDMcache::ip_cs_ZtoZH_8(double mass){
         return ( ip_cs_ZtoZH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=400.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ZH_8,mass));
         }
         CacheShiftReal(ip_cs_ZtoZH_8_cache, NumPar, params, newResult);
@@ -2342,7 +2342,7 @@ double THDMcache::ip_cs_ZtoZH_13(double mass){
         return ( ip_cs_ZtoZH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=80. && mass <=400.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ZH_13,mass));
         }
         CacheShiftReal(ip_cs_ZtoZH_13_cache, NumPar, params, newResult);
@@ -2361,7 +2361,7 @@ double THDMcache::ip_cs_pptottH_8(double mass){
         return ( ip_cs_pptottH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ttH_8,mass));
         }
         CacheShiftReal(ip_cs_pptottH_8_cache, NumPar, params, newResult);
@@ -2380,7 +2380,7 @@ double THDMcache::ip_cs_pptottH_13(double mass){
         return ( ip_cs_pptottH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ttH_13,mass));
         }
         CacheShiftReal(ip_cs_pptottH_13_cache, NumPar, params, newResult);
@@ -2399,7 +2399,7 @@ double THDMcache::ip_cs_pptobbH_8(double mass){
         return ( ip_cs_pptobbH_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_bbH_8,mass));
         }
         CacheShiftReal(ip_cs_pptobbH_8_cache, NumPar, params, newResult);
@@ -2418,7 +2418,7 @@ double THDMcache::ip_cs_pptobbH_13(double mass){
         return ( ip_cs_pptobbH_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_bbH_13,mass));
         }
         CacheShiftReal(ip_cs_pptobbH_13_cache, NumPar, params, newResult);
@@ -2437,7 +2437,7 @@ double THDMcache::ip_cs_ggtoA_8(double mass){
         return ( ip_cs_ggtoA_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ggA_8,mass));
         }
         CacheShiftReal(ip_cs_ggtoA_8_cache, NumPar, params, newResult);
@@ -2456,7 +2456,7 @@ double THDMcache::ip_cs_ggtoA_13(double mass){
         return ( ip_cs_ggtoA_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ggA_13,mass));
         }
         CacheShiftReal(ip_cs_ggtoA_13_cache, NumPar, params, newResult);
@@ -2475,7 +2475,7 @@ double THDMcache::ip_cs_pptottA_8(double mass){
         return ( ip_cs_pptottA_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ttA_8,mass));
         }
         CacheShiftReal(ip_cs_pptottA_8_cache, NumPar, params, newResult);
@@ -2494,7 +2494,7 @@ double THDMcache::ip_cs_pptottA_13(double mass){
         return ( ip_cs_pptottA_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_ttA_13,mass));
         }
         CacheShiftReal(ip_cs_pptottA_13_cache, NumPar, params, newResult);
@@ -2513,7 +2513,7 @@ double THDMcache::ip_cs_pptobbA_8(double mass){
         return ( ip_cs_pptobbA_8_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_bbA_8,mass));
         }
         CacheShiftReal(ip_cs_pptobbA_8_cache, NumPar, params, newResult);
@@ -2532,7 +2532,7 @@ double THDMcache::ip_cs_pptobbA_13(double mass){
         return ( ip_cs_pptobbA_13_cache[NumPar][i] );
     } else {
         double newResult = 0.0;
-        if (mass>=20. && mass <=1000.) {
+        if (mass>=20. && mass <=2000.) {
             newResult = pow(10.0,interpolate (log_cs_bbA_13,mass));
         }
         CacheShiftReal(ip_cs_pptobbA_13_cache, NumPar, params, newResult);
