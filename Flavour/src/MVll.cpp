@@ -8,7 +8,6 @@
 #include "StandardModel.h"
 #include "MVll.h"
 #include "std_make_vector.h"
-#include <gslpp_complex.h>
 #include <gsl/gsl_sf.h>
 #include <boost/bind.hpp>
 #include <limits>

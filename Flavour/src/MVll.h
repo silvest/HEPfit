@@ -9,9 +9,8 @@
 #define	MVLL_H
 
 class StandardModel;
+
 #include "QCD.h"
-#include "Meson.h"
-#include "ThObservable.h"
 #include <math.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_integration.h>
