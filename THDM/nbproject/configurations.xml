@@ -18,6 +18,7 @@
       <itemPath>src/THDMquantities.h</itemPath>
       <itemPath>src/THDMquantitiesatQ.h</itemPath>
       <itemPath>src/bsgammaTHDM.h</itemPath>
+      <itemPath>src/chargedHiggs.h</itemPath>
       <itemPath>src/globalminimum.h</itemPath>
       <itemPath>src/heavyHiggs.h</itemPath>
       <itemPath>src/lightHiggs.h</itemPath>
@@ -45,6 +46,7 @@
       <itemPath>src/THDMquantities.cpp</itemPath>
       <itemPath>src/THDMquantitiesatQ.cpp</itemPath>
       <itemPath>src/bsgammaTHDM.cpp</itemPath>
+      <itemPath>src/chargedHiggs.cpp</itemPath>
       <itemPath>src/globalminimum.cpp</itemPath>
       <itemPath>src/heavyHiggs.cpp</itemPath>
       <itemPath>src/lightHiggs.cpp</itemPath>
@@ -140,6 +142,10 @@
       <item path="src/bsgammaTHDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/bsgammaTHDM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/chargedHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/chargedHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -250,6 +256,10 @@
       </item>
       <item path="src/bsgammaTHDM.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/chargedHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/chargedHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/globalminimum.h" ex="false" tool="3" flavor2="0">
@@ -358,6 +368,10 @@
       <item path="src/bsgammaTHDM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/bsgammaTHDM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/chargedHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/chargedHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/globalminimum.cpp" ex="false" tool="1" flavor2="0">
       </item>

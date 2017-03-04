@@ -1048,6 +1048,8 @@ double Robs_pp_H_bb_CMS13::computeThValue()
     return myTHDM.getMyTHDMCache()->R_pp_H_bb_CMS13;
 }
 
+
+
 log10_ggF_H_tautau_TH8::log10_ggF_H_tautau_TH8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
@@ -1496,6 +1498,8 @@ double log10_pp_H_bb_TH13::computeThValue()
 {
     return log10(myTHDM.getMyTHDMCache()->pp_H_bb_TH13);
 }
+
+
 
 Gamma_HH_THDM::Gamma_HH_THDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))

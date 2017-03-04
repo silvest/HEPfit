@@ -156,6 +156,16 @@ public:
     gslpp::matrix<double> log_cs_ggA_13, log_cs_ttA_13, log_cs_bbA_13;
 
     /**
+     * @brief Charged Higgs production cross section table at 8 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb.
+     */
+    gslpp::matrix<double> log_cs_ggHp_8;
+
+    /**
+     * @brief Charged Higgs production cross section table at 13 TeV from LHCHXSWGMSSMCharged, depending on the charged Higgs mass and logtb.
+     */
+    gslpp::matrix<double> log_cs_ggHp_13;
+
+    /**
      * @brief Production cross section ratio tables at 8 TeV obtained with HIGLU 4.34, depending on the Higgs mass.
      */
     gslpp::matrix<double> csrH_top_8, csrH_bottom_8, csrA_top_8, csrA_bottom_8;
@@ -240,7 +250,46 @@ public:
     gslpp::matrix<double> temp11e, temp12e, temp13e, temp14e, temp15e, temp16e, temp17e, temp18e, temp19e, temp20e;
     gslpp::matrix<double> temp21e, temp22e, temp23e, temp24e, temp25e, temp26e, temp27e, temp28e, temp29e, temp30e;
     gslpp::matrix<double> temp31e, temp32e, temp33e, temp34e, temp35e, temp36e, temp37e, temp38e, temp39e, temp40e;
-        
+
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu, ATLAS8_pp_Hp_tb;
+
+    /**
+     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu_e, ATLAS8_pp_Hp_tb_e;
+
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> CMS8_pp_Hp_taunu, CMS8_pp_Hp_tb;
+
+    /**
+     * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> CMS8_pp_Hp_taunu_e, CMS8_pp_Hp_tb_e;
+
+    /**
+     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu, ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2;
+
+    /**
+     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu_e, ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
+
+    /**
+     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> CMS13_pp_Hpm_taunu;
+
+    /**
+     * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
+     */
+    gslpp::matrix<double> CMS13_pp_Hpm_taunu_e;
 
     /**
      * @brief @f$b\to s \gamma@f$ table, depending on logtb and the logarithm of the charged Higgs mass.
@@ -402,6 +451,18 @@ public:
      * @return @f$\sigma(pp\to b \bar b A)@f$
      */
     double ip_cs_pptobbA_13(double mass);
+
+    /**
+     * @brief Interpolating function for the H+ production cross section from two gluons at 8 TeV.
+     * @return @f$\sigma(gg\to H^+)@f$
+     */
+    double ip_cs_ggtoHp_8(double mHp, double logtb);
+
+    /**
+     * @brief Interpolating function for the H+ production cross section from two gluons at 13 TeV.
+     * @return @f$\sigma(gg\to H^+)@f$
+     */
+    double ip_cs_ggtoHp_13(double mHp, double logtb);
 
     /**
      * @brief Interpolating function for the gluon-gluon fusion H cross section ratio of the top-loop and the total contribution at 8 TeV.
@@ -1350,6 +1411,118 @@ public:
     double ie40e(double mass);
 
     /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1412.6663, Figure 7-b @cite Aad:2014kga.
+     */
+    double ip_ex_pp_Hpm_taunu_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1412.6663, Figure 7-b @cite Aad:2014kga.
+     */
+    double ip_ex_pp_Hpm_taunu_ATLAS8_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1512.03704, Figure 6 @cite Aad:2015typ.
+     */
+    double ip_ex_pp_Hp_tb_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from arXiv:1512.03704, Figure 6 @cite Aad:2015typ.
+     */
+    double ip_ex_pp_Hp_tb_ATLAS8_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^+}]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1508.07774, Table 10 bottom @cite Khachatryan:2015qxa.
+     */
+    double ip_ex_pp_Hp_taunu_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^+}]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1508.07774, Table 10 bottom @cite Khachatryan:2015qxa.
+     */
+    double ip_ex_pp_Hp_taunu_CMS8_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1508.07774, Table 11 @cite Khachatryan:2015qxa.
+     */
+    double ip_ex_pp_Hp_tb_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1508.07774, Table 11 @cite Khachatryan:2015qxa.
+     */
+    double ip_ex_pp_Hp_tb_CMS8_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from ATLAS-CONF-2016-088, Figure 6 @cite ATLAS:2016grc.
+     */
+    double ip_ex_pp_Hpm_taunu_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from ATLAS-CONF-2016-088, Figure 6 @cite ATLAS:2016grc.
+     */
+    double ip_ex_pp_Hpm_taunu_ATLAS13_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-16-031, Figure 6 right @cite CMS:2016szv.
+     */
+    double ip_ex_pp_Hpm_taunu_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
+     * @return @f$[\sigma_{pp\to H^\pm}\cdot BR(H^\pm\to \tau \nu)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-HIG-16-031, Figure 6 right @cite CMS:2016szv.
+     */
+    double ip_ex_pp_Hpm_taunu_CMS13_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from ATLAS-CONF-2016-089, Figure 12 @cite ATLAS:2016qiq.
+     */
+    double ip_ex_pp_Hp_tb_ATLAS13_1(double mass);
+
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from ATLAS-CONF-2016-089, Figure 12 @cite ATLAS:2016qiq.
+     */
+    double ip_ex_pp_Hp_tb_ATLAS13_1_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from ATLAS-CONF-2016-104, Figure 23 @cite ATLAS:2016btu.
+     */
+    double ip_ex_pp_Hp_tb_ATLAS13_2(double mass);
+
+    /**
+     * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
+     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @details Taken from ATLAS-CONF-2016-104, Figure 23 @cite ATLAS:2016btu.
+     */
+    double ip_ex_pp_Hp_tb_ATLAS13_2_e(double mass);
+
+    /**
      * @brief Interpolating function for the NNLO value for the branching ratio of @f$b\to s \gamma@f$ decays in the THDM.
      * @return @f$BR(B\to X_s \gamma)@f$
      * @details Values derived with the help of the authors of @cite Misiak:2015xwa.
@@ -1495,6 +1668,8 @@ public:
     void computeHHquantities();
 
     void computeAquantities();
+
+    void computeHpquantities();
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -2258,6 +2433,61 @@ public:
     double THoEX_pp_A_bb_CMS13;
     double R_pp_A_bb_CMS13;
 
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm\to \tau^\pm \nu)@f$
+     */
+    double pp_Hpm_taunu_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
+     */
+    double pp_Hp_tb_TH8;
+
+    /**
+     * @brief Cross section for the process @f$pp\to H^+@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}@f$
+     */
+    double pp_Hp_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm\to \tau^\pm \nu)@f$
+     */
+    double pp_Hpm_taunu_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
+     */
+    double pp_Hp_tb_TH13;
+
+    double THoEX_pp_Hpm_taunu_ATLAS8;
+    double R_pp_Hpm_taunu_ATLAS8;
+    double THoEX_pp_Hp_taunu_CMS8;
+    double R_pp_Hp_taunu_CMS8;
+    double THoEX_pp_Hp_tb_CMS8;
+    double R_pp_Hp_tb_CMS8;
+    double THoEX_pp_Hp_tb_ATLAS8;
+    double R_pp_Hp_tb_ATLAS8;
+    double THoEX_pp_Hpm_taunu_ATLAS13;
+    double R_pp_Hpm_taunu_ATLAS13;
+    double THoEX_pp_Hpm_taunu_CMS13;
+    double R_pp_Hpm_taunu_CMS13;
+    double THoEX_pp_Hp_tb_ATLAS13_1;
+    double R_pp_Hp_tb_ATLAS13_1;
+    double THoEX_pp_Hp_tb_ATLAS13_2;
+    double R_pp_Hp_tb_ATLAS13_2;
+    double THoEX_pp_Hp_tb_ATLAS13;
+    double R_pp_Hp_tb_ATLAS13;
+
+    /**
+     * @brief Total decay width of the charged Higgs @f$H^+@f$.
+     * @return @f$\Gamma_{H^+}@f$
+     */
+    double GammaHptot;
+
     double Q_cutoff;
     double g1_at_Q;
     double g2_at_Q;
@@ -2296,6 +2526,7 @@ private:
 
     double Q_THDM;
     double bma;
+    double logtb;
     double tanb;
     double m12_2;
     double BDtaunu_SM;
@@ -2454,6 +2685,8 @@ private:
     mutable double ip_cs_pptottA_13_cache[2][CacheSize];
     mutable double ip_cs_pptobbA_8_cache[2][CacheSize];
     mutable double ip_cs_pptobbA_13_cache[2][CacheSize];
+    mutable double ip_cs_ggtoHp_8_cache[3][CacheSize];
+    mutable double ip_cs_ggtoHp_13_cache[3][CacheSize];
     mutable double ip_csr_ggH_t_8_cache[2][CacheSize];
     mutable double ip_csr_ggH_t_13_cache[2][CacheSize];
     mutable double ip_csr_ggH_b_8_cache[2][CacheSize];
@@ -2662,6 +2895,23 @@ private:
     mutable double ie39ec[2][CacheSize];
     mutable double ie40c[2][CacheSize];
     mutable double ie40ec[2][CacheSize];
+
+    mutable double ip_ex_pp_Hpm_taunu_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_ATLAS8_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hp_taunu_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_taunu_CMS8_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_ATLAS8_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_CMS8_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_ATLAS13_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_CMS13_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_ATLAS13_1_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_ATLAS13_1_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_ATLAS13_2_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_ATLAS13_2_cache_e[2][CacheSize];
 
     mutable double ip_ex_bsgamma_cache[3][CacheSize];
 
