@@ -1745,6 +1745,12 @@ public:
     double ggF_tth13;
 
     /**
+     * @brief Ratio of THDM and SM cross sections for the production of h at 13 TeV.
+     * @return @f$\sigma^{\text THDM}_{\text ggF+VBF+Vh+tth}/\sigma^{\text SM}_{\text ggF+VBF+Vh+tth}@f$
+     */
+    double pph13;
+
+    /**
      * @brief Ratio of THDM and SM cross sections for VBF and Vh production of h.
      * @return @f$\sigma^{\text THDM}_{\text VBF+Vh}/\sigma^{\text SM}_{\text VBF+Vh}@f$
      */

@@ -6882,6 +6882,10 @@ void THDMcache::computeSignalStrengthQuantities()
     double Sigmatth8 = myTHDM->computeSigmattH(8.0);
     //The ttH production cross section in the SM at 13 TeV
     double Sigmatth13 = myTHDM->computeSigmattH(13.0);
+    //The bbH production cross section in the SM at 13 TeV
+    double Sigmabbh13 = ip_cs_pptobbH_13(mHl);
+    //The VBF plus Vh production cross section in the SM at 13 TeV
+    double SigmaVBFVh13 = (myTHDM->computeSigmaVBF(13.0)+myTHDM->computeSigmaWH(13.0)+myTHDM->computeSigmaZH(13.0));
 
     /* r_ii is the ratio of the squared 2HDM vertex coupling of h to
      * the particle i and the respective squared SM coupling.*/
@@ -6966,6 +6970,8 @@ void THDMcache::computeSignalStrengthQuantities()
     ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*rh_QuQu)/(SigmaggF8 + Sigmatth8);
     /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
     ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth13*rh_QuQu)/(SigmaggF13 + Sigmatth13);
+    /* pph13 is the ratio of the THDM and SM cross sections for an h production at 13 TeV */
+    pph13 = (SigmaggF13*rh_gg + SigmaVBFVh13*rh_VV + Sigmatth13*rh_QuQu + Sigmabbh13*rh_QdQd)/(SigmaggF13 + SigmaVBFVh13 + Sigmatth13 + Sigmabbh13);
     /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
     VBF_Vh = rh_VV;
 

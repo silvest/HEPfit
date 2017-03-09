@@ -569,6 +569,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mu_tth_htotautau"] = boost::factory<tth_htotautau*>();
     obsThFactory["mu_tth_htoZZ"] = boost::factory<tth_htoZZ*>();
     obsThFactory["mu_tth_htogaga"] = boost::factory<tth_htogaga*>();
+    obsThFactory["mu_htoWW"] = boost::factory<mu_htoWW*>();
     obsThFactory["Gamma_h_THDM"] = boost::factory<Gamma_h_THDM*>();
     obsThFactory["rh_gaga_THDM"] = boost::factory<rh_gaga_THDM*>();
     obsThFactory["rh_gg_THDM"] = boost::factory<rh_gg_THDM*>();

@@ -318,6 +318,17 @@ double tth_htogaga::computeThValue()
 
 
 
+mu_htoWW::mu_htoWW(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double mu_htoWW::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->pph13*myTHDM.getMyTHDMCache()->rh_VV/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
 Gamma_h_THDM::Gamma_h_THDM(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
