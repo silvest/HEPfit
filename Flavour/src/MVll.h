@@ -637,7 +637,7 @@ private:
     QCD::lepton lep;/**< Final leptons type */
     QCD::meson meson;/**< Initial meson type */
     QCD::meson vectorM;/**< Final vector meson type */
-    std::vector<std::string> mvllParameters;
+    std::vector<std::string> mvllParameters;/**< The string of mandatory MVll parameters */
     
     double GF;            /**<Fermi constant */
     double ale;           /**<Alpha electromagnetic */
