@@ -546,6 +546,26 @@ double S_9::computeThValue()
 }
 
 
+A_5::A_5(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
+: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).getMVllParameters());
+}
+
+
+double A_5::computeThValue() 
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(6,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+}
+
+
 A_6::A_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
 : GammaPrime(SM_i, meson_i, vector_i, lep_i) 
 {
@@ -563,6 +583,46 @@ double A_6::computeThValue()
     double q_max = getBinMax();
 
     return -SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(7,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+}
+
+
+A_6c::A_6c(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
+: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).getMVllParameters());
+}
+
+
+double A_6c::computeThValue() 
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(8,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+}
+
+
+A_8::A_8(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i) 
+: GammaPrime(SM_i, meson_i, vector_i, lep_i) 
+{
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep).getMVllParameters());
+}
+
+
+double A_8::computeThValue() 
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(10,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
 }
 
 

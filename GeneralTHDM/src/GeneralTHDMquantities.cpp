@@ -221,18 +221,18 @@ double v2_GTHDM::computeThValue()
     return (v*sinb);
 }
 
-
-Resigmau::Resigmau(const StandardModel& SM_i)
-: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
-{}
-
-double Resigmau::computeThValue()
-{
-    double v = myGTHDM->v();
-    double Ytu_33r = myGTHDM->getYtu_33r();
-    double cosb = myGTHDM->getcosb();
-    double mtop = myGTHDM->getQuarks(QCD::TOP).getMass();
-    double tanb = myGTHDM->gettanb();
-
-    return v*Ytu_33r/(sqrt(2.)*cosb*mtop)-tanb;
-}
+//
+//Resigmau::Resigmau(const StandardModel& SM_i)
+//: ThObservable(SM_i), myGTHDM(static_cast<const GeneralTHDM*> (&SM_i))
+//{}
+//
+//double Resigmau::computeThValue()
+//{
+//    double v = myGTHDM->v();
+//    double Ytu_33r = myGTHDM->getYtu_33r();
+//    double cosb = myGTHDM->getcosb();
+//    double mtop = myGTHDM->getQuarks(QCD::TOP).getMass();
+//    double tanb = myGTHDM->gettanb();
+//
+//    return v*Ytu_33r/(sqrt(2.)*cosb*mtop)-tanb;
+//}

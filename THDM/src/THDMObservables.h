@@ -10,6 +10,7 @@
 
 #include "BDtaunu.h"
 #include "bsgammaTHDM.h"
+#include "chargedHiggs.h"
 #include "CPoddHiggs.h"
 #include "EWPO.h"
 #include "globalminimum.h"

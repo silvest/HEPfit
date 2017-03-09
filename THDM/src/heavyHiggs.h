@@ -276,6 +276,90 @@ private:
 };
 
 /**
+ * @class Hobs_pp_H_Zga_llga_ATLAS8
+ * @ingroup THDM
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp \to H\to Z\gamma \to \ell \ell \gamma@f$.
+ */
+class Hobs_pp_H_Zga_llga_ATLAS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_H_Zga_llga_ATLAS8 constructor.
+     */
+    Hobs_pp_H_Zga_llga_ATLAS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{theo}} / [\sigma_{pp\to H}\cdot BR(H\to Z\gamma \to \ell \ell \gamma)]_{\text{ATLAS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_pp_H_Zga_llga_ATLAS8
+ * @ingroup THDM
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$pp \to H\to Z\gamma \to \ell \ell \gamma@f$ assuming a Gaussian likelihood.
+ */
+class Robs_pp_H_Zga_llga_ATLAS8: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_pp_H_Zga_llga_ATLAS8 constructor.
+     */
+    Robs_pp_H_Zga_llga_ATLAS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{ATLAS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{ATLAS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Hobs_pp_H_Zga_llga_CMS8
+ * @ingroup THDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp \to H\to Z\gamma \to \ell \ell \gamma@f$.
+ */
+class Hobs_pp_H_Zga_llga_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_H_Zga_llga_CMS8 constructor.
+     */
+    Hobs_pp_H_Zga_llga_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{theo}} / [\sigma_{pp\to H}\cdot BR(H\to Z\gamma \to \ell \ell \gamma)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_pp_H_Zga_llga_CMS8
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$pp \to H\to Z\gamma \to \ell \ell \gamma@f$ assuming a Gaussian likelihood.
+ */
+class Robs_pp_H_Zga_llga_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_pp_H_Zga_llga_CMS8 constructor.
+     */
+    Robs_pp_H_Zga_llga_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_mu_pp_H_VV_CMS8
  * @ingroup THDM
  * @brief Ratio of the prediction and CMS upper limit for the signal strength of the process @f$pp \to H\to VV@f$.
@@ -2201,6 +2285,27 @@ public:
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \gamma\gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class log10_pp_H_Zga_llga_TH8
+ * @ingroup THDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H\to Z\gamma \to \ell \ell \gamma@f$ at 8 TeV.
+ */
+class log10_pp_H_Zga_llga_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_H_Zga_llga_TH8 constructor.
+     */
+    log10_pp_H_Zga_llga_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma \to \ell \ell \gamma)]@f$
      */
     double computeThValue();
 private:

@@ -1020,6 +1020,45 @@ private:
 
 
 /**
+ * @class A_5
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<A_5>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<A_5>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Delta_i>@f$, computed in the MVll class:
+ * @f[
+ * <A_5>= \frac {<\Delta_{5}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class A_5 : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    A_5(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<A_5>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<A_5>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
  * @class A_6
  * @ingroup Flavour
  * @brief A class for the binned observable @f$<A_6>@f$ in @f$M \to V l^+l^-@f$. 
@@ -1047,6 +1086,84 @@ public:
     /**
     * @brief The observable @f$<A_6>@f$ in @f$M \to V l^+l^-@f$.
     * @return @f$<A_6>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
+ * @class A_6c
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<A_{6c}>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<A_{6c}>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Delta_i>@f$, computed in the MVll class:
+ * @f[
+ * <A_{6c}>= \frac {<\Delta_{6c}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class A_6c : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    A_6c(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<A_{6c}>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<A_{6c}>@f$
+    */
+    double computeThValue ();
+   
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+
+/**
+ * @class A_8
+ * @ingroup Flavour
+ * @brief A class for the binned observable @f$<A_8>@f$ in @f$M \to V l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned observable @f$<A_8>@f$ in 
+ * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
+ * @f$<\Delta_i>@f$, computed in the MVll class:
+ * @f[
+ * <A_8>= \frac {<\Delta_{8}>}{<\Gamma'>} \,.
+ * @f]
+ */
+class A_8 : public GammaPrime{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] vector_i final vector meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    A_8(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The observable @f$<A_8>@f$ in @f$M \to V l^+l^-@f$.
+    * @return @f$<A_8>@f$
     */
     double computeThValue ();
    

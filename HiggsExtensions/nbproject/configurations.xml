@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/HiggsChiral.h</itemPath>
       <itemPath>src/HiggsKvKf.h</itemPath>
       <itemPath>src/HiggsKvKfgen.h</itemPath>
       <itemPath>src/HiggsKvgenKf.h</itemPath>
@@ -17,6 +18,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/HiggsChiral.cpp</itemPath>
       <itemPath>src/HiggsKvKf.cpp</itemPath>
       <itemPath>src/HiggsKvKfgen.cpp</itemPath>
       <itemPath>src/HiggsKvgenKf.cpp</itemPath>
@@ -57,6 +59,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
@@ -98,6 +104,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
@@ -148,6 +158,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/HiggsChiral.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsChiral.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
