@@ -8,7 +8,8 @@
 #include "Flavour.h"
 #include "StandardModel.h"
 #include "MPll.h"
-#include <gslpp_complex.h>
+#include "gslpp_complex.h"
+#include "std_make_vector.h"
 #include <gsl/gsl_sf.h>
 #include <boost/bind.hpp>
 #include <limits>
@@ -34,6 +35,15 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
+    
+    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>() << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+                                                                                        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+    else {
+        std::stringstream out;
+        out << pseudoscalar;
+        throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
+    }
+    
     I0_updated = 0;
     I2_updated = 0;
     I8_updated = 0;
@@ -76,14 +86,14 @@ void MPll::updateParameters()
     
     switch(pseudoscalar){
         case StandardModel::K_P :
-            r_1_fplus = mySM.getr_1_fplus();
-            r_2_fplus = mySM.getr_2_fplus();
-            m_fit2_fplus = mySM.getm_fit2_fplus();
-            r_1_fT = mySM.getr_1_fT();
-            r_2_fT = mySM.getr_2_fT();
-            m_fit2_fT = mySM.getm_fit2_fT();
-            r_2_f0 = mySM.getr_2_f0();
-            m_fit2_f0 = mySM.getm_fit2_f0();
+            r_1_fplus = mySM.getOptionalParameter("r_1_fplus");
+            r_2_fplus = mySM.getOptionalParameter("r_2_fplus");
+            m_fit2_fplus = mySM.getOptionalParameter("m_fit2_fplus");
+            r_1_fT = mySM.getOptionalParameter("r_1_fT");
+            r_2_fT = mySM.getOptionalParameter("r_2_fT");
+            m_fit2_fT = mySM.getOptionalParameter("m_fit2_fT");
+            r_2_f0 = mySM.getOptionalParameter("r_2_f0");
+            m_fit2_f0 = mySM.getOptionalParameter("m_fit2_f0");
             spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
     
             break;
@@ -93,8 +103,8 @@ void MPll::updateParameters()
             throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
     
-    h_0 = mySM.geth_0_MP();
-    h_0_1 = mySM.geth_0_1_MP();
+    h_0 = gslpp::complex(mySM.getOptionalParameter("absh_0_MP"),mySM.getOptionalParameter("argh_0_MP"),true);
+    h_1 = gslpp::complex(mySM.getOptionalParameter("absh_1_MP"),mySM.getOptionalParameter("argh_1_MP"),true);
     
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
@@ -424,14 +434,14 @@ void MPll::checkCache()
         Ycache(1) = Mc;
     }
     
-    if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_0_1 == H_V0Ccache[1]) {
+    if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_1 == H_V0Ccache[1]) {
         H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated  * C_7_updated * TL_updated * C_7p_updated;
     } else {
         H_V0updated = 0;
         H_V0cache(0) = MM;
         H_V0cache(1) = Mb;
         H_V0Ccache[0] = h_0;
-        H_V0Ccache[1] = h_0_1;
+        H_V0Ccache[1] = h_1;
     }
     
     H_A0updated = N_updated * C_10_updated * VL_updated * C_10p_updated ;
@@ -783,7 +793,7 @@ gslpp::complex MPll::Y(double q2)
 
 gslpp::complex MPll::H_V(double q2) 
 {
-    return -( (C_9 + Y(q2) + fDeltaC9(q2) - C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 - C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_0_1 * q2)) );
+    return -( (C_9 + Y(q2) + fDeltaC9(q2) - C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 - C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2) 

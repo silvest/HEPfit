@@ -30,7 +30,46 @@ class StandardModel;
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to
  * build the observables relative to the @f$M \to P l^+ l^-@f$ decays, where
- * @f$M@f$ is a generic meson and @f$P@f$ is a pseudoscalar meson. This kind of decays can be described
+ * @f$M@f$ is a generic meson and @f$P@f$ is a pseudoscalar meson.
+ * 
+ * @anchor MPllParameters
+ * <h3>%MPll parameters</h3>
+ *
+ * The mandatory parameters of %MPll are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%r_1_fplus, %r_2_fplus, %m_fit2_fplus</td>
+ *   <td class="mod_symb">@f$r_1^{f_+}, r_2^{f_+}, m_{fit}^{2,f_+}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$f_+@f$ of the @f$B\to K@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%r_1_fT, %r_2_fT, %m_fit2_fT</td>
+ *   <td class="mod_symb">@f$r_1^{f_T}, r_2^{f_T}, m_{fit}^{2,f_T}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$f_T@f$ of the @f$B\to K@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%r_2_f0, %m_fit2_f0</td>
+ *   <td class="mod_symb">@f$r_2^{f_0}, m_{fit}^{2,f_0}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$f_0@f$ of the @f$B\to K@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%absh_0_MP, %absh_0_1_MP</td>
+ *   <td class="mod_symb">@f$\mathrm{Abs}h_0^{(0)}, \mathrm{Abs}h_0^{(1)}@f$</td>
+ *   <td class="mod_desc">The constant and linear terms of the absolute value of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%argh_0_MP, %argh_0_1_MP</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}h_0^{(0)}, \mathrm{Arg}h_0^{(1)}@f$</td>
+ *   <td class="mod_desc">The constant and linear terms of the argument of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
+ * </tr>
+ * </table>
+ * 
+ *  This kind of decays can be described
  * by means of the @f$\Delta B = 1 @f$ weak effective Hamiltonian
  * @f[
  *   \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} +
@@ -210,12 +249,22 @@ public:
         return width;
     }
     
+    /**
+    * @brief A get method for the parameters necessary for MPll.
+    * @return the vector of MPll specific parameters
+    */
+    std::vector<std::string> getMPllParameters()
+    {
+        return mpllParameters;
+    }
+    
 
 private:
     const StandardModel& mySM;/**< Model type */
     QCD::lepton lep;/**< Final leptons type */
     QCD::meson meson;/**< Initial meson type */
     QCD::meson pseudoscalar;/**< Final pseudoscalar meson type */
+    std::vector<std::string> mpllParameters;/**< The string of mandatory MPll parameters */
     
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */
@@ -232,7 +281,7 @@ private:
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
     gslpp::complex h_0;          /**<parameter that contains the contribution from the hadronic hamiltonian */
-    gslpp::complex h_0_1;        /**<parameter that contains the contribution from the hadronic hamiltonian */
+    gslpp::complex h_1;        /**<parameter that contains the contribution from the hadronic hamiltonian */
 //    double q2;            /**<\f$q^2\f$ of the decay */
     
     /*LCSR fit parameters*/

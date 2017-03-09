@@ -10,6 +10,7 @@
 
 #include "Model.h"
 #include "Meson.h"
+#include "BParameter.h"
 #include "OrderScheme.h"
 #define MEPS 1.e-10 // mass precision
 
@@ -348,106 +349,6 @@
  *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%a_0V, %a_1V, %a_2V, %MRV</td>
- *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A0, %a_1A0, %a_2A0, %MRA0</td>
- *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A1, %a_1A1, %a_2A1, %MRA1</td>
- *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A12, %a_1A12, %a_2A12, %MRA12</td>
- *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T1, %a_1T1, %a_2T1, %MRA0</td>
- *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T2, %a_1T2, %a_2T2, %MRA1</td>
- *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T23, %a_1T23, %a_2T23, %MRA1</td>
- *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0Vphi, %a_1Vphi, %a_2Vphi, %MRVphi</td>
- *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A0phi, %a_1A0phi, %a_2A0phi, %MRA0phi</td>
- *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %MRA1phi</td>
- *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %MRA1phi</td>
- *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T1phi, %a_1T1phi, %a_2T1phi, %MRA0phi</td>
- *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T2phi, %a_1T2phi, %a_2T2phi, %MRA1phi</td>
- *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%a_0T23phi, %a_1T23phi, %a_2T23phi, %MRA1phi</td>
- *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
- *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to\phi@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%absh_0, %absh_0_1, %absh_0_2</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}, \mathrm{Re}h_0^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%argh_0, %argh_0_1, %argh_0_2</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_0^{(0)}, \mathrm{Im}h_0^{(1)}, \mathrm{Im}h_0^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%absh_1, %absh_1_1, %absh_1_2</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_+^{(0)}, \mathrm{Re}h_+^{(1)}, \mathrm{Re}h_+^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%argh_1, %argh_1_1, %argh_1_2</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_+^{(0)}, \mathrm{Im}h_+^{(1)}, \mathrm{Im}h_+^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%absh_2, %absh_2_1, %absh_2_2</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_-^{(0)}, \mathrm{Re}h_-^{(1)}, \mathrm{Re}h_-^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the real part of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%argh_2, %argh_2_1, %argh_2_2</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_-^{(0)}, \mathrm{Im}h_-^{(1)}, \mathrm{Im}h_-^{(2)}@f$</td>
- *   <td class="mod_desc">The constant, linear and quadratic terms of the immaginary part of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%alpha1kst, %alpha2kst</td>
  *   <td class="mod_symb">@f$\alpha_1(\bar{K}^*), \alpha_2(\bar{K}^*)@f$</td>
  *   <td class="mod_desc">The Gegenbauer coefficients for the @f$\bar{K}^*@f$ meson.</td>
@@ -466,31 +367,6 @@
  *   <td class="mod_name">%lambdaB</td>
  *   <td class="mod_symb">@f$\Lambda_{B,+}@f$</td>
  *   <td class="mod_desc">The integrated leading twist light-cone distribution amplitudes of the B meson divided by the integral variable.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_1_fplus, %r_2_fplus, %m_fit2_fplus</td>
- *   <td class="mod_symb">@f$r_1^{f_+}, r_2^{f_+}, m_{fit}^{2,f_+}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$f_+@f$ of the @f$B\to K@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_1_fT, %r_2_fT, %m_fit2_fT</td>
- *   <td class="mod_symb">@f$r_1^{f_T}, r_2^{f_T}, m_{fit}^{2,f_T}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$f_T@f$ of the @f$B\to K@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%r_2_f0, %m_fit2_f0</td>
- *   <td class="mod_symb">@f$r_2^{f_0}, m_{fit}^{2,f_0}@f$</td>
- *   <td class="mod_desc">The fit parameters for the LCSR form factor @f$f_0@f$ of the @f$B\to K@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%absh_0_MP, %absh_0_1_MP</td>
- *   <td class="mod_symb">@f$\mathrm{Re}h_0^{(0)}, \mathrm{Re}h_0^{(1)}@f$</td>
- *   <td class="mod_desc">The constant and linear terms of the real part of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%argh_0_MP, %argh_0_1_MP</td>
- *   <td class="mod_symb">@f$\mathrm{Im}h_0^{(0)}, \mathrm{Im}h_0^{(1)}@f$</td>
- *   <td class="mod_desc">The constant and linear terms of the immaginary part of the hadronic parameter @f$h_0@f$ of the @f$B\to K@f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%BLNPcorr</td>
@@ -740,6 +616,32 @@ public:
         TOP, /**< Top quark */
         BOTTOM /**< Bottom quark */
     };
+    
+//#define MESON_TABLE \
+//MSN(P_0, "P_0") \
+//MSN(P_P, "P_P") \
+//MSN(K_0, "K_0") \
+//MSN(K_P, "K_P") \
+//MSN(D_0, "D_0") \
+//MSN(B_D, "B_D") \
+//MSN(B_P, "B_P") \
+//MSN(B_S, "B_S") \
+//MSN(PHI, "PHI") \
+//MSN(K_star, "K_star") \
+//MSN(K_star_P, "K_star_P") \
+//MSN(MESON_END, "MESON_END")
+//    
+//#define MSN(a, b) a,
+//    enum meson {
+//        MESON_TABLE
+//    };
+//#undef MSN
+//    
+//#define MSN(a, b) b,
+//    std::string meson_name[MESON_END+1] = {
+//        MESON_TABLE
+//    };
+//#undef MSN
 
     /**
      * @brief An enum type for mesons.
@@ -759,7 +661,7 @@ public:
         MESON_END /**< The size of this enum. */
     };
     
-    static const int NQCDvars = 113; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 101; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1133,158 +1035,6 @@ public:
     }
         
     /**
-     * @return the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_0() const
-    {
-        return myh_0;
-    }
-
-    /**
-     * @return the constant term of the charm loop long distance contribution @f$h_+@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_p() const
-    {
-        return myh_p;
-    }
-    
-    /**
-     * @return the constant term of the charm loop long distance contribution @f$h_-@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_m() const
-    {
-        return myh_m;
-    }
-    
-    /**
-     * @return the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_0_1() const
-    {
-        return myh_0_1;
-    }
-
-    /**
-     * @return the linear term of the charm loop long distance contribution @f$h_+@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_p_1() const
-    {
-        return myh_p_1;
-    }
-    
-    /**
-     * @return the linear term of the charm loop long distance contribution @f$h_-@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_m_1() const
-    {
-        return myh_m_1;
-    }
-    
-    /**
-     * @return the quadratic term of the charm loop long distance contribution @f$h_0@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_0_2() const
-    {
-        return myh_0_2;
-    }
-
-    /**
-     * @return the quadratic term of the charm loop long distance contribution @f$h_+@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_p_2() const
-    {
-        return myh_p_2;
-    }
-    
-    /**
-     * @return the quadratic term of the charm loop long distance contribution @f$h_-@f$ to @f$M\to V@f$
-     */
-    gslpp::complex geth_m_2() const
-    {
-        return myh_m_2;
-    }
-    
-    /**
-     * @return the constant term of the charm loop long distance contribution @f$h_0@f$ to @f$M\to P@f$
-     */
-    gslpp::complex geth_0_MP() const
-    {
-        return gslpp::complex(absh_0_MP,argh_0_MP,true);
-    }
-    
-    /**
-     * @return the linear term of the charm loop long distance contribution @f$h_0@f$ to @f$M\to P@f$
-     */
-    gslpp::complex geth_0_1_MP() const
-    {
-        return gslpp::complex(absh_0_1_MP,argh_0_1_MP,true);
-    }
-    
-    /**
-     * @return the LCSR fit parameter @f$r_1^{f_+}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getr_1_fplus() const
-    {
-        return r_1_fplus;
-    }
-
-    /**
-     * @return the LCSR fit parameter @f$r_2^{f_+}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getr_2_fplus() const
-    {
-        return r_2_fplus;
-    }
-    
-    /**
-     * @return the LCSR fit parameter @f$m_{fit}^{2,f_+}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getm_fit2_fplus() const
-    {
-        return m_fit2_fplus;
-    }
-    
-    /**
-     * @return the LCSR fit parameter @f$r_1^{f_T}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getr_1_fT() const
-    {
-        return r_1_fT;
-    }
-
-    /**
-     * @return the LCSR fit parameter @f$r_2^{f_T}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getr_2_fT() const
-    {
-        return r_2_fT;
-    }
-    
-    /**
-     * @return the LCSR fit parameter @f$m_{fit}^{2,f_T}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getm_fit2_fT() const
-    {
-        return m_fit2_fT;
-    }
-    
-    /**
-     * @return the LCSR fit parameter @f$r_2^{f_0}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getr_2_f0() const
-    {
-        return r_2_f0;
-    }
-    
-    /**
-     * @return the LCSR fit parameter @f$m_{fit}^{2,f_0}@f$ for @f$B\to K@f$ from arXiv:hep-ph/0406232v1
-     */
-    double getm_fit2_f0() const
-    {
-        return m_fit2_f0;
-    }
-        
-    /**
      * @return the decay constant of a transversely polarized @f$K^*@f$ meson at 1 GeV
      */
     double getFKstarp() const
@@ -1543,10 +1293,6 @@ protected:
     double Br_B_Xcenu;
     double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
-    double absh_0_MP, argh_0_MP, absh_0_1_MP, argh_0_1_MP;
-    double r_1_fplus, r_2_fplus, m_fit2_fplus;
-    double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
-    double r_2_f0, m_fit2_f0;
     double FKstarp, FKstarPp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
     //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
@@ -1692,8 +1438,6 @@ private:
      * @param[in] n the dimension of the cache to be shifted
      */
     void CacheShift(double cache[][5], int n) const;
-
-    gslpp::complex myh_0, myh_p, myh_m, myh_0_1, myh_p_1, myh_m_1, myh_0_2, myh_p_2, myh_m_2;
 };
 
 #endif	/* QCD_H */

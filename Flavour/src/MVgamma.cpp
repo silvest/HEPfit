@@ -60,8 +60,8 @@ void MVgamma::updateParameters()
     }
 
 
-    h[0] = SM.geth_p(); //h_plus
-    h[1] = SM.geth_m(); //h_minus
+    h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
+    h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
     
     allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
     allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
@@ -305,17 +305,16 @@ double DC7_2::computeThValue()
     return ( (8. * M_PI * M_PI * MM2 * MM) / (lambda * Mb * T_1())*(h[1] + h[0])).abs();
 }
 
-hp0_hm0::hp0_hm0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
-: ThObservable(SM_i)
+hp0_hm0::hp0_hm0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
+: MVgamma(SM_i, meson_i, vector_i)
 {
-   lep = lep_i;
    meson = meson_i;
    vectorM = vector_i;
 }
 
 double hp0_hm0::computeThValue()
 {
-    return SM.geth_p().abs()/SM.geth_m().abs();
+    return h[0].abs()/h[1].abs();
 }
 
 AbsDC7_L::AbsDC7_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)

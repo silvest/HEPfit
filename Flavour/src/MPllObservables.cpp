@@ -20,6 +20,8 @@ BR_MPll::BR_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseud
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).getMPllParameters());
 }
 
 double BR_MPll::computeBR_MPll(double qmin, double qmax, QCD::lepton lep) 
@@ -47,6 +49,8 @@ R_MPll::R_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudos
     lep2 = lep_2;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep1).getMPllParameters());
 }
 
 double R_MPll::computeThValue() 
@@ -64,6 +68,8 @@ ACP_MPll::ACP_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pse
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).getMPllParameters());
 }
 
 double ACP_MPll::computeThValue() 

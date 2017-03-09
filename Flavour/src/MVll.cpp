@@ -267,17 +267,17 @@ void MVll::updateParameters()
     }
 
 
-    h_0[0] = mySM.geth_0();
-    h_0[1] = mySM.geth_p();
-    h_0[2] = mySM.geth_m();
+    h_0[0] = gslpp::complex(mySM.getOptionalParameter("absh_0"), mySM.getOptionalParameter("argh_0"), true);
+    h_0[1] = gslpp::complex(mySM.getOptionalParameter("absh_p"), mySM.getOptionalParameter("argh_p"), true);
+    h_0[2] = gslpp::complex(mySM.getOptionalParameter("absh_m"), mySM.getOptionalParameter("argh_m"), true);
 
-    h_1[0] = mySM.geth_0_1();
-    h_1[1] = mySM.geth_p_1();
-    h_1[2] = mySM.geth_m_1();
+    h_1[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_1"), mySM.getOptionalParameter("argh_0_1"), true);
+    h_1[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_1"), mySM.getOptionalParameter("argh_p_1"), true);
+    h_1[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_1"), mySM.getOptionalParameter("argh_m_1"), true);
 
-    h_2[0] = mySM.geth_0_2();
-    h_2[1] = mySM.geth_p_2();
-    h_2[2] = mySM.geth_m_2();
+    h_2[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_2"), mySM.getOptionalParameter("argh_0_2"), true);
+    h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
+    h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
 
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR

@@ -41,8 +41,6 @@ std::string QCD::QCDvars[NQCDvars] = {
     "BKd_scale", "BKd_scheme",
     "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
     "Br_Kp_P0enu", "Br_Kp_munu", "Br_B_Xcenu", "DeltaP_cu", "IB_Kl", "IB_Kp",
-    "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
-    "absh_0_MP", "argh_0_MP", "absh_0_1_MP", "argh_0_1_MP",
     "lambdaB", "alpha1kst", "alpha2kst", "alpha2phi", "alpha1kp", "alpha2kp"
 };
 
@@ -59,6 +57,19 @@ QCD::QCD()
     quarks[DOWN] = Particle("DOWN", 0., 2., 0., -1. / 3., -.5);
     quarks[STRANGE] = Particle("STRANGE", 0., 2., 0., -1. / 3., -.5);
     quarks[BOTTOM] = Particle("BOTTOM", 0., 0., 0., -1. / 3., -.5);
+    
+    mesons[P_0].setName("P_0");
+    mesons[P_P].setName("P_P");
+    mesons[K_0].setName("K_0");
+    mesons[K_P].setName("K_P");
+    mesons[D_0].setName("D_0");
+    mesons[B_D].setName("B_D");
+    mesons[B_P].setName("B_P");
+    mesons[B_S].setName("B_S");
+    mesons[PHI].setName("PHI");
+    mesons[K_star].setName("K_star");
+    mesons[K_star_P].setName("K_star_P");
+    
     zeta2 = gsl_sf_zeta_int(2);
     zeta3 = gsl_sf_zeta_int(3);
     for (int i = 0; i < CacheSize; i++) {
@@ -162,18 +173,6 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_MP", boost::cref(absh_0_MP)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_MP", boost::cref(argh_0_MP)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0_1_MP", boost::cref(absh_0_1_MP)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0_1_MP", boost::cref(argh_0_1_MP)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1_fplus", boost::cref(r_1_fplus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_fplus", boost::cref(r_2_fplus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_fplus", boost::cref(m_fit2_fplus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1_fT", boost::cref(r_1_fT)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_fT", boost::cref(r_2_fT)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_fT", boost::cref(m_fit2_fT)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2_f0", boost::cref(r_2_f0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2_f0", boost::cref(m_fit2_f0)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
@@ -275,15 +274,6 @@ bool QCD::PostUpdate()
 #endif
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
-    if (optionalParameters.find("absh_0") != optionalParameters.end()) myh_0 = gslpp::complex(getOptionalParameter("absh_0"), getOptionalParameter("argh_0"), true);
-    if (optionalParameters.find("absh_p") != optionalParameters.end()) myh_p = gslpp::complex(getOptionalParameter("absh_p"), getOptionalParameter("argh_p"), true);
-    if (optionalParameters.find("absh_m") != optionalParameters.end()) myh_m = gslpp::complex(getOptionalParameter("absh_m"), getOptionalParameter("argh_m"), true);
-    if (optionalParameters.find("absh_0_1") != optionalParameters.end()) myh_0_1 = gslpp::complex(getOptionalParameter("absh_0_1"), getOptionalParameter("argh_0_1"), true);
-    if (optionalParameters.find("absh_p_1") != optionalParameters.end()) myh_p_1 = gslpp::complex(getOptionalParameter("absh_p_1"), getOptionalParameter("argh_p_1"), true);
-    if (optionalParameters.find("absh_m_1") != optionalParameters.end()) myh_m_1 = gslpp::complex(getOptionalParameter("absh_m_1"), getOptionalParameter("argh_m_1"), true);
-    if (optionalParameters.find("absh_0_2") != optionalParameters.end()) myh_0_2 = gslpp::complex(getOptionalParameter("absh_0_2"), getOptionalParameter("argh_0_2"), true);
-    if (optionalParameters.find("absh_p_2") != optionalParameters.end()) myh_p_2 = gslpp::complex(getOptionalParameter("absh_p_2"), getOptionalParameter("argh_p_2"), true);
-    if (optionalParameters.find("absh_m_2") != optionalParameters.end()) myh_m_2 = gslpp::complex(getOptionalParameter("absh_m_2"), getOptionalParameter("argh_m_2"), true);
     
     return (true);
 }
@@ -552,30 +542,6 @@ void QCD::setParameter(const std::string name, const double& value)
         IB_Kl = value;
     else if (name.compare("IB_Kp") == 0)
         IB_Kp = value;
-    else if (name.compare("absh_0_MP") == 0)
-        absh_0_MP = value;
-    else if (name.compare("argh_0_MP") == 0)
-        argh_0_MP = value;
-    else if (name.compare("absh_0_1_MP") == 0)
-        absh_0_1_MP = value;
-    else if (name.compare("argh_0_1_MP") == 0)
-        argh_0_1_MP = value;
-    else if (name.compare("r_1_fplus") == 0)
-        r_1_fplus = value;
-    else if (name.compare("r_2_fplus") == 0)
-        r_2_fplus = value;
-    else if (name.compare("m_fit2_fplus") == 0)
-        m_fit2_fplus = value;
-    else if (name.compare("r_1_fT") == 0)
-        r_1_fT = value;
-    else if (name.compare("r_2_fT") == 0)
-        r_2_fT = value;
-    else if (name.compare("m_fit2_fT") == 0)
-        m_fit2_fT = value;
-    else if (name.compare("r_2_f0") == 0)
-        r_2_f0 = value;
-    else if (name.compare("m_fit2_f0") == 0)
-        m_fit2_f0 = value;
     else if (name.compare("lambdaB") == 0) {
         mesons[B_D].setLambdaM(value);
         mesons[B_S].setLambdaM(value);

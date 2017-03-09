@@ -62,7 +62,121 @@ gsl_function convertToGslFunction( const F& f )
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to 
  * build the observables relative to the @f$M \to V l^+ l^-@f$ decays, where
- * @f$M@f$ is a generic meson and @f$V@f$ is a vector meson. This kind of decays can be described
+ * @f$M@f$ is a generic meson and @f$V@f$ is a vector meson. 
+ * 
+ * @anchor MVllParameters
+ * <h3>%MVll parameters</h3>
+ *
+ * The mandatory parameters of %MVll are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0V, %a_1V, %a_2V, %MRV</td>
+ *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0A0, %a_1A0, %a_2A0, %MRA0</td>
+ *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0A1, %a_1A1, %a_2A1, %MRA1</td>
+ *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0A12, %a_1A12, %a_2A12, %MRA12</td>
+ *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T1, %a_1T1, %a_2T1, %MRA0</td>
+ *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T2, %a_1T2, %a_2T2, %MRA1</td>
+ *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T23, %a_1T23, %a_2T23, %MRA1</td>
+ *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0Vphi, %a_1Vphi, %a_2Vphi, %MRVphi</td>
+ *   <td class="mod_symb">@f$a_0^V, a_1^V, a_2^V, \Delta m^V@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$V@f$ of the @f$B\to\phi@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0A0phi, %a_1A0phi, %a_2A0phi, %MRA0phi</td>
+ *   <td class="mod_symb">@f$a_0^{A_0}, a_1^{A_0}, a_2^{A_0}, \Delta m^{A_0}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_0@f$ of the @f$B\to\phi@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %MRA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{A_1}, a_1^{A_1}, a_2^{A_1}, \Delta m^{A_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_1@f$ of the @f$B\to\phi@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0A1phi, %a_1A1phi, %a_2A1phi, %MRA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{A_{12}}, a_1^{A_{12}}, a_2^{A_{12}}, \Delta m^{A_{12}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$A_{12}@f$ of the @f$B\to\phi@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T1phi, %a_1T1phi, %a_2T1phi, %MRA0phi</td>
+ *   <td class="mod_symb">@f$a_0^{T_1}, a_1^{T_1}, a_2^{T_1}, \Delta m^{T_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to\phi@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T2phi, %a_1T2phi, %a_2T2phi, %MRA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{T_2}, a_1^{T_2}, a_2^{T_2}, \Delta m^{T_2}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_2@f$ of the @f$B\to\phi@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T23phi, %a_1T23phi, %a_2T23phi, %MRA1phi</td>
+ *   <td class="mod_symb">@f$a_0^{T_{23}}, a_1^{T_{23}}, a_2^{T_{23}}, \Delta m^{T_{23}}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_{23}@f$ of the @f$B\to\phi@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%absh_0, %absh_0_1, %absh_0_2</td>
+ *   <td class="mod_symb">@f$\mathrm{Abs}h_0^{(0)}, \mathrm{Abs}h_0^{(1)}, \mathrm{Abs}h_0^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the absolute value of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%argh_0, %argh_0_1, %argh_0_2</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}h_0^{(0)}, \mathrm{Arg}h_0^{(1)}, \mathrm{Arg}h_0^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the argument of the hadronic parameter @f$h_0@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%absh_p, %absh_p_1, %absh_p_2</td>
+ *   <td class="mod_symb">@f$\mathrm{Abs}h_+^{(0)}, \mathrm{Abs}h_+^{(1)}, \mathrm{Abs}h_+^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the absolute value of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%argh_p, %argh_p_1, %argh_p_2</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}h_+^{(0)}, \mathrm{Arg}h_+^{(1)}, \mathrm{Arg}h_+^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the argument of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%absh_m, %absh_m_1, %absh_m_2</td>
+ *   <td class="mod_symb">@f$\mathrm{Abs}h_-^{(0)}, \mathrm{Abs}h_-^{(1)}, \mathrm{Abs}h_-^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the absolute value of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%argh_m, %argh_m_1, %argh_m_2</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}h_-^{(0)}, \mathrm{Arg}h_-^{(1)}, \mathrm{Arg}h_-^{(2)}@f$</td>
+ *   <td class="mod_desc">The constant, linear and quadratic terms of the argument of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$.</td>
+ * </tr>
+ * </table>
+ * 
+ * This kind of decays can be described
  * by means of the @f$\Delta B = 1 @f$ weak effective Hamiltonian
  * @f[
  *   \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} +

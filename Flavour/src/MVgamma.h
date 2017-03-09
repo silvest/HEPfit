@@ -22,7 +22,50 @@ class StandardModel;
  * @copyright GNU General Public License
  * @details This class is used to compute all the functions needed in order to
  * compute the observables relative to the @f$M \to V \gamma@f$ decays, where
- * @f$M@f$ is a generic meson and @f$V@f$ is a vector meson. This kind of decays can be described
+ * @f$M@f$ is a generic meson and @f$V@f$ is a vector meson. 
+ * 
+ * @anchor MVllParameters
+ * <h3>%MVll parameters</h3>
+ *
+ * The mandatory parameters of %MVll are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T1</td>
+ *   <td class="mod_symb">@f$a_0^{T_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to K^*@f$ at @f$q^2=0@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a_0T1phi</td>
+ *   <td class="mod_symb">@f$a_0^{T_1}@f$</td>
+ *   <td class="mod_desc">The fit parameters for the form factor @f$T_1@f$ of the @f$B\to\phi@f$ at @f$q^2=0@f$.</td>
+ * </tr>
+  *   <td class="mod_name">%absh_p</td>
+ *   <td class="mod_symb">@f$\mathrm{Abs}h_+^{(0)}@f$</td>
+ *   <td class="mod_desc">The constant term of the absolute value of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$ at @f$q^2=0@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%argh_p</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}h_+^{(0)}@f$</td>
+ *   <td class="mod_desc">The constant term of the argument of the hadronic parameter @f$h_+@f$ of the @f$B\to K^*@f$ at @f$q^2=0@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%absh_m</td>
+ *   <td class="mod_symb">@f$\mathrm{Abs}h_-^{(0)}@f$</td>
+ *   <td class="mod_desc">The constant term of the absolute value of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$ at @f$q^2=0@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%argh_m</td>
+ *   <td class="mod_symb">@f$\mathrm{Arg}h_-^{(0)}@f$</td>
+ *   <td class="mod_desc">The constant term of the argument of the hadronic parameter @f$h_-@f$ of the @f$B\to K^*@f$ at @f$q^2=0@f$.</td>
+ * </tr>
+ * </table>
+ *  
+ * This kind of decays can be described
  * by means of the @f$\Delta B = 1 @f$ weak effective Hamiltonian
  * @f[
  *   \mathcal{H}_\mathrm{eff}^{\Delta B = 1} = \mathcal{H}_\mathrm{eff}^\mathrm{had} +
@@ -446,7 +489,7 @@ private:
  * @details This class is used to compute the absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in 
  * @f$B \to K^*@f$
  */
-class hp0_hm0 : public ThObservable{
+class hp0_hm0 : public MVgamma{
 public:
     
     /**
@@ -454,9 +497,8 @@ public:
      * @param[in] SM_i a reference to an object of type StandardModel
      * @param[in] meson_i initial meson of the decay
      * @param[in] vector_i final vector meson of the decay
-     * @param[in] typ_i observable type
      */
-    hp0_hm0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    hp0_hm0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i);
 
     /**
     * @brief The absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in @f$B \to K^*@f$.
@@ -465,7 +507,6 @@ public:
     double computeThValue();
 
 private:
-    QCD::lepton lep; /**< Final leptons type. */
     QCD::meson meson; /**< Initial meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
 };

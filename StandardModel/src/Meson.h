@@ -8,9 +8,11 @@
 #ifndef MESON_H
 #define	MESON_H
 
+class QCD;
+
 #include <stdexcept>
+#include <vector>
 #include "Particle.h"
-#include "BParameter.h"
 #include "boost/lexical_cast.hpp"
 
 /**
@@ -48,7 +50,9 @@ public:
      * @brief The default destructor.
      */
     virtual ~Meson();
-
+    
+    void initializeParameters();
+    
     /**
      * @brief A get method for the lifetime of the meson.
      * @return the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
@@ -125,6 +129,18 @@ public:
     {
         return Dgamma_gamma;
     }
+    
+    std::string getName() const
+    {
+        return name;
+    }
+    
+    void setName(std::string name_i)
+    {
+        this->name = name_i;
+    }
+    
+    std::vector<std::string> injectParameterList(std::string mesonName_i);
 
 private:
     double decayconst; ///< The decay constant of the meson.
