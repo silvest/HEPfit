@@ -601,6 +601,27 @@ private:
     const THDM& myTHDM;
 };
 
+/**
+ * @class mu_htoWW
+ * @ingroup THDM
+ * @brief Signal strength of an h decaying to two @f$W@f$ bosons at 13 TeV.
+ */
+class mu_htoWW : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    mu_htoWW(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text pp}(h\to WW)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
 
 
 
