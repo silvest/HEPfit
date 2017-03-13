@@ -1697,9 +1697,9 @@ void THDMcache::read(){
     CMS8_gg_A_hZ_bbll = readTable(ex2.str(),16,2);
     ex2e << tablepath << "150404710_e.dat";
     CMS8_gg_A_hZ_bbll_e = readTable(ex2e.str(),16,2);
-    ex3 << tablepath << "CMS-PAS-HIG-13-032.dat";
+    ex3 << tablepath << "160306896.dat";
     CMS8_pp_H_hh_gagabb = readTable(ex3.str(),85,2);
-    ex3e << tablepath << "CMS-PAS-HIG-13-032_e.dat";
+    ex3e << tablepath << "160306896_e.dat";
     CMS8_pp_H_hh_gagabb_e = readTable(ex3e.str(),85,2);
     ex4 << tablepath << "150304114.dat";
     CMS8_pp_H_hh_bbbb = readTable(ex4.str(),167,2);
@@ -9183,7 +9183,7 @@ void THDMcache::computeAquantities()
 
     double BrSM_Atocc=ip_Br_HPtocc(mA);
     double BrSM_Atobb=ip_Br_HPtobb(mA);
-    double BrSM_Atott=ip_Br_HPtott(mA)/(1.0-4.0*Mt*Mt/mA2);
+    double BrSM_Atott=HSTheta(mA-2.0*Mt)*ip_Br_HPtott(mA)/(1.0-4.0*Mt*Mt/mA2);
     double BrSM_Atomumu=ip_Br_HPtomumu(mA);
     double BrSM_Atotautau=ip_Br_HPtotautau(mA);
 
