@@ -9183,7 +9183,7 @@ void THDMcache::computeAquantities()
 
     double BrSM_Atocc=ip_Br_HPtocc(mA);
     double BrSM_Atobb=ip_Br_HPtobb(mA);
-    double BrSM_Atott=HSTheta(mA-2.0*Mt)*ip_Br_HPtott(mA)/(1.0-4.0*Mt*Mt/mA2);
+    double BrSM_Atott=ip_Br_HPtott(mA);
     double BrSM_Atomumu=ip_Br_HPtomumu(mA);
     double BrSM_Atotautau=ip_Br_HPtotautau(mA);
 
