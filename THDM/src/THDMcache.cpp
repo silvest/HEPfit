@@ -7085,7 +7085,7 @@ void THDMcache::computeHHquantities()
                 *(I_HH_F+I_HH_W+I_HH_Hp).abs()*(I_HH_F+I_HH_W+I_HH_Hp).abs();
 
     /*Gamma_HZga expression can be found in arXiv:0902.4665v3, Appendix A, A.9*/
-    double Gamma_HZga=GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2)*64.0*M_PI*M_PI*M_PI)
+    double Gamma_HZga=HSTheta(mHh-MZ)*GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2)*64.0*M_PI*M_PI*M_PI)
                *(1.0-MZ*MZ/(mHh*mHh))*(1.0-MZ*MZ/(mHh*mHh))*(1.0-MZ*MZ/(mHh*mHh))
                *(A_HH_F+A_HH_W+A_HH_Hp).abs()*(A_HH_F+A_HH_W+A_HH_Hp).abs();
 
@@ -9162,7 +9162,7 @@ void THDMcache::computeAquantities()
     double Gamma_Agaga=GF*Ale*Ale*mA*mA*mA/(sqrt(2)*128.0*M_PI*M_PI*M_PI)
                 *(I_A_F).abs2();
     /*Gamma_AZga expression can be found in in arXiv:0902.4665v3, Appendix A, A.9*/
-    double Gamma_AZga=GF*Ale*Ale*mA*mA*mA/(sqrt(2)*64.0*M_PI*M_PI*M_PI)
+    double Gamma_AZga=HSTheta(mA-MZ)*GF*Ale*Ale*mA*mA*mA/(sqrt(2)*64.0*M_PI*M_PI*M_PI)
                *(1.0-MZ*MZ/(mA*mA))*(1.0-MZ*MZ/(mA*mA))*(1.0-MZ*MZ/(mA*mA))
                *(A_A_F).abs2();
     /*Gamma_Agg expression can be found in in arXiv:0902.4665v3, Appendix A, A.10*/
