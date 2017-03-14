@@ -12,7 +12,7 @@
 
 #include "StandardModel.h"
 #include "bsgamma.h"
-#include <gslpp_complex.h>
+#include "std_make_vector.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_clausen.h>
@@ -30,6 +30,9 @@ Intbc_cache(2, 0.)
     SUM = false;
     EWflag = true;
     FOUR_BODY = false;
+    
+    setParametersForObservable(make_vector<std::string>() << "Gambino_mukin" << "Gambino_BRsem" << "Gambino_Mbkin" << "Gambino_Mcatmuc" << "Gambino_mupi2" 
+                                                          << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "BLNPcorr");
     
     Intb1Cached = 0;
     Intb2Cached = 0;
