@@ -35,6 +35,15 @@ public:
     BParameter(int n)
     : bpars(n,0.)
     {};
+    
+    /**
+     * @brief Constructor.
+     * @param[in] n dimension of the vector of bag parameters
+     * @param[in] name_i name used to identify the B Parameter
+     */
+    BParameter(int n, std::string name_i)
+    : bpars(n,0.)
+    { name = name_i; };
 
     /**
      * @brief A get method for the vector of the bag parameters.
@@ -103,6 +112,7 @@ private:
     gslpp::vector<double> bpars;///< A vector of bag parameters.
     double mu;///< The scale at which the bag parameters are defined. 
     schemes scheme;///< The scheme in which the bag parameters are defined.
+    std::string name;
     
 };
 

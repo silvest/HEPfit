@@ -12,6 +12,8 @@
 #include "Meson.h"
 #include "BParameter.h"
 #include "OrderScheme.h"
+#include <boost/functional/factory.hpp>
+#include <boost/function.hpp>
 #define MEPS 1.e-10 // mass precision
 
 /**
@@ -735,6 +737,8 @@ public:
      */
     void addParameters(std::vector<std::string> params_i);
     
+    void initializeBParameter(std::string name_i);
+    
     /**
      * @brief A method to get parameters that are specific to only one set of observables.
      * @param[in] name the name of the parameter
@@ -902,7 +906,7 @@ public:
      */
     BParameter getBBd() const
     {
-        return BBd;
+        return (BParameterMap.at("BBd"));
     }
 
     /**
@@ -913,7 +917,7 @@ public:
      */
     BParameter getBBs() const
     {
-        return BBs;
+        return (BParameterMap.at("BBs"));
     }
 
     /**
@@ -924,7 +928,7 @@ public:
      */
     BParameter getBD() const
     {
-        return BD;
+        return (BParameterMap.at("BD"));
     }
 
     /**
@@ -935,7 +939,7 @@ public:
      */
     BParameter getBK() const
     {
-        return BK;
+        return (BParameterMap.at("BK"));
     }
 
     /**
@@ -943,7 +947,7 @@ public:
      */
     BParameter getBKd1() const
     {
-        return BKd1;
+        return (BParameterMap.at("BKd1"));
     }
 
     /**
@@ -951,7 +955,7 @@ public:
      */
     BParameter getBKd3() const
     {
-        return BKd3;
+        return (BParameterMap.at("BKd3"));
     }
 
     /**
@@ -1302,12 +1306,7 @@ protected:
 private:
     
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
-    BParameter BBs; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_s\f$ meson system.
-    BParameter BBd; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_d\f$ meson system.
-    BParameter BD; ///< The bag parameters for \f$\Delta c=2\f$ processes for the \f$D^0\f$ meson system.
-    BParameter BK; ///< The bag parameters for \f$\Delta s=2\f$ processes for the \f$K^0\f$ meson system.
-    BParameter BKd1;
-    BParameter BKd3;
+    std::map<std::string, BParameter> BParameterMap;
     double FBsSqrtBBs1, FBsSqrtBBs2, FBsSqrtBBs3, FBsSqrtBBs4, FBsSqrtBBs5, 
             FBdSqrtBBd2, FBdSqrtBBd3, FBdSqrtBBd4, FBdSqrtBBd5, csi;
 
