@@ -619,31 +619,6 @@ public:
         BOTTOM /**< Bottom quark */
     };
     
-//#define MESON_TABLE \
-//MSN(P_0, "P_0") \
-//MSN(P_P, "P_P") \
-//MSN(K_0, "K_0") \
-//MSN(K_P, "K_P") \
-//MSN(D_0, "D_0") \
-//MSN(B_D, "B_D") \
-//MSN(B_P, "B_P") \
-//MSN(B_S, "B_S") \
-//MSN(PHI, "PHI") \
-//MSN(K_star, "K_star") \
-//MSN(K_star_P, "K_star_P") \
-//MSN(MESON_END, "MESON_END")
-//    
-//#define MSN(a, b) a,
-//    enum meson {
-//        MESON_TABLE
-//    };
-//#undef MSN
-//    
-//#define MSN(a, b) b,
-//    std::string meson_name[MESON_END+1] = {
-//        MESON_TABLE
-//    };
-//#undef MSN
 
     /**
      * @brief An enum type for mesons.
@@ -906,7 +881,7 @@ public:
      */
     BParameter getBBd() const
     {
-        return (BParameterMap.at("BBd"));
+        return BParameterMap.at("BBd");
     }
 
     /**
@@ -917,7 +892,7 @@ public:
      */
     BParameter getBBs() const
     {
-        return (BParameterMap.at("BBs"));
+        return BParameterMap.at("BBs");
     }
 
     /**
@@ -928,7 +903,7 @@ public:
      */
     BParameter getBD() const
     {
-        return (BParameterMap.at("BD"));
+        return BParameterMap.at("BD");
     }
 
     /**
@@ -939,7 +914,7 @@ public:
      */
     BParameter getBK() const
     {
-        return (BParameterMap.at("BK"));
+        return BParameterMap.at("BK");
     }
 
     /**
@@ -947,7 +922,7 @@ public:
      */
     BParameter getBKd1() const
     {
-        return (BParameterMap.at("BKd1"));
+        return BParameterMap.at("BKd1");
     }
 
     /**
@@ -955,7 +930,7 @@ public:
      */
     BParameter getBKd3() const
     {
-        return (BParameterMap.at("BKd3"));
+        return BParameterMap.at("BKd3");
     }
 
     /**
@@ -1299,7 +1274,6 @@ protected:
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     double FKstarp, FKstarPp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
-    //double r_2A0, r_2T1, r_2T2, r_2A0phi, r_2T1phi, r_2T2phi removed because they are fixed by form factors relations
     double Nc; ///< The number of colours.
     Particle quarks[6]; ///< The vector of all SM quarks.
     Meson mesons[MESON_END]; ///< The vector of defined mesons.
