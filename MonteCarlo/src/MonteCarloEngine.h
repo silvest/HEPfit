@@ -267,6 +267,11 @@ public:
      */
     double FirstDerivative(BCParameter par, std::vector<double> point);
     
+    /**
+     * @brief A method to calculate the LogLikelihood + LogAprioriProbability.
+     * @param[in] point the set of points in the parameter space
+     * @return LogLikelihood + LogAprioriProbability
+     */
     double Function_h(std::vector<double> point);
     
     /**
@@ -283,6 +288,24 @@ public:
     void setPrintLogo(bool print)
     {
         printLogo = print;
+    };
+    
+    /**
+     * @brief A set method to set the number of smoothing passes for ROOT in 1D histograms
+     * @param[in] int_N number of smoothing passes for ROOT
+     */
+    void setSmooth(int int_N)
+    {
+        nSmooth = int_N;
+    };
+    
+    /**
+     * @brief A set method to set the band fill type for 2D histograms
+     * @param[in] type 2D Histogram type, 1001 -> Lego, 101 -> Filled, 0 -> Contour
+     */
+    void setHistogram2DType(int type)
+    {
+        histogram2Dtype = type;
     };
     
 private:
@@ -324,6 +347,8 @@ private:
     std::ofstream ofi;
     std::vector<std::string> unknownParameters; ///< A vector to contain the unkenown parameters passed in the configuration file.
     bool printLogo; ///< A flag that is set to true for printing the logo on the histogram pdf.
+    int nSmooth;
+    int histogram2Dtype;
 };
 
 #endif

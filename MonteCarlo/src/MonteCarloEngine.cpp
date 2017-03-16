@@ -39,6 +39,8 @@ MonteCarloEngine::MonteCarloEngine(
     Mod = NULL;
     cindex = 0;
     printLogo = false;
+    nSmooth = 0;
+    histogram2Dtype = 1001;
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -605,7 +607,7 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     bch1d.SetBandColor(1, rIdx);
     bch1d.SetBandColor(2, kOrange - 3);
     bch1d.SetNBands(3);
-    bch1d.SetNSmooth(0);
+    bch1d.SetNSmooth(nSmooth);
     bch1d.SetDrawGlobalMode(true);
     bch1d.SetDrawMean(true, true);
     bch1d.SetDrawLegend(true);
@@ -678,7 +680,7 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
     bch2d.SetBandColor(1, rIdx);
     bch2d.SetBandColor(2, gIdx);
     bch2d.SetNBands(3);
-    bch2d.SetBandFillStyle(1001);
+    bch2d.SetBandFillStyle(histogram2Dtype);
     bch2d.SetNSmooth(0);
     bch2d.SetDrawLocalMode(false);
     bch2d.SetDrawGlobalMode(true);

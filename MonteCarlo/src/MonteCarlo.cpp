@@ -254,88 +254,125 @@ void MonteCarlo::Run(const int rank) {
                 boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
                 if (beg->compare("NChains") == 0) {
                     ++beg;
-                    MCEngine.setNChains(atoi((*beg).c_str()));
+                    if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.setNChains(atoi((*beg).c_str()));
+                    else
+                        throw std::runtime_error("\nERROR: NChains in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
                 } else if (beg->compare("PrerunMaxIter") == 0) {
                     ++beg;
-                    MCEngine.SetNIterationsPreRunMax(atoi((*beg).c_str()));
+                    if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.SetNIterationsPreRunMax(atoi((*beg).c_str()));
+                    else
+                        throw std::runtime_error("\nERROR: PrerunMaxIter in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
                 } else if (beg->compare("NIterationsUpdateMax") == 0) {
                     ++beg;
-                    MCEngine.SetNIterationsPreRunCheck(atoi((*beg).c_str()));
+                    if (isdigit(beg->at(0)) && atoi((*beg).c_str()) > 0) MCEngine.SetNIterationsPreRunCheck(atoi((*beg).c_str()));
+                    else
+                        throw std::runtime_error("\nERROR: NIterationsUpdateMax in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
                 } else if (beg->compare("Seed") == 0) {
                     ++beg;
+                    if (!isdigit(beg->at(0))) throw std::runtime_error("\nERROR: Seed in the MonteCarlo configuration file: " + MCMCConf + " can only be a number.\n");
                     int seed = atoi((*beg).c_str());
                     if (seed != 0)
                         MCEngine.SetRandomSeed(seed);
                 } else if (beg->compare("Iterations") == 0) {
                     ++beg;
-                    MCEngine.SetNIterationsRun(atoi((*beg).c_str()));
+                   if (isdigit(beg->at(0))) MCEngine.SetNIterationsRun(atoi((*beg).c_str()));
+                    else
+                        throw std::runtime_error("\nERROR: Iterations in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer.\n");
                 } else if (beg->compare("MinimumEfficiency") == 0) {
                     ++beg;
-                    MCEngine.SetMinimumEfficiency(atof((*beg).c_str()));
+                    double efficiency = atof((*beg).c_str());
+                    if(efficiency > 0. && efficiency <= 1.) MCEngine.SetMinimumEfficiency(efficiency);
+                    else
+                        throw std::runtime_error("\nERROR: MinimumEfficiency in the MonteCarlo configuration file: " + MCMCConf + " can only be an real number greater than 0.0 and less than or equal to 1.0.\n");
                 } else if (beg->compare("WriteChain") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0)
-                        writechains = true;
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) writechains = (beg->compare("true") == 0);
+                    else
+                        throw std::runtime_error("\nERROR: WriteChain in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("FindModeWithMinuit") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        FindModeWithMinuit = true;
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) FindModeWithMinuit = (beg->compare("true") == 0);
+                    else
+                        throw std::runtime_error("\nERROR: FindModeWithMinuit in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("CalculateNormalization") == 0) {
                     ++beg;
-                    CalculateNormalization = *beg;
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) CalculateNormalization = *beg;
+                    else
+                        throw std::runtime_error("\nERROR: CalculateNormalization in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("NIterationNormalizationMC") == 0) {
                     ++beg;
-                    NIterationNormalizationMC = atoi((*beg).c_str());
+                    if (isdigit(beg->at(0))) NIterationNormalizationMC = atoi((*beg).c_str());
+                    else
+                        throw std::runtime_error("\nERROR: NIterationNormalizationMC in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer.\n");
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        PrintAllMarginalized = true;
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) PrintAllMarginalized = (beg->compare("true") == 0);
+                    else
+                        throw std::runtime_error("\nERROR: PrintAllMarginalized in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("PrintCorrelationMatrix") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        PrintCorrelationMatrix = true;
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) PrintCorrelationMatrix = (beg->compare("true") == 0);
+                    else
+                        throw std::runtime_error("\nERROR: PrintCorrelationMatrix in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("PrintKnowledgeUpdatePlots") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        PrintKnowledgeUpdatePlots = true;
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) PrintKnowledgeUpdatePlots = (beg->compare("true") == 0);
+                    else
+                        throw std::runtime_error("\nERROR: PrintKnowledgeUpdatePlots in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("PrintParameterPlot") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        PrintParameterPlot = true;
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) PrintParameterPlot = beg->compare("true") == 0;
+                    else
+                        throw std::runtime_error("\nERROR: PrintParameterPlot in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("WritePreRunData") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        WritePreRunData = true;
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) WritePreRunData = beg->compare("true") == 0;
+                    else
+                        throw std::runtime_error("\nERROR: WritePreRunData in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("ReadPreRunData") == 0) {
                     ++beg;
                     ReadPreRunData(*beg);
                 } else if (beg->compare("MultivariateProposal") == 0) {
                     ++beg;
-                    if (beg->compare("false") == 0) {
-                        MCEngine.SetProposeMultivariate(false);
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.SetProposeMultivariate((beg->compare("true") == 0));
+                    else 
+                        throw std::runtime_error("\nERROR: MultivariateProposal in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+                } else if (beg->compare("Histogram1DSmooth") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        MCEngine.setSmooth(1);
+                    } else if (beg->compare("false") == 0) {
+                        MCEngine.setSmooth(0); /* Default */
+                    } else if (isdigit(beg->at(0))) {
+                        if (atoi((*beg).c_str()) >= 0 && atoi((*beg).c_str()) <= 5) MCEngine.setSmooth(atoi((*beg).c_str()));
+                    } else 
+                        throw std::runtime_error("\nERROR: Histogram1DSmooth in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true', 'false' or an integer from 0 to 5.\n");
+                } else if (beg->compare("Histogram2DType") == 0) {
+                    ++beg;
+                    if (!isdigit(beg->at(0))) 
+                        throw std::runtime_error("\nERROR: Histogram2DType in the MonteCarlo configuration file : " + MCMCConf + "can only be an integer amongst 1001 -> Lego, 101 -> Filled, 0 -> Contour.\n");
+                    int type = atoi((*beg).c_str());
+                    if (type == 0 || type == 101 || type == 1001) {
+                        MCEngine.setHistogram2DType(type);
+                    } else
+                        throw std::runtime_error("\nERROR: Histogram2DType in the MonteCarlo configuration file : " + MCMCConf + "can only be an integer amongst 1001 -> Lego, 101 -> Filled, 0 -> Contour.\n");
                 } else if (beg->compare("MCMCInitialPosition") == 0) {
                     ++beg;
                     if (beg->compare("Center") == 0) {
-                        MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitCenter);/* Default */
+                        MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitCenter); /* Default */
                     } else if (beg->compare("RandomUniform") == 0){
                         MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomUniform);
                     } else if (beg->compare("RandomPrior") == 0){
                         MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomPrior);
-                    } else throw std::runtime_error("\nERROR: Wrong argument for MCMCInitialPosition in MonteCarlo config file: " + *beg + "\n Options: Center, RandomUniform or RandomPrior.\n");
+                    } else 
+                        throw std::runtime_error("\nERROR: MCMCInitialPosition in MonteCarlo config file: " + MCMCConf + " can only be 'Center', 'RandomUniform' or 'RandomPrior'.\n");
                 } else if (beg->compare("PrintLogo") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0) {
-                        MCEngine.setPrintLogo(true);
-                    }
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setPrintLogo(true);
+                    else 
+                        throw std::runtime_error("\nERROR: PrintLogo in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else
-                    throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
+                    throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
 
             if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
