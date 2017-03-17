@@ -350,12 +350,12 @@ void MonteCarlo::Run(const int rank) {
                 } else if (beg->compare("Histogram2DType") == 0) {
                     ++beg;
                     if (!isdigit(beg->at(0))) 
-                        throw std::runtime_error("\nERROR: Histogram2DType in the MonteCarlo configuration file : " + MCMCConf + "can only be an integer amongst 1001 -> Lego, 101 -> Filled, 0 -> Contour.\n");
+                        throw std::runtime_error("\nERROR: Histogram2DType in the MonteCarlo configuration file : " + MCMCConf + "can only be an integer amongst 1001 -> Lego, 101 -> Filled, 1 -> Contour.\n");
                     int type = atoi((*beg).c_str());
-                    if (type == 0 || type == 101 || type == 1001) {
+                    if (type == 1 || type == 101 || type == 1001) {
                         MCEngine.setHistogram2DType(type);
                     } else
-                        throw std::runtime_error("\nERROR: Histogram2DType in the MonteCarlo configuration file : " + MCMCConf + "can only be an integer amongst 1001 -> Lego, 101 -> Filled, 0 -> Contour.\n");
+                        throw std::runtime_error("\nERROR: Histogram2DType in the MonteCarlo configuration file : " + MCMCConf + "can only be an integer amongst 1001 -> Lego, 101 -> Filled, 1 -> Contour.\n");
                 } else if (beg->compare("MCMCInitialPosition") == 0) {
                     ++beg;
                     if (beg->compare("Center") == 0) {
