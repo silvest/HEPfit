@@ -596,18 +596,27 @@ diff -Naur BAT-1.0.0-RC1/src/BCH1D.cxx BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx
                  interval.xmax = GetHistogram()->GetXaxis()->GetBinUpEdge(b);
 diff -Naur BAT-1.0.0-RC1/src/BCH2D.cxx BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx
 --- BAT-1.0.0-RC1/src/BCH2D.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx	2016-10-20 16:10:06.000000000 +0200
-@@ -144,6 +144,10 @@
++++ BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx	2017-03-17 01:17:59.000000000 +0100
+@@ -144,10 +144,18 @@
      if (fBandFillStyle <= 0) {
          GetHistogram()->SetLineColor(GetLineColor());
          GetHistogram()->Draw((options + "cont2").data());
+-    } else {
 +    } else if (fBandFillStyle == 1001) {
-+        gStyle->SetPalette(colors.size(), &colors[0]);
-+        GetHistogram()->SetFillStyle(fBandFillStyle);
-+        GetHistogram()->Draw((options + "col").data());
-     } else {
          gStyle->SetPalette(colors.size(), &colors[0]);
          GetHistogram()->SetFillStyle(fBandFillStyle);
++        GetHistogram()->Draw((options + "col").data());
++    } else if (fBandFillStyle == 101) {
++        gStyle->SetPalette(colors.size(), &colors[0]);
++        GetHistogram()->SetFillStyle(1001);
+         GetHistogram()->Draw((options + "cont").data());
++    } else {
++        gStyle->SetPalette(colors.size(), &colors[0]);
++        GetHistogram()->SetFillStyle(0);
++        GetHistogram()->Draw((options + "cont1").data());
+     }
+     gPad->Update();
+ 
 diff -Naur BAT-1.0.0-RC1/src/BCHistogramBase.cxx BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx
 --- BAT-1.0.0-RC1/src/BCHistogramBase.cxx	2015-12-12 00:00:33.000000000 +0100
 +++ BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx	2016-10-20 03:54:09.000000000 +0200

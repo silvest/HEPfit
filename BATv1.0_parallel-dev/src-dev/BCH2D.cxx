@@ -148,10 +148,14 @@ void BCH2D::DrawBands(const std::string& options)
         gStyle->SetPalette(colors.size(), &colors[0]);
         GetHistogram()->SetFillStyle(fBandFillStyle);
         GetHistogram()->Draw((options + "col").data());
+    } else if (fBandFillStyle == 101) {
+        gStyle->SetPalette(colors.size(), &colors[0]);
+        GetHistogram()->SetFillStyle(1001);
+        GetHistogram()->Draw((options + "cont").data());
     } else {
         gStyle->SetPalette(colors.size(), &colors[0]);
-        GetHistogram()->SetFillStyle(fBandFillStyle);
-        GetHistogram()->Draw((options + "cont").data());
+        GetHistogram()->SetFillStyle(0);
+        GetHistogram()->Draw((options + "cont1").data());
     }
     gPad->Update();
 
