@@ -368,7 +368,12 @@ void MonteCarlo::Run(const int rank) {
                         throw std::runtime_error("\nERROR: MCMCInitialPosition in MonteCarlo config file: " + MCMCConf + " can only be 'Center', 'RandomUniform' or 'RandomPrior'.\n");
                 } else if (beg->compare("PrintLogo") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setPrintLogo(true);
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setPrintLogo((beg->compare("true") == 0));
+                    else 
+                        throw std::runtime_error("\nERROR: PrintLogo in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+                } else if (beg->compare("NoHistogramLegend") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setNoLegend((beg->compare("true") == 0));
                     else 
                         throw std::runtime_error("\nERROR: PrintLogo in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else

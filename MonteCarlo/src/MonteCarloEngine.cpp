@@ -21,6 +21,7 @@
 #include <TColor.h>
 #include <TBox.h>
 #include <TPaveText.h>
+#include <TStyle.h>
 #include <TCanvas.h>
 #include <fstream>
 #include <stdexcept>
@@ -41,6 +42,7 @@ MonteCarloEngine::MonteCarloEngine(
     printLogo = false;
     nSmooth = 0;
     histogram2Dtype = 1001;
+    noLegend = false;
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -567,40 +569,11 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
 
     bch1d.GetHistogram()->Scale(1./bch1d.GetHistogram()->Integral("width"));
     
-    double xRange = bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin();
-    double yRange = bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum();
-
-    double xL = bch1d.GetHistogram()->GetXaxis()->GetXmin()+0.035*xRange;
-    double yL = bch1d.GetHistogram()->GetMinimum()+1.25*yRange;
-    
-    double xR = xL+0.18*xRange;
-    double yR = yL+0.13*yRange;
-    
     int gIdx = 1000;
     int rIdx = 1001;
 
     TColor green = TColor(gIdx, 0.0, 0.56, 0.57);
     TColor red = TColor(rIdx, 0.57, 0.01, 0.00);
-
-    TBox b1 = TBox(xL, yL, xR, yR);
-    b1.SetFillColor(gIdx);
-    
-    TBox b2 = TBox(xL+0.008*xRange, yL+0.013*yRange, xR-0.008*xRange, yR-0.013*yRange);
-    b2.SetFillColor(kWhite);
-    
-    TPaveText b3 = TPaveText(xL+0.014*xRange, yL+0.02*yRange, xL+0.70*(xR-xL), yR-0.02*yRange);
-    b3.SetTextAlign(22);
-    b3.SetTextSize(0.044);
-    b3.SetTextColor(kWhite);
-    b3.AddText("HEP");
-    b3.SetFillColor(rIdx);
-    
-    TPaveText b4 = TPaveText(xL+0.7*(xR-xL), yL+0.027*yRange, xR-0.008*xRange, yR-0.015*yRange);
-    b4.SetTextAlign(33);
-    b4.SetTextSize(0.037);
-    b4.SetTextColor(rIdx);
-    b4.AddText("fit");
-    b4.SetFillColor(kWhite);
     
     bch1d.SetBandType(BCH1D::kSmallestInterval);
     bch1d.SetBandColor(0, gIdx);
@@ -610,7 +583,8 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     bch1d.SetNSmooth(nSmooth);
     bch1d.SetDrawGlobalMode(true);
     bch1d.SetDrawMean(true, true);
-    bch1d.SetDrawLegend(true);
+    bch1d.SetDrawLegend(!noLegend);
+    if (noLegend) gStyle->SetOptStat("emr");
     bch1d.SetNLegendColumns(1);
     bch1d.SetStats(true);
     
@@ -618,14 +592,61 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     
     // draw logo
     if (printLogo) {
+        double xRange = bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin();
+        double yRange = bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum();
+
+        double xL, xR, yL, yR;
+        if (noLegend) {
+            xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.045 * xRange;
+            yL = bch1d.GetHistogram()->GetMinimum() + 0.941 * yRange;
+
+            xR = xL + 0.21 * xRange;
+            yR = yL + 0.091 * yRange;
+        } else {
+            xL = bch1d.GetHistogram()->GetXaxis()->GetXmin() + 0.035 * xRange;
+            yL = bch1d.GetHistogram()->GetMinimum() + 0.88 * yRange;
+
+            xR = xL + 0.18 * xRange;
+            yR = yL + 0.09 * yRange;
+        }
+
+        TBox b1 = TBox(xL, yL, xR, yR);
+        b1.SetFillColor(gIdx);
+        
+        TBox b2; 
+        b2 = TBox(xL+0.008*xRange, yL+0.008*yRange, xR-0.008*xRange, yR-0.008*yRange);
+        b2.SetFillColor(kWhite);
+        
+        TPaveText b3 = TPaveText(xL+0.014*xRange, yL+0.013*yRange, xL+0.70*(xR-xL), yR-0.013*yRange);
+        if (noLegend) b3.SetTextSize(0.056);
+        else b3.SetTextSize(0.044);
+        b3.SetTextAlign(22);
+        b3.SetTextColor(kWhite);
+        b3.AddText("HEP");
+        b3.SetFillColor(rIdx);
+        
+        TPaveText * b4; 
+        if (noLegend) {
+            b4 = new TPaveText(xL+0.72*(xR-xL), yL+0.030*yRange, xR-0.008*xRange, yR-0.013*yRange);
+            b4->SetTextSize(0.046);
+            b4->SetTextAlign(23);
+        }
+        else {
+            b4 = new TPaveText(xL + 0.7 * (xR - xL), yL + 0.027 * yRange, xR - 0.008 * xRange, yR - 0.015 * yRange);
+            b4->SetTextSize(0.039);
+            b4->SetTextAlign(33);
+        }
+        b4->SetTextColor(rIdx);
+        b4->AddText("fit");
+        b4->SetFillColor(kWhite);
+
         b1.Draw("SAME");
         b2.Draw("SAME");
         b3.Draw("SAME");
-        b4.Draw("SAME");
-    }
-    
-    // print to file.
-    c->Print(filename);
+        b4->Draw("SAME");
+        
+        c->Print(filename);
+    } else c->Print(filename);
 }
 
 void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int wh)
@@ -639,53 +660,27 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
         c = new TCanvas(TString::Format("c_bch2d_%d",cindex));
     
     bch2d.GetHistogram()->Scale(1./bch2d.GetHistogram()->Integral("width"));
-    
-    double xRange = bch2d.GetHistogram()->GetXaxis()->GetXmax() - bch2d.GetHistogram()->GetXaxis()->GetXmin();
-    double yRange = bch2d.GetHistogram()->GetYaxis()->GetXmax() - bch2d.GetHistogram()->GetYaxis()->GetXmin();
 
-    double xL = bch2d.GetHistogram()->GetXaxis()->GetXmin()+0.035*xRange;
-    double yL = bch2d.GetHistogram()->GetYaxis()->GetXmin()+0.89*yRange;
-    
-    double xR = xL+0.18*xRange;
-    double yR = yL+0.09*yRange;
-    
     int gIdx = 1000;
     int rIdx = 1001;
 
     TColor green = TColor(gIdx, 0.0, 0.56, 0.57);
     TColor red = TColor(rIdx, 0.57, 0.01, 0.00);
-
-    TBox b1 = TBox(xL, yL, xR, yR);
-    b1.SetFillColor(gIdx);
-    
-    TBox b2 = TBox(xL+0.008*xRange, yL+0.008*yRange, xR-0.008*xRange, yR-0.008*yRange);
-    b2.SetFillColor(kWhite);
-    
-    TPaveText b3 = TPaveText(xL+0.014*xRange, yL+0.013*yRange, xL+0.70*(xR-xL), yR-0.013*yRange);
-    b3.SetTextAlign(22);
-    b3.SetTextSize(0.044);
-    b3.SetTextColor(kWhite);
-    b3.AddText("HEP");
-    b3.SetFillColor(rIdx);
-    
-    TPaveText b4 = TPaveText(xL+0.75*(xR-xL), yL+0.024*yRange, xR-0.008*xRange, yR-0.013*yRange);
-    b4.SetTextAlign(33);
-    b4.SetTextSize(0.038);
-    b4.SetTextColor(rIdx);
-    b4.AddText("fit");
-    b4.SetFillColor(kWhite);
     
     bch2d.SetBandType(BCH2D::kSmallestInterval);
     bch2d.SetBandColor(0, kOrange - 3); 
     bch2d.SetBandColor(1, rIdx);
     bch2d.SetBandColor(2, gIdx);
     bch2d.SetNBands(3);
-    bch2d.SetBandFillStyle(histogram2Dtype);
-    bch2d.SetNSmooth(0);
+    bch2d.SetBandFillStyle(histogram2Dtype);// Type of 2D Histogram 1001 -> box pixel, 101 -> filled, 1 -> contour.
+    if (histogram2Dtype == 1 || histogram2Dtype == 101) bch2d.SetNSmooth(1);
+    else bch2d.SetNSmooth(0);
+    if (histogram2Dtype == 1) bch2d.GetHistogram()->SetLineWidth(3);
     bch2d.SetDrawLocalMode(false);
     bch2d.SetDrawGlobalMode(true);
     bch2d.SetDrawMean(true, true);
-    bch2d.SetDrawLegend(true);
+    bch2d.SetDrawLegend(!noLegend);
+    if (noLegend) gStyle->SetOptStat("emr");
     bch2d.SetNLegendColumns(1);
     bch2d.SetStats(true);
     
@@ -693,14 +688,53 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
 
     //draw logo
     if (printLogo) {
+        double xRange = bch2d.GetHistogram()->GetXaxis()->GetXmax() - bch2d.GetHistogram()->GetXaxis()->GetXmin();
+        double yRange = bch2d.GetHistogram()->GetYaxis()->GetXmax() - bch2d.GetHistogram()->GetYaxis()->GetXmin();
+
+        double xL;
+        if (noLegend) xL = bch2d.GetHistogram()->GetXaxis()->GetXmin()+0.045*xRange;
+        else xL = bch2d.GetHistogram()->GetXaxis()->GetXmin() + 0.035 * xRange;
+        double yL = bch2d.GetHistogram()->GetYaxis()->GetXmin() + 0.89 * yRange;
+
+        double xR;
+        if (noLegend) xR = xL + 0.21*xRange;
+        else xR = xL + 0.18 * xRange;
+        double yR = yL + 0.09 * yRange;
+
+        TBox b1 = TBox(xL, yL, xR, yR);
+        b1.SetFillColor(gIdx);
+
+        TBox b2 = TBox(xL + 0.008 * xRange, yL + 0.008 * yRange, xR - 0.008 * xRange, yR - 0.008 * yRange);
+        b2.SetFillColor(kWhite);
+
+        TPaveText b3 = TPaveText(xL + 0.014 * xRange, yL + 0.013 * yRange, xL + 0.70 * (xR - xL), yR - 0.013 * yRange);
+        if (noLegend) b3.SetTextSize(0.056);
+        else b3.SetTextSize(0.044);
+        b3.SetTextAlign(22);
+        b3.SetTextColor(kWhite);
+        b3.AddText("HEP");
+        b3.SetFillColor(rIdx);
+
+        TPaveText * b4;
+        if (noLegend) {
+            b4 = new TPaveText(xL+0.72*(xR-xL), yL+0.030*yRange, xR-0.008*xRange, yR-0.013*yRange);
+            b4->SetTextSize(0.048);
+        } else {
+            b4 = new TPaveText(xL + 0.75 * (xR - xL), yL + 0.024 * yRange, xR - 0.008 * xRange, yR - 0.013 * yRange);
+            b4->SetTextSize(0.038);
+        }
+        b4->SetTextAlign(33);
+        b4->SetTextColor(rIdx);
+        b4->AddText("fit");
+        b4->SetFillColor(kWhite);
+        
         b1.Draw("SAME");
         b2.Draw("SAME");
         b3.Draw("SAME");
-        b4.Draw("SAME");
-    }
-    
-    // print to file
-    c->Print(filename);
+        b4->Draw("SAME");
+        
+        c->Print(filename);
+    } else c->Print(filename);
 }
 
 void MonteCarloEngine::PrintHistogram(std::string& OutFile, Observable& it, const std::string OutputDir) 
@@ -790,6 +824,7 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
         gDirectory = dir;
         CheckHistogram(*Histo1D["LogLikelihood"].GetHistogram(), "LogLikelihood");
     }
+    if (noLegend) gStyle->SetOptStat("emrn");
 }
 
 void MonteCarloEngine::AddChains() {

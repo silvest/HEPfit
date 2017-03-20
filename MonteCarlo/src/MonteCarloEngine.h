@@ -291,6 +291,15 @@ public:
     };
     
     /**
+     * @brief A set method to toggle the printing of legends in 1D and 2D histograms.
+     * @param[in] legend a boolean to toggle the the printing of legends
+     */
+    void setNoLegend(bool legend)
+    {
+        noLegend = legend;
+    };
+    
+    /**
      * @brief A set method to set the number of smoothing passes for ROOT in 1D histograms
      * @param[in] int_N number of smoothing passes for ROOT
      */
@@ -347,8 +356,9 @@ private:
     std::ofstream ofi;
     std::vector<std::string> unknownParameters; ///< A vector to contain the unkenown parameters passed in the configuration file.
     bool printLogo; ///< A flag that is set to true for printing the logo on the histogram pdf.
-    int nSmooth;
-    int histogram2Dtype;
+    int nSmooth; ///< The number of times a 1D  histogram should be smoothed.
+    int histogram2Dtype; ///< Type of 2D Histogram 1001 -> box pixel, 101 -> filled, 1 -> contour.
+    bool noLegend; ///< A flag to toggle the histogram legends
 };
 
 #endif
