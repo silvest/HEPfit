@@ -18,7 +18,6 @@
 #include <TMath.h>
 #include <TTree.h>
 #include <TROOT.h>
-#include <TColor.h>
 #include <TBox.h>
 #include <TPaveText.h>
 #include <TStyle.h>
@@ -43,6 +42,7 @@ MonteCarloEngine::MonteCarloEngine(
     nSmooth = 0;
     histogram2Dtype = 1001;
     noLegend = false;
+    alpha2D = 1.;
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -133,6 +133,12 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
     unknownParameters = Mod->getUnknownParameters();
     DefineParameters();
     SetMaximumEfficiency(0.5);
+    
+    gIdx = 1000;
+    rIdx = 1001;
+
+    HEPfit_green = new TColor(gIdx, 0.0, 0.56, 0.57, "HEPfit_green");
+    HEPfit_red = new TColor(rIdx, 0.57, 0.01, 0.00, "HEPfit_red");
 
 };
 
@@ -569,12 +575,6 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
 
     bch1d.GetHistogram()->Scale(1./bch1d.GetHistogram()->Integral("width"));
     
-    int gIdx = 1000;
-    int rIdx = 1001;
-
-    TColor green = TColor(gIdx, 0.0, 0.56, 0.57);
-    TColor red = TColor(rIdx, 0.57, 0.01, 0.00);
-    
     bch1d.SetBandType(BCH1D::kSmallestInterval);
     bch1d.SetBandColor(0, gIdx);
     bch1d.SetBandColor(1, rIdx);
@@ -661,16 +661,10 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
     
     bch2d.GetHistogram()->Scale(1./bch2d.GetHistogram()->Integral("width"));
 
-    int gIdx = 1000;
-    int rIdx = 1001;
-
-    TColor green = TColor(gIdx, 0.0, 0.56, 0.57);
-    TColor red = TColor(rIdx, 0.57, 0.01, 0.00);
-    
     bch2d.SetBandType(BCH2D::kSmallestInterval);
-    bch2d.SetBandColor(0, kOrange - 3); 
-    bch2d.SetBandColor(1, rIdx);
-    bch2d.SetBandColor(2, gIdx);
+    bch2d.SetBandColor(0, TColor::GetColorTransparent(kOrange - 3, alpha2D)); 
+    bch2d.SetBandColor(1, TColor::GetColorTransparent(rIdx, alpha2D));
+    bch2d.SetBandColor(2, TColor::GetColorTransparent(gIdx, alpha2D));
     bch2d.SetNBands(3);
     bch2d.SetBandFillStyle(histogram2Dtype);// Type of 2D Histogram 1001 -> box pixel, 101 -> filled, 1 -> contour.
     if (histogram2Dtype == 1 || histogram2Dtype == 101) bch2d.SetNSmooth(1);

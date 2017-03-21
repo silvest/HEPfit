@@ -376,6 +376,12 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setNoLegend((beg->compare("true") == 0));
                     else 
                         throw std::runtime_error("\nERROR: PrintLogo in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+                } else if (beg->compare("Histogram2DAlpha") == 0) {
+                    ++beg;
+                    double alpha = atof((*beg).c_str());
+                    if(alpha > 0. && alpha <= 1.) MCEngine.setAlpha2D(alpha);
+                    else
+                        throw std::runtime_error("\nERROR: Histogram2DAlpha in the MonteCarlo configuration file: " + MCMCConf + " can only be an real number greater than 0.0 and less than or equal to 1.0.\n");
                 } else
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);

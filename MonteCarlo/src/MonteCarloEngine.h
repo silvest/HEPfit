@@ -20,6 +20,7 @@
 #include <TFile.h>
 #include <TRandom3.h>
 #include <TPrincipal.h>
+#include <TColor.h>
 #include <map>
 #include <string>
 #include <sstream>
@@ -300,6 +301,15 @@ public:
     };
     
     /**
+     * @brief A set method to toggle the printing of legends in 1D and 2D histograms.
+     * @param[in] legend a boolean to toggle the the printing of legends
+     */
+    void setAlpha2D(double alpha)
+    {
+        alpha2D = alpha;
+    };
+    
+    /**
      * @brief A set method to set the number of smoothing passes for ROOT in 1D histograms
      * @param[in] int_N number of smoothing passes for ROOT
      */
@@ -359,6 +369,11 @@ private:
     int nSmooth; ///< The number of times a 1D  histogram should be smoothed.
     int histogram2Dtype; ///< Type of 2D Histogram 1001 -> box pixel, 101 -> filled, 1 -> contour.
     bool noLegend; ///< A flag to toggle the histogram legends
+    double alpha2D;///< A number between 0. and 1. that sets the opacity level of 2D Histograms, 1. being fully opaque.
+    int gIdx;
+    int rIdx;
+    TColor * HEPfit_green;
+    TColor * HEPfit_red;
 };
 
 #endif
