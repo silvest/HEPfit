@@ -6379,8 +6379,8 @@ gslpp::complex THDMcache::I_h_U(const double mHl2, const double Mu, const double
     	double TAUu=4.0*Mu*Mu/mHl2;
     	double TAUc=4.0*Mc*Mc/mHl2;
     	double TAUt=4.0*Mt*Mt/mHl2;
-        gslpp::complex newResult = -(8./3.)*(TAUu*(1+(1-TAUu)*f_func(TAUu))
-                         +TAUc*(1+(1-TAUc)*f_func(TAUc))+TAUt*(1+(1-TAUt)*f_func(TAUt)));
+        gslpp::complex newResult = -(8./3.)*(TAUu*(1.0+(1.0-TAUu)*f_func(TAUu))
+                         +TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))+TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
         CacheShift(I_h_U_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6396,8 +6396,8 @@ gslpp::complex THDMcache::I_HH_U(const double mHh2, const double Mc, const doubl
     } else {
     	double TAUc=4.0*Mc*Mc/mHh2;
     	double TAUt=4.0*Mt*Mt/mHh2;
-        gslpp::complex newResult = -(8./3.)*(TAUc*(1+(1-TAUc)*f_func(TAUc))
-                      +TAUt*(1+(1-TAUt)*f_func(TAUt)));
+        gslpp::complex newResult = -(8./3.)*(TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
+                      +TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
         CacheShift(I_HH_U_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6430,8 +6430,8 @@ gslpp::complex THDMcache::I_h_D(const double mHl2, const double Md, const double
     	double TAUd=4.0*Md*Md/mHl2;
     	double TAUs=4.0*Ms*Ms/mHl2;
     	double TAUb=4.0*Mb*Mb/mHl2;
-        gslpp::complex newResult = -(2./3.)*(TAUd*(1+(1-TAUd)*f_func(TAUd))
-                         +TAUs*(1+(1-TAUs)*f_func(TAUs))+TAUb*(1+(1-TAUb)*f_func(TAUb)));
+        gslpp::complex newResult = -(2./3.)*(TAUd*(1.0+(1.0-TAUd)*f_func(TAUd))
+                         +TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))+TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
         CacheShift(I_h_D_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6447,8 +6447,8 @@ gslpp::complex THDMcache::I_HH_D(const double mHh2, const double Ms, const doubl
     } else {
     	double TAUs=4.0*Ms*Ms/mHh2;
     	double TAUb=4.0*Mb*Mb/mHh2;
-        gslpp::complex newResult = -(2./3.)*(TAUs*(1+(1-TAUs)*f_func(TAUs))
-                      +TAUb*(1+(1-TAUb)*f_func(TAUb)));
+        gslpp::complex newResult = -(2./3.)*(TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))
+                      +TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
         CacheShift(I_HH_D_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6481,9 +6481,9 @@ gslpp::complex THDMcache::I_h_L(const double mHl2, const double Me, const double
     	double TAUe=4.0*Me*Me/mHl2;
     	double TAUmu=4.0*Mmu*Mmu/mHl2;
     	double TAUtau=4.0*Mtau*Mtau/mHl2;
-        gslpp::complex newResult = -2.0*(TAUe*(1+(1-TAUe)*f_func(TAUe))
-                         +TAUmu*(1+(1-TAUmu)*f_func(TAUmu))
-                         +TAUtau*(1+(1-TAUtau)*f_func(TAUtau)));
+        gslpp::complex newResult = -2.0*(TAUe*(1.0+(1.0-TAUe)*f_func(TAUe))
+                         +TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))
+                         +TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
         CacheShift(I_h_L_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6499,8 +6499,8 @@ gslpp::complex THDMcache::I_HH_L(const double mHh2, const double Mmu, const doub
     } else {
     	double TAUmu=4.0*Mmu*Mmu/mHh2;
     	double TAUtau=4.0*Mtau*Mtau/mHh2;
-        gslpp::complex newResult = -2.0*(TAUmu*(1+(1-TAUmu)*f_func(TAUmu))+
-                           TAUtau*(1+(1-TAUtau)*f_func(TAUtau)));
+        gslpp::complex newResult = -2.0*(TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))+
+                           TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
         CacheShift(I_HH_L_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6747,7 +6747,7 @@ gslpp::complex THDMcache::A_H_W(const double mH, const double cW2, const double 
         double TAUw=4.0*MW*MW/(mH*mH);
         double LAMw=4.0*MW*MW/(MZ*MZ);
 	double sW2=1.0-cW2;
-        gslpp::complex newResult = -sqrt(cW2/sW2)*(4*(3-sW2/cW2)*Int2(TAUw,LAMw)
+        gslpp::complex newResult = -sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
                             +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw));
         CacheShift(A_H_W_cache, NumPar, params, newResult);
         return newResult;
@@ -6765,7 +6765,7 @@ gslpp::complex THDMcache::A_H_Hp(const double mHp2, const double mH, const doubl
         double TAUhp=4.0*mHp2/(mH*mH);
         double LAMhp=4.0*mHp2/(MZ*MZ);
 	double sW2=1.0-cW2;
-        gslpp::complex newResult = (1-2.0*sW2)/sqrt(cW2*sW2)*Int1(TAUhp,LAMhp);
+        gslpp::complex newResult = (1.0-2.0*sW2)/sqrt(cW2*sW2)*Int1(TAUhp,LAMhp);
         CacheShift(A_H_Hp_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -6774,7 +6774,7 @@ gslpp::complex THDMcache::A_H_Hp(const double mHp2, const double mH, const doubl
 gslpp::complex THDMcache::f_func(const double x) const{
     if(x<1) {
     gslpp::complex z = -gslpp::complex::i()*M_PI;
-    return -pow(log((1+sqrt(1-x))/(1-sqrt(1-x)))+z,2)/4.0;
+    return -pow(log((1.0+sqrt(1.0-x))/(1.0-sqrt(1.0-x)))+z,2)/4.0;
     }
     else {
         return pow(asin(sqrt(1.0/x)),2);
@@ -6786,11 +6786,11 @@ gslpp::complex THDMcache::f_func(const double x) const{
 gslpp::complex THDMcache::g_func(const double x) const{
     if(x<1) {
     gslpp::complex z = -gslpp::complex::i()*M_PI;
-    gslpp::complex gs1 = sqrt(1-x)*(log((1+sqrt(1-x))/(1-sqrt(1-x)))+z)/2.0;
+    gslpp::complex gs1 = sqrt(1.0-x)*(log((1.0+sqrt(1.0-x))/(1.0-sqrt(1.0-x)))+z)/2.0;
     return gs1;
     }
     else {
-        gslpp::complex gg1 = sqrt(x-1)*asin(sqrt(1.0/x));
+        gslpp::complex gg1 = sqrt(x-1.0)*asin(sqrt(1.0/x));
         return gg1;
     }
 }
@@ -7081,16 +7081,16 @@ void THDMcache::computeHHquantities()
     }
 
     /*Gamma_Hgaga expression can be found in arXiv:0902.4665v3, Appendix A, A.8*/
-    double Gamma_Hgaga=GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2)*128.0*M_PI*M_PI*M_PI)
-                *(I_HH_F+I_HH_W+I_HH_Hp).abs()*(I_HH_F+I_HH_W+I_HH_Hp).abs();
+    double Gamma_Hgaga=GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI)
+                *(I_HH_F+I_HH_W+I_HH_Hp).abs2();
 
     /*Gamma_HZga expression can be found in arXiv:0902.4665v3, Appendix A, A.9*/
-    double Gamma_HZga=HSTheta(mHh-MZ)*GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2)*64.0*M_PI*M_PI*M_PI)
+    double Gamma_HZga=HSTheta(mHh-MZ)*GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2.0)*64.0*M_PI*M_PI*M_PI)
                *(1.0-MZ*MZ/(mHh*mHh))*(1.0-MZ*MZ/(mHh*mHh))*(1.0-MZ*MZ/(mHh*mHh))
-               *(A_HH_F+A_HH_W+A_HH_Hp).abs()*(A_HH_F+A_HH_W+A_HH_Hp).abs();
+               *(A_HH_F+A_HH_W+A_HH_Hp).abs2();
 
     /*Gamma_Hgg expression can be found in arXiv:0902.4665v3, Appendix A, A.10 or in the Higgs Hunter's Guide (2.30); relative coupling see above*/
-    double Gamma_Hgg=rHH_gg*GF*Als*Als*mHh*mHh*mHh/(sqrt(2)*16.0*M_PI*M_PI*M_PI)
+    double Gamma_Hgg=rHH_gg*GF*Als*Als*mHh*mHh*mHh/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)
                      *(9.0/4.0)*(I_HH_Ux/4.0+I_HH_Dx).abs2();
 
     /*Calulation of rHH_QdQd, rHH_ll, rHH_gg, Gamma_Hgaga, Gamma_HZga, Gamma_Hgg: END*/
@@ -9159,14 +9159,14 @@ void THDMcache::computeAquantities()
     }
 
     /*Gamma_Agaga expression can be found in in arXiv:0902.4665v3, Appendix A, A.8*/
-    double Gamma_Agaga=GF*Ale*Ale*mA*mA*mA/(sqrt(2)*128.0*M_PI*M_PI*M_PI)
+    double Gamma_Agaga=GF*Ale*Ale*mA*mA*mA/(sqrt(2.0)*128.0*M_PI*M_PI*M_PI)
                 *(I_A_F).abs2();
     /*Gamma_AZga expression can be found in in arXiv:0902.4665v3, Appendix A, A.9*/
-    double Gamma_AZga=HSTheta(mA-MZ)*GF*Ale*Ale*mA*mA*mA/(sqrt(2)*64.0*M_PI*M_PI*M_PI)
+    double Gamma_AZga=HSTheta(mA-MZ)*GF*Ale*Ale*mA*mA*mA/(sqrt(2.0)*64.0*M_PI*M_PI*M_PI)
                *(1.0-MZ*MZ/(mA*mA))*(1.0-MZ*MZ/(mA*mA))*(1.0-MZ*MZ/(mA*mA))
                *(A_A_F).abs2();
     /*Gamma_Agg expression can be found in in arXiv:0902.4665v3, Appendix A, A.10*/
-    double Gamma_Agg=rA_gg*GF*Als*Als*mA*mA*mA/(sqrt(2)*16.0*M_PI*M_PI*M_PI)
+    double Gamma_Agg=rA_gg*GF*Als*Als*mA*mA*mA/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)
                      *(9.0/4.0)*(I_A_Ux/4.0+I_A_Dx).abs2();
 
     /*Calulation of rA_QdQd, rA_ll, rA_gg, Gamma_Agaga, Gamma_AZga, Gamma_Agg: END*/
@@ -9309,7 +9309,7 @@ void THDMcache::computeAquantities()
         THoEX_pp_A_gaga_ATLAS8=pp_A_gaga_TH8/ip_ex_pp_phi_gaga_ATLAS8(mA);
         R_pp_A_gaga_ATLAS8=(1+(pp_A_gaga_TH8-ip_ex_pp_phi_gaga_ATLAS8(mA))/ip_ex_pp_phi_gaga_ATLAS8_e(mA) ) * nftos;
     }
-    if(mA>=90.0 && mA<100.0)
+    else if(mA>=90.0 && mA<100.0)
     {
         THoEX_ggF_A_tautau_ATLAS8=ggF_A_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mA);
         R_ggF_A_tautau_ATLAS8=(1+(ggF_A_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mA))/ip_ex_gg_phi_tautau_ATLAS8_e(mA) ) * nftos;

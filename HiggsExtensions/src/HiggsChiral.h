@@ -256,6 +256,18 @@ public:
      * @return @f$\mu_{eettH}@f$
      */
     virtual double mueettH(const double sqrt_s) const;
+
+    virtual double Gammagg() const;
+    virtual double GammaWW() const;
+    virtual double GammaZZ() const;
+    virtual double GammaZga() const;
+    virtual double Gammagaga() const;
+    virtual double Gammamumu() const;
+    virtual double Gammatautau() const;
+    virtual double Gammacc() const;
+    virtual double Gammabb() const;
+    virtual double GammaTotal() const;
+
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.
@@ -331,64 +343,63 @@ protected:
      * @brief A method to compute the ratio of the @f$Hgg@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$Hgg@f$ coupling in the current model and in the SM
      */
-    virtual double computeKg(const double sqrt_s) const;
+    virtual double computecg() const;
 
     /**
-     * @brief A method to compute the ratio of the @f$HWW@f$ coupling in the current model and in the SM.
+     * @brief A method to compute the ratio of the @f$HVV@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$HWW@f$ coupling in the current model and in the SM
      */
-    virtual double computeKW() const;
-
-    /**
-     * @brief A method to compute the ratio of the @f$HZZ@f$ coupling in the current model and in the SM.
-     * @return the ratio of the @f$HZZ@f$ coupling in the current model and in the SM
-     */
-    virtual double computeKZ() const;
+    virtual double computecV() const;
 
     /**
      * @brief A method to compute the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM
      */
-    virtual double computeKZga() const;
+    virtual double computecZga() const;
 
     /**
      * @brief A method to compute the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM
      */
-    virtual double computeKgaga() const;
+    virtual double computecga() const;
     
     /**
      * @brief A method to compute the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM
      */
-    virtual double computeKmu() const;
+    virtual double computecmu() const;
 
     /**
      * @brief A method to compute the ratio of the @f$H\tau\tau@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$H\tau\tau@f$ coupling in the current model and in the SM
      */
-    virtual double computeKtau() const;
+    virtual double computectau() const;
 
     /**
      * @brief A method to compute the ratio of the @f$Hcc@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$Hcc@f$ coupling in the current model and in the SM
      */
-    virtual double computeKc() const;
+    virtual double computecc() const;
 
     /**
      * @brief A method to compute the ratio of the @f$Htt@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$Htt@f$ coupling in the current model and in the SM
      */
-    virtual double computeKt() const;
+    virtual double computect() const;
 
     /**
      * @brief A method to compute the ratio of the @f$Hbb@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$Hbb@f$ coupling in the current model and in the SM
      */
-    virtual double computeKb() const;
+    virtual double computecb() const;
 
     ////////////////////////////////////////////////////////////////////////
 private:
+    gslpp::complex f_func(const double x) const;
+    gslpp::complex g_func(const double x) const;
+    gslpp::complex Int1(const double tau, const double lambda) const;
+    gslpp::complex Int2(const double tau, const double lambda) const;
+
     double cv; ///< 
     double ct; ///< 
     double cb; ///< 
