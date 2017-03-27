@@ -68,7 +68,7 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
     modelFactory["HiggsKvgenKfgen"] = boost::factory<HiggsKvgenKfgen*>();
     modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
-    modelFactory["HiggsChiral"] = boost::factory<HiggsKvKf*>();
+    modelFactory["HiggsChiral"] = boost::factory<HiggsChiral*>();
     modelFactory["NPDF2"] = boost::factory<NPDF2*>();
     modelFactory["CMFV"] = boost::factory<CMFV*>();
     modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
