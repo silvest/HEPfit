@@ -8,7 +8,7 @@
 #include "HiggsChiral.h"
 
 const std::string HiggsChiral::HChiralvars[NHChiralvars] = {
-    "cv", "ct", "cb", "ctau", "cmu", "cg", "cga", "cZga"
+    "cv", "ct", "cb", "cc", "ctau", "cmu", "cg", "cga", "cZga"
 };
 
 HiggsChiral::HiggsChiral()
@@ -17,6 +17,7 @@ HiggsChiral::HiggsChiral()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cv", boost::cref(cv)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ct", boost::cref(ct)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cb", boost::cref(cb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cc", boost::cref(cc)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ctau", boost::cref(ctau)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cmu", boost::cref(cmu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cg", boost::cref(cg)));
@@ -32,6 +33,8 @@ void HiggsChiral::setParameter(const std::string name, const double& value)
         ct = value;
     else if (name.compare("cb") == 0)
         cb = value;
+    else if (name.compare("cc") == 0)
+        cc = value;
     else if (name.compare("ctau") == 0)
         ctau = value;
     else if (name.compare("cmu") == 0)
@@ -72,6 +75,46 @@ double HiggsChiral::muVBF(const double sqrt_s) const
 double HiggsChiral::mueeWBF(const double sqrt_s) const
 {
     return computecV() * computecV();
+}
+
+double HiggsChiral::muWH(const double sqrt_s) const
+{
+    return computecV() * computecV();
+}
+
+double HiggsChiral::muZH(const double sqrt_s) const
+{
+    return computecV() * computecV();
+}
+
+double HiggsChiral::mueeZH(const double sqrt_s) const
+{
+    return computecV() * computecV();
+}
+
+double HiggsChiral::muVH(const double sqrt_s) const
+{
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
+    return ((computecV() * computecV() * sigmaWH_SM
+            + computecV() * computecV() * sigmaZH_SM)
+            / (sigmaWH_SM + sigmaZH_SM));
+}
+
+double HiggsChiral::muVBFpVH(const double sqrt_s) const
+{
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
+    double sigmaWF_SM = trueSM.computeSigmaWF(sqrt_s);
+    double sigmaZF_SM = trueSM.computeSigmaZF(sqrt_s);
+    double sigmaZWF_SM = trueSM.computeSigmaZWF(sqrt_s);    
+    double sigmaVBF_SM = sigmaWF_SM + sigmaZF_SM + sigmaZWF_SM;
+    
+    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
+    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
+    double sigmaVBF = muVBF(sqrt_s) * sigmaVBF_SM;
+
+    return ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
 }
 
 double HiggsChiral::muttH(const double sqrt_s) const
@@ -192,6 +235,11 @@ double HiggsChiral::GammaTotal() const
             + Gammamumu() + Gammatautau() + Gammacc() + Gammabb();
 }
 
+double HiggsChiral::BrHggRatio() const
+{
+    return Gammagg() / GammaTotal() / trueSM.computeBrHtogg();
+}
+
 double HiggsChiral::BrHWWRatio() const
 {
     return GammaWW() / GammaTotal() / trueSM.computeBrHtoWW();
@@ -232,8 +280,8 @@ double HiggsChiral::BrHbbRatio() const
     return Gammabb() / GammaTotal() / trueSM.computeBrHtobb();
 }
 //
-//double HiggsChiral::computeGammaTotalRatio() const
-//{
+double HiggsChiral::computeGammaTotalRatio() const
+{
 //    double gtt_SM = trueSM.computeGammaHgg_tt();
 //    double gbb_SM = trueSM.computeGammaHgg_bb();
 //    double gtb_SM = trueSM.computeGammaHgg_tb();
@@ -258,7 +306,11 @@ double HiggsChiral::BrHbbRatio() const
 //            + trueSM.computeBrHtotautau()
 //            + trueSM.computeBrHtocc()
 //            + trueSM.computeBrHtobb()));
-//}
+
+//  SET TO THE RIGHT FUNCTION OR REMOVE ALTOGETHER (FROM .cpp and .h)
+    return 1.;
+
+}
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -292,10 +344,10 @@ double HiggsChiral::computectau() const
     return ctau;
 }
 
-//double HiggsKvKfgen::computeKc() const
-//{
-//    return cc;
-//}
+double HiggsChiral::computecc() const
+{
+    return cc;
+}
 
 double HiggsChiral::computect() const
 {

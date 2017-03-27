@@ -43,6 +43,11 @@
  *   <td class="mod_desc"></td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%cc</td>
+ *   <td class="mod_symb">@f$c_c@f$</td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%ctau</td>
  *   <td class="mod_symb">@f$c_\tau@f$</td>
  *   <td class="mod_desc"></td>
@@ -73,7 +78,7 @@
 class HiggsChiral : public NPbase {
 public:
 
-    static const int NHChiralvars = 8; ///< The number of the model parameters.
+    static const int NHChiralvars = 9; ///< The number of the model parameters.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKvKf.
@@ -117,6 +122,15 @@ public:
     double getcb() const
     {
         return cb;
+    }
+    
+    /**
+     * @brief .
+     * @return @f$c_c@f$
+     */
+    double getcc() const
+    {
+        return cc;
     }
 
     /**
@@ -403,6 +417,7 @@ private:
     double cv; ///< 
     double ct; ///< 
     double cb; ///< 
+    double cc; ///< 
     double ctau; ///< 
     double cmu; ///< 
     double cg; ///< 
