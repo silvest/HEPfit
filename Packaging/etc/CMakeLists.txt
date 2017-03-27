@@ -301,7 +301,7 @@ if(BAT_INSTALL)
     else()
       message(STATUS "Found ${BAT_FILENAME} in the current directory")
     endif()
-    set(BAT_MD5 8655C961B1BB44905ECCC05ED652DC25)
+    set(BAT_MD5 8655c961b1bb44905eccc05ed652dc25)
     configure_file("${CMAKE_CURRENT_SOURCE_DIR}/BAT_make_wrapper.sh.in"
                    "${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh" @ONLY)
     # The make command to the top-level make will be inherited to the BAT make. 
