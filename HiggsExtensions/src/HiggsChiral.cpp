@@ -186,7 +186,7 @@ double HiggsChiral::GammaZga() const
                       +ctau * 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau)) )/sqrt(sW2*cW2)
                      -cv * sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
                             +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw))
-                     +cZga * 0.0 ).abs2(); /*CHANGE THE cZga COEFFICIENT!*/
+                     +cZga).abs2(); /*CHANGE THE cZga COEFFICIENT!*/
 }
 
 double HiggsChiral::Gammagaga() const
@@ -288,28 +288,7 @@ double HiggsChiral::computeGammaTotalRatio() const
 //    double Ggg_over_GggSM = (computeKt() * computeKt() * gtt_SM
 //            + computeKb() * computeKb() * gbb_SM
 //            + computeKt() * computeKb() * gtb_SM) / (gtt_SM + gbb_SM + gtb_SM);
-//    return ((Ggg_over_GggSM * trueSM.computeBrHtogg()
-//            + computeKW() * computeKW() * trueSM.computeBrHtoWW()
-//            + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
-//            + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
-//            + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
-//            + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
-//            + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
-//            + computeKc() * computeKc() * trueSM.computeBrHtocc()
-//            + computeKb() * computeKb() * trueSM.computeBrHtobb())
-//            / (trueSM.computeBrHtogg()
-//            + trueSM.computeBrHtoWW()
-//            + trueSM.computeBrHtoZZ()
-//            + trueSM.computeBrHtoZga()
-//            + trueSM.computeBrHtogaga()
-//            + trueSM.computeBrHtomumu()
-//            + trueSM.computeBrHtotautau()
-//            + trueSM.computeBrHtocc()
-//            + trueSM.computeBrHtobb()));
-
-//  SET TO THE RIGHT FUNCTION OR REMOVE ALTOGETHER (FROM .cpp and .h)
-    return 1.;
-
+    return (GammaTotal() / trueSM.computeGammaHTotal());
 }
 
 ////////////////////////////////////////////////////////////////////////
