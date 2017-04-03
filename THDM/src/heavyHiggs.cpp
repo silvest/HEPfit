@@ -1010,6 +1010,26 @@ double Robs_pp_H_hh_bbtautau_CMS13::computeThValue()
 
 
 
+Hobs_pp_H_hh_bbtautau1_CMS13::Hobs_pp_H_hh_bbtautau1_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_pp_H_hh_bbtautau1_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_bbtautau1_CMS13;
+}
+
+Robs_pp_H_hh_bbtautau1_CMS13::Robs_pp_H_hh_bbtautau1_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_pp_H_hh_bbtautau1_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_pp_H_hh_bbtautau1_CMS13;
+}
+
+
+
 Hobs_pp_H_hh_bblnulnu_CMS13::Hobs_pp_H_hh_bblnulnu_CMS13(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
@@ -1026,6 +1046,26 @@ Robs_pp_H_hh_bblnulnu_CMS13::Robs_pp_H_hh_bblnulnu_CMS13(const StandardModel& SM
 double Robs_pp_H_hh_bblnulnu_CMS13::computeThValue()
 {
     return myTHDM.getMyTHDMCache()->R_pp_H_hh_bblnulnu_CMS13;
+}
+
+
+
+Hobs_pp_H_hh_bbVV_CMS13::Hobs_pp_H_hh_bbVV_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_pp_H_hh_bbVV_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_pp_H_hh_bbVV_CMS13;
+}
+
+Robs_pp_H_hh_bbVV_CMS13::Robs_pp_H_hh_bbVV_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_pp_H_hh_bbVV_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_pp_H_hh_bbVV_CMS13;
 }
 
 
@@ -1464,6 +1504,17 @@ log10_pp_H_hh_bblnulnu_TH13::log10_pp_H_hh_bblnulnu_TH13(const StandardModel& SM
 double log10_pp_H_hh_bblnulnu_TH13::computeThValue()
 {
     return log10(myTHDM.getMyTHDMCache()->pp_H_hh_bblnulnu_TH13);
+}
+
+
+
+log10_pp_H_hh_bbVV_TH13::log10_pp_H_hh_bbVV_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double log10_pp_H_hh_bbVV_TH13::computeThValue()
+{
+    return log10(myTHDM.getMyTHDMCache()->pp_H_hh_bbVV_TH13);
 }
 
 

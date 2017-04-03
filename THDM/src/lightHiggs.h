@@ -622,6 +622,27 @@ private:
     const THDM& myTHDM;
 };
 
+/**
+ * @class mu_htotautau
+ * @ingroup THDM
+ * @brief Signal strength of an h decaying to two @f$\tau@f$ leptons at 13 TeV.
+ */
+class mu_htotautau : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    mu_htotautau(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text pp}(h\to \tau\tau)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
 
 
 
