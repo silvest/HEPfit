@@ -638,7 +638,7 @@ public:
         MESON_END /**< The size of this enum. */
     };
     
-    static const int NQCDvars = 101; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 51; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1270,7 +1270,6 @@ protected:
     double DeltaP_cu;
     double Br_Kp_munu;
     double Br_B_Xcenu;
-    double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     double FKstarp, FKstarPp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
@@ -1281,8 +1280,6 @@ private:
     
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     std::map<std::string, BParameter> BParameterMap;
-    double FBsSqrtBBs1, FBsSqrtBBs2, FBsSqrtBBs3, FBsSqrtBBs4, FBsSqrtBBs5, 
-            FBdSqrtBBd2, FBdSqrtBBd3, FBdSqrtBBd4, FBdSqrtBBd5, csi;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.

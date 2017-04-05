@@ -41,6 +41,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/BParameter.cpp</itemPath>
       <itemPath>src/CKM.cpp</itemPath>
       <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
@@ -509,6 +510,8 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="src/BParameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BParameter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CKM.cpp" ex="false" tool="1" flavor2="0">
@@ -826,6 +829,8 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <item path="src/BParameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BParameter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CKM.cpp" ex="false" tool="1" flavor2="0">
@@ -1141,6 +1146,8 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
+      <item path="src/BParameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/BParameter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CKM.cpp" ex="false" tool="1" flavor2="0">

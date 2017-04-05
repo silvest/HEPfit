@@ -9,6 +9,9 @@
 #define	BPARAMETER_H
 
 #include <gslpp_vector_double.h>
+#include <vector>
+#include <boost/ref.hpp>
+#include <map>
 #include "OrderScheme.h"
 
 /**
@@ -32,18 +35,19 @@ public:
      * @brief Constructor.
      * @param[in] n dimension of the vector of bag parameters
      */
-    BParameter(int n)
-    : bpars(n,0.)
-    {};
+    BParameter(int n);
     
     /**
      * @brief Constructor.
      * @param[in] n dimension of the vector of bag parameters
      * @param[in] name_i name used to identify the B Parameter
      */
-    BParameter(int n, std::string name_i)
-    : bpars(n,0.)
-    { name = name_i; };
+    BParameter(int n, std::string name_i);
+    
+    /**
+     * @brief The default destructor.
+     */
+    virtual ~BParameter();
 
     /**
      * @brief A get method for the vector of the bag parameters.
@@ -90,6 +94,7 @@ public:
     {
         this->mu = mu;
     }
+    
     /**
      * @brief A get method for the scheme of the bag parameters.
      * @return the scheme in which the bag parameters are defined
@@ -107,13 +112,171 @@ public:
     {
         this->scheme = scheme;
     }
+    
+    /**
+     * @brief A method to get the parameters list.
+     * @param[in] name the name of the bag parameter.
+     */
+    std::vector<std::string> parameterList(std::string name_i);
+    
+    /**
+     * @brief A set method for setting the parameters.
+     * @param[in] name the name of the parameter to be set
+     * @param[in] value the value of the parameter to be set
+     */
+    void setParameter(std::string name_i, double value);
+    
+    /**
+     * @brief A method to pass the list of parameters as observables.
+     * @param[in] ModelParamMap the reference to the Model Parameter Map.
+     */
+    void ModelParameterMapInsert(std::map< std::string, boost::reference_wrapper<const double> >& ModelParamMap);
+    
+    /**
+     * @brief A set method to set the flag for the parameter set to be used for BBs and BBd.
+     * @param[in] flag the boolean value of the flag
+     */
+    void setFlagCsi(bool flag) {
+        FlagCsi = flag;
+    }
+    
+    /**
+     * @brief A set method for BBs/BBd.
+     * @param[in] BBsoBBd the parameter BBs/BBd
+     */
+    void setBBsoBBd(double BBsoBBd) 
+    {
+        this->BBsoBBd = BBsoBBd;
+    }
+       
+    /**
+     * @brief A get method for BBs/BBd.
+     * @return the parameter BBs/BBd.
+     */
+    const double& getBBsoBBd() const
+    {
+        if (name.compare("BBd") == 0) return BBsoBBd;
+        else throw std::runtime_error("BBsoBBd belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for csi.
+     * @return the parameter csi.
+     */
+    const double& getcsi() const
+    {
+        if (name.compare("BBd") == 0) return csi;
+        else throw std::runtime_error("csi belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBsSqrtBBs1.
+     * @return the parameter FBsSqrtBBs1.
+     */
+    const double& getFBsSqrtBBs1() const
+    {
+        if (name.compare("BBs") == 0) return FBsSqrtBBs1;
+        else throw std::runtime_error("FBsSqrtBBs1 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBsSqrtBBs2.
+     * @return the parameter FBsSqrtBBs2.
+     */
+    const double& getFBsSqrtBBs2() const
+    {
+        if (name.compare("BBs") == 0) return FBsSqrtBBs2;
+        else throw std::runtime_error("FBsSqrtBBs2 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBsSqrtBBs3.
+     * @return the parameter FBsSqrtBBs3.
+     */
+    const double& getFBsSqrtBBs3() const
+    {
+        if (name.compare("BBs") == 0) return FBsSqrtBBs3;
+        else throw std::runtime_error("FBsSqrtBBs3 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBsSqrtBBs4.
+     * @return the parameter FBsSqrtBBs1.
+     */
+    const double& getFBsSqrtBBs4() const
+    {
+        if (name.compare("BBs") == 0) return FBsSqrtBBs4;
+        else throw std::runtime_error("FBsSqrtBBs4 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBsSqrtBBs5.
+     * @return the parameter FBsSqrtBBs5.
+     */
+    const double& getFBsSqrtBBs5() const
+    {
+        if (name.compare("BBs") == 0) return FBsSqrtBBs5;
+        else throw std::runtime_error("FBsSqrtBBs5 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBdSqrtBBd2.
+     * @return the parameter FBdSqrtBBd2.
+     */
+    const double& getFBdSqrtBBd2() const
+    {
+        if (name.compare("BBd") == 0) return FBdSqrtBBd2;
+        else throw std::runtime_error("FBdSqrtBBd2 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBdSqrtBBd3.
+     * @return the parameter FBdSqrtBBd3.
+     */
+    const double& getFBdSqrtBBd3() const
+    {
+        if (name.compare("BBd") == 0) return FBdSqrtBBd3;
+        else throw std::runtime_error("FBdSqrtBBd3 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBdSqrtBBd4.
+     * @return the parameter FBdSqrtBBd4.
+     */
+    const double& getFBdSqrtBBd4() const
+    {
+        if (name.compare("BBd") == 0) return FBdSqrtBBd4;
+        else throw std::runtime_error("FBdSqrtBBd4 belongs to " + name);
+    }
+    
+    /**
+     * @brief A get method for FBdSqrtBBd5.
+     * @return the parameter FBdSqrtBBd5.
+     */
+    const double& getFBdSqrtBBd5() const
+    {
+        if (name.compare("BBd") == 0) return FBdSqrtBBd5;
+        else throw std::runtime_error("FBdSqrtBBd5 belongs to " + name);
+    }
+    
 
 private:
     gslpp::vector<double> bpars;///< A vector of bag parameters.
     double mu;///< The scale at which the bag parameters are defined. 
     schemes scheme;///< The scheme in which the bag parameters are defined.
-    std::string name;
-    
+    std::string name;   
+    bool FlagCsi;
+    double BBsoBBd;
+    double csi;
+    double FBsSqrtBBs1;
+    double FBsSqrtBBs2;
+    double FBsSqrtBBs3;
+    double FBsSqrtBBs4;
+    double FBsSqrtBBs5;
+    double FBdSqrtBBd2;
+    double FBdSqrtBBd3;
+    double FBdSqrtBBd4;
+    double FBdSqrtBBd5;
 };
 
 /**

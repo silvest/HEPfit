@@ -30,16 +30,6 @@ std::string QCD::QCDvars[NQCDvars] = {
     "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
     "DGs_Gs",
     "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi", "Fphip",
-    "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
-    "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
-    "csi",
-    "FBsSqrtBBs1", "FBsSqrtBBs2", "FBsSqrtBBs3", "FBsSqrtBBs4", "FBsSqrtBBs5", "BBsscale", "BBsscheme",
-    "FBdSqrtBBd2", "FBdSqrtBBd3", "FBdSqrtBBd4", "FBdSqrtBBd5", "BBdscale", "BBdscheme",
-    "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5",
-    "BK(1/2)6", "BK(1/2)7", "BK(1/2)8", "BK(1/2)9", "BK(1/2)10",
-    "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5",
-    "BK(3/2)6", "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10",
-    "BKd_scale", "BKd_scheme",
     "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
     "Br_Kp_P0enu", "Br_Kp_munu", "Br_B_Xcenu", "DeltaP_cu", "IB_Kl", "IB_Kp",
     "lambdaB", "alpha1kst", "alpha2kst", "alpha2phi", "alpha1kp", "alpha2kp"
@@ -82,7 +72,7 @@ QCD::QCD()
         for (int j = 0; j < 5; j++)
             mp2mbar_cache[j][i] = 0.;
     }
-    
+
     initializeBParameter("BBs");
     initializeBParameter("BBd");
     initializeBParameter("BK");
@@ -126,51 +116,6 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(mesons[PHI].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphip", boost::cref(Fphip)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK1", boost::cref(BParameterMap.at("BK").getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK2", boost::cref(BParameterMap.at("BK").getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK3", boost::cref(BParameterMap.at("BK").getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK4", boost::cref(BParameterMap.at("BK").getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK5", boost::cref(BParameterMap.at("BK").getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKscale", boost::cref(BParameterMap.at("BK").getMu())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD1", boost::cref(BParameterMap.at("BD").getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD2", boost::cref(BParameterMap.at("BD").getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD3", boost::cref(BParameterMap.at("BD").getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD4", boost::cref(BParameterMap.at("BD").getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BD5", boost::cref(BParameterMap.at("BD").getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BDscale", boost::cref(BParameterMap.at("BD").getMu())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsoBBd", boost::cref(BBsoBBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs1", boost::cref(BParameterMap.at("BBs").getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs2", boost::cref(BParameterMap.at("BBs").getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs3", boost::cref(BParameterMap.at("BBs").getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs4", boost::cref(BParameterMap.at("BBs").getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs5", boost::cref(BParameterMap.at("BBs").getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBsscale", boost::cref(BParameterMap.at("BBs").getMu())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd2", boost::cref(BParameterMap.at("BBd").getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd3", boost::cref(BParameterMap.at("BBd").getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd4", boost::cref(BParameterMap.at("BBd").getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBd5", boost::cref(BParameterMap.at("BBd").getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBdscale", boost::cref(BParameterMap.at("BBd").getMu())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)1", boost::cref(BParameterMap.at("BKd1").getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)2", boost::cref(BParameterMap.at("BKd1").getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)3", boost::cref(BParameterMap.at("BKd1").getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)4", boost::cref(BParameterMap.at("BKd1").getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)5", boost::cref(BParameterMap.at("BKd1").getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)6", boost::cref(BParameterMap.at("BKd1").getBpars()(5))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)7", boost::cref(BParameterMap.at("BKd1").getBpars()(6))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)8", boost::cref(BParameterMap.at("BKd1").getBpars()(7))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)9", boost::cref(BParameterMap.at("BKd1").getBpars()(8))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(1/2)10", boost::cref(BParameterMap.at("BKd1").getBpars()(9))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)1", boost::cref(BParameterMap.at("BKd3").getBpars()(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)2", boost::cref(BParameterMap.at("BKd3").getBpars()(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)3", boost::cref(BParameterMap.at("BKd3").getBpars()(2))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)4", boost::cref(BParameterMap.at("BKd3").getBpars()(3))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)5", boost::cref(BParameterMap.at("BKd3").getBpars()(4))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)6", boost::cref(BParameterMap.at("BKd3").getBpars()(5))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)7", boost::cref(BParameterMap.at("BKd3").getBpars()(6))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)8", boost::cref(BParameterMap.at("BKd3").getBpars()(7))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)9", boost::cref(BParameterMap.at("BKd3").getBpars()(8))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BK(3/2)10", boost::cref(BParameterMap.at("BKd3").getBpars()(9))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BKd_scale", boost::cref(BParameterMap.at("BKd1").getMu())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ReA2_Kd", boost::cref(ReA2_Kd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ReA0_Kd", boost::cref(ReA0_Kd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Omega_eta_etap", boost::cref(Omega_eta_etap)));
@@ -223,8 +168,6 @@ bool QCD::PreUpdate()
 {
     requireYu = false;
     requireYd = false;
-    computeBd = false;
-    computeBs = false;
     computeFBd = false;
     computemt = false;
 
@@ -253,23 +196,25 @@ bool QCD::PostUpdate()
         mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
         mesons[B_P].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd); /**** FOR NOW FB+ = FBd ****/
     }
-    if (computeBs)
+    if (computeBs && FlagCsi)
     {
-        BParameterMap.at("BBs").setBpars(0, FBsSqrtBBs1*FBsSqrtBBs1/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(1, FBsSqrtBBs2*FBsSqrtBBs2/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(2, FBsSqrtBBs3*FBsSqrtBBs3/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(3, FBsSqrtBBs4*FBsSqrtBBs4/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(4, FBsSqrtBBs5*FBsSqrtBBs5/mesons[B_S].getDecayconst()/mesons[B_S].getDecayconst());
+        BParameterMap.at("BBs").setBpars(0, BParameterMap.at("BBs").getFBsSqrtBBs1() * BParameterMap.at("BBs").getFBsSqrtBBs1() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
+        BParameterMap.at("BBs").setBpars(1, BParameterMap.at("BBs").getFBsSqrtBBs2() * BParameterMap.at("BBs").getFBsSqrtBBs2() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
+        BParameterMap.at("BBs").setBpars(2, BParameterMap.at("BBs").getFBsSqrtBBs3() * BParameterMap.at("BBs").getFBsSqrtBBs3() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
+        BParameterMap.at("BBs").setBpars(3, BParameterMap.at("BBs").getFBsSqrtBBs4() * BParameterMap.at("BBs").getFBsSqrtBBs4() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
+        BParameterMap.at("BBs").setBpars(4, BParameterMap.at("BBs").getFBsSqrtBBs5() * BParameterMap.at("BBs").getFBsSqrtBBs5() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
     }
+    std::cout << "HERE  " << computeBd << std::endl;
     if (computeBd) {
         if (FlagCsi) {
-        BParameterMap.at("BBd").setBpars(0, FBsoFBd * FBsoFBd * BParameterMap.at("BBs").getBpars()(0) / csi / csi);
-        BParameterMap.at("BBd").setBpars(1, FBdSqrtBBd2 * FBdSqrtBBd2 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
-        BParameterMap.at("BBd").setBpars(2, FBdSqrtBBd3 * FBdSqrtBBd3 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
-        BParameterMap.at("BBd").setBpars(3, FBdSqrtBBd4 * FBdSqrtBBd4 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
-        BParameterMap.at("BBd").setBpars(4, FBdSqrtBBd5 * FBdSqrtBBd5 / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BParameterMap.at("BBd").setBpars(0, FBsoFBd * FBsoFBd * BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getcsi() / BParameterMap.at("BBd").getcsi());
+        BParameterMap.at("BBd").setBBsoBBd(BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getBpars()(0));
+        BParameterMap.at("BBd").setBpars(1, BParameterMap.at("BBd").getFBdSqrtBBd2() * BParameterMap.at("BBd").getFBdSqrtBBd2() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BParameterMap.at("BBd").setBpars(2, BParameterMap.at("BBd").getFBdSqrtBBd3() * BParameterMap.at("BBd").getFBdSqrtBBd3() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BParameterMap.at("BBd").setBpars(3, BParameterMap.at("BBd").getFBdSqrtBBd4() * BParameterMap.at("BBd").getFBdSqrtBBd4() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BParameterMap.at("BBd").setBpars(4, BParameterMap.at("BBd").getFBdSqrtBBd5() * BParameterMap.at("BBd").getFBdSqrtBBd5() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
         } else 
-            BParameterMap.at("BBd").setBpars(0, BParameterMap.at("BBs").getBpars()(0) / BBsoBBd);
+            BParameterMap.at("BBd").setBpars(0, BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getBBsoBBd());
     }
     if (computemt) {
         quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
@@ -297,12 +242,38 @@ void QCD::addParameters(std::vector<std::string> params_i)
 
 void QCD::initializeBParameter(std::string name_i)
 {
-    if (name_i.compare("BBs") == 0) BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
-    if (name_i.compare("BBd") == 0) BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
-    if (name_i.compare("BD") == 0) BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
-    if (name_i.compare("BK") == 0) BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
-    if (name_i.compare("BKd1") == 0) BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
-    if (name_i.compare("BKd3") == 0) BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
+    if (name_i.compare("BBs") == 0 || name_i.compare("BBd") == 0) {
+        BParameterMap.insert(std::pair<std::string, BParameter >("BBs", BParameter(5, "BBs")));
+        BParameterMap.at("BBs").setFlagCsi(FlagCsi);
+        BParameterMap.at("BBs").ModelParameterMapInsert(ModelParamMap);
+        computeBs = true;
+
+        BParameterMap.insert(std::pair<std::string, BParameter >("BBd", BParameter(5, "BBd")));
+        BParameterMap.at("BBd").setFlagCsi(FlagCsi);
+        BParameterMap.at("BBd").ModelParameterMapInsert(ModelParamMap);
+        computeBd = true;
+        return;
+    }
+    if (name_i.compare("BD") == 0) {
+        BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
+        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        return;
+    }
+    if (name_i.compare("BK") == 0) {
+        BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
+        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        return;
+    }
+    if (name_i.compare("BKd1") == 0) {
+        BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
+        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        return;
+    }
+    if (name_i.compare("BKd3") == 0) {
+        BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
+        BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        return;
+    }
 }
 
 void QCD::setParameter(const std::string name, const double& value)
@@ -406,142 +377,8 @@ void QCD::setParameter(const std::string name, const double& value)
     } else if (name.compare("FBsoFBd") == 0) {
         FBsoFBd = value;
         computeFBd = true;
-    } else if (name.compare("BK1") == 0) {
-        BParameterMap.at("BK").setBpars(0, value);
-    } else if (name.compare("BK2") == 0) {
-        BParameterMap.at("BK").setBpars(1, value);
-    } else if (name.compare("BK3") == 0) {
-        BParameterMap.at("BK").setBpars(2, value);
-    } else if (name.compare("BK4") == 0) {
-        BParameterMap.at("BK").setBpars(3, value);
-    } else if (name.compare("BK5") == 0) {
-        BParameterMap.at("BK").setBpars(4, value);
-    } else if (name.compare("BKscale") == 0) {
-        BParameterMap.at("BK").setMu(value);
-    } else if (name.compare("BKscheme") == 0)
-        BParameterMap.at("BK").setScheme((schemes) value);
-    else if (name.compare("BD1") == 0) {
-        BParameterMap.at("BD").setBpars(0, value);
-    } else if (name.compare("BD2") == 0) {
-        BParameterMap.at("BD").setBpars(1, value);
-    } else if (name.compare("BD3") == 0) {
-        BParameterMap.at("BD").setBpars(2, value);
-    } else if (name.compare("BD4") == 0) {
-        BParameterMap.at("BD").setBpars(3, value);
-    } else if (name.compare("BD5") == 0) {
-        BParameterMap.at("BD").setBpars(4, value);
-    } else if (name.compare("BDscale") == 0) {
-        BParameterMap.at("BD").setMu(value);
-    } else if (name.compare("BDscheme") == 0)
-        BParameterMap.at("BD").setScheme((schemes) value);
-    else if (name.compare("csi") == 0  && FlagCsi) {
-        csi = value;
-        computeBd = true;
-    } else if (name.compare("BBsoBBd") == 0 && !FlagCsi) {
-      BBsoBBd = value;
-      computeBd = true;
-    } else if (name.compare("BBs1") == 0 && !FlagCsi) {
-        BParameterMap.at("BBs").setBpars(0, value);
-        computeBd = true;
-    } else if (name.compare("BBs2") == 0 && !FlagCsi) {
-        BParameterMap.at("BBs").setBpars(1, value);
-    } else if (name.compare("BBs3") == 0 && !FlagCsi) {
-        BParameterMap.at("BBs").setBpars(2, value);
-    } else if (name.compare("BBs4") == 0 && !FlagCsi) {
-        BParameterMap.at("BBs").setBpars(3, value);
-    } else if (name.compare("BBs5") == 0 && !FlagCsi) {
-        BParameterMap.at("BBs").setBpars(4, value);
-    } else if (name.compare("FBsSqrtBBs1") == 0 && FlagCsi) {
-        FBsSqrtBBs1 = value;
-        computeBs = true;
-        computeBd = true;
-    } else if (name.compare("FBsSqrtBBs2") == 0 && FlagCsi) {
-        FBsSqrtBBs2 = value;
-        computeBs = true;
-    } else if (name.compare("FBsSqrtBBs3") == 0 && FlagCsi) {
-        FBsSqrtBBs3 = value;
-        computeBs = true;
-    } else if (name.compare("FBsSqrtBBs4") == 0 && FlagCsi) {
-        FBsSqrtBBs4 = value;
-        computeBs = true;
-    } else if (name.compare("FBsSqrtBBs5") == 0 && FlagCsi) {
-        FBsSqrtBBs5 = value;
-        computeBs = true;
-    } else if (name.compare("BBsscale") == 0) {
-        BParameterMap.at("BBs").setMu(value);
-    } else if (name.compare("BBsscheme") == 0) {
-        BParameterMap.at("BBs").setScheme((schemes) value);
-    } else if (name.compare("BBd2") == 0 && !FlagCsi) {
-        BParameterMap.at("BBd").setBpars(1, value);
-    } else if (name.compare("BBd3") == 0 && !FlagCsi) {
-        BParameterMap.at("BBd").setBpars(2, value);
-    } else if (name.compare("BBd4") == 0 && !FlagCsi) {
-        BParameterMap.at("BBd").setBpars(3, value);
-    } else if (name.compare("BBd5") == 0 && !FlagCsi) {
-        BParameterMap.at("BBd").setBpars(4, value);
-    } else if (name.compare("FBdSqrtBBd2") == 0 && FlagCsi) {
-        FBdSqrtBBd2 = value;
-        computeBd = true;
-    } else if (name.compare("FBdSqrtBBd3") == 0 && FlagCsi) {
-        FBdSqrtBBd3 = value;
-        computeBd = true;
-    } else if (name.compare("FBdSqrtBBd4") == 0 && FlagCsi) {
-        FBdSqrtBBd4 = value;
-        computeBd = true;
-    } else if (name.compare("FBdSqrtBBd5") == 0 && FlagCsi) {
-        FBdSqrtBBd5 = value;
-        computeBd = true;
-    } else if (name.compare("BBdscale") == 0) {
-        BParameterMap.at("BBd").setMu(value);
-    } else if (name.compare("BBdscheme") == 0) {
-        BParameterMap.at("BBd").setScheme((schemes) value);
-    } else if (name.compare("BK(1/2)1") == 0) {
-        BParameterMap.at("BKd1").setBpars(0, value);
-    } else if (name.compare("BK(1/2)2") == 0) {
-        BParameterMap.at("BKd1").setBpars(1, value);
-    } else if (name.compare("BK(1/2)3") == 0) {
-        BParameterMap.at("BKd1").setBpars(2, value);
-    } else if (name.compare("BK(1/2)4") == 0) {
-        BParameterMap.at("BKd1").setBpars(3, value);
-    } else if (name.compare("BK(1/2)5") == 0) {
-        BParameterMap.at("BKd1").setBpars(4, value);
-    } else if (name.compare("BK(1/2)6") == 0){
-        BParameterMap.at("BKd1").setBpars(5, value);
-    } else if (name.compare("BK(1/2)7") == 0){
-        BParameterMap.at("BKd1").setBpars(6, value);
-    } else if (name.compare("BK(1/2)8") == 0) {
-        BParameterMap.at("BKd1").setBpars(7, value);
-    } else if (name.compare("BK(1/2)9") == 0) {
-        BParameterMap.at("BKd1").setBpars(8, value);
-    } else if (name.compare("BK(1/2)10") == 0) {
-        BParameterMap.at("BKd1").setBpars(9, value);
-    } else if (name.compare("BK(3/2)1") == 0) {
-        BParameterMap.at("BKd3").setBpars(0, value);
-    } else if (name.compare("BK(3/2)2") == 0) {
-        BParameterMap.at("BKd3").setBpars(1, value);
-    } else if (name.compare("BK(3/2)3") == 0) {
-        BParameterMap.at("BKd3").setBpars(2, value);
-    } else if (name.compare("BK(3/2)4") == 0) {
-        BParameterMap.at("BKd3").setBpars(3, value);
-    } else if (name.compare("BK(3/2)5") == 0) {
-        BParameterMap.at("BKd3").setBpars(4, value);
-    } else if (name.compare("BK(3/2)6") == 0) {
-        BParameterMap.at("BKd3").setBpars(5, value);
-    } else if (name.compare("BK(3/2)7") == 0) {
-        BParameterMap.at("BKd3").setBpars(6, value);
-    } else if (name.compare("BK(3/2)8") == 0) {
-        BParameterMap.at("BKd3").setBpars(7, value);
-    } else if (name.compare("BK(3/2)9") == 0) {
-        BParameterMap.at("BKd3").setBpars(8, value);
-    } else if (name.compare("BK(3/2)10") == 0) {
-        BParameterMap.at("BKd3").setBpars(9, value);
-    } else if (name.compare("BKd_scale") == 0) {
-        BParameterMap.at("BKd1").setMu(value);
-        BParameterMap.at("BKd3").setMu(value);
-    } else if (name.compare("BKd_scheme") == 0) {
-        BParameterMap.at("BKd1").setScheme((schemes) value);
-        BParameterMap.at("BKd3").setScheme((schemes) value);
-    } else if (name.compare("ReA0_Kd") == 0)
+    }
+    else if (name.compare("ReA0_Kd") == 0)
         ReA0_Kd = value;
     else if (name.compare("ReA2_Kd") == 0)
         ReA2_Kd = value;
@@ -577,9 +414,13 @@ void QCD::setParameter(const std::string name, const double& value)
         mesons[K_P].setGegenalpha(1,value);
     else if (optionalParameters.find(name) != optionalParameters.end())
         setOptionalParameter(name, value);
+    else if (!BParameterMap.empty()) {
+        for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++) {
+            it->second.setParameter(name, value);
+        }
+    }
     else
         if (unknownParameterWarning && !isSliced) {
-            //std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
             unknownParameters.push_back(name);
         }
 }
@@ -597,6 +438,17 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
             return false;
         }
     }
+    if (!BParameterMap.empty()) {
+        for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++) {
+            std::vector<std::string> parameters = it->second.parameterList(it->first);
+            for (std::vector<std::string>::iterator it1 = parameters.begin(); it1 != parameters.end(); it1++) {
+                if (DPars.find(*it1) == DPars.end()) {
+                    std::cout << "missing parameter for " << it->first << ": " << *it1 << std::endl;
+                    return false;
+                }
+            }
+        }
+    }
     return true;
 }
 
@@ -607,19 +459,9 @@ bool QCD::setFlag(const std::string name, const bool value)
     bool res = false;
     if (name.compare("FlagCsi") == 0) {
         FlagCsi = value;
+        if (computeBs) BParameterMap.at("BBs").setFlagCsi(FlagCsi);
+        if (computeBs) BParameterMap.at("BBd").setFlagCsi(FlagCsi);
         res = true;
-        if (!FlagCsi) {
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"csi"))] = "BBsoBBd";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs1"))] = "BBs1";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs2"))] = "BBs2";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs3"))] = "BBs3";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs4"))] = "BBs4";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBsSqrtBBs5"))] = "BBs5";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd2"))] = "BBd2";    
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd3"))] = "BBd3";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd4"))] = "BBd4";
-            QCDvars[std::distance(QCDvars,std::find(QCDvars,QCDvars+NQCDvars,"FBdSqrtBBd5"))] = "BBd5";
-       }
     }
     return res;
 }
