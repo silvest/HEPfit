@@ -19,6 +19,16 @@ Meson::Meson(double mass, double lifetime = 5.e29, double decayconst = 0.,
     gegenalpha[1] = gegenalpha2;
 }
 
+Meson::Meson()
+{
+    mass = 0.;
+    lifetime = 0.;
+    decayconst = 0.;
+    lambdaM = 0.;
+    gegenalpha[0] = 0.;
+    gegenalpha[1] = 0.;
+}
+
 Meson::~Meson()
 {}
 

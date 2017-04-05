@@ -31,9 +31,7 @@ public:
     /**
      * @brief The default constructor.
      */
-    Meson()
-    {
-    };
+    Meson();
 
     /**
      * @brief Constructor.
