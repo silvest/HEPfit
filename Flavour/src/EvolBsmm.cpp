@@ -704,28 +704,27 @@ gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, o
     }
 
     setScales(mu, M); // also assign evol to identity
-    
-    
+    if (M != mu) {
+        double m_down = mu;
+        //double m_up = model.AboveTh(m_down);
+        //double nf = model.Nf(m_down);
+        double nf = 5; //all the process in implemented for nf = 5
+        alsM = alphatilde_s(M);
+        alsmu = alphatilde_s(mu);
 
-    double m_down = mu;
-    //double m_up = model.AboveTh(m_down);
-    //double nf = model.Nf(m_down);
-    double nf = 5;                     //all the process in implemented for nf = 5
-    alsM = alphatilde_s(M);
-    alsmu = alphatilde_s(mu);
-    
-    eta = alsM / alsmu;
-    logeta = log(eta);
+        eta = alsM / alsmu;
+        logeta = log(eta);
 
-    /*while (m_up < M) {                         //there is no thresholds
-            Df1Evol(m_down, m_up, nf, scheme);
-            //Df1threshold_nlep(m_up, nf+1.);
-            m_down = m_up;
-            m_up = model.AboveTh(m_down);
-            nf += 1.;
-    } */ 
+        /*while (m_up < M) {                         //there is no thresholds
+                Df1Evol(m_down, m_up, nf, scheme);
+                //Df1threshold_nlep(m_up, nf+1.);
+                m_down = m_up;
+                m_up = model.AboveTh(m_down);
+                nf += 1.;
+        } */
 
-    Df1Evol(m_down, M, nf, scheme);
+        Df1Evol(m_down, M, nf, scheme);
+    }
 
     if(order_ew != NULL_ew) return (*Evol(order_ew));
     else return (*Evol(order)); 

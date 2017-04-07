@@ -174,18 +174,19 @@ gslpp::matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schem
     }
 
     setScales(mu, M); // also assign evol to identity
+    if (M != mu) {
+        double m_down = mu;
+        double m_up = model.AboveTh(m_down);
+        double nf = model.Nf(m_down);
 
-    double m_down = mu;
-    double m_up = model.AboveTh(m_down);
-    double nf = model.Nf(m_down);
-
-    while (m_up < M) {
-        Df2Evol(m_down, m_up, nf, scheme);
-        m_down = m_up;
-        m_up = model.AboveTh(m_down);
-        nf += 1.;
+        while (m_up < M) {
+            Df2Evol(m_down, m_up, nf, scheme);
+            m_down = m_up;
+            m_up = model.AboveTh(m_down);
+            nf += 1.;
+        }
+        Df2Evol(m_down, M, nf, scheme);
     }
-    Df2Evol(m_down, M, nf, scheme);
     return (*Evol(order));
 }
 

@@ -343,7 +343,7 @@ gslpp::matrix<double> EvolDB1Mll::ToEffectiveBasis(gslpp::matrix<double> mat) co
 
 gslpp::matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order, schemes scheme) 
 {
-    
+
     switch (scheme) {
         case NDR:
             break;
@@ -352,18 +352,18 @@ gslpp::matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order,
         default:
             std::stringstream out;
             out << scheme;
-            throw std::runtime_error("EvolDF1bsg::Df1Evolbsg(): scheme " + out.str() + " not implemented "); 
+            throw std::runtime_error("EvolDF1bsg::Df1Evolbsg(): scheme " + out.str() + " not implemented ");
     }
-    
+
     double alsMZ = model.getAlsMz();
     double Mz = model.getMz();
-    if(alsMZ == alsMZ_cache && Mz == Mz_cache) {
+    if (alsMZ == alsMZ_cache && Mz == Mz_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme)
-            return (*Evol(order));        
+            return (*Evol(order));
     }
     alsMZ_cache = alsMZ;
     Mz_cache = Mz;
-        
+
     if (M < mu) {
         std::stringstream out;
         out << "M = " << M << " < mu = " << mu;
@@ -372,21 +372,23 @@ gslpp::matrix<double>& EvolDB1Mll::Df1EvolMll(double mu, double M, orders order,
 
     setScales(mu, M); // also assign evol to identity
 
-    double m_down = mu;
-    double m_up = model.AboveTh(m_down);
-    double nf = model.Nf(m_down);
-    
-    while (m_up < M) {
-        Df1EvolMll(m_down, m_up, nf, scheme);
-        m_down = m_up;
-        m_up = model.AboveTh(m_down);
-        nf += 1.;
+    if (M != mu) {
+        double m_down = mu;
+        double m_up = model.AboveTh(m_down);
+        double nf = model.Nf(m_down);
+
+        while (m_up < M) {
+            Df1EvolMll(m_down, m_up, nf, scheme);
+            m_down = m_up;
+            m_up = model.AboveTh(m_down);
+            nf += 1.;
+        }
+        Df1EvolMll(m_down, M, nf, scheme);
     }
-    Df1EvolMll(m_down, M, nf, scheme);
-    
+
     return (*Evol(order));
-    
-    }
+
+}
     
  void EvolDB1Mll::Df1EvolMll(double mu, double M, double nf, schemes scheme) 
  {

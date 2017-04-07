@@ -415,22 +415,23 @@ gslpp::matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order,
     }
 
     setScales(mu, M); // also assign evol to identity
+    if (M != mu) {
+        double m_down = mu;
+        double m_up = model.AboveTh(m_down);
+        double nf = model.Nf(m_down);
 
-    double m_down = mu;
-    double m_up = model.AboveTh(m_down);
-    double nf = model.Nf(m_down);
-    
-    while (m_up < M) {
-        Df1Evolbsg(m_down, m_up, nf, scheme);
-        m_down = m_up;
-        m_up = model.AboveTh(m_down);
-        nf += 1.;
+        while (m_up < M) {
+            Df1Evolbsg(m_down, m_up, nf, scheme);
+            m_down = m_up;
+            m_up = model.AboveTh(m_down);
+            nf += 1.;
+        }
+        Df1Evolbsg(m_down, M, nf, scheme);
     }
-    Df1Evolbsg(m_down, M, nf, scheme);
     
     return (*Evol(order));
     
-    }
+}
     
  void EvolDB1bsg::Df1Evolbsg(double mu, double M, double nf, schemes scheme) 
  {
