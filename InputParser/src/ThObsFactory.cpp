@@ -376,8 +376,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ImDC7_L"] = boost::bind(boost::factory<ImDC7_L*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["ImDC7_R"] = boost::bind(boost::factory<ImDC7_R*>(), _1, StandardModel::B_D, StandardModel::K_star);
     obsThFactory["hp0_hm0"] = boost::bind(boost::factory<hp0_hm0*>(), _1, StandardModel::B_D, StandardModel::K_star);
-
-    parameterForObservable["hp0_hm0"] = make_vector<std::string>() << "absh_p" << "absh_m" << "argh_p" << "argh_m";
     
     //----- B+ to K*+ gamma  -----
     obsThFactory["BR_BpKstgamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_P, StandardModel::K_star);/*** NOTE: K_star+ is NOT distinguished from K_star ***/

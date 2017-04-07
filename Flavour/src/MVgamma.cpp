@@ -314,6 +314,7 @@ hp0_hm0::hp0_hm0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
 
 double hp0_hm0::computeThValue()
 {
+    updateParameters();
     return h[0].abs()/h[1].abs();
 }
 

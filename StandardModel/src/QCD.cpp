@@ -204,7 +204,6 @@ bool QCD::PostUpdate()
         BParameterMap.at("BBs").setBpars(3, BParameterMap.at("BBs").getFBsSqrtBBs4() * BParameterMap.at("BBs").getFBsSqrtBBs4() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
         BParameterMap.at("BBs").setBpars(4, BParameterMap.at("BBs").getFBsSqrtBBs5() * BParameterMap.at("BBs").getFBsSqrtBBs5() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
     }
-    std::cout << "HERE  " << computeBd << std::endl;
     if (computeBd) {
         if (FlagCsi) {
         BParameterMap.at("BBd").setBpars(0, FBsoFBd * FBsoFBd * BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getcsi() / BParameterMap.at("BBd").getcsi());
