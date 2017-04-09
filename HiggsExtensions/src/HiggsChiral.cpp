@@ -62,9 +62,41 @@ bool HiggsChiral::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
+double HiggsChiral::obliqueS() const
+{
+    double Lambda;
+    if (fabs(1.0 - cv * cv) < pow(10.0, -32.0))
+        Lambda = pow(10.0, 19.0);
+    else
+        Lambda = 4.0 * M_PI * v() / sqrt(fabs(1.0 - cv * cv));
+
+    return ( 1.0 / 12.0 / M_PI * (1.0 - cv * cv) * log(Lambda * Lambda / mHl / mHl));
+}
+
+double HiggsChiral::obliqueT() const
+{
+    double Lambda;
+    double cW2_SM = trueSM.cW2();
+    if (fabs(1.0 - cv * cv) < pow(10.0, -32.0))
+        Lambda = pow(10.0, 19.0);
+    else
+        Lambda = 4.0 * M_PI * v() / sqrt(fabs(1.0 - cv * cv));
+
+    return ( -3.0 / 16.0 / M_PI / cW2_SM * (1.0 - cv * cv) * log(Lambda * Lambda / mHl / mHl));
+}
+
+double HiggsChiral::obliqueU() const
+{
+    return 0.0;
+}
+
+////////////////////////////////////////////////////////////////////////
+
 double HiggsChiral::muggH(const double sqrt_s) const
 {
-    return Gammagg() / (trueSM.computeBrHtogg()*trueSM.computeGammaHTotal());
+//    return Gammagg() / (trueSM.computeBrHtogg()*trueSM.computeGammaHTotal());
+      
+    return computecg() * computecg();
 }
 
 double HiggsChiral::muVBF(const double sqrt_s) const
@@ -94,27 +126,12 @@ double HiggsChiral::mueeZH(const double sqrt_s) const
 
 double HiggsChiral::muVH(const double sqrt_s) const
 {
-    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
-    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
-    return ((computecV() * computecV() * sigmaWH_SM
-            + computecV() * computecV() * sigmaZH_SM)
-            / (sigmaWH_SM + sigmaZH_SM));
+    return computecV() * computecV();
 }
 
 double HiggsChiral::muVBFpVH(const double sqrt_s) const
 {
-    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
-    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
-    double sigmaWF_SM = trueSM.computeSigmaWF(sqrt_s);
-    double sigmaZF_SM = trueSM.computeSigmaZF(sqrt_s);
-    double sigmaZWF_SM = trueSM.computeSigmaZWF(sqrt_s);    
-    double sigmaVBF_SM = sigmaWF_SM + sigmaZF_SM + sigmaZWF_SM;
-    
-    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
-    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
-    double sigmaVBF = muVBF(sqrt_s) * sigmaVBF_SM;
-
-    return ((sigmaWH + sigmaZH + sigmaVBF) / (sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+    return computecV() * computecV();
 }
 
 double HiggsChiral::muttH(const double sqrt_s) const
@@ -146,9 +163,11 @@ double HiggsChiral::Gammagg() const
     double TAUb=4.0*Mb*Mb/(mHl*mHl);
 
     double factor = GF*AlsMz*AlsMz*mHl*mHl*mHl/(sqrt(2.0)*4.0*M_PI*M_PI*M_PI);
+      
+    double ksoftNLO = 1.0 + (AlsMz/M_PI) * ( 73.0/4.0 -7.0*5.0/6.0);
 
-    return factor * ( ct * 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)) * (1.0+11.0*AlsMz/(4.0*M_PI))
-                     +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb))
+    return factor * ksoftNLO * ( ( ct * 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
+                     +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))
                      +cg * 0.5 ).abs2();
 }
 
@@ -221,7 +240,7 @@ double HiggsChiral::Gammatautau() const
 
 double HiggsChiral::Gammacc() const
 {
-    return 0.0;
+    return computecc() * computecc() * trueSM.computeBrHtocc() * trueSM.computeGammaHTotal();
 }
 
 double HiggsChiral::Gammabb() const
@@ -237,65 +256,110 @@ double HiggsChiral::GammaTotal() const
 
 double HiggsChiral::BrHggRatio() const
 {
-    return Gammagg() / GammaTotal() / trueSM.computeBrHtogg();
+//    return Gammagg() / GammaTotal() / trueSM.computeBrHtogg();
+    
+    return (computecg() * computecg() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHWWRatio() const
 {
-    return GammaWW() / GammaTotal() / trueSM.computeBrHtoWW();
+//    return GammaWW() / GammaTotal() / trueSM.computeBrHtoWW();
+
+    return (computecV() * computecV() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHZZRatio() const
 {
-    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
+//    return GammaZZ() / GammaTotal() / trueSM.computeBrHtoZZ();
+    
+    return (computecV() * computecV() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHZgaRatio() const
 {
-    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();
+//    return GammaZga() / GammaTotal() / trueSM.computeBrHtoZga();
+    
+    return (computecZga() * computecZga() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHgagaRatio() const
 {
-    return Gammagaga() / GammaTotal() / trueSM.computeBrHtogaga();
+//    return Gammagaga() / GammaTotal() / trueSM.computeBrHtogaga();
+    
+    return (computecgaga() * computecgaga() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHmumuRatio() const
 {
-    return Gammamumu() / GammaTotal() / trueSM.computeBrHtomumu();
+//    return Gammamumu() / GammaTotal() / trueSM.computeBrHtomumu();
+    
+    return (computecmu() * computecmu() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHtautauRatio() const
 {
-    return Gammatautau() / GammaTotal() / trueSM.computeBrHtotautau();
+//    return Gammatautau() / GammaTotal() / trueSM.computeBrHtotautau();
+    
+    return (computectau() * computectau() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHccRatio() const
 {
-    return Gammacc() / GammaTotal() / trueSM.computeBrHtocc();
+//    return Gammacc() / GammaTotal() / trueSM.computeBrHtocc();
+    
+    return (computecc() * computecc() / computeGammaTotalRatio());
 }
 
 double HiggsChiral::BrHbbRatio() const
 {
-    return Gammabb() / GammaTotal() / trueSM.computeBrHtobb();
+//    return Gammabb() / GammaTotal() / trueSM.computeBrHtobb();
+    
+    return (computecb() * computecb() / computeGammaTotalRatio());
 }
 //
 double HiggsChiral::computeGammaTotalRatio() const
 {
-//    double gtt_SM = trueSM.computeGammaHgg_tt();
-//    double gbb_SM = trueSM.computeGammaHgg_bb();
-//    double gtb_SM = trueSM.computeGammaHgg_tb();
-//    double Ggg_over_GggSM = (computeKt() * computeKt() * gtt_SM
-//            + computeKb() * computeKb() * gbb_SM
-//            + computeKt() * computeKb() * gtb_SM) / (gtt_SM + gbb_SM + gtb_SM);
-    return (GammaTotal() / trueSM.computeGammaHTotal());
+    
+    return ((computecg() * computecg() * trueSM.computeBrHtogg()
+            + computecV() * computecV() * trueSM.computeBrHtoWW()
+            + computecV() * computecV() * trueSM.computeBrHtoZZ()
+            + computecZga() * computecZga() * trueSM.computeBrHtoZga()
+            + computecgaga() * computecgaga() * trueSM.computeBrHtogaga()
+            + computecmu() * computecmu() * trueSM.computeBrHtomumu()
+            + computectau() * computectau() * trueSM.computeBrHtotautau()
+            + computecc() * computecc() * trueSM.computeBrHtocc()
+            + computecb() * computecb() * trueSM.computeBrHtobb())
+            / (trueSM.computeBrHtogg()
+            + trueSM.computeBrHtoWW()
+            + trueSM.computeBrHtoZZ()
+            + trueSM.computeBrHtoZga()
+            + trueSM.computeBrHtogaga()
+            + trueSM.computeBrHtomumu()
+            + trueSM.computeBrHtotautau()
+            + trueSM.computeBrHtocc()
+            + trueSM.computeBrHtobb()));
+    
+//    return (GammaTotal() / trueSM.computeGammaHTotal());
 }
 
 ////////////////////////////////////////////////////////////////////////
 
 double HiggsChiral::computecg() const
 {
-    return cg;
+    double Mt=trueSM.getQuarks(QCD::TOP).getMass();
+    double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
+    double TAUt=4.0*Mt*Mt/(mHl*mHl);
+    double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    double cgEff;
+
+    cgEff = ( ( ct * 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
+                     +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))
+                     +cg * 0.5 ).abs2();
+    
+    cgEff = cgEff / ( ( 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
+                     + 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
+
+    return (sqrt(cgEff));
 }
 
 double HiggsChiral::computecV() const
@@ -305,12 +369,62 @@ double HiggsChiral::computecV() const
 
 double HiggsChiral::computecZga() const
 {
-    return cZga;
+    double Mt=trueSM.getQuarks(QCD::TOP).getMass();
+    double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
+    double Mtau=trueSM.getLeptons(StandardModel::TAU).getMass();
+    double MW=trueSM.Mw_tree();
+    double cW2=trueSM.c02();
+    double sW2=1.0-cW2;
+    double TAUt=4.0*Mt*Mt/(mHl*mHl);
+    double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
+    double TAUw=4.0*MW*MW/(mHl*mHl);
+    double LAMt=4.0*Mt*Mt/(Mz*Mz);
+    double LAMb=4.0*Mb*Mb/(Mz*Mz);
+    double LAMtau=4.0*Mtau*Mtau/(Mz*Mz);
+    double LAMw=4.0*MW*MW/(Mz*Mz);
+    double cZgaEff;
+
+    cZgaEff = ((-ct * 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUt,LAMt)-Int2(TAUt,LAMt)) * (1.0-AlsMz/M_PI)
+                      +cb * 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUb,LAMb)-Int2(TAUb,LAMb))
+                      +ctau * 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau)) )/sqrt(sW2*cW2)
+                     -cv * sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
+                            +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw))
+                     +cZga).abs2(); /*CHANGE THE cZga COEFFICIENT!*/
+    
+    cZgaEff = cZgaEff / ((-4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUt,LAMt)-Int2(TAUt,LAMt)) * (1.0-AlsMz/M_PI)
+                      + 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUb,LAMb)-Int2(TAUb,LAMb))
+                      + 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau)) )/sqrt(sW2*cW2)
+                      - sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
+                            +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw))).abs2();
+    
+    return (sqrt(cZgaEff));
 }
 
-double HiggsChiral::computecga() const
+double HiggsChiral::computecgaga() const
 {
-    return cga;
+    double Mt=trueSM.getQuarks(QCD::TOP).getMass();
+    double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
+    double Mtau=trueSM.getLeptons(StandardModel::TAU).getMass();
+    double MW=trueSM.Mw_tree();
+    double TAUt=4.0*Mt*Mt/(mHl*mHl);
+    double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
+    double TAUw=4.0*MW*MW/(mHl*mHl);
+    double cgagaEff;
+
+    cgagaEff = ( ct * (8./3.)*TAUt*(1.+(1.-TAUt)*f_func(TAUt)) * (1.0-AlsMz/M_PI)
+                     +cb * (2./3.)*TAUb*(1.+(1.-TAUb)*f_func(TAUb))
+                     +ctau * 2.0*TAUtau*(1.+(1.-TAUtau)*f_func(TAUtau))
+                     -cv * (2.0+3.0*TAUw+3.0*TAUw*(2.0-TAUw)*f_func(TAUw))
+                     +cga * 2.0 ).abs2();
+    
+    cgagaEff = cgagaEff / ( (8./3.)*TAUt*(1.+(1.-TAUt)*f_func(TAUt)) * (1.0-AlsMz/M_PI)
+                     + (2./3.)*TAUb*(1.+(1.-TAUb)*f_func(TAUb))
+                     + 2.0*TAUtau*(1.+(1.-TAUtau)*f_func(TAUtau))
+                     - (2.0+3.0*TAUw+3.0*TAUw*(2.0-TAUw)*f_func(TAUw)) ).abs2();
+    
+    return (sqrt(cgagaEff));
 }
 
 double HiggsChiral::computecmu() const
