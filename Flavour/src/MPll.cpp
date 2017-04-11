@@ -40,6 +40,9 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     pseudoscalar = pseudoscalar_i;
     
     if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>() << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+                                                                                        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit2_fplus_lat"
+                                                                                        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit2_fT_lat"
+                                                                                        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit2_f0_lat"
                                                                                         << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
     else {
         std::stringstream out;
