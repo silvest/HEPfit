@@ -21,6 +21,7 @@ class StandardModel;
 #include <TFitResultPtr.h>
 
 #define MPllSWITCH 8.2
+#define LATTICE true
 
 /**
  * @class MPll
@@ -294,6 +295,21 @@ private:
     double r_2_f0;/**<LCSR fit parameter */
     double m_fit2_f0;/**<LCSR fit parameter */
     
+    
+    /*LATTICE fit parameters*/
+    double b_0_fplus;/**<LATTICE fit parameter */
+    double b_1_fplus;/**<LATTICE fit parameter */
+    double b_2_fplus;/**<LATTICE fit parameter */
+    double m_fit2_fplus_lat;/**<LATTICE fit parameter */
+    double b_0_fT;/**<LATTICE fit parameter */
+    double b_1_fT;/**<LATTICE fit parameter */
+    double b_2_fT;/**<LATTICE fit parameter */
+    double m_fit2_fT_lat;/**<LATTICE fit parameter */
+    double b_0_f0;/**<LATTICE fit parameter */
+    double b_1_f0;/**<LATTICE fit parameter */
+    double b_2_f0;/**<LATTICE fit parameter */
+    double m_fit2_f0_lat;/**<LATTICE fit parameter */
+    
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients */
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
@@ -430,6 +446,15 @@ private:
     
     unsigned int f0_updated;/**< Cache variable */
     double f0_cache;/**< Cache variable */
+    
+    unsigned int fplus_lat_updated;/**< Cache variable */
+    gslpp::vector<double> fplus_lat_cache;/**< Cache variable */
+    
+    unsigned int fT_lat_updated;/**< Cache variable */
+    gslpp::vector<double> fT_lat_cache;/**< Cache variable */
+    
+    unsigned int f0_lat_updated;/**< Cache variable */
+    gslpp::vector<double> f0_lat_cache;/**< Cache variable */
     
     unsigned int k2_updated;/**< Cache variable */
     gslpp::vector<double> k2_cache;/**< Cache variable */
@@ -584,24 +609,56 @@ private:
     void checkCache();
     
     /**
-    * @brief The second fit function from arXiv:hep-ph/0412079v1,\f$ f_2^{LCSR} \f$.
+    * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_1^{LATTICE} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param[in] r_1 fit parameter
     * @param[in] r_2 fit parameter
     * @param[in] m_fit2 fit parameter
-    * @return \f$ f_2^{LCSR} \f$
+    * @return \f$ f_1^{LATTICE} \f$
     */
     double LCSR_fit1(double q2, double r_1, double r_2, double m_fit2);
     
     
     /**
-    * @brief The third fit function from arXiv:hep-ph/0412079v1, \f$ f_3^{LCSR} \f$.
+    * @brief The second fit function from arXiv:hep-ph/0412079v1, \f$ f_2^{LATTICE} \f$.
     * @param[in] q2 \f$q^2\f$ of the decay
     * @param[in] r_2 fit parameter
     * @param[in] m_fit2 fit parameter
-    * @return \f$ f_3^{LCSR} \f$
+    * @return \f$ f_2^{LATTICE} \f$
     */
     double LCSR_fit2(double q2, double r_2, double m_fit2);
+    
+    
+    /**
+    * @brief The z function from arXiv:hep-ph/0412079v1, \f$ z \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ z \f$
+    */
+    double zeta(double q2);
+    
+    
+    /**
+    * @brief The first fit function from arXiv:1509.06235v2,\f$ f_1^{LATTICE} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] b_0 fit parameter
+    * @param[in] b_1 fit parameter
+    * @param[in] b_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_1^{LATTICE} \f$
+    */
+    double LATTICE_fit1(double q2, double b_0, double b_1, double b_2, double m_fit2);
+    
+    
+    /**
+    * @brief The second fit function from arXiv:1509.06235v2, \f$ f_2^{LATTICE} \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @param[in] b_0 fit parameter
+    * @param[in] b_1 fit parameter
+    * @param[in] b_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return \f$ f_2^{LATTICE} \f$
+    */
+    double LATTICE_fit2(double q2, double b_0, double b_1, double b_2, double m_fit2);
     
     
     /**
