@@ -23,6 +23,9 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
 :       mySM(SM_i),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
+        fplus_lat_cache(3, 0.),
+        fT_lat_cache(3, 0.),
+        f0_lat_cache(3, 0.),
         k2_cache(2, 0.),
         SL_cache(2, 0.),
         N_cache(3, 0.),
@@ -37,6 +40,9 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     pseudoscalar = pseudoscalar_i;
     
     if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>() << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+                                                                                        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit2_fplus_lat"
+                                                                                        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit2_fT_lat"
+                                                                                        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit2_f0_lat"
                                                                                         << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
     else {
         std::stringstream out;
@@ -94,6 +100,20 @@ void MPll::updateParameters()
             m_fit2_fT = mySM.getOptionalParameter("m_fit2_fT");
             r_2_f0 = mySM.getOptionalParameter("r_2_f0");
             m_fit2_f0 = mySM.getOptionalParameter("m_fit2_f0");
+            
+            b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
+            b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
+            b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
+            m_fit2_fplus = mySM.getOptionalParameter("m_fit2_fplus_lat");
+            b_0_fT = mySM.getOptionalParameter("b_0_fT");
+            b_1_fT = mySM.getOptionalParameter("b_1_fT");
+            b_2_fT = mySM.getOptionalParameter("b_2_fT");
+            m_fit2_fT = mySM.getOptionalParameter("m_fit2_fT_lat");
+            b_0_f0 = mySM.getOptionalParameter("b_0_f0");
+            b_1_f0 = mySM.getOptionalParameter("b_1_f0");
+            b_2_f0 = mySM.getOptionalParameter("b_2_f0");
+            m_fit2_f0 = mySM.getOptionalParameter("m_fit2_f0_lat");
+            
             spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
     
             break;
@@ -268,6 +288,33 @@ void MPll::checkCache()
         k2_cache(1) = MP;
     }
     
+    if(b_0_fplus == fplus_lat_cache(0) && b_1_fplus == fplus_lat_cache(1) && b_2_fplus == fplus_lat_cache(2)) {
+        fplus_lat_updated = 1;
+    } else {
+        fplus_lat_updated = 0;
+        fplus_lat_cache(0) = b_0_fplus;
+        fplus_lat_cache(1) = b_1_fplus;
+        fplus_lat_cache(2) = b_2_fplus;
+    }
+    
+    if(b_0_fT == fT_lat_cache(0) && b_1_fT == fT_lat_cache(1) && b_2_fT == fT_lat_cache(2)) {
+        fT_lat_updated = 1;
+    } else {
+        fT_lat_updated = 0;
+        fT_lat_cache(0) = b_0_fT;
+        fT_lat_cache(1) = b_1_fT;
+        fT_lat_cache(2) = b_2_fT;
+    }
+    
+    if(b_0_f0 == f0_lat_cache(0) && b_1_f0 == f0_lat_cache(1) && b_2_f0 == f0_lat_cache(2)) {
+        f0_lat_updated = 1;
+    } else {
+        f0_lat_updated = 0;
+        f0_lat_cache(0) = b_0_f0;
+        f0_lat_cache(1) = b_1_f0;
+        f0_lat_cache(2) = b_2_f0;
+    }
+    
     if (Mlep == beta_cache) {
         beta_updated = 1;
     } else {
@@ -278,12 +325,21 @@ void MPll::checkCache()
     lambda_updated = k2_updated;
     F_updated = lambda_updated * beta_updated;
     
-    VL_updated = k2_updated * fplus_updated;
+    if(LATTICE) 
+        VL_updated = k2_updated * fplus_lat_updated;
+    else
+        VL_updated = k2_updated * fplus_updated;
     
-    TL_updated = k2_updated * fT_updated;
+    if(LATTICE) 
+        TL_updated = k2_updated * fT_lat_updated;
+    else
+        TL_updated = k2_updated * fT_updated;
     
     if (Mb == SL_cache(0) && Ms == SL_cache(1) ){
-        SL_updated = k2_updated * f0_updated;
+        if(LATTICE) 
+            SL_updated = k2_updated * f0_lat_updated;
+        else
+            SL_updated = k2_updated * f0_updated;
     } else {
         SL_updated = 0;
         SL_cache(0) = Mb;
@@ -499,19 +555,52 @@ double MPll::LCSR_fit2(double q2, double r_2, double m_fit2)
     return r_2/( 1. - q2/m_fit2 ) ; 
 }
 
+double MPll::zeta(double q2)
+{
+    double tp, t0;
+    
+    tp = (MM + MP)*(MM + MP);
+    t0 = (MM + MP)*(sqrt(MM) - sqrt(MP))*(sqrt(MM) - sqrt(MP));
+    
+    return (sqrt(tp - q2) - sqrt(tp - t0)) / (sqrt(tp - q2) + sqrt(tp - t0));
+}
+
+double MPll::LATTICE_fit1(double q2, double b_0, double b_1, double b_2, double m_fit2)
+{
+    double z2 = zeta(q2)*zeta(q2);
+    double z3 = zeta(q2)*z2;
+    
+    return 1./( 1. - q2/m_fit2 ) * ( b_0 + b_1*(zeta(q2) - 1./3.*z3) + b_2*(z2 + 2./3.*z3) ) ;
+
+}
+
+double MPll::LATTICE_fit2(double q2, double b_0, double b_1, double b_2, double m_fit2)
+{
+    return 1./( 1. - q2/m_fit2 ) * ( b_0 + b_1*zeta(q2) + b_2*zeta(q2)*zeta(q2) ) ; 
+}
+
 double MPll::f_plus(double q2)
 {
-    return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
+    if (LATTICE)
+        return LATTICE_fit1(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
+    else
+        return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
 }
 
 double MPll::f_T(double q2)
 {
-    return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
+    if (LATTICE)
+        return LATTICE_fit1(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
+    else
+        return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
 }
 
 double MPll::f_0(double q2)
 {
-    return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
+    if (LATTICE)
+        return LATTICE_fit2(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
+    else
+        return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
 }
 
 gslpp::complex MPll::V_L(double q2)

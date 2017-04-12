@@ -188,6 +188,24 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The oblique parameter @f$S@f$.
+     * @return @f$S@f$
+     */
+    virtual double obliqueS() const;
+
+    /**
+     * @brief The oblique parameter @f$T@f$.
+     * @return @f$T@f$
+     */
+    virtual double obliqueT() const;
+
+    /**
+     * @brief The oblique parameter @f$U@f$.
+     * @return @f$U=0@f$
+     */
+    virtual double obliqueU() const;
 
     /**
      * @brief The ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs
@@ -270,18 +288,56 @@ public:
      * @return @f$\mu_{eettH}@f$
      */
     virtual double mueettH(const double sqrt_s) const;
-
+    /**
+     * @brief The decay width @f$(H\to gg)@f$ in the current model.
+     * @return @f$\Gamma(H\to gg)@f$
+     */
     virtual double Gammagg() const;
+    /**
+     * @brief The decay width @f$(H\to WW)@f$ in the current model.
+     * @return @f$\Gamma(H\to WW)@f$
+     */
     virtual double GammaWW() const;
+    /**
+     * @brief The decay width @f$(H\to ZZ)@f$ in the current model.
+     * @return @f$\Gamma(H\to ZZ)@f$
+     */
     virtual double GammaZZ() const;
+    /**
+     * @brief The decay width @f$(H\to Z\gamma)@f$ in the current model.
+     * @return @f$\Gamma(H\to Z\gamma)@f$
+     */
     virtual double GammaZga() const;
+    /**
+     * @brief The decay width @f$(H\to \gamma\gamma)@f$ in the current model.
+     * @return @f$\Gamma(H\to \gamma\gamma)@f$
+     */
     virtual double Gammagaga() const;
+    /**
+     * @brief The decay width @f$(H\to \mu^+ \mu^-)@f$ in the current model.
+     * @return @f$\Gamma(H\to \mu^+ \mu^-)@f$
+     */
     virtual double Gammamumu() const;
+    /**
+     * @brief The decay width @f$(H\to \tau^+ \tau^-)@f$ in the current model.
+     * @return @f$\Gamma(H\to \tau^+ \tau^-)@f$
+     */
     virtual double Gammatautau() const;
+    /**
+     * @brief The decay width @f$(H\to c \bar{c})@f$ in the current model.
+     * @return @f$\Gamma(H\to c \bar{c})@f$
+     */
     virtual double Gammacc() const;
+    /**
+     * @brief The decay width @f$(H\to b \bar{b})@f$ in the current model.
+     * @return @f$\Gamma(H\to c \bar{c})@f$
+     */
     virtual double Gammabb() const;
+    /**
+     * @brief The total decay width of the Higgs boson in the current model.
+     * @return @f$\Gamma(H)@f$
+     */
     virtual double GammaTotal() const;
-
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.
@@ -375,7 +431,7 @@ protected:
      * @brief A method to compute the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM
      */
-    virtual double computecga() const;
+    virtual double computecgaga() const;
     
     /**
      * @brief A method to compute the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM.
