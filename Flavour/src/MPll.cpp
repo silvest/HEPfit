@@ -104,15 +104,15 @@ void MPll::updateParameters()
             b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
             b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
             b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
-            m_fit2_fplus = mySM.getOptionalParameter("m_fit2_fplus_lat");
+            m_fit2_fplus_lat = mySM.getOptionalParameter("m_fit2_fplus_lat");
             b_0_fT = mySM.getOptionalParameter("b_0_fT");
             b_1_fT = mySM.getOptionalParameter("b_1_fT");
             b_2_fT = mySM.getOptionalParameter("b_2_fT");
-            m_fit2_fT = mySM.getOptionalParameter("m_fit2_fT_lat");
+            m_fit2_fT_lat = mySM.getOptionalParameter("m_fit2_fT_lat");
             b_0_f0 = mySM.getOptionalParameter("b_0_f0");
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
-            m_fit2_f0 = mySM.getOptionalParameter("m_fit2_f0_lat");
+            m_fit2_f0_lat = mySM.getOptionalParameter("m_fit2_f0_lat");
             
             spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
     
