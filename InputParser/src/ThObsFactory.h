@@ -48,7 +48,6 @@ public:
 
 private:
     std::map<std::string, boost::function<ThObservable* (const StandardModel &) > > obsThFactory;
-    std::map<std::string, std::vector<std::string> > parameterForObservable;
 };
 
 #endif	/* THOBSFACTORY_H */
