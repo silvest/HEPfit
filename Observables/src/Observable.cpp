@@ -202,10 +202,10 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
     if ((type.compare("Observable") == 0 || type.compare("HiggsObservable")) && std::distance(tok->begin(), tok->end()) < 8) {
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
-    } else if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 10) {
+    } else if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 12) {
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
-    } else if (type.compare("FunctionObservable") == 0 && std::distance(tok->begin(), tok->end()) < 9) {
+    } else if (type.compare("FunctionObservable") == 0 && std::distance(tok->begin(), tok->end()) < 11) {
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
     } else {
@@ -239,6 +239,9 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
             if (distr.compare("file") == 0) {
                 if (std::distance(tok->begin(), tok->end()) < 10) {
                     if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
+                    else sleep(2);
+                } else if (type.compare("AsyGausObservable") == 0) {
+                    if (rank == 0) throw std::runtime_error("ERROR: AsyGausObservable cannot be specified with a input histogram, use Observable keyword instead.\n");
                     else sleep(2);
                 } else {
                     filename = filepath + *(++beg);
