@@ -32,6 +32,10 @@ public:
     double mH1_2;
     double mH2_2;
     double mH3_2;
+    double mHlight_2;
+    double mHmedium_2;
+    double mHheavy_2;
+    double mHp2_GTHDM;
     double M11_2;
     double M12_2;
     double M13_2;
@@ -47,6 +51,16 @@ public:
     double lambda3_GTHDM;
     double lambda4_GTHDM;
     double Relambda5_GTHDM;
+    
+    double R11_GTHDM, R12_GTHDM, R13_GTHDM;
+    double R21_GTHDM, R22_GTHDM, R23_GTHDM;
+    double R31_GTHDM, R32_GTHDM, R33_GTHDM;
+    
+    gslpp::complex sigmau_ATHDM, sigmad_ATHDM, sigmal_ATHDM;
+    
+    gslpp::matrix<gslpp::complex> Nu_GTHDM, Nd_GTHDM, Nl_GTHDM;
+    gslpp::matrix<gslpp::complex> Mu_GTHDM, Md_GTHDM, Ml_GTHDM;
+    gslpp::matrix<gslpp::complex> Yu1_GTHDM, Yu2_GTHDM, Yd1_GTHDM, Yd2_GTHDM, Yl1_GTHDM, Yl2_GTHDM;
 
 private:
 

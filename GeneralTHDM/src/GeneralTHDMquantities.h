@@ -16,7 +16,7 @@
 /**
  * @class mH1_GTHDM
  * @ingroup GeneralTHDM 
- * @brief The lightest neutral Higgs mass
+ * @brief The mass of the SM Higgs
  */
 class mH1_GTHDM: public ThObservable {
 public:
@@ -27,7 +27,7 @@ public:
     mH1_GTHDM(const StandardModel& SM_i);
 
     /**
-     * @return The lightest of the physical neutral Higgs masses
+     * @return The value of mH1
      */
     double computeThValue();
 
@@ -38,7 +38,7 @@ private:
 /**
  * @class mH2_GTHDM
  * @ingroup GeneralTHDM 
- * @brief The medium-weighted neutral Higgs mass
+ * @brief The mass of the second neutral Higgs
  */
 class mH2_GTHDM: public ThObservable {
 public:
@@ -49,7 +49,7 @@ public:
     mH2_GTHDM(const StandardModel& SM_i);
 
     /**
-     * @return The second of the physical neutral Higgs masses
+     * @return The value of mH2
      */
     double computeThValue();
 
@@ -60,7 +60,7 @@ private:
 /**
  * @class mH3_GTHDM
  * @ingroup GeneralTHDM 
- * @brief The heaviest neutral Higgs mass
+ * @brief The mass of the third neutral Higgs
  */
 class mH3_GTHDM: public ThObservable {
 public:
@@ -71,7 +71,7 @@ public:
     mH3_GTHDM(const StandardModel& SM_i);
 
     /**
-     * @return The heaviest of the physical neutral Higgs masses
+     * @return The value of mH3
      */
     double computeThValue();
 
@@ -80,9 +80,231 @@ private:
 };
 
 /**
+ * @class mHlight_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass of the lightest neutral Higgs
+ */
+class mHlight_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mHlight_GTHDM constructor.
+     */
+    mHlight_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mHlight
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mHmedium_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass of the medium-weighted neutral Higgs
+ */
+class mHmedium_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mHmedium_GTHDM constructor.
+     */
+    mHmedium_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mHmedium
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mHheavy_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass of the heaviest neutral Higgs
+ */
+class mHheavy_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mHheavy_GTHDM constructor.
+     */
+    mHheavy_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of mHheavy
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mHp_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass of the charged Higgs
+ */
+class mHp_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mHp_GTHDM constructor.
+     */
+    mHp_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The mass of the charged Higgs
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
+ * @class mH3mmH2_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass difference between the third and the second neutral Higgs
+ */
+class mH3mmH2_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mH3mmH2_GTHDM constructor.
+     */
+    mH3mmH2_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of the mass of H3 minus the mass of H2
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mH3mmH1_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass difference between the third neutral Higgs and the SM Higgs
+ */
+class mH3mmH1_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mH3mmH1_GTHDM constructor.
+     */
+    mH3mmH1_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of the mass of H3 minus the mass of H1
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mH3mmHp_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass difference between the third neutral Higgs and the charged Higgs
+ */
+class mH3mmHp_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mH3mmHp_GTHDM constructor.
+     */
+    mH3mmHp_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of the mass of H3 minus the mass of the charged Higgs
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mH2mmHp_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass difference between the second neutral Higgs and the charged Higgs
+ */
+class mH2mmHp_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mH2mmHp_GTHDM constructor.
+     */
+    mH2mmHp_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of the mass of H2 minus the mass of the charged Higgs
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mH2mmH1_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass difference between the second neutral Higgs and the SM Higgs
+ */
+class mH2mmH1_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mH2mmH1_GTHDM constructor.
+     */
+    mH2mmH1_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of the mass of H2 minus the mass of H1
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
+ * @class mHpmmH1_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief The mass difference between the charged Higgs and the SM Higgs
+ */
+class mHpmmH1_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief mHpmmH1_GTHDM constructor.
+     */
+    mHpmmH1_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return The value of the mass of the charged Higgs minus the mass of H1
+     */
+    double computeThValue();
+
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+
+/**
  * @class mH1sq_GTHDM
  * @ingroup GeneralTHDM 
- * @brief The lightest neutral Higgs mass squared
+ * @brief The SM Higgs mass squared
  */
 class mH1sq_GTHDM: public ThObservable {
 public:
@@ -93,7 +315,7 @@ public:
     mH1sq_GTHDM(const StandardModel& SM_i);
 
     /**
-     * @return The lightest of the physical neutral Higgs masses squared
+     * @return The value of mH1 squared
      */
     double computeThValue();
 
@@ -104,7 +326,7 @@ private:
 /**
  * @class mH2sq_GTHDM
  * @ingroup GeneralTHDM 
- * @brief The medium-weighted neutral Higgs mass squared
+ * @brief The second neutral Higgs mass squared
  */
 class mH2sq_GTHDM: public ThObservable {
 public:
@@ -115,7 +337,7 @@ public:
     mH2sq_GTHDM(const StandardModel& SM_i);
 
     /**
-     * @return The second of the physical neutral Higgs masses squared
+     * @return The value of mH2 squared
      */
     double computeThValue();
 
@@ -126,7 +348,7 @@ private:
 /**
  * @class mH3sq_GTHDM
  * @ingroup GeneralTHDM 
- * @brief The heaviest neutral Higgs mass squared
+ * @brief The third neutral Higgs mass squared
  */
 class mH3sq_GTHDM: public ThObservable {
 public:
@@ -137,7 +359,7 @@ public:
     mH3sq_GTHDM(const StandardModel& SM_i);
 
     /**
-     * @return The heaviest of the physical neutral Higgs masses squared
+     * @return The value of mH3 squared
      */
     double computeThValue();
 
