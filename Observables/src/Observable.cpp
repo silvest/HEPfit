@@ -289,7 +289,6 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
             } else if (obsType.compare("FunctionObservable") == 0) {
                 bin_min = atof((*beg).c_str());
                 ++beg;
-                ++beg;
             }
             if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in observable " << name << std::endl;
         }

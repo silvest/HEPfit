@@ -12,6 +12,7 @@
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
+#include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
@@ -21,12 +22,16 @@
 #include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
-#include <std_make_vector.h>
 
 ThObsFactory::ThObsFactory()
 {
     //-----  StandardModel observables  -----
     obsThFactory["MtMSbar"] = boost::factory<MtMSbar*>();
+    obsThFactory["alpha_s_LO"] = boost::bind(boost::factory<alpha_s*>(), _1, LO);
+    obsThFactory["alpha_s_NLO"] = boost::bind(boost::factory<alpha_s*>(), _1, NLO);
+    obsThFactory["alpha_s_FULLNLO"] = boost::bind(boost::factory<alpha_s*>(), _1, FULLNLO);
+    obsThFactory["alpha_s_NNLO"] = boost::bind(boost::factory<alpha_s*>(), _1, NNLO);
+    obsThFactory["alpha_s_FULLNNLO"] = boost::bind(boost::factory<alpha_s*>(), _1, FULLNNLO);
     //-----  Electroweak precision observables  -----
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();
