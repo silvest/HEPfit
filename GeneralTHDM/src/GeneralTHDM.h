@@ -238,220 +238,247 @@ public:
         return Imlambda7;
     }
 
-    double getYtu_11r() const {
-        return Ytu_11r;
+    /**
+     * 
+     * @return Nu matrix element 11
+     */
+    gslpp::complex getNu_11() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_11r + i*Nu_11i);
     }
-
-    double getYtu_11i() const {
-        return Ytu_11i;
+    
+    /**
+     * 
+     * @return Nu matrix element 12
+     */
+    gslpp::complex getNu_12() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_12r + i*Nu_12i);
     }
-
-    double getYtu_12r() const {
-        return Ytu_12r;
+    
+    /**
+     * 
+     * @return Nu matrix element 13
+     */
+    gslpp::complex getNu_13() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_13r + i*Nu_13i);
     }
-
-    double getYtu_12i() const {
-        return Ytu_12i;
+    
+    /**
+     * 
+     * @return Nu matrix element 21
+     */
+    gslpp::complex getNu_21() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_21r + i*Nu_21i);
     }
-
-    double getYtu_13r() const {
-        return Ytu_13r;
+    
+    /**
+     * 
+     * @return Nu matrix element 22
+     */
+    gslpp::complex getNu_22() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_22r + i*Nu_22i);
     }
-
-    double getYtu_13i() const {
-        return Ytu_13i;
+    
+    /**
+     * 
+     * @return Nu matrix element 23
+     */
+    gslpp::complex getNu_23() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_23r + i*Nu_23i);
     }
-
-    double getYtu_21r() const {
-        return Ytu_21r;
+    
+    /**
+     * 
+     * @return Nu matrix element 31
+     */
+    gslpp::complex getNu_31() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_31r + i*Nu_31i);
     }
-
-    double getYtu_21i() const {
-        return Ytu_21i;
+    
+    /**
+     * 
+     * @return Nu matrix element 32
+     */
+    gslpp::complex getNu_32() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_32r + i*Nu_32i);
     }
-
-    double getYtu_22r() const {
-        return Ytu_22r;
+    
+    /**
+     * 
+     * @return Nu matrix element 33
+     */
+    gslpp::complex getNu_33() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nu_33r + i*Nu_33i);
     }
-
-    double getYtu_22i() const {
-        return Ytu_22i;
+    
+    /**
+     * 
+     * @return Nd matrix element 11
+     */
+    gslpp::complex getNd_11() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_11r + i*Nd_11i);
     }
-
-    double getYtu_23r() const {
-        return Ytu_23r;
+    
+    /**
+     * 
+     * @return Nd matrix element 12
+     */
+    gslpp::complex getNd_12() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_12r + i*Nd_12i);
     }
-
-    double getYtu_23i() const {
-        return Ytu_23i;
+    
+    /**
+     * 
+     * @return Nd matrix element 13
+     */
+    gslpp::complex getNd_13() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_13r + i*Nd_13i);
     }
-
-    double getYtu_31r() const {
-        return Ytu_31r;
+    
+    /**
+     * 
+     * @return Nd matrix element 21
+     */
+    gslpp::complex getNd_21() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_21r + i*Nd_21i);
     }
-
-    double getYtu_31i() const {
-        return Ytu_31i;
+    
+    /**
+     * 
+     * @return Nd matrix element 22
+     */
+    gslpp::complex getNd_22() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_22r + i*Nd_22i);
     }
-
-    double getYtu_32r() const {
-        return Ytu_32r;
+    
+    /**
+     * 
+     * @return Nd matrix element 23
+     */
+    gslpp::complex getNd_23() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_23r + i*Nd_23i);
     }
-
-    double getYtu_32i() const {
-        return Ytu_32i;
+    
+    /**
+     * 
+     * @return Nd matrix element 31
+     */
+    gslpp::complex getNd_31() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_31r + i*Nd_31i);
     }
-
-    double getYtu_33r() const {
-        return Ytu_33r;
+    
+    /**
+     * 
+     * @return Nd matrix element 32
+     */
+    gslpp::complex getNd_32() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_32r + i*Nd_32i);
     }
-
-    double getYtu_33i() const {
-        return Ytu_33i;
+    
+    /**
+     * 
+     * @return Nd matrix element 33
+     */
+    gslpp::complex getNd_33() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nd_33r + i*Nd_33i);
     }
-
-    double getYtd_11r() const {
-        return Ytd_11r;
+    
+    /**
+     * 
+     * @return Nl matrix element 11
+     */
+    gslpp::complex getNl_11() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_11r + i*Nl_11i);
     }
-
-    double getYtd_11i() const {
-        return Ytd_11i;
+    
+    /**
+     * 
+     * @return Nl matrix element 12
+     */
+    gslpp::complex getNl_12() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_12r + i*Nl_12i);
     }
-
-    double getYtd_12r() const {
-        return Ytd_12r;
+    
+    /**
+     * 
+     * @return Nl matrix element 13
+     */
+    gslpp::complex getNl_13() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_13r + i*Nl_13i);
     }
-
-    double getYtd_12i() const {
-        return Ytd_12i;
+    
+    /**
+     * 
+     * @return Nl matrix element 21
+     */
+    gslpp::complex getNl_21() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_21r + i*Nl_21i);
     }
-
-    double getYtd_13r() const {
-        return Ytd_13r;
+    
+    /**
+     * 
+     * @return Nl matrix element 22
+     */
+    gslpp::complex getNl_22() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_22r + i*Nl_22i);
     }
-
-    double getYtd_13i() const {
-        return Ytd_13i;
+    
+    /**
+     * 
+     * @return Nl matrix element 23
+     */
+    gslpp::complex getNl_23() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_23r + i*Nl_23i);
     }
-
-    double getYtd_21r() const {
-        return Ytd_21r;
+    
+    /**
+     * 
+     * @return Nl matrix element 31
+     */
+    gslpp::complex getNl_31() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_31r + i*Nl_31i);
     }
-
-    double getYtd_21i() const {
-        return Ytd_21i;
+    
+    /**
+     * 
+     * @return Nl matrix element 32
+     */
+    gslpp::complex getNl_32() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_32r + i*Nl_32i);
     }
-
-    double getYtd_22r() const {
-        return Ytd_22r;
-    }
-
-    double getYtd_22i() const {
-        return Ytd_22i;
-    }
-
-    double getYtd_23r() const {
-        return Ytd_23r;
-    }
-
-    double getYtd_23i() const {
-        return Ytd_23i;
-    }
-
-    double getYtd_31r() const {
-        return Ytd_31r;
-    }
-
-    double getYtd_31i() const {
-        return Ytd_31i;
-    }
-
-    double getYtd_32r() const {
-        return Ytd_32r;
-    }
-
-    double getYtd_32i() const {
-        return Ytd_32i;
-    }
-
-    double getYtd_33r() const {
-        return Ytd_33r;
-    }
-
-    double getYtd_33i() const {
-        return Ytd_33i;
-    }
-
-    double getYtl_11r() const {
-        return Ytl_11r;
-    }
-
-    double getYtl_11i() const {
-        return Ytl_11i;
-    }
-
-    double getYtl_12r() const {
-        return Ytl_12r;
-    }
-
-    double getYtl_12i() const {
-        return Ytl_12i;
-    }
-
-    double getYtl_13r() const {
-        return Ytl_13r;
-    }
-
-    double getYtl_13i() const {
-        return Ytl_13i;
-    }
-
-    double getYtl_21r() const {
-        return Ytl_21r;
-    }
-
-    double getYtl_21i() const {
-        return Ytl_21i;
-    }
-
-    double getYtl_22r() const {
-        return Ytl_22r;
-    }
-
-    double getYtl_22i() const {
-        return Ytl_22i;
-    }
-
-    double getYtl_23r() const {
-        return Ytl_23r;
-    }
-
-    double getYtl_23i() const {
-        return Ytl_23i;
-    }
-
-    double getYtl_31r() const {
-        return Ytl_31r;
-    }
-
-    double getYtl_31i() const {
-        return Ytl_31i;
-    }
-
-    double getYtl_32r() const {
-        return Ytl_32r;
-    }
-
-    double getYtl_32i() const {
-        return Ytl_32i;
-    }
-
-    double getYtl_33r() const {
-        return Ytl_33r;
-    }
-
-    double getYtl_33i() const {
-        return Ytl_33i;
+    
+    /**
+     * 
+     * @return Nl matrix element 33
+     */
+    gslpp::complex getNl_33() const {
+        gslpp::complex i = gslpp::complex::i();
+        return (Nl_33r + i*Nl_33i);
     }
 
     /**
@@ -467,6 +494,14 @@ public:
      */
     double getM2() const {
             return Rem12_2/sinb/cosb;
+    }
+    
+    /**
+     *
+     * @return Flag to switch on the Aligned Two Higgs Doublet Model
+     */
+    bool getATHDMflag() const {
+        return flag_ATHDM;
     }
 
 protected:
@@ -497,15 +532,15 @@ private:
 
     double logtb, tanb, sinb, cosb, mHp2, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
             alpha3, cosalpha3, sinalpha3, Rem12_2, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7, 
-            Ytu_11r, Ytu_11i, Ytu_12r, Ytu_12i, Ytu_13r, Ytu_13i, 
-            Ytu_21r, Ytu_21i, Ytu_22r, Ytu_22i, Ytu_23r, Ytu_23i, 
-            Ytu_31r, Ytu_31i, Ytu_32r, Ytu_32i, Ytu_33r, Ytu_33i, 
-            Ytd_11r, Ytd_11i, Ytd_12r, Ytd_12i, Ytd_13r, Ytd_13i, 
-            Ytd_21r, Ytd_21i, Ytd_22r, Ytd_22i, Ytd_23r, Ytd_23i, 
-            Ytd_31r, Ytd_31i, Ytd_32r, Ytd_32i, Ytd_33r, Ytd_33i, 
-            Ytl_11r, Ytl_11i, Ytl_12r, Ytl_12i, Ytl_13r, Ytl_13i, 
-            Ytl_21r, Ytl_21i, Ytl_22r, Ytl_22i, Ytl_23r, Ytl_23i, 
-            Ytl_31r, Ytl_31i, Ytl_32r, Ytl_32i, Ytl_33r, Ytl_33i, 
+            Nu_11r, Nu_11i, Nu_12r, Nu_12i, Nu_13r, Nu_13i, 
+            Nu_21r, Nu_21i, Nu_22r, Nu_22i, Nu_23r, Nu_23i, 
+            Nu_31r, Nu_31i, Nu_32r, Nu_32i, Nu_33r, Nu_33i, 
+            Nd_11r, Nd_11i, Nd_12r, Nd_12i, Nd_13r, Nd_13i, 
+            Nd_21r, Nd_21i, Nd_22r, Nd_22i, Nd_23r, Nd_23i, 
+            Nd_31r, Nd_31i, Nd_32r, Nd_32i, Nd_33r, Nd_33i, 
+            Nl_11r, Nl_11i, Nl_12r, Nl_12i, Nl_13r, Nl_13i, 
+            Nl_21r, Nl_21i, Nl_22r, Nl_22i, Nl_23r, Nl_23i, 
+            Nl_31r, Nl_31i, Nl_32r, Nl_32i, Nl_33r, Nl_33i, 
             Q_GTHDM;
     bool flag_ATHDM;
 };

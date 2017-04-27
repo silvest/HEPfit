@@ -9,15 +9,15 @@
 #include "GeneralTHDMcache.h"
 
 const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "alpha1", "alpha2", "alpha3", "Rem12_2", "Imlambda5", "Relambda6", "Imlambda6", "Relambda7", "Imlambda7", 
-"Ytu_11r", "Ytu_11i", "Ytu_12r", "Ytu_12i", "Ytu_13r", "Ytu_13i", 
-"Ytu_21r", "Ytu_21i", "Ytu_22r", "Ytu_22i", "Ytu_23r", "Ytu_23i", 
-"Ytu_31r", "Ytu_31i", "Ytu_32r", "Ytu_32i", "Ytu_33r", "Ytu_33i", 
-"Ytd_11r", "Ytd_11i", "Ytd_12r", "Ytd_12i", "Ytd_13r", "Ytd_13i", 
-"Ytd_21r", "Ytd_21i", "Ytd_22r", "Ytd_22i", "Ytd_23r", "Ytd_23i", 
-"Ytd_31r", "Ytd_31i", "Ytd_32r", "Ytd_32i", "Ytd_33r", "Ytd_33i", 
-"Ytl_11r", "Ytl_11i", "Ytl_12r", "Ytl_12i", "Ytl_13r", "Ytl_13i", 
-"Ytl_21r", "Ytl_21i", "Ytl_22r", "Ytl_22i", "Ytl_23r", "Ytl_23i", 
-"Ytl_31r", "Ytl_31i", "Ytl_32r", "Ytl_32i", "Ytl_33r", "Ytl_33i", 
+"Nu_11r", "Nu_11i", "Nu_12r", "Nu_12i", "Nu_13r", "Nu_13i", 
+"Nu_21r", "Nu_21i", "Nu_22r", "Nu_22i", "Nu_23r", "Nu_23i", 
+"Nu_31r", "Nu_31i", "Nu_32r", "Nu_32i", "Nu_33r", "Nu_33i", 
+"Nd_11r", "Nd_11i", "Nd_12r", "Nd_12i", "Nd_13r", "Nd_13i", 
+"Nd_21r", "Nd_21i", "Nd_22r", "Nd_22i", "Nd_23r", "Nd_23i", 
+"Nd_31r", "Nd_31i", "Nd_32r", "Nd_32i", "Nd_33r", "Nd_33i", 
+"Nl_11r", "Nl_11i", "Nl_12r", "Nl_12i", "Nl_13r", "Nl_13i", 
+"Nl_21r", "Nl_21i", "Nl_22r", "Nl_22i", "Nl_23r", "Nl_23i", 
+"Nl_31r", "Nl_31i", "Nl_32r", "Nl_32i", "Nl_33r", "Nl_33i", 
 "Q_GTHDM"};
 
 GeneralTHDM::GeneralTHDM() : StandardModel(), GTHDMM(*this) {
@@ -34,60 +34,60 @@ GeneralTHDM::GeneralTHDM() : StandardModel(), GTHDMM(*this) {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Imlambda6", boost::cref(Imlambda6)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Relambda7", boost::cref(Relambda7)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Imlambda7", boost::cref(Imlambda7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_11r", boost::cref(Ytu_11r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_11i", boost::cref(Ytu_11i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_12r", boost::cref(Ytu_12r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_12i", boost::cref(Ytu_12i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_13r", boost::cref(Ytu_13r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_13i", boost::cref(Ytu_13i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_21r", boost::cref(Ytu_21r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_21i", boost::cref(Ytu_21i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_22r", boost::cref(Ytu_22r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_22i", boost::cref(Ytu_22i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_23r", boost::cref(Ytu_23r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_23i", boost::cref(Ytu_23i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_31r", boost::cref(Ytu_31r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_31i", boost::cref(Ytu_31i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_32r", boost::cref(Ytu_32r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_32i", boost::cref(Ytu_32i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_33r", boost::cref(Ytu_33r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytu_33i", boost::cref(Ytu_33i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_11r", boost::cref(Ytd_11r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_11i", boost::cref(Ytd_11i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_12r", boost::cref(Ytd_12r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_12i", boost::cref(Ytd_12i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_13r", boost::cref(Ytd_13r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_13i", boost::cref(Ytd_13i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_21r", boost::cref(Ytd_21r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_21i", boost::cref(Ytd_21i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_22r", boost::cref(Ytd_22r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_22i", boost::cref(Ytd_22i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_23r", boost::cref(Ytd_23r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_23i", boost::cref(Ytd_23i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_31r", boost::cref(Ytd_31r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_31i", boost::cref(Ytd_31i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_32r", boost::cref(Ytd_32r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_32i", boost::cref(Ytd_32i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_33r", boost::cref(Ytd_33r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytd_33i", boost::cref(Ytd_33i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_11r", boost::cref(Ytl_11r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_11i", boost::cref(Ytl_11i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_12r", boost::cref(Ytl_12r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_12i", boost::cref(Ytl_12i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_13r", boost::cref(Ytl_13r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_13i", boost::cref(Ytl_13i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_21r", boost::cref(Ytl_21r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_21i", boost::cref(Ytl_21i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_22r", boost::cref(Ytl_22r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_22i", boost::cref(Ytl_22i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_23r", boost::cref(Ytl_23r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_23i", boost::cref(Ytl_23i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_31r", boost::cref(Ytl_31r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_31i", boost::cref(Ytl_31i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_32r", boost::cref(Ytl_32r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_32i", boost::cref(Ytl_32i)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_33r", boost::cref(Ytl_33r)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ytl_33i", boost::cref(Ytl_33i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_11r", boost::cref(Nu_11r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_11i", boost::cref(Nu_11i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_12r", boost::cref(Nu_12r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_12i", boost::cref(Nu_12i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_13r", boost::cref(Nu_13r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_13i", boost::cref(Nu_13i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_21r", boost::cref(Nu_21r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_21i", boost::cref(Nu_21i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_22r", boost::cref(Nu_22r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_22i", boost::cref(Nu_22i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_23r", boost::cref(Nu_23r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_23i", boost::cref(Nu_23i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_31r", boost::cref(Nu_31r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_31i", boost::cref(Nu_31i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_32r", boost::cref(Nu_32r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_32i", boost::cref(Nu_32i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_33r", boost::cref(Nu_33r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_33i", boost::cref(Nu_33i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_11r", boost::cref(Nd_11r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_11i", boost::cref(Nd_11i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_12r", boost::cref(Nd_12r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_12i", boost::cref(Nd_12i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_13r", boost::cref(Nd_13r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_13i", boost::cref(Nd_13i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_21r", boost::cref(Nd_21r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_21i", boost::cref(Nd_21i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_22r", boost::cref(Nd_22r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_22i", boost::cref(Nd_22i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_23r", boost::cref(Nd_23r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_23i", boost::cref(Nd_23i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_31r", boost::cref(Nd_31r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_31i", boost::cref(Nd_31i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_32r", boost::cref(Nd_32r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_32i", boost::cref(Nd_32i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_33r", boost::cref(Nd_33r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nd_33i", boost::cref(Nd_33i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_11r", boost::cref(Nl_11r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_11i", boost::cref(Nl_11i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_12r", boost::cref(Nl_12r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_12i", boost::cref(Nl_12i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_13r", boost::cref(Nl_13r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_13i", boost::cref(Nl_13i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_21r", boost::cref(Nl_21r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_21i", boost::cref(Nl_21i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_22r", boost::cref(Nl_22r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_22i", boost::cref(Nl_22i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_23r", boost::cref(Nl_23r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_23i", boost::cref(Nl_23i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_31r", boost::cref(Nl_31r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_31i", boost::cref(Nl_31i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_32r", boost::cref(Nl_32r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_32i", boost::cref(Nl_32i)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_33r", boost::cref(Nl_33r)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nl_33i", boost::cref(Nl_33i)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_GTHDM", boost::cref(Q_GTHDM)));
 }
 
@@ -186,114 +186,114 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         Relambda7 = value;
     else if(name.compare("Imlambda7") == 0)
         Imlambda7 = value;
-    else if(name.compare("Ytu_11r") == 0)
-        Ytu_11r = value;
-    else if(name.compare("Ytu_11i") == 0)
-        Ytu_11i = value;
-    else if(name.compare("Ytu_12r") == 0)
-        Ytu_12r = value;
-    else if(name.compare("Ytu_12i") == 0)
-        Ytu_12i = value;
-    else if(name.compare("Ytu_13r") == 0)
-        Ytu_13r = value;
-    else if(name.compare("Ytu_13i") == 0)
-        Ytu_13i = value;
-    else if(name.compare("Ytu_21r") == 0)
-        Ytu_21r = value;
-    else if(name.compare("Ytu_21i") == 0)
-        Ytu_21i = value;
-    else if(name.compare("Ytu_22r") == 0)
-        Ytu_22r = value;
-    else if(name.compare("Ytu_22i") == 0)
-        Ytu_22i = value;
-    else if(name.compare("Ytu_23r") == 0)
-        Ytu_23r = value;
-    else if(name.compare("Ytu_23i") == 0)
-        Ytu_23i = value;
-    else if(name.compare("Ytu_31r") == 0)
-        Ytu_31r = value;
-    else if(name.compare("Ytu_31i") == 0)
-        Ytu_31i = value;
-    else if(name.compare("Ytu_32r") == 0)
-        Ytu_32r = value;
-    else if(name.compare("Ytu_32i") == 0)
-        Ytu_32i = value;
-    else if(name.compare("Ytu_33r") == 0)
-        Ytu_33r = value;
-    else if(name.compare("Ytu_33i") == 0)
-        Ytu_33i = value;
-    else if(name.compare("Ytd_11r") == 0)
-        Ytd_11r = value;
-    else if(name.compare("Ytd_11i") == 0)
-        Ytd_11i = value;
-    else if(name.compare("Ytd_12r") == 0)
-        Ytd_12r = value;
-    else if(name.compare("Ytd_12i") == 0)
-        Ytd_12i = value;
-    else if(name.compare("Ytd_13r") == 0)
-        Ytd_13r = value;
-    else if(name.compare("Ytd_13i") == 0)
-        Ytd_13i = value;
-    else if(name.compare("Ytd_21r") == 0)
-        Ytd_21r = value;
-    else if(name.compare("Ytd_21i") == 0)
-        Ytd_21i = value;
-    else if(name.compare("Ytd_22r") == 0)
-        Ytd_22r = value;
-    else if(name.compare("Ytd_22i") == 0)
-        Ytd_22i = value;
-    else if(name.compare("Ytd_23r") == 0)
-        Ytd_23r = value;
-    else if(name.compare("Ytd_23i") == 0)
-        Ytd_23i = value;
-    else if(name.compare("Ytd_31r") == 0)
-        Ytd_31r = value;
-    else if(name.compare("Ytd_31i") == 0)
-        Ytd_31i = value;
-    else if(name.compare("Ytd_32r") == 0)
-        Ytd_32r = value;
-    else if(name.compare("Ytd_32i") == 0)
-        Ytd_32i = value;
-    else if(name.compare("Ytd_33r") == 0)
-        Ytd_33r = value;
-    else if(name.compare("Ytd_33i") == 0)
-        Ytd_33i = value;
-    else if(name.compare("Ytl_11r") == 0)
-        Ytl_11r = value;
-    else if(name.compare("Ytl_11i") == 0)
-        Ytl_11i = value;
-    else if(name.compare("Ytl_12r") == 0)
-        Ytl_12r = value;
-    else if(name.compare("Ytl_12i") == 0)
-        Ytl_12i = value;
-    else if(name.compare("Ytl_13r") == 0)
-        Ytl_13r = value;
-    else if(name.compare("Ytl_13i") == 0)
-        Ytl_13i = value;
-    else if(name.compare("Ytl_21r") == 0)
-        Ytl_21r = value;
-    else if(name.compare("Ytl_21i") == 0)
-        Ytl_21i = value;
-    else if(name.compare("Ytl_22r") == 0)
-        Ytl_22r = value;
-    else if(name.compare("Ytl_22i") == 0)
-        Ytl_22i = value;
-    else if(name.compare("Ytl_23r") == 0)
-        Ytl_23r = value;
-    else if(name.compare("Ytl_23i") == 0)
-        Ytl_23i = value;
-    else if(name.compare("Ytl_31r") == 0)
-        Ytl_31r = value;
-    else if(name.compare("Ytl_31i") == 0)
-        Ytl_31i = value;
-    else if(name.compare("Ytl_32r") == 0)
-        Ytl_32r = value;
-    else if(name.compare("Ytl_32i") == 0)
-        Ytl_32i = value;
-    else if(name.compare("Ytl_33r") == 0)
-        Ytl_33r = value;
-    else if(name.compare("Ytl_33i") == 0)
-        Ytl_33i = value;
+    else if(name.compare("Nu_11r") == 0)
+        Nu_11r = value;
+    else if(name.compare("Nu_11i") == 0)
+        Nu_11i = value;
+    else if(name.compare("Nu_12r") == 0)
+        Nu_12r = value;
+    else if(name.compare("Nu_12i") == 0)
+        Nu_12i = value;
+    else if(name.compare("Nu_13r") == 0)
+        Nu_13r = value;
+    else if(name.compare("Nu_13i") == 0)
+        Nu_13i = value;
+    else if(name.compare("Nu_21r") == 0)
+        Nu_21r = value;
+    else if(name.compare("Nu_21i") == 0)
+        Nu_21i = value;
+    else if(name.compare("Nu_22r") == 0)
+        Nu_22r = value;
+    else if(name.compare("Nu_22i") == 0)
+        Nu_22i = value;
+    else if(name.compare("Nu_23r") == 0)
+        Nu_23r = value;
+    else if(name.compare("Nu_23i") == 0)
+        Nu_23i = value;
+    else if(name.compare("Nu_31r") == 0)
+        Nu_31r = value;
+    else if(name.compare("Nu_31i") == 0)
+        Nu_31i = value;
+    else if(name.compare("Nu_32r") == 0)
+        Nu_32r = value;
+    else if(name.compare("Nu_32i") == 0)
+        Nu_32i = value;
+    else if(name.compare("Nu_33r") == 0)
+        Nu_33r = value;
+    else if(name.compare("Nu_33i") == 0)
+        Nu_33i = value;
+    else if(name.compare("Nd_11r") == 0)
+        Nd_11r = value;
+    else if(name.compare("Nd_11i") == 0)
+        Nd_11i = value;
+    else if(name.compare("Nd_12r") == 0)
+        Nd_12r = value;
+    else if(name.compare("Nd_12i") == 0)
+        Nd_12i = value;
+    else if(name.compare("Nd_13r") == 0)
+        Nd_13r = value;
+    else if(name.compare("Nd_13i") == 0)
+        Nd_13i = value;
+    else if(name.compare("Nd_21r") == 0)
+        Nd_21r = value;
+    else if(name.compare("Nd_21i") == 0)
+        Nd_21i = value;
+    else if(name.compare("Nd_22r") == 0)
+        Nd_22r = value;
+    else if(name.compare("Nd_22i") == 0)
+        Nd_22i = value;
+    else if(name.compare("Nd_23r") == 0)
+        Nd_23r = value;
+    else if(name.compare("Nd_23i") == 0)
+        Nd_23i = value;
+    else if(name.compare("Nd_31r") == 0)
+        Nd_31r = value;
+    else if(name.compare("Nd_31i") == 0)
+        Nd_31i = value;
+    else if(name.compare("Nd_32r") == 0)
+        Nd_32r = value;
+    else if(name.compare("Nd_32i") == 0)
+        Nd_32i = value;
+    else if(name.compare("Nd_33r") == 0)
+        Nd_33r = value;
+    else if(name.compare("Nd_33i") == 0)
+        Nd_33i = value;
+    else if(name.compare("Nl_11r") == 0)
+        Nl_11r = value;
+    else if(name.compare("Nl_11i") == 0)
+        Nl_11i = value;
+    else if(name.compare("Nl_12r") == 0)
+        Nl_12r = value;
+    else if(name.compare("Nl_12i") == 0)
+        Nl_12i = value;
+    else if(name.compare("Nl_13r") == 0)
+        Nl_13r = value;
+    else if(name.compare("Nl_13i") == 0)
+        Nl_13i = value;
+    else if(name.compare("Nl_21r") == 0)
+        Nl_21r = value;
+    else if(name.compare("Nl_21i") == 0)
+        Nl_21i = value;
+    else if(name.compare("Nl_22r") == 0)
+        Nl_22r = value;
+    else if(name.compare("Nl_22i") == 0)
+        Nl_22i = value;
+    else if(name.compare("Nl_23r") == 0)
+        Nl_23r = value;
+    else if(name.compare("Nl_23i") == 0)
+        Nl_23i = value;
+    else if(name.compare("Nl_31r") == 0)
+        Nl_31r = value;
+    else if(name.compare("Nl_31i") == 0)
+        Nl_31i = value;
+    else if(name.compare("Nl_32r") == 0)
+        Nl_32r = value;
+    else if(name.compare("Nl_32i") == 0)
+        Nl_32i = value;
+    else if(name.compare("Nl_33r") == 0)
+        Nl_33r = value;
+    else if(name.compare("Nl_33i") == 0)
+        Nl_33i = value;
     else if(name.compare("Q_GTHDM") == 0)
         Q_GTHDM = value;
     else
