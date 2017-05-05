@@ -2502,6 +2502,12 @@ public:
     double pp_Hp_TH8;
 
     /**
+     * @brief Cross section for the process @f$pp\to H^+\to \tau^+ \nu@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+\to \tau^+ \nu}@f$
+     */
+    double pp_Hp_taunu_TH8;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm\to \tau^\pm \nu)@f$
      */

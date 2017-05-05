@@ -36,6 +36,7 @@
 #include "NPSTUVWXY.h"
 #include "GeneralTHDM.h"
 #include "LeftRightSymmetricModel.h"
+#include "THDMW.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
 
@@ -80,8 +81,9 @@ ModelFactory::ModelFactory()
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
-    modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
     modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
+    modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
+    modelFactory["THDMW"] = boost::factory<THDMW*>();
 /** END: REMOVE FROM THE PACKAGE **/
 }
 

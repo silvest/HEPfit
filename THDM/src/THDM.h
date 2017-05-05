@@ -16,7 +16,7 @@ class THDMcache; //forward reference to THDMcache class
 /**
  * @class THDM
  * @ingroup THDM
- * @brief A base class @f$Z_2@f$ symmetric Two-Higgs-Doublet models. 
+ * @brief A base class for @f$Z_2@f$ symmetric Two-Higgs-Doublet models. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  * @details 

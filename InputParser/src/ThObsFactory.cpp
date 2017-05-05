@@ -18,6 +18,7 @@
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
 #include "LRSMObservables.h"
+#include "THDMWObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
@@ -131,6 +132,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtautauRatio"] = boost::factory<BrHtotautauRatio*>();
     obsThFactory["BrHccRatio"] = boost::factory<BrHtoccRatio*>();
     obsThFactory["BrHbbRatio"] = boost::factory<BrHtobbRatio*>();
+    obsThFactory["UpperLimit_ppHZgammaA"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA*>(), _1, sqrt_s_LHC8);
+    obsThFactory["UpperLimit_ppHZgammaC"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC*>(), _1, sqrt_s_LHC8);
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();
@@ -1087,6 +1090,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["MH03_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 2);
     obsThFactory["MH04_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 3);
 
+    /** END: REMOVE FROM THE PACKAGE **/
+
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    obsThFactory["unitarity1_GTHDM"] = boost::factory<unitarity1_GTHDM*>();
     /** END: REMOVE FROM THE PACKAGE **/
 }
 

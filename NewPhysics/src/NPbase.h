@@ -578,6 +578,24 @@ public:
         return 1.0;
     }
 
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double UpperLimitZgammaA(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double UpperLimitZgammaC(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
     ////////////////////////////////////////////////////////////////////////
 protected:
     StandardModel trueSM;
