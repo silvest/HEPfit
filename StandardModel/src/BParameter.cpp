@@ -119,212 +119,214 @@ std::vector<std::string> BParameter::parameterList(std::string name_i)
     else throw std::runtime_error(name_i + " is not implemented in BParameter class");
 }
 
-void BParameter::setParameter(std::string name_i, double value) {
+bool BParameter::setParameter(std::string name_i, double value) {
     
     if (name.compare("BBs") == 0 || name.compare("BBd") == 0) {
         if (!FlagCsi) {
             if (name_i.compare("BBsoBBd") == 0) {
                 BBsoBBd = value;
-                return;
+                return true;
             } else if (name_i.compare("BBs1") == 0) {
                 setBpars(0, value);
-                return;
+                return true;
             } else if (name_i.compare("BBs2") == 0) {
                 setBpars(1, value);
-                return;
+                return true;
             } else if (name_i.compare("BBs3") == 0) {
                 setBpars(2, value);
-                return;
+                return true;
             } else if (name_i.compare("BBs4") == 0) {
                 setBpars(3, value);
-                return;
+                return true;
             } else if (name_i.compare("BBs5") == 0) {
                 setBpars(4, value);
-                return;
+                return true;
             } else if (name_i.compare("BBd2") == 0) {
                 setBpars(1, value);
-                return;
+                return true;
             } else if (name_i.compare("BBd3") == 0) {
                 setBpars(2, value);
-                return;
+                return true;
             } else if (name_i.compare("BBd4") == 0) {
                 setBpars(3, value);
-                return;
+                return true;
             } else if (name_i.compare("BBd5") == 0) {
                 setBpars(4, value);
-                return;
+                return true;
             }
         } else {
             if (name_i.compare("csi") == 0) {
                 csi = value;
-                return;
+                return true;
             } else if (name_i.compare("FBsSqrtBBs1") == 0) {
                 FBsSqrtBBs1 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBsSqrtBBs2") == 0) {
                 FBsSqrtBBs2 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBsSqrtBBs3") == 0) {
                 FBsSqrtBBs3 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBsSqrtBBs4") == 0) {
                 FBsSqrtBBs4 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBsSqrtBBs5") == 0) {
                 FBsSqrtBBs5 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBdSqrtBBd2") == 0) {
                 FBdSqrtBBd2 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBdSqrtBBd3") == 0) {
                 FBdSqrtBBd3 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBdSqrtBBd4") == 0) {
                 FBdSqrtBBd4 = value;
-                return;
+                return true;
             } else if (name_i.compare("FBdSqrtBBd5") == 0) {
                 FBdSqrtBBd5 = value;
-                return;
+                return true;
             }
         }
         if (name_i.compare("BBdscale") == 0) {
             setMu(value);
-            return;
+            return true;
         } else if (name_i.compare("BBdscheme") == 0) {
             setScheme((schemes) value);
-            return;
+            return true;
         } else if (name_i.compare("BBsscale") == 0) {
             setMu(value);
-            return;
+            return true;
         } else if (name_i.compare("BBsscheme") == 0) {
             setScheme((schemes) value);
-            return;
+            return true;
         }
     }
 
     if (name.compare("BK") == 0) {
         if (name_i.compare("BK1") == 0) {
             setBpars(0, value);
-            return;
+            return true;
         } else if (name_i.compare("BK2") == 0) {
             setBpars(1, value);
-            return;
+            return true;
         } else if (name_i.compare("BK3") == 0) {
             setBpars(2, value);
-            return;
+            return true;
         } else if (name_i.compare("BK4") == 0) {
             setBpars(3, value);
-            return;
+            return true;
         } else if (name_i.compare("BK5") == 0) {
             setBpars(4, value);
-            return;
+            return true;
         } else if (name_i.compare("BKscale") == 0) {
             setMu(value);
-            return;
+            return true;
         } else if (name_i.compare("BKscheme") == 0) {
             setScheme((schemes) value);
-            return;
+            return true;
         }
     }
     if (name.compare("BD") == 0) {
         if (name_i.compare("BD1") == 0) {
             setBpars(0, value);
-            return;
+            return true;
         } else if (name_i.compare("BD2") == 0) {
             setBpars(1, value);
-            return;
+            return true;
         } else if (name_i.compare("BD3") == 0) {
             setBpars(2, value);
-            return;
+            return true;
         } else if (name_i.compare("BD4") == 0) {
             setBpars(3, value);
-            return;
+            return true;
         } else if (name_i.compare("BD5") == 0) {
             setBpars(4, value);
-            return;
+            return true;
         } else if (name_i.compare("BDscale") == 0) {
             setMu(value);
-            return;
+            return true;
         } else if (name_i.compare("BDscheme") == 0) {
             setScheme((schemes) value);
-            return;
+            return true;
         }
     }
 
     if (name.compare("Bkd1") == 0) {
         if (name_i.compare("BK(1/2)1") == 0) {
             setBpars(0, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)2") == 0) {
             setBpars(1, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)3") == 0) {
             setBpars(2, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)4") == 0) {
             setBpars(3, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)5") == 0) {
             setBpars(4, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)6") == 0) {
             setBpars(5, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)7") == 0) {
             setBpars(6, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)8") == 0) {
             setBpars(7, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)9") == 0) {
             setBpars(8, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(1/2)10") == 0) {
             setBpars(9, value);
-            return;
+            return true;
         }
     }
 
     if (name.compare("Bkd3") == 0) {
         if (name_i.compare("BK(3/2)1") == 0 && name.compare("Bkd3") == 0) {
             setBpars(0, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)2") == 0 && name.compare("Bkd3") == 0) {
             setBpars(1, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)3") == 0 && name.compare("Bkd3") == 0) {
             setBpars(2, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)4") == 0 && name.compare("Bkd3") == 0) {
             setBpars(3, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)5") == 0 && name.compare("Bkd3") == 0) {
             setBpars(4, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)6") == 0 && name.compare("Bkd3") == 0) {
             setBpars(5, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)7") == 0 && name.compare("Bkd3") == 0) {
             setBpars(6, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)8") == 0 && name.compare("Bkd3") == 0) {
             setBpars(7, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)9") == 0 && name.compare("Bkd3") == 0) {
             setBpars(8, value);
-            return;
+            return true;
         } else if (name_i.compare("BK(3/2)10") == 0 && name.compare("Bkd3") == 0) {
             setBpars(9, value);
-            return;
+            return true;
         }
     }
     
     if (name_i.compare("BKd_scale") == 0 && (name.compare("Bkd1") == 0 || name.compare("Bkd3") == 0)) {
         setMu(value);
-        return;
+        return true;
     } else if (name_i.compare("BKd_scheme") == 0 && (name.compare("Bkd1") == 0 || name.compare("Bkd3") == 0)) {
         setScheme((schemes) value);
-        return;
+        return true;
     }
+    
+    return false;
     
 }

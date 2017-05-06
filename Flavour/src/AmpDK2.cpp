@@ -12,7 +12,9 @@ using namespace gslpp;
 
 AmpDK2::AmpDK2(const StandardModel& SM_i) 
 : mySM(SM_i) 
-{}
+{
+    mySM.initializeBParameter("BK");
+}
 
 gslpp::complex AmpDK2::AmpDK(orders order) 
 {

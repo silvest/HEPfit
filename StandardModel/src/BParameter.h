@@ -124,7 +124,7 @@ public:
      * @param[in] name the name of the parameter to be set
      * @param[in] value the value of the parameter to be set
      */
-    void setParameter(std::string name_i, double value);
+    bool setParameter(std::string name_i, double value);
     
     /**
      * @brief A method to pass the list of parameters as observables.

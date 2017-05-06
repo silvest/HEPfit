@@ -73,13 +73,6 @@ QCD::QCD()
             mp2mbar_cache[j][i] = 0.;
     }
 
-    initializeBParameter("BBs");
-    initializeBParameter("BBd");
-    initializeBParameter("BK");
-    initializeBParameter("BD");
-    initializeBParameter("BKd1");
-    initializeBParameter("BKd3");
-
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("AlsM", boost::cref(AlsM)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MAls", boost::cref(MAls)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mup", boost::cref(quarks[UP].getMass())));
@@ -239,7 +232,7 @@ void QCD::addParameters(std::vector<std::string> params_i)
     }
 }
 
-void QCD::initializeBParameter(std::string name_i)
+void QCD::initializeBParameter(std::string name_i) const
 {
     if (name_i.compare("BBs") == 0 || name_i.compare("BBd") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >("BBs", BParameter(5, "BBs")));
@@ -415,7 +408,9 @@ void QCD::setParameter(const std::string name, const double& value)
         setOptionalParameter(name, value);
     else if (!BParameterMap.empty()) {
         for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++) {
-            it->second.setParameter(name, value);
+            if(!(it->second.setParameter(name, value)))
+                if (unknownParameterWarning && !isSliced) 
+                    if (std::find(unknownParameters.begin(), unknownParameters.end(), name) == unknownParameters.end()) unknownParameters.push_back(name);
         }
     }
     else

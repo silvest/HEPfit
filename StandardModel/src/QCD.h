@@ -712,7 +712,7 @@ public:
      */
     void addParameters(std::vector<std::string> params_i);
     
-    void initializeBParameter(std::string name_i);
+    void initializeBParameter(std::string name_i) const;
     
     /**
      * @brief A method to get parameters that are specific to only one set of observables.
@@ -1279,13 +1279,13 @@ protected:
 private:
     
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
-    std::map<std::string, BParameter> BParameterMap;
+    mutable std::map<std::string, BParameter> BParameterMap;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     bool computeFBd; ///< Switch for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
-    bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
-    bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
+    mutable bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
+    mutable bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
     static const int CacheSize = 5; ///< Defines the depth of the cache.
     mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double logLambda5_cache[4][CacheSize];

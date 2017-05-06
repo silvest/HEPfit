@@ -221,7 +221,7 @@ protected:
      * @param[in] value the value to be assigned to the parameter specified by name
      */
     virtual void setParameter(const std::string name, const double& value) = 0;
-    std::map< std::string, boost::reference_wrapper<const double> > ModelParamMap;
+    mutable std::map< std::string, boost::reference_wrapper<const double> > ModelParamMap;
 
     bool isSliced; ///< A boolean set to true if the current istance is a slice of an extended object
 

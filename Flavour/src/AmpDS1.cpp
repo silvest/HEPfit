@@ -13,7 +13,10 @@ using namespace gslpp;
 
 AmpDS1::AmpDS1(const StandardModel& SM_i) 
 : mySM(SM_i) 
-{}
+{
+    mySM.initializeBParameter("BKd1");
+    mySM.initializeBParameter("BKd3");
+}
 
 gslpp::complex AmpDS1::AmpDS1pp0(orders order) 
 {
