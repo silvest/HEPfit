@@ -462,7 +462,7 @@ std::vector<double> BCHistogramBase::GetSmallestIntervalSize(std::vector<double>
     unsigned n = 0;
     for (std::vector<std::pair<double, double> >::const_iterator bin = bin_dens_mass.begin(); bin != bin_dens_mass.end() and n < S.size(); ++bin) {
         for (unsigned i = 0; i < masses.size(); ++i)
-            if (mass + bin->second >= masses[i] and mass <= masses[i]) {
+            if (mass + bin->second <= masses[i] and mass <= masses[i]) {
                 S[i] = area + (masses[i] - mass) / bin->first;
                 ++n;
             }
