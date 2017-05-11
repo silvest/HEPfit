@@ -42,6 +42,7 @@ MonteCarlo::MonteCarlo(
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
     PrintParameterPlot = false;
+    PrintTrianglePlot = false;
     WritePreRunData = false;
     checkrun = false;
 }
@@ -321,12 +322,17 @@ void MonteCarlo::Run(const int rank) {
                         throw std::runtime_error("\nERROR: PrintKnowledgeUpdatePlots in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("PrintParameterPlot") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0 || beg->compare("false") == 0) PrintParameterPlot = beg->compare("true") == 0;
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) PrintParameterPlot = (beg->compare("true") == 0);
                     else
                         throw std::runtime_error("\nERROR: PrintParameterPlot in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+                } else if (beg->compare("PrintTrianglePlot") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) PrintTrianglePlot = (beg->compare("true") == 0);
+                    else
+                        throw std::runtime_error("\nERROR: PrintTrianglePlot in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("WritePreRunData") == 0) {
                     ++beg;
-                    if (beg->compare("true") == 0 || beg->compare("false") == 0) WritePreRunData = beg->compare("true") == 0;
+                    if (beg->compare("true") == 0 || beg->compare("false") == 0) WritePreRunData = (beg->compare("true") == 0);
                     else
                         throw std::runtime_error("\nERROR: WritePreRunData in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
                 } else if (beg->compare("ReadPreRunData") == 0) {
@@ -404,27 +410,22 @@ void MonteCarlo::Run(const int rank) {
 
             // open log file
             BCLog::OpenLog(("log" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
-//            BCLog::SetLogLevel(BCLog::debug);
 
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
             std::time_t ti = std::time(NULL);
             char mbstr[100];
-            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) 
-                std::cout << "MCMC Run started at " <<  mbstr << std::endl; 
+            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&ti))) std::cout << "MCMC Run started at " <<  mbstr << std::endl; 
             MCEngine.MarginalizeAll();
             std::time_t tf = std::time(NULL);
-            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) 
-                std::cout << "MCMC Run ended at " <<  mbstr << std::endl; 
+            if (std::strftime(mbstr, sizeof(mbstr), "%H:%M:%S %d/%m/%y ", std::localtime(&tf))) std::cout << "MCMC Run ended at " <<  mbstr << std::endl; 
 
             // find mode using the best fit parameters as start values
-            if (FindModeWithMinuit)
-                MCEngine.FindMode(MCEngine.GetBestFitParameters());
+            if (FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
             // draw all marginalized distributions into a pdf file
-            if (PrintAllMarginalized)
-                MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
+            if (PrintAllMarginalized) MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".pdf").c_str());
            
             // print histograms
             MCEngine.PrintHistogram(OutFile, ObsDirName);
@@ -433,25 +434,17 @@ void MonteCarlo::Run(const int rank) {
             if (PrintCorrelationMatrix) {
                 MCEngine.PrintCorrelationMatrix(("CorrelationMatrix" + JobTag + ".pdf").c_str());
                 MCEngine.PrintCorrelationMatrix(("CorrelationMatrix" + JobTag + ".tex").c_str());
-                MCEngine.PrintCorrelationPlot("CorrelationPlots" + JobTag + ".pdf");
                 MCEngine.PrintCorrelationMatrixToLaTeX(("ParameterCorrelations" + JobTag + ".tex").c_str());
             }
-               
+            
             // print comparisons of the prior knowledge to the posterior knowledge 
             // for all parameters into a pdf file
-            if (PrintKnowledgeUpdatePlots)
-                MCEngine.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".pdf").c_str());
+            if (PrintKnowledgeUpdatePlots) MCEngine.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".pdf").c_str());
 
             // draw an overview plot of the parameters into a pdf file
-            if (PrintParameterPlot)
-                MCEngine.PrintParameterPlot(("ParamSummary" + JobTag + ".pdf").c_str());
-            
-            // print a LaTeX table of the parameters into a tex file
-            //MCEngine.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
+            if (PrintParameterPlot) MCEngine.PrintParameterPlot(("ParamSummary" + JobTag + ".pdf").c_str());
 
             MCEngine.WriteMarginalizedDistributions(OutFile, "UPDATE");
-            //out.FillAnalysisTree();
-            //out.Close();
 
             // print logs for the histograms of the observables into a text file
             std::ofstream outHistoLog;
@@ -506,6 +499,14 @@ void MonteCarlo::Run(const int rank) {
                     throw std::runtime_error(("\n ERROR: Normalization method" + CalculateNormalization + " not implemented.\n").c_str());
                 
                 outStatLog.close();
+            }
+            
+            // Print the triangle plot (the size of the file is quite large for large number of parameters).
+            // this is done last for now since BAT sometimes crashes while doing this. Did not look for the fix.
+            if (PrintTrianglePlot) {
+                BCLog::OpenLog(("log_CorrelationPlots" + JobTag + ".txt").c_str(), BCLog::debug, BCLog::debug);
+                MCEngine.PrintCorrelationPlot("CorrelationPlots" + JobTag + ".pdf");
+                BCLog::CloseLog();
             }
             
             
