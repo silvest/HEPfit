@@ -1019,7 +1019,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mHlight"] = boost::factory<mHlight_GTHDM*>();
     obsThFactory["mHmedium"] = boost::factory<mHmedium_GTHDM*>();
     obsThFactory["mHheavy"] = boost::factory<mHheavy_GTHDM*>();
-    obsThFactory["mHp"] = boost::factory<mHp_GTHDM*>();
+    obsThFactory["mHp_GTHDM"] = boost::factory<mHp_GTHDM*>();
     obsThFactory["mH3mmH2"] = boost::factory<mH3mmH2_GTHDM*>();
     obsThFactory["mH3mmHp"] = boost::factory<mH3mmHp_GTHDM*>();
     obsThFactory["mH3mmH1"] = boost::factory<mH3mmH1_GTHDM*>();
