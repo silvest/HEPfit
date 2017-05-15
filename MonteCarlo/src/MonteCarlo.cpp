@@ -404,6 +404,7 @@ void MonteCarlo::Run(const int rank) {
                 MCEngine.InitializeMarkovChainTree();
                 MCEngine.WriteMarkovChainRun(false);
                 MCEngine.WriteMarkovChainPreRun(false);
+                if (MCEngine.getchainedObsSize() > 0) MCEngine.AddChains();
             }
             // set nicer style for drawing than the ROOT default
             BCAux::SetStyle();

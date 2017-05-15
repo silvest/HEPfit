@@ -341,6 +341,15 @@ public:
     {
         return tMCMC;
     }
+    
+    /**
+     * @brief A method to check if the observable is listed for writing chains.
+     * @return true or false
+     */
+    bool isWriteChain() const
+    {
+        return writeChain;
+    }
 
     /**
      * @brief A set method to fix the observable's inclusion in the MCMC listing.
@@ -469,6 +478,7 @@ protected:
     double min; ///< The minimum value of the observable.
     double max; ///< The maximum valus of the observable.
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
+    bool writeChain; ///< The flag to write the chain for the observable from the MCMC run.
     TH1D * inhisto; ///< 1D Histogram containing the experimental likelihood for the observable
     std::string obsType; ///< Type of the Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable, 3: FunctionObservable
     double bin_min; ///< The minimum value of the observable bin.

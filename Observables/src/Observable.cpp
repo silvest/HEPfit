@@ -41,6 +41,7 @@ Observable::Observable (const std::string name_i,
     bin_min = 0.;
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
+    writeChain = false;
 }
 
 Observable::Observable(const Observable& orig) 
@@ -65,6 +66,7 @@ Observable::Observable(const Observable& orig)
     bin_min = orig.bin_max;
     iterationNo = orig.iterationNo;
     inhisto = orig.inhisto;
+    writeChain = orig.writeChain;
 }
 
 Observable::Observable() 
@@ -88,6 +90,7 @@ Observable::Observable()
     bin_min = 0.;
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
+    writeChain = false;
 }
 
 Observable::~Observable() {}
@@ -270,14 +273,19 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                     if (rank == 0) throw std::runtime_error("ERROR: The left Gaussian and right Gaussian error in weight for " + name + " cannot both be 0. in the " + infilename + " .\n");
                     else sleep(2);
                 }
-            } else if (distr.compare("noweight") == 0) {
+            } else if (distr.compare("noweight") == 0 || distr.compare("writeChain") == 0) {
+                if (!tMCMC) writeChain = (distr.compare("writeChain") == 0);
+                else {
+                    if (rank == 0) throw std::runtime_error("ERROR: writeChains cannot be requested since " + name + " is set to MCMC in " + infilename + " .\n");
+                    else sleep(2);
+                }
                 if (obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0) {
                     ++beg;
                     ++beg;
                     ++beg;
                 }
             } else {
-                if (rank == 0) throw std::runtime_error("ERROR: wrong distribution flag in " + name + " in file " + infilename + ".\n");
+                if (rank == 0) throw std::runtime_error("ERROR: wrong distribution flag in " + name + " in file " + infilename + ": can be only weight, noweight or writeChain.\n");
                 else sleep(2);
             }
             ++beg;

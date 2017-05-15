@@ -187,6 +187,15 @@ public:
     {
         return HistoLog.str().c_str();
     }
+    
+    /**
+     * @brief A get method to access the number of Observable chains requested.
+     * @return an integer for the number of Observable chains
+     */
+    int getchainedObsSize() const
+    {
+        return kchainedObs;
+    }
 
     /**
      * @brief A get method to compute the mean and rms of the computed observables.
@@ -353,6 +362,7 @@ private:
     double *obweight; ///< A pointer to the vector of observable weights.
     unsigned int kwmax; ///< The number of observables whose weights are used for the MCMC.
     unsigned int kmax; ///< The number of observables.
+    unsigned int kchainedObs; ///< The number of observables for which the chains should be written.
     std::ostringstream HistoLog; ///< A stream to store the output messages from printing and checking histograms.
     int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
