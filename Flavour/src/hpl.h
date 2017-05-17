@@ -17,6 +17,8 @@ if(i==0&&norm(x)<nld.min()) return log(nld.min());
 if(i==0) return log(x);
 if(i==1&&norm(x)<nld.epsilon()) return x;
 if(i==1) return -log(1.-x);
+else 
+ return 0;
 }
 
 inline cd hpl_base(int i1, int i2, cd x){
@@ -34,6 +36,8 @@ if(i1==0&&i2==1) return
    1.9939295860721074e-14*pow(u,17) - 
    4.518980029619918e-16*pow(u,19) + 
    1.0356517612181247e-17*pow(u,21);
+else 
+ return 0;
 }
 
 inline cd hpl_base(int i1, int i2, int i3, cd x){
@@ -73,6 +77,8 @@ return
    4.182042665838962e-13*pow(u,16) - 
    9.415778600896063e-15*pow(u,18) + 
    2.146515514069461e-16*pow(u,20);
+else 
+ return 0;
 }
 
 inline cd hpl_base(int i1, int i2, int i3, int i4, cd x){
@@ -134,6 +140,8 @@ return
    1.312013385361243e-13*pow(u,17) + 
    2.97340376870402e-15*pow(u,19) - 
    6.814334965299877e-17*pow(u,21);
+else 
+ return 0;
 }
 
 inline cd hpl(int i, cd x){
@@ -141,6 +149,8 @@ if(i==0&&norm(x)<nld.min()) return log(nld.min());
 if(i==0) return log(x);
 if(i==1&&norm(x)<nld.epsilon()) return x;
 if(i==1) return -log(1.-x);
+else 
+ return 0;
 }
 
 inline cd hpl(int i1, int i2, cd x){
@@ -180,6 +190,8 @@ pow(hpl(0,1. - x),2)/2.;
 return 
 pow(hpl_base(1,x),2)/2.;
 }
+else 
+ return 0;
 }
 
 inline cd hpl(int i1, int i2, int i3, cd x){
@@ -301,6 +313,8 @@ if(real(x)>.5) return
 return 
 pow(hpl_base(1,x),3)/6.;
 }
+else 
+ return 0;
 }
 
 inline cd hpl(int i1, int i2, int i3, int i4, cd x){
@@ -964,6 +978,8 @@ pow(hpl(0,1. - x),4)/24.;
 return 
 pow(hpl_base(1,x),4)/24.;
 }
+else 
+ return 0;
 }
 
 inline cd Li2(cd x) {return hpl(0,1,x);}
