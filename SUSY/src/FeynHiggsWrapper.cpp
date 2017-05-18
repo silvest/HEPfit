@@ -15,21 +15,58 @@ FeynHiggsWrapper::FeynHiggsWrapper(SUSY& SUSY_in)
 : mySUSY(SUSY_in)
 {
     int err;
+    
+    if (FEYNHIGGS_VERSION < 210) throw std::runtime_error("\nFeynHiggs version > 2.10 allowed only.\n");
+
+#if FEYNHIGGS_VERSION>=213
     FHSetFlags(&err,
-               4, // Full MSSM
-               0, // DRbar
-               0, // DRbar
-               3, // full 3x3 neutral Higgs mixing in cMSSM (complex MSSM)
-               4, // full determination of the propagator matrices’s poles with UHiggs at q^2=0
-               2, // include various two-loop contributions
-               2, // NLL resummation (for large MCha,MNeu,MGlu,MSUSY)
-               1, // running top mass is used in the 1-/2-loop corrections (SM MSbar 2L)
-               1, // resum tan beta contributions
-               3  // interpolation in phases for missing 2-loop corrections.
-                  // The cMSSM a_s a_t corrections are combined with the remaining
-                  // corrections, whose complex phases are interpolated in
-                  // At, Ab, M_3, MUE
-              );
+            4, // Full MSSM
+            0, // DRbar
+            0, // DRbar
+            3, // full 3x3 neutral Higgs mixing in cMSSM (complex MSSM)
+            4, // full determination of the propagator matrices’s poles with UHiggs at q^2=0
+            2, // include various two-loop contributions
+            3, // NNLL resummation (for large MCha,MNeu,MGlu,MSUSY)
+            1, // running top mass is used in the 1-/2-loop corrections (SM MSbar 2L)
+            1, // resum tan beta contributions
+            3 // interpolation in phases for missing 2-loop corrections.
+            // The cMSSM a_s a_t corrections are combined with the remaining
+            // corrections, whose complex phases are interpolated in
+            // At, Ab, M_3, MUE
+            );
+#elif FEYNHIGGS_VERSION>=212
+    FHSetFlags(&err,
+            4, // Full MSSM
+            0, // DRbar
+            0, // DRbar
+            3, // full 3x3 neutral Higgs mixing in cMSSM (complex MSSM)
+            4, // full determination of the propagator matrices’s poles with UHiggs at q^2=0
+            2, // include various two-loop contributions
+            2, // NLL resummation (for large MCha,MNeu,MGlu,MSUSY)
+            1, // running top mass is used in the 1-/2-loop corrections (SM MSbar 2L)
+            1, // resum tan beta contributions
+            3 // interpolation in phases for missing 2-loop corrections.
+            // The cMSSM a_s a_t corrections are combined with the remaining
+            // corrections, whose complex phases are interpolated in
+            // At, Ab, M_3, MUE
+            );
+#elif FEYNHIGGS_VERSION>=210
+    FHSetFlags(&err,
+            4, // Full MSSM
+            0, // DRbar
+            0, // DRbar
+            3, // full 3x3 neutral Higgs mixing in cMSSM (complex MSSM)
+            4, // full determination of the propagator matrices’s poles with UHiggs at q^2=0
+            2, // two loops where available
+            1, // running top mass is used in the 1-/2-loop corrections
+            1, // resum tan beta contributions
+            3 // interpolation in phases for missing 2-loop corrections.
+            // The cMSSM a_s a_t corrections are combined with the remaining
+            // corrections, whose complex phases are interpolated in
+            // At, Ab, M_3, MUE
+            );
+#endif
+    
     if (err != 0) {
         std::stringstream ss;
         ss << "FeynHiggsWrapper::FeynHiggsWrapper(): FHSetFlags error " << err;
@@ -50,19 +87,44 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     //std::cout << "Mw = " << Mw_FHinput << " used in FeynHiggsWrapper::SetFeynHiggsPars()" << std::endl;
 
     /* Set the FeynHiggs SM input parameters */
+#if FEYNHIGGS_VERSION>=213
     FHSetSMPara(&err,
-                1.0/mySUSY.alphaMz(),
-                mySUSY.getAlsMz(), mySUSY.getGF(),
-                mySUSY.getLeptons(StandardModel::ELECTRON).getMass(),
-                mySUSY.getQuarks(QCD::UP).getMass(),
-                mySUSY.getQuarks(QCD::DOWN).getMass(),
-                mySUSY.getLeptons(StandardModel::MU).getMass(),
-                mySUSY.getQuarks(QCD::CHARM).getMass(),
-                mySUSY.getQuarks(QCD::STRANGE).getMass(),
-                mySUSY.getLeptons(StandardModel::TAU).getMass(),
-                mySUSY.getQuarks(QCD::BOTTOM).getMass(),
-                Mw_FHinput, mySUSY.getMz(),
-                mySUSY.getLambda(), mySUSY.getA(), mySUSY.getRhob(), mySUSY.getEtab());
+            -1., /* USING DEFAULT VALUE OF invAlfa0 (α^{−1}(0)) from FEYNHIGGS*/
+            1.0 / mySUSY.alphaMz(),
+            mySUSY.getAlsMz(), 
+            mySUSY.getGF(),
+            mySUSY.getLeptons(StandardModel::ELECTRON).getMass(),
+            mySUSY.getQuarks(QCD::UP).getMass(),
+            mySUSY.getQuarks(QCD::DOWN).getMass(),
+            mySUSY.getLeptons(StandardModel::MU).getMass(),
+            mySUSY.getQuarks(QCD::CHARM).getMass(),
+            mySUSY.getQuarks(QCD::STRANGE).getMass(),
+            mySUSY.getLeptons(StandardModel::TAU).getMass(),
+            mySUSY.getQuarks(QCD::BOTTOM).getMass(),
+            Mw_FHinput, 
+            mySUSY.getMz(), 
+            mySUSY.GammaW(), 
+            mySUSY.Gamma_Z(),
+            mySUSY.getLambda(), 
+            mySUSY.getA(), 
+            mySUSY.getRhob(), 
+            mySUSY.getEtab());
+#elif FEYNHIGGS_VERSION>=210
+    FHSetSMPara(&err,
+            1.0 / mySUSY.alphaMz(),
+            mySUSY.getAlsMz(), mySUSY.getGF(),
+            mySUSY.getLeptons(StandardModel::ELECTRON).getMass(),
+            mySUSY.getQuarks(QCD::UP).getMass(),
+            mySUSY.getQuarks(QCD::DOWN).getMass(),
+            mySUSY.getLeptons(StandardModel::MU).getMass(),
+            mySUSY.getQuarks(QCD::CHARM).getMass(),
+            mySUSY.getQuarks(QCD::STRANGE).getMass(),
+            mySUSY.getLeptons(StandardModel::TAU).getMass(),
+            mySUSY.getQuarks(QCD::BOTTOM).getMass(),
+            Mw_FHinput, mySUSY.getMz(),
+            mySUSY.getLambda(), mySUSY.getA(), mySUSY.getRhob(), mySUSY.getEtab());
+#endif
+    
     if (err != 0) {
 #ifdef FHDEBUG
         std::cout << "FeynHiggsWrapper::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
@@ -337,9 +399,16 @@ bool FeynHiggsWrapper::CalcSpectrum()
      *   FHMGl: the gluino mass
      *   FHMHtree: the tree-level Higgs masses
      *   FHSAtree: the tree-level sin(alpha)
+     *   AlfasMT: the value of αs at mt. From v2.13.
      */
+#if FEYNHIGGS_VERSION>=213
     FHGetPara(&err, &nmfv, MSf, USf, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu,
-              &Deltab, &FHMGl, FHMHtree, &FHSAtree);
+            &Deltab, &FHMGl, FHMHtree, &FHSAtree, &AlfasMT);
+#elif FEYNHIGGS_VERSION>=210
+    FHGetPara(&err, &nmfv, MSf, USf, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu,
+            &Deltab, &FHMGl, FHMHtree, &FHSAtree);
+#endif
+    
     if (err != 0) {
         std::cout << "FeynHiggsWrapper::CalcSpectrum(): Error has been detected in GetPara.F:"
                   << err << std::endl;
@@ -509,8 +578,18 @@ bool FeynHiggsWrapper::CalcConstraints()
     int err, ccb;
 
     /* Calculate electroweak precision observables */
+#if FEYNHIGGS_VERSION>=213    
+    FHEWPO(&err, &FHdeltar, &FHdeltarho, &FHMWMSSM, &FHMWSM, &FHSW2MSSM, &FHSW2SM);
+    if (err != 0) {
+        std::cout << "FeynHiggsWrapper::CalcConstraints(): Error has been detected in FHEWPO:"
+                  << err << std::endl;
+        return (false);
+    }
+    FHConstraints(&err, &FHgm2, &FHedmeTh, &FHedmn, &FHedmHg, &ccb);
+#elif FEYNHIGGS_VERSION>=210    
     FHConstraints(&err, &FHgm2, &FHdeltarho, &FHMWMSSM, &FHMWSM, &FHSW2MSSM,
                   &FHSW2SM, &FHedmeTh, &FHedmn, &FHedmHg, &ccb);
+#endif
     if (err != 0) {
         std::cout << "FeynHiggsWrapper::CalcConstraints(): Error has been detected in Constraints.F:"
                   << err << std::endl;

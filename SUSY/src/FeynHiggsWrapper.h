@@ -12,6 +12,8 @@
 #include <gslpp.h>
 #include "SUSY.h"
 
+#define FEYNHIGGS_VERSION 213 /* FeynHiggs Major Version. Must be an Integer (2.12.0 -> 212, 2.13.4 -> 213)*/
+
 /**
  * @class FeynHiggsWrapper
  * @ingroup SUSY
@@ -109,6 +111,16 @@ public:
     {
         return FHSAtree;
     }
+    
+    /**
+     * @brief Gets @f$\alpha_s(m_{top})@f$.
+     * @return @f$\alpha_s(m_{top})@f$. 
+     */
+    double getFHAlfasMT() const
+    {
+        return AlfasMT;
+    }
+    
 
     /**
      * @brief Gets the muon anomalous magnetic moment.
@@ -118,6 +130,16 @@ public:
     {
         if (computeConstraints) CalcConstraints();
         return FHgm2;
+    }
+
+    /**
+     * @brief Gets @f$\Delta\r@f$.
+     * @return @f$\Delta\r@f$.
+     */
+    double getFHdeltar()
+    {
+        if (computeConstraints) CalcConstraints();
+        return FHdeltar;
     }
 
     /**
@@ -281,10 +303,11 @@ private:
     gslpp::complex FHDeltab; /* the correction to the bottom Yukawa coupling */
 
     // see FHGetPara()
-    double FHMGl, FHMHtree[4], FHSAtree; 
+    double FHMGl, FHMHtree[4], FHSAtree, AlfasMT; 
 
     // see CalcConstraints()
     double FHgm2; /* muon g-2 */
+    double FHdeltar;
     double FHdeltarho; /* Delta rho */
     double FHMWMSSM, FHMWSM; /* the W mass */
     double FHSW2MSSM, FHSW2SM; /* the effective weak mixing angle */
