@@ -8462,8 +8462,6 @@ void THDMcache::computeHHquantities()
         R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
         THoEX_bbF_H_tautau_CMS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(mHh);
         R_bbF_H_tautau_CMS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_CMS8(mHh))/ip_ex_bb_phi_tautau_CMS8_e(mHh) ) * nftos;
-        THoEX_pp_H_gaga_ATLAS8=pp_H_gaga_TH8/ip_ex_pp_phi_gaga_ATLAS8(mHh);
-        R_pp_H_gaga_ATLAS8=(1+(pp_H_gaga_TH8-ip_ex_pp_phi_gaga_ATLAS8(mHh))/ip_ex_pp_phi_gaga_ATLAS8_e(mHh) ) * nftos;
         THoEX_ggF_H_gaga_CMS8=ggF_H_gaga_TH8/ip_ex_gg_phi_gaga_CMS8(mHh);
         R_ggF_H_gaga_CMS8=(1+(ggF_H_gaga_TH8-ip_ex_gg_phi_gaga_CMS8(mHh))/ip_ex_gg_phi_gaga_CMS8_e(mHh) ) * nftos;
 //    LIMIT_ggF_H_gaga_CMS8=ip_ex_gg_phi_gaga_CMS8(mHh);
