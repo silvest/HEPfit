@@ -8,10 +8,10 @@
 #include "Flavour.h"
 #include "MVgamma.h"
 #include "StandardModel.h"
-#include <gsl/gsl_sf_zeta.h>
 #include "std_make_vector.h"
+#include <gsl/gsl_sf_zeta.h>
 
-MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : ThObservable(SM_i)
+MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : ThObservable(SM_i), myBXqll(SM_i, QCD::BOTTOM, QCD::MU)
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -35,6 +35,7 @@ void MVgamma::updateParameters()
     Ms = SM.getQuarks(QCD::STRANGE).getMass();
     MW = SM.Mw();
     lambda_t = SM.computelamt_s();
+    lambda_u = SM.computelamu_s();
     mu_b = SM.getMub();
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     width = SM.getMesons(meson).computeWidth();
@@ -71,6 +72,8 @@ void MVgamma::updateParameters()
                        /SM.Mrun(mu_b, SM.getQuarks(QCD::BOTTOM).getMass_scale(), 
                         SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
 
+    C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
+    C_2 = (*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1);
     C_3 = (*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2);
     C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
     C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
@@ -79,7 +82,8 @@ void MVgamma::updateParameters()
     /* Defined with a -ve sign since Jager et. al. 2013 define C7prime with a -ve sign while others define C7 with a +ve sign in the amplitude. See Altmannshofer et. al. 2008.*/
     /* Done in the dirty way to remove from the effective basis since C7p is not in the effective basis according to EOS.*/
     C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
-    C_2_bar = (*(allcoeff[LO]))(1) - (*(allcoeff[LO]))(0)/6.;
+    C_1_bar = C_1/2.;
+    C_2_bar = C_2 - C_1/6.;
     C_8 = (*(allcoeff[LO]))(7);
 
     allcoeffh = SM.getFlavour().ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
@@ -142,15 +146,47 @@ gslpp::complex MVgamma::H8()
             (3. - 3. * SM.getMesons(vectorM).getGegenalpha(0) + 3. * SM.getMesons(vectorM).getGegenalpha(1));
 }
 
+/*
+ * QCDF NLO
+ */
+
+gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
+{
+    double muh = mu_b/Mb;
+    double z = Mc*Mc/Mb/Mb;
+    
+    gslpp::complex A_Seidel = 1./729. * (833. + 120.*gslpp::complex::i()*M_PI - 312. * log(Mb*Mb/mu_b/mu_b)); /* hep-ph/0403185v2.*/
+    gslpp::complex Fu_17 = -A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    gslpp::complex Fu_27 = 6. * A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    gslpp::complex F_17 = myBXqll.F_17re(muh, z, 0.00001, 20) + gslpp::complex::i() * myBXqll.F_17im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_27 = myBXqll.F_27re(muh, z, 0.00001, 20) + gslpp::complex::i() * myBXqll.F_27im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_87 = (-4.*(33. + 24.*log(muh) + 6.*gslpp::complex::i()*M_PI - 2.*M_PI*M_PI))/27.; 
+    
+    if (!conjugate) {
+        gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
+        gslpp::complex delta_t = C_8 * F_87 + delta;
+        gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+
+        return -SM.Als(mu_b) / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+    } else {
+        gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
+        gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
+        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
+
+        return -SM.Als(mu_b) / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+    }
+}
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
 gslpp::complex MVgamma::H_V_m()
 {
-    double s = Mc * Mc / Mb / Mb;
-    return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
-            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1()
-            * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+//    double s = Mc * Mc / Mb / Mb;
+    
+//    return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
+//            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1()
+//            * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t * ((C_7 + deltaC7_QCDF(false)) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p()
@@ -160,9 +196,11 @@ gslpp::complex MVgamma::H_V_p()
 
 gslpp::complex MVgamma::H_V_m_bar()
 {
-    double s = Mc * Mc / Mb / Mb;
-    return lambda_t.conjugate() * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
-            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+//    double s = Mc * Mc / Mb / Mb;
+
+//    return lambda_t.conjugate() * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
+//            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t.conjugate() * ((C_7 + deltaC7_QCDF(true)) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar()

@@ -39,6 +39,7 @@ enum q2regions
  * Formulae for the matrix elements are taken from Greub et al., arXiv:0810.4077
  */
 class BXqll {
+friend class MVgamma;
 public:
     
     /**

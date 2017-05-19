@@ -9,6 +9,7 @@
 #define	MVGAMMA_H
 
 class StandardModel;
+#include "BXqll.h"
 #include "ThObservable.h"
 #include "AmpDB2.h"
 
@@ -170,7 +171,8 @@ public:
     double fperp;         /**<vector meson perpendicular decay constant*/
     double Ms;            /**<s quark mass */
     double MW;            /**<W boson mass */
-    gslpp::complex lambda_t;     /**<Vckm factor */
+    gslpp::complex lambda_t;     /**<Vckm factor lambds_t*/
+    gslpp::complex lambda_u;     /**<Vckm factor lambda_u*/
     gslpp::complex h[2];         /**<parameter that contains the contribution from the hadronic hamiltonian */
     double lambda;        /**<cinematic parameter */
     
@@ -183,13 +185,16 @@ public:
     gslpp::vector<gslpp::complex> ** allcoeffh;/**<vector that contains the Wilson coeffients at muh*/
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
     
+    gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
+    gslpp::complex C_2;/**<Wilson coeffients @f$C_2@f$*/
     gslpp::complex C_3;/**<Wilson coeffients @f$C_3@f$*/
     gslpp::complex C_4;/**<Wilson coeffients @f$C_4@f$*/
     gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
     gslpp::complex C_7p;/**<Wilson coeffients @f$C_7'@f$*/
-    gslpp::complex C_2_bar;/**<Wilson coeffients @f$C_2(mu_b)@f$*/
+    gslpp::complex C_1_bar;/**<Wilson coeffients @f$C_1_bar(mu_b)@f$*/
+    gslpp::complex C_2_bar;/**<Wilson coeffients @f$C_2_bar(mu_b)@f$*/
     gslpp::complex C_8;/**<Wilson coeffients @f$C_8(mu_b)@f$*/
     gslpp::complex C_2h_bar;/**<Wilson coeffients @f$C_2(mu_h)@f$*/
     gslpp::complex C_8h;/**<Wilson coeffients @f$C_8(mu_h)@f$*/
@@ -251,9 +256,17 @@ public:
      */
     gslpp::complex H8();
     
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ \Delta C_{7}^{QCDF} @f$
+     */
+    gslpp::complex deltaC7_QCDF(bool conjugate);
+    
 private:
     QCD::meson meson;
     QCD::meson vectorM;
+    BXqll myBXqll;
 };
 
 
