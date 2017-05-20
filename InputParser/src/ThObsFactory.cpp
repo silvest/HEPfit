@@ -253,7 +253,33 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ACP_bdgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::DOWN, 2);
     obsThFactory["BR_bqgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 1);
     obsThFactory["ACP_bqgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 2);
-
+    
+    //----- Wilson coefficients  -----
+    obsThFactory["WC_real_C7g"] = boost::bind(boost::factory<WC_C7g*>(), _1, 0);
+    obsThFactory["WC_imag_C7g"] = boost::bind(boost::factory<WC_C7g*>(), _1, 1);
+    obsThFactory["WC_abs_C7g"] = boost::bind(boost::factory<WC_C7g*>(), _1, 2);
+    obsThFactory["WC_arg_C7g"] = boost::bind(boost::factory<WC_C7g*>(), _1, 3);
+    
+    obsThFactory["WC_real_C9_mu"] = boost::bind(boost::factory<WC_C9*>(), _1, 0, StandardModel::MU);
+    obsThFactory["WC_imag_C9_mu"] = boost::bind(boost::factory<WC_C9*>(), _1, 1, StandardModel::MU);
+    obsThFactory["WC_abs_C9_mu"] = boost::bind(boost::factory<WC_C9*>(), _1, 2, StandardModel::MU);
+    obsThFactory["WC_arg_C9_mu"] = boost::bind(boost::factory<WC_C9*>(), _1, 3, StandardModel::MU);
+    
+    obsThFactory["WC_real_C9_el"] = boost::bind(boost::factory<WC_C9*>(), _1, 0, StandardModel::ELECTRON);
+    obsThFactory["WC_imag_C9_el"] = boost::bind(boost::factory<WC_C9*>(), _1, 1, StandardModel::ELECTRON);
+    obsThFactory["WC_abs_C9_el"] = boost::bind(boost::factory<WC_C9*>(), _1, 2, StandardModel::ELECTRON);
+    obsThFactory["WC_arg_C9_el"] = boost::bind(boost::factory<WC_C9*>(), _1, 3, StandardModel::ELECTRON);
+    
+    obsThFactory["WC_real_C10_mu"] = boost::bind(boost::factory<WC_C10*>(), _1, 0, StandardModel::MU);
+    obsThFactory["WC_imag_C10_mu"] = boost::bind(boost::factory<WC_C10*>(), _1, 1, StandardModel::MU);
+    obsThFactory["WC_abs_C10_mu"] = boost::bind(boost::factory<WC_C10*>(), _1, 2, StandardModel::MU);
+    obsThFactory["WC_arg_C10_mu"] = boost::bind(boost::factory<WC_C10*>(), _1, 3, StandardModel::MU);
+    
+    obsThFactory["WC_real_C10_el"] = boost::bind(boost::factory<WC_C10*>(), _1, 0, StandardModel::ELECTRON);
+    obsThFactory["WC_imag_C10_el"] = boost::bind(boost::factory<WC_C10*>(), _1, 1, StandardModel::ELECTRON);
+    obsThFactory["WC_abs_C10_el"] = boost::bind(boost::factory<WC_C10*>(), _1, 2, StandardModel::ELECTRON);
+    obsThFactory["WC_arg_C10_el"] = boost::bind(boost::factory<WC_C10*>(), _1, 3, StandardModel::ELECTRON);
+    
     //----- B to K* ll  -----
     obsThFactory["P_1_BdKstmu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
     obsThFactory["P_1_BdKste"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);

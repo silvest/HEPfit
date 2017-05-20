@@ -79,7 +79,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -97,7 +96,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -151,6 +149,7 @@
             <pElem>../GeneralTHDM/src</pElem>
             <pElem>../FlavourWilsonCoefficient/src</pElem>
             <pElem>../LeftRightSymmetricModel/src</pElem>
+            <pElem>../THDMW/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost/</pElem>
           </incDir>
@@ -169,7 +168,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -187,7 +185,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -241,6 +238,7 @@
             <pElem>../GeneralTHDM/src</pElem>
             <pElem>../FlavourWilsonCoefficient/src</pElem>
             <pElem>../LeftRightSymmetricModel/src</pElem>
+            <pElem>../THDMW/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost/include</pElem>
           </incDir>
@@ -259,7 +257,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -277,7 +274,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>

@@ -54,6 +54,7 @@
       <itemPath>src/MVllObservables.h</itemPath>
       <itemPath>src/SJPsiK.h</itemPath>
       <itemPath>src/VCKM.h</itemPath>
+      <itemPath>src/WilsonCoefficientObservables.h</itemPath>
       <itemPath>src/alpha.h</itemPath>
       <itemPath>src/alpha_2a.h</itemPath>
       <itemPath>src/bsgamma.h</itemPath>
@@ -111,6 +112,7 @@
       <itemPath>src/MVllObservables.cpp</itemPath>
       <itemPath>src/SJPsiK.cpp</itemPath>
       <itemPath>src/VCKM.cpp</itemPath>
+      <itemPath>src/WilsonCoefficientObservables.cpp</itemPath>
       <itemPath>src/alpha.cpp</itemPath>
       <itemPath>src/alpha_2a.cpp</itemPath>
       <itemPath>src/bsgamma.cpp</itemPath>
@@ -356,6 +358,13 @@
       </item>
       <item path="src/VCKM.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/WilsonCoefficientObservables.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/alpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/alpha.h" ex="false" tool="3" flavor2="0">
@@ -600,6 +609,13 @@
       </item>
       <item path="src/VCKM.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/WilsonCoefficientObservables.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/alpha.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/alpha.h" ex="false" tool="3" flavor2="0">
@@ -828,6 +844,13 @@
       <item path="src/VCKM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/VCKM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientObservables.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/WilsonCoefficientObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/alpha.cpp" ex="false" tool="1" flavor2="0">
       </item>

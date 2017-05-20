@@ -30,6 +30,7 @@
 #include "MPllObservables.h"
 #include "MVgamma.h"
 #include "BdmumuOBsmumu.h"
+#include "WilsonCoefficientObservables.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "BXqllObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
