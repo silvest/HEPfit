@@ -9,6 +9,7 @@
 #define	MODELMATCHING_H
 
 #include"WilsonCoefficient.h"
+#include "QCD.h"
 #include <vector>
 
 /**
@@ -31,8 +32,8 @@ public:
     virtual std::vector<WilsonCoefficient>& CMbnlepCC( const int a) = 0;
     virtual std::vector<WilsonCoefficient>& CMbsg() = 0;
     virtual std::vector<WilsonCoefficient>& CMprimebsg()= 0;
-    virtual std::vector<WilsonCoefficient>& CMBMll() = 0;
-    virtual std::vector<WilsonCoefficient>& CMprimeBMll() = 0;
+    virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) = 0;
+    virtual std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) = 0;
     virtual std::vector<WilsonCoefficient>& CMd1() = 0;
     virtual std::vector<WilsonCoefficient>& CMd1Buras() = 0;
     

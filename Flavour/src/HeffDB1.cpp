@@ -837,13 +837,13 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, sche
     return coeffprimesgamma.getCoeff(); 
 }
 
-gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme) 
 {
     
     coeffBMll.setScheme(scheme);
     orders ordDF1 = coeffBMll.getOrder();   
     
-    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMBMll();
+    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMBMll(lepton);
 
     if (mu == BMll_mu_cache && scheme == BMll_scheme_cache) {
         int check = 1;
@@ -883,13 +883,13 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, schemes sch
 }
 
 
-gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme) 
 {
     
     coeffprimeBMll.setScheme(scheme);
     orders ordDF1 = coeffprimeBMll.getOrder();  
     
-    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMprimeBMll();
+    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMprimeBMll(lepton);
 
     if (mu == BMllprime_mu_cache && scheme == BMllprime_scheme_cache) {
         int check = 1;

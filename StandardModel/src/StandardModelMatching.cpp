@@ -1322,7 +1322,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-  std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll() 
+  std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll(QCD::lepton lepton) 
     {    
     double xt = x_t(Muw); //* ORDER FULLNNLO*//
     
@@ -1437,7 +1437,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
- std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBMll() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBMll(QCD::lepton lepton) 
     {
         vmcprimeBMll.clear();
         mcprimeBMll.setMu(Muw);

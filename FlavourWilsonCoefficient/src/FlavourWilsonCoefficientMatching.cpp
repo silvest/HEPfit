@@ -185,10 +185,10 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
     return (vmcprimebsg);
 }
 
-std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll()
+std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::lepton lepton)
 {
 
-    vmcBMll = StandardModelMatching::CMBMll();
+    vmcBMll = StandardModelMatching::CMBMll(lepton);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -221,10 +221,10 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll()
     return (vmcBMll);
 }
 
-std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll()
+std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll(QCD::lepton lepton)
 {
 
-    vmcprimeBMll = StandardModelMatching::CMprimeBMll();
+    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

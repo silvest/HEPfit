@@ -235,26 +235,26 @@ public:
      * @param s @f$ m_c^2/m_b^2  @f$
      * @return @f$ G_1(s) @f$
      */
-    gslpp::complex G1(double s);
+//    gslpp::complex G1(double s);
     
     /**
      * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @return @f$ G_8 @f$
      */
-    gslpp::complex G8();
+//    gslpp::complex G8();
 
     /**
      * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @param s @f$ m_c^2/m_b^2  @f$
      * @return @f$ H_1(s) @f$
      */
-    gslpp::complex H1(double s);
+//    gslpp::complex H1(double s); */
 
     /**
      * @brief Correction in eq. (42) of @cite Bosch:2001gv.
      * @return  @f$ H_8 @f$
      */
-    gslpp::complex H8();
+//    gslpp::complex H8();
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..

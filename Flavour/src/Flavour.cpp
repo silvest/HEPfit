@@ -88,12 +88,12 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         return HDB1.ComputeCoeffprimesgamma(mu, scheme);
     }
     
-    gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll(double mu, schemes scheme) const {
-        return HDB1.ComputeCoeffBMll(mu, scheme);
+    gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme) const {
+        return HDB1.ComputeCoeffBMll(mu, lepton, scheme);
     }
     
-    gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimeBMll(double mu, schemes scheme) const {
-        return HDB1.ComputeCoeffprimeBMll(mu, scheme);
+    gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme) const {
+        return HDB1.ComputeCoeffprimeBMll(mu, lepton, scheme);
     }
     
     MVll& Flavour::getMVll(uint meson_i, uint vector_i, uint lep_i) const {

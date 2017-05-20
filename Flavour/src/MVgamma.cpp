@@ -64,8 +64,8 @@ void MVgamma::updateParameters()
     h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
     h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
     
-    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
-    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
+    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
     
     double ms_over_mb = SM.Mrun(mu_b, SM.getQuarks(QCD::STRANGE).getMass_scale(), 
                         SM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO)
@@ -86,7 +86,7 @@ void MVgamma::updateParameters()
     C_2_bar = C_2 - C_1/6.;
     C_8 = (*(allcoeff[LO]))(7);
 
-    allcoeffh = SM.getFlavour().ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
+    allcoeffh = SM.getFlavour().ComputeCoeffBMll(mu_h, QCD::MU); //check the mass scale, scheme fixed to NDR
 
     C_2h_bar = (*(allcoeffh[LO]))(1) - (*(allcoeffh[LO]))(0)/6.;
     C_8h = (*(allcoeffh[LO]))(7);
@@ -103,8 +103,10 @@ double MVgamma::T_1()
 
 /*
  * QCDF alpha_s corrections
+ * The following commented out part is the old LO implementation. The NLO follows it.
+ * Retaining code for cleaning up later.
  */
-gslpp::complex MVgamma::G1(double s)
+/* gslpp::complex MVgamma::G1(double s)
 {
     double logs = log(s);
     double M2 = M_PI*M_PI;
@@ -144,7 +146,7 @@ gslpp::complex MVgamma::H8()
     return 4. * M_PI * M_PI / 9. * SM.getMesons(meson).getDecayconst() *
             fperp / T_1() / MM / SM.getMesons(meson).getLambdaM()*
             (3. - 3. * SM.getMesons(vectorM).getGegenalpha(0) + 3. * SM.getMesons(vectorM).getGegenalpha(1));
-}
+}*/
 
 /*
  * QCDF NLO

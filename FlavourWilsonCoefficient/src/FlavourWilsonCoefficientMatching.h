@@ -41,9 +41,9 @@ public:
     
     std::vector<WilsonCoefficient>& CMprimebsg();
     
-    std::vector<WilsonCoefficient>& CMBMll();
+    std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
     
-    std::vector<WilsonCoefficient>& CMprimeBMll();
+    std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton);
 
 private:
     const FlavourWilsonCoefficient & myFlavourWilsonCoefficient;

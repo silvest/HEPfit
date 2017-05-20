@@ -95,10 +95,10 @@ std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMprimebsg()
     return (vmcprimebsg);
 }
 
-std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMBMll()
+std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMBMll(QCD::lepton lepton)
 {
 
-    vmcBMll = StandardModelMatching::CMBMll();
+    vmcBMll = StandardModelMatching::CMBMll(lepton);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -131,10 +131,10 @@ std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMBMll()
     return (vmcBMll);
 }
 
-std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMprimeBMll()
+std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMprimeBMll(QCD::lepton lepton)
 {
 
-    vmcprimeBMll = StandardModelMatching::CMprimeBMll();
+    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

@@ -148,7 +148,7 @@ public:
      * @return returns the Wilson coefficients for the process \f$ B \to V/P \ell^+ \ell^- \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme = NDR) const;
     
     /**
      * @brief Computes the chirality flipped Wilson coefficient for the process \f$ B \to V/P \ell^+ \ell^- \f$.
@@ -157,7 +157,7 @@ public:
      * @return returns the chirality flipped Wilson coefficients for the process \f$ B \to V/P \ell^+ \ell^- \f$
      * 
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR) const;
+    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme = NDR) const;
     
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.

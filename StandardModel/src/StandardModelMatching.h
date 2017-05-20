@@ -9,6 +9,7 @@
 #define	STANDARDMODELMATCHING_H
 
 #include "ModelMatching.h"
+#include "QCD.h"
 #include <gslpp.h>
 
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
@@ -102,14 +103,14 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMBMll() ;
+    virtual   std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) ;
     /** 
      * 
      * @brief operator basis: current current; qcd penguins; 
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l^{-} \f$
      */
-    virtual   std::vector<WilsonCoefficient>& CMprimeBMll() ;
+    virtual   std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) ;
     
     /** 
      * 

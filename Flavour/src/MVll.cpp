@@ -279,8 +279,8 @@ void MVll::updateParameters()
     h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
     h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
 
-    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b); //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b); //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
 
     C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
     C_1L_bar = (*(allcoeff[LO]))(0)/2.;
@@ -303,7 +303,7 @@ void MVll::updateParameters()
     C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
     C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
     
-    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h); //check the mass scale, scheme fixed to NDR
+    allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
     C_1Lh_bar = (*(allcoeffh[LO]))(0)/2.;
     C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0)/6.;

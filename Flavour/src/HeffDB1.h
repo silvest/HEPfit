@@ -120,7 +120,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme = NDR);
     
     /**
      * 
@@ -128,7 +128,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme = NDR);
     
     WilsonCoefficient getCoeffnlep00() const {
         return coeffnlep00;
