@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/gslpp.h</itemPath>
       <itemPath>src/gslpp_complex.h</itemPath>
+      <itemPath>src/gslpp_function_adapter.h</itemPath>
       <itemPath>src/gslpp_matrix_base.h</itemPath>
       <itemPath>src/gslpp_matrix_complex.h</itemPath>
       <itemPath>src/gslpp_matrix_double.h</itemPath>
@@ -126,6 +127,8 @@
       </item>
       <item path="src/gslpp_complex.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gslpp_function_adapter.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gslpp_matrix_base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_matrix_complex.cpp" ex="false" tool="1" flavor2="0">
@@ -229,6 +232,8 @@
       </item>
       <item path="src/gslpp_complex.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gslpp_function_adapter.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/gslpp_matrix_base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_matrix_complex.cpp" ex="false" tool="1" flavor2="0">
@@ -331,6 +336,8 @@
       <item path="src/gslpp_complex.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gslpp_complex.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gslpp_function_adapter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_matrix_base.h" ex="false" tool="3" flavor2="0">
       </item>
