@@ -9,7 +9,7 @@
 #define	STANDARDMODEL_H
 
 #include "Flavour.h"
-#include <gslpp.h>
+#include "gslpp.h"
 #include "QCD.h"
 #include "CKM.h"
 #include "WilsonCoefficient.h"
