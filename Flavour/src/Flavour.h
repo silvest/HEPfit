@@ -167,7 +167,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell^+ \ell^- \f$
      * 
      */
-    MVll& getMVll(uint meson_i, uint vector_i, uint lep_i) const;
+    MVll& getMVll(unsigned int meson_i, unsigned int vector_i, unsigned int lep_i) const;
     
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to P \ell^+ \ell^- \f$.
@@ -177,7 +177,7 @@ public:
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to P \ell^+ \ell^- \f$
      * 
      */
-    MPll& getMPll(uint meson_i, uint pseudoscalar_i, uint lep_i) const;
+    MPll& getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const;
     
     /**
      * @brief sets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -186,7 +186,7 @@ public:
      * @param[in] lepton_i specifies the lepton in the final state
      * 
      */
-    void setUpdateFlag(uint meson_i, uint meson_j, uint lep_i, bool updated_i) const;
+    void setUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned int lep_i, bool updated_i) const;
     
     /**
      * @brief gets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -195,7 +195,7 @@ public:
      * @param[in] lepton_i specifies the lepton in the final state
      * 
      */
-    bool getUpdateFlag(uint meson_i, uint meson_j, uint lep_i) const;
+    bool getUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned int lep_i) const;
     
     /**
      * @brief a member used for the caching for \f$ B \to V \ell^+ \ell^- \f$.

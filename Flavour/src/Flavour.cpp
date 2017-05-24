@@ -96,7 +96,7 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         return HDB1.ComputeCoeffprimeBMll(mu, lepton, scheme);
     }
     
-    MVll& Flavour::getMVll(uint meson_i, uint vector_i, uint lep_i) const {
+    MVll& Flavour::getMVll(unsigned int meson_i, unsigned int vector_i, unsigned int lep_i) const {
         if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::MU) return MVll_BdKstarmu;
         if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return MVll_BdKstarel;
         if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::MU) return MVll_BpKstarmu;
@@ -106,13 +106,13 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
-    MPll& Flavour::getMPll(uint meson_i, uint pseudoscalar_i, uint lep_i) const {
+    MPll& Flavour::getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const {
         if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::MU) return MPll_BpKmu;
         if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return MPll_BpKel;
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
-    void Flavour::setUpdateFlag(uint meson_i, uint meson_j, uint lep_i, bool updated_i) const {
+    void Flavour::setUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned int lep_i, bool updated_i) const {
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) {update_BdKstarmu = updated_i; return;}
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) {update_BdKstarel = updated_i; return;}
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) {update_BpKstarmu = updated_i; return;}
@@ -124,7 +124,7 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         else throw std::runtime_error("Flavour: Wrong update flag requested.");
     }
     
-    bool Flavour::getUpdateFlag(uint meson_i, uint meson_j, uint lep_i) const {
+    bool Flavour::getUpdateFlag(unsigned int meson_i, unsigned int meson_j, unsigned int lep_i) const {
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) return update_BdKstarmu;
         if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return update_BdKstarel;
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::MU) return update_BpKstarmu;
