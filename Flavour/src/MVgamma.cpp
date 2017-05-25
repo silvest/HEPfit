@@ -9,14 +9,31 @@
 #include "MVgamma.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
+#include <boost/bind.hpp>
+#include <limits>
 #include <gsl/gsl_sf_zeta.h>
+#include <gsl/gsl_sf_dilog.h>
+#include <gsl/gsl_sf_gegenbauer.h>
 
 MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : ThObservable(SM_i), myBXqll(SM_i, QCD::BOTTOM, QCD::MU)
 {
     meson = meson_i;
     vectorM = vector_i;
+#if NFPOLARBASIS_MVGAMMA
     if (vectorM == StandardModel::PHI) setParametersForObservable(make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m");
-    if (vectorM == StandardModel::K_star) setParametersForObservable(make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m");
+    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) setParametersForObservable(make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m");
+#elif
+    if (vectorM == StandardModel::PHI) setParametersForObservable(make_vector<std::string>() << "a_0T1phi" << "reh_p" << "reh_m" << "imh_p" << "imh_m");
+    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) setParametersForObservable(make_vector<std::string>() << "a_0T1" << "reh_p" << "reh_m" << "imh_p" << "imh_m");
+#endif
+    else {
+        std::stringstream out;
+        out << vectorM;
+        throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
+    }
+        
+    
+    w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
 
 MVgamma::~MVgamma()
@@ -38,21 +55,26 @@ void MVgamma::updateParameters()
     lambda_u = SM.computelamu_s();
     mu_b = SM.getMub();
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
+    fB = SM.getMesons(meson).getDecayconst();
     width = SM.getMesons(meson).computeWidth();
     lambda = MM2 - pow(MV, 2.);
+    alpha_s_mub = SM.Als(mu_b);
 
     switch (vectorM) {
         case StandardModel::K_star:
             a_0T1 = SM.getOptionalParameter("a_0T1");
-            
             fperp = SM.getFKstarp();
-
+            spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
+            break;
+        case StandardModel::K_star_P:
+            a_0T1 = SM.getOptionalParameter("a_0T1");
+            fperp = SM.getFKstarPp();
+            spectator_charge = SM.getQuarks(QCD::UP).getCharge();
             break;
         case StandardModel::PHI:
             a_0T1 = SM.getOptionalParameter("a_0T1phi");
-            
             fperp = SM.getFphip();
-
+            spectator_charge = SM.getQuarks(QCD::STRANGE).getCharge();
             break;
         default:
             std::stringstream out;
@@ -60,9 +82,15 @@ void MVgamma::updateParameters()
             throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
     }
 
-
-    h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
-    h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
+    fpara = SM.getMesons(vectorM).getDecayconst();
+    
+#if NFPOLARBASIS_MVGAMMA
+        h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
+        h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
+#elif
+        h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
+        h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
+#endif
     
     allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
     allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
@@ -80,16 +108,36 @@ void MVgamma::updateParameters()
     C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
     /* Defined with a -ve sign since Jager et. al. 2013 define C7prime with a -ve sign while others define C7 with a +ve sign in the amplitude. See Altmannshofer et. al. 2008.*/
-    /* Done in the dirty way to remove from the effective basis since C7p is not in the effective basis according to EOS.*/
+    /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
     C_1_bar = C_1/2.;
     C_2_bar = C_2 - C_1/6.;
-    C_8 = (*(allcoeff[LO]))(7);
+    C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
 
     allcoeffh = SM.getFlavour().ComputeCoeffBMll(mu_h, QCD::MU); //check the mass scale, scheme fixed to NDR
 
     C_2h_bar = (*(allcoeffh[LO]))(1) - (*(allcoeffh[LO]))(0)/6.;
     C_8h = (*(allcoeffh[LO]))(7);
+    
+    gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
+    
+    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_integrand_real, &(*this), _1));
+    if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_real = std::numeric_limits<double>::quiet_NaN();
+    T_perp_real = average;
+    
+    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_integrand_imag, &(*this), _1));
+    if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_imag = std::numeric_limits<double>::quiet_NaN();
+    T_perp_imag = average;
+    
+    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_bar_integrand_real, &(*this), _1));
+    if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_real = std::numeric_limits<double>::quiet_NaN();
+    T_perp_bar_real = average;
+    
+    f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_bar_integrand_imag, &(*this), _1));
+    if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_imag = std::numeric_limits<double>::quiet_NaN();
+    T_perp_bar_imag = average;
+    
+    gsl_set_error_handler(old_handler);
     
 }
 
@@ -178,6 +226,86 @@ gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
         return -SM.Als(mu_b) / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
     }
 }
+
+gslpp::complex MVgamma::Cq34(bool conjugate)
+{
+    gslpp::complex T_t = -C_3 + 4./3.*(C_4 + 12.*C_5 + 16.*C_6);
+    gslpp::complex T_u = 0.; /* 0 for K*0, phi*/
+    if (meson == QCD::B_P) T_u = -3.*C_2;
+    else if (vectorM == QCD::PHI) T_t = T_t + 6.*(C_3 + 10.*C_5);
+    if (!conjugate) return T_t + lambda_u / lambda_t * T_u;
+    else return T_t + (lambda_u / lambda_t).conjugate() * T_u;
+}
+
+gslpp::complex MVgamma::T_perp_WA_1()
+{
+    return -spectator_charge * 4./Mb * (C_3 + 4./3.*(C_4 + 3.*C_5 + 4.*C_6));
+}
+
+gslpp::complex MVgamma::T_perp_WA_2(bool conjugate)
+{
+    return spectator_charge * 2./Mb * Cq34(conjugate);
+}
+
+gslpp::complex MVgamma::L1(gslpp::complex x)
+{
+    if (x == 0.) return -(M_PI*M_PI/6.);
+    if (x == 1.) return 0.;
+    else return log((x-1.)/x)*log(1.-x) - (M_PI*M_PI/6.) + dilog(x/(x-1.));
+}
+
+double MVgamma::phi_V(double u)
+{
+    return 6.* u * (1. - u) * (1. + SM.getMesons(vectorM).getGegenalpha(0) * gsl_sf_gegenpoly_1(3./2., (2.*u - 1.)) + SM.getMesons(vectorM).getGegenalpha(1) * gsl_sf_gegenpoly_2(3./2., (2.*u - 1.)));
+}
+
+gslpp::complex MVgamma::t_perp(double u, double m)
+{
+    double ubar = 1. - u;
+    gslpp::complex x0 = sqrt(0.25 - (m*m - gslpp::complex::i()*1.e-10)/(ubar * MM2));
+    gslpp::complex xp = 0.5 + x0;
+    gslpp::complex xm = 0.5 - x0;
+
+    return 4./ubar * (1. + 2.*(m*m - gslpp::complex::i()*1.e-10)/(ubar*MM2) * (L1(xp) + L1(xm)));
+}
+
+gslpp::complex MVgamma::T_perp_plus_QSS(double u, bool conjugate)
+{
+    gslpp::complex t_perp_mc = t_perp(u, Mc);
+    gslpp::complex t_perp_0 = t_perp(u, 0.);
+    double eu = 2./3.;
+    double ed = -1./3.;
+    
+    gslpp::complex T_t = (alpha_s_mub/(3.*M_PI))*MM/(2.*Mb)*(eu * t_perp_mc * (C_1/6. + C_2 + 6.*C_6)
+        + ed * t_perp(u, Mb) * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3. + Mb/MM*(C_3 + C_4/6. - 4.*C_5 + 2.*C_6/3.))
+        + ed * t_perp_0  * (C_3 + C_4/6. - 16.*C_5 + 8.*C_6/3.));
+    
+    gslpp::complex T_u = ((alpha_s_mub/(3.*M_PI))*eu*MM/(2.*Mb)*(t_perp_mc - t_perp_0)*(C_2 - C_1/6.));
+    
+    if (!conjugate) return T_t + lambda_u / lambda_t * T_u;
+    else return T_t + (lambda_u / lambda_t).conjugate() * T_u;
+    
+}
+
+gslpp::complex MVgamma::T_perp_plus_O8(double u) 
+{   
+    return -(alpha_s_mub/(3.*M_PI))*4.*(-1./3.)*C_8/u;
+}
+
+gslpp::complex MVgamma::T_perp(double u, bool conjugate) 
+{
+    double N = M_PI*M_PI/3.*fB*fperp/MM;
+    double ubar = 1. - u;
+    gslpp::complex T_amp = N/SM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(u) + T_perp_plus_QSS(u, conjugate)) + N * phi_V(u)/ubar * T_perp_WA_1() + N/SM.getMesons(meson).getLambdaM() * fpara/fperp * MV * T_perp_WA_2(conjugate); /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
+    return T_amp;
+}
+
+gslpp::complex MVgamma::T_QCDF_minus(bool conjugate)
+{
+    if (!conjugate) return (T_perp_real + gslpp::complex::i() * T_perp_imag);
+    else return (T_perp_bar_real + gslpp::complex::i() * T_perp_bar_imag);
+}
+
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
@@ -188,7 +316,7 @@ gslpp::complex MVgamma::H_V_m()
 //    return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
 //            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1()
 //            * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
-    return lambda_t * ((C_7 + deltaC7_QCDF(false)) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t * (((C_7 + deltaC7_QCDF(false)) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(false)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p()
@@ -202,7 +330,7 @@ gslpp::complex MVgamma::H_V_m_bar()
 
 //    return lambda_t.conjugate() * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
 //            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
-    return lambda_t.conjugate() * ((C_7 + deltaC7_QCDF(true)) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t.conjugate() * (((C_7 + deltaC7_QCDF(true)) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar()
@@ -226,8 +354,12 @@ double BR_MVgamma::computeThValue()
 {
     updateParameters();
     
+    gslpp::complex HVm = H_V_m();
+    gslpp::complex HVm_bar = H_V_m_bar();
+    
     switch (vectorM) {
         case StandardModel::K_star:
+        case StandardModel::K_star_P:
             arg = myAmpDB2.getAmpBd(FULLNLO).arg();
             t_int = 1.;
             break;
@@ -235,7 +367,7 @@ double BR_MVgamma::computeThValue()
             arg = myAmpDB2.getAmpBs(FULLNLO).arg();
             /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
             /* See discussion around eq.53 in hep-ph/0510104*/
-            ADG = 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*H_V_m_bar() + H_V_m().conjugate()*H_V_p_bar())).real() / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
+            ADG = 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*HVm_bar + HVm.conjugate()*H_V_p_bar())).real() / (H_V_p().abs2() + HVm.abs2() + H_V_p_bar().abs2() + HVm_bar.abs2());
             ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
             t_int = (1. - ADG * ys)/(1. - ys*ys);
             break;
@@ -247,7 +379,7 @@ double BR_MVgamma::computeThValue()
 
     
     
-    return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda / (4. * width) * (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2()) * t_int;
+    return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda / (4. * width) * (H_V_p().abs2() + HVm.abs2() + H_V_p_bar().abs2() + HVm_bar.abs2()) * t_int;
 }
 
 C_MVgamma::C_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : MVgamma(SM_i, meson_i, vector_i)
@@ -259,8 +391,14 @@ C_MVgamma::C_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson v
 double C_MVgamma::computeThValue()
 {
     updateParameters();
-
-    return ((H_V_p().abs2() + H_V_m().abs2() - H_V_p_bar().abs2() - H_V_m_bar().abs2())) / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
+    
+    gslpp::complex HVm = H_V_m();
+    gslpp::complex HVm_bar = H_V_m_bar();
+    /* REMEMBER: ACP = -C by definition in neutral B mesons.*/
+    double CC = ((H_V_p().abs2() + HVm.abs2() - H_V_p_bar().abs2() - HVm_bar.abs2())) / (H_V_p().abs2() + HVm.abs2() + H_V_p_bar().abs2() + HVm_bar.abs2());
+    if (meson == QCD::B_P) return -CC;
+    else return CC;
+            
 }
 
 S_MVgamma::S_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : MVgamma(SM_i, meson_i, vector_i), myAmpDB2(SM_i)
@@ -273,33 +411,8 @@ double S_MVgamma::computeThValue()
 {
     updateParameters();
     
-    switch (vectorM) {
-        case StandardModel::K_star:
-            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
-            break;
-        case StandardModel::PHI:
-            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
-            break;
-        default:
-            std::stringstream out;
-            out << vectorM;
-            throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
-    }
-
-    /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
-    /* See discussion around eq.53 in hep-ph/0510104*/
-    return 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*H_V_m_bar() + H_V_m().conjugate()*H_V_p_bar())).imag() / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
-}
-
-ADG_MVgamma::ADG_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : MVgamma(SM_i, meson_i, vector_i), myAmpDB2(SM_i)
-{
-    meson = meson_i;
-    vectorM = vector_i;
-}
-
-double ADG_MVgamma::computeThValue()
-{
-    updateParameters();
+    gslpp::complex HVm = H_V_m();
+    gslpp::complex HVm_bar = H_V_m_bar();
     
     switch (vectorM) {
         case StandardModel::K_star:
@@ -316,7 +429,38 @@ double ADG_MVgamma::computeThValue()
 
     /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
     /* See discussion around eq.53 in hep-ph/0510104*/
-    return 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*H_V_m_bar() + H_V_m().conjugate()*H_V_p_bar())).real() / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
+    return 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*HVm_bar + HVm.conjugate()*H_V_p_bar())).imag() / (H_V_p().abs2() + HVm.abs2() + H_V_p_bar().abs2() + HVm_bar.abs2());
+}
+
+ADG_MVgamma::ADG_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) : MVgamma(SM_i, meson_i, vector_i), myAmpDB2(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double ADG_MVgamma::computeThValue()
+{
+    updateParameters();
+    
+    gslpp::complex HVm = H_V_m();
+    gslpp::complex HVm_bar = H_V_m_bar();
+    
+    switch (vectorM) {
+        case StandardModel::K_star:
+            arg = myAmpDB2.getAmpBd(FULLNLO).arg();
+            break;
+        case StandardModel::PHI:
+            arg = myAmpDB2.getAmpBs(FULLNLO).arg();
+            break;
+        default:
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
+    }
+
+    /* For correctly defined polarization the numerator should be H_V_p().conjugate()*H_V_p_bar() + H_V_m().conjugate()*H_V_m_bar(). Switched to keep consistency with K*ll.*/
+    /* See discussion around eq.53 in hep-ph/0510104*/
+    return 2.*(exp(gslpp::complex::i()*arg)*(H_V_p().conjugate()*HVm_bar + HVm.conjugate()*H_V_p_bar())).real() / (H_V_p().abs2() + HVm.abs2() + H_V_p_bar().abs2() + HVm_bar.abs2());
 }
 
 DC7_1::DC7_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)

@@ -12,8 +12,10 @@ class StandardModel;
 #include "BXqll.h"
 #include "ThObservable.h"
 #include "AmpDB2.h"
+#include "gslpp_function_adapter.h"
+#include <gsl/gsl_integration.h>
 
-
+#define NFPOLARBASIS_MVGAMMA true
 
 /**
  * @class MVgamma
@@ -169,12 +171,16 @@ public:
     double mu_h;          /**<sqrt(mu_b*lambda_QCD) */
     double width;         /**<initial meson width */
     double fperp;         /**<vector meson perpendicular decay constant*/
+    double fpara;         /**<vector meson decay constant*/
+    double fB;            /**<B meson decay constant*/
     double Ms;            /**<s quark mass */
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor lambds_t*/
     gslpp::complex lambda_u;     /**<Vckm factor lambda_u*/
     gslpp::complex h[2];         /**<parameter that contains the contribution from the hadronic hamiltonian */
-    double lambda;        /**<cinematic parameter */
+    double lambda;        /**<kinematic parameter */
+    double spectator_charge; /**<charge of the spectator quark. */
+    double alpha_s_mub; /**<@f\aplha_s(\mu_b)$@f$ */
     
     double a_0T1;/**<LCSR fit parameter */
     double a_1T1;/**<LCSR fit parameter */
@@ -263,10 +269,127 @@ public:
      */
     gslpp::complex deltaC7_QCDF(bool conjugate);
     
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Part of Weak Annihilation.
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ C_{34}^{q} @f$
+     */
+    gslpp::complex Cq34(bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Weak Annihilation.
+     * @return @f$ T_{perp}^{ann,1} @f$
+     */
+    gslpp::complex T_perp_WA_1();
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Weak Annihilation.
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp}^{ann,2} @f$
+     */
+    gslpp::complex T_perp_WA_2(bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). Part of non-factorizable spectator contribution
+     * @param x complex argument
+     * @return @f$ L_{1} @f$
+     */
+    gslpp::complex L1(gslpp::complex x);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067).Vector meson distribution amplitude
+     * @param u integration variable in the range [0, 1]
+     * @return @f$ \Delta L_{1} @f$
+     */
+    double phi_V(double u);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). Part of 4 quark operator contribution.
+     * @param u integration variable in the range [0, 1]
+     * @param m mass of the quark 
+     * @return @f$ t_{perp} @f$
+     */
+    gslpp::complex t_perp(double u, double m);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). 4 quark operator contribution.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp,+}^{QSS} @f$
+     */
+    gslpp::complex T_perp_plus_QSS(double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). Chromomagnetic dipole contribution contribution.
+     * @param u integration variable in the range [0, 1]
+     * @return @f$ T_{perp,+}^{O8} @f$
+     */
+    gslpp::complex T_perp_plus_O8(double u);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp}^{total} @f$
+     */
+    gslpp::complex T_perp(double u, bool conjugate);
+
+    /**
+     * @brief Real part of the integrand for QCDF Correction
+     * @param u integration variable in the range [0, 1]
+     * @return the real part of the integrand
+     */
+    double getT_perp_integrand_real(double u) {
+        return T_perp(u, false).real();
+    };
+
+    /**
+     * @brief Imaginary part of the integrand for QCDF Correction
+     * @param u integration variable in the range [0, 1]
+     * @return the imaginary part of the integrand
+     */
+    double getT_perp_integrand_imag(double u) {
+        return T_perp(u, false).imag();
+    };
+
+    /**
+     * @brief Real part of the conjugate integrand for QCDF Correction
+     * @param u integration variable in the range [0, 1]
+     * @return the real part of the conjugate integrand
+     */
+    double getT_perp_bar_integrand_real(double u) {
+        return T_perp(u, true).real();
+    };
+
+    /**
+     * @brief Imaginary part of the conjugate integrand for QCDF Correction
+     * @param u integration variable in the range [0, 1]
+     * @return the imaginary part of the conjugate integrand
+     */
+    double getT_perp_bar_integrand_imag(double u) {
+        return T_perp(u, true).imag();
+    };
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total, integrated, in the helicity basis.
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{-}^{QCDF} @f$
+     */
+    gslpp::complex T_QCDF_minus(bool conjugate);
+    
 private:
     QCD::meson meson;
     QCD::meson vectorM;
     BXqll myBXqll;
+    double T_perp_real;
+    double T_perp_imag;
+    double T_perp_bar_real;
+    double T_perp_bar_imag;
+    
+    double average;/**< GSL integral variable */  
+    double error;/**< GSL integral variable */    
+    gsl_function f_GSL;/**< GSL integral variable */
+    gsl_integration_cquad_workspace * w_GSL;/**< GSL integral variable */
 };
 
 
