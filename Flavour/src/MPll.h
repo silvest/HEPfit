@@ -23,6 +23,8 @@ class StandardModel;
 #define MPllSWITCH 8.2
 #define LATTICE true
 
+#define NFPOLARBASIS_MPLL true
+
 /**
  * @class MPll
  * @ingroup Flavour

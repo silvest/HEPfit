@@ -10,49 +10,15 @@
 
 class StandardModel;
 
-#include "QCD.h"
-#include <math.h>
-#include <gsl/gsl_math.h>
+#include "gslpp_function_adapter.h"
 #include <gsl/gsl_integration.h>
-#include <assert.h>
-#include <gsl/gsl_monte_plain.h>
 #include <TF1.h>
 #include <TGraph.h>
 #include <TFitResultPtr.h>
 
 #define SWITCH 8.2
 
-/*******************************************************************************
- * GSL Function Conversion BEGIN                                                  *
- * ****************************************************************************/
-
-template<class F>
-static double gslFunctionAdapter( double x, void* p)
-{
-    // Here I do recover the "right" pointer, safer to use static_cast
-    // than reinterpret_cast.
-    F* function = static_cast<F*>( p );
-    return (*function)( x );
-}
-
-template<class F>
-gsl_function convertToGslFunction( const F& f )
-{
-    gsl_function gslFunction;
-    
-    const void* p = &f;
-    assert (p != 0);
-    
-    gslFunction.function = &gslFunctionAdapter<F>;
-    // Just to eliminate the const.
-    gslFunction.params = const_cast<void*>( p );
-    
-    return gslFunction;
-}
-
-/*******************************************************************************
- * GSL Function conversion END                                                     *
- * ****************************************************************************/
+#define NFPOLARBASIS_MVLL true
 
 /**
  * @class MVll
