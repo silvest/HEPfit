@@ -22,7 +22,7 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
 #if NFPOLARBASIS_MVGAMMA
     if (vectorM == StandardModel::PHI) setParametersForObservable(make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m");
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) setParametersForObservable(make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m");
-#elif
+#else
     if (vectorM == StandardModel::PHI) setParametersForObservable(make_vector<std::string>() << "a_0T1phi" << "reh_p" << "reh_m" << "imh_p" << "imh_m");
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) setParametersForObservable(make_vector<std::string>() << "a_0T1" << "reh_p" << "reh_m" << "imh_p" << "imh_m");
 #endif
@@ -87,7 +87,7 @@ void MVgamma::updateParameters()
 #if NFPOLARBASIS_MVGAMMA
         h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
         h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
-#elif
+#else
         h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
         h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
 #endif

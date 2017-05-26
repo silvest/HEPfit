@@ -63,7 +63,7 @@ T_cache(5, 0.)
         << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
         << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
         << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2";
-#elif 
+#else 
     if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
         << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
         << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -308,7 +308,7 @@ void MVll::updateParameters()
     h_2[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_2"), mySM.getOptionalParameter("argh_0_2"), true);
     h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
     h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
-#elif
+#else
     h_0[0] = gslpp::complex(mySM.getOptionalParameter("reh_0"), mySM.getOptionalParameter("imh_0"), false);
     h_0[1] = gslpp::complex(mySM.getOptionalParameter("reh_p"), mySM.getOptionalParameter("imh_p"), false);
     h_0[2] = gslpp::complex(mySM.getOptionalParameter("reh_m"), mySM.getOptionalParameter("imh_m"), false);
