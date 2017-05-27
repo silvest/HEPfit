@@ -604,7 +604,8 @@ public:
         NEUTRINO_2, /**< The 2nd-generation neutrino */
         MU, /**< Muon */
         NEUTRINO_3, /**< The 3rd-generation neutrino */
-        TAU /**< Tau */
+        TAU, /**< Tau */
+        NOLEPTON  /**< a lepton when none is needed */
     };
 
     /**
