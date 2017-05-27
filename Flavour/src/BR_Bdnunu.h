@@ -9,7 +9,8 @@
 #define	BR_BDNUNU_H
 
 #include "ThObservable.h"
-#include "Flavour.h"
+#include "OrderScheme.h"
+#include "gslpp.h"
 class StandardModel;
 
 class BR_Bdnunu : public ThObservable {

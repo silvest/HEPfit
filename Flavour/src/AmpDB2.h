@@ -10,7 +10,8 @@
 
 class StandardModel;
 #include "gslpp_complex.h"
-#include "Flavour.h"
+#include "OrderScheme.h"
+#include "gslpp.h"
 
 
 /**

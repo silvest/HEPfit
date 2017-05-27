@@ -9,7 +9,8 @@
 #define	ARGD_H
 
 #include "ThObservable.h"
-#include "Flavour.h"
+#include "OrderScheme.h"
+#include "gslpp.h"
 #include "AmpDD2.h"
 
 class ArgD : public ThObservable, AmpDD2 {

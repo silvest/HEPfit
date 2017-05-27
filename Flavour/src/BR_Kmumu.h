@@ -9,7 +9,8 @@
 #define	BR_KMUMU_H
 
 #include "ThObservable.h"
-#include "Flavour.h"
+#include "OrderScheme.h"
+#include "gslpp.h"
 #include "CPenguinBoxMu.h"
 class StandardModel;
 

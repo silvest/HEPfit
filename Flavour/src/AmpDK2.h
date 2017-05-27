@@ -8,9 +8,11 @@
 #ifndef AMPDK2_H
 #define	AMPDK2_H
 
-#include "gslpp.h"
-#include "Flavour.h"
 class StandardModel;
+#include "gslpp.h"
+#include "OrderScheme.h"
+#include "gslpp.h"
+
 
 /**
  * @class AmpDK2

@@ -8,9 +8,10 @@
 #ifndef AMPDD2_H
 #define	AMPDD2_H
 
-#include "gslpp_complex.h"
-#include "Flavour.h"
 class StandardModel;
+#include "gslpp_complex.h"
+#include "OrderScheme.h"
+#include "gslpp.h"
 
 class AmpDD2 {
 /**
