@@ -7,55 +7,55 @@
 
 #include "FlavourWilsonCoefficient.h"
 
-const std::string FlavourWilsonCoefficient::FlavourWilsonCoefficientvars[NFlavourWilsonCoefficientvars] = {"absDC1","absDC2","absDC3","absDC4","absDC5","absDC6","absDC7","absDC8","absDC9","absDC10","absDC7g","absDC8g",
-                                                                                                           "argDC1","argDC2","argDC3","argDC4","argDC5","argDC6","argDC7","argDC8","argDC9","argDC10","argDC7g","argDC8g",
-                                                                                                           "absDC7p","absDC8p","absDC9p","absDC10p","absDC7gp","absDC8gp",
-                                                                                                           "argDC7p","argDC8p","argDC9p","argDC10p","argDC7gp","argDC8gp",
+const std::string FlavourWilsonCoefficient::FlavourWilsonCoefficientvars[NFlavourWilsonCoefficientvars] = {"reDC1","reDC2","reDC3","reDC4","reDC5","reDC6","reDC7","reDC8","reDC9","reDC10","reDC7g","reDC8g",
+                                                                                                           "imDC1","imDC2","imDC3","imDC4","imDC5","imDC6","imDC7","imDC8","imDC9","imDC10","imDC7g","imDC8g",
+                                                                                                           "reDC7p","reDC8p","reDC9p","reDC10p","reDC7gp","reDC8gp",
+                                                                                                           "imDC7p","imDC8p","imDC9p","imDC10p","imDC7gp","imDC8gp",
                                                                                                            "WCscale"};
 
 FlavourWilsonCoefficient::FlavourWilsonCoefficient() : StandardModel(), FWCM(*this) {   
 
     SMM.setObj((StandardModelMatching&) FWCM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC1", boost::cref(absDC1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC2", boost::cref(absDC2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC3", boost::cref(absDC3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC4", boost::cref(absDC4)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC5", boost::cref(absDC5)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC6", boost::cref(absDC6)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC7", boost::cref(absDC7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC8", boost::cref(absDC8)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC9", boost::cref(absDC9)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC10", boost::cref(absDC10)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC7g", boost::cref(absDC7g)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC8g", boost::cref(absDC8g)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC1", boost::cref(reDC1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC2", boost::cref(reDC2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC3", boost::cref(reDC3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC4", boost::cref(reDC4)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC5", boost::cref(reDC5)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC6", boost::cref(reDC6)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7", boost::cref(reDC7)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8", boost::cref(reDC8)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC9", boost::cref(reDC9)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC10", boost::cref(reDC10)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7g", boost::cref(reDC7g)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8g", boost::cref(reDC8g)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC1", boost::cref(argDC1)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC2", boost::cref(argDC2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC3", boost::cref(argDC3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC4", boost::cref(argDC4)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC5", boost::cref(argDC5)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC6", boost::cref(argDC6)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC7", boost::cref(argDC7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC8", boost::cref(argDC8)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC9", boost::cref(argDC9)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC10", boost::cref(argDC10)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC7g", boost::cref(argDC7g)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC8g", boost::cref(argDC8g)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC1", boost::cref(imDC1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC2", boost::cref(imDC2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC3", boost::cref(imDC3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC4", boost::cref(imDC4)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC5", boost::cref(imDC5)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC6", boost::cref(imDC6)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7", boost::cref(imDC7)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8", boost::cref(imDC8)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC9", boost::cref(imDC9)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC10", boost::cref(imDC10)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7g", boost::cref(imDC7g)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8g", boost::cref(imDC8g)));
     
 
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC7p", boost::cref(absDC7p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC8p", boost::cref(absDC8p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC9p", boost::cref(absDC9p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC10p", boost::cref(absDC10p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC7gp", boost::cref(absDC7gp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absDC8gp", boost::cref(absDC8gp)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7p", boost::cref(reDC7p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8p", boost::cref(reDC8p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC9p", boost::cref(reDC9p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC10p", boost::cref(reDC10p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC7gp", boost::cref(reDC7gp)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reDC8gp", boost::cref(reDC8gp)));
     
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC7p", boost::cref(argDC7p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC8p", boost::cref(argDC8p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC9p", boost::cref(argDC9p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC10p", boost::cref(argDC10p)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC7gp", boost::cref(argDC7gp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argDC8gp", boost::cref(argDC8gp)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7p", boost::cref(imDC7p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8p", boost::cref(imDC8p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC9p", boost::cref(imDC9p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC10p", boost::cref(imDC10p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC7gp", boost::cref(imDC7gp)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imDC8gp", boost::cref(imDC8gp)));
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("WCscale", boost::cref(WCscale)));
 }
@@ -105,25 +105,25 @@ bool FlavourWilsonCoefficient::PostUpdate()
 {
     if(!StandardModel::PostUpdate()) return (false);
     
-    DC1 = gslpp::complex(absDC1, argDC1, true);
-    DC2 = gslpp::complex(absDC2, argDC2, true);
-    DC3 = gslpp::complex(absDC3, argDC3, true);
-    DC4 = gslpp::complex(absDC4, argDC4, true);
-    DC5 = gslpp::complex(absDC5, argDC5, true);
-    DC6 = gslpp::complex(absDC6, argDC6, true);
-    DC7 = gslpp::complex(absDC7, argDC7, true);
-    DC8 = gslpp::complex(absDC8, argDC8, true);
-    DC9 = gslpp::complex(absDC9, argDC9, true);
-    DC10 = gslpp::complex(absDC10, argDC10, true);
-    DC7g = gslpp::complex(absDC7g, argDC7g, true);
-    DC8g = gslpp::complex(absDC8g, argDC8g, true);
+    DC1 = gslpp::complex(reDC1, imDC1, false);
+    DC2 = gslpp::complex(reDC2, imDC2, false);
+    DC3 = gslpp::complex(reDC3, imDC3, false);
+    DC4 = gslpp::complex(reDC4, imDC4, false);
+    DC5 = gslpp::complex(reDC5, imDC5, false);
+    DC6 = gslpp::complex(reDC6, imDC6, false);
+    DC7 = gslpp::complex(reDC7, imDC7, false);
+    DC8 = gslpp::complex(reDC8, imDC8, false);
+    DC9 = gslpp::complex(reDC9, imDC9, false);
+    DC10 = gslpp::complex(reDC10, imDC10, false);
+    DC7g = gslpp::complex(reDC7g, imDC7g, false);
+    DC8g = gslpp::complex(reDC8g, imDC8g, false);
     
-    DC7p = gslpp::complex(absDC7p, argDC7p, true);
-    DC8p = gslpp::complex(absDC8p, argDC8p, true);
-    DC9p = gslpp::complex(absDC9p, argDC9p, true);
-    DC10p = gslpp::complex(absDC10p, argDC10p, true);
-    DC7gp = gslpp::complex(absDC7gp, argDC7gp, true);
-    DC8gp = gslpp::complex(absDC8gp, argDC8gp, true);
+    DC7p = gslpp::complex(reDC7p, imDC7p, false);
+    DC8p = gslpp::complex(reDC8p, imDC8p, false);
+    DC9p = gslpp::complex(reDC9p, imDC9p, false);
+    DC10p = gslpp::complex(reDC10p, imDC10p, false);
+    DC7gp = gslpp::complex(reDC7gp, imDC7gp, false);
+    DC8gp = gslpp::complex(reDC8gp, imDC8gp, false);
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
      * and FlavourWC and FlavourWC-derived parameters in FlavourWCMatching */
@@ -133,78 +133,78 @@ bool FlavourWilsonCoefficient::PostUpdate()
 }
 
 void FlavourWilsonCoefficient::setParameter(const std::string name, const double& value){    
-    if(name.compare("absDC1") == 0) 
-        absDC1 = value;
-    else if(name.compare("absDC2") == 0) 
-        absDC2 = value;
-    else if(name.compare("absDC3") == 0)
-        absDC3 = value;
-    else if(name.compare("absDC4") == 0)
-        absDC4 = value;
-    else if(name.compare("absDC5") == 0)
-        absDC5 = value;
-    else if(name.compare("absDC6") == 0)
-        absDC6 = value;
-    else if(name.compare("absDC7") == 0)
-        absDC7 = value;
-    else if(name.compare("absDC8") == 0)
-        absDC8 = value;
-    else if(name.compare("absDC9") == 0)
-        absDC9 = value;
-    else if(name.compare("absDC10") == 0)
-        absDC10 = value;
-    else if(name.compare("absDC7g") == 0)
-        absDC7g = value;
-    else if(name.compare("absDC8g") == 0)
-        absDC8g = value;
-    else if(name.compare("argDC1") == 0) 
-        argDC1 = value;
-    else if(name.compare("argDC2") == 0) 
-        argDC2 = value;
-    else if(name.compare("argDC3") == 0)
-        argDC3 = value;
-    else if(name.compare("argDC4") == 0)
-        argDC4 = value;
-    else if(name.compare("argDC5") == 0)
-        argDC5 = value;
-    else if(name.compare("argDC6") == 0)
-        argDC6 = value;
-    else if(name.compare("argDC7") == 0)
-        argDC7 = value;
-    else if(name.compare("argDC8") == 0)
-        argDC8 = value;
-    else if(name.compare("argDC9") == 0)
-        argDC9 = value;
-    else if(name.compare("argDC10") == 0)
-        argDC10 = value;
-    else if(name.compare("argDC7g") == 0)
-        argDC7g = value;
-    else if(name.compare("argDC8g") == 0)
-        argDC8g = value;
-    else if(name.compare("absDC7p") == 0)
-        absDC7p = value;
-    else if(name.compare("absDC8p") == 0)
-        absDC8p = value;
-    else if(name.compare("absDC9p") == 0)
-        absDC9p = value;
-    else if(name.compare("absDC10p") == 0)
-        absDC10p = value;
-    else if(name.compare("absDC7gp") == 0)
-        absDC7gp = value;
-    else if(name.compare("absDC8gp") == 0)
-        absDC8gp = value;
-    else if(name.compare("argDC7p") == 0)
-        argDC7p = value;
-    else if(name.compare("argDC8p") == 0)
-        argDC8p = value;
-    else if(name.compare("argDC9p") == 0)
-        argDC9p = value;
-    else if(name.compare("argDC10p") == 0)
-        argDC10p = value;
-    else if(name.compare("argDC7gp") == 0)
-        argDC7gp = value;
-    else if(name.compare("argDC8gp") == 0)
-        argDC8gp = value;
+    if(name.compare("reDC1") == 0) 
+        reDC1 = value;
+    else if(name.compare("reDC2") == 0) 
+        reDC2 = value;
+    else if(name.compare("reDC3") == 0)
+        reDC3 = value;
+    else if(name.compare("reDC4") == 0)
+        reDC4 = value;
+    else if(name.compare("reDC5") == 0)
+        reDC5 = value;
+    else if(name.compare("reDC6") == 0)
+        reDC6 = value;
+    else if(name.compare("reDC7") == 0)
+        reDC7 = value;
+    else if(name.compare("reDC8") == 0)
+        reDC8 = value;
+    else if(name.compare("reDC9") == 0)
+        reDC9 = value;
+    else if(name.compare("reDC10") == 0)
+        reDC10 = value;
+    else if(name.compare("reDC7g") == 0)
+        reDC7g = value;
+    else if(name.compare("reDC8g") == 0)
+        reDC8g = value;
+    else if(name.compare("imDC1") == 0) 
+        imDC1 = value;
+    else if(name.compare("imDC2") == 0) 
+        imDC2 = value;
+    else if(name.compare("imDC3") == 0)
+        imDC3 = value;
+    else if(name.compare("imDC4") == 0)
+        imDC4 = value;
+    else if(name.compare("imDC5") == 0)
+        imDC5 = value;
+    else if(name.compare("imDC6") == 0)
+        imDC6 = value;
+    else if(name.compare("imDC7") == 0)
+        imDC7 = value;
+    else if(name.compare("imDC8") == 0)
+        imDC8 = value;
+    else if(name.compare("imDC9") == 0)
+        imDC9 = value;
+    else if(name.compare("imDC10") == 0)
+        imDC10 = value;
+    else if(name.compare("imDC7g") == 0)
+        imDC7g = value;
+    else if(name.compare("imDC8g") == 0)
+        imDC8g = value;
+    else if(name.compare("reDC7p") == 0)
+        reDC7p = value;
+    else if(name.compare("reDC8p") == 0)
+        reDC8p = value;
+    else if(name.compare("reDC9p") == 0)
+        reDC9p = value;
+    else if(name.compare("reDC10p") == 0)
+        reDC10p = value;
+    else if(name.compare("reDC7gp") == 0)
+        reDC7gp = value;
+    else if(name.compare("reDC8gp") == 0)
+        reDC8gp = value;
+    else if(name.compare("imDC7p") == 0)
+        imDC7p = value;
+    else if(name.compare("imDC8p") == 0)
+        imDC8p = value;
+    else if(name.compare("imDC9p") == 0)
+        imDC9p = value;
+    else if(name.compare("imDC10p") == 0)
+        imDC10p = value;
+    else if(name.compare("imDC7gp") == 0)
+        imDC7gp = value;
+    else if(name.compare("imDC8gp") == 0)
+        imDC8gp = value;
     else if(name.compare("WCscale") == 0)
         WCscale = value;
     else

@@ -214,10 +214,10 @@ private:
     
     gslpp::complex DC1, DC2, DC3, DC4, DC5, DC6, DC7, DC8, DC9, DC10, DC7g, DC8g;
     gslpp::complex DC7p, DC8p, DC9p, DC10p, DC7gp, DC8gp;
-    double absDC1, absDC2, absDC3, absDC4, absDC5, absDC6, absDC7, absDC8, absDC9, absDC10, absDC7g, absDC8g;
-    double argDC1, argDC2, argDC3, argDC4, argDC5, argDC6, argDC7, argDC8, argDC9, argDC10, argDC7g, argDC8g;
-    double absDC7p, absDC8p, absDC9p, absDC10p, absDC7gp, absDC8gp;
-    double argDC7p, argDC8p, argDC9p, argDC10p, argDC7gp, argDC8gp;
+    double reDC1, reDC2, reDC3, reDC4, reDC5, reDC6, reDC7, reDC8, reDC9, reDC10, reDC7g, reDC8g;
+    double imDC1, imDC2, imDC3, imDC4, imDC5, imDC6, imDC7, imDC8, imDC9, imDC10, imDC7g, imDC8g;
+    double reDC7p, reDC8p, reDC9p, reDC10p, reDC7gp, reDC8gp;
+    double imDC7p, imDC8p, imDC9p, imDC10p, imDC7gp, imDC8gp;
     double WCscale;
     
       
