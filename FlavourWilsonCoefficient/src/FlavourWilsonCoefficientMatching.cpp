@@ -14,8 +14,8 @@ FlavourWilsonCoefficientMatching::FlavourWilsonCoefficientMatching(const Flavour
     StandardModelMatching(FlavourWilsonCoefficient_i),
     myFlavourWilsonCoefficient(FlavourWilsonCoefficient_i),
     myCKM(3, 3, 0.),
-    mcbsg(8, NDR, NLO),
-    mcprimebsg(8, NDR, NLO),
+    mcbsg(8, NDR, NNLO),
+    mcprimebsg(8, NDR, NNLO),
     mcbsmm(8, NDR, NNLO, NLO_ewt4),
     mcbdmm(8, NDR, NNLO, NLO_ewt4),
     mcBMll(13, NDR, NLO),
@@ -68,6 +68,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
 
     switch (mcbsg.getOrder()) {
         case NNLO:
+            mcbsg.setCoeff(6, 0., NNLO);
         case NLO:
             mcbsg.setCoeff(6, 0., NLO);
         case LO:
@@ -170,6 +171,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
 
     switch (mcprimebsg.getOrder()) {
         case NNLO:
+            mcprimebsg.setCoeff(6, 0., NNLO);
         case NLO:
             mcprimebsg.setCoeff(6, 0., NLO);
         case LO:
