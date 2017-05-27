@@ -15,6 +15,7 @@ class StandardModel;
 #include "HeffDB1.h"
 #include "MVll.h"
 #include "MPll.h"
+#include "MVgamma.h"
 #include <boost/tuple/tuple.hpp>
 
 /**
@@ -172,12 +173,21 @@ public:
     /**
      * @brief Returns the initial and final state dependent object for \f$ B \to P \ell^+ \ell^- \f$.
      * @param[in] meson_i specifies the meson in the initial state
-     * @param[in] vector_i specifies the vector in the final state
+     * @param[in] pseudoscalar_i specifies the vector in the final state
      * @param[in] lepton_i specifies the lepton in the final state
      * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to P \ell^+ \ell^- \f$
      * 
      */
     MPll& getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const;
+    
+    /**
+     * @brief Returns the initial and final state dependent object for \f$ B \to V \gamma \f$.
+     * @param[in] meson_i specifies the meson in the initial state
+     * @param[in] vector_i specifies the vector in the final state
+     * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \gamma \f$
+     * 
+     */
+    MVgamma& getMVgamma(unsigned int meson_i, unsigned int vector_i) const;
     
     /**
      * @brief sets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -216,6 +226,9 @@ private:
     mutable MVll MVll_Bsphiel;///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
     mutable MPll MPll_BpKmu;///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
     mutable MPll MPll_BpKel;///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    mutable MVgamma MVgamma_BdKstgamma;
+    mutable MVgamma MVgamma_BpKstgamma;
+    mutable MVgamma MVgamma_Bsphigamma;
     mutable bool update_BdKstarmu;///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
     mutable bool update_BdKstarel;///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
     mutable bool update_BpKstarmu;///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.
@@ -224,6 +237,9 @@ private:
     mutable bool update_Bsphiel;///< A flag used for caching of \f$ B_s \to \phi \e^+ \e^- \f$.
     mutable bool update_BpKmu;///< A flag used for caching of \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
     mutable bool update_BpKel;///< A flag used for caching of \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    mutable bool update_BdKstgamma;
+    mutable bool update_BpKstgamma;
+    mutable bool update_Bsphigamma;
 };
 
 /**

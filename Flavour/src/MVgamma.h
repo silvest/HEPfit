@@ -9,9 +9,9 @@
 #define	MVGAMMA_H
 
 class StandardModel;
+#include "AmpDB2.h"
 #include "BXqll.h"
 #include "ThObservable.h"
-#include "AmpDB2.h"
 #include "gslpp_function_adapter.h"
 #include <gsl/gsl_integration.h>
 
@@ -138,7 +138,7 @@ class StandardModel;
  * @f$H_V^{(+,-)},\overline{H}_V^{(+,-)}@f$ are build in H_V_p(), H_V_m(), H_V_p_bar()
  * and H_V_m_bar(), in order to be further used to compute the observables.
  */
-class MVgamma  : public ThObservable {
+class MVgamma {
 public:
     /**
      * @brief Constructor.
@@ -157,6 +157,15 @@ public:
      * @brief The update parameter method for MVgamma.
      */
     void updateParameters();
+    
+    /**
+    * @brief A get method for the parameters necessary for MVgamma.
+    * @return the vector of MVgamma specific parameters
+    */
+    std::vector<std::string> getMVgammaParameters()
+    {
+        return mVgammaParameters;
+    }
     
     std::vector<std::string> parametersForMVgamma;
     
@@ -380,6 +389,7 @@ public:
 private:
     QCD::meson meson;
     QCD::meson vectorM;
+    const StandardModel& SM;
     BXqll myBXqll;
     double T_perp_real;
     double T_perp_imag;
@@ -390,6 +400,8 @@ private:
     double error;/**< GSL integral variable */    
     gsl_function f_GSL;/**< GSL integral variable */
     gsl_integration_cquad_workspace * w_GSL;/**< GSL integral variable */
+    
+    std::vector<std::string> mVgammaParameters;/**< The string of mandatory MVgamma parameters */
 };
 
 
@@ -407,7 +419,7 @@ private:
  * BR = \frac {\alpha_e G_F^2 M_b^2 M_M \lambda}{(4\pi)^2 4 w_M} ( |H_V^+|^2 + |H_A^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_A^-|^2) \,.
  * @f]
  */
-class BR_MVgamma : public MVgamma{
+class BR_MVgamma : public ThObservable {
 public:
     
     /**
@@ -449,7 +461,7 @@ private:
  * C = \frac {( |H_V^+|^2 + |H_V^-|^2 - |\overline{H}_V^+|^2 - |\overline{H}_V^-|^2)}{( |H_V^+|^2 + |H_V^+|^2 +|\overline{H}_V^-|^2 + |\overline{H}_V^-|^2)} \,.
  * @f]
  */
-class C_MVgamma : public MVgamma{
+class C_MVgamma : public ThObservable {
 public:
     
     /**
@@ -484,7 +496,7 @@ private:
  * S = \frac {2Im(q/p * ( H_V^{+*} \overline{H}_V^+ + H_V^{-*} \overline{H}_V^-))}{( |H_V^+|^2 + |H_V^-|^2 +|\overline{H}_V^+|^2 + |\overline{H}_V^-|^2)} \,.
  * @f]
  */
-class S_MVgamma : public MVgamma{
+class S_MVgamma : public ThObservable {
 public:
     
     /**
@@ -521,7 +533,7 @@ private:
  * A_{\Delta\Gamma} = \frac {2Re(q/p * ( H_V^{+*} \overline{H}_V^+ + H_V^{-*} \overline{H}_V^-))}{( |H_V^+|^2 + |H_V^-|^2 +|\overline{H}_V^+|^2 + |\overline{H}_V^-|^2)} \,.
  * @f]
  */
-class ADG_MVgamma : public MVgamma{
+class ADG_MVgamma : public ThObservable {
 public:
     
     /**
@@ -558,7 +570,7 @@ private:
  * \Delta C_7^1 = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_- - h_+| \,.
  * @f]
  */
-class DC7_1 : public MVgamma{
+class DC7_1 : public ThObservable {
 public:
     
     /**
@@ -594,7 +606,7 @@ private:
  * \Delta C_7^2 = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_- + h_+| \,.
  * @f]
  */
-class DC7_2 : public MVgamma{
+class DC7_2 : public ThObservable {
 public:
     
     /**
@@ -625,7 +637,7 @@ private:
  * @details This class is used to compute the absolute value of the ratio @f$h_+^{(0)}/h_-^{(0)}@f$ in 
  * @f$B \to K^*@f$
  */
-class hp0_hm0 : public MVgamma{
+class hp0_hm0 : public ThObservable {
 public:
     
     /**
@@ -659,7 +671,7 @@ private:
  * \Delta C_7^L = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_-| \,.
  * @f]
  */
-class AbsDC7_L : public MVgamma{
+class AbsDC7_L : public ThObservable {
 public:
     
     /**
@@ -695,7 +707,7 @@ private:
  * \Delta C_7^R = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_+| \,.
  * @f]
  */
-class AbsDC7_R : public MVgamma{
+class AbsDC7_R : public ThObservable {
 public:
     
     /**
@@ -729,7 +741,7 @@ private:
  * \Delta C_7^L = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_-| \,.
  * @f]
  */
-class ReDC7_L : public MVgamma{
+class ReDC7_L : public ThObservable {
 public:
     
     /**
@@ -765,7 +777,7 @@ private:
  * \Delta C_7^R = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_+| \,.
  * @f]
  */
-class ReDC7_R : public MVgamma{
+class ReDC7_R : public ThObservable {
 public:
     
     /**
@@ -799,7 +811,7 @@ private:
  * \Delta C_7^L = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_-| \,.
  * @f]
  */
-class ImDC7_L : public MVgamma{
+class ImDC7_L : public ThObservable {
 public:
     
     /**
@@ -835,7 +847,7 @@ private:
  * \Delta C_7^R = \frac {8 \pi^2 M_M^3}{\lambda m_b T_1(0)}|h_+| \,.
  * @f]
  */
-class ImDC7_R : public MVgamma{
+class ImDC7_R : public ThObservable {
 public:
     
     /**

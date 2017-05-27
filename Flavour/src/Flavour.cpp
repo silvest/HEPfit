@@ -16,7 +16,10 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
             MVll_Bsphimu(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU),
             MVll_Bsphiel(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON),
             MPll_BpKmu(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU),
-            MPll_BpKel(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON)
+            MPll_BpKel(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON),
+            MVgamma_BdKstgamma(SM_i, StandardModel::B_D, StandardModel::K_star),
+            MVgamma_BpKstgamma(SM_i, StandardModel::B_P, StandardModel::K_star_P),
+            MVgamma_Bsphigamma(SM_i, StandardModel::B_S, StandardModel::PHI)
     {
         update_BdKstarmu = true;
         update_BdKstarel = true;
@@ -25,7 +28,10 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         update_Bsphimu = true;
         update_Bsphiel = true;
         update_BpKmu = true;
-        update_BpKel = true;
+        update_BpKel = true; 
+        update_BdKstgamma = true;
+        update_BpKstgamma = true;
+        update_Bsphigamma = true;
     };
     
     gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const {
@@ -106,6 +112,13 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
+    MVgamma& Flavour::getMVgamma(unsigned int meson_i, unsigned int vector_i) const {
+        if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star) return MVgamma_BdKstgamma;
+        if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P) return MVgamma_BpKstgamma;
+        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI) return MVgamma_Bsphigamma;
+        else throw std::runtime_error("Flavour: Decay channel not implemented.");
+    }
+    
     MPll& Flavour::getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const {
         if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::MU) return MPll_BpKmu;
         if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return MPll_BpKel;
@@ -121,6 +134,9 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) {update_Bsphiel = updated_i; return;}
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) {update_BpKmu = updated_i; return;}
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::ELECTRON) {update_BpKel = updated_i; return;}
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::NOLEPTON) {update_BdKstgamma = updated_i; return;}
+        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::NOLEPTON) {update_BpKstgamma = updated_i; return;}
+        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::NOLEPTON) {update_Bsphigamma = updated_i; return;}
         else throw std::runtime_error("Flavour: Wrong update flag requested.");
     }
     
@@ -133,6 +149,9 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return update_Bsphiel;
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::MU) return update_BpKmu;
         if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return update_BpKel;
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::NOLEPTON) return update_BdKstgamma;
+        if (meson_i == StandardModel::B_P && meson_j == StandardModel::K_star_P && lep_i == StandardModel::NOLEPTON) return update_BpKstgamma;
+        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::NOLEPTON) return update_Bsphigamma;
         else throw std::runtime_error("Flavour: Wrong update flags requested.");
     }
     
@@ -145,5 +164,8 @@ Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i)
         update_Bsphiel = true;
         update_BpKmu = true;
         update_BpKel = true;
+        update_BdKstgamma = true;
+        update_BpKstgamma = true;
+        update_Bsphigamma = true;
     }
     
