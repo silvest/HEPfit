@@ -122,6 +122,9 @@ void MVgamma::updateParameters()
     C_2h_bar = (*(allcoeffh[LO]))(1) - (*(allcoeffh[LO]))(0)/6.;
     C_8h = (*(allcoeffh[LO]))(7);
     
+    DC7_QCDF = deltaC7_QCDF(false);
+    DC7_QCDF_bar = deltaC7_QCDF(true);
+    
     gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
     
     f_GSL = convertToGslFunction(boost::bind(&MVgamma::getT_perp_integrand_real, &(*this), _1));
@@ -321,7 +324,7 @@ gslpp::complex MVgamma::H_V_m()
 //    return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
 //            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1()
 //            * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
-    return lambda_t * (((C_7 + deltaC7_QCDF(false)) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(false)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t * (((C_7 + DC7_QCDF) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(false)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p()
@@ -335,7 +338,7 @@ gslpp::complex MVgamma::H_V_m_bar()
 
 //    return lambda_t.conjugate() * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
 //            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
-    return lambda_t.conjugate() * (((C_7 + deltaC7_QCDF(true)) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t.conjugate() * (((C_7 + DC7_QCDF_bar) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar()
@@ -626,4 +629,46 @@ double ImDC7_R::computeThValue()
 {
     SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
     return ( (8. * M_PI * M_PI * SM.getFlavour().getMVgamma(meson, vectorM).MM2 * SM.getFlavour().getMVgamma(meson, vectorM).MM) / (SM.getFlavour().getMVgamma(meson, vectorM).lambda * SM.getFlavour().getMVgamma(meson, vectorM).Mb * SM.getFlavour().getMVgamma(meson, vectorM).T_1())*(SM.getFlavour().getMVgamma(meson, vectorM).h[0])).imag();
+}
+
+AbsDC7_QCDF::AbsDC7_QCDF(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
+: ThObservable(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+}
+
+double AbsDC7_QCDF::computeThValue()
+{
+    SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
+    
+    double MM = SM.getMesons(meson).getMass();
+    double MM2 = MM * MM;
+    double MV = SM.getMesons(vectorM).getMass();
+    double T1 = SM.getFlavour().getMVgamma(meson, vectorM).T_1();
+    
+    return ( SM.getFlavour().getMVgamma(meson, vectorM).DC7_QCDF + MM2/(MM2 - MV*MV) * SM.getFlavour().getMVgamma(meson, vectorM).T_QCDF_minus(false)/T1 ).abs();
+}
+
+AbsDC7_QCDF_bar::AbsDC7_QCDF_bar(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
+: ThObservable(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+}
+
+double AbsDC7_QCDF_bar::computeThValue()
+{
+    SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
+    
+    double MM = SM.getMesons(meson).getMass();
+    double MM2 = MM * MM;
+    double MV = SM.getMesons(vectorM).getMass();
+    double T1 = SM.getFlavour().getMVgamma(meson, vectorM).T_1();
+    
+    return ( SM.getFlavour().getMVgamma(meson, vectorM).DC7_QCDF_bar + MM2/(MM2 - MV*MV) * SM.getFlavour().getMVgamma(meson, vectorM).T_QCDF_minus(true)/T1 ).abs();
 }
