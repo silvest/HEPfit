@@ -672,3 +672,87 @@ double AbsDC7_QCDF_bar::computeThValue()
     
     return ( SM.getFlavour().getMVgamma(meson, vectorM).DC7_QCDF_bar + MM2/(MM2 - MV*MV) * SM.getFlavour().getMVgamma(meson, vectorM).T_QCDF_minus(true)/T1 ).abs();
 }
+
+ReDC7_QCDF::ReDC7_QCDF(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
+: ThObservable(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+}
+
+double ReDC7_QCDF::computeThValue()
+{
+    SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
+    
+    double MM = SM.getMesons(meson).getMass();
+    double MM2 = MM * MM;
+    double MV = SM.getMesons(vectorM).getMass();
+    double T1 = SM.getFlavour().getMVgamma(meson, vectorM).T_1();
+    
+    return ( SM.getFlavour().getMVgamma(meson, vectorM).DC7_QCDF + MM2/(MM2 - MV*MV) * SM.getFlavour().getMVgamma(meson, vectorM).T_QCDF_minus(false)/T1 ).real();
+}
+
+ReDC7_QCDF_bar::ReDC7_QCDF_bar(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
+: ThObservable(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+}
+
+double ReDC7_QCDF_bar::computeThValue()
+{
+    SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
+    
+    double MM = SM.getMesons(meson).getMass();
+    double MM2 = MM * MM;
+    double MV = SM.getMesons(vectorM).getMass();
+    double T1 = SM.getFlavour().getMVgamma(meson, vectorM).T_1();
+    
+    return ( SM.getFlavour().getMVgamma(meson, vectorM).DC7_QCDF_bar + MM2/(MM2 - MV*MV) * SM.getFlavour().getMVgamma(meson, vectorM).T_QCDF_minus(true)/T1 ).real();
+}
+
+ImDC7_QCDF::ImDC7_QCDF(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
+: ThObservable(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+}
+
+double ImDC7_QCDF::computeThValue()
+{
+    SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
+    
+    double MM = SM.getMesons(meson).getMass();
+    double MM2 = MM * MM;
+    double MV = SM.getMesons(vectorM).getMass();
+    double T1 = SM.getFlavour().getMVgamma(meson, vectorM).T_1();
+    
+    return ( SM.getFlavour().getMVgamma(meson, vectorM).DC7_QCDF + MM2/(MM2 - MV*MV) * SM.getFlavour().getMVgamma(meson, vectorM).T_QCDF_minus(false)/T1 ).imag();
+}
+
+ImDC7_QCDF_bar::ImDC7_QCDF_bar(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
+: ThObservable(SM_i)
+{
+    meson = meson_i;
+    vectorM = vector_i;
+    
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+}
+
+double ImDC7_QCDF_bar::computeThValue()
+{
+    SM.getFlavour().getMVgamma(meson, vectorM).updateParameters();
+    
+    double MM = SM.getMesons(meson).getMass();
+    double MM2 = MM * MM;
+    double MV = SM.getMesons(vectorM).getMass();
+    double T1 = SM.getFlavour().getMVgamma(meson, vectorM).T_1();
+    
+    return ( SM.getFlavour().getMVgamma(meson, vectorM).DC7_QCDF_bar + MM2/(MM2 - MV*MV) * SM.getFlavour().getMVgamma(meson, vectorM).T_QCDF_minus(true)/T1 ).imag();
+}
