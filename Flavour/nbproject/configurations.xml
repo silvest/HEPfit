@@ -99,6 +99,8 @@
       <itemPath>src/EvolDC1Buras.cpp</itemPath>
       <itemPath>src/EvolDF1nlep.cpp</itemPath>
       <itemPath>src/EvolDF2.cpp</itemPath>
+      <itemPath>src/F_1.cpp</itemPath>
+      <itemPath>src/F_2.cpp</itemPath>
       <itemPath>src/HeffDB1.cpp</itemPath>
       <itemPath>src/HeffDC1.cpp</itemPath>
       <itemPath>src/HeffDF1bnlep.cpp</itemPath>
@@ -294,7 +296,11 @@
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/F_1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/F_2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -545,7 +551,11 @@
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/F_1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/F_2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -781,7 +791,11 @@
       </item>
       <item path="src/EvolDF2.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/F_1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/F_1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/F_2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/F_2.h" ex="false" tool="3" flavor2="0">
       </item>

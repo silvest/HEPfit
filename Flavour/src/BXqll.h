@@ -13,6 +13,8 @@ class StandardModel;
 #include "ThObservable.h"
 #include "Particle.h"
 #include "gslpp.h"
+#include "F_1.h"
+#include "F_2.h"
 #include <gsl/gsl_integration.h>
 
 /**
@@ -79,6 +81,8 @@ public:
 
 private:
 //    const StandardModel& mySM;/**< Model type */
+    F_1 myF_1;
+    F_2 myF_2;
     QCD::lepton lep;/**< Final leptons type */
     QCD::quark quark;/**< Initial meson type */
     double CF, GF, ale, Mlep, mu_b, mu_c, Mb, Mc, Mb_pole, Mc_pole, Ms, MW, abslambdat_over_Vcb, Vts_over_Vcb, z, muh, alsmu, alsmuc, lambda_2;
@@ -124,19 +128,19 @@ private:
      */
     void updateParameters();
 
-    double F_17re(double muh, double z, double sh, int maxpow);
-    double F_17im(double muh, double z, double sh, int maxpow);
-    double F_19re(double muh, double z, double sh, int maxpow);
-    double F_19im(double muh, double z, double sh, int maxpow);
-    double F_27re(double muh, double z, double sh, int maxpow);
-    double F_27im(double muh, double z, double sh, int maxpow);
-    double F_29re(double muh, double z, double sh, int maxpow);
-    double F_29im(double muh, double z, double sh, int maxpow);
+    double F_17re(double muh, double z, double sh, int maxpow=20) { return myF_1.F_17re(muh, z, sh, maxpow); };
+    double F_17im(double muh, double z, double sh, int maxpow=20) { return myF_1.F_17im(muh, z, sh, maxpow); };
+    double F_19re(double muh, double z, double sh, int maxpow=20) { return myF_1.F_19re(muh, z, sh, maxpow); };
+    double F_19im(double muh, double z, double sh, int maxpow=20) { return myF_1.F_19im(muh, z, sh, maxpow); };
+    double F_27re(double muh, double z, double sh, int maxpow=20) { return myF_2.F_27re(muh, z, sh, maxpow); };
+    double F_27im(double muh, double z, double sh, int maxpow=20) { return myF_2.F_27im(muh, z, sh, maxpow); };
+    double F_29re(double muh, double z, double sh, int maxpow=20) { return myF_2.F_29re(muh, z, sh, maxpow); };
+    double F_29im(double muh, double z, double sh, int maxpow=20) { return myF_2.F_29im(muh, z, sh, maxpow); };
     
-    double DeltaF_19re(double muh, double z, double sh, int maxpow);
-    double DeltaF_19im(double muh, double z, double sh, int maxpow);
-    double DeltaF_29re(double muh, double z, double sh, int maxpow);
-    double DeltaF_29im(double muh, double z, double sh, int maxpow);
+    double DeltaF_19re(double muh, double z, double sh, int maxpow=20) { return myF_1.DeltaF_19re(muh, z, sh, maxpow); };
+    double DeltaF_19im(double muh, double z, double sh, int maxpow=20) { return myF_1.DeltaF_19im(muh, z, sh, maxpow); };
+    double DeltaF_29re(double muh, double z, double sh, int maxpow=20) { return myF_2.DeltaF_29re(muh, z, sh, maxpow); };
+    double DeltaF_29im(double muh, double z, double sh, int maxpow=20) { return myF_2.DeltaF_29im(muh, z, sh, maxpow); };
     /**
     * @brief The correction \f$ F_{17} \f$ from @cite Greub:2008cy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay

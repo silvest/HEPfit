@@ -16,7 +16,7 @@
 #include <gsl/gsl_sf_gegenbauer.h>
 
 MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
-: SM(SM_i), myBXqll(SM_i, QCD::BOTTOM, QCD::MU)
+: SM(SM_i)
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -216,8 +216,8 @@ gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
     gslpp::complex A_Seidel = 1./729. * (833. + 120.*gslpp::complex::i()*M_PI - 312. * log(Mb*Mb/mu_b/mu_b)); /* hep-ph/0403185v2.*/
     gslpp::complex Fu_17 = -A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex Fu_27 = 6. * A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex F_17 = myBXqll.F_17re(muh, z, 0.00001, 20) + gslpp::complex::i() * myBXqll.F_17im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
-    gslpp::complex F_27 = myBXqll.F_27re(muh, z, 0.00001, 20) + gslpp::complex::i() * myBXqll.F_27im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_17 = myF_1.F_17re(muh, z, 0.00001, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_27 = myF_2.F_27re(muh, z, 0.00001, 20) + gslpp::complex::i() * myF_2.F_27im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_87 = (-4.*(33. + 24.*log(muh) + 6.*gslpp::complex::i()*M_PI - 2.*M_PI*M_PI))/27.; 
     
     if (!conjugate) {

@@ -11,8 +11,6 @@
 //#include <limits>
 #include "Flavour.h"
 #include "BXqll.h"
-#include "F_1.h"
-#include "F_2.h"
 #include "StandardModel.h"
 
 
@@ -279,7 +277,7 @@ gslpp::complex BXqll::h_z(double zed, double sh)
     }
     else
     {
-        h_z = -2./9.*(2.+4./sh*zed)*sqrt(abs(4.*zed-sh)/sh);
+        h_z = -2./9.*(2.+4./sh*zed)*sqrt(std::abs(4.*zed-sh)/sh);
         if(sh > 4.*zed)
             h_z *= log((sqrt(sh)+sqrt(sh-4.*zed))/(sqrt(sh)-sqrt(sh-4.*zed)))-i*M_PI;
         else

@@ -9,8 +9,9 @@
 #define	MVGAMMA_H
 
 class StandardModel;
+#include "F_1.h"
+#include "F_2.h"
 #include "AmpDB2.h"
-#include "BXqll.h"
 #include "ThObservable.h"
 #include "gslpp_function_adapter.h"
 #include <gsl/gsl_integration.h>
@@ -392,7 +393,8 @@ private:
     QCD::meson meson;
     QCD::meson vectorM;
     const StandardModel& SM;
-    BXqll myBXqll;
+    F_1 myF_1;
+    F_2 myF_2;
     double T_perp_real;
     double T_perp_imag;
     double T_perp_bar_real;
