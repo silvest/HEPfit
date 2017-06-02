@@ -9,7 +9,7 @@
 #include "THDM.h"
 
 THDMEDMcouplings::THDMEDMcouplings(const THDM& THDM_i) 
-: EffectiveEDMcouplings(THDM_i), myTHDM(THDM_i)
+: EffectiveEDMcouplings(THDM_i)/*, myTHDM(THDM_i)*/
 {}
 
 THDMEDMcouplings::~THDMEDMcouplings() 

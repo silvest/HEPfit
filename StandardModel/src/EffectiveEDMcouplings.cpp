@@ -8,7 +8,7 @@
 #include "EffectiveEDMcouplings.h"
 
 EffectiveEDMcouplings::EffectiveEDMcouplings(const StandardModel& SM_i) 
-: SM(SM_i)
+/*: SM(SM_i)*/
 {}
 
 EffectiveEDMcouplings::~EffectiveEDMcouplings() 

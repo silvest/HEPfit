@@ -9,7 +9,7 @@
 #include "SUSY.h"
 
 SUSYEDMcouplings::SUSYEDMcouplings(const SUSY& SUSY_i) 
-: EffectiveEDMcouplings(SUSY_i), mySUSY(SUSY_i)
+: EffectiveEDMcouplings(SUSY_i)/*, mySUSY(SUSY_i)*/
 {}
 
 SUSYEDMcouplings::~SUSYEDMcouplings() 

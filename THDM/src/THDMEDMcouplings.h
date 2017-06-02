@@ -48,7 +48,7 @@ public:
     virtual double kappa_b() ;
     
 private:
-    const THDM & myTHDM;
+//    const THDM & myTHDM;
 
 };
 

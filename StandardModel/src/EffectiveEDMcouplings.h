@@ -53,7 +53,7 @@ protected:
     
 private:
     
-    const StandardModel & SM;
+//    const StandardModel & SM;
     
     
 };

@@ -48,7 +48,7 @@ public:
     virtual double kappa_b() ;
     
 private:
-    const SUSY & mySUSY;
+//    const SUSY & mySUSY;
 
 };
 
