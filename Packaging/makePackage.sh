@@ -117,7 +117,7 @@ rm -f ${OUTDIR}/NewPhysics/src/NPSTUVWXY.*
 
 #FLAVORFILES="AmpDD2.cpp AmpDD2.h AmpDS1.cpp AmpDS1.h ArgD.h BR_Bdnunu.cpp BR_Bdnunu.h BR_Bsnunu.cpp BR_Bsnunu.h BR_Kmumu.cpp BR_Kmumu.h BR_Kp0nunu.cpp BR_Kp0nunu.h BR_Kppnunu.cpp BR_Kppnunu.h CPenguinBox.cpp CPenguinBox.h CPenguinBoxMu.cpp CPenguinBoxMu.h Charm_Kpnunu.cpp Charm_Kpnunu.h EpsilonP_O_Epsilon.cpp EpsilonP_O_Epsilon.h EvolDC1.cpp EvolDC1.h EvolDC1Buras.cpp EvolDC1Buras.h EvolDF1nlep.cpp EvolDF1nlep.h HeffDC1.cpp HeffDC1.h HeffDF1bnlep.cpp HeffDF1bnlep.h HeffDS1.cpp HeffDS1.h M12D.h"
 SUSYFILES="FeynHiggsWrapper.cpp FeynHiggsWrapper.h OutputSLHAfromFH.h"
-FLAVOURFILES="F_1.h F_2.h hpl.h BXqll.cpp BXqll.h BXqllObservables.cpp BXqllObservables.h"
+# FLAVOURFILES="F_1.h F_2.h hpl.h BXqll.cpp BXqll.h BXqllObservables.cpp BXqllObservables.h"
 
 for SUSY in $SUSYFILES
 do
@@ -208,8 +208,20 @@ do
 done
 
 ###########################################################
-# Archive
+# version and Archive
 
+echo "VERSION: ${VERSION}-${COMMIT}" > HEPfit-${VERSION}-${COMMIT}/VERSION
+if [ $CUSTOM -gt 0 ]; then
+    echo "\nMODIFIED FILES:" >> HEPfit-${VERSION}-${COMMIT}/VERSION
+    myarr=($(git status -uno | grep '\.cpp\|\.h' | awk '{print "\t"$2}' | sed "s#../##"))
+    for i in "${myarr[@]}"
+    do
+        :
+        echo $i >> HEPfit-${VERSION}-${COMMIT}/VERSION
+    done
+    git diff -- '../*/src/*.cpp' ../*/src/*.h > HEPfit-${VERSION}-${COMMIT}/${VERSION}-${COMMIT}.diff
+    echo "\nDiff printed in ${VERSION}-${COMMIT}.diff" >> HEPfit-${VERSION}-${COMMIT}/VERSION
+fi
 echo "tar zcf HEPfit-${VERSION}.tar.gz HEPfit-${VERSION}-${COMMIT}"
 tar zcf HEPfit-${VERSION}-${COMMIT}.tar.gz HEPfit-${VERSION}-${COMMIT}
 
