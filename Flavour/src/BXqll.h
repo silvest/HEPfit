@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2014 HEPfit Collaboration
+ * Copyright (C) 2016 HEPfit Collaboration
  *
  *
  * For the licensing terms see doc/COPYING.
@@ -9,12 +9,11 @@
 #define	BXQLL_H
 
 class StandardModel;
+class F_1;
+class F_2;
 #include "QCD.h"
 #include "ThObservable.h"
-#include "Particle.h"
 #include "gslpp.h"
-#include "F_1.h"
-#include "F_2.h"
 #include <gsl/gsl_integration.h>
 
 /**
@@ -41,7 +40,6 @@ enum q2regions
  * Formulae for the matrix elements are taken from Greub et al., arXiv:0810.4077
  */
 class BXqll {
-friend class MVgamma;
 public:
     
     /**
@@ -81,15 +79,15 @@ public:
 
 private:
 //    const StandardModel& mySM;/**< Model type */
-    F_1 myF_1;
-    F_2 myF_2;
+    F_1& myF_1;
+    F_2& myF_2;
     QCD::lepton lep;/**< Final leptons type */
     QCD::quark quark;/**< Initial meson type */
     double CF, GF, ale, Mlep, mu_b, mu_c, Mb, Mc, Mb_pole, Mc_pole, Ms, MW, abslambdat_over_Vcb, Vts_over_Vcb, z, muh, alsmu, alsmuc, lambda_2;
 
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
-    gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
+//    gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<Vector that contains the primed Wilson coeffients */
     
     gslpp::complex C_1[4];/**<Wilson coeffients @f$C_1@f$*/
@@ -128,19 +126,19 @@ private:
      */
     void updateParameters();
 
-    double F_17re(double muh, double z, double sh, int maxpow=20) { return myF_1.F_17re(muh, z, sh, maxpow); };
-    double F_17im(double muh, double z, double sh, int maxpow=20) { return myF_1.F_17im(muh, z, sh, maxpow); };
-    double F_19re(double muh, double z, double sh, int maxpow=20) { return myF_1.F_19re(muh, z, sh, maxpow); };
-    double F_19im(double muh, double z, double sh, int maxpow=20) { return myF_1.F_19im(muh, z, sh, maxpow); };
-    double F_27re(double muh, double z, double sh, int maxpow=20) { return myF_2.F_27re(muh, z, sh, maxpow); };
-    double F_27im(double muh, double z, double sh, int maxpow=20) { return myF_2.F_27im(muh, z, sh, maxpow); };
-    double F_29re(double muh, double z, double sh, int maxpow=20) { return myF_2.F_29re(muh, z, sh, maxpow); };
-    double F_29im(double muh, double z, double sh, int maxpow=20) { return myF_2.F_29im(muh, z, sh, maxpow); };
+    double F_17re(double muh, double z, double sh, int maxpow=20);
+    double F_17im(double muh, double z, double sh, int maxpow=20);
+    double F_19re(double muh, double z, double sh, int maxpow=20);
+    double F_19im(double muh, double z, double sh, int maxpow=20);
+    double F_27re(double muh, double z, double sh, int maxpow=20);
+    double F_27im(double muh, double z, double sh, int maxpow=20);
+    double F_29re(double muh, double z, double sh, int maxpow=20);
+    double F_29im(double muh, double z, double sh, int maxpow=20);
     
-    double DeltaF_19re(double muh, double z, double sh, int maxpow=20) { return myF_1.DeltaF_19re(muh, z, sh, maxpow); };
-    double DeltaF_19im(double muh, double z, double sh, int maxpow=20) { return myF_1.DeltaF_19im(muh, z, sh, maxpow); };
-    double DeltaF_29re(double muh, double z, double sh, int maxpow=20) { return myF_2.DeltaF_29re(muh, z, sh, maxpow); };
-    double DeltaF_29im(double muh, double z, double sh, int maxpow=20) { return myF_2.DeltaF_29im(muh, z, sh, maxpow); };
+    double DeltaF_19re(double muh, double z, double sh, int maxpow=20);
+    double DeltaF_19im(double muh, double z, double sh, int maxpow=20);
+    double DeltaF_29re(double muh, double z, double sh, int maxpow=20);
+    double DeltaF_29im(double muh, double z, double sh, int maxpow=20);
     /**
     * @brief The correction \f$ F_{17} \f$ from @cite Greub:2008cy.
     * @param[in] sh \f$q^2/m_b^2\f$ of the decay

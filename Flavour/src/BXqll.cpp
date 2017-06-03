@@ -1,21 +1,21 @@
 /* 
- * Copyright (C) 2014 HEPfit Collaboration
+ * Copyright (C) 2016 HEPfit Collaboration
  *
  *
  * For the licensing terms see doc/COPYING.
  */
 
 #include <gsl/gsl_sf.h>
-#include <gslpp_complex.h>
 #include <boost/bind.hpp>
-//#include <limits>
-#include "Flavour.h"
+#include <limits>
 #include "BXqll.h"
 #include "StandardModel.h"
+#include "F_1.h"
+#include "F_2.h"
 
 
 BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)
-: mySM(SM_i)
+: mySM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2()))
 {    
     lep = lep_i;
     quark = quark_i;
@@ -635,3 +635,63 @@ double BXqll::tau29fit_Im(double sh, q2regions q2region)
     
     return (fit);
 }
+
+double BXqll::F_17re(double muh, double z, double sh, int maxpow)
+{
+    return myF_1.F_17re(muh, z, sh, maxpow);
+};
+
+double BXqll::F_17im(double muh, double z, double sh, int maxpow)
+{
+    return myF_1.F_17im(muh, z, sh, maxpow);
+};
+
+double BXqll::F_19re(double muh, double z, double sh, int maxpow)
+{
+    return myF_1.F_19re(muh, z, sh, maxpow);
+};
+
+double BXqll::F_19im(double muh, double z, double sh, int maxpow)
+{
+    return myF_1.F_19im(muh, z, sh, maxpow);
+};
+
+double BXqll::F_27re(double muh, double z, double sh, int maxpow)
+{
+    return myF_2.F_27re(muh, z, sh, maxpow);
+};
+
+double BXqll::F_27im(double muh, double z, double sh, int maxpow)
+{
+    return myF_2.F_27im(muh, z, sh, maxpow);
+};
+
+double BXqll::F_29re(double muh, double z, double sh, int maxpow)
+{
+    return myF_2.F_29re(muh, z, sh, maxpow);
+};
+
+double BXqll::F_29im(double muh, double z, double sh, int maxpow)
+{
+    return myF_2.F_29im(muh, z, sh, maxpow);
+};
+
+double BXqll::DeltaF_19re(double muh, double z, double sh, int maxpow)
+{
+    return myF_1.DeltaF_19re(muh, z, sh, maxpow);
+};
+
+double BXqll::DeltaF_19im(double muh, double z, double sh, int maxpow)
+{
+    return myF_1.DeltaF_19im(muh, z, sh, maxpow);
+};
+
+double BXqll::DeltaF_29re(double muh, double z, double sh, int maxpow)
+{
+    return myF_2.DeltaF_29re(muh, z, sh, maxpow);
+};
+
+double BXqll::DeltaF_29im(double muh, double z, double sh, int maxpow)
+{
+    return myF_2.DeltaF_29im(muh, z, sh, maxpow);
+};

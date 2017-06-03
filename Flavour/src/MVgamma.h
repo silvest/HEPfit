@@ -9,9 +9,9 @@
 #define	MVGAMMA_H
 
 class StandardModel;
-#include "F_1.h"
-#include "F_2.h"
-#include "AmpDB2.h"
+class F_1;
+class F_2;
+class AmpDB2;
 #include "ThObservable.h"
 #include "gslpp_function_adapter.h"
 #include <gsl/gsl_integration.h>
@@ -393,8 +393,8 @@ private:
     QCD::meson meson;
     QCD::meson vectorM;
     const StandardModel& SM;
-    F_1 myF_1;
-    F_2 myF_2;
+    F_1& myF_1;
+    F_2& myF_2;
     double T_perp_real;
     double T_perp_imag;
     double T_perp_bar_real;
@@ -443,7 +443,7 @@ public:
 private:
     QCD::meson meson; /**< Initial meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
-    AmpDB2 myAmpDB2;
+    AmpDB2& myAmpDB2;
     double arg;
     double ADG; /**< @f$A_{\Delta\Gamma}@f$ */
     double ys; /** @f$\frac{\Delta\Gamma}{\Gamma}@f$ */
@@ -520,7 +520,7 @@ public:
 private:
     QCD::meson meson; /**< Initial meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
-    AmpDB2 myAmpDB2;
+    AmpDB2& myAmpDB2;
     double arg;
 };
 
@@ -557,7 +557,7 @@ public:
 private:
     QCD::meson meson; /**< Initial meson type. */
     QCD::meson vectorM; /**< Final vector meson type. */
-    AmpDB2 myAmpDB2;
+    AmpDB2& myAmpDB2;
     double arg;
 };
 

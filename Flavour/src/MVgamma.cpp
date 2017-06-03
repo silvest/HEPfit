@@ -9,6 +9,9 @@
 #include "MVgamma.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
+#include "F_1.h"
+#include "F_2.h"
+#include "AmpDB2.h"
 #include <boost/bind.hpp>
 #include <limits>
 #include <gsl/gsl_sf_zeta.h>
@@ -16,7 +19,7 @@
 #include <gsl/gsl_sf_gegenbauer.h>
 
 MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
-: SM(SM_i)
+: SM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2()))
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -352,7 +355,7 @@ gslpp::complex MVgamma::H_V_p_bar()
 
 
 BR_MVgamma::BR_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
-: ThObservable(SM_i), myAmpDB2(SM_i)
+: ThObservable(SM_i), myAmpDB2(*(new AmpDB2(SM_i)))
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -426,7 +429,8 @@ double C_MVgamma::computeThValue()
             
 }
 
-S_MVgamma::S_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) :  ThObservable(SM_i), myAmpDB2(SM_i)
+S_MVgamma::S_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) 
+: ThObservable(SM_i), myAmpDB2(*(new AmpDB2(SM_i)))
 {
     meson = meson_i;
     vectorM = vector_i;
@@ -461,7 +465,8 @@ double S_MVgamma::computeThValue()
     return 2.*(exp(gslpp::complex::i()*arg)*(HVp.conjugate()*HVm_bar + HVm.conjugate()*HVp_bar)).imag() / (HVp.abs2() + HVm.abs2() + HVp_bar.abs2() + HVm_bar.abs2());
 }
 
-ADG_MVgamma::ADG_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) :  ThObservable(SM_i), myAmpDB2(SM_i)
+ADG_MVgamma::ADG_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i) 
+: ThObservable(SM_i), myAmpDB2(*(new AmpDB2(SM_i)))
 {
     meson = meson_i;
     vectorM = vector_i;
