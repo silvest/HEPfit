@@ -101,6 +101,7 @@
       <itemPath>src/EvolDF2.cpp</itemPath>
       <itemPath>src/F_1.cpp</itemPath>
       <itemPath>src/F_2.cpp</itemPath>
+      <itemPath>src/Flavour.cpp</itemPath>
       <itemPath>src/HeffDB1.cpp</itemPath>
       <itemPath>src/HeffDC1.cpp</itemPath>
       <itemPath>src/HeffDF1bnlep.cpp</itemPath>
@@ -141,7 +142,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>src/Flavour.cpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

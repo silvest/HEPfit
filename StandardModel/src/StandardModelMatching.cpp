@@ -2095,7 +2095,7 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_ew order_ew)
     case NLO_ewt4:
         return (CWBsmmArrayNLOewt4[i]);   
         break;  
-    case NLO_ewt1:
+    case NLO_ewt2:
         return (CWBsmmArrayNLOewt2[i]);
         break;  
     case NLO_ew:
