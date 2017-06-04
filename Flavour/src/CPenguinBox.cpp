@@ -7,6 +7,7 @@
 
 #include "CPenguinBox.h"
 #include "StandardModel.h"
+#include "std_make_vector.h"
 
 CPenguinBox::CPenguinBox(const StandardModel& model_i) 
 : model(model_i),
@@ -494,7 +495,7 @@ double CPenguinBox::Cmatch(orders order)
 double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
 {
     
-    double IBT = model.getDeltaP_cu();
+    double IBT = model.getOptionalParameter("DeltaP_cu");
     double xt = model.getMatching().x_t(model.getMuw());
     double a = model.getMatching().mt2omh2(model.getMuw());
     

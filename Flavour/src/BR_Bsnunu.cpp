@@ -7,6 +7,13 @@
 
 #include "BR_Bsnunu.h"
 #include "StandardModel.h"
+#include "std_make_vector.h"
+
+BR_Bsnunu::BR_Bsnunu(StandardModel& SM_i)
+: ThObservable(SM_i), mySM(SM_i)
+{
+    setParametersForObservable(make_vector<std::string>() << "Br_B_Xcenu");
+};
 
 double BR_Bsnunu::computeThValue()
 {
@@ -19,7 +26,7 @@ double BR_Bsnunu::computeThValue()
     
     
     return(3.*mySM.getAle()*mySM.getAle()/(4.*M_PI*M_PI*pow(sin(theta),4.)) * 
-           mySM.getBr_B_Xcenu() *
+           mySM.getOptionalParameter("Br_B_Xcenu") *
            BRBsnunu(NLO).real() * (1.+2.*mySM.Als(mySM.getMub())/3./M_PI)*(25./4.-M_PI*M_PI)
            /(1. - 8.*z*z + 8.*z*z*z*z*z*z - z*z*z*z*z*z*z*z - 24.*z*z*z*z*log(z))
            /(1. - 2.*mySM.Als(mySM.getMub())/3./M_PI*((M_PI*M_PI-31./4.)*(1.-z*z)+1.5)));

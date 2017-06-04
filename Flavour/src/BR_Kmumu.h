@@ -20,7 +20,7 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Kmumu(StandardModel& SM_i): ThObservable(SM_i), mySM(SM_i), CPB(SM){};
+    BR_Kmumu(StandardModel& SM_i);
     
     /**
      * 

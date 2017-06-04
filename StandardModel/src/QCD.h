@@ -639,7 +639,7 @@ public:
         MESON_END /**< The size of this enum. */
     };
     
-    static const int NQCDvars = 51; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 42; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -933,86 +933,6 @@ public:
     {
         return BParameterMap.at("BKd3");
     }
-
-    /**
-     * @return the experimental value of the real part of the amplitude for
-     * @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$
-     */
-    double getReA0_Kd() const
-    {
-        return ReA0_Kd;
-    }
-
-    /**
-     * @return the experimental value of the real part of the amplitude for
-     * @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$
-     */
-    double getReA2_Kd() const
-    {
-        return ReA2_Kd;
-    }
-
-    /**
-     * @return the isospin breaking contribution in @f$K^0\to\pi\pi@f$
-     */
-    double getOmega_eta_etap() const
-    {
-        return Omega_eta_etap;
-    }
-
-    /**
-     * @return the experimental value for the branching ratio of @f$K^+\to\pi^0e^+\nu@f$
-     */
-    double getBr_Kp_P0enu() const
-    {
-        return Br_Kp_P0enu;
-    }
-
-    /**
-     * @return the experimental value for the branching ratio of @f$K^+\to\mu^+\nu@f$
-     */
-    double getBr_Kp_munu() const
-    {
-        return Br_Kp_munu;
-    }
-
-    /**
-     * @return the experimental value for the branching ratio of @f$B\to X_c e\nu@f$
-     */
-    double getBr_B_Xcenu() const
-    {
-        return Br_B_Xcenu;
-    }
-
-    /**
-     * @return the long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$
-     *
-     * References:
-     * [<A HREF="http://inspirehep.net/record/678222?ln=en" target="blank">Isidori et al.(2005)</A>],
-     * [<A HREF="http://inspirehep.net/record/712083?ln=en" target="blank">Buras et al.(2006)</A>]
-     */
-    double getDeltaP_cu() const
-    {
-        return DeltaP_cu;
-    }
-
-    /**
-     * @return the isospin breaking corrections between
-     * @f$K_L\to\pi^0\nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$
-     */
-    double getIB_Kl() const
-    {
-        return IB_Kl;
-    }
-
-    /**
-     * @return the isospin breaking corrections between
-     * @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$
-     */
-    double getIB_Kp() const
-    {
-        return IB_Kp;
-    }
         
     /**
      * @return the decay constant of a transversely polarized @f$K^*@f$ meson at 1 GeV
@@ -1262,15 +1182,6 @@ protected:
     double mut; ///< The threshold between six- and five-flavour theory in GeV. 
     double mub; ///< The threshold between five- and four-flavour theory in GeV. 
     double muc; ///< The threshold between four- and three-flavour theory in GeV. 
-    double ReA0_Kd;
-    double ReA2_Kd;
-    double Omega_eta_etap;
-    double Br_Kp_P0enu;
-    double IB_Kl;
-    double IB_Kp;
-    double DeltaP_cu;
-    double Br_Kp_munu;
-    double Br_B_Xcenu;
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     double FKstarp, FKstarPp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     

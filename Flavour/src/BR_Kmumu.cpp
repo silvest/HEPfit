@@ -7,6 +7,13 @@
 
 #include "BR_Kmumu.h"
 #include "StandardModel.h"
+#include "std_make_vector.h"
+
+BR_Kmumu::BR_Kmumu(StandardModel& SM_i)
+: ThObservable(SM_i), mySM(SM_i), CPB(SM)
+{
+    setParametersForObservable(make_vector<std::string>() << "Br_Kp_munu" << "DeltaP_cu");
+};
 
 double BR_Kmumu::computeThValue()
 {
@@ -15,7 +22,7 @@ double BR_Kmumu::computeThValue()
     
     return((mySM.getMesons(QCD::K_0).getLifetime() / HCUT / mySM.getMesons(QCD::K_P).getLifetime() / HCUT)
            * mySM.getAle()*mySM.getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.)) 
-           * mySM.getBr_Kp_munu() * BRKmumu(NLO).real());
+           * mySM.getOptionalParameter("Br_Kp_munu") * BRKmumu(NLO).real());
 }
 
 gslpp::complex BR_Kmumu::BRKmumu(orders order)

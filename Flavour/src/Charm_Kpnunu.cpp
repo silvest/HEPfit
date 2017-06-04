@@ -591,7 +591,7 @@ double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew)
     double lambda = model.getLambda();
     double lambda5 = model.getLambda()*model.getLambda()*model.getLambda()
                      *model.getLambda()*model.getLambda();
-    double IBT = model.getDeltaP_cu();
+    double IBT = model.getOptionalParameter("DeltaP_cu");
     double X = 0.;
     
     if((order == NNLO) && (order_ew == NLO_ew)){

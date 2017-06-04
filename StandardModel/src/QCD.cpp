@@ -30,8 +30,6 @@ std::string QCD::QCDvars[NQCDvars] = {
     "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
     "DGs_Gs",
     "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi", "Fphip",
-    "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
-    "Br_Kp_P0enu", "Br_Kp_munu", "Br_B_Xcenu", "DeltaP_cu", "IB_Kl", "IB_Kp",
     "lambdaB", "alpha1kst", "alpha2kst", "alpha2phi", "alpha1kp", "alpha2kp"
 };
 
@@ -83,7 +81,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mbottom", boost::cref(quarks[BOTTOM].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muc", boost::cref(muc)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mub", boost::cref(mub)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mut", boost::cref(mut)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mut", boost::cref(mut)));   
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MK0", boost::cref(mesons[K_0].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKp", boost::cref(mesons[K_P].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MD", boost::cref(mesons[D_0].getMass())));
@@ -109,15 +107,6 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(mesons[PHI].getDecayconst())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphip", boost::cref(Fphip)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ReA2_Kd", boost::cref(ReA2_Kd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ReA0_Kd", boost::cref(ReA0_Kd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Omega_eta_etap", boost::cref(Omega_eta_etap)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Br_Kp_P0enu", boost::cref(Br_Kp_P0enu)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Br_Kp_munu", boost::cref(Br_Kp_munu)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Br_B_Xcenu", boost::cref(Br_B_Xcenu)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
@@ -370,24 +359,6 @@ void QCD::setParameter(const std::string name, const double& value)
         FBsoFBd = value;
         computeFBd = true;
     }
-    else if (name.compare("ReA0_Kd") == 0)
-        ReA0_Kd = value;
-    else if (name.compare("ReA2_Kd") == 0)
-        ReA2_Kd = value;
-    else if (name.compare("Omega_eta_etap") == 0)
-        Omega_eta_etap = value;
-    else if (name.compare("Br_Kp_P0enu") == 0)
-        Br_Kp_P0enu = value;
-    else if (name.compare("Br_Kp_munu") == 0)
-        Br_Kp_munu = value;
-    else if (name.compare("Br_B_Xcenu") == 0)
-        Br_B_Xcenu = value;
-    else if (name.compare("DeltaP_cu") == 0)
-        DeltaP_cu = value;
-    else if (name.compare("IB_Kl") == 0)
-        IB_Kl = value;
-    else if (name.compare("IB_Kp") == 0)
-        IB_Kp = value;
     else if (name.compare("lambdaB") == 0) {
         mesons[B_D].setLambdaM(value);
         mesons[B_S].setLambdaM(value);

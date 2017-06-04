@@ -21,7 +21,7 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Kppnunu(StandardModel& SM_i): ThObservable(SM_i), mySM(SM_i), CKpnunu(SM) {};
+    BR_Kppnunu(StandardModel& SM_i);
     
     /**
      * 

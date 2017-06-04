@@ -7,14 +7,21 @@
 
 #include "BR_Kppnunu.h"
 #include "StandardModel.h"
+#include "std_make_vector.h"
+
+BR_Kppnunu::BR_Kppnunu(StandardModel& SM_i)
+: ThObservable(SM_i), mySM(SM_i), CKpnunu(SM)
+{
+    setParametersForObservable(make_vector<std::string>() << "Br_Kp_P0enu" << "DeltaP_cu" << "IB_Kp");
+};
 
 double BR_Kppnunu::computeThValue()
 {
     double theta= asin(sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * 
                    SM.Mw_tree() * SM.Mw_tree()) ));
     
-    return( SM.getIB_Kp() * 3.*SM.getAle()*SM.getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.))
-           * SM.getBr_Kp_P0enu() * BRKppnunu(NLO, NLO_ew).real());
+    return( SM.getOptionalParameter("IB_Kp") * 3.*SM.getAle()*SM.getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.))
+           * SM.getOptionalParameter("Br_Kp_P0enu") * BRKppnunu(NLO, NLO_ew).real());
 }
 
 gslpp::complex BR_Kppnunu::BRKppnunu(orders order, orders_ew order_ew)
