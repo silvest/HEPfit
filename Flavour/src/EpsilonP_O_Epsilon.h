@@ -9,7 +9,6 @@
 #define	EPSILONP_O_EPSILON_H
 
 #include "ThObservable.h"
-#include "Flavour.h"
 #include "AmpDS1.h"
 
 /**

@@ -7,10 +7,11 @@
     
 #include "HeffDF1bsg.h"
 #include "StandardModel.h"
+#include "EvolDB1bsg.h"
 
 HeffDF1bsg::HeffDF1bsg(const StandardModel & SM) 
 :       model(SM), coeffbsg(10, NDR, NLO), 
-        evolDB1bsg(13, NDR, NLO, SM) 
+        evolDB1bsg(*(new EvolDB1bsg(13, NDR, NLO, SM))) 
 {}
 
 HeffDF1bsg::~HeffDF1bsg() 

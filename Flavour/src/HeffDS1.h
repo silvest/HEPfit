@@ -9,10 +9,9 @@
 #define	HEFFDS1_H
 
 class StandardModel;
-#include "StandardModelMatching.h"
+class EvolDF1nlep;
+class EvolDB1Mll;
 #include "WilsonCoefficient.h"
-#include "EvolDF1nlep.h"
-#include "EvolDB1Mll.h"
 #include <sstream>
 
 class HeffDS1{
@@ -32,11 +31,11 @@ public:
     
     /**
      * 
-     * @brief the effective hamiltonian at the scale mu for \f$ K \rightarrow \pi \pi \f$
+     * @brief the effective Hamiltonian at the scale mu for \f$ K \rightarrow \pi \pi \f$
      * @brief with the current current open-charm operator contribution. 
      * @param mu is the low energy scale
-     * @param scheme indicates the reonrmalization scheme
-     * @return the effective hamiltonian at the scale mu for \f$ K \rightarrow \pi \pi \f$
+     * @param scheme indicates the renormalization scheme
+     * @return the effective Hamiltonian at the scale mu for \f$ K \rightarrow \pi \pi \f$
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR);
     
@@ -60,11 +59,11 @@ public:
         return coeffds1mumu;
     }
     
-    EvolDF1nlep getUDF1B() const {
+    EvolDF1nlep& getUDF1B() const {
         return u;
     }
     
-    EvolDB1Mll getUDF1M() const {
+    EvolDB1Mll& getUDF1M() const {
         return uM;
     }
 
@@ -76,8 +75,8 @@ private :
     const StandardModel& model;
     
     WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu, coeffds1mumu;
-    EvolDF1nlep u;
-    EvolDB1Mll uM;
+    EvolDF1nlep& u;
+    EvolDB1Mll& uM;
     
     gslpp::vector<gslpp::complex> DS1cce, DS1cc;
     

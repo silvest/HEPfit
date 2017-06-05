@@ -8,9 +8,10 @@
 #ifndef BDMUMU_H
 #define	BDMUMU_H
 
-#include "ThObservable.h"
-#include "Flavour.h"
 class StandardModel;
+class EvolBsmm;
+#include "ThObservable.h"
+#include "OrderScheme.h"
 
 class Bdmumu : public ThObservable {
 public:
@@ -61,7 +62,7 @@ private:
     double timeInt;
     double yd;
     int obs;
-    EvolBsmm evolbdmm;
+    EvolBsmm& evolbdmm;
     
 };
 

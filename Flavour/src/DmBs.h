@@ -9,7 +9,6 @@
 #define	DMBS_H
 
 #include "ThObservable.h"
-#include "Flavour.h"
 #include "AmpDB2.h"
 
 /**

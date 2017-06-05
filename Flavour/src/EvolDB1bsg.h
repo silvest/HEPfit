@@ -8,9 +8,8 @@
 #ifndef EVOLDB1BSG_H
 #define	EVOLDB1BSG_H
 
-
-#include "RGEvolutor.h"
 class StandardModel;
+#include "RGEvolutor.h"
 
 class EvolDB1bsg : public RGEvolutor {
 /**

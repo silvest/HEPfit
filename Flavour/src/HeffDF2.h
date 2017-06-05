@@ -9,8 +9,9 @@
 #define	HEFFDF2_H
 
 class StandardModel;
+class EvolDF2;
 #include "WilsonCoefficient.h"
-#include "EvolDF2.h"
+#include "gslpp.h"
 
 /**
  * @class HeffDF2
@@ -114,7 +115,7 @@ public:
         return coeffmk;
     }
     
-    EvolDF2 getUDF2() const {
+    EvolDF2& getUDF2() const {
         return evolDF2;
     }
 
@@ -129,7 +130,7 @@ private:
     WilsonCoefficient coeffk;
     WilsonCoefficient coeffmk;
     
-    EvolDF2 evolDF2;
+    EvolDF2& evolDF2;
 };
 
 #endif	/* HEFFDF2_H */

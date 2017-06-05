@@ -8,8 +8,8 @@
 #ifndef EVOLBSMM_H
 #define	EVOLBSMM_H
 
-#include "RGEvolutor.h"
 class StandardModel;
+#include "RGEvolutor.h"
 #include <sstream>
 #include <vector>
 

@@ -9,9 +9,8 @@
 #define	HEFFDF1BNLEP_H
 
 class StandardModel;
-#include "StandardModelMatching.h"
+class EvolDF1nlep;
 #include "WilsonCoefficient.h"
-#include "EvolDF1nlep.h"
 #include <sstream>
 
 class HeffDF1bnlep {
@@ -21,7 +20,7 @@ public:
      * @param SM
      * @param modelmatching
      */
-    HeffDF1bnlep(const StandardModel & SM, StandardModelMatching& modelmatching);
+    HeffDF1bnlep(const StandardModel & SM);
     
     /**
      * 
@@ -77,7 +76,7 @@ public:
         return coeffbnlep11;
     }
     
-    EvolDF1nlep getUDF1() const {
+    EvolDF1nlep& getUDF1() const {
         return u;
     }
 
@@ -92,7 +91,7 @@ private :
     WilsonCoefficient coeffbnlep10qcd, coeffbnlep10;
     WilsonCoefficient coeffbnlep01, coeffbnlep01A, coeffbnlep01B, coeffbnlep00CC;
     WilsonCoefficient coeffbnlep11, coeffbnlep11A, coeffbnlep11B, coeffbnlep10CC;
-    EvolDF1nlep u;
+    EvolDF1nlep& u;
     
     gslpp::vector<gslpp::complex> bnlep, bnlep2, bnlepCC;
 };

@@ -8,6 +8,10 @@
 #include "HeffDB1.h"
 #include "gslpp_complex.h"
 #include "StandardModel.h"
+#include "EvolDF1nlep.h"
+#include "EvolDB1Mll.h"
+#include "EvolDB1bsg.h"
+#include "EvolBsmm.h"
 
 HeffDB1::HeffDB1(const StandardModel & SM) 
 :       model(SM), 
@@ -22,10 +26,10 @@ HeffDB1::HeffDB1(const StandardModel & SM)
         coeffprimesgamma(8,NDR, NNLO),
         coeffBMll (13,NDR, NLO),
         coeffprimeBMll (13, NDR, NLO),
-        evolDF1BMll(13, NDR, NLO, SM),
-        evolDB1bsg(8, NDR, NNLO, SM),
-        u(10, NDR, NLO, NLO_ew, SM),
-        evolbs(8, NDR, NNLO, NLO_ewt4, SM), evolbd(8, NDR, NNLO, NLO_ewt4, SM),
+        evolDF1BMll(*(new EvolDB1Mll(13, NDR, NLO, SM))),
+        evolDB1bsg(*(new EvolDB1bsg(8, NDR, NNLO, SM))),
+        u(*(new EvolDF1nlep(10, NDR, NLO, NLO_ew, SM))),
+        evolbs(*(new EvolBsmm(8, NDR, NNLO, NLO_ewt4, SM))), evolbd(*(new EvolBsmm(8, NDR, NNLO, NLO_ewt4, SM))),
         nlep (12, 0.), nlep2(10, 0.),        
         nlepCC(4, 0.)
 {

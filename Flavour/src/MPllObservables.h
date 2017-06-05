@@ -11,9 +11,6 @@
 #include "MPll.h"
 #include "ThObservable.h"
 
-
-
-
 /**
  * @class BR_MPll
  * @ingroup Flavour

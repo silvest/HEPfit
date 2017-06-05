@@ -10,7 +10,6 @@
 
 class StandardModel;
 #include "ThObservable.h"
-//#include "gslpp.h"
 #include "QCD.h"
 
 /**

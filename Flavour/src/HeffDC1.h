@@ -9,10 +9,10 @@
 #define	HEFFDC1_H
 
 class StandardModel;
-#include "StandardModelMatching.h"
+class EvolDC1;
+class EvolDC1Buras;
 #include "WilsonCoefficient.h"
-#include "EvolDC1.h"
-#include "EvolDC1Buras.h"
+#include "gslpp.h"
 #include <sstream>
 
 /**
@@ -28,7 +28,7 @@ public:
  * @param SM an object of StandardModel class
  * @param SM_Matching an object of StandardModelMatching class
  */
-    HeffDC1(const StandardModel & SM, StandardModelMatching & SM_Matching);
+    HeffDC1(const StandardModel & SM);
     /**
      * @brief HeffDC1 destructor
      */
@@ -62,14 +62,14 @@ public:
      *  
      * @return an object of EvolDC1 class
      */
-    EvolDC1 getUDC1() const {
+    EvolDC1& getUDC1() const {
         return ug;
     }
     /**
      * 
      * @return an object of EvolDC1Buras class
      */
-    EvolDC1Buras getUDC1Buras() const {
+    EvolDC1Buras& getUDC1Buras() const {
         return u;
     }
     /**
@@ -83,8 +83,8 @@ public:
 private :
     const StandardModel& model;
     WilsonCoefficient coeffdc1, coeffdc1g;
-    EvolDC1 ug;
-    EvolDC1Buras u;
+    EvolDC1& ug;
+    EvolDC1Buras& u;
     gslpp::matrix<gslpp::complex> ckm, COEFF_pi, COEFF_K;
 };
 

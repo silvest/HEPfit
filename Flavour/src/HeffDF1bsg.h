@@ -9,9 +9,8 @@
 #define	HEFFDF1_H
 
 class StandardModel;
-#include "StandardModelMatching.h"
+class EvolDB1bsg;
 #include "WilsonCoefficient.h"
-#include "EvolDB1bsg.h"
 
 class HeffDF1bsg {
 public:
@@ -37,7 +36,7 @@ public:
     gslpp::vector<gslpp::complex>** ComputeCoeffBsg(double mu, schemes scheme = NDR);
     
     
-    EvolDB1bsg getUDF1() const {
+    EvolDB1bsg& getUDF1() const {
         return evolDB1bsg;
     }
 
@@ -48,7 +47,7 @@ public:
 private :
     const StandardModel& model;
     WilsonCoefficient coeffbsg;
-    EvolDB1bsg evolDB1bsg;
+    EvolDB1bsg& evolDB1bsg;
     
 };
 

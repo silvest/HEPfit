@@ -7,9 +7,8 @@
 #ifndef BDMUMUOBSMUMU_H
 #define BDMUMUOBSMUMU_H
 
-#include "ThObservable.h"
-#include "Flavour.h"
 class StandardModel;
+#include "ThObservable.h"
 
 class BdmumuOBsmumu : public ThObservable {
 public:

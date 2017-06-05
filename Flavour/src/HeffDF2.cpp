@@ -7,6 +7,7 @@
 
 #include "HeffDF2.h"
 #include "StandardModel.h"
+#include "EvolDF2.h"
 
 HeffDF2::HeffDF2(const StandardModel& SM)
 :       model(SM),
@@ -16,7 +17,7 @@ HeffDF2::HeffDF2(const StandardModel& SM)
         coeffDd(5, NDR, NLO),
         coeffk(5, NDR, NLO),
         coeffmk(5, NDR, NLO),
-        evolDF2(5, NDR, NLO, SM)
+        evolDF2(*(new EvolDF2(5, NDR, NLO, SM)))
 {
     
     double Nc = SM.getNc();

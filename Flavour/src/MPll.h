@@ -10,7 +10,7 @@
 
 class StandardModel;
 #include "QCD.h"
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include <math.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_integration.h>

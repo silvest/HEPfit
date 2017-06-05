@@ -8,9 +8,8 @@
 #ifndef EVOLDC1BURAS_H
 #define	EVOLDC1BURAS_H
 
-
-#include "RGEvolutor.h"
 class StandardModel;
+#include "RGEvolutor.h"
 #include <sstream>
 
 class EvolDC1Buras : public RGEvolutor {

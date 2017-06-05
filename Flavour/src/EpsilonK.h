@@ -9,7 +9,6 @@
 #define	EPSILONK_H
 
 #include "ThObservable.h"
-#include "Flavour.h"
 #include "AmpDK2.h"
 
 /**

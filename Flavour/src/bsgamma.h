@@ -8,7 +8,7 @@
 #ifndef BSGAMMA_H
 #define	BSGAMMA_H
 
-#include <ThObservable.h>
+#include "ThObservable.h"
 #include <gsl/gsl_integration.h>
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>

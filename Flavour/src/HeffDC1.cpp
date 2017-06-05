@@ -7,10 +7,12 @@
     
 #include "HeffDC1.h"
 #include "StandardModel.h"
+#include "EvolDC1.h"
+#include "EvolDC1Buras.h"
 
-HeffDC1::HeffDC1(const StandardModel & SM, StandardModelMatching & SM_Matching) 
+HeffDC1::HeffDC1(const StandardModel & SM) 
 :       model(SM), coeffdc1(10, NDR, NLO), 
-        coeffdc1g(10, NDR, NLO), ug(10, NDR, NLO, SM), u(10, NDR, NLO, SM), 
+        coeffdc1g(10, NDR, NLO), ug(*(new EvolDC1(10, NDR, NLO, SM))), u(*(new EvolDC1Buras(10, NDR, NLO, SM))), 
         ckm(3,0.), COEFF_pi(10,0.), COEFF_K(10,0.)
 {
   

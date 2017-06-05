@@ -7,10 +7,11 @@
 
 #include "Bsmumu.h"
 #include "StandardModel.h"
+#include "EvolBsmm.h"
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
-  evolbsmm(8, NDR, NNLO, NLO_ewt4, SM)
+  evolbsmm(*(new EvolBsmm(8, NDR, NNLO, NLO_ewt4, SM)))
 {
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");

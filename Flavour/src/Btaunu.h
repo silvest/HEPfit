@@ -9,7 +9,6 @@
 #define	BTAUNU_H
 
 #include "ThObservable.h"
-#include "Flavour.h"
 class StandardModel;
 
 class Btaunu : public ThObservable {
