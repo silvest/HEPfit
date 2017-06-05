@@ -15,6 +15,8 @@
 #include "WilsonCoefficient.h"
 #include "StandardModelMatching.h"
 #include "Matching.h"
+#include "gslpp_function_adapter.h"
+#include <gsl/gsl_integration.h>
 
 class EWSMcache;
 class EWSMOneLoopEW;
@@ -463,6 +465,18 @@ class StandardModel : public QCD {
 public:
 
 
+            // Radiative Corrections for the LEP-II observables
+    enum LEP2RCs {
+        Weak = 0, 
+        WeakBox, 
+        ISR, 
+        QEDFSR, 
+        QCDFSR, 
+        NUMofLEP2RCs
+    };
+    
+    
+    
     /**
      * @brief An enumerated type representing perturbative orders of radiative
      * corrections to %EW precision observables.
@@ -477,6 +491,9 @@ public:
         orders_EW_size ///< The size of this enum.
     };
 
+
+    
+    
     static const int NSMvars = 27; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
@@ -484,7 +501,7 @@ public:
     static std::string SMvars[NSMvars];
 
     static const double GeVminus2_to_nb;
-
+    
     /**
      * @brief The target accuracy of the iterative calculation of the
      * @f$W@f$-boson mass in units of GeV.
@@ -2430,6 +2447,38 @@ public:
     }
     
     ////////////////////////////////////////////////////////////////////////
+    //LEP2 Observables
+    
+    virtual double LEP2sigmaMu(const double s) const;
+    virtual double LEP2sigmaTau(const double s) const;
+    virtual double LEP2sigmaHadron(const double s) const;
+    virtual double LEP2sigmaCharm(const double s) const;
+    virtual double LEP2sigmaBottom(const double s) const;
+    
+    virtual double LEP2AFBmu(const double s) const;
+    virtual double LEP2AFBtau(const double s) const;
+    virtual double LEP2AFBcharm(const double s) const;
+    virtual double LEP2AFBbottom(const double s) const;
+    virtual double LEP2Rcharm(const double s) const;
+    virtual double LEP2Rbottom(const double s) const;
+
+bool setFlagSigmaForAFB(const bool flagSigmaForAFB_i)
+{
+    bSigmaForAFB = flagSigmaForAFB_i;
+    return true;
+}
+
+bool setFlagSigmaForR(const bool flagSigmaForR_i)
+{
+    bSigmaForR = flagSigmaForR_i;
+    return true;
+}
+
+virtual double getmq(const QCD::quark q, const double mu) const
+{
+    return m_q(q, mu, FULLNLO);
+}
+    ////////////////////////////////////////////////////////////////////////
 protected:
 
     /**
@@ -2543,6 +2592,25 @@ protected:
             return true;
         else
             return false;
+    }
+    
+    
+    double m_q(const QCD::quark q, const double mu, const orders order=FULLNLO) const 
+    {
+        switch(q) {
+            case QCD::UP:
+            case QCD::DOWN:
+            case QCD::STRANGE:
+                return Mrun(mu, getQuarks(q).getMass_scale(), 
+                                         getQuarks(q).getMass(), order);
+            case QCD::CHARM:
+            case QCD::BOTTOM:
+                return Mrun(mu, getQuarks(q).getMass(), order);
+            case QCD::TOP:
+                return getMtpole(); // the pole mass
+            default:
+                throw std::runtime_error("Error in StandardModel::m_q()"); 
+        }
     }
 
     /**
@@ -2716,7 +2784,296 @@ protected:
     bool requireYn; ///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
 
     Flavour SMFlavour; ///< An object of type Flavour.
+    
+    //////////////////////////////////////////////////////////////////////// 
+    //Migrated from LEP2ThObservables.h
+    
+    
 
+    bool flagLEP2[NUMofLEP2RCs];    
+    mutable bool bSigmaForAFB;
+    mutable bool bSigmaForR;
+    
+    
+    
+    double sigma_NoISR_l(const QCD::lepton l_flavor, const double s) const;
+    double sigma_NoISR_q(const QCD::quark q_flavor, const  double s) const;
+    double AFB_NoISR_l(const QCD::lepton l_flavor, const  double s) const;
+    double AFB_NoISR_q(const QCD::quark q_flavor, const  double s) const;
+    
+    double Integrand_sigmaWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const;
+    
+    double getIntegrand_sigmaWithISR_mu130(double x) const; 
+    double getIntegrand_sigmaWithISR_mu136(double x) const; 
+    double getIntegrand_sigmaWithISR_mu161(double x) const; 
+    double getIntegrand_sigmaWithISR_mu172(double x) const; 
+    double getIntegrand_sigmaWithISR_mu183(double x) const; 
+    double getIntegrand_sigmaWithISR_mu189(double x) const; 
+    double getIntegrand_sigmaWithISR_mu192(double x) const; 
+    double getIntegrand_sigmaWithISR_mu196(double x) const; 
+    double getIntegrand_sigmaWithISR_mu200(double x) const; 
+    double getIntegrand_sigmaWithISR_mu202(double x) const; 
+    double getIntegrand_sigmaWithISR_mu205(double x) const; 
+    double getIntegrand_sigmaWithISR_mu207(double x) const;
+    
+    
+    double getIntegrand_sigmaWithISR_tau130(double x) const; 
+    double getIntegrand_sigmaWithISR_tau136(double x) const; 
+    double getIntegrand_sigmaWithISR_tau161(double x) const; 
+    double getIntegrand_sigmaWithISR_tau172(double x) const; 
+    double getIntegrand_sigmaWithISR_tau183(double x) const; 
+    double getIntegrand_sigmaWithISR_tau189(double x) const; 
+    double getIntegrand_sigmaWithISR_tau192(double x) const; 
+    double getIntegrand_sigmaWithISR_tau196(double x) const; 
+    double getIntegrand_sigmaWithISR_tau200(double x) const; 
+    double getIntegrand_sigmaWithISR_tau202(double x) const; 
+    double getIntegrand_sigmaWithISR_tau205(double x) const; 
+    double getIntegrand_sigmaWithISR_tau207(double x) const;
+
+    
+    double Integrand_sigmaWithISR_q(double x, const QCD::quark q_flavor, const  double s) const;
+    
+    double getIntegrand_sigmaWithISR_up130(double x) const; 
+    double getIntegrand_sigmaWithISR_up133(double x) const; 
+    double getIntegrand_sigmaWithISR_up136(double x) const; 
+    double getIntegrand_sigmaWithISR_up161(double x) const;
+    double getIntegrand_sigmaWithISR_up167(double x) const; 
+    double getIntegrand_sigmaWithISR_up172(double x) const; 
+    double getIntegrand_sigmaWithISR_up183(double x) const; 
+    double getIntegrand_sigmaWithISR_up189(double x) const; 
+    double getIntegrand_sigmaWithISR_up192(double x) const; 
+    double getIntegrand_sigmaWithISR_up196(double x) const; 
+    double getIntegrand_sigmaWithISR_up200(double x) const; 
+    double getIntegrand_sigmaWithISR_up202(double x) const; 
+    double getIntegrand_sigmaWithISR_up205(double x) const; 
+    double getIntegrand_sigmaWithISR_up207(double x) const;
+    
+    double getIntegrand_sigmaWithISR_down130(double x) const; 
+    double getIntegrand_sigmaWithISR_down133(double x) const;
+    double getIntegrand_sigmaWithISR_down136(double x) const; 
+    double getIntegrand_sigmaWithISR_down161(double x) const; 
+    double getIntegrand_sigmaWithISR_down167(double x) const; 
+    double getIntegrand_sigmaWithISR_down172(double x) const; 
+    double getIntegrand_sigmaWithISR_down183(double x) const; 
+    double getIntegrand_sigmaWithISR_down189(double x) const; 
+    double getIntegrand_sigmaWithISR_down192(double x) const; 
+    double getIntegrand_sigmaWithISR_down196(double x) const; 
+    double getIntegrand_sigmaWithISR_down200(double x) const; 
+    double getIntegrand_sigmaWithISR_down202(double x) const; 
+    double getIntegrand_sigmaWithISR_down205(double x) const; 
+    double getIntegrand_sigmaWithISR_down207(double x) const;
+    
+    double getIntegrand_sigmaWithISR_charm130(double x) const; 
+    double getIntegrand_sigmaWithISR_charm133(double x) const; 
+    double getIntegrand_sigmaWithISR_charm136(double x) const; 
+    double getIntegrand_sigmaWithISR_charm161(double x) const; 
+    double getIntegrand_sigmaWithISR_charm167(double x) const; 
+    double getIntegrand_sigmaWithISR_charm172(double x) const; 
+    double getIntegrand_sigmaWithISR_charm183(double x) const; 
+    double getIntegrand_sigmaWithISR_charm189(double x) const; 
+    double getIntegrand_sigmaWithISR_charm192(double x) const; 
+    double getIntegrand_sigmaWithISR_charm196(double x) const; 
+    double getIntegrand_sigmaWithISR_charm200(double x) const; 
+    double getIntegrand_sigmaWithISR_charm202(double x) const; 
+    double getIntegrand_sigmaWithISR_charm205(double x) const; 
+    double getIntegrand_sigmaWithISR_charm207(double x) const;
+    
+    double getIntegrand_sigmaWithISR_strange130(double x) const; 
+    double getIntegrand_sigmaWithISR_strange133(double x) const;
+    double getIntegrand_sigmaWithISR_strange136(double x) const; 
+    double getIntegrand_sigmaWithISR_strange161(double x) const; 
+    double getIntegrand_sigmaWithISR_strange167(double x) const; 
+    double getIntegrand_sigmaWithISR_strange172(double x) const; 
+    double getIntegrand_sigmaWithISR_strange183(double x) const; 
+    double getIntegrand_sigmaWithISR_strange189(double x) const; 
+    double getIntegrand_sigmaWithISR_strange192(double x) const; 
+    double getIntegrand_sigmaWithISR_strange196(double x) const; 
+    double getIntegrand_sigmaWithISR_strange200(double x) const; 
+    double getIntegrand_sigmaWithISR_strange202(double x) const; 
+    double getIntegrand_sigmaWithISR_strange205(double x) const; 
+    double getIntegrand_sigmaWithISR_strange207(double x) const;
+    
+    double getIntegrand_sigmaWithISR_bottom130(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom133(double x) const;
+    double getIntegrand_sigmaWithISR_bottom136(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom161(double x) const;  
+    double getIntegrand_sigmaWithISR_bottom167(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom172(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom183(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom189(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom192(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom196(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom200(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom202(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom205(double x) const; 
+    double getIntegrand_sigmaWithISR_bottom207(double x) const;
+    
+    double Integrand_dsigmaBox_l(double cosTheta, const QCD::lepton l_flavor, const  double s) const;
+    
+    double getIntegrand_dsigmaBox_mu130(double x) const; 
+    double getIntegrand_dsigmaBox_mu133(double x) const;
+    double getIntegrand_dsigmaBox_mu136(double x) const; 
+    double getIntegrand_dsigmaBox_mu161(double x) const; 
+    double getIntegrand_dsigmaBox_mu167(double x) const; 
+    double getIntegrand_dsigmaBox_mu172(double x) const; 
+    double getIntegrand_dsigmaBox_mu183(double x) const; 
+    double getIntegrand_dsigmaBox_mu189(double x) const; 
+    double getIntegrand_dsigmaBox_mu192(double x) const; 
+    double getIntegrand_dsigmaBox_mu196(double x) const; 
+    double getIntegrand_dsigmaBox_mu200(double x) const; 
+    double getIntegrand_dsigmaBox_mu202(double x) const; 
+    double getIntegrand_dsigmaBox_mu205(double x) const; 
+    double getIntegrand_dsigmaBox_mu207(double x) const;
+    
+    double getIntegrand_dsigmaBox_tau130(double x) const; 
+    double getIntegrand_dsigmaBox_tau133(double x) const; 
+    double getIntegrand_dsigmaBox_tau136(double x) const; 
+    double getIntegrand_dsigmaBox_tau161(double x) const;
+    double getIntegrand_dsigmaBox_tau167(double x) const; 
+    double getIntegrand_dsigmaBox_tau172(double x) const; 
+    double getIntegrand_dsigmaBox_tau183(double x) const; 
+    double getIntegrand_dsigmaBox_tau189(double x) const; 
+    double getIntegrand_dsigmaBox_tau192(double x) const; 
+    double getIntegrand_dsigmaBox_tau196(double x) const; 
+    double getIntegrand_dsigmaBox_tau200(double x) const; 
+    double getIntegrand_dsigmaBox_tau202(double x) const; 
+    double getIntegrand_dsigmaBox_tau205(double x) const; 
+    double getIntegrand_dsigmaBox_tau207(double x) const;
+    
+    
+    double Integrand_dsigmaBox_q(double cosTheta, const QCD::quark q_flavor, const  double s) const;
+    
+    double getIntegrand_dsigmaBox_up130(double x) const; 
+    double getIntegrand_dsigmaBox_up133(double x) const;  
+    double getIntegrand_dsigmaBox_up136(double x) const; 
+    double getIntegrand_dsigmaBox_up161(double x) const;
+    double getIntegrand_dsigmaBox_up167(double x) const; 
+    double getIntegrand_dsigmaBox_up172(double x) const; 
+    double getIntegrand_dsigmaBox_up183(double x) const; 
+    double getIntegrand_dsigmaBox_up189(double x) const; 
+    double getIntegrand_dsigmaBox_up192(double x) const; 
+    double getIntegrand_dsigmaBox_up196(double x) const; 
+    double getIntegrand_dsigmaBox_up200(double x) const; 
+    double getIntegrand_dsigmaBox_up202(double x) const; 
+    double getIntegrand_dsigmaBox_up205(double x) const; 
+    double getIntegrand_dsigmaBox_up207(double x) const;
+    
+    double getIntegrand_dsigmaBox_down130(double x) const; 
+    double getIntegrand_dsigmaBox_down133(double x) const;
+    double getIntegrand_dsigmaBox_down136(double x) const; 
+    double getIntegrand_dsigmaBox_down161(double x) const; 
+    double getIntegrand_dsigmaBox_down167(double x) const; 
+    double getIntegrand_dsigmaBox_down172(double x) const; 
+    double getIntegrand_dsigmaBox_down183(double x) const; 
+    double getIntegrand_dsigmaBox_down189(double x) const; 
+    double getIntegrand_dsigmaBox_down192(double x) const; 
+    double getIntegrand_dsigmaBox_down196(double x) const; 
+    double getIntegrand_dsigmaBox_down200(double x) const; 
+    double getIntegrand_dsigmaBox_down202(double x) const; 
+    double getIntegrand_dsigmaBox_down205(double x) const; 
+    double getIntegrand_dsigmaBox_down207(double x) const;
+    
+    double getIntegrand_dsigmaBox_charm130(double x) const; 
+    double getIntegrand_dsigmaBox_charm133(double x) const;  
+    double getIntegrand_dsigmaBox_charm136(double x) const; 
+    double getIntegrand_dsigmaBox_charm161(double x) const;
+    double getIntegrand_dsigmaBox_charm167(double x) const; 
+    double getIntegrand_dsigmaBox_charm172(double x) const; 
+    double getIntegrand_dsigmaBox_charm183(double x) const; 
+    double getIntegrand_dsigmaBox_charm189(double x) const; 
+    double getIntegrand_dsigmaBox_charm192(double x) const; 
+    double getIntegrand_dsigmaBox_charm196(double x) const; 
+    double getIntegrand_dsigmaBox_charm200(double x) const; 
+    double getIntegrand_dsigmaBox_charm202(double x) const; 
+    double getIntegrand_dsigmaBox_charm205(double x) const; 
+    double getIntegrand_dsigmaBox_charm207(double x) const;
+    
+    double getIntegrand_dsigmaBox_strange130(double x) const; 
+    double getIntegrand_dsigmaBox_strange133(double x) const; 
+    double getIntegrand_dsigmaBox_strange136(double x) const; 
+    double getIntegrand_dsigmaBox_strange161(double x) const;
+    double getIntegrand_dsigmaBox_strange167(double x) const;  
+    double getIntegrand_dsigmaBox_strange172(double x) const; 
+    double getIntegrand_dsigmaBox_strange183(double x) const; 
+    double getIntegrand_dsigmaBox_strange189(double x) const; 
+    double getIntegrand_dsigmaBox_strange192(double x) const; 
+    double getIntegrand_dsigmaBox_strange196(double x) const; 
+    double getIntegrand_dsigmaBox_strange200(double x) const; 
+    double getIntegrand_dsigmaBox_strange202(double x) const; 
+    double getIntegrand_dsigmaBox_strange205(double x) const; 
+    double getIntegrand_dsigmaBox_strange207(double x) const;
+    
+    double getIntegrand_dsigmaBox_bottom130(double x) const; 
+    double getIntegrand_dsigmaBox_bottom133(double x) const;  
+    double getIntegrand_dsigmaBox_bottom136(double x) const; 
+    double getIntegrand_dsigmaBox_bottom161(double x) const; 
+    double getIntegrand_dsigmaBox_bottom167(double x) const; 
+    double getIntegrand_dsigmaBox_bottom172(double x) const; 
+    double getIntegrand_dsigmaBox_bottom183(double x) const; 
+    double getIntegrand_dsigmaBox_bottom189(double x) const; 
+    double getIntegrand_dsigmaBox_bottom192(double x) const; 
+    double getIntegrand_dsigmaBox_bottom196(double x) const; 
+    double getIntegrand_dsigmaBox_bottom200(double x) const; 
+    double getIntegrand_dsigmaBox_bottom202(double x) const; 
+    double getIntegrand_dsigmaBox_bottom205(double x) const; 
+    double getIntegrand_dsigmaBox_bottom207(double x) const;    
+    
+    
+    double Integrand_AFBnumeratorWithISR_l(double x, const QCD::lepton l_flavor, const  double s) const;
+    
+    double getIntegrand_AFBnumeratorWithISR_mu130(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu136(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu161(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu172(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu183(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu189(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu192(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu196(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu200(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu202(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu205(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_mu207(double x) const;
+    
+    double getIntegrand_AFBnumeratorWithISR_tau130(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau136(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau161(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau172(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau183(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau189(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau192(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau196(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau200(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau202(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau205(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_tau207(double x) const;
+    
+    double Integrand_AFBnumeratorWithISR_q(double x, const QCD::quark q_flavor, const  double s) const;
+    
+    double getIntegrand_AFBnumeratorWithISR_charm133(double x) const;  
+    double getIntegrand_AFBnumeratorWithISR_charm167(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm172(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm183(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm189(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm192(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm196(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm200(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm202(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm205(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_charm207(double x) const;
+
+    double getIntegrand_AFBnumeratorWithISR_bottom133(double x) const;  
+    double getIntegrand_AFBnumeratorWithISR_bottom167(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom172(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom183(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom189(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom192(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom196(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom200(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom202(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom205(double x) const; 
+    double getIntegrand_AFBnumeratorWithISR_bottom207(double x) const; 
+    
+    
     ////////////////////////////////////////////////////////////////////////    
 private:
 
@@ -2757,6 +3114,20 @@ private:
     mutable bool useGammaW_cache;
     mutable bool useRhoZ_f_cache[12];
     mutable bool useKappaZ_f_cache[12];
+    
+    
+    // caches for the SM prediction of LEP2 Obs
+//    mutable double SMparams_cache[NumSMParamsForEWPO+3];
+    mutable double SMresult_cache; 
+//    mutable bool flag_cache[NUMofLEP2RCs];
+//    mutable double ml_cache, mq_cache, mqForHad_cache[6];
+    
+    mutable double average;/**< GSL integral variable */  
+    mutable double error;/**< GSL integral variable */    
+    mutable gsl_function f_GSL;/**< GSL integral variable */
+    gsl_integration_workspace * w_GSL1;/**< GSL integral variable */
+    
+
     
     int iterationNo;
 

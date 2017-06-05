@@ -14,7 +14,7 @@ const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars]
     "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
 
 NPSTUVWXY::NPSTUVWXY()
-: NPbase()
+: NPbase(), myLEP2oblique(trueSM)
 {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueShat", boost::cref(myObliqueShat)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueThat", boost::cref(myObliqueThat)));
@@ -147,4 +147,141 @@ double NPSTUVWXY::GammaW() const
     return Gamma_W;
 }
 
+
+double NPSTUVWXY::LEP2sigmaMu(const double s) const
+{
+   double sigma_mu;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   sigma_mu = trueSM.LEP2sigmaMu(s) + 
+              myLEP2oblique.sigma_l_LEP2_NP(QCD::lepton(MU), s, trueSM.getLeptons(MU).getMass(), ObParam);
+   
+   return sigma_mu;
+}
+
+double NPSTUVWXY::LEP2sigmaTau(const double s) const
+{
+   double sigma_tau;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   sigma_tau = trueSM.LEP2sigmaTau(s) + 
+              myLEP2oblique.sigma_l_LEP2_NP(QCD::lepton(TAU), s, trueSM.getLeptons(TAU).getMass(), ObParam);
+   
+   return sigma_tau;
+}
+
+double NPSTUVWXY::LEP2sigmaHadron(const double s) const
+{
+   double sigma_had;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   sigma_had = trueSM.LEP2sigmaHadron(s) + 
+              myLEP2oblique.sigma_q_LEP2_NP(QCD::quark(UP), s, trueSM.getmq(QCD::quark(UP),sqrt(s)), ObParam)+ 
+              myLEP2oblique.sigma_q_LEP2_NP(QCD::quark(DOWN), s, trueSM.getmq(QCD::quark(DOWN),sqrt(s)), ObParam)+ 
+              myLEP2oblique.sigma_q_LEP2_NP(QCD::quark(STRANGE), s, trueSM.getmq(QCD::quark(STRANGE),sqrt(s)), ObParam)+ 
+              myLEP2oblique.sigma_q_LEP2_NP(QCD::quark(CHARM), s, trueSM.getmq(QCD::quark(CHARM),sqrt(s)), ObParam)+ 
+              myLEP2oblique.sigma_q_LEP2_NP(QCD::quark(BOTTOM), s, trueSM.getmq(QCD::quark(BOTTOM),sqrt(s)), ObParam);
+   
+   return sigma_had;
+}
+
+double NPSTUVWXY::LEP2sigmaCharm(const double s) const
+{
+   double sigma_charm;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   sigma_charm = trueSM.LEP2sigmaCharm(s) + 
+              myLEP2oblique.sigma_q_LEP2_NP(QCD::quark(CHARM), s, trueSM.getmq(QCD::quark(CHARM),sqrt(s)), ObParam);
+   
+   return sigma_charm;
+}
+
+double NPSTUVWXY::LEP2sigmaBottom(const double s) const
+{
+   double sigma_bottom;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   sigma_bottom = trueSM.LEP2sigmaHadron(s) + 
+              myLEP2oblique.sigma_q_LEP2_NP(QCD::quark(BOTTOM), s, trueSM.getmq(QCD::quark(BOTTOM),sqrt(s)), ObParam);
+   
+   return sigma_bottom;
+}
+
+double NPSTUVWXY::LEP2AFBmu(const double s) const
+{
+   double AFB_mu;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   AFB_mu = trueSM.LEP2sigmaMu(s) + 
+              myLEP2oblique.AFB_l_LEP2_NP(QCD::lepton(MU), s, trueSM.getLeptons(MU).getMass(), ObParam);
+   
+   return AFB_mu;
+}
+
+double NPSTUVWXY::LEP2AFBtau(const double s) const
+{
+   double AFB_tau;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   AFB_tau = trueSM.LEP2sigmaTau(s) + 
+              myLEP2oblique.AFB_l_LEP2_NP(QCD::lepton(TAU), s, trueSM.getLeptons(TAU).getMass(), ObParam);
+   
+   return AFB_tau;
+}
+
+double NPSTUVWXY::LEP2AFBcharm(const double s) const
+{
+   double AFB_charm;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   AFB_charm = trueSM.LEP2sigmaCharm(s) + 
+              myLEP2oblique.AFB_q_LEP2_NP(QCD::quark(CHARM), s, trueSM.getmq(QCD::quark(CHARM),sqrt(s)), ObParam);
+   
+   return AFB_charm;
+}
+
+double NPSTUVWXY::LEP2AFBbottom(const double s) const
+{
+   double AFB_bottom;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   AFB_bottom = trueSM.LEP2sigmaHadron(s) + 
+              myLEP2oblique.AFB_q_LEP2_NP(QCD::quark(BOTTOM), s, trueSM.getmq(QCD::quark(BOTTOM),sqrt(s)), ObParam);
+   
+   return AFB_bottom;
+}
+
+
+double NPSTUVWXY::LEP2Rcharm(const double s) const
+{
+   double R_charm;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   R_charm = trueSM.LEP2sigmaCharm(s) + 
+              myLEP2oblique.R_q_LEP2_NP(QCD::quark(CHARM), s, trueSM.getmq(QCD::quark(CHARM),sqrt(s)), ObParam);
+   
+   return R_charm;
+}
+
+double NPSTUVWXY::LEP2Rbottom(const double s) const
+{
+   double R_bottom;
+   double ObParam[7] = {obliqueShat(), obliqueThat(), obliqueUhat(),
+                             obliqueV(), obliqueW(), obliqueX(), obliqueY()};
+   
+   R_bottom = trueSM.LEP2sigmaHadron(s) + 
+              myLEP2oblique.R_q_LEP2_NP(QCD::quark(BOTTOM), s, trueSM.getmq(QCD::quark(BOTTOM),sqrt(s)), ObParam);
+   
+   return R_bottom;
+}
 

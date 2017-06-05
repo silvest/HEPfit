@@ -27,11 +27,10 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      * @param[in] bSigmaForAFB_i true for the denominator of A_FB
      */
-    LEP2sigmaTau(const StandardModel& SM_i, const double sqrt_s_i, 
-                 const bool bSigmaForAFB_i=false) 
-    : LEP2ThObservable(SM_i, sqrt_s_i, bSigmaForAFB_i) 
+    LEP2sigmaTau(const StandardModel& SM_i, const double sqrt_s_i) 
+    : LEP2ThObservable(SM_i, sqrt_s_i) 
     {
-        l_flavor = StandardModel::TAU;
+
     }
 
     /**

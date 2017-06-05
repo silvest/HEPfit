@@ -1,8 +1,8 @@
 /* 
- * File:   LEP2GIMR.h
- * Author: ggrillidc
+ * Copyright (C) 2012 HEPfit Collaboration
  *
- * Created on September 28, 2015, 4:23 PM
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef LEP2GIMR_H
@@ -10,7 +10,7 @@
 
 #include <stdexcept>
 #include <gslpp.h>
-#include <NPEffectiveGIMR.h>
+#include "StandardModel.h"
 
 
 using namespace gslpp;
@@ -39,34 +39,29 @@ public:
     double sigma_q_LEP2_GIMR(const QCD::quark q, const double s,
                              const double GIMRParam_i[]) const;
 
-    double AFB_l_LEP2_GIMR(const QCD::lepton l, const double s, 
-                           const double GIMRParam_i[]) const;
-    double AFB_q_LEP2_GIMR(const QCD::quark q, const double s, 
-                           const double GIMRParam_i[]) const;
-
-    double sigmaF_l_LEP2_GIMR(const QCD::lepton l, const double s,
+    double sigmaFminusB_l_LEP2_GIMR(const QCD::lepton l, const double s,
                              const double GIMRParam_i[]) const;
-    double sigmaB_l_LEP2_GIMR(const QCD::lepton l, const double s,
-                             const double GIMRParam_i[]) const;
-    double sigmaF_q_LEP2_GIMR(const QCD::quark q, const double s,
-                             const double GIMRParam_i[]) const;
-    double sigmaB_q_LEP2_GIMR(const QCD::quark q, const double s,
-                             const double GIMRParam_i[]) const;
-    
-    
+    double sigmaFminusB_q_LEP2_GIMR(const QCD::quark q, const double s,
+                             const double GIMRParam_i[]) const; 
     
     private:
     const StandardModel& SM;
-    //
-    
-    
     
     double gL_l(const QCD::lepton l) const;
     double gR_l(const QCD::lepton l) const;
 
     double gL_q(const QCD::quark q) const;
     double gR_q(const QCD::quark q) const;
-
+    
+    double deltaA1q(const QCD::quark q, const double GIMRParam_i[]) const;    
+    double deltaA2q(const QCD::quark q, const double GIMRParam_i[]) const;    
+    double deltaB1q(const QCD::quark q, const double GIMRParam_i[]) const;    
+    double deltaB2q(const QCD::quark q, const double GIMRParam_i[]) const; 
+  
+    double deltaA1l(const QCD::lepton l, const double GIMRParam_i[]) const;    
+    double deltaA2l(const QCD::lepton l, const double GIMRParam_i[]) const;    
+    double deltaB1l(const QCD::lepton l, const double GIMRParam_i[]) const;    
+    double deltaB2l(const QCD::lepton l, const double GIMRParam_i[]) const; 
     
 };
 

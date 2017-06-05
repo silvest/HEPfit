@@ -9,6 +9,7 @@
 #define	NPSTUVWXY_H
 
 #include "NPbase.h"
+#include "LEP2oblique.h"
 #include <cmath>
 
 /**
@@ -294,6 +295,20 @@ public:
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
+    
+    
+    
+    virtual double LEP2sigmaMu(const double s) const;
+    virtual double LEP2sigmaTau(const double s) const;
+    virtual double LEP2sigmaHadron(const double s) const;
+    virtual double LEP2sigmaCharm(const double s) const;
+    virtual double LEP2sigmaBottom(const double s) const;
+    virtual double LEP2AFBmu(const double s) const;
+    virtual double LEP2AFBtau(const double s) const;
+    virtual double LEP2AFBbottom(const double s) const;
+    virtual double LEP2AFBcharm(const double s) const;
+    virtual double LEP2Rbottom(const double s) const;
+    virtual double LEP2Rcharm(const double s) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -307,6 +322,10 @@ protected:
     double myObliqueX; ///< The oblique parameter \f$X\f$.
     double myObliqueY; ///< The oblique parameter \f$Y\f$.
 
+    
+    const LEP2oblique myLEP2oblique;
+    
+    
     /**
      * @brief @copybrief Model::setParameter()
      * @copydetails Model::setParameter()

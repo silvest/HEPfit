@@ -9,7 +9,6 @@
 #define	LEP2AFBTAU_H
 
 #include "LEP2ThObservable.h"
-#include "LEP2sigmaTau.h"
 
 /**
  * @class LEP2AFBtau
@@ -29,9 +28,8 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
     LEP2AFBtau(const StandardModel& SM_i, const double sqrt_s_i) 
-    : LEP2ThObservable(SM_i, sqrt_s_i), myLEP2sigmaTau(SM_i, sqrt_s_i, true)
+    : LEP2ThObservable(SM_i, sqrt_s_i)
     {
-        l_flavor = StandardModel::TAU;
     }
 
     /**
@@ -40,7 +38,6 @@ public:
     double computeThValue();
 
 private:
-    LEP2sigmaTau myLEP2sigmaTau;
     
 };
 

@@ -9,8 +9,6 @@
 #define	LEP2RCHARM_H
 
 #include "LEP2ThObservable.h"
-#include "LEP2sigmaCharm.h"
-#include "LEP2sigmaHadron.h"
 
 /**
  * @class LEP2Rcharm
@@ -29,10 +27,9 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
     LEP2Rcharm(const StandardModel& SM_i, const double sqrt_s_i) 
-    : LEP2ThObservable(SM_i, sqrt_s_i), myLEP2sigmaCharm(SM_i, sqrt_s_i), 
-            myLEP2sigmaHadron(SM_i, sqrt_s_i, false, true)  
+    : LEP2ThObservable(SM_i, sqrt_s_i)
     {
-        q_flavor = QCD::CHARM;
+
     }
 
     /**
@@ -41,8 +38,6 @@ public:
     double computeThValue();
 
 private:
-    LEP2sigmaCharm myLEP2sigmaCharm;
-    LEP2sigmaHadron myLEP2sigmaHadron;
     
 };
 

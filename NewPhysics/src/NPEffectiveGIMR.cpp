@@ -93,7 +93,7 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRV
     "ettH78_Htt", "ettH78_Hgg"};
 
 NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
-: NPbase(), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
+: NPbase(), myLEP2GIMR(trueSM), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
 {
     if ((!FlagLeptonUniversal && !FlagQuarkUniversal)
             || (!FlagLeptonUniversal && FlagQuarkUniversal)
@@ -3200,141 +3200,407 @@ double NPEffectiveGIMR::deltaGammaHbbRatio2() const
 
 double NPEffectiveGIMR::CLL_mu() const
 {
-    return (CLL_1122 + CLL_2211 + CLL_1221 + CLL_2112);
+    return ((CLL_1122 + CLL_1221) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLL_tau() const
 {
-    return (CLL_1133 + CLL_3311 + CLL_1331 + CLL_3113);
+    return ((CLL_1133 + CLL_1331) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLL_up() const
 {
-    return (CLQ1_1111-CLQ3_1111);
+    return ((CLQ1_1111 - CLQ3_1111) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLL_down() const
 {
-    return (CLQ1_1111+CLQ3_1111);
+    return ((CLQ1_1111 + CLQ3_1111) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLL_charm() const
 {
-    return (CLQ1_1122+CLQ1_2211-CLQ3_1122-CLQ3_2211);
+    return ((CLQ1_1122 - CLQ3_1122) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLL_strange() const
 {
-    return (CLQ1_1122+CLQ1_2211+CLQ3_1122+CLQ3_2211);
+    return ((CLQ1_1122 + CLQ3_1122) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLL_bottom() const
 {
-    return (CLQ1_1133+CLQ1_3311+CLQ3_1133+CLQ3_3311);
+    return ((CLQ1_1133 + CLQ3_1133) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLR_mu() const
 {
-    return (CLe_1122+CLe_2211);
+    return ((CLe_1122 + CLe_2211) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLR_tau() const
 {
-    return (CLe_1133+CLe_3311);
+    return ((CLe_1133 + CLe_3311) / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLR_up() const
 {
-    return (CLu_1111);
+    return (CLu_1111 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLR_down() const
 {
-    return (CLd_1111);
+    return (CLd_1111 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLR_charm() const
 {
-    return (CLu_1122+CLu_2211);
+    return (CLu_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLR_strange() const
 {
-    return (CLd_1122+CLd_2211);
+    return (CLd_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CLR_bottom() const
 {
-    return (CLd_1133+CLd_3311);
+    return (CLd_1133 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRL_mu() const
 {
-    return (CLe_1122+CLe_2211);
+    return (CLe_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRL_tau() const
 {
-    return (CLe_1133+CLe_3311);
+    return (CLe_1133 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRL_up() const
 {
-    return (CQe_1111);
+    return (CQe_1111 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRL_down() const
 {
-    return (CQe_1111);
+    return (CQe_1111 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRL_charm() const
 {
-    return (CQe_1122+CQe_2211);
+    return (CQe_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRL_strange() const
 {
-    return (CQe_1122+CQe_2211);
+    return (CQe_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRL_bottom() const
 {
-    return (CQe_1133+CQe_3311);
+    return (CQe_1133 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRR_mu() const
 {
-    return (Cee_1122+Cee_2211);
+    return (Cee_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRR_tau() const
 {
-    return (Cee_1133+Cee_3311);
+    return (Cee_1133 / LambdaNP2);
 }
 
 
 double NPEffectiveGIMR::CRR_up() const
 {
-    return (Ceu_1111);
+    return (Ceu_1111 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRR_down() const
 {
-    return (Ced_1111);
+    return (Ced_1111 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRR_charm() const
 {
-    return (Ceu_1122+Ceu_2211);
+    return (Ceu_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRR_strange() const
 {
-    return (Ced_1122+Ced_2211);
+    return (Ced_1122 / LambdaNP2);
 }
 
 double NPEffectiveGIMR::CRR_bottom() const
 {
-    return (Ced_1133+Ced_3311);
+    return (Ced_1133 / LambdaNP2);
 }
+
+
+
+double NPEffectiveGIMR::LEP2sigmaMu(const double s) const
+{
+   double sigma_mu;
+   double GIMRParam[10] = {CLL_mu(), CLR_mu(), CRL_mu(), CRR_mu(), deltaGamma_Z(), 
+                          deltaGR_f(leptons[MU]), 
+                          deltaGL_f(leptons[MU]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   sigma_mu = trueSM.LEP2sigmaMu(s) + 
+              myLEP2GIMR.sigma_l_LEP2_GIMR(QCD::lepton(MU), s, GIMRParam);
+   
+   return sigma_mu;
+}
+
+double NPEffectiveGIMR::LEP2sigmaTau(const double s) const
+{
+   double sigma_tau;
+   double GIMRParam[10] = {CLL_tau(), CLR_tau(), CRL_tau(), CRR_tau(), deltaGamma_Z(), 
+                          deltaGR_f(leptons[TAU]), 
+                          deltaGL_f(leptons[TAU]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   sigma_tau = trueSM.LEP2sigmaTau(s) + 
+               myLEP2GIMR.sigma_l_LEP2_GIMR(QCD::lepton(TAU), s, GIMRParam);   
+   
+   return sigma_tau;
+}
+
+double NPEffectiveGIMR::LEP2sigmaHadron(const double s) const
+{
+   double sigma_had;
+   double GIMRParamUP[10] = {CLL_up(), CLR_up(), CRL_up(), CRR_up(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[UP]), 
+                          deltaGL_f(quarks[UP]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   double GIMRParamDOWN[10] = {CLL_down(), CLR_down(), CRL_down(), CRR_down(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[DOWN]), 
+                          deltaGL_f(quarks[DOWN]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+      
+   double GIMRParamSTRANGE[10] = {CLL_strange(), CLR_strange(), CRL_strange(), CRR_strange(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[STRANGE]), 
+                          deltaGL_f(quarks[STRANGE]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+         
+   double GIMRParamCHARM[10] = {CLL_charm(), CLR_charm(), CRL_charm(), CRR_charm(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[CHARM]), 
+                          deltaGL_f(quarks[CHARM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+            
+   double GIMRParamBOTTOM[10] = {CLL_bottom(), CLR_bottom(), CRL_bottom(), CRR_bottom(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[BOTTOM]), 
+                          deltaGL_f(quarks[BOTTOM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+           
+           
+   sigma_had = trueSM.LEP2sigmaHadron(s) + 
+              myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::UP, s, GIMRParamUP) +
+              myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::DOWN, s, GIMRParamDOWN) +
+              myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::CHARM, s, GIMRParamCHARM) +
+              myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::STRANGE, s, GIMRParamSTRANGE) +
+              myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::BOTTOM, s, GIMRParamBOTTOM);
+   
+   return sigma_had;
+}
+
+
+double NPEffectiveGIMR::LEP2AFBmu(const double s) const
+{
+   double AFB_mu = 0., sigma = 0.0,dFminusB =0.0;
+   double GIMRParam[10] = {CLL_mu(), CLR_mu(), CRL_mu(), CRR_mu(), deltaGamma_Z(), 
+                          deltaGR_f(leptons[MU]), 
+                          deltaGL_f(leptons[MU]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   sigma = trueSM.LEP2sigmaMu(s);
+   dFminusB = myLEP2GIMR.sigmaFminusB_l_LEP2_GIMR(QCD::lepton(MU), s, GIMRParam);
+   
+   AFB_mu = trueSM.LEP2AFBmu(s) * (1. - myLEP2GIMR.sigma_l_LEP2_GIMR(QCD::lepton(MU), s, GIMRParam) / sigma)
+                   + dFminusB / sigma;
+   
+   return AFB_mu;
+}
+
+double NPEffectiveGIMR::LEP2AFBtau(const double s) const
+{
+   double AFB_tau, sigma = 0.0,dFminusB =0.0;
+   double GIMRParam[10] = {CLL_tau(), CLR_tau(), CRL_tau(), CRR_tau(), deltaGamma_Z(), 
+                          deltaGR_f(leptons[TAU]), 
+                          deltaGL_f(leptons[TAU]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   sigma = trueSM.LEP2sigmaTau(s);
+   dFminusB = myLEP2GIMR.sigmaFminusB_l_LEP2_GIMR(QCD::lepton(TAU), s, GIMRParam);
+
+   AFB_tau = trueSM.LEP2AFBtau(s) * (1. - myLEP2GIMR.sigma_l_LEP2_GIMR(QCD::lepton(TAU), s, GIMRParam) / sigma)
+                   + dFminusB / sigma;
+   
+   return AFB_tau;
+}
+
+double NPEffectiveGIMR::LEP2AFBcharm(const double s) const
+{
+   double AFB_charm, sigma = 0.0,dFminusB =0.0;
+   double GIMRParam[10] = {CLL_charm(), CLR_charm(), CRL_charm(), CRR_charm(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[CHARM]), 
+                          deltaGL_f(quarks[CHARM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   sigma = trueSM.LEP2sigmaCharm(s);
+   dFminusB = myLEP2GIMR.sigmaFminusB_q_LEP2_GIMR(QCD::quark(CHARM), s, GIMRParam);
+   
+   AFB_charm = trueSM.LEP2AFBcharm(s) * (1. - myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::quark(CHARM), s, GIMRParam) / sigma)
+                   + dFminusB / sigma;
+   
+   return AFB_charm;
+}
+
+double NPEffectiveGIMR::LEP2AFBbottom(const double s) const
+{
+   double AFB_bottom, sigma = 0.0,dFminusB =0.0;;
+   double GIMRParam[10] = {CLL_bottom(), CLR_bottom(), CRL_bottom(), CRR_bottom(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[BOTTOM]), 
+                          deltaGL_f(quarks[BOTTOM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   sigma = trueSM.LEP2sigmaBottom(s);
+   dFminusB = myLEP2GIMR.sigmaFminusB_q_LEP2_GIMR(QCD::quark(BOTTOM), s, GIMRParam);
+   
+   AFB_bottom = trueSM.LEP2AFBbottom(s) * (1. - myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::quark(BOTTOM), s, GIMRParam) / sigma)
+                   + dFminusB / sigma;
+   
+   return AFB_bottom;
+}
+
+
+double NPEffectiveGIMR::LEP2Rcharm(const double s) const
+{
+   double R_charm = 0., dsigma_c = 0.0, dsigma_had =0.0, sigma_hSM = 0.0;
+   double GIMRParamUP[10] = {CLL_up(), CLR_up(), CRL_up(), CRR_up(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[UP]), 
+                          deltaGL_f(quarks[UP]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   double GIMRParamDOWN[10] = {CLL_down(), CLR_down(), CRL_down(), CRR_down(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[DOWN]), 
+                          deltaGL_f(quarks[DOWN]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+      
+   double GIMRParamSTRANGE[10] = {CLL_strange(), CLR_strange(), CRL_strange(), CRR_strange(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[STRANGE]), 
+                          deltaGL_f(quarks[STRANGE]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+         
+   double GIMRParamCHARM[10] = {CLL_charm(), CLR_charm(), CRL_charm(), CRR_charm(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[CHARM]), 
+                          deltaGL_f(quarks[CHARM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+            
+   double GIMRParamBOTTOM[10] = {CLL_bottom(), CLR_bottom(), CRL_bottom(), CRR_bottom(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[BOTTOM]), 
+                          deltaGL_f(quarks[BOTTOM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   sigma_hSM = trueSM.LEP2sigmaHadron(s);
+   
+   dsigma_had = myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::UP, s, GIMRParamUP) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::DOWN, s, GIMRParamDOWN) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::CHARM, s, GIMRParamCHARM) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::STRANGE, s, GIMRParamSTRANGE) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::BOTTOM, s, GIMRParamBOTTOM);
+   
+   dsigma_c = myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::CHARM, s, GIMRParamCHARM);
+           
+   R_charm = trueSM.LEP2Rcharm(s) * (1 - dsigma_had / sigma_hSM) + dsigma_c / sigma_hSM;
+   
+   return R_charm;
+}
+
+double NPEffectiveGIMR::LEP2Rbottom(const double s) const
+{
+   double R_bottom = 0., dsigma_b = 0.0, dsigma_had =0.0, sigma_hSM = 0.0;
+   double GIMRParamUP[10] = {CLL_up(), CLR_up(), CRL_up(), CRR_up(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[UP]), 
+                          deltaGL_f(quarks[UP]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   double GIMRParamDOWN[10] = {CLL_down(), CLR_down(), CRL_down(), CRR_down(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[DOWN]), 
+                          deltaGL_f(quarks[DOWN]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+      
+   double GIMRParamSTRANGE[10] = {CLL_strange(), CLR_strange(), CRL_strange(), CRR_strange(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[STRANGE]), 
+                          deltaGL_f(quarks[STRANGE]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+         
+   double GIMRParamCHARM[10] = {CLL_charm(), CLR_charm(), CRL_charm(), CRR_charm(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[CHARM]), 
+                          deltaGL_f(quarks[CHARM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+            
+   double GIMRParamBOTTOM[10] = {CLL_bottom(), CLR_bottom(), CRL_bottom(), CRR_bottom(), deltaGamma_Z(), 
+                          deltaGR_f(quarks[BOTTOM]), 
+                          deltaGL_f(quarks[BOTTOM]),
+                          deltaGR_f(leptons[ELECTRON]),
+                          deltaGL_f(leptons[ELECTRON]),
+                          deltaMz2()};
+   
+   sigma_hSM = trueSM.LEP2sigmaHadron(s);
+   
+   dsigma_had = myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::UP, s, GIMRParamUP) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::DOWN, s, GIMRParamDOWN) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::CHARM, s, GIMRParamCHARM) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::STRANGE, s, GIMRParamSTRANGE) +
+                myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::BOTTOM, s, GIMRParamBOTTOM);
+   
+   dsigma_b = myLEP2GIMR.sigma_q_LEP2_GIMR(QCD::BOTTOM, s, GIMRParamCHARM);
+
+   R_bottom = trueSM.LEP2Rbottom(s) * (1 - dsigma_had / sigma_hSM) + dsigma_b / sigma_hSM;
+   
+   return R_bottom;
+}
+
+

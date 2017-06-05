@@ -9,7 +9,6 @@
 #define	LEP2AFBMU_H
 
 #include "LEP2ThObservable.h"
-#include "LEP2sigmaMu.h"
 
 /**
  * @class LEP2AFBmu
@@ -29,9 +28,8 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
     LEP2AFBmu(const StandardModel& SM_i, const double sqrt_s_i) 
-    : LEP2ThObservable(SM_i, sqrt_s_i), myLEP2sigmaMu(SM_i, sqrt_s_i, true) 
+    : LEP2ThObservable(SM_i, sqrt_s_i)
     {
-        l_flavor = StandardModel::MU;
     }
     
     /**
@@ -40,7 +38,6 @@ public:
     double computeThValue();
 
 private:
-    LEP2sigmaMu myLEP2sigmaMu;
     
 };
 
