@@ -8,15 +8,17 @@
 #include "THDM.h"
 #include "THDMcache.h"
 
-const std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2",
+std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma",/*"mHh1","mA1","mHp1",*/"mHh2","mA2","mHp2","m12_2",
                                                "BDtaunu_SM","BDtaunu_A","BDtaunu_B","BDstartaunu_SM","BDstartaunu_A","BDstartaunu_B",
                                                "bsgamma_theoryerror","Q_THDM","Rpeps","NLOuniscale"};
 
 THDM::THDM() : StandardModel(), THDMM(*this) {
-
     SMM.setObj((StandardModelMatching&) THDMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("bma", boost::cref(bma)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh1", boost::cref(mHh1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA1", boost::cref(mA1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp1", boost::cref(mHp1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHh2", boost::cref(mHh2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mA2", boost::cref(mA2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp2", boost::cref(mHp2)));
@@ -31,6 +33,7 @@ THDM::THDM() : StandardModel(), THDMM(*this) {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_THDM", boost::cref(Q_THDM)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Rpeps", boost::cref(Rpeps)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("NLOuniscale", boost::cref(NLOuniscale)));
+    flag_use_sq_masses=true;
 }
 
 THDM::~THDM(){
@@ -103,11 +106,17 @@ void THDM::setParameter(const std::string name, const double& value){
         bma = value;
         sin_ba = sin(bma);
     }
-    else if(name.compare("mHh2") == 0)
+    else if(name.compare("mHh1") == 0 && !flag_use_sq_masses)
+        mHh1 = value;
+    else if(name.compare("mA1") == 0 && !flag_use_sq_masses)
+        mA1 = value;
+    else if(name.compare("mHp1") == 0 && !flag_use_sq_masses)
+        mHp1 = value;
+    else if(name.compare("mHh2") == 0 && flag_use_sq_masses)
         mHh2 = value;
-    else if(name.compare("mA2") == 0)
+    else if(name.compare("mA2") == 0 && flag_use_sq_masses)
         mA2 = value;
-    else if(name.compare("mHp2") == 0)
+    else if(name.compare("mHp2") == 0 && flag_use_sq_masses)
         mHp2 = value;
     else if(name.compare("m12_2") == 0)
         m12_2 = value;
@@ -187,7 +196,16 @@ bool THDM::setFlagStr(const std::string name, const std::string value)
 bool THDM::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    if(name.compare("wavefunctionrenormalization") == 0) {
+    if(name.compare("use_sq_masses") == 0) {
+        flag_use_sq_masses = value;
+        res = true;
+        if (!flag_use_sq_masses) {
+            THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mHh2"))] = "mHh1";
+            THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mA2"))] = "mA1";
+            THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mHp2"))] = "mHp1";
+        }
+    }
+    else if(name.compare("wavefunctionrenormalization") == 0) {
         flag_wfr = value;
         res = true;
     }

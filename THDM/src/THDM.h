@@ -119,7 +119,7 @@ class THDM: public StandardModel {
 public:
 
     static const int NTHDMvars = 16;
-    static const std::string THDMvars[NTHDMvars];
+    static std::string THDMvars[NTHDMvars];
     
     /**
      * @brief THDM constructor
@@ -201,6 +201,14 @@ public:
 
     /**
      *
+     * @return Choose if you want to use the THDM masses or rather their squares
+     */
+    bool getsqmassesflag() const {
+        return flag_use_sq_masses;
+    }
+
+    /**
+     *
      * @return Flag to switch on wavefunction renormalization for the NLO unitarity conditions
      */
     bool getWFRflag() const {
@@ -276,12 +284,24 @@ public:
      * @return squared mass of the lighter neutral scalar Higgs
      */
     double getmHl2() const {
-        if(mHh2 < mHl2) {
-            return mHh2;
+        if(flag_use_sq_masses) {
+            if(mHh2 < mHl2) {
+                return mHh2;
+            }
+            else
+            {
+                return mHl2;
+            }
         }
         else
         {
-            return mHl2;
+            if(mHh1*mHh1 < mHl2) {
+                return mHh1*mHh1;
+            }
+            else
+            {
+                return mHl2;
+            }
         }
     }
 
@@ -290,15 +310,27 @@ public:
      * @return squared mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh2() const {
-        if(mHh2 < 0.) {
-            return 0.;
-        }
-        else if(mHh2 < mHl2) {
-            return mHl2;
+        if(flag_use_sq_masses) {
+            if(mHh2 < 0.) {
+                return 0.;
+            }
+            else if(mHh2 < mHl2) {
+                return mHl2;
+            }
+            else
+            {
+                return mHh2;
+            }
         }
         else
         {
-            return mHh2;
+            if(mHh1*mHh1 < mHl2) {
+                return mHl2;
+            }
+            else
+            {
+                return mHh1*mHh1;
+            }
         }
     }
 
@@ -307,15 +339,27 @@ public:
      * @return mass of the "non-125 GeV" neutral scalar Higgs
      */
     double getmHh() const {
-        if(mHh2 < 0.) {
-            return 0.;
-        }
-        else if(mHh2 < mHl2) {
-            return sqrt(mHl2);
+        if(flag_use_sq_masses) {
+            if(mHh2 < 0.) {
+                return 0.;
+            }
+            else if(mHh2 < mHl2) {
+                return sqrt(mHl2);
+            }
+            else
+            {
+                return sqrt(mHh2);
+            }
         }
         else
         {
-            return sqrt(mHh2);
+            if(mHh1*mHh1 < mHl2) {
+                return sqrt(mHl2);
+            }
+            else
+            {
+                return mHh1;
+            }
         }
     }
 
@@ -324,7 +368,13 @@ public:
      * @return squared mass of the pseudoscalar Higgs A
      */
     double getmA2() const {
-        return mA2;
+        if(flag_use_sq_masses) {
+            return mA2;
+        }
+        else
+        {
+            return mA1*mA1;
+        }
     }
 
     /**
@@ -332,10 +382,19 @@ public:
      * @return mass of the pseudoscalar Higgs A
      */
     double getmA() const {
-    if(mA2 < 0.) {
-        return 0.;
-    }
-        return sqrt(mA2);
+        if(flag_use_sq_masses) {
+            if(mA2 < 0.) {
+                return 0.;
+            }
+            else
+            {
+                return sqrt(mA2);
+            }
+        }
+        else
+        {
+                return mA1;
+        }
     }
 
     /**
@@ -343,7 +402,13 @@ public:
      * @return squared charged Higgs mass
      */
     double getmHp2() const {
-        return mHp2;
+        if(flag_use_sq_masses) {
+            return mHp2;
+        }
+        else
+        {
+            return mHp1*mHp1;
+        }
     }
 
     /**
@@ -351,10 +416,19 @@ public:
      * @return charged Higgs mass
      */
     double getmHp() const {
-    if(mHp2 < 0.) {
-        return 0.;
-    }
-        return sqrt(mHp2);
+        if(flag_use_sq_masses) {
+            if(mHp2 < 0.) {
+                return 0.;
+            }
+            else
+            {
+                return sqrt(mHp2);
+            }
+        }
+        else
+        {
+                return mHp1;
+        }
     }
 
     /**
@@ -487,11 +561,11 @@ private:
 
     THDMcache* myTHDMcache;
 
-    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps, NLOuniscale;
+    double logtb, tanb, sinb, cosb, bma, sin_ba, mHh1, mA1, mHp1, mHh2, mA2, mHp2, m12_2, bsgamma_theoryerror, Q_THDM, Rpeps, NLOuniscale;
     double mHl2;
     double BDtaunu_SM, BDtaunu_A, BDtaunu_B, BDstartaunu_SM, BDstartaunu_A, BDstartaunu_B;
     std::string flag_model, flag_RGEorder;
-    bool flag_wfr;
+    bool flag_use_sq_masses, flag_wfr;
 };
 
 #endif	/* THDM_H */
