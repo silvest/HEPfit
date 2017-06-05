@@ -13,7 +13,7 @@ BR_Kmumu::BR_Kmumu(StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i), CPB(SM)
 {
     setParametersForObservable(make_vector<std::string>() << "Br_Kp_munu" << "DeltaP_cu");
-};
+}
 
 double BR_Kmumu::computeThValue()
 {

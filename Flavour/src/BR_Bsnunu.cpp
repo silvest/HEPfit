@@ -13,7 +13,7 @@ BR_Bsnunu::BR_Bsnunu(StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i)
 {
     setParametersForObservable(make_vector<std::string>() << "Br_B_Xcenu");
-};
+}
 
 double BR_Bsnunu::computeThValue()
 {

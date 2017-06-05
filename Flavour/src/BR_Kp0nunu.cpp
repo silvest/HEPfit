@@ -13,7 +13,7 @@ BR_Kp0nunu::BR_Kp0nunu(StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i)
 {
     setParametersForObservable(make_vector<std::string>() << "Br_Kp_P0enu" << "IB_Kl");
-};
+}
 
 double BR_Kp0nunu::computeThValue()
 {
