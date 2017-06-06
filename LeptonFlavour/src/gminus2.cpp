@@ -29,5 +29,5 @@ double gminus2_mu::computeThValue()
 {
     gslpp::vector<gslpp::complex> ** allcoeff_gminus2mu = mySM.getMyLeptonFlavour()->ComputeCoeffgminus2mu();
 
-    return ((*(allcoeff_gminus2mu[LO]))(0)+(*(allcoeff_gminus2mu[LO]))(1)).abs();
+    return ((*(allcoeff_gminus2mu[LO]))(0)+(*(allcoeff_gminus2mu[LO]))(1)).real();
 }

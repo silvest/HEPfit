@@ -11,15 +11,14 @@
 %%switch on for linenumbers%% \usepackage{lineno}
 \usepackage{listings}
 \usepackage{lmodern}
-\usepackage{longtable}
 \usepackage{lscape}
 \usepackage{xspace}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
-    unicode=false,          % non-Latin characters in Acrobat�s bookmarks
-    pdftoolbar=true,        % show Acrobat�s toolbar?
-    pdfmenubar=true,        % show Acrobat�s menu?
+    unicode=false,          % non-Latin characters in Acrobat's bookmarks
+    pdftoolbar=true,        % show Acrobat's toolbar?
+    pdfmenubar=true,        % show Acrobat's menu?
     pdffitwindow=false,     % window fit to page when opened
     pdfstartview={FitH},    % fits the width of the page to the window
     pdftitle={HEPfit Manual},    % title
@@ -493,7 +492,7 @@ D_{u_R}&=& \frac{2}{3} \sin^2\theta_W m_Z^2 \cos2 \beta \, \frac{1}{3}, \ \
 D_{d_L} =  -\frac{1}{3} \sin^2\theta_W m_Z^2 \cos2 \beta \, \frac{1}{3}.
 \end{eqnarray}
 
- The mass parameters with {\it hats} in the super-CKM basis are related to the original parameters in Eqs. \eqref{eq:soft_trilinear} and (\ref{eq:sq_softmass}) as
+ The mass parameters with {\it hats} in the super-CKM basis are related to the original parameters in Eqs. \eqref{eq:Lsoft_trilinear} and (\ref{eq:Lsoft_mass}) as
  \begin{eqnarray}
 && \hat m_{Q}^2 = V_{d}^\dag m_{Q}^2 V_d, \ \ \hat m_U^2  = (U_{\bar U}^\dag m_{U}^2 U_{\bar U})^T, 
 \ \ \hat m_D^2  = (U_{\bar D}^\dag m_{D}^2 U_{\bar D})^T, \nonumber \\
@@ -526,7 +525,7 @@ where $\Phi_e = \left( \tilde e_L, \tilde \mu_L,  \tilde \tau_L,  \tilde e_R, \t
 D_{e_L} = (-\frac{1}{2}  + \sin^2\theta_W) m_Z^2 \cos2 \beta \, \frac{1}{3}, \ \
 D_{e_R}= - \sin^2\theta_W m_Z^2 \cos2 \beta \, \frac{1}{3}\ \ 
 \end{eqnarray}
-The soft mass parameters in this basis are related to the original ones in Eqs. (\ref{eq:soft_trilinear}) and (\ref{eq:sq_softmass}) as
+The soft mass parameters in this basis are related to the original ones in Eqs. (\ref{eq:Lsoft_trilinear}) and (\ref{eq:Lsoft_mass}) as
  \begin{eqnarray}
 && \hat m_{L}^2 = V_{e}^\dag m_{L}^2 V_e, \ \ \hat m_E^2  = (U_{\bar E}^\dag m_{E}^2 U_{\bar E})^T, \ \ 
  \hat T_E = (V_e^T T_E U_{\bar E})^T.
@@ -704,139 +703,6 @@ We see that the predicted Higgs boson mass is enhanced when the mass of the scal
 Note that although the above one-loop result show us insights about the radiative corrections, 
 the higher order terms at the two-loop level and beyond are important to evaluate the Higgs boson mass.
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Modified Higgs Couplings}
-\label{sec:Higgs}
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-In many scenarios of new physics one of the main predictions are deviations in the Higgs boson couplings with respect to the SM ones. Such an scenario can be described in general by considering the following effective Lagrangian for a light Higgs-like scalar field $h$ \cite{Contino:2010mh,Azatov:2012bz}:
-%
-\begin{equation}
-\begin{split}
-{\cal L}=&\frac 12 \partial_\mu h \partial^\mu h - V(h) + \frac{v^2}{4} \mathrm{Tr}(D_\mu \Sigma^\dagger D^\mu\Sigma)\left(1+2\kappa_V\frac{h}{v}+\dots\right)\\
-%
-&-m_{u^i} \left(\begin{array}{c c}\overline{u_L^i}&\overline{d_L^i}\end{array}\right) \Sigma \left(\begin{array}{c}\overline{u_R^i}\\ 0 \end{array}\right) \left(1+ \kappa_u \frac{h}{v}+\dots \right) +\mathrm{h.c.}\\
-%
-&-m_{d^i} \left(\begin{array}{c c}\overline{u_L^i}&\overline{d_L^i}\end{array}\right) \Sigma \left(\begin{array}{c}0\\ \overline{d_R^i} \end{array}\right) \left(1+ \kappa_d \frac{h}{v}+\dots \right) +\mathrm{h.c.}\\
-%
-&-m_{\ell^i} \left(\begin{array}{c c}\overline{\nu_L^i}&\overline{\ell_L^i}\end{array}\right) \Sigma \left(\begin{array}{c} 0\\ \overline{\ell_R^i}\end{array}\right) \left(1+ \kappa_\ell \frac{h}{v}+\dots \right) +\mathrm{h.c.}~\!.
-\label{eq:Lagh}
-\end{split}
-\end{equation}
-%
-Apart from the absence of other light degrees of freedom below the given cut-off scale $\Lambda$ ---which is assumed to be sufficiently large compared to the energies we are testing, so we can truncate the effective Lagrangian at the 2-derivative level--- the Lagrangian in Eq.~(\ref{eq:Lagh}) assumes that: a) custodial symmetry is approximately realized; b) that gauge fields couple to the NP sector via weak gauging (in which case the coefficients of operators involving field strengths are loop suppressed and can be neglected); and c) that fermions are only coupled to the NP via proto-Yukawa interactions. Finally, we take all corrections from NP to be flavor diagonal. In the previous Lagrangian the longitudinal components of the $W$ and $Z$ gauge bosons, $\chi^a(x)$, are described by the $2\times 2$ matrix $\Sigma(x)=\mathrm{exp}\left( i \sigma_a \chi^a(x)/v\right)$, with $\sigma_a$ the Pauli matrices, and $V(h)$ is the scalar potential of the Higgs field, whose details are not relevant for the discussion here. The SM is recovered for $\kappa_V=\kappa_u=\kappa_d=\kappa_\ell=1$. 
-
-The Lagrangian above describing an SM extension with {\it Modified Higgs Coupling} has been implemented in {\tt HEPfit} in two different model classes, depending on further assumptions on the couplings in Eq.~(\ref{eq:Lagh}):
-%
-\begin{itemize}
-{\item The model class {\tt HiggsKvKf} describes an scenario where the couplings to all fermions are rescaled by the same factor, i.e., $\kappa_u=\kappa_d=\kappa_\ell \equiv \kappa_f$. The invisible decay width of the Higgs is also parameterized independently. The {\tt HEPfit} names of the different parameters in this model class are described in Table~\ref{tab:HiggsKvKfpars}.}
-%
-{\item The model class {\tt HiggsKvKfgen} describes the general case in Eq.~(\ref{eq:Lagh}), where all modified couplings $\kappa_V$, $\kappa_{u, d, \ell}$, as well as the invisible decay width of the Higgs are independent parameters. The {\tt HEPfit} names of the different parameters in this model class are described in Table~\ref{tab:HiggsKvKfpars}.
-}
-%
-\end{itemize}
-%
-%<<<<<<< Updated upstream
-%\begin{table}[tb]
-% \centering
-% \caption{Model parameters in the {\tt HiggsKvKf} class. }\vspace{0.2cm}
-%  \begin{tabular}{| c c | }
-%\hline
-%
-%\textbf{\HEPfit name}&
-%\textbf{Parameter}\\
-%
-%\hline
-% {\tt Kv}&
-%$\kappa_V$\\
-%
-% {\tt Kf}&
-%$\kappa_f$\\
-%
-% {\tt BrHinv}&
-%Br$(H\to \mathrm{invisible})$\\
-%\hline
-%  \end{tabular}
-% \label{tab:HiggsKvKfpars}
-%\end{table} 
-
-% \begin{table}[tb]
-% \centering
-% \caption{Model parameters in the {\tt HiggsKvKfgen} class.}\vspace{0.2cm}
-%  \begin{tabular}{| c c | }
-%\hline
-%
-%\textbf{\HEPfit name}&
-%\textbf{Parameter}\\
-%
-%\hline
-% {\tt Kv}&
-%$\kappa_V$\\
-%
-% {\tt Ku}&
-%$\kappa_u$\\
-%
-% {\tt Kd}&
-%$\kappa_d$\\
-%
-% {\tt Kl}&
-%$\kappa_l$\\
-%
-% {\tt BrHinv}&
-%Br$(H\to \mathrm{invisible})$\\
-%\hline
-%  \end{tabular}
-% \label{tab:HiggsKvKfgenpars}
-%\end{table} 
-
-Note that, while both $\kappa_V$ and $\kappa_f$ can modify the different Higgs production cross sections and decay widths, the leading corrections to EWPO come only from $\kappa_V$. These are given by the following 1-loop contributions to the oblique $S$ and $T$ parameters:
-%
-\begin{align}
-S &= \frac{1}{12\pi} (1 - \kappa_V^2)
-  \ln\bigg(\frac{\Lambda^2}{m_H^2}\bigg)\,,
-&
-T &= - \frac{3}{16\pi c_W^2} (1 - \kappa_V^2)
-  \ln\bigg(\frac{\Lambda^2}{m_H^2}\bigg)\,,
-\label{eq:ST}
-\end{align}
-where $\Lambda$ is the cutoff of the effective Lagrangian in Eq.~(\ref{eq:Lagh}).
-We set $\Lambda = 4\pi v/\sqrt{|1-\kappa_V^2|}$, as given by the scale of 
-violation of perturbative unitarity in $WW$ scattering.
-
-Finally, relaxing the assumption of custodial symmetry, the Higgs couplings to the $W$ and $Z$ bosons can be different. The model class {\tt HiggsKvgenKf} considers this possibility, replacing $\kappa_V\rightarrow \kappa_Z,~\kappa_W$, with $\kappa_Z$ and $\kappa_W$ being two completely independent parameters. In this class we assume again universality on the deviations in the fermionic couplings, described by a single parameter $\kappa_f$. The corresponding model parameters are described in Table~\ref{tab:HiggsKvgenKfpars}. The condition of fermion-universal couplings is lifted in the model class {\tt Name?} {\bf [(Fill in when the model is available)]}, which allows independent modification of the different fermion couplings $\kappa_{u,d,\ell}$. The corresponding model parameters for this class are described in Table~\ref{tab:HiggsKvgenKfgenpars}. One must be aware that for $\kappa_W\not = \kappa_Z$ power divergences appear in the contributions to oblique corrections, and the detailed information of the UV theory is necessary for calculating the contributions to electroweak precision observables.
-Therefore, these classes are constructed solely for the purpose of testing custodial symmetry in the experimental Higgs observables. 
-
-%\begin{table}[tb]
-% \centering
-% \caption{Model parameters in the {\tt HiggsKvgenKf} class.}\vspace{0.2cm}
-%  \begin{tabular}{| c c | }
-%\hline
-%
-%\textbf{\HEPfit name}&
-%\textbf{Parameter}\\
-%
-%\hline
-% {\tt KZ}&
-%$\kappa_Z$\\
-%
-% {\tt KW}&
-%$\kappa_W$\\
-%
-% {\tt Kf}&
-%$\kappa_f$\\
-%
-% {\tt BrHinv}&
-%Br$(H\to \mathrm{invisible})$\\
-%\hline
-%  \end{tabular}
-% \label{tab:HiggsKvgenKfpars}
-%\end{table} 
-
-
-%=======
-%Finally, relaxing the assumption of custodial symmetry, the Higgs couplings to the $W$ and $Z$ bosons can be different. The model class {\tt HiggsKvgenKf} considers this possibility, replacing $\kappa_V\rightarrow \kappa_Z,~\kappa_W$, with $\kappa_Z$ and $\kappa_W$ being two completely independent parameters. One must be aware that for $\kappa_W\not = \kappa_Z$ power divergences appear in the contributions to oblique corrections, and the detailed information of the UV theory is necessary for calculating the contributions to electroweak precision observables.
-%Therefore, this class is constructed solely for the purpose of testing custodial symmetry in the experimental Higgs observables. Because of this, and also for simplicity, in this class we assume again universality on the deviations in the fermionic couplings, described by a single parameter $\kappa_f$. The corresponding model parameters for this class are described in Table~\ref{tab:HiggsKvgenKfpars}.
-%>>>>>>> Stashed changes
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dimension 6 Effective Theory above the Electroweak Scale }
@@ -859,7 +725,7 @@ In Eq.~(\ref{eq:EffLag}) ${\cal L}_{\mathrm{SM}}$ is the SM Lagrangian, $\Lambda
 contains only (Lorentz and) gauge invariant operators of mass dimension $d$, built using exclusively the SM fields and symmetries. At any order in the effective Lagrangian expansion a complete basis of physically independent operators contains only a finite number of higher-dimensional interactions. In particular, for new physics in the multi-TeV region, the precision of current EW measurements only allows to be sensitive to the next-to-leading order contributions in  Eq.~(\ref{eq:EffLag}), i.e., the {\it dimension-six effective Lagrangian}. (To dimension five there is only one interaction: the Weinberg operator giving Majorana masses to the SM neutrinos and which plays a negligible role in EW processes.)
 The first complete basis of independent dimension six operators was introduced by Grzadkowski, Iskrzynski, Misiak and Rosiek (GIMR) and contains a total of 59 independent operators, barring flavor indices and hermitian conjugates \cite{Grzadkowski:2010es}.
 
-The main implementation of the dimension-six Standard Model effective Lagrangian in {\tt HEPfit} is based in the GIMR basis. Currently, all the dimension-six interactions entering in the electroweak precision observables as well as Higgs signal strengths have been included in the so called {\tt NPEffectiveGIMR} model class, as well as in its variant {\tt NPEffectiveGIMR\_LFU\_QFU}, where lepton and quark flavor universality is asumed. These implementations assume that we use the Fermi constant as extracted from $\mu$ decay, $G_\mu$, as one of the SM input parameters. The complete list of operators as well the corresponding names for the {\tt HEPfit} model parameters can be found in Table \ref{tab:GIMRpars1} and \ref{tab:GIMRpars2}. {\bf [Add comment about redundant operators included in the final class]} The model flags are are described in Table \ref{tab:GIMRflags}.
+The main implementation of the dimension-six Standard Model effective Lagrangian in {\tt HEPfit} is based in the GIMR basis. Currently, all the dimension-six interactions entering in the electroweak precision observables as well as Higgs signal strengths have been included in the so called {\tt NPEffectiveGIMR} model class, as well as in its variant {\tt NPEffectiveGIMR\_LFU\_QFU}, where lepton and quark flavor universality is asumed. These implementations assume that we use the Fermi constant as extracted from $\mu$ decay, $G_\mu$, as one of the SM input parameters. The complete list of operators as well the corresponding names for the {\tt HEPfit} model parameters can be found in Table \ref{tab:GIMRpars1} and \ref{tab:GIMRpars2}. The model flags are are described in Table \ref{tab:GIMRflags}.
 
 
 %\begin{table}[tb]
@@ -1010,26 +876,150 @@ The main implementation of the dimension-six Standard Model effective Lagrangian
 % \label{tab:GIMRpars}
 %\end{table}
 
-For a given observable, $O$, the full theoretical prediction including new physics effects induced by ${\cal L}_6$ can be written as
+By default, the theoretical predictions for the experimental observables including the new physics contributions coming from the effective Lagrangian are computed consistently with assumption of only dimension six effects. In other words, for a given observable, $O$, only effects of order $1/\Lambda^2$ are considered, and all new physics contributions are linear in the new physics parameters:
 %
 \begin{equation}
-O=O_{\mathrm{SM}}+ \sum_i F_i \frac{C_i}{\Lambda^2} +\sum_{i,j} G_{ij} \frac{C_i C_j^*}{\Lambda^4}.
+O=O_{\mathrm{SM}}+ \sum_i F_i \frac{C_i}{\Lambda^2}.
 \label{eq:Odim6}
 \end{equation}
 %
-By default, {\tt HEPfit} computes the predictions for the experimental observables %including the new physics contributions coming from the effective Lagrangian 
-consistently with the assumption of only dimension six effects. This means that only effects of order $1/\Lambda^2$ are retained in Eq.~(\ref{eq:Odim6}), and therefore the new physics contributions are linear in the new physics parameters.
-%
-%\begin{equation}
-%O=O_{\mathrm{SM}}+ \sum_i F_i \frac{C_i}{\Lambda^2} +\sum_{i,j} G_{ij} \frac{C_i C_j^*}{\Lambda^4}.
-%\label{eq:Odim6}
-%\end{equation}
-%
-Note that these linear contributions always come from the interference with the SM amplitudes. Because of this, one must be careful with some of the parameters included in Table~\ref{tab:GIMRpars2}, e.g. $C_{HUD}$ which modifies the charged currents adding right-handed contributions, for they do not interfere with the SM amplitudes. 
+Note that these linear contributions always come from the interference with the SM amplitudes. Because of this, one must be careful with some of the parameters included in Table~\ref{tab:GIMRpars}, e.g. $C_{HUD}$ which modifies the charged currents adding right-handed contributions, for they do not interfere with the SM ampitudes. 
 
-The default behavior described above can be altered for some observables by using some of the model flags described in Table~\ref{tab:GIMRflags}. Setting the flag {\tt QuadraticTerms} to ``True'', one can test the quadratic effects of the dimension-six interactions in the Higgs productions cross sections and decay widths. Currently, such contributions are only implemented for those operators whose interference with the SM amplitudes is non-vanishing.
-%in the case that only one dimension six operator is switch on at a time. 
-{\bf [Add flag to rotate operators]}
+The default behaviour described above can be altered for some observables by using some of the model flags described in Table~\ref{tab:GIMRflags}. Setting the flag {\tt QuadraticTerms} to ``True'', one can test the quadratic effects of the dimension-six interactions in the Higgs productions cross sections and decay widths. Currently, such contributions are only implemented in the case that only one dimension six operator is switch on at a time. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Modified Higgs Couplings}
+\label{sec:Higgs}
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+In many scenarios of new physics one of the main predictions are deviations in the Higgs boson couplings with respect to the SM ones. Such an scenario can be described in general by considering the following effective Lagrangian for a light Higgs-like scalar field $h$ \cite{Contino:2010mh,Azatov:2012bz}:
+%
+\begin{equation}
+\begin{split}
+{\cal L}=&\frac 12 \partial_\mu h \partial^\mu h - V(h) + \frac{v^2}{4} \mathrm{Tr}(D_\mu \Sigma^\dagger D^\mu\Sigma)\left(1+2\kappa_V\frac{h}{v}+\dots\right)\\
+%
+&-m_{u^i} \left(\begin{array}{c c}\overline{u_L^i}&\overline{d_L^i}\end{array}\right) \Sigma \left(\begin{array}{c}\overline{u_R^i}\\ 0 \end{array}\right) \left(1+ \kappa_u \frac{h}{v}+\dots \right) +\mathrm{h.c.}\\
+%
+&-m_{d^i} \left(\begin{array}{c c}\overline{u_L^i}&\overline{d_L^i}\end{array}\right) \Sigma \left(\begin{array}{c}0\\ \overline{d_R^i} \end{array}\right) \left(1+ \kappa_d \frac{h}{v}+\dots \right) +\mathrm{h.c.}\\
+%
+&-m_{\ell^i} \left(\begin{array}{c c}\overline{\nu_L^i}&\overline{\ell_L^i}\end{array}\right) \Sigma \left(\begin{array}{c} 0\\ \overline{\ell_R^i}\end{array}\right) \left(1+ \kappa_\ell \frac{h}{v}+\dots \right) +\mathrm{h.c.}~\!.
+\label{eq:Lagh}
+\end{split}
+\end{equation}
+%
+This Lagrangian assumes an approximate custodial symmetry and the absence of other light degrees of freedom below the given cut-off scale. In the previous Lagrangian the longitudinal components of the $W$ and $Z$ gauge bosons, $\chi^a(x)$, are described by the $2\times 2$ matrix $\Sigma(x)=\mathrm{exp}\left( i \sigma_a \chi^a(x)/v\right)$, with $\sigma_a$ the Pauli matrices, and $V(h)$ is the scalar potential of the Higgs field, whose details are not relevant for the discussion here. The SM is recovered for $\kappa_V=\kappa_u=\kappa_d=\kappa_\ell=1$. 
+
+The Lagrangian above describing an SM extension with {\it Modified Higgs Coupling} has been implemented in {\tt HEPfit} in two different model classes, depending on further asumptions on the couplings in Eq.~(\ref{eq:Lagh}):
+%
+\begin{itemize}
+{\item The model class {\tt HiggsKvKf} describes an scenario where the couplings to all fermions are rescaled by the same factor, i.e., $\kappa_u=\kappa_d=\kappa_\ell \equiv \kappa_f$. The invisible decay width of the Higgs is also parameterized independently. The {\tt HEPfit} names of the different parameters in this model class are described in Table~\ref{tab:HiggsKvKfpars}.}
+%
+{\item The model class {\tt HiggsKvKfgen} describes the general case in Eq.~(\ref{eq:Lagh}), where all modified couplings $\kappa_V$, $\kappa_{u, d, \ell}$, as well as the invisible decay width of the Higgs are independent parameters. The {\tt HEPfit} names of the different parameters in this model class are described in Table~\ref{tab:HiggsKvKfpars}.
+}
+%
+\end{itemize}
+%
+<<<<<<< Updated upstream
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKf} class. }\vspace{0.2cm}
+  \begin{tabular}{| c c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvKfpars}
+\end{table} 
+
+ \begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKfgen} class.}\vspace{0.2cm}
+  \begin{tabular}{| c c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Ku}&
+$\kappa_u$\\
+%
+ {\tt Kd}&
+$\kappa_d$\\
+%
+ {\tt Kl}&
+$\kappa_l$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvKfgenpars}
+\end{table} 
+
+Note that, while both $\kappa_V$ and $\kappa_f$ can modify the different Higgs production cross sections and decay widths, the leading corrections to EWPO come only from $\kappa_V$. These are given by the following 1-loop contributions to the oblique $S$ and $T$ parameters:
+%
+\begin{align}
+S &= \frac{1}{12\pi} (1 - \kappa_V^2)
+  \ln\bigg(\frac{\Lambda^2}{m_H^2}\bigg)\,,
+&
+T &= - \frac{3}{16\pi c_W^2} (1 - \kappa_V^2)
+  \ln\bigg(\frac{\Lambda^2}{m_H^2}\bigg)\,,
+\label{eq:ST}
+\end{align}
+where $\Lambda$ is the cutoff of the effective Lagrangian in Eq. \ref{eq:Lagh}.
+We set $\Lambda = 4\pi v/\sqrt{|1-\kappa_V^2|}$, as given by the scale of 
+violation of perturbative unitarity in $WW$ scattering.
+
+Finally, relaxing the assumption of custodial symmetry, the Higgs couplings to the $W$ and $Z$ bosons can be different. The model class {\tt HiggsKvgenKf} considers this possibility, replacing $\kappa_V\rightarrow \kappa_Z,~\kappa_W$, with $\kappa_Z$ and $\kappa_W$ being two completely independent parameters. One must be aware that for $\kappa_W\not = \kappa_Z$ power divergences appear in the contributions to oblique corrections, and the detailed information of the UV theory is necessary for calculating the contributions to electroweak precision observables.
+Therefore, this class is constructed solely for the purpose of testing custodial symmetry in the experimental Higgs observables. Because of this, and also for simplicity, in this class we assume again universality on the deviations in the fermionic couplings, described by a single parameter $\kappa_f$. The corresponding model parameters for this class are described in Table~\ref{tab:HiggsKvgenKfpars}.
+
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvgenKf} class.}\vspace{0.2cm}
+  \begin{tabular}{| c c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt KZ}&
+$\kappa_Z$\\
+%
+ {\tt KW}&
+$\kappa_W$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvgenKfpars}
+\end{table} 
+
+
+=======
+Finally, relaxing the assumption of custodial symmetry, the Higgs couplings to the $W$ and $Z$ bosons can be different. The model class {\tt HiggsKvgenKf} considers this possibility, replacing $\kappa_V\rightarrow \kappa_Z,~\kappa_W$, with $\kappa_Z$ and $\kappa_W$ being two completely independent parameters. One must be aware that for $\kappa_W\not = \kappa_Z$ power divergences appear in the contributions to oblique corrections, and the detailed information of the UV theory is necessary for calculating the contributions to electroweak precision observables.
+Therefore, this class is constructed solely for the purpose of testing custodial symmetry in the experimental Higgs observables. Because of this, and also for simplicity, in this class we assume again universality on the deviations in the fermionic couplings, described by a single parameter $\kappa_f$. The corresponding model parameters for this class are described in Table~\ref{tab:HiggsKvgenKfpars}.
+>>>>>>> Stashed changes
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Observables}
@@ -1122,9 +1112,71 @@ The default behavior described above can be altered for some observables by usin
 
 \subsubsection{THDM}
 
-In this section we want to introduce briefly the theoretical bounds on the THDM parameters:
-As we are interested in a stable vacuum state, the minimum of the Higgs potential which breaks the electroweak symmetry should be at least a metastable local minimum. In order to guarantee that we have to be sure that the Higgs potential is bounded from below \cite{Deshpande:1977rw}. This can be achieved requiring {\tt positivity1} and {\tt positivity2} to be greater than $0$. Furthermore, we have to exclude the possibility that the vacuum state decays into a deeper minimum with a tunneling rate smaller than the age of the universe. Setting the quantity {\tt globalminimum} to be larger than $0$ excludes the existence of deeper minima; that quantity is simply the scaled ``panic vacuum'' discriminant from \cite{Barroso:2013awa}.\\
-For a simple control of the perturbativity of the quartic couplings, the potential parameters from \eqref{eq:THDMVH} can also be accessed as \HEPfit observables. A better way is to demand the scattering matrix of $\Phi_i \Phi_j\to \Phi_k \Phi_l$ processes to be unitary. These constraints are available at leading order \cite{Huffel:1980sk,Maalampi:1991fb,Kanemura:1993hm,Akeroyd:2000wc,Ginzburg:2005dt} and next-to-leading order \cite{Grinstein:2015rtl,Cacchio:2016qyh}; the eigenvalues of the $S$-matrix can be accessed via the observables {\tt unitarity1} to {\tt unitarity12} and {\tt unitaritya}$Y\sigma \mathbb{Z}_2${\tt (p/m)}, respectively, where $Y=0,1$, $\sigma=0,1$, $\mathbb{Z}_2=${\tt even},{\tt odd} denote the hypercharge, weak isospin and $\mathbb{Z}_2$ quantum numbers and {\tt p} and {\tt m} define the ``$+$'' and ``$-$'' solutions of the 2 by 2 sub-blocks. Moreover, the user can individually impose that the next-to-leading order expressions should not exceed the ones at leading order by requiring $|${\tt unitarityRp}$i|<1$, where the $i$ stand for the single eigenvalues.
+In this section we want to introduce briefly the theoretical bounds on the THDM parameters. Since they restrict the Higgs potential to have certain properties, we will make use of the potential basis of \eqref{eq:THDMVH}, which can be translated into physical parameters making use of the following equations:
+
+\begin{align}
+ \lambda_1 &=\frac{1}{v^2\cos ^2(\beta)}\left[ m_H^2\cos^2(\alpha) + m_h^2\sin^2(\alpha) - m_{12}^2\tan (\beta)\right] \label{eq:lambda1} \\
+ \lambda_2 &=\frac{1}{v^2\sin ^2(\beta)}\left[ m_H^2\sin^2(\alpha) + m_h^2\cos^2(\alpha) - \frac{m_{12}^2}{\tan (\beta)}\right] \label{eq:lambda2} \\
+ \lambda_3 &=\frac{1}{v^2\sin(\beta)\cos(\beta)}\left[ \left( m_H^2 - m_h^2\right) \sin(\alpha)\cos(\alpha) + 2m_{H^+}^2\sin(\beta)\cos(\beta) - m_{12}^2\right] \nonumber\\
+ \lambda_4 &=\frac{1}{v^2\sin(\beta)\cos(\beta)}\left[ \left( m_A^2 - 2m_{H^+}^2\right) \sin(\beta)\cos(\beta) + m_{12}^2\right] \nonumber\\
+ \lambda_5 &=\frac{1}{v^2\sin(\beta)\cos(\beta)}\left[ -m_A^2\sin(\beta)\cos(\beta) + m_{12}^2\right] \nonumber.
+\end{align}
+
+The potential parameters can be accessed as observables in \HEPfit.\\
+
+\textbf{Stability conditions}\\
+
+As we are interested in a stable vacuum state, the minimum of the Higgs potential which breaks the electroweak symmetry should be at least a metastable local minimum. First of all we have to guarantee that the Higgs potential is bounded from below. Furthermore, we have to exclude the possibility that the vacuum state decays into a deeper minimum with a tunneling rate smaller than the age of the universe.\\
+
+\paragraph{Positivity of the Higgs potential}
+
+In order to comply with the ``bounded-ness from below'' condition, four inequalities have to be satisfied \cite{Deshpande:1977rw}:
+
+\begin{align}
+ \lambda_1&>0 \hspace*{80pt}\nonumber\\
+ \lambda_2&>0 \nonumber\\
+ \lambda_3 + \sqrt{\lambda_1 \lambda_2} &>0 \nonumber\\
+ \lambda_3 + \lambda_4 - |\lambda_5| + \sqrt{\lambda_1 \lambda_2}&>0 \nonumber
+\end{align}
+
+Since $\lambda_1$ and $\lambda_2$ are already defined as observables, the first two conditions can easily be controlled by the prior for \eqref{eq:lambda1} and \eqref{eq:lambda2}. Nevertheless, when checking whether the third or fourth inequality is fulfilled, \HEPfit controls whether $\lambda_1$ and $\lambda_2$ are positive, also in order to prevent their product in the square root from getting negative. The third and fourth condition are called {\tt positivity1} and {\tt positivity2} in the code and have been translated to the physical basis and simplified. They also include global rescaling factors of $10^{-4}$.\\
+
+\paragraph{Global minimum condition}
+
+Even if the potential is bounded from below, we have to make sure that there are no deeper minima, or at least that the tunneling rate to decay into those minima is smaller than the inverse age of the universe. In \HEPfit, we impose that no deeper minima exist.
+The original discriminant given in \cite{Barroso:2013awa} is
+
+\begin{align}
+ D&=m_{12}^2 \left( m_{11}^2 - \sqrt{\frac{\lambda_1}{\lambda_2}}m_{22}^2 \right) \left( \tan(\beta ) -\sqrt[4]{\frac{\lambda_1}{\lambda_2}}\right) \nonumber
+\end{align}
+
+and has to be greater than zero to avoid what they call ``panic vacua''. This is equivalent to our translation to physical parameters. After a rescaling by a positive factor and $10^{-7}$ the simplified formula we use in \HEPfit is
+
+\begin{align}
+ \tt{globalminimum} &= 10^{-7} m_{12}^2 \Bigg[ m_{12}^2 + \left( m_h^2 - m_H^2 \right) \cos (\alpha) \sin (\alpha) \phantom{Bigg]} \nonumber \\
+ & \hspace*{80pt} +\sqrt{ m_h^2 \cos^2(\alpha) +m_H^2 \sin^2(\alpha) - \frac{m_{12}^2}{\tan(\beta)} } \nonumber \\
+ & \hspace*{80pt} \phantom{Bigg[} \cdot \sqrt{ m_H^2 \cos^2(\alpha) +m_h^2 \sin^2(\alpha) -m_{12}^2 \tan (\beta ) } \Bigg] .\nonumber
+\end{align}
+
+\textbf{Perturbativity}\\
+
+We must take care that the THDM couplings do not become too large; otherwise we lose the predictivity of our quantum field theory at the point where higher order corrections are expected to be of the same size than the leading order expressions. In order to avoid this breakdown of perturbativity, several approaches can be found in the literature and in \HEPfit we also have more than one possibility to impose this constraint.
+
+The easiest way is to restrict the quartic couplings in \eqref{eq:THDMVH} to be smaller than $4\pi$ in magnitude. However, this method depends on the parameterisation. A better way is to demand the scattering matrix of $\Phi_i \Phi_j\to \Phi_k \Phi_l$ processes to be unitary, more precisely to require all its eigenvalues to be smaller than $\Lambda_{\text{\tiny{max}}}=1$ in magnitude \cite{Huffel:1980sk,Maalampi:1991fb,Kanemura:1993hm,Akeroyd:2000wc,Ginzburg:2005dt} or even as small as $\frac18$ as higher order estimates suggest \cite{Baglio:2014nea,Chowdhury:2015yja}. Recently, the one-loop unitarity constraints have been calculated also in the THDM \cite{Grinstein:2015rtl}; they are currently being implemented in \HEPfit.
+
+We list the tree-level formulae for the eigenvalues of the $S$-matrix for scattering of a two scalar initial state into a two scalar final state. We use the notation of \cite{Ginzburg:2005dt} and classify them according to the hypercharge $Y$, the total weak isospin $\sigma$ and the transformation property under the $Z_2$ symmetry of the initial states as $\Lambda _{Y\sigma \pm}^{Z_2}$:
+
+\begin{align}
+ \Lambda _{21\pm}^{\text{even}} &= \frac12 \left( \lambda_1 +\lambda_2 \pm \sqrt{(\lambda_1-\lambda_2)^2+4\lambda_5^2}\right) \nonumber \\
+ \Lambda _{01\pm}^{\text{even}} &= \frac12 \left( \lambda_1 +\lambda_2 \pm \sqrt{(\lambda_1-\lambda_2)^2+4\lambda_4^2}\right) \nonumber \\
+ \Lambda _{00\pm}^{\text{even}} &= \frac12 \left[ 3\left( \lambda_1 +\lambda_2 \right) \pm \sqrt{9(\lambda_1-\lambda_2)^2+4(2\lambda_3+\lambda_4)^2}\right] \nonumber \\
+ \Lambda _{21}^{\text{odd}} &= \lambda_3 + \lambda_4\nonumber \\
+ \Lambda _{20}^{\text{odd}} &= \lambda_3 - \lambda_4\nonumber \\
+ \Lambda _{01\pm}^{\text{odd}} &= \lambda_3 \pm |\lambda_5|\nonumber \\
+ \Lambda _{00\pm}^{\text{odd}} &= \lambda_3 + 2\lambda_4 \pm 3 |\lambda_5|\nonumber
+\end{align}
+
+For the \HEPfit code, we translated these formulae to the physical basis and simplified them where possible.
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Electroweak Precision Observables}
@@ -1493,9 +1545,29 @@ The production cross sections $\sigma ^{(H)}_{\text{\tiny{ggF}}}$, $\sigma ^{(H)
  \sigma ^{(H)}_{\text{\tiny{pp}}} &= \sigma ^{(H)}_{\text{\tiny{ggF}}} + \sigma ^{(H)}_{\text{\tiny{VBF}}} + \sigma ^{(H)}_{\text{\tiny{VH}}} + \sigma ^{(H)}_{\text{\tiny{ttH}}} + \sigma ^{(H)}_{\text{\tiny{bbH}}} \nonumber
 \end{align}
 
-In order to calculate the THDM branching ratios, we determine the partial decay width of $H$ to the final state and divide it by the sum over all partial decay widths, where also ``new'' contributions have to be taken into account which are not present in the SM, namely $\Gamma ^{(H)}_{hh}$, $\Gamma ^{(H)}_{AA}$, $\Gamma ^{(H)}_{H^\pm H^\mp}$, $\Gamma ^{(H)}_{AZ}$ and $\Gamma ^{(H)}_{H^\pm W^\mp }$, which were calculated following the prescription in the kinematics review in the Particle Data Book \cite{Agashe:2014kda}.
-The one-loop decay widths $\Gamma_{\gamma \gamma}^{(H)}$, $\Gamma_{Z \gamma}^{(H)}$ and $\Gamma_{gg}^{(H)}$ are implemented at leading order (the formulae can be found in \cite{Gunion:1989we}), the tree-level widths are products of the SM branching ratio and total decay width for a Higgs at $m_H$ and the corresponding relative coupling $r_{\rm tl}^{(H)}$.
-The formulae in the code thus read
+In order to calculate the THDM branching ratios, we determine the partial decay width of $H$ to the final state and divide it by the sum over all partial decay widths, where also ``new'' contributions have to be taken into account which are not present in the SM, namely
+
+\begin{align}
+ \Gamma ^{(H)}_{hh} &= \frac{g_{hhH}^2}{32 \pi m_H } \sqrt{1 - \frac{4 m_h^2}{m_H^2}} \; \Theta (m_H-2m_h), \nonumber \\
+ \Gamma ^{(H)}_{AA} &= \frac{g_{HAA}^2}{32 \pi m_H } \sqrt{1 - \frac{4 m_A^2}{m_H^2}} \; \Theta (m_H-2m_A), \nonumber \\
+ \Gamma ^{(H)}_{H^\pm H^\mp} &= \frac{g_{HH^+H^-}^2}{16 \pi m_H } \sqrt{1 - \frac{4 m_{H^+}^2}{m_H^2}} \; \Theta (m_H-2m_{H^+}), \nonumber \\
+ \Gamma ^{(H)}_{AZ} &= \frac{\sin^2 (\beta -\alpha )}{16 \pi m_H^3 v^2} \left[ (m_H^2-m_A^2-m_Z^2)^2-4 m_A^2 m_Z^2\right] ^{3/2}  \Theta (m_H-m_A-m_Z), \nonumber \\
+ \Gamma ^{(H)}_{H^\pm W^\mp } &= \frac{\sin^2 (\beta -\alpha )}{8 \pi m_H^3 v^2} \left[ (m_H^2-m_{H^+}^2-m_W^2)^2-4 m_{H^+}^2 m_W^2\right] ^{3/2}  \Theta (m_H-m_{H^+}-m_W). \nonumber 
+\end{align}
+
+These formulae can be calculated following the prescription in the kinematics review in the Particle Data Book \cite{Agashe:2014kda}. The triple Higgs couplings are
+
+\begin{align}
+ g_{hhH} &= -\frac{\cos(\beta-\alpha)}{v \sin (2\beta)} \left[ 2 m_{12}^2 +\sin (2\alpha) \left( 2 m_h^2 + m_H^2 - \frac{6 m_{12}^2}{\sin (2\beta)} \right) \right] ,\nonumber \\
+ g_{HAA} &= \frac{1}{v \sin (2\beta)} \Bigg[ \sin(\alpha+\beta) \left( \frac{4 m_{12}^2}{\sin (2\beta)} -2 m_H^2 \right) \phantom{\Bigg]}\nonumber \\
+ & \hspace*{150pt} \phantom{\Bigg[} + \cos(\beta-\alpha) \sin (2\beta) \left( m_H^2 -2 m_A^2 \right) \Bigg] ,\nonumber \\
+ g_{HH^+H^-} &= \frac{1}{v \sin (2\beta)} \Bigg[ \sin(\alpha+\beta) \left( \frac{4 m_{12}^2}{\sin (2\beta)} -2 m_H^2 \right) \phantom{\Bigg]}\nonumber \\
+ & \hspace*{150pt} \phantom{\Bigg[} +\cos(\beta-\alpha) \sin (2\beta) \left( m_H^2 -2 m_{H^+}^2 \right) \Bigg] .\nonumber
+\end{align}
+
+
+While the one-loop decay widths $\Gamma_{\gamma \gamma}^{(H)}$, $\Gamma_{Z \gamma}^{(H)}$ and $\Gamma_{gg}^{(H)}$ are calculated at leading order (the formulae can be found in \cite{Gunion:1989we}), the tree-level widths are products of the SM branching ratio and total decay width for a Higgs at $m_H$ and the corresponding relative coupling $r_{\rm tl}^{(H)}$.
+The formula in the code thus reads
 
 \begin{align}
  {\rm Br}(H\to ff) &= \frac{r_{ff}^{(H)} \: {\rm Br}^{\text{\tiny{SM}}} (\phi \to ff) \: \Gamma^{(\phi ,\text{SM})}_{\text{tot}}}{\Gamma^{(\phi ,\text{SM})}_{\text{tot}} \sum\limits_{\rm tl} r_{\rm tl}^{(H)} {\rm Br}^{\text{\tiny{SM}}} (\phi \to {\rm tl}) + \sum\limits_{\rm loop} \Gamma_{\rm loop}^{(H)} + \sum\limits_{\rm new} \Gamma_{\rm new}^{(H)}} \nonumber .
@@ -1528,7 +1600,15 @@ is read from a table, we neglect $\sigma ^{(A)}_{\text{\tiny{ttH}}}$ and $\sigma
 &\sigma ^{(A)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(A\to hZ \to (bb)(\ell \ell )),  \quad \sigma ^{(A)}_{\text{\tiny{ggF}}} \cdot {\rm Br}(A\to hZ \to (\tau \tau )(\ell \ell )) \nonumber %C8
 \end{align}
 
-In order to determine the branching ratios we use the tree-level expressions for $\Gamma ^{(A)}_{HZ}$, $\Gamma ^{(A)}_{hZ}$ and $\Gamma ^{(A)}_{H^\pm W^\mp }$ and calculate $\Gamma_{\gamma \gamma}^{(A)}$, $\Gamma_{Z \gamma}^{(A)}$ and $\Gamma_{gg}^{(A)}$ at one-loop level. Rescaling the remaining tree-level SM decay widths to fermions at $m_A$ by the relative couplings we get
+In order to determine the branching ratios, we first have to add the $A$ decays to Higgs bosons to the total $A$ decay width:
+
+\begin{align}
+ \Gamma ^{(A)}_{HZ} &= \frac{\sin^2 (\beta -\alpha )}{16 \pi m_A^3 v^2} \left[ (m_A^2-m_H^2-m_Z^2)^2-4 m_H^2 m_Z^2\right] ^{3/2}  \Theta (m_A-m_H-m_Z), \nonumber \\
+ \Gamma ^{(A)}_{hZ} &= \frac{\cos^2 (\beta -\alpha )}{16 \pi m_A^3 v^2} \left[ (m_A^2-m_h^2-m_Z^2)^2-4 m_h^2 m_Z^2\right] ^{3/2}  \Theta (m_A-m_h-m_Z), \nonumber \\
+ \Gamma ^{(A)}_{H^\pm W^\mp } &= \frac{1}{8 \pi m_A^3 v^2} \left[ (m_A^2-m_{H^+}^2-m_W^2)^2-4 m_{H^+}^2 m_W^2\right] ^{3/2}  \Theta (m_A-m_{H^+}-m_W). \nonumber
+\end{align}
+
+Like for the $H$, we also calculate $\Gamma_{\gamma \gamma}^{(A)}$, $\Gamma_{Z \gamma}^{(A)}$ and $\Gamma_{gg}^{(A)}$ at one-loop level, rescale the remaining tree-level SM decay widths to fermions at $m_A$ by the relative couplings and get
 
 \begin{align}
  {\rm Br}(A\to ff) &= \frac{r_{ff}^{(A)} \: {\rm Br}^{\text{\tiny{SM}}} (\phi \to ff) \: \Gamma^{(\phi ,\text{SM})}_{\text{tot}}}{\Gamma^{(\phi ,\text{SM})}_{\text{tot}} \sum\limits_{\rm tl} r_{\rm tl}^{(A)} {\rm Br}^{\text{\tiny{SM}}} (\phi \to {\rm tl}) + \sum\limits_{\rm loop} \Gamma_{\rm loop}^{(A)} + \sum\limits_{\rm new} \Gamma_{\rm new}^{(A)}} \nonumber .
@@ -1546,7 +1626,7 @@ We also provide the total decay width $\Gamma^{(A)}_{\text{tot}}=\sum_{ij}\Gamma
 
 \textbf{$H^+$ searches}\\
 
-So far, no direct searches for charged Higgs particles have been added to the code. In \cite{Chowdhury:2015yja}, the authors found the available experimental limits negligible in a global fit focussing on intermediate values of $\tan \beta$.
+So far, no direct searches for charged Higgs particles have been added to the code. In \cite{Chowdhury:2015yja}, the authors found the available experimental limits negligible in a global fit.
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Flavour Observables}
@@ -1563,30 +1643,16 @@ So far, no direct searches for charged Higgs particles have been added to the co
 %    obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
 %    obsThFactory["DmK"] = boost::factory<DmK*>();
 
-$\Delta M_{B_q}$\\
+\begin{align}
+	\Delta M_{B_q} = & 2 * \vert (M_{12}^{bq})_\mathrm{full}/(M_{12}^{bq})_\mathrm{SM}\vert * |AmpBq(FULLNLO)| \\
+	S_{J/\psi K} = & \sin(-AmpBd(FULLNLO).arg() + SM.getPhiBd()) \\
+	Betas_JPsiPhi = & remainder((AmpBs(FULLNLO).arg() + SM.getPhiBs() )/2.*180./M_PI,180.)\\
+	\epsilon_K = & SM.getCepsK() / SM.getDeltaMK() * AmpDK(FULLNLO).imag() * SM.getKbarEpsK() * 
+            sin(SM.getphiEpsK() * \pi / 180.)\\
+	\Delta M_K = & SM.getCDMK()* (2.*AmpMK(FULLNLO).real() + SM.getDmk())\\
+\end{align}
 
-$S_{J/\psi K}$\\
-
-$\beta_{J/\psi \phi}$\\
-
-$\epsilon_K$\\
-
-$\Delta M_K$\\
-
-%\begin{align}
-%	\Delta M_{B_q} = & 2 * \vert (M_{12}^{bq})_\mathrm{full}/(M_{12}^{bq})_\mathrm{SM}\vert * |AmpBq(FULLNLO)| \\
-%	S_{J/\psi K} = & \sin(-AmpBd(FULLNLO).arg() + SM.getPhiBd()) \\
-%	Betas_JPsiPhi = & remainder((AmpBs(FULLNLO).arg() + SM.getPhiBs() )/2.*180./M_PI,180.)\\
-%	\epsilon_K = & SM.getCepsK() / SM.getDeltaMK() * AmpDK(FULLNLO).imag() * SM.getKbarEpsK() * 
-%            sin(SM.getphiEpsK() * \pi / 180.)\\
-%	\Delta M_K\\
-%\end{align}
-
-$V_{ij}$\\
-
-$\alpha$, $\alpha_{2a}$, $\gamma$\\
-
-$\lambda_{q}$, $\lambda_{qd}$, $\lambda_{qs}$\\
+\textbf{CKM}\\
 %    obsThFactory["Vud"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 1);
 %    obsThFactory["Vus"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 2);
 %    obsThFactory["Vub"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 3);
@@ -1609,7 +1675,7 @@ $\lambda_{q}$, $\lambda_{qd}$, $\lambda_{qs}$\\
 %    obsThFactory["Abslam_cs"] = boost::factory<Abslam_cs*>();
 %    obsThFactory["Abslam_us"] = boost::factory<Abslam_us*>();
 
-$B\to \mu\mu$\\
+\textbf{$B\to \mu\mu$}\\
 %    obsThFactory["BR_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 1);
 %    obsThFactory["BRbar_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 2);
 %    obsThFactory["Amumu_Bd"] = boost::bind(boost::factory<Bdmumu*>(), _1, 3);
@@ -1619,11 +1685,11 @@ $B\to \mu\mu$\\
 %    obsThFactory["Amumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3);
 %    obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4);
 
-$b\to s \gamma$\\
+\textbf{$b\to s \gamma$}\\
 %    obsThFactory["BR_bsgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 1);
 %    obsThFactory["BR_CPodd_bsgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, 2);
 
-$B\to K^{*}\ell \ell$\\
+\textbf{$B\to K^{*}\ell \ell$}\\
 %    obsThFactory["P_1_BdKstmu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 %    obsThFactory["P_1_BdKste"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
 %    obsThFactory["P_2_BdKstmu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
@@ -1723,7 +1789,7 @@ $B\to K^{*}\ell \ell$\\
 %    obsThFactory["hm0_h00"] = boost::bind(boost::factory<hm0_h00*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 %
 
-$B\to \phi \ell \ell$\\
+\textbf{$B\to \phi \ell \ell$}\\
 %    obsThFactory["P_1_Bsphimu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
 %    obsThFactory["P_2_Bsphimu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
 %    obsThFactory["P_3_Bsphimu"] = boost::bind(boost::factory<P_3*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
@@ -1752,21 +1818,21 @@ $B\to \phi \ell \ell$\\
 %    obsThFactory["A_6_Bsphimu"] = boost::bind(boost::factory<A_6*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
 %    obsThFactory["A_9_Bsphimu"] = boost::bind(boost::factory<A_9*>(), _1, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
 
-$B\to K\ell \ell$\\
+\textbf{$B\to K\ell \ell$}\\
 %    obsThFactory["BR_BKmu"] = boost::bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);
 %    obsThFactory["BR_BKe"] = boost::bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON);
 %    obsThFactory["RK_BKll"] = boost::bind(boost::factory<R_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU, StandardModel::ELECTRON);
 
-$B \to K^{*} \gamma$\\
+\textbf{$B \to K^{*} \gamma$}\\
 %    obsThFactory["BR_BKstgamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
 %    obsThFactory["ACP_BKstgamma"] = boost::bind(boost::factory<ACP_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
 
-$B\to \phi \gamma$\\
+\textbf{$B\to \phi \gamma$}\\
 %    obsThFactory["BR_Bsphigamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
 %    obsThFactory["ACP_Bsphigamma"] = boost::bind(boost::factory<ACP_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
 %    
 
-$B\to \tau \nu$\\
+\textbf{$B\to \tau \nu$}\\
 %    obsThFactory["btaunu"] = boost::factory<Btaunu*>();
 
 
@@ -1776,9 +1842,51 @@ Ayan, Debtosh, Luca
 %obsThFactory["B_BtoXsgammaTHDM"] = boost::factory<bsgammaTHDM*>();
 
 The $Z_2$ symmetry forbids flavour-changing neutral currents at tree-level. Nevertheless, some $B$ observables involving third-generation Yukawa couplings to relatively light THDM particles are important also at loop level. In particular, the most interesting constraints are the $B-\bar{B}$ oscillation frequency and the branching ratios of the rare decays of a $B$ meson to the final states $X_s \gamma$, $\tau \nu$, $D \tau \nu$, $D^* \tau \nu$ and $\mu^+\mu^-$. The last three observables have not been implemented to \HEPfit so far.\\
-The oscillation frequency of $B_d$ and $B_s$ mesons to their anti-meson partners receives contributions from the charged Higgs $H^+$ in THDMs. This quantity features less uncertainty in the $B_s$ system, so the value for $B_d$ mesons does not offer an additional constraint and is therefore neglected. The THDM contributions to the Wilson coefficients are taken from \cite{Geng:1988bq,Deschamps:2009rh}.\\
-From all THDM parameters, the branching ratio ${\rm Br}(\bar{B}\to X_s\gamma)$ only depends on $\tan (\beta)$ and $m_{H^+}$. In type II, all THDM contributions are available up to NNLO \cite{Misiak - Marco?}. Since the precise calculation is rather time consuming, we also offer a parameterised version, for which all SM parameters were fixed to their best fit values and ${\rm Br}(\bar{B}\to X_s\gamma)$ is interpolated between stored values for fixed pairs of $\tan (\beta)$ and $m_{H^+}$. The corresponding uncertainty is contained in the nuisance parameter \texttt{bsgamma\_theoryerror}.\\
-For the purely leptonic decay of a charged $B$ meson into $\tau$ and $\nu$, we take the formula from \cite{Hou:1992sy} to determine the THDM Wilson coefficient.
+
+\textbf{$B$ mixing}\\
+
+The oscillation frequency of $B_d$ and $B_s$ mesons to their anti-meson partners receives contributions from the charged Higgs $H^+$ in THDMs. This quantity features less uncertainty in the $B_s$ system, so the value for $B_d$ mesons does not offer an additional constraint and is therefore neglected. The relevant box diagram contains either two $W$ bosons (SM contribution), two $H^+$ or one $W$ and one $H^+$. Defining the squared mass ratio $x_{ij}=m_i^2/m_j^2$, the corresponding contributions to the Wilson coefficient read \cite{Geng:1988bq,Deschamps:2009rh}
+
+\begin{align}
+%CMdbs2 in the code
+C_?&=\frac{G_F}{4\pi} |V_{ts}^*V_{tb}^{\phantom{*}}|^2 \frac{m_t^2}{m_W} \left( S_{WH^+}+S_{H^+H^+}\right)
+\text{with} \nonumber \\
+&S_{WH^+}=\frac{x_{tH^+}}{\tan^2(\beta)}\left[ \frac{(2x_{H^+W}-8)\ln (x_{tH^+})}{(1-x_{H^+W})(1-x_{tH^+})^2} +\frac{6x_{H^+W}\ln (x_{tW})}{(1-x_{H^+W})(1-x_{tW})^2} \right. \nonumber \\
+&\hspace*{250pt} \left. +\frac{8-2x_{tW}}{(1-x_{tW})(1-x_{tH^+})}\right] ,\nonumber \\
+&S_{H^+H^+}=\frac{x_{tH^+}}{\tan^4(\beta)}\left[ \frac{1+x_{tH^+}}{(1-x_{tH^+})^2} +\frac{2x_{tH^+}\ln (x_{tH^+})}{(1-x_{tH^+})^3} \right] .\nonumber
+\end{align}
+
+\textbf{The branching ratio ${\rm Br}(\bar{B}\to X_s\gamma)$}\\
+
+Also the branching ratio ${\rm Br}(\bar{B}\to X_s\gamma)$ only depends on $\tan (\beta)$ and $m_{H^+}$ of all THDM parameters. The authors of \cite{Misiak:2015xwa} showed that it is very important to take into account three-loop corrections in the THDM. Since these expressions are not only lengthy but also expensive in computing time, we decided to create a table of NNLO ${\rm Br}(\bar{B}\to X_s\gamma)$ values for all SM parameters fixed to their best-fit values and varying only the decadic logarithms of $\tan (\beta)$ and the charged Higgs mass in the following ranges:
+
+\begin{align}
+ 1\leq & \log_{10} (m_{H^+}/\text{GeV})\leq 4 \quad \text{with a step size of 0.03 and}\nonumber \\
+ -\frac43 \leq & \log_{10} [\tan(\beta)]\leq 2 \quad \text{with a step size of 1/3.}\nonumber 
+\end{align}
+
+The tabled values, which are depicted in Figure \ref{fig:THDMbsgplot}, are then linearly interpolated at runtime and give a good approximation for the theoretical prediction. The theoretical uncertainty is parameterised by the nuisance parameter \texttt{bsgamma\_theoryerror}. So far, this constraint is only available for the type II.\\
+
+\begin{figure}
+  \centering
+  \resizebox{450pt}{!}{
+   \begin{picture}(400,150)(0,0)
+    \put(50,0){\includegraphics{plots/THDMbsgplot.pdf}}
+   \end{picture}
+  }
+  \caption{An illustration of the tabled values of ${\rm Br}(\bar{B}\to X_s\gamma)$ in dependence of the decadic logarithms of $\tan (\beta)$ and the charged Higgs mass.}
+  \label{fig:THDMbsgplot}
+\end{figure}
+
+\textbf{$B^-\to \tau \bar{\nu}$ decays}\\
+
+We take the formula from \cite{Hou:1992sy}: the SM branching ratio is proportional to the squared Wilson coefficient, to which we add the THDM contribution
+
+\begin{align}
+%CMbtaunu in the code
+ C_? &= -4 \frac{G_F}{\sqrt{2}} V_{ub} m_{B^+}^2 \frac{\tan ^2 (\beta)}{m_{H^+}^2}. \nonumber
+\end{align}
+
 
 
 %%%
@@ -2593,6 +2701,34 @@ Advanced Grant n.~267985 ``DaMeSyFla''.
 \label{sec:appModelParameters}
 
 
+\begin{table}[t]
+\begin{center}
+\begin{tabular}{|c|c||c|c|}
+\hline
+\HEPfit name & Parameter & \HEPfit name & Parameter \\
+\hline
+\texttt{m1r} & $\Re(M_{1})$ & \texttt{msDhat2\_$\alpha\beta$i} & $\Im[(m_{D}^{2})_{\alpha\beta}]$ \\
+\texttt{m1i} & $\Im(M_{1})$ & \texttt{msLhat2\_$\gamma\delta$r} & $\Re[(m_{L}^{2})_{\gamma\delta}]$ \\
+\texttt{m2r} & $\Re(M_{2})$ & \texttt{msLhat2\_$\alpha\beta$i} & $\Im[(m_{L}^{2})_{\alpha\beta}]$ \\
+\texttt{m2i} & $\Im(M_{2})$ & \texttt{msEhat2\_$\gamma\delta$r} & $\Re[(m_{E}^{2})_{\gamma\delta}]$  \\
+\texttt{m3} &  $M_{3}$ & \texttt{msEhat2\_$\alpha\beta$i} & $\Im[(m_{E}^{2})_{\alpha\beta}]$ \\
+\texttt{muHr} & $\Re(\mu)$ & \texttt{msNhat2\_$\gamma\delta$r} & $\Re[(m_{N}^{2})_{\gamma\delta}]$ \\
+\texttt{muHi} & $\Im(\mu)$ & \texttt{msNhat2\_$\alpha\beta$i} & $\Im[(m_{N}^{2})_{\alpha\beta}]$  \\
+\texttt{mA} & $m_{A}$ & \texttt{TUhat\_$\mu\nu$r} & $\Re[(T_{U})_{\mu\nu}]$ \\
+\texttt{tanb} & $\tan\beta$ & \texttt{TUhat\_$\mu\nu$i} & $\Im[(T_{U})_{\mu\nu}]$ \\
+\texttt{Q\_SUSY} & $M_{SUSY}$ & \texttt{TDhat\_$\mu\nu$r} & $\Re[(T_{D})_{\mu\nu}]$ \\
+\texttt{msQhat2\_$\gamma\delta$r} & $\Re[(m_{Q}^{2})_{\gamma\delta}]$ & \texttt{TDhat\_$\mu\nu$i} & $\Im[(T_{D})_{\mu\nu}]$ \\
+\texttt{msQhat2\_$\alpha\beta$i} & $\Im[(m_{Q}^{2})_{\alpha\beta}]$ & \texttt{TEhat\_$\mu\nu$r} & $\Re[(T_{E})_{\mu\nu}]$ \\
+\texttt{msUhat2\_$\gamma\delta$r} & $\Re[(m_{U}^{2})_{\gamma\delta}]$ & \texttt{TEhat\_$\mu\nu$i} & $\Im[(T_{E})_{\mu\nu}]$\\
+\texttt{msUhat2\_$\alpha\beta$i} & $\Im[(m_{U}^{2})_{\alpha\beta}]$ & \texttt{TNhat\_$\mu\nu$r} & $\Re[(T_{N})_{\mu\nu}]$ \\
+\texttt{msDhat2\_$\gamma\delta$r} & $\Re[(m_{D}^{2})_{\gamma\delta}]$ & \texttt{TNhat\_$\mu\nu$i} & $\Im[(T_{N})_{\mu\nu}]$ \\ 
+\hline
+\end{tabular}
+\end{center}
+\caption{Model parameters for \texttt{GeneralSUSY} class. The indices $\alpha, \beta, \gamma, \delta, \mu, \nu = 1 \cdots 3$ with $\alpha<\beta$ and $\gamma \leq \delta$.}
+\label{default}
+\end{table}%
+
 \begin{table}[tb]
  \centering
  \caption{THDM parameters}\vspace{0.2cm}
@@ -2618,115 +2754,6 @@ Advanced Grant n.~267985 ``DaMeSyFla''.
  \label{tab:HandAsearchlimits}
 \end{table} 
 
-\begin{table}[tb]
- \centering
- \caption{Model parameters in the {\tt HiggsKvKf} class. }\vspace{0.2cm}
-  \begin{tabular}{| c | c | }
-\hline
-%
-\textbf{\HEPfit name}&
-\textbf{Parameter}\\
-%
-\hline
- {\tt Kv}&
-$\kappa_V$\\
-%
- {\tt Kf}&
-$\kappa_f$\\
-%
- {\tt BrHinv}&
-Br$(H\to \mathrm{invisible})$\\
-\hline
-  \end{tabular}
- \label{tab:HiggsKvKfpars}
-\end{table} 
-
- \begin{table}[tb]
- \centering
- \caption{Model parameters in the {\tt HiggsKvKfgen} class.}\vspace{0.2cm}
-  \begin{tabular}{| c | c | }
-\hline
-%
-\textbf{\HEPfit name}&
-\textbf{Parameter}\\
-%
-\hline
- {\tt Kv}&
-$\kappa_V$\\
-%
- {\tt Ku}&
-$\kappa_u$\\
-%
- {\tt Kd}&
-$\kappa_d$\\
-%
- {\tt Kl}&
-$\kappa_\ell$\\
-%
- {\tt BrHinv}&
-Br$(H\to \mathrm{invisible})$\\
-\hline
-  \end{tabular}
- \label{tab:HiggsKvKfgenpars}
-\end{table} 
-
-\begin{table}[tb]
- \centering
- \caption{Model parameters in the {\tt HiggsKvgenKf} class.}\vspace{0.2cm}
-  \begin{tabular}{| c | c | }
-\hline
-%
-\textbf{\HEPfit name}&
-\textbf{Parameter}\\
-%
-\hline
- {\tt KZ}&
-$\kappa_Z$\\
-%
- {\tt KW}&
-$\kappa_W$\\
-%
- {\tt Kf}&
-$\kappa_f$\\
-%
- {\tt BrHinv}&
-Br$(H\to \mathrm{invisible})$\\
-\hline
-  \end{tabular}
- \label{tab:HiggsKvgenKfpars}
-\end{table} 
-
-\begin{table}[tb]
- \centering
- \caption{Model parameters in the {\tt Name?} class.}\vspace{0.2cm}
-  \begin{tabular}{| c | c | }
-\hline
-%
-\textbf{\HEPfit name}&
-\textbf{Parameter}\\
-%
-\hline
- {\tt KZ}&
-$\kappa_Z$\\
-%
- {\tt KW}&
-$\kappa_W$\\
-%
- {\tt Ku}&
-$\kappa_u$\\
-%
- {\tt Kd}&
-$\kappa_d$\\
-%
- {\tt Kl}&
-$\kappa_\ell$\\
-%
- {\tt BrHinv}&
-Br$(H\to \mathrm{invisible})$\\
-\hline
-  \end{tabular}
- \label{tab:HiggsKvgenKfgenpars}
-\end{table} 
 
 \begin{landscape}
 \begin{table}[tb]
@@ -2914,355 +2941,90 @@ The new physics scale in GeV.\\
       {\tt QuadraticTerms} &  If ``true'' the contributions from quadratic terms are\\
       &  switched on in the calculation of Higgs cross sections\\
       &  and decay widths. (Currently implemented only for \\
-      &  operators with non-zero interference with the SM.)\\
+      &  fits assuming one operator at a time.)\\
     \hline
   \end{tabular}
   \label{tab:GIMRflags}
 \end{table} 
 
-{\footnotesize
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKf} class. }\vspace{0.2cm}
+  \begin{tabular}{| c | c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvKfpars}
+\end{table} 
 
-\begin{center}
-\begin{longtable}{| c | l | l | c |}
+ \begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvKfgen} class.}\vspace{0.2cm}
+  \begin{tabular}{| c | c | }
 \hline
-\textbf{\HEPfit name} & \textbf{Model(s)} & \textbf{Comments} & \textbf{Source}\\
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
 \hline
+ {\tt Kv}&
+$\kappa_V$\\
+%
+ {\tt Ku}&
+$\kappa_u$\\
+%
+ {\tt Kd}&
+$\kappa_d$\\
+%
+ {\tt Kl}&
+$\kappa_l$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
 \hline
-\endhead
-%    //-----  StandardModel observables  -----
-{\tt MtMSbar} & SM &&\\
-\hline
-%    //-----  Electroweak precision observables  -----
-{\tt Mw} & SM &&\\
-{\tt GammaW} & SM &&\\
-{\tt GammaZ} & SM &&\\
-{\tt sigmaHadron} & SM &&\\
-{\tt sin2thetaEff} & SM &&\\
-{\tt PtauPol} & SM &&\\
-{\tt Alepton} & SM &&\\
-{\tt Acharm} & SM &&\\
-{\tt Abottom} & SM &&\\
-{\tt AFBlepton} & SM &&\\
-{\tt AFBcharm} & SM &&\\
-{\tt AFBbottom} & SM &&\\
-{\tt Rlepton} & SM &&\\
-{\tt Rcharm} & SM &&\\
-{\tt Rbottom} & SM &&\\
-\hline
-%    //-----  Higgs Extension observables  ----------
-{\tt ggH}$x$ & SM & $x \in 7,8,13,14,100,196$; without $x$ default is $8$ &\\
-{\tt VBF}$x$ & SM & $x \in 7,8,13,14,100,196$; without $x$ default is $8$ &\\
-{\tt WH}$x$ & SM & $x \in 7,8,13,14,100$; without $x$ default is $8$ &\\
-{\tt ZH}$x$ & SM & $x \in 7,8,13,14,100$; without $x$ default is $8$ &\\
-{\tt VH}$x$ & SM & $x \in 7,8,13,14,100,196$; without $x$ default is $8$ &\\
-{\tt ggH+ttH}$x$ & SM & $x \in 8,13,14,100$; without $x$ default is $8$ &\\
-{\tt VBF+VH}$x$ & SM & $x \in 8,13,14,100$; without $x$ default is $8$ &\\
-{\tt ttH}$x$ & SM & $x \in 7,8,13,14,100,196$; without $x$ default is $8$ &\\
-{\tt eeZH}$x$ & SM & $x \in 240,250,500,1000$ &\\
-{\tt eeWBF}$x$ & SM & $x \in 250,350,500,1000$ &\\
-{\tt eettH}$x$ & SM & $x \in 500,1000$ &\\
-{\tt BrHggRatio} & SM &&\\
-{\tt BrHWWRatio} & SM &&\\
-{\tt BrHZZRatio} & SM &&\\
-{\tt BrHZgaRatio} & SM &&\\
-{\tt BrHgagaRatio} & SM &&\\
-{\tt BrHmumuRatio} & SM &&\\
-{\tt BrHtautauRatio} & SM &&\\
-{\tt BrHccRatio} & SM &&\\
-{\tt BrHbbRatio} & SM &&\\
-\hline
-%    //-----  Epsilon parameters  -----
-{\tt epsilon}$x$ & SM & $x=1,2,3,b$ &\\
-\hline
-%    //-----  Flavour observables  -----
-%    //----- DF = 2  -----
-{\tt DmBd} & SM &&\\
-{\tt DmBs} & SM,THDM && \cite{Geng:1988bq,Deschamps:2009rh}\\
-{\tt SJPsiK} & SM &&\\
-{\tt Betas\_JPsiPhi} & SM &&\\
-\hline
-{\tt EpsilonK} & SM &&\\
-{\tt DmK} & SM &&\\
-\hline
-%    //----- CKM  -----
-{\tt V}$ij$ & SM & $i=u,c,t$, $j=d,s,b$ &\\
-{\tt alpha} & SM &&\\
-{\tt alpha\_2a} & SM &&\\
-{\tt gamma} & SM &&\\
-{\tt beta} & SM &&\\
-{\tt betas} & SM &&\\
-{\tt 2betapgamma} & SM &&\\
-{\tt s2beta} & SM &&\\
-{\tt c2beta} & SM &&\\
-{\tt CKM\_rho} & SM &&\\
-{\tt CKM\_eta} & SM &&\\
-{\tt sintheta12} & SM &&\\
-{\tt sintheta13} & SM &&\\
-{\tt sintheta23} & SM &&\\
-{\tt ckmdelta} & SM &&\\
-{\tt J\_CP} & SM &&\\
-{\tt Rt} & SM &&\\
-{\tt Rts} & SM &&\\
-{\tt Rb} & SM &&\\
-{\tt VtdoVts} & SM &&\\
-{\tt Abslam\_}$x$ & SM & $x \in u,c,t,ud,cd,td,us,cs,ts$ &\\
-{\tt Relam\_}$x$ & SM & $x \in u,c,t,ud,cd,td,us,cs,ts$ &\\
-{\tt Imlam\_}$x$ & SM & $x \in u,c,t,ud,cd,td,us,cs,ts$ &\\
-\hline
-%    //----- B(s) to mu mu  -----
-{\tt BR\_Bdmumu} & SM &&\\
-{\tt BRbar\_Bdmumu} & SM &&\\
-{\tt Amumu\_Bd} & SM &&\\
-{\tt Smumu\_Bd} & SM &&\\
-{\tt BR\_Bsmumu} & SM &&\\
-{\tt BRbar\_Bsmumu} & SM &&\\
-{\tt Amumu\_Bs} & SM &&\\
-{\tt Smumu\_Bs} & SM &&\\
-{\tt BR\_BdmumuOBR\_Bsmumu} & SM &&\\
-\hline
-%   //----- b to q gamma  -----
-{\tt BR\_bsgamma} & SM &&\\
-{\tt ACP\_bsgamma} & SM &&\\
-{\tt BR\_bdgamma} & SM &&\\
-{\tt ACP\_bdgamma} & SM &&\\
-{\tt BR\_bqgamma} & SM &&\\
-{\tt ACP\_bqgamma} & SM &&\\
-\hline
-%    //----- B to K* ll  -----
-{\tt P\_}$i${\tt \_BdKstmu} & SM & $i \in 1,2,3,4p,5p,6p,8p$ &\\
-{\tt P\_}$i${\tt \_BdKste} & SM & $i \in 1,2,3$ &\\
-{\tt Gammap\_BdKstmu} & SM &&\\
-{\tt A\_FB\_BdKstmu} & SM &&\\
-{\tt BR\_BdKstmu} & SM &&\\
-{\tt BR\_BdKste} & SM &&\\
-{\tt RKst\_BdKstll} & SM &&\\
-{\tt RKstL\_BdKstll} & SM &&\\
-{\tt RKstT\_BdKstll} & SM &&\\
-{\tt R6\_BdKstll} & SM &&\\
-{\tt ACP\_BdKstmu} & SM &&\\
-{\tt P3CP\_BdKstmu} & SM &&\\
-{\tt F\_L\_BdKstmu} & SM &&\\
-{\tt F\_L\_BdKste} & SM &&\\
-{\tt M\_}$i${\tt \_BdKstmu} & SM & $i \in 1p,2p$ &\\
-{\tt S\_}$i${\tt \_BdKstmu} & SM & $i \in 3,4,5,7,8,9$ &\\
-{\tt A\_}$i${\tt \_BdKstmu} & SM & $i \in 6,9$ &\\
-{\tt P\_}$i${\tt f\_BdKstmu} & SM & $i \in 1,2,3,4p,5p,6p,8p$ &\\
-{\tt Gammapf\_BdKstmu} & SM &&\\
-{\tt BRf\_BdKstmu} & SM &&\\
-{\tt A\_FBf\_BdKstmu} & SM &&\\
-{\tt F\_Lf\_BdKstmu} & SM &&\\
-{\tt S\_}$i${\tt f\_BdKstmu} & SM & $i \in 3,4,5,7,8,9$ &\\
-{\tt P\_relationf} & SM &&\\
-{\tt P\_relation\_exactf} & SM &&\\
-{\tt V}$x${\tt \_BdKstmu} & SM & $x \in 0,p,m$ &\\
-{\tt T}$x${\tt \_BdKstmu} & SM & $x \in 0,p,m$ &\\
-{\tt S\_BdKstmu} & SM &&\\
-{\tt QCDfC9\_}$i${\tt f\_BdKstmu} & SM & $i \in 1,2,3$ &\\
-{\tt QCDfC9p\_}$i${\tt f\_BdKstmu} & SM & $i \in 1,2,3$ &\\
-{\tt Regtilde\_}$i${\tt \_BdKstmu} & SM & $i \in 1,2,3$ &\\
-{\tt Imgtilde\_}$i${\tt \_BdKstmu} & SM & $i \in 1,2,3$ &\\
-{\tt Absgtilde\_}$i${\tt \_BdKstmu} & SM & $i \in 1,2,3$ &\\
-{\tt Arggtilde\_}$i${\tt \_BdKstmu} & SM & $i \in 1,2,3$ &\\
-{\tt Reh\_}$x${\tt \_BdKstmu} & SM & $x \in 0,p,m$ &\\
-{\tt Imh\_}$x${\tt \_BdKstmu} & SM & $x \in 0,p,m$ &\\
-{\tt Absh\_}$x${\tt \_BdKstmu} & SM & $x \in 0,p,m$ &\\
-{\tt Argh\_}$x${\tt \_BdKstmu} & SM & $x \in 0,p,m$ &\\
-\hline
-%    //----- B+ to K*+ ll  -----
-{\tt A\_FB\_BpKstmu} & SM &&\\
-{\tt F\_L\_BpKstmu} & SM &&\\
-{\tt BR\_BpKstmu} & SM &&\\
-\hline
-%    //----- B to K* gamma  -----
-{\tt BR\_BKstgamma} & SM &&\\
-{\tt C\_BKstgamma} & SM &&\\
-{\tt S\_BKstgamma} & SM &&\\
-{\tt ADG\_BKstgamma} & SM &&\\
-{\tt DC7\_}$i$ & SM & $i \in 1,2$ &\\
-{\tt AbsDC7\_}$x$ & SM & $x \in L,R$ &\\
-{\tt ReDC7\_}$x$ & SM & $x \in L,R$ &\\
-{\tt ImDC7\_}$x$ & SM & $x \in L,R$ &\\
-{\tt hp0\_hm0} & SM &&\\
-\hline
-%    //----- B+ to K*+ gamma  -----
-{\tt BR\_BpKstgamma} & SM &&\\
-\hline
-%    //----- B to phi ll  -----
-{\tt P\_}$i${\tt \_Bsphimu} & SM & $i \in 1,2,3,4p,5p,6p,8p$ &\\
-{\tt Gammap\_Bsphimu} & SM &&\\
-{\tt A\_FB\_Bsphimu} & SM &&\\
-{\tt BR\_Bsphimu} & SM &&\\
-{\tt Rphi\_Bsphill} & SM &&\\
-{\tt RphiL\_Bsphill} & SM &&\\
-{\tt RphiT\_Bsphill} & SM &&\\
-{\tt R6\_Bsphill} & SM &&\\
-{\tt ACP\_Bsphimu} & SM &&\\
-{\tt P3CP\_Bsphimu} & SM &&\\
-{\tt F\_L\_Bsphimu} & SM &&\\
-{\tt M\_}$i${\tt \_Bsphimu} & SM & $i \in 1p,2p$ &\\
-{\tt S\_}$i${\tt \_Bsphimu} & SM & $i \in 3,4,5,7,8,9$ &\\
-{\tt A\_}$i${\tt \_Bsphimu} & SM & $i \in 6,9$ &\\
-\hline
-%    //----- B to PHI gamma  -----
-{\tt BR\_Bsphigamma} & SM &&\\
-{\tt C\_Bsphigamma} & SM &&\\
-{\tt S\_Bsphigamma} & SM &&\\
-{\tt ADG\_Bsphigamma} & SM &&\\
-\hline
-%    //----- B to K ll  -----
-{\tt BR\_BKmu} & SM &&\\
-{\tt BR\_BKe} & SM &&\\
-{\tt RK\_BKll} & SM &&\\
-\hline
-%    //----- B to tau nu  -----
-{\tt btaunu} & SM,THDM && \cite{Hou:1992sy}\\
-\hline
-%    //-----  Lepton Flavour observables  -----
-{\tt mu\_e\_gamma} & SUSY &&\\
-{\tt log\_meg} & SUSY &&\\
-{\tt tau\_mu\_gamma} & SUSY &&\\
-{\tt log\_tmg} & SUSY &&\\
-{\tt tau\_e\_gamma} & SUSY &&\\
-{\tt log\_teg} & SUSY &&\\
-{\tt mu\_3e} & SUSY &&\\
-{\tt tau\_3mu} & SUSY &&\\
-{\tt tau\_3e} & SUSY &&\\
-{\tt gminus2\_mu} & SUSY &&\\
-{\tt Robs\_mu\_e\_gamma} & SUSY &&\\
-{\tt Robs\_tau\_mu\_gamma} & SUSY &&\\
-{\tt Robs\_tau\_mu\_gamma\_BelleII} & SUSY &&\\
-{\tt Robs\_tau\_e\_gamma} & SUSY &&\\
-{\tt deltaLL}$i${\tt \_}$f$ & SUSY & $i=1,2,3$, $f=q,l$ &\\
-{\tt deltaRL\_}$ij${\tt \_u} & SUSY & $ij=12,13,23$ &\\
-{\tt deltaRL\_}$ij${\tt \_e} & SUSY & $ij=12,13,23,21,31,32$ &\\
-{\tt deltaRR}$i${\tt \_}$f$ & SUSY & $i=1,2,3$, $f=u,d,e$ &\\
-{\tt CCB}$fij$ & SUSY & $f=u,d,e$, $ij=11,22,33,12,13,23$ &\\
-\hline
-%    //-----  SUSY spectra and observables  -----
-{\tt MHl} & SUSY &&\\
-{\tt MHh} & SUSY &&\\
-{\tt MHa} & SUSY &&\\
-{\tt MHp} & SUSY &&\\
-{\tt Ms}$fi$ & SUSY & $f=u,d,l$, $i=1,2,3,4,5,6$ &\\
-{\tt Msnu}$i$ & SUSY & $i=1,2,3$ &\\
-{\tt Mch}$i$ & SUSY & $i=1,2$ &\\
-{\tt Msneu}$i$ & SUSY & $i=1,2,3,4$ &\\
-{\tt Mw\_dRho} & SUSY &&\\
-\hline
-%    //-----  THDM observables  -----
-% {\tt tanbeta} & THDM &&\\
-{\tt mHl\_THDM} & THDM &&\\
-{\tt mHh} & THDM &&\\
-{\tt mA} & THDM &&\\
-{\tt mHp} & THDM &&\\
-{\tt mHlmmA} & THDM &&\\
-{\tt mAmmHl} & THDM &&\\
-{\tt mHlmmHp} & THDM &&\\
-{\tt mHpmmHl} & THDM &&\\
-{\tt mHhmmA} & THDM &&\\
-{\tt mAmmHh} & THDM &&\\
-{\tt mHhmmHp} & THDM &&\\
-{\tt mHpmmHh} & THDM &&\\
-{\tt mAmmHp} & THDM &&\\
-{\tt mHpmmA} & THDM &&\\
-{\tt m}$ii${\tt \_2} & THDM & $ii=11,22$ &\\
-{\tt lambda}$i$ & THDM & $i=1,2,3,4,5$ &\\
-{\tt lambda345} & THDM &&\\
-{\tt g\_hhh} & THDM &&\\
-{\tt g\_hhHh} & THDM &&\\
-{\tt g\_hHhHh} & THDM &&\\
-{\tt g\_HhHhHh} & THDM &&\\
-{\tt g\_hAA} & THDM &&\\
-{\tt g\_HhAA} & THDM &&\\
-{\tt g\_hHpHm} & THDM &&\\
-{\tt g\_HhHpHm} & THDM &&\\
-{\tt Y}$i${\tt \_THDM} & THDM & $i=1,2,3$ &\\
-{\tt Z}$i${\tt \_THDM} & THDM & $i=1,2,3,4,5,6,7$ &\\
-{\tt xi}$n${\tt \_THDM} & THDM & $n=0,1,3$ &\\
-{\tt eta}$x${\tt \_THDM} & THDM & $x=00,3$ &\\
-{\tt E}$ii${\tt \_THDM} & THDM & $ii=11,22,33$ &\\
-{\tt HHlambda}$i$ & THDM & $i=1,2,3,4,5,6$ &\\
-\hline
-{\tt Q\_st} & THDM &&\\
-{\tt DeltaQ\_THDM} & THDM &&\\
-{\tt g}$i${\tt atQ} & THDM & $i=1,2,3$ &\\
-{\tt YtopatQ} & THDM &&\\
-{\tt YbottomatQ} & THDM &&\\
-{\tt YtauatQ} & THDM &&\\
-{\tt m}$ij${\tt \_2atQ} & THDM & $ij=11,22,12$ &\\
-{\tt lambda}$i${\tt atQ} & THDM & $i=1,2,3,4,5$ &\\
-\hline
-{\tt positivity}$i$ & THDM & $i=1,2$ & \cite{Deshpande:1977rw}\\
-{\tt globalminimum} & THDM && \cite{Barroso:2013awa} \\
-{\tt unitarity}$i$ & THDM & $i=\{1\dots12\}$ & \cite{Huffel:1980sk,Maalampi:1991fb,Kanemura:1993hm,Akeroyd:2000wc,Ginzburg:2005dt}\\
-{\tt unitaritya}$1\sigma${\tt odd} & THDM & $\sigma=0,1$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-{\tt unitaritya}$1\sigma${\tt oddRe} & THDM & $\sigma=0,1$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-{\tt unitaritya}$1\sigma${\tt oddIm} & THDM & $\sigma=0,1$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-{\tt unitaritya}$Y\sigma \mathbb{Z}_2s$ & THDM & $Y\sigma=00,01,11$, $\mathbb{Z}_2=odd,even$, $s=p,m$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-{\tt unitaritya}$Y\sigma \mathbb{Z}_2s${\tt Re} & THDM & $Y\sigma=00,01,11$, $\mathbb{Z}_2=odd,even$, $s=p,m$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-{\tt unitaritya}$Y\sigma \mathbb{Z}_2s${\tt Im} & THDM & $Y\sigma=00,01,11$, $\mathbb{Z}_2=odd,even$, $s=p,m$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-{\tt unitarityRp}$i$ & THDM & $i=1,2,3,4,5,6,9,10,13,14,19,20$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-{\tt unitarityR}$i$ & THDM & $i=1,2,3,4,5,6,9,10,13,14,19,20$ & \cite{Grinstein:2015rtl,Cacchio:2016qyh}\\
-\hline
-{\tt ggF\_tth\_htobb} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt ggF\_tth\_htoWW} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt ggF\_tth\_htotautau} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt ggF\_tth\_htoZZ} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt ggF\_tth\_htogaga} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt VBF\_Vh\_htobb} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt VBF\_Vh\_htoWW} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt VBF\_Vh\_htotautau} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt VBF\_Vh\_htoZZ} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt VBF\_Vh\_htogaga} & THDM && \cite{Cacchio:2016qyh}\\
-{\tt Gamma\_h\_THDM} & THDM &&\\
-{\tt rh\_gaga\_THDM} & THDM &&\\
-{\tt rh\_gg\_THDM} & THDM &&\\
-\hline
-{\tt Hobs\_}$B\sigma$ & THDM & $B\sigma \in $ \parbox[t]{120pt}{ggF\_H\_tautau\_ATLAS, ggF\_H\_tautau\_CMS, bbF\_H\_tautau\_ATLAS, bbF\_H\_tautau\_CMS, pp\_H\_gaga\_ATLAS, ggF\_H\_gaga\_CMS, mu\_pp\_H\_VV\_CMS, ggF\_H\_ZZ\_ATLAS, VBF\_H\_ZZ\_ATLAS, ggF\_H\_WW\_ATLAS, VBF\_H\_WW\_ATLAS, ggF\_H\_hh\_ATLAS, pp\_H\_hh\_CMS, ggF\_H\_hh\_bbtautau\_CMS, pp\_H\_hh\_bbbb\_CMS, pp\_H\_hh\_gagabb\_CMS, ggF\_H\_tt\_ATLAS, bbF\_H\_bb\_CMS} &\\
-{\tt Robs\_}$B\sigma$ & THDM & $B\sigma \in $ \parbox[t]{120pt}{ggF\_H\_tautau\_ATLAS, ggF\_H\_tautau\_CMS, bbF\_H\_tautau\_ATLAS, bbF\_H\_tautau\_CMS, pp\_H\_gaga\_ATLAS, ggF\_H\_gaga\_CMS, mu\_pp\_H\_VV\_CMS, ggF\_H\_ZZ\_ATLAS, VBF\_H\_ZZ\_ATLAS, ggF\_H\_WW\_ATLAS, VBF\_H\_WW\_ATLAS, ggF\_H\_hh\_ATLAS, pp\_H\_hh\_CMS, ggF\_H\_hh\_bbtautau\_CMS, pp\_H\_hh\_bbbb\_CMS, pp\_H\_hh\_gagabb\_CMS, ggF\_H\_tt\_ATLAS, bbF\_H\_bb\_CMS} & \cite{Cacchio:2016qyh}\\
-{\tt log10\_}$B\sigma$ & THDM & $B\sigma \in $ \parbox[t]{120pt}{ggF\_H\_tautau\_TH, bbF\_H\_tautau\_TH, pp\_H\_gaga\_TH, ggF\_H\_gaga\_TH, mu\_pp\_H\_VV\_TH, ggF\_H\_ZZ\_TH, VBF\_H\_ZZ\_TH, ggF\_H\_WW\_TH, VBF\_H\_WW\_TH, ggF\_H\_hh\_TH, pp\_H\_hh\_TH, ggF\_H\_hh\_bbtautau\_TH, pp\_H\_hh\_bbbb\_TH, pp\_H\_hh\_gagabb\_TH, ggF\_H\_tt\_TH, bbF\_H\_bb\_TH} &\\
-{\tt Gamma\_HH\_THDM} & THDM &&\\
-{\tt rHH\_gg\_THDM} & THDM &&\\
-{\tt BR\_HH\_hh\_THDM} & THDM &&\\
-{\tt BR\_HH\_AA\_THDM} & THDM &&\\
-{\tt BR\_HH\_HpHm\_THDM} & THDM &&\\
-{\tt BR\_HH\_AZ\_THDM} & THDM &&\\
-{\tt BR\_HH\_HpW\_THDM} & THDM &&\\
-\hline
-{\tt Hobs\_}$B\sigma$ & THDM & $B\sigma \in $ \parbox[t]{120pt}{ggF\_A\_tautau\_ATLAS, ggF\_A\_tautau\_CMS, bbF\_A\_tautau\_ATLAS, bbF\_A\_tautau\_CMS, pp\_A\_gaga\_ATLAS, ggF\_A\_gaga\_CMS, pp\_A\_Zga\_llga\_CMS, ggF\_A\_hZ\_bbll\_CMS, ggF\_A\_hZ\_bbZ\_ATLAS, ggF\_A\_hZ\_tautaull\_CMS, ggF\_A\_hZ\_tautauZ\_ATLAS, ggF\_A\_tt\_ATLAS, bbF\_A\_bb\_CMS} & \\
-{\tt Robs\_}$B\sigma$ & THDM & $B\sigma \in $ \parbox[t]{120pt}{ggF\_A\_tautau\_ATLAS, ggF\_A\_tautau\_CMS, bbF\_A\_tautau\_ATLAS, bbF\_A\_tautau\_CMS, pp\_A\_gaga\_ATLAS, ggF\_A\_gaga\_CMS, pp\_A\_Zga\_llga\_CMS, ggF\_A\_hZ\_bbll\_CMS, ggF\_A\_hZ\_bbZ\_ATLAS, ggF\_A\_hZ\_tautaull\_CMS, ggF\_A\_hZ\_tautauZ\_ATLAS, ggF\_A\_tt\_ATLAS, bbF\_A\_bb\_CMS} & \cite{Cacchio:2016qyh}\\
-{\tt log10\_}$B\sigma$ & THDM & $B\sigma \in $ \parbox[t]{120pt}{ggF\_A\_tautau\_TH, bbF\_A\_tautau\_TH, pp\_A\_gaga\_TH, ggF\_A\_gaga\_TH, pp\_A\_Zga\_llga\_TH, ggF\_A\_hZ\_bbll\_TH, ggF\_A\_hZ\_bbZ\_TH, ggF\_A\_hZ\_tautaull\_TH, ggF\_A\_hZ\_tautauZ\_TH, ggF\_A\_tt\_TH, bbF\_A\_bb\_TH} & \\
-{\tt Gamma\_A\_THDM} & THDM &&\\
-{\tt rA\_gg\_THDM} & THDM &&\\
-{\tt BR\_A\_HZ\_THDM} & THDM &&\\
-{\tt BR\_A\_hZ\_THDM} & THDM &&\\
-{\tt BR\_A\_HpW\_THDM} & THDM &&\\
-\hline
-{\tt DeltaS} & THDM && \cite{Haber:1993wf}\\
-{\tt DeltaT} & THDM && \cite{Haber:1993wf}\\
-{\tt DeltaU} & THDM && \cite{Haber:1993wf}\\
-\hline
-{\tt B\_BtoXsgammaTHDM} & THDM & Interpolation of tabled values & \cite{} \\
-%//    obsThFactory["BR_BsmumuTHDM"] = boost::factory<BR_BsmumuTHDM*>();
-%//    obsThFactory["BR_BdmumuTHDM"] = boost::factory<BR_BdmumuTHDM*>();
-%    obsThFactory["RBDstartaunu"] = boost::factory<RBDstartaunu*>();
-%    obsThFactory["RBDtaunu"] = boost::factory<RBDtaunu*>();
-%    obsThFactory["obsBDtaunu_SM"] = boost::factory<obsBDtaunu_SM*>();
-%    obsThFactory["obsBDtaunu_A"] = boost::factory<obsBDtaunu_A*>();
-%    obsThFactory["obsBDtaunu_B"] = boost::factory<obsBDtaunu_B*>();
-%    obsThFactory["obsBDstartaunu_SM"] = boost::factory<obsBDstartaunu_SM*>();
-%    obsThFactory["obsBDstartaunu_A"] = boost::factory<obsBDstartaunu_A*>();
-%    obsThFactory["obsBDstartaunu_B"] = boost::factory<obsBDstartaunu_B*>();
-%    obsThFactory["THDMgminus2_mu"] = boost::factory<THDMgminus2_mu*>();
-\hline
-\hline
-\hline
-\caption{HEPfit observables.}
-\label{tab:Observables}
-\end{longtable}
-\end{center}
+  \end{tabular}
+ \label{tab:HiggsKvKfgenpars}
+\end{table} 
 
-} %end of footnotesize
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt HiggsKvgenKf} class.}\vspace{0.2cm}
+  \begin{tabular}{| c | c | }
+\hline
+%
+\textbf{\HEPfit name}&
+\textbf{Parameter}\\
+%
+\hline
+ {\tt KZ}&
+$\kappa_Z$\\
+%
+ {\tt KW}&
+$\kappa_W$\\
+%
+ {\tt Kf}&
+$\kappa_f$\\
+%
+ {\tt BrHinv}&
+Br$(H\to \mathrm{invisible})$\\
+\hline
+  \end{tabular}
+ \label{tab:HiggsKvgenKfpars}
+\end{table} 
+
 
 \bibliographystyle{elsarticle-num}
 \bibliography{HEPfit-1.0}

@@ -506,6 +506,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Robs_tau_mu_gamma"] = boost::factory<Robs_tau_mu_gamma*>();
     obsThFactory["Robs_tau_mu_gamma_BelleII"] = boost::factory<Robs_tau_mu_gamma_BelleII*>();
     obsThFactory["Robs_tau_e_gamma"] = boost::factory<Robs_tau_e_gamma*>();
+    obsThFactory["mueconversion_Ti"] = boost::factory<mueconversion_Ti*>();
 
     obsThFactory["deltaRL_12_u"] = boost::factory<deltaRL_12_u*>();
     obsThFactory["deltaRL_13_u"] = boost::factory<deltaRL_13_u*>();
