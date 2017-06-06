@@ -41,7 +41,13 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
 }
 
 MVgamma::~MVgamma()
+{}
+
+std::vector<std::string> MVgamma::initializeMVgammaParameters()
 {
+    SM.initializeMeson(meson);
+    SM.initializeMeson(vectorM);
+    return mVgammaParameters;
 }
 
 void MVgamma::updateParameters()
@@ -69,17 +75,14 @@ void MVgamma::updateParameters()
     switch (vectorM) {
         case StandardModel::K_star:
             a_0T1 = SM.getOptionalParameter("a_0T1");
-            fperp = SM.getFKstarp();
             spectator_charge = SM.getQuarks(QCD::DOWN).getCharge();
             break;
         case StandardModel::K_star_P:
             a_0T1 = SM.getOptionalParameter("a_0T1");
-            fperp = SM.getFKstarPp();
             spectator_charge = SM.getQuarks(QCD::UP).getCharge();
             break;
         case StandardModel::PHI:
             a_0T1 = SM.getOptionalParameter("a_0T1phi");
-            fperp = SM.getFphip();
             spectator_charge = SM.getQuarks(QCD::STRANGE).getCharge();
             break;
         default:
@@ -89,6 +92,7 @@ void MVgamma::updateParameters()
     }
 
     fpara = SM.getMesons(vectorM).getDecayconst();
+    fperp = SM.getMesons(vectorM).getDecayconst_p();
     
 #if NFPOLARBASIS_MVGAMMA
         h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
@@ -360,7 +364,7 @@ BR_MVgamma::BR_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double BR_MVgamma::computeThValue()
@@ -411,7 +415,7 @@ C_MVgamma::C_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson v
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double C_MVgamma::computeThValue()
@@ -435,7 +439,7 @@ S_MVgamma::S_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson v
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double S_MVgamma::computeThValue()
@@ -471,7 +475,7 @@ ADG_MVgamma::ADG_MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::mes
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ADG_MVgamma::computeThValue()
@@ -507,7 +511,7 @@ DC7_1::DC7_1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double DC7_1::computeThValue()
@@ -522,7 +526,7 @@ DC7_2::DC7_2(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double DC7_2::computeThValue()
@@ -534,10 +538,10 @@ double DC7_2::computeThValue()
 hp0_hm0::hp0_hm0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
 : ThObservable(SM_i)
 {
-   meson = meson_i;
-   vectorM = vector_i;
+    meson = meson_i;
+    vectorM = vector_i;
    
-   setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+   setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double hp0_hm0::computeThValue()
@@ -552,7 +556,7 @@ AbsDC7_L::AbsDC7_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vec
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double AbsDC7_L::computeThValue()
@@ -567,7 +571,7 @@ AbsDC7_R::AbsDC7_R(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vec
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double AbsDC7_R::computeThValue()
@@ -582,7 +586,7 @@ ReDC7_L::ReDC7_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ReDC7_L::computeThValue()
@@ -597,7 +601,7 @@ ReDC7_R::ReDC7_R(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ReDC7_R::computeThValue()
@@ -612,7 +616,7 @@ ImDC7_L::ImDC7_L(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ImDC7_L::computeThValue()
@@ -627,7 +631,7 @@ ImDC7_R::ImDC7_R(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ImDC7_R::computeThValue()
@@ -642,7 +646,7 @@ AbsDC7_QCDF::AbsDC7_QCDF(const StandardModel& SM_i, QCD::meson meson_i, QCD::mes
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double AbsDC7_QCDF::computeThValue()
@@ -663,7 +667,7 @@ AbsDC7_QCDF_bar::AbsDC7_QCDF_bar(const StandardModel& SM_i, QCD::meson meson_i, 
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double AbsDC7_QCDF_bar::computeThValue()
@@ -684,7 +688,7 @@ ReDC7_QCDF::ReDC7_QCDF(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ReDC7_QCDF::computeThValue()
@@ -705,7 +709,7 @@ ReDC7_QCDF_bar::ReDC7_QCDF_bar(const StandardModel& SM_i, QCD::meson meson_i, QC
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ReDC7_QCDF_bar::computeThValue()
@@ -726,7 +730,7 @@ ImDC7_QCDF::ImDC7_QCDF(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ImDC7_QCDF::computeThValue()
@@ -747,7 +751,7 @@ ImDC7_QCDF_bar::ImDC7_QCDF_bar(const StandardModel& SM_i, QCD::meson meson_i, QC
     meson = meson_i;
     vectorM = vector_i;
     
-    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).getMVgammaParameters());
+    setParametersForObservable(SM.getFlavour().getMVgamma(meson, vectorM).initializeMVgammaParameters());
 }
 
 double ImDC7_QCDF_bar::computeThValue()

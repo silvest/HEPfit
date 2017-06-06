@@ -12,6 +12,8 @@ class QCD;
 
 #include <stdexcept>
 #include <vector>
+#include <boost/ref.hpp>
+#include <map>
 #include "Particle.h"
 #include "boost/lexical_cast.hpp"
 
@@ -49,6 +51,12 @@ public:
      */
     virtual ~Meson();
     
+    void ModelParameterMapInsert(std::map< std::string, boost::reference_wrapper<const double> >& ModelParamMap);
+    
+    std::vector<std::string> parameterList(std::string name_i);
+    
+    bool setParameter(std::string name_i, double value); 
+    
     void initializeParameters();
     
     /**
@@ -61,15 +69,6 @@ public:
     }
 
     /**
-     * @brief A set method for the decay constant of the meson.
-     * @param[in] lifetime the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
-     */
-    void setLifetime(double lifetime)
-    {
-        this->lifetime = lifetime;
-    }
-
-    /**
      * @brief A get method for the decay constant of the meson.
      * @return the decay constant of the meson in GeV
      */
@@ -77,7 +76,7 @@ public:
     {
         return decayconst;
     }
-
+    
     /**
      * @brief A set method for the decay constant of the meson.
      * @param[in] decayconst the decay constant of the meson in GeV
@@ -86,13 +85,27 @@ public:
     {
         this->decayconst = decayconst;
     }
+    
+    /**
+     * @brief A get method for the perpendicular decay constant of a vector meson.
+     * @return the decay constant of the meson in GeV
+     */
+    const double& getDecayconst_p() const
+    {
+        return decayconst_p;
+    }
 
     /**
      * @brief A method to compute the width of the meson from its lifetime.
      * @return the width of the meson in GeV
      */
     double computeWidth() const;
-
+    
+    /**
+     * @brief A get method to get the Gegenbaur coefficient.
+     * @param[in] the order of the Gegenbaur coefficient
+     * @return the Gegenbaur coefficient
+     */
     const double& getGegenalpha(int i) const
     {
         if (i >= 0 && i < 2)
@@ -101,22 +114,9 @@ public:
             throw std::runtime_error("Meson::getGegenalpha(" + boost::lexical_cast<std::string>(i) + "): index out of range");
     }
 
-    void setGegenalpha(int i, double gegenalpha)
-    {
-        if (i >= 0 && i < 2)
-            this->gegenalpha[i] = gegenalpha;
-        else
-            throw std::runtime_error("Meson::setGegenalpha(" + boost::lexical_cast<std::string>(i) + ", double gegenalpha): index out of range");
-    }
-
     const double& getLambdaM() const
     {
         return lambdaM;
-    }
-
-    void setLambdaM(double lambdaM)
-    {
-        this->lambdaM = lambdaM;
     }
     
     void setDgamma_gamma(double Dgamma_gamma){
@@ -128,24 +128,37 @@ public:
         return Dgamma_gamma;
     }
     
+    /**
+     * @brief A get method to get the name of the meson
+     * @return the the name of the meson
+     */
     std::string getName() const
     {
         return name;
     }
     
+    /**
+     * @brief A set method to set the name of the meson
+     * @param[in] name_i the the name of the meson
+     */
     void setName(std::string name_i)
     {
         this->name = name_i;
     }
     
-    std::vector<std::string> injectParameterList(std::string mesonName_i);
+    double getFBsoFBd() const
+    {
+        return FBsoFBd;
+    }
 
 private:
     double decayconst; ///< The decay constant of the meson.
+    double decayconst_p; ///< The perpendicular decay constant of a vector meson.
     double lifetime; ///< The lifetime of the meson.
     double gegenalpha[2]; ///< Gegenbauer moments 
     double lambdaM; ///< First moment of LCDA
     double Dgamma_gamma; ///< Dgamma/gamma for neutral mesons
+    double FBsoFBd;
 };
 
 #endif	/* MESON_H */

@@ -160,13 +160,10 @@ public:
     void updateParameters();
     
     /**
-    * @brief A get method for the parameters necessary for MVgamma.
+    * @brief A method for initializing the parameters necessary for MVgamma.
     * @return the vector of MVgamma specific parameters
     */
-    std::vector<std::string> getMVgammaParameters()
-    {
-        return mVgammaParameters;
-    }
+    std::vector<std::string> initializeMVgammaParameters();
     
     std::vector<std::string> parametersForMVgamma;
     

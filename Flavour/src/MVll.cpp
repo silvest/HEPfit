@@ -140,6 +140,13 @@ MVll::~MVll()
 {
 }
 
+std::vector<std::string> MVll::initializeMVllParameters()
+{
+    mySM.initializeMeson(meson);
+    mySM.initializeMeson(vectorM);
+    return mvllParameters;
+}
+
 void MVll::updateParameters() 
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
@@ -197,8 +204,6 @@ void MVll::updateParameters()
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
             spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
-            
-            fperp = mySM.getFKstarp();
 
             b = 1;
             break;
@@ -239,8 +244,6 @@ void MVll::updateParameters()
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
             spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
-            
-            fperp = mySM.getFKstarPp();
 
             b = 1;
             break;
@@ -281,8 +284,6 @@ void MVll::updateParameters()
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
             spectator_charge = mySM.getQuarks(QCD::STRANGE).getCharge();
-                    
-            fperp = mySM.getFphip();
             
             ys = mySM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
             xs = mySM.getOptionalParameter("xs_phi");
@@ -420,7 +421,7 @@ void MVll::updateParameters()
     deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
             mySM.getMesons(vectorM).getDecayconst() / MM; 
     deltaT_1perp = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
-            fperp / MM; 
+            mySM.getMesons(vectorM).getDecayconst_p() / MM; 
             
     F87_0=-32. / 9. * log(mu_b / Mb) + 8. / 27. * M_PI * M_PI - 44. / 9. - 8. / 9. * gslpp::complex::i() * M_PI;
     F87_1 = (4. / 3. * M_PI * M_PI - 40. / 3.);

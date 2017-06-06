@@ -25,17 +25,14 @@
 std::string QCD::QCDvars[NQCDvars] = {
     "AlsM", "MAls",
     "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
-    "muc", "mub", "mut",
-    "MK0", "MKp", "MD", "MBd", "MBp", "MBs", "MKstar", "MKstarP", "Mphi",
-    "tKl", "tKp", "tBd", "tBp", "tBs", "tKstar", "tphi",
-    "DGs_Gs",
-    "FK", "FD", "FBs", "FBsoFBd", "FKstar", "FKstarp", "Fphi", "Fphip",
-    "lambdaB", "alpha1kst", "alpha2kst", "alpha2phi", "alpha1kp", "alpha2kp"
+    "muc", "mub", "mut"
 };
 
 QCD::QCD()
 {
     FlagCsi = true;
+    computeFBd = false;
+    computeFBp = false;
     Nc = 3.;
     CF = Nc / 2. - 1. / (2. * Nc);
     //    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
@@ -46,17 +43,7 @@ QCD::QCD()
     quarks[STRANGE] = Particle("STRANGE", 0., 2., 0., -1. / 3., -.5);
     quarks[BOTTOM] = Particle("BOTTOM", 0., 0., 0., -1. / 3., -.5);
     
-    mesons[P_0].setName("P_0");
-    mesons[P_P].setName("P_P");
-    mesons[K_0].setName("K_0");
-    mesons[K_P].setName("K_P");
-    mesons[D_0].setName("D_0");
-    mesons[B_D].setName("B_D");
-    mesons[B_P].setName("B_P");
-    mesons[B_S].setName("B_S");
-    mesons[PHI].setName("PHI");
-    mesons[K_star].setName("K_star");
-    mesons[K_star_P].setName("K_star_P");
+//    for (int i = K_0; i != MESON_END; ++i) initializeMeson(static_cast<QCD::meson>(i)); // PIs are not important for now.
     
     zeta2 = gsl_sf_zeta_int(2);
     zeta3 = gsl_sf_zeta_int(3);
@@ -82,37 +69,6 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muc", boost::cref(muc)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mub", boost::cref(mub)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mut", boost::cref(mut)));   
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MK0", boost::cref(mesons[K_0].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKp", boost::cref(mesons[K_P].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MD", boost::cref(mesons[D_0].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBd", boost::cref(mesons[B_D].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBp", boost::cref(mesons[B_P].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBs", boost::cref(mesons[B_S].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstar", boost::cref(mesons[K_star].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstarP", boost::cref(mesons[K_star_P].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mphi", boost::cref(mesons[PHI].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKl", boost::cref(mesons[K_0].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKp", boost::cref(mesons[K_P].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBd", boost::cref(mesons[B_D].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBp", boost::cref(mesons[B_P].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBs", boost::cref(mesons[B_S].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DGs_Gs", boost::cref(mesons[B_S].getDgamma_gamma())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstar", boost::cref(mesons[K_star].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tphi", boost::cref(mesons[PHI].getWidth())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(mesons[K_0].getDecayconst())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FD", boost::cref(mesons[D_0].getDecayconst())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBs", boost::cref(mesons[B_S].getDecayconst())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(mesons[K_star].getDecayconst())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(FKstarp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(mesons[PHI].getDecayconst())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphip", boost::cref(Fphip)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(mesons[B_D].getLambdaM())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2phi", boost::cref(mesons[PHI].getGegenalpha(1))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kp", boost::cref(mesons[K_0].getGegenalpha(0))));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kp", boost::cref(mesons[K_0].getGegenalpha(1))));
 
     unknownParameterWarning = true;
 }
@@ -150,7 +106,6 @@ bool QCD::PreUpdate()
 {
     requireYu = false;
     requireYd = false;
-    computeFBd = false;
     computemt = false;
 
     return (true);
@@ -174,26 +129,24 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
 
 bool QCD::PostUpdate()
 {
-    if (computeFBd){
-        mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
-        mesons[B_P].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd); /**** FOR NOW FB+ = FBd ****/
-    }
+    if (computeFBd) mesonsMap.at(QCD::B_D).setDecayconst(mesonsMap.at(QCD::B_S).getDecayconst() / mesonsMap.at(QCD::B_D).getFBsoFBd());
+    if (computeFBp) mesonsMap.at(QCD::B_P).setDecayconst(mesonsMap.at(QCD::B_S).getDecayconst() / mesonsMap.at(QCD::B_P).getFBsoFBd()); /**** FOR NOW FB+ = FBd ****/
     if (computeBs && FlagCsi)
     {
-        BParameterMap.at("BBs").setBpars(0, BParameterMap.at("BBs").getFBsSqrtBBs1() * BParameterMap.at("BBs").getFBsSqrtBBs1() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(1, BParameterMap.at("BBs").getFBsSqrtBBs2() * BParameterMap.at("BBs").getFBsSqrtBBs2() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(2, BParameterMap.at("BBs").getFBsSqrtBBs3() * BParameterMap.at("BBs").getFBsSqrtBBs3() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(3, BParameterMap.at("BBs").getFBsSqrtBBs4() * BParameterMap.at("BBs").getFBsSqrtBBs4() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
-        BParameterMap.at("BBs").setBpars(4, BParameterMap.at("BBs").getFBsSqrtBBs5() * BParameterMap.at("BBs").getFBsSqrtBBs5() / mesons[B_S].getDecayconst() / mesons[B_S].getDecayconst());
+        BParameterMap.at("BBs").setBpars(0, BParameterMap.at("BBs").getFBsSqrtBBs1() * BParameterMap.at("BBs").getFBsSqrtBBs1() / mesonsMap.at(QCD::B_S).getDecayconst() / mesonsMap.at(QCD::B_S).getDecayconst());
+        BParameterMap.at("BBs").setBpars(1, BParameterMap.at("BBs").getFBsSqrtBBs2() * BParameterMap.at("BBs").getFBsSqrtBBs2() / mesonsMap.at(QCD::B_S).getDecayconst() / mesonsMap.at(QCD::B_S).getDecayconst());
+        BParameterMap.at("BBs").setBpars(2, BParameterMap.at("BBs").getFBsSqrtBBs3() * BParameterMap.at("BBs").getFBsSqrtBBs3() / mesonsMap.at(QCD::B_S).getDecayconst() / mesonsMap.at(QCD::B_S).getDecayconst());
+        BParameterMap.at("BBs").setBpars(3, BParameterMap.at("BBs").getFBsSqrtBBs4() * BParameterMap.at("BBs").getFBsSqrtBBs4() / mesonsMap.at(QCD::B_S).getDecayconst() / mesonsMap.at(QCD::B_S).getDecayconst());
+        BParameterMap.at("BBs").setBpars(4, BParameterMap.at("BBs").getFBsSqrtBBs5() * BParameterMap.at("BBs").getFBsSqrtBBs5() / mesonsMap.at(QCD::B_S).getDecayconst() / mesonsMap.at(QCD::B_S).getDecayconst());
     }
     if (computeBd) {
         if (FlagCsi) {
         BParameterMap.at("BBd").setBpars(0, FBsoFBd * FBsoFBd * BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getcsi() / BParameterMap.at("BBd").getcsi());
         BParameterMap.at("BBd").setBBsoBBd(BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getBpars()(0));
-        BParameterMap.at("BBd").setBpars(1, BParameterMap.at("BBd").getFBdSqrtBBd2() * BParameterMap.at("BBd").getFBdSqrtBBd2() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
-        BParameterMap.at("BBd").setBpars(2, BParameterMap.at("BBd").getFBdSqrtBBd3() * BParameterMap.at("BBd").getFBdSqrtBBd3() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
-        BParameterMap.at("BBd").setBpars(3, BParameterMap.at("BBd").getFBdSqrtBBd4() * BParameterMap.at("BBd").getFBdSqrtBBd4() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
-        BParameterMap.at("BBd").setBpars(4, BParameterMap.at("BBd").getFBdSqrtBBd5() * BParameterMap.at("BBd").getFBdSqrtBBd5() / mesons[B_D].getDecayconst() / mesons[B_D].getDecayconst());
+        BParameterMap.at("BBd").setBpars(1, BParameterMap.at("BBd").getFBdSqrtBBd2() * BParameterMap.at("BBd").getFBdSqrtBBd2() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
+        BParameterMap.at("BBd").setBpars(2, BParameterMap.at("BBd").getFBdSqrtBBd3() * BParameterMap.at("BBd").getFBdSqrtBBd3() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
+        BParameterMap.at("BBd").setBpars(3, BParameterMap.at("BBd").getFBdSqrtBBd4() * BParameterMap.at("BBd").getFBdSqrtBBd4() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
+        BParameterMap.at("BBd").setBpars(4, BParameterMap.at("BBd").getFBdSqrtBBd5() * BParameterMap.at("BBd").getFBdSqrtBBd5() / mesonsMap.at(QCD::B_D).getDecayconst() / mesonsMap.at(QCD::B_D).getDecayconst());
         } else 
             BParameterMap.at("BBd").setBpars(0, BParameterMap.at("BBs").getBpars()(0) / BParameterMap.at("BBd").getBBsoBBd());
     }
@@ -207,7 +160,7 @@ bool QCD::PostUpdate()
 #endif
         quarks[TOP].setMass_scale(quarks[TOP].getMass());
     }
-    
+        
     return (true);
 }
 
@@ -223,42 +176,82 @@ void QCD::addParameters(std::vector<std::string> params_i)
 
 void QCD::initializeBParameter(std::string name_i) const
 {
+    if (BParameterMap.find(name_i) != BParameterMap.end()) return;
+    
     if (name_i.compare("BBs") == 0 || name_i.compare("BBd") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >("BBs", BParameter(5, "BBs")));
         BParameterMap.at("BBs").setFlagCsi(FlagCsi);
         BParameterMap.at("BBs").ModelParameterMapInsert(ModelParamMap);
         computeBs = true;
+        initializeMeson(QCD::B_S);
 
         BParameterMap.insert(std::pair<std::string, BParameter >("BBd", BParameter(5, "BBd")));
         BParameterMap.at("BBd").setFlagCsi(FlagCsi);
         BParameterMap.at("BBd").ModelParameterMapInsert(ModelParamMap);
         computeBd = true;
+        initializeMeson(QCD::B_D);
         return;
     }
     if (name_i.compare("BD") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        initializeMeson(QCD::D_0);
         return;
     }
     if (name_i.compare("BK") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(5, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        initializeMeson(QCD::K_0);
         return;
     }
     if (name_i.compare("BKd1") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        initializeMeson(QCD::K_0);
         return;
     }
     if (name_i.compare("BKd3") == 0) {
         BParameterMap.insert(std::pair<std::string, BParameter >(name_i, BParameter(10, name_i)));
         BParameterMap.at(name_i).ModelParameterMapInsert(ModelParamMap);
+        initializeMeson(QCD::K_0);
         return;
     }
 }
 
+void QCD::initializeMeson(const QCD::meson meson_i) const
+{  
+    if (mesonsMap.find(meson_i) != mesonsMap.end()) return;
+    
+    mesonsMap.insert(std::pair<const QCD::meson, Meson>(meson_i, Meson()));
+    
+    if (meson_i == QCD::P_0) mesonsMap.at(meson_i).setName("P_0");
+    else if (meson_i == QCD::P_P) mesonsMap.at(meson_i).setName("P_P");
+    else if (meson_i == QCD::K_0) mesonsMap.at(meson_i).setName("K_0");
+    else if (meson_i == QCD::K_P) mesonsMap.at(meson_i).setName("K_P");
+    else if (meson_i == QCD::D_0) mesonsMap.at(meson_i).setName("D_0");
+    else if (meson_i == QCD::B_D) mesonsMap.at(meson_i).setName("B_D");
+    else if (meson_i == QCD::B_P) mesonsMap.at(meson_i).setName("B_P");
+    else if (meson_i == QCD::B_S) mesonsMap.at(meson_i).setName("B_S");
+    else if (meson_i == QCD::PHI) mesonsMap.at(meson_i).setName("PHI");
+    else if (meson_i == QCD::K_star) mesonsMap.at(meson_i).setName("K_star");
+    else if (meson_i == QCD::K_star_P) mesonsMap.at(meson_i).setName("K_star_P");
+    else {
+        std::stringstream out;
+        out << meson_i;
+        throw std::runtime_error("QCD::initializeMeson() meson " + out.str() + " not implemented");
+    }
+    
+    if (meson_i == QCD::B_D) computeFBd = true;
+    if (meson_i == QCD::B_P) computeFBp = true;
+    
+    mesonsMap.at(meson_i).ModelParameterMapInsert(ModelParamMap);
+}
+
 void QCD::setParameter(const std::string name, const double& value)
 {
+    int notABparameter = 0;
+    int notAMesonParameter = 0;
+    
     if (name.compare("AlsM") == 0) {
         AlsM = value;
         computemt = true;
@@ -299,95 +292,21 @@ void QCD::setParameter(const std::string name, const double& value)
         mub = value;
     else if (name.compare("mut") == 0)
         mut = value;
-    else if (name.compare("MK0") == 0)
-        mesons[K_0].setMass(value);
-    else if (name.compare("MKp") == 0)
-        mesons[K_P].setMass(value);
-    else if (name.compare("MD") == 0)
-        mesons[D_0].setMass(value);
-    else if (name.compare("MBd") == 0)
-        mesons[B_D].setMass(value);
-    else if (name.compare("MBp") == 0)
-        mesons[B_P].setMass(value);
-    else if (name.compare("MBs") == 0)
-        mesons[B_S].setMass(value);
-    else if (name.compare("MKstar") == 0)
-        mesons[K_star].setMass(value);
-    else if (name.compare("MKstarP") == 0)
-        mesons[K_star_P].setMass(value);
-    else if (name.compare("Mphi") == 0)
-        mesons[PHI].setMass(value);
-    else if (name.compare("tKl") == 0)
-        mesons[K_0].setLifetime(value);
-    else if (name.compare("tKp") == 0)
-        mesons[K_P].setLifetime(value);
-    else if (name.compare("tBd") == 0)
-        mesons[B_D].setLifetime(value);
-    else if (name.compare("tBp") == 0)
-        mesons[B_P].setLifetime(value);
-    else if (name.compare("tBs") == 0)
-        mesons[B_S].setLifetime(value);
-    else if (name.compare("DGs_Gs") == 0)
-        mesons[B_S].setDgamma_gamma(value);
-    else if (name.compare("tKstar") == 0){
-        mesons[K_star].setLifetime(value);
-        mesons[K_star_P].setLifetime(value);
-    } else if (name.compare("tphi") == 0)
-        mesons[PHI].setLifetime(value);
-        //else if(name.compare("FP")==0) {
-        //    mesons[P_0].setDecayconst(value);
-        //    mesons[P_P].setDecayconst(value);
-        //}
-    else if (name.compare("FK") == 0)
-        mesons[K_0].setDecayconst(value);
-    else if (name.compare("FD") == 0)
-        mesons[D_0].setDecayconst(value);
-    else if (name.compare("FKstar") == 0){
-        mesons[K_star].setDecayconst(value);
-        mesons[K_star_P].setDecayconst(value);
-    } else if (name.compare("FKstarp") == 0){
-        FKstarp = value;
-        FKstarPp = value;
-    } else if (name.compare("Fphi") == 0)
-        mesons[PHI].setDecayconst(value);
-    else if (name.compare("Fphip") == 0)
-        Fphip = value;
-    else if (name.compare("FBs") == 0) {
-        mesons[B_S].setDecayconst(value);
-        computeFBd = true;
-    } else if (name.compare("FBsoFBd") == 0) {
-        FBsoFBd = value;
-        computeFBd = true;
-    }
-    else if (name.compare("lambdaB") == 0) {
-        mesons[B_D].setLambdaM(value);
-        mesons[B_S].setLambdaM(value);
-        mesons[B_P].setLambdaM(value);
-    } else if (name.compare("alpha1kst") == 0){
-        mesons[K_star].setGegenalpha(0,value);
-        mesons[K_star_P].setGegenalpha(0,value);
-    } else if (name.compare("alpha2kst") == 0){
-        mesons[K_star].setGegenalpha(1,value);
-        mesons[K_star_P].setGegenalpha(1,value);
-    } else if (name.compare("alpha2phi") == 0)
-        mesons[PHI].setGegenalpha(1,value);
-    else if (name.compare("alpha1kp") == 0)
-        mesons[K_P].setGegenalpha(0,value);
-    else if (name.compare("alpha2kp") == 0)
-        mesons[K_P].setGegenalpha(1,value);
     else if (optionalParameters.find(name) != optionalParameters.end())
         setOptionalParameter(name, value);
-    else if (!BParameterMap.empty()) {
-        for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++) {
-            if(!(it->second.setParameter(name, value)))
-                if (unknownParameterWarning && !isSliced) 
-                    if (std::find(unknownParameters.begin(), unknownParameters.end(), name) == unknownParameters.end()) unknownParameters.push_back(name);
-        }
+    else {
+        if (!BParameterMap.empty()) 
+            for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++) 
+                if(it->second.setParameter(name, value))
+                    notABparameter += 1;
+        if (!mesonsMap.empty()) 
+            for (std::map<const QCD::meson, Meson>::iterator it = mesonsMap.begin(); it != mesonsMap.end(); it++)
+                if(it->second.setParameter(name, value))
+                    notAMesonParameter += 1;
+        if (unknownParameterWarning && !isSliced && notABparameter == 0 && notAMesonParameter == 0) 
+            if (std::find(unknownParameters.begin(), unknownParameters.end(), name) == unknownParameters.end()) unknownParameters.push_back(name);
     }
-    else
-        if (unknownParameterWarning && !isSliced) {
-            unknownParameters.push_back(name);
-        }
+        
 }
 
 bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
@@ -406,6 +325,17 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
     if (!BParameterMap.empty()) {
         for (std::map<std::string, BParameter>::iterator it = BParameterMap.begin(); it != BParameterMap.end(); it++) {
             std::vector<std::string> parameters = it->second.parameterList(it->first);
+            for (std::vector<std::string>::iterator it1 = parameters.begin(); it1 != parameters.end(); it1++) {
+                if (DPars.find(*it1) == DPars.end()) {
+                    std::cout << "missing parameter for " << it->first << ": " << *it1 << std::endl;
+                    return false;
+                }
+            }
+        }
+    }
+    if (!mesonsMap.empty()) {
+        for (std::map<const QCD::meson, Meson>::iterator it = mesonsMap.begin(); it != mesonsMap.end(); it++) {
+            std::vector<std::string> parameters = it->second.parameterList(it->second.getName());
             for (std::vector<std::string>::iterator it1 = parameters.begin(); it1 != parameters.end(); it1++) {
                 if (DPars.find(*it1) == DPars.end()) {
                     std::cout << "missing parameter for " << it->first << ": " << *it1 << std::endl;

@@ -253,13 +253,10 @@ public:
     }
     
     /**
-    * @brief A get method for the parameters necessary for MPll.
+    * @brief A method for initializing the parameters necessary for MPll.
     * @return the vector of MPll specific parameters
     */
-    std::vector<std::string> getMPllParameters()
-    {
-        return mpllParameters;
-    }
+    std::vector<std::string> initializeMPllParameters();
     
 
 private:

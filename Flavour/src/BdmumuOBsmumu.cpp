@@ -8,7 +8,11 @@
 #include "StandardModel.h"
 
 BdmumuOBsmumu::BdmumuOBsmumu(const StandardModel& SM_i) : 
-ThObservable(SM_i) { };
+ThObservable(SM_i) 
+{ 
+    SM.initializeMeson(QCD::B_D);
+    SM.initializeMeson(QCD::B_S);
+};
 
 double BdmumuOBsmumu::computeThValue() {
     double ratio = SM.getMesons(QCD::B_D).getLifetime()/SM.getMesons(QCD::B_S).getLifetime();

@@ -639,7 +639,7 @@ public:
         MESON_END /**< The size of this enum. */
     };
     
-    static const int NQCDvars = 42; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 11; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -713,7 +713,17 @@ public:
      */
     void addParameters(std::vector<std::string> params_i);
     
+    /**
+     * @brief A method to initialize B Parameter and the corresponding meson
+     * @param[in] name_i name of the B parameters set
+     */
     void initializeBParameter(std::string name_i) const;
+    
+    /**
+     * @brief A method to initialize a meson
+     * @param[in] meson_i the enumerator corresponding to the meson
+     */
+    void initializeMeson(QCD::meson meson_i) const;
     
     /**
      * @brief A method to get parameters that are specific to only one set of observables.
@@ -798,7 +808,7 @@ public:
      */
     Meson getMesons(const QCD::meson m) const
     {
-        return mesons[m];
+        return mesonsMap.at(m);
     }
 
     /**
@@ -932,30 +942,6 @@ public:
     BParameter getBKd3() const
     {
         return BParameterMap.at("BKd3");
-    }
-        
-    /**
-     * @return the decay constant of a transversely polarized @f$K^*@f$ meson at 1 GeV
-     */
-    double getFKstarp() const
-    {
-        return FKstarp;
-    }
-        
-    /**
-     * @return the decay constant of a transversely polarized @f$K^{*\pm}@f$ meson at 1 GeV
-     */
-    double getFKstarPp() const
-    {
-        return FKstarPp;
-    }
-    
-    /**
-     * @return the decay constant of a transversely polarized @f$\phi@f$ meson at 1 GeV
-     */
-    double getFphip() const
-    {
-        return Fphip;
     }
 
     
@@ -1183,11 +1169,10 @@ protected:
     double mub; ///< The threshold between five- and four-flavour theory in GeV. 
     double muc; ///< The threshold between four- and three-flavour theory in GeV. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
-    double FKstarp, FKstarPp, Fphip; //matrix element of tensor current for transverse polarization at 1 GeV
     
     double Nc; ///< The number of colours.
     Particle quarks[6]; ///< The vector of all SM quarks.
-    Meson mesons[MESON_END]; ///< The vector of defined mesons.
+    
 private:
     
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
@@ -1195,7 +1180,8 @@ private:
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
-    bool computeFBd; ///< Switch for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
+    mutable bool computeFBd; ///< Switch for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
+    mutable bool computeFBp; ///< Switch for computing \f$F_{B^+}\f$ from \f$F_{B_s}\f$.
     mutable bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
     mutable bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
     static const int CacheSize = 5; ///< Defines the depth of the cache.
@@ -1207,6 +1193,7 @@ private:
     bool unknownParameterWarning; ///< A flag to stop the unknown parameter warning after the first time.
     std::map<std::string, double> optionalParameters; ///< A map for containing the list and values of the parameters that are used only by a specific set of observables.
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
+    mutable std::map<const QCD::meson, Meson> mesonsMap;///< The map of defined mesons.
     bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\csi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
 
     /**

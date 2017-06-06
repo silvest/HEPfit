@@ -13,6 +13,8 @@ BR_Kp0nunu::BR_Kp0nunu(StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i)
 {
     setParametersForObservable(make_vector<std::string>() << "Br_Kp_P0enu" << "IB_Kl");
+    mySM.initializeMeson(QCD::K_0);
+    mySM.initializeMeson(QCD::K_P);
 }
 
 double BR_Kp0nunu::computeThValue()

@@ -704,13 +704,10 @@ public:
     }
     
     /**
-    * @brief A get method for the parameters necessary for MVll.
+    * @brief A method for initializing the parameters necessary for MVll.
     * @return the vector of MVll specific parameters
     */
-    std::vector<std::string> getMVllParameters()
-    {
-        return mvllParameters;
-    }
+    std::vector<std::string> initializeMVllParameters();
     
 private:
     const StandardModel& mySM;/**< Model type */
@@ -731,7 +728,6 @@ private:
     double Ms;            /**<s quark mass */
     double spectator_charge;  /**<spectator quark charge */
     double width;         /**<Initial meson width */
-    double fperp;         /**<vector meson perpendicular decay constant*/
     double ys;            /**<CP-violation factor \f$\frac{\Delta \Gamma}{2\Gamma}\f$*/
     double xs;            /**<CP-violation factor \f$\frac{\Delta m}{\Gamma}\f$*/
     double MW;            /**<W boson mass */

@@ -80,6 +80,13 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
 MPll::~MPll() 
 {}
 
+std::vector<std::string> MPll::initializeMPllParameters()
+{
+    mySM.initializeMeson(meson);
+    mySM.initializeMeson(pseudoscalar);
+    return mpllParameters;
+}
+
 void MPll::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) return;

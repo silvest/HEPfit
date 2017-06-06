@@ -10,20 +10,21 @@
 #include "std_make_vector.h"
 
 BParameter::BParameter(int n)
-: bpars(n,0.)
+: bpars(n, 0.)
 {};
 
 BParameter::BParameter(int n, std::string name_i)
-: bpars(n,0.)
-{ 
-    name = name_i; 
+: bpars(n, 0.)
+{
+    name = name_i;
     FlagCsi = true;
 };
 
 BParameter::~BParameter()
 {}
 
-void BParameter::ModelParameterMapInsert(std::map< std::string, boost::reference_wrapper<const double> >& ModelParamMap) {
+void BParameter::ModelParameterMapInsert(std::map< std::string, boost::reference_wrapper<const double> >& ModelParamMap)
+{
     if (name.compare("BBs") == 0) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs1", boost::cref(bpars(0))));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BBs2", boost::cref(bpars(1))));
@@ -107,20 +108,21 @@ void BParameter::ModelParameterMapInsert(std::map< std::string, boost::reference
 std::vector<std::string> BParameter::parameterList(std::string name_i)
 {
     if (name_i.compare("BBs") == 0 && !FlagCsi) return make_vector<std::string>() << "BBs1" << "BBs2" << "BBs3" << "BBs4" << "BBs5" << "BBsscale" << "BBsscheme";
-    if (name_i.compare("BBs") == 0 && FlagCsi) return make_vector<std::string>() << "FBsSqrtBBs1"<< "FBsSqrtBBs2"<< "FBsSqrtBBs3"<< "FBsSqrtBBs4"<< "FBsSqrtBBs5"<< "BBsscale"<< "BBsscheme";
+    if (name_i.compare("BBs") == 0 && FlagCsi) return make_vector<std::string>() << "FBsSqrtBBs1" << "FBsSqrtBBs2" << "FBsSqrtBBs3" << "FBsSqrtBBs4" << "FBsSqrtBBs5" << "BBsscale" << "BBsscheme";
     if (name_i.compare("BBd") == 0 && !FlagCsi) return make_vector<std::string>() << "BBsoBBd" << "BBd2" << "BBd3" << "BBd4" << "BBd5" << "BBdscale" << "BBdscheme";
-    if (name_i.compare("BBd") == 0 && FlagCsi) return make_vector<std::string>() << "csi" << "FBdSqrtBBd2"<< "FBdSqrtBBd3"<< "FBdSqrtBBd4"<< "FBdSqrtBBd5"<< "BBdscale"<< "BBdscheme";
+    if (name_i.compare("BBd") == 0 && FlagCsi) return make_vector<std::string>() << "csi" << "FBdSqrtBBd2" << "FBdSqrtBBd3" << "FBdSqrtBBd4" << "FBdSqrtBBd5" << "BBdscale" << "BBdscheme";
     if (name_i.compare("BK") == 0) return make_vector<std::string>() << "BK1" << "BK2" << "BK3" << "BK4" << "BK5" << "BKscale" << "BKscheme";
     if (name_i.compare("BD") == 0) return make_vector<std::string>() << "BD1" << "BD2" << "BD3" << "BD4" << "BD5" << "BDscale" << "BDscheme";
     if (name_i.compare("BKd1") == 0) return make_vector<std::string>() << "BK(1/2)1" << "BK(1/2)2" << "BK(1/2)3" << "BK(1/2)4" << "BK(1/2)5"
-                                                                       << "BK(1/2)6" << "BK(1/2)7" << "BK(1/2)8" << "BK(1/2)9" << "BK(1/2)10" << "BKd_scale" << "BKd_scheme";
+        << "BK(1/2)6" << "BK(1/2)7" << "BK(1/2)8" << "BK(1/2)9" << "BK(1/2)10" << "BKd_scale" << "BKd_scheme";
     if (name_i.compare("BKd3") == 0) return make_vector<std::string>() << "BK(3/2)1" << "BK(3/2)2" << "BK(3/2)3" << "BK(3/2)4" << "BK(3/2)5"
-                                                                       << "BK(3/2)6" << "BK(3/2)7" << "BK(3/2)8" << "BK(3/2)9" << "BK(3/2)10" << "BKd_scale" << "BKd_scheme";
+        << "BK(3/2)6" << "BK(3/2)7" << "BK(3/2)8" << "BK(3/2)9" << "BK(3/2)10" << "BKd_scale" << "BKd_scheme";
     else throw std::runtime_error(name_i + " is not implemented in BParameter class");
 }
 
-bool BParameter::setParameter(std::string name_i, double value) {
-    
+bool BParameter::setParameter(std::string name_i, double value)
+{
+
     if (name.compare("BBs") == 0 || name.compare("BBd") == 0) {
         if (!FlagCsi) {
             if (name_i.compare("BBsoBBd") == 0) {
@@ -318,7 +320,7 @@ bool BParameter::setParameter(std::string name_i, double value) {
             return true;
         }
     }
-    
+
     if (name_i.compare("BKd_scale") == 0 && (name.compare("Bkd1") == 0 || name.compare("Bkd3") == 0)) {
         setMu(value);
         return true;
@@ -326,7 +328,7 @@ bool BParameter::setParameter(std::string name_i, double value) {
         setScheme((schemes) value);
         return true;
     }
-    
+
     return false;
-    
+
 }
