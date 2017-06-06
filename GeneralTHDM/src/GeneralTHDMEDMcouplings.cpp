@@ -9,7 +9,7 @@
 #include "GeneralTHDM.h"
 
 GeneralTHDMEDMcouplings::GeneralTHDMEDMcouplings(const GeneralTHDM& GeneralTHDM_i) 
-: EffectiveEDMcouplings(GeneralTHDM_i), myGeneralTHDM(GeneralTHDM_i)
+: EffectiveEDMcouplings(GeneralTHDM_i)/*, myGeneralTHDM(GeneralTHDM_i)*/
 {}
 
 GeneralTHDMEDMcouplings::~GeneralTHDMEDMcouplings() 
