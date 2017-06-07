@@ -33,6 +33,8 @@ QCD::QCD()
     FlagCsi = true;
     computeFBd = false;
     computeFBp = false;
+    computeBd = false;
+    computeBs = false;
     Nc = 3.;
     CF = Nc / 2. - 1. / (2. * Nc);
     //    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
