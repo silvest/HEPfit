@@ -105,10 +105,10 @@ cp -af ${ORGDIR}/doc/LICENSE ${OUTDIR}/doc/
 # remove unnecessary files
 
 # rm -f ${OUTDIR}/StandardModel/src/EWSMOneLoopEW_HV.*
-rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2.*
-rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2_Hollik.*
-rm -f ${OUTDIR}/StandardModel/src/EWSM_Output.*
-rm -f ${OUTDIR}/EW/src/LEP2*
+# rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2.*
+# rm -f ${OUTDIR}/StandardModel/src/EWSMTwoFermionsLEP2_Hollik.*
+# rm -f ${OUTDIR}/StandardModel/src/EWSM_Output.*
+# rm -f ${OUTDIR}/EW/src/LEP2*
 rm -f ${OUTDIR}/NewPhysics/src/EW_ABC.*
 rm -f ${OUTDIR}/NewPhysics/src/EW_BURGESS.*
 rm -f ${OUTDIR}/NewPhysics/src/EW_CHMN.*
@@ -201,7 +201,8 @@ eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/EventGeneration/EventGen
 # Modify source codes
 
 echo "modifing souce codes..."
-MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
+#MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
+MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
 for MODFILE in $MODFILELIST
 do
     perl ${SCRIPTPATH}/remove.pl $MODFILE
