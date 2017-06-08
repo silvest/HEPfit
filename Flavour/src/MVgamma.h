@@ -197,7 +197,6 @@ public:
     double MRT1_2;/**<LCSR fit parameter */
     
     gslpp::vector<gslpp::complex> ** allcoeff;/**<vector that contains the Wilson coeffients at mub*/
-    gslpp::vector<gslpp::complex> ** allcoeffh;/**<vector that contains the Wilson coeffients at muh*/
     gslpp::vector<gslpp::complex> ** allcoeffprime;/**<vector that contains the primed Wilson coeffients at mub*/
     
     gslpp::complex C_1;/**<Wilson coeffients @f$C_1@f$*/
@@ -211,8 +210,8 @@ public:
     gslpp::complex C_1_bar;/**<Wilson coeffients @f$C_1_bar(mu_b)@f$*/
     gslpp::complex C_2_bar;/**<Wilson coeffients @f$C_2_bar(mu_b)@f$*/
     gslpp::complex C_8;/**<Wilson coeffients @f$C_8(mu_b)@f$*/
-    gslpp::complex C_2h_bar;/**<Wilson coeffients @f$C_2(mu_h)@f$*/
-    gslpp::complex C_8h;/**<Wilson coeffients @f$C_8(mu_h)@f$*/
+//    gslpp::complex C_2h_bar;/**<Wilson coeffients @f$C_2(mu_h)@f$*/
+//    gslpp::complex C_8h;/**<Wilson coeffients @f$C_8(mu_h)@f$*/
     
     
     /**
@@ -244,32 +243,6 @@ public:
     * @return @f$ \bar{H}_V^- @f$ 
     */
     gslpp::complex H_V_m_bar();
-
-    /**
-     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
-     * @param s @f$ m_c^2/m_b^2  @f$
-     * @return @f$ G_1(s) @f$
-     */
-//    gslpp::complex G1(double s);
-    
-    /**
-     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
-     * @return @f$ G_8 @f$
-     */
-//    gslpp::complex G8();
-
-    /**
-     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
-     * @param s @f$ m_c^2/m_b^2  @f$
-     * @return @f$ H_1(s) @f$
-     */
-//    gslpp::complex H1(double s); */
-
-    /**
-     * @brief Correction in eq. (42) of @cite Bosch:2001gv.
-     * @return  @f$ H_8 @f$
-     */
-//    gslpp::complex H8();
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..

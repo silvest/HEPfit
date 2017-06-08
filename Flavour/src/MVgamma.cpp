@@ -123,11 +123,6 @@ void MVgamma::updateParameters()
     C_1_bar = C_1/2.;
     C_2_bar = C_2 - C_1/6.;
     C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
-
-    allcoeffh = SM.getFlavour().ComputeCoeffBMll(mu_h, QCD::MU); //check the mass scale, scheme fixed to NDR
-
-    C_2h_bar = (*(allcoeffh[LO]))(1) - (*(allcoeffh[LO]))(0)/6.;
-    C_8h = (*(allcoeffh[LO]))(7);
     
     DC7_QCDF = deltaC7_QCDF(false);
     DC7_QCDF_bar = deltaC7_QCDF(true);
@@ -163,57 +158,6 @@ double MVgamma::T_1()
 {
     return ( a_0T1);
 }
-
-/*
- * QCDF alpha_s corrections
- * The following commented out part is the old LO implementation. The NLO follows it.
- * Retaining code for cleaning up later.
- */
-/* gslpp::complex MVgamma::G1(double s)
-{
-    double logs = log(s);
-    double M2 = M_PI*M_PI;
-    double M3 = M_PI * M_PI*M_PI;
-
-    return -104. / 27. * log(mu_b / Mb) - 833. / 162. - 20. * gslpp::complex::i() * M_PI / 27. +
-            8. * M2 / 9. * pow(s, 1.5) + 2. / 9. * (48. + 30. * gslpp::complex::i() * M_PI -
-            5. * M2 - 2. * gslpp::complex::i() * M3 - 36. * gsl_sf_zeta(3.)+
-            (36. + 6. * gslpp::complex::i() * M_PI - 9. * M2) * logs + (3. + 6. *
-            gslpp::complex::i() * M_PI) * logs * logs + logs * logs * logs) * s + 2. / 9. * (
-            18. + 2. * M2 - 2. * gslpp::complex::i() * M3 + (12. - 6. * M2) * logs + 6. *
-            gslpp::complex::i() * M_PI * logs * logs + logs * logs * logs) * s * s + 1. / 27. * (-9. + 112. *
-            gslpp::complex::i() * M_PI - 14. * M2 + (182. - 48. * gslpp::complex::i() * M_PI) * logs -
-            126. * logs * logs) * s * s*s;
-}
-
-gslpp::complex MVgamma::G8()
-{
-    return 8. / 3. * log(mu_b / Mb) + 11. / 3. - 2. / 9. * M_PI * M_PI + 2. / 3. * gslpp::complex::i() * M_PI;
-}
-
-gslpp::complex MVgamma::H1(double s)
-{
-    gslpp::complex c0, c1, c2;
-
-    c0 = 1.05171 + 1.02281 + gslpp::complex::i()*2.75305;
-    c1 = 1.41919 + 0.413974 - gslpp::complex::i()*1.85404;
-    c2 = 0.269769 - 1.73577 - gslpp::complex::i()*1.50017;
-    
-    return -2. * M_PI * M_PI / 9. * SM.getMesons(meson).getDecayconst() *
-            fperp / T_1() / MM / SM.getMesons(meson).getLambdaM()*
-            (c0 + c1 * SM.getMesons(vectorM).getGegenalpha(0) + c2 * SM.getMesons(vectorM).getGegenalpha(1));
-}
-
-gslpp::complex MVgamma::H8()
-{
-    return 4. * M_PI * M_PI / 9. * SM.getMesons(meson).getDecayconst() *
-            fperp / T_1() / MM / SM.getMesons(meson).getLambdaM()*
-            (3. - 3. * SM.getMesons(vectorM).getGegenalpha(0) + 3. * SM.getMesons(vectorM).getGegenalpha(1));
-}*/
-
-/*
- * QCDF NLO
- */
 
 gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
 {
@@ -326,11 +270,6 @@ gslpp::complex MVgamma::T_QCDF_minus(bool conjugate)
  * ****************************************************************************/
 gslpp::complex MVgamma::H_V_m()
 {
-//    double s = Mc * Mc / Mb / Mb;
-    
-//    return lambda_t * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
-//            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1()
-//            * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
     return lambda_t * (((C_7 + DC7_QCDF) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(false)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
@@ -341,10 +280,6 @@ gslpp::complex MVgamma::H_V_p()
 
 gslpp::complex MVgamma::H_V_m_bar()
 {
-//    double s = Mc * Mc / Mb / Mb;
-
-//    return lambda_t.conjugate() * ((C_7 + SM.Als(mu_b) / 3. / M_PI * (C_2_bar * G1(s) + C_8 * G8())
-//            + SM.Als(mu_h) / 3. / M_PI * (C_2h_bar * H1(s) + C_8h * H8())) * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
     return lambda_t.conjugate() * (((C_7 + DC7_QCDF_bar) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 

@@ -45,8 +45,6 @@ QCD::QCD()
     quarks[STRANGE] = Particle("STRANGE", 0., 2., 0., -1. / 3., -.5);
     quarks[BOTTOM] = Particle("BOTTOM", 0., 0., 0., -1. / 3., -.5);
     
-//    for (int i = K_0; i != MESON_END; ++i) initializeMeson(static_cast<QCD::meson>(i)); // PIs are not important for now.
-    
     zeta2 = gsl_sf_zeta_int(2);
     zeta3 = gsl_sf_zeta_int(3);
     for (int i = 0; i < CacheSize; i++) {
@@ -357,7 +355,7 @@ bool QCD::setFlag(const std::string name, const bool value)
     if (name.compare("FlagCsi") == 0) {
         FlagCsi = value;
         if (computeBs) BParameterMap.at("BBs").setFlagCsi(FlagCsi);
-        if (computeBs) BParameterMap.at("BBd").setFlagCsi(FlagCsi);
+        if (computeBd) BParameterMap.at("BBd").setFlagCsi(FlagCsi);
         res = true;
     }
     return res;
