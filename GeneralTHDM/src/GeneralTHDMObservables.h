@@ -12,5 +12,6 @@
 #include "GeneralTHDMunitarity.h"
 #include "GeneralTHDMstability.h"
 #include "GeneralTHDMgminus2.h"
+#include "GeneralTHDMEffectivePot.h"
 
 #endif	/* GENERALTHDMOBSERVABLES_H */
