@@ -9,13 +9,13 @@
 #define	FLAVOUR_H
 
 class StandardModel;
+class MVll;
+class MPll;
+class MVgamma;
 #include "QCD.h"
 #include "HeffDF2.h"
 #include "HeffDS1.h"
 #include "HeffDB1.h"
-#include "MVll.h"
-#include "MPll.h"
-#include "MVgamma.h"
 #include <boost/tuple/tuple.hpp>
 
 /**
@@ -218,17 +218,17 @@ private:
     mutable HeffDF2 HDF2;///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
     mutable HeffDB1 HDB1;///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
     mutable HeffDS1 HDS1;///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
-    mutable MVll MVll_BdKstarmu;///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
-    mutable MVll MVll_BdKstarel;///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
-    mutable MVll MVll_BpKstarmu;///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
-    mutable MVll MVll_BpKstarel;///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
-    mutable MVll MVll_Bsphimu;///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
-    mutable MVll MVll_Bsphiel;///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
-    mutable MPll MPll_BpKmu;///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
-    mutable MPll MPll_BpKel;///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
-    mutable MVgamma MVgamma_BdKstgamma;
-    mutable MVgamma MVgamma_BpKstgamma;
-    mutable MVgamma MVgamma_Bsphigamma;
+    MVll& MVll_BdKstarmu;///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
+    MVll& MVll_BdKstarel;///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
+    MVll& MVll_BpKstarmu;///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
+    MVll& MVll_BpKstarel;///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
+    MVll& MVll_Bsphimu;///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
+    MVll& MVll_Bsphiel;///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
+    MPll& MPll_BpKmu;///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
+    MPll& MPll_BpKel;///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    MVgamma& MVgamma_BdKstgamma;
+    MVgamma& MVgamma_BpKstgamma;
+    MVgamma& MVgamma_Bsphigamma;
     mutable bool update_BdKstarmu;///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
     mutable bool update_BdKstarel;///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
     mutable bool update_BpKstarmu;///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.

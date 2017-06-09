@@ -7,19 +7,22 @@
 
 #include "StandardModel.h"
 #include "Flavour.h"
+#include "MVll.h"
+#include "MPll.h"
+#include "MVgamma.h"
 
 Flavour::Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDB1(SM_i), HDS1(SM_i),
-            MVll_BdKstarmu(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU),
-            MVll_BdKstarel(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON),
-            MVll_BpKstarmu(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU),
-            MVll_BpKstarel(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::ELECTRON),
-            MVll_Bsphimu(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU),
-            MVll_Bsphiel(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON),
-            MPll_BpKmu(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU),
-            MPll_BpKel(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON),
-            MVgamma_BdKstgamma(SM_i, StandardModel::B_D, StandardModel::K_star),
-            MVgamma_BpKstgamma(SM_i, StandardModel::B_P, StandardModel::K_star_P),
-            MVgamma_Bsphigamma(SM_i, StandardModel::B_S, StandardModel::PHI)
+            MVll_BdKstarmu(*(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU))),
+            MVll_BdKstarel(*( new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON))),
+            MVll_BpKstarmu(*(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU))),
+            MVll_BpKstarel(*(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::ELECTRON))),
+            MVll_Bsphimu(*(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU))),
+            MVll_Bsphiel(*(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON))),
+            MPll_BpKmu(*(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU))),
+            MPll_BpKel(*(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON))),
+            MVgamma_BdKstgamma(*(new MVgamma(SM_i, StandardModel::B_D, StandardModel::K_star))),
+            MVgamma_BpKstgamma(*(new MVgamma(SM_i, StandardModel::B_P, StandardModel::K_star_P))),
+            MVgamma_Bsphigamma(*(new MVgamma(SM_i, StandardModel::B_S, StandardModel::PHI)))
     {
         update_BdKstarmu = true;
         update_BdKstarel = true;
