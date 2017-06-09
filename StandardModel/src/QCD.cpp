@@ -116,7 +116,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     if (!PreUpdate()) return (false);
 
     UpdateError = false;
-
+    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
 
@@ -243,6 +243,8 @@ void QCD::initializeMeson(const QCD::meson meson_i) const
     
     if (meson_i == QCD::B_D) computeFBd = true;
     if (meson_i == QCD::B_P) computeFBp = true;
+    
+    if ((computeFBd || computeFBp) && (mesonsMap.find(QCD::B_S) == mesonsMap.end())) initializeMeson(QCD::B_S);
     
     mesonsMap.at(meson_i).ModelParameterMapInsert(ModelParamMap);
 }
