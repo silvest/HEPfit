@@ -204,6 +204,9 @@ void MVll::updateParameters()
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
             spectator_charge = mySM.getQuarks(QCD::DOWN).getCharge();
+            
+            etaV = -1;
+            angmomV = 1.;
 
             b = 1;
             break;
@@ -244,6 +247,9 @@ void MVll::updateParameters()
             MRT23_2 = mySM.getOptionalParameter("MRT23") * mySM.getOptionalParameter("MRT23");
             
             spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
+            
+            etaV = -1;
+            angmomV = 1.;
 
             b = 1;
             break;
@@ -287,6 +293,9 @@ void MVll::updateParameters()
             
             ys = mySM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
             xs = mySM.getOptionalParameter("xs_phi");
+            
+            etaV = -1;
+            angmomV = 1.;
             
             b = 0.489;
             break;
@@ -1507,51 +1516,51 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
 
 gslpp::complex MVll::H_V_0(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_0(q2) + Y(q2)) - C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_0(q2) + Y(q2)) - C_9p.conjugate()) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7.conjugate() - C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_0(q2) + Y(q2)) - etaV*pow(-1,angmomV)*C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - etaV*pow(-1,angmomV)*C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_0(q2) + Y(q2)) - etaV*pow(-1,angmomV)*C_9p.conjugate()) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7.conjugate() - etaV*pow(-1,angmomV)*C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
     
 }
 
 gslpp::complex MVll::H_V_p(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_p(q2) - C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - etaV*pow(-1,angmomV)*C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_p(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - C_9p.conjugate() * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_m(q2) - C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - etaV*pow(-1,angmomV)*C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_m(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2, bool bar) 
 {
-    if (!bar) return gslpp::complex::i() * NN * ( -C_10 + C_10p) * V_0t(q2);
-    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() + C_10p.conjugate()) * V_0t(q2);
+    if (!bar) return gslpp::complex::i() * NN * ( -C_10 + etaV*pow(-1,angmomV)*C_10p) * V_0t(q2);
+    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() + etaV*pow(-1,angmomV)*C_10p.conjugate()) * V_0t(q2);
 }
 
 gslpp::complex MVll::H_A_p(double q2, bool bar) 
 {
-    if (!bar) return gslpp::complex::i() * NN * ( -C_10 * V_p(q2) + C_10p * V_m(q2));
-    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() * V_p(q2) + C_10p.conjugate() * V_m(q2));
+    if (!bar) return gslpp::complex::i() * NN * ( -C_10 * V_p(q2) + etaV*pow(-1,angmomV)*C_10p * V_m(q2));
+    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() * V_p(q2) + etaV*pow(-1,angmomV)*C_10p.conjugate() * V_m(q2));
 }
 
 gslpp::complex MVll::H_A_m(double q2, bool bar) 
 {
-    if (!bar) return gslpp::complex::i() * NN * ( -C_10 * V_m(q2) + C_10p * V_p(q2));
-    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() * V_m(q2) + C_10p.conjugate() * V_p(q2));
+    if (!bar) return gslpp::complex::i() * NN * ( -C_10 * V_m(q2) + etaV*pow(-1,angmomV)*C_10p * V_p(q2));
+    return gslpp::complex::i() * NN_conjugate * ( -C_10.conjugate() * V_m(q2) + etaV*pow(-1,angmomV)*C_10p.conjugate() * V_p(q2));
 }
 
 gslpp::complex MVll::H_S(double q2, bool bar) 
 {
-    if (!bar) return gslpp::complex::i() * NN * MboMW * (C_S - C_Sp) * S_L(q2);
-    return gslpp::complex::i() * NN_conjugate * MboMW * (C_S.conjugate() - C_Sp.conjugate()) * S_L(q2);
+    if (!bar) return gslpp::complex::i() * NN * MboMW * (C_S - etaV*pow(-1,angmomV)*C_Sp) * S_L(q2);
+    return gslpp::complex::i() * NN_conjugate * MboMW * (C_S.conjugate() - etaV*pow(-1,angmomV)*C_Sp.conjugate()) * S_L(q2);
 }
 
 gslpp::complex MVll::H_P(double q2, bool bar) 
 {
-    if (!bar) return gslpp::complex::i() * NN * ( MboMW * (C_P - C_Pp) + twoMlepMb / q2 * (C_10 - C_10p) * (1. + MsoMb)) * S_L(q2);
-    return gslpp::complex::i() * NN_conjugate * ( MboMW * (C_P.conjugate() - C_Pp.conjugate()) + twoMlepMb / q2 * (C_10.conjugate() - C_10p.conjugate()) * (1. + MsoMb)) * S_L(q2);
+    if (!bar) return gslpp::complex::i() * NN * ( MboMW * (C_P - etaV*pow(-1,angmomV)*C_Pp) + twoMlepMb / q2 * ( C_10*(1. + etaV*pow(-1,angmomV)*MsoMb) - C_10p*(etaV*pow(-1,angmomV) + MsoMb) ) ) * S_L(q2);
+    return gslpp::complex::i() * NN_conjugate * ( MboMW * (C_P.conjugate() - etaV*pow(-1,angmomV)*C_Pp.conjugate()) + twoMlepMb / q2 * ( C_10.conjugate()*(1. + etaV*pow(-1,angmomV)*MsoMb) - C_10p.conjugate()*(etaV*pow(-1,angmomV) + MsoMb) ) ) * S_L(q2);
 }
 
 

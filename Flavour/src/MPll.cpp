@@ -132,6 +132,9 @@ void MPll::updateParameters()
             m_fit2_f0_lat = mySM.getOptionalParameter("m_fit_f0_lat") * mySM.getOptionalParameter("m_fit_f0_lat");
             
             spectator_charge = mySM.getQuarks(QCD::UP).getCharge();
+            
+            etaP = -1;
+            angmomP = 0.;
     
             break;
         default:
@@ -904,22 +907,22 @@ gslpp::complex MPll::Y(double q2)
 
 gslpp::complex MPll::H_V(double q2) 
 {
-    return -( (C_9 + Y(q2) + fDeltaC9(q2) - C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 - C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
+    return -( (C_9 + Y(q2) + fDeltaC9(q2) - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2) 
 {
-    return (- C_10 + C_10p) *V_L(q2);
+    return (- C_10 + etaP*pow(-1,angmomP)*C_10p) *V_L(q2);
 }
 
 gslpp::complex MPll::H_S(double q2) 
 {
-    return MboMW*(C_S - C_Sp)*S_L(q2) ;
+    return MboMW*(C_S - etaP*pow(-1,angmomP)*C_Sp)*S_L(q2) ;
 }
 
 gslpp::complex MPll::H_P(double q2) 
 {
-    return ( MboMW * (C_P - C_Pp) + twoMlepMb / q2 * (C_10 - C_10p) * (1. + MsoMb)) * S_L(q2);
+    return ( MboMW * (C_P - etaP*pow(-1,angmomP)*C_Pp) + twoMlepMb / q2 * ( C_10*(1. + etaP*pow(-1,angmomP)*MsoMb) - C_10p*(etaP*pow(-1,angmomP) + MsoMb) )) * S_L(q2);
 }
 
 /*******************************************************************************

@@ -730,6 +730,9 @@ private:
     double width;         /**<Initial meson width */
     double ys;            /**<CP-violation factor \f$\frac{\Delta \Gamma}{2\Gamma}\f$*/
     double xs;            /**<CP-violation factor \f$\frac{\Delta m}{\Gamma}\f$*/
+    double angmomV;       /**<angular momentum of meson V; for a resonance, it's replaced by its spin */
+    int etaV;             /**<parity of meson V */
+
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
     double b;             /**<BF of the decay V -> final states */

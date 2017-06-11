@@ -278,6 +278,9 @@ private:
     double Ms;            /**<s quark mass */
     double spectator_charge;  /**<spectator quark charge */
     double width;         /**<initial meson width */
+    double angmomP;       /**<angular momentum of meson P; for a resonance, it's replaced by its spin */
+    int etaP;             /**<parity of meson P */
+
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
     gslpp::complex h_0;          /**<parameter that contains the contribution from the hadronic hamiltonian */
