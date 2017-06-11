@@ -965,7 +965,7 @@ double MPll::I_2c(double q2)
 
 double MPll::I_6c(double q2) 
 {
-    return 2. * F(q2) * beta(q2) * Mlep / sqrt(q2)*(H_S(q2).conjugate() * H_V(q2)).real();
+    return 4. * F(q2) * beta(q2) * Mlep / sqrt(q2)*(H_S(q2).conjugate() * H_V(q2)).real();
 }
 
 double MPll::Delta(int i, double q2) 

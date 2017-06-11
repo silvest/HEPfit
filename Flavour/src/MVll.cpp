@@ -1637,7 +1637,7 @@ double MVll::I_6s(double q2, bool bar)
 
 double MVll::I_6c(double q2, bool bar) 
 {
-    return 2. * F(q2, b) * beta(q2) * Mlep / sqrt(q2)*(H_S(q2, bar).conjugate() * H_V_0(q2, bar)).real();
+    return 4. * F(q2, b) * beta(q2) * Mlep / sqrt(q2)*(H_S(q2, bar).conjugate() * H_V_0(q2, bar)).real();
 }
 
 double MVll::I_7(double q2, bool bar) 

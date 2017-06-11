@@ -117,7 +117,6 @@ void MVgamma::updateParameters()
     C_5 = (*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4);
     C_6 = (*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5);
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
-    /* Defined with a -ve sign since Jager et. al. 2013 define C7prime with a -ve sign while others define C7 with a +ve sign in the amplitude. See Altmannshofer et. al. 2008.*/
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
     C_1_bar = C_1/2.;
