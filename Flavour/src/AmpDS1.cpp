@@ -9,8 +9,6 @@
 #include "StandardModel.h"
 #include <sstream>
 
-using namespace gslpp;
-
 AmpDS1::AmpDS1(const StandardModel& SM_i) 
 : mySM(SM_i) 
 {
@@ -27,7 +25,7 @@ gslpp::complex AmpDS1::AmpDS1pp0(orders order)
                                  + out.str() + "not computed");
     }
 
-    vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1PP(
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1PP(
             mySM.getBKd1().getMu(),
             mySM.getBKd1().getScheme());
 
@@ -82,7 +80,7 @@ gslpp::complex AmpDS1::AmpDS1pp2(orders order)
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1PP(
+    gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1PP(
             mySM.getBKd3().getMu(),
             mySM.getBKd3().getScheme());
     

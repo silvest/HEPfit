@@ -8,8 +8,6 @@
 #include "AmpDD2.h"
 #include "StandardModel.h"
 
-using namespace gslpp;
-
 AmpDD2::AmpDD2(const StandardModel& SM_i) 
 : mySM(SM_i) 
 {
@@ -21,7 +19,7 @@ gslpp::complex AmpDD2::AmpDD(orders order)
     if (mySM.getFlavour().getHDF2().getCoeffDD().getOrder() < order)
         throw std::runtime_error("DmD::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff =  mySM.getFlavour().ComputeCoeffdd(
+    gslpp::vector<gslpp::complex> ** allcoeff =  mySM.getFlavour().ComputeCoeffdd(
             mySM.getBD().getMu(),
             mySM.getBD().getScheme());
     gslpp::vector<double> me(mySM.getBD().getBpars());
