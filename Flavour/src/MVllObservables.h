@@ -9,7 +9,6 @@
 #define	MVLLOBSERVABLES_H
 
 #include "QCD.h"
-#include "MVll.h"
 #include "ThObservable.h"
 
 

@@ -13,6 +13,7 @@
 #include "StandardModel.h"
 #include "bsgamma.h"
 #include "std_make_vector.h"
+#include "gslpp_function_adapter.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_clausen.h>

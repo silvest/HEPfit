@@ -5,19 +5,14 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "Flavour.h"
 #include "StandardModel.h"
 #include "MPll.h"
-#include "gslpp_complex.h"
 #include "std_make_vector.h"
+#include "gslpp_function_adapter.h"
 #include <gsl/gsl_sf.h>
 #include <boost/bind.hpp>
 #include <limits>
 #include <TFitResult.h>
-
-
-
-
 
 MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
 :       mySM(SM_i),

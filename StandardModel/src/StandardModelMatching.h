@@ -9,7 +9,6 @@
 #define	STANDARDMODELMATCHING_H
 
 #include "ModelMatching.h"
-#include "QCD.h"
 #include <gslpp.h>
 
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)

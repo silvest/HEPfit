@@ -13,7 +13,6 @@ class F_1;
 class F_2;
 class AmpDB2;
 #include "ThObservable.h"
-#include "gslpp_function_adapter.h"
 #include <gsl/gsl_integration.h>
 
 #define NFPOLARBASIS_MVGAMMA true

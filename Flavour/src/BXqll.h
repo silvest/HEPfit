@@ -13,7 +13,6 @@ class F_1;
 class F_2;
 #include "QCD.h"
 #include "ThObservable.h"
-#include "gslpp.h"
 #include <gsl/gsl_integration.h>
 
 /**

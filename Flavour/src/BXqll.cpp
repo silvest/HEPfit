@@ -12,6 +12,7 @@
 #include "StandardModel.h"
 #include "F_1.h"
 #include "F_2.h"
+#include "gslpp_function_adapter.h"
 
 
 BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)

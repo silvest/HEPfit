@@ -25,6 +25,7 @@
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
 #include "LeptonFlavour.h"
+#include "gslpp_function_adapter.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "EWSMTwoFermionsLEP2.h"
 #include <functional>

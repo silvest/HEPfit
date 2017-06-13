@@ -9,13 +9,8 @@
 #define	MPLL_H
 
 class StandardModel;
-#include "QCD.h"
 #include "ThObservable.h"
-#include <math.h>
-#include <gsl/gsl_math.h>
 #include <gsl/gsl_integration.h>
-#include <assert.h>
-#include <gsl/gsl_monte_plain.h>
 #include <TF1.h>
 #include <TGraph.h>
 #include <TFitResultPtr.h>

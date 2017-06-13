@@ -9,6 +9,7 @@
 #include "MVgamma.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
+#include "gslpp_function_adapter.h"
 #include "F_1.h"
 #include "F_2.h"
 #include "AmpDB2.h"

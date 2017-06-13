@@ -9,13 +9,10 @@
 #define	STANDARDMODEL_H
 
 #include "Flavour.h"
-#include "gslpp.h"
 #include "QCD.h"
 #include "CKM.h"
-#include "WilsonCoefficient.h"
 #include "StandardModelMatching.h"
 #include "Matching.h"
-#include "gslpp_function_adapter.h"
 #include <gsl/gsl_integration.h>
 
 class EWSMcache;

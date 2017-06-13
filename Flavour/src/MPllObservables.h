@@ -8,8 +8,8 @@
 #ifndef MPLLOBSERVABLES_H
 #define	MPLLOBSERVABLES_H
 
-#include "MPll.h"
 #include "ThObservable.h"
+#include "QCD.h"
 
 /**
  * @class BR_MPll

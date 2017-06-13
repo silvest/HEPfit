@@ -6,6 +6,7 @@
  */
 
 #include "MPllObservables.h"
+#include "MPll.h"
 #include "StandardModel.h"
 
 /*******************************************************************************

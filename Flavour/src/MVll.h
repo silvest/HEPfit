@@ -10,7 +10,6 @@
 
 class StandardModel;
 
-#include "gslpp_function_adapter.h"
 #include <gsl/gsl_integration.h>
 #include <TF1.h>
 #include <TGraph.h>
