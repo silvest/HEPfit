@@ -8,6 +8,7 @@
 #include "BR_Kmumu.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
+#include "HeffDS1.h"
 
 BR_Kmumu::BR_Kmumu(StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i), CPB(SM)

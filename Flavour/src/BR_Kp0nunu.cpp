@@ -8,6 +8,7 @@
 #include "BR_Kp0nunu.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
+#include "HeffDS1.h"
 
 BR_Kp0nunu::BR_Kp0nunu(StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i)

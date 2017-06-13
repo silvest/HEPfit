@@ -8,6 +8,7 @@
 #include "AmpDB2.h"
 #include "StandardModel.h"
 #include "EvolDF2.h"
+#include "HeffDF2.h"
 
 AmpDB2::AmpDB2(const StandardModel& SM_i) 
 : mySM(SM_i) 

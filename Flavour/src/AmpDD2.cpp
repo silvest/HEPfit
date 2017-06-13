@@ -7,6 +7,7 @@
 
 #include "AmpDD2.h"
 #include "StandardModel.h"
+#include "HeffDF2.h"
 
 AmpDD2::AmpDD2(const StandardModel& SM_i) 
 : mySM(SM_i) 

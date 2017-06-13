@@ -8,6 +8,7 @@
 #include "Bdmumu.h"
 #include "StandardModel.h"
 #include "EvolBsmm.h"
+#include "HeffDB1.h"
 
 Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),

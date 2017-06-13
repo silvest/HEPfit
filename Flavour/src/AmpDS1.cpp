@@ -7,6 +7,7 @@
 
 #include "AmpDS1.h"
 #include "StandardModel.h"
+#include "HeffDS1.h"
 #include <sstream>
 
 AmpDS1::AmpDS1(const StandardModel& SM_i) 

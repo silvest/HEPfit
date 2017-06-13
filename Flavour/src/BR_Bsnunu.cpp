@@ -8,6 +8,7 @@
 #include "BR_Bsnunu.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
+#include "HeffDB1.h"
 
 BR_Bsnunu::BR_Bsnunu(StandardModel& SM_i)
 : ThObservable(SM_i), mySM(SM_i)
