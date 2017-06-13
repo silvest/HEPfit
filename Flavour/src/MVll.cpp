@@ -13,6 +13,7 @@
 #include <boost/bind.hpp>
 #include <limits>
 #include <TFitResult.h>
+#include <TRandom3.h>
 
 MVll::MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : mySM(SM_i),
@@ -33,12 +34,15 @@ H_V2cache(2, 0.),
 H_Scache(2, 0.),
 H_Pcache(4, 0.),
 T_cache(5, 0.) 
-{
-
-    
+{    
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
+    fullKD = mySM.getFlagFullKD();
+    mJ2 = 3.096*3.096;
+    gRandom = new TRandom3();
+    gRandom->SetSeed(0);
+
 #if NFPOLARBASIS_MVLL
     if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
         << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
@@ -95,7 +99,34 @@ T_cache(5, 0.)
         out << vectorM;
         throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
     }
-                                                                      
+                               
+    if (fullKD) {
+        mvllParameters.clear();
+        if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
+        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+        << "r1_1" << "r2_1" << "DC9_1"
+        << "r1_2" << "r2_2" << "DC9_2"
+        << "r1_3" << "r2_3" << "DC9_3" << "xs_phi";
+        else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
+        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+        << "r1_1" << "r2_1" << "DC9_1"
+        << "r1_2" << "r2_2" << "DC9_2"
+        << "r1_3" << "r2_3" << "DC9_3" ;
+        else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
+        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+        << "r1_1" << "r2_1" << "DC9_1"
+        << "r1_2" << "r2_2" << "DC9_2"
+        << "r1_3" << "r2_3" << "DC9_3" ;
+    }
     
     I0_updated = 0;
     I1_updated = 0;
@@ -306,32 +337,48 @@ void MVll::updateParameters()
             throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
     }
 
-
+    if (!fullKD) {
 #if NFPOLARBASIS_MVLL
-    h_0[0] = gslpp::complex(mySM.getOptionalParameter("absh_0"), mySM.getOptionalParameter("argh_0"), true);
-    h_0[1] = gslpp::complex(mySM.getOptionalParameter("absh_p"), mySM.getOptionalParameter("argh_p"), true);
-    h_0[2] = gslpp::complex(mySM.getOptionalParameter("absh_m"), mySM.getOptionalParameter("argh_m"), true);
+        h_0[0] = gslpp::complex(mySM.getOptionalParameter("absh_0"), mySM.getOptionalParameter("argh_0"), true);
+        h_0[1] = gslpp::complex(mySM.getOptionalParameter("absh_p"), mySM.getOptionalParameter("argh_p"), true);
+        h_0[2] = gslpp::complex(mySM.getOptionalParameter("absh_m"), mySM.getOptionalParameter("argh_m"), true);
 
-    h_1[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_1"), mySM.getOptionalParameter("argh_0_1"), true);
-    h_1[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_1"), mySM.getOptionalParameter("argh_p_1"), true);
-    h_1[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_1"), mySM.getOptionalParameter("argh_m_1"), true);
+        h_1[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_1"), mySM.getOptionalParameter("argh_0_1"), true);
+        h_1[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_1"), mySM.getOptionalParameter("argh_p_1"), true);
+        h_1[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_1"), mySM.getOptionalParameter("argh_m_1"), true);
 
-    h_2[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_2"), mySM.getOptionalParameter("argh_0_2"), true);
-    h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
-    h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
+        h_2[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_2"), mySM.getOptionalParameter("argh_0_2"), true);
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
 #else
-    h_0[0] = gslpp::complex(mySM.getOptionalParameter("reh_0"), mySM.getOptionalParameter("imh_0"), false);
-    h_0[1] = gslpp::complex(mySM.getOptionalParameter("reh_p"), mySM.getOptionalParameter("imh_p"), false);
-    h_0[2] = gslpp::complex(mySM.getOptionalParameter("reh_m"), mySM.getOptionalParameter("imh_m"), false);
+        h_0[0] = gslpp::complex(mySM.getOptionalParameter("reh_0"), mySM.getOptionalParameter("imh_0"), false);
+        h_0[1] = gslpp::complex(mySM.getOptionalParameter("reh_p"), mySM.getOptionalParameter("imh_p"), false);
+        h_0[2] = gslpp::complex(mySM.getOptionalParameter("reh_m"), mySM.getOptionalParameter("imh_m"), false);
 
-    h_1[0] = gslpp::complex(mySM.getOptionalParameter("reh_0_1"), mySM.getOptionalParameter("imh_0_1"), false);
-    h_1[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_1"), mySM.getOptionalParameter("imh_p_1"), false);
-    h_1[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_1"), mySM.getOptionalParameter("imh_m_1"), false);
+        h_1[0] = gslpp::complex(mySM.getOptionalParameter("reh_0_1"), mySM.getOptionalParameter("imh_0_1"), false);
+        h_1[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_1"), mySM.getOptionalParameter("imh_p_1"), false);
+        h_1[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_1"), mySM.getOptionalParameter("imh_m_1"), false);
 
-    h_2[0] = gslpp::complex(mySM.getOptionalParameter("reh_0_2"), mySM.getOptionalParameter("imh_0_2"), false);
-    h_2[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_2"), mySM.getOptionalParameter("imh_p_2"), false);
-    h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
+        h_2[0] = gslpp::complex(mySM.getOptionalParameter("reh_0_2"), mySM.getOptionalParameter("imh_0_2"), false);
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_2"), mySM.getOptionalParameter("imh_p_2"), false);
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
 #endif
+    } else {
+        h_0[0] = gslpp::complex(mySM.getOptionalParameter("r1_1"));
+        h_0[1] = gslpp::complex(mySM.getOptionalParameter("r1_2"));
+        h_0[2] = gslpp::complex(mySM.getOptionalParameter("r1_3"));
+
+        h_1[0] = gslpp::complex(mySM.getOptionalParameter("r2_1"));
+        h_1[1] = gslpp::complex(mySM.getOptionalParameter("r2_2"));
+        h_1[2] = gslpp::complex(mySM.getOptionalParameter("r2_3"));
+
+        h_2[0] = gslpp::complex(mySM.getOptionalParameter("DC9_1"));
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("DC9_2"));
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("DC9_3"));
+        randomPhase[0] = gRandom->Uniform(2.*M_PI);
+        randomPhase[1] = gRandom->Uniform(2.*M_PI);
+        randomPhase[2] = gRandom->Uniform(2.*M_PI);
+    } 
 
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -1182,8 +1229,6 @@ gslpp::complex MVll::deltaTpar(double q2)
             + deltaT_1par * MV/Ee / V_0t(q2) * cacheDeltaTparp[q2];
 }
 
-
-
 gslpp::complex MVll::DeltaC9_p(double q2)
 {
     return 1./q2 * Mb/MM * (MM2mMV2 * (MM2 - q2)/MM2 -
@@ -1257,7 +1302,7 @@ void MVll::fit_DeltaC9_p_mumu()
 void MVll::fit_DeltaC9_p_ee()
 {
     int dim = 0;
-    for (double i=0.002; i<SWITCH; i+=0.15) {
+    for (double i=0.002; i<SWITCH; i+=0.2) {
         double q2tmp = i;        
         myq2.push_back(q2tmp);
         ReDeltaC9_p_ee.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 -
@@ -1320,7 +1365,7 @@ void MVll::fit_DeltaC9_m_mumu()
 void MVll::fit_DeltaC9_m_ee()
 {
     int dim = 0;
-    for (double i=0.002; i<SWITCH; i+=0.15) {
+    for (double i=0.002; i<SWITCH; i+=0.2) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_m_ee.push_back((1./q2tmp * Mb/MM * (MM2mMV2 * (MM2 - q2tmp)/MM2 +
@@ -1383,16 +1428,7 @@ void MVll::fit_DeltaC9_0_mumu()
 void MVll::fit_DeltaC9_0_ee()
 {
     int dim = 0;
-    for (double i=0.002; i<SWITCH; i+=0.15) {
-        double q2tmp = i;
-        myq2.push_back(q2tmp);
-        ReDeltaC9_0_ee.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
-                                                             Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).real());
-        ImDeltaC9_0_ee.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
-                                                             Mb/MM2/q2tmp * deltaTperp(q2tmp) - lambda(q2tmp) * (deltaTpar(q2tmp) + deltaTperp(q2tmp))* Mb/MM2mMV2)).imag());
-        dim++;
-    }
-    for (double i=0.05; i<1.12; i+=0.05) {
+    for (double i=0.002; i<SWITCH; i+=0.2) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
         ReDeltaC9_0_ee.push_back((1. / 2. / MV / MM / sqrt(q2tmp) * ((MM2mMV2 * (MM2mMV2 - q2tmp) - lambda(q2tmp))* (MM2 - q2tmp) *
@@ -1506,13 +1542,30 @@ gslpp::complex MVll::Y(double q2)
     return -half * H_0(q2) * H_0_WC + H_c(q2,mu_b2) * H_c_WC - half * H_b(q2) * H_b_WC;
 }
 
+gslpp::complex MVll::funct_g(double q2)
+{
+    double pre = -8./9.*log(Mc/Mb) + 8./27. + 16./9.*Mc*Mc/q2 - 4./9.*(2. + 4.*Mc*Mc/q2);
+    if (q2 < 4.*Mc*Mc)
+        return pre * (sqrt(4.*Mc*Mc/q2 - 1.) * atan(1./sqrt(4.*Mc*Mc/q2 - 1.)));
+    else
+        return pre * (sqrt(1. - 4.*Mc*Mc/q2) * (log(1. + sqrt(1. - 4.*Mc*Mc/q2)/sqrt(4.*Mc*Mc/q2)) - gslpp::complex::i()*M_PI_2));
+}
+
+gslpp::complex MVll::DeltaC9_KD(double q2, int com)
+{
+    return ((h_0[com] * (1. - 1. / q2) + h_2[com] / q2) / (1. + h_1[com] * (1. - q2) / mJ2) - (3. * C_1 + C_2) * funct_g(q2))*exp(gslpp::complex::i()*randomPhase[com]);
+}
+
 gslpp::complex MVll::h_lambda(int hel, double q2) 
 {
-    if(hel >=0 && hel < 3)
-        if (h_pole == true) return (h_0[hel]+(1.-h_2[hel])*q2*(h_1[hel]-h_0[hel])/(q2-h_2[hel]));
+    if(!fullKD) {
+        if (h_pole == true) return (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
         else return (h_0[hel] + h_1[hel] * q2 + h_2[hel] * q2 * q2);
-    else
-        throw std::runtime_error("MVll::h: helicity index "+ boost::lexical_cast<std::string>(hel) + " out of range");
+    } else {
+        if (hel == 0) return -sqrt(q2)/(MM2*16.*M_PI*M_PI) * ((MMpMV2*(MM2mMV2-q2)*A_1(q2)*DeltaC9_KD(q2,1) - lambda(q2)*A_2(q2)*DeltaC9_KD(q2,2)) / (4.*MV*MM*MMpMV));
+        else if (hel == 1) return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*Mb)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*Mb)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+    }
 }
 
 gslpp::complex MVll::H_V_0(double q2, bool bar) 

@@ -778,6 +778,11 @@ public:
      * @return a boolean that is true if the set of model flags is sane
      */
     virtual bool CheckFlags() const;
+    
+    bool getFlagFullKD() const
+    {
+        return fullKD;
+    }
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1177,6 +1182,7 @@ private:
     
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     mutable std::map<std::string, BParameter> BParameterMap;
+    mutable bool fullKD;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.

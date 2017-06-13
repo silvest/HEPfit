@@ -12,6 +12,7 @@ class StandardModel;
 class F_1;
 class F_2;
 class AmpDB2;
+class TRandom3;
 #include "ThObservable.h"
 #include <gsl/gsl_integration.h>
 
@@ -361,6 +362,9 @@ public:
 private:
     QCD::meson meson;
     QCD::meson vectorM;
+    bool fullKD;
+    TRandom3 * gRandom;
+    
     const StandardModel& SM;
     F_1& myF_1;
     F_2& myF_2;

@@ -9,7 +9,7 @@
 #define	MVLL_H
 
 class StandardModel;
-
+class TRandom3;
 #include <gsl/gsl_integration.h>
 #include <TF1.h>
 #include <TGraph.h>
@@ -681,26 +681,6 @@ public:
     {
         return (sixteenM_PI2MM2 *  h_lambda(2,q2)/q2).imag();
     }
-
-    /**
-    * @brief The absolute value of the ratio \f$ h_+^{(0)}/h_0^{(0)} \f$.  
-    * @return \f$ h_+^{(0)}/h_0^{(0)} \f$
-    */
-    double gethp0_hm0_abs()
-    {
-        updateParameters();
-        return (h_0[1]/h_0[2]).abs();
-    }
-    
-    /**
-    * @brief The absolute value of the ratio \f$ h_-^{(0)}/h_0^{(0)} \f$.
-    * @return \f$ h_-^{(0)}/h_0^{(0)} \f$
-    */
-    double gethm0_h00_abs()
-    {
-        updateParameters();
-        return (h_0[2]/h_0[0]).abs();
-    }
     
     /**
     * @brief A method for initializing the parameters necessary for MVll.
@@ -714,6 +694,10 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson vectorM;/**< Final vector meson type */
     std::vector<std::string> mvllParameters;/**< The string of mandatory MVll parameters */
+    bool fullKD;
+    double mJ2;
+    TRandom3 * gRandom;
+    double randomPhase[3];
     
     double GF;            /**<Fermi constant */
     double ale;           /**<Alpha electromagnetic */
@@ -1312,6 +1296,10 @@ private:
     * @return \f$ Y(q^2) \f$
     */
     gslpp::complex Y(double q2);   
+    
+    gslpp::complex funct_g(double q2);
+    
+    gslpp::complex DeltaC9_KD(double q2, int com);
         
     /**
     * @brief The square of the 3-momentum of the recoiling meson in the M rest frame, \f$ k^2 \f$ .
