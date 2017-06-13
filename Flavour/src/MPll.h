@@ -383,12 +383,11 @@ private:
     double fourMM2;/**< Cache variable */
     double twoMboMM;/**< Cache variable */
     double sixteenM_PI2;/**< Cache variable */
-    double ninetysixM_PI3MM3;/**< Cache variable */
+    double sixtyfourM_PI3MM3;/**< Cache variable */
     double MboMW;/**< Cache variable */
     double MboMM;/**< Cache variable */
     double MsoMb;/**< Cache variable */
     double twoMlepMb;/**< Cache variable */
-    double DC9pre;/**< Cache variable */
     double threeGegen0;/**< Cache variable */
     double threeGegen1otwo;/**< Cache variable */
     double M_PI2osix;/**< Cache variable */

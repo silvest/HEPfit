@@ -209,12 +209,11 @@ void MPll::updateParameters()
     fourMM2 = 4. * MM2;
     twoMboMM = 2 * Mb / MM;
     sixteenM_PI2 = 16. * M_PI*M_PI;
-    ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
+    sixtyfourM_PI3MM3 = 64. * M_PI * M_PI * M_PI * MM * MM*MM;
     MboMW = Mb / MW;
     MboMM = Mb / MM;
     MsoMb = Ms / Mb;
     twoMlepMb = 2. * Mlep*Mb;
-    DC9pre = - Mb / MP / twoMM  / (MM2 - MP2);
     threeGegen0 = mySM.getMesons(pseudoscalar).getGegenalpha(0)*3.;
     threeGegen1otwo = mySM.getMesons(pseudoscalar).getGegenalpha(1)*3./2.;
     M_PI2osix = M_PI * M_PI / 6.;
@@ -825,15 +824,15 @@ void MPll::fit_DeltaC9_mumu()
     for (double i=0.1; i<MPllSWITCH; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
-        ReDeltaC9.push_back( (DC9pre * sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).real() );
-        ImDeltaC9.push_back( (DC9pre * sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).imag() );
+        ReDeltaC9.push_back( (deltaTpar(q2tmp)).real() );
+        ImDeltaC9.push_back( (deltaTpar(q2tmp)).imag() );
         dim++;
     }
     for (double i=MPllSWITCH; i<8.2; i+=0.4) {
         double q2tmp = i;
         myq2.push_back(q2tmp);
-        ReDeltaC9.push_back(q2tmp * (DC9pre * sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).real());
-        ImDeltaC9.push_back(q2tmp * (DC9pre * sqrt(q2tmp) * lambda(q2tmp) * deltaTpar(q2tmp)).imag());
+        ReDeltaC9.push_back(q2tmp * (deltaTpar(q2tmp)).real());
+        ImDeltaC9.push_back(q2tmp * (deltaTpar(q2tmp)).imag());
         dim++;
     }
     
@@ -863,7 +862,7 @@ gslpp::complex MPll::fDeltaC9(double q2)
 
 gslpp::complex MPll::DeltaC9(double q2)
 {
-    return DC9pre * sqrt(q2) * lambda(q2) * deltaTpar(q2);
+    return deltaTpar(q2);
 }
 
 /*******************************************************************************
@@ -944,7 +943,7 @@ double MPll::lambda(double q2)
 
 double MPll::F(double q2) 
 {
-    return sqrt(lambda(q2))*beta(q2)*q2/(ninetysixM_PI3MM3);
+    return sqrt(lambda(q2))*beta(q2)*q2/(sixtyfourM_PI3MM3);
 }
 
 double MPll::I_1c(double q2) 
