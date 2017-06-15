@@ -23,12 +23,12 @@
 template <class T> class WilsonTemplate {
 public:
     WilsonTemplate(unsigned int dim, schemes scheme_i, orders order_i , 
-                   orders_ew order_ew_i = NULL_ew)
+                   orders_qed order_qed_i = NO_QED)
     {
         size = dim;
         scheme = scheme_i;
         order = order_i;
-        order_ew = order_ew_i; 
+        order_qed = order_qed_i; 
         mu = -1.;
         
         for (int i = LO; i <= MAXORDER; i++)
@@ -36,10 +36,10 @@ public:
                 elem[i] = new T(size, 0.);
             else
                 elem[i] = NULL;
-        elem[orders_ew(NULL_ew)] = NULL;
+        elem[orders_qed(NO_QED)] = NULL;
         //for (int i = LO_ew; i <= NLO_ew; i++){
-        for (int i = LO_ew; i <= MAXORDER_EW; i++){
-            if (i <= order_ew)
+        for (int i = LO_QED; i <= MAXORDER_QED; i++){
+            if (i <= order_qed)
                 elem[i] = new T(size, 0.);
             else
                 elem[i] = NULL;
@@ -51,9 +51,9 @@ public:
         size = orig.size;
         scheme = orig.scheme;
         order = orig.order;
-        order_ew = orig.order_ew;
+        order_qed = orig.order_qed;
         mu = orig.mu;
-        for (int i = LO; i <= MAXORDER_EW; i++)
+        for (int i = LO; i <= MAXORDER_QED; i++)
             if (orig.elem[i]!= NULL)
                 elem[i] = new T(*(orig.elem[i]));
             else
@@ -62,7 +62,7 @@ public:
     
     virtual ~WilsonTemplate()
     {
-        for (int i = LO; i <= MAXORDER_EW; i++)
+        for (int i = LO; i <= MAXORDER_QED; i++)
             if (elem[i] != NULL)
                 delete elem[i];
     };
@@ -72,9 +72,9 @@ public:
         return order;
     }
     
-    orders_ew getOrder_ew() const
+    orders_qed getOrder_qed() const
     {
-        return order_ew;
+        return order_qed;
     }
 
     double getMu() const
@@ -87,8 +87,8 @@ public:
         for(int i = LO; i <= order; i++){
             *(elem[i]) = 0.;
         }
-        if (order_ew != NULL_ew){
-            for(int i = LO_ew; i <= order_ew; i++){
+        if (order_qed != NO_QED){
+            for(int i = LO_QED; i <= order_qed; i++){
                 *(elem[i]) = 0.;
             }
         }
@@ -116,12 +116,12 @@ public:
     }
 
 protected:
-    T* elem[MAXORDER_EW+1];
+    T* elem[MAXORDER_QED+1];
     unsigned int size;
     double mu;
     schemes scheme;
     orders order;
-    orders_ew order_ew;
+    orders_qed order_qed;
 
     T * Elem(orders order) const
     {
@@ -134,15 +134,15 @@ protected:
         return elem[order];
     };
     
-    T * Elem(orders_ew order_ew) const
+    T * Elem(orders_qed order_qed) const
     {
-        if ((order_ew > this->order_ew)) {
+        if ((order_qed > this->order_qed)) {
             std::stringstream out;
-            out << order_ew;
-            throw std::runtime_error("WilsonTemplate::getElem(): requested order_ew " + out.str() +
+            out << order_qed;
+            throw std::runtime_error("WilsonTemplate::getElem(): requested order_qed " + out.str() +
                     "not present in the object");
         }
-        return elem[order_ew];
+        return elem[order_qed];
     };
 
     void setElem(const T & v, orders order_i)
@@ -156,15 +156,15 @@ protected:
         *elem[order_i] = v;
     };
     
-    void setElem(const T & v, orders_ew order_ew_i)
+    void setElem(const T & v, orders_qed order_qed_i)
     {
-        if (order_ew_i > order_ew) {
+        if (order_qed_i > order_qed) {
             std::stringstream out;
-            out << order_ew_i;
+            out << order_qed_i;
             throw std::runtime_error("MatchingCondition::setElem(): order " + out.str() +
                     " not implemented ");
         }
-        *elem[order_ew_i] = v;
+        *elem[order_qed_i] = v;
     };
 };
 

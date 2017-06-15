@@ -19,7 +19,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcdbs2(5, NDR, NLO),
         mcdd2(5, NDR, NLO),
         mcdk2(5, NDR, NLO),
-        mckpnn(1, NDR, NLO, NLO_ew),
+        mckpnn(1, NDR, NLO, NLO_QED),
         mcbsnn(1, NDR, NLO),
         mcbdnn(1, NDR, NLO),
         mcbtaunu(3, NDR, LO),
@@ -1684,10 +1684,10 @@ std::vector<WilsonCoefficient> StandardModelMatching::CMDF1s(std::string blocks,
             throw std::runtime_error("StandardModelMatching::CMkpnn(): order " + out.str() + "not implemented"); 
     }
     
-    switch (mckpnn.getOrder_ew()) {
-        case NLO_ew:
-            mckpnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/lambda5, NLO_ew);
-        case LO_ew:
+    switch (mckpnn.getOrder_qed()) {
+        case NLO_QED:
+            mckpnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/lambda5, NLO_QED);
+        case LO_QED:
             break; 
         default:
             std::stringstream out;

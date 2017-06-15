@@ -1178,12 +1178,10 @@ protected:
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     
     double Nc; ///< The number of colours.
-    double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
     Particle quarks[6]; ///< The vector of all SM quarks.
     
 private:
-    
-    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
+    double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
     mutable std::map<std::string, BParameter> BParameterMap;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.

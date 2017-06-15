@@ -8,8 +8,8 @@
 #ifndef ORDERSCHEME_H
 #define	ORDERSCHEME_H
 
-#define MAXORDER FULLNNLO
-#define MAXORDER_EW FULLNLO_ew
+#define MAXORDER FULLNNNLO
+#define MAXORDER_QED FULLNLO_QED
 
 /**
  * @enum schemes
@@ -44,16 +44,16 @@ enum orders
  * @ingroup StandardModel
  * @brief An enum type for orders in electroweak.
  */
-enum orders_ew
+enum orders_qed
 {
-    NULL_ew = orders(MAXORDER + 1), /**< An auxiliary enumerator */
-    LO_ew, /**< Leading order */
-    NLO_ew, /**< Next-to-leading order */
-    NLO_ewt1,   /* e^2/s^2 */
-    NLO_ewt2,     /* es */
-    NLO_ewt3,    /* e^2/s */
-    NLO_ewt4,     /* e^2 */
-    FULLNLO_ew /**< Full NLO_ew = LO + NLO + LO_ew + NLO_ew +...+ NLO_ewt4 */
+    NO_QED = orders(MAXORDER) + 1, /**< An auxiliary enumerator */
+    LO_QED, /**< Leading order */
+    NLO_QED, /**< Next-to-leading order */
+    NLO_QED02,   /* e^2/s^2 */
+    NLO_QED21,     /* e*s */
+    NLO_QED12,    /* e^2/s */
+    NLO_QED22,     /* e^2 */
+    FULLNLO_QED /**< Full NLO_ew = LO + NLO + LO_ew + NLO_ew +...+ NLO_ewt4 */
 };
 
 #endif	/* ORDERSCHEME_H */

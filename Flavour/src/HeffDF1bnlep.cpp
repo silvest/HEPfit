@@ -38,7 +38,7 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, sch
     coeffbnlep00CC.setMu(mu);
     coeffbnlep00.setMu(mu);
     
-    orders_ew ordDF1ew = coeffbnlep00.getOrder_ew();
+    orders_ew ordDF1ew = coeffbnlep00.getOrder_qed();
     orders ordDF1 =  coeffbnlep00.getOrder();
     
     for (unsigned int i = 0; i < mcb.size(); i++){
@@ -146,7 +146,7 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, sch
     coeffbnlep10CC.setMu(mu);
     coeffbnlep10.setMu(mu);
     
-    orders_ew ordDF1ew = coeffbnlep10.getOrder_ew();
+    orders_ew ordDF1ew = coeffbnlep10.getOrder_qed();
     orders ordDF1 =  coeffbnlep10.getOrder();
     
     for (unsigned int i = 0; i < mcb.size(); i++){

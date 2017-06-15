@@ -88,7 +88,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes 
     coeffnlep00CC.setMu(mu);
     coeffnlep00.setMu(mu);
     
-    orders_ew ordDF1ew = coeffnlep00.getOrder_ew();
+    orders_ew ordDF1ew = coeffnlep00.getOrder_qed();
     orders ordDF1 =  coeffnlep00.getOrder();
     
     for (unsigned int i = 0; i < mcb.size(); i++){
@@ -164,7 +164,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes 
     coeffnlep10CC.setMu(mu);
     coeffnlep10.setMu(mu);
     
-    orders_ew ordDF1ew = coeffnlep10.getOrder_ew();
+    orders_ew ordDF1ew = coeffnlep10.getOrder_qed();
     orders ordDF1 =  coeffnlep10.getOrder();
     
     for (unsigned int i = 0; i < mcb.size(); i++){
@@ -329,7 +329,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes sc
     
     coeffsmumu.setScheme(scheme);
     orders ordDF1 = coeffsmumu.getOrder(); 
-    orders_ew ordDF1ew = coeffsmumu.getOrder_ew();
+    orders_ew ordDF1ew = coeffsmumu.getOrder_qed();
     
     const std::vector<WilsonCoefficient>& mcbsm = model.getMatching().CMbsmm();
 
@@ -519,7 +519,7 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
     
     coeffdmumu.setScheme(scheme);
     orders ordDF1 = coeffdmumu.getOrder(); 
-    orders_ew ordDF1ew = coeffdmumu.getOrder_ew();
+    orders_ew ordDF1ew = coeffdmumu.getOrder_qed();
     
     const std::vector<WilsonCoefficient>& mcbdm = model.getMatching().CMbdmm();
 

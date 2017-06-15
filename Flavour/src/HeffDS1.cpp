@@ -138,7 +138,7 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunu()
     const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMkpnn();
     
     orders ordDF1 = coeffds1pnunu.getOrder();
-    orders_ew ordDF1_ew = coeffds1pnunu.getOrder_ew();
+    orders_ew ordDF1_ew = coeffds1pnunu.getOrder_qed();
     
     for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
