@@ -33,8 +33,8 @@ R_BXqll::R_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_
 
 double R_BXqll::computeThValue()
 { 
-//   return myBXqll.getR_LOWQ2(0.15);
-   return myBXqll.getR_HIGHQ2(0.8);
+   return myBXqll.getR_LOWQ2(0.15);
+//   return myBXqll.getR_HIGHQ2(0.8);
 }
 
 
@@ -68,4 +68,3 @@ double Rhigh_BXqll::computeThValue()
     double sh_max = 1.;
     return (myBXqll.integrate_Rquark(sh_min, sh_max, HIGHQ2));
 }
-

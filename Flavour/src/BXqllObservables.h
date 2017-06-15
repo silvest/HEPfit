@@ -119,5 +119,3 @@ private:
 
 
 #endif	/* BXQLLOBSERVABLES_H */
-
-    
