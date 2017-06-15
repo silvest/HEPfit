@@ -15,6 +15,7 @@
 #include <map>
 #include "boost/multi_array.hpp"
 
+typedef unsigned int indices;
 
 class EvolDF1 : public RGEvolutor {
     /**
@@ -41,21 +42,14 @@ public:
      */
     virtual ~EvolDF1();
     /**
-     * @brief a method returning the anomalous dimension matrix given in the Misiak basis - qcd corrections
-     * @param order an enum "orders" for the order of perturbation theory of the ADM
+     * @brief a method returning the anomalous dimension matrix given in the Misiak basis
+     * @param nm indices nm corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
      * @param n_u an unsigned integer for the up-type number of d.o.f.
      * @param n_d an unsigned integer for the down-type number of d.o.f.
-     * @return the ADM at the order LO/NLO in the Misiak basis - qcd corrections
+     * @return the ADM in the Misiak basis
      */
-    gslpp::matrix<double> AnomalousDimension_s(orders order, unsigned int n_u, unsigned int n_d) const;
-    /**
-     * @brief a method returning the anomalous dimension matrix given in the Misiak basis - qed corrections
-     * @param order an enum "orders" for the order of perturbation theory of the ADM
-     * @param n_u an unsigned integer for the up-type number of d.o.f.
-     * @param n_d an unsigned integer for the down-type number of d.o.f.
-     * @return the ADM at the order LO/NLO in the Misiak basis - qed corrections
-     */
-    gslpp::matrix<double> AnomalousDimension_e(orders order, unsigned int n_u, unsigned int n_d) const;
+    gslpp::matrix<double> AnomalousDimension(indices nm, unsigned int n_u, unsigned int n_d) const;
+
     /**
      * @brief a method returning the evolutor related to the high scale \f$ M \f$ and the low scale \f$ \mu \f$
      * @param mu a double for the low scale of the evolution
@@ -108,6 +102,14 @@ private:
     array_type4 b,c,d;
 
     const StandardModel& model;
+
+    /**
+     * @brief Check if anomalous dimension indices and Nf match
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param nf number of active flavours
+     */    
+    void CheckNf(indices nm, unsigned int nf) const;
+    
     /**
      * @brief a void type method storing properly the magic numbers for the implementation of the evolutor
      * @param mu a double for the low scale of the evolution
@@ -119,48 +121,163 @@ private:
     
     friend double gslpp_special_functions::zeta(int i);
 
-    gslpp::matrix<double> GammaCC_s(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaCP_s(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaCM_s(orders order, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief CC block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM CC block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaCC(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief CP block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM CP block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaCP(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief CM block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM CM block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaCM(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief CL block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM CL block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaCL(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief CQ block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM CQ block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaCQ(indices nm, unsigned int n_u, unsigned int n_d) const;
 
-    gslpp::matrix<double> GammaPP_s(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaPM_s(orders order, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief PP block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM PP block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaPP(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief PM block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM PM block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaPM(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief PL block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM PL block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaPL(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief PQ block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM PQ block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaPQ(indices nm, unsigned int n_u, unsigned int n_d) const;
 
-    gslpp::matrix<double> GammaMM_s(orders order, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief MM block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM MM block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaMM(indices nm, unsigned int n_u, unsigned int n_d) const;
 
-    gslpp::matrix<double> GammaQP_s(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaQM_s(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaQQ_s(orders order, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief LL block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM LL block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaLL(indices nm, unsigned int n_u, unsigned int n_d) const;
 
-    gslpp::matrix<double> GammaBP_s(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaBB_s(orders order, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief QP block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM QP block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaQP(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief QM block of the QCD anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM QM block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaQM(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief QL block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM QL block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaQL(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief QQ block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM QQ block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaQQ(indices nm, unsigned int n_u, unsigned int n_d) const;
 
-    gslpp::matrix<double> GammaCC_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaCP_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaCM_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaCL_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaCQ_e(orders order, unsigned int n_u, unsigned int n_d) const;
-
-    gslpp::matrix<double> GammaPP_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaPM_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaPL_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaPQ_e(orders order, unsigned int n_u, unsigned int n_d) const;
-
-    gslpp::matrix<double> GammaMM_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    
-//    gslpp::matrix<double> GammaLP_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaLL_e(orders order, unsigned int n_u, unsigned int n_d) const;
-//    gslpp::matrix<double> GammaLQ_e(orders order, unsigned int n_u, unsigned int n_d) const;
-
-    gslpp::matrix<double> GammaQP_e(orders order, unsigned int n_u, unsigned int n_d) const;
-//    gslpp::matrix<double> GammaQM_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaQL_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaQQ_e(orders order, unsigned int n_u, unsigned int n_d) const;
-
-    gslpp::matrix<double> GammaBP_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaBL_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaBQ_e(orders order, unsigned int n_u, unsigned int n_d) const;
-    gslpp::matrix<double> GammaBB_e(orders order, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief BP block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM BP block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaBP(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief BL block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM BL block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaBL(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief BQ block of the QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM BQ block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaBQ(indices nm, unsigned int n_u, unsigned int n_d) const;
+    /**
+     * @brief BB block of the QCD+QED anomalous dimension
+     * @param nm indices corresponding to powers of alpha_s and alpha_em as in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param n_u an unsigned integer for the up-type number of d.o.f.
+     * @param n_d an unsigned integer for the down-type number of d.o.f.
+     * @return the ADM BB block in the Misiak basis
+     */    
+    gslpp::matrix<double> GammaBB(indices nm, unsigned int n_u, unsigned int n_d) const;
 
     /**
      * @brief QCD beta function coefficients - eq. (36) hep-ph/0512066

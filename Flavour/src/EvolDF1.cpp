@@ -10,48 +10,6 @@
 #include "QCD.h"
 #include "EvolDF1.h"
 
-double EvolDF1::Beta_s(int i, double nf)
-{
-    switch(i)
-    {
-        case 00:
-            return(QCD::Beta0(nf));
-        case 10:
-            return(QCD::Beta1(nf));
-        case 20:
-            return(QCD::Beta2(nf));
-        case 30:
-            return(QCD::Beta3(nf));
-        case 01:
-            if (nf == 5) return(-22./9.);
-            else throw std::runtime_error("EvolDF1::Beta_s(01) only known for nf=5.");
-        case 11:
-            if (nf == 5) return(-308./27.);
-            else throw std::runtime_error("EvolDF1::Beta_s(11) only known for nf=5.");
-        case 02:
-            if (nf == 5) return(4946./243.);
-            else throw std::runtime_error("EvolDF1::Beta_s(02) only known for nf=5.");
-        default:
-            throw std::runtime_error("EvolDF1::Beta_s: case not implemented");
-    }
-}
-double EvolDF1::Beta_e(int i, double nf)
-{
-    if (nf != 5) throw std::runtime_error("EvolDF1::Beta_e only known for nf=5.");
-
-    switch(i)
-    {
-        case 00:
-            return(80./9.);
-        case 10:
-            return(464./27.);
-        case 01:
-            return(176./9.);
-        default:
-            throw std::runtime_error("EvolDF1::Beta_e: case not implemented");
-    }
-}
-
 EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, orders order, const StandardModel& model) 
 :           RGEvolutor(nops, scheme, order), 
             a(boost::extents[4][nops]), b(boost::extents[4][nops][nops][nops]), c(boost::extents[4][nops][nops][nops]), d(boost::extents[4][nops][nops][nops]),
@@ -82,7 +40,7 @@ EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, order
 
     // LO evolutor of the effective Wilson coefficients in the Chetyrkin, Misiak and Munz basis
     
-    AnomalousDimension_s(LO,nu,nd).transpose().eigensystem(v,e);
+//    AnomalousDimension_s(LO,nu,nd).transpose().eigensystem(v,e);
     vi = v.inverse();
     for(i = 0; i < nops; i++){
        a[L][i] = e(i).real();
@@ -95,7 +53,7 @@ EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, order
     
     // NLO evolutor of the effective Wilson coefficients in the Chetyrkin, Misiak and Munz basis
     
-    gg = vi * AnomalousDimension_s(NLO,nu,nd).transpose() * v;
+//    gg = vi * AnomalousDimension_s(NLO,nu,nd).transpose() * v;
     double b0 = model.Beta0(nu+nd);
     double b1 = model.Beta1(nu+nd);
     for (i = 0; i < nops; i++){
@@ -144,59 +102,123 @@ EvolDF1::~EvolDF1()
        ref. for MM,QP,QQ,BP,BB QED NLO, BQ NLO: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
                        QM QED,BM??? (in 031209 C7,8 are normalised with alpha_s and not in the effective basis)
 */
-
-gslpp::matrix<double> EvolDF1::GammaCC_s(orders order, unsigned int n_u, unsigned int n_d) const
+double EvolDF1::Beta_s(int i, double nf)
 {
-    // ref.: Gorbahn, Haisch, Nucl. Phys. B 713, 291, hep-ph/0411071
-    gslpp::matrix<double> gammaDF1(2, 2, 0.);
-    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){
-            throw std::runtime_error("EvolDF1::GammaCC_s(): wrong number of flavours");
-    }
-    double z3 = gslpp_special_functions::zeta(3);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = -4.;
-            gammaDF1(0,1) = 8./3.;
-            gammaDF1(1,0) = 12.;
-            break;
-        case NLO:
-            gammaDF1(0,0) = -145./3. + nf*16./9.;// -355./9.
-            gammaDF1(0,1) = -26. + nf*40./27.;   // -502./27.
-            gammaDF1(1,0) = -45. + nf*20./3.;    // -35./3.
-            gammaDF1(1,1) = -28./3.;
-            break;
-        case NNLO:
-            gammaDF1(0,0) = -1927./2. + nf*257./9. + nf*nf*40./9. + z3*(224. + nf*160./3.);   // -12773./18. + z3*1472./3.
-            gammaDF1(0,1) = 475./9. + nf*362./27. - nf*nf*40./27. - z3*(896./3. + nf*320./9.);// 745./9. - z3*4288./9.
-            gammaDF1(1,0) = 307./2. + nf*361./3. - nf*nf*20./3. - z3*(1344. + nf*160.);       // 1177./2. - z3*2144.
-            gammaDF1(1,1) = 1298./3. - nf* 76./3. - z3*224.;                                  // 306. + z3*224.
-            break;
+    switch(i)
+    {
+        case 00:
+            return(model.Beta0(nf));
+        case 10:
+            return(model.Beta1(nf));
+        case 20:
+            return(model.Beta2(nf));
+        case 30:
+            return(model.Beta3(nf));
+        case 01:
+            if (nf == 5) return(-22./9.);
+            else throw std::runtime_error("EvolDF1::Beta_s(01) only known for nf=5.");
+        case 11:
+            if (nf == 5) return(-308./27.);
+            else throw std::runtime_error("EvolDF1::Beta_s(11) only known for nf=5.");
+        case 02:
+            if (nf == 5) return(4946./243.);
+            else throw std::runtime_error("EvolDF1::Beta_s(02) only known for nf=5.");
         default:
-            throw std::runtime_error("EvolDF1::GammaCC_s(): order not implemented");
+            throw std::runtime_error("EvolDF1::Beta_s: case not implemented");
     }
-     return (gammaDF1);
+}
+double EvolDF1::Beta_e(int i, double nf)
+{
+    if (nf != 5) throw std::runtime_error("EvolDF1::Beta_e only known for nf=5.");
+
+    switch(i)
+    {
+        case 00:
+            return(80./9.);
+        case 10:
+            return(464./27.);
+        case 01:
+            return(176./9.);
+        default:
+            throw std::runtime_error("EvolDF1::Beta_e: case not implemented");
+    }
 }
 
-gslpp::matrix<double> EvolDF1::GammaCP_s(orders order, unsigned int n_u, unsigned int n_d) const
+
+void EvolDF1::CheckNf(indices nm, unsigned int nf) const
 {
-    // ref.: Gorbahn, Haisch, Nucl. Phys. B 713, 291, hep-ph/0411071
-    gslpp::matrix<double> gammaDF1(2, 4, 0.);
-    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){
-            throw std::runtime_error("EvolDF1::GammaCP_s(): wrong number of flavours");
+   if (nm / 10  == nm / 10.)
+    {
+        if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6))
+           throw std::runtime_error("EvolDF1::CheckNf(): Wrong number of flavours in anoumalous dimensions");
     }
+    else if (nf != 5)
+           throw std::runtime_error("EvolDF1::CheckNf(): Wrong number of flavours in anoumalous dimensions");
+}
+
+gslpp::matrix<double> EvolDF1::GammaCC(indices nm, unsigned int n_u, unsigned int n_d) const {
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    CheckNf(nm, nf);
+
+    gslpp::matrix<double> gammaDF1(2, 2, 0.);
     double z3 = gslpp_special_functions::zeta(3);
-    
-    switch(order)
-    {  
-        case LO:
+
+    switch (nm) {
+        // QCD
+        // ref.: Gorbahn, Haisch, Nucl. Phys. B 713, 291, hep-ph/0411071
+        case 10:
+            gammaDF1(0, 0) = -4.;
+            gammaDF1(0, 1) = 8. / 3.;
+            gammaDF1(1, 0) = 12.;
+            break;
+        case 20:
+            gammaDF1(0, 0) = -145. / 3. + nf * 16. / 9.; // -355./9.
+            gammaDF1(0, 1) = -26. + nf * 40. / 27.; // -502./27.
+            gammaDF1(1, 0) = -45. + nf * 20. / 3.; // -35./3.
+            gammaDF1(1, 1) = -28. / 3.;
+            break;
+        case 30:
+            gammaDF1(0, 0) = -1927. / 2. + nf * 257. / 9. + nf * nf * 40. / 9. + z3 * (224. + nf * 160. / 3.); // -12773./18. + z3*1472./3.
+            gammaDF1(0, 1) = 475. / 9. + nf * 362. / 27. - nf * nf * 40. / 27. - z3 * (896. / 3. + nf * 320. / 9.); // 745./9. - z3*4288./9.
+            gammaDF1(1, 0) = 307. / 2. + nf * 361. / 3. - nf * nf * 20. / 3. - z3 * (1344. + nf * 160.); // 1177./2. - z3*2144.
+            gammaDF1(1, 1) = 1298. / 3. - nf * 76. / 3. - z3 * 224.; // 306. + z3*224.
+            break;
+        // QED
+        // only available for nf = 5
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
+            gammaDF1(0, 0) = -8. / 3.;
+            gammaDF1(1, 1) = -8. / 3.;
+            break;
+        case 11:
+            gammaDF1(0, 0) = 169. / 9.;
+            gammaDF1(0, 1) = 100. / 27.;
+            gammaDF1(1, 0) = 50. / 3.;
+            gammaDF1(1, 1) = -8. / 3.;
+            break;
+        default:
+            throw std::runtime_error("EvolDF1::GammaCC(): order not implemented");
+    }
+    return (gammaDF1);
+}
+
+gslpp::matrix<double> EvolDF1::GammaCP(indices nm, unsigned int n_u, unsigned int n_d) const
+{
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    CheckNf(nm, nf);    
+
+    gslpp::matrix<double> gammaDF1(2, 4, 0.);
+    double z3 = gslpp_special_functions::zeta(3);
+
+    switch(nm)
+    {
+        // QCD
+        // ref.: Gorbahn, Haisch, Nucl. Phys. B 713, 291, hep-ph/0411071
+        case 10:
             gammaDF1(0,1) = -2./9.;
             gammaDF1(1,1) = 4./3.;
             break;
-        case NLO:
+        case 20:
             gammaDF1(0,0) = -1412./243.;
             gammaDF1(0,1) = -1369./243.;
             gammaDF1(0,2) = 134./243.;
@@ -206,7 +228,7 @@ gslpp::matrix<double> EvolDF1::GammaCP_s(orders order, unsigned int n_u, unsigne
             gammaDF1(1,2) = 56./81.;
             gammaDF1(1,3) = 35./27.;
             break;
-        case NNLO:
+        case 30:
             gammaDF1(0,0) = 269107./13122. - nf*2288./729. - z3*1360./81.;   // 63187./13122. - z3*1360./81.
             gammaDF1(0,1) = -2425817./13122. + nf*30815./4374. - z3*776./81.;// -981796./6561. - z3*776./81.
             gammaDF1(0,2) = -343783./52488. + nf*392./729. + z3*124./81.;    // -202663./52488. + z3*124./81.
@@ -216,40 +238,49 @@ gslpp::matrix<double> EvolDF1::GammaCP_s(orders order, unsigned int n_u, unsigne
             gammaDF1(1,2) = -37889./8748. - nf*28./243. - z3*248./27.;       // -42929./8748. - z3*248./27.
             gammaDF1(1,3) = 366919./11664. - nf*35./162. - z3*110./9.;       // 354319./11664. - z3*110./9.
             break;
+        // QED
+        // only available for nf = 5
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
+            break;
+        case 11:
+            gammaDF1(0,1) = 254./729.;
+            gammaDF1(1,1) = 1076./243.;
+            break;
         default:
-            throw std::runtime_error("EvolDF1::GammaCP_s(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaCP(): order not implemented");
     }
     return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaCM_s(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaCM(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // ref.: Czakon, Haisch, Misiak, JHEP 0703, 008, hep-ph/0612329
-    gslpp::matrix<double> gammaDF1(2, 2, 0.);
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){
-            throw std::runtime_error("EvolDF1::GammaCM_s(): wrong number of flavours");
-    }
+    CheckNf(nm, nf);
+
+    gslpp::matrix<double> gammaDF1(2, 2, 0.);
     double Qu = 2./3.;
     double Qd = -1./3.;
     double Qbar = nu*Qu + nd*Qd;
     double z3 = gslpp_special_functions::zeta(3);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QCD
+        // ref.: Czakon, Haisch, Misiak, JHEP 0703, 008, hep-ph/0612329
+        case 10:
             gammaDF1(0,0) = 8./243. - Qu*4./3.;
             gammaDF1(0,1) = 173./162.;
             gammaDF1(1,0) = -16./81. + Qu*8.;
             gammaDF1(1,1) = 70./27.;
             break;
-        case NLO:
+        case 20:
             gammaDF1(0,0) = 12614./2187. - nf*64./2187. - Qu*374./27. + nf*Qu*2./27.;
             gammaDF1(0,1) = 65867./5832. + nf*431./5832.;
             gammaDF1(1,0) = -2332./729. + nf*128./729. + Qu*136./9. - nf*Qu*4./9.;
             gammaDF1(1,1) = 10577./486. - nf*917./972.;
             break;
-        case NNLO:
+        case 30:
             gammaDF1(0,0) = 77506102./531441. - nf*875374./177147. + nf*nf*560./19683. - Qu*9731./162. +
                     nf*Qu*11045./729. + nf*nf*Qu*316./729. + Qbar*3695./486. + z3*(-112216./6561. + nf*728./729. +
                     Qu*25508./81. - nf*Qu*64./81. - Qbar*100./27.);
@@ -261,25 +292,103 @@ gslpp::matrix<double> EvolDF1::GammaCM_s(orders order, unsigned int n_u, unsigne
             gammaDF1(1,1) = 98548513./472392. - nf*5615165./78732. - nf*nf*2489./2187. + z3*(-607103./729. -
                     nf*1679./81.);
             break;
+        // QED
+        // only available for nf = 5
+        // ref.: Baranowski, Misiak, Phys. Lett. B 483, 410, hep-ph/9907427
+        case 01:
+            gammaDF1(0,0) = -832./729.;
+            gammaDF1(0,1) = 22./243.;
+            gammaDF1(1,0) = -208./243.;
+            gammaDF1(1,1) = -116./81.;
+            break;
         default:
-            throw std::runtime_error("EvolDF1::GammaCM_s(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaCM(): order not implemented");
     }
      return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaPP_s(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaCL(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // ref.: Gorbahn, Haisch, Nucl. Phys. B 713, 291, hep-ph/0411071
-    gslpp::matrix<double> gammaDF1(4, 4, 0.);
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){
-            throw std::runtime_error("EvolDF1::GammaPP_s(): wrong number of flavours");
-    }
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaCL(): Wrong number of flavours in anoumalous dimensions");
+
+
+    gslpp::matrix<double> gammaDF1(2, 2, 0.);
     double z3 = gslpp_special_functions::zeta(3);
     
-    switch(order)
+    switch(nm)
     {  
-        case LO:
+       // QED
+       // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+       case 01:
+            gammaDF1(0,0) = -32./27.;
+            gammaDF1(1,0) = -8./9.;
+            break;
+        case 11:
+            gammaDF1(0,0) = -2272./729.;
+            gammaDF1(1,0) = 1952./243.;
+            break;
+        case 21:
+            gammaDF1(0,0) = -1359190./19683. + z3*6976./243.;
+            gammaDF1(1,0) = -229696./6561. - z3*3584./81.;
+            break;
+        case 02:
+            gammaDF1(0,0) = -11680./2187.;
+            gammaDF1(1,0) = -2920./729.;
+            gammaDF1(0,1) = -416./81.;
+            gammaDF1(1,1) = -104./27.;            
+            break;              
+        default:
+            throw std::runtime_error("EvolDF1::GammaCL(): order not implemented");
+    }
+     return (gammaDF1);
+}
+
+gslpp::matrix<double> EvolDF1::GammaCQ(indices nm, unsigned int n_u, unsigned int n_d) const
+{
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaCQ(): Wrong number of flavours in anoumalous dimensions");
+
+
+    gslpp::matrix<double> gammaDF1(2, 4, 0.);
+    
+    switch(nm)
+    {  
+        // QED
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
+            gammaDF1(0,0) = 32./27.;
+            gammaDF1(1,0) = 8./9.;
+            break;
+        case 11:
+            gammaDF1(0,0) = 2272./729.;
+            gammaDF1(0,1) = 122./81.;
+            gammaDF1(0,3) = 49./81.;
+            gammaDF1(1,0) = -1952./243.;
+            gammaDF1(1,1) = -748./27.;
+            gammaDF1(1,3) = 82./27.;
+            break;
+        default:
+            throw std::runtime_error("EvolDF1::GammaCQ(): order not implemented");
+    }
+     return (gammaDF1);
+}
+
+gslpp::matrix<double> EvolDF1::GammaPP(indices nm, unsigned int n_u, unsigned int n_d) const
+{
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    CheckNf(nm, nf);
+
+    gslpp::matrix<double> gammaDF1(4, 4, 0.);
+    double z3 = gslpp_special_functions::zeta(3);
+    
+    switch(nm)
+    {
+        // QCD
+        // ref.: Gorbahn, Haisch, Nucl. Phys. B 713, 291, hep-ph/0411071
+        case 10:
             gammaDF1(0,1) = -52./3.;
             gammaDF1(0,3) = 2.;
             gammaDF1(1,0) = -40./9.;
@@ -293,7 +402,7 @@ gslpp::matrix<double> EvolDF1::GammaPP_s(orders order, unsigned int n_u, unsigne
             gammaDF1(3,2) = 40./9.;
             gammaDF1(3,3) = -2./3.;            
             break;
-        case NLO:
+        case 20:
             gammaDF1(0,0) = -4468./81.;
             gammaDF1(0,1) = -29129./81. - nf*52./9.;    // -31469./81.
             gammaDF1(0,2) = 400./81.;
@@ -311,7 +420,7 @@ gslpp::matrix<double> EvolDF1::GammaPP_s(orders order, unsigned int n_u, unsigne
             gammaDF1(3,2) = -20324./243. + nf*400./81.; // -14324./243.
             gammaDF1(3,3) = -21211./162. + nf*622./27.; // -2551./162.
             break;
-        case NNLO:
+        case 30:
             gammaDF1(0,0) = -4203068./2187. + nf*14012./243. - z3*608./27.;                                            // -3572528./2187. - z3*608./27.
             gammaDF1(0,1) = -18422762./2187. + nf*888605./2916. + nf*nf*272./27. + z3*(39824./27. + nf*160.);          // -58158773./8748. + z3*61424./27.
             gammaDF1(0,2) = 674281./4374. - nf*1352./243. - z3*496./27.;                                               // 552601./4374. - z3*496./27.
@@ -329,28 +438,47 @@ gslpp::matrix<double> EvolDF1::GammaPP_s(orders order, unsigned int n_u, unsigne
             gammaDF1(3,2) = -22191107./13122. + nf*395783./4374. - nf*nf*1720./243. - z3*(33832./81. + nf*1360./9.);   // -9288181./6561. - z3*95032./81.
             gammaDF1(3,3) = -32043361./8748. + nf*3353393./5832. - nf*nf*533./81. + z3*(9248./27. - nf*1120./9.);      // -16664027./17496. - z3*7552./27.
             break;
+        // QED
+        // only available for nf = 5
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
+            break;
+        case 11:
+            gammaDF1(0,1) = 11116./243.;
+            gammaDF1(0,3) = -14./3.;
+            gammaDF1(1,0) = 280./27.;
+            gammaDF1(1,1) = 18763./729.;
+            gammaDF1(1,2) = -28./27.;
+            gammaDF1(1,3) = -35./18.;
+            gammaDF1(2,1) = 111136./243.;
+            gammaDF1(2,3) = -140./3.;
+            gammaDF1(3,0) = 2944./27.;
+            gammaDF1(3,1) = 193312./729.;
+            gammaDF1(3,2) = -280./27.;
+            gammaDF1(3,3) = -175./9.;
+            break;
         default:
-            throw std::runtime_error("EvolDF1::GammaPP_s(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaPP(): order not implemented");
     }
     return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaPM_s(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaPM(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // ref.: Czakon, Haisch, Misiak, JHEP 0703, 008, hep-ph/0612329
-    gslpp::matrix<double> gammaDF1(4, 2, 0.);
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){
-            throw std::runtime_error("EvolDF1::GammaPM_s(): wrong number of flavours");
-    }
+    CheckNf(nm, nf);
+
+    gslpp::matrix<double> gammaDF1(4, 2, 0.);
     double Qu = 2./3.;
     double Qd = -1./3.;
     double Qbar = nu*Qu + nd*Qd;
     double z3 = gslpp_special_functions::zeta(3);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QCD
+        // ref.: Czakon, Haisch, Misiak, JHEP 0703, 008, hep-ph/0612329
+        case 10:
             gammaDF1(0,0) = -176./81.;
             gammaDF1(0,1) = 14./27.;
             gammaDF1(1,0) = 88./243. - nf*16./81.;
@@ -360,7 +488,7 @@ gslpp::matrix<double> EvolDF1::GammaPM_s(orders order, unsigned int n_u, unsigne
             gammaDF1(3,0) = 3136./243. - nf*160./81. + Qbar*48.;
             gammaDF1(3,1) = 2372./81. + nf*160./27.;
             break;
-        case NLO:
+        case 20:
             gammaDF1(0,0) = 97876./729. - nf*4352./729. - Qbar*112./3.;
             gammaDF1(0,1) = 42524./243. - nf*2398./243.;
             gammaDF1(1,0) = -70376./2187. - nf*15788./2187. + nf*nf*32./729. - Qbar*140./9.;
@@ -370,7 +498,7 @@ gslpp::matrix<double> EvolDF1::GammaPM_s(orders order, unsigned int n_u, unsigne
             gammaDF1(3,0) = 4193840./2187. - nf*324128./2187. + nf*nf*896./729. - Qbar*1136./9. - nf*Qbar*56./3.;
             gammaDF1(3,1) = -3031517./729. - nf*15431./1458. - nf*nf*6031./486.;
             break;
-        case NNLO:
+        case 30:
             gammaDF1(0,0) = 102439553./177147. - nf*12273398/59049. + nf*nf*5824./6561. + Qbar*26639./81. - nf*Qbar*8./27. +
                     z3*(3508864./2187. - nf*1904./243. - Qbar*1984./9. - nf*Qbar*64./9.);
             gammaDF1(0,1) = 3205172129./472392. - nf*108963529./314928. + nf*nf*58903./4374. + z3*(-1597588./729. +
@@ -390,409 +518,10 @@ gslpp::matrix<double> EvolDF1::GammaPM_s(orders order, unsigned int n_u, unsigne
             gammaDF1(3,1) = -72810260309./708588. + nf*2545824851./472392. - nf*nf*33778271./78732. - nf*nf*nf*3988./2187. +
                     z3*(-61384768./2187. - nf*685472./729. + nf*nf*350./81.);
             break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaPM_s(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaMM_s(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    //ref.: Gorbahn, Haisch, Misiak, Phys. Rev. Lett. 95, 102004, hep-ph/0504194
-    gslpp::matrix<double> gammaDF1(2, 2, 0.);
-    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
-    if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){
-            throw std::runtime_error("EvolDF1::GammaPM_s(): wrong number of flavours");
-    }
-    double Qu = 2./3.;
-    double Qd = -1./3.;
-    double Qbar = nu*Qu + nd*Qd;
-    double z3 = gslpp_special_functions::zeta(3);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = 32./3.;
-            gammaDF1(1,0) = Qd*32./3.;
-            gammaDF1(1,1) = 28./3.;
-            break;
-        case NLO:
-            gammaDF1(0,0) = 1936./9. - nf*224./27.;
-            gammaDF1(1,0) = Qd*368./3. - nf*Qd*224./27.;
-            gammaDF1(1,1) = 1456./9. - nf*61./27.;
-            break;
-        case NNLO:
-            gammaDF1(0,0) = 307448./81. - nf*23776./81. - nf*nf*352./81. + z3*(1856./27. - nf*1280./9.);
-            gammaDF1(1,0) = -Qbar*1600./27. + Qd*159872./81. - nf*Qd*17108./81. - nf*nf*Qd*352./81. + z3*(Qbar*640./9. -
-                    Qd*1856./27. + nf*Qd*1280./9.);
-            gammaDF1(1,1) = 268807./81. - nf*4343./27. - nf*nf*461./81. + z3*(-28624./27. - nf*1312./9.);
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaMM_s(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaQP_s(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    //ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(4, 4, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,1) = -8./9.;
-            gammaDF1(1,1) = 16./27.;
-            gammaDF1(2,1) = -128./9.;
-            gammaDF1(3,1) = 184./27.;          
-            break;
-        case NLO:
-            gammaDF1(0,0) = 832./243.;
-            gammaDF1(0,1) = -4000./243.;
-            gammaDF1(0,2) = -112./243.;
-            gammaDF1(0,3) = -70./81.;
-            gammaDF1(1,0) = 3376./729.;
-            gammaDF1(1,1) = 6344./729.;
-            gammaDF1(1,2) = -280./729.;
-            gammaDF1(1,3) = 55./486.;
-            gammaDF1(2,0) = 2272./243.;
-            gammaDF1(2,1) = -72088./243.;
-            gammaDF1(2,2) = -688./243.;
-            gammaDF1(2,3) = -1240./81.;
-            gammaDF1(3,0) = 45424./729.;
-            gammaDF1(3,1) = 84236./729.;
-            gammaDF1(3,2) = -3880./729.;
-            gammaDF1(3,3) = 1220./243.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaQP_s(): order not implemented");       
-    }
-    return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaQM_s(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Baranowski, Misiak, Phys. Lett. B 483, 410, hep-ph/9907427
-    gslpp::matrix<double> gammaDF1(4, 2, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = 176./243.;
-            gammaDF1(0,1) = -14./81.;
-            gammaDF1(1,0) = -136./729.;
-            gammaDF1(1,1) = -295./486.;
-            gammaDF1(2,0) = 6272./243.;
-            gammaDF1(2,1) = -764./81.;
-            gammaDF1(3,0) = 39152./729.;
-            gammaDF1(3,1) = -1892./243.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaQM_s(): order not implemented");        
-    }
-    return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaQQ_s(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(4, 4, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,1) = -20.;
-            gammaDF1(0,3) = 2.;
-            gammaDF1(1,0) = -40./9.;
-            gammaDF1(1,1) = -52./3.;
-            gammaDF1(1,2) = 4./9.;
-            gammaDF1(1,3) = 5./6.;
-            gammaDF1(2,1) = -128.;
-            gammaDF1(2,3) = 20.;
-            gammaDF1(3,0) = -256./9.;
-            gammaDF1(3,1) = 160./3.;
-            gammaDF1(3,2) = 40./9.;
-            gammaDF1(3,3) = -2./3.;        
-            break;
-        case NLO:
-            gammaDF1(0,0) = -404./9.;
-            gammaDF1(0,1) = -3077./9.;
-            gammaDF1(0,2) = 32./9.;
-            gammaDF1(0,3) = 1031./36.;
-            gammaDF1(1,0) = -2698./81.;
-            gammaDF1(1,1) = -8035./27.;
-            gammaDF1(1,2) = -49./162.;
-            gammaDF1(1,3) = 4493./216.;
-            gammaDF1(2,0) = -19072./9.;
-            gammaDF1(2,1) = -14096./9.;
-            gammaDF1(2,2) = 1708./9.;
-            gammaDF1(2,3) = 1622./9.;
-            gammaDF1(3,0) = 32288./81.;
-            gammaDF1(3,1) = -15976./27.;
-            gammaDF1(3,2) = -6692./81.;
-            gammaDF1(3,3) = -2437./54.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaQQ_s(): order not implemented");         
-    }
-    return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaBP_s(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(1, 4, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,1) = -4./3.;       
-            break;
-        case NLO:
-            gammaDF1(0,0) = -1576./81.;
-            gammaDF1(0,1) = 446./27.;
-            gammaDF1(0,2) = 172./81.;
-            gammaDF1(0,3) = 40./27.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaBP_s(): order not implemented");
-    }
-    return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaBB_s(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(1, 1, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = 4.;       
-            break;
-        case NLO:
-            gammaDF1(0,0) = 325./9.;
-        default:
-            throw std::runtime_error("EvolDF1::GammaBB_s(): order not implemented");
-    }
-    return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::AnomalousDimension_s(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    gslpp::matrix<double> gammaDF1(nops, nops, 0.);
-
-// assign blocks according to user request: "C", "CP", "CPM", "L", "CPML", "CPQB", "CPMQB", "CPMLQB"
-    if(blocks[0] == 'C') {
-        gammaDF1.assign(0,0,GammaCC_s(order, n_u, n_d));
-        if(blocks.size() > 1) {
-            if (blocks[1] == 'P') {
-                int m = blocks_nops.find("C")->second;
-                gammaDF1.assign(0,m,GammaCP_s(order, n_u, n_d));
-                gammaDF1.assign(blocks_nops.find("C")->second,blocks_nops.find("C")->second,GammaPP_s(order, n_u, n_d));
-                if(blocks.size() > 2) {
-                    if (blocks[2] == 'M') {
-                    gammaDF1.assign(0,blocks_nops.find("CP")->second,GammaCM_s(order, n_u, n_d));
-                    gammaDF1.assign(blocks_nops.find("C")->second,blocks_nops.find("CP")->second,GammaPM_s(order, n_u, n_d));
-                    gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("CP")->second,GammaMM_s(order, n_u, n_d));
-                    } else if (blocks[2] == 'Q') {
-                        gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("C")->second,GammaQP_s(order, n_u, n_d));
-                        gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("CP")->second,GammaQQ_s(order, n_u, n_d));
-                        if(blocks[3] == 'B') {
-                            gammaDF1.assign(blocks_nops.find("CPQ")->second,blocks_nops.find("C")->second,GammaBP_s(order, n_u, n_d));
-                            gammaDF1.assign(blocks_nops.find("CPQ")->second,blocks_nops.find("CPQ")->second,GammaBB_s(order, n_u, n_d));
-                        }
-                    }
-                    if(blocks.size() > 3) {
-                        if (blocks[3] == 'L') {
-                            if(blocks.size() > 4) {
-                                if (blocks[4] == 'Q') {
-                                    gammaDF1.assign(blocks_nops.find("CPML")->second,blocks_nops.find("C")->second,GammaQP_s(order, n_u, n_d));
-                                    gammaDF1.assign(blocks_nops.find("CPML")->second,blocks_nops.find("CPML")->second,GammaQQ_s(order, n_u, n_d));
-                                    if(blocks[5] == 'B') {
-                                        gammaDF1.assign(blocks_nops.find("CPMLQ")->second,blocks_nops.find("C")->second,GammaBP_s(order, n_u, n_d));
-                                        gammaDF1.assign(blocks_nops.find("CPMLQ")->second,blocks_nops.find("CPMLQ")->second,GammaBB_s(order, n_u, n_d));
-                                    }
-                                }
-                            }
-                        } else if (blocks[3] == 'Q') {
-                            gammaDF1.assign(blocks_nops.find("CPM")->second,blocks_nops.find("C")->second,GammaQP_s(order, n_u, n_d));
-                            gammaDF1.assign(blocks_nops.find("CPM")->second,blocks_nops.find("CPM")->second,GammaQQ_s(order, n_u, n_d));
-                            if(blocks[4] == 'B') {
-                                gammaDF1.assign(blocks_nops.find("CPMQ")->second,blocks_nops.find("C")->second,GammaBP_s(order, n_u, n_d));
-                                gammaDF1.assign(blocks_nops.find("CPMQ")->second,blocks_nops.find("CPMQ")->second,GammaBB_s(order, n_u, n_d));
-                            }                     
-                        }                            
-                    }
-                }
-            }
-        }
-    }
-                    
-    return (gammaDF1);
-}
-
-
-gslpp::matrix<double> EvolDF1::GammaCC_e(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(2, 2, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = -8./3.;
-            gammaDF1(1,1) = -8./3.;
-            break;
-        case NLO:
-            gammaDF1(0,0) = 169./9.;
-            gammaDF1(0,1) = 100./27.;
-            gammaDF1(1,0) = 50./3.;
-            gammaDF1(1,1) = -8./3.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaCC_e(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaCP_e(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(2, 4, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            break;
-        case NLO:
-            gammaDF1(0,1) = 254./729.;
-            gammaDF1(1,1) = 1076./243.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaCP_e(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaCM_e(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Baranowski, Misiak, Phys. Lett. B 483, 410, hep-ph/9907427
-    gslpp::matrix<double> gammaDF1(2, 2, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = -832./729.;
-            gammaDF1(0,1) = 22./243.;
-            gammaDF1(1,0) = -208./243.;
-            gammaDF1(1,1) = -116./81.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaCM_e(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaCL_e(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(2, 2, 0.);
-    double z3 = gslpp_special_functions::zeta(3);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = -32./27.;
-            gammaDF1(1,0) = -8./9.;
-            break;
-        case NLO:
-            gammaDF1(0,0) = -2272./729.;
-            gammaDF1(1,0) = 1952./243.;
-            break;
-        case NNLO:
-            gammaDF1(0,0) = -1359190./19683. + z3*6976./243.;
-            gammaDF1(1,0) = -229696./6561. - z3*3584./81.;
-        default:
-            throw std::runtime_error("EvolDF1::GammaCL_e(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaCQ_e(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(2, 4, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            gammaDF1(0,0) = 32./27.;
-            gammaDF1(1,0) = 8./9.;
-            break;
-        case NLO:
-            gammaDF1(0,0) = 2272./729.;
-            gammaDF1(0,1) = 122./81.;
-            gammaDF1(0,3) = 49./81.;
-            gammaDF1(1,0) = -1952./243.;
-            gammaDF1(1,1) = -748./27.;
-            gammaDF1(1,3) = 82./27.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaCQ_e(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaPP_e(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
-    gslpp::matrix<double> gammaDF1(4, 4, 0.);
-    
-    switch(order)
-    {  
-        case LO:
-            break;
-        case NLO:
-            gammaDF1(0,1) = 11116./243.;
-            gammaDF1(0,3) = -14./3.;
-            gammaDF1(1,0) = 280./27.;
-            gammaDF1(1,1) = 18763./729.;
-            gammaDF1(1,2) = -28./27.;
-            gammaDF1(1,3) = -35./18.;
-            gammaDF1(2,1) = 111136./243.;
-            gammaDF1(2,3) = -140./3.;
-            gammaDF1(3,0) = 2944./27.;
-            gammaDF1(3,1) = 193312./729.;
-            gammaDF1(3,2) = -280./27.;
-            gammaDF1(3,3) = -175./9.;
-            break;
-        default:
-            throw std::runtime_error("EvolDF1::GammaPP_e(): order not implemented");
-    }
-     return (gammaDF1);
-}
-
-gslpp::matrix<double> EvolDF1::GammaPM_e(orders order, unsigned int n_u, unsigned int n_d) const
-{
-    // only available for nf = 5
-    // ref.: Baranowski, Misiak, Phys. Lett. B 483, 410, hep-ph/9907427
-    gslpp::matrix<double> gammaDF1(4, 2, 0.);
-    
-    switch(order)
-    {  
-        case LO:
+        // QED    
+        // only available for nf = 5
+        // ref.: Baranowski, Misiak, Phys. Lett. B 483, 410, hep-ph/9907427
+        case 01:
             gammaDF1(0,0) = -20./243.;
             gammaDF1(0,1) = 20./81.;
             gammaDF1(1,0) = -176./729.;
@@ -803,53 +532,73 @@ gslpp::matrix<double> EvolDF1::GammaPM_e(orders order, unsigned int n_u, unsigne
             gammaDF1(3,1) = -1180./243.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaPM_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaPM(): order not implemented");
     }
      return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaPL_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaPL(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaPL(): Wrong number of flavours in anoumalous dimensions");
+
+
     gslpp::matrix<double> gammaDF1(4, 2, 0.);
     double z3 = gslpp_special_functions::zeta(3);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QED
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+
+        case 01:
             gammaDF1(0,0) = -16./9.;
             gammaDF1(1,0) = 32./27.;
             gammaDF1(2,0) = -112./9.;
             gammaDF1(3,0) = 512./27.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -6752./243.;
             gammaDF1(1,0) = -2192./729.;
             gammaDF1(2,0) = -84032./243.;
             gammaDF1(3,0) = -37856./729.;
             break;
-        case NNLO:
+        case 21:
             gammaDF1(0,0) = -1290092./6561. + z3*3200./81.;
             gammaDF1(1,0) = -819971./19673. - z3*19936./243.;
             gammaDF1(2,0) = -16821944./6561. + z3*30464./81.;
             gammaDF1(3,0) = -17787268./19683. - z3*286720./243.;
             break;
+        case 02:
+            gammaDF1(0,0) = -39752./729.;
+            gammaDF1(1,0) = 1024./2187.;
+            gammaDF1(2,0) = -381344./729.;
+            gammaDF1(3,0) = 24832./2187.;
+            gammaDF1(0,1) = -136./27.;
+            gammaDF1(1,1) = -448./81.;
+            gammaDF1(2,1) = -15616./27.;
+            gammaDF1(3,1) = -7936./81.;
+            break;            
         default:
-            throw std::runtime_error("EvolDF1::GammaPL_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaPL(): order not implemented");
     }
      return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaPQ_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaPQ(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaPQ(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(4, 4, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QED
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
             gammaDF1(0,0) = 76./9.;
             gammaDF1(0,2) = -2./3.;
             gammaDF1(1,0) = -32./27.;
@@ -861,7 +610,7 @@ gslpp::matrix<double> EvolDF1::GammaPQ_e(orders order, unsigned int n_u, unsigne
             gammaDF1(3,1) = 128./3.;
             gammaDF1(3,3) = -20./3.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -23488./243.;
             gammaDF1(0,1) = 6280./27.;
             gammaDF1(0,2) = 112./9.;
@@ -880,68 +629,128 @@ gslpp::matrix<double> EvolDF1::GammaPQ_e(orders order, unsigned int n_u, unsigne
             gammaDF1(3,3) = -10147./81.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaPQ_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaPQ(): order not implemented");
     }
      return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaMM_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaMM(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    CheckNf(nm, nf);
+
     gslpp::matrix<double> gammaDF1(2, 2, 0.);
+    double Qu = 2./3.;
+    double Qd = -1./3.;
+    double Qbar = nu*Qu + nd*Qd;
+    double z3 = gslpp_special_functions::zeta(3);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QCD
+        //ref.: Gorbahn, Haisch, Misiak, Phys. Rev. Lett. 95, 102004, hep-ph/0504194
+        case 10:
+            gammaDF1(0,0) = 32./3.;
+            gammaDF1(1,0) = Qd*32./3.;
+            gammaDF1(1,1) = 28./3.;
+            break;
+        case 20:
+            gammaDF1(0,0) = 1936./9. - nf*224./27.;
+            gammaDF1(1,0) = Qd*368./3. - nf*Qd*224./27.;
+            gammaDF1(1,1) = 1456./9. - nf*61./27.;
+            break;
+        case 30:
+            gammaDF1(0,0) = 307448./81. - nf*23776./81. - nf*nf*352./81. + z3*(1856./27. - nf*1280./9.);
+            gammaDF1(1,0) = -Qbar*1600./27. + Qd*159872./81. - nf*Qd*17108./81. - nf*nf*Qd*352./81. + z3*(Qbar*640./9. -
+                    Qd*1856./27. + nf*Qd*1280./9.);
+            gammaDF1(1,1) = 268807./81. - nf*4343./27. - nf*nf*461./81. + z3*(-28624./27. - nf*1312./9.);
+            break;
+        // QED
+        // only available for nf = 5
+        // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+        case 01:
             gammaDF1(0,0) = 16./9.;
             gammaDF1(0,1) = -8./3.;
             gammaDF1(1,1) = 8./9.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -256./27.;
             gammaDF1(0,1) = -52./9.;
             gammaDF1(1,0) = 128./81.;
             gammaDF1(1,1) = -40./27.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaMM_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaMM(): order not implemented");
     }
      return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaLL_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaLL(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaLL(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(2, 2, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QED
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
             gammaDF1(0,0) = 8.;
             gammaDF1(0,1) = -4.;
             gammaDF1(1,0) = -4.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,1) = 16.;
             gammaDF1(1,0) = 16.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaLL_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaLL(): order not implemented");
     }
      return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaQP_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaQP(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaQP(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(4, 4, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QCD
+        //ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 10:
+            gammaDF1(0,1) = -8./9.;
+            gammaDF1(1,1) = 16./27.;
+            gammaDF1(2,1) = -128./9.;
+            gammaDF1(3,1) = 184./27.;          
+            break;
+        case 20:
+            gammaDF1(0,0) = 832./243.;
+            gammaDF1(0,1) = -4000./243.;
+            gammaDF1(0,2) = -112./243.;
+            gammaDF1(0,3) = -70./81.;
+            gammaDF1(1,0) = 3376./729.;
+            gammaDF1(1,1) = 6344./729.;
+            gammaDF1(1,2) = -280./729.;
+            gammaDF1(1,3) = 55./486.;
+            gammaDF1(2,0) = 2272./243.;
+            gammaDF1(2,1) = -72088./243.;
+            gammaDF1(2,2) = -688./243.;
+            gammaDF1(2,3) = -1240./81.;
+            gammaDF1(3,0) = 45424./729.;
+            gammaDF1(3,1) = 84236./729.;
+            gammaDF1(3,2) = -3880./729.;
+            gammaDF1(3,3) = 1220./243.;
+            break;
+        // QED
+        // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+        case 01:
             gammaDF1(0,0) = 40./27.;
             gammaDF1(0,2) = -4./27.;
             gammaDF1(1,1) = 40./27.;
@@ -951,7 +760,7 @@ gslpp::matrix<double> EvolDF1::GammaQP_e(orders order, unsigned int n_u, unsigne
             gammaDF1(3,1) = 256./27.;
             gammaDF1(3,3) = -40./27.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -2240./81.;
             gammaDF1(0,1) = 39392./729.;
             gammaDF1(0,2) = 224./81.;
@@ -970,46 +779,116 @@ gslpp::matrix<double> EvolDF1::GammaQP_e(orders order, unsigned int n_u, unsigne
             gammaDF1(3,3) = -2030./81.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaQP_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaQP(): order not implemented");       
     }
-     return (gammaDF1);
+    return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaQL_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaQM(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaQM(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(4, 2, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QCD
+        // ref.: Baranowski, Misiak, Phys. Lett. B 483, 410, hep-ph/9907427
+        case 10:
+            gammaDF1(0,0) = 176./243.;
+            gammaDF1(0,1) = -14./81.;
+            gammaDF1(1,0) = -136./729.;
+            gammaDF1(1,1) = -295./486.;
+            gammaDF1(2,0) = 6272./243.;
+            gammaDF1(2,1) = -764./81.;
+            gammaDF1(3,0) = 39152./729.;
+            gammaDF1(3,1) = -1892./243.;
+            break;
+        default:
+            throw std::runtime_error("EvolDF1::GammaQM(): order not implemented");        
+    }
+    return (gammaDF1);
+}
+
+gslpp::matrix<double> EvolDF1::GammaQL(indices nm, unsigned int n_u, unsigned int n_d) const
+{
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaQL(): Wrong number of flavours in anoumalous dimensions");
+
+    gslpp::matrix<double> gammaDF1(4, 2, 0.);
+    
+    switch(nm)
+    {
+        // QED
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
             gammaDF1(0,0) = -272./27.;
             gammaDF1(1,0) = -32./81.;
             gammaDF1(2,0) = -2768./27.;
             gammaDF1(3,0) = -512./81.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -24352./729.;
             gammaDF1(1,0) = 54608./2187.;
             gammaDF1(2,0) = -227008./729.;
             gammaDF1(3,0) = 551648./2187.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaQL_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaQL(): order not implemented");
     }
      return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaQQ_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaQQ(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaQQ(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(4, 4, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QCD
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 10:
+            gammaDF1(0,1) = -20.;
+            gammaDF1(0,3) = 2.;
+            gammaDF1(1,0) = -40./9.;
+            gammaDF1(1,1) = -52./3.;
+            gammaDF1(1,2) = 4./9.;
+            gammaDF1(1,3) = 5./6.;
+            gammaDF1(2,1) = -128.;
+            gammaDF1(2,3) = 20.;
+            gammaDF1(3,0) = -256./9.;
+            gammaDF1(3,1) = 160./3.;
+            gammaDF1(3,2) = 40./9.;
+            gammaDF1(3,3) = -2./3.;        
+            break;
+        case 20:
+            gammaDF1(0,0) = -404./9.;
+            gammaDF1(0,1) = -3077./9.;
+            gammaDF1(0,2) = 32./9.;
+            gammaDF1(0,3) = 1031./36.;
+            gammaDF1(1,0) = -2698./81.;
+            gammaDF1(1,1) = -8035./27.;
+            gammaDF1(1,2) = -49./162.;
+            gammaDF1(1,3) = 4493./216.;
+            gammaDF1(2,0) = -19072./9.;
+            gammaDF1(2,1) = -14096./9.;
+            gammaDF1(2,2) = 1708./9.;
+            gammaDF1(2,3) = 1622./9.;
+            gammaDF1(3,0) = 32288./81.;
+            gammaDF1(3,1) = -15976./27.;
+            gammaDF1(3,2) = -6692./81.;
+            gammaDF1(3,3) = -2437./54.;
+            break;
+        // QED
+        // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+        case 01:
             gammaDF1(0,0) = 332./27.;
             gammaDF1(0,2) = -2./9.;
             gammaDF1(1,0) = 32./81.;
@@ -1021,7 +900,7 @@ gslpp::matrix<double> EvolDF1::GammaQQ_e(orders order, unsigned int n_u, unsigne
             gammaDF1(3,1) = 128./9.;
             gammaDF1(3,3) = -20./9.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -5888./729.;
             gammaDF1(0,1) = 13916./81.;
             gammaDF1(0,2) = 112./27.;
@@ -1040,91 +919,179 @@ gslpp::matrix<double> EvolDF1::GammaQQ_e(orders order, unsigned int n_u, unsigne
             gammaDF1(3,3) = -6008./243.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaQQ_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaQQ(): order not implemented");         
     }
-     return (gammaDF1);
+    return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaBP_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaBP(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaBP(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(1, 4, 0.);
     
-    switch(order)
-    {  
-        case LO:     
+    switch(nm)
+    {
+        // QCD
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 10:
+            gammaDF1(0,1) = -4./3.;       
             break;
-        case NLO:
+        case 20:
+            gammaDF1(0,0) = -1576./81.;
+            gammaDF1(0,1) = 446./27.;
+            gammaDF1(0,2) = 172./81.;
+            gammaDF1(0,3) = 40./27.;
+            break;
+        // QED
+        // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+        case 01:     
+            break;
+        case 11 :
             gammaDF1(0,1) = -232./81.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaBP_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaBP(): order not implemented");
     }
     return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaBL_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaBL(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaBL(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(1, 2, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QED
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 01:
             gammaDF1(0,0) = 16./9.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -8./9.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaBL_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaBL(): order not implemented");
     }
     return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaBQ_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaBQ(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaBQ(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(1, 4, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QED
+        // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+        case 01:
             gammaDF1(0,0) = -16./9.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,1) = 580./27.;
             gammaDF1(0,3) = -94./27.;
             break;
         default:
-            throw std::runtime_error("EvolDF1::GammaBQ_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaBQ(): order not implemented");
     }
     return (gammaDF1);
 }
 
-gslpp::matrix<double> EvolDF1::GammaBB_e(orders order, unsigned int n_u, unsigned int n_d) const
+gslpp::matrix<double> EvolDF1::GammaBB(indices nm, unsigned int n_u, unsigned int n_d) const
 {
-    // only available for nf = 5
-    // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+    unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
+    if (nf != 5)
+        throw std::runtime_error("EvolDF1::GammaBB(): Wrong number of flavours in anoumalous dimensions");
+
     gslpp::matrix<double> gammaDF1(1, 1, 0.);
     
-    switch(order)
-    {  
-        case LO:
+    switch(nm)
+    {
+        // QCD
+        // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
+        case 10:
+            gammaDF1(0,0) = 4.;       
+            break;
+        case 20:
+            gammaDF1(0,0) = 325./9.;
+            break;
+        // QED
+        // ref.: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
+        case 01:
             gammaDF1(0,0) = 4./3.;
             break;
-        case NLO:
+        case 11:
             gammaDF1(0,0) = -388./9.;
-            break;
+            break;            
         default:
-            throw std::runtime_error("EvolDF1::GammaBB_e(): order not implemented");
+            throw std::runtime_error("EvolDF1::GammaBB(): order not implemented");
     }
     return (gammaDF1);
 }
 
+gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, unsigned int n_u, unsigned int n_d) const
+{
+    gslpp::matrix<double> gammaDF1(nops, nops, 0.);
+
+// assign blocks according to user request: "C", "CP", "CPM", "L", "CPML", "CPQB", "CPMQB", "CPMLQB"
+    if(blocks[0] == 'C') {
+        gammaDF1.assign(0,0,GammaCC(nm, n_u, n_d));
+        if(blocks.size() > 1) {
+            if (blocks[1] == 'P') {
+                int m = blocks_nops.find("C")->second;
+                gammaDF1.assign(0,m,GammaCP(nm, n_u, n_d));
+                gammaDF1.assign(blocks_nops.find("C")->second,blocks_nops.find("C")->second,GammaPP(nm, n_u, n_d));
+                if(blocks.size() > 2) {
+                    if (blocks[2] == 'M') {
+                    gammaDF1.assign(0,blocks_nops.find("CP")->second,GammaCM(nm, n_u, n_d));
+                    gammaDF1.assign(blocks_nops.find("C")->second,blocks_nops.find("CP")->second,GammaPM(nm, n_u, n_d));
+                    gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("CP")->second,GammaMM(nm, n_u, n_d));
+                    } else if (blocks[2] == 'Q') {
+                        gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("C")->second,GammaQP(nm, n_u, n_d));
+                        gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("CP")->second,GammaQQ(nm, n_u, n_d));
+                        if(blocks[3] == 'B') {
+                            gammaDF1.assign(blocks_nops.find("CPQ")->second,blocks_nops.find("C")->second,GammaBP(nm, n_u, n_d));
+                            gammaDF1.assign(blocks_nops.find("CPQ")->second,blocks_nops.find("CPQ")->second,GammaBB(nm, n_u, n_d));
+                        }
+                    }
+                    if(blocks.size() > 3) {
+                        if (blocks[3] == 'L') {
+                            if(blocks.size() > 4) {
+                                if (blocks[4] == 'Q') {
+                                    gammaDF1.assign(blocks_nops.find("CPML")->second,blocks_nops.find("C")->second,GammaQP(nm, n_u, n_d));
+                                    gammaDF1.assign(blocks_nops.find("CPML")->second,blocks_nops.find("CPML")->second,GammaQQ(nm, n_u, n_d));
+                                    if(blocks[5] == 'B') {
+                                        gammaDF1.assign(blocks_nops.find("CPMLQ")->second,blocks_nops.find("C")->second,GammaBP(nm, n_u, n_d));
+                                        gammaDF1.assign(blocks_nops.find("CPMLQ")->second,blocks_nops.find("CPMLQ")->second,GammaBB(nm, n_u, n_d));
+                                    }
+                                }
+                            }
+                        } else if (blocks[3] == 'Q') {
+                            gammaDF1.assign(blocks_nops.find("CPM")->second,blocks_nops.find("C")->second,GammaQP(nm, n_u, n_d));
+                            gammaDF1.assign(blocks_nops.find("CPM")->second,blocks_nops.find("CPM")->second,GammaQQ(nm, n_u, n_d));
+                            if(blocks[4] == 'B') {
+                                gammaDF1.assign(blocks_nops.find("CPMQ")->second,blocks_nops.find("C")->second,GammaBP(nm, n_u, n_d));
+                                gammaDF1.assign(blocks_nops.find("CPMQ")->second,blocks_nops.find("CPMQ")->second,GammaBB(nm, n_u, n_d));
+                            }                     
+                        }                            
+                    }
+                }
+            }
+        }
+    }
+                    
+    return (gammaDF1);
+}
 
 //gslpp::matrix<double> EvolDF1::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const
 //{
