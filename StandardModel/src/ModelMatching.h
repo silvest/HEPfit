@@ -11,6 +11,7 @@
 #include"WilsonCoefficient.h"
 #include "QCD.h"
 #include <vector>
+#include <string>
 
 /**
  * @class ModelMatching
@@ -24,20 +25,12 @@ class ModelMatching {
 public:
     
     virtual ~ModelMatching() {};
+    
+    virtual std::vector<WilsonCoefficient> CMDF1s(std::string blocks, unsigned int nops, schemes scheme, orders order) = 0;
+    
     virtual std::vector<WilsonCoefficient>& CMdbd2() = 0;
     virtual std::vector<WilsonCoefficient>& CMdbs2() = 0;
     virtual std::vector<WilsonCoefficient>& CMdd2() = 0;
-
-    virtual std::vector<WilsonCoefficient>& CMbnlep( const int a) = 0;
-    virtual std::vector<WilsonCoefficient>& CMbnlepCC( const int a) = 0;
-    virtual std::vector<WilsonCoefficient>& CMbsg() = 0;
-    virtual std::vector<WilsonCoefficient>& CMprimebsg()= 0;
-    virtual std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton) = 0;
-    virtual std::vector<WilsonCoefficient>& CMprimeBMll(QCD::lepton lepton) = 0;
-    virtual std::vector<WilsonCoefficient>& CMd1() = 0;
-    virtual std::vector<WilsonCoefficient>& CMd1Buras() = 0;
-    
 };
 
 #endif	/* MODELMATCHING_H */
-

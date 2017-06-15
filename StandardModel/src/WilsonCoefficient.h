@@ -54,8 +54,7 @@ public:
     gslpp::vector<gslpp::complex>* getCoeff(orders ord) const { return Elem(ord); };
     
     gslpp::vector<gslpp::complex>* getCoeff(orders_ew ord_ew) const { return Elem(ord_ew); };
-
+    
 };
 
 #endif	/* WILSONCOEFFICIENT_H */
-

@@ -8,11 +8,10 @@
 #include "StandardModelMatching.h"
 #include "StandardModel.h"
 #include "QCD.h"
-#include <gsl/gsl_sf_dilog.h>
-#include <gsl/gsl_sf_zeta.h>
-#include <gsl/gsl_sf_clausen.h>
 #include <stdexcept>
+#include <sstream>
 
+#define ZEW_NUMERIC
 
 StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) 
 : SM(SM_i),
@@ -20,79 +19,28 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcdbs2(5, NDR, NLO),
         mcdd2(5, NDR, NLO),
         mcdk2(5, NDR, NLO),
-        mck(10, NDR, NLO),
-        mckcc(10, NDR, NLO),
-        mcbsg(8, NDR, NNLO),
-        mcprimebsg(8, NDR, NNLO),
-        mcBMll(13, NDR, NLO),
-        mcprimeBMll(13, NDR, NLO),
-        mcbnlep(10, NDR, NLO, NLO_ew),
-        mcbnlepCC(10, NDR, NLO),
-        mcd1(10, NDR, NLO),
-        mcd1Buras(10, NDR, NLO),
         mckpnn(1, NDR, NLO, NLO_ew),
-        mckmm(1, NDR, NLO),
         mcbsnn(1, NDR, NLO),
         mcbdnn(1, NDR, NLO),
-        mcbsmm(8, NDR, NNLO, NLO_ewt4),
-        mcbdmm(8, NDR, NNLO, NLO_ewt4),
         mcbtaunu(3, NDR, LO),
         mcDLij(2, NDR, LO),
         mcDLi3j(20, NDR, LO),
         mcmueconv(8, NDR, LO),
         mcgminus2mu(2, NDR, NLO),
-        Vckm(3, 3, 0)
-{
-    swa = 0.;
-    swb = 0.;
-    swc = 0.;
-    xcachea = 0.;
-    xcacheb = 0.;
-    xcachec = 0.;
-    
-
-    for (int j=0; j<10; j++) {
-        CWD1ArrayLO[j] = 0.; 
-        CWD1ArrayNLO[j] = 0.;
-        CWbnlepArrayLOqcd[j] = 0.;
-        CWbnlepArrayNLOqcd[j] = 0.;
-        CWbnlepArrayLOew[j] = 0.;
-        CWbnlepArrayNLOew[j] = 0.;
-    };
-    
-    
-    for(int j=0; j<19; j++){
-        CWBMllArrayLO[j] = 0.;
-        CWBMllArrayNLO[j] = 0.;
-    }
-    
-    for(int j=0; j<8; j++){
-        CWbsgArrayLO[j] = 0.;
-        CWbsgArrayNLO[j] = 0.;
-        CWbsgArrayNNLO[j] = 0.;
-        CWprimebsgArrayLO[j] = 0.;
-        CWprimebsgArrayNLO[j] = 0.;
-    }
-    
-    for(int j=0; j<8; j++){
-        CWBsmmArrayNNLOqcd[j] = 0.; 
-        CWBsmmArrayNLOqcd[j] = 0.;
-        CWBsmmArrayLOqcd[j] = 0.;
-        CWBsmmArrayNLOewt4[j] = 0.;
-        CWBsmmArrayNLOewt2[j] = 0.;
-        CWBsmmArrayNLOew[j] = 0.;
-    }
-    
-    for(int j=0; j<8; j++){
-        CWBdmmArrayNNLOqcd[j] = 0.; 
-        CWBdmmArrayNLOqcd[j] = 0.;
-        CWBdmmArrayLOqcd[j] = 0.;
-        CWBdmmArrayNLOewt4[j] = 0.;
-        CWBdmmArrayNLOewt2[j] = 0.;
-        CWBdmmArrayNLOew[j] = 0.;
-    }
-    
-    
+        mcCs(2, NDR, NNLO),
+        mcPs(4, NDR, NNLO),
+        mcMs(2, NDR, NNLO),
+        mcLs(2, NDR, NNLO),
+        mcQs(4, NDR, NLO),
+        mcBs(1, NDR, NLO),
+        mcCe(2, NDR, NLO),
+        mcPe(4, NDR, NLO),
+        mcMe(2, NDR, NLO),
+        mcLe(2, NDR, NLO),
+        mcQe(4, NDR, NLO),
+        mcBe(1, NDR, NLO),
+        Vckm(SM.getVCKM())
+{    
     Nc = SM.getNc();
     CF = SM.getCF();
     gamma0 = 6. * (Nc - 1.) / Nc;
@@ -105,19 +53,26 @@ void StandardModelMatching::updateSMParameters()
     Mut = SM.getMut();
     Muw = SM.getMuw(); 
     Ale = SM.getAle();
+    Mt_muw = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    Mt_mut = SM.Mrun(Mut, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    //alstilde = SM.Alstilde5(Muw);
+    alstilde = SM.Als(Muw, FULLNNLO) / 4. / M_PI; // WHICH ONE TO USE?
+    aletilde = Ale / 4. / M_PI; // WHERE IS ale(mu)?
     GF = SM.getGF();
     Mw_tree = SM.Mw_tree();
     /* NP models should be added here after writing codes for Mw. */
-    if (SM.getModelName()=="StandardModel") {
+    if (SM.getModelName()=="StandardModel") { //???
         Mw = SM.Mw(); /* on-shell Mw */
         sW2 = SM.sW2(); /* on-shell sW2 */
     } else {
         Mw = Mw_tree;
         sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     }
-    Vckm = SM.getVCKM();
     lam_t = SM.computelamt();
-    L=2*log(Muw/Mw);
+    L = 2*log(Muw/Mw);
+    Lz = 2*log(Muw/SM.getMz());
     mu_b = SM.getMub();
 }
 
@@ -128,15 +83,6 @@ double StandardModelMatching::x_c(const double mu, const orders order) const
     return mc*mc/Mw/Mw;    
 }
 
-double StandardModelMatching::x_t(const double mu, const orders order) const 
-{
-    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                        SM.getQuarks(QCD::TOP).getMass(), order);
-
-    //msbar mass here?
-    //mt=163.836;
-    return mt*mt/Mw/Mw;   
-}
 
 double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
 {
@@ -594,12 +540,137 @@ double StandardModelMatching::D0b(double x) const
             + (x2 * (5. * x2 - 2. * x - 6.) ) / (18. * pow(x - 1.,4.)) * log(x) );
 }
 
+double StandardModelMatching::D0b_tilde(double x) const
+{
+    return (D0b(x) - 4./9.);
+}
+
 double StandardModelMatching::E0b(double x) const
 {
     double x2 = x * x;
     
     return ( -2./3. * log(x) + (18. * x - 11. * x2 - x2 * x) / (12.* (- x2 * x +3. * x2 -3. * x +1.)) +
             (x2 * (15. - 16. * x +4. * x2))/(6.*pow(1.-x,4.)) *log(x) );
+}
+
+//Loop functions for QED corrections
+double StandardModelMatching::B1d(double x, double mu) const
+{
+    double xmo = x - 1.;
+    double dilog1mx = gslpp_special_functions::dilog(1.-x);
+    double xmuw = mu*mu/Mw/Mw;
+    double mut = SM.getQuarks(QCD::TOP).getMass_scale();
+    double xmut = mut*mut/Mw/Mw;
+
+    return (-(8.-183.*x+47.*x*x)/24./xmo/xmo - (8.+27.*x+93.*x*x)/24./xmo/xmo/xmo*log(x) +
+            (27.*x+71.*x*x-2.*x*x*x)/24./xmo/xmo/xmo*log(x)*log(x) - (2.-3.*x-9.*x*x+x*x*x)/6./x/xmo/xmo*dilog1mx +
+            (2.+x)/36./x*M_PI*M_PI + 19./6.*B0b(x) - B0b(x)*log(xmuw) + 4.*x/xmo/xmo*log(xmut) -
+            (2.*x+2.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
+}
+
+double StandardModelMatching::B1d_tilde(double x, double mu) const
+{
+    double xmo = x - 1.;
+    double dilog1mx = gslpp_special_functions::dilog(1.-x);
+    double xmuw = mu*mu/Mw/Mw;
+    
+    return ((-8.-23.*x)/8./xmo - (8.-5.*x)/8./xmo/xmo*log(x) + (3.*x+2.*x*x)/8./xmo/xmo*log(x)*log(x) +
+            (2.-3.*x+3.*x*x+x*x*x)/2./x/xmo/xmo*dilog1mx - (2.+x)/12./x*M_PI*M_PI + 5./2.*B0b(x) +
+            3.*B0b(x)*log(xmuw));
+}
+
+double StandardModelMatching::B1u(double x, double mu) const
+{
+    double xmo = x - 1.;
+    double dilog1mx = gslpp_special_functions::dilog(1.-x);
+    double xmuw = mu*mu/Mw/Mw;
+    double mut = SM.getQuarks(QCD::TOP).getMass_scale();
+    double xmut = mut*mut/Mw/Mw;
+
+    return (-(46.*x+18.*x*x)/3./xmo/xmo - (16.*x-80.*x*x)/3./xmo/xmo/xmo*log(x) -
+            (9.*x+23.*x*x)/2./xmo/xmo/xmo*log(x)*log(x) - 6.*x/xmo/xmo*dilog1mx - 38./3.*B0b(x) +
+            4.*B0b(x)*log(xmuw) - 16.*x/xmo/xmo*log(xmut) + (8.*x+8.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
+}
+
+double StandardModelMatching::B1u_tilde(double x, double mu) const
+{
+    double xmo = x - 1.;
+    double dilog1mx = gslpp_special_functions::dilog(1.-x);
+    double xmuw = mu*mu/Mw/Mw;
+    
+    return ((-8.-23.*x)/8./xmo - (8.-5.*x)/8./xmo/xmo*log(x) + (3.*x+2.*x*x)/8./xmo/xmo*log(x)*log(x) +
+            (2.-3.*x+3.*x*x+x*x*x)/2./x/xmo/xmo*dilog1mx - (2.+x)/12./x*M_PI*M_PI + 5./2.*B0b(x) +
+            3.*B0b(x)*log(xmuw));
+}
+
+double StandardModelMatching::C1ew(double x) const
+{
+    double xmo = x - 1.;
+    double dilog1mx = gslpp_special_functions::dilog(1.-x);
+    double mut = SM.getQuarks(QCD::TOP).getMass_scale();
+    double xmut = mut*mut/Mw/Mw;
+    
+    return ((29.*x+7.*x*x+4.*x*x*x)/3./xmo/xmo + (x-35.*x*x-3.*x*x*x-3.*x*x*x*x)/3./xmo/xmo/xmo*log(x) +
+            (20.*x*x-x*x*x+x*x*x*x)/2./xmo/xmo/xmo*log(x)*log(x) + (4.*x+x*x*x)/xmo/xmo*dilog1mx +
+            (8.*x+x*x+x*x*x)/xmo/xmo*log(xmut) + (2.*x+8.*x*x)/xmo/xmo/xmo*log(x)*log(xmut));
+}
+
+double StandardModelMatching::Zew(double xt, double xz) const
+{
+    double z0ew, z1ew;
+#ifdef ZEW_NUMERIC
+    z0ew = 5.1795 + 0.038*(Mt_muw-166.) + 0.015*(Mw-80.394);
+    z1ew = 2.1095 + 0.0067*(Mt_muw-166.) + 0.026*(Mw-80.394);
+#else    
+    double xt2 = xt*xt;
+    double xt3 = xt2*xt;
+    double xz2 = xz*xz;
+    double xz3 = xz2*xz;
+    double xtmo = xt - 1.;
+    double xzmo = xz - 1.;
+    double dilog1mxt = gslpp_special_functions::dilog(1.-xt);
+    double dilog1mxz = gslpp_special_functions::dilog(1.-xz);
+    z0ew = -xt*(20.-20.*xt2-457.*xz+19.*xt*xz+8.*xz2)/32./xtmo/xz +
+            xt*(10.*xt3-11.*xt2*xz-xt*(30.-16.*xz)+4.*(5.-17.*xz+xz2))/16./xtmo/xtmo/xz*log(xt) +
+            xt*(10.-10.*xt2-17.*xz-xt*xz-4.*xz2)/16./xtmo/xz*log(xz) -
+            xz*(10.*xt2-xt*(4.-xz)+8.*xz)/32./xtmo/xtmo*log(xt)*log(xt) - xz2/4.*log(xz)*log(xz) -
+            ((8.+12.*xt+xt2)/4./xz - 5.*xtmo*xtmo*(2.+xt)/16./xz2 -
+            (12.-3.*xt3-3.*xt2*(4.-xz)+4.*xt*(3.-xz)+4.*xz-xz2)/8./xtmo/xtmo)*log(xt)*log(xz) -
+            ((8.+12.*xt+xt2)/2./xz - 5.*xtmo*xtmo*(2.+xt)/8./xz2 - 3.*(4.+8.*xt+2.*xt2-xt3)/4./xtmo/xtmo)*dilog1mxt +
+            xzmo*xzmo*(5.-6.*xz-5.*xz2)/4./xz2*dilog1mxz - (5.-16.*xz+12.*xz2+2*xz3*xz)/24./xz2*M_PI*M_PI +
+            xt*(4.-xz)(88.-30.*xz-25.*xz2-2.*xt*(44.-5.*xz-6.*xz2))/32./xtmo/xtmo/xz*phi_z(xz/4.) +
+            (16.*xt3*xt-xt*(20.-xz)*xz2+8.*xz3-8.*xt3*(14.+5.*xz)+8.*xt2*(12.-7.*xz+xz2))/32./xtmo/xtmo/xz*phi_z(xz/4./xt) -
+            ((22.+33.*xt-xt2)/16./xtmo/xz - 5.*xtmo*(2.+xt)/16./xz2 +
+            (2.+5.*xt2+10.*xz+xt*(15.+xz))/16./xtmo/xtmo)*phi_xy(xt,xz);
+
+    z1ew = xt*(20.-20.*xt2-265.*xz+67.*xt*xz+8.*xz2)/48./xtmo/xz -
+            xt*(10.*xt3-15.*xt2*xz+4.*(5.-7.*xz+2.*xz2)-xt*(30.+20.*xz+4.*xz2))/24./xtmo/xtmo/xz*log(xt) -
+            xt*(10.-10.*xt2-33.*xz+15.*xt*xz-4.*xz2)/24./xtmo/xz*log(xz) +
+            xz*(8.-16.*xt+2.*xt2+10.*xz+7.*xt*xz)/48./xtmo/xtmo*log(xt)*log(xt) + xz*(4.+5.*xz)/24.*log(xz)*log(xz) +
+            ((20.+6.*xt+xt2)/12./xz - 5.*xtmo*xtmo*(2.+xt)/24./xz2 +
+            (3.*xt3+2.*xt2*(12.-xz)-xt*(18.-16.*xz+xz2)-2.*(9.+4.*xz-xz2))/12./xtmo/xtmo)*log(xt)*log(xz) +
+            ((20.+6.*xt+xt2)/6./xz - 5.*xtmo*xtmo*(2.+xt)/12./xz2 - (6.+6.*xt-8.*xt2-xt3)/2./xtmo/xtmo)*dilog1mxt -
+            xzmo*xzmo*(5.-10.*xz-7.*xz2)/6./xz2*dilog1mxz + (10.-40.*xz+36.*xz2+4.*xz3+5.*xz3*xz)/72./xz2*M_PI*M_PI +
+            xt*(xz-4.)*(24.-26.*xz-13.*xz2-6.*xt*(4.-xz-xz2))/16./xtmo/xtmo/xz*phi_z(xz/4.) - (2.*xt2*(2.+xt)/3./xtmo/xz -
+            (24.*xt3+12.*xt2*(14.+xz)-2.*xz*(4.+5.*xz)-xt*(80.-36.*xz+7.*xz2))/48./xtmo/xtmo)*phi_z(xz/4./xt) +
+            ((10.-xt-xt2)/8./xtmo/xz - 5*xtmo*(2.+xt)/24./xz2 + (6.+3.*xt2+14.*xz+5.*xt*(7.-xz))/24./xtmo/xtmo)*phi_xy(xt,xz);
+#endif
+    return(z0ew+sW2*z1ew);
+}
+
+
+double StandardModelMatching::Gew(double xt, double xz, double mu) const
+{
+    double xmuw = mu*mu/Mw/Mw;
+
+    return (Zew(xt,xz) + 5.*C0b(xt) + 6.*C0b(xt)*log(xmuw));
+}
+
+double StandardModelMatching::Hew(double xt, double xz, double mu) const
+{
+    double xmuw = mu*mu/Mw/Mw;
+    
+    return (Zew(xt,xz) - 7.*C0b(xt) + 6.*C0b(xt)*log(xmuw));
 }
 
 /******************************************************************************/
@@ -803,6 +874,50 @@ double StandardModelMatching::phi2(double x, double y) const{
     return(0.);
 }
 
+double StandardModelMatching::phi_z(double z) const
+{
+    double beta = sqrt(1.-1./z);
+    double clausen = gslpp_special_functions::clausen(2.*asin(sqrt(z)));
+    double dilog = gslpp_special_functions::dilog((1.-beta)/2.);
+    
+    if (z > 0.) {
+        if (z <= 1.){
+                return(4.*sqrt(z/(1.-z)) * clausen);
+        }
+        else{
+            return(1./beta*(2.*log((1.-beta)/2.)*log((1.-beta)/2.) - 4.*dilog - log(4.*z)*log(4.*z) + M_PI*M_PI/3.));
+        }
+    }
+    else{
+        std::stringstream out;
+        out << z;
+        throw std::runtime_error("StandardModelMatching::phi_z(double z)" + out.str() + " <0");
+    }
+}
+
+double StandardModelMatching::phi_xy(double x, double y) const
+{
+    double lambda = sqrt((1.-x-y)*(1.-x-y) - 4.*x*y);
+    double diloga = gslpp_special_functions::dilog((1.+x-y-lambda)/2.);
+    double dilogb = gslpp_special_functions::dilog((1.-x+y-lambda)/2.);
+    double clausenxy = gslpp_special_functions::clausen(2.*acos((-1.+x+y)/2./sqrt(x*y)));
+    double clausenx = gslpp_special_functions::clausen(2.*acos((1.+x-y)/2./sqrt(x)));
+    double clauseny = gslpp_special_functions::clausen(2.*acos((1.-x+y)/2./sqrt(y)));
+    
+    if ((lambda*lambda) >= 0.){
+        return(lambda*(2.*log((1.+x-y-lambda)/2.)*log((1.-x+y-lambda)/2.) - log(x)*log(y) -
+                  2.*diloga - 2.*dilogb + M_PI*M_PI/3.));
+    }
+    else if((lambda*lambda) < 0.){
+        return(-2.*sqrt(-lambda*lambda)*(clausenxy + clausenx + clauseny));
+    }
+    else{
+        std::stringstream out;
+        out << x;
+        throw std::runtime_error("StandardModelMatching::phi_xy(double x, double y) wrong" + out.str());
+    }
+}
+
 /*******************************************************************************
  * Wilson coefficients Buras base for Delta B = 2 observables                  *                                           
  * ****************************************************************************/
@@ -813,7 +928,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     double Bt;  
     
     
-    double xt = x_t(Mut);
+    double xt = Mt_mut*Mt_mut/Mw/Mw;
     gslpp::complex co = GF / 4. / M_PI * Mw * SM.computelamt_d();
     
     vmcdb.clear();
@@ -861,7 +976,7 @@ double StandardModelMatching::phi2(double x, double y) const{
 {
     double gammam = 6. * CF;
     double Bt;
-    double xt = x_t(Mut);
+    double xt = Mt_mut*Mt_mut/Mw/Mw;
     gslpp::complex co = GF / 4. / M_PI * Mw * SM.computelamt_s();
 
     vmcds.clear();
@@ -927,93 +1042,6 @@ double StandardModelMatching::phi2(double x, double y) const{
     return(vmck2);
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras() 
-{    
-    vmcd1Buras.clear();
-    
-    switch (mcd1Buras.getScheme()) {
-        case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mcd1Buras.getScheme();
-            throw std::runtime_error("StandardModel::CMd1Buras(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcd1Buras.setMu(Muw);
-    
-    switch (mcd1Buras.getOrder()) {
-        case NNLO:
-        case NLO:
-            mcd1Buras.setCoeff(0, SM.Als(Muw, FULLNLO) / 4. / M_PI  * 11./2. , NLO); //* CHECK ORDER *//
-            mcd1Buras.setCoeff(1, SM.Als(Muw, FULLNLO) / 4. / M_PI * (-11./6.) , NLO);
-            for (int j=2; j<10; j++){
-            mcd1Buras.setCoeff(j, 0., NLO);    
-            }
-            case LO:
-            mcd1Buras.setCoeff(0, 0., LO);
-            mcd1Buras.setCoeff(1, 1., LO);
-            for (int j=2; j<10; j++){
-            mcd1Buras.setCoeff(j, 0., LO);
-            }
-            break;
-        default:
-            std::stringstream out;
-            out << mcd1Buras.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMd1Buras(): order " + out.str() + "not implemented"); 
-    }
-        
-    vmcd1Buras.push_back(mcd1Buras);
-    
-    return(vmcd1Buras);
-
-}
-
- std::vector<WilsonCoefficient>& StandardModelMatching::CMd1() 
-{ 
-    vmcd1.clear();
-    
-    switch (mcd1.getScheme()) {
-        case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mcd1.getScheme();
-            throw std::runtime_error("StandardModel::CMd1(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcd1.setMu(Muw);
-    
-    switch (mcd1.getOrder()) {
-        case NNLO:
-        case NLO:
-            mcd1.setCoeff(0, SM.Als(Muw, FULLNLO) / 4. / M_PI  * 15. , NLO); //* CHECK ORDER *//
-            for (int j=1; j<10; j++){
-            mcd1.setCoeff(j, 0., NLO);
-            }
-        case LO:
-            mcd1.setCoeff(0,  0. , LO);
-            mcd1.setCoeff(1,  1. , LO);
-            for (int j=2; j<10; j++){
-            mcd1.setCoeff(j, 0., LO);
-            }
-            break;
-        default:
-            std::stringstream out;
-            out << mcd1.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMd1(): order " + out.str() + "not implemented"); 
-    }
-      
-    vmcd1.push_back(mcd1);
-    
-    return(vmcd1);
-    
-}
-
   std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() 
 {
     vmcd2.clear();
@@ -1050,632 +1078,559 @@ double StandardModelMatching::phi2(double x, double y) const{
     return(vmcd2);
 }
 
-  std::vector<WilsonCoefficient>& StandardModelMatching::CMK()  
- {
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Cs()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
     
-    double xt = x_t(Muw);
-    
-    vmck.clear();
-    
-    switch (mck.getScheme()) {
+    vmcCs.clear();
+
+    switch (mcCs.getScheme()) {
         case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mck.getScheme();
-            throw "StandardModel::CMK(): scheme " + out.str() + "not implemented";
-    }
-
-    mck.setMu(Muw);
-    
-    switch (mck.getOrder()) {
-        case NNLO:
-        case NLO:
-            for (int j=0; j<10; j++){
-                mck.setCoeff(j, lam_t * SM.Als(Muw, FULLNLO) / 4. / M_PI * //* CHECK ORDER *//
-                                setWCbnlep(j, xt,  NLO), NLO);
-                mck.setCoeff(j, lam_t * Ale / 4. / M_PI *
-                                setWCbnlepEW(j, xt), NLO_ew);
-                }
-        case LO:
-            for (int j=0; j<10; j++){
-                mck.setCoeff(j, lam_t *  setWCbnlep(j, xt,  LO), LO);
-                mck.setCoeff(j, 0., LO_ew); 
-                }                   
+            //case HV:
+            //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mck.getOrder();
-            throw "StandardModelMatching::CMK(): order " + out.str() + "not implemented";
+            out << mcCs.getScheme();
+            throw "StandardModel::mc_Cs(): scheme " + out.str() + "not implemented";
     }
 
-    vmck.push_back(mck);
-    return(vmck);
+    mcCs.setMu(Muw); // cleared too
+    
+    switch (mcCs.getOrder()) {
+        case NNLO:
+            mcCs.setCoeff(0, alstilde*alstilde*(-Tt(xt)+7987./72.+17./3.*M_PI*M_PI+
+                             L*475./6.+17.*L*L), NNLO);
+            mcCs.setCoeff(1, alstilde*alstilde*(127./18.+M_PI*M_PI*4./3.+L*46./3.+4.*L*L),
+                    NNLO);
+        case NLO:
+            mcCs.setCoeff(0, alstilde*(15.+6.*L), NLO);
+        case LO:         
+            mcCs.setCoeff(1, 1., LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcCs.getOrder();
+            throw "StandardModelMatching::mc_Cs(): order " + out.str() + "not implemented";
+    }
+
+    vmcCs.push_back(mcCs);
+    return (vmcCs);
 }
 
-/*******************************************************************************
- * Wilson coefficients Buras base for K -> pi pi decays                        * 
- * operator basis: - current current                                           *
- * ****************************************************************************/
-  std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC() 
- {
-    
-    double xt = x_t(Muw);
-    
-    vmckcc.clear();
-    
-    switch (mckcc.getScheme()) {
+double StandardModelMatching::C3funNNLO(double x)
+{
+    return(G1t(x,Muw)-680./243.-20./81.*M_PI*M_PI-68./81.*L-20./27*L*L);
+}
+
+double StandardModelMatching::C4fun(double x, orders ord)
+{
+    switch (ord) {
+        case NNLO:
+            return(E1t(x,Muw)+950./243.+10./81.*M_PI*M_PI+124./27.*L+10./27.*L*L);
+        case NLO:
+            return(E0t(x)- 7./9.+2./3.* L);
+        default:
+            std::stringstream out;
+            out << ord;
+            throw "StandardModelMatching::C4fun(): order " + out.str() + "not implemented";
+
+    }
+}
+
+double StandardModelMatching::C5funNNLO(double x)
+{
+    return(-0.1*G1t(x,Muw)+2./15.*E0t(x)+68./243.+2./81.*M_PI*M_PI+14./81.*L+2./27.*L*L);
+}
+
+double StandardModelMatching::C6funNNLO(double x)
+{
+    return(-3./16.*G1t(x,Muw)+0.25*E0t(x)+85./162.+5./108.*M_PI*M_PI+35./108.*L+5./36*L*L);
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ps()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
+
+    vmcPs.clear();
+
+    switch (mcPs.getScheme()) {
         case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mckcc.getScheme();
-            throw "StandardModel::CMKCC(): scheme " + out.str() + "not implemented";
-    }
-
-    mckcc.setMu(Muw);
-    
-    switch (mckcc.getOrder()) {
-        case NNLO:
-        case NLO:
-            for (int j=0; j<2; j++){
-                mckcc.setCoeff(j, lam_t * setWCbnlep(j, xt, NLO), NLO); 
-            }
-            for (int j=2; j<10; j++){
-                mckcc.setCoeff(j, 0. , NLO); 
-            }
-        case LO:
-            for (int j=0; j<2; j++){
-                mckcc.setCoeff(j, lam_t * setWCbnlep(j, xt, LO), LO); 
-            }
-            for (int j=2; j<10; j++){
-                mckcc.setCoeff(j, 0. , LO); 
-            }
+            //case HV:
+            //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mckcc.getOrder();
-            throw "StandardModelMatching::CMKCC(): order " + out.str() + "not implemented";
+            out << mcPs.getScheme();
+            throw "StandardModel::mc_Ps(): scheme " + out.str() + "not implemented";
     }
 
-    vmckcc.push_back(mckcc);
-    return(vmckcc);
+    mcPs.setMu(Muw); // cleared too
+    
+    switch (mcPs.getOrder()) {
+        case NNLO:
+            mcPs.setCoeff(0, alstilde*alstilde*C3funNNLO(xt), NNLO);
+            mcPs.setCoeff(1, alstilde*alstilde*C4fun(xt,NNLO), NNLO);
+            mcPs.setCoeff(2, alstilde*alstilde*C5funNNLO(xt), NNLO);
+            mcPs.setCoeff(3, alstilde*alstilde*C6funNNLO(xt), NNLO);
+        case NLO:
+            mcPs.setCoeff(1, alstilde*C4fun(xt,NLO), NLO);
+        case LO:         
+            break;
+        default:
+            std::stringstream out;
+            out << mcPs.getOrder();
+            throw "StandardModelMatching::mc_Ps(): order " + out.str() + "not implemented";
+    }
+
+    vmcPs.push_back(mcPs);
+    return (vmcPs);
 }
 
-    
-/*******************************************************************************
- * Wilson coefficients misiak base for b -> s g                            * 
- * operator basis: - current current                                           *         
- *                 - qcd penguins                                              * 
- *                 - magnetic and chromomagnetic penguins                      *
- * ****************************************************************************/
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
-{    
-    double xt = x_t(Muw);
-    
-    vmcbsg.clear();
-    
-    switch (mcbsg.getScheme()) {
+
+double StandardModelMatching::C7funLO(double x)
+{
+    return(-0.5*A0t(x) - 23./36.);
+}
+
+double StandardModelMatching::C8funLO(double x)
+{
+    return(-0.5*F0t(x) - 1./3.);
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ms()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
+
+    vmcMs.clear();
+
+    switch (mcMs.getScheme()) {
         case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mcbsg.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcbsg.setMu(Muw);
-    double alSo4pi = SM.Alstilde5(Muw);
-    
-    switch (mcbsg.getOrder()) {
-        case NNLO:
-            for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, alSo4pi * alSo4pi * setWCbsg(j, xt,  NNLO) , NNLO);
-            }
-        case NLO:
-            for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, alSo4pi * setWCbsg(j, xt,  NLO) , NLO);
-            }
-        case LO:
-            for (int j=0; j<8; j++){
-            mcbsg.setCoeff(j, setWCbsg(j, xt,  LO), LO);
-            }
+            //case HV:
+            //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcbsg.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
+            out << mcPs.getScheme();
+            throw "StandardModel::mc_Ms(): scheme " + out.str() + "not implemented";
     }
+
+    mcMs.setMu(Muw); // cleared too
     
-    vmcbsg.push_back(mcbsg);
-    return(vmcbsg);
+    switch (mcMs.getOrder()) {
+        case NNLO:
+            mcMs.setCoeff(0, alstilde*alstilde*(C7t_3L_at_mt(xt) + C7t_3L_func(xt,Muw)-(C7c_3L_at_mW(xt)+13763./2187.*L+814./729.*L*L)
+                             -1./3.*C3funNNLO(xt)-4./9.*C4fun(xt,NNLO)-20./3.*C5funNNLO(xt)-80./9.*C6funNNLO(xt)), NNLO);
+            mcMs.setCoeff(1, alstilde*alstilde*(C8t_3L_at_mt(xt) + C8t_3L_func(xt,Muw)-(C8c_3L_at_mW(xt) + 16607./5832.*L+397./486.*L*L)
+                             +C3funNNLO(xt)-1./6.*C4fun(xt,NNLO)-20.*C5funNNLO(xt)-10./3.*C6funNNLO(xt)), NNLO);
+        case NLO:
+            mcMs.setCoeff(0, alstilde*(-0.5*A1t(xt,Muw)+713./243.+4./81.*L-4./9.*C4fun(xt,NLO)), NLO);
+            mcMs.setCoeff(1, alstilde*(-0.5*F1t(xt,Muw)+91./324.-4./27.*L-1./6.*C4fun(xt,NLO)), NLO);
+        case LO:         
+            mcMs.setCoeff(0, C7funLO(xt), LO);
+            mcMs.setCoeff(1, C8funLO(xt), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcMs.getOrder();
+            throw "StandardModelMatching::mc_Ms(): order " + out.str() + "not implemented";
+    }
+
+    vmcMs.push_back(mcMs);
+    return (vmcMs);
 }
 
- 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMprimebsg() 
-{    
-    vmcprimebsg.clear();
-    
-    switch (mcprimebsg.getScheme()) {
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ls() {
+    vmcLs.clear();
+    switch (mcLs.getScheme()) {
         case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mcprimebsg.getScheme();
-            throw std::runtime_error("StandardModel::CMprimebsg(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcprimebsg.setMu(Muw);
-    
-    switch (mcprimebsg.getOrder()) {
-        case NNLO:
-            for (int j=0; j<8; j++){
-            mcprimebsg.setCoeff(j, 0., NNLO);//* CHECK ORDER *//
-            }
-        case NLO:
-            for (int j=0; j<8; j++){
-            mcprimebsg.setCoeff(j, 0., NLO);//* CHECK ORDER *//
-            }
-        case LO:
-            for (int j=0; j<8; j++){
-            mcprimebsg.setCoeff(j, 0., LO);
-            }
+            //case HV:
+            //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcprimebsg.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMprimebsg(): order " + out.str() + "not implemented"); 
+            out << mcLs.getScheme();
+            throw "StandardModel::mc_Ls(): scheme " + out.str() + "not implemented";
     }
-    
-    vmcprimebsg.push_back(mcprimebsg);
-    return(vmcprimebsg);
+
+    mcLs.setMu(Muw); // cleared too
+
+    vmcLs.push_back(mcLs);
+    return (vmcLs);
 }
 
-/*******************************************************************************
- * Wilson coefficients calcoulus, misiak base for b -> s gamma                  *  
- * ****************************************************************************/
-
-double StandardModelMatching::setWCbsg(int i, double x, orders order)
-{    
-    sw =  sqrt( sW2 );
-
-    if ( swf == sw && xcachef == x){
-        switch (order){
-        case NNLO:
-            return ( CWbsgArrayNNLO[i] );
-            break;        
-        case NLO:
-            return ( CWbsgArrayNLO[i] );
-            break;
-        case LO:
-            return ( CWbsgArrayLO[i] );
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted"); 
-        }
-    }
-    
-    swf = sw; xcachef = x;
-
-    switch (order){
-        case NNLO:
-            // One and two loop matching from arXiv:9910220.
-            CWbsgArrayNNLO[0] = -Tt(x)+7987./72.+17./3.*M_PI*M_PI+475./6.*L+17.*L*L;
-            CWbsgArrayNNLO[1] = 127./18.+4./3.*M_PI*M_PI+46./3.*L+4.*L*L;
-            CWbsgArrayNNLO[2] = G1t(x,Muw)-680./243.-20./81.*M_PI*M_PI-68./81.*L-20./27*L*L;
-            CWbsgArrayNNLO[3] = E1t(x,Muw)+950./243.+10./81.*M_PI*M_PI+124./27.*L+10./27.*L*L;
-            CWbsgArrayNNLO[4] = -0.1*G1t(x,Muw)+2./15.*E0t(x)+68./243.+2./81.*M_PI*M_PI+14./81.*L+2./27.*L*L;
-            CWbsgArrayNNLO[5] = -3./16.*G1t(x,Muw)+0.25*E0t(x)+85./162.+5./108.*M_PI*M_PI+35./108.*L+5./36*L*L;
-            // 3-loop matching from arXiv:0401041. Expansion around x = 1, on the basis of Fig.3 of the paper. 
-            CWbsgArrayNNLO[6] = (C7t_3L_at_mt(x) + C7t_3L_func(x,Muw)-(C7c_3L_at_mW(x)+ 13763./2187.*L+814./729.*L*L)) - 1./3.*CWbsgArrayNNLO[2] - 4./9.*CWbsgArrayNNLO[3] - 20./3.*CWbsgArrayNNLO[4] - 80./9.*CWbsgArrayNNLO[5]; //effective C7
-            CWbsgArrayNNLO[7] = (C8t_3L_at_mt(x) + C8t_3L_func(x,Muw)-(C8c_3L_at_mW(x) + 16607./5832.*L+397./486.*L*L)) + CWbsgArrayNNLO[2]-1./6.*CWbsgArrayNNLO[3]-20.*CWbsgArrayNNLO[4]-10./3.*CWbsgArrayNNLO[5]; //effective C8
-        case NLO:
-            CWbsgArrayNLO[0] = 15. + 6*L;
-            CWbsgArrayNLO[3] = E0t(x) - 7./9. + 2./3.* L;
-            CWbsgArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWbsgArrayNLO[3]; //effective C7
-            CWbsgArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWbsgArrayNLO[3]; //effective C8
-        case LO:
-            CWbsgArrayLO[1] = 1.;
-            CWbsgArrayLO[6] = -0.5*A0t(x) - 23./36.; //effective C7
-            CWbsgArrayLO[7] = -0.5*F0t(x) - 1./3.; //effective C8
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted"); 
-            }
-    
-    switch (order){
-        case NNLO:
-            return ( CWbsgArrayNNLO[i] );
-            break;
-        case NLO:
-            return ( CWbsgArrayNLO[i] );
-            break;
-        case LO:
-            return ( CWbsgArrayLO[i] );
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted"); 
-        }
-}
-
-
-
-
-/*******************************************************************************
- * Wilson coefficients misiak base for B -> K^*ll                              * 
- * operator basis: - current current                                           *         
- *                 - qcd penguins                                              * 
- *                 - magnetic and chromomagnetic penguins                      *         
- *                 - semileptonic                                              * 
- * ****************************************************************************/
-  std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll(QCD::lepton lepton) 
-    {    
-    double xt = x_t(Muw); //* ORDER FULLNNLO*//
-    
-    vmcBMll.clear();
-    
-    switch (mcBMll.getScheme()) {
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Qs() {
+    vmcQs.clear();
+    switch (mcQs.getScheme()) {
         case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mcBMll.getScheme();
-            throw std::runtime_error("StandardModel::CMBKstrall(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcBMll.setMu(Muw);
-    
-    switch (mcBMll.getOrder()) {
-        case NNLO:
-        case NLO:
-            for (int j=0; j<13; j++){
-            mcBMll.setCoeff(j, SM.Als(Muw, FULLNNLO) / 4. / M_PI * setWCBMll(j, xt,  NLO) , NLO);
-            }
-        case LO:
-            for (int j=0; j<13; j++){
-            mcBMll.setCoeff(j, setWCBMll(j, xt,  LO), LO);
-            }
+            //case HV:
+            //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcBMll.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
+            out << mcQs.getScheme();
+            throw "StandardModel::mc_Qs(): scheme " + out.str() + "not implemented";
     }
-   
-    vmcBMll.push_back(mcBMll);
-    return(vmcBMll);
+
+    mcQs.setMu(Muw); // cleared too
+
+    vmcQs.push_back(mcQs);
+    return (vmcQs);
 }
-        
 
-
- /*******************************************************************************
- * Wilson coefficients calcoulus, misiak base for B -> K^*ll                    *  
- * *****************************************************************************/
-
-double StandardModelMatching::setWCBMll(int i, double x, orders order)
-{    
-    sw =  sqrt( sW2 ) ;
-
-    if ( swa == sw && xcachea == x){
-        switch (order){
-        case NNLO:
-        case NLO:
-            return ( CWBMllArrayNLO[i] );
-            break;
-        case LO:
-            return ( CWBMllArrayLO[i] );
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Bs() {
+    vmcBs.clear();
+    switch (mcBs.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
             break;
         default:
             std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted"); 
-        }
+            out << mcBs.getScheme();
+            throw "StandardModel::mc_Bs(): scheme " + out.str() + "not implemented";
     }
-    
-    swa = sw; xcachea = x;
 
-    switch (order){
-        case NNLO:
-        case NLO:
-            CWBMllArrayNLO[0] = 15. + 6*L;
-            CWBMllArrayNLO[3] = E0t(x) - (7./9.) + (2./3.* L);
-            CWBMllArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWBMllArrayNLO[3];
-            CWBMllArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWBMllArrayNLO[3];
-            CWBMllArrayNLO[8] = (1-4.*sW2) / (sW2) *C1t(x,Muw) - 1./(sW2) * B1t(x,Muw) - D1t(x,Muw) + 1./sW2 + 524./729. - 
-                    128.*M_PI*M_PI/243. - 16.*L/3. -128.*L*L/81.;
-            CWBMllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2 - 1./sW2;
-        case LO:
-            CWBMllArrayLO[1] = 1.;
-            CWBMllArrayLO[6] = -0.5*A0t(x) - 23./36.;
-            CWBMllArrayLO[7] = -0.5*F0t(x) - 1./3.;
-            CWBMllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) * B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(SM.getMuw()/mu_b); 
-            CWBMllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted"); 
-            }
-    
-    switch (order){
-        case NNLO:
-        case NLO:
-            return ( CWBMllArrayNLO[i] );
-            break;
-        case LO:
-            return ( CWBMllArrayLO[i] );
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted"); 
-        }
+    mcBs.setMu(Muw); // cleared too
+
+    vmcBs.push_back(mcBs);
+    return (vmcBs);
 }
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ce()
+{
+    vmcCe.clear();
+
+    switch (mcCe.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
+            break;
+        default:
+            std::stringstream out;
+            out << mcCe.getScheme();
+            throw "StandardModel::mc_Ce(): scheme " + out.str() + "not implemented";
+    }
+
+    mcCe.setMu(Muw); // cleared too
     
+    switch (mcCe.getOrder()) {
+        case NNLO: // no NNLO available
+        case NLO:
+            mcCe.setCoeff(1, aletilde*(-22./9. - 4./3.*Lz + 1./9.), NLO);
+        case LO:
+            break;
+        default:
+            std::stringstream out;
+            out << mcCe.getOrder();
+            throw "StandardModelMatching::mc_Ce(): order " + out.str() + "not implemented";
+    }
 
+    vmcCe.push_back(mcCe);
+    return (vmcCe);
+}
 
-/*******************************************************************************
- * Wilson coefficients misiak primed base for B -> K^*ll                       * 
- * operator basis: - current current                                           *         
- *                 - qcd penguins                                              * 
- *                 - magnetic and chromomagnetic penguins                      *         
- *                 - semileptonic                                              * 
- * ****************************************************************************/
- std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBMll(QCD::lepton lepton) 
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Pe()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
+    double xz = SM.getMz()*SM.getMz()/Mw/Mw;
+
+    vmcPe.clear();
+
+    switch (mcPe.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
+            break;
+        default:
+            std::stringstream out;
+            out << mcPe.getScheme();
+            throw "StandardModel::mc_Pe(): scheme " + out.str() + "not implemented";
+    }
+
+    mcPe.setMu(Muw); // cleared too
+    
+    switch (mcPe.getOrder()) {
+        case NNLO:
+            mcPe.setCoeff(0, aletilde*alstilde*(1./sW2*(4./9.*B1d(xt,Muw) + 4./27.*B1d_tilde(xt,Muw) + 2./9.*B1u(xt,Muw) +
+                                                2./27.*B1u_tilde(xt,Muw) - 2./9.*C1ew(xt) + 320./27.*B0b(xt) +
+                                                160./27.*C0b(xt))), NNLO);
+            mcPe.setCoeff(1, aletilde*alstilde*(16./27.*C0b(xt) + 1./sW2*(8./9.*B1d_tilde(xt,Muw) + 4./9.*B1u_tilde(xt,Muw) -
+                                                2./9.*Gew(xt,xz,Muw) - 88./9.*B0b(xt) - 184./27.*C0b(xt))), NNLO);
+            mcPe.setCoeff(2, aletilde*alstilde*(1./sW2*(-1./9.*B1d(xt,Muw) - 1./27.*B1d_tilde(xt,Muw) - 1./18.*B1u(xt,Muw) -
+                                                1./54.*B1u_tilde(xt,Muw) + 1./18.*C1ew(xt) - 32./27.*B0b(xt) -
+                                                16./27.*C0b(xt))), NNLO);
+            mcPe.setCoeff(3, aletilde*alstilde*(1./sW2*(-2./9.*B1d_tilde(xt,Muw) - 1./9.*B1u_tilde(xt,Muw) + 1./18.*Gew(xt,xz,Muw) +
+                                                4./3.*B0b(xt) + 2./3.*C0b(xt))), NNLO);
+        case NLO:
+            mcPe.setCoeff(0, aletilde*(-2./9./sW2*(2.*B0b(xt) + C0b(xt))), NLO);
+            //mcPe.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO);
+            mcPe.setCoeff(2, aletilde*(1./9./sW2*(B0b(xt) + 1./2.*C0b(xt))), NLO);
+            //mcPe.setCoeff(0, aletilde*(1./9./sW2*(Y0(xt) - 1./2.*X0t(xt))), NLO);
+        case LO:
+            break;
+        default:
+            std::stringstream out;
+            out << mcPe.getOrder();
+            throw "StandardModelMatching::mc_Pe(): order " + out.str() + "not implemented";
+    }
+
+    vmcPe.push_back(mcPe);
+    return (vmcPe);
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Me()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
+    double mH = SM.getMHl();
+    
+    vmcMe.clear();
+
+    switch (mcMe.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
+            break;
+        default:
+            std::stringstream out;
+            out << mcMe.getScheme();
+            throw "StandardModel::mc_Me(): scheme " + out.str() + "not implemented";
+    }
+
+    mcMe.setMu(Muw); // cleared too
+    
+    switch (mcMe.getOrder()) {
+        case NNLO: // no NNLO available
+        case NLO:
+            mcMe.setCoeff(0, aletilde*(1./sW2*(1.11 - 1.15*(1.-Mt_muw*Mt_muw/170./170.) - 0.444*log(mH/100.) -
+                                               0.21*log(mH/100.)*log(mH/100.) - 0.513*log(mH/100.)*log(Mt_muw/170.)) +
+                                       (8./9.*C7funLO(xt) - 104./243.)*L), NLO);
+            mcMe.setCoeff(1, aletilde*(1./sW2*(-0.143 + 0.156*(1.-Mt_muw*Mt_muw/170./170.) - 0.129*log(mH/100.) -
+                                               0.0244*log(mH/100.)*log(mH/100.) - 0.037*log(mH/100.)*log(Mt_muw/170.)) +
+                                       (4./9.*C8funLO(xt) - 4./3.*C7funLO(xt) - 58./81.)*L), NLO);
+        case LO:
+            break;
+        default:
+            std::stringstream out;
+            out << mcMe.getOrder();
+            throw "StandardModelMatching::mc_Me(): order " + out.str() + "not implemented";
+    }
+
+    vmcMe.push_back(mcMe);
+    return (vmcMe);
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Le()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
+    
+    vmcLe.clear();
+
+    switch (mcLe.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
+            break;
+        default:
+            std::stringstream out;
+            out << mcLe.getScheme();
+            throw "StandardModel::mc_Le(): scheme " + out.str() + "not implemented";
+    }
+
+    mcLe.setMu(Muw); // cleared too
+    
+    switch (mcLe.getOrder()) {
+        case NNLO:
+            mcLe.setCoeff(0, aletilde*alstilde*((1.-4.*sW2)/sW2*C1t(xt,Muw) - 1./sW2*B1t(xt,Muw) - D1t(xt,Muw) + 1./sW2 +
+                                                524./729. - 128./243.*M_PI*M_PI - 16./3.*L - 128./81.*L*L), NNLO);
+            mcLe.setCoeff(1, aletilde*alstilde*(1./sW2*(B1t(xt,Muw) - C1t(xt,Muw)) - 1./sW2), NNLO);
+        case NLO:
+            mcLe.setCoeff(0, aletilde*(1./sW2*Y0(xt) + Wt(xt) + 4./9. + 4./9.*log(xt)), NLO);//2*log(mt/Muw)
+            mcLe.setCoeff(1, aletilde*(-1./sW2*Y0(xt)), NLO);
+        case LO:
+            break;
+        default:
+            std::stringstream out;
+            out << mcLe.getOrder();
+            throw "StandardModelMatching::mc_Le(): order " + out.str() + "not implemented";
+    }
+
+    vmcLe.push_back(mcLe);
+    return (vmcLe);
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Qe()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
+    double xz = SM.getMz()*SM.getMz()/Mw/Mw;
+
+    vmcQe.clear();
+
+    switch (mcQe.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
+            break;
+        default:
+            std::stringstream out;
+            out << mcQe.getScheme();
+            throw "StandardModel::mc_Qe(): scheme " + out.str() + "not implemented";
+    }
+
+    mcQe.setMu(Muw); // cleared too
+    
+    switch (mcQe.getOrder()) {
+        case NNLO:
+            mcQe.setCoeff(0, aletilde*alstilde*(4.*C1ew(xt) + 4.*D1t(xt,Muw) + 320./9.*C0b(xt) +
+                                                1./sW2*(-2./3.*B1d(xt,Muw) - 2./9.*B1d_tilde(xt,Muw) +
+                                                        2./3.*B1u(xt,Muw) + 2./9.*B1u_tilde(xt,Muw) +
+                                                        4./3.*C1ew(xt) + 800./9.*B0b(xt) - 640./9.*C0b(xt))), NNLO);
+            mcQe.setCoeff(1, aletilde*alstilde*(-4./3.*Gew(xt,xz,Muw) - 16./3.*Hew(xt,xz,Muw) - 32.*C0b(xt) +
+                                                1./sW2*(-4./3.*B1d_tilde(xt,Muw) + 4./3.*B1u_tilde(xt,Muw) +
+                                                        4./3.*Gew(xt,xz,Muw) - 80.*B0b(xt) + 112./3.*C0b(xt))), NNLO);
+            mcQe.setCoeff(2, aletilde*alstilde*(-32./9.*C0b(xt) +
+                                                1./sW2*(1./6.*B1d(xt,Muw) + 1./18.*B1d_tilde(xt,Muw) -
+                                                        1./6.*B1u(xt,Muw) - 1./18.*B1u_tilde(xt,Muw) -
+                                                        1./3.*C1ew(xt) - 80./9.*B0b(xt) + 64./9.*C0b(xt))), NNLO);
+            mcQe.setCoeff(3, aletilde*alstilde*(1./3.*Gew(xt,xz,Muw) + 1./3.*Hew(xt,xz,Muw) + 4.*C0b(xt) +
+                                                1./sW2*(1./3.*B1d_tilde(xt,Muw) - 1./3.*B1u_tilde(xt,Muw) -
+                                                        1./3.*Gew(xt,xz,Muw) +10.*B0b(xt) - 16./3.*C0b(xt))), NNLO);
+        case NLO:
+            mcQe.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))), NLO);
+            mcQe.setCoeff(2, aletilde*(1./sW2*(4./3.*B0b(xt)+2./3.*C0b(xt))), NLO);
+        case LO:
+            break;
+        default:
+            std::stringstream out;
+            out << mcQe.getOrder();
+            throw "StandardModelMatching::mc_Qe(): order " + out.str() + "not implemented";
+    }
+
+    vmcQe.push_back(mcQe);
+    return (vmcQe);
+}
+
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Be()
+{
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
+    
+    vmcBe.clear();
+
+    switch (mcBe.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
+            break;
+        default:
+            std::stringstream out;
+            out << mcBe.getScheme();
+            throw "StandardModel::mc_Be(): scheme " + out.str() + "not implemented";
+    }
+
+    mcBe.setMu(Muw); // cleared too
+    
+    switch (mcBe.getOrder()) {
+        case NNLO: // no NNLO available
+        case NLO:
+            mcBe.setCoeff(0, aletilde*(-1./2./sW2*S0(xt)), NLO);
+        case LO:
+            break;
+        default:
+            std::stringstream out;
+            out << mcBe.getOrder();
+            throw "StandardModelMatching::mc_Be(): order " + out.str() + "not implemented";
+    }
+
+    vmcBe.push_back(mcBe);
+    return (vmcBe);
+}
+
+unsigned int StandardModelMatching::setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int nops, unsigned int tot, schemes scheme, orders order) {
+    unsigned int j;
+    int ord;
+
+    for (ord = LO; ord < order; ord++)
+        for (j = 0; j < nops; j++)
+            CMDF1.setCoeff(j + tot, (*(DF1block.getCoeff((orders) ord)))(j), (orders) ord);
+
+    return (nops + tot);
+}
+
+std::vector<WilsonCoefficient> StandardModelMatching::CMDF1s(std::string blocks, unsigned int nops, schemes scheme, orders order)
+{
+    unsigned int tot;
+    double mu;
+    WilsonCoefficient mcDF1(nops, scheme, order),
+            &mcBlock(mcDF1); //dummy initialization
+
+    for (unsigned int i = 0; i < 1; i++) //CHANGE ME: FIXED 1 MATCHING SCALE
     {
-        vmcprimeBMll.clear();
-        mcprimeBMll.setMu(Muw);
-        switch (mcprimeBMll.getOrder()) {
-        case NNLO:
-        case NLO:
-            for (int j=0; j<13; j++){
-            mcprimeBMll.setCoeff(j, 0., NLO);
-            }
-        case LO:
-            for (int j=0; j<13; j++){
-            mcprimeBMll.setCoeff(j, 0., LO);
-            }
-            break;
-        default:
-            std::stringstream out;
-            out << mcprimeBMll.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
-    }
-        vmcprimeBMll.push_back(mcprimeBMll);
-        return(vmcprimeBMll);
-    }
-
-
-    /******************************************************************************/
-
-/*******************************************************************************
- * Wilson coefficients Misiak base for bs -> mu mu. decays                      * 
- * operator basis: - current current                                           *         
- *                 - qcd penguins                                              * 
- *                 - semileptonic                                              *
- * ****************************************************************************/
-    
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() 
-{
-    
-         // The couplings are not used here, but in the Bsmumu class.
-            
-        double xt = x_t(Muw);
-         
-        vmcbsmm.clear();
-    
-    
-        
-        switch (mcbsmm.getScheme()) {
-        case NDR:
-             //case HV:
-             //case LRI:
-             break;
-             default:
-            std::stringstream out;
-            out << mcbsmm.getScheme();
-            throw std::runtime_error("StandardModel::CMbsmm(): scheme " + out.str() + "not implemented"); 
-    }
-       
-        mcbsmm.setMu(Muw);
-        
-        switch (mcbsmm.getOrder()) {
-        case NNLO:
-        
-                for (int j=0; j<8; j++){
-                   
-                    mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) *   
-                                setWCBsmm(j, xt,  NNLO), NNLO);
-                    
-                }
-        case NLO:
-           
-            for (int j=0; j<8; j++){
-             
-               mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) * 
-                                setWCBsmm(j, xt,  NLO), NLO);
-                }
-        case LO:
-      
-            for (int j=0; j<8; j++){
-              
-                mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) * setWCBsmm(j, xt,  LO), LO);
-                }                   
-            break;
-            default:
-            std::stringstream out;
-            out << mcbsmm.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsmm(): order " + out.str() + "not implemented");
+        tot = 0;
+        mu = 0.;
+        if (blocks.find("C") != std::string::npos) {
+            mcBlock = mc_Cs()[i];
+            mu = mcBlock.getMu();
+            mcDF1.setMu(mu);
+            tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
         }
-    
-        switch (mcbsmm.getOrder_ew()) {
-        case NLO_ewt4:
-          ;
-            for (int j=0; j<8; j++){
-               
-                mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) * setWCBsmmEW(j, xt, NLO_ewt4), NLO_ewt4);
-                
+        if (blocks.find("P") != std::string::npos) {
+            mcBlock = mc_Ps()[i];
+            if (mu == 0.) {
+                mu = mcBlock.getMu();
+                mcDF1.setMu(mu);
             }
-        case NLO_ewt3:  /*absent at high energy */
-            for (int j=0; j<8; j++){
-            
-            mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) * 0., NLO_ewt3); 
+            if (mcBlock.getMu() != mu)
+                throw "StandardModelMatching::CMDF1(): Ps - wrong matching scales";
+            tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order);
+        }
+        if (blocks.find("M") != std::string::npos) {
+            mcBlock = mc_Ms()[i];
+            if (mu == 0.) {
+                mu = mcBlock.getMu();
+                mcDF1.setMu(mu);
             }
-        case NLO_ewt2: 
-            
-            for (int j=0; j<8; j++){
-              
-            mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) * setWCBsmmEW(j, xt, NLO_ewt2), NLO_ewt2); 
+            if (mcBlock.getMu() != mu)
+                throw "StandardModelMatching::CMDF1(): Ms - wrong matching scales";
+            tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
+        }
+        if (blocks.find("L") != std::string::npos) {
+            mcBlock = mc_Ls()[i];
+            if (mu == 0.) {
+                mu = mcBlock.getMu();
+                mcDF1.setMu(mu);
             }
-        case NLO_ewt1:   /*absent at high energy */
-            for (int j=0; j<8; j++){
-            
-              mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) * 0., NLO_ewt1);
+            if (mcBlock.getMu() != mu)
+                throw "StandardModelMatching::CMDF1(): Ls - wrong matching scales";
+
+            tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
+        }
+        if (blocks.find("Q") != std::string::npos) {
+            mcBlock = mc_Qs()[i];
+            if (mu == 0.) {
+                mu = mcBlock.getMu();
+                mcDF1.setMu(mu);
             }
-        case NLO_ew:
-            for (int j=0; j<8; j++){
-            
-               mcbsmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,1)) * setWCBsmmEW(j, xt, NLO_ew), NLO_ew);
-             
+            if (mcBlock.getMu() != mu)
+                throw "StandardModelMatching::CMDF1(): Qs - wrong matching scales";
+            tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order);
+        }
+        if (blocks.find("B") != std::string::npos) {
+            mcBlock = mc_Bs()[i];
+            if (mu == 0.) {
+                mu = mcBlock.getMu();
+                mcDF1.setMu(mu);
             }
-        case LO_ew:   /*absent at high energy */
-            for (int j=0; j<8; j++){
-              
-             mcbsmm.setCoeff(j,(Vckm(2,2).conjugate() * Vckm(2,1)) * 0., LO_ew); 
-            }                   
-            break;
-            default:
-            std::stringstream out;
-            out << mcbsmm.getOrder_ew();
-            throw std::runtime_error("StandardModelMatching::CMbsmm(): order_ew " + out.str() + "not implemented");
+           if (mcBlock.getMu() != mu)
+                throw "StandardModelMatching::CMDF1(): Bs - wrong matching scales";
+            setCMDF1(mcDF1, mcBlock, 1, tot, scheme, order);
+        }
+        vmcDF1s.push_back(mcDF1);
     }
-    vmcbsmm.push_back(mcbsmm);
-    return(vmcbsmm);
-    
+
+    return(vmcDF1s);
 }
-    
-/*******************************************************************************
- * Wilson coefficients Misiak base for bd -> mu mu. decays                      * 
- * operator basis: - current current                                           *         
- *                 - qcd penguins                                              * 
- *                 - semileptonic                                              *
- * ****************************************************************************/
-    
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() 
-{
-    
-         // The couplings are not used here, but in the Bdmumu class.
-           
-        double xt = x_t(Muw);
-         
-        vmcbdmm.clear();
-    
-    
-        
-        switch (mcbdmm.getScheme()) {
-        case NDR:
-             //case HV:
-             //case LRI:
-             break;
-             default:
-            std::stringstream out;
-            out << mcbdmm.getScheme();
-            throw std::runtime_error("StandardModel::CMbdmm(): scheme " + out.str() + "not implemented"); 
-    }
-       
-        mcbdmm.setMu(Muw);
-        
-        switch (mcbdmm.getOrder()) {
-        case NNLO:
-        
-                for (int j=0; j<8; j++){
-                   
-                    mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) *   
-                                setWCBdmm(j, xt,  NNLO), NNLO);
-                }
-        case NLO:
-           
-            for (int j=0; j<8; j++){
-             
-               mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) * 
-                                setWCBdmm(j, xt,  NLO), NLO);
-                }
-        case LO:
-      
-            for (int j=0; j<8; j++){
-              
-                mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) * setWCBdmm(j, xt,  LO), LO);
-                }                   
-            break;
-            default:
-            std::stringstream out;
-            out << mcbdmm.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbdmm(): order " + out.str() + "not implemented");
-        }
-    
-        switch (mcbdmm.getOrder_ew()) {
-        case NLO_ewt4:
-          ;
-            for (int j=0; j<8; j++){
-               
-                mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) * setWCBdmmEW(j, xt, NLO_ewt4), NLO_ewt4);
-                
-            }
-        case NLO_ewt3:  /*absent at high energy */
-            for (int j=0; j<8; j++){
-            
-            mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) * 0., NLO_ewt3); 
-            }
-        case NLO_ewt2: 
-            
-            for (int j=0; j<8; j++){
-              
-            mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) * setWCBdmmEW(j, xt, NLO_ewt2), NLO_ewt2); 
-            }
-        case NLO_ewt1:   /*absent at high energy */
-            for (int j=0; j<8; j++){
-            
-              mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) * 0., NLO_ewt1);
-            }
-        case NLO_ew:
-            for (int j=0; j<8; j++){
-            
-               mcbdmm.setCoeff(j, (Vckm(2,2).conjugate() * Vckm(2,0)) * setWCBdmmEW(j, xt, NLO_ew), NLO_ew);
-             
-            }
-        case LO_ew:   /*absent at high energy */
-            for (int j=0; j<8; j++){
-              
-             mcbdmm.setCoeff(j,(Vckm(2,2).conjugate() * Vckm(2,0)) * 0., LO_ew); 
-            }                   
-            break;
-            default:
-            std::stringstream out;
-            out << mcbdmm.getOrder_ew();
-            throw std::runtime_error("StandardModelMatching::CMbdmm(): order_ew " + out.str() + "not implemented");
-    }
-    vmcbdmm.push_back(mcbdmm);
-    return(vmcbdmm);
-    
-}  
-  
-     
+
 /*******************************************************************************
  * Wilson coefficients calcoulus, misiak base for B -> tau nu                   *
  * ****************************************************************************/
@@ -1695,162 +1650,20 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
             break;
         default:
             std::stringstream out;
-            out << mcbsmm.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsmm(): order " + out.str() + "not implemented");
+            out << mcbtaunu.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMbtaunu(): order " + out.str() + "not implemented");
     }
     
     vmcbtaunu.push_back(mcbtaunu);
     return(vmcbtaunu);
     
 }     
-   
-    
-/******************************************************************************/
-
-/*******************************************************************************
- * Wilson coefficients Buras base for b -> nonlep. decays                      * 
- * operator basis: - current current                                           *         
- *                 - qcd penguins                                              * 
- *                 - magnetic and chromomagnetic penguins                      *         
- *                 - semileptonic                                              *
- * i=0 deltaS=0 deltaC=0;  i=1 1,0 ;                                           *
- * ****************************************************************************/
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int a)
-{
-    gslpp::complex lambda;
-    
-    switch (a) {
-        case 0: lambda = SM.computelamt_d();
-        break;
-        case 1: lambda = SM.computelamt_s();
-        break;   
-        default:
-            std::stringstream out;
-            out << a;
-            throw std::runtime_error("case" + out.str() + "not implemented; implemented i=0,1,2,3"); 
-    }
-    
-    double xt = x_t(Muw);
-    double co = ( GF / sqrt(2));
-    
-    vmcbnlep.clear();
-    
-    switch (mcbnlep.getScheme()) {
-        case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mcbnlep.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcbnlep.setMu(Muw);
-    
-    switch (mcbnlep.getOrder()) {
-        case NNLO:
-        case NLO:
-            for (int j=0; j<10; j++){
-                mcbnlep.setCoeff(j,co * lambda * SM.Als(Muw, FULLNLO) / 4. / M_PI * //* CHECK ORDER *//
-                                setWCbnlep(j, xt,  NLO), NLO);
-                mcbnlep.setCoeff(j, co * lambda * Ale / 4. / M_PI *
-                                setWCbnlepEW(j, xt), NLO_ew);
-                }
-        case LO:
-            for (int j=0; j<10; j++){
-                mcbnlep.setCoeff(j, co * lambda *  setWCbnlep(j, xt,  LO), LO);
-                mcbnlep.setCoeff(j, 0., LO_ew); 
-                }                   
-            break;
-        default:
-            std::stringstream out;
-            out << mcbnlep.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
-    }
-
-    vmcbnlep.push_back(mcbnlep);
-    return(vmcbnlep);
-}
-
-/*******************************************************************************
- * Wilson coefficients Buras base for b -> nonlep. decays                      * 
- * operator basis: - current current opertors                                  *         
- * i=0 deltaS=0 deltaC=0;  i=1 1,0 ;  i=2 0,1 ; i=3 1,1                        *
- * ****************************************************************************/
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int a) 
-{    
-    gslpp::complex lambda1 = 0.;
-    //gslpp::complex lambda2 = 0.;
-    //gslpp::matrix<gslpp::complex> ckm = SM.getVCKM();
-    
-    switch (a) {
-        case 0: lambda1 = SM.computelamu_d();
-                break;
-        case 1: lambda1 = SM.computelamu_s();
-                break;
-        case 2: lambda1 = Vckm(0,2).conjugate()*Vckm(1,0);
-                break;
-        case 3: lambda1 = Vckm(1,2).conjugate()*Vckm(0,0); 
-                break;
-        case 4: lambda1 = Vckm(0,2).conjugate()*Vckm(1,1);
-                break;
-        case 5: lambda1 = Vckm(1,2).conjugate()*Vckm(2,1);
-                break;
-        default:
-            std::stringstream out;
-            out << a;
-            throw std::runtime_error("case" + out.str() + " not existing; implemented i=0,1,2,3"); 
-    }
-    
-    double xt = x_t(Muw);
-    double co = ( GF / sqrt(2));
-    
-    vmcbnlepCC.clear();
-    
-    switch (mcbnlepCC.getScheme()) {
-        case NDR:
-        //case HV:
-        //case LRI:
-        break;
-        default:
-            std::stringstream out;
-            out << mcbnlepCC.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcbnlepCC.setMu(Muw);
-    
-    switch (mcbnlepCC.getOrder()) {
-        case NNLO:
-        case NLO:
-            for (int j=0; j<2; j++){
-                mcbnlepCC.setCoeff(j, co * lambda1 * setWCbnlep(j, xt,  NLO), NLO); 
-            }
-            for (int j=2; j<10; j++){
-                mcbnlepCC.setCoeff(j, 0. , NLO); 
-            }
-        case LO:
-            for (int j=0; j<2; j++){
-                mcbnlepCC.setCoeff(j, co * lambda1 *  setWCbnlep(j, xt,  LO), LO); }
-            for (int j=2; j<10; j++){
-                mcbnlepCC.setCoeff(j, 0. , LO); }
-            break;
-        default:
-            std::stringstream out;
-            out << mcbnlepCC.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
-    }
-
-    vmcbnlepCC.push_back(mcbnlepCC);
-    return(vmcbnlepCC);
-}
 
  std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
     
     //scales assigned to xt, a and Xewt to be checked!
     
-    double xt = x_t(SM.getMut());
+    double xt = Mt_mut*Mt_mut/Mw/Mw;
     double a = 1./mt2omh2(Muw);
     double lambda5 = SM.getLambda()*SM.getLambda()*SM.getLambda()*SM.getLambda()*SM.getLambda();
     
@@ -1887,37 +1700,9 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
-    
-    //PROBLEMI: mu e sin(theta_weak) e la scala di als
-    
-    double xt = x_t(Muw);
-    
-    vmckmm.clear();
-    
-    mckmm.setMu(Mut);
- 
-    switch (mckmm.getOrder()) {
-        case NNLO:
-        case NLO:
-            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1(xt, Muw)/SM.getLambda(), NLO);//* CHECK ORDER *//
-        case LO:
-            mckmm.setCoeff(0, lam_t.real()*Y0(xt)/SM.getLambda(), LO);
-            break;
-        default:
-            std::stringstream out;
-            out << mckmm.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMkmm(): order " + out.str() + "not implemented"); 
-    }
-
-    vmckmm.push_back(mckmm);
-    return(vmckmm);
-    
-}
-
  std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
     
-    double xt = x_t(Muw);
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
     
     vmcbsnn.clear();
     
@@ -1945,7 +1730,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
 
  std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
     
-    double xt = x_t(Muw);
+    double xt = Mt_muw*Mt_muw/Mw/Mw;
     
     vmcbdnn.clear();
     
@@ -1969,361 +1754,6 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     vmcbdnn.push_back(mcbdnn);
     return(vmcbdnn);
     
-}
-
-/*******************************************************************************
- * Wilson coefficients calculus, MISIAK base for Bs to mu mu  decay               *  
- * ****************************************************************************/
-double StandardModelMatching::setWCBsmm(int i, double x, orders order) 	
-{  
-    
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw) );
-     
-    if ( swd == sw && xcached == x){
-        switch (order){
-        case NNLO:
-           return (CWBsmmArrayNNLOqcd[i]);
-           break;                               
-       case NLO:
-            return (CWBsmmArrayNLOqcd[i]);
-            break;
-        case LO:
-            return (CWBsmmArrayLOqcd[i]);
-            break;
-       default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted");      
-         }
-    }
-  
-    swd = sw;  xcached = x;
- 
-    switch (order){
-    case NNLO:
-        CWBsmmArrayNNLOqcd[0] = sw * sw * (-Tt(x) + 7987./72. + 17. * M_PI * M_PI/3. + 475. * L/6. + 17. * L * L);
-        CWBsmmArrayNNLOqcd[1] = sw * sw * (127./18. + 4. * M_PI * M_PI /3. + 46. * L/3. + 4. * L * L);
-        CWBsmmArrayNNLOqcd[2] = sw * sw * (G1t(x, Muw) - 680./243. - 20. * M_PI * M_PI /81. - 68. * L/81. - 20. * L* L/27.);
-        CWBsmmArrayNNLOqcd[3] = sw * sw * (E1t(x, Muw) + 950./243. + 10.* M_PI * M_PI /81. + 124. * L/27. + 10. * L * L/27.);   
-        CWBsmmArrayNNLOqcd[4] = sw * sw * (-G1t(x, Muw)/10. + 2. * E0t(x)/15. + 68./243. + 2. * M_PI * M_PI /81. + 14.* L/81. + 2. * L * L/27.);
-        CWBsmmArrayNNLOqcd[5] = sw * sw * (-3. * G1t(x, Muw)/16. + E0t(x)/4. + 85./162. + 5. * M_PI * M_PI/108. + 35. * L/108. + 5. * L * L/36.);  
-               
-    case NLO:
-        CWBsmmArrayNLOqcd[0] = sw * sw * (15. + 6. * L);
-        CWBsmmArrayNLOqcd[3] = sw * sw * (Eet(x) - 2./3. + 2. * L/3.);
-       
-    case LO:
-        CWBsmmArrayLOqcd[1] = sw * sw * 1.;
-        
-    break;
-    default:
-    std::stringstream out;
-    out << order;
-    throw std::runtime_error("order" + out.str() + "not implemeted"); 
-    }
-    switch (order){
-    case NNLO:
-        return (CWBsmmArrayNNLOqcd[i]);
-       
-        break;
-    case NLO:
-        return (CWBsmmArrayNLOqcd[i]);
-       
-        break;
-    case LO:
-        return (CWBsmmArrayLOqcd[i]);
-        
-        break;
-        default:
-        std::stringstream out;
-        out << order;
-        throw std::runtime_error("order" + out.str() + "not implemeted");      
-    }
-}
-
-double StandardModelMatching::setWCBsmmEW(int i, double x, orders_ew order_ew) 	
-{   
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw) ) ;
-
-    double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
-            
-    if ( swe == sw && xcachee == x){
-        switch (order_ew){
-        case NLO_ewt4:
-            return (CWBsmmArrayNLOewt4[i]);   
-            break;
-        case NLO_ewt2:
-            return (CWBsmmArrayNLOewt2[i]);
-            break;
-        case NLO_ew:
-            return (CWBsmmArrayNLOew[i]);
-            break;
-            default:
-            std::stringstream out;
-            out << order_ew;
-            throw std::runtime_error("order_ew" + out.str() + "not implemeted");      
-        }
-
-    }
-   
-    
-    swe = sw; xcachee = x;
- 
-    switch (order_ew){   
-    case NLO_ewt4: 
-        CWBsmmArrayNLOewt4[7] = sw * sw * (1./(sw * sw)) * Rest(x, Muw) ;
-        
-    case NLO_ewt2: 
-        CWBsmmArrayNLOewt2[6] = sw * sw * ((1. - 4. * sw * sw) * C1t(x, Muw) / (sw * sw) - B1t(x, Muw)/(sw * sw) 
-                - D1t(x, Muw) + 1./ (sw * sw) + 524./729. - 128. * M_PI * M_PI / 243. 
-                - 16. * L / 3. - 128. * L * L /81. ) ; 
-        CWBsmmArrayNLOewt2[7] = sw * sw * ((1./(sw * sw)) * (B1t(x, Muw) - C1t(x, Muw)) - 1./(sw * sw)) ; 
-     
-    case NLO_ew:
-        CWBsmmArrayNLOew[6] = sw * sw * (Y0(x)/(sw * sw) + Wt(x) + 4./9. - 4. * 2 * log(Muw/mt)/9.);
-        CWBsmmArrayNLOew[7] = sw * sw * (-Y0(x)/(sw * sw));   
-            
-        break;
-        default:
-        std::stringstream out;
-        out << order_ew;
-        throw std::runtime_error("order_ew" + out.str() + "not implemeted"); 
-    }
-
-    switch (order_ew){
-    case NLO_ewt4:
-        return (CWBsmmArrayNLOewt4[i]);   
-        break;  
-    case NLO_ewt2:
-        return (CWBsmmArrayNLOewt2[i]);
-        break;  
-    case NLO_ew:
-        return (CWBsmmArrayNLOew[i]);
-        break;
-        default:
-        std::stringstream out;
-        out << order_ew;
-        throw std::runtime_error("order_ew" + out.str() + "not implemeted");  
-    } 
-}
-
-
-
-
-/*******************************************************************************
- * Wilson coefficients calculus, MISIAK base for Bd to mu mu  decay               *  
- * ****************************************************************************/
-double StandardModelMatching::setWCBdmm(int i, double x, orders order) 	
-{  
-    
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw) );
-     
-    if ( swb == sw && xcacheb == x){
-        switch (order){
-        case NNLO:
-           return (CWBdmmArrayNNLOqcd[i]);
-           break;                               
-       case NLO:
-            return (CWBdmmArrayNLOqcd[i]);
-            break;
-        case LO:
-            return (CWBdmmArrayLOqcd[i]);
-            break;
-       default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted");      
-         }
-    }
-  
-    swb = sw;  xcacheb = x;
- 
-    switch (order){
-    case NNLO:
-        CWBdmmArrayNNLOqcd[0] = sw * sw * (-Tt(x) + 7987./72. + 17. * M_PI * M_PI/3. + 475. * L/6. + 17. * L * L);
-        CWBdmmArrayNNLOqcd[1] = sw * sw * (127./18. + 4. * M_PI * M_PI /3. + 46. * L/3. + 4. * L * L);
-        CWBdmmArrayNNLOqcd[2] = sw * sw * (G1t(x, Muw) - 680./243. - 20. * M_PI * M_PI /81. - 68. * L/81. - 20. * L* L/27.);
-        CWBdmmArrayNNLOqcd[3] = sw * sw * (E1t(x, Muw) + 950./243. + 10.* M_PI * M_PI /81. + 124. * L/27. + 10. * L * L/27.);   
-        CWBdmmArrayNNLOqcd[4] = sw * sw * (-G1t(x, Muw)/10. + 2. * E0t(x)/15. + 68./243. + 2. * M_PI * M_PI /81. + 14.* L/81. + 2. * L * L/27.);
-        CWBdmmArrayNNLOqcd[5] = sw * sw * (-3. * G1t(x, Muw)/16. + E0t(x)/4. + 85./162. + 5. * M_PI * M_PI/108. + 35. * L/108. + 5. * L * L/36.);  
-               
-    case NLO:
-        CWBdmmArrayNLOqcd[0] = sw * sw * (15. + 6. * L);
-        CWBdmmArrayNLOqcd[3] = sw * sw * (Eet(x) - 2./3. + 2. * L/3.);
-       
-    case LO:
-        CWBdmmArrayLOqcd[1] = sw * sw * 1.;
-        
-    break;
-    default:
-    std::stringstream out;
-    out << order;
-    throw std::runtime_error("order" + out.str() + "not implemeted"); 
-    }
-    switch (order){
-    case NNLO:
-        return (CWBdmmArrayNNLOqcd[i]);
-       
-        break;
-    case NLO:
-        return (CWBdmmArrayNLOqcd[i]);
-       
-        break;
-    case LO:
-        return (CWBdmmArrayLOqcd[i]);
-        
-        break;
-        default:
-        std::stringstream out;
-        out << order;
-        throw std::runtime_error("order" + out.str() + "not implemeted");      
-    }
-}
-
-double StandardModelMatching::setWCBdmmEW(int i, double x, orders_ew order_ew) 	
-{   
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw) ) ;
-
-    double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
-            
-    if ( swc == sw && xcachec == x){
-        switch (order_ew){
-        case NLO_ewt4:
-            return (CWBdmmArrayNLOewt4[i]);   
-            break;
-        case NLO_ewt2:
-            return (CWBdmmArrayNLOewt2[i]);
-            break;
-        case NLO_ew:
-            return (CWBdmmArrayNLOew[i]);
-            break;
-            default:
-            std::stringstream out;
-            out << order_ew;
-            throw std::runtime_error("order_ew" + out.str() + "not implemeted");      
-        }
-
-    }
-   
-    
-    swc = sw; xcachec = x;
- 
-    switch (order_ew){   
-    case NLO_ewt4: 
-        CWBdmmArrayNLOewt4[7] = sw * sw * (1./(sw * sw)) * Rest(x, Muw) ;
-        
-    case NLO_ewt2: 
-        CWBdmmArrayNLOewt2[6] = sw * sw * ((1. - 4. * sw * sw) * C1t(x, Muw) / (sw * sw) - B1t(x, Muw)/(sw * sw) 
-                - D1t(x, Muw) + 1./ (sw * sw) + 524./729. - 128. * M_PI * M_PI / 243. 
-                - 16. * L / 3. - 128. * L * L /81. ) ; 
-        CWBdmmArrayNLOewt2[7] = sw * sw * ((1./(sw * sw)) * (B1t(x, Muw) - C1t(x, Muw)) - 1./(sw * sw)) ; 
-     
-    case NLO_ew:
-        CWBdmmArrayNLOew[6] = sw * sw * (Y0(x)/(sw * sw) + Wt(x) + 4./9. - 4. * 2 * log(Muw/mt)/9.);
-        CWBdmmArrayNLOew[7] = sw * sw * (-Y0(x)/(sw * sw));   
-            
-        break;
-        default:
-        std::stringstream out;
-        out << order_ew;
-        throw std::runtime_error("order_ew" + out.str() + "not implemeted"); 
-    }
-
-    switch (order_ew){
-    case NLO_ewt4:
-        return (CWBdmmArrayNLOewt4[i]);   
-        break;  
-    case NLO_ewt1:
-        return (CWBdmmArrayNLOewt2[i]);
-        break;  
-    case NLO_ew:
-        return (CWBdmmArrayNLOew[i]);
-        break;
-        default:
-        std::stringstream out;
-        out << order_ew;
-        throw std::runtime_error("order_ew" + out.str() + "not implemeted");  
-    } 
-}
-
-
-/*******************************************************************************
- * Wilson coefficients calculus, Buras base for nonlep. b decays               *  
- * ****************************************************************************/
-double StandardModelMatching::setWCbnlep(int i, double x, orders order) 
-{    
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw * Mw) );
-    
-    if ( swb == sw && xcacheb == x){
-        switch (order){
-        case NNLO:
-        case NLO:
-            return (CWbnlepArrayNLOqcd[i]);
-            break;
-        case LO:
-            return (CWbnlepArrayLOqcd[i]);
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted");      
-        }
-    }
-    
-    swb = sw; xcacheb = x;
-    
-    switch (order){
-        case NNLO:
-        case NLO:
-            CWbnlepArrayNLOqcd[0] = 11./2.;
-            CWbnlepArrayNLOqcd[1] = -11./6.;
-            CWbnlepArrayNLOqcd[2] = -1./6. * (E0b(x) - 2./3.);
-            CWbnlepArrayNLOqcd[3] = 0.5 * (E0b(x) - 2./3.);
-            CWbnlepArrayNLOqcd[4] = -1./6. * (E0b(x) - 2./3.);
-            CWbnlepArrayNLOqcd[5] = 0.5 * (E0b(x) - 2./3.);
-        case LO:
-            CWbnlepArrayLOqcd[1] = 1.;
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted"); 
-        }
-    
-    switch (order){
-        case NNLO:
-        case NLO:
-            return (CWbnlepArrayNLOqcd[i]);
-            break;
-        case LO:
-            return (CWbnlepArrayLOqcd[i]);
-            break;
-        default:
-            std::stringstream out;
-            out << order;
-            throw std::runtime_error("order" + out.str() + "not implemeted");      
-        }
-}
-
-double StandardModelMatching::setWCbnlepEW(int i, double x) 
-{     
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw * Mw) ) ;
-    
-    if ( swb == sw && xcacheb == x){
-        return (CWbnlepArrayNLOew[i]);
-    }
-    
-    swc = sw; xcachec = x;
-    
-    CWbnlepArrayNLOew[1] = -35./18.;
-    CWbnlepArrayNLOew[2] = 2. / (3. * sw * sw) * ( 2. * B0b(x) + C0b(x) );
-    CWbnlepArrayNLOew[6] = 2./3. * (4. * C0b(x) + D0b(x) - 4./9.);
-    CWbnlepArrayNLOew[8] = 2./3. * (4. * C0b(x) + D0b(x) - 4./9. + (1. / (sw * sw)) *
-                           (10. * B0b(x) - 4. * C0b(x)) );
-    
-    return (CWbnlepArrayNLOew[i]);
 }
 
 gslpp::complex StandardModelMatching::S0c() const 
@@ -2352,7 +1782,7 @@ gslpp::complex StandardModelMatching::S0ct() const
 
 gslpp::complex StandardModelMatching::S0tt() const
 {
-    double xt = x_t(Mut);
+    double xt = Mt_mut*Mt_mut/Mw/Mw;
     gslpp::complex co = GF / 2. / M_PI * Mw * lam_t.conjugate();
 #if SUSYFIT_DEBUG & 2
     double pino = SM.Mrun(Mut, SM.Mp2Mbar(SM.getMtpole(),FULLNLO), 
@@ -2490,7 +1920,7 @@ gslpp::complex StandardModelMatching::S0tt() const
         default:
             std::stringstream out;
             out << mcgminus2mu.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMgminus2mu(): order " + out.str() + " not implemented.");
+            throw std::runtime_error("StandardModelMatching::CMmueconv(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
     }
     
     vmcgminus2mu.push_back(mcgminus2mu);

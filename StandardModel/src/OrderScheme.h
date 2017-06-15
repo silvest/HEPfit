@@ -33,8 +33,10 @@ enum orders
     LO = 0, /**< Leading order */
     NLO, /**< Next-to-leading order */
     NNLO, /**< Next-to-next-to-leading order */
+    NNNLO, /**< Next-to-next-to-next-to-leading order */
     FULLNLO, /**< Full NLO = LO + NLO */
-    FULLNNLO /**< Full NNLO = LO + NLO + NNLO */
+    FULLNNLO, /**< Full NNLO = LO + NLO + NNLO */
+    FULLNNNLO /**< Full NNLO = LO + NLO + NNLO + NNNLO */        
 };
 
 /**

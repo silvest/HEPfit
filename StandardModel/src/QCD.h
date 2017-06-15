@@ -778,11 +778,6 @@ public:
      * @return a boolean that is true if the set of model flags is sane
      */
     virtual bool CheckFlags() const;
-    
-    bool getFlagFullKD() const
-    {
-        return fullKD;
-    }
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1007,6 +1002,13 @@ public:
     double Beta2(const double nf) const;
 
     /**
+     * @brief The \f$\beta_3(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$. 
+     * @param[in] nf the number of active flavours \f$n_f\f$
+     * @return @f$\beta_3(n_f)@f$
+     */
+    double Beta3(const double nf) const;
+
+    /**
      * @brief Computes the running strong coupling @f$\alpha_s(\mu)@f$ from @f$\alpha_s(\mu_i)@f$
      * in the @f$\overline{\mathrm{MS}}@f$ scheme, where it is forbidden to across
      * a flavour threshold in the RG running from @f$\mu_i@f$ to @f$\mu@f$.
@@ -1176,13 +1178,13 @@ protected:
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     
     double Nc; ///< The number of colours.
+    double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
     Particle quarks[6]; ///< The vector of all SM quarks.
     
 private:
     
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     mutable std::map<std::string, BParameter> BParameterMap;
-    mutable bool fullKD;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.

@@ -42,4 +42,3 @@ void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders_ew ord
     }
     elem[order_ew_i]->assign(i, z);
 }
-
