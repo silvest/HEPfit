@@ -33,7 +33,7 @@ Intbc_cache(2, 0.)
     FOUR_BODY = false;
     
     setParametersForObservable(make_vector<std::string>() << "Gambino_mukin" << "Gambino_BRsem" << "Gambino_Mbkin" << "Gambino_Mcatmuc" << "Gambino_mupi2" 
-                                                          << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "BLNPcorr");
+                                                          << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "BLNPcorr" << "mu_b_bsgamma" << "mu_c_bsgamma");
     
     Intb1Cached = 0;
     Intb2Cached = 0;
@@ -2338,11 +2338,11 @@ void Bsgamma::updateParameters()
     rho_D3=SM.getOptionalParameter("Gambino_rhoD3");
     mu_G2=SM.getOptionalParameter("Gambino_muG2");
     rho_LS3=SM.getOptionalParameter("Gambino_rhoLS3");
+    mu_b=SM.getOptionalParameter("mu_b_bsgamma");
+    mu_c=SM.getOptionalParameter("mu_c_bsgamma");
     C=C_sem();
     
     ale=SM.getAle();
-    mu_b=SM.getMub();
-    mu_c=SM.getMuc();
     alsUps=8./M_PI * mu_kin/Mb_kin * ( 1. + 3./8. * mu_kin/Mb_kin );
     Alstilde = SM.Alstilde5(mu_b);
     AleatMztilde=SM.ale_OS(SM.getMz())/4./M_PI;
