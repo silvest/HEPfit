@@ -21,7 +21,6 @@
 #include <iostream>
 #include <fstream>
 #include <istream>
-#include <boost/tokenizer.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/function.hpp>
@@ -144,8 +143,6 @@ private:
     std::string filename;
     int rank;
     std::string filepath;
-    boost::tokenizer<boost::char_separator<char> > *tok;
-    boost::char_separator<char> * sep;
     std::string line;
     bool IsEOF;
 };

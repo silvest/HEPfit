@@ -11,6 +11,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
+#include <boost/tokenizer.hpp>
 
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF), filename(""), rank(0)
 {
@@ -44,14 +45,14 @@ std::string InputParser::ReadParameters(const std::string filename_i,
 
     if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
     IsEOF = false;
+    boost::char_separator<char> * sep = new boost::char_separator<char>(" \t");
     do {
         IsEOF = getline(ifile, line).eof();
         lineNo++;
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.find_first_not_of(' ') == std::string::npos || line.at(0) == '#')
             continue;
-        sep = new boost::char_separator<char>(" \t");
-        tok = new boost::tokenizer<boost::char_separator<char> >(line, *sep);
+        boost::tokenizer<boost::char_separator<char> > *tok = new boost::tokenizer<boost::char_separator<char> >(line, *sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok->begin();
 
         if (modelset == 0) {
@@ -204,14 +205,14 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             if (rank == 0) throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ". Make sure to specify a valid model configuration file.\n");
             else sleep(2);
         }
-
+        delete tok;
     } while (!IsEOF);
 
     if (modelset == 0 && rank == 0)
         throw std::runtime_error("ERROR: Incorrect or missing model name in the model configuration file.\n");
     if (!myModel->CheckFlags() && rank == 0)
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
-
+    delete sep;
     return (modname);
 }
 
