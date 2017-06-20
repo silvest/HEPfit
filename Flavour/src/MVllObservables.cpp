@@ -249,6 +249,7 @@ R_MVll::R_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
 double R_MVll::computeThValue() 
@@ -269,6 +270,7 @@ RL_MVll::RL_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
 double RL_MVll::computeThValue() 
@@ -289,6 +291,7 @@ RT_MVll::RT_MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
 double RT_MVll::computeThValue() 
@@ -309,6 +312,7 @@ R_6::R_6(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD
     vectorM = vector_i;
     
     setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep1).initializeMVllParameters());
+    setParametersForObservable(SM.getFlavour().getMVll(meson, vectorM, lep2).initializeMVllParameters());
 }
 
 double R_6::computeThValue() 

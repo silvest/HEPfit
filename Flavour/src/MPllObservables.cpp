@@ -52,6 +52,7 @@ R_MPll::R_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudos
     pseudoscalar = pseudoscalar_i;
     
     setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep1).initializeMPllParameters());
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep2).initializeMPllParameters());
 }
 
 double R_MPll::computeThValue() 
