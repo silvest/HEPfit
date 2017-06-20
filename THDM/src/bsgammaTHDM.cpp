@@ -17,7 +17,9 @@ bsgammaTHDM::bsgammaTHDM(const StandardModel& SM_i):
 }
 
 bsgammaTHDM::~bsgammaTHDM()
-{}
+{
+    if (mycache != NULL) delete(mycache);
+}
 
 double bsgammaTHDM::computeThValue()
 {

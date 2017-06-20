@@ -45,6 +45,9 @@ GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
 
 GenerateEvent::~GenerateEvent() 
 {
+    Obs.clear();
+    boost::ptr_vector<Observable>().swap(Obs);
+    Mod = NULL;
 }
 
 void GenerateEvent::generate(int unsigned nIteration_i, int seed, bool weight_i)

@@ -156,6 +156,10 @@ MonteCarloEngine::~MonteCarloEngine()
 {
     delete [] obval;
     delete [] obweight;
+    delete HEPfit_red;
+    delete HEPfit_green;
+    HEPfit_red = NULL;
+    HEPfit_green = NULL;
     /* The following code has been commented out pending further review.
        It is causing crashes at the termination of the code if the histograms
        are accessed from the main program.*/
@@ -648,7 +652,12 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
         b4->Draw("SAME");
         
         c->Print(filename);
+        delete b4;
+        b4 = NULL;
     } else c->Print(filename);
+    
+    delete c;
+    c = NULL;
 }
 
 void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int wh)
@@ -730,7 +739,12 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
         b4->Draw("SAME");
         
         c->Print(filename);
+        delete b4;
+        b4 = NULL;
     } else c->Print(filename);
+    
+    delete c;
+    c = NULL;
 }
 
 void MonteCarloEngine::PrintHistogram(std::string& OutFile, Observable& it, const std::string OutputDir) 
@@ -899,6 +913,8 @@ void MonteCarloEngine::PrintCorrelationMatrixToLaTeX(const std::string filename)
                     out << bch2d_temp->GetHistogram()->GetCorrelationFactor();
                 else
                     out << 0.;
+                delete bch2d_temp;
+                bch2d_temp = NULL;
             } else
                 out << 1.;
             if (j == npar - 1) out << "$ \\\\" << std::endl;

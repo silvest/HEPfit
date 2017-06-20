@@ -47,7 +47,11 @@ MonteCarlo::MonteCarlo(
     checkrun = false;
 }
 
-MonteCarlo::~MonteCarlo() {}
+MonteCarlo::~MonteCarlo() 
+{
+    Obs.clear();
+    boost::ptr_vector<Observable>().swap(Obs);
+}
 
 void MonteCarlo::TestRun(int rank) {
     if (checkrun == true) {

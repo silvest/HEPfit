@@ -24,7 +24,10 @@ InputParser::InputParser(const InputParser& orig) : myModelFactory(orig.myModelF
 }
 
 InputParser::~InputParser()
-{}
+{
+    delete myModel;
+    myModel = NULL;
+}
 
 std::string InputParser::ReadParameters(const std::string filename_i,
         const int rank_i,
@@ -206,6 +209,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             else sleep(2);
         }
         delete tok;
+        tok = NULL;
     } while (!IsEOF);
 
     if (modelset == 0 && rank == 0)
@@ -213,6 +217,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
     if (!myModel->CheckFlags() && rank == 0)
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
     delete sep;
+    sep = NULL;
     return (modname);
 }
 

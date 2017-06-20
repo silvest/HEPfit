@@ -137,6 +137,11 @@ private:
     std::map<std::string, ThObservable*> DThObs;
     const int rank; ///<< Rank of the MPI process. Set to 0 for serial run. 
     std::vector<std::string> unknownParameters;
+    std::vector<ModelParameter> ModPars;
+    boost::ptr_vector<Observable> Obs;
+    std::vector<Observable2D> Obs2D;
+    std::vector<CorrelatedGaussianObservables> CGO;
+    std::vector<CorrelatedGaussianParameters> CGP;
 };
 
 /**

@@ -16,11 +16,6 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
 : myInputParser(ModelF, ThObsF),
   rank(rank_i)
 {
-    std::vector<ModelParameter> ModPars;
-    boost::ptr_vector<Observable> Obs;
-    std::vector<Observable2D> Obs2D;
-    std::vector<CorrelatedGaussianObservables> CGO;
-    std::vector<CorrelatedGaussianParameters> CGP;
 
     std::string ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO, CGP);
     std::map<std::string, double> DP;
@@ -83,7 +78,11 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
 }
 
 ComputeObservables::~ComputeObservables()
-{}
+{
+    Obs.clear();
+    boost::ptr_vector<Observable>().swap(Obs);
+    Mod = NULL;
+}
 
 void ComputeObservables::setFlags(std::map<std::string, std::string> DFlags_i)
 {
