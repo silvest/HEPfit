@@ -9,8 +9,8 @@
 #include "StandardModel.h"
 #include <gsl/gsl_sf.h>
 
-EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_ew order_ew, const StandardModel & model)
-:   RGEvolutor(dim_i, scheme, order, order_ew), model(model), V(dim_i,0.), Vi(dim_i,0.),
+EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_qed order_qed, const StandardModel & model)
+:   RGEvolutor(dim_i, scheme, order, order_qed), model(model), V(dim_i,0.), Vi(dim_i,0.),
     AA(dim_i,0.), BB(dim_i,0.), CC(dim_i,0.), DD(dim_i,0.), EE(dim_i,0.), FF(dim_i,0.),
     RR(dim_i,0.), e(dim_i,0.), vavi(0,0.), vbvi(0,0.), vcvi(0,0.), vdvi(0,0.),
         vevi(0,0.), vfvi(0,0.), vrvi(0,0.),vaevi(0,0.), vbbvi(0,0.), vbdvi(0,0.), vbevi(0,0.),
@@ -676,7 +676,7 @@ gslpp::matrix<double> EvolBsmm::BuiltB(char letter, unsigned int n_u, unsigned i
 
 
 
-gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, orders_ew order_ew, schemes scheme) 
+gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, orders_qed order_qed, schemes scheme) 
 
 {
     switch (scheme) {             /*  complete this method */
@@ -690,11 +690,11 @@ gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, o
             throw std::runtime_error("EvolDF1nlep::Df1Evol(): scheme " + out.str()  + " not implemented ");
     }
 
-    if (mu == this->mu && M == this->M && scheme == this->scheme && order_ew == NULL_ew)
+    if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
         return (*Evol(order));
 
-    if (mu == this->mu && M == this->M && scheme == this->scheme &&  order_ew != NULL_ew)
-        return (*Evol(order_ew));
+    if (mu == this->mu && M == this->M && scheme == this->scheme &&  order_qed != NO_QED)
+        return (*Evol(order_qed));
 
 
     if (M < mu) {
@@ -726,7 +726,7 @@ gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, o
         Df1Evol(m_down, M, nf, scheme);
     }
 
-    if(order_ew != NULL_ew) return (*Evol(order_ew));
+    if(order_qed != NO_QED) return (*Evol(order_qed));
     else return (*Evol(order)); 
     
 }	
@@ -919,35 +919,35 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
     Ues = (omega * omega * lambda) * Ues; 
     Ue2os = (omega * lambda * lambda) * Ue2os;
 
-    switch(order_ew) {    
+    switch(order_qed) {    
 
 
-        case NLO_ewt4:
+        case NLO_QED22:
 
-            *elem[NLO_ewt4] = (*elem[NLO_ewt4]) * resLO + (*elem[NLO_ew]) * Ue + (*elem[LO]) * Ue2 + 
-                    (*elem[NLO_ewt2]) * Ueos + (*elem[NNLO]) * Ue2os2 + (*elem[NLO]) * Ue2os;
+            *elem[NLO_QED22] = (*elem[NLO_QED22]) * resLO + (*elem[NLO_QED]) * Ue + (*elem[LO]) * Ue2 + 
+                    (*elem[NLO_QED21]) * Ueos + (*elem[NNLO]) * Ue2os2 + (*elem[NLO]) * Ue2os;
 
-        case NLO_ewt3:
+        case NLO_QED12:
 
-            *elem[NLO_ewt3] =(*elem[NLO_ew]) * Ueos + (*elem[NLO]) * Ue2os2 + (*elem[LO]) * Ue2os;
+            *elem[NLO_QED12] =(*elem[NLO_QED]) * Ueos + (*elem[NLO]) * Ue2os2 + (*elem[LO]) * Ue2os;
 
-        case NLO_ewt2:    
+        case NLO_QED21:    
 
-            *elem[NLO_ewt2] = (*elem[NLO_ewt2]) * resLO + (*elem[NLO_ew]) * Us +
+            *elem[NLO_QED21] = (*elem[NLO_QED21]) * resLO + (*elem[NLO_QED]) * Us +
                         (*elem[NLO]) * Ue + (*elem[LO]) * Ues + (*elem[NNLO]) * Ueos;
 
-        case NLO_ewt1:   
+        case NLO_QED02:   
 
-            *elem[NLO_ewt1] = (*elem[LO]) * Ue2os2;
+            *elem[NLO_QED02] = (*elem[LO]) * Ue2os2;
 
-        case NLO_ew:
+        case NLO_QED:
 
-            *elem[NLO_ew] = (*elem[NLO_ew]) * resLO + (*elem[LO]) * Ue + (*elem[NLO]) * Ueos;
+            *elem[NLO_QED] = (*elem[NLO_QED]) * resLO + (*elem[LO]) * Ue + (*elem[NLO]) * Ueos;
 
 
-        case LO_ew:
+        case LO_QED:
 
-            *elem[LO_ew] = (*elem[LO]) * Ueos;
+            *elem[LO_QED] = (*elem[LO]) * Ueos;
             break;
             default:
             throw std::runtime_error("Error in EvolBsmm::Df1Evol");

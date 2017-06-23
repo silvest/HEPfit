@@ -25,10 +25,10 @@ double BR_Kp0nunu::computeThValue()
     
     return(SM.getOptionalParameter("IB_Kl") * (SM.getMesons(QCD::K_0).getLifetime() / HCUT / SM.getMesons(QCD::K_P).getLifetime() / HCUT)
            * 3. * SM.getAle() * SM.getAle() / (2.*M_PI*M_PI*pow(sin(theta),4.)) * SM.getOptionalParameter("Br_Kp_P0enu") *
-           BRKp0nunu(NLO, NLO_ew).real());
+           BRKp0nunu(NLO, NLO_QED).real());
 }
 
-gslpp::complex BR_Kp0nunu::BRKp0nunu(orders order, orders_ew order_ew)
+gslpp::complex BR_Kp0nunu::BRKp0nunu(orders order, orders_qed order_qed)
 {
     if (mySM.getFlavour().getHDS1().getCoeffDS1pnunu().getOrder() < order){
         std::stringstream out;
@@ -39,11 +39,11 @@ gslpp::complex BR_Kp0nunu::BRKp0nunu(orders order, orders_ew order_ew)
     
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1pnunu();
     
-    switch(order_ew) {
-        case NLO_ew:
-            return((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_ew])) *
-                   (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_ew])));
-        case LO_ew:
+    switch(order_qed) {
+        case NLO_QED:
+            return((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED])) *
+                   (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED])));
+        case LO_QED:
             switch(order) {
                 case NLO:
                     return((*(allcoeff[LO]) + *(allcoeff[NLO])) * 
@@ -57,8 +57,8 @@ gslpp::complex BR_Kp0nunu::BRKp0nunu(orders order, orders_ew order_ew)
             }
          default:
             std::stringstream out;
-            out << order_ew;
-            throw std::runtime_error("BRKp0nunu::BRKp0nunu(): order_ew " + out.str() + "not implemented");
+            out << order_qed;
+            throw std::runtime_error("BRKp0nunu::BRKp0nunu(): order_qed " + out.str() + "not implemented");
     }
 }
 

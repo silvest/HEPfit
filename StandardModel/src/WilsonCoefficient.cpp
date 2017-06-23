@@ -36,7 +36,7 @@ void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders_qed or
     }
     if (order_qed_i > order_qed) {
         std::stringstream out;
-        out << order_ew_i;
+        out << order_qed_i;
         throw std::runtime_error("WilsonCoefficientEW::setCoeff(): order_qed " + out.str() +
                 " not implemented ");
     }

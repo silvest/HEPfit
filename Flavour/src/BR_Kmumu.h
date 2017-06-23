@@ -35,7 +35,7 @@ protected:
     /**
      * 
      * @param order
-     * @param order_ew
+     * @param order_qed
      * @return the short distance contribution to the 
      * |\f$ BR(K_L \rightarrow \mu \bar{\mu}) \f$|, 
      */

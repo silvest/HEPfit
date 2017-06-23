@@ -12,7 +12,7 @@
 
 Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
-  evolbdmm(*(new EvolBsmm(8, NDR, NNLO, NLO_ewt4, SM)))
+  evolbdmm(*(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)))
 {  
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bdmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
@@ -21,7 +21,7 @@ Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag)
 
 double Bdmumu::computeThValue()
 {   
-    computeObs(FULLNLO, FULLNLO_ew);
+    computeObs(FULLNLO, FULLNLO_QED);
     double FBd = SM.getMesons(QCD::B_D).getDecayconst();
     
     double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
@@ -39,7 +39,7 @@ double Bdmumu::computeThValue()
     return (EXIT_FAILURE);
 }
 
-void Bdmumu::computeObs(orders order, orders_ew order_ew)
+void Bdmumu::computeObs(orders order, orders_qed order_qed)
 {
     double mu = SM.getMub();  
         
@@ -49,24 +49,24 @@ void Bdmumu::computeObs(orders order, orders_ew order_ew)
     md = SM.getQuarks(QCD::DOWN).getMass();
     chiral = pow(mBd, 2.) / 2. / mmu * mb / (mb + md);
     beta = sqrt(1. - pow(2. * mmu / mBd, 2.));
-    computeAmpSq(order, order_ew, mu);
+    computeAmpSq(order, order_qed, mu);
     Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
     Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
 }
 
 double Bdmumu::computeAmumu(orders order)
 {
-    computeObs(FULLNLO, FULLNLO_ew);
+    computeObs(FULLNLO, FULLNLO_QED);
     return(Amumu);
 }
 
 double Bdmumu::computeSmumu(orders order)
 {
-    computeObs(FULLNLO, FULLNLO_ew);
+    computeObs(FULLNLO, FULLNLO_QED);
     return(Smumu);
 }
 
-void Bdmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
+void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 {
     if (SM.getFlavour().getHDB1().getCoeffdmumu().getOrder() < order % 3){
         std::stringstream out;
@@ -79,16 +79,16 @@ void Bdmumu::computeAmpSq(orders order, orders_ew order_ew, double mu)
     double alsmu = evolbdmm.alphatilde_s(mu);
     double alemu = evolbdmm.alphatilde_e(mu);
     
-    if((order == FULLNLO) && (order_ew == FULLNLO_ew)){
+    if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
-    switch(order_ew) {
-        case FULLNLO_ew:
+    switch(order_qed) {
+        case FULLNLO_QED:
         {
             gslpp::complex CC = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
-                    + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_ew ]))(7) /alsmu
-                    + (*(allcoeff[NLO_ew]))(7) + (*(allcoeff[NLO_ewt1]))(7) * alemu /alsmu /alsmu 
-                    + (*(allcoeff[NLO_ewt2]))(7) * alsmu 
-                    + (*(allcoeff[NLO_ewt3]))(7) * alemu /alsmu+ (*(allcoeff[NLO_ewt4]))(7) * alemu;
+                    + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_QED ]))(7) /alsmu
+                    + (*(allcoeff[NLO_QED]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
+                    + (*(allcoeff[NLO_QED21]))(7) * alsmu 
+                    + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
             absP = CC.abs();
             argP = CC.arg();
            

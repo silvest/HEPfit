@@ -8,8 +8,8 @@
 #include "EvolDF1nlep.h"
 #include "StandardModel.h"
 
-EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, orders_ew order_ew, const StandardModel& model)
-:   RGEvolutor(dim_i, scheme, order, order_ew), model(model), V(dim_i,0.), Vi(dim_i,0.),
+EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, orders_qed order_qed, const StandardModel& model)
+:   RGEvolutor(dim_i, scheme, order, order_qed), model(model), V(dim_i,0.), Vi(dim_i,0.),
     gs(dim_i,0.), Js(dim_i,0.), ge0(dim_i,0.), K0(dim_i,0.), ge11(dim_i,0.), K11(dim_i,0.),
     JsK0V(dim_i,0.), ViK0Js(dim_i,0.), Gamma_s0T(dim_i,0.), Gamma_s1T(dim_i,0.), 
     Gamma_eT(dim_i,0.), Gamma_seT(dim_i,0.), JsV(dim_i,0.), ViJs(dim_i,0.), K0V(dim_i,0.), 
@@ -564,7 +564,7 @@ gslpp::matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const
     
 }
 
-gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme) 
+gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orders_qed order_qed, schemes scheme) 
 {
     switch (scheme) {
         case NDR:
@@ -578,11 +578,11 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders orde
                     + " not implemented ");
     }
 /* IMPORTANT!!: Please check cache for variation in AlsMZ and Ale. Ayan Paul*/
-    if (mu == this->mu && M == this->M && scheme == this->scheme && order_ew == NULL_ew)
+    if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
        return (*Evol(order));
     
-    if (mu == this->mu && M == this->M && scheme == this->scheme &&  order_ew == NLO_ew)
-       return (*Evol(order_ew));
+    if (mu == this->mu && M == this->M && scheme == this->scheme &&  order_qed == NLO_QED)
+       return (*Evol(order_qed));
         
     if (M < mu) {
         std::stringstream out;
@@ -606,9 +606,9 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders orde
     
     Df1Evolnlep(m_down, M, nf, scheme);
     
-    if(order_ew != NULL_ew){
+    if(order_qed != NO_QED){
     
-    return (*Evol(order_ew));
+    return (*Evol(order_qed));
     }
     
     else { 
@@ -620,7 +620,7 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders orde
 void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) 
 {
 
-  gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resLO_ew(dim,0.), resNLO_ew(dim,0.);
+  gslpp::matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resLO_ew(dim,0.), resNLO_QED(dim,0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -642,22 +642,22 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme)
                 resLO_ew(i,j) +=  m[L][i][j][k] * etap * ale/alsmu;
                 resLO_ew(i,j) +=  n[L][i][j][k] * etap * ale/alsM;
                 
-                resNLO_ew(i,j) += o[L][i][j][k] * etap * ale;
-                resNLO_ew(i,j) += p[L][i][j][k] * etap * ale;
-                resNLO_ew(i,j) += u[L][i][j][k] * etap * ale * log(eta);
+                resNLO_QED(i,j) += o[L][i][j][k] * etap * ale;
+                resNLO_QED(i,j) += p[L][i][j][k] * etap * ale;
+                resNLO_QED(i,j) += u[L][i][j][k] * etap * ale * log(eta);
                 
-                resNLO_ew(i,j) += q[L][i][j][k] * etap * ale;
-                resNLO_ew(i,j) += r[L][i][j][k] * etap * ale;
-                resNLO_ew(i,j) += s[L][i][j][k] * etap * ale / eta;
-                resNLO_ew(i,j) += t[L][i][j][k] * etap * ale * eta;
+                resNLO_QED(i,j) += q[L][i][j][k] * etap * ale;
+                resNLO_QED(i,j) += r[L][i][j][k] * etap * ale;
+                resNLO_QED(i,j) += s[L][i][j][k] * etap * ale / eta;
+                resNLO_QED(i,j) += t[L][i][j][k] * etap * ale * eta;
             }
          }   
      }
  
-    switch(order_ew) {
-        case NLO_ew:
-            *elem[NLO_ew] = (*elem[NLO]) * resLO_ew +
-                            (*elem[NLO_ew]) * resLO + (*elem[LO]) *resNLO_ew;
+    switch(order_qed) {
+        case NLO_QED:
+            *elem[NLO_QED] = (*elem[NLO]) * resLO_ew +
+                            (*elem[NLO_QED]) * resLO + (*elem[LO]) *resNLO_QED;
         case LO_ew:
             *elem[LO_ew] =  (*elem[LO]) * resLO_ew;
             break;
@@ -688,9 +688,9 @@ void EvolDF1nlep::Df1threshold_nlep(double M, double nf){
     drsT = alsM * Df1threshold_deltarsT(nf);
     dreT = ale * Df1threshold_deltareT(nf);
     
-     switch(order_ew){
-         case NLO_ew:
-             *elem[NLO_ew] += (*elem[LO])*dreT + (*elem[LO_ew]) * drsT ; 
+     switch(order_qed){
+         case NLO_QED:
+             *elem[NLO_QED] += (*elem[LO])*dreT + (*elem[LO_ew]) * drsT ; 
              break;
          default:
              throw std::runtime_error("Error in EvolDF1nlep::Df1threshold_nlep()");

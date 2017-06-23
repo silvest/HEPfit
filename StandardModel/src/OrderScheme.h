@@ -40,20 +40,20 @@ enum orders
 };
 
 /**
- * @enum orders_ew
+ * @enum orders_qed
  * @ingroup StandardModel
  * @brief An enum type for orders in electroweak.
  */
 enum orders_qed
 {
     NO_QED = orders(MAXORDER) + 1, /**< An auxiliary enumerator */
-    LO_QED, /**< Leading order */
-    NLO_QED, /**< Next-to-leading order */
+    LO_QED, /**< Leading order e/s */
+    NLO_QED, /**< Next-to-leading order e */
     NLO_QED02,   /* e^2/s^2 */
     NLO_QED21,     /* e*s */
     NLO_QED12,    /* e^2/s */
     NLO_QED22,     /* e^2 */
-    FULLNLO_QED /**< Full NLO_ew = LO + NLO + LO_ew + NLO_ew +...+ NLO_ewt4 */
+    FULLNLO_QED /**< Full NLO_QED = LO + NLO + LO_QED + NLO_QED +...+ NLO_QED22 */
 };
 
 #endif	/* ORDERSCHEME_H */

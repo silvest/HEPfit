@@ -37,7 +37,7 @@ public:
             else
                 elem[i] = NULL;
         elem[orders_qed(NO_QED)] = NULL;
-        //for (int i = LO_ew; i <= NLO_ew; i++){
+        //for (int i = LO_QED; i <= NLO_QED; i++){
         for (int i = LO_QED; i <= MAXORDER_QED; i++){
             if (i <= order_qed)
                 elem[i] = new T(size, 0.);

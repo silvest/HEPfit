@@ -10,7 +10,7 @@
 
 HeffDF1::HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM) 
 :       model(SM),
-        coeff(nops, NDR, NNLO, NLO_ew),
+        coeff(nops, NDR, NNLO, NLO_QED),
         evolDF1(nops, blocks, NDR, NNLO, SM)
 {
 

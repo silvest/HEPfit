@@ -133,10 +133,10 @@ public:
     /**
      *
      * @brief Evolution matrix set at a fixed order of Electroweak coupling
-     * @param[in] order_ew order of Electroweak coupling
+     * @param[in] order_qed order of Electroweak coupling
      * @return The RGE evolution matrix at a fixed order of Electroweak coupling
      */
-    gslpp::matrix<double>* Evol(orders_qed order_ew);
+    gslpp::matrix<double>* Evol(orders_qed order_qed);
     
 protected:
     double M;

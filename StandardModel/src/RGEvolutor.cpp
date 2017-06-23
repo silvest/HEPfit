@@ -53,12 +53,12 @@ void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order
         out << i << " " << j;
         throw std::runtime_error("RGEvolutor::setEvol(): matrix indices " + out.str() + " out of range"); 
     }
-    if (order_ew_i > order_qed) {
+    if (order_qed_i > order_qed) {
         std::stringstream out;
         out << order_i;
         throw std::runtime_error("RGEvolutor::setEvol(): order " + out.str() +" not implemented "); 
     }
-    (*elem[order_ew_i])(i,j) = x;
+    (*elem[order_qed_i])(i,j) = x;
     }
 }
 
