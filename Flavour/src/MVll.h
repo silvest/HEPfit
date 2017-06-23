@@ -697,7 +697,7 @@ private:
     bool fullKD;
     double mJ2;
     TRandom3 * gRandom;
-    double randomPhase[3];
+    gslpp::complex exp_randomPhase[3];
     
     double GF;            /**<Fermi constant */
     double ale;           /**<Alpha electromagnetic */
@@ -897,6 +897,10 @@ private:
     std::vector<double> ImDeltaC9_0_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
     std::vector<double> myq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
+//    std::vector<double> Abs_h_0;
+//    std::vector<double> Abs_h_p;
+//    std::vector<double> Abs_h_m;
+    
     TFitResultPtr refres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
     TFitResultPtr imfres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
     TFitResultPtr refres_m_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
@@ -910,12 +914,17 @@ private:
     TFitResultPtr imfres_m_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
     TFitResultPtr refres_0_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
     TFitResultPtr imfres_0_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-        
+    
+//    TFitResultPtr absfres_h_0;
+//    TFitResultPtr absfres_h_p;
+//    TFitResultPtr absfres_h_m;
+//        
     TGraph gr1;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
     TGraph gr2;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
     
     TF1 reffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
     TF1 imffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
+//    TF1 absffit;
     
     double tmpq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
@@ -2179,6 +2188,20 @@ private:
     * @return \f$ \Delta C_9^0 \f$
     */
     gslpp::complex fDeltaC9_0(double q2);
+    
+//    void fit_h_0();
+//    
+//    void fit_h_p();
+//    
+//    void fit_h_m();
+//    
+//    double Abs_h_0_fit(double* x, double* p);
+//    
+//    double Abs_h_p_fit(double* x, double* p);
+//    
+//    double Abs_h_m_fit(double* x, double* p);
+//    
+//    const double * params;
     
 };
 

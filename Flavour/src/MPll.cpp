@@ -33,27 +33,6 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     lep = lep_i;
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
-
-#if NFPOLARBASIS_MPLL
-    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
-#else
-    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-        << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP";
-#endif
-    else {
-        std::stringstream out;
-        out << pseudoscalar;
-        throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
-    }
     
     I0_updated = 0;
     I2_updated = 0;
@@ -77,6 +56,26 @@ MPll::~MPll()
 
 std::vector<std::string> MPll::initializeMPllParameters()
 {
+    #if NFPOLARBASIS_MPLL
+    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
+        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+#else
+    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
+        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+        << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP";
+#endif
+    else {
+        std::stringstream out;
+        out << pseudoscalar;
+        throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
+    }
     mySM.initializeMeson(meson);
     mySM.initializeMeson(pseudoscalar);
     return mpllParameters;

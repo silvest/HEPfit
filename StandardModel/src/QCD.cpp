@@ -31,7 +31,6 @@ std::string QCD::QCDvars[NQCDvars] = {
 QCD::QCD()
 {
     FlagCsi = true;
-    fullKD = false;
     computeFBd = false;
     computeFBp = false;
     computeBd = false;
@@ -361,10 +360,7 @@ bool QCD::setFlag(const std::string name, const bool value)
         if (computeBd) BParameterMap.at("BBd").setFlagCsi(FlagCsi);
         res = true;
     }
-    if (name.compare("fullKD") == 0) {
-        fullKD = value;
-        res = true;
-    }
+    
     return res;
 }
 

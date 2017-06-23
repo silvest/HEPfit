@@ -31,7 +31,6 @@
 #include <functional>
 #include <boost/bind.hpp>
 /** END: REMOVE FROM THE PACKAGE **/
-using namespace boost;
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
@@ -433,6 +432,9 @@ bool StandardModel::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("NoApproximateGammaZ") == 0) {
         FlagNoApproximateGammaZ = value;
+        res = true;
+    } else if (name.compare("fullKD") == 0) {
+        SMFlavour.setFlagFullKD(value);
         res = true;
     } else
         res = QCD::setFlag(name, value);

@@ -215,6 +215,16 @@ public:
      * 
      */
     void setSMupdated() const;
+    
+    bool setFlagFullKD(bool fullKD)
+    {
+        return (this->fullKD = fullKD);
+    }
+    
+    bool getFlagFullKD() const
+    {
+        return fullKD;
+    }
 
 private:
 
@@ -243,6 +253,7 @@ private:
     mutable bool update_BdKstgamma;
     mutable bool update_BpKstgamma;
     mutable bool update_Bsphigamma;
+    mutable bool fullKD;
 };
 
 /**
