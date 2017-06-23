@@ -84,12 +84,17 @@ void MonteCarlo::TestRun(int rank) {
             } else
                 DP[it->getname()] = it->getave();
         }
-
+        
         if (!myInputParser.getModel()->Init(DP)) {
             if (rank == 0) throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
             else sleep (2);
         }
-
+        std::vector<std::string> unknownParameters = myInputParser.getModel()->getUnknownParameters();
+        if (unknownParameters.size() > 0 && rank == 0) {
+            std::cout << "\n" << std::endl;
+            for (std::vector<std::string>::iterator it = unknownParameters.begin(); it != unknownParameters.end(); it++)
+                std::cout << "WARNING: unknown parameter " << *it << " not added to MCMC Test Run" << std::endl;
+        }
         if (Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
         for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
             double th = it->computeTheoryValue();
