@@ -658,8 +658,8 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme)
         case NLO_QED:
             *elem[NLO_QED] = (*elem[NLO]) * resLO_ew +
                             (*elem[NLO_QED]) * resLO + (*elem[LO]) *resNLO_QED;
-        case LO_ew:
-            *elem[LO_ew] =  (*elem[LO]) * resLO_ew;
+        case LO_QED:
+            *elem[LO_QED] =  (*elem[LO]) * resLO_ew;
             break;
         default:
             throw std::runtime_error("Error in EvolDF1nlep::Df1Evolnlep()");
@@ -690,7 +690,7 @@ void EvolDF1nlep::Df1threshold_nlep(double M, double nf){
     
      switch(order_qed){
          case NLO_QED:
-             *elem[NLO_QED] += (*elem[LO])*dreT + (*elem[LO_ew]) * drsT ; 
+             *elem[NLO_QED] += (*elem[LO])*dreT + (*elem[LO_QED]) * drsT ; 
              break;
          default:
              throw std::runtime_error("Error in EvolDF1nlep::Df1threshold_nlep()");

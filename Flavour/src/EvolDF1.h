@@ -95,13 +95,23 @@ private:
     //double a[4][13],
     //double b[4][13][13][13], c[4][13][13][13], d[4][13][13][13];
 
-    typedef boost::multi_array<double, 4> array_type4;
-    typedef boost::multi_array<double, 2> array_type2;
-
-    array_type2 a;
-    array_type4 b,c,d;
+//    typedef boost::multi_array<double, 4> array_type4;
+//    typedef boost::multi_array<double, 2> array_type2;
+//    array_type2 mn_a;
+//    array_type4 mn_b,mn_c,mn_d;
+    std::map< std::vector<int>, double > ai;
+    std::map< std::vector<int>, gslpp::complex > vM0vi, vM1vi, vM2vi, vM11vi;
+    std::vector<int> index;
 
     const StandardModel& model;
+
+    /**
+     * @brief map indexes to a vector<int>
+     * @param nf number of active flavours
+     * @param i,j,... indices in eqs. (49)-(53) in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @return a reference to the vector index
+     */    
+    std::vector<int>& idx(int nf, int a, int b=0, int i=0, int j=0, int k=0, int l=0, int p=0, int m=0, int q=0);
 
     /**
      * @brief Check if anomalous dimension indices and Nf match
@@ -285,7 +295,7 @@ private:
      * @param number of active flavor
      * @return coefficient of the beta function
      */
-    double Beta_s(int i, double nf);
+    double Beta_s(int i, unsigned int nf);
 
     /**
      * @brief QED beta function coefficients - eq. (36) hep-ph/0512066
@@ -293,17 +303,64 @@ private:
      * @param number of active flavor
      * @return coefficient of the beta function
      */
-    double Beta_e(int i, double nf);
+    double Beta_e(int i, unsigned int nf);
+    
+    /**
+     * @brief auxiliary function f - eq. (50) of Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param i matrix index
+     * @param j matrix index
+     * @param k order index
+     * @param eta als(M)/als(mu)
+     * @return function value
+     */
+    double f_f(unsigned int nf, unsigned int i, unsigned int j, int k, double eta);
+
+    /**
+     * @brief auxiliary function r - eq. (51) of Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param i matrix index
+     * @param j matrix index
+     * @param k order index
+     * @param eta als(M)/als(mu)
+     * @return function value
+     */
+    double f_r(unsigned int nf, unsigned int i, unsigned int j, int k, double eta);
+    
+    /**
+     * @brief auxiliary function g - eq. (52) of Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param i matrix index
+     * @param p matrix index
+     * @param j matrix index
+     * @param k order index
+     * @param l order index
+     * @param eta als(M)/als(mu)
+     * @return function value
+     */
+    double f_g(unsigned int nf, unsigned int i, unsigned int p, unsigned int j, int k, int l, double eta);
   
+    /**
+     * @brief auxiliary function h - eq. (53) of Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
+     * @param i matrix index
+     * @param p matrix index
+     * @param q matrix index
+     * @param j matrix index
+     * @param k order index
+     * @param l order index
+     * @param m order index
+     * @param eta als(M)/als(mu)
+     * @return function value
+     */
+    double f_h(unsigned int i, unsigned int p, unsigned int q, unsigned int j, int k, int l, int m, double eta);
+    
+    void DF1Evol(double mu, double M, int nf, schemes scheme);
+
     // operators to include         {C, P, M, L, Q, b}            Huber et al., hep-ph/0512066
     unsigned int nops;
     std::string blocks;
 
-    gslpp::matrix<gslpp::complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
-    gslpp::vector<gslpp::complex> e;
+    gslpp::matrix<gslpp::complex> evec, evec_i, js, h, gg, s_s, jssv, jss, jv, vij;
+    gslpp::vector<gslpp::complex> eval;
     double alsMZ_cache;
     double Mz_cache;
 };
 
 #endif /* EVOLDF1_H */
-

@@ -5,17 +5,20 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <map>
+#include <vector>
 #include <boost/assign.hpp>
 #include <initializer_list>
 #include "QCD.h"
 #include "EvolDF1.h"
 
+#define EPS 10.e-6
+
 EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, orders order, const StandardModel& model) 
-:           RGEvolutor(nops, scheme, order), 
-            a(boost::extents[4][nops]), b(boost::extents[4][nops][nops][nops]), c(boost::extents[4][nops][nops][nops]), d(boost::extents[4][nops][nops][nops]),
+:           RGEvolutor(nops, scheme, order), index(10), 
             model(model), blocks(reqblocks),
-            v(nops,0.), vi(nops,0.), js(nops,0.), h(nops,0.), gg(nops,0.), s_s(nops,0.),
-            jssv(nops,0.), jss(nops,0.), jv(nops,0.), vij(nops,0.), e(nops,0.)
+            evec(nops,0.), evec_i(nops,0.), js(nops,0.), h(nops,0.), gg(nops,0.), s_s(nops,0.),
+            jssv(nops,0.), jss(nops,0.), jv(nops,0.), vij(nops,0.), eval(nops,0.)
 {
     blocks_nops = boost::assign::map_list_of("C",2) ("CP",6) ("CPM",8) ("L",2) ("CPML",10) ("CPQB",11) ("CPMQB",13) ("CPMLQB",15);
 //    blocks_nops = {{"C",2},{"CP",6},{"CPM",8},{"L",2},{"CPML",10},{"CPQB",11},{"CPMQB",13},{"CPMLQB",15}};
@@ -25,73 +28,72 @@ EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, order
     if (blocks_nops[blocks] != nops)
         throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
 
-    unsigned int i, j, k;
     this->nops = nops;
+    unsigned int nf, nu, nd;
+    double b0, b0e, b1, b2, b3, b4, b5;
     
-    /* magic numbers a & b */ 
+    gslpp::matrix<double> W10(nops, nops, 0.), W20(nops, nops, 0.), W30(nops, nops, 0.),
+                          W01(nops, nops, 0.), W02(nops, nops, 0.), W11(nops, nops, 0.), W21(nops, nops, 0.),
+                          M2(nops, nops, 0.), M1(nops, nops, 0.);
+    unsigned int a, b, i, j, p;
+
+    
+    /* magic numbers -- loop on nf to be added <<<<<<<<<<<
     
     for(int L=3; L>-1; L--){
         
-    /* L=3 --> u,d,s (nf=3) L=2 --> u,d,s,c (nf=4)  L=1 --> u,d,s,c,b (nf=5) L=0 --> u,d,s,c,b,t (nf=6) */        
+    // L=3 --> u,d,s (nf=3) L=2 --> u,d,s,c (nf=4)  L=1 --> u,d,s,c,b (nf=5) L=0 --> u,d,s,c,b,t (nf=6)     
     nu = L;  nd = L;
     if(L == 3){nd = 2; nu = 1;} 
     if(L == 1){nd = 3; nu = 2;} 
     if(L == 0){nd = 3; nu = 3;}
+   */
 
-    // LO evolutor of the effective Wilson coefficients in the Chetyrkin, Misiak and Munz basis
+    nu = 2;
+    nd = 3;
+    nf = nu + nd;
+    b0 = Beta_s(00, nf);
+    b0e = Beta_e(00, nf);
+    b1 = Beta_s(10, nf)/2./b0/b0;
+    b2 = Beta_s(20, nf)/4./b0/b0/b0 - b1*b1;
+    b3 = Beta_s(01, nf)/2./b0/b0e;
+    b4 = Beta_s(11, nf)/4./b0/b0/b0e - 2.*b1*b3;
+    b5 = Beta_e(01, nf)/2./b0/b0e - b1;
+
+    W10 = AnomalousDimension(10, nu, nd).transpose()/2./b0;
+    W20 = AnomalousDimension(20, nu, nd).transpose()/4./b0/b0;
+    W30 = AnomalousDimension(30, nu, nd).transpose()/8./b0/b0/b0;
     
-//    AnomalousDimension_s(LO,nu,nd).transpose().eigensystem(v,e);
-    vi = v.inverse();
-    for(i = 0; i < nops; i++){
-       a[L][i] = e(i).real();
-       for (j = 0; j < nops; j++) {
-           for (k = 0; k < nops; k++)  {
-                b[L][i][j][k] = v(i, k).real() * vi(k, j).real();
-               }
-           }
-       }
+    // M2: B(-2), M1: B(-1)_10
+    M2 = 4.*b0*b0*(W30 - b1*W20 - b2*W10);
+    M1 = 2*b0*(W20 - b1*W10);
+
+    // Misiak-Munz basis, defined as in T. Huber et al., hep-ph/0512066
+    W10.eigensystem(evec, eval);
+    evec_i = evec.inverse();
     
-    // NLO evolutor of the effective Wilson coefficients in the Chetyrkin, Misiak and Munz basis
-    
-//    gg = vi * AnomalousDimension_s(NLO,nu,nd).transpose() * v;
-    double b0 = model.Beta0(nu+nd);
-    double b1 = model.Beta1(nu+nd);
-    for (i = 0; i < nops; i++){
-        for (j = 0; j < nops; j++){
-            s_s.assign( i, j, (b1 / b0) * (i==j) * e(i).real() - gg(i,j));    
-            if(fabs(e(i).real() - e(j).real() + 2. * b0)>0.00000000001){
-                h.assign( i, j, s_s(i,j) / (2. * b0 + e(i) - e(j)));
-                }
-            else
-                throw std::runtime_error("HeffDF1:: to be fixed");
-            }
-        }
-    js = v * h * vi;
-    jv = js * v;
-    vij = vi * js;
-    jss = v * s_s * vi;
-    jssv = jss * v;        
-    for (i = 0; i < nops; i++){
-        for (j = 0; j < nops; j++){
-            if(fabs(e(i).real() - e(j).real() + 2. * b0) > 0.00000000001){
-                for(k = 0; k < nops; k++){
-                        c[L][i][j][k] = jv(i, k).real() * vi(k, j).real();
-                        d[L][i][j][k] = -v(i, k).real() * vij(k, j).real();
-                        }
+    for(a = 0; a < nops; a++)
+    {
+        ai.insert(std::pair<std::vector<int>, double > (idx(nf,a), eval(a).real()));
+        for(b = 0; b < nops; b++)
+            for(i = 0; i < nops; i++)
+            {
+                vM0vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf,a,b,i), evec(a, i) * evec_i(i, b))); // QCD LO evolutor
+                for(j = 0; j < nops; j++)
+                {
+                    vM1vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf,a,b,i,j), evec(a, i) * M1(i, j) * evec_i(j, b))); // QCD NLO evolutor
+                    vM2vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf,a,b,i,j), evec(a, i) * M2(i, j) * evec_i(j, b))); // QCD NNLO evolutor
+                    for(p = 0; p < nops; p++)
+                    {
+                    vM11vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf,a,b,i,j,p), evec(a, i) * M2(i, p) * M2(p, j) * evec_i(j, b))); // QCD NNLO evolutor                        
                     }
-            else{    
-                for(k = 0; k < nops; k++){
-                   c[L][i][j][k] = (1./(2. * b0)) * jssv(i, k).real() * vi(k, j).real();
-                   d[L][i][j][k] = 0.;
-                   }   
                 }
             }
-        }
     }
 }
     
-EvolDF1::~EvolDF1() 
-{}
+//EvolDF1::~EvolDF1() 
+//{}
 
 /* Delta F = 1 anomalous dimension in Misiak basis, in the effective basis (C7eff, C8eff)
        ref. for CC,CP,PP QED NLO, QP,QQ,BP,BB QCD NLO, CL,PL NNLO, PQ,QL,LL,BL NLO: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
@@ -102,7 +104,67 @@ EvolDF1::~EvolDF1()
        ref. for MM,QP,QQ,BP,BB QED NLO, BQ NLO: Bobeth, Gambino, Gorbahn, Haisch, JHEP 0404, 071, hep-ph/0312090
                        QM QED,BM??? (in 031209 C7,8 are normalised with alpha_s and not in the effective basis)
 */
-double EvolDF1::Beta_s(int i, double nf)
+
+std::vector<int>& EvolDF1::idx(int nf, int a, int b, int i, int j, int k, int l, int p, int m, int q)
+{
+    if (nf > 6 || nf < 3) throw std::runtime_error("EvolDF1::idx(): wrong number of active flavours");
+    
+    index[0] = nf - 6;
+    index[1] = a;
+    index[2] = b;
+    index[3] = i;
+    index[4] = j;
+    index[5] = k;
+    index[6] = l;
+    index[7] = p;
+    index[8] = m;
+    index[9] = q;
+    
+    return(index);
+}
+
+
+double EvolDF1::f_f(unsigned int nf, unsigned int i, unsigned int j, int k, double eta)
+{
+    if(ai.at(idx(nf,j))+k-ai.at(idx(nf,i)) < EPS) 
+        return(pow(eta, ai.at(idx(nf,i)))*log(eta));
+    else
+        return((pow(eta, ai.at(idx(nf,j))+k)-pow(eta, ai.at(idx(nf,i))))/(ai.at(idx(nf,j))
+                +k-ai.at(idx(nf,i))));
+}
+
+double EvolDF1::f_r(unsigned int nf, unsigned int i, unsigned int j, int k, double eta)
+{
+    double ll = log(eta);
+    
+    if(ai.at(idx(nf,j))+k-ai.at(idx(nf,i)) < EPS) 
+        return(0.5*pow(eta, ai.at(idx(nf,i)))*ll*ll);
+    else
+        return((pow(eta, ai.at(idx(nf,j))+k)*ll-f_f(nf,i,j,k,eta))/(ai.at(idx(nf,j))+k-ai.at(idx(nf,i))));
+}
+
+double EvolDF1::f_g(unsigned int nf, unsigned int i, unsigned int p, unsigned int j, int k, int l, double eta)
+{
+    if(ai.at(idx(nf,j))+l-ai.at(idx(nf,p)) < EPS) 
+        return(f_r(nf,i,p,k,eta));
+    else
+        return((f_f(nf,i,j,k+l,eta)-f_f(nf,i,p,k,eta))/(ai.at(idx(nf,j))+l-ai.at(idx(nf,p))));
+}
+
+//double EvolDF1::f_h(unsigned int i, unsigned int p, unsigned int q, unsigned int j, int k, int l, int m, double eta)
+//{
+//    double ll = log(eta);
+//    if(a(p)+k-a(i) < EPS && a(q)+l-a(p) < EPS && a(j)+m-a(q) < EPS)
+//        return(pow(eta, a(i))* ll * ll * ll / 6.);
+//    else if (a(q)+l-a(p) < EPS && a(j)+m-a(q) < EPS)
+//        return((0.5*pow(eta,a(p)+k)*ll*ll-r(i,p,k,eta))/(a(p)+k-a(i)));
+//    else if(a(j)+m-a(q) < EPS)
+//        return((r(i,q,k+l,eta)-g(i,p,q,k,l,eta))/(a(q)+l-a(p)));
+//    else
+//        return((g(i,p,j,k,l+m,eta)-g(i,p,q,k,l,eta))/(a(j)+m-a(q)));
+//}
+
+double EvolDF1::Beta_s(int i, unsigned int nf)
 {
     switch(i)
     {
@@ -127,7 +189,7 @@ double EvolDF1::Beta_s(int i, double nf)
             throw std::runtime_error("EvolDF1::Beta_s: case not implemented");
     }
 }
-double EvolDF1::Beta_e(int i, double nf)
+double EvolDF1::Beta_e(int i, unsigned int nf)
 {
     if (nf != 5) throw std::runtime_error("EvolDF1::Beta_e only known for nf=5.");
 
@@ -1093,122 +1155,6 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, unsigned int n_u, 
     return (gammaDF1);
 }
 
-//gslpp::matrix<double> EvolDF1::ToRescaleBasis(orders order, unsigned int n_u, unsigned int n_d) const
-//{
-//    
-//    /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
-//       ref. hep-ph/9711280v1, hep-ph/0504194 */
-//    
-//    gslpp::matrix<double> mat(nops, 0.);
-//    gslpp::matrix<double> mat1(nops, 0.);
-//    unsigned int nf = n_u + n_d;
-//    double z3 = gsl_sf_zeta_int(3);
-//    
-//    mat1(0,6) = - 13454./2187. + 44./2187.*nf;
-//    mat1(1,6) = 20644./729. - 88./729.*nf;
-//    mat1(2,6) = 119456./729. + 5440./729.*n_d -21776./729.*n_u;
-//    mat1(3,6) = - 202990./2187. + 32./729.*n_d*n_d + n_d*(16888./2187. + 64./729.*n_u)
-//                - 17132./2187.*n_u + 32./729.*n_u*n_u;
-//    mat1(4,6) = 530240./243. + 300928./729.*n_d - 461120./729.*n_u;
-//    mat1(5,6) = - 1112344./729. + 5432./729.*n_d*n_d + n_d*(419440./2187. - 
-//                2744./729.*n_u) + 143392./2187.*n_u - 8176./729.*n_u*n_u;
-//    
-//    mat1(0,7) = 25759./5832. + 431./5832.*nf;
-//    mat1(1,7) = 9733./486. - 917./972.*nf;
-//    mat1(2,7) = 82873./243. - 3361./243.*nf;
-//    mat1(3,7) = - 570773./2916. - 253./486.*n_d*n_d +n_d*(-40091./5832. - 
-//                253./243.*n_u) - 40091./5832.*n_u - 253./486.*n_u*n_u;
-//    mat1(4,7) = 838684./81. - 14.*n_d*n_d + n_d*(129074./243. - 28.*n_u) + 
-//                129074./243.*n_u - 14.*n_u*n_u;
-//    mat1(5,7) = - 923522./243. - 6031./486.*n_d*n_d + n_d*(-13247./1458. - 6031./243.*n_u)
-//                -13247./1458.*n_u - 6031./486.*n_u*n_u;
-//    
-//    mat1(0,8) = - 2357278./19683. + 14440./6561.*n_d + 144688./6561.*n_u + 6976./243.*z3;
-//    mat1(1,8) = - 200848./6561. - 23696./2187.*n_d + 30736./2187.*n_u - 3584./81.*z3;
-//    mat1(2,8) = - 1524104./6561. - 176./27.*n_d*n_d + 352./27.*n_u*n_u +
-//                n_d*(257564./2187. + 176./27.*n_u - 128./3.*z3) - 256./81.*z3 + 
-//                n_u*(-382984./2187. + 256./3.*z3); 
-//    mat1(3,8) = 1535926./19683. + 1984./2187.*n_d*n_d - 5792./2187.*n_u*n_u +
-//                n_d*(-256901./6561. - 3808./2187.*n_u - 2720./81.*z3) - 
-//                5056./243.*z3 + n_u*(34942./6561. + 1600./81.*z3);
-//    mat1(4,8) = - 31433600./6561. - 2912./27.*n_d*n_d + 5824./27.*n_u*n_u +
-//                n_d*(- 3786616./2187. + 2912./27.*n_u - 1280./3.*z3) -
-//                4096./81.*z3 + n_u*(7525520./2187. + 2560./3.*z3);
-//    mat1(5,8) = 48510784./19683. -51296./2187.*n_d*n_d + 54976./2187.*n_u*n_u +
-//                n_u*(-11231648./6561. - 22016./81.*z3) + n_d*(340984./6561. + 
-//                3680./2187.*n_u - 8192./81.*z3) - 80896./243.*z3;
-//     
-//    
-//    switch(order){
-//        case(NLO): 
-//            mat = AnomalousDimension_M(NLO, n_u, n_d);
-//            for (unsigned int i=0; i<6; i++){
-//                for (unsigned int j=6; j<nops; j++){
-//                    mat(i,j) = mat1(i,j);
-//                }
-//            }
-//            for (unsigned int i=6; i<nops; i++){
-//                for (unsigned int j=6; j<nops; j++){
-//                    mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta1(nf);
-//                }
-//            }
-//            return (mat);
-//        case(LO):
-//            mat = AnomalousDimension_M(LO, n_u, n_d);
-//            for (unsigned int i=0; i<6; i++){
-//                for (unsigned int j=6; j<nops; j++){
-//                    mat(i,j) = AnomalousDimension_M(NLO, n_u, n_d)(i,j);
-//                }
-//            }
-//            for (unsigned int i=6; i<nops; i++){
-//                for (unsigned int j=6; j<nops; j++){
-//                    mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta0(nf);
-//                }
-//            }
-//            return (mat);
-//        default:
-//            throw std::runtime_error("change to rescaled operator basis: order not implemented"); 
-//    }
-//    
-//}
-
-//gslpp::matrix<double> EvolDF1::ToEffectiveBasis(gslpp::matrix<double> mat) const
-//{
-//    
-//    gslpp::matrix<double> y(nops, 0.);
-//    
-//    y(0,0) = 1.;
-//    y(1,1) = 1.;
-//    y(2,2) = 1.;
-//    y(3,3) = 1.;
-//    y(4,4) = 1.;
-//    y(5,5) = 1.;
-//    y(6,6) = 1.;
-//    y(7,7) = 1.;
-//    y(8,8) = 1.;
-//    y(9,9) = 1.;
-//    y(10,10) = 1.;
-//    y(11,11) = 1.;
-//    y(12,12) = 1.;
-//    
-//    y(6,2) = -1./3.;
-//    y(6,3) = -4./9.;
-//    y(6,4) = -20./3.;
-//    y(6,5) = -80./9.;
-//    
-//    y(7,2) = 1.;
-//    y(7,3) = -1./6.;
-//    y(7,4) = 20.;
-//    y(7,5) = -10./3.;
-//    
-//    y(8,2) = 4./3.;
-//    y(8,4) = 64./9.;
-//    y(8,5) = 64./27.; // Add terms proportional to Log(mb/mub))
-//    
-//    return( (y.inverse()).transpose() * mat * y.transpose() );
-//    
-//}
-
 gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schemes scheme) 
 {
     
@@ -1235,7 +1181,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schem
     if (M < mu) {
         std::stringstream out;
         out << "M = " << M << " < mu = " << mu;
-        throw out.str();
+        throw std::runtime_error("EvolDF1::Df1Evol(): " + out.str() + ".");
     }
 
     setScales(mu, M); // also assign evol to identity
@@ -1244,7 +1190,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schem
     double m_up = model.AboveTh(m_down);
     double nf = model.Nf(m_down);
     
-    while (m_up < M) {
+    while (m_up < M) {  // where are the nf thresholds? ???? <<<<<<<<<<
         DF1Evol(m_down, m_up, nf, scheme);
         m_down = m_up;
         m_up = model.AboveTh(m_down);
@@ -1253,43 +1199,36 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schem
     DF1Evol(m_down, M, nf, scheme);
     
     return (*Evol(order));
+}
     
-    }
-    
- void EvolDF1::DF1Evol(double mu, double M, double nf, schemes scheme) 
+ void EvolDF1::DF1Evol(double mu, double M, int nf, schemes scheme) 
  {
-
     gslpp::matrix<double> resLO(nops, 0.), resNLO(nops, 0.), resNNLO(nops, 0.);
+    unsigned int a,b,i,j,p;
 
-    int L = 6 - (int) nf;
+
     double alsM = model.Als(M) / 4. / M_PI;
     double alsmu = model.Als(mu) / 4. / M_PI;
     
     double eta = alsM / alsmu;
     
-    for (unsigned int k = 0; k < nops; k++) {
-        double etap = pow(eta, a[L][k] / 2. / model.Beta0(nf));
-        for (unsigned int i = 0; i < nops; i++){
-            for (unsigned int j = 0; j < nops; j++) {
-                resNNLO(i, j) += 0.;
-                
-                if(fabs(e(i).real() - e(j).real() + 2. * model.Beta0(nf))>0.000000000001)  {
-                    resNLO(i, j) += c[L][i][j][k] * etap * alsmu;
-                    resNLO(i, j) += d[L][i][j][k] * etap * alsM;
+    for (a = 0; a < nops; a++)
+        for (b = 0; b < nops; b++)
+            for (i = 0; i < nops; i++)
+            {
+                resLO.assign(a, b, (vM0vi.at(idx(nf,a,b,i)) * pow(eta, ai.at(idx(nf,i)))).real());
+                for(j = 0; j < nops; j++)
+                {
+                    resNLO.assign(a, b, (vM1vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-1,eta)).real());
+                    resNNLO.assign(a, b, (vM2vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-2,eta)).real());
+                    for(p = 0; p < nops; p++)
+                        resNNLO(a, b) += (vM11vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,-1,eta)).real();
                 }
-                else{
-                    resNLO(i, j) += - c[L][i][j][k] * etap * alsmu * log(eta);    
-                }        
-                resLO(i, j) += b[L][i][j][k] * etap;
-                if (fabs(resLO(i, j)) < 1.e-12) {resLO(i, j) = 0.;}
-                if (fabs(resNLO(i, j)) < 1.e-12) {resNLO(i, j) = 0.;}
             }
-        }
-    }
-    
+
     switch(order) {
         case NNLO:
-            *elem[NNLO] = 0.;
+            *elem[NNLO] = (*elem[LO]) * resNNLO + (*elem[NLO]) * resNLO + (*elem[NNLO]) * resLO;
         case NLO:
             *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
         case LO:
@@ -1298,8 +1237,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schem
         case FULLNNLO:
         case FULLNLO:
         default:
-            throw std::runtime_error("Error in EvolDF1bsg::Df1Evolbsg()");
+            throw std::runtime_error("Error in EvolDF1::Df1Evol()");
     }   
   }
- 
 
