@@ -28,6 +28,7 @@
       <itemPath>src/gslpp_matrix_complex.cpp</itemPath>
       <itemPath>src/gslpp_matrix_double.cpp</itemPath>
       <itemPath>src/gslpp_rgerunner.cpp</itemPath>
+      <itemPath>src/gslpp_special_functions.cpp</itemPath>
       <itemPath>src/gslpp_vector_complex.cpp</itemPath>
       <itemPath>src/gslpp_vector_double.cpp</itemPath>
     </logicalFolder>
@@ -144,6 +145,8 @@
       </item>
       <item path="src/gslpp_rgerunner.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gslpp_special_functions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/gslpp_special_functions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_vector_base.h" ex="false" tool="3" flavor2="0">
@@ -251,6 +254,8 @@
       </item>
       <item path="src/gslpp_rgerunner.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/gslpp_special_functions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/gslpp_special_functions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/gslpp_vector_base.h" ex="false" tool="3" flavor2="0">
@@ -357,6 +362,8 @@
       <item path="src/gslpp_rgerunner.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gslpp_rgerunner.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/gslpp_special_functions.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/gslpp_special_functions.h" ex="false" tool="3" flavor2="0">
       </item>
