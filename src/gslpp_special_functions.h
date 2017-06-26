@@ -15,14 +15,10 @@
 #ifndef GSLPP_SPECIAL_FUNCTIONS_H
 #define GSLPP_SPECIAL_FUNCTIONS_H
 
-#include <gsl/gsl_sf_zeta.h>
-#include <gsl/gsl_sf_dilog.h>
-#include <gsl/gsl_sf_clausen.h>
-
 namespace gslpp_special_functions { 
-    double zeta(int i) { return gsl_sf_zeta_int(i); }
-    double clausen(double x) { return gsl_sf_clausen(x); }
-    double dilog(double x) { return gsl_sf_dilog(x); }
+    double zeta(int i);
+    double clausen(double x);
+    double dilog(double x);
 }
 
 #endif /* GSLPP_SPECIAL_FUNCTIONS_H */
