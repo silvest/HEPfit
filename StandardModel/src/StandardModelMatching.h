@@ -9,7 +9,7 @@
 #define	STANDARDMODELMATCHING_H
 
 #include "ModelMatching.h"
-#include <gslpp.h>
+#include "gslpp.h"
 
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
 
@@ -539,16 +539,22 @@ public:
      * Operator block: L (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    virtual std::vector<WilsonCoefficient> CMDF1s(std::string blocks, unsigned int nops, schemes scheme, orders order);
+    virtual std::vector<WilsonCoefficient> CMDF1(std::string blocks, unsigned int nops, schemes scheme, orders order);
 
+    double getMt_mut() const {
+        return Mt_mut;
+    }
+
+    double xt() const {
+        return Mt_mut*Mt_mut/Mw/Mw;
+    }
      
 protected:
-    std::vector<WilsonCoefficient> vmcDF1s;
+    std::vector<WilsonCoefficient> vmcDF1;
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2;
     std::vector<WilsonCoefficient> vmckpnn, vmcbsnn, vmcbdnn, vmcbtaunu;
     std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j, vmcmueconv, vmcgminus2mu;
-    std::vector<WilsonCoefficient> vmcCs, vmcPs, vmcMs, vmcLs, vmcQs, vmcBs;
-    std::vector<WilsonCoefficient> vmcCe, vmcPe, vmcMe, vmcLe, vmcQe, vmcBe;
+    std::vector<WilsonCoefficient> vmcC, vmcP, vmcM, vmcL, vmcQ, vmcB;
     
 private:
     unsigned int setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int nops, unsigned int tot, schemes scheme, orders order);
@@ -558,92 +564,45 @@ private:
      * Operator block: C (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_Cs();
+    std::vector<WilsonCoefficient>& mc_C();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: P (4)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_Ps();
+    std::vector<WilsonCoefficient>& mc_P();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: M (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
+     * QED only available at NLO and in approximate formulas
+     * QED ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058
      */
-    std::vector<WilsonCoefficient>& mc_Ms();
+    std::vector<WilsonCoefficient>& mc_M();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: L (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_Ls();
+    std::vector<WilsonCoefficient>& mc_L();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: Q (4)
      * Normalization: 4 G_F / sqrt(2) x CKM
+     * QED_NLO ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058 - COULD BE CHANGED TO X,Y,W
      */
-    std::vector<WilsonCoefficient>& mc_Qs();
+    std::vector<WilsonCoefficient>& mc_Q();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: B (1)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_Bs();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: C (2)
-     * QED corrections
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    std::vector<WilsonCoefficient>& mc_Ce();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: P (4)
-     * QED corrections
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    std::vector<WilsonCoefficient>& mc_Pe();
-
-    /*
-     * Wilson coefficients Misiak basis, effective basis
-     * Operator block: M (2)
-     * QED corrections
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     * Only available at NLO and in approximate formulas
-     * ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058
-     */
-    std::vector<WilsonCoefficient>& mc_Me();
-
-    /*
-     * Wilson coefficients Misiak basis, effective basis
-     * Operator block: L (2)
-     * QED corrections
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    std::vector<WilsonCoefficient>& mc_Le();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: Q (4)
-     * QED corrections
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    std::vector<WilsonCoefficient>& mc_Qe();
-
-    /*
-     * Wilson coefficients Misiak basis
-     * Operator block: B (1)
-     * QED corrections
-     * Normalization: 4 G_F / sqrt(2) x CKM
-     */
-    std::vector<WilsonCoefficient>& mc_Be();
+    std::vector<WilsonCoefficient>& mc_B();
         
     /**
      * 
@@ -731,8 +690,7 @@ private:
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2;
     WilsonCoefficient mckpnn, mcbsnn, mcbdnn, mcbtaunu;
     WilsonCoefficient mcDLij,mcDLi3j,mcmueconv,mcgminus2mu;
-    WilsonCoefficient mcCs, mcPs, mcMs, mcLs, mcQs, mcBs;
-    WilsonCoefficient mcCe, mcPe, mcMe, mcLe, mcQe, mcBe;
+    WilsonCoefficient mcC, mcP, mcM, mcL, mcQ, mcB;
     
     double Mut, Muw, Ale, GF, Mw_tree, Nc, CF, Mt_muw, Mt_mut;
     double gamma0, J5, BtNDR, Mw, sW2, mu_b;

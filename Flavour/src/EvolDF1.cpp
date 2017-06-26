@@ -1191,12 +1191,12 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schem
     double nf = model.Nf(m_down);
     
     while (m_up < M) {  // where are the nf thresholds? ???? <<<<<<<<<<
-        DF1Evol(m_down, m_up, nf, scheme);
+        DF1Evol(m_down, m_up, (int) nf, scheme);
         m_down = m_up;
         m_up = model.AboveTh(m_down);
         nf += 1.;
     }
-    DF1Evol(m_down, M, nf, scheme);
+    DF1Evol(m_down, M, (int) nf, scheme);
     
     return (*Evol(order));
 }

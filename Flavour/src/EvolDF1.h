@@ -79,6 +79,8 @@ public:
 //    {{"C",2},{"CP",6},{"CPM",8},{"L",2},{"CPML",10},{"CPQB",11},{"CPMQB",13},{"CPMLQB",15}};
     std::map<std::string,orders> blocks_ord;// = {{"C",NNLO},{"CP",NNLO},{"CPM",NNLO},{"L",NNLO},{"CPML",NNLO},{"CPQB",NLO},{"CPMQB",NLO},{"CPMLQB",NLO}};
 
+    double alphatilde_s(double mu) { return 0.; } // to be fixed
+        
 private:
    
     /**
@@ -296,7 +298,7 @@ private:
      * @return coefficient of the beta function
      */
     double Beta_s(int i, unsigned int nf);
-
+    
     /**
      * @brief QED beta function coefficients - eq. (36) hep-ph/0512066
      * @param powers of alpha_s and alpha_e as an integer
@@ -304,7 +306,8 @@ private:
      * @return coefficient of the beta function
      */
     double Beta_e(int i, unsigned int nf);
-    
+
+
     /**
      * @brief auxiliary function f - eq. (50) of Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
      * @param i matrix index

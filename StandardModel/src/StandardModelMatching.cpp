@@ -19,7 +19,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcdbs2(5, NDR, NLO),
         mcdd2(5, NDR, NLO),
         mcdk2(5, NDR, NLO),
-        mckpnn(1, NDR, NLO, NLO_QED),
+        mckpnn(1, NDR, NLO, NLO_QED11),
         mcbsnn(1, NDR, NLO),
         mcbdnn(1, NDR, NLO),
         mcbtaunu(3, NDR, LO),
@@ -27,18 +27,12 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcDLi3j(20, NDR, LO),
         mcmueconv(8, NDR, LO),
         mcgminus2mu(2, NDR, NLO),
-        mcCs(2, NDR, NNLO),
-        mcPs(4, NDR, NNLO),
-        mcMs(2, NDR, NNLO),
-        mcLs(2, NDR, NNLO),
-        mcQs(4, NDR, NLO),
-        mcBs(1, NDR, NLO),
-        mcCe(2, NDR, NLO),
-        mcPe(4, NDR, NLO),
-        mcMe(2, NDR, NLO),
-        mcLe(2, NDR, NLO),
-        mcQe(4, NDR, NLO),
-        mcBe(1, NDR, NLO),
+        mcC(2, NDR, NNLO, NLO_QED11),
+        mcP(4, NDR, NNLO, NLO_QED21),
+        mcM(2, NDR, NNLO, NLO_QED11),
+        mcL(2, NDR, NNLO, NLO_QED22),
+        mcQ(4, NDR, NLO, NLO_QED21),
+        mcB(1, NDR, NLO, NLO_QED11),
         Vckm(SM.getVCKM())
 {    
     Nc = SM.getNc();
@@ -83,6 +77,22 @@ double StandardModelMatching::x_c(const double mu, const orders order) const
     return mc*mc/Mw/Mw;    
 }
 
+double StandardModelMatching::x_t(const double mu, const orders order) const 
+{
+    double mt;
+    
+    if(mu == Mut)
+        mt = Mt_mut;
+    else if (mu == Mw)
+        mt = Mt_muw;
+    else
+        mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), order);
+
+    //msbar mass here?
+    //mt=163.836;
+    return mt*mt/Mw/Mw;   
+}
 
 double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
 {
@@ -125,7 +135,7 @@ double StandardModelMatching::S11(double x) const
     double xm4 = xm3 * (x - 1);
     
     return (x * (4. - 39. * x + 168. * x2 + 11. * x3) / 4. / xm3
-            + 3. * x3 * gsl_sf_dilog(1. - x) * (5. + x) / xm3
+            + 3. * x3 * gslpp_special_functions::dilog(1. - x) * (5. + x) / xm3
             + 3. * x * log(x)*(-4. + 24. * x - 36. * x2 - 7. * x3 - x4) / 2.
             / xm4 + 3. * x3 * pow(log(x), 2.) * (13. + 4. * x + x2) / 2.
             / xm4);
@@ -139,7 +149,7 @@ double StandardModelMatching::S18(double x) const
     double xm2 = (x - 1.) * (x - 1.);
     double xm3 = xm2 * (x - 1.);
     return ((-64. + 68. * x + 17. * x2 - 11. * x3) / 4. / xm2
-            + pow(M_PI, 2.) * 8./3. / x + 2. * gsl_sf_dilog(1. - x) * (8. - 24. * x
+            + pow(M_PI, 2.) * 8./3. / x + 2. * gslpp_special_functions::dilog(1. - x) * (8. - 24. * x
             + 20. * x2 - x3 + 7. * x4 - x4 * x) / (x * xm3)
             + log(x)*(-32. + 68. * x - 32. * x2 + 28. * x3 - 3. * x4)
             / (2. * xm3) + x2 * pow(log(x), 2.) * (4. - 7. * x + 7. * x2
@@ -217,7 +227,7 @@ double StandardModelMatching::A1t(double x, double mu) const
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     
-    return ((32. * x4 + 244. * x3 - 160. * x2 + 16. * x)/9./xm4 * gsl_sf_dilog(1.- 1./x) +
+    return ((32. * x4 + 244. * x3 - 160. * x2 + 16. * x)/9./xm4 * gslpp_special_functions::dilog(1.- 1./x) +
             (-774. * x4 - 2826. * x3 + 1994. *x2 - 130. * x + 8.)/81./xm5 * log(x) + 
             (-94. * x4 - 18665. * x3 + 20682. * x2 - 9113. * x + 2006.)/243./xm4 +
             ((-12. * x4 - 92. * x3 + 56. * x2)/3./(1.-x)/xm4 * log(x) + 
@@ -232,7 +242,7 @@ double StandardModelMatching::B1t(double x, double mu) const
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     
-    return (-2. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (-x2 + 17. * x)/(3. * xm3)*log(x) + (13. * x + 3.)/(3. * xm2) + 
+    return (-2. * x)/xm2 * gslpp_special_functions::dilog(1.- 1./x) + (-x2 + 17. * x)/(3. * xm3)*log(x) + (13. * x + 3.)/(3. * xm2) + 
             ( (2. * x2 + 2. * x)/xm3*log(x) + (4. * x)/xm2 ) * 2. * log(mu / mt);
     /*(2. * x)/xm2 * gsl_sf_dilog(1.-x) + (3. * x2 + x)/xm3 * log(x) * log(x) + (-11. * x2 - 5. * x)/(3. * xm3) * log(x) +
             (-3. * x2 + 19. * x)/(3. * xm2) + 16. * x * (2. * (x - 1.) - (1. + x) * log(x))/(4. * xm3) * log(mu / Mw);*/
@@ -247,7 +257,7 @@ double StandardModelMatching::C1t(double x, double mu) const
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
    
-    return (-x3 - 4. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (3. * x3 + 14. * x2 + 23 * x)/(3. * xm3)*log(x) + 
+    return (-x3 - 4. * x)/xm2 * gslpp_special_functions::dilog(1.- 1./x) + (3. * x3 + 14. * x2 + 23 * x)/(3. * xm3)*log(x) + 
             (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) + ( (8. * x2 + 2. * x)/xm3*log(x) + (x3 + x2 + 8. * x)/xm2) * 2. * log(mu / mt);
     /*(x3 + 4. * x)/xm2 * gsl_sf_dilog(1.-x) + (x4 - x3  + 20. * x2)/(2. * xm3) * log(x) * log(x) +
             (-3. * x4 - 3. * x3 - 35. * x2 + x)/(3. * xm3) * log(x) + (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) +
@@ -264,7 +274,7 @@ double StandardModelMatching::D1t(double x, double mu) const
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     
-    return (380. * x4 - 1352. * x3 + 1656. * x2 - 784. * x + 256.)/(81. * xm4) * gsl_sf_dilog(1.- 1./x) +
+    return (380. * x4 - 1352. * x3 + 1656. * x2 - 784. * x + 256.)/(81. * xm4) * gslpp_special_functions::dilog(1.- 1./x) +
             (304. * x4 + 1716. * x3 - 4644. * x2 + 2768. * x - 720.)/(81. * xm5)*log(x) +
             (-6175. * x4 + 41608. * x3 - 66723. * x2 + 33106. * x - 7000.)/(729. * xm4) +
             ( (648. * x4 - 720. * x3 - 232. * x2 - 160. * x + 32.)/(81. * xm5)*log(x) + 
@@ -281,7 +291,7 @@ double StandardModelMatching::F1t(double x, double mu) const
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     
-    return ((4. * x4 - 40. * x3 - 41. * x2 - x)/3./xm4 * gsl_sf_dilog(1.- 1./x) +
+    return ((4. * x4 - 40. * x3 - 41. * x2 - x)/3./xm4 * gslpp_special_functions::dilog(1.- 1./x) +
             (-144. * x4 + 3177. * x3 + 3661. * x2 + 250. * x - 32.)/108./xm5 * log(x)
             + (-247. * x4 + 11890. * x3 + 31779. * x2 - 2966. * x + 1016.)/648./xm4
             + ((17. * x3 + 31. * x2)/xm5 * log(x) + (- 35. * x4 + 170. * x3 + 447. * x2  
@@ -300,7 +310,7 @@ double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(),
                 SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
 
  
-return (515. * x4 - 614. * x3 - 81. * x2 - 190. * x + 40.)/(54. * xm4) * gsl_sf_dilog(1.- 1./x) +
+return (515. * x4 - 614. * x3 - 81. * x2 - 190. * x + 40.)/(54. * xm4) * gslpp_special_functions::dilog(1.- 1./x) +
 (-1030. * x4 + 435. * x3 + 1373. * x2 + 1950. * x - 424.)/(108. * xm5) * log(x) +
 (-29467. * x4 + 45604. * x3 - 30237. * x2 + 66532. * x - 10960.)/(1944. * xm4) +
 ( (-1125. * x3 + 1685. * x2 + 380. * x - 76.)/(54. * xm5)*log(x) + 
@@ -319,7 +329,7 @@ double xm4 = pow(1. - x, 4);
 double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                 SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
   
-return (10. * x4 - 100. * x3 + 30. * x2 + 160. * x - 40.)/(27. * xm4) * gsl_sf_dilog(1.- 1./x) +
+return (10. * x4 - 100. * x3 + 30. * x2 + 160. * x - 40.)/(27. * xm4) * gslpp_special_functions::dilog(1.- 1./x) +
 (30. * x3 - 42. * x2 - 332. * x + 68.)/(81. * xm4)*log(x) +
 (-6. * x3 - 293. * x2 + 161. * x + 42.)/(81. * xm3) +
 ( (90. * x2 - 160. * x + 40.)/(27. * xm4)*log(x) + 
@@ -355,7 +365,7 @@ double xm1to6 = xm1to5*(x-1.);
 double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                 SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
   
-return ( 2. * log(mu/mt) * (gsl_sf_dilog(1.- 1./x) * (-592. * x5 - 22.* x4 + 12814. * x3 - 6376. * x2 + 512. * x )/27./xm1to5 
+return ( 2. * log(mu/mt) * (gslpp_special_functions::dilog(1.- 1./x) * (-592. * x5 - 22.* x4 + 12814. * x3 - 6376. * x2 + 512. * x )/27./xm1to5 
         + log(x) * (-26838. * x5 + 25938. * x4 + 627367. * x3 - 331956. * x2 + 16989. * x - 460.)/729./xm1to6 
         + (34400. * x5 + 276644.*x4 - 2668324. * x3 + 1694437.*x2 - 323354.*x + 53077.)/2187./xm1to5) 
         + 4.*log(mu/mt)*log(mu/mt) * (log(x)*(-63. * x5 + 532. * x4 + 2089. * x3 - 1118. * x2)/9./xm1to6  
@@ -393,7 +403,7 @@ double xm1to6 = xm1to5*(x-1.);
 double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                 SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
   
-return ( 2. * log(mu/mt) * (gsl_sf_dilog(1.- 1./x) * (-148. * x5 + 1052. * x4 - 4811. * x3 - 3520. * x2 - 61. * x)/18./xm1to5 
+return ( 2. * log(mu/mt) * (gslpp_special_functions::dilog(1.- 1./x) * (-148. * x5 + 1052. * x4 - 4811. * x3 - 3520. * x2 - 61. * x)/18./xm1to5 
         + log(x) * (-15984. * x5 + 152379. * x4 - 1358060. * x3 - 1201653. * x2 - 74190. * x + 9188.)/1944./xm1to6 
         + (109669. * x5 - 1112675. * x4 + 6239377. * x3 + 8967623. * x2 + 768722. * x - 42796.)/11664./xm1to5) 
         + 4. * log(mu/mt) * log(mu/mt) * (log(x) * (-139. * x4 - 2938. * x3 - 2683. * x2)/12./xm1to6 
@@ -403,7 +413,7 @@ return ( 2. * log(mu/mt) * (gsl_sf_dilog(1.- 1./x) * (-148. * x5 + 1052. * x4 - 
 
 double StandardModelMatching::Tt(double x) const
 {
-return ((-(16. * x + 8.) * sqrt(4. * x - 1.) * gsl_sf_clausen(2. * asin(1./2./sqrt(x)))) +((16. * x + 20./3.) * log(x)) + (32. * x) + (112./9.)) ;
+return ((-(16. * x + 8.) * sqrt(4. * x - 1.) * gslpp_special_functions::clausen(2. * asin(1./2./sqrt(x)))) +((16. * x + 20./3.) * log(x)) + (32. * x) + (112./9.)) ;
 }
 
 double StandardModelMatching::Wt(double x) const
@@ -462,7 +472,7 @@ double StandardModelMatching::Y1(double x, double mu) const
     
     return ((10. * x + 10. * x2 + 4. * x3)/(3 * xm2) - (2. * x - 8. * x2 - x3 - x4)/xm3 * logx 
             + (2. * x - 14. * x2 + x3 - x4)/(2. * xm3) * pow(logx, 2.) 
-            + (2. * x + x3)/xm2 * gsl_sf_dilog(1. - x) 
+            + (2. * x + x3)/xm2 * gslpp_special_functions::dilog(1. - x) 
             + 16. * x * (-4. + 3. * x + x3 - 6. * x * logx)/(8. * -xm3) * log(mu / Mw));
 }
 
@@ -489,7 +499,7 @@ double StandardModelMatching::C7NLOeff(double x) const
     double xm5 = xm4 * (x - 1);
     double logx = log(x);
     
-    double Li2 = gsl_sf_dilog(1.-1./x);
+    double Li2 = gslpp_special_functions::dilog(1.-1./x);
     return( Li2 * ( -16. * x4 - 122. * x3 + 80. * x2 - 8. * x) / (9. * xm4) +
             (6. * x4 + 46. * x3 -28. * x2) / (3. * xm5) * logx * logx +
             (-102. * x4 * x - 588. * x4 - 2262. * x3 + 3244. * x2 - 1364. * x + 208.) / (81. * xm5) * logx +
@@ -505,7 +515,7 @@ double StandardModelMatching::C8NLOeff(double x) const
     double xm5 = xm4 * (x - 1);
     double logx = log(x);
     
-    double Li2 = gsl_sf_dilog(1.-1./x);
+    double Li2 = gslpp_special_functions::dilog(1.-1./x);
     return(Li2 * ( -4. * x4 + 40. * x3 + 41. * x2 + x) / (6. * xm4) +
             (-17. * x3 - 31. * x2) / (2. * xm5) * logx * logx +
             (-210. * x * x4 + 1086. * x4 + 4893. * x3 + 2857. * x2 - 1994. * x + 280.)/(216. * xm5) * logx +
@@ -692,7 +702,7 @@ double StandardModelMatching::X1t(double x) const{
     return (-(29. * x - x2 -4. * x3) / (3. * (1. - x) * (1. - x))
             - logx * (x + 9. * x2 - x3 - x4) / xm3
             + logx * logx * (8. * x + 4. * x2 + x3 - x4) / (2. * xm3)
-            - gsl_sf_dilog(1.-x) * (4. * x - x3) / ((1. - x) * (1. - x))
+            - gslpp_special_functions::dilog(1.-x) * (4. * x - x3) / ((1. - x) * (1. - x))
             - 8. * x * log(Mut*Mut/Muw/Muw) * (8. - 9. * x + x3 + 6. * logx)/8./xm3 );
   }
 
@@ -824,11 +834,11 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     C[13] = logx * loga / (2. * a * xm3 * x * axm);
     
-    C[14] = gsl_sf_dilog(1. - a) / xm2;
+    C[14] = gslpp_special_functions::dilog(1. - a) / xm2;
     
-    C[15] = gsl_sf_dilog(1. - x) / a / x;
+    C[15] = gslpp_special_functions::dilog(1. - x) / a / x;
     
-    C[16] = gsl_sf_dilog(1. - a * x) / (a * x * xm2); 
+    C[16] = gslpp_special_functions::dilog(1. - a * x) / (a * x * xm2); 
     
     for (int i=0; i<10; i++){
         b += C[i]*A[i];
@@ -840,10 +850,10 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
 double StandardModelMatching::phi1(double z) const{
     if (z >= 0.) {
         if (z < 1){
-                return(4. * sqrt(z / (1. - z)) * gsl_sf_clausen(2. * asin(sqrt(z))));
+                return(4. * sqrt(z / (1. - z)) * gslpp_special_functions::clausen(2. * asin(sqrt(z))));
         }
         else{
-            return((1. / sqrt(1. - 1. / z)) * (2. * log(0.5 * sqrt(1. - 1. / z)) * log(0.5 * sqrt(1. -1. / z))- 4. * gsl_sf_dilog(0.5 * (1. - sqrt(z / (1. - z)))) - log(4. * z) * log(4. * z)
+            return((1. / sqrt(1. - 1. / z)) * (2. * log(0.5 * sqrt(1. - 1. / z)) * log(0.5 * sqrt(1. -1. / z))- 4. * gslpp_special_functions::dilog(0.5 * (1. - sqrt(z / (1. - z)))) - log(4. * z) * log(4. * z)
                     + M_PI * M_PI / 3.));
         }
     }
@@ -859,12 +869,12 @@ double StandardModelMatching::phi2(double x, double y) const{
     double l = sqrt((1. - x - y) * (1. - x - y) - 4. * x * y);
     
     if ((l * l) >= 0. || (sqrt(x) + sqrt(y)) <= 1.){
-        return( 1. / l * (M_PI * M_PI/3. + 2. * log(0.5 * (1. + x - y - l)) * log(0.5 * (1. - x + y - l)) - log(x) * log(y) - 2. * gsl_sf_dilog(0.5 * (1. + x - y - l)) - 2. * gsl_sf_dilog(0.5 * (1. -x + y - l))));
+        return( 1. / l * (M_PI * M_PI/3. + 2. * log(0.5 * (1. + x - y - l)) * log(0.5 * (1. - x + y - l)) - log(x) * log(y) - 2. * gslpp_special_functions::dilog(0.5 * (1. + x - y - l)) - 2. * gslpp_special_functions::dilog(0.5 * (1. -x + y - l))));
     }
     else if((l * l) < 0. || (sqrt(x) + sqrt(y)) > 1.){
-        return(2./( -l * l) * (gsl_sf_clausen(2. * acos((-1. + x + y)/(2. * sqrt(x * y))))
-                +gsl_sf_clausen(2. * acos((1. + x - y) / (2. * sqrt(x))))
-                +gsl_sf_clausen(2. * acos((1. - x + y) / (2. * sqrt(y))))));
+        return(2./( -l * l) * (gslpp_special_functions::clausen(2. * acos((-1. + x + y)/(2. * sqrt(x * y))))
+                +gslpp_special_functions::clausen(2. * acos((1. + x - y) / (2. * sqrt(x))))
+                +gslpp_special_functions::clausen(2. * acos((1. - x + y) / (2. * sqrt(y))))));
     }
     else{
         std::stringstream out;
@@ -1079,44 +1089,48 @@ double StandardModelMatching::phi_xy(double x, double y) const
 }
 
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Cs()
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_C()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
     
-    vmcCs.clear();
+    vmcC.clear();
 
-    switch (mcCs.getScheme()) {
+    switch (mcC.getScheme()) {
         case NDR:
             //case HV:
             //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcCs.getScheme();
-            throw "StandardModel::mc_Cs(): scheme " + out.str() + "not implemented";
+            out << mcC.getScheme();
+            throw "StandardModel::mc_C(): scheme " + out.str() + "not implemented";
     }
 
-    mcCs.setMu(Muw); // cleared too
+    mcC.setMu(Muw); // cleared too
     
-    switch (mcCs.getOrder()) {
+    switch (mcC.getOrder()) {
+        case NLO_QED11:
+            mcC.setCoeff(1, aletilde*(-22./9. - 4./3.*Lz + 1./9.), NLO);
+        case LO_QED:
+            break;
         case NNLO:
-            mcCs.setCoeff(0, alstilde*alstilde*(-Tt(xt)+7987./72.+17./3.*M_PI*M_PI+
+            mcC.setCoeff(0, alstilde*alstilde*(-Tt(xt)+7987./72.+17./3.*M_PI*M_PI+
                              L*475./6.+17.*L*L), NNLO);
-            mcCs.setCoeff(1, alstilde*alstilde*(127./18.+M_PI*M_PI*4./3.+L*46./3.+4.*L*L),
+            mcC.setCoeff(1, alstilde*alstilde*(127./18.+M_PI*M_PI*4./3.+L*46./3.+4.*L*L),
                     NNLO);
         case NLO:
-            mcCs.setCoeff(0, alstilde*(15.+6.*L), NLO);
+            mcC.setCoeff(0, alstilde*(15.+6.*L), NLO);
         case LO:         
-            mcCs.setCoeff(1, 1., LO);
+            mcC.setCoeff(1, 1., LO);
             break;
         default:
             std::stringstream out;
-            out << mcCs.getOrder();
-            throw "StandardModelMatching::mc_Cs(): order " + out.str() + "not implemented";
+            out << mcC.getOrder();
+            throw "StandardModelMatching::mc_C(): order " + out.str() + "not implemented";
     }
 
-    vmcCs.push_back(mcCs);
-    return (vmcCs);
+    vmcC.push_back(mcC);
+    return (vmcC);
 }
 
 double StandardModelMatching::C3funNNLO(double x)
@@ -1149,43 +1163,62 @@ double StandardModelMatching::C6funNNLO(double x)
     return(-3./16.*G1t(x,Muw)+0.25*E0t(x)+85./162.+5./108.*M_PI*M_PI+35./108.*L+5./36*L*L);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ps()
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_P()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
+    double xz = SM.getMz()*SM.getMz()/Mw/Mw;
 
-    vmcPs.clear();
+    vmcP.clear();
 
-    switch (mcPs.getScheme()) {
+    switch (mcP.getScheme()) {
         case NDR:
             //case HV:
             //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcPs.getScheme();
-            throw "StandardModel::mc_Ps(): scheme " + out.str() + "not implemented";
+            out << mcP.getScheme();
+            throw "StandardModel::mc_P(): scheme " + out.str() + "not implemented";
     }
 
-    mcPs.setMu(Muw); // cleared too
+    mcP.setMu(Muw); // cleared too
     
-    switch (mcPs.getOrder()) {
+    switch (mcP.getOrder()) {
+        case NLO_QED21:
+            mcP.setCoeff(0, aletilde*alstilde*(1./sW2*(4./9.*B1d(xt,Muw) + 4./27.*B1d_tilde(xt,Muw) + 2./9.*B1u(xt,Muw) +
+                                                2./27.*B1u_tilde(xt,Muw) - 2./9.*C1ew(xt) + 320./27.*B0b(xt) +
+                                                160./27.*C0b(xt))), NNLO);
+            mcP.setCoeff(1, aletilde*alstilde*(16./27.*C0b(xt) + 1./sW2*(8./9.*B1d_tilde(xt,Muw) + 4./9.*B1u_tilde(xt,Muw) -
+                                                2./9.*Gew(xt,xz,Muw) - 88./9.*B0b(xt) - 184./27.*C0b(xt))), NNLO);
+            mcP.setCoeff(2, aletilde*alstilde*(1./sW2*(-1./9.*B1d(xt,Muw) - 1./27.*B1d_tilde(xt,Muw) - 1./18.*B1u(xt,Muw) -
+                                                1./54.*B1u_tilde(xt,Muw) + 1./18.*C1ew(xt) - 32./27.*B0b(xt) -
+                                                16./27.*C0b(xt))), NNLO);
+            mcP.setCoeff(3, aletilde*alstilde*(1./sW2*(-2./9.*B1d_tilde(xt,Muw) - 1./9.*B1u_tilde(xt,Muw) + 1./18.*Gew(xt,xz,Muw) +
+                                                4./3.*B0b(xt) + 2./3.*C0b(xt))), NNLO);
+        case NLO_QED11:
+            mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*B0b(xt) + C0b(xt))), NLO);
+            //mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO);
+            mcP.setCoeff(2, aletilde*(1./9./sW2*(B0b(xt) + 1./2.*C0b(xt))), NLO);
+            //mcP.setCoeff(0, aletilde*(1./9./sW2*(Y0(xt) - 1./2.*X0t(xt))), NLO);
+        case LO_QED:
+            break;
         case NNLO:
-            mcPs.setCoeff(0, alstilde*alstilde*C3funNNLO(xt), NNLO);
-            mcPs.setCoeff(1, alstilde*alstilde*C4fun(xt,NNLO), NNLO);
-            mcPs.setCoeff(2, alstilde*alstilde*C5funNNLO(xt), NNLO);
-            mcPs.setCoeff(3, alstilde*alstilde*C6funNNLO(xt), NNLO);
+            mcP.setCoeff(0, alstilde*alstilde*C3funNNLO(xt), NNLO);
+            mcP.setCoeff(1, alstilde*alstilde*C4fun(xt,NNLO), NNLO);
+            mcP.setCoeff(2, alstilde*alstilde*C5funNNLO(xt), NNLO);
+            mcP.setCoeff(3, alstilde*alstilde*C6funNNLO(xt), NNLO);
         case NLO:
-            mcPs.setCoeff(1, alstilde*C4fun(xt,NLO), NLO);
+            mcP.setCoeff(1, alstilde*C4fun(xt,NLO), NLO);
         case LO:         
             break;
         default:
             std::stringstream out;
-            out << mcPs.getOrder();
-            throw "StandardModelMatching::mc_Ps(): order " + out.str() + "not implemented";
+            out << mcP.getOrder();
+            throw "StandardModelMatching::mc_P(): order " + out.str() + "not implemented";
     }
 
-    vmcPs.push_back(mcPs);
-    return (vmcPs);
+    vmcP.push_back(mcP);
+    return (vmcP);
 }
 
 
@@ -1199,351 +1232,184 @@ double StandardModelMatching::C8funLO(double x)
     return(-0.5*F0t(x) - 1./3.);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ms()
-{
-    double xt = Mt_muw*Mt_muw/Mw/Mw;
-
-    vmcMs.clear();
-
-    switch (mcMs.getScheme()) {
-        case NDR:
-            //case HV:
-            //case LRI:
-            break;
-        default:
-            std::stringstream out;
-            out << mcPs.getScheme();
-            throw "StandardModel::mc_Ms(): scheme " + out.str() + "not implemented";
-    }
-
-    mcMs.setMu(Muw); // cleared too
-    
-    switch (mcMs.getOrder()) {
-        case NNLO:
-            mcMs.setCoeff(0, alstilde*alstilde*(C7t_3L_at_mt(xt) + C7t_3L_func(xt,Muw)-(C7c_3L_at_mW(xt)+13763./2187.*L+814./729.*L*L)
-                             -1./3.*C3funNNLO(xt)-4./9.*C4fun(xt,NNLO)-20./3.*C5funNNLO(xt)-80./9.*C6funNNLO(xt)), NNLO);
-            mcMs.setCoeff(1, alstilde*alstilde*(C8t_3L_at_mt(xt) + C8t_3L_func(xt,Muw)-(C8c_3L_at_mW(xt) + 16607./5832.*L+397./486.*L*L)
-                             +C3funNNLO(xt)-1./6.*C4fun(xt,NNLO)-20.*C5funNNLO(xt)-10./3.*C6funNNLO(xt)), NNLO);
-        case NLO:
-            mcMs.setCoeff(0, alstilde*(-0.5*A1t(xt,Muw)+713./243.+4./81.*L-4./9.*C4fun(xt,NLO)), NLO);
-            mcMs.setCoeff(1, alstilde*(-0.5*F1t(xt,Muw)+91./324.-4./27.*L-1./6.*C4fun(xt,NLO)), NLO);
-        case LO:         
-            mcMs.setCoeff(0, C7funLO(xt), LO);
-            mcMs.setCoeff(1, C8funLO(xt), LO);
-            break;
-        default:
-            std::stringstream out;
-            out << mcMs.getOrder();
-            throw "StandardModelMatching::mc_Ms(): order " + out.str() + "not implemented";
-    }
-
-    vmcMs.push_back(mcMs);
-    return (vmcMs);
-}
-
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ls() {
-    vmcLs.clear();
-    switch (mcLs.getScheme()) {
-        case NDR:
-            //case HV:
-            //case LRI:
-            break;
-        default:
-            std::stringstream out;
-            out << mcLs.getScheme();
-            throw "StandardModel::mc_Ls(): scheme " + out.str() + "not implemented";
-    }
-
-    mcLs.setMu(Muw); // cleared too
-
-    vmcLs.push_back(mcLs);
-    return (vmcLs);
-}
-
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Qs() {
-    vmcQs.clear();
-    switch (mcQs.getScheme()) {
-        case NDR:
-            //case HV:
-            //case LRI:
-            break;
-        default:
-            std::stringstream out;
-            out << mcQs.getScheme();
-            throw "StandardModel::mc_Qs(): scheme " + out.str() + "not implemented";
-    }
-
-    mcQs.setMu(Muw); // cleared too
-
-    vmcQs.push_back(mcQs);
-    return (vmcQs);
-}
-
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Bs() {
-    vmcBs.clear();
-    switch (mcBs.getScheme()) {
-        case NDR:
-            //case HV:
-            //case LRI:
-            break;
-        default:
-            std::stringstream out;
-            out << mcBs.getScheme();
-            throw "StandardModel::mc_Bs(): scheme " + out.str() + "not implemented";
-    }
-
-    mcBs.setMu(Muw); // cleared too
-
-    vmcBs.push_back(mcBs);
-    return (vmcBs);
-}
-
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Ce()
-{
-    vmcCe.clear();
-
-    switch (mcCe.getScheme()) {
-        case NDR:
-            //case HV:
-            //case LRI:
-            break;
-        default:
-            std::stringstream out;
-            out << mcCe.getScheme();
-            throw "StandardModel::mc_Ce(): scheme " + out.str() + "not implemented";
-    }
-
-    mcCe.setMu(Muw); // cleared too
-    
-    switch (mcCe.getOrder()) {
-        case NNLO: // no NNLO available
-        case NLO:
-            mcCe.setCoeff(1, aletilde*(-22./9. - 4./3.*Lz + 1./9.), NLO);
-        case LO:
-            break;
-        default:
-            std::stringstream out;
-            out << mcCe.getOrder();
-            throw "StandardModelMatching::mc_Ce(): order " + out.str() + "not implemented";
-    }
-
-    vmcCe.push_back(mcCe);
-    return (vmcCe);
-}
-
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Pe()
-{
-    double xt = Mt_muw*Mt_muw/Mw/Mw;
-    double xz = SM.getMz()*SM.getMz()/Mw/Mw;
-
-    vmcPe.clear();
-
-    switch (mcPe.getScheme()) {
-        case NDR:
-            //case HV:
-            //case LRI:
-            break;
-        default:
-            std::stringstream out;
-            out << mcPe.getScheme();
-            throw "StandardModel::mc_Pe(): scheme " + out.str() + "not implemented";
-    }
-
-    mcPe.setMu(Muw); // cleared too
-    
-    switch (mcPe.getOrder()) {
-        case NNLO:
-            mcPe.setCoeff(0, aletilde*alstilde*(1./sW2*(4./9.*B1d(xt,Muw) + 4./27.*B1d_tilde(xt,Muw) + 2./9.*B1u(xt,Muw) +
-                                                2./27.*B1u_tilde(xt,Muw) - 2./9.*C1ew(xt) + 320./27.*B0b(xt) +
-                                                160./27.*C0b(xt))), NNLO);
-            mcPe.setCoeff(1, aletilde*alstilde*(16./27.*C0b(xt) + 1./sW2*(8./9.*B1d_tilde(xt,Muw) + 4./9.*B1u_tilde(xt,Muw) -
-                                                2./9.*Gew(xt,xz,Muw) - 88./9.*B0b(xt) - 184./27.*C0b(xt))), NNLO);
-            mcPe.setCoeff(2, aletilde*alstilde*(1./sW2*(-1./9.*B1d(xt,Muw) - 1./27.*B1d_tilde(xt,Muw) - 1./18.*B1u(xt,Muw) -
-                                                1./54.*B1u_tilde(xt,Muw) + 1./18.*C1ew(xt) - 32./27.*B0b(xt) -
-                                                16./27.*C0b(xt))), NNLO);
-            mcPe.setCoeff(3, aletilde*alstilde*(1./sW2*(-2./9.*B1d_tilde(xt,Muw) - 1./9.*B1u_tilde(xt,Muw) + 1./18.*Gew(xt,xz,Muw) +
-                                                4./3.*B0b(xt) + 2./3.*C0b(xt))), NNLO);
-        case NLO:
-            mcPe.setCoeff(0, aletilde*(-2./9./sW2*(2.*B0b(xt) + C0b(xt))), NLO);
-            //mcPe.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO);
-            mcPe.setCoeff(2, aletilde*(1./9./sW2*(B0b(xt) + 1./2.*C0b(xt))), NLO);
-            //mcPe.setCoeff(0, aletilde*(1./9./sW2*(Y0(xt) - 1./2.*X0t(xt))), NLO);
-        case LO:
-            break;
-        default:
-            std::stringstream out;
-            out << mcPe.getOrder();
-            throw "StandardModelMatching::mc_Pe(): order " + out.str() + "not implemented";
-    }
-
-    vmcPe.push_back(mcPe);
-    return (vmcPe);
-}
-
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Me()
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_M()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
     double mH = SM.getMHl();
-    
-    vmcMe.clear();
 
-    switch (mcMe.getScheme()) {
+    vmcM.clear();
+
+    switch (mcM.getScheme()) {
         case NDR:
             //case HV:
             //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcMe.getScheme();
-            throw "StandardModel::mc_Me(): scheme " + out.str() + "not implemented";
+            out << mcM.getScheme();
+            throw "StandardModel::mc_M(): scheme " + out.str() + "not implemented";
     }
 
-    mcMe.setMu(Muw); // cleared too
+    mcM.setMu(Muw); // cleared too
     
-    switch (mcMe.getOrder()) {
-        case NNLO: // no NNLO available
-        case NLO:
-            mcMe.setCoeff(0, aletilde*(1./sW2*(1.11 - 1.15*(1.-Mt_muw*Mt_muw/170./170.) - 0.444*log(mH/100.) -
+    switch (mcM.getOrder()) {
+        case NLO_QED11:
+            mcM.setCoeff(0, aletilde*(1./sW2*(1.11 - 1.15*(1.-Mt_muw*Mt_muw/170./170.) - 0.444*log(mH/100.) -
                                                0.21*log(mH/100.)*log(mH/100.) - 0.513*log(mH/100.)*log(Mt_muw/170.)) +
                                        (8./9.*C7funLO(xt) - 104./243.)*L), NLO);
-            mcMe.setCoeff(1, aletilde*(1./sW2*(-0.143 + 0.156*(1.-Mt_muw*Mt_muw/170./170.) - 0.129*log(mH/100.) -
+            mcM.setCoeff(1, aletilde*(1./sW2*(-0.143 + 0.156*(1.-Mt_muw*Mt_muw/170./170.) - 0.129*log(mH/100.) -
                                                0.0244*log(mH/100.)*log(mH/100.) - 0.037*log(mH/100.)*log(Mt_muw/170.)) +
                                        (4./9.*C8funLO(xt) - 4./3.*C7funLO(xt) - 58./81.)*L), NLO);
-        case LO:
+        case LO_QED:
+            break;
+        case NNLO:
+            mcM.setCoeff(0, alstilde*alstilde*(C7t_3L_at_mt(xt) + C7t_3L_func(xt,Muw)-(C7c_3L_at_mW(xt)+13763./2187.*L+814./729.*L*L)
+                             -1./3.*C3funNNLO(xt)-4./9.*C4fun(xt,NNLO)-20./3.*C5funNNLO(xt)-80./9.*C6funNNLO(xt)), NNLO);
+            mcM.setCoeff(1, alstilde*alstilde*(C8t_3L_at_mt(xt) + C8t_3L_func(xt,Muw)-(C8c_3L_at_mW(xt) + 16607./5832.*L+397./486.*L*L)
+                             +C3funNNLO(xt)-1./6.*C4fun(xt,NNLO)-20.*C5funNNLO(xt)-10./3.*C6funNNLO(xt)), NNLO);
+        case NLO:
+            mcM.setCoeff(0, alstilde*(-0.5*A1t(xt,Muw)+713./243.+4./81.*L-4./9.*C4fun(xt,NLO)), NLO);
+            mcM.setCoeff(1, alstilde*(-0.5*F1t(xt,Muw)+91./324.-4./27.*L-1./6.*C4fun(xt,NLO)), NLO);
+        case LO:         
+            mcM.setCoeff(0, C7funLO(xt), LO);
+            mcM.setCoeff(1, C8funLO(xt), LO);
             break;
         default:
             std::stringstream out;
-            out << mcMe.getOrder();
-            throw "StandardModelMatching::mc_Me(): order " + out.str() + "not implemented";
+            out << mcM.getOrder();
+            throw "StandardModelMatching::mc_M(): order " + out.str() + "not implemented";
     }
 
-    vmcMe.push_back(mcMe);
-    return (vmcMe);
+    vmcM.push_back(mcM);
+    return (vmcM);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Le()
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_L()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
     
-    vmcLe.clear();
-
-    switch (mcLe.getScheme()) {
+    vmcL.clear();
+    
+    switch (mcL.getScheme()) {
         case NDR:
             //case HV:
             //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcLe.getScheme();
-            throw "StandardModel::mc_Le(): scheme " + out.str() + "not implemented";
+            out << mcL.getScheme();
+            throw "StandardModel::mc_L(): scheme " + out.str() + "not implemented";
     }
 
-    mcLe.setMu(Muw); // cleared too
+    mcL.setMu(Muw); // cleared too
     
-    switch (mcLe.getOrder()) {
-        case NNLO:
-            mcLe.setCoeff(0, aletilde*alstilde*((1.-4.*sW2)/sW2*C1t(xt,Muw) - 1./sW2*B1t(xt,Muw) - D1t(xt,Muw) + 1./sW2 +
+    switch (mcL.getOrder()) {
+        case NLO_QED22:
+            //Eqs. (32-33) of ref. Huber et al.
+            //Delta_t and tau_b in hep-ph/9707243
+            break;
+        case NLO_QED21:
+            mcL.setCoeff(0, aletilde*alstilde*((1.-4.*sW2)/sW2*C1t(xt,Muw) - 1./sW2*B1t(xt,Muw) - D1t(xt,Muw) + 1./sW2 +
                                                 524./729. - 128./243.*M_PI*M_PI - 16./3.*L - 128./81.*L*L), NNLO);
-            mcLe.setCoeff(1, aletilde*alstilde*(1./sW2*(B1t(xt,Muw) - C1t(xt,Muw)) - 1./sW2), NNLO);
-        case NLO:
-            mcLe.setCoeff(0, aletilde*(1./sW2*Y0(xt) + Wt(xt) + 4./9. + 4./9.*log(xt)), NLO);//2*log(mt/Muw)
-            mcLe.setCoeff(1, aletilde*(-1./sW2*Y0(xt)), NLO);
-        case LO:
+            mcL.setCoeff(1, aletilde*alstilde*(1./sW2*(B1t(xt,Muw) - C1t(xt,Muw)) - 1./sW2), NNLO);
+        case NLO_QED11:
+            mcL.setCoeff(0, aletilde*(1./sW2*Y0(xt) + Wt(xt) + 4./9. + 4./9.*log(xt)), NLO);//2*log(mt/Muw)
+            mcL.setCoeff(1, aletilde*(-1./sW2*Y0(xt)), NLO);
+        case LO_QED:
             break;
         default:
             std::stringstream out;
-            out << mcLe.getOrder();
-            throw "StandardModelMatching::mc_Le(): order " + out.str() + "not implemented";
+            out << mcL.getOrder();
+            throw "StandardModelMatching::mc_L(): order " + out.str() + "not implemented";
     }
 
-    vmcLe.push_back(mcLe);
-    return (vmcLe);
+    vmcL.push_back(mcL);
+    return (vmcL);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Qe()
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_Q()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
     double xz = SM.getMz()*SM.getMz()/Mw/Mw;
-
-    vmcQe.clear();
-
-    switch (mcQe.getScheme()) {
+    
+    vmcQ.clear();
+    
+    switch (mcQ.getScheme()) {
         case NDR:
             //case HV:
             //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcQe.getScheme();
-            throw "StandardModel::mc_Qe(): scheme " + out.str() + "not implemented";
+            out << mcQ.getScheme();
+            throw "StandardModel::mc_Q(): scheme " + out.str() + "not implemented";
     }
 
-    mcQe.setMu(Muw); // cleared too
+    mcQ.setMu(Muw); // cleared too
     
-    switch (mcQe.getOrder()) {
-        case NNLO:
-            mcQe.setCoeff(0, aletilde*alstilde*(4.*C1ew(xt) + 4.*D1t(xt,Muw) + 320./9.*C0b(xt) +
+    switch (mcQ.getOrder()) {
+        case NLO_QED21:
+            mcQ.setCoeff(0, aletilde*alstilde*(4.*C1ew(xt) + 4.*D1t(xt,Muw) + 320./9.*C0b(xt) +
                                                 1./sW2*(-2./3.*B1d(xt,Muw) - 2./9.*B1d_tilde(xt,Muw) +
                                                         2./3.*B1u(xt,Muw) + 2./9.*B1u_tilde(xt,Muw) +
                                                         4./3.*C1ew(xt) + 800./9.*B0b(xt) - 640./9.*C0b(xt))), NNLO);
-            mcQe.setCoeff(1, aletilde*alstilde*(-4./3.*Gew(xt,xz,Muw) - 16./3.*Hew(xt,xz,Muw) - 32.*C0b(xt) +
+            mcQ.setCoeff(1, aletilde*alstilde*(-4./3.*Gew(xt,xz,Muw) - 16./3.*Hew(xt,xz,Muw) - 32.*C0b(xt) +
                                                 1./sW2*(-4./3.*B1d_tilde(xt,Muw) + 4./3.*B1u_tilde(xt,Muw) +
                                                         4./3.*Gew(xt,xz,Muw) - 80.*B0b(xt) + 112./3.*C0b(xt))), NNLO);
-            mcQe.setCoeff(2, aletilde*alstilde*(-32./9.*C0b(xt) +
+            mcQ.setCoeff(2, aletilde*alstilde*(-32./9.*C0b(xt) +
                                                 1./sW2*(1./6.*B1d(xt,Muw) + 1./18.*B1d_tilde(xt,Muw) -
                                                         1./6.*B1u(xt,Muw) - 1./18.*B1u_tilde(xt,Muw) -
                                                         1./3.*C1ew(xt) - 80./9.*B0b(xt) + 64./9.*C0b(xt))), NNLO);
-            mcQe.setCoeff(3, aletilde*alstilde*(1./3.*Gew(xt,xz,Muw) + 1./3.*Hew(xt,xz,Muw) + 4.*C0b(xt) +
+            mcQ.setCoeff(3, aletilde*alstilde*(1./3.*Gew(xt,xz,Muw) + 1./3.*Hew(xt,xz,Muw) + 4.*C0b(xt) +
                                                 1./sW2*(1./3.*B1d_tilde(xt,Muw) - 1./3.*B1u_tilde(xt,Muw) -
                                                         1./3.*Gew(xt,xz,Muw) +10.*B0b(xt) - 16./3.*C0b(xt))), NNLO);
-        case NLO:
-            mcQe.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))), NLO);
-            mcQe.setCoeff(2, aletilde*(1./sW2*(4./3.*B0b(xt)+2./3.*C0b(xt))), NLO);
-        case LO:
+        case NLO_QED11:
+            mcQ.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))), NLO);
+            mcQ.setCoeff(2, aletilde*(1./sW2*(5./6.*B0b(xt)-1./3.*C0b(xt))), NLO);
+        case LO_QED:
             break;
         default:
             std::stringstream out;
-            out << mcQe.getOrder();
-            throw "StandardModelMatching::mc_Qe(): order " + out.str() + "not implemented";
+            out << mcQ.getOrder();
+            throw "StandardModelMatching::mc_Q(): order " + out.str() + "not implemented";
     }
 
-    vmcQe.push_back(mcQe);
-    return (vmcQe);
+    vmcQ.push_back(mcQ);
+    return (vmcQ);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Be()
+std::vector<WilsonCoefficient>& StandardModelMatching::mc_B()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
     
-    vmcBe.clear();
-
-    switch (mcBe.getScheme()) {
+    vmcB.clear();
+    
+    switch (mcB.getScheme()) {
         case NDR:
             //case HV:
             //case LRI:
             break;
         default:
             std::stringstream out;
-            out << mcBe.getScheme();
-            throw "StandardModel::mc_Be(): scheme " + out.str() + "not implemented";
+            out << mcB.getScheme();
+            throw "StandardModel::mc_B(): scheme " + out.str() + "not implemented";
     }
 
-    mcBe.setMu(Muw); // cleared too
+    mcB.setMu(Muw); // cleared too
     
-    switch (mcBe.getOrder()) {
-        case NNLO: // no NNLO available
-        case NLO:
-            mcBe.setCoeff(0, aletilde*(-1./2./sW2*S0(xt)), NLO);
-        case LO:
+    switch (mcB.getOrder()) {
+        case NLO_QED11:
+            mcB.setCoeff(0, aletilde*(-1./2./sW2*S0(xt)), NLO);
+        case LO_QED:
             break;
         default:
             std::stringstream out;
-            out << mcBe.getOrder();
-            throw "StandardModelMatching::mc_Be(): order " + out.str() + "not implemented";
+            out << mcB.getOrder();
+            throw "StandardModelMatching::mc_B(): order " + out.str() + "not implemented";
     }
 
-    vmcBe.push_back(mcBe);
-    return (vmcBe);
+    vmcB.push_back(mcB);
+    return (vmcB);
 }
 
 unsigned int StandardModelMatching::setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int nops, unsigned int tot, schemes scheme, orders order) {
@@ -1557,7 +1423,7 @@ unsigned int StandardModelMatching::setCMDF1(WilsonCoefficient& CMDF1, WilsonCoe
     return (nops + tot);
 }
 
-std::vector<WilsonCoefficient> StandardModelMatching::CMDF1s(std::string blocks, unsigned int nops, schemes scheme, orders order)
+std::vector<WilsonCoefficient> StandardModelMatching::CMDF1(std::string blocks, unsigned int nops, schemes scheme, orders order)
 {
     unsigned int tot;
     double mu;
@@ -1569,66 +1435,66 @@ std::vector<WilsonCoefficient> StandardModelMatching::CMDF1s(std::string blocks,
         tot = 0;
         mu = 0.;
         if (blocks.find("C") != std::string::npos) {
-            mcBlock = mc_Cs()[i];
+            mcBlock = mc_C()[i];
             mu = mcBlock.getMu();
             mcDF1.setMu(mu);
             tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
         }
         if (blocks.find("P") != std::string::npos) {
-            mcBlock = mc_Ps()[i];
+            mcBlock = mc_P()[i];
             if (mu == 0.) {
                 mu = mcBlock.getMu();
                 mcDF1.setMu(mu);
             }
             if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): Ps - wrong matching scales";
+                throw "StandardModelMatching::CMDF1(): P - wrong matching scales";
             tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order);
         }
         if (blocks.find("M") != std::string::npos) {
-            mcBlock = mc_Ms()[i];
+            mcBlock = mc_M()[i];
             if (mu == 0.) {
                 mu = mcBlock.getMu();
                 mcDF1.setMu(mu);
             }
             if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): Ms - wrong matching scales";
+                throw "StandardModelMatching::CMDF1(): M - wrong matching scales";
             tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
         }
         if (blocks.find("L") != std::string::npos) {
-            mcBlock = mc_Ls()[i];
+            mcBlock = mc_L()[i];
             if (mu == 0.) {
                 mu = mcBlock.getMu();
                 mcDF1.setMu(mu);
             }
             if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): Ls - wrong matching scales";
+                throw "StandardModelMatching::CMDF1(): L - wrong matching scales";
 
             tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
         }
         if (blocks.find("Q") != std::string::npos) {
-            mcBlock = mc_Qs()[i];
+            mcBlock = mc_Q()[i];
             if (mu == 0.) {
                 mu = mcBlock.getMu();
                 mcDF1.setMu(mu);
             }
             if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): Qs - wrong matching scales";
+                throw "StandardModelMatching::CMDF1(): Q - wrong matching scales";
             tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order);
         }
         if (blocks.find("B") != std::string::npos) {
-            mcBlock = mc_Bs()[i];
+            mcBlock = mc_B()[i];
             if (mu == 0.) {
                 mu = mcBlock.getMu();
                 mcDF1.setMu(mu);
             }
            if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): Bs - wrong matching scales";
+                throw "StandardModelMatching::CMDF1(): B - wrong matching scales";
             setCMDF1(mcDF1, mcBlock, 1, tot, scheme, order);
         }
-        vmcDF1s.push_back(mcDF1);
+        vmcDF1.push_back(mcDF1);
     }
 
-    return(vmcDF1s);
+    return(vmcDF1);
 }
 
 /*******************************************************************************
@@ -1685,8 +1551,8 @@ std::vector<WilsonCoefficient> StandardModelMatching::CMDF1s(std::string blocks,
     }
     
     switch (mckpnn.getOrder_qed()) {
-        case NLO_QED:
-            mckpnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/lambda5, NLO_QED);
+        case NLO_QED11:
+            mckpnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/lambda5, NLO_QED11);
         case LO_QED:
             break; 
         default:
