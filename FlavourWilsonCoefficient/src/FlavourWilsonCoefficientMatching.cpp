@@ -16,8 +16,8 @@ FlavourWilsonCoefficientMatching::FlavourWilsonCoefficientMatching(const Flavour
     myCKM(3, 3, 0.),
     mcbsg(8, NDR, NNLO),
     mcprimebsg(8, NDR, NNLO),
-    mcbsmm(8, NDR, NNLO, NLO_ewt4),
-    mcbdmm(8, NDR, NNLO, NLO_ewt4),
+    mcbsmm(8, NDR, NNLO, NLO_QED22),
+    mcbdmm(8, NDR, NNLO, NLO_QED22),
     mcBMll(13, NDR, NLO),
     mcprimeBMll(13, NDR, NLO)
 {}
@@ -52,7 +52,7 @@ void FlavourWilsonCoefficientMatching::updateFlavourWilsonCoefficientParameters(
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
 {
 
-    vmcbsg = StandardModelMatching::CMbsg();
+    vmcbsg = StandardModelMatching::CMDF1("CPM",8,NDR,NNLO);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -87,7 +87,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
 {
 
-    vmcbsmm = StandardModelMatching::CMbsmm();
+    vmcbsmm = StandardModelMatching::CMDF1("CPL", 8, NDR, NNLO);
 
     switch (mcbsmm.getScheme()) {
         case NDR:
@@ -121,7 +121,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
 {
 
-    vmcbdmm = StandardModelMatching::CMbdmm();
+    vmcbdmm = StandardModelMatching::CMDF1("CPL", 8, NDR, NNLO);
 
     switch (mcbdmm.getScheme()) {
         case NDR:
@@ -155,7 +155,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
 {
 
-    vmcprimebsg = StandardModelMatching::CMprimebsg();
+    vmcprimebsg = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:
@@ -190,7 +190,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::lepton lepton)
 {
 
-    vmcBMll = StandardModelMatching::CMBMll(lepton);
+    vmcBMll = StandardModelMatching::CMDF1("CPML", 10, NDR, NNLO);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -226,7 +226,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::le
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll(QCD::lepton lepton)
 {
 
-    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton);
+    vmcprimeBMll = StandardModelMatching::CMDF1("CPML", 10, NDR, NNLO); // prime
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

@@ -7,12 +7,12 @@
 
 #include "Bsmumu.h"
 #include "StandardModel.h"
-#include "EvolBsmm.h"
+#include "EvolDF1.h"
 #include "HeffDB1.h"
 
 Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
-  evolbsmm(*(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)))
+  evolbsmm(*(new EvolDF1(8, "CPL", NDR, NNLO, SM_i)))
 {
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
@@ -77,7 +77,8 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
 
     double alsmu = evolbsmm.alphatilde_s(mu);
-    double alemu = evolbsmm.alphatilde_e(mu);
+//    double alemu = evolbsmm.alphatilde_e(mu);
+    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
    
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
@@ -86,7 +87,7 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
         {
             gslpp::complex CC = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
                     + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_QED ]))(7) /alsmu
-                    + (*(allcoeff[NLO_QED]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
+                    + (*(allcoeff[NLO_QED11]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
             absP = CC.abs(); //contains only SM contributions (P, P', S, S' not added)

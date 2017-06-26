@@ -25,7 +25,7 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
 {
     meson = meson_i;
     vectorM = vector_i;
-    fullKD = SM.getFlagFullKD();
+//    fullKD = SM.getFlagFullKD();
     gRandom = new TRandom3();
     gRandom->SetSeed(0);
 #if NFPOLARBASIS_MVGAMMA

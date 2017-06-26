@@ -38,7 +38,7 @@ T_cache(5, 0.)
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-    fullKD = mySM.getFlagFullKD();
+//    fullKD = mySM.getFlagFullKD();
     mJ2 = 3.096*3.096;
     gRandom = new TRandom3();
     gRandom->SetSeed(0);

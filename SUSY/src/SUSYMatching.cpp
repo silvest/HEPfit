@@ -67,7 +67,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcmueconv(8, NDR, LO),
     mcgminus2mu(2, NDR, LO),
     mcbsg(8, NDR, NLO),
-    mcbnlep(10, NDR, NLO, NLO_ew),
+    mcbnlep(10, NDR, NLO, NLO_QED11),
     mcbnlepCC(10, NDR, NLO),
     mcd1(10, NDR, NLO),
     mcd1Buras(10, NDR, NLO),
@@ -3358,7 +3358,7 @@ gslpp::vector <gslpp::complex> SUSYMatching::CalcC7(int b, int q) {
 
  std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
 
-    vmcbsg = StandardModelMatching::CMbsg();
+    vmcbsg = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO);
 
     switch (mcbsg.getScheme()) {
         case NDR:

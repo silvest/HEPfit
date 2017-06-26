@@ -10,8 +10,7 @@
 
 class StandardModel;
 class HeffDF2;
-class HeffDB1;
-class HeffDS1;
+class HeffDF1;
 class MVll;
 class MPll;
 class MVgamma;
@@ -51,7 +50,7 @@ public:
      * @return returns the Hamiltonian for the \f$ \Delta S = 1 \f$ processes.
      * 
      */
-    const HeffDS1& getHDS1() const
+    const HeffDF1& getHDS1() const
     {
         return HDS1;
     }
@@ -61,7 +60,7 @@ public:
      * @return returns the Hamiltonian for the \f$ \Delta B = 1 \f$ processes.
      * 
      */
-    const HeffDB1& getHDB1() const
+    const HeffDF1& getHDB1() const
     {
         return HDB1;
     }
@@ -219,8 +218,8 @@ public:
 private:
 
     HeffDF2& HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
-    HeffDB1& HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
-    HeffDS1& HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
+    HeffDF1& HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
+    HeffDF1& HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
     MVll& MVll_BdKstarmu; ///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
     MVll& MVll_BdKstarel; ///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
     MVll& MVll_BpKstarmu; ///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.

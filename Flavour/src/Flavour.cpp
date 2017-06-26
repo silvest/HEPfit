@@ -10,14 +10,13 @@
 #include "MVll.h"
 #include "MPll.h"
 #include "HeffDF2.h"
-#include "HeffDS1.h"
-#include "HeffDB1.h"
+#include "HeffDF1.h"
 #include "MVgamma.h"
 
 Flavour::Flavour(const StandardModel& SM_i)
 : HDF2(*(new HeffDF2(SM_i))),
-HDB1(*(new HeffDB1(SM_i))),
-HDS1(*(new HeffDS1(SM_i))),
+HDB1(*(new HeffDF1(6,"CP", NDR, NNLO, SM_i))),
+HDS1(*(new HeffDF1(10, "CPQ", NDR, NNLO, SM_i))),
 MVll_BdKstarmu(*(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU))),
 MVll_BdKstarel(*(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON))),
 MVll_BpKstarmu(*(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU))),

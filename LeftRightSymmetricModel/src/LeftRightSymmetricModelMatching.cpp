@@ -30,7 +30,7 @@ void LeftRightSymmetricModelMatching::updateLeftRightSymmetricModelParameters()
 std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMbsg()
 {
 
-    vmcbsg = StandardModelMatching::CMbsg();
+    vmcbsg = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -64,7 +64,7 @@ std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMbsg()
 std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMprimebsg()
 {
 
-    vmcprimebsg = StandardModelMatching::CMprimebsg();
+    vmcprimebsg = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:
@@ -98,7 +98,7 @@ std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMprimebsg()
 std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMBMll(QCD::lepton lepton)
 {
 
-    vmcBMll = StandardModelMatching::CMBMll(lepton);
+    vmcBMll = StandardModelMatching::CMDF1("CPML", 10, NDR, NNLO);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -134,7 +134,7 @@ std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMBMll(QCD::lep
 std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMprimeBMll(QCD::lepton lepton)
 {
 
-    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton);
+    vmcprimeBMll = StandardModelMatching::CMDF1("CPML", 10, NDR, NNLO);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:
