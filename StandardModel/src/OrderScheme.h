@@ -48,7 +48,7 @@ enum orders_qed
 {
     NO_QED = orders(MAXORDER) + 1, /**< An auxiliary enumerator */
     LO_QED, /**< Leading order e/s */
-    NLO_QED, /**< Next-to-leading order e */
+    NLO_QED11, /**< Next-to-leading order e */
     NLO_QED02,   /* e^2/s^2 */
     NLO_QED21,     /* e*s */
     NLO_QED12,    /* e^2/s */

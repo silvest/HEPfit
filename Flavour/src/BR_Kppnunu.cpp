@@ -22,7 +22,7 @@ double BR_Kppnunu::computeThValue()
                    SM.Mw_tree() * SM.Mw_tree()) ));
     
     return( SM.getOptionalParameter("IB_Kp") * 3.*SM.getAle()*SM.getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.))
-           * SM.getOptionalParameter("Br_Kp_P0enu") * BRKppnunu(NLO, NLO_QED).real());
+           * SM.getOptionalParameter("Br_Kp_P0enu") * BRKppnunu(NLO, NLO_QED11).real());
 }
 
 gslpp::complex BR_Kppnunu::BRKppnunu(orders order, orders_qed order_qed)
@@ -37,10 +37,10 @@ gslpp::complex BR_Kppnunu::BRKppnunu(orders order, orders_qed order_qed)
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1pnunu();
     
     switch(order_qed) {
-        case NLO_QED:
-            return((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED])) *
-                   (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED])) +
-                   CKpnunu.C_TOT(NNLO,NLO_QED)*CKpnunu.C_TOT(NNLO,NLO_QED));
+        case NLO_QED11:
+            return((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11])) *
+                   (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11])) +
+                   CKpnunu.C_TOT(NNLO,NLO_QED11)*CKpnunu.C_TOT(NNLO,NLO_QED11));
         case LO_QED:
             switch(order) {
                 case NLO:

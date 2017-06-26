@@ -581,7 +581,7 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders orde
     if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
        return (*Evol(order));
     
-    if (mu == this->mu && M == this->M && scheme == this->scheme &&  order_qed == NLO_QED)
+    if (mu == this->mu && M == this->M && scheme == this->scheme &&  order_qed == NLO_QED11)
        return (*Evol(order_qed));
         
     if (M < mu) {
@@ -655,9 +655,9 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme)
      }
  
     switch(order_qed) {
-        case NLO_QED:
-            *elem[NLO_QED] = (*elem[NLO]) * resLO_ew +
-                            (*elem[NLO_QED]) * resLO + (*elem[LO]) *resNLO_QED;
+        case NLO_QED11:
+            *elem[NLO_QED11] = (*elem[NLO]) * resLO_ew +
+                            (*elem[NLO_QED11]) * resLO + (*elem[LO]) *resNLO_QED;
         case LO_QED:
             *elem[LO_QED] =  (*elem[LO]) * resLO_ew;
             break;
@@ -689,8 +689,8 @@ void EvolDF1nlep::Df1threshold_nlep(double M, double nf){
     dreT = ale * Df1threshold_deltareT(nf);
     
      switch(order_qed){
-         case NLO_QED:
-             *elem[NLO_QED] += (*elem[LO])*dreT + (*elem[LO_QED]) * drsT ; 
+         case NLO_QED11:
+             *elem[NLO_QED11] += (*elem[LO])*dreT + (*elem[LO_QED]) * drsT ; 
              break;
          default:
              throw std::runtime_error("Error in EvolDF1nlep::Df1threshold_nlep()");

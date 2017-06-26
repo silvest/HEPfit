@@ -10,7 +10,7 @@
 
 HeffDF1::HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM) 
 :       model(SM),
-        coeff(nops, NDR, NNLO, NLO_QED),
+        coeff(nops, NDR, NNLO, NLO_QED11),
         evolDF1(nops, blocks, NDR, NNLO, SM)
 {
 
@@ -35,7 +35,7 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff_s(double mu, schemes schem
     coeff.setScheme(scheme);
     orders ordDF1 = coeff.getOrder();   
     
-    const std::vector<WilsonCoefficient> mc = model.getMatching().CMDF1s(blocks, nops, NDR, ordDF1);
+    const std::vector<WilsonCoefficient> mc = model.getMatching().CMDF1(blocks, nops, NDR, ordDF1);
 
     if (mu == mu_cache && scheme == scheme_cache) {
         int check = 1;

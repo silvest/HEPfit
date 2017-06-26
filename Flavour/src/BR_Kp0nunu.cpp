@@ -25,7 +25,7 @@ double BR_Kp0nunu::computeThValue()
     
     return(SM.getOptionalParameter("IB_Kl") * (SM.getMesons(QCD::K_0).getLifetime() / HCUT / SM.getMesons(QCD::K_P).getLifetime() / HCUT)
            * 3. * SM.getAle() * SM.getAle() / (2.*M_PI*M_PI*pow(sin(theta),4.)) * SM.getOptionalParameter("Br_Kp_P0enu") *
-           BRKp0nunu(NLO, NLO_QED).real());
+           BRKp0nunu(NLO, NLO_QED11).real());
 }
 
 gslpp::complex BR_Kp0nunu::BRKp0nunu(orders order, orders_qed order_qed)
@@ -40,9 +40,9 @@ gslpp::complex BR_Kp0nunu::BRKp0nunu(orders order, orders_qed order_qed)
     gslpp::vector<gslpp::complex> ** allcoeff = mySM.getFlavour().ComputeCoeffDS1pnunu();
     
     switch(order_qed) {
-        case NLO_QED:
-            return((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED])) *
-                   (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED])));
+        case NLO_QED11:
+            return((*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11])) *
+                   (*(allcoeff[LO]) + *(allcoeff[NLO]) + *(allcoeff[NLO_QED11])));
         case LO_QED:
             switch(order) {
                 case NLO:

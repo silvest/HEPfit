@@ -91,7 +91,7 @@ void RGEvolutor::setScales(double mu, double M)
         *(elem[i]) = 0.;
     
     if (order_qed != NO_QED){
-        for(int i = NLO_QED; i <= order_qed; i++)
+        for(int i = NLO_QED11; i <= order_qed; i++)
             *(elem[i]) = 0.;
     }
 }
@@ -104,7 +104,7 @@ void RGEvolutor::setM(double M)
         *(elem[i]) = 0.;
     
     if (order_qed != NO_QED){
-        for(int i = NLO_QED; i <= order_qed; i++)
+        for(int i = NLO_QED11; i <= order_qed; i++)
             *(elem[i]) = 0.;
     }
 }
@@ -117,7 +117,7 @@ void RGEvolutor::setMu(double mu)
         *(elem[i]) = 0.;
     
     if (order_qed != NO_QED){
-        for(int i = NLO_QED; i <= order_qed; i++)
+        for(int i = NLO_QED11; i <= order_qed; i++)
             *(elem[i]) = 0.;
     }
 }

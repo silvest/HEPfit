@@ -924,25 +924,25 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
 
         case NLO_QED22:
 
-            *elem[NLO_QED22] = (*elem[NLO_QED22]) * resLO + (*elem[NLO_QED]) * Ue + (*elem[LO]) * Ue2 + 
+            *elem[NLO_QED22] = (*elem[NLO_QED22]) * resLO + (*elem[NLO_QED11]) * Ue + (*elem[LO]) * Ue2 + 
                     (*elem[NLO_QED21]) * Ueos + (*elem[NNLO]) * Ue2os2 + (*elem[NLO]) * Ue2os;
 
         case NLO_QED12:
 
-            *elem[NLO_QED12] =(*elem[NLO_QED]) * Ueos + (*elem[NLO]) * Ue2os2 + (*elem[LO]) * Ue2os;
+            *elem[NLO_QED12] =(*elem[NLO_QED11]) * Ueos + (*elem[NLO]) * Ue2os2 + (*elem[LO]) * Ue2os;
 
         case NLO_QED21:    
 
-            *elem[NLO_QED21] = (*elem[NLO_QED21]) * resLO + (*elem[NLO_QED]) * Us +
+            *elem[NLO_QED21] = (*elem[NLO_QED21]) * resLO + (*elem[NLO_QED11]) * Us +
                         (*elem[NLO]) * Ue + (*elem[LO]) * Ues + (*elem[NNLO]) * Ueos;
 
         case NLO_QED02:   
 
             *elem[NLO_QED02] = (*elem[LO]) * Ue2os2;
 
-        case NLO_QED:
+        case NLO_QED11:
 
-            *elem[NLO_QED] = (*elem[NLO_QED]) * resLO + (*elem[LO]) * Ue + (*elem[NLO]) * Ueos;
+            *elem[NLO_QED11] = (*elem[NLO_QED11]) * resLO + (*elem[LO]) * Ue + (*elem[NLO]) * Ueos;
 
 
         case LO_QED:

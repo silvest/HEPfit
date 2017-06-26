@@ -592,7 +592,7 @@ double Charm_Kpnunu::C_TOT(orders order, orders_qed order_qed)
     double IBT = model.getOptionalParameter("DeltaP_cu");
     double X = 0.;
 
-    if ((order == NNLO) && (order_qed == NLO_QED)) {
+    if ((order == NNLO) && (order_qed == NLO_QED11)) {
         X = lambdat.real() / lambda5 * (model.getMatching().X0t(xt) + model.Als(model.getMut(), FULLNLO)
                 / 4. / M_PI * model.getMatching().X1t(xt) + Ale / 4. / M_PI * model.getMatching().Xewt(xt, a, Muw));
         return (X + (lambdac.real() / lambda)*(P_C(NNLO) + IBT));
