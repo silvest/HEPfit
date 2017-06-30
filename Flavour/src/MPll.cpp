@@ -208,7 +208,7 @@ void MPll::updateParameters()
     fourMM2 = 4. * MM2;
     twoMboMM = 2 * Mb / MM;
     sixteenM_PI2 = 16. * M_PI*M_PI;
-    sixtyfourM_PI3MM3 = 64. * M_PI * M_PI * M_PI * MM * MM*MM;
+    ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
     MboMW = Mb / MW;
     MboMM = Mb / MM;
     MsoMb = Ms / Mb;
@@ -942,7 +942,7 @@ double MPll::lambda(double q2)
 
 double MPll::F(double q2) 
 {
-    return sqrt(lambda(q2))*beta(q2)*q2/(sixtyfourM_PI3MM3);
+    return sqrt(lambda(q2))*beta(q2)*q2/(ninetysixM_PI3MM3);
 }
 
 double MPll::I_1c(double q2) 
