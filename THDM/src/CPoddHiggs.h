@@ -1206,6 +1206,48 @@ private:
 };
 
 /**
+ * @class Hobs_ggF_A_Zga_CMS13
+ * @ingroup THDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg\to A\to Z\gamma@f$.
+ */
+class Hobs_ggF_A_Zga_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_ggF_A_Zga_CMS13 constructor.
+     */
+    Hobs_ggF_A_Zga_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)]_{\text{theo}} / [\sigma_{gg\to A}\cdot BR(A\to Z\gamma)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_ggF_A_Zga_CMS13
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on the process @f$gg\to A\to Z\gamma@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_A_Zga_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_A_Zga_CMS13 constructor.
+     */
+    Robs_ggF_A_Zga_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)]_{\text{theo}} - [\sigma_{gg\to A}\cdot BR(A\to Z\gamma)]_{\text{CMS,95\% observed}} \right) / [\sigma_{gg\to A}\cdot BR(A\to Z\gamma)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class log10_ggF_A_tautau_TH8
  * @ingroup THDM
  * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to \tau\tau@f$ at 8 TeV.
@@ -1535,6 +1577,27 @@ public:
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class log10_ggF_A_Zga_TH13
+ * @ingroup THDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to A\to Z\gamma@f$ at 13 TeV.
+ */
+class log10_ggF_A_Zga_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_ggF_A_Zga_TH13 constructor.
+     */
+    log10_ggF_A_Zga_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)]@f$
      */
     double computeThValue();
 private:

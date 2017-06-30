@@ -11,7 +11,7 @@
 #include "StandardModel.h"
 //#include "THDMWMatching.h"
 
-//class THDMWcache; //forward reference to THDMWcache class
+class THDMWcache; //forward reference to THDMWcache class
 
 /**
  * @class THDMW
@@ -43,7 +43,7 @@
 class THDMW: public StandardModel {
 public:
 
-    static const int NTHDMWvars = 29;
+    static const int NTHDMWvars = 31;
     static const std::string THDMWvars[NTHDMWvars];
     
     /**
@@ -80,13 +80,13 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
-//    virtual bool setFlagStr(const std::string name, const std::string value);
+    virtual bool setFlagStr(const std::string name, const std::string value);
 //    virtual bool setFlag(const std::string, const bool);
 
-//    THDMWcache* getMyTHDMWCache() const
-//    {
-//        return myTHDMWcache;
-//    }
+    THDMWcache* getMyTHDMWCache() const
+    {
+        return myTHDMWcache;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -94,9 +94,17 @@ public:
      *
      * @return THDMW model type
      */
-//    std::string getModelTypeflag() const {
-//        return flag_model;
-//    }
+    std::string getModelTypeTHDMWflag() const {
+        return flag_modelTHDMW;
+    }
+
+    /**
+     *
+     * @return Switch for NLO RGE and approximate NLO RGE
+     */
+    std::string getRGEorderflag() const {
+        return flag_RGEorder;
+    }
 
     
     /**
@@ -160,7 +168,12 @@ public:
      * @return @f$\lambda_5@f$
      */
     double getTHDMW_lambda5() const {
-        return THDMW_lambda5;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_lambda4;
+        }
+        else {
+            return THDMW_lambda5;
+        }
     }
 
     /**
@@ -184,7 +197,12 @@ public:
      * @return @f$\mu_2@f$
      */
     double getTHDMW_mu2() const {
-        return THDMW_mu2;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_mu1;
+        }
+        else {
+            return THDMW_mu2;
+        }
     }
 
     /**
@@ -207,7 +225,12 @@ public:
      * @return @f$\mu_5@f$
      */
     double getTHDMW_mu5() const {
-        return THDMW_mu5;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_mu4;
+        }
+        else {
+            return THDMW_mu5;
+        }
     }
 
     /**
@@ -215,7 +238,12 @@ public:
      * @return @f$\mu_6@f$
      */
     double getTHDMW_mu6() const {
-        return THDMW_mu6;
+        if (flag_modelTHDMW == "custodial1") {
+            return 2.0*THDMW_mu1;
+        }
+        else {
+            return THDMW_mu6;
+        }
     }
 
     /**
@@ -239,7 +267,12 @@ public:
      * @return @f$\nu_3@f$
      */
     double getTHDMW_nu3() const {
-        return THDMW_nu3;
+        if (flag_modelTHDMW == "custodial1") {
+            return 0.5*THDMW_nu2;
+        }
+        else {
+            return THDMW_nu3;
+        }
     }
     /**
      *
@@ -254,7 +287,12 @@ public:
      * @return @f$\nu_5@f$
      */
     double getTHDMW_nu5() const {
-        return THDMW_nu5;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_nu4;
+        }
+        else {
+            return THDMW_nu5;
+        }
     }
 
     /**
@@ -278,7 +316,12 @@ public:
      * @return @f$\omega_3@f$
      */
     double getTHDMW_omega3() const {
-        return THDMW_omega3;
+        if (flag_modelTHDMW == "custodial1") {
+            return 0.5*THDMW_omega2;
+        }
+        else {
+            return THDMW_omega3;
+        }
     }
 
     /**
@@ -294,7 +337,12 @@ public:
      * @return @f$\omega_5@f$
      */
     double getTHDMW_omega5() const {
-        return THDMW_omega5;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_omega4;
+        }
+        else {
+            return THDMW_omega5;
+        }
     }
 
     /**
@@ -318,7 +366,12 @@ public:
      * @return @f$\kappa_3@f$
      */
     double getTHDMW_kappa3() const {
-        return THDMW_kappa3;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_kappa2;
+        }
+        else {
+            return THDMW_kappa3;
+        }
     }
 
     /**
@@ -329,30 +382,60 @@ public:
         return Q_THDMW;
     }
 
+    /**
+     *
+     * @return Minimal R' value
+     */
+    double getRpepsTHDMW() const {
+        return RpepsTHDMW;
+    }
+
+    /**
+     *
+     * @return Minimal NLO unitarity check scale
+     */
+    double getNLOuniscaleTHDMW() const {
+        return NLOuniscaleTHDMW;
+    }
+
 protected:
 
     virtual void setParameter(const std::string, const double&);
-//    THDMWcache * mycache;
 
     /**
      * @brief A method to check if the model type name in string form is valid.
      * @param[in] THDMW model type name
      * @return a boolean that is true if the model type name is valid
      */
-//    bool checkmodelType(const std::string modeltype) const
-//    {
-//        if (modeltype.compare("type1") == 0
-//                || modeltype.compare("type2") == 0)
-//            return true;
-//        else
-//            return false;
-//    }
+    bool checkmodelTypeTHDMW(const std::string modeltype) const
+    {
+        if (modeltype.compare("custodial1") == 0)
+            return true;
+        else if (modeltype.compare("custodial2") == 0)
+            return true;
+        else
+            return false;
+    }
 
 //    mutable Matching<THDMWMatching,THDMW> THDMWM; ///< An object of type Matching.
 
+    /**
+     * @brief A method to check if the RGE order name in string form is valid.
+     * @param[in] THDMW RGE order
+     * @return a boolean that is true if the RGE order string is valid
+     */
+    bool checkRGEorder(const std::string RGEorder) const
+    {
+        if (RGEorder.compare("LO") == 0
+                || RGEorder.compare("approxNLO") == 0)
+            return true;
+        else
+            return false;
+    }
+
 private:
 
-//    THDMWcache* myTHDMWcache;
+    THDMWcache* myTHDMWcache;
 
     double THDMW_m11_2, THDMW_m22_2, THDMW_m12_2;
     double THDMW_lambda1, THDMW_lambda2, THDMW_lambda3, THDMW_lambda4, THDMW_lambda5;
@@ -360,8 +443,8 @@ private:
     double THDMW_nu1, THDMW_nu2, THDMW_nu3, THDMW_nu4, THDMW_nu5;
     double THDMW_omega1, THDMW_omega2, THDMW_omega3, THDMW_omega4, THDMW_omega5;
     double THDMW_kappa1, THDMW_kappa2, THDMW_kappa3;
-    double Q_THDMW;
-//    std::string flag_model;
+    double Q_THDMW, RpepsTHDMW, NLOuniscaleTHDMW;
+    std::string flag_modelTHDMW, flag_RGEorder;
 };
 
 #endif	/* THDMW_H */

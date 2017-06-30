@@ -630,6 +630,26 @@ double Robs_pp_H_Zga_qqga_CMS13::computeThValue()
 
 
 
+Hobs_ggF_H_Zga_CMS13::Hobs_ggF_H_Zga_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_ggF_H_Zga_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_Zga_CMS13;
+}
+
+Robs_ggF_H_Zga_CMS13::Robs_ggF_H_Zga_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_ggF_H_Zga_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_ggF_H_Zga_CMS13;
+}
+
+
+
 Hobs_ggF_H_ZZ_llnunu_ATLAS13::Hobs_ggF_H_ZZ_llnunu_ATLAS13(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
@@ -966,6 +986,26 @@ Robs_pp_H_hh_bbbb_CMS13::Robs_pp_H_hh_bbbb_CMS13(const StandardModel& SM_i)
 double Robs_pp_H_hh_bbbb_CMS13::computeThValue()
 {
     return myTHDM.getMyTHDMCache()->R_pp_H_hh_bbbb_CMS13;
+}
+
+
+
+Hobs_ggF_H_hh_bbbb_CMS13::Hobs_ggF_H_hh_bbbb_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_ggF_H_hh_bbbb_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_H_hh_bbbb_CMS13;
+}
+
+Robs_ggF_H_hh_bbbb_CMS13::Robs_ggF_H_hh_bbbb_CMS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_ggF_H_hh_bbbb_CMS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_ggF_H_hh_bbbb_CMS13;
 }
 
 
@@ -1332,6 +1372,17 @@ double log10_pp_H_Zga_TH13::computeThValue()
 
 
 
+log10_ggF_H_Zga_TH13::log10_ggF_H_Zga_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double log10_ggF_H_Zga_TH13::computeThValue()
+{
+    return log10(myTHDM.getMyTHDMCache()->ggF_H_Zga_TH13);
+}
+
+
+
 log10_pp_H_ZZ_TH13::log10_pp_H_ZZ_TH13(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
@@ -1471,6 +1522,17 @@ log10_pp_H_hh_bbbb_TH13::log10_pp_H_hh_bbbb_TH13(const StandardModel& SM_i)
 double log10_pp_H_hh_bbbb_TH13::computeThValue()
 {
     return log10(myTHDM.getMyTHDMCache()->pp_H_hh_bbbb_TH13);
+}
+
+
+
+log10_ggF_H_hh_bbbb_TH13::log10_ggF_H_hh_bbbb_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double log10_ggF_H_hh_bbbb_TH13::computeThValue()
+{
+    return log10(myTHDM.getMyTHDMCache()->ggF_H_hh_bbbb_TH13);
 }
 
 

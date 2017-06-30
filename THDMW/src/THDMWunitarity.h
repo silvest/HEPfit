@@ -10,67 +10,133 @@
 
 #include "ThObservable.h"
 #include "THDMW.h"
+#include "THDMWcache.h"
 #include <gslpp.h>
 
 /**
- * @class THDMWunitarity
+ * @class THDMWunitarityLO
  * @ingroup THDMW
- * @brief An observable class for the requirement of perturbative unitarity.
+ * @brief An observable class for the requirement of perturbative unitarity at leading order.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to require the unitarity for all the tree level 
+ * @details This class is used to require unitarity for all the tree level 
  * scalar-scalar scattering amplitudes.
  * The eigenvalues of the S-matrix can be found in @cite ?.
  * They should be smaller than ? in magnitude to preserve the unitarity of the S-matrix.
  */
-class THDMWunitarity {
+class THDMWunitarityLO: public ThObservable {
 public:
+
     /**
-     * @brief Constructor.
-     * @param[in] ?
+     * @brief THDMWunitarityLO constructor.
      */
-   THDMWunitarity(const StandardModel& SM_i);
+    THDMWunitarityLO(const StandardModel& SM_i, unsigned int index_i);
 
     /**
      * @brief Destructor.
      */
-    virtual ~THDMWunitarity();
+    virtual ~THDMWunitarityLO();
 
     /**
-     * @brief Computes the eigenvalues of the S matrix
+     * @return Unitarity eigenvalues
      */
-    bool CalcSeigen(gslpp::matrix<gslpp::complex>& Seigenvectors_i, gslpp::vector<double>& Seigenvalues_i);
-
-    /**
-     * @brief Assigns to a vector the eigenvalues of the S-matrix
-     */
-    gslpp::vector<double> getSeigenvalues();
-    
-    
+    double computeThValue();
 private:
-    const THDMW * myTHDMW;
-    
-    gslpp::matrix<gslpp::complex> Smatrix; 
-    gslpp::matrix<gslpp::complex> Seigenvectors;
-    gslpp::vector<double> Seigenvalues;
+    const THDMW& myTHDMW;
+    unsigned int index;
 };
 
-
-class THDMWunitarity1: public ThObservable {
+/**
+ * @class THDMWunitarityNLO
+ * @ingroup THDMW
+ * @brief An observable class for the requirement of perturbative unitarity at next-to-leading order.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to require NLO unitarity for all the tree level 
+ * scalar-scalar scattering amplitudes.
+ * The eigenvalues of the S-matrix can be found in @cite ?.
+ * They should be smaller than ? in magnitude to preserve the unitarity of the S-matrix.
+ */
+class THDMWunitarityNLO: public ThObservable {
 public:
 
     /**
-     * @brief THDMWunitarity1 constructor.
+     * @brief THDMWunitarityNLO constructor.
      */
-    THDMWunitarity1(const StandardModel& SM_i);
+    THDMWunitarityNLO(const StandardModel& SM_i, unsigned int index_i);
 
     /**
-     * @return
+     * @brief Destructor.
+     */
+    virtual ~THDMWunitarityNLO();
+
+    /**
+     * @return NLO unitarity conditions
      */
     double computeThValue();
-
 private:
-    THDMWunitarity myTHDMWunitarity;
+    const THDMW& myTHDMW;
+    unsigned int index;
+};
+
+/**
+ * @class THDMWunitarityNLOp
+ * @ingroup THDMW
+ * @brief Another observable class for the requirement of perturbative unitarity at next-to-leading order.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details .
+ */
+class THDMWunitarityNLOp: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWunitarityNLOp constructor.
+     */
+    THDMWunitarityNLOp(const StandardModel& SM_i, unsigned int index_i);
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~THDMWunitarityNLOp();
+
+    /**
+     * @return Real part of the NLO unitarity eigenvalues
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+    unsigned int index;
+};
+
+/**
+ * @class THDMWunitarityRp
+ * @ingroup THDMW
+ * @brief An observable class for the requirement of perturbativity of the unitarity criteria.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details .
+ */
+class THDMWunitarityRp: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWunitarityRp constructor.
+     */
+    THDMWunitarityRp(const StandardModel& SM_i, unsigned int index_i);
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~THDMWunitarityRp();
+
+    /**
+     * @return Rp ratios
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+    unsigned int index;
 };
 
 #endif	/* THDMWUNITARITY_H */

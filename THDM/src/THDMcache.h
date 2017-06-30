@@ -229,15 +229,15 @@ public:
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
      */
     gslpp::matrix<double> CMS13_pp_phi_bb, CMS13_gg_phi_tautau, CMS13_bb_phi_tautau, CMS13_gg_phi_gaga, CMS13_pp_phi_Zga_llga,\
-                          CMS13_pp_phi_Zga_qqga, CMS13_pp_H_ZZ_llll, CMS13_VBFVH_H_ZZ_llll, CMS13_pp_H_ZZ_llqq, CMS13_ggFVBF_H_WW_lnulnu,\
-                          CMS13_pp_H_hh_bbbb, CMS13_pp_H_hh_gagabb, CMS13_pp_H_hh_bbtautau, CMS13_pp_H_hh_bbtautau1, CMS13_pp_H_hh_bblnulnu, CMS13_pp_H_hh_bbVV;
+                          CMS13_pp_phi_Zga_qqga, CMS13_ggF_phi_Zga, CMS13_pp_H_ZZ_llll, CMS13_VBFVH_H_ZZ_llll, CMS13_pp_H_ZZ_llqq, CMS13_ggFVBF_H_WW_lnulnu,\
+                          CMS13_pp_H_hh_bbbb, CMS13_ggF_H_hh_bbbb, CMS13_pp_H_hh_gagabb, CMS13_pp_H_hh_bbtautau, CMS13_pp_H_hh_bbtautau1, CMS13_pp_H_hh_bblnulnu, CMS13_pp_H_hh_bbVV;
 
     /**
      * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
      */
     gslpp::matrix<double> CMS13_pp_phi_bb_e, CMS13_gg_phi_tautau_e, CMS13_bb_phi_tautau_e, CMS13_gg_phi_gaga_e, CMS13_pp_phi_Zga_llga_e,\
-                          CMS13_pp_phi_Zga_qqga_e, CMS13_pp_H_ZZ_llll_e, CMS13_VBFVH_H_ZZ_llll_e, CMS13_pp_H_ZZ_llqq_e, CMS13_ggFVBF_H_WW_lnulnu_e,\
-                          CMS13_pp_H_hh_bbbb_e, CMS13_pp_H_hh_gagabb_e, CMS13_pp_H_hh_bbtautau_e, CMS13_pp_H_hh_bbtautau1_e, CMS13_pp_H_hh_bblnulnu_e, CMS13_pp_H_hh_bbVV_e;
+                          CMS13_pp_phi_Zga_qqga_e, CMS13_ggF_phi_Zga_e, CMS13_pp_H_ZZ_llll_e, CMS13_VBFVH_H_ZZ_llll_e, CMS13_pp_H_ZZ_llqq_e, CMS13_ggFVBF_H_WW_lnulnu_e,\
+                          CMS13_pp_H_hh_bbbb_e, CMS13_ggF_H_hh_bbbb_e, CMS13_pp_H_hh_gagabb_e, CMS13_pp_H_hh_bbtautau_e, CMS13_pp_H_hh_bbtautau1_e, CMS13_pp_H_hh_bblnulnu_e, CMS13_pp_H_hh_bbVV_e;
 
     /**
      * @brief data templates
@@ -1217,6 +1217,20 @@ public:
     double ip_ex_pp_phi_Zga_qqga_CMS13_e(double mass);
 
     /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to a @f$Z@f$ boson and a photon.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to Z \gamma)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-EXO-17-005, Figure 7 left @cite CMS:2017fge.
+     */
+    double ip_ex_ggF_phi_Zga_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to a @f$Z@f$ boson and a photon.
+     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to Z \gamma)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-EXO-17-005, Figure 7 left @cite CMS:2017fge.
+     */
+    double ip_ex_ggF_phi_Zga_CMS13_e(double mass);
+
+    /**
      * @brief Interpolating function for the observed CMS upper limit on a gluon-gluon produced scalar resonance decaying to two @f$Z@f$ bosons which further decay to four leptons.
      * @return @f$[\sigma_{gg\to H}\cdot BR(H\to ZZ\to \ell \ell \ell \ell)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-HIG-PAS-16-033, Figure 16-a @cite CMS:2016ilx.
@@ -1285,6 +1299,20 @@ public:
      * @details Taken from CMS-HIG-PAS-16-002, Figure 7 @cite CMS:2016tlj.
      */
     double ip_ex_pp_H_hh_bbbb_CMS13_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to four b quarks.
+     * @return @f$[\sigma_{gg\to H}\cdot BR(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-B2G-16-026, Figure 9 left @cite CMS:2017gxe.
+     */
+    double ip_ex_ggF_H_hh_bbbb_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to four b quarks.
+     * @return @f$[\sigma_{gg\to H}\cdot BR(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
+     * @details Taken from CMS-PAS-B2G-16-026, Figure 9 left @cite CMS:2017gxe.
+     */
+    double ip_ex_ggF_H_hh_bbbb_CMS13_e(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to two photons and a b quark pair.
@@ -1972,6 +2000,12 @@ public:
     double pp_H_Zga_TH13;
 
     /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to Z\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)@f$
+     */
+    double ggF_H_Zga_TH13;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$pp\to H\to ZZ@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to ZZ)@f$
      */
@@ -2048,6 +2082,12 @@ public:
      * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
      */
     double pp_H_hh_bbbb_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
+     */
+    double ggF_H_hh_bbbb_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to \gamma\gamma b\bar b@f$ at the LHC with 13 TeV.
@@ -2208,6 +2248,8 @@ public:
     double R_pp_H_Zga_llga_CMS13;
     double THoEX_pp_H_Zga_qqga_CMS13;
     double R_pp_H_Zga_qqga_CMS13;
+    double THoEX_ggF_H_Zga_CMS13;
+    double R_ggF_H_Zga_CMS13;
     double THoEX_ggF_H_ZZ_llnunu_ATLAS13;
     double R_ggF_H_ZZ_llnunu_ATLAS13;
     double THoEX_ggF_H_ZZ_llll_ATLAS13;
@@ -2242,6 +2284,8 @@ public:
     double R_pp_H_hh_bbbb_ATLAS13;
     double THoEX_pp_H_hh_bbbb_CMS13;
     double R_pp_H_hh_bbbb_CMS13;
+    double THoEX_ggF_H_hh_bbbb_CMS13;
+    double R_ggF_H_hh_bbbb_CMS13;
     double THoEX_ggF_H_hh_gagaWW_ATLAS13;
     double R_ggF_H_hh_gagaWW_ATLAS13;
     double THoEX_pp_H_hh_bbtautau_CMS13;
@@ -2356,6 +2400,12 @@ public:
      * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)@f$
      */
     double pp_A_Zga_TH13;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$gg\to A\to Z\gamma@f$ at the LHC with 13 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to Z\gamma)@f$
+     */
+    double ggF_A_Zga_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to hZ\to b\bar b Z@f$ at the LHC with 13 TeV.
@@ -2476,6 +2526,8 @@ public:
     double R_pp_A_Zga_llga_CMS13;
     double THoEX_pp_A_Zga_qqga_CMS13;
     double R_pp_A_Zga_qqga_CMS13;
+    double THoEX_ggF_A_Zga_CMS13;
+    double R_ggF_A_Zga_CMS13;
     double THoEX_ggF_A_hZ_bbZ_ATLAS13;
     double R_ggF_A_hZ_bbZ_ATLAS13;
     double THoEX_bbF_A_hZ_bbZ_ATLAS13;
@@ -2856,6 +2908,8 @@ private:
     mutable double ip_ex_pp_phi_Zga_llga_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_phi_Zga_qqga_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_Zga_qqga_CMS13_cache_e[2][CacheSize];
+    mutable double ip_ex_ggF_phi_Zga_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_ggF_phi_Zga_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_H_ZZ_llll_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_H_ZZ_llll_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_VBF_VH_H_ZZ_llll_CMS13_cache[2][CacheSize];
@@ -2864,6 +2918,8 @@ private:
     mutable double ip_ex_ggVV_H_WW_lnulnu_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bbbb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bbbb_CMS13_cache_e[2][CacheSize];
+    mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_ggF_H_hh_bbbb_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_H_hh_gagabb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_pp_H_hh_gagabb_CMS13_cache_e[2][CacheSize];
     mutable double ip_ex_pp_H_hh_bbtautau_CMS13_cache[2][CacheSize];

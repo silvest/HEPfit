@@ -24,7 +24,7 @@ bsgammaTHDM::~bsgammaTHDM()
 double bsgammaTHDM::computeThValue()
 {
     std::string modelflag=myTHDM->getModelTypeflag();
-    if (modelflag == "type2") {
+    if (modelflag == "type2" || modelflag == "typeY" ) {
         double logtb=myTHDM->getlogtb();
         double logmHp=log10(myTHDM->getmHp());
         double B_BXsgamma_ctrl=mycache->ip_ex_bsgamma(logtb,logmHp);
@@ -34,7 +34,7 @@ double bsgammaTHDM::computeThValue()
         return B_BXsgamma_ctrl * (1.0 + B_BXsgamma_err * bsgamma_theoryerror);
     }
     else {
-        throw std::runtime_error("flag_model in bsgammaTHDM::computeThValue() can only be \"type2\" at the moment");
+        throw std::runtime_error("flag_model in bsgammaTHDM::computeThValue() can only be \"type2\" or \"typeY\" at the moment");
         return 0.;
     }
 }

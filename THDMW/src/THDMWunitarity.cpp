@@ -7,42 +7,89 @@
 
 #include "THDMWunitarity.h"
 
-THDMWunitarity::THDMWunitarity(const StandardModel& SM_i)
-: myTHDMW(static_cast<const THDMW*> (&SM_i)), Smatrix(18,18,0.),
-        Seigenvectors(18,18,0.), Seigenvalues(18,0.)
-{}
-
-THDMWunitarity::~THDMWunitarity() 
-{}
-
-bool THDMWunitarity::CalcSeigen(gslpp::matrix<gslpp::complex>& Seigenvectors_i, gslpp::vector<double>& Seigenvalues_i)
+THDMWunitarityLO::THDMWunitarityLO(const StandardModel& SM_i, unsigned int index_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
 {
-    double lambda1 = myTHDMW->getTHDMW_lambda1();
-    
-    gslpp::complex i = gslpp::complex::i();
-    
-    Smatrix.assign(0,0, lambda1);
-    
-    Smatrix.eigensystem(Seigenvectors_i, Seigenvalues_i);
-    
-    return true;
+    index = index_i;
 }
 
-gslpp::vector<double> THDMWunitarity::getSeigenvalues()
-{
-    CalcSeigen(Seigenvectors,Seigenvalues);
-    
-    return Seigenvalues;
-}
-
-
-THDMWunitarity1::THDMWunitarity1(const StandardModel& SM_i)
-: ThObservable(SM_i), myTHDMWunitarity(SM_i)
+THDMWunitarityLO::~THDMWunitarityLO() 
 {}
-//
-double THDMWunitarity1::computeThValue()
+
+double THDMWunitarityLO::computeThValue()
 {
-//    return (myTHDMWunitarity.getSeigenvalues())(0);
-    return 0.0;
+    if( index > 10 ) {
+        throw std::runtime_error("Index out of range in THDMWunitarityLO");
+    }
+    return (myTHDMW.getMyTHDMWCache()->unitarityeigenvalues(index)).abs();
 }
 
+THDMWunitarityNLO::THDMWunitarityNLO(const StandardModel& SM_i, unsigned int index_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{
+    index = index_i;
+}
+
+THDMWunitarityNLO::~THDMWunitarityNLO() 
+{}
+
+double THDMWunitarityNLO::computeThValue()
+{
+    if( index > 10 ) {
+        throw std::runtime_error("Index out of range in THDMWunitarityNLO");
+    }
+
+    gslpp::complex a0 = myTHDMW.getMyTHDMWCache()->unitarityeigenvalues(index);
+    gslpp::complex a1 = myTHDMW.getMyTHDMWCache()->NLOunitarityeigenvalues(index);
+    
+    return ( a0 * a0 + 2.0 * a0 * a1.real() ).abs();
+}
+
+THDMWunitarityNLOp::THDMWunitarityNLOp(const StandardModel& SM_i, unsigned int index_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{
+    index = index_i;
+}
+
+THDMWunitarityNLOp::~THDMWunitarityNLOp() 
+{}
+
+double THDMWunitarityNLOp::computeThValue()
+{
+    if( index > 10 ) {
+        throw std::runtime_error("Index out of range in THDMWunitarityNLOp");
+    }
+
+    gslpp::complex a0 = myTHDMW.getMyTHDMWCache()->unitarityeigenvalues(index);
+    gslpp::complex a1 = myTHDMW.getMyTHDMWCache()->NLOunitarityeigenvalues(index);
+    
+    return ( a0 + a1.real() ).abs();
+}
+
+THDMWunitarityRp::THDMWunitarityRp(const StandardModel& SM_i, unsigned int index_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{
+    index = index_i;
+}
+
+THDMWunitarityRp::~THDMWunitarityRp() 
+{}
+
+double THDMWunitarityRp::computeThValue()
+{
+    if( index > 10 ) {
+        throw std::runtime_error("Index out of range in THDMWunitarityRp");
+    }
+
+    gslpp::complex a0 = myTHDMW.getMyTHDMWCache()->unitarityeigenvalues(index);
+    gslpp::complex a1 = myTHDMW.getMyTHDMWCache()->NLOunitarityeigenvalues(index);
+    double Rpeps = myTHDMW.getMyTHDMWCache()->RpepsTHDMW;
+
+    double Rp = 0.01;
+    if(a0.abs()>Rpeps)
+    {
+        Rp = ( a1 / a0 ).abs();
+    }
+    
+    return Rp;
+}

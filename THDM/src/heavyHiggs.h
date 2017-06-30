@@ -1326,6 +1326,48 @@ private:
 };
 
 /**
+ * @class Hobs_ggF_H_Zga_CMS13
+ * @ingroup THDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg\to H\to Z\gamma@f$.
+ */
+class Hobs_ggF_H_Zga_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_ggF_H_Zga_CMS13 constructor.
+     */
+    Hobs_ggF_H_Zga_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)]_{\text{theo}} / [\sigma_{gg\to H}\cdot BR(H\to Z\gamma)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_ggF_H_Zga_CMS13
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on signal strength of the process @f$gg\to H\to Z\gamma@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_H_Zga_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_H_Zga_CMS13 constructor.
+     */
+    Robs_ggF_H_Zga_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_ggF_H_ZZ_llnunu_ATLAS13
  * @ingroup THDM
  * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$gg\to H\to ZZ@f$.
@@ -2033,6 +2075,48 @@ public:
 
     /**
      * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Hobs_ggF_H_hh_bbbb_CMS13
+ * @ingroup THDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$gg\to H\to hh\to b\bar b b\bar b@f$.
+ */
+class Hobs_ggF_H_hh_bbbb_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_ggF_H_hh_bbbb_CMS13 constructor.
+     */
+    Hobs_ggF_H_hh_bbbb_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{theo}} / [\sigma_{gg\to H}\cdot BR(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_ggF_H_hh_bbbb_CMS13
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on signal strength of the process @f$gg\to H\to hh\to b\bar b b\bar b@f$ assuming a Gaussian likelihood.
+ */
+class Robs_ggF_H_hh_bbbb_CMS13: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_ggF_H_hh_bbbb_CMS13 constructor.
+     */
+    Robs_ggF_H_hh_bbbb_CMS13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -2754,6 +2838,27 @@ private:
 };
 
 /**
+ * @class log10_ggF_H_Zga_TH13
+ * @ingroup THDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to H\to Z\gamma@f$ at 13 TeV.
+ */
+class log10_ggF_H_Zga_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_ggF_H_Zga_TH13 constructor.
+     */
+    log10_ggF_H_Zga_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to Z\gamma)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class log10_pp_H_ZZ_TH13
  * @ingroup THDM
  * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H\to ZZ@f$ at 13 TeV.
@@ -3020,6 +3125,27 @@ public:
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class log10_ggF_H_hh_bbbb_TH13
+ * @ingroup THDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$gg\to H\to hh\to b\bar b b\bar b@f$ at 13 TeV.
+ */
+class log10_ggF_H_hh_bbbb_TH13: public ThObservable {
+public:
+
+    /**
+     * @brief log10_ggF_H_hh_bbbb_TH13 constructor.
+     */
+    log10_ggF_H_hh_bbbb_TH13(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)]@f$
      */
     double computeThValue();
 private:

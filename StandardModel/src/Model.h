@@ -198,6 +198,15 @@ public:
         return flagGTHDMmodel;
     }
     
+    void setModelTHDMW(){
+        flagTHDMWmodel = true;
+    }
+    
+    bool isModelTHDMW() const{
+        return flagTHDMWmodel;
+    }
+
+    
     bool isModelLinearized() const{
         return flagLinearized;
     }
@@ -231,6 +240,7 @@ private:
     bool flagSUSYmodel;///< A flag identifying the model as a SUSY model
     bool flagTHDMmodel;///< A flag identifying the model as a THDM model
     bool flagGTHDMmodel;///< A flag identifying the model as a GeneralTHDM model
+    bool flagTHDMWmodel;///< A flag identifying the model as a THDMW model
     bool flagLinearized; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
 
 };
