@@ -417,15 +417,15 @@ gslpp::matrix<double>& EvolDB1bsg::Df1Evolbsg(double mu, double M, orders order,
     setScales(mu, M); // also assign evol to identity
     if (M != mu) {
         double m_down = mu;
-        double m_up = model.AboveTh(m_down);
-        double nf = model.Nf(m_down);
+//        double m_up = model.AboveTh(m_down);
+        double nf = 5;//model.Nf(m_down); b to s gamma is always 5 flavour. This erroneously makes the evolutor cross thresholds.
 
-        while (m_up < M) {
-            Df1Evolbsg(m_down, m_up, nf, scheme);
-            m_down = m_up;
-            m_up = model.AboveTh(m_down);
-            nf += 1.;
-        }
+//        while (m_up < M) {
+//            Df1Evolbsg(m_down, m_up, nf, scheme);
+//            m_down = m_up;
+//            m_up = model.AboveTh(m_down);
+//            nf += 1.;
+//        } This code is commented out since it is not necessary unless thresholds are crossed.
         Df1Evolbsg(m_down, M, nf, scheme);
     }
     

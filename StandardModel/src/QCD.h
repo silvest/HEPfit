@@ -978,6 +978,16 @@ public:
      */
     double Nf(const double mu) const;
 
+    /**
+     * @brief Threshold corrections in matching als(nf+1) with als(nf) from hep-ph/0512060
+     * @param[in] mu the matching scale
+     * @param[in] M the running quark mass
+     * @param[in] als value of als(mu) in the nf flavour theory
+     * @param[in] nf number of active flavour
+     * @param[in] order order of the expansion in als 
+     * @return Threshold correction (without the leading term equal to 1)
+     */
+    double ThresholdCorrections(double mu, double M, double als, double nf, orders order) const;
     ////////////////////////////////////////////////////////////////////////
 
     /**

@@ -104,13 +104,13 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, sch
         }        
     coeffbnlep00.setCoeff(bnlep, orders(j));
     }
-    for (int k=LO_ew; k <= ordDF1ew; k++) {
+    for (int k=LO_QED; k <= ordDF1ew; k++) {
         bnlep2 = *coeffbnlep00qcd.getCoeff(orders_qed(k));
         std::cout<< std::endl <<"$$$$$$$$$$$$ "<<k<<" $$$$$$$$$$$"<<std::endl;
                 
         for (int l = 0; l < 10; l++){
             bnlep.assign(l, bnlep2(l));
-            if(k == LO_ew){ appoggio2[l] = bnlep(l); }
+            if(k == LO_QED){ appoggio2[l] = bnlep(l); }
             if(k == NLO_QED11) { appoggio3[l] = bnlep(l); }
             std::cout<<"++++++++++ "<< l <<" -> "<< bnlep(l) <<" ++++++++++++"<<std::endl;
         }          
@@ -167,7 +167,7 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, sch
             
         coeffbnlep10qcd.setCoeff(*coeffbnlep10qcd.getCoeff(orders_qed(NLO_QED11)) +
                     u.Df1Evolnlep(mu, mcb[i].getMu(), orders(LO), NO_QED, mcb[i].getScheme()) *
-                    (*(mcb[i].getCoeff(orders(LO_ew)))), orders_qed(NLO_QED11));
+                    (*(mcb[i].getCoeff(orders(LO_QED)))), orders_qed(NLO_QED11));
     }        
     
     //Evolves the current*current part of the hamiltonian (the one non-proportional to lambda_t) 
@@ -196,7 +196,7 @@ gslpp::vector<gslpp::complex>** HeffDF1bnlep::ComputeCoeffBnlep10(double mu, sch
         }        
     coeffbnlep10.setCoeff(bnlep, orders(j));
     }
-    for (int k=LO_ew; k <= ordDF1ew; k++) {
+    for (int k=LO_QED; k <= ordDF1ew; k++) {
         bnlep2 = *coeffbnlep10qcd.getCoeff(orders_qed(k));
         for (int l = 0; l < 10; l++){
             bnlep.assign(l, bnlep2(l));;

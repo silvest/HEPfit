@@ -7,12 +7,12 @@
 
 #include "Bdmumu.h"
 #include "StandardModel.h"
-#include "EvolDF1.h"
+#include "EvolBsmm.h"
 #include "HeffDB1.h"
 
 Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag)
 : ThObservable(SM_i),
-  evolbdmm(*(new EvolDF1(8, "CPL", NDR, NNLO, SM_i)))
+  evolbdmm(*(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)))
 {  
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bdmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
@@ -77,8 +77,8 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffdmumu(mu, NDR);
     
     double alsmu = evolbdmm.alphatilde_s(mu);
-//    double alemu = evolbdmm.alphatilde_e(mu);
-    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
+    double alemu = evolbdmm.alphatilde_e(mu);
+//    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
     
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     

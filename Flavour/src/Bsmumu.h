@@ -9,7 +9,7 @@
 #define	BSMUMU_H
 
 class StandardModel;
-class EvolDF1;
+class EvolBsmm;
 #include "ThObservable.h"
 #include "OrderScheme.h"
 
@@ -61,7 +61,7 @@ private:
     double phiNP;
     double timeInt;
     int obs;
-    EvolDF1& evolbsmm;
+    EvolBsmm& evolbsmm;
 
 };
 

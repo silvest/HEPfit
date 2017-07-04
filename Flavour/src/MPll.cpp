@@ -34,27 +34,6 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     meson = meson_i;
     pseudoscalar = pseudoscalar_i;
 
-#if NFPOLARBASIS_MPLL
-    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
-#else
-    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-        << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP";
-#endif
-    else {
-        std::stringstream out;
-        out << pseudoscalar;
-        throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
-    }
-    
     I0_updated = 0;
     I2_updated = 0;
     I8_updated = 0;
@@ -77,6 +56,26 @@ MPll::~MPll()
 
 std::vector<std::string> MPll::initializeMPllParameters()
 {
+    #if NFPOLARBASIS_MPLL
+    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
+        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+#else
+    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
+        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+        << "reh_0_MP" << "imh_0_MP" << "reh_1_MP" << "imh_1_MP";
+#endif
+    else {
+        std::stringstream out;
+        out << pseudoscalar;
+        throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
+    }
     mySM.initializeMeson(meson);
     mySM.initializeMeson(pseudoscalar);
     return mpllParameters;
@@ -209,7 +208,7 @@ void MPll::updateParameters()
     fourMM2 = 4. * MM2;
     twoMboMM = 2 * Mb / MM;
     sixteenM_PI2 = 16. * M_PI*M_PI;
-    sixtyfourM_PI3MM3 = 64. * M_PI * M_PI * M_PI * MM * MM*MM;
+    ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
     MboMW = Mb / MW;
     MboMM = Mb / MM;
     MsoMb = Ms / Mb;
@@ -943,7 +942,7 @@ double MPll::lambda(double q2)
 
 double MPll::F(double q2) 
 {
-    return sqrt(lambda(q2))*beta(q2)*q2/(sixtyfourM_PI3MM3);
+    return sqrt(lambda(q2))*beta(q2)*q2/(ninetysixM_PI3MM3);
 }
 
 double MPll::I_1c(double q2) 

@@ -98,7 +98,7 @@ std::string QCD::orderToString(const orders order) const
         case FULLNNNLO:
             return "FULLNNNLO";
         default:
-            throw std::runtime_error(orderToString(order) + " is not implemented in QCD::orderToString().");
+            throw std::runtime_error("QCD::orderToString(): order not implemented.");
     }
 }
 
@@ -498,7 +498,11 @@ double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
                     v) + b1_b0 * b1_b0 * b1_b0 * (-logv * logv * logv + 2.5 *
                     logv * logv + 2. * (1. - v) * logv - 0.5 * (v - 1.) * (v - 1.))));
         case FULLNLO:
-            return (alsi / v * (1. - Beta1(nf) / Beta0(nf) * alsi / 4. / M_PI * log(v) / v));
+            return (AlsWithInit(mu,alsi,mu_i,LO)+AlsWithInit(mu,alsi,mu_i,NLO));
+        case FULLNNLO:
+            return(AlsWithInit(mu,alsi,mu_i,LO)+AlsWithInit(mu,alsi,mu_i,NLO)+AlsWithInit(mu,alsi,mu_i,NNLO));
+        case FULLNNNLO:
+            return(AlsWithInit(mu,alsi,mu_i,LO)+AlsWithInit(mu,alsi,mu_i,NLO)+AlsWithInit(mu,alsi,mu_i,NNLO)+AlsWithInit(mu,alsi,mu_i,NNNLO));
         default:
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,alsi,mi,order).");
     }
@@ -536,12 +540,39 @@ double QCD::AlsWithLambda(const double mu, const double logLambda,
     if (order == NNLO) return alsNNLO;
     if (order == FULLNNLO) return (alsLO + alsNLO + alsNNLO);
 
+    // NNNLO contribution
+    double b3 = Beta3(nf);
+    double alsNNNLO = 4. * M_PI / b0L * (-1. / b0L / b0L / b0L
+            * (b1 * b1 * b1 / b0 / b0 / b0 * (log_L * log_L * log_L - 5./2. * log_L * log_L -2. * log_L - 0.5) + 3. * b1 * b2 * log_L / b0 / b0 - 0.5 * b3 / b0));
+    if (order == NNNLO) return alsNNNLO;
+    if (order == FULLNNNLO) return (alsLO + alsNLO + alsNNLO + alsNNNLO);
+
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::AlsWithLambda().");
 }
 
 double QCD::AlsWithLambda(const double mu, const orders order) const
 {
     return AlsWithLambda(mu, logLambda(Nf(mu), order), order);
+}
+
+double QCD::ThresholdCorrections(double mu, double M, double als, double nf, orders order) const
+{
+    double lmM = 2.*log(mu/M);
+    switch(order)
+    {
+        case LO:
+            return(0.);
+            break;
+        case NLO:
+            return(als/M_PI*lmM/6.);
+        case NNLO:
+            return(als*als/M_PI/M_PI*(-11./72. + 19./24.*lmM + lmM*lmM/36.));
+        case NNNLO:
+            return(als*als*als/M_PI/M_PI/M_PI*(-564731./124416. + 82043./27648.*gslpp_special_functions::zeta(3) +
+                    2191./576.*lmM + 511./576.*lmM*lmM + lmM*lmM*lmM/216. + nf * (2633./31104. - 67./576.*lmM + lmM*lmM/36.)));
+        default:
+            throw std::runtime_error("QCD::ThresholdCorrections(): order not implemented.")
+    }
 }
 
 double QCD::Als(const double mu, const orders order) const
@@ -570,7 +601,7 @@ double QCD::Als(const double mu, const orders order) const
                     mu_thre1 = AboveTh(MAls); // mut
                     Als_tmp = AlsWithInit(mu_thre1 - MEPS, AlsM, MAls, order);
                     if (order == FULLNLO) {
-                        mf = mtpole;
+                        mf = getQuarks(TOP).getMass(); //mf = mtpole;
                         Als_tmp = (1. + Als_tmp / M_PI * log(mu_thre1 / mf) / 3.) * Als_tmp;
                     }
                     als = AlsWithInit(mu, Als_tmp, mu_thre1 + MEPS, order);
@@ -611,9 +642,9 @@ double QCD::Als(const double mu, const orders order) const
         case FULLNNNLO:
            /* alpha_s(mu) computed with Lambda_QCD for Nf=nfmu */
 //            als = AlsWithLambda(mu, order);
-            if (nfmu == nfz)
+//           if (nfmu == nfz)
                als = AlsWithInit(mu, AlsM, MAls, order);
-            else throw std::runtime_error("Error in QCD::Als(mu,order): known only for nf=5");
+            if (nfmu != nfz) std::cout << "Warning in QCD::Als(mu,order): known only for nf=5" << std::endl;
             break;
         default:
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,order).");

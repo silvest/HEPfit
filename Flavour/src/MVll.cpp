@@ -38,95 +38,10 @@ T_cache(5, 0.)
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
-//    fullKD = mySM.getFlagFullKD();
+    fullKD = false;
     mJ2 = 3.096*3.096;
     gRandom = new TRandom3();
     gRandom->SetSeed(0);
-
-#if NFPOLARBASIS_MVLL
-    if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
-        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
-        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2" << "xs_phi";
-    else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2";
-    else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_0_2" << "absh_p_2" << "absh_m_2" << "argh_0_2" << "argh_p_2" << "argh_m_2";
-#else 
-    if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
-        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
-        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-        << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
-        << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-        << "reh_0_2" << "reh_p_2" << "reh_m_2" << "imh_0_2" << "imh_p_2" << "imh_m_2" << "xs_phi";
-    else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
-        << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-        << "reh_0_2" << "reh_p_2" << "reh_m_2" << "imh_0_2" << "imh_p_2" << "imh_m_2";
-    else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
-        << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
-        << "reh_0_2" << "reh_p_2" << "reh_m_2" << "imh_0_2" << "imh_p_2" << "imh_m_2";
-#endif
-    else {
-        std::stringstream out;
-        out << vectorM;
-        throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
-    }
-                               
-    if (fullKD) {
-        mvllParameters.clear();
-        if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
-        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
-        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-        << "r1_1" << "r2_1" << "DC9_1"
-        << "r1_2" << "r2_2" << "DC9_2"
-        << "r1_3" << "r2_3" << "DC9_3" << "xs_phi";
-        else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "r1_1" << "r2_1" << "DC9_1"
-        << "r1_2" << "r2_2" << "DC9_2"
-        << "r1_3" << "r2_3" << "DC9_3" ;
-        else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "r1_1" << "r2_1" << "DC9_1"
-        << "r1_2" << "r2_2" << "DC9_2"
-        << "r1_3" << "r2_3" << "DC9_3" ;
-    }
     
     I0_updated = 0;
     I1_updated = 0;
@@ -170,10 +85,108 @@ T_cache(5, 0.)
 
 MVll::~MVll() 
 {
+    if (gRandom != NULL) delete(gRandom);
+    gRandom = NULL;
 }
 
 std::vector<std::string> MVll::initializeMVllParameters()
 {
+    fullKD = mySM.getFlavour().getFlagFullKD();
+    
+#if NFPOLARBASIS_MVLL
+    if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
+        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi";
+    else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
+        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+    else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
+        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+#else 
+    if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
+        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+        << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
+        << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
+        << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2" << "xs_phi";
+    else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
+        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+        << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
+        << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
+        << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2";
+    else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
+        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+        << "reh_0" << "reh_p" << "reh_m" << "imh_0" << "imh_p" << "imh_m"
+        << "reh_0_1" << "reh_p_1" << "reh_m_1" << "imh_0_1" << "imh_p_1" << "imh_m_1"
+        << "reh_p_2" << "reh_m_2" << "imh_p_2" << "imh_m_2";
+#endif
+    else {
+        std::stringstream out;
+        out << vectorM;
+        throw std::runtime_error("MVll: vector " + out.str() + " not implemented");
+    }
+
+    if (fullKD) {
+        mvllParameters.clear();
+        if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+            << "r1_1" << "r2_1" << "deltaC9_1"
+            << "r1_2" << "r2_2" << "deltaC9_2"
+            << "r1_3" << "r2_3" << "deltaC9_3" << "xs_phi";
+//            << "absh_0" << "absh_p" << "absh_m"
+//            << "absh_0_1" << "absh_p_1" << "absh_m_1"
+//            << "absh_p_2" << "absh_m_2";
+        else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "r1_1" << "r2_1" << "deltaC9_1"
+            << "r1_2" << "r2_2" << "deltaC9_2"
+            << "r1_3" << "r2_3" << "deltaC9_3";
+//            << "absh_0" << "absh_p" << "absh_m"
+//            << "absh_0_1" << "absh_p_1" << "absh_m_1"
+//            << "absh_p_2" << "absh_m_2";
+        else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "r1_1" << "r2_1" << "deltaC9_1"
+            << "r1_2" << "r2_2" << "deltaC9_2"
+            << "r1_3" << "r2_3" << "deltaC9_3";
+//            << "absh_0" << "absh_p" << "absh_m"
+//            << "absh_0_1" << "absh_p_1" << "absh_m_1"
+//            << "absh_p_2" << "absh_m_2";
+    }
+    
     mySM.initializeMeson(meson);
     mySM.initializeMeson(vectorM);
     return mvllParameters;
@@ -347,7 +360,7 @@ void MVll::updateParameters()
         h_1[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_1"), mySM.getOptionalParameter("argh_p_1"), true);
         h_1[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_1"), mySM.getOptionalParameter("argh_m_1"), true);
 
-        h_2[0] = gslpp::complex(mySM.getOptionalParameter("absh_0_2"), mySM.getOptionalParameter("argh_0_2"), true);
+        h_2[0] = 0.;
         h_2[1] = gslpp::complex(mySM.getOptionalParameter("absh_p_2"), mySM.getOptionalParameter("argh_p_2"), true);
         h_2[2] = gslpp::complex(mySM.getOptionalParameter("absh_m_2"), mySM.getOptionalParameter("argh_m_2"), true);
 #else
@@ -359,7 +372,7 @@ void MVll::updateParameters()
         h_1[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_1"), mySM.getOptionalParameter("imh_p_1"), false);
         h_1[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_1"), mySM.getOptionalParameter("imh_m_1"), false);
 
-        h_2[0] = gslpp::complex(mySM.getOptionalParameter("reh_0_2"), mySM.getOptionalParameter("imh_0_2"), false);
+        h_2[0] = 0.;
         h_2[1] = gslpp::complex(mySM.getOptionalParameter("reh_p_2"), mySM.getOptionalParameter("imh_p_2"), false);
         h_2[2] = gslpp::complex(mySM.getOptionalParameter("reh_m_2"), mySM.getOptionalParameter("imh_m_2"), false);
 #endif
@@ -372,12 +385,12 @@ void MVll::updateParameters()
         h_1[1] = gslpp::complex(mySM.getOptionalParameter("r2_2"));
         h_1[2] = gslpp::complex(mySM.getOptionalParameter("r2_3"));
 
-        h_2[0] = gslpp::complex(mySM.getOptionalParameter("DC9_1"));
-        h_2[1] = gslpp::complex(mySM.getOptionalParameter("DC9_2"));
-        h_2[2] = gslpp::complex(mySM.getOptionalParameter("DC9_3"));
-        randomPhase[0] = gRandom->Uniform(2.*M_PI);
-        randomPhase[1] = gRandom->Uniform(2.*M_PI);
-        randomPhase[2] = gRandom->Uniform(2.*M_PI);
+        h_2[0] = gslpp::complex(mySM.getOptionalParameter("deltaC9_1"));
+        h_2[1] = gslpp::complex(mySM.getOptionalParameter("deltaC9_2"));
+        h_2[2] = gslpp::complex(mySM.getOptionalParameter("deltaC9_3"));
+        exp_randomPhase[0] = exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
+        exp_randomPhase[1] = exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
+        exp_randomPhase[2] = exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
     } 
 
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -528,6 +541,12 @@ void MVll::updateParameters()
                 throw std::runtime_error("MVll: lepton " + out.str() + " not implemented");
         }
     }
+    
+//    if (fullKD) {
+//        fit_h_0();
+//        fit_h_p();
+//        fit_h_m();
+//    }
 
     std::map<std::pair<double, double>, unsigned int >::iterator it;
 
@@ -1544,29 +1563,110 @@ gslpp::complex MVll::Y(double q2)
 
 gslpp::complex MVll::funct_g(double q2)
 {
-    double pre = -8./9.*log(Mc/Mb) + 8./27. + 16./9.*Mc*Mc/q2 - 4./9.*(2. + 4.*Mc*Mc/q2);
     if (q2 < 4.*Mc*Mc)
-        return pre * (sqrt(4.*Mc*Mc/q2 - 1.) * atan(1./sqrt(4.*Mc*Mc/q2 - 1.)));
+        return -8./9.*log(Mc/Mb) + 8./27. + 16./9.*Mc*Mc/q2 - 4./9.*(2. + 4.*Mc*Mc/q2) * (sqrt(4.*Mc*Mc/q2 - 1.) * atan(1./sqrt(4.*Mc*Mc/q2 - 1.)));
     else
-        return pre * (sqrt(1. - 4.*Mc*Mc/q2) * (log(1. + sqrt(1. - 4.*Mc*Mc/q2)/sqrt(4.*Mc*Mc/q2)) - gslpp::complex::i()*M_PI_2));
+        return -8./9.*log(Mc/Mb) + 8./27. + 16./9.*Mc*Mc/q2 - 4./9.*(2. + 4.*Mc*Mc/q2) * (sqrt(1. - 4.*Mc*Mc/q2) * (log(1. + sqrt(1. - 4.*Mc*Mc/q2)/sqrt(4.*Mc*Mc/q2)) - gslpp::complex::i()*M_PI_2));
 }
 
 gslpp::complex MVll::DeltaC9_KD(double q2, int com)
 {
-    return ((h_0[com] * (1. - 1. / q2) + h_2[com] / q2) / (1. + h_1[com] * (1. - q2) / mJ2) - (3. * C_1 + C_2) * funct_g(q2))*exp(gslpp::complex::i()*randomPhase[com]);
+    return ((h_0[com] * (1. - 1. / q2) + h_2[com] / q2) / (1. + h_1[com] * (1. - q2) / mJ2) - (3. * (-0.267) + 1.117) * funct_g(q2))*exp_randomPhase[com];
+    /* C_1 = -0.267 and C_2 = 1.117 in KMPW */
 }
 
 gslpp::complex MVll::h_lambda(int hel, double q2) 
 {
     if(!fullKD) {
         if (h_pole == true) return (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
-        else return (h_0[hel] + h_1[hel] * q2 + h_2[hel] * q2 * q2);
+        else if (hel == 1 || hel == 2) return (h_0[hel] + h_1[hel] * q2 + h_2[hel] * q2 * q2);
+        else return (h_0[hel] + h_1[hel] * q2) * sqrt(q2);
     } else {
         if (hel == 0) return -sqrt(q2)/(MM2*16.*M_PI*M_PI) * ((MMpMV2*(MM2mMV2-q2)*A_1(q2)*DeltaC9_KD(q2,1) - lambda(q2)*A_2(q2)*DeltaC9_KD(q2,2)) / (4.*MV*MM*MMpMV));
-        else if (hel == 1) return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*Mb)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
-        else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*Mb)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        else if (hel == 1) return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
     }
 }
+
+//double MVll::Abs_h_0_fit(double* x, double* p)
+//{
+//    return (p[0] + p[1] * x[0]) * sqrt(x[0]);
+//}
+//
+//double MVll::Abs_h_p_fit(double* x, double* p)
+//{
+//    return (p[0] + p[1] * x[0] + p[2] * x[0] * x[0]);
+//}
+//
+//double MVll::Abs_h_m_fit(double* x, double* p)
+//{
+//    return (p[0] + p[1] * x[0] + p[2] * x[0] * x[0]);
+//}
+//
+//void MVll::fit_h_0()
+//{
+//    int dim = 0;
+//    for (double i = 0.1; i < 8.0; i += 0.2) {
+//        double q2tmp = i;
+//        myq2.push_back(q2tmp);
+//        Abs_h_0.push_back((h_lambda(0, q2tmp)).abs());
+//        dim++;
+//    }
+//    gr1 = TGraph(dim, myq2.data(), Abs_h_0.data());
+//    absffit = TF1("absffit", this, &MVll::Abs_h_0_fit, 0.1, 8.0, 2, "MVll", "Abs_h_0_fit");
+//    absfres_h_0 = gr1.Fit(&absffit, "SQN0+rob=0.99");
+//
+//    Abs_h_0.clear();
+//    myq2.clear();
+//    
+//    params = absfres_h_0->GetParams();
+//    mySM.setOptionalParameter("absh_0", params[0]);
+//    mySM.setOptionalParameter("absh_0_1", params[1]);
+//}
+//
+//void MVll::fit_h_p()
+//{
+//    int dim = 0;
+//    for (double i = 0.1; i < 8.0; i += 0.01) {
+//        double q2tmp = i;
+//        myq2.push_back(q2tmp);
+//        Abs_h_p.push_back((h_lambda(1, q2tmp)).abs());
+//        dim++;
+//    }
+//    gr1 = TGraph(dim, myq2.data(), Abs_h_p.data()); 
+//    absffit = TF1("absffit", this,&MVll::Abs_h_p_fit, 0.1, 8.0, 3, "MVll", "Abs_h_p_fit");
+//    absfres_h_p = gr1.Fit(&absffit, "SQN0+rob=0.99");
+//    
+//    Abs_h_p.clear();
+//    myq2.clear();
+//    
+//    params = absfres_h_p->GetParams();
+//    mySM.setOptionalParameter("absh_p", params[0]);
+//    mySM.setOptionalParameter("absh_p_1", params[1]);
+//    mySM.setOptionalParameter("absh_p_2", params[2]);
+//}
+//
+//void MVll::fit_h_m()
+//{
+//    int dim = 0;
+//    for (double i = 0.1; i < 8.0; i += 0.01) {
+//        double q2tmp = i;
+//        myq2.push_back(q2tmp);
+//        Abs_h_m.push_back((h_lambda(2, q2tmp)).abs());
+//        dim++;
+//    }
+//    gr1 = TGraph(dim, myq2.data(), Abs_h_m.data()); 
+//    absffit = TF1("absffit", this,&MVll::Abs_h_m_fit, 0.1, 8.0, 3, "MVll", "Abs_h_m_fit");
+//    absfres_h_m = gr1.Fit(&absffit, "SQN0+rob=0.99");
+//    
+//    Abs_h_m.clear();
+//    myq2.clear();
+//    
+//    params = absfres_h_m->GetParams();
+//    mySM.setOptionalParameter("absh_m", params[0]);
+//    mySM.setOptionalParameter("absh_m_1", params[1]);
+//    mySM.setOptionalParameter("absh_m_2", params[2]);
+//}
 
 gslpp::complex MVll::H_V_0(double q2, bool bar) 
 {

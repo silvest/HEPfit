@@ -7,7 +7,6 @@
 
 #include <map>
 #include <vector>
-#include <boost/assign.hpp>
 #include <initializer_list>
 #include "QCD.h"
 #include "EvolDF1.h"
@@ -20,10 +19,10 @@ EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, order
             evec(nops,0.), evec_i(nops,0.), js(nops,0.), h(nops,0.), gg(nops,0.), s_s(nops,0.),
             jssv(nops,0.), jss(nops,0.), jv(nops,0.), vij(nops,0.), eval(nops,0.)
 {
-    blocks_nops = boost::assign::map_list_of("C",2) ("CP",6) ("CPM",8) ("L",2) ("CPML",10) ("CPQB",11) ("CPMQB",13) ("CPMLQB",15);
-//    blocks_nops = {{"C",2},{"CP",6},{"CPM",8},{"L",2},{"CPML",10},{"CPQB",11},{"CPMQB",13},{"CPMLQB",15}};
-    blocks_ord = boost::assign::map_list_of("C",NNLO) ("CP",NNLO) ("CPM",NNLO) ("L",NNLO) ("CPML",NNLO) ("CPQB",NLO) ("CPMQB",NLO) ("CPMLQB",NLO);
-//    blocks_ord = {{"C",NNLO},{"CP",NNLO},{"CPM",NNLO},{"L",NNLO},{"CPML",NNLO},{"CPQB",NLO},{"CPMQB",NLO},{"CPMLQB",NLO}};
+//    blocks_nops = boost::assign::map_list_of("C",2) ("CP",6) ("CPM",8) ("L",2) ("CPML",10) ("CPQB",11) ("CPMQB",13) ("CPMLQB",15);
+    blocks_nops = { { "C", 2 }, { "CP", 6 }, { "CPM", 8 }, {"L", 2},{"CPML",10},{"CPQB",11},{"CPMQB",13},{"CPMLQB",15} };
+//    blocks_ord = boost::assign::map_list_of("C",NNLO) ("CP",NNLO) ("CPM",NNLO) ("L",NNLO) ("CPML",NNLO) ("CPQB",NLO) ("CPMQB",NLO) ("CPMLQB",NLO);
+    blocks_ord = {{"C",NNLO},{"CP",NNLO},{"CPM",NNLO},{"L",NNLO},{"CPML",NNLO},{"CPQB",NLO},{"CPMQB",NLO},{"CPMLQB",NLO}};
     
     if (blocks_nops[blocks] != nops)
         throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
@@ -92,8 +91,7 @@ EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, order
     }
 }
     
-//EvolDF1::~EvolDF1() 
-//{}
+EvolDF1::~EvolDF1() {}
 
 /* Delta F = 1 anomalous dimension in Misiak basis, in the effective basis (C7eff, C8eff)
        ref. for CC,CP,PP QED NLO, QP,QQ,BP,BB QCD NLO, CL,PL NNLO, PQ,QL,LL,BL NLO: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
