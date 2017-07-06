@@ -954,7 +954,7 @@ public:
      * \f$\mu_b\f$ (i = 2), \f$\mu_c\f$ (i = 3) and 0. (default)
      */
     double Thresholds(const int i) const;
-
+    
     /**
      * @brief The active flavour threshold above the scale \f$\mu\f$
      * as defined in %QCD::Thresholds().
@@ -979,7 +979,7 @@ public:
     double Nf(const double mu) const;
 
     /**
-     * @brief Threshold corrections in matching als(nf+1) with als(nf) from hep-ph/0512060
+     * @brief Threshold corrections in matching als(nf+1) with als(nf) from eq. (34) of hep-ph/0512060
      * @param[in] mu the matching scale
      * @param[in] M the running quark mass
      * @param[in] als value of als(mu) in the nf flavour theory
@@ -987,7 +987,15 @@ public:
      * @param[in] order order of the expansion in als 
      * @return Threshold correction (without the leading term equal to 1)
      */
-    double ThresholdCorrections(double mu, double M, double als, double nf, orders order) const;
+    double NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const;
+    
+    /**
+     * @brief Return the FULLORDER enum corresponding to order
+     * @param[in] order of the expansion in als 
+     * @return the FULLORDER enum corresponding to order
+     */
+    orders FullOrder(orders order) const;
+    
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1053,6 +1061,7 @@ public:
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
     double Als(const double mu, const orders order = FULLNLO) const;
+    double AlsOLD(const double mu, const orders order = FULLNLO) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
@@ -1211,6 +1220,13 @@ private:
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
     mutable std::map<const QCD::meson, Meson> mesonsMap;///< The map of defined mesons.
     bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\csi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
+
+    /**
+     * @brief The Mbar mass of the heaviest quark in the theory with Nf active flavour
+     * @param[in] Nf the number of active flavour 
+     * @return MSbar \f$m_q(m_q)\f$
+     */
+    double MassOfNf(int nf) const;
 
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.

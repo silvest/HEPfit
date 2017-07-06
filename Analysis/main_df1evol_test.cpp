@@ -52,10 +52,34 @@ int main(void)
         std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
         std::cout << "%SUITE_STARTED%" << std::endl;
 
-        HeffDF1 Heff(6, "CP", mySM);
+ //       HeffDF1 Heff(6, "CP", mySM);
 
-        std::cout << Heff.getEvol().DF1Evol(5.,90.,NLO) << std::endl;
-    
+//        std::cout << Heff.getEvol().DF1Evol(5.,90.,NLO) << std::endl;
+
+//        std::cout << mySM.Als(5., LO) << std::endl;
+//        std::cout << mySM.AlsOLD(5., LO) << std::endl;
+//        std::cout << mySM.Als(5., NLO) << std::endl;
+//        std::cout << mySM.AlsOLD(5., NLO) << std::endl;
+
+//        std::cout << mySM.Als(5., NNLO) << std::endl;
+//        std::cout << mySM.AlsOLD(5., NNLO) << std::endl;
+//        std::cout << mySM.Als(5., NNNLO) << std::endl;
+//        std::cout << mySM.AlsOLD(5., NNNLO) << std::endl;
+//
+//        std::cout << mySM.Als(4., LO) << std::endl;
+//        std::cout << mySM.AlsOLD(4., LO) << std::endl;
+//
+//        std::cout << mySM.Als(2., LO) << std::endl;
+//        std::cout << mySM.AlsOLD(2., LO) << std::endl;
+
+        std::cout << mySM.Als(4., FULLNLO) << std::endl;
+        std::cout << mySM.AlsOLD(4., FULLNLO) << std::endl;
+        std::cout << mySM.AlsOLD(4., NLO) << std::endl;
+
+        
+//        std::cout << mySM.Als(2., FULLNLO) << std::endl;
+//        std::cout << mySM.AlsOLD(2., FULLNLO) << std::endl;
+//        
         std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
         
