@@ -61,20 +61,20 @@ int main(void)
 //        std::cout << mySM.Als(5., NLO) << std::endl;
 //        std::cout << mySM.AlsOLD(5., NLO) << std::endl;
 
-//        std::cout << mySM.Als(5., NNLO) << std::endl;
-//        std::cout << mySM.AlsOLD(5., NNLO) << std::endl;
-//        std::cout << mySM.Als(5., NNNLO) << std::endl;
-//        std::cout << mySM.AlsOLD(5., NNNLO) << std::endl;
-//
+        std::cout << mySM.Als(200., FULLNNLO) << std::endl;
+        std::cout << mySM.AlsOLD(200., FULLNNLO) << std::endl;
+
+
 //        std::cout << mySM.Als(4., LO) << std::endl;
 //        std::cout << mySM.AlsOLD(4., LO) << std::endl;
 //
 //        std::cout << mySM.Als(2., LO) << std::endl;
 //        std::cout << mySM.AlsOLD(2., LO) << std::endl;
 
-        std::cout << mySM.Als(4., FULLNLO) << std::endl;
-        std::cout << mySM.AlsOLD(4., FULLNLO) << std::endl;
-        std::cout << mySM.AlsOLD(4., NLO) << std::endl;
+//        std::cout << mySM.Als(200., FULLNLO) << std::endl;
+//        std::cout << mySM.AlsOLD(200., FULLNLO) << std::endl;
+//        std::cout << mySM.AlsOLD(200., LO, FULLNLO) << std::endl;
+//        std::cout << mySM.AlsOLD(200., NLO) << std::endl;
 
         
 //        std::cout << mySM.Als(2., FULLNLO) << std::endl;

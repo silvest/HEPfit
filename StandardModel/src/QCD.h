@@ -1056,12 +1056,16 @@ public:
      * the coupling is computed with AlsWithInit(). On the other hand, in the
      * cases of NNLO and FULLNNLO, the coupling is computed with AlsWithLambda().
      * @param[in] mu a scale @f$\mu@f$ in GeV
-     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
+     * @param[in] order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
+     * @param[in] full internal variable. The default value has to be used when
+     * order = LO, FULLNLO, FULLNNLO, FULLNNNLO; otherwise it defines the order at
+     * which @f$\alpha_s@f$ is run in the intermediate theories with different number
+     * of effective flavours
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    double Als(const double mu, const orders order = FULLNLO) const;
     double AlsOLD(const double mu, const orders order = FULLNLO) const;
+    double Als(const double mu, const orders order = FULLNLO, int full = -1) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
