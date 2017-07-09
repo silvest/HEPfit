@@ -18,7 +18,6 @@
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_gegenbauer.h>
-#include <TRandom3.h>
 
 MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i)
 : SM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2()))
@@ -26,17 +25,12 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     fullKD = false;
-    gRandom = new TRandom3();
-    gRandom->SetSeed(0);
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
 
 MVgamma::~MVgamma()
-{
-    if (gRandom != NULL) delete(gRandom);
-    gRandom = NULL;
-}
+{}
 
 std::vector<std::string> MVgamma::initializeMVgammaParameters()
 {
@@ -56,8 +50,8 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (fullKD) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "deltaC7_1" << "deltaC7_2";
-        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "deltaC7_1" << "deltaC7_2";
+        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2";
+        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2";
     }
     
     SM.initializeMeson(meson);
@@ -118,10 +112,10 @@ void MVgamma::updateParameters()
         h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
 #endif
     } else {
-        gslpp::complex DC7_1 = SM.getOptionalParameter("deltaC7_1");
-        gslpp::complex DC7_2 = SM.getOptionalParameter("deltaC7_2");
-        h[0] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * (MM2 - MV*MV)/(2.*MM2) * T_1()*(DC7_2 - DC7_1)).abs()*exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
-        h[1] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * (MM2 - MV*MV)/(2.*MM2) * T_1()*(DC7_2 + DC7_1)).abs()*exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
+        gslpp::complex DC7_1 = SM.getOptionalParameter("deltaC7_1")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_1"));
+        gslpp::complex DC7_2 = SM.getOptionalParameter("deltaC7_2")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_2"));
+        h[0] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * (MM2 - MV*MV)/(2.*MM2) * T_1()*(DC7_2 - DC7_1)).abs();
+        h[1] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * (MM2 - MV*MV)/(2.*MM2) * T_1()*(DC7_2 + DC7_1)).abs();
     }
     
     allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.

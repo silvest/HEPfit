@@ -13,7 +13,6 @@
 #include <boost/bind.hpp>
 #include <limits>
 #include <TFitResult.h>
-#include <TRandom3.h>
 
 MVll::MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : mySM(SM_i),
@@ -40,8 +39,6 @@ T_cache(5, 0.)
     vectorM = vector_i;
     fullKD = false;
     mJ2 = 3.096*3.096;
-    gRandom = new TRandom3();
-    gRandom->SetSeed(0);
     
     I0_updated = 0;
     I1_updated = 0;
@@ -84,10 +81,7 @@ T_cache(5, 0.)
 }
 
 MVll::~MVll() 
-{
-    if (gRandom != NULL) delete(gRandom);
-    gRandom = NULL;
-}
+{}
 
 std::vector<std::string> MVll::initializeMVllParameters()
 {
@@ -157,9 +151,9 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
             << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
             << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3" << "xs_phi";
+            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi";
 //            << "absh_0" << "absh_p" << "absh_m"
 //            << "absh_0_1" << "absh_p_1" << "absh_m_1"
 //            << "absh_p_2" << "absh_m_2";
@@ -168,9 +162,9 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
             << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
             << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3";
+            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
 //            << "absh_0" << "absh_p" << "absh_m"
 //            << "absh_0_1" << "absh_p_1" << "absh_m_1"
 //            << "absh_p_2" << "absh_m_2";
@@ -179,9 +173,9 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
             << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
             << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3";
+            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
 //            << "absh_0" << "absh_p" << "absh_m"
 //            << "absh_0_1" << "absh_p_1" << "absh_m_1"
 //            << "absh_p_2" << "absh_m_2";
@@ -388,9 +382,9 @@ void MVll::updateParameters()
         h_2[0] = gslpp::complex(mySM.getOptionalParameter("deltaC9_1"));
         h_2[1] = gslpp::complex(mySM.getOptionalParameter("deltaC9_2"));
         h_2[2] = gslpp::complex(mySM.getOptionalParameter("deltaC9_3"));
-        exp_randomPhase[0] = exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
-        exp_randomPhase[1] = exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
-        exp_randomPhase[2] = exp(gslpp::complex::i()*gRandom->Uniform(2.*M_PI));
+        exp_Phase[0] = exp(gslpp::complex::i()*mySM.getOptionalParameter("phDC9_1"));
+        exp_Phase[1] = exp(gslpp::complex::i()*mySM.getOptionalParameter("phDC9_2"));
+        exp_Phase[2] = exp(gslpp::complex::i()*mySM.getOptionalParameter("phDC9_3"));
     } 
 
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -1571,7 +1565,7 @@ gslpp::complex MVll::funct_g(double q2)
 
 gslpp::complex MVll::DeltaC9_KD(double q2, int com)
 {
-    return ((h_0[com] * (1. - 1. / q2) + h_2[com] / q2) / (1. + h_1[com] * (1. - q2) / mJ2) - (3. * (-0.267) + 1.117) * funct_g(q2))*exp_randomPhase[com];
+    return ((h_0[com] * (1. - 1. / q2) + h_2[com] / q2) / (1. + h_1[com] * (1. - q2) / mJ2) - (3. * (-0.267) + 1.117) * funct_g(q2))*exp_Phase[com];
     /* C_1 = -0.267 and C_2 = 1.117 in KMPW */
 }
 

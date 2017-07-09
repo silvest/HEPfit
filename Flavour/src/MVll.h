@@ -9,7 +9,6 @@
 #define	MVLL_H
 
 class StandardModel;
-class TRandom3;
 #include <gsl/gsl_integration.h>
 #include <TF1.h>
 #include <TGraph.h>
@@ -696,8 +695,7 @@ private:
     std::vector<std::string> mvllParameters;/**< The string of mandatory MVll parameters */
     bool fullKD;
     double mJ2;
-    TRandom3 * gRandom;
-    gslpp::complex exp_randomPhase[3];
+    gslpp::complex exp_Phase[3];
     
     double GF;            /**<Fermi constant */
     double ale;           /**<Alpha electromagnetic */
