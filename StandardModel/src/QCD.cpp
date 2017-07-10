@@ -614,12 +614,13 @@ double QCD::Als(const double mu, const orders order, const int full) const {
     double als, alstmp, mutmp;
     orders ord;
 
-    for (i = 0; i < CacheSize; ++i)
-        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
-                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
-                (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-                (muc == als_cache[6][i]))
-            return als_cache[7][i];
+//    for (i = 0; i < CacheSize; ++i)
+//        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
+//                ((double) full == als_cache[2][i]) &&
+//                (AlsM == als_cache[3][i]) && (MAls == als_cache[4][i]) &&
+//                (mut == als_cache[5][i]) && (mub == als_cache[6][i]) &&
+//                (muc == als_cache[7][i]))
+//            return als_cache[8][i];
 
     switch (order)
     {
@@ -662,15 +663,16 @@ double QCD::Als(const double mu, const orders order, const int full) const {
                 als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order);
             }
 
-            CacheShift(als_cache, 8);
-            als_cache[0][0] = mu;
-            als_cache[1][0] = (double) order;
-            als_cache[2][0] = AlsM;
-            als_cache[3][0] = MAls;
-            als_cache[4][0] = mut;
-            als_cache[5][0] = mub;
-            als_cache[6][0] = muc;
-            als_cache[7][0] = als;
+//            CacheShift(als_cache, 9);
+//            als_cache[0][0] = mu;
+//            als_cache[1][0] = (double) order;
+//            als_cache[2][0] = (double) full;            
+//            als_cache[3][0] = AlsM;
+//            als_cache[4][0] = MAls;
+//            als_cache[5][0] = mut;
+//            als_cache[6][0] = mub;
+//            als_cache[7][0] = muc;
+//            als_cache[8][0] = als;
 
             return als;
         default:

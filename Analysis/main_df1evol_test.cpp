@@ -14,17 +14,10 @@
 
 #include <iostream>
 #include <ComputeObservables.h>
-#include <HeffDF1.h>
+#include "HeffDF1.h"
 
 int main(void) 
 {
-    try {
-        
-//        if(argc != 2){
-//            /* Print usage and exit. */
-//            std::cout << "\nusage: " << argv[0] << " ModelConf.conf\n" << std::endl;
-//            return EXIT_SUCCESS;
-//        }
         
         /* Define the model configuration file.                        */
         /* Here it is passed as the first argument to the executable.  */
@@ -52,76 +45,8 @@ int main(void)
         std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
         std::cout << "%SUITE_STARTED%" << std::endl;
 
- //       HeffDF1 Heff(6, "CP", mySM);
+        HeffDF1 Heff(6, "CP", mySM);
 
-//        std::cout << Heff.getEvol().DF1Evol(5.,90.,NLO) << std::endl;
+        std::cout << Heff.getEvol().DF1Evol(5.,90.,NLO) << std::endl;
 
-//        std::cout << mySM.Als(5., LO) << std::endl;
-//        std::cout << mySM.AlsOLD(5., LO) << std::endl;
-//        std::cout << mySM.Als(5., NLO) << std::endl;
-//        std::cout << mySM.AlsOLD(5., NLO) << std::endl;
-
-        std::cout << mySM.Als(200., FULLNNLO) << std::endl;
-        std::cout << mySM.AlsOLD(200., FULLNNLO) << std::endl;
-
-
-//        std::cout << mySM.Als(4., LO) << std::endl;
-//        std::cout << mySM.AlsOLD(4., LO) << std::endl;
-//
-//        std::cout << mySM.Als(2., LO) << std::endl;
-//        std::cout << mySM.AlsOLD(2., LO) << std::endl;
-
-//        std::cout << mySM.Als(200., FULLNLO) << std::endl;
-//        std::cout << mySM.AlsOLD(200., FULLNLO) << std::endl;
-//        std::cout << mySM.AlsOLD(200., LO, FULLNLO) << std::endl;
-//        std::cout << mySM.AlsOLD(200., NLO) << std::endl;
-
-        
-//        std::cout << mySM.Als(2., FULLNLO) << std::endl;
-//        std::cout << mySM.AlsOLD(2., FULLNLO) << std::endl;
-//        
-        std::cout << "%SUITE_FINISHED% time=0" << std::endl;
-
-        
-//        /* Add the observables to be returned. */
-//        CO.AddObservable("Mw");
-//        CO.AddObservable("GammaZ");
-//        CO.AddObservable("AFBbottom");
-//        
-//        /* Remove a previously added observable if necessary. */
-//        //CO.RemoveObservable("AFBbottom");
-//        
-//        /* Set the flags for the model being used, if necessary.                         */
-//        /* The flags have to correspond to the model specified in the model config file. */
-//        std::map<std::string, std::string> DFlags;
-//        // DFlags["FLAG"] = "TRUE";
-//        CO.setFlags(DFlags);
-//        
-//        /* Get the map of observables if necessary. */
-//        std::map<std::string, double> DObs = CO.getObservables();
-//        
-//        for (int i = 0; i < 2; i++) {
-//            
-//            /* Vary the parameters that need to be varied in the analysis. */
-//            DPars["Mz"] = 91.1875 + 0.0001 * i;
-//            DPars["AlsMz"] = 0.1184 + 0.000001 * i;
-//            
-//            /* Get the map of observables with the parameter values defined above. */
-//            DObs = CO.compute(DPars);
-//        
-//            std::cout << "\nParameters[" << i + 1 << "]:"<< std::endl;
-//            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) {
-//                std::cout << it->first << " = " << it->second << std::endl;
-//            }
-//            std::cout << "\nObservables[" << i + 1 << "]:" << std::endl;
-//            for (std::map<std::string, double>::iterator it = DObs.begin(); it != DObs.end(); it++) {
-//                std::cout << it->first << " = " << it->second << std::endl;
-//            }
-//        }
-        
-        return EXIT_SUCCESS;
-    } catch (const std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
 }
