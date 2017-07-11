@@ -15,38 +15,46 @@
 #include <iostream>
 #include <ComputeObservables.h>
 #include "HeffDF1.h"
+#include "HeffDB1.h"
+#include "EvolDB1Mll.h"
+#include "EvolDB1bsg.h"
 
-int main(void) 
-{
-        
-        /* Define the model configuration file.                        */
-        /* Here it is passed as the first argument to the executable.  */
-        /* The model configuration file provides the default values of */
-        /* the mandatory model parameters.                             */
-        std::string ModelConf = "StandardModel.conf";
-        
-        /* Define a map for the parameters to be varied. */
-        std::map<std::string, double> DPars;
-        
-        /* Create objects of the classes ModelFactory and ThObsFactory */
-        ModelFactory ModelF;
-        ThObsFactory ThObsF;
+int main(void) {
 
-        /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
-        /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
-        
-        /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
-        /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
-        
-        /* Create an object of the class ComputeObservables. */
-        ComputeObservables CO(ModelF, ThObsF, ModelConf);
-        StandardModel& mySM = *CO.getModel();
-    
-        std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
-        std::cout << "%SUITE_STARTED%" << std::endl;
+    /* Define the model configuration file.                        */
+    /* Here it is passed as the first argument to the executable.  */
+    /* The model configuration file provides the default values of */
+    /* the mandatory model parameters.                             */
+    std::string ModelConf = "StandardModel.conf";
 
-        HeffDF1 Heff(6, "CP", mySM);
+    /* Define a map for the parameters to be varied. */
+    std::map<std::string, double> DPars;
 
-        std::cout << Heff.getEvol().DF1Evol(5.,90.,NLO) << std::endl;
+    /* Create objects of the classes ModelFactory and ThObsFactory */
+    ModelFactory ModelF;
+    ThObsFactory ThObsF;
 
+    /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
+    /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
+
+    /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
+    /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
+
+    /* Create an object of the class ComputeObservables. */
+    ComputeObservables CO(ModelF, ThObsF, ModelConf);
+    StandardModel& mySM = *CO.getModel();
+
+    HeffDF1 Heff(6, "CP", mySM);
+    HeffDB1 HDB1(mySM);
+
+    std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
+    std::cout << "%SUITE_STARTED%" << std::endl;
+
+    std::cout << Heff.getEvol().DF1Evol(5., 90., LO) << std::endl;
+    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., LO) << std::endl;
+//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+
+    std::cout << Heff.getEvol().DF1Evol(5., 90., NLO) << std::endl;
+    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., NLO) << std::endl;
+//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., NLO) << std::endl;
 }

@@ -352,7 +352,7 @@ private:
      * @param eta als(M)/als(mu)
      * @return function value
      */
-    double f_h(unsigned int i, unsigned int p, unsigned int q, unsigned int j, int k, int l, int m, double eta);
+    double f_h(unsigned int nf, unsigned int i, unsigned int p, unsigned int q, unsigned int j, int k, int l, int m, double eta);
     
     void DF1Evol(double mu, double M, int nf, schemes scheme);
 
