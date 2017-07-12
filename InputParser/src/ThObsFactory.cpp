@@ -132,6 +132,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtautauRatio"] = boost::factory<BrHtotautauRatio*>();
     obsThFactory["BrHccRatio"] = boost::factory<BrHtoccRatio*>();
     obsThFactory["BrHbbRatio"] = boost::factory<BrHtobbRatio*>();
+    obsThFactory["UpperLimit_ppHZgammaA13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA13*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaA"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA*>(), _1, sqrt_s_LHC8);
     obsThFactory["UpperLimit_ppHZgammaC"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC*>(), _1, sqrt_s_LHC8);
 
@@ -627,10 +628,13 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mu_tth_htotautau"] = boost::factory<tth_htotautau*>();
     obsThFactory["mu_tth_htoZZ"] = boost::factory<tth_htoZZ*>();
     obsThFactory["mu_tth_htogaga"] = boost::factory<tth_htogaga*>();
+    obsThFactory["mu_htobb"] = boost::factory<mu_htobb*>();
     obsThFactory["mu_htoWW"] = boost::factory<mu_htoWW*>();
     obsThFactory["mu_htotautau"] = boost::factory<mu_htotautau*>();
+    obsThFactory["mu_htoZga"] = boost::factory<mu_htoZga*>();
     obsThFactory["Gamma_h_THDM"] = boost::factory<Gamma_h_THDM*>();
     obsThFactory["rh_gaga_THDM"] = boost::factory<rh_gaga_THDM*>();
+    obsThFactory["rh_Zga_THDM"] = boost::factory<rh_Zga_THDM*>();
     obsThFactory["rh_gg_THDM"] = boost::factory<rh_gg_THDM*>();
 
     obsThFactory["Hobs_ggF_H_tautau_ATLAS8"] = boost::factory<Hobs_ggF_H_tautau_ATLAS8*>();

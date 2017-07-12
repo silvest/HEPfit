@@ -1782,6 +1782,13 @@ public:
     double rh_gaga;
 
     /**
+     * @brief Squared relative coupling of @f$h@f$ to a @f$Z@f$ boson and a photon.
+     * @return @f$r^{(h)}_{Z\gamma}@f$
+     * @details Depends on the type of @f$Z_2@f$ symmetry.
+     */
+    double rh_Zga;
+
+    /**
      * @brief Squared relative coupling of @f$h@f$ to two gluons.
      * @return @f$r^{(h)}_{gg}@f$
      * @details Depends on the type of @f$Z_2@f$ symmetry.
@@ -1823,13 +1830,6 @@ public:
      * @return @f$\Gamma_h@f$
      */
     double Gamma_h;
-
-    /**
-     * @brief Squared relative coupling of @f$h@f$ to a @f$Z@f$ boson and a photon.
-     * @return @f$r^{(h)}_{Z\gamma}@f$
-     * @details Depends on the type of @f$Z_2@f$ symmetry.
-     */
-    double rh_Zga;
 
     /**
      * @brief Squared relative coupling of @f$h@f$ to two up type quarks.

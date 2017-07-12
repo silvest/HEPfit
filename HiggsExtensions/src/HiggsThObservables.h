@@ -836,6 +836,40 @@ private:
 };
 
 /**
+ * @class UpperLimit_ppHZgammaA13
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class UpperLimit_ppHZgammaA13 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    UpperLimit_ppHZgammaA13(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("UpperLimit_ppHZgammaA called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->UpperLimitZgammaA13(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
  * @class UpperLimit_ppHZgammaC
  * @ingroup HiggsExtensions
  * @brief 

@@ -78,7 +78,7 @@
 class HiggsChiral : public NPbase {
 public:
 
-    static const int NHChiralvars = 13; ///< The number of the model parameters.
+    static const int NHChiralvars = 15; ///< The number of the model parameters.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKvKf.
@@ -182,6 +182,15 @@ public:
      * @brief .
      * @return 
      */
+    double getobsZgaLimitATLAS13() const
+    {
+        return obsZgaLimitATLAS13;
+    }
+
+    /**
+     * @brief .
+     * @return 
+     */
     double getobsZgaLimitATLAS() const
     {
         return obsZgaLimitATLAS;
@@ -194,6 +203,15 @@ public:
     double getobsZgaLimitCMS() const
     {
         return obsZgaLimitCMS;
+    }
+
+    /**
+     * @brief .
+     * @return 
+     */
+    double getexpZgaLimitATLAS13() const
+    {
+        return expZgaLimitATLAS13;
     }
 
     /**
@@ -439,6 +457,12 @@ public:
      * @brief 
      * @return 
      */
+    virtual double UpperLimitZgammaA13(const double sqrt_s) const;
+
+    /**
+     * @brief 
+     * @return 
+     */
     virtual double UpperLimitZgammaA(const double sqrt_s) const;
 
     /**
@@ -527,8 +551,10 @@ private:
     double cg; ///< 
     double cga; ///< 
     double cZga; ///< 
+    double obsZgaLimitATLAS13; ///< 
     double obsZgaLimitATLAS; ///< 
     double obsZgaLimitCMS; ///< 
+    double expZgaLimitATLAS13; ///< 
     double expZgaLimitATLAS; ///< 
     double expZgaLimitCMS; ///< 
 };

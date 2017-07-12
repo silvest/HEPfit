@@ -602,6 +602,27 @@ private:
 };
 
 /**
+ * @class mu_htobb
+ * @ingroup THDM
+ * @brief Signal strength of an h decaying to two b quarks at 13 TeV.
+ */
+class mu_htobb : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    mu_htobb(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text pp}(h\to b\bar b)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class mu_htoWW
  * @ingroup THDM
  * @brief Signal strength of an h decaying to two @f$W@f$ bosons at 13 TeV.
@@ -637,6 +658,27 @@ public:
     
     /**
      * @return @f$\mu_{\text pp}(h\to \tau\tau)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class mu_htoZga
+ * @ingroup THDM
+ * @brief Signal strength of an h decaying to a @f$Z@f$ boson and a photon at 13 TeV.
+ */
+class mu_htoZga : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    mu_htoZga(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text pp}(h\to Zga)@f$
      */
     double computeThValue();
 private:
@@ -705,6 +747,27 @@ public:
     
     /**
      * @return @f$r^{(h)}_{gg}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class rh_Zga_THDM
+ * @ingroup THDM
+ * @brief Squared relative coupling of @f$h@f$ to a @f$Z@f$ boson and a photon.
+ */
+class rh_Zga_THDM : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    rh_Zga_THDM(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$r^{(h)}_{Z\gamma}@f$
      */
     double computeThValue();
 private:

@@ -308,21 +308,21 @@ void THDMWcache::computeUnitarity()
                 Sbeigenvalues2.assign(i, Sbeigenvalues2(i) + Seigenvectors2(i,k) * Sbmatrix2(k,l) * Seigenvectors2T(l,i) );
             }                
         }
-        betaeigenvalues.assign(i, Sbeigenvalues1(i));
-        betaeigenvalues.assign(i+4, Sbeigenvalues2(i));
+        betaeigenvalues.assign(i, -1.5 * Sbeigenvalues1(i));
+        betaeigenvalues.assign(i+4, -1.5 * Sbeigenvalues2(i));
     }
     
     betaeigenvalues.assign(8, -1.5 * (blambda3-blambda4)/(16.0*pi));
     betaeigenvalues.assign(9, -1.5 * sqrt(15.0)*bnu4/(16.0*pi));
     betaeigenvalues.assign(10, -1.5 * sqrt(15.0)*bomega4/(16.0*pi));
 
-//    std::cout<<"Seigenvectors1 = "<<Seigenvectors1<<std::endl;
-//    std::cout<<"Seigenvectors2 = "<<Seigenvectors2<<std::endl;
-//    std::cout<<"unitarityeigenvalues = "<<unitarityeigenvalues<<std::endl;
-//    std::cout<<"betaeigenvalues = "<<betaeigenvalues<<std::endl;
+    std::cout<<"Seigenvectors1 = "<<Seigenvectors1<<std::endl;
+    std::cout<<"Seigenvectors2 = "<<Seigenvectors2<<std::endl;
+    std::cout<<"unitarityeigenvalues = "<<unitarityeigenvalues<<std::endl;
+    std::cout<<"betaeigenvalues = "<<betaeigenvalues<<std::endl;
 
     for (int i=0; i < 11; i++) {
-        NLOunitarityeigenvalues.assign(i, (gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i)+betaeigenvalues(i) );
+        NLOunitarityeigenvalues.assign(i, (gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
     }
 }
 
