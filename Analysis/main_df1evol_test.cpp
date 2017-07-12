@@ -44,17 +44,29 @@ int main(void) {
     ComputeObservables CO(ModelF, ThObsF, ModelConf);
     StandardModel& mySM = *CO.getModel();
 
-    HeffDF1 Heff(6, "CP", mySM);
+    HeffDF1 Heff(8, "CPM", mySM, NNLO, NO_QED);
     HeffDB1 HDB1(mySM);
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
 
-    std::cout << Heff.getEvol().DF1Evol(5., 90., LO) << std::endl;
+    std::cout << Heff.getEvol().DF1Evol(5., 90., LO, NO_QED) << std::endl;
     std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., LO) << std::endl;
 //    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
 
-    std::cout << Heff.getEvol().DF1Evol(5., 90., NLO) << std::endl;
+    std::cout << Heff.getEvol().DF1Evol(5., 90., NLO, NO_QED) << std::endl;
     std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., NLO) << std::endl;
 //    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., NLO) << std::endl;
+    
+    std::cout << Heff.getEvol().DF1Evol(2., 90., LO, NO_QED) << std::endl;
+    std::cout << HDB1.getUDF1BMll().Df1EvolMll(2., 90., LO) << std::endl;
+//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+    std::cout << Heff.getEvol().DF1Evol(2., 90., NLO, NO_QED) << std::endl;
+    std::cout << HDB1.getUDF1BMll().Df1EvolMll(2., 90., NLO) << std::endl;
+    
+    std::cout << Heff.getEvol().DF1Evol(1., 90., LO, NO_QED) << std::endl;
+    std::cout << HDB1.getUDF1BMll().Df1EvolMll(1., 90., LO) << std::endl;
+//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+    std::cout << Heff.getEvol().DF1Evol(1., 90., NLO, NO_QED) << std::endl;
+    std::cout << HDB1.getUDF1BMll().Df1EvolMll(1., 90., NLO) << std::endl;
 }

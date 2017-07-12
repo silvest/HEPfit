@@ -636,7 +636,7 @@ public:
      * Operator block: L (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    virtual std::vector<WilsonCoefficient> CMDF1(std::string blocks, unsigned int nops, schemes scheme, orders order);
+    virtual std::vector<WilsonCoefficient> CMDF1(std::string blocks, unsigned int nops);
 
     double getMt_mut() const {
         return Mt_mut;
@@ -652,7 +652,7 @@ protected:
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu;
     std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j, vmcmueconv, vmcgminus2mu;
     std::vector<WilsonCoefficient> vmcDF1;
-    std::vector<WilsonCoefficient> vmcC, vmcP, vmcM, vmcL, vmcQ, vmcB;
+
     
 private:
     
@@ -837,21 +837,21 @@ private:
      */
     double C8funLO(double x);
 
-    unsigned int setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int nops, unsigned int tot, schemes scheme, orders order);
+    unsigned int setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int nops, unsigned int tot, schemes scheme, orders order, orders_qed order_qed);
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: C (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_C();
+    WilsonCoefficient& mc_C();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: P (4)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_P();
+    WilsonCoefficient& mc_P();
 
     /*
      * Wilson coefficients Misiak basis
@@ -860,14 +860,14 @@ private:
      * QED only available at NLO and in approximate formulas
      * QED ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058
      */
-    std::vector<WilsonCoefficient>& mc_M();
+    WilsonCoefficient& mc_M();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: L (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_L();
+    WilsonCoefficient& mc_L();
 
     /*
      * Wilson coefficients Misiak basis
@@ -875,15 +875,17 @@ private:
      * Normalization: 4 G_F / sqrt(2) x CKM
      * QED_NLO ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058 - COULD BE CHANGED TO X,Y,W
      */
-    std::vector<WilsonCoefficient>& mc_Q();
+    WilsonCoefficient& mc_Q();
 
     /*
      * Wilson coefficients Misiak basis
      * Operator block: B (1)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    std::vector<WilsonCoefficient>& mc_B();
-    
+    WilsonCoefficient& mc_B();
+
+    unsigned int BuildBlocks(std::string blocks, WilsonCoefficient& mcDF1, unsigned int tot);
+
     friend double gslpp_special_functions::dilog(double x);
     friend double gslpp_special_functions::clausen(double x);
     friend double gslpp_special_functions::zeta(int i);

@@ -30,15 +30,16 @@ class EvolDF1 : public RGEvolutor {
      */
 public:    
     /**
-     * @brief EvolDF1bsg constructor
+     * @brief EvolDF1 constructor
      * @param dim an unsigned integer  for the dimension of the evolutor 
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
-     * @param order an enum "orders" for the order of perturbation theory of the evolutor
+     * @param order an enum "orders" for the order \f$ \alpha_s\f$ in the evolutor
+     * @param order_qed an enum "orders_qed" for the order \f$ \alpha_e\f$ in the evolutor
      * @param model an object of StandardModel class
      */
-    EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, orders order, const StandardModel& model);
+    EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, const StandardModel& model, orders order, orders_qed order_qed);
     /**
-     * @brief EvolDF1bsg destructor
+     * @brief EvolDF1 destructor
      */
     virtual ~EvolDF1();
     /**
@@ -58,7 +59,7 @@ public:
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @return the evolutor \f$ U (\mu , M) \f$
      */
-    gslpp::matrix<double>& DF1Evol(double mu, double M, orders order, schemes scheme = NDR);
+    gslpp::matrix<double>& DF1Evol(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
     /**
      * @brief a method returning the anomalous dimension in the Chetyrkin, Misiak and Munz operator basis 
      * @param order an enum "orders" for the order of perturbation theory of the evolutor
@@ -83,11 +84,6 @@ public:
         
 private:
    
-    /**
-     * @param nu an unsigned integer for the up-type number of d.o.f.
-     * @param nu an unsigned integer for the down-type number of d.o.f.
-     */
-    int nu, nd;
     /**
      * @param a array of double for the magic numbers of the evolutor ( LO evolution )
      * @param b array of double for the magic numbers of the evolutor ( LO evolution ) 
@@ -129,8 +125,9 @@ private:
      * @param nf a double for the active number of flavors
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      */
-    void DF1Evol(double mu, double M, double nf, schemes scheme);
-    
+//    void DF1Evol(double mu, double M, double nf, schemes scheme);
+    void DF1Evol(double mu, double M, int nf, schemes scheme);
+
     friend double gslpp_special_functions::zeta(int i);
 
     /**
@@ -354,10 +351,8 @@ private:
      */
     double f_h(unsigned int nf, unsigned int i, unsigned int p, unsigned int q, unsigned int j, int k, int l, int m, double eta);
     
-    void DF1Evol(double mu, double M, int nf, schemes scheme);
-
     // operators to include         {C, P, M, L, Q, b}            Huber et al., hep-ph/0512066
-    unsigned int nops;
+    unsigned int nops, nfmin, nfmax;
     std::string blocks;
 
     gslpp::matrix<gslpp::complex> evec, evec_i, js, h, gg, s_s, jssv, jss, jv, vij;

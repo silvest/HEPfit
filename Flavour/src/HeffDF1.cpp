@@ -8,10 +8,10 @@
 #include "HeffDF1.h"
 #include "gslpp_complex.h"
 
-HeffDF1::HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM) 
+HeffDF1::HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM, orders order, orders_qed order_qed) 
 :       model(SM),
-        coeff(nops, NDR, NNLO, NLO_QED11),
-        evolDF1(nops, blocks, NDR, NNLO, SM)
+        coeff(nops, NDR, order, order_qed),
+        evolDF1(nops, blocks, NDR, SM, order, order_qed)
 {
 
 // unnecessary???
@@ -33,7 +33,8 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff_s(double mu, schemes schem
 {
     
     coeff.setScheme(scheme);
-    orders ordDF1 = coeff.getOrder();   
+    orders ordDF1 = coeff.getOrder();
+    orders_qed ordDF1_qed = coeff.getOrder_qed();
     
     const std::vector<WilsonCoefficient> mc = model.getMatching().CMDF1(blocks, nops, NDR, ordDF1);
 
@@ -63,7 +64,7 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff_s(double mu, schemes schem
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeff.setCoeff(*coeff.getCoeff(orders(j)) +
-                    evolDF1.DF1Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF1.DF1Evol(mu, mc[i].getMu(), orders(k), NO_QED, mc[i].getScheme()) * // TO BE FIXED
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }

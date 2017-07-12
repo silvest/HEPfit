@@ -13,8 +13,8 @@
 
 #define EPS 1.e-10
 
-EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, orders order, const StandardModel& model)
-: RGEvolutor(nops, scheme, order), index(10),
+EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, const StandardModel& model, orders ord, orders_qed ord_qed)
+: RGEvolutor(nops, scheme, ord, ord_qed), index(10),
 model(model), blocks(reqblocks),
 evec(nops, 0.), evec_i(nops, 0.), js(nops, 0.), h(nops, 0.), gg(nops, 0.), s_s(nops, 0.),
 jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
@@ -40,7 +40,7 @@ jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
         {"CPQB", NLO},
         {"CPMQB", NLO},
         {"CPMLQB", NLO}};
-
+    
     if (blocks_nops[blocks] != nops)
         throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
 
@@ -53,18 +53,17 @@ jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
     gslpp::matrix<gslpp::complex> M2(nops, nops, 0.), M1(nops, nops, 0.);
     unsigned int a, b, i, j, p;
 
+    if (order_qed == NO_QED && blocks.find("L") == std::string::npos &&
+            blocks.find("Q") == std::string::npos && blocks.find("B") == std::string::npos)
+    {
+        nfmin = 3;
+        nfmax = 6;
+    }
+    else
+        nfmin = nfmax = 5;
 
-    /* magic numbers -- loop on nf to be added <<<<<<<<<<<
     
-    for(int L=3; L>-1; L--){
-        
-    // L=3 --> u,d,s (nf=3) L=2 --> u,d,s,c (nf=4)  L=1 --> u,d,s,c,b (nf=5) L=0 --> u,d,s,c,b,t (nf=6)     
-    nu = L;  nd = L;
-    if(L == 3){nd = 2; nu = 1;} 
-    if(L == 1){nd = 3; nu = 2;} 
-    if(L == 0){nd = 3; nu = 3;}
-     */
-    for (nf = 5; nf <= 5; nf++) {
+    for (nf = nfmin; nf <= nfmax; nf++) {
         nu = nf % 2 == 0 ? nf / 2 : nf / 2;
         nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
 
@@ -80,7 +79,8 @@ jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
         W20 = AnomalousDimension(20, nu, nd).transpose() / 4. / b0 / b0;
         W30 = AnomalousDimension(30, nu, nd).transpose() / 8. / b0 / b0 / b0;
 
-
+//        std::cout << AnomalousDimension(10, nu, nd).transpose() << std::endl;
+//        std::cout << W10 << std::endl;
         // M2: B(-2), M1: B(-1)_10
         M2 = 4. * b0 * b0 * (W30 - b1 * W20 - b2 * W10);
         M1 = 2 * b0 * (W20 - b1 * W10);
@@ -345,7 +345,7 @@ gslpp::matrix<double> EvolDF1::GammaCM(indices nm, unsigned int n_u, unsigned in
     gslpp::matrix<double> gammaDF1(2, 2, 0.);
     double Qu = 2./3.;
     double Qd = -1./3.;
-    double Qbar = nu*Qu + nd*Qd;
+    double Qbar = n_u*Qu + n_d*Qd;
     double z3 = gslpp_special_functions::zeta(3);
     
     switch(nm)
@@ -555,7 +555,7 @@ gslpp::matrix<double> EvolDF1::GammaPM(indices nm, unsigned int n_u, unsigned in
     gslpp::matrix<double> gammaDF1(4, 2, 0.);
     double Qu = 2./3.;
     double Qd = -1./3.;
-    double Qbar = nu*Qu + nd*Qd;
+    double Qbar = n_u*Qu + n_d*Qd;
     double z3 = gslpp_special_functions::zeta(3);
     
     switch(nm)
@@ -726,7 +726,7 @@ gslpp::matrix<double> EvolDF1::GammaMM(indices nm, unsigned int n_u, unsigned in
     gslpp::matrix<double> gammaDF1(2, 2, 0.);
     double Qu = 2./3.;
     double Qd = -1./3.;
-    double Qbar = nu*Qu + nd*Qd;
+    double Qbar = n_u*Qu + n_d*Qd;
     double z3 = gslpp_special_functions::zeta(3);
     
     switch(nm)
@@ -1177,9 +1177,13 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, unsigned int n_u, 
     return (gammaDF1);
 }
 
-gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schemes scheme) 
+gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_qed ord_qed, schemes scheme) 
 {
-    
+    if(ord > order || ord_qed > order_qed)
+        throw std::runtime_error("EvolDF1::Df1Evol(): order not present in this Hamiltonian.");
+    if(nfmin == 5 && nfmax == 5 && (model.Nf(mu) != 5. || model.Nf(M) != 5.))
+        throw std::runtime_error("EvolDF1::Df1Evol(): only nf = 5 available.");
+        
     switch (scheme) {
         case NDR:
             break;
@@ -1195,7 +1199,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schem
     double Mz = model.getMz();
     if(alsMZ == alsMZ_cache && Mz == Mz_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme)
-            return (*Evol(order));        
+            return (*Evol(ord));        
     }
     alsMZ_cache = alsMZ;
     Mz_cache = Mz;
@@ -1220,7 +1224,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders order, schem
     }
     DF1Evol(m_down, M, (int) nf, scheme);
     
-    return (*Evol(order));
+    return (*Evol(ord));
 }
     
  void EvolDF1::DF1Evol(double mu, double M, int nf, schemes scheme) 

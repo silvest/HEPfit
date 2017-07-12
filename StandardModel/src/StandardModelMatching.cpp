@@ -40,12 +40,12 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcDLi3j(20, NDR, LO),
         mcmueconv(8, NDR, LO),
         mcgminus2mu(2, NDR, NLO),
-        mcC(2, NDR, NNLO, NLO_QED11),
-        mcP(4, NDR, NNLO, NLO_QED21),
-        mcM(2, NDR, NNLO, NLO_QED11),
+        mcC(2, NDR, NNLO, NLO_QED22),  // blocks have to have the same orders
+        mcP(4, NDR, NNLO, NLO_QED22),
+        mcM(2, NDR, NNLO, NLO_QED22),
         mcL(2, NDR, NNLO, NLO_QED22),
-        mcQ(4, NDR, NLO, NLO_QED21),
-        mcB(1, NDR, NLO, NLO_QED11),
+        mcQ(4, NDR, NNLO, NLO_QED22),
+        mcB(1, NDR, NNLO, NLO_QED22),
         Vckm(SM.getVCKM()) // check needed
 {    
     swa = 0.;
@@ -2687,11 +2687,8 @@ gslpp::complex StandardModelMatching::S0tt() const
 }
 
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_C()
-{
-    double xt = Mt_muw*Mt_muw/Mw/Mw;
-    
-    vmcC.clear();
+WilsonCoefficient& StandardModelMatching::mc_C() {
+    double xt = Mt_muw * Mt_muw / Mw / Mw;
 
     switch (mcC.getScheme()) {
         case NDR:
@@ -2705,20 +2702,16 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_C()
     }
 
     mcC.setMu(Muw); // cleared too
-    
+
     switch (mcC.getOrder()) {
-        case NLO_QED11:
-            mcC.setCoeff(1, aletilde*(-22./9. - 4./3.*Lz + 1./9.), NLO);
-        case LO_QED:
-            break;
         case NNLO:
-            mcC.setCoeff(0, alstilde*alstilde*(-Tt(xt)+7987./72.+17./3.*M_PI*M_PI+
-                             L*475./6.+17.*L*L), NNLO);
-            mcC.setCoeff(1, alstilde*alstilde*(127./18.+M_PI*M_PI*4./3.+L*46./3.+4.*L*L),
+            mcC.setCoeff(0, alstilde * alstilde * (-Tt(xt) + 7987. / 72. + 17. / 3. * M_PI * M_PI +
+                    L * 475. / 6. + 17. * L * L), NNLO);
+            mcC.setCoeff(1, alstilde * alstilde * (127. / 18. + M_PI * M_PI * 4. / 3. + L * 46. / 3. + 4. * L * L),
                     NNLO);
         case NLO:
-            mcC.setCoeff(0, alstilde*(15.+6.*L), NLO);
-        case LO:         
+            mcC.setCoeff(0, alstilde * (15. + 6. * L), NLO);
+        case LO:
             mcC.setCoeff(1, 1., LO);
             break;
         default:
@@ -2727,8 +2720,18 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_C()
             throw "StandardModelMatching::mc_C(): order " + out.str() + "not implemented";
     }
 
-    vmcC.push_back(mcC);
-    return (vmcC);
+    switch (mcC.getOrder_qed()) {
+        case NLO_QED11:
+            mcC.setCoeff(1, aletilde * (-22. / 9. - 4. / 3. * Lz + 1. / 9.), NLO_QED11);
+        case LO_QED:
+            break;
+        default:
+            std::stringstream out;
+            out << mcC.getOrder_qed();
+            throw "StandardModelMatching::mc_C(): order " + out.str() + "not implemented";
+    }
+
+    return(mcC);
 }
 
 double StandardModelMatching::C3funNNLO(double x)
@@ -2761,12 +2764,10 @@ double StandardModelMatching::C6funNNLO(double x)
     return(-3./16.*G1t(x,Muw)+0.25*E0t(x)+85./162.+5./108.*M_PI*M_PI+35./108.*L+5./36*L*L);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_P()
+WilsonCoefficient& StandardModelMatching::mc_P()
 {
-    double xt = Mt_muw*Mt_muw/Mw/Mw;
-    double xz = SM.getMz()*SM.getMz()/Mw/Mw;
-
-    vmcP.clear();
+    double xt = Mt_muw * Mt_muw / Mw / Mw;
+    double xz = SM.getMz() * SM.getMz() / Mw / Mw;
 
     switch (mcP.getScheme()) {
         case NDR:
@@ -2780,34 +2781,16 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_P()
     }
 
     mcP.setMu(Muw); // cleared too
-    
+
     switch (mcP.getOrder()) {
-        case NLO_QED21:
-            mcP.setCoeff(0, aletilde*alstilde*(1./sW2*(4./9.*B1d(xt,Muw) + 4./27.*B1d_tilde(xt,Muw) + 2./9.*B1u(xt,Muw) +
-                                                2./27.*B1u_tilde(xt,Muw) - 2./9.*C1ew(xt) + 320./27.*B0b(xt) +
-                                                160./27.*C0b(xt))), NNLO);
-            mcP.setCoeff(1, aletilde*alstilde*(16./27.*C0b(xt) + 1./sW2*(8./9.*B1d_tilde(xt,Muw) + 4./9.*B1u_tilde(xt,Muw) -
-                                                2./9.*Gew(xt,xz,Muw) - 88./9.*B0b(xt) - 184./27.*C0b(xt))), NNLO);
-            mcP.setCoeff(2, aletilde*alstilde*(1./sW2*(-1./9.*B1d(xt,Muw) - 1./27.*B1d_tilde(xt,Muw) - 1./18.*B1u(xt,Muw) -
-                                                1./54.*B1u_tilde(xt,Muw) + 1./18.*C1ew(xt) - 32./27.*B0b(xt) -
-                                                16./27.*C0b(xt))), NNLO);
-            mcP.setCoeff(3, aletilde*alstilde*(1./sW2*(-2./9.*B1d_tilde(xt,Muw) - 1./9.*B1u_tilde(xt,Muw) + 1./18.*Gew(xt,xz,Muw) +
-                                                4./3.*B0b(xt) + 2./3.*C0b(xt))), NNLO);
-        case NLO_QED11:
-            mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*B0b(xt) + C0b(xt))), NLO);
-            //mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO);
-            mcP.setCoeff(2, aletilde*(1./9./sW2*(B0b(xt) + 1./2.*C0b(xt))), NLO);
-            //mcP.setCoeff(0, aletilde*(1./9./sW2*(Y0(xt) - 1./2.*X0t(xt))), NLO);
-        case LO_QED:
-            break;
         case NNLO:
-            mcP.setCoeff(0, alstilde*alstilde*C3funNNLO(xt), NNLO);
-            mcP.setCoeff(1, alstilde*alstilde*C4fun(xt,NNLO), NNLO);
-            mcP.setCoeff(2, alstilde*alstilde*C5funNNLO(xt), NNLO);
-            mcP.setCoeff(3, alstilde*alstilde*C6funNNLO(xt), NNLO);
+            mcP.setCoeff(0, alstilde * alstilde * C3funNNLO(xt), NNLO);
+            mcP.setCoeff(1, alstilde * alstilde * C4fun(xt, NNLO), NNLO);
+            mcP.setCoeff(2, alstilde * alstilde * C5funNNLO(xt), NNLO);
+            mcP.setCoeff(3, alstilde * alstilde * C6funNNLO(xt), NNLO);
         case NLO:
-            mcP.setCoeff(1, alstilde*C4fun(xt,NLO), NLO);
-        case LO:         
+            mcP.setCoeff(1, alstilde * C4fun(xt, NLO), NLO);
+        case LO:
             break;
         default:
             std::stringstream out;
@@ -2815,8 +2798,33 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_P()
             throw "StandardModelMatching::mc_P(): order " + out.str() + "not implemented";
     }
 
-    vmcP.push_back(mcP);
-    return (vmcP);
+    switch (mcP.getOrder_qed()) {
+        case NLO_QED21:
+            mcP.setCoeff(0, aletilde * alstilde * (1. / sW2 * (4. / 9. * B1d(xt, Muw) + 4. / 27. * B1d_tilde(xt, Muw) + 2. / 9. * B1u(xt, Muw) +
+                    2. / 27. * B1u_tilde(xt, Muw) - 2. / 9. * C1ew(xt) + 320. / 27. * B0b(xt) +
+                    160. / 27. * C0b(xt))), NNLO);
+            mcP.setCoeff(1, aletilde * alstilde * (16. / 27. * C0b(xt) + 1. / sW2 * (8. / 9. * B1d_tilde(xt, Muw) + 4. / 9. * B1u_tilde(xt, Muw) -
+                    2. / 9. * Gew(xt, xz, Muw) - 88. / 9. * B0b(xt) - 184. / 27. * C0b(xt))), NNLO);
+            mcP.setCoeff(2, aletilde * alstilde * (1. / sW2 * (-1. / 9. * B1d(xt, Muw) - 1. / 27. * B1d_tilde(xt, Muw) - 1. / 18. * B1u(xt, Muw) -
+                    1. / 54. * B1u_tilde(xt, Muw) + 1. / 18. * C1ew(xt) - 32. / 27. * B0b(xt) -
+                    16. / 27. * C0b(xt))), NNLO);
+            mcP.setCoeff(3, aletilde * alstilde * (1. / sW2 * (-2. / 9. * B1d_tilde(xt, Muw) - 1. / 9. * B1u_tilde(xt, Muw) + 1. / 18. * Gew(xt, xz, Muw) +
+                    4. / 3. * B0b(xt) + 2. / 3. * C0b(xt))), NNLO);
+        case NLO_QED11:
+            mcP.setCoeff(0, aletilde * (-2. / 9. / sW2 * (2. * B0b(xt) + C0b(xt))), NLO);
+            //mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO);
+            mcP.setCoeff(2, aletilde * (1. / 9. / sW2 * (B0b(xt) + 1. / 2. * C0b(xt))), NLO);
+            //mcP.setCoeff(0, aletilde*(1./9./sW2*(Y0(xt) - 1./2.*X0t(xt))), NLO);
+        case LO_QED:
+            break;
+        default:
+            std::stringstream out;
+            out << mcP.getOrder_qed();
+            throw "StandardModelMatching::mc_P(): order " + out.str() + "not implemented";
+
+    }
+    
+    return (mcP);
 }
 
 
@@ -2830,12 +2838,10 @@ double StandardModelMatching::C8funLO(double x)
     return(-0.5*F0t(x) - 1./3.);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_M()
+WilsonCoefficient& StandardModelMatching::mc_M()
 {
-    double xt = Mt_muw*Mt_muw/Mw/Mw;
+    double xt = Mt_muw * Mt_muw / Mw / Mw;
     double mH = SM.getMHl();
-
-    vmcM.clear();
 
     switch (mcM.getScheme()) {
         case NDR:
@@ -2849,26 +2855,17 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_M()
     }
 
     mcM.setMu(Muw); // cleared too
-    
+
     switch (mcM.getOrder()) {
-        case NLO_QED11:
-            mcM.setCoeff(0, aletilde*(1./sW2*(1.11 - 1.15*(1.-Mt_muw*Mt_muw/170./170.) - 0.444*log(mH/100.) -
-                                               0.21*log(mH/100.)*log(mH/100.) - 0.513*log(mH/100.)*log(Mt_muw/170.)) +
-                                       (8./9.*C7funLO(xt) - 104./243.)*L), NLO);
-            mcM.setCoeff(1, aletilde*(1./sW2*(-0.143 + 0.156*(1.-Mt_muw*Mt_muw/170./170.) - 0.129*log(mH/100.) -
-                                               0.0244*log(mH/100.)*log(mH/100.) - 0.037*log(mH/100.)*log(Mt_muw/170.)) +
-                                       (4./9.*C8funLO(xt) - 4./3.*C7funLO(xt) - 58./81.)*L), NLO);
-        case LO_QED:
-            break;
         case NNLO:
-            mcM.setCoeff(0, alstilde*alstilde*(C7t_3L_at_mt(xt) + C7t_3L_func(xt,Muw)-(C7c_3L_at_mW(xt)+13763./2187.*L+814./729.*L*L)
-                             -1./3.*C3funNNLO(xt)-4./9.*C4fun(xt,NNLO)-20./3.*C5funNNLO(xt)-80./9.*C6funNNLO(xt)), NNLO);
-            mcM.setCoeff(1, alstilde*alstilde*(C8t_3L_at_mt(xt) + C8t_3L_func(xt,Muw)-(C8c_3L_at_mW(xt) + 16607./5832.*L+397./486.*L*L)
-                             +C3funNNLO(xt)-1./6.*C4fun(xt,NNLO)-20.*C5funNNLO(xt)-10./3.*C6funNNLO(xt)), NNLO);
+            mcM.setCoeff(0, alstilde * alstilde * (C7t_3L_at_mt(xt) + C7t_3L_func(xt, Muw)-(C7c_3L_at_mW(xt) + 13763. / 2187. * L + 814. / 729. * L * L)
+                    - 1. / 3. * C3funNNLO(xt) - 4. / 9. * C4fun(xt, NNLO) - 20. / 3. * C5funNNLO(xt) - 80. / 9. * C6funNNLO(xt)), NNLO);
+            mcM.setCoeff(1, alstilde * alstilde * (C8t_3L_at_mt(xt) + C8t_3L_func(xt, Muw)-(C8c_3L_at_mW(xt) + 16607. / 5832. * L + 397. / 486. * L * L)
+                    + C3funNNLO(xt) - 1. / 6. * C4fun(xt, NNLO) - 20. * C5funNNLO(xt) - 10. / 3. * C6funNNLO(xt)), NNLO);
         case NLO:
-            mcM.setCoeff(0, alstilde*(-0.5*A1t(xt,Muw)+713./243.+4./81.*L-4./9.*C4fun(xt,NLO)), NLO);
-            mcM.setCoeff(1, alstilde*(-0.5*F1t(xt,Muw)+91./324.-4./27.*L-1./6.*C4fun(xt,NLO)), NLO);
-        case LO:         
+            mcM.setCoeff(0, alstilde * (-0.5 * A1t(xt, Muw) + 713. / 243. + 4. / 81. * L - 4. / 9. * C4fun(xt, NLO)), NLO);
+            mcM.setCoeff(1, alstilde * (-0.5 * F1t(xt, Muw) + 91. / 324. - 4. / 27. * L - 1. / 6. * C4fun(xt, NLO)), NLO);
+        case LO:
             mcM.setCoeff(0, C7funLO(xt), LO);
             mcM.setCoeff(1, C8funLO(xt), LO);
             break;
@@ -2878,15 +2875,29 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_M()
             throw "StandardModelMatching::mc_M(): order " + out.str() + "not implemented";
     }
 
-    vmcM.push_back(mcM);
-    return (vmcM);
+    switch (mcM.getOrder_qed()) {
+        case NLO_QED11:
+            mcM.setCoeff(0, aletilde * (1. / sW2 * (1.11 - 1.15 * (1. - Mt_muw * Mt_muw / 170. / 170.) - 0.444 * log(mH / 100.) -
+                    0.21 * log(mH / 100.) * log(mH / 100.) - 0.513 * log(mH / 100.) * log(Mt_muw / 170.)) +
+                    (8. / 9. * C7funLO(xt) - 104. / 243.) * L), NLO);
+            mcM.setCoeff(1, aletilde * (1. / sW2 * (-0.143 + 0.156 * (1. - Mt_muw * Mt_muw / 170. / 170.) - 0.129 * log(mH / 100.) -
+                    0.0244 * log(mH / 100.) * log(mH / 100.) - 0.037 * log(mH / 100.) * log(Mt_muw / 170.)) +
+                    (4. / 9. * C8funLO(xt) - 4. / 3. * C7funLO(xt) - 58. / 81.) * L), NLO);
+        case LO_QED:
+            break;
+        default:
+            std::stringstream out;
+            out << mcM.getOrder();
+            throw "StandardModelMatching::mc_M(): order " + out.str() + "not implemented";
+
+    }
+
+    return (mcM);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_L()
+WilsonCoefficient& StandardModelMatching::mc_L()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
-    
-    vmcL.clear();
     
     switch (mcL.getScheme()) {
         case NDR:
@@ -2901,7 +2912,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_L()
 
     mcL.setMu(Muw); // cleared too
     
-    switch (mcL.getOrder()) {
+    switch (mcL.getOrder_qed()) {
         case NLO_QED22:
             //Eqs. (32-33) of ref. Huber et al.
             //Delta_t and tau_b in hep-ph/9707243
@@ -2917,20 +2928,17 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_L()
             break;
         default:
             std::stringstream out;
-            out << mcL.getOrder();
+            out << mcL.getOrder_qed();
             throw "StandardModelMatching::mc_L(): order " + out.str() + "not implemented";
     }
 
-    vmcL.push_back(mcL);
-    return (vmcL);
+    return (mcL);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_Q()
+WilsonCoefficient& StandardModelMatching::mc_Q()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
     double xz = SM.getMz()*SM.getMz()/Mw/Mw;
-    
-    vmcQ.clear();
     
     switch (mcQ.getScheme()) {
         case NDR:
@@ -2945,7 +2953,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_Q()
 
     mcQ.setMu(Muw); // cleared too
     
-    switch (mcQ.getOrder()) {
+    switch (mcQ.getOrder_qed()) {
         case NLO_QED21:
             mcQ.setCoeff(0, aletilde*alstilde*(4.*C1ew(xt) + 4.*D1t(xt,Muw) + 320./9.*C0b(xt) +
                                                 1./sW2*(-2./3.*B1d(xt,Muw) - 2./9.*B1d_tilde(xt,Muw) +
@@ -2968,19 +2976,16 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_Q()
             break;
         default:
             std::stringstream out;
-            out << mcQ.getOrder();
+            out << mcQ.getOrder_qed();
             throw "StandardModelMatching::mc_Q(): order " + out.str() + "not implemented";
     }
 
-    vmcQ.push_back(mcQ);
-    return (vmcQ);
+    return (mcQ);
 }
 
-std::vector<WilsonCoefficient>& StandardModelMatching::mc_B()
+WilsonCoefficient& StandardModelMatching::mc_B()
 {
     double xt = Mt_muw*Mt_muw/Mw/Mw;
-    
-    vmcB.clear();
     
     switch (mcB.getScheme()) {
         case NDR:
@@ -2995,22 +3000,23 @@ std::vector<WilsonCoefficient>& StandardModelMatching::mc_B()
 
     mcB.setMu(Muw); // cleared too
     
-    switch (mcB.getOrder()) {
+    switch (mcB.getOrder_qed()) {
         case NLO_QED11:
             mcB.setCoeff(0, aletilde*(-1./2./sW2*S0(xt)), NLO);
         case LO_QED:
             break;
         default:
             std::stringstream out;
-            out << mcB.getOrder();
+            out << mcB.getOrder_qed();
             throw "StandardModelMatching::mc_B(): order " + out.str() + "not implemented";
     }
 
-    vmcB.push_back(mcB);
-    return (vmcB);
+    return (mcB);
 }
 
-unsigned int StandardModelMatching::setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int nops, unsigned int tot, schemes scheme, orders order) {
+unsigned int StandardModelMatching::setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block,
+        unsigned int nops, unsigned int tot, schemes scheme, orders order, orders_qed order_qed)
+{
     unsigned int j;
     int ord;
 
@@ -3018,80 +3024,113 @@ unsigned int StandardModelMatching::setCMDF1(WilsonCoefficient& CMDF1, WilsonCoe
         for (j = 0; j < nops; j++)
             CMDF1.setCoeff(j + tot, (*(DF1block.getCoeff((orders) ord)))(j), (orders) ord);
 
+    for (ord = NO_QED; ord < order_qed; ord++)
+        for (j = 0; j < nops; j++)
+            CMDF1.setCoeff(j + tot, (*(DF1block.getCoeff((orders_qed) ord)))(j), (orders_qed) ord);
+
     return (nops + tot);
 }
 
-std::vector<WilsonCoefficient> StandardModelMatching::CMDF1(std::string blocks, unsigned int nops, schemes scheme, orders order)
-{
-    unsigned int tot;
-    double mu;
-    WilsonCoefficient mcDF1(nops, scheme, order),
-            &mcBlock(mcDF1); //dummy initialization
+typedef WilsonCoefficient& (*BlockM)();
 
-    for (unsigned int i = 0; i < 1; i++) //CHANGE ME: FIXED 1 MATCHING SCALE
+unsigned int StandardModelMatching::BuildBlocks(std::string blocks, WilsonCoefficient& mcDF1, unsigned int tot) {
+    WilsonCoefficient & mcBlock(mcDF1);
+    double mu;
+    schemes sc = mcDF1.getScheme();
+    orders ord = mcDF1.getOrder();
+    orders_qed ord_qed = mcDF1.getOrder_qed();
+    std::map<std::string, BlockM> Methods = { {"C", &mc_C}, {"P", &mc_P}, {"M", &mc_M}, {"L", &mc_L}, {"Q", &mc_Q}, {"B", &mc_B} };
+
+    for (std::map<std::string, BlockM>::iterator it = Methods.begin(); it != Methods.end(); it++)
     {
-        tot = 0;
-        mu = 0.;
-        if (blocks.find("C") != std::string::npos) {
-            mcBlock = mc_C()[i];
+        if (blocks.find(it->first) != std::string::npos) {
+            mcBlock = it->second;
             mu = mcBlock.getMu();
             mcDF1.setMu(mu);
-            tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
+            tot = setCMDF1(mcDF1, mcBlock, 2, tot, sc, ord, ord_qed);
         }
-        if (blocks.find("P") != std::string::npos) {
-            mcBlock = mc_P()[i];
-            if (mu == 0.) {
-                mu = mcBlock.getMu();
-                mcDF1.setMu(mu);
-            }
-            if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): P - wrong matching scales";
-            tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order);
-        }
-        if (blocks.find("M") != std::string::npos) {
-            mcBlock = mc_M()[i];
-            if (mu == 0.) {
-                mu = mcBlock.getMu();
-                mcDF1.setMu(mu);
-            }
-            if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): M - wrong matching scales";
-            tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
-        }
-        if (blocks.find("L") != std::string::npos) {
-            mcBlock = mc_L()[i];
-            if (mu == 0.) {
-                mu = mcBlock.getMu();
-                mcDF1.setMu(mu);
-            }
-            if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): L - wrong matching scales";
-
-            tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order);
-        }
-        if (blocks.find("Q") != std::string::npos) {
-            mcBlock = mc_Q()[i];
-            if (mu == 0.) {
-                mu = mcBlock.getMu();
-                mcDF1.setMu(mu);
-            }
-            if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): Q - wrong matching scales";
-            tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order);
-        }
-        if (blocks.find("B") != std::string::npos) {
-            mcBlock = mc_B()[i];
-            if (mu == 0.) {
-                mu = mcBlock.getMu();
-                mcDF1.setMu(mu);
-            }
-           if (mcBlock.getMu() != mu)
-                throw "StandardModelMatching::CMDF1(): B - wrong matching scales";
-            setCMDF1(mcDF1, mcBlock, 1, tot, scheme, order);
-        }
-        vmcDF1.push_back(mcDF1);
     }
-
-    return(vmcDF1);
+    
+    return(tot);    
 }
 
+std::vector<WilsonCoefficient> StandardModelMatching::CMDF1(std::string blocks, unsigned int nops)
+{
+    unsigned int tot;
+    schemes sc = mcC.getScheme();
+    orders ord = mcC.getOrder();
+    orders_qed ord_qed = mcC.getOrder_qed();
+    WilsonCoefficient mcDF1(nops, sc, ord, ord_qed),
+            &mcBlock(mcDF1); //dummy initialization
+
+    tot = 0;
+
+    switch(ord)
+    {
+        case NNLO:
+            tot = BuildBlocks(blocks, mcDF1, tot);
+        case NLO:
+        case LO:
+        default:
+    }
+    if (blocks.find("C") != std::string::npos) {
+        mcBlock = mc_C();
+        mu = mcBlock.getMu();
+        mcDF1.setMu(mu);
+        tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order, order_qed);
+    }
+    if (blocks.find("P") != std::string::npos) {
+        mcBlock = mc_P();
+        if (mu == 0.) {
+            mu = mcBlock.getMu();
+            mcDF1.setMu(mu);
+        }
+        if (mcBlock.getMu() != mu)
+            throw "StandardModelMatching::CMDF1(): P - wrong matching scales";
+        tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order, order_qed);
+    }
+    if (blocks.find("M") != std::string::npos) {
+        mcBlock = mc_M();
+        if (mu == 0.) {
+            mu = mcBlock.getMu();
+            mcDF1.setMu(mu);
+        }
+        if (mcBlock.getMu() != mu)
+            throw "StandardModelMatching::CMDF1(): M - wrong matching scales";
+        tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order, order_qed);
+    }
+    if (blocks.find("L") != std::string::npos) {
+        mcBlock = mc_L();
+        if (mu == 0.) {
+            mu = mcBlock.getMu();
+            mcDF1.setMu(mu);
+        }
+        if (mcBlock.getMu() != mu)
+            throw "StandardModelMatching::CMDF1(): L - wrong matching scales";
+
+        tot = setCMDF1(mcDF1, mcBlock, 2, tot, scheme, order, order_qed);
+    }
+    if (blocks.find("Q") != std::string::npos) {
+        mcBlock = mc_Q();
+        if (mu == 0.) {
+            mu = mcBlock.getMu();
+            mcDF1.setMu(mu);
+        }
+        if (mcBlock.getMu() != mu)
+            throw "StandardModelMatching::CMDF1(): Q - wrong matching scales";
+        tot = setCMDF1(mcDF1, mcBlock, 4, tot, scheme, order, order_qed);
+    }
+    if (blocks.find("B") != std::string::npos) {
+        mcBlock = mc_B();
+        if (mu == 0.) {
+            mu = mcBlock.getMu();
+            mcDF1.setMu(mu);
+        }
+        if (mcBlock.getMu() != mu)
+            throw "StandardModelMatching::CMDF1(): B - wrong matching scales";
+        setCMDF1(mcDF1, mcBlock, 1, tot, scheme, order, order_qed);
+    }
+
+    vmcDF1.push_back(mcDF1);
+    return (vmcDF1);
+}
