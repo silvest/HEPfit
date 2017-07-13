@@ -848,8 +848,8 @@ double SUSYMassInsertionMatching::C4NLOB(double x, double mumatch2, double Ms2){
 
  std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMd1() {
     
-    vmcDF1.clear();
-    vmcDF1 = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO); //???
+    vmcd1.clear();
+    vmcd1 = StandardModelMatching::CMd1();
     
     double x = pow(SusyMI.getM3() / SusyMI.getMsq(), 2.);
     double constLO = SusyMI.Als(SusyMI.getMuM()) / SusyMI.getMsq();
@@ -919,7 +919,7 @@ double SUSYMassInsertionMatching::C4NLOB(double x, double mumatch2, double Ms2){
             throw std::runtime_error("SUSYMassInsertionMatching::CMd1(): order " + out.str() + "not implemented"); 
     }
 
-    vmcDF1.push_back(mcd1);
+    vmcd1.push_back(mcd1);
     
     C0_B.assign(2, constLO * constLO / 4. * (-1./9.*B1(x) - 5./9.*B2(x) 
         - 1./18.*P1(x) - 1./2.*P2(x))* DRR);
@@ -957,9 +957,9 @@ double SUSYMassInsertionMatching::C4NLOB(double x, double mumatch2, double Ms2){
             throw std::runtime_error("SUSYMassInsertionMatching::CMd1(): order " + out.str() + "not implemented"); 
     }
 
-    vmcDF1.push_back(mcd1);
+    vmcd1.push_back(mcd1);
     
-    return(vmcDF1);
+    return(vmcd1);
 }
 
  std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdd2 () {

@@ -3358,7 +3358,7 @@ gslpp::vector <gslpp::complex> SUSYMatching::CalcC7(int b, int q) {
 
  std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
 
-    vmcbsg = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO);
+    vmcbsg = StandardModelMatching::CMbsg();
 
     switch (mcbsg.getScheme()) {
         case NDR:

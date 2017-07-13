@@ -636,7 +636,7 @@ public:
      * Operator block: L (2)
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
-    virtual std::vector<WilsonCoefficient> CMDF1(std::string blocks, unsigned int nops);
+    virtual std::vector<WilsonCoefficient>& CMDF1(std::string blocks, unsigned int nops);
 
     double getMt_mut() const {
         return Mt_mut;
@@ -883,8 +883,6 @@ private:
      * Normalization: 4 G_F / sqrt(2) x CKM
      */
     WilsonCoefficient& mc_B();
-
-    unsigned int BuildBlocks(std::string blocks, WilsonCoefficient& mcDF1, unsigned int tot);
 
     friend double gslpp_special_functions::dilog(double x);
     friend double gslpp_special_functions::clausen(double x);

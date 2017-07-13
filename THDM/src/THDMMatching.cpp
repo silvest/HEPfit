@@ -27,9 +27,9 @@ THDMMatching::THDMMatching(const THDM & THDM_i) :
 std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
 
     double Mut = myTHDM.getMut();
-    double MW=myTHDM.Mw();
     double xt = x_t(Mut);
     double GF=myTHDM.getGF();
+    double MW=myTHDM.Mw();
     gslpp::complex co = GF / 4. / M_PI * MW * myTHDM.computelamt_s();
     double tanb = myTHDM.gettanb();
     double mHp2=myTHDM.getmHp2();
@@ -99,7 +99,7 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbsg()
     
     gslpp::complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
     
-    vmcDF1 = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO);
+    vmcbsg = StandardModelMatching::CMbsg();
     mcbsg.setMu(Muw);
     
     switch (mcbsg.getOrder()) {
@@ -122,8 +122,8 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbsg()
             throw std::runtime_error("THDMMatching::CMbsg(): order " + out.str() + "not implemented"); 
     }
     
-    vmcDF1.push_back(mcbsg);
-    return(vmcDF1);
+    vmcbsg.push_back(mcbsg);
+    return(vmcbsg);
 }
 
  
@@ -131,7 +131,7 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbsg()
 {    
     double Muw = myTHDM.getMuw();
     
-    vmcDF1 = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO); //prime
+    vmcprimebsg = StandardModelMatching::CMprimebsg();
     mcprimebsg.setMu(Muw);
     
     switch (mcprimebsg.getOrder()) {
@@ -154,8 +154,8 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbsg()
             throw std::runtime_error("THDMMatching::CMprimebsg(): order " + out.str() + "not implemented"); 
     }
     
-    vmcDF1.push_back(mcprimebsg);
-    return(vmcDF1);
+    vmcprimebsg.push_back(mcprimebsg);
+    return(vmcprimebsg);
 }
 
 

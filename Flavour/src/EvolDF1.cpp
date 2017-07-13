@@ -744,9 +744,9 @@ gslpp::matrix<double> EvolDF1::GammaMM(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1,1) = 1456./9. - nf*61./27.;
             break;
         case 30:
-            gammaDF1(0,0) = 307448./81. - nf*23776./81. - nf*nf*352./81. + z3*(1856./27. - nf*1280./9.);
+            gammaDF1(0,0) = 307448./81. - nf*23776./81. - nf*nf*352./81. + z3*(-1856./27. - nf*1280./9.);
             gammaDF1(1,0) = -Qbar*1600./27. + Qd*159872./81. - nf*Qd*17108./81. - nf*nf*Qd*352./81. + z3*(Qbar*640./9. -
-                    Qd*1856./27. + nf*Qd*1280./9.);
+                    Qd*1856./27. - nf*Qd*1280./9.);
             gammaDF1(1,1) = 268807./81. - nf*4343./27. - nf*nf*461./81. + z3*(-28624./27. - nf*1312./9.);
             break;
         // QED
@@ -1233,8 +1233,10 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_
     unsigned int a,b,i,j,p;
 
 
-    double alsM = model.Als(M) / 4. / M_PI;
-    double alsmu = model.Als(mu) / 4. / M_PI;
+//    double alsM = model.Als(M) / 4. / M_PI;
+//    double alsmu = model.Als(mu) / 4. / M_PI;
+    double alsM = model.Alstilde5(M);
+    double alsmu = model.Alstilde5(mu);
     
     double eta = alsM / alsmu;
     

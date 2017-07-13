@@ -50,23 +50,37 @@ int main(void) {
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
 
-    std::cout << Heff.getEvol().DF1Evol(5., 90., LO, NO_QED) << std::endl;
-    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., LO) << std::endl;
-//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+//    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(LO)) <<  std::endl;    
+//    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(NLO)) <<  std::endl;    
+//    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(NNLO)) <<  std::endl;    
 
-    std::cout << Heff.getEvol().DF1Evol(5., 90., NLO, NO_QED) << std::endl;
-    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., NLO) << std::endl;
+    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(LO)) <<  std::endl;    
+    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(NLO)) <<  std::endl;    
+    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(NNLO)) <<  std::endl;    
+    
+//    std::cout << Heff.getEvol().AnomalousDimension(30, 2, 3) - HDB1.getUDB1bsg().AnomalousDimension_M(NNLO,2,3) <<  std::endl;
+//
+//    std::cout << Heff.getEvol().DF1Evol(5., 90., LO, NO_QED) << std::endl;
+////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., LO) << std::endl;
+//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+//
+//    std::cout << Heff.getEvol().DF1Evol(5., 90., NLO, NO_QED) << std::endl;
+////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., NLO) << std::endl;
 //    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., NLO) << std::endl;
-    
-    std::cout << Heff.getEvol().DF1Evol(2., 90., LO, NO_QED) << std::endl;
-    std::cout << HDB1.getUDF1BMll().Df1EvolMll(2., 90., LO) << std::endl;
-//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
-    std::cout << Heff.getEvol().DF1Evol(2., 90., NLO, NO_QED) << std::endl;
-    std::cout << HDB1.getUDF1BMll().Df1EvolMll(2., 90., NLO) << std::endl;
-    
-    std::cout << Heff.getEvol().DF1Evol(1., 90., LO, NO_QED) << std::endl;
-    std::cout << HDB1.getUDF1BMll().Df1EvolMll(1., 90., LO) << std::endl;
-//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
-    std::cout << Heff.getEvol().DF1Evol(1., 90., NLO, NO_QED) << std::endl;
-    std::cout << HDB1.getUDF1BMll().Df1EvolMll(1., 90., NLO) << std::endl;
+//    
+//    std::cout << Heff.getEvol().DF1Evol(5., 90., NNLO, NO_QED) << std::endl;
+////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., NLO) << std::endl;
+//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., NNLO) << std::endl;
+//
+////    std::cout << Heff.getEvol().DF1Evol(2., 90., LO, NO_QED) << std::endl;
+////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(2., 90., LO) << std::endl;
+////    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+////    std::cout << Heff.getEvol().DF1Evol(2., 90., NLO, NO_QED) << std::endl;
+////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(2., 90., NLO) << std::endl;
+//    
+////    std::cout << Heff.getEvol().DF1Evol(1., 90., LO, NO_QED) << std::endl;
+////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(1., 90., LO) << std::endl;
+////    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+////    std::cout << Heff.getEvol().DF1Evol(1., 90., NLO, NO_QED) << std::endl;
+////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(1., 90., NLO) << std::endl;
 }

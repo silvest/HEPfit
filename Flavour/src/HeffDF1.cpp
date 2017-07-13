@@ -32,11 +32,9 @@ HeffDF1::~HeffDF1()
 gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff_s(double mu, schemes scheme) 
 {
     
-    coeff.setScheme(scheme);
-    orders ordDF1 = coeff.getOrder();
-    orders_qed ordDF1_qed = coeff.getOrder_qed();
-    
-    const std::vector<WilsonCoefficient> mc = model.getMatching().CMDF1(blocks, nops, NDR, ordDF1);
+    orders ordDF1 = coeff.getOrder();  // WARNING: NO QED
+
+    const std::vector<WilsonCoefficient> mc = model.getMatching().CMDF1(blocks, nops);
 
     if (mu == mu_cache && scheme == scheme_cache) {
         int check = 1;

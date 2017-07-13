@@ -52,7 +52,7 @@ void FlavourWilsonCoefficientMatching::updateFlavourWilsonCoefficientParameters(
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
 {
 
-    vmcbsg = StandardModelMatching::CMDF1("CPM",8,NDR,NNLO);
+    vmcbsg = StandardModelMatching::CMbsg();
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -87,7 +87,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
 {
 
-    vmcbsmm = StandardModelMatching::CMDF1("CPL", 8, NDR, NNLO);
+    vmcbsmm = StandardModelMatching::CMbsmm();
 
     switch (mcbsmm.getScheme()) {
         case NDR:
@@ -121,7 +121,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
 {
 
-    vmcbdmm = StandardModelMatching::CMDF1("CPL", 8, NDR, NNLO);
+    vmcbdmm = StandardModelMatching::CMbdmm();
 
     switch (mcbdmm.getScheme()) {
         case NDR:
@@ -155,7 +155,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
 {
 
-    vmcprimebsg = StandardModelMatching::CMDF1("CPM", 8, NDR, NNLO);
+    vmcprimebsg = StandardModelMatching::CMprimebsg();
 
     switch (mcprimebsg.getScheme()) {
         case NDR:
@@ -190,7 +190,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::lepton lepton)
 {
 
-    vmcBMll = StandardModelMatching::CMDF1("CPML", 10, NDR, NNLO);
+    vmcBMll = StandardModelMatching::CMBMll(lepton);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -226,7 +226,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::le
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll(QCD::lepton lepton)
 {
 
-    vmcprimeBMll = StandardModelMatching::CMDF1("CPML", 10, NDR, NNLO); // prime
+    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton); // prime
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

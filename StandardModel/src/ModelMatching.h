@@ -26,7 +26,7 @@ public:
     
     virtual ~ModelMatching() {};
     
-    virtual std::vector<WilsonCoefficient> CMDF1(std::string blocks, unsigned int nops) = 0;
+    virtual std::vector<WilsonCoefficient>& CMDF1(std::string blocks, unsigned int nops) = 0;
     
     virtual std::vector<WilsonCoefficient>& CMdbd2() = 0;
     virtual std::vector<WilsonCoefficient>& CMdbs2() = 0;
