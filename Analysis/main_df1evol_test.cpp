@@ -54,9 +54,9 @@ int main(void) {
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(NLO)) <<  std::endl;    
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(NNLO)) <<  std::endl;    
 
-    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(LO)) <<  std::endl;    
-    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(NLO)) <<  std::endl;    
-    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(NNLO)) <<  std::endl;    
+    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(LO)) - *(mySM.getMatching().CMbsg()[0].getCoeff(LO))  <<  std::endl;    
+    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(NLO)) - *(mySM.getMatching().CMbsg()[0].getCoeff(NLO)) <<  std::endl;    
+    std::cout << *(mySM.getMatching().CMDF1("CPM",8)[0].getCoeff(NNLO)) - *(mySM.getMatching().CMbsg()[0].getCoeff(NNLO)) <<  std::endl;    
     
 //    std::cout << Heff.getEvol().AnomalousDimension(30, 2, 3) - HDB1.getUDB1bsg().AnomalousDimension_M(NNLO,2,3) <<  std::endl;
 //

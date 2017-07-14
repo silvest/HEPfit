@@ -641,10 +641,6 @@ public:
     double getMt_mut() const {
         return Mt_mut;
     }
-
-    double xt() const {
-        return Mt_mut*Mt_mut/Mw/Mw;
-    }
      
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
@@ -654,8 +650,7 @@ protected:
     std::vector<WilsonCoefficient> vmcDF1;
 
     
-private:
-    
+private:    
     const StandardModel & SM;
     double S0(double) const;
     double S0p(double x) const;
@@ -837,7 +832,7 @@ private:
      */
     double C8funLO(double x);
 
-    unsigned int setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int nops, unsigned int tot, schemes scheme, orders order, orders_qed order_qed);
+    unsigned int setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int tot, schemes scheme, orders order, orders_qed order_qed);
 
     /*
      * Wilson coefficients Misiak basis
