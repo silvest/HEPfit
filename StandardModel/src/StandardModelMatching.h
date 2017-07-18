@@ -669,7 +669,7 @@ private:
     
 
     gslpp::complex lam_t;
-    const gslpp::matrix<gslpp::complex>& Vckm;
+    gslpp::matrix<gslpp::complex> Vckm;
 
         /**
      * 

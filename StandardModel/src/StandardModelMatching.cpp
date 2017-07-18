@@ -46,7 +46,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcL(2, NDR, NNLO, NLO_QED22),
         mcQ(4, NDR, NNLO, NLO_QED22),
         mcB(1, NDR, NNLO, NLO_QED22),
-        Vckm(SM.getVCKM()) // check needed
+        Vckm(3,3,0.)
 {    
     swa = 0.;
     swb = 0.;
@@ -114,8 +114,8 @@ void StandardModelMatching::updateSMParameters()
                         SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     Mt_mut = SM.Mrun(Mut, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
-//    alstilde = SM.Alstilde5(Muw);
-    alstilde = SM.Als(Muw, FULLNNLO) / 4. / M_PI; // WHICH ONE TO USE?
+    alstilde = SM.Alstilde5(Muw);
+//    alstilde = SM.Als(Muw, FULLNNLO) / 4. / M_PI; // WHICH ONE TO USE?
     aletilde = Ale / 4. / M_PI; // WHERE IS ale(mu)?
     GF = SM.getGF();
     Mw_tree = SM.Mw_tree();
@@ -127,7 +127,8 @@ void StandardModelMatching::updateSMParameters()
         Mw = Mw_tree;
         sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     }
-//    Vckm = SM.getVCKM(); old style 
+    sW2 = (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw ); // WARNING: only for checking
+    Vckm = SM.getVCKM();
     lam_t = SM.computelamt();
     L = 2*log(Muw/Mw);
     Lz = 2*log(Muw/SM.getMz());
@@ -2933,7 +2934,7 @@ WilsonCoefficient& StandardModelMatching::mc_L()
                                                 524./729. - 128./243.*M_PI*M_PI - 16./3.*L - 128./81.*L*L), NLO_QED21);
             mcL.setCoeff(1, aletilde*alstilde*(1./sW2*(B1t(xt,Muw) - C1t(xt,Muw)) - 1./sW2), NLO_QED21);
         case NLO_QED11:
-            mcL.setCoeff(0, aletilde*(1./sW2*Y0(xt) + Wt(xt) + 4./9. + 4./9.*log(xt)), NLO_QED11);//2*log(mt/Muw)
+            mcL.setCoeff(0, aletilde*(1./sW2*Y0(xt) + Wt(xt) + 4./9. - 4./9.* 2.* log(Muw/Mt_muw)), NLO_QED11);
             mcL.setCoeff(1, aletilde*(-1./sW2*Y0(xt)), NLO_QED11);
         case LO_QED:
             break;
@@ -2984,7 +2985,7 @@ WilsonCoefficient& StandardModelMatching::mc_Q()
                                                 1./sW2*(1./3.*B1d_tilde(xt,Muw) - 1./3.*B1u_tilde(xt,Muw) -
                                                         1./3.*Gew(xt,xz,Muw) +10.*B0b(xt) - 16./3.*C0b(xt))), NLO_QED21);
         case NLO_QED11:
-            mcQ.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))), NLO_QED11);
+            mcQ.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))) + 4./9.*L, NLO_QED11); // log from Misiak's notes
             mcQ.setCoeff(2, aletilde*(1./sW2*(5./6.*B0b(xt)-1./3.*C0b(xt))), NLO_QED11);
         case LO_QED:
             break;
