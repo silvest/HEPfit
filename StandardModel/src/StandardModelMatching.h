@@ -671,7 +671,7 @@ private:
     gslpp::complex lam_t;
     gslpp::matrix<gslpp::complex> Vckm;
 
-        /**
+    /**
      * 
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
@@ -833,6 +833,39 @@ private:
     double C8funLO(double x);
 
     unsigned int setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int tot, schemes scheme, orders order, orders_qed order_qed);
+
+    /**
+     * 
+     * @brief auxiliary function for mc_L() 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return an approximation of the function \f$ f(x) \f$ from hep-ph/9707243 in the range x=(0,1)
+     */    
+    double fbb(double x);
+    
+    /**
+     * 
+     * @brief auxiliary function for mc_L() 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return the function  \f$ g(x) \f$ from hep-ph/9707243 
+     */    
+    double gbb(double x);
+
+    /**
+     * 
+     * @brief auxiliary function for mc_L() 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return the function  \f$ \tau_b^{(2)}(x) \f$ from hep-ph/9707243 
+     */    
+    double taub2(double x);
+
+    /**
+     * 
+     * @brief auxiliary function for mc_L()
+     * @param[in] mu matching scale 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return the function  \f$ \Delta_t(\mu, x) \f$ from hep-ph/9707243 
+     */    
+    double Delta_t(double mu, double x);
 
     /*
      * Wilson coefficients Misiak basis

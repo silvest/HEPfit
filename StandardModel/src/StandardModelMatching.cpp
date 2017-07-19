@@ -2906,9 +2906,40 @@ WilsonCoefficient& StandardModelMatching::mc_M()
     return (mcM);
 }
 
+double StandardModelMatching::fbb(double x) // from hep-ph/9707243 
+{
+    return(-0.0380386-2.24502*x+3.8472*x*x-7.80586*x*x*x+10.0763*x*x*x*x-6.9751*x*x*x*x*x
+            +1.95163*x*x*x*x*x*x-0.00550335*log(x)); // fitted between 0 and 1
+}
+
+double StandardModelMatching::gbb(double x) // from hep-ph/9707243 
+{
+    if(x > 4.)
+        return(sqrt(x-4.)*log((1.-sqrt(1.-4./x))/(1.+sqrt(1.-4./x))));
+    else if(x >= 0.)
+        return(2.*sqrt(4.-x)*acos(x/4.));
+    else
+        throw "StandardModelMatching::gbb(): defined for non-negative argument only.";
+}
+
+double StandardModelMatching::taub2(double x) // from hep-ph/9707243 
+{
+    double ll=log(x);
+    return( 9.-13./4.*x-2.*x*x-x/4.*(19.+6.*x)*ll-x*x/4.*(7.-6.*x)*ll*ll-(1./4.+7./2.*x*x-3.*x*x*x)*M_PI*M_PI/6.+
+            (x/2.-2.)*sqrt(x)*gbb(x)+(x-1.)*(x-1.)*(4.*x-7./4.)*gslpp_special_functions::dilog(1.-x)-(x*x*x-33./4.*x*x+
+            18.*x-7.)*fbb(x) );
+}
+
+double StandardModelMatching::Delta_t(double mu, double x) // from hep-ph/9707243
+{
+    return(18.*log(mu/Mt_muw)+11.-x/2.+x*(x-6.)/2.*log(x)+(x-4.)/2.*sqrt(x)*gbb(x));
+}
+
 WilsonCoefficient& StandardModelMatching::mc_L()
 {
     double xt = x_t(Muw);
+    double xht = SM.getMHl()*SM.getMHl()/Mt_muw/Mt_muw;
+
     
     switch (mcL.getScheme()) {
         case NDR:
@@ -2929,6 +2960,8 @@ WilsonCoefficient& StandardModelMatching::mc_L()
         case NLO_QED22:
             //Eqs. (32-33) of ref. Huber et al.
             //Delta_t and tau_b in hep-ph/9707243
+             mcL.setCoeff(0, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(4.*sW2-1.)*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
+             mcL.setCoeff(1, aletilde*aletilde*Rest(xt, Muw)/sW2, NLO_QED22);
         case NLO_QED21:
             mcL.setCoeff(0, aletilde*alstilde*((1.-4.*sW2)/sW2*C1t(xt,Muw) - 1./sW2*B1t(xt,Muw) - D1t(xt,Muw) + 1./sW2 +
                                                 524./729. - 128./243.*M_PI*M_PI - 16./3.*L - 128./81.*L*L), NLO_QED21);
