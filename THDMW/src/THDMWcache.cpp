@@ -274,28 +274,28 @@ void THDMWcache::computeUnitarity()
 
     Sbmatrix1.assign(0,0, 3.0*blambda1/(16.0*pi));
     Sbmatrix1.assign(0,1, (2.0*blambda3+blambda4)/(16.0*pi));
-    Sbmatrix1.assign(1,0, Smatrix1(0,1));
+    Sbmatrix1.assign(1,0, Sbmatrix1(0,1));
     Sbmatrix1.assign(0,3, (2.0*bnu1+bnu2)/(8.0*sqrt(2.0)*pi));
-    Sbmatrix1.assign(3,0, Smatrix1(0,3));
+    Sbmatrix1.assign(3,0, Sbmatrix1(0,3));
     Sbmatrix1.assign(1,1, 3.0*blambda2/(16.0*pi));
     Sbmatrix1.assign(1,3, (2.0*bomega1+bomega2)/(8.0*sqrt(2.0)*pi));
-    Sbmatrix1.assign(3,1, Smatrix1(1,3));
+    Sbmatrix1.assign(3,1, Sbmatrix1(1,3));
     Sbmatrix1.assign(2,2, (blambda3+5.0*blambda4)/(16.0*pi));
     Sbmatrix1.assign(2,3, (4.0*bkappa1+2.0*bkappa2)/(16.0*pi));
-    Sbmatrix1.assign(3,2, Smatrix1(2,3));
+    Sbmatrix1.assign(3,2, Sbmatrix1(2,3));
     Sbmatrix1.assign(3,3, (26.0*bmu1+17.0*bmu3+13.0*bmu4)/(32.0*pi));
 
     Sbmatrix2.assign(0,0, blambda1/(16.0*pi));
     Sbmatrix2.assign(0,1, blambda4/(16.0*pi));
-    Sbmatrix2.assign(1,0, Smatrix2(0,1));
+    Sbmatrix2.assign(1,0, Sbmatrix2(0,1));
     Sbmatrix2.assign(0,3, bnu2/(8.0*sqrt(2.0)*pi));
-    Sbmatrix2.assign(3,0, Smatrix2(0,3));
+    Sbmatrix2.assign(3,0, Sbmatrix2(0,3));
     Sbmatrix2.assign(1,1, blambda2/(16.0*pi));
     Sbmatrix2.assign(1,3, bomega2/(8.0*sqrt(2.0)*pi));
-    Sbmatrix2.assign(3,1, Smatrix2(1,3));
+    Sbmatrix2.assign(3,1, Sbmatrix2(1,3));
     Sbmatrix2.assign(2,2, (blambda3+blambda4)/(16.0*pi));
     Sbmatrix2.assign(2,3, bkappa2/(8.0*pi));
-    Sbmatrix2.assign(3,2, Smatrix2(2,3));
+    Sbmatrix2.assign(3,2, Sbmatrix2(2,3));
     Sbmatrix2.assign(3,3, (14.0*bmu1+3.0*bmu3+27.0*bmu4)/(96.0*pi));
 
     Seigenvectors1T=Seigenvectors1.hconjugate();
@@ -304,32 +304,48 @@ void THDMWcache::computeUnitarity()
     for (int i=0; i < 4; i++) {
         for (int k=0; k < 4; k++) {
             for (int l=0; l < 4; l++) {
-                Sbeigenvalues1.assign(i, Sbeigenvalues1(i) + Seigenvectors1(i,k) * Sbmatrix1(k,l) * Seigenvectors1T(l,i) );
-                Sbeigenvalues2.assign(i, Sbeigenvalues2(i) + Seigenvectors2(i,k) * Sbmatrix2(k,l) * Seigenvectors2T(l,i) );
+                Sbeigenvalues1.assign(i, Sbeigenvalues1(i) + Seigenvectors1T(i,k) * Sbmatrix1(k,l) * Seigenvectors1(l,i) );
+                Sbeigenvalues2.assign(i, Sbeigenvalues2(i) + Seigenvectors2T(i,k) * Sbmatrix2(k,l) * Seigenvectors2(l,i) );
             }                
         }
         betaeigenvalues.assign(i, -1.5 * Sbeigenvalues1(i));
         betaeigenvalues.assign(i+4, -1.5 * Sbeigenvalues2(i));
     }
-    
+
     betaeigenvalues.assign(8, -1.5 * (blambda3-blambda4)/(16.0*pi));
     betaeigenvalues.assign(9, -1.5 * sqrt(15.0)*bnu4/(16.0*pi));
     betaeigenvalues.assign(10, -1.5 * sqrt(15.0)*bomega4/(16.0*pi));
 
-    std::cout<<"Seigenvectors1 = "<<Seigenvectors1<<std::endl;
-    std::cout<<"Seigenvectors2 = "<<Seigenvectors2<<std::endl;
-    std::cout<<"unitarityeigenvalues = "<<unitarityeigenvalues<<std::endl;
-    std::cout<<"betaeigenvalues = "<<betaeigenvalues<<std::endl;
-
     for (int i=0; i < 11; i++) {
-        NLOunitarityeigenvalues.assign(i, (gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
+        NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
     }
+}
+
+void THDMWcache::setOtherParameters()
+{
+//m11sq=-((v*v ((\[Lambda]3 + \[Lambda]4 + \[Lambda]5) Cos[\[Beta]] Sin[\
+//\[Beta]] + (Cos[
+//         2 \[Beta]] (\[Lambda]3 + \[Lambda]4 + \[Lambda]5 + \
+//\[Lambda]1 Cot[\[Beta]]^2) + 2 \[Lambda]2 Sin[\[Beta]]^2) Tan[
+//      2 \[Alpha]] - \[Lambda]1 Cos[\[Beta]]^2 (Cot[\[Beta]] + 
+//       2 Tan[2 \[Alpha]])) Tan[\[Beta]])/(-2 + 
+//  4 Cot[2 \[Beta]] Tan[2 \[Alpha]]));
+//    m22sq=-((v^2 (-\[Lambda]2 Sin[\[Beta]]^2 + 
+//    Cos[\[Beta]]^2 (\[Lambda]3 + \[Lambda]4 + \[Lambda]5 - 
+//       2 \[Lambda]1 Cot[\[Beta]] Tan[2 \[Alpha]]) + 
+//    Tan[2 \[Alpha]] (\[Lambda]2 Sin[2 \[Beta]] + 
+//       Cos[2 \[Beta]] ((\[Lambda]3 + \[Lambda]4 + \[Lambda]5) Cot[\
+//\[Beta]] + \[Lambda]2 Tan[\[Beta]]))))/(-2 + 
+//  4 Cot[2 \[Beta]] Tan[2 \[Alpha]]));
+//    mHpsq=0.;
 }
 
 void THDMWcache::updateCache()
 {
     Q_THDMW=myTHDMW->getQ_THDMW();
     MZ=myTHDMW->getMz();
+//    tanb=myTHDMW->getTHDMW_tanb();
+//    bma=myTHDMW->getTHDMW_bma();
     lambda1=myTHDMW->getTHDMW_lambda1();
     lambda2=myTHDMW->getTHDMW_lambda2();
     lambda3=myTHDMW->getTHDMW_lambda3();

@@ -68,6 +68,7 @@ public:
 //                    const double params[], const double newResult) const; 
 
     void updateCache();
+    void setOtherParameters();
 
     double Q_cutoff;
 //    double g1_at_Q;
@@ -125,6 +126,11 @@ private:
     double kappa2;
     double nu4;
     double omega4;
+    double mHpsq;
+    double mAsq;
+    double mhsq;
+    double mHsq;
+    double m12sq;
 };
 
 #endif	/* THDMWCACHE_H */

@@ -470,6 +470,26 @@ double Robs_pp_A_Zga_llga_ATLAS13::computeThValue()
 
 
 
+Hobs_ggF_A_Zga_llga_ATLAS13::Hobs_ggF_A_Zga_llga_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Hobs_ggF_A_Zga_llga_ATLAS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->THoEX_ggF_A_Zga_llga_ATLAS13;
+}
+
+Robs_ggF_A_Zga_llga_ATLAS13::Robs_ggF_A_Zga_llga_ATLAS13(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double Robs_ggF_A_Zga_llga_ATLAS13::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->R_ggF_A_Zga_llga_ATLAS13;
+}
+
+
+
 Hobs_pp_A_Zga_llga_CMS13::Hobs_pp_A_Zga_llga_CMS13(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}

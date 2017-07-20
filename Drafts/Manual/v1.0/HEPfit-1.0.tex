@@ -129,21 +129,23 @@
 \author[a]{O.~Eberhardt}
 \author[a]{M.~Fedele}
 \author[a]{E.~Franco}
-\author[c]{S.~Mishima}
+\author[c]{G.~Grilli di Cortona}
+\author[d]{S.~Mishima}
 \author[a]{A.~Paul}
-\author[d]{M.~Pierini}
-\author[e]{L.~Reina}
+\author[e]{M.~Pierini}
+\author[f]{L.~Reina}
 \author[a]{L.~Silvestrini}
-\author[f]{M.~Valli}
-\author[g]{N.~Yokozaki}
+\author[g]{M.~Valli}
+\author[h]{N.~Yokozaki}
 
 \address[a]{INFN, Sezione di Roma, Piazzale A. Moro 2, I-00185 Roma, Italy}
 \address[b]{INFN,  Sezione di Roma Tre, Via della Vasca Navale 84, I-00146 Roma, Italy}
-\address[c]{Institute of Particle and Nuclear Studies, KEK, Tsukuba 305-0801, Japan}
-\address[d]{CERN}
-\address[e]{Physics Department, Florida State University, Tallahassee, FL 32306-4350, USA}
-\address[f]{SISSA, via Bonomea 265, I-34136 Trieste, Italy and INFN, Sezione di Trieste, via Valerio 2, I-34127 Trieste, Italy}
-\address[g]{Department of Physics, Tohoku University, Sendai, Miyagi 980-8578, Japan}
+\address[c]{Sao Paolo, Brazil}
+\address[d]{Institute of Particle and Nuclear Studies, KEK, Tsukuba 305-0801, Japan}
+\address[e]{CERN}
+\address[f]{Physics Department, Florida State University, Tallahassee, FL 32306-4350, USA}
+\address[g]{SISSA, via Bonomea 265, I-34136 Trieste, Italy and INFN, Sezione di Trieste, via Valerio 2, I-34127 Trieste, Italy}
+\address[h]{Department of Physics, Tohoku University, Sendai, Miyagi 980-8578, Japan}
 
 %%\author[a]{First Author\corref{author}}
 %%\cortext[author] {Corresponding author.\\\textit{E-mail address:} firstAuthor@somewhere.edu}
@@ -279,7 +281,106 @@ Updated information and online documentation can be found on the
 \subsection{Standard Model}
 \label{sec:SM}
 %%%%%%%%%%%%%%%%%%%%%%%%
-Marco Ciuchini
+
+QCD:
+    "AlsM", "MAls",
+    "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
+    "muc", "mub", "mut"
+
+ew. SM:
+"lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
+"mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
+
+
+    if (name.compare("P_0") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MP0", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tP0", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FP0", boost::cref(decayconst)));
+        return;
+    }
+    if (name.compare("P_P") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MPp", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tPp", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FPp", boost::cref(decayconst)));
+        return;
+    }
+    if (name.compare("K_0") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MK0", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKl", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(decayconst)));
+        return;
+    }
+    if (name.compare("K_P") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKp", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKp", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(decayconst)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kp", boost::cref(gegenalpha[0])));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kp", boost::cref(gegenalpha[1])));
+        return;
+    }
+    if (name.compare("D_0") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MD0", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tD0", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FD", boost::cref(decayconst)));
+        return;
+    }
+    if (name.compare("B_D") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBd", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBd", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBd", boost::cref(decayconst)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
+        return;
+    }
+    if (name.compare("B_P") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBp", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBp", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBp", boost::cref(decayconst)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
+        return;
+    }
+    if (name.compare("B_S") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBs", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBs", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBs", boost::cref(decayconst)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DGs_Gs", boost::cref(Dgamma_gamma)));
+        return;
+    }
+    if (name.compare("PHI") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mphi", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tphi", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(decayconst)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphip", boost::cref(decayconst_p)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2phi", boost::cref(gegenalpha[1])));
+        return;
+    }
+    if (name.compare("K_star") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstar", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstar", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(decayconst)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(decayconst_p)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(gegenalpha[0])));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(gegenalpha[1])));
+        return;
+    }
+    if (name.compare("K_star_P") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstarP", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstarP", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(decayconst)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(decayconst_p)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(gegenalpha[0])));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(gegenalpha[1])));
+        return;
+        
+        
+    if (name_i.compare("BBs") == 0 && !FlagCsi) return make_vector<std::string>() << "BBs1" << "BBs2" << "BBs3" << "BBs4" << "BBs5" << "BBsscale" << "BBsscheme";
+    if (name_i.compare("BBs") == 0 && FlagCsi) return make_vector<std::string>() << "FBsSqrtBBs1" << "FBsSqrtBBs2" << "FBsSqrtBBs3" << "FBsSqrtBBs4" << "FBsSqrtBBs5" << "BBsscale" << "BBsscheme";
+    if (name_i.compare("BBd") == 0 && !FlagCsi) return make_vector<std::string>() << "BBsoBBd" << "BBd2" << "BBd3" << "BBd4" << "BBd5" << "BBdscale" << "BBdscheme";
+    if (name_i.compare("BBd") == 0 && FlagCsi) return make_vector<std::string>() << "csi" << "FBdSqrtBBd2" << "FBdSqrtBBd3" << "FBdSqrtBBd4" << "FBdSqrtBBd5" << "BBdscale" << "BBdscheme";
+    if (name_i.compare("BK") == 0) return make_vector<std::string>() << "BK1" << "BK2" << "BK3" << "BK4" << "BK5" << "BKscale" << "BKscheme";
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two-Higgs-Doublet models}
@@ -2682,6 +2783,8 @@ Debtosh
 
 All THDM observables were compared to the CKMfitter implementation used in \cite{Eberhardt:2013uba,Eberhardt:2013wia,Baglio:2014nea,Chowdhury:2015yja}. For most of them, the relative difference was less than $10^{-9}$, except for the heavy Higgs search observables, where HEPfit uses updated reference tables for the cross sections, and no interpolation was used on the CKMfitter side, such that the relative error amounts to maximally a few percent, which we assume to be sufficient given the experimental precision.
 
+
+\section{Summary}
 
 
 

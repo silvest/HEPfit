@@ -106,7 +106,6 @@ public:
         return flag_RGEorder;
     }
 
-    
     /**
      *
      * @return @f$m_{11}^2@f$
