@@ -282,105 +282,183 @@ Updated information and online documentation can be found on the
 \label{sec:SM}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-QCD:
-    "AlsM", "MAls",
-    "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
-    "muc", "mub", "mut"
+The Standard Model of particle physics (SM) is defined by its Lagrangian, which can be split into five components:
+\begin{align*}
+{\cal L}_{\rm SM} & = \sum\limits_{n=1}^3 {\cal L}_{\rm gauge}^{(n)} + {\cal L}_{\rm quarks}+ {\cal L}_{\rm leptons} + {\cal L}_{\rm Higgs} + {\cal L}_{\rm Yukawa}
+\end{align*}
+The gauge parts contain the kinetic terms of the gauge fields and their interaction:
+\begin{align*}
+{\cal L}_{\rm gauge}^{(n)} & = -\frac{1}{4}\: {\rm tr} \left[(\bm{F}_n)_{\mu \nu }(\bm{F}_n)^{\mu \nu}\right]\\
+\text{with } (\bm{F}_n)^{\mu \nu} & = \partial ^\mu (\bm{G}_n)^\nu -\partial ^\nu (\bm{G}_n)^\mu -{\rm i}g_n[\bm{G}_n^\mu,\bm{G}_n^\nu ]
+\end{align*}
+The gauge fields $\bm{G}_1$, $\bm{G}_2$ and $\bm{G}_3$ stem from the local SM gauge symmetries U(1)$_Y$, SU(2)$_L$ and SU(3)$_C$, respectively, and their couplings are denoted as $g_1$, $g_2$ and $g_3$ (or $g'$, $g$ and $g_S$).
 
-ew. SM:
-"lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
-"mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
+The quark Lagrangian ${\cal L}_{\rm quarks}$ describes the kinetic terms of the left-handed quarks fields $Q_j$ and the right-handed quark fields $u_j$ and $d_j$ as well as their interaction with the gauge bosons, with $j$ being the quark generation index:
+\begin{align*}
+{\cal L}_{\rm quarks} & = \; {\rm i}\gamma _\mu \sum\limits_{j=1}^3 \left( \bar{Q}_j \bm{D_q}^\mu Q_j + \bar{u}_j \bm{D_q}^\mu u_j + \bar{d}_j \bm{D_q}^\mu d_j \right) \\
+\text{with } \bm{D_q}^\mu & = \partial ^\mu -{\rm i}\sum\limits_{n=1}^3 g_n \bm{G}_n^\mu
+\end{align*}
 
+Equivalently, we can define the leptonic Lagrangian:
+\begin{align*}
+{\cal L}_{\rm leptons} & = \; {\rm i}\gamma _\mu \sum\limits_{j=1}^3 \left( \bar{L}_j \bm{D_\ell}^\mu L_j + \bar{\ell}_j \bm{D_\ell}^\mu \ell _j \right) \\
+\text{with } \bm{D_\ell}^\mu & = \partial ^\mu -{\rm i}\sum\limits_{n=1}^2 g_n \bm{G}_n^\mu
+\end{align*}
 
-    if (name.compare("P_0") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MP0", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tP0", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FP0", boost::cref(decayconst)));
-        return;
-    }
-    if (name.compare("P_P") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MPp", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tPp", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FPp", boost::cref(decayconst)));
-        return;
-    }
-    if (name.compare("K_0") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MK0", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKl", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(decayconst)));
-        return;
-    }
-    if (name.compare("K_P") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKp", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKp", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(decayconst)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kp", boost::cref(gegenalpha[0])));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kp", boost::cref(gegenalpha[1])));
-        return;
-    }
-    if (name.compare("D_0") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MD0", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tD0", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FD", boost::cref(decayconst)));
-        return;
-    }
-    if (name.compare("B_D") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBd", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBd", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBd", boost::cref(decayconst)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
-        return;
-    }
-    if (name.compare("B_P") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBp", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBp", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBp", boost::cref(decayconst)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
-        return;
-    }
-    if (name.compare("B_S") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBs", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBs", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBs", boost::cref(decayconst)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DGs_Gs", boost::cref(Dgamma_gamma)));
-        return;
-    }
-    if (name.compare("PHI") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mphi", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tphi", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(decayconst)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphip", boost::cref(decayconst_p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2phi", boost::cref(gegenalpha[1])));
-        return;
-    }
-    if (name.compare("K_star") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstar", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstar", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(decayconst)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(decayconst_p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(gegenalpha[0])));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(gegenalpha[1])));
-        return;
-    }
-    if (name.compare("K_star_P") == 0) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstarP", boost::cref(mass)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstarP", boost::cref(lifetime)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(decayconst)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(decayconst_p)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(gegenalpha[0])));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(gegenalpha[1])));
-        return;
-        
-        
-    if (name_i.compare("BBs") == 0 && !FlagCsi) return make_vector<std::string>() << "BBs1" << "BBs2" << "BBs3" << "BBs4" << "BBs5" << "BBsscale" << "BBsscheme";
-    if (name_i.compare("BBs") == 0 && FlagCsi) return make_vector<std::string>() << "FBsSqrtBBs1" << "FBsSqrtBBs2" << "FBsSqrtBBs3" << "FBsSqrtBBs4" << "FBsSqrtBBs5" << "BBsscale" << "BBsscheme";
-    if (name_i.compare("BBd") == 0 && !FlagCsi) return make_vector<std::string>() << "BBsoBBd" << "BBd2" << "BBd3" << "BBd4" << "BBd5" << "BBdscale" << "BBdscheme";
-    if (name_i.compare("BBd") == 0 && FlagCsi) return make_vector<std::string>() << "csi" << "FBdSqrtBBd2" << "FBdSqrtBBd3" << "FBdSqrtBBd4" << "FBdSqrtBBd5" << "BBdscale" << "BBdscheme";
-    if (name_i.compare("BK") == 0) return make_vector<std::string>() << "BK1" << "BK2" << "BK3" << "BK4" << "BK5" << "BKscale" << "BKscheme";
+The massive gauge bosons obtain their masses from the Higgs Lagrangian, which also includes the kinetic terms and the potential of the Higgs field $\Phi$:
+\begin{align*}
+{\cal L}_{\rm Higgs} & = \left( (\bm{D_\ell})_\mu \Phi \right) ^\dagger \left( \bm{D_\ell}^\mu \Phi \right) +\frac12 m_h^2 \Phi ^\dagger \Phi -\frac14 \lambda (\Phi ^\dagger \Phi )^2 
+\end{align*}
 
+Finally, the Yukawa part tells us about the Higgs-fermion interactions and contains the fermion masses:
+\begin{align*}
+{\cal L}_{\rm Yukawa} & = - \sum\limits_{j,k=1}^3 \left( \bar{Q}_j \Phi Y^d_{jk} d_k + \bar{Q} _j\hspace*{1pt}{\rm i}\sigma _2 \Phi ^* Y^u_{jk} u_k + \bar{L}_j \Phi Y^\ell _{jk} \ell _k +{\rm h.c.}\right) \\
+\text{with } Y^u & = U_u^\dagger \frac{\sqrt{2}}{v}\left( \hspace*{-5pt}
+\begin{array}{c} m_u\\0\\0\\\end{array}\hspace*{-5pt}
+\begin{array}{c}0\\ m_c\\0\\\end{array}\hspace*{-5pt}
+\begin{array}{c}0\\0\\ m_t\\\end{array}\hspace*{-5pt}
+\right) \!\! V_u, \quad
+Y^d = U_d^\dagger \frac{\sqrt{2}}{v}\left( \hspace*{-5pt}
+\begin{array}{c} m_d\\0\\0\\\end{array}\hspace*{-5pt}
+\begin{array}{c}0\\ m_s\\0\\\end{array}\hspace*{-5pt}
+\begin{array}{c}0\\0\\ m_b\\\end{array}\hspace*{-5pt}
+\right) \!\! V_d, \\
+Y^\ell & = U_\ell^\dagger \frac{\sqrt{2}}{v}\left( \hspace*{-5pt}
+\begin{array}{c} m_e\\0\\0\\\end{array}\hspace*{-5pt}
+\begin{array}{c}0\\ m_\mu\\0\\\end{array}\hspace*{-5pt}
+\begin{array}{c}0\\0\\ m_\tau\\\end{array}\hspace*{-5pt}
+\right) \!\! V_\ell
+\end{align*}
+
+%\begin{picture}(200,120)(0,10)
+%\put(10,110){\scalebox{0.7}{$$}}
+%\put(-10,70){\scalebox{0.7}{with}}
+%\put(15,70){\scalebox{0.7}{$ $,}}
+%\put(200,70){\scalebox{0.7}{$ $,}}
+%\put(15,40){\scalebox{0.7}{$$,}}
+%\put(15,-15){
+%\scalebox{0.7}{$U_u U_d^\dagger  = \left( \hspace*{-2pt} \begin{array}{lll}
+%  \cos \Greeen{\theta_{12}}\cos \Greeen{\theta_{13}} & \sin \Greeen{\theta_{12}}\cos \Greeen{\theta_{13}} & \sin \Greeen{\theta_{13}}{\rm e}^{-{\rm i}\Greeen{\delta}}\\[8pt]
+%  -\sin \Greeen{\theta_{12}} \cos \Greeen{\theta_{23}} & \cos \Greeen{\theta_{12}}\cos \Greeen{\theta_{23}} & \sin \Greeen{\theta_{23}}\cos \Greeen{\theta_{13}}\\
+%  -\cos \Greeen{\theta_{12}}\sin \Greeen{\theta_{23}}\sin \Greeen{\theta_{13}}{\rm e}^{{\rm i}\Greeen{\delta}} & -\sin \Greeen{\theta_{23}}\sin \Greeen{\theta_{13}}\sin \Greeen{\theta_{12}}{\rm e}^{{\rm i}\Greeen{\delta}} & \\[8pt]
+%  \sin \Greeen{\theta_{12}}\sin \Greeen{\theta_{23}} & -\cos \Greeen{\theta_{12}}\sin \Greeen{\theta_{23}} & \cos \Greeen{\theta_{23}}\cos \Greeen{\theta_{13}}\\
+%  -\cos \Greeen{\theta_{12}}\cos \Greeen{\theta_{23}}\sin \Greeen{\theta_{13}}{\rm e}^{{\rm i}\Greeen{\delta}} & -\sin \Greeen{\theta_{12}}\cos \Greeen{\theta_{23}}\sin \Greeen{\theta_{13}}{\rm e}^{{\rm i}\Greeen{\delta}} & \\
+%  \end{array} \hspace*{-5pt} \right) $}}
+%\end{picture}
+%\end{frame}
+%
+%
+%\begin{frame}{Standard Model}
+%\begin{itemize}
+% \item 3 gauge couplings: $\Greeen{g_1}$, $\Greeen{g_2}$, $\Greeen{g_3}$ (or $\Delta \alpha_{\rm had}^{(5)}$, $M_Z$, $\alpha_{s}$)\\[10pt]
+% \item $\Greeen{m_h}$ and $\Greeen{\lambda}$ (or $v$ or $G_F$)\\[10pt] %$v=\Greeen{m_h} / \sqrt{2 \Greeen{\lambda}}$
+% \item 9 fermion masses: $\Greeen{m_u}$, $\Greeen{m_d}$, $\Greeen{m_s}$, $\Greeen{m_c}$, $\Greeen{m_b}$, $\Greeen{m_t}$, $\Greeen{m_e}$, $\Greeen{m_\mu}$, $\Greeen{m_\tau}$\\[10pt]
+% \item $\Greeen{\theta _{12}}$, $\Greeen{\theta _{13}}$, $\Greeen{\theta _{23}}$, and $\Greeen{\delta}$ (or $\lambda$, $A$, $\oline{\rho}$, $\oline{\eta}$)\\[20pt]
+%% \item 6 lepton masses %, which are identified by $\frac{1}{\sqrt{2}}\tilde Y^f_{jj} v$
+%\end{itemize}
+%
+%\fbox{18 (real) \Greeen{parameters}}\
+%
+%
+%QCD:
+%    "AlsM", "MAls",
+%    "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
+%    "muc", "mub", "mut"
+%
+%ew. SM:
+%"lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
+%"mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
+%
+%
+%    if (name.compare("P_0") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MP0", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tP0", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FP0", boost::cref(decayconst)));
+%        return;
+%    }
+%    if (name.compare("P_P") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MPp", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tPp", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FPp", boost::cref(decayconst)));
+%        return;
+%    }
+%    if (name.compare("K_0") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MK0", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKl", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(decayconst)));
+%        return;
+%    }
+%    if (name.compare("K_P") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKp", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKp", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FK", boost::cref(decayconst)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kp", boost::cref(gegenalpha[0])));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kp", boost::cref(gegenalpha[1])));
+%        return;
+%    }
+%    if (name.compare("D_0") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MD0", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tD0", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FD", boost::cref(decayconst)));
+%        return;
+%    }
+%    if (name.compare("B_D") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBd", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBd", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBd", boost::cref(decayconst)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
+%        return;
+%    }
+%    if (name.compare("B_P") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBp", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBp", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBp", boost::cref(decayconst)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBsoFBd", boost::cref(FBsoFBd)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
+%        return;
+%    }
+%    if (name.compare("B_S") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MBs", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tBs", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FBs", boost::cref(decayconst)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambdaB", boost::cref(lambdaM)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DGs_Gs", boost::cref(Dgamma_gamma)));
+%        return;
+%    }
+%    if (name.compare("PHI") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Mphi", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tphi", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphi", boost::cref(decayconst)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Fphip", boost::cref(decayconst_p)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2phi", boost::cref(gegenalpha[1])));
+%        return;
+%    }
+%    if (name.compare("K_star") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstar", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstar", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(decayconst)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(decayconst_p)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(gegenalpha[0])));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(gegenalpha[1])));
+%        return;
+%    }
+%    if (name.compare("K_star_P") == 0) {
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MKstarP", boost::cref(mass)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tKstarP", boost::cref(lifetime)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstar", boost::cref(decayconst)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FKstarp", boost::cref(decayconst_p)));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(gegenalpha[0])));
+%        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(gegenalpha[1])));
+%        return;
+%        
+%        
+%    if (name_i.compare("BBs") == 0 && !FlagCsi) return make_vector<std::string>() << "BBs1" << "BBs2" << "BBs3" << "BBs4" << "BBs5" << "BBsscale" << "BBsscheme";
+%    if (name_i.compare("BBs") == 0 && FlagCsi) return make_vector<std::string>() << "FBsSqrtBBs1" << "FBsSqrtBBs2" << "FBsSqrtBBs3" << "FBsSqrtBBs4" << "FBsSqrtBBs5" << "BBsscale" << "BBsscheme";
+%    if (name_i.compare("BBd") == 0 && !FlagCsi) return make_vector<std::string>() << "BBsoBBd" << "BBd2" << "BBd3" << "BBd4" << "BBd5" << "BBdscale" << "BBdscheme";
+%    if (name_i.compare("BBd") == 0 && FlagCsi) return make_vector<std::string>() << "csi" << "FBdSqrtBBd2" << "FBdSqrtBBd3" << "FBdSqrtBBd4" << "FBdSqrtBBd5" << "BBdscale" << "BBdscheme";
+%    if (name_i.compare("BK") == 0) return make_vector<std::string>() << "BK1" << "BK2" << "BK3" << "BK4" << "BK5" << "BKscale" << "BKscheme";
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Two-Higgs-Doublet models}

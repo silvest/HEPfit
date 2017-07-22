@@ -50,22 +50,22 @@ double Robs_pp_Hp_taunu_CMS8::computeThValue()
 
 
 
-Hobs_pp_Hp_tb_ATLAS8::Hobs_pp_Hp_tb_ATLAS8(const StandardModel& SM_i)
+Hobs_pp_Hpm_tb_ATLAS8::Hobs_pp_Hpm_tb_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Hobs_pp_Hp_tb_ATLAS8::computeThValue()
+double Hobs_pp_Hpm_tb_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->THoEX_pp_Hp_tb_ATLAS8;
+    return myTHDM.getMyTHDMCache()->THoEX_pp_Hpm_tb_ATLAS8;
 }
 
-Robs_pp_Hp_tb_ATLAS8::Robs_pp_Hp_tb_ATLAS8(const StandardModel& SM_i)
+Robs_pp_Hpm_tb_ATLAS8::Robs_pp_Hpm_tb_ATLAS8(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}
 
-double Robs_pp_Hp_tb_ATLAS8::computeThValue()
+double Robs_pp_Hpm_tb_ATLAS8::computeThValue()
 {
-    return myTHDM.getMyTHDMCache()->R_pp_Hp_tb_ATLAS8;
+    return myTHDM.getMyTHDMCache()->R_pp_Hpm_tb_ATLAS8;
 }
 
 
@@ -208,17 +208,6 @@ log10_pp_Hp_tb_TH8::log10_pp_Hp_tb_TH8(const StandardModel& SM_i)
 double log10_pp_Hp_tb_TH8::computeThValue()
 {
     return log10(myTHDM.getMyTHDMCache()->pp_Hp_tb_TH8);
-}
-
-
-
-log10_pp_Hp_TH8::log10_pp_Hp_TH8(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
-{}
-
-double log10_pp_Hp_TH8::computeThValue()
-{
-    return log10(myTHDM.getMyTHDMCache()->pp_Hp_TH8);
 }
 
 

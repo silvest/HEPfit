@@ -254,12 +254,12 @@ public:
     /**
      * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
      */
-    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu, ATLAS8_pp_Hp_tb;
+    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu, ATLAS8_pp_Hpm_tb;
 
     /**
      * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
      */
-    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu_e, ATLAS8_pp_Hp_tb_e;
+    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu_e, ATLAS8_pp_Hpm_tb_e;
 
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
@@ -1622,17 +1622,17 @@ public:
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
-     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @return @f$[2\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1512.03704, Figure 6 @cite Aad:2015typ.
      */
-    double ip_ex_pp_Hp_tb_ATLAS8(double mass);
+    double ip_ex_pp_Hpm_tb_ATLAS8(double mass);
 
     /**
      * @brief Interpolating function for the expected ATLAS upper limit on a singly charged scalar resonance decaying to a @f$t@f$ quark and a @f$b@f$ quark.
-     * @return @f$[\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
+     * @return @f$[2\sigma_{pp\to H^+}\cdot BR(H^+\to tb)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1512.03704, Figure 6 @cite Aad:2015typ.
      */
-    double ip_ex_pp_Hp_tb_ATLAS8_e(double mass);
+    double ip_ex_pp_Hpm_tb_ATLAS8_e(double mass);
 
     /**
      * @brief Interpolating function for the observed CMS upper limit on a singly charged scalar resonance decaying to a @f$\tau@f$ lepton and a neutrino.
@@ -2710,22 +2710,22 @@ public:
     double pp_Hpm_taunu_TH8;
 
     /**
-     * @brief Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
-     */
-    double pp_Hp_tb_TH8;
-
-    /**
-     * @brief Cross section for the process @f$pp\to H^+@f$ at the LHC with 8 TeV.
-     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}@f$
-     */
-    double pp_Hp_TH8;
-
-    /**
      * @brief Cross section for the process @f$pp\to H^+\to \tau^+ \nu@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H^+\to \tau^+ \nu}@f$
      */
     double pp_Hp_taunu_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to t b@f$ at the LHC with 8 TeV.
+     * @return @f$2 \sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
+     */
+    double pp_Hpm_tb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H^+\to t\bar b@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+\to t\bar b)@f$
+     */
+    double pp_Hp_tb_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 13 TeV.
@@ -2743,10 +2743,10 @@ public:
     double R_pp_Hpm_taunu_ATLAS8;
     double THoEX_pp_Hp_taunu_CMS8;
     double R_pp_Hp_taunu_CMS8;
+    double THoEX_pp_Hpm_tb_ATLAS8;
+    double R_pp_Hpm_tb_ATLAS8;
     double THoEX_pp_Hp_tb_CMS8;
     double R_pp_Hp_tb_CMS8;
-    double THoEX_pp_Hp_tb_ATLAS8;
-    double R_pp_Hp_tb_ATLAS8;
     double THoEX_pp_Hpm_taunu_ATLAS13;
     double R_pp_Hpm_taunu_ATLAS13;
     double THoEX_pp_Hpm_taunu_CMS13;
@@ -3204,8 +3204,8 @@ private:
     mutable double ip_ex_pp_Hpm_taunu_ATLAS8_cache_e[2][CacheSize];
     mutable double ip_ex_pp_Hp_taunu_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hp_taunu_CMS8_cache_e[2][CacheSize];
-    mutable double ip_ex_pp_Hp_tb_ATLAS8_cache[2][CacheSize];
-    mutable double ip_ex_pp_Hp_tb_ATLAS8_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_tb_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_tb_ATLAS8_cache_e[2][CacheSize];
     mutable double ip_ex_pp_Hp_tb_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_Hp_tb_CMS8_cache_e[2][CacheSize];
     mutable double ip_ex_pp_Hpm_taunu_ATLAS13_cache[2][CacheSize];

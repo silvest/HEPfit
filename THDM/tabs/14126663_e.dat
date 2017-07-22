@@ -1,6 +1,6 @@
 # ATLAS arXiv:1412.6663, Fig. 7-b
 # expected 95% exclusion limits on sigBR(pp->H+-->tau+-nu)
-# mH+[GeV] | sig*BR_95% [pb]
+# mH+-[GeV] | sig*BR_95% [pb]
 180.0	5.80E-01
 190.0	5.40E-01
 200.0	5.06E-01

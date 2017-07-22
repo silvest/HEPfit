@@ -209,9 +209,9 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         temp21e(1,2,0.), temp22e(1,2,0.), temp23e(1,2,0.), temp24e(1,2,0.), temp25e(1,2,0.), temp26e(1,2,0.), temp27e(1,2,0.), temp28e(1,2,0.), temp29e(1,2,0.), temp30e(1,2,0.),
         temp31e(1,2,0.), temp32e(1,2,0.), temp33e(1,2,0.), temp34e(1,2,0.), temp35e(1,2,0.), temp36e(1,2,0.), temp37e(1,2,0.), temp38e(1,2,0.), temp39e(1,2,0.), temp40e(1,2,0.),
         ATLAS8_pp_Hpm_taunu(83,2,0.),
-        ATLAS8_pp_Hp_tb(41,2,0.),
+        ATLAS8_pp_Hpm_tb(41,2,0.),
         ATLAS8_pp_Hpm_taunu_e(83,2,0.),
-        ATLAS8_pp_Hp_tb_e(41,2,0.),
+        ATLAS8_pp_Hpm_tb_e(41,2,0.),
         CMS8_pp_Hp_taunu(43,2,0.),
         CMS8_pp_Hp_tb(43,2,0.),
         CMS8_pp_Hp_taunu_e(43,2,0.),
@@ -2133,9 +2133,9 @@ void THDMcache::read(){
     ex99e << tablepath << "14126663_e.dat";
     ATLAS8_pp_Hpm_taunu_e = readTable(ex99e.str(),83,2);
     ex100 << tablepath << "151203704.dat";
-    ATLAS8_pp_Hp_tb = readTable(ex100.str(),41,2);
+    ATLAS8_pp_Hpm_tb = readTable(ex100.str(),41,2);
     ex100e << tablepath << "151203704_e.dat";
-    ATLAS8_pp_Hp_tb_e = readTable(ex100e.str(),41,2);
+    ATLAS8_pp_Hpm_tb_e = readTable(ex100e.str(),41,2);
     ex101 << tablepath << "150807774_a.dat";
     CMS8_pp_Hp_taunu = readTable(ex101.str(),43,2);
     ex101e << tablepath << "150807774_a_e.dat";
@@ -6574,32 +6574,32 @@ double THDMcache::ip_ex_pp_Hp_taunu_CMS8_e(double mass){
 
 
 
-double THDMcache::ip_ex_pp_Hp_tb_ATLAS8(double mass){
+double THDMcache::ip_ex_pp_Hpm_tb_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS8_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_Hpm_tb_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return(ip_ex_pp_Hp_tb_ATLAS8_cache[NumPar][i] );
+        return(ip_ex_pp_Hpm_tb_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS8_pp_Hp_tb,mass);
-        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS8_cache, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_pp_Hpm_tb,mass);
+        CacheShiftReal(ip_ex_pp_Hpm_tb_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
 
 
-double THDMcache::ip_ex_pp_Hp_tb_ATLAS8_e(double mass){
+double THDMcache::ip_ex_pp_Hpm_tb_ATLAS8_e(double mass){
     int NumPar = 1;
     double params[] = {mass};
 
-    int i = CacheCheckReal(ip_ex_pp_Hp_tb_ATLAS8_cache_e, NumPar, params);
+    int i = CacheCheckReal(ip_ex_pp_Hpm_tb_ATLAS8_cache_e, NumPar, params);
     if (i>=0) {
-        return(ip_ex_pp_Hp_tb_ATLAS8_cache_e[NumPar][i] );
+        return(ip_ex_pp_Hpm_tb_ATLAS8_cache_e[NumPar][i] );
     } else {
-        double newResult = interpolate (ATLAS8_pp_Hp_tb_e,mass);
-        CacheShiftReal(ip_ex_pp_Hp_tb_ATLAS8_cache_e, NumPar, params, newResult);
+        double newResult = interpolate (ATLAS8_pp_Hpm_tb_e,mass);
+        CacheShiftReal(ip_ex_pp_Hpm_tb_ATLAS8_cache_e, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -11594,9 +11594,9 @@ void THDMcache::computeHpquantities()
     //Theoretical expressions for the charged Higgs cross sections times branching ratios
 
     pp_Hpm_taunu_TH8=2.0*SigmaHp8*Br_Hptotaunu;
-    pp_Hp_tb_TH8=SigmaHp8*Br_Hptotb;
-    pp_Hp_TH8=SigmaHp8;
     pp_Hp_taunu_TH8=SigmaHp8*Br_Hptotaunu;
+    pp_Hpm_tb_TH8=2.0*SigmaHp8*Br_Hptotb;
+    pp_Hp_tb_TH8=SigmaHp8*Br_Hptotb;
     pp_Hpm_taunu_TH13=2.0*SigmaHp13*Br_Hptotaunu;
     pp_Hp_tb_TH13=SigmaHp13*Br_Hptotb;
 
@@ -11606,10 +11606,10 @@ void THDMcache::computeHpquantities()
     R_pp_Hpm_taunu_ATLAS8=0.0;
     THoEX_pp_Hp_taunu_CMS8=0.0;
     R_pp_Hp_taunu_CMS8=0.0;
+    THoEX_pp_Hpm_tb_ATLAS8=0.0;
+    R_pp_Hpm_tb_ATLAS8=0.0;
     THoEX_pp_Hp_tb_CMS8=0.0;
     R_pp_Hp_tb_CMS8=0.0;
-    THoEX_pp_Hp_tb_ATLAS8=0.0;
-    R_pp_Hp_tb_ATLAS8=0.0;
     THoEX_pp_Hpm_taunu_ATLAS13=0.0;
     R_pp_Hpm_taunu_ATLAS13=0.0;
     THoEX_pp_Hpm_taunu_CMS13=0.0;
@@ -11630,8 +11630,8 @@ void THDMcache::computeHpquantities()
         R_pp_Hpm_taunu_ATLAS8=(1+(pp_Hpm_taunu_TH8-ip_ex_pp_Hpm_taunu_ATLAS8(mHp))/ip_ex_pp_Hpm_taunu_ATLAS8_e(mHp) ) * nftos;
         THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mHp);
         R_pp_Hp_taunu_CMS8=(1+(pp_Hp_taunu_TH8-ip_ex_pp_Hp_taunu_CMS8(mHp))/ip_ex_pp_Hp_taunu_CMS8_e(mHp) ) * nftos;
-        THoEX_pp_Hp_tb_CMS8=pp_Hp_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
-        R_pp_Hp_tb_CMS8=(1+(pp_Hp_TH8-ip_ex_pp_Hp_tb_CMS8(mHp))/ip_ex_pp_Hp_tb_CMS8_e(mHp) ) * nftos;
+        THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
+        R_pp_Hp_tb_CMS8=(1+(pp_Hp_tb_TH8-ip_ex_pp_Hp_tb_CMS8(mHp))/ip_ex_pp_Hp_tb_CMS8_e(mHp) ) * nftos;
 
         THoEX_pp_Hpm_taunu_CMS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_CMS13(mHp);
         R_pp_Hpm_taunu_CMS13=(1+(pp_Hpm_taunu_TH13-ip_ex_pp_Hpm_taunu_CMS13(mHp))/ip_ex_pp_Hpm_taunu_CMS13_e(mHp) ) * nftos;
@@ -11642,10 +11642,10 @@ void THDMcache::computeHpquantities()
         R_pp_Hpm_taunu_ATLAS8=(1+(pp_Hpm_taunu_TH8-ip_ex_pp_Hpm_taunu_ATLAS8(mHp))/ip_ex_pp_Hpm_taunu_ATLAS8_e(mHp) ) * nftos;
         THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mHp);
         R_pp_Hp_taunu_CMS8=(1+(pp_Hp_taunu_TH8-ip_ex_pp_Hp_taunu_CMS8(mHp))/ip_ex_pp_Hp_taunu_CMS8_e(mHp) ) * nftos;
-        THoEX_pp_Hp_tb_ATLAS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_ATLAS8(mHp);
-        R_pp_Hp_tb_ATLAS8=(1+(pp_Hp_tb_TH8-ip_ex_pp_Hp_tb_ATLAS8(mHp))/ip_ex_pp_Hp_tb_ATLAS8_e(mHp) ) * nftos;
-        THoEX_pp_Hp_tb_CMS8=pp_Hp_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
-        R_pp_Hp_tb_CMS8=(1+(pp_Hp_TH8-ip_ex_pp_Hp_tb_CMS8(mHp))/ip_ex_pp_Hp_tb_CMS8_e(mHp) ) * nftos;
+        THoEX_pp_Hpm_tb_ATLAS8=pp_Hpm_tb_TH8/ip_ex_pp_Hpm_tb_ATLAS8(mHp);
+        R_pp_Hpm_tb_ATLAS8=(1+(pp_Hpm_tb_TH8-ip_ex_pp_Hpm_tb_ATLAS8(mHp))/ip_ex_pp_Hpm_tb_ATLAS8_e(mHp) ) * nftos;
+        THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
+        R_pp_Hp_tb_CMS8=(1+(pp_Hp_tb_TH8-ip_ex_pp_Hp_tb_CMS8(mHp))/ip_ex_pp_Hp_tb_CMS8_e(mHp) ) * nftos;
 
         THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mHp);
         R_pp_Hpm_taunu_ATLAS13=(1+(pp_Hpm_taunu_TH13-ip_ex_pp_Hpm_taunu_ATLAS13(mHp))/ip_ex_pp_Hpm_taunu_ATLAS13_e(mHp) ) * nftos;
@@ -11662,10 +11662,10 @@ void THDMcache::computeHpquantities()
         R_pp_Hpm_taunu_ATLAS8=(1+(pp_Hpm_taunu_TH8-ip_ex_pp_Hpm_taunu_ATLAS8(mHp))/ip_ex_pp_Hpm_taunu_ATLAS8_e(mHp) ) * nftos;
         THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mHp);
         R_pp_Hp_taunu_CMS8=(1+(pp_Hp_taunu_TH8-ip_ex_pp_Hp_taunu_CMS8(mHp))/ip_ex_pp_Hp_taunu_CMS8_e(mHp) ) * nftos;
-        THoEX_pp_Hp_tb_ATLAS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_ATLAS8(mHp);
-        R_pp_Hp_tb_ATLAS8=(1+(pp_Hp_tb_TH8-ip_ex_pp_Hp_tb_ATLAS8(mHp))/ip_ex_pp_Hp_tb_ATLAS8_e(mHp) ) * nftos;
-        THoEX_pp_Hp_tb_CMS8=pp_Hp_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
-        R_pp_Hp_tb_CMS8=(1+(pp_Hp_TH8-ip_ex_pp_Hp_tb_CMS8(mHp))/ip_ex_pp_Hp_tb_CMS8_e(mHp) ) * nftos;
+        THoEX_pp_Hpm_tb_ATLAS8=pp_Hpm_tb_TH8/ip_ex_pp_Hpm_tb_ATLAS8(mHp);
+        R_pp_Hpm_tb_ATLAS8=(1+(pp_Hpm_tb_TH8-ip_ex_pp_Hpm_tb_ATLAS8(mHp))/ip_ex_pp_Hpm_tb_ATLAS8_e(mHp) ) * nftos;
+        THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mHp);
+        R_pp_Hp_tb_CMS8=(1+(pp_Hp_tb_TH8-ip_ex_pp_Hp_tb_CMS8(mHp))/ip_ex_pp_Hp_tb_CMS8_e(mHp) ) * nftos;
 
         THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mHp);
         R_pp_Hpm_taunu_ATLAS13=(1+(pp_Hpm_taunu_TH13-ip_ex_pp_Hpm_taunu_ATLAS13(mHp))/ip_ex_pp_Hpm_taunu_ATLAS13_e(mHp) ) * nftos;

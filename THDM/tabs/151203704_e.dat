@@ -1,6 +1,6 @@
 # ATLAS 1512.03704, Fig. 6
-# expected 95% exclusion limits on sigBR(pp->H+->tb)
-# mH+[GeV] | sig*BR_95% [pb]
+# expected 95% exclusion limits on sigBR(pp->H+-->tb)
+# mH+-[GeV] | sig*BR_95% [pb]
 200.0	3.36E+00
 210.0	2.79E+00
 220.0	2.39E+00

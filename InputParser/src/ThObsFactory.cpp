@@ -900,7 +900,7 @@ ThObsFactory::ThObsFactory()
 
     obsThFactory["Hobs_pp_Hpm_taunu_ATLAS8"] = boost::factory<Hobs_pp_Hpm_taunu_ATLAS8*>();
     obsThFactory["Hobs_pp_Hp_taunu_CMS8"] = boost::factory<Hobs_pp_Hp_taunu_CMS8*>();
-    obsThFactory["Hobs_pp_Hp_tb_ATLAS8"] = boost::factory<Hobs_pp_Hp_tb_ATLAS8*>();
+    obsThFactory["Hobs_pp_Hpm_tb_ATLAS8"] = boost::factory<Hobs_pp_Hpm_tb_ATLAS8*>();
     obsThFactory["Hobs_pp_Hp_tb_CMS8"] = boost::factory<Hobs_pp_Hp_tb_CMS8*>();
     obsThFactory["Hobs_pp_Hpm_taunu_ATLAS13"] = boost::factory<Hobs_pp_Hpm_taunu_ATLAS13*>();
     obsThFactory["Hobs_pp_Hpm_taunu_CMS13"] = boost::factory<Hobs_pp_Hpm_taunu_CMS13*>();
@@ -909,7 +909,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Hobs_pp_Hp_tb_ATLAS13_2"] = boost::factory<Hobs_pp_Hp_tb_ATLAS13_2*>();
     obsThFactory["Robs_pp_Hpm_taunu_ATLAS8"] = boost::factory<Robs_pp_Hpm_taunu_ATLAS8*>();
     obsThFactory["Robs_pp_Hp_taunu_CMS8"] = boost::factory<Robs_pp_Hp_taunu_CMS8*>();
-    obsThFactory["Robs_pp_Hp_tb_ATLAS8"] = boost::factory<Robs_pp_Hp_tb_ATLAS8*>();
+    obsThFactory["Robs_pp_Hpm_tb_ATLAS8"] = boost::factory<Robs_pp_Hpm_tb_ATLAS8*>();
     obsThFactory["Robs_pp_Hp_tb_CMS8"] = boost::factory<Robs_pp_Hp_tb_CMS8*>();
     obsThFactory["Robs_pp_Hpm_taunu_ATLAS13"] = boost::factory<Robs_pp_Hpm_taunu_ATLAS13*>();
     obsThFactory["Robs_pp_Hpm_taunu_CMS13"] = boost::factory<Robs_pp_Hpm_taunu_CMS13*>();
@@ -918,7 +918,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Robs_pp_Hp_tb_ATLAS13_2"] = boost::factory<Robs_pp_Hp_tb_ATLAS13_2*>();
     obsThFactory["log10_pp_Hpm_taunu_TH8"] = boost::factory<log10_pp_Hpm_taunu_TH8*>();
     obsThFactory["log10_pp_Hp_tb_TH8"] = boost::factory<log10_pp_Hp_tb_TH8*>();
-    obsThFactory["log10_pp_Hp_TH8"] = boost::factory<log10_pp_Hp_TH8*>();
     obsThFactory["log10_pp_Hpm_taunu_TH13"] = boost::factory<log10_pp_Hpm_taunu_TH13*>();
     obsThFactory["log10_pp_Hp_tb_TH13"] = boost::factory<log10_pp_Hp_tb_TH13*>();
     obsThFactory["Gamma_Hp_THDM"] = boost::factory<Gamma_Hp_THDM*>();

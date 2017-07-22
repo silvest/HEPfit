@@ -106,20 +106,20 @@ private:
 };
 
 /**
- * @class Hobs_pp_Hp_tb_ATLAS8
+ * @class Hobs_pp_Hpm_tb_ATLAS8
  * @ingroup THDM
- * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to H^+ \to t\bar b@f$.
+ * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$pp\to H^\pm \to t b@f$.
  */
-class Hobs_pp_Hp_tb_ATLAS8: public ThObservable {
+class Hobs_pp_Hpm_tb_ATLAS8: public ThObservable {
 public:
 
     /**
-     * @brief Hobs_pp_Hp_tb_ATLAS8 constructor.
+     * @brief Hobs_pp_Hpm_tb_ATLAS8 constructor.
      */
-    Hobs_pp_Hp_tb_ATLAS8(const StandardModel& SM_i);
+    Hobs_pp_Hpm_tb_ATLAS8(const StandardModel& SM_i);
 
     /**
-     * @return @f$[\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+ \to t\bar b)]_{\text{theo}} / [\sigma_{pp\to H^+}\cdot BR(H^+ \to t\bar b)]_{\text{ATLAS,95\%}}@f$
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm \to t b)]_{\text{theo}} / [\sigma_{pp\to H^\pm}\cdot BR(H^\pm \to t b)]_{\text{ATLAS,95\%}}@f$
      */
     double computeThValue();
 private:
@@ -127,20 +127,20 @@ private:
 };
 
 /**
- * @class Robs_pp_Hp_tb_ATLAS8
+ * @class Robs_pp_Hpm_tb_ATLAS8
  * @ingroup THDM
- * @brief Observable for the implementation of the ATLAS upper limit on the process @f$pp\to H^+ \to t\bar b@f$ assuming a Gaussian likelihood.
+ * @brief Observable for the implementation of the ATLAS upper limit on the process @f$pp\to H^\pm \to tb@f$ assuming a Gaussian likelihood.
  */
-class Robs_pp_Hp_tb_ATLAS8: public ThObservable {
+class Robs_pp_Hpm_tb_ATLAS8: public ThObservable {
 public:
 
     /**
-     * @brief Robs_pp_Hp_tb_ATLAS8 constructor.
+     * @brief Robs_pp_Hpm_tb_ATLAS8 constructor.
      */
-    Robs_pp_Hp_tb_ATLAS8(const StandardModel& SM_i);
+    Robs_pp_Hpm_tb_ATLAS8(const StandardModel& SM_i);
 
     /**
-     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+ \to t\bar b)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+ \to t\bar b)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{pp\to H^+}\cdot BR(H^+ \to t\bar b)]_{\text{ATLAS,95\% expected}}@f$
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm \to tb)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H^\pm}\cdot BR^{\text{THDM}}(H^\pm \to tb)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{pp\to H^\pm}\cdot BR(H^\pm \to tb)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -435,27 +435,6 @@ public:
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to H^+}\cdot BR^{\text{THDM}}(H^+ \to t\bar b)]@f$
-     */
-    double computeThValue();
-private:
-    const THDM& myTHDM;
-};
-
-/**
- * @class log10_pp_Hp_TH8
- * @ingroup THDM
- * @brief Decadic logarithm of the cross section of the process @f$pp\to H^+@f$ at 8 TeV.
- */
-class log10_pp_Hp_TH8: public ThObservable {
-public:
-
-    /**
-     * @brief log10_pp_Hp_TH8 constructor.
-     */
-    log10_pp_Hp_TH8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to H^+}]@f$
      */
     double computeThValue();
 private:
