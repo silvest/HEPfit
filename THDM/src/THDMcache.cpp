@@ -1626,7 +1626,6 @@ void THDMcache::read(){
     std::stringstream bsg1;
 
     std::cout<<"reading tables"<<std::endl;
-    std::cout<<"---a---"<<std::endl;
 
 //    std::cout << "HEPFITPATH = " << getenv("HEPFITPATH") << std::endl;
     std::stringstream path;
@@ -1774,8 +1773,6 @@ void THDMcache::read(){
     CMS8_gg_phi_gaga = readTable(ex14.str(),141,2);
     ex14e << tablepath << "150602301_e.dat";
     CMS8_gg_phi_gaga_e = readTable(ex14e.str(),141,2);
-
-    std::cout<<"---a1---"<<std::endl;
 
 //    ex14ep1 << tablepath << "150602301_ep1.dat";
 //    CMS_ggF_phi_gaga_ep1 = readTable(ex14ep1.str(),141,2);
@@ -2178,8 +2175,6 @@ void THDMcache::read(){
     ex110e << tablepath << "CMS-PAS-B2G-16-026_e.dat";
     CMS13_ggF_H_hh_bbbb_e = readTable(ex110e.str(),226,2);
 
-    std::cout<<"---1---"<<std::endl;
-
     ex111 << tablepath << "ATLAS-CONF-2017-051_b.dat";
     ATLAS13_VBF_H_WW_lnuqq = readTable(ex111.str(),271,2);
     ex111e << tablepath << "ATLAS-CONF-2017-051_b_e.dat";
@@ -2199,7 +2194,6 @@ void THDMcache::read(){
     ex115 << tablepath << "EPS17Carminati_c.dat";
     ATLAS13_gg_H_ZZ_qqllnunu = readTable(ex115.str(),271,2);
     ex115e << tablepath << "EPS17Carminati_c_e.dat";
-    std::cout<<"---2---"<<std::endl;
     ATLAS13_gg_H_ZZ_qqllnunu_e = readTable(ex115e.str(),271,2);
     ex116 << tablepath << "EPS17Carminati_d.dat";
     ATLAS13_VBF_H_ZZ_qqllnunu = readTable(ex116.str(),271,2);
@@ -2221,7 +2215,6 @@ void THDMcache::read(){
     CMS13_VBF_H_ZZ_llnunu = readTable(ex120.str(),131,2);
     ex120e << tablepath << "CMS-PAS-HIG-16-001_b_e.dat";
     CMS13_VBF_H_ZZ_llnunu_e = readTable(ex120e.str(),131,2);
-    std::cout<<"---3---"<<std::endl;
 
     bsg1 << tablepath << "bsgammatable.dat";
     arraybsgamma = readTable(bsg1.str(),1111,3);
