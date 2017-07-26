@@ -9,6 +9,8 @@
 #define	MVLL_H
 
 class StandardModel;
+class F_1;
+class F_2;
 #include <gsl/gsl_integration.h>
 #include <TF1.h>
 #include <TGraph.h>
@@ -693,6 +695,8 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson vectorM;/**< Final vector meson type */
     std::vector<std::string> mvllParameters;/**< The string of mandatory MVll parameters */
+    F_1& myF_1;
+    F_2& myF_2;
     bool fullKD;
     double mJ2;
     gslpp::complex exp_Phase[3];
@@ -706,6 +710,8 @@ private:
     double mu_b;          /**<b mass scale */
     double mu_h;          /**<\f$\sqrt{\mu_b*\lambda_{QCD}}\f$ */
     double Mc;            /**<c quark mass */
+    double mb_pole;       /**<b quark pole mass */
+    double mc_pole;       /**<c quark pole mass */
     double Ms;            /**<s quark mass */
     double spectator_charge;  /**<spectator quark charge */
     double width;         /**<Initial meson width */
@@ -713,9 +719,14 @@ private:
     double xs;            /**<CP-violation factor \f$\frac{\Delta m}{\Gamma}\f$*/
     double angmomV;       /**<angular momentum of meson V; for a resonance, it's replaced by its spin */
     int etaV;             /**<parity of meson V */
+    double alpha_s_mub; /**<@f\aplha_s(\mu_b)$@f$ */
+    double fB;
+    double fpara;
+    double fperp;
 
     double MW;            /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
+    gslpp::complex lambda_u;     /**<Vckm factor */
     double b;             /**<BF of the decay V -> final states */
     gslpp::complex h_0[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_1[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
@@ -735,6 +746,7 @@ private:
     double MV4;/**< Cache variable */
     double MMMV;/**< Cache variable */
     double MM2mMV2;/**< Cache variable */
+    double MM2pMV2;/**< Cache variable */
     double fourMV;/**< Cache variable */
     double onepMMoMV;/**< Cache variable */
     double MM_MMpMV;/**< Cache variable */
@@ -747,12 +759,14 @@ private:
     double MboMW;/**< Cache variable */
     double MsoMb;/**< Cache variable */
     double M_PI2osix;/**< Cache variable */
+    double N_QCDF;
     double twoMM;/**< Cache variable */
     double m4downcharge;/**< Cache variable */
     double threeGegen0;/**< Cache variable */
     double threeGegen1otwo;/**< Cache variable */
     double twoMc2;/**< Cache variable */
     double ninetysixM_PI3MM3;/**< Cache variable */
+    double M_PI2;
     double sixteenM_PI2;/**< Cache variable */
     double sixteenM_PI2MM2;/**< Cache variable */
     double twoMboMM;/**< Cache variable */
@@ -868,6 +882,7 @@ private:
     gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C_8;/**<Wilson coeffients @f$C_8@f$*/
     gslpp::complex C_8L;/**<Leading order Wilson coeffients @f$C_8@f$*/
     gslpp::complex C_8Lh;/**<Leading order Wilson coeffients @f$C_8@f$ at scale @f$\mu_h@f$*/
     gslpp::complex C_9;/**<Wilson coeffients @f$C_9@f$*/
@@ -1936,6 +1951,155 @@ private:
                 throw std::runtime_error("MVll::getDelta9 : vector " + out.str() + " not implemented");
         }
     };
+    
+    gslpp::complex A_Seidel(double q2, double mb);
+    
+    gslpp::complex B_Seidel(double q2, double mb);
+    
+    gslpp::complex C_Seidel(double q2);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ \Delta C_{7}^{QCDF} @f$
+     */
+    gslpp::complex deltaC7_QCDF(double q2, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ \Delta C_{9}^{QCDF} @f$
+     */
+    gslpp::complex deltaC9_QCDF(double q2, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Part of Weak Annihilation.
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ C_{34}^{q} @f$
+     */
+    gslpp::complex Cq34(bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Weak Annihilation.
+     * @return @f$ T_{para}^{ann,-} @f$
+     */
+    gslpp::complex T_para_minus_WA(bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Weak Annihilation.
+     * @return @f$ T_{perp}^{ann,1} @f$
+     */
+    gslpp::complex T_perp_WA_1();
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Weak Annihilation.
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp}^{ann,2} @f$
+     */
+    gslpp::complex T_perp_WA_2(bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). Chromomagnetic dipole contribution contribution.
+     * @param u integration variable in the range [0, 1]
+     * @return @f$ T_{perp,+}^{O8} @f$
+     */
+    gslpp::complex T_perp_plus_O8(double q2, double u);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). Chromomagnetic dipole contribution contribution.
+     * @param u integration variable in the range [0, 1]
+     * @return @f$ T_{perp,-}^{O8} @f$
+     */
+    gslpp::complex T_para_minus_O8(double q2, double u);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). Part of 4 quark operator contribution.
+     * @param u integration variable in the range [0, 1]
+     * @param m mass of the quark 
+     * @return @f$ t_{perp} @f$
+     */
+    gslpp::complex t_perp(double q2, double u, double m2);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). Part of 4 quark operator contribution.
+     * @param u integration variable in the range [0, 1]
+     * @param m2 mass square of the quark 
+     * @return @f$ t_{para} @f$
+     */
+    gslpp::complex t_para(double q2, double u, double m2);
+    
+    gslpp::complex I1(double q2, double u, double m2);
+    
+    gslpp::complex B0diff(double q2, double u, double m2);
+    
+    gslpp::complex B0(double s, double m2);
+    
+    gslpp::complex h_func(double s, double m2);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). 4 quark operator contribution.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp,+}^{QSS} @f$
+     */
+    gslpp::complex T_perp_plus_QSS(double q2, double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). 4 quark operator contribution.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{para,+}^{QSS} @f$
+     */
+    gslpp::complex T_para_plus_QSS(double q2, double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067). 4 quark operator contribution.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{para,-}^{QSS} @f$
+     */
+    gslpp::complex T_para_minus_QSS(double q2, double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS paper (hep-ph/0106067).Vector meson distribution amplitude
+     * @param u integration variable in the range [0, 1]
+     * @return @f$ \Delta L_{1} @f$
+     */
+    double phi_V(double u);
+    
+    gslpp::complex lambda_B_minus(double q2);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp,+}^{total} @f$
+     */
+    double T_perp_real(double q2, double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp,+}^{total} @f$
+     */
+    double T_perp_imag(double q2, double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{para,+}^{total} @f$
+     */
+    double T_para_real(double q2, double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param u integration variable in the range [0, 1]
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{para,+}^{total} @f$
+     */
+    double T_para_imag(double q2, double u, bool conjugate);
     
     /**
     * @brief The fit function from @cite Straub:2015ica, \f$ FF^{\rm fit} \f$.
