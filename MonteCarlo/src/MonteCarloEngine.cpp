@@ -1080,6 +1080,8 @@ std::string MonteCarloEngine::computeStatistics() {
             }
         }
     }
+    
+    StatsLog << std::setprecision(5);
 
     double llika = Histo1D["LogLikelihood"].GetHistogram()->GetMean();
     StatsLog << "LogLikelihood mean value: " << llika << std::endl;
@@ -1097,8 +1099,6 @@ std::string MonteCarloEngine::computeStatistics() {
     setDParsFromParameters(mode,DPars);
 
     Mod->Update(DPars);
-
-    StatsLog << std::setprecision(5);
     
     for (std::map<std::string,double>::iterator it = DPars.begin(); it != DPars.end(); it++)
         StatsLog << it->first << ": " << it->second << std::endl;
