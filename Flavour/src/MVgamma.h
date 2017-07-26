@@ -172,7 +172,8 @@ public:
     double MM2;           /**<square of the initial meson mass */
     double MV;            /**<final vector meson mass */
     double Mb;            /**<b quark mass */
-    double Mc;            /**<c quark mass */
+    double mb_pole;       /**<b quark pole mass */
+    double mc_pole;       /**<c quark pole mass */
     double mu_b;          /**<b mass scale */
     double mu_h;          /**<sqrt(mu_b*lambda_QCD) */
     double width;         /**<initial meson width */
@@ -206,11 +207,7 @@ public:
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
     gslpp::complex C_7p;/**<Wilson coeffients @f$C_7'@f$*/
-    gslpp::complex C_1_bar;/**<Wilson coeffients @f$C_1_bar(mu_b)@f$*/
-    gslpp::complex C_2_bar;/**<Wilson coeffients @f$C_2_bar(mu_b)@f$*/
     gslpp::complex C_8;/**<Wilson coeffients @f$C_8(mu_b)@f$*/
-//    gslpp::complex C_2h_bar;/**<Wilson coeffients @f$C_2(mu_h)@f$*/
-//    gslpp::complex C_8h;/**<Wilson coeffients @f$C_8(mu_h)@f$*/
     
     
     /**
