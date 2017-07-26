@@ -341,7 +341,9 @@
  * @f]
  *
  * Alternatively, when using the model name "NPSMEFTd6_LFU_QFU", where lepton
- * and quark flavour universality are assumed, the parameters to be used as inputs
+ * and quark flavour universality are assumed 
+ * (except for \f$(C_{fH})_{ij},~f=e,u,d\f$ which are assumed to be diagonal only), 
+ * the parameters to be used as inputs
  * for the dimension six coefficients are the following:
  * <table class="model">
  * <tr>
@@ -472,25 +474,25 @@
  *   \big(\overline{U^i}\,\gamma^\mu D^i\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CeH_r, CeH_i </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eH})_{ii}\big], \mbox{Im}\big[(C_{eH})_{ii}\big] \f$</td>
+ *   <td class="mod_name">%CeH_jjr, CeH_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{eH})_{jj}\big], \mbox{Im}\big[(C_{eH})_{jj}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{eH})_{ii} =\big(H^\dagger H\big)
- *   \big(\overline{L^i}\,H E^i\big)\f$ (flavor universal). </td>
+ *   \f$({\cal O}_{eH})_{jj} =\big(H^\dagger H\big)
+ *   \big(\overline{L^j}\,H E^j\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CuH_r, CuH_i </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uH})_{ii}\big], \mbox{Im}\big[(C_{uH})_{ii}\big] \f$</td>
+ *   <td class="mod_name">%CuH_jjr, CuH_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{uH})_{jj}\big], \mbox{Im}\big[(C_{uH})_{jj}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{uH})_{ii} =\big(H^\dagger H\big)
- *   \big(\overline{Q^i}\,\widetilde{H} U^i\big)\f$ (flavor universal). </td>
+ *   \f$({\cal O}_{uH})_{jj} =\big(H^\dagger H\big)
+ *   \big(\overline{Q^j}\,\widetilde{H} U^j\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%CdH_r, CdH_i </td>
- *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dH})_{ii}\big], \mbox{Im}\big[(C_{dH})_{ii}\big] \f$</td>
+ *   <td class="mod_name">%CdH_jjr, CdH_jji </td>
+ *   <td class="mod_symb">\f$\mbox{Re}\big[(C_{dH})_{jj}\big], \mbox{Im}\big[(C_{dH})_{jj}\big] \f$</td>
  *   <td class="mod_desc">The real and imaginary parts of the coefficient of the operator
- *   \f$({\cal O}_{dH})_{ii} =\big(H^\dagger H\big)
- *   \big(\overline{Q^i}\,H D^i\big)\f$ (flavor universal). </td>
+ *   \f$({\cal O}_{dH})_{jj} =\big(H^\dagger H\big)
+ *   \big(\overline{Q^j}\,H D^j\big)\f$ (flavor universal). </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CuG_klr, CuG_kli </td>
@@ -645,7 +647,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 151;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 163;
 
     /**
      * @brief A string array containing the labels of the model parameters in

@@ -13,6 +13,7 @@
                 <make-dep-project>../HiggsExtensions</make-dep-project>
                 <make-dep-project>../Flavour</make-dep-project>
                 <make-dep-project>../LeptonFlavour</make-dep-project>
+                <make-dep-project>../THDMW</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
                 <make-dep-project>../MonteCarlo</make-dep-project>
                 <make-dep-project>../LoopFunctions</make-dep-project>

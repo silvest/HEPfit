@@ -135,7 +135,9 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
 const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
         = {"CG", "CW", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
-    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i",
+    "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
+    "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
+    "CdH_11r", "CdH_22r", "CdH_33r", "CdH_11i", "CdH_22i", "CdH_33i",
     "CuG_r", "CuG_i", "CuW_r", "CuW_i", "CuB_r", "CuB_i",
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP",
@@ -161,7 +163,9 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
 const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
         = {"CG", "CW", "CHG", "CHWHB_gaga", "CHWHB_gagaorth", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
     "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
-    "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i",
+    "CeH_11r", "CeH_22r", "CeH_33r", "CeH_11i", "CeH_22i", "CeH_33i", 
+    "CuH_11r", "CuH_22r", "CuH_33r", "CuH_11i", "CuH_22i", "CuH_33i", 
+    "CdH_11r", "CdH_22r", "CdH_33r", "CdH_11i", "CdH_22i", "CdH_33i",
     "CuG_r", "CuG_i", "CuW_r", "CuW_i", "CuB_r", "CuB_i",
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe","Lambda_NP",
@@ -213,8 +217,12 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1", boost::cref(CHL1_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3", boost::cref(CHL3_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe", boost::cref(CHe_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_r", boost::cref(CeH_11r)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_i", boost::cref(CeH_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_11r", boost::cref(CeH_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_22r", boost::cref(CeH_22r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_33r", boost::cref(CeH_33r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_11i", boost::cref(CeH_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_22i", boost::cref(CeH_22i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_33i", boost::cref(CeH_33i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL", boost::cref(CLL_1221)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee", boost::cref(Cee_1111)));
     } else {
@@ -279,10 +287,18 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd", boost::cref(CHd_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_r", boost::cref(CHud_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_i", boost::cref(CHud_11i)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_r", boost::cref(CuH_11r)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_i", boost::cref(CuH_11i)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_r", boost::cref(CdH_11r)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_i", boost::cref(CdH_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_11r", boost::cref(CuH_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_22r", boost::cref(CuH_22r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_33r", boost::cref(CuH_33r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_11i", boost::cref(CuH_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_22i", boost::cref(CuH_22i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_33i", boost::cref(CuH_33i)));        
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_11r", boost::cref(CdH_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_22r", boost::cref(CdH_22r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_33r", boost::cref(CdH_33r)));        
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_11i", boost::cref(CdH_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_22i", boost::cref(CdH_22i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_33i", boost::cref(CdH_33i)));        
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_r", boost::cref(CuG_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuG_i", boost::cref(CuG_11i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuW_r", boost::cref(CuW_11r)));
@@ -560,6 +576,30 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH_1314_G", boost::cref(ettH_1314_G)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH_1314_uG_33r", boost::cref(ettH_1314_uG_33r)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH_1314_DeltagHt", boost::cref(ettH_1314_DeltagHt)));
+    
+    if (FlagLeptonUniversal) {
+        CeH_12r = 0.0;
+        CeH_13r = 0.0;
+        CeH_23r = 0.0;
+        CeH_12i = 0.0;
+        CeH_13i = 0.0;
+        CeH_23i = 0.0;  
+    }
+    if (FlagQuarkUniversal) {
+        CuH_12r = 0.0;
+        CuH_13r = 0.0;
+        CuH_23r = 0.0;
+        CuH_12i = 0.0;
+        CuH_13i = 0.0;
+        CuH_23i = 0.0;
+
+        CdH_12r = 0.0;
+        CdH_13r = 0.0;
+        CdH_23r = 0.0;
+        CdH_12i = 0.0;
+        CdH_13i = 0.0;
+        CdH_23i = 0.0;        
+    }
 }
 
 bool NPSMEFTd6::PostUpdate()
@@ -864,14 +904,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CeH_23r = value;
     else if (name.compare("CeH_33r") == 0)
         CeH_33r = value;
-    else if (name.compare("CeH_r") == 0) {
-        CeH_11r = value;
-        CeH_12r = 0.0;
-        CeH_13r = 0.0;
-        CeH_22r = value;
-        CeH_23r = 0.0;
-        CeH_33r = value;
-    } else if (name.compare("CeH_11i") == 0)
+    else if (name.compare("CeH_11i") == 0)
         CeH_11i = value;
     else if (name.compare("CeH_12i") == 0)
         CeH_12i = value;
@@ -883,14 +916,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CeH_23i = value;
     else if (name.compare("CeH_33i") == 0)
         CeH_33i = value;
-    else if (name.compare("CeH_i") == 0) {
-        CeH_11i = value;
-        CeH_12i = 0.0;
-        CeH_13i = 0.0;
-        CeH_22i = value;
-        CeH_23i = 0.0;
-        CeH_33i = value;
-    } else if (name.compare("CuH_11r") == 0)
+    else if (name.compare("CuH_11r") == 0)
         CuH_11r = value;
     else if (name.compare("CuH_12r") == 0)
         CuH_12r = value;
@@ -902,14 +928,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CuH_23r = value;
     else if (name.compare("CuH_33r") == 0)
         CuH_33r = value;
-    else if (name.compare("CuH_r") == 0) {
-        CuH_11r = value;
-        CuH_12r = 0.0;
-        CuH_13r = 0.0;
-        CuH_22r = value;
-        CuH_23r = 0.0;
-        CuH_33r = value;
-    } else if (name.compare("CuH_11i") == 0)
+    else if (name.compare("CuH_11i") == 0)
         CuH_11i = value;
     else if (name.compare("CuH_12i") == 0)
         CuH_12i = value;
@@ -921,14 +940,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CuH_23i = value;
     else if (name.compare("CuH_33i") == 0)
         CuH_33i = value;
-    else if (name.compare("CuH_i") == 0) {
-        CuH_11i = value;
-        CuH_12i = 0.0;
-        CuH_13i = 0.0;
-        CuH_22i = value;
-        CuH_23i = 0.0;
-        CuH_33i = value;
-    } else if (name.compare("CdH_11r") == 0)
+    else if (name.compare("CdH_11r") == 0)
         CdH_11r = value;
     else if (name.compare("CdH_12r") == 0)
         CdH_12r = value;
@@ -940,14 +952,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CdH_23r = value;
     else if (name.compare("CdH_33r") == 0)
         CdH_33r = value;
-    else if (name.compare("CdH_r") == 0) {
-        CdH_11r = value;
-        CdH_12r = 0.0;
-        CdH_13r = 0.0;
-        CdH_22r = value;
-        CdH_23r = 0.0;
-        CdH_33r = value;
-    } else if (name.compare("CdH_11i") == 0)
+    else if (name.compare("CdH_11i") == 0)
         CdH_11i = value;
     else if (name.compare("CdH_12i") == 0)
         CdH_12i = value;
@@ -959,14 +964,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CdH_23i = value;
     else if (name.compare("CdH_33i") == 0)
         CdH_33i = value;
-    else if (name.compare("CdH_i") == 0) {
-        CdH_11i = value;
-        CdH_12i = 0.0;
-        CdH_13i = 0.0;
-        CdH_22i = value;
-        CdH_23i = 0.0;
-        CdH_33i = value;
-    } else if (name.compare("CuG_11r") == 0)
+    else if (name.compare("CuG_11r") == 0)
         CuG_11r = value;
     else if (name.compare("CuG_12r") == 0)
         CuG_12r = value;
