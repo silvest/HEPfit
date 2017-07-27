@@ -45,13 +45,14 @@ jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
         throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
 
     this->nops = nops;
-    unsigned int nf, nu, nd;
-    double b0, b0e, b1, b2, b3, b4, b5;
+    unsigned int nf, nu, nd,
+            a, b, i, j, p, q;
+    double b0, b0e, b1, b2, b3, b4;
 
     gslpp::matrix<double> W10(nops, nops, 0.), W20(nops, nops, 0.), W30(nops, nops, 0.),
             W01(nops, nops, 0.), W02(nops, nops, 0.), W11(nops, nops, 0.), W21(nops, nops, 0.);
-    gslpp::matrix<gslpp::complex> M2(nops, nops, 0.), M1(nops, nops, 0.);
-    unsigned int a, b, i, j, p;
+    gslpp::matrix<gslpp::complex> M1(nops, nops, 0.), M2(nops, nops, 0.), M3(nops, nops, 0.), M4(nops, nops, 0.),
+            M5(nops, nops, 0.), M6(nops, nops, 0.);
 
     if (order_qed == NO_QED && blocks.find("L") == std::string::npos &&
             blocks.find("Q") == std::string::npos && blocks.find("B") == std::string::npos)
@@ -68,30 +69,31 @@ jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
         nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
 
         b0 = Beta_s(00, nf);
-//        b0e = Beta_e(00, nf);
+        b0e = Beta_e(00, nf);
         b1 = Beta_s(10, nf) / 2. / b0 / b0;
         b2 = Beta_s(20, nf) / 4. / b0 / b0 / b0 - b1*b1;
-//        b3 = Beta_s(01, nf) / 2. / b0 / b0e;
-//        b4 = Beta_s(11, nf) / 4. / b0 / b0 / b0e - 2. * b1*b3;
-//        b5 = Beta_e(01, nf) / 2. / b0 / b0e - b1;
+        b3 = Beta_s(01, nf) / 2. / b0 / b0e;
+        b4 = Beta_s(11, nf) / 4. / b0 / b0 / b0e - 2. * b1*b3;
 
         W10 = AnomalousDimension(10, nu, nd).transpose() / 2. / b0;
         W20 = AnomalousDimension(20, nu, nd).transpose() / 4. / b0 / b0;
         W30 = AnomalousDimension(30, nu, nd).transpose() / 8. / b0 / b0 / b0;
+        W01 = AnomalousDimension(01, nu, nd).transpose() / 2. / b0e;
+        W02 = AnomalousDimension(02, nu, nd).transpose() / 4. / b0e / b0e;
+        W11 = AnomalousDimension(11, nu, nd).transpose() / 4. / b0 / b0e;
+        W21 = AnomalousDimension(21, nu, nd).transpose() / 8. / b0 / b0 / b0e;
 
 //        std::cout << AnomalousDimension(10, nu, nd).transpose() << std::endl;
 //        std::cout << W10 << std::endl;
-        // M2: B(-2), M1: B(-1)_10
-        M2 = 4. * b0 * b0 * (W30 - b1 * W20 - b2 * W10);
-        M1 = 2 * b0 * (W20 - b1 * W10);
 
         // Misiak-Munz basis, defined as in T. Huber et al., hep-ph/0512066
         W10.eigensystem(evec, eval);
         evec_i = evec.inverse();
 
+        // QCD magic numbers
         // M2: B(-2), M1: B(-1)_10
-        M2 = evec_i * (4. * b0 * b0 * (W30 - b1 * W20 - b2 * W10)) * evec;
-        M1 = evec_i * (2. * b0 * (W20 - b1 * W10)) * evec;
+        M2 = evec_i * (W30 - b1 * W20 - b2 * W10) * evec;
+        M1 = evec_i * (W20 - b1 * W10) * evec;
 
         for (a = 0; a < nops; a++) {
             ai.insert(std::pair<std::vector<int>, double > (idx(nf, a), eval(a).real()));
@@ -107,6 +109,44 @@ jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
                     }
                 }
         }
+
+        // QED magic numbers
+        // M3: B(1)_01, B(2)_02, B(1)_02, R5_12, M4: B(0)_11, B(0)_12, M5: B(-1)_21, M6: B(1)_12 - proper powers of omega and lambda added in DF1Evol
+        M3 = evec_i * W01 * evec;
+        M4 = evec_i * (W11 - b1 * W01 - b3 * W10) * evec;
+        M5 = evec_i * (W21 - b1 * W11 - b2 * W01 - b3 * W20 - b4 * W10) * evec;
+        M6 = evec_i * (W02 + W11 - (b1 + b3) * W01 - b3 * W10) * evec;
+        for (a = 0; a < nops; a++)
+            for (b = 0; b < nops; b++)
+                for (i = 0; i < nops; i++)
+                    for (j = 0; j < nops; j++)
+                    {
+                        vM3vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M3(i, j) * evec_i(j, b)));
+                        vM4vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M4(i, j) * evec_i(j, b)));
+                        vM5vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M5(i, j) * evec_i(j, b)));
+                        vM6vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M6(i, j) * evec_i(j, b)));                        
+                        for (p = 0; p < nops; p++)
+                        {
+                            vM33vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M3(p, j) * evec_i(j, b)));
+                            vM31vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, j) * evec_i(j, b)));
+                            vM13vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, j) * evec_i(j, b)));
+                            vM34vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M4(p, j) * evec_i(j, b)));
+                            vM43vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M3(p, j) * evec_i(j, b)));
+                            vM23vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M2(i, p) * M3(p, j) * evec_i(j, b)));
+                            vM32vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M2(p, j) * evec_i(j, b)));
+                            vM14vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M4(p, j) * evec_i(j, b)));
+                            vM41vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M1(p, j) * evec_i(j, b)));
+                            for(q = 0; q < nops; q++)
+                            {
+                                vM113vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
+                                vM131vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
+                                vM311vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, q) * M1(q, j) * evec_i(j, b)));
+                                vM331vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
+                                vM313vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
+                                vM133vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, q) * M3(q, j) * evec_i(j, b)));
+                            }
+                        }
+                    }
     }
 }
     
@@ -1229,17 +1269,22 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_
     
  void EvolDF1::DF1Evol(double mu, double M, int nf, schemes scheme) 
  {
-    gslpp::matrix<double> resLO(nops, 0.), resNLO(nops, 0.), resNNLO(nops, 0.);
-    unsigned int a,b,i,j,p;
-
+    gslpp::matrix<double> res01(nops, 0.), res02(nops, 0.), res11(nops, 0.), res12(nops, 0.),
+            res21(nops, 0.), resLO(nops, 0.), resNLO(nops, 0.), resNNLO(nops, 0.);
+    
+    unsigned int a,b,i,j,p,q;
+    double b0, b0e, b5, alsM, eta, omega, lambda;
 
 //    double alsM = model.Als(M) / 4. / M_PI;
 //    double alsmu = model.Als(mu) / 4. / M_PI;
-    double alsM = model.Alstilde5(M);
-    double alsmu = model.Alstilde5(mu);
-    
-    double eta = alsM / alsmu;
-    
+    b0 = Beta_s(00, nf);
+    b0e = Beta_e(00, nf);
+    b5 = Beta_e(01, nf) / 2. / b0 / b0e - Beta_s(10, nf) / 2. / b0 / b0;
+    alsM = model.Alstilde5(M);
+    eta = alsM / model.Alstilde5(mu);
+    omega = 2.*b0*alsM;
+//    lambda = b0e*Aletilde5(M) / b0 / Alstilde5(M); CHANGE ME!!!
+        
     for (a = 0; a < nops; a++)
         for (b = 0; b < nops; b++)
         {
@@ -1248,10 +1293,10 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_
                 resLO(a, b) += (vM0vi.at(idx(nf,a,b,i)) * pow(eta, ai.at(idx(nf,i)))).real();
                 for(j = 0; j < nops; j++)
                 {
-                    resNLO(a, b) += (alsM * vM1vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-1,eta)).real();
-                    resNNLO(a, b) += (alsM * alsM * vM2vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-2,eta)).real();
+                    resNLO(a, b) += (omega * vM1vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-1,eta)).real();
+                    resNNLO(a, b) += (omega * omega * vM2vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-2,eta)).real();
                     for(p = 0; p < nops; p++)
-                        resNNLO(a, b) += (alsM * alsM * vM11vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,-1,eta)).real();
+                        resNNLO(a, b) += (omega * omega * vM11vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,-1,eta)).real();
                 }
                 if(fabs(resLO(a, b)) < EPS) resLO(a, b) = 0.;
                 if(fabs(resNLO(a, b)) < EPS) resNLO(a, b) = 0.;
@@ -1271,6 +1316,68 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_
         case FULLNLO:
         default:
             throw std::runtime_error("Error in EvolDF1::Df1Evol()");
-    }   
-  }
+    }
 
+    for (a = 0; a < nops; a++)
+        for (b = 0; b < nops; b++)
+        {
+            for (i = 0; i < nops; i++)
+                for(j = 0; j < nops; j++)
+                {
+                    res01(a, b) += (lambda * vM3vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,1,eta)).real();
+                    res02(a, b) += (lambda * lambda * vM3vi.at(idx(nf,a,b,i,j)) * (f_f(nf,i,j,2,eta) - f_f(nf,i,j,1,eta))).real();
+                    res11(a, b) += (omega * lambda * vM4vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,0,eta)).real();
+                    res12(a, b) += (omega * lambda * lambda * ( - vM4vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,0,eta) + vM6vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,1,eta)) +
+                                    b5 * vM3vi.at(idx(nf,a,b,i,j)) * f_r(nf,i,j,1,eta)).real();
+                    res21(a, b) += (omega * omega * lambda * vM5vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-1,eta)).real();                    
+                    for(p = 0; p < nops; p++)
+                    {
+                        res02(a, b) += (lambda * lambda * vM33vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,1,eta)).real();
+                        res11(a, b) += (omega * lambda * ( vM13vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,1,eta) + vM31vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,-1,eta)) ).real();
+                        res12(a, b) += (omega * lambda * lambda * ( vM13vi.at(idx(nf,a,b,i,j,p)) * ( f_g(nf,i,p,j,-1,2,eta) - f_g(nf,i,p,j,-1,1,eta) ) + 
+                                        vM31vi.at(idx(nf,a,b,i,j,p)) * ( f_g(nf,i,p,j,2,-1,eta) - f_g(nf,i,p,j,1,-1,eta) ) + vM34vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,0,eta) +
+                                        vM43vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,0,1,eta))).real();
+                        res21(a, b) += (omega * omega * lambda * ( vM14vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,0,eta) + vM41vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,0,-1,eta) +
+                                        vM23vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-2,1,eta) + vM32vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,-2,eta))).real();
+                    }
+                    for(q = 0; q < nops; q++)
+                    {
+                        res12(a, b) += (omega * lambda * lambda * ( vM133vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,-1,1,1,eta) + vM313vi.at(idx(nf,a,b,i,j,p,q)) *
+                                        f_h(nf,i,p,q,j,1,-1,1,eta) + vM331vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,1,1,-1,eta) )).real();
+                        res21(a, b) += (omega * omega * lambda * ( vM113vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,-1,-1,1,eta) + vM131vi.at(idx(nf,a,b,i,j,p,q)) *
+                                        f_h(nf,i,p,q,j,-1,1,-1,eta) + vM311vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,1,-1,-1,eta) )).real();
+                    }
+                }
+                if(fabs(res01(a, b)) < EPS) res01(a, b) = 0.;
+                if(fabs(res02(a, b)) < EPS) res02(a, b) = 0.;
+                if(fabs(res11(a, b)) < EPS) res11(a, b) = 0.;
+                if(fabs(res12(a, b)) < EPS) res12(a, b) = 0.;
+                if(fabs(res21(a, b)) < EPS) res21(a, b) = 0.;
+        }
+    
+    switch(order_qed) {
+        case NLO_QED22:
+//            *elem[NLO_QED22] = (*elem[LO_QED]) * res21 + (*elem[NLO_QED11]) * res11 + (*elem[NLO_QED02]) * resNNLO +
+//                (*elem[NLO_QED21]) * res01 + (*elem[NLO_QED12]) * resNLO + (*elem[NLO_QED22]) * resLO +
+//                (*elem[NLO]) * res12 + (*elem[NNLO]) * res02 + (*elem[LO]) * res22;   this is a higher order term, we put it to zero since there are contribuitions in the matching
+            *elem[NLO_QED22] = 0.;
+        case NLO_QED12:
+            *elem[NLO_QED12] = (*elem[LO_QED]) * res11 + (*elem[NLO_QED11]) * res01 + (*elem[NLO_QED02]) * resNLO +
+                    (*elem[NLO_QED12]) * resLO + (*elem[LO]) * res12 + (*elem[NLO]) * res02;
+        case NLO_QED21:
+             *elem[NLO_QED21] = (*elem[LO_QED]) * resNNLO + (*elem[NLO_QED11]) * resNLO + (*elem[NLO_QED21]) * resLO
+                     + (*elem[LO]) * res21 + (*elem[NLO]) * res11 + (*elem[NNLO]) * res01;
+       case NLO_QED02:
+            *elem[NLO_QED02] = (*elem[LO_QED]) * res01 + (*elem[NLO_QED02]) * resLO + (*elem[LO]) * res02;
+        case NLO_QED11:
+            *elem[NLO_QED11] = (*elem[LO_QED]) * resNLO + (*elem[NLO_QED11]) * resLO + (*elem[LO]) * res11 + (*elem[NLO]) * res01;
+        case LO_QED:
+            *elem[LO_QED] = (*elem[LO_QED]) * resLO + (*elem[LO]) * res01;
+            break;
+        case FULLNNLO:
+        case FULLNLO:
+        default:
+            throw std::runtime_error("Error in EvolDF1::Df1Evol()");
+    }
+    
+  }

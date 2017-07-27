@@ -98,7 +98,8 @@ private:
 //    array_type2 mn_a;
 //    array_type4 mn_b,mn_c,mn_d;
     std::map< std::vector<int>, double > ai;
-    std::map< std::vector<int>, gslpp::complex > vM0vi, vM1vi, vM2vi, vM11vi;
+    std::map< std::vector<int>, gslpp::complex > vM0vi, vM1vi, vM2vi, vM11vi, vM3vi, vM4vi, vM5vi, vM6vi, vM33vi, vM31vi, vM13vi,
+    vM34vi, vM43vi, vM23vi, vM32vi, vM14vi, vM41vi, vM113vi, vM131vi, vM311vi, vM133vi, vM313vi, vM331vi;
     std::vector<int> index;
 
     const StandardModel& model;
@@ -289,7 +290,7 @@ private:
     gslpp::matrix<double> GammaBB(indices nm, unsigned int n_u, unsigned int n_d) const;
 
     /**
-     * @brief QCD beta function coefficients - eq. (36) hep-ph/0512066
+     * @brief QCD beta function coefficients including QED corrections - eq. (36) hep-ph/0512066
      * @param powers of alpha_s and alpha_e as an integer
      * @param number of active flavor
      * @return coefficient of the beta function
@@ -357,8 +358,7 @@ private:
 
     gslpp::matrix<gslpp::complex> evec, evec_i, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<gslpp::complex> eval;
-    double alsMZ_cache;
-    double Mz_cache;
+    double alsMZ_cache, Mz_cache;
 };
 
 #endif /* EVOLDF1_H */

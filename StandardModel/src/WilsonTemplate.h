@@ -82,7 +82,7 @@ public:
         return mu;
     }
 
-        virtual void resetCoefficient()
+    virtual void resetCoefficient()
     {
         for(int i = LO; i <= order; i++){
             *(elem[i]) = 0.;

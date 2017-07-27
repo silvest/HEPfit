@@ -86,40 +86,18 @@ void RGEvolutor::setScales(double mu, double M)
 {
     this->M = M;
     this->mu = mu;
+    resetCoefficient();
     *(elem[LO]) = gslpp::matrix<double>::Id(size);
-    for(int i = NLO; i <= order; i++)
-        *(elem[i]) = 0.;
-    
-    if (order_qed != NO_QED){
-        for(int i = NLO_QED11; i <= order_qed; i++)
-            *(elem[i]) = 0.;
-    }
 }
 
 void RGEvolutor::setM(double M)
 {
-    this->M = M;
-    *(elem[LO]) = gslpp::matrix<double>::Id(size);
-    for(int i = NLO; i <= order; i++)
-        *(elem[i]) = 0.;
-    
-    if (order_qed != NO_QED){
-        for(int i = NLO_QED11; i <= order_qed; i++)
-            *(elem[i]) = 0.;
-    }
+    setScales(mu, M);
 }
 
 void RGEvolutor::setMu(double mu)
 {
-    this->mu = mu;
-    *(elem[LO]) = gslpp::matrix<double>::Id(size);
-    for(int i = NLO; i <= order; i++)
-        *(elem[i]) = 0.;
-    
-    if (order_qed != NO_QED){
-        for(int i = NLO_QED11; i <= order_qed; i++)
-            *(elem[i]) = 0.;
-    }
+    setScales(mu, M);
 }
 
 gslpp::matrix<double>* RGEvolutor::Evol(orders order)
