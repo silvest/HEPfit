@@ -13,23 +13,34 @@
 
 #define EPS 1.e-10
 
-EvolDF1::EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, const StandardModel& model, orders ord, orders_qed ord_qed)
-: RGEvolutor(nops, scheme, ord, ord_qed), index(10),
-model(model), blocks(reqblocks),
-evec(nops, 0.), evec_i(nops, 0.), js(nops, 0.), h(nops, 0.), gg(nops, 0.), s_s(nops, 0.),
-jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
-{
-    //    blocks_nops = boost::assign::map_list_of("C",2) ("CP",6) ("CPM",8) ("L",2) ("CPML",10) ("CPQB",11) ("CPMQB",13) ("CPMLQB",15);
-    blocks_nops = {
-        { "C", 2},
-        { "CP", 6},
-        { "CPM", 8},
+std::map<std::string,unsigned int> blocks_nops = {
+        {"C", 2},
+        {"CP", 6},
+        {"CPM", 8},
         {"L", 2},
         {"CPML", 10},
         {"CPQB", 11},
         {"CPMQB", 13},
         {"CPMLQB", 15}
     };
+
+EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& model, orders ord, orders_qed ord_qed)
+: RGEvolutor(blocks_nops.at(reqblocks), scheme, ord, ord_qed), index(10), model(model), blocks(reqblocks),
+        evec(blocks_nops.at(reqblocks), 0.), evec_i(blocks_nops.at(reqblocks), 0.), js(blocks_nops.at(reqblocks), 0.), h(blocks_nops.at(reqblocks), 0.),
+        gg(blocks_nops.at(reqblocks), 0.), s_s(blocks_nops.at(reqblocks), 0.),jssv(blocks_nops.at(reqblocks), 0.), jss(blocks_nops.at(reqblocks), 0.),
+        jv(blocks_nops.at(reqblocks), 0.), vij(blocks_nops.at(reqblocks), 0.), eval(blocks_nops.at(reqblocks), 0.)
+{
+    //    blocks_nops = boost::assign::map_list_of("C",2) ("CP",6) ("CPM",8) ("L",2) ("CPML",10) ("CPQB",11) ("CPMQB",13) ("CPMLQB",15);
+//    blocks_nops = {
+//        { "C", 2},
+//        { "CP", 6},
+//        { "CPM", 8},
+//        {"L", 2},
+//        {"CPML", 10},
+//        {"CPQB", 11},
+//        {"CPMQB", 13},
+//        {"CPMLQB", 15}
+//    };
     //    blocks_ord = boost::assign::map_list_of("C",NNLO) ("CP",NNLO) ("CPM",NNLO) ("L",NNLO) ("CPML",NNLO) ("CPQB",NLO) ("CPMQB",NLO) ("CPMLQB",NLO);
     blocks_ord = {
         {"C", NNLO},
@@ -41,10 +52,10 @@ jssv(nops, 0.), jss(nops, 0.), jv(nops, 0.), vij(nops, 0.), eval(nops, 0.)
         {"CPMQB", NLO},
         {"CPMLQB", NLO}};
     
-    if (blocks_nops[blocks] != nops)
-        throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
+//   if (blocks_nops[blocks] != nops)
+//        throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
 
-    this->nops = nops;
+    this->nops = blocks_nops.at(reqblocks);
     unsigned int nf, nu, nd,
             a, b, i, j, p, q;
     double b0, b0e, b1, b2, b3, b4;
@@ -1217,9 +1228,9 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, unsigned int n_u, 
     return (gammaDF1);
 }
 
-gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_qed ord_qed, schemes scheme) 
+gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, schemes scheme)
 {
-    if(ord > order || ord_qed > order_qed)
+    if(ord > order)
         throw std::runtime_error("EvolDF1::Df1Evol(): order not present in this Hamiltonian.");
     if(nfmin == 5 && nfmax == 5 && (model.Nf(mu) != 5. || model.Nf(M) != 5.))
         throw std::runtime_error("EvolDF1::Df1Evol(): only nf = 5 available.");
@@ -1235,14 +1246,14 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_
             throw std::runtime_error("EvolDF1::Df1Evol(): scheme " + out.str() + " not implemented "); 
     }
     
-    double alsMZ = model.getAlsMz();
-    double Mz = model.getMz();
-    if(alsMZ == alsMZ_cache && Mz == Mz_cache) {
+    double alsM = model.getAlsM();
+    double MAls = model.getMAls();
+    if(alsM == alsM_cache && MAls == MAls_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme)
             return (*Evol(ord));        
     }
-    alsMZ_cache = alsMZ;
-    Mz_cache = Mz;
+    alsM_cache = alsM;
+    MAls_cache = MAls;
         
     if (M < mu) {
         std::stringstream out;
@@ -1255,19 +1266,60 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_
     double m_down = mu;
     double m_up = model.AboveTh(m_down);
     double nf = model.Nf(m_down);
-    
-    while (m_up < M) {  // where are the nf thresholds? ???? <<<<<<<<<<
-        DF1Evol(m_down, m_up, (int) nf, scheme);
+
+    while (m_up < M)
+    { // where are the nf thresholds? ???? <<<<<<<<<<
+        DF1Ev(m_down, m_up, (int) nf, scheme);
         m_down = m_up;
         m_up = model.AboveTh(m_down);
         nf += 1.;
     }
-    DF1Evol(m_down, M, (int) nf, scheme);
-    
+    DF1Ev(m_down, M, (int) nf, scheme);
+
     return (*Evol(ord));
 }
+
+gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, schemes scheme)
+{
+    if(ord > order_qed)
+        throw std::runtime_error("EvolDF1::Df1Evol(): order not present in this Hamiltonian.");
+    double MAls = model.getMAls();
+    if(model.Nf(mu) != 5. || model.Nf(M) != 5. || model.Nf(MAls) != 5.)
+        throw std::runtime_error("EvolDF1::Df1Evol(): only nf = 5 available.");
+        
+    switch (scheme) {
+        case NDR:
+            break;
+        case LRI:
+        case HV:
+        default:
+            std::stringstream out;
+            out << scheme;
+            throw std::runtime_error("EvolDF1::Df1Evol(): scheme " + out.str() + " not implemented "); 
+    }
     
- void EvolDF1::DF1Evol(double mu, double M, int nf, schemes scheme) 
+    double alsM = model.getAlsM();
+    if(alsM == alsM_cache && MAls == MAls_cache) {
+        if (mu == this->mu && M == this->M && scheme == this->scheme)
+            return (*Evol(ord));        
+    }
+    alsM_cache = alsM;
+    MAls_cache = MAls;
+        
+    if (M < mu) {
+        std::stringstream out;
+        out << "M = " << M << " < mu = " << mu;
+        throw std::runtime_error("EvolDF1::Df1Evol(): " + out.str() + ".");
+    }
+
+    setScales(mu, M); // also assign evol to identity
+
+    DF1Ev(mu, M, 5, scheme); // only 5 flavour
+
+    return (*Evol(ord));
+}
+
+ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme) 
  {
     gslpp::matrix<double> res01(nops, 0.), res02(nops, 0.), res11(nops, 0.), res12(nops, 0.),
             res21(nops, 0.), resLO(nops, 0.), resNLO(nops, 0.), resNNLO(nops, 0.);
@@ -1318,66 +1370,66 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders ord, orders_
             throw std::runtime_error("Error in EvolDF1::Df1Evol()");
     }
 
-    for (a = 0; a < nops; a++)
-        for (b = 0; b < nops; b++)
+    if (order_qed != NO_QED)
+    {
+        for (a = 0; a < nops; a++)
+            for (b = 0; b < nops; b++)
+            {
+                for (i = 0; i < nops; i++)
+                    for (j = 0; j < nops; j++)
+                    {
+                        res01(a, b) += (lambda * vM3vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 1, eta)).real();
+                        res02(a, b) += (lambda * lambda * vM3vi.at(idx(nf, a, b, i, j)) * (f_f(nf, i, j, 2, eta) - f_f(nf, i, j, 1, eta))).real();
+                        res11(a, b) += (omega * lambda * vM4vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 0, eta)).real();
+                        res12(a, b) += (omega * lambda * lambda * (-vM4vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 0, eta) + vM6vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 1, eta)) +
+                                b5 * vM3vi.at(idx(nf, a, b, i, j)) * f_r(nf, i, j, 1, eta)).real();
+                        res21(a, b) += (omega * omega * lambda * vM5vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, -1, eta)).real();
+                        for (p = 0; p < nops; p++)
+                        {
+                            res02(a, b) += (lambda * lambda * vM33vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, 1, eta)).real();
+                            res11(a, b) += (omega * lambda * (vM13vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -1, 1, eta) + vM31vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, -1, eta))).real();
+                            res12(a, b) += (omega * lambda * lambda * (vM13vi.at(idx(nf, a, b, i, j, p)) * (f_g(nf, i, p, j, -1, 2, eta) - f_g(nf, i, p, j, -1, 1, eta)) +
+                                    vM31vi.at(idx(nf, a, b, i, j, p)) * (f_g(nf, i, p, j, 2, -1, eta) - f_g(nf, i, p, j, 1, -1, eta)) + vM34vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, 0, eta) +
+                                    vM43vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 0, 1, eta))).real();
+                            res21(a, b) += (omega * omega * lambda * (vM14vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -1, 0, eta) + vM41vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 0, -1, eta) +
+                                    vM23vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -2, 1, eta) + vM32vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, -2, eta))).real();
+                        }
+                        for (q = 0; q < nops; q++) {
+                            res12(a, b) += (omega * lambda * lambda * (vM133vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, 1, 1, eta) + vM313vi.at(idx(nf, a, b, i, j, p, q)) *
+                                    f_h(nf, i, p, q, j, 1, -1, 1, eta) + vM331vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, 1, -1, eta))).real();
+                            res21(a, b) += (omega * omega * lambda * (vM113vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, -1, 1, eta) + vM131vi.at(idx(nf, a, b, i, j, p, q)) *
+                                    f_h(nf, i, p, q, j, -1, 1, -1, eta) + vM311vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, -1, -1, eta))).real();
+                        }
+                    }
+                if (fabs(res01(a, b)) < EPS) res01(a, b) = 0.;
+                if (fabs(res02(a, b)) < EPS) res02(a, b) = 0.;
+                if (fabs(res11(a, b)) < EPS) res11(a, b) = 0.;
+                if (fabs(res12(a, b)) < EPS) res12(a, b) = 0.;
+                if (fabs(res21(a, b)) < EPS) res21(a, b) = 0.;
+            }
+
+        switch (order_qed)
         {
-            for (i = 0; i < nops; i++)
-                for(j = 0; j < nops; j++)
-                {
-                    res01(a, b) += (lambda * vM3vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,1,eta)).real();
-                    res02(a, b) += (lambda * lambda * vM3vi.at(idx(nf,a,b,i,j)) * (f_f(nf,i,j,2,eta) - f_f(nf,i,j,1,eta))).real();
-                    res11(a, b) += (omega * lambda * vM4vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,0,eta)).real();
-                    res12(a, b) += (omega * lambda * lambda * ( - vM4vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,0,eta) + vM6vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,1,eta)) +
-                                    b5 * vM3vi.at(idx(nf,a,b,i,j)) * f_r(nf,i,j,1,eta)).real();
-                    res21(a, b) += (omega * omega * lambda * vM5vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-1,eta)).real();                    
-                    for(p = 0; p < nops; p++)
-                    {
-                        res02(a, b) += (lambda * lambda * vM33vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,1,eta)).real();
-                        res11(a, b) += (omega * lambda * ( vM13vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,1,eta) + vM31vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,-1,eta)) ).real();
-                        res12(a, b) += (omega * lambda * lambda * ( vM13vi.at(idx(nf,a,b,i,j,p)) * ( f_g(nf,i,p,j,-1,2,eta) - f_g(nf,i,p,j,-1,1,eta) ) + 
-                                        vM31vi.at(idx(nf,a,b,i,j,p)) * ( f_g(nf,i,p,j,2,-1,eta) - f_g(nf,i,p,j,1,-1,eta) ) + vM34vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,0,eta) +
-                                        vM43vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,0,1,eta))).real();
-                        res21(a, b) += (omega * omega * lambda * ( vM14vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,0,eta) + vM41vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,0,-1,eta) +
-                                        vM23vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-2,1,eta) + vM32vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,1,-2,eta))).real();
-                    }
-                    for(q = 0; q < nops; q++)
-                    {
-                        res12(a, b) += (omega * lambda * lambda * ( vM133vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,-1,1,1,eta) + vM313vi.at(idx(nf,a,b,i,j,p,q)) *
-                                        f_h(nf,i,p,q,j,1,-1,1,eta) + vM331vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,1,1,-1,eta) )).real();
-                        res21(a, b) += (omega * omega * lambda * ( vM113vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,-1,-1,1,eta) + vM131vi.at(idx(nf,a,b,i,j,p,q)) *
-                                        f_h(nf,i,p,q,j,-1,1,-1,eta) + vM311vi.at(idx(nf,a,b,i,j,p,q)) * f_h(nf,i,p,q,j,1,-1,-1,eta) )).real();
-                    }
-                }
-                if(fabs(res01(a, b)) < EPS) res01(a, b) = 0.;
-                if(fabs(res02(a, b)) < EPS) res02(a, b) = 0.;
-                if(fabs(res11(a, b)) < EPS) res11(a, b) = 0.;
-                if(fabs(res12(a, b)) < EPS) res12(a, b) = 0.;
-                if(fabs(res21(a, b)) < EPS) res21(a, b) = 0.;
+            case NLO_QED22:
+                //            *elem[NLO_QED22] = (*elem[LO_QED]) * res21 + (*elem[NLO_QED11]) * res11 + (*elem[NLO_QED02]) * resNNLO +
+                //                (*elem[NLO_QED21]) * res01 + (*elem[NLO_QED12]) * resNLO + (*elem[NLO_QED22]) * resLO +
+                //                (*elem[NLO]) * res12 + (*elem[NNLO]) * res02 + (*elem[LO]) * res22;   this is a higher order term, we put it to zero since there are contribuitions in the matching
+                *elem[NLO_QED22] = 0.;
+            case NLO_QED12:
+                *elem[NLO_QED12] = (*elem[LO_QED]) * res11 + (*elem[NLO_QED11]) * res01 + (*elem[NLO_QED02]) * resNLO +
+                        (*elem[NLO_QED12]) * resLO + (*elem[LO]) * res12 + (*elem[NLO]) * res02;
+            case NLO_QED21:
+                *elem[NLO_QED21] = (*elem[LO_QED]) * resNNLO + (*elem[NLO_QED11]) * resNLO + (*elem[NLO_QED21]) * resLO
+                        + (*elem[LO]) * res21 + (*elem[NLO]) * res11 + (*elem[NNLO]) * res01;
+            case NLO_QED02:
+                *elem[NLO_QED02] = (*elem[LO_QED]) * res01 + (*elem[NLO_QED02]) * resLO + (*elem[LO]) * res02;
+            case NLO_QED11:
+                *elem[NLO_QED11] = (*elem[LO_QED]) * resNLO + (*elem[NLO_QED11]) * resLO + (*elem[LO]) * res11 + (*elem[NLO]) * res01;
+            case LO_QED:
+                *elem[LO_QED] = (*elem[LO_QED]) * resLO + (*elem[LO]) * res01;
+                break;
+            default:
+                throw std::runtime_error("Error in EvolDF1::Df1Evol(): wrong QED order");
         }
-    
-    switch(order_qed) {
-        case NLO_QED22:
-//            *elem[NLO_QED22] = (*elem[LO_QED]) * res21 + (*elem[NLO_QED11]) * res11 + (*elem[NLO_QED02]) * resNNLO +
-//                (*elem[NLO_QED21]) * res01 + (*elem[NLO_QED12]) * resNLO + (*elem[NLO_QED22]) * resLO +
-//                (*elem[NLO]) * res12 + (*elem[NNLO]) * res02 + (*elem[LO]) * res22;   this is a higher order term, we put it to zero since there are contribuitions in the matching
-            *elem[NLO_QED22] = 0.;
-        case NLO_QED12:
-            *elem[NLO_QED12] = (*elem[LO_QED]) * res11 + (*elem[NLO_QED11]) * res01 + (*elem[NLO_QED02]) * resNLO +
-                    (*elem[NLO_QED12]) * resLO + (*elem[LO]) * res12 + (*elem[NLO]) * res02;
-        case NLO_QED21:
-             *elem[NLO_QED21] = (*elem[LO_QED]) * resNNLO + (*elem[NLO_QED11]) * resNLO + (*elem[NLO_QED21]) * resLO
-                     + (*elem[LO]) * res21 + (*elem[NLO]) * res11 + (*elem[NNLO]) * res01;
-       case NLO_QED02:
-            *elem[NLO_QED02] = (*elem[LO_QED]) * res01 + (*elem[NLO_QED02]) * resLO + (*elem[LO]) * res02;
-        case NLO_QED11:
-            *elem[NLO_QED11] = (*elem[LO_QED]) * resNLO + (*elem[NLO_QED11]) * resLO + (*elem[LO]) * res11 + (*elem[NLO]) * res01;
-        case LO_QED:
-            *elem[LO_QED] = (*elem[LO_QED]) * resLO + (*elem[LO]) * res01;
-            break;
-        case FULLNNLO:
-        case FULLNLO:
-        default:
-            throw std::runtime_error("Error in EvolDF1::Df1Evol()");
     }
-    
-  }
+}

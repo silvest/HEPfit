@@ -44,13 +44,13 @@ enum orders
  * @ingroup StandardModel
  * @brief An enum type for orders in electroweak.
  */
-enum orders_qed
+enum orders_qed // don't change the ordering, it matters in HeffDF1
 {
     NO_QED = orders(MAXORDER) + 1, /**< An auxiliary enumerator */
     LO_QED, /**< Leading order e/s */
     NLO_QED11, /**< Next-to-leading order e */
-    NLO_QED02,   /* e^2/s^2 */
     NLO_QED21,     /* e*s */
+    NLO_QED02,   /* e^2/s^2 */
     NLO_QED12,    /* e^2/s */
     NLO_QED22,     /* e^2 */
     FULLNLO_QED /**< Full NLO_QED = LO + NLO + LO_QED + NLO_QED +...+ NLO_QED22 */

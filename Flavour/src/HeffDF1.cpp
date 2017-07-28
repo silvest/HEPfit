@@ -8,10 +8,12 @@
 #include "HeffDF1.h"
 #include "gslpp_complex.h"
 
-HeffDF1::HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM, orders order, orders_qed order_qed) 
+extern std::map<std::string,unsigned int> blocks_nops;
+
+HeffDF1::HeffDF1(std::string blocks, const StandardModel & SM, orders order, orders_qed order_qed) 
 :       model(SM),
-        coeff(nops, NDR, order, order_qed),
-        evolDF1(nops, blocks, NDR, SM, order, order_qed)
+        coeff(blocks_nops.at(blocks), NDR, order, order_qed),
+        evolDF1(blocks, NDR, SM, order, order_qed)
 {
 
 // unnecessary???
@@ -21,7 +23,7 @@ HeffDF1::HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM
 //    }
 
    this->blocks = blocks;
-   this->nops = nops;
+   this->nops = blocks_nops.at(blocks);
    mu_cache = 0.;
 
 }
@@ -29,22 +31,36 @@ HeffDF1::HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM
 HeffDF1::~HeffDF1() 
 {}
 
-gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff_s(double mu, schemes scheme) 
+gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff(double mu, schemes scheme)
 {
-    
-    orders ordDF1 = coeff.getOrder();  // WARNING: NO QED
+    orders ordDF1 = coeff.getOrder();
+    orders_qed ordDF1_qed = coeff.getOrder_qed();
+    unsigned int i,j,k,l;
 
     const std::vector<WilsonCoefficient> mc = model.getMatching().CMDF1(blocks, nops);
 
-    if (mu == mu_cache && scheme == scheme_cache) {
+    if (mu == mu_cache && scheme == scheme_cache)
+    {
         int check = 1;
-        for (unsigned int i = 0; i < mc.size(); i++) {
-            if (mc[i].getMu() == Vmu_cache[i]){
-                for (int j = LO; j <= ordDF1; j++) {
-                        for (unsigned int l = 0; l < coeff.getSize(); l++) {
-                            check *= ((*(mc[i].getCoeff(orders(j))))(l) == (*(WC_cache[i].getCoeff(orders(j))))(l));
-                        }
+        for (i = 0; i < mc.size(); i++)
+        {
+            if (mc[i].getMu() == Vmu_cache[i])
+            {
+                for (j = LO; j <= ordDF1; j++)
+                {
+                    for (l = 0; l < coeff.getSize(); l++)
+                    {
+                        check *= ((*(mc[i].getCoeff(orders(j))))(l) == (*(WC_cache[i].getCoeff(orders(j))))(l));
+                    }
                 }
+                for (j = LO_QED; j <= ordDF1_qed; j++)
+                {
+                    for (l = 0; l < coeff.getSize(); l++)
+                    {
+                        check *= ((*(mc[i].getCoeff(orders(j))))(l) == (*(WC_cache[i].getCoeff(orders(j))))(l));
+                    }
+                }
+
             } else check = 0;
         }
         if (check == 1) return coeff.getCoeff();
@@ -55,17 +71,36 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff_s(double mu, schemes schem
     WC_cache.clear();
     WC_cache = mc;
     
-    coeff.setMu(mu); // clear the coefficients
-    
-    for (unsigned int i = 0; i < mc.size(); i++){
+    coeff.setMu(mu); // also reset the coefficients
+
+    for (i = 0; i < mc.size(); i++)
+    {
         Vmu_cache[i] = mc[i].getMu();
-        for (int j = LO; j <= ordDF1; j++){
-            for (int k = LO; k <= j; k++){
+        for (j = LO; j <= ordDF1; j++)
+            for (k = LO; k <= j; k++)
+            {
                 coeff.setCoeff(*coeff.getCoeff(orders(j)) +
-                    evolDF1.DF1Evol(mu, mc[i].getMu(), orders(k), NO_QED, mc[i].getScheme()) * // TO BE FIXED
-                    (*(mc[i].getCoeff(orders(j - k)))), orders(j));
+                        evolDF1.DF1Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                        (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
-        }
+
+        for (j = LO_QED; j <= ordDF1_qed; j++)
+            for (k = LO; k <= (j - LO_QED) % 3; k++) // depends on the QED enum ordering !!!
+            {
+                coeff.setCoeff(*coeff.getCoeff(orders_qed(j)) +
+                        evolDF1.DF1Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) * 
+                        (*(mc[i].getCoeff(orders_qed(j - k)))) + evolDF1.DF1Evol(mu, mc[i].getMu(), orders_qed(j - k), mc[i].getScheme()) * 
+                        (*(mc[i].getCoeff(orders(k)))), orders_qed(j));
+            }
+        
+        for (j = NLO_QED02; j <= ordDF1_qed; j++)        
+            for (k = LO_QED; k <= j - 3; k++)  // depends on the QED enum ordering !!!
+            {
+                coeff.setCoeff(*coeff.getCoeff(orders_qed(j)) +
+                        evolDF1.DF1Evol(mu, mc[i].getMu(), orders_qed(k), mc[i].getScheme()) *
+                        (*(mc[i].getCoeff(orders_qed(j - k + 5)))), orders_qed(j));
+            }
+
     }
     
     return coeff.getCoeff();

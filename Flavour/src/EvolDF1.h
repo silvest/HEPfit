@@ -37,7 +37,7 @@ public:
      * @param order_qed an enum "orders_qed" for the order \f$ \alpha_e\f$ in the evolutor
      * @param model an object of StandardModel class
      */
-    EvolDF1(unsigned int nops, std::string reqblocks, schemes scheme, const StandardModel& model, orders order, orders_qed order_qed);
+    EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& model, orders order, orders_qed order_qed);
     /**
      * @brief EvolDF1 destructor
      */
@@ -59,7 +59,8 @@ public:
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @return the evolutor \f$ U (\mu , M) \f$
      */
-    gslpp::matrix<double>& DF1Evol(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
+    gslpp::matrix<double>& DF1Evol(double mu, double M, orders ord, schemes scheme = NDR);
+    gslpp::matrix<double>& DF1Evol(double mu, double M, orders_qed ord, schemes scheme = NDR);
     /**
      * @brief a method returning the anomalous dimension in the Chetyrkin, Misiak and Munz operator basis 
      * @param order an enum "orders" for the order of perturbation theory of the evolutor
@@ -75,7 +76,7 @@ public:
      */
     //gslpp::matrix<double> ToEffectiveBasis(gslpp::matrix<double> mat)const;
 
-    std::map<std::string,unsigned int> blocks_nops;
+//    std::map<std::string,unsigned int> blocks_nops;
 
 //    {{"C",2},{"CP",6},{"CPM",8},{"L",2},{"CPML",10},{"CPQB",11},{"CPMQB",13},{"CPMLQB",15}};
     std::map<std::string,orders> blocks_ord;// = {{"C",NNLO},{"CP",NNLO},{"CPM",NNLO},{"L",NNLO},{"CPML",NNLO},{"CPQB",NLO},{"CPMQB",NLO},{"CPMLQB",NLO}};
@@ -127,7 +128,7 @@ private:
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      */
 //    void DF1Evol(double mu, double M, double nf, schemes scheme);
-    void DF1Evol(double mu, double M, int nf, schemes scheme);
+    void DF1Ev(double mu, double M, int nf, schemes scheme);
 
     friend double gslpp_special_functions::zeta(int i);
 
@@ -358,7 +359,7 @@ private:
 
     gslpp::matrix<gslpp::complex> evec, evec_i, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<gslpp::complex> eval;
-    double alsMZ_cache, Mz_cache;
+    double alsM_cache, MAls_cache;
 };
 
 #endif /* EVOLDF1_H */

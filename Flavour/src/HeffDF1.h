@@ -23,7 +23,7 @@ public:
      * @param SM
      * @param modelmatching
      */
-    HeffDF1(unsigned int nops, std::string blocks, const StandardModel & SM, orders order = NLO, orders_qed order_qed = NO_QED);
+    HeffDF1(std::string blocks, const StandardModel & SM, orders order = NLO, orders_qed order_qed = NO_QED);
     
     /**
      * 
@@ -37,7 +37,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    gslpp::vector<gslpp::complex>** ComputeCoeff_s(double mu, schemes scheme = NDR);
+    gslpp::vector<gslpp::complex>** ComputeCoeff(double mu, schemes scheme = NDR);
     
     /**
      * 
