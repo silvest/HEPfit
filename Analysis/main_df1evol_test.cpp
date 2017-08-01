@@ -44,7 +44,7 @@ int main(void) {
     ComputeObservables CO(ModelF, ThObsF, ModelConf);
     StandardModel& mySM = *CO.getModel();
 
-    HeffDF1 Heff("CPML", mySM, NNLO, NLO_QED02);
+    HeffDF1 Heff("CPML", mySM, NNLO, NLO_QED22);
 //    HeffDB1 HDB1(mySM);
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
@@ -52,7 +52,8 @@ int main(void) {
     
     gslpp::vector<gslpp::complex> ** allcoeff = Heff.ComputeCoeff(5.);
 
-    std::cout << *(allcoeff[LO_QED]) <<  std::endl;    
+    std::cout << *(allcoeff[NNLO]) <<  std::endl;    
+    std::cout << *(allcoeff[NLO_QED22]) <<  std::endl;    
     
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(LO)) <<  std::endl;    
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(NLO)) <<  std::endl;    

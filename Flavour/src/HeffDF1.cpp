@@ -15,17 +15,14 @@ HeffDF1::HeffDF1(std::string blocks, const StandardModel & SM, orders order, ord
         coeff(blocks_nops.at(blocks), NDR, order, order_qed),
         evolDF1(blocks, NDR, SM, order, order_qed)
 {
-
-// unnecessary???
-//    for (i = 0; i < 6; i++) {
-//        WC_cache.push_back(coeff);
-//        Vmu_cache.push_back(0.);
-//    }
-
    this->blocks = blocks;
    this->nops = blocks_nops.at(blocks);
    mu_cache = 0.;
-
+    // cache initialization
+    for (unsigned int i = 0; i < nops; i++) {
+        WC_cache.push_back(coeff);
+        Vmu_cache.push_back(0.);
+    }
 }
 
 HeffDF1::~HeffDF1() 
@@ -37,7 +34,7 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff(double mu, schemes scheme)
     orders_qed ordDF1_qed = coeff.getOrder_qed();
     unsigned int i,j,k,l;
 
-    const std::vector<WilsonCoefficient> mc = model.getMatching().CMDF1(blocks, nops);
+    const std::vector<WilsonCoefficient>& mc = model.getMatching().CMDF1(blocks, nops);
 
     if (mu == mu_cache && scheme == scheme_cache)
     {
@@ -98,7 +95,7 @@ gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff(double mu, schemes scheme)
             {
                 coeff.setCoeff(*coeff.getCoeff(orders_qed(j)) +
                         evolDF1.DF1Evol(mu, mc[i].getMu(), orders_qed(k), mc[i].getScheme()) *
-                        (*(mc[i].getCoeff(orders_qed(j - k + 5)))), orders_qed(j));
+                        (*(mc[i].getCoeff(orders_qed(j - k + LO_QED - 3)))), orders_qed(j));
             }
 
     }

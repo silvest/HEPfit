@@ -80,19 +80,12 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
         nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
 
         b0 = Beta_s(00, nf);
-        b0e = Beta_e(00, nf);
         b1 = Beta_s(10, nf) / 2. / b0 / b0;
         b2 = Beta_s(20, nf) / 4. / b0 / b0 / b0 - b1*b1;
-        b3 = Beta_s(01, nf) / 2. / b0 / b0e;
-        b4 = Beta_s(11, nf) / 4. / b0 / b0 / b0e - 2. * b1*b3;
 
         W10 = AnomalousDimension(10, nu, nd).transpose() / 2. / b0;
         W20 = AnomalousDimension(20, nu, nd).transpose() / 4. / b0 / b0;
         W30 = AnomalousDimension(30, nu, nd).transpose() / 8. / b0 / b0 / b0;
-        W01 = AnomalousDimension(01, nu, nd).transpose() / 2. / b0e;
-        W02 = AnomalousDimension(02, nu, nd).transpose() / 4. / b0e / b0e;
-        W11 = AnomalousDimension(11, nu, nd).transpose() / 4. / b0 / b0e;
-        W21 = AnomalousDimension(21, nu, nd).transpose() / 8. / b0 / b0 / b0e;
 
 //        std::cout << AnomalousDimension(10, nu, nd).transpose() << std::endl;
 //        std::cout << W10 << std::endl;
@@ -121,43 +114,54 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
                 }
         }
 
-        // QED magic numbers
-        // M3: B(1)_01, B(2)_02, B(1)_02, R5_12, M4: B(0)_11, B(0)_12, M5: B(-1)_21, M6: B(1)_12 - proper powers of omega and lambda added in DF1Evol
-        M3 = evec_i * W01 * evec;
-        M4 = evec_i * (W11 - b1 * W01 - b3 * W10) * evec;
-        M5 = evec_i * (W21 - b1 * W11 - b2 * W01 - b3 * W20 - b4 * W10) * evec;
-        M6 = evec_i * (W02 + W11 - (b1 + b3) * W01 - b3 * W10) * evec;
-        for (a = 0; a < nops; a++)
-            for (b = 0; b < nops; b++)
-                for (i = 0; i < nops; i++)
-                    for (j = 0; j < nops; j++)
-                    {
-                        vM3vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M3(i, j) * evec_i(j, b)));
-                        vM4vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M4(i, j) * evec_i(j, b)));
-                        vM5vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M5(i, j) * evec_i(j, b)));
-                        vM6vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M6(i, j) * evec_i(j, b)));                        
-                        for (p = 0; p < nops; p++)
+        if (order_qed != NO_QED)
+        {
+            b0e = Beta_e(00, nf);
+            b3 = Beta_s(01, nf) / 2. / b0 / b0e;
+            b4 = Beta_s(11, nf) / 4. / b0 / b0 / b0e - 2. * b1*b3;
+            W01 = AnomalousDimension(01, nu, nd).transpose() / 2. / b0e;
+            W02 = AnomalousDimension(02, nu, nd).transpose() / 4. / b0e / b0e;
+            W11 = AnomalousDimension(11, nu, nd).transpose() / 4. / b0 / b0e;
+            W21 = AnomalousDimension(21, nu, nd).transpose() / 8. / b0 / b0 / b0e;
+
+            // QED magic numbers
+            // M3: B(1)_01, B(2)_02, B(1)_02, R5_12, M4: B(0)_11, B(0)_12, M5: B(-1)_21, M6: B(1)_12 - proper powers of omega and lambda added in DF1Evol
+            M3 = evec_i * W01 * evec;
+            M4 = evec_i * (W11 - b1 * W01 - b3 * W10) * evec;
+            M5 = evec_i * (W21 - b1 * W11 - b2 * W01 - b3 * W20 - b4 * W10) * evec;
+            M6 = evec_i * (W02 + W11 - (b1 + b3) * W01 - b3 * W10) * evec;
+            for (a = 0; a < nops; a++)
+                for (b = 0; b < nops; b++)
+                    for (i = 0; i < nops; i++)
+                        for (j = 0; j < nops; j++)
                         {
-                            vM33vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M3(p, j) * evec_i(j, b)));
-                            vM31vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, j) * evec_i(j, b)));
-                            vM13vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, j) * evec_i(j, b)));
-                            vM34vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M4(p, j) * evec_i(j, b)));
-                            vM43vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M3(p, j) * evec_i(j, b)));
-                            vM23vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M2(i, p) * M3(p, j) * evec_i(j, b)));
-                            vM32vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M2(p, j) * evec_i(j, b)));
-                            vM14vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M4(p, j) * evec_i(j, b)));
-                            vM41vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M1(p, j) * evec_i(j, b)));
-                            for(q = 0; q < nops; q++)
+                            vM3vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M3(i, j) * evec_i(j, b)));
+                            vM4vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M4(i, j) * evec_i(j, b)));
+                            vM5vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M5(i, j) * evec_i(j, b)));
+                            vM6vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M6(i, j) * evec_i(j, b)));
+                            for (p = 0; p < nops; p++)
                             {
-                                vM113vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
-                                vM131vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
-                                vM311vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, q) * M1(q, j) * evec_i(j, b)));
-                                vM331vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
-                                vM313vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
-                                vM133vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, q) * M3(q, j) * evec_i(j, b)));
+                                vM33vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M3(p, j) * evec_i(j, b)));
+                                vM31vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, j) * evec_i(j, b)));
+                                vM13vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, j) * evec_i(j, b)));
+                                vM34vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M4(p, j) * evec_i(j, b)));
+                                vM43vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M3(p, j) * evec_i(j, b)));
+                                vM23vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M2(i, p) * M3(p, j) * evec_i(j, b)));
+                                vM32vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M2(p, j) * evec_i(j, b)));
+                                vM14vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M4(p, j) * evec_i(j, b)));
+                                vM41vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M1(p, j) * evec_i(j, b)));
+                                for (q = 0; q < nops; q++)
+                                {
+                                    vM113vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M1(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
+                                    vM131vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M1(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
+                                    vM311vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M3(i, p) * M1(p, q) * M1(q, j) * evec_i(j, b)));
+                                    vM331vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M3(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
+                                    vM313vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M3(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
+                                    vM133vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M1(i, p) * M3(p, q) * M3(q, j) * evec_i(j, b)));
+                                }
                             }
                         }
-                    }
+        }
     }
 }
     
@@ -331,6 +335,9 @@ gslpp::matrix<double> EvolDF1::GammaCC(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1, 0) = 50. / 3.;
             gammaDF1(1, 1) = -8. / 3.;
             break;
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaCC(): order not implemented");
     }
@@ -381,6 +388,9 @@ gslpp::matrix<double> EvolDF1::GammaCP(indices nm, unsigned int n_u, unsigned in
         case 11:
             gammaDF1(0,1) = 254./729.;
             gammaDF1(1,1) = 1076./243.;
+            break;
+        case 21:
+        case 02:
             break;
         default:
             throw std::runtime_error("EvolDF1::GammaCP(): order not implemented");
@@ -436,6 +446,10 @@ gslpp::matrix<double> EvolDF1::GammaCM(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1,0) = -208./243.;
             gammaDF1(1,1) = -116./81.;
             break;
+        case 11:
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaCM(): order not implemented");
     }
@@ -473,7 +487,11 @@ gslpp::matrix<double> EvolDF1::GammaCL(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1,0) = -2920./729.;
             gammaDF1(0,1) = -416./81.;
             gammaDF1(1,1) = -104./27.;            
-            break;              
+            break;
+        case 10:
+        case 20:
+        case 30:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaCL(): order not implemented");
     }
@@ -505,6 +523,12 @@ gslpp::matrix<double> EvolDF1::GammaCQ(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1,1) = -748./27.;
             gammaDF1(1,3) = 82./27.;
             break;
+        case 10:
+        case 20:
+        case 30:
+        case 21:
+        case 02:
+           break;
         default:
             throw std::runtime_error("EvolDF1::GammaCQ(): order not implemented");
     }
@@ -592,6 +616,9 @@ gslpp::matrix<double> EvolDF1::GammaPP(indices nm, unsigned int n_u, unsigned in
             gammaDF1(3,2) = -280./27.;
             gammaDF1(3,3) = -175./9.;
             break;
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaPP(): order not implemented");
     }
@@ -666,6 +693,10 @@ gslpp::matrix<double> EvolDF1::GammaPM(indices nm, unsigned int n_u, unsigned in
             gammaDF1(3,0) = -6272./729.;
             gammaDF1(3,1) = -1180./243.;
             break;
+        case 11:
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaPM(): order not implemented");
     }
@@ -714,7 +745,11 @@ gslpp::matrix<double> EvolDF1::GammaPL(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1,1) = -448./81.;
             gammaDF1(2,1) = -15616./27.;
             gammaDF1(3,1) = -7936./81.;
-            break;            
+            break;
+        case 10:
+        case 20:
+        case 30:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaPL(): order not implemented");
     }
@@ -762,6 +797,12 @@ gslpp::matrix<double> EvolDF1::GammaPQ(indices nm, unsigned int n_u, unsigned in
             gammaDF1(3,1) = 116680./81.;
             gammaDF1(3,2) = -752./27.;
             gammaDF1(3,3) = -10147./81.;
+            break;
+        case 10:
+        case 20:
+        case 30:
+        case 21:
+        case 02:
             break;
         default:
             throw std::runtime_error("EvolDF1::GammaPQ(): order not implemented");
@@ -814,6 +855,9 @@ gslpp::matrix<double> EvolDF1::GammaMM(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1,0) = 128./81.;
             gammaDF1(1,1) = -40./27.;
             break;
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaMM(): order not implemented");
     }
@@ -840,6 +884,12 @@ gslpp::matrix<double> EvolDF1::GammaLL(indices nm, unsigned int n_u, unsigned in
         case 11:
             gammaDF1(0,1) = 16.;
             gammaDF1(1,0) = 16.;
+            break;
+        case 10:
+        case 20:
+        case 30:
+        case 21:
+        case 02:
             break;
         default:
             throw std::runtime_error("EvolDF1::GammaLL(): order not implemented");
@@ -913,6 +963,10 @@ gslpp::matrix<double> EvolDF1::GammaQP(indices nm, unsigned int n_u, unsigned in
             gammaDF1(3,2) = -1504./243.;
             gammaDF1(3,3) = -2030./81.;
             break;
+        case 30:
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaQP(): order not implemented");       
     }
@@ -940,6 +994,13 @@ gslpp::matrix<double> EvolDF1::GammaQM(indices nm, unsigned int n_u, unsigned in
             gammaDF1(2,1) = -764./81.;
             gammaDF1(3,0) = 39152./729.;
             gammaDF1(3,1) = -1892./243.;
+            break;
+        case 20:
+        case 30:
+        case 01:
+        case 11:
+        case 21:
+        case 02:
             break;
         default:
             throw std::runtime_error("EvolDF1::GammaQM(): order not implemented");        
@@ -970,6 +1031,12 @@ gslpp::matrix<double> EvolDF1::GammaQL(indices nm, unsigned int n_u, unsigned in
             gammaDF1(1,0) = 54608./2187.;
             gammaDF1(2,0) = -227008./729.;
             gammaDF1(3,0) = 551648./2187.;
+            break;
+        case 10:
+        case 20:
+        case 30:
+        case 21:
+        case 02:
             break;
         default:
             throw std::runtime_error("EvolDF1::GammaQL(): order not implemented");
@@ -1053,6 +1120,10 @@ gslpp::matrix<double> EvolDF1::GammaQQ(indices nm, unsigned int n_u, unsigned in
             gammaDF1(3,2) = -1592./81.;
             gammaDF1(3,3) = -6008./243.;
             break;
+        case 30:
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaQQ(): order not implemented");         
     }
@@ -1087,6 +1158,10 @@ gslpp::matrix<double> EvolDF1::GammaBP(indices nm, unsigned int n_u, unsigned in
         case 11 :
             gammaDF1(0,1) = -232./81.;
             break;
+        case 30:
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaBP(): order not implemented");
     }
@@ -1110,6 +1185,12 @@ gslpp::matrix<double> EvolDF1::GammaBL(indices nm, unsigned int n_u, unsigned in
             break;
         case 11:
             gammaDF1(0,0) = -8./9.;
+            break;
+        case 10:
+        case 20:
+        case 30:
+        case 21:
+        case 02:
             break;
         default:
             throw std::runtime_error("EvolDF1::GammaBL(): order not implemented");
@@ -1135,6 +1216,12 @@ gslpp::matrix<double> EvolDF1::GammaBQ(indices nm, unsigned int n_u, unsigned in
         case 11:
             gammaDF1(0,1) = 580./27.;
             gammaDF1(0,3) = -94./27.;
+            break;
+        case 10:
+        case 20:
+        case 30:
+        case 21:
+        case 02:
             break;
         default:
             throw std::runtime_error("EvolDF1::GammaBQ(): order not implemented");
@@ -1168,6 +1255,10 @@ gslpp::matrix<double> EvolDF1::GammaBB(indices nm, unsigned int n_u, unsigned in
         case 11:
             gammaDF1(0,0) = -388./9.;
             break;            
+        case 30:
+        case 21:
+        case 02:
+            break;
         default:
             throw std::runtime_error("EvolDF1::GammaBB(): order not implemented");
     }
@@ -1330,12 +1421,9 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 //    double alsM = model.Als(M) / 4. / M_PI;
 //    double alsmu = model.Als(mu) / 4. / M_PI;
     b0 = Beta_s(00, nf);
-    b0e = Beta_e(00, nf);
-    b5 = Beta_e(01, nf) / 2. / b0 / b0e - Beta_s(10, nf) / 2. / b0 / b0;
     alsM = model.Alstilde5(M);
     eta = alsM / model.Alstilde5(mu);
     omega = 2.*b0*alsM;
-//    lambda = b0e*Aletilde5(M) / b0 / Alstilde5(M); CHANGE ME!!!
         
     for (a = 0; a < nops; a++)
         for (b = 0; b < nops; b++)
@@ -1356,22 +1444,11 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
             }
         }
 
-    switch(order) {
-        case NNLO:
-            *elem[NNLO] = (*elem[LO]) * resNNLO + (*elem[NLO]) * resNLO + (*elem[NNLO]) * resLO;
-        case NLO:
-            *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
-        case LO:
-            *elem[LO] = (*elem[LO]) * resLO;
-            break;
-        case FULLNNLO:
-        case FULLNLO:
-        default:
-            throw std::runtime_error("Error in EvolDF1::Df1Evol()");
-    }
-
     if (order_qed != NO_QED)
     {
+        b0e = Beta_e(00, nf);
+        b5 = Beta_e(01, nf) / 2. / b0 / b0e - Beta_s(10, nf) / 2. / b0 / b0;
+        lambda = b0e * model.getAle() / b0 / model.Alstilde5(M); // WARNING: CHANGE ME!!!
         for (a = 0; a < nops; a++)
             for (b = 0; b < nops; b++)
             {
@@ -1393,12 +1470,14 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
                                     vM43vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 0, 1, eta))).real();
                             res21(a, b) += (omega * omega * lambda * (vM14vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -1, 0, eta) + vM41vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 0, -1, eta) +
                                     vM23vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -2, 1, eta) + vM32vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, -2, eta))).real();
-                        }
-                        for (q = 0; q < nops; q++) {
-                            res12(a, b) += (omega * lambda * lambda * (vM133vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, 1, 1, eta) + vM313vi.at(idx(nf, a, b, i, j, p, q)) *
-                                    f_h(nf, i, p, q, j, 1, -1, 1, eta) + vM331vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, 1, -1, eta))).real();
-                            res21(a, b) += (omega * omega * lambda * (vM113vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, -1, 1, eta) + vM131vi.at(idx(nf, a, b, i, j, p, q)) *
-                                    f_h(nf, i, p, q, j, -1, 1, -1, eta) + vM311vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, -1, -1, eta))).real();
+
+                            for (q = 0; q < nops; q++)
+                            {
+                                res12(a, b) += (omega * lambda * lambda * (vM133vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, 1, 1, eta) + vM313vi.at(idx(nf, a, b, i, j, p, q)) *
+                                        f_h(nf, i, p, q, j, 1, -1, 1, eta) + vM331vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, 1, -1, eta))).real();
+                                res21(a, b) += (omega * omega * lambda * (vM113vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, -1, 1, eta) + vM131vi.at(idx(nf, a, b, i, j, p, q)) *
+                                        f_h(nf, i, p, q, j, -1, 1, -1, eta) + vM311vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, -1, -1, eta))).real();
+                            }
                         }
                     }
                 if (fabs(res01(a, b)) < EPS) res01(a, b) = 0.;
@@ -1431,5 +1510,21 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
             default:
                 throw std::runtime_error("Error in EvolDF1::Df1Evol(): wrong QED order");
         }
+
+        switch (order) // must follow QED switch
+        {
+            case NNLO:
+                *elem[NNLO] = (*elem[LO]) * resNNLO + (*elem[NLO]) * resNLO + (*elem[NNLO]) * resLO;
+            case NLO:
+                *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
+            case LO:
+                *elem[LO] = (*elem[LO]) * resLO;
+                break;
+            case FULLNNLO:
+            case FULLNLO:
+            default:
+                throw std::runtime_error("Error in EvolDF1::Df1Evol()");
+        }
+
     }
 }
