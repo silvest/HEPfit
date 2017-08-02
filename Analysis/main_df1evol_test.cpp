@@ -49,11 +49,15 @@ int main(void) {
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
-    
-    gslpp::vector<gslpp::complex> ** allcoeff = Heff.ComputeCoeff(5.);
+    gslpp::vector<gslpp::complex> ** allcoeff;
 
-    std::cout << *(allcoeff[NNLO]) <<  std::endl;    
-    std::cout << *(allcoeff[NLO_QED22]) <<  std::endl;    
+    allcoeff = Heff.ComputeCoeff(5.);
+
+    std::cout << *(allcoeff[LO]) <<  std::endl;
+    std::cout << *(allcoeff[NLO]) <<  std::endl;
+    std::cout << *(allcoeff[NNLO]) <<  std::endl;
+    std::cout << *(allcoeff[LO_QED]) <<  std::endl;    
+    std::cout << Heff.LowScaleCoeff(22) <<  std::endl;    
     
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(LO)) <<  std::endl;    
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(NLO)) <<  std::endl;    

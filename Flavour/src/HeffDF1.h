@@ -47,7 +47,14 @@ public:
      */
     //gslpp::vector<gslpp::complex>** ComputeCoeffprime(double mu, schemes scheme = NDR);
     
-    
+    /**
+     * 
+     * @param Coeff vector of Wilson coefficient
+     * @param nm order of the expansion
+     * @return the coefficient of the expansion in low-energy coupling constants as defined in eq. (68) of Huber et al., hep-ph/0512066
+     */
+    gslpp::vector<gslpp::complex> LowScaleCoeff(int nm);
+
     EvolDF1 getEvol() const {
         return evolDF1;
     }

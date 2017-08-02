@@ -59,6 +59,9 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
     unsigned int nf, nu, nd,
             a, b, i, j, p, q;
     double b0, b0e, b1, b2, b3, b4;
+    
+    alsM_cache = 0.;
+    MAls_cache = 0.;
 
     gslpp::matrix<double> W10(nops, nops, 0.), W20(nops, nops, 0.), W30(nops, nops, 0.),
             W01(nops, nops, 0.), W02(nops, nops, 0.), W11(nops, nops, 0.), W21(nops, nops, 0.);
@@ -241,9 +244,9 @@ double EvolDF1::f_h(unsigned int nf, unsigned int i, unsigned int p, unsigned in
         return ((f_g(nf, i, p, j, k, l + m, eta) - f_g(nf, i, p, q, k, l, eta)) / den1);
 }
 
-double EvolDF1::Beta_s(int i, unsigned int nf)
+double EvolDF1::Beta_s(int nm, unsigned int nf)
 {
-    switch(i)
+    switch(nm)
     {
         case 00:
             return(model.Beta0(nf));
@@ -266,11 +269,12 @@ double EvolDF1::Beta_s(int i, unsigned int nf)
             throw std::runtime_error("EvolDF1::Beta_s: case not implemented");
     }
 }
-double EvolDF1::Beta_e(int i, unsigned int nf)
+
+double EvolDF1::Beta_e(int nm, unsigned int nf)
 {
     if (nf != 5) throw std::runtime_error("EvolDF1::Beta_e only known for nf=5.");
 
-    switch(i)
+    switch(nm)
     {
         case 00:
             return(80./9.);
