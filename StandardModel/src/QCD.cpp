@@ -492,7 +492,7 @@ double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
                     Beta2(nf) / Beta0(nf) * (1. - v) + b1_b0 * b1_b0 * (logv * logv -
                     logv + v - 1.)));
         case NNNLO:
-            return (alsi * alsi * alsi * alsi / 4. / 4. /4. / M_PI /M_PI / M_PI /
+            return (alsi * alsi * alsi * alsi / 4. / 4. / 4. / M_PI /M_PI / M_PI /
                     v / v / v / v * ( Beta3(nf) / Beta0(nf) * (1. - v * v) / 2. +
                     b1_b0 * Beta2(nf) / Beta0(nf) * ((2. * v - 3.) * logv + v * v -
                     v) + b1_b0 * b1_b0 * b1_b0 * (-logv * logv * logv + 2.5 *
@@ -504,7 +504,7 @@ double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
         case FULLNNNLO:
             return(AlsWithInit(mu,alsi,mu_i,LO)+AlsWithInit(mu,alsi,mu_i,NLO)+AlsWithInit(mu,alsi,mu_i,NNLO)+AlsWithInit(mu,alsi,mu_i,NNNLO));
         default:
-            throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,alsi,mi,order).");
+            throw std::runtime_error("QCD::AlsWithInit(): " + orderToString(order) + " is not implemented.");
     }
 }
 
@@ -609,70 +609,66 @@ double QCD::MassOfNf(int nf) const
     }
 }
 
-double QCD::Als(const double mu, const orders order, const int full) const {
+double QCD::Als(const double mu, const orders order) const {
     int i, nfAls = (int) Nf(MAls), nfmu = (int) Nf(mu);
     double als, alstmp, mutmp;
-    orders ord;
+    orders fullord;
 
-//    for (i = 0; i < CacheSize; ++i)
-//        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
-//                ((double) full == als_cache[2][i]) &&
-//                (AlsM == als_cache[3][i]) && (MAls == als_cache[4][i]) &&
-//                (mut == als_cache[5][i]) && (mub == als_cache[6][i]) &&
-//                (muc == als_cache[7][i]))
-//            return als_cache[8][i];
+    for (i = 0; i < CacheSize; ++i)
+        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
+                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
+                (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
+                (muc == als_cache[6][i]))
+            return als_cache[7][i];
 
     switch (order)
     {
         case FULLNLO:
-            return (Als(mu, LO, (int) order) + Als(mu, NLO, (int) order));
+            return (Als(mu, LO) + Als(mu, NLO));
         case FULLNNLO:
-            return (Als(mu, LO, (int) order) + Als(mu, NLO, (int) order) + Als(mu, NNLO, (int) order));
+            return (Als(mu, LO) + Als(mu, NLO) + Als(mu, NNLO));
         case FULLNNNLO:
-            return (Als(mu, LO, (int) order) + Als(mu, NLO, (int) order) + Als(mu, NNLO, (int) order) + Als(mu, NNNLO, (int) order));
+            return (Als(mu, LO) + Als(mu, NLO) + Als(mu, NNLO) + Als(mu, NNNLO));
         case LO:
         case NLO:
         case NNLO:
         case NNNLO:
             if (nfAls == nfmu)
                 als = AlsWithInit(mu, AlsM, MAls, order);
-
-            ord = full == -1 ? FullOrder(order) : (orders) full;
-
+            fullord = FullOrder(order);
             if (nfAls > nfmu) {
                 mutmp = BelowTh(MAls);
-                alstmp = AlsWithInit(mutmp, AlsM, MAls, ord);
-                alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, ord));
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord);
+                alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord));
                 for (i = nfAls - 1; i > nfmu; i--) {
                     mutmp = BelowTh(mutmp - MEPS);
-                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, ord);
-                    alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, ord));
+                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, fullord);
+                    alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord));
                 }
                 als = AlsWithInit(mu, alstmp, AboveTh(mu) - MEPS, order);
             }
 
             if (nfAls < nfmu) {
                 mutmp = AboveTh(MAls) - MEPS;
-                alstmp = AlsWithInit(mutmp, AlsM, MAls, ord);
-                alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, ord));
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord);
+                alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord));
                 for (i = nfAls + 1; i < nfmu; i++) {
                     mutmp = AboveTh(mutmp) - MEPS;
-                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, ord);
-                    alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, ord));
+                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, fullord);
+                    alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord));
                 }
                 als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order);
             }
 
-//            CacheShift(als_cache, 9);
-//            als_cache[0][0] = mu;
-//            als_cache[1][0] = (double) order;
-//            als_cache[2][0] = (double) full;            
-//            als_cache[3][0] = AlsM;
-//            als_cache[4][0] = MAls;
-//            als_cache[5][0] = mut;
-//            als_cache[6][0] = mub;
-//            als_cache[7][0] = muc;
-//            als_cache[8][0] = als;
+            CacheShift(als_cache, 8);
+            als_cache[0][0] = mu;
+            als_cache[1][0] = (double) order;
+            als_cache[2][0] = AlsM;
+            als_cache[3][0] = MAls;
+            als_cache[4][0] = mut;
+            als_cache[5][0] = mub;
+            als_cache[6][0] = muc;
+            als_cache[7][0] = als;
 
             return als;
         default:

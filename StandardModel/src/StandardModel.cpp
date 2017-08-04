@@ -642,6 +642,264 @@ double StandardModel::ale_OS(const double mu, orders order) const
     }
 }
 
+double StandardModel::Beta_s(int nm, unsigned int nf) const
+{
+    unsigned int nu = nf % 2 == 0 ? nf / 2 : nf / 2;
+    unsigned int nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
+    double Qu = 2. / 3., Qd = -1. / 3., Qbar2 = nu * Qu * Qu + nd * Qd * Qd,
+            Qbar4 = nu * Qu * Qu * Qu * Qu + nd * Qd * Qd * Qd * Qd;
+
+    switch(nm)
+    {
+        case 00:
+            return(Beta0((double) nf));
+        case 10:
+            return(Beta1((double) nf));
+        case 20:
+            return(Beta2((double) nf));
+        case 30:
+            return(Beta3((double) nf));
+        case 01:
+            return(-4. * TF * Qbar2 );
+        case 11:
+            return((4. * CF - 8. * CA) * TF * Qbar2 );
+        case 02:
+            return(11./3. * TF * Qbar2 * Beta_e(00, nf) + 2. * TF * Qbar4);
+        default:
+            throw std::runtime_error("StandardModel::Beta_s(): case not implemented");
+    }
+}
+
+double StandardModel::Beta_e(int nm, unsigned int nf) const
+{
+    unsigned int nu = nf % 2 == 0 ? nf / 2 : nf / 2;
+    unsigned int nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
+    double Qu = 2. / 3., Qd = -1. / 3., Qbar2 = nu * Qu * Qu + nd * Qd * Qd,
+            Qbar4 = nu * Qu * Qu * Qu * Qu + nd * Qd * Qd * Qd * Qd;
+
+    switch(nm)
+    {
+        case 00:
+            return(4./3. * (Qbar2 * Nc + 3.)); // QL^2 = 1
+        case 10:
+            return(4. * (Qbar4 * Nc + 3.));
+        case 01:
+            return(4. * CF * Nc * Qbar2);
+        default:
+            throw std::runtime_error("StandardModel::Beta_e(): case not implemented");
+    }
+}
+
+double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) const
+{
+    int i, nfAls = (int) Nf(MAls), nfmu = (int) Nf(mu);
+    double als, alstmp, mutmp;
+    orders fullord;
+
+    for (i = 0; i < CacheSize; ++i)
+        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
+                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
+                (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
+                (muc == als_cache[6][i]) && (double) qed_flag == als_cache[7][i]
+                && (double) Nf_thr == als_cache[8][i] && Mz == als_cache[9][i]
+                && alphaMz() == als_cache[10][i])
+            return als_cache[11][i];
+
+    if(Nf(MAls) != Nf(Mz) && Nf_thr)
+        throw std::runtime_error("StandardModel::Als(): thresholds requires Nf(AlsM) == Nf(Mz)");
+        
+    switch (order)
+    {
+        case FULLNLO:
+            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr));
+        case FULLNNLO:
+            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr) + Als(mu, NNLO, qed_flag, Nf_thr));
+        case FULLNNNLO:
+            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr) + Als(mu, NNLO, qed_flag, Nf_thr) + Als(mu, NNNLO, qed_flag, Nf_thr));
+        case LO:
+        case NLO:
+        case NNLO:
+        case NNNLO:
+            if (nfAls == nfmu || Nf_thr == false)
+                return(AlsWithInit(mu, AlsM, MAls, order, qed_flag));
+            fullord = FullOrder(order);
+            if (nfAls > nfmu) {
+                mutmp = BelowTh(MAls);
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord, qed_flag);
+                alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAls - 1; i > nfmu; i--) {
+                    mutmp = BelowTh(mutmp - MEPS);
+                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, fullord, qed_flag);
+                    alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                als = AlsWithInit(mu, alstmp, AboveTh(mu) - MEPS, order, qed_flag);
+            }
+
+            if (nfAls < nfmu) {
+                mutmp = AboveTh(MAls) - MEPS;
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord, qed_flag);
+                alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAls + 1; i < nfmu; i++) {
+                    mutmp = AboveTh(mutmp) - MEPS;
+                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, fullord, qed_flag); 
+                    alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order, qed_flag);
+            }
+
+            CacheShift(als_cache, 12);
+            als_cache[0][0] = mu;
+            als_cache[1][0] = (double) order;       
+            als_cache[2][0] = AlsM;
+            als_cache[3][0] = MAls;
+            als_cache[4][0] = mut;
+            als_cache[5][0] = mub;
+            als_cache[6][0] = muc;
+            als_cache[7][0] = (double) qed_flag;
+            als_cache[8][0] = (double) Nf_thr;
+            als_cache[9][0] = Mz;
+            als_cache[10][0] = alphaMz();
+            als_cache[11][0] = als;
+
+             return als;
+        default:
+            throw std::runtime_error("StandardModel::Als(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
+double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const
+{
+    double nf = Nf(mu), alei = Ale(mu_i, NLO); // CHANGE ME!
+    double b00s = Beta_s(00, nf), b00e = Beta_e(00, nf);
+    double v = 1. + b00s * alsi / 2. / M_PI * log(mu / mu_i);
+    double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
+    double logv = log(v), logve = log(ve);
+    double rho = 1. / (1. + b00e * alei / b00s / alsi);
+    double als = QCD::AlsWithInit(mu, alsi, mu_i, order);
+    double b01s = Beta_s(01,nf), b01s00e = b01s / b00e;
+
+
+    if (qed_flag)
+        switch (order)
+        {
+            case LO:
+                break;
+            case NLO:
+                als += alsi * alsi / 4. / M_PI / v / v * b01s00e * logve;
+                break;
+            case NNLO:
+                als += alsi * alsi * alsi / 4. / 4. / M_PI / M_PI / v / v / v * (
+                        b01s00e * b01s00e * logve * logve + b01s00e * Beta_s(10, nf) / Beta_s(00, nf) *
+                        (-2. * logv * logve + rho * ve * logve));
+                break;
+            case NNNLO:
+                als += alsi * alsi * alei / 4. / 4. / M_PI / M_PI / v / v / ve * (Beta_s(02, nf) / b00e *
+                        (ve - 1.) + Beta_s(11, nf) / b00s * rho * ve * (logve - logv) + b01s00e * Beta_e(10, nf) /
+                        b00e * (logve - ve + 1.) + b01s * Beta_s(10, nf) / b00s / b00s * rho * logv +
+                        b01s00e * Beta_e(01, nf) / b00s * (rho * ve * (logv - logve) - logv));
+                break;
+            default:
+                throw std::runtime_error("StandardModel::AlsWithInit(): " + orderToString(order) + " is not implemented.");
+        }
+
+    return (als);
+}
+
+double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
+{
+    int i, nfAle = (int) Nf(Mz), nfmu = (int) Nf(mu);
+    double ale, aletmp, mutmp, aleMz = alphaMz();
+    orders fullord;
+
+    for (i = 0; i < CacheSize; ++i)
+        if ((mu == ale_cache[0][i]) && ((double) order == ale_cache[1][i]) &&
+                (AlsM == ale_cache[2][i]) && (MAls == ale_cache[3][i]) &&
+                (mut == ale_cache[4][i]) && (mub == ale_cache[5][i]) &&
+                (muc == ale_cache[6][i])
+                && (double) Nf_thr == ale_cache[7][i] && Mz == ale_cache[8][i]
+                && aleMz == ale_cache[9][i])
+            return ale_cache[10][i];
+
+    if(Nf(MAls) != Nf(Mz) && Nf_thr)
+        throw std::runtime_error("StandardModel::Ale(): thresholds requires Nf(AlsM) == Nf(Mz)");
+
+    switch (order)
+    {
+        case FULLNLO:
+            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr));
+        case FULLNNLO:
+            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr));
+        case FULLNNNLO:
+            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr) + Ale(mu, NNNLO, Nf_thr));
+        case LO:
+        case NLO:
+        case NNLO:
+        case NNNLO:
+            if (nfAle == nfmu || Nf_thr == false)
+                return(AleWithInit(mu, aleMz, Mz, order));
+            fullord = FullOrder(order);
+            if (nfAle > nfmu) {
+                mutmp = BelowTh(Mz);
+                aletmp = AleWithInit(mutmp, aleMz, Mz, fullord);
+//                aletmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAle), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAle - 1; i > nfmu; i--) {
+                    mutmp = BelowTh(mutmp - MEPS);
+                    aletmp = AleWithInit(mutmp, aletmp, AboveTh(mutmp) - MEPS, fullord);
+//                    aletmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), aletmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                ale = AleWithInit(mu, aletmp, AboveTh(mu) - MEPS, order);
+            }
+
+            if (nfAle < nfmu) {
+                mutmp = AboveTh(Mz) - MEPS;
+                aletmp = AleWithInit(mutmp, aleMz, Mz, fullord);
+//                alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAle + 1; i < nfmu; i++) {
+                    mutmp = AboveTh(mutmp) - MEPS;
+                    aletmp = AleWithInit(mutmp, aletmp, BelowTh(mutmp) + MEPS, fullord); 
+//                    alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                ale = AleWithInit(mu, aletmp, BelowTh(mu) + MEPS, order);
+            }
+
+            CacheShift(ale_cache, 11);
+            ale_cache[0][0] = mu;
+            ale_cache[1][0] = (double) order;    
+            ale_cache[2][0] = AlsM;
+            ale_cache[3][0] = MAls;
+            ale_cache[4][0] = mut;
+            ale_cache[5][0] = mub;
+            ale_cache[6][0] = muc;
+            ale_cache[7][0] = (double) Nf_thr;
+            ale_cache[8][0] = Mz;
+            ale_cache[9][0] = aleMz;
+            ale_cache[10][0] = ale;
+
+             return ale;
+        default:
+            throw std::runtime_error("StandardModel::Ale(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
+double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders order) const
+{
+    double nf = Nf(mu), alsi = Als(mu_i, NNLO, true);
+    double b00e = Beta_e(00, nf), b00s = Beta_s(00, nf);
+    double ve = 1. - b00e * alei) / 2. / M_PI * log(mu / mu_i);
+    double logv = log(1. + b00s * alsi / 2. / M_PI * log(mu / mu_i)), logve = log(ve);
+
+    switch (order)
+    {
+        case LO:
+            return (alei / ve);
+        case NLO:
+            return ( -alei * alei / 4. / M_PI / ve / ve * (Beta_e(10, nf) / b00e * logve - Beta_e(01, nf) / b00s * logv) );
+            // Higher order terms ? Need to understand eq. (35)
+        default:
+            throw std::runtime_error("StandardModel::AleWithInit(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
 double StandardModel::DeltaAlphaLepton(const double s) const
 {
     if (s == Mz * Mz)

@@ -61,23 +61,7 @@ public:
      */
     gslpp::matrix<double>& DF1Evol(double mu, double M, orders ord, schemes scheme = NDR);
     gslpp::matrix<double>& DF1Evol(double mu, double M, orders_qed ord, schemes scheme = NDR);
-    
-    /**
-     * @brief QCD beta function coefficients including QED corrections - eq. (36) hep-ph/0512066
-     * @param nm powers of alpha_s and alpha_e as an integer
-     * @param nf number of active flavor
-     * @return coefficient of the QCD beta function
-     */
-    double Beta_s(int nm, unsigned int nf);
-    
-    /**
-     * @brief QED beta function coefficients - eq. (36) hep-ph/0512066
-     * @param nm powers of alpha_s and alpha_e as an integer
-     * @param nf number of active flavor
-     * @return coefficient of the QED beta function
-     */
-    double Beta_e(int nm, unsigned int nf);
-  
+      
     /**
      * @brief a method returning the anomalous dimension in the Chetyrkin, Misiak and Munz operator basis 
      * @param order an enum "orders" for the order of perturbation theory of the evolutor

@@ -39,12 +39,12 @@ gslpp::vector<gslpp::complex> HeffDF1::LowScaleCoeff(int nm)
     alsM = model.Alstilde5(model.getMuw());
     alsmu = model.Alstilde5(mu);
     eta = alsM/ alsmu; // assuming 1 matching scale at muW
-    b0 = evolDF1.Beta_s(00, 5.);
-    b0e = evolDF1.Beta_e(00, 5.);
-    b1 = evolDF1.Beta_e(10, 5.);
-    b1e = evolDF1.Beta_e(01, 5.);
-    kM = model.getAle() / alsM; // WARNING: CHANGE ME!!!
-    kmu = model.getAle() / alsmu; // WARNING: CHANGE ME!!!
+    b0 = model.Beta_s(00, 5.);
+    b0e = model.Beta_e(00, 5.);
+    b1 = model.Beta_e(10, 5.);
+    b1e = model.Beta_e(01, 5.);
+    kM = model.Ale(model.getMuw(), NLO) / alsM; // WARNING: CHANGE ME!!!
+    kmu = model.Ale(mu, NLO) / alsmu; // WARNING: CHANGE ME!!!
     switch (nm)
     {
         case 10:

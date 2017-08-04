@@ -82,9 +82,9 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
         nu = nf % 2 == 0 ? nf / 2 : nf / 2;
         nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
 
-        b0 = Beta_s(00, nf);
-        b1 = Beta_s(10, nf) / 2. / b0 / b0;
-        b2 = Beta_s(20, nf) / 4. / b0 / b0 / b0 - b1*b1;
+        b0 = model.Beta_s(00, nf);
+        b1 = model.Beta_s(10, nf) / 2. / b0 / b0;
+        b2 = model.Beta_s(20, nf) / 4. / b0 / b0 / b0 - b1*b1;
 
         W10 = AnomalousDimension(10, nu, nd).transpose() / 2. / b0;
         W20 = AnomalousDimension(20, nu, nd).transpose() / 4. / b0 / b0;
@@ -119,9 +119,9 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
 
         if (order_qed != NO_QED)
         {
-            b0e = Beta_e(00, nf);
-            b3 = Beta_s(01, nf) / 2. / b0 / b0e;
-            b4 = Beta_s(11, nf) / 4. / b0 / b0 / b0e - 2. * b1*b3;
+            b0e = model.Beta_e(00, nf);
+            b3 = model.Beta_s(01, nf) / 2. / b0 / b0e;
+            b4 = model.Beta_s(11, nf) / 4. / b0 / b0 / b0e - 2. * b1*b3;
             W01 = AnomalousDimension(01, nu, nd).transpose() / 2. / b0e;
             W02 = AnomalousDimension(02, nu, nd).transpose() / 4. / b0e / b0e;
             W11 = AnomalousDimension(11, nu, nd).transpose() / 4. / b0 / b0e;
@@ -243,50 +243,6 @@ double EvolDF1::f_h(unsigned int nf, unsigned int i, unsigned int p, unsigned in
     else
         return ((f_g(nf, i, p, j, k, l + m, eta) - f_g(nf, i, p, q, k, l, eta)) / den1);
 }
-
-double EvolDF1::Beta_s(int nm, unsigned int nf)
-{
-    switch(nm)
-    {
-        case 00:
-            return(model.Beta0(nf));
-        case 10:
-            return(model.Beta1(nf));
-        case 20:
-            return(model.Beta2(nf));
-        case 30:
-            return(model.Beta3(nf));
-        case 01:
-            if (nf == 5) return(-22./9.);
-            else throw std::runtime_error("EvolDF1::Beta_s(01) only known for nf=5.");
-        case 11:
-            if (nf == 5) return(-308./27.);
-            else throw std::runtime_error("EvolDF1::Beta_s(11) only known for nf=5.");
-        case 02:
-            if (nf == 5) return(4946./243.);
-            else throw std::runtime_error("EvolDF1::Beta_s(02) only known for nf=5.");
-        default:
-            throw std::runtime_error("EvolDF1::Beta_s: case not implemented");
-    }
-}
-
-double EvolDF1::Beta_e(int nm, unsigned int nf)
-{
-    if (nf != 5) throw std::runtime_error("EvolDF1::Beta_e only known for nf=5.");
-
-    switch(nm)
-    {
-        case 00:
-            return(80./9.);
-        case 10:
-            return(464./27.);
-        case 01:
-            return(176./9.);
-        default:
-            throw std::runtime_error("EvolDF1::Beta_e: case not implemented");
-    }
-}
-
 
 void EvolDF1::CheckNf(indices nm, unsigned int nf) const
 {
@@ -1424,9 +1380,9 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
 //    double alsM = model.Als(M) / 4. / M_PI;
 //    double alsmu = model.Als(mu) / 4. / M_PI;
-    b0 = Beta_s(00, nf);
-    alsM = model.Alstilde5(M);
-    eta = alsM / model.Alstilde5(mu);
+    b0 = model.Beta_s(00, nf);
+    alsM = model.Als(M, FULLNNLO, true);
+    eta = alsM / model.Als(mu, FULLNNLO, true);
     omega = 2.*b0*alsM;
         
     for (a = 0; a < nops; a++)
@@ -1450,9 +1406,9 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
     if (order_qed != NO_QED)
     {
-        b0e = Beta_e(00, nf);
-        b5 = Beta_e(01, nf) / 2. / b0 / b0e - Beta_s(10, nf) / 2. / b0 / b0;
-        lambda = b0e * model.getAle() / b0 / model.Alstilde5(M); // WARNING: CHANGE ME!!!
+        b0e = model.Beta_e(00, nf);
+        b5 = model.Beta_e(01, nf) / 2. / b0 / b0e - model.Beta_s(10, nf) / 2. / b0 / b0;
+        lambda = b0e * model.Ale(M,NLO) / b0 / model.Als(M, FULLNNLO, true); // WARNING: CHANGE ME!!!
         for (a = 0; a < nops; a++)
             for (b = 0; b < nops; b++)
             {

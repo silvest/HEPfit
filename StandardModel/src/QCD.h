@@ -1055,17 +1055,14 @@ public:
      * @f$\overline{\mathrm{MS}}@f$ scheme. In the cases of LO, NLO and FULLNNLO,
      * the coupling is computed with AlsWithInit(). On the other hand, in the
      * cases of NNLO and FULLNNLO, the coupling is computed with AlsWithLambda().
-     * @param[in] mu a scale @f$\mu@f$ in GeV
-     * @param[in] order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
-     * @param[in] full internal variable. The default value has to be used when
-     * order = LO, FULLNLO, FULLNNLO, FULLNNNLO; otherwise it defines the order at
-     * which @f$\alpha_s@f$ is run in the intermediate theories with different number
-     * of effective flavours
+     * @param[in] mu the scale @f$\mu@f$ in GeV
+     * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
+     * @param[in] order_qed order in the @f$\alpha_e@f$ expansion as defined in OrderScheme. Default to NO_QED.
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
     double AlsOLD(const double mu, const orders order = FULLNLO) const;
-    double Als(const double mu, const orders order = FULLNLO, int full = -1) const;
+    double Als(const double mu, const orders order = FULLNLO) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
@@ -1187,6 +1184,20 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
+    /**
+     * @brief The Mbar mass of the heaviest quark in the theory with Nf active flavour
+     * @param[in] Nf the number of active flavour 
+     * @return MSbar \f$m_q(m_q)\f$
+     */
+    double MassOfNf(int nf) const;
+
+    /**
+     * @brief A member used to manage the caching for this class.
+     * @param[in] cache the cache to be moved
+     * @param[in] n the dimension of the cache to be shifted
+     */
+    void CacheShift(double cache[][5], int n) const;
+
     bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
     bool requireYd; ///< Switch for generating the Yukawa couplings to the down-type quarks.
@@ -1201,10 +1212,10 @@ protected:
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     
     double Nc; ///< The number of colours.
+    double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
     Particle quarks[6]; ///< The vector of all SM quarks.
     
 private:
-    double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
     mutable std::map<std::string, BParameter> BParameterMap;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
@@ -1214,7 +1225,7 @@ private:
     mutable bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
     mutable bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
     static const int CacheSize = 5; ///< Defines the depth of the cache.
-    mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    mutable double als_cache[7][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double logLambda5_cache[4][CacheSize];
     mutable double logLambdaNLO_cache[9][CacheSize];
     mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
@@ -1224,13 +1235,6 @@ private:
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.
     mutable std::map<const QCD::meson, Meson> mesonsMap;///< The map of defined mesons.
     bool FlagCsi; ///< A flag to determine whether \f$B_{B_s}\f$ and \f$B_{B_s}/B_{B_d}\f$ or \f$F_{B_s}\sqrt{B_{B_s}}\f$ (false) and \f$\csi \equiv F_{B_s}\sqrt{B_{B_s}}/(F_{B_d}\sqrt{B_{B_d}})\f$ (default, true) are used as inputs.
-
-    /**
-     * @brief The Mbar mass of the heaviest quark in the theory with Nf active flavour
-     * @param[in] Nf the number of active flavour 
-     * @return MSbar \f$m_q(m_q)\f$
-     */
-    double MassOfNf(int nf) const;
 
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.
@@ -1336,13 +1340,6 @@ private:
      * @return the difference in the pole mass and the pole mass as computed from the \f$\overline{\rm MS}\f$ mass
      */
     double Mp2MbarTMP(double *mu, double *params) const;
-
-    /**
-     * @brief A member used to manage the caching for this class.
-     * @param[in] cache the cache to be moved
-     * @param[in] n the dimension of the cache to be shifted
-     */
-    void CacheShift(double cache[][5], int n) const;
 };
 
 #endif	/* QCD_H */
