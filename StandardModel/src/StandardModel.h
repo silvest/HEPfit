@@ -801,7 +801,7 @@ public:
      * @brief A get method to retrieve the %CKM matrix. 
      * @return the %CKM matrix
      */
-    gslpp::matrix<gslpp::complex> getVCKM() const
+    gslpp::matrix<gslpp::complex> getVCKM() const // why don't we return a const reference?
     {
         return VCKM;
     }
@@ -1133,7 +1133,7 @@ public:
 
     /**
      * @brief The running electromagnetic coupling @f$\alpha(\mu)@f$ in the
-     * on-shell schem.
+     * on-shell scheme.
      * @details See @cite Baikov:2012rr.
      * @param[in] mu renormalization scale @f$\mu@f$ in GeV.
      * @param[in] order LO/FULLNLO
@@ -1143,6 +1143,48 @@ public:
      * leptons and the five quarks, not the top quark, run in the loops.
      */
     double ale_OS(const double mu, orders order = FULLNLO) const;
+
+    /**
+     * @brief QCD beta function coefficients including QED corrections - eq. (36) hep-ph/0512066
+     * @param nm powers of alpha_s and alpha_e as an integer
+     * @param nf number of active flavor
+     * @return coefficient of the QCD beta function
+     */
+    double Beta_s(int nm, unsigned int nf) const;
+    
+    /**
+     * @brief QED beta function coefficients - eq. (36) hep-ph/0512066
+     * @param nm powers of alpha_s and alpha_e as an integer
+     * @param nf number of active flavor
+     * @return coefficient of the QED beta function
+     */
+    double Beta_e(int nm, unsigned int nf) const;
+
+    /**
+     * @brief The running QCD coupling @f$\alpha(\mu)@f$ in the @f$\overline{MS}@f$ scheme including QED corrections.
+     * @details See @cite Huber:2005ig
+     * @param[in] mu renormalization scale @f$\mu@f$ in GeV.
+     * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
+     * @param[in] qed_flag include @f$\alpha_e@f$ corrections to the requested order in @f$\alpha_s@f$. The @f$\alpha_s\alpha_e@f$ term is included if NNNLO is requested. Default: false 
+     * @param[in] Nf_thr flag to activate flavour thresholds. Default: true 
+     * @return @f$\alpha(\mu)@f$ in the @f$\overline{MS}@f$ scheme
+     *
+     */
+    using QCD::Als;
+    using QCD::AlsWithInit;
+    double Als(double mu, orders order, bool qed_flag, bool Nf_thr = true) const;
+ 
+
+    /**
+     * @brief The running electromagnetic coupling @f$\alpha_e(\mu)@f$ in the @f$\overline{MS}@f$ scheme.
+     * @details See @cite Huber:2005ig
+     * @param[in] mu renormalization scale @f$\mu@f$ in GeV
+     * @param[in] order order in the @f$\alpha_e@f$ expansion as defined in the order enum in OrderScheme
+     * @param[in] Nf_thr flag to activate flavour thresholds. Default: true 
+     * @return @f$\alpha_e(\mu)@f$ in the @f$\overline{MS}@f$ scheme
+     *
+     */
+    double Ale(double mu, orders order, bool Nf_thr = true) const;
 
     /**
      * @brief Leptonic contribution to the electromagnetic coupling @f$\alpha@f$,
@@ -3073,7 +3115,6 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
-
     EWSMcache* myEWSMcache; ///< A pointer to an object of type EWSMcache.
     EWSMOneLoopEW* myOneLoopEW; ///< A pointer to an object of type EWSMOneLoopEW.
     EWSMTwoLoopQCD* myTwoLoopQCD; ///< A pointer to an object of type EWSMTwoLoopQCD.
@@ -3124,9 +3165,14 @@ private:
     mutable gsl_function f_GSL;/**< GSL integral variable */
     gsl_integration_workspace * w_GSL1;/**< GSL integral variable */
     
-
-    
     int iterationNo;
+    
+    double AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const;
+    double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
+    static const int CacheSize = 5; ///< Defines the depth of the cache.
+    mutable double als_cache[12][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    mutable double ale_cache[11][CacheSize]; ///< Cache for \f$\alpha_e\f$.
+
 
 };
 
