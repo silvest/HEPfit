@@ -8,6 +8,7 @@
 #include <gsl/gsl_sf.h>
 #include <gslpp.h>
 #include <boost/bind.hpp>
+#include "std_make_vector.h"
 //#include <limits>
 #include "BXqll.h"
 #include "StandardModel.h"
@@ -20,7 +21,7 @@ BXqll::BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i)
 : mySM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2()))
 {    
     lep = lep_i;
-    quark = quark_i;
+    quark = quark_i;    
     w_Rquark = gsl_integration_cquad_workspace_alloc(100);
 }
 
@@ -28,11 +29,17 @@ BXqll::~BXqll()
 {
 }
 
+std::vector<std::string> BXqll::initializeBXqllParameters()
+{
+    BXqllParameters = make_vector<std::string>() << "BI_lambda1" << "BI_lambda2";
+    
+    return (BXqllParameters);
+}
+
 void BXqll::updateParameters() 
 {
     CF = mySM.getCF();
     GF = mySM.getGF();
-    ale = mySM.getAle();
     Mlep = mySM.getLeptons(lep).getMass();
     mu_b = mySM.getMub();
     mu_c = mySM.getMuc();
@@ -43,24 +50,31 @@ void BXqll::updateParameters()
     abslambdat_over_Vcb = mySM.computelamt_s().abs()/mySM.getCKM().V_cb().abs();
     Vts_over_Vcb = mySM.getCKM().V_ts().abs()/mySM.getCKM().V_cb().abs();    
     muh = mu_b/Mb;
-    alsmu = mySM.Als(mu_b);
-    alsmuc = mySM.Als(mu_c);
+    alsmu = mySM.Als(mu_b, FULLNNLO, true);
+    alsmuc = mySM.Als(mu_c, FULLNNLO, true);
+    ale = mySM.Ale(mu_b, NLO);
+    alstilde = alsmu / 4. / M_PI;
+    aletilde = ale / 4. / M_PI;
+    kappa = ale / alsmu;
     Mb_pole = mySM.Mbar2Mp(Mb, FULLNNLO);
     //Mc_pole = mySM.Mbar2Mp(Mc, FULLNNLO); //*** Mbar2Mp does not receive Mc ***/
     Mc_pole = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
     z = Mc_pole*Mc_pole/Mb_pole/Mb_pole; //****** Must be pole masses ****/
-    lambda_2 = (5.32483*5.32483-5.27955*5.27955)/4.;
-
+    Lbl = 2.*log(Mb/Mlep);
+    
+    lambda_1 = mySM.getOptionalParameter("BI_lambda1");
+    lambda_2 = mySM.getOptionalParameter("BI_lambda2");
+    
     //ISIDORI VALUES
-    z = 0.29*0.29;
-    mu_b = 5.0;
-    Mb = 4.9;
-    Mtau = 1.77;
-    muh = mu_b/Mb;
-    ale = 0.0078125;
-    abslambdat_over_Vcb = 0.97;
-    Vts_over_Vcb = 0.97;
-    alsmu = 0.215;
+//    z = 0.29*0.29;
+//    mu_b = 5.0;
+//    Mb = 4.9;
+//    Mtau = 1.77;
+//    muh = mu_b/Mb;
+//    ale = 0.0078125;
+//    abslambdat_over_Vcb = 0.97;
+//    Vts_over_Vcb = 0.97;
+//    alsmu = 0.215;
 
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep); //check the mass scale, scheme fixed to NDR
@@ -937,16 +951,18 @@ gslpp::vector<double> BXqll::vecM10(double sh)
 
 double BXqll::S77_T(double sh, orders order)
 {
-    double sigma = 8.*(1.-sh)*(1.-sh)/sh;
+    double umsh = 1. - sh;
+    double sigma = 8.*umsh*umsh/sh;
+    double chi_1 = 4.*umsh*(5.*sh + 3.)/3./sh; 
+    double chi_2 = 4.*(3.*sh*sh + 2.*sh - 9.)/sh;
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega77_T(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega77_T(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S77_T: order not implemented");
     }
@@ -954,16 +970,18 @@ double BXqll::S77_T(double sh, orders order)
 
 double BXqll::S79_T(double sh, orders order)
 {
-    double sigma = 8.*(1.-sh)*(1.-sh);
+    double umsh = 1. - sh;
+    double sigma = 8.*umsh*umsh;
+    double chi_1 = 4.*umsh*umsh;
+    double chi_2 = 4.*(9.*sh*sh - 6.*sh - 7.);
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega79_T(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega79_T(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S79_T: order not implemented");
     }
@@ -971,16 +989,18 @@ double BXqll::S79_T(double sh, orders order)
 
 double BXqll::S99_T(double sh, orders order)
 {
-    double sigma = 2.*sh*(1.-sh)*(1.-sh);
+    double umsh = 1. - sh;
+    double sigma = 2.*sh*umsh*umsh;
+    double chi_1 = -sh*umsh*(3.*sh + 5.)/3.;
+    double chi_2 = sh*(15.*sh*sh - 14.*sh - 5.);
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega99_T(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega99_T(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S99_T: order not implemented");
     }
@@ -993,16 +1013,18 @@ double BXqll::S1010_T(double sh, orders order)
 
 double BXqll::S77_L(double sh, orders order)
 {
-    double sigma = 4.*(1.-sh)*(1.-sh);
+    double umsh = 1. - sh;
+    double sigma = 4.*umsh*umsh;
+    double chi_1 = -2.*umsh*(3.*sh + 13.)/3.;
+    double chi_2 = 2.*(15.*sh*sh - 6.*sh - 13.);
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega77_L(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega77_L(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S77_L: order not implemented");
     }
@@ -1010,16 +1032,18 @@ double BXqll::S77_L(double sh, orders order)
 
 double BXqll::S79_L(double sh, orders order)
 {
-    double sigma = 4.*(1.-sh)*(1.-sh);
+    double umsh = 1. - sh;
+    double sigma = 4.*umsh*umsh;
+    double chi_1 = 2.*umsh*umsh;
+    double chi_2 = 2.*(3.*sh*sh - 6.*sh - 1.);
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega79_L(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega79_L(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S79_L: order not implemented");
     }
@@ -1027,16 +1051,18 @@ double BXqll::S79_L(double sh, orders order)
 
 double BXqll::S99_L(double sh, orders order)
 {
-    double sigma = (1.-sh)*(1.-sh);
+    double umsh = 1. - sh;
+    double sigma = umsh*umsh;
+    double chi_1 = umsh*(13.*sh + 3.)/6.;
+    double chi_2 = (-17.*sh*sh + 10.*sh + 3.)/2.;
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega99_L(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega99_L(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S99_L: order not implemented");
     }
@@ -1049,16 +1075,18 @@ double BXqll::S1010_L(double sh, orders order)
 
 double BXqll::S710_A(double sh, orders order)
 {
-    double sigma = -8.*(1.-sh)*(1.-sh);
+    double umsh = 1. - sh;
+    double sigma = -8.*umsh*umsh;
+    double chi_1 = -4.*(3.*sh*sh + 2.*sh + 3.)/3.;
+    double chi_2 = -4.*(9.*sh*sh - 10.*sh - 7.);
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega710_A(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega710_A(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S710_A: order not implemented");
     }
@@ -1066,21 +1094,128 @@ double BXqll::S710_A(double sh, orders order)
 
 double BXqll::S910_A(double sh, orders order)
 {
-    double sigma = -4.*(1.-sh)*(1.-sh);
+    double umsh = 1. - sh;
+    double sigma = -4.*umsh*umsh;
+    double chi_1 = -2.*sh*(3.*sh*sh + 2.*sh + 3.)/3.;
+    double chi_2 = -2.*sh*(15.*sh*sh - 14.*sh - 9.);
+    double deltaMb2 = (lambda_1*chi_1 + lambda_2*chi_2)/Mb/Mb;
     
     switch(order)
     {
         case LO:
-            return sigma;
-            break;
+            return sigma + deltaMb2;
         case NLO:
-            return sigma*8.*alsmu*omega910_A(sh)/4./M_PI;
-            break;
+            return sigma*8.*alstilde*omega910_A(sh) + deltaMb2;
         default:
             throw std::runtime_error("BXqll::S910_A: order not implemented");
     }
 }
 
+gslpp::complex BXqll::eij_T(unsigned int i, unsigned int j, double sh)
+{
+    int ij;
+    double umsh = (1. - sh);
+    double sigma77_T = 8.*umsh*umsh/sh, sigma79_T = 8.*umsh*umsh, sigma99_T = 2.*sh*umsh*umsh;
+    
+    if (j == 10)
+        ij = 100*i + j;
+    else
+        ij = 10*i + j;
+    
+    switch(ij)
+    {
+        case 77:
+            return (8. * aletilde*aletilde*aletilde * sigma77_T*omega77em_T(sh));
+        case 79:
+            return (8. * aletilde*aletilde * sigma79_T*omega79em_T(sh));
+        case 99:
+            return (8. * aletilde * sigma99_T*omega99em_T(sh));
+        case 1010:
+            return (8. * aletilde * sigma99_T*omega99em_T(sh));
+        case 22:
+            return (8. * aletilde*aletilde*aletilde * sigma99_T*omega22em_T(sh));
+        case 27:
+            return (8. * aletilde*aletilde*aletilde * sigma79_T*omega27em_T(sh));
+        case 29:
+            return (8. * aletilde*aletilde * sigma99_T*omega29em_T(sh));
+        case 11:
+            return (128./9. * aletilde*aletilde*aletilde * sigma99_T*omega22em_T(sh));
+        case 12:
+            return (64./3. * aletilde*aletilde*aletilde * sigma99_T*omega22em_T(sh));
+        case 17:
+            return (32./3. * aletilde*aletilde*aletilde * sigma79_T*omega27em_T(sh));
+        case 19:
+            return (32./3. * aletilde*aletilde * sigma99_T*omega29em_T(sh));
+        default:
+            return (0.);
+    }
+}
+
+gslpp::complex BXqll::eij_L(unsigned int i, unsigned int j, double sh)
+{
+    int ij;
+    double umsh = (1. - sh);
+    double sigma77_L = 4.*umsh*umsh, sigma79_L = 4.*umsh*umsh, sigma99_L = umsh*umsh;
+    
+    if (j == 10)
+        ij = 100*i + j;
+    else
+        ij = 10*i + j;
+    
+    switch(ij)
+    {
+        case 77:
+            return (8. * aletilde*aletilde*aletilde * sigma77_L*omega77em_L(sh));
+        case 79:
+            return (8. * aletilde*aletilde * sigma79_L*omega79em_L(sh));
+        case 99:
+            return (8. * aletilde * sigma99_L*omega99em_L(sh));
+        case 1010:
+            return (8. * aletilde * sigma99_L*omega99em_L(sh));
+        case 22:
+            return (8. * aletilde*aletilde*aletilde * sigma99_L*omega22em_L(sh));
+        case 27:
+            return (8. * aletilde*aletilde*aletilde * sigma79_L*omega27em_L(sh));
+        case 29:
+            return (8. * aletilde*aletilde * sigma99_L*omega29em_L(sh));
+        case 11:
+            return (128./9. * aletilde*aletilde*aletilde * sigma99_L*omega22em_L(sh));
+        case 12:
+            return (64./3. * aletilde*aletilde*aletilde * sigma99_L*omega22em_L(sh));
+        case 17:
+            return (32./3. * aletilde*aletilde*aletilde * sigma79_L*omega27em_L(sh));
+        case 19:
+            return (32./3. * aletilde*aletilde * sigma99_L*omega29em_L(sh));
+        default:
+            return (0.);
+    }
+}
+
+gslpp::complex BXqll::eij_A(unsigned int i, unsigned int j, double sh)
+{
+    int ij;
+    double umsh = (1. - sh);
+    double sigma710_A = -8.*umsh*umsh, sigma910_A = -4.*sh*umsh*umsh;
+    
+    if (j == 10)
+        ij = 100*i + j;
+    else
+        ij = 10*i + j;
+    
+    switch(ij)
+    {
+        case 710:
+            return (8. * aletilde*aletilde * sigma710_A*omega710em_A(sh));
+        case 910:
+            return (8. * aletilde * sigma910_A*omega910em_A(sh));
+        case 210:
+            return (8. * aletilde*aletilde * sigma910_A*omega210em_A(sh));
+        case 110:
+            return (32./3. * aletilde*aletilde * sigma910_A*omega210em_A(sh));
+        default:
+            return (0.);
+    }
+}
 
 double BXqll::omega77_T(double sh)
 {
@@ -1173,6 +1308,163 @@ double BXqll::omega910_A(double sh)
             2.*(2.*sh*sh-7.*sh+5.)*log(umsqrt)/3./umsh/umsh - 2.*(sh*sh-3.*sh-1.)*log(umsh)*log(sh)/3./umsh/umsh +
             (2.*sh*sh*sh-11.*sh*sh+10.*sh-1.)*log(umsh)/3./umsh/umsh/sh + 2.*sh*(2.*sh-5.)*log(umsqrt)*log(sh)/
             3./umsh/umsh - M_PI*M_PI/3.);
+}
+
+double BXqll::omega77em_T(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*(1.54986 - 1703.72*sh*sh*sh*sh*sh + 1653.38*sh*sh*sh*sh - 683.608*sh*sh*sh +
+            179.279*sh*sh - 35.5047*sh)/8./umsh/umsh);
+}
+
+double BXqll::omega79em_T(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*(-6.03641 - 896.643*sh*sh*sh*sh + 807.349*sh*sh*sh - 278.559*sh*sh +
+            47.6636*sh - 0.190701/sh)/4./umsh/umsh);
+}
+
+double BXqll::omega99em_T(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*(2.2596 + 157.984*sh*sh*sh*sh - 141.281*sh*sh*sh + 52.8914*sh*sh -
+            13.5377*sh + 0.0284049/sh)/2./sh/umsh/umsh);
+}
+
+double BXqll::omega22em_T(double sh)
+{
+    double umsh = 1. - sh;
+    double Lmub = log(mu_b/5.);
+    
+    return (Lbl*((2.84257 + 269.974*sh*sh*sh*sh - 194.443*sh*sh*sh + 48.4535*sh*sh -
+            8.24929*sh + 0.0111118/sh)/2./sh/umsh/umsh +
+            Lmub*4.*(4.54727 + 330.182*sh*sh*sh*sh - 258.194*sh*sh*sh + 79.8713*sh*sh -
+            19.6855*sh +  0.0371348/sh)/9./sh/umsh/umsh) +
+            64./81.*omega99em_T(sh)*Lmub*Lmub);
+}
+
+gslpp::complex BXqll::omega27em_T(double sh)
+{
+    double umsh = 1. - sh;
+    double Lmub = log(mu_b/5.);
+    gslpp::complex i = gslpp::complex::i();
+    
+    return (Lbl*((21.5291 + 3044.94*sh*sh*sh*sh - 2563.05*sh*sh*sh + 874.074*sh*sh -
+            175.874*sh + 0.121398/sh)/8./umsh/umsh +
+            i*(2.49475 + 598.376*sh*sh*sh*sh - 456.831*sh*sh*sh + 117.683*sh*sh -
+            9.90525*sh - 0.0116501/sh)/8./umsh/umsh) +
+            8./9.*omega79em_T(sh)*Lmub);
+}
+
+gslpp::complex BXqll::omega29em_T(double sh)
+{
+    double umsh = 1. - sh;
+    double Lmub = log(mu_b/5.);
+    gslpp::complex i = gslpp::complex::i();
+    
+    return (Lbl*((4.54727 + 330.182*sh*sh*sh*sh - 258.194*sh*sh*sh + 79.8713*sh*sh -
+            19.6855*sh + 0.0371348/sh)/2./sh/umsh/umsh +
+            i*(73.9149*sh*sh*sh*sh - 61.1338*sh*sh*sh + 14.6517*sh*sh - 0.102331*sh +
+            0.710037)/2./sh/umsh/umsh) +
+            16./9.*omega99em_T(sh)*Lmub);
+}
+
+double BXqll::omega77em_L(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*(9.73761 + 647.747*sh*sh*sh*sh - 642.637*sh*sh*sh + 276.839*sh*sh -
+            68.3562*sh - 1.6755/sh)/4./umsh/umsh);
+}
+
+double BXqll::omega79em_L(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*(-6.03641 - 896.643*sh*sh*sh*sh + 807.349*sh*sh*sh - 278.559*sh*sh +
+            47.6636*sh - 0.190701/sh)/4./umsh/umsh);
+}
+
+double BXqll::omega99em_L(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*(-0.768521 - 80.8068*sh*sh*sh*sh + 70.0821*sh*sh*sh - 21.2787*sh*sh +
+            2.9335*sh - 0.0180809/sh)/umsh/umsh);
+}
+
+double BXqll::omega22em_L(double sh)
+{
+    double umsh = 1. - sh;
+    double Lmub = log(mu_b/5.);
+    
+    return (Lbl*((-1.71832 - 234.11*sh*sh*sh*sh + 162.126*sh*sh*sh - 37.2361*sh*sh +
+            6.29949*sh - 0.00810233/sh)/umsh/umsh +
+            Lmub*8.*(224.662*sh*sh*sh - 2.27221 - 298.369*sh*sh*sh*sh - 65.1375*sh*sh +
+            11.5686*sh - 0.0233098/sh)/9./umsh/umsh) +
+            64./81.*omega99em_L(sh)*Lmub*Lmub);
+}
+
+gslpp::complex BXqll::omega27em_L(double sh)
+{
+    double umsh = 1. - sh;
+    double Lmub = log(mu_b/5.);
+    gslpp::complex i = gslpp::complex::i();
+    
+    return (Lbl*((-8.01684 - 1121.13*sh*sh*sh*sh + 882.711*sh*sh*sh - 280.866*sh*sh +
+            54.1943*sh - 0.128988/sh)/4./umsh/umsh +
+            i*(-2.14058 - 588.771*sh*sh*sh*sh*sh + 483.997*sh*sh*sh - 124.579*sh*sh +
+            12.3282*sh + 0.0145059/sh)/4./umsh/umsh) +
+            8./9.*omega79em_L(sh)*Lmub);
+}
+
+gslpp::complex BXqll::omega29em_L(double sh)
+{
+    double umsh = 1. - sh;
+    double Lmub = log(mu_b/5.);
+    gslpp::complex i = gslpp::complex::i();
+    
+    return (Lbl*((-2.27221 - 298.369*sh*sh*sh*sh + 224.662*sh*sh*sh - 65.1375*sh*sh +
+            11.5686*sh - 0.0233098/sh)/umsh/umsh +
+            i*(-0.666157 - 120.303*sh*sh*sh*sh + 109.315*sh*sh*sh - 28.2734*sh*sh +
+            2.44527*sh + 0.00279781/sh)/umsh/umsh) +
+            16./9.*omega99em_L(sh)*Lmub);
+}
+
+double BXqll::omega710em_A(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*((7. - 16.*sqrt(sh) + 9.*sh)/4./umsh + log(1. - sqrt(sh)) +
+            (1. + 3.*sh)/umsh*log((1. + sqrt(sh))/2.) - sh*log(sh)/umsh));
+}
+
+double BXqll::omega910em_A(double sh)
+{
+    double umsh = 1. - sh;
+    
+    return (Lbl*(log(1. - sqrt(sh)) - (5. - 16.*sqrt(sh) + 11.*sh)/4./umsh +
+            (1. - 5.*sh)/umsh*log((1. + sqrt(sh))/2.) - (1. - 3.*sh)*log(sh)/umsh));
+}
+
+gslpp::complex BXqll::omega210em_A(double sh)
+{
+    double umsh = 1. - sh;
+    double a = 16.*Mc*Mc*Mc*Mc/Mb/Mb/Mb/Mb;
+    double shma = sh - a;
+    double Lmub = log(mu_b/5.);
+    gslpp::complex omega, i = gslpp::complex::i();
+    
+    omega = Lbl*((-351.322*sh*sh*sh*sh + 378.173*sh*sh*sh - 160.158*sh*sh + 24.2096*sh +
+            0.305176)/24./sh/umsh/umsh) +
+            8./9.*omega910em_A(sh)*Lmub;
+    if(sh > a)
+        omega += Lbl*i*(7.98625 + 238.507*shma - 766.869*shma*shma)*shma/24./sh/umsh/umsh;
+    
+    return omega;
 }
 
 gslpp::complex BXqll::f_Huber(double sh, double gamma_9, double rho_c, double rho_b, double rho_0, double rho_num)

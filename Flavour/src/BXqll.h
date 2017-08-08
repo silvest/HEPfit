@@ -56,6 +56,11 @@ public:
      */
     virtual ~BXqll();  
 
+    /**
+    * @brief A method for initializing the parameters necessary for BXqll.
+    * @return the vector of BXqll specific parameters
+    */
+    std::vector<std::string> initializeBXqllParameters();
     
     /**
      * @brief dGamma/ds for @f$B \to X_q l^+ l^-@f$ in the low dilepton invariant mass region.
@@ -84,8 +89,11 @@ private:
     F_2& myF_2;
     QCD::lepton lep;/**< Final leptons type */
     QCD::quark quark;/**< Initial meson type */
-    double CF, GF, ale, Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW, abslambdat_over_Vcb, Vts_over_Vcb, z, muh, alsmu, alsmuc, lambda_2;
+    double CF, GF, ale, alsmu, alsmuc, alstilde, aletilde, kappa;
+    double Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW;
+    double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl;
 
+    std::vector<std::string> BXqllParameters;/**< The string of mandatory MVgamma parameters */
 
     gslpp::vector<gslpp::complex> ** allcoeff;/**<Vector that contains the Wilson coeffients */
 //    gslpp::vector<gslpp::complex> ** allcoeffh;/**<Vector that contains the Wilson coeffients at scale @f$\mu_h@f$ */
@@ -383,6 +391,15 @@ private:
     double S910_A(double sh, orders order);
     
     /**
+    * @brief Log-enhanced electromagnetic corrections \f$e_{ij}^I\f$ as defined in @cite Huber:2015sra
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    * @param[in] i,j indices in eq. (4.10) in @cite Huber:2015sra
+    */
+    gslpp::complex eij_T(unsigned int i, unsigned int j, double sh);
+    gslpp::complex eij_L(unsigned int i, unsigned int j, double sh);
+    gslpp::complex eij_A(unsigned int i, unsigned int j, double sh);
+    
+    /**
     * @brief Auxiliary functions \f$omega_{NM}^T\f$ from @cite Huber:2015sra
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     */
@@ -404,6 +421,36 @@ private:
     */
     double omega710_A(double sh);
     double omega910_A(double sh);
+    
+    /**
+    * @brief Auxiliary functions \f$omega_{NM,T}^{(em)}\f$ from @cite Huber:2015sra
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    */
+    double omega77em_T(double sh);
+    double omega79em_T(double sh);
+    double omega99em_T(double sh);
+    double omega22em_T(double sh);
+    gslpp::complex omega27em_T(double sh);
+    gslpp::complex omega29em_T(double sh);
+    
+    /**
+    * @brief Auxiliary functions \f$omega_{NM,L}^{(em)}\f$ from @cite Huber:2015sra
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    */
+    double omega77em_L(double sh);
+    double omega79em_L(double sh);
+    double omega99em_L(double sh);
+    double omega22em_L(double sh);
+    gslpp::complex omega27em_L(double sh);
+    gslpp::complex omega29em_L(double sh);
+    
+    /**
+    * @brief Auxiliary functions \f$omega_{NM}^A\f$ from @cite Huber:2015sra
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    */
+    double omega710em_A(double sh);
+    double omega910em_A(double sh);
+    gslpp::complex omega210em_A(double sh);
     
     /**
     * @brief Auxiliary function \f$f_{i}\f$ from @cite Huber:2005ig

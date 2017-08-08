@@ -20,6 +20,8 @@ R_BXqll::R_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: R_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     quark = quark_i;
+    
+    setParametersForObservable(myBXqll.initializeBXqllParameters());
 }
 
 //double BR_MPll::computeBR_MPll(double qmin, double qmax, QCD::lepton lep) 
@@ -44,6 +46,8 @@ Rlow_BXqll::Rlow_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepto
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: Rlow_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     quark = quark_i;
+    
+    setParametersForObservable(myBXqll.initializeBXqllParameters());
 }
 
 double Rlow_BXqll::computeThValue()
@@ -60,6 +64,8 @@ Rhigh_BXqll::Rhigh_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lep
     if (SM.getModelName().compare("StandardModel") != 0) std::cout << "\nWARNING: B to Xq l+ l-: Rhigh_BXqll not implemented in: " + SM.getModelName() + " model, returning Standard Model value.\n" << std::endl;
     lep = lep_i;
     quark = quark_i;
+    
+    setParametersForObservable(myBXqll.initializeBXqllParameters());
 }
 
 double Rhigh_BXqll::computeThValue()

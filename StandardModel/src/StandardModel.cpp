@@ -885,7 +885,7 @@ double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders or
 {
     double nf = Nf(mu), alsi = Als(mu_i, NNLO, true);
     double b00e = Beta_e(00, nf), b00s = Beta_s(00, nf);
-    double ve = 1. - b00e * alei) / 2. / M_PI * log(mu / mu_i);
+    double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
     double logv = log(1. + b00s * alsi / 2. / M_PI * log(mu / mu_i)), logve = log(ve);
 
     switch (order)
