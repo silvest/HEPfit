@@ -438,16 +438,20 @@ double HiggsChiral::computecg() const
 {
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
+    double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
     double TAUt=4.0*Mt*Mt/(mHl*mHl);
     double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    double TAUc=4.0*Mc*Mc/(mHl*mHl);
     double cgEff;
 
     cgEff = ( ( ct * 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
-                     +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))
+                     +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) 
+                     +cc * 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))
                      +cg * 0.5 ).abs2();
     
     cgEff = cgEff / ( ( 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
-                     + 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
+                     + 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb))
+                     + 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
 
     return (sqrt(cgEff));
 }
@@ -461,30 +465,40 @@ double HiggsChiral::computecZga() const
 {
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
+    double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
     double Mtau=trueSM.getLeptons(StandardModel::TAU).getMass();
+    double Mmu=trueSM.getLeptons(StandardModel::MU).getMass();
     double MW=trueSM.Mw_tree();
     double cW2=trueSM.c02();
     double sW2=1.0-cW2;
     double TAUt=4.0*Mt*Mt/(mHl*mHl);
     double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    double TAUc=4.0*Mc*Mc/(mHl*mHl);
     double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
+    double TAUmu=4.0*Mmu*Mmu/(mHl*mHl);
     double TAUw=4.0*MW*MW/(mHl*mHl);
     double LAMt=4.0*Mt*Mt/(Mz*Mz);
     double LAMb=4.0*Mb*Mb/(Mz*Mz);
+    double LAMc=4.0*Mc*Mc/(Mz*Mz);
     double LAMtau=4.0*Mtau*Mtau/(Mz*Mz);
+    double LAMmu=4.0*Mmu*Mmu/(Mz*Mz);
     double LAMw=4.0*MW*MW/(Mz*Mz);
     double cZgaEff;
 
     cZgaEff = ((-ct * 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUt,LAMt)-Int2(TAUt,LAMt)) * (1.0-AlsMz/M_PI)
                       +cb * 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUb,LAMb)-Int2(TAUb,LAMb))
-                      +ctau * 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau)) )/sqrt(sW2*cW2)
+                      -cc * 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc))            
+                      +ctau * 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau))
+                      +cmu * 2.0*(-0.5+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)) )/sqrt(sW2*cW2)
                      -cv * sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
                             +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw))
                      +cZga).abs2(); /*CHANGE THE cZga COEFFICIENT!*/
     
     cZgaEff = cZgaEff / ((-4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUt,LAMt)-Int2(TAUt,LAMt)) * (1.0-AlsMz/M_PI)
                       + 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUb,LAMb)-Int2(TAUb,LAMb))
-                      + 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau)) )/sqrt(sW2*cW2)
+                      - 4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc))
+                      + 2.0*(-0.5+2.0*sW2)*(Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau))
+                      + 2.0*(-0.5+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)) )/sqrt(sW2*cW2)
                       - sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
                             +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw))).abs2();
     
@@ -495,23 +509,31 @@ double HiggsChiral::computecgaga() const
 {
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
     double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
+    double Mc=trueSM.getQuarks(QCD::CHARM).getMass();
     double Mtau=trueSM.getLeptons(StandardModel::TAU).getMass();
+    double Mmu=trueSM.getLeptons(StandardModel::MU).getMass();
     double MW=trueSM.Mw_tree();
     double TAUt=4.0*Mt*Mt/(mHl*mHl);
     double TAUb=4.0*Mb*Mb/(mHl*mHl);
+    double TAUc=4.0*Mc*Mc/(mHl*mHl);
     double TAUtau=4.0*Mtau*Mtau/(mHl*mHl);
+    double TAUmu=4.0*Mmu*Mmu/(mHl*mHl);
     double TAUw=4.0*MW*MW/(mHl*mHl);
     double cgagaEff;
 
     cgagaEff = ( ct * (8./3.)*TAUt*(1.+(1.-TAUt)*f_func(TAUt)) * (1.0-AlsMz/M_PI)
                      +cb * (2./3.)*TAUb*(1.+(1.-TAUb)*f_func(TAUb))
+                     +cc * (8./3.)*TAUc*(1.+(1.-TAUc)*f_func(TAUc))
                      +ctau * 2.0*TAUtau*(1.+(1.-TAUtau)*f_func(TAUtau))
+                     +cmu * 2.0*TAUmu*(1.+(1.-TAUmu)*f_func(TAUmu))
                      -cv * (2.0+3.0*TAUw+3.0*TAUw*(2.0-TAUw)*f_func(TAUw))
                      +cga * 2.0 ).abs2();
     
     cgagaEff = cgagaEff / ( (8./3.)*TAUt*(1.+(1.-TAUt)*f_func(TAUt)) * (1.0-AlsMz/M_PI)
                      + (2./3.)*TAUb*(1.+(1.-TAUb)*f_func(TAUb))
+                     + (8./3.)*TAUc*(1.+(1.-TAUc)*f_func(TAUc))
                      + 2.0*TAUtau*(1.+(1.-TAUtau)*f_func(TAUtau))
+                     + 2.0*TAUmu*(1.+(1.-TAUmu)*f_func(TAUmu))
                      - (2.0+3.0*TAUw+3.0*TAUw*(2.0-TAUw)*f_func(TAUw)) ).abs2();
     
     return (sqrt(cgagaEff));
