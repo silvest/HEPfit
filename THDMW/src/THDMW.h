@@ -43,7 +43,7 @@ class THDMWcache; //forward reference to THDMWcache class
 class THDMW: public StandardModel {
 public:
 
-    static const int NTHDMWvars = 31;
+    static const int NTHDMWvars = 30;
     static const std::string THDMWvars[NTHDMWvars];
     
     /**
@@ -108,26 +108,66 @@ public:
 
     /**
      *
-     * @return @f$m_{11}^2@f$
+     * @return @f$\log_{10}(\tan \beta)@f$
      */
-    double getTHDMW_m11_2() const {
-        return THDMW_m11_2;
+    double getTHDMW_logtb() const {
+        return THDMW_logtb;
     }
 
     /**
      *
-     * @return @f$m_{22}^2@f$
+     * @return @f$\tan \beta@f$
      */
-    double getTHDMW_m22_2() const {
-        return THDMW_m22_2;
+    double getTHDMW_tanb() const {
+        return THDMW_tanb;
     }
 
     /**
      *
-     * @return @f$m_{12}^2@f$
+     * @return @f$\sin \beta@f$
      */
-    double getTHDMW_m12_2() const {
-        return THDMW_m12_2;
+    double getTHDMW_sinb() const {
+        return THDMW_sinb;
+    }
+
+    /**
+     *
+     * @return @f$\cos \beta@f$
+     */
+    double getTHDMW_cosb() const {
+        return THDMW_cosb;
+    }
+
+    /**
+     *
+     * @return @f$\beta-\alpha@f$
+     */
+    double getTHDMW_bma() const {
+        return THDMW_bma;
+    }
+
+    /**
+     *
+     * @return @f$\sin(\beta-\alpha)@f$
+     */
+    double getTHDMW_sin_ba() const {
+        return THDMW_sin_ba;
+    }
+
+    /**
+     *
+     * @return @f$\cos \alpha@f$
+     */
+    double getTHDMW_cosa() const{
+        return cos(atan(pow(10.,THDMW_logtb))-THDMW_bma);
+    }
+
+    /**
+     *
+     * @return @f$\sin \alpha@f$
+     */
+    double getTHDMW_sina() const{
+        return sin(atan(pow(10.,THDMW_logtb))-THDMW_bma);
     }
 
     /**
@@ -436,7 +476,7 @@ private:
 
     THDMWcache* myTHDMWcache;
 
-    double THDMW_m11_2, THDMW_m22_2, THDMW_m12_2;
+    double THDMW_logtb, THDMW_tanb, THDMW_sinb, THDMW_cosb, THDMW_bma, THDMW_sin_ba;
     double THDMW_lambda1, THDMW_lambda2, THDMW_lambda3, THDMW_lambda4, THDMW_lambda5;
     double THDMW_mS2, THDMW_mu1, THDMW_mu2, THDMW_mu3, THDMW_mu4, THDMW_mu5, THDMW_mu6;
     double THDMW_nu1, THDMW_nu2, THDMW_nu3, THDMW_nu4, THDMW_nu5;

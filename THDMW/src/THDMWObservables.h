@@ -8,7 +8,9 @@
 #ifndef THDMWOBSERVABLES_H
 #define	THDMWOBSERVABLES_H
 
-#include "THDMWunitarity.h"
+#include "THDMWpositivity.h"
 #include "THDMWquantitiesatQ.h"
+#include "THDMWSignalStrengths.h"
+#include "THDMWunitarity.h"
 
 #endif	/* THDMWOBSERVABLES_H */

@@ -1192,6 +1192,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["kappa2atQTHDMW"] = boost::factory<kappa2atQTHDMW*>();
     obsThFactory["nu4atQTHDMW"] = boost::factory<nu4atQTHDMW*>();
     obsThFactory["omega4atQTHDMW"] = boost::factory<omega4atQTHDMW*>();
+    //-----  Positivity constraints  -----
+    obsThFactory["THDMWpositivity1"] = boost::factory<THDMWpositivity1*>();
+    obsThFactory["THDMWpositivity2"] = boost::factory<THDMWpositivity2*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["THDMWunitarity1"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 0);
     obsThFactory["THDMWunitarity2"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 1);

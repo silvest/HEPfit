@@ -21,17 +21,17 @@ THDMWcache::~THDMWcache()
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//int THDMcache::CacheCheck(const gslpp::complex cache[][CacheSize], 
-//                          const int NumPar, const double params[]) const {
-//    bool bCache;
-//    for(int i=0; i<CacheSize; i++) {
-//        bCache = true;
-//        for(int j=0; j<NumPar; j++)
-//            bCache &= (params[j] == cache[j][i].real());
-//        if (bCache) return i;
-//    }
-//    return -1;
-//}
+int THDMWcache::CacheCheck(const gslpp::complex cache[][CacheSize], 
+                          const int NumPar, const double params[]) const {
+    bool bCache;
+    for(int i=0; i<CacheSize; i++) {
+        bCache = true;
+        for(int j=0; j<NumPar; j++)
+            bCache &= (params[j] == cache[j][i].real());
+        if (bCache) return i;
+    }
+    return -1;
+}
 //
 //int THDMcache::CacheCheckReal(const double cache[][CacheSize], 
 //                          const int NumPar, const double params[]) const {
@@ -44,21 +44,21 @@ THDMWcache::~THDMWcache()
 //    }
 //    return -1;
 //}
-//
-//void THDMcache::CacheShift(gslpp::complex cache[][CacheSize], const int NumPar, 
-//                           const double params[], const gslpp::complex newResult) const {
-//    // shift old parameters and result
-//    for(int i=CacheSize-1; i>0; i--)
-//        for(int j=0; j<NumPar+1; j++)
-//            cache[j][i] = cache[j][i-1];
-//
-//    // store new parameters and result
-//    for(int j=0; j<NumPar; j++) {
-//        cache[j][0] = gslpp::complex(params[j], 0.0, false);
-//        cache[NumPar][0] = newResult;
-//    }
-//}
-//
+
+void THDMWcache::CacheShift(gslpp::complex cache[][CacheSize], const int NumPar, 
+                           const double params[], const gslpp::complex newResult) const {
+    // shift old parameters and result
+    for(int i=CacheSize-1; i>0; i--)
+        for(int j=0; j<NumPar+1; j++)
+            cache[j][i] = cache[j][i-1];
+
+    // store new parameters and result
+    for(int j=0; j<NumPar; j++) {
+        cache[j][0] = gslpp::complex(params[j], 0.0, false);
+        cache[NumPar][0] = newResult;
+    }
+}
+
 //void THDMcache::CacheShiftReal(double cache[][CacheSize], const int NumPar,
 //                           const double params[], const double newResult) const {
 //    // shift old parameters and result
@@ -72,6 +72,637 @@ THDMWcache::~THDMWcache()
 //        cache[NumPar][0] = newResult;
 //    }
 //}
+
+//double THDMWcache::ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const {
+//    int NumPar = 6;
+//    double params[] = {mHp2, tanb, m12_2, bma, mHl2, vev};
+//
+//    int i = CacheCheckReal(ghHpHm_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( ghHpHm_cache[NumPar][i] );
+//    } else {
+//        double newResult = ((cos(bma)*mHl2*(tanb*tanb-1.0))/tanb 
+//                                    -(mHl2+2.0*mHp2)*sin(bma) 
+//                                    +(m12_2*(cos(bma)*(1.0-tanb*tanb)+2.0*sin(bma)*tanb)*(1.0+tanb*tanb))/(tanb*tanb))/vev;
+//        CacheShiftReal(ghHpHm_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//double THDMWcache::g_HH_HpHm(const double mHp2, const double mHh2, const double tanb, const double m12_2, const double bma, const double vev) const {
+//    int NumPar = 6;
+//    double params[] = {mHp2, mHh2, tanb, m12_2, bma, vev};
+//
+//    int i = CacheCheckReal(g_HH_HpHm_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( g_HH_HpHm_cache[NumPar][i] );
+//    } else {
+//        double newResult = (cos(bma)*(mHh2-2.0*mHp2)
+//                                    +((m12_2-mHh2*tanb+m12_2*tanb*tanb)
+//                                      *(2.0*cos(bma)*tanb+sin(bma)*(tanb*tanb-1.0)))/(tanb*tanb))/vev;
+//        CacheShiftReal(g_HH_HpHm_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+
+gslpp::complex THDMWcache::I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const {
+    int NumPar = 4;
+    double params[] = {mHl2, Mu, Mc, Mt};
+
+    int i = CacheCheck(I_h_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_h_U_cache[NumPar][i] );
+    } else {
+    	double TAUu=4.0*Mu*Mu/mHl2;
+    	double TAUc=4.0*Mc*Mc/mHl2;
+    	double TAUt=4.0*Mt*Mt/mHl2;
+        gslpp::complex newResult = -(8./3.)*(TAUu*(1.0+(1.0-TAUu)*f_func(TAUu))
+                         +TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))+TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
+        CacheShift(I_h_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_HH_U(const double mHh2, const double Mc, const double Mt) const {
+    int NumPar = 3;
+    double params[] = {mHh2, Mc, Mt};
+
+    int i = CacheCheck(I_HH_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_HH_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mHh2;
+    	double TAUt=4.0*Mt*Mt/mHh2;
+        gslpp::complex newResult = -(8./3.)*(TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
+                      +TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
+        CacheShift(I_HH_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_A_U(const double mA2, const double Mc, const double Mt) const {
+    int NumPar = 3;
+    double params[] = {mA2, Mc, Mt};
+
+    int i = CacheCheck(I_A_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_A_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mA2;
+    	double TAUt=4.0*Mt*Mt/mA2;
+        gslpp::complex newResult = -(8./3.)*(TAUc*f_func(TAUc)+TAUt*f_func(TAUt));
+        CacheShift(I_A_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const {
+    int NumPar = 4;
+    double params[] = {mHl2, Md, Ms, Mb};
+
+    int i = CacheCheck(I_h_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_h_D_cache[NumPar][i] );
+    } else {
+    	double TAUd=4.0*Md*Md/mHl2;
+    	double TAUs=4.0*Ms*Ms/mHl2;
+    	double TAUb=4.0*Mb*Mb/mHl2;
+        gslpp::complex newResult = -(2./3.)*(TAUd*(1.0+(1.0-TAUd)*f_func(TAUd))
+                         +TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))+TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
+        CacheShift(I_h_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_HH_D(const double mHh2, const double Ms, const double Mb) const {
+    int NumPar = 3;
+    double params[] = {mHh2, Ms, Mb};
+
+    int i = CacheCheck(I_HH_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_HH_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mHh2;
+    	double TAUb=4.0*Mb*Mb/mHh2;
+        gslpp::complex newResult = -(2./3.)*(TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))
+                      +TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
+        CacheShift(I_HH_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_A_D(const double mA2, const double Ms, const double Mb) const {
+    int NumPar = 3;
+    double params[] = {mA2, Ms, Mb};
+
+    int i = CacheCheck(I_A_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_A_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mA2;
+    	double TAUb=4.0*Mb*Mb/mA2;
+        gslpp::complex newResult = -(2./3.)*(TAUs*f_func(TAUs)+TAUb*f_func(TAUb));
+        CacheShift(I_A_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const {
+    int NumPar = 4;
+    double params[] = {mHl2, Me, Mmu, Mtau};
+
+    int i = CacheCheck(I_h_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_h_L_cache[NumPar][i] );
+    } else {
+    	double TAUe=4.0*Me*Me/mHl2;
+    	double TAUmu=4.0*Mmu*Mmu/mHl2;
+    	double TAUtau=4.0*Mtau*Mtau/mHl2;
+        gslpp::complex newResult = -2.0*(TAUe*(1.0+(1.0-TAUe)*f_func(TAUe))
+                         +TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))
+                         +TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
+        CacheShift(I_h_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_HH_L(const double mHh2, const double Mmu, const double Mtau) const {
+    int NumPar = 3;
+    double params[] = {mHh2, Mmu, Mtau};
+
+    int i = CacheCheck(I_HH_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_HH_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mHh2;
+    	double TAUtau=4.0*Mtau*Mtau/mHh2;
+        gslpp::complex newResult = -2.0*(TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))+
+                           TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
+        CacheShift(I_HH_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_A_L(const double mA2, const double Mmu, const double Mtau) const {
+    int NumPar = 3;
+    double params[] = {mA2, Mmu, Mtau};
+
+    int i = CacheCheck(I_A_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_A_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mA2;
+    	double TAUtau=4.0*Mtau*Mtau/mA2;
+        gslpp::complex newResult = -2.0*(TAUmu*f_func(TAUmu)+TAUtau*f_func(TAUtau));
+        CacheShift(I_A_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_H_W(const double mH, const double MW) const {
+    int NumPar = 2;
+    double params[] = {mH, MW};
+
+    int i = CacheCheck(I_H_W_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_H_W_cache[NumPar][i] );
+    } else {
+        double TAUw=4.0*MW*MW/(mH*mH);
+        gslpp::complex newResult = 2.0 + 3.0*TAUw + 3.0*TAUw*(2.0-TAUw)*f_func(TAUw);
+        CacheShift(I_H_W_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::I_H_Hp(const double mHp2, const double mH) const {
+    int NumPar = 2;
+    double params[] = {mHp2, mH};
+
+    int i = CacheCheck(I_H_Hp_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_H_Hp_cache[NumPar][i] );
+    } else {
+        double TAUhp=4.0*mHp2/(mH*mH);
+        gslpp::complex newResult = -TAUhp*(1.0-TAUhp*f_func(TAUhp));
+        CacheShift(I_H_Hp_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_h_U(const double mHl2, const double cW2, const double Mu, const double Mc, const double Mt, const double MZ) const {
+    int NumPar = 6;
+    double params[] = {mHl2, cW2, Mu, Mc, Mt, MZ};
+
+    int i = CacheCheck(A_h_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_h_U_cache[NumPar][i] );
+    } else {
+    	double TAUu=4.0*Mu*Mu/mHl2;
+    	double TAUc=4.0*Mc*Mc/mHl2;
+    	double TAUt=4.0*Mt*Mt/mHl2;
+    	double LAMu=4.0*Mu*Mu/(MZ*MZ);
+    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(Int1(TAUu,LAMu)+Int1(TAUc,LAMc)
+                           +Int1(TAUt,LAMt)-Int2(TAUu,LAMu)-Int2(TAUc,LAMc)-Int2(TAUt,LAMt));
+        CacheShift(A_h_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mHh2, cW2, Mc, Mt, MZ};
+
+    int i = CacheCheck(A_HH_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_HH_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mHh2;
+    	double TAUt=4.0*Mt*Mt/mHh2;
+    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc)
+                                         +Int1(TAUt,LAMt)-Int2(TAUt,LAMt));
+        CacheShift(A_HH_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mA2, cW2, Mc, Mt, MZ};
+
+    int i = CacheCheck(A_A_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_A_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mA2;
+    	double TAUt=4.0*Mt*Mt/mA2;
+    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(-Int2(TAUc,LAMc)-Int2(TAUt,LAMt))/sqrt(sW2*cW2);
+        CacheShift(A_A_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const {
+    int NumPar = 6;
+    double params[] = {mHl2, cW2, Md, Ms, Mb, MZ};
+
+    int i = CacheCheck(A_h_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_h_D_cache[NumPar][i] );
+    } else {
+    	double TAUd=4.0*Md*Md/mHl2;
+    	double TAUs=4.0*Ms*Ms/mHl2;
+    	double TAUb=4.0*Mb*Mb/mHl2;
+    	double LAMd=4.0*Md*Md/(MZ*MZ);
+    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(Int1(TAUd,LAMd)+Int1(TAUs,LAMs)
+                           +Int1(TAUb,LAMb)-Int2(TAUd,LAMd)-Int2(TAUs,LAMs)-Int2(TAUb,LAMb));
+        CacheShift(A_h_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mHh2, cW2, Ms, Mb, MZ};
+
+    int i = CacheCheck(A_HH_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_HH_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mHh2;
+    	double TAUb=4.0*Mb*Mb/mHh2;
+    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(Int1(TAUs,LAMs)-Int2(TAUs,LAMs)
+                                          +Int1(TAUb,LAMb)-Int2(TAUb,LAMb));
+        CacheShift(A_HH_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mA2, cW2, Ms, Mb, MZ};
+
+    int i = CacheCheck(A_A_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_A_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mA2;
+    	double TAUb=4.0*Mb*Mb/mA2;
+    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(-Int2(TAUs,LAMs)-Int2(TAUb,LAMb))/sqrt(sW2*cW2);
+        CacheShift(A_A_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const {
+    int NumPar = 6;
+    double params[] = {mHl2, cW2, Me, Mmu, Mtau, MZ};
+
+    int i = CacheCheck(A_h_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_h_L_cache[NumPar][i] );
+    } else {
+    	double TAUe=4.0*Me*Me/mHl2;
+    	double TAUmu=4.0*Mmu*Mmu/mHl2;
+    	double TAUtau=4.0*Mtau*Mtau/mHl2;
+    	double LAMe=4.0*Me*Me/(MZ*MZ);
+    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(Int1(TAUe,LAMe)+Int1(TAUmu,LAMmu)
+                            +Int1(TAUtau,LAMtau)-Int2(TAUe,LAMe)-Int2(TAUmu,LAMmu)
+                            -Int2(TAUtau,LAMtau));
+        CacheShift(A_h_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mHh2, cW2, Mmu, Mtau, MZ};
+
+    int i = CacheCheck(A_HH_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_HH_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mHh2;
+    	double TAUtau=4.0*Mtau*Mtau/mHh2;
+    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)
+                                      +Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau));
+        CacheShift(A_HH_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mA2, cW2, Mmu, Mtau, MZ};
+
+    int i = CacheCheck(A_A_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_A_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mA2;
+    	double TAUtau=4.0*Mtau*Mtau/mA2;
+    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(-Int2(TAUmu,LAMmu)-Int2(TAUtau,LAMtau))/sqrt(sW2*cW2);
+        CacheShift(A_A_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_H_W(const double mH, const double cW2, const double MW, const double MZ) const {
+    int NumPar = 4;
+    double params[] = {mH, cW2, MW, MZ};
+
+    int i = CacheCheck(A_H_W_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_H_W_cache[NumPar][i] );
+    } else {
+        double TAUw=4.0*MW*MW/(mH*mH);
+        double LAMw=4.0*MW*MW/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = -sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
+                            +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw));
+        CacheShift(A_H_W_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::A_H_Hp(const double mHp2, const double mH, const double cW2, const double MZ) const {
+    int NumPar = 4;
+    double params[] = {mHp2, mH, cW2, MZ};
+
+    int i = CacheCheck(A_H_Hp_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_H_Hp_cache[NumPar][i] );
+    } else {
+        double TAUhp=4.0*mHp2/(mH*mH);
+        double LAMhp=4.0*mHp2/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = (1.0-2.0*sW2)/sqrt(cW2*sW2)*Int1(TAUhp,LAMhp);
+        CacheShift(A_H_Hp_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex THDMWcache::f_func(const double x) const{
+    if(x<1) {
+    gslpp::complex z = -gslpp::complex::i()*M_PI;
+    return -pow(log((1.0+sqrt(1.0-x))/(1.0-sqrt(1.0-x)))+z,2)/4.0;
+    }
+    else {
+        return pow(asin(sqrt(1.0/x)),2);
+    }
+}
+
+gslpp::complex THDMWcache::g_func(const double x) const{
+    if(x<1) {
+    gslpp::complex z = -gslpp::complex::i()*M_PI;
+    gslpp::complex gs1 = sqrt(1.0-x)*(log((1.0+sqrt(1.0-x))/(1.0-sqrt(1.0-x)))+z)/2.0;
+    return gs1;
+    }
+    else {
+        gslpp::complex gg1 = sqrt(x-1.0)*asin(sqrt(1.0/x));
+        return gg1;
+    }
+}
+
+gslpp::complex THDMWcache::Int1(const double tau, const double lambda) const{
+    return tau*lambda/(tau-lambda)/2.0+tau*tau*lambda*lambda/((tau-lambda)
+           *(tau-lambda))/2.0*(f_func(tau)-f_func(lambda))+tau*tau*lambda/((tau-lambda)
+           *(tau-lambda))*(g_func(tau)-g_func(lambda));
+}
+
+gslpp::complex THDMWcache::Int2(const double tau, const double lambda) const{
+    return -tau*lambda/(tau-lambda)/2.0*(f_func(tau)-f_func(lambda));
+}
+
+void THDMWcache::computeSignalStrengthQuantities()
+{
+//    double Mt=trueSM.getQuarks(QCD::TOP).getMass();
+//    double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
+//    double TAUt=4.0*Mt*Mt/(mHl*mHl);
+//    double TAUb=4.0*Mb*Mb/(mHl*mHl);
+//    double cgEff;
+
+//    cgEff = ( ( ct * 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
+//                     +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))
+//                     +cg * 0.5 ).abs2();
+//    
+//    cgEff = cgEff / ( ( 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
+//                     + 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
+//    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    double sW2=1.0-cW2;
+//    double sin_ba=sin(bma);
+//    double sinb=tanb/sqrt(1.0+tanb*tanb);
+//    double cosb=1.0/sqrt(1.0+tanb*tanb);
+//    double sina=sinb*cos(bma)-cosb*sin(bma);
+//    double cosa=cosb*cos(bma)+sinb*sin(bma);
+//
+//    //The Standard Model h branching ratios
+//
+//    BrSM_htobb = 5.77e-1;
+//    BrSM_htotautau = 6.32e-2;
+//    BrSM_htogaga = 2.28e-3;
+//    double BrSM_htoWW = 2.15e-1;
+//    double BrSM_htoZZ = 2.64e-2;
+//    double BrSM_htogg = 8.57e-2;
+//    double BrSM_htoZga = 1.54e-3;
+//    double BrSM_htocc = 2.91e-2;
+//
+//    //The ggH cross section in the SM at 8 TeV.
+//    double SigmaggF8 = myTHDM->computeSigmaggH(8.0);
+//    //The ggH cross section in the SM at 13 TeV.
+//    double SigmaggF13 = myTHDM->computeSigmaggH(13.0);
+//    //The square of the top-quark contribution to the ggH cross section in the SM at 8 TeV
+//    double Sigmaggh_tt8 = myTHDM->computeSigmaggH_tt(8.0);
+//    //The square of the top-quark contribution to the ggH cross section in the SM at 13 TeV
+////    double Sigmaggh_tt13 = myTHDM->computeSigmaggH_tt(13.0);
+//    //The square of the bottom-quark contribution to the ggH cross section in the SM at 8 TeV
+//    double Sigmaggh_bb8 = myTHDM->computeSigmaggH_bb(8.0);
+//    //The square of the bottom-quark contribution to the ggH cross section in the SM at 13 TeV
+////    double Sigmaggh_bb13 = myTHDM->computeSigmaggH_bb(13.0);
+//    //The ttH production cross section in the SM at 8 TeV
+//    double Sigmatth8 = myTHDM->computeSigmattH(8.0);
+//    //The ttH production cross section in the SM at 13 TeV
+//    double Sigmatth13 = myTHDM->computeSigmattH(13.0);
+//    //The bbH production cross section in the SM at 13 TeV
+//    double Sigmabbh13 = ip_cs_pptobbH_13(mHl);
+//    //The VBF plus Vh production cross section in the SM at 13 TeV
+//    double SigmaVBFVh13 = (myTHDM->computeSigmaVBF(13.0)+myTHDM->computeSigmaWH(13.0)+myTHDM->computeSigmaZH(13.0));
+//
+//    /* r_ii is the ratio of the squared 2HDM vertex coupling of h to
+//     * the particle i and the respective squared SM coupling.*/
+//    rh_QuQu=cosa*cosa/(sinb*sinb);
+//    rh_VV=sin_ba*sin_ba;
+//    rh_QdQd=0.0;//It depends on the modelType
+//    rh_ll=0.0;//It depends on the modelType
+//    rh_gg=0.0;//It depends on the modelType 
+//
+//    //Calulation of rh_gg, rh_QdQd, rh_ll, rh_gaga, rh_Zga (depending on the model type): START
+//
+//    //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
+//
+//    gslpp::complex I_h_F=0.0;//It depends on the modelType
+//    gslpp::complex fermU=I_h_U(mHl*mHl,Mu,Mc,Mt);
+//    gslpp::complex fermD=I_h_D(mHl*mHl,Md,Ms,Mb);
+//    gslpp::complex fermL=I_h_L(mHl*mHl,Me,Mmu,Mtau);
+//    gslpp::complex I_hSM_W=I_H_W(mHl*mHl,MW);
+//    gslpp::complex I_h_W=sin_ba*I_hSM_W;
+//    gslpp::complex I_h_Hp=I_H_Hp(mHp2,mHl*mHl)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
+//
+//    double ABSgagaTHDM=0.0;
+//    double ABSgagaSM=0.0;
+//
+//    //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
+//
+//    gslpp::complex A_h_F = 0.0;//It depends on the modelType
+//    gslpp::complex A_h_Ux = A_h_U(mHl*mHl,cW2,Mu,Mc,Mt,MZ);
+//    gslpp::complex A_h_Dx = A_h_D(mHl*mHl,cW2,Md,Ms,Mb,MZ);
+//    gslpp::complex A_h_Lx  = A_h_L(mHl*mHl,cW2,Me,Mmu,Mtau,MZ);
+//    gslpp::complex A_hSM_W = A_H_W(mHl*mHl,cW2,MW,MZ);
+//    gslpp::complex A_h_W = sin_ba*A_hSM_W;
+//    gslpp::complex A_h_Hp = A_H_Hp(mHp2,mHl*mHl,cW2,MZ)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
+//
+//    double ABSZgaTHDM=0.0;
+//    double ABSZgaSM=0.0;
+//
+//    if( modelflag == "type1" ) {
+//        rh_gg=cosa/sinb*cosa/sinb;
+//        rh_QdQd=cosa/sinb*cosa/sinb;
+//        rh_ll=cosa/sinb*cosa/sinb;
+//        I_h_F=cosa/sinb*(fermU+fermD+fermL);
+//        A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
+//    }
+//    else if( modelflag == "type2" ) {
+//        rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
+//             *(Sigmaggh_tt8*cosa/sinb+Sigmaggh_bb8*sina/cosb)/SigmaggF8;
+//        rh_QdQd=sina/cosb*sina/cosb;
+//        rh_ll=sina/cosb*sina/cosb;
+//        I_h_F=cosa/sinb*fermU -sina/cosb*(fermD+fermL);
+//        A_h_F = (cosa/sinb*A_h_Ux-sina/cosb*(A_h_Dx+A_h_Lx))/sqrt(sW2*cW2);
+//    }
+//    else if( modelflag == "typeX" ) {
+//        rh_gg=cosa/sinb*cosa/sinb;
+//        rh_QdQd=cosa/sinb*cosa/sinb;
+//        rh_ll=sina/cosb*sina/cosb;
+//        I_h_F = cosa/sinb*(fermU+fermD) -sina/cosb*fermL;
+//        A_h_F = (cosa/sinb*(A_h_Ux+A_h_Dx)-sina/cosb*A_h_Lx)/sqrt(sW2*cW2);
+//    }
+//    else if( modelflag == "typeY" ) {
+//        rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
+//             *(Sigmaggh_tt8*cosa/sinb+Sigmaggh_bb8*sina/cosb)/SigmaggF8;
+//        rh_QdQd=sina/cosb*sina/cosb;
+//        rh_ll=cosa/sinb*cosa/sinb;
+//        I_h_F = cosa/sinb*(fermU+fermL) -sina/cosb*fermD;
+//        A_h_F = (cosa/sinb*(A_h_Ux+A_h_Lx)-sina/cosb*A_h_Dx)/sqrt(sW2*cW2);
+//    }
+//    else {
+//        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
+//    }
+//
+//    ABSgagaTHDM=(I_h_F+I_h_W+I_h_Hp).abs2();
+//    ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
+//    rh_gaga=ABSgagaTHDM/ABSgagaSM;
+//
+//    ABSZgaTHDM=(A_h_F+A_h_W+A_h_Hp).abs2();
+//    ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
+//    rh_Zga=ABSZgaTHDM/ABSZgaSM;
+//    //Calulation of rh_gg, rh_QdQd, rh_ll, rh_gaga, rh_Zga (they depend on the model type): END
+//
+//    /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
+//    ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*rh_QuQu)/(SigmaggF8 + Sigmatth8);
+//    /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
+//    ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth13*rh_QuQu)/(SigmaggF13 + Sigmatth13);
+//    /* pph13 is the ratio of the THDM and SM cross sections for an h production at 13 TeV */
+//    pph13 = (SigmaggF13*rh_gg + SigmaVBFVh13*rh_VV + Sigmatth13*rh_QuQu + Sigmabbh13*rh_QdQd)/(SigmaggF13 + SigmaVBFVh13 + Sigmatth13 + Sigmabbh13);
+//    /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
+//    VBF_Vh = rh_VV;
+//
+//    sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
+//          rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_QuQu*BrSM_htocc;
+//
+//    Gamma_h = sumModBRs*myTHDM->computeGammaHTotal();
+//    
+//    THDM_BR_h_bb = rh_QdQd*BrSM_htobb/sumModBRs;
+//    THDM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
+//    THDM_BR_h_tautau = rh_ll*BrSM_htotautau/sumModBRs;
+//    THDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
+//    THDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
+}
 
 void THDMWcache::runTHDMWparameters()
 {
@@ -323,33 +954,71 @@ void THDMWcache::computeUnitarity()
 
 void THDMWcache::setOtherParameters()
 {
-//m11sq=-((v*v ((\[Lambda]3 + \[Lambda]4 + \[Lambda]5) Cos[\[Beta]] Sin[\
-//\[Beta]] + (Cos[
-//         2 \[Beta]] (\[Lambda]3 + \[Lambda]4 + \[Lambda]5 + \
-//\[Lambda]1 Cot[\[Beta]]^2) + 2 \[Lambda]2 Sin[\[Beta]]^2) Tan[
-//      2 \[Alpha]] - \[Lambda]1 Cos[\[Beta]]^2 (Cot[\[Beta]] + 
-//       2 Tan[2 \[Alpha]])) Tan[\[Beta]])/(-2 + 
-//  4 Cot[2 \[Beta]] Tan[2 \[Alpha]]));
-//    m22sq=-((v^2 (-\[Lambda]2 Sin[\[Beta]]^2 + 
-//    Cos[\[Beta]]^2 (\[Lambda]3 + \[Lambda]4 + \[Lambda]5 - 
-//       2 \[Lambda]1 Cot[\[Beta]] Tan[2 \[Alpha]]) + 
-//    Tan[2 \[Alpha]] (\[Lambda]2 Sin[2 \[Beta]] + 
-//       Cos[2 \[Beta]] ((\[Lambda]3 + \[Lambda]4 + \[Lambda]5) Cot[\
-//\[Beta]] + \[Lambda]2 Tan[\[Beta]]))))/(-2 + 
-//  4 Cot[2 \[Beta]] Tan[2 \[Alpha]]));
-//    mHpsq=0.;
+    double sin2b=2.0*sinb*cosb;
+    double cos2b=cosb*cosb-sinb*sinb;
+    double tan2b=sin2b/cos2b;
+    double cot2b=1.0/tan2b;
+    double sin2a=2.0*sina*cosa;
+    double cos2a=cosa*cosa-sina*sina;
+    double tan2a=sin2a/cos2a;
+    double cot2a=1.0/tan2a;
+    double lambda345=lambda3+lambda4+lambda5;
+
+    m12sq = vev*vev*(-lambda345*sin2b
+                     +2.0*(lambda1*cosb*cosb - lambda2*sinb*sinb)*tan2a/(4.0*tan2a/tan2b-2.0));
+    
+    m11sq = vev*vev*(lambda2*sinb*sinb*tanb/(cot2a-2.0*cot2b)
+                     +(lambda1*(cosb*cosb - (4.0*cosb*cosb-3.0)*cosb*tan2a/sinb)
+                       -lambda345*(sinb*sinb + cos2b*tan2a*tanb))/(4.0*cot2b*tan2a-2.0));
+
+    m22sq = vev*vev*(-lambda1*cosb*cosb*cosb/sinb/(cot2a-2.0*cot2b)
+                     +(lambda2*(sinb*sinb + (4.0*sinb*sinb-3.0)*tanb*tan2a)
+                       -lambda345*(cosb*cosb + cos2b*tan2a*cosb/sinb))/(4.0*cot2b*tan2a-2.0));
+    
+    mhsq = vev*vev*(lambda1*sina*sina*cosb*cosb + lambda2*cosa*cosa*sinb*sinb
+                    -lambda345*sin2a*cosb*sinb
+                    +cos(bma)*cos(bma)*(lambda345 + (lambda2 - lambda1/(tanb*tanb))*tan2a*tanb)/(1.0 - 2.0*cot2b*tan2a));
+
+    mHsq = vev*vev*(lambda1*cosa*cosa*cosb*cosb + lambda2*sina*sina*sinb*sinb
+                    +lambda345*sin2a*cosb*sinb
+                    +sin(bma)*sin(bma)*(lambda345 + (lambda2 - lambda1/(tanb*tanb))*tan2a*tanb)/(1.0 - 2.0*cot2b*tan2a));
+
+    mAsq = vev*vev*(lambda3+lambda4 + tan2a*(-lambda1*cosb/sinb + lambda2*tanb + 2.0*lambda5*cot2b))/(1.0 - 2.0*cot2b*tan2a);
+
+    mSRsq = mSsq + vev*vev*((nu1+nu2+2.0*nu3)*cosb*cosb + (omega1+omega2+2.0*omega3)*sinb*sinb
+                            +(kappa1+kappa2+kappa3)*sin2b)/4.0;
+
+    mSIsq = mSsq + vev*vev*((nu1+nu2-2.0*nu3)*cosb*cosb + (omega1+omega2-2.0*omega3)*sinb*sinb
+                            +(kappa1+kappa2-kappa3)*sin2b)/4.0;
+
+    if( THDMWmodel == "custodial1" ) {
+        mHpsq = mAsq;
+        mSpsq = mSIsq;
+    }
+    else {
+        mHpsq = vev*vev*(lambda345 + tan2a*(-lambda1*cosb/sinb + lambda2*tanb + (lambda4+lambda5)*cot2b))/(1.0 - 2.0*cot2b*tan2a);
+        mSpsq = mSsq + vev*vev*(nu1*cosb*cosb + omega1*sinb*sinb + kappa1*sin2b)/4.0;
+    }
 }
 
 void THDMWcache::updateCache()
 {
+    THDMWmodel=myTHDMW->getModelTypeTHDMWflag();
     Q_THDMW=myTHDMW->getQ_THDMW();
     MZ=myTHDMW->getMz();
-//    tanb=myTHDMW->getTHDMW_tanb();
-//    bma=myTHDMW->getTHDMW_bma();
+    vev=myTHDMW->v();
+    tanb=myTHDMW->getTHDMW_tanb();
+    sinb=myTHDMW->getTHDMW_sinb();
+    cosb=myTHDMW->getTHDMW_cosb();
+    bma=myTHDMW->getTHDMW_bma();
+    sina=myTHDMW->getTHDMW_sina();
+    cosa=myTHDMW->getTHDMW_cosa();
     lambda1=myTHDMW->getTHDMW_lambda1();
     lambda2=myTHDMW->getTHDMW_lambda2();
     lambda3=myTHDMW->getTHDMW_lambda3();
     lambda4=myTHDMW->getTHDMW_lambda4();
+    lambda5=myTHDMW->getTHDMW_lambda5();
+    mSsq=myTHDMW->getTHDMW_mS2();
     mu1=myTHDMW->getTHDMW_mu1();
     mu3=myTHDMW->getTHDMW_mu3();
     mu4=myTHDMW->getTHDMW_mu4();
@@ -359,10 +1028,14 @@ void THDMWcache::updateCache()
     nu2=myTHDMW->getTHDMW_nu2();
     omega2=myTHDMW->getTHDMW_omega2();
     kappa2=myTHDMW->getTHDMW_kappa2();
+    nu3=myTHDMW->getTHDMW_nu3();
+    omega3=myTHDMW->getTHDMW_omega3();
+    kappa3=myTHDMW->getTHDMW_kappa3();
     nu4=myTHDMW->getTHDMW_nu4();
     omega4=myTHDMW->getTHDMW_omega4();
     RpepsTHDMW=myTHDMW->getRpepsTHDMW();
 
+    setOtherParameters();
     runTHDMWparameters();
     computeUnitarity();
 }

@@ -8,7 +8,7 @@
 #include "THDMW.h"
 #include "THDMWcache.h"
 
-const std::string THDMW::THDMWvars[NTHDMWvars] = {"THDMW_m11_2","THDMW_m22_2","THDMW_m12_2",
+const std::string THDMW::THDMWvars[NTHDMWvars] = {"THDMW_logtb","THDMW_bma",
                                                "THDMW_lambda1","THDMW_lambda2","THDMW_lambda3","THDMW_lambda4","THDMW_lambda5",
                                                "THDMW_mS2","THDMW_mu1","THDMW_mu2","THDMW_mu3","THDMW_mu4","THDMW_mu5","THDMW_mu6",
                                                "THDMW_nu1","THDMW_nu2","THDMW_nu3","THDMW_nu4","THDMW_nu5",
@@ -18,9 +18,8 @@ const std::string THDMW::THDMWvars[NTHDMWvars] = {"THDMW_m11_2","THDMW_m22_2","T
 THDMW::THDMW() : StandardModel()/*, THDMWM(*this)*/ {
 
 //    SMM.setObj((StandardModelMatching&) THDMWM.getObj());
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_m11_2", boost::cref(THDMW_m11_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_m22_2", boost::cref(THDMW_m22_2)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_m12_2", boost::cref(THDMW_m12_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_logtb", boost::cref(THDMW_logtb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_bma", boost::cref(THDMW_bma)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_lambda1", boost::cref(THDMW_lambda1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_lambda2", boost::cref(THDMW_lambda2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("THDMW_lambda3", boost::cref(THDMW_lambda3)));
@@ -106,12 +105,21 @@ bool THDMW::PostUpdate()
 
 void THDMW::setParameter(const std::string name, const double& value){
 
-    if(name.compare("THDMW_m11_2") == 0)
-        THDMW_m11_2 = value;
-    else if(name.compare("THDMW_m22_2") == 0)
-        THDMW_m22_2 = value;
-    else if(name.compare("THDMW_m12_2") == 0)
-        THDMW_m12_2 = value;
+    if(name.compare("THDMW_logtb") == 0) {
+        THDMW_logtb = value;
+        THDMW_tanb = pow(10.,THDMW_logtb);
+        if(THDMW_tanb > 0.) {
+            THDMW_sinb = THDMW_tanb / sqrt(1. + THDMW_tanb*THDMW_tanb);
+            THDMW_cosb = 1. / sqrt(1. + THDMW_tanb*THDMW_tanb);
+        }
+        else {
+            throw std::runtime_error("error in THDMW::SetParameter, THDMW_tanb < 0!"); 
+          }
+        }
+    else if(name.compare("THDMW_bma") == 0) {
+        THDMW_bma = value;
+        THDMW_sin_ba = sin(THDMW_bma);
+    }
     else if(name.compare("THDMW_lambda1") == 0)
         THDMW_lambda1 = value;
     else if(name.compare("THDMW_lambda2") == 0)

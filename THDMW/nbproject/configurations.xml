@@ -7,7 +7,9 @@
       <itemPath>src/RunnerTHDMW.h</itemPath>
       <itemPath>src/THDMW.h</itemPath>
       <itemPath>src/THDMWObservables.h</itemPath>
+      <itemPath>src/THDMWSignalStrengths.h</itemPath>
       <itemPath>src/THDMWcache.h</itemPath>
+      <itemPath>src/THDMWpositivity.h</itemPath>
       <itemPath>src/THDMWquantitiesatQ.h</itemPath>
       <itemPath>src/THDMWunitarity.h</itemPath>
     </logicalFolder>
@@ -20,7 +22,9 @@
                    projectFiles="true">
       <itemPath>src/RunnerTHDMW.cpp</itemPath>
       <itemPath>src/THDMW.cpp</itemPath>
+      <itemPath>src/THDMWSignalStrengths.cpp</itemPath>
       <itemPath>src/THDMWcache.cpp</itemPath>
+      <itemPath>src/THDMWpositivity.cpp</itemPath>
       <itemPath>src/THDMWquantitiesatQ.cpp</itemPath>
       <itemPath>src/THDMWunitarity.cpp</itemPath>
     </logicalFolder>
@@ -52,6 +56,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -80,9 +85,17 @@
       </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMWSignalStrengths.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWSignalStrengths.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMWcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMWcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWpositivity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWpositivity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -137,9 +150,17 @@
       </item>
       <item path="src/THDMWObservables.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMWSignalStrengths.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWSignalStrengths.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMWcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMWcache.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWpositivity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWpositivity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
       </item>
