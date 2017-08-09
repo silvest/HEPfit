@@ -391,6 +391,15 @@ private:
     double S910_A(double sh, orders order);
     
     /**
+    * @brief \f$\mathcal{O}(\Lambda_{QCD}^2/m_c^2)\f$ contributions \f$c_{ij}^I\f$ as defined in @cite Huber:2015sra
+    * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
+    * @param[in] i,j indices in eq. (4.10) in @cite Huber:2015sra
+    */
+    gslpp::complex cij_T(unsigned int i, unsigned int j, double sh, orders order);
+    gslpp::complex cij_L(unsigned int i, unsigned int j, double sh, orders order);
+    gslpp::complex cij_A(unsigned int i, unsigned int j, double sh, orders order);
+    
+    /**
     * @brief Log-enhanced electromagnetic corrections \f$e_{ij}^I\f$ as defined in @cite Huber:2015sra
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] i,j indices in eq. (4.10) in @cite Huber:2015sra
@@ -473,24 +482,30 @@ private:
     gslpp::complex g_Huber(double y);
     
     /**
+    * @brief Auxiliary function \f$F(r)\f$ from @cite Buchalla:1997ky
+    * @param[in] r normalized dilepton invariant mass \f$q^2/{4 m_c^2}\f$
+    */
+    gslpp::complex F_BIR(double r);
+    
+    /**
     * @brief Vector of auxiliary functions \f$M_i^7(sh)\f$ from Table 6 of @cite Huber:2005ig
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] order LO or NLO
     */
-    gslpp::vector<gslpp::complex> vecM7(double sh, orders order);
+    gslpp::vector<gslpp::complex> Mi7(double sh, orders order);
     
     /**
     * @brief Vector of auxiliary functions \f$M_i^9(sh)\f$ from Table 6 of @cite Huber:2005ig
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] order LO or NLO
     */
-    gslpp::vector<gslpp::complex> vecM9(double sh, orders order);
+    gslpp::vector<gslpp::complex> Mi9(double sh, orders order);
     
     /**
     * @brief Vector of auxiliary functions \f$M_i^10(sh)\f$ from Table 6 of @cite Huber:2005ig
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     */
-    gslpp::vector<double> vecM10(double sh);
+    gslpp::vector<double> Mi10(double sh);
     
     /**
     * @brief Matrix of auxiliary functions \f$H_{ij}^{T}\f$ from @cite Huber:2015sra

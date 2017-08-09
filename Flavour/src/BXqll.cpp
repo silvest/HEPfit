@@ -734,7 +734,7 @@ double BXqll::H_T(double sh)
     {
         for(int i=0; i<=j; i++)
         {
-            Phill_T += ((*(allcoeff[LO]))(i)*(*(allcoeff[LO]))(j).conjugate()*(HT_LO(i,j)/*+HT_NLO(i,j)*/) +
+            Phill_T += ((*(allcoeff[LO]))(i)*(*(allcoeff[LO]))(j).conjugate()*(HT_LO(i,j) + HT_NLO(i,j)) +
                        ((*(allcoeff[LO]))(i)*(*(allcoeff[NLO]))(j).conjugate()+
                        (*(allcoeff[NLO]))(i)*(*(allcoeff[LO]))(j).conjugate())*HT_LO(i,j)).real();
         }
@@ -754,7 +754,7 @@ double BXqll::H_L(double sh)
     {
         for(int i=0; i<=j; i++)
         {
-            Phill_L += ((*(allcoeff[LO]))(i)*((*(allcoeff[LO]))(j)).conjugate()*(HL_LO(i,j)/*+HL_NLO(i,j)*/) +
+            Phill_L += ((*(allcoeff[LO]))(i)*((*(allcoeff[LO]))(j)).conjugate()*(HL_LO(i,j) + HL_NLO(i,j)) +
                        ((*(allcoeff[LO]))(i)*(*(allcoeff[NLO]))(j).conjugate()+
                        (*(allcoeff[NLO]))(i)*(*(allcoeff[LO]))(j).conjugate())*HL_LO(i,j)).real();
         }
@@ -767,11 +767,11 @@ gslpp::matrix<gslpp::complex> BXqll::matH_T(double sh, orders order)
 {
     gslpp::matrix<gslpp::complex> Hij_T(10,10,0.);
     
-    gslpp::vector<gslpp::complex> M7_LO = vecM7(sh,LO);
-    gslpp::vector<gslpp::complex> M9_LO = vecM9(sh,LO);
-    gslpp::vector<double>         M10_LO = vecM10(sh);
-    gslpp::vector<gslpp::complex> M7_NLO = vecM7(sh,NLO);
-    gslpp::vector<gslpp::complex> M9_NLO = vecM9(sh,NLO);
+    gslpp::vector<gslpp::complex> M7_LO = Mi7(sh,LO);
+    gslpp::vector<gslpp::complex> M9_LO = Mi9(sh,LO);
+    gslpp::vector<double>         M10_LO = Mi10(sh);
+    gslpp::vector<gslpp::complex> M7_NLO = Mi7(sh,NLO);
+    gslpp::vector<gslpp::complex> M9_NLO = Mi9(sh,NLO);
 
     switch(order)
     {
@@ -783,14 +783,14 @@ gslpp::matrix<gslpp::complex> BXqll::matH_T(double sh, orders order)
                     if(i==j)
                         Hij_T.assign(i,j, S77_T(sh,LO)*M7_LO(i)*M7_LO(i).conjugate() +
                                           S99_T(sh,LO)*M9_LO(i)*M9_LO(i).conjugate() +
-                                          S1010_T(sh,LO)*M10_LO(i)*M10_LO(i) /*+
-                                          S79_T(sh,LO)*(M7_LO(i)*M9_LO(i).conjugate()).real()*/);
+                                          S1010_T(sh,LO)*M10_LO(i)*M10_LO(i) +
+                                          S79_T(sh,LO)*(M7_LO(i)*M9_LO(i).conjugate()).real());
             
                     else
                         Hij_T.assign(i,j, 2.*S77_T(sh,LO)*M7_LO(i)*M7_LO(j).conjugate() +
                                           2.*S99_T(sh,LO)*M9_LO(i)*M9_LO(j).conjugate() +
-                                          2.*S1010_T(sh,LO)*M10_LO(i)*M10_LO(j) /*+
-                                          S79_T(sh,LO)*(M7_LO(i)*M9_LO(j).conjugate()+M9_LO(i)*M7_LO(j).conjugate())*/);
+                                          2.*S1010_T(sh,LO)*M10_LO(i)*M10_LO(j) +
+                                          S79_T(sh,LO)*(M7_LO(i)*M9_LO(j).conjugate()+M9_LO(i)*M7_LO(j).conjugate()));
                         
                 }
             }
@@ -805,19 +805,19 @@ gslpp::matrix<gslpp::complex> BXqll::matH_T(double sh, orders order)
                         2*S77_T(sh,LO)*(M7_LO(i)*M7_NLO(i).conjugate()).real() +
                                           S99_T(sh,NLO)*M9_LO(i)*M9_LO(i).conjugate()+
                         2*S99_T(sh,LO)*(M9_LO(i)*M9_NLO(i).conjugate()).real() +
-                                          S1010_T(sh,NLO)*M10_LO(i)*M10_LO(i) /*+
+                                          S1010_T(sh,NLO)*M10_LO(i)*M10_LO(i) +
                                           S79_T(sh,NLO)*(M7_LO(i)*M9_LO(i).conjugate()).real()+
-                        S79_T(sh,LO)*(M7_LO(i)*M9_NLO(i).conjugate()+M7_NLO(i)*M9_LO(i).conjugate()).real()*/);
+                        S79_T(sh,LO)*(M7_LO(i)*M9_NLO(i).conjugate()+M7_NLO(i)*M9_LO(i).conjugate()).real());
             
                     else
                         Hij_T.assign(i,j, 2.*(S77_T(sh,NLO)*M7_LO(i)*M7_LO(j).conjugate()+
                         S77_T(sh,LO)*(M7_LO(i)*M7_NLO(j).conjugate() + M7_NLO(i)*M7_LO(j).conjugate())) +
                                           2.*(S99_T(sh,NLO)*M9_LO(i)*M9_LO(j).conjugate()+
                         S99_T(sh,LO)*(M9_LO(i)*M9_NLO(j).conjugate() + M9_NLO(i)*M9_LO(j).conjugate())) +
-                                          2.*S1010_T(sh,NLO)*M10_LO(i)*M10_LO(j) /*+
+                                          2.*S1010_T(sh,NLO)*M10_LO(i)*M10_LO(j) +
                                           S79_T(sh,NLO)*(M7_LO(i)*M9_LO(j).conjugate()+M9_LO(i)*M7_LO(j).conjugate())+
                         S79_T(sh,LO)*(M7_LO(i)*M9_NLO(j).conjugate() + M7_NLO(i)*M9_LO(j).conjugate()+
-                        M9_LO(i)*M7_NLO(j).conjugate() + M9_NLO(i)*M7_LO(j).conjugate())*/);
+                        M9_LO(i)*M7_NLO(j).conjugate() + M9_NLO(i)*M7_LO(j).conjugate()));
                 }
             }
             break;
@@ -831,11 +831,11 @@ gslpp::matrix<gslpp::complex> BXqll::matH_L(double sh, orders order)
 {
     gslpp::matrix<gslpp::complex> Hij_L(10,10,0.);
     
-    gslpp::vector<gslpp::complex> M7_LO = vecM7(sh,LO);
-    gslpp::vector<gslpp::complex> M7_NLO = vecM7(sh,NLO);
-    gslpp::vector<gslpp::complex> M9_LO = vecM9(sh,LO);
-    gslpp::vector<gslpp::complex> M9_NLO = vecM9(sh,NLO);
-    gslpp::vector<double>         M10_LO = vecM10(sh);
+    gslpp::vector<gslpp::complex> M7_LO = Mi7(sh,LO);
+    gslpp::vector<gslpp::complex> M7_NLO = Mi7(sh,NLO);
+    gslpp::vector<gslpp::complex> M9_LO = Mi9(sh,LO);
+    gslpp::vector<gslpp::complex> M9_NLO = Mi9(sh,NLO);
+    gslpp::vector<double>         M10_LO = Mi10(sh);
     
     switch(order)
     {
@@ -892,59 +892,59 @@ gslpp::matrix<gslpp::complex> BXqll::matH_L(double sh, orders order)
     return Hij_L;
 }
 
-gslpp::vector<gslpp::complex> BXqll::vecM7(double sh, orders order)
+gslpp::vector<gslpp::complex> BXqll::Mi7(double sh, orders order)
 {
     gslpp::vector<gslpp::complex> M7(10,0.);
 
     switch(order)
     {
         case LO:
-            M7.assign(6, ale/4./M_PI);
+            M7.assign(6, aletilde);
             break;
         case NLO:
-            M7.assign(0, -ale*alsmu/16./M_PI/M_PI*F17(sh));
-            M7.assign(1, -ale*alsmu/16./M_PI/M_PI*F27(sh));
-            M7.assign(7, -ale*alsmu/16./M_PI/M_PI*F87(sh));
+            M7.assign(0, -alstilde * aletilde * F17(sh));
+            M7.assign(1, -alstilde * aletilde * F27(sh));
+            M7.assign(7, -alstilde * aletilde * F87(sh));
             break;
         default:
-            throw std::runtime_error("BXqll::vecM7: order not implemented");
+            throw std::runtime_error("BXqll::Mi7(): order not implemented");
     }
     
     return M7;
 }
 
-gslpp::vector<gslpp::complex> BXqll::vecM9(double sh, orders order)
+gslpp::vector<gslpp::complex> BXqll::Mi9(double sh, orders order)
 {
     gslpp::vector<gslpp::complex> M9(10,0.);
     
     switch(order)
     {
         case LO:
-            M9.assign(0, ale/4./M_PI*f_Huber(sh, -32./27., 4./3., 0.,      0.,       -16./27.));
-            M9.assign(1, ale/4./M_PI*f_Huber(sh, -8./9.,   1.,    0.,      0.,       -4./9.));
-            M9.assign(2, ale/4./M_PI*f_Huber(sh, -16./9.,  6.,    -7./2.,  2./9.,    2./27.));
-            M9.assign(3, ale/4./M_PI*f_Huber(sh, 32./27.,  0.,    -2./3.,  8./27.,   8./81.));
-            M9.assign(4, ale/4./M_PI*f_Huber(sh, -112./9., 60.,   -38.,    32./9.,   -136./27.));
-            M9.assign(5, ale/4./M_PI*f_Huber(sh, 512./27., 0.,    -32./3., 128./27., 320./81.));
-//            M9.assign(8, 1. + ale/4./M_PI*f9pen_Huber(sh));
+            M9.assign(0, aletilde * f_Huber(sh, -32./27., 4./3., 0.,      0.,       -16./27.));
+            M9.assign(1, aletilde * f_Huber(sh, -8./9.,   1.,    0.,      0.,       -4./9.));
+            M9.assign(2, aletilde * f_Huber(sh, -16./9.,  6.,    -7./2.,  2./9.,    2./27.));
+            M9.assign(3, aletilde * f_Huber(sh, 32./27.,  0.,    -2./3.,  8./27.,   8./81.));
+            M9.assign(4, aletilde * f_Huber(sh, -112./9., 60.,   -38.,    32./9.,   -136./27.));
+            M9.assign(5, aletilde * f_Huber(sh, 512./27., 0.,    -32./3., 128./27., 320./81.));
+            M9.assign(8, 1. + aletilde * f9pen_Huber(sh));
             break;
         case NLO:
-            M9.assign(0, -ale*alsmu/16./M_PI/M_PI*F19(sh));
-            M9.assign(1, -ale*alsmu/16./M_PI/M_PI*F19(sh));
-            M9.assign(7, -ale*alsmu/16./M_PI/M_PI*F89(sh));
+            M9.assign(0, -alstilde * aletilde * F19(sh));
+            M9.assign(1, -alstilde * aletilde * F19(sh));
+            M9.assign(7, -alstilde * aletilde * F89(sh));
             break;
         default:
-            throw std::runtime_error("BXqll::vecM9: order not implemented");
+            throw std::runtime_error("BXqll::Mi9(): order not implemented");
     }
     
     return M9;
 }
 
-gslpp::vector<double> BXqll::vecM10(double sh)
+gslpp::vector<double> BXqll::Mi10(double sh)
 {
     gslpp::vector<double> M10(10,0.);
 
-//    M10(9) = 1.;
+    M10(9) = 1.;
     
     return M10;
 }
@@ -1111,33 +1111,102 @@ double BXqll::S910_A(double sh, orders order)
     }
 }
 
-gslpp::complex BXqll::eij_T(unsigned int i, unsigned int j, double sh)
+gslpp::complex BXqll::cij_T(unsigned int i, unsigned int j, double sh, orders order)
 {
-    int ij;
-    double umsh = (1. - sh);
-    double sigma77_T = 8.*umsh*umsh/sh, sigma79_T = 8.*umsh*umsh, sigma99_T = 2.*sh*umsh*umsh;
-    
-    if (j == 10)
-        ij = 100*i + j;
-    else
-        ij = 10*i + j;
+    unsigned int ij = 10*(i + 1) + (j + 1);
+    double umsh = (1. - sh), uptsh = 1. + 3.*sh;
+    double r = sh*Mb*Mb/4./Mc/Mc;
+    gslpp::complex Mj7 = (Mi7(sh, order))(j);
+    gslpp::complex Mj9 = (Mi9(sh, order))(j);
+    gslpp::complex F_M7c_M9c = F_BIR(r)*(Mj7.conjugate()/sh + Mj9.conjugate()/2.);
     
     switch(ij)
     {
-        case 77:
-            return (8. * aletilde*aletilde*aletilde * sigma77_T*omega77em_T(sh));
-        case 79:
-            return (8. * aletilde*aletilde * sigma79_T*omega79em_T(sh));
-        case 99:
-            return (8. * aletilde * sigma99_T*omega99em_T(sh));
-        case 1010:
-            return (8. * aletilde * sigma99_T*omega99em_T(sh));
+        case 11:
+            return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*uptsh*F_M7c_M9c);
+        case 12:
+            Mj7 = (Mi7(sh, order))(1);
+            Mj9 = (Mi9(sh, order))(1);
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh*(F_BIR(r).conjugate()*(Mj7/sh +
+                    Mj9/2.) - F_M7c_M9c/6.));
+        case 17:
+            return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*uptsh*F_M7c_M9c);
+        case 19:
+            return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*uptsh*F_M7c_M9c);
         case 22:
-            return (8. * aletilde*aletilde*aletilde * sigma99_T*omega22em_T(sh));
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh*F_M7c_M9c);
         case 27:
-            return (8. * aletilde*aletilde*aletilde * sigma79_T*omega27em_T(sh));
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh*F_M7c_M9c);
         case 29:
-            return (8. * aletilde*aletilde * sigma99_T*omega29em_T(sh));
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh*F_M7c_M9c);
+        default:
+            return (0.);
+    }
+}
+
+gslpp::complex BXqll::cij_L(unsigned int i, unsigned int j, double sh, orders order)
+{
+    unsigned int ij = 10*(i + 1) + (j + 1);
+    double umsh = (1. - sh), tmsh = 3. - sh;
+    double r = sh*Mb*Mb/4./Mc/Mc;
+    gslpp::complex Mj7 = (Mi7(sh, order))(j);
+    gslpp::complex Mj9 = (Mi9(sh, order))(j);
+    gslpp::complex F_M7c_M9c = F_BIR(r)*(Mj7.conjugate() + Mj9.conjugate()/2.);
+    
+    switch(ij)
+    {
+        case 11:
+            return (aletilde*4.*lambda_2/27./Mc/Mc*umsh*umsh*tmsh*F_M7c_M9c);
+        case 12:
+            Mj7 = (Mi7(sh, order))(1);
+            Mj9 = (Mi9(sh, order))(1);
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh*(F_BIR(r).conjugate()*(Mj7 +
+                    Mj9/2.) - F_M7c_M9c/6.));
+        case 17:
+            return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*tmsh*F_M7c_M9c);
+        case 19:
+            return (aletilde*8.*lambda_2/54./Mc/Mc*umsh*umsh*tmsh*F_M7c_M9c);
+        case 22:
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh*F_M7c_M9c);
+        case 27:
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh*F_M7c_M9c);
+        case 29:
+            return (-aletilde*8.*lambda_2/9./Mc/Mc*umsh*umsh*tmsh*F_M7c_M9c);
+        default:
+            return (0.);
+    }
+}
+
+gslpp::complex BXqll::cij_A(unsigned int i, unsigned int j, double sh, orders order)
+{
+    unsigned int ij = 100*(i + 1) + (j + 1);
+    double umsh = (1. - sh), uptsh = 1. + 3.*sh;
+    double r = sh*Mb*Mb/4./Mc/Mc;
+    
+    switch(ij)
+    {
+        case 110:
+            return (aletilde*4.*lambda_2/9./Mc/Mc*umsh*umsh*uptsh*F_BIR(r));
+        case 210:
+            return (-aletilde*4.*lambda_2/54./Mc/Mc*umsh*umsh*uptsh*F_BIR(r));
+        default:
+            return (0.);
+    }
+}
+
+gslpp::complex BXqll::eij_T(unsigned int i, unsigned int j, double sh)
+{
+    unsigned int ij;
+    double umsh = (1. - sh);
+    double sigma77_T = 8.*umsh*umsh/sh, sigma79_T = 8.*umsh*umsh, sigma99_T = 2.*sh*umsh*umsh;
+    
+    if (j == 9)
+        ij = 100*(i + 1) + (j + 1);
+    else
+        ij = 10*(i + 1) + (j + 1);
+    
+    switch(ij)
+    {
         case 11:
             return (128./9. * aletilde*aletilde*aletilde * sigma99_T*omega22em_T(sh));
         case 12:
@@ -1146,6 +1215,20 @@ gslpp::complex BXqll::eij_T(unsigned int i, unsigned int j, double sh)
             return (32./3. * aletilde*aletilde*aletilde * sigma79_T*omega27em_T(sh));
         case 19:
             return (32./3. * aletilde*aletilde * sigma99_T*omega29em_T(sh));
+        case 22:
+            return (8. * aletilde*aletilde*aletilde * sigma99_T*omega22em_T(sh));
+        case 27:
+            return (8. * aletilde*aletilde*aletilde * sigma79_T*omega27em_T(sh));
+        case 29:
+            return (8. * aletilde*aletilde * sigma99_T*omega29em_T(sh));
+        case 77:
+            return (8. * aletilde*aletilde*aletilde * sigma77_T*omega77em_T(sh));
+        case 79:
+            return (8. * aletilde*aletilde * sigma79_T*omega79em_T(sh));
+        case 99:
+            return (8. * aletilde * sigma99_T*omega99em_T(sh));
+        case 1010:
+            return (8. * aletilde * sigma99_T*omega99em_T(sh));
         default:
             return (0.);
     }
@@ -1153,31 +1236,17 @@ gslpp::complex BXqll::eij_T(unsigned int i, unsigned int j, double sh)
 
 gslpp::complex BXqll::eij_L(unsigned int i, unsigned int j, double sh)
 {
-    int ij;
+    unsigned int ij;
     double umsh = (1. - sh);
     double sigma77_L = 4.*umsh*umsh, sigma79_L = 4.*umsh*umsh, sigma99_L = umsh*umsh;
     
-    if (j == 10)
-        ij = 100*i + j;
+    if (j == 9)
+        ij = 100* (i + 1) + (j + 1);
     else
-        ij = 10*i + j;
+        ij = 10*(i + 1) + (j + 1);
     
     switch(ij)
     {
-        case 77:
-            return (8. * aletilde*aletilde*aletilde * sigma77_L*omega77em_L(sh));
-        case 79:
-            return (8. * aletilde*aletilde * sigma79_L*omega79em_L(sh));
-        case 99:
-            return (8. * aletilde * sigma99_L*omega99em_L(sh));
-        case 1010:
-            return (8. * aletilde * sigma99_L*omega99em_L(sh));
-        case 22:
-            return (8. * aletilde*aletilde*aletilde * sigma99_L*omega22em_L(sh));
-        case 27:
-            return (8. * aletilde*aletilde*aletilde * sigma79_L*omega27em_L(sh));
-        case 29:
-            return (8. * aletilde*aletilde * sigma99_L*omega29em_L(sh));
         case 11:
             return (128./9. * aletilde*aletilde*aletilde * sigma99_L*omega22em_L(sh));
         case 12:
@@ -1186,6 +1255,20 @@ gslpp::complex BXqll::eij_L(unsigned int i, unsigned int j, double sh)
             return (32./3. * aletilde*aletilde*aletilde * sigma79_L*omega27em_L(sh));
         case 19:
             return (32./3. * aletilde*aletilde * sigma99_L*omega29em_L(sh));
+        case 22:
+            return (8. * aletilde*aletilde*aletilde * sigma99_L*omega22em_L(sh));
+        case 27:
+            return (8. * aletilde*aletilde*aletilde * sigma79_L*omega27em_L(sh));
+        case 29:
+            return (8. * aletilde*aletilde * sigma99_L*omega29em_L(sh));
+        case 77:
+            return (8. * aletilde*aletilde*aletilde * sigma77_L*omega77em_L(sh));
+        case 79:
+            return (8. * aletilde*aletilde * sigma79_L*omega79em_L(sh));
+        case 99:
+            return (8. * aletilde * sigma99_L*omega99em_L(sh));
+        case 1010:
+            return (8. * aletilde * sigma99_L*omega99em_L(sh));
         default:
             return (0.);
     }
@@ -1193,25 +1276,25 @@ gslpp::complex BXqll::eij_L(unsigned int i, unsigned int j, double sh)
 
 gslpp::complex BXqll::eij_A(unsigned int i, unsigned int j, double sh)
 {
-    int ij;
+    unsigned int ij;
     double umsh = (1. - sh);
     double sigma710_A = -8.*umsh*umsh, sigma910_A = -4.*sh*umsh*umsh;
     
-    if (j == 10)
-        ij = 100*i + j;
+    if (j == 9)
+        ij = 100*(i + 1) + (j + 1);
     else
-        ij = 10*i + j;
+        ij = 10*(i + 1) + (j + 1);
     
     switch(ij)
     {
+        case 110:
+            return (32./3. * aletilde*aletilde * sigma910_A*omega210em_A(sh));
+        case 210:
+            return (8. * aletilde*aletilde * sigma910_A*omega210em_A(sh));
         case 710:
             return (8. * aletilde*aletilde * sigma710_A*omega710em_A(sh));
         case 910:
-            return (8. * aletilde * sigma910_A*omega910em_A(sh));
-        case 210:
-            return (8. * aletilde*aletilde * sigma910_A*omega210em_A(sh));
-        case 110:
-            return (32./3. * aletilde*aletilde * sigma910_A*omega210em_A(sh));
+            return (8. * aletilde * sigma910_A*omega910em_A(sh));        
         default:
             return (0.);
     }
@@ -1488,12 +1571,24 @@ gslpp::complex BXqll::g_Huber(double y)
     gslpp::complex g_y;
     
     g_y = -2./9.*(2.+y)*sqrt(abs(1.-y));
-        if(y < 1.)
-            g_y *= log(abs((1.+sqrt(1.-y))/(1.-sqrt(1.-y))))-i*M_PI;
-        else
-            g_y *= 2.*atan(1./sqrt(y-1.));
+    if(y < 1.)
+        g_y *= log(abs((1.+sqrt(1.-y))/(1.-sqrt(1.-y))))-i*M_PI;
+    else
+        g_y *= 2.*atan(1./sqrt(y-1.));
         
-        g_y += 20./27. + 4./9.*y;
+    g_y += 20./27. + 4./9.*y;
     
     return (g_y);
+}
+
+gslpp::complex BXqll::F_BIR(double r)
+{
+    gslpp::complex i = gslpp::complex::i();
+
+    if(r > 0. && r < 1.)
+        return (1.5/r*(atan(sqrt(r/(r - 1.)))/sqrt(r - r*r) - 1.));
+    else if (r > 1.)
+        return (1.5/r*((log((1. - sqrt(1. - 1./r))/(1. + sqrt(1. - 1./r))) + i*M_PI)/2./sqrt(r*r - r) - 1.));
+    else
+        throw std::runtime_error("BXqll::F_BIR(): 1/mc^2 corrections diverge at q^2 = 4*mc^2");
 }
