@@ -9,19 +9,9 @@
 
 double THDMWSignalStrengths::muggH(const double sqrt_s) const
 {
-//    double lambda1=myTHDMW.getTHDMW_lambda1();
-//    double lambda2=myTHDMW.getTHDMW_lambda2();
-//    double lambda3=myTHDMW.getTHDMW_lambda3();
-//
-//    if (lambda1>0 && lambda2>0)
-//    {
-//        return lambda3+sqrt(lambda1*lambda2);
-//    }
-//    else
-//    {
-//        return -1.;
-//    }
-    return 1.;
+//    double bla = myTHDM.getMyTHDMWCache()->;
+
+    return 0.0;
 }
 
 

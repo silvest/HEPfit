@@ -542,30 +542,18 @@ gslpp::complex THDMWcache::Int2(const double tau, const double lambda) const{
 
 void THDMWcache::computeSignalStrengthQuantities()
 {
-//    double Mt=trueSM.getQuarks(QCD::TOP).getMass();
-//    double Mb=trueSM.getQuarks(QCD::BOTTOM).getMass();
-//    double TAUt=4.0*Mt*Mt/(mHl*mHl);
-//    double TAUb=4.0*Mb*Mb/(mHl*mHl);
-//    double cgEff;
-
-//    cgEff = ( ( ct * 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
-//                     +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))
-//                     +cg * 0.5 ).abs2();
-//    
-//    cgEff = cgEff / ( ( 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
-//                     + 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
-//    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    double sW2=1.0-cW2;
+    double Mt = myTHDMW->getQuarks(QCD::TOP).getMass();
+    double Mb = myTHDMW->getQuarks(QCD::BOTTOM).getMass();
+    double Mc = myTHDMW->getQuarks(QCD::CHARM).getMass();
+    double Ms = myTHDMW->getQuarks(QCD::STRANGE).getMass();
+    double Mu = myTHDMW->getQuarks(QCD::UP).getMass();
+    double Md = myTHDMW->getQuarks(QCD::DOWN).getMass();
+    double Mtau = myTHDMW->getLeptons(StandardModel::TAU).getMass();
+    double Mmu = myTHDMW->getLeptons(StandardModel::MU).getMass();
+    double Me = myTHDMW->getLeptons(StandardModel::ELECTRON).getMass();
+    double MW = myTHDMW->Mw_tree();
+    double cW2 = myTHDMW->c02();
+    double sW2=1.0-cW2;
 //    double sin_ba=sin(bma);
 //    double sinb=tanb/sqrt(1.0+tanb*tanb);
 //    double cosb=1.0/sqrt(1.0+tanb*tanb);
@@ -574,14 +562,14 @@ void THDMWcache::computeSignalStrengthQuantities()
 //
 //    //The Standard Model h branching ratios
 //
-//    BrSM_htobb = 5.77e-1;
-//    BrSM_htotautau = 6.32e-2;
-//    BrSM_htogaga = 2.28e-3;
-//    double BrSM_htoWW = 2.15e-1;
-//    double BrSM_htoZZ = 2.64e-2;
-//    double BrSM_htogg = 8.57e-2;
-//    double BrSM_htoZga = 1.54e-3;
-//    double BrSM_htocc = 2.91e-2;
+    double BrSM_htobb = 5.77e-1;
+    double BrSM_htotautau = 6.32e-2;
+    double BrSM_htogaga = 2.28e-3;
+    double BrSM_htoWW = 2.15e-1;
+    double BrSM_htoZZ = 2.64e-2;
+    double BrSM_htogg = 8.57e-2;
+    double BrSM_htoZga = 1.54e-3;
+    double BrSM_htocc = 2.91e-2;
 //
 //    //The ggH cross section in the SM at 8 TeV.
 //    double SigmaggF8 = myTHDM->computeSigmaggH(8.0);
@@ -603,50 +591,48 @@ void THDMWcache::computeSignalStrengthQuantities()
 //    double Sigmabbh13 = ip_cs_pptobbH_13(mHl);
 //    //The VBF plus Vh production cross section in the SM at 13 TeV
 //    double SigmaVBFVh13 = (myTHDM->computeSigmaVBF(13.0)+myTHDM->computeSigmaWH(13.0)+myTHDM->computeSigmaZH(13.0));
+
+    rh_QuQu = cosa*cosa/(sinb*sinb);
+    rh_VV = sin(bma)*sin(bma);
+    rh_QdQd = 0.0;
+    rh_ll = 0.0;
+    rh_gg = 0.0;
+    double ghHpHm = 0.0;
+
+    //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
+
+    gslpp::complex I_h_F = 0.0;
+    gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
+    gslpp::complex fermD = I_h_D(mhsq,Md,Ms,Mb);
+    gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
+    gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
+    gslpp::complex I_h_W = sin(bma)*I_hSM_W;
+
+    double ABSgagaTHDM=0.0;
+    double ABSgagaSM=0.0;
+
+    //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
+
+    gslpp::complex A_h_F = 0.0;
+    gslpp::complex A_h_Ux = A_h_U(mhsq,cW2,Mu,Mc,Mt,MZ);
+    gslpp::complex A_h_Dx = A_h_D(mhsq,cW2,Md,Ms,Mb,MZ);
+    gslpp::complex A_h_Lx  = A_h_L(mhsq,cW2,Me,Mmu,Mtau,MZ);
+    gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
+    gslpp::complex A_h_W = sin(bma)*A_hSM_W;
+
+    double ABSZgaTHDM=0.0;
+    double ABSZgaSM=0.0;
 //
-//    /* r_ii is the ratio of the squared 2HDM vertex coupling of h to
-//     * the particle i and the respective squared SM coupling.*/
-//    rh_QuQu=cosa*cosa/(sinb*sinb);
-//    rh_VV=sin_ba*sin_ba;
-//    rh_QdQd=0.0;//It depends on the modelType
-//    rh_ll=0.0;//It depends on the modelType
-//    rh_gg=0.0;//It depends on the modelType 
-//
-//    //Calulation of rh_gg, rh_QdQd, rh_ll, rh_gaga, rh_Zga (depending on the model type): START
-//
-//    //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
-//
-//    gslpp::complex I_h_F=0.0;//It depends on the modelType
-//    gslpp::complex fermU=I_h_U(mHl*mHl,Mu,Mc,Mt);
-//    gslpp::complex fermD=I_h_D(mHl*mHl,Md,Ms,Mb);
-//    gslpp::complex fermL=I_h_L(mHl*mHl,Me,Mmu,Mtau);
-//    gslpp::complex I_hSM_W=I_H_W(mHl*mHl,MW);
-//    gslpp::complex I_h_W=sin_ba*I_hSM_W;
-//    gslpp::complex I_h_Hp=I_H_Hp(mHp2,mHl*mHl)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
-//
-//    double ABSgagaTHDM=0.0;
-//    double ABSgagaSM=0.0;
-//
-//    //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
-//
-//    gslpp::complex A_h_F = 0.0;//It depends on the modelType
-//    gslpp::complex A_h_Ux = A_h_U(mHl*mHl,cW2,Mu,Mc,Mt,MZ);
-//    gslpp::complex A_h_Dx = A_h_D(mHl*mHl,cW2,Md,Ms,Mb,MZ);
-//    gslpp::complex A_h_Lx  = A_h_L(mHl*mHl,cW2,Me,Mmu,Mtau,MZ);
-//    gslpp::complex A_hSM_W = A_H_W(mHl*mHl,cW2,MW,MZ);
-//    gslpp::complex A_h_W = sin_ba*A_hSM_W;
-//    gslpp::complex A_h_Hp = A_H_Hp(mHp2,mHl*mHl,cW2,MZ)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
-//
-//    double ABSZgaTHDM=0.0;
-//    double ABSZgaSM=0.0;
-//
-//    if( modelflag == "type1" ) {
-//        rh_gg=cosa/sinb*cosa/sinb;
-//        rh_QdQd=cosa/sinb*cosa/sinb;
-//        rh_ll=cosa/sinb*cosa/sinb;
-//        I_h_F=cosa/sinb*(fermU+fermD+fermL);
-//        A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
-//    }
+    if( THDMWmodel == "custodial1" ) {
+        rh_gg=cosa/sinb*cosa/sinb;
+        rh_QdQd=cosa/sinb*cosa/sinb;
+        rh_ll=cosa/sinb*cosa/sinb;
+        ghHpHm = vev*vev/mHpsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
+                                  +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
+                                  -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
+        I_h_F=cosa/sinb*(fermU+fermD+fermL);
+        A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
+    }
 //    else if( modelflag == "type2" ) {
 //        rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
 //             *(Sigmaggh_tt8*cosa/sinb+Sigmaggh_bb8*sina/cosb)/SigmaggF8;
@@ -673,35 +659,28 @@ void THDMWcache::computeSignalStrengthQuantities()
 //    else {
 //        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
 //    }
+
+    gslpp::complex I_h_Hp = -2.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
+    gslpp::complex A_h_Hp = -2.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
+
+    ABSgagaTHDM=(I_h_F+I_h_W+I_h_Hp).abs2();
+    ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
+    rh_gaga=ABSgagaTHDM/ABSgagaSM;
 //
-//    ABSgagaTHDM=(I_h_F+I_h_W+I_h_Hp).abs2();
-//    ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
-//    rh_gaga=ABSgagaTHDM/ABSgagaSM;
-//
-//    ABSZgaTHDM=(A_h_F+A_h_W+A_h_Hp).abs2();
-//    ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
-//    rh_Zga=ABSZgaTHDM/ABSZgaSM;
-//    //Calulation of rh_gg, rh_QdQd, rh_ll, rh_gaga, rh_Zga (they depend on the model type): END
-//
-//    /* ggF_tth8 is the ratio of the THDM and SM cross sections for ggF or tth production at 8 TeV*/
-//    ggF_tth8 = (SigmaggF8*rh_gg + Sigmatth8*rh_QuQu)/(SigmaggF8 + Sigmatth8);
-//    /* ggF_tth13 is the ratio of the THDM and SM cross sections for ggF or tth production at 13 TeV */
-//    ggF_tth13 = (SigmaggF13*rh_gg + Sigmatth13*rh_QuQu)/(SigmaggF13 + Sigmatth13);
-//    /* pph13 is the ratio of the THDM and SM cross sections for an h production at 13 TeV */
-//    pph13 = (SigmaggF13*rh_gg + SigmaVBFVh13*rh_VV + Sigmatth13*rh_QuQu + Sigmabbh13*rh_QdQd)/(SigmaggF13 + SigmaVBFVh13 + Sigmatth13 + Sigmabbh13);
-//    /* VBF_Vh is the ratio of the THDM and SM cross sections for VBF or Vh production */
-//    VBF_Vh = rh_VV;
-//
-//    sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
-//          rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_QuQu*BrSM_htocc;
-//
-//    Gamma_h = sumModBRs*myTHDM->computeGammaHTotal();
-//    
-//    THDM_BR_h_bb = rh_QdQd*BrSM_htobb/sumModBRs;
-//    THDM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
-//    THDM_BR_h_tautau = rh_ll*BrSM_htotautau/sumModBRs;
-//    THDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
-//    THDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
+    ABSZgaTHDM=(A_h_F+A_h_W+A_h_Hp).abs2();
+    ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
+    rh_Zga=ABSZgaTHDM/ABSZgaSM;
+
+    sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
+          rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_QuQu*BrSM_htocc;
+
+    Gamma_h = sumModBRs*myTHDMW->computeGammaHTotal();
+    
+    THDM_BR_h_bb = rh_QdQd*BrSM_htobb/sumModBRs;
+    THDM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
+    THDM_BR_h_tautau = rh_ll*BrSM_htotautau/sumModBRs;
+    THDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
+    THDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
 }
 
 void THDMWcache::runTHDMWparameters()
