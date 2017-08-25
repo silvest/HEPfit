@@ -896,6 +896,16 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
+    std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
+    std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
+    std::vector<double> Re_T_para;/**<Vector that samples the QCDF @f$Re(T_{para})@f$ */
+    std::vector<double> Im_T_para;/**<Vector that samples the QCDF @f$Im(T_{para})@f$ */
+    
+    std::vector<double> Re_T_perp_conj;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
+    std::vector<double> Im_T_perp_conj;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
+    std::vector<double> Re_T_para_conj;/**<Vector that samples the QCDF @f$Re(T_{para})@f$ */
+    std::vector<double> Im_T_para_conj;/**<Vector that samples the QCDF @f$Im(T_{para})@f$ */
+    
     std::vector<double> ReDeltaC9_p_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
     std::vector<double> ImDeltaC9_p_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
     std::vector<double> ReDeltaC9_m_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
@@ -913,6 +923,16 @@ private:
 //    std::vector<double> Abs_h_0;
 //    std::vector<double> Abs_h_p;
 //    std::vector<double> Abs_h_m;
+    
+    TFitResultPtr Re_T_perp_res;/**<Vector that contains the fitted QCDF @f$Re(T_{perp})@f$ */
+    TFitResultPtr Im_T_perp_res;/**<Vector that contains the fitted QCDF @f$Im(T_{perp})@f$ */
+    TFitResultPtr Re_T_para_res;/**<Vector that contains the fitted QCDF @f$Re(T_{para})@f$ */
+    TFitResultPtr Im_T_para_res;/**<Vector that contains the fitted QCDF @f$Im(T_{para})@f$ */
+    
+    TFitResultPtr Re_T_perp_res_conj;/**<Vector that contains the fitted QCDF @f$Re(T_{perp})@f$ */
+    TFitResultPtr Im_T_perp_res_conj;/**<Vector that contains the fitted QCDF @f$Im(T_{perp})@f$ */
+    TFitResultPtr Re_T_para_res_conj;/**<Vector that contains the fitted QCDF @f$Re(T_{para})@f$ */
+    TFitResultPtr Im_T_para_res_conj;/**<Vector that contains the fitted QCDF @f$Im(T_{para})@f$ */
     
     TFitResultPtr refres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
     TFitResultPtr imfres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
@@ -934,6 +954,8 @@ private:
 //        
     TGraph gr1;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
     TGraph gr2;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
+    
+    TF1 QCDFfit;/**<TF1 to be used for fitting the QCDF. */
     
     TF1 reffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
     TF1 imffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
@@ -1952,9 +1974,9 @@ private:
         }
     };
     
-    gslpp::complex A_Seidel(double q2, double mb);
+    gslpp::complex A_Seidel(double q2, double mb2);
     
-    gslpp::complex B_Seidel(double q2, double mb);
+    gslpp::complex B_Seidel(double q2, double mb2);
     
     gslpp::complex C_Seidel(double q2);
     
@@ -2071,6 +2093,7 @@ private:
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair 
      * @param u integration variable in the range [0, 1]
      * @param conjugate a boolean to control conjugation
      * @return @f$ T_{perp,+}^{total} @f$
@@ -2079,6 +2102,7 @@ private:
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair
      * @param u integration variable in the range [0, 1]
      * @param conjugate a boolean to control conjugation
      * @return @f$ T_{perp,+}^{total} @f$
@@ -2087,6 +2111,7 @@ private:
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair
      * @param u integration variable in the range [0, 1]
      * @param conjugate a boolean to control conjugation
      * @return @f$ T_{para,+}^{total} @f$
@@ -2095,11 +2120,48 @@ private:
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair
      * @param u integration variable in the range [0, 1]
      * @param conjugate a boolean to control conjugation
      * @return @f$ T_{para,+}^{total} @f$
      */
     double T_para_imag(double q2, double u, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair 
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp,+}^{total} @f$
+     */
+    double T_perp_real(double q2, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{perp,+}^{total} @f$
+     */
+    double T_perp_imag(double q2, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{para,+}^{total} @f$
+     */
+    double T_para_real(double q2, bool conjugate);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
+     * @param q2 @f$ q^2 @f$: momentum of the lepton pair
+     * @param conjugate a boolean to control conjugation
+     * @return @f$ T_{para,+}^{total} @f$
+     */
+    double T_para_imag(double q2, bool conjugate);
+    
+    double QCDF_fit_func(double* x, double* p);
+    
+    void fit_QCDF_func();
     
     /**
     * @brief The fit function from @cite Straub:2015ica, \f$ FF^{\rm fit} \f$.

@@ -12,7 +12,6 @@
 #include "F_1.h"
 #include "F_2.h"
 #include <gsl/gsl_sf_zeta.h>
-#include <gsl/gsl_sf_expint.h>
 #include <boost/bind.hpp>
 #include <limits>
 #include <TFitResult.h>
@@ -172,9 +171,6 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
             << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
             << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi";
-//            << "absh_0" << "absh_p" << "absh_m"
-//            << "absh_0_1" << "absh_p_1" << "absh_m_1"
-//            << "absh_p_2" << "absh_m_2";
         else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
             << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
             << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -183,9 +179,6 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
             << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
             << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
-//            << "absh_0" << "absh_p" << "absh_m"
-//            << "absh_0_1" << "absh_p_1" << "absh_m_1"
-//            << "absh_p_2" << "absh_m_2";
         else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
             << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
             << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
@@ -194,9 +187,6 @@ std::vector<std::string> MVll::initializeMVllParameters()
             << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
             << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
             << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
-//            << "absh_0" << "absh_p" << "absh_m"
-//            << "absh_0_1" << "absh_p_1" << "absh_m_1"
-//            << "absh_p_2" << "absh_m_2";
     }
     
     mySM.initializeMeson(meson);
@@ -584,13 +574,33 @@ void MVll::updateParameters()
     if (deltaTparpupdated*deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
     mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
-
-//    for (double qq2 = 1.44; qq2 < 1.45; qq2 += 0.2) {
+    
+//    fit_QCDF_func();
+//
+//for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
 //        FS = convertToGslFunction(boost::bind(&MVll::T_perp_real, &(*this), qq2, _1, false));
-//        gsl_integration_cquad(&FS, 0., 1., 1.e-5, 1.e-3, w_sigma, &avaSigma, &errSigma, NULL);
-//        std::cout << avaSigma << "  " << deltaC9_QCDF(1.44, false) << std::endl;
+//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
+//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Re_T_perp_res->GetParams())) << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
 //    }
-//    std::cout << GSL_FN_EVAL(&FS,0.8) << std::endl;
+//    std::cout << std::endl;
+//    for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
+//        FS = convertToGslFunction(boost::bind(&MVll::T_perp_imag, &(*this), qq2, _1, false));
+//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
+//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Im_T_perp_res->GetParams())) << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
+//    }
+////    std::cout << GSL_FN_EVAL(&FS,0.8) << std::endl;
+//    std::cout << std::endl;
+//    for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
+//        FS = convertToGslFunction(boost::bind(&MVll::T_para_real, &(*this), qq2, _1, false));
+//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
+//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Re_T_para_res->GetParams())) << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
+//    }
+//    std::cout << std::endl; 
+//    for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
+//        FS = convertToGslFunction(boost::bind(&MVll::T_para_imag, &(*this), qq2, _1, false));
+//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
+//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Im_T_para_res->GetParams()))  << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
+//    }
      
     return;
 }
@@ -1043,9 +1053,8 @@ double MVll::S_L(double q2)
  * QCDF NLO                                                                    *
  * ****************************************************************************/
 
-gslpp::complex MVll::A_Seidel(double q2, double mb) 
+gslpp::complex MVll::A_Seidel(double q2, double mb2) 
 {
-    double mb2 = mb*mb;
     double sh = q2 / mb2;
     double z = (4. * mb2) / q2;
     double lsh = log(sh);
@@ -1058,9 +1067,8 @@ gslpp::complex MVll::A_Seidel(double q2, double mb)
             + (2. * sh) / (243. * osh2 * osh2) * (36. * acsq * acsq + M_PI2 * (-4. + 9. * sh - 9. * sh2 + 3. * sh2 * sh)));
 }
 
-gslpp::complex MVll::B_Seidel(double q2, double mb) 
+gslpp::complex MVll::B_Seidel(double q2, double mb2) 
 {
-    double mb2 = mb*mb;
     double sh = q2 / mb2;
     double z = (4. * mb2) / q2;
     double sqrt_z_m_1 = sqrt(z - 1.);
@@ -1104,7 +1112,7 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate)
     double sh = q2/mb_pole/mb_pole;
     double sh2 = sh*sh;
     
-    gslpp::complex A_Sdl = A_Seidel(q2, mb_pole); /* hep-ph/0403185v2.*/
+    gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
     gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex F_17 = myF_1.F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
@@ -1133,7 +1141,7 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate)
     double sh = q2 / mb_pole / mb_pole;
     double sh2 = sh*sh;
 
-    gslpp::complex B_Sdl = B_Seidel(q2, mb_pole); /* hep-ph/0403185v2.*/
+    gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
     gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
     gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
@@ -1213,7 +1221,7 @@ gslpp::complex MVll::t_para(double q2, double u, double m2)
 }
 
 gslpp::complex MVll::I1(double q2, double u, double m2)
-{
+{   
     if (m2 == 0.) return 1.;
     
     ubar = 1. - u;
@@ -1225,7 +1233,7 @@ gslpp::complex MVll::I1(double q2, double u, double m2)
     L1xm = log(1. - 1. / xm) * log(1. - xm) - M_PI2osix + dilog(xm / (xm - 1.));
     L1yp = log(1. - 1. / yp) * log(1. - yp) - M_PI2osix + dilog(yp / (yp - 1.));
     L1ym = log(1. - 1. / ym) * log(1. - ym) - M_PI2osix + dilog(ym / (ym - 1.));
-
+        
     return 1. + 2. * m2 / ubar / (MM2 - q2)*(L1xp + L1xm - L1yp - L1ym);
 }
 
@@ -1356,7 +1364,7 @@ double MVll::T_para_real(double q2, double u, bool conjugate)
     gslpp::complex T_amp = (N/lambda_B_minus(q2) * (T_para_minus_WA(conjugate) + T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
             + N/mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
     
-    return T_amp.real();
+    return sqrt(q2)*T_amp.real();
 }
 
 double MVll::T_para_imag(double q2, double u, bool conjugate) 
@@ -1366,9 +1374,130 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
     gslpp::complex T_amp = (N/lambda_B_minus(q2) * (T_para_minus_WA(conjugate) + T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
             + N/mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
     
-    return T_amp.imag();
+    return sqrt(q2)*T_amp.imag();
 }
 
+double MVll::T_perp_real(double q2, bool conjugate)
+{   
+    double avaSigma1;
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+    
+    FS = convertToGslFunction(boost::bind(&MVll::T_perp_real, &(*this), q2, _1, conjugate));
+    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
+//    gsl_integration_qng(&FS, 0., 1., 1.e-3, 1.e-2, &avaSigma1, &errSigma, &neval);
+//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
+    
+//    std::cout << q2 << "  1 " << avaSigma1 << "  " << avaSigma << std::endl;
+    
+    return avaSigma;
+}
+
+double MVll::T_perp_imag(double q2, bool conjugate)
+{   
+    double avaSigma1;
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+    
+    FS = convertToGslFunction(boost::bind(&MVll::T_perp_imag, &(*this), q2, _1, conjugate));
+    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
+//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
+    
+//    std::cout << q2 << "  2 " << avaSigma1 << "  " << avaSigma << std::endl;
+    
+    return avaSigma;
+}
+
+double MVll::T_para_real(double q2, bool conjugate)
+{   
+    double avaSigma1;
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+    
+    FS = convertToGslFunction(boost::bind(&MVll::T_para_real, &(*this), q2, _1, conjugate));
+    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
+//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
+    
+//    std::cout << q2 << "  3 " << avaSigma1 << "  " << avaSigma << std::endl;
+    
+    return avaSigma;
+}
+
+double MVll::T_para_imag(double q2, bool conjugate)
+{   
+    double avaSigma1;
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+    
+    FS = convertToGslFunction(boost::bind(&MVll::T_para_imag, &(*this), q2, _1, conjugate));
+    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
+//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
+    
+//    std::cout << q2 << "  4 " << avaSigma1 << "  " << avaSigma << std::endl;
+    
+    return avaSigma;
+}
+
+double MVll::QCDF_fit_func(double* x, double* p)
+{
+    return p[0] + p[1]*x[0] + p[2]*x[0]*x[0] + p[3]*x[0]*x[0]*x[0] + p[4]*x[0]*x[0]*x[0]*x[0] + p[5]*x[0]*x[0]*x[0]*x[0]*x[0] + p[6]*x[0]*x[0]*x[0]*x[0]*x[0]*x[0];
+}
+
+void MVll::fit_QCDF_func()
+{
+    int dim = 0;
+    for (double i = 0.001; i < 8.6; i += 0.5) {        
+        myq2.push_back(i);
+        Re_T_perp.push_back(T_perp_real(i, false));
+        Im_T_perp.push_back(T_perp_imag(i, false));
+        Re_T_para.push_back(T_para_real(i, false));
+        Im_T_para.push_back(T_para_imag(i, false));
+        
+        Re_T_perp_conj.push_back(T_perp_real(i, true));
+        Im_T_perp_conj.push_back(T_perp_imag(i, true));
+        Re_T_para_conj.push_back(T_para_real(i, true));
+        Im_T_para_conj.push_back(T_para_imag(i, true));
+        dim++;
+    }
+
+    gr1 = TGraph(dim, myq2.data(), Re_T_perp.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_perp");
+    Re_T_perp_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Re_T_perp.clear();
+    
+    gr1 = TGraph(dim, myq2.data(), Im_T_perp.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_perp");
+    Im_T_perp_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Im_T_perp.clear();
+    
+    gr1 = TGraph(dim, myq2.data(), Re_T_para.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_para");
+    Re_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Re_T_para.clear();
+    
+    gr1 = TGraph(dim, myq2.data(), Im_T_para.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_para");
+    Im_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Im_T_para.clear();
+    
+    gr1 = TGraph(dim, myq2.data(), Re_T_perp_conj.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_perp_conj");
+    Re_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Re_T_perp_conj.clear();
+    
+    gr1 = TGraph(dim, myq2.data(), Im_T_perp_conj.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_perp_conj");
+    Im_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Im_T_perp_conj.clear();
+    
+    gr1 = TGraph(dim, myq2.data(), Re_T_para_conj.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_para_conj");
+    Re_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Re_T_para_conj.clear();
+    
+    gr1 = TGraph(dim, myq2.data(), Im_T_para_conj.data());
+    QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_para_conj");
+    Im_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
+    Im_T_para_conj.clear();
+    
+    myq2.clear();
+}
 /*******************************************************************************
  * QCD factorization perturbative corrections                                  *
  ******************************************************************************/
@@ -1625,8 +1754,6 @@ double MVll::reDC9fit(double* x, double* p)
 double MVll::imDC9fit(double* x, double* p)
 {
     return p[0]/x[0] + p[1] + p[2]*x[0] + p[3]*x[0]*x[0] + p[4]*x[0]*x[0]*x[0] + p[5]*x[0]*x[0]*x[0]*x[0] + p[6]*x[0]*x[0]*x[0]*x[0]*x[0] + p[7]*x[0]*x[0]*x[0]*x[0]*x[0]*x[0];
-    
-    //double thr = 4.*Mc2;
 }
 
 void MVll::fit_DeltaC9_p_mumu()
