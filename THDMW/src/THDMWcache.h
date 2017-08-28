@@ -64,11 +64,11 @@ public:
     double RpepsTHDMW;
     gslpp::vector<gslpp::complex> unitarityeigenvalues;
     gslpp::vector<gslpp::complex> NLOunitarityeigenvalues;
-    
-protected:
 
     double rh_QuQu, rh_VV, rh_gg, rh_QdQd, rh_ll, rh_gaga, rh_Zga;
     double sumModBRs, Gamma_h, THDM_BR_h_bb, THDM_BR_h_gaga, THDM_BR_h_tautau, THDM_BR_h_WW, THDM_BR_h_ZZ;
+    
+protected:
 
 private:
 

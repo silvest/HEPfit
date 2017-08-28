@@ -14,6 +14,7 @@ LeftRightSymmetricModelMatching::LeftRightSymmetricModelMatching(const LeftRight
     StandardModelMatching(LeftRightSymmetricModel_i),
     myLeftRightSymmetricModel(LeftRightSymmetricModel_i),
     myCKM(3, 3, 0.),
+    myCKMR(3, 3, 0.),
     mcbsg(8, NDR, NLO),
     mcprimebsg(8, NDR, NLO),
     mcBMll(13, NDR, NLO),
@@ -23,8 +24,89 @@ LeftRightSymmetricModelMatching::LeftRightSymmetricModelMatching(const LeftRight
 void LeftRightSymmetricModelMatching::updateLeftRightSymmetricModelParameters()
 {
     myCKM = myLeftRightSymmetricModel.getVCKM();
-    
     StandardModelMatching::updateSMParameters();
+    Muw = myLeftRightSymmetricModel.getMuw();
+    Mut = myLeftRightSymmetricModel.getMut();
+    mW = myLeftRightSymmetricModel.Mw();
+    mtop = myLeftRightSymmetricModel.Mrun(Mut, myLeftRightSymmetricModel.getQuarks(QCD::TOP).getMass_scale(),
+                        myLeftRightSymmetricModel.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    mbottom = myLeftRightSymmetricModel.getQuarks(QCD::BOTTOM).getMass();
+    vev = myLeftRightSymmetricModel.v();
+    gW = sqrt(8.0*myLeftRightSymmetricModel.getGF() / sqrt(2.0)) * mW;
+    myCKMR = myLeftRightSymmetricModel.getVCKMR();
+    mWR = myLeftRightSymmetricModel.getmWR();
+    mH2p = myLeftRightSymmetricModel.getmH2p_2();
+    xi = myLeftRightSymmetricModel.getxi_LRSM();
+    alpha = myLeftRightSymmetricModel.getalpha_LRSM();
+}
+
+gslpp::complex LeftRightSymmetricModelMatching::setWCbsg(int i, double mu, orders order)
+{
+//    if ( tanbsg == tan && mtbsg == mt  && mhpbsg == mhp && mubsg == mu){
+//        switch (order){
+//        case NNLO:
+//            return ( CWbsgArrayNNLO[i] );
+//        case NLO:
+//            return ( CWbsgArrayNLO[i] );
+//            break;
+//        case LO:
+//            return ( CWbsgArrayLO[i] );
+//            break;
+//        default:
+//            std::stringstream out;
+//            out << order;
+//            throw std::runtime_error("order" + out.str() + "not implemeted"); 
+//        }
+//    }
+    
+//    tanbsg = tan; mtbsg = mt; mhpbsg = mhp; mubsg = mu;
+    updateLeftRightSymmetricModelParameters();
+    double xt = mtop*mtop/(mW*mW);
+    double yt = mtop*mtop/(mH2p*mH2p);
+    double xtm1sq = (xt-1)*(xt-1);
+    double ytm1sq = (yt-1)*(yt-1);
+    double kappa = vev*sqrt(0.5*(1.0-xi*xi));
+    double kappaprime = xi*kappa;
+    double sinb = kappaprime/vev;
+    double kappaR = mWR/gW;
+    gslpp::complex Atb = (mtop/mbottom)* kappaprime*kappa/(kappaR*kappaR)*(cos(alpha)+gslpp::complex::i()*sin(alpha))*(myCKMR(2,2)/myCKM(2,2));
+    double A1Hp = ((yt*yt-2.0/3.0*yt)*log(yt)/((1-yt)*ytm1sq) + (5.0*yt*yt-3.0*yt)/(6.0*ytm1sq));
+    double A2Hp = -((0.5*yt*yt*yt-yt*yt/3.0)*log(yt)/(ytm1sq*ytm1sq)+(-8.0*yt*yt*yt-5.0*yt*yt+7.0*yt)/(36.0*ytm1sq*(yt-1.0)))-A1Hp;
+    gslpp::complex DeltaLRC7_Hp = -(sinb*kappa/vev * mtop/mbottom * (cos(alpha)+gslpp::complex::i()*sin(alpha))*(myCKMR(2,2)/myCKM(2,2))*A1Hp 
+                            +2.0*sinb*sinb*kappa*kappa/(vev*vev)*A2Hp)
+                          /(1.0-4.0*sinb*sinb+4.0*sinb*sinb*sinb*sinb);
+    gslpp::complex DeltaLRC8_Hp = 0.0;
+
+    switch (order){
+        case NNLO:
+        case NLO:
+        case LO:
+            CWbsgArrayLO[6] = Atb * ((1.5*xt*xt-xt)*log(xt)/((1-xt)*xtm1sq) + (-5.0*xt*xt+31.0*xt-20.0)/(12.0*xtm1sq))
+                              + DeltaLRC7_Hp;
+            CWbsgArrayLO[7] = Atb * (-1.5*xt*log(xt)/((1-xt)*xtm1sq) + (-xt*xt-xt-4.0)/(4.0*xtm1sq))
+                              + DeltaLRC8_Hp;
+            break;
+        default:
+            std::stringstream out;
+            out << order;
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
+            }
+    
+    /*std::cout << "CWbsgArrayLO[6] = " << CWbsgArrayLO[6] << std::endl;
+    std::cout << "CWbsgArrayLO[7] = " << CWbsgArrayLO[7] << std::endl << std::endl;*/
+    
+    
+    switch (order){
+//        case NNLO:
+//        case NLO:
+        case LO:
+            return ( CWbsgArrayLO[i] );
+            break;
+        default:
+            std::stringstream out;
+            out << order;
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
+        }
 }
 
 std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMbsg()
@@ -34,7 +116,6 @@ std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMbsg()
 
     switch (mcbsg.getScheme()) {
         case NDR:
-
             break;
         default:
             std::stringstream out;
@@ -46,11 +127,17 @@ std::vector<WilsonCoefficient>& LeftRightSymmetricModelMatching::CMbsg()
 
     switch (mcbsg.getOrder()) {
         case NNLO:
+            mcbsg.setCoeff(6, 0., NNLO);
         case NLO:
             mcbsg.setCoeff(6, 0., NLO);
-        case LO:
+        case LO: {
+            gslpp::complex dummy7 = setWCbsg(6, 100.0, LO);
+            gslpp::complex dummy8 = setWCbsg(7, 100.0, LO);
+            std::cout<<"C7 = "<<dummy7<<std::endl;
+            std::cout<<"C8 = "<<dummy8<<std::endl;
             mcbsg.setCoeff(6, 0., LO);
             break;
+        }
         default:
             std::stringstream out;
             out << mcbsg.getOrder();

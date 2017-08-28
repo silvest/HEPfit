@@ -554,14 +554,7 @@ void THDMWcache::computeSignalStrengthQuantities()
     double MW = myTHDMW->Mw_tree();
     double cW2 = myTHDMW->c02();
     double sW2=1.0-cW2;
-//    double sin_ba=sin(bma);
-//    double sinb=tanb/sqrt(1.0+tanb*tanb);
-//    double cosb=1.0/sqrt(1.0+tanb*tanb);
-//    double sina=sinb*cos(bma)-cosb*sin(bma);
-//    double cosa=cosb*cos(bma)+sinb*sin(bma);
-//
-//    //The Standard Model h branching ratios
-//
+
     double BrSM_htobb = 5.77e-1;
     double BrSM_htotautau = 6.32e-2;
     double BrSM_htogaga = 2.28e-3;
@@ -570,27 +563,6 @@ void THDMWcache::computeSignalStrengthQuantities()
     double BrSM_htogg = 8.57e-2;
     double BrSM_htoZga = 1.54e-3;
     double BrSM_htocc = 2.91e-2;
-//
-//    //The ggH cross section in the SM at 8 TeV.
-//    double SigmaggF8 = myTHDM->computeSigmaggH(8.0);
-//    //The ggH cross section in the SM at 13 TeV.
-//    double SigmaggF13 = myTHDM->computeSigmaggH(13.0);
-//    //The square of the top-quark contribution to the ggH cross section in the SM at 8 TeV
-//    double Sigmaggh_tt8 = myTHDM->computeSigmaggH_tt(8.0);
-//    //The square of the top-quark contribution to the ggH cross section in the SM at 13 TeV
-////    double Sigmaggh_tt13 = myTHDM->computeSigmaggH_tt(13.0);
-//    //The square of the bottom-quark contribution to the ggH cross section in the SM at 8 TeV
-//    double Sigmaggh_bb8 = myTHDM->computeSigmaggH_bb(8.0);
-//    //The square of the bottom-quark contribution to the ggH cross section in the SM at 13 TeV
-////    double Sigmaggh_bb13 = myTHDM->computeSigmaggH_bb(13.0);
-//    //The ttH production cross section in the SM at 8 TeV
-//    double Sigmatth8 = myTHDM->computeSigmattH(8.0);
-//    //The ttH production cross section in the SM at 13 TeV
-//    double Sigmatth13 = myTHDM->computeSigmattH(13.0);
-//    //The bbH production cross section in the SM at 13 TeV
-//    double Sigmabbh13 = ip_cs_pptobbH_13(mHl);
-//    //The VBF plus Vh production cross section in the SM at 13 TeV
-//    double SigmaVBFVh13 = (myTHDM->computeSigmaVBF(13.0)+myTHDM->computeSigmaWH(13.0)+myTHDM->computeSigmaZH(13.0));
 
     rh_QuQu = cosa*cosa/(sinb*sinb);
     rh_VV = sin(bma)*sin(bma);
@@ -608,7 +580,7 @@ void THDMWcache::computeSignalStrengthQuantities()
     gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
     gslpp::complex I_h_W = sin(bma)*I_hSM_W;
 
-    double ABSgagaTHDM=0.0;
+    double ABSgagaTHDMW=0.0;
     double ABSgagaSM=0.0;
 
     //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
@@ -620,56 +592,33 @@ void THDMWcache::computeSignalStrengthQuantities()
     gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
     gslpp::complex A_h_W = sin(bma)*A_hSM_W;
 
-    double ABSZgaTHDM=0.0;
+    double ABSZgaTHDMW=0.0;
     double ABSZgaSM=0.0;
-//
+
     if( THDMWmodel == "custodial1" ) {
         rh_gg=cosa/sinb*cosa/sinb;
         rh_QdQd=cosa/sinb*cosa/sinb;
         rh_ll=cosa/sinb*cosa/sinb;
-        ghHpHm = vev*vev/mHpsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
-                                  +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
-                                  -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
+        ghHpHm = vev*vev/mAsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
+                                 +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
+                                 -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
         I_h_F=cosa/sinb*(fermU+fermD+fermL);
         A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
     }
-//    else if( modelflag == "type2" ) {
-//        rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
-//             *(Sigmaggh_tt8*cosa/sinb+Sigmaggh_bb8*sina/cosb)/SigmaggF8;
-//        rh_QdQd=sina/cosb*sina/cosb;
-//        rh_ll=sina/cosb*sina/cosb;
-//        I_h_F=cosa/sinb*fermU -sina/cosb*(fermD+fermL);
-//        A_h_F = (cosa/sinb*A_h_Ux-sina/cosb*(A_h_Dx+A_h_Lx))/sqrt(sW2*cW2);
-//    }
-//    else if( modelflag == "typeX" ) {
-//        rh_gg=cosa/sinb*cosa/sinb;
-//        rh_QdQd=cosa/sinb*cosa/sinb;
-//        rh_ll=sina/cosb*sina/cosb;
-//        I_h_F = cosa/sinb*(fermU+fermD) -sina/cosb*fermL;
-//        A_h_F = (cosa/sinb*(A_h_Ux+A_h_Dx)-sina/cosb*A_h_Lx)/sqrt(sW2*cW2);
-//    }
-//    else if( modelflag == "typeY" ) {
-//        rh_gg=-cosa/sinb*sina/cosb+(cosa/sinb+sina/cosb)
-//             *(Sigmaggh_tt8*cosa/sinb+Sigmaggh_bb8*sina/cosb)/SigmaggF8;
-//        rh_QdQd=sina/cosb*sina/cosb;
-//        rh_ll=cosa/sinb*cosa/sinb;
-//        I_h_F = cosa/sinb*(fermU+fermL) -sina/cosb*fermD;
-//        A_h_F = (cosa/sinb*(A_h_Ux+A_h_Lx)-sina/cosb*A_h_Dx)/sqrt(sW2*cW2);
-//    }
-//    else {
-//        throw std::runtime_error("modelflag can be only any of \"type1\", \"type2\", \"typeX\" or \"typeY\"");
-//    }
+    else {
+        throw std::runtime_error("THDMWmodel can be only \"custodial1\"");
+    }
 
-    gslpp::complex I_h_Hp = -2.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
-    gslpp::complex A_h_Hp = -2.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
+    gslpp::complex I_h_Hp = 16.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
+    gslpp::complex A_h_Hp = 16.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
 
-    ABSgagaTHDM=(I_h_F+I_h_W+I_h_Hp).abs2();
+    ABSgagaTHDMW=(I_h_F+I_h_W+I_h_Hp).abs2();
     ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
-    rh_gaga=ABSgagaTHDM/ABSgagaSM;
+    rh_gaga=ABSgagaTHDMW/ABSgagaSM;
 //
-    ABSZgaTHDM=(A_h_F+A_h_W+A_h_Hp).abs2();
+    ABSZgaTHDMW=(A_h_F+A_h_W+A_h_Hp).abs2();
     ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
-    rh_Zga=ABSZgaTHDM/ABSZgaSM;
+    rh_Zga=ABSZgaTHDMW/ABSZgaSM;
 
     sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
           rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_QuQu*BrSM_htocc;

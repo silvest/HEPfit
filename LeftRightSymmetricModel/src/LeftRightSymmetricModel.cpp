@@ -8,7 +8,14 @@
 #include "LeftRightSymmetricModel.h"
 #include "LRSMquantities.h"
 
-const std::string LeftRightSymmetricModel::LeftRightSymmetricModelvars[NLeftRightSymmetricModelvars] = {"mH1p_2", "mH2p_2", "mdeltappR_2", "xi_LRSM", "mWR", "lambda1_LRSM", "lambda2_LRSM", "lambda3_LRSM", "lambda4_LRSM", "rho1_LRSM", "rho4_LRSM", "alpha1_LRSM", "alpha2_LRSM", "Q_LRSM"};
+const std::string LeftRightSymmetricModel::LeftRightSymmetricModelvars[NLeftRightSymmetricModelvars] =
+                        {"mH1p_2", "mH2p_2", "mdeltappR_2", "xi_LRSM", "mWR", 
+                         "lambda1_LRSM", "lambda2_LRSM", "lambda3_LRSM", "lambda4_LRSM", 
+                         "rho1_LRSM", "rho4_LRSM", "alpha1_LRSM", "alpha2_LRSM",
+                         "alpha_LRSM", "delta2_LRSM",
+                         "thetaR12_LRSM","thetaR13_LRSM","thetaR23_LRSM",
+                         "phiR1_LRSM","phiR2_LRSM","phiR3_LRSM","phiR4_LRSM","phiR5_LRSM","phiR6_LRSM",
+                         "Q_LRSM"};
 
 LeftRightSymmetricModel::LeftRightSymmetricModel() : StandardModel(),/*, THDMM(*this)*/
                 U(5,5,0.)
@@ -28,6 +35,17 @@ LeftRightSymmetricModel::LeftRightSymmetricModel() : StandardModel(),/*, THDMM(*
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rho4_LRSM", boost::cref(rho4_LRSM)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1_LRSM", boost::cref(alpha1_LRSM)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2_LRSM", boost::cref(alpha2_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha_LRSM", boost::cref(alpha_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delta2_LRSM", boost::cref(delta2_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("thetaR12_LRSM", boost::cref(thetaR12_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("thetaR13_LRSM", boost::cref(thetaR13_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("thetaR23_LRSM", boost::cref(thetaR23_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR1_LRSM", boost::cref(phiR1_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR2_LRSM", boost::cref(phiR2_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR3_LRSM", boost::cref(phiR3_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR4_LRSM", boost::cref(phiR4_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR5_LRSM", boost::cref(phiR5_LRSM)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiR6_LRSM", boost::cref(phiR6_LRSM)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q_LRSM", boost::cref(Q_LRSM)));
 }
 
@@ -148,6 +166,28 @@ void LeftRightSymmetricModel::setParameter(const std::string name, const double&
         alpha1_LRSM = value;
     else if(name.compare("alpha2_LRSM") == 0)
         alpha2_LRSM = value;
+    else if(name.compare("alpha_LRSM") == 0)
+        alpha_LRSM = value;
+    else if(name.compare("delta2_LRSM") == 0)
+        delta2_LRSM = value;
+    else if(name.compare("thetaR12_LRSM") == 0)
+        thetaR12_LRSM = value;
+    else if(name.compare("thetaR13_LRSM") == 0)
+        thetaR13_LRSM = value;
+    else if(name.compare("thetaR23_LRSM") == 0)
+        thetaR23_LRSM = value;
+    else if(name.compare("phiR1_LRSM") == 0)
+        phiR1_LRSM = value;
+    else if(name.compare("phiR2_LRSM") == 0)
+        phiR2_LRSM = value;
+    else if(name.compare("phiR3_LRSM") == 0)
+        phiR3_LRSM = value;
+    else if(name.compare("phiR4_LRSM") == 0)
+        phiR4_LRSM = value;
+    else if(name.compare("phiR5_LRSM") == 0)
+        phiR5_LRSM = value;
+    else if(name.compare("phiR6_LRSM") == 0)
+        phiR6_LRSM = value;
     else if(name.compare("Q_LRSM") == 0)
     {
         Q_LRSM = value;

@@ -32,7 +32,9 @@ public:
      */
     
     void updateLeftRightSymmetricModelParameters();
-    
+
+    gslpp::complex setWCbsg (int i, double mu, orders order);
+
     std::vector<WilsonCoefficient>& CMbsg();
     
     std::vector<WilsonCoefficient>& CMprimebsg();
@@ -44,11 +46,15 @@ public:
 private:
     const LeftRightSymmetricModel & myLeftRightSymmetricModel;
     gslpp::matrix<gslpp::complex> myCKM;
+    gslpp::matrix<gslpp::complex> myCKMR;
     
     WilsonCoefficient mcbsg, mcprimebsg;
     WilsonCoefficient mcBMll, mcprimeBMll;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg;
     std::vector<WilsonCoefficient> vmcBMll, vmcprimeBMll;
+    gslpp::complex CWbsgArrayLO[8];
+    double Muw,Mut,mW,mtop,mbottom,vev,gW;
+    double mWR,mH2p,xi,alpha;
 };
 
 #endif	/* LEFTRIGHTSYMMETRICMODELMATCHING_H */
