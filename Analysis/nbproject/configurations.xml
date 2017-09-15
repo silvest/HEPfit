@@ -65,6 +65,7 @@
     <itemPath>Flavour.conf</itemPath>
     <itemPath>FlavourWC.conf</itemPath>
     <itemPath>GeneralSUSY.conf</itemPath>
+    <itemPath>HiggsKi.conf</itemPath>
     <itemPath>HiggsKvKf.conf</itemPath>
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
@@ -424,6 +425,8 @@
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -855,6 +858,8 @@
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1293,6 +1298,8 @@
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
@@ -1721,6 +1728,8 @@
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2184,6 +2193,8 @@
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2659,6 +2670,8 @@
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
@@ -3080,6 +3093,8 @@
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKi.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
