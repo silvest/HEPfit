@@ -72,40 +72,21 @@ gslpp::complex LeftRightSymmetricModelMatching::setWCbsg(int i, double mu, order
     gslpp::complex Atb = (mtop/mbottom)* kappaprime*kappa/(kappaR*kappaR)*(cos(alpha)+gslpp::complex::i()*sin(alpha))*(myCKMR(2,2)/myCKM(2,2));
     double A1Hp = ((yt*yt-2.0/3.0*yt)*log(yt)/((1.0-yt)*ytm1sq) + (5.0*yt*yt-3.0*yt)/(6.0*ytm1sq));
     double A2Hp = -((0.5*yt*yt*yt-yt*yt/3.0)*log(yt)/(ytm1sq*ytm1sq)+(-8.0*yt*yt*yt-5.0*yt*yt+7.0*yt)/(36.0*ytm1sq*(yt-1.0)))-A1Hp;
-    gslpp::complex DeltaLRC7_Hp = -(sinb*kappa*sqrt(2.0)/vev * mtop/mbottom * (cos(alpha)+gslpp::complex::i()*sin(alpha))*(myCKMR(2,2)/myCKM(2,2))*A1Hp 
+    gslpp::complex DeltaC7_LR = Atb * ((1.5*xt*xt-xt)*log(xt)/((1.0-xt)*xtm1sq) + (-5.0*xt*xt+31.0*xt-20.0)/(12.0*xtm1sq));
+    gslpp::complex DeltaC7_Hp = -(sinb*kappa*sqrt(2.0)/vev * mtop/mbottom * (cos(alpha)+gslpp::complex::i()*sin(alpha))*(myCKMR(2,2)/myCKM(2,2))*A1Hp 
                             +4.0*sinb*sinb*kappa*kappa/(vev*vev)*A2Hp)
                           /(1.0-4.0*sinb*sinb+4.0*sinb*sinb*sinb*sinb);
-    gslpp::complex DeltaLRC8_Hp = 0.0;
+    gslpp::complex DeltaC8_LR = Atb * (-1.5*xt*log(xt)/((1.0-xt)*xtm1sq) + (-xt*xt-xt-4.0)/(4.0*xtm1sq));
+    gslpp::complex DeltaC8_Hp = 0.0;
 
     switch (order){
         case NNLO:
         case NLO:
         case LO:
-            
-            std::cout<<"myCKM(2,2) = "<<myCKM(2,2)<<std::endl;
-            std::cout<<"myCKMR(2,2) = "<<myCKMR(2,2)<<std::endl;
-            std::cout<<"gW = "<<gW<<std::endl;
-            std::cout<<"vev = "<<vev<<std::endl;
-            std::cout<<"mH2p = "<<sqrt(mH2psq)<<std::endl;
-            std::cout<<"mW = "<<mW<<std::endl;
-            std::cout<<"sinb = "<<sinb<<std::endl;
-            std::cout<<"u(sin) = "<<1.0/(1.0-4.0*sinb*sinb+4.0*sinb*sinb*sinb*sinb)<<std::endl;
-            std::cout<<"kappa = "<<kappa<<std::endl;
-            std::cout<<"kappaprime = "<<kappaprime<<std::endl;
-            std::cout<<"mtop = "<<mtop<<std::endl;
-            std::cout<<"mbottom = "<<mbottom<<std::endl;
-            std::cout<<"xi = "<<xi<<std::endl;
-            std::cout<<"A1Hp = "<<A1Hp<<std::endl;
-            std::cout<<"A2Hp = "<<A2Hp<<std::endl;
-            std::cout<<"Atb = "<<Atb<<std::endl;
-            std::cout<<"C7WR = "<<Atb * ((1.5*xt*xt-xt)*log(xt)/((1.0-xt)*xtm1sq) + (-5.0*xt*xt+31.0*xt-20.0)/(12.0*xtm1sq))<<std::endl;
-            std::cout<<"C8WR = "<<Atb * (-1.5*xt*log(xt)/((1.0-xt)*xtm1sq) + (-xt*xt-xt-4.0)/(4.0*xtm1sq))<<std::endl;
-            std::cout<<"C7Hp = "<<DeltaLRC7_Hp<<std::endl;
-            std::cout<<"C8Hp = "<<DeltaLRC8_Hp<<std::endl;
-            CWbsgArrayLO[6] = Atb * ((1.5*xt*xt-xt)*log(xt)/((1.0-xt)*xtm1sq) + (-5.0*xt*xt+31.0*xt-20.0)/(12.0*xtm1sq))
-                              + DeltaLRC7_Hp;
-            CWbsgArrayLO[7] = Atb * (-1.5*xt*log(xt)/((1.0-xt)*xtm1sq) + (-xt*xt-xt-4.0)/(4.0*xtm1sq))
-                              + DeltaLRC8_Hp;
+
+            CWbsgArrayLO[6] = DeltaC7_LR + DeltaC7_Hp;
+            CWbsgArrayLO[7] = DeltaC8_LR + DeltaC8_Hp;
+
             break;
         default:
             std::stringstream out;
