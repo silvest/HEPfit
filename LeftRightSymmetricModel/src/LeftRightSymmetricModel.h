@@ -10,7 +10,7 @@
 
 #include "gslpp.h"
 #include "StandardModel.h"
-//#include "LeftRightSymmetricModelMatching.h"
+#include "LeftRightSymmetricModelMatching.h"
 
 class LRSMquantities; // forward reference to the class that generates the neutral scalar spectrum
 
@@ -60,19 +60,19 @@ public:
         flagLeftRightSymmetricModel = true;
     }
 
-//    /**
-//     * @brief A get method to access the member reference of type StandardModelMatching.
-//     * @return a reference to a StandardModelMatching object
-//     */
-//    virtual LeftRightSymmetricModelMatching& getMatching() const
-//    {
-//        return LRSMM.getObj();
-//    }
+    /**
+     * @brief A get method to access the member reference of type StandardModelMatching.
+     * @return a reference to a StandardModelMatching object
+     */
+    virtual LeftRightSymmetricModelMatching& getMatching() const
+    {
+        return LRSMM.getObj();
+    }
 
-//    virtual void setMatching(LeftRightSymmetricModelMatching& LRSMMr)
-//    {
-//        LRSMM.setObj(LRSMMr);
-//    }
+    virtual void setMatching(LeftRightSymmetricModelMatching& LRSMMr)
+    {
+        LRSMM.setObj(LRSMMr);
+    }
 
 
     /*------------------------------------------------------------------------*/
@@ -392,7 +392,7 @@ protected:
     double mH0sq_app[4];
     gslpp::matrix<gslpp::complex> U;
 
-//    mutable Matching<LeftRightSymmetricModelMatching,LeftRightSymmetricModel> LRSMM; ///< An object of type Matching.
+    mutable Matching<LeftRightSymmetricModelMatching,LeftRightSymmetricModel> LRSMM; ///< An object of type Matching.
 
 private:
 

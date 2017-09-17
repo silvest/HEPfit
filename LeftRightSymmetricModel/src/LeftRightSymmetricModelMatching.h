@@ -35,7 +35,7 @@ public:
 
     gslpp::complex setWCbsg (int i, double mu, orders order);
 
-    std::vector<WilsonCoefficient>& CMbsg();
+    virtual std::vector<WilsonCoefficient>& CMbsg();
     
     std::vector<WilsonCoefficient>& CMprimebsg();
     
@@ -54,7 +54,7 @@ private:
     std::vector<WilsonCoefficient> vmcBMll, vmcprimeBMll;
     gslpp::complex CWbsgArrayLO[8];
     double Muw,Mut,mW,mtop,mbottom,vev,gW;
-    double mWR,mH2p,xi,alpha;
+    double mWR,mH2psq,xi,alpha;
 };
 
 #endif	/* LEFTRIGHTSYMMETRICMODELMATCHING_H */

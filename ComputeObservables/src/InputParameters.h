@@ -56,6 +56,7 @@ public:
         //else if (ModelName.compare("NPEffectiveGIMR_LFU") == 0) return(NPEffectiveGIMR());
         //else if (ModelName.compare("NPEffectiveGIMR_QFU") == 0) return(NPEffectiveGIMR());
         else if (ModelName.compare("NPEffectiveGIMR_LFU_QFU") == 0) return(NPEffectiveGIMR());
+        else if (ModelName.compare("THDM") == 0) return(NPTHDM());
         else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParameters():  " + ModelName + "\n");
     };
     
@@ -458,6 +459,34 @@ private:
         DPars_IN["cHD3_NP"] = 0.;
         DPars_IN["Lambda_NP"] = 1000.;
         
+        return (DPars_IN);
+    };
+    
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for the THDM.
+     * @return the map of the mandatory parameters
+     */
+    std::map<std::string, double> NPTHDM()
+    {
+        DPars_IN = StandardModel();
+
+        DPars_IN["logtb"] = 0.;
+        DPars_IN["bma"] = 1.5708;
+        DPars_IN["mHh2"] = 1.e6;
+        DPars_IN["mA2"] = 1.e6;
+        DPars_IN["mHp2"] = 1.e6;
+        DPars_IN["m12_2"] = 3.e4;
+        DPars_IN["BDtaunu_SM"] = 0.297;
+        DPars_IN["BDtaunu_A"] = -3.25;
+        DPars_IN["BDtaunu_B"] = 16.9;
+        DPars_IN["BDstartaunu_SM"] = 0.252;
+        DPars_IN["BDstartaunu_A"] = -0.23;
+        DPars_IN["BDstartaunu_B"] = 0.643;
+        DPars_IN["bsgamma_theoryerror"] = 0.;
+        DPars_IN["Q_THDM"] = 1.96;
+        DPars_IN["Rpeps"] = 0.01;
+        DPars_IN["NLOuniscale"] = 2.;
+
         return (DPars_IN);
     };
     

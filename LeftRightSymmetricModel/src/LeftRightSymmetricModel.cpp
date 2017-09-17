@@ -17,11 +17,10 @@ const std::string LeftRightSymmetricModel::LeftRightSymmetricModelvars[NLeftRigh
                          "phiR1_LRSM","phiR2_LRSM","phiR3_LRSM","phiR4_LRSM","phiR5_LRSM","phiR6_LRSM",
                          "Q_LRSM"};
 
-LeftRightSymmetricModel::LeftRightSymmetricModel() : StandardModel(),/*, THDMM(*this)*/
-                U(5,5,0.)
+LeftRightSymmetricModel::LeftRightSymmetricModel() : StandardModel(),
+                U(5,5,0.), LRSMM(*this)
 {
-
-//    SMM.setObj((StandardModelMatching&) LRSMM.getObj());
+    SMM.setObj((StandardModelMatching&) LRSMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH1p_2", boost::cref(mH1p_2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH2p_2", boost::cref(mH2p_2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mdeltappR_2", boost::cref(mdeltappR_2)));
