@@ -3170,8 +3170,8 @@ private:
     double AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const;
     double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
     static const int CacheSize = 5; ///< Defines the depth of the cache.
-    mutable double als_cache[12][CacheSize]; ///< Cache for \f$\alpha_s\f$.
-    mutable double ale_cache[11][CacheSize]; ///< Cache for \f$\alpha_e\f$.
+    mutable double als_cache[11][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    mutable double ale_cache[10][CacheSize]; ///< Cache for \f$\alpha_e\f$.
 
 
 };

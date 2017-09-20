@@ -194,7 +194,7 @@ bool StandardModel::Init(const std::map<std::string, double>& DPars)
                 + " in model initialization");
 
     std::map<std::string, double> myDPars(DPars);
-    myDPars["AlsM"] = myDPars.at("AlsMz");
+    myDPars["AlsM"] = myDPars.at("AlsMz"); // do not change!
     myDPars["MAls"] = myDPars.at("Mz");
     return (QCD::Init(myDPars));
 }
@@ -692,22 +692,18 @@ double StandardModel::Beta_e(int nm, unsigned int nf) const
 
 double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) const
 {
-    int i, nfAls = (int) Nf(MAls), nfmu = (int) Nf(mu);
+    int i, nfAls = (int) Nf(Mz), nfmu = (int) Nf(mu);
     double als, alstmp, mutmp;
     orders fullord;
 
     for (i = 0; i < CacheSize; ++i)
         if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
-                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
+                (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
                 (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
                 (muc == als_cache[6][i]) && (double) qed_flag == als_cache[7][i]
-                && (double) Nf_thr == als_cache[8][i] && Mz == als_cache[9][i]
-                && alphaMz() == als_cache[10][i])
-            return als_cache[11][i];
+                && (double) Nf_thr == als_cache[8][i] && alphaMz() == als_cache[9][i])
+            return als_cache[10][i];
 
-    if(Nf(MAls) != Nf(Mz) && Nf_thr)
-        throw std::runtime_error("StandardModel::Als(): thresholds requires Nf(AlsM) == Nf(Mz)");
-        
     switch (order)
     {
         case FULLNLO:
@@ -721,11 +717,11 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
         case NNLO:
         case NNNLO:
             if (nfAls == nfmu || Nf_thr == false)
-                return(AlsWithInit(mu, AlsM, MAls, order, qed_flag));
+                return(AlsWithInit(mu, AlsMz, Mz, order, qed_flag));
             fullord = FullOrder(order);
             if (nfAls > nfmu) {
-                mutmp = BelowTh(MAls);
-                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord, qed_flag);
+                mutmp = BelowTh(Mz);
+                alstmp = AlsWithInit(mutmp, AlsMz, Mz, fullord, qed_flag);
                 alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls - 1; i > nfmu; i--) {
                     mutmp = BelowTh(mutmp - MEPS);
@@ -736,8 +732,8 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
             }
 
             if (nfAls < nfmu) {
-                mutmp = AboveTh(MAls) - MEPS;
-                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord, qed_flag);
+                mutmp = AboveTh(Mz) - MEPS;
+                alstmp = AlsWithInit(mutmp, AlsMz, Mz, fullord, qed_flag);
                 alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls + 1; i < nfmu; i++) {
                     mutmp = AboveTh(mutmp) - MEPS;
@@ -747,19 +743,18 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
                 als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order, qed_flag);
             }
 
-            CacheShift(als_cache, 12);
+            CacheShift(als_cache, 11);
             als_cache[0][0] = mu;
             als_cache[1][0] = (double) order;       
-            als_cache[2][0] = AlsM;
-            als_cache[3][0] = MAls;
+            als_cache[2][0] = AlsMz;
+            als_cache[3][0] = Mz;
             als_cache[4][0] = mut;
             als_cache[5][0] = mub;
             als_cache[6][0] = muc;
             als_cache[7][0] = (double) qed_flag;
             als_cache[8][0] = (double) Nf_thr;
-            als_cache[9][0] = Mz;
-            als_cache[10][0] = alphaMz();
-            als_cache[11][0] = als;
+            als_cache[9][0] = alphaMz();
+            als_cache[10][0] = als;
 
              return als;
         default:
@@ -813,15 +808,11 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
 
     for (i = 0; i < CacheSize; ++i)
         if ((mu == ale_cache[0][i]) && ((double) order == ale_cache[1][i]) &&
-                (AlsM == ale_cache[2][i]) && (MAls == ale_cache[3][i]) &&
+                (AlsMz == ale_cache[2][i]) && (Mz == ale_cache[3][i]) &&
                 (mut == ale_cache[4][i]) && (mub == ale_cache[5][i]) &&
                 (muc == ale_cache[6][i])
-                && (double) Nf_thr == ale_cache[7][i] && Mz == ale_cache[8][i]
-                && aleMz == ale_cache[9][i])
-            return ale_cache[10][i];
-
-    if(Nf(MAls) != Nf(Mz) && Nf_thr)
-        throw std::runtime_error("StandardModel::Ale(): thresholds requires Nf(AlsM) == Nf(Mz)");
+                && (double) Nf_thr == ale_cache[7][i] && aleMz == ale_cache[8][i])
+            return ale_cache[9][i];
 
     switch (order)
     {
@@ -862,18 +853,17 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
                 ale = AleWithInit(mu, aletmp, BelowTh(mu) + MEPS, order);
             }
 
-            CacheShift(ale_cache, 11);
+            CacheShift(ale_cache, 10);
             ale_cache[0][0] = mu;
             ale_cache[1][0] = (double) order;    
-            ale_cache[2][0] = AlsM;
-            ale_cache[3][0] = MAls;
+            ale_cache[2][0] = AlsMz;
+            ale_cache[3][0] = Mz;
             ale_cache[4][0] = mut;
             ale_cache[5][0] = mub;
             ale_cache[6][0] = muc;
             ale_cache[7][0] = (double) Nf_thr;
-            ale_cache[8][0] = Mz;
-            ale_cache[9][0] = aleMz;
-            ale_cache[10][0] = ale;
+            ale_cache[8][0] = aleMz;
+            ale_cache[9][0] = ale;
 
              return ale;
         default:
@@ -883,6 +873,8 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
 
 double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders order) const
 {
+    if (fabs(mu - mu_i) < MEPS) return(alei);
+
     double nf = Nf(mu), alsi = Als(mu_i, NNLO, true);
     double b00e = Beta_e(00, nf), b00s = Beta_s(00, nf);
     double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
@@ -972,9 +964,9 @@ double StandardModel::alphaMz() const
 
 double StandardModel::Alstilde5(const double mu) const
 {
-    double mu_0 = MAls;
+    double mu_0 = Mz;
     double alphatilde_e = alphaMz()/4./M_PI;
-    double alphatilde_s = AlsM/4./M_PI;
+    double alphatilde_s = AlsMz/4./M_PI;
     unsigned int nf = 5;
 
     double B00S = Beta0(nf), B10S = Beta1(nf), B20S = Beta2(nf), B30S = gsl_sf_zeta_int(3) * 352864./81. - 598391./1458,
