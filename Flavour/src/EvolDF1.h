@@ -85,33 +85,7 @@ public:
       
 private:
    
-    /**
-     * @param a array of double for the magic numbers of the evolutor ( LO evolution )
-     * @param b array of double for the magic numbers of the evolutor ( LO evolution ) 
-     * @param c array of double for the magic numbers of the evolutor ( NLO evolution, associated to \f$ \alpha_{strong}(\mu) \f$ )
-     * @param d array of double for the magic numbers of the evolutor ( NLO evolution, associated to \f$ \alpha_{strong}(M) \f$ )
-     */
-    //double a[4][13],
-    //double b[4][13][13][13], c[4][13][13][13], d[4][13][13][13];
-
-//    typedef boost::multi_array<double, 4> array_type4;
-//    typedef boost::multi_array<double, 2> array_type2;
-//    array_type2 mn_a;
-//    array_type4 mn_b,mn_c,mn_d;
-    std::map< std::vector<int>, double > ai;
-    std::map< std::vector<int>, gslpp::complex > vM0vi, vM1vi, vM2vi, vM11vi, vM3vi, vM4vi, vM5vi, vM6vi, vM33vi, vM31vi, vM13vi,
-    vM34vi, vM43vi, vM23vi, vM32vi, vM14vi, vM41vi, vM113vi, vM131vi, vM311vi, vM133vi, vM313vi, vM331vi;
-    std::vector<int> index;
-
     const StandardModel& model;
-
-    /**
-     * @brief map indexes to a vector<int>
-     * @param nf number of active flavours
-     * @param i,j,... indices in eqs. (49)-(53) in Huber, Lunghi, Misiak, Wyler, hep-ph/0512066
-     * @return a reference to the vector index
-     */    
-    std::vector<int>& idx(int nf, int a, int b=0, int i=0, int j=0, int k=0, int l=0, int p=0, int m=0, int q=0);
 
     /**
      * @brief Check if anomalous dimension indices and Nf match
@@ -340,9 +314,17 @@ private:
     unsigned int nops, nfmin, nfmax;
     std::string blocks;
 
-    gslpp::matrix<gslpp::complex> evec, evec_i, js, h, gg, s_s, jssv, jss, jv, vij;
-    gslpp::vector<gslpp::complex> eval;
+    gslpp::matrix<double> evec, evec_i, js, h, gg, s_s, jssv, jss, jv, vij;
+    gslpp::matrix<gslpp::complex> evecc;
+    gslpp::vector<gslpp::complex> evalc;
+    gslpp::vector<double> eval;
     double alsM_cache, MAls_cache;
+    boost::multi_array<double, 2> ai;
+    boost::multi_array<double, 4> vM0vi;
+    boost::multi_array<double, 5> vM1vi, vM2vi, vM3vi, vM4vi, vM5vi, vM6vi;
+    boost::multi_array<double, 6> vM11vi, vM33vi, vM31vi, vM13vi, vM34vi, vM43vi, vM23vi, vM32vi, vM14vi, vM41vi;
+    boost::multi_array<double, 7> vM113vi, vM131vi, vM311vi, vM133vi, vM313vi, vM331vi;
+
 };
 
 #endif /* EVOLDF1_H */

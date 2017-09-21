@@ -25,23 +25,36 @@ std::map<std::string,unsigned int> blocks_nops = {
     };
 
 EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& model, orders ord, orders_qed ord_qed)
-: RGEvolutor(blocks_nops.at(reqblocks), scheme, ord, ord_qed), index(10), model(model), blocks(reqblocks),
+: RGEvolutor(blocks_nops.at(reqblocks), scheme, ord, ord_qed), model(model), blocks(reqblocks),
         evec(blocks_nops.at(reqblocks), 0.), evec_i(blocks_nops.at(reqblocks), 0.), js(blocks_nops.at(reqblocks), 0.), h(blocks_nops.at(reqblocks), 0.),
         gg(blocks_nops.at(reqblocks), 0.), s_s(blocks_nops.at(reqblocks), 0.),jssv(blocks_nops.at(reqblocks), 0.), jss(blocks_nops.at(reqblocks), 0.),
-        jv(blocks_nops.at(reqblocks), 0.), vij(blocks_nops.at(reqblocks), 0.), eval(blocks_nops.at(reqblocks), 0.)
+        jv(blocks_nops.at(reqblocks), 0.), vij(blocks_nops.at(reqblocks), 0.), evecc(blocks_nops.at(reqblocks), 0.), evalc(blocks_nops.at(reqblocks), 0.), 
+        eval(blocks_nops.at(reqblocks), 0.),
+        ai(boost::extents[3][blocks_nops.at(reqblocks)]),
+        vM0vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM1vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM2vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM3vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM4vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM5vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM6vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM11vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM33vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM31vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM13vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM34vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM43vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM23vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM32vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM14vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM41vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM113vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM131vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM311vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM133vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM313vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)]),
+        vM331vi(boost::extents[3][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)][blocks_nops.at(reqblocks)])
 {
-    //    blocks_nops = boost::assign::map_list_of("C",2) ("CP",6) ("CPM",8) ("L",2) ("CPML",10) ("CPQB",11) ("CPMQB",13) ("CPMLQB",15);
-//    blocks_nops = {
-//        { "C", 2},
-//        { "CP", 6},
-//        { "CPM", 8},
-//        {"L", 2},
-//        {"CPML", 10},
-//        {"CPQB", 11},
-//        {"CPMQB", 13},
-//        {"CPMLQB", 15}
-//    };
-    //    blocks_ord = boost::assign::map_list_of("C",NNLO) ("CP",NNLO) ("CPM",NNLO) ("L",NNLO) ("CPML",NNLO) ("CPQB",NLO) ("CPMQB",NLO) ("CPMLQB",NLO);
     blocks_ord = {
         {"C", NNLO},
         {"CP", NNLO},
@@ -56,7 +69,7 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
 //        throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
 
     this->nops = blocks_nops.at(reqblocks);
-    unsigned int nf, nu, nd,
+    unsigned int nf, i_nf, nu, nd,
             a, b, i, j, p, q;
     double b0, b0e, b1, b2, b3, b4;
     
@@ -65,7 +78,7 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
 
     gslpp::matrix<double> W10(nops, nops, 0.), W20(nops, nops, 0.), W30(nops, nops, 0.),
             W01(nops, nops, 0.), W02(nops, nops, 0.), W11(nops, nops, 0.), W21(nops, nops, 0.);
-    gslpp::matrix<gslpp::complex> M1(nops, nops, 0.), M2(nops, nops, 0.), M3(nops, nops, 0.), M4(nops, nops, 0.),
+    gslpp::matrix<double> M1(nops, nops, 0.), M2(nops, nops, 0.), M3(nops, nops, 0.), M4(nops, nops, 0.),
             M5(nops, nops, 0.), M6(nops, nops, 0.);
 
     if (order_qed == NO_QED && blocks.find("L") == std::string::npos &&
@@ -79,6 +92,7 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
 
     
     for (nf = nfmin; nf <= nfmax; nf++) {
+        i_nf = nf - nfmin;
         nu = nf % 2 == 0 ? nf / 2 : nf / 2;
         nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
 
@@ -94,8 +108,10 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
 //        std::cout << W10 << std::endl;
 
         // Misiak-Munz basis, defined as in T. Huber et al., hep-ph/0512066
-        W10.eigensystem(evec, eval);
-        evec_i = evec.inverse();
+        W10.eigensystem(evecc, evalc);
+        evec = evecc.real();
+        eval = evalc.real();
+        evec_i = (evecc.inverse()).real();
 
         // QCD magic numbers
         // M2: B(-2), M1: B(-1)_10
@@ -103,16 +119,15 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
         M1 = evec_i * (W20 - b1 * W10) * evec;
 
         for (a = 0; a < nops; a++) {
-            ai.insert(std::pair<std::vector<int>, double > (idx(nf, a), eval(a).real()));
+            ai[i_nf][a]= eval(a);
             for (b = 0; b < nops; b++)
                 for (i = 0; i < nops; i++) {
-                    vM0vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i), evec(a, i) * evec_i(i, b))); // QCD LO evolutor
+                    vM0vi[i_nf][a][b][i] = evec(a, i) * evec_i(i, b); // QCD LO evolutor
                     for (j = 0; j < nops; j++) {
-                        vM1vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M1(i, j) * evec_i(j, b))); // QCD NLO evolutor
-                        vM2vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M2(i, j) * evec_i(j, b))); // QCD NNLO evolutor
-                        for (p = 0; p < nops; p++) {
-                            vM11vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M1(p, j) * evec_i(j, b))); // QCD NNLO evolutor                        
-                        }
+                        vM1vi[i_nf][a][b][i][j] = evec(a, i) * M1(i, j) * evec_i(j, b); // QCD NLO evolutor
+                        vM2vi[i_nf][a][b][i][j] = evec(a, i) * M2(i, j) * evec_i(j, b); // QCD NNLO evolutor
+                        for (p = 0; p < nops; p++) 
+                            vM11vi[i_nf][a][b][i][j][p] = evec(a, i) * M1(i, p) * M1(p, j) * evec_i(j, b); // QCD NNLO evolutor                        
                     }
                 }
         }
@@ -138,29 +153,29 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
                     for (i = 0; i < nops; i++)
                         for (j = 0; j < nops; j++)
                         {
-                            vM3vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M3(i, j) * evec_i(j, b)));
-                            vM4vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M4(i, j) * evec_i(j, b)));
-                            vM5vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M5(i, j) * evec_i(j, b)));
-                            vM6vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j), evec(a, i) * M6(i, j) * evec_i(j, b)));
+                            vM3vi[i_nf][a][b][i][j] = evec(a, i) * M3(i, j) * evec_i(j, b);
+                            vM4vi[i_nf][a][b][i][j] = evec(a, i) * M4(i, j) * evec_i(j, b);
+                            vM5vi[i_nf][a][b][i][j] = evec(a, i) * M5(i, j) * evec_i(j, b);
+                            vM6vi[i_nf][a][b][i][j] = evec(a, i) * M6(i, j) * evec_i(j, b);
                             for (p = 0; p < nops; p++)
                             {
-                                vM33vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M3(p, j) * evec_i(j, b)));
-                                vM31vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M1(p, j) * evec_i(j, b)));
-                                vM13vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M3(p, j) * evec_i(j, b)));
-                                vM34vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M4(p, j) * evec_i(j, b)));
-                                vM43vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M3(p, j) * evec_i(j, b)));
-                                vM23vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M2(i, p) * M3(p, j) * evec_i(j, b)));
-                                vM32vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M3(i, p) * M2(p, j) * evec_i(j, b)));
-                                vM14vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M1(i, p) * M4(p, j) * evec_i(j, b)));
-                                vM41vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p), evec(a, i) * M4(i, p) * M1(p, j) * evec_i(j, b)));
+                                vM33vi[i_nf][a][b][i][j][p] = evec(a, i) * M3(i, p) * M3(p, j) * evec_i(j, b);
+                                vM31vi[i_nf][a][b][i][j][p] = evec(a, i) * M3(i, p) * M1(p, j) * evec_i(j, b);
+                                vM13vi[i_nf][a][b][i][j][p] = evec(a, i) * M1(i, p) * M3(p, j) * evec_i(j, b);
+                                vM34vi[i_nf][a][b][i][j][p] = evec(a, i) * M3(i, p) * M4(p, j) * evec_i(j, b);
+                                vM43vi[i_nf][a][b][i][j][p] = evec(a, i) * M4(i, p) * M3(p, j) * evec_i(j, b);
+                                vM23vi[i_nf][a][b][i][j][p] = evec(a, i) * M2(i, p) * M3(p, j) * evec_i(j, b);
+                                vM32vi[i_nf][a][b][i][j][p] = evec(a, i) * M3(i, p) * M2(p, j) * evec_i(j, b);
+                                vM14vi[i_nf][a][b][i][j][p] = evec(a, i) * M1(i, p) * M4(p, j) * evec_i(j, b);
+                                vM41vi[i_nf][a][b][i][j][p] = evec(a, i) * M4(i, p) * M1(p, j) * evec_i(j, b);
                                 for (q = 0; q < nops; q++)
                                 {
-                                    vM113vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M1(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
-                                    vM131vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M1(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
-                                    vM311vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M3(i, p) * M1(p, q) * M1(q, j) * evec_i(j, b)));
-                                    vM331vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M3(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b)));
-                                    vM313vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M3(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)));
-                                    vM133vi.insert(std::pair<std::vector<int>, gslpp::complex > (idx(nf, a, b, i, j, p, q), evec(a, i) * M1(i, p) * M3(p, q) * M3(q, j) * evec_i(j, b)));
+                                    vM113vi[i_nf][a][b][i][j][p][q] = evec(a, i) * M1(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b);
+                                    vM131vi[i_nf][a][b][i][j][p][q] = evec(a, i) * M1(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b);
+                                    vM311vi[i_nf][a][b][i][j][p][q] = evec(a, i) * M3(i, p) * M1(p, q) * M1(q, j) * evec_i(j, b);
+                                    vM331vi[i_nf][a][b][i][j][p][q] = evec(a, i) * M3(i, p) * M3(p, q) * M1(q, j) * evec_i(j, b);
+                                    vM313vi[i_nf][a][b][i][j][p][q] = evec(a, i) * M3(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b);
+                                    vM133vi[i_nf][a][b][i][j][p][q] = evec(a, i) * M1(i, p) * M3(p, q) * M3(q, j) * evec_i(j, b);
                                 }
                             }
                         }
@@ -180,68 +195,49 @@ EvolDF1::~EvolDF1() {}
                        QM QED,BM??? (in 031209 C7,8 are normalised with alpha_s and not in the effective basis)
 */
 
-std::vector<int>& EvolDF1::idx(int nf, int a, int b, int i, int j, int k, int l, int p, int m, int q)
+double EvolDF1::f_f(unsigned int i_nf, unsigned int i, unsigned int j, int k, double eta)
 {
-    if (nf > 6 || nf < 3) throw std::runtime_error("EvolDF1::idx(): wrong number of active flavours");
-    
-    index[0] = 6 - nf;
-    index[1] = a;
-    index[2] = b;
-    index[3] = i;
-    index[4] = j;
-    index[5] = k;
-    index[6] = l;
-    index[7] = p;
-    index[8] = m;
-    index[9] = q;
-    
-    return(index);
-}
-
-
-double EvolDF1::f_f(unsigned int nf, unsigned int i, unsigned int j, int k, double eta)
-{
-    double den = ai.at(idx(nf,j)) + k -ai.at(idx(nf,i));
+    double den = ai[i_nf][j] + k -ai[i_nf][i];
     
     if(fabs(den) < EPS) 
-        return(pow(eta, ai.at(idx(nf,i)))*log(eta));
+        return(pow(eta, ai[i_nf][i])*log(eta));
     else
-        return((pow(eta, ai.at(idx(nf,j)) + k ) - pow(eta, ai.at(idx(nf,i))))/den);
+        return((pow(eta, ai[i_nf][j] + k ) - pow(eta, ai[i_nf][i]))/den);
 }
 
-double EvolDF1::f_r(unsigned int nf, unsigned int i, unsigned int j, int k, double eta)
+double EvolDF1::f_r(unsigned int i_nf, unsigned int i, unsigned int j, int k, double eta)
 {
-    double ll = log(eta), den = ai.at(idx(nf,j)) + k - ai.at(idx(nf,i));
+    double ll = log(eta), den = ai[i_nf][j] + k - ai[i_nf][i];
     
     if(fabs(den) < EPS) 
-        return(0.5*pow(eta, ai.at(idx(nf,i)))*ll*ll);
+        return(0.5*pow(eta, ai[i_nf][i])*ll*ll);
     else
-        return((pow(eta, ai.at(idx(nf,j))+k)*ll-f_f(nf,i,j,k,eta))/den);
+        return((pow(eta, ai[i_nf][j]+k)*ll-f_f(i_nf,i,j,k,eta))/den);
 }
 
-double EvolDF1::f_g(unsigned int nf, unsigned int i, unsigned int p, unsigned int j, int k, int l, double eta)
+double EvolDF1::f_g(unsigned int i_nf, unsigned int i, unsigned int p, unsigned int j, int k, int l, double eta)
 {
-    double den = ai.at(idx(nf,j)) + l - ai.at(idx(nf,p));
+    double den = ai[i_nf][j] + l - ai[i_nf][p];
  
     if(fabs(den) < EPS) 
-        return(f_r(nf,i,p,k,eta));
+        return(f_r(i_nf,i,p,k,eta));
     else
-        return((f_f(nf,i,j,k+l,eta)-f_f(nf,i,p,k,eta))/den);
+        return((f_f(i_nf,i,j,k+l,eta)-f_f(i_nf,i,p,k,eta))/den);
 }
 
-double EvolDF1::f_h(unsigned int nf, unsigned int i, unsigned int p, unsigned int q, unsigned int j, int k, int l, int m, double eta)
+double EvolDF1::f_h(unsigned int i_nf, unsigned int i, unsigned int p, unsigned int q, unsigned int j, int k, int l, int m, double eta)
 {
-    double ll = log(eta), den1 = ai.at(idx(nf, j)) + m - ai.at(idx(nf, q)), den2 = ai.at(idx(nf, q)) + l - ai.at(idx(nf, p)),
-            den3 = ai.at(idx(nf, p)) + k - ai.at(idx(nf, i));
+    double ll = log(eta), den1 = ai[i_nf][j] + m - ai[i_nf][q], den2 = ai[i_nf][q] + l - ai[i_nf][p],
+            den3 = ai[i_nf][p] + k - ai[i_nf][i];
 
     if (fabs(den1) < EPS && fabs(den2) < EPS && fabs(den3) < EPS)
-        return (pow(eta, ai.at(idx(nf, i))) * ll * ll * ll / 6.);
+        return (pow(eta, ai[i_nf][i]) * ll * ll * ll / 6.);
     else if (fabs(den1) < EPS && fabs(den2) < EPS)
-        return ((0.5 * pow(eta, ai.at(idx(nf, p)) + k) * ll * ll - f_r(nf, i, p, k, eta)) / den3);
+        return ((0.5 * pow(eta, ai[i_nf][p] + k) * ll * ll - f_r(i_nf, i, p, k, eta)) / den3);
     else if (fabs(den1) < EPS)
-        return ((f_r(nf, i, q, k + l, eta) - f_g(nf, i, p, q, k, l, eta)) / den2);
+        return ((f_r(i_nf, i, q, k + l, eta) - f_g(i_nf, i, p, q, k, l, eta)) / den2);
     else
-        return ((f_g(nf, i, p, j, k, l + m, eta) - f_g(nf, i, p, q, k, l, eta)) / den1);
+        return ((f_g(i_nf, i, p, j, k, l + m, eta) - f_g(i_nf, i, p, q, k, l, eta)) / den1);
 }
 
 void EvolDF1::CheckNf(indices nm, unsigned int nf) const
@@ -1375,11 +1371,12 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
     gslpp::matrix<double> res01(nops, 0.), res02(nops, 0.), res11(nops, 0.), res12(nops, 0.),
             res21(nops, 0.), resLO(nops, 0.), resNLO(nops, 0.), resNNLO(nops, 0.);
     
-    unsigned int a,b,i,j,p,q;
+    unsigned int a,b,i,j,p,q,i_nf;
     double b0, b0e, b5, alsM, eta, omega, lambda;
 
 //    double alsM = model.Als(M) / 4. / M_PI;
 //    double alsmu = model.Als(mu) / 4. / M_PI;
+    i_nf = nf - nfmin;
     b0 = model.Beta_s(00, nf);
     alsM = model.Als(M, FULLNNLO, true);
     eta = alsM / model.Als(mu, FULLNNLO, true);
@@ -1390,13 +1387,13 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
         {
             for (i = 0; i < nops; i++)
             {
-                resLO(a, b) += (vM0vi.at(idx(nf,a,b,i)) * pow(eta, ai.at(idx(nf,i)))).real();
+                resLO(a, b) += vM0vi[i_nf][a][b][i] * pow(eta, ai[i_nf][i]);
                 for(j = 0; j < nops; j++)
                 {
-                    resNLO(a, b) += (omega * vM1vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-1,eta)).real();
-                    resNNLO(a, b) += (omega * omega * vM2vi.at(idx(nf,a,b,i,j)) * f_f(nf,i,j,-2,eta)).real();
+                    resNLO(a, b) += omega * vM1vi[i_nf][a][b][i][j] * f_f(i_nf,i,j,-1,eta);
+                    resNNLO(a, b) += omega * omega * vM2vi[i_nf][a][b][i][j] * f_f(i_nf,i,j,-2,eta);
                     for(p = 0; p < nops; p++)
-                        resNNLO(a, b) += (omega * omega * vM11vi.at(idx(nf,a,b,i,j,p)) * f_g(nf,i,p,j,-1,-1,eta)).real();
+                        resNNLO(a, b) += omega * omega * vM11vi[i_nf][a][b][i][j][p] * f_g(i_nf,i,p,j,-1,-1,eta);
                 }
                 if(fabs(resLO(a, b)) < EPS) resLO(a, b) = 0.;
                 if(fabs(resNLO(a, b)) < EPS) resNLO(a, b) = 0.;
@@ -1415,28 +1412,28 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
                 for (i = 0; i < nops; i++)
                     for (j = 0; j < nops; j++)
                     {
-                        res01(a, b) += (lambda * vM3vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 1, eta)).real();
-                        res02(a, b) += (lambda * lambda * vM3vi.at(idx(nf, a, b, i, j)) * (f_f(nf, i, j, 2, eta) - f_f(nf, i, j, 1, eta))).real();
-                        res11(a, b) += (omega * lambda * vM4vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 0, eta)).real();
-                        res12(a, b) += (omega * lambda * lambda * (-vM4vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 0, eta) + vM6vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, 1, eta)) +
-                                b5 * vM3vi.at(idx(nf, a, b, i, j)) * f_r(nf, i, j, 1, eta)).real();
-                        res21(a, b) += (omega * omega * lambda * vM5vi.at(idx(nf, a, b, i, j)) * f_f(nf, i, j, -1, eta)).real();
+                        res01(a, b) += lambda * vM3vi[i_nf][a][b][i][j] * f_f(i_nf, i, j, 1, eta);
+                        res02(a, b) += lambda * lambda * vM3vi[i_nf][a][b][i][j] * (f_f(i_nf, i, j, 2, eta) - f_f(i_nf, i, j, 1, eta));
+                        res11(a, b) += omega * lambda * vM4vi[i_nf][a][b][i][j] * f_f(i_nf, i, j, 0, eta);
+                        res12(a, b) += omega * lambda * lambda * (-vM4vi[i_nf][a][b][i][j] * f_f(i_nf, i, j, 0, eta) + vM6vi[i_nf][a][b][i][j] * f_f(i_nf, i, j, 1, eta)) +
+                                b5 * vM3vi[i_nf][a][b][i][j] * f_r(i_nf, i, j, 1, eta);
+                        res21(a, b) += omega * omega * lambda * vM5vi[i_nf][a][b][i][j] * f_f(i_nf, i, j, -1, eta);
                         for (p = 0; p < nops; p++)
                         {
-                            res02(a, b) += (lambda * lambda * vM33vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, 1, eta)).real();
-                            res11(a, b) += (omega * lambda * (vM13vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -1, 1, eta) + vM31vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, -1, eta))).real();
-                            res12(a, b) += (omega * lambda * lambda * (vM13vi.at(idx(nf, a, b, i, j, p)) * (f_g(nf, i, p, j, -1, 2, eta) - f_g(nf, i, p, j, -1, 1, eta)) +
-                                    vM31vi.at(idx(nf, a, b, i, j, p)) * (f_g(nf, i, p, j, 2, -1, eta) - f_g(nf, i, p, j, 1, -1, eta)) + vM34vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, 0, eta) +
-                                    vM43vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 0, 1, eta))).real();
-                            res21(a, b) += (omega * omega * lambda * (vM14vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -1, 0, eta) + vM41vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 0, -1, eta) +
-                                    vM23vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, -2, 1, eta) + vM32vi.at(idx(nf, a, b, i, j, p)) * f_g(nf, i, p, j, 1, -2, eta))).real();
+                            res02(a, b) += lambda * lambda * vM33vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, 1, 1, eta);
+                            res11(a, b) += omega * lambda * (vM13vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, -1, 1, eta) + vM31vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, 1, -1, eta));
+                            res12(a, b) += omega * lambda * lambda * (vM13vi[i_nf][a][b][i][j][p] * (f_g(i_nf, i, p, j, -1, 2, eta) - f_g(i_nf, i, p, j, -1, 1, eta)) +
+                                    vM31vi[i_nf][a][b][i][j][p] * (f_g(i_nf, i, p, j, 2, -1, eta) - f_g(i_nf, i, p, j, 1, -1, eta)) + vM34vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, 1, 0, eta) +
+                                    vM43vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, 0, 1, eta));
+                            res21(a, b) += omega * omega * lambda * (vM14vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, -1, 0, eta) + vM41vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, 0, -1, eta) +
+                                    vM23vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, -2, 1, eta) + vM32vi[i_nf][a][b][i][j][p] * f_g(i_nf, i, p, j, 1, -2, eta));
 
                             for (q = 0; q < nops; q++)
                             {
-                                res12(a, b) += (omega * lambda * lambda * (vM133vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, 1, 1, eta) + vM313vi.at(idx(nf, a, b, i, j, p, q)) *
-                                        f_h(nf, i, p, q, j, 1, -1, 1, eta) + vM331vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, 1, -1, eta))).real();
-                                res21(a, b) += (omega * omega * lambda * (vM113vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, -1, -1, 1, eta) + vM131vi.at(idx(nf, a, b, i, j, p, q)) *
-                                        f_h(nf, i, p, q, j, -1, 1, -1, eta) + vM311vi.at(idx(nf, a, b, i, j, p, q)) * f_h(nf, i, p, q, j, 1, -1, -1, eta))).real();
+                                res12(a, b) += omega * lambda * lambda * (vM133vi[i_nf][a][b][i][j][p][q] * f_h(i_nf, i, p, q, j, -1, 1, 1, eta) + vM313vi[i_nf][a][b][i][j][p][q] *
+                                        f_h(i_nf, i, p, q, j, 1, -1, 1, eta) + vM331vi[i_nf][a][b][i][j][p][q] * f_h(i_nf, i, p, q, j, 1, 1, -1, eta));
+                                res21(a, b) += omega * omega * lambda * (vM113vi[i_nf][a][b][i][j][p][q] * f_h(i_nf, i, p, q, j, -1, -1, 1, eta) + vM131vi[i_nf][a][b][i][j][p][q] *
+                                        f_h(i_nf, i, p, q, j, -1, 1, -1, eta) + vM311vi[i_nf][a][b][i][j][p][q] * f_h(i_nf, i, p, q, j, 1, -1, -1, eta));
                             }
                         }
                     }
