@@ -9,6 +9,7 @@
 #define	THDMWOBSERVABLES_H
 
 #include "THDMWpositivity.h"
+#include "THDMWquantities.h"
 #include "THDMWquantitiesatQ.h"
 #include "THDMWSignalStrengths.h"
 #include "THDMWunitarity.h"

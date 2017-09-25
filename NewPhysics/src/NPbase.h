@@ -605,6 +605,15 @@ public:
         return 1.0;
     }
 
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgplusct() const
+    {
+        return 1.0;
+    }
+
     ////////////////////////////////////////////////////////////////////////
 protected:
     StandardModel trueSM;

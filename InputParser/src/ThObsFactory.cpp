@@ -135,6 +135,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["UpperLimit_ppHZgammaA13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA13*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaA"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA*>(), _1, sqrt_s_LHC8);
     obsThFactory["UpperLimit_ppHZgammaC"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC*>(), _1, sqrt_s_LHC8);
+    obsThFactory["cg_plus_ct"] = boost::factory<cg_plus_ct*>();
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();
@@ -1243,6 +1244,15 @@ ThObsFactory::ThObsFactory()
     obsThFactory["THDMWunitarityRp9"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 8);
     obsThFactory["THDMWunitarityRp10"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 9);
     obsThFactory["THDMWunitarityRp11"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 10);
+    //-----   Physical parameters  -----
+    obsThFactory["m12sqTHDMW"] = boost::factory<m12sqTHDMW*>();
+    obsThFactory["m11sqTHDMW"] = boost::factory<m11sqTHDMW*>();
+    obsThFactory["m22sqTHDMW"] = boost::factory<m22sqTHDMW*>();
+    obsThFactory["mhsqTHDMW"] = boost::factory<mhsqTHDMW*>();
+    obsThFactory["mHHsqTHDMW"] = boost::factory<mHHsqTHDMW*>();
+    obsThFactory["mAsqTHDMW"] = boost::factory<mAsqTHDMW*>();
+    obsThFactory["mSRsqTHDMW"] = boost::factory<mSRsqTHDMW*>();
+    obsThFactory["mSIsqTHDMW"] = boost::factory<mSIsqTHDMW*>();
 
     /** END: REMOVE FROM THE PACKAGE **/
 }

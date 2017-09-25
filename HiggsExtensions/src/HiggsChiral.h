@@ -471,6 +471,12 @@ public:
      */
     virtual double UpperLimitZgammaC(const double sqrt_s) const;
 
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgplusct() const;
+
     ////////////////////////////////////////////////////////////////////////
 protected:
 

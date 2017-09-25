@@ -60,6 +60,16 @@ public:
     double kappa2_at_Q;
     double nu4_at_Q;
     double omega4_at_Q;
+    double m12sq;
+    double m11sq;
+    double m22sq;
+    double mhsq;
+    double mHsq;
+    double mAsq;
+    double mSRsq;
+    double mSIsq;
+    double mHpsq;
+    double mSpsq;
 
     double RpepsTHDMW;
     gslpp::vector<gslpp::complex> unitarityeigenvalues;
@@ -200,16 +210,6 @@ private:
     double kappa3;
     double nu4;
     double omega4;
-    double m12sq;
-    double m11sq;
-    double m22sq;
-    double mhsq;
-    double mHsq;
-    double mAsq;
-    double mSpsq;
-    double mHpsq;
-    double mSRsq;
-    double mSIsq;
 };
 
 #endif	/* THDMWCACHE_H */

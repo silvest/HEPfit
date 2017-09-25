@@ -10,6 +10,7 @@
       <itemPath>src/THDMWSignalStrengths.h</itemPath>
       <itemPath>src/THDMWcache.h</itemPath>
       <itemPath>src/THDMWpositivity.h</itemPath>
+      <itemPath>src/THDMWquantities.h</itemPath>
       <itemPath>src/THDMWquantitiesatQ.h</itemPath>
       <itemPath>src/THDMWunitarity.h</itemPath>
     </logicalFolder>
@@ -25,6 +26,7 @@
       <itemPath>src/THDMWSignalStrengths.cpp</itemPath>
       <itemPath>src/THDMWcache.cpp</itemPath>
       <itemPath>src/THDMWpositivity.cpp</itemPath>
+      <itemPath>src/THDMWquantities.cpp</itemPath>
       <itemPath>src/THDMWquantitiesatQ.cpp</itemPath>
       <itemPath>src/THDMWunitarity.cpp</itemPath>
     </logicalFolder>
@@ -97,6 +99,10 @@
       </item>
       <item path="src/THDMWpositivity.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/THDMWquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/THDMWquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMWquantitiesatQ.h" ex="false" tool="3" flavor2="0">
@@ -161,6 +167,10 @@
       <item path="src/THDMWpositivity.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/THDMWpositivity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/THDMWquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/THDMWquantities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/THDMWquantitiesatQ.cpp" ex="false" tool="1" flavor2="0">
       </item>

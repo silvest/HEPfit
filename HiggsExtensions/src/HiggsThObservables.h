@@ -903,5 +903,38 @@ private:
     const double sqrt_s;
 };
 
+/**
+ * @class cg_plus_ct
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cg_plus_ct : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cg_plus_ct(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cg_plus_ct called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->cgplusct();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
 #endif	/* HIGGSTHOBSERVABLES_H */
 

@@ -245,6 +245,12 @@ double HiggsChiral::UpperLimitZgammaC(const double sqrt_s) const
     return (1.0+(muppH*BrHZgaRatio()-getobsZgaLimitCMS())/getexpZgaLimitCMS() ) * nftos;
 }
 
+double HiggsChiral::cgplusct() const
+{
+
+    return cg + ct;
+}
+
 double HiggsChiral::Gammagg() const
 {
     double Mt=trueSM.getQuarks(QCD::TOP).getMass();
