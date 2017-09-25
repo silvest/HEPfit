@@ -51,6 +51,12 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_3311",
     "CLd_1111","CLd_1122","CLd_2211","CLd_1133","CLd_3311",
     "CQe_1111","CQe_1122","CQe_2211","CQe_1133","CQe_3311", "Lambda_NP",
+    "eggFint","eggFpar","ettHint","ettHpar",
+    "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
+    "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
+    "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
+    "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
+    "eHccint","eHccpar","eHbbint","eHbbpar",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -113,6 +119,12 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_3311",
     "CLd_1111","CLd_1122","CLd_2211","CLd_1133","CLd_3311",
     "CQe_1111","CQe_1122","CQe_2211","CQe_1133","CQe_3311", "Lambda_NP",
+    "eggFint","eggFpar","ettHint","ettHpar",
+    "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
+    "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
+    "eHggint","eHggpar","eHWWint","eHWWpar","eHZZint","eHZZpar","eHZgaint","eHZgapar",
+    "eHgagaint","eHgagapar","eHmumuint","eHmumupar","eHtautauint","eHtautaupar",
+    "eHccint","eHccpar","eHbbint","eHbbpar",
     "eVBF_2_Hbox", "eVBF_2_HQ1_11", "eVBF_2_Hu_11", "eVBF_2_Hd_11", "eVBF_2_HQ3_11",
     "eVBF_2_HD", "eVBF_2_HB", "eVBF_2_HW", "eVBF_2_HWB", "eVBF_2_HG", "eVBF_2_DHB",
     "eVBF_2_DHW", "eVBF_2_DeltaGF",
@@ -468,6 +480,40 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         std::cout << "WARNING: flavor non-universal coefficient for the dim-6 operators for LEP2 observables not yet implemented." << std::endl;
     }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eggFint", boost::cref(eggFint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eggFpar", boost::cref(eggFpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettHint", boost::cref(ettHint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettHpar", boost::cref(ettHpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBFint", boost::cref(eVBFint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBFpar", boost::cref(eVBFpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWHint", boost::cref(eWHint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eWHpar", boost::cref(eWHpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZHint", boost::cref(eZHint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eZHpar", boost::cref(eZHpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eeeWBFint", boost::cref(eeeWBFint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eeeWBFpar", boost::cref(eeeWBFpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eeeZHint", boost::cref(eeeZHint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eeeZHpar", boost::cref(eeeZHpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eeettHint", boost::cref(eeettHint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eeettHpar", boost::cref(eeettHpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHggint", boost::cref(eHggint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHggpar", boost::cref(eHggpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHWWint", boost::cref(eHWWint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHWWpar", boost::cref(eHWWpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHZZint", boost::cref(eHZZint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHZZpar", boost::cref(eHZZpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHZgaint", boost::cref(eHZgaint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHZgapar", boost::cref(eHZgapar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHgagaint", boost::cref(eHgagaint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHgagapar", boost::cref(eHgagapar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHmumuint", boost::cref(eHmumuint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHmumupar", boost::cref(eHmumupar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHtautauint", boost::cref(eHtautauint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHtautaupar", boost::cref(eHtautaupar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHccint", boost::cref(eHccint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHccpar", boost::cref(eHccpar)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHbbint", boost::cref(eHbbint)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eHbbpar", boost::cref(eHbbpar)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF_2_Hbox", boost::cref(eVBF_2_Hbox)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF_2_HQ1_11", boost::cref(eVBF_2_HQ1_11)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eVBF_2_Hu_11", boost::cref(eVBF_2_Hu_11)));
@@ -1256,6 +1302,74 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQe_3311 = value;
     } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;
+    } else if (name.compare("eggFint") == 0) {
+        eggFint = value;
+    } else if (name.compare("eggFpar") == 0) {
+        eggFpar = value;
+    } else if (name.compare("ettHint") == 0) {
+        ettHint = value;
+    } else if (name.compare("ettHpar") == 0) {
+        ettHpar = value;
+    } else if (name.compare("eVBFint") == 0) {
+        eVBFint = value;
+    } else if (name.compare("eVBFpar") == 0) {
+        eVBFpar = value;
+    } else if (name.compare("eWHint") == 0) {
+        eWHint = value;
+    } else if (name.compare("eWHpar") == 0) {
+        eWHpar = value;
+    } else if (name.compare("eZHint") == 0) {
+        eZHint = value;
+    } else if (name.compare("eZHpar") == 0) {
+        eZHpar = value;
+    } else if (name.compare("eeeWBFint") == 0) {
+        eeeWBFint = value;
+    } else if (name.compare("eeeWBFpar") == 0) {
+        eeeWBFpar = value;
+    } else if (name.compare("eeeZHint") == 0) {
+        eeeZHint = value;
+    } else if (name.compare("eeeZHpar") == 0) {
+        eeeZHpar = value;
+    } else if (name.compare("eeettHint") == 0) {
+        eeettHint = value;
+    } else if (name.compare("eeettHpar") == 0) {
+        eeettHpar = value;
+    } else if (name.compare("eHggint") == 0) {
+        eHggint = value;
+    } else if (name.compare("eHggpar") == 0) {
+        eHggpar = value;
+    } else if (name.compare("eHWWint") == 0) {
+        eHWWint = value;
+    } else if (name.compare("eHWWpar") == 0) {
+        eHWWpar = value;
+    } else if (name.compare("eHZZint") == 0) {
+        eHZZint = value;
+    } else if (name.compare("eHZZpar") == 0) {
+        eHZZpar = value;
+    } else if (name.compare("eHZgaint") == 0) {
+        eHZgaint = value;
+    } else if (name.compare("eHZgapar") == 0) {
+        eHZgapar = value;
+    } else if (name.compare("eHgagaint") == 0) {
+        eHgagaint = value;
+    } else if (name.compare("eHgagapar") == 0) {
+        eHgagapar = value;
+    } else if (name.compare("eHmumuint") == 0) {
+        eHmumuint = value;
+    } else if (name.compare("eHmumupar") == 0) {
+        eHmumupar = value;
+    } else if (name.compare("eHtautauint") == 0) {
+        eHtautauint = value;
+    } else if (name.compare("eHtautaupar") == 0) {
+        eHtautaupar = value;
+    } else if (name.compare("eHccint") == 0) {
+        eHccint = value;
+    } else if (name.compare("eHccpar") == 0) {
+        eHccpar = value;
+    } else if (name.compare("eHbbint") == 0) {
+        eHbbint = value;
+    } else if (name.compare("eHbbpar") == 0) {
+        eHbbpar = value;
     } else if (name.compare("eVBF_2_Hbox") == 0) {
          eVBF_2_Hbox = value;
     } else if (name.compare("eVBF_2_HQ1_11") == 0) {
@@ -2042,6 +2156,9 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
         mu += tmp2.abs2();
         
     }
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eggFint + eggFpar;
     
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -2750,6 +2867,9 @@ double NPSMEFTd6::muVBF(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::muVBF()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eVBFint + eVBFpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -3201,6 +3321,9 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWBF()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeWBFint + eeeWBFpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -3494,6 +3617,9 @@ double NPSMEFTd6::muWH(const double sqrt_s) const
           
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::muWH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eWHint + eWHpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -4116,6 +4242,9 @@ double NPSMEFTd6::muZH(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::muZH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eZHint + eZHpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -4568,6 +4697,9 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeZHint + eeeZHpar;
     
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -4763,6 +4895,9 @@ double NPSMEFTd6::muttH(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::muttH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += ettHint + ettHpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -5114,6 +5249,9 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::mueettH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeettHint + eeettHpar;
 
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
@@ -5332,7 +5470,8 @@ double NPSMEFTd6::deltaGammaTotalRatio2() const
 
 double NPSMEFTd6::GammaHggRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHggint + eHggpar;
 
     width += deltaGammaHggRatio1();
     
@@ -5401,7 +5540,8 @@ double NPSMEFTd6::deltaGammaHggRatio2() const
 
 double NPSMEFTd6::GammaHWWRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHWWint + eHWWpar;
 
     width += deltaGammaHWWRatio1();
     
@@ -5455,7 +5595,8 @@ double NPSMEFTd6::deltaGammaHWWRatio2() const
 
 double NPSMEFTd6::GammaHZZRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHZZint + eHZZpar;
 
     width += deltaGammaHZZRatio1();
     
@@ -5526,7 +5667,8 @@ double NPSMEFTd6::deltaGammaHZZRatio2() const
 
 double NPSMEFTd6::GammaHZgaRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHZgaint + eHZgapar;
 
     width += deltaGammaHZgaRatio1();
     
@@ -5657,7 +5799,8 @@ double NPSMEFTd6::deltaGammaHZgaRatio2() const
 
 double NPSMEFTd6::GammaHgagaRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHgagaint + eHgagapar;
 
     width += deltaGammaHgagaRatio1();
     
@@ -5760,7 +5903,8 @@ double NPSMEFTd6::deltaGammaHgagaRatio2() const
       
 double NPSMEFTd6::GammaHmumuRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHmumuint + eHmumupar;
 
     width += deltaGammaHmumuRatio1();
     
@@ -5806,7 +5950,8 @@ double NPSMEFTd6::deltaGammaHmumuRatio2() const
 
 double NPSMEFTd6::GammaHtautauRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHtautauint + eHtautaupar;
 
     width += deltaGammaHtautauRatio1();
     
@@ -5852,7 +5997,8 @@ double NPSMEFTd6::deltaGammaHtautauRatio2() const
 
 double NPSMEFTd6::GammaHccRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHccint + eHccpar;
 
     width += deltaGammaHccRatio1();
     
@@ -5903,7 +6049,8 @@ double NPSMEFTd6::deltaGammaHccRatio2() const
 
 double NPSMEFTd6::GammaHbbRatio() const
 {
-    double width = 1.0;
+      // SM (1) + intrinsic + parametric theory relative errors (free pars)
+    double width = 1.0 + eHbbint + eHbbpar;
     
     width += deltaGammaHbbRatio1();
     

@@ -296,6 +296,18 @@
  *   <td class="mod_desc">The new physics scale. </td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%eXint </td>
+ *   <td class="mod_symb">\f$\varepsilon_{X}^{int}\f$</td>
+ *   <td class="mod_desc">The relative intrinsic theoretical uncertainty for the process X.
+ *    (Only for Higgs observables and assumed to be constant in the energy.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%eXpar </td>
+ *   <td class="mod_symb">\f$\varepsilon_{X}^{par}\f$</td>
+ *   <td class="mod_desc">The relative parametric theoretical uncertainty for the process X.
+ *    (Only for Higgs observables and assumed to be constant in the energy.)</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%eVBFE_i </td>
  *   <td class="mod_symb">\f$\varepsilon_{VBF}^i(E)\f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in the coefficient multiplying
@@ -588,7 +600,9 @@
  *   <td class="mod_desc">The new physics scale. </td>
  * </tr>
  * </table>
- * (The parameters associated to the theoretical uncertainties, \f$\varepsilon_{X}^i(E)\f$,
+ * (The parameters associated to the theoretical uncertainties:
+ * \f$\varepsilon_{X}^{int}\f$, \f$\varepsilon_{X}^{par}\f$ and
+ * \f$\varepsilon_{X}^i(E)\f$,
  * are the same for both "NPSMEFTd6" and "NPSMEFTd6_LFU_QFU".)
  *
  * @anchor NPSMEFTd6Flags
@@ -629,7 +643,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 331;
+    static const int NNPSMEFTd6Vars = 365;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -647,7 +661,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 163;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 197;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -1529,7 +1543,41 @@ protected:
     double CQe_1122, CQe_2211;
     double CQe_1133, CQe_3311;
     double Lambda_NP; ///< The new physics scale [GeV].
-
+// The intrinsic and parametric theory relative errors in the Higgs observables.
+    double eggFint; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)
+    double eggFpar; ///< Parametric relative theoretical error in ggF production. (Assumed to be constant in energy.)
+    double ettHint; ///< Intrinsic relative theoretical error in ttH production. (Assumed to be constant in energy.)
+    double ettHpar; ///< Parametric relative theoretical error in ttH production. (Assumed to be constant in energy.)
+    double eVBFint; ///< Intrinsic relative theoretical error in VBF production. (Assumed to be constant in energy.)
+    double eVBFpar; ///< Parametric relative theoretical error in VBF production. (Assumed to be constant in energy.)
+    double eWHint; ///< Intrinsic relative theoretical error in WH production. (Assumed to be constant in energy.)
+    double eWHpar; ///< Parametric relative theoretical error in WH production. (Assumed to be constant in energy.)
+    double eZHint; ///< Intrinsic relative theoretical error in ZH production. (Assumed to be constant in energy.)
+    double eZHpar; ///< Parametric relative theoretical error in ZH production. (Assumed to be constant in energy.)
+    double eeeWBFint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to H \bar{\nu} \nu\f$. (Assumed to be constant in energy.)
+    double eeeWBFpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to H \bar{\nu} \nu\f$. (Assumed to be constant in energy.)
+    double eeeZHint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
+    double eeeZHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to Z H\f$. (Assumed to be constant in energy.)
+    double eeettHint; ///< Intrinsic relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
+    double eeettHpar; ///< Parametric relative theoretical error in \f$e^+ e^- \to t \bar{t} H\f$. (Assumed to be constant in energy.)
+    double eHggint; ///< Intrinsic relative theoretical error in \f$H \to g g\f$.
+    double eHggpar; ///< Parametric relative theoretical error in \f$H \to g g\f$.
+    double eHWWint; ///< Intrinsic relative theoretical error in \f$H \to W W\f$.
+    double eHWWpar; ///< Parametric relative theoretical error in \f$H \to W W\f$.
+    double eHZZint; ///< Intrinsic relative theoretical error in \f$H \to Z Z\f$.
+    double eHZZpar; ///< Parametric relative theoretical error in \f$H \to Z Z\f$.
+    double eHZgaint; ///< Intrinsic relative theoretical error in \f$H \to Z \gamma\f$.
+    double eHZgapar; ///< Parametric relative theoretical error in \f$H \to Z \gamma\f$.
+    double eHgagaint; ///< Intrinsic relative theoretical error in \f$H \to \gamma\gamma\f$.
+    double eHgagapar; ///< Parametric relative theoretical error in \f$H \to \gamma\gamma\f$.
+    double eHmumuint; ///< Intrinsic relative theoretical error in \f$H \to \mu^+ \mu^-\f$.
+    double eHmumupar; ///< Parametric relative theoretical error in \f$H \to \mu^+ \mu^-\f$.
+    double eHtautauint; ///< Intrinsic relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
+    double eHtautaupar; ///< Parametric relative theoretical error in \f$H \to \tau^+ \tau^-\f$.
+    double eHccint; ///< Intrinsic relative theoretical error in \f$H \to c\bar{c}\f$.
+    double eHccpar; ///< Parametric relative theoretical error in \f$H \to c\bar{c}\f$.
+    double eHbbint; ///< Intrinsic relative theoretical error in \f$H \to b\bar{b}\f$.
+    double eHbbpar; ///< Parametric relative theoretical error in \f$H \to b\bar{b}\f$.
 // The error in the parameters multiplying the dimension-6 operator coefficients in the production cross sections.
     double eVBF_2_Hbox;///< Theoretical uncertainty in the (linear) new physics contribution from \f$C_{H\Box}\f$ to VBF production at Tevatron (1.96 TeV).
     double eVBF_2_HQ1_11;///< Theoretical uncertainty in the (linear) new physics contribution from \f$(C_{HQ}^{(1)})_{11}\f$ to VBF production at Tevatron (1.96 TeV).
