@@ -52,12 +52,13 @@ int main(void) {
     gslpp::vector<gslpp::complex> ** allcoeff;
 
     allcoeff = Heff.ComputeCoeff(5.);
-
+    //allcoeff = HDB1.ComputeCoeffsmumu(5.);
+    
     std::cout << *(allcoeff[LO]) <<  std::endl;
     std::cout << *(allcoeff[NLO]) <<  std::endl;
     std::cout << *(allcoeff[NNLO]) <<  std::endl;
     std::cout << *(allcoeff[LO_QED]) <<  std::endl;    
-    std::cout << Heff.LowScaleCoeff(22) <<  std::endl;    
+//    std::cout << Heff.LowScaleCoeff(22) <<  std::endl;    
     
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(LO)) <<  std::endl;    
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(NLO)) <<  std::endl;    

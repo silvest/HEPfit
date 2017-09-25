@@ -1174,6 +1174,14 @@ public:
     double MS2DRqmass(const double MSbar) const;
 
     ////////////////////////////////////////////////////////////////////////
+    /**
+     * @brief A member used to manage the caching for this class.
+     * @param[in] cache the cache to be moved
+     * @param[in] n the dimension of the cache to be shifted
+     */
+    void CacheShift(double cache[][5], int n) const;
+    void CacheShift(int cache[][5], int n) const;
+
 
 protected:
 
@@ -1190,13 +1198,6 @@ protected:
      * @return MSbar \f$m_q(m_q)\f$
      */
     double MassOfNf(int nf) const;
-
-    /**
-     * @brief A member used to manage the caching for this class.
-     * @param[in] cache the cache to be moved
-     * @param[in] n the dimension of the cache to be shifted
-     */
-    void CacheShift(double cache[][5], int n) const;
 
     bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.

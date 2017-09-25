@@ -437,6 +437,14 @@ void QCD::CacheShift(double cache[][CacheSize], int n) const
             cache[j][i] = cache[j][i - 1];
 }
 
+void QCD::CacheShift(int cache[][CacheSize], int n) const
+{
+    int i, j;
+    for (i = CacheSize - 1; i > 0; i--)
+        for (j = 0; j < n; j++)
+            cache[j][i] = cache[j][i - 1];
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 double QCD::Beta0(const double nf) const
