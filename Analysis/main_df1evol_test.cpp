@@ -44,20 +44,21 @@ int main(void) {
     ComputeObservables CO(ModelF, ThObsF, ModelConf);
     StandardModel& mySM = *CO.getModel();
 
-    HeffDF1 Heff("CPML", mySM, NNLO, NLO_QED22);
-//    HeffDB1 HDB1(mySM);
+    HeffDF1 Heff("CPML", mySM, NNLO, NO_QED);
+    HeffDB1 HDB1(mySM);
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
-    gslpp::vector<gslpp::complex> ** allcoeff;
+    gslpp::vector<gslpp::complex> ** allcoeff, **allcoeff1;
 
-    allcoeff = Heff.ComputeCoeff(5.);
-    //allcoeff = HDB1.ComputeCoeffsmumu(5.);
-    
-    std::cout << *(allcoeff[LO]) <<  std::endl;
-    std::cout << *(allcoeff[NLO]) <<  std::endl;
-    std::cout << *(allcoeff[NNLO]) <<  std::endl;
-    std::cout << *(allcoeff[LO_QED]) <<  std::endl;    
+//    allcoeff = Heff.ComputeCoeff(5.);
+//    allcoeff1 = HDB1.ComputeCoeffsgamma(5.);
+//    
+//    std::cout << *(allcoeff[LO]) <<  std::endl;
+//    std::cout << *(allcoeff1[LO]) <<  std::endl;
+//    std::cout << *(allcoeff[NLO]) <<  std::endl;
+//    std::cout << *(allcoeff[NNLO]) <<  std::endl;
+//    std::cout << *(allcoeff[LO_QED]) <<  std::endl;    
 //    std::cout << Heff.LowScaleCoeff(22) <<  std::endl;    
     
 //    std::cout << *(mySM.getMatching().CMDF1("C",2)[0].getCoeff(LO)) <<  std::endl;    
@@ -90,9 +91,9 @@ int main(void) {
      
 //    std::cout << Heff.getEvol().AnomalousDimension(30, 2, 3) - HDB1.getUDB1bsg().AnomalousDimension_M(NNLO,2,3) <<  std::endl;
 //
-//    std::cout << Heff.getEvol().DF1Evol(5., 90., LO, NO_QED) << std::endl;
+       std::cout << Heff.getEvol().DF1Evol(5., 90., LO) << std::endl;
 ////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., LO) << std::endl;
-//    std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
+       std::cout << HDB1.getUDB1bsg().Df1Evolbsg(5., 90., LO) << std::endl;
 //
 //    std::cout << Heff.getEvol().DF1Evol(5., 90., NLO, NO_QED) << std::endl;
 ////    std::cout << HDB1.getUDF1BMll().Df1EvolMll(5., 90., NLO) << std::endl;
