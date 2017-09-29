@@ -99,15 +99,15 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
             for (b = 0; b < nops; b++)
                 for (i = 0; i < nops; i++) {
                     if(fabs(term = evec(a, i) * evec_i(i, b)) > EPS)
-                        vM0vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, 0, 0, 0}, term)); // QCD LO evolutor
+                        vM0vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i}, term)); // QCD LO evolutor
                     for (j = 0; j < nops; j++) {
                         if(fabs(term = evec(a, i) * M1(i, j) * evec_i(j, b)) > EPS)
-                            vM1vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, 0, 0}, term)); // QCD NLO evolutor
+                            vM1vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j}, term)); // QCD NLO evolutor
                         if(fabs(term = evec(a, i) * M2(i, j) * evec_i(j, b)) > EPS)
-                            vM2vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, 0, 0}, term)); // QCD NNLO evolutor
+                            vM2vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j}, term)); // QCD NNLO evolutor
                         for (p = 0; p < nops; p++)
                             if(fabs(term = evec(a, i) * M1(i, p) * M1(p, j) * evec_i(j, b)) > EPS)
-                                vM11vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term)); // QCD NNLO evolutor                        
+                                vM11vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term)); // QCD NNLO evolutor                        
                     }
                 }
         }
@@ -134,33 +134,33 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
                         for (j = 0; j < nops; j++)
                         {
                             if(fabs(term = evec(a, i) * M3(i, j) * evec_i(j, b)) > EPS)
-                                vM3vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, 0, 0}, term));
+                                vM3vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j}, term));
                             if(fabs(term = evec(a, i) * M4(i, j) * evec_i(j, b)) > EPS)
-                                vM4vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, 0, 0}, term));
+                                vM4vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j}, term));
                             if(fabs(term = evec(a, i) * M5(i, j) * evec_i(j, b)) > EPS)
-                                vM5vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, 0, 0}, term));
+                                vM5vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j}, term));
                             if(fabs(term = evec(a, i) * M6(i, j) * evec_i(j, b)) > EPS)
-                                vM6vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, 0, 0}, term));
+                                vM6vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j}, term));
                             for (p = 0; p < nops; p++)
                             {
                                 if(fabs(term = evec(a, i) * M3(i, p) * M3(p, j) * evec_i(j, b)) > EPS)
-                                    vM33vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM33vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M3(i, p) * M1(p, j) * evec_i(j, b)) > EPS)
-                                    vM31vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM31vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M1(i, p) * M3(p, j) * evec_i(j, b)) > EPS)
-                                    vM13vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM13vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M3(i, p) * M4(p, j) * evec_i(j, b)) > EPS)
-                                    vM34vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM34vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M4(i, p) * M3(p, j) * evec_i(j, b)) > EPS)
-                                    vM43vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM43vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M2(i, p) * M3(p, j) * evec_i(j, b)) > EPS)
-                                    vM23vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM23vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M3(i, p) * M2(p, j) * evec_i(j, b)) > EPS)
-                                    vM32vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM32vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M1(i, p) * M4(p, j) * evec_i(j, b)) > EPS)
-                                    vM14vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM14vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 if(fabs(term = evec(a, i) * M4(i, p) * M1(p, j) * evec_i(j, b)) > EPS)
-                                    vM41vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p, 0}, term));
+                                    vM41vi[nnf].insert(std::pair<std::vector<uint>, double > ({a, b, i, j, p}, term));
                                 for (q = 0; q < nops; q++)
                                 {
                                     if(fabs(term = evec(a, i) * M1(i, p) * M1(p, q) * M3(q, j) * evec_i(j, b)) > EPS)
@@ -1387,10 +1387,11 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
     gslpp::matrix<double> res01(nops, 0.), res02(nops, 0.), res11(nops, 0.), res12(nops, 0.),
             res21(nops, 0.), resLO(nops, 0.), resNLO(nops, 0.), resNNLO(nops, 0.);
     
-    uint a, b, i, j, p, q, nnf = nf - nfmin;
-    double b0, b0e, b5, alsM, eta, omega, lambda, term;
+//    uint a, b, i, j, p, q
+    uint nnf = nf - nfmin;
+    double b0, b0e, b5, alsM, eta, omega, lambda; //, term;
     std::map< std::vector<uint>, double >::iterator itr;
-    std::vector<uint> v;
+//    std::vector<uint> v;
 
 
 //    alsM = model.Als(M) / 4. / M_PI;
@@ -1403,43 +1404,43 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
     for (itr = vM0vi[nnf].begin(); itr != vM0vi[nnf].end(); ++itr)
     {
-        v = itr->first;
-        a = v[0];
-        b = v[1];
-        i = v[2];
+        const std::vector<uint> &v = itr->first;
+        const uint &a = v[0];
+        const uint &b = v[1];
+        const uint &i = v[2];
         resLO(a, b) += itr->second * pow(eta, ai[nnf].at(i));
     }
     
     for (itr = vM1vi[nnf].begin(); itr != vM1vi[nnf].end(); ++itr)
     {
-        v = itr->first;
-        a = v[0];
-        b = v[1];
-        i = v[2];
-        j = v[3];
+        const std::vector<uint> &v = itr->first;
+        const uint &a = v[0];
+        const uint &b = v[1];
+        const uint &i = v[2];
+        const uint &j = v[3];
         
         resNLO(a, b) += omega * itr->second * f_f(nnf, i, j, -1, eta);
     }
 
     for (itr = vM2vi[nnf].begin(); itr != vM2vi[nnf].end(); ++itr)
     {
-        v = itr->first;
-        a = v[0];
-        b = v[1];
-        i = v[2];
-        j = v[3];
+        const std::vector<uint> &v = itr->first;
+        const uint &a = v[0];
+        const uint &b = v[1];
+        const uint &i = v[2];
+        const uint &j = v[3];
         
         resNNLO(a, b) += omega * omega * itr->second * f_f(nnf, i, j, -2, eta);
     }
     
     for (itr = vM11vi[nnf].begin(); itr != vM11vi[nnf].end(); ++itr)
     {
-        v = itr->first;
-        a = v[0];
-        b = v[1];
-        i = v[2];
-        j = v[3];
-        p = v[4];
+        const std::vector<uint> &v = itr->first;
+        const uint &a = v[0];
+        const uint &b = v[1];
+        const uint &i = v[2];
+        const uint &j = v[3];
+        const uint &p = v[4];
         
         resNNLO(a, b) += omega * omega * itr->second * f_g(nnf, i, p, j, -1, -1, eta);
     }
@@ -1452,12 +1453,12 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
         for (itr = vM3vi[nnf].begin(); itr != vM3vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            term = itr->second;
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const double &term = itr->second;
 
             res01(a, b) += lambda * term * f_f(nnf, i, j, 1, eta);
             res02(a, b) += lambda * lambda * term * (f_f(nnf, i, j, 2, eta) - f_f(nnf, i, j, 1, eta));
@@ -1466,12 +1467,12 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
         
         for (itr = vM4vi[nnf].begin(); itr != vM4vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            term = itr->second;
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const double &term = itr->second;
             
             res11(a, b) += omega * lambda * term * f_f(nnf, i, j, 0, eta);
             res12(a, b) += - omega * lambda * lambda * term * f_f(nnf, i, j, 0, eta);
@@ -1479,47 +1480,47 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
         for (itr = vM5vi[nnf].begin(); itr != vM5vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_f(nnf, i, j, -1, eta);
         }
 
         for (itr = vM6vi[nnf].begin(); itr != vM6vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
             
             res12(a, b) += omega * lambda * lambda * itr->second * f_f(nnf, i, j, 1, eta);
         }
 
        for (itr = vM33vi[nnf].begin(); itr != vM33vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
             
             res02(a, b) += lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 1, eta);
         }
 
        for (itr = vM13vi[nnf].begin(); itr != vM13vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
-            term = itr->second;
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const double &term = itr->second;
             
             res11(a, b) += omega * lambda * term * f_g(nnf, i, p, j, -1, 1, eta);
             res12(a, b) += omega * lambda * lambda * term * (f_g(nnf, i, p, j, -1, 2, eta) - f_g(nnf, i, p, j, -1, 1, eta));
@@ -1527,154 +1528,154 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
         for (itr = vM34vi[nnf].begin(); itr != vM34vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
             
             res12(a, b) += omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 0, eta);
         }
 
         for (itr = vM43vi[nnf].begin(); itr != vM43vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
             
             res12(a, b) += omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 0, 1, eta);
         }
 
         for (itr = vM23vi[nnf].begin(); itr != vM23vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -2, 1, eta);
         }
 
         for (itr = vM32vi[nnf].begin(); itr != vM32vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 1, -2, eta);
         }
 
         for (itr = vM14vi[nnf].begin(); itr != vM14vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -1, 0, eta);
         }
 
         for (itr = vM41vi[nnf].begin(); itr != vM41vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 0, -1, eta);
         }
 
         for (itr = vM113vi[nnf].begin(); itr != vM113vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
-            q = v[5];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const uint &q = v[5];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, -1, 1, eta);
         }
 
         for (itr = vM131vi[nnf].begin(); itr != vM131vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
-            q = v[5];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const uint &q = v[5];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, -1, eta);
         }
 
         for (itr = vM311vi[nnf].begin(); itr != vM311vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
-            q = v[5];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const uint &q = v[5];
             
             res21(a, b) += omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, -1, eta);
         }
 
         for (itr = vM133vi[nnf].begin(); itr != vM133vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
-            q = v[5];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const uint &q = v[5];
             
             res12(a, b) += omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, 1, eta);
         }
 
         for (itr = vM313vi[nnf].begin(); itr != vM313vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
-            q = v[5];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const uint &q = v[5];
             
             res12(a, b) += omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, 1, eta);
         }
 
         for (itr = vM331vi[nnf].begin(); itr != vM331vi[nnf].end(); ++itr)
         {
-            v = itr->first;
-            a = v[0];
-            b = v[1];
-            i = v[2];
-            j = v[3];
-            p = v[4];
-            q = v[5];
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const uint &q = v[5];
             
             res12(a, b) += omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, 1, -1, eta);
         }
-/*
+        /*
         for (a = 0; a < nops; a++)
             for (b = 0; b < nops; b++)
             {
@@ -1737,6 +1738,16 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
                 throw std::runtime_error("Error in EvolDF1::Df1Evol(): wrong QED order");
         }
     }
+
+
+    for (uint a = 0; a < nops; a++)
+        for (uint b = 0; b < nops; b++)
+        {
+            if (fabs(resLO(a, b)) < EPS) resLO(a, b) = 0.;
+            if (fabs(resNLO(a, b)) < EPS) resNLO(a, b) = 0.;
+            if (fabs(resNNLO(a, b)) < EPS) resNNLO(a, b) = 0.;
+        }
+
     switch (order) // must follow QED switch
     {
         case NNLO:

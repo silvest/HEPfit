@@ -2262,6 +2262,7 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
     switch (order_qed){   
     case NLO_QED22: 
         CWBsmmArrayNLOewt4[7] = sw * sw * (1./(sw * sw)) * Rest(x, Muw) ;
+        std::cout << ">>>>>>> " << Rest(163.5*163.5/80.358/80.358, 80.358) << std::endl;
         
     case NLO_QED21: 
         CWBsmmArrayNLOewt2[6] = sw * sw * ((1. - 4. * sw * sw) * C1t(x, Muw) / (sw * sw) - B1t(x, Muw)/(sw * sw) 
@@ -2917,7 +2918,7 @@ double StandardModelMatching::gbb(double x) // from hep-ph/9707243
     if(x > 4.)
         return(sqrt(x-4.)*log((1.-sqrt(1.-4./x))/(1.+sqrt(1.-4./x))));
     else if(x >= 0.)
-        return(2.*sqrt(4.-x)*acos(x/4.));
+        return(2.*sqrt(4.-x)*acos(sqrt(x/4.)));
     else
         throw "StandardModelMatching::gbb(): defined for non-negative argument only.";
 }
@@ -2925,6 +2926,7 @@ double StandardModelMatching::gbb(double x) // from hep-ph/9707243
 double StandardModelMatching::taub2(double x) // from hep-ph/9707243 
 {
     double ll=log(x);
+    std::cout << "XXXX" << fbb(0.5) << std::endl;
     return( 9.-13./4.*x-2.*x*x-x/4.*(19.+6.*x)*ll-x*x/4.*(7.-6.*x)*ll*ll-(1./4.+7./2.*x*x-3.*x*x*x)*M_PI*M_PI/6.+
             (x/2.-2.)*sqrt(x)*gbb(x)+(x-1.)*(x-1.)*(4.*x-7./4.)*gslpp_special_functions::dilog(1.-x)-(x*x*x-33./4.*x*x+
             18.*x-7.)*fbb(x) );
@@ -2960,8 +2962,10 @@ WilsonCoefficient& StandardModelMatching::mc_L()
         case NLO_QED22:
             //Eqs. (32-33) of ref. Huber et al.
             //Delta_t and tau_b in hep-ph/9707243
-             mcL.setCoeff(0, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(4.*sW2-1.)*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
-             mcL.setCoeff(1, aletilde*aletilde*Rest(xt, Muw)/sW2, NLO_QED22);
+//             mcL.setCoeff(0, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(4.*sW2-1.)*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
+             mcL.setCoeff(1, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
+             mcL.setCoeff(0, (4. * sW2 - 1.) * (*(mcL.getCoeff(NLO_QED22)))(1), NLO_QED22);
+//             mcL.setCoeff(1, aletilde*aletilde*Rest(xt, Muw)/sW2, NLO_QED22);
         case NLO_QED21:
             mcL.setCoeff(0, aletilde*alstilde*((1.-4.*sW2)/sW2*C1t(xt,Muw) - 1./sW2*B1t(xt,Muw) - D1t(xt,Muw) + 1./sW2 +
                                                 524./729. - 128./243.*M_PI*M_PI - 16./3.*L - 128./81.*L*L), NLO_QED21);
