@@ -48,7 +48,7 @@ int main(void) {
     HeffDB1 HDB1(mySM);
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
-    std::cout << "%SUITE_STARTED%" << std::endl;
+    std::cout << "%SUITE_STARTED% **é***" << std::endl;
     gslpp::vector<gslpp::complex> ** allcoeff, **allcoeff1;
 
     gslpp::matrix<gslpp::complex> myVCKM(mySM.getVCKM());
@@ -56,6 +56,8 @@ int main(void) {
 //    double sw = sqrt(mySM.sW2());
     double as5 =  mySM.Alstilde5(5.);
     double ae5 = mySM.getAle() / 4. / M_PI;
+
+    std::cout << "%SUITE_STARTED% **é***" << std::endl;
 
     allcoeff = Heff.ComputeCoeff(5.);
     allcoeff1 = HDB1.ComputeCoeffsmumu(5.);

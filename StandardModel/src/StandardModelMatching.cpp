@@ -2926,7 +2926,6 @@ double StandardModelMatching::gbb(double x) // from hep-ph/9707243
 double StandardModelMatching::taub2(double x) // from hep-ph/9707243 
 {
     double ll=log(x);
-    std::cout << "XXXX" << fbb(0.5) << std::endl;
     return( 9.-13./4.*x-2.*x*x-x/4.*(19.+6.*x)*ll-x*x/4.*(7.-6.*x)*ll*ll-(1./4.+7./2.*x*x-3.*x*x*x)*M_PI*M_PI/6.+
             (x/2.-2.)*sqrt(x)*gbb(x)+(x-1.)*(x-1.)*(4.*x-7./4.)*gslpp_special_functions::dilog(1.-x)-(x*x*x-33./4.*x*x+
             18.*x-7.)*fbb(x) );

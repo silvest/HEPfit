@@ -1462,7 +1462,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
             res01(a, b) += lambda * term * f_f(nnf, i, j, 1, eta);
             res02(a, b) += lambda * lambda * term * (f_f(nnf, i, j, 2, eta) - f_f(nnf, i, j, 1, eta));
-            res12(a, b) += b5 * term * f_r(nnf, i, j, 1, eta); // **couplings????**
+            res12(a, b) += omega * lambda * lambda * b5 * term * f_r(nnf, i, j, 1, eta);
         }
         
         for (itr = vM4vi[nnf].begin(); itr != vM4vi[nnf].end(); ++itr)
@@ -1524,6 +1524,20 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
             
             res11(a, b) += omega * lambda * term * f_g(nnf, i, p, j, -1, 1, eta);
             res12(a, b) += omega * lambda * lambda * term * (f_g(nnf, i, p, j, -1, 2, eta) - f_g(nnf, i, p, j, -1, 1, eta));
+        }
+
+       for (itr = vM31vi[nnf].begin(); itr != vM31vi[nnf].end(); ++itr)
+        {
+            const std::vector<uint> &v = itr->first;
+            const uint &a = v[0];
+            const uint &b = v[1];
+            const uint &i = v[2];
+            const uint &j = v[3];
+            const uint &p = v[4];
+            const double &term = itr->second;
+            
+            res11(a, b) += omega * lambda * term * f_g(nnf, i, p, j, 1, -1, eta);
+            res12(a, b) += omega * lambda * lambda * term * ((f_g(nnf, i, p, j, 2, -1, eta) - f_g(nnf, i, p, j, 1, -1, eta)));
         }
 
         for (itr = vM34vi[nnf].begin(); itr != vM34vi[nnf].end(); ++itr)
