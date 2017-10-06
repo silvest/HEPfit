@@ -18,6 +18,7 @@ std::map<std::string, uint> blocks_nops = {
         {"CP", 6},
         {"CPM", 8},
         {"L", 2},
+        {"CPL", 8},
         {"CPML", 10},
         {"CPQB", 11},
         {"CPMQB", 13},
@@ -69,8 +70,8 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
     
     for (nf = nfmin; nf <= nfmax; nf++) {
         nnf = nf - nfmin;
-        nu = nf % 2 == 0 ? nf / 2 : nf / 2;
-        nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
+        nu = nf / 2;
+        nd = nf % 2 == 0 ? nf / 2 : nf / 2 + 1;
 
         b0 = model.Beta_s(00, nf);
         b1 = model.Beta_s(10, nf) / 2. / b0 / b0;
@@ -121,7 +122,7 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
             W02 = AnomalousDimension(02, nu, nd).transpose() / 4. / b0e / b0e;
             W11 = AnomalousDimension(11, nu, nd).transpose() / 4. / b0 / b0e;
             W21 = AnomalousDimension(21, nu, nd).transpose() / 8. / b0 / b0 / b0e;
-
+ 
             // QED magic numbers
             // M3: B(1)_01, B(2)_02, B(1)_02, R5_12, M4: B(0)_11, B(0)_12, M5: B(-1)_21, M6: B(1)_12 - proper powers of omega and lambda added in DF1Evol
             M3 = evec_i * W01 * evec;
@@ -198,10 +199,10 @@ double EvolDF1::f_f(uint nnf, uint i, uint j, int k, double eta)
 {
     for (int il = 0; il < F_iCacheSize; il++)
         if(f_f_c[0][il] == (int) nnf && f_f_c[1][il] == (int) i && f_f_c[2][il] == (int) j && 
-            f_f_c[3][il] == (int) k && f_f_d[0][il] == eta)
+            f_f_c[3][il] == k && f_f_d[0][il] == eta)
             return f_f_d[1][il];
    
-    double den = ai[nnf].at(j) + k -ai[nnf].at(i), ret;
+    double den = ai[nnf].at(j) + k - ai[nnf].at(i), ret;
     
     if(fabs(den) < EPS) 
         ret=pow(eta, ai[nnf].at(i))*log(eta);
@@ -523,13 +524,13 @@ gslpp::matrix<double> EvolDF1::GammaPP(indices nm, uint n_u, uint n_d) const
             gammaDF1(0,1) = -52./3.;
             gammaDF1(0,3) = 2.;
             gammaDF1(1,0) = -40./9.;
-            gammaDF1(1,1) = -160./9. + nf*4./3.;// -100./9.
+            gammaDF1(1,1) = -160./9. + (double) nf * 4./3.;// -100./9.
             gammaDF1(1,2) = 4./9.;
             gammaDF1(1,3) = 5./6.;
             gammaDF1(2,1) = -256./3.;
             gammaDF1(2,3) = 20.;
             gammaDF1(3,0) = -256./9.;
-            gammaDF1(3,1) = -544./9. + nf*40./3.;// 56./9.
+            gammaDF1(3,1) = -544./9. + (double) nf * 40./3.;// 56./9.
             gammaDF1(3,2) = 40./9.;
             gammaDF1(3,3) = -2./3.;            
             break;
@@ -704,9 +705,9 @@ gslpp::matrix<double> EvolDF1::GammaPL(indices nm, uint n_u, uint n_d) const
             break;
         case 21:
             gammaDF1(0,0) = -1290092./6561. + z3*3200./81.;
-            gammaDF1(1,0) = -819971./19673. - z3*19936./243.;
+            gammaDF1(1,0) = -819971./19683. - z3*19936./243.;
             gammaDF1(2,0) = -16821944./6561. + z3*30464./81.;
-            gammaDF1(3,0) = -17787268./19683. - z3*286720./243.;
+            gammaDF1(3,0) = -17787368./19683. - z3*286720./243.;
             break;
         case 02:
             gammaDF1(0,0) = -39752./729.;
@@ -1242,52 +1243,105 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
     gslpp::matrix<double> gammaDF1(nops, nops, 0.);
 
 // assign blocks according to user request: "C", "CP", "CPM", "L", "CPML", "CPQB", "CPMQB", "CPMLQB"
-    if(blocks[0] == 'C') {
-        gammaDF1.assign(0,0,GammaCC(nm, n_u, n_d));
-        if(blocks.size() > 1) {
-            if (blocks[1] == 'P') {
-                int m = blocks_nops.find("C")->second;
-                gammaDF1.assign(0,m,GammaCP(nm, n_u, n_d));
-                gammaDF1.assign(blocks_nops.find("C")->second,blocks_nops.find("C")->second,GammaPP(nm, n_u, n_d));
-                if(blocks.size() > 2) {
-                    if (blocks[2] == 'M') {
-                    gammaDF1.assign(0,blocks_nops.find("CP")->second,GammaCM(nm, n_u, n_d));
-                    gammaDF1.assign(blocks_nops.find("C")->second,blocks_nops.find("CP")->second,GammaPM(nm, n_u, n_d));
-                    gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("CP")->second,GammaMM(nm, n_u, n_d));
-                    } else if (blocks[2] == 'Q') {
-                        gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("C")->second,GammaQP(nm, n_u, n_d));
-                        gammaDF1.assign(blocks_nops.find("CP")->second,blocks_nops.find("CP")->second,GammaQQ(nm, n_u, n_d));
-                        if(blocks[3] == 'B') {
-                            gammaDF1.assign(blocks_nops.find("CPQ")->second,blocks_nops.find("C")->second,GammaBP(nm, n_u, n_d));
-                            gammaDF1.assign(blocks_nops.find("CPQ")->second,blocks_nops.find("CPQ")->second,GammaBB(nm, n_u, n_d));
-                        }
-                    }
-                    if(blocks.size() > 3) {
-                        if (blocks[3] == 'L') {
-                            if(blocks.size() > 4) {
-                                if (blocks[4] == 'Q') {
-                                    gammaDF1.assign(blocks_nops.find("CPML")->second,blocks_nops.find("C")->second,GammaQP(nm, n_u, n_d));
-                                    gammaDF1.assign(blocks_nops.find("CPML")->second,blocks_nops.find("CPML")->second,GammaQQ(nm, n_u, n_d));
-                                    if(blocks[5] == 'B') {
-                                        gammaDF1.assign(blocks_nops.find("CPMLQ")->second,blocks_nops.find("C")->second,GammaBP(nm, n_u, n_d));
-                                        gammaDF1.assign(blocks_nops.find("CPMLQ")->second,blocks_nops.find("CPMLQ")->second,GammaBB(nm, n_u, n_d));
-                                    }
-                                }
-                            }
-                        } else if (blocks[3] == 'Q') {
-                            gammaDF1.assign(blocks_nops.find("CPM")->second,blocks_nops.find("C")->second,GammaQP(nm, n_u, n_d));
-                            gammaDF1.assign(blocks_nops.find("CPM")->second,blocks_nops.find("CPM")->second,GammaQQ(nm, n_u, n_d));
-                            if(blocks[4] == 'B') {
-                                gammaDF1.assign(blocks_nops.find("CPMQ")->second,blocks_nops.find("C")->second,GammaBP(nm, n_u, n_d));
-                                gammaDF1.assign(blocks_nops.find("CPMQ")->second,blocks_nops.find("CPMQ")->second,GammaBB(nm, n_u, n_d));
-                            }                     
-                        }                            
-                    }
-                }
-            }
-        }
+    
+    if(blocks.compare("C") == 0)
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        
+    if(blocks.compare("CP") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+        gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));         
     }
-                    
+    else if(blocks.compare("CPM") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+        gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));   
+        gammaDF1.assign(0, 6, GammaCM(nm, n_u, n_d));
+        gammaDF1.assign(2, 6, GammaPM(nm, n_u, n_d));   
+        gammaDF1.assign(6, 6, GammaMM(nm, n_u, n_d));           
+    }
+    else if(blocks.compare("L") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaLL(nm, n_u, n_d));
+    }
+    else if(blocks.compare("CPL") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+        gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));   
+        gammaDF1.assign(0, 6, GammaCL(nm, n_u, n_d));
+        gammaDF1.assign(2, 6, GammaPL(nm, n_u, n_d));   
+        gammaDF1.assign(6, 6, GammaLL(nm, n_u, n_d));           
+    }
+    else if(blocks.compare("CPML") == 0)
+    {
+       gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+       gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+       gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));   
+       gammaDF1.assign(0, 6, GammaCM(nm, n_u, n_d));
+       gammaDF1.assign(2, 6, GammaPM(nm, n_u, n_d));   
+       gammaDF1.assign(6, 6, GammaMM(nm, n_u, n_d));           
+       gammaDF1.assign(0, 8, GammaCL(nm, n_u, n_d));
+       gammaDF1.assign(2, 8, GammaPL(nm, n_u, n_d));
+       gammaDF1.assign(8, 8, GammaLL(nm, n_u, n_d));
+    }
+    else if(blocks.compare("CPQB") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+        gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));         
+        gammaDF1.assign(0, 6, GammaCQ(nm, n_u, n_d));         
+        gammaDF1.assign(2, 6, GammaPQ(nm, n_u, n_d));
+        gammaDF1.assign(6, 6, GammaQQ(nm, n_u, n_d));
+        gammaDF1.assign(6, 2, GammaQP(nm, n_u, n_d));
+        gammaDF1.assign(10, 10, GammaBB(nm, n_u, n_d));
+        gammaDF1.assign(10, 2, GammaBP(nm, n_u, n_d));
+        gammaDF1.assign(10, 6, GammaBQ(nm, n_u, n_d));
+    }
+    else if(blocks.compare("CPMQB") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+        gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));
+        gammaDF1.assign(0, 6, GammaCM(nm, n_u, n_d));
+        gammaDF1.assign(2, 6, GammaPM(nm, n_u, n_d));   
+        gammaDF1.assign(6, 6, GammaMM(nm, n_u, n_d));                   
+        gammaDF1.assign(0, 8, GammaCQ(nm, n_u, n_d));         
+        gammaDF1.assign(2, 8, GammaPQ(nm, n_u, n_d));
+        gammaDF1.assign(8, 8, GammaQQ(nm, n_u, n_d));
+        gammaDF1.assign(8, 2, GammaQP(nm, n_u, n_d));
+        gammaDF1.assign(8, 6, GammaQM(nm, n_u, n_d));
+        gammaDF1.assign(12, 12, GammaBB(nm, n_u, n_d));
+        gammaDF1.assign(12, 2, GammaBP(nm, n_u, n_d));
+        gammaDF1.assign(12, 8, GammaBQ(nm, n_u, n_d)); // *** does BM exists?
+    }
+    else if(blocks.compare("CPMLQB") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+        gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));
+        gammaDF1.assign(0, 6, GammaCM(nm, n_u, n_d));
+        gammaDF1.assign(2, 6, GammaPM(nm, n_u, n_d));   
+        gammaDF1.assign(6, 6, GammaMM(nm, n_u, n_d));
+        gammaDF1.assign(0, 8, GammaCL(nm, n_u, n_d));
+        gammaDF1.assign(2, 8, GammaPL(nm, n_u, n_d));
+        gammaDF1.assign(8, 8, GammaLL(nm, n_u, n_d));
+
+        gammaDF1.assign(0, 10, GammaCQ(nm, n_u, n_d));         
+        gammaDF1.assign(2, 10, GammaPQ(nm, n_u, n_d));
+        gammaDF1.assign(10, 10, GammaQQ(nm, n_u, n_d));
+        gammaDF1.assign(10, 2, GammaQP(nm, n_u, n_d));
+        gammaDF1.assign(10, 6, GammaQM(nm, n_u, n_d));
+        gammaDF1.assign(14, 14, GammaBB(nm, n_u, n_d));
+        gammaDF1.assign(14, 2, GammaBP(nm, n_u, n_d));
+        gammaDF1.assign(14, 8, GammaBL(nm, n_u, n_d));        
+        gammaDF1.assign(14, 10, GammaBQ(nm, n_u, n_d)); // *** does BM exists?
+    }
+    else
+        throw std::runtime_error("EvolDF1::AnomalousDimension(): block not implemented");
+
     return (gammaDF1);
 }
 
@@ -1449,8 +1503,8 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
     {
         b0e = model.Beta_e(00, nf);
         b5 = model.Beta_e(01, nf) / 2. / b0 / b0e - model.Beta_s(10, nf) / 2. / b0 / b0;
-        lambda = b0e * model.Ale(M,NLO) / b0 / model.Als(M, FULLNNNLO, true); // WARNING: CHANGE ME!!!
-
+        lambda = b0e * model.Ale(M, FULLNLO) / b0 / model.Als(M, FULLNNNLO, true); // WARNING: CHANGE ME!!!
+        
         for (itr = vM3vi[nnf].begin(); itr != vM3vi[nnf].end(); ++itr)
         {
             const std::vector<uint> &v = itr->first;

@@ -865,7 +865,7 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
             ale_cache[8][0] = aleMz;
             ale_cache[9][0] = ale;
 
-             return ale;
+            return ale;
         default:
             throw std::runtime_error("StandardModel::Ale(): " + orderToString(order) + " is not implemented.");
     }
@@ -885,7 +885,7 @@ double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders or
         case LO:
             return (alei / ve);
         case NLO:
-            return ( -alei * alei / 4. / M_PI / ve / ve * (Beta_e(10, nf) / b00e * logve - Beta_e(01, nf) / b00s * logv) );
+            return (- alei * alei / 4. / M_PI / ve / ve * (Beta_e(10, nf) / b00e * logve - Beta_e(01, nf) / b00s * logv) );
             // Higher order terms ? Need to understand eq. (35)
         default:
             throw std::runtime_error("StandardModel::AleWithInit(): " + orderToString(order) + " is not implemented.");
