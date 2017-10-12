@@ -482,9 +482,10 @@ double QCD::Beta3(const double nf) const
 double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
         const orders order) const
 {
-    double nf = Nf(mu);
-    if (nf != Nf(mu_i))
-        throw std::runtime_error("Error in QCD::AlsWithInit().");
+    double nf = Nf(mu_i);
+//    double nf = Nf(mu);
+//    if (nf != Nf(mu_i))
+//        throw std::runtime_error("Error in QCD::AlsWithInit().");
 
     double b1_b0 = Beta1(nf)/Beta0(nf);
     double v = 1. - Beta0(nf) * alsi / 2. / M_PI * log(mu_i / mu);
@@ -617,8 +618,8 @@ double QCD::MassOfNf(int nf) const
     }
 }
 
-double QCD::Als(const double mu, const orders order) const {
-    int i, nfAls = (int) Nf(MAls), nfmu = (int) Nf(mu);
+double QCD::Als(const double mu, const orders order, bool Nf_thr) const {
+    int i, nfAls = (int) Nf(MAls), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
     double als, alstmp, mutmp;
     orders fullord;
 
@@ -626,17 +627,17 @@ double QCD::Als(const double mu, const orders order) const {
         if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
                 (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
                 (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-                (muc == als_cache[6][i]))
-            return als_cache[7][i];
+                (muc == als_cache[6][i]) && (Nf_thr == (bool) als_cache[7][i]))
+            return als_cache[8][i];
 
     switch (order)
     {
         case FULLNLO:
-            return (Als(mu, LO) + Als(mu, NLO));
+            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr));
         case FULLNNLO:
-            return (Als(mu, LO) + Als(mu, NLO) + Als(mu, NNLO));
+            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr) + Als(mu, NNLO, Nf_thr));
         case FULLNNNLO:
-            return (Als(mu, LO) + Als(mu, NLO) + Als(mu, NNLO) + Als(mu, NNNLO));
+            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr) + Als(mu, NNLO, Nf_thr) + Als(mu, NNNLO, Nf_thr));
         case LO:
         case NLO:
         case NNLO:
@@ -668,7 +669,7 @@ double QCD::Als(const double mu, const orders order) const {
                 als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order);
             }
 
-            CacheShift(als_cache, 8);
+            CacheShift(als_cache, 9);
             als_cache[0][0] = mu;
             als_cache[1][0] = (double) order;
             als_cache[2][0] = AlsM;
@@ -676,7 +677,8 @@ double QCD::Als(const double mu, const orders order) const {
             als_cache[4][0] = mut;
             als_cache[5][0] = mub;
             als_cache[6][0] = muc;
-            als_cache[7][0] = als;
+            als_cache[7][0] = (int) Nf_thr;
+            als_cache[8][0] = als;
 
             return als;
         default:

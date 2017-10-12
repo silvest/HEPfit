@@ -1451,8 +1451,8 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 //    alsM = model.Als(M) / 4. / M_PI;
 //    double alsmu = model.Als(mu) / 4. / M_PI;
     b0 = model.Beta_s(00, nf);
-    alsM = model.Als(M, FULLNNNLO, true);
-    eta = alsM / model.Als(mu, FULLNNNLO, true);
+    alsM = model.Als(M, FULLNNNLO, order_qed == NO_QED ? false : true);
+    eta = alsM / model.Als(mu, FULLNNNLO, order_qed == NO_QED ? false : true);
 //    eta = alsM / model.Als(mu);
     omega = 2. * b0 * alsM / 4. / M_PI;
 

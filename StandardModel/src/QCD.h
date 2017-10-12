@@ -1058,11 +1058,12 @@ public:
      * @param[in] mu the scale @f$\mu@f$ in GeV
      * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
      * @param[in] order_qed order in the @f$\alpha_e@f$ expansion as defined in OrderScheme. Default to NO_QED.
+     * @param[in] Nf_thr true (default): @f$n_f@f$ = Nf(mu), false: @f$n_f@f$ = Nf(AlsM)  
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
     double AlsOLD(const double mu, const orders order = FULLNLO) const;
-    double Als(const double mu, const orders order = FULLNLO) const;
+    virtual double Als(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
@@ -1226,7 +1227,7 @@ private:
     mutable bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
     mutable bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
     static const int CacheSize = 5; ///< Defines the depth of the cache.
-    mutable double als_cache[7][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double logLambda5_cache[4][CacheSize];
     mutable double logLambdaNLO_cache[9][CacheSize];
     mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.

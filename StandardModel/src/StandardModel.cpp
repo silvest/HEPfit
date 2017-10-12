@@ -692,7 +692,7 @@ double StandardModel::Beta_e(int nm, unsigned int nf) const
 
 double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) const
 {
-    int i, nfAls = (int) Nf(Mz), nfmu = (int) Nf(mu);
+    int i, nfAls = (int) Nf(Mz), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
     double als, alstmp, mutmp;
     orders fullord;
 
@@ -716,7 +716,7 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
         case NLO:
         case NNLO:
         case NNNLO:
-            if (nfAls == nfmu || Nf_thr == false)
+            if (nfAls == nfmu)
                 return(AlsWithInit(mu, AlsMz, Mz, order, qed_flag));
             fullord = FullOrder(order);
             if (nfAls > nfmu) {
@@ -773,7 +773,6 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
     double als = QCD::AlsWithInit(mu, alsi, mu_i, order);
     double b01s = Beta_s(01,nf), b01s00e = b01s / b00e;
 
-
     if (qed_flag)
         switch (order)
         {
@@ -793,6 +792,13 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
                         b00e * (logve - ve + 1.) + b01s * Beta_s(10, nf) / b00s / b00s * rho * logv +
                         b01s00e * Beta_e(01, nf) / b00s * (rho * ve * (logv - logve) - logv));
                 break;
+            case FULLNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag));
+            case FULLNNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag));
+            case FULLNNNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag) +
+                        AlsWithInit(mu, alsi, mu_i, NNNLO, qed_flag));
             default:
                 throw std::runtime_error("StandardModel::AlsWithInit(): " + orderToString(order) + " is not implemented.");
         }
@@ -802,7 +808,7 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
 
 double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
 {
-    int i, nfAle = (int) Nf(Mz), nfmu = (int) Nf(mu);
+    int i, nfAle = (int) Nf(Mz), nfmu = Nf_thr ? (int) Nf(mu) : nfAle;
     double ale, aletmp, mutmp, aleMz = alphaMz();
     orders fullord;
 
@@ -826,7 +832,7 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
         case NLO:
         case NNLO:
         case NNNLO:
-            if (nfAle == nfmu || Nf_thr == false)
+            if (nfAle == nfmu)
                 return(AleWithInit(mu, aleMz, Mz, order));
             fullord = FullOrder(order);
             if (nfAle > nfmu) {
@@ -887,6 +893,8 @@ double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders or
         case NLO:
             return (- alei * alei / 4. / M_PI / ve / ve * (Beta_e(10, nf) / b00e * logve - Beta_e(01, nf) / b00s * logv) );
             // Higher order terms ? Need to understand eq. (35)
+        case FULLNLO:
+            return (AleWithInit(mu, alei, mu_i, LO) + AleWithInit(mu, alei, mu_i, NLO));
         default:
             throw std::runtime_error("StandardModel::AleWithInit(): " + orderToString(order) + " is not implemented.");
     }
@@ -1246,7 +1254,7 @@ double StandardModel::GammaW(const Particle fi, const Particle fj) const
     if (fi.is("LEPTON"))
         return ( V.abs2() * G0 * rho_GammaW(fi, fj));
     else {
-        double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, FULLNLO);
+        double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, FULLNLO, false);
         return ( 3.0 * V.abs2() * G0 * rho_GammaW(fi, fj)*(1.0 + AlsMw / M_PI));
     }
 }

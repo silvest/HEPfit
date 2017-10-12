@@ -50,8 +50,8 @@ void BXqll::updateParameters()
     abslambdat_over_Vcb = mySM.computelamt_s().abs()/mySM.getCKM().V_cb().abs();
     Vts_over_Vcb = mySM.getCKM().V_ts().abs()/mySM.getCKM().V_cb().abs();    
     muh = mu_b/Mb;
-    alsmu = mySM.Als(mu_b, FULLNNLO, true);
-    alsmuc = mySM.Als(mu_c, FULLNNLO, true);
+    alsmu = mySM.Als(mu_b, FULLNNNLO, true);
+    alsmuc = mySM.Als(mu_c, FULLNNNLO, true);
     ale = mySM.Ale(mu_b, NLO);
     alstilde = alsmu / 4. / M_PI;
     aletilde = ale / 4. / M_PI;
@@ -181,12 +181,12 @@ double BXqll::integrate_Rquark(double sh_min, double sh_max, q2regions q2region)
 double BXqll::getR_LOWQ2(double sh)
 {
     updateParameters();
-//   return (R_quark(sh,LOWQ2)/* + deltaMb2_Rquark(sh,LOWQ2)*/);
+    return (R_quark(sh,LOWQ2)/* + deltaMb2_Rquark(sh,LOWQ2)*/);
 //    gslpp::matrix<gslpp::complex> test = matH_L(sh,LO);
 //    return test(6,6).real();
 //    return (H_T(sh)+H_L(sh));
 //    return S77_L(sh,NLO);
-   return(C_9[LO].real());
+//   return(C_9[LO].real());
 }
 
 double BXqll::getR_HIGHQ2(double sh)

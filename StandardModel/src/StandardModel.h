@@ -1166,13 +1166,11 @@ public:
      * @param[in] mu renormalization scale @f$\mu@f$ in GeV.
      * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
      * @param[in] qed_flag include @f$\alpha_e@f$ corrections to the requested order in @f$\alpha_s@f$. The @f$\alpha_s\alpha_e@f$ term is included if NNNLO is requested. Default: false 
-     * @param[in] Nf_thr flag to activate flavour thresholds. Default: true 
+     * @param[in] Nf_thr true (default): @f$n_f@f$ = Nf(mu), false: @f$n_f@f$ = Nf(AlsM)  
      * @return @f$\alpha(\mu)@f$ in the @f$\overline{MS}@f$ scheme
      *
      */
-    using QCD::Als;
-    using QCD::AlsWithInit;
-    double Als(double mu, orders order, bool qed_flag, bool Nf_thr = true) const;
+    double Als(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
  
 
     /**

@@ -19,6 +19,7 @@
 #include "EvolDB1Mll.h"
 #include "EvolDB1bsg.h"
 #include "EvolBsmm.h"
+#include "BXqll.h"
 
 
 int main(void) {
@@ -46,8 +47,15 @@ int main(void) {
     ComputeObservables CO(ModelF, ThObsF, ModelConf);
     StandardModel& mySM = *CO.getModel();
 
-    HeffDF1 Heff("CPL", mySM, NNLO, NLO_QED22);
+    HeffDF1 Heff("CPM", mySM, NNLO, NO_QED);
     HeffDB1 HDB1(mySM);
+//    CO.AddObservable("Rlow_BXsee");
+//    /* Get the map of observables if necessary. */
+//    std::map<std::string, double> DObs = CO.getObservables();
+//
+//    DObs = CO.compute(DPars);
+//    
+//    std::cout << DObs.at("Rlow_BXsee") << std::endl;
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
     std::cout << "%SUITE_STARTED% **é***" << std::endl;
@@ -62,37 +70,50 @@ int main(void) {
     std::cout << "%SUITE_STARTED% **é***" << std::endl;
 
     allcoeff = Heff.ComputeCoeff(5.);
-    allcoeff1 = HDB1.ComputeCoeffsmumu(5.);
-//    
-    std::cout << "studente: " << as5*4.*M_PI << ", grande unificazione: " << mySM.Als(5.,FULLNNNLO,true) << std::endl;
+    allcoeff1 = HDB1.ComputeCoeffsgamma(5.);
+
     std::cout << "LO:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[LO])) - *(allcoeff1[LO]) <<  std::endl;
-    
+    std::cout << (*(allcoeff[LO])) <<  std::endl;
+    std::cout << (*(allcoeff[LO])) - *(allcoeff1[LO]) <<  std::endl;
+   
     std::cout << "NLO:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO])) - as5*(*(allcoeff1[NLO])) <<  std::endl;
+    std::cout << (*(allcoeff[NLO])) <<  std::endl;
+    std::cout << (*(allcoeff[NLO])) - (*(allcoeff1[NLO])) <<  std::endl;
 
     std::cout << "NNLO:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NNLO])) - as5*as5*(*(allcoeff1[NNLO])) <<  std::endl;
+    std::cout << (*(allcoeff[NNLO]))  <<  std::endl;    
+    std::cout << (*(allcoeff[NNLO])) - (*(allcoeff1[NNLO])) <<  std::endl;
 
-    std::cout << "LO_QED:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[LO_QED])) - ae5/as5*(*(allcoeff1[LO_QED])) <<  std::endl;
-
-    std::cout << "NLO_QED11:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED11])) - ae5*(*(allcoeff1[NLO_QED11])) <<  std::endl;
-
-    std::cout << "NLO_QED02:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED02])) - ae5*ae5/as5/as5*(*(allcoeff1[NLO_QED02])) <<  std::endl;
-
-    std::cout << "NLO_QED12:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED12]))- ae5*ae5/as5*(*(allcoeff1[NLO_QED12])) <<  std::endl;
-
-    std::cout << "NLO_QED21:" << std::endl;
-    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED21]))- ae5*as5*(*(allcoeff1[NLO_QED21])) <<  std::endl;
-
-    std::cout << "NLO_QED11+22:" << std::endl;
-    std::cout << myVCKM(2,2).conjugate() * myVCKM(2,1) * (*(allcoeff[NLO_QED11]) +
-            *(allcoeff[NLO_QED22])) - mySM.getGF() / sqrt(8.) * mySM.Mw() * mySM.Mw() / M_PI /M_PI *
-            (*(allcoeff1[NLO_QED11]) +  ae5 * (*(allcoeff1[NLO_QED22]))) <<  std::endl;
+// test di CPL   
+    std::cout << "studente: " << as5*4.*M_PI << ", grande unificazione: " << mySM.Als(3, FULLNNNLO, true) << " -- "  << mySM.Als(3, FULLNNNLO, true, false) << std::endl;
+//    std::cout << "LO:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[LO])) - *(allcoeff1[LO]) <<  std::endl;
+//    
+//    std::cout << "NLO:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO])) - as5*(*(allcoeff1[NLO])) <<  std::endl;
+//
+//    std::cout << "NNLO:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NNLO])) - as5*as5*(*(allcoeff1[NNLO])) <<  std::endl;
+//
+//    std::cout << "LO_QED:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[LO_QED])) - ae5/as5*(*(allcoeff1[LO_QED])) <<  std::endl;
+//
+//    std::cout << "NLO_QED11:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED11])) - ae5*(*(allcoeff1[NLO_QED11])) <<  std::endl;
+//
+//    std::cout << "NLO_QED02:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED02])) - ae5*ae5/as5/as5*(*(allcoeff1[NLO_QED02])) <<  std::endl;
+//
+//    std::cout << "NLO_QED12:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED12]))- ae5*ae5/as5*(*(allcoeff1[NLO_QED12])) <<  std::endl;
+//
+//    std::cout << "NLO_QED21:" << std::endl;
+//    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[NLO_QED21]))- ae5*as5*(*(allcoeff1[NLO_QED21])) <<  std::endl;
+//
+//    std::cout << "NLO_QED11+22:" << std::endl;
+//    std::cout << myVCKM(2,2).conjugate() * myVCKM(2,1) * (*(allcoeff[NLO_QED11]) +
+//            *(allcoeff[NLO_QED22])) - mySM.getGF() / sqrt(8.) * mySM.Mw() * mySM.Mw() / M_PI /M_PI *
+//            (*(allcoeff1[NLO_QED11]) +  ae5 * (*(allcoeff1[NLO_QED22]))) <<  std::endl;
     
 //   std::cout << *(allcoeff[NLO]) <<  std::endl;
 //    std::cout << *(allcoeff[NNLO]) <<  std::endl;
