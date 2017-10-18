@@ -67,6 +67,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcmueconv(8, NDR, LO),
     mcgminus2mu(2, NDR, LO),
     mcbsg(8, NDR, NLO),
+    mcBMll(13, NDR, NLO),
     mcbnlep(10, NDR, NLO, NLO_ew),
     mcbnlepCC(10, NDR, NLO),
     mcd1(10, NDR, NLO),
@@ -144,6 +145,17 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     TUhat(3, 3, 0.),
     TDhat(3, 3, 0.),
     TEhat(3, 3, 0.),
+        
+    gamULCKM(6, 3, 0.),
+    gamURCKM(6, 3, 0.),
+    gamULCKMMD(6, 3, 0.),
+    gamURCKMMU(6, 3, 0.),
+    gamDLMD(6, 3, 0.),
+    gamDRMD(6, 3, 0.),
+    gamULgamULdag(6, 6, 0.),
+    gamDRgamDRdag(6, 6, 0.),
+    upQmassM(3,3,0.),
+    downQmassM(3,3,0.),
 
     Eps_JCache(3,0.),
     Lambda0EpsYCache(3,3,0.),
@@ -166,6 +178,8 @@ void SUSYMatching::updateSUSYParameters()
     myRd = mySUSY.getRd();
     myRl = mySUSY.getRl();
     myRn = mySUSY.getRn();
+    mym_su_sq = mySUSY.getMsu2();
+    mym_sd_sq = mySUSY.getMsd2();
     mym_sn_sq = mySUSY.getMsn2();
     mym_se_sq = mySUSY.getMse2();
     Q_S = mySUSY.getQ_SUSY();
@@ -177,6 +191,7 @@ void SUSYMatching::updateSUSYParameters()
     Mg = mySUSY.getMGl();
     MChi0 = mySUSY.getMneu();
     MChi = mySUSY.getMch();
+    MHpm = mySUSY.getMHp();
     v = mySUSY.v();
     v1 = mySUSY.v1();
     v2 = mySUSY.v2();
@@ -184,9 +199,82 @@ void SUSYMatching::updateSUSYParameters()
     myN = mySUSY.getN();
     myV = mySUSY.getV();
     myU = mySUSY.getU();
+    
+//    std::cout << Mg << " Mg " << std::endl;
+//    std::cout << MChi0 << " MChi0 " << std::endl;
+//    std::cout << MChi << " MChi " << std::endl;
+//    std::cout << MHpm << " MHpm " << std::endl;
+//    
+//    std::cout << mym_su_sq << " mym_su_sq " << std::endl;
+//    std::cout << mym_sd_sq << " mym_sd_sq " << std::endl;
+//    std::cout << mym_sn_sq << " mym_sn_sq " << std::endl;
+//    std::cout << mym_se_sq << " mym_se_sq " << std::endl;
+    
+    mW = mySUSY.Mw_tree();
+    sinthetaW = sqrt(mySUSY.StandardModel::sW2(mW));
+
+    upQmassM.assign(0,0,mySUSY.Mq_Q(mySUSY.UP));
+    upQmassM.assign(1,1,mySUSY.Mq_Q(mySUSY.CHARM));
+    upQmassM.assign(2,2,mySUSY.Mq_Q(mySUSY.TOP));
+
+    downQmassM.assign(0,0,mySUSY.Mq_Q(mySUSY.DOWN));
+    downQmassM.assign(1,1,mySUSY.Mq_Q(mySUSY.STRANGE));
+    downQmassM.assign(2,2,mySUSY.Mq_Q(mySUSY.BOTTOM));
+    
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 3; j++) {
+            gslpp::complex sum_k_gamULCKM = 0.,sum_k_gamURCKMMU = 0., sum_k_gamULCKMMD = 0., sum_k_gamDRMD = 0., sum_k_gamDLMD = 0.;
+            for (int k = 0; k < 3; k++) {
+                gslpp::complex temp_QmassUCKM = 0., temp_CKMQmassD = 0.;
+                for (int l = 0; l < 3; l++) {
+                    temp_QmassUCKM +=  upQmassM(k, l) * myCKM(l, j);
+                    temp_CKMQmassD +=  myCKM(k, l) * downQmassM(l, j) ;
+                }
+                sum_k_gamULCKM += myRu(i, k) * myCKM(k, j);
+                sum_k_gamURCKMMU +=  myRu(i, k + 3) * temp_QmassUCKM;
+                sum_k_gamULCKMMD += myRu(i, k) * temp_CKMQmassD;
+                sum_k_gamDRMD += myRd(i, k + 3) * downQmassM(k, j);
+                sum_k_gamDLMD += myRd(i, k) * downQmassM(k, j);
+            }
+            gamULCKM.assign(i, j, sum_k_gamULCKM);
+            gamURCKMMU.assign(i, j, sum_k_gamURCKMMU);
+            gamULCKMMD.assign(i, j, sum_k_gamULCKMMD);
+            gamDRMD.assign(i, j, sum_k_gamDRMD);
+            gamDLMD.assign(i, j, sum_k_gamDLMD);
+        }
+    }
+
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 6; j++) {
+            gslpp::complex sum_k_gamULgamULdag = 0.,sum_k_gamDRgamDRdag = 0.;
+            for (int k = 0; k < 3; k++) {
+                sum_k_gamULgamULdag += myRu(i, k) * myRu(j, k).conjugate();
+                sum_k_gamDRgamDRdag += myRd(i, k + 3) * myRd(j, k + 3).conjugate();
+            }
+            gamULgamULdag.assign(i, j, sum_k_gamULgamULdag);
+            gamDRgamDRdag.assign(i, j, sum_k_gamDRgamDRdag); 
+        }
+    }
+
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 2; k++) {
+                XUL[i][j][k] = gW * (-myV(k, 0).conjugate() * gamULCKM(i, j) + myV(k, 1).conjugate() * gamURCKMMU(i, j) / (sqrt(2.) * mW * sinb));
+                XUR[i][j][k] = gW * (myU(k, 1) * gamULCKMMD(i, j) / (sqrt(2.) * mW * cosb));
+            }
+        }
+    }
+
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 4; k++) {
+                ZDL[i][j][k] = -gW/sqrt(2.) * ((-myN(k, 1).conjugate() + 1./3. * (sinthetaW / sqrt(1. - sinthetaW * sinthetaW)) * myN(k, 0).conjugate()) * myRd(i, j) + myN(k, 2).conjugate() * gamDRMD(i, j) / (mW * cosb));
+                ZDR[i][j][k] = -gW/sqrt(2.) * (2./3. * (sinthetaW / sqrt(1. - sinthetaW * sinthetaW)) * myN(k, 0) * myRd(i, j + 3) + myN(k, 2) * gamDLMD(i, j) / (mW * cosb));
+            }
+        }
+    }
 
 }
-
 /******************************************************************************/
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3355,8 +3443,8 @@ gslpp::vector <gslpp::complex> SUSYMatching::CalcC7(int b, int q) {
     
 }
 
-
- std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
+std::vector<WilsonCoefficient>& SUSYMatching::CMbsg()
+{
 
     vmcbsg = StandardModelMatching::CMbsg();
 
@@ -3367,7 +3455,7 @@ gslpp::vector <gslpp::complex> SUSYMatching::CalcC7(int b, int q) {
         default:
             std::stringstream out;
             out << mcbsg.getScheme();
-            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
+            throw std::runtime_error("SUSYMatching::CMbsg(): scheme " + out.str() + "not implemented");
     }
 
     mcbsg.setMu(mySUSY.getMuw());
@@ -3376,17 +3464,565 @@ gslpp::vector <gslpp::complex> SUSYMatching::CalcC7(int b, int q) {
         case NNLO:
         case NLO:
         case LO:
-           
+            mcbsg.setCoeff(6, bsll_DeltaC7_SUSY(), LO);
+//            mcbsg.setCoeff(7,, LO); "WE WILL THINK ABOUT THIS LATER" : MAURO VALLI & AYAN PAUL (I WANTED TO THINK ABOUT IT NOW...)
+
             break;
         default:
             std::stringstream out;
             out << mcbsg.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("SUSYMatching::CMbsg(): order " + out.str() + "not implemented");
     }
 
     vmcbsg.push_back(mcbsg);
     return (vmcbsg);
 }
+
+std::vector<WilsonCoefficient>& SUSYMatching::CMBMll(QCD::lepton lepton)
+{
+    int lepton_pair;
+    switch (lepton) {
+        case QCD::ELECTRON:
+            lepton_pair = 0;
+            break;
+        case QCD::MU:
+            lepton_pair = 1;
+            break;
+        case QCD::TAU:
+            lepton_pair = 2;
+            break;
+        case QCD::NOLEPTON:
+            lepton_pair = 1; // NOLEPTON SET TO MUON. Ayan Paul
+            break;
+        case QCD::NEUTRINO_1:
+        case QCD::NEUTRINO_2:
+        case QCD::NEUTRINO_3:
+            std::runtime_error("SUSYMatching::CMBMll(): LEPTON not implemented");
+            break;
+    } 
+    vmcBMll = StandardModelMatching::CMBMll(lepton);
+
+    switch (mcBMll.getScheme()) {
+        case NDR:
+            //case HV:
+            //case LRI:
+            break;
+        default:
+            std::stringstream out;
+            out << mcBMll.getScheme();
+            throw std::runtime_error("StandardModel::CMBKstrall(): scheme " + out.str() + "not implemented");
+    }
+
+    mcBMll.setMu(mySUSY.getMuw());
+
+    switch (mcBMll.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            mcBMll.setCoeff(8, bsll_DeltaC9_SUSY(lepton_pair), LO);
+            mcBMll.setCoeff(9, bsll_DeltaC10_SUSY(lepton_pair), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcBMll.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented");
+    }
+
+    vmcBMll.push_back(mcBMll);
+    return (vmcBMll);
+}
+
+ 
+/* b->sll STARTS HERE */ 
+
+double SUSYMatching::bsll_f1(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return (-7. + 5. * x + 8. * x * x) / (6. * (1. - x) * (1. - x) * (1. - x))
+                - (2. * x - 3. * x * x) / ((1. - x) * (1. - x) * (1. - x) * (1. - x)) * log(x);
+    } else {
+        return -5. / 12.;
+    }
+}
+
+double SUSYMatching::bsll_f2(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return (3. * x - 5. * x * x) / (2. * (1. - x) * (1. - x))
+                + (2. * x - 3. * x * x) / ((1. - x) * (1. - x) * (1. - x)) * log(x);
+    } else {
+        return -7. / 6.;
+    }
+}
+
+double SUSYMatching::bsll_f3(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return (2. + 5. * x - x * x) / (6. * (1. - x) * (1. - x) * (1. - x))
+                + x / ((1. - x) * (1. - x) * (1. - x) * (1. - x)) * log(x);
+    } else {
+        return 1. / 12.;
+    }
+}
+
+double SUSYMatching::bsll_f4(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return (1. + x) / (2. * (1. - x) * (1. - x))
+                + x / ((1. - x) * (1. - x) * (1. - x)) * log(x);
+    } else {
+        return 1. / 6.;
+    }
+}
+
+double SUSYMatching::bsll_f5(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return x / (1. - x) + x / ((1. - x) * (1. - x)) * log(x);
+    } else return -1. / 2.;
+}
+
+double SUSYMatching::bsll_f6(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return (38. * x - 79. * x * x + 47. * x * x * x) / (6. * (1. - x) * (1. - x) * (1. - x))
+                + (4. * x - 6. * x * x + 3. * x * x * x * x) / ((1. - x) * (1. - x) * (1. - x) * (1. - x)) * log(x);
+    } else {
+        return -3. / 4.;
+    }
+}
+
+double SUSYMatching::bsll_f7(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return (52. - 101. * x + 43. * x * x) / (6. * (1. - x) * (1. - x) * (1. - x))
+                + (6. - 9. * x + 2. * x * x * x) / ((1. - x) * (1. - x) * (1. - x) * (1. - x)) * log(x);
+    } else {
+        return -7. / 4.;
+    }
+}
+
+double SUSYMatching::bsll_f8(double x)
+{
+
+    if (std::fabs(x - 1.) > SUSYLEPS2) {
+        return (2. - 7. * x + 11. * x * x) / ((1. - x) * (1. - x) * (1. - x))
+                + (6. * x * x * x) / ((1. - x) * (1. - x) * (1. - x) * (1. - x)) * log(x);
+    } else {
+        return 3. / 2.;
+    }
+}
+
+double SUSYMatching::bsll_C0(double m1, double m2, double m3)
+{
+
+    if (m1 <= 0.0 || m2 <= 0.0 || m3 <= 0.0) throw std::runtime_error("SUSYMatching::bsll_C0(): Invalid argument!");
+
+    if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m2) <= SUSYLEPS2)) {
+        return -1. / (2 * m1 * m1);
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2)) {
+        return (m3 * m3 * (1. - log(m3 * m3 / (m2 * m2))) - m2 * m2) / ((m2 * m2 - m3 * m3)*(m2 * m2 - m3 * m3));
+    } else if ((std::fabs((m1 - m3) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2)) {
+        return (m2 * m2 * (1. - log(m2 * m2 / (m3 * m3))) - m3 * m3) / ((m2 * m2 - m3 * m3)*(m2 * m2 - m3 * m3));
+    } else if ((std::fabs((m1 - m2) / m1) > SUSYLEPS2) && (std::fabs((m2 - m3) / m2) <= SUSYLEPS2)) {
+        return (m1 * m1 * (1. + log(m3 * m3 / (m1 * m1))) - m3 * m3) / ((m1 * m1 - m3 * m3)*(m1 * m1 - m3 * m3));
+    } else if ((std::fabs((m1 - m2) / m1) > SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2)) {
+        return (m2 * m2 / (m1 * m1 - m2 * m2) * log(m2 * m2 / (m1 * m1)) - m3 * m3 / (m1 * m1 - m3 * m3) * log(m3 * m3 / (m1 * m1))) / (m2 * m2 - m3 * m3);
+    } else {
+        std::cout << "m1, m2, m3 = " << m1 << ", " << m2 << ", " << m3 << std::endl;
+        throw std::runtime_error("SUSYMatching::bsll_C0(): limit/case not implemented!");
+    }
+}
+
+double SUSYMatching::bsll_C2(double m1, double m2, double m3, double mu2)
+{
+
+    if (mu2 <= 0.0 || m1 <= 0.0 || m2 <= 0.0 || m3 <= 0.0) throw std::runtime_error("SUSYMatching::bsll_C2(): Invalid argument!");
+
+    if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m2) <= SUSYLEPS2)) {
+        return -(1 / 4.) * log(m3 * m3 / (mu2));
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2)) {
+        return (pow(m2, 4.) - 4. * m2 * m2 * m3 * m3 + 3. * pow(m3, 4.) - (2. * pow(m2, 4.) - 4. * m2 * m2 * m3 * m3) * log(m2 * m2 / (mu2)) - 2. * pow(m3, 4.) * log(m3 * m3 / (mu2))) / (8. * (m2 * m2 - m3 * m3)*(m2 * m2 - m3 * m3));
+    } else if ((std::fabs((m1 - m3) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2)) {
+        return (3. * pow(m2, 4.) - 4. * m2 * m2 * m3 * m3 + pow(m3, 4.) + (-2. * pow(m3, 4.) + 4. * m2 * m2 * m3 * m3) * log(m3 * m3 / (mu2)) - 2. * pow(m2, 4.) * log(m2 * m2 / (mu2))) / (8. * (m2 * m2 - m3 * m3)*(m2 * m2 - m3 * m3));
+    } else if ((std::fabs((m1 - m2) / m1) > SUSYLEPS2) && (std::fabs((m2 - m3) / m2) <= SUSYLEPS2)) {
+        return (3. * pow(m1, 4.) - 4. * m1 * m1 * m3 * m3 + pow(m3, 4.) + (-2. * pow(m3, 4.) + 4. * m1 * m1 * m3 * m3) * log(m3 * m3 / (mu2)) - 2. * pow(m1, 4.) * log(m1 * m1 / (mu2))) / (8. * (m1 * m1 - m3 * m3)*(m1 * m1 - m3 * m3));
+    } else if ((std::fabs((m1 - m2) / m1) > SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2)) {
+        return 3. / 8. - (1. / 4.)*(pow(m1, 4.) / ((m1 * m1 - m2 * m2)*(m1 * m1 - m3 * m3)) * log(m1 * m1 / (mu2)) + pow(m2, 4.) / ((m2 * m2 - m1 * m1)*(m2 * m2 - m3 * m3)) * log(m2 * m2 / (mu2)) + pow(m3, 4.) / ((m3 * m3 - m2 * m2)*(m3 * m3 - m1 * m1)) * log(m3 * m3 / (mu2)));
+    } else {
+        std::cout << "m1, m2, m3, mu2 = " << m1 << ", " << m2 << ", " << m3 << ", " << mu2 << std::endl;
+        throw std::runtime_error("SUSYMatching::bsll_C2(): limit/case not implemented!");
+    }
+}
+
+double SUSYMatching::bsll_D0reg(double m1, double m2, double m3, double m4)
+{
+
+    if (m1 <= 0.0 || m2 <= 0.0 || m3 <= 0.0 || m4 <= 0.0) throw std::runtime_error("SUSYMatching::bsll_D0(): Invalid argument!");
+
+    if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m1 - m3) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m4) / m2) <= SUSYLEPS2)) {
+        return 1. / (6. * m1 * m1 * m1 * m1);
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m3) <= SUSYLEPS2)) {
+        return (m3 * m3 * m3 * m3 - m4 * m4 * m4 * m4 + 4. * m3 * m3 * m4 * m4 * log(m4 / m3)) / (2. * (m3 * m3 - m4 * m4)*(m3 * m3 - m4 * m4)*(m3 * m3 - m4 * m4) * m3 * m3);
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m4) / m4) <= SUSYLEPS2)) {
+        return (-m3 * m3 * m3 * m3 + m4 * m4 * m4 * m4 + 4. * m3 * m3 * m4 * m4 * log(m3 / m4)) / (2. * (-m3 * m3 + m4 * m4)*(-m3 * m3 + m4 * m4)*(-m3 * m3 + m4 * m4) * m4 * m4);
+    } else if ((std::fabs((m1 - m3) / m1) <= SUSYLEPS2) && (std::fabs((m3 - m4) / m4) <= SUSYLEPS2)) {
+        return (-m2 * m2 * m2 * m2 + m4 * m4 * m4 * m4 + 4. * m2 * m2 * m4 * m4 * log(m2 / m4)) / (2. * (-m2 * m2 + m4 * m4)*(-m2 * m2 + m4 * m4)*(-m2 * m2 + m4 * m4) * m4 * m4);
+    } else if ((std::fabs((m2 - m3) / m2) <= SUSYLEPS2) && (std::fabs((m3 - m4) / m4) <= SUSYLEPS2)) {
+        return (-m1 * m1 * m1 * m1 + m4 * m4 * m4 * m4 + 4. * m1 * m1 * m4 * m4 * log(m1 / m4)) / (2. * (-m1 * m1 + m4 * m4)*(-m1 * m1 + m4 * m4)*(-m1 * m1 + m4 * m4) * m4 * m4);
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2)) {
+        double term1 = (m3 * m3 * (-m2 * m2 + m3 * m3 + 2. * m2 * m2 * log(m2 / m3))) / (m2 * m2 - m3 * m3) / (m2 * m2 - m3 * m3);
+        double term2 = (m4 * m4 * (-m2 * m2 + m4 * m4 + 2. * m2 * m2 * log(m2 / m4))) / (m2 * m2 - m4 * m4) / (m2 * m2 - m4 * m4);
+        return (term1 - term2) / (m2 * m2 * (m3 * m3 - m4 * m4));
+    } else if ((std::fabs((m1 - m3) / m1) <= SUSYLEPS2)) {
+        double term1 = (2. * m3 * m3 * log(m3 / m2)) / (-m2 * m2 + m3 * m3);
+        double term2 = (2. * m4 * m4 * log(m4 / m2)) / (-m2 * m2 + m4 * m4);
+        double term3 = (2. * m4 * m4 * log(m4 / m3)) / (-m3 * m3 + m4 * m4);
+        return (-1. + term1 - term2 + term3) / (m3 * m3 - m2 * m2) / (m3 * m3 - m4 * m4);
+    } else if ((std::fabs((m1 - m4) / m1) <= SUSYLEPS2)) {
+        double term1 = (2. * m3 * m3 * log(m3 / m2)) / (-m2 * m2 + m3 * m3);
+        double term2 = (2. * m3 * m3 * log(m3 / m4)) / (-m4 * m4 + m3 * m3);
+        double term3 = (2. * m4 * m4 * log(m4 / m2)) / (-m2 * m2 + m4 * m4);
+        return (1. + term1 - term2 - term3) / (m4 * m4 - m2 * m2) / (m3 * m3 - m4 * m4);
+    } else if ((std::fabs((m2 - m3) / m2) <= SUSYLEPS2)) {
+        double term1 = (2. * m3 * m3 * log(m3 / m1)) / (-m1 * m1 + m3 * m3);
+        double term2 = (2. * m4 * m4 * log(m4 / m1)) / (-m1 * m1 + m4 * m4);
+        double term3 = (2. * m4 * m4 * log(m4 / m3)) / (-m3 * m3 + m4 * m4);
+        return (1. - term1 + term2 - term3) / (-m4 * m4 + m3 * m3) / (-m3 * m3 + m1 * m1);
+    } else if ((std::fabs((m2 - m4) / m2) <= SUSYLEPS2)) {
+        double term1 = (2. * m3 * m3 * log(m3 / m1)) / (-m1 * m1 + m3 * m3);
+        double term2 = (2. * m3 * m3 * log(m3 / m4)) / (-m4 * m4 + m3 * m3);
+        double term3 = (2. * m4 * m4 * log(m4 / m1)) / (-m1 * m1 + m4 * m4);
+        return (-1. - term1 + term2 + term3) / (-m4 * m4 + m3 * m3) / (-m4 * m4 + m1 * m1);
+    } else if ((std::fabs((m3 - m4) / m3) <= SUSYLEPS2)) {
+        double term1 = (-m4 * m4 + m1 * m1 + 2. * m1 * m1 * log(m4 / m1)) / (m1 * m1 - m4 * m4) / (m1 * m1 - m4 * m4);
+        double term2 = (-m4 * m4 + m2 * m2 + 2. * m2 * m2 * log(m4 / m2)) / (m2 * m2 - m4 * m4) / (m2 * m2 - m4 * m4);
+        return (term1 - term2) / (m1 * m1 - m2 * m2);
+    } else if ((std::fabs((m1 - m2) / m1) > SUSYLEPS2) && (std::fabs((m3 - m4) / m3) > SUSYLEPS2) && (std::fabs((m1 - m4) / m1) > SUSYLEPS2) && (std::fabs((m1 - m3) / m1) > SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2) && (std::fabs((m2 - m4) / m2) > SUSYLEPS2)) {
+        return (bsll_C0(m1, m3, m4) - bsll_C0(m2, m3, m4)) / (m1 * m1 - m2 * m2);
+    } else {
+        std::cout << "m1, m2, m3, m4 = " << m1 << ", " << m2 << ", " << m3 << ", " << m4 << std::endl;
+        throw std::runtime_error("SUSYMatching::bsll_D0reg(): limit/case not implemented!");
+    }
+}
+
+double SUSYMatching::bsll_D2reg(double m1, double m2, double m3, double m4)
+{
+
+    if (m1 <= 0.0 || m2 <= 0.0 || m3 <= 0.0 || m4 <= 0.0) throw std::runtime_error("SUSYMatching::bsll_D2(): Invalid argument!");
+
+    if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m1 - m3) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m4) / m2) <= SUSYLEPS2)) {
+        return -1. / (12. * m1 * m1 * m1 * m1);
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m3) / m3) <= SUSYLEPS2)) {
+        return -(m3 * m3 * m3 * m3 - 4. * m3 * m3 * m4 * m4 + 3. * m4 * m4 * m4 * m4 - 4. * m4 * m4 * m4 * m4 * log(m4 / m3)) / (8. * (m3 * m3 - m4 * m4)*(m3 * m3 - m4 * m4)*(m3 * m3 - m4 * m4));
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2) && (std::fabs((m2 - m4) / m4) <= SUSYLEPS2)) {
+        return (m4 * m4 * m4 * m4 - 4. * m3 * m3 * m4 * m4 + 3. * m3 * m3 * m3 * m3 - 4. * m3 * m3 * m3 * m3 * log(m3 / m4)) / (8. * (m3 * m3 - m4 * m4)*(m3 * m3 - m4 * m4)*(m3 * m3 - m4 * m4));
+    } else if ((std::fabs((m1 - m3) / m1) <= SUSYLEPS2) && (std::fabs((m3 - m4) / m3) <= SUSYLEPS2)) {
+        return (m4 * m4 * m4 * m4 - 4. * m2 * m2 * m4 * m4 + 3. * m2 * m2 * m2 * m2 - 4. * m2 * m2 * m2 * m2 * log(m2 / m4)) / (8. * (m2 * m2 - m4 * m4)*(m2 * m2 - m4 * m4)*(m2 * m2 - m4 * m4));
+    } else if ((std::fabs((m2 - m3) / m2) <= SUSYLEPS2) && (std::fabs((m3 - m4) / m3) <= SUSYLEPS2)) {
+        return (m4 * m4 * m4 * m4 - 4. * m1 * m1 * m4 * m4 + 3. * m1 * m1 * m1 * m1 - 4. * m1 * m1 * m1 * m1 * log(m1 / m4)) / (8. * (m1 * m1 - m4 * m4)*(m1 * m1 - m4 * m4)*(m1 * m1 - m4 * m4));
+    } else if ((std::fabs((m1 - m2) / m1) <= SUSYLEPS2)) {
+        double num = 2. * m3 * m3 * m3 * m3 * (m2 * m2 - m4 * m4)*(m2 * m2 - m4 * m4) * log(m3 / m2)+(m2 * m2 - m3 * m3)*(m2 * m2 * (m2 * m2 - m4 * m4)*(m3 * m3 - m4 * m4) + 2. * (-m2 * m2 + m3 * m3) * m4 * m4 * m4 * m4 * log(m4 / m2));
+        double den = 4. * (m2 * m2 - m3 * m3)*(m2 * m2 - m3 * m3)*(m2 * m2 - m4 * m4)*(m2 * m2 - m4 * m4)*(m3 * m3 - m4 * m4);
+        return -(num / den);
+    } else if ((std::fabs((m1 - m3) / m1) <= SUSYLEPS2)) {
+        double num = -m2 * m2 * (2. * m3 * m3 * log(m3 / m2) / (m2 * m2 - m3 * m3) + 2. * m4 * m4 * log(m4 / m2) / (-m2 * m2 + m4 * m4)) + m3 * m3 * (-1. + 2. * m4 * m4 * log(m4 / m3) / (m4 * m4 - m3 * m3));
+        double den = 4. * (-m2 * m2 + m3 * m3)*(m3 * m3 - m4 * m4);
+        return (num / den);
+    } else if ((std::fabs((m1 - m4) / m1) <= SUSYLEPS2)) {
+        double num = 2. * m2 * m2 * m3 * m3 * log(m3 / m2) / (-m2 * m2 + m3 * m3) + m4 * m4 * (1. - 2. * m3 * m3 * log(m3 / m4) / (m3 * m3 - m4 * m4) - 2. * m2 * m2 * log(m2 / m4) / (m2 * m2 - m4 * m4));
+        double den = 4. * (-m2 * m2 + m4 * m4)*(m3 * m3 - m4 * m4);
+        return (num / den);
+    } else if ((std::fabs((m2 - m3) / m2) <= SUSYLEPS2)) {
+        double num = m3 * m3 + m1 * m1 * (2. * m3 * m3 * log(m3 / m1) / (m1 * m1 - m3 * m3) + 2. * m4 * m4 * log(m4 / m1) / (m4 * m4 - m1 * m1)) + 2. * m3 * m3 * m4 * m4 * log(m4 / m3) / (m3 * m3 - m4 * m4);
+        double den = 4. * (m1 * m1 - m3 * m3)*(m3 * m3 - m4 * m4);
+        return (num / den);
+    } else if ((std::fabs((m2 - m4) / m2) <= SUSYLEPS2)) {
+        double num = 2. * m1 * m1 * m3 * m3 * log(m3 / m1) / (m1 * m1 - m3 * m3) + m4 * m4 * (-1. + 2. * m3 * m3 * log(m3 / m4) / (m3 * m3 - m4 * m4) + 2. * m1 * m1 * log(m1 / m4) / (m1 * m1 - m4 * m4));
+        double den = 4. * (m1 * m1 - m4 * m4)*(m3 * m3 - m4 * m4);
+        return (num / den);
+    } else if ((std::fabs((m3 - m4) / m3) <= SUSYLEPS2)) {
+        double num = 2. * m1 * m1 * (m1 * m1 - m4 * m4 + 2. * m1 * m1 * log(m4 / m1)) / (m1 * m1 - m4 * m4) / (m1 * m1 - m4 * m4);
+        num -= 2. * m2 * m2 * (m2 * m2 - m4 * m4 + 2. * m2 * m2 * log(m4 / m2)) / (m2 * m2 - m4 * m4) / (m2 * m2 - m4 * m4);
+        double den = 8. * (m1 * m1 - m2 * m2);
+        return (num / den);
+    } else if ((std::fabs((m1 - m2) / m1) > SUSYLEPS2) && (std::fabs((m3 - m4) / m3) > SUSYLEPS2) && (std::fabs((m1 - m4) / m1) > SUSYLEPS2) && (std::fabs((m1 - m3) / m1) > SUSYLEPS2) && (std::fabs((m2 - m3) / m2) > SUSYLEPS2) && (std::fabs((m2 - m4) / m2) > SUSYLEPS2)) {
+        return (m1 * m1 * bsll_C0(m1, m3, m4) - m2 * m2 * bsll_C0(m2, m3, m4)) / (4. * (m1 * m1 - m2 * m2));
+    } else {
+        std::cout << "m1,m2,m3,m4 = " << m1 << ", " << m2 << ", " << m3 << ", " << m4 << std::endl;
+        throw std::runtime_error("SUSYMatching::bsll_D2reg(): limit/case not implemented!");
+    }
+}
+
+gslpp::complex SUSYMatching::bsll_DeltaC7_SUSY()
+{
+
+    double pi = M_PI;
+    double MW = mySUSY.Mw_tree();
+    double mt = mySUSY.Mq_Q(mySUSY.TOP);
+    double mb = mySUSY.Mq_Q(mySUSY.BOTTOM);
+    double g3 = sqrt(4. * pi * Als);
+
+    //  charged Higgs loops
+    gslpp::complex DC7_chargedHiggs = (0.5 * mt * mt / MHpm / MHpm * bsll_f1(mt * mt / MHpm / MHpm) / (tanb * tanb) + bsll_f2(mt * mt / MHpm / MHpm)) / 6.;
+
+    //  chargino loops
+    gslpp::complex DC7_chargino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 2; i++) {
+            DC7_chargino += (-0.5 * (XUL[a][1][i]).conjugate() * XUL[a][2][i] * bsll_f1(mym_su_sq(a) / MChi(i) / MChi(i))
+                    + (XUL[a][1][i]).conjugate() * XUR[a][2][i]*(MChi(i) / mb) * bsll_f2(mym_su_sq(a) / MChi(i) / MChi(i))) / MChi(i) / MChi(i);
+        }
+    }
+    DC7_chargino *= MW * MW / (3. * gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+
+    //  neutralino loops
+    gslpp::complex DC7_neutralino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 4; i++) {
+            DC7_neutralino += (0.5 * (ZDL[a][1][i]).conjugate() * ZDL[a][2][i] * bsll_f3(mym_sd_sq(a) / MChi0(i) / MChi0(i))
+                    + (ZDL[a][1][i]).conjugate() * ZDR[a][2][i]*(MChi0(i) / mb) * bsll_f4(mym_sd_sq(a) / MChi0(i) / MChi0(i))) / MChi0(i) / MChi0(i);
+        }
+    }
+    DC7_neutralino *= -MW * MW / (3. * gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  gluino loops
+    gslpp::complex DC7_gluino = 0.;
+    for (int a = 0; a < 6; a++) {
+        DC7_gluino += (-myRd(a, 1).conjugate() * myRd(a, 2) * bsll_f3(mym_sd_sq(a) / Mg / Mg)
+                + 2. * myRd(a, 1).conjugate() * myRd(a, 5)*(Mg / mb) * bsll_f4(mym_sd_sq(a) / Mg / Mg)) / Mg / Mg;
+    }
+    DC7_gluino *= 4. * MW * MW * g3 * g3 / (9. * gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //    std::cout << DC7_chargedHiggs << ", " << DC7_chargino << ", " << DC7_neutralino << ", " << DC7_gluino << std::endl;
+
+    return DC7_chargedHiggs + DC7_chargino + DC7_neutralino + DC7_gluino;
+
+}
+
+gslpp::complex SUSYMatching::bsll_Y_SUSY(int lep_pair)
+{
+
+
+    double pi = M_PI;
+    double MW = mySUSY.Mw_tree();
+    double mt = mySUSY.Mq_Q(mySUSY.TOP);
+    double g3 = sqrt(4. * pi * Als);
+    double sw2 = sinthetaW*sinthetaW;
+    double tantheta = sqrt(sw2) / sqrt(1. - sw2);
+    double mu2 = 100.; // check independence of the result from renornmalization scale mu!
+
+    //  charged Higgs Z penguin and bubble
+    gslpp::complex Y_chargedHiggs = -bsll_f5(mt * mt / MHpm / MHpm) / 8. / (tanb * tanb) * mt * mt / MW / MW;
+
+    //  chargino Z penguin and bubble
+    gslpp::complex Y_chargino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int b = 0; b < 6; b++) {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    Y_chargino += (XUL[a][1][i]).conjugate() * XUL[b][2][j] *
+                            (bsll_C2(MChi(i), sqrt(mym_su_sq(a)), sqrt(mym_su_sq(b)), mu2) * gamULgamULdag(a, b)*(i == j)
+                            - bsll_C2(sqrt(mym_su_sq(a)), MChi(i), MChi(j), mu2)*(a == b) * myV(i, 0).conjugate() * myV(j, 0)
+                            + 0.5 * MChi(i) * MChi(j) * bsll_C0(sqrt(mym_su_sq(a)), MChi(i), MChi(j))*(a == b)
+                            * myU(i, 0) * myU(j, 0).conjugate()) / 2.;
+                }
+            }
+        }
+    }
+    Y_chargino /= (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  neutralino Z penguin and bubble
+    gslpp::complex Y_neutralino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int b = 0; b < 6; b++) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    Y_neutralino += (ZDL[a][1][i]).conjugate() * ZDL[b][2][j] *
+                            (bsll_C2(MChi0(i), sqrt(mym_sd_sq(a)), sqrt(mym_sd_sq(b)), mu2) * gamDRgamDRdag(a, b)*(i == j)
+                            - bsll_C2(sqrt(mym_sd_sq(a)), MChi0(i), MChi0(j), mu2)*(a == b)*(myN(i, 2).conjugate() * myN(j, 2) - myN(i, 3).conjugate() * myN(j, 3))
+                            - 0.5 * MChi0(i) * MChi0(j) * bsll_C0(sqrt(mym_sd_sq(a)), MChi0(i), MChi0(j))*(a == b)
+                            *(myN(j, 2).conjugate() * myN(i, 2) - myN(j, 3).conjugate() * myN(i, 3))) / 2.;
+                }
+            }
+        }
+    }
+    Y_neutralino /= (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  gluino Z penguin and bubble
+    gslpp::complex Y_gluino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int b = 0; b < 6; b++) {
+            Y_gluino += 4. * myRd(a, 1).conjugate() * myRd(b, 2) * bsll_C2(Mg, sqrt(mym_sd_sq(a)), sqrt(mym_sd_sq(b)), mu2) * gamDRgamDRdag(a, b) / 3.;
+        }
+    }
+    Y_gluino *= g3 * g3 / (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  LFV contribution: chargino box
+    gslpp::complex Y_chargino_box = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                Y_chargino_box += (XUL[a][1][i]).conjugate() * XUL[a][2][j] * bsll_D2reg(MChi(i), MChi(j), sqrt(mym_su_sq(a)), sqrt(mym_sn_sq(lep_pair))) * myV(i, 0).conjugate() * myV(j, 0);
+            }
+        }
+    }
+    Y_chargino_box *= MW * MW / (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  LFV contribution: neutralino box
+    gslpp::complex Z_neutralino_box = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Z_neutralino_box += (ZDL[a][1][i]).conjugate() * ZDL[a][2][j] / (1. - sw2)*
+                        (bsll_D2reg(MChi0(i), MChi0(j), sqrt(mym_sd_sq(a)), sqrt(mym_se_sq(3 + lep_pair))) * myN(i, 0).conjugate() * myN(j, 0)
+                        + 0.5 * MChi0(i) * MChi0(j) * bsll_D0reg(MChi0(i), MChi0(j), sqrt(mym_sd_sq(a)), sqrt(mym_se_sq(3 + lep_pair))) * myN(j, 0).conjugate() * myN(i, 0));
+            }
+        }
+    }
+    Z_neutralino_box *= MW * MW / (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    gslpp::complex Y_neutralino_box = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Y_neutralino_box += (ZDL[a][1][i]).conjugate() * ZDL[a][2][j]*
+                        (bsll_D2reg(MChi0(i), MChi0(j), sqrt(mym_sd_sq(a)), sqrt(mym_se_sq(lep_pair)))*
+                        (tantheta * myN(i, 0).conjugate() + myN(i, 1).conjugate())*(tantheta * myN(j, 0) + myN(j, 1))
+                        + 0.5 * MChi0(i) * MChi0(j) * bsll_D0reg(MChi0(i), MChi0(j), sqrt(mym_sd_sq(a)), sqrt(mym_se_sq(lep_pair)))
+                        *(tantheta * myN(j, 0).conjugate() + myN(j, 1).conjugate())*(tantheta * myN(i, 0) + myN(i, 1))) / 2.;
+            }
+        }
+    }
+    Y_neutralino_box *= MW * MW / (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+    Y_neutralino_box += 2. * sw2*Z_neutralino_box;
+
+    //    std::cout << "Y_chargedHiggs = " << Y_chargedHiggs << ", " << "Y_chargino = " << Y_chargino << ", " << "Y_neutralino = " << Y_neutralino << ", " << "Y_gluino = " << Y_gluino << ", " << "Y_chargino_box = " << Y_chargino_box << ", " << "Y_neutralino_box = " << Y_neutralino_box <<  ", " << "Z_neutralino_box = " << Z_neutralino_box << std::endl;
+
+    return Y_chargedHiggs + Y_chargino + Y_neutralino + Y_gluino + Y_chargino_box + Y_neutralino_box;
+}
+
+gslpp::complex SUSYMatching::bsll_Z_SUSY(int lep_pair)
+{
+
+    double pi = M_PI;
+    double MW = mySUSY.Mw_tree();
+    double sw2 = sinthetaW*sinthetaW;
+    double mt = mySUSY.Mq_Q(mySUSY.TOP);
+
+    //    double g2 = gW;
+    double g3 = sqrt(4. * pi * Als);
+    double mu2 = 100.; // check independence of the result from renornmalization scale mu!
+
+    //  charged Higgs Z penguin and bubble
+    gslpp::complex Z_chargedHiggs = -bsll_f5(mt * mt / MHpm / MHpm) / 8. / (tanb * tanb) * mt * mt / MW / MW;
+
+    //  charged Higgs gamma penguin and bubble
+    Z_chargedHiggs += -bsll_f6(mt * mt / MHpm / MHpm) / 72. / (tanb * tanb);
+
+    //  chargino Z penguin and bubble
+    gslpp::complex Z_chargino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int b = 0; b < 6; b++) {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    Z_chargino += (XUL[a][1][i]).conjugate() * (XUL[b][2][j]) *
+                            (bsll_C2(MChi(i), sqrt(mym_su_sq(a)), sqrt(mym_su_sq(b)), mu2)*(gamULgamULdag(a, b))*(i == j)
+                            - bsll_C2(sqrt(mym_su_sq(a)), MChi(i), MChi(j), mu2)*(a == b) * myV(i, 0).conjugate() * myV(j, 0)
+                            + 0.5 * MChi(i) * MChi(j) * bsll_C0(sqrt(mym_su_sq(a)), MChi(i), MChi(j))*(a == b)
+                            * myU(i, 0) * myU(j, 0).conjugate()) / 2.;
+                }
+            }
+        }
+    }
+    //  chargino gamma penguin and bubble
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 2; i++) {
+            Z_chargino += mW * mW / mym_su_sq(a) * XUL[a][1][i].conjugate() * XUL[a][2][i] * bsll_f7(MChi(i) * MChi(i) / mym_su_sq(a)) / 36.;
+        }
+    }
+    Z_chargino /= (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  neutralino Z penguin and bubble
+    gslpp::complex Z_neutralino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int b = 0; b < 6; b++) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    Z_neutralino += (ZDL[a][1][i]).conjugate() * ZDL[b][2][j] *
+                            (bsll_C2(MChi0(i), sqrt(mym_sd_sq(a)), sqrt(mym_sd_sq(b)), mu2) * gamDRgamDRdag(a, b)*(i == j)
+                            - bsll_C2(sqrt(mym_sd_sq(a)), MChi0(i), MChi0(j), mu2)*(a == b)*(myN(i, 2).conjugate() * myN(j, 2) - myN(i, 3).conjugate() * myN(j, 3))
+                            - 0.5 * MChi0(i) * MChi0(j) * bsll_C0(sqrt(mym_sd_sq(a)), MChi0(i), MChi0(j))*(a == b)
+                            *(myN(j, 2).conjugate() * myN(i, 2) - myN(j, 3).conjugate() * myN(i, 3))) / 2.;
+                }
+            }
+        }
+    }
+    //  neutralino gamma penguin and bubble
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 4; i++) {
+            Z_neutralino -= mW * mW / mym_sd_sq(a)*(ZDL[a][1][i]).conjugate() * ZDL[a][2][i] *
+                    bsll_f8(MChi0(i) * MChi0(i) / mym_sd_sq(a)) / 216.;
+        }
+    }
+    Z_neutralino /= (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  gluino Z penguin and bubble
+    gslpp::complex Z_gluino = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int b = 0; b < 6; b++) {
+            Z_gluino += 4. * myRd(a, 1).conjugate() * myRd(b, 2) * bsll_C2(Mg, sqrt(mym_sd_sq(a)), sqrt(mym_sd_sq(b)), mu2) * gamDRgamDRdag(a, b) / 3.;
+        }
+    }
+    //  gluino gamma penguin and bubble
+    for (int a = 0; a < 6; a++) {
+        Z_gluino -= mW * mW / mym_sd_sq(a) * myRd(a, 1).conjugate() * myRd(a, 2) * bsll_f8(Mg * Mg / mym_sd_sq(a)) / 81.;
+    }
+    Z_gluino *= g3 * g3 / (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+    //  LFV contribution: neutralino box
+    gslpp::complex Z_neutralino_box = 0.;
+    for (int a = 0; a < 6; a++) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Z_neutralino_box += (ZDL[a][1][i]).conjugate() * ZDL[a][2][j] / (1. - sw2)*
+                        (bsll_D2reg(MChi0(i), MChi0(j), sqrt(mym_sd_sq(a)), sqrt(mym_se_sq(3 + lep_pair))) * myN(i, 0).conjugate() * myN(j, 0)
+                        + 0.5 * MChi0(i) * MChi0(j) * bsll_D0reg(MChi0(i), MChi0(j), sqrt(mym_sd_sq(a)), sqrt(mym_se_sq(3 + lep_pair))) * myN(j, 0).conjugate() * myN(i, 0));
+            }
+        }
+    }
+    Z_neutralino_box *= MW * MW / (gW * gW * myCKM(2, 1).conjugate() * myCKM(2, 2));
+
+
+    //    std::cout << "Z_chargedHiggs = " << Z_chargedHiggs << ", " << "Z_chargino = " << Z_chargino << ", " << "Z_neutralino = " << Z_neutralino << ", " << "Z_gluino = " << Z_gluino << ", " << "Z_neutralino_box = " << Z_neutralino_box << std::endl;
+
+    return Z_chargedHiggs + Z_chargino + Z_neutralino + Z_gluino + Z_neutralino_box;
+}
+
+gslpp::complex SUSYMatching::bsll_DeltaC9_SUSY(int lep_pair)
+{
+
+    double sw2 = sinthetaW*sinthetaW;
+    return bsll_Y_SUSY(lep_pair) / sw2 - 4. * bsll_Z_SUSY(lep_pair);
+}
+
+gslpp::complex SUSYMatching::bsll_DeltaC10_SUSY(int lep_pair)
+{
+
+    double sw2 = sinthetaW*sinthetaW;
+    return -bsll_Y_SUSY(lep_pair) / sw2;
+}
+
+
+/* b->sll ENDS HERE */
 
 /* LEPTON FLAVOUR */
 
@@ -6095,7 +6731,7 @@ gslpp::vector<gslpp::complex> SUSYMatching::gminus2mu() {
     //     write R and L contributions to the muon g-2 into a vector
     gminus2mu.assign(0, g2ARN + g2ARC );    //g-2_muR
     gminus2mu.assign(1, g2ALN + g2ALC );    //g-2_muL
-    
+
 //    std::cout<<"g2AN="<<g2ARN+g2ALN <<std::endl;
 //    std::cout<<"g2AC="<<g2ARC+g2ALC <<std::endl;
 

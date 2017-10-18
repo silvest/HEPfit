@@ -85,6 +85,14 @@ public:
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMbsg();
+    
+    /** 
+     * 
+     * @brief operator basis: current current; qcd penguins; 
+     * magnetic and chromomagnetic penguins; semileptonic 
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMBMll(QCD::lepton lepton);
 
     /**
      *
@@ -225,8 +233,8 @@ public:
      * @return returns the vector of \f$ C_{T} \f$ and \f$ C_{T5} \f$ Wilson coefficients
      */
     virtual gslpp::vector<gslpp::complex> CT_Lepton(int n);
-
     
+
 //    /**
 //     * 
 //     * @brief current-current oerators, Misiak basis
@@ -312,7 +320,7 @@ private:
                       mcdd2HpT, mcdd2ggT, mcdd2ChiChiT, mcdd2Chi0Chi0T, mcdd2Chi0gT;
     WilsonCoefficient mcDLij,mcDLi3j,mcmueconv,mcgminus2mu;
 
-    WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
+    WilsonCoefficient mcbsg, mcBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
     std::vector<WilsonCoefficient> vmdbd2;                           
     std::vector<WilsonCoefficient> vmdbs2;
@@ -457,13 +465,14 @@ private:
     double mu2R;
     double Als;
     double Mg;
+    double MHpm;
     double tanb;
     double sinb;
     double cosb;
     double v;
     double v1;
     double v2;
-    double gW;
+    double gW,mW,sinthetaW;
     
     
     /** Passarino Veltman functions, Dk with k = 0,2 , and their limits **/
@@ -478,6 +487,32 @@ private:
     double DLLp(double a, double b, int k);
     double DLLL(double a, int k);
     
+    
+    /* Loop functions for bsll */    
+    
+    double bsll_f1(double x);
+    double bsll_f2(double x);
+    double bsll_f3(double x);
+    double bsll_f4(double x);
+    double bsll_f5(double x);
+    double bsll_f6(double x);
+    double bsll_f7(double x);
+    double bsll_f8(double x);
+    double bsll_C0(double m1, double m2, double m3);
+    double bsll_C2(double m1, double m2, double m3, double mu2);
+    double bsll_D0reg(double m1, double m2, double m3, double m4);
+    double bsll_D2reg(double m1, double m2, double m3, double m4);
+    gslpp::complex bsll_DeltaC7_SUSY();
+    gslpp::complex bsll_Y_SUSY(int lep_pair); // lep_pair = 0 --> b to s e+e-, lep_pair = 1 --> b to s mu+mu-, lep_pair = 2 --> b to s tau+tau-
+    gslpp::complex bsll_Z_SUSY(int lep_pair); // lep_pair = 0 --> b to s e+e-, lep_pair = 1 --> b to s mu+mu-, lep_pair = 2 --> b to s tau+tau-
+    gslpp::complex bsll_DeltaC9_SUSY(int lep_pair);
+    gslpp::complex bsll_DeltaC10_SUSY(int lep_pair);
+
+    gslpp::matrix<gslpp::complex> gamULCKM,gamURCKM,gamULCKMMD,gamURCKMMU,gamDLMD,gamDRMD;
+    gslpp::matrix<gslpp::complex> gamULgamULdag,gamDRgamDRdag;
+    gslpp::matrix<gslpp::complex> upQmassM,downQmassM;
+    
+    gslpp::complex XUL[6][3][2],XUR[6][3][2],ZDL[6][3][4],ZDR[6][3][4];
     
     /** Computation of Charged Higgs contributions **/
     gslpp::vector<gslpp::complex> CdF2dHp(int b, int q, int Dmixingflag);

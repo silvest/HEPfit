@@ -384,7 +384,8 @@ double SUSY::getMGl() const
 
 double SUSY::Mw() const
 {
-    return myEWSUSY->Mw_MSSM();
+    return StandardModel::Mw();
+    //return myEWSUSY->Mw_MSSM();
 }
 
 double SUSY::Mw_dRho() const
