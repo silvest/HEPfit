@@ -18,7 +18,7 @@ const std::string LeftRightSymmetricModel::LeftRightSymmetricModelvars[NLeftRigh
                          "Q_LRSM"};
 
 LeftRightSymmetricModel::LeftRightSymmetricModel() : StandardModel(),
-                U(5,5,0.), LRSMM(*this)
+U(5, 5, 0.), LRSMM(*this)
 {
     SMM.setObj((StandardModelMatching&) LRSMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH1p_2", boost::cref(mH1p_2)));
@@ -79,14 +79,10 @@ bool LeftRightSymmetricModel::PreUpdate()
 bool LeftRightSymmetricModel::Update(const std::map<std::string, double>& DPars) {
 
     if(!PreUpdate()) return (false);
-
     UpdateError = false;
-
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
-
     if (UpdateError) return (false);
-
     if(!PostUpdate()) return (false);
 
     return (true);
@@ -97,106 +93,73 @@ bool LeftRightSymmetricModel::PostUpdate()
     if(!StandardModel::PostUpdate()) return (false);
     if(!myLRSMquantities->CalcNeutralMasses(U,mH0sq)) return (false);
     if(!myLRSMquantities->CalcNeutralMasses_app(mH0sq_app)) return (false);
-
-//    myTHDMcache->updateCache();
+    
+    LRSMM.getObj().updateLeftRightSymmetricModelParameters();
 
     return (true);
 }
 
-void LeftRightSymmetricModel::setParameter(const std::string name, const double& value){
+void LeftRightSymmetricModel::setParameter(const std::string name, const double& value)
+{
 
-    if(name.compare("mH1p_2") == 0)
-    {
-        mH1p_2 = value;
-        if(mH1p_2 < 0.)
-        {
-            throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mH1p_2 < 0!");
-        }
-    }
-    else if(name.compare("mH2p_2") == 0)
-    {
-        mH2p_2 = value;
-        if(mH2p_2 < 0.)
-        {
-            throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mH2p_2 < 0!");
-        }
-    }
-    else if(name.compare("mdeltappR_2") == 0)
-    {
-        mdeltappR_2 = value;
-        if(mdeltappR_2 < 0.)
-        {
-            throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mdeltappR_2 < 0!");
-        }
-    }
-    else if(name.compare("xi_LRSM") == 0)
-    {
-        xi_LRSM = value;
-        if(xi_LRSM < 0.)
-        {
-            throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, xi_LRSM < 0!");
-        }
-        else if(xi_LRSM >= 1.)
-        {
-            throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, xi_LRSM >= 1!");
-        }
-    }
-    else if(name.compare("mWR") == 0)
-    {
-        mWR = value;
-        if(mWR < 0.)
-        {
-            throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mWR < 0!");
-        }
-    }
-    else if(name.compare("lambda1_LRSM") == 0)
+    if (name.compare("mH1p_2") == 0) {
+        if (mH1p_2 >= 0.) mH1p_2 = value;
+        else throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mH1p_2 < 0!");
+    } else if (name.compare("mH2p_2") == 0) {
+        if (mH2p_2 >= 0.) mH2p_2 = value;
+        else throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mH2p_2 < 0!");
+    } else if (name.compare("mdeltappR_2") == 0) {
+        if (mdeltappR_2 >= 0.) mdeltappR_2 = value;
+        else throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mdeltappR_2 < 0!");
+    } else if (name.compare("xi_LRSM") == 0) {
+        if (xi_LRSM >= 0. && xi_LRSM < 1.) xi_LRSM = value;
+        else throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, xi_LRSM < 0!");
+    } else if (name.compare("mWR") == 0) {
+        if (mWR >= 0.) mWR = value;
+        else throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, mWR < 0!");
+    } else if (name.compare("lambda1_LRSM") == 0)
         lambda1_LRSM = value;
-    else if(name.compare("lambda2_LRSM") == 0)
+    else if (name.compare("lambda2_LRSM") == 0)
         lambda2_LRSM = value;
-    else if(name.compare("lambda3_LRSM") == 0)
+    else if (name.compare("lambda3_LRSM") == 0)
         lambda3_LRSM = value;
-    else if(name.compare("lambda4_LRSM") == 0)
+    else if (name.compare("lambda4_LRSM") == 0)
         lambda4_LRSM = value;
-    else if(name.compare("rho1_LRSM") == 0)
+    else if (name.compare("rho1_LRSM") == 0)
         rho1_LRSM = value;
-    else if(name.compare("rho4_LRSM") == 0)
+    else if (name.compare("rho4_LRSM") == 0)
         rho4_LRSM = value;
-    else if(name.compare("alpha1_LRSM") == 0)
+    else if (name.compare("alpha1_LRSM") == 0)
         alpha1_LRSM = value;
-    else if(name.compare("alpha2_LRSM") == 0)
+    else if (name.compare("alpha2_LRSM") == 0)
         alpha2_LRSM = value;
-    else if(name.compare("alpha_LRSM") == 0)
+    else if (name.compare("alpha_LRSM") == 0)
         alpha_LRSM = value;
-    else if(name.compare("delta2_LRSM") == 0)
+    else if (name.compare("delta2_LRSM") == 0)
         delta2_LRSM = value;
-    else if(name.compare("thetaR12_LRSM") == 0)
+    else if (name.compare("thetaR12_LRSM") == 0)
         thetaR12_LRSM = value;
-    else if(name.compare("thetaR13_LRSM") == 0)
+    else if (name.compare("thetaR13_LRSM") == 0)
         thetaR13_LRSM = value;
-    else if(name.compare("thetaR23_LRSM") == 0)
+    else if (name.compare("thetaR23_LRSM") == 0)
         thetaR23_LRSM = value;
-    else if(name.compare("phiR1_LRSM") == 0)
+    else if (name.compare("phiR1_LRSM") == 0)
         phiR1_LRSM = value;
-    else if(name.compare("phiR2_LRSM") == 0)
+    else if (name.compare("phiR2_LRSM") == 0)
         phiR2_LRSM = value;
-    else if(name.compare("phiR3_LRSM") == 0)
+    else if (name.compare("phiR3_LRSM") == 0)
         phiR3_LRSM = value;
-    else if(name.compare("phiR4_LRSM") == 0)
+    else if (name.compare("phiR4_LRSM") == 0)
         phiR4_LRSM = value;
-    else if(name.compare("phiR5_LRSM") == 0)
+    else if (name.compare("phiR5_LRSM") == 0)
         phiR5_LRSM = value;
-    else if(name.compare("phiR6_LRSM") == 0)
+    else if (name.compare("phiR6_LRSM") == 0)
         phiR6_LRSM = value;
-    else if(name.compare("Q_LRSM") == 0)
-    {
-        Q_LRSM = value;
-        if(Q_LRSM < 0.)
-        {
-            throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, Q_LRSM < 0!");
-        }
-    }
-    else
-        StandardModel::setParameter(name,value);
+    else if (name.compare("Q_LRSM") == 0) {
+        if (Q_LRSM >= 0.) Q_LRSM = value;
+        else throw std::runtime_error("error in LeftRightSymmetricModel::SetParameter, Q_LRSM < 0!");
+    } else
+        StandardModel::setParameter(name, value);
 }
 
 bool LeftRightSymmetricModel::CheckParameters(const std::map<std::string, double>& DPars) 

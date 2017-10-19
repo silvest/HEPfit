@@ -33,8 +33,11 @@ public:
     
     void updateLeftRightSymmetricModelParameters();
 
-    gslpp::complex setWCbsg (int i, double mu, orders order);
+    gslpp::complex setWCbsgWR(int i, orders order);
+    gslpp::complex setWCbsgHp(int i, orders order);
 
+    void setCMbsgWR();
+    
     virtual std::vector<WilsonCoefficient>& CMbsg();
     
     std::vector<WilsonCoefficient>& CMprimebsg();
