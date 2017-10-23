@@ -2141,13 +2141,12 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
 {
     double m_t = mtpole;
     //doulbe m_t = quarks[TOP].getMass();
-    //double m_b = quarks[BOTTOM].getMass();
+    double m_b = quarks[BOTTOM].getMass();
 
-    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    //gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
-
-    /* L_eff = G_eff_t_SM*hGG */
+    /* L_eff_SM = (G_eff_t_SM + G_eff_b_SM)*hGG */
     gslpp::complex G_eff_t_SM = AlsMz / 16.0 / M_PI / v() * AH_f(4.0 * m_t * m_t / mHl / mHl);
+    gslpp::complex G_eff_b_SM = AlsMz / 16.0 / M_PI / v() * AH_f(4.0 * m_b * m_b / mHl / mHl);
+    gslpp::complex G_eff_SM = G_eff_t_SM + G_eff_b_SM;
 
     //double sigma_tt_SM = trueSM.computeSigmaggH_tt(sqrt_s);
     //double sigma_bb_SM = trueSM.computeSigmaggH_bb(sqrt_s);
@@ -2156,14 +2155,19 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     //        + 2.0 * dKappa_b * sigma_bb_SM
     //        + (dKappa_t + dKappa_b) * sigma_tb_SM)
     //        / (sigma_tt_SM + sigma_bb_SM + sigma_tb_SM);
-
-    gslpp::complex tmp = CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
     
-    double mu = (1.0 + 2.0 * ( dKappa_t.real() + tmp.real() ) );
+    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+
+    gslpp::complex tmpHG = CHG / v() * v2_over_LambdaNP2 / G_eff_SM;
+    gslpp::complex tmpt = G_eff_t_SM * dKappa_t / G_eff_SM;
+    gslpp::complex tmpb = G_eff_b_SM * dKappa_b / G_eff_SM;
+    
+    double mu = (1.0 + 2.0 * ( tmpt.real() + tmpb.real() + tmpHG.real() ) );
     
     if (FlagQuadraticTerms) {
             //Add contributions that are quadratic in the effective coefficients
-        gslpp::complex tmp2 = dKappa_t + tmp;
+        gslpp::complex tmp2 = tmpt +tmpb + tmpHG;
         
         mu += tmp2.abs2();
         
