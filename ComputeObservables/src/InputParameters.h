@@ -486,10 +486,10 @@ private:
         DPars_IN["Q_THDM"] = 1.96;
         DPars_IN["Rpeps"] = 0.01;
         DPars_IN["NLOuniscale"] = 2.;
-        DPars_IN["modelTypeflag"] = "type2";
-        DPars_IN["RGEorder"] = "approxNLO";
-        DPars_IN["flag_use_sq_masses"] = true;
-        DPars_IN["flag_wfr"] = false;
+        //DPars_IN["modelTypeflag"] = "type2";
+        //DPars_IN["RGEorder"] = "approxNLO";
+        //DPars_IN["flag_use_sq_masses"] = true;
+        //DPars_IN["flag_wfr"] = false;
 
         return (DPars_IN);
     };

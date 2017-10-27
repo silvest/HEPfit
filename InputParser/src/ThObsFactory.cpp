@@ -619,6 +619,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mu_VBF_Vh_htotautau"] = boost::factory<VBF_Vh_htotautau*>();
     obsThFactory["mu_VBF_Vh_htoZZ"] = boost::factory<VBF_Vh_htoZZ*>();
     obsThFactory["mu_VBF_Vh_htogaga"] = boost::factory<VBF_Vh_htogaga*>();
+    obsThFactory["mu_VBF_Vh_htogg"] = boost::factory<VBF_Vh_htogg*>();
+    obsThFactory["mu_VBF_Vh_htocc"] = boost::factory<VBF_Vh_htocc*>();
     obsThFactory["mu_ggF_htobb"] = boost::factory<ggF_htobb*>();
     obsThFactory["mu_ggF_htoWW"] = boost::factory<ggF_htoWW*>();
     obsThFactory["mu_ggF_htotautau"] = boost::factory<ggF_htotautau*>();

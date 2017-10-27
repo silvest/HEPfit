@@ -7519,6 +7519,8 @@ void THDMcache::computeSignalStrengthQuantities()
     THDM_BR_h_tautau = rh_ll*BrSM_htotautau/sumModBRs;
     THDM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
     THDM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
+    THDM_BR_h_gg = rh_gg*BrSM_htogg/sumModBRs;
+    THDM_BR_h_cc = rh_QuQu*BrSM_htocc/sumModBRs;
 }
 
 void THDMcache::computeHHquantities()

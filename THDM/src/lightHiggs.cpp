@@ -208,6 +208,28 @@ double VBF_Vh_htogaga::computeThValue()
 
 
 
+VBF_Vh_htogg::VBF_Vh_htogg(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double VBF_Vh_htogg::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->VBF_Vh*myTHDM.getMyTHDMCache()->rh_gg/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
+VBF_Vh_htocc::VBF_Vh_htocc(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
+{}
+
+double VBF_Vh_htocc::computeThValue()
+{
+    return myTHDM.getMyTHDMCache()->VBF_Vh*myTHDM.getMyTHDMCache()->rh_QuQu/myTHDM.getMyTHDMCache()->sumModBRs;
+}
+
+
+
 ggF_htobb::ggF_htobb(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDM(static_cast<const THDM&> (SM_i))
 {}

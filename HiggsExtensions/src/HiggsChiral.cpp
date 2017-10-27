@@ -454,7 +454,7 @@ double HiggsChiral::computecg() const
                      +cb * 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)) 
                      +cc * 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))
                      +cg * 0.5 ).abs2();
-    
+
     cgEff = cgEff / ( ( 0.5*TAUt*(1.0+(1.0-TAUt)*f_func(TAUt))
                      + 0.5*TAUb*(1.0+(1.0-TAUb)*f_func(TAUb))
                      + 0.5*TAUc*(1.0+(1.0-TAUc)*f_func(TAUc)) ) * (1.0+11.0*AlsMz/(4.0*M_PI))).abs2();
@@ -498,7 +498,7 @@ double HiggsChiral::computecZga() const
                       +cmu * 2.0*(-0.5+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)) )/sqrt(sW2*cW2)
                      -cv * sqrt(cW2/sW2)*(4.0*(3.0-sW2/cW2)*Int2(TAUw,LAMw)
                             +((1.0+2.0/TAUw)*sW2/cW2-(5.0+2.0/TAUw))*Int1(TAUw,LAMw))
-                     +cZga).abs2(); /*CHANGE THE cZga COEFFICIENT!*/
+                     +cZga).abs2();
     
     cZgaEff = cZgaEff / ((-4.0*(0.5-4.0/3.0*sW2)*(Int1(TAUt,LAMt)-Int2(TAUt,LAMt)) * (1.0-AlsMz/M_PI)
                       + 2.0*(-0.5+2.0/3.0*sW2)*(Int1(TAUb,LAMb)-Int2(TAUb,LAMb))

@@ -2008,6 +2008,18 @@ public:
     double THDM_BR_h_ZZ;
 
     /**
+     * @brief @f$h@f$ branching ratio to two gluons in the %THDM.
+     * @return @f$BR^{\text{THDM}}(h\to gg)@f$
+     */
+    double THDM_BR_h_gg;
+
+    /**
+     * @brief @f$h@f$ branching ratio to two @f$c@f$ quarks in the %THDM.
+     * @return @f$BR^{\text{THDM}}(h\to c\bar c)@f$
+     */
+    double THDM_BR_h_cc;
+
+    /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
      */

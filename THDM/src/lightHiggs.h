@@ -289,7 +289,7 @@ private:
 /**
  * @class VBF_Vh_htobb
  * @ingroup THDM
- * @brief Signal strength of a VBF or Vh produced h decaying to two b quarks.
+ * @brief Signal strength of a VBF or Vh produced h decaying to two @f$b@f$ quarks.
  */
 class VBF_Vh_htobb : public ThObservable {
 public:
@@ -385,6 +385,48 @@ public:
     
     /**
      * @return @f$\mu_{\text VBF+Vh}(h\to \gamma\gamma)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class VBF_Vh_htogg
+ * @ingroup THDM
+ * @brief Signal strength of a VBF or Vh produced h decaying to two gluons.
+ */
+class VBF_Vh_htogg : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    VBF_Vh_htogg(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text VBF+Vh}(h\to gg)@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class VBF_Vh_htocc
+ * @ingroup THDM
+ * @brief Signal strength of a VBF or Vh produced h decaying to two @f$c@f$ quarks.
+ */
+class VBF_Vh_htocc : public ThObservable {
+public:
+    
+    /**
+     * @brief Constructor.
+     */
+    VBF_Vh_htocc(const StandardModel& SM_i);
+    
+    /**
+     * @return @f$\mu_{\text VBF+Vh}(h\to c\bar c)@f$
      */
     double computeThValue();
 private:

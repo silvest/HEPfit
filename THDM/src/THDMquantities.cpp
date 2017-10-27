@@ -168,7 +168,7 @@ double m11_2::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return (-(cosa*cosa*mHh2) - mHl2*sina*sina + 2*m12_2*tanb + cosa*(mHl2 - mHh2)*sina*tanb)/2.;
+    return (-(cosa*cosa*mHh2) - mHl2*sina*sina + 2.0*m12_2*tanb + cosa*(mHl2 - mHh2)*sina*tanb)/2.;
 }
 
 
@@ -243,7 +243,7 @@ double lambda3::computeThValue()
     double cosa=myTHDM->getcosa();
     double m12_2=myTHDM->getm12_2();
 
-    return ((mHh2-mHl2)*cosa*sina+2*mHp2*sinb*cosb-m12_2)/(vev*vev*sinb*cosb);
+    return ((mHh2-mHl2)*cosa*sina+2.0*mHp2*sinb*cosb-m12_2)/(vev*vev*sinb*cosb);
 }
 
 
@@ -260,7 +260,7 @@ double lambda4::computeThValue()
     double cosb=myTHDM->getcosb();
     double m12_2=myTHDM->getm12_2();
 
-    return ((mA2-2*mHp2)*sinb*cosb+m12_2)/(vev*vev*sinb*cosb);
+    return ((mA2-2.0*mHp2)*sinb*cosb+m12_2)/(vev*vev*sinb*cosb);
 }
 
 

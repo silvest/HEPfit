@@ -596,7 +596,6 @@ void THDMWcache::computeSignalStrengthQuantities()
     double ABSZgaSM=0.0;
 
     if( THDMWmodel == "custodial1" ) {
-        rh_gg=cosa/sinb*cosa/sinb;
         rh_QdQd=cosa/sinb*cosa/sinb;
         rh_ll=cosa/sinb*cosa/sinb;
         ghHpHm = vev*vev/mAsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
@@ -609,14 +608,25 @@ void THDMWcache::computeSignalStrengthQuantities()
         throw std::runtime_error("THDMWmodel can be only \"custodial1\"");
     }
 
+    double ch_p=0.0;
+    double ch_r=0.0;
+    gslpp::complex I_h_Sp = 1.5*ch_p*(3.0*I_H_Hp(mSpsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+    gslpp::complex I_h_SR = 1.5*ch_r*(3.0*I_H_Hp(mSRsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+    gslpp::complex I_h_SI = 1.5*ch_p*(3.0*I_H_Hp(mSIsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+    double ABSggTHDMW=(9.0/32.0*I_h_F+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
+    double ABSggSM=(9.0/32.0*(fermU+fermD)).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
+    rh_gg=cosa/sinb*cosa/sinb;
+
     gslpp::complex I_h_Hp = 16.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
     gslpp::complex A_h_Hp = 16.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
+    gslpp::complex I_h_S = 0.0;
+    gslpp::complex A_h_S = 0.0;
 
-    ABSgagaTHDMW=(I_h_F+I_h_W+I_h_Hp).abs2();
+    ABSgagaTHDMW=(I_h_F+I_h_W+I_h_Hp+I_h_S).abs2();
     ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
     rh_gaga=ABSgagaTHDMW/ABSgagaSM;
 //
-    ABSZgaTHDMW=(A_h_F+A_h_W+A_h_Hp).abs2();
+    ABSZgaTHDMW=(A_h_F+A_h_W+A_h_Hp+A_h_S).abs2();
     ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
     rh_Zga=ABSZgaTHDMW/ABSZgaSM;
 
