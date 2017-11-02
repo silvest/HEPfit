@@ -66,7 +66,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcDLi3j(20, NDR, LO),
     mcmueconv(8, NDR, LO),
     mcgminus2mu(2, NDR, LO),
-    mcbsg(8, NDR, NLO),
+    mcbsg(8, NDR, NNLO),
     mcBMll(13, NDR, NLO),
     mcbnlep(10, NDR, NLO, NLO_ew),
     mcbnlepCC(10, NDR, NLO),
