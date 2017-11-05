@@ -13,6 +13,8 @@
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
 
+#define NBINSMODELPARS 100
+
 /**
  * @addtogroup MonteCarlo
  * @brief A module for Markov Chain Monte Carlo based on
@@ -175,8 +177,10 @@ private:
     bool PrintTrianglePlot; ///< Flag for printing the triangle plot.
     bool WritePreRunData; ///< Flag for printing the overview parameter plots.
     bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
+    bool writechains; ///< Flag for writing the chains of paramters and observables during the MCMC run.
     
-    void ReadPreRunData (std::string file);
+    void ParseMCMCConfig(std::string file);
+    void ReadPreRunData(std::string file);
 };
 
 /** 

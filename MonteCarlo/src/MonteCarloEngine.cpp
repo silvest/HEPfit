@@ -44,6 +44,8 @@ MonteCarloEngine::MonteCarloEngine(
     noLegend = false;
     alpha2D = 1.;
     kchainedObs = 0;
+    nBins1D = NBINS1D;
+    nBins2D = NBINS2D;
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -61,7 +63,7 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
     int k = 0, kweight = 0;
     
     if (rank == 0) {
-        TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", NBINS1D, 1., -1.);
+        TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", nBins1D, 1., -1.);
         lhisto->GetXaxis()->SetTitle("LogLikelihood");
         BCH1D bclhisto = BCH1D(lhisto);
         Histo1D["LogLikelihood"] = bclhisto;
@@ -77,7 +79,7 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
         thMin[it->getName()] = std::numeric_limits<double>::max();
         thMax[it->getName()] = -std::numeric_limits<double>::max();
         if (rank == 0 && Histo1D.find(HistName) == Histo1D.end()) {
-            TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(), NBINS1D, it->getMin(), it->getMax());
+            TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(), nBins1D, it->getMin(), it->getMax());
             histo->GetXaxis()->SetTitle(it->getLabel().c_str());
             BCH1D bchisto = BCH1D(histo);
             Histo1D[HistName] = bchisto;
@@ -93,8 +95,8 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
         if (rank == 0 && Histo2D.find(HistName) == Histo2D.end()) {
             TH2D * histo2 = new TH2D(HistName.c_str(),
                     (it->getLabel() + " vs " + it->getLabel2()).c_str(),
-                    NBINS2D, it->getMin(), it->getMax(),
-                    NBINS2D, it->getMin2(), it->getMax2());
+                    nBins2D, it->getMin(), it->getMax(),
+                    nBins2D, it->getMin2(), it->getMax2());
             histo2->GetXaxis()->SetTitle(it->getLabel().c_str());
             histo2->GetYaxis()->SetTitle(it->getLabel2().c_str());
             BCH2D bchisto2 = BCH2D(histo2);
@@ -118,7 +120,7 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
             thMax[HistName] = -std::numeric_limits<double>::max();
             if (rank == 0 && Histo1D.find(HistName) == Histo1D.end()) {
                 TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(),
-                        NBINS1D, it->getMin(), it->getMax());
+                        nBins1D, it->getMin(), it->getMax());
                 histo->GetXaxis()->SetTitle(it->getLabel().c_str());
                 BCH1D bchisto = BCH1D(histo);
                 Histo1D[HistName] = bchisto;
@@ -547,10 +549,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 void MonteCarloEngine::CheckHistogram(TH1& hist, const std::string name) {
     // output the portions of underflow and overflow bins
     double UnderFlowContent = hist.GetBinContent(0);
-    double OverFlowContent = hist.GetBinContent(NBINS1D + 1);
+    double OverFlowContent = hist.GetBinContent(nBins1D + 1);
     double Integral = hist.Integral();
     double TotalContent = 0.0;
-    for (int n = 0; n <= NBINS1D + 1; n++)
+    for (int n = 0; n <= nBins1D + 1; n++)
         TotalContent += hist.GetBinContent(n);
     HistoLog << name << ": "
             << Integral / TotalContent * 100. << "% within the range, "
@@ -562,8 +564,8 @@ void MonteCarloEngine::CheckHistogram(TH1& hist, const std::string name) {
 void MonteCarloEngine::CheckHistogram(TH2& hist, const std::string name) {
     double Integral = hist.Integral();
     double TotalContent = 0.0;
-    for (int m = 0; m <= NBINS2D + 1; m++)
-        for (int n = 0; n <= NBINS2D + 1; n++)
+    for (int m = 0; m <= nBins2D + 1; m++)
+        for (int n = 0; n <= nBins2D + 1; n++)
             TotalContent += hist.GetBinContent(m, n);
     HistoLog << name << ": "
             << Integral / TotalContent * 100. << "% within the ranges"

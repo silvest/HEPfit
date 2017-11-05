@@ -26,7 +26,6 @@
 #include <sstream>
 #include <boost/ptr_container/ptr_vector.hpp>
 
-#define NBINSMODELPARS 100
 #define NBINS1D 100
 #define NBINS2D 100
 #define NSTEPS 1e5
@@ -336,6 +335,24 @@ public:
         histogram2Dtype = type;
     };
     
+    /**
+     * @brief A set method to set the number of bins for a 1D histograms
+     * @param[in] nbins the number of bins in the 1D histogram
+     */
+    void setNBins1D(unsigned int nbins)
+    {
+        nBins1D = nbins;
+    };
+    
+    /**
+     * @brief A set method to set the number of bins for a 2D histograms
+     * @param[in] nbins the number of bins in the 2D histogram
+     */
+    void setNBins2D(unsigned int nbins)
+    {
+        nBins2D = nbins;
+    };
+    
 private:
     
     /**
@@ -382,6 +399,8 @@ private:
     double alpha2D;///< A number between 0. and 1. that sets the opacity level of 2D Histograms, 1. being fully opaque.
     int gIdx;
     int rIdx;
+    unsigned int nBins1D; ///< The number of bins in a 1D histogram.
+    unsigned int nBins2D; ///< The number of bins in a 2D histogram.
     TColor * HEPfit_green;
     TColor * HEPfit_red;
 };
