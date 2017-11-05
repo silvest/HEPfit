@@ -552,7 +552,7 @@ void MonteCarloEngine::CheckHistogram(TH1& hist, const std::string name) {
     double OverFlowContent = hist.GetBinContent(nBins1D + 1);
     double Integral = hist.Integral();
     double TotalContent = 0.0;
-    for (int n = 0; n <= nBins1D + 1; n++)
+    for (unsigned int n = 0; n <= nBins1D + 1; n++)
         TotalContent += hist.GetBinContent(n);
     HistoLog << name << ": "
             << Integral / TotalContent * 100. << "% within the range, "
@@ -565,7 +565,7 @@ void MonteCarloEngine::CheckHistogram(TH2& hist, const std::string name) {
     double Integral = hist.Integral();
     double TotalContent = 0.0;
     for (int m = 0; m <= nBins2D + 1; m++)
-        for (int n = 0; n <= nBins2D + 1; n++)
+        for (unsigned int n = 0; n <= nBins2D + 1; n++)
             TotalContent += hist.GetBinContent(m, n);
     HistoLog << name << ": "
             << Integral / TotalContent * 100. << "% within the ranges"
