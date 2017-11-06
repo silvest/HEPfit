@@ -56,6 +56,7 @@ int main(int argc, char** argv)
         //CO.RemoveObservable("AFBbottom");
         
         /* Set the flags for the model being used, if necessary.                         */
+        /* Flags should be initially set in the config files but can be changed here     */
         /* The flags have to correspond to the model specified in the model config file. */
         std::map<std::string, std::string> DFlags;
         // DFlags["FLAG"] = "TRUE";

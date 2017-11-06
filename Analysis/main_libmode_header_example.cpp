@@ -37,9 +37,14 @@ int main(int argc, char** argv)
         /* Create objects of the classes ModelFactory and ThObsFactory */
         ModelFactory ModelF;
         ThObsFactory ThObsF;
+        
+        /* Set the flags for the model being used, if necessary. */
+        std::map<std::string, std::string> DFlags;
+        DFlags["epsilon2SM"] = "TRUE";
+        DFlags["epsilonbSM"] = "TRUE";
 
         /* Create an object of the class ComputeObservables. */
-        ComputeObservables CO(ModelF, ThObsF, ModelName, DPars_IN);
+        ComputeObservables CO(ModelF, ThObsF, ModelName, DPars_IN, DFlags);
         
         /* Add the observables to be returned. */
         CO.AddObservable("Mw");
@@ -48,12 +53,6 @@ int main(int argc, char** argv)
         
         /* Remove a previously added observables if necessary. */
         //CO.RemoveObservable("AFBbottom");
-        
-        /* Set the flags for the model being used, if necessary. */
-        std::map<std::string, std::string> DFlags;
-        DFlags["epsilon2SM"] = "TRUE";
-        DFlags["epsilonbSM"] = "TRUE";
-        CO.setFlags(DFlags);
         
         /* Get the map of observables if necessary. */
         std::map<std::string, double> DObs = CO.getObservables();
