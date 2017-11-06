@@ -95,6 +95,7 @@ private:
         DPars_IN["melectron"] = 5.109989e-4;
         DPars_IN["mmu"] = 0.10565837;
         DPars_IN["mtau"] = 1.77682;
+        DPars_IN["delR0b"] = 1.77682;
         
         DPars_IN["MBd"] = 0.;
         DPars_IN["tBd"] = 0.;

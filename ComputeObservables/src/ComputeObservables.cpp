@@ -50,7 +50,8 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
 }
 
 ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObsF,
-        const std::string& ModelName_i, std::map<std::string, double> DPars_i, const int rank_i)
+        const std::string& ModelName_i, std::map<std::string, double> DPars_i, std::map<std::string, std::string> DFlags_i, 
+        const int rank_i)
 : ModelName(ModelName_i),
   myInputParser(ModelF, ThObsF),
   rank(rank_i)
@@ -66,6 +67,7 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     } else {
         throw std::runtime_error("\nERROR: " + ModelName + " not initialized successfully.\n");
     }
+    setFlags(DFlags_i);
     if (!Mod->Init(DPars_i))
         throw std::runtime_error("\nERROR: Model cannot be initialized initialization.\n");
     
@@ -104,7 +106,7 @@ std::map<std::string, double> ComputeObservables::compute(std::map<std::string, 
     if (DP != DPars)
         for (std::map<std::string, double>::iterator it = DP.begin(); it != DP.end(); it++) {
             if(!(std::find(paraNames.begin(), paraNames.end(), it->first) != paraNames.end()))
-                throw std::runtime_error("\nERROR: Incorrect parameter name passed to ComputeObservable");
+                throw std::runtime_error("\nERROR: Incorrect parameter name " + it->first + " passed to ComputeObservable");
         }
     DPars = DP;
     Mod->Update(DPars);

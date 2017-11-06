@@ -61,7 +61,7 @@ public:
      */
     ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObsF,
             const std::string& ModelName_i, std::map<std::string, double> DPars_i,
-            const int rank_i = 0);
+            std::map<std::string, std::string> DFlags_i, const int rank_i = 0);
 
     /**
      * @brief The default destructor.
