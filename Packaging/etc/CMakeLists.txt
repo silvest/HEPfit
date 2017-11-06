@@ -582,6 +582,9 @@ if(NOT NOMCMC)
   set(EXAMPLE_CXXFLAGS "-I${BAT_INCLUDE_PATH} ${EXAMPLE_CXXFLAGS}")
   set(EXAMPLE_LIBS "-L${BAT_LIB_PATH} -lBATmodels -lBAT ${EXAMPLE_LIBS}")
   set(EXAMPLE_RPATHS "-Wl,-rpath,${BAT_LIB_PATH} ${EXAMPLE_RPATHS}")
+  set(EXAMPLE_NOMCMC_CXXFLAGS "${EXAMPLE_CXXFLAGS}")
+  set(EXAMPLE_NOMCMC_LIBS "${EXAMPLE_LIBS}")
+  set(EXAMPLE_NOMCMC_RPATHS "${EXAMPLE_RPATHS}")
 endif(NOT NOMCMC)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/LibMode_config/Makefile.in"
                "${CMAKE_CURRENT_BINARY_DIR}/examples/LibMode_config/Makefile" @ONLY)
@@ -591,6 +594,10 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/LibMode_header/Makefile
                "${CMAKE_CURRENT_BINARY_DIR}/examples/LibMode_header/Makefile" @ONLY)
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/LibMode_header/libmode_header.cpp"
                "${CMAKE_CURRENT_BINARY_DIR}/examples/LibMode_header/libmode_header.cpp" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/EventGeneration/EventGeneration.cpp"
+               "${CMAKE_CURRENT_BINARY_DIR}/examples/EventGeneration/EventGeneration.cpp" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/examples-src/EventGeneration/Makefile.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/examples/EventGeneration/Makefile" @ONLY)
 file(GLOB CONF_FILES ${CMAKE_CURRENT_SOURCE_DIR}/examples-src/config/*.conf)
 foreach(_confFile ${CONF_FILES})
   get_filename_component(_confFileName ${_confFile} NAME)

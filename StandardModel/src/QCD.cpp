@@ -261,7 +261,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(mesons[K_star].getGegenalpha(0))));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(mesons[K_star].getGegenalpha(1))));
 
-    unknownParameterWarning = true;
+    unknownParameterWarning = false;
 }
 
 std::string QCD::orderToString(const orders order) const
