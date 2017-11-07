@@ -350,6 +350,21 @@ public:
      * @return @f$R_f^0@f$, including SM plus NP contributions
      */
     virtual double R0_f(const Particle f) const;
+    
+    /**
+     * @brief The new physics contribution to the ratio of invisible and leptonic (electron) decay widths of the @f$Z@f$ boson, @f$\delta R_{inv}@f$.
+     * @return @f$\delta R_{inv}@f$
+     */
+    virtual double deltaR_inv() const;
+
+    /**
+     * @brief The ratio of the invisible and leptonic (electron) decay widths of the @f$Z@f$ boson, @f$R_{inv}@f$.
+     * @return @f$R_{inv}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double R_inv() const;
 
     ////////////////////////////////////////////////////////////////////////
 

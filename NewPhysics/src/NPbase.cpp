@@ -347,3 +347,52 @@ double NPbase::R0_f(const Particle f) const
 {
     return (trueSM.R0_f(f) + deltaR0_f(f));
 }
+
+double NPbase::deltaR_inv() const
+{
+    double dR_inv = 0., delGVe = 0., delGAe = 0., deltaGe = 0., Ge = 0.;
+    bool nonZeroNP = false;
+
+    delGVe = deltaGV_f(leptons[ELECTRON]);
+    delGAe = deltaGA_f(leptons[ELECTRON]);
+    if (delGVe != 0.0 || delGAe != 0.0) nonZeroNP = true;
+
+    double delGVnu[3], delGAnu[3];
+    for (int p = 0; p < 3; ++p) {
+        delGVnu[p] = deltaGV_f(leptons[2*p]);
+        delGAnu[p] = deltaGA_f(leptons[2*p]);
+        if (delGVnu[p] != 0.0 || delGAnu[p] != 0.0 ) nonZeroNP = true;
+    }
+
+    if (nonZeroNP) {
+
+        double gVe = trueSM.gV_f(leptons[ELECTRON]).real();
+        double gAe = trueSM.gA_f(leptons[ELECTRON]).real();
+        Ge = gVe * gVe + gAe * gAe;
+        deltaGe = 2.0 * (gVe * delGVe + gAe * delGAe);
+
+        double Gnu[3], deltaGnu[3];
+        double gVnu, gAnu;
+        double Gnu_sum = 0.0, delGnu_sum = 0.0;
+        for (int p = 0; p < 3; ++p) {
+            gVnu = trueSM.gV_f(leptons[2*p]).real();
+            gAnu = trueSM.gA_f(leptons[2*p]).real();
+              
+
+            Gnu[p] = gVnu * gVnu + gAnu * gAnu;
+
+            deltaGnu[p] = 2.0 * (gVnu * delGVnu[p] + gAnu * delGAnu[p]);
+
+            Gnu_sum += Gnu[p];
+            delGnu_sum += deltaGnu[p];
+        }
+
+        dR_inv = delGnu_sum / Ge - Gnu_sum * deltaGe / Ge / Ge;
+    }
+    return dR_inv;
+}
+
+double NPbase::R_inv() const
+{
+    return ( (trueSM.Gamma_inv())/(trueSM.GammaZ(leptons[ELECTRON])) + deltaR_inv() );
+}

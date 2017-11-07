@@ -47,6 +47,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["AFBcharm"] = boost::factory<AFBcharm*>();
     obsThFactory["AFBbottom"] = boost::factory<AFBbottom*>();
     obsThFactory["Rlepton"] = boost::factory<Rlepton*>();
+    obsThFactory["Rinv"] = boost::factory<Rinv*>();
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
 

@@ -30,6 +30,7 @@
 #include "AFBcharm.h"
 #include "AFBbottom.h"
 #include "Rlepton.h"
+#include "Rinv.h"
 #include "Rcharm.h"
 #include "Rbottom.h"
 #include "Epsilon1.h"
