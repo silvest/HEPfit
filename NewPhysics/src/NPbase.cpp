@@ -394,5 +394,5 @@ double NPbase::deltaR_inv() const
 
 double NPbase::R_inv() const
 {
-    return ( (trueSM.Gamma_inv())/(trueSM.GammaZ(leptons[ELECTRON])) + deltaR_inv() );
+    return ( trueSM.R_inv() + deltaR_inv() );
 }

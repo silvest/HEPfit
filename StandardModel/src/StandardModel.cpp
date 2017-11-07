@@ -1150,6 +1150,12 @@ double StandardModel::R0_f(const Particle f) const
     } else throw std::runtime_error("StandardModel::R0_f called with wrong argument");
 }
 
+double StandardModel::R_inv() const
+{
+    return (Gamma_inv() / GammaZ(leptons[ELECTRON]));
+
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 

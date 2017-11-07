@@ -10,6 +10,6 @@
 
 double Rinv::computeThValue()
 {
-    return (SM.Gamma_inv())/(SM.GammaZ(SM.getLeptons(SM.ELECTRON)));
+    return SM.R_inv();
 }
 

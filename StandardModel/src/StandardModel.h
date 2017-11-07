@@ -1660,6 +1660,17 @@ public:
      * @return @f$R_\ell^0 @f$
      */
     virtual double R0_f(const Particle f) const;
+    
+    /**
+     * @brief @copybrief Rinv::computeThValue()
+     * @details @f$R_{inv}@f$ is calculated with
+     * @f[
+     * R_{inv} = \frac{\Gamma_{inv}}{\Gamma_e}\,.
+     * @f],
+     * @param[in] f a lepton or quark
+     * @return @f$R_{inv} @f$
+     */
+    virtual double R_inv() const;
 
 
     ////////////////////////////////////////////////////////////////////////
