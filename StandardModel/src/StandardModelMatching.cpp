@@ -3020,7 +3020,7 @@ WilsonCoefficient& StandardModelMatching::mc_Q()
                                                 1./sW2*(1./3.*B1d_tilde(xt,Muw) - 1./3.*B1u_tilde(xt,Muw) -
                                                         1./3.*Gew(xt,xz,Muw) +10.*B0b(xt) - 16./3.*C0b(xt))), NLO_QED21);
         case NLO_QED11:
-            mcQ.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))) + 4./9.*L, NLO_QED11); // log from Misiak's notes
+            mcQ.setCoeff(0, aletilde*(4.*C0b(xt) + D0b_tilde(xt) + 4./9.*L - 1./sW2*(10./3.*B0b(xt)-4./3.*C0b(xt))), NLO_QED11); // log from Misiak's notes
             mcQ.setCoeff(2, aletilde*(1./sW2*(5./6.*B0b(xt)-1./3.*C0b(xt))), NLO_QED11);
         case LO_QED:
             break;

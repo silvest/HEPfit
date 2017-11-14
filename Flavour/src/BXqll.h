@@ -56,6 +56,62 @@ public:
      */
     virtual ~BXqll();  
 
+    class Expanded {
+    public:
+        Expanded() {
+            lo = nlo = nnlo = 0.;
+        };
+        
+        Expanded(gslpp::complex x_LO, gslpp::complex x_NLO = 0., gslpp::complex x_NNLO = 0.) {
+            lo = x_LO;
+            nlo = x_NLO;
+            nnlo = x_NNLO;
+            };
+ 
+        Expanded operator*(const Expanded& z) const
+        {
+          return Expanded(lo * z.lo, lo * z.nlo + nlo * z.lo,
+                  nnlo * z.lo + nlo * z.nlo + lo * z.nnlo);
+        };
+
+        Expanded operator*(const double& x) const
+        {
+          return Expanded(lo * x, nlo * x, nnlo * x);
+        };
+
+        Expanded operator+(const Expanded& z) const
+        {
+          return Expanded(lo + z.lo, nlo + z.nlo, nnlo + z.nnlo);
+        };
+
+        Expanded operator-(const Expanded& z) const
+        {
+          return Expanded(lo - z.lo, nlo - z.nlo, nnlo - z.nnlo);
+        };
+
+        Expanded conjugate() const
+        {
+            return Expanded(lo.conjugate(), nlo.conjugate(), nnlo.conjugate());
+        };
+
+        Expanded real() const
+        {
+            return Expanded(lo.real(), nlo.real(), nnlo.real());
+        };
+
+        Expanded abs2() const
+        {
+            return Expanded(lo.abs2(), 2.* (lo * nlo.conjugate()).real(),
+                    nlo.abs2() + 2.* (lo * nnlo.conjugate()).real());
+        };
+        
+        friend Expanded operator*(const double& x1, const Expanded& z2) {
+            return(z2 * x1);
+        }
+        
+        gslpp::complex lo, nlo, nnlo;
+    };
+
     /**
     * @brief A method for initializing the parameters necessary for BXqll.
     * @return the vector of BXqll specific parameters
@@ -91,7 +147,7 @@ private:
     QCD::quark quark;/**< Initial meson type */
     double CF, GF, ale, alsmu, alsmuc, alstilde, aletilde, kappa;
     double Mlep, mu_b, mu_c, Mb, Mc, Mtau, Mb_pole, Mc_pole, Ms, MW;
-    double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl;
+    double abslambdat_over_Vcb, Vts_over_Vcb, z, muh, lambda_1, lambda_2, Lbl, phi1, phi2;
 
     std::vector<std::string> BXqllParameters;/**< The string of mandatory MVgamma parameters */
 
@@ -512,7 +568,7 @@ private:
     * @param[in] sh normalized dilepton invariant mass \f$q^2/m_b^2\f$
     * @param[in] order LO or NLO
     */
-    gslpp::matrix<gslpp::complex> matH_T(double sh, orders order);
+    std::vector< std::vector<Expanded> > matH_T(double sh);
     
     /**
     * @brief Matrix of auxiliary functions \f$H_{ij}^{L}\f$ from @cite Huber:2015sra
@@ -533,6 +589,11 @@ private:
     */
     double H_L (double sh);
 
+    /**
+    * @brief Normalization function for \f$B\to X_s\ell\ell\f$ from eq. (4.8) of 1503.04849
+    * @param[in] ord/ord_qed order to be returned
+    */
+    double Phi_u(orders ord);
+    double Phi_u(orders_qed ord_qed);
 };
-
 #endif	/* BXqLL_H */
