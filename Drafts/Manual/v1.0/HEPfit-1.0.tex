@@ -2349,26 +2349,26 @@ L+M+E, Ayan
 \label{sec:Installation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We give a brief description of the installation procedure here. The installation depends on the availability of \texttt{cmake} on the system. A description of cmake and the details of installing it can be found in \href{https://cmake.org/}{the cmake website}. Most package managers for linux distributions should have an package available for installation. For Mac users, it can be either installed from source or from a Unix port like \href{https://www.macports.org/}{Darwin ports} or \href{http://www.finkproject.org/}{Fink}. Below we outline further details. 
+We give a brief description of the installation procedure here. The installation depends on the availability of \texttt{cmake} on the system. A description of cmake and the details of installing it can be found in the \href{https://cmake.org/}{cmake website}. Most package managers for linux distributions should have a package available for installation. For Mac users, it can be either installed from source or from a Unix port like \href{https://www.macports.org/}{Darwin ports} or \href{http://www.finkproject.org/}{Fink}. Below we outline further details. 
 
 \subsection{Dependencies}
 
 \begin{itemize}
-\item {\bf GSL:}  The GNU Scientific Library (GSL) is a library for numerical computation. It can be found on the \href{http://www.gnu.org/software/gsl/}{GSL website}. Most linux package managers will have a stable version as will any ports for Mac. {\bf NOTE:} We do not support GSL v2.0 or greater. 
+\item {\bf GSL:}  The GNU Scientific Library (GSL) is a library for numerical computation. It can be found on the \href{http://www.gnu.org/software/gsl/}{GSL website}. Most linux package managers will have a stable version as will any ports for Mac. {\bf NOTE:} We have faced segmentation faults with GSL v2.0 or greater along with ROOT v6 or greater on certain Linux distributions.
 
-\item {\bf ROOT v5 or later:}  ROOT is an object oriented data analysis framework. You can obtain it from the \href{http://root.cern.ch/}{ROOT website}.
+\item {\bf ROOT v5 or greater:}  ROOT is an object oriented data analysis framework. You can obtain it from the \href{http://root.cern.ch/}{ROOT website}.
 
-\item {\bf BOOST:}  BOOST is a C++ library. You can obtain it from the \href{http://www.boost.org}{BOOST website} or from linux package managers or Mac ports. While we do not need the BOOST libraries, we do need the headers, so one should make sure the headers are installed and not the libraries only. 
+\item {\bf BOOST:}  BOOST is a C++ library. You can obtain it from the \href{http://www.boost.org}{BOOST website} or from linux package managers or Mac ports. While \HEPfit does not require the BOOST libraries, it does need the headers, so one should make sure the headers are installed and not the libraries only. 
 
-\item {\bf BAT v0.9.4 (not required for the Library mode):} Optionally, BAT (Bayesian Analysis Toolkit) can be obtained from 
+\item {\bf BAT v1.0 (not required for the Library mode):} Optionally, BAT (Bayesian Analysis Toolkit) can be obtained from 
     the \href{https://www.mppmu.mpg.de/bat/}{BAT website} for a Monte Carlo run. With the compilation 
     option \texttt{-DBAT\_INSTALL=ON} explained below, the \HEPfit installation package 
-    will download and install BAT. {\bf NOTE:} that at present \HEPfit is not
+    will download and install BAT. {\bf NOTE:} At present \HEPfit is not
     compatible with BAT compiled with the \texttt{--enable-parallelization} option. the parallelized version of BAT compatible with \HEPfit\ {\em must} be installed with the option \texttt{-DMPIBAT=ON}
 
-\item {\bf MPI:}    Optionally, HEPfit can be compiled with MPI for usage in parallel 
+\item {\bf MPI:}    Optionally, HEPfit can be compiled with MPI for usage in parallelized  
     clusters and processors supporting multi-threading. In this case,
-    the \HEPfit installer will patch and compile BAT with MPI support as described above. For this one needs a version of \href{https://www.open-mpi.org/}{openMPI} which is also available through package managers in Linux and ports on Mac.
+    the \HEPfit installer will patch and compile BAT with MPI support as described above. For this one needs \href{https://www.open-mpi.org/}{openMPI} which is also available through package managers in Linux and ports on Mac.
 \end{itemize}
 
 \subsection{Installation Procedure}
