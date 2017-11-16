@@ -13,6 +13,7 @@
 \usepackage{lmodern}
 \usepackage{lscape}
 \usepackage{xspace}
+\usepackage[title]{appendix}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -115,15 +116,16 @@
 %% \fntext[label3]{}
 
 \title{\HEPfit: a Code for the Combination of Indirect and Direct
-  Constraints\\ on High Energy Physics Models. \\
-  v1.0: Precision Electroweak Observables, Higgs Signal Strengths,\\ and Flavour Violation in the
+  Constraints on High Energy Physics Models.\\
+  v1.0: Precision Electroweak Observables, Higgs Signal Strengths, and Flavour Violation in the
   Standard Model and Beyond}
 
 %\ead[url]{http://hepfit.roma1.infn.it}
-\author[]{\HEPfit Collaboration \corref{hf}}
-\cortext[hf]{http://hepfit.roma1.infn.it}
-\ead{hepfit-support@roma1.infn.it}
-\author[a]{\hspace*{-8pt}\colorbox{white}{}\hspace*{-4pt}: J.~de Blas}
+%\author[]{\HEPfit Collaboration \corref{hf}}
+%\cortext[hf]{http://hepfit.roma1.infn.it}
+%\ead{hepfit-support@roma1.infn.it}
+%\author[a]{\hspace*{-8pt}\colorbox{white}{}\hspace*{-4pt}: J.~de Blas}
+\author[a]{J.~de Blas}
 \author[a]{D.~Chowdhury}
 \author[b]{M.~Ciuchini}
 \author[a]{O.~Eberhardt}
@@ -251,20 +253,20 @@ framework.
 This is the first public release with a limited set of observables and
 models, which we plan to enlarge. The code is released under the GNU
 General Public License, so that contributions from users are possible
-and welcome. In particular, the present version provides Electro Weak
-Precision Observables (EWPO) in the SM and in several parametrizations
-of NP contributions. In the near future, we plan to add flavour
-observables and several incarnations of the Minimal Supersymmetric
-Standard Model (MSSM).
+and welcome. In particular, the present version provides Electroweak
+Precision Observables (EWPO), Higgs signal strengths and selected flavour observables in the SM, 
+in Two-Higgs-Doublet Models (2HDM) and in several parametrizations
+of NP contributions. Furthermore, it also contains Lepton Flavour Violation (LFV) in the Minimal Supersymmetric Standard Model (MSSM). In the near future, we plan to add many more flavour
+observables and to enlarge the spectrum of NP models.
 
 The paper is organised as follows. In Sections \ref{sec:Models} and \ref{sec:Observables} we
 summarize models and observables implemented in the present
 version. In Section \ref{sec:Code} we describe the structure of our
-code. Section \ref{sec:Usage} contains the instructions for using our
-code and some examples. In Section \ref{sec:Comparison} we compare our
+code. Sections \ref{sec:Installation} and \ref{sec:Usage} contain the instructions for installing and using our
+code, and some examples. In Section \ref{sec:Comparison} we compare our
 numerical results with other existing public codes.
 
-Updated information and online documentation can be found on the
+Updated information and detailed online documentation can be found on the
 \HEPfit collaboration web site \cite{website}.
 
 
@@ -277,58 +279,175 @@ Updated information and online documentation can be found on the
 \label{sec:Models}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+In \HEPfit the minimal model to be defined in order to compute any observable is the Standard Model, although it extends the QCD submodel. Therefore we start by describing the \texttt{StandardModel} class, and then pass to its extensions. 
+All dimensionful parameters in the code are expressed in GeV. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Standard Model}
 \label{sec:SM}
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-The Standard Model of particle physics (SM) is defined by its Lagrangian, which can be split into five components:
-\begin{align*}
-{\cal L}_{\rm SM} & = \sum\limits_{n=1}^3 {\cal L}_{\rm gauge}^{(n)} + {\cal L}_{\rm quarks}+ {\cal L}_{\rm leptons} + {\cal L}_{\rm Higgs} + {\cal L}_{\rm Yukawa}
-\end{align*}
-The gauge parts contain the kinetic terms of the gauge fields and their interaction:
-\begin{align*}
-{\cal L}_{\rm gauge}^{(n)} & = -\frac{1}{4}\: {\rm tr} \left[(\bm{F}_n)_{\mu \nu }(\bm{F}_n)^{\mu \nu}\right]\\
-\text{with } (\bm{F}_n)^{\mu \nu} & = \partial ^\mu (\bm{G}_n)^\nu -\partial ^\nu (\bm{G}_n)^\mu -{\rm i}g_n[\bm{G}_n^\mu,\bm{G}_n^\nu ]
-\end{align*}
-The gauge fields $\bm{G}_1$, $\bm{G}_2$ and $\bm{G}_3$ stem from the local SM gauge symmetries U(1)$_Y$, SU(2)$_L$ and SU(3)$_C$, respectively, and their couplings are denoted as $g_1$, $g_2$ and $g_3$ (or $g'$, $g$ and $g_S$).
+In \HEPfit, the Standard Model class extends the QCD one. The free parameters in the \texttt{QCD} model are the strong coupling $\alpha_s$, which is taken to be at the scale $M_{\alpha_s}$, the $\overline{\mathrm{MS}}$ quark masses $\bar{m}_u(2\,\mathrm{GeV})$, $\bar{m}_d(2\,\mathrm{GeV})$, $\bar m_s(2\,\mathrm{GeV})$, $\bar m_c(m_c)$, $\bar m_b(m_b)$, the pole mass $m_t$ as well as the three thresholds $\mu_c$, $\mu_b$ and $\mu_t$ marking the transition between the three, four, five and six flavour effective theories. All \texttt{QCD} parameters together with their \HEPfit names and default values can be found in Table \ref{tab:QCDpars}.
 
-The quark Lagrangian ${\cal L}_{\rm quarks}$ describes the kinetic terms of the left-handed quarks fields $Q_j$ and the right-handed quark fields $u_j$ and $d_j$ as well as their interaction with the gauge bosons, with $j$ being the quark generation index:
-\begin{align*}
-{\cal L}_{\rm quarks} & = \; {\rm i}\gamma _\mu \sum\limits_{j=1}^3 \left( \bar{Q}_j \bm{D_q}^\mu Q_j + \bar{u}_j \bm{D_q}^\mu u_j + \bar{d}_j \bm{D_q}^\mu d_j \right) \\
-\text{with } \bm{D_q}^\mu & = \partial ^\mu -{\rm i}\sum\limits_{n=1}^3 g_n \bm{G}_n^\mu
-\end{align*}
+The \texttt{StandardModel} model inherits the \texttt{QCD} model and extends it with the electroweak part. The latter sets the \texttt{QCD} parameters $\alpha_s$ and its scale $M_{\alpha_s}$ to the values of $\alpha_s(M_Z)$ and $M_Z$, the mass of the $Z$ boson. The neutrino masses are $m_{\nu_1}$, $m_{\nu_2}$, $m_{\nu_3}$ and the charged lepton masses $m_e$, $m_\mu$ and $m_\tau$.
+Further \texttt{StandardModel} parameters are the Fermi constant $G_\mu$, the fine-structure constant $\alpha$, its five-flavour hadronic correction at the $Z$ scale $\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)$ and the Higgs mass $m_h$.
+The CKM matrix is computed exactly, using the Wolfenstein parameters $\lambda$, $A$, $\bar{\rho}$ and $\bar{\eta}$ as input by default. A different set of input parameters can be used setting the flag \texttt{Wolfenstein} to false (see below).
+\textbf{Should we move the theoretical errors for EWPO to the observables and correspondingly move this part?}
+Moreover, we introduce parametrical errors to four electroweak precision observables (EWPO): $\delta\,M_W$ is the theoretical uncertainty if one approximates the calculation of $M_W$ using the \texttt{StandardModel} flag \texttt{Mw}, $\delta\sin^2\theta_{\rm eff}^{\rm lept}$ parametrizes the uncertainty in the approximation of $\sin^2\theta_{\rm eff}^{\rm lept}$ controlled with the flag \texttt{KappaZ}, and $\delta\,\Gamma_Z$ and $\delta\,R_b^0$ are the uncertainties that arise if one uses the approximations in the calculation of the observables $\Gamma_Z$ and $R_b^0$, respectively, both of which can be accessed with the flag \texttt{NoApproximateGammaZ}.
+The electroweak matching scale is called $\mu_W$.
+All \texttt{StandardModel} parameters are listed in Table \ref{tab:SMpars} with their corresponding \HEPfit names and default values.
 
-Equivalently, we can define the leptonic Lagrangian:
-\begin{align*}
-{\cal L}_{\rm leptons} & = \; {\rm i}\gamma _\mu \sum\limits_{j=1}^3 \left( \bar{L}_j \bm{D_\ell}^\mu L_j + \bar{\ell}_j \bm{D_\ell}^\mu \ell _j \right) \\
-\text{with } \bm{D_\ell}^\mu & = \partial ^\mu -{\rm i}\sum\limits_{n=1}^2 g_n \bm{G}_n^\mu
-\end{align*}
+The \texttt{StandardModel} model has five boolean and three string flags, which we describe in the following. If the boolean flag \texttt{Wolfenstein} is set to \texttt{true}, \HEPfit uses the Wolfenstein parameters $\lambda$, $A$, $\bar{\rho}$ and $\bar{\eta}$ as inputs. If \texttt{Wolfenstein} is set to \texttt{false}, \HEPfit calculates the CKM matrix from the absolute values of $V_{us}$, $V_{cb}$ and $V_{ub}$ as well as the unitarity triangle angle $\gamma$. The flag \texttt{CacheInStandardModel} controls whether caching is used in the \texttt{EWSM} class (\texttt{true}) or not (\texttt{false}). The flag \texttt{CacheInEWSMcache} does the same for the \texttt{EWSMcache} class. The boolean flag \texttt{WithoutNonUniversalVC} determines if flavour non-universal vertex corrections are not added to the epsilon parametrization of the EWPO (\texttt{false}) or not (\texttt{true}). Also \texttt{NoApproximateGammaZ} is boolean: if set to \texttt{false}, \HEPfit uses the two-loop approximate formulae of the partial and total decay widths of the $Z$ boson instead of the full expressions, which can be accessed by setting \texttt{NoApproximateGammaZ} to \texttt{true}.
+For other EWPO, one has the choice between various approximate formulae: $M_W$ can be calculated in different approximations setting \texttt{Mw} to \texttt{NORESUM}, \texttt{OMSI}, \texttt{INTERMEDIATE}, \texttt{OMSII} or \texttt{APPROXIMATEFORMULA}. (Explanation here)
+The fermion couplings of the $Z$ boson can be split into two parts \cite{pdg}, $\rho_Z^f$ and $\kappa_Z^f$.
+$\rho_Z^f$ can be approximated using one of the following settings for the flag \texttt{RhoZ}: \texttt{NORESUM} / \texttt{OMSI} / \texttt{INTERMEDIATE} / \texttt{OMSII}. (Explanation)
+And for $\kappa_Z^f$ one has the following options using the \texttt{KappaZ} flag: \texttt{NORESUM} / \texttt{OMSI} / \texttt{INTERMEDIATE} / \texttt{OMSII} / \texttt{APPROXIMATEFORMULA}. (Explanation)
 
-The massive gauge bosons obtain their masses from the Higgs Lagrangian, which also includes the kinetic terms and the potential of the Higgs field $\Phi$:
-\begin{align*}
-{\cal L}_{\rm Higgs} & = \left( (\bm{D_\ell})_\mu \Phi \right) ^\dagger \left( \bm{D_\ell}^\mu \Phi \right) +\frac12 m_h^2 \Phi ^\dagger \Phi -\frac14 \lambda (\Phi ^\dagger \Phi )^2 
-\end{align*}
+% * The first two flags CacheInStandardModel and CacheInEWSMcache for the cashing methods
+% * in EWSM and EWSMcache classes are relevant to the computations of the electroweak 
+% * precision observables. Those caches are effective when the @f$W@f$-boson mass,
+% * the decay widths of the @f$Z@f$ boson and the @f$Zf\bar{f}@f$ effective couplings
+% * @f$\kappa_Z^f@f$ are calculated without using their two-loop approximate formulae.
+% *
+% * <h3>Notation</h3>
+% *
+% * The on-mass-shell renormalization scheme @cite Sirlin:1980nh,
+% * @cite Marciano:1980pb, @cite Bardin:1980fe, @cite Bardin:1981sv is adopted
+% * for UV divergences, and the weak mixing angle is defined in terms of the
+% * physical masses of the gauge bosons:
+% * @f[
+% * s_W^2 \equiv \sin^2\theta_W = 1 - \frac{M_W^2}{M_Z^2}\,,
+% * @f]
+% * and @f$c_W^2=1-s_W^2@f$.
+%
+% * The Fermi constant @f$G_\mu@f$ in @f$\mu@f$ decay is taken as an input
+% * quantity instead of the @f$W@f$-boson mass, since the latter has not been
+% * measured very precisely compared to the former. The relation between
+% * @f$G_\mu@f$ and @f$M_W@f$ is written as
+% * @f[
+% * G_\mu = \frac{\pi\,\alpha}{\sqrt{2} s_W^2 M_W^2} (1+\Delta r)\,,
+% * @f]
+% * where @f$\Delta r@f$ represents radiative corrections. From this relation,
+% * the @f$W@f$-boson mass is calculated as
+% * @f[
+% * M_W^2
+% * = \frac{M_Z^2}{2}
+% * \left( 1+\sqrt{1-\frac{4\pi\alpha}{\sqrt{2}G_\mu M_Z^2}\,(1+\Delta r)}\
+% * \right).
+% * @f]
+% *
+% * The interaction between the @f$Z@f$ boson and the neutral current can be
+% * written in terms of the effective @f$Zf\bar{f}@f$ couplings @f$g_{V}^f@f$
+% * and @f$g_{A}^f@f$, of @f$g_{R}^f@f$ and @f$g_{L}^f@f$, or of @f$\rho_Z^f@f$
+% * and @f$\kappa_Z^f@f$:
+% * @f{eqnarray}{
+% * \mathcal{L}
+% * &=&
+% * \frac{e}{2 s_W c_W}\,
+% * Z_\mu \sum_f \bar{f}
+% * \left( g_{V}^f\gamma_\mu - g_{A}^f \gamma_\mu\gamma_5 \right)\, f\,,
+% * \\
+% * &=&
+% * \frac{e}{2s_W c_W}\,
+% * Z_\mu \sum_f \bar{f}
+% * \left[ g_{R}^f \gamma_\mu (1 + \gamma_5)
+% * + g_{L}^f \gamma_\mu (1 - \gamma_5) \right]\, f\,,
+% * \\
+% * &=&
+% * \frac{e}{2 s_W c_W}\sqrt{\rho_Z^f}\,
+% * Z_\mu \sum_f \bar{f}
+% * \left[( I_3^f - 2Q_f\kappa_Z^f s_W^2)\gamma^\mu
+% *   - I_3^f\gamma^\mu\gamma_5\right]\,f\,,
+% * @f}
+% * where @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$ are related to
+% * @f$g_{V}^f@f$ and @f$g_{A}^f@f$ as the relations:
+% * @f{eqnarray}{
+% * g_V^f
+% * &=&
+% * \sqrt{\rho_Z^f} I_3^f (1 - 4|Q_f|\kappa_Z^fs_W^2)
+% * = \sqrt{\rho_Z^f} (I_3^f - 2Q_f\kappa_Z^fs_W^2)\,,
+% * \qquad
+% * g_A^f
+% * &=&
+% * \sqrt{\rho_Z^f} I_3^f\,,
+% * @f}
+% * and
+% * @f{eqnarray}{
+% * \rho_Z^f &=& \left( \frac{g_A^f}{I_3^f} \right)^2,
+% * \qquad
+% * \kappa_Z^f &=& \frac{1}{4|Q_f|s_W^2}
+% * \left( 1 - \frac{g_V^{f}}{g_A^{f}}\right).
+% * @f}
+% *
+% *
+% * <h3>Important member functions</h3>
+% *
+% * The current class handles the following quantities:
+% *
+% * @li @f$\Delta\alpha_{\mathrm{lept}}(s)@f$&nbsp;&nbsp; (with DeltaAlphaLepton()),
+% * @li @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlphaL5q()),
+% * @li @f$\Delta\alpha_{\mathrm{top}}(s)@f$&nbsp;&nbsp; (with DeltaAlphaTop()),
+% * @li @f$\Delta\alpha(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha()),
+% * @li @f$\alpha(M_Z^2)@f$&nbsp;&nbsp; (with alphaMz()),
+% *
+% * @li @f$M_W@f$&nbsp;&nbsp; (with Mw_SM()),
+% * @li @f$\Delta r@f$&nbsp;&nbsp; (with DeltaR_SM()),
+% * @li @f$c_W^2@f$ and @f$s_W^2@f$&nbsp;&nbsp; (with cW2_SM() and sW2_SM()),
+% * @li @f$\Gamma_W@f$&nbsp;&nbsp; (with GammaW_SM()),
+% *
+% * @li @f$\rho_Z^f@f$&nbsp;&nbsp; (with rhoZ_l() and rhoZ_q()),
+% * @li @f$\kappa_Z^f@f$&nbsp;&nbsp; (with kappaZ_l() and kappaZ_q()),
+% * @li @f$g_V^f@f$&nbsp;&nbsp; (with gVl() and gVq()),
+% * @li @f$g_A^f@f$&nbsp;&nbsp; (with gAl() and gAq()),
+% *
+% * @li @f$\varepsilon_{1,2,3,b}@f$&nbsp;&nbsp; (with epsilon1_SM(), epsilon2_SM(),
+% * epsilon3_SM() and epsilonb_SM()).
+% *
+% * Moreover, the functions Mzbar(), MwbarFromMw(), MwFromMwbar() and DeltaRbar_SM()
+% * can be used for the quantities in the complex-pole/fixed-width scheme.
+% *
+% *
+% * <h3>Schemes</h3>
+% *
+% * The formulae used for the @f$W@f$-boson mass @f$M_W@f$ and the effective
+% * couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$ are controlled with the model
+% * flags @ref StandardModelFlags "Mw", @ref StandardModelFlags "RhoZ" and
+% * @ref StandardModelFlags "KappaZ" of StandardModel. For each flag, the
+% * available schemes are as follows:
+% *
+% * @li NORESUM:&nbsp;&nbsp; No resummation is considered;
+% * @li OMSI:&nbsp;&nbsp; the so-called OMS-I scheme is adopted;
+% * @li INTERMEDIATE:&nbsp;&nbsp; an intermediate scheme between OMS-I and OMS-II is adopted;
+% * @li OMSII:&nbsp;&nbsp; the so-called OMS-II scheme is adopted;
+% * @li APPROXIMATEFORMULA:&nbsp;&nbsp; the approximate two-loop formula given
+% * in EWSMApproximateFormulae class is employed.
+% *
+% * The scheme APPROXIMATEFORMULA provides the most accurate SM predictions for
+% * @f$M_W@f$ and @f$\kappa_Z^f@f$, while the approximate two-loop formula is
+% * not available for @f$\rho_Z^f@f$.
+% *
+% * See resumMw(), resumRhoZ() and resumKappaZ() for details on the other schemes.
+% *
+% *
+% * <h3>Cashes</h3>
+% *
+% * This class contains caching methods for the following functions:
+% * DeltaAlphaLepton(), DeltaAlpha(), Mw_SM(), GammaW_SM(),
+% * rhoZ_l_SM(), rhoZ_q_SM(), kappaZ_l_SM() and kappaZ_q_SM(), to improve the
+% * performance of the Monte Carlo run. The caching methods are implemented
+% * with the function checkSMparams().
+% *
+% * The use of the caching methods can be controlled with the model flag
+% * @ref StandardModelFlags "CacheInStandardModel" of StandardModel.
+% *
 
-Finally, the Yukawa part tells us about the Higgs-fermion interactions and contains the fermion masses:
-\begin{align*}
-{\cal L}_{\rm Yukawa} & = - \sum\limits_{j,k=1}^3 \left( \bar{Q}_j \Phi Y^d_{jk} d_k + \bar{Q} _j\hspace*{1pt}{\rm i}\sigma _2 \Phi ^* Y^u_{jk} u_k + \bar{L}_j \Phi Y^\ell _{jk} \ell _k +{\rm h.c.}\right) \\
-\text{with } Y^u & = U_u^\dagger \frac{\sqrt{2}}{v}\left( \hspace*{-5pt}
-\begin{array}{c} m_u\\0\\0\\\end{array}\hspace*{-5pt}
-\begin{array}{c}0\\ m_c\\0\\\end{array}\hspace*{-5pt}
-\begin{array}{c}0\\0\\ m_t\\\end{array}\hspace*{-5pt}
-\right) \!\! V_u, \quad
-Y^d = U_d^\dagger \frac{\sqrt{2}}{v}\left( \hspace*{-5pt}
-\begin{array}{c} m_d\\0\\0\\\end{array}\hspace*{-5pt}
-\begin{array}{c}0\\ m_s\\0\\\end{array}\hspace*{-5pt}
-\begin{array}{c}0\\0\\ m_b\\\end{array}\hspace*{-5pt}
-\right) \!\! V_d, \\
-Y^\ell & = U_\ell^\dagger \frac{\sqrt{2}}{v}\left( \hspace*{-5pt}
-\begin{array}{c} m_e\\0\\0\\\end{array}\hspace*{-5pt}
-\begin{array}{c}0\\ m_\mu\\0\\\end{array}\hspace*{-5pt}
-\begin{array}{c}0\\0\\ m_\tau\\\end{array}\hspace*{-5pt}
-\right) \!\! V_\ell
-\end{align*}
+
+
+
+
+
+
+
 
 %\begin{picture}(200,120)(0,10)
 %\put(10,110){\scalebox{0.7}{$$}}
@@ -2875,12 +2994,75 @@ Advanced Grant n.~267985 ``DaMeSyFla''.
 
 
 
-
-\appendix
+\begin{appendices}
+\noappendicestocpagenum
+\addappheadtotoc
 
 \section{Model parameters}
 \label{sec:appModelParameters}
 
+
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt QCD} model. {\tt AlsM} and {\tt MAls} are auxiliary parameters set by the {\tt StandardModel} to {\tt AlsMz} and {\tt Mz}.}\vspace{0.2cm}
+  \begin{tabular}{| c | c | c | }
+\hline
+\textbf{\HEPfit name}&
+\textbf{Parameter}&
+\textbf{Default value}\\
+%
+\hline
+({\tt AlsM}) & $\alpha_s(M_{\alpha_s})$ & \\
+({\tt MAls}) & $M_{\alpha_s}$ &  [GeV]\\
+{\tt mup} & $m_{u}(2\,\mathrm{GeV})$ &  [GeV]\\
+{\tt mdown} & $m_{d}(2\,\mathrm{GeV})$ &  [GeV]\\
+{\tt mcharm} & $m_{c}(m_c)$ &  [GeV]\\
+{\tt mstrange} & $m_{s}(2\,\mathrm{GeV})$ &  [GeV]\\
+{\tt mtop} & $m_{t}$ &  [GeV]\\
+{\tt mbottom} & $m_{b}(m_b)$ &  [GeV]\\
+{\tt muc} & $\mu_c$ &  [GeV]\\
+{\tt mub} & $\mu_b$ &  [GeV]\\
+{\tt mut} & $\mu_t$ &  [GeV]\\
+\hline
+  \end{tabular}
+ \label{tab:QCDpars}
+\end{table} 
+
+\begin{table}[tb]
+ \centering
+ \caption{Model parameters in the {\tt StandardModel} model.}\vspace{0.2cm}
+  \begin{tabular}{| c | c | c | }
+\hline
+\textbf{\HEPfit name}&
+\textbf{Parameter}&
+\textbf{Default value}\\
+%
+\hline
+{\tt Mz} & $M_Z$ &  [GeV]\\
+{\tt AlsMz} & $\alpha_s(M_Z)$ & \\
+{\tt GF} & $G_\mu$ & \\
+{\tt ale} & $\alpha$ & \\
+{\tt dAle5Mz} & $\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)$ & \\
+{\tt mHl} & $m_h$ &  [GeV]\\
+{\tt delMw} & $\delta\,M_W$ &  [GeV]\\
+{\tt delSin2th\_l} & $\delta\sin^2\theta_{\rm eff}^{\rm lept}$ & \\
+{\tt delGammaZ} & $\delta\,\Gamma_Z$ & \\
+{\tt delR0b} & $\delta\,R_b^0$ & \\
+{\tt mneutrino\_1} & $m_{\nu_1}$ &  [GeV]\\
+{\tt mneutrino\_2} & $m_{\nu_2}$ &  [GeV]\\
+{\tt mneutrino\_3} & $m_{\nu_3}$ &  [GeV]\\
+{\tt melectron} & $m_e$ &  [GeV]\\
+{\tt mmu} & $m_\mu$ &  [GeV]\\
+{\tt mtau} & $m_\tau$ &  [GeV]\\
+{\tt lambda} & $\lambda$ & \\
+{\tt A} & $A$ & \\
+{\tt rhob} & $\bar{\rho}$ & \\
+{\tt etab} & $\bar{\eta}$ & \\
+{\tt muw} & $\mu_W$ &  [GeV]\\
+\hline
+  \end{tabular}
+ \label{tab:SMpars}
+\end{table} 
 
 \begin{table}[t]
 \begin{center}
@@ -3205,7 +3387,7 @@ Br$(H\to \mathrm{invisible})$\\
   \end{tabular}
  \label{tab:HiggsKvgenKfpars}
 \end{table} 
-
+\end{appendices}
 
 \bibliographystyle{elsarticle-num}
 \bibliography{HEPfit-1.0}
