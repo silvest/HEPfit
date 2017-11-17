@@ -70,6 +70,7 @@
           </incDir>
         </cTool>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
           </incDir>
@@ -211,6 +212,7 @@
           </incDir>
         </cTool>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopTools/include</pElem>
@@ -358,6 +360,7 @@
         </cTool>
         <ccTool>
           <developmentMode>6</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
           </incDir>
@@ -504,6 +507,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
           </incDir>

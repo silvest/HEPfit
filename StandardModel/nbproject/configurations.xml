@@ -226,6 +226,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
@@ -688,6 +689,7 @@
         </cTool>
         <ccTool>
           <developmentMode>2</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -1011,6 +1013,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>

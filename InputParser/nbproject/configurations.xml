@@ -47,6 +47,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>../HiggsExtensions/src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -131,6 +132,7 @@
         </cTool>
         <ccTool>
           <developmentMode>6</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../HiggsExtensions/src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -220,6 +222,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../HiggsExtensions/src/</pElem>
             <pElem>../gslpp/src</pElem>

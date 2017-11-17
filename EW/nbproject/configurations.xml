@@ -116,6 +116,7 @@
           </incDir>
         </cTool>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -142,7 +143,6 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -254,7 +254,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -420,6 +419,7 @@
         </cTool>
         <ccTool>
           <developmentMode>6</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -445,14 +445,12 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
         <linkerTool>
           <linkerDynSerch>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -615,6 +613,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -640,14 +639,12 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
         <linkerTool>
           <linkerDynSerch>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>

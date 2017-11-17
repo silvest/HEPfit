@@ -130,10 +130,6 @@
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>../BAT/lib</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -465,10 +461,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -486,10 +478,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -509,10 +497,6 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -531,6 +515,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
@@ -572,10 +557,6 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
@@ -911,10 +892,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -932,10 +909,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -955,18 +928,12 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
-      <item path="main.cpp" ex="true" tool="1" flavor2="9">
+      <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
@@ -987,6 +954,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -1030,10 +998,6 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -1365,10 +1329,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1386,10 +1346,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1409,16 +1365,10 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1433,6 +1383,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
@@ -1474,10 +1425,6 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
@@ -1811,10 +1758,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1832,10 +1775,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1855,18 +1794,12 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
@@ -1889,6 +1822,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -1932,10 +1866,6 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -2291,10 +2221,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -2312,10 +2238,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -2335,16 +2257,10 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2363,6 +2279,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -2410,10 +2327,6 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -2782,10 +2695,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -2803,10 +2712,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -2826,18 +2731,12 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
@@ -2854,6 +2753,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
@@ -2896,10 +2796,6 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
@@ -3221,10 +3117,6 @@
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -3242,10 +3134,6 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -3265,18 +3153,12 @@
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-      </item>
-      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>

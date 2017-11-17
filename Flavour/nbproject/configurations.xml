@@ -157,6 +157,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -417,6 +418,7 @@
         </cTool>
         <ccTool>
           <developmentMode>0</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -671,6 +673,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
