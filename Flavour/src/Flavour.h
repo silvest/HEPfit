@@ -226,16 +226,6 @@ public:
         return fullKD;
     }
 
-    bool setFlagFullKD(bool fullKD)
-    {
-        return (this->fullKD = fullKD);
-    }
-    
-    bool getFlagFullKD() const
-    {
-        return fullKD;
-    }
-
 private:
 
     HeffDF2& HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.

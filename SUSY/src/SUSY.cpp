@@ -312,8 +312,8 @@ void SUSY::computeYukawas()
         Yn.assign(i, i, mn_Q[i] / v2() * sqrt(2.));
     }
 
-    Yu = VCKM.transpose()*Yu;
-    Yn = Yn * UPMNS.hconjugate();
+    Yu = myCKM.getCKM().transpose()*Yu;
+    Yn = Yn * myPMNS.getPMNS().hconjugate();
 
     Q_SUSY = Q_SUSY_temp;
     

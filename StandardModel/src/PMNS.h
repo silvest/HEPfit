@@ -23,7 +23,7 @@
 class PMNS {
 public:
     PMNS();
-    ~PMNS();
+//    ~PMNS();
 
     void setPMNS(double s12_v, double s13_v, double s23_v, double delta_v, double alpha21_v, double alpha31_v);
 

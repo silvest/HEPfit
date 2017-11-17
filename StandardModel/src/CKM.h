@@ -23,7 +23,7 @@
 class CKM {
 public:
     CKM();
-    ~CKM();
+//    ~CKM();
 
     void setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v);
     void setCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v);
