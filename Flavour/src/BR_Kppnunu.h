@@ -36,12 +36,12 @@ protected:
     /**
      * 
      * @param order
-     * @param order_ew
+     * @param order_qed
      * @return the short distance contribution to the 
      * |\f$ BR(K^{+} \rightarrow \pi^{+} \nu \bar{\nu}) \f$|, for example
      * see hep-ph/0603079 section 2.3
      */
-    gslpp::complex BRKppnunu(orders order, orders_ew order_ew);
+    gslpp::complex BRKppnunu(orders order, orders_qed order_qed);
     
     /**
      * 

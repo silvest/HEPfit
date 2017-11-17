@@ -26,7 +26,7 @@ void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders order_
     elem[order_i]->assign(i, z);
 }
 
-void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders_ew order_ew_i) 
+void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders_qed order_qed_i) 
 {    
     if ((unsigned int) i > size) {
         std::stringstream out;
@@ -34,12 +34,11 @@ void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders_ew ord
         throw std::runtime_error("WilsonCoefficientEW::setCoeff(): coefficient index "
         + out.str() + " out of range");
     }
-    if (order_ew_i > order_ew) {
+    if (order_qed_i > order_qed) {
         std::stringstream out;
-        out << order_ew_i;
-        throw std::runtime_error("WilsonCoefficientEW::setCoeff(): order_ew " + out.str() +
+        out << order_qed_i;
+        throw std::runtime_error("WilsonCoefficientEW::setCoeff(): order_qed " + out.str() +
                 " not implemented ");
     }
-    elem[order_ew_i]->assign(i, z);
+    elem[order_qed_i]->assign(i, z);
 }
-

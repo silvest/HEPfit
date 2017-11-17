@@ -215,6 +215,15 @@ public:
     }
 
     
+    void setModelTHDMW(){
+        flagTHDMWmodel = true;
+    }
+    
+    bool isModelTHDMW() const{
+        return flagTHDMWmodel;
+    }
+
+    
     bool isModelLinearized() const{
         return flagLinearized;
     }

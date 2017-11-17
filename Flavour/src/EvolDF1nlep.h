@@ -31,10 +31,10 @@ class EvolDF1nlep : public RGEvolutor {
      * @param dim an unsigned integer  for the dimension of the evolutor
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @param order an enum "orders" for the order of QCD perturbation theory of the evolutor
-     * @param order_ew an enum "orders_ew" for the order of QED perturbation theory of the evolutor 
+     * @param order_qed an enum "orders_qed" for the order of QED perturbation theory of the evolutor 
      * @param model an object of StandardModel class 
      */
-    EvolDF1nlep(unsigned int dim,  schemes scheme,orders order, orders_ew order_ew, const StandardModel& model);
+    EvolDF1nlep(unsigned int dim,  schemes scheme,orders order, orders_qed order_qed, const StandardModel& model);
     /**
      * @brief EvolDF1nlep destructor 
      */
@@ -60,11 +60,11 @@ class EvolDF1nlep : public RGEvolutor {
      * @param mu a double for the low scale of the evolution
      * @param M a double for the high scale of the evolution
      * @param order an enum "orders" for the order of QCD perturbation theory of the evolutor 
-     * @param order_ew an enum "orders_ew" for the order of QED perturbation theory of the evolutor
+     * @param order_qed an enum "orders_qed" for the order of QED perturbation theory of the evolutor
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      * @return the evolutor \f$ U (\mu , M) \f$
      */
-    gslpp::matrix<double>& Df1Evolnlep(double mu, double M, orders order, orders_ew order_ew, schemes scheme = NDR);
+    gslpp::matrix<double>& Df1Evolnlep(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
     /**
      * @brief a method returning the matrix threshold for the QCD penguins at the NLO
      * @param nf a double for the active number of flavors

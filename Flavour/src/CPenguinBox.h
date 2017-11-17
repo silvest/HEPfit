@@ -85,7 +85,7 @@ public:
      * @return chram contribuition times the model.getlam_c().real plus the 
      * isospin-breacking contribution.
      */
-    double CT_tot(orders order, orders_ew order_ew);
+    double CT_tot(orders order, orders_qed order_qed);
 
 protected:
 

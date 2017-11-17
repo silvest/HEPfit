@@ -16,8 +16,8 @@ FlavourWilsonCoefficientMatching::FlavourWilsonCoefficientMatching(const Flavour
     myCKM(3, 3, 0.),
     mcbsg(8, NDR, NNLO),
     mcprimebsg(8, NDR, NNLO),
-    mcbsmm(8, NDR, NNLO, NLO_ewt4),
-    mcbdmm(8, NDR, NNLO, NLO_ewt4),
+    mcbsmm(8, NDR, NNLO, NLO_QED22),
+    mcbdmm(8, NDR, NNLO, NLO_QED22),
     mcBMll(13, NDR, NLO),
     mcprimeBMll(13, NDR, NLO)
 {}
@@ -226,7 +226,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::le
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll(QCD::lepton lepton)
 {
 
-    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton);
+    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton); // prime
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

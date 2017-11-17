@@ -34,15 +34,16 @@
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
-    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw",
-    "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
+    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "s12_pmns", "s13_pmns", "s23_pmns", "delta_pmns",
+    "alpha21_pmns", "alpha31_pmns",
+    "muw", "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
 
 const double StandardModel::GeVminus2_to_nb = 389379.338;
 const double StandardModel::Mw_error = 0.00001; /* 0.01 MeV */
 
 StandardModel::StandardModel()
-: QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
+: QCD(), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
 Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
 {
     FlagWithoutNonUniversalVC = false;
@@ -125,6 +126,12 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("melectron", boost::cref(leptons[ELECTRON].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mmu", boost::cref(leptons[MU].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtau", boost::cref(leptons[TAU].getMass())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s12_pmns", boost::cref(s12)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s13_pmns", boost::cref(s13)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s23_pmns", boost::cref(s23)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delta_pmns", boost::cref(delta)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha21_pmns", boost::cref(alpha21)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha31_pmns", boost::cref(alpha31)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda", boost::cref(lambda)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("A", boost::cref(A)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rhob", boost::cref(rhob)));
@@ -193,7 +200,7 @@ bool StandardModel::Init(const std::map<std::string, double>& DPars)
                 + " in model initialization");
 
     std::map<std::string, double> myDPars(DPars);
-    myDPars["AlsM"] = myDPars.at("AlsMz");
+    myDPars["AlsM"] = myDPars.at("AlsMz"); // do not change!
     myDPars["MAls"] = myDPars.at("Mz");
     return (QCD::Init(myDPars));
 }
@@ -358,7 +365,6 @@ void StandardModel::computeCKM()
     if (requireCKM) {
         if (FlagWolfenstein) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);    
-        myCKM.getCKM(VCKM);
         Vus = myCKM.getVus();
         Vcb = myCKM.getVcb();
         Vub = myCKM.getVub();
@@ -366,14 +372,13 @@ void StandardModel::computeCKM()
         }
         else { 
         myCKM.setCKM(Vus, Vcb, Vub, gamma);
-        myCKM.getCKM(VCKM);
         lambda = myCKM.getLambda();
         A = myCKM.getA();
         rhob = myCKM.getRho();
         etab = myCKM.getEta();
         }
     }
-    UPMNS = gslpp::matrix<gslpp::complex>::Id(3);
+    myPMNS.setPMNS(s12, s13, s23, delta, alpha21, alpha31);
 }
 
 void StandardModel::computeYukawas()
@@ -385,7 +390,7 @@ void StandardModel::computeYukawas()
         Yu = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
-        Yu = VCKM.transpose() * Yu;
+        Yu = myCKM.getCKM().transpose() * Yu;
     }
     if (requireYd) {
         Yd = gslpp::matrix<gslpp::complex>::Id(3);
@@ -401,7 +406,7 @@ void StandardModel::computeYukawas()
         Yn = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
-        Yn = Yn * UPMNS.hconjugate();
+        Yn = Yn * myPMNS.getPMNS().hconjugate();
     }
 }
 
@@ -537,87 +542,84 @@ bool StandardModel::checkSMparamsForEWPO()
 
 double StandardModel::computeBeta() const
 {
-    return (-VCKM(1, 0) * VCKM(1, 2).conjugate() / (VCKM(2, 0) * VCKM(2, 2).conjugate())).arg();
+    return myCKM.computeBeta();
 }
 
 double StandardModel::computeGamma() const
 {
-    return (-VCKM(0, 0) * VCKM(0, 2).conjugate() / (VCKM(1, 0) * VCKM(1, 2).conjugate())).arg();
+    return myCKM.computeGamma();
 }
 
 double StandardModel::computeAlpha() const
 {
-    return (-VCKM(2, 0) * VCKM(2, 2).conjugate() / (VCKM(0, 0) * VCKM(0, 2).conjugate())).arg();
+    return myCKM.computeAlpha();
 }
 
 double StandardModel::computeBetas() const
 {
-    return (-VCKM(2, 1) * VCKM(2, 2).conjugate() / (VCKM(1, 1) * VCKM(1, 2).conjugate())).arg();
+    return myCKM.computeBetas();
 }
 
 // Lambda_q
 
 gslpp::complex StandardModel::computelamt() const
 {
-    return VCKM(2, 0) * VCKM(2, 1).conjugate();
+    return myCKM.computelamt();
 }
 
 gslpp::complex StandardModel::computelamc() const
 {
-    return VCKM(1, 0) * VCKM(1, 1).conjugate();
+    return myCKM.computelamc();
 }
 
 gslpp::complex StandardModel::computelamu() const
 {
-    return VCKM(0, 0) * VCKM(0, 1).conjugate();
+    return myCKM.computelamu();
 }
 
 gslpp::complex StandardModel::computelamt_d() const
 {
-    return VCKM(2, 0) * VCKM(2, 2).conjugate();
+    return myCKM.computelamt_d();
 }
 
 gslpp::complex StandardModel::computelamc_d() const
 {
-    return VCKM(1, 0) * VCKM(1, 2).conjugate();
+    return myCKM.computelamc_d();;
 }
 
 gslpp::complex StandardModel::computelamu_d() const
 {
-    return VCKM(0, 0) * VCKM(0, 2).conjugate();
+    return myCKM.computelamu_d();
 }
 
 gslpp::complex StandardModel::computelamt_s() const
 {
-    return VCKM(2, 1) * VCKM(2, 2).conjugate();
+    return myCKM.computelamt_s();
 }
 
 gslpp::complex StandardModel::computelamc_s() const
 {
-    return VCKM(1, 1) * VCKM(1, 2).conjugate();
+    return myCKM.computelamc_s();
 }
 
 gslpp::complex StandardModel::computelamu_s() const
 {
-    return VCKM(0, 1) * VCKM(0, 2).conjugate();
+    return myCKM.computelamu_s();
 }
 
 double StandardModel::computeRt() const
 {
-    return (VCKM(2, 0) * VCKM(2, 2).conjugate()
-            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+    return myCKM.getRt();
 }
 
 double StandardModel::computeRts() const
 {
-    return (VCKM(2, 1) * VCKM(2, 2).conjugate()
-            / (VCKM(1, 1) * VCKM(1, 2).conjugate())).abs();
+    return myCKM.getRts();
 }
 
 double StandardModel::computeRb() const
 {
-    return (VCKM(0, 0) * VCKM(0, 2).conjugate()
-            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+    return myCKM.getRb();
 }
 
 
@@ -641,6 +643,264 @@ double StandardModel::ale_OS(const double mu, orders order) const
             return ( alpha_ini / v * (1.0 - beta2 / beta1 * alpha_ini / M_PI * log(v) / v));
         default:
             throw std::runtime_error("Error in StandardModel::ale_OS()");
+    }
+}
+
+double StandardModel::Beta_s(int nm, unsigned int nf) const
+{
+    unsigned int nu = nf % 2 == 0 ? nf / 2 : nf / 2;
+    unsigned int nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
+    double Qu = 2. / 3., Qd = -1. / 3., Qbar2 = nu * Qu * Qu + nd * Qd * Qd,
+            Qbar4 = nu * Qu * Qu * Qu * Qu + nd * Qd * Qd * Qd * Qd;
+
+    switch(nm)
+    {
+        case 00:
+            return(Beta0((double) nf));
+        case 10:
+            return(Beta1((double) nf));
+        case 20:
+            return(Beta2((double) nf));
+        case 30:
+            return(Beta3((double) nf));
+        case 01:
+            return(-4. * TF * Qbar2 );
+        case 11:
+            return((4. * CF - 8. * CA) * TF * Qbar2 );
+        case 02:
+            return(11./3. * TF * Qbar2 * Beta_e(00, nf) + 2. * TF * Qbar4);
+        default:
+            throw std::runtime_error("StandardModel::Beta_s(): case not implemented");
+    }
+}
+
+double StandardModel::Beta_e(int nm, unsigned int nf) const
+{
+    unsigned int nu = nf % 2 == 0 ? nf / 2 : nf / 2;
+    unsigned int nd = nf % 2 == 0 ? nf / 2 : 1 + nf / 2;
+    double Qu = 2. / 3., Qd = -1. / 3., Qbar2 = nu * Qu * Qu + nd * Qd * Qd,
+            Qbar4 = nu * Qu * Qu * Qu * Qu + nd * Qd * Qd * Qd * Qd;
+
+    switch(nm)
+    {
+        case 00:
+            return(4./3. * (Qbar2 * Nc + 3.)); // QL^2 = 1
+        case 10:
+            return(4. * (Qbar4 * Nc + 3.));
+        case 01:
+            return(4. * CF * Nc * Qbar2);
+        default:
+            throw std::runtime_error("StandardModel::Beta_e(): case not implemented");
+    }
+}
+
+double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) const
+{
+    int i, nfAls = (int) Nf(Mz), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
+    double als, alstmp, mutmp;
+    orders fullord;
+
+    for (i = 0; i < CacheSize; ++i)
+        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
+                (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
+                (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
+                (muc == als_cache[6][i]) && (double) qed_flag == als_cache[7][i]
+                && (double) Nf_thr == als_cache[8][i] && alphaMz() == als_cache[9][i])
+            return als_cache[10][i];
+
+    switch (order)
+    {
+        case FULLNLO:
+            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr));
+        case FULLNNLO:
+            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr) + Als(mu, NNLO, qed_flag, Nf_thr));
+        case FULLNNNLO:
+            return (Als(mu, LO, qed_flag, Nf_thr) + Als(mu, NLO, qed_flag, Nf_thr) + Als(mu, NNLO, qed_flag, Nf_thr) + Als(mu, NNNLO, qed_flag, Nf_thr));
+        case LO:
+        case NLO:
+        case NNLO:
+        case NNNLO:
+            if (nfAls == nfmu)
+                return(AlsWithInit(mu, AlsMz, Mz, order, qed_flag));
+            fullord = FullOrder(order);
+            if (nfAls > nfmu) {
+                mutmp = BelowTh(Mz);
+                alstmp = AlsWithInit(mutmp, AlsMz, Mz, fullord, qed_flag);
+                alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAls - 1; i > nfmu; i--) {
+                    mutmp = BelowTh(mutmp - MEPS);
+                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, fullord, qed_flag);
+                    alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                als = AlsWithInit(mu, alstmp, AboveTh(mu) - MEPS, order, qed_flag);
+            }
+
+            if (nfAls < nfmu) {
+                mutmp = AboveTh(Mz) - MEPS;
+                alstmp = AlsWithInit(mutmp, AlsMz, Mz, fullord, qed_flag);
+                alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAls + 1; i < nfmu; i++) {
+                    mutmp = AboveTh(mutmp) - MEPS;
+                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, fullord, qed_flag); 
+                    alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order, qed_flag);
+            }
+
+            CacheShift(als_cache, 11);
+            als_cache[0][0] = mu;
+            als_cache[1][0] = (double) order;       
+            als_cache[2][0] = AlsMz;
+            als_cache[3][0] = Mz;
+            als_cache[4][0] = mut;
+            als_cache[5][0] = mub;
+            als_cache[6][0] = muc;
+            als_cache[7][0] = (double) qed_flag;
+            als_cache[8][0] = (double) Nf_thr;
+            als_cache[9][0] = alphaMz();
+            als_cache[10][0] = als;
+
+             return als;
+        default:
+            throw std::runtime_error("StandardModel::Als(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
+double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const
+{
+    double nf = Nf(mu), alei = Ale(mu_i, NLO); // CHANGE ME!
+    double b00s = Beta_s(00, nf), b00e = Beta_e(00, nf);
+    double v = 1. + b00s * alsi / 2. / M_PI * log(mu / mu_i);
+    double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
+    double logv = log(v), logve = log(ve);
+    double rho = 1. / (1. + b00e * alei / b00s / alsi);
+    double als = QCD::AlsWithInit(mu, alsi, mu_i, order);
+    double b01s = Beta_s(01,nf), b01s00e = b01s / b00e;
+
+    if (qed_flag)
+        switch (order)
+        {
+            case LO:
+                break;
+            case NLO:
+                als += alsi * alsi / 4. / M_PI / v / v * b01s00e * logve;
+                break;
+            case NNLO:
+                als += alsi * alsi * alsi / 4. / 4. / M_PI / M_PI / v / v / v * (
+                        b01s00e * b01s00e * logve * logve + b01s00e * Beta_s(10, nf) / Beta_s(00, nf) *
+                        (-2. * logv * logve + rho * ve * logve));
+                break;
+            case NNNLO:
+                als += alsi * alsi * alei / 4. / 4. / M_PI / M_PI / v / v / ve * (Beta_s(02, nf) / b00e *
+                        (ve - 1.) + Beta_s(11, nf) / b00s * rho * ve * (logve - logv) + b01s00e * Beta_e(10, nf) /
+                        b00e * (logve - ve + 1.) + b01s * Beta_s(10, nf) / b00s / b00s * rho * logv +
+                        b01s00e * Beta_e(01, nf) / b00s * (rho * ve * (logv - logve) - logv));
+                break;
+            case FULLNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag));
+            case FULLNNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag));
+            case FULLNNNLO:
+                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag) +
+                        AlsWithInit(mu, alsi, mu_i, NNNLO, qed_flag));
+            default:
+                throw std::runtime_error("StandardModel::AlsWithInit(): " + orderToString(order) + " is not implemented.");
+        }
+
+    return (als);
+}
+
+double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
+{
+    int i, nfAle = (int) Nf(Mz), nfmu = Nf_thr ? (int) Nf(mu) : nfAle;
+    double ale, aletmp, mutmp, aleMz = alphaMz();
+    orders fullord;
+
+    for (i = 0; i < CacheSize; ++i)
+        if ((mu == ale_cache[0][i]) && ((double) order == ale_cache[1][i]) &&
+                (AlsMz == ale_cache[2][i]) && (Mz == ale_cache[3][i]) &&
+                (mut == ale_cache[4][i]) && (mub == ale_cache[5][i]) &&
+                (muc == ale_cache[6][i])
+                && (double) Nf_thr == ale_cache[7][i] && aleMz == ale_cache[8][i])
+            return ale_cache[9][i];
+
+    switch (order)
+    {
+        case FULLNLO:
+            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr));
+        case FULLNNLO:
+            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr));
+        case FULLNNNLO:
+            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr) + Ale(mu, NNNLO, Nf_thr));
+        case LO:
+        case NLO:
+        case NNLO:
+        case NNNLO:
+            if (nfAle == nfmu)
+                return(AleWithInit(mu, aleMz, Mz, order));
+            fullord = FullOrder(order);
+            if (nfAle > nfmu) {
+                mutmp = BelowTh(Mz);
+                aletmp = AleWithInit(mutmp, aleMz, Mz, fullord);
+//                aletmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAle), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAle - 1; i > nfmu; i--) {
+                    mutmp = BelowTh(mutmp - MEPS);
+                    aletmp = AleWithInit(mutmp, aletmp, AboveTh(mutmp) - MEPS, fullord);
+//                    aletmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), aletmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                ale = AleWithInit(mu, aletmp, AboveTh(mu) - MEPS, order);
+            }
+
+            if (nfAle < nfmu) {
+                mutmp = AboveTh(Mz) - MEPS;
+                aletmp = AleWithInit(mutmp, aleMz, Mz, fullord);
+//                alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                for (i = nfAle + 1; i < nfmu; i++) {
+                    mutmp = AboveTh(mutmp) - MEPS;
+                    aletmp = AleWithInit(mutmp, aletmp, BelowTh(mutmp) + MEPS, fullord); 
+//                    alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
+                }
+                ale = AleWithInit(mu, aletmp, BelowTh(mu) + MEPS, order);
+            }
+
+            CacheShift(ale_cache, 10);
+            ale_cache[0][0] = mu;
+            ale_cache[1][0] = (double) order;    
+            ale_cache[2][0] = AlsMz;
+            ale_cache[3][0] = Mz;
+            ale_cache[4][0] = mut;
+            ale_cache[5][0] = mub;
+            ale_cache[6][0] = muc;
+            ale_cache[7][0] = (double) Nf_thr;
+            ale_cache[8][0] = aleMz;
+            ale_cache[9][0] = ale;
+
+            return ale;
+        default:
+            throw std::runtime_error("StandardModel::Ale(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
+double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders order) const
+{
+    if (fabs(mu - mu_i) < MEPS) return(alei);
+
+    double nf = Nf(mu), alsi = Als(mu_i, NNLO, true);
+    double b00e = Beta_e(00, nf), b00s = Beta_s(00, nf);
+    double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
+    double logv = log(1. + b00s * alsi / 2. / M_PI * log(mu / mu_i)), logve = log(ve);
+
+    switch (order)
+    {
+        case LO:
+            return (alei / ve);
+        case NLO:
+            return (- alei * alei / 4. / M_PI / ve / ve * (Beta_e(10, nf) / b00e * logve - Beta_e(01, nf) / b00s * logv) );
+            // Higher order terms ? Need to understand eq. (35)
+        case FULLNLO:
+            return (AleWithInit(mu, alei, mu_i, LO) + AleWithInit(mu, alei, mu_i, NLO));
+        default:
+            throw std::runtime_error("StandardModel::AleWithInit(): " + orderToString(order) + " is not implemented.");
     }
 }
 
@@ -716,9 +976,9 @@ double StandardModel::alphaMz() const
 
 double StandardModel::Alstilde5(const double mu) const
 {
-    double mu_0 = MAls;
+    double mu_0 = Mz;
     double alphatilde_e = alphaMz()/4./M_PI;
-    double alphatilde_s = AlsM/4./M_PI;
+    double alphatilde_s = AlsMz/4./M_PI;
     unsigned int nf = 5;
 
     double B00S = Beta0(nf), B10S = Beta1(nf), B20S = Beta2(nf), B30S = gsl_sf_zeta_int(3) * 352864./81. - 598391./1458,
@@ -998,7 +1258,7 @@ double StandardModel::GammaW(const Particle fi, const Particle fj) const
     if (fi.is("LEPTON"))
         return ( V.abs2() * G0 * rho_GammaW(fi, fj));
     else {
-        double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, FULLNLO);
+        double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, FULLNLO, false);
         return ( 3.0 * V.abs2() * G0 * rho_GammaW(fi, fj)*(1.0 + AlsMw / M_PI));
     }
 }
