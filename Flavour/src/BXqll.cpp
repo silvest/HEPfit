@@ -1600,9 +1600,9 @@ gslpp::complex BXqll::g_Huber(double y)
     gslpp::complex i = gslpp::complex::i();
     gslpp::complex g_y;
     
-    g_y = -2./9.*(2.+y)*sqrt(abs(1.-y));
+    g_y = -2./9.*(2.+y)*sqrt(fabs(1.-y));
     if(y < 1.)
-        g_y *= log(abs((1.+sqrt(1.-y))/(1.-sqrt(1.-y))))-i*M_PI;
+        g_y *= log(fabs((1.+sqrt(1.-y))/(1.-sqrt(1.-y))))-i*M_PI;
     else
         g_y *= 2.*atan(1./sqrt(y-1.));
         
