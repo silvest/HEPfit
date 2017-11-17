@@ -139,7 +139,7 @@ public:
      * loop function X_t for this process (in respect with the one present also in 
      * \f$  K^{0} \rightarrow \pi^{0}  \nu \bar{\nu} \f$)
      */
-    double C_TOT(orders order, orders_ew order_ew);
+    double C_TOT(orders order, orders_qed order_qed);
 
 private:
     const StandardModel& model;

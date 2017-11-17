@@ -9,7 +9,7 @@
 #define	STANDARDMODELMATCHING_H
 
 #include "ModelMatching.h"
-#include <gslpp.h>
+#include "gslpp.h"
 
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
 
@@ -63,7 +63,7 @@ public:
      */
     virtual   std::vector<WilsonCoefficient>& CMdk2() ;
         
-    /** 
+    /**
      * 
      * @brief operator basis: 
      * @brief current current; qcd penguins; magnetic and chromomagnetic penguins; semileptonic  
@@ -486,11 +486,92 @@ public:
     
     /**
      * 
+     * @brief loop functions for non-leptonic B decays, Buras Basis
+     * Buras et al, hep-ph/9512380
+     * @param[in] x the square of the ratio between top mass and W mass
+     */
+    double D0b_tilde(double x)const;
+    
+    /**
+     * 
      * @brief loop functions for non-leptonic B decays, Buiras Basis
      * Buras et al, hep-ph/9512380v1
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double E0b(double x)const;
+    
+    /**
+     * 
+     * @brief loop functions for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double B1d(double x, double mu)const;
+    
+    /**
+     * 
+     * @brief loop functions for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double B1d_tilde(double x, double mu)const;
+    
+    /**
+     * 
+     * @brief loop functions for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double B1u(double x, double mu)const;
+    
+    /**
+     * 
+     * @brief loop functions for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double B1u_tilde(double x, double mu)const;
+    
+    /**
+     * 
+     * @brief loop functions for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] x the square of the ratio between top mass and W mass
+     */
+    double C1ew(double x)const;
+    
+    /**
+     * 
+     * @brief auxiliary loop function for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] xt the square of the ratio between top mass and W mass
+     * @param[in] xz the square of the ratio between Z mass and W mass
+     */
+    double Zew(double xt, double xz)const;
+        
+    /**
+     * 
+     * @brief loop functions for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] xt the square of the ratio between top mass and W mass
+     * @param[in] xz the square of the ratio between Z mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Gew(double xt, double xz, double mu)const;
+    
+    /**
+     * 
+     * @brief loop functions for QED corrections of Delta F = 1 decays
+     * Buras, Gambino, Haisch, hep-ph/9911250
+     * @param[in] xt the square of the ratio between top mass and W mass
+     * @param[in] xz the square of the ratio between Z mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double Hew(double xt, double xz, double mu)const;
     
     /**
      *  
@@ -549,16 +630,27 @@ public:
     double S1(double x) const;
 
     virtual double S0(double, double) const;
-    
-    
+
+    /*
+     * Wilson coefficients Misiak basis
+     * Operator block: L (2)
+     * Normalization: 4 G_F / sqrt(2) x CKM
+     */
+    virtual std::vector<WilsonCoefficient>& CMDF1(std::string blocks, unsigned int nops);
+
+    double getMt_mut() const {
+        return Mt_mut;
+    }
+     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcprimebsg, vmcBMll, vmcprimeBMll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm, vmcbtaunu;
     std::vector<WilsonCoefficient> vmcDLij, vmcDLi3j, vmcmueconv, vmcgminus2mu;
+    std::vector<WilsonCoefficient> vmcDF1;
+
     
-private:
-    
+private:    
     const StandardModel & SM;
     double S0(double) const;
     double S0p(double x) const;
@@ -568,25 +660,17 @@ private:
     WilsonCoefficient mcbsg, mcprimebsg, mcBMll, mcprimeBMll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm, mcbtaunu;
     WilsonCoefficient mcDLij, mcDLi3j, mcmueconv, mcgminus2mu;
+    WilsonCoefficient mcC, mcP, mcM, mcL, mcQ, mcB;
     
-    double Mut;
-    double Muw;
-    double Ale;
-    double GF;
-    double Mw_tree;
-    double Nc;
-    double CF;
-    double gamma0;
-    double J5;
-    double BtNDR;
-    double Mw;
-    double sW2;
-    double mu_b;
-    //double MM;
-    gslpp::matrix<gslpp::complex> Vckm;
+    double Mut, Muw, Ale, GF, Mw_tree, Nc, CF, Mt_muw, Mt_mut;
+    double gamma0, J5, BtNDR, Mw, sW2, mu_b;
+    double L, Lz;
+    double alstilde, aletilde;
+    
+
     gslpp::complex lam_t;
-    double L;
-    
+    gslpp::matrix<gslpp::complex> Vckm;
+
     /**
      * 
      * @param i int, flag for the caching
@@ -600,10 +684,10 @@ private:
      * 
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
-     * @param order_ew
+     * @param order_qed
      * @return return the electroweak value of the wilson coefficients for \f$ B_{s} \rightarrow  l^{+} l^{-} \f$
      */
-    double setWCBsmmEW(int i, double x, orders_ew order_ew);
+    double setWCBsmmEW(int i, double x, orders_qed order_qed);
     
      /**
      * 
@@ -618,10 +702,10 @@ private:
      * 
      * @param i int, flag for the caching
      * @param x the square ratio between top mass and W mass
-     * @param order_ew
+     * @param order_qed
      * @return return the electroweak value of the wilson coefficients for \f$ B_{d} \rightarrow  l^{+} l^{-} \f$
      */
-    double setWCBdmmEW(int i, double x, orders_ew order_ew);
+    double setWCBdmmEW(int i, double x, orders_qed order_qed);
     
     /**
      * 
@@ -657,7 +741,7 @@ private:
      * @return return the value of the electroweak contribution to the Wilson coefficients for non-leptonic B decays
      */
     double setWCbnlepEW (int i, double x);
-    
+
     /**
      * 
      * @param z
@@ -673,7 +757,7 @@ private:
      */
     double phi2 (double x, double y) const;
     
-    double CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
+        double CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
     double CWprimebsgArrayLO[8], CWprimebsgArrayNLO[8];
     double CWBMllArrayLO[19], CWBMllArrayNLO[19];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];
@@ -688,9 +772,150 @@ private:
     
     double sw, swa, swb, swc, swd, swe, swf; //sen(theta_W) tree level
     double xcachea, xcacheb, xcachec, xcached, xcachee, xcachef; // caching
+
     
+    /**
+     * 
+     * @param z
+     * @return two loop EW loop functions, hep-ph/9911250 
+     */
+    double phi_z(double z) const;
+    
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return two loop EW loop functions, hep-ph/9911250 
+     */
+    double phi_xy (double x, double y) const;
+    
+    /**
+     * 
+     * @param x \f$ \frac{m_t^2}{M_W^2} \f$
+     * @return function appearing in the matching condition for \f$ C_3 \f$ 
+     */
+    double C3funNNLO(double x);
+    
+    /**
+     * 
+     * @param x \f$ \frac{m_t^2}{M_W^2} \f$
+     * @param ord NLO or NNLO
+     * @return function appearing in the matching condition for \f$ C_4 \f$ 
+     */
+    double C4fun(double x, orders ord);
+
+    /**
+     * 
+     * @param x \f$ \frac{m_t^2}{M_W^2} \f$
+     * @return function appearing in the matching condition for \f$ C_5 \f$ 
+     */
+    double C5funNNLO(double x);
+
+    /**
+     * 
+     * @param x \f$ \frac{m_t^2}{M_W^2} \f$
+     * @return function appearing in the matching condition for \f$ C_6 \f$ 
+     */
+    double C6funNNLO(double x);
+    
+    /**
+     * 
+     * @param x \f$ \frac{m_t^2}{M_W^2} \f$
+     * @return function appearing in the matching condition for \f$ C_7 \f$ 
+     */
+    double C7funLO(double x);
+    
+    /**
+     * 
+     * @param x \f$ \frac{m_t^2}{M_W^2} \f$
+     * @return function appearing in the matching condition for \f$ C_8 \f$ 
+     */
+    double C8funLO(double x);
+
+    unsigned int setCMDF1(WilsonCoefficient& CMDF1, WilsonCoefficient& DF1block, unsigned int tot, schemes scheme, orders order, orders_qed order_qed);
+
+    /**
+     * 
+     * @brief auxiliary function for mc_L() 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return an approximation of the function \f$ f(x) \f$ from hep-ph/9707243 in the range x=(0,1)
+     */    
+    double fbb(double x);
+    
+    /**
+     * 
+     * @brief auxiliary function for mc_L() 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return the function  \f$ g(x) \f$ from hep-ph/9707243 
+     */    
+    double gbb(double x);
+
+    /**
+     * 
+     * @brief auxiliary function for mc_L() 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return the function  \f$ \tau_b^{(2)}(x) \f$ from hep-ph/9707243 
+     */    
+    double taub2(double x);
+
+    /**
+     * 
+     * @brief auxiliary function for mc_L()
+     * @param[in] mu matching scale 
+     * @param[in] x \f$ \frac{M_H^2}{m_t^2} \f$
+     * @return return the function  \f$ \Delta_t(\mu, x) \f$ from hep-ph/9707243 
+     */    
+    double Delta_t(double mu, double x);
+
+    /*
+     * Wilson coefficients Misiak basis
+     * Operator block: C (2)
+     * Normalization: 4 G_F / sqrt(2) x CKM
+     */
+    WilsonCoefficient& mc_C();
+
+    /*
+     * Wilson coefficients Misiak basis
+     * Operator block: P (4)
+     * Normalization: 4 G_F / sqrt(2) x CKM
+     */
+    WilsonCoefficient& mc_P();
+
+    /*
+     * Wilson coefficients Misiak basis
+     * Operator block: M (2)
+     * Normalization: 4 G_F / sqrt(2) x CKM
+     * QED only available at NLO and in approximate formulas
+     * QED ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058
+     */
+    WilsonCoefficient& mc_M();
+
+    /*
+     * Wilson coefficients Misiak basis
+     * Operator block: L (2)
+     * Normalization: 4 G_F / sqrt(2) x CKM
+     */
+    WilsonCoefficient& mc_L();
+
+    /*
+     * Wilson coefficients Misiak basis
+     * Operator block: Q (4)
+     * Normalization: 4 G_F / sqrt(2) x CKM
+     * QED_NLO ref.: Gambino, Haisch, JHEP 0110, 020, hep-ph/0109058 - COULD BE CHANGED TO X,Y,W
+     */
+    WilsonCoefficient& mc_Q();
+
+    /*
+     * Wilson coefficients Misiak basis
+     * Operator block: B (1)
+     * Normalization: 4 G_F / sqrt(2) x CKM
+     */
+    WilsonCoefficient& mc_B();
+
+    friend double gslpp_special_functions::dilog(double x);
+    friend double gslpp_special_functions::clausen(double x);
+    friend double gslpp_special_functions::zeta(int i);
     
 };
 
 #endif	/* STANDARDMODELMATCHING_H */
-

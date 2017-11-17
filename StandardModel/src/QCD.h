@@ -954,7 +954,7 @@ public:
      * \f$\mu_b\f$ (i = 2), \f$\mu_c\f$ (i = 3) and 0. (default)
      */
     double Thresholds(const int i) const;
-
+    
     /**
      * @brief The active flavour threshold above the scale \f$\mu\f$
      * as defined in %QCD::Thresholds().
@@ -978,6 +978,24 @@ public:
      */
     double Nf(const double mu) const;
 
+    /**
+     * @brief Threshold corrections in matching als(nf+1) with als(nf) from eq. (34) of hep-ph/0512060
+     * @param[in] mu the matching scale
+     * @param[in] M the running quark mass
+     * @param[in] als value of als(mu) in the nf flavour theory
+     * @param[in] nf number of active flavour
+     * @param[in] order order of the expansion in als 
+     * @return Threshold correction (without the leading term equal to 1)
+     */
+    double NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const;
+    
+    /**
+     * @brief Return the FULLORDER enum corresponding to order
+     * @param[in] order of the expansion in als 
+     * @return the FULLORDER enum corresponding to order
+     */
+    orders FullOrder(orders order) const;
+    
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1000,6 +1018,13 @@ public:
      * @return @f$\beta_2(n_f)@f$
      */
     double Beta2(const double nf) const;
+
+    /**
+     * @brief The \f$\beta_3(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$. 
+     * @param[in] nf the number of active flavours \f$n_f\f$
+     * @return @f$\beta_3(n_f)@f$
+     */
+    double Beta3(const double nf) const;
 
     /**
      * @brief Computes the running strong coupling @f$\alpha_s(\mu)@f$ from @f$\alpha_s(\mu_i)@f$
@@ -1030,12 +1055,15 @@ public:
      * @f$\overline{\mathrm{MS}}@f$ scheme. In the cases of LO, NLO and FULLNNLO,
      * the coupling is computed with AlsWithInit(). On the other hand, in the
      * cases of NNLO and FULLNNLO, the coupling is computed with AlsWithLambda().
-     * @param[in] mu a scale @f$\mu@f$ in GeV
-     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
+     * @param[in] mu the scale @f$\mu@f$ in GeV
+     * @param[in] order order in the @f$\alpha_s@f$ expansion as defined in OrderScheme
+     * @param[in] order_qed order in the @f$\alpha_e@f$ expansion as defined in OrderScheme. Default to NO_QED.
+     * @param[in] Nf_thr true (default): @f$n_f@f$ = Nf(mu), false: @f$n_f@f$ = Nf(AlsM)  
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
      */
-    double Als(const double mu, const orders order = FULLNLO) const;
+    double AlsOLD(const double mu, const orders order = FULLNLO) const;
+    virtual double Als(const double mu, const orders order = FULLNLO, bool Nf_thr = true) const;
 
     /**
      * @brief Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV.
@@ -1147,6 +1175,14 @@ public:
     double MS2DRqmass(const double MSbar) const;
 
     ////////////////////////////////////////////////////////////////////////
+    /**
+     * @brief A member used to manage the caching for this class.
+     * @param[in] cache the cache to be moved
+     * @param[in] n the dimension of the cache to be shifted
+     */
+    void CacheShift(double cache[][5], int n) const;
+    void CacheShift(int cache[][5], int n) const;
+
 
 protected:
 
@@ -1156,6 +1192,13 @@ protected:
      * @param[in] value the value to be assigned to the parameter specified by name
      */
     virtual void setParameter(const std::string name, const double& value);
+
+    /**
+     * @brief The Mbar mass of the heaviest quark in the theory with Nf active flavour
+     * @param[in] Nf the number of active flavour 
+     * @return MSbar \f$m_q(m_q)\f$
+     */
+    double MassOfNf(int nf) const;
 
     bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
@@ -1171,11 +1214,10 @@ protected:
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.
     
     double Nc; ///< The number of colours.
+    double TF,CA,CF,dFdF_NA,dAdA_NA,dFdA_NA,NA; //SU(N)-related quantities
     Particle quarks[6]; ///< The vector of all SM quarks.
     
 private:
-    
-    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
     mutable std::map<std::string, BParameter> BParameterMap;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
@@ -1300,13 +1342,6 @@ private:
      * @return the difference in the pole mass and the pole mass as computed from the \f$\overline{\rm MS}\f$ mass
      */
     double Mp2MbarTMP(double *mu, double *params) const;
-
-    /**
-     * @brief A member used to manage the caching for this class.
-     * @param[in] cache the cache to be moved
-     * @param[in] n the dimension of the cache to be shifted
-     */
-    void CacheShift(double cache[][5], int n) const;
 };
 
 #endif	/* QCD_H */

@@ -21,8 +21,7 @@ void Xmatrices::Update(const CKM & CKM_in){
             myeta && CKM_in.getLambda() == mylambda)
         return;
     
-    gslpp::matrix<gslpp::complex> ckm(3,3,0.);
-    CKM_in.getCKM(ckm);
+    gslpp::matrix<gslpp::complex> ckm(CKM_in.getCKM());
     
     for (int i = 0; i < 3; i++){
         X5.assign(2,i,ckm(2,i));

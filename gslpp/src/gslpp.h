@@ -13,6 +13,7 @@
 #include "gslpp_vector_complex.h"
 #include "gslpp_matrix_double.h"
 #include "gslpp_matrix_complex.h"
+#include "gslpp_special_functions.h"
 
 /**
  * @addtogroup gslpp
@@ -34,4 +35,3 @@
  */
 
 #endif	/* GSLPP_H */
-

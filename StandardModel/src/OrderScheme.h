@@ -8,8 +8,8 @@
 #ifndef ORDERSCHEME_H
 #define	ORDERSCHEME_H
 
-#define MAXORDER FULLNNLO
-#define MAXORDER_EW FULLNLO_ew
+#define MAXORDER FULLNNNLO
+#define MAXORDER_QED FULLNLO_QED
 
 /**
  * @enum schemes
@@ -33,25 +33,27 @@ enum orders
     LO = 0, /**< Leading order */
     NLO, /**< Next-to-leading order */
     NNLO, /**< Next-to-next-to-leading order */
+    NNNLO, /**< Next-to-next-to-next-to-leading order */
     FULLNLO, /**< Full NLO = LO + NLO */
-    FULLNNLO /**< Full NNLO = LO + NLO + NNLO */
+    FULLNNLO, /**< Full NNLO = LO + NLO + NNLO */
+    FULLNNNLO /**< Full NNLO = LO + NLO + NNLO + NNNLO */        
 };
 
 /**
- * @enum orders_ew
+ * @enum orders_qed
  * @ingroup StandardModel
  * @brief An enum type for orders in electroweak.
  */
-enum orders_ew
+enum orders_qed // WARNING: don't change the ordering, it matters in HeffDF1
 {
-    NULL_ew = orders(MAXORDER + 1), /**< An auxiliary enumerator */
-    LO_ew, /**< Leading order */
-    NLO_ew, /**< Next-to-leading order */
-    NLO_ewt1,   /* e^2/s^2 */
-    NLO_ewt2,     /* es */
-    NLO_ewt3,    /* e^2/s */
-    NLO_ewt4,     /* e^2 */
-    FULLNLO_ew /**< Full NLO_ew = LO + NLO + LO_ew + NLO_ew +...+ NLO_ewt4 */
+    NO_QED = orders(MAXORDER) + 1, /**< An auxiliary enumerator */
+    LO_QED, /**< Leading order e/s */
+    NLO_QED11, /**< Next-to-leading order e */
+    NLO_QED21,     /* e*s */
+    NLO_QED02,   /* e^2/s^2 */
+    NLO_QED12,    /* e^2/s */
+    NLO_QED22,     /* e^2 */
+    FULLNLO_QED /**< Full NLO_QED = LO + NLO + LO_QED + NLO_QED +...+ NLO_QED22 */
 };
 
 #endif	/* ORDERSCHEME_H */

@@ -14,13 +14,13 @@
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_roots.h>
-#include <gsl/gsl_sf_zeta.h>
 #include <TF1.h>
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
 #include <algorithm>
 #include <boost/bind.hpp>
 #include "QCD.h"
+#include "gslpp_special_functions.h"
 
 std::string QCD::QCDvars[NQCDvars] = {
     "AlsM", "MAls",
@@ -36,7 +36,14 @@ QCD::QCD()
     computeBd = false;
     computeBs = false;
     Nc = 3.;
+    TF = 0.5;
     CF = Nc / 2. - 1. / (2. * Nc);
+    CA = Nc;
+    dFdA_NA = Nc*(Nc*Nc+6.)/48.;
+    dAdA_NA = Nc*Nc*(Nc*Nc+36.)/24.;
+    dFdF_NA = (Nc*Nc-6.+18./Nc/Nc)/96.;
+    NA = Nc*Nc-1.;
+    
     //    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     quarks[UP] = Particle("UP", 0., 2., 0., 2. / 3., .5);
     quarks[CHARM] = Particle("CHARM", 0., 0., 0., 2. / 3., .5);
@@ -45,8 +52,8 @@ QCD::QCD()
     quarks[STRANGE] = Particle("STRANGE", 0., 2., 0., -1. / 3., -.5);
     quarks[BOTTOM] = Particle("BOTTOM", 0., 0., 0., -1. / 3., -.5);
     
-    zeta2 = gsl_sf_zeta_int(2);
-    zeta3 = gsl_sf_zeta_int(3);
+    zeta2 = gslpp_special_functions::zeta(2);
+    zeta3 = gslpp_special_functions::zeta(3);
     for (int i = 0; i < CacheSize; i++) {
         for (int j = 0; j < 8; j++)
             als_cache[j][i] = 0.;
@@ -86,8 +93,12 @@ std::string QCD::orderToString(const orders order) const
             return "NNLO";
         case FULLNNLO:
             return "FULLNNLO";
+        case NNNLO:
+            return "NNNLO";
+        case FULLNNNLO:
+            return "FULLNNNLO";
         default:
-            throw std::runtime_error(orderToString(order) + " is not implemented in QCD::orderToString().");
+            throw std::runtime_error("QCD::orderToString(): order not implemented.");
     }
 }
 
@@ -427,41 +438,83 @@ void QCD::CacheShift(double cache[][CacheSize], int n) const
             cache[j][i] = cache[j][i - 1];
 }
 
+void QCD::CacheShift(int cache[][CacheSize], int n) const
+{
+    int i, j;
+    for (i = CacheSize - 1; i > 0; i--)
+        for (j = 0; j < n; j++)
+            cache[j][i] = cache[j][i - 1];
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 double QCD::Beta0(const double nf) const
 {
-    return ( (11. * Nc - 2. * nf) / 3.);
+    return ( (11. * CA - 4. * TF * nf) / 3. );
 }
 
 double QCD::Beta1(const double nf) const
 {
-    return ( 34. / 3. * Nc * Nc - 10. / 3. * Nc * nf - 2. * CF * nf);
+    return ( 34./3. * CA * CA - 20./3. * CA * TF * nf - 4. * CF * TF * nf);
 }
 
 double QCD::Beta2(const double nf) const
 {
-    return ( 2857. / 54. * Nc * Nc * Nc + CF * CF * nf - 205. / 18. * CF * Nc * nf
-            - 1415. / 54. * Nc * Nc * nf + 11. / 9. * CF * nf * nf + 79. / 54. * Nc * nf * nf);
+    return ( 2857./54. * CA * CA * CA - (1415./27. * CA * CA + 205./27. * CF * CA -
+            2. * CF * CF) * TF * nf +
+            (158./27. * CA  + 44./9. * CF ) * TF * TF * nf * nf );
+}
+
+// Czakon, hep-ph/0411261, eq. (14)
+double QCD::Beta3(const double nf) const
+{
+    return ( CA * CF * TF * TF * nf * nf * (17152./243. + 448./9. * zeta3) +
+            CA * CF * CF * TF * nf * (-4204./27. + 352./9. * zeta3) +
+            424./243. * CA * TF * TF * TF * nf * nf * nf + CA * CA * CF * TF * nf *
+            (7073./243. - 656./9. * zeta3) + CA * CA * TF * TF * nf * nf * (7930./81.+
+            224./9. * zeta3) + 1232./243. * CF * TF * TF * TF * nf * nf * nf +
+            CA * CA * CA * TF * nf * (-39143./81. + 136./3. * zeta3) + CA * CA * CA *
+            CA * (150653./486. - 44./9. * zeta3) + CF * CF * TF * TF * nf * nf *
+            (1352./27. - 704./9. * zeta3) + 46. * CF * CF * CF * TF * nf +
+            nf * dFdA_NA * (512./9. - 1664./3. * zeta3) + nf * nf * dFdF_NA * (
+            -704./9. + 512./3. * zeta3) + dAdA_NA * (-80./9. + 704./3. * zeta3) );
 }
 
 double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
         const orders order) const
 {
-    double nf = Nf(mu);
-    if (nf != Nf(mu_i))
-        throw std::runtime_error("Error in QCD::AlsWithInit().");
+    double nf = Nf(mu_i);
+//    double nf = Nf(mu);
+//    if (nf != Nf(mu_i))
+//        throw std::runtime_error("Error in QCD::AlsWithInit().");
 
+    double b1_b0 = Beta1(nf)/Beta0(nf);
     double v = 1. - Beta0(nf) * alsi / 2. / M_PI * log(mu_i / mu);
+    double logv = log(v);
+
     switch (order) {
         case LO:
             return (alsi / v);
-        case FULLNLO:
-            return (alsi / v * (1. - Beta1(nf) / Beta0(nf) * alsi / 4. / M_PI * log(v) / v));
         case NLO:
-            return (alsi / v * (-Beta1(nf) / Beta0(nf) * alsi / 4. / M_PI * log(v) / v));
+            return (- alsi * alsi / 4. / M_PI / v / v * Beta1(nf) / Beta0(nf) * logv );
+        case NNLO:
+            return (alsi * alsi * alsi / 4. / 4. / M_PI /M_PI / v / v / v * (
+                    Beta2(nf) / Beta0(nf) * (1. - v) + b1_b0 * b1_b0 * (logv * logv -
+                    logv + v - 1.)));
+        case NNNLO:
+            return (alsi * alsi * alsi * alsi / 4. / 4. / 4. / M_PI /M_PI / M_PI /
+                    v / v / v / v * ( Beta3(nf) / Beta0(nf) * (1. - v * v) / 2. +
+                    b1_b0 * Beta2(nf) / Beta0(nf) * ((2. * v - 3.) * logv + v * v -
+                    v) + b1_b0 * b1_b0 * b1_b0 * (-logv * logv * logv + 2.5 *
+                    logv * logv + 2. * (1. - v) * logv - 0.5 * (v - 1.) * (v - 1.))));
+        case FULLNLO:
+            return (AlsWithInit(mu,alsi,mu_i,LO) + AlsWithInit(mu,alsi,mu_i,NLO));
+        case FULLNNLO:
+            return(AlsWithInit(mu,alsi,mu_i,LO)+AlsWithInit(mu,alsi,mu_i,NLO)+AlsWithInit(mu,alsi,mu_i,NNLO));
+        case FULLNNNLO:
+            return(AlsWithInit(mu,alsi,mu_i,LO)+AlsWithInit(mu,alsi,mu_i,NLO)+AlsWithInit(mu,alsi,mu_i,NNLO)+AlsWithInit(mu,alsi,mu_i,NNNLO));
         default:
-            throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,alsi,mi,order).");
+            throw std::runtime_error("QCD::AlsWithInit(): " + orderToString(order) + " is not implemented.");
     }
 }
 
@@ -497,6 +550,13 @@ double QCD::AlsWithLambda(const double mu, const double logLambda,
     if (order == NNLO) return alsNNLO;
     if (order == FULLNNLO) return (alsLO + alsNLO + alsNNLO);
 
+    // NNNLO contribution
+    double b3 = Beta3(nf);
+    double alsNNNLO = 4. * M_PI / b0L * (-1. / b0L / b0L / b0L
+            * (b1 * b1 * b1 / b0 / b0 / b0 * (log_L * log_L * log_L - 5./2. * log_L * log_L -2. * log_L - 0.5) + 3. * b1 * b2 * log_L / b0 / b0 - 0.5 * b3 / b0));
+    if (order == NNNLO) return alsNNNLO;
+    if (order == FULLNNNLO) return (alsLO + alsNLO + alsNNLO + alsNNNLO);
+
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::AlsWithLambda().");
 }
 
@@ -505,15 +565,137 @@ double QCD::AlsWithLambda(const double mu, const orders order) const
     return AlsWithLambda(mu, logLambda(Nf(mu), order), order);
 }
 
-double QCD::Als(const double mu, const orders order) const
+double QCD::NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const
 {
-    int i;
+    double lmM = 2.*log(mu/M), res = 0.;
+    switch(order)
+    {
+        case FULLNNNLO:
+            res += als*als*als/M_PI/M_PI/M_PI*(-564731./124416. + 82043./27648.*gslpp_special_functions::zeta(3) +
+                    2191./576.*lmM + 511./576.*lmM*lmM + lmM*lmM*lmM/216. + ((double) nf - 1.) * (2633./31104. - 67./576.*lmM + lmM*lmM/36.));
+        case FULLNNLO:
+            res += als*als/M_PI/M_PI*(-11./72. + 19./24.*lmM + lmM*lmM/36.);
+        case FULLNLO:
+            res += als/M_PI*lmM/6.;
+        case LO:
+            break;
+        default:
+            throw std::runtime_error("QCD::ThresholdCorrections(): order not implemented.");
+    }
+    return(res);
+}
+
+orders QCD::FullOrder(orders order) const
+{
+    switch(order)
+    {
+        case LO:
+            return(LO);
+        case NLO:
+            return(FULLNLO);
+        case NNLO:
+            return(FULLNNLO);
+        case NNNLO:
+            return(FULLNNNLO);
+        default:
+            throw std::runtime_error("QCD::FullOrder(): " + orderToString(order) + " is not implemented.");    
+    }
+}
+
+double QCD::MassOfNf(int nf) const
+{
+    switch(nf)
+    {
+        case 6:
+            return(quarks[TOP].getMass());
+        case 5:
+            return(quarks[BOTTOM].getMass());
+        case 4:
+            return(quarks[CHARM].getMass());
+        case 3:
+            return(quarks[STRANGE].getMass());
+        default:
+            throw std::runtime_error("QCD::MassOfNf(): no running masses for light quarks");
+    }
+}
+
+double QCD::Als(const double mu, const orders order, bool Nf_thr) const {
+    int i, nfAls = (int) Nf(MAls), nfmu = Nf_thr ? (int) Nf(mu) : nfAls;
+    double als, alstmp, mutmp;
+    orders fullord;
+
     for (i = 0; i < CacheSize; ++i)
         if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
                 (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
                 (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-                (muc == als_cache[6][i]))
-            return als_cache[7][i];
+                (muc == als_cache[6][i]) && (Nf_thr == (bool) als_cache[7][i]))
+            return als_cache[8][i];
+
+    switch (order)
+    {
+        case FULLNLO:
+            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr));
+        case FULLNNLO:
+            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr) + Als(mu, NNLO, Nf_thr));
+        case FULLNNNLO:
+            return (Als(mu, LO, Nf_thr) + Als(mu, NLO, Nf_thr) + Als(mu, NNLO, Nf_thr) + Als(mu, NNNLO, Nf_thr));
+        case LO:
+        case NLO:
+        case NNLO:
+        case NNNLO:
+            if (nfAls == nfmu)
+                als = AlsWithInit(mu, AlsM, MAls, order);
+            fullord = FullOrder(order);
+            if (nfAls > nfmu) {
+                mutmp = BelowTh(MAls);
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord);
+                alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord));
+                for (i = nfAls - 1; i > nfmu; i--) {
+                    mutmp = BelowTh(mutmp - MEPS);
+                    alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, fullord);
+                    alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord));
+                }
+                als = AlsWithInit(mu, alstmp, AboveTh(mu) - MEPS, order);
+            }
+
+            if (nfAls < nfmu) {
+                mutmp = AboveTh(MAls) - MEPS;
+                alstmp = AlsWithInit(mutmp, AlsM, MAls, fullord);
+                alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord));
+                for (i = nfAls + 1; i < nfmu; i++) {
+                    mutmp = AboveTh(mutmp) - MEPS;
+                    alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, fullord);
+                    alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord));
+                }
+                als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, order);
+            }
+
+            CacheShift(als_cache, 9);
+            als_cache[0][0] = mu;
+            als_cache[1][0] = (double) order;
+            als_cache[2][0] = AlsM;
+            als_cache[3][0] = MAls;
+            als_cache[4][0] = mut;
+            als_cache[5][0] = mub;
+            als_cache[6][0] = muc;
+            als_cache[7][0] = (int) Nf_thr;
+            als_cache[8][0] = als;
+
+            return als;
+        default:
+            throw std::runtime_error("QCD::Als(): " + orderToString(order) + " is not implemented.");
+    }
+}
+
+double QCD::AlsOLD(const double mu, const orders order) const
+{
+//    int i;
+//    for (i = 0; i < CacheSize; ++i)
+//        if ((mu == als_cache[0][i]) && ((double) order == als_cache[1][i]) &&
+//                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
+//                (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
+//                (muc == als_cache[6][i]))
+//            return als_cache[7][i];
 
     double nfmu = Nf(mu), nfz = Nf(MAls), mu_thre1, mu_thre2, Als_tmp, mf;
     double als;
@@ -531,7 +713,7 @@ double QCD::Als(const double mu, const orders order) const
                     mu_thre1 = AboveTh(MAls); // mut
                     Als_tmp = AlsWithInit(mu_thre1 - MEPS, AlsM, MAls, order);
                     if (order == FULLNLO) {
-                        mf = mtpole;
+                        mf = getQuarks(TOP).getMass(); //mf = mtpole;
                         Als_tmp = (1. + Als_tmp / M_PI * log(mu_thre1 / mf) / 3.) * Als_tmp;
                     }
                     als = AlsWithInit(mu, Als_tmp, mu_thre1 + MEPS, order);
@@ -566,24 +748,26 @@ double QCD::Als(const double mu, const orders order) const
                     throw std::runtime_error("Error in QCD::Als(mu,order)");
             }
             break;
-        case FULLNNLO:
         case NNLO:
-            /* alpha_s(mu) computed with Lambda_QCD for Nf=nfmu */
+//        case NNNLO:
+        case FULLNNLO:
+//        case FULLNNNLO:
+           /* alpha_s(mu) computed with Lambda_QCD for Nf=nfmu */
             als = AlsWithLambda(mu, order);
             break;
         default:
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,order).");
     }
 
-    CacheShift(als_cache, 8);
-    als_cache[0][0] = mu;
-    als_cache[1][0] = (double) order;
-    als_cache[2][0] = AlsM;
-    als_cache[3][0] = MAls;
-    als_cache[4][0] = mut;
-    als_cache[5][0] = mub;
-    als_cache[6][0] = muc;
-    als_cache[7][0] = als;
+//    CacheShift(als_cache, 8);
+//    als_cache[0][0] = mu;
+//    als_cache[1][0] = (double) order;
+//    als_cache[2][0] = AlsM;
+//    als_cache[3][0] = MAls;
+//    als_cache[4][0] = mut;
+//    als_cache[5][0] = mub;
+//    als_cache[6][0] = muc;
+//    als_cache[7][0] = als;
 
     return als;
 }

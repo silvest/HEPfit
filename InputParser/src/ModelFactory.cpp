@@ -38,6 +38,7 @@
 #include "GeneralTHDM.h"
 #include "LeftRightSymmetricModel.h"
 #include "THDMW.h"
+#include "GeorgiMachacek.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
 
@@ -86,6 +87,7 @@ ModelFactory::ModelFactory()
     modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
     modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
     modelFactory["THDMW"] = boost::factory<THDMW*>();
+    modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
 /** END: REMOVE FROM THE PACKAGE **/
 }
 

@@ -33,7 +33,7 @@ protected:
     /**
      * 
      * @param order
-     * @param order_ew
+     * @param order_qed
      * @return the short distance contribution to the 
      * |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
      */

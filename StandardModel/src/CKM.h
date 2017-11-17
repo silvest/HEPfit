@@ -23,101 +23,105 @@
 class CKM {
 public:
     CKM();
-    CKM(const CKM&);
-    ~CKM();
+//    ~CKM();
 
-    void setWolfenstein(double, double, double, double);
-    void setCKM(double, double, double, double);
+    void setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v);
+    void setCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v);
 
-    void setCKM(gslpp::matrix<gslpp::complex> &);
-    void getCKM(gslpp::matrix<gslpp::complex> &) const;
+    void setCKM(gslpp::matrix<gslpp::complex> V) {
+        this->V = V;
+    }
+
+    gslpp::matrix<gslpp::complex> getCKM() const {
+        return V;
+    }
 
     // Wolfenstein parameters
     double getRho() const;
     double getEta() const;
     double getLambda() const;
     double getA() const;
-    double getRhoNB();
-    double getEtaNB();
+    double getRhoNB() const;
+    double getEtaNB() const;
 
     // Gilman parameterization
-    double gets12();
-    double gets13();
-    double gets23();
-    double getc12();
-    double getc13();
-    double getc23();
-    double getdelta();
+    double gets12() const;
+    double gets13() const;
+    double gets23() const;
+    double getc12() const;
+    double getc13() const;
+    double getc23() const;
+    double getdelta() const;
 
     // J_CP
-    double getJcp();
+    double getJcp() const;
 
     //Absolute values of CKM elements
-    double getVud();
-    double getVus();
-    double getVub();
-    double getVcd();
-    double getVcs();
-    double getVcb();
-    double getVtd();
-    double getVts();
-    double getVtb();
+    double getVud() const;
+    double getVus() const;
+    double getVub() const;
+    double getVcd() const;
+    double getVcs() const;
+    double getVcb() const;
+    double getVtd() const;
+    double getVts() const;
+    double getVtb() const;
 
     //Phases of CKM elements
-    double getArgVud();
-    double getArgVus();
-    double getArgVub();
-    double getArgVcd();
-    double getArgVcs();
-    double getArgVcb();
-    double getArgVtd();
-    double getArgVts();
-    double getArgVtb();
+    double getArgVud() const;
+    double getArgVus() const;
+    double getArgVub() const;
+    double getArgVcd() const;
+    double getArgVcs() const;
+    double getArgVcb() const;
+    double getArgVtd() const;
+    double getArgVts() const;
+    double getArgVtb() const;
 
     //Complex values of CKM elements
-    gslpp::complex V_ud();
-    gslpp::complex V_us();
-    gslpp::complex V_ub();
-    gslpp::complex V_cd();
-    gslpp::complex V_cs();
-    gslpp::complex V_cb();
-    gslpp::complex V_td();
-    gslpp::complex V_ts();
-    gslpp::complex V_tb();
+    gslpp::complex V_ud() const;
+    gslpp::complex V_us() const;
+    gslpp::complex V_ub() const;
+    gslpp::complex V_cd() const;
+    gslpp::complex V_cs() const;
+    gslpp::complex V_cb() const;
+    gslpp::complex V_td() const;
+    gslpp::complex V_ts() const;
+    gslpp::complex V_tb() const;
 
    
     // Angles
-    double computeBeta();
-    double computeGamma();
-    double computeAlpha();
-    double computeBetas();
+    double computeBeta() const;
+    double computeGamma() const;
+    double computeAlpha() const;
+    double computeBetas() const;
     
     // Lambda_q
-    gslpp::complex computelamt();
-    gslpp::complex computelamc();
-    gslpp::complex computelamu();
+    gslpp::complex computelamt() const;
+    gslpp::complex computelamc() const;
+    gslpp::complex computelamu() const;
     
-    gslpp::complex computelamt_d();
-    gslpp::complex computelamc_d();
-    gslpp::complex computelamu_d();
+    gslpp::complex computelamt_d() const;
+    gslpp::complex computelamc_d() const;
+    gslpp::complex computelamu_d() const;
     
-    gslpp::complex computelamt_s();
-    gslpp::complex computelamc_s();
-    gslpp::complex computelamu_s();
+    gslpp::complex computelamt_s() const;
+    gslpp::complex computelamc_s() const;
+    gslpp::complex computelamu_s() const;
     
     // Sides
-    double getRt();
-    double getRts();
-    double getRb();
+    double getRt() const;
+    double getRts() const;
+    double getRb() const;
     
 private:
+    void setCKMfromAngles();
+
     double Rho, Eta, Lambda, A;
     double s12, s13, s23, delta;
     double c12, c23, c13;
 
-    gslpp::complex Vud, Vcd, Vtd;
-    gslpp::complex Vus, Vcs, Vts;
-    gslpp::complex Vub, Vcb, Vtb;
+    gslpp::matrix<gslpp::complex> V;
 
 };
 

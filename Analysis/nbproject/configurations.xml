@@ -15,6 +15,7 @@
       <itemPath>main.cpp</itemPath>
       <itemPath>main_EventGeneration_example.cpp</itemPath>
       <itemPath>main_MCMC_example.cpp</itemPath>
+      <itemPath>main_df1evol_test.cpp</itemPath>
       <itemPath>main_libmode_config_example.cpp</itemPath>
       <itemPath>main_libmode_header_example.cpp</itemPath>
     </logicalFolder>
@@ -111,6 +112,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../THDMW/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -120,6 +122,7 @@
             <pElem>../BAT/lib</pElem>
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
+            <pElem>../LoopTools/lib64</pElem>
             <pElem>../LoopTools/lib</pElem>
             <pElem>../boost/lib</pElem>
             <pElem>../boost</pElem>
@@ -180,30 +183,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EW"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../EW"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../NewPhysics"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../NewPhysics"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -327,6 +306,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../LeftRightSymmetricModel"
                             CT="3"
                             CN="Debug"
@@ -408,6 +399,30 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libleptonflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../NewPhysics"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../NewPhysics"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
@@ -541,6 +556,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../HiggsExtensions/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>
@@ -759,6 +775,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../LeftRightSymmetricModel"
                             CT="3"
                             CN="Debug"
@@ -934,9 +962,11 @@
           </linkerDynSerch>
         </linkerTool>
       </folder>
-      <item path="main.cpp" ex="false" tool="1" flavor2="9">
+      <item path="main.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
@@ -980,6 +1010,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -1199,6 +1230,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../GeneralTHDM"
                             CT="3"
                             CN="Release"
@@ -1375,6 +1418,8 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
@@ -1413,6 +1458,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../HiggsExtensions/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>
@@ -1630,6 +1676,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../GeneralTHDM"
                             CT="3"
                             CN="Release"
@@ -1808,6 +1866,8 @@
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
+      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="main_libmode_header_example.cpp" ex="true" tool="1" flavor2="9">
@@ -1852,6 +1912,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -2095,6 +2156,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../GeneralTHDM"
                             CT="3"
                             CN="Cluster"
@@ -2271,6 +2344,8 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
@@ -2311,6 +2386,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -2559,6 +2635,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../GeneralTHDM"
                             CT="3"
                             CN="Cluster"
@@ -2749,6 +2837,8 @@
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
+      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
@@ -2789,6 +2879,7 @@
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../HiggsExtensions/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`/usr/local/bin/root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -3007,6 +3098,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../GeorgiMachacek"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../GeorgiMachacek"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../GeneralTHDM"
                             CT="3"
                             CN="Debug"
@@ -3172,6 +3275,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_df1evol_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>

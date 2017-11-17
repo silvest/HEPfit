@@ -158,11 +158,8 @@ void MFV::SetSoftTerms()
     TEhat = X.GetX1() * a8 + X.GetX2() * w5;
     
     // rotation to the SCKM basis according to SLHA notation
-    
-    gslpp::matrix<gslpp::complex> ckm(3,3,0.);
-    myCKM.getCKM(ckm);
-  
-    TUhat = sqrt(2.) * TUhat * ckm.hconjugate();
+      
+    TUhat = sqrt(2.) * TUhat * myCKM.getCKM().hconjugate();
     TDhat = sqrt(2.) * TDhat;
     TEhat = sqrt(2.) * TEhat;
 

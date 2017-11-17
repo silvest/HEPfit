@@ -577,7 +577,7 @@ double Charm_Kpnunu::P_C(orders order)
     return (pc);
 }
 
-double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew)
+double Charm_Kpnunu::C_TOT(orders order, orders_qed order_qed)
 {
 
     double xt = model.getMatching().x_t(model.getMut());
@@ -592,25 +592,25 @@ double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew)
     double IBT = model.getOptionalParameter("DeltaP_cu");
     double X = 0.;
 
-    if ((order == NNLO) && (order_ew == NLO_ew)) {
+    if ((order == NNLO) && (order_qed == NLO_QED11)) {
         X = lambdat.real() / lambda5 * (model.getMatching().X0t(xt) + model.Als(model.getMut(), FULLNLO)
                 / 4. / M_PI * model.getMatching().X1t(xt) + Ale / 4. / M_PI * model.getMatching().Xewt(xt, a, Muw));
         return (X + (lambdac.real() / lambda)*(P_C(NNLO) + IBT));
     }
 
-    if ((order == NLO) && (order_ew == LO_ew)) {
+    if ((order == NLO) && (order_qed == LO_QED)) {
         X = lambdat.real() / lambda5 * (model.getMatching().X0t(xt) / lambda5 + model.Als(model.getMut(), FULLNLO) / 4. / M_PI * model.getMatching().X1t(xt));
         return (X + (lambdac.real() / lambda)*(P_C(NLO) + IBT));
     }
 
-    if ((order == LO) && (order_ew == LO_ew)) {
+    if ((order == LO) && (order_qed == LO_QED)) {
         X = lambdat.real() * model.getMatching().X0t(xt) / lambda5;
         return (X + (lambdac.real() / lambda)*(P_C(LO) + IBT));
     }
     else {
         std::stringstream out;
-        out << order_ew;
-        throw std::runtime_error("BRKppnunu::BRKppnunu(): order_ew " + out.str() + "not implemented\n");
+        out << order_qed;
+        throw std::runtime_error("BRKppnunu::BRKppnunu(): order_qed " + out.str() + "not implemented\n");
         out << order;
         throw std::runtime_error("BRKppnunu::BRKppnunu(): order " + out.str() + "not implemented");
     }

@@ -492,7 +492,7 @@ double CPenguinBox::Cmatch(orders order)
     return (3. * cpm + 2. / 3. * cbme + 1. / 3. * cbmt);
 }
 
-double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
+double CPenguinBox::CT_tot(orders order, orders_qed order_qed)
 {
 
     double IBT = model.getOptionalParameter("DeltaP_cu");
@@ -501,52 +501,52 @@ double CPenguinBox::CT_tot(orders order, orders_ew order_ew)
 
     switch (order) {
         case(NNLO):
-            switch (order_ew) {
-                case(NLO_ew):
+            switch (order_qed) {
+                case(NLO_QED11):
                     return (model.computelamc().real() / model.getLambda()*(Cmatch(NNLO) + IBT) +
                             model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt) + model.getAle() / 4. / M_PI *
                             model.getMatching().Xewt(xt, a, model.getMuc())));
-                case(LO_ew):
+                case(LO_QED):
                     return (model.computelamc().real() / model.getLambda()*(Cmatch(NNLO) + IBT) +
                             model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
-                    out << order_ew;
-                    throw std::runtime_error("CPenguinBox::CT_tot() order_ew " + out.str() + " not implemented");
+                    out << order_qed;
+                    throw std::runtime_error("CPenguinBox::CT_tot() order_qed " + out.str() + " not implemented");
             }
         case(NLO):
-            switch (order_ew) {
-                case(NLO_ew):
+            switch (order_qed) {
+                case(NLO_QED11):
                     return (model.computelamc().real() / model.getLambda()*(Cmatch(NLO) + IBT) +
                             model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt) + model.getAle() / 4. / M_PI *
                             model.getMatching().Xewt(xt, a, model.getMuc())));
-                case(LO_ew):
+                case(LO_QED):
                     return (model.computelamc().real() / model.getLambda()*(Cmatch(NLO) + IBT) +
                             model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
-                    out << order_ew;
-                    throw std::runtime_error("CPenguinBox::CT_tot() order_ew " + out.str() + " not implemented");
+                    out << order_qed;
+                    throw std::runtime_error("CPenguinBox::CT_tot() order_qed " + out.str() + " not implemented");
             }
         case(LO):
-            switch (order_ew) {
-                case(NLO_ew):
+            switch (order_qed) {
+                case(NLO_QED11):
                     return (model.computelamc().real() / model.getLambda()*(Cmatch(LO) + IBT) +
                             model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getAle() / 4. / M_PI *
                             model.getMatching().Xewt(xt, a, model.getMuc())));
-                case(LO_ew):
+                case(LO_QED):
                     return (model.computelamc().real() / model.getLambda()*(Cmatch(NLO) + IBT) +
                             model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
-                    out << order_ew;
-                    throw std::runtime_error("CPenguinBox::CT_tot() order_ew " + out.str() + " not implemented");
+                    out << order_qed;
+                    throw std::runtime_error("CPenguinBox::CT_tot() order_qed " + out.str() + " not implemented");
             }
         default:
             std::stringstream out;

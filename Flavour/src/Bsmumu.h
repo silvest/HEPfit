@@ -36,12 +36,12 @@ protected:
     /**
      * 
      * @param order
-     * @param order_ew
+     * @param order_qed
      * @return the short distance contribution to the 
      * |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
-    void computeAmpSq(orders order, orders_ew order_ew, double mu);
-    void computeObs(orders order, orders_ew order_ew);
+    void computeAmpSq(orders order, orders_qed order_qed, double mu);
+    void computeObs(orders order, orders_qed order_qed);
     
 private:
     

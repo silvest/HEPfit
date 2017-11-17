@@ -11,8 +11,8 @@ RGEvolutor::RGEvolutor(unsigned int dim, schemes scheme, orders order)
 : WilsonTemplate<gslpp::matrix<double> >(dim, scheme, order)
 {}
 
-RGEvolutor::RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew)
-: WilsonTemplate<gslpp::matrix<double> >(dim, scheme, order, order_ew)
+RGEvolutor::RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_qed order_qed)
+: WilsonTemplate<gslpp::matrix<double> >(dim, scheme, order, order_qed)
 {}
 
 RGEvolutor::~RGEvolutor()
@@ -33,7 +33,7 @@ void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order
     (*elem[order_i])(i,j) = x;   
 }
 
-void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order_i, orders_ew order_ew_i) 
+void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order_i, orders_qed order_qed_i) 
 {    
     if (i > size || j > size) {
         std::stringstream out;
@@ -47,18 +47,18 @@ void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order
     }
     (*elem[order_i])(i,j) = x;
     
-    if (order_ew != NULL_ew){
+    if (order_qed != NO_QED){
     if (i > size || j > size) {
         std::stringstream out;
         out << i << " " << j;
         throw std::runtime_error("RGEvolutor::setEvol(): matrix indices " + out.str() + " out of range"); 
     }
-    if (order_ew_i > order_ew) {
+    if (order_qed_i > order_qed) {
         std::stringstream out;
         out << order_i;
         throw std::runtime_error("RGEvolutor::setEvol(): order " + out.str() +" not implemented "); 
     }
-    (*elem[order_ew_i])(i,j) = x;
+    (*elem[order_qed_i])(i,j) = x;
     }
 }
 
@@ -67,9 +67,9 @@ void RGEvolutor::setEvol(const gslpp::matrix<double>& m, orders order_i)
     setElem(m, order_i);
 }
 
-void RGEvolutor::setEvol(const gslpp::matrix<double>& m, orders_ew order_ew_i)
+void RGEvolutor::setEvol(const gslpp::matrix<double>& m, orders_qed order_qed_i)
 {
-    setElem(m, order_ew_i);
+    setElem(m, order_qed_i);
 }
 
 gslpp::matrix<double>** RGEvolutor::getEvol() const
@@ -86,40 +86,18 @@ void RGEvolutor::setScales(double mu, double M)
 {
     this->M = M;
     this->mu = mu;
+    resetCoefficient();
     *(elem[LO]) = gslpp::matrix<double>::Id(size);
-    for(int i = NLO; i <= order; i++)
-        *(elem[i]) = 0.;
-    
-    if (order_ew != NULL_ew){
-        for(int i = NLO_ew; i <= order_ew; i++)
-            *(elem[i]) = 0.;
-    }
 }
 
 void RGEvolutor::setM(double M)
 {
-    this->M = M;
-    *(elem[LO]) = gslpp::matrix<double>::Id(size);
-    for(int i = NLO; i <= order; i++)
-        *(elem[i]) = 0.;
-    
-    if (order_ew != NULL_ew){
-        for(int i = NLO_ew; i <= order_ew; i++)
-            *(elem[i]) = 0.;
-    }
+    setScales(mu, M);
 }
 
 void RGEvolutor::setMu(double mu)
 {
-    this->mu = mu;
-    *(elem[LO]) = gslpp::matrix<double>::Id(size);
-    for(int i = NLO; i <= order; i++)
-        *(elem[i]) = 0.;
-    
-    if (order_ew != NULL_ew){
-        for(int i = NLO_ew; i <= order_ew; i++)
-            *(elem[i]) = 0.;
-    }
+    setScales(mu, M);
 }
 
 gslpp::matrix<double>* RGEvolutor::Evol(orders order)
@@ -127,7 +105,7 @@ gslpp::matrix<double>* RGEvolutor::Evol(orders order)
     return Elem(order);
 }
 
-gslpp::matrix<double>* RGEvolutor::Evol(orders_ew order_ew)
+gslpp::matrix<double>* RGEvolutor::Evol(orders_qed order_qed)
 {
-    return Elem(order_ew);
+    return Elem(order_qed);
 }

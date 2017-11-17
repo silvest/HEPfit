@@ -12,9 +12,9 @@
 
 HeffDS1::HeffDS1(const StandardModel & SM) 
 :       model(SM), 
-        coeffds1 (10, NDR, NLO, NLO_ew), coeffds1cc(10, NDR, NLO),
-        coeffds1pnunu(1, NDR, NLO, NLO_ew), coeffds1mumu(1, NDR, NLO),
-        u(*(new EvolDF1nlep(10, NDR, NLO, NLO_ew, SM))), uM(*(new EvolDB1Mll(13, NDR, NLO, SM))),
+        coeffds1 (10, NDR, NLO, NLO_QED11), coeffds1cc(10, NDR, NLO),
+        coeffds1pnunu(1, NDR, NLO, NLO_QED11), coeffds1mumu(1, NDR, NLO),
+        u(*(new EvolDF1nlep(10, NDR, NLO, NLO_QED11, SM))), uM(*(new EvolDB1Mll(13, NDR, NLO, SM))),
         DS1cce(10, 0.), DS1cc(10, 0.)
 {}
 
@@ -44,26 +44,26 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes sc
                             //Evolves the LO terms and the ones proportional to alpha_s 
                             coeffds1.setCoeff(*coeffds1.getCoeff(orders(j)) +
                                 u.Df1Evolnlep(model.getMuc(), mcb[i].getMu(), 
-                                orders(k), NULL_ew, mcb[i].getScheme())*
+                                orders(k), NO_QED, mcb[i].getScheme())*
                                 (*(mcb[i].getCoeff(orders(j - k)))), orders(j));
 
                             //Evolves terms proportional to alpha_e and alpha_e/aplha_s
-                            coeffds1.setCoeff(*coeffds1.getCoeff(orders_ew(j+4)) +
+                            coeffds1.setCoeff(*coeffds1.getCoeff(orders_qed(j+4)) +
                                 u.Df1Evolnlep(model.getMuc(), mcb[i].getMu(), NNLO, 
-                                orders_ew(k+4), mcb[i].getScheme()) *
-                                (*(mcb[i].getCoeff(orders(j - k)))), orders_ew(j+4));
+                                orders_qed(k+4), mcb[i].getScheme()) *
+                                (*(mcb[i].getCoeff(orders(j - k)))), orders_qed(j+4));
 
                             //Evolves the open-charm current*current part
                             coeffds1cc.setCoeff(*coeffds1cc.getCoeff(orders(j)) +
                                 u.Df1Evolnlep(model.getMuc(), mcbCC[i].getMu(), 
-                                orders(k), NULL_ew, mcbCC[i].getScheme()) *
+                                orders(k), NO_QED, mcbCC[i].getScheme()) *
                                 (*(mcbCC[i].getCoeff(orders(j - k)))), orders(j));
                         }
 
-                    coeffds1.setCoeff(*coeffds1.getCoeff(orders_ew(NLO_ew)) +
+                    coeffds1.setCoeff(*coeffds1.getCoeff(orders_qed(NLO_QED11)) +
                         u.Df1Evolnlep(model.getMuc(), mcb[i].getMu(), orders(LO), 
-                        NULL_ew,  mcb[i].getScheme()) *
-                        (*(mcb[i].getCoeff(orders_ew(NLO_ew)))), orders_ew(NLO_ew));
+                        NO_QED,  mcb[i].getScheme()) *
+                        (*(mcb[i].getCoeff(orders_qed(NLO_QED11)))), orders_qed(NLO_QED11));
                     }
 
                     //Matching at the charm threshold
@@ -75,20 +75,20 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes sc
 
                             coeffds1.setCoeff(*coeffds1.getCoeff(orders(j)) +
                                 u.Df1Evolnlep(mu, model.getMuc(), orders(k),
-                                NULL_ew, mcb[i].getScheme())*
+                                NO_QED, mcb[i].getScheme())*
                                 (*(mcb[i].getCoeff(orders(j - k)))), orders(j));
 
-                            coeffds1.setCoeff(*coeffds1.getCoeff(orders_ew(j+4)) +
+                            coeffds1.setCoeff(*coeffds1.getCoeff(orders_qed(j+4)) +
                                 u.Df1Evolnlep(mu, model.getMuc(), NNLO, 
-                                orders_ew(k+4), mcb[i].getScheme()) *
-                                (*(mcb[i].getCoeff(orders(j - k)))), orders_ew(j+4));
+                                orders_qed(k+4), mcb[i].getScheme()) *
+                                (*(mcb[i].getCoeff(orders(j - k)))), orders_qed(j+4));
                         }
                     }
 
-                    coeffds1.setCoeff(*coeffds1.getCoeff(orders_ew(NLO_ew)) +
+                    coeffds1.setCoeff(*coeffds1.getCoeff(orders_qed(NLO_QED11)) +
                         u.Df1Evolnlep(mu, model.getMuc(), orders(LO), 
-                        NULL_ew,  mcb[i].getScheme()) *
-                        (*(mcb[i].getCoeff(orders_ew(NLO_ew)))), orders_ew(NLO_ew));
+                        NO_QED,  mcb[i].getScheme()) *
+                        (*(mcb[i].getCoeff(orders_qed(NLO_QED11)))), orders_qed(NLO_QED11));
                 }
                 
                 if (i>0){
@@ -108,20 +108,20 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes sc
                                 //Evolves the LO terms and the ones proportional to alpha_s 
                                 coeffds1.setCoeff(*coeffds1.getCoeff(orders(j)) +
                                     u.Df1Evolnlep(mu, mcb[i].getMu(), 
-                                    orders(k), NULL_ew, mcb[i].getScheme())*
+                                    orders(k), NO_QED, mcb[i].getScheme())*
                                     (*(mcb[i].getCoeff(orders(j - k)))), orders(j));
 
                                 //Evolves terms proportional to alpha_e and alpha_e/aplha_s
-                                coeffds1.setCoeff(*coeffds1.getCoeff(orders_ew(j+4)) +
+                                coeffds1.setCoeff(*coeffds1.getCoeff(orders_qed(j+4)) +
                                     u.Df1Evolnlep(mu, mcb[i].getMu(), NNLO, 
-                                    orders_ew(k+4), mcb[i].getScheme()) *
-                                    (*(mcb[i].getCoeff(orders(j - k)))), orders_ew(j+4));
+                                    orders_qed(k+4), mcb[i].getScheme()) *
+                                    (*(mcb[i].getCoeff(orders(j - k)))), orders_qed(j+4));
                             }
                         }
-                        coeffds1.setCoeff(*coeffds1.getCoeff(orders_ew(NLO_ew)) +
+                        coeffds1.setCoeff(*coeffds1.getCoeff(orders_qed(NLO_QED)) +
                             u.Df1Evolnlep(mu, mcb[i].getMu(), orders(LO), 
-                            NULL_ew,  mcb[i].getScheme()) *
-                            (*(mcb[i].getCoeff(orders_ew(NLO_ew)))), orders_ew(NLO_ew));
+                            NO_QED,  mcb[i].getScheme()) *
+                            (*(mcb[i].getCoeff(orders_qed(NLO_QED)))), orders_qed(NLO_QED));
                     }*/
                 }
             }
@@ -138,14 +138,14 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunu()
     const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMkpnn();
     
     orders ordDF1 = coeffds1pnunu.getOrder();
-    orders_ew ordDF1_ew = coeffds1pnunu.getOrder_ew();
+    orders_qed ordDF1_ew = coeffds1pnunu.getOrder_qed();
     
     for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffds1pnunu.setCoeff(*coeffds1pnunu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
         }
-        for (int j = LO_ew; j <= ordDF1_ew; j++){
+        for (int j = LO_QED; j <= ordDF1_ew; j++){
             coeffds1pnunu.setCoeff(*coeffds1pnunu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
         }
@@ -174,7 +174,7 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1mumu()
 void HeffDS1::CharmMatch()
 {
     DS1cc = *coeffds1cc.getCoeff(LO);
-    DS1cce = *coeffds1cc.getCoeff(LO_ew);
+    DS1cce = *coeffds1cc.getCoeff(LO_QED);
     
     double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
 
@@ -209,9 +209,9 @@ void HeffDS1::CharmMatch()
     DS1cce.assign(1, 0.);
 
     coeffds1cc.setCoeff(DS1cc, NLO);
-    coeffds1cc.setCoeff(DS1cce, NLO_ew);
+    coeffds1cc.setCoeff(DS1cce, NLO_QED11);
     
-    coeffds1.setCoeff(*coeffds1.getCoeff(NLO_ew) - *coeffds1cc.getCoeff(NLO_ew), NLO);
+    coeffds1.setCoeff(*coeffds1.getCoeff(NLO_QED11) - *coeffds1cc.getCoeff(NLO_QED11), NLO);
 
     coeffds1.setCoeff(*coeffds1.getCoeff(NLO) - *coeffds1cc.getCoeff(NLO), NLO);
     coeffds1.setCoeff(*coeffds1.getCoeff(LO) - *coeffds1cc.getCoeff(LO), LO);

@@ -11,8 +11,8 @@
 alpha_s::alpha_s(const StandardModel& SM_i, orders order)
 : ThObservable(SM_i)
 {
-    if (order >= LO and order <= FULLNNLO) this->order = order;
-    else throw std::runtime_error("orders can only be LO, NLO, FULLNLO, NNLO or FULLNNLO");
+    if (order >= LO and order <= FULLNNNLO) this->order = order;
+    else throw std::runtime_error("alpha_s::alpha_s(): wrong order");
 };
 
 double alpha_s::computeThValue()

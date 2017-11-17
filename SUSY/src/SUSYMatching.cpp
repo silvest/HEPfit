@@ -68,7 +68,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcgminus2mu(2, NDR, LO),
     mcbsg(8, NDR, NNLO),
     mcBMll(13, NDR, NLO),
-    mcbnlep(10, NDR, NLO, NLO_ew),
+    mcbnlep(10, NDR, NLO, NLO_QED11),
     mcbnlepCC(10, NDR, NLO),
     mcd1(10, NDR, NLO),
     mcd1Buras(10, NDR, NLO),

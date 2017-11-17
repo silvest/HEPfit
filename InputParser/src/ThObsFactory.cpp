@@ -19,6 +19,7 @@
 #include "GeneralTHDMObservables.h"
 #include "LRSMObservables.h"
 #include "THDMWObservables.h"
+#include "GeorgiMachacekObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
@@ -1256,6 +1257,23 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mAsqTHDMW"] = boost::factory<mAsqTHDMW*>();
     obsThFactory["mSRsqTHDMW"] = boost::factory<mSRsqTHDMW*>();
     obsThFactory["mSIsqTHDMW"] = boost::factory<mSIsqTHDMW*>();
+
+    /** END: REMOVE FROM THE PACKAGE **/
+
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
+    //-----  GeorgiMachacek observables  -----
+    //-----  Tree-level unitarity constraints  -----
+    obsThFactory["GMunitarity1"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 0);
+    obsThFactory["GMunitarity2"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 1);
+    obsThFactory["GMunitarity3"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 2);
+    obsThFactory["GMunitarity4"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 3);
+    obsThFactory["GMunitarity5"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 4);
+    obsThFactory["GMunitarity6"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 5);
+    obsThFactory["GMunitarity7"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 6);
+    obsThFactory["GMunitarity8"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 7);
+    obsThFactory["GMunitarity9"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 8);
+    obsThFactory["GMunitarity10"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 9);
+    obsThFactory["GMunitarity11"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 10);
 
     /** END: REMOVE FROM THE PACKAGE **/
 }
