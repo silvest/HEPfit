@@ -35,15 +35,16 @@ using namespace boost;
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
-    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw",
-    "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
+    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "s12_pmns", "s13_pmns", "s23_pmns", "delta_pmns",
+    "alpha21_pmns", "alpha31_pmns",
+    "muw", "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
 
 const double StandardModel::GeVminus2_to_nb = 389379.338;
 const double StandardModel::Mw_error = 0.00001; /* 0.01 MeV */
 
 StandardModel::StandardModel()
-: QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
+: QCD(), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.),
 Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
 {
     FlagWithoutNonUniversalVC = false;
@@ -126,6 +127,12 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("melectron", boost::cref(leptons[ELECTRON].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mmu", boost::cref(leptons[MU].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtau", boost::cref(leptons[TAU].getMass())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s12_pmns", boost::cref(s12)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s13_pmns", boost::cref(s13)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s23_pmns", boost::cref(s23)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delta_pmns", boost::cref(delta)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha21_pmns", boost::cref(alpha21)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha31_pmns", boost::cref(alpha31)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda", boost::cref(lambda)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("A", boost::cref(A)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rhob", boost::cref(rhob)));
@@ -359,7 +366,6 @@ void StandardModel::computeCKM()
     if (requireCKM) {
         if (FlagWolfenstein) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);    
-        myCKM.getCKM(VCKM);
         Vus = myCKM.getVus();
         Vcb = myCKM.getVcb();
         Vub = myCKM.getVub();
@@ -367,14 +373,13 @@ void StandardModel::computeCKM()
         }
         else { 
         myCKM.setCKM(Vus, Vcb, Vub, gamma);
-        myCKM.getCKM(VCKM);
         lambda = myCKM.getLambda();
         A = myCKM.getA();
         rhob = myCKM.getRho();
         etab = myCKM.getEta();
         }
     }
-    UPMNS = gslpp::matrix<gslpp::complex>::Id(3);
+    myPMNS.setPMNS(s12, s13, s23, delta, alpha21, alpha31);
 }
 
 void StandardModel::computeYukawas()
@@ -386,7 +391,7 @@ void StandardModel::computeYukawas()
         Yu = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
-        Yu = VCKM.transpose() * Yu;
+        Yu = myCKM.getCKM().transpose() * Yu;
     }
     if (requireYd) {
         Yd = gslpp::matrix<gslpp::complex>::Id(3);
@@ -402,7 +407,7 @@ void StandardModel::computeYukawas()
         Yn = gslpp::matrix<gslpp::complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
-        Yn = Yn * UPMNS.hconjugate();
+        Yn = Yn * myPMNS.getPMNS().hconjugate();
     }
 }
 
@@ -535,87 +540,84 @@ bool StandardModel::checkSMparamsForEWPO()
 
 double StandardModel::computeBeta() const
 {
-    return (-VCKM(1, 0) * VCKM(1, 2).conjugate() / (VCKM(2, 0) * VCKM(2, 2).conjugate())).arg();
+    return myCKM.computeBeta();
 }
 
 double StandardModel::computeGamma() const
 {
-    return (-VCKM(0, 0) * VCKM(0, 2).conjugate() / (VCKM(1, 0) * VCKM(1, 2).conjugate())).arg();
+    return myCKM.computeGamma();
 }
 
 double StandardModel::computeAlpha() const
 {
-    return (-VCKM(2, 0) * VCKM(2, 2).conjugate() / (VCKM(0, 0) * VCKM(0, 2).conjugate())).arg();
+    return myCKM.computeAlpha();
 }
 
 double StandardModel::computeBetas() const
 {
-    return (-VCKM(2, 1) * VCKM(2, 2).conjugate() / (VCKM(1, 1) * VCKM(1, 2).conjugate())).arg();
+    return myCKM.computeBetas();
 }
 
 // Lambda_q
 
 gslpp::complex StandardModel::computelamt() const
 {
-    return VCKM(2, 0) * VCKM(2, 1).conjugate();
+    return myCKM.computelamt();
 }
 
 gslpp::complex StandardModel::computelamc() const
 {
-    return VCKM(1, 0) * VCKM(1, 1).conjugate();
+    return myCKM.computelamc();
 }
 
 gslpp::complex StandardModel::computelamu() const
 {
-    return VCKM(0, 0) * VCKM(0, 1).conjugate();
+    return myCKM.computelamu();
 }
 
 gslpp::complex StandardModel::computelamt_d() const
 {
-    return VCKM(2, 0) * VCKM(2, 2).conjugate();
+    return myCKM.computelamt_d();
 }
 
 gslpp::complex StandardModel::computelamc_d() const
 {
-    return VCKM(1, 0) * VCKM(1, 2).conjugate();
+    return myCKM.computelamc_d();;
 }
 
 gslpp::complex StandardModel::computelamu_d() const
 {
-    return VCKM(0, 0) * VCKM(0, 2).conjugate();
+    return myCKM.computelamu_d();
 }
 
 gslpp::complex StandardModel::computelamt_s() const
 {
-    return VCKM(2, 1) * VCKM(2, 2).conjugate();
+    return myCKM.computelamt_s();
 }
 
 gslpp::complex StandardModel::computelamc_s() const
 {
-    return VCKM(1, 1) * VCKM(1, 2).conjugate();
+    return myCKM.computelamc_s();
 }
 
 gslpp::complex StandardModel::computelamu_s() const
 {
-    return VCKM(0, 1) * VCKM(0, 2).conjugate();
+    return myCKM.computelamu_s();
 }
 
 double StandardModel::computeRt() const
 {
-    return (VCKM(2, 0) * VCKM(2, 2).conjugate()
-            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+    return myCKM.getRt();
 }
 
 double StandardModel::computeRts() const
 {
-    return (VCKM(2, 1) * VCKM(2, 2).conjugate()
-            / (VCKM(1, 1) * VCKM(1, 2).conjugate())).abs();
+    return myCKM.getRts();
 }
 
 double StandardModel::computeRb() const
 {
-    return (VCKM(0, 0) * VCKM(0, 2).conjugate()
-            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+    return myCKM.getRb();
 }
 
 

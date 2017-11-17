@@ -7,66 +7,10 @@
 
 #include "CKM.h"
 
-CKM::CKM()
+CKM::CKM() : V(3, 3)
 {
 }
 
-CKM::CKM(const CKM& orig)
-{
-    Rho = orig.Rho;
-    Eta = orig.Eta;
-    Lambda = orig.Lambda;
-    A = orig.A;
-
-    s12 = orig.s12;
-    s13 = orig.s13;
-    s23 = orig.s23;
-    delta = orig.delta;
-    c12 = orig.c12;
-    c23 = orig.c23;
-    c13 = orig.c13;
-
-    Vud = orig.Vud;
-    Vcd = orig.Vcd;
-    Vtd = orig.Vtd;
-    Vus = orig.Vus;
-    Vcs = orig.Vcs;
-    Vts = orig.Vts;
-    Vub = orig.Vub;
-    Vcb = orig.Vcb;
-    Vtb = orig.Vtb;
-
-}
-
-CKM::~CKM()
-{
-}
-
-void CKM::setCKM(gslpp::matrix<gslpp::complex> & x)
-{
-    Vud = x(0, 0);
-    Vus = x(0, 1);
-    Vub = x(0, 2);
-    Vcd = x(1, 0);
-    Vcs = x(1, 1);
-    Vcb = x(1, 2);
-    Vtd = x(2, 0);
-    Vts = x(2, 1);
-    Vtb = x(2, 2);
-}
-
-void CKM::getCKM(gslpp::matrix<gslpp::complex> & x) const
-{
-    x.assign(0, 0, Vud);
-    x.assign(0, 1, Vus);
-    x.assign(0, 2, Vub);
-    x.assign(1, 0, Vcd);
-    x.assign(1, 1, Vcs);
-    x.assign(1, 2, Vcb);
-    x.assign(2, 0, Vtd);
-    x.assign(2, 1, Vts);
-    x.assign(2, 2, Vtb);
-}
 
 void CKM::setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v)
 {
@@ -88,52 +32,43 @@ void CKM::setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v
     s13 = (gslpp::complex(A * pow(Lambda, 3.) * rho_nb, -A * pow(Lambda, 3.) * eta_nb)).abs();
     delta = -(gslpp::complex(A * pow(Lambda, 3.) * rho_nb, -A * pow(Lambda, 3.) * eta_nb)).arg();
 
-    c12 = sqrt(1. - pow(s12, 2.));
-    c23 = sqrt(1. - pow(s23, 2.));
-    c13 = sqrt(1. - pow(s13, 2.));
+    setCKMfromAngles();
+}
 
-    Vud = gslpp::complex(c12*c13, 0.);
-    Vus = gslpp::complex(s12*c13, 0.);
-    Vub = gslpp::complex(s13, -delta, true);
+void CKM::setCKMfromAngles()
+{
+    c12 = sqrt(1. - s12 * s12);
+    c13 = sqrt(1. - s13 * s13);
+    c23 = sqrt(1. - s23 * s23);
+    
+    V.assign(0, 0, c12*c13);
+    V.assign(0, 1, s12*c13);
+    V.assign(0, 2, gslpp::complex(s13, -delta, true));
 
-    Vcd = -s12 * c23 - gslpp::complex(c12 * s23*s13, delta, true);
-    Vcs = c12 * c23 - gslpp::complex(s12 * s23*s13, delta, true);
-    Vcb = gslpp::complex(s23*c13, 0.);
+    V.assign(1, 0 , -s12 * c23 - gslpp::complex(c12 * s23*s13, delta, true));
+    V.assign(1, 1, c12 * c23 - gslpp::complex(s12 * s23*s13, delta, true));
+    V.assign(1, 2, s23*c13);
 
-    Vtd = s12 * s23 - gslpp::complex(c12 * c23*s13, delta, true);
-    Vts = -c12 * s23 - gslpp::complex(s12 * c23*s13, delta, true);
-    Vtb = gslpp::complex(c23*c13, 0.);
-
-    return;
+    V.assign(2, 0, s12 * s23 - gslpp::complex(c12 * c23*s13, delta, true));
+    V.assign(2, 1, -c12 * s23 - gslpp::complex(s12 * c23*s13, delta, true));
+    V.assign(2, 2, c23*c13);  
 }
 
 void CKM::setCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v)
 {
     s13 = Vub_v;
-    c13 = sqrt(1. - s13 * s13);
     s12 = Vus_v / c13;
-    c12 = sqrt(1. - s12 * s12);
     s23 = Vcb_v / c13;
-    c23 = sqrt(1. - s23 * s23);
+
     double a = c12 * s13 * s23 / s12 / c23;
     delta = 2. * atan((1. + sqrt(1. - (a * a - 1.) * pow(tan(gamma_v), 2.))*(cos(gamma_v) < 0. ? 1. : (-1.))) / (a - 1.) / tan(gamma_v));
 
-    Vud = gslpp::complex(c12*c13, 0.);
-    Vus = gslpp::complex(s12*c13, 0.);
-    Vub = gslpp::complex(s13, -delta, true);
-
-    Vcd = -s12 * c23 - gslpp::complex(c12 * s23*s13, delta, true);
-    Vcs = c12 * c23 - gslpp::complex(s12 * s23*s13, delta, true);
-    Vcb = gslpp::complex(s23*c13, 0.);
-
-    Vtd = s12 * s23 - gslpp::complex(c12 * c23*s13, delta, true);
-    Vts = -c12 * s23 - gslpp::complex(s12 * c23*s13, delta, true);
-    Vtb = gslpp::complex(c23*c13, 0.);
-
+    setCKMfromAngles();
+    
     // Wolfenstein to all orders
     Lambda = s12;
     A = s23 / Lambda / Lambda;
-    gslpp::complex Rb = Vud * Vub.conjugate() / (Vcd * Vcb.conjugate());
+    gslpp::complex Rb = V(0, 0) * V(0, 2).conjugate() / (V(1, 0) * V(1, 2).conjugate());
     Rho = -Rb.real();
     Eta = -Rb.imag();
 
@@ -163,284 +98,284 @@ double CKM::getA() const
     return A;
 }
 
-double CKM::getRhoNB()
+double CKM::getRhoNB() const
 {
     return (s13 * cos(delta) / s12 / s23);
 }
 
-double CKM::getEtaNB()
+double CKM::getEtaNB() const
 {
     return (s13 * sin(delta) / s12 / s23);
 }
 
 // Gilman parameterization
 
-double CKM::gets12()
+double CKM::gets12() const
 {
-    return getLambda();
+    return s12;
 }
 
-double CKM::gets13()
+double CKM::gets13() const
 {
     return s13;
 }
 
-double CKM::gets23()
+double CKM::gets23() const
 {
     return s23;
 }
 
-double CKM::getc12()
+double CKM::getc12() const
 {
     return c12;
 }
 
-double CKM::getc23()
+double CKM::getc23() const
 {
     return c23;
 }
 
-double CKM::getc13()
+double CKM::getc13() const
 {
     return c13;
 }
 
-double CKM::getdelta()
+double CKM::getdelta() const
 {
     return delta;
 }
 
 // J_CP
 
-double CKM::getJcp()
+double CKM::getJcp() const
 {
     return Eta * pow(A * pow(Lambda, 3), 2);
 }
 
 //Absolute values of CKM elements
 
-double CKM::getVud()
+double CKM::getVud() const
 {
-    return Vud.abs();
+    return V(0, 0).abs();
 }
 
-double CKM::getVus()
+double CKM::getVus() const
 {
-    return Vus.abs();
+    return V(0, 1).abs();
 }
 
-double CKM::getVub()
+double CKM::getVub() const
 {
-    return Vub.abs();
+    return V(0, 2).abs();
 }
 
-double CKM::getVcd()
+double CKM::getVcd() const
 {
-    return Vcd.abs();
+    return V(1, 0).abs();
 }
 
-double CKM::getVcs()
+double CKM::getVcs() const
 {
-    return Vcs.abs();
+    return V(1, 1).abs();
 }
 
-double CKM::getVcb()
+double CKM::getVcb() const
 {
-    return Vcb.abs();
+    return V(1, 2).abs();
 }
 
-double CKM::getVtd()
+double CKM::getVtd() const
 {
-    return Vtd.abs();
+    return V(2, 0).abs();
 }
 
-double CKM::getVts()
+double CKM::getVts() const
 {
-    return Vts.abs();
+    return V(2, 1).abs();
 }
 
-double CKM::getVtb()
+double CKM::getVtb() const
 {
-    return Vtb.abs();
+    return V(2, 2).abs();
 }
 
 // Phases
 
-double CKM::getArgVud()
+double CKM::getArgVud() const
 {
-    return Vud.arg();
+    return V(0, 0).arg();
 }
 
-double CKM::getArgVus()
+double CKM::getArgVus() const
 {
-    return Vus.arg();
+    return V(0, 1).arg();
 }
 
-double CKM::getArgVub()
+double CKM::getArgVub() const
 {
-    return Vub.arg();
+    return V(0, 2).arg();
 }
 
-double CKM::getArgVcd()
+double CKM::getArgVcd() const
 {
-    return Vcd.arg();
+    return V(1, 0).arg();
 }
 
-double CKM::getArgVcs()
+double CKM::getArgVcs() const
 {
-    return Vcs.arg();
+    return V(1, 1).arg();
 }
 
-double CKM::getArgVcb()
+double CKM::getArgVcb() const
 {
-    return Vcb.arg();
+    return V(1, 2).arg();
 }
 
-double CKM::getArgVtd()
+double CKM::getArgVtd() const
 {
-    return Vtd.arg();
+    return V(2, 0).arg();
 }
 
-double CKM::getArgVts()
+double CKM::getArgVts() const
 {
-    return Vts.arg();
+    return V(2, 1).arg();
 }
 
-double CKM::getArgVtb()
+double CKM::getArgVtb() const
 {
-    return Vtb.arg();
+    return V(2, 2).arg();
 }
 
 // Angles
 
-double CKM::computeBeta()
+double CKM::computeBeta() const
 {
-    return (-Vcd*Vcb.conjugate()/(Vtd*Vtb.conjugate())).arg();
+    return (-V(1, 0)*V(1, 2).conjugate()/(V(2, 0)*V(2, 2).conjugate())).arg();
 }
 
-double CKM::computeGamma() 
+double CKM::computeGamma() const
 {
-    return (-Vud*Vub.conjugate()/(Vcd*Vcb.conjugate())).arg();
+    return (-V(0, 0)*V(0, 2).conjugate()/(V(1, 0)*V(1, 2).conjugate())).arg();
 }
 
-double CKM::computeAlpha() 
+double CKM::computeAlpha() const 
 {
-    return (-Vtd*Vtb.conjugate()/(Vud*Vub.conjugate())).arg();
+    return (-V(2, 0)*V(2, 2).conjugate()/(V(0, 0)*V(0, 2).conjugate())).arg();
 }
 
-double CKM::computeBetas() 
+double CKM::computeBetas() const 
 {
-    return (-Vts*Vtb.conjugate()/(Vcs*Vcb.conjugate())).arg();
+    return (-V(2, 1)*V(2, 2).conjugate()/(V(1, 1)*V(1, 2).conjugate())).arg();
 }
 
 // Lambda_q
 
-gslpp::complex CKM::computelamt()
+gslpp::complex CKM::computelamt() const
 {
-    return Vtd*Vts.conjugate();
+    return V(2, 0)*V(2, 1).conjugate();
 }
 
-gslpp::complex CKM::computelamc() 
+gslpp::complex CKM::computelamc() const 
 {
-    return Vcd*Vcs.conjugate();
+    return V(1, 0)*V(1, 1).conjugate();
 }
 
-gslpp::complex CKM::computelamu()
+gslpp::complex CKM::computelamu() const
 {
-    return Vud*Vus.conjugate();
-}
-
-
-gslpp::complex CKM::computelamt_d() 
-{
-    return Vtd*Vtb.conjugate();
-}
-
-gslpp::complex CKM::computelamc_d() 
-{
-    return Vcd*Vcb.conjugate();
-}
-
-gslpp::complex CKM::computelamu_d() 
-{
-    return Vud*Vub.conjugate();
+    return V(0, 0)*V(0, 1).conjugate();
 }
 
 
-gslpp::complex CKM::computelamt_s() 
+gslpp::complex CKM::computelamt_d() const 
 {
-    return Vts*Vtb.conjugate();
+    return V(2, 0)*V(2, 2).conjugate();
 }
 
-gslpp::complex CKM::computelamc_s() 
+gslpp::complex CKM::computelamc_d() const 
 {
-    return Vcs*Vcb.conjugate();
+    return V(1, 0)*V(1, 2).conjugate();
 }
 
-gslpp::complex CKM::computelamu_s() 
+gslpp::complex CKM::computelamu_d() const 
 {
-    return Vus*Vub.conjugate();
+    return V(0, 0)*V(0, 2).conjugate();
+}
+
+
+gslpp::complex CKM::computelamt_s() const 
+{
+    return V(2, 1)*V(2, 2).conjugate();
+}
+
+gslpp::complex CKM::computelamc_s() const 
+{
+    return V(1, 1)*V(1, 2).conjugate();
+}
+
+gslpp::complex CKM::computelamu_s() const
+{
+    return V(0, 1)*V(0, 2).conjugate();
 }
 
 
 //Complex values of CKM elements
 
-gslpp::complex CKM::V_ud()
+gslpp::complex CKM::V_ud() const
 {
-    return Vud;
+    return V(0, 0);
 }
 
-gslpp::complex CKM::V_us()
+gslpp::complex CKM::V_us() const
 {
-    return Vus;
+    return V(0, 1);
 }
 
-gslpp::complex CKM::V_ub()
+gslpp::complex CKM::V_ub() const
 {
-    return Vub;
+    return V(0, 2);
 }
 
-gslpp::complex CKM::V_cd()
+gslpp::complex CKM::V_cd() const
 {
-    return Vcd;
+    return V(1, 0);
 }
 
-gslpp::complex CKM::V_cs()
+gslpp::complex CKM::V_cs() const
 {
-    return Vcs;
+    return V(1, 1);
 }
 
-gslpp::complex CKM::V_cb()
+gslpp::complex CKM::V_cb() const
 {
-    return Vcb;
+    return V(1, 2);
 }
 
-gslpp::complex CKM::V_td()
+gslpp::complex CKM::V_td() const
 {
-    return Vtd;
+    return V(2, 0);
 }
 
-gslpp::complex CKM::V_ts()
+gslpp::complex CKM::V_ts() const
 {
-    return Vts;
+    return V(2, 1);
 }
 
-gslpp::complex CKM::V_tb()
+gslpp::complex CKM::V_tb() const
 {
-    return Vtb;
+    return V(2, 2);
 }
 
 // Sides
-double CKM::getRt()
+double CKM::getRt() const
 {
-    return (Vtd*Vtb.conjugate()/(Vcd*Vcb.conjugate())).abs();
+    return (V(2, 0)*V(2, 2).conjugate()/(V(1, 0)*V(1, 2).conjugate())).abs();
 }
-double CKM::getRts() 
+double CKM::getRts() const
 {
-    return (Vts*Vtb.conjugate()/(Vcs*Vcb.conjugate())).abs();
+    return (V(2, 1)*V(2, 2).conjugate()/(V(1, 1)*V(1, 2).conjugate())).abs();
 }
 
-double CKM::getRb()
+double CKM::getRb() const
 {
-    return (Vud*Vub.conjugate()/(Vcd*Vcb.conjugate())).abs();
+    return (V(0, 0)*V(0, 2).conjugate()/(V(1, 0)*V(1, 2).conjugate())).abs();
 }

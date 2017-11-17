@@ -11,6 +11,7 @@
 #include "Flavour.h"
 #include "QCD.h"
 #include "CKM.h"
+#include "PMNS.h"
 #include "StandardModelMatching.h"
 #include "Matching.h"
 #include <gsl/gsl_integration.h>
@@ -491,7 +492,7 @@ public:
 
     
     
-    static const int NSMvars = 27; ///< The number of the model parameters in %StandardModel.
+    static const int NSMvars = 33; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
@@ -803,7 +804,7 @@ public:
      */
     gslpp::matrix<gslpp::complex> getVCKM() const // why don't we return a const reference?
     {
-        return VCKM;
+        return myCKM.getCKM();
     }
 
     /**
@@ -857,7 +858,7 @@ public:
      */
     gslpp::matrix<gslpp::complex> getUPMNS() const
     {
-        return UPMNS;
+        return myPMNS.getPMNS();
     }
 
     /**
@@ -2539,8 +2540,9 @@ protected:
 
     Particle leptons[6]; ///< An array of Particle objects for the leptons. 
     CKM myCKM; ///< An object of type CKM. 
-    gslpp::matrix<gslpp::complex> VCKM; ///< The %CKM matrix.
-    gslpp::matrix<gslpp::complex> UPMNS; ///<  The %PMNS matrix.
+    PMNS myPMNS;
+//    gslpp::matrix<gslpp::complex> VCKM; ///< The %CKM matrix.
+//    gslpp::matrix<gslpp::complex> UPMNS; ///<  The %PMNS matrix.
     gslpp::matrix<gslpp::complex> Yu; ///< The Yukawa matrix of the up-type quarks.
     gslpp::matrix<gslpp::complex> Yd; ///< The Yukawa matrix of the down-type quarks.
     gslpp::matrix<gslpp::complex> Yn; ///< The Yukawa matrix of the neutrinos.
@@ -2568,7 +2570,7 @@ protected:
     double Vub; ///< @f$\vert V_{ub} \vert @f$ used as an input for FlagWolfenstein = FALSE
     double gamma; ///< @f$\gamma @f$ used as an input for FlagWolfenstein = FALSE
     double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV.
-
+    double s12, s13, s23, delta, alpha21, alpha31;
     double EpsK;
     double phiEpsK;
     double DeltaMK;
