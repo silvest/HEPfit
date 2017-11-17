@@ -197,13 +197,21 @@ public:
     bool isModelGeneralTHDM() const{
         return flagGTHDMmodel;
     }
-    
+
     void setModelTHDMW(){
         flagTHDMWmodel = true;
     }
     
     bool isModelTHDMW() const{
         return flagTHDMWmodel;
+    }
+
+    void setModelGeorgiMachacek(){
+        flagGMmodel = true;
+    }
+    
+    bool isModelGeorgiMachacek() const{
+        return flagGMmodel;
     }
 
     
@@ -241,6 +249,7 @@ private:
     bool flagTHDMmodel;///< A flag identifying the model as a THDM model
     bool flagGTHDMmodel;///< A flag identifying the model as a GeneralTHDM model
     bool flagTHDMWmodel;///< A flag identifying the model as a THDMW model
+    bool flagGMmodel;///< A flag identifying the model as a GeorgiMachacek model
     bool flagLinearized; ///< A flag to identify models where the NP contribution to Higgs observables is linearized
 
 };

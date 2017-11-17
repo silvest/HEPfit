@@ -67,6 +67,7 @@
             <pElem>../FlavourWilsonCoefficient/src</pElem>
             <pElem>../LeftRightSymmetricModel/src</pElem>
             <pElem>../THDMW/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost/</pElem>
           </incDir>
