@@ -1385,8 +1385,8 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
 
 double MVll::T_perp_real(double q2, bool conjugate)
 {   
-    double avaSigma1;
-    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+//    double avaSigma1;
+//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
     
     FS = convertToGslFunction(boost::bind(&MVll::T_perp_real, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
@@ -1400,8 +1400,8 @@ double MVll::T_perp_real(double q2, bool conjugate)
 
 double MVll::T_perp_imag(double q2, bool conjugate)
 {   
-    double avaSigma1;
-    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+//    double avaSigma1;
+//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
     
     FS = convertToGslFunction(boost::bind(&MVll::T_perp_imag, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
@@ -1414,8 +1414,8 @@ double MVll::T_perp_imag(double q2, bool conjugate)
 
 double MVll::T_para_real(double q2, bool conjugate)
 {   
-    double avaSigma1;
-    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+//    double avaSigma1;
+//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
     
     FS = convertToGslFunction(boost::bind(&MVll::T_para_real, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
@@ -1428,8 +1428,8 @@ double MVll::T_para_real(double q2, bool conjugate)
 
 double MVll::T_para_imag(double q2, bool conjugate)
 {   
-    double avaSigma1;
-    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
+//    double avaSigma1;
+//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
     
     FS = convertToGslFunction(boost::bind(&MVll::T_para_imag, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
