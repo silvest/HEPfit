@@ -545,12 +545,6 @@ void MVll::updateParameters()
                 throw std::runtime_error("MVll: lepton " + out.str() + " not implemented");
         }
     }
-    
-//    if (fullKD) {
-//        fit_h_0();
-//        fit_h_p();
-//        fit_h_m();
-//    }
 
     std::map<std::pair<double, double>, unsigned int >::iterator it;
 
@@ -2066,86 +2060,6 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
         else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
     }
 }
-
-//double MVll::Abs_h_0_fit(double* x, double* p)
-//{
-//    return (p[0] + p[1] * x[0]) * sqrt(x[0]);
-//}
-//
-//double MVll::Abs_h_p_fit(double* x, double* p)
-//{
-//    return (p[0] + p[1] * x[0] + p[2] * x[0] * x[0]);
-//}
-//
-//double MVll::Abs_h_m_fit(double* x, double* p)
-//{
-//    return (p[0] + p[1] * x[0] + p[2] * x[0] * x[0]);
-//}
-//
-//void MVll::fit_h_0()
-//{
-//    int dim = 0;
-//    for (double i = 0.1; i < 8.0; i += 0.2) {
-//        double q2tmp = i;
-//        myq2.push_back(q2tmp);
-//        Abs_h_0.push_back((h_lambda(0, q2tmp)).abs());
-//        dim++;
-//    }
-//    gr1 = TGraph(dim, myq2.data(), Abs_h_0.data());
-//    absffit = TF1("absffit", this, &MVll::Abs_h_0_fit, 0.1, 8.0, 2, "MVll", "Abs_h_0_fit");
-//    absfres_h_0 = gr1.Fit(&absffit, "SQN0+rob=0.99");
-//
-//    Abs_h_0.clear();
-//    myq2.clear();
-//    
-//    params = absfres_h_0->GetParams();
-//    mySM.setOptionalParameter("absh_0", params[0]);
-//    mySM.setOptionalParameter("absh_0_1", params[1]);
-//}
-//
-//void MVll::fit_h_p()
-//{
-//    int dim = 0;
-//    for (double i = 0.1; i < 8.0; i += 0.01) {
-//        double q2tmp = i;
-//        myq2.push_back(q2tmp);
-//        Abs_h_p.push_back((h_lambda(1, q2tmp)).abs());
-//        dim++;
-//    }
-//    gr1 = TGraph(dim, myq2.data(), Abs_h_p.data()); 
-//    absffit = TF1("absffit", this,&MVll::Abs_h_p_fit, 0.1, 8.0, 3, "MVll", "Abs_h_p_fit");
-//    absfres_h_p = gr1.Fit(&absffit, "SQN0+rob=0.99");
-//    
-//    Abs_h_p.clear();
-//    myq2.clear();
-//    
-//    params = absfres_h_p->GetParams();
-//    mySM.setOptionalParameter("absh_p", params[0]);
-//    mySM.setOptionalParameter("absh_p_1", params[1]);
-//    mySM.setOptionalParameter("absh_p_2", params[2]);
-//}
-//
-//void MVll::fit_h_m()
-//{
-//    int dim = 0;
-//    for (double i = 0.1; i < 8.0; i += 0.01) {
-//        double q2tmp = i;
-//        myq2.push_back(q2tmp);
-//        Abs_h_m.push_back((h_lambda(2, q2tmp)).abs());
-//        dim++;
-//    }
-//    gr1 = TGraph(dim, myq2.data(), Abs_h_m.data()); 
-//    absffit = TF1("absffit", this,&MVll::Abs_h_m_fit, 0.1, 8.0, 3, "MVll", "Abs_h_m_fit");
-//    absfres_h_m = gr1.Fit(&absffit, "SQN0+rob=0.99");
-//    
-//    Abs_h_m.clear();
-//    myq2.clear();
-//    
-//    params = absfres_h_m->GetParams();
-//    mySM.setOptionalParameter("absh_m", params[0]);
-//    mySM.setOptionalParameter("absh_m_1", params[1]);
-//    mySM.setOptionalParameter("absh_m_2", params[2]);
-//}
 
 gslpp::complex MVll::H_V_0(double q2, bool bar) 
 {
