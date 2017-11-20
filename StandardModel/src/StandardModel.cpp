@@ -345,18 +345,17 @@ void StandardModel::computeCKM()
 {
     if (requireCKM) {
         if (FlagWolfenstein) {
-        myCKM.setWolfenstein(lambda, A, rhob, etab);    
-        Vus = myCKM.getVus();
-        Vcb = myCKM.getVcb();
-        Vub = myCKM.getVub();
-        gamma = myCKM.computeGamma();
-        }
-        else { 
-        myCKM.setCKM(Vus, Vcb, Vub, gamma);
-        lambda = myCKM.getLambda();
-        A = myCKM.getA();
-        rhob = myCKM.getRho();
-        etab = myCKM.getEta();
+            myCKM.setWolfenstein(lambda, A, rhob, etab);
+            Vus = myCKM.getVus();
+            Vcb = myCKM.getVcb();
+            Vub = myCKM.getVub();
+            gamma = myCKM.computeGamma();
+        } else {
+            myCKM.setCKM(Vus, Vcb, Vub, gamma);
+            lambda = myCKM.getLambda();
+            A = myCKM.getA();
+            rhob = myCKM.getRho();
+            etab = myCKM.getEta();
         }
     }
     myPMNS.setPMNS(s12, s13, s23, delta, alpha21, alpha31);

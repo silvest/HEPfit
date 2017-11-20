@@ -1139,8 +1139,10 @@ public:
      * @return @f$\alpha(\mu)@f$ in the @f$\overline{MS}@f$ scheme
      *
      */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Woverloaded-virtual"
     double Als(double mu, orders order = FULLNLO, bool qed_flag = false, bool Nf_thr = true) const;
- 
+#pragma clang diagnostic pop
 
     /**
      * @brief The running electromagnetic coupling @f$\alpha_e(\mu)@f$ in the @f$\overline{MS}@f$ scheme.

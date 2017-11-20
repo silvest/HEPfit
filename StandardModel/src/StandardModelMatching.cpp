@@ -2261,7 +2261,7 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
     switch (order_qed){   
     case NLO_QED22: 
         CWBsmmArrayNLOewt4[7] = sw * sw * (1./(sw * sw)) * Rest(x, Muw) ;
-        std::cout << ">>>>>>> " << Rest(163.5*163.5/80.358/80.358, 80.358) << std::endl;
+//        std::cout << ">>>>>>> " << Rest(163.5*163.5/80.358/80.358, 80.358) << std::endl;
         
     case NLO_QED21: 
         CWBsmmArrayNLOewt2[6] = sw * sw * ((1. - 4. * sw * sw) * C1t(x, Muw) / (sw * sw) - B1t(x, Muw)/(sw * sw) 
