@@ -508,6 +508,26 @@ configure_file("${CMAKE_CURRENT_SOURCE_DIR}/THDM/src/THDMcache.cpp.in"
 
 ##########  THDM file modification  ##########
 
+##########  c++11  ##########
+if (CMAKE_VERSION VERSION_LESS "3.1")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        execute_process(COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+        if (NOT (GCC_VERSION VERSION_GREATER 4.7 OR GCC_VERSION VERSION_EQUAL 4.7))
+            message(FATAL_ERROR "${PROJECT_NAME} requires g++ 4.7 or greater.")
+        endif ()
+    endif ()
+    set (CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+else ()
+    set (CMAKE_CXX_STANDARD 11)
+    set (CXX_STANDARD_REQUIRED ON)
+endif ()
+
+# Fix behavior of CMAKE_CXX_STANDARD when targeting macOS.
+if (POLICY CMP0025)
+    cmake_policy(SET CMP0025 NEW)
+endif ()
+##########  c++11  ##########
+
 # sub-directories
 foreach(_project ${PROJECTLIST})
   add_subdirectory(${_project})
