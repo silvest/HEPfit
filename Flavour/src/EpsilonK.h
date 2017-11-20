@@ -32,7 +32,7 @@ public:
      * constructor
      * @param Flavour
      */
-    EpsilonK(const StandardModel& SM_i): ThObservable(SM_i), AmpDK2(SM_i) {};
+    EpsilonK(const StandardModel& SM_i);
     
     /**
      * 

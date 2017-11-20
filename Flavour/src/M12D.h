@@ -10,6 +10,7 @@
 
 #include "ThObservable.h"
 #include "AmpDD2.h"
+#include "std_make_vector.h"
 
 class M12D : public ThObservable, AmpDD2 {
 /**
@@ -21,7 +22,10 @@ public:
      * @brief M12D constructor
      * @param Flavour an object of Flavour class
      */
-    M12D(const StandardModel& SM_i) : ThObservable(SM_i), AmpDD2(SM_i) {};
+    M12D(const StandardModel& SM_i) : ThObservable(SM_i), AmpDD2(SM_i) 
+    {
+        setParametersForObservable(make_vector<std::string>() << "SM_M12D");
+    };
     /**
      * @brief a method returning the absolute value of the complex amplitude for 
      * the absorptive part of the\f$ | \Delta C = 2 | \f$ mixing

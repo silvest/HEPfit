@@ -490,7 +490,7 @@ public:
 
     
 //    static const int NSMvars = 33; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
-    static const int NSMvars = 27; ///< The number of the model parameters in %StandardModel.
+    static const int NSMvars = 21; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
@@ -907,36 +907,6 @@ public:
     double getMuw() const
     {
         return muw;
-    }
-
-    double getEpsK() const
-    {
-        return EpsK;
-    }
-
-    double getphiEpsK() const
-    {
-        return phiEpsK;
-    }
-
-    double getKbarEpsK() const
-    {
-        return KbarEpsK;
-    }
-
-    double getDeltaMK() const
-    {
-        return DeltaMK;
-    }
-
-    double getDmk() const
-    {
-        return Dmk;
-    }
-
-    double getSM_M12D() const
-    {
-        return SM_M12D;
     }
 
     virtual StandardModel getTrueSM() const
@@ -2580,12 +2550,6 @@ protected:
     double gamma; ///< @f$\gamma @f$ used as an input for FlagWolfenstein = FALSE
     double muw; ///< A matching scale @f$\mu_W@f$ around the weak scale in GeV.
     double s12, s13, s23, delta, alpha21, alpha31;
-    double EpsK;
-    double phiEpsK;
-    double DeltaMK;
-    double KbarEpsK;
-    double Dmk;
-    double SM_M12D;
 
 
     ////////////////////////////////////////////////////////////////////////

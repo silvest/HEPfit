@@ -6,7 +6,7 @@
  */
 
 #ifndef DMK_H
-#define	DMK_H
+#define DMK_H
 
 #include "ThObservable.h"
 #include "AmpDK2.h"
@@ -28,14 +28,14 @@
  */
 class DmK : public ThObservable, AmpDK2 {
 public:
-    
+
     /**
      * constructor
      * @param Flavour
      */
-    
-    DmK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDK2(SM_i) {};
-    
+
+    DmK(const StandardModel& SM_i);
+
     /**
      * 
      * @return theoretical value of @f$\Delta M_K@f$ 
@@ -43,4 +43,4 @@ public:
     virtual double computeThValue();
 };
 
-#endif	/* DMK_H */
+#endif /* DMK_H */

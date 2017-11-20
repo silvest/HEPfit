@@ -37,7 +37,7 @@ gslpp::complex AmpDD2::AmpDD(orders order)
    
     switch(order) {
         case NLO:
-            return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me / HCUT + mySM.getSM_M12D());
+            return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me / HCUT + mySM.getOptionalParameter("SM_M12D"));
         case LO:
             return((*(allcoeff[LO])) * me / HCUT);
         default:

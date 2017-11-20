@@ -34,9 +34,8 @@
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
-    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", 
+    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
 //    "s12_pmns", "s13_pmns", "s23_pmns", "delta_pmns", "alpha21_pmns", "alpha31_pmns",
-    "muw", "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
 
 const double StandardModel::GeVminus2_to_nb = 389379.338;
@@ -137,12 +136,6 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rhob", boost::cref(rhob)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("etab", boost::cref(etab)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muw", boost::cref(muw)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("EpsK", boost::cref(EpsK)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("phiEpsK", boost::cref(phiEpsK)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaMK", boost::cref(DeltaMK)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("KbarEpsK", boost::cref(KbarEpsK)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Dmk", boost::cref(Dmk)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("SM_M12D", boost::cref(SM_M12D)));
     
     iterationNo = 0;
 
@@ -333,18 +326,6 @@ void StandardModel::setParameter(const std::string name, const double& value)
         requireCKM = true;
     } else if (name.compare("muw") == 0)
         muw = value;
-    else if (name.compare("EpsK") == 0)
-        EpsK = value;
-    else if (name.compare("phiEpsK") == 0)
-        phiEpsK = value;
-    else if (name.compare("DeltaMK") == 0)
-        DeltaMK = value;
-    else if (name.compare("KbarEpsK") == 0)
-        KbarEpsK = value;
-    else if (name.compare("Dmk") == 0)
-        Dmk = value;
-    else if (name.compare("SM_M12D") == 0)
-        SM_M12D = value;
     else
         QCD::setParameter(name, value);
 }

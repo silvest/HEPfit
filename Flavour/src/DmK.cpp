@@ -7,8 +7,14 @@
 
 #include "DmK.h"
 #include "StandardModel.h"
+#include "std_make_vector.h"
+
+DmK::DmK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDK2(SM_i) 
+{
+    setParametersForObservable(make_vector<std::string>() << "Dmk");
+};
 
 double DmK::computeThValue() 
 {
-    return(SM.getCDMK()* (2.*AmpMK(FULLNLO).real() + SM.getDmk()));
+    return(SM.getCDMK()* (2.*AmpMK(FULLNLO).real() + SM.getOptionalParameter("Dmk")));
 }

@@ -9,7 +9,6 @@
 #define	AMPDD2_H
 
 class StandardModel;
-#include "gslpp_complex.h"
 #include "OrderScheme.h"
 #include "gslpp.h"
 
