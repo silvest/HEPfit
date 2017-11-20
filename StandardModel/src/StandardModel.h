@@ -447,7 +447,7 @@ class EWSMTwoFermionsLEP2;
  * See resumMw(), resumRhoZ() and resumKappaZ() for details on the other schemes.
  *
  *
- * <h3>Cashes</h3>
+ * <h3>Caches</h3>
  *
  * This class contains caching methods for the following functions:
  * DeltaAlphaLepton(), DeltaAlpha(), Mw_SM(), GammaW_SM(),
@@ -463,7 +463,7 @@ class StandardModel : public QCD {
 public:
 
 
-            // Radiative Corrections for the LEP-II observables
+    // Radiative Corrections for the LEP-II observables
     enum LEP2RCs {
         Weak = 0, 
         WeakBox, 
@@ -472,8 +472,6 @@ public:
         QCDFSR, 
         NUMofLEP2RCs
     };
-    
-    
     
     /**
      * @brief An enumerated type representing perturbative orders of radiative
@@ -491,8 +489,8 @@ public:
 
 
     
-    
-    static const int NSMvars = 33; ///< The number of the model parameters in %StandardModel.
+//    static const int NSMvars = 33; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
+    static const int NSMvars = 27; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */

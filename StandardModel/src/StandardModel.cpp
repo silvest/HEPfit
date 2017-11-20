@@ -34,8 +34,8 @@
   
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
-    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "s12_pmns", "s13_pmns", "s23_pmns", "delta_pmns",
-    "alpha21_pmns", "alpha31_pmns",
+    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", 
+//    "s12_pmns", "s13_pmns", "s23_pmns", "delta_pmns", "alpha21_pmns", "alpha31_pmns",
     "muw", "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
 
@@ -126,12 +126,12 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("melectron", boost::cref(leptons[ELECTRON].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mmu", boost::cref(leptons[MU].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtau", boost::cref(leptons[TAU].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s12_pmns", boost::cref(s12)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s13_pmns", boost::cref(s13)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s23_pmns", boost::cref(s23)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delta_pmns", boost::cref(delta)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha21_pmns", boost::cref(alpha21)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha31_pmns", boost::cref(alpha31)));
+//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s12_pmns", boost::cref(s12)));
+//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s13_pmns", boost::cref(s13)));
+//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s23_pmns", boost::cref(s23)));
+//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delta_pmns", boost::cref(delta)));
+//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha21_pmns", boost::cref(alpha21)));
+//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha31_pmns", boost::cref(alpha31)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda", boost::cref(lambda)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("A", boost::cref(A)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rhob", boost::cref(rhob)));
