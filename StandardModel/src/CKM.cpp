@@ -32,15 +32,15 @@ void CKM::setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v
     s13 = (gslpp::complex(A * pow(Lambda, 3.) * rho_nb, -A * pow(Lambda, 3.) * eta_nb)).abs();
     delta = -(gslpp::complex(A * pow(Lambda, 3.) * rho_nb, -A * pow(Lambda, 3.) * eta_nb)).arg();
 
-    setCKMfromAngles();
-}
-
-void CKM::setCKMfromAngles()
-{
     c12 = sqrt(1. - s12 * s12);
     c13 = sqrt(1. - s13 * s13);
     c23 = sqrt(1. - s23 * s23);
     
+    setCKMfromAngles();
+}
+
+void CKM::setCKMfromAngles()
+{   
     V.assign(0, 0, c12*c13);
     V.assign(0, 1, s12*c13);
     V.assign(0, 2, gslpp::complex(s13, -delta, true));
@@ -57,11 +57,18 @@ void CKM::setCKMfromAngles()
 void CKM::setCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v)
 {
     s13 = Vub_v;
+    c13 = sqrt(1.-s13*s13);
     s12 = Vus_v / c13;
     s23 = Vcb_v / c13;
 
+    c12 = sqrt(1. - s12 * s12);
+    c23 = sqrt(1. - s23 * s23);
+    
     double a = c12 * s13 * s23 / s12 / c23;
-    delta = 2. * atan((1. + sqrt(1. - (a * a - 1.) * pow(tan(gamma_v), 2.))*(cos(gamma_v) < 0. ? 1. : (-1.))) / (a - 1.) / tan(gamma_v));
+    if ( fabs(gamma_v) < 1.e-10 )
+        delta = 0.;
+    else
+        delta = 2. * atan((1. + sqrt(1. - (a * a - 1.) * pow(tan(gamma_v), 2.))*(cos(gamma_v) < 0. ? 1. : (-1.))) / (a - 1.) / tan(gamma_v));
 
     setCKMfromAngles();
     
