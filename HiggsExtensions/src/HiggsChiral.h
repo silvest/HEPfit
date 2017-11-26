@@ -446,6 +446,29 @@ public:
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
      */
     virtual double BrHbbRatio() const;
+
+    virtual double muggHgaga(const double sqrt_s) const;
+    virtual double muVBFHgaga(const double sqrt_s) const;
+    virtual double muVHgaga(const double sqrt_s) const;
+    virtual double muttHgaga(const double sqrt_s) const;
+    virtual double muggHZZ(const double sqrt_s) const;
+    virtual double muVBFHZZ(const double sqrt_s) const;
+    virtual double muVHZZ(const double sqrt_s) const;
+    virtual double muttHZZ(const double sqrt_s) const;
+    virtual double muggHWW(const double sqrt_s) const;
+    virtual double muVBFHWW(const double sqrt_s) const;
+    virtual double muVHWW(const double sqrt_s) const;
+    virtual double muttHWW(const double sqrt_s) const;
+    virtual double muggHtautau(const double sqrt_s) const;
+    virtual double muVBFHtautau(const double sqrt_s) const;
+    virtual double muVHtautau(const double sqrt_s) const;
+    virtual double muttHtautau(const double sqrt_s) const;
+    virtual double muggHbb(const double sqrt_s) const;
+    virtual double muVBFHbb(const double sqrt_s) const;
+    virtual double muVHbb(const double sqrt_s) const;
+    virtual double muttHbb(const double sqrt_s) const;
+    virtual double muppHmumu(const double sqrt_s) const;
+
     /**
      * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
      * and in the Standard Model.

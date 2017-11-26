@@ -583,6 +583,91 @@ public:
         return 1.0;
     }
 
+    virtual double muggHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHgaga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHZZ(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHWW(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHtautau(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muggHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVBFHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muVHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muttHbb(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    virtual double muppHmumu(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
     /**
      * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
      * and in the Standard Model.

@@ -100,6 +100,8 @@ THDMcache::THDMcache(const StandardModel& SM_i)
         CMS8_pp_A_Zga_llga_e(101,2,0.),
         CMS8_gg_H_hh_bbtautau_e(10,2,0.),
         CMS8_gg_A_hZ_tautaull_e(14,2,0.),
+        CMS8_pp_A_HZ_bbll(28718, 3, 0.),
+        CMS8_pp_H_AZ_bbll(29050, 3, 0.),
 //        CMS_ggF_phi_gaga_ep1(141,2,0.),
 //        CMS_gg_phi_gaga_ep2(141,2,0.),
 //        CMS_ggF_phi_gaga_em1(141,2,0.),
@@ -1878,9 +1880,9 @@ void THDMcache::read(){
     ATLAS13_VBF_H_WW_enumumu = readTable(ex37.str(),271,2);
     ex37e << tablepath << "ATLAS-CONF-2016-074_b_e.dat";
     ATLAS13_VBF_H_WW_enumumu_e = readTable(ex37e.str(),271,2);
-    ex38 << tablepath << "ATLAS-CONF-2017-051_a.dat";
+    ex38 << tablepath << "171007235_a.dat";
     ATLAS13_gg_H_WW_lnuqq = readTable(ex38.str(),271,2);
-    ex38e << tablepath << "ATLAS-CONF-2017-051_a_e.dat";
+    ex38e << tablepath << "171007235_a_e.dat";
     ATLAS13_gg_H_WW_lnuqq_e = readTable(ex38e.str(),271,2);
     ex39 << tablepath << "ATLAS-CONF-2016-049.dat";
     ATLAS13_pp_H_hh_bbbb = readTable(ex39.str(),271,2);
@@ -2162,26 +2164,26 @@ void THDMcache::read(){
     CMS13_pp_H_hh_bbtautau1 = readTable(ex107.str(),66,2);
     ex107e << tablepath << "CMS-PAS-HIG-17-002_e.dat";
     CMS13_pp_H_hh_bbtautau1_e = readTable(ex107e.str(),66,2);
-    ex108 << tablepath << "CMS-PAS-HIG-17-006.dat";
+    ex108 << tablepath << "170804188.dat";
     CMS13_pp_H_hh_bbVV = readTable(ex108.str(),65,2);
-    ex108e << tablepath << "CMS-PAS-HIG-17-006_e.dat";
+    ex108e << tablepath << "170804188_e.dat";
     CMS13_pp_H_hh_bbVV_e = readTable(ex108e.str(),65,2);
     ex109 << tablepath << "CMS-PAS-EXO-17-005.dat";
     CMS13_ggF_phi_Zga = readTable(ex109.str(),366,2);
     ex109e << tablepath << "CMS-PAS-EXO-17-005_e.dat";
     CMS13_ggF_phi_Zga_e = readTable(ex109e.str(),366,2);
-    ex110 << tablepath << "CMS-PAS-B2G-16-026.dat";
+    ex110 << tablepath << "171004960.dat";
     CMS13_ggF_H_hh_bbbb = readTable(ex110.str(),226,2);
-    ex110e << tablepath << "CMS-PAS-B2G-16-026_e.dat";
+    ex110e << tablepath << "171004960_e.dat";
     CMS13_ggF_H_hh_bbbb_e = readTable(ex110e.str(),226,2);
 
-    ex111 << tablepath << "ATLAS-CONF-2017-051_b.dat";
+    ex111 << tablepath << "171007235_b.dat";
     ATLAS13_VBF_H_WW_lnuqq = readTable(ex111.str(),271,2);
-    ex111e << tablepath << "ATLAS-CONF-2017-051_b_e.dat";
+    ex111e << tablepath << "171007235_b_e.dat";
     ATLAS13_VBF_H_WW_lnuqq_e = readTable(ex111e.str(),271,2);
-    ex112 << tablepath << "EPS17Carminati_b.dat";
+    ex112 << tablepath << "170800212.dat";
     ATLAS13_gg_phi_Zga_llga = readTable(ex112.str(),216,2);
-    ex112e << tablepath << "EPS17Carminati_b_e.dat";
+    ex112e << tablepath << "170800212_e.dat";
     ATLAS13_gg_phi_Zga_llga_e = readTable(ex112e.str(),216,2);
     ex113 << tablepath << "ATLAS-CONF-2017-058_a.dat";
     ATLAS13_gg_H_ZZ_llllnunu = readTable(ex113.str(),101,2);
@@ -2191,17 +2193,17 @@ void THDMcache::read(){
     ATLAS13_VBF_H_ZZ_llllnunu = readTable(ex114.str(),101,2);
     ex114e << tablepath << "ATLAS-CONF-2017-058_b_e.dat";
     ATLAS13_VBF_H_ZZ_llllnunu_e = readTable(ex114e.str(),101,2);
-    ex115 << tablepath << "EPS17Carminati_c.dat";
+    ex115 << tablepath << "170809638_a.dat";
     ATLAS13_gg_H_ZZ_qqllnunu = readTable(ex115.str(),271,2);
-    ex115e << tablepath << "EPS17Carminati_c_e.dat";
+    ex115e << tablepath << "170809638_a_e.dat";
     ATLAS13_gg_H_ZZ_qqllnunu_e = readTable(ex115e.str(),271,2);
-    ex116 << tablepath << "EPS17Carminati_d.dat";
+    ex116 << tablepath << "170809638_b.dat";
     ATLAS13_VBF_H_ZZ_qqllnunu = readTable(ex116.str(),271,2);
-    ex116e << tablepath << "EPS17Carminati_d_e.dat";
+    ex116e << tablepath << "170809638_b_e.dat";
     ATLAS13_VBF_H_ZZ_qqllnunu_e = readTable(ex116e.str(),271,2);
-    ex117 << tablepath << "EPS17Carminati_e.dat";
+    ex117 << tablepath << "170804445.dat";
     ATLAS13_pp_H_VV_qqqq = readTable(ex117.str(),181,2);
-    ex117e << tablepath << "EPS17Carminati_e_e.dat";
+    ex117e << tablepath << "170804445_e.dat";
     ATLAS13_pp_H_VV_qqqq_e = readTable(ex117e.str(),181,2);
     ex118 << tablepath << "CMS-PAS-B2G-16-023.dat";
     CMS13_pp_H_ZZ_llnunu = readTable(ex118.str(),191,2);

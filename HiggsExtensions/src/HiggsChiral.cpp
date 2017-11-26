@@ -412,7 +412,126 @@ double HiggsChiral::BrHbbRatio() const
     
     return (computecb() * computecb() / computeGammaTotalRatio());
 }
-//
+
+double HiggsChiral::muggHgaga(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecgaga() * computecgaga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHgaga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecgaga() * computecgaga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHgaga(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecgaga() * computecgaga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHgaga(const double sqrt_s) const
+{
+    return computect() * computect() * computecgaga() * computecgaga() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muggHZZ(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHZZ(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+
+double HiggsChiral::muVHZZ(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+
+double HiggsChiral::muttHZZ(const double sqrt_s) const
+{
+    return computect() * computect() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muggHWW(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHWW(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHWW(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHWW(const double sqrt_s) const
+{
+    return computect() * computect() * computecV() * computecV() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muggHtautau(const double sqrt_s) const
+{
+    return computecg() * computecg() * computectau() * computectau() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHtautau(const double sqrt_s) const
+{
+    return computecV() * computecV() * computectau() * computectau() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHtautau(const double sqrt_s) const
+{
+    return computecV() * computecV() * computectau() * computectau() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHtautau(const double sqrt_s) const
+{
+    return computect() * computect() * computectau() * computectau() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muggHbb(const double sqrt_s) const
+{
+    return computecg() * computecg() * computecb() * computecb() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVBFHbb(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecb() * computecb() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muVHbb(const double sqrt_s) const
+{
+    return computecV() * computecV() * computecb() * computecb() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muttHbb(const double sqrt_s) const
+{
+    return computect() * computect() * computecb() * computecb() / computeGammaTotalRatio();
+}
+
+double HiggsChiral::muppHmumu(const double sqrt_s) const
+{
+    if(sqrt_s==8)
+    {
+        return (0.872 * computecg() * computecg() + 0.122 * computecV() * computecV() + 0.006 * computect() * computect()) * computecmu() * computecmu() / computeGammaTotalRatio();
+    }
+    if(sqrt_s==13)
+    {
+        return (0.871 * computecg() * computecg() + 0.119 * computecV() * computecV() + 0.010 * computect() * computect()) * computecmu() * computecmu() / computeGammaTotalRatio();
+    }
+    else
+    {
+        throw std::runtime_error("The observable muppHmumu is only defined for 8 or 13 TeV.");
+    }
+}
+
+
 double HiggsChiral::computeGammaTotalRatio() const
 {
     
