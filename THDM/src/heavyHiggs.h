@@ -864,6 +864,90 @@ private:
 };
 
 /**
+ * @class Hobs_pp_H_AZ_bbll_CMS8
+ * @ingroup THDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to H\to AZ\to b\bar b \ell\ell@f$.
+ */
+class Hobs_pp_H_AZ_bbll_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_H_AZ_bbll_CMS8 constructor.
+     */
+    Hobs_pp_H_AZ_bbll_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b\ell \ell)]_{\text{theo}} / [\sigma_{pp\to H}\cdot BR(H\to AZ\to b\bar b\ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_pp_H_AZ_bbll_CMS8
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on signal strength of the process @f$pp\to H\to AZ\to b\bar b \ell\ell@f$ assuming a Gaussian likelihood.
+ */
+class Robs_pp_H_AZ_bbll_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_pp_H_AZ_bbll_CMS8 constructor.
+     */
+    Robs_pp_H_AZ_bbll_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b\ell \ell)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b\ell \ell)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b\ell \ell)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Hobs_pp_H_AZ_tautaull_CMS8
+ * @ingroup THDM
+ * @brief Ratio of the prediction and CMS upper limit for the cross section times branching ratio of the process @f$pp\to H\to AZ\to \tau\tau\ell\ell@f$.
+ */
+class Hobs_pp_H_AZ_tautaull_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Hobs_pp_H_AZ_tautaull_CMS8 constructor.
+     */
+    Hobs_pp_H_AZ_tautaull_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau\tau\ell \ell)]_{\text{theo}} / [\sigma_{pp\to H}\cdot BR(H\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\%}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class Robs_pp_H_AZ_tautaull_CMS8
+ * @ingroup THDM
+ * @brief Observable for the implementation of the CMS upper limit on signal strength of the process @f$pp\to H\to AZ\to \tau\tau \ell\ell@f$ assuming a Gaussian likelihood.
+ */
+class Robs_pp_H_AZ_tautaull_CMS8: public ThObservable {
+public:
+
+    /**
+     * @brief Robs_pp_H_AZ_tautaull_CMS8 constructor.
+     */
+    Robs_pp_H_AZ_tautaull_CMS8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$1.96 + 1.96\left( [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau\tau\ell \ell)]_{\text{theo}} - [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau\tau\ell \ell)]_{\text{CMS,95\% expected}}@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
  * @class Hobs_ttF_H_tt_ATLAS13
  * @ingroup THDM
  * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$t\bar t \to H\to t\bar t@f$.
@@ -3146,6 +3230,48 @@ public:
 
     /**
      * @return @f$\log_{10}[\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class log10_pp_H_AZ_bbll_TH8
+ * @ingroup THDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H\to AZ\to b\bar b \ell \ell@f$ at 8 TeV.
+ */
+class log10_pp_H_AZ_bbll_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_H_AZ_bbll_TH8 constructor.
+     */
+    log10_pp_H_AZ_bbll_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b \ell \ell)]@f$
+     */
+    double computeThValue();
+private:
+    const THDM& myTHDM;
+};
+
+/**
+ * @class log10_pp_H_AZ_tautaull_TH8
+ * @ingroup THDM
+ * @brief Decadic logarithm of the cross section times branching ratio of the process @f$pp\to H\to AZ\to \tau \tau \ell \ell@f$ at 8 TeV.
+ */
+class log10_pp_H_AZ_tautaull_TH8: public ThObservable {
+public:
+
+    /**
+     * @brief log10_pp_H_AZ_tautaull_TH8 constructor.
+     */
+    log10_pp_H_AZ_tautaull_TH8(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\log_{10}[\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau \tau \ell \ell)]@f$
      */
     double computeThValue();
 private:

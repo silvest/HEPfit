@@ -198,7 +198,7 @@ public:
     /**
      * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
      */
-    gslpp::matrix<double> CMS8_gg_A_hZ_bbll, CMS8_pp_H_hh, CMS8_pp_H_hh_gagabb, CMS8_pp_H_hh_bbbb, CMS8_bb_phi_bb, CMS8_gg_phi_tautau, CMS8_bb_phi_tautau, CMS8_gg_phi_gaga, CMS8_pp_A_Zga_llga, CMS8_pp_phi_Zga, CMS8_gg_H_hh_bbtautau, CMS8_gg_A_hZ_tautaull, CMS8_pp_A_HZ_bbll, CMS8_pp_H_AZ_bbll;
+    gslpp::matrix<double> CMS8_gg_A_hZ_bbll, CMS8_pp_H_hh, CMS8_pp_H_hh_gagabb, CMS8_pp_H_hh_bbbb, CMS8_bb_phi_bb, CMS8_gg_phi_tautau, CMS8_bb_phi_tautau, CMS8_gg_phi_gaga, CMS8_pp_A_Zga_llga, CMS8_pp_phi_Zga, CMS8_gg_H_hh_bbtautau, CMS8_gg_A_hZ_tautaull, CMS8_pp_A_HZ_bbll, CMS8_pp_H_AZ_bbll, CMS8_pp_A_HZ_tautaull, CMS8_pp_H_AZ_tautaull;
 
     /**
      * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
@@ -851,6 +851,34 @@ public:
      * @details Taken from arXiv:1510.01181, Figure 10, left @cite Khachatryan:2015tha.
      */
     double ip_ex_gg_A_hZ_tautaull_CMS8_e(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a pseudoscalar resonance decaying to @f$HZ@f$ which further decay to a @f$b@f$ quark pair and a light lepton pair.
+     * @return @f$[\sigma_{pp\to A}\cdot BR(A\to HZ\to b\bar b \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1603.02991, Figure 1, lower right triangle @cite Khachatryan:2016are.
+     */
+    double ip_ex_pp_A_HZ_bbll_CMS8(double mA, double mH);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to @f$AZ@f$ which further decay to a @f$b@f$ quark pair and a light lepton pair.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to AZ\to b\bar b \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1603.02991, Figure 1, upper left triangle @cite Khachatryan:2016are.
+     */
+    double ip_ex_pp_H_AZ_bbll_CMS8(double mA, double mH);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a pseudoscalar resonance decaying to @f$HZ@f$ which further decay to a @f$\tau@f$ lepton pair and a light lepton pair.
+     * @return @f$[\sigma_{pp\to A}\cdot BR(A\to HZ\to \tau \tau \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1603.02991, Figure 4, lower right triangle @cite Khachatryan:2016are.
+     */
+    double ip_ex_pp_A_HZ_tautaull_CMS8(double mA, double mH);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to @f$AZ@f$ which further decay to a @f$\tau@f$ lepton pair and a light lepton pair.
+     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to AZ\to \tau \tau \ell \ell)]_{\text{CMS,95\%}}@f$
+     * @details Taken from arXiv:1603.02991, Figure 4, upper left triangle @cite Khachatryan:2016are.
+     */
+    double ip_ex_pp_H_AZ_tautaull_CMS8(double mA, double mH);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a bb associated scalar resonance decaying to t quarks.
@@ -1863,7 +1891,11 @@ public:
 
     void computeHHquantities();
 
+    void computeHHlimits();
+
     void computeAquantities();
+
+    void computeAlimits();
 
     void computeHpquantities();
 
@@ -2019,6 +2051,26 @@ public:
      */
     double THDM_BR_h_cc;
 
+    double SigmaSumH8;
+    double SigmaTotSM_H8;
+    double SigmaggF_H8;
+    double SigmabbF_H8;
+    double SigmaVBF_H8;
+    double SigmaSumH13;
+    double SigmaggF_H13;
+    double SigmattF_H13;
+    double SigmabbF_H13;
+    double SigmaVBF_H13;
+    double SigmaVH_H13;
+    double Br_Htotautau;
+    double Br_Htogaga;
+    double Br_HtoZga;
+    double Br_HtoZZ;
+    double Br_HtoWW;
+    double Br_Htott;
+    double Br_Htobb;
+    double GammaHtotSM;
+
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to H}\cdot BR^{\text{THDM}}(H\to \tau\tau)@f$
@@ -2120,6 +2172,18 @@ public:
      * @return @f$\sigma^{\text{THDM}}_{b\bar b\to H}\cdot BR^{\text{THDM}}(H\to b\bar b)@f$
      */
     double bbF_H_bb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to AZ\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to b\bar b \ell \ell)@f$
+     */
+    double pp_H_AZ_bbll_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to H\to AZ\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to AZ\to \tau\tau \ell \ell)@f$
+     */
+    double pp_H_AZ_tautaull_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 13 TeV.
@@ -2310,6 +2374,12 @@ public:
     double rHH_gg;
 
     /**
+     * @brief Squared relative coupling of @f$H@f$ to two massive vector bosons.
+     * @return @f$r^{(H)}_{VV}@f$
+     */
+    double rHH_VV;
+
+    /**
      * @brief @f$H@f$ branching ratio to two light Higgs bosons.
      * @return @f$BR(H\to hh)@f$
      */
@@ -2383,6 +2453,10 @@ public:
     double R_ggF_H_tt_ATLAS8;
     double THoEX_bbF_H_bb_CMS8;
     double R_bbF_H_bb_CMS8;
+    double THoEX_pp_H_AZ_bbll_CMS8;
+    double R_pp_H_AZ_bbll_CMS8;
+    double THoEX_pp_H_AZ_tautaull_CMS8;
+    double R_pp_H_AZ_tautaull_CMS8;
 
     double THoEX_ttF_H_tt_ATLAS13;
     double R_ttF_H_tt_ATLAS13;
@@ -2477,6 +2551,19 @@ public:
     double THoEX_pp_H_bb_CMS13;
     double R_pp_H_bb_CMS13;
 
+    double SigmaggF_A8;
+    double SigmabbF_A8;
+    double SigmaSumA8;
+    double SigmaggF_A13;
+    double SigmabbF_A13;
+    double SigmattF_A13;
+    double SigmaSumA13;
+    double Br_Atotautau;
+    double Br_Atogaga;
+    double Br_Atott;
+    double Br_Atobb;
+    double Gamma_AZga;
+
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{THDM}}_{gg\to A}\cdot BR^{\text{THDM}}(A\to \tau\tau)@f$
@@ -2548,6 +2635,18 @@ public:
      * @return @f$\sigma^{\text{THDM}}_{b\bar b\to A}\cdot BR^{\text{THDM}}(A\to b\bar b)@f$
      */
     double bbF_A_bb_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to HZ\to b\bar b \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to HZ\to b\bar b \ell \ell)@f$
+     */
+    double pp_A_HZ_bbll_TH8;
+
+    /**
+     * @brief Cross section times branching ratio for the process @f$pp\to A\to HZ\to \tau\tau \ell \ell@f$ at the LHC with 8 TeV.
+     * @return @f$\sigma^{\text{THDM}}_{pp\to A}\cdot BR^{\text{THDM}}(A\to HZ\to \tau\tau \ell \ell)@f$
+     */
+    double pp_A_HZ_tautaull_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to A\to \tau \tauZ@f$ at the LHC with 13 TeV.
@@ -2714,6 +2813,10 @@ public:
     double R_bbF_A_hZ_bbZ_ATLAS13;
     double THoEX_pp_A_bb_CMS13;
     double R_pp_A_bb_CMS13;
+    double THoEX_pp_A_HZ_bbll_CMS8;
+    double R_pp_A_HZ_bbll_CMS8;
+    double THoEX_pp_A_HZ_tautaull_CMS8;
+    double R_pp_A_HZ_tautaull_CMS8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H^\pm\to \tau^\pm \nu@f$ at the LHC with 8 TeV.
@@ -3033,6 +3136,10 @@ private:
     mutable double ip_ex_gg_H_hh_bbtautau_CMS8_cache_e[2][CacheSize];
     mutable double ip_ex_gg_A_hZ_tautaull_CMS8_cache[2][CacheSize];
     mutable double ip_ex_gg_A_hZ_tautaull_CMS8_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_A_HZ_bbll_CMS8_cache[3][CacheSize];
+    mutable double ip_ex_pp_H_AZ_bbll_CMS8_cache[3][CacheSize];
+    mutable double ip_ex_pp_A_HZ_tautaull_CMS8_cache[3][CacheSize];
+    mutable double ip_ex_pp_H_AZ_tautaull_CMS8_cache[3][CacheSize];
 
     mutable double ip_ex_bb_phi_tt_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_tt_ATLAS13_cache_e[2][CacheSize];
