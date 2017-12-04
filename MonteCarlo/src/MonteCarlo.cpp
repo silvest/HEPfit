@@ -172,7 +172,6 @@ void MonteCarlo::Run(const int rank) {
             }
         }
 
-        ParseMCMCConfig(MCMCConf);
         MCEngine.SetName(ModelName.c_str());
         MCEngine.Initialize(myInputParser.getModel());
 
@@ -248,6 +247,9 @@ void MonteCarlo::Run(const int rank) {
                     it1 != CGO.end(); ++it1)
                 std::cout << "  " << it1->getName() << " containing "
                 << it1->getObs().size() << " observables." << std::endl;
+            ParseMCMCConfig(MCMCConf);
+            MCEngine.CreateHistogramMaps();
+            
             if (CalculateNormalization.compare("MC") == 0 && NIterationNormalizationMC <= 0) 
                 throw std::runtime_error(("\nMonteCarlo ERROR: CalculateNormalization cannot be set to MC without setting NIterationNormalizationMC > 0 in " + MCMCConf + " .\n").c_str());
             

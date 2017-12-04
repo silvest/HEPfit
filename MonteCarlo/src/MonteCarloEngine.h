@@ -62,21 +62,21 @@ public:
     ~MonteCarloEngine();
 
     /**
-     * @brief Initialization of the Monte Carlo Engine
+     * @brief Initialization of the Monte Carlo Engine.
      * @details The initialization of the Monte Carlo Engine performs the following tasks
      * \li The observables and observables2D lists are checked and sorted into the ones which are included
      * in the MCMC and the ones which are not.
      * \li The experimental likelihood for observables and observalbes2D are read if provided through a .root
-     * file and the corresponding output histograms are initiated.
-     * \li The correlated Gaussian observables are sorted for inclusion in the MCMC and the corresponding output 
-     * histograms are initiated.
-     * \li The histograms for the model parameters vs. observables are initiated.\n
-     * The output specifications are passed from the SomeModel.conf file parsed by the InputParser. The number of
-     * bins for the 1D and 2D histograms are defined through the NBINS1D and NBINS2D parameters fixed in 
-     * MonteCarloEngine.h.
+     * file.
+     * \li The correlated Gaussian observables are sorted for inclusion in the MCMC.
      * @param[in] Mod_i the pointer to the model defined in SomeModel.conf
      */
     void Initialize(StandardModel* Mod_i);
+    
+    /**
+     * @brief Creation of the histogram maps for Observables, Observable2D and Correlated Gaussian Observable.
+     */
+    void CreateHistogramMaps();
 
     /**
      * @brief A member to classify the prior of the model parameters varied in the Monte Carlo

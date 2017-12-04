@@ -57,33 +57,19 @@ MonteCarloEngine::MonteCarloEngine(
     }
 };
 
-void MonteCarloEngine::Initialize(StandardModel* Mod_i) 
-{   
+void MonteCarloEngine::Initialize(StandardModel* Mod_i)
+{
     Mod = Mod_i;
     int k = 0, kweight = 0;
-    
-    if (rank == 0) {
-        TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", nBins1D, 1., -1.);
-        lhisto->GetXaxis()->SetTitle("LogLikelihood");
-        BCH1D bclhisto = BCH1D(lhisto);
-        Histo1D["LogLikelihood"] = bclhisto;
-    }
-    
+
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
             k++;
             if (it->getDistr().compare("noweight") != 0) kweight++;
             if (it->isWriteChain()) kchainedObs++;
         }
-        std::string HistName = it->getName();
         thMin[it->getName()] = std::numeric_limits<double>::max();
         thMax[it->getName()] = -std::numeric_limits<double>::max();
-        if (rank == 0 && Histo1D.find(HistName) == Histo1D.end()) {
-            TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(), nBins1D, it->getMin(), it->getMax());
-            histo->GetXaxis()->SetTitle(it->getLabel().c_str());
-            BCH1D bchisto = BCH1D(histo);
-            Histo1D[HistName] = bchisto;
-        }
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
         if ((it->getDistr()).compare("file") == 0) {
@@ -91,23 +77,10 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
                 throw std::runtime_error("ERROR: cannot handle noMCMC for Observable2D file yet!");
         } else if (it->getDistr().compare("weight") == 0)
             throw std::runtime_error("ERROR: do not use Observable2D for analytic 2D weights!");
-        std::string HistName = it->getName();
-        if (rank == 0 && Histo2D.find(HistName) == Histo2D.end()) {
-            TH2D * histo2 = new TH2D(HistName.c_str(),
-                    (it->getLabel() + " vs " + it->getLabel2()).c_str(),
-                    nBins2D, it->getMin(), it->getMax(),
-                    nBins2D, it->getMin2(), it->getMax2());
-            histo2->GetXaxis()->SetTitle(it->getLabel().c_str());
-            histo2->GetYaxis()->SetTitle(it->getLabel2().c_str());
-            BCH2D bchisto2 = BCH2D(histo2);
-            Histo2D[HistName] = bchisto2;
-        }
     }
-    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-            it1 != CGO.end(); ++it1) {
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 != CGO.end(); ++it1) {
         std::vector<Observable> ObsV(it1->getObs());
-        for (std::vector<Observable>::iterator it = ObsV.begin();
-                it != ObsV.end(); ++it) {
+        for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) {
             if ((it->getDistr()).compare("file") == 0)
                 throw std::runtime_error("Cannot use file in CorrelatedGaussianObservables!");
             if (!(it->isTMCMC())) {
@@ -115,16 +88,8 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
                 if (it->getDistr().compare("noweight") != 0)
                     throw std::runtime_error("Cannot use weight in CorrelatedGaussianObservables!");
             }
-            std::string HistName = it->getName();
-            thMin[HistName] = std::numeric_limits<double>::max();
-            thMax[HistName] = -std::numeric_limits<double>::max();
-            if (rank == 0 && Histo1D.find(HistName) == Histo1D.end()) {
-                TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(),
-                        nBins1D, it->getMin(), it->getMax());
-                histo->GetXaxis()->SetTitle(it->getLabel().c_str());
-                BCH1D bchisto = BCH1D(histo);
-                Histo1D[HistName] = bchisto;
-            }
+            thMin[it->getName()] = std::numeric_limits<double>::max();
+            thMax[it->getName()] = -std::numeric_limits<double>::max();
         }
         if (it1->isPrediction()) {
             CorrelationMap[it1->getName()] = new TPrincipal(it1->getObs().size());
@@ -136,13 +101,52 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
     unknownParameters = Mod->getUnknownParameters();
     DefineParameters();
     SetMaximumEfficiency(0.5);
-    
+};
+
+void MonteCarloEngine::CreateHistogramMaps() 
+{
+    TH1D * lhisto = new TH1D("LogLikelihood", "LogLikelihood", nBins1D, 1., -1.);
+    lhisto->GetXaxis()->SetTitle("LogLikelihood");
+    BCH1D bclhisto = BCH1D(lhisto);
+    Histo1D["LogLikelihood"] = bclhisto;
+
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
+        std::string HistName = it->getName();
+        if (Histo1D.find(HistName) == Histo1D.end()) {
+            TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(), nBins1D, it->getMin(), it->getMax());
+            histo->GetXaxis()->SetTitle(it->getLabel().c_str());
+            BCH1D bchisto = BCH1D(histo);
+            Histo1D[HistName] = bchisto;
+        }
+    }
+    for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
+        std::string HistName = it->getName();
+        if (Histo2D.find(HistName) == Histo2D.end()) {
+            TH2D * histo2 = new TH2D(HistName.c_str(), (it->getLabel() + " vs " + it->getLabel2()).c_str(), nBins2D, it->getMin(), it->getMax(), nBins2D, it->getMin2(), it->getMax2());
+            histo2->GetXaxis()->SetTitle(it->getLabel().c_str());
+            histo2->GetYaxis()->SetTitle(it->getLabel2().c_str());
+            BCH2D bchisto2 = BCH2D(histo2);
+            Histo2D[HistName] = bchisto2;
+        }
+    }
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 != CGO.end(); ++it1) {
+        std::vector<Observable> ObsV(it1->getObs());
+        for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) {
+            std::string HistName = it->getName();
+            if (Histo1D.find(HistName) == Histo1D.end()) {
+                TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(), nBins1D, it->getMin(), it->getMax());
+                histo->GetXaxis()->SetTitle(it->getLabel().c_str());
+                BCH1D bchisto = BCH1D(histo);
+                Histo1D[HistName] = bchisto;
+            }
+        }
+    }
+
     gIdx = 1000;
     rIdx = 1001;
 
     HEPfit_green = new TColor(gIdx, 0.0, 0.56, 0.57, "HEPfit_green");
     HEPfit_red = new TColor(rIdx, 0.57, 0.01, 0.00, "HEPfit_red");
-
 };
 
 void MonteCarloEngine::setNChains(unsigned int i) {
