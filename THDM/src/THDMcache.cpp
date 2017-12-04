@@ -1632,9 +1632,9 @@ void THDMcache::read(){
 
     std::cout<<"reading tables"<<std::endl;
 
-//    std::cout << "HEPFITPATH = " << getenv("HEPFITPATH") << std::endl;
+//    std::cout << "HEPFITTABS = " << getenv("HEPFITPATH") << std::endl;
     std::stringstream path;
-    path << getenv("HEPFITPATH") << "/THDM/tabs/";
+    path << getenv("HEPFITTABS") << "/THDM/tabs/";
     std::string tablepath=path.str();
 
     br1 << tablepath << "br1.dat";
@@ -7726,10 +7726,10 @@ void THDMcache::computeHHquantities()
     SigmaVBF_H13=ip_cs_VBFtoH_13(mHh)*rHH_VV;
     SigmattF_H13=ip_cs_pptottH_13(mHh)*rHH_QuQu;
     SigmaVH_H13=(ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh))*rHH_VV;
-    double SigmaTotSM_H13 = 1.0e-15;
-    if (mHh>=20. && mHh <=2000.) {
-            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
-    }
+//    double SigmaTotSM_H13 = 1.0e-15;
+//    if (mHh>=20. && mHh <=2000.) {
+//            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
+//    }
     SigmaSumH13 = SigmaggF_H13 + SigmaVBF_H13 + SigmaVH_H13 + SigmattF_H13 + SigmabbF_H13;
 
     double BrSM_Htott=ip_Br_HPtott(mHh);
