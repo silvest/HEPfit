@@ -390,6 +390,9 @@ public:
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
      */
     virtual double BrHbbRatio() const;
+
+    virtual double muttHWW(const double sqrt_s) const;
+    virtual double muttHtautau(const double sqrt_s) const;
     /**
      * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
      * and in the Standard Model.

@@ -213,6 +213,16 @@ double HiggsKi::BrHbbRatio() const
     return (computeKb() * computeKb() / computeGammaTotalRatio());
 }
 
+double HiggsKi::muttHWW(const double sqrt_s) const
+{
+    return computeKt() * computeKt() * computeKW() * computeKW() / computeGammaTotalRatio();
+}
+
+double HiggsKi::muttHtautau(const double sqrt_s) const
+{
+    return computeKt() * computeKt() * computeKtau() * computeKtau() / computeGammaTotalRatio();
+}
+
 double HiggsKi::computeGammaTotalRatio() const
 {
     return ((computeKg() * computeKg() * trueSM.computeBrHtogg()
