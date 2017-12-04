@@ -1342,6 +1342,26 @@ public:
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
     double deltaGammaHbbRatio2() const;
+      
+    ////////////////////////////////////////////////////////////////////////
+      
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
+     * @return @f$\delta g_{1,Z}@f$
+     */
+    virtual double deltag1ZNP() const;
+      
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
+     * @return @f$\delta \kappa_{\gamma}@f$
+     */
+    virtual double deltaKgammaNP() const;
+      
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
+     * @return @f$\lambda_{Z}@f$
+     */
+    virtual double lambdaZNP() const;
     
     ////////////////////////////////////////////////////////////////////////
 protected:

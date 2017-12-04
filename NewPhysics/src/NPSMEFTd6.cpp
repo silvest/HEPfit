@@ -6116,6 +6116,45 @@ double NPSMEFTd6::deltaGammaHbbRatio2() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
+double NPSMEFTd6::deltag1ZNP() const
+{
+      double NPdirect, NPindirect;
+      
+      /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
+      NPdirect = - (Mz * Mz / v () / v() ) * CDHW * v2_over_LambdaNP2;
+      
+      NPindirect = 0.0;
+      
+      return NPdirect + NPindirect;
+}
+      
+double NPSMEFTd6::deltaKgammaNP() const
+{
+      double NPdirect, NPindirect;
+
+      /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
+      NPdirect = (M_PI * ale / 4.0 / sW_tree / sW_tree);
+      
+      NPdirect = NPdirect * ( 4.0 * CHWB - CDHW - CDHB ) * v2_over_LambdaNP2;
+      
+      NPindirect = 0.0;
+      
+      return NPdirect + NPindirect;
+}
+      
+double NPSMEFTd6::lambdaZNP() const
+{
+      double NPdirect;
+
+      /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
+      NPdirect = M_PI * ale / sW_tree / sW_tree;
+      NPdirect = (3.0 / 2.0) * NPdirect * NPdirect * CW / LambdaNP2;
+
+      return NPdirect;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 double NPSMEFTd6::CLL_mu() const
 {
     return (CLL_1122 + CLL_2211 + CLL_1221 + CLL_2112);

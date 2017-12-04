@@ -715,6 +715,36 @@ public:
     }
 
     ////////////////////////////////////////////////////////////////////////
+      
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
+     * @return @f$\delta g_{1,Z}@f$
+     */
+    virtual double deltag1ZNP() const
+    {
+        return 0.0;
+    }
+      
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
+     * @return @f$\delta \kappa_{\gamma}@f$
+     */
+    virtual double deltaKgammaNP() const
+    {
+        return 0.0;
+    }
+      
+    /**
+     * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
+     * @return @f$\lambda_{Z}@f$
+     */
+    virtual double lambdaZNP() const
+    {
+        return 0.0;
+    }
+      
+      
+    ////////////////////////////////////////////////////////////////////////
 protected:
     StandardModel trueSM;
 };

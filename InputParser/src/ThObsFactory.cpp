@@ -51,6 +51,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Rinv"] = boost::factory<Rinv*>();
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
+    //-----  Triple gauge coupling observables  -----
+    obsThFactory["deltag1Z"] = boost::factory<deltag1Z*>();
+    obsThFactory["deltaKgamma"] = boost::factory<deltaKgamma*>();
+    obsThFactory["lambdaZ"] = boost::factory<lambdaZ*>();
 
     //-----  Higgs Extension observables  ----------
     const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
