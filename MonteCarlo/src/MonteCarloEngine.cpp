@@ -784,30 +784,20 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, Observable& it, cons
 void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string OutputDir) 
 {
     std::vector<double> mode(GetBestFitParameters());
-    if (mode.size() == 0) {
-        if (rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
-        else sleep(2);
-    }
+    if (mode.size() == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables histogram cannot be generated.\n");
     setDParsFromParameters(mode,DPars);
 
     Mod->Update(DPars);
 
     // print the histograms to pdf files
-    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
-            it++) {
-        PrintHistogram(OutFile, *it, OutputDir);
-    }
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) PrintHistogram(OutFile, *it, OutputDir);
     
-    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-            it1 < CGO.end(); it1++) {
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
         std::vector<Observable> ObsV(it1->getObs());
-        for (std::vector<Observable>::iterator it = ObsV.begin();
-                it != ObsV.end(); ++it)
-            PrintHistogram(OutFile, *it, OutputDir);
+        for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) PrintHistogram(OutFile, *it, OutputDir);
     }
     
-    for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
-            it < Obs2D_ALL.end(); it++) {
+    for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
         std::string HistName = it->getName();
         if (Histo2D[HistName].GetHistogram()->Integral() > 0.0) {
             std::string fname = OutputDir + "/" + HistName + ".pdf";
@@ -817,17 +807,13 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
             Histo2D[HistName].SetGlobalMode(th);
             Print2D(Histo2D[HistName], fname.c_str());
             std::cout << fname << " has been created." << std::endl;
-            if(OutFile.compare("") == 0) {
-                throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
-            }
+            if(OutFile.compare("") == 0) throw std::runtime_error("\nMonteCarloEngine::PrintHistogram ERROR: No root file specified for writing histograms.");
             TDirectory * dir = gDirectory;
             GetOutputFile()->cd();
             Histo2D[HistName].GetHistogram()->Write();
             gDirectory = dir;
             CheckHistogram(*Histo2D[HistName].GetHistogram(), HistName);
-        } else
-            HistoLog << "WARNING: The histogram of "
-                << HistName << " is empty!" << std::endl;
+        } else HistoLog << "WARNING: The histogram of " << HistName << " is empty!" << std::endl;
     }
         
     if (Histo1D["LogLikelihood"].GetHistogram()->Integral() > 0.0) {
@@ -941,10 +927,8 @@ int MonteCarloEngine::getPrecision(double value, double rms) {
 std::string MonteCarloEngine::computeStatistics() {
     
     std::vector<double> mode(GetBestFitParameters());
-    if (mode.size() == 0) {
-        if(rank == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
-        else sleep (2);
-    }
+    if (mode.size() == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
+
     std::ostringstream StatsLog;
     int i = 0;
     StatsLog << "Statistics file for Observables, Binned Observables and Correlated Gaussian Observables.\n" << std::endl;
