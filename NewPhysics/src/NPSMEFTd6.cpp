@@ -6148,7 +6148,7 @@ double NPSMEFTd6::lambdaZNP() const
 
       /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
       NPdirect = M_PI * ale / sW_tree / sW_tree;
-      NPdirect = (3.0 / 2.0) * NPdirect * NPdirect * CW / LambdaNP2;
+      NPdirect = - (3.0 / 2.0) * NPdirect * NPdirect * CW / LambdaNP2;
 
       return NPdirect;
 }
