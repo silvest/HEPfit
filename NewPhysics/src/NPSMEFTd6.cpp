@@ -6136,7 +6136,7 @@ double NPSMEFTd6::deltaKgammaNP() const
       /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
       NPdirect = sqrt( M_PI * ale ) / 4.0 / sW_tree / sW_tree;
       
-      NPdirect = NPdirect * ( 4.0 * sW_tree * cW_tree * CHWB 
+      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( M_PI * ale ) ) * CHWB 
               - sW_tree * CDHW 
               - cW_tree * CDHB ) * v2_over_LambdaNP2;
       
