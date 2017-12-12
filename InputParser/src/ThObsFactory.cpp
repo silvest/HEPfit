@@ -120,6 +120,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["ttH196"] = boost::bind(boost::factory<muttH*>(), _1, sqrt_s_TeV);
     obsThFactory["eeZH240"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_FCCee240);
     obsThFactory["eeZH250"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_ILC250);
+    obsThFactory["eeZH350"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_FCCee350);
     obsThFactory["eeZH500"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_ILC500);
     obsThFactory["eeZH1000"] = boost::bind(boost::factory<mueeZH*>(), _1, sqrt_s_ILC1000);
     obsThFactory["eeWBF250"] = boost::bind(boost::factory<mueeWBF*>(), _1, sqrt_s_ILC250);
