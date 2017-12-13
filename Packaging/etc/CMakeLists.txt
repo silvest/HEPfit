@@ -110,7 +110,7 @@ endif()
 set(BOOST_ERROR_MESSAGE "Boost headers could not be found. Please specify the Boost include path with ${RedBold}-DBOOST_INCLUDE_DIR=<include path>/boost/${ColReset}.")
 
 if(NOT BOOST_INCLUDE_DIR)
-  find_path(BOOST_INCLUDE_DIR "boost/tokenizer.hpp" DOC "Boost include path")
+  find_path(BOOST_INCLUDE_DIR "boost/tokenizer.hpp" HINTS ENV C_INCLUDE_PATH ENV CPLUS_INCLUDE_PATH DOC "Boost include path")
   if(BOOST_INCLUDE_DIR)
     set(BOOST_INCLUDE_DIR "${BOOST_INCLUDE_DIR}/boost/" CACHE PATH "Boost include path" FORCE)
   else()
