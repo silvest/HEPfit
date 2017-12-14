@@ -33,7 +33,7 @@ public:
      */
     ~GMcache();
 
-    void updateCache();
+    double updateCache();
     void setOtherParameters();
 
 //    double Q_cutoff;
@@ -184,6 +184,8 @@ private:
     double Q_GM;
     double MZ;
     double vev;
+    double mHl;
+    double mHl2;
     double tanb;
     double sinb;
     double cosb;

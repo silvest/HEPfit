@@ -5,10 +5,11 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include "gslpp.h"
 #include "GMcache.h"
 
 GMcache::GMcache(const StandardModel& SM_i)
-        : unitarityeigenvalues(11, 0.), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+        : unitarityeigenvalues(4, 0.), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
 {
 //    myRunnerGM=new RunnerGM(SM_i);
 }
@@ -524,7 +525,7 @@ void GMcache::computeSignalStrengthQuantities()
     rh_gg = 0.0;
     double ghHpHm = 0.0;
 
-    //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
+    //rh_gaga formula = fabs(I_h_F+I_h_W+I_h_Hp)^2 / fabs(I_hSM_F+I_hSM_W)^2
 
     gslpp::complex I_h_F = 0.0;
     gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
@@ -536,7 +537,7 @@ void GMcache::computeSignalStrengthQuantities()
     double ABSgagaGM=0.0;
     double ABSgagaSM=0.0;
 
-    //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
+    //rh_Zga formula = fabs(A_h_F+A_h_W+A_h_Hp)^2 / fabs(A_hSM_F+A_hSM_W)^2
 
     gslpp::complex A_h_F = 0.0;
     gslpp::complex A_h_Ux = A_h_U(mhsq,cW2,Mu,Mc,Mt,MZ);
@@ -697,54 +698,14 @@ void GMcache::computeUnitarity()
 //    }
 //
     double pi=M_PI;
-    gslpp::matrix<gslpp::complex> Smatrix1(4,4,0.), Smatrix2(4,4,0.);
-//    gslpp::matrix<gslpp::complex> Sbmatrix1(4,4,0.), Sbmatrix2(4,4,0.);
-    gslpp::matrix<gslpp::complex> Seigenvectors1(4,4,0.), Seigenvectors2(4,4,0.);
-//    gslpp::matrix<gslpp::complex> Seigenvectors1T(4,4,0.), Seigenvectors2T(4,4,0.);
-    gslpp::vector<double> Seigenvalues1(4,0.), Seigenvalues2(4,0.);
-//    gslpp::vector<gslpp::complex> Sbeigenvalues1(4,0.), Sbeigenvalues2(4,0.);
-//
 //    /*
 //    *******   LO part   *************
 //    */
-//
-//    // Definition of the blocks of the S-matrix
-    Smatrix1.assign(0,0, 3.0*lambda1/(16.0*pi));
-    Smatrix1.assign(0,1, (2.0*lambda3+lambda4)/(16.0*pi));
-    Smatrix1.assign(1,0, Smatrix1(0,1));
-    Smatrix1.assign(0,3, (2.0*nu1+nu2)/(8.0*sqrt(2.0)*pi));
-    Smatrix1.assign(3,0, Smatrix1(0,3));
-    Smatrix1.assign(1,1, 3.0*lambda2/(16.0*pi));
-    Smatrix1.assign(1,3, (2.0*omega1+omega2)/(8.0*sqrt(2.0)*pi));
-    Smatrix1.assign(3,1, Smatrix1(1,3));
-    Smatrix1.assign(2,2, (lambda3+5.0*lambda4)/(16.0*pi));
-    Smatrix1.assign(2,3, (4.0*kappa1+2.0*kappa2)/(16.0*pi));
-    Smatrix1.assign(3,2, Smatrix1(2,3));
-    Smatrix1.assign(3,3, (26.0*mu1+17.0*mu3+13.0*mu4)/(32.0*pi));
 
-    Smatrix2.assign(0,0, lambda1/(16.0*pi));
-    Smatrix2.assign(0,1, lambda4/(16.0*pi));
-    Smatrix2.assign(1,0, Smatrix2(0,1));
-    Smatrix2.assign(0,3, nu2/(8.0*sqrt(2.0)*pi));
-    Smatrix2.assign(3,0, Smatrix2(0,3));
-    Smatrix2.assign(1,1, lambda2/(16.0*pi));
-    Smatrix2.assign(1,3, omega2/(8.0*sqrt(2.0)*pi));
-    Smatrix2.assign(3,1, Smatrix2(1,3));
-    Smatrix2.assign(2,2, (lambda3+lambda4)/(16.0*pi));
-    Smatrix2.assign(2,3, kappa2/(8.0*pi));
-    Smatrix2.assign(3,2, Smatrix2(2,3));
-    Smatrix2.assign(3,3, (14.0*mu1+3.0*mu3+27.0*mu4)/(96.0*pi));
-
-    Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
-    Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
-
-    for (int i=0; i < 4; i++) {
-        unitarityeigenvalues.assign(i, Seigenvalues1(i));
-        unitarityeigenvalues.assign(4+i, Seigenvalues2(i));
-    }
-    unitarityeigenvalues.assign(8, (lambda3-lambda4)/(16.0*pi));
-    unitarityeigenvalues.assign(9, sqrt(15.0)*nu4/(16.0*pi));
-    unitarityeigenvalues.assign(10, sqrt(15.0)*omega4/(16.0*pi));
+    unitarityeigenvalues.assign(0, (fabs(6.0*lambda1+11.0*lambda2+7.0*lambda3)+sqrt((6.0*lambda1-11.0*lambda2-7.0*lambda3)*(6.0*lambda1-11.0*lambda2-7.0*lambda3)+36.0*lambda4*lambda4))/(4.0*pi));
+    unitarityeigenvalues.assign(1, fabs(lambda4-lambda5)/(2.0*pi));
+    unitarityeigenvalues.assign(2, fabs(lambda2+2.0*lambda3)/pi);
+    unitarityeigenvalues.assign(3, (fabs(2.0*lambda1+2.0*lambda2-lambda3)+sqrt((2.0*lambda1-2.0*lambda2+lambda3)*(2.0*lambda1-2.0*lambda2+lambda3)+lambda5*lambda5))/(4.0*pi));
 
 //    
 //    
@@ -848,12 +809,14 @@ void GMcache::setOtherParameters()
 
 }
 
-void GMcache::updateCache()
+double GMcache::updateCache()
 {
 //    GMmodel=myGM->getModelTypeGMflag();
     Q_GM=myGM->getQ_GM();
-    MZ=myGM->getMz();
     vev=myGM->v();
+    mHl=myGM->getMHl();
+    mHl2=mHl*mHl;
+    MZ=myGM->getMz();
     tanb=0.0;
     bma=0.0;
     sina=0.0;
@@ -889,4 +852,59 @@ void GMcache::updateCache()
     setOtherParameters();
 //    runGMparameters();
 //    computeUnitarity();
+    return mHl2;
 }
+
+
+
+//double GeorgiMachacek::computelambda1() const
+//{
+//    return (mHh*mHh+mHl*mHl
+//            +(mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(cos(alpha)*cos(alpha)-sin(alpha)*sin(alpha)))/
+//           (16.*v()*v()*costheta*costheta);
+//}
+//
+//double GeorgiMachacek::computelambda2() const
+//{
+//    return (mH3*mH3 -M1*v()/(2.*sqrt(2.)*sintheta)
+//            +((mHh*mHh-mHl*mHl)*sign(mHh-mHl)*cos(alpha)*sin(alpha))/(sqrt(6.)*costheta*sintheta))/
+//           (v()*v());
+//}
+//
+//double GeorgiMachacek::computelambda3() const
+//{
+//    return (mH5*mH5 -3.*sqrt(2.)*M2*v()*sintheta
+//            +(-3.*mH3*mH3 + sqrt(2.)*M1*v()/sintheta)*costheta*costheta)/
+//           (v()*v()*sintheta*sintheta);
+//}
+//
+//double GeorgiMachacek::computelambda4() const
+//{
+//    return (-2.*mH5*mH5 +9.*sqrt(2.)*M2*sintheta*v()
+//            +(6.*mH3*mH3 -(3.*sqrt(2.)*M1*v())/sintheta)*costheta*costheta
+//            +mHh*mHh+mHl*mHl
+//            -(mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(cos(alpha)*cos(alpha)-sin(alpha)*sin(alpha)))/
+//           (6.*v()*v()*sintheta*sintheta);
+//}
+//
+//double GeorgiMachacek::computelambda5() const
+//{
+//    return (2.*mH3*mH3-sqrt(2.)*M1*v()/sintheta)/(v()*v());
+//}
+//
+//double GeorgiMachacek::computemu2sq() const
+//{
+//    return (3.*sqrt(2.)*M1*v()*sintheta
+//            -4.*(mHh*mHh+mHl*mHl)
+//            -2.*(mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(2.*cos(alpha)*cos(alpha) -2.*sin(alpha)*sin(alpha)
+//                                                 +sqrt(6.)*cos(alpha)*sin(alpha)*sintheta/costheta))/16.;
+//}
+//
+//double GeorgiMachacek::computemu3sq() const
+//{
+//    return (M1*v()*costheta*costheta +3.*M2*v()*sintheta*sintheta
+//            -((mHh*mHh+mHl*mHl)*sintheta)/sqrt(2.)
+//            -((mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(3.*sqrt(2.)*(sin(alpha)*sin(alpha)-cos(alpha)*cos(alpha))*sintheta
+//                                               +8.*sqrt(3.)*cos(alpha)*sin(alpha)*costheta))/6.)/
+//           (2.*sqrt(2.)*sintheta);
+//}
