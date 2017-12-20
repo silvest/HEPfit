@@ -126,7 +126,7 @@ void StandardModelMatching::updateSMParameters()
         Mw = Mw_tree;
         sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     }
-    sW2 = (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw ); // WARNING: only for checking
+//    sW2 = (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw ); // WARNING: only for checking
     Vckm = SM.getVCKM();
     lam_t = SM.computelamt();
     L = 2*log(Muw/Mw);
