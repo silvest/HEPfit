@@ -232,6 +232,23 @@ public:
 
     /**
      *
+     * @return squared mass of the singlet Higgs input
+     */
+    double getinputmHh2() const {
+        if(flag_use_sq_masses) {
+            if(mHhsq < 0.) {
+                return 0.;
+            }
+                return mHhsq;
+        }
+        else
+        {
+                return mHh*mHh;
+        }
+    }
+
+    /**
+     *
      * @return squared triplet mass
      */
     double getmAsq() const {

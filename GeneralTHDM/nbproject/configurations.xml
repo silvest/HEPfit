@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/GeneralTHDM.h</itemPath>
       <itemPath>src/GeneralTHDMEDMcouplings.h</itemPath>
+      <itemPath>src/GeneralTHDMEWPO.h</itemPath>
       <itemPath>src/GeneralTHDMEffectivePot.h</itemPath>
       <itemPath>src/GeneralTHDMMatching.h</itemPath>
       <itemPath>src/GeneralTHDMObservables.h</itemPath>
@@ -24,6 +25,7 @@
                    projectFiles="true">
       <itemPath>src/GeneralTHDM.cpp</itemPath>
       <itemPath>src/GeneralTHDMEDMcouplings.cpp</itemPath>
+      <itemPath>src/GeneralTHDMEWPO.cpp</itemPath>
       <itemPath>src/GeneralTHDMEffectivePot.cpp</itemPath>
       <itemPath>src/GeneralTHDMMatching.cpp</itemPath>
       <itemPath>src/GeneralTHDMcache.cpp</itemPath>
@@ -99,6 +101,10 @@
       </item>
       <item path="src/GeneralTHDMEDMcouplings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMEWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEWPO.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMEffectivePot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMEffectivePot.h" ex="false" tool="3" flavor2="0">
@@ -170,6 +176,10 @@
       </item>
       <item path="src/GeneralTHDMEDMcouplings.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMEWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEWPO.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMEffectivePot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMEffectivePot.h" ex="false" tool="3" flavor2="0">
@@ -230,6 +240,10 @@
       <item path="src/GeneralTHDMEDMcouplings.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMEDMcouplings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEWPO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMEWPO.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMEffectivePot.cpp" ex="false" tool="1" flavor2="0">
       </item>

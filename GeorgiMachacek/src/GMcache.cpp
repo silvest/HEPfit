@@ -505,9 +505,10 @@ void GMcache::computeSignalStrengthQuantities()
     double Mtau = myGM->getLeptons(StandardModel::TAU).getMass();
     double Mmu = myGM->getLeptons(StandardModel::MU).getMass();
     double Me = myGM->getLeptons(StandardModel::ELECTRON).getMass();
-    double MW = myGM->Mw_tree();
-    double cW2 = myGM->c02();
+    double MW=MWGM(myGM->Mw_tree());
+    double cW2=cW2GM(myGM->c02());
     double sW2=1.0-cW2;
+//    double vPhi = myGM.getMyGMCache()->vPhi;
 
     double BrSM_htobb = 5.77e-1;
     double BrSM_htotautau = 6.32e-2;
@@ -518,14 +519,23 @@ void GMcache::computeSignalStrengthQuantities()
     double BrSM_htoZga = 1.54e-3;
     double BrSM_htocc = 2.91e-2;
 
-    rh_QuQu = cosa*cosa/(sinb*sinb);
-    rh_VV = sin(bma)*sin(bma);
-    rh_QdQd = 0.0;
-    rh_ll = 0.0;
-    rh_gg = 0.0;
+//    these quantities are THDMW quantities and have to be replaced by the GM variables:
+    double bma=0., mhsq=0., mSpsq=0., mSRsq=0., mSIsq=0., mHpsq=0.;
+//    depending on which Higgs is heavier
+    if(mH1sq>=mHl2)
+    {
+        rh_ff = cosa*cosa/(sinb*sinb);
+        rh_VV = cosa*cosa*sinb*sinb - sqrt(32.0/3.0)*cosa*sina*cosb*sinb + 8.0/3.0*sina*sina*cosb*cosb;
+    }
+    else
+    {
+        rh_ff = sina*sina/(sinb*sinb);
+        rh_VV = sina*sina*sinb*sinb + sqrt(32.0/3.0)*sina*cosa*cosb*sinb + 8.0/3.0*cosa*cosa*cosb*cosb;
+    }
+//    triple Higgs couplings for the diphoton loop
     double ghHpHm = 0.0;
 
-    //rh_gaga formula = fabs(I_h_F+I_h_W+I_h_Hp)^2 / fabs(I_hSM_F+I_hSM_W)^2
+    //rh_gaga formula = fabs(I_h_F+I_h_W+I_h_Hp3)^2 / fabs(I_hSM_F+I_hSM_W)^2
 
     gslpp::complex I_h_F = 0.0;
     gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
@@ -549,18 +559,8 @@ void GMcache::computeSignalStrengthQuantities()
     double ABSZgaGM=0.0;
     double ABSZgaSM=0.0;
 
-//    if( GMmodel == "custodial1" ) {
-        rh_QdQd=cosa/sinb*cosa/sinb;
-        rh_ll=cosa/sinb*cosa/sinb;
-        ghHpHm = vev*vev/mAsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
-                                 +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
-                                 -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
-        I_h_F=cosa/sinb*(fermU+fermD+fermL);
-        A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
-//    }
-//    else {
-//        throw std::runtime_error("GMmodel can be only \"custodial1\"");
-//    }
+    I_h_F=cosa/sinb*(fermU+fermD+fermL);
+    A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
 
     double ch_p=0.0;
     double ch_r=0.0;
@@ -584,14 +584,14 @@ void GMcache::computeSignalStrengthQuantities()
     ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
     rh_Zga=ABSZgaGM/ABSZgaSM;
 
-    sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
-          rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_QuQu*BrSM_htocc;
+    sumModBRs = rh_ff*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ff*BrSM_htotautau +
+          rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_ff*BrSM_htocc;
 
     Gamma_h = sumModBRs*myGM->computeGammaHTotal();
     
-    GM_BR_h_bb = rh_QdQd*BrSM_htobb/sumModBRs;
+    GM_BR_h_bb = rh_ff*BrSM_htobb/sumModBRs;
     GM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
-    GM_BR_h_tautau = rh_ll*BrSM_htotautau/sumModBRs;
+    GM_BR_h_tautau = rh_ff*BrSM_htotautau/sumModBRs;
     GM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
     GM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
 }
@@ -804,9 +804,14 @@ void GMcache::computeUnitarity()
 //    }
 }
 
-void GMcache::setOtherParameters()
-{
+double GMcache::cW2GM(const double c02) const{
+    return c02;
+}
 
+
+
+double GMcache::MWGM(const double MW) const{
+    return MW;
 }
 
 double GMcache::updateCache()
@@ -817,94 +822,42 @@ double GMcache::updateCache()
     mHl=myGM->getMHl();
     mHl2=mHl*mHl;
     MZ=myGM->getMz();
-    tanb=0.0;
-    bma=0.0;
-    sina=0.0;
-    cosa=0.0;
-    mhsq=0.0;
-    mHsq=0.0;
-    mAsq=0.0;
-    mSRsq=0.0;
-    mSIsq=0.0;
-    mHpsq=0.0;
-    mSpsq=0.0;
-    lambda1=0.0;
-    lambda2=0.0;
-    lambda3=0.0;
-    lambda4=0.0;
-    lambda5=0.0;
-    mSsq=0.0;
-    mu1=0.0;
-    mu3=0.0;
-    mu4=0.0;
-    nu1=0.0;
-    omega1=0.0;
-    kappa1=0.0;
-    nu2=0.0;
-    omega2=0.0;
-    kappa2=0.0;
-    nu3=0.0;
-    omega3=0.0;
-    kappa3=0.0;
-    nu4=0.0;
-    omega4=0.0;
+    tanb=myGM->gettanb();
+    sinb=myGM->getsinb();
+    cosb=myGM->getcosb();
+    sina=myGM->getsina();
+    cosa=myGM->getcosa();
+    mH1sq=myGM->getinputmHh2();
+    mAsq=myGM->getmAsq();
+    mH5sq=myGM->getmH5sq();
+    Mu1=myGM->getMu1();
+    Mu2=myGM->getMu2();
+    M1sq=-vev*Mu1/(sqrt(2.0)*cosb);
+    M2sq=-sqrt(18.0)*cosb*vev*Mu2;
 
-    setOtherParameters();
+    vPhi=vev*sinb;
+    vDelta=vev*cosb/sqrt(8.0);
+    double mHlsq, mHhsq;
+    if(mH1sq>=mHl2)
+    {
+        mHlsq=mHl2;
+        mHhsq=mH1sq;
+    }
+    else
+    {
+        mHlsq=mH1sq;
+        mHhsq=mHl2;
+    }
+    double cos2a=cosa*cosa-sina*sina;
+    double cos2b=cosb*cosb-sinb*sinb;
+    lambda1=(mHlsq+mHhsq+(mHlsq-mHhsq)*cos2a)/(16.0*vev*vev*sinb*sinb);
+    lambda2=(-M1sq+M2sq+mAsq-2.0/3.0*mH5sq+(M1sq-mAsq)*cos2b
+             +(mHlsq+mHhsq+(mHhsq-mHlsq)*cos2a)/3.0)/(2.0*vev*vev*cosb*cosb);
+    lambda3=(mH5sq-M2sq+(2.0*M1sq-3.0*mAsq)*sinb*sinb)/(vev*vev*cosb*cosb);
+    lambda4=(mAsq-0.5*M1sq+(mHhsq-mHlsq)*sina*cosa/(sqrt(6.0)*sinb*cosb))/(vev*vev);
+    lambda5=2.0*(M1sq-mAsq)/(vev*vev);
+
 //    runGMparameters();
-//    computeUnitarity();
+    computeUnitarity();
     return mHl2;
 }
-
-
-
-//double GeorgiMachacek::computelambda1() const
-//{
-//    return (mHh*mHh+mHl*mHl
-//            +(mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(cos(alpha)*cos(alpha)-sin(alpha)*sin(alpha)))/
-//           (16.*v()*v()*costheta*costheta);
-//}
-//
-//double GeorgiMachacek::computelambda2() const
-//{
-//    return (mH3*mH3 -M1*v()/(2.*sqrt(2.)*sintheta)
-//            +((mHh*mHh-mHl*mHl)*sign(mHh-mHl)*cos(alpha)*sin(alpha))/(sqrt(6.)*costheta*sintheta))/
-//           (v()*v());
-//}
-//
-//double GeorgiMachacek::computelambda3() const
-//{
-//    return (mH5*mH5 -3.*sqrt(2.)*M2*v()*sintheta
-//            +(-3.*mH3*mH3 + sqrt(2.)*M1*v()/sintheta)*costheta*costheta)/
-//           (v()*v()*sintheta*sintheta);
-//}
-//
-//double GeorgiMachacek::computelambda4() const
-//{
-//    return (-2.*mH5*mH5 +9.*sqrt(2.)*M2*sintheta*v()
-//            +(6.*mH3*mH3 -(3.*sqrt(2.)*M1*v())/sintheta)*costheta*costheta
-//            +mHh*mHh+mHl*mHl
-//            -(mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(cos(alpha)*cos(alpha)-sin(alpha)*sin(alpha)))/
-//           (6.*v()*v()*sintheta*sintheta);
-//}
-//
-//double GeorgiMachacek::computelambda5() const
-//{
-//    return (2.*mH3*mH3-sqrt(2.)*M1*v()/sintheta)/(v()*v());
-//}
-//
-//double GeorgiMachacek::computemu2sq() const
-//{
-//    return (3.*sqrt(2.)*M1*v()*sintheta
-//            -4.*(mHh*mHh+mHl*mHl)
-//            -2.*(mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(2.*cos(alpha)*cos(alpha) -2.*sin(alpha)*sin(alpha)
-//                                                 +sqrt(6.)*cos(alpha)*sin(alpha)*sintheta/costheta))/16.;
-//}
-//
-//double GeorgiMachacek::computemu3sq() const
-//{
-//    return (M1*v()*costheta*costheta +3.*M2*v()*sintheta*sintheta
-//            -((mHh*mHh+mHl*mHl)*sintheta)/sqrt(2.)
-//            -((mHh*mHh-mHl*mHl)*sign(mHh-mHl)*(3.*sqrt(2.)*(sin(alpha)*sin(alpha)-cos(alpha)*cos(alpha))*sintheta
-//                                               +8.*sqrt(3.)*cos(alpha)*sin(alpha)*costheta))/6.)/
-//           (2.*sqrt(2.)*sintheta);
-//}

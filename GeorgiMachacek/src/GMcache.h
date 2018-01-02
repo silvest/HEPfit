@@ -34,7 +34,6 @@ public:
     ~GMcache();
 
     double updateCache();
-    void setOtherParameters();
 
 //    double Q_cutoff;
 //    double g1_at_Q;
@@ -75,8 +74,10 @@ public:
     gslpp::vector<gslpp::complex> unitarityeigenvalues;
 //    gslpp::vector<gslpp::complex> NLOunitarityeigenvalues;
 
-    double rh_QuQu, rh_VV, rh_gg, rh_QdQd, rh_ll, rh_gaga, rh_Zga;
+    double rh_ff, rh_VV, rh_gg, rh_gaga, rh_Zga;
     double sumModBRs, Gamma_h, GM_BR_h_bb, GM_BR_h_gaga, GM_BR_h_tautau, GM_BR_h_WW, GM_BR_h_ZZ;
+    double lambda1, lambda2, lambda3, lambda4, lambda5;
+    double vPhi, vDelta;
     
 protected:
 
@@ -180,6 +181,9 @@ private:
 
     void computeSignalStrengthQuantities();
 
+    double cW2GM(const double c02) const;
+    double MWGM(const double MW) const;
+
 //    std::string GMmodel;
     double Q_GM;
     double MZ;
@@ -189,36 +193,15 @@ private:
     double tanb;
     double sinb;
     double cosb;
-    double bma;
     double sina;
     double cosa;
-    double lambda1;
-    double lambda2;
-    double lambda3;
-    double lambda4;
-    double lambda5;
-    double mSsq;
-    double mu1;
-    double mu3;
-    double mu4;
-    double nu1;
-    double omega1;
-    double kappa1;
-    double nu2;
-    double omega2;
-    double kappa2;
-    double nu3;
-    double omega3;
-    double kappa3;
-    double nu4;
-    double omega4;
-    double mhsq;
-    double mHsq;
+    double mH1sq;
     double mAsq;
-    double mSRsq;
-    double mSIsq;
-    double mHpsq;
-    double mSpsq;
+    double mH5sq;
+    double Mu1;
+    double Mu2;
+    double M1sq;
+    double M2sq;
 };
 
 #endif	/* GMCACHE_H */

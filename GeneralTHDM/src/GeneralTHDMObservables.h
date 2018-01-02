@@ -8,10 +8,11 @@
 #ifndef GENERALTHDMOBSERVABLES_H
 #define	GENERALTHDMOBSERVABLES_H
 
-#include "GeneralTHDMquantities.h"
-#include "GeneralTHDMunitarity.h"
-#include "GeneralTHDMstability.h"
-#include "GeneralTHDMgminus2.h"
 #include "GeneralTHDMEffectivePot.h"
+#include "GeneralTHDMEWPO.h"
+#include "GeneralTHDMgminus2.h"
+#include "GeneralTHDMquantities.h"
+#include "GeneralTHDMstability.h"
+#include "GeneralTHDMunitarity.h"
 
 #endif	/* GENERALTHDMOBSERVABLES_H */

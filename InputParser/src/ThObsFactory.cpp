@@ -1198,6 +1198,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["EffectivePotMin1_GTHDM"] = boost::factory<EffectivePotMin1_GTHDM*>();
     obsThFactory["EffectivePotMin2_GTHDM"] = boost::factory<EffectivePotMin2_GTHDM*>();
 
+    obsThFactory["Rb0_GTHDM"] = boost::factory<Rb0GTHDM*>();
+
 //    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
 
     /** END: REMOVE FROM THE PACKAGE **/
@@ -1309,11 +1311,27 @@ ThObsFactory::ThObsFactory()
 
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  GeorgiMachacek observables  -----
+    //-----  GeorgiMachacek quantities -----
+    obsThFactory["tanbetaGM"] = boost::factory<tanbetaGM*>();
+    obsThFactory["m1sqGM"] = boost::factory<m1sqGM*>();
+    obsThFactory["m2sqGM"] = boost::factory<m2sqGM*>();
+    obsThFactory["lambda1GM"] = boost::factory<lambda1GM*>();
+    obsThFactory["lambda2GM"] = boost::factory<lambda2GM*>();
+    obsThFactory["lambda3GM"] = boost::factory<lambda3GM*>();
+    obsThFactory["lambda4GM"] = boost::factory<lambda4GM*>();
+    obsThFactory["lambda5GM"] = boost::factory<lambda5GM*>();
+    obsThFactory["vPhiGM"] = boost::factory<vPhiGM*>();
+    obsThFactory["vDeltaGM"] = boost::factory<vDeltaGM*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["GMunitarity1"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 0);
     obsThFactory["GMunitarity2"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 1);
     obsThFactory["GMunitarity3"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 2);
     obsThFactory["GMunitarity4"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 3);
+    //-----  Positivity constraints  -----
+    obsThFactory["GMpositivity1"] = boost::factory<GMpositivity1*>();
+    obsThFactory["GMpositivity2"] = boost::factory<GMpositivity2*>();
+    obsThFactory["GMpositivity3"] = boost::factory<GMpositivity3*>();
+    obsThFactory["GMpositivity4"] = boost::factory<GMpositivity4*>();
 
     /** END: REMOVE FROM THE PACKAGE **/
 }

@@ -7,6 +7,7 @@
       <itemPath>src/GMMatching.h</itemPath>
       <itemPath>src/GMcache.h</itemPath>
       <itemPath>src/GMpositivity.h</itemPath>
+      <itemPath>src/GMquantities.h</itemPath>
       <itemPath>src/GMunitarity.h</itemPath>
       <itemPath>src/GeorgiMachacek.h</itemPath>
       <itemPath>src/GeorgiMachacekObservables.h</itemPath>
@@ -21,6 +22,7 @@
       <itemPath>src/GMMatching.cpp</itemPath>
       <itemPath>src/GMcache.cpp</itemPath>
       <itemPath>src/GMpositivity.cpp</itemPath>
+      <itemPath>src/GMquantities.cpp</itemPath>
       <itemPath>src/GMunitarity.cpp</itemPath>
       <itemPath>src/GeorgiMachacek.cpp</itemPath>
     </logicalFolder>
@@ -73,6 +75,10 @@
       </item>
       <item path="src/GMpositivity.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMquantities.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GMunitarity.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GMunitarity.h" ex="false" tool="3" flavor2="0">
@@ -118,6 +124,10 @@
       <item path="src/GMpositivity.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GMpositivity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GMquantities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMquantities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GMunitarity.cpp" ex="false" tool="1" flavor2="0">
       </item>
