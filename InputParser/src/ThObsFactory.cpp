@@ -15,13 +15,13 @@
 #include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
+#include "GeorgiMachacekObservables.h"
+#include "THDMObservables.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
 #include "LRSMObservables.h"
 #include "THDMWObservables.h"
-#include "GeorgiMachacekObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
-#include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 

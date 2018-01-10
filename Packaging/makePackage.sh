@@ -28,6 +28,7 @@ PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
 PROJECTARRAY+=( "FlavourWilsonCoefficient" )
 PROJECTARRAY+=( "GeneralSUSY" )
+PROJECTARRAY+=( "GeorgiMachacek" )
 PROJECTARRAY+=( "gslpp" )
 PROJECTARRAY+=( "HiggsExtensions" )
 PROJECTARRAY+=( "InputParser" )
@@ -200,7 +201,7 @@ eval sed "$SED_ARG" ${ORGFILE} > ${OUTDIR}/examples-src/EventGeneration/EventGen
 ###########################################################
 # Modify source codes
 
-echo "modifing souce codes..."
+echo "modifying source codes..."
 #MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/StandardModel/src/StandardModel.cpp ${OUTDIR}/StandardModel/src/StandardModel.h ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
 MODFILELIST="${OUTDIR}/InputParser/src/ModelFactory.cpp ${OUTDIR}/EW/src/EWObservables.h ${OUTDIR}/InputParser/src/ThObsFactory.cpp ${OUTDIR}/Flavour/src/FlavourObservables.h ${OUTDIR}/SUSY/src/SUSY.cpp ${OUTDIR}/SUSY/src/SUSY.h ${OUTDIR}/SUSY/src/SUSYObservables.h ${OUTDIR}/SUSY/src/EWSUSY.cpp"
 for MODFILE in $MODFILELIST
