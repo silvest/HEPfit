@@ -667,6 +667,10 @@ public:
     {
         return 1.0;
     }
+    virtual double muppHZga(const double sqrt_s) const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief The ratio of the @f$\Gamma(H)@f$ in the current model

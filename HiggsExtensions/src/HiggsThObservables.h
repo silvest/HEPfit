@@ -1558,6 +1558,42 @@ private:
 };
 
 /**
+ * @class muppHZga
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muppHZga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muppHZga(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muppHZga called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->muppHZga(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
  * @class UpperLimit_ppHZgammaA
  * @ingroup HiggsExtensions
  * @brief 

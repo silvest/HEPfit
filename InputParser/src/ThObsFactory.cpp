@@ -169,6 +169,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muttHbb"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_LHC13);
     obsThFactory["muppHmumu8"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC8);
     obsThFactory["muppHmumu13"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muppHZga8"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC8);
+    obsThFactory["muppHZga13"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaA13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA13*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaA"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA*>(), _1, sqrt_s_LHC8);
     obsThFactory["UpperLimit_ppHZgammaC"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC*>(), _1, sqrt_s_LHC8);
@@ -1309,7 +1311,6 @@ ThObsFactory::ThObsFactory()
 
     /** END: REMOVE FROM THE PACKAGE **/
 
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  GeorgiMachacek observables  -----
     //-----  GeorgiMachacek quantities -----
     obsThFactory["tanbetaGM"] = boost::factory<tanbetaGM*>();
@@ -1332,8 +1333,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GMpositivity2"] = boost::factory<GMpositivity2*>();
     obsThFactory["GMpositivity3"] = boost::factory<GMpositivity3*>();
     obsThFactory["GMpositivity4"] = boost::factory<GMpositivity4*>();
-
-    /** END: REMOVE FROM THE PACKAGE **/
 }
 
 void ThObsFactory::addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) > funct)

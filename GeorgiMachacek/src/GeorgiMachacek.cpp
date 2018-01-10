@@ -11,7 +11,7 @@
 
 std::string GeorgiMachacek::GMvars[NGMvars] = {"logtb", "alpha", "mHh", "mA", "mH5", "Mu1", "Mu2", "Q_GM"};
 
-GeorgiMachacek::GeorgiMachacek() : StandardModel(), GMM(*this) {
+GeorgiMachacek::GeorgiMachacek() : NPbase(), GMM(*this) {
     SMM.setObj((StandardModelMatching&) GMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha", boost::cref(alpha)));
@@ -113,7 +113,7 @@ void GeorgiMachacek::setParameter(const std::string name, const double& value){
     else if(name.compare("Q_GM") == 0)
        Q_GM = value;
     else
-        StandardModel::setParameter(name,value);
+        NPbase::setParameter(name,value);
 }
 
 bool GeorgiMachacek::CheckParameters(const std::map<std::string, double>& DPars) {
@@ -123,7 +123,7 @@ bool GeorgiMachacek::CheckParameters(const std::map<std::string, double>& DPars)
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
 bool GeorgiMachacek::setFlag(const std::string name, const bool value)
@@ -148,3 +148,236 @@ bool GeorgiMachacek::setFlag(const std::string name, const bool value)
 //double GeorgiMachacek::sign(const double x) const {
 //    return ( (x > 0) ? 1 : ((x < 0) ? -1 : 0) );
 //}
+
+
+double GeorgiMachacek::muggH(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_gg;
+}
+
+double GeorgiMachacek::muVBF(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV;
+}
+
+double GeorgiMachacek::mueeWBF(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV;
+}
+
+double GeorgiMachacek::muWH(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV;
+}
+
+double GeorgiMachacek::muZH(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV;
+}
+
+double GeorgiMachacek::mueeZH(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV;
+}
+
+double GeorgiMachacek::muVH(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV;
+}
+
+double GeorgiMachacek::muVBFpVH(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV;
+}
+
+double GeorgiMachacek::muttH(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_ff;
+}
+
+double GeorgiMachacek::computeGammaTotalRatio() const
+{
+    return getMyGMCache()->sumModBRs;
+}
+
+double GeorgiMachacek::GammaTotal() const
+{
+    return getMyGMCache()->Gamma_h;
+}
+
+double GeorgiMachacek::BrHggRatio() const
+{
+    return getMyGMCache()->rh_gg / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHWWRatio() const
+{
+    return getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHZZRatio() const
+{
+    return getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHZgaRatio() const
+{
+    return getMyGMCache()->rh_Zga / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHgagaRatio() const
+{
+    return getMyGMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHmumuRatio() const
+{
+    return getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHtautauRatio() const
+{
+    return getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHccRatio() const
+{
+    return getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::BrHbbRatio() const
+{
+    return getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muggHgaga(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_gg * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVBFHgaga(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVHgaga(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muttHgaga(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_ff * getMyGMCache()->rh_gaga / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muggHZZ(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_gg * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVBFHZZ(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVHZZ(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muttHZZ(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_ff * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muggHWW(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_gg * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVBFHWW(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVHWW(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muttHWW(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_ff * getMyGMCache()->rh_VV / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muggHtautau(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_gg * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVBFHtautau(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVHtautau(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muttHtautau(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_ff * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muggHbb(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_gg * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVBFHbb(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muVHbb(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_VV * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muttHbb(const double sqrt_s) const
+{
+    return getMyGMCache()->rh_ff * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+}
+
+double GeorgiMachacek::muppHmumu(const double sqrt_s) const
+{
+    if(sqrt_s==8)
+    {
+        return (0.872 * getMyGMCache()->rh_gg + 0.122 * getMyGMCache()->rh_VV + 0.006 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+    }
+    if(sqrt_s==13)
+    {
+        return (0.871 * getMyGMCache()->rh_gg + 0.119 * getMyGMCache()->rh_VV + 0.010 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_ff / computeGammaTotalRatio();
+    }
+    else
+    {
+        throw std::runtime_error("The observable muppHmumu is only defined for 8 or 13 TeV.");
+    }
+}
+
+double GeorgiMachacek::muppHZga(const double sqrt_s) const
+{
+    if(sqrt_s==8)
+    {
+        return (0.872 * getMyGMCache()->rh_gg + 0.122 * getMyGMCache()->rh_VV + 0.006 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_Zga / computeGammaTotalRatio();
+    }
+    if(sqrt_s==13)
+    {
+        return (0.871 * getMyGMCache()->rh_gg + 0.119 * getMyGMCache()->rh_VV + 0.010 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_Zga / computeGammaTotalRatio();
+    }
+    else
+    {
+        throw std::runtime_error("The observable muppHZga is only defined for 8 or 13 TeV.");
+    }
+}

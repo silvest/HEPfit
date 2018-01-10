@@ -76,39 +76,39 @@ gslpp::complex GMcache::I_h_U(const double mHl2, const double Mu, const double M
         return newResult;
     }
 }
-
-gslpp::complex GMcache::I_HH_U(const double mHh2, const double Mc, const double Mt) const {
-    int NumPar = 3;
-    double params[] = {mHh2, Mc, Mt};
-
-    int i = CacheCheck(I_HH_U_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_HH_U_cache[NumPar][i] );
-    } else {
-    	double TAUc=4.0*Mc*Mc/mHh2;
-    	double TAUt=4.0*Mt*Mt/mHh2;
-        gslpp::complex newResult = -(8./3.)*(TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
-                      +TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
-        CacheShift(I_HH_U_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-gslpp::complex GMcache::I_A_U(const double mA2, const double Mc, const double Mt) const {
-    int NumPar = 3;
-    double params[] = {mA2, Mc, Mt};
-
-    int i = CacheCheck(I_A_U_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_A_U_cache[NumPar][i] );
-    } else {
-    	double TAUc=4.0*Mc*Mc/mA2;
-    	double TAUt=4.0*Mt*Mt/mA2;
-        gslpp::complex newResult = -(8./3.)*(TAUc*f_func(TAUc)+TAUt*f_func(TAUt));
-        CacheShift(I_A_U_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::I_HH_U(const double mHh2, const double Mc, const double Mt) const {
+//    int NumPar = 3;
+//    double params[] = {mHh2, Mc, Mt};
+//
+//    int i = CacheCheck(I_HH_U_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_HH_U_cache[NumPar][i] );
+//    } else {
+//    	double TAUc=4.0*Mc*Mc/mHh2;
+//    	double TAUt=4.0*Mt*Mt/mHh2;
+//        gslpp::complex newResult = -(8./3.)*(TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
+//                      +TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
+//        CacheShift(I_HH_U_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//gslpp::complex GMcache::I_A_U(const double mA2, const double Mc, const double Mt) const {
+//    int NumPar = 3;
+//    double params[] = {mA2, Mc, Mt};
+//
+//    int i = CacheCheck(I_A_U_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_A_U_cache[NumPar][i] );
+//    } else {
+//    	double TAUc=4.0*Mc*Mc/mA2;
+//    	double TAUt=4.0*Mt*Mt/mA2;
+//        gslpp::complex newResult = -(8./3.)*(TAUc*f_func(TAUc)+TAUt*f_func(TAUt));
+//        CacheShift(I_A_U_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const {
     int NumPar = 4;
@@ -127,39 +127,39 @@ gslpp::complex GMcache::I_h_D(const double mHl2, const double Md, const double M
         return newResult;
     }
 }
-
-gslpp::complex GMcache::I_HH_D(const double mHh2, const double Ms, const double Mb) const {
-    int NumPar = 3;
-    double params[] = {mHh2, Ms, Mb};
-
-    int i = CacheCheck(I_HH_D_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_HH_D_cache[NumPar][i] );
-    } else {
-    	double TAUs=4.0*Ms*Ms/mHh2;
-    	double TAUb=4.0*Mb*Mb/mHh2;
-        gslpp::complex newResult = -(2./3.)*(TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))
-                      +TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
-        CacheShift(I_HH_D_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-gslpp::complex GMcache::I_A_D(const double mA2, const double Ms, const double Mb) const {
-    int NumPar = 3;
-    double params[] = {mA2, Ms, Mb};
-
-    int i = CacheCheck(I_A_D_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_A_D_cache[NumPar][i] );
-    } else {
-    	double TAUs=4.0*Ms*Ms/mA2;
-    	double TAUb=4.0*Mb*Mb/mA2;
-        gslpp::complex newResult = -(2./3.)*(TAUs*f_func(TAUs)+TAUb*f_func(TAUb));
-        CacheShift(I_A_D_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::I_HH_D(const double mHh2, const double Ms, const double Mb) const {
+//    int NumPar = 3;
+//    double params[] = {mHh2, Ms, Mb};
+//
+//    int i = CacheCheck(I_HH_D_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_HH_D_cache[NumPar][i] );
+//    } else {
+//    	double TAUs=4.0*Ms*Ms/mHh2;
+//    	double TAUb=4.0*Mb*Mb/mHh2;
+//        gslpp::complex newResult = -(2./3.)*(TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))
+//                      +TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
+//        CacheShift(I_HH_D_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//gslpp::complex GMcache::I_A_D(const double mA2, const double Ms, const double Mb) const {
+//    int NumPar = 3;
+//    double params[] = {mA2, Ms, Mb};
+//
+//    int i = CacheCheck(I_A_D_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_A_D_cache[NumPar][i] );
+//    } else {
+//    	double TAUs=4.0*Ms*Ms/mA2;
+//    	double TAUb=4.0*Mb*Mb/mA2;
+//        gslpp::complex newResult = -(2./3.)*(TAUs*f_func(TAUs)+TAUb*f_func(TAUb));
+//        CacheShift(I_A_D_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const {
     int NumPar = 4;
@@ -179,39 +179,39 @@ gslpp::complex GMcache::I_h_L(const double mHl2, const double Me, const double M
         return newResult;
     }
 }
-
-gslpp::complex GMcache::I_HH_L(const double mHh2, const double Mmu, const double Mtau) const {
-    int NumPar = 3;
-    double params[] = {mHh2, Mmu, Mtau};
-
-    int i = CacheCheck(I_HH_L_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_HH_L_cache[NumPar][i] );
-    } else {
-    	double TAUmu=4.0*Mmu*Mmu/mHh2;
-    	double TAUtau=4.0*Mtau*Mtau/mHh2;
-        gslpp::complex newResult = -2.0*(TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))+
-                           TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
-        CacheShift(I_HH_L_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-gslpp::complex GMcache::I_A_L(const double mA2, const double Mmu, const double Mtau) const {
-    int NumPar = 3;
-    double params[] = {mA2, Mmu, Mtau};
-
-    int i = CacheCheck(I_A_L_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_A_L_cache[NumPar][i] );
-    } else {
-    	double TAUmu=4.0*Mmu*Mmu/mA2;
-    	double TAUtau=4.0*Mtau*Mtau/mA2;
-        gslpp::complex newResult = -2.0*(TAUmu*f_func(TAUmu)+TAUtau*f_func(TAUtau));
-        CacheShift(I_A_L_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::I_HH_L(const double mHh2, const double Mmu, const double Mtau) const {
+//    int NumPar = 3;
+//    double params[] = {mHh2, Mmu, Mtau};
+//
+//    int i = CacheCheck(I_HH_L_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_HH_L_cache[NumPar][i] );
+//    } else {
+//    	double TAUmu=4.0*Mmu*Mmu/mHh2;
+//    	double TAUtau=4.0*Mtau*Mtau/mHh2;
+//        gslpp::complex newResult = -2.0*(TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))+
+//                           TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
+//        CacheShift(I_HH_L_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//gslpp::complex GMcache::I_A_L(const double mA2, const double Mmu, const double Mtau) const {
+//    int NumPar = 3;
+//    double params[] = {mA2, Mmu, Mtau};
+//
+//    int i = CacheCheck(I_A_L_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_A_L_cache[NumPar][i] );
+//    } else {
+//    	double TAUmu=4.0*Mmu*Mmu/mA2;
+//    	double TAUtau=4.0*Mtau*Mtau/mA2;
+//        gslpp::complex newResult = -2.0*(TAUmu*f_func(TAUmu)+TAUtau*f_func(TAUtau));
+//        CacheShift(I_A_L_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::I_H_W(const double mH, const double MW) const {
     int NumPar = 2;
@@ -264,45 +264,45 @@ gslpp::complex GMcache::A_h_U(const double mHl2, const double cW2, const double 
         return newResult;
     }
 }
-
-gslpp::complex GMcache::A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mHh2, cW2, Mc, Mt, MZ};
-
-    int i = CacheCheck(A_HH_U_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_HH_U_cache[NumPar][i] );
-    } else {
-    	double TAUc=4.0*Mc*Mc/mHh2;
-    	double TAUt=4.0*Mt*Mt/mHh2;
-    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
-    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc)
-                                         +Int1(TAUt,LAMt)-Int2(TAUt,LAMt));
-        CacheShift(A_HH_U_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-gslpp::complex GMcache::A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mA2, cW2, Mc, Mt, MZ};
-
-    int i = CacheCheck(A_A_U_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_A_U_cache[NumPar][i] );
-    } else {
-    	double TAUc=4.0*Mc*Mc/mA2;
-    	double TAUt=4.0*Mt*Mt/mA2;
-    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
-    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(-Int2(TAUc,LAMc)-Int2(TAUt,LAMt))/sqrt(sW2*cW2);
-        CacheShift(A_A_U_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mHh2, cW2, Mc, Mt, MZ};
+//
+//    int i = CacheCheck(A_HH_U_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_HH_U_cache[NumPar][i] );
+//    } else {
+//    	double TAUc=4.0*Mc*Mc/mHh2;
+//    	double TAUt=4.0*Mt*Mt/mHh2;
+//    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+//    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc)
+//                                         +Int1(TAUt,LAMt)-Int2(TAUt,LAMt));
+//        CacheShift(A_HH_U_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//gslpp::complex GMcache::A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mA2, cW2, Mc, Mt, MZ};
+//
+//    int i = CacheCheck(A_A_U_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_A_U_cache[NumPar][i] );
+//    } else {
+//    	double TAUc=4.0*Mc*Mc/mA2;
+//    	double TAUt=4.0*Mt*Mt/mA2;
+//    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+//    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(-Int2(TAUc,LAMc)-Int2(TAUt,LAMt))/sqrt(sW2*cW2);
+//        CacheShift(A_A_U_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const {
     int NumPar = 6;
@@ -325,45 +325,45 @@ gslpp::complex GMcache::A_h_D(const double mHl2, const double cW2, const double 
         return newResult;
     }
 }
-
-gslpp::complex GMcache::A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mHh2, cW2, Ms, Mb, MZ};
-
-    int i = CacheCheck(A_HH_D_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_HH_D_cache[NumPar][i] );
-    } else {
-    	double TAUs=4.0*Ms*Ms/mHh2;
-    	double TAUb=4.0*Mb*Mb/mHh2;
-    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
-	double LAMb=4.0*Mb*Mb/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(Int1(TAUs,LAMs)-Int2(TAUs,LAMs)
-                                          +Int1(TAUb,LAMb)-Int2(TAUb,LAMb));
-        CacheShift(A_HH_D_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-gslpp::complex GMcache::A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mA2, cW2, Ms, Mb, MZ};
-
-    int i = CacheCheck(A_A_D_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_A_D_cache[NumPar][i] );
-    } else {
-    	double TAUs=4.0*Ms*Ms/mA2;
-    	double TAUb=4.0*Mb*Mb/mA2;
-    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
-	double LAMb=4.0*Mb*Mb/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(-Int2(TAUs,LAMs)-Int2(TAUb,LAMb))/sqrt(sW2*cW2);
-        CacheShift(A_A_D_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mHh2, cW2, Ms, Mb, MZ};
+//
+//    int i = CacheCheck(A_HH_D_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_HH_D_cache[NumPar][i] );
+//    } else {
+//    	double TAUs=4.0*Ms*Ms/mHh2;
+//    	double TAUb=4.0*Mb*Mb/mHh2;
+//    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+//	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(Int1(TAUs,LAMs)-Int2(TAUs,LAMs)
+//                                          +Int1(TAUb,LAMb)-Int2(TAUb,LAMb));
+//        CacheShift(A_HH_D_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//gslpp::complex GMcache::A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mA2, cW2, Ms, Mb, MZ};
+//
+//    int i = CacheCheck(A_A_D_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_A_D_cache[NumPar][i] );
+//    } else {
+//    	double TAUs=4.0*Ms*Ms/mA2;
+//    	double TAUb=4.0*Mb*Mb/mA2;
+//    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+//	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(-Int2(TAUs,LAMs)-Int2(TAUb,LAMb))/sqrt(sW2*cW2);
+//        CacheShift(A_A_D_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const {
     int NumPar = 6;
@@ -387,45 +387,45 @@ gslpp::complex GMcache::A_h_L(const double mHl2, const double cW2, const double 
         return newResult;
     }
 }
-
-gslpp::complex GMcache::A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mHh2, cW2, Mmu, Mtau, MZ};
-
-    int i = CacheCheck(A_HH_L_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_HH_L_cache[NumPar][i] );
-    } else {
-    	double TAUmu=4.0*Mmu*Mmu/mHh2;
-    	double TAUtau=4.0*Mtau*Mtau/mHh2;
-    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
-	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)
-                                      +Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau));
-        CacheShift(A_HH_L_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
-
-gslpp::complex GMcache::A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mA2, cW2, Mmu, Mtau, MZ};
-
-    int i = CacheCheck(A_A_L_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_A_L_cache[NumPar][i] );
-    } else {
-    	double TAUmu=4.0*Mmu*Mmu/mA2;
-    	double TAUtau=4.0*Mtau*Mtau/mA2;
-    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
-	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(-Int2(TAUmu,LAMmu)-Int2(TAUtau,LAMtau))/sqrt(sW2*cW2);
-        CacheShift(A_A_L_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mHh2, cW2, Mmu, Mtau, MZ};
+//
+//    int i = CacheCheck(A_HH_L_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_HH_L_cache[NumPar][i] );
+//    } else {
+//    	double TAUmu=4.0*Mmu*Mmu/mHh2;
+//    	double TAUtau=4.0*Mtau*Mtau/mHh2;
+//    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+//	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)
+//                                      +Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau));
+//        CacheShift(A_HH_L_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
+//
+//gslpp::complex GMcache::A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mA2, cW2, Mmu, Mtau, MZ};
+//
+//    int i = CacheCheck(A_A_L_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_A_L_cache[NumPar][i] );
+//    } else {
+//    	double TAUmu=4.0*Mmu*Mmu/mA2;
+//    	double TAUtau=4.0*Mtau*Mtau/mA2;
+//    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+//	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(-Int2(TAUmu,LAMmu)-Int2(TAUtau,LAMtau))/sqrt(sW2*cW2);
+//        CacheShift(A_A_L_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::A_H_W(const double mH, const double cW2, const double MW, const double MZ) const {
     int NumPar = 4;
@@ -505,95 +505,73 @@ void GMcache::computeSignalStrengthQuantities()
     double Mtau = myGM->getLeptons(StandardModel::TAU).getMass();
     double Mmu = myGM->getLeptons(StandardModel::MU).getMass();
     double Me = myGM->getLeptons(StandardModel::ELECTRON).getMass();
-    double MW=MWGM(myGM->Mw_tree());
-    double cW2=cW2GM(myGM->c02());
-    double sW2=1.0-cW2;
-//    double vPhi = myGM.getMyGMCache()->vPhi;
+    double MW = MWGM(myGM->Mw_tree());
+    double cW2 = cW2GM(myGM->c02());
 
-    double BrSM_htobb = 5.77e-1;
-    double BrSM_htotautau = 6.32e-2;
-    double BrSM_htogaga = 2.28e-3;
-    double BrSM_htoWW = 2.15e-1;
-    double BrSM_htoZZ = 2.64e-2;
-    double BrSM_htogg = 8.57e-2;
-    double BrSM_htoZga = 1.54e-3;
-    double BrSM_htocc = 2.91e-2;
+    double BrSM_htobb = myGM->computeBrHtobb();
+    double BrSM_htotautau = myGM->computeBrHtotautau();
+    double BrSM_htogaga = myGM->computeBrHtogaga();
+    double BrSM_htoWW = myGM->computeBrHtoWW();
+    double BrSM_htoZZ = myGM->computeBrHtoZZ();
+    double BrSM_htogg = myGM->computeBrHtogg();
+    double BrSM_htoZga = myGM->computeBrHtoZga();
+    double BrSM_htocc = myGM->computeBrHtocc();
 
-//    these quantities are THDMW quantities and have to be replaced by the GM variables:
-    double bma=0., mhsq=0., mSpsq=0., mSRsq=0., mSIsq=0., mHpsq=0.;
 //    depending on which Higgs is heavier
+
+    double gh_H3=0., gh_H5=0.;
+
     if(mH1sq>=mHl2)
     {
         rh_ff = cosa*cosa/(sinb*sinb);
         rh_VV = cosa*cosa*sinb*sinb - sqrt(32.0/3.0)*cosa*sina*cosb*sinb + 8.0/3.0*sina*sina*cosb*cosb;
+        gh_H3 = ghH3pH3m;
+        gh_H5 = ghH5pH5m;
     }
     else
     {
         rh_ff = sina*sina/(sinb*sinb);
         rh_VV = sina*sina*sinb*sinb + sqrt(32.0/3.0)*sina*cosa*cosb*sinb + 8.0/3.0*cosa*cosa*cosb*cosb;
+        gh_H3 = gHH3pH3m;
+        gh_H5 = gHH5pH5m;
     }
-//    triple Higgs couplings for the diphoton loop
-    double ghHpHm = 0.0;
 
-    //rh_gaga formula = fabs(I_h_F+I_h_W+I_h_Hp3)^2 / fabs(I_hSM_F+I_hSM_W)^2
+    //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
 
-    gslpp::complex I_h_F = 0.0;
-    gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
-    gslpp::complex fermD = I_h_D(mhsq,Md,Ms,Mb);
-    gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
-    gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
-    gslpp::complex I_h_W = sin(bma)*I_hSM_W;
+    gslpp::complex I_hSM_F = I_h_U(mHl2,Mu,Mc,Mt)+I_h_D(mHl2,Md,Ms,Mb)+I_h_L(mHl2,Me,Mmu,Mtau);
+    gslpp::complex I_hSM_W = I_H_W(mHl2,MW);
+    gslpp::complex I_h_F = sqrt(rh_ff)*I_hSM_F;
+    gslpp::complex I_h_W = sqrt(rh_VV)*I_hSM_W;
+    gslpp::complex I_h_Hp = 0.5*vev*( gh_H3*I_H_Hp(mAsq,mHl2)/mAsq + 5.0*gh_H5*I_H_Hp(mH5sq,mHl2)/mH5sq );
 
-    double ABSgagaGM=0.0;
-    double ABSgagaSM=0.0;
-
-    //rh_Zga formula = fabs(A_h_F+A_h_W+A_h_Hp)^2 / fabs(A_hSM_F+A_hSM_W)^2
-
-    gslpp::complex A_h_F = 0.0;
-    gslpp::complex A_h_Ux = A_h_U(mhsq,cW2,Mu,Mc,Mt,MZ);
-    gslpp::complex A_h_Dx = A_h_D(mhsq,cW2,Md,Ms,Mb,MZ);
-    gslpp::complex A_h_Lx  = A_h_L(mhsq,cW2,Me,Mmu,Mtau,MZ);
-    gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
-    gslpp::complex A_h_W = sin(bma)*A_hSM_W;
-
-    double ABSZgaGM=0.0;
-    double ABSZgaSM=0.0;
-
-    I_h_F=cosa/sinb*(fermU+fermD+fermL);
-    A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
-
-    double ch_p=0.0;
-    double ch_r=0.0;
-    gslpp::complex I_h_Sp = 1.5*ch_p*(3.0*I_H_Hp(mSpsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-    gslpp::complex I_h_SR = 1.5*ch_r*(3.0*I_H_Hp(mSRsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-    gslpp::complex I_h_SI = 1.5*ch_p*(3.0*I_H_Hp(mSIsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-//    double ABSggGM=(9.0/32.0*I_h_F+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
-//    double ABSggSM=(9.0/32.0*(fermU+fermD)).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
-    rh_gg=cosa/sinb*cosa/sinb;
-
-    gslpp::complex I_h_Hp = 16.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
-    gslpp::complex A_h_Hp = 16.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
-    gslpp::complex I_h_S = 0.0;
-    gslpp::complex A_h_S = 0.0;
-
-    ABSgagaGM=(I_h_F+I_h_W+I_h_Hp+I_h_S).abs2();
-    ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
+    double ABSgagaGM=(I_h_F+I_h_W+I_h_Hp).abs2();
+    double ABSgagaSM=(I_hSM_F+I_hSM_W).abs2();
     rh_gaga=ABSgagaGM/ABSgagaSM;
-//
-    ABSZgaGM=(A_h_F+A_h_W+A_h_Hp+A_h_S).abs2();
-    ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
+
+    //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
+
+    gslpp::complex A_hSM_F = A_h_U(mHl2,cW2,Mu,Mc,Mt,MZ)+A_h_D(mHl2,cW2,Md,Ms,Mb,MZ)+A_h_L(mHl2,cW2,Me,Mmu,Mtau,MZ);
+    gslpp::complex A_hSM_W = A_H_W(mHl2,cW2,MW,MZ);
+    gslpp::complex A_h_F = sqrt(rh_ff)*A_hSM_F;
+    gslpp::complex A_h_W = sqrt(rh_VV)*A_hSM_W;
+    gslpp::complex A_h_Hp = 0.5*vev*( gh_H3*A_H_Hp(mAsq,mHl2,cW2,MZ)/mAsq + 5.0*gh_H5*A_H_Hp(mH5sq,mHl2,cW2,MZ)/mH5sq );
+
+    double ABSZgaGM=(A_h_F+A_h_W+A_h_Hp).abs2();
+    double ABSZgaSM=(A_hSM_F+A_hSM_W).abs2();
     rh_Zga=ABSZgaGM/ABSZgaSM;
 
-    sumModBRs = rh_ff*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ff*BrSM_htotautau +
-          rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_ff*BrSM_htocc;
+    rh_gg=rh_ff;
+
+    sumModBRs = rh_ff*(BrSM_htobb+BrSM_htotautau+BrSM_htocc) + rh_VV*(BrSM_htoWW+BrSM_htoZZ) 
+                + rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga;
 
     Gamma_h = sumModBRs*myGM->computeGammaHTotal();
-    
-    GM_BR_h_bb = rh_ff*BrSM_htobb/sumModBRs;
-    GM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
-    GM_BR_h_tautau = rh_ff*BrSM_htotautau/sumModBRs;
-    GM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
-    GM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
+
+//    GM_BR_h_bb = rh_ff*BrSM_htobb/sumModBRs;
+//    GM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
+//    GM_BR_h_tautau = rh_ff*BrSM_htotautau/sumModBRs;
+//    GM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
+//    GM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
 }
 
 //void GMcache::runGMparameters()
@@ -850,14 +828,56 @@ double GMcache::updateCache()
     }
     double cos2a=cosa*cosa-sina*sina;
     double cos2b=cosb*cosb-sinb*sinb;
-    lambda1=(mHlsq+mHhsq+(mHlsq-mHhsq)*cos2a)/(16.0*vev*vev*sinb*sinb);
-    lambda2=(-M1sq+M2sq+mAsq-2.0/3.0*mH5sq+(M1sq-mAsq)*cos2b
-             +(mHlsq+mHhsq+(mHhsq-mHlsq)*cos2a)/3.0)/(2.0*vev*vev*cosb*cosb);
-    lambda3=(mH5sq-M2sq+(2.0*M1sq-3.0*mAsq)*sinb*sinb)/(vev*vev*cosb*cosb);
-    lambda4=(mAsq-0.5*M1sq+(mHhsq-mHlsq)*sina*cosa/(sqrt(6.0)*sinb*cosb))/(vev*vev);
-    lambda5=2.0*(M1sq-mAsq)/(vev*vev);
 
-//    runGMparameters();
+    lambda1 = (mHlsq+mHhsq+(mHlsq-mHhsq)*cos2a)/(16.0*vev*vev*sinb*sinb);
+    lambda2 = (-M1sq+M2sq+mAsq-2.0/3.0*mH5sq+(M1sq-mAsq)*cos2b
+               +(mHlsq+mHhsq+(mHhsq-mHlsq)*cos2a)/3.0)/(2.0*vev*vev*cosb*cosb);
+    lambda3 = (mH5sq-M2sq+(2.0*M1sq-3.0*mAsq)*sinb*sinb)/(vev*vev*cosb*cosb);
+    lambda4 = (mAsq-0.5*M1sq+(mHhsq-mHlsq)*sina*cosa/(sqrt(6.0)*sinb*cosb))/(vev*vev);
+    lambda5 = 2.0*(M1sq-mAsq)/(vev*vev);
+
+    //triple scalar couplings
+    ghhh = -(2.0*sina*sina*sinb*(3.0*cosa+sqrt(6.0)*sina*tanb))/vev * M1sq
+           +(sqrt(2.0/3.0)*sina*sina*sina)/(vev*cosb) * M2sq
+           +(-3.0*cosa*cosa*cosa/sinb+2.0*sqrt(6.0)*sina*sina*sina/cosb)/vev * mHlsq;
+    ghhH = sina*sinb*(4.0-6.0*sina*sina+2.0*sqrt(6.0)*sina*cosa*tanb)/vev * M1sq
+            -(sqrt(2.0/3.0)*cosa*sina*sina)/(vev*cosb) * M2sq
+            -sina*(cosa*cosa/sinb+2.0*sqrt(2.0/3.0)*sina*cosa/cosb)/vev * (2.0*mHlsq+mHhsq);
+    ghHH = cosa*sinb*(4.0-6.0*cosa*cosa-2.0*sqrt(6.0)*sina*cosa*tanb)/vev * M1sq
+            +(sqrt(2.0/3.0)*cosa*cosa*sina)/(vev*cosb) * M2sq
+            +cosa*(-sina*sina/sinb+2.0*sqrt(2.0/3.0)*sina*cosa/cosb)/vev * (mHlsq+2.0*mHhsq);
+    gHHH = (2.0*cosa*cosa*sinb*(-3.0*sina+sqrt(6.0)*cosa*tanb))/vev * M1sq
+           -(sqrt(2.0/3.0)*cosa*cosa*cosa)/(vev*cosb) * M2sq
+           -(3.0*sina*sina*sina/sinb+2.0*sqrt(6.0)*cosa*cosa*cosa/cosb)/vev * mHhsq;
+    ghH3H3 = -(2.0*sqrt(2.0/3.0)*sina)/(vev*cosb) * M1sq
+             +(4.0*sqrt(2.0/3.0)*sina*cosb-2.0*cosa*sinb)/vev * mAsq
+             +(2.0*sqrt(2.0/3.0)*sina*sinb*tanb-cosa*cosb/tanb)/vev * mHlsq;
+    gHH3H3 = (2.0*sqrt(2.0/3.0)*cosa)/(vev*cosb) * M1sq
+             -(4.0*sqrt(2.0/3.0)*cosa*cosb+2.0*sina*sinb)/vev * mAsq
+             -(2.0*sqrt(2.0/3.0)*cosa*sinb*tanb+sina*cosb/tanb)/vev * mHhsq;
+    ghH3pH3m = ghH3H3;
+    gHH3pH3m = gHH3H3;
+    ghH5H5 = 2.0*sinb*(2.0*cosa+sqrt(6.0)*sina*tanb)/vev * (M1sq-2.0*mAsq)
+             +(2.0*sqrt(2.0/3.0)*sina)/(vev*cosb) * (mHlsq + 2.0*mH5sq - M2sq)
+             +(2.0*cosa*sinb)/vev * mAsq;
+    gHH5H5 = 2.0*sinb*(2.0*sina-sqrt(6.0)*cosa*tanb)/vev * (M1sq-2.0*mAsq)
+             -(2.0*sqrt(2.0/3.0)*cosa)/(vev*cosb) * (mHhsq + 2.0*mH5sq - M2sq)
+             +(2.0*sina*sinb)/vev * mAsq;
+    ghH5pH5m = ghH5H5;
+    gHH5pH5m = gHH5H5;
+    ghH5ppH5mm = ghH5H5;
+    gHH5ppH5mm = gHH5H5;
+    gH3H3H5 = 2.0*((mH5sq-2.0*mAsq)*cosb-(2.0*M1sq-3.0*mAsq+mH5sq)/cosb)/(sqrt(3.0)*vev);
+    gH5H5H5 = 2.0*((3.0*mH5sq-4.0*M2sq)/cosb+(6.0*M1sq-9.0*mAsq)*sinb*tanb)/(sqrt(3.0)*vev);
+    gH3H3pH5m = gslpp::complex::i()*(4.0*M1sq-4.0*mAsq+mH5sq+(2.0*mAsq-mH5sq)*(cosb*cosb-sinb*sinb))/(2.0*vev*cosb);
+    gH5H3pH3m = (4.0*M1sq-4.0*mAsq+mH5sq+(2.0*mAsq-mH5sq)*(cosb*cosb-sinb*sinb))/(2.0*sqrt(3.0)*vev*cosb);
+    gH5H5pH5m = 0.5*gH5H5H5;
+    gH5H5ppH5mm = -gH5H5H5;
+    gH5ppH3mH3m = sqrt(6.0)*gH5H3pH3m;
+    gH5ppH5mH5m = gH5H5pH5m;
+
+    //    runGMparameters();
     computeUnitarity();
+    computeSignalStrengthQuantities();
     return mHl2;
 }

@@ -8,8 +8,9 @@
 #ifndef GEORGIMACHACEK_H
 #define	GEORGIMACHACEK_H
 
-#include "StandardModel.h"
+//#include "StandardModel.h"
 #include "GMMatching.h"
+#include "NPbase.h"
 
 class GMcache; //forward reference to GMcache class
 
@@ -20,7 +21,7 @@ class GMcache; //forward reference to GMcache class
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  */
-class GeorgiMachacek: public StandardModel {
+class GeorgiMachacek: public NPbase {
 public:
 
     static const int NGMvars = 8;
@@ -339,19 +340,48 @@ public:
         return Q_GM;
     }
 
-//    double computelambda1() const;
-//
-//    double computelambda2() const;
-//
-//    double computelambda3() const;
-//
-//    double computelambda4() const;
-//
-//    double computelambda5() const;
-//
-//    double computemu2sq() const;
-//
-//    double computemu3sq() const;
+    virtual double muggH(const double sqrt_s) const;
+    virtual double muVBF(const double sqrt_s) const;
+    virtual double mueeWBF(const double sqrt_s) const;
+    virtual double muWH(const double sqrt_s) const;
+    virtual double muZH(const double sqrt_s) const;
+    virtual double mueeZH(const double sqrt_s) const;
+    virtual double muVH(const double sqrt_s) const;
+    virtual double muVBFpVH(const double sqrt_s) const;
+    virtual double muttH(const double sqrt_s) const;
+    virtual double GammaTotal() const;
+    virtual double BrHggRatio() const;
+    virtual double BrHWWRatio() const;
+    virtual double BrHZZRatio() const;
+    virtual double BrHZgaRatio() const;
+    virtual double BrHgagaRatio() const;
+    virtual double BrHmumuRatio() const;
+    virtual double BrHtautauRatio() const;
+    virtual double BrHccRatio() const;
+    virtual double BrHbbRatio() const;
+    virtual double muggHgaga(const double sqrt_s) const;
+    virtual double muVBFHgaga(const double sqrt_s) const;
+    virtual double muVHgaga(const double sqrt_s) const;
+    virtual double muttHgaga(const double sqrt_s) const;
+    virtual double muggHZZ(const double sqrt_s) const;
+    virtual double muVBFHZZ(const double sqrt_s) const;
+    virtual double muVHZZ(const double sqrt_s) const;
+    virtual double muttHZZ(const double sqrt_s) const;
+    virtual double muggHWW(const double sqrt_s) const;
+    virtual double muVBFHWW(const double sqrt_s) const;
+    virtual double muVHWW(const double sqrt_s) const;
+    virtual double muttHWW(const double sqrt_s) const;
+    virtual double muggHtautau(const double sqrt_s) const;
+    virtual double muVBFHtautau(const double sqrt_s) const;
+    virtual double muVHtautau(const double sqrt_s) const;
+    virtual double muttHtautau(const double sqrt_s) const;
+    virtual double muggHbb(const double sqrt_s) const;
+    virtual double muVBFHbb(const double sqrt_s) const;
+    virtual double muVHbb(const double sqrt_s) const;
+    virtual double muttHbb(const double sqrt_s) const;
+    virtual double muppHmumu(const double sqrt_s) const;
+    virtual double muppHZga(const double sqrt_s) const;
+    virtual double computeGammaTotalRatio() const;
 
 
 protected: 

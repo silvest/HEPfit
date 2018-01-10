@@ -75,7 +75,7 @@ public:
 //    gslpp::vector<gslpp::complex> NLOunitarityeigenvalues;
 
     double rh_ff, rh_VV, rh_gg, rh_gaga, rh_Zga;
-    double sumModBRs, Gamma_h, GM_BR_h_bb, GM_BR_h_gaga, GM_BR_h_tautau, GM_BR_h_WW, GM_BR_h_ZZ;
+    double sumModBRs, Gamma_h;//GM_BR_h_bb, GM_BR_h_gaga, GM_BR_h_tautau, GM_BR_h_WW, GM_BR_h_ZZ
     double lambda1, lambda2, lambda3, lambda4, lambda5;
     double vPhi, vDelta;
     
@@ -202,6 +202,28 @@ private:
     double Mu2;
     double M1sq;
     double M2sq;
+    double ghhh;
+    double ghhH;
+    double ghHH;
+    double gHHH;
+    double ghH3H3;
+    double gHH3H3;
+    double ghH3pH3m;
+    double gHH3pH3m;
+    double ghH5H5;
+    double gHH5H5;
+    double ghH5pH5m;
+    double gHH5pH5m;
+    double ghH5ppH5mm;
+    double gHH5ppH5mm;
+    double gH3H3H5;
+    double gH5H5H5;
+    gslpp::complex gH3H3pH5m;
+    double gH5H3pH3m;
+    double gH5H5pH5m;
+    double gH5H5ppH5mm;
+    double gH5ppH3mH3m;
+    double gH5ppH5mH5m;
 };
 
 #endif	/* GMCACHE_H */
