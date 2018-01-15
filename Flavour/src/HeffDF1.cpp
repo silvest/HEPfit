@@ -30,54 +30,60 @@ HeffDF1::~HeffDF1()
 
 gslpp::vector<gslpp::complex> HeffDF1::LowScaleCoeff(int nm)
 {
-    double mu = coeff.getMu(), eta, alsmu, alsM, kM, kmu, b0, b1, b0e, b1e;
+    double mu = coeff.getMu(), eta, M, alsM, kM, b0, b1, b0e, b1e;
+    orders ordDF1 = coeff.getOrder();
+    orders_qed ordDF1_qed = coeff.getOrder_qed();
+
     gslpp::vector<gslpp::complex> test(nops, 0.);
-    
-    if(mu == -1) throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): coeff not initialized.");
-    if(model.Nf(mu) != 5) throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): defined for 5 flavours only.");
-    
-    alsM = model.Alstilde5(model.getMuw());
-    alsmu = model.Alstilde5(mu);
-    eta = alsM/ alsmu; // assuming 1 matching scale at muW
-    b0 = model.Beta_s(00, 5.);
-    b0e = model.Beta_e(00, 5.);
-    b1 = model.Beta_e(10, 5.);
-    b1e = model.Beta_e(01, 5.);
-    kM = model.Ale(model.getMuw(), NLO) / alsM; // WARNING: CHANGE ME!!!
-    kmu = model.Ale(mu, NLO) / alsmu; // WARNING: CHANGE ME!!!
+
+    if (mu == -1) throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): coeff not initialized.");
+    if (model.Nf(mu) != 5) throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): defined for 5 flavours only.");
+
+    M = model.getMuw();
+    alsM = model.Als(M, FULLNNNLO, ordDF1_qed == NO_QED ? false : true);
+    eta = alsM / model.Als(mu, FULLNNNLO, ordDF1_qed == NO_QED ? false : true);
+
     switch (nm)
     {
-        case 10:
+        case 00:
             return (*(coeff.getCoeff(LO)));
+        case 10:
+            return (*(coeff.getCoeff(NLO)) * eta / alsM);
         case 20:
-            return ( *(coeff.getCoeff(NLO)) / alsmu );
-        case 30:
-            return (*(coeff.getCoeff(NNLO)) / alsmu / alsmu);
-        case 01:
-            std::cout << "test: " << *(coeff.getCoeff(LO_QED)) / kM / eta << std::endl;
-            return (*(coeff.getCoeff(LO_QED)) / kmu);
-        case 11:
-            test = *(coeff.getCoeff(NLO_QED11)) / kM / eta / alsmu;
-            return (*(coeff.getCoeff(NLO_QED11)) / kmu / alsmu);
-        case 21:
-            test = *(coeff.getCoeff(NLO_QED21)) / kM / eta / alsmu / alsmu;
-            return (*(coeff.getCoeff(NLO_QED21)) / kmu / alsmu / alsmu);
-        case 02:
-            std::cout << "test: " << (*(coeff.getCoeff(NLO_QED02)) / kM / kM / eta / eta + b0e / b0 * (1. - eta) / eta / eta * (*(coeff.getCoeff(LO_QED))) / kM) << std::endl;
-            return (*(coeff.getCoeff(NLO_QED02)) / kmu / kmu);
-        case 12:
-            test = (*(coeff.getCoeff(NLO_QED12)) / alsmu / kM / kM / eta / eta + b0e / b0 * (1. - eta) / eta / eta * (*(coeff.getCoeff(NLO_QED11))) / kM / alsmu
-                    + log(eta) / eta * (b0e * b1 / b0 / b0 - b1e / b0) * (*(coeff.getCoeff(LO_QED))) / kM);
-            return (*(coeff.getCoeff(NLO_QED12)) / alsmu / kmu / kmu);
-        case 22:
-            std::cout << "test: " << *(coeff.getCoeff(NLO_QED22)) / alsmu / alsmu / kM / kM / eta / eta + b0e / b0 * (1. - eta) / eta / eta * (*(coeff.getCoeff(NLO_QED21))) / kM / alsmu / alsmu
-                    + log(eta) / eta * (b0e * b1 / b0 / b0 - b1e / b0) * (*(coeff.getCoeff(NLO_QED11))) / kM / alsmu << std::endl;
-            std::cout << "test: " << *(coeff.getCoeff(NLO_QED22)) / alsmu / alsmu / kM / kM / eta / eta  << std::endl;
-            return (*(coeff.getCoeff(NLO_QED22)) / alsmu / alsmu / kmu / kmu);
-        default:
-            throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): undefined order.");
+            return (*(coeff.getCoeff(NNLO)) * eta / alsM * eta / alsM);
     }
+
+    if (ordDF1_qed != NO_QED)
+    {
+        b0 = model.Beta_s(00, 5.);
+        b0e = model.Beta_e(00, 5.);
+        b1 = model.Beta_s(10, 5.);
+        b1e = model.Beta_e(01, 5.);
+        kM = model.Ale(M, FULLNLO) / alsM;
+        switch (nm)
+        {
+            case 01:
+                return (*(coeff.getCoeff(LO_QED)) / kM / eta);
+            case 11:
+                return (*(coeff.getCoeff(NLO_QED11)) / kM / alsM);
+            case 21:
+                return (*(coeff.getCoeff(NLO_QED21)) * eta / kM / alsM / alsM);
+            case 02:
+                return (*(coeff.getCoeff(NLO_QED02)) / kM / kM / eta / eta + b0e / b0 * (1. - eta) / eta / eta * (*(coeff.getCoeff(LO_QED))) / kM);
+            case 12:
+                return (*(coeff.getCoeff(NLO_QED12)) / alsM / kM / kM / eta + b0e / b0 * (1. - eta) / eta * (*(coeff.getCoeff(NLO_QED11))) / kM / alsM
+                        + log(eta) / eta * (b0e * b1 / b0 / b0 - b1e / b0) * (*(coeff.getCoeff(LO_QED))) / kM);
+            case 22:
+                return (*(coeff.getCoeff(NLO_QED22)) / alsM / alsM / kM / kM + b0e / b0 * (1. - eta) * (*(coeff.getCoeff(NLO_QED21))) / kM / alsM / alsM
+                        + log(eta) * (b0e * b1 / b0 / b0 - b1e / b0) * (*(coeff.getCoeff(NLO_QED11))) / kM / alsM);
+            default:
+                throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): undefined order.");
+        }
+    }
+    else
+        throw std::runtime_error("Error in HeffDF1::LowScaleCoeff(): undefined order.");
 }
+
 
 gslpp::vector<gslpp::complex>** HeffDF1::ComputeCoeff(double mu, schemes scheme)
 {

@@ -1781,7 +1781,20 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
                 if (fabs(res12(a, b)) < EPS) res12(a, b) = 0.;
                 if (fabs(res21(a, b)) < EPS) res21(a, b) = 0.;
             }
-*/
+         */
+        for (uint a = 0; a < nops; a++)
+            for (uint b = 0; b < nops; b++)
+            {
+                if (fabs(resLO(a, b)) < EPS) resLO(a, b) = 0.;
+                if (fabs(resNLO(a, b)) < EPS) resNLO(a, b) = 0.;
+                if (fabs(resNNLO(a, b)) < EPS) resNNLO(a, b) = 0.;
+                if (fabs(res01(a, b)) < EPS) res01(a, b) = 0.;
+                if (fabs(res02(a, b)) < EPS) res02(a, b) = 0.;
+                if (fabs(res11(a, b)) < EPS) res11(a, b) = 0.;
+                if (fabs(res12(a, b)) < EPS) res12(a, b) = 0.;
+                if (fabs(res21(a, b)) < EPS) res21(a, b) = 0.;
+            }
+
         switch (order_qed)
         {
             case NLO_QED22:
@@ -1805,16 +1818,14 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
             default:
                 throw std::runtime_error("Error in EvolDF1::Df1Evol(): wrong QED order");
         }
-    }
-
-
-    for (uint a = 0; a < nops; a++)
-        for (uint b = 0; b < nops; b++)
-        {
-            if (fabs(resLO(a, b)) < EPS) resLO(a, b) = 0.;
-            if (fabs(resNLO(a, b)) < EPS) resNLO(a, b) = 0.;
-            if (fabs(resNNLO(a, b)) < EPS) resNNLO(a, b) = 0.;
-        }
+    } else
+        for (uint a = 0; a < nops; a++)
+            for (uint b = 0; b < nops; b++)
+            {
+                if (fabs(resLO(a, b)) < EPS) resLO(a, b) = 0.;
+                if (fabs(resNLO(a, b)) < EPS) resNLO(a, b) = 0.;
+                if (fabs(resNNLO(a, b)) < EPS) resNNLO(a, b) = 0.;
+            }
 
     switch (order) // must follow QED switch
     {

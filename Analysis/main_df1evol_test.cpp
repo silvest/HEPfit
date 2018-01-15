@@ -47,8 +47,8 @@ int main(void) {
     ComputeObservables CO(ModelF, ThObsF, ModelConf);
     StandardModel& mySM = *CO.getModel();
 
-    HeffDF1 Heff("CPM", mySM, NNLO, NO_QED);
-    HeffDB1 HDB1(mySM);
+    HeffDF1 Heff("CPMLQB", mySM, NNLO, NLO_QED22);
+//    HeffDB1 HDB1(mySM);
 //    CO.AddObservable("Rlow_BXsee");
 //    /* Get the map of observables if necessary. */
 //    std::map<std::string, double> DObs = CO.getObservables();
@@ -58,34 +58,35 @@ int main(void) {
 //    std::cout << DObs.at("Rlow_BXsee") << std::endl;
 
     std::cout << "%SUITE_STARTING% Evolutor" << std::endl;
-    std::cout << "%SUITE_STARTED% **é***" << std::endl;
-    gslpp::vector<gslpp::complex> ** allcoeff, **allcoeff1;
+    std::cout << "%SUITE_STARTED% *****" << std::endl;
+    gslpp::vector<gslpp::complex> ** allcoeff;
 
     gslpp::matrix<gslpp::complex> myVCKM(mySM.getVCKM());
-    double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw() ) );
-//    double sw = sqrt(mySM.sW2());
-    double as5 =  mySM.Alstilde5(5.);
-    double ae5 = mySM.getAle() / 4. / M_PI;
-
-    std::cout << "%SUITE_STARTED% **é***" << std::endl;
-
-    allcoeff = Heff.ComputeCoeff(5.);
-    allcoeff1 = HDB1.ComputeCoeffsgamma(5.);
-
-    std::cout << "LO:" << std::endl;
-    std::cout << (*(allcoeff[LO])) <<  std::endl;
-    std::cout << (*(allcoeff[LO])) - *(allcoeff1[LO]) <<  std::endl;
-   
-    std::cout << "NLO:" << std::endl;
-    std::cout << (*(allcoeff[NLO])) <<  std::endl;
-    std::cout << (*(allcoeff[NLO])) - (*(allcoeff1[NLO])) <<  std::endl;
-
-    std::cout << "NNLO:" << std::endl;
-    std::cout << (*(allcoeff[NNLO]))  <<  std::endl;    
-    std::cout << (*(allcoeff[NNLO])) - (*(allcoeff1[NNLO])) <<  std::endl;
+//    double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw() ) );
+////    double sw = sqrt(mySM.sW2());
+//    double as5 =  mySM.Alstilde5(5.);
+//    double ae5 = mySM.getAle() / 4. / M_PI;
+//
+//    std::cout << "%SUITE_STARTED% *****" << std::endl;
+//
+      allcoeff = Heff.ComputeCoeff(5.);
+      
+//    allcoeff1 = HDB1.ComputeCoeffsgamma(5.);
+//
+      std::cout << "LO:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(00) <<  std::endl;
+//    std::cout << (*(allcoeff[LO])) - *(allcoeff1[LO]) <<  std::endl;
+//   
+//    std::cout << "NLO:" << std::endl;
+//    std::cout << (*(allcoeff[NLO])) <<  std::endl;
+//    std::cout << (*(allcoeff[NLO])) - (*(allcoeff1[NLO])) <<  std::endl;
+//
+//    std::cout << "NNLO:" << std::endl;
+//    std::cout << (*(allcoeff[NNLO]))  <<  std::endl;    
+//    std::cout << (*(allcoeff[NNLO])) - (*(allcoeff1[NNLO])) <<  std::endl;
 
 // test di CPL   
-    std::cout << "studente: " << as5*4.*M_PI << ", grande unificazione: " << mySM.Als(3, FULLNNNLO, true) << " -- "  << mySM.Als(3, FULLNNNLO, true, false) << std::endl;
+//    std::cout << "studente: " << as5*4.*M_PI << ", grande unificazione: " << mySM.Als(3, FULLNNNLO, true) << " -- "  << mySM.Als(3, FULLNNNLO, true, false) << std::endl;
 //    std::cout << "LO:" << std::endl;
 //    std::cout << sw*sw*(myVCKM(2,2).conjugate() * myVCKM(2,1))*(*(allcoeff[LO])) - *(allcoeff1[LO]) <<  std::endl;
 //    
