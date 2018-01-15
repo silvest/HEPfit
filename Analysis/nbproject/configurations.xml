@@ -107,12 +107,12 @@
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../GeneralTHDM/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
+            <pElem>../THDMW/src</pElem>
             <pElem>../BAT/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../THDMW/src</pElem>
-            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -540,12 +540,12 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../HiggsExtensions/src</pElem>
-            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -978,12 +978,12 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../BAT/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
         </ccTool>
@@ -1409,12 +1409,12 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../HiggsExtensions/src</pElem>
-            <pElem>../GeorgiMachacek/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
           <preprocessorList>

@@ -84,7 +84,7 @@ fi
 for PROJECT in ${PROJECTARRAY[@]}
 do
     if [ ! -d "${OUTDIR}/${PROJECT}" ]; then
-        echo "midir ${OUTDIR}/${PROJECT}"
+        echo "mkdir ${OUTDIR}/${PROJECT}"
         mkdir ${OUTDIR}/${PROJECT}
     fi
 

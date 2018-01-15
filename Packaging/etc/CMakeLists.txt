@@ -491,9 +491,9 @@ endif(DEBUG_MODE)
 
 ##############################
 
-# set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY pMSSM MFV SUSY THDM GeorgiMachacek GeneralTHDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
+# set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY pMSSM MFV SUSY THDM GeneralTHDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
 
-set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
+set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM GeorgiMachacek HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
 
 # set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour NewPhysics THDM Observables HiggsExtensions StandardModel LoopFunctions gslpp)
 

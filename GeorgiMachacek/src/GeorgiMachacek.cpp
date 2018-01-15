@@ -5,7 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
-//#include <StandardModelMatching.h>
+#include <StandardModelMatching.h>
 #include "GeorgiMachacek.h"
 #include "GMcache.h"
 
@@ -143,12 +143,6 @@ bool GeorgiMachacek::setFlag(const std::string name, const bool value)
 
     return(res);
 }
-
-//
-//double GeorgiMachacek::sign(const double x) const {
-//    return ( (x > 0) ? 1 : ((x < 0) ? -1 : 0) );
-//}
-
 
 double GeorgiMachacek::muggH(const double sqrt_s) const
 {
