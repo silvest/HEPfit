@@ -1251,6 +1251,11 @@ ThObsFactory::ThObsFactory()
     //-----  Positivity constraints  -----
     obsThFactory["THDMWpositivity1"] = boost::factory<THDMWpositivity1*>();
     obsThFactory["THDMWpositivity2"] = boost::factory<THDMWpositivity2*>();
+    obsThFactory["THDMWpositivity3"] = boost::factory<THDMWpositivity3*>();
+    obsThFactory["THDMWpositivity4"] = boost::factory<THDMWpositivity4*>();
+    obsThFactory["THDMWpositivity5"] = boost::factory<THDMWpositivity5*>();
+    obsThFactory["THDMWpositivity6"] = boost::factory<THDMWpositivity6*>();
+    obsThFactory["THDMWpositivity7"] = boost::factory<THDMWpositivity7*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["THDMWunitarity1"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 0);
     obsThFactory["THDMWunitarity2"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 1);
@@ -1333,6 +1338,9 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GMpositivity2"] = boost::factory<GMpositivity2*>();
     obsThFactory["GMpositivity3"] = boost::factory<GMpositivity3*>();
     obsThFactory["GMpositivity4"] = boost::factory<GMpositivity4*>();
+    //-----  Higgs observables  -----
+    obsThFactory["rh_gaga_GM"] = boost::factory<rh_gaga_GM*>();
+    obsThFactory["rh_Zga_GM"] = boost::factory<rh_Zga_GM*>();
 }
 
 void ThObsFactory::addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) > funct)

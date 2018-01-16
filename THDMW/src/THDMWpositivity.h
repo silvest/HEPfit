@@ -66,4 +66,99 @@ private:
     const THDMW& myTHDMW;
 };
 
+/**
+ * @class THDMWpositivity3
+ */
+class THDMWpositivity3: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity3 constructor.
+     */
+    THDMWpositivity3(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity4
+ */
+class THDMWpositivity4: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity4 constructor.
+     */
+    THDMWpositivity4(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity5
+ */
+class THDMWpositivity5: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity5 constructor.
+     */
+    THDMWpositivity5(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity6
+ */
+class THDMWpositivity6: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity6 constructor.
+     */
+    THDMWpositivity6(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity7
+ */
+class THDMWpositivity7: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity7 constructor.
+     */
+    THDMWpositivity7(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
 #endif	/* THDMWPOSITIVITY_H */
