@@ -223,4 +223,46 @@ public:
     const GeorgiMachacek& myGM;
 };
 
+/**
+ * @class rh_gaga_GM
+ * @ingroup GeorgiMachacek 
+ * @brief The ratio of the GM partial Higgs decay width to two photons and the corresponding SM decay width.
+ */
+class rh_gaga_GM: public ThObservable {
+public:
+
+    /**
+     * @brief rh_gaga_GM constructor.
+     */
+    rh_gaga_GM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$r^{(h)}_{\gamma\gamma}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
+/**
+ * @class rh_Zga_GM
+ * @ingroup GeorgiMachacek 
+ * @brief The ratio of the GM partial Higgs decay width into a $Z$ boson and a photon and the corresponding SM decay width.
+ */
+class rh_Zga_GM: public ThObservable {
+public:
+
+    /**
+     * @brief rh_Zga_GM constructor.
+     */
+    rh_Zga_GM(const StandardModel& SM_i);
+
+    /**
+     * @return @f$r^{(h)}_{Z\gamma}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek& myGM;
+};
+
 #endif	/* GMQUANTITIES_H */

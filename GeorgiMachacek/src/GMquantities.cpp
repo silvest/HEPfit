@@ -128,3 +128,25 @@ double vDeltaGM::computeThValue()
 {
     return myGM.getMyGMCache()->vDelta;
 }
+
+
+
+rh_gaga_GM::rh_gaga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double rh_gaga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->rh_gaga;
+}
+
+
+
+rh_Zga_GM::rh_Zga_GM(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double rh_Zga_GM::computeThValue()
+{
+    return myGM.getMyGMCache()->rh_Zga;
+}
