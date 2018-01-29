@@ -748,7 +748,7 @@ double StandardModel::Als(double mu, orders order, bool qed_flag, bool Nf_thr) c
 
 double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders order, bool qed_flag) const
 {
-    double nf = Nf(mu), alei = Ale(mu_i, NLO); // CHANGE ME!
+    double nf = Nf(mu), alei = Ale(mu_i, FULLNLO); // CHANGE ME!
     double b00s = Beta_s(00, nf), b00e = Beta_e(00, nf);
     double v = 1. + b00s * alsi / 2. / M_PI * log(mu / mu_i);
     double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
@@ -865,7 +865,7 @@ double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders or
 {
     if (fabs(mu - mu_i) < MEPS) return(alei);
 
-    double nf = Nf(mu), alsi = Als(mu_i, NNLO, true);
+    double nf = Nf(mu), alsi = Als(mu_i, FULLNNNLO, true);
     double b00e = Beta_e(00, nf), b00s = Beta_s(00, nf);
     double ve = 1. - b00e * alei / 2. / M_PI * log(mu / mu_i);
     double logv = log(1. + b00s * alsi / 2. / M_PI * log(mu / mu_i)), logve = log(ve);
@@ -952,6 +952,7 @@ double StandardModel::DeltaAlpha() const
 double StandardModel::alphaMz() const
 {
     return (ale / (1.0 - DeltaAlpha()));
+//    return(1./127.918);
 }
 
 double StandardModel::Alstilde5(const double mu) const
@@ -1064,6 +1065,7 @@ double StandardModel::Mw() const
         }
     }
 
+//    Mw = 80.426;
     Mw_cache = Mw;
     useMw_cache = true;
     return Mw;

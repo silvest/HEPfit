@@ -47,6 +47,14 @@ int main(void) {
     ComputeObservables CO(ModelF, ThObsF, ModelConf);
     StandardModel& mySM = *CO.getModel();
 
+    double myMW = mySM.Mw();
+    std::cout <<  myMW <<  std::endl;
+    std::cout << mySM.sW2() <<  std::endl;
+    std::cout << 1./mySM.alphaMz() <<  std::endl;
+    std::cout << mySM.Als(5.,FULLNNNLO) <<  std::endl;
+    std::cout << mySM.Ale(5.,FULLNLO) <<  std::endl;
+    
+
     HeffDF1 Heff("CPMLQB", mySM, NNLO, NLO_QED22);
 //    HeffDB1 HDB1(mySM);
 //    CO.AddObservable("Rlow_BXsee");
@@ -61,7 +69,7 @@ int main(void) {
     std::cout << "%SUITE_STARTED% *****" << std::endl;
     gslpp::vector<gslpp::complex> ** allcoeff;
 
-    gslpp::matrix<gslpp::complex> myVCKM(mySM.getVCKM());
+//    gslpp::matrix<gslpp::complex> myVCKM(mySM.getVCKM());
 //    double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw() ) );
 ////    double sw = sqrt(mySM.sW2());
 //    double as5 =  mySM.Alstilde5(5.);
@@ -72,9 +80,34 @@ int main(void) {
       allcoeff = Heff.ComputeCoeff(5.);
       
 //    allcoeff1 = HDB1.ComputeCoeffsgamma(5.);
-//
-      std::cout << "LO:" << std::endl;
+      std::cout << Heff.getEvol().DF1Evol(5., 120., LO_QED, NDR) << std::endl; 
+      std::cout << "00:" << std::endl;
       std::cout << Heff.LowScaleCoeff(00) <<  std::endl;
+      std::cout << "10:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(10) <<  std::endl;
+      std::cout << "20:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(20) <<  std::endl;
+
+
+     
+      std::cout << "01:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(01) <<  std::endl;
+
+      std::cout << "11:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(11) <<  std::endl;
+
+      std::cout << "02:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(02) <<  std::endl;
+
+      std::cout << "12:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(12) <<  std::endl;
+
+      std::cout << "21:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(21) <<  std::endl;
+
+      std::cout << "22:" << std::endl;
+      std::cout << Heff.LowScaleCoeff(22) <<  std::endl;
+
 //    std::cout << (*(allcoeff[LO])) - *(allcoeff1[LO]) <<  std::endl;
 //   
 //    std::cout << "NLO:" << std::endl;

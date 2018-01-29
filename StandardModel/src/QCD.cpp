@@ -455,12 +455,12 @@ double QCD::Beta0(const double nf) const
 
 double QCD::Beta1(const double nf) const
 {
-    return ( 34./3. * CA * CA - 20./3. * CA * TF * nf - 4. * CF * TF * nf);
+    return ( 34./3. * CA * CA - ( 20./3. * CA + 4. * CF )* TF * nf);
 }
 
 double QCD::Beta2(const double nf) const
 {
-    return ( 2857./54. * CA * CA * CA - (1415./27. * CA * CA + 205./27. * CF * CA -
+    return ( 2857./54. * CA * CA * CA - (1415./27. * CA * CA + 205./9. * CF * CA -
             2. * CF * CF) * TF * nf +
             (158./27. * CA  + 44./9. * CF ) * TF * TF * nf * nf );
 }
