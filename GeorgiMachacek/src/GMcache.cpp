@@ -9,7 +9,7 @@
 #include "GMcache.h"
 
 GMcache::GMcache(const StandardModel& SM_i)
-        : unitarityeigenvalues(4, 0.), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+        : unitarityeigenvalues(17, 0.), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
 {
 //    myRunnerGM=new RunnerGM(SM_i);
 }
@@ -680,17 +680,32 @@ void GMcache::computeUnitarity()
 //    *******   LO part   *************
 //    */
 
-    unitarityeigenvalues.assign(0, (fabs(6.0*lambda1+11.0*lambda2+7.0*lambda3)+sqrt((6.0*lambda1-11.0*lambda2-7.0*lambda3)*(6.0*lambda1-11.0*lambda2-7.0*lambda3)+36.0*lambda4*lambda4))/(4.0*pi));
-    unitarityeigenvalues.assign(1, fabs(lambda4-lambda5)/(2.0*pi));
-    unitarityeigenvalues.assign(2, fabs(lambda2+2.0*lambda3)/pi);
-    unitarityeigenvalues.assign(3, (fabs(2.0*lambda1+2.0*lambda2-lambda3)+sqrt((2.0*lambda1-2.0*lambda2+lambda3)*(2.0*lambda1-2.0*lambda2+lambda3)+lambda5*lambda5))/(4.0*pi));
+    // Taken from 0712.4053v2, eq. (3.96) to (3.107)
+    // (all unitarityeigenvalues should be smaller than 0.5 in magnitude)
+    // Note that when going from their convention to ours, one has to swap lambda3 and lambda4.
+    unitarityeigenvalues.assign(0, (6.0*lambda1+11.0*lambda2+7.0*lambda3+sqrt((6.0*lambda1-11.0*lambda2-7.0*lambda3)*(6.0*lambda1-11.0*lambda2-7.0*lambda3)+36.0*lambda4*lambda4))/(8.0*pi));
+    unitarityeigenvalues.assign(1, (6.0*lambda1+11.0*lambda2+7.0*lambda3-sqrt((6.0*lambda1-11.0*lambda2-7.0*lambda3)*(6.0*lambda1-11.0*lambda2-7.0*lambda3)+36.0*lambda4*lambda4))/(8.0*pi));
+    unitarityeigenvalues.assign(2, (2.0*lambda1+2.0*lambda2-lambda3+sqrt((2.0*lambda1-2.0*lambda2+lambda3)*(2.0*lambda1-2.0*lambda2+lambda3)+lambda5*lambda5))/(8.0*pi));
+    unitarityeigenvalues.assign(3, (2.0*lambda1+2.0*lambda2-lambda3-sqrt((2.0*lambda1-2.0*lambda2+lambda3)*(2.0*lambda1-2.0*lambda2+lambda3)+lambda5*lambda5))/(8.0*pi));
+    unitarityeigenvalues.assign(4, (2.0*lambda1+2.0*lambda2+sqrt((2.0*lambda1-2.0*lambda2)*(2.0*lambda1-2.0*lambda2)+lambda5*lambda5))/(8.0*pi));
+    unitarityeigenvalues.assign(5, (2.0*lambda1+2.0*lambda2-sqrt((2.0*lambda1-2.0*lambda2)*(2.0*lambda1-2.0*lambda2)+lambda5*lambda5))/(8.0*pi));
+    unitarityeigenvalues.assign(6, (4.0*lambda1+2.0*lambda2-lambda3+sqrt((4.0*lambda1-2.0*lambda2+lambda3)*(4.0*lambda1-2.0*lambda2+lambda3)+2.0*lambda5*lambda5))/(8.0*pi));
+    unitarityeigenvalues.assign(7, (4.0*lambda1+2.0*lambda2-lambda3-sqrt((4.0*lambda1-2.0*lambda2+lambda3)*(4.0*lambda1-2.0*lambda2+lambda3)+2.0*lambda5*lambda5))/(8.0*pi));
+    unitarityeigenvalues.assign(8, (6.0*lambda2+7.0*lambda3+sqrt(4.0*lambda2*lambda2+4.0*lambda2*lambda3+17.0*lambda3*lambda3))/(8.0*pi));
+    unitarityeigenvalues.assign(9, (6.0*lambda2+7.0*lambda3-sqrt(4.0*lambda2*lambda2+4.0*lambda2*lambda3+17.0*lambda3*lambda3))/(8.0*pi));
+    unitarityeigenvalues.assign(10, (lambda2+2.0*lambda3)/(2.0*pi));
+    unitarityeigenvalues.assign(11, (2.0*lambda2+lambda3)/(4.0*pi));
+    unitarityeigenvalues.assign(12, (4.0*lambda4+lambda5)/(16.0*pi));
+    unitarityeigenvalues.assign(13, (2.0*lambda4-lambda5)/(8.0*pi));
+    unitarityeigenvalues.assign(14, (lambda4+lambda5)/(4.0*pi));
+    unitarityeigenvalues.assign(15, (2.0*lambda2+(2.0*sqrt(2.0))*lambda3)/(4.0*pi));
+    unitarityeigenvalues.assign(16, (2.0*lambda2+(2.0*sqrt(2.0))*lambda3)/(4.0*pi));
 
-//    
-//    
-//    /*
-//    *******   NLO part   *************
-//    */
-//
+    /*
+    *******   NLO part   *************
+    */
+
+    // beta functions taken from 
 //    double blambda1=(12.0*lambda1*lambda1 + 4.0*lambda3*lambda3 + 4.0*lambda3*lambda4 + 4.0*lambda4*lambda4 
 //                     + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 8.0*nu2*nu2)/(16.0*pi*pi);
 //    double blambda2=(12.0*lambda2*lambda2 + 4.0*lambda3*lambda3 + 4.0*lambda3*lambda4 + 4.0*lambda4*lambda4
@@ -826,12 +841,11 @@ double GMcache::updateCache()
         mHlsq=mH1sq;
         mHhsq=mHl2;
     }
-    double cos2a=cosa*cosa-sina*sina;
-    double cos2b=cosb*cosb-sinb*sinb;
 
-    lambda1 = (mHlsq+mHhsq+(mHlsq-mHhsq)*cos2a)/(16.0*vev*vev*sinb*sinb);
-    lambda2 = (-M1sq+M2sq+mAsq-2.0/3.0*mH5sq+(M1sq-mAsq)*cos2b
-               +(mHlsq+mHhsq+(mHhsq-mHlsq)*cos2a)/3.0)/(2.0*vev*vev*cosb*cosb);
+    double cos2b=cosb*cosb-sinb*sinb;
+    lambda1 = (mHlsq*cosa*cosa+mHhsq*sina*sina)/(8.0*vev*vev*sinb*sinb);
+    lambda2 = (M2sq+2.0*(mAsq-M1sq)*sinb*sinb
+               +2.0/3.0*(mHlsq*sina*sina+mHhsq*cosa*cosa-mH5sq))/(2.0*vev*vev*cosb*cosb);
     lambda3 = (mH5sq-M2sq+(2.0*M1sq-3.0*mAsq)*sinb*sinb)/(vev*vev*cosb*cosb);
     lambda4 = (mAsq-0.5*M1sq+(mHhsq-mHlsq)*sina*cosa/(sqrt(6.0)*sinb*cosb))/(vev*vev);
     lambda5 = 2.0*(M1sq-mAsq)/(vev*vev);

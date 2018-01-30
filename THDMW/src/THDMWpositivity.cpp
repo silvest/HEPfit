@@ -81,7 +81,6 @@ double THDMWpositivity4::computeThValue()
     double mu1=myTHDMW.getTHDMW_mu1();
     double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
-    double mu4=myTHDMW.getTHDMW_mu4();
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
 
@@ -99,7 +98,6 @@ double THDMWpositivity5::computeThValue()
     double mu1=myTHDMW.getTHDMW_mu1();
     double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
-    double mu4=myTHDMW.getTHDMW_mu4();
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
 

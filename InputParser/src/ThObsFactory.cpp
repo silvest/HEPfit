@@ -1333,6 +1333,19 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GMunitarity2"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 1);
     obsThFactory["GMunitarity3"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 2);
     obsThFactory["GMunitarity4"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 3);
+    obsThFactory["GMunitarity5"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 4);
+    obsThFactory["GMunitarity6"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 5);
+    obsThFactory["GMunitarity7"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 6);
+    obsThFactory["GMunitarity8"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 7);
+    obsThFactory["GMunitarity9"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 8);
+    obsThFactory["GMunitarity10"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 9);
+    obsThFactory["GMunitarity11"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 10);
+    obsThFactory["GMunitarity12"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 11);
+    obsThFactory["GMunitarity13"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 12);
+    obsThFactory["GMunitarity14"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 13);
+    obsThFactory["GMunitarity15"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 14);
+    obsThFactory["GMunitarity16"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 15);
+    obsThFactory["GMunitarity17"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 16);
     //-----  Positivity constraints  -----
     obsThFactory["GMpositivity1"] = boost::factory<GMpositivity1*>();
     obsThFactory["GMpositivity2"] = boost::factory<GMpositivity2*>();
