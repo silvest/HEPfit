@@ -11,7 +11,7 @@
 #include "QCD.h"
 #include "EvolDF1.h"
 
-#define EPS 1.e-10
+#define EPS 1.e-15
 
 std::map<std::string, uint> blocks_nops = {
         {"C", 2},
@@ -19,6 +19,7 @@ std::map<std::string, uint> blocks_nops = {
         {"CPM", 8},
         {"L", 2},
         {"CPL", 8},
+        {"CPQ", 10},
         {"CPML", 10},
         {"CPQB", 11},
         {"CPMQB", 13},
@@ -33,15 +34,15 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
         vij(blocks_nops.at(reqblocks), 0.), eval(blocks_nops.at(reqblocks), 0.), evecc(blocks_nops.at(reqblocks), 0.),
         evalc(blocks_nops.at(reqblocks), 0.)
 {
-    blocks_ord = {
-        {"C", NNLO},
-        {"CP", NNLO},
-        {"CPM", NNLO},
-        {"L", NNLO},
-        {"CPML", NNLO},
-        {"CPQB", NLO},
-        {"CPMQB", NLO},
-        {"CPMLQB", NLO}};
+//    blocks_ord = {
+//        {"C", NNLO},
+//        {"CP", NNLO},
+//        {"CPM", NNLO},
+//        {"L", NNLO},
+//        {"CPML", NNLO},
+//        {"CPQB", NLO},
+//        {"CPMQB", NLO},
+//        {"CPMLQB", NLO}};
     
 //   if (blocks_nops[blocks] != nops)
 //        throw std::runtime_error("EvolDF1(): number of operators does not match block specification");
@@ -81,7 +82,7 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
         W20 = AnomalousDimension(20, nu, nd).transpose() / 4. / b0 / b0;
         W30 = AnomalousDimension(30, nu, nd).transpose() / 8. / b0 / b0 / b0;
 
-//        std::cout << AnomalousDimension(10, nu, nd).transpose() << std::endl;
+//        std::cout << AnomalousDimension(01, nu, nd).transpose() << std::endl;
 //        std::cout << W10 << std::endl;
 
         // Misiak-Munz basis, defined as in T. Huber et al., hep-ph/0512066
@@ -207,7 +208,7 @@ double EvolDF1::f_f(uint nnf, uint i, uint j, int k, double eta)
     if(fabs(den) < EPS) 
         ret=pow(eta, ai[nnf].at(i))*log(eta);
     else
-        ret=(pow(eta, ai[nnf].at(j) + k ) - pow(eta, ai[nnf].at(i)))/den;
+        ret=(pow(eta, ai[nnf].at(j) + k ) - pow(eta, ai[nnf].at(i))) / den;
     
     model.CacheShift(f_f_c, 4);
     model.CacheShift(f_f_d, 2);
@@ -539,7 +540,7 @@ gslpp::matrix<double> EvolDF1::GammaPP(indices nm, uint n_u, uint n_d) const
             gammaDF1(0,1) = -29129./81. - nf*52./9.;    // -31469./81.
             gammaDF1(0,2) = 400./81.;
             gammaDF1(0,3) = 3493./108. - nf*2./9.;      // 3373./108.
-            gammaDF1(1,0) = -13678./243. + nf*368./81;  // -8158./243. 
+            gammaDF1(1,0) = -13678./243. + nf*368./81.;  // -8158./243. 
             gammaDF1(1,1) = -79409./243. + nf*1334./81.;// -59399./243.
             gammaDF1(1,2) = 509./486. - nf*8./81.;      // 269./486.
             gammaDF1(1,3) = 13499./648. - nf*5./27.;    // 12899./648.
@@ -1039,7 +1040,7 @@ gslpp::matrix<double> EvolDF1::GammaQQ(indices nm, uint n_u, uint n_d) const
             gammaDF1(2,1) = -128.;
             gammaDF1(2,3) = 20.;
             gammaDF1(3,0) = -256./9.;
-            gammaDF1(3,1) = 160./3.;
+            gammaDF1(3,1) = -160./3.;
             gammaDF1(3,2) = 40./9.;
             gammaDF1(3,3) = -2./3.;        
             break;
@@ -1261,6 +1262,15 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
         gammaDF1.assign(0, 6, GammaCM(nm, n_u, n_d));
         gammaDF1.assign(2, 6, GammaPM(nm, n_u, n_d));   
         gammaDF1.assign(6, 6, GammaMM(nm, n_u, n_d));           
+    }
+    else if(blocks.compare("CPQ") == 0)
+    {
+        gammaDF1.assign(0, 0, GammaCC(nm, n_u, n_d));
+        gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
+        gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));   
+        gammaDF1.assign(0, 6, GammaCQ(nm, n_u, n_d));
+        gammaDF1.assign(2, 6, GammaPQ(nm, n_u, n_d));   
+        gammaDF1.assign(6, 6, GammaQQ(nm, n_u, n_d));           
     }
     else if(blocks.compare("L") == 0)
     {

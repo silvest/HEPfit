@@ -53,9 +53,10 @@ int main(void) {
     std::cout << 1./mySM.alphaMz() <<  std::endl;
     std::cout << mySM.Als(5.,FULLNNNLO) <<  std::endl;
     std::cout << mySM.Ale(5.,FULLNLO) <<  std::endl;
-    
+    std::cout << mySM.Als(120.,FULLNNNLO) <<  std::endl;    
+    std::cout << mySM.Ale(120.,FULLNLO) <<  std::endl;    
 
-    HeffDF1 Heff("CPMLQB", mySM, NNLO, NLO_QED22);
+    HeffDF1 Heff("CPQ", mySM, NNLO, NLO_QED22);
 //    HeffDB1 HDB1(mySM);
 //    CO.AddObservable("Rlow_BXsee");
 //    /* Get the map of observables if necessary. */
@@ -80,7 +81,7 @@ int main(void) {
       allcoeff = Heff.ComputeCoeff(5.);
       
 //    allcoeff1 = HDB1.ComputeCoeffsgamma(5.);
-      std::cout << Heff.getEvol().DF1Evol(5., 120., LO_QED, NDR) << std::endl; 
+//      std::cout << Heff.getEvol().DF1Evol(5., 120., LO, NDR)+Heff.getEvol().DF1Evol(5., 120., LO_QED, NDR) << std::endl; 
       std::cout << "00:" << std::endl;
       std::cout << Heff.LowScaleCoeff(00) <<  std::endl;
       std::cout << "10:" << std::endl;
