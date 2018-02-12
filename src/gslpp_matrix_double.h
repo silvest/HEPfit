@@ -92,15 +92,16 @@ namespace gslpp
       /** Unary minus (matrix) */
       matrix<double> operator-() const;
       /** Addition operator (matrix) */
-      matrix<double> operator+(const matrix<double>& m);
+      matrix<double> operator+(const matrix<double>& m) const;
       /** Subtraction operator (matrix) */
-      matrix<double> operator-(const matrix<double>& m);
+      matrix<double> operator-(const matrix<double>& m) const;
       /** Product (matrix) */
-      matrix<double> operator*(const matrix<double>& m);
+      matrix<double> operator*(const matrix<double>& m) const;
+      matrix<complex> operator*(const matrix<complex>& m) const;
       /** Multiplication (vector double) */
-      vector<double> operator*(const vector<double>& v);
+      vector<double> operator*(const vector<double>& v) const;
       /** Multiplication (vector complex) */
-      vector<complex> operator*(const vector<complex>& v);
+      vector<complex> operator*(const vector<complex>& v) const;
       /** Addition assignment (matrix) */
       matrix<double>& operator+=(const matrix<double>& m);
       /** Subtraction assignment (matrix) */
@@ -108,13 +109,13 @@ namespace gslpp
       /** Multiplication assignment (matrix) */
       matrix<double>& operator*=(const matrix<double>& m);
       /** Addition operator (double) */
-      matrix<double> operator+(const double& a);
+      matrix<double> operator+(const double& a) const;
       /** Subtraction assignment (double) */
-      matrix<double> operator-(const double& a);
+      matrix<double> operator-(const double& a) const;
       /** Multiplication operator (double) */
-      matrix<double> operator*(const double& a);
+      matrix<double> operator*(const double& a) const;
       /** Division operator (double) */
-      matrix<double> operator/(const double& a);
+      matrix<double> operator/(const double& a) const;
       /** Addition assignment (double) */
       matrix<double>& operator+=(const double& a);
       /** Subtraction assignment (double) */
@@ -124,13 +125,13 @@ namespace gslpp
       /** Division assignment (double) */
       matrix<double>& operator/=(const double& a);
       /** Addition operator (complex) */
-      matrix<complex> operator+(const complex& z);
+      matrix<complex> operator+(const complex& z) const;
       /** Subtraction assignment (complex) */
-      matrix<complex> operator-(const complex& z);
+      matrix<complex> operator-(const complex& z) const;
       /** Multiplication operator (complex) */
-      matrix<complex> operator*(const complex& z);
+      matrix<complex> operator*(const complex& z) const;
       /** Division operator (complex) */
-      matrix<complex> operator/(const complex& z);
+      matrix<complex> operator/(const complex& z) const;
       /** friend functions */
       friend std::ostream& operator<<(std::ostream& output, const matrix<double>& m);
       /** @{

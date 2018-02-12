@@ -500,7 +500,7 @@ namespace gslpp
   matrix<complex> matrix<complex>::operator+(const complex& z) const
   {
     matrix<complex> m1(_matrix);
-    if (gsl_matrix_complex_add_constant(_matrix, z.as_gsl_type()))
+    if (gsl_matrix_complex_add_constant(m1.as_gsl_type_ptr(), z.as_gsl_type()))
     {
       std::cout << "\n ** Error in matrix<complex> + (complex)" << std::endl;
       exit(EXIT_FAILURE);
@@ -512,7 +512,7 @@ namespace gslpp
   matrix<complex> matrix<complex>::operator-(const complex& z) const
   {
     matrix<complex> m1(_matrix);
-    if (gsl_matrix_complex_add_constant(_matrix, (-z).as_gsl_type()))
+    if (gsl_matrix_complex_add_constant(m1.as_gsl_type_ptr(), (-z).as_gsl_type()))
     {
       std::cout << "\n ** Error in matrix<complex> - (complex)" << std::endl;
       exit(EXIT_FAILURE);

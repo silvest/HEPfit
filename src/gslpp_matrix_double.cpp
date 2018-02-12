@@ -270,7 +270,7 @@ namespace gslpp
     return m1;
   }
   /** Addition operator (matrix) */
-  matrix<double> matrix<double>::operator+(const matrix<double>& m)
+  matrix<double> matrix<double>::operator+(const matrix<double>& m) const
   {
     matrix<double> m1(_matrix);
     if (gsl_matrix_add(m1.as_gsl_type_ptr(), m.as_gsl_type_ptr()))
@@ -281,7 +281,7 @@ namespace gslpp
     return m1;
   }
   /** Subtraction operator (matrix) */
-  matrix<double> matrix<double>::operator-(const matrix<double>& m)
+  matrix<double> matrix<double>::operator-(const matrix<double>& m) const
   {
     matrix<double> m1(_matrix);
     if (gsl_matrix_sub(m1.as_gsl_type_ptr(), m.as_gsl_type_ptr()))
@@ -292,7 +292,7 @@ namespace gslpp
     return m1;
   }
   /** Multiplication operator (matrix) */
-  matrix<double> matrix<double>::operator*(const matrix<double>& m)
+  matrix<double> matrix<double>::operator*(const matrix<double>& m) const
   {
     unsigned int i,j,k;
     matrix<double> m1(size_i(),m.size_i(),0.);
@@ -310,9 +310,13 @@ namespace gslpp
 
     return m1;
   }
-
+ matrix<complex> matrix<double>::operator*(const matrix<complex>& m) const
+  {
+    matrix<complex> m1(*this);
+    return m1 * m;
+  }
   /** Multiplication assignment (vector double) */
-  vector<double> matrix<double>::operator*(const vector<double>& v)
+  vector<double> matrix<double>::operator*(const vector<double>& v) const
   {
     vector<double> v1(size_i(),0.);
 
@@ -333,7 +337,7 @@ namespace gslpp
   }
 
   /** Multiplication assignment (vector complex) */
-  vector<complex> matrix<double>::operator*(const vector<complex>& v)
+  vector<complex> matrix<double>::operator*(const vector<complex>& v) const
   {
     matrix<complex> m1(*this);
     return m1 * v;
@@ -365,7 +369,7 @@ namespace gslpp
   }
 
   /** Addition operator (double) */
-  matrix<double> matrix<double>::operator+(const double& a)
+  matrix<double> matrix<double>::operator+(const double& a) const
   {
     matrix<double> m1(_matrix);
     if (gsl_matrix_add_constant(m1.as_gsl_type_ptr(), a))
@@ -376,7 +380,7 @@ namespace gslpp
     return m1;
   }
   /** Subtraction operator (double) */
-  matrix<double> matrix<double>::operator-(const double& a)
+  matrix<double> matrix<double>::operator-(const double& a) const
   {
     matrix<double> m1(_matrix);
     if (gsl_matrix_add_constant(m1.as_gsl_type_ptr(), -a))
@@ -387,7 +391,7 @@ namespace gslpp
     return m1;
   }
   /** Multiplication operator (double) */
-  matrix<double> matrix<double>::operator*(const double& a)
+  matrix<double> matrix<double>::operator*(const double& a) const
   {
     matrix<double> m1(_matrix);
     if (gsl_matrix_scale(m1.as_gsl_type_ptr(), a))
@@ -398,7 +402,7 @@ namespace gslpp
     return m1;
   }
   /** Division operator (double) */
-  matrix<double> matrix<double>::operator/(const double& a)
+  matrix<double> matrix<double>::operator/(const double& a) const
   {
     matrix<double> m1(_matrix);
     if (gsl_matrix_scale(m1.as_gsl_type_ptr(), 1./a))
@@ -433,25 +437,25 @@ namespace gslpp
     return *this;
   }
   /** Addition operator (complex) */
-  matrix<complex> matrix<double>::operator+(const complex& z)
+  matrix<complex> matrix<double>::operator+(const complex& z) const
   {
     matrix<complex> v1(*this);
     return v1+z;
   }
   /** Subtraction operator (complex) */
-  matrix<complex> matrix<double>::operator-(const complex& z)
+  matrix<complex> matrix<double>::operator-(const complex& z) const
   {
     matrix<complex> v1(*this);
     return v1-z;
   }
   /** Multiplication operator (complex) */
-  matrix<complex> matrix<double>::operator*(const complex& z)
+  matrix<complex> matrix<double>::operator*(const complex& z) const
   {
     matrix<complex> v1(*this);
     return v1*z;
   }
   /** Division operator (complex) */
-  matrix<complex> matrix<double>::operator/(const complex& z)
+  matrix<complex> matrix<double>::operator/(const complex& z) const
   {
     matrix<complex> v1(*this);
     return v1/z;
