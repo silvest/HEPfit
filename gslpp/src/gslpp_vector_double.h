@@ -65,11 +65,13 @@ namespace gslpp
       /** Unary minus (vector) */
       vector<double> operator-() const;
       /** Addition operator (vector) */
-      vector<double> operator+(const vector<double>& v);
+      vector<double> operator+(const vector<double>& v) const;
+      vector<complex> operator+(const vector<complex>& v) const;
       /** Subtraction operator (vector) */
-      vector<double> operator-(const vector<double>& v);
+      vector<double> operator-(const vector<double>& v) const;
+      vector<complex> operator-(const vector<complex>& v) const;
       /** Scalar product operator (vector) */
-      double operator*(const vector<double>& v);
+      double operator*(const vector<double>& v) const;
       /** Vector product operator */
 //       vector<double> operator^(const vector<double>& v);
       /** Addition assignment (vector) */
@@ -77,13 +79,13 @@ namespace gslpp
       /** Subtraction assignment (vector) */
       vector<double>& operator-=(const vector<double>& v);
       /** Addition operator (double) */
-      vector<double> operator+(const double& a);
+      vector<double> operator+(const double& a) const;
       /** Subtraction assignment (double) */
-      vector<double> operator-(const double& a);
+      vector<double> operator-(const double& a) const;
       /** Multiplication operator (double) */
-      vector<double> operator*(const double& a);
+      vector<double> operator*(const double& a) const;
       /** Division operator (double) */
-      vector<double> operator/(const double& a);
+      vector<double> operator/(const double& a) const;
       /** Addition assignment (double) */
       vector<double>& operator+=(const double& a);
       /** Subtraction assignment (double) */
@@ -93,13 +95,13 @@ namespace gslpp
       /** Division assignment (double) */
       vector<double>& operator/=(const double& a);
       /** Addition operator (complex) */
-      vector<complex> operator+(const complex& z);
+      vector<complex> operator+(const complex& z) const;
       /** Subtraction assignment (complex) */
-      vector<complex> operator-(const complex& z);
+      vector<complex> operator-(const complex& z) const;
       /** Multiplication operator (complex) */
-      vector<complex> operator*(const complex& z);
+      vector<complex> operator*(const complex& z) const;
       /** Division operator (complex) */
-      vector<complex> operator/(const complex& z);
+      vector<complex> operator/(const complex& z) const;
 
       /** friend functions */
       friend std::ostream& operator<<(std::ostream& output, const vector<double>& v);

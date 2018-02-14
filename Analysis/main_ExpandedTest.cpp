@@ -35,11 +35,6 @@ int main(void) {
    vc1.assign(0,4.-2.*zi);vc1.assign(1,6.-8.*zi);
    vc2.assign(0,5.+3.*zi);vc2.assign(1,4.-12.*zi);
 
-   double qq=5.;
-
-    std::cout << isType<gslpp::complex>(zi) << std::endl;
-    std::cout << isType<gslpp::complex>(qq) << std::endl;
-
    Expanded<double> esd(sd);
    Expanded<gslpp::complex> esc(sc);
    std::vector<gslpp::matrix<double> > mdv={md1,md2};
@@ -55,115 +50,142 @@ int main(void) {
    std::cout << std::endl;
    std::cout << "esd " << esd << std::endl;
    std::cout << "esc " << esc << std::endl;
+   std::cout << "evd " << evd << std::endl;
+   std::cout << "evc " << evc << std::endl;
    std::cout << "emd " << emd << std::endl;
    std::cout << "emc " << emc << std::endl;
    std::cout << "--------------"<< std::endl;
 
-   Expanded<double> sdsd = esd*esd;
-   Expanded<gslpp::complex> sdsc = esd*esc;
-   Expanded<gslpp::complex> scsd = esc*esd;   
-   Expanded<gslpp::complex> scsc = esc*esc;
-   Expanded<gslpp::matrix<double> > sdmd = esd*emd;
-   Expanded<gslpp::matrix<double> > mdsd = emd*esd;
-   Expanded<gslpp::matrix<double> > mdmd = emd*emd;
-   Expanded<gslpp::matrix<gslpp::complex> > scmd = esc*emd;
-   Expanded<gslpp::matrix<gslpp::complex> > mdsc = emd*esc;
-   Expanded<gslpp::matrix<gslpp::complex> > scmc = esc*emc;
-   Expanded<gslpp::matrix<gslpp::complex> > mcsc = emc*esc;
-   Expanded<gslpp::matrix<gslpp::complex> > sdmc = esd*emc;
-   Expanded<gslpp::matrix<gslpp::complex> > mcsd = emc*esd;
-   Expanded<gslpp::matrix<gslpp::complex> > mdmc = emd*emc;
-   Expanded<gslpp::matrix<gslpp::complex> > mcmd = emc*emd;
-   Expanded<gslpp::matrix<gslpp::complex> > mcmc = emc*emc;
 
 
 // Print Output
    
-   std::cout << "sdsd " << sdsd << std::endl;
-   std::cout << "sdsc " << sdsc << std::endl;
-   std::cout << "scsd " << scsd << std::endl;
-   std::cout << "scsc " << scsc << std::endl;
-   std::cout << "sdmd " << sdmd << std::endl;
-   std::cout << "mdsd " << mdsd << std::endl;
-   std::cout << "mdmd " << mdmd << std::endl;
-   std::cout << "scmd " << scmd << std::endl;
-   std::cout << "mdsc " << mdsc << std::endl;
-   std::cout << "scmc " << scmc << std::endl;
-   std::cout << "mcsc " << mcsc << std::endl;
-   std::cout << "sdmc " << sdmc << std::endl;
-   std::cout << "mcsd " << mcsd << std::endl;
-   std::cout << "mdmc " << mdmc << std::endl;
-   std::cout << "mcmd " << mcmd << std::endl;
-   std::cout << "mcmc " << mcmc << std::endl;
 
   // Zero
-  std::cout << "--------- zeri ----------" << std::endl;
-  std::cout << sdsc - scsd << std::endl;
-  std::cout << sdmd - mdsd << std::endl;
-  std::cout << scmd - mdsc << std::endl;
-  std::cout << scmc - mcsc << std::endl;
-  std::cout << sdmc - mcsd << std::endl;
-  std::cout << "-------------------" << std::endl;
+//  std::cout << "--------- zeri ----------" << std::endl;
+//  std::cout << sdsc - scsd << std::endl;
+//  std::cout << sdmd - mdsd << std::endl;
+//  std::cout << scmd - mdsc << std::endl;
+//  std::cout << scmc - mcsc << std::endl;
+//  std::cout << sdmc - mcsd << std::endl;
+//  std::cout << "-------------------" << std::endl;
 
 //
+std::cout << "sd*sd " << esd*esd << std::endl;
+std::cout << "sd*sc " << esd*esc << std::endl;
+std::cout << "sd*vd " << esd*evd << std::endl;
+std::cout << "sd*vc " << esd*evc << std::endl;
+std::cout << "sd*md " << esd*emd << std::endl;
+std::cout << "sd*mc " << esd*emc << std::endl;
 
-  std::cout << "sc - md " << esc - emd << std::endl;
-  std::cout << "md - sc " << emd - esc << std::endl;
+std::cout << "sc*sd " << esc*esd << std::endl;
+std::cout << "sc*sc " << esc*esc << std::endl;
+std::cout << "sc*vd " << esc*evd << std::endl;
+std::cout << "sc*vc " << esc*evc << std::endl;
+std::cout << "sc*md " << esc*emd << std::endl;
+std::cout << "sc*mc " << esc*emc << std::endl;
+
+std::cout << "vd*sd " << evd*esd << std::endl;
+std::cout << "vd*sc " << evd*esc << std::endl;
+std::cout << "vd*vd " << evd*evd << std::endl;
+std::cout << "vd*vc " << evd*evc << std::endl;
+std::cout << "vd*md " << evd*emd << std::endl;
+std::cout << "vd*mc " << evd*emc << std::endl;
+
+std::cout << "vc*sd " << evc*esd << std::endl;
+std::cout << "vc*sc " << evc*esc << std::endl;
+std::cout << "vc*vd " << evc*evd << std::endl;
+std::cout << "vc*vc " << evc*evc << std::endl;
+std::cout << "vc*md " << evc*emd << std::endl;
+std::cout << "vc*mc " << evc*emc << std::endl;
+
+std::cout << "md*sd " << emd*esd << std::endl;
+std::cout << "md*sc " << emd*esc << std::endl;
+std::cout << "md*vd " << emd*evd << std::endl;
+std::cout << "md*vc " << emd*evc << std::endl;
+std::cout << "md*md " << emd*emd << std::endl;
+std::cout << "md*mc " << emd*emc << std::endl;
+
+std::cout << "mc*sd " << emc*esd << std::endl;
+std::cout << "mc*sc " << emc*esc << std::endl;
+std::cout << "mc*vd " << emc*evd << std::endl;
+std::cout << "mc*vc " << emc*evc << std::endl;
+std::cout << "mc*md " << emc*emd << std::endl;
+std::cout << "mc*mc " << emc*emc << std::endl;
+
+   
+//  std::cout << "sd + sd " << esd + esd << std::endl;
+//  std::cout << "sd + sc " << esd + esc << std::endl;
+//  std::cout << "sc + sd " << esc + esd << std::endl;
+//  std::cout << "sc + sc " << esc + esc << std::endl;
+//  std::cout << "vd + vd " << evd + evd << std::endl;
+//  std::cout << "vd + vc " << evd + evc << std::endl;
+//  std::cout << "vc + vd " << evc + evd << std::endl;
+//  std::cout << "vc + vc " << evc + evc << std::endl;
+//  std::cout << "md + md " << emd + emd << std::endl;
+//  std::cout << "md + mc " << emd + emc << std::endl;
+//  std::cout << "mc + md " << emc + emd << std::endl;
+//  std::cout << "mc + mc " << emc + emc << std::endl;
+//
+//  std::cout << "sd - sd " << esd - esd << std::endl;
+//  std::cout << "sd - sc " << esd - esc << std::endl;
+//  std::cout << "sc - sd " << esc - esd << std::endl;
+//  std::cout << "sc - sc " << esc - esc << std::endl;
+//  std::cout << "vd - vd " << evd - evd << std::endl;
+//  std::cout << "vd - vc " << evd - evc << std::endl;
+//  std::cout << "vc - vd " << evc - evd << std::endl;
+//  std::cout << "vc - vc " << evc - evc << std::endl;
+//  std::cout << "md - md " << emd - emd << std::endl;
+//  std::cout << "md - mc " << emd - emc << std::endl;
+//  std::cout << "mc - md " << emc - emd << std::endl;
+//  std::cout << "mc - mc " << emc - emc << std::endl;
 
   
 //
 
-  std::cout << "esd*5 = " << esd*5. << std::endl;
-  std::cout << "esd*(4-2I) = " << esd*(4.-2.*zi) << std::endl;
-  std::cout << "esd*md1 = " << esd*md1 << std::endl;
-  std::cout << "esd*mc1 = " << esd*mc1 << std::endl;
+//  std::cout << "esd*5 = " << esd*5. << std::endl;
+//  std::cout << "esd*(4-2I) = " << esd*(4.-2.*zi) << std::endl;
+//  std::cout << "esd*md1 = " << esd*md1 << std::endl;
+//  std::cout << "esd*mc1 = " << esd*mc1 << std::endl;
+//
+//
+//  std::cout << "esc*5 = " << esc*5. << std::endl;
+//  std::cout << "esd*(4-2I) = " << esd*(4.-2.*zi) << std::endl;
+//  std::cout << "esc*md1 = " << esc*md1 << std::endl;
+//  std::cout << "esc*mc1 = " << esc*mc1 << std::endl;
+//
+//  std::cout << "emd*5 = " << emd*5. << std::endl;
+//  std::cout << "emd*(4-2I) = " << emd*(4.-2.*zi) << std::endl;
+//  std::cout << "emd*md1 = " << emd*md1 << std::endl;
+//  std::cout << "emd*mc1 = " << emd*mc1 << std::endl;
+//
+//  std::cout << "emc*5 = " << emc*5. << std::endl;
+//  std::cout << "emc*(4-2I) = " << emc*(4.-2.*zi) << std::endl;
+//  std::cout << "emc*md1 = " << emc*md1 << std::endl;
+//  std::cout << "emc*mc1 = " << emc*mc1 << std::endl;
+//  
+//
+//  std::cout << "zero1 = " << 5.*esd - esd*5. << std::endl;
+//  std::cout << "zero1 = " << 5.*esc - esc*5. << std::endl;
+//  std::cout << "zero1 = " << 5.*emd - emd*5. << std::endl;
+//  std::cout << "zero1 =" <<  5.*emc - emc*5. << std::endl;
+//
+//  std::cout << "zero2 = " << (4-2*zi)*esd - esd*(4-2*zi) << std::endl;
+//  std::cout << "zero2 = " << (4-2*zi)*esc - esc*(4-2*zi)<< std::endl;
+//  std::cout << "zero2 = " << (4-2*zi)*emd - emd*(4-2*zi)<< std::endl;
+//  std::cout << "zero2 = " << (4-2*zi)*emc - emc*(4-2*zi)<< std::endl;
+//
+//
+//  std::cout << "zero3 = " << md1*esd - esd*md1 << std::endl;
+//  std::cout << "zero3 = " << md1*esc - esc*md1<< std::endl;
+//  std::cout << "[md1,emd] = " << md1*emd - emd*md1 << std::endl;
+//  std::cout << "[md1,emc] = " << md1*emc - emc*md1<< std::endl;
+//
+//  std::cout << "zero4 = " << mc1*esd - esd*mc1 << std::endl;
+//  std::cout << "zero4 = " << mc1*esc - esc*mc1<< std::endl;
+//  std::cout << "[mc1,emd] = " << mc1*emd - emd*mc1 << std::endl;
+//  std::cout << "[mc1,emc] = " << mc1*emc - emc*mc1<< std::endl;
+//
 
-
-  std::cout << "esc*5 = " << esc*5. << std::endl;
-  std::cout << "esd*(4-2I) = " << esd*(4.-2.*zi) << std::endl;
-  std::cout << "esc*md1 = " << esc*md1 << std::endl;
-  std::cout << "esc*mc1 = " << esc*mc1 << std::endl;
-
-  std::cout << "emd*5 = " << emd*5. << std::endl;
-  std::cout << "emd*(4-2I) = " << emd*(4.-2.*zi) << std::endl;
-  std::cout << "emd*md1 = " << emd*md1 << std::endl;
-  std::cout << "emd*mc1 = " << emd*mc1 << std::endl;
-
-  std::cout << "emc*5 = " << emc*5. << std::endl;
-  std::cout << "emc*(4-2I) = " << emc*(4.-2.*zi) << std::endl;
-  std::cout << "emc*md1 = " << emc*md1 << std::endl;
-  std::cout << "emc*mc1 = " << emc*mc1 << std::endl;
-  
-
-  std::cout << "zero1 = " << 5.*esd - esd*5. << std::endl;
-  std::cout << "zero1 = " << 5.*esc - esc*5. << std::endl;
-  std::cout << "zero1 = " << 5.*emd - emd*5. << std::endl;
-  std::cout << "zero1 =" <<  5.*emc - emc*5. << std::endl;
-
-  std::cout << "zero2 = " << (4-2*zi)*esd - esd*(4-2*zi) << std::endl;
-  std::cout << "zero2 = " << (4-2*zi)*esc - esc*(4-2*zi)<< std::endl;
-  std::cout << "zero2 = " << (4-2*zi)*emd - emd*(4-2*zi)<< std::endl;
-  std::cout << "zero2 = " << (4-2*zi)*emc - emc*(4-2*zi)<< std::endl;
-
-
-  std::cout << "zero3 = " << md1*esd - esd*md1 << std::endl;
-  std::cout << "zero3 = " << md1*esc - esc*md1<< std::endl;
-  std::cout << "[md1,emd] = " << md1*emd - emd*md1 << std::endl;
-  std::cout << "[md1,emc] = " << md1*emc - emc*md1<< std::endl;
-
-  std::cout << "zero4 = " << mc1*esd - esd*mc1 << std::endl;
-  std::cout << "zero4 = " << mc1*esc - esc*mc1<< std::endl;
-  std::cout << "[mc1,emd] = " << mc1*emd - emd*mc1 << std::endl;
-  std::cout << "[mc1,emc] = " << mc1*emc - emc*mc1<< std::endl;
-
-
-  std::cout << "esd*evd = " << esd*evd <<std::endl;
-  std::cout << "esd*evc = " << esd*evc <<std::endl;  
-//  std::cout << "esc*evd = " << esc*evd <<std::endl;
-  std::cout << "esc*evc = " << esc*evc <<std::endl;
-  std::cout << "emd*evd = " << emd*evd <<std::endl;
-  std::cout << "emc*evc = " << emc*evc <<std::endl;
-  std::cout << "emd*evc = " << emd*evc <<std::endl;  
-//  std::cout << "emc*evd = " << emc*evd <<std::endl;    
   return(0);
 }
