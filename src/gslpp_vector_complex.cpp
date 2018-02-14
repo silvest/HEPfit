@@ -171,7 +171,7 @@ namespace gslpp {
     }
 
     /** Addition operator (vector) */
-    vector<complex> vector<complex>::operator+(const vector<complex>& v)
+    vector<complex> vector<complex>::operator+(const vector<complex>& v) const
     {
         vector<complex> v1(_vector);
         gsl_complex z1;
@@ -184,7 +184,7 @@ namespace gslpp {
     }
 
     /** Subtraction operator (vector) */
-    vector<complex> vector<complex>::operator-(const vector<complex>& v)
+    vector<complex> vector<complex>::operator-(const vector<complex>& v) const
     {
         vector<complex> v1(_vector);
         gsl_complex z1;

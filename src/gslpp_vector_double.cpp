@@ -131,7 +131,7 @@ namespace gslpp
   }
 
   /** Addition operator (vector) */
-  vector<double> vector<double>::operator+(const vector<double>& v)
+  vector<double> vector<double>::operator+(const vector<double>& v) const
   {
     vector<double> v1(_vector);
     if (gsl_vector_add(v1.as_gsl_type_ptr(), v.as_gsl_type_ptr()))
@@ -141,8 +141,13 @@ namespace gslpp
       }
     return v1;
   }
+  vector<complex> vector<double>::operator+(const vector<complex>& v) const
+  {
+    vector<complex> v1(_vector);
+    return v1 + v;
+  }
   /** Subtraction operator (vector) */
-  vector<double> vector<double>::operator-(const vector<double>& v)
+  vector<double> vector<double>::operator-(const vector<double>& v) const
   {
     vector<double> v1(_vector);
     if (gsl_vector_sub(v1.as_gsl_type_ptr(), v.as_gsl_type_ptr()))
@@ -152,8 +157,13 @@ namespace gslpp
       }
     return v1;
   }
+  vector<complex> vector<double>::operator-(const vector<complex>& v) const
+  {
+      vector<complex> v1(_vector);
+      return v1-v;
+  }
   /** Scalar product operator (vector) */
-  double vector<double>::operator*(const vector<double>& v)
+  double vector<double>::operator*(const vector<double>& v) const
   {
     double a=0.;
     vector<double> v1(_vector);
@@ -185,7 +195,7 @@ namespace gslpp
   }
 
   /** Addition operator (double) */
-  vector<double> vector<double>::operator+(const double& a)
+  vector<double> vector<double>::operator+(const double& a) const
   {
     vector<double> v1(_vector);
     if (gsl_vector_add_constant(v1.as_gsl_type_ptr(), a))
@@ -196,7 +206,7 @@ namespace gslpp
     return v1;
   }
   /** Subtraction operator (double) */
-  vector<double> vector<double>::operator-(const double& a)
+  vector<double> vector<double>::operator-(const double& a) const
   {
     vector<double> v1(_vector);
     if (gsl_vector_add_constant(v1.as_gsl_type_ptr(), -a))
@@ -207,7 +217,7 @@ namespace gslpp
     return v1;
   }
   /** Multiplication operator (double) */
-  vector<double> vector<double>::operator*(const double& a)
+  vector<double> vector<double>::operator*(const double& a) const
   {
     vector<double> v1(_vector);
     if (gsl_vector_scale(v1.as_gsl_type_ptr(), a))
@@ -218,7 +228,7 @@ namespace gslpp
     return v1;
   }
   /** Division operator (double) */
-  vector<double> vector<double>::operator/(const double& a)
+  vector<double> vector<double>::operator/(const double& a) const
   {
     vector<double> v1(_vector);
     if (gsl_vector_scale(v1.as_gsl_type_ptr(), 1./a))
@@ -243,7 +253,7 @@ namespace gslpp
   /** Multiplication assignment (double) */
   vector<double>& vector<double>::operator*=(const double& a)
   {
-    *this = *this * a;
+    *this = (*this) * a;
     return *this;
   }
   /** Division assignment (double) */
@@ -253,25 +263,25 @@ namespace gslpp
     return *this;
   }
   /** Addition operator (complex) */
-  vector<complex> vector<double>::operator+(const complex& z)
+  vector<complex> vector<double>::operator+(const complex& z) const
   {
     vector<complex> v1(*this);
     return v1+z;
   }
   /** Subtraction operator (complex) */
-  vector<complex> vector<double>::operator-(const complex& z)
+  vector<complex> vector<double>::operator-(const complex& z) const
   {
     vector<complex> v1(*this);
     return v1-z;
   }
   /** Multiplication operator (complex) */
-  vector<complex> vector<double>::operator*(const complex& z)
+  vector<complex> vector<double>::operator*(const complex& z) const
   {
     vector<complex> v1(*this);
     return v1*z;
   }
   /** Division operator (complex) */
-  vector<complex> vector<double>::operator/(const complex& z)
+  vector<complex> vector<double>::operator/(const complex& z) const
   {
     vector<complex> v1(*this);
     return v1/z;

@@ -72,9 +72,9 @@ namespace gslpp
       /** Unary minus */
       vector<complex> operator-() const;
       /** Addition operator */
-      vector<complex> operator+(const vector<complex>& v);
+      vector<complex> operator+(const vector<complex>& v) const;
       /** Subtraction operator */
-      vector<complex> operator-(const vector<complex>& v);
+      vector<complex> operator-(const vector<complex>& v) const;
       /** Scalar product operator */
       complex operator*(const vector<complex>& v);
       /** Vector product operator */
