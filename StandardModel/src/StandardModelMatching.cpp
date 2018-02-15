@@ -105,6 +105,9 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     BtNDR = 5. * (Nc - 1.) / 2. / Nc + 3. * CF;
 }
 
+StandardModelMatching::~StandardModelMatching()
+{}
+
 void StandardModelMatching::updateSMParameters()
 {
     Mut = SM.getMut();

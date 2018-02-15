@@ -49,45 +49,13 @@ void FlavourWilsonCoefficientMatching::updateFlavourWilsonCoefficientParameters(
     StandardModelMatching::updateSMParameters();
 }
 
-std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
-{
-
-    vmcbsg = StandardModelMatching::CMbsg();
-
-    switch (mcbsg.getScheme()) {
-        case NDR:
-
-            break;
-        default:
-            std::stringstream out;
-            out << mcbsg.getScheme();
-            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsg(): scheme " + out.str() + "not implemented"); 
-    }
-
-    mcbsg.setMu(myFlavourWilsonCoefficient.getWCscale());
-
-    switch (mcbsg.getOrder()) {
-        case NNLO:
-            mcbsg.setCoeff(6, 0., NNLO);
-        case NLO:
-            mcbsg.setCoeff(6, 0., NLO);
-        case LO:
-            mcbsg.setCoeff(6, DC7g, LO);
-            break;
-        default:
-            std::stringstream out;
-            out << mcbsg.getOrder();
-            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsg(): order " + out.str() + "not implemented"); 
-    }
-
-    vmcbsg.push_back(mcbsg);
-    return (vmcbsg);
-}
+FlavourWilsonCoefficientMatching::~FlavourWilsonCoefficientMatching()
+{}
 
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
 {
-
-    vmcbsmm = StandardModelMatching::CMbsmm();
+    vmcbsmm.clear();
+    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbsmm().begin(); it != StandardModelMatching::CMbsmm().end(); it++ ) vmcbsmm.push_back(*it);
 
     switch (mcbsmm.getScheme()) {
         case NDR:
@@ -120,8 +88,8 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
 
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
 {
-
-    vmcbdmm = StandardModelMatching::CMbdmm();
+    vmcbdmm.clear();
+    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbdmm().begin(); it != StandardModelMatching::CMbdmm().end(); it++ ) vmcbdmm.push_back(*it);
 
     switch (mcbdmm.getScheme()) {
         case NDR:
@@ -151,11 +119,46 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
     vmcbdmm.push_back(mcbdmm);
     return (vmcbdmm);
 }
+
+std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
+{
+    vmcbsg.clear();
+    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMbsg().begin(); it != StandardModelMatching::CMbsg().end(); it++ ) vmcbsg.push_back(*it);
+
+    switch (mcbsg.getScheme()) {
+        case NDR:
+
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsg.getScheme();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsg(): scheme " + out.str() + "not implemented"); 
+    }
+
+    mcbsg.setMu(myFlavourWilsonCoefficient.getWCscale());
+
+    switch (mcbsg.getOrder()) {
+        case NNLO:
+            mcbsg.setCoeff(6, 0., NNLO);
+        case NLO:
+            mcbsg.setCoeff(6, 0., NLO);
+        case LO:
+            mcbsg.setCoeff(6, DC7g, LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcbsg.getOrder();
+            throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsg(): order " + out.str() + "not implemented"); 
+    }
+
+    vmcbsg.push_back(mcbsg);
+    return (vmcbsg);
+}
  
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
 {
-
-    vmcprimebsg = StandardModelMatching::CMprimebsg();
+    vmcprimebsg.clear();
+    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMprimebsg().begin(); it != StandardModelMatching::CMprimebsg().end(); it++ ) vmcprimebsg.push_back(*it);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:
@@ -189,8 +192,8 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
 
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::lepton lepton)
 {
-
-    vmcBMll = StandardModelMatching::CMBMll(lepton);
+    vmcBMll.clear();
+    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMBMll(lepton).begin(); it != StandardModelMatching::CMBMll(lepton).end(); it++ ) vmcBMll.push_back(*it);
 
     switch (mcbsg.getScheme()) {
         case NDR:
@@ -225,8 +228,8 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::le
 
 std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll(QCD::lepton lepton)
 {
-
-    vmcprimeBMll = StandardModelMatching::CMprimeBMll(lepton); // prime
+    vmcprimeBMll.clear();
+    for (std::vector<WilsonCoefficient>::iterator it = StandardModelMatching::CMprimeBMll(lepton).begin(); it != StandardModelMatching::CMprimeBMll(lepton).end(); it++ ) vmcprimeBMll.push_back(*it);
 
     switch (mcprimebsg.getScheme()) {
         case NDR:

@@ -33,6 +33,8 @@ public:
      * @brief Updates to new Standard Model parameter sets.
      */
     
+    virtual ~StandardModelMatching();
+    
     void updateSMParameters();
     
     /**

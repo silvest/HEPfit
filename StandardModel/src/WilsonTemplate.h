@@ -31,18 +31,16 @@ public:
         order_qed = order_qed_i; 
         mu = -1.;
         
-        for (int i = LO; i <= MAXORDER; i++)
-            if (i <= order)
-                elem[i] = new T(size, 0.);
-            else
-                elem[i] = NULL;
+        for (int i = LO; i <= MAXORDER; i++) {
+            if (i <= order) elem[i] = new T(size, 0.);
+            else elem[i] = NULL;
+        }
+        
         elem[orders_qed(NO_QED)] = NULL;
         //for (int i = LO_QED; i <= NLO_QED; i++){
-        for (int i = LO_QED; i <= MAXORDER_QED; i++){
-            if (i <= order_qed)
-                elem[i] = new T(size, 0.);
-            else
-                elem[i] = NULL;
+        for (int i = LO_QED; i <= MAXORDER_QED; i++) {
+            if (i <= order_qed) elem[i] = new T(size, 0.);
+            else elem[i] = NULL;
         }
     };
     
@@ -54,17 +52,14 @@ public:
         order_qed = orig.order_qed;
         mu = orig.mu;
         for (int i = LO; i <= MAXORDER_QED; i++)
-            if (orig.elem[i]!= NULL)
-                elem[i] = new T(*(orig.elem[i]));
-            else
-                elem[i] = NULL;
+            if (orig.elem[i]!= NULL) elem[i] = new T(*(orig.elem[i]));
+            else elem[i] = NULL;
     }
     
     virtual ~WilsonTemplate()
     {
         for (int i = LO; i <= MAXORDER_QED; i++)
-            if (elem[i] != NULL)
-                delete elem[i];
+            if (elem[i] != NULL) delete elem[i];
     };
 
     orders getOrder() const 

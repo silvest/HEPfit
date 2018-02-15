@@ -25,6 +25,8 @@ class FlavourWilsonCoefficientMatching : public StandardModelMatching {
 public:
     FlavourWilsonCoefficientMatching(const FlavourWilsonCoefficient & FlavourWilsonCoefficient_i);
     
+    virtual ~FlavourWilsonCoefficientMatching();
+    
     /**
      *
      * @brief Updates to new FlavourWilsonCoefficient parameter sets.
