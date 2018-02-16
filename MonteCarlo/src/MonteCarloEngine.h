@@ -309,6 +309,15 @@ public:
     };
     
     /**
+     * @brief A set method to toggle the printing of Parameters vs. Loglikelihood
+     * @param[in] legend a boolean to toggle the the printing of the 2D plots
+     */
+    void setPrintLoglikelihoodPlots(bool plot)
+    {
+        PrintLoglikelihoodPlots = plot;
+    };
+    
+    /**
      * @brief A set method to toggle the printing of legends in 1D and 2D histograms.
      * @param[in] legend a boolean to toggle the the printing of legends
      */
@@ -370,6 +379,7 @@ private:
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
     StandardModel* Mod; ///< A pointer to an abject of type Model.
     std::map<std::string, double> DPars; ///< A map between parameter names and their values.
+    std::vector<std::map<std::string, double> > DPars_allChains; ///< A vector of maps between parameter names and their values for all chains.
     std::map<std::string, BCH1D> Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, BCH2D> Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.
@@ -395,7 +405,8 @@ private:
     bool printLogo; ///< A flag that is set to true for printing the logo on the histogram pdf.
     int nSmooth; ///< The number of times a 1D  histogram should be smoothed.
     int histogram2Dtype; ///< Type of 2D Histogram 1001 -> box pixel, 101 -> filled, 1 -> contour.
-    bool noLegend; ///< A flag to toggle the histogram legends
+    bool noLegend; ///< A flag to toggle the histogram legends.
+    bool PrintLoglikelihoodPlots; ///< A flag to toggle the printing of Parameters vs. Loglikelihood.
     double alpha2D;///< A number between 0. and 1. that sets the opacity level of 2D Histograms, 1. being fully opaque.
     int gIdx;
     int rIdx;

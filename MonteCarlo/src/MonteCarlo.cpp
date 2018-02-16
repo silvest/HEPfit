@@ -165,10 +165,8 @@ void MonteCarlo::Run(const int rank) {
         if (rank == 0) {
             FileStat_t info;
             if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0) {
-                if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
-                    std::cout << ObsDirName << " directory has been created." << std::endl;
-                else
-                    throw std::runtime_error("ERROR: " + ObsDirName + " directory cannot be created.\n");
+                if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0) std::cout << ObsDirName << " directory has been created." << std::endl;
+                else throw std::runtime_error("ERROR: " + ObsDirName + " directory cannot be created.\n");
             }
         }
 
@@ -535,6 +533,12 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setNoLegend((beg->compare("true") == 0));
             else
                 throw std::runtime_error("\nERROR: PrintLogo in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+        } else if (beg->compare("PrintLoglikelihoodPlots") == 0) {
+            ++beg;
+            if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setPrintLoglikelihoodPlots((beg->compare("true") == 0));
+            else
+                throw std::runtime_error("\nERROR: PrintLoglikelihoodPlots in the MonteCarlo configuration file: " + MCMCConf + " can only be 'true' or 'false'.\n");
+            if (beg->compare("true") == 0) gSystem->MakeDirectory((ObsDirName + "/LogLikelihoodPlots").c_str());
         } else if (beg->compare("Histogram2DAlpha") == 0) {
             ++beg;
             double alpha = atof((*beg).c_str());
