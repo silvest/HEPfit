@@ -55,6 +55,17 @@ MonteCarloEngine::MonteCarloEngine(
     if (rank == 0) {
         TH1::StatOverflows(kTRUE);
         TH1::SetDefaultBufferSize(100000);
+
+#if ROOT_VERSION_CODE > ROOT_VERSION(6,0,0)
+        gIdx = TColor::GetFreeColorIndex();
+        rIdx = TColor::GetFreeColorIndex() + 1;
+#else
+        gIdx = 1000;
+        rIdx = 1001;
+#endif
+
+        HEPfit_green = new TColor(gIdx, 0.0, 0.56, 0.57, "HEPfit_green");
+        HEPfit_red = new TColor(rIdx, 0.57, 0.01, 0.00, "HEPfit_red");
     }
 };
 
@@ -157,17 +168,6 @@ void MonteCarloEngine::CreateHistogramMaps()
             }
         }
     }
-    
-#if ROOT_VERSION_CODE > ROOT_VERSION(6,0,0)
-    gIdx = TColor::GetFreeColorIndex();
-    rIdx = TColor::GetFreeColorIndex() + 1;
-#else
-    gIdx = 1000;
-    rIdx = 1001;
-#endif
-
-    HEPfit_green = new TColor(gIdx, 0.0, 0.56, 0.57, "HEPfit_green");
-    HEPfit_red = new TColor(rIdx, 0.57, 0.01, 0.00, "HEPfit_red");
 };
 
 void MonteCarloEngine::setNChains(unsigned int i) {
@@ -181,27 +181,28 @@ void MonteCarloEngine::setNChains(unsigned int i) {
 MonteCarloEngine::~MonteCarloEngine()
 // default destructor
 {
-    delete [] obval;
-    delete [] obweight;
-    delete HEPfit_red;
-    delete HEPfit_green;
-    HEPfit_red = NULL;
-    HEPfit_green = NULL;
-    /* The following code has been commented out pending further review.
-       It is causing crashes at the termination of the code if the histograms
-       are accessed from the main program.*/
-    //    for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
-    //            it != Histo1D.end(); it++)
-    //        delete it->second;
-    //    for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
-    //            it != Histo2D.end(); it++)
-    //        delete it->second;
-    for (std::map<std::string, TPrincipal *>::iterator it = CorrelationMap.begin();
-            it != CorrelationMap.end(); it++)
-        delete it->second;
-//    for (unsigned int i = 0; i < fMCMCNChains; ++i) 
-//        if (fMCMCObservablesTrees[i]) delete fMCMCObservablesTrees[i];
-    
+    if (rank == 0) { // These are created only by the master
+        delete [] obval;
+        delete [] obweight;
+        delete HEPfit_red;
+        delete HEPfit_green;
+        HEPfit_red = NULL;
+        HEPfit_green = NULL;
+        /* The following code has been commented out pending further review.
+           It is causing crashes at the termination of the code if the histograms
+           are accessed from the main program.*/
+        //    for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
+        //            it != Histo1D.end(); it++)
+        //        delete it->second;
+        //    for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
+        //            it != Histo2D.end(); it++)
+        //        delete it->second;
+        for (std::map<std::string, TPrincipal *>::iterator it = CorrelationMap.begin();
+                it != CorrelationMap.end(); it++)
+            delete it->second;
+        //    for (unsigned int i = 0; i < fMCMCNChains; ++i) 
+        //        if (fMCMCObservablesTrees[i]) delete fMCMCObservablesTrees[i];
+    }
 };
 
 // ---------------------------------------------------------
