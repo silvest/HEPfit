@@ -174,6 +174,12 @@ namespace gslpp
       }
     return a;
   }
+  complex vector<double>::operator*(const vector<complex>& v) const
+  {
+      vector<complex> v1(_vector);
+      return v*(*this);
+  }
+
   /** Vector product operator (vector) */
 //   vector<double> vector<double>::operator^(const vector<double>& v)
 //   {

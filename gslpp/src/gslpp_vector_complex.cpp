@@ -197,7 +197,7 @@ namespace gslpp {
     }
 
     /** Scalar product operator (vector) */
-    complex vector<complex>::operator*(const vector<complex>& v)
+    complex vector<complex>::operator*(const vector<complex>& v) const
     {
         complex z1(0., 0., false);
         vector<complex> v1(_vector);
@@ -271,7 +271,7 @@ namespace gslpp {
     }
 
     /** Multiplication operator (complex) */
-    vector<complex> vector<complex>::operator*(const complex& z)
+    vector<complex> vector<complex>::operator*(const complex& z) const
     {
         vector<complex> v1(_vector);
         gsl_blas_zscal(z.as_gsl_type(), v1.as_gsl_type_ptr());
@@ -279,7 +279,7 @@ namespace gslpp {
     }
 
     /** Division operator (complex) */
-    vector<complex> vector<complex>::operator/(const complex& z)
+    vector<complex> vector<complex>::operator/(const complex& z) const
     {
         vector<complex> v1(_vector);
         gsl_blas_zscal(z.inverse().as_gsl_type(), v1.as_gsl_type_ptr());
@@ -329,14 +329,14 @@ namespace gslpp {
     }
 
     /** Multiplication operator (double) */
-    vector<complex> vector<complex>::operator*(const double& a)
+    vector<complex> vector<complex>::operator*(const double& a) const
     {
         complex z(a);
         return *this * z;
     }
 
     /** Division operator (double) */
-    vector<complex> vector<complex>::operator/(const double& a)
+    vector<complex> vector<complex>::operator/(const double& a) const
     {
         complex z(a);
         return *this / z;

@@ -76,7 +76,7 @@ namespace gslpp
       /** Subtraction operator */
       vector<complex> operator-(const vector<complex>& v) const;
       /** Scalar product operator */
-      complex operator*(const vector<complex>& v);
+      complex operator*(const vector<complex>& v) const;
       /** Vector product operator */
 //       vector<complex> operator^(const vector<complex>& v);
       /** Addition assignment */
@@ -88,9 +88,9 @@ namespace gslpp
       /** Subtraction assignment */
       vector<complex> operator-(const complex& z);
       /** Multiplication operator */
-      vector<complex> operator*(const complex& z);
+      vector<complex> operator*(const complex& z) const;
       /** Division operator */
-      vector<complex> operator/(const complex& z);
+      vector<complex> operator/(const complex& z) const;
       /** Addition assignment  */
       vector<complex>& operator+=(const complex& z);
       /** Subtraction assignment */
@@ -104,9 +104,9 @@ namespace gslpp
       /** Subtraction assignment */
       vector<complex> operator-(const double& a);
       /** Multiplication operator */
-      vector<complex> operator*(const double& a);
+      vector<complex> operator*(const double& a) const;
       /** Division operator */
-      vector<complex> operator/(const double& a);
+      vector<complex> operator/(const double& a) const;
       /** Addition assignment  */
       vector<complex>& operator+=(const double& a);
       /** Subtraction assignment */

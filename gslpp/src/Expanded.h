@@ -92,14 +92,14 @@ public:
         uint up1=std::min(ord1,z.getN1());
         uint up2=std::min(ord2,z.getN2());
         if (up2 == 0) {
-            std::vector<T> res(up1, z.Zero());
+            std::vector<T> res(up1, Zero());
             for (uint i = 0; i < up1; i++)
                 for (uint j = 0; j <= i; j++) {
                     res[i] += data1[j] * z.getOrd(i - j);
                 }
             return Expanded<T>(res);
         } else {
-            std::vector<std::vector<T> > res(up1, std::vector<T>(up2, z.Zero()));
+            std::vector<std::vector<T> > res(up1, std::vector<T>(up2, Zero()));
             for (uint i1 = 0; i1 < up1; i1++)
                 for (uint i2 = 0; i2 < up2; i2++)
                     for (uint j1 = 0; j1 <= i1; j1++)
@@ -361,89 +361,60 @@ public:
     
 /***************** End Expanded-Expanded *****************/
 
-// T double, matrix<double> (expanded), Q matrix<double>, matrix<complex> 
+/***************** Begin Expanded * UnExpanded *****************/
+    
+// Return T.
+    
     template <class Q>
     typename std::enable_if<
-        (std::is_same<T, double>::value ||
-         std::is_same<T, matrix<double> >::value) &&
-        (std::is_same<Q,  matrix<complex> >::value ||
-         std::is_same<Q,  matrix<double> >::value ), Expanded<Q> >::type
+     (std::is_same<T,Q>::value  && !isV(T)) ||
+     isSc(Q,double) ||
+     (!isS(T) && isMat(Q,double)) ||
+     ((isMat(T,complex) || isVec(T,complex)) && isS(Q)) || 
+     (isVec(T,complex) && isMat(Q,complex)) ||
+     (isV(T) && isSc(Q,double)) ||
+     (isMat(T,double) && isSc(Q,double)),Expanded<T> >::type
     operator*(const Q& z) const {
-        uint id, jd;
         if (ord2 == 0) {
-            id = z.size_i();
-            jd = z.size_j();
-            std::vector<Q> res(ord1, Q(id, jd, 0.));
+            std::vector<T> res(ord1, Zero());
             for (uint i = 0; i < ord1; i++)
-                    res[i] = data1[i] * z;
-            return Expanded<Q>(res);
+                res[i] = data1[i] * z;
+            return Expanded<T>(res);
         } else {
-            id = z.size_i();
-            jd = z.size_j();
-            std::vector<std::vector<Q> >
-                    res(ord2, std::vector<Q>(ord1, Q(id, jd, 0.)));
+            std::vector<std::vector<T> > res(ord1, std::vector<T>(ord2, Zero()));
             for (uint i1 = 0; i1 < ord1; i1++)
                 for (uint i2 = 0; i2 < ord2; i2++)
                             res[i1][i2] = data2[i1][i2] * z;
-            return Expanded<Q>(res);
+            return Expanded<T>(res);
         }
     }
     
-// T double (expanded), Q double, complex 
+// Return double
+
     template <class Q>
     typename std::enable_if<
-        std::is_same<T, double>::value &&
-        (std::is_same<Q, double>::value ||
-         std::is_same<Q, complex>::value), Expanded<Q> >::type
+      isVec(T,double) && isVec(Q,double) ,Expanded<double> >::type
     operator*(const Q& z) const {
         if (ord2 == 0) {
-            std::vector<Q> res(ord1, 0.);
+            std::vector<double> res(ord1, 0.);
             for (uint i = 0; i < ord1; i++)
                     res[i] = data1[i] * z;
-            return Expanded<Q>(res);
+            return Expanded<double>(res);
         } else {
-            std::vector<std::vector<Q> >
-                    res(ord2, std::vector<Q>(ord1, 0.));
+            std::vector<std::vector<double> > res(ord1, std::vector<double>(ord2, 0.));
             for (uint i1 = 0; i1 < ord1; i1++)
                 for (uint i2 = 0; i2 < ord2; i2++)
                             res[i1][i2] = data2[i1][i2] * z;
-            return Expanded<Q>(res);
+            return Expanded<double>(res);
         }
     }
 
-// T complex (expanded), Q matrix<double>, matrix<complex> 
+// Return complex
+
     template <class Q>
     typename std::enable_if<
-        std::is_same<T, complex>::value &&
-        (std::is_same<Q,  matrix<complex> >::value ||
-         std::is_same<Q,  matrix<double> >::value), Expanded<matrix<complex> > >::type
-    operator*(const Q& z) const {
-        uint id, jd;
-        if (ord2 == 0) {
-            id = z.size_i();
-            jd = z.size_j();
-            std::vector<matrix<complex> > res(ord1, matrix<complex>(id, jd, 0.));
-            for (uint i = 0; i < ord1; i++)
-                    res[i] = data1[i] * z;
-            return Expanded<matrix<complex> >(res);
-        } else {
-            id = z.size_i();
-            jd = z.size_j();
-            std::vector<std::vector<matrix<complex> > >
-                    res(ord2, std::vector<matrix<complex> >(ord1, matrix<complex>(id, jd, 0.)));
-            for (uint i1 = 0; i1 < ord1; i1++)
-                for (uint i2 = 0; i2 < ord2; i2++)
-                            res[i1][i2] = data2[i1][i2] * z;
-            return Expanded<matrix<complex> >(res);
-        }
-    }
-    
-// T complex (expanded), Q double, complex 
-    template <class Q>
-    typename std::enable_if<
-        std::is_same<T, complex>::value &&
-        (std::is_same<Q, double>::value ||
-         std::is_same<Q, complex>::value), Expanded<complex> >::type
+      (isSc(T,double) && isSc(Q,complex)) ||
+      (isV(T) && isV(Q) && !(isVec(T,double) && isVec(Q,double))),Expanded<complex> >::type
     operator*(const Q& z) const {
         if (ord2 == 0) {
             std::vector<complex> res(ord1, 0.);
@@ -451,34 +422,108 @@ public:
                     res[i] = data1[i] * z;
             return Expanded<complex>(res);
         } else {
-            std::vector<std::vector<complex> >
-                    res(ord2, std::vector<complex>(ord1, 0.));
+            std::vector<std::vector<complex> > res(ord1, std::vector<complex>(ord2, 0.));
             for (uint i1 = 0; i1 < ord1; i1++)
                 for (uint i2 = 0; i2 < ord2; i2++)
                             res[i1][i2] = data2[i1][i2] * z;
             return Expanded<complex>(res);
         }
     }
+// Return vector<double>
 
-// T matrix<double> (expanded), Q complex 
     template <class Q>
     typename std::enable_if<
-        std::is_same<T, matrix<double> >::value &&
-        std::is_same<Q, complex>::value, Expanded<matrix<complex> > >::type
+      isVec(Q,double) && (isSc(T,double) || isMat(T,double)), Expanded<vector<double> > >::type
     operator*(const Q& z) const {
-        uint id, jd;
         if (ord2 == 0) {
-            id = data1[0].size_i();
-            jd = data1[0].size_j();
-            std::vector<matrix<complex> > res(ord1, matrix<complex>(id, jd, 0.));
+            std::vector<vector<double> > res(ord1, vector<double>(z.size(),0.));
+            for (uint i = 0; i < ord1; i++)
+                    res[i] = data1[i] * z;
+            return Expanded<vector<double> >(res);
+        } else {
+            std::vector<std::vector<vector<double> > > res(ord1, std::vector<vector<double> >(ord2, vector<double>(z.size(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] * z;
+            return Expanded<vector<double> >(res);
+        }
+    }
+
+
+// Return vector<complex>
+
+    template <class Q>
+    typename std::enable_if<
+      (isVec(Q,complex) && (isS(T) || isM(T))) ||
+      (isVec(Q,double) && (isSc(T,complex) || isMat(T,complex))),Expanded<vector<complex> > >::type
+    operator*(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<vector<complex> > res(ord1, vector<complex>(z.size(),0.));
+            for (uint i = 0; i < ord1; i++)
+                    res[i] = data1[i] * z;
+            return Expanded<vector<complex> >(res);
+        } else {
+            std::vector<std::vector<vector<complex> > > res(ord1, std::vector<vector<complex> >(ord2, vector<complex>(z.size(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] * z;
+            return Expanded<vector<complex> >(res);
+        }
+    }
+
+    template <class Q>
+    typename std::enable_if<
+      isVec(T,double) && (isSc(Q,complex) || isMat(Q,complex)),Expanded<vector<complex> > >::type
+    operator*(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<vector<complex> > res(ord1, vector<complex>(data1[0].size(),0.));
+            for (uint i = 0; i < ord1; i++)
+                    res[i] = data1[i] * z;
+            return Expanded<vector<complex> >(res);
+        } else {
+            std::vector<std::vector<vector<complex> > > res(ord1, std::vector<vector<complex> >(ord2, vector<complex>(data2[0][0].size(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] * z;
+            return Expanded<vector<complex> >(res);
+        }
+    }
+
+// Return matrix<double>
+    
+    template <class Q>
+    typename std::enable_if<
+      (isSc(T,double) && isMat(Q,double)) ,Expanded<matrix<double> > >::type
+    operator*(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<matrix<double> > res(ord1, matrix<double>(z.size_i(),z.size_j(),0.));
+            for (uint i = 0; i < ord1; i++)
+                    res[i] = data1[i] * z;
+            return Expanded<matrix<double> >(res);
+        } else {
+            std::vector<std::vector<matrix<double> > > res(ord1, std::vector<matrix<double> >(ord2, matrix<double>(z.size_i(),z.size_j(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] * z;
+            return Expanded<matrix<double> >(res);
+        }
+    }
+
+// Return matrix<complex>
+    
+    template <class Q>
+    typename std::enable_if<
+      (isS(T) && isMat(Q,complex)) ||
+      (isSc(T,complex) && isMat(Q,double)) ||
+      (isMat(T,double) && isMat(Q,complex)) ,Expanded<matrix<complex> > >::type
+    operator*(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<matrix<complex> > res(ord1, matrix<complex>(z.size_i(),z.size_j(),0.));
             for (uint i = 0; i < ord1; i++)
                     res[i] = data1[i] * z;
             return Expanded<matrix<complex> >(res);
         } else {
-            id = data1[0].size_i();
-            jd = data1[0].size_j();
-            std::vector<std::vector<matrix<complex> > >
-                    res(ord2, std::vector<matrix<complex> >(ord1, matrix<complex>(id, jd, 0.)));
+            std::vector<std::vector<matrix<complex> > > res(ord1, std::vector<matrix<complex> >(ord2, matrix<complex>(z.size_i(),z.size_j(),0.)));
             for (uint i1 = 0; i1 < ord1; i1++)
                 for (uint i2 = 0; i2 < ord2; i2++)
                             res[i1][i2] = data2[i1][i2] * z;
@@ -486,68 +531,118 @@ public:
         }
     }
 
-// T matrix<double> (expanded), Q double 
     template <class Q>
     typename std::enable_if<
-        std::is_same<T, matrix<double> >::value &&
-        std::is_same<Q, double>::value, Expanded<T> >::type
+      isMat(T,double) && isSc(Q,complex) ,Expanded<matrix<complex> > >::type
     operator*(const Q& z) const {
-        uint id, jd;
         if (ord2 == 0) {
-            id = data1[0].size_i();
-            jd = data1[0].size_j();
-            std::vector<T> res(ord1, T(id, jd, 0.));
+            std::vector<matrix<complex> > res(ord1, matrix<complex>(data1[0].size_i(),data1[0].size_j(),0.));
             for (uint i = 0; i < ord1; i++)
                     res[i] = data1[i] * z;
-            return Expanded<T>(res);
+            return Expanded<matrix<complex> >(res);
         } else {
-            id = data1[0].size_i();
-            jd = data1[0].size_j();
-            std::vector<std::vector<T> >
-                    res(ord2, std::vector<T>(ord1, T(id, jd, 0.)));
+            std::vector<std::vector<matrix<complex> > > res(ord1, std::vector<matrix<complex> >(ord2, matrix<complex>(data2[0][0].size_i(),data2[0][0].size_j(),0.)));
             for (uint i1 = 0; i1 < ord1; i1++)
                 for (uint i2 = 0; i2 < ord2; i2++)
                             res[i1][i2] = data2[i1][i2] * z;
-            return Expanded<T>(res);
+            return Expanded<matrix<complex> >(res);
         }
     }
 
-// T matrix<complex> (expanded) Q double, complex, matrix<double>, matrix<complex>
-    template <class Q>
-    typename std::enable_if<
-        std::is_same<T, matrix<complex> >::value  &&
-       (std::is_same<Q,  double>::value ||
-        std::is_same<Q,  matrix<double> >::value ||
-        std::is_same<Q,  complex >::value ||
-        std::is_same<Q,  matrix<complex> >::value
-       ), Expanded<T> >::type
-    operator*(const Q& z) const {
-        uint id, jd;
+/***************** End Expanded * UnExpanded *****************/
+
+/***************** Begin Expanded / UnExpanded-Scalar *****************/
+
+    
+    Expanded<T> operator/(const double& z) const {
         if (ord2 == 0) {
-            id = data1[0].size_i();
-            jd = data1[0].size_j();
-            std::vector<T> res(ord1, T(id, jd, 0.));
+            std::vector<T> res(ord1, Zero());
             for (uint i = 0; i < ord1; i++)
-                    res[i] = data1[i] * z;
+                res[i] = data1[i] / z;
             return Expanded<T>(res);
         } else {
-            id = data1[0].size_i();
-            jd = data1[0].size_j();
-            std::vector<std::vector<T> >
-                    res(ord2, std::vector<T>(ord1, T(id, jd, 0.)));
+            std::vector<std::vector<T> > res(ord1, std::vector<T>(ord2, Zero()));
             for (uint i1 = 0; i1 < ord1; i1++)
                 for (uint i2 = 0; i2 < ord2; i2++)
-                            res[i1][i2] = data2[i1][i2] * z;
+                            res[i1][i2] = data2[i1][i2] / z;
             return Expanded<T>(res);
         }
     }
     
+    template <class Q>
+    typename std::enable_if<isComp(T) && isSc(Q,complex),Expanded<T> >::type
+      operator/(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<T> res(ord1, Zero());
+            for (uint i = 0; i < ord1; i++)
+                res[i] = data1[i] / z;
+            return Expanded<T>(res);
+        } else {
+            std::vector<std::vector<T> > res(ord1, std::vector<T>(ord2, Zero()));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] / z;
+            return Expanded<T>(res);
+        }
+    }
+    template <class Q>
+    typename std::enable_if<isSc(T,double) && isSc(Q,complex),Expanded<complex > >::type
+    operator/(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<complex> res(ord1, 0.);
+            for (uint i = 0; i < ord1; i++)
+                res[i] = data1[i] / z;
+            return Expanded<complex>(res);
+        } else {
+            std::vector<std::vector<complex> > res(ord1, std::vector<complex>(ord2, 0.));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] / z;
+            return Expanded<complex>(res);
+        }
+      }
+    template <class Q>
+    typename std::enable_if<isVec(T,double) && isSc(Q,complex),Expanded<vector<complex> > >::type
+      operator/(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<vector<complex> > res(ord1, vector<complex>(data1[0].size(),0.));
+            for (uint i = 0; i < ord1; i++)
+                res[i] = data1[i] / z;
+            return Expanded<vector<complex> >(res);
+        } else {
+            std::vector<std::vector<vector<complex> > > res(ord1, std::vector<vector<complex> >(ord2, vector<complex>(data2[0][0].size(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] / z;
+            return Expanded<vector<complex> >(res);
+        }
+    }
+    template <class Q>
+    typename std::enable_if<isMat(T,double) && isSc(Q,complex),Expanded<matrix<complex> > >::type
+      operator/(const Q& z) const {
+        if (ord2 == 0) {
+            std::vector<matrix<complex> > res(ord1, matrix<complex>(data1[0].size_i(),data1[0].size_j(),0.));
+            for (uint i = 0; i < ord1; i++)
+                res[i] = data1[i] / z;
+            return Expanded<matrix<complex> >(res);
+        } else {
+            std::vector<std::vector<matrix<complex> > > res(ord1, std::vector<matrix<complex> >(ord2, matrix<complex>(data2[0][0].size_i(),data2[0][0].size_j(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2] / z;
+            return Expanded<matrix<complex> >(res);
+        }
+    }
+
+    /***************** End Expanded / UnExpanded-Scalar  *****************/
     Expanded<double> real() const;
 
     Expanded<double> abs2() const;
 
     Expanded<T> conjugate() const;
 
+    Expanded<T> transpose() const;
+    
     T getAllOrd() {
         T res();
         if(ord2 == 0) {
@@ -592,6 +687,7 @@ public:
 };
 
 // Template specialization
+
 template <> Expanded<complex> Expanded<complex>::conjugate() const {
     uint ord1 = getN1();
     uint ord2 = getN2();
@@ -608,6 +704,36 @@ template <> Expanded<complex> Expanded<complex>::conjugate() const {
         return Expanded<complex>(res);
     }
 }
+
+template <> Expanded<matrix<double> > Expanded<matrix<double> >::transpose() const {
+        if (ord2 == 0) {
+            std::vector<matrix<double> > res(ord1,matrix<double>(data1[0].size_i(),data1[0].size_j(),0.));
+            for (uint i = 0; i < ord1; i++)
+                    res[i] = data1[i].transpose();
+            return Expanded<matrix<double>>(res);
+        } else {
+            std::vector<std::vector<matrix<double> > > res(ord1, std::vector<matrix<double> >(ord2, matrix<double>(data2[0][0].size_i(),data2[0][0].size_j(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2].transpose();
+            return Expanded<matrix<double>>(res);
+        }
+    }
+
+template <> Expanded<matrix<complex> > Expanded<matrix<complex> >::transpose() const {
+        if (ord2 == 0) {
+            std::vector<matrix<complex> > res(ord1,matrix<complex>(data1[0].size_i(),data1[0].size_j(),0.));
+            for (uint i = 0; i < ord1; i++)
+                    res[i] = data1[i].transpose();
+            return Expanded<matrix<complex>>(res);
+        } else {
+            std::vector<std::vector<matrix<complex> > > res(ord1, std::vector<matrix<complex> >(ord2, matrix<complex>(data2[0][0].size_i(),data2[0][0].size_j(),0.)));
+            for (uint i1 = 0; i1 < ord1; i1++)
+                for (uint i2 = 0; i2 < ord2; i2++)
+                            res[i1][i2] = data2[i1][i2].transpose();
+            return Expanded<matrix<complex>>(res);
+        }
+    }
 
 template <> Expanded<double> Expanded<complex>::real() const {
     uint ord1 = getN1();
@@ -682,103 +808,119 @@ template<class T>
 std::ostream& operator<<(std::ostream& output, const Expanded<T> x) {
     if(x.getN2()==0) {
         for (uint i=0;i<x.getN1();i++)
-           output << "Ordine " << i << ": " << x.getOrd(i) << std::endl;
+           output << "Order " << i << ": " << x.getOrd(i) << std::endl;
     } else {
         for (uint i=0;i<x.getN1();i++)
             for (uint j=0;j<x.getN2();j++)
-                output << "Ordine (" << i << "," << j << "): " << x.getOrd(i,j) << std::endl;
+                output << "Order (" << i << "," << j << "): " << x.getOrd(i,j) << std::endl;
     }
     return output;
 }
 
-// Operator * between unexpanded and expanded
+/***************** Begin UnExpanded * Expanded *****************/
 
-template <class T>
-Expanded<T> operator*(const double& x1, const Expanded<T>& z2) {
-    return (z2 * x1);
-}
-// Q complex T double, complex (expanded) 
-template <class T>
-typename std::enable_if<
-     std::is_same<T, double>::value ||
-     std::is_same<T, complex>::value, Expanded<complex> >::type
-operator*(const complex& x1, const Expanded<T>& z2) {
-         return (z2 * x1);
-}
-// Q complex T matrix<double>, matrix<complex> (expanded) 
-template <class T>
-typename std::enable_if<
-     std::is_same<T, matrix<double> >::value ||
-     std::is_same<T, matrix<complex> >::value, Expanded<matrix<complex>> >::type
-operator*(const complex& x1, const Expanded<T>& z2) {
-    return (z2 * x1);
-}
-// Q matrix<double> T double (expanded)
-Expanded<matrix<double> > operator*(const matrix<double>& x1, const Expanded<double>& z2) {
-    return (z2 * x1);
-}
-
-// Q matrix<double> T complex (expanded)
-Expanded<matrix<complex> > operator*(const matrix<double>& x1, const Expanded<complex>& z2) {
-    return (z2 * x1);
-}
-
-// Q matrix<double> T matrix<double> (expanded) 
-Expanded<matrix<double> > operator*(const matrix<double>& x1, const Expanded<matrix<double> >& z2) {
-        uint id, jd;
-        if (z2.getN2() == 0) {
-            id = x1.size_i();
-            jd = x1.size_j();
-            std::vector<matrix<double> > res(z2.getN1(), matrix<double>(id, jd, 0.));
-            for (uint i = 0; i < z2.getN1(); i++)
-                    res[i] = x1 * z2.getOrd(i);
-            return Expanded<matrix<double> >(res);
-        } else {
-            id = x1.size_i();
-            jd = x1.size_j();
-            std::vector<std::vector<matrix<double> > >
-                    res(z2.getN2(), std::vector<matrix<double> >(z2.getN1(), matrix<double>(id, jd, 0.)));
-            for (uint i1 = 0; i1 < z2.getN1(); i1++)
-                for (uint i2 = 0; i2 < z2.getN2(); i2++)
-                            res[i1][i2] = x1 * z2.getOrd(i1,i2);
-            return Expanded<matrix<double> >(res);
-        }
+// scalar * X -> commute
+    template <class T>
+    Expanded<T> operator*(const double& ue, const Expanded<T>& ex) {
+        return (ex * ue);
     }
-// Q matrix<double> T matrix<complex> (expanded)
-// Q matrix<complex> T matrix<double> (expanded) 
-// Q matrix<complex> T matrix<complex> (expanded) 
-template<class T,class Q>
-typename std::enable_if<
-     (std::is_same<Q, matrix<double> >::value && std::is_same<T, matrix<complex> >::value )||
-     (std::is_same<Q, matrix<complex> >::value && std::is_same<T, matrix<double> >::value )||
-     (std::is_same<Q, matrix<complex> >::value && std::is_same<T, matrix<complex> >::value ), Expanded<matrix<complex> > >::type
-operator*(const Q& x1, const Expanded<T>& z2) {
-        uint id, jd;
-        if (z2.getN2() == 0) {
-            id = x1.size_i();
-            jd = x1.size_j();
-            std::vector<matrix<complex> > res(z2.getN1(), matrix<complex>(id, jd, 0.));
-            for (uint i = 0; i < z2.getN1(); i++)
-                    res[i] = x1 * z2.getOrd(i);
-            return Expanded<matrix<complex> >(res);
-        } else {
-            id = x1.size_i();
-            jd = x1.size_j();
-            std::vector<std::vector<matrix<complex> > >
-                    res(z2.getN2(), std::vector<matrix<complex> >(z2.getN1(), matrix<complex>(id, jd, 0.)));
-            for (uint i1 = 0; i1 < z2.getN1(); i1++)
-                for (uint i2 = 0; i2 < z2.getN2(); i2++)
-                            res[i1][i2] = x1 * z2.getOrd(i1,i2);
-            return Expanded<matrix<complex> >(res);
-        }
+
+    template <class T>
+    typename std::enable_if<
+      isComp(T), Expanded<T> >::type
+     operator*(const complex& ue, const Expanded<T>& ex) {
+        return (ex * ue);
     }
-// Q matrix<complex> T double complex (expanded)
-template <class T>
-typename std::enable_if<
-     std::is_same<T, double>::value ||
-     std::is_same<T, complex>::value, Expanded<matrix<complex> > >::type
-operator*(const matrix<complex>& x1, const Expanded<T>& z2) {
-    return z2 * x1;
-}
+
+    Expanded<complex> operator*(const complex& ue, const Expanded<double>& ex) {
+        return (ex * ue);
+    }
+    Expanded<vector<complex> > operator*(const complex& ue, const Expanded<vector<double> >& ex) {
+        return (ex * ue);
+    }
+    Expanded<matrix<complex> > operator*(const complex& ue, const Expanded<matrix<double> >& ex) {
+        return (ex * ue);
+    }
+    
+// X * scalar -> commute
+
+    Expanded<vector<double> > operator*(const vector<double>& ue, const Expanded<double>& ex) {
+        return (ex * ue);
+    }
+    Expanded<vector<complex> > operator*(const vector<double>& ue, const Expanded<complex>& ex) {
+        return (ex * ue);
+    }
+    Expanded<matrix<double> > operator*(const matrix<double>& ue, const Expanded<double>& ex) {
+        return (ex * ue);
+    }
+    Expanded<matrix<complex> > operator*(const matrix<double>& ue, const Expanded<complex>& ex) {
+        return (ex * ue);
+    }
+
+    template <class T>
+    typename std::enable_if<
+      isS(T), Expanded<vector<complex> > >::type
+    operator*(const vector<complex>& ue, const Expanded<T>& ex) {
+        return (ex * ue);
+    }
+    template <class T>
+    typename std::enable_if<
+      isS(T), Expanded<matrix<complex> > >::type
+    operator*(const matrix<complex>& ue, const Expanded<T>& ex) {
+        return (ex * ue);
+    }
+
+    // both vector -> commute
+    
+    Expanded<double> operator*(const vector<double>& ue, const Expanded<vector<double> >& ex) {
+        return (ex * ue);
+    }
+    template <class T, class Q>
+    typename std::enable_if<
+     isV(T) && isV(Q) && !(isVec(T,double) && isVec(Q,double)), Expanded<complex> >::type
+     operator*(const T& ue, const Expanded<Q>& ex) {
+        return (ex * ue);
+    }
+
+//  vector * matrix
+
+    Expanded<vector<double> > operator*(const vector<double>& ue, const Expanded<matrix<double> >& ex) {
+        return (ex.transpose() * ue);
+    }
+
+    template <class T, class Q>
+    typename std::enable_if<
+     isV(T) && isM(Q) && !(isVec(T,double) && isMat(Q,double)), Expanded<vector<complex> > >::type
+     operator*(const T& ue, const Expanded<Q>& ex) {
+        return (ex.transpose() * ue);
+    }
+
+//  matrix * vector
+
+    Expanded<vector<double> > operator*(const matrix<double>& ue, const Expanded<vector<double> >& ex) {
+        return (ex * ue.transpose());
+    }
+
+    template <class T, class Q>
+    typename std::enable_if<
+     isM(T) && isV(Q) && !(isMat(T,double) && isVec(Q,double)), Expanded<vector<complex> > >::type
+     operator*(const T& ue, const Expanded<Q>& ex) {
+        return (ex * ue.transpose());
+    }
+
+//  matrix * matrix
+
+    Expanded<matrix<double> > operator*(const matrix<double>& ue, const Expanded<matrix<double> >& ex) {
+        return ((ex.transpose() * ue.transpose()).transpose());
+    }
+
+    template <class T, class Q>
+    typename std::enable_if<
+     isM(T) && isM(Q) && !(isMat(T,double) && isMat(Q,double)), Expanded<matrix<complex> > >::type
+     operator*(const T& ue, const Expanded<Q>& ex) {
+        return ((ex.transpose() * ue.transpose()).transpose());
+    }
+
+/***************** End UnExpanded * Expanded *****************/    
 
 #endif /* EXPANDED_H */

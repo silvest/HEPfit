@@ -75,7 +75,7 @@ namespace gslpp
       /** Identity matrix */
       static matrix<double> Id(size_t size);
       /** Transpose matrix */
-      matrix<double> transpose();
+      matrix<double> transpose() const;
       /** Inverse matrix */
       matrix<double> inverse();
       /** Determinant matrix */
