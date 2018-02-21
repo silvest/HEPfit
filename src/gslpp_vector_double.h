@@ -72,6 +72,7 @@ namespace gslpp
       vector<complex> operator-(const vector<complex>& v) const;
       /** Scalar product operator (vector) */
       double operator*(const vector<double>& v) const;
+      complex operator*(const vector<complex>& v) const;
       /** Vector product operator */
 //       vector<double> operator^(const vector<double>& v);
       /** Addition assignment (vector) */

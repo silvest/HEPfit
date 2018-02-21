@@ -148,7 +148,7 @@ namespace gslpp
   }
 
   /** Transpose matrix */
-  matrix<double> matrix<double>::transpose()
+  matrix<double> matrix<double>::transpose() const
   {
     matrix<double> m1(size_j(), size_i(), 0.);
     if (gsl_matrix_transpose_memcpy(m1.as_gsl_type_ptr(), _matrix))
