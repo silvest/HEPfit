@@ -3506,6 +3506,7 @@ BCEngineMCMC::ThreadLocalStorage::ThreadLocalStorage(unsigned dim) :
     rngGSL(NULL),
     yLocal(dim)
 {
+    copied = false
     // rngGSL initialized only if needed in SyncThreadStorage
 }
 
@@ -3516,6 +3517,7 @@ BCEngineMCMC::ThreadLocalStorage::ThreadLocalStorage(const ThreadLocalStorage& o
     rngGSL(NULL),
     yLocal(other.yLocal)
 {
+    copied = true;
 #if ROOTMATHMORE
     rngGSL = other.rngGSL ? new GSLRng(*static_cast<GSLRng*>(other.rngGSL)) : NULL;
 #endif
@@ -3540,7 +3542,7 @@ void BCEngineMCMC::ThreadLocalStorage::swap(BCEngineMCMC::ThreadLocalStorage& A,
 BCEngineMCMC::ThreadLocalStorage::~ThreadLocalStorage()
 {
 #if ROOTMATHMORE
-    delete static_cast<GSLRng*>(rngGSL);
+    if(copied) delete static_cast<GSLRng*>(rngGSL);
 #endif
     delete rng;
 }
