@@ -1425,6 +1425,7 @@ private:
          * only available in config.h but we must never include
          * config.h in a public header. Hence we hide the type in a `void*` */
         void* rngGSL;
+        bool copied;
 
         /**
          * Temp vector for matrix multiplication in multivariate proposal */
