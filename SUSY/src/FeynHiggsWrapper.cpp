@@ -17,8 +17,22 @@ FeynHiggsWrapper::FeynHiggsWrapper(SUSY& SUSY_in)
     int err;
     
     if (FEYNHIGGS_VERSION < 210) throw std::runtime_error("\nFeynHiggs version > 2.10 allowed only.\n");
-
-#if FEYNHIGGS_VERSION>=213
+    
+#if FEYNHIGGS_VERSION>=214
+    FHSetFlags(&err,
+            4, // Full MSSM
+            3, // full 3x3 neutral Higgs mixing in cMSSM (complex MSSM)
+            4, // full determination of the propagator matrices’s poles with UHiggs at q^2=0
+            2, // include various two-loop contributions
+            3, // NNLL resummation (for large MCha,MNeu,MGlu,MSUSY)
+            1, // running top mass is used in the 1-/2-loop corrections (SM MSbar 2L)
+            1, // resum tan beta contributions
+            3 // interpolation in phases for missing 2-loop corrections.
+            // The cMSSM a_s a_t corrections are combined with the remaining
+            // corrections, whose complex phases are interpolated in
+            // At, Ab, M_3, MUE
+            );
+#elif FEYNHIGGS_VERSION==213
     FHSetFlags(&err,
             4, // Full MSSM
             0, // DRbar
@@ -34,7 +48,7 @@ FeynHiggsWrapper::FeynHiggsWrapper(SUSY& SUSY_in)
             // corrections, whose complex phases are interpolated in
             // At, Ab, M_3, MUE
             );
-#elif FEYNHIGGS_VERSION>=212
+#elif FEYNHIGGS_VERSION==212
     FHSetFlags(&err,
             4, // Full MSSM
             0, // DRbar
