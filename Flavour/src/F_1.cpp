@@ -23,16 +23,13 @@ double F_1::F_17re(double muh, double z, double sh, int maxpow)
     double lz = log(z);
     double lmu = log(muh);
     double Lsh = log(sh);
-    double Lshb = log(1. - sh);
-    double Li2sh = real(Li2(sh));
-    double Li3sh = real(Li3(sh));
-    double Li3shb = real(Li3(1. - sh));
-    double Li4sh = real(Li4(sh));
-    double sqrtsh = sqrt(sh);
-    double sqrt4sh = sqrt(4. - sh);
-    double ash = asin(sqrtsh / 2.);
-    double cl2 = Cl2(2. * ash);
-    double cl3 = Cl3(2. * ash);
+    double sh2 = pow(sh, 2);
+    double sh3 = pow(sh, 3);
+    double lz2 = pow(lz, 2);
+    double lz3 = pow(lz, 3);
+    double sqrtz = pow(z, 0.5);
+    double z2 = pow(z, 2);
+    double z3 = pow(z, 3);
 
 
     double res = 0;
@@ -42,72 +39,82 @@ double F_1::F_17re(double muh, double z, double sh, int maxpow)
                 0.0164609 * Lsh * sh - 0.222222 * lz * sh - 2.20356 * z -
                 2.608715 * lz * z - 25.9259 * sh * z + 1.03704 * Lsh * sh * z -
                 1.700505 * lz * sh * z + 0.2962965 * Lsh * lz * sh * z +
-                0.14814825 * z * pow(lz, 2) - 1.122925 * sh * z * pow(lz, 2) +
-                0.04938275 * z * pow(lz, 3) + 0.04938275 * sh * z * pow(lz, 3) -
-                0.024691375 * sh * z * pow(lz, 4) - 19.4691 * pow(sh, 2) -
-                0.0164609 * Lsh * pow(sh, 2) - 5.83895 * lz * pow(sh, 2) -
-                90.4953 * z * pow(sh, 2) + 2.37037 * Lsh * z * pow(sh, 2) +
-                7.46645 * lz * z * pow(sh, 2) + 0.592595 * Lsh * lz * z * pow(sh, 2) -
-                0.74074 * pow(lz, 2) * pow(sh, 2) -
-                6.1095 * z * pow(lz, 2) * pow(sh, 2) -
-                0.04938275 * pow(lz, 3) * pow(sh, 2) +
-                0.14814875 * z * pow(lz, 3) * pow(sh, 2) -
-                0.074074375 * z * pow(lz, 4) * pow(sh, 2) - 41.9952 * pow(sh, 3) -
-                0.0164609 * Lsh * pow(sh, 3) - 15.10455 * lz * pow(sh, 3) -
-                189.354 * z * pow(sh, 3) + 3.85185 * Lsh * z * pow(sh, 3) +
-                21.3283 * lz * z * pow(sh, 3) + 0.88889 * Lsh * lz * z * pow(sh, 3) -
-                1.555555 * pow(lz, 2) * pow(sh, 3) -
-                14.44125 * z * pow(lz, 2) * pow(sh, 3) -
-                0.14814875 * pow(lz, 3) * pow(sh, 3) +
-                0.34567875 * z * pow(lz, 3) * pow(sh, 3) -
-                0.148148125 * z * pow(lz, 4) * pow(sh, 3) -
-                0.00010778 * pow(sh, 3) * pow(z, -2) +
-                0.00555556 * pow(sh, 2) * pow(z, -1) +
-                0.946811 * pow(sh, 3) * pow(z, -1) +
-                0.2444445 * lz * pow(sh, 3) * pow(z, -1) +
-                0.02469135 * pow(lz, 2) * pow(sh, 3) * pow(z, -1) +
-                11.6973 * sh * pow(z, 0.5) + 70.1839 * pow(sh, 2) * pow(z, 0.5) +
-                pow(sh, 3)*(-3.8991 * pow(z, -0.5) + 159.863 * pow(z, 0.5)) +
-                1.94955 * pow(z, 1.5) + 1.86366 * pow(z, 2) -
-                2.331735 * lz * pow(z, 2) + 11.4229 * sh * pow(z, 2) -
-                4.66347 * Lsh * sh * pow(z, 2) - 17.0403 * lz * sh * pow(z, 2) +
-                2.5926 * sh * pow(lz, 2) * pow(z, 2) +
-                0.5925925 * Lsh * sh * pow(lz, 2) * pow(z, 2) +
-                0.04938275 * pow(lz, 3) * pow(z, 2) +
-                0.29629625 * sh * pow(lz, 3) * pow(z, 2) +
-                23.8816 * pow(sh, 2) * pow(z, 2) -
-                13.9904 * Lsh * pow(sh, 2) * pow(z, 2) -
-                41.39575 * lz * pow(sh, 2) * pow(z, 2) +
-                1.185185 * Lsh * lz * pow(sh, 2) * pow(z, 2) +
-                8.074075 * pow(lz, 2) * pow(sh, 2) * pow(z, 2) +
-                1.7777775 * Lsh * pow(lz, 2) * pow(sh, 2) * pow(z, 2) +
-                0.74074125 * pow(lz, 3) * pow(sh, 2) * pow(z, 2) +
-                45.1784 * pow(sh, 3) * pow(z, 2) -
-                27.3882 * Lsh * pow(sh, 3) * pow(z, 2) -
-                72.5905 * lz * pow(sh, 3) * pow(z, 2) +
-                4.14815 * Lsh * lz * pow(sh, 3) * pow(z, 2) +
-                17.7284 * pow(lz, 2) * pow(sh, 3) * pow(z, 2) +
-                3.55555 * Lsh * pow(lz, 2) * pow(sh, 3) * pow(z, 2) +
-                1.3827125 * pow(lz, 3) * pow(sh, 3) * pow(z, 2) -
-                1.21131 * pow(z, 3) + 1.49794 * lz * pow(z, 3) +
-                11.7509 * sh * pow(z, 3) + 6.73754 * Lsh * sh * pow(z, 3) +
-                9.4782 * lz * sh * pow(z, 3) + 0.592595 * Lsh * lz * sh * pow(z, 3) -
-                1.0370375 * pow(lz, 2) * pow(z, 3) -
-                3.654325 * sh * pow(lz, 2) * pow(z, 3) -
-                0.5925925 * Lsh * sh * pow(lz, 2) * pow(z, 3) +
-                38.1415 * pow(sh, 2) * pow(z, 3) +
-                27.5428 * Lsh * pow(sh, 2) * pow(z, 3) +
-                19.3218 * lz * pow(sh, 2) * pow(z, 3) +
-                1.185185 * Lsh * lz * pow(sh, 2) * pow(z, 3) -
-                10.39505 * pow(lz, 2) * pow(sh, 2) * pow(z, 3) -
-                2.37037 * Lsh * pow(lz, 2) * pow(sh, 2) * pow(z, 3) +
-                77.3602 * pow(sh, 3) * pow(z, 3) +
-                69.4495 * Lsh * pow(sh, 3) * pow(z, 3) +
-                29.22455 * lz * pow(sh, 3) * pow(z, 3) +
-                0.592595 * Lsh * lz * pow(sh, 3) * pow(z, 3) -
-                24.0247 * pow(lz, 2) * pow(sh, 3) * pow(z, 3) -
-                5.925925 * Lsh * pow(lz, 2) * pow(sh, 3) * pow(z, 3);
+                0.14814825 * z * lz2 - 1.122925 * sh * z * lz2 +
+                0.04938275 * z * lz3 + 0.04938275 * sh * z * lz3 -
+                0.024691375 * sh * z * pow(lz, 4) - 19.4691 * sh2 -
+                0.0164609 * Lsh * sh2 - 5.83895 * lz * sh2 -
+                90.4953 * z * sh2 + 2.37037 * Lsh * z * sh2 +
+                7.46645 * lz * z * sh2 + 0.592595 * Lsh * lz * z * sh2 -
+                0.74074 * lz2 * sh2 -
+                6.1095 * z * lz2 * sh2 -
+                0.04938275 * lz3 * sh2 +
+                0.14814875 * z * lz3 * sh2 -
+                0.074074375 * z * pow(lz, 4) * sh2 - 41.9952 * sh3 -
+                0.0164609 * Lsh * sh3 - 15.10455 * lz * sh3 -
+                189.354 * z * sh3 + 3.85185 * Lsh * z * sh3 +
+                21.3283 * lz * z * sh3 + 0.88889 * Lsh * lz * z * sh3 -
+                1.555555 * lz2 * sh3 -
+                14.44125 * z * lz2 * sh3 -
+                0.14814875 * lz3 * sh3 +
+                0.34567875 * z * lz3 * sh3 -
+                0.148148125 * z * pow(lz, 4) * sh3 -
+                0.00010778 * sh3 * pow(z, -2) +
+                0.00555556 * sh2 * pow(z, -1) +
+                0.946811 * sh3 * pow(z, -1) +
+                0.2444445 * lz * sh3 * pow(z, -1) +
+                0.02469135 * lz2 * sh3 * pow(z, -1) +
+                11.6973 * sh * sqrtz + 70.1839 * sh2 * sqrtz +
+                sh3*(-3.8991 * pow(z, -0.5) + 159.863 * sqrtz) +
+                1.94955 * pow(z, 1.5) + 1.86366 * z2 -
+                2.331735 * lz * z2 + 11.4229 * sh * z2 -
+                4.66347 * Lsh * sh * z2 - 17.0403 * lz * sh * z2 +
+                2.5926 * sh * lz2 * z2 +
+                0.5925925 * Lsh * sh * lz2 * z2 +
+                0.04938275 * lz3 * z2 +
+                0.29629625 * sh * lz3 * z2 +
+                23.8816 * sh2 * z2 -
+                13.9904 * Lsh * sh2 * z2 -
+                41.39575 * lz * sh2 * z2 +
+                1.185185 * Lsh * lz * sh2 * z2 +
+                8.074075 * lz2 * sh2 * z2 +
+                1.7777775 * Lsh * lz2 * sh2 * z2 +
+                0.74074125 * lz3 * sh2 * z2 +
+                45.1784 * sh3 * z2 -
+                27.3882 * Lsh * sh3 * z2 -
+                72.5905 * lz * sh3 * z2 +
+                4.14815 * Lsh * lz * sh3 * z2 +
+                17.7284 * lz2 * sh3 * z2 +
+                3.55555 * Lsh * lz2 * sh3 * z2 +
+                1.3827125 * lz3 * sh3 * z2 -
+                1.21131 * z3 + 1.49794 * lz * z3 +
+                11.7509 * sh * z3 + 6.73754 * Lsh * sh * z3 +
+                9.4782 * lz * sh * z3 + 0.592595 * Lsh * lz * sh * z3 -
+                1.0370375 * lz2 * z3 -
+                3.654325 * sh * lz2 * z3 -
+                0.5925925 * Lsh * sh * lz2 * z3 +
+                38.1415 * sh2 * z3 +
+                27.5428 * Lsh * sh2 * z3 +
+                19.3218 * lz * sh2 * z3 +
+                1.185185 * Lsh * lz * sh2 * z3 -
+                10.39505 * lz2 * sh2 * z3 -
+                2.37037 * Lsh * lz2 * sh2 * z3 +
+                77.3602 * sh3 * z3 +
+                69.4495 * Lsh * sh3 * z3 +
+                29.22455 * lz * sh3 * z3 +
+                0.592595 * Lsh * lz * sh3 * z3 -
+                24.0247 * lz2 * sh3 * z3 -
+                5.925925 * Lsh * lz2 * sh3 * z3;
     } else {
+        double Lshb = log(1. - sh);
+        double sqrtsh = sqrt(sh);
+        double sqrt4sh = sqrt(4. - sh);
+        double Li2sh = real(Li2(sh));
+        double Li3sh = real(Li3(sh));
+        double Li3shb = real(Li3(1. - sh));
+        double Li4sh = real(Li4(sh));
+        double ash = asin(sqrtsh / 2.);
+        double cl2 = Cl2(2. * ash);
+        double cl3 = Cl3(2. * ash);
         if (0 <= maxpow) {
             if (sh < .900001)
                 res += (-0.8559670781893004 * lmu -
@@ -2470,16 +2477,13 @@ double F_1::F_19re(double muh, double z, double sh, int maxpow)
     double lz = log(z);
     double lmu = log(muh);
     double Lsh = log(sh);
-    double Lshb = log(1. - sh);
-    double Li2sh = real(Li2(sh));
-    double Li3sh = real(Li3(sh));
-    double Li3shb = real(Li3(1. - sh));
-    double Li4sh = real(Li4(sh));
-    double sqrtsh = sqrt(sh);
-    double sqrt4sh = sqrt(4. - sh);
-    double ash = asin(sqrtsh / 2.);
-    double cl2 = Cl2(2. * ash);
-    double cl3 = Cl3(2. * ash);
+    double sh2 = pow(sh, 2);
+    double sh3 = pow(sh, 3);
+    double lz2 = pow(lz, 2);
+    double lz3 = pow(lz, 3);
+    double sqrtz = pow(z, 0.5);
+    double z2 = pow(z, 2);
+    double z3 = pow(z, 3);
 
 
     double res = 0;
@@ -2491,85 +2495,95 @@ double F_1::F_19re(double muh, double z, double sh, int maxpow)
                 14.4621 * z - 0.592593 * Lsh * z + 4.796605 * lz * z +
                 71.3855 * sh * z - 2.66667 * Lsh * sh * z + 4.238385 * lz * sh * z -
                 0.592595 * Lsh * lz * sh * z - 1.0534979423868314 * pow(lmu, 2) -
-                0.2962975 * z * pow(lz, 2) + 3.134725 * sh * z * pow(lz, 2) -
-                0.098765375 * z * pow(lz, 3) - 0.098765375 * sh * z * pow(lz, 3) +
-                0.0493826875 * sh * z * pow(lz, 4) + 37.1282 * pow(sh, 2) +
-                0.0164609 * Lsh * pow(sh, 2) + 11.03105 * lz * pow(sh, 2) +
-                212.74 * z * pow(sh, 2) - 5.33333 * Lsh * z * pow(sh, 2) -
-                10.96075 * lz * z * pow(sh, 2) - 1.185185 * Lsh * lz * z * pow(sh, 2) +
-                1.3333325 * pow(lz, 2) * pow(sh, 2) +
-                14.2931 * z * pow(lz, 2) * pow(sh, 2) +
-                0.098765375 * pow(lz, 3) * pow(sh, 2) -
-                0.29629625 * z * pow(lz, 3) * pow(sh, 2) +
-                0.148148125 * z * pow(lz, 4) * pow(sh, 2) + 79.7475 * pow(sh, 3) +
-                0.0219479 * Lsh * pow(sh, 3) + 28.65855 * lz * pow(sh, 3) +
-                425.579 * z * pow(sh, 3) - 8.2963 * Lsh * z * pow(sh, 3) -
-                34.4008 * lz * z * pow(sh, 3) - 1.77778 * Lsh * lz * z * pow(sh, 3) +
-                2.814825 * pow(lz, 2) * pow(sh, 3) +
-                32.33925 * z * pow(lz, 2) * pow(sh, 3) +
-                0.29629625 * pow(lz, 3) * pow(sh, 3) -
-                0.6913575 * z * pow(lz, 3) * pow(sh, 3) +
-                0.29629625 * z * pow(lz, 4) * pow(sh, 3) +
-                lmu * pow(sh, 3)*(0.00020902736952119668 -
+                0.2962975 * z * lz2 + 3.134725 * sh * z * lz2 -
+                0.098765375 * z * lz3 - 0.098765375 * sh * z * lz3 +
+                0.0493826875 * sh * z * pow(lz, 4) + 37.1282 * sh2 +
+                0.0164609 * Lsh * sh2 + 11.03105 * lz * sh2 +
+                212.74 * z * sh2 - 5.33333 * Lsh * z * sh2 -
+                10.96075 * lz * z * sh2 - 1.185185 * Lsh * lz * z * sh2 +
+                1.3333325 * lz2 * sh2 +
+                14.2931 * z * lz2 * sh2 +
+                0.098765375 * lz3 * sh2 -
+                0.29629625 * z * lz3 * sh2 +
+                0.148148125 * z * pow(lz, 4) * sh2 + 79.7475 * sh3 +
+                0.0219479 * Lsh * sh3 + 28.65855 * lz * sh3 +
+                425.579 * z * sh3 - 8.2963 * Lsh * z * sh3 -
+                34.4008 * lz * z * sh3 - 1.77778 * Lsh * lz * z * sh3 +
+                2.814825 * lz2 * sh3 +
+                32.33925 * z * lz2 * sh3 +
+                0.29629625 * lz3 * sh3 -
+                0.6913575 * z * lz3 * sh3 +
+                0.29629625 * z * pow(lz, 4) * sh3 +
+                lmu * sh3*(0.00020902736952119668 -
                 0.0037624926513815404 * pow(z, -3)) -
-                0.0759415 * pow(sh, 3) * pow(z, -3) +
-                lmu * pow(sh, 2)*(0.0014109347442680777 -
+                0.0759415 * sh3 * pow(z, -3) +
+                lmu * sh2*(0.0014109347442680777 -
                 0.025396825396825397 * pow(z, -2)) -
-                0.403158 * pow(sh, 2) * pow(z, -2) -
-                0.00480894 * pow(sh, 3) * pow(z, -2) +
+                0.403158 * sh2 * pow(z, -2) -
+                0.00480894 * sh3 * pow(z, -2) +
                 lmu * sh * (0.01316872427983539 -
                 0.23703703703703705 * pow(z, -1)) -
-                2.48507 * sh * pow(z, -1) - 0.0613169 * pow(sh, 2) * pow(z, -1) -
-                1.81002 * pow(sh, 3) * pow(z, -1) -
-                0.4597295 * lz * pow(sh, 3) * pow(z, -1) -
-                0.04938275 * pow(lz, 2) * pow(sh, 3) * pow(z, -1) +
-                pow(sh, 3)*(7.79821 * pow(z, -0.5) - 319.726 * pow(z, 0.5)) -
-                23.3946 * sh * pow(z, 0.5) - 140.368 * pow(sh, 2) * pow(z, 0.5) +
-                3.8991 * pow(z, 1.5) - 16.0864 * pow(z, 2) +
-                4.95977 * Lsh * pow(z, 2) + 27.12195 * lz * pow(z, 2) -
-                0.592595 * Lsh * lz * pow(z, 2) - 18.1301 * sh * pow(z, 2) +
-                18.6539 * Lsh * sh * pow(z, 2) + 74.798 * lz * sh * pow(z, 2) -
-                2.37037 * Lsh * lz * sh * pow(z, 2) -
-                3.85185 * pow(lz, 2) * pow(z, 2) -
-                0.5925925 * Lsh * pow(lz, 2) * pow(z, 2) -
-                12.2963 * sh * pow(lz, 2) * pow(z, 2) -
-                2.37037 * Lsh * sh * pow(lz, 2) * pow(z, 2) -
-                0.4938275 * pow(lz, 3) * pow(z, 2) -
-                1.3827125 * sh * pow(lz, 3) * pow(z, 2) -
-                44.6829 * pow(sh, 2) * pow(z, 2) +
-                40.786 * Lsh * pow(sh, 2) * pow(z, 2) +
-                136.0075 * lz * pow(sh, 2) * pow(z, 2) -
-                7.1111 * Lsh * lz * pow(sh, 2) * pow(z, 2) -
-                29.77775 * pow(lz, 2) * pow(sh, 2) * pow(z, 2) -
-                5.333325 * Lsh * pow(lz, 2) * pow(sh, 2) * pow(z, 2) -
-                2.6666625 * pow(lz, 3) * pow(sh, 2) * pow(z, 2) -
-                87.8946 * pow(sh, 3) * pow(z, 2) +
-                70.2698 * Lsh * pow(sh, 3) * pow(z, 2) +
-                208.806 * lz * pow(sh, 3) * pow(z, 2) -
-                15.80245 * Lsh * lz * pow(sh, 3) * pow(z, 2) -
-                56.79 * pow(lz, 2) * pow(sh, 3) * pow(z, 2) -
-                9.481475 * Lsh * pow(lz, 2) * pow(sh, 3) * pow(z, 2) -
-                4.345675 * pow(lz, 3) * pow(sh, 3) * pow(z, 2) - 14.73 * pow(z, 3) -
-                9.20287 * Lsh * pow(z, 3) - 14.28805 * lz * pow(z, 3) -
-                0.52675 * Lsh * lz * pow(z, 3) - 72.89 * sh * pow(z, 3) -
-                41.6104 * Lsh * sh * pow(z, 3) - 34.0675 * lz * sh * pow(z, 3) -
-                1.185185 * Lsh * lz * sh * pow(z, 3) +
-                5.037025 * pow(lz, 2) * pow(z, 3) +
-                0.7901225 * Lsh * pow(lz, 2) * pow(z, 3) +
-                15.901225 * sh * pow(lz, 2) * pow(z, 3) +
-                3.55555 * Lsh * sh * pow(lz, 2) * pow(z, 3) -
-                137.203 * pow(sh, 2) * pow(z, 3) -
-                111.356 * Lsh * pow(sh, 2) * pow(z, 3) -
-                49.7185 * lz * pow(sh, 2) * pow(z, 3) +
-                42.22225 * pow(lz, 2) * pow(sh, 2) * pow(z, 3) +
-                9.481475 * Lsh * pow(lz, 2) * pow(sh, 2) * pow(z, 3) -
-                279.268 * pow(sh, 3) * pow(z, 3) -
-                231.893 * Lsh * pow(sh, 3) * pow(z, 3) -
-                73.4265 * lz * pow(sh, 3) * pow(z, 3) +
-                5.92595 * Lsh * lz * pow(sh, 3) * pow(z, 3) +
-                82.81475 * pow(lz, 2) * pow(sh, 3) * pow(z, 3) +
-                19.753075 * Lsh * pow(lz, 2) * pow(sh, 3) * pow(z, 3);
+                2.48507 * sh * pow(z, -1) - 0.0613169 * sh2 * pow(z, -1) -
+                1.81002 * sh3 * pow(z, -1) -
+                0.4597295 * lz * sh3 * pow(z, -1) -
+                0.04938275 * lz2 * sh3 * pow(z, -1) +
+                sh3*(7.79821 * pow(z, -0.5) - 319.726 * sqrtz) -
+                23.3946 * sh * sqrtz - 140.368 * sh2 * sqrtz +
+                3.8991 * pow(z, 1.5) - 16.0864 * z2 +
+                4.95977 * Lsh * z2 + 27.12195 * lz * z2 -
+                0.592595 * Lsh * lz * z2 - 18.1301 * sh * z2 +
+                18.6539 * Lsh * sh * z2 + 74.798 * lz * sh * z2 -
+                2.37037 * Lsh * lz * sh * z2 -
+                3.85185 * lz2 * z2 -
+                0.5925925 * Lsh * lz2 * z2 -
+                12.2963 * sh * lz2 * z2 -
+                2.37037 * Lsh * sh * lz2 * z2 -
+                0.4938275 * lz3 * z2 -
+                1.3827125 * sh * lz3 * z2 -
+                44.6829 * sh2 * z2 +
+                40.786 * Lsh * sh2 * z2 +
+                136.0075 * lz * sh2 * z2 -
+                7.1111 * Lsh * lz * sh2 * z2 -
+                29.77775 * lz2 * sh2 * z2 -
+                5.333325 * Lsh * lz2 * sh2 * z2 -
+                2.6666625 * lz3 * sh2 * z2 -
+                87.8946 * sh3 * z2 +
+                70.2698 * Lsh * sh3 * z2 +
+                208.806 * lz * sh3 * z2 -
+                15.80245 * Lsh * lz * sh3 * z2 -
+                56.79 * lz2 * sh3 * z2 -
+                9.481475 * Lsh * lz2 * sh3 * z2 -
+                4.345675 * lz3 * sh3 * z2 - 14.73 * z3 -
+                9.20287 * Lsh * z3 - 14.28805 * lz * z3 -
+                0.52675 * Lsh * lz * z3 - 72.89 * sh * z3 -
+                41.6104 * Lsh * sh * z3 - 34.0675 * lz * sh * z3 -
+                1.185185 * Lsh * lz * sh * z3 +
+                5.037025 * lz2 * z3 +
+                0.7901225 * Lsh * lz2 * z3 +
+                15.901225 * sh * lz2 * z3 +
+                3.55555 * Lsh * sh * lz2 * z3 -
+                137.203 * sh2 * z3 -
+                111.356 * Lsh * sh2 * z3 -
+                49.7185 * lz * sh2 * z3 +
+                42.22225 * lz2 * sh2 * z3 +
+                9.481475 * Lsh * lz2 * sh2 * z3 -
+                279.268 * sh3 * z3 -
+                231.893 * Lsh * sh3 * z3 -
+                73.4265 * lz * sh3 * z3 +
+                5.92595 * Lsh * lz * sh3 * z3 +
+                82.81475 * lz2 * sh3 * z3 +
+                19.753075 * Lsh * lz2 * sh3 * z3;
     } else {
+        double Lshb = log(1. - sh);
+        double sqrtsh = sqrt(sh);
+        double sqrt4sh = sqrt(4. - sh);
+        double Li2sh = real(Li2(sh));
+        double Li3sh = real(Li3(sh));
+        double Li3shb = real(Li3(1. - sh));
+        double Li4sh = real(Li4(sh));
+        double ash = asin(sqrtsh / 2.);
+        double cl2 = Cl2(2. * ash);
+        double cl3 = Cl3(2. * ash);
         if (0 <= maxpow) {
             if (sh < .900001)
                 res += (11.39728026699467 - 1.0534979423868314 * pow(lmu, 2) -

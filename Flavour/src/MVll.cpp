@@ -527,24 +527,24 @@ void MVll::updateParameters()
     NN = - (4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI);
     NN_conjugate = - (4. * GF * MM * ale * lambda_t.conjugate()) / (sqrt(2.)*4. * M_PI);
     
-    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) {
-        switch (lep) {
-            case StandardModel::MU:
-                fit_DeltaC9_p_mumu();
-                fit_DeltaC9_m_mumu();
-                fit_DeltaC9_0_mumu();
-                break;
-            case StandardModel::ELECTRON:
-                fit_DeltaC9_p_ee();
-                fit_DeltaC9_m_ee();
-                fit_DeltaC9_0_ee();
-                break;
-            default:
-                std::stringstream out;
-                out << lep;
-                throw std::runtime_error("MVll: lepton " + out.str() + " not implemented");
-        }
-    }
+//    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) {
+//        switch (lep) {
+//            case StandardModel::MU:
+//                fit_DeltaC9_p_mumu();
+//                fit_DeltaC9_m_mumu();
+//                fit_DeltaC9_0_mumu();
+//                break;
+//            case StandardModel::ELECTRON:
+//                fit_DeltaC9_p_ee();
+//                fit_DeltaC9_m_ee();
+//                fit_DeltaC9_0_ee();
+//                break;
+//            default:
+//                std::stringstream out;
+//                out << lep;
+//                throw std::runtime_error("MVll: lepton " + out.str() + " not implemented");
+//        }
+//    }
 
     std::map<std::pair<double, double>, unsigned int >::iterator it;
 
@@ -572,10 +572,11 @@ void MVll::updateParameters()
     if (deltaTperpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
     
     if (deltaTparpupdated*deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
+    
+    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) fit_QCDF_func();
 
     mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
     
-//    fit_QCDF_func();
 //
 //for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
 //        FS = convertToGslFunction(boost::bind(&MVll::T_perp_real, &(*this), qq2, _1, false));
@@ -1275,8 +1276,8 @@ gslpp::complex MVll::T_perp_plus_QSS(double q2, double u, bool conjugate)
     double ed = -0.333333333;
 
     gslpp::complex T_t = (eu * t_perp_mc * (C_1/6. + C_2 + 6.*C_6)
-            + ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + mb_pole / MM * (C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
-            + ed * t_perp_0 * (-C_3 + C_4/6. - 16. * C_5 + 8. * C_6/3.));
+            + ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + mb_pole / MM * (-C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
+            + ed * t_perp_0 * (C_3 - C_4/6. + 16. * C_5 - 8. * C_6/3.));
 
     gslpp::complex T_u = eu * (t_perp_mc - t_perp_0)*(C_2 - C_1 / 6.);
 
@@ -1295,7 +1296,7 @@ gslpp::complex MVll::T_para_plus_QSS(double q2, double u, bool conjugate)
     
     gslpp::complex T_t = (eu * t_para_mc * (-C_1/6. + C_2 + 6.*C_6)
         + ed * t_para_mb * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3.)
-        + ed * t_para_0 * (-C_3 + C_4/6. - 16.*C_5 + 8.*C_6/3.));
+        + ed * t_para_0 * (C_3 - C_4/6. + 16.*C_5 - 8.*C_6/3.));
             
     gslpp::complex T_u = eu * (t_para_mc - t_para_0) * (C_2 - C_1/6.);
     
@@ -1318,7 +1319,7 @@ gslpp::complex MVll::T_para_minus_QSS(double q2, double u, bool conjugate)
     
     gslpp::complex T_u = (h_mc - h_0)*(C_2 - C_1/6.); 
     
-    if (!conjugate) return alpha_s_mub/(3.*M_PI) * spectator_charge * 6 * MM/mb_pole * (T_t + lambda_u / lambda_t * T_u);
+    if (!conjugate) return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t + lambda_u / lambda_t * T_u);
     else return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t + (lambda_u / lambda_t).conjugate() * T_u);
 }
 
@@ -1379,57 +1380,32 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
 
 double MVll::T_perp_real(double q2, bool conjugate)
 {   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
     FS = convertToGslFunction(boost::bind(&MVll::T_perp_real, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qng(&FS, 0., 1., 1.e-3, 1.e-2, &avaSigma1, &errSigma, &neval);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  1 " << avaSigma1 << "  " << avaSigma << std::endl;
     
     return avaSigma;
 }
 
 double MVll::T_perp_imag(double q2, bool conjugate)
 {   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
     FS = convertToGslFunction(boost::bind(&MVll::T_perp_imag, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  2 " << avaSigma1 << "  " << avaSigma << std::endl;
-    
+
     return avaSigma;
 }
 
 double MVll::T_para_real(double q2, bool conjugate)
-{   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
+{      
     FS = convertToGslFunction(boost::bind(&MVll::T_para_real, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  3 " << avaSigma1 << "  " << avaSigma << std::endl;
     
     return avaSigma;
 }
 
 double MVll::T_para_imag(double q2, bool conjugate)
-{   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
+{     
     FS = convertToGslFunction(boost::bind(&MVll::T_para_imag, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  4 " << avaSigma1 << "  " << avaSigma << std::endl;
     
     return avaSigma;
 }
@@ -1448,11 +1424,13 @@ void MVll::fit_QCDF_func()
         Im_T_perp.push_back(T_perp_imag(i, false));
         Re_T_para.push_back(T_para_real(i, false));
         Im_T_para.push_back(T_para_imag(i, false));
-        
+
+#if COMPUTECP        
         Re_T_perp_conj.push_back(T_perp_real(i, true));
         Im_T_perp_conj.push_back(T_perp_imag(i, true));
         Re_T_para_conj.push_back(T_para_real(i, true));
         Im_T_para_conj.push_back(T_para_imag(i, true));
+#endif
         dim++;
     }
 
@@ -1476,6 +1454,7 @@ void MVll::fit_QCDF_func()
     Im_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_para.clear();
     
+#if COMPUTECP  
     gr1 = TGraph(dim, myq2.data(), Re_T_perp_conj.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_perp_conj");
     Re_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
@@ -1495,8 +1474,29 @@ void MVll::fit_QCDF_func()
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_para_conj");
     Im_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_para_conj.clear();
+#endif
     
     myq2.clear();
+}
+
+gslpp::complex MVll::T_minus(double q2, bool conjugate) 
+{
+#if COMPUTECP  
+    if (!conjugate) return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_perp_res->GetParams())));
+    else return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_perp_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_perp_res_conj->GetParams())));
+#else
+    return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_perp_res->GetParams())));
+#endif    
+}
+
+gslpp::complex MVll::T_0(double q2, bool conjugate) 
+{
+#if COMPUTECP
+    if(!conjugate) return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_para_res->GetParams())));
+    else return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_para_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_para_res_conj->GetParams())));
+#else
+    return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_para_res->GetParams())));
+#endif
 }
 /*******************************************************************************
  * QCD factorization perturbative corrections                                  *
@@ -2063,21 +2063,21 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
 
 gslpp::complex MVll::H_V_0(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_0(q2) + Y(q2)) - etaV*pow(-1,angmomV)*C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - etaV*pow(-1,angmomV)*C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_0(q2) + Y(q2)) - etaV*pow(-1,angmomV)*C_9p.conjugate()) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7.conjugate() - etaV*pow(-1,angmomV)*C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV*pow(-1,angmomV)*C_9p) * V_0t(q2) + T_0(q2, !bar) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, !bar) - etaV*pow(-1,angmomV)*C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate()  + deltaC9_QCDF(q2, bar) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV*pow(-1,angmomV)*C_9p.conjugate()) * V_0t(q2) + T_0(q2, bar) + MM2 / q2 * (twoMboMM * (C_7.conjugate()  + deltaC7_QCDF(q2, bar) - etaV*pow(-1,angmomV)*C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
     
 }
 
 gslpp::complex MVll::H_V_p(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - etaV*pow(-1,angmomV)*C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_p(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar)) * T_p(q2) - etaV*pow(-1,angmomV)*C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar)) * T_p(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - etaV*pow(-1,angmomV)*C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_m(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p * V_p(q2)) + T_minus(q2, !bar) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar)) * T_m(q2) - etaV*pow(-1,angmomV)*C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_p(q2)) + T_minus(q2, bar) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar)) * T_m(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2, bool bar) 

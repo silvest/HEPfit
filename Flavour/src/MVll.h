@@ -17,8 +17,8 @@ class F_2;
 #include <TFitResultPtr.h>
 
 #define SWITCH 8.2
-
 #define NFPOLARBASIS_MVLL true
+#define COMPUTECP false
 
 /**
  * @class MVll
@@ -2162,6 +2162,10 @@ private:
     double QCDF_fit_func(double* x, double* p);
     
     void fit_QCDF_func();
+    
+    gslpp::complex T_minus(double q2, bool conjugate);
+    
+    gslpp::complex T_0(double q2, bool conjugate);
     
     /**
     * @brief The fit function from @cite Straub:2015ica, \f$ FF^{\rm fit} \f$.
