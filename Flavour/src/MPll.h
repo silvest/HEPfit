@@ -9,6 +9,8 @@
 #define	MPLL_H
 
 class StandardModel;
+class F_1;
+class F_2;
 #include "ThObservable.h"
 #include <gsl/gsl_integration.h>
 #include <TF1.h>
@@ -260,6 +262,8 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson pseudoscalar;/**< Final pseudoscalar meson type */
     std::vector<std::string> mpllParameters;/**< The string of mandatory MPll parameters */
+    F_1& myF_1;
+    F_2& myF_2;
     
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */
@@ -270,9 +274,12 @@ private:
     double mu_b;          /**<b mass scale */
     double mu_h;          /**<\f$\sqrt{\mu_b*\lambda_{QCD}}\f$ */
     double Mc;            /**<c quark mass */
+    double mb_pole;       /**<b quark pole mass */
+    double mc_pole;       /**<c quark pole mass */
     double Ms;            /**<s quark mass */
     double spectator_charge;  /**<spectator quark charge */
     double width;         /**<initial meson width */
+    double alpha_s_mub; /**<@f\aplha_s(\mu_b)$@f$ */
     double angmomP;       /**<angular momentum of meson P; for a resonance, it's replaced by its spin */
     int etaP;             /**<parity of meson P */
 
@@ -323,6 +330,7 @@ private:
     gslpp::complex C_5;/**<Wilson coeffients @f$C_5@f$*/
     gslpp::complex C_6;/**<Wilson coeffients @f$C_6@f$*/
     gslpp::complex C_7;/**<Wilson coeffients @f$C_7@f$*/
+    gslpp::complex C_8;/**<Wilson coeffients @f$C_8@f$*/
     gslpp::complex C_8L;/**<Leading order Wilson coeffients @f$C_8@f$*/
     gslpp::complex C_8Lh;/**<Leading order Wilson coeffients @f$C_8@f$ at scale @f$\mu_h@f$*/
     gslpp::complex C_9;/**<Wilson coeffients @f$C_9@f$*/
@@ -1003,6 +1011,20 @@ private:
     * @return \f$ \Delta C_9 \f$
     */
     gslpp::complex DeltaC9(double q2);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..
+     * @param q2 \f$q^2\f$ of the decay
+     * @return @f$ \Delta C_{7}^{QCDF} @f$
+     */
+    gslpp::complex deltaC7_QCDF(double q2);
+    
+    /**
+     * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..
+     * @param q2 \f$q^2\f$ of the decay
+     * @return @f$ \Delta C_{9}^{QCDF} @f$
+     */
+    gslpp::complex deltaC9_QCDF(double q2);
     
 };
 

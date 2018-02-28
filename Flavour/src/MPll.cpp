@@ -9,13 +9,15 @@
 #include "MPll.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
+#include "F_1.h"
+#include "F_2.h"
 #include <gsl/gsl_sf.h>
 #include <boost/bind.hpp>
 #include <limits>
 #include <TFitResult.h>
 
 MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
-:       mySM(SM_i),
+:       mySM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2())),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
         fplus_lat_cache(3, 0.),
@@ -94,12 +96,15 @@ void MPll::updateParameters()
     MP=mySM.getMesons(pseudoscalar).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Mc=mySM.getQuarks(QCD::CHARM).getMass();
+    mb_pole = mySM.Mbar2Mp(Mb); /* Conversion to pole mass*/
+    mc_pole = mySM.Mbar2Mp(Mc); /* Conversion to pole mass*/
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
     mu_b = mySM.getMub();
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     width = mySM.getMesons(meson).computeWidth();
+    alpha_s_mub = mySM.Als(mu_b);
     
     switch(pseudoscalar){
         case StandardModel::K_P :
@@ -157,6 +162,7 @@ void MPll::updateParameters()
     C_5 =  ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
     C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+    C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
     C_8L = (*(allcoeff[LO]))(7);
     C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8);
     C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
@@ -219,7 +225,7 @@ void MPll::updateParameters()
     twoMc2 = 2.*Mc2;
     sixMMoMb = 6. * MM / Mb;
     CF =4./3.;
-    deltaT_0 = mySM.Als(mu_b) * MboMM / 4. / M_PI;
+    deltaT_0 = alpha_s_mub * MboMM / 4. / M_PI;
     deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
             mySM.getMesons(pseudoscalar).getDecayconst() / MM * MboMM;
             
@@ -864,6 +870,49 @@ gslpp::complex MPll::DeltaC9(double q2)
     return deltaTpar(q2);
 }
 
+gslpp::complex MPll::deltaC7_QCDF(double q2)
+{
+    double muh = mu_b/mb_pole;
+    double z = mc_pole*mc_pole/mb_pole/mb_pole;
+    double sh = q2/mb_pole/mb_pole;
+    double sh2 = sh*sh;
+    
+    //gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    gslpp::complex F_17 = myF_1.F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_27 = myF_2.F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_27im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/ 
+    gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh*sh2 - 8./9. * log(sh) * (sh + sh2 + sh*sh2);
+    
+    gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
+    gslpp::complex delta_t = C_8 * F_87 + delta;
+    //gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+
+    return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u */);
+}
+
+gslpp::complex MPll::deltaC9_QCDF(double q2)
+{
+    double muh = mu_b / mb_pole;
+    double z = mc_pole * mc_pole / mb_pole / mb_pole;
+    double sh = q2 / mb_pole / mb_pole;
+    double sh2 = sh*sh;
+
+    //gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    gslpp::complex F_19 = myF_1.F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_19im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_29 = myF_2.F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_29im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
+
+    gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
+    gslpp::complex delta_t = C_8 * F_89 + delta;
+    //gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
+
+    return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u*/);
+}
+
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
@@ -900,7 +949,7 @@ gslpp::complex MPll::Y(double q2)
 
 gslpp::complex MPll::H_V(double q2) 
 {
-    return -( (C_9 + Y(q2) + fDeltaC9(q2) - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
+    return -( (C_9 + deltaC9_QCDF(q2)  + Y(q2) /*+ fDeltaC9(q2)*/ - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 + deltaC7_QCDF(q2) - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2) 
