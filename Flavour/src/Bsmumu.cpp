@@ -45,6 +45,7 @@ void Bsmumu::computeObs(orders order, orders_qed order_qed)
     
     mmu = SM.getLeptons(StandardModel::MU).getMass();
     mBs = SM.getMesons(QCD::B_S).getMass();
+    mW = SM.Mw();
     mb = SM.getQuarks(QCD::BOTTOM).getMass();
     ms = SM.getQuarks(QCD::STRANGE).getMass();
     chiral = pow(mBs, 2.) / 2. / mmu * mb / (mb + ms);
@@ -79,22 +80,38 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     double alsmu = evolbsmm.alphatilde_s(mu);
     double alemu = evolbsmm.alphatilde_e(mu);
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
+    gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
+    double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ) ;
+    
+    gslpp::complex C_10p = 0.;
+    gslpp::complex C_S = 0.;
+    gslpp::complex C_Sp = 0.;
+    gslpp::complex C_P = 0.;
+    gslpp::complex C_Pp = 0.;
    
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
     switch(order_qed) {
         case FULLNLO_QED:
         {
-            gslpp::complex CC = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
+            gslpp::complex C10_SM = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
                     + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_QED ]))(7) /alsmu
                     + (*(allcoeff[NLO_QED11]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
-            absP = CC.abs(); //contains only SM contributions (P, P', S, S' not added)
-            argP = CC.arg();
             
-            absS = 0.;
-            argS = 0.;
+            gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,1)) * sw * sw;
+
+            gslpp::complex CC_P = C10_SM + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mmu*(mb+ms)*mW ) * (C_P - C_Pp) );
+
+                
+            absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)
+            argP = CC_P.arg();
+            
+            gslpp::complex CC_S = NPfactor * ( beta * mBs*mBs*mb / ( 2.*mmu*(mb+ms)*mW ) * (C_S - C_Sp) );
+
+            absS = CC_S.abs();
+            argS = CC_S.arg();
            
             phiNP = 0.;
             

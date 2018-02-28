@@ -47,6 +47,7 @@ private:
     
     double beta;
     double mBs;
+    double mW;
     double mmu;
     double mb;
     double ms;
