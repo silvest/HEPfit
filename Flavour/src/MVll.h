@@ -642,6 +642,15 @@ public:
     {
         return (sixteenM_PI2MM2 * h_lambda(0,q2)/q2).imag();
     }
+
+    /**
+    * @brief \f$ h_+(0) \f$.
+    * @return \f$ h_+(0) \f$
+    */
+    gslpp::complex geth_p_0()
+    {
+        return h_lambda(1,0.);
+    }
     
     /**
     * @brief The real part of \f$ h_+ \f$.  
@@ -661,6 +670,15 @@ public:
     double geth_p_im(double q2)
     {
         return (sixteenM_PI2MM2 * h_lambda(1,q2)/q2).imag();
+    }
+
+    /**
+    * @brief \f$ h_-(0) \f$.
+    * @return \f$ h_-(0) \f$
+    */
+    gslpp::complex geth_m_0()
+    {
+        return h_lambda(2,0.);
     }
     
     /**

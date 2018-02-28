@@ -2052,12 +2052,23 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
 {
     if(!fullKD) {
         if (h_pole == true) return (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
-        else if (hel == 1 || hel == 2) return (h_0[hel] + h_1[hel] * q2 + h_2[hel] * q2 * q2);
-        else return (h_0[hel] + h_1[hel] * q2) * sqrt(q2);
+        else if(hel == 1) return (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2))/sixteenM_PI2);
+        else if(hel == 2) return (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2))/sixteenM_PI2 + h_2[2] * q2 * q2;
+        else return (h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2)  + h_1[2] * q2 * V_0t(q2) / MM2)/sixteenM_PI2;
     } else {
         if (hel == 0) return -sqrt(q2)/(MM2*16.*M_PI*M_PI) * ((MMpMV2*(MM2mMV2-q2)*A_1(q2)*DeltaC9_KD(q2,1) - lambda(q2)*A_2(q2)*DeltaC9_KD(q2,2)) / (4.*MV*MM*MMpMV));
-        else if (hel == 1) return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
-        else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        else if (hel == 1) {
+            if (q2 == 0.) return -1./(MM2*16.*M_PI*M_PI) * (
+                    (MMpMV*A_1(0.)) / (2.*MM) * ((- h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2) )*exp_Phase[1]
+                    - sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] );
+            else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        }
+        else {
+            if (q2 == 0.) return -1./(MM2*16.*M_PI*M_PI) *
+                    ((MMpMV*A_1(0.)) / (2.*MM) * ((- h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2) )*exp_Phase[1]
+                    + sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] );
+            else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        }
     }
 }
 

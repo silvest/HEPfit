@@ -7,6 +7,7 @@
 
 #include "Flavour.h"
 #include "MVgamma.h"
+#include "MVll.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
@@ -49,8 +50,8 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (fullKD) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2";
-        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2";
+        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
+        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
     }
     
     SM.initializeMeson(meson);
@@ -103,25 +104,32 @@ void MVgamma::updateParameters()
     fpara = SM.getMesons(vectorM).getDecayconst();
     fperp = SM.getMesons(vectorM).getDecayconst_p();
     
-    if (!fullKD) {
-#if NFPOLARBASIS_MVGAMMA
-        h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
-        h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
-#else
-        h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
-        h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
-#endif
-    } else {
-        gslpp::complex DC7_1 = SM.getOptionalParameter("deltaC7_1")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_1"));
-        gslpp::complex DC7_2 = SM.getOptionalParameter("deltaC7_2")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_2"));
-        h[0] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 - DC7_1)).abs();
-        h[1] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 + DC7_1)).abs();
-    }
-    
     double ms_over_mb = SM.Mrun(mu_b, SM.getQuarks(QCD::STRANGE).getMass_scale(), 
                         SM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO)
                        /SM.Mrun(mu_b, SM.getQuarks(QCD::BOTTOM).getMass_scale(), 
                         SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+    
+    if (!fullKD) {
+#if NFPOLARBASIS_MVGAMMA
+        h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
+        h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
+        h[1] *= 2. * (Mb / MM) / (16. * M_PI * M_PI) * (T_1() * lambda / MM2) ;
+        h[0] += ms_over_mb * h[1] ;
+#else
+        h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
+        h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
+        h[1] *= 2. * (Mb / MM) / (16. * M_PI * M_PI) * (T_1() * lambda / MM2) ;
+        h[0] += ms_over_mb * h[1] ;
+#endif
+    } else {
+        //gslpp::complex DC7_1 = SM.getOptionalParameter("deltaC7_1")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_1"));
+        //gslpp::complex DC7_2 = SM.getOptionalParameter("deltaC7_2")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_2"));
+        //h[0] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 - DC7_1)).abs();
+        //h[1] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 + DC7_1)).abs();
+        h[0] = SM.getFlavour().getMVll(meson,vectorM,StandardModel::MU).geth_p_0();
+        h[1] = SM.getFlavour().getMVll(meson,vectorM,StandardModel::MU).geth_m_0();
+    }
+    
     allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu_b);
     allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu_b);
     
@@ -285,7 +293,7 @@ gslpp::complex MVgamma::T_perp_plus_O8(double u)
 gslpp::complex MVgamma::T_perp(double u, bool conjugate) 
 {
     double N = M_PI*M_PI/3.*fB*fperp/MM;
-    double ubar = 1. - u;
+    //double ubar = 1. - u;
     gslpp::complex T_amp = N/SM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(u) + T_perp_plus_QSS(u, conjugate)) /*+ N * phi_V(u)/ubar * T_perp_WA_1() + N/SM.getMesons(meson).getLambdaM() * fpara/fperp * MV * T_perp_WA_2(conjugate)*/; /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
     return T_amp;
 }
