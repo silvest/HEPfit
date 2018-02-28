@@ -1113,9 +1113,9 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate)
     double sh = q2/mb_pole/mb_pole;
     double sh2 = sh*sh;
     
-    gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex F_17 = myF_1.F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_27 = myF_2.F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_27im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/ 
     gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh*sh2 - 8./9. * log(sh) * (sh + sh2 + sh*sh2);
@@ -1123,15 +1123,15 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate)
     if (!conjugate) {
         gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
         gslpp::complex delta_t = C_8 * F_87 + delta;
-        gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+        //gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u */);
     } else {
         gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
         gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
+        //gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- (lambda_u / lambda_t).conjugate() * delta_u */);
     }
 }
 
@@ -1142,10 +1142,10 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate)
     double sh = q2 / mb_pole / mb_pole;
     double sh2 = sh*sh;
 
-    gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex F_19 = myF_1.F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_19im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_29 = myF_2.F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_29im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
@@ -1153,15 +1153,15 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate)
     if (!conjugate) {
         gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
         gslpp::complex delta_t = C_8 * F_89 + delta;
-        gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
+        //gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u*/);
     } else {
         gslpp::complex delta = C_1.conjugate() * F_19 + C_2.conjugate() * F_29;
         gslpp::complex delta_t = C_8.conjugate() * F_89 + delta;
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
+        //gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- (lambda_u / lambda_t).conjugate() * delta_u*/);
     }
 }
 
@@ -1268,40 +1268,40 @@ gslpp::complex MVll::h_func(double s, double m2)
 
 gslpp::complex MVll::T_perp_plus_QSS(double q2, double u, bool conjugate)
 {
-    gslpp::complex t_perp_mb = t_perp(q2, u, mb_pole*mb_pole);
+    //gslpp::complex t_perp_mb = t_perp(q2, u, mb_pole*mb_pole);
     gslpp::complex t_perp_mc = t_perp(q2, u, mc_pole*mc_pole);
-    gslpp::complex t_perp_0 = t_perp(q2, u, 0.);
+    //gslpp::complex t_perp_0 = t_perp(q2, u, 0.);
 
     double eu = 0.666666667;
-    double ed = -0.333333333;
+    //double ed = -0.333333333;
 
     gslpp::complex T_t = (eu * t_perp_mc * (C_1/6. + C_2 + 6.*C_6)
-            + ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + mb_pole / MM * (-C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
-            + ed * t_perp_0 * (C_3 - C_4/6. + 16. * C_5 - 8. * C_6/3.));
+            /*+ ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + mb_pole / MM * (-C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
+            + ed * t_perp_0 * (C_3 - C_4/6. + 16. * C_5 - 8. * C_6/3.)*/);
 
-    gslpp::complex T_u = eu * (t_perp_mc - t_perp_0)*(C_2 - C_1 / 6.);
+    //gslpp::complex T_u = eu * (t_perp_mc - t_perp_0)*(C_2 - C_1 / 6.);
 
-    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t + lambda_u / lambda_t * T_u);
-    else return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t + (lambda_u / lambda_t).conjugate() * T_u);
+    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t /*+ lambda_u / lambda_t * T_u*/);
+    else return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t /*+ (lambda_u / lambda_t).conjugate() * T_u*/);
 }
 
 gslpp::complex MVll::T_para_plus_QSS(double q2, double u, bool conjugate)
 {
-    gslpp::complex t_para_mb = t_para(q2, u, mb_pole*mb_pole);
+    //gslpp::complex t_para_mb = t_para(q2, u, mb_pole*mb_pole);
     gslpp::complex t_para_mc = t_para(q2, u, mc_pole*mc_pole);
-    gslpp::complex t_para_0 = t_para(q2, u, 0.);
+    //gslpp::complex t_para_0 = t_para(q2, u, 0.);
 
     double eu = 0.666666667;
-    double ed = -0.333333333;
+    //double ed = -0.333333333;
     
     gslpp::complex T_t = (eu * t_para_mc * (-C_1/6. + C_2 + 6.*C_6)
-        + ed * t_para_mb * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3.)
-        + ed * t_para_0 * (C_3 - C_4/6. + 16.*C_5 - 8.*C_6/3.));
+        /*+ ed * t_para_mb * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3.)
+        + ed * t_para_0 * (C_3 - C_4/6. + 16.*C_5 - 8.*C_6/3.)*/);
             
-    gslpp::complex T_u = eu * (t_para_mc - t_para_0) * (C_2 - C_1/6.);
+    //gslpp::complex T_u = eu * (t_para_mc - t_para_0) * (C_2 - C_1/6.);
     
-    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t + lambda_u / lambda_t * T_u);
-    else return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t + (lambda_u / lambda_t).conjugate() * T_u);
+    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t /*+ lambda_u / lambda_t * T_u*/);
+    else return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t /*+ (lambda_u / lambda_t).conjugate() * T_u*/);
 }
 
 gslpp::complex MVll::T_para_minus_QSS(double q2, double u, bool conjugate)
@@ -1309,18 +1309,18 @@ gslpp::complex MVll::T_para_minus_QSS(double q2, double u, bool conjugate)
     double ubar = 1. - u;
     
     gslpp::complex h_mc = h_func(ubar*MM2 + u*q2, mc_pole*mc_pole);
-    gslpp::complex h_mb = h_func(ubar*MM2 + u*q2, mb_pole*mb_pole);
-    gslpp::complex h_0  = h_func(ubar*MM2 + u*q2, 0);
+    //gslpp::complex h_mb = h_func(ubar*MM2 + u*q2, mb_pole*mb_pole);
+    //gslpp::complex h_0  = h_func(ubar*MM2 + u*q2, 0);
     
     gslpp::complex T_t =  (h_mc * (-C_1/6. + C_2 + C_4 + 10.*C_6)
-        + h_mb * (C_3 + 5.*C_4/6. + 16.*C_5 + 22.*C_6/3.)
+        /*+ h_mb * (C_3 + 5.*C_4/6. + 16.*C_5 + 22.*C_6/3.)
         + h_0 * (C_3 + 17.*C_4/6. + 16.*C_5 + 82.*C_6/3.)
-        - 8./27. * (-15.*C_4/2. + 12.*C_5 - 32.*C_6));
+        - 8./27. * (-15.*C_4/2. + 12.*C_5 - 32.*C_6)*/);
     
-    gslpp::complex T_u = (h_mc - h_0)*(C_2 - C_1/6.); 
+    //gslpp::complex T_u = (h_mc - h_0)*(C_2 - C_1/6.); 
     
-    if (!conjugate) return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t + lambda_u / lambda_t * T_u);
-    else return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t + (lambda_u / lambda_t).conjugate() * T_u);
+    if (!conjugate) return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t /*+ lambda_u / lambda_t * T_u*/);
+    else return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t /*+ (lambda_u / lambda_t).conjugate() * T_u*/);
 }
 
 double MVll::phi_V(double u)
@@ -1336,11 +1336,11 @@ gslpp::complex MVll::lambda_B_minus(double q2)
 
 double MVll::T_perp_real(double q2, double u, bool conjugate)
 {
-    double ubar = 1. - u;
+    //double ubar = 1. - u;
     
     gslpp::complex T_amp = N_QCDF/mySM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(q2, u) + T_perp_plus_QSS(q2, u, conjugate)) 
-            + N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
-            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate);
+            /*+ N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
+            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate)*/;
     /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
     
     return T_amp.real();
@@ -1348,11 +1348,11 @@ double MVll::T_perp_real(double q2, double u, bool conjugate)
 
 double MVll::T_perp_imag(double q2, double u, bool conjugate)
 {
-    double ubar = 1. - u;
+    //double ubar = 1. - u;
     
     gslpp::complex T_amp = N_QCDF/mySM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(q2, u) + T_perp_plus_QSS(q2, u, conjugate)) 
-            + N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
-            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate);
+            /*+ N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
+            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate)*/;
     /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
     
     return T_amp.imag();
@@ -1362,7 +1362,7 @@ double MVll::T_para_real(double q2, double u, bool conjugate)
 {
     double N = N_QCDF * (MV/((MM2pMV2 - q2)/(2.*MM)));
     
-    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (T_para_minus_WA(conjugate) + T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
+    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (/*T_para_minus_WA(conjugate) + */T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
             + N/mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
     
     return sqrt(q2)*T_amp.real();
@@ -1372,7 +1372,7 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
 {
     double N = N_QCDF * (MV/((MM2pMV2 - q2)/(2.*MM)));
     
-    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (T_para_minus_WA(conjugate) + T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
+    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (/*T_para_minus_WA(conjugate) + */T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
             + N/mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
     
     return sqrt(q2)*T_amp.imag();
