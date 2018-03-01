@@ -1336,21 +1336,15 @@ private:
     * @return \f$ h(q^2,0) \f$
     */
     gslpp::complex H_0(double q2);
-    
+
     /**
-    * @brief The \f$ h(q^2,m_c) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @brief The \f$ h(q^2,m^2) \f$ function involved into \f$ C_9^{eff}\f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] mu mass scale
-    * @return \f$ h(q^2,m_c) \f$
+    * @param[in] m2 squared mass
+    * @param[in] mu2 squared mass scale
+    * @return \f$ h(q^2,m^2) \f$
     */
-    gslpp::complex H_c(double q2, double mu);
-    
-    /**
-    * @brief The \f$ h(q^2,m_b) \f$ function involved into \f$ C_9^{eff}\f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ h(q^2,m_b) \f$
-    */
-    gslpp::complex H_b(double q2);
+    gslpp::complex H(double q2, double m2, double mu2);
     
     /**
     * @brief The \f$ Y(q^2) \f$ function involved into \f$ C_9^{eff}\f$.

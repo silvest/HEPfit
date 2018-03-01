@@ -1555,7 +1555,7 @@ gslpp::complex MVll::Tparminus(double u, double q2)
 {
     double ubar = 1. - u;
     return spectator_charge*(8. * C_8Lh / (ubar + u * q2 / MM2)
-            + sixMMoMb * H_c(ubar * MM2 + u * q2,mu_h*mu_h) * C_2Lh_bar);
+            + sixMMoMb * H(ubar * MM2 + u * q2,mc_pole*mc_pole,mu_h*mu_h) * C_2Lh_bar);
 }
 //////////////////////////////////////////////////////////////////
 double MVll::Integrand_ReTperpplus(double up) 
@@ -2002,36 +2002,25 @@ gslpp::complex MVll::fDeltaC9_0(double q2)
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-gslpp::complex MVll::H_c(double q2, double mu2) 
+gslpp::complex MVll::H(double q2, double m2, double mu2)
 {
-    double x = fourMc2 / q2;
+    double x = 4. * m2 / q2;
     gslpp::complex par;
 
     if (x > 1.) par = sqrt(x - 1.) * atan(1. / sqrt(x - 1.));
     else par = sqrt(1. - x) * (log((1. + sqrt(1. - x)) / sqrt(x)) - ihalfMPI);
 
-    return -fournineth * (log(Mc2 / mu2) - twothird - x) - fournineth * (2. + x) * par;
+    return -fournineth * (log(m2 / mu2) - twothird - x) - fournineth * (2. + x) * par;
 }
 
-gslpp::complex MVll::H_b(double q2) 
-{
-    double x = fourMb2 / q2;
-    gslpp::complex par;
-
-    if (x > 1.) par = sqrt(x - 1.) * atan(1. / sqrt(x - 1.));
-    else par = sqrt(1. - x) * (log((1. + sqrt(1. - x)) / sqrt(x)) - ihalfMPI);
-
-    return -fournineth * (logMb - twothird - x) - fournineth * (2. + x) * par;
-}
-
-gslpp::complex MVll::H_0(double q2) 
+gslpp::complex MVll::H_0(double q2)
 {
     return (H_0_pre - fournineth * log(q2 / mu_b2));
 }
 
-gslpp::complex MVll::Y(double q2) 
+gslpp::complex MVll::Y(double q2)
 {
-    return -half * H_0(q2) * H_0_WC + H_c(q2,mu_b2) * H_c_WC - half * H_b(q2) * H_b_WC;
+    return -half * H_0(q2) * H_0_WC + H(q2, mc_pole*mc_pole, mu_b2) * H_c_WC - half * H(q2, mb_pole*mb_pole, mu_b2) * H_b_WC;
 }
 
 gslpp::complex MVll::funct_g(double q2)
