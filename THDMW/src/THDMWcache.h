@@ -34,7 +34,7 @@ public:
     ~THDMWcache();
 
     void updateCache();
-    void setOtherParameters();
+    double setOtherParameters();
 
     double Q_cutoff;
 //    double g1_at_Q;
@@ -197,8 +197,11 @@ private:
     double lambda5;
     double mSsq;
     double mu1;
+    double mu2;
     double mu3;
     double mu4;
+    double mu5;
+    double mu6;
     double nu1;
     double omega1;
     double kappa1;

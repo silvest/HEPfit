@@ -247,8 +247,42 @@ double HiggsChiral::UpperLimitZgammaC(const double sqrt_s) const
 
 double HiggsChiral::cgplusct() const
 {
-
     return cg + ct;
+}
+
+double HiggsChiral::cgaplusct() const
+{
+    return cga + ct;
+}
+
+double HiggsChiral::cgminuscga() const
+{
+    return cg - cga;
+}
+
+double HiggsChiral::cVpluscb() const
+{
+    return cv + cb;
+}
+
+double HiggsChiral::cVplusctau() const
+{
+    return cv + ctau;
+}
+
+double HiggsChiral::cbminuscc() const
+{
+    return cb - cc;
+}
+
+double HiggsChiral::cbminusctau() const
+{
+    return cb - ctau;
+}
+
+double HiggsChiral::ccminusctau() const
+{
+    return cc - ctau;
 }
 
 double HiggsChiral::Gammagg() const

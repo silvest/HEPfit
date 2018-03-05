@@ -500,6 +500,48 @@ public:
      */
     virtual double cgplusct() const;
 
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgaplusct() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgminuscga() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVpluscb() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVplusctau() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminuscc() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminusctau() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double ccminusctau() const;
+
     ////////////////////////////////////////////////////////////////////////
 protected:
 

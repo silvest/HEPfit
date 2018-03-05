@@ -718,6 +718,69 @@ public:
         return 1.0;
     }
 
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgaplusct() const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgminuscga() const
+    {
+        return 0.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVpluscb() const
+    {
+        return 2.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVplusctau() const
+    {
+        return 2.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminuscc() const
+    {
+        return 0.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminusctau() const
+    {
+        return 0.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double ccminusctau() const
+    {
+        return 0.0;
+    }
+
     ////////////////////////////////////////////////////////////////////////
       
     /**

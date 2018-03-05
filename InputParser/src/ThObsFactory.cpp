@@ -175,6 +175,13 @@ ThObsFactory::ThObsFactory()
     obsThFactory["UpperLimit_ppHZgammaA"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA*>(), _1, sqrt_s_LHC8);
     obsThFactory["UpperLimit_ppHZgammaC"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC*>(), _1, sqrt_s_LHC8);
     obsThFactory["cg_plus_ct"] = boost::factory<cg_plus_ct*>();
+    obsThFactory["cga_plus_ct"] = boost::factory<cga_plus_ct*>();
+    obsThFactory["cg_minus_cga"] = boost::factory<cg_minus_cga*>();
+    obsThFactory["cV_plus_cb"] = boost::factory<cV_plus_cb*>();
+    obsThFactory["cV_plus_ctau"] = boost::factory<cV_plus_ctau*>();
+    obsThFactory["cb_minus_cc"] = boost::factory<cb_minus_cc*>();
+    obsThFactory["cb_minus_ctau"] = boost::factory<cb_minus_ctau*>();
+    obsThFactory["cc_minus_ctau"] = boost::factory<cc_minus_ctau*>();
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();
@@ -1204,7 +1211,7 @@ ThObsFactory::ThObsFactory()
 
     obsThFactory["Rb0_GTHDM"] = boost::factory<Rb0GTHDM*>();
 
-//    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
+    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
 
     /** END: REMOVE FROM THE PACKAGE **/
     
@@ -1258,6 +1265,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["THDMWpositivity5"] = boost::factory<THDMWpositivity5*>();
     obsThFactory["THDMWpositivity6"] = boost::factory<THDMWpositivity6*>();
     obsThFactory["THDMWpositivity7"] = boost::factory<THDMWpositivity7*>();
+    obsThFactory["THDMWpositivity8"] = boost::factory<THDMWpositivity8*>();
+    obsThFactory["THDMWpositivity9"] = boost::factory<THDMWpositivity9*>();
+    obsThFactory["THDMWpositivity10"] = boost::factory<THDMWpositivity10*>();
+    obsThFactory["THDMWpositivity11"] = boost::factory<THDMWpositivity11*>();
+    obsThFactory["THDMWpositiveMassSquares"] = boost::factory<THDMWpositiveMassSquares*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["THDMWunitarity1"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 0);
     obsThFactory["THDMWunitarity2"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 1);
