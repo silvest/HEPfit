@@ -11,6 +11,7 @@
 class StandardModel;
 class EvolBsmm;
 #include "ThObservable.h"
+#include "QCD.h"
 #include "OrderScheme.h"
 
 class Bsmumu : public ThObservable {
@@ -19,7 +20,7 @@ public:
      * constructor
      * @param Flavour
      */
-    Bsmumu(const StandardModel& SM_i, int obsFlag);
+    Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i);
     
     /**
      * 
@@ -45,10 +46,11 @@ protected:
     
 private:
     
+    QCD::lepton lep; /**< Final leptons type. */
     double beta;
     double mBs;
     double mW;
-    double mmu;
+    double mlep;
     double mb;
     double ms;
     double chiral;

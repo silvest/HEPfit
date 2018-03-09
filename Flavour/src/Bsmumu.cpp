@@ -10,10 +10,11 @@
 #include "EvolBsmm.h"
 #include "HeffDB1.h"
 
-Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag)
+Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 : ThObservable(SM_i),
   evolbsmm(*(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM)))
 {
+    lep = lep_i;
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(QCD::B_S);
@@ -26,7 +27,7 @@ double Bsmumu::computeThValue()
     
     double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
  
-    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mmu, 2.) * mBs * beta;
+    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta;
     double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
      
@@ -43,13 +44,13 @@ void Bsmumu::computeObs(orders order, orders_qed order_qed)
 {   
     double mu = SM.getMub();  
     
-    mmu = SM.getLeptons(StandardModel::MU).getMass();
+    mlep = SM.getLeptons(lep).getMass();
     mBs = SM.getMesons(QCD::B_S).getMass();
     mW = SM.Mw();
     mb = SM.getQuarks(QCD::BOTTOM).getMass();
     ms = SM.getQuarks(QCD::STRANGE).getMass();
-    chiral = pow(mBs, 2.) / 2. / mmu * mb / (mb + ms);
-    beta = sqrt(1. - pow(2. * mmu / mBs, 2.));
+    chiral = pow(mBs, 2.) / 2. / mlep * mb / (mb + ms);
+    beta = sqrt(1. - pow(2. * mlep / mBs, 2.));
     computeAmpSq(order, order_qed, mu);
     Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
     Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
@@ -102,13 +103,13 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
             
             gslpp::complex NPfactor = (Vckm(2,2).conjugate() * Vckm(2,1)) * sw * sw;
 
-            gslpp::complex CC_P = C10_SM + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mmu*(mb+ms)*mW ) * (C_P - C_Pp) );
+            gslpp::complex CC_P = C10_SM + NPfactor * ( /*C10_NP*/ - C_10p + mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_P - C_Pp) );
 
                 
             absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)
             argP = CC_P.arg();
             
-            gslpp::complex CC_S = NPfactor * ( beta * mBs*mBs*mb / ( 2.*mmu*(mb+ms)*mW ) * (C_S - C_Sp) );
+            gslpp::complex CC_S = NPfactor * ( beta * mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_S - C_Sp) );
 
             absS = CC_S.abs();
             argS = CC_S.arg();
