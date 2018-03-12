@@ -767,7 +767,7 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
                 break;
             case NNLO:
                 als += alsi * alsi * alsi / 4. / 4. / M_PI / M_PI / v / v / v * (
-                        b01s00e * b01s00e * logve * logve + b01s00e * Beta_s(10, nf) / Beta_s(00, nf) *
+                        b01s00e * b01s00e * logve * logve + b01s00e * Beta_s(10, nf) / b00s *
                         (-2. * logv * logve + rho * ve * logve));
                 break;
             case NNNLO:
@@ -776,13 +776,6 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
                         b00e * (logve - ve + 1.) + b01s * Beta_s(10, nf) / b00s / b00s * rho * logv +
                         b01s00e * Beta_e(01, nf) / b00s * (rho * ve * (logv - logve) - logv));
                 break;
-            case FULLNLO:
-                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag));
-            case FULLNNLO:
-                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag));
-            case FULLNNNLO:
-                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag) +
-                        AlsWithInit(mu, alsi, mu_i, NNNLO, qed_flag));
             default:
                 throw std::runtime_error("StandardModel::AlsWithInit(): " + orderToString(order) + " is not implemented.");
         }
@@ -813,11 +806,13 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
         case FULLNNNLO:
             return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr) + Ale(mu, NNNLO, Nf_thr));
         case LO:
+            if (nfAle == nfmu)
+                return(AleWithInit(mu, aleMz, Mz, order));
         case NLO:
         case NNLO:
         case NNNLO:
             if (nfAle == nfmu)
-                return(AleWithInit(mu, aleMz, Mz, order));
+                return(0.);
             fullord = FullOrder(order);
             if (nfAle > nfmu) {
                 mutmp = BelowTh(Mz);
@@ -989,10 +984,10 @@ double StandardModel::Alstilde5(const double mu) const
             + ps * ve * logve) * B01S * B10S/(B00E * B00S)) 
             +  pow(asovs, 4) * (0.5 * B30S *(1. - vs * vs)/ B00S + ((2. * vs - 3.) * logvs + vs * vs 
             - vs) * B20S * B10soB00s /(B00S) + B10soB00s * B10soB00s * B10soB00s * (- pow(logvs,3) 
-            + 5. * pow(logvs,2) / 2. + 2. * (1. - vs) * logvs - (vs - 1.) * (vs - 1.)* 0.5)) 
+            + 5. * pow(logvs,2) / 2. + 2. * (1. - vs) * logvs - (vs - 1.) * (vs - 1.)* 0.5))
             + pow(asovs, 2) * (aeove) * ((ve - 1.) * B02S / B00E 
-            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00S) 
-            + logvs * ve * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
+            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00E) 
+            + logvs * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
     return (result);
 }
 

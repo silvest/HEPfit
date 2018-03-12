@@ -2260,19 +2260,35 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
    
     
     swe = sw; xcachee = x;
+    
+///*non-student*/double xz = SM.getMz() * SM.getMz() / Mw / Mw;
+///*non-student*/double xht = SM.getMHl()*SM.getMHl()/Mt_muw/Mt_muw;
  
     switch (order_qed){   
-    case NLO_QED22: 
+    case NLO_QED22:
+///*non-student*/CWBsmmArrayNLOewt4[7] = sw * sw * (-x*x/32./sw/sw/sw/sw*(3.+taub2(xht)-Delta_t(Muw,xht))) ;
+///*non-student*/CWBsmmArrayNLOewt4[6] = (4. * sw * sw - 1.) * CWBsmmArrayNLOewt4[7];
         CWBsmmArrayNLOewt4[7] = sw * sw * (1./(sw * sw)) * Rest(x, Muw) ;
 //        std::cout << ">>>>>>> " << Rest(163.5*163.5/80.358/80.358, 80.358) << std::endl;
         
-    case NLO_QED21: 
+    case NLO_QED21:
+///*non-student*/CWBsmmArrayNLOewt2[2] = sw * sw * (1. / sw / sw * (4. / 9. * B1d(x, Muw) + 4. / 27. * B1d_tilde(x, Muw) + 2. / 9. * B1u(x, Muw) +
+//                    2. / 27. * B1u_tilde(x, Muw) - 2. / 9. * C1ew(x) + 320. / 27. * B0b(x) + 160. / 27. * C0b(x)));
+///*non-student*/CWBsmmArrayNLOewt2[3] = sw * sw * (16. / 27. * C0b(x) + 1. / sw /sw * (8. / 9. * B1d_tilde(x, Muw) + 4. / 9. * B1u_tilde(x, Muw) -
+//                    2. / 9. * Gew(x, xz, Muw) - 88. / 9. * B0b(x) - 184. / 27. * C0b(x)));
+///*non-student*/CWBsmmArrayNLOewt2[4] = sw * sw * (1. / sw / sw * (-1. / 9. * B1d(x, Muw) - 1. / 27. * B1d_tilde(x, Muw) - 1. / 18. * B1u(x, Muw) -
+//                    1. / 54. * B1u_tilde(x, Muw) + 1. / 18. * C1ew(x) - 32. / 27. * B0b(x) - 16. / 27. * C0b(x)));
+///*non-student*/CWBsmmArrayNLOewt2[5] = sw * sw * (1. / sw / sw * (-2. / 9. * B1d_tilde(x, Muw) - 1. / 9. * B1u_tilde(x, Muw) + 1. / 18. * Gew(x, xz, Muw) +
+//                    4. / 3. * B0b(x) + 2. / 3. * C0b(x)));
         CWBsmmArrayNLOewt2[6] = sw * sw * ((1. - 4. * sw * sw) * C1t(x, Muw) / (sw * sw) - B1t(x, Muw)/(sw * sw) 
                 - D1t(x, Muw) + 1./ (sw * sw) + 524./729. - 128. * M_PI * M_PI / 243. 
                 - 16. * L / 3. - 128. * L * L /81. ) ; 
         CWBsmmArrayNLOewt2[7] = sw * sw * ((1./(sw * sw)) * (B1t(x, Muw) - C1t(x, Muw)) - 1./(sw * sw)) ; 
      
     case NLO_QED11:
+///*non-student*/CWBsmmArrayNLOew[1] = sw * sw * (-22. / 9. - 4. / 3. * Lz + 1. / 9.);
+///*non-student*/CWBsmmArrayNLOew[2] = sw * sw * (-2. / 9. / sw /sw * (2. * B0b(x) + C0b(x)));
+///*non-student*/CWBsmmArrayNLOew[4] = sw * sw * (1. / 9. / sw /sw * (B0b(x) + 1. / 2. * C0b(x)));
         CWBsmmArrayNLOew[6] = sw * sw * (Y0(x)/(sw * sw) + Wt(x) + 4./9. - 4. * 2 * log(Muw/mt)/9.);
         CWBsmmArrayNLOew[7] = sw * sw * (-Y0(x)/(sw * sw));   
             
@@ -2773,6 +2789,7 @@ double StandardModelMatching::C6funNNLO(double x)
 
 WilsonCoefficient& StandardModelMatching::mc_P()
 {
+//    double sW2 = (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw() ); // ******* FOR TEST *********
     double xt = x_t(Muw);
     double xz = SM.getMz() * SM.getMz() / Mw / Mw;
 
@@ -2822,9 +2839,9 @@ WilsonCoefficient& StandardModelMatching::mc_P()
                     4. / 3. * B0b(xt) + 2. / 3. * C0b(xt))), NLO_QED21);
         case NLO_QED11:
             mcP.setCoeff(0, aletilde * (-2. / 9. / sW2 * (2. * B0b(xt) + C0b(xt))), NLO_QED11);
-            //mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO);
+//            mcP.setCoeff(0, aletilde*(-2./9./sW2*(2.*Y0(xt) - X0t(xt))), NLO_QED11);
             mcP.setCoeff(2, aletilde * (1. / 9. / sW2 * (B0b(xt) + 1. / 2. * C0b(xt))), NLO_QED11);
-            //mcP.setCoeff(0, aletilde*(1./9./sW2*(Y0(xt) - 1./2.*X0t(xt))), NLO);
+//            mcP.setCoeff(2, aletilde*(1./9./sW2*(Y0(xt) - 1./2.*X0t(xt))), NLO_QED11);
         case LO_QED:
             break;
         default:
@@ -2940,6 +2957,7 @@ double StandardModelMatching::Delta_t(double mu, double x) // from hep-ph/970724
 
 WilsonCoefficient& StandardModelMatching::mc_L()
 {
+//    double sW2 = (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw() ); // ******* FOR TEST *********
     double xt = x_t(Muw);
     double xht = SM.getMHl()*SM.getMHl()/Mt_muw/Mt_muw;
 
@@ -2964,7 +2982,7 @@ WilsonCoefficient& StandardModelMatching::mc_L()
             //Eqs. (32-33) of ref. Huber et al.
             //Delta_t and tau_b in hep-ph/9707243
 //             mcL.setCoeff(0, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(4.*sW2-1.)*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
-             mcL.setCoeff(1, aletilde*aletilde*(-xt*xt/32/sW2/sW2*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
+             mcL.setCoeff(1, aletilde*aletilde*(-xt*xt/32./sW2/sW2*(3.+taub2(xht)-Delta_t(Muw,xht))), NLO_QED22);
              mcL.setCoeff(0, (4. * sW2 - 1.) * (*(mcL.getCoeff(NLO_QED22)))(1), NLO_QED22);
 //             mcL.setCoeff(1, aletilde*aletilde*Rest(xt, Muw)/sW2, NLO_QED22);
         case NLO_QED21:

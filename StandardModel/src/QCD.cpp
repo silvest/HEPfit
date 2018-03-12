@@ -496,7 +496,7 @@ double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
         case LO:
             return (alsi / v);
         case NLO:
-            return (- alsi * alsi / 4. / M_PI / v / v * Beta1(nf) / Beta0(nf) * logv );
+            return (- alsi * alsi / 4. / M_PI / v / v * b1_b0 * logv );
         case NNLO:
             return (alsi * alsi * alsi / 4. / 4. / M_PI /M_PI / v / v / v * (
                     Beta2(nf) / Beta0(nf) * (1. - v) + b1_b0 * b1_b0 * (logv * logv -
