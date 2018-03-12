@@ -6,10 +6,10 @@
  */
 
 /**
- * @example libmode_config.cpp
- * This is an example of how to compute observables from the input parameters
- * defined in a model configuration file.
- *
+ *  To check the two codes one needs to:
+ *  1. put the same sw2 and add the missinig matching (to check penguins) in StandardModelMatching
+ *  2. replace the Rest function with the large Mt-expression (Rest is computed for the GF^2 normalization)
+ *  3. Use ComputeCoeffsmumuStandardNorm()
  */
 
 #include <iostream>

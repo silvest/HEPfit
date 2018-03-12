@@ -74,6 +74,13 @@ public:
     /**
      * 
      * @param scheme
+     * @return short distance contribution to the rare decay \f$ B_{s} \rightarrow \mu \bar{\mu} \f$
+     */
+    gslpp::vector<gslpp::complex>** ComputeCoeffsmumuStandardNorm(double mu, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{d} \rightarrow \mu \bar{\mu} \f$
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffdmumu(double mu, schemes scheme = NDR);
