@@ -832,7 +832,7 @@ public:
      * @return @f$\delta g_{Wff}^{L}@f$
      */
     // no generation mixing
-    gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
+    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
      * @param[in] pbar a lepton or quark
@@ -840,58 +840,58 @@ public:
      * @return @f$\delta g_{Wff}^{R}@f$
      */
     // no generation mixing
-    gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
+    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
      * @return @f$\delta g_{HGG}@f$
      */
-    double deltaG_hgg() const;
+    virtual double deltaG_hgg() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(1)}@f$
      */
-    double deltaG1_hWW() const;
+    virtual double deltaG1_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(2)}@f$
      */
-    double deltaG2_hWW() const;
+    virtual double deltaG2_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
      * @return @f$\delta g_{HWW}^{(3)}@f$
      */
-    double deltaG3_hWW() const;
+    virtual double deltaG3_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(1)}@f$
      */
-    double deltaG1_hZZ() const;
+    virtual double deltaG1_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(2)}@f$
      */
-    double deltaG2_hZZ() const;
+    virtual double deltaG2_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
      * @return @f$\delta g_{HZZ}^{(3)}@f$
      */
-    double deltaG3_hZZ() const;
+    virtual double deltaG3_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(1)}@f$
      */
-    double deltaG1_hZA() const;
+    virtual double deltaG1_hZA() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(2)}@f$
      */
-    double deltaG2_hZA() const;
+    virtual double deltaG2_hZA() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HAA}@f$
      */
-    double deltaG_hAA() const;
+    virtual double deltaG_hAA() const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
@@ -899,7 +899,7 @@ public:
      * @return @f$\delta g_{Hff}@f$
      */
     // no generation mixing
-    gslpp::complex deltaG_hff(const Particle p) const;
+    virtual gslpp::complex deltaG_hff(const Particle p) const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_\mu \bar{f_L}\gamma^mu f_L@f$.

@@ -9,6 +9,7 @@
 #include "ThObservable.h"
 #include "ParamObs.h"
 #include "EWObservables.h"
+#include "NP_couplings.h"
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
@@ -55,6 +56,67 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltag1Z"] = boost::factory<deltag1Z*>();
     obsThFactory["deltaKgamma"] = boost::factory<deltaKgamma*>();
     obsThFactory["lambdaZ"] = boost::factory<lambdaZ*>();
+    //-----  Observables for particle couplings -----
+    //-----  Zff couplings observables  ----------
+    obsThFactory["deltagZveveL"] = boost::factory<deltagZveveL*>();
+    obsThFactory["deltagZvmuvmuL"] = boost::factory<deltagZvmuvmuL*>();
+    obsThFactory["deltagZvtavtaL"] = boost::factory<deltagZvtavtaL*>();
+    obsThFactory["deltagZeeL"] = boost::factory<deltagZeeL*>();
+    obsThFactory["deltagZeeR"] = boost::factory<deltagZeeR*>();
+    obsThFactory["deltagZmumuL"] = boost::factory<deltagZmumuL*>();
+    obsThFactory["deltagZmumuR"] = boost::factory<deltagZmumuR*>();
+    obsThFactory["deltagZtataL"] = boost::factory<deltagZtataL*>();
+    obsThFactory["deltagZtataR"] = boost::factory<deltagZtataR*>();
+    obsThFactory["deltagZuuL"] = boost::factory<deltagZuuL*>();
+    obsThFactory["deltagZuuR"] = boost::factory<deltagZuuR*>();
+    obsThFactory["deltagZccL"] = boost::factory<deltagZccL*>();
+    obsThFactory["deltagZccR"] = boost::factory<deltagZccR*>();
+    obsThFactory["deltagZttL"] = boost::factory<deltagZttL*>();
+    obsThFactory["deltagZttR"] = boost::factory<deltagZttR*>();
+    obsThFactory["deltagZddL"] = boost::factory<deltagZddL*>();
+    obsThFactory["deltagZddR"] = boost::factory<deltagZddR*>();
+    obsThFactory["deltagZssL"] = boost::factory<deltagZssL*>();
+    obsThFactory["deltagZssR"] = boost::factory<deltagZssR*>();
+    obsThFactory["deltagZbbL"] = boost::factory<deltagZbbL*>();
+    obsThFactory["deltagZbbR"] = boost::factory<deltagZbbR*>();
+    //-----  Wff couplings observables  ----------
+    obsThFactory["deltaUWeve"] = boost::factory<deltaUWeve*>();
+    obsThFactory["deltaUWmuvmu"] = boost::factory<deltaUWmuvmu*>();
+    obsThFactory["deltaUWtavta"] = boost::factory<deltaUWtavta*>();
+    obsThFactory["deltaVudL"] = boost::factory<deltaVudL*>();
+    obsThFactory["deltaVudR"] = boost::factory<deltaVudR*>();
+    obsThFactory["deltaVcsL"] = boost::factory<deltaVcsL*>();
+    obsThFactory["deltaVcsR"] = boost::factory<deltaVcsR*>();
+    obsThFactory["deltaVtbL"] = boost::factory<deltaVtbL*>();
+    obsThFactory["deltaVtbR"] = boost::factory<deltaVtbR*>();
+    //-----  Hff couplings observables  ----------
+    obsThFactory["deltagHee"] = boost::factory<deltagHee*>();
+    obsThFactory["deltagHmumu"] = boost::factory<deltagHmumu*>();
+    obsThFactory["deltagHtata"] = boost::factory<deltagHtata*>();
+    obsThFactory["deltagHuu"] = boost::factory<deltagHuu*>();
+    obsThFactory["deltagHcc"] = boost::factory<deltagHcc*>();
+    obsThFactory["deltagHtt"] = boost::factory<deltagHtt*>();
+    obsThFactory["deltagHdd"] = boost::factory<deltagHdd*>();
+    obsThFactory["deltagHss"] = boost::factory<deltagHss*>();
+    obsThFactory["deltagHbb"] = boost::factory<deltagHbb*>();
+    //-----  HGG couplings observables  ----------
+    obsThFactory["deltagHGG"] = boost::factory<deltagHGG*>();
+    //-----  HZZ couplings observables  ----------
+    obsThFactory["deltagHZZ"] = boost::factory<deltagHZZ*>();
+    obsThFactory["gHZZ1"] = boost::factory<gHZZ1*>();
+    obsThFactory["gHZZ2"] = boost::factory<gHZZ2*>();
+    //-----  HAA couplings observables  ----------
+    obsThFactory["deltagHAA"] = boost::factory<deltagHAA*>();
+    //-----  HZA couplings observables  ----------
+    obsThFactory["deltagHZA"] = boost::factory<deltagHZA*>();
+    obsThFactory["gHZA2"] = boost::factory<gHZA2*>();
+    //-----  HWW couplings observables  ----------
+    obsThFactory["deltagHWW"] = boost::factory<deltagHWW*>();
+    obsThFactory["gHWW1"] = boost::factory<gHWW1*>();
+    obsThFactory["gHWW2"] = boost::factory<gHWW2*>();
+    //-----  HHH couplings observables  ----------
+    obsThFactory["deltalHHH"] = boost::factory<deltalHHH*>();
+    //-----  VVV couplings observables  ----------
 
     //-----  Higgs Extension observables  ----------
     const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV

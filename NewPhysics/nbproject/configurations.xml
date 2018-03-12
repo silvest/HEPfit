@@ -20,6 +20,7 @@
       <itemPath>src/NPSTUZbbbarLR.h</itemPath>
       <itemPath>src/NPZbbbar.h</itemPath>
       <itemPath>src/NPZbbbarLinearized.h</itemPath>
+      <itemPath>src/NP_couplings.h</itemPath>
       <itemPath>src/NPbase.h</itemPath>
       <itemPath>src/SigmaBR.h</itemPath>
     </logicalFolder>
@@ -46,6 +47,7 @@
       <itemPath>src/NPSTUZbbbarLR.cpp</itemPath>
       <itemPath>src/NPZbbbar.cpp</itemPath>
       <itemPath>src/NPZbbbarLinearized.cpp</itemPath>
+      <itemPath>src/NP_couplings.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
       <itemPath>src/SigmaBR.cpp</itemPath>
     </logicalFolder>
@@ -151,6 +153,10 @@
       <item path="src/NPZbbbarLinearized.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPZbbbarLinearized.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NP_couplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NP_couplings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -258,6 +264,10 @@
       </item>
       <item path="src/NPZbbbarLinearized.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NP_couplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NP_couplings.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
@@ -363,6 +373,10 @@
       <item path="src/NPZbbbarLinearized.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPZbbbarLinearized.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NP_couplings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NP_couplings.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
