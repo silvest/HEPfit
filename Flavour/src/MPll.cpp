@@ -50,6 +50,16 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     w_sigma = gsl_integration_cquad_workspace_alloc (100);
     w_delta = gsl_integration_cquad_workspace_alloc (100);   
     w_DTPPR = gsl_integration_cquad_workspace_alloc (100);
+    
+    acc_Re_deltaC7_QCDF = gsl_interp_accel_alloc ();
+    acc_Im_deltaC7_QCDF = gsl_interp_accel_alloc ();
+    acc_Re_deltaC9_QCDF = gsl_interp_accel_alloc ();
+    acc_Im_deltaC9_QCDF = gsl_interp_accel_alloc ();
+    
+    spline_Re_deltaC7_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC7_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Re_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
 }
 
 
@@ -271,6 +281,10 @@ void MPll::updateParameters()
     if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
     
     if (deltaTparpupdated*deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
+    
+#if SPLINE    
+    if (mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) spline_QCDF_func();
+#endif
 
     mySM.getFlavour().setUpdateFlag(meson, pseudoscalar, lep, false);
     
@@ -870,8 +884,12 @@ gslpp::complex MPll::DeltaC9(double q2)
     return deltaTpar(q2);
 }
 
-gslpp::complex MPll::deltaC7_QCDF(double q2)
+gslpp::complex MPll::deltaC7_QCDF(double q2, bool spline)
 {
+#if SPLINE
+    if (spline) return gsl_spline_eval (spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+#endif
+
     double muh = mu_b/mb_pole;
     double z = mc_pole*mc_pole/mb_pole/mb_pole;
     double sh = q2/mb_pole/mb_pole;
@@ -891,8 +909,11 @@ gslpp::complex MPll::deltaC7_QCDF(double q2)
     return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u */);
 }
 
-gslpp::complex MPll::deltaC9_QCDF(double q2)
+gslpp::complex MPll::deltaC9_QCDF(double q2, bool spline)
 {
+#if SPLINE
+    if (spline) return gsl_spline_eval (spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+#endif
     double muh = mu_b / mb_pole;
     double z = mc_pole * mc_pole / mb_pole / mb_pole;
     double sh = q2 / mb_pole / mb_pole;
@@ -911,6 +932,31 @@ gslpp::complex MPll::deltaC9_QCDF(double q2)
     //gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
 
     return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u*/);
+}
+
+void MPll::spline_QCDF_func()
+{
+    int dim_DC = GSL_INTERP_DIM_DC;
+    double min = 0.001;
+    double interval_DC = (9.9 - min)/((double) dim_DC);
+    double q2_spline_DC[dim_DC];
+    double fq2_Re_deltaC7_QCDF[dim_DC],  fq2_Im_deltaC7_QCDF[dim_DC], fq2_Re_deltaC9_QCDF[dim_DC], fq2_Im_deltaC9_QCDF[dim_DC];
+ 
+    for (int i = 0; i < dim_DC; i++) {    
+        q2_spline_DC[i] = min + (double) i*interval_DC;
+        fq2_Re_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).real();
+        fq2_Im_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).imag();
+        fq2_Re_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).real();
+        fq2_Im_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).imag();
+        
+    }
+    
+    gsl_spline_init (spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC);
+    gsl_spline_init (spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC);
+    gsl_spline_init (spline_Re_deltaC9_QCDF, q2_spline_DC, fq2_Re_deltaC9_QCDF, dim_DC);
+    gsl_spline_init (spline_Im_deltaC9_QCDF, q2_spline_DC, fq2_Im_deltaC9_QCDF, dim_DC);
+    
+
 }
 
 /*******************************************************************************
@@ -949,7 +995,7 @@ gslpp::complex MPll::Y(double q2)
 
 gslpp::complex MPll::H_V(double q2) 
 {
-    return -( (C_9 + deltaC9_QCDF(q2)  + Y(q2) /*+ fDeltaC9(q2)*/ - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 + deltaC7_QCDF(q2) - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
+    return -( (C_9 + deltaC9_QCDF(q2, SPLINE)  + Y(q2) /*+ fDeltaC9(q2)*/ - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 + deltaC7_QCDF(q2, SPLINE) - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2) 

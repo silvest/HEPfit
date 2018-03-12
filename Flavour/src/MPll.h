@@ -16,9 +16,12 @@ class F_2;
 #include <TF1.h>
 #include <TGraph.h>
 #include <TFitResultPtr.h>
+#include <gsl/gsl_spline.h>
 
 #define MPllSWITCH 8.2
 #define LATTICE true
+#define GSL_INTERP_DIM_DC 10
+#define SPLINE true
 
 #define NFPOLARBASIS_MPLL true
 
@@ -343,6 +346,16 @@ private:
     gslpp::complex C_10p;/**<Wilson coeffients @f$C_{10}'@f$*/
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
+    
+    gsl_interp_accel *acc_Re_deltaC7_QCDF;
+    gsl_interp_accel *acc_Im_deltaC7_QCDF;
+    gsl_interp_accel *acc_Re_deltaC9_QCDF;
+    gsl_interp_accel *acc_Im_deltaC9_QCDF;
+    
+    gsl_spline *spline_Re_deltaC7_QCDF;
+    gsl_spline *spline_Im_deltaC7_QCDF;
+    gsl_spline *spline_Re_deltaC9_QCDF;
+    gsl_spline *spline_Im_deltaC9_QCDF;
     
     
     std::vector<double> ReDeltaC9;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
@@ -1017,14 +1030,16 @@ private:
      * @param q2 \f$q^2\f$ of the decay
      * @return @f$ \Delta C_{7}^{QCDF} @f$
      */
-    gslpp::complex deltaC7_QCDF(double q2);
+    gslpp::complex deltaC7_QCDF(double q2, bool spline = false);
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..
      * @param q2 \f$q^2\f$ of the decay
      * @return @f$ \Delta C_{9}^{QCDF} @f$
      */
-    gslpp::complex deltaC9_QCDF(double q2);
+    gslpp::complex deltaC9_QCDF(double q2, bool spline = false);
+    
+    void spline_QCDF_func();
     
 };
 
