@@ -68,6 +68,7 @@
     <itemPath>NPEffectiveGIMR_LFU_QFU.conf</itemPath>
     <itemPath>NPEffectiveGIMRprime_LFU_QFU.conf</itemPath>
     <itemPath>NPSMEFTd6_LFU_QFU.conf</itemPath>
+    <itemPath>SUSYMassInsertion.conf</itemPath>
     <itemPath>StandardModel.conf</itemPath>
     <itemPath>pMSSM.conf</itemPath>
   </logicalFolder>
@@ -450,6 +451,8 @@
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -884,6 +887,8 @@
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel_FlavourTest.conf" ex="false" tool="3" flavor2="0">
@@ -1317,6 +1322,8 @@
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel_FlavourTest.conf" ex="false" tool="3" flavor2="0">
@@ -1745,6 +1752,8 @@
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2208,6 +2217,8 @@
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2683,6 +2694,8 @@
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel_FlavourTest.conf" ex="false" tool="3" flavor2="0">
@@ -3104,6 +3117,8 @@
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
