@@ -547,7 +547,7 @@ void MVll::updateParameters()
             C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
             C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
             C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
-            C_9_NP -= (1.-sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C3HQ");
             C_9_NP *= SMEFT_factor; 
             C_9p_NP = mySM.getOptionalParameter("Ced11_23");
             C_9p_NP += mySM.getOptionalParameter("CLd11_23");
@@ -581,7 +581,7 @@ void MVll::updateParameters()
             C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
             C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
             C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
-            C_9_NP -= (1.-sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C3HQ");
             C_9_NP *= SMEFT_factor; 
             C_9p_NP = mySM.getOptionalParameter("Ced11_23");
             C_9p_NP += mySM.getOptionalParameter("CLd11_23");
