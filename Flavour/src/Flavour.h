@@ -225,6 +225,26 @@ public:
     {
         return fullKD;
     }
+    
+    bool setFlagWET_NP_btos(bool WET_NP_btos)
+    {
+        return (this->WET_NP_btos = WET_NP_btos);
+    }
+    
+    bool getFlagWET_NP_btos() const
+    {
+        return WET_NP_btos;
+    }
+    
+    bool setFlagSMEFT_NP_btos(bool SMEFT_NP_btos)
+    {
+        return (this->SMEFT_NP_btos = SMEFT_NP_btos);
+    }
+    
+    bool getFlagSMEFT_NP_btos() const
+    {
+        return SMEFT_NP_btos;
+    }
 
 private:
 
@@ -254,6 +274,7 @@ private:
     mutable bool update_BpKstgamma;
     mutable bool update_Bsphigamma;
     mutable bool fullKD;
+    mutable bool WET_NP_btos,SMEFT_NP_btos;
 };
 
 /**

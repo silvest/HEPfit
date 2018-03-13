@@ -65,6 +65,12 @@ private:
     double timeInt;
     int obs;
     EvolBsmm& evolbsmm;
+    gslpp::complex C_10_NP;
+    gslpp::complex C_10p_NP;
+    gslpp::complex C_S_NP;
+    gslpp::complex C_Sp_NP;
+    gslpp::complex C_P_NP;
+    gslpp::complex C_Pp_NP;
 
 };
 

@@ -720,6 +720,7 @@ private:
     F_1& myF_1;
     F_2& myF_2;
     bool fullKD;
+    bool WET_NP_btos, SMEFT_NP_btos;
     double mJ2;
     gslpp::complex exp_Phase[3];
     
@@ -917,6 +918,17 @@ private:
     gslpp::complex C_10p;/**<Wilson coeffients @f$C_{10}'@f$*/
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
+    
+    gslpp::complex C_7_NP;
+    gslpp::complex C_7p_NP;
+    gslpp::complex C_9_NP;
+    gslpp::complex C_9p_NP;
+    gslpp::complex C_10_NP;
+    gslpp::complex C_10p_NP;
+    gslpp::complex C_S_NP;
+    gslpp::complex C_Sp_NP;
+    gslpp::complex C_P_NP;
+    gslpp::complex C_Pp_NP;
     
     std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */

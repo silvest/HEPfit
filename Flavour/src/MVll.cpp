@@ -42,6 +42,8 @@ T_cache(5, 0.)
     meson = meson_i;
     vectorM = vector_i;
     fullKD = false;
+    WET_NP_btos = false;
+    SMEFT_NP_btos = false;
     mJ2 = 3.096*3.096;
     
     I0_updated = 0;
@@ -147,32 +149,154 @@ MVll::~MVll()
 std::vector<std::string> MVll::initializeMVllParameters()
 {
     fullKD = mySM.getFlavour().getFlagFullKD();
+    WET_NP_btos = mySM.getFlavour().getFlagWET_NP_btos();
+    SMEFT_NP_btos = mySM.getFlavour().getFlagSMEFT_NP_btos();
     
 #if NFPOLARBASIS_MVLL
-    if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
-        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
-        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi";
-    else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
-    else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+    if (vectorM == StandardModel::PHI){
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
+    else if (vectorM == StandardModel::K_star){ 
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
+    else if (vectorM == StandardModel::K_star_P){ 
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
 #else 
     if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
         << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
@@ -207,30 +331,150 @@ std::vector<std::string> MVll::initializeMVllParameters()
 
     if (fullKD) {
         mvllParameters.clear();
-        if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
-            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
-            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi";
-        else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
-            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
-        else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
-            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
+        if (vectorM == StandardModel::PHI){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+                << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+                << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi";
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+                << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+                << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi"
+                << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+                << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+                << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+                << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+                << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+                << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+                << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi"
+                << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+                << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+                << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+                << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+                << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+                << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+                << "CdW" << "CpdW" << "CdB" << "CpdB"
+                << "C1HQ" << "C3HQ" << "CHd";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else if (vectorM == StandardModel::K_star){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+                << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+                << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+                << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+                << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+                << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+                << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+                << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+                << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+                << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+                << "CdW" << "CpdW" << "CdB" << "CpdB"
+                << "C1HQ" << "C3HQ" << "CHd";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else if (vectorM == StandardModel::K_star_P){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+                << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+                << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+                << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+                << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+                << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+                << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+                << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+                << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+                << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+                << "CdW" << "CpdW" << "CdB" << "CpdB"
+                << "C1HQ" << "C3HQ" << "CHd";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
     }
     
     mySM.initializeMeson(meson);
@@ -242,7 +486,7 @@ void MVll::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
 
-    
+  
     GF = mySM.getGF();
     ale = mySM.getAle();
     Mlep = mySM.getLeptons(lep).getMass();
@@ -263,6 +507,118 @@ void MVll::updateParameters()
     fB = mySM.getMesons(meson).getDecayconst();
     fpara = mySM.getMesons(vectorM).getDecayconst();
     fperp = mySM.getMesons(vectorM).getDecayconst_p();
+    
+    if(WET_NP_btos){
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_e");
+            C_9p_NP = mySM.getOptionalParameter("C9p_e");            
+            C_10_NP = mySM.getOptionalParameter("C10_e");
+            C_10p_NP = mySM.getOptionalParameter("C10p_e");
+            C_S_NP = mySM.getOptionalParameter("CS_e");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_e");
+            C_P_NP = mySM.getOptionalParameter("CP_e");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_e");
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_mu");
+            C_9p_NP = mySM.getOptionalParameter("C9p_mu");
+            C_10_NP = mySM.getOptionalParameter("C10_mu");
+            C_10p_NP = mySM.getOptionalParameter("C10p_mu");
+            C_S_NP = mySM.getOptionalParameter("CS_mu");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_mu");
+            C_P_NP = mySM.getOptionalParameter("CP_mu");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_mu");     
+        }
+    }
+    else if(SMEFT_NP_btos){
+        // normalization to \Lambda = 1 TeV
+        gslpp::complex SMEFT_factor = (M_PI/mySM.getAle())*(mySM.v()*1.e-3)*(mySM.v()*1.e-3)/mySM.computelamt_s();
+        double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw()) );
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_11");
+            C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd11_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_11");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ11_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ11_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd11_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_11");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_11");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Pp_NP *= SMEFT_factor;
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_11");
+            C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd11_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_22");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ22_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ22_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced22_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd22_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_22");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_22");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Pp_NP *= SMEFT_factor;        
+        }
+    }
+    else{
+        C_7_NP = 0.;
+        C_7p_NP = 0.;
+        C_9_NP = 0.;
+        C_9p_NP = 0.;
+        C_10_NP = 0.;
+        C_10p_NP = 0.;
+        C_S_NP = 0.;
+        C_Sp_NP = 0.;
+        C_P_NP = 0.;
+        C_Pp_NP = 0.;
+    }
 
     switch (vectorM) {
         case StandardModel::K_star:
@@ -457,19 +813,20 @@ void MVll::updateParameters()
     C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
     C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
     C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-    C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6)) + C_7_NP;
     C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
     C_8L = (*(allcoeff[LO]))(7);
-    C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
-    C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
-    C_S = ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
-    C_P = ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
+    C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8)) + C_9_NP;
+    C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9)) + C_10_NP;
+    C_S = ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10)) + C_S_NP;
+    C_P = ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11)) + C_P_NP;
 
-    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
-    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6) + C_7p_NP;
+    C_7p += MsoMb*((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8) + C_9p_NP;
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9) + C_10p_NP;
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10) + C_Sp_NP;
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11) + C_Pp_NP;
     
     allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 

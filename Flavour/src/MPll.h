@@ -267,6 +267,7 @@ private:
     std::vector<std::string> mpllParameters;/**< The string of mandatory MPll parameters */
     F_1& myF_1;
     F_2& myF_2;
+    bool WET_NP_btos, SMEFT_NP_btos;
     
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */
@@ -346,6 +347,17 @@ private:
     gslpp::complex C_10p;/**<Wilson coeffients @f$C_{10}'@f$*/
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
+    
+    gslpp::complex C_7_NP;
+    gslpp::complex C_7p_NP;
+    gslpp::complex C_9_NP;
+    gslpp::complex C_9p_NP;
+    gslpp::complex C_10_NP;
+    gslpp::complex C_10p_NP;
+    gslpp::complex C_S_NP;
+    gslpp::complex C_Sp_NP;
+    gslpp::complex C_P_NP;
+    gslpp::complex C_Pp_NP;
     
     gsl_interp_accel *acc_Re_deltaC7_QCDF;
     gsl_interp_accel *acc_Im_deltaC7_QCDF;

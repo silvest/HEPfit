@@ -209,6 +209,8 @@ public:
     gslpp::complex C_7p;/**<Wilson coeffients @f$C_7'@f$*/
     gslpp::complex C_8;/**<Wilson coeffients @f$C_8(mu_b)@f$*/
     
+    gslpp::complex C_7_NP;
+    gslpp::complex C_7p_NP;
     
     /**
     * @brief The transverse form factor @f$ T_1 @f$.
@@ -359,6 +361,7 @@ private:
     QCD::meson meson;
     QCD::meson vectorM;
     bool fullKD;
+    bool WET_NP_btos,SMEFT_NP_btos;
     
     const StandardModel& SM;
     F_1& myF_1;

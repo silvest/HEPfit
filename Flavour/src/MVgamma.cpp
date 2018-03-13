@@ -25,6 +25,8 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     fullKD = false;
+    WET_NP_btos = false;
+    SMEFT_NP_btos = false;
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -35,9 +37,41 @@ MVgamma::~MVgamma()
 std::vector<std::string> MVgamma::initializeMVgammaParameters()
 {
     fullKD = SM.getFlavour().getFlagFullKD();
+    WET_NP_btos = SM.getFlavour().getFlagWET_NP_btos();
+    SMEFT_NP_btos = SM.getFlavour().getFlagSMEFT_NP_btos();
 #if NFPOLARBASIS_MVGAMMA
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
-    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
+    if (vectorM == StandardModel::PHI){
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m" 
+                    << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m"
+                    << "CdW" << "CpdW" << "CdB" << "CpdB";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
+    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P){ 
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m" 
+                    << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m"
+                    << "CdW" << "CpdW" << "CdB" << "CpdB";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
 #else
     if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
@@ -50,8 +84,43 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (fullKD) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
-        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
+        if (vectorM == StandardModel::PHI){ 
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1phi" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1phi"  /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1phi"  /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "CdW" << "CpdW" << "CdB" << "CpdB";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "CdW" << "CpdW" << "CdB" << "CpdB";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else {
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
+        }
     }
     
     SM.initializeMeson(meson);
@@ -81,6 +150,22 @@ void MVgamma::updateParameters()
     width = SM.getMesons(meson).computeWidth();
     lambda = MM2 - pow(MV, 2.);
     alpha_s_mub = SM.Als(mu_b, FULLNLO); /* Used for QCDF @ NLO */
+    
+    if(WET_NP_btos){
+        C_7_NP = SM.getOptionalParameter("C7_NP");
+        C_7p_NP = SM.getOptionalParameter("C7p_NP");
+    }
+    else if(SMEFT_NP_btos){
+            gslpp::complex SMEFT_factor = (M_PI/SM.getAle())*(SM.v()*1.e-3)*(SM.v()*1.e-3)/SM.computelamt_s();
+            C_7_NP = SM.getOptionalParameter("CdB")-SM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
+            C_7p_NP = SM.getOptionalParameter("CpdB")-SM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
+    }
+    else{
+        C_7_NP = 0.;
+        C_7p_NP = 0.;        
+    }
     
     switch (vectorM) {
         case StandardModel::K_star:
@@ -143,6 +228,8 @@ void MVgamma::updateParameters()
     C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
+    C_7 += C_7_NP;
+    C_7p += C_7p_NP;
     
 //    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
 //    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.

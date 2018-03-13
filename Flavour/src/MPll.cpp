@@ -60,6 +60,9 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     spline_Im_deltaC7_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
     spline_Re_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
     spline_Im_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    
+    WET_NP_btos = false;
+    SMEFT_NP_btos = false;
 }
 
 
@@ -68,13 +71,52 @@ MPll::~MPll()
 
 std::vector<std::string> MPll::initializeMPllParameters()
 {
+    WET_NP_btos = mySM.getFlavour().getFlagWET_NP_btos();
+    SMEFT_NP_btos = mySM.getFlavour().getFlagSMEFT_NP_btos();
+    
     #if NFPOLARBASIS_MPLL
-    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+    if (pseudoscalar == StandardModel::K_P){
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mpllParameters = make_vector<std::string>()
+            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+            << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mpllParameters = make_vector<std::string>()
+            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+            << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mpllParameters = make_vector<std::string>()
+            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+            << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
 #else
     if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
         << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
@@ -115,6 +157,118 @@ void MPll::updateParameters()
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     width = mySM.getMesons(meson).computeWidth();
     alpha_s_mub = mySM.Als(mu_b);
+    
+    if(WET_NP_btos){
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_e");
+            C_9p_NP = mySM.getOptionalParameter("C9p_e");            
+            C_10_NP = mySM.getOptionalParameter("C10_e");
+            C_10p_NP = mySM.getOptionalParameter("C10p_e");
+            C_S_NP = mySM.getOptionalParameter("CS_e");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_e");
+            C_P_NP = mySM.getOptionalParameter("CP_e");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_e");
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_mu");
+            C_9p_NP = mySM.getOptionalParameter("C9p_mu");
+            C_10_NP = mySM.getOptionalParameter("C10_mu");
+            C_10p_NP = mySM.getOptionalParameter("C10p_mu");
+            C_S_NP = mySM.getOptionalParameter("CS_mu");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_mu");
+            C_P_NP = mySM.getOptionalParameter("CP_mu");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_mu");     
+        }
+    }
+    else if(SMEFT_NP_btos){
+        // normalization to \Lambda = 1 TeV
+        gslpp::complex SMEFT_factor = (M_PI/mySM.getAle())*(mySM.v()*1.e-3)*(mySM.v()*1.e-3)/mySM.computelamt_s();
+        double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw()) );
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_11");
+            C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd11_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_11");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ11_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ11_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd11_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_11");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_11");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Pp_NP *= SMEFT_factor;
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_11");
+            C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd11_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_22");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ22_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ22_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced22_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd22_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_22");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_22");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Pp_NP *= SMEFT_factor;        
+        }
+    }
+    else{
+        C_7_NP = 0.;
+        C_7p_NP = 0.;
+        C_9_NP = 0.;
+        C_9p_NP = 0.;
+        C_10_NP = 0.;
+        C_10p_NP = 0.;
+        C_S_NP = 0.;
+        C_Sp_NP = 0.;
+        C_P_NP = 0.;
+        C_Pp_NP = 0.;
+    }
     
     switch(pseudoscalar){
         case StandardModel::K_P :
@@ -162,7 +316,7 @@ void MPll::updateParameters()
     
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep);   //check the mass scale, scheme fixed to NDR
-
+    
     C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
     C_1L_bar = (*(allcoeff[LO]))(0)/2.;
     C_2 =  ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
@@ -171,19 +325,20 @@ void MPll::updateParameters()
     C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
     C_5 =  ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
     C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6) + C_7_NP;
     C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
     C_8L = (*(allcoeff[LO]))(7);
-    C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8);
-    C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
-    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
-    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
+    C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8) + C_9_NP;
+    C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9) + C_10_NP ;
+    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10) + C_S_NP;
+    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11) + C_P_NP;
     
-    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
-    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6) + C_7p_NP;
+    C_7p += MsoMb*((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8) + C_9p_NP;
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9) + C_10p_NP;
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10) + C_Sp_NP;
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11) + C_Pp_NP;
     
     allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
