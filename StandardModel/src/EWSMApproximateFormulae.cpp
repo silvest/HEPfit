@@ -859,6 +859,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = -357.0;
         a14 = -4.7;
         a15 = 11771.0;
+        ThError = mycache.getSM().getDelR0l();
     } else if (observable.compare("R0_charm") == 0) {
         X0 = 172.23;
         a1 = -0.034;
