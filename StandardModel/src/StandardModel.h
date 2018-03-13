@@ -1912,7 +1912,7 @@ public:
      *
      * @sa checkSMparamsForEWPO()
      */
-    static const int NumSMParamsForEWPO = 28;
+    static const int NumSMParamsForEWPO = 29;
 
     /**
      * @brief A method to check whether the parameters relevant to the EWPO
