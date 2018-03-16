@@ -224,6 +224,258 @@ public:
 };
 
 /**
+ * @class GMmassdifference_mHlmmHh
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mHlmmHh: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mHlmmHh constructor.
+     */
+    GMmassdifference_mHlmmHh(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_h-m_H@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mHhmmHl
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mHhmmHl: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mHhmmHl constructor.
+     */
+    GMmassdifference_mHhmmHl(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_H-m_h@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mHlmmA
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mHlmmA: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mHlmmA constructor.
+     */
+    GMmassdifference_mHlmmA(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_h-m_A@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mAmmHl
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mAmmHl: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mAmmHl constructor.
+     */
+    GMmassdifference_mAmmHl(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_A-m_h@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mHlmmH5
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mHlmmH5: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mHlmmH5 constructor.
+     */
+    GMmassdifference_mHlmmH5(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_h-m_{H_5}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mH5mmHl
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mH5mmHl: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mH5mmHl constructor.
+     */
+    GMmassdifference_mH5mmHl(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{H_5}-m_h@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mHhmmA
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mHhmmA: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mHhmmA constructor.
+     */
+    GMmassdifference_mHhmmA(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_H-m_A@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mAmmHh
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mAmmHh: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mAmmHh constructor.
+     */
+    GMmassdifference_mAmmHh(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_A-m_H@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mHhmmH5
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mHhmmH5: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mHhmmH5 constructor.
+     */
+    GMmassdifference_mHhmmH5(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_H-m_{H_5}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mH5mmHh
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mH5mmHh: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mH5mmHh constructor.
+     */
+    GMmassdifference_mH5mmHh(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{H_5}-m_H@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mAmmH5
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mAmmH5: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mAmmH5 constructor.
+     */
+    GMmassdifference_mAmmH5(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_A-m_{H_5}@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
+ * @class GMmassdifference_mH5mmA
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmassdifference_mH5mmA: public ThObservable {
+public:
+
+    /**
+     * @brief GMmassdifference_mH5mmA constructor.
+     */
+    GMmassdifference_mH5mmA(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_{H_5}-m_A@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
  * @class rh_gaga_GM
  * @ingroup GeorgiMachacek 
  * @brief The ratio of the GM partial Higgs decay width to two photons and the corresponding SM decay width.

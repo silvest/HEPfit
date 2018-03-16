@@ -1408,6 +1408,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda5GM"] = boost::factory<lambda5GM*>();
     obsThFactory["vPhiGM"] = boost::factory<vPhiGM*>();
     obsThFactory["vDeltaGM"] = boost::factory<vDeltaGM*>();
+    obsThFactory["GMmHlmmHh"] = boost::factory<GMmassdifference_mHlmmHh*>();
+    obsThFactory["GMmHhmmHl"] = boost::factory<GMmassdifference_mHhmmHl*>();
+    obsThFactory["GMmHlmmA"] = boost::factory<GMmassdifference_mHlmmA*>();
+    obsThFactory["GMmAmmHl"] = boost::factory<GMmassdifference_mAmmHl*>();
+    obsThFactory["GMmHlmmH5"] = boost::factory<GMmassdifference_mHlmmH5*>();
+    obsThFactory["GMmH5mmHl"] = boost::factory<GMmassdifference_mH5mmHl*>();
+    obsThFactory["GMmHhmmA"] = boost::factory<GMmassdifference_mHhmmA*>();
+    obsThFactory["GMmAmmHh"] = boost::factory<GMmassdifference_mAmmHh*>();
+    obsThFactory["GMmHhmmH5"] = boost::factory<GMmassdifference_mHhmmH5*>();
+    obsThFactory["GMmH5mmHh"] = boost::factory<GMmassdifference_mH5mmHh*>();
+    obsThFactory["GMmAmmH5"] = boost::factory<GMmassdifference_mAmmH5*>();
+    obsThFactory["GMmH5mmA"] = boost::factory<GMmassdifference_mH5mmA*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["GMunitarity1"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 0);
     obsThFactory["GMunitarity2"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 1);
