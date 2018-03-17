@@ -42,15 +42,26 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "CLL_1133","CLL_3311","CLL_1331","CLL_3113",
     "CLQ1_1111","CLQ1_1122","CLQ1_2211","CLQ1_1221","CLQ1_2112",
     "CLQ1_1133","CLQ1_3311","CLQ1_1331","CLQ1_3113",
+    "CLQ1_1123","CLQ1_2223","CLQ1_3323",
+    "CLQ1_1132","CLQ1_2232","CLQ1_3332",
     "CLQ3_1111","CLQ3_1122","CLQ3_2211","CLQ3_1221","CLQ3_2112",
     "CLQ3_1133","CLQ3_3311","CLQ3_1331","CLQ3_3113",
+    "CLQ3_1123","CLQ3_2223","CLQ3_3323",
+    "CLQ3_1132","CLQ3_2232","CLQ3_3332",
     "Cee_1111","Cee_1122","Cee_2211","Cee_1133","Cee_3311",
     "Ceu_1111","Ceu_1122","Ceu_2211","Ceu_1133","Ceu_3311",
     "Ced_1111","Ced_1122","Ced_2211","Ced_1133","Ced_3311",
+    "Ced_1123","Ced_2223","Ced_3323",
+    "Ced_1132","Ced_2232","Ced_3332",
     "CLe_1111","CLe_1122","CLe_2211","CLe_1133","CLe_3311",
     "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_3311",
     "CLd_1111","CLd_1122","CLd_2211","CLd_1133","CLd_3311",
-    "CQe_1111","CQe_1122","CQe_2211","CQe_1133","CQe_3311", "Lambda_NP",
+    "CLd_1123","CLd_2223","CLd_3323",
+    "CLd_1132","CLd_2232","CLd_3332",
+    "CQe_1111","CQe_1122","CQe_2211","CQe_1133","CQe_3311",
+    "CQe_2311","CQe_2322","CQe_2333",
+    "CQe_3211","CQe_3222","CQe_3233",
+    "Lambda_NP",
     "eVBF2_HZZ1", "eVBF2_HZZ2", "eVBF2_HZZ3", "eVBF2_HZA1", "eVBF2_HZA2", "eVBF2_HAA",
     "eVBF2_HWW1", "eVBF2_HWW2", "eVBF2_HWW3", "eVBF2_Hgg", "eVBF2_HZuL", "eVBF2_HZuR",
     "eVBF2_HZdL", "eVBF2_HZdR", "eVBF2_HWud", "eVBF2_ZuL", "eVBF2_ZuR", "eVBF2_ZdL",
@@ -175,6 +186,36 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_2211", boost::cref(Cee_2211)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_1133", boost::cref(Cee_1133)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Cee_3311", boost::cref(Cee_3311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1123", boost::cref(CLQ1_1123)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_2223", boost::cref(CLQ1_2223)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_3323", boost::cref(CLQ1_3323)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_1132", boost::cref(CLQ1_1132)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_2232", boost::cref(CLQ1_2232)));       
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ1_3332", boost::cref(CLQ1_3332)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_1123", boost::cref(CLQ3_1123)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_2223", boost::cref(CLQ3_2223)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_3323", boost::cref(CLQ3_3323)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_1132", boost::cref(CLQ3_1132)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_2232", boost::cref(CLQ3_2232)));       
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLQ3_3332", boost::cref(CLQ3_3332)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_1123", boost::cref(Ced_1123)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_2223", boost::cref(Ced_2223)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_3323", boost::cref(Ced_3323)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_1132", boost::cref(Ced_1132)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_2232", boost::cref(Ced_2232)));       
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_3332", boost::cref(Ced_3332)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_1123", boost::cref(CLd_1123)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_2223", boost::cref(CLd_2223)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_3323", boost::cref(CLd_3323)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_1132", boost::cref(CLd_1132)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_2232", boost::cref(CLd_2232)));       
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_3332", boost::cref(CLd_3332)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_2311", boost::cref(CQe_2311)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_2322", boost::cref(CQe_2322)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_2333", boost::cref(CQe_2333)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_3211", boost::cref(CQe_3211)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_3222", boost::cref(CQe_3222)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_3233", boost::cref(CQe_3233)));
     }
     if (FlagQuarkUniversal) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1", boost::cref(CHQ1_11)));
@@ -436,8 +477,48 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH2_Hgg", boost::cref(ettH2_Hgg)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH78_Htt", boost::cref(ettH78_Htt)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettH78_Hgg", boost::cref(ettH78_Hgg)));
-    if (FlagMwInput)
+    if (FlagMwInput) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MwInput", boost::cref(MwInput)));
+    }
+
+    if (FlagLeptonUniversal) {        
+//  bsll/sbll entries only interesting (for the moment) if non-lepton universal. Set to 0 otherwise
+        CLQ1_1123 = 0.0;
+        CLQ1_2223 = 0.0;
+        CLQ1_3323 = 0.0;
+        CLQ1_1132 = 0.0;
+        CLQ1_2232 = 0.0;
+        CLQ1_3332 = 0.0;
+        
+        CLQ3_1123 = 0.0;
+        CLQ3_2223 = 0.0;
+        CLQ3_3323 = 0.0;
+        CLQ3_1132 = 0.0;
+        CLQ3_2232 = 0.0;
+        CLQ3_3332 = 0.0;
+        
+        Ced_1123 = 0.0;
+        Ced_2223 = 0.0;
+        Ced_3323 = 0.0;
+        Ced_1132 = 0.0;
+        Ced_2232 = 0.0;
+        Ced_3332 = 0.0;  
+        
+        CLd_1123 = 0.0;
+        CLd_2223 = 0.0;
+        CLd_3323 = 0.0;
+        CLd_1132 = 0.0;
+        CLd_2232 = 0.0;
+        CLd_3332 = 0.0;
+        
+        CQe_2311 = 0.0;
+        CQe_2322 = 0.0;
+        CQe_2333 = 0.0;
+        CQe_3211 = 0.0;
+        CQe_3222 = 0.0;
+        CQe_3233 = 0.0;
+    }
+    
 }
 
 bool NPEffectiveGIMR::PostUpdate()
@@ -1001,6 +1082,18 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CLQ1_3311 = value;
         CLQ1_3113 = value;
         CLQ1_1331 = value;
+    } else if (name.compare("CLQ1_1123") == 0) {
+        CLQ1_1123 = value;
+    } else if (name.compare("CLQ1_2223") == 0) {
+        CLQ1_2223 = value;
+    } else if (name.compare("CLQ1_3323") == 0) {
+        CLQ1_3323 = value;
+    } else if (name.compare("CLQ1_1132") == 0) {
+        CLQ1_1132 = value;
+    } else if (name.compare("CLQ1_2232") == 0) {
+        CLQ1_2232 = value;
+    } else if (name.compare("CLQ1_3332") == 0) {
+        CLQ1_3332 = value;
     } else if (name.compare("CLQ3") == 0) {
         CLQ3_1111 = value;
         CLQ3_1122 = value;
@@ -1023,6 +1116,18 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CLQ3_3311 = value;
         CLQ3_3113 = value;
         CLQ3_1331 = value;
+    } else if (name.compare("CLQ3_1123") == 0) {
+        CLQ3_1123 = value;
+    } else if (name.compare("CLQ3_2223") == 0) {
+        CLQ3_2223 = value;
+    } else if (name.compare("CLQ3_3323") == 0) {
+        CLQ3_3323 = value;
+    } else if (name.compare("CLQ3_1132") == 0) {
+        CLQ3_1132 = value;
+    } else if (name.compare("CLQ3_2232") == 0) {
+        CLQ3_2232 = value;
+    } else if (name.compare("CLQ3_3332") == 0) {
+        CLQ3_3332 = value;
     } else if (name.compare("Cee") == 0) {
         Cee_1111 = value;
         Cee_1122 = value;
@@ -1065,6 +1170,18 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
     } else if (name.compare("Ced_1133") == 0) {
         Ced_1133 = value;
         Ced_3311 = value;
+    } else if (name.compare("Ced_1123") == 0) {
+        Ced_1123 = value;
+    } else if (name.compare("Ced_2223") == 0) {
+        Ced_2223 = value;
+    } else if (name.compare("Ced_3323") == 0) {
+        Ced_3323 = value;
+    } else if (name.compare("Ced_1132") == 0) {
+        Ced_1132 = value;
+    } else if (name.compare("Ced_2232") == 0) {
+        Ced_2232 = value;
+    } else if (name.compare("Ced_3332") == 0) {
+        Ced_3332 = value;
     } else if (name.compare("CLe") == 0) {
         CLe_1111 = value;
         CLe_1122 = value;
@@ -1107,6 +1224,18 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
     } else if (name.compare("CLd_1133") == 0) {
         CLd_1133 = value;
         CLd_3311 = value;
+    } else if (name.compare("CLd_1123") == 0) {
+        CLd_1123 = value;
+    } else if (name.compare("CLd_2223") == 0) {
+        CLd_2223 = value;
+    } else if (name.compare("CLd_3323") == 0) {
+        CLd_3323 = value;
+    } else if (name.compare("CLd_1132") == 0) {
+        CLd_1132 = value;
+    } else if (name.compare("CLd_2232") == 0) {
+        CLd_2232 = value;
+    } else if (name.compare("CLd_3332") == 0) {
+        CLd_3332 = value;
     } else if (name.compare("CQe") == 0) {
         CQe_1111 = value;
         CQe_1122 = value;
@@ -1121,6 +1250,18 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
     } else if (name.compare("CQe_1133") == 0) {
         CQe_1133 = value;
         CQe_3311 = value;
+    } else if (name.compare("CQe_2311") == 0) {
+        CQe_2311 = value;
+    } else if (name.compare("CQe_2322") == 0) {
+        CQe_2322 = value;
+    } else if (name.compare("CQe_2333") == 0) {
+        CQe_2333 = value;
+    } else if (name.compare("CQe_3211") == 0) {
+        CQe_3211 = value;
+    } else if (name.compare("CQe_3222") == 0) {
+        CQe_3222 = value;
+    } else if (name.compare("CQe_3233") == 0) {
+        CQe_3233 = value;
     } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;
     } else if (name.compare("eVBF2_HZZ1") == 0) {
