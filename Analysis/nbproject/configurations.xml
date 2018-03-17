@@ -65,10 +65,10 @@
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
-    <itemPath>../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf</itemPath>
+    <itemPath>NPEffectiveGIMR.conf</itemPath>
     <itemPath>NPEffectiveGIMR_LFU_QFU.conf</itemPath>
     <itemPath>NPEffectiveGIMRprime_LFU_QFU.conf</itemPath>
-    <itemPath>../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf</itemPath>
+    <itemPath>NPSMEFTd6.conf</itemPath>
     <itemPath>NPSMEFTd6_LFU_QFU.conf</itemPath>
     <itemPath>SUSYMassInsertion.conf</itemPath>
     <itemPath>StandardModel.conf</itemPath>
@@ -429,16 +429,6 @@
           <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
@@ -455,9 +445,13 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -873,16 +867,6 @@
           <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
@@ -899,9 +883,13 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1322,16 +1310,6 @@
           <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
@@ -1348,9 +1326,13 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1763,16 +1745,6 @@
           <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
@@ -1789,9 +1761,13 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2238,16 +2214,6 @@
           <commandLine>`root-config --ldflags` `root-config --libs` `gsl-config --libs` -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
@@ -2264,9 +2230,13 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2724,16 +2694,6 @@
           <commandLine>../gsl/lib/libgsl.a ../gsl/lib/libgslcblas.a `root-config --ldflags` `root-config --libs` `gsl-config --libs` -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml -lgsl -lgslcblas -lm</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
@@ -2750,9 +2710,13 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -3158,16 +3122,6 @@
           <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  `gsl-config --libs`</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../../../Bsll/HEPfit/Analysis/NPEffectiveGIMR.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="../../../Bsll/HEPfit/Analysis/NPSMEFTd6.conf"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="Flavour.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FlavourWC.conf" ex="false" tool="3" flavor2="0">
@@ -3184,9 +3138,13 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
