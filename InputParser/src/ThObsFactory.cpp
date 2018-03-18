@@ -38,6 +38,11 @@ ThObsFactory::ThObsFactory()
     //-----  Electroweak precision observables  -----
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();
+    obsThFactory["BrWlepton"] = boost::factory<BrWlepton*>();
+    obsThFactory["BrWelectron"] = boost::factory<BrWelectron*>();
+    obsThFactory["BrWmuon"] = boost::factory<BrWmuon*>();
+    obsThFactory["BrWtau"] = boost::factory<BrWtau*>();
+    obsThFactory["BrWhadrons"] = boost::factory<BrWhadrons*>();
     obsThFactory["GammaZ"] = boost::factory<GammaZ*>();
     obsThFactory["sigmaHadron"] = boost::factory<sigmaHadron*>();
     obsThFactory["sin2thetaEff"] = boost::factory<sin2thetaEff*>();

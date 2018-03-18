@@ -2046,7 +2046,8 @@ double NPSMEFTd6::GammaW() const
             *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
             + cW2_tree * CHD * v2_over_LambdaNP2
             + 2.0 * (1.0 + cW2_tree) / 3.0 * DeltaGF())
-            + 2.0 * GammaW_tree / 3.0 * (CHL3_11 + CHQ3_11 + CHQ3_22) * v2_over_LambdaNP2);
+            + 2.0 * G0 * (CHL3_11 + CHL3_22 + CHL3_33 + Nc*(CHQ3_11 + CHQ3_22)) * v2_over_LambdaNP2);          
+//            + 2.0 * GammaW_tree / 3.0 * (CHL3_11 + CHQ3_11 + CHQ3_22) * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6::deltaGV_f(const Particle p) const
