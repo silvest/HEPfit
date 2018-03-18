@@ -751,6 +751,14 @@ public:
     virtual double Mw() const;
 
     /**
+     * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\Gamma^W_{ij}@f$
+     */
+    virtual double GammaW(const Particle fi, const Particle fj) const;
+    
+    /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */

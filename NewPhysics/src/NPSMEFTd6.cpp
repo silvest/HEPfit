@@ -2036,6 +2036,33 @@ double NPSMEFTd6::Mw() const
             + 2.0 * sW2_tree * DeltaGF()));
 }
 
+double NPSMEFTd6::GammaW(const Particle fi, const Particle fj) const
+{
+    double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
+    double Gamma_Wij = trueSM.GammaW(fi, fj);
+    double GammaW_tree;
+    double CHF3ij;
+    
+    if (fj.getIndex() - fi.getIndex() == 1)
+        CHF3ij = CHF3_diag(fi);
+    else
+        CHF3ij = 0.;
+    
+    if (fi.is("QUARK")) {        
+        GammaW_tree = Nc * G0;
+    } else {
+        GammaW_tree = G0;        
+    }
+    
+    Gamma_Wij = Gamma_Wij - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
+            *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
+            + cW2_tree * CHD * v2_over_LambdaNP2
+            + 2.0 * (1.0 + cW2_tree) / 3.0 * DeltaGF());
+
+    return (Gamma_Wij
+            + 2.0 * GammaW_tree * CHF3ij * v2_over_LambdaNP2);          
+}
+
 double NPSMEFTd6::GammaW() const
 {
     double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;

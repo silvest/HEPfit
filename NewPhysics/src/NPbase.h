@@ -161,6 +161,28 @@ public:
      * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
+    
+    /**
+     * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
+     * @details
+     * The partial @f$W@f$-boson widths receives the new physics
+     * contribution via the oblique parameters @f$S@f$, @f$T@f$ and @f$U@f$ and
+     * the shift in the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \Gamma_W^{ij} = \Gamma_{W,\mathrm{SM}}
+     * \left[ 1
+     * - \frac{3\alpha(M_Z^2)}{4(c_W^2-s_W^2)}
+     *  \left( S - 2c_W^2\,T - \frac{c_W^2-s_W^2}{2s_W^2}\,U \right)
+     * - \frac{1+c_W^2}{2(c_W^2-s_W^2)}\, \Delta G
+     * \right].
+     * @f]
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\Gamma^W_{ij}@f$
+     *
+     * @attention Fermion masses are neglected.
+     */
+    virtual double GammaW(const Particle fi, const Particle fj) const;
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.

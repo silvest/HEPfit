@@ -44,6 +44,25 @@ double NPbase::Mw() const
     return myMw;
 }
 
+double NPbase::GammaW(const Particle fi, const Particle fj) const
+{
+    double Gamma_Wij = trueSM.GammaW(fi, fj);
+
+    double alpha = trueSM.alphaMz();
+    double c2 = trueSM.cW2();
+    double s2 = trueSM.sW2();
+
+    Gamma_Wij *= 1.0 - 3.0 * alpha / 4.0 / (c2 - s2)
+            *(obliqueS() - 2.0 * c2 * obliqueT() - (c2 - s2) * obliqueU() / 2.0 / s2)
+            - (1.0 + c2) / 2.0 / (c2 - s2) * DeltaGF();
+
+    //std::cout << "Gw: c_S=" << - 3.0*alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Gw: c_T=" << - 3.0*alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Gw: c_U=" << - 3.0*alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
+
+    return Gamma_Wij;
+}
+
 double NPbase::GammaW() const
 {
     double Gamma_W = trueSM.GammaW();
