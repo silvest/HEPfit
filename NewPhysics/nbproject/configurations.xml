@@ -15,6 +15,7 @@
       <itemPath>src/NPEpsilons_pureNP.h</itemPath>
       <itemPath>src/NPHiggs.h</itemPath>
       <itemPath>src/NPSMEFTd6.h</itemPath>
+      <itemPath>src/NPSMEFTd6Matching.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
       <itemPath>src/NPSTUZbbbarLR.h</itemPath>
@@ -42,6 +43,7 @@
       <itemPath>src/NPEpsilons_pureNP.cpp</itemPath>
       <itemPath>src/NPHiggs.cpp</itemPath>
       <itemPath>src/NPSMEFTd6.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6Matching.cpp</itemPath>
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
       <itemPath>src/NPSTUZbbbarLR.cpp</itemPath>
@@ -50,6 +52,28 @@
       <itemPath>src/NP_couplings.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
       <itemPath>src/SigmaBR.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -81,6 +105,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../boost/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
@@ -133,6 +158,10 @@
       <item path="src/NPSMEFTd6.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -244,6 +273,10 @@
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSTU.h" ex="false" tool="3" flavor2="0">
@@ -353,6 +386,10 @@
       <item path="src/NPSMEFTd6.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
       </item>
