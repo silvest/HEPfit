@@ -1373,13 +1373,25 @@ double StandardModel::sigma0_had() const
 
 double StandardModel::R0_f(const Particle f) const
 {
-    if (f.is("LEPTON")) {
+    if (f.is("ELECTRON")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_lepton"));
+            return (myApproximateFormulae->X_extended("R0_electron"));
         else
             return (Gamma_had() / GammaZ(leptons[ELECTRON]));
-    } else if (f.is("CHARM")) {
+    }  else if (f.is("MU")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_extended("R0_muon"));
+        else
+            return (Gamma_had() / GammaZ(leptons[MU]));
+    }  else if (f.is("TAU")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_extended("R0_tau"));
+        else
+            return (Gamma_had() / GammaZ(leptons[TAU]));
+    }  else if (f.is("CHARM")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
             return (myApproximateFormulae->X_extended("R0_charm"));

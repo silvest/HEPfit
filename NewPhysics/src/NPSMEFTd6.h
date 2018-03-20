@@ -644,7 +644,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 365;
+    static const int NNPSMEFTd6Vars = 393;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -760,6 +760,14 @@ public:
      */
     virtual double Mw() const;
 
+    /**
+     * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\Gamma^W_{ij}@f$
+     */
+    virtual double GammaW(const Particle fi, const Particle fj) const;
+    
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
@@ -1549,9 +1557,13 @@ protected:
     double CLQ1_1111;
     double CLQ1_1122, CLQ1_2211, CLQ1_1221, CLQ1_2112;
     double CLQ1_1133, CLQ1_3311, CLQ1_1331, CLQ1_3113;
+    double CLQ1_1123, CLQ1_2223, CLQ1_3323;
+    double CLQ1_1132, CLQ1_2232, CLQ1_3332;
     double CLQ3_1111;
     double CLQ3_1122, CLQ3_2211, CLQ3_1221, CLQ3_2112;
     double CLQ3_1133, CLQ3_3311, CLQ3_1331, CLQ3_3113;
+    double CLQ3_1123, CLQ3_2223, CLQ3_3323;
+    double CLQ3_1132, CLQ3_2232, CLQ3_3332;
     double Cee_1111;
     double Cee_1122, Cee_2211;
     double Cee_1133, Cee_3311;
@@ -1561,6 +1573,8 @@ protected:
     double Ced_1111;
     double Ced_1122, Ced_2211;
     double Ced_1133, Ced_3311;
+    double Ced_1123, Ced_2223, Ced_3323;
+    double Ced_1132, Ced_2232, Ced_3332;
     double CLe_1111;
     double CLe_1122, CLe_2211;
     double CLe_1133, CLe_3311;
@@ -1570,9 +1584,13 @@ protected:
     double CLd_1111;
     double CLd_1122, CLd_2211;
     double CLd_1133, CLd_3311;
+    double CLd_1123, CLd_2223, CLd_3323;
+    double CLd_1132, CLd_2232, CLd_3332;
     double CQe_1111;
     double CQe_1122, CQe_2211;
     double CQe_1133, CQe_3311;
+    double CQe_2311, CQe_2322, CQe_2333;
+    double CQe_3211, CQe_3222, CQe_3233;
     double Lambda_NP; ///< The new physics scale [GeV].
 // The intrinsic and parametric theory relative errors in the Higgs observables.
     double eggFint; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)

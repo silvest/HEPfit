@@ -44,6 +44,25 @@ double NPbase::Mw() const
     return myMw;
 }
 
+double NPbase::GammaW(const Particle fi, const Particle fj) const
+{
+    double Gamma_Wij = trueSM.GammaW(fi, fj);
+
+    double alpha = trueSM.alphaMz();
+    double c2 = trueSM.cW2();
+    double s2 = trueSM.sW2();
+
+    Gamma_Wij *= 1.0 - 3.0 * alpha / 4.0 / (c2 - s2)
+            *(obliqueS() - 2.0 * c2 * obliqueT() - (c2 - s2) * obliqueU() / 2.0 / s2)
+            - (1.0 + c2) / 2.0 / (c2 - s2) * DeltaGF();
+
+    //std::cout << "Gw: c_S=" << - 3.0*alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Gw: c_T=" << - 3.0*alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Gw: c_U=" << - 3.0*alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
+
+    return Gamma_Wij;
+}
+
 double NPbase::GammaW() const
 {
     double Gamma_W = trueSM.GammaW();
@@ -261,7 +280,7 @@ double NPbase::deltaAFB(const Particle f) const
     double dAFB = 0.;
     double delGVf = deltaGV_f(f);
     double delGAf = deltaGA_f(f);
-    if (f.is("LEPTON")) {
+    if (f.is("ELECTRON")) {
         if (delGVf != 0.0 || delGAf != 0.0) {
             double gVe = trueSM.gV_f(f).real();
             double gAe = trueSM.gA_f(f).real();
@@ -298,12 +317,12 @@ double NPbase::AFB(const Particle f) const
 
 double NPbase::deltaR0_f(const Particle f) const
 {
-    double dR0_f = 0., delGVe = 0., delGAe = 0., deltaGe = 0., Ge = 0.;
+    double dR0_f = 0., delGVl = 0., delGAl = 0., deltaGl = 0., Gl = 0.;
     bool nonZeroNP = false;
     if (f.is("LEPTON")) {
-        delGVe = deltaGV_f(leptons[ELECTRON]);
-        delGAe = deltaGA_f(leptons[ELECTRON]);
-        if (delGVe != 0.0 || delGAe != 0.0) nonZeroNP = true;
+        delGVl = deltaGV_f(f);
+        delGAl = deltaGA_f(f);
+        if (delGVl != 0.0 || delGAl != 0.0) nonZeroNP = true;
     }
 
     double delGVq[6], delGAq[6];
@@ -316,10 +335,10 @@ double NPbase::deltaR0_f(const Particle f) const
     if (nonZeroNP) {
         double CF = 1.;
         if (f.is("LEPTON")) {
-            double gVe = trueSM.gV_f(leptons[ELECTRON]).real();
-            double gAe = trueSM.gA_f(leptons[ELECTRON]).real();
-            Ge = gVe * gVe + gAe*gAe;
-            deltaGe = 2.0 * (gVe * delGVe + gAe * delGAe);
+            double gVl = trueSM.gV_f(f).real();
+            double gAl = trueSM.gA_f(f).real();
+            Gl = gVl * gVl + gAl*gAl;
+            deltaGl = 2.0 * (gVl * delGVl + gAl * delGAl);
             CF = 3.;
         }
         double Gq[6], deltaGq[6];
@@ -335,7 +354,7 @@ double NPbase::deltaR0_f(const Particle f) const
             delGq_sum += CF * deltaGq[q];
         }
         if (f.is("LEPTON"))
-            dR0_f = delGq_sum / Ge - Gq_sum * deltaGe / Ge / Ge;
+            dR0_f = delGq_sum / Gl - Gq_sum * deltaGl / Gl / Gl;
         else
             dR0_f = deltaGq[f.getIndex() - 6] / Gq_sum
                 - Gq[f.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;

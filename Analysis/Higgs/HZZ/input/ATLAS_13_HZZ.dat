@@ -1,0 +1,12 @@
+##################
+# arXiv: 1712.02304
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, VH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBF13 VH13
+MEASUREMENT ggF |1. 0. 0. 0.| 1.11 -0.213 0.234
+MEASUREMENT VBF |0. 0. 1. 0.| 4. -1.463 1.752
+MEASUREMENT VH |0. 0. 0. 1.| 0. -0. 1.888
+MEASUREMENT ttH |0. 1. 0. 0.| 0. -0. 3.827
+##################
