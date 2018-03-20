@@ -1,0 +1,13 @@
+##################
+# CMS-PAS-HIG-16-003 (VBF), CMS-PAS-HIG-17-026 (ttH-lept), arXiv: 1803.06986 (ttH-all jet), CMS-PAS-HIG-16-044 (VH)
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, WH fraction, ZH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBF13 WH13 ZH13
+MEASUREMENT VBF |0. 0. 1. 0. 0.| -3.7 -2.5 2.4
+MEASUREMENT ttH_lept |0. 1. 0. 0. 0.| 0.72 -0.45 0.45
+MEASUREMENT ttH_alljet |0. 1. 0. 0. 0.| 0.9 -1.5 1.5
+MEASUREMENT WH |0. 0. 0. 1. 0.| 1.7 -0.7 0.7
+MEASUREMENT ZH |0. 0. 0. 0. 1.| 0.9 -0.5 0.5
+##################
