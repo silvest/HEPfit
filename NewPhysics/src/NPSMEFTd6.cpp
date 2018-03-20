@@ -213,7 +213,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "ettH_1314_HG", "ettH_1314_G", "ettH_1314_uG_33r", "ettH_1314_DeltagHt"};
 
 NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
-: NPbase(), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
+: NPbase(), NPSMEFTd6M(*this), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
 {
     if ((!FlagLeptonUniversal && !FlagQuarkUniversal)
             || (!FlagLeptonUniversal && FlagQuarkUniversal)
@@ -223,6 +223,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagQuadraticTerms = false;
     FlagRotateCHWCHB = false;
     setModelLinearized();
+    
+    SMM.setObj((StandardModelMatching&) NPSMEFTd6M.getObj());
 
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CG", boost::cref(CG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CW", boost::cref(CW)));
@@ -684,6 +686,8 @@ bool NPSMEFTd6::PostUpdate()
     delta_AZ = 2.0 * sW_tree * cW_tree * (CHW - CHB) * v2_over_LambdaNP2
             - (cW2_tree - sW2_tree) * CHWB * v2_over_LambdaNP2;
     delta_h = (-CHD / 4.0 + CHbox) * v2_over_LambdaNP2;
+    
+    NPSMEFTd6M.getObj().updateNPSMEFTd6Parameters();
 
     return (true);
 }

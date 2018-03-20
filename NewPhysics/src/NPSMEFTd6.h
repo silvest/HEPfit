@@ -10,6 +10,7 @@
 
 #include "gslpp.h"
 #include "NPbase.h"
+#include "NPSMEFTd6Matching.h"
 #include <string.h>
 #include <stdexcept>
 
@@ -708,6 +709,15 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlag(const std::string name, const bool value);
+    
+    /**
+     * @brief A method to get the Matching object for this model.
+     * @return The matching object for this model
+     */
+    virtual NPSMEFTd6Matching& getMatching() const
+    {
+        return NPSMEFTd6M.getObj();
+    }
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -1371,6 +1381,7 @@ protected:
      * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
+    mutable Matching<NPSMEFTd6Matching,NPSMEFTd6> NPSMEFTd6M;
 
     double CG; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
