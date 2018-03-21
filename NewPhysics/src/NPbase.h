@@ -834,6 +834,15 @@ public:
      * @brief 
      * @return 
      */
+    virtual double UpperLimitZgammaC13(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
     virtual double UpperLimitZgammaA(const double sqrt_s) const
     {
         return 1.0;
