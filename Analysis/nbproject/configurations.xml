@@ -125,10 +125,6 @@
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
-            <pElem>../boost/lib</pElem>
-            <pElem>../boost</pElem>
-            <pElem>/usr/local/gfortran/lib</pElem>
-            <pElem>/usr/local/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>.</pElem>
@@ -137,6 +133,7 @@
           </linkerDynSerch>
           <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
+            <linkerOptionItem>-Wl,--start-group</linkerOptionItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../ComputeObservables"
                             CT="3"
@@ -425,6 +422,7 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerOptionItem>-Wl,--end-group</linkerOptionItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
@@ -558,8 +556,6 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../boost/include</pElem>
-            <pElem>../HiggsExtensions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -573,7 +569,6 @@
             <pElem>../LoopTools/lib64</pElem>
             <pElem>../LoopTools/lib</pElem>
             <pElem>../boost/lib</pElem>
-            <pElem>/usr/local/lib</pElem>
             <pElem>../boost</pElem>
             <pElem>/usr/local/gfortran/lib</pElem>
           </linkerAddLib>
