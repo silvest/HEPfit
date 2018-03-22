@@ -10,6 +10,7 @@
 
 #include "gslpp.h"
 #include "NPbase.h"
+#include "NPSMEFTd6Matching.h"
 #include <string.h>
 #include <stdexcept>
 
@@ -643,7 +644,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 365;
+    static const int NNPSMEFTd6Vars = 393;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -708,6 +709,15 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlag(const std::string name, const bool value);
+    
+    /**
+     * @brief A method to get the Matching object for this model.
+     * @return The matching object for this model
+     */
+    virtual NPSMEFTd6Matching& getMatching() const
+    {
+        return NPSMEFTd6M.getObj();
+    }
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -750,6 +760,14 @@ public:
      */
     virtual double Mw() const;
 
+    /**
+     * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\Gamma^W_{ij}@f$
+     */
+    virtual double GammaW(const Particle fi, const Particle fj) const;
+    
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
@@ -832,7 +850,7 @@ public:
      * @return @f$\delta g_{Wff}^{L}@f$
      */
     // no generation mixing
-    gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
+    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
      * @param[in] pbar a lepton or quark
@@ -840,58 +858,58 @@ public:
      * @return @f$\delta g_{Wff}^{R}@f$
      */
     // no generation mixing
-    gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
+    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
      * @return @f$\delta g_{HGG}@f$
      */
-    double deltaG_hgg() const;
+    virtual double deltaG_hgg() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(1)}@f$
      */
-    double deltaG1_hWW() const;
+    virtual double deltaG1_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(2)}@f$
      */
-    double deltaG2_hWW() const;
+    virtual double deltaG2_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
      * @return @f$\delta g_{HWW}^{(3)}@f$
      */
-    double deltaG3_hWW() const;
+    virtual double deltaG3_hWW() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(1)}@f$
      */
-    double deltaG1_hZZ() const;
+    virtual double deltaG1_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(2)}@f$
      */
-    double deltaG2_hZZ() const;
+    virtual double deltaG2_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
      * @return @f$\delta g_{HZZ}^{(3)}@f$
      */
-    double deltaG3_hZZ() const;
+    virtual double deltaG3_hZZ() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(1)}@f$
      */
-    double deltaG1_hZA() const;
+    virtual double deltaG1_hZA() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(2)}@f$
      */
-    double deltaG2_hZA() const;
+    virtual double deltaG2_hZA() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HAA}@f$
      */
-    double deltaG_hAA() const;
+    virtual double deltaG_hAA() const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
@@ -899,7 +917,7 @@ public:
      * @return @f$\delta g_{Hff}@f$
      */
     // no generation mixing
-    gslpp::complex deltaG_hff(const Particle p) const;
+    virtual gslpp::complex deltaG_hff(const Particle p) const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -1371,6 +1389,7 @@ protected:
      * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
+    mutable Matching<NPSMEFTd6Matching,NPSMEFTd6> NPSMEFTd6M;
 
     double CG; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
     double CW; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
@@ -1538,9 +1557,13 @@ protected:
     double CLQ1_1111;
     double CLQ1_1122, CLQ1_2211, CLQ1_1221, CLQ1_2112;
     double CLQ1_1133, CLQ1_3311, CLQ1_1331, CLQ1_3113;
+    double CLQ1_1123, CLQ1_2223, CLQ1_3323;
+    double CLQ1_1132, CLQ1_2232, CLQ1_3332;
     double CLQ3_1111;
     double CLQ3_1122, CLQ3_2211, CLQ3_1221, CLQ3_2112;
     double CLQ3_1133, CLQ3_3311, CLQ3_1331, CLQ3_3113;
+    double CLQ3_1123, CLQ3_2223, CLQ3_3323;
+    double CLQ3_1132, CLQ3_2232, CLQ3_3332;
     double Cee_1111;
     double Cee_1122, Cee_2211;
     double Cee_1133, Cee_3311;
@@ -1550,6 +1573,8 @@ protected:
     double Ced_1111;
     double Ced_1122, Ced_2211;
     double Ced_1133, Ced_3311;
+    double Ced_1123, Ced_2223, Ced_3323;
+    double Ced_1132, Ced_2232, Ced_3332;
     double CLe_1111;
     double CLe_1122, CLe_2211;
     double CLe_1133, CLe_3311;
@@ -1559,9 +1584,13 @@ protected:
     double CLd_1111;
     double CLd_1122, CLd_2211;
     double CLd_1133, CLd_3311;
+    double CLd_1123, CLd_2223, CLd_3323;
+    double CLd_1132, CLd_2232, CLd_3332;
     double CQe_1111;
     double CQe_1122, CQe_2211;
     double CQe_1133, CQe_3311;
+    double CQe_2311, CQe_2322, CQe_2333;
+    double CQe_3211, CQe_3222, CQe_3233;
     double Lambda_NP; ///< The new physics scale [GeV].
 // The intrinsic and parametric theory relative errors in the Higgs observables.
     double eggFint; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)

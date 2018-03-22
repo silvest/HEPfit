@@ -31,6 +31,8 @@ Intbc_cache(2, 0.)
     SUM = false;
     EWflag = true;
     FOUR_BODY = false;
+    WET_NP_btos = false;
+    SMEFT_NP_btos = false;
     
     setParametersForObservable(make_vector<std::string>() << "Gambino_mukin" << "Gambino_BRsem" << "Gambino_Mbkin" << "Gambino_Mcatmuc" << "Gambino_mupi2" 
                                                           << "Gambino_rhoD3" << "Gambino_muG2" << "Gambino_rhoLS3" << "BLNPcorr" << "mu_b_bsgamma" << "mu_c_bsgamma");
@@ -1935,7 +1937,7 @@ void Bsgamma::computeCoeff(double mu)
     C4_0 = (*(allcoeff[LO]))(3);
     C5_0 = (*(allcoeff[LO]))(4);
     C6_0 = (*(allcoeff[LO]))(5);
-    C7_0 = (*(allcoeff[LO]))(6);
+    C7_0 = (*(allcoeff[LO]))(6)  + C_7_NP;
     C8_0 = (*(allcoeff[LO]))(7);
     
     C1_1 = (*(allcoeff[NLO]))(0)/Alstilde;
@@ -1949,8 +1951,8 @@ void Bsgamma::computeCoeff(double mu)
 
     C7_2 = (*(allcoeff[NNLO]))(6)/Alstilde/Alstilde;
 
-    C7p_0 = (*(allcoeffprime[LO]))(6);
-    C7p_1 = (*(allcoeffprime[NLO]))(6)/Alstilde; /*Implement the other WCs*/
+    C7p_0 = (*(allcoeffprime[LO]))(6) + Ms/Mb*((*(allcoeff[LO]))(6)) + C_7p_NP;
+    C7p_1 = ((*(allcoeffprime[NLO]))(6) + Ms/Mb*((*(allcoeff[NLO]))(6)))/Alstilde; /*Implement the other WCs*/
 
     /*std::cout << "C_0(mu): (" << C1_0.real() << "," << C2_0.real() << "," 
             << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
@@ -2347,10 +2349,27 @@ void Bsgamma::updateParameters()
     Alstilde = SM.Alstilde5(mu_b);
     AleatMztilde=SM.ale_OS(SM.getMz())/4./M_PI;
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
+    Mb=SM.getQuarks(QCD::BOTTOM).getMass();
     Mz=SM.getMz();
     V_ub=SM.getCKM().V_ub();
     V_cb=SM.getCKM().V_cb();
     V_tb=SM.getCKM().V_tb();
+    
+    if(WET_NP_btos){
+        C_7_NP = SM.getOptionalParameter("C7_NP");
+        C_7p_NP = SM.getOptionalParameter("C7p_NP");
+    }
+    else if(SMEFT_NP_btos){
+            gslpp::complex SMEFT_factor = (M_PI/SM.getAle())*(SM.v()*1.e-3)*(SM.v()*1.e-3)/SM.computelamt_s();
+            C_7_NP = SM.getOptionalParameter("CdB")-SM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
+            C_7p_NP = SM.getOptionalParameter("CpdB")-SM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
+    }
+    else{
+        C_7_NP = 0.;
+        C_7p_NP = 0.;        
+    }
     
     if (SUM) {
         CKMratio=(V_tb/V_cb).abs2()*(1. - V_tb.abs2());

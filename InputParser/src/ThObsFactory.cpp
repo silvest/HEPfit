@@ -9,6 +9,7 @@
 #include "ThObservable.h"
 #include "ParamObs.h"
 #include "EWObservables.h"
+#include "NP_couplings.h"
 #include "HiggsThObservables.h"
 #include "FlavourObservables.h"
 #include "MtMSbar.h"
@@ -37,17 +38,31 @@ ThObsFactory::ThObsFactory()
     //-----  Electroweak precision observables  -----
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();
+    obsThFactory["BrWlepton"] = boost::factory<BrWlepton*>();
+    obsThFactory["BrWelectron"] = boost::factory<BrWelectron*>();
+    obsThFactory["BrWmuon"] = boost::factory<BrWmuon*>();
+    obsThFactory["BrWtau"] = boost::factory<BrWtau*>();
+    obsThFactory["BrWhadrons"] = boost::factory<BrWhadrons*>();
     obsThFactory["GammaZ"] = boost::factory<GammaZ*>();
     obsThFactory["sigmaHadron"] = boost::factory<sigmaHadron*>();
     obsThFactory["sin2thetaEff"] = boost::factory<sin2thetaEff*>();
     obsThFactory["PtauPol"] = boost::factory<PtauPol*>();
     obsThFactory["Alepton"] = boost::factory<Alepton*>();
+    obsThFactory["Aelectron"] = boost::factory<Aelectron*>();
+    obsThFactory["Amuon"] = boost::factory<Amuon*>();
+    obsThFactory["Atau"] = boost::factory<Atau*>();
     obsThFactory["Acharm"] = boost::factory<Acharm*>();
     obsThFactory["Abottom"] = boost::factory<Abottom*>();
     obsThFactory["AFBlepton"] = boost::factory<AFBlepton*>();
+    obsThFactory["AFBelectron"] = boost::factory<AFBelectron*>();
+    obsThFactory["AFBmuon"] = boost::factory<AFBmuon*>();
+    obsThFactory["AFBtau"] = boost::factory<AFBtau*>();
     obsThFactory["AFBcharm"] = boost::factory<AFBcharm*>();
     obsThFactory["AFBbottom"] = boost::factory<AFBbottom*>();
     obsThFactory["Rlepton"] = boost::factory<Rlepton*>();
+    obsThFactory["Relectron"] = boost::factory<Relectron*>();
+    obsThFactory["Rmuon"] = boost::factory<Rmuon*>();
+    obsThFactory["Rtau"] = boost::factory<Rtau*>();
     obsThFactory["Rinv"] = boost::factory<Rinv*>();
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
@@ -55,6 +70,67 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltag1Z"] = boost::factory<deltag1Z*>();
     obsThFactory["deltaKgamma"] = boost::factory<deltaKgamma*>();
     obsThFactory["lambdaZ"] = boost::factory<lambdaZ*>();
+    //-----  Observables for particle couplings -----
+    //-----  Zff couplings observables  ----------
+    obsThFactory["deltagZveveL"] = boost::factory<deltagZveveL*>();
+    obsThFactory["deltagZvmuvmuL"] = boost::factory<deltagZvmuvmuL*>();
+    obsThFactory["deltagZvtavtaL"] = boost::factory<deltagZvtavtaL*>();
+    obsThFactory["deltagZeeL"] = boost::factory<deltagZeeL*>();
+    obsThFactory["deltagZeeR"] = boost::factory<deltagZeeR*>();
+    obsThFactory["deltagZmumuL"] = boost::factory<deltagZmumuL*>();
+    obsThFactory["deltagZmumuR"] = boost::factory<deltagZmumuR*>();
+    obsThFactory["deltagZtataL"] = boost::factory<deltagZtataL*>();
+    obsThFactory["deltagZtataR"] = boost::factory<deltagZtataR*>();
+    obsThFactory["deltagZuuL"] = boost::factory<deltagZuuL*>();
+    obsThFactory["deltagZuuR"] = boost::factory<deltagZuuR*>();
+    obsThFactory["deltagZccL"] = boost::factory<deltagZccL*>();
+    obsThFactory["deltagZccR"] = boost::factory<deltagZccR*>();
+    obsThFactory["deltagZttL"] = boost::factory<deltagZttL*>();
+    obsThFactory["deltagZttR"] = boost::factory<deltagZttR*>();
+    obsThFactory["deltagZddL"] = boost::factory<deltagZddL*>();
+    obsThFactory["deltagZddR"] = boost::factory<deltagZddR*>();
+    obsThFactory["deltagZssL"] = boost::factory<deltagZssL*>();
+    obsThFactory["deltagZssR"] = boost::factory<deltagZssR*>();
+    obsThFactory["deltagZbbL"] = boost::factory<deltagZbbL*>();
+    obsThFactory["deltagZbbR"] = boost::factory<deltagZbbR*>();
+    //-----  Wff couplings observables  ----------
+    obsThFactory["deltaUWeve"] = boost::factory<deltaUWeve*>();
+    obsThFactory["deltaUWmuvmu"] = boost::factory<deltaUWmuvmu*>();
+    obsThFactory["deltaUWtavta"] = boost::factory<deltaUWtavta*>();
+    obsThFactory["deltaVudL"] = boost::factory<deltaVudL*>();
+    obsThFactory["deltaVudR"] = boost::factory<deltaVudR*>();
+    obsThFactory["deltaVcsL"] = boost::factory<deltaVcsL*>();
+    obsThFactory["deltaVcsR"] = boost::factory<deltaVcsR*>();
+    obsThFactory["deltaVtbL"] = boost::factory<deltaVtbL*>();
+    obsThFactory["deltaVtbR"] = boost::factory<deltaVtbR*>();
+    //-----  Hff couplings observables  ----------
+    obsThFactory["deltagHee"] = boost::factory<deltagHee*>();
+    obsThFactory["deltagHmumu"] = boost::factory<deltagHmumu*>();
+    obsThFactory["deltagHtata"] = boost::factory<deltagHtata*>();
+    obsThFactory["deltagHuu"] = boost::factory<deltagHuu*>();
+    obsThFactory["deltagHcc"] = boost::factory<deltagHcc*>();
+    obsThFactory["deltagHtt"] = boost::factory<deltagHtt*>();
+    obsThFactory["deltagHdd"] = boost::factory<deltagHdd*>();
+    obsThFactory["deltagHss"] = boost::factory<deltagHss*>();
+    obsThFactory["deltagHbb"] = boost::factory<deltagHbb*>();
+    //-----  HGG couplings observables  ----------
+    obsThFactory["deltagHGG"] = boost::factory<deltagHGG*>();
+    //-----  HZZ couplings observables  ----------
+    obsThFactory["deltagHZZ"] = boost::factory<deltagHZZ*>();
+    obsThFactory["gHZZ1"] = boost::factory<gHZZ1*>();
+    obsThFactory["gHZZ2"] = boost::factory<gHZZ2*>();
+    //-----  HAA couplings observables  ----------
+    obsThFactory["deltagHAA"] = boost::factory<deltagHAA*>();
+    //-----  HZA couplings observables  ----------
+    obsThFactory["deltagHZA"] = boost::factory<deltagHZA*>();
+    obsThFactory["gHZA2"] = boost::factory<gHZA2*>();
+    //-----  HWW couplings observables  ----------
+    obsThFactory["deltagHWW"] = boost::factory<deltagHWW*>();
+    obsThFactory["gHWW1"] = boost::factory<gHWW1*>();
+    obsThFactory["gHWW2"] = boost::factory<gHWW2*>();
+    //-----  HHH couplings observables  ----------
+    obsThFactory["deltalHHH"] = boost::factory<deltalHHH*>();
+    //-----  VVV couplings observables  ----------
 
     //-----  Higgs Extension observables  ----------
     const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
@@ -172,9 +248,17 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muppHZga8"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC8);
     obsThFactory["muppHZga13"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaA13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA13*>(), _1, sqrt_s_LHC13);
+    obsThFactory["UpperLimit_ppHZgammaC13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC13*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaA"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA*>(), _1, sqrt_s_LHC8);
     obsThFactory["UpperLimit_ppHZgammaC"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC*>(), _1, sqrt_s_LHC8);
     obsThFactory["cg_plus_ct"] = boost::factory<cg_plus_ct*>();
+    obsThFactory["cga_plus_ct"] = boost::factory<cga_plus_ct*>();
+    obsThFactory["cg_minus_cga"] = boost::factory<cg_minus_cga*>();
+    obsThFactory["cV_plus_cb"] = boost::factory<cV_plus_cb*>();
+    obsThFactory["cV_plus_ctau"] = boost::factory<cV_plus_ctau*>();
+    obsThFactory["cb_minus_cc"] = boost::factory<cb_minus_cc*>();
+    obsThFactory["cb_minus_ctau"] = boost::factory<cb_minus_ctau*>();
+    obsThFactory["cc_minus_ctau"] = boost::factory<cc_minus_ctau*>();
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();
@@ -282,10 +366,14 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BRbar_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 2);
     obsThFactory["Amumu_Bd"] = boost::bind(boost::factory<Bdmumu*>(), _1, 3);
     obsThFactory["Smumu_Bd"] = boost::bind(boost::factory<Bdmumu*>(), _1, 4);
-    obsThFactory["BR_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 1);
-    obsThFactory["BRbar_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 2);
-    obsThFactory["Amumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3);
-    obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4);
+    obsThFactory["BR_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 1, StandardModel::MU);
+    obsThFactory["BRbar_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 2, StandardModel::MU);
+    obsThFactory["Amumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3, StandardModel::MU);
+    obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4, StandardModel::MU);
+    obsThFactory["BR_Bsee"] = boost::bind(boost::factory<Bsmumu*>(), _1, 1, StandardModel::ELECTRON);
+    obsThFactory["BRbar_Bsee"] = boost::bind(boost::factory<Bsmumu*>(), _1, 2, StandardModel::ELECTRON);
+    obsThFactory["Aee_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3, StandardModel::ELECTRON);
+    obsThFactory["See_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4, StandardModel::ELECTRON);
     obsThFactory["BR_BdmumuOBR_Bsmumu"] = boost::factory<BdmumuOBsmumu*>();
    //----- b to q gamma  -----
     obsThFactory["BR_bsgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::STRANGE, 1);
@@ -527,6 +615,8 @@ ThObsFactory::ThObsFactory()
     //----- B to K ll  -----
     obsThFactory["BR_BKmu"] = boost::bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);
     obsThFactory["BR_BKe"] = boost::bind(boost::factory<BR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON);
+    obsThFactory["dBR_BKmu"] = boost::bind(boost::factory<dBR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU);
+    obsThFactory["dBR_BKe"] = boost::bind(boost::factory<dBR_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON);
     obsThFactory["RK_BKll"] = boost::bind(boost::factory<R_MPll*>(), _1, StandardModel::B_P, StandardModel::K_P, StandardModel::MU, StandardModel::ELECTRON);
     
     //----- B to tau nu  -----
@@ -1202,7 +1292,7 @@ ThObsFactory::ThObsFactory()
 
     obsThFactory["Rb0_GTHDM"] = boost::factory<Rb0GTHDM*>();
 
-//    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
+    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
 
     /** END: REMOVE FROM THE PACKAGE **/
     
@@ -1256,6 +1346,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["THDMWpositivity5"] = boost::factory<THDMWpositivity5*>();
     obsThFactory["THDMWpositivity6"] = boost::factory<THDMWpositivity6*>();
     obsThFactory["THDMWpositivity7"] = boost::factory<THDMWpositivity7*>();
+    obsThFactory["THDMWpositivity8"] = boost::factory<THDMWpositivity8*>();
+    obsThFactory["THDMWpositivity9"] = boost::factory<THDMWpositivity9*>();
+    obsThFactory["THDMWpositivity10"] = boost::factory<THDMWpositivity10*>();
+    obsThFactory["THDMWpositivity11"] = boost::factory<THDMWpositivity11*>();
+    obsThFactory["THDMWpositiveMassSquares"] = boost::factory<THDMWpositiveMassSquares*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["THDMWunitarity1"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 0);
     obsThFactory["THDMWunitarity2"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 1);
@@ -1328,6 +1423,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda5GM"] = boost::factory<lambda5GM*>();
     obsThFactory["vPhiGM"] = boost::factory<vPhiGM*>();
     obsThFactory["vDeltaGM"] = boost::factory<vDeltaGM*>();
+    obsThFactory["GMmHlmmHh"] = boost::factory<GMmassdifference_mHlmmHh*>();
+    obsThFactory["GMmHhmmHl"] = boost::factory<GMmassdifference_mHhmmHl*>();
+    obsThFactory["GMmHlmmA"] = boost::factory<GMmassdifference_mHlmmA*>();
+    obsThFactory["GMmAmmHl"] = boost::factory<GMmassdifference_mAmmHl*>();
+    obsThFactory["GMmHlmmH5"] = boost::factory<GMmassdifference_mHlmmH5*>();
+    obsThFactory["GMmH5mmHl"] = boost::factory<GMmassdifference_mH5mmHl*>();
+    obsThFactory["GMmHhmmA"] = boost::factory<GMmassdifference_mHhmmA*>();
+    obsThFactory["GMmAmmHh"] = boost::factory<GMmassdifference_mAmmHh*>();
+    obsThFactory["GMmHhmmH5"] = boost::factory<GMmassdifference_mHhmmH5*>();
+    obsThFactory["GMmH5mmHh"] = boost::factory<GMmassdifference_mH5mmHh*>();
+    obsThFactory["GMmAmmH5"] = boost::factory<GMmassdifference_mAmmH5*>();
+    obsThFactory["GMmH5mmA"] = boost::factory<GMmassdifference_mH5mmA*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["GMunitarity1"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 0);
     obsThFactory["GMunitarity2"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 1);

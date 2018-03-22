@@ -1425,6 +1425,8 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
             throw std::runtime_error("EvolDF1::Df1Evol(): scheme " + out.str() + " not implemented "); 
     }
     
+// WRONG caching! Rethink *************
+    
     double alsM = model.getAlsM();
     if(alsM == alsM_cache && MAls == MAls_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme)
@@ -1441,7 +1443,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
 
     setScales(mu, M); // also assign evol to identity
 
-    DF1Ev(mu, M, 5, scheme); // only 5 flavour
+    DF1Ev(mu, M, 5, scheme); // only 5 flavour *******************
 
     return (*Evol(ord));
 }
@@ -1601,7 +1603,7 @@ gslpp::matrix<double>& EvolDF1::DF1Evol(double mu, double M, orders_qed ord, sch
             const double &term = itr->second;
             
             res11(a, b) += omega * lambda * term * f_g(nnf, i, p, j, 1, -1, eta);
-            res12(a, b) += omega * lambda * lambda * term * ((f_g(nnf, i, p, j, 2, -1, eta) - f_g(nnf, i, p, j, 1, -1, eta)));
+            res12(a, b) += omega * lambda * lambda * term * (f_g(nnf, i, p, j, 2, -1, eta) - f_g(nnf, i, p, j, 1, -1, eta));  
         }
 
         for (itr = vM34vi[nnf].begin(); itr != vM34vi[nnf].end(); ++itr)

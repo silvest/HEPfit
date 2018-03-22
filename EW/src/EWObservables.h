@@ -19,6 +19,7 @@
 
 #include "Mw.h"
 #include "GammaW.h"
+#include "BrW.h"
 #include "GammaZ.h"
 #include "sigmaHadron.h"
 #include "sin2thetaEff.h"

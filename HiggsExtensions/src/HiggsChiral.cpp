@@ -8,7 +8,7 @@
 #include "HiggsChiral.h"
 
 const std::string HiggsChiral::HChiralvars[NHChiralvars] = {
-    "cv", "ct", "cb", "cc", "ctau", "cmu", "cg", "cga", "cZga", "obsZgaLimitATLAS13", "obsZgaLimitATLAS", "obsZgaLimitCMS", "expZgaLimitATLAS13", "expZgaLimitATLAS", "expZgaLimitCMS"
+    "cv", "ct", "cb", "cc", "ctau", "cmu", "cg", "cga", "cZga", "obsZgaLimitATLAS13", "obsZgaLimitCMS13", "obsZgaLimitATLAS", "obsZgaLimitCMS", "expZgaLimitATLAS13", "expZgaLimitCMS13", "expZgaLimitATLAS", "expZgaLimitCMS"
 };
 
 HiggsChiral::HiggsChiral()
@@ -24,9 +24,11 @@ HiggsChiral::HiggsChiral()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cga", boost::cref(cga)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cZga", boost::cref(cZga)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitATLAS13", boost::cref(obsZgaLimitATLAS13)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitCMS13", boost::cref(obsZgaLimitCMS13)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitATLAS", boost::cref(obsZgaLimitATLAS)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obsZgaLimitCMS", boost::cref(obsZgaLimitCMS)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitATLAS13", boost::cref(expZgaLimitATLAS13)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitCMS13", boost::cref(expZgaLimitCMS13)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitATLAS", boost::cref(expZgaLimitATLAS)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("expZgaLimitCMS", boost::cref(expZgaLimitCMS)));
 }
@@ -53,12 +55,16 @@ void HiggsChiral::setParameter(const std::string name, const double& value)
         cZga = value;
     else if (name.compare("obsZgaLimitATLAS13") == 0)
         obsZgaLimitATLAS13 = value;
+    else if (name.compare("obsZgaLimitCMS13") == 0)
+        obsZgaLimitCMS13 = value;
     else if (name.compare("obsZgaLimitATLAS") == 0)
         obsZgaLimitATLAS = value;
     else if (name.compare("obsZgaLimitCMS") == 0)
         obsZgaLimitCMS = value;
     else if (name.compare("expZgaLimitATLAS13") == 0)
         expZgaLimitATLAS13 = value;
+    else if (name.compare("expZgaLimitCMS13") == 0)
+        expZgaLimitCMS13 = value;
     else if (name.compare("expZgaLimitATLAS") == 0)
         expZgaLimitATLAS = value;
     else if (name.compare("expZgaLimitCMS") == 0)
@@ -197,6 +203,30 @@ double HiggsChiral::UpperLimitZgammaA13(const double sqrt_s) const
     return (1.0+(muppH*BrHZgaRatio()-getobsZgaLimitATLAS13())/getexpZgaLimitATLAS13() ) * nftos;
 }
 
+double HiggsChiral::UpperLimitZgammaC13(const double sqrt_s) const
+{
+    double sigmaggH_SM = trueSM.computeSigmaggH(sqrt_s);
+    double sigmattH_SM = trueSM.computeSigmattH(sqrt_s);
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
+    double sigmaWF_SM = trueSM.computeSigmaWF(sqrt_s);
+    double sigmaZF_SM = trueSM.computeSigmaZF(sqrt_s);
+    double sigmaZWF_SM = trueSM.computeSigmaZWF(sqrt_s);    
+    double sigmaVBF_SM = sigmaWF_SM + sigmaZF_SM + sigmaZWF_SM;
+
+    double sigmaggH = muggH(sqrt_s) * sigmaggH_SM;
+    double sigmattH = muttH(sqrt_s) * sigmattH_SM;
+    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
+    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
+    double sigmaVBF = muVBF(sqrt_s) * sigmaVBF_SM;
+
+    double muppH=((sigmaggH + sigmattH + sigmaWH + sigmaZH + sigmaVBF) / (sigmaggH_SM + sigmattH_SM + sigmaWH_SM + sigmaZH_SM + sigmaVBF_SM));
+//    double BrHZgaRatio=;
+    double nftos=1.95996398454;
+        
+    return (1.0+(muppH*BrHZgaRatio()-getobsZgaLimitCMS13())/getexpZgaLimitCMS13() ) * nftos;
+}
+
 double HiggsChiral::UpperLimitZgammaA(const double sqrt_s) const
 {
     double sigmaggH_SM = trueSM.computeSigmaggH(sqrt_s);
@@ -247,8 +277,42 @@ double HiggsChiral::UpperLimitZgammaC(const double sqrt_s) const
 
 double HiggsChiral::cgplusct() const
 {
-
     return cg + ct;
+}
+
+double HiggsChiral::cgaplusct() const
+{
+    return cga + ct;
+}
+
+double HiggsChiral::cgminuscga() const
+{
+    return cg - cga;
+}
+
+double HiggsChiral::cVpluscb() const
+{
+    return cv + cb;
+}
+
+double HiggsChiral::cVplusctau() const
+{
+    return cv + ctau;
+}
+
+double HiggsChiral::cbminuscc() const
+{
+    return cb - cc;
+}
+
+double HiggsChiral::cbminusctau() const
+{
+    return cb - ctau;
+}
+
+double HiggsChiral::ccminusctau() const
+{
+    return cc - ctau;
 }
 
 double HiggsChiral::Gammagg() const

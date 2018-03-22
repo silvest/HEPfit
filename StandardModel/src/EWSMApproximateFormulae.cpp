@@ -807,6 +807,43 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = -10.1;
         a14 = 0.19;
         a15 = 1456.0;
+    } else if (observable.compare("Gamma_had") == 0) {
+//  Removing leptonic contributions from GammaZ
+//        X0 = 1741.06;
+//        a1 = -2.9501;
+//        a2 = -1.47064;
+//        a3 = 1.29906;
+//        a4 = -0.033105;
+//        a5 = 13.4416;
+//        a6 = -1.5285;
+//        a7 = -0.249;
+//        a8 = 0.19725;
+//        a9 = 59.4525;
+//        a10 = -4.008;
+//        a11 = -0.419;
+//        a12 = 5.895;
+//        a13 = -52.474;
+//        a14 = 0.933;
+//        a15 = 6893.;
+
+//  Summing all hadronic contributions        
+        X0 = 1741.058;
+        a1 = -2.9503;
+        a2 = -1.4708999;
+        a3 = 1.2993;
+        a4 = -0.03308999;
+        a5 = 13.440999;
+        a6 = -1.527;
+        a7 = -0.249;
+        a8 = 0.1972;
+        a9 = 59.44999;
+        a10 = -3.9999;
+        a11 = -0.416;
+        a12 = 5.9;
+        a13 = -52.5;
+        a14 = 0.95;
+        a15 = 6894.;        
+        
     } else if (observable.compare("GammaZ") == 0) {
         X0 = 2494.24;
         a1 = -3.725;
@@ -859,6 +896,19 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a13 = -357.0;
         a14 = -4.7;
         a15 = 11771.0;
+        ThError = mycache.getSM().getDelR0l();
+    } else if (observable.compare("R0_electron") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_extended("Gamma_had")/X_extended("Gamma_e_mu") + ThError;
+
+    } else if (observable.compare("R0_muon") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_extended("Gamma_had")/X_extended("Gamma_e_mu") + ThError;
+
+    } else if (observable.compare("R0_tau") == 0) {
+        ThError = mycache.getSM().getDelR0l();        
+        return X_extended("Gamma_had")/X_extended("Gamma_tau") + ThError;
+
     } else if (observable.compare("R0_charm") == 0) {
         X0 = 172.23;
         a1 = -0.034;

@@ -31,7 +31,7 @@ HeffDF1::~HeffDF1()
 gslpp::vector<gslpp::complex> HeffDF1::LowScaleCoeff(int nm)
 {
     double mu = coeff.getMu(), eta, M, alsM, kM, b0, b1, b0e, b1e;
-    orders ordDF1 = coeff.getOrder();
+//    orders ordDF1 = coeff.getOrder();
     orders_qed ordDF1_qed = coeff.getOrder_qed();
 
     gslpp::vector<gslpp::complex> test(nops, 0.);

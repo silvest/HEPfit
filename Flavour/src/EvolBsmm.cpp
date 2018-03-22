@@ -889,8 +889,9 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
         if (ind < list(19)) {
 
             Ue(vdvi[5 * ind], vdvi[5 * ind + 3]) += vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf);
-            Ue2os(vdvi[5 * ind], vdvi[5 * ind + 3]) += (lambda * lambda * omega)
-                    * (-vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf));
+//            Ue2os(vdvi[5 * ind], vdvi[5 * ind + 3]) += (lambda * lambda * omega)
+//                    * (-vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf));
+            Ue2os(vdvi[5 * ind], vdvi[5 * ind + 3]) += (-vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf));
         }
         if (ind < list(20)) {
 
@@ -1035,8 +1036,8 @@ double EvolBsmm::G(unsigned int i, unsigned int p, unsigned int j, int x, int y,
     double cut = 0.000000001;
     double result = 0.;
 
-    if(fabs(a[L][j] + y - 3. - a[L][p]) < cut && (a[L][p] + x - 3. - a[L][i]) < cut ) value = 0;
-    else if(fabs(a[L][j] + y - 3. - a[L][p]) < cut && (a[L][p] + x - 3. - a[L][i]) > cut) value = 1;	
+    if(fabs(a[L][j] + y - 3. - a[L][p]) < cut && fabs(a[L][p] + x - 3. - a[L][i]) < cut ) value = 0;
+    else if(fabs(a[L][j] + y - 3. - a[L][p]) < cut && fabs(a[L][p] + x - 3. - a[L][i]) > cut) value = 1;	
     else if(fabs(a[L][j] + y - 3. - a[L][p]) > cut && fabs(a[L][j] + y - 3. + x - 3. - a[L][i]) < cut &&  fabs(a[L][p] + x - 3. - a[L][i]) < cut ) value = 2;	
     else if(fabs(a[L][j] + y - 3. - a[L][p]) > cut && fabs(a[L][j] + y - 3. + x - 3. - a[L][i]) > cut &&  fabs(a[L][p] + x - 3. - a[L][i]) > cut ) value = 3;	
     else if(fabs(a[L][j] + y - 3. - a[L][p]) > cut && fabs(a[L][j] + y - 3. + x - 3. - a[L][i]) < cut &&  fabs(a[L][p] + x - 3. - a[L][i]) > cut ) value = 4;	
@@ -1204,7 +1205,7 @@ double EvolBsmm::alphatilde_s(double mu)
             - vs) * B20S * B10soB00s /(B00S) + B10soB00s * B10soB00s * B10soB00s * (- pow(logvs,3) 
             + 5. * pow(logvs,2) / 2. + 2. * (1. - vs) * logvs - (vs - 1.) * (vs - 1.)* 0.5)) 
             + pow(asovs, 2) * (aeove) * ((ve - 1.) * B02S / B00E 
-            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00S) 
-            + logvs * ve * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
+            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00E) 
+            + logvs * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
     return (result);
 }

@@ -150,3 +150,135 @@ double rh_Zga_GM::computeThValue()
 {
     return myGM.getMyGMCache()->rh_Zga;
 }
+
+
+
+GMmassdifference_mHlmmHh::GMmassdifference_mHlmmHh(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mHlmmHh::computeThValue()
+{
+    return sqrt(myGM->getmHl2()) - myGM->getmHh();
+}
+
+
+
+GMmassdifference_mHhmmHl::GMmassdifference_mHhmmHl(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mHhmmHl::computeThValue()
+{
+    return myGM->getmHh() - sqrt(myGM->getmHl2());
+}
+
+
+
+GMmassdifference_mHlmmA::GMmassdifference_mHlmmA(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mHlmmA::computeThValue()
+{
+    return sqrt(myGM->getmHl2()) - myGM->getmA();
+}
+
+
+
+GMmassdifference_mAmmHl::GMmassdifference_mAmmHl(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mAmmHl::computeThValue()
+{
+    return myGM->getmA() - sqrt(myGM->getmHl2());
+}
+
+
+
+GMmassdifference_mHlmmH5::GMmassdifference_mHlmmH5(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mHlmmH5::computeThValue()
+{
+    return sqrt(myGM->getmHl2()) - myGM->getmH5();
+}
+
+
+
+GMmassdifference_mH5mmHl::GMmassdifference_mH5mmHl(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mH5mmHl::computeThValue()
+{
+    return myGM->getmH5() - sqrt(myGM->getmHl2());
+}
+
+
+
+GMmassdifference_mHhmmA::GMmassdifference_mHhmmA(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mHhmmA::computeThValue()
+{
+    return myGM->getmHh() - myGM->getmA();
+}
+
+
+
+GMmassdifference_mAmmHh::GMmassdifference_mAmmHh(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mAmmHh::computeThValue()
+{
+    return myGM->getmA() - myGM->getmHh();
+}
+
+
+
+GMmassdifference_mHhmmH5::GMmassdifference_mHhmmH5(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mHhmmH5::computeThValue()
+{
+    return myGM->getmHh() - myGM->getmH5();
+}
+
+
+
+GMmassdifference_mH5mmHh::GMmassdifference_mH5mmHh(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mH5mmHh::computeThValue()
+{
+    return myGM->getmH5() - myGM->getmHh();
+}
+
+
+
+GMmassdifference_mAmmH5::GMmassdifference_mAmmH5(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mAmmH5::computeThValue()
+{
+    return myGM->getmA() - myGM->getmH5();
+}
+
+
+
+GMmassdifference_mH5mmA::GMmassdifference_mH5mmA(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmassdifference_mH5mmA::computeThValue()
+{
+    return myGM->getmH5() - myGM->getmA();
+}

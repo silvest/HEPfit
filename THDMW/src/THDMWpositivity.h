@@ -10,6 +10,7 @@
 
 #include "ThObservable.h"
 #include "THDMW.h"
+#include "THDMWcache.h"
 
 /**
  * @class THDMWpositivity
@@ -152,6 +153,101 @@ public:
      * @brief THDMWpositivity7 constructor.
      */
     THDMWpositivity7(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity8
+ */
+class THDMWpositivity8: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity8 constructor.
+     */
+    THDMWpositivity8(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity9
+ */
+class THDMWpositivity9: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity9 constructor.
+     */
+    THDMWpositivity9(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity10
+ */
+class THDMWpositivity10: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity10 constructor.
+     */
+    THDMWpositivity10(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity11
+ */
+class THDMWpositivity11: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity11 constructor.
+     */
+    THDMWpositivity11(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositiveMassSquares
+ */
+class THDMWpositiveMassSquares: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositiveMassSquares constructor.
+     */
+    THDMWpositiveMassSquares(const StandardModel& SM_i);
 
     /**
      * @return 

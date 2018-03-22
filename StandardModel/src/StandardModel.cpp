@@ -33,7 +33,7 @@
 /** END: REMOVE FROM THE PACKAGE **/
   
 std::string StandardModel::SMvars[NSMvars] = {
-    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0b",
+    "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0l", "delR0b",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
 //    "s12_pmns", "s13_pmns", "s23_pmns", "delta_pmns", "alpha21_pmns", "alpha31_pmns",
 };
@@ -118,6 +118,7 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delMw", boost::cref(delMw)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delSin2th_l", boost::cref(delSin2th_l)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delGammaZ", boost::cref(delGammaZ)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0l", boost::cref(delR0l)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delR0b", boost::cref(delR0b)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_1", boost::cref(leptons[NEUTRINO_1].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mneutrino_2", boost::cref(leptons[NEUTRINO_2].getMass())));
@@ -280,6 +281,8 @@ void StandardModel::setParameter(const std::string name, const double& value)
         delSin2th_l = value;
     else if (name.compare("delGammaZ") == 0)
         delGammaZ = value;
+    else if (name.compare("delR0l") == 0)
+        delR0l = value;
     else if (name.compare("delR0b") == 0)
         delR0b = value;
     else if (name.compare("mneutrino_1") == 0) {
@@ -421,6 +424,12 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("fullKD") == 0) {
         SMFlavour.setFlagFullKD(value);
         res = true;
+    } else if (name.compare("WET_NP_btos") == 0) {
+        SMFlavour.setFlagWET_NP_btos(value);
+        res = true;
+    } else if (name.compare("SMEFT_NP_btos") == 0) {
+        SMFlavour.setFlagSMEFT_NP_btos(value);
+        res = true;
     } else
         res = QCD::setFlag(name, value);
 
@@ -475,7 +484,7 @@ bool StandardModel::checkSMparamsForEWPO()
     // 13 parameters in StandardModel
     // GF, ale, dAle5Mz, mHl,
     // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
-    // delMw, delSin2th_l, delGammaZ, delR0b,
+    // delMw, delSin2th_l, delGammaZ, delR0l, delR0b,
     // 3 flags in StandardModel
     // FlagMw_cache, FlagRhoZ_cache, FlagKappaZ_cache
 
@@ -496,7 +505,7 @@ bool StandardModel::checkSMparamsForEWPO()
         quarks[STRANGE].getMass(),
         quarks[BOTTOM].getMass(),
         mut, mub, muc,
-        delMw, delSin2th_l, delGammaZ, delR0b,
+        delMw, delSin2th_l, delGammaZ, delR0l, delR0b,
         SchemeToDouble(FlagMw),
         SchemeToDouble(FlagRhoZ),
         SchemeToDouble(FlagKappaZ)
@@ -767,7 +776,7 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
                 break;
             case NNLO:
                 als += alsi * alsi * alsi / 4. / 4. / M_PI / M_PI / v / v / v * (
-                        b01s00e * b01s00e * logve * logve + b01s00e * Beta_s(10, nf) / Beta_s(00, nf) *
+                        b01s00e * b01s00e * logve * logve + b01s00e * Beta_s(10, nf) / b00s *
                         (-2. * logv * logve + rho * ve * logve));
                 break;
             case NNNLO:
@@ -776,13 +785,6 @@ double StandardModel::AlsWithInit(double mu, double alsi, double mu_i, orders or
                         b00e * (logve - ve + 1.) + b01s * Beta_s(10, nf) / b00s / b00s * rho * logv +
                         b01s00e * Beta_e(01, nf) / b00s * (rho * ve * (logv - logve) - logv));
                 break;
-            case FULLNLO:
-                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag));
-            case FULLNNLO:
-                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag));
-            case FULLNNNLO:
-                return (AlsWithInit(mu, alsi, mu_i, LO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NLO, qed_flag) + AlsWithInit(mu, alsi, mu_i, NNLO, qed_flag) +
-                        AlsWithInit(mu, alsi, mu_i, NNNLO, qed_flag));
             default:
                 throw std::runtime_error("StandardModel::AlsWithInit(): " + orderToString(order) + " is not implemented.");
         }
@@ -813,11 +815,13 @@ double StandardModel::Ale(const double mu, orders order, bool Nf_thr) const
         case FULLNNNLO:
             return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr) + Ale(mu, NNNLO, Nf_thr));
         case LO:
+            if (nfAle == nfmu)
+                return(AleWithInit(mu, aleMz, Mz, order));
         case NLO:
         case NNLO:
         case NNNLO:
             if (nfAle == nfmu)
-                return(AleWithInit(mu, aleMz, Mz, order));
+                return(0.);
             fullord = FullOrder(order);
             if (nfAle > nfmu) {
                 mutmp = BelowTh(Mz);
@@ -989,10 +993,10 @@ double StandardModel::Alstilde5(const double mu) const
             + ps * ve * logve) * B01S * B10S/(B00E * B00S)) 
             +  pow(asovs, 4) * (0.5 * B30S *(1. - vs * vs)/ B00S + ((2. * vs - 3.) * logvs + vs * vs 
             - vs) * B20S * B10soB00s /(B00S) + B10soB00s * B10soB00s * B10soB00s * (- pow(logvs,3) 
-            + 5. * pow(logvs,2) / 2. + 2. * (1. - vs) * logvs - (vs - 1.) * (vs - 1.)* 0.5)) 
+            + 5. * pow(logvs,2) / 2. + 2. * (1. - vs) * logvs - (vs - 1.) * (vs - 1.)* 0.5))
             + pow(asovs, 2) * (aeove) * ((ve - 1.) * B02S / B00E 
-            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00S) 
-            + logvs * ve * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
+            + ps * ve * logeos * B11S /B00S +(logve - ve + 1.) * B01soB00e * B10E/(B00E) 
+            + logvs * ps * B01S * B10soB00s/(B00S) +(logsoe * ve * ps - logvs) * B01soB00e * B01E/( B00S));
     return (result);
 }
 
@@ -1369,13 +1373,25 @@ double StandardModel::sigma0_had() const
 
 double StandardModel::R0_f(const Particle f) const
 {
-    if (f.is("LEPTON")) {
+    if (f.is("ELECTRON")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_lepton"));
+            return (myApproximateFormulae->X_extended("R0_electron"));
         else
             return (Gamma_had() / GammaZ(leptons[ELECTRON]));
-    } else if (f.is("CHARM")) {
+    }  else if (f.is("MU")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_extended("R0_muon"));
+        else
+            return (Gamma_had() / GammaZ(leptons[MU]));
+    }  else if (f.is("TAU")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_extended("R0_tau"));
+        else
+            return (Gamma_had() / GammaZ(leptons[TAU]));
+    }  else if (f.is("CHARM")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
             return (myApproximateFormulae->X_extended("R0_charm"));

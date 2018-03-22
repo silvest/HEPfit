@@ -9,13 +9,15 @@
 #include "MPll.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
+#include "F_1.h"
+#include "F_2.h"
 #include <gsl/gsl_sf.h>
 #include <boost/bind.hpp>
 #include <limits>
 #include <TFitResult.h>
 
 MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
-:       mySM(SM_i),
+:       mySM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2())),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
         fplus_lat_cache(3, 0.),
@@ -48,6 +50,19 @@ MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscala
     w_sigma = gsl_integration_cquad_workspace_alloc (100);
     w_delta = gsl_integration_cquad_workspace_alloc (100);   
     w_DTPPR = gsl_integration_cquad_workspace_alloc (100);
+    
+    acc_Re_deltaC7_QCDF = gsl_interp_accel_alloc ();
+    acc_Im_deltaC7_QCDF = gsl_interp_accel_alloc ();
+    acc_Re_deltaC9_QCDF = gsl_interp_accel_alloc ();
+    acc_Im_deltaC9_QCDF = gsl_interp_accel_alloc ();
+    
+    spline_Re_deltaC7_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC7_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Re_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    
+    WET_NP_btos = false;
+    SMEFT_NP_btos = false;
 }
 
 
@@ -56,13 +71,52 @@ MPll::~MPll()
 
 std::vector<std::string> MPll::initializeMPllParameters()
 {
+    WET_NP_btos = mySM.getFlavour().getFlagWET_NP_btos();
+    SMEFT_NP_btos = mySM.getFlavour().getFlagSMEFT_NP_btos();
+    
     #if NFPOLARBASIS_MPLL
-    if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
-        << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
-        << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
-        << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
-        << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
-        << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+    if (pseudoscalar == StandardModel::K_P){
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mpllParameters = make_vector<std::string>()
+            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+            << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mpllParameters = make_vector<std::string>()
+            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+            << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mpllParameters = make_vector<std::string>()
+            << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "m_fit_fplus_lat"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
+            << "b_0_f0" << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat"
+            << "absh_0_MP" << "argh_0_MP" << "absh_1_MP" << "argh_1_MP"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
 #else
     if (pseudoscalar == StandardModel::K_P) mpllParameters = make_vector<std::string>()
         << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0"
@@ -94,12 +148,127 @@ void MPll::updateParameters()
     MP=mySM.getMesons(pseudoscalar).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Mc=mySM.getQuarks(QCD::CHARM).getMass();
+    mb_pole = mySM.Mbar2Mp(Mb); /* Conversion to pole mass*/
+    mc_pole = mySM.Mbar2Mp(Mc); /* Conversion to pole mass*/
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
     mu_b = mySM.getMub();
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     width = mySM.getMesons(meson).computeWidth();
+    alpha_s_mub = mySM.Als(mu_b);
+    
+    if(WET_NP_btos){
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_e");
+            C_9p_NP = mySM.getOptionalParameter("C9p_e");            
+            C_10_NP = mySM.getOptionalParameter("C10_e");
+            C_10p_NP = mySM.getOptionalParameter("C10p_e");
+            C_S_NP = mySM.getOptionalParameter("CS_e");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_e");
+            C_P_NP = mySM.getOptionalParameter("CP_e");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_e");
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_mu");
+            C_9p_NP = mySM.getOptionalParameter("C9p_mu");
+            C_10_NP = mySM.getOptionalParameter("C10_mu");
+            C_10p_NP = mySM.getOptionalParameter("C10p_mu");
+            C_S_NP = mySM.getOptionalParameter("CS_mu");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_mu");
+            C_P_NP = mySM.getOptionalParameter("CP_mu");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_mu");     
+        }
+    }
+    else if(SMEFT_NP_btos){
+        // normalization to \Lambda = 1 TeV
+        gslpp::complex SMEFT_factor = (M_PI/mySM.getAle())*(mySM.v()*1.e-3)*(mySM.v()*1.e-3)/mySM.computelamt_s();
+        double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw()) );
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_11");
+            C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd11_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_11");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ11_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ11_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd11_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_11");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_11");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Pp_NP *= SMEFT_factor;
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_22");
+            C_9_NP += mySM.getOptionalParameter("C1LQ22_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ22_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced22_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd22_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_22");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ22_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ22_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced22_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd22_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_22");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_22");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Pp_NP *= SMEFT_factor;        
+        }
+    }
+    else{
+        C_7_NP = 0.;
+        C_7p_NP = 0.;
+        C_9_NP = 0.;
+        C_9p_NP = 0.;
+        C_10_NP = 0.;
+        C_10p_NP = 0.;
+        C_S_NP = 0.;
+        C_Sp_NP = 0.;
+        C_P_NP = 0.;
+        C_Pp_NP = 0.;
+    }
     
     switch(pseudoscalar){
         case StandardModel::K_P :
@@ -147,7 +316,7 @@ void MPll::updateParameters()
     
     allcoeff = mySM.getFlavour().ComputeCoeffBMll(mu_b, lep);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getFlavour().ComputeCoeffprimeBMll(mu_b, lep);   //check the mass scale, scheme fixed to NDR
-
+    
     C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
     C_1L_bar = (*(allcoeff[LO]))(0)/2.;
     C_2 =  ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
@@ -156,18 +325,20 @@ void MPll::updateParameters()
     C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
     C_5 =  ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
     C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6) + C_7_NP;
+    C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
     C_8L = (*(allcoeff[LO]))(7);
-    C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8);
-    C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
-    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
-    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
+    C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8) + C_9_NP;
+    C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9) + C_10_NP ;
+    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10) + C_S_NP;
+    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11) + C_P_NP;
     
-    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
-    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6) + C_7p_NP;
+    C_7p += MsoMb*((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8) + C_9p_NP;
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9) + C_10p_NP;
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10) + C_Sp_NP;
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11) + C_Pp_NP;
     
     allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
@@ -219,7 +390,7 @@ void MPll::updateParameters()
     twoMc2 = 2.*Mc2;
     sixMMoMb = 6. * MM / Mb;
     CF =4./3.;
-    deltaT_0 = mySM.Als(mu_b) * MboMM / 4. / M_PI;
+    deltaT_0 = alpha_s_mub * MboMM / 4. / M_PI;
     deltaT_1par = mySM.Als(mu_h) * CF / 4. * M_PI / 3. * mySM.getMesons(meson).getDecayconst() *
             mySM.getMesons(pseudoscalar).getDecayconst() / MM * MboMM;
             
@@ -265,6 +436,10 @@ void MPll::updateParameters()
     if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
     
     if (deltaTparpupdated*deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
+    
+#if SPLINE    
+    if (mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) spline_QCDF_func();
+#endif
 
     mySM.getFlavour().setUpdateFlag(meson, pseudoscalar, lep, false);
     
@@ -864,6 +1039,81 @@ gslpp::complex MPll::DeltaC9(double q2)
     return deltaTpar(q2);
 }
 
+gslpp::complex MPll::deltaC7_QCDF(double q2, bool spline)
+{
+#if SPLINE
+    if (spline) return gsl_spline_eval (spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+#endif
+
+    double muh = mu_b/mb_pole;
+    double z = mc_pole*mc_pole/mb_pole/mb_pole;
+    double sh = q2/mb_pole/mb_pole;
+    double sh2 = sh*sh;
+    
+    //gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    gslpp::complex F_17 = myF_1.F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_27 = myF_2.F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_27im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/ 
+    gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh*sh2 - 8./9. * log(sh) * (sh + sh2 + sh*sh2);
+    
+    gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
+    gslpp::complex delta_t = C_8 * F_87 + delta;
+    //gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+
+    return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u */);
+}
+
+gslpp::complex MPll::deltaC9_QCDF(double q2, bool spline)
+{
+#if SPLINE
+    if (spline) return gsl_spline_eval (spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+#endif
+    double muh = mu_b / mb_pole;
+    double z = mc_pole * mc_pole / mb_pole / mb_pole;
+    double sh = q2 / mb_pole / mb_pole;
+    double sh2 = sh*sh;
+
+    //gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    gslpp::complex F_19 = myF_1.F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_19im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_29 = myF_2.F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_29im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
+    gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
+
+    gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
+    gslpp::complex delta_t = C_8 * F_89 + delta;
+    //gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
+
+    return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u*/);
+}
+
+void MPll::spline_QCDF_func()
+{
+    int dim_DC = GSL_INTERP_DIM_DC;
+    double min = 0.001;
+    double interval_DC = (9.9 - min)/((double) dim_DC);
+    double q2_spline_DC[dim_DC];
+    double fq2_Re_deltaC7_QCDF[dim_DC],  fq2_Im_deltaC7_QCDF[dim_DC], fq2_Re_deltaC9_QCDF[dim_DC], fq2_Im_deltaC9_QCDF[dim_DC];
+ 
+    for (int i = 0; i < dim_DC; i++) {    
+        q2_spline_DC[i] = min + (double) i*interval_DC;
+        fq2_Re_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).real();
+        fq2_Im_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).imag();
+        fq2_Re_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).real();
+        fq2_Im_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).imag();
+        
+    }
+    
+    gsl_spline_init (spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC);
+    gsl_spline_init (spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC);
+    gsl_spline_init (spline_Re_deltaC9_QCDF, q2_spline_DC, fq2_Re_deltaC9_QCDF, dim_DC);
+    gsl_spline_init (spline_Im_deltaC9_QCDF, q2_spline_DC, fq2_Im_deltaC9_QCDF, dim_DC);
+    
+
+}
+
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
@@ -900,7 +1150,7 @@ gslpp::complex MPll::Y(double q2)
 
 gslpp::complex MPll::H_V(double q2) 
 {
-    return -( (C_9 + Y(q2) + fDeltaC9(q2) - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
+    return -( (C_9 + deltaC9_QCDF(q2, SPLINE)  + Y(q2) /*+ fDeltaC9(q2)*/ - etaP*pow(-1,angmomP)*C_9p)*V_L(q2) + MM2/q2*( twoMboMM*(C_7 + deltaC7_QCDF(q2, SPLINE) - etaP*pow(-1,angmomP)*C_7p)*T_L(q2) - sixteenM_PI2*(h_0 + h_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2) 

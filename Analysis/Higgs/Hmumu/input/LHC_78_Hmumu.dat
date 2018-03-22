@@ -1,0 +1,9 @@
+##################
+# arXiv 1606.02266
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, WH fraction, ZH fraction|
+##################
+CATEGORIES ggH8 ttH8 VBF8 WH8 ZH8
+MEASUREMENT Total |0.8829 0.005 0.0661 0.029 0.017| 0.1 -2.5 2.5
+##################

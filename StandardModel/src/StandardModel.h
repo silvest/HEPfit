@@ -120,6 +120,13 @@ class EWSMTwoFermionsLEP2;
  *   @ref StandardModelFlags "NoApproximateGammaZ".</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%delR0l</td>
+ *   <td class="mod_symb">@f$\delta\,R_l^0@f$</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$R_l^0@f$,
+ *   which is applicable only when EWSMApproximateFormulae::X_extended() is employed
+ *   for @f$R_l^0@f$.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%delR0b</td>
  *   <td class="mod_symb">@f$\delta\,R_b^0@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$R_b^0@f$,
@@ -227,10 +234,10 @@ class EWSMTwoFermionsLEP2;
  * individual model parameter is assigned with the protected member function
  * setParameter(). 
  *
- * The parameters delMw, delSin2th_l, delGammaZ, delR0b represent theoretical uncertainties 
+ * The parameters delMw, delSin2th_l, delGammaZ, delR0l, delR0b represent theoretical uncertainties 
  * in the @f$W@f$-boson mass, the leptonic effective weak mixing angle at the 
  * @f$Z@f$-boson mass scale, the total decay width of the @f$Z@f$ boson, and 
- * the ratio @f$R_b^0@f$, respectively, originating from missing higher-order corrections. 
+ * the ratios @f$R_l^0@f$ and @f$R_b^0@f$, respectively, originating from missing higher-order corrections. 
  * The contributions
  * from these parameters are incorporated into their two-loop approximate formulae:
  * EWSMApproximateFormulae::Mw(), EWSMApproximateFormulae::sin2thetaEff_l(),
@@ -489,8 +496,8 @@ public:
 
 
     
-//    static const int NSMvars = 33; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
-    static const int NSMvars = 21; ///< The number of the model parameters in %StandardModel.
+//    static const int NSMvars = 34; ///< The number of the model parameters in %StandardModel. !!! PMNS INCLUDED
+    static const int NSMvars = 22; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
@@ -784,6 +791,16 @@ public:
     double getDelGammaZ() const
     {
         return delGammaZ;
+    }
+    
+    /**
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$R_l^0@f$, denoted as @f$\delta\,R_l^0@f$.
+     * @return @f$\delta\,R_l^0@f$ 
+     */
+    double getDelR0l() const
+    {
+        return delR0l;
     }
     
     /**
@@ -1895,7 +1912,7 @@ public:
      *
      * @sa checkSMparamsForEWPO()
      */
-    static const int NumSMParamsForEWPO = 28;
+    static const int NumSMParamsForEWPO = 29;
 
     /**
      * @brief A method to check whether the parameters relevant to the EWPO
@@ -2545,6 +2562,7 @@ protected:
     double delMw; ///< The theoretical uncertainty in @f$M_W@f$, denoted as @f$\delta\,M_W@f$, in GeV.
     double delSin2th_l; ///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
     double delGammaZ; ///< The theoretical uncertainty in @f$\Gamma_Z@f$, denoted as @f$\delta\,\Gamma_Z@f$, in GeV.
+    double delR0l; ///< The theoretical uncertainty in @f$R_l^0@f$, denoted as @f$\delta\,R_l^0@f$.
     double delR0b; ///< The theoretical uncertainty in @f$R_b^0@f$, denoted as @f$\delta\,R_b^0@f$.
     double lambda; ///< The %CKM parameter @f$\lambda@f$ in the Wolfenstein parameterization.
     double A; ///< The %CKM parameter @f$A@f$ in the Wolfenstein parameterization.

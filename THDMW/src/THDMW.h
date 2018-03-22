@@ -236,12 +236,7 @@ public:
      * @return @f$\mu_2@f$
      */
     double getTHDMW_mu2() const {
-        if (flag_modelTHDMW == "custodial1") {
-            return THDMW_mu1;
-        }
-        else {
-            return THDMW_mu2;
-        }
+        return THDMW_mu2;
     }
 
     /**
@@ -264,12 +259,7 @@ public:
      * @return @f$\mu_5@f$
      */
     double getTHDMW_mu5() const {
-        if (flag_modelTHDMW == "custodial1") {
-            return THDMW_mu4;
-        }
-        else {
-            return THDMW_mu5;
-        }
+        return THDMW_mu5;
     }
 
     /**
@@ -277,12 +267,7 @@ public:
      * @return @f$\mu_6@f$
      */
     double getTHDMW_mu6() const {
-        if (flag_modelTHDMW == "custodial1") {
-            return 2.0*THDMW_mu1;
-        }
-        else {
-            return THDMW_mu6;
-        }
+        return THDMW_mu6;
     }
 
     /**

@@ -38,6 +38,24 @@ double BR_MPll::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
     
+    return computeBR_MPll(q_min, q_max, lep);
+}
+
+dBR_MPll::dBR_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i) 
+: BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_i) 
+{  
+    lep = lep_i;
+    meson = meson_i;
+    pseudoscalar = pseudoscalar_i;
+    
+    setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).initializeMPllParameters());
+}
+
+double dBR_MPll::computeThValue() 
+{
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
     return computeBR_MPll(q_min, q_max, lep) / ( q_max - q_min );
 }
 

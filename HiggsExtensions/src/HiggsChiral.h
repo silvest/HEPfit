@@ -78,7 +78,7 @@
 class HiggsChiral : public NPbase {
 public:
 
-    static const int NHChiralvars = 15; ///< The number of the model parameters.
+    static const int NHChiralvars = 17; ///< The number of the model parameters.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKvKf.
@@ -191,6 +191,15 @@ public:
      * @brief .
      * @return 
      */
+    double getobsZgaLimitCMS13() const
+    {
+        return obsZgaLimitCMS13;
+    }
+
+    /**
+     * @brief .
+     * @return 
+     */
     double getobsZgaLimitATLAS() const
     {
         return obsZgaLimitATLAS;
@@ -212,6 +221,15 @@ public:
     double getexpZgaLimitATLAS13() const
     {
         return expZgaLimitATLAS13;
+    }
+
+    /**
+     * @brief .
+     * @return 
+     */
+    double getexpZgaLimitCMS13() const
+    {
+        return expZgaLimitCMS13;
     }
 
     /**
@@ -486,6 +504,12 @@ public:
      * @brief 
      * @return 
      */
+    virtual double UpperLimitZgammaC13(const double sqrt_s) const;
+
+    /**
+     * @brief 
+     * @return 
+     */
     virtual double UpperLimitZgammaA(const double sqrt_s) const;
 
     /**
@@ -499,6 +523,48 @@ public:
      * @return 
      */
     virtual double cgplusct() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgaplusct() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgminuscga() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVpluscb() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVplusctau() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminuscc() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminusctau() const;
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double ccminusctau() const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -581,9 +647,11 @@ private:
     double cga; ///< 
     double cZga; ///< 
     double obsZgaLimitATLAS13; ///< 
+    double obsZgaLimitCMS13; ///< 
     double obsZgaLimitATLAS; ///< 
     double obsZgaLimitCMS; ///< 
     double expZgaLimitATLAS13; ///< 
+    double expZgaLimitCMS13; ///< 
     double expZgaLimitATLAS; ///< 
     double expZgaLimitCMS; ///< 
 };

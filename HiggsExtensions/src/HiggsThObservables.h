@@ -1644,7 +1644,7 @@ public:
     UpperLimit_ppHZgammaA13(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("UpperLimit_ppHZgammaA called with a class whose parent is not NPbase");
+            throw std::runtime_error("UpperLimit_ppHZgammaA13 called with a class whose parent is not NPbase");
     }
 
     /**
@@ -1654,6 +1654,40 @@ public:
     double computeThValue()
     {
         return myNPbase->UpperLimitZgammaA13(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class UpperLimit_ppHZgammaC13
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class UpperLimit_ppHZgammaC13 : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    UpperLimit_ppHZgammaC13(const StandardModel& SM_i, const double sqrt_s_i) : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("UpperLimit_ppHZgammaC13 called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->UpperLimitZgammaC13(sqrt_s);
     }
 
 private:
@@ -1722,6 +1756,237 @@ public:
     double computeThValue()
     {
         return myNPbase->cgplusct();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class cga_plus_ct
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cga_plus_ct : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cga_plus_ct(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cga_plus_ct called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->cgaplusct();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class cg_minus_cga
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cg_minus_cga : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cg_minus_cga(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cg_minus_cga called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->cgminuscga();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class cV_plus_cb
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cV_plus_cb : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cV_plus_cb(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cV_plus_cb called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->cVpluscb();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class cV_plus_ctau
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cV_plus_ctau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cV_plus_ctau(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cV_plus_ctau called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->cVplusctau();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class cb_minus_cc
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cb_minus_cc : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cb_minus_cc(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cb_minus_cc called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->cbminuscc();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class cb_minus_ctau
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cb_minus_ctau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cb_minus_ctau(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cb_minus_ctau called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->cbminusctau();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class cc_minus_ctau
+ * @ingroup HiggsExtensions
+ * @brief 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class cc_minus_ctau : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     */
+    cc_minus_ctau(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("cc_minus_ctau called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return myNPbase->ccminusctau();
     }
 
 private:

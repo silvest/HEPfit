@@ -890,7 +890,7 @@ void THDMWcache::computeUnitarity()
     }
 }
 
-void THDMWcache::setOtherParameters()
+double THDMWcache::setOtherParameters()
 {
     double sin2b=2.0*sinb*cosb;
     double cos2b=cosb*cosb-sinb*sinb;
@@ -937,6 +937,15 @@ void THDMWcache::setOtherParameters()
         mHpsq = vev*vev*(lambda345 + tan2a*(-lambda1*cosb/sinb + lambda2*tanb + (lambda4+lambda5)*cot2b))/(1.0 - 2.0*cot2b*tan2a);
         mSpsq = mSsq + vev*vev*(nu1*cosb*cosb + omega1*sinb*sinb + kappa1*sin2b)/4.0;
     }
+
+    if(mhsq < 0 || mHsq < 0 || mAsq < 0 || mSRsq < 0 || mSIsq < 0 || mHpsq < 0 || mSpsq < 0)
+    {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    else
+    {
+        return 1.;
+    }
 }
 
 void THDMWcache::updateCache()
@@ -958,8 +967,11 @@ void THDMWcache::updateCache()
     lambda5=myTHDMW->getTHDMW_lambda5();
     mSsq=myTHDMW->getTHDMW_mS2();
     mu1=myTHDMW->getTHDMW_mu1();
+    mu2=myTHDMW->getTHDMW_mu2();
     mu3=myTHDMW->getTHDMW_mu3();
     mu4=myTHDMW->getTHDMW_mu4();
+    mu5=myTHDMW->getTHDMW_mu5();
+    mu6=myTHDMW->getTHDMW_mu6();
     nu1=myTHDMW->getTHDMW_nu1();
     omega1=myTHDMW->getTHDMW_omega1();
     kappa1=myTHDMW->getTHDMW_kappa1();

@@ -67,7 +67,7 @@ double THDMWpositivity3::computeThValue()
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
 
-    return mu1+2.0*mu3+2.0*mu5+mu2+2.0*mu4+mu6;
+    return mu1+mu2+2.0*mu3+2.0*mu4+2.0*mu5+mu6;
 }
 
 
@@ -84,7 +84,7 @@ double THDMWpositivity4::computeThValue()
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
 
-    return mu1+2.0*mu3+2.0*mu5+mu2+mu6;
+    return 2.0*mu1+4.0*mu3+4.0*mu5+mu6-fabs(mu1+mu2+2.0*mu3+2.0*mu5);
 }
 
 
@@ -98,10 +98,9 @@ double THDMWpositivity5::computeThValue()
     double mu1=myTHDMW.getTHDMW_mu1();
     double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
-    double mu5=myTHDMW.getTHDMW_mu5();
-    double mu6=myTHDMW.getTHDMW_mu6();
+    double mu4=myTHDMW.getTHDMW_mu4();
 
-    return 3.0*(mu1+2.0*mu3+2.0*mu5)-mu2+mu6;
+    return mu1+mu2+mu3+mu4;
 }
 
 
@@ -111,6 +110,73 @@ THDMWpositivity6::THDMWpositivity6(const StandardModel& SM_i)
 {}
 
 double THDMWpositivity6::computeThValue()
+{
+    double mu1=myTHDMW.getTHDMW_mu1();
+    double mu2=myTHDMW.getTHDMW_mu2();
+    double mu3=myTHDMW.getTHDMW_mu3();
+    double mu4=myTHDMW.getTHDMW_mu4();
+    double mu5=myTHDMW.getTHDMW_mu5();
+    double mu6=myTHDMW.getTHDMW_mu6();
+
+    return 11.0*mu1+6.0*mu2+24.0*mu3+12.0*mu4+12.0*mu5+6.0*mu6-5.0*fabs(mu2+mu6);
+}
+
+
+
+THDMWpositivity7::THDMWpositivity7(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double THDMWpositivity7::computeThValue()
+{
+    double mu1=myTHDMW.getTHDMW_mu1();
+    double mu2=myTHDMW.getTHDMW_mu2();
+    double mu3=myTHDMW.getTHDMW_mu3();
+    double mu4=myTHDMW.getTHDMW_mu4();
+    double mu5=myTHDMW.getTHDMW_mu5();
+    double mu6=myTHDMW.getTHDMW_mu6();
+
+    return 4.0*mu1+3.0*mu2+12.0*mu3+6.0*mu4+6.0*mu5+3.0*mu6-fabs(mu2+mu6);
+}
+
+
+
+THDMWpositivity8::THDMWpositivity8(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double THDMWpositivity8::computeThValue()
+{
+    double mu1=myTHDMW.getTHDMW_mu1();
+    double mu2=myTHDMW.getTHDMW_mu2();
+    double mu3=myTHDMW.getTHDMW_mu3();
+    double mu4=myTHDMW.getTHDMW_mu4();
+    double mu6=myTHDMW.getTHDMW_mu6();
+
+    return mu1+mu2+3.0*mu3+3.0*mu4+mu6;
+}
+
+
+
+THDMWpositivity9::THDMWpositivity9(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double THDMWpositivity9::computeThValue()
+{
+    double mu1=myTHDMW.getTHDMW_mu1();
+    double mu3=myTHDMW.getTHDMW_mu3();
+
+    return mu1+2.0*mu3-fabs(mu3);
+}
+
+
+
+THDMWpositivity10::THDMWpositivity10(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double THDMWpositivity10::computeThValue()
 {
     double lambda1=myTHDMW.getTHDMW_lambda1();
     double mu1=myTHDMW.getTHDMW_mu1();
@@ -125,7 +191,7 @@ double THDMWpositivity6::computeThValue()
     double nu3=myTHDMW.getTHDMW_nu3();
     if (lambda1>0 && mu_sum>0)
     {
-        return nu1-fabs(nu2)-fabs(nu3)+sqrt(lambda1*mu_sum);
+        return nu1-fabs(nu2)-2.0*fabs(nu3)+sqrt(lambda1*mu_sum);
     }
     else
     {
@@ -135,11 +201,11 @@ double THDMWpositivity6::computeThValue()
 
 
 
-THDMWpositivity7::THDMWpositivity7(const StandardModel& SM_i)
+THDMWpositivity11::THDMWpositivity11(const StandardModel& SM_i)
 : ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
 {}
 
-double THDMWpositivity7::computeThValue()
+double THDMWpositivity11::computeThValue()
 {
     double lambda2=myTHDMW.getTHDMW_lambda2();
     double mu1=myTHDMW.getTHDMW_mu1();
@@ -154,10 +220,22 @@ double THDMWpositivity7::computeThValue()
     double omega3=myTHDMW.getTHDMW_omega3();
     if (lambda2>0 && mu_sum>0)
     {
-        return omega1-fabs(omega2)-fabs(omega3)+sqrt(lambda2*mu_sum);
+        return omega1-fabs(omega2)-2.0*fabs(omega3)+sqrt(lambda2*mu_sum);
     }
     else
     {
         return -1.;
     }
+}
+
+
+
+THDMWpositiveMassSquares::THDMWpositiveMassSquares(const StandardModel& SM_i)
+: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double THDMWpositiveMassSquares::computeThValue()
+{
+        double a = myTHDMW.getMyTHDMWCache()->setOtherParameters();
+        return a;
 }

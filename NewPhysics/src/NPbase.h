@@ -161,6 +161,28 @@ public:
      * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
+    
+    /**
+     * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
+     * @details
+     * The partial @f$W@f$-boson widths receives the new physics
+     * contribution via the oblique parameters @f$S@f$, @f$T@f$ and @f$U@f$ and
+     * the shift in the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \Gamma_W^{ij} = \Gamma_{W,\mathrm{SM}}
+     * \left[ 1
+     * - \frac{3\alpha(M_Z^2)}{4(c_W^2-s_W^2)}
+     *  \left( S - 2c_W^2\,T - \frac{c_W^2-s_W^2}{2s_W^2}\,U \right)
+     * - \frac{1+c_W^2}{2(c_W^2-s_W^2)}\, \Delta G
+     * \right].
+     * @f]
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\Gamma^W_{ij}@f$
+     *
+     * @attention Fermion masses are neglected.
+     */
+    virtual double GammaW(const Particle fi, const Particle fj) const;
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
@@ -365,6 +387,123 @@ public:
      * are inherited from NPbase.
      */
     virtual double R_inv() const;
+
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Wff}^{L}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
+     * @param[in] pbar a lepton or quark
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Wff}^{R}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const
+    {
+        return 0.0;
+    };
+
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
+     * @return @f$\delta g_{HGG}@f$
+     */
+    virtual double deltaG_hgg() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
+     * @return @f$\delta g_{HWW}^{(1)}@f$
+     */
+    virtual double deltaG1_hWW() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
+     * @return @f$\delta g_{HWW}^{(2)}@f$
+     */
+    virtual double deltaG2_hWW() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
+     * @return @f$\delta g_{HWW}^{(3)}@f$
+     */
+    virtual double deltaG3_hWW() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZZ}^{(1)}@f$
+     */
+    virtual double deltaG1_hZZ() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZZ}^{(2)}@f$
+     */
+    virtual double deltaG2_hZZ() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
+     * @return @f$\delta g_{HZZ}^{(3)}@f$
+     */
+    virtual double deltaG3_hZZ() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZA}^{(1)}@f$
+     */
+    virtual double deltaG1_hZA() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HZA}^{(2)}@f$
+     */
+    virtual double deltaG2_hZA() const
+    {
+        return 0.0;
+    };
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
+     * @return @f$\delta g_{HAA}@f$
+     */
+    virtual double deltaG_hAA() const
+    {
+        return 0.0;
+    };
+
+    /**
+     * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
+     * @param[in] p a lepton or quark
+     * @return @f$\delta g_{Hff}@f$
+     */
+    // no generation mixing
+    virtual gslpp::complex deltaG_hff(const Particle p) const
+    {
+        return 0.0;
+    };
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -695,6 +834,15 @@ public:
      * @brief 
      * @return 
      */
+    virtual double UpperLimitZgammaC13(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
     virtual double UpperLimitZgammaA(const double sqrt_s) const
     {
         return 1.0;
@@ -716,6 +864,69 @@ public:
     virtual double cgplusct() const
     {
         return 1.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgaplusct() const
+    {
+        return 1.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cgminuscga() const
+    {
+        return 0.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVpluscb() const
+    {
+        return 2.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cVplusctau() const
+    {
+        return 2.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminuscc() const
+    {
+        return 0.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double cbminusctau() const
+    {
+        return 0.0;
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    virtual double ccminusctau() const
+    {
+        return 0.0;
     }
 
     ////////////////////////////////////////////////////////////////////////

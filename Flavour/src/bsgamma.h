@@ -1690,7 +1690,8 @@ private:
     
     bool SUM;/**< Flag to choose whether the BR will be relative to a single quark (s or d) or their sum */ 
     bool EWflag;/**< Flag to include EW NLO corrections (currently partialy hard-coded) */ 
-    bool FOUR_BODY;/**< Flag to include NLO 4_body corrections (currently partialy hard-coded) */ 
+    bool FOUR_BODY;/**< Flag to include NLO 4_body corrections (currently partialy hard-coded) */
+    bool WET_NP_btos = false, SMEFT_NP_btos = false;
     
     double ale; /**<alpha electromagnetic */
     double AleatMztilde; /**<alpha electromagnetic at Mz divided by 4 pi */
@@ -1702,6 +1703,7 @@ private:
     double Mb_kin; /**<b quark mass in the kinetic scheme */
     double Mc; /**<c quark mass */
     double Ms;/**<s quark mass */
+    double Mb;/**<b quark mass */
     double Mz;/**<Z boson mass */
     double BRsl; /**<BR of the semileptonic decay \f$B \to X_c e \nu\f$ */
     double C; /**<The semileptonic phase space ratio */
@@ -1750,6 +1752,9 @@ private:
     
     gslpp::complex C7p_0;/**<LO term of the Wilson coeffients @f$C'_7@f$*/
     gslpp::complex C7p_1;/**<NLO term of the Wilson coeffients @f$C_7@f$*/
+    
+    gslpp::complex C_7_NP;
+    gslpp::complex C_7p_NP;
     
     gsl_function INT;/**< Gsl integral variable */
     gsl_integration_cquad_workspace * w_INT;/**< Gsl integral variable */

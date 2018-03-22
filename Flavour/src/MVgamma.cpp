@@ -7,6 +7,7 @@
 
 #include "Flavour.h"
 #include "MVgamma.h"
+#include "MVll.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
@@ -24,6 +25,8 @@ MVgamma::MVgamma(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vecto
     meson = meson_i;
     vectorM = vector_i;
     fullKD = false;
+    WET_NP_btos = false;
+    SMEFT_NP_btos = false;
     
     w_GSL = gsl_integration_cquad_workspace_alloc (100);
 }
@@ -34,9 +37,41 @@ MVgamma::~MVgamma()
 std::vector<std::string> MVgamma::initializeMVgammaParameters()
 {
     fullKD = SM.getFlavour().getFlagFullKD();
+    WET_NP_btos = SM.getFlavour().getFlagWET_NP_btos();
+    SMEFT_NP_btos = SM.getFlavour().getFlagSMEFT_NP_btos();
 #if NFPOLARBASIS_MVGAMMA
-    if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
-    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
+    if (vectorM == StandardModel::PHI){
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m" 
+                    << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "absh_p" << "absh_m" << "argh_p" << "argh_m"
+                    << "CdW" << "CpdW" << "CdB" << "CpdB";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
+    else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P){ 
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m" 
+                    << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mVgammaParameters = make_vector<std::string>() << "a_0T1" << "absh_p" << "absh_m" << "argh_p" << "argh_m"
+                    << "CdW" << "CpdW" << "CdB" << "CpdB";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
 #else
     if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
     else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "reh_p" << "reh_m" << "imh_p" << "imh_m";
@@ -49,8 +84,43 @@ std::vector<std::string> MVgamma::initializeMVgammaParameters()
 
     if (fullKD) {
         mVgammaParameters.clear();
-        if (vectorM == StandardModel::PHI) mVgammaParameters = make_vector<std::string>() << "a_0T1phi" << "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2";
-        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P) mVgammaParameters = make_vector<std::string>() << "a_0T1" << "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2";
+        if (vectorM == StandardModel::PHI){ 
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1phi" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1phi"  /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1phi"  /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "CdW" << "CpdW" << "CdB" << "CpdB";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else if (vectorM == StandardModel::K_star || vectorM == StandardModel::K_star_P){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/;
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mVgammaParameters = make_vector<std::string>() << "a_0T1" /*<< "deltaC7_1" << "deltaC7_2" << "phDC7_1" << "phDC7_2"*/ 
+                        << "CdW" << "CpdW" << "CdB" << "CpdB";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else {
+            std::stringstream out;
+            out << vectorM;
+            throw std::runtime_error("MVgamma: vector " + out.str() + " not implemented");
+        }
     }
     
     SM.initializeMeson(meson);
@@ -81,6 +151,22 @@ void MVgamma::updateParameters()
     lambda = MM2 - pow(MV, 2.);
     alpha_s_mub = SM.Als(mu_b, FULLNLO); /* Used for QCDF @ NLO */
     
+    if(WET_NP_btos){
+        C_7_NP = SM.getOptionalParameter("C7_NP");
+        C_7p_NP = SM.getOptionalParameter("C7p_NP");
+    }
+    else if(SMEFT_NP_btos){
+            gslpp::complex SMEFT_factor = (M_PI/SM.getAle())*(SM.v()*1.e-3)*(SM.v()*1.e-3)/SM.computelamt_s();
+            C_7_NP = SM.getOptionalParameter("CdB")-SM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
+            C_7p_NP = SM.getOptionalParameter("CpdB")-SM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
+    }
+    else{
+        C_7_NP = 0.;
+        C_7p_NP = 0.;        
+    }
+    
     switch (vectorM) {
         case StandardModel::K_star:
             a_0T1 = SM.getOptionalParameter("a_0T1");
@@ -103,25 +189,32 @@ void MVgamma::updateParameters()
     fpara = SM.getMesons(vectorM).getDecayconst();
     fperp = SM.getMesons(vectorM).getDecayconst_p();
     
-    if (!fullKD) {
-#if NFPOLARBASIS_MVGAMMA
-        h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
-        h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
-#else
-        h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
-        h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
-#endif
-    } else {
-        gslpp::complex DC7_1 = SM.getOptionalParameter("deltaC7_1")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_1"));
-        gslpp::complex DC7_2 = SM.getOptionalParameter("deltaC7_2")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_2"));
-        h[0] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 - DC7_1)).abs();
-        h[1] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 + DC7_1)).abs();
-    }
-    
     double ms_over_mb = SM.Mrun(mu_b, SM.getQuarks(QCD::STRANGE).getMass_scale(), 
                         SM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO)
                        /SM.Mrun(mu_b, SM.getQuarks(QCD::BOTTOM).getMass_scale(), 
                         SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+    
+    if (!fullKD) {
+#if NFPOLARBASIS_MVGAMMA
+        h[0] = gslpp::complex(SM.getOptionalParameter("absh_p"), SM.getOptionalParameter("argh_p"), true); //h_plus
+        h[1] = gslpp::complex(SM.getOptionalParameter("absh_m"), SM.getOptionalParameter("argh_m"), true); //h_minus
+        h[1] *= 2. * (Mb / MM) / (16. * M_PI * M_PI) * (T_1() * lambda / MM2) ;
+        h[0] += ms_over_mb * h[1] ;
+#else
+        h[0] = gslpp::complex(SM.getOptionalParameter("reh_p"), SM.getOptionalParameter("imh_p"), false); //h_plus
+        h[1] = gslpp::complex(SM.getOptionalParameter("reh_m"), SM.getOptionalParameter("imh_m"), false); //h_minus
+        h[1] *= 2. * (Mb / MM) / (16. * M_PI * M_PI) * (T_1() * lambda / MM2) ;
+        h[0] += ms_over_mb * h[1] ;
+#endif
+    } else {
+        //gslpp::complex DC7_1 = SM.getOptionalParameter("deltaC7_1")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_1"));
+        //gslpp::complex DC7_2 = SM.getOptionalParameter("deltaC7_2")*exp(gslpp::complex::i()*SM.getOptionalParameter("phDC7_2"));
+        //h[0] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 - DC7_1)).abs();
+        //h[1] = (-(2.*Mb)/(MM*16.*M_PI*M_PI) * lambda/(2.*MM2) * T_1()*(DC7_2 + DC7_1)).abs();
+        h[0] = SM.getFlavour().getMVll(meson,vectorM,StandardModel::MU).geth_p_0();
+        h[1] = SM.getFlavour().getMVll(meson,vectorM,StandardModel::MU).geth_m_0();
+    }
+    
     allcoeff = SM.getFlavour().ComputeCoeffsgamma(mu_b);
     allcoeffprime = SM.getFlavour().ComputeCoeffprimesgamma(mu_b);
     
@@ -135,6 +228,8 @@ void MVgamma::updateParameters()
     C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p = ms_over_mb * (((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6)) - C_7 - 1./3. * C_3 - 4/9 * C_4 - 20./3. * C_5 - 80./9. * C_6);
+    C_7 += C_7_NP;
+    C_7p += C_7p_NP;
     
 //    allcoeff = SM.getFlavour().ComputeCoeffBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
 //    allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu_b, QCD::MU); //check the mass scale, scheme fixed to NDR. QCD::MU does not make any difference to the WC necessary here.
@@ -195,9 +290,9 @@ gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
     double muh = mu_b/mb_pole;
     double z = mc_pole*mc_pole/mb_pole/mb_pole;
     
-    gslpp::complex A_Seidel = 1./729. * (833. + 120.*gslpp::complex::i()*M_PI - 312. * log(mb_pole*mb_pole/mu_b/mu_b)); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_17 = -A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_27 = 6. * A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex A_Seidel = 1./729. * (833. + 120.*gslpp::complex::i()*M_PI - 312. * log(mb_pole*mb_pole/mu_b/mu_b)); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_17 = -A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_27 = 6. * A_Seidel; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex F_17 = myF_1.F_17re(muh, z, 0.00001, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_27 = myF_2.F_27re(muh, z, 0.00001, 20) + gslpp::complex::i() * myF_2.F_27im(muh, z, 0.00001, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_87 = (-4.*(33. + 24.*log(muh) + 6.*gslpp::complex::i()*M_PI - 2.*M_PI*M_PI))/27.; 
@@ -205,15 +300,15 @@ gslpp::complex MVgamma::deltaC7_QCDF(bool conjugate)
     if (!conjugate) {
         gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
         gslpp::complex delta_t = C_8 * F_87 + delta;
-        gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+        //gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u*/);
     } else {
         gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
         gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
+        //gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- (lambda_u / lambda_t).conjugate() * delta_u*/);
     }
 }
 
@@ -262,18 +357,18 @@ gslpp::complex MVgamma::t_perp(double u, double m)
 gslpp::complex MVgamma::T_perp_plus_QSS(double u, bool conjugate)
 {
     gslpp::complex t_perp_mc = t_perp(u, mc_pole);
-    gslpp::complex t_perp_0 = t_perp(u, 0.);
+    //gslpp::complex t_perp_0 = t_perp(u, 0.);
     double eu = 2./3.;
-    double ed = -1./3.;
+    //double ed = -1./3.;
     
     gslpp::complex T_t = (alpha_s_mub/(3.*M_PI))*MM/(2.*mb_pole)*(eu * t_perp_mc * (C_1/6. + C_2 + 6.*C_6)
-        + ed * t_perp(u, mb_pole) * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3. + mb_pole/MM*(C_3 + C_4/6. - 4.*C_5 + 2.*C_6/3.))
-        + ed * t_perp_0  * (-C_3 + C_4/6. - 16.*C_5 + 8.*C_6/3.));
+        /*+ ed * t_perp(u, mb_pole) * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3. + mb_pole/MM*(C_3 + C_4/6. - 4.*C_5 + 2.*C_6/3.))
+        + ed * t_perp_0  * (-C_3 + C_4/6. - 16.*C_5 + 8.*C_6/3.)*/);
     
-    gslpp::complex T_u = ((alpha_s_mub/(3.*M_PI))*eu*MM/(2.*mb_pole)*(t_perp_mc - t_perp_0)*(C_2 - C_1/6.));
+    //gslpp::complex T_u = ((alpha_s_mub/(3.*M_PI))*eu*MM/(2.*mb_pole)*(t_perp_mc - t_perp_0)*(C_2 - C_1/6.));
     
-    if (!conjugate) return T_t + lambda_u / lambda_t * T_u;
-    else return T_t + (lambda_u / lambda_t).conjugate() * T_u;
+    if (!conjugate) return T_t /*+ lambda_u / lambda_t * T_u*/;
+    else return T_t /*+ (lambda_u / lambda_t).conjugate() * T_u*/;
     
 }
 
@@ -285,8 +380,8 @@ gslpp::complex MVgamma::T_perp_plus_O8(double u)
 gslpp::complex MVgamma::T_perp(double u, bool conjugate) 
 {
     double N = M_PI*M_PI/3.*fB*fperp/MM;
-    double ubar = 1. - u;
-    gslpp::complex T_amp = N/SM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(u) + T_perp_plus_QSS(u, conjugate)) + N * phi_V(u)/ubar * T_perp_WA_1() + N/SM.getMesons(meson).getLambdaM() * fpara/fperp * MV * T_perp_WA_2(conjugate); /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
+    //double ubar = 1. - u;
+    gslpp::complex T_amp = N/SM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(u) + T_perp_plus_QSS(u, conjugate)) /*+ N * phi_V(u)/ubar * T_perp_WA_1() + N/SM.getMesons(meson).getLambdaM() * fpara/fperp * MV * T_perp_WA_2(conjugate)*/; /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
     return T_amp;
 }
 

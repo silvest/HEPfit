@@ -134,15 +134,15 @@ void THDMW::setParameter(const std::string name, const double& value){
         THDMW_mS2 = value;
     else if(name.compare("THDMW_mu1") == 0)
         THDMW_mu1 = value;
-    else if(name.compare("THDMW_mu2") == 0 && flag_modelTHDMW!="custodial1")
+    else if(name.compare("THDMW_mu2") == 0)
         THDMW_mu2 = value;
     else if(name.compare("THDMW_mu3") == 0)
         THDMW_mu3 = value;
     else if(name.compare("THDMW_mu4") == 0)
         THDMW_mu4 = value;
-    else if(name.compare("THDMW_mu5") == 0 && flag_modelTHDMW!="custodial1")
+    else if(name.compare("THDMW_mu5") == 0)
         THDMW_mu5 = value;
-    else if(name.compare("THDMW_mu6") == 0 && flag_modelTHDMW!="custodial1")
+    else if(name.compare("THDMW_mu6") == 0)
         THDMW_mu6 = value;
     else if(name.compare("THDMW_nu1") == 0)
         THDMW_nu1 = value;

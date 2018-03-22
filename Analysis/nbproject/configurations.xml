@@ -65,9 +65,12 @@
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
+    <itemPath>NPEffectiveGIMR.conf</itemPath>
     <itemPath>NPEffectiveGIMR_LFU_QFU.conf</itemPath>
     <itemPath>NPEffectiveGIMRprime_LFU_QFU.conf</itemPath>
+    <itemPath>NPSMEFTd6.conf</itemPath>
     <itemPath>NPSMEFTd6_LFU_QFU.conf</itemPath>
+    <itemPath>SUSYMassInsertion.conf</itemPath>
     <itemPath>StandardModel.conf</itemPath>
     <itemPath>pMSSM.conf</itemPath>
   </logicalFolder>
@@ -124,6 +127,7 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
@@ -445,11 +449,17 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -458,6 +468,7 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -477,6 +488,7 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -494,6 +506,7 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -560,6 +573,7 @@
             <pElem>/usr/local/gfortran/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>../BAT/lib</pElem>
           </linkerDynSerch>
@@ -878,11 +892,17 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -891,6 +911,7 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -910,6 +931,7 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -927,6 +949,7 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -995,6 +1018,7 @@
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -1311,11 +1335,17 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1324,6 +1354,7 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1343,6 +1374,7 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1360,6 +1392,7 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1421,6 +1454,7 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
@@ -1740,11 +1774,17 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1753,6 +1793,7 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1772,6 +1813,7 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -1789,6 +1831,7 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -1862,6 +1905,7 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -2203,11 +2247,17 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2216,6 +2266,7 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -2235,6 +2286,7 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -2252,6 +2304,7 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -2323,6 +2376,7 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
           <linkerLibItems>
@@ -2677,11 +2731,17 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2690,6 +2750,7 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -2709,6 +2770,7 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -2726,6 +2788,7 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -2792,6 +2855,7 @@
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
@@ -3099,11 +3163,17 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPEffectiveGIMR.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPEffectiveGIMR_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NPEffectiveGIMRprime_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="NPSMEFTd6.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NPSMEFTd6_LFU_QFU.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SUSYMassInsertion.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -3112,6 +3182,7 @@
       <folder path="TestFiles">
         <linkerTool>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
@@ -3131,6 +3202,7 @@
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerDynSerch>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>
       </folder>
@@ -3148,6 +3220,7 @@
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
           <linkerDynSerch>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </linkerDynSerch>
         </linkerTool>

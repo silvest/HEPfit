@@ -14,10 +14,10 @@
 /**
  * @class BR_MPll
  * @ingroup Flavour
- * @brief A class for the binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$. 
+ * @brief A class for the binned integrated observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the binned observable @f$<BR>@f$ in 
+ * @details This class is used to compute the binned-integrated observable @f$<BR>@f$ in 
  * @f$M \to P l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MPll class, and the meson width @f$W_M@f$:
  * @f[
@@ -48,6 +48,44 @@ public:
     /**
     * @brief The binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$.
     * @return @f$<BR>@f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+};
+
+
+/**
+ * @class dBR_MPll
+ * @ingroup Flavour
+ * @brief A class for the binned differential observable @f$<dBR>@f$ in @f$M \to P l^+l^-@f$. 
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the binned differential observable @f$<BR>@f$ in 
+ * @f$M \to P l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
+ * @f$<\Sigma_i>@f$, computed in the MPll class, and the meson width @f$W_M@f$:
+ * @f[
+ * <dBR>= \frac {<d BR>}{<d q^2>} \,.
+ * @f]
+ */
+class dBR_MPll : public BR_MPll{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    dBR_MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief The binned observable ratio @f$\frac {<BR>_{M \to P l_1^+l_1^-}}{<BR>_{M \to P l_2^+l_2^-}}@f$ in @f$M \to P l^+l^-@f$.
+    * @return @f$<R>_{M \to P l^+ l^-}@f$
     */
     double computeThValue ();
     

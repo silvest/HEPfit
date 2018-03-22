@@ -1,0 +1,9 @@
+##################
+# CMS PAS HIG-17-019
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, ttH fraction, VBF fraction, WH fraction, ZH fraction|
+##################
+CATEGORIES ggH13 ttH13 VBF13 WH13 ZH13
+MEASUREMENT Total |0.881 0.009 0.069 0.025 0.016| 0.7 -1. 1.
+##################

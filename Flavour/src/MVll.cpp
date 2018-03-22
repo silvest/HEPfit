@@ -42,6 +42,8 @@ T_cache(5, 0.)
     meson = meson_i;
     vectorM = vector_i;
     fullKD = false;
+    WET_NP_btos = false;
+    SMEFT_NP_btos = false;
     mJ2 = 3.096*3.096;
     
     I0_updated = 0;
@@ -80,6 +82,50 @@ T_cache(5, 0.)
     w_DTPPR = gsl_integration_cquad_workspace_alloc (100);
     w_delta = gsl_integration_cquad_workspace_alloc (100);
     
+    acc_Re_T_perp = gsl_interp_accel_alloc ();
+    acc_Im_T_perp = gsl_interp_accel_alloc ();
+    acc_Re_T_para = gsl_interp_accel_alloc ();
+    acc_Im_T_para = gsl_interp_accel_alloc ();
+    
+    spline_Re_T_perp = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+    spline_Im_T_perp = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+    spline_Re_T_para = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+    spline_Im_T_para = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+    
+#if COMPUTECP
+    acc_Re_T_perp_conj = gsl_interp_accel_alloc ();
+    acc_Im_T_perp_conj = gsl_interp_accel_alloc ();
+    acc_Re_T_para_conj = gsl_interp_accel_alloc ();
+    acc_Im_T_para_conj = gsl_interp_accel_alloc ();
+    
+    spline_Re_T_perp_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+    spline_Im_T_perp_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+    spline_Re_T_para_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+    spline_Im_T_para_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM);
+#endif
+    
+    acc_Re_deltaC7_QCDF = gsl_interp_accel_alloc ();
+    acc_Im_deltaC7_QCDF = gsl_interp_accel_alloc ();
+    acc_Re_deltaC9_QCDF = gsl_interp_accel_alloc ();
+    acc_Im_deltaC9_QCDF = gsl_interp_accel_alloc ();
+    
+    spline_Re_deltaC7_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC7_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Re_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC9_QCDF = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    
+#if COMPUTECP
+    acc_Re_deltaC7_QCDF_conj = gsl_interp_accel_alloc ();
+    acc_Im_deltaC7_QCDF_conj = gsl_interp_accel_alloc ();
+    acc_Re_deltaC9_QCDF_conj = gsl_interp_accel_alloc ();
+    acc_Im_deltaC9_QCDF_conj = gsl_interp_accel_alloc ();
+    
+    spline_Re_deltaC7_QCDF_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC7_QCDF_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Re_deltaC9_QCDF_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+    spline_Im_deltaC9_QCDF_conj = gsl_spline_alloc (gsl_interp_cspline, GSL_INTERP_DIM_DC);
+#endif
+    
     h_pole = false;
     
     M_PI2 = M_PI*M_PI;
@@ -103,32 +149,154 @@ MVll::~MVll()
 std::vector<std::string> MVll::initializeMVllParameters()
 {
     fullKD = mySM.getFlavour().getFlagFullKD();
+    WET_NP_btos = mySM.getFlavour().getFlagWET_NP_btos();
+    SMEFT_NP_btos = mySM.getFlavour().getFlagSMEFT_NP_btos();
     
 #if NFPOLARBASIS_MVLL
-    if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
-        << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
-        << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-        << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi";
-    else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
-    else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
-        << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-        << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-        << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-        << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-        << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
-        << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
-        << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+    if (vectorM == StandardModel::PHI){
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2" << "xs_phi"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
+    else if (vectorM == StandardModel::K_star){ 
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
+    else if (vectorM == StandardModel::K_star_P){ 
+        if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2";
+        }
+        else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+            << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+            << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+            << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+            << "C7_NP" << "C7p_NP";
+        }
+        else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+            mvllParameters = make_vector<std::string>()
+            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+            << "absh_0" << "absh_p" << "absh_m" << "argh_0" << "argh_p" << "argh_m"
+            << "absh_0_1" << "absh_p_1" << "absh_m_1" << "argh_0_1" << "argh_p_1" << "argh_m_1"
+            << "absh_p_2" << "absh_m_2" << "argh_p_2" << "argh_m_2"
+            << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+            << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+            << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+            << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+            << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+            << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+            << "CdW" << "CpdW" << "CdB" << "CpdB"
+            << "C1HQ" << "C3HQ" << "CHd";
+        }
+        else{
+            throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+        }
+    }
 #else 
     if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
         << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
@@ -163,30 +331,150 @@ std::vector<std::string> MVll::initializeMVllParameters()
 
     if (fullKD) {
         mvllParameters.clear();
-        if (vectorM == StandardModel::PHI) mvllParameters = make_vector<std::string>()
-            << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
-            << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-            << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
-            << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi";
-        else if (vectorM == StandardModel::K_star) mvllParameters = make_vector<std::string>()
-            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
-        else if (vectorM == StandardModel::K_star_P) mvllParameters = make_vector<std::string>()
-            << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
-            << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
-            << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
-            << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
-            << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
-            << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
-            << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
+        if (vectorM == StandardModel::PHI){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+                << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+                << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi";
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+                << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+                << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi"
+                << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+                << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+                << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+                << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+                << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0Vphi" << "a_1Vphi" << "a_2Vphi" << "MRV" << "a_0A0phi" << "a_1A0phi" << "a_2A0phi" << "MRA0"
+                << "a_0A1phi" << "a_1A1phi" << "a_2A1phi" << "MRA1" << "a_1A12phi" << "a_2A12phi" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1phi" << "a_1T1phi" << "a_2T1phi" << "MRT1" << "a_1T2phi" << "a_2T2phi" << "MRT2"
+                << "a_0T23phi" << "a_1T23phi" << "a_2T23phi" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3" << "xs_phi"
+                << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+                << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+                << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+                << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+                << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+                << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+                << "CdW" << "CpdW" << "CdB" << "CpdB"
+                << "C1HQ" << "C3HQ" << "CHd";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else if (vectorM == StandardModel::K_star){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+                << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+                << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+                << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+                << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+                << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+                << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+                << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+                << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+                << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+                << "CdW" << "CpdW" << "CdB" << "CpdB"
+                << "C1HQ" << "C3HQ" << "CHd";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
+        else if (vectorM == StandardModel::K_star_P){
+            if((WET_NP_btos == false) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3";
+            }
+            else if((WET_NP_btos == true) and (SMEFT_NP_btos == false)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C9_mu" << "C9p_mu" << "C9_e" << "C9p_e"
+                << "C10_mu" << "C10p_mu" << "C10_e" << "C10p_e" 
+                << "CS_mu" << "CSp_mu" << "CP_mu" << "CPp_mu"
+                << "CS_e" << "CSp_e" << "CP_e" << "CPp_e"
+                << "C7_NP" << "C7p_NP";
+            }
+            else if((WET_NP_btos == false) and (SMEFT_NP_btos == true)){
+                mvllParameters = make_vector<std::string>()
+                << "a_0V" << "a_1V" << "a_2V" << "MRV" << "a_0A0" << "a_1A0" << "a_2A0" << "MRA0"
+                << "a_0A1" << "a_1A1" << "a_2A1" << "MRA1" << "a_1A12" << "a_2A12" << "MRA12" /*a_0A12 and a_0T2 are not independent*/
+                << "a_0T1" << "a_1T1" << "a_2T1" << "MRT1" << "a_1T2" << "a_2T2" << "MRT2"
+                << "a_0T23" << "a_1T23" << "a_2T23" << "MRT23"
+                << "r1_1" << "r2_1" << "deltaC9_1" << "phDC9_1"
+                << "r1_2" << "r2_2" << "deltaC9_2" << "phDC9_2"
+                << "r1_3" << "r2_3" << "deltaC9_3" << "phDC9_3"
+                << "C1LQ11_23" << "C1LQ22_23" << "C3LQ11_23" << "C3LQ22_23"
+                << "CQe23_11" << "CQe23_22" << "CLd11_23" << "CLd22_23"
+                << "Ced11_23" << "Ced22_23" << "C1HL_11" << "C1HL_22" 
+                << "C3HL_11" << "C3HL_22" << "CLu11_33" << "CLu22_33" 
+                << "CHe_11" << "CHe_22" << "Ceu11_33" << "Ceu22_33"
+                << "CLedQ_11" << "CLedQ_22" << "CpLedQ_11" << "CpLedQ_22"
+                << "CdW" << "CpdW" << "CdB" << "CpdB"
+                << "C1HQ" << "C3HQ" << "CHd";
+            }
+            else{
+                throw std::runtime_error("WET_NP_btos and SMEFT_NP_btos flags cannot be true at the same time");
+            }
+        }
     }
     
     mySM.initializeMeson(meson);
@@ -198,7 +486,7 @@ void MVll::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
 
-    
+  
     GF = mySM.getGF();
     ale = mySM.getAle();
     Mlep = mySM.getLeptons(lep).getMass();
@@ -219,6 +507,118 @@ void MVll::updateParameters()
     fB = mySM.getMesons(meson).getDecayconst();
     fpara = mySM.getMesons(vectorM).getDecayconst();
     fperp = mySM.getMesons(vectorM).getDecayconst_p();
+    
+    if(WET_NP_btos){
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_e");
+            C_9p_NP = mySM.getOptionalParameter("C9p_e");            
+            C_10_NP = mySM.getOptionalParameter("C10_e");
+            C_10p_NP = mySM.getOptionalParameter("C10p_e");
+            C_S_NP = mySM.getOptionalParameter("CS_e");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_e");
+            C_P_NP = mySM.getOptionalParameter("CP_e");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_e");
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("C7_NP");
+            C_7p_NP = mySM.getOptionalParameter("C7p_NP");
+            C_9_NP = mySM.getOptionalParameter("C9_mu");
+            C_9p_NP = mySM.getOptionalParameter("C9p_mu");
+            C_10_NP = mySM.getOptionalParameter("C10_mu");
+            C_10p_NP = mySM.getOptionalParameter("C10p_mu");
+            C_S_NP = mySM.getOptionalParameter("CS_mu");
+            C_Sp_NP = mySM.getOptionalParameter("CSp_mu");
+            C_P_NP = mySM.getOptionalParameter("CP_mu");
+            C_Pp_NP = mySM.getOptionalParameter("CPp_mu");     
+        }
+    }
+    else if(SMEFT_NP_btos){
+        // normalization to \Lambda = 1 TeV
+        gslpp::complex SMEFT_factor = (M_PI/mySM.getAle())*(mySM.v()*1.e-3)*(mySM.v()*1.e-3)/mySM.computelamt_s();
+        double sw = sqrt( (M_PI * mySM.getAle() ) / ( sqrt(2.) * mySM.getGF() * mySM.Mw() * mySM.Mw()) );
+        if(lep == StandardModel::ELECTRON){
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_11");
+            C_9_NP += mySM.getOptionalParameter("C1LQ11_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ11_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd11_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_11");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ11_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ11_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced11_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd11_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_11");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_11");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Pp_NP *= SMEFT_factor;
+        }
+        else{
+            C_7_NP = mySM.getOptionalParameter("CdB")-mySM.getOptionalParameter("CdW");
+            C_7_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_7p_NP = mySM.getOptionalParameter("CpdB")-mySM.getOptionalParameter("CpdW");
+            C_7p_NP *= SMEFT_factor*mySM.getAle()*8.*M_PI*mySM.v()/Mb;
+            C_9_NP = mySM.getOptionalParameter("CQe23_22");
+            C_9_NP += mySM.getOptionalParameter("C1LQ22_23");
+            C_9_NP += mySM.getOptionalParameter("C3LQ22_23");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C1HQ");
+            C_9_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("C3HQ");
+            C_9_NP *= SMEFT_factor; 
+            C_9p_NP = mySM.getOptionalParameter("Ced22_23");
+            C_9p_NP += mySM.getOptionalParameter("CLd22_23");
+            C_9p_NP -= (1.-4.*sw*sw)*mySM.getOptionalParameter("CHd");
+            C_9p_NP *= SMEFT_factor; 
+            C_10_NP = mySM.getOptionalParameter("CQe23_22");
+            C_10_NP -= mySM.getOptionalParameter("C1LQ22_23");
+            C_10_NP -= mySM.getOptionalParameter("C3LQ22_23");
+            C_10_NP += mySM.getOptionalParameter("C1HQ");
+            C_10_NP += mySM.getOptionalParameter("C3HQ");
+            C_10_NP *= SMEFT_factor; 
+            C_10p_NP = mySM.getOptionalParameter("Ced22_23");
+            C_10p_NP -= mySM.getOptionalParameter("CLd22_23");
+            C_10p_NP += mySM.getOptionalParameter("CHd");
+            C_10p_NP *= SMEFT_factor; 
+            C_S_NP = mySM.getOptionalParameter("CLedQ_22");
+            C_S_NP *= SMEFT_factor; 
+            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Sp_NP *= SMEFT_factor;
+            C_P_NP = -mySM.getOptionalParameter("CLedQ_22");
+            C_P_NP *= SMEFT_factor;
+            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Pp_NP *= SMEFT_factor;        
+        }
+    }
+    else{
+        C_7_NP = 0.;
+        C_7p_NP = 0.;
+        C_9_NP = 0.;
+        C_9p_NP = 0.;
+        C_10_NP = 0.;
+        C_10p_NP = 0.;
+        C_S_NP = 0.;
+        C_Sp_NP = 0.;
+        C_P_NP = 0.;
+        C_Pp_NP = 0.;
+    }
 
     switch (vectorM) {
         case StandardModel::K_star:
@@ -413,19 +813,20 @@ void MVll::updateParameters()
     C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
     C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
     C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-    C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6)) + C_7_NP;
     C_8 = ((*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7));
     C_8L = (*(allcoeff[LO]))(7);
-    C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
-    C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
-    C_S = ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
-    C_P = ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
+    C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8)) + C_9_NP;
+    C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9)) + C_10_NP;
+    C_S = ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10)) + C_S_NP;
+    C_P = ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11)) + C_P_NP;
 
-    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
-    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
-    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6) + C_7p_NP;
+    C_7p += MsoMb*((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8) + C_9p_NP;
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9) + C_10p_NP;
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10) + C_Sp_NP;
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11) + C_Pp_NP;
     
     allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
@@ -527,24 +928,24 @@ void MVll::updateParameters()
     NN = - (4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI);
     NN_conjugate = - (4. * GF * MM * ale * lambda_t.conjugate()) / (sqrt(2.)*4. * M_PI);
     
-    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) {
-        switch (lep) {
-            case StandardModel::MU:
-                fit_DeltaC9_p_mumu();
-                fit_DeltaC9_m_mumu();
-                fit_DeltaC9_0_mumu();
-                break;
-            case StandardModel::ELECTRON:
-                fit_DeltaC9_p_ee();
-                fit_DeltaC9_m_ee();
-                fit_DeltaC9_0_ee();
-                break;
-            default:
-                std::stringstream out;
-                out << lep;
-                throw std::runtime_error("MVll: lepton " + out.str() + " not implemented");
-        }
-    }
+//    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) {
+//        switch (lep) {
+//            case StandardModel::MU:
+//                fit_DeltaC9_p_mumu();
+//                fit_DeltaC9_m_mumu();
+//                fit_DeltaC9_0_mumu();
+//                break;
+//            case StandardModel::ELECTRON:
+//                fit_DeltaC9_p_ee();
+//                fit_DeltaC9_m_ee();
+//                fit_DeltaC9_0_ee();
+//                break;
+//            default:
+//                std::stringstream out;
+//                out << lep;
+//                throw std::runtime_error("MVll: lepton " + out.str() + " not implemented");
+//        }
+//    }
 
     std::map<std::pair<double, double>, unsigned int >::iterator it;
 
@@ -573,34 +974,13 @@ void MVll::updateParameters()
     
     if (deltaTparpupdated*deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
+#if SPLINE    
+    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) spline_QCDF_func();
+#else
+    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) fit_QCDF_func();
+#endif
+
     mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
-    
-//    fit_QCDF_func();
-//
-//for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
-//        FS = convertToGslFunction(boost::bind(&MVll::T_perp_real, &(*this), qq2, _1, false));
-//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
-//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Re_T_perp_res->GetParams())) << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
-//    }
-//    std::cout << std::endl;
-//    for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
-//        FS = convertToGslFunction(boost::bind(&MVll::T_perp_imag, &(*this), qq2, _1, false));
-//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
-//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Im_T_perp_res->GetParams())) << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
-//    }
-////    std::cout << GSL_FN_EVAL(&FS,0.8) << std::endl;
-//    std::cout << std::endl;
-//    for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
-//        FS = convertToGslFunction(boost::bind(&MVll::T_para_real, &(*this), qq2, _1, false));
-//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
-//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Re_T_para_res->GetParams())) << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
-//    }
-//    std::cout << std::endl; 
-//    for (double qq2 = 0.01; qq2 <= 8.; qq2 += 0.1) {
-//        FS = convertToGslFunction(boost::bind(&MVll::T_para_imag, &(*this), qq2, _1, false));
-//        gsl_integration_cquad(&FS, 0., 1., 1.e-10, 1.e-5, w_sigma, &avaSigma, &errSigma, NULL);
-//        std::cout << qq2 << " " << avaSigma << " " << QCDF_fit_func(&qq2, const_cast<double *>(Im_T_para_res->GetParams()))  << std::endl;//"  " << deltaC9_QCDF(qq2, false) << "  " << deltaC7_QCDF(qq2, false) << std::endl;
-//    }
      
     return;
 }
@@ -1105,16 +1485,23 @@ gslpp::complex MVll::C_Seidel(double q2)
     /* gsl_sf_zeta_int returns a double */
 }
 
-gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate)
+gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate, bool spline)
 {
+#if COMPUTECP && SPLINE
+    if (spline && !conjugate) return gsl_spline_eval (spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+    else if (spline && conjugate) return gsl_spline_eval (spline_Re_deltaC7_QCDF_conj, q2, acc_Re_deltaC7_QCDF_conj);
+#elif SPLINE
+    if (spline) return gsl_spline_eval (spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+#endif
+    
     double muh = mu_b/mb_pole;
     double z = mc_pole*mc_pole/mb_pole/mb_pole;
     double sh = q2/mb_pole/mb_pole;
     double sh2 = sh*sh;
     
-    gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex F_17 = myF_1.F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_27 = myF_2.F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_27im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/ 
     gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh*sh2 - 8./9. * log(sh) * (sh + sh2 + sh*sh2);
@@ -1122,29 +1509,36 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate)
     if (!conjugate) {
         gslpp::complex delta = C_1 * F_17 + C_2 * F_27;
         gslpp::complex delta_t = C_8 * F_87 + delta;
-        gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
+        //gslpp::complex delta_u = delta + C_1 * Fu_17 + C_2 * Fu_27;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u */);
     } else {
         gslpp::complex delta = C_1.conjugate() * F_17 + C_2.conjugate() * F_27;
         gslpp::complex delta_t = C_8.conjugate() * F_87 + delta;
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
+        //gslpp::complex delta_u = delta + C_1.conjugate() * Fu_17 + C_2.conjugate() * Fu_27;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- (lambda_u / lambda_t).conjugate() * delta_u */);
     }
 }
 
-gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate)
+gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
 {
+#if COMPUTECP && SPLINE
+    if (spline && !conjugate) return gsl_spline_eval (spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+    else if (spline && conjugate) return gsl_spline_eval (spline_Re_deltaC9_QCDF_conj, q2, acc_Re_deltaC9_QCDF_conj);
+#elif SPLINE
+    if (spline) return gsl_spline_eval (spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+#endif
+    
     double muh = mu_b / mb_pole;
     double z = mc_pole * mc_pole / mb_pole / mb_pole;
     double sh = q2 / mb_pole / mb_pole;
     double sh2 = sh*sh;
 
-    gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
-    gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
-    gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex B_Sdl = B_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
+    //gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
+    //gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
+    //gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     gslpp::complex F_19 = myF_1.F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_19im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_29 = myF_2.F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_29im(muh, z, sh, 20); /*q^2 = 0 gives nan. Independent of how small q^2 is. arXiv:0810.4077*/
     gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
@@ -1152,15 +1546,15 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate)
     if (!conjugate) {
         gslpp::complex delta = C_1 * F_19 + C_2 * F_29;
         gslpp::complex delta_t = C_8 * F_89 + delta;
-        gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
+        //gslpp::complex delta_u = delta + C_1 * Fu_19 + C_2 * Fu_29;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - lambda_u / lambda_t * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u*/);
     } else {
         gslpp::complex delta = C_1.conjugate() * F_19 + C_2.conjugate() * F_29;
         gslpp::complex delta_t = C_8.conjugate() * F_89 + delta;
-        gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
+        //gslpp::complex delta_u = delta + C_1.conjugate() * Fu_19 + C_2.conjugate() * Fu_29;
 
-        return -alpha_s_mub / (4. * M_PI) * (delta_t - (lambda_u / lambda_t).conjugate() * delta_u);
+        return -alpha_s_mub / (4. * M_PI) * (delta_t /*- (lambda_u / lambda_t).conjugate() * delta_u*/);
     }
 }
 
@@ -1267,40 +1661,40 @@ gslpp::complex MVll::h_func(double s, double m2)
 
 gslpp::complex MVll::T_perp_plus_QSS(double q2, double u, bool conjugate)
 {
-    gslpp::complex t_perp_mb = t_perp(q2, u, mb_pole*mb_pole);
+    //gslpp::complex t_perp_mb = t_perp(q2, u, mb_pole*mb_pole);
     gslpp::complex t_perp_mc = t_perp(q2, u, mc_pole*mc_pole);
-    gslpp::complex t_perp_0 = t_perp(q2, u, 0.);
+    //gslpp::complex t_perp_0 = t_perp(q2, u, 0.);
 
     double eu = 0.666666667;
-    double ed = -0.333333333;
+    //double ed = -0.333333333;
 
     gslpp::complex T_t = (eu * t_perp_mc * (C_1/6. + C_2 + 6.*C_6)
-            + ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + mb_pole / MM * (C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
-            + ed * t_perp_0 * (-C_3 + C_4/6. - 16. * C_5 + 8. * C_6/3.));
+            /*+ ed * t_perp_mb * (C_3 - C_4/6. + 16. * C_5 + 10. * C_6/3. + mb_pole / MM * (-C_3 + C_4/6. - 4. * C_5 + 2. * C_6/3.))
+            + ed * t_perp_0 * (C_3 - C_4/6. + 16. * C_5 - 8. * C_6/3.)*/);
 
-    gslpp::complex T_u = eu * (t_perp_mc - t_perp_0)*(C_2 - C_1 / 6.);
+    //gslpp::complex T_u = eu * (t_perp_mc - t_perp_0)*(C_2 - C_1 / 6.);
 
-    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t + lambda_u / lambda_t * T_u);
-    else return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t + (lambda_u / lambda_t).conjugate() * T_u);
+    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t /*+ lambda_u / lambda_t * T_u*/);
+    else return alpha_s_mub/(3.*M_PI) * MM/(2. * mb_pole)*(T_t /*+ (lambda_u / lambda_t).conjugate() * T_u*/);
 }
 
 gslpp::complex MVll::T_para_plus_QSS(double q2, double u, bool conjugate)
 {
-    gslpp::complex t_para_mb = t_para(q2, u, mb_pole*mb_pole);
+    //gslpp::complex t_para_mb = t_para(q2, u, mb_pole*mb_pole);
     gslpp::complex t_para_mc = t_para(q2, u, mc_pole*mc_pole);
-    gslpp::complex t_para_0 = t_para(q2, u, 0.);
+    //gslpp::complex t_para_0 = t_para(q2, u, 0.);
 
     double eu = 0.666666667;
-    double ed = -0.333333333;
+    //double ed = -0.333333333;
     
     gslpp::complex T_t = (eu * t_para_mc * (-C_1/6. + C_2 + 6.*C_6)
-        + ed * t_para_mb * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3.)
-        + ed * t_para_0 * (-C_3 + C_4/6. - 16.*C_5 + 8.*C_6/3.));
+        /*+ ed * t_para_mb * (C_3 - C_4/6. + 16.*C_5 + 10.*C_6/3.)
+        + ed * t_para_0 * (C_3 - C_4/6. + 16.*C_5 - 8.*C_6/3.)*/);
             
-    gslpp::complex T_u = eu * (t_para_mc - t_para_0) * (C_2 - C_1/6.);
+    //gslpp::complex T_u = eu * (t_para_mc - t_para_0) * (C_2 - C_1/6.);
     
-    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t + lambda_u / lambda_t * T_u);
-    else return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t + (lambda_u / lambda_t).conjugate() * T_u);
+    if (!conjugate) return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t /*+ lambda_u / lambda_t * T_u*/);
+    else return alpha_s_mub/(3.*M_PI) * MM/mb_pole*(T_t /*+ (lambda_u / lambda_t).conjugate() * T_u*/);
 }
 
 gslpp::complex MVll::T_para_minus_QSS(double q2, double u, bool conjugate)
@@ -1308,18 +1702,18 @@ gslpp::complex MVll::T_para_minus_QSS(double q2, double u, bool conjugate)
     double ubar = 1. - u;
     
     gslpp::complex h_mc = h_func(ubar*MM2 + u*q2, mc_pole*mc_pole);
-    gslpp::complex h_mb = h_func(ubar*MM2 + u*q2, mb_pole*mb_pole);
-    gslpp::complex h_0  = h_func(ubar*MM2 + u*q2, 0);
+    //gslpp::complex h_mb = h_func(ubar*MM2 + u*q2, mb_pole*mb_pole);
+    //gslpp::complex h_0  = h_func(ubar*MM2 + u*q2, 0);
     
     gslpp::complex T_t =  (h_mc * (-C_1/6. + C_2 + C_4 + 10.*C_6)
-        + h_mb * (C_3 + 5.*C_4/6. + 16.*C_5 + 22.*C_6/3.)
+        /*+ h_mb * (C_3 + 5.*C_4/6. + 16.*C_5 + 22.*C_6/3.)
         + h_0 * (C_3 + 17.*C_4/6. + 16.*C_5 + 82.*C_6/3.)
-        - 8./27. * (-15.*C_4/2. + 12.*C_5 - 32.*C_6));
+        - 8./27. * (-15.*C_4/2. + 12.*C_5 - 32.*C_6)*/);
     
-    gslpp::complex T_u = (h_mc - h_0)*(C_2 - C_1/6.); 
+    //gslpp::complex T_u = (h_mc - h_0)*(C_2 - C_1/6.); 
     
-    if (!conjugate) return alpha_s_mub/(3.*M_PI) * spectator_charge * 6 * MM/mb_pole * (T_t + lambda_u / lambda_t * T_u);
-    else return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t + (lambda_u / lambda_t).conjugate() * T_u);
+    if (!conjugate) return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t /*+ lambda_u / lambda_t * T_u*/);
+    else return alpha_s_mub/(3.*M_PI) * spectator_charge * 6. * MM/mb_pole * (T_t /*+ (lambda_u / lambda_t).conjugate() * T_u*/);
 }
 
 double MVll::phi_V(double u)
@@ -1335,11 +1729,11 @@ gslpp::complex MVll::lambda_B_minus(double q2)
 
 double MVll::T_perp_real(double q2, double u, bool conjugate)
 {
-    double ubar = 1. - u;
+    //double ubar = 1. - u;
     
     gslpp::complex T_amp = N_QCDF/mySM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(q2, u) + T_perp_plus_QSS(q2, u, conjugate)) 
-            + N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
-            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate);
+            /*+ N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
+            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate)*/;
     /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
     
     return T_amp.real();
@@ -1347,11 +1741,11 @@ double MVll::T_perp_real(double q2, double u, bool conjugate)
 
 double MVll::T_perp_imag(double q2, double u, bool conjugate)
 {
-    double ubar = 1. - u;
+    //double ubar = 1. - u;
     
     gslpp::complex T_amp = N_QCDF/mySM.getMesons(meson).getLambdaM() * phi_V(u) * (T_perp_plus_O8(q2, u) + T_perp_plus_QSS(q2, u, conjugate)) 
-            + N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
-            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate);
+            /*+ N_QCDF/(ubar + u*q2/MM2) * phi_V(u) * T_perp_WA_1() 
+            + N_QCDF/mySM.getMesons(meson).getLambdaM() * fpara/fperp * MV/(1. - q2/MM2) * T_perp_WA_2(conjugate)*/;
     /*last term proportional to T_perp_WA_2 is a constant but is included in the integral because u is integrated over the range [0,1]*/
     
     return T_amp.imag();
@@ -1361,7 +1755,7 @@ double MVll::T_para_real(double q2, double u, bool conjugate)
 {
     double N = N_QCDF * (MV/((MM2pMV2 - q2)/(2.*MM)));
     
-    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (T_para_minus_WA(conjugate) + T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
+    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (/*T_para_minus_WA(conjugate) + */T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
             + N/mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
     
     return sqrt(q2)*T_amp.real();
@@ -1371,7 +1765,7 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
 {
     double N = N_QCDF * (MV/((MM2pMV2 - q2)/(2.*MM)));
     
-    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (T_para_minus_WA(conjugate) + T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
+    gslpp::complex T_amp = (N/lambda_B_minus(q2) * (/*T_para_minus_WA(conjugate) + */T_para_minus_O8(q2, u) + T_para_minus_QSS(q2, u, conjugate)) 
             + N/mySM.getMesons(meson).getLambdaM() * T_para_plus_QSS(q2, u, conjugate)) * phi_V(u);
     
     return sqrt(q2)*T_amp.imag();
@@ -1379,57 +1773,32 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
 
 double MVll::T_perp_real(double q2, bool conjugate)
 {   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
     FS = convertToGslFunction(boost::bind(&MVll::T_perp_real, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qng(&FS, 0., 1., 1.e-3, 1.e-2, &avaSigma1, &errSigma, &neval);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  1 " << avaSigma1 << "  " << avaSigma << std::endl;
     
     return avaSigma;
 }
 
 double MVll::T_perp_imag(double q2, bool conjugate)
 {   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
     FS = convertToGslFunction(boost::bind(&MVll::T_perp_imag, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  2 " << avaSigma1 << "  " << avaSigma << std::endl;
-    
+
     return avaSigma;
 }
 
 double MVll::T_para_real(double q2, bool conjugate)
-{   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
+{      
     FS = convertToGslFunction(boost::bind(&MVll::T_para_real, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  3 " << avaSigma1 << "  " << avaSigma << std::endl;
     
     return avaSigma;
 }
 
 double MVll::T_para_imag(double q2, bool conjugate)
-{   
-//    double avaSigma1;
-//    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (100);
-    
+{     
     FS = convertToGslFunction(boost::bind(&MVll::T_para_imag, &(*this), q2, _1, conjugate));
     gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-//    gsl_integration_qag(&FS, 0., 1., 1.e-3, 1.e-2, 100, GSL_INTEG_GAUSS21, w_sigma1, &avaSigma1, &errSigma);
-    
-//    std::cout << q2 << "  4 " << avaSigma1 << "  " << avaSigma << std::endl;
     
     return avaSigma;
 }
@@ -1448,11 +1817,13 @@ void MVll::fit_QCDF_func()
         Im_T_perp.push_back(T_perp_imag(i, false));
         Re_T_para.push_back(T_para_real(i, false));
         Im_T_para.push_back(T_para_imag(i, false));
-        
+
+#if COMPUTECP        
         Re_T_perp_conj.push_back(T_perp_real(i, true));
         Im_T_perp_conj.push_back(T_perp_imag(i, true));
         Re_T_para_conj.push_back(T_para_real(i, true));
         Im_T_para_conj.push_back(T_para_imag(i, true));
+#endif
         dim++;
     }
 
@@ -1476,6 +1847,7 @@ void MVll::fit_QCDF_func()
     Im_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_para.clear();
     
+#if COMPUTECP  
     gr1 = TGraph(dim, myq2.data(), Re_T_perp_conj.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Re_T_perp_conj");
     Re_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
@@ -1495,8 +1867,112 @@ void MVll::fit_QCDF_func()
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7, "MVll", "Im_T_para_conj");
     Im_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
     Im_T_para_conj.clear();
+#endif
     
     myq2.clear();
+}
+
+void MVll::spline_QCDF_func()
+{
+    int dim = GSL_INTERP_DIM;
+    int dim_DC = GSL_INTERP_DIM_DC;
+    double min = 0.001;
+    double interval = (9.9 - min)/((double) dim);
+    double interval_DC = (9.9 - min)/((double) dim_DC);
+    double q2_spline[dim];
+    double fq2_Re_T_perp[dim],  fq2_Im_T_perp[dim], fq2_Re_T_para[dim], fq2_Im_T_para[dim];
+    double q2_spline_DC[dim_DC];
+    double fq2_Re_deltaC7_QCDF[dim_DC],  fq2_Im_deltaC7_QCDF[dim_DC], fq2_Re_deltaC9_QCDF[dim_DC], fq2_Im_deltaC9_QCDF[dim_DC];
+#if COMPUTECP 
+    double fq2_Re_T_perp_conj[dim],  fq2_Im_T_perp_conj[dim], fq2_Re_T_para_conj[dim], fq2_Im_T_para_conj[dim]; 
+    double fq2_Re_deltaC7_QCDF_conj[dim_DC],  fq2_Im_deltaC7_QCDF_conj[dim_DC], fq2_Re_deltaC9_QCDF_conj[dim_DC], fq2_Im_deltaC9_QCDF_conj[dim_DC];
+#endif
+    
+    for (int i = 0; i < dim; i++) {        
+        q2_spline[i] = min + (double) i*interval;
+        fq2_Re_T_perp[i] = T_perp_real(q2_spline[i], false);
+        fq2_Im_T_perp[i] = T_perp_imag(q2_spline[i], false);
+        fq2_Re_T_para[i] = T_para_real(q2_spline[i], false);
+        fq2_Im_T_para[i] = T_para_imag(q2_spline[i], false);
+ 
+#if COMPUTECP        
+        fq2_Re_T_perp_conj[i] = T_perp_real(q2_spline[i], true);
+        fq2_Im_T_perp_conj[i] = T_perp_imag(q2_spline[i], true);
+        fq2_Re_T_para_conj[i] = T_para_real(q2_spline[i], true);
+        fq2_Im_T_para_conj[i] = T_para_imag(q2_spline[i], true);
+#endif
+    }
+    for (int i = 0; i < dim_DC; i++) {    
+        q2_spline_DC[i] = min + (double) i*interval_DC;
+        fq2_Re_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).real();
+        fq2_Im_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).imag();
+        fq2_Re_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).real();
+        fq2_Im_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).imag();
+        
+#if COMPUTECP                
+        fq2_Re_deltaC7_QCDF_conj[i] = deltaC7_QCDF(q2_spline_DC[i], true).real();
+        fq2_Im_deltaC7_QCDF_conj[i] = deltaC7_QCDF(q2_spline_DC[i], true).imag();
+        fq2_Re_deltaC9_QCDF_conj[i] = deltaC9_QCDF(q2_spline_DC[i], true).real();
+        fq2_Im_deltaC9_QCDF_conj[i] = deltaC9_QCDF(q2_spline_DC[i], true).imag();
+#endif
+    }
+    
+    gsl_spline_init (spline_Re_T_perp, q2_spline, fq2_Re_T_perp, dim);
+    gsl_spline_init (spline_Im_T_perp, q2_spline, fq2_Im_T_perp, dim);
+    gsl_spline_init (spline_Re_T_para, q2_spline, fq2_Re_T_para, dim);
+    gsl_spline_init (spline_Im_T_para, q2_spline, fq2_Re_T_para, dim);
+    
+    gsl_spline_init (spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC);
+    gsl_spline_init (spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC);
+    gsl_spline_init (spline_Re_deltaC9_QCDF, q2_spline_DC, fq2_Re_deltaC9_QCDF, dim_DC);
+    gsl_spline_init (spline_Im_deltaC9_QCDF, q2_spline_DC, fq2_Im_deltaC9_QCDF, dim_DC);
+    
+#if COMPUTECP
+    gsl_spline_init (spline_Re_T_perp_conj, q2_spline, fq2_Re_T_perp_conj, dim);
+    gsl_spline_init (spline_Im_T_perp_conj, q2_spline, fq2_Im_T_perp_conj, dim);
+    gsl_spline_init (spline_Re_T_para_conj, q2_spline, fq2_Re_T_para_conj, dim);
+    gsl_spline_init (spline_Im_T_para_conj, q2_spline, fq2_Re_T_para_conj, dim);
+    
+    gsl_spline_init (spline_Re_deltaC7_QCDF_conj, q2_spline_DC, fq2_Re_deltaC7_QCDF_conj, dim_DC);
+    gsl_spline_init (spline_Im_deltaC7_QCDF_conj, q2_spline_DC, fq2_Im_deltaC7_QCDF_conj, dim_DC);
+    gsl_spline_init (spline_Re_deltaC9_QCDF_conj, q2_spline_DC, fq2_Re_deltaC9_QCDF_conj, dim_DC);
+    gsl_spline_init (spline_Im_deltaC9_QCDF_conj, q2_spline_DC, fq2_Im_deltaC9_QCDF_conj, dim_DC);
+#endif
+
+}
+
+gslpp::complex MVll::T_minus(double q2, bool conjugate) 
+{
+#if COMPUTECP && SPLINE 
+    if (!conjugate) return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (gsl_spline_eval (spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval (spline_Im_T_perp, q2, acc_Im_T_perp));
+    else return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (gsl_spline_eval (spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval (spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
+#elif SPLINE
+    return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (gsl_spline_eval (spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval (spline_Im_T_perp, q2, acc_Im_T_perp));
+#endif     
+    
+#if COMPUTECP  && !SPLINE
+    if (!conjugate) return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_perp_res->GetParams())));
+    else return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_perp_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_perp_res_conj->GetParams())));
+#elif !SPLINE
+    return -2.*MM* mb_pole/q2 * (1. - q2/MM2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_perp_res->GetParams())));
+#endif    
+}
+
+gslpp::complex MVll::T_0(double q2, bool conjugate) 
+{
+#if COMPUTECP && SPLINE
+    if(!conjugate) return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (gsl_spline_eval (spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval (spline_Im_T_para, q2, acc_Im_T_para));
+    else return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (gsl_spline_eval (spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval (spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
+#elif SPLINE
+    return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (gsl_spline_eval (spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval (spline_Im_T_para, q2, acc_Im_T_para));
+#endif
+    
+#if COMPUTECP && !SPLINE
+    if(!conjugate) return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_para_res->GetParams())));
+    else return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_para_res_conj->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_para_res_conj->GetParams())));
+#elif !SPLINE
+    return -(1. - q2/MM2)* (1. - q2/MM2) * MM*mb_pole / sqrt(q2) * (QCDF_fit_func(&q2, const_cast<double *>(Re_T_para_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *>(Im_T_para_res->GetParams())));
+#endif
 }
 /*******************************************************************************
  * QCD factorization perturbative corrections                                  *
@@ -1555,7 +2031,7 @@ gslpp::complex MVll::Tparminus(double u, double q2)
 {
     double ubar = 1. - u;
     return spectator_charge*(8. * C_8Lh / (ubar + u * q2 / MM2)
-            + sixMMoMb * H_c(ubar * MM2 + u * q2,mu_h*mu_h) * C_2Lh_bar);
+            + sixMMoMb * H(ubar * MM2 + u * q2,mc_pole*mc_pole,mu_h*mu_h) * C_2Lh_bar);
 }
 //////////////////////////////////////////////////////////////////
 double MVll::Integrand_ReTperpplus(double up) 
@@ -2002,36 +2478,25 @@ gslpp::complex MVll::fDeltaC9_0(double q2)
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-gslpp::complex MVll::H_c(double q2, double mu2) 
+gslpp::complex MVll::H(double q2, double m2, double mu2)
 {
-    double x = fourMc2 / q2;
+    double x = 4. * m2 / q2;
     gslpp::complex par;
 
     if (x > 1.) par = sqrt(x - 1.) * atan(1. / sqrt(x - 1.));
     else par = sqrt(1. - x) * (log((1. + sqrt(1. - x)) / sqrt(x)) - ihalfMPI);
 
-    return -fournineth * (log(Mc2 / mu2) - twothird - x) - fournineth * (2. + x) * par;
+    return -fournineth * (log(m2 / mu2) - twothird - x) - fournineth * (2. + x) * par;
 }
 
-gslpp::complex MVll::H_b(double q2) 
-{
-    double x = fourMb2 / q2;
-    gslpp::complex par;
-
-    if (x > 1.) par = sqrt(x - 1.) * atan(1. / sqrt(x - 1.));
-    else par = sqrt(1. - x) * (log((1. + sqrt(1. - x)) / sqrt(x)) - ihalfMPI);
-
-    return -fournineth * (logMb - twothird - x) - fournineth * (2. + x) * par;
-}
-
-gslpp::complex MVll::H_0(double q2) 
+gslpp::complex MVll::H_0(double q2)
 {
     return (H_0_pre - fournineth * log(q2 / mu_b2));
 }
 
-gslpp::complex MVll::Y(double q2) 
+gslpp::complex MVll::Y(double q2)
 {
-    return -half * H_0(q2) * H_0_WC + H_c(q2,mu_b2) * H_c_WC - half * H_b(q2) * H_b_WC;
+    return -half * H_0(q2) * H_0_WC + H(q2, mc_pole*mc_pole, mu_b2) * H_c_WC - half * H(q2, mb_pole*mb_pole, mu_b2) * H_b_WC;
 }
 
 gslpp::complex MVll::funct_g(double q2)
@@ -2052,32 +2517,43 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
 {
     if(!fullKD) {
         if (h_pole == true) return (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
-        else if (hel == 1 || hel == 2) return (h_0[hel] + h_1[hel] * q2 + h_2[hel] * q2 * q2);
-        else return (h_0[hel] + h_1[hel] * q2) * sqrt(q2);
+        else if(hel == 1) return (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2))/sixteenM_PI2);
+        else if(hel == 2) return (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2))/sixteenM_PI2 + h_2[2] * q2 * q2;
+        else return (h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2)  + h_1[2] * q2 * V_0t(q2) / MM2)/sixteenM_PI2;
     } else {
         if (hel == 0) return -sqrt(q2)/(MM2*16.*M_PI*M_PI) * ((MMpMV2*(MM2mMV2-q2)*A_1(q2)*DeltaC9_KD(q2,1) - lambda(q2)*A_2(q2)*DeltaC9_KD(q2,2)) / (4.*MV*MM*MMpMV));
-        else if (hel == 1) return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
-        else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        else if (hel == 1) {
+            if (q2 == 0.) return -1./(MM2*16.*M_PI*M_PI) * (
+                    (MMpMV*A_1(0.)) / (2.*MM) * ((- h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2) )*exp_Phase[1]
+                    - sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] );
+            else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) - sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        }
+        else {
+            if (q2 == 0.) return -1./(MM2*16.*M_PI*M_PI) *
+                    ((MMpMV*A_1(0.)) / (2.*MM) * ((- h_0[1] + h_2[1]) / (1. + h_1[1] / mJ2) )*exp_Phase[1]
+                    + sqrt(lambda(0.)) / (2.*MM*MMpMV)*V(0.) * ((- h_0[0] + h_2[0]) / (1. + h_1[0] / mJ2) )*exp_Phase[1] );
+            else return -q2/(MM2*16.*M_PI*M_PI) * ((MMpMV*A_1(q2)) / (2.*MM)*DeltaC9_KD(q2,1) + sqrt(lambda(q2)) / (2.*MM*MMpMV)*V(q2)*DeltaC9_KD(q2,0));
+        }
     }
 }
 
 gslpp::complex MVll::H_V_0(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_0(q2) + Y(q2)) - etaV*pow(-1,angmomV)*C_9p) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7 - etaV*pow(-1,angmomV)*C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_0(q2) + Y(q2)) - etaV*pow(-1,angmomV)*C_9p.conjugate()) * V_0t(q2) + MM2 / q2 * (twoMboMM * (C_7.conjugate() - etaV*pow(-1,angmomV)*C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV*pow(-1,angmomV)*C_9p) * V_0t(q2)  + T_0(q2, !bar) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, !bar, SPLINE) - etaV*pow(-1,angmomV)*C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate()  + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV*pow(-1,angmomV)*C_9p.conjugate()) * V_0t(q2) + T_0(q2, bar) + MM2 / q2 * (twoMboMM * (C_7.conjugate()  + deltaC7_QCDF(q2, bar, SPLINE) - etaV*pow(-1,angmomV)*C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0,q2)));
     
 }
 
 gslpp::complex MVll::H_V_p(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_p(q2) - etaV*pow(-1,angmomV)*C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_p(q2) + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_p(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_p(q2) - etaV*pow(-1,angmomV)*C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_p(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1,q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2, bool bar) 
 {
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7 * T_m(q2) - etaV*pow(-1,angmomV)*C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
-    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + fDeltaC9_m(q2) + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_p(q2)) + MM2 / q2 * (twoMboMM * (C_7.conjugate() * T_m(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p * V_p(q2)) + T_minus(q2, !bar) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_m(q2) - etaV*pow(-1,angmomV)*C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
+    return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV*pow(-1,angmomV)*C_9p.conjugate() * V_p(q2)) + T_minus(q2, bar) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_m(q2) - etaV*pow(-1,angmomV)*C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2,q2)));
 }
 
 gslpp::complex MVll::H_A_0(double q2, bool bar) 

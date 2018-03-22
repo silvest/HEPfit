@@ -6,7 +6,7 @@
  */
 
 #ifndef MVLL_H
-#define	MVLL_H
+#define MVLL_H
 
 class StandardModel;
 class F_1;
@@ -15,10 +15,14 @@ class F_2;
 #include <TF1.h>
 #include <TGraph.h>
 #include <TFitResultPtr.h>
+#include <gsl/gsl_spline.h>
 
 #define SWITCH 8.2
-
 #define NFPOLARBASIS_MVLL true
+#define COMPUTECP false
+#define GSL_INTERP_DIM 10
+#define GSL_INTERP_DIM_DC 10
+#define SPLINE true
 
 /**
  * @class MVll
@@ -642,6 +646,15 @@ public:
     {
         return (sixteenM_PI2MM2 * h_lambda(0,q2)/q2).imag();
     }
+
+    /**
+    * @brief \f$ h_+(0) \f$.
+    * @return \f$ h_+(0) \f$
+    */
+    gslpp::complex geth_p_0()
+    {
+        return h_lambda(1,0.);
+    }
     
     /**
     * @brief The real part of \f$ h_+ \f$.  
@@ -661,6 +674,15 @@ public:
     double geth_p_im(double q2)
     {
         return (sixteenM_PI2MM2 * h_lambda(1,q2)/q2).imag();
+    }
+
+    /**
+    * @brief \f$ h_-(0) \f$.
+    * @return \f$ h_-(0) \f$
+    */
+    gslpp::complex geth_m_0()
+    {
+        return h_lambda(2,0.);
     }
     
     /**
@@ -698,6 +720,7 @@ private:
     F_1& myF_1;
     F_2& myF_2;
     bool fullKD;
+    bool WET_NP_btos, SMEFT_NP_btos;
     double mJ2;
     gslpp::complex exp_Phase[3];
     
@@ -896,10 +919,63 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
+    gslpp::complex C_7_NP;
+    gslpp::complex C_7p_NP;
+    gslpp::complex C_9_NP;
+    gslpp::complex C_9p_NP;
+    gslpp::complex C_10_NP;
+    gslpp::complex C_10p_NP;
+    gslpp::complex C_S_NP;
+    gslpp::complex C_Sp_NP;
+    gslpp::complex C_P_NP;
+    gslpp::complex C_Pp_NP;
+    
     std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
     std::vector<double> Re_T_para;/**<Vector that samples the QCDF @f$Re(T_{para})@f$ */
     std::vector<double> Im_T_para;/**<Vector that samples the QCDF @f$Im(T_{para})@f$ */
+    
+    gsl_interp_accel *acc_Re_T_perp;
+    gsl_interp_accel *acc_Im_T_perp;
+    gsl_interp_accel *acc_Re_T_para;
+    gsl_interp_accel *acc_Im_T_para;
+    
+    gsl_spline *spline_Re_T_perp;
+    gsl_spline *spline_Im_T_perp;
+    gsl_spline *spline_Re_T_para;
+    gsl_spline *spline_Im_T_para;
+    
+    gsl_interp_accel *acc_Re_deltaC7_QCDF;
+    gsl_interp_accel *acc_Im_deltaC7_QCDF;
+    gsl_interp_accel *acc_Re_deltaC9_QCDF;
+    gsl_interp_accel *acc_Im_deltaC9_QCDF;
+    
+    gsl_spline *spline_Re_deltaC7_QCDF;
+    gsl_spline *spline_Im_deltaC7_QCDF;
+    gsl_spline *spline_Re_deltaC9_QCDF;
+    gsl_spline *spline_Im_deltaC9_QCDF;
+    
+#if COMPUTECP  
+    gsl_interp_accel *acc_Re_T_perp_conj;
+    gsl_interp_accel *acc_Im_T_perp_conj;
+    gsl_interp_accel *acc_Re_T_para_conj;
+    gsl_interp_accel *acc_Im_T_para_conj;
+    
+    gsl_interp_accel *acc_Re_deltaC7_QCDF_conj;
+    gsl_interp_accel *acc_Im_deltaC7_QCDF_conj;
+    gsl_interp_accel *acc_Re_deltaC9_QCDF_conj;
+    gsl_interp_accel *acc_Im_deltaC9_QCDF_conj;
+    
+    gsl_spline *spline_Re_T_perp_conj;
+    gsl_spline *spline_Im_T_perp_conj;
+    gsl_spline *spline_Re_T_para_conj;
+    gsl_spline *spline_Im_T_para_conj;
+    
+    gsl_spline *spline_Re_deltaC7_QCDF_conj;
+    gsl_spline *spline_Im_deltaC7_QCDF_conj;
+    gsl_spline *spline_Re_deltaC9_QCDF_conj;
+    gsl_spline *spline_Im_deltaC9_QCDF_conj;
+#endif
     
     std::vector<double> Re_T_perp_conj;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp_conj;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
@@ -1318,21 +1394,15 @@ private:
     * @return \f$ h(q^2,0) \f$
     */
     gslpp::complex H_0(double q2);
-    
+
     /**
-    * @brief The \f$ h(q^2,m_c) \f$ function involved into \f$ C_9^{eff}\f$.
+    * @brief The \f$ h(q^2,m^2) \f$ function involved into \f$ C_9^{eff}\f$.
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @param[in] mu mass scale
-    * @return \f$ h(q^2,m_c) \f$
+    * @param[in] m2 squared mass
+    * @param[in] mu2 squared mass scale
+    * @return \f$ h(q^2,m^2) \f$
     */
-    gslpp::complex H_c(double q2, double mu);
-    
-    /**
-    * @brief The \f$ h(q^2,m_b) \f$ function involved into \f$ C_9^{eff}\f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ h(q^2,m_b) \f$
-    */
-    gslpp::complex H_b(double q2);
+    gslpp::complex H(double q2, double m2, double mu2);
     
     /**
     * @brief The \f$ Y(q^2) \f$ function involved into \f$ C_9^{eff}\f$.
@@ -1985,14 +2055,14 @@ private:
      * @param conjugate a boolean to control conjugation
      * @return @f$ \Delta C_{7}^{QCDF} @f$
      */
-    gslpp::complex deltaC7_QCDF(double q2, bool conjugate);
+    gslpp::complex deltaC7_QCDF(double q2, bool conjugate, bool spline = false);
     
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0403185, hep-ph/0412400) and Greub et. al (arXiv:0810.4077)..
      * @param conjugate a boolean to control conjugation
      * @return @f$ \Delta C_{9}^{QCDF} @f$
      */
-    gslpp::complex deltaC9_QCDF(double q2, bool conjugate);
+    gslpp::complex deltaC9_QCDF(double q2, bool conjugate, bool spline = false);
     
     /**
      * @brief QCDF Correction from various BFS paper (hep-ph/0412400). Part of Weak Annihilation.
@@ -2162,6 +2232,12 @@ private:
     double QCDF_fit_func(double* x, double* p);
     
     void fit_QCDF_func();
+    
+    void spline_QCDF_func();
+    
+    gslpp::complex T_minus(double q2, bool conjugate);
+    
+    gslpp::complex T_0(double q2, bool conjugate);
     
     /**
     * @brief The fit function from @cite Straub:2015ica, \f$ FF^{\rm fit} \f$.
