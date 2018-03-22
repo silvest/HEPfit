@@ -1920,7 +1920,7 @@ void MVll::spline_QCDF_func()
     gsl_spline_init (spline_Re_T_perp, q2_spline, fq2_Re_T_perp, dim);
     gsl_spline_init (spline_Im_T_perp, q2_spline, fq2_Im_T_perp, dim);
     gsl_spline_init (spline_Re_T_para, q2_spline, fq2_Re_T_para, dim);
-    gsl_spline_init (spline_Im_T_para, q2_spline, fq2_Re_T_para, dim);
+    gsl_spline_init (spline_Im_T_para, q2_spline, fq2_Im_T_para, dim);
     
     gsl_spline_init (spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC);
     gsl_spline_init (spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC);
@@ -1931,7 +1931,7 @@ void MVll::spline_QCDF_func()
     gsl_spline_init (spline_Re_T_perp_conj, q2_spline, fq2_Re_T_perp_conj, dim);
     gsl_spline_init (spline_Im_T_perp_conj, q2_spline, fq2_Im_T_perp_conj, dim);
     gsl_spline_init (spline_Re_T_para_conj, q2_spline, fq2_Re_T_para_conj, dim);
-    gsl_spline_init (spline_Im_T_para_conj, q2_spline, fq2_Re_T_para_conj, dim);
+    gsl_spline_init (spline_Im_T_para_conj, q2_spline, fq2_Im_T_para_conj, dim);
     
     gsl_spline_init (spline_Re_deltaC7_QCDF_conj, q2_spline_DC, fq2_Re_deltaC7_QCDF_conj, dim_DC);
     gsl_spline_init (spline_Im_deltaC7_QCDF_conj, q2_spline_DC, fq2_Im_deltaC7_QCDF_conj, dim_DC);
