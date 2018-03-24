@@ -67,7 +67,7 @@ double THDMWpositivity3::computeThValue()
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
 
-    return mu1+mu2+2.0*mu3+2.0*mu4+2.0*mu5+mu6;
+    return mu1+mu2+2.0*(mu3+mu4+mu5)+mu6;
 }
 
 
@@ -81,10 +81,9 @@ double THDMWpositivity4::computeThValue()
     double mu1=myTHDMW.getTHDMW_mu1();
     double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
-    double mu5=myTHDMW.getTHDMW_mu5();
-    double mu6=myTHDMW.getTHDMW_mu6();
+    double mu4=myTHDMW.getTHDMW_mu4();
 
-    return 2.0*mu1+4.0*mu3+4.0*mu5+mu6-fabs(mu1+mu2+2.0*mu3+2.0*mu5);
+    return mu1+mu2+mu3+mu4;
 }
 
 
@@ -99,8 +98,9 @@ double THDMWpositivity5::computeThValue()
     double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
     double mu4=myTHDMW.getTHDMW_mu4();
+    double mu6=myTHDMW.getTHDMW_mu6();
 
-    return mu1+mu2+mu3+mu4;
+    return 14.0*(mu1+mu2) + 24.0*(mu3+mu4) + 5.0*mu6 - 3.0*fabs(2.0*(mu1+mu2)-mu6);
 }
 
 
@@ -118,7 +118,7 @@ double THDMWpositivity6::computeThValue()
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
 
-    return 11.0*mu1+6.0*mu2+24.0*mu3+12.0*mu4+12.0*mu5+6.0*mu6-5.0*fabs(mu2+mu6);
+    return 5.0*(mu1+mu2+mu6) + 6.0*(2.0*mu3+mu4+mu5) - fabs(mu1+mu2+mu6);
 }
 
 
@@ -129,14 +129,23 @@ THDMWpositivity7::THDMWpositivity7(const StandardModel& SM_i)
 
 double THDMWpositivity7::computeThValue()
 {
+    double lambda1=myTHDMW.getTHDMW_lambda1();
     double mu1=myTHDMW.getTHDMW_mu1();
     double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
     double mu4=myTHDMW.getTHDMW_mu4();
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
-
-    return 4.0*mu1+3.0*mu2+12.0*mu3+6.0*mu4+6.0*mu5+3.0*mu6-fabs(mu2+mu6);
+    double muAtimes2=mu1+mu2+2.0*(mu3+mu4+mu5)+mu6;
+    double nu1=myTHDMW.getTHDMW_nu1();
+    if (lambda1>0 && muAtimes2>0)
+    {
+        return sqrt(lambda1*muAtimes2)+nu1;
+    }
+    else
+    {
+        return -1.;
+    }
 }
 
 
@@ -147,13 +156,25 @@ THDMWpositivity8::THDMWpositivity8(const StandardModel& SM_i)
 
 double THDMWpositivity8::computeThValue()
 {
+    double lambda1=myTHDMW.getTHDMW_lambda1();
     double mu1=myTHDMW.getTHDMW_mu1();
     double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
     double mu4=myTHDMW.getTHDMW_mu4();
+    double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
-
-    return mu1+mu2+3.0*mu3+3.0*mu4+mu6;
+    double muAtimes2=mu1+mu2+2.0*(mu3+mu4+mu5)+mu6;
+    double nu1=myTHDMW.getTHDMW_nu1();
+    double nu2=myTHDMW.getTHDMW_nu2();
+    double nu3=myTHDMW.getTHDMW_nu3();
+    if (lambda1>0 && muAtimes2>0)
+    {
+        return sqrt(lambda1*muAtimes2)+nu1+nu2-2.0*fabs(nu3);
+    }
+    else
+    {
+        return -1.;
+    }
 }
 
 
@@ -164,10 +185,23 @@ THDMWpositivity9::THDMWpositivity9(const StandardModel& SM_i)
 
 double THDMWpositivity9::computeThValue()
 {
+    double lambda2=myTHDMW.getTHDMW_lambda2();
     double mu1=myTHDMW.getTHDMW_mu1();
+    double mu2=myTHDMW.getTHDMW_mu2();
     double mu3=myTHDMW.getTHDMW_mu3();
-
-    return mu1+2.0*mu3-fabs(mu3);
+    double mu4=myTHDMW.getTHDMW_mu4();
+    double mu5=myTHDMW.getTHDMW_mu5();
+    double mu6=myTHDMW.getTHDMW_mu6();
+    double muAtimes2=mu1+mu2+2.0*(mu3+mu4+mu5)+mu6;
+    double omega1=myTHDMW.getTHDMW_omega1();
+    if (lambda2>0 && muAtimes2>0)
+    {
+        return sqrt(lambda2*muAtimes2)+omega1;
+    }
+    else
+    {
+        return -1.;
+    }
 }
 
 
@@ -178,35 +212,6 @@ THDMWpositivity10::THDMWpositivity10(const StandardModel& SM_i)
 
 double THDMWpositivity10::computeThValue()
 {
-    double lambda1=myTHDMW.getTHDMW_lambda1();
-    double mu1=myTHDMW.getTHDMW_mu1();
-    double mu2=myTHDMW.getTHDMW_mu2();
-    double mu3=myTHDMW.getTHDMW_mu3();
-    double mu4=myTHDMW.getTHDMW_mu4();
-    double mu5=myTHDMW.getTHDMW_mu5();
-    double mu6=myTHDMW.getTHDMW_mu6();
-    double mu_sum=mu1+2.0*mu3+2.0*mu5+mu2+2.0*mu4+mu6;
-    double nu1=myTHDMW.getTHDMW_nu1();
-    double nu2=myTHDMW.getTHDMW_nu2();
-    double nu3=myTHDMW.getTHDMW_nu3();
-    if (lambda1>0 && mu_sum>0)
-    {
-        return nu1-fabs(nu2)-2.0*fabs(nu3)+sqrt(lambda1*mu_sum);
-    }
-    else
-    {
-        return -1.;
-    }
-}
-
-
-
-THDMWpositivity11::THDMWpositivity11(const StandardModel& SM_i)
-: ThObservable(SM_i),myTHDMW(static_cast<const THDMW&> (SM_i))
-{}
-
-double THDMWpositivity11::computeThValue()
-{
     double lambda2=myTHDMW.getTHDMW_lambda2();
     double mu1=myTHDMW.getTHDMW_mu1();
     double mu2=myTHDMW.getTHDMW_mu2();
@@ -214,13 +219,13 @@ double THDMWpositivity11::computeThValue()
     double mu4=myTHDMW.getTHDMW_mu4();
     double mu5=myTHDMW.getTHDMW_mu5();
     double mu6=myTHDMW.getTHDMW_mu6();
-    double mu_sum=mu1+2.0*mu3+2.0*mu5+mu2+2.0*mu4+mu6;
+    double muAtimes2=mu1+mu2+2.0*(mu3+mu4+mu5)+mu6;
     double omega1=myTHDMW.getTHDMW_omega1();
     double omega2=myTHDMW.getTHDMW_omega2();
     double omega3=myTHDMW.getTHDMW_omega3();
-    if (lambda2>0 && mu_sum>0)
+    if (lambda2>0 && muAtimes2>0)
     {
-        return omega1-fabs(omega2)-2.0*fabs(omega3)+sqrt(lambda2*mu_sum);
+        return sqrt(lambda2*muAtimes2)+omega1+omega2-2.0*fabs(omega3);
     }
     else
     {

@@ -1361,7 +1361,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["THDMWpositivity8"] = boost::factory<THDMWpositivity8*>();
     obsThFactory["THDMWpositivity9"] = boost::factory<THDMWpositivity9*>();
     obsThFactory["THDMWpositivity10"] = boost::factory<THDMWpositivity10*>();
-    obsThFactory["THDMWpositivity11"] = boost::factory<THDMWpositivity11*>();
     obsThFactory["THDMWpositiveMassSquares"] = boost::factory<THDMWpositiveMassSquares*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["THDMWunitarity1"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 0);

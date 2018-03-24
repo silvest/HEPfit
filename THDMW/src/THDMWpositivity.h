@@ -220,25 +220,6 @@ private:
 };
 
 /**
- * @class THDMWpositivity11
- */
-class THDMWpositivity11: public ThObservable {
-public:
-
-    /**
-     * @brief THDMWpositivity11 constructor.
-     */
-    THDMWpositivity11(const StandardModel& SM_i);
-
-    /**
-     * @return 
-     */
-    double computeThValue();
-private:
-    const THDMW& myTHDMW;
-};
-
-/**
  * @class THDMWpositiveMassSquares
  */
 class THDMWpositiveMassSquares: public ThObservable {
