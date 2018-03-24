@@ -9,6 +9,14 @@
 #include <sstream>
 #include <stdexcept>
 
+WilsonCoefficient::WilsonCoefficient(unsigned int dim, schemes scheme, orders order)
+: WilsonTemplate<gslpp::vector<gslpp::complex> >(dim, scheme, order)
+{};
+
+WilsonCoefficient::WilsonCoefficient(unsigned int dim, schemes scheme, orders order, orders_qed order_qed)
+: WilsonTemplate<gslpp::vector<gslpp::complex> >(dim, scheme, order, order_qed)
+{};
+
 void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders order_i) 
 {    
     if ((unsigned int) i > size) {
