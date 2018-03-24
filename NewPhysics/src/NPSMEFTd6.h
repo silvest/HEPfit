@@ -866,6 +866,12 @@ public:
      */
     virtual double deltaG_hgg() const;
     /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HGG}/g_{HGG}^SM}@f$
+     */
+    virtual double deltaG_hggRatio() const;
+    /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(1)}@f$
      */
@@ -901,6 +907,12 @@ public:
      */
     virtual double deltaG1_hZA() const;
     /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HZA}^{(1)}/g_{HZA}^{(1),SM}@f$
+     */
+    virtual double deltaG1_hZARatio() const;
+    /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(2)}@f$
      */
@@ -910,7 +922,12 @@ public:
      * @return @f$\delta g_{HAA}@f$
      */
     virtual double deltaG_hAA() const;
-
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HAA}/g_{HAA}^SM}@f$
+     */
+    virtual double deltaG_hAARatio() const;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
      * @param[in] p a lepton or quark
@@ -1017,6 +1034,24 @@ public:
      */
     gslpp::complex f_triangle(const double tau) const;
     /**
+     * @brief Loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$g(\tau)@f$
+     */
+    gslpp::complex g_triangle(const double tau) const;
+    /**
+     * @brief Loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$I_1(\tau,\lambda)@f$
+     */
+    gslpp::complex I_triangle_1(const double tau, const double lambda) const;
+    /**
+     * @brief Loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the particle in the loop.
+     * @return @f$I_2(\tau,\lambda)@f$
+     */
+    gslpp::complex I_triangle_2(const double tau, const double lambda) const;
+    /**
      * @brief Fermionic loop function entering in the calculation of the effective @f$Hgg@f$ and @f$H\gamma\gamma@f$ couplings.
      * @details
      * @f$A^H_f(\tau)=2\tau [1+(1-\tau)f(\tau)]@f$
@@ -1024,6 +1059,31 @@ public:
      * @return @f$A^H_f(\tau)@f$
      */
     gslpp::complex AH_f(const double tau) const;
+    
+    /**
+     * @brief W loop function entering in the calculation of the effective @f$H\gamma\gamma@f$ coupling.
+     * @details
+     * @f$A^H_W(\tau)=-[2+3\tau + 3\tau*(2-\tau) f(\tau)]@f$
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^H_W(\tau)@f$
+     */
+    gslpp::complex AH_W(const double tau) const;
+    
+    /**
+     * @brief Fermionic loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @details
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^{HZ\gamma}_f(\tau,\lambda)@f$
+     */
+    gslpp::complex AHZga_f(const double tau, const double lambda) const;
+    
+    /**
+     * @brief W loop function entering in the calculation of the effective @f$HZ\gamma@f$ coupling.
+     * @details
+     * @param[in] @f$\tau=4 M^2/m_h^2@f$, @f$\lambda=4 M^2/m_Z^2@f$, with @f$M@f$ the mass of the fermion in the loop.
+     * @return @f$A^{HZ\gamma}_W(\tau,\lambda)@f$
+     */
+    gslpp::complex AHZga_W(const double tau, const double lambda) const;
 
     /**
      * @brief The ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs

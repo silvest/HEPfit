@@ -422,6 +422,15 @@ public:
         return 0.0;
     };
     /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HGG}/g_{HGG}^SM}@f$
+     */
+    virtual double deltaG_hggRatio() const
+    {
+        return 0.0;
+    };
+    /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(1)}@f$
      */
@@ -478,6 +487,15 @@ public:
         return 0.0;
     };
     /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HZA}^{(1)}/g_{HZA}^{(1),SM}@f$
+     */
+    virtual double deltaG1_hZARatio() const
+    {
+        return 0.0;
+    };
+    /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(2)}@f$
      */
@@ -493,7 +511,15 @@ public:
     {
         return 0.0;
     };
-
+    /**
+     * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
+     * including new local terms and modifications on the SM-loops. Normalized to the SM value.
+     * @return @f$\delta g_{HAA}/g_{HAA}^SM}@f$
+     */
+    virtual double deltaG_hAARatio() const
+    {
+        return 0.0;
+    };
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
      * @param[in] p a lepton or quark
