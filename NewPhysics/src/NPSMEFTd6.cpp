@@ -2178,6 +2178,25 @@ double NPSMEFTd6::deltaG_hgg() const
     return (CHG * v2_over_LambdaNP2 / v());
 }
 
+double NPSMEFTd6::deltaG_hggRatio() const
+{    
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double aSPiv = AlsMz / 16.0 / M_PI / v();
+    gslpp::complex gSM, dg;
+    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    double deltaloc = deltaG_hgg();
+    
+    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b));
+    
+    dg = delta_h + deltaloc/gSM + (aSPiv/gSM) * (dKappa_t*AH_f(tau_t) + dKappa_b*AH_f(tau_b));
+
+    return dg.real();
+}
+
 double NPSMEFTd6::deltaG1_hWW() const
 {
     return (( 2.0 * CHW - sqrt( M_PI * ale ) * CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
@@ -2221,6 +2240,66 @@ double NPSMEFTd6::deltaG1_hZA() const
     return ( (delta_AZ + 0.5 * sqrt( M_PI * ale ) * (CDHB / sW_tree - CDHW / cW_tree) * v2_over_LambdaNP2 )/ v());
 }
 
+double NPSMEFTd6::deltaG1_hZARatio() const
+{    
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double m_tau = leptons[TAU].getMass();
+    
+    double M_w_2 = (trueSM.Mw())*(trueSM.Mw());
+    
+    double Qt = quarks[TOP].getCharge();
+    double Qb = quarks[BOTTOM].getCharge();
+    double Qtau = leptons[TAU].getMass();
+
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
+    double tau_W = 4.0 * M_w_2 / mHl / mHl;    
+    
+    double lambda_t = 4.0 * m_t * m_t / Mz / Mz;
+    double lambda_b = 4.0 * m_b * m_b / Mz / Mz;
+    double lambda_tau = 4.0 * m_tau * m_tau / Mz / Mz;
+    double lambda_W = 4.0 * M_w_2 / Mz / Mz; 
+    double alpha2 = sqrt(2.0)*GF*M_w_2 / M_PI;
+    double aPiv = sqrt(ale*alpha2) / 4.0 / M_PI / v();
+    
+//  mod. of Higgs couplings
+    gslpp::complex gSM, dg;
+    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    gslpp::complex dKappa_tau = deltaG_hff(leptons[TAU]) / (-m_tau / v());
+    double dKappa_W = (0.5 * v() / M_w_2)*deltaG3_hWW();
+    
+//  mod of EW vector couplings vf =2 gvf    
+    double vSMt = 2.0*(quarks[TOP].getIsospin()) - 4.0 * Qt * sW2_tree;
+    double vSMb = 2.0*(quarks[BOTTOM].getIsospin()) - 4.0 * Qb * sW2_tree;
+    double vSMtau = 2.0*(leptons[TAU].getIsospin()) - 4.0 * Qtau * sW2_tree;
+    
+    double dvSMt = 2.0*deltaGV_f(quarks[TOP]);
+    double dvSMb = 2.0*deltaGV_f(quarks[BOTTOM]);
+    double dvSMtau = 2.0*deltaGV_f(leptons[TAU]);
+    
+    double deltaloc = deltaG1_hZA();
+    
+    gSM = aPiv * (3.0*vSMt*Qt*AHZga_f(tau_t,lambda_t) + 
+            3.0*vSMb*Qb*AHZga_f(tau_b,lambda_b) + 
+            vSMtau*Qtau*AHZga_f(tau_tau,lambda_tau) + 
+            AHZga_W(tau_W,lambda_W));
+    
+    dg = delta_h + deltaloc/gSM + (aPiv/gSM) * (
+            3.0*vSMt*dKappa_t*Qt*AHZga_f(tau_t,lambda_t) + 
+            3.0*vSMb*dKappa_b*Qb*AHZga_f(tau_b,lambda_b) + 
+            dKappa_tau*vSMtau*Qtau*AHZga_f(tau_tau,lambda_tau) + 
+            dKappa_W*AHZga_W(tau_W,lambda_W) + 
+            3.0*dvSMt*Qt*AHZga_f(tau_t,lambda_t) + 
+            3.0*dvSMb*Qb*AHZga_f(tau_b,lambda_b) + 
+            dvSMtau*Qtau*AHZga_f(tau_tau,lambda_tau)
+            );
+
+    return dg.real();
+}
+
 double NPSMEFTd6::deltaG2_hZA() const
 {
     return ( sqrt( M_PI * ale ) * ( CDHB / sW_tree - CDHW / cW_tree ) * v2_over_LambdaNP2 / v());
@@ -2229,6 +2308,44 @@ double NPSMEFTd6::deltaG2_hZA() const
 double NPSMEFTd6::deltaG_hAA() const
 {
     return (delta_AA / v());
+}
+
+double NPSMEFTd6::deltaG_hAARatio() const
+{    
+    double m_t = mtpole;
+    double m_b = quarks[BOTTOM].getMass();
+    double m_tau = leptons[TAU].getMass();
+    
+    double M_w_2 = (trueSM.Mw())*(trueSM.Mw());
+    
+    double Qt = quarks[TOP].getCharge();
+    double Qb = quarks[BOTTOM].getCharge();
+    double Qtau = leptons[TAU].getMass();
+
+    double tau_t = 4.0 * m_t * m_t / mHl / mHl;
+    double tau_b = 4.0 * m_b * m_b / mHl / mHl;
+    double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
+    double tau_W = 4.0 * M_w_2 / mHl / mHl;    
+
+    double aPiv = ale / 8.0 / M_PI / v();
+    gslpp::complex gSM, dg;
+    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
+    gslpp::complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    gslpp::complex dKappa_tau = deltaG_hff(leptons[TAU]) / (-m_tau / v());
+    double dKappa_W = (0.5 * v() / M_w_2)*deltaG3_hWW();
+    
+    double deltaloc = deltaG_hAA();
+    
+    gSM = aPiv * (3.0*Qt*AH_f(tau_t) + 3.0*Qb*AH_f(tau_b) + Qtau*AH_f(tau_tau) + AH_W(tau_W));
+    
+    dg = delta_h + deltaloc/gSM + (aPiv/gSM) * (
+            3.0*Qt*dKappa_t*AH_f(tau_t) + 
+            3.0*Qb*dKappa_b*AH_f(tau_b) +
+            dKappa_tau*Qtau*AH_f(tau_tau) +
+            dKappa_W*AH_W(tau_W)
+            );
+
+    return dg.real();
 }
 
 gslpp::complex NPSMEFTd6::deltaG_hff(const Particle p) const
@@ -2341,9 +2458,64 @@ gslpp::complex NPSMEFTd6::f_triangle(const double tau) const
     }
 }
 
+gslpp::complex NPSMEFTd6::g_triangle(const double tau) const
+{
+    gslpp::complex tmp;
+    if (tau >= 1.0) {
+        tmp = sqrt(tau -1.0) * asin(1.0 / sqrt(tau));
+        return tmp;
+    } else {
+        tmp = sqrt(1.0 - tau) * ( log((1.0 + sqrt(1.0 - tau)) / (1.0 - sqrt(1.0 - tau))) - M_PI * gslpp::complex::i() );
+        return 0.5 * tmp;
+    }
+}
+
+gslpp::complex NPSMEFTd6::I_triangle_1(const double tau, const double lambda) const
+{
+    gslpp::complex tmp;
+    
+    tmp = ( tau*lambda * (f_triangle(tau)- f_triangle(lambda)) + 2.0 * tau * (g_triangle(tau)- g_triangle(lambda)) ) / (tau-lambda);
+    
+    tmp = tau*lambda * ( 1.0 + tmp ) / (2.0*(tau-lambda));
+    
+    return tmp;
+}
+
+gslpp::complex NPSMEFTd6::I_triangle_2(const double tau, const double lambda) const
+{
+    gslpp::complex tmp;
+    
+    tmp = - 0.5 * tau*lambda * (f_triangle(tau)- f_triangle(lambda)) / (tau-lambda);
+    
+    return tmp;
+}
+
 gslpp::complex NPSMEFTd6::AH_f(const double tau) const
 {
     return (2.0 * tau * (1.0 + (1.0 - tau) * f_triangle(tau)));
+}
+
+gslpp::complex NPSMEFTd6::AH_W(const double tau) const
+{
+    return -( 2.0 + 3.0 * tau + 3.0 * tau * (2.0 - tau) * f_triangle(tau) );
+}
+
+gslpp::complex NPSMEFTd6::AHZga_f(const double tau, const double lambda) const
+{
+    return I_triangle_1(tau,lambda) - I_triangle_2(tau,lambda);
+}
+
+gslpp::complex NPSMEFTd6::AHZga_W(const double tau, const double lambda) const
+{
+    gslpp::complex tmp;
+    
+    double tan2w = trueSM.sW2() / trueSM.cW2();
+    
+    tmp = 4.0 * (3.0 - tan2w ) * I_triangle_2(tau,lambda);
+    
+    tmp = tmp + ((1.0 +2.0 / tau)* tan2w - (5.0 + 2.0/tau)) * I_triangle_1(tau,lambda);
+
+    return sqrt(trueSM.cW2()) * tmp;
 }
 
 double NPSMEFTd6::muggH(const double sqrt_s) const

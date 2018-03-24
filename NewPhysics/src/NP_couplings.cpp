@@ -903,10 +903,9 @@ deltagHGG::~deltagHGG()
 
 double deltagHGG::computeThValue()
 {
-    double dg = myNPbase->deltaG_hgg();
-    double gSM = 1.;
+    double dgRatio = myNPbase->deltaG_hggRatio();
     
-    return dg/gSM;
+    return dgRatio;
 }
 
 /* -------------------------------------*/
@@ -993,10 +992,9 @@ deltagHAA::~deltagHAA()
 
 double deltagHAA::computeThValue()
 {
-    double dg = myNPbase->deltaG_hAA();
-    double gSM = 1.;
+    double dgRatio = myNPbase->deltaG_hAARatio();
     
-    return dg/gSM;
+    return dgRatio;
 }
 
 /* -------------------------------------*/
@@ -1018,10 +1016,9 @@ deltagHZA::~deltagHZA()
 
 double deltagHZA::computeThValue()
 {
-    double dg = myNPbase->deltaG1_hZA();
-    double gSM = 1.;
+    double dgRatio = myNPbase->deltaG1_hZARatio();
     
-    return dg/gSM;
+    return dgRatio;
 }
 
 /* -------------------------------------*/
