@@ -516,10 +516,10 @@ void MVll::updateParameters()
             C_9p_NP = mySM.getOptionalParameter("C9p_e");            
             C_10_NP = mySM.getOptionalParameter("C10_e");
             C_10p_NP = mySM.getOptionalParameter("C10p_e");
-            C_S_NP = mySM.getOptionalParameter("CS_e");
-            C_Sp_NP = mySM.getOptionalParameter("CSp_e");
-            C_P_NP = mySM.getOptionalParameter("CP_e");
-            C_Pp_NP = mySM.getOptionalParameter("CPp_e");
+            C_S_NP = MW/Mb*mySM.getOptionalParameter("CS_e");
+            C_Sp_NP = MW/Mb*mySM.getOptionalParameter("CSp_e");
+            C_P_NP = MW/Mb*mySM.getOptionalParameter("CP_e");
+            C_Pp_NP = MW/Mb*mySM.getOptionalParameter("CPp_e");
         }
         else{
             C_7_NP = mySM.getOptionalParameter("C7_NP");
@@ -528,10 +528,10 @@ void MVll::updateParameters()
             C_9p_NP = mySM.getOptionalParameter("C9p_mu");
             C_10_NP = mySM.getOptionalParameter("C10_mu");
             C_10p_NP = mySM.getOptionalParameter("C10p_mu");
-            C_S_NP = mySM.getOptionalParameter("CS_mu");
-            C_Sp_NP = mySM.getOptionalParameter("CSp_mu");
-            C_P_NP = mySM.getOptionalParameter("CP_mu");
-            C_Pp_NP = mySM.getOptionalParameter("CPp_mu");     
+            C_S_NP = MW/Mb*mySM.getOptionalParameter("CS_mu");
+            C_Sp_NP = MW/Mb*mySM.getOptionalParameter("CSp_mu");
+            C_P_NP = MW/Mb*mySM.getOptionalParameter("CP_mu");
+            C_Pp_NP = MW/Mb*mySM.getOptionalParameter("CPp_mu");     
         }
     }
     else if(SMEFT_NP_btos){
@@ -563,13 +563,13 @@ void MVll::updateParameters()
             C_10p_NP -= mySM.getOptionalParameter("CLd11_23");
             C_10p_NP += mySM.getOptionalParameter("CHd");
             C_10p_NP *= SMEFT_factor; 
-            C_S_NP = mySM.getOptionalParameter("CLedQ_11");
+            C_S_NP = MW/Mb*mySM.getOptionalParameter("CLedQ_11");
             C_S_NP *= SMEFT_factor; 
-            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Sp_NP = MW/Mb*mySM.getOptionalParameter("CpLedQ_11");
             C_Sp_NP *= SMEFT_factor;
-            C_P_NP = -mySM.getOptionalParameter("CLedQ_11");
+            C_P_NP = -MW/Mb*mySM.getOptionalParameter("CLedQ_11");
             C_P_NP *= SMEFT_factor;
-            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_11");
+            C_Pp_NP = MW/Mb*mySM.getOptionalParameter("CpLedQ_11");
             C_Pp_NP *= SMEFT_factor;
         }
         else{
@@ -597,13 +597,13 @@ void MVll::updateParameters()
             C_10p_NP -= mySM.getOptionalParameter("CLd22_23");
             C_10p_NP += mySM.getOptionalParameter("CHd");
             C_10p_NP *= SMEFT_factor; 
-            C_S_NP = mySM.getOptionalParameter("CLedQ_22");
+            C_S_NP = MW/Mb*mySM.getOptionalParameter("CLedQ_22");
             C_S_NP *= SMEFT_factor; 
-            C_Sp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Sp_NP = MW/Mb*mySM.getOptionalParameter("CpLedQ_22");
             C_Sp_NP *= SMEFT_factor;
-            C_P_NP = -mySM.getOptionalParameter("CLedQ_22");
+            C_P_NP = -MW/Mb*mySM.getOptionalParameter("CLedQ_22");
             C_P_NP *= SMEFT_factor;
-            C_Pp_NP = mySM.getOptionalParameter("CpLedQ_22");
+            C_Pp_NP = MW/Mb*mySM.getOptionalParameter("CpLedQ_22");
             C_Pp_NP *= SMEFT_factor;        
         }
     }

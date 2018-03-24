@@ -168,19 +168,19 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
             
-            gslpp::complex CC_P = C10_SM + SM.computelamt_s() * sw * sw * ( C_10_NP - C_10p_NP + mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_P_NP - C_Pp_NP) );
+            gslpp::complex CC_P = C10_SM + SM.computelamt_s() * sw * sw * ( C_10_NP - C_10p_NP + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P_NP - C_Pp_NP) );
           
             absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)
             argP = CC_P.arg();
             
-            gslpp::complex CC_S = SM.computelamt_s() * sw * sw * ( beta * mBs*mBs*mb / ( 2.*mlep*(mb+ms)*mW ) * (C_S_NP - C_Sp_NP) );
+            gslpp::complex CC_S = SM.computelamt_s() * sw * sw * ( beta * mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_S_NP - C_Sp_NP) );
 
             absS = CC_S.abs();
             argS = CC_S.arg();
            
             phiNP = 0.;
             
-            ampSq = absP * absP ;
+            ampSq = absP * absP + absS * absS;
                   
         }
         break;
