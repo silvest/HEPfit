@@ -575,6 +575,81 @@ private:
 };
 
 /**
+ * @class deltagZttV
+ * @brief An observable class for the deviation from the SM of the @f$Z t t@f$ vector coupling
+ * @f$\delta g_{Ztt}^{V}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z t t@f$ vector coupling
+ * @f$\delta g_{Ztt}^{V}@f$.
+ *
+ */
+class deltagZttV : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagZttV(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagZttV class.
+     */
+    virtual ~deltagZttV();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z t t@f$ vector coupling @f$\delta g_{Ztt}^{V}@f$.
+     * @return @f$\delta g_{Ztt}^{V}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class deltagZttA
+ * @brief An observable class for the deviation from the SM of the @f$Z t t@f$ axial coupling
+ * @f$\delta g_{Ztt}^{A}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z t t@f$ axial coupling
+ * @f$\delta g_{Ztt}^{A}@f$.
+ *
+ */
+class deltagZttA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagZttA(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagZttA class.
+     */
+    virtual ~deltagZttA();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z t t@f$ axial coupling @f$\delta g_{Ztt}^{A}@f$.
+     * @return @f$\delta g_{Ztt}^{A}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
  * @class deltagZddL
  * @brief An observable class for the deviation from the SM of the @f$Z d_{L} d_{L}@f$ coupling
  * @f$\delta g_{Zdd}^{L}@f$.

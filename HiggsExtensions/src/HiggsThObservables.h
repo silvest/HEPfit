@@ -802,6 +802,155 @@ private:
 };
 
 /**
+ * @class BrHtogaga_over_mumu_Ratio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtogaga_over_mumu_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtogaga_over_mumu_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtogaga_over_mumu_Ratio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to \mu\mu)@f$
+     */
+    double computeThValue()
+    {
+        return (myNPbase->BrHgagaRatio())/(myNPbase->BrHmumuRatio());
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+/**
+ * @class BrHtogaga_over_4l_Ratio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * in the current model and in the Standard Model (neglects new physics in Z decays).
+ */
+class BrHtogaga_over_4l_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtogaga_over_4l_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtogaga_over_4l_Ratio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to \gamma\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     */
+    double computeThValue()
+    {
+        return (myNPbase->BrHgagaRatio())/(myNPbase->BrHZZRatio());
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+
+/**
+ * @class BrHtoZga_over_4l_Ratio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * in the current model and in the Standard Model (neglects new physics in Z decays).
+ */
+class BrHtoZga_over_4l_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoZga_over_4l_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoZga_over_4l_Ratio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     */
+    double computeThValue()
+    {
+        return (myNPbase->BrHZgaRatio())/(myNPbase->BrHZZRatio());
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+
+
+/**
+ * @class BrHtomumu_over_4l_Ratio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+ * in the current model and in the Standard Model (neglects new physics in Z decays).
+ */
+class BrHtomumu_over_4l_Ratio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtomumu_over_4l_Ratio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtogaga_over_4l_Ratio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to \mu\mu)@f$@f/@f$Br@f$(H\to 4\ell)@f$
+     */
+    double computeThValue()
+    {
+        return (myNPbase->BrHmumuRatio())/(myNPbase->BrHZZRatio());
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
  * @class muggHgaga
  * @ingroup HiggsExtensions
  * @brief 

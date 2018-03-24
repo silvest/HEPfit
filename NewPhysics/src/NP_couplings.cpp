@@ -328,6 +328,7 @@ deltagZttL::~deltagZttL()
 double deltagZttL::computeThValue()
 {
 //    Ztt eff. couplings not available in StandardModel class. Compare with tree level 
+//    Corrections to Ztt eff. couplings are 0 by default in NPBase, unless overrriden. 
     double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::TOP));
     double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::TOP));
     double gSM = (SM.getQuarks(StandardModel::TOP)).getIsospin() 
@@ -357,6 +358,53 @@ double deltagZttR::computeThValue()
     double gSM = - ((SM.getQuarks(StandardModel::TOP)).getCharge())*(SM.sW2());
 
     return 0.5*(dgV - dgA)/gSM;
+}
+
+/* -------------------------------------*/
+
+deltagZttV::deltagZttV(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltagZttV::~deltagZttV()
+{}
+
+double deltagZttV::computeThValue()
+{
+//    Ztt eff. couplings not available in StandardModel class. Compare with tree level 
+//    Corrections to Ztt eff. couplings are 0 by default in NPBase, unless overrriden. 
+    double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::TOP));
+    double gSM = ((SM.getQuarks(StandardModel::TOP)).getIsospin()) * (1.0 - 4.0*fabs(SM.getQuarks(StandardModel::TOP).getCharge())*(SM.sW2()));
+
+    return dgV/gSM;
+}
+
+
+/* -------------------------------------*/
+
+deltagZttA::deltagZttA(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltagZttA::~deltagZttA()
+{}
+
+double deltagZttA::computeThValue()
+{
+//    Ztt eff. couplings not available in StandardModel class. Compare with tree level 
+//    Corrections to Ztt eff. couplings are 0 by default in NPBase, unless overrriden. 
+    double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::TOP));
+    double gSM = (SM.getQuarks(StandardModel::TOP)).getIsospin();
+
+    return dgA/gSM;
 }
 
 /* -------------------------------------*/

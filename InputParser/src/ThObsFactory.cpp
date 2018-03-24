@@ -87,6 +87,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltagZccR"] = boost::factory<deltagZccR*>();
     obsThFactory["deltagZttL"] = boost::factory<deltagZttL*>();
     obsThFactory["deltagZttR"] = boost::factory<deltagZttR*>();
+    obsThFactory["deltagZttV"] = boost::factory<deltagZttV*>();
+    obsThFactory["deltagZttA"] = boost::factory<deltagZttA*>();
     obsThFactory["deltagZddL"] = boost::factory<deltagZddL*>();
     obsThFactory["deltagZddR"] = boost::factory<deltagZddR*>();
     obsThFactory["deltagZssL"] = boost::factory<deltagZssL*>();
@@ -146,6 +148,7 @@ ThObsFactory::ThObsFactory()
     const double sqrt_s_ILC1000 = 1.0;
     const double sqrt_s_CLIC1400 = 1.4;
     const double sqrt_s_CLIC3000 = 3.0;
+    //-----  Production cross sections (ratios with SM)  ----------
     obsThFactory["ggH"] = boost::bind(boost::factory<muggH*>(), _1, sqrt_s_LHC8);
     obsThFactory["VBF"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_LHC8);
     obsThFactory["WH"] = boost::bind(boost::factory<muWH*>(), _1, sqrt_s_LHC8);
@@ -213,6 +216,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eettH1000"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_ILC1000);
     obsThFactory["eettH1400"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_CLIC1400);
     obsThFactory["eettH3000"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_CLIC3000);
+    //-----  Decay width and Branching ratios (ratios with SM)  ----------
     obsThFactory["GammaHRatio"] = boost::factory<GammaHRatio*>();
     obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
     obsThFactory["BrHWWRatio"] = boost::factory<BrHtoWWRatio*>();
@@ -223,6 +227,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtautauRatio"] = boost::factory<BrHtotautauRatio*>();
     obsThFactory["BrHccRatio"] = boost::factory<BrHtoccRatio*>();
     obsThFactory["BrHbbRatio"] = boost::factory<BrHtobbRatio*>();
+    //-----  Ratios of BR (ratios with SM)  ----------    
+    obsThFactory["BrHtogaga_over_mumu_Ratio"] = boost::factory<BrHtogaga_over_mumu_Ratio*>();
+    obsThFactory["BrHtogaga_over_4l_Ratio"] = boost::factory<BrHtogaga_over_4l_Ratio*>();
+    obsThFactory["BrHtoZga_over_4l_Ratio"] = boost::factory<BrHtoZga_over_4l_Ratio*>();
+    obsThFactory["BrHtomumu_over_4l_Ratio"] = boost::factory<BrHtomumu_over_4l_Ratio*>();
+    //-----  Full Signal strengths per prod and decay  ----------
     obsThFactory["muggHgaga"] = boost::bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVBFHgaga"] = boost::bind(boost::factory<muVBFHgaga*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVHgaga"] = boost::bind(boost::factory<muVHgaga*>(), _1, sqrt_s_LHC13);
@@ -247,10 +257,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muppHmumu13"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muppHZga8"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC8);
     obsThFactory["muppHZga13"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC13);
+    //-----  Limits  ----------
     obsThFactory["UpperLimit_ppHZgammaA13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA13*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaC13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC13*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaA"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA*>(), _1, sqrt_s_LHC8);
     obsThFactory["UpperLimit_ppHZgammaC"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC*>(), _1, sqrt_s_LHC8);
+    //-----  Others  ----------
     obsThFactory["cg_plus_ct"] = boost::factory<cg_plus_ct*>();
     obsThFactory["cga_plus_ct"] = boost::factory<cga_plus_ct*>();
     obsThFactory["cg_minus_cga"] = boost::factory<cg_minus_cga*>();
