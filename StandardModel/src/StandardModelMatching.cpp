@@ -121,14 +121,17 @@ void StandardModelMatching::updateSMParameters()
     aletilde = SM.Ale(Muw, FULLNLO) / 4. / M_PI; // Ale / 4. / M_PI; // WHERE IS ale(mu)?
     GF = SM.getGF();
     Mw_tree = SM.Mw_tree();
+    Mw = SM.Mw(); /* on-shell Mw */
+    sW2 = SM.sW2(); /* on-shell sW2 */
     /* NP models should be added here after writing codes for Mw. */
-    if (SM.getModelName()=="StandardModel") {
-        Mw = SM.Mw(); /* on-shell Mw */
-        sW2 = SM.sW2(); /* on-shell sW2 */
-    } else {
-        Mw = Mw_tree;
-        sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    }
+    /* The following is commented out till further review.*/
+//    if (SM.getModelName()=="StandardModel") {
+//        Mw = SM.Mw(); /* on-shell Mw */
+//        sW2 = SM.sW2(); /* on-shell sW2 */
+//    } else {
+//        Mw = Mw_tree;
+//        sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
+//    }
 //    sW2 = (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw ); // WARNING: only for checking
     Vckm = SM.getVCKM();
     lam_t = SM.computelamt();
