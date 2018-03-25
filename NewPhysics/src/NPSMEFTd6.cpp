@@ -49,18 +49,19 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CLQ3_1123","CLQ3_2223","CLQ3_3323",
     "CLQ3_1132","CLQ3_2232","CLQ3_3332",
     "Cee_1111","Cee_1122","Cee_2211","Cee_1133","Cee_3311",
-    "Ceu_1111","Ceu_1122","Ceu_2211","Ceu_1133","Ceu_3311",
+    "Ceu_1111","Ceu_1122","Ceu_2211","Ceu_1133","Ceu_2233","Ceu_3311",
     "Ced_1111","Ced_1122","Ced_2211","Ced_1133","Ced_3311",
     "Ced_1123","Ced_2223","Ced_3323",
     "Ced_1132","Ced_2232","Ced_3332",
     "CLe_1111","CLe_1122","CLe_2211","CLe_1133","CLe_3311",
-    "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_3311",
+    "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_2233","CLu_3311",
     "CLd_1111","CLd_1122","CLd_2211","CLd_1133","CLd_3311",
     "CLd_1123","CLd_2223","CLd_3323",
     "CLd_1132","CLd_2232","CLd_3332",
     "CQe_1111","CQe_1122","CQe_2211","CQe_1133","CQe_3311", 
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
+    "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
     "Lambda_NP",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
@@ -128,18 +129,19 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CLQ3_1123","CLQ3_2223","CLQ3_3323",
     "CLQ3_1132","CLQ3_2232","CLQ3_3332",
     "Cee_1111","Cee_1122","Cee_2211","Cee_1133","Cee_3311",
-    "Ceu_1111","Ceu_1122","Ceu_2211","Ceu_1133","Ceu_3311",
+    "Ceu_1111","Ceu_1122","Ceu_2211","Ceu_1133","Ceu_2233","Ceu_3311",
     "Ced_1111","Ced_1122","Ced_2211","Ced_1133","Ced_3311",
     "Ced_1123","Ced_2223","Ced_3323",
     "Ced_1132","Ced_2232","Ced_3332",
     "CLe_1111","CLe_1122","CLe_2211","CLe_1133","CLe_3311",
-    "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_3311",
+    "CLu_1111","CLu_1122","CLu_2211","CLu_1133","CLu_2233","CLu_3311",
     "CLd_1111","CLd_1122","CLd_2211","CLd_1133","CLd_3311",
     "CLd_1123","CLd_2223","CLd_3323",
     "CLd_1132","CLd_2232","CLd_3332",
     "CQe_1111","CQe_1122","CQe_2211","CQe_1133","CQe_3311",
     "CQe_2311","CQe_2322","CQe_2333",
     "CQe_3211","CQe_3222","CQe_3233",
+    "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
     "Lambda_NP",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
@@ -513,6 +515,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_1122", boost::cref(Ceu_1122)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_2211", boost::cref(Ceu_2211)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_1133", boost::cref(Ceu_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_2233", boost::cref(Ceu_2233)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ceu_3311", boost::cref(Ceu_3311)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_1111", boost::cref(Ced_1111)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ced_1122", boost::cref(Ced_1122)));
@@ -529,6 +532,7 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_1122", boost::cref(CLu_1122)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_2211", boost::cref(CLu_2211)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_1133", boost::cref(CLu_1133)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_2233", boost::cref(CLu_2233)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLu_3311", boost::cref(CLu_3311)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_1111", boost::cref(CLd_1111)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLd_1122", boost::cref(CLd_1122)));
@@ -552,6 +556,10 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_3211", boost::cref(CQe_3211)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_3222", boost::cref(CQe_3222)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CQe_3233", boost::cref(CQe_3233)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLedQ_11", boost::cref(CLedQ_11)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLedQ_22", boost::cref(CLedQ_22)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CpLedQ_11", boost::cref(CpLedQ_11)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CpLedQ_22", boost::cref(CpLedQ_22)));
     }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eggFint", boost::cref(eggFint)));
@@ -1366,6 +1374,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Ceu_1122 = value;
         Ceu_2211 = value;
         Ceu_1133 = value;
+        Ceu_2233 = value;
         Ceu_3311 = value;
     } else if (name.compare("Ceu_1111") == 0) {
         Ceu_1111 = value;
@@ -1375,6 +1384,8 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Ceu_2211 = value;
     } else if (name.compare("Ceu_1133") == 0) {
         Ceu_1133 = value;
+    } else if (name.compare("Ceu_2233") == 0) {
+        Ceu_2233 = value;
     } else if (name.compare("Ceu_3311") == 0) {
         Ceu_3311 = value;
     } else if (name.compare("Ced") == 0) {
@@ -1426,6 +1437,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CLu_1122 = value;
         CLu_2211 = value;
         CLu_1133 = value;
+        CLu_2233 = value;
         CLu_3311 = value;
     } else if (name.compare("CLu_1111") == 0) {
         CLu_1111 = value;
@@ -1435,6 +1447,8 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CLu_2211 = value;
     } else if (name.compare("CLu_1133") == 0) {
         CLu_1133 = value;
+    } else if (name.compare("CLu_2233") == 0) {
+        CLu_2233 = value;
     } else if (name.compare("CLu_3311") == 0) {
         CLu_3311 = value;
     } else if (name.compare("CLd") == 0) {
@@ -1491,6 +1505,14 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQe_3211 = value;
     } else if (name.compare("CQe_3222") == 0) {
         CQe_3222 = value;
+    } else if (name.compare("CLedQ_11") == 0) {
+        CLedQ_11 = value;
+    } else if (name.compare("CLedQ_22") == 0) {
+        CLedQ_22 = value; 
+    } else if (name.compare("CpLedQ_11") == 0) {
+        CpLedQ_11 = value;
+    } else if (name.compare("CpLedQ_22") == 0) {
+        CpLedQ_22 = value; 
     } else if (name.compare("CQe_3233") == 0) {
         CQe_3233 = value;
     } else if (name.compare("Lambda_NP") == 0) {

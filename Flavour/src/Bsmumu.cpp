@@ -76,7 +76,10 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
         throw std::runtime_error("Bsmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
+    /* Temporary usage of MVll class here below  */
+    // gslpp::vector<gslpp::complex> ** allcoeffmumu = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
+    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffBMll(mu, lep); //check the mass scale, scheme fixed to NDR
+    gslpp::vector<gslpp::complex> ** allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu, lep);
 
     double alsmu = evolbsmm.alphatilde_s(mu);
     double alemu = evolbsmm.alphatilde_e(mu);
@@ -150,11 +153,11 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     }
     else{
         C_10_NP = 0.;
-        C_10p_NP = 0.;
-        C_S_NP = 0.;
-        C_Sp_NP = 0.;
-        C_P_NP = 0.;
-        C_Pp_NP = 0.;
+        C_10p_NP = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+        C_S_NP = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
+        C_Sp_NP = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
+        C_P_NP = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
+        C_Pp_NP = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
     }
    
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
@@ -162,13 +165,17 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     switch(order_qed) {
         case FULLNLO_QED:
         {
-            gslpp::complex C10_SM = (*(allcoeff[LO]))(7) /alemu  + (*(allcoeff[NLO]))(7) * alsmu/alemu 
-                    + (*(allcoeff[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeff[LO_QED ]))(7) /alsmu
-                    + (*(allcoeff[NLO_QED11]))(7) + (*(allcoeff[NLO_QED02]))(7) * alemu /alsmu /alsmu 
-                    + (*(allcoeff[NLO_QED21]))(7) * alsmu 
-                    + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
-            
-            gslpp::complex CC_P = C10_SM + SM.computelamt_s() * sw * sw * ( C_10_NP - C_10p_NP + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P_NP - C_Pp_NP) );
+            /* Implementation to be corrected and updated with new EVO: At present better to use MVll!
+            gslpp::complex C10_SM = (*(allcoeffmumu[LO]))(7) /alemu  + (*(allcoeffmumu[NLO]))(7) * alsmu/alemu 
+                    + (*(allcoeffmumu[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeffmumu[LO_QED ]))(7) /alsmu
+                    + (*(allcoeffmumu[NLO_QED11]))(7) + (*(allcoeffmumu[NLO_QED02]))(7) * alemu /alsmu /alsmu 
+                    + (*(allcoeffmumu[NLO_QED21]))(7) * alsmu 
+                    + (*(allcoeffmumu[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeffmumu[NLO_QED22]))(7) * alemu; */
+            /* Temporary usage of MVll result */
+            //std::cout << " C10_SM " << C10_SM / sw / sw / SM.computelamt_s() << std::endl;
+            gslpp::complex C10_SM_plus_NP = SM.computelamt_s() * sw * sw * ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+            //std::cout << " C10_SM_plus_NP " << C10_SM_plus_NP / sw / sw / SM.computelamt_s() << std::endl;
+            gslpp::complex CC_P = C10_SM_plus_NP + SM.computelamt_s() * sw * sw * ( C_10_NP - C_10p_NP + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P_NP - C_Pp_NP) );
           
             absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)
             argP = CC_P.arg();

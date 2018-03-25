@@ -49,17 +49,35 @@ public:
 
 private:
     const NPSMEFTd6 & myNPSMEFTd6;
-    gslpp::matrix<gslpp::complex> myCKM;
     
-    gslpp::complex C9;
-    gslpp::complex C10;
-    gslpp::complex C7g;
-    gslpp::complex C8g;
+    gslpp::complex SMEFT_factor, loop_factor;
     
-    gslpp::complex C9p;
-    gslpp::complex C10p;
-    gslpp::complex C7gp;
-    gslpp::complex C8gp;
+    gslpp::complex C7NP;
+    gslpp::complex C8NP;
+    gslpp::complex C7pNP;
+    gslpp::complex C8pNP;
+    
+    gslpp::complex C9NPmu;
+    gslpp::complex C10NPmu;
+    gslpp::complex C9pNPmu;
+    gslpp::complex C10pNPmu;
+    gslpp::complex CSNPmu;
+    gslpp::complex CSpNPmu;
+    gslpp::complex CPNPmu;
+    gslpp::complex CPpNPmu;
+    
+    gslpp::complex C9NPe;
+    gslpp::complex C10NPe;
+    gslpp::complex C9pNPe;
+    gslpp::complex C10pNPe;
+    gslpp::complex CSNPe;
+    gslpp::complex CSpNPe;
+    gslpp::complex CPNPe;
+    gslpp::complex CPpNPe;
+    
+    gslpp::complex CLQ1_1123_tot, CLQ1_2223_tot;
+    gslpp::complex CLQ3_1123_tot, CLQ3_2223_tot; 
+    gslpp::complex CQe_2311_tot, CQe_2322_tot;
     
     double Muw;
     

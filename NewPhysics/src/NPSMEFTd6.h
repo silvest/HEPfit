@@ -644,7 +644,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 393;
+    static const int NNPSMEFTd6Vars = 399;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -718,7 +718,208 @@ public:
     {
         return NPSMEFTd6M.getObj();
     }
+    
+    ////////////////////////////////////////////////////////////////////////
+ 
+    /**
+    * @brief Return Lambda_NP
+    * @return \f$ Lambda_NP \f$ 
+    */
+    double getLambda_NP() const{
+        return Lambda_NP;
+    }
 
+    /**
+    * @brief Return NP coeff CQe_2322
+    * @return \f$ CQe_2322 \f$ 
+    */
+    double getCQe_2311() const{
+        return CQe_2311;
+    }
+    
+    /**
+    * @brief Return NP coeff CQe_2322
+    * @return \f$ CQe_2311 \f$ 
+    */
+    double getCQe_2322() const{
+        return CQe_2322;
+    }
+
+    /**
+    * @brief Return NP coeff CLQ1_1123
+    * @return \f$ CLQ1_1123 \f$ 
+    */
+    double getCLQ1_1123() const{
+        return CLQ1_1123;
+    }
+    
+    /**
+    * @brief Return NP coeff CLQ1_2223
+    * @return \f$ CLQ1_2223 \f$ 
+    */
+    double getCLQ1_2223() const{
+        return CLQ1_2223;
+    }    
+
+    /**
+    * @brief Return NP coeff CLQ3_1123
+    * @return \f$ CLQ3_1123 \f$ 
+    */
+    double getCLQ3_1123() const{
+        return CLQ3_1123;
+    }
+    
+    /**
+    * @brief Return NP coeff CLQ3_2223
+    * @return \f$ CLQ3_2223 \f$ 
+    */
+    double getCLQ3_2223() const{
+        return CLQ3_2223;
+    }
+    
+    /**
+    * @brief Return NP coeff CLd_1123
+    * @return \f$ CLd_1123 \f$ 
+    */
+    double getCLd_1123() const{
+        return CLd_1123;
+    }
+    
+    /**
+    * @brief Return NP coeff CLd_2223
+    * @return \f$ CLd_2223 \f$ 
+    */
+    double getCLd_2223() const{
+        return CLd_2223;
+    }
+    
+    /**
+    * @brief Return NP coeff Ced_1123
+    * @return \f$ Ced_1123 \f$ 
+    */
+    double getCed_1123() const{
+        return Ced_1123;
+    }
+    
+    /**
+    * @brief Return NP coeff Ced_2223
+    * @return \f$ Ced_2223 \f$ 
+    */
+    double getCed_2223() const{
+        return Ced_2223;
+    }
+    
+    /**
+    * @brief Return NP coeff CHL1_11
+    * @return \f$ CHL1_11 \f$ 
+    */
+    double getCHL1_11() const{
+        return CHL1_11;
+    }
+    
+    /**
+    * @brief Return NP coeff CHL1_22
+    * @return \f$ CHL1_22 \f$ 
+    */
+    double getCHL1_22() const{
+        return CHL1_22;
+    }
+
+    /**
+    * @brief Return NP coeff CHL3_11
+    * @return \f$ CHL3_11 \f$ 
+    */
+    double getCHL3_11() const{
+        return CHL3_11;
+    }
+    
+    /**
+    * @brief Return NP coeff CHL3_22
+    * @return \f$ CHL3_22 \f$ 
+    */
+    double getCHL3_22() const{
+        return CHL3_22;
+    }
+    
+    /**
+    * @brief Return NP coeff CHe_11
+    * @return \f$ CHe_11 \f$ 
+    */
+    double getCHe_11() const{
+        return CHe_11;
+    }
+        
+    /**
+    * @brief Return NP coeff CHe_22
+    * @return \f$ CHe_22 \f$ 
+    */
+    double getCHe_22() const{
+        return CHe_22;
+    }
+    
+    /**
+    * @brief Return NP coeff Ceu_1133
+    * @return \f$ Ceu_1133 \f$ 
+    */
+    double getCeu_1133() const{
+        return Ceu_1133;
+    }
+        
+    /**
+    * @brief Return NP coeff Ceu_2233
+    * @return \f$ Ceu_2233 \f$ 
+    */
+    double getCeu_2233() const{
+        return Ceu_2233;
+    }
+    
+    /**
+    * @brief Return NP coeff CLu_1133
+    * @return \f$ CLu_1133 \f$ 
+    */
+    double getCLu_1133() const{
+        return CLu_1133;
+    }
+        
+    /**
+    * @brief Return NP coeff CLu_2233
+    * @return \f$ CLu_2233 \f$ 
+    */
+    double getCLu_2233() const{
+        return CLu_2233;
+    }
+    
+    /**
+    * @brief Return NP coeff CLedq_11
+    * @return \f$ CLedq_11 \f$ 
+    */
+    double getCLedQ_11() const{
+        return CLedQ_11;
+    }
+
+    /**
+    * @brief Return NP coeff CLedq_22
+    * @return \f$ CLedq_22 \f$ 
+    */
+    double getCLedQ_22() const{
+        return CLedQ_22;
+    }
+    
+        /**
+    * @brief Return NP coeff CpLedq_11
+    * @return \f$ CpLedq_11 \f$ 
+    */
+    double getCpLedQ_11() const{
+        return CpLedQ_11;
+    }
+    
+    /**
+    * @brief Return NP coeff CpLedq_22
+    * @return \f$ CpLedq \f$ 
+    */
+    double getCpLedQ_22() const{
+        return CpLedQ_22;
+    }
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -1630,7 +1831,7 @@ protected:
     double Ceu_1111;
     double Ceu_1122, Ceu_2211;
     double Ceu_1133, Ceu_3311;
-    double Ced_1111;
+    double Ceu_2233, Ced_1111;
     double Ced_1122, Ced_2211;
     double Ced_1133, Ced_3311;
     double Ced_1123, Ced_2223, Ced_3323;
@@ -1638,7 +1839,7 @@ protected:
     double CLe_1111;
     double CLe_1122, CLe_2211;
     double CLe_1133, CLe_3311;
-    double CLu_1111;
+    double CLu_1111, CLu_2233;
     double CLu_1122, CLu_2211;
     double CLu_1133, CLu_3311;
     double CLd_1111;
@@ -1651,6 +1852,7 @@ protected:
     double CQe_1133, CQe_3311;
     double CQe_2311, CQe_2322, CQe_2333;
     double CQe_3211, CQe_3222, CQe_3233;
+    double CLedQ_11, CLedQ_22, CpLedQ_11, CpLedQ_22;
     double Lambda_NP; ///< The new physics scale [GeV].
 // The intrinsic and parametric theory relative errors in the Higgs observables.
     double eggFint; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)
@@ -1874,8 +2076,8 @@ protected:
      * @return @f$(\f$C_{fB})_{ff}\f$@f$
      */
     gslpp::complex CfB_diag(const Particle f) const;
-
-
+    
+    
     ////////////////////////////////////////////////////////////////////////
 private:
 
@@ -1897,4 +2099,3 @@ private:
 };
 
 #endif	/* NPSMEFTD6_H */
-
