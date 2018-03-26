@@ -373,19 +373,21 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Imlam_ts"] = boost::factory<Imlam_ts*>();
     obsThFactory["Imlam_cs"] = boost::factory<Imlam_cs*>();
     obsThFactory["Imlam_us"] = boost::factory<Imlam_us*>();
-    //----- B(s) to mu mu  -----
-    obsThFactory["BR_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 1);
-    obsThFactory["BRbar_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 2);
-    obsThFactory["Amumu_Bd"] = boost::bind(boost::factory<Bdmumu*>(), _1, 3);
-    obsThFactory["Smumu_Bd"] = boost::bind(boost::factory<Bdmumu*>(), _1, 4);
-    obsThFactory["BR_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 1, StandardModel::MU);
-    obsThFactory["BRbar_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 2, StandardModel::MU);
-    obsThFactory["Amumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3, StandardModel::MU);
-    obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4, StandardModel::MU);
-    obsThFactory["BR_Bsee"] = boost::bind(boost::factory<Bsmumu*>(), _1, 1, StandardModel::ELECTRON);
-    obsThFactory["BRbar_Bsee"] = boost::bind(boost::factory<Bsmumu*>(), _1, 2, StandardModel::ELECTRON);
-    obsThFactory["Aee_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3, StandardModel::ELECTRON);
-    obsThFactory["See_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4, StandardModel::ELECTRON);
+    //----- B(s) to mu mu  -----    
+    obsThFactory["BR_Bdmumu"] = boost::bind(boost::factory<Mll*>(), _1, 1, StandardModel::B_D, StandardModel::MU);
+    obsThFactory["BRbar_Bdmumu"] = boost::bind(boost::factory<Mll*>(), _1, 2, StandardModel::B_D, StandardModel::MU);
+    obsThFactory["Amumu_Bd"] = boost::bind(boost::factory<Mll*>(), _1, 3, StandardModel::B_D, StandardModel::MU);
+    obsThFactory["Smumu_Bd"] = boost::bind(boost::factory<Mll*>(), _1, 4, StandardModel::B_D, StandardModel::MU);
+    
+    obsThFactory["BR_Bsmumu"] = boost::bind(boost::factory<Mll*>(), _1, 1, StandardModel::B_S, StandardModel::MU);
+    obsThFactory["BRbar_Bsmumu"] = boost::bind(boost::factory<Mll*>(), _1, 2, StandardModel::B_S, StandardModel::MU);
+    obsThFactory["Amumu_Bs"] = boost::bind(boost::factory<Mll*>(), _1, 3, StandardModel::B_S, StandardModel::MU);
+    obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Mll*>(), _1, 4, StandardModel::B_S, StandardModel::MU);
+    obsThFactory["BR_Bsee"] = boost::bind(boost::factory<Mll*>(), _1, 1, StandardModel::B_S, StandardModel::ELECTRON);
+    obsThFactory["BRbar_Bsee"] = boost::bind(boost::factory<Mll*>(), _1, 2, StandardModel::B_S, StandardModel::ELECTRON);
+    obsThFactory["Aee_Bs"] = boost::bind(boost::factory<Mll*>(), _1, 3, StandardModel::B_S, StandardModel::ELECTRON);
+    obsThFactory["See_Bs"] = boost::bind(boost::factory<Mll*>(), _1, 4, StandardModel::B_S, StandardModel::ELECTRON);
+    
     obsThFactory["BR_BdmumuOBR_Bsmumu"] = boost::factory<BdmumuOBsmumu*>();
    //----- b to q gamma  -----
     obsThFactory["BR_bsgamma"] = boost::bind(boost::factory<Bsgamma*>(), _1, StandardModel::STRANGE, 1);
