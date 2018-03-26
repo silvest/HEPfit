@@ -19,7 +19,7 @@
 class RealWeakEFTLFV: public StandardModel {
 public:
 
-    static const int NRealWeakEFTLFVvars = 25;
+    static const int NRealWeakEFTLFVvars = 21;
 
     static const std::string RealWeakEFTLFVvars[NRealWeakEFTLFVvars];
     
