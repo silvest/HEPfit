@@ -22,10 +22,7 @@ RealWeakEFTLFVMatching::RealWeakEFTLFVMatching(const RealWeakEFTLFV & RealWeakEF
 {}
 
 void RealWeakEFTLFVMatching::updateRealWeakEFTLFVParameters()
-{
-    
-    Muw = myRealWeakEFTLFV.getMuw();
-    
+{    
     C7NP = myRealWeakEFTLFV.getC7();
     C7pNP = myRealWeakEFTLFV.getC7p();
     C8NP = myRealWeakEFTLFV.getC8();
@@ -48,6 +45,8 @@ void RealWeakEFTLFVMatching::updateRealWeakEFTLFVParameters()
     CSpNPmu = myRealWeakEFTLFV.getCSp_22();
     CPNPmu = myRealWeakEFTLFV.getCP_22();
     CPpNPmu = myRealWeakEFTLFV.getCPp_22();
+    
+    WCscale = myRealWeakEFTLFV.getWCscale();
 
     StandardModelMatching::updateSMParameters();
 }
@@ -70,7 +69,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsmm()
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsmm(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcbsmm.setMu(Muw);
+    mcbsmm.setMu(WCscale);
 
     switch (mcbsmm.getOrder()) {
         case NNLO:
@@ -104,7 +103,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbdmm()
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbdmm(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcbdmm.setMu(Muw);
+    mcbdmm.setMu(WCscale);
 
     switch (mcbdmm.getOrder()) {
         case NNLO:
@@ -138,7 +137,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsg()
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcbsg.setMu(Muw);
+    mcbsg.setMu(WCscale);
 
     switch (mcbsg.getOrder()) {
         case NNLO:
@@ -173,7 +172,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimebsg()
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMprimebsg(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcprimebsg.setMu(Muw);
+    mcprimebsg.setMu(WCscale);
 
     switch (mcprimebsg.getOrder()) {
         case NNLO:
@@ -208,7 +207,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBMll(QCD::lepton lepto
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMBMll(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcBMll.setMu(Muw);
+    mcBMll.setMu(WCscale);
 
     switch (mcBMll.getOrder()) {
         case NNLO:
@@ -258,7 +257,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimeBMll(QCD::lepton 
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMprimeBMll(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcprimeBMll.setMu(Muw);
+    mcprimeBMll.setMu(WCscale);
 
     switch (mcprimeBMll.getOrder()) {
         case NNLO:

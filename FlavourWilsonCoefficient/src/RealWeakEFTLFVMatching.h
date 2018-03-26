@@ -75,7 +75,7 @@ private:
     gslpp::complex CPNPmu;
     gslpp::complex CPpNPmu;
     
-    double Muw;
+    double WCscale;
     
     WilsonCoefficient mcbsg, mcprimebsg;
     WilsonCoefficient mcbsmm;
