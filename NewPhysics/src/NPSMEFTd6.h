@@ -1136,6 +1136,12 @@ public:
      */
     // no generation mixing
     virtual gslpp::complex deltaG_hff(const Particle p) const;
+    
+    /**
+     * @brief The new physics contribution to the Higgs self-coupling @f$ H H H@f$. Normalized to the SM value.
+     * @return @f$\delta g_{HHH}/g_{HHH}^SM}@f$
+     */
+    virtual double deltaG_hhhRatio() const;
 
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -1293,6 +1299,14 @@ public:
      * @return @f$\mu_{ggH}@f$
      */
     virtual double muggH(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{ggHH}@f$ between the gluon-gluon fusion di-Higgs
+     * production cross-section in the current model and in the Standard Model.
+     * (From arXiv: 1502.00539 [hpe-ph].)
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggHH}@f$
+     */
+    virtual double muggHH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs
      * production cross-section in the current model and in the Standard Model. 
@@ -1831,7 +1845,8 @@ protected:
     double Ceu_1111;
     double Ceu_1122, Ceu_2211;
     double Ceu_1133, Ceu_3311;
-    double Ceu_2233, Ced_1111;
+    double Ceu_2233;
+    double Ced_1111;
     double Ced_1122, Ced_2211;
     double Ced_1133, Ced_3311;
     double Ced_1123, Ced_2223, Ced_3323;
@@ -1839,9 +1854,10 @@ protected:
     double CLe_1111;
     double CLe_1122, CLe_2211;
     double CLe_1133, CLe_3311;
-    double CLu_1111, CLu_2233;
+    double CLu_1111;
     double CLu_1122, CLu_2211;
     double CLu_1133, CLu_3311;
+    double CLu_2233;
     double CLd_1111;
     double CLd_1122, CLd_2211;
     double CLd_1133, CLd_3311;

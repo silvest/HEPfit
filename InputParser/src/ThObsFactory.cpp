@@ -257,6 +257,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muppHmumu13"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muppHZga8"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC8);
     obsThFactory["muppHZga13"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muggHH2ga2b14"] = boost::bind(boost::factory<muggHH2ga2b*>(), _1, sqrt_s_LHC14);
+    obsThFactory["muggHH2ga2b100"] = boost::bind(boost::factory<muggHH2ga2b*>(), _1, sqrt_s_FCC100);
     //-----  Limits  ----------
     obsThFactory["UpperLimit_ppHZgammaA13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA13*>(), _1, sqrt_s_LHC13);
     obsThFactory["UpperLimit_ppHZgammaC13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaC13*>(), _1, sqrt_s_LHC13);

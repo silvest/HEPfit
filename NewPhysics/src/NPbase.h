@@ -530,6 +530,14 @@ public:
     {
         return 0.0;
     };
+    /**
+     * @brief The new physics contribution to the Higgs self-coupling @f$ H H H@f$. Normalized to the SM value.
+     * @return @f$\delta g_{HHH}/g_{HHH}^SM}@f$
+     */
+    virtual double deltaG_hhhRatio() const
+    {
+        return 0.0;
+    };
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -540,6 +548,17 @@ public:
      * @return @f$\mu_{ggH}@f$
      */
     virtual double muggH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio @f$\mu_{ggHH}@f$ between the gluon-gluon fusion di-Higgs
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggHH}@f$
+     */
+    virtual double muggHH(const double sqrt_s) const
     {
         return 1.0;
     }
