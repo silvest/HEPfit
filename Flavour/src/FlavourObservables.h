@@ -17,8 +17,9 @@
 #include "gamma.h"
 #include "SJPsiK.h"
 #include "Betas_JPsiPhi.h"
-#include "Bdmumu.h"
-#include "Bsmumu.h"
+//#include "Bdmumu.h"
+//#include "Bsmumu.h"
+#include "Mll.h"
 #include "Btaunu.h"
 #include "bsgamma.h"
 #include "M12D.h"
@@ -32,8 +33,6 @@
 #include "BdmumuOBsmumu.h"
 #include "WilsonCoefficientObservables.h"
 #include "BXqllObservables.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
-/** END: REMOVE FROM THE PACKAGE **/
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

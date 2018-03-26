@@ -1,26 +1,25 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2018 SusyFit Collaboration
  *
  *
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef BSMUMU_H
-#define	BSMUMU_H
+#ifndef MLL_H
+#define MLL_H
 
 class StandardModel;
-class EvolBsmm;
 #include "ThObservable.h"
 #include "QCD.h"
 #include "OrderScheme.h"
 
-class Bsmumu : public ThObservable {
+class Mll : public ThObservable {
 public:   
     /**
      * constructor
      * @param Flavour
      */
-    Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i);
+    Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton lep_i);
     
     /**
      * 
@@ -47,6 +46,9 @@ protected:
 private:
     
     QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson;
+    double ys;
+    gslpp::complex CKM_factor;
     double beta;
     double mBs;
     double mW;
@@ -64,7 +66,6 @@ private:
     double phiNP;
     double timeInt;
     int obs;
-    EvolBsmm& evolbsmm;
     gslpp::complex C_10;
     gslpp::complex C_10p;
     gslpp::complex C_S;
@@ -74,4 +75,5 @@ private:
 
 };
 
-#endif	/* BSMUMU_H */
+#endif /* MLL_H */
+
