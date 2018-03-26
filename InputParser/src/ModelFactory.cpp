@@ -29,6 +29,7 @@
 #include "SUSY.h"
 #include "THDM.h"
 #include "FlavourWilsonCoefficient.h"
+#include "RealWeakEFTLFV.h"
 #include "NPDF2.h"
 #include "CMFV.h"
 #include "GeorgiMachacek.h"
@@ -76,6 +77,7 @@ ModelFactory::ModelFactory()
     modelFactory["NPDF2"] = boost::factory<NPDF2*>();
     modelFactory["CMFV"] = boost::factory<CMFV*>();
     modelFactory["FlavourWilsonCoefficient"] = boost::factory<FlavourWilsonCoefficient*>();
+    modelFactory["RealWeakEFTLFV"] = boost::factory<RealWeakEFTLFV*>();
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
