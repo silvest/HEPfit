@@ -424,12 +424,6 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("fullKD") == 0) {
         SMFlavour.setFlagFullKD(value);
         res = true;
-    } else if (name.compare("WET_NP_btos") == 0) {
-        SMFlavour.setFlagWET_NP_btos(value);
-        res = true;
-    } else if (name.compare("SMEFT_NP_btos") == 0) {
-        SMFlavour.setFlagSMEFT_NP_btos(value);
-        res = true;
     } else
         res = QCD::setFlag(name, value);
 

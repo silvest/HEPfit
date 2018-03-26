@@ -43,8 +43,6 @@ MVgamma_Bsphigamma(*(new MVgamma(SM_i, StandardModel::B_S, StandardModel::PHI)))
     update_Bsphigamma = true;
     
     fullKD = false;
-    WET_NP_btos = false;
-    SMEFT_NP_btos = false;
 };
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const

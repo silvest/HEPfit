@@ -508,19 +508,22 @@ public:
     gslpp::complex getQCDf_1(double q2)
     {
         updateParameters();
-        return (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) - fDeltaC9_p(q2) * V_p(q2)));
+//        return (gtilde_1_pre/(sqrt(lambda(q2)) * V(q2)) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) - fDeltaC9_p(q2) * V_p(q2)));
+        return 0.;
     }
     
     gslpp::complex getQCDf_2(double q2)
     {
         updateParameters();
-        return (gtilde_2_pre/A_1(q2) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2)));
+//        return (gtilde_2_pre/A_1(q2) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2)));
+        return 0.;
     }
     
     gslpp::complex getQCDf_3(double q2)
     {
         updateParameters();
-        return (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2) * 1./(16. * M_PI * M_PI * MM*MM) * fDeltaC9_0(q2) * V_0t(q2) - (MM2mMV2 - q2)/(4.*MV) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2))));
+//        return (gtilde_3_pre/(lambda(q2) * A_2(q2)) * (sqrt(q2) * 1./(16. * M_PI * M_PI * MM*MM) * fDeltaC9_0(q2) * V_0t(q2) - (MM2mMV2 - q2)/(4.*MV) * 1./(16. * M_PI * M_PI * MM*MM) * (fDeltaC9_m(q2) * V_m(q2) + fDeltaC9_p(q2) * V_p(q2))));
+        return 0.;
     }
     
     double getQCDfC9_1(double q2, double cutoff)
@@ -720,7 +723,6 @@ private:
     F_1& myF_1;
     F_2& myF_2;
     bool fullKD;
-    bool WET_NP_btos, SMEFT_NP_btos;
     double mJ2;
     gslpp::complex exp_Phase[3];
     
@@ -747,10 +749,10 @@ private:
     double fpara;
     double fperp;
 
-    double MW;            /**<W boson mass */
+    double MW;                          /**<W boson mass */
     gslpp::complex lambda_t;     /**<Vckm factor */
-    gslpp::complex lambda_u;     /**<Vckm factor */
-    double b;             /**<BF of the decay V -> final states */
+    gslpp::complex lambda_u;    /**<Vckm factor */
+    double b;                            /**<BF of the decay V -> final states */
     gslpp::complex h_0[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_1[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
     gslpp::complex h_2[3];         /**<Parameter that contains the contribution from the hadronic hamiltonian */
@@ -784,10 +786,6 @@ private:
     double M_PI2osix;/**< Cache variable */
     double N_QCDF;
     double twoMM;/**< Cache variable */
-    double m4downcharge;/**< Cache variable */
-    double threeGegen0;/**< Cache variable */
-    double threeGegen1otwo;/**< Cache variable */
-    double twoMc2;/**< Cache variable */
     double ninetysixM_PI3MM3;/**< Cache variable */
     double M_PI2;
     double sixteenM_PI2;/**< Cache variable */
@@ -816,12 +814,10 @@ private:
     double S_L_pre;/**< Cache variable */
     gslpp::complex NN;/**< coupling including the CKM element */
     gslpp::complex NN_conjugate;/**< conjugate of the coupling including the CKM element */
-    double sixMMoMb;/**< Cache variable */
     double CF;/**< Cache variable */
     double deltaT_0;/**< Cache variable */
     double deltaT_1par;/**< Cache variable */
     double deltaT_1perp;/**< Cache variable */
-    double Ee;/**< Cache variable */
     
     bool h_pole;
     
@@ -841,21 +837,6 @@ private:
     gslpp::complex F87_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     gslpp::complex F87_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     gslpp::complex F87_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_L1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_L1_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_L1_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F29_L1_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F27_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F27_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F27_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F27_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F27_L1_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F27_L1_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    gslpp::complex F27_L1_3;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     double F89_0;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     double F89_1;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     double F89_2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
@@ -919,16 +900,6 @@ private:
     gslpp::complex C_Sp;/**<Wilson coeffients @f$C_S'@f$*/
     gslpp::complex C_Pp;/**<Wilson coeffients @f$C_P'@f$*/
     
-    gslpp::complex C_7_NP;
-    gslpp::complex C_7p_NP;
-    gslpp::complex C_9_NP;
-    gslpp::complex C_9p_NP;
-    gslpp::complex C_10_NP;
-    gslpp::complex C_10p_NP;
-    gslpp::complex C_S_NP;
-    gslpp::complex C_Sp_NP;
-    gslpp::complex C_P_NP;
-    gslpp::complex C_Pp_NP;
     
     std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
     std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
@@ -956,6 +927,11 @@ private:
     gsl_spline *spline_Im_deltaC9_QCDF;
     
 #if COMPUTECP  
+    std::vector<double> Re_T_perp_conj;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
+    std::vector<double> Im_T_perp_conj;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
+    std::vector<double> Re_T_para_conj;/**<Vector that samples the QCDF @f$Re(T_{para})@f$ */
+    std::vector<double> Im_T_para_conj;/**<Vector that samples the QCDF @f$Im(T_{para})@f$ */
+    
     gsl_interp_accel *acc_Re_T_perp_conj;
     gsl_interp_accel *acc_Im_T_perp_conj;
     gsl_interp_accel *acc_Re_T_para_conj;
@@ -977,28 +953,7 @@ private:
     gsl_spline *spline_Im_deltaC9_QCDF_conj;
 #endif
     
-    std::vector<double> Re_T_perp_conj;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
-    std::vector<double> Im_T_perp_conj;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
-    std::vector<double> Re_T_para_conj;/**<Vector that samples the QCDF @f$Re(T_{para})@f$ */
-    std::vector<double> Im_T_para_conj;/**<Vector that samples the QCDF @f$Im(T_{para})@f$ */
-    
-    std::vector<double> ReDeltaC9_p_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ImDeltaC9_p_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ReDeltaC9_m_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ImDeltaC9_m_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ReDeltaC9_0_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ImDeltaC9_0_mumu;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ReDeltaC9_p_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ImDeltaC9_p_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ReDeltaC9_m_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ImDeltaC9_m_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ReDeltaC9_0_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ImDeltaC9_0_ee;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
     std::vector<double> myq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
-    
-//    std::vector<double> Abs_h_0;
-//    std::vector<double> Abs_h_p;
-//    std::vector<double> Abs_h_m;
     
     TFitResultPtr Re_T_perp_res;/**<Vector that contains the fitted QCDF @f$Re(T_{perp})@f$ */
     TFitResultPtr Im_T_perp_res;/**<Vector that contains the fitted QCDF @f$Im(T_{perp})@f$ */
@@ -1009,25 +964,7 @@ private:
     TFitResultPtr Im_T_perp_res_conj;/**<Vector that contains the fitted QCDF @f$Im(T_{perp})@f$ */
     TFitResultPtr Re_T_para_res_conj;/**<Vector that contains the fitted QCDF @f$Re(T_{para})@f$ */
     TFitResultPtr Im_T_para_res_conj;/**<Vector that contains the fitted QCDF @f$Im(T_{para})@f$ */
-    
-    TFitResultPtr refres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr imfres_p_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr refres_m_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr imfres_m_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr refres_0_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr imfres_0_mumu;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    
-    TFitResultPtr refres_p_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr imfres_p_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr refres_m_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr imfres_m_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr refres_0_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    TFitResultPtr imfres_0_ee;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
-    
-//    TFitResultPtr absfres_h_0;
-//    TFitResultPtr absfres_h_p;
-//    TFitResultPtr absfres_h_m;
-//        
+       
     TGraph gr1;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
     TGraph gr2;/**<Tgraph to be used for fitting the QCDF @f$\Delta C_9@f$ */
     
@@ -1035,25 +972,18 @@ private:
     
     TF1 reffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
     TF1 imffit;/**<TF1 to be used for fitting the QCDF @f$\Delta C_9@f$ */
-//    TF1 absffit;
     
-    double tmpq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
+    double avaSigma;/**< GSL integral variable */
+    double avaDelta;/**< GSL integral variable */
     
-    double avaSigma;/**< Gsl integral variable */
-    double avaDelta;/**< Gsl integral variable */
-    double avaDTPPR;/**< Gsl integral variable */    
+    double errSigma;/**< GSL integral variable */
+    double errDelta;/**< GSL integral variable */
     
-    double errSigma;/**< Gsl integral variable */
-    double errDelta;/**< Gsl integral variable */
-    double errDTPPR;/**< Gsl integral variable */
+    gsl_function FS;/**< GSL integral variable */
+    gsl_function FD;/**< GSL integral variable */
     
-    gsl_function FS;/**< Gsl integral variable */
-    gsl_function FD;/**< Gsl integral variable */
-    gsl_function DTPPR;/**< Gsl integral variable */
-    
-    gsl_integration_cquad_workspace * w_DTPPR;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_sigma;/**< Gsl integral variable */
-    gsl_integration_cquad_workspace * w_delta;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_sigma;/**< GSL integral variable */
+    gsl_integration_cquad_workspace * w_delta;/**< GSL integral variable */
     
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
     
@@ -2249,259 +2179,6 @@ private:
     * @return \f$ FF^{\rm fit} \f$
     */
     double FF_fit(double q2, double a_0, double a_1, double a_2, double MR2);
-    
-    /**
-    * @brief The \f$ I_1 \f$ function from @cite Beneke:2001at .
-    * @param[in] u dummy variable to be integrated out
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ I_1 \f$
-    */
-    gslpp::complex I1(double u, double q2);
-    
-    /**
-    * @brief The \f$ T^{\perp}_+ \f$ function from @cite Beneke:2001at .
-    * @param[in] u dummy variable to be integrated out
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T^{\perp}_+ \f$
-    */
-    gslpp::complex Tperpplus(double u, double q2);
-    
-    /**
-    * @brief The \f$ T^{\parallel}_+ \f$ function from @cite Beneke:2001at .
-    * @param[in] u dummy variable to be integrated out
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T^{\parallel}_+ \f$
-    */
-    gslpp::complex Tparplus(double u, double q2);
-    
-    /**
-    * @brief The \f$ T^{\parallel}_- \f$ function from @cite Beneke:2001at .
-    * @param[in] u dummy variable to be integrated out
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ T^{\parallel}_- \f$
-    */
-    gslpp::complex Tparminus(double u, double q2);
-    
-    /**
-    * @brief The real part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Re T^{\perp}_+ \Phi^{\perp}\f$
-    */
-    double Integrand_ReTperpplus(double up);
-    
-    /**
-    * @brief The imaginary part of the integral involving \f$ T^{\perp}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Im T^{\perp}_+ \Phi^{\perp}\f$
-    */
-    double Integrand_ImTperpplus(double up);
-    
-    /**
-    * @brief The real part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Re T^{\parallel}_+ \Phi^{\parallel}\f$
-    */
-    double Integrand_ReTparplus(double up);
-    
-    /**
-    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_+ \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Im T^{\parallel}_+ \Phi^{\parallel}\f$
-    */
-    double Integrand_ImTparplus(double up);
-    
-    /**
-    * @brief The real part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Re T^{\parallel}_- \Phi^{\parallel}\f$
-    */
-    double Integrand_ReTparminus(double up);
-    
-    /**
-    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Im T^{\parallel}_- \Phi^{\parallel}\f$
-    */
-    double Integrand_ImTparminus(double up);
-    
-    /**
-    * @brief The sum of Integrand_ReTparplus() and Integrand_ReTparminus().
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Re T^{\parallel}_+ \Phi^{\parallel} + Re T^{\parallel}_- \Phi^{\parallel}\f$
-    */
-    double Integrand_ReTpar_pm(double up);
-    
-    /**
-    * @brief The sum of Integrand_ImTparplus() and Integrand_ImTparminus().
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Im T^{\parallel}_+ \Phi^{\parallel} + Im T^{\parallel}_- \Phi^{\parallel}\f$
-    */
-    double Integrand_ImTpar_pm(double up);
-
-    /**
-    * @brief The correction \f$ F_{19} \f$ from @cite Asatrian:2001de.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ F_{19} \f$
-    */
-    gslpp::complex F19(double q2);
-
-    /**
-    * @brief The correction \f$ F_{27} \f$ from @cite Asatrian:2001de.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ F_{27} \f$
-    */
-    gslpp::complex F27(double q2);
-
-    /**
-    * @brief The correction \f$ F_{29} \f$ from @cite Asatrian:2001de.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ F_{29} \f$
-    */
-    gslpp::complex F29(double q2);
-
-    /**
-    * @brief The correction \f$ F_{87} \f$ from @cite Asatrian:2001de.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ F_{87} \f$
-    */
-    gslpp::complex F87(double q2);
-
-    /**
-    * @brief The correction \f$ F_{89} \f$ from @cite Asatrian:2001de.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ F_{89} \f$
-    */
-    double F89(double q2);
-    
-    /**
-    * @brief The correction \f$ C_{\perp} \f$ from @cite Beneke:2001at .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ C_{\perp} \f$
-    */
-    gslpp::complex Cperp(double q2);
-    
-    /**
-    * @brief The correction \f$ C_{\parallel} \f$ from @cite Beneke:2001at .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ C_{\parallel} \f$
-    */
-    gslpp::complex Cpar(double q2);
-    
-    /**
-    * @brief The total correction \f$ \Delta \mathcal{T}^{\perp} \f$ from @cite Beneke:2001at .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta \mathcal{T}^{\perp} \f$
-    */
-    gslpp::complex deltaTperp(double q2);
-    
-    /**
-    * @brief The total correction \f$ \Delta \mathcal{T}^{\parallel} \f$ from @cite Beneke:2001at .
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta \mathcal{T}^{\parallel} \f$
-    */
-    gslpp::complex deltaTpar(double q2);
-    
-    /**
-    * @brief The total QCDF correction \f$ \Delta C_9^0 \f$ computed integrating over \f$ u \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^0 \f$
-    */
-    gslpp::complex DeltaC9_0(double q2);
-    
-    /**
-    * @brief The total QCDF correction \f$ \Delta C_9^+ \f$ computed integrating over \f$ u \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^+ \f$
-    */
-    gslpp::complex DeltaC9_p(double q2);
-    
-    /**
-    * @brief The total QCDF correction \f$ \Delta C_9^- \f$ computed integrating over \f$ u \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^- \f$
-    */
-    gslpp::complex DeltaC9_m(double q2);
-    
-    /**
-    * @brief The fit function for the real part of the QCDF correction \f$ \Delta C_9^{\lambda} \f$.
-    * @param[in] x fit variable
-    * @param[in] p fit parameters vector
-    * @return \f$ f_{Re \Delta C_9^{\lambda}} \f$
-    */
-    double reDC9fit(double* x, double* p);
-    
-    /**
-    * @brief The fit function for the imaginary part of the QCDF correction \f$ \Delta C_9^{\lambda} \f$.
-    * @param[in] x fit variable
-    * @param[in] p fit parameters vector
-    * @return \f$ f_{Im \Delta C_9^{\lambda}} \f$
-    */
-    double imDC9fit(double* x, double* p);
-    
-    /**
-    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^+ \f$ in the muon channel.
-    */
-    void fit_DeltaC9_p_mumu();
-    
-    /**
-    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^- \f$ in the muon channel.
-    */
-    void fit_DeltaC9_m_mumu();
-    
-    /**
-    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^0 \f$ in the muon channel.
-    */
-    void fit_DeltaC9_0_mumu();
-    
-    /**
-    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^+ \f$ in the electron channel.
-    */
-    void fit_DeltaC9_p_ee();
-    
-    /**
-    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^- \f$ in the electron channel.
-    */
-    void fit_DeltaC9_m_ee();
-    
-    /**
-    * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^0 \f$ in the electron channel.
-    */
-    void fit_DeltaC9_0_ee();
-    
-    /**
-    * @brief The total QCDF correction \f$ \Delta C_9^+ \f$ computed fitting over \f$ u \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^+ \f$
-    */
-    gslpp::complex fDeltaC9_p(double q2);
-    
-    /**
-    * @brief The total QCDF correction \f$ \Delta C_9^- \f$ computed fitting over \f$ u \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^- \f$
-    */
-    gslpp::complex fDeltaC9_m(double q2);
-    
-    /**
-    * @brief The total QCDF correction \f$ \Delta C_9^0 \f$ computed fitting over \f$ u \f$.
-    * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ \Delta C_9^0 \f$
-    */
-    gslpp::complex fDeltaC9_0(double q2);
-    
-//    void fit_h_0();
-//    
-//    void fit_h_p();
-//    
-//    void fit_h_m();
-//    
-//    double Abs_h_0_fit(double* x, double* p);
-//    
-//    double Abs_h_p_fit(double* x, double* p);
-//    
-//    double Abs_h_m_fit(double* x, double* p);
-//    
-//    const double * params;
     
 };
 

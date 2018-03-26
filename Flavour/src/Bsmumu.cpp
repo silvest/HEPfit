@@ -85,81 +85,15 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     double alemu = evolbsmm.alphatilde_e(mu);
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
     double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) );
+
+
+    C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
+    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
     
-    bool WET_NP_btos = SM.getFlavour().getFlagWET_NP_btos();
-    bool SMEFT_NP_btos = SM.getFlavour().getFlagSMEFT_NP_btos();
-    
-    if(WET_NP_btos){
-        if(lep == StandardModel::ELECTRON){
-            C_10_NP = SM.getOptionalParameter("C10_e");
-            C_10p_NP = SM.getOptionalParameter("C10p_e");
-            C_S_NP = SM.getOptionalParameter("CS_e");
-            C_Sp_NP = SM.getOptionalParameter("CSp_e");
-            C_P_NP = SM.getOptionalParameter("CP_e");
-            C_Pp_NP = SM.getOptionalParameter("CPp_e");
-        }
-        else{
-            C_10_NP = SM.getOptionalParameter("C10_mu");
-            C_10p_NP = SM.getOptionalParameter("C10p_mu");
-            C_S_NP = SM.getOptionalParameter("CS_mu");
-            C_Sp_NP = SM.getOptionalParameter("CSp_mu");
-            C_P_NP = SM.getOptionalParameter("CP_mu");
-            C_Pp_NP = SM.getOptionalParameter("CPp_mu");     
-        }
-    }
-    else if(SMEFT_NP_btos){
-        // normalization to \Lambda = 1 TeV
-        gslpp::complex SMEFT_factor = (M_PI/SM.getAle())*(SM.v()*1.e-3)*(SM.v()*1.e-3)/SM.computelamt_s();
-        if(lep == StandardModel::ELECTRON){
-            C_10_NP = SM.getOptionalParameter("CQe23_11");
-            C_10_NP -= SM.getOptionalParameter("C1LQ11_23");
-            C_10_NP -= SM.getOptionalParameter("C3LQ11_23");
-            C_10_NP += SM.getOptionalParameter("C1HQ");
-            C_10_NP += SM.getOptionalParameter("C3HQ");
-            C_10_NP *= SMEFT_factor; 
-            C_10p_NP = SM.getOptionalParameter("Ced11_23");
-            C_10p_NP -= SM.getOptionalParameter("CLd11_23");
-            C_10p_NP += SM.getOptionalParameter("CHd");
-            C_10p_NP *= SMEFT_factor; 
-            C_S_NP = SM.getOptionalParameter("CLedQ_11");
-            C_S_NP *= SMEFT_factor; 
-            C_Sp_NP = SM.getOptionalParameter("CpLedQ_11");
-            C_Sp_NP *= SMEFT_factor;
-            C_P_NP = -SM.getOptionalParameter("CLedQ_11");
-            C_P_NP *= SMEFT_factor;
-            C_Pp_NP = SM.getOptionalParameter("CpLedQ_11");
-            C_Pp_NP *= SMEFT_factor;
-        }
-        else{
-            C_10_NP = SM.getOptionalParameter("CQe23_22");
-            C_10_NP -= SM.getOptionalParameter("C1LQ22_23");
-            C_10_NP -= SM.getOptionalParameter("C3LQ22_23");
-            C_10_NP += SM.getOptionalParameter("C1HQ");
-            C_10_NP += SM.getOptionalParameter("C3HQ");
-            C_10_NP *= SMEFT_factor; 
-            C_10p_NP = SM.getOptionalParameter("Ced22_23");
-            C_10p_NP -= SM.getOptionalParameter("CLd22_23");
-            C_10p_NP += SM.getOptionalParameter("CHd");
-            C_10p_NP *= SMEFT_factor; 
-            C_S_NP = SM.getOptionalParameter("CLedQ_22");
-            C_S_NP *= SMEFT_factor; 
-            C_Sp_NP = SM.getOptionalParameter("CpLedQ_22");
-            C_Sp_NP *= SMEFT_factor;
-            C_P_NP = -SM.getOptionalParameter("CLedQ_22");
-            C_P_NP *= SMEFT_factor;
-            C_Pp_NP = SM.getOptionalParameter("CpLedQ_22");
-            C_Pp_NP *= SMEFT_factor;        
-        }
-    }
-    else{
-        C_10_NP = 0.;
-        C_10p_NP = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
-        C_S_NP = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
-        C_Sp_NP = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
-        C_P_NP = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
-        C_Pp_NP = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
-    }
-   
     if((order == FULLNLO) && (order_qed == FULLNLO_QED)){
     
     switch(order_qed) {
@@ -173,14 +107,14 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                     + (*(allcoeffmumu[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeffmumu[NLO_QED22]))(7) * alemu; */
             /* Temporary usage of MVll result */
             //std::cout << " C10_SM " << C10_SM / sw / sw / SM.computelamt_s() << std::endl;
-            gslpp::complex C10_SM_plus_NP = SM.computelamt_s() * sw * sw * ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+//            gslpp::complex C10_SM_plus_NP = SM.computelamt_s() * sw * sw * ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
             //std::cout << " C10_SM_plus_NP " << C10_SM_plus_NP / sw / sw / SM.computelamt_s() << std::endl;
-            gslpp::complex CC_P = C10_SM_plus_NP + SM.computelamt_s() * sw * sw * ( C_10_NP - C_10p_NP + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P_NP - C_Pp_NP) );
+            gslpp::complex CC_P = SM.computelamt_s() * sw * sw * ( C_10 - C_10p + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P - C_Pp) );
           
             absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)
             argP = CC_P.arg();
             
-            gslpp::complex CC_S = SM.computelamt_s() * sw * sw * ( beta * mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_S_NP - C_Sp_NP) );
+            gslpp::complex CC_S = SM.computelamt_s() * sw * sw * ( beta * mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_S - C_Sp) );
 
             absS = CC_S.abs();
             argS = CC_S.arg();
