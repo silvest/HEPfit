@@ -161,9 +161,9 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMbsg()
 
     switch (mcbsg.getOrder()) {
         case NNLO:
-            mcbsg.setCoeff(6, C7NP, NNLO);
+            mcbsg.setCoeff(6, 0., NNLO);
         case NLO:
-            mcbsg.setCoeff(6, C7NP, NLO);
+            mcbsg.setCoeff(6, 0., NLO);
         case LO:
             mcbsg.setCoeff(6, C7NP, LO);
             break;
@@ -196,9 +196,9 @@ std::vector<WilsonCoefficient>& NPSMEFTd6Matching::CMprimebsg()
 
     switch (mcprimebsg.getOrder()) {
         case NNLO:
-            mcprimebsg.setCoeff(6, C7pNP, NNLO);
+            mcprimebsg.setCoeff(6, 0., NNLO);
         case NLO:
-            mcprimebsg.setCoeff(6, C7pNP, NLO);
+            mcprimebsg.setCoeff(6, 0., NLO);
         case LO:
             mcprimebsg.setCoeff(6, C7pNP, LO);
             break;
