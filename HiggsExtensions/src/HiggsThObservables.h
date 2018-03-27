@@ -1742,6 +1742,59 @@ private:
     const double sqrt_s;
 };
 
+
+
+
+/**
+ * @class muggHH2ga2b
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the signal strength for di-Higgs production via
+ * gluon fusion in the @f$\gamma\gamma b b@f$ channel.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the signal strength for di-Higgs production via
+ * gluon fusion in the @f$\gamma\gamma b b@f$ channel in the current model.
+ */
+class muggHH2ga2b : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muggHH2ga2b(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muggH called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{ggH}@f$ in the current model.
+     * @return @f$\mu_{ggH}@f$
+     */
+    double computeThValue()
+    {
+        return (myNPbase->muggHH(sqrt_s))*(myNPbase->BrHgagaRatio())*(myNPbase->BrHbbRatio());
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * @class UpperLimit_ppHZgammaA
  * @ingroup HiggsExtensions

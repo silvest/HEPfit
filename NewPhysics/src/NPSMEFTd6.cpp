@@ -2384,6 +2384,15 @@ gslpp::complex NPSMEFTd6::deltaG_hff(const Particle p) const
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
 }
 
+double NPSMEFTd6::deltaG_hhhRatio() const
+{    
+    double dg;
+    
+    dg = -0.5 * DeltaGF() + 3.0 * delta_h - 2.0 * CH * v2_over_LambdaNP2 * v()*v()/mHl/mHl;
+
+    return dg;
+}
+
 gslpp::complex NPSMEFTd6::deltaGL_Wffh(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
@@ -2579,6 +2588,80 @@ double NPSMEFTd6::muggH(const double sqrt_s) const
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eggFint + eggFpar;
     
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+double NPSMEFTd6::muggHH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    double A1HH = 0.0, A2HH = 0.0, A3HH = 0.0, A4HH = 0.0, A5HH = 0.0;
+    double A6HH = 0.0, A7HH = 0.0, A8HH = 0.0, A9HH = 0.0, A10HH = 0.0;
+    double A11HH = 0.0, A12HH = 0.0, A13HH = 0.0, A14HH = 0.0, A15HH = 0.0;    
+    double ct,c2t,c3,cg,c2g;
+    
+    if (sqrt_s == 14.0) {
+
+        A1HH = 2.13;
+        A2HH = 10.1;
+        A3HH = 0.300;
+        A4HH = 21.8;
+        A5HH = 188;
+        A6HH = -8.62;
+        A7HH = -1.43;
+        A8HH = 2.93;
+        A9HH = 21.0;
+        A10HH = 59.8;
+        A11HH = -9.93;
+        A12HH = -23.1;
+        A13HH = 4.87;
+        A14HH = 10.5;
+        A15HH = 96.6;
+        
+    } else if (sqrt_s == 100.0) {
+
+        A1HH = 1.95;
+        A2HH = 11.2;
+        A3HH = 0.229;
+        A4HH = 16.0;
+        A5HH = 386;
+        A6HH = -8.32;
+        A7HH = -1.18;
+        A8HH = 2.55;
+        A9HH = 16.9;
+        A10HH = 52.4;
+        A11HH = -7.49;
+        A12HH = -17.3;
+        A13HH = 3.55;
+        A14HH = 8.46;
+        A15HH = 87.5;
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::muggHH()");
+    
+    ct= 1.0 - 0.5 * DeltaGF() + delta_h - v() * CuH_33r * v2_over_LambdaNP2 / sqrt(2.0)/ mtpole;
+    c2t = delta_h - 3.0 *v() * CuH_33r * v2_over_LambdaNP2 / 2.0 /sqrt(2.0)/ mtpole;
+    c3 = 1.0 + deltaG_hhhRatio();
+    cg = M_PI * CHG * v2_over_LambdaNP2 / AlsMz; 
+    c2g = cg;
+    
+    mu = A1HH*ct*ct*ct*ct +
+            A2HH*c2t*c2t +
+            A3HH*ct*ct*c3*c3 +
+            A4HH*cg*cg*c3*c3 +
+            A5HH*c2g*c2g +
+            A6HH*c2t*ct*ct +
+            A7HH*ct*ct*ct*c3 +
+            A8HH*c2t*ct*c3 +
+            A9HH*c2t*cg*c3 +
+            A10HH*c2t*c2g +
+            A11HH*ct*ct*cg*c3 +
+            A12HH*ct*ct*c2g +
+            A13HH*ct*c3*c3*cg +
+            A14HH*ct*c3*c2g +
+            A15HH*cg*c3*c2g;
+
     if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
     
     return mu;

@@ -1172,10 +1172,9 @@ deltalHHH::~deltalHHH()
 
 double deltalHHH::computeThValue()
 {
-    double dg = 0.;
-    double gSM = 1.;
+    double dgRatio = myNPbase->deltaG_hhhRatio();
     
-    return dg/gSM;
+    return dgRatio;
 }
 
 /* -------------------------------------*/
