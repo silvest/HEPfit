@@ -3506,7 +3506,7 @@ BCEngineMCMC::ThreadLocalStorage::ThreadLocalStorage(unsigned dim) :
     rngGSL(NULL),
     yLocal(dim)
 {
-    copied = false
+    copied = false;
     // rngGSL initialized only if needed in SyncThreadStorage
 }
 
