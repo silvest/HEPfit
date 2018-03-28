@@ -129,6 +129,86 @@ private:
 };
 
 /**
+ * @class muepWBF
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{epWBF}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{epWBF}@f$ between the 
+ * @f$ e^{-}p\to \nu j H @f$ production
+ * cross-section in the current model and in the Standard Model.
+ */
+class muepWBF : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muepWBF(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muepWBF called with a class whose parent is not NPbase");
+
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{epWBF}@f$ in the current model.
+     * @return @f$\mu_{eeWBF}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->muepWBF(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class muepZBF
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{epZBF}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{epZBF}@f$ between the 
+ * @f$ e^{-}p\to e^{-} j H @f$ production
+ * cross-section in the current model and in the Standard Model.
+ */
+class muepZBF : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muepZBF(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muepZBF called with a class whose parent is not NPbase");
+
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{epZBF}@f$ in the current model.
+     * @return @f$\mu_{eeZBF}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->muepZBF(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
  * @class muWH
  * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f$\mu_{WH}@f$
@@ -1743,8 +1823,6 @@ private:
 };
 
 
-
-
 /**
  * @class muggHH2ga2b
  * @ingroup HiggsExtensions
@@ -1784,15 +1862,45 @@ private:
     const double sqrt_s;
 };
 
+/**
+ * @class muttHZbbboost
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+ * in the @f$H,Z\to b\bar{b}@f$ channel in the boosted region. Normalized to the SM.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+ * in the @f$H,Z\to b\bar{b}@f$ channelin the boosted region in the current model.
+ */
+class muttHZbbboost : public ThObservable {
+public:
 
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    muttHZbbboost(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muttHZbbboost called with a class whose parent is not NPbase");
+    }
 
+    /**
+     * @brief A method to compute the value of @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H,Z\to b\bar{b}@f$ channel in the current model.
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM.
+     */
+    double computeThValue()
+    {
+        return (myNPbase->muttHZbbboost(sqrt_s));
+    }
 
-
-
-
-
-
-
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
 
 
 /**

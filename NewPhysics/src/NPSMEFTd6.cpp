@@ -3832,6 +3832,115 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
     return mu;
 }
 
+
+double NPSMEFTd6::muepWBF(const double sqrt_s) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 3.5) {
+
+        mu += 
+                +122379. * CHbox / LambdaNP2
+                -785638. * CHL3_11 / LambdaNP2
+                -217481. * CHQ3_11 / LambdaNP2
+                -202145. * CHD / LambdaNP2
+                -65129.9 * CHW / LambdaNP2
+                -377695. * CHWB / LambdaNP2
+                -58836.6 * CDHW / LambdaNP2
+                +283479. * CLL_1221 / LambdaNP2
+                ;
+        
+//        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+//        }
+          
+    } else if (sqrt_s == 5.0) {
+
+        mu += 
+                +122344. * CHbox / LambdaNP2
+                -803957. * CHL3_11 / LambdaNP2
+                -235975. * CHQ3_11 / LambdaNP2
+                -201446. * CHD / LambdaNP2
+                -59025.7 * CHW / LambdaNP2
+                -376522. * CHWB / LambdaNP2
+                -65505.7 * CDHW / LambdaNP2
+                +284078. * CLL_1221 / LambdaNP2
+                ;
+        
+//        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+//        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::muepWBF()");
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+double NPSMEFTd6::muepZBF(const double sqrt_s) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 3.5) {
+
+        mu +=              
+                +121495. * CHbox / LambdaNP2
+                -207460. * CHL1_11 / LambdaNP2
+                +18181.8 * CHQ1_11 / LambdaNP2
+                +177060. * CHe_11 / LambdaNP2
+                -54375.5 * CHu_11 / LambdaNP2
+                +19796.1 * CHd_11 / LambdaNP2
+                -827935. * CHL3_11 / LambdaNP2
+                -227935. * CHQ3_11 / LambdaNP2
+                -215293. * CHD / LambdaNP2
+                -9090.91 * CHB / LambdaNP2
+                -80034. * CHW / LambdaNP2
+                -103483. * CHWB / LambdaNP2
+                -11130. * CDHB / LambdaNP2
+                -62531.9 * CDHW / LambdaNP2
+                +311810. * CLL_1221 / LambdaNP2
+                ;
+        
+//        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+//        }
+          
+    } else if (sqrt_s == 5.0) {
+
+        mu += 
+                +120062. * CHbox / LambdaNP2
+                -225482. * CHL1_11 / LambdaNP2
+                +13203.2 * CHQ1_11 / LambdaNP2
+                +192294. * CHe_11 / LambdaNP2
+                -58926.3 * CHu_11 / LambdaNP2
+                +20703.8 * CHd_11 / LambdaNP2
+                -845497. * CHL3_11 / LambdaNP2
+                -247881. * CHQ3_11 / LambdaNP2
+                -215515. * CHD / LambdaNP2
+                -4931.93 * CHB / LambdaNP2
+                -72694.6 * CHW / LambdaNP2
+                -104495. * CHWB / LambdaNP2
+                -13100.4 * CDHB / LambdaNP2
+                -70793.7 * CDHW / LambdaNP2
+                +309838. * CLL_1221 / LambdaNP2
+                ;
+        
+//        if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+
+//        }
+        
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::muepZBF()");
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 double NPSMEFTd6::muWH(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -6597,6 +6706,38 @@ double NPSMEFTd6::deltaGammaHbbRatio2() const
             +229708645. * CHD / LambdaNP2 * CHD / LambdaNP2
             -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
             +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );        
+    
+}
+
+
+///////////////////////SPECIAL OBSERVABLES/////////////////////////
+
+double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
+{
+    /* Ratios of BR with the SM. Neglect NP in Zb for the moment*/
+    double BrHbb = BrHbbRatio();
+    double BrZbbSM = 1.0;
+
+    gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-mtpole / v());    
+    double dkt = dKappa_t.real();
+    
+    double dgV = deltaGV_f(quarks[TOP]);
+    double dgA = deltaGA_f(quarks[TOP]);
+    double gLSM = quarks[TOP].getIsospin() 
+    - (quarks[TOP].getCharge())*(trueSM.sW2());
+    double gRSM = - (quarks[TOP].getCharge())*(trueSM.sW2());
+    
+    double dgL = 0.5*(dgV + dgA)/gLSM;
+    double dgR = 0.5*(dgV - dgA)/gRSM;
+
+    /* VERY CRUDE APPROX. */
+    double dsigmarat;
+    
+    dsigmarat = 1.0 + 
+            2.0 * dkt -
+            2.0 * (gLSM*gLSM*dgL + gRSM*gRSM*dgR)/(gLSM*gLSM + gRSM*gRSM);
+    
+    return dsigmarat * BrHbb * BrZbbSM;
     
 }
 

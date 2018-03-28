@@ -1323,6 +1323,22 @@ public:
      */
     virtual double mueeWBF(const double sqrt_s) const;
     /**
+     * @brief The ratio @f$\mu_{epWBF}@f$ between the 
+     * @f$ e^{-} p\to \nu j H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{epWBF}@f$
+     */
+    virtual double muepWBF(const double sqrt_s) const;
+    /**
+     * @brief The ratio @f$\mu_{epZBF}@f$ between the 
+     * @f$ e^{-} p\to e^{-} j H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{epZBF}@f$
+     */
+    virtual double muepZBF(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
      * cross-section in the current model and in the Standard Model. 
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -1635,6 +1651,16 @@ public:
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
     double deltaGammaHbbRatio2() const;
+
+    ///////////////////////SPECIAL OBSERVABLES/////////////////////////
+    
+    /**
+     * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H,Z\to b\bar{b}@f$ channel in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
+     */
+    virtual double muttHZbbboost(const double sqrt_s) const;
       
     ////////////////////////////////////////////////////////////////////////
       

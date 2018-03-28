@@ -143,6 +143,8 @@ ThObsFactory::ThObsFactory()
     const double sqrt_s_TeV = 1.96;
     const double sqrt_s_FCCee240 = .24;
     const double sqrt_s_FCCee350 = .35;
+    const double sqrt_s_FCCep3_5 = 3.5;
+    const double sqrt_s_FCCep5 = 5.0;
     const double sqrt_s_ILC250 = .25;
     const double sqrt_s_ILC500 = .5;
     const double sqrt_s_ILC1000 = 1.0;
@@ -216,6 +218,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eettH1000"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_ILC1000);
     obsThFactory["eettH1400"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_CLIC1400);
     obsThFactory["eettH3000"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_CLIC3000);
+    obsThFactory["epWBF3500"] = boost::bind(boost::factory<muepWBF*>(), _1, sqrt_s_FCCep3_5);
+    obsThFactory["epZBF3500"] = boost::bind(boost::factory<muepZBF*>(), _1, sqrt_s_FCCep3_5);
+    obsThFactory["epWBF5000"] = boost::bind(boost::factory<muepWBF*>(), _1, sqrt_s_FCCep5);
+    obsThFactory["epZBF5000"] = boost::bind(boost::factory<muepZBF*>(), _1, sqrt_s_FCCep5);
     //-----  Decay width and Branching ratios (ratios with SM)  ----------
     obsThFactory["GammaHRatio"] = boost::factory<GammaHRatio*>();
     obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
@@ -232,6 +238,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtogaga_over_4l_Ratio"] = boost::factory<BrHtogaga_over_4l_Ratio*>();
     obsThFactory["BrHtoZga_over_4l_Ratio"] = boost::factory<BrHtoZga_over_4l_Ratio*>();
     obsThFactory["BrHtomumu_over_4l_Ratio"] = boost::factory<BrHtomumu_over_4l_Ratio*>();
+    //-----  Special observables --------
+    obsThFactory["muttHZbb_boost100"] = boost::bind(boost::factory<muttHZbbboost*>(), _1, sqrt_s_FCC100);
     //-----  Full Signal strengths per prod and decay  ----------
     obsThFactory["muggHgaga"] = boost::bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVBFHgaga"] = boost::bind(boost::factory<muVBFHgaga*>(), _1, sqrt_s_LHC13);
