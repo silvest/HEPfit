@@ -16,6 +16,7 @@
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF), filename(""), rank(0)
 {
     modelset = 0;
+    myModel = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) : myModelFactory(orig.myModelFactory), myObsFactory(orig.myObsFactory), filename(""), rank(0)
@@ -25,8 +26,10 @@ InputParser::InputParser(const InputParser& orig) : myModelFactory(orig.myModelF
 
 InputParser::~InputParser()
 {
-    delete myModel;
-    myModel = NULL;
+    if (myModel != NULL) {
+        delete myModel;
+        myModel = NULL;
+    }
 }
 
 std::string InputParser::ReadParameters(const std::string filename_i,
