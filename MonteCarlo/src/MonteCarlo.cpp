@@ -436,6 +436,18 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
             if (efficiency > 0. && efficiency <= 1.) MCEngine.SetMinimumEfficiency(efficiency);
             else
                 throw std::runtime_error("\nERROR: MinimumEfficiency in the MonteCarlo configuration file: " + MCMCConf + " can only be a real number greater than 0.0 and less than or equal to 1.0.\n");
+        } else if (beg->compare("MaximumEfficiency") == 0) {
+            ++beg;
+            double efficiency = atof((*beg).c_str());
+            if (efficiency > 0. && efficiency <= 1.) MCEngine.SetMaximumEfficiency(efficiency);
+            else
+                throw std::runtime_error("\nERROR: MaximumEfficiency in the MonteCarlo configuration file: " + MCMCConf + " can only be a real number greater than 0.0 and less than or equal to 1.0.\n");
+        } else if (beg->compare("RValueForConvergence") == 0) {
+            ++beg;
+            double rvalue = atof((*beg).c_str());
+            if (rvalue > 1. ) MCEngine.SetRValueParametersCriterion(rvalue);
+            else
+                throw std::runtime_error("\nERROR: RValueForConvergence in the MonteCarlo configuration file: " + MCMCConf + " can only be a real number greater than 1.0.\n");
         } else if (beg->compare("WriteChain") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) writechains = (beg->compare("true") == 0);
@@ -560,6 +572,9 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     } while (!IsEOF);
+    
+    if (MCEngine.GetMaximumEfficiency() <= MCEngine.GetMinimumEfficiency()) 
+                throw std::runtime_error("\nERROR: MaximumEfficiency (default 0.5) must be greater than MaximumEfficiency (default 0.15) in the MonteCarlo configuration file: " + MCMCConf + ".\n");
 }
 
 void MonteCarlo::ReadPreRunData(std::string file)
