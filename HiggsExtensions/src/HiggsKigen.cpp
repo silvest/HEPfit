@@ -254,7 +254,8 @@ double HiggsKigen::computeGammaTotalRatio() const
             + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
-            + computeKb() * computeKb() * trueSM.computeBrHtobb())
+            + computeKb() * computeKb() * trueSM.computeBrHtobb()
+            + BrHinv)
             / (trueSM.computeBrHtogg()
             + trueSM.computeBrHtoWW()
             + trueSM.computeBrHtoZZ()
@@ -263,7 +264,7 @@ double HiggsKigen::computeGammaTotalRatio() const
             + trueSM.computeBrHtomumu()
             + trueSM.computeBrHtotautau()
             + trueSM.computeBrHtocc()
-            + trueSM.computeBrHtobb() - BrHinv));
+            + trueSM.computeBrHtobb()));
 }
 
 ////////////////////////////////////////////////////////////////////////
