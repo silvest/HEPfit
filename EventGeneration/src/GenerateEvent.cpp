@@ -351,7 +351,7 @@ void GenerateEvent::initModel() {
         } else DP[it->getname()] = it->getave();
     }
     if (!myInputParser.getModel()->Init(DP)) {
-        if (rank == 0) throw std::runtime_error("\nERROR: Model cannot be initialization");
+        if (rank == 0) throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized");
         else sleep(2);
     }
     std::vector<std::string> unknownParameters = Mod->getUnknownParameters();

@@ -155,7 +155,7 @@ void MonteCarlo::Run(const int rank) {
         }
         buffsize++;
         if (!myInputParser.getModel()->Init(DP)){
-            if (rank == 0) throw std::runtime_error("\nERROR: Model cannot be initialization.\n");
+            if (rank == 0) throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized.\n");
             else sleep(2);
         }
 

@@ -69,8 +69,8 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     }
     setFlags(DFlags_i);
     if (!Mod->Init(DPars_i))
-        throw std::runtime_error("\nERROR: Model cannot be initialized initialization.\n");
-    
+        throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized.\n");
+   
     unknownParameters = Mod->getUnknownParameters();
     if (unknownParameters.size() > 0 && rank == 0) {
         std::cout << "\n" << std::endl;
