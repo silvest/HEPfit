@@ -6145,7 +6145,7 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
             -128860. * CuH_33r / LambdaNP2
             +248587. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            +24022120. * CHG / LambdaNP2
+            +37390592. * CHG / LambdaNP2
             +60624.6 * CLL_1221 / LambdaNP2 );
 }
 
@@ -6158,35 +6158,35 @@ double NPSMEFTd6::deltaGammaHggRatio2() const
             -7812106277. * CHbox / LambdaNP2 * CuH_33r / LambdaNP2
             +15070455306. * CHbox / LambdaNP2 * CdH_33r / LambdaNP2
             -1837669161. * CHbox / LambdaNP2 * CHD / LambdaNP2
-            +1456330670263. * CHbox / LambdaNP2 * CHG / LambdaNP2
+            +2266788502923. * CHbox / LambdaNP2 * CHG / LambdaNP2
             +3675338322. * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
             +3675338322. * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
             -10512328996. * CHL3_11 / LambdaNP2 * CuH_22r / LambdaNP2
             +7812106277. * CHL3_11 / LambdaNP2 * CuH_33r / LambdaNP2
             -15070455306. * CHL3_11 / LambdaNP2 * CdH_33r / LambdaNP2
             +1837669161. * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-            -1456330670263. * CHL3_11 / LambdaNP2 * CHG / LambdaNP2
+            -2266788502922. * CHL3_11 / LambdaNP2 * CHG / LambdaNP2
             -3675338322. * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
             +14576143481. * CuH_22r / LambdaNP2 * CuH_22r / LambdaNP2
             -12069614762. * CuH_22r / LambdaNP2 * CuH_33r / LambdaNP2
             +54515542771. * CuH_22r / LambdaNP2 * CdH_33r / LambdaNP2
             -2628082249. * CuH_22r / LambdaNP2 * CHD / LambdaNP2
-            +2250014212979. * CuH_22r / LambdaNP2 * CHG / LambdaNP2
+            +3502162286037. * CuH_22r / LambdaNP2 * CHG / LambdaNP2
             +5256164498. * CuH_22r / LambdaNP2 * CLL_1221 / LambdaNP2
             +4179770404. * CuH_33r / LambdaNP2 * CuH_33r / LambdaNP2
             -18111661684. * CuH_33r / LambdaNP2 * CdH_33r / LambdaNP2
             +1953026569. * CuH_33r / LambdaNP2 * CHD / LambdaNP2
-            -1558383262792. * CuH_33r / LambdaNP2 * CHG / LambdaNP2
+            -2425634050957. * CuH_33r / LambdaNP2 * CHG / LambdaNP2
             -3906053138. * CuH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
             +53929075760. * CdH_33r / LambdaNP2 * CdH_33r / LambdaNP2
             -3767613827. * CdH_33r / LambdaNP2 * CHD / LambdaNP2
-            +3376370912828. * CdH_33r / LambdaNP2 * CHG / LambdaNP2
+            +5255344080213. * CdH_33r / LambdaNP2 * CHG / LambdaNP2
             +7535227653. * CdH_33r / LambdaNP2 * CLL_1221 / LambdaNP2
             +229708645. * CHD / LambdaNP2 * CHD / LambdaNP2
-            -364082667566. * CHD / LambdaNP2 * CHG / LambdaNP2
+            -566697125731. * CHD / LambdaNP2 * CHG / LambdaNP2
             -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
             +228376225497250. * CHG / LambdaNP2 * CHG / LambdaNP2
-            +728165335132. * CHG / LambdaNP2 * CLL_1221 / LambdaNP2
+            +1133394251461. * CHG / LambdaNP2 * CLL_1221 / LambdaNP2
             +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );
     
 }
