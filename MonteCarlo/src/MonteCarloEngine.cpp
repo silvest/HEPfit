@@ -112,7 +112,6 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
 
     unknownParameters = Mod->getUnknownParameters();
     DefineParameters();
-    SetMaximumEfficiency(0.5);
 };
 
 void MonteCarloEngine::CreateHistogramMaps() 
