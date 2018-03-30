@@ -178,7 +178,6 @@ void MonteCarloEngine::setNChains(unsigned int i) {
 // ---------------------------------------------------------
 
 MonteCarloEngine::~MonteCarloEngine()
-// default destructor
 {
     if (rank == 0) { // These are created only by the master
         delete [] obval;
@@ -187,20 +186,10 @@ MonteCarloEngine::~MonteCarloEngine()
         delete HEPfit_green;
         HEPfit_red = NULL;
         HEPfit_green = NULL;
-        /* The following code has been commented out pending further review.
-           It is causing crashes at the termination of the code if the histograms
-           are accessed from the main program.*/
-        //    for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
-        //            it != Histo1D.end(); it++)
-        //        delete it->second;
-        //    for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
-        //            it != Histo2D.end(); it++)
-        //        delete it->second;
-        for (std::map<std::string, TPrincipal *>::iterator it = CorrelationMap.begin();
-                it != CorrelationMap.end(); it++)
+        for (std::map<std::string, TPrincipal *>::iterator it = CorrelationMap.begin(); it != CorrelationMap.end(); it++) {
             delete it->second;
-        //    for (unsigned int i = 0; i < fMCMCNChains; ++i) 
-        //        if (fMCMCObservablesTrees[i]) delete fMCMCObservablesTrees[i];
+            it->second = NULL;
+        }
     }
 };
 
@@ -420,7 +409,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 
         if (recvbuff[0] == 2.) { // compute observables
             double sbuff[obsbuffsize];
-//            std::map<std::string, double> DPars;
             pars.assign(recvbuff + 1, recvbuff + buffsize);
             setDParsFromParameters(pars,DPars);
             Mod->Update(DPars);
@@ -586,7 +574,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
 }
 
 void MonteCarloEngine::CheckHistogram(TH1& hist, const std::string name) {
-    // output the portions of underflow and overflow bins
     double UnderFlowContent = hist.GetBinContent(0);
     double OverFlowContent = hist.GetBinContent(nBins1D + 1);
     double Integral = hist.Integral();
@@ -612,7 +599,6 @@ void MonteCarloEngine::CheckHistogram(TH2& hist, const std::string name) {
 }
 
 void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh) {
-    // create temporary canvas
     TCanvas * c;
     cindex++;
     if(ww > 0 && wh > 0)
@@ -637,7 +623,6 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
     
     bch1d.Draw();
     
-    // draw logo
     if (printLogo) {
         double xRange = bch1d.GetHistogram()->GetXaxis()->GetXmax() - bch1d.GetHistogram()->GetXaxis()->GetXmin();
         double yRange = bch1d.GetHistogram()->GetMaximum() - bch1d.GetHistogram()->GetMinimum();
@@ -703,7 +688,6 @@ void MonteCarloEngine::Print1D(BCH1D bch1d, const char* filename, int ww, int wh
 
 void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int wh)
 {
-    // create temporary canvas
     TCanvas * c;
     cindex++;
     if(ww > 0 && wh > 0)
@@ -732,7 +716,6 @@ void MonteCarloEngine::Print2D(BCH2D bch2d, const char * filename, int ww, int w
     
     bch2d.Draw();
 
-    //draw logo
     if (printLogo) {
         double xRange = bch2d.GetHistogram()->GetXaxis()->GetXmax() - bch2d.GetHistogram()->GetXaxis()->GetXmin();
         double yRange = bch2d.GetHistogram()->GetYaxis()->GetXmax() - bch2d.GetHistogram()->GetYaxis()->GetXmin();
@@ -824,7 +807,6 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
 
     Mod->Update(DPars);
 
-    // print the histograms to pdf files
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) PrintHistogram(OutFile, *it, OutputDir);
     
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
@@ -891,8 +873,6 @@ void MonteCarloEngine::AddChains() {
     hMCMCObservableTree = new TTree(TString::Format("%s_Observables", GetSafeName().data()), TString::Format("%s_Observables", GetSafeName().data()));
     hMCMCObservableTree->Branch("Chain", &fMCMCTree_Chain, "chain/i");
     hMCMCObservableTree->Branch("Iteration", &fMCMCCurrentIteration, "iteration/i");
-    // hMCMCObservableTree->Branch("Phase", &fMCMCPhase, "phase/I");
-    // hMCMCObservableTree->Branch("LogProbability", &fMCMCTree_Prob, "log(probability)/D");
     if (fMCMCFlagWriteChainToFile) {
         hMCMCObservables.assign(fMCMCNChains, std::vector<double>(Obs_ALL.size(), 0.));
         hMCMCTree_Observables.assign(Obs_ALL.size(), 0.);
@@ -930,9 +910,7 @@ void MonteCarloEngine::AddChains() {
 
 void MonteCarloEngine::InChainFillObservablesTree()
 {
-    if (!hMCMCObservableTree)
-        return;
-    // loop over all chains
+    if (!hMCMCObservableTree) return;
     for (fMCMCTree_Chain = 0; fMCMCTree_Chain < fMCMCNChains; ++fMCMCTree_Chain) {
         hMCMCTree_Observables = hMCMCObservables[fMCMCTree_Chain];
         if (kwmax > 0 && fMCMCFlagWriteChainToFile) hMCMCTree_Observables_weight = hMCMCObservables_weight[fMCMCTree_Chain];
@@ -1125,8 +1103,44 @@ std::string MonteCarloEngine::computeStatistics() {
         }
     }
     
+    setDParsFromParameters(mode,DPars);
+    Mod->Update(DPars);
+    
+    // values for controlling format
+    int par_width = 0;
+    int obs_width = 0;
+    int value_width = 15;
+    for (std::map<std::string,double>::iterator it = DPars.begin(); it != DPars.end(); it++) par_width = std::max(par_width, (int)(it->first).size());
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) obs_width = std::max(obs_width, (int)(it->getName()).size());
+    par_width = par_width + 1;
+    obs_width = obs_width + 1;
+    const std::string sep = " |";
+    const std::string par_line = sep + std::string(par_width + value_width + sep.size() * 2 - 1, '-') + '|';
+    const std::string obs_line = sep + std::string(obs_width + value_width + sep.size() * 2 - 1, '-') + '|';
     StatsLog << std::setprecision(5);
 
+    StatsLog << "\nValue of the parameters at the global mode:" << std::endl;
+    StatsLog << std::endl;
+    StatsLog << par_line << '\n' << sep
+                 << std::left << std::setw(par_width) << "parameter" << sep << std::right << std::setw(value_width) << "value at mode" << sep << '\n' << par_line << '\n';
+
+    for (std::map<std::string,double>::iterator it = DPars.begin(); it != DPars.end(); it++)
+        StatsLog << sep << std::left << std::setw(par_width) << it->first << sep << std::right << std::setw(value_width) << it->second << sep << '\n';
+    
+    StatsLog << par_line << '\n';
+    StatsLog << std::endl;
+    
+    StatsLog << "\nValue of the observables at the global mode:" << std::endl;
+    StatsLog << std::endl;
+    StatsLog << obs_line << '\n' << sep
+                 << std::left << std::setw(obs_width) << "observable" << sep << std::right << std::setw(value_width) << "value at mode" << sep << '\n' << obs_line << '\n';
+
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++)
+        StatsLog << sep << std::left << std::setw(obs_width) << it->getName() << sep << std::right << std::setw(value_width) << it->computeTheoryValue() << sep << '\n';
+    
+    StatsLog << obs_line << '\n' << '\n';
+    StatsLog << std::endl;
+    
     double llika = Histo1D["LogLikelihood"].GetHistogram()->GetMean();
     StatsLog << "LogLikelihood mean value: " << llika << std::endl;
     double llikv = Histo1D["LogLikelihood"].GetHistogram()->GetRMS();
@@ -1134,24 +1148,9 @@ std::string MonteCarloEngine::computeStatistics() {
     StatsLog << "LogLikelihood variance: " << llikv << std::endl;
     double dbar = -2.*llika; //Wikipedia notation... 
     double pd = 2.*llikv; //Wikipedia notation...
-    StatsLog << "IC value (don't ask me what it means...): " << dbar + 2.*pd << std::endl; 
-    StatsLog << "DIC value (same as above...): " << dbar + pd << std::endl; 
+    StatsLog << "IC value: " << dbar + 2.*pd << std::endl; 
+    StatsLog << "DIC value: " << dbar + pd << std::endl; 
     StatsLog << std::endl;
-    StatsLog << "Value of the Parameters and Observables at the global mode:" << std::endl;
-    StatsLog << std::endl;
-    
-    setDParsFromParameters(mode,DPars);
-
-    Mod->Update(DPars);
-    
-    for (std::map<std::string,double>::iterator it = DPars.begin(); it != DPars.end(); it++)
-        StatsLog << it->first << ": " << it->second << std::endl;
-       
-    StatsLog << std::endl;
-    
-    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
-                it < Obs_ALL.end(); it++) 
-        StatsLog << it->getName() << ": " << it->computeTheoryValue() << std::endl;
 
     return StatsLog.str().c_str();
 }
