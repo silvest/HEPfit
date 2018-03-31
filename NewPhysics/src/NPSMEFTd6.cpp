@@ -6789,9 +6789,11 @@ double NPSMEFTd6::deltag1ZNP() const
 {
       double NPdirect, NPindirect;
       
-      /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
-      NPdirect = sW_tree / sqrt( M_PI * ale );
+      /*    Translate from LHCHXWG-INT-2015-001  */
+      NPdirect = sW_tree / sqrt( 4.0 * M_PI * ale );
       NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CDHW * v2_over_LambdaNP2;
+      NPdirect = NPdirect - 
+              sW_tree * CHWB * v2_over_LambdaNP2 / cW_tree / (cW2_tree-sW2_tree);
       
       NPindirect = 0.0;
       
@@ -6802,10 +6804,10 @@ double NPSMEFTd6::deltaKgammaNP() const
 {
       double NPdirect, NPindirect;
 
-      /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
-      NPdirect = sqrt( M_PI * ale ) / 4.0 / sW_tree / sW_tree;
+      /*    Translate from LHCHXWG-INT-2015-001  */
+      NPdirect = sqrt( 4.0 * M_PI * ale ) / 4.0 / sW2_tree;
       
-      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( M_PI * ale ) ) * CHWB 
+      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * ale ) ) * CHWB 
               - sW_tree * CDHW 
               - cW_tree * CDHB ) * v2_over_LambdaNP2;
       
@@ -6818,8 +6820,8 @@ double NPSMEFTd6::lambdaZNP() const
 {
       double NPdirect;
 
-      /*    Translatef from arXiv: 1411.0669 [hep-ph]: Only pure TGC  */
-      NPdirect = - (3.0 / 2.0) * (sqrt( M_PI * ale ) / sW_tree) * CW * v2_over_LambdaNP2;
+      /*    Translate from LHCHXWG-INT-2015-001  */
+      NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * ale ) / sW_tree) * CW * v2_over_LambdaNP2;
 
       return NPdirect;
 }
