@@ -2217,7 +2217,7 @@ double NPSMEFTd6::deltaG_hggRatio() const
     
     gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
     
-    dg = delta_h + deltaloc/gSM + (aSPiv/gSM) * (dKappa_t*AH_f(tau_t) + dKappa_b*AH_f(tau_b) + dKappa_c*AH_f(tau_c));
+    dg = deltaloc/gSM + (aSPiv/gSM) * (dKappa_t*AH_f(tau_t) + dKappa_b*AH_f(tau_b) + dKappa_c*AH_f(tau_c));
 
     return dg.real();
 }
@@ -2278,8 +2278,8 @@ double NPSMEFTd6::deltaG1_hZARatio() const
     double Qt = quarks[TOP].getCharge();
     double Qb = quarks[BOTTOM].getCharge();
     double Qc = quarks[CHARM].getCharge();
-    double Qtau = leptons[TAU].getMass();
-    double Qmu = leptons[MU].getMass();
+    double Qtau = leptons[TAU].getCharge();
+    double Qmu = leptons[MU].getCharge();
 
     double tau_t = 4.0 * m_t * m_t / mHl / mHl;
     double tau_b = 4.0 * m_b * m_b / mHl / mHl;
@@ -2328,7 +2328,7 @@ double NPSMEFTd6::deltaG1_hZARatio() const
             vSMmu*Qmu*AHZga_f(tau_mu,lambda_mu))/cW_tree + 
             AHZga_W(tau_W,lambda_W));
     
-    dg = delta_h + deltaloc/gSM - (aPiv/gSM) * (
+    dg = deltaloc/gSM - (aPiv/gSM) * (
             (3.0*vSMt*dKappa_t*Qt*AHZga_f(tau_t,lambda_t) + 
             3.0*vSMb*dKappa_b*Qb*AHZga_f(tau_b,lambda_b) + 
             3.0*vSMc*dKappa_c*Qc*AHZga_f(tau_c,lambda_c)+ 
@@ -2368,8 +2368,8 @@ double NPSMEFTd6::deltaG_hAARatio() const
     double Qt = quarks[TOP].getCharge();
     double Qb = quarks[BOTTOM].getCharge();
     double Qc = quarks[CHARM].getCharge();
-    double Qtau = leptons[TAU].getMass();
-    double Qmu = leptons[MU].getMass();
+    double Qtau = leptons[TAU].getCharge();
+    double Qmu = leptons[MU].getCharge();
 
     double tau_t = 4.0 * m_t * m_t / mHl / mHl;
     double tau_b = 4.0 * m_b * m_b / mHl / mHl;
@@ -2396,7 +2396,7 @@ double NPSMEFTd6::deltaG_hAARatio() const
             Qmu*Qmu*AH_f(tau_mu) + 
             AH_W(tau_W));
     
-    dg = delta_h + deltaloc/gSM + (aPiv/gSM) * (
+    dg = deltaloc/gSM + (aPiv/gSM) * (
             3.0*Qt*Qt*dKappa_t*AH_f(tau_t) + 
             3.0*Qb*Qb*dKappa_b*AH_f(tau_b) + 
             3.0*Qc*Qc*dKappa_c*AH_f(tau_c) +
