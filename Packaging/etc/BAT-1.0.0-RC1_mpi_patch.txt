@@ -1,6 +1,6 @@
 diff -Naur BAT-1.0.0-RC1/BAT/BCEngineMCMC.h BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h
 --- BAT-1.0.0-RC1/BAT/BCEngineMCMC.h	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h	2016-10-20 03:53:56.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.h	2018-04-01 21:11:30.000000000 +0200
 @@ -1237,13 +1237,13 @@
      /** Generates a new point using the Metropolis algorithm for one chain.
       * @param chain chain index
@@ -28,9 +28,17 @@ diff -Naur BAT-1.0.0-RC1/BAT/BCEngineMCMC.h BAT-1.0.0-RC1_OMPI/BAT/BCEngineMCMC.
  
  private:
      /**
+@@ -1421,6 +1425,7 @@
+          * only available in config.h but we must never include
+          * config.h in a public header. Hence we hide the type in a `void*` */
+         void* rngGSL;
++        bool copied;
+ 
+         /**
+          * Temp vector for matrix multiplication in multivariate proposal */
 diff -Naur BAT-1.0.0-RC1/BAT/BCLog.h BAT-1.0.0-RC1_OMPI/BAT/BCLog.h
 --- BAT-1.0.0-RC1/BAT/BCLog.h	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/BAT/BCLog.h	2016-10-20 03:53:56.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/BAT/BCLog.h	2018-04-01 21:11:30.000000000 +0200
 @@ -41,6 +41,8 @@
  
  #define BCLOG_WARNING(s) BCLOG_INTERNAL_OUT(OutWarning, s)
@@ -67,7 +75,7 @@ diff -Naur BAT-1.0.0-RC1/BAT/BCLog.h BAT-1.0.0-RC1_OMPI/BAT/BCLog.h
      { Out(detail, message); };
 diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx
 --- BAT-1.0.0-RC1/src/BCEngineMCMC.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx	2016-10-20 03:54:09.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCEngineMCMC.cxx	2018-04-01 21:11:44.000000000 +0200
 @@ -56,6 +56,10 @@
  #include <omp.h>
  #endif
@@ -572,9 +580,34 @@ diff -Naur BAT-1.0.0-RC1/src/BCEngineMCMC.cxx BAT-1.0.0-RC1_OMPI/src/BCEngineMCM
                  ++filling;
              }
      }
+@@ -3502,6 +3674,7 @@
+     rngGSL(NULL),
+     yLocal(dim)
+ {
++    copied = false;
+     // rngGSL initialized only if needed in SyncThreadStorage
+ }
+ 
+@@ -3512,6 +3685,7 @@
+     rngGSL(NULL),
+     yLocal(other.yLocal)
+ {
++    copied = true;
+ #if ROOTMATHMORE
+     rngGSL = other.rngGSL ? new GSLRng(*static_cast<GSLRng*>(other.rngGSL)) : NULL;
+ #endif
+@@ -3536,7 +3710,7 @@
+ BCEngineMCMC::ThreadLocalStorage::~ThreadLocalStorage()
+ {
+ #if ROOTMATHMORE
+-    delete static_cast<GSLRng*>(rngGSL);
++    if(copied) delete static_cast<GSLRng*>(rngGSL);
+ #endif
+     delete rng;
+ }
 diff -Naur BAT-1.0.0-RC1/src/BCH1D.cxx BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx
 --- BAT-1.0.0-RC1/src/BCH1D.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx	2016-10-20 03:54:09.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx	2018-04-01 21:11:44.000000000 +0200
 @@ -420,7 +420,8 @@
  
      std::vector<BCH1D::BCH1DSmallestInterval> v = GetSmallestIntervals(intervals);
@@ -596,7 +629,7 @@ diff -Naur BAT-1.0.0-RC1/src/BCH1D.cxx BAT-1.0.0-RC1_OMPI/src/BCH1D.cxx
                  interval.xmax = GetHistogram()->GetXaxis()->GetBinUpEdge(b);
 diff -Naur BAT-1.0.0-RC1/src/BCH2D.cxx BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx
 --- BAT-1.0.0-RC1/src/BCH2D.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx	2017-03-17 01:17:59.000000000 +0100
++++ BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx	2018-04-01 21:11:44.000000000 +0200
 @@ -144,10 +144,18 @@
      if (fBandFillStyle <= 0) {
          GetHistogram()->SetLineColor(GetLineColor());
@@ -619,8 +652,18 @@ diff -Naur BAT-1.0.0-RC1/src/BCH2D.cxx BAT-1.0.0-RC1_OMPI/src/BCH2D.cxx
  
 diff -Naur BAT-1.0.0-RC1/src/BCHistogramBase.cxx BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx
 --- BAT-1.0.0-RC1/src/BCHistogramBase.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx	2016-10-20 03:54:09.000000000 +0200
-@@ -194,7 +194,7 @@
++++ BAT-1.0.0-RC1_OMPI/src/BCHistogramBase.cxx	2018-04-01 21:11:44.000000000 +0200
+@@ -53,7 +53,8 @@
+       fDrawStandardDeviation(true),
+       fDrawLegend(true),
+       fDrawStats(false),
+-      fDimension(dimension)
++      fDimension(dimension),
++      fROOToptions("HIST")
+ {
+     SetHistogram(hist);
+     SetColorScheme(kGreenYellowRed);
+@@ -194,7 +195,7 @@
          return;
      }
  
@@ -629,9 +672,18 @@ diff -Naur BAT-1.0.0-RC1/src/BCHistogramBase.cxx BAT-1.0.0-RC1_OMPI/src/BCHistog
      fHistogram->SetStats(false);
      fDimension = fHistogram->GetDimension();
  
+@@ -462,7 +463,7 @@
+     unsigned n = 0;
+     for (std::vector<std::pair<double, double> >::const_iterator bin = bin_dens_mass.begin(); bin != bin_dens_mass.end() and n < S.size(); ++bin) {
+         for (unsigned i = 0; i < masses.size(); ++i)
+-            if (mass + bin->second >= masses[i] and mass <= masses[i]) {
++            if (mass + bin->second <= masses[i] and mass <= masses[i]) {
+                 S[i] = area + (masses[i] - mass) / bin->first;
+                 ++n;
+             }
 diff -Naur BAT-1.0.0-RC1/src/BCLog.cxx BAT-1.0.0-RC1_OMPI/src/BCLog.cxx
 --- BAT-1.0.0-RC1/src/BCLog.cxx	2015-12-12 00:00:33.000000000 +0100
-+++ BAT-1.0.0-RC1_OMPI/src/BCLog.cxx	2016-10-20 03:54:09.000000000 +0200
++++ BAT-1.0.0-RC1_OMPI/src/BCLog.cxx	2018-04-01 21:11:44.000000000 +0200
 @@ -72,12 +72,14 @@
      if (BCLog::IsOpen()) {
          // write message in to log file
