@@ -629,6 +629,14 @@
  *   instead of {CHW, CHB} as floating parameters.
  *   The default value is FALSE.</td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%PartialQFU</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if using CHQ1_11=CHQ1_22, 
+ *   CHQ3_11=CHQ3_22, CHU_11=CHU_22, CHD_11=CHD_22, CHud_11=CHud_22.}
+ *   Only applies in the Non QFU case. In that case only the (1,1) component is taken into account.
+ *   The default value is FALSE.</td>
+ * </tr>
  * </table>
  *
  *
@@ -2125,6 +2133,7 @@ private:
 
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
     bool FlagRotateCHWCHB; ///< A boolean flag that is true if we use as parameters CHWHB_gaga and CHWHB_gagaorth instead of CHW and CHB.
+    bool FlagPartialQFU; ///< A boolean flag that is true if assuming partial quark flavour universality between the 1st and 2nd family in the CHF operators.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour
