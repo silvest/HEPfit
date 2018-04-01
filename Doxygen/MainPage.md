@@ -1,4 +1,4 @@
-HEPfit - a Fitting Tool for the Standard Model and Beyond
+HEPfit - a Code for the Combination of Indirect and Direct Constraints on High Energy Physics Models.
 ===================================================================
 
 version VERSIONNUMBER
