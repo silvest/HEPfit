@@ -132,6 +132,47 @@ gslpp::complex NPbase::kappaZ_f(const Particle f) const
 
 ////////////////////////////////////////////////////////////////////////
 
+double NPbase::deltaGamma_Zf(const Particle f) const
+{
+    double deltaGamma_Zf = 0.;
+    bool nonZeroNP = false;
+
+    double delGVf = deltaGV_f(f);
+    double delGAf = deltaGA_f(f);
+    
+    double gVf = trueSM.gV_f(f).real();
+    double gAf = trueSM.gA_f(f).real(); 
+    
+    double Nf;
+    
+    if (f.is("LEPTON")) {
+        Nf = 1.0;
+    } else {
+        Nf = 3.0;
+    }
+    
+    double sW2_SM = trueSM.sW2();
+    double cW2_SM = trueSM.cW2();
+    
+    if (delGVf != 0.0 || delGAf != 0.0)
+            nonZeroNP = true;
+ 
+    if (nonZeroNP) {
+        double delGammaZf = 0.0;
+        delGammaZf = 2.0 * Nf * (gVf * delGVf + gAf * delGAf);
+        
+        deltaGamma_Zf = alphaMz() * Mz / 12.0 / sW2_SM / cW2_SM * delGammaZf;
+    }
+
+    return deltaGamma_Zf;
+}
+
+double NPbase::Gamma_Zf(const Particle f) const
+{
+    return (trueSM.GammaZ(f) + deltaGamma_Zf(f));
+}
+
+
 double NPbase::deltaGamma_Z() const
 {
     double deltaGamma_Z = 0.;
@@ -176,6 +217,17 @@ double NPbase::deltaGamma_Z() const
 double NPbase::Gamma_Z() const
 {
     return (trueSM.Gamma_Z() + deltaGamma_Z());
+}
+
+double NPbase::BR_Zf(const Particle f) const
+{
+    double delGammaZTot = deltaGamma_Z();
+    double delGammaZf = deltaGamma_Zf(f);
+    
+    double GammaZTotSM = trueSM.Gamma_Z();
+    double GammaZfSM = trueSM.GammaZ(f);
+    
+    return (GammaZfSM/GammaZTotSM + delGammaZf/GammaZTotSM - GammaZfSM * delGammaZTot /GammaZTotSM/GammaZTotSM);
 }
 
 double NPbase::deltaSigmaHadron() const

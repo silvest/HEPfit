@@ -272,6 +272,23 @@ public:
      * @return @f$\kappa_Z^f@f$, including SM plus NP contributions
      */
     virtual gslpp::complex kappaZ_f(const Particle f) const;
+    
+    /**
+     * @brief The new physics contribution to the decay width of the @f$Z@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\delta \Gamma_Z^{f}@f$ in GeV
+     */
+    virtual double deltaGamma_Zf(const Particle f) const;
+    
+    /**
+     * @brief The decay width of the @f$Z@f$ boson into a given fermion pair, @f$\Gamma_Z^{f}@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$\Gamma_Z^{f}@f$ in GeV, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double Gamma_Zf(const Particle f) const;
 
     /**
      * @brief The new physics contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z@f$.
@@ -287,6 +304,16 @@ public:
      * are inherited from NPbase.
      */
     virtual double Gamma_Z() const;
+    
+    /**
+     * @brief The Branching ratio of the @f$Z@f$ boson into a given fermion pair, @f$BR_Z^{f}@f$.
+     * @param[in] f a lepton or quark
+     * @return @f$BR_Z^{f}@f$ including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double BR_Zf(const Particle f) const;
 
     /**
      * @brief The new physics contribution to the cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$

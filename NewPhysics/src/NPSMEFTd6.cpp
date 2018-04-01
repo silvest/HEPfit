@@ -6790,9 +6790,10 @@ double NPSMEFTd6::deltaGammaHbbRatio2() const
 
 double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
 {
-    /* Ratios of BR with the SM. Neglect NP in Zb for the moment*/
-    double BrHbb = BrHbbRatio();
-    double BrZbbSM = 1.0;
+    /* Ratios of BR with the SM*/
+    double BrHbbrat = BrHbbRatio();
+    double BrZbbSM = (trueSM.GammaZ(quarks[BOTTOM]))/trueSM.Gamma_Z();
+    double BrZbbrat = BR_Zf(quarks[BOTTOM])/BrZbbSM;
 
     gslpp::complex dKappa_t = deltaG_hff(quarks[TOP]) / (-mtpole / v());    
     double dkt = dKappa_t.real();
@@ -6800,8 +6801,8 @@ double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
     double dgV = deltaGV_f(quarks[TOP]);
     double dgA = deltaGA_f(quarks[TOP]);
     double gLSM = quarks[TOP].getIsospin() 
-    - (quarks[TOP].getCharge())*(trueSM.sW2());
-    double gRSM = - (quarks[TOP].getCharge())*(trueSM.sW2());
+    - (quarks[TOP].getCharge())*sW2_tree;
+    double gRSM = - (quarks[TOP].getCharge())*sW2_tree;
     
     double dgL = 0.5*(dgV + dgA)/gLSM;
     double dgR = 0.5*(dgV - dgA)/gRSM;
@@ -6813,7 +6814,7 @@ double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
             2.0 * dkt -
             2.0 * (gLSM*gLSM*dgL + gRSM*gRSM*dgR)/(gLSM*gLSM + gRSM*gRSM);
     
-    return dsigmarat * BrHbb * BrZbbSM;
+    return dsigmarat * (BrHbbrat / BrZbbrat);
     
 }
 
