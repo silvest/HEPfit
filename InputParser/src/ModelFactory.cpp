@@ -34,12 +34,12 @@
 #include "NPDF2.h"
 #include "CMFV.h"
 #include "GeorgiMachacek.h"
+#include "LeftRightSymmetricModel.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "pMSSM.h"
 #include "MFV.h"
 #include "NPSTUVWXY.h"
 #include "GeneralTHDM.h"
-#include "LeftRightSymmetricModel.h"
 #include "THDMW.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
@@ -84,13 +84,12 @@ ModelFactory::ModelFactory()
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
+    modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
-    modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["GeneralTHDM"] = boost::factory<GeneralTHDM*>();
-    modelFactory["LeftRightSymmetricModel"] = boost::factory<LeftRightSymmetricModel*>();
     modelFactory["THDMW"] = boost::factory<THDMW*>();
 /** END: REMOVE FROM THE PACKAGE **/
 }

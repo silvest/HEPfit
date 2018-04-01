@@ -399,6 +399,7 @@ double SUSY::Mw_dRho() const
     double cW2_SM = Mw_SM*Mw_SM/Mz/Mz;
     double sW2_SM = 1.0 - cW2_SM;
     if (IsFlag_FH()) return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
-/** END: REMOVE FROM THE PACKAGE **/
     throw std::runtime_error("SUSY::Mw_dRho(): set Flag_FH to true to use Mw_dRho()");
+/** END: REMOVE FROM THE PACKAGE **/
+    return 0.;
 }

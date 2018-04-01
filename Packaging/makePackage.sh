@@ -43,6 +43,7 @@ PROJECTARRAY+=( "StandardModel" )
 PROJECTARRAY+=( "SUSY" )
 PROJECTARRAY+=( "SUSYMassInsertion" )
 PROJECTARRAY+=( "THDM" )
+PROJECTARRAY+=( "LeftRightSymmetricModel" )
 #PROJECTARRAY+=( "Utils" )
 #PROJECTARRAY+=( "ZFitterWrapper" )
 

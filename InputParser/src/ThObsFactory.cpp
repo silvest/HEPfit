@@ -18,9 +18,9 @@
 #include "SUSYObservables.h"
 #include "GeorgiMachacekObservables.h"
 #include "THDMObservables.h"
+#include "LRSMObservables.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
-#include "LRSMObservables.h"
 #include "THDMWObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/lexical_cast.hpp>
@@ -317,13 +317,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["DmBs"] = boost::factory<DmBs*>();
     obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>();
     obsThFactory["Betas_JPsiPhi"] = boost::factory<Betas_JPsiPhi*>();
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    obsThFactory["M12D"] = boost::factory<M12D*>();
-    obsThFactory["ArgD"] = boost::factory<ArgD*>();
-    /** END: REMOVE FROM THE PACKAGE **/
     obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
     obsThFactory["DmK"] = boost::factory<DmK*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
+    obsThFactory["M12D"] = boost::factory<M12D*>();
+    obsThFactory["ArgD"] = boost::factory<ArgD*>();
     //----- eps'/eps  -----
     obsThFactory["EpsiloP_o_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
     /** END: REMOVE FROM THE PACKAGE **/
@@ -1320,7 +1318,6 @@ ThObsFactory::ThObsFactory()
 
     /** END: REMOVE FROM THE PACKAGE **/
     
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  LeftRightSymmetric model observables  -----
     obsThFactory["mu1_2_LRSM"] = boost::factory<mu1_2_LRSM*>();
     obsThFactory["mu2_2_LRSM"] = boost::factory<mu2_2_LRSM*>();
@@ -1340,8 +1337,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["MH02_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 1);
     obsThFactory["MH03_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 2);
     obsThFactory["MH04_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 3);
-
-    /** END: REMOVE FROM THE PACKAGE **/
 
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     //-----  THDMW model observables  -----

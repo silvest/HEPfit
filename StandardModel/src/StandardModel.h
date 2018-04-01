@@ -2821,6 +2821,7 @@ protected:
 
     Flavour SMFlavour; ///< An object of type Flavour.
     
+    /** BEGIN: REMOVE FROM THE PACKAGE **/
     //////////////////////////////////////////////////////////////////////// 
     //Migrated from LEP2ThObservables.h
     
@@ -3109,7 +3110,7 @@ protected:
     double getIntegrand_AFBnumeratorWithISR_bottom205(double x) const; 
     double getIntegrand_AFBnumeratorWithISR_bottom207(double x) const; 
     
-    
+    /** END: REMOVE FROM THE PACKAGE **/
     ////////////////////////////////////////////////////////////////////////    
 private:
     EWSMcache* myEWSMcache; ///< A pointer to an object of type EWSMcache.
@@ -3150,7 +3151,7 @@ private:
     mutable bool useRhoZ_f_cache[12];
     mutable bool useKappaZ_f_cache[12];
     
-    
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     // caches for the SM prediction of LEP2 Obs
 //    mutable double SMparams_cache[NumSMParamsForEWPO+3];
     mutable double SMresult_cache; 
@@ -3161,6 +3162,7 @@ private:
     mutable double error;/**< GSL integral variable */    
     mutable gsl_function f_GSL;/**< GSL integral variable */
     gsl_integration_workspace * w_GSL1;/**< GSL integral variable */
+/** END: REMOVE FROM THE PACKAGE **/
     
     int iterationNo;
     

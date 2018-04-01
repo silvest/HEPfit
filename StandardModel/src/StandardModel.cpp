@@ -2254,7 +2254,7 @@ double StandardModel::RVh() const
     return ( gV_sum.abs2()*(-0.4132 * AlsMzPi3 - 4.9841 * AlsMzPi4));
 }
 
-
+/** BEGIN: REMOVE FROM THE PACKAGE **/
 ////////////////////////////////////////////////////////////////////////////////////
 //LEP2 Observables
 
@@ -7730,3 +7730,4 @@ double StandardModel::getIntegrand_AFBnumeratorWithISR_bottom207(double x) const
     double s = 207. * 207.;
     return (Integrand_AFBnumeratorWithISR_q(x, QCD::quark(BOTTOM), s));
 }
+/** END: REMOVE FROM THE PACKAGE **/

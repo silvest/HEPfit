@@ -9,9 +9,6 @@
 #include <iomanip>
 #include <stdexcept>
 #include <cmath>
-/** BEGIN: REMOVE FROM THE PACKAGE **/
-#include "FeynHiggsWrapper.h"
-/** END: REMOVE FROM THE PACKAGE **/
 #include "EWSUSY.h"
 #include "SUSY.h"
 #include <EWSMcache.h>
@@ -24,6 +21,7 @@
 #include "EWSMApproximateFormulae.h"
 #include "EWSMOneLoopEW_HV.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
+#include "FeynHiggsWrapper.h"
 #include "EWSMTwoFermionsLEP2.h"
 /** END: REMOVE FROM THE PACKAGE **/
 
