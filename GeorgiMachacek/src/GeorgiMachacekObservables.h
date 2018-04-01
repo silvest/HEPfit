@@ -7,6 +7,7 @@
 #ifndef GEORGIMACHACEKOBSERVABLES_H
 #define	GEORGIMACHACEKOBSERVABLES_H
 
+#include "GMDirectSearches.h"
 #include "GMpositivity.h"
 #include "GMquantities.h"
 #include "GMunitarity.h"

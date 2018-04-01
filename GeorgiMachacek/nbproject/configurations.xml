@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/GMDirectSearches.h</itemPath>
       <itemPath>src/GMMatching.h</itemPath>
       <itemPath>src/GMcache.h</itemPath>
       <itemPath>src/GMpositivity.h</itemPath>
@@ -19,6 +20,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/GMDirectSearches.cpp</itemPath>
       <itemPath>src/GMMatching.cpp</itemPath>
       <itemPath>src/GMcache.cpp</itemPath>
       <itemPath>src/GMpositivity.cpp</itemPath>
@@ -63,6 +65,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/GMDirectSearches.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMDirectSearches.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GMMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GMMatching.h" ex="false" tool="3" flavor2="0">
@@ -122,6 +128,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/GMDirectSearches.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GMDirectSearches.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GMMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GMMatching.h" ex="false" tool="3" flavor2="0">

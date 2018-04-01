@@ -465,7 +465,7 @@ public:
 protected:
     ThObservable * tho; ///< A pointer of to the object of the ThObservables class.
     std::string name; ///< A name for the observable.
-    std::string thname; ///< The name for the oservable as fixed in the ThObservable class.
+    std::string thname; ///< The name for the observable as fixed in the ThObservable class.
     std::string label; ///< A label for the observable.
     std::string distr; ///< The name of the distribution of the the observable.
     std::string filename; ///< The name of the file containing the experimental likelihood for the observable.

@@ -7,10 +7,49 @@
 
 #include "gslpp.h"
 #include "GMcache.h"
+#include <fstream>
+#include <sstream>
+#include <string>
 
 GMcache::GMcache(const StandardModel& SM_i)
-        : unitarityeigenvalues(17, 0.), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+    :br_tt(19961, 2, 0.),
+    br_bb(19961, 2, 0.),
+    br_tautau(19961, 2, 0.),
+    br_cc(19961, 2, 0.),
+    br_mumu(19961, 2, 0.),
+    br_ZZ(19961, 2, 0.),
+    br_WW(19961, 2, 0.),
+    GammaHtot_SM(19961, 2, 0.),
+    log_cs_ggH_8(199, 2, 0.),
+    log_cs_VBF_8(199, 2, 0.),
+    log_cs_WH_8(199, 2, 0.),
+    log_cs_ZH_8(199, 2, 0.),
+    log_cs_ggH_13(199, 2, 0.),
+    log_cs_VBF_13(199, 2, 0.),
+    log_cs_WH_13(199, 2, 0.),
+    log_cs_ZH_13(199, 2, 0.),
+    log_cs_ttH_8(199, 2, 0.),
+    log_cs_ttH_13(199, 2, 0.),
+    log_cs_bbH_8(199, 2, 0.),
+    log_cs_bbH_13(199, 2, 0.),
+    log_cs_ggA_8(199, 2, 0.),
+    log_cs_ttA_8(199, 2, 0.),
+    log_cs_bbA_8(199, 2, 0.),
+    log_cs_ggA_13(199, 2, 0.),
+    log_cs_ttA_13(199, 2, 0.),
+    log_cs_bbA_13(199, 2, 0.),
+    log_cs_ggHp_8(744, 3, 0.),
+    log_cs_ggHp_13(1104, 3, 0.),
+    ATLAS8_gg_phi_tautau(92, 2, 0.),
+    ATLAS8_bb_phi_tautau(92, 2, 0.),
+    ATLAS8_gg_phi_tautau_e(92, 2, 0.),
+    ATLAS8_bb_phi_tautau_e(92, 2, 0.),
+    CMS13_pp_H_hh_bbbb(95,2,0.),
+    CMS13_pp_H_hh_bbbb_e(95,2,0.),
+    unitarityeigenvalues(17, 0.),
+    myGM(static_cast<const GeorgiMachacek*> (&SM_i))
 {
+  read();
 //    myRunnerGM=new RunnerGM(SM_i);
 }
 
@@ -32,18 +71,18 @@ int GMcache::CacheCheck(const gslpp::complex cache[][CacheSize],
     }
     return -1;
 }
-//
-//int GMcache::CacheCheckReal(const double cache[][CacheSize], 
-//                          const int NumPar, const double params[]) const {
-//    bool bCache;
-//    for(int i=0; i<CacheSize; i++) {
-//        bCache = true;
-//        for(int j=0; j<NumPar; j++)
-//            bCache &= (params[j] == cache[j][i]);
-//        if (bCache) return i;
-//    }
-//    return -1;
-//}
+
+int GMcache::CacheCheckReal(const double cache[][CacheSize], 
+                          const int NumPar, const double params[]) const {
+    bool bCache;
+    for(int i=0; i<CacheSize; i++) {
+        bCache = true;
+        for(int j=0; j<NumPar; j++)
+            bCache &= (params[j] == cache[j][i]);
+        if (bCache) return i;
+    }
+    return -1;
+}
 
 void GMcache::CacheShift(gslpp::complex cache[][CacheSize], const int NumPar, 
                            const double params[], const gslpp::complex newResult) const {
@@ -58,6 +97,812 @@ void GMcache::CacheShift(gslpp::complex cache[][CacheSize], const int NumPar,
         cache[NumPar][0] = newResult;
     }
 }
+
+void GMcache::CacheShiftReal(double cache[][CacheSize], const int NumPar,
+                           const double params[], const double newResult) const {
+    // shift old parameters and result
+    for(int i=CacheSize-1; i>0; i--)
+        for(int j=0; j<NumPar+1; j++)
+            cache[j][i] = cache[j][i-1];
+
+    // store new parameters and result
+    for(int j=0; j<NumPar; j++) {
+        cache[j][0] = params[j];
+        cache[NumPar][0] = newResult;
+    }
+}
+
+void GMcache::read(){
+
+    std::stringstream br1,br2,br3,br4,br5,br6,br7;
+    std::stringstream dw1;
+    std::stringstream cs1,cs2,cs3,cs4,cs5,cs6,cs7,cs8,cs9;
+    std::stringstream cs11,cs12,cs13,cs14,cs15,cs16,cs17,cs18,cs19;
+    std::stringstream cs20,cs21;
+    std::stringstream ex6,ex7,ex53;
+    std::stringstream ex6e,ex7e,ex53e;
+
+    std::cout<<"reading tables"<<std::endl;
+
+    std::stringstream path;
+    path << getenv("HEPFITTABS") << "/THDM/tabs/";
+    std::string tablepath=path.str();
+
+    br1 << tablepath << "br1.dat";
+    br_tt = readTable(br1.str(),19961,2);
+    br2 << tablepath << "br2.dat";
+    br_bb = readTable(br2.str(),19961,2);
+    br3 << tablepath << "br3.dat";
+    br_tautau = readTable(br3.str(),19961,2); 
+    br4 << tablepath << "br4.dat";
+    br_cc = readTable(br4.str(),19961,2);
+    br5 << tablepath << "br5.dat";
+    br_mumu = readTable(br5.str(),19961,2);
+    br6 << tablepath << "br6.dat";
+    br_ZZ = readTable(br6.str(),19961,2);
+    br7 << tablepath << "br7.dat";
+    br_WW = readTable(br7.str(),19961,2);
+    dw1 << tablepath << "dw1.dat";
+    GammaHtot_SM = readTable(dw1.str(),19961,2);
+    cs1 << tablepath << "log_cs_ggH_8.dat";
+    log_cs_ggH_8 = readTable(cs1.str(),199,2);
+    cs11 << tablepath << "log_cs_ggH_13.dat";
+    log_cs_ggH_13 = readTable(cs11.str(),199,2);
+    cs2 << tablepath << "log_cs_VBF_8.dat";
+    log_cs_VBF_8 = readTable(cs2.str(),199,2);
+    cs12 << tablepath << "log_cs_VBF_13.dat";
+    log_cs_VBF_13 = readTable(cs12.str(),199,2);
+    cs3 << tablepath << "log_cs_WH_8.dat";
+    log_cs_WH_8 = readTable(cs3.str(),199,2);
+    cs13 << tablepath << "log_cs_WH_13.dat";
+    log_cs_WH_13 = readTable(cs13.str(),199,2);
+    cs4 << tablepath << "log_cs_ZH_8.dat";
+    log_cs_ZH_8 = readTable(cs4.str(),199,2);
+    cs14 << tablepath << "log_cs_ZH_13.dat";
+    log_cs_ZH_13 = readTable(cs14.str(),199,2);
+    cs5 << tablepath << "log_cs_ttH_8.dat";
+    log_cs_ttH_8 = readTable(cs5.str(),199,2);
+    cs15 << tablepath << "log_cs_ttH_13.dat";
+    log_cs_ttH_13 = readTable(cs15.str(),199,2);
+    cs6 << tablepath << "log_cs_bbH_8.dat";
+    log_cs_bbH_8 = readTable(cs6.str(),199,2);
+    cs16 << tablepath << "log_cs_bbH_13.dat";
+    log_cs_bbH_13 = readTable(cs16.str(),199,2);
+    cs7 << tablepath << "log_cs_ggA_8.dat";
+    log_cs_ggA_8 = readTable(cs7.str(),199,2);
+    cs17 << tablepath << "log_cs_ggA_13.dat";
+    log_cs_ggA_13 = readTable(cs17.str(),199,2);
+    cs8 << tablepath << "log_cs_ttA_8.dat";
+    log_cs_ttA_8 = readTable(cs8.str(),199,2);
+    cs18 << tablepath << "log_cs_ttA_13.dat";
+    log_cs_ttA_13 = readTable(cs18.str(),199,2);
+    cs9 << tablepath << "log_cs_bbA_8.dat";
+    log_cs_bbA_8 = readTable(cs9.str(),199,2);
+    cs19 << tablepath << "log_cs_bbA_13.dat";
+    log_cs_bbA_13 = readTable(cs19.str(),199,2);
+    cs20 << tablepath << "log_cs_ggHp_8.dat";
+    log_cs_ggHp_8 = readTable(cs20.str(),744,3);
+    cs21 << tablepath << "log_cs_ggHp_13.dat";
+    log_cs_ggHp_13 = readTable(cs21.str(),1104,3);
+
+    ex6 << tablepath << "14096064_a.dat";
+    ATLAS8_gg_phi_tautau = readTable(ex6.str(),92,2);
+    ex6e << tablepath << "14096064_a_e.dat";
+    ATLAS8_gg_phi_tautau_e = readTable(ex6e.str(),92,2);
+    ex7 << tablepath << "14096064_b.dat";
+    ATLAS8_bb_phi_tautau = readTable(ex7.str(),92,2);
+    ex7e << tablepath << "14096064_b_e.dat";
+    ATLAS8_bb_phi_tautau_e = readTable(ex7e.str(),92,2);
+
+    ex53 << tablepath << "CMS-PAS-HIG-17-009.dat";
+    CMS13_pp_H_hh_bbbb = readTable(ex53.str(),95,2);
+    ex53e << tablepath << "CMS-PAS-HIG-17-009_e.dat";
+    CMS13_pp_H_hh_bbbb_e = readTable(ex53e.str(),95,2);
+
+}    
+    
+
+
+double GMcache::ip_Br_HPtott(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_Br_HPtott_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_Br_HPtott_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(br_tt,mass));
+        CacheShiftReal(ip_Br_HPtott_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_Br_HPtobb(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_Br_HPtobb_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_Br_HPtobb_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(br_bb,mass));
+        CacheShiftReal(ip_Br_HPtobb_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_Br_HPtotautau(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_Br_HPtotautau_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_Br_HPtotautau_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(br_tautau,mass));
+        CacheShiftReal(ip_Br_HPtotautau_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_Br_HPtocc(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_Br_HPtocc_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_Br_HPtocc_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(br_cc,mass));
+        CacheShiftReal(ip_Br_HPtocc_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_Br_HPtomumu(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_Br_HPtomumu_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_Br_HPtomumu_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(br_mumu,mass));
+        CacheShiftReal(ip_Br_HPtomumu_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_Br_HPtoZZ(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_Br_HPtoZZ_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_Br_HPtoZZ_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(br_ZZ,mass));
+        CacheShiftReal(ip_Br_HPtoZZ_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_Br_HPtoWW(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_Br_HPtoWW_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_Br_HPtoWW_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(br_WW,mass));
+        CacheShiftReal(ip_Br_HPtoWW_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_GammaHPtotSM(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_GammaHPtotSM_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_GammaHPtotSM_cache[NumPar][i] );
+    } else {
+        double newResult = pow(10.0,interpolate(GammaHtot_SM,mass));
+        CacheShiftReal(ip_GammaHPtotSM_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ggtoH_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ggtoH_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoH_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate(log_cs_ggH_8,mass));
+        }
+        CacheShiftReal(ip_cs_ggtoH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ggtoH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ggtoH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ggH_13,mass));
+        }
+        CacheShiftReal(ip_cs_ggtoH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_VBFtoH_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_VBFtoH_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_VBFtoH_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_VBF_8,mass));
+        }
+        CacheShiftReal(ip_cs_VBFtoH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_VBFtoH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_VBFtoH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_VBFtoH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_VBF_13,mass));
+        }
+        CacheShiftReal(ip_cs_VBFtoH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_WtoWH_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_WtoWH_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_WtoWH_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_WH_8,mass));
+        }
+        CacheShiftReal(ip_cs_WtoWH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_WtoWH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_WtoWH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_WtoWH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_WH_13,mass));
+        }
+        CacheShiftReal(ip_cs_WtoWH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ZtoZH_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ZtoZH_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ZtoZH_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ZH_8,mass));
+        }
+        CacheShiftReal(ip_cs_ZtoZH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ZtoZH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ZtoZH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ZtoZH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ZH_13,mass));
+        }
+        CacheShiftReal(ip_cs_ZtoZH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptottH_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptottH_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptottH_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ttH_8,mass));
+        }
+        CacheShiftReal(ip_cs_pptottH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptottH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptottH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptottH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ttH_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptottH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptobbH_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptobbH_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptobbH_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_bbH_8,mass));
+        }
+        CacheShiftReal(ip_cs_pptobbH_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptobbH_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptobbH_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptobbH_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_bbH_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptobbH_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ggtoA_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ggtoA_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoA_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ggA_8,mass));
+        }
+        CacheShiftReal(ip_cs_ggtoA_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ggtoA_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_ggtoA_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoA_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ggA_13,mass));
+        }
+        CacheShiftReal(ip_cs_ggtoA_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptottA_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptottA_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptottA_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ttA_8,mass));
+        }
+        CacheShiftReal(ip_cs_pptottA_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptottA_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptottA_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptottA_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_ttA_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptottA_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptobbA_8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptobbA_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptobbA_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_bbA_8,mass));
+        }
+        CacheShiftReal(ip_cs_pptobbA_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_pptobbA_13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_cs_pptobbA_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_pptobbA_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mass>=20. && mass <=2000.) {
+            newResult = pow(10.0,interpolate (log_cs_bbA_13,mass));
+        }
+        CacheShiftReal(ip_cs_pptobbA_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ggtoHp_8(double mHp, double logtb){
+    int NumPar = 2;
+    double params[] = {mHp, logtb};
+
+    int i = CacheCheckReal(ip_cs_ggtoHp_8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoHp_8_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mHp>=180. && mHp <=1400. && logtb>=-1. && logtb<=1.75) {
+            newResult = pow(10.0,interpolate2D(log_cs_ggHp_8, logtb, mHp));
+        }
+        CacheShiftReal(ip_cs_ggtoHp_8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_cs_ggtoHp_13(double mHp, double logtb){
+    int NumPar = 2;
+    double params[] = {mHp, logtb};
+
+    int i = CacheCheckReal(ip_cs_ggtoHp_13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_cs_ggtoHp_13_cache[NumPar][i] );
+    } else {
+        double newResult = 0.0;
+        if (mHp>=180. && mHp <=2000. && logtb>=-1. && logtb<=1.75) {
+            newResult = pow(10.0,interpolate2D(log_cs_ggHp_13, logtb, mHp));
+        }
+        CacheShiftReal(ip_cs_ggtoHp_13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+
+double GMcache::ip_ex_gg_phi_tautau_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_tautau_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_ex_gg_phi_tautau_ATLAS8_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_ATLAS8_cache_e, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_tautau_ATLAS8_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_phi_tautau_e,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_ATLAS8_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_ex_bb_phi_tautau_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tautau_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_ex_bb_phi_tautau_ATLAS8_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_ATLAS8_cache_e, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tautau_ATLAS8_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_bb_phi_tautau_e,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_ATLAS8_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_ex_pp_H_hh_bbbb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+double GMcache::ip_ex_pp_H_hh_bbbb_CMS13_e(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_H_hh_bbbb_CMS13_cache_e, NumPar, params);
+    if (i>=0) {
+        return(ip_ex_pp_H_hh_bbbb_CMS13_cache_e[NumPar][i] );
+    } else {
+        double newResult = interpolate (CMS13_pp_H_hh_bbbb_e,mass);
+        CacheShiftReal(ip_ex_pp_H_hh_bbbb_CMS13_cache_e, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+
+gslpp::matrix<double> GMcache::readTable(std::string filename, int rowN, int colN){
+
+    std::ifstream INfile;
+    std::string lineTab;
+    INfile.open( filename.c_str() );
+    if(INfile.fail()){
+        std::cout<<"error: in GMcache, table doesn't exist!"<<std::endl;
+    }
+
+    gslpp::matrix<double> arrayTab(rowN, colN, 0.);
+    int a =0;
+    int b=0;
+    double v;
+
+    while(INfile.good()){
+        while(getline(INfile, lineTab)){
+            if( lineTab[0]=='#' )continue;
+            else{
+            std::istringstream streamTab(lineTab);
+            b=0;
+            while(streamTab >>v){
+                arrayTab.assign(a,b,v);
+                b++;
+            }
+            a++;
+            }
+        }
+    }
+
+    INfile.close();
+    
+    return arrayTab;
+}
+
+//1D interpolation
+
+double GMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
+
+    int rowN=arrayTab.size_i();
+    
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double interval = arrayTab(1,0)-arrayTab(0,0);
+    int Nintervals = (x-xmin)/interval;
+    double y = 0.0;
+       
+    if(x<xmin){
+//        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
+        return 0.;
+    }
+    else if(x>xmax){
+//        std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
+        return 0.;
+    }
+    else{
+        y =(arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/(arrayTab(Nintervals+1,0)
+                   -arrayTab(Nintervals,0))*(x-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
+        return y;
+    }
+}
+
+//2D interpolation
+
+double GMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x, double y){
+
+    int rowN=arrayTab.size_i();
+
+    double xmin = arrayTab(0,0);
+    double xmax = arrayTab(rowN-1,0);
+    double ymin = arrayTab(0,1);
+    double ymax = arrayTab(rowN-1,1);
+    double intervalx = arrayTab(1,0)-arrayTab(0,0);
+    int i=1;
+    do i++;
+    while(arrayTab(i,1)-arrayTab(i-1,1)==0&&i<30000);
+    double intervaly = arrayTab(i,1)-arrayTab(i-1,1);
+    int Nintervalsx = (x-xmin)/intervalx;
+    int Nintervalsy = (y-ymin)/intervaly;
+    if(x<xmin||x>xmax||y<ymin||y>ymax){
+//        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
+        return 0.;
+    }
+    else{
+    double x1=arrayTab(i*Nintervalsy+Nintervalsx,0);
+    double x2=arrayTab(i*Nintervalsy+Nintervalsx+1,0);
+    double y1=arrayTab(i*Nintervalsy+Nintervalsx,1);
+    double y2=arrayTab(i*(Nintervalsy+1)+Nintervalsx,1);
+    return (arrayTab(i*Nintervalsy+Nintervalsx,2) * (x2-x) * (y2-y)
+            +arrayTab(i*Nintervalsy+Nintervalsx+1,2) * (x-x1) * (y2-y)
+            +arrayTab(i*(Nintervalsy+1)+Nintervalsx,2) * (x2-x) * (y-y1)
+            +arrayTab(i*(Nintervalsy+1)+Nintervalsx+1,2) * (x-x1) * (y-y1))
+           /((x2-x1)*(y2-y1));
+    }
+}
+
 
 gslpp::complex GMcache::I_h_U(const double mHl2, const double Mu, const double Mc, const double Mt) const {
     int NumPar = 4;
@@ -76,39 +921,39 @@ gslpp::complex GMcache::I_h_U(const double mHl2, const double Mu, const double M
         return newResult;
     }
 }
-//
-//gslpp::complex GMcache::I_HH_U(const double mHh2, const double Mc, const double Mt) const {
-//    int NumPar = 3;
-//    double params[] = {mHh2, Mc, Mt};
-//
-//    int i = CacheCheck(I_HH_U_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( I_HH_U_cache[NumPar][i] );
-//    } else {
-//    	double TAUc=4.0*Mc*Mc/mHh2;
-//    	double TAUt=4.0*Mt*Mt/mHh2;
-//        gslpp::complex newResult = -(8./3.)*(TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
-//                      +TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
-//        CacheShift(I_HH_U_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
-//
-//gslpp::complex GMcache::I_A_U(const double mA2, const double Mc, const double Mt) const {
-//    int NumPar = 3;
-//    double params[] = {mA2, Mc, Mt};
-//
-//    int i = CacheCheck(I_A_U_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( I_A_U_cache[NumPar][i] );
-//    } else {
-//    	double TAUc=4.0*Mc*Mc/mA2;
-//    	double TAUt=4.0*Mt*Mt/mA2;
-//        gslpp::complex newResult = -(8./3.)*(TAUc*f_func(TAUc)+TAUt*f_func(TAUt));
-//        CacheShift(I_A_U_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
+
+gslpp::complex GMcache::I_HH_U(const double mHh2, const double Mc, const double Mt) const {
+    int NumPar = 3;
+    double params[] = {mHh2, Mc, Mt};
+
+    int i = CacheCheck(I_HH_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_HH_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mHh2;
+    	double TAUt=4.0*Mt*Mt/mHh2;
+        gslpp::complex newResult = -(8./3.)*(TAUc*(1.0+(1.0-TAUc)*f_func(TAUc))
+                      +TAUt*(1.0+(1.0-TAUt)*f_func(TAUt)));
+        CacheShift(I_HH_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex GMcache::I_A_U(const double mA2, const double Mc, const double Mt) const {
+    int NumPar = 3;
+    double params[] = {mA2, Mc, Mt};
+
+    int i = CacheCheck(I_A_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_A_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mA2;
+    	double TAUt=4.0*Mt*Mt/mA2;
+        gslpp::complex newResult = -(8./3.)*(TAUc*f_func(TAUc)+TAUt*f_func(TAUt));
+        CacheShift(I_A_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 gslpp::complex GMcache::I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const {
     int NumPar = 4;
@@ -127,39 +972,39 @@ gslpp::complex GMcache::I_h_D(const double mHl2, const double Md, const double M
         return newResult;
     }
 }
-//
-//gslpp::complex GMcache::I_HH_D(const double mHh2, const double Ms, const double Mb) const {
-//    int NumPar = 3;
-//    double params[] = {mHh2, Ms, Mb};
-//
-//    int i = CacheCheck(I_HH_D_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( I_HH_D_cache[NumPar][i] );
-//    } else {
-//    	double TAUs=4.0*Ms*Ms/mHh2;
-//    	double TAUb=4.0*Mb*Mb/mHh2;
-//        gslpp::complex newResult = -(2./3.)*(TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))
-//                      +TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
-//        CacheShift(I_HH_D_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
-//
-//gslpp::complex GMcache::I_A_D(const double mA2, const double Ms, const double Mb) const {
-//    int NumPar = 3;
-//    double params[] = {mA2, Ms, Mb};
-//
-//    int i = CacheCheck(I_A_D_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( I_A_D_cache[NumPar][i] );
-//    } else {
-//    	double TAUs=4.0*Ms*Ms/mA2;
-//    	double TAUb=4.0*Mb*Mb/mA2;
-//        gslpp::complex newResult = -(2./3.)*(TAUs*f_func(TAUs)+TAUb*f_func(TAUb));
-//        CacheShift(I_A_D_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
+
+gslpp::complex GMcache::I_HH_D(const double mHh2, const double Ms, const double Mb) const {
+    int NumPar = 3;
+    double params[] = {mHh2, Ms, Mb};
+
+    int i = CacheCheck(I_HH_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_HH_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mHh2;
+    	double TAUb=4.0*Mb*Mb/mHh2;
+        gslpp::complex newResult = -(2./3.)*(TAUs*(1.0+(1.0-TAUs)*f_func(TAUs))
+                      +TAUb*(1.0+(1.0-TAUb)*f_func(TAUb)));
+        CacheShift(I_HH_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex GMcache::I_A_D(const double mA2, const double Ms, const double Mb) const {
+    int NumPar = 3;
+    double params[] = {mA2, Ms, Mb};
+
+    int i = CacheCheck(I_A_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_A_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mA2;
+    	double TAUb=4.0*Mb*Mb/mA2;
+        gslpp::complex newResult = -(2./3.)*(TAUs*f_func(TAUs)+TAUb*f_func(TAUb));
+        CacheShift(I_A_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 gslpp::complex GMcache::I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const {
     int NumPar = 4;
@@ -179,39 +1024,39 @@ gslpp::complex GMcache::I_h_L(const double mHl2, const double Me, const double M
         return newResult;
     }
 }
-//
-//gslpp::complex GMcache::I_HH_L(const double mHh2, const double Mmu, const double Mtau) const {
-//    int NumPar = 3;
-//    double params[] = {mHh2, Mmu, Mtau};
-//
-//    int i = CacheCheck(I_HH_L_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( I_HH_L_cache[NumPar][i] );
-//    } else {
-//    	double TAUmu=4.0*Mmu*Mmu/mHh2;
-//    	double TAUtau=4.0*Mtau*Mtau/mHh2;
-//        gslpp::complex newResult = -2.0*(TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))+
-//                           TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
-//        CacheShift(I_HH_L_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
-//
-//gslpp::complex GMcache::I_A_L(const double mA2, const double Mmu, const double Mtau) const {
-//    int NumPar = 3;
-//    double params[] = {mA2, Mmu, Mtau};
-//
-//    int i = CacheCheck(I_A_L_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( I_A_L_cache[NumPar][i] );
-//    } else {
-//    	double TAUmu=4.0*Mmu*Mmu/mA2;
-//    	double TAUtau=4.0*Mtau*Mtau/mA2;
-//        gslpp::complex newResult = -2.0*(TAUmu*f_func(TAUmu)+TAUtau*f_func(TAUtau));
-//        CacheShift(I_A_L_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
+
+gslpp::complex GMcache::I_HH_L(const double mHh2, const double Mmu, const double Mtau) const {
+    int NumPar = 3;
+    double params[] = {mHh2, Mmu, Mtau};
+
+    int i = CacheCheck(I_HH_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_HH_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mHh2;
+    	double TAUtau=4.0*Mtau*Mtau/mHh2;
+        gslpp::complex newResult = -2.0*(TAUmu*(1.0+(1.0-TAUmu)*f_func(TAUmu))+
+                           TAUtau*(1.0+(1.0-TAUtau)*f_func(TAUtau)));
+        CacheShift(I_HH_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex GMcache::I_A_L(const double mA2, const double Mmu, const double Mtau) const {
+    int NumPar = 3;
+    double params[] = {mA2, Mmu, Mtau};
+
+    int i = CacheCheck(I_A_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( I_A_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mA2;
+    	double TAUtau=4.0*Mtau*Mtau/mA2;
+        gslpp::complex newResult = -2.0*(TAUmu*f_func(TAUmu)+TAUtau*f_func(TAUtau));
+        CacheShift(I_A_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 gslpp::complex GMcache::I_H_W(const double mH, const double MW) const {
     int NumPar = 2;
@@ -264,45 +1109,45 @@ gslpp::complex GMcache::A_h_U(const double mHl2, const double cW2, const double 
         return newResult;
     }
 }
-//
-//gslpp::complex GMcache::A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const {
-//    int NumPar = 5;
-//    double params[] = {mHh2, cW2, Mc, Mt, MZ};
-//
-//    int i = CacheCheck(A_HH_U_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( A_HH_U_cache[NumPar][i] );
-//    } else {
-//    	double TAUc=4.0*Mc*Mc/mHh2;
-//    	double TAUt=4.0*Mt*Mt/mHh2;
-//    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
-//    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
-//	double sW2=1.0-cW2;
-//        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc)
-//                                         +Int1(TAUt,LAMt)-Int2(TAUt,LAMt));
-//        CacheShift(A_HH_U_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
-//
-//gslpp::complex GMcache::A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const {
-//    int NumPar = 5;
-//    double params[] = {mA2, cW2, Mc, Mt, MZ};
-//
-//    int i = CacheCheck(A_A_U_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( A_A_U_cache[NumPar][i] );
-//    } else {
-//    	double TAUc=4.0*Mc*Mc/mA2;
-//    	double TAUt=4.0*Mt*Mt/mA2;
-//    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
-//    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
-//	double sW2=1.0-cW2;
-//        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(-Int2(TAUc,LAMc)-Int2(TAUt,LAMt))/sqrt(sW2*cW2);
-//        CacheShift(A_A_U_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
+
+gslpp::complex GMcache::A_HH_U(const double mHh2, const double cW2, const double Mc, const double Mt, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mHh2, cW2, Mc, Mt, MZ};
+
+    int i = CacheCheck(A_HH_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_HH_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mHh2;
+    	double TAUt=4.0*Mt*Mt/mHh2;
+    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(Int1(TAUc,LAMc)-Int2(TAUc,LAMc)
+                                         +Int1(TAUt,LAMt)-Int2(TAUt,LAMt));
+        CacheShift(A_HH_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex GMcache::A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mA2, cW2, Mc, Mt, MZ};
+
+    int i = CacheCheck(A_A_U_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_A_U_cache[NumPar][i] );
+    } else {
+    	double TAUc=4.0*Mc*Mc/mA2;
+    	double TAUt=4.0*Mt*Mt/mA2;
+    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(-Int2(TAUc,LAMc)-Int2(TAUt,LAMt))/sqrt(sW2*cW2);
+        CacheShift(A_A_U_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 gslpp::complex GMcache::A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const {
     int NumPar = 6;
@@ -325,45 +1170,45 @@ gslpp::complex GMcache::A_h_D(const double mHl2, const double cW2, const double 
         return newResult;
     }
 }
-//
-//gslpp::complex GMcache::A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const {
-//    int NumPar = 5;
-//    double params[] = {mHh2, cW2, Ms, Mb, MZ};
-//
-//    int i = CacheCheck(A_HH_D_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( A_HH_D_cache[NumPar][i] );
-//    } else {
-//    	double TAUs=4.0*Ms*Ms/mHh2;
-//    	double TAUb=4.0*Mb*Mb/mHh2;
-//    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
-//	double LAMb=4.0*Mb*Mb/(MZ*MZ);
-//	double sW2=1.0-cW2;
-//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(Int1(TAUs,LAMs)-Int2(TAUs,LAMs)
-//                                          +Int1(TAUb,LAMb)-Int2(TAUb,LAMb));
-//        CacheShift(A_HH_D_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
-//
-//gslpp::complex GMcache::A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const {
-//    int NumPar = 5;
-//    double params[] = {mA2, cW2, Ms, Mb, MZ};
-//
-//    int i = CacheCheck(A_A_D_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( A_A_D_cache[NumPar][i] );
-//    } else {
-//    	double TAUs=4.0*Ms*Ms/mA2;
-//    	double TAUb=4.0*Mb*Mb/mA2;
-//    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
-//	double LAMb=4.0*Mb*Mb/(MZ*MZ);
-//	double sW2=1.0-cW2;
-//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(-Int2(TAUs,LAMs)-Int2(TAUb,LAMb))/sqrt(sW2*cW2);
-//        CacheShift(A_A_D_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
+
+gslpp::complex GMcache::A_HH_D(const double mHh2, const double cW2, const double Ms, const double Mb, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mHh2, cW2, Ms, Mb, MZ};
+
+    int i = CacheCheck(A_HH_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_HH_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mHh2;
+    	double TAUb=4.0*Mb*Mb/mHh2;
+    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(Int1(TAUs,LAMs)-Int2(TAUs,LAMs)
+                                          +Int1(TAUb,LAMb)-Int2(TAUb,LAMb));
+        CacheShift(A_HH_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex GMcache::A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mA2, cW2, Ms, Mb, MZ};
+
+    int i = CacheCheck(A_A_D_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_A_D_cache[NumPar][i] );
+    } else {
+    	double TAUs=4.0*Ms*Ms/mA2;
+    	double TAUb=4.0*Mb*Mb/mA2;
+    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(-Int2(TAUs,LAMs)-Int2(TAUb,LAMb))/sqrt(sW2*cW2);
+        CacheShift(A_A_D_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 gslpp::complex GMcache::A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const {
     int NumPar = 6;
@@ -387,45 +1232,45 @@ gslpp::complex GMcache::A_h_L(const double mHl2, const double cW2, const double 
         return newResult;
     }
 }
-//
-//gslpp::complex GMcache::A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
-//    int NumPar = 5;
-//    double params[] = {mHh2, cW2, Mmu, Mtau, MZ};
-//
-//    int i = CacheCheck(A_HH_L_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( A_HH_L_cache[NumPar][i] );
-//    } else {
-//    	double TAUmu=4.0*Mmu*Mmu/mHh2;
-//    	double TAUtau=4.0*Mtau*Mtau/mHh2;
-//    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
-//	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
-//	double sW2=1.0-cW2;
-//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)
-//                                      +Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau));
-//        CacheShift(A_HH_L_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
-//
-//gslpp::complex GMcache::A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
-//    int NumPar = 5;
-//    double params[] = {mA2, cW2, Mmu, Mtau, MZ};
-//
-//    int i = CacheCheck(A_A_L_cache, NumPar, params);
-//    if (i>=0) {
-//        return ( A_A_L_cache[NumPar][i] );
-//    } else {
-//    	double TAUmu=4.0*Mmu*Mmu/mA2;
-//    	double TAUtau=4.0*Mtau*Mtau/mA2;
-//    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
-//	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
-//	double sW2=1.0-cW2;
-//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(-Int2(TAUmu,LAMmu)-Int2(TAUtau,LAMtau))/sqrt(sW2*cW2);
-//        CacheShift(A_A_L_cache, NumPar, params, newResult);
-//        return newResult;
-//    }
-//}
+
+gslpp::complex GMcache::A_HH_L(const double mHh2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mHh2, cW2, Mmu, Mtau, MZ};
+
+    int i = CacheCheck(A_HH_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_HH_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mHh2;
+    	double TAUtau=4.0*Mtau*Mtau/mHh2;
+    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(Int1(TAUmu,LAMmu)-Int2(TAUmu,LAMmu)
+                                      +Int1(TAUtau,LAMtau)-Int2(TAUtau,LAMtau));
+        CacheShift(A_HH_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+gslpp::complex GMcache::A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
+    int NumPar = 5;
+    double params[] = {mA2, cW2, Mmu, Mtau, MZ};
+
+    int i = CacheCheck(A_A_L_cache, NumPar, params);
+    if (i>=0) {
+        return ( A_A_L_cache[NumPar][i] );
+    } else {
+    	double TAUmu=4.0*Mmu*Mmu/mA2;
+    	double TAUtau=4.0*Mtau*Mtau/mA2;
+    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+	double sW2=1.0-cW2;
+        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(-Int2(TAUmu,LAMmu)-Int2(TAUtau,LAMtau))/sqrt(sW2*cW2);
+        CacheShift(A_A_L_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 gslpp::complex GMcache::A_H_W(const double mH, const double cW2, const double MW, const double MZ) const {
     int NumPar = 4;
@@ -505,8 +1350,6 @@ void GMcache::computeSignalStrengthQuantities()
     double Mtau = myGM->getLeptons(StandardModel::TAU).getMass();
     double Mmu = myGM->getLeptons(StandardModel::MU).getMass();
     double Me = myGM->getLeptons(StandardModel::ELECTRON).getMass();
-    double MW = MWGM(myGM->Mw_tree());
-    double cW2 = cW2GM(myGM->c02());
 
     double BrSM_htobb = myGM->computeBrHtobb();
     double BrSM_htotautau = myGM->computeBrHtotautau();
@@ -567,12 +1410,518 @@ void GMcache::computeSignalStrengthQuantities()
 
     Gamma_h = sumModBRs*myGM->computeGammaHTotal();
 
-//    GM_BR_h_bb = rh_ff*BrSM_htobb/sumModBRs;
+    GM_BR_h_bb = rh_ff*BrSM_htobb/sumModBRs;
 //    GM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
 //    GM_BR_h_tautau = rh_ff*BrSM_htotautau/sumModBRs;
 //    GM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
 //    GM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
 }
+
+int GMcache::HSTheta (const double x) const{
+    if(x<0) return 0.0;
+    else return 1.0;
+}
+
+double GMcache::KaellenFunction(const double a2, const double b2, const double c2) const{
+    int NumPar = 3;
+    double params[] = {a2, b2, c2};
+
+    int i = CacheCheckReal(KaellenFunction_cache, NumPar, params);
+    if (i>=0) {
+        return ( KaellenFunction_cache[NumPar][i] );
+    }
+    else {
+        double newResult = 0.0;
+        double x = (a2-b2-c2)*(a2-b2-c2)-4.0*b2*c2;
+        if(x>0) newResult = sqrt(std::fabs(x/a2))/2.0;        
+        CacheShiftReal(KaellenFunction_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+void GMcache::computeOtherHiggsProperties()
+{
+    double GF=1/(sqrt(2.0)*vev*vev);
+    double Ale=myGM->getAle();
+    double Als=myGM->getAlsMz();
+    double sW2=1.0-cW2;
+    double mHh=sqrt(mH1sq);
+    double mA=sqrt(mAsq);
+    double mH5=sqrt(mH5sq);
+    double Mt = myGM->getQuarks(QCD::TOP).getMass();
+    double Mb = myGM->getQuarks(QCD::BOTTOM).getMass();
+    double Mc = myGM->getQuarks(QCD::CHARM).getMass();
+    double Ms = myGM->getQuarks(QCD::STRANGE).getMass();
+    double Mu = myGM->getQuarks(QCD::UP).getMass();
+    double Md = myGM->getQuarks(QCD::DOWN).getMass();
+    double Mtau = myGM->getLeptons(StandardModel::TAU).getMass();
+    double Mmu = myGM->getLeptons(StandardModel::MU).getMass();
+    double Me = myGM->getLeptons(StandardModel::ELECTRON).getMass();
+
+//    /* rX_ii is the squared ratio between the GM vertex coupling of the neutral heavy Higgs X to
+//     * the particle i and the corresponding coupling of the SM Higgs boson.*/
+    double rHH_ff=0.0;
+    double rA_ff=0.0;
+    double rH5_ff=0.0;
+    double rHH_VV=0.0;
+    double rA_VV=0.0;
+    double rH5_VV=0.0;
+
+    double gHH_H3=0., gHH_H5=0.;
+
+    if(mH1sq>=mHl2)
+    {
+        rHH_ff = sina*sina/(sinb*sinb);
+        rHH_VV = sina*sina*sinb*sinb + sqrt(32.0/3.0)*sina*cosa*cosb*sinb + 8.0/3.0*cosa*cosa*cosb*cosb;
+        gHH_H3 = gHH3pH3m;
+        gHH_H5 = gHH5pH5m;
+    }
+    else
+    {
+        rHH_ff = cosa*cosa/(sinb*sinb);
+        rHH_VV = cosa*cosa*sinb*sinb - sqrt(32.0/3.0)*cosa*sina*cosb*sinb + 8.0/3.0*sina*sina*cosb*cosb;
+        gHH_H3 = ghH3pH3m;
+        gHH_H5 = ghH5pH5m;
+    }
+
+    gslpp::complex I_HH_F=0.0;//It depends on the modelType
+    gslpp::complex I_HH_Ux=I_HH_U(mH1sq,Mc,Mt);
+    gslpp::complex I_HH_Dx=I_HH_D(mH1sq,Ms,Mb);
+    gslpp::complex I_HH_Lx=I_HH_L(mH1sq,Mmu,Mtau);
+    gslpp::complex I_HH_W=sqrt(rHH_VV)*I_H_W(mHh,MW);
+    gslpp::complex I_HH_Hp = 0.5*vev*( gHH_H3*I_H_Hp(mAsq,mH1sq)/mAsq + 5.0*gHH_H5*I_H_Hp(mH5sq,mH1sq)/mH5sq );
+
+    //    /*A_HH_F, A_HH_W and A_HH_Hp are needed for Gamma_HZga;
+//     * their expressions can be found in "The Higgs Hunter's Guide", Appendix C, C.12*/
+    gslpp::complex A_HH_F = 0.0;//It depends on the modelType
+    gslpp::complex A_HH_Ux = A_HH_U(mH1sq,cW2,Mc,Mt,MZ);
+    gslpp::complex A_HH_Dx = A_HH_D(mH1sq,cW2,Ms,Mb,MZ);
+    gslpp::complex A_HH_Lx = A_HH_L(mH1sq,cW2,Mmu,Mtau,MZ);
+//    /*A_HH_W expression can be found in "The Higgs Hunter's Guide", Appendix C, C.13*/
+    gslpp::complex A_HH_W = sqrt(rHH_VV)*A_H_W(mHh,cW2,MW,MZ);
+//    /*A_HH_Hp expression can be found in "The Higgs Hunter's Guide", Appendix C, C.14*/
+    gslpp::complex A_HH_Hp = 0.5*vev*( gHH_H3*A_H_Hp(mAsq,mH1sq,cW2,MZ)/mAsq + 5.0*gHH_H5*A_H_Hp(mH5sq,mH1sq,cW2,MZ)/mH5sq );
+
+    I_HH_F=sqrt(rHH_ff)*(I_HH_Ux+I_HH_Dx+I_HH_Lx);
+    A_HH_F=sqrt(rHH_ff)*(A_HH_Ux+A_HH_Dx+A_HH_Lx)/sqrt(sW2*cW2);
+    /*Gamma_Hgaga expression can be found in arXiv:1412.7387, eq. (65)*/
+    double Gamma_Hgaga=Ale*Ale*mHh*mHh*mHh/(256.0*M_PI*M_PI*M_PI*vev*vev)
+                *(I_HH_F+I_HH_W+I_HH_Hp).abs2();
+//
+//    /*Gamma_HZga expression can be found in arXiv:0902.4665v3, Appendix A, A.9*/
+    double Gamma_HZga=HSTheta(mHh-MZ)*GF*Ale*Ale*mHh*mHh*mHh/(sqrt(2.0)*64.0*M_PI*M_PI*M_PI)
+               *(1.0-MZ*MZ/(mH1sq))*(1.0-MZ*MZ/(mH1sq))*(1.0-MZ*MZ/(mH1sq))
+               *(A_HH_F+A_HH_W+A_HH_Hp).abs2();
+
+    rHH_gg=rHH_ff;
+    /*Gamma_Hgg expression can be found in arXiv:0902.4665v3, Appendix A, A.10 or in the Higgs Hunter's Guide (2.30); relative coupling see above*/
+    double Gamma_Hgg=rHH_gg*GF*Als*Als*mHh*mHh*mHh/(sqrt(2.0)*16.0*M_PI*M_PI*M_PI)
+                     *(9.0/4.0)*(I_HH_Ux/4.0+I_HH_Dx).abs2();
+
+    double Gamma_Agaga=0.0;
+    double Gamma_H5gaga=0.0;
+    double Gamma_Agg=0.0;
+    double Gamma_H5gg=0.0;
+    double Gamma_AZga=0.0;
+    double Gamma_H5Zga=0.0;
+
+    SigmaggF_H8=ip_cs_ggtoH_8(mHh)*rHH_ff;
+    SigmabbF_H8=ip_cs_pptobbH_8(mHh)*rHH_ff;
+//    SigmaVBF_H8=ip_cs_VBFtoH_8(mHh)*rHH_VV;
+//    double SigmattF_H8=ip_cs_pptottH_8(mHh)*rHH_QuQu;
+//    double SigmaVH_H8=(ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh))*rHH_VV;
+//    SigmaTotSM_H8 = 1.0e-15;
+//    if (mHh>=20. && mHh <=2000.) {
+//            SigmaTotSM_H8=ip_cs_ggtoH_8(mHh)+ip_cs_VBFtoH_8(mHh)+ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh)+ip_cs_pptottH_8(mHh)+ip_cs_pptobbH_8(mHh);
+//    }
+//    SigmaSumH8 = SigmaggF_H8 + SigmaVBF_H8 + SigmaVH_H8 + SigmattF_H8 + SigmabbF_H8;
+//
+    SigmaggF_H13=ip_cs_ggtoH_13(mHh)*rHH_ff;
+    SigmabbF_H13=ip_cs_pptobbH_13(mHh)*rHH_ff;
+    SigmaVBF_H13=ip_cs_VBFtoH_13(mHh)*rHH_VV;
+    SigmattF_H13=ip_cs_pptottH_13(mHh)*rHH_ff;
+    SigmaVH_H13=(ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh))*rHH_VV;
+////    double SigmaTotSM_H13 = 1.0e-15;
+////    if (mHh>=20. && mHh <=2000.) {
+////            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
+////    }
+    SigmaSumH13 = SigmaggF_H13 + SigmaVBF_H13 + SigmaVH_H13 + SigmattF_H13 + SigmabbF_H13;
+
+    double BrSM_Htott=ip_Br_HPtott(mHh);
+    double BrSM_Atott=ip_Br_HPtott(mA);
+    double BrSM_H5tott=ip_Br_HPtott(mH5);
+
+    double BrSM_Htocc=ip_Br_HPtocc(mHh);
+    double BrSM_Atocc=ip_Br_HPtocc(mA);
+    double BrSM_H5tocc=ip_Br_HPtocc(mH5);
+
+    double BrSM_Htobb=ip_Br_HPtobb(mHh);
+    double BrSM_Atobb=ip_Br_HPtobb(mA);
+    double BrSM_H5tobb=ip_Br_HPtobb(mH5);
+
+    double BrSM_Htotautau=ip_Br_HPtotautau(mHh);
+    double BrSM_Atotautau=ip_Br_HPtotautau(mA);
+    double BrSM_H5totautau=ip_Br_HPtotautau(mH5);
+
+    double BrSM_Htomumu=ip_Br_HPtomumu(mHh);
+    double BrSM_Atomumu=ip_Br_HPtomumu(mA);
+    double BrSM_H5tomumu=ip_Br_HPtomumu(mH5);
+
+    double BrSM_HtoWW =ip_Br_HPtoWW(mHh);
+    double BrSM_AtoWW =ip_Br_HPtoWW(mA);
+    double BrSM_H5toWW =ip_Br_HPtoWW(mH5);
+
+    double BrSM_HtoZZ =ip_Br_HPtoZZ(mHh);
+    double BrSM_AtoZZ =ip_Br_HPtoZZ(mA);
+    double BrSM_H5toZZ =ip_Br_HPtoZZ(mH5);
+
+    double GammaHtotSM=ip_GammaHPtotSM(mHh);
+    double GammaAtotSM=ip_GammaHPtotSM(mA);
+    double GammaH5totSM=ip_GammaHPtotSM(mH5);
+
+    
+    
+//    ghHH = cosa*sinb*(4.0-6.0*cosa*cosa-2.0*sqrt(6.0)*sina*cosa*tanb)/vev * M1sq
+//    gHHH = (2.0*cosa*cosa*sinb*(-3.0*sina+sqrt(6.0)*cosa*tanb))/vev * M1sq
+//    ghH3H3 = -(2.0*sqrt(2.0/3.0)*sina)/(vev*cosb) * M1sq
+//    gHH3H3 = (2.0*sqrt(2.0/3.0)*cosa)/(vev*cosb) * M1sq
+//    ghH3pH3m = ghH3H3;
+//    ghH5H5 = 2.0*sinb*(2.0*cosa+sqrt(6.0)*sina*tanb)/vev * (M1sq-2.0*mAsq)
+//    gHH5H5 = 2.0*sinb*(2.0*sina-sqrt(6.0)*cosa*tanb)/vev * (M1sq-2.0*mAsq)
+//    ghH5pH5m = ghH5H5;
+//    gHH5pH5m = gHH5H5;
+//    ghH5ppH5mm = ghH5H5;
+//    gHH5ppH5mm = gHH5H5;
+//    gH3H3H5 = 2.0*((mH5sq-2.0*mAsq)*cosb-(2.0*M1sq-3.0*mAsq+mH5sq)/cosb)/(sqrt(3.0)*vev);
+//    gH5H5H5 = 2.0*((3.0*mH5sq-4.0*M2sq)/cosb+(6.0*M1sq-9.0*mAsq)*sinb*tanb)/(sqrt(3.0)*vev);
+//    gH3H3pH5m = gslpp::complex::i()*(4.0*M1sq-4.0*mAsq+mH5sq+(2.0*mAsq-mH5sq)*(cosb*cosb-sinb*sinb))/(2.0*vev*cosb);
+//    gH5H3pH3m = (4.0*M1sq-4.0*mAsq+mH5sq+(2.0*mAsq-mH5sq)*(cosb*cosb-sinb*sinb))/(2.0*sqrt(3.0)*vev*cosb);
+//    gH5H5pH5m = 0.5*gH5H5H5;
+//    gH5H5ppH5mm = -gH5H5H5;
+//    gH5ppH3mH3m = sqrt(6.0)*gH5H3pH3m;
+//    gH5ppH5mH5m = gH5H5pH5m;
+
+    
+    //Following partial widths stem from the GMcalc manual 1412.7387
+    //lambda^{1/2}(x,y) is equivalent to 2*KaellenFunction(1,x,y)
+
+    // H1 -> V H2 decays
+
+    double GammaHAZ       = HSTheta(mHh-sqrt(mAsq)-MZ)
+                            *KaellenFunction(mH1sq,MZ*MZ,mAsq)*KaellenFunction(mH1sq,MZ*MZ,mAsq)*KaellenFunction(mH1sq,MZ*MZ,mAsq)
+                            /(2.0*M_PI*MZ*MZ);
+
+    double GammaHHpW      = HSTheta(mHh-sqrt(mAsq)-MW)
+                            *KaellenFunction(mH1sq,MW*MW,mAsq)*KaellenFunction(mH1sq,MW*MW,mAsq)*KaellenFunction(mH1sq,MW*MW,mAsq)
+                            /(2.0*M_PI*MW*MW);
+
+    double GammaAhZ=0.;
+    double GammaAHZ=0.;
+    double GammaAHpW=0.;
+    double GammaAH5Z=0.;
+    double GammaAH5pW=0.;
+    double GammaHphW=0.;
+    double GammaHpHW=0.;
+    double GammaHpZW=0.;
+    double GammaHpH5pZ=0.;
+    double GammaHpH5ppW   = 0.0;
+    double GammaH5AZ=0.;
+    double GammaH5HpW=0.;
+    double GammaH5pZW=0.;
+    double GammaH5pAW=0.;
+    double GammaH5pHpZ=0.;
+    double GammaH5ppWW=0.;
+
+    // H1 -> H2 H3 decays
+
+    double GammaHhh       = HSTheta(mHh-2.0*sqrt(mHl2))*fabs(ghhH)*fabs(ghhH)
+                            *KaellenFunction(1.0,mHl2/mH1sq,mHl2/mH1sq)/(16.0*mHh*M_PI);
+
+    double GammaHHpHm     = HSTheta(mHh-2.0*mA)*fabs(gHH3pH3m)*fabs(gHH3pH3m)
+                            *KaellenFunction(1.0,mAsq/mH1sq,mAsq/mH1sq)/(8.0*mHh*M_PI);
+
+    double GammaHAA       = HSTheta(mHh-2.0*mA)*fabs(gHH3H3)*fabs(gHH3H3)
+                            *KaellenFunction(1.0,mAsq/mH1sq,mAsq/mH1sq)/(16.0*mHh*M_PI);
+    
+    double GammaHH5H5     = HSTheta(mHh-2.0*mH5)*fabs(gHH5H5)*fabs(gHH5H5)
+                            *KaellenFunction(1.0,mH5sq/mH1sq,mH5sq/mH1sq)/(16.0*mHh*M_PI);
+
+    double GammaHHp5H5m   = HSTheta(mHh-2.0*mH5)*fabs(gHH5pH5m)*fabs(gHH5pH5m)
+                            *KaellenFunction(1.0,mH5sq/mH1sq,mH5sq/mH1sq)/(8.0*mHh*M_PI);
+
+    double GammaHH5ppH5mm = HSTheta(mHh-2.0*mH5)*fabs(gHH5ppH5mm)*fabs(gHH5ppH5mm)
+                            *KaellenFunction(1.0,mH5sq/mH1sq,mH5sq/mH1sq)/(8.0*mHh*M_PI);
+
+    double GammaH5hh      = 0.;
+    double GammaH5HH      = 0.;
+    double GammaH5HpHm    = 0.;
+    double GammaH5AA      = 0.;
+    double GammaH5ppHpHp  = 0.;
+
+    GammaH1tot=  (rHH_ff*(BrSM_Htott+BrSM_Htocc+BrSM_Htobb+BrSM_Htotautau+BrSM_Htomumu)
+                  +rHH_VV*(BrSM_HtoWW+BrSM_HtoZZ))*GammaHtotSM
+                  +Gamma_Hgg+Gamma_Hgaga+Gamma_HZga
+                  +GammaHAZ+GammaHHpW
+                  +GammaHhh+GammaHHpHm+GammaHAA
+                  +GammaHH5H5+GammaHHp5H5m+GammaHH5ppH5mm;
+
+    GammaH3tot=  (rA_ff*(BrSM_Atott+BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)
+                  +rA_VV*(BrSM_AtoWW+BrSM_AtoZZ))*GammaAtotSM
+                  +Gamma_Agg+Gamma_Agaga+Gamma_AZga
+                  +GammaAhZ+GammaAHZ+GammaAHpW
+                  +GammaAH5Z+GammaAH5pW;
+
+    GammaH3ptot=  0.0 /*fermionic and vector boson terms go here*/
+                  +GammaHphW+GammaHpHW+GammaHpZW
+                  +GammaHpH5pZ+GammaHpH5ppW;
+
+    GammaH5tot=  (rH5_ff*(BrSM_H5tott+BrSM_H5tocc+BrSM_H5tobb+BrSM_H5totautau+BrSM_H5tomumu)
+                  +rH5_VV*(BrSM_H5toWW+BrSM_H5toZZ))*GammaH5totSM
+                  +Gamma_H5gg+Gamma_H5gaga+Gamma_H5Zga
+                  +GammaH5AZ+GammaH5HpW
+                  +GammaH5hh+GammaH5HH+GammaH5HpHm+GammaH5AA;
+
+    GammaH5ptot=  0.0 /*fermionic and vector boson terms go here*/
+                  +GammaH5pZW+GammaH5pAW+GammaH5pHpZ;
+
+    GammaH5pptot= 0.0 /*fermionic and vector boson terms go here*/
+                  +GammaH5ppWW+GammaH5ppHpHp;
+
+//    Br_Htott=BrSM_Htott*rHH_QuQu*GammaHtotSM/GammaHtot;
+//    Br_Htobb=BrSM_Htobb*rHH_QdQd*GammaHtotSM/GammaHtot;
+    Br_Htotautau=BrSM_Htotautau*rHH_ff*GammaHtotSM/GammaH1tot;
+//    Br_HtoWW=BrSM_HtoWW*rHH_VV*GammaHtotSM/GammaHtot;
+//    Br_HtoZZ=BrSM_HtoZZ*rHH_VV*GammaHtotSM/GammaHtot;
+//    Br_Htogaga=Gamma_Hgaga/GammaHtot;
+//    Br_HtoZga=Gamma_HZga/GammaHtot;
+    Br_Htohh=GammaHhh/GammaH1tot;
+//    Br_HtoAA=GammaHAA/GammaHtot;
+//    Br_HtoHpHm=GammaHHpHm/GammaHtot;
+//    Br_HtoAZ=GammaHAZ/GammaHtot;
+//    Br_HtoHpW=GammaHHpW/GammaHtot;
+
+}    
+
+void GMcache::computeDirectSearchQuantities()
+{
+    computeOtherHiggsProperties();
+    double mHh=sqrt(mH1sq);
+
+    ggF_H_tautau_TH8=SigmaggF_H8*Br_Htotautau;
+    bbF_H_tautau_TH8=SigmabbF_H8*Br_Htotautau;
+    pp_H_hh_bbbb_TH13=SigmaSumH13*Br_Htohh*GM_BR_h_bb*GM_BR_h_bb;
+
+    THoEX_ggF_H_tautau_ATLAS8=0.0;
+    R_ggF_H_tautau_ATLAS8=0.0;
+    THoEX_pp_H_hh_bbbb_CMS13=0.0;
+    R_pp_H_hh_bbbb_CMS13=0.0;
+
+    //95% to 1 sigma conversion factor, roughly sqrt(3.84)
+    double nftos=1.95996398454;
+
+    if(mHh>=65.0 && mHh<90.0)
+    {
+    }
+    else if(mHh>=90.0 && mHh<100.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=100.0 && mHh<130.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=130.0 && mHh<140.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=140.0 && mHh<145.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=145.0 && mHh<150.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=150.0 && mHh<175.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=175.0 && mHh<200.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=200.0 && mHh<220.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=220.0 && mHh<250.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=250.0 && mHh<260.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+    }
+    else if(mHh>=260.0 && mHh<270.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=270.0 && mHh<275.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=275.0 && mHh<300.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=300.0 && mHh<350.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=350.0 && mHh<400.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=400.0 && mHh<500.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=500.0 && mHh<550.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=550.0 && mHh<600.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=600.0 && mHh<650.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=650.0 && mHh<760.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=760.0 && mHh<850.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=850.0 && mHh<900.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=900.0 && mHh<1000.0)
+    {
+        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+        R_ggF_H_tautau_ATLAS8=(1+(ggF_H_tautau_TH8-ip_ex_gg_phi_tautau_ATLAS8(mHh))/ip_ex_gg_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+        R_bbF_H_tautau_ATLAS8=(1+(bbF_H_tautau_TH8-ip_ex_bb_phi_tautau_ATLAS8(mHh))/ip_ex_bb_phi_tautau_ATLAS8_e(mHh) ) * nftos;
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=1000.0 && mHh<1100.0)
+    {
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+    else if(mHh>=1100.0 && mHh<1200.0)
+    {
+        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_H_hh_bbbb_CMS13(mHh);
+        R_pp_H_hh_bbbb_CMS13=(1+(pp_H_hh_bbbb_TH13-ip_ex_pp_H_hh_bbbb_CMS13(mHh))/ip_ex_pp_H_hh_bbbb_CMS13_e(mHh) ) * nftos;
+    }
+
+}    
+
 
 //void GMcache::runGMparameters()
 //{
@@ -814,6 +2163,8 @@ double GMcache::updateCache()
     vev=myGM->v();
     mHl=myGM->getMHl();
     mHl2=mHl*mHl;
+    cW2=cW2GM(myGM->c02()); /*This might have to be replaced by the GM corrected value.*/
+    MW=MWGM(myGM->Mw_tree()); /*This might have to be replaced by the GM corrected W mass.*/
     MZ=myGM->getMz();
     tanb=myGM->gettanb();
     sinb=myGM->getsinb();
@@ -842,7 +2193,7 @@ double GMcache::updateCache()
         mHhsq=mHl2;
     }
 
-    double cos2b=cosb*cosb-sinb*sinb;
+//    double cos2b=cosb*cosb-sinb*sinb;
     lambda1 = (mHlsq*cosa*cosa+mHhsq*sina*sina)/(8.0*vev*vev*sinb*sinb);
     lambda2 = (M2sq+2.0*(mAsq-M1sq)*sinb*sinb
                +2.0/3.0*(mHlsq*sina*sina+mHhsq*cosa*cosa-mH5sq))/(2.0*vev*vev*cosb*cosb);
@@ -893,5 +2244,6 @@ double GMcache::updateCache()
     //    runGMparameters();
     computeUnitarity();
     computeSignalStrengthQuantities();
+    computeDirectSearchQuantities();
     return mHl2;
 }

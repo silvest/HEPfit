@@ -1446,6 +1446,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda5GM"] = boost::factory<lambda5GM*>();
     obsThFactory["vPhiGM"] = boost::factory<vPhiGM*>();
     obsThFactory["vDeltaGM"] = boost::factory<vDeltaGM*>();
+    obsThFactory["GMmHh"] = boost::factory<GMmass_mHh*>();
     obsThFactory["GMmHlmmHh"] = boost::factory<GMmassdifference_mHlmmHh*>();
     obsThFactory["GMmHhmmHl"] = boost::factory<GMmassdifference_mHhmmHl*>();
     obsThFactory["GMmHlmmA"] = boost::factory<GMmassdifference_mHlmmA*>();
@@ -1484,6 +1485,13 @@ ThObsFactory::ThObsFactory()
     //-----  Higgs observables  -----
     obsThFactory["rh_gaga_GM"] = boost::factory<rh_gaga_GM*>();
     obsThFactory["rh_Zga_GM"] = boost::factory<rh_Zga_GM*>();
+    //-----  Direct Higgs searches -----
+    obsThFactory["Hobs_ggF_H1_tautau_ATLAS8"] = boost::factory<Hobs_ggF_H1_tautau_ATLAS8*>();
+    obsThFactory["Robs_ggF_H1_tautau_ATLAS8"] = boost::factory<Robs_ggF_H1_tautau_ATLAS8*>();
+    obsThFactory["log10_ggF_H1_tautau_TH8"] = boost::factory<log10_ggF_H1_tautau_TH8*>();
+    obsThFactory["Hobs_pp_H1_hh_bbbb_CMS13"] = boost::factory<Hobs_pp_H1_hh_bbbb_CMS13*>();
+    obsThFactory["Robs_pp_H1_hh_bbbb_CMS13"] = boost::factory<Robs_pp_H1_hh_bbbb_CMS13*>();
+    obsThFactory["log10_pp_H1_hh_bbbb_TH13"] = boost::factory<log10_pp_H1_hh_bbbb_TH13*>();
 }
 
 void ThObsFactory::addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) > funct)
