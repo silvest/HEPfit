@@ -288,7 +288,7 @@ public:
     }
     
 private:
-    std::string thname2; ///< The name for the second oservable as fixed in the ThObservable() class.
+    std::string thname2; ///< The name for the second observable as fixed in the ThObservable() class.
     std::string label2; ///< A label for the second observable.
     double min2; ///< The minimum value of the second observable.
     double max2; ///< The maximum valus of the second observable.

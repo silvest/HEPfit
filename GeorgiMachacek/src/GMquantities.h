@@ -224,6 +224,27 @@ public:
 };
 
 /**
+ * @class GMmass_mHh
+ * @ingroup GeorgiMachacek
+ * @brief 
+ */
+class GMmass_mHh: public ThObservable {
+public:
+
+    /**
+     * @brief GMmass_mHh constructor.
+     */
+    GMmass_mHh(const StandardModel& SM_i);
+
+    /**
+     * @return @f$m_H@f$
+     */
+    double computeThValue();
+
+    const GeorgiMachacek * myGM;
+};
+
+/**
  * @class GMmassdifference_mHlmmHh
  * @ingroup GeorgiMachacek
  * @brief 

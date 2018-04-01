@@ -164,6 +164,17 @@ double GMmassdifference_mHlmmHh::computeThValue()
 
 
 
+GMmass_mHh::GMmass_mHh(const StandardModel& SM_i)
+: ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
+{}
+
+double GMmass_mHh::computeThValue()
+{
+    return myGM->getmHh();
+}
+
+
+
 GMmassdifference_mHhmmHl::GMmassdifference_mHhmmHl(const StandardModel& SM_i)
 : ThObservable(SM_i), myGM(static_cast<const GeorgiMachacek*> (&SM_i))
 {}

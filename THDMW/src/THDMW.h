@@ -19,7 +19,7 @@ class THDMWcache; //forward reference to THDMWcache class
  * @brief A base class for @f$Z_2@f$ symmetric Two-Higgs-Doublet-Manohar-Wise models.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details We use the parametrization of Li/Valencia (see eq. (1) in 1703.03445).
  *
  * 
  * @anchor THDMWParameters
@@ -236,7 +236,12 @@ public:
      * @return @f$\mu_2@f$
      */
     double getTHDMW_mu2() const {
-        return THDMW_mu2;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_mu1;
+        }
+        else {
+            return THDMW_mu2;
+        }
     }
 
     /**
@@ -259,7 +264,12 @@ public:
      * @return @f$\mu_5@f$
      */
     double getTHDMW_mu5() const {
-        return THDMW_mu5;
+        if (flag_modelTHDMW == "custodial1") {
+            return THDMW_mu4;
+        }
+        else {
+            return THDMW_mu5;
+        }
     }
 
     /**
@@ -267,7 +277,12 @@ public:
      * @return @f$\mu_6@f$
      */
     double getTHDMW_mu6() const {
-        return THDMW_mu6;
+        if (flag_modelTHDMW == "custodial1") {
+            return 2.0*THDMW_mu1;
+        }
+        else {
+            return THDMW_mu6;
+        }
     }
 
     /**
