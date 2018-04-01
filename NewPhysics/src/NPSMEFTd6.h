@@ -652,7 +652,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 399;
+    static const int NNPSMEFTd6Vars = 393;
 
     /**
      * @brief A string array containing the labels of the model parameters in

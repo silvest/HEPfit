@@ -606,6 +606,13 @@ public:
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
      */
     virtual double BrHbbRatio() const;
+    /**
+     * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
+     * in the @f$H,Z\to b\bar{b}@f$ channel in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
+     */
+    virtual double muttHZbbboost(const double sqrt_s) const;
 
     virtual double muttHWW(const double sqrt_s) const;
     virtual double muttHtautau(const double sqrt_s) const;
