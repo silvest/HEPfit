@@ -2709,8 +2709,9 @@ double NPSMEFTd6::muggHH(const double sqrt_s) const
     c3 = 1.0 + deltaG_hhhRatio();
     cg = M_PI * CHG * v2_over_LambdaNP2 / AlsMz; 
     c2g = cg;
-    
-    mu = A1HH*ct*ct*ct*ct +
+
+// In the SM the Eq. returns 0.999. Fix that small offset by adding 0.0010    
+    mu = 0.0010 + A1HH*ct*ct*ct*ct +
             A2HH*c2t*c2t +
             A3HH*ct*ct*c3*c3 +
             A4HH*cg*cg*c3*c3 +
