@@ -18,9 +18,6 @@
 #include "SUSYObservables.h"
 #include "GeorgiMachacekObservables.h"
 #include "THDMObservables.h"
-/** BEGIN: REMOVE FROM THE PACKAGE **/
-#include "GeneralTHDMObservables.h"
-/** END: REMOVE FROM THE PACKAGE **/
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 
@@ -1252,69 +1249,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya11evenmIm"] = boost::factory<unitaritya11evenmIm*>();
     obsThFactory["unitaritya11oddRe"] = boost::factory<unitaritya11oddRe*>();
     obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
-    
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    //-----  GeneralTHDM observables  -----
-    obsThFactory["mH1"] = boost::factory<mH1_GTHDM*>();
-    obsThFactory["mH2"] = boost::factory<mH2_GTHDM*>();
-    obsThFactory["mH3"] = boost::factory<mH3_GTHDM*>();
-    obsThFactory["mHlight"] = boost::factory<mHlight_GTHDM*>();
-    obsThFactory["mHmedium"] = boost::factory<mHmedium_GTHDM*>();
-    obsThFactory["mHheavy"] = boost::factory<mHheavy_GTHDM*>();
-    obsThFactory["mHp_GTHDM"] = boost::factory<mHp_GTHDM*>();
-    obsThFactory["mH3mmH2"] = boost::factory<mH3mmH2_GTHDM*>();
-    obsThFactory["mH3mmHp"] = boost::factory<mH3mmHp_GTHDM*>();
-    obsThFactory["mH3mmH1"] = boost::factory<mH3mmH1_GTHDM*>();
-    obsThFactory["mH2mmHp"] = boost::factory<mH2mmHp_GTHDM*>();
-    obsThFactory["mH2mmH1"] = boost::factory<mH2mmH1_GTHDM*>();
-    obsThFactory["mHpmmH1"] = boost::factory<mHpmmH1_GTHDM*>();
-    obsThFactory["mH1sq"] = boost::factory<mH1sq_GTHDM*>();
-    obsThFactory["mH2sq"] = boost::factory<mH2sq_GTHDM*>();
-    obsThFactory["mH3sq"] = boost::factory<mH3sq_GTHDM*>();
-    obsThFactory["Msq11"] = boost::factory<Msq11_GTHDM*>();
-    obsThFactory["Msq12"] = boost::factory<Msq12_GTHDM*>();
-    obsThFactory["Msq13"] = boost::factory<Msq13_GTHDM*>();
-    obsThFactory["Msq22"] = boost::factory<Msq22_GTHDM*>();
-    obsThFactory["Msq23"] = boost::factory<Msq23_GTHDM*>();
-    obsThFactory["Msq33"] = boost::factory<Msq33_GTHDM*>();
-    obsThFactory["M2_GTHDM"] = boost::factory<M2_GTHDM*>();
-    obsThFactory["m11_2_GTHDM"] = boost::factory<m11_2_GTHDM*>();
-    obsThFactory["m22_2_GTHDM"] = boost::factory<m22_2_GTHDM*>();
-    obsThFactory["Imm12_2_GTHDM"] = boost::factory<Imm12_2_GTHDM*>();
-    obsThFactory["lambda1_GTHDM"] = boost::factory<lambda1_GTHDM*>();
-    obsThFactory["lambda2_GTHDM"] = boost::factory<lambda2_GTHDM*>();
-    obsThFactory["lambda3_GTHDM"] = boost::factory<lambda3_GTHDM*>();
-    obsThFactory["lambda4_GTHDM"] = boost::factory<lambda4_GTHDM*>();
-    obsThFactory["Relambda5_GTHDM"] = boost::factory<Relambda5_GTHDM*>();
-    obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
-    obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
-
-    obsThFactory["unitarity1_GTHDM"] = boost::factory<unitarity1_GTHDM*>();
-    obsThFactory["unitarity2_GTHDM"] = boost::factory<unitarity2_GTHDM*>();
-    obsThFactory["unitarity3_GTHDM"] = boost::factory<unitarity3_GTHDM*>();
-    obsThFactory["unitarity4_GTHDM"] = boost::factory<unitarity4_GTHDM*>();
-    obsThFactory["unitarity5_GTHDM"] = boost::factory<unitarity5_GTHDM*>();
-    obsThFactory["unitarity6_GTHDM"] = boost::factory<unitarity6_GTHDM*>();
-    obsThFactory["unitarity7_GTHDM"] = boost::factory<unitarity7_GTHDM*>();
-    obsThFactory["unitarity8_GTHDM"] = boost::factory<unitarity8_GTHDM*>();
-    obsThFactory["unitarity9_GTHDM"] = boost::factory<unitarity9_GTHDM*>();
-    obsThFactory["unitarity10_GTHDM"] = boost::factory<unitarity10_GTHDM*>();
-    obsThFactory["unitarity11_GTHDM"] = boost::factory<unitarity11_GTHDM*>();
-    obsThFactory["unitarity12_GTHDM"] = boost::factory<unitarity12_GTHDM*>();
-
-    obsThFactory["stability1_GTHDM"] = boost::factory<stability1_GTHDM*>();
-    obsThFactory["stability2_GTHDM"] = boost::factory<stability2_GTHDM*>();
-    obsThFactory["stability3_GTHDM"] = boost::factory<stability3_GTHDM*>();
-    obsThFactory["stability4_GTHDM"] = boost::factory<stability4_GTHDM*>();
-    
-    obsThFactory["EffectivePotMin1_GTHDM"] = boost::factory<EffectivePotMin1_GTHDM*>();
-    obsThFactory["EffectivePotMin2_GTHDM"] = boost::factory<EffectivePotMin2_GTHDM*>();
-
-    obsThFactory["Rb0_GTHDM"] = boost::factory<Rb0GTHDM*>();
-
-    obsThFactory["GTHDMgminus2_mu"] = boost::factory<GeneralTHDMgminus2_mu*>();
-
-    /** END: REMOVE FROM THE PACKAGE **/
     
     //-----  GeorgiMachacek observables  -----
     //-----  GeorgiMachacek quantities -----
