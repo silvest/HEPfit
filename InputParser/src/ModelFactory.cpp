@@ -35,7 +35,6 @@
 #include "CMFV.h"
 #include "GeorgiMachacek.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
-#include "pMSSM.h"
 #include "MFV.h"
 #include "NPSTUVWXY.h"
 /** END: REMOVE FROM THE PACKAGE **/
@@ -83,7 +82,6 @@ ModelFactory::ModelFactory()
     modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["MFV"] = boost::factory<MFV*>();
-    modelFactory["pMSSM"] = boost::factory<pMSSM*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
 /** END: REMOVE FROM THE PACKAGE **/
 }
