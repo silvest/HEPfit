@@ -33,7 +33,6 @@
 #include "RealWeakEFTLFV.h"
 #include "NPDF2.h"
 #include "CMFV.h"
-#include "GeorgiMachacek.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "MFV.h"
 #include "NPSTUVWXY.h"
@@ -79,7 +78,6 @@ ModelFactory::ModelFactory()
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
-    modelFactory["GeorgiMachacek"] = boost::factory<GeorgiMachacek*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();

@@ -302,18 +302,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../GeorgiMachacek"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../GeorgiMachacek"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../HiggsExtensions"
                             CT="3"
                             CN="Release"
@@ -701,18 +689,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../GeorgiMachacek"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../GeorgiMachacek"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1109,18 +1085,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../GeorgiMachacek"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../GeorgiMachacek"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeorgimachacek.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../HiggsExtensions"
                             CT="3"
                             CN="Release"
@@ -1271,7 +1235,11 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
       </item>
+      <item path="main_EventGeneration_example.cpp" ex="true" tool="1" flavor2="8">
+      </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
+      </item>
+      <item path="main_df1evol_test.cpp" ex="true" tool="1" flavor2="8">
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
       </item>

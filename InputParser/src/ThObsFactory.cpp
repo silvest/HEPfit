@@ -16,7 +16,6 @@
 #include "alpha_s.h"
 #include "LeptonFlavourObservables.h"
 #include "SUSYObservables.h"
-#include "GeorgiMachacekObservables.h"
 #include "THDMObservables.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
@@ -1249,65 +1248,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["unitaritya11evenmIm"] = boost::factory<unitaritya11evenmIm*>();
     obsThFactory["unitaritya11oddRe"] = boost::factory<unitaritya11oddRe*>();
     obsThFactory["unitaritya11oddIm"] = boost::factory<unitaritya11oddIm*>();
-    
-    //-----  GeorgiMachacek observables  -----
-    //-----  GeorgiMachacek quantities -----
-    obsThFactory["tanbetaGM"] = boost::factory<tanbetaGM*>();
-    obsThFactory["m1sqGM"] = boost::factory<m1sqGM*>();
-    obsThFactory["m2sqGM"] = boost::factory<m2sqGM*>();
-    obsThFactory["lambda1GM"] = boost::factory<lambda1GM*>();
-    obsThFactory["lambda2GM"] = boost::factory<lambda2GM*>();
-    obsThFactory["lambda3GM"] = boost::factory<lambda3GM*>();
-    obsThFactory["lambda4GM"] = boost::factory<lambda4GM*>();
-    obsThFactory["lambda5GM"] = boost::factory<lambda5GM*>();
-    obsThFactory["vPhiGM"] = boost::factory<vPhiGM*>();
-    obsThFactory["vDeltaGM"] = boost::factory<vDeltaGM*>();
-    obsThFactory["GMmHh"] = boost::factory<GMmass_mHh*>();
-    obsThFactory["GMmHlmmHh"] = boost::factory<GMmassdifference_mHlmmHh*>();
-    obsThFactory["GMmHhmmHl"] = boost::factory<GMmassdifference_mHhmmHl*>();
-    obsThFactory["GMmHlmmA"] = boost::factory<GMmassdifference_mHlmmA*>();
-    obsThFactory["GMmAmmHl"] = boost::factory<GMmassdifference_mAmmHl*>();
-    obsThFactory["GMmHlmmH5"] = boost::factory<GMmassdifference_mHlmmH5*>();
-    obsThFactory["GMmH5mmHl"] = boost::factory<GMmassdifference_mH5mmHl*>();
-    obsThFactory["GMmHhmmA"] = boost::factory<GMmassdifference_mHhmmA*>();
-    obsThFactory["GMmAmmHh"] = boost::factory<GMmassdifference_mAmmHh*>();
-    obsThFactory["GMmHhmmH5"] = boost::factory<GMmassdifference_mHhmmH5*>();
-    obsThFactory["GMmH5mmHh"] = boost::factory<GMmassdifference_mH5mmHh*>();
-    obsThFactory["GMmAmmH5"] = boost::factory<GMmassdifference_mAmmH5*>();
-    obsThFactory["GMmH5mmA"] = boost::factory<GMmassdifference_mH5mmA*>();
-    //-----  Tree-level unitarity constraints  -----
-    obsThFactory["GMunitarity1"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 0);
-    obsThFactory["GMunitarity2"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 1);
-    obsThFactory["GMunitarity3"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 2);
-    obsThFactory["GMunitarity4"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 3);
-    obsThFactory["GMunitarity5"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 4);
-    obsThFactory["GMunitarity6"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 5);
-    obsThFactory["GMunitarity7"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 6);
-    obsThFactory["GMunitarity8"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 7);
-    obsThFactory["GMunitarity9"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 8);
-    obsThFactory["GMunitarity10"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 9);
-    obsThFactory["GMunitarity11"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 10);
-    obsThFactory["GMunitarity12"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 11);
-    obsThFactory["GMunitarity13"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 12);
-    obsThFactory["GMunitarity14"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 13);
-    obsThFactory["GMunitarity15"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 14);
-    obsThFactory["GMunitarity16"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 15);
-    obsThFactory["GMunitarity17"] = boost::bind(boost::factory<GMunitarityLO*>(), _1, 16);
-    //-----  Positivity constraints  -----
-    obsThFactory["GMpositivity1"] = boost::factory<GMpositivity1*>();
-    obsThFactory["GMpositivity2"] = boost::factory<GMpositivity2*>();
-    obsThFactory["GMpositivity3"] = boost::factory<GMpositivity3*>();
-    obsThFactory["GMpositivity4"] = boost::factory<GMpositivity4*>();
-    //-----  Higgs observables  -----
-    obsThFactory["rh_gaga_GM"] = boost::factory<rh_gaga_GM*>();
-    obsThFactory["rh_Zga_GM"] = boost::factory<rh_Zga_GM*>();
-    //-----  Direct Higgs searches -----
-    obsThFactory["Hobs_ggF_H1_tautau_ATLAS8"] = boost::factory<Hobs_ggF_H1_tautau_ATLAS8*>();
-    obsThFactory["Robs_ggF_H1_tautau_ATLAS8"] = boost::factory<Robs_ggF_H1_tautau_ATLAS8*>();
-    obsThFactory["log10_ggF_H1_tautau_TH8"] = boost::factory<log10_ggF_H1_tautau_TH8*>();
-    obsThFactory["Hobs_pp_H1_hh_bbbb_CMS13"] = boost::factory<Hobs_pp_H1_hh_bbbb_CMS13*>();
-    obsThFactory["Robs_pp_H1_hh_bbbb_CMS13"] = boost::factory<Robs_pp_H1_hh_bbbb_CMS13*>();
-    obsThFactory["log10_pp_H1_hh_bbbb_TH13"] = boost::factory<log10_pp_H1_hh_bbbb_TH13*>();
 }
 
 void ThObsFactory::addObsToFactory(const std::string name, boost::function<ThObservable*(const StandardModel&) > funct)
