@@ -84,6 +84,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <developmentMode>6</developmentMode>
           <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
@@ -473,7 +474,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <standard>8</standard>
           <incDir>
             <pElem>../ComputeObservables/src</pElem>
@@ -866,6 +867,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <developmentMode>6</developmentMode>
           <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
