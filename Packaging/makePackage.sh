@@ -5,7 +5,7 @@
 #   sh makePackage.sh --doxygen : generate Doxygen documentations
 #
 
-VERSION="core-1.0"
+VERSION="1.0-RC2"
 
 ###########################################################
 # Original source codes
@@ -28,7 +28,6 @@ PROJECTARRAY+=( "EW" )
 PROJECTARRAY+=( "Flavour" )
 PROJECTARRAY+=( "FlavourWilsonCoefficient" )
 PROJECTARRAY+=( "GeneralSUSY" )
-PROJECTARRAY+=( "GeorgiMachacek" )
 PROJECTARRAY+=( "gslpp" )
 PROJECTARRAY+=( "HiggsExtensions" )
 PROJECTARRAY+=( "InputParser" )
@@ -38,14 +37,10 @@ PROJECTARRAY+=( "LoopFunctions" )
 PROJECTARRAY+=( "MonteCarlo" )
 PROJECTARRAY+=( "NewPhysics" )
 PROJECTARRAY+=( "Observables" )
-#PROJECTARRAY+=( "pMSSM" )
 PROJECTARRAY+=( "StandardModel" )
 PROJECTARRAY+=( "SUSY" )
 PROJECTARRAY+=( "SUSYMassInsertion" )
 PROJECTARRAY+=( "THDM" )
-PROJECTARRAY+=( "LeftRightSymmetricModel" )
-#PROJECTARRAY+=( "Utils" )
-#PROJECTARRAY+=( "ZFitterWrapper" )
 
 ###########################################################
 # input and output directories

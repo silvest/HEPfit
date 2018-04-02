@@ -491,9 +491,7 @@ endif(DEBUG_MODE)
 
 ##############################
 
-set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM GeorgiMachacek LeftRightSymmetricModel HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
-
-# set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour NewPhysics THDM Observables HiggsExtensions StandardModel LoopFunctions gslpp)
+set(PROJECTLIST ComputeObservables EventGeneration InputParser EW Flavour FlavourWilsonCoefficient LeptonFlavour NewPhysics Observables GeneralSUSY SUSY THDM HiggsExtensions StandardModel LoopFunctions SUSYMassInsertion gslpp)
 
 if(NOT NOMCMC)
   set(PROJECTLIST MonteCarlo ${PROJECTLIST})
