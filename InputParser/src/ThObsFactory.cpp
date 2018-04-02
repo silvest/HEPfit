@@ -18,7 +18,6 @@
 #include "SUSYObservables.h"
 #include "GeorgiMachacekObservables.h"
 #include "THDMObservables.h"
-#include "LRSMObservables.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
@@ -1317,26 +1316,6 @@ ThObsFactory::ThObsFactory()
 
     /** END: REMOVE FROM THE PACKAGE **/
     
-    //-----  LeftRightSymmetric model observables  -----
-    obsThFactory["mu1_2_LRSM"] = boost::factory<mu1_2_LRSM*>();
-    obsThFactory["mu2_2_LRSM"] = boost::factory<mu2_2_LRSM*>();
-    obsThFactory["mu3_2_LRSM"] = boost::factory<mu3_2_LRSM*>();
-    obsThFactory["rho2_LRSM"] = boost::factory<rho2_LRSM*>();
-    obsThFactory["rho3_LRSM"] = boost::factory<rho3_LRSM*>();
-    obsThFactory["alpha3_LRSM"] = boost::factory<alpha3_LRSM*>();
-    obsThFactory["mH00_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 0);
-    obsThFactory["mH01_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 1);
-    obsThFactory["mH02_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 2);
-    obsThFactory["mH03_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 3);
-    obsThFactory["mH04_LRSM"] = boost::bind(boost::factory<MH0_LRSM*>(), _1, 4);
-    obsThFactory["mH05_LRSM"] = boost::factory<MH05_LRSM*>();
-    obsThFactory["mH06_LRSM"] = boost::factory<MH06_LRSM*>();
-    obsThFactory["MH01_app1"] = boost::factory<MH01_app1*>();
-    obsThFactory["MH01_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 0);
-    obsThFactory["MH02_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 1);
-    obsThFactory["MH03_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 2);
-    obsThFactory["MH04_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 3);
-
     //-----  GeorgiMachacek observables  -----
     //-----  GeorgiMachacek quantities -----
     obsThFactory["tanbetaGM"] = boost::factory<tanbetaGM*>();
