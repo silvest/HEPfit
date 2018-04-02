@@ -21,7 +21,6 @@
 #include "LRSMObservables.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "GeneralTHDMObservables.h"
-#include "THDMWObservables.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
@@ -1337,97 +1336,6 @@ ThObsFactory::ThObsFactory()
     obsThFactory["MH02_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 1);
     obsThFactory["MH03_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 2);
     obsThFactory["MH04_app"] = boost::bind(boost::factory<MH0_app*>(), _1, 3);
-
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    //-----  THDMW model observables  -----
-    obsThFactory["Q_stTHDMW"] = boost::factory<Q_stTHDMW*>();
-    obsThFactory["DeltaQ_THDMW"] = boost::factory<DeltaQ_THDMW*>();
-    obsThFactory["lambda1atQTHDMW"] = boost::factory<lambda1atQTHDMW*>();
-    obsThFactory["lambda2atQTHDMW"] = boost::factory<lambda2atQTHDMW*>();
-    obsThFactory["lambda3atQTHDMW"] = boost::factory<lambda3atQTHDMW*>();
-    obsThFactory["lambda4atQTHDMW"] = boost::factory<lambda4atQTHDMW*>();
-    obsThFactory["mu1atQTHDMW"] = boost::factory<mu1atQTHDMW*>();
-    obsThFactory["mu3atQTHDMW"] = boost::factory<mu3atQTHDMW*>();
-    obsThFactory["mu4atQTHDMW"] = boost::factory<mu4atQTHDMW*>();
-    obsThFactory["nu1atQTHDMW"] = boost::factory<nu1atQTHDMW*>();
-    obsThFactory["omega1atQTHDMW"] = boost::factory<omega1atQTHDMW*>();
-    obsThFactory["kappa1atQTHDMW"] = boost::factory<kappa1atQTHDMW*>();
-    obsThFactory["nu2atQTHDMW"] = boost::factory<nu2atQTHDMW*>();
-    obsThFactory["omega2atQTHDMW"] = boost::factory<omega2atQTHDMW*>();
-    obsThFactory["kappa2atQTHDMW"] = boost::factory<kappa2atQTHDMW*>();
-    obsThFactory["nu4atQTHDMW"] = boost::factory<nu4atQTHDMW*>();
-    obsThFactory["omega4atQTHDMW"] = boost::factory<omega4atQTHDMW*>();
-    //-----  Positivity constraints  -----
-    obsThFactory["THDMWpositivity1"] = boost::factory<THDMWpositivity1*>();
-    obsThFactory["THDMWpositivity2"] = boost::factory<THDMWpositivity2*>();
-    obsThFactory["THDMWpositivity3"] = boost::factory<THDMWpositivity3*>();
-    obsThFactory["THDMWpositivity4"] = boost::factory<THDMWpositivity4*>();
-    obsThFactory["THDMWpositivity5"] = boost::factory<THDMWpositivity5*>();
-    obsThFactory["THDMWpositivity6"] = boost::factory<THDMWpositivity6*>();
-    obsThFactory["THDMWpositivity7"] = boost::factory<THDMWpositivity7*>();
-    obsThFactory["THDMWpositivity8"] = boost::factory<THDMWpositivity8*>();
-    obsThFactory["THDMWpositivity9"] = boost::factory<THDMWpositivity9*>();
-    obsThFactory["THDMWpositivity10"] = boost::factory<THDMWpositivity10*>();
-    obsThFactory["THDMWpositiveMassSquares"] = boost::factory<THDMWpositiveMassSquares*>();
-    //-----  Tree-level unitarity constraints  -----
-    obsThFactory["THDMWunitarity1"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 0);
-    obsThFactory["THDMWunitarity2"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 1);
-    obsThFactory["THDMWunitarity3"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 2);
-    obsThFactory["THDMWunitarity4"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 3);
-    obsThFactory["THDMWunitarity5"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 4);
-    obsThFactory["THDMWunitarity6"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 5);
-    obsThFactory["THDMWunitarity7"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 6);
-    obsThFactory["THDMWunitarity8"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 7);
-    obsThFactory["THDMWunitarity9"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 8);
-    obsThFactory["THDMWunitarity10"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 9);
-    obsThFactory["THDMWunitarity11"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 10);
-    //-----  One-loop unitarity constraints  -----
-    obsThFactory["THDMWNLOunitarity1"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 0);
-    obsThFactory["THDMWNLOunitarity2"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 1);
-    obsThFactory["THDMWNLOunitarity3"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 2);
-    obsThFactory["THDMWNLOunitarity4"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 3);
-    obsThFactory["THDMWNLOunitarity5"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 4);
-    obsThFactory["THDMWNLOunitarity6"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 5);
-    obsThFactory["THDMWNLOunitarity7"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 6);
-    obsThFactory["THDMWNLOunitarity8"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 7);
-    obsThFactory["THDMWNLOunitarity9"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 8);
-    obsThFactory["THDMWNLOunitarity10"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 9);
-    obsThFactory["THDMWNLOunitarity11"] = boost::bind(boost::factory<THDMWunitarityNLO*>(), _1, 10);
-    //-----  One-loop "plus" unitarity constraints  -----
-    obsThFactory["THDMWNLOpunitarity1"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 0);
-    obsThFactory["THDMWNLOpunitarity2"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 1);
-    obsThFactory["THDMWNLOpunitarity3"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 2);
-    obsThFactory["THDMWNLOpunitarity4"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 3);
-    obsThFactory["THDMWNLOpunitarity5"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 4);
-    obsThFactory["THDMWNLOpunitarity6"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 5);
-    obsThFactory["THDMWNLOpunitarity7"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 6);
-    obsThFactory["THDMWNLOpunitarity8"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 7);
-    obsThFactory["THDMWNLOpunitarity9"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 8);
-    obsThFactory["THDMWNLOpunitarity10"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 9);
-    obsThFactory["THDMWNLOpunitarity11"] = boost::bind(boost::factory<THDMWunitarityNLOp*>(), _1, 10);
-    //-----   R' criteria for perturbative unitarity  -----
-    obsThFactory["THDMWunitarityRp1"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 0);
-    obsThFactory["THDMWunitarityRp2"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 1);
-    obsThFactory["THDMWunitarityRp3"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 2);
-    obsThFactory["THDMWunitarityRp4"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 3);
-    obsThFactory["THDMWunitarityRp5"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 4);
-    obsThFactory["THDMWunitarityRp6"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 5);
-    obsThFactory["THDMWunitarityRp7"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 6);
-    obsThFactory["THDMWunitarityRp8"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 7);
-    obsThFactory["THDMWunitarityRp9"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 8);
-    obsThFactory["THDMWunitarityRp10"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 9);
-    obsThFactory["THDMWunitarityRp11"] = boost::bind(boost::factory<THDMWunitarityRp*>(), _1, 10);
-    //-----   Physical parameters  -----
-    obsThFactory["m12sqTHDMW"] = boost::factory<m12sqTHDMW*>();
-    obsThFactory["m11sqTHDMW"] = boost::factory<m11sqTHDMW*>();
-    obsThFactory["m22sqTHDMW"] = boost::factory<m22sqTHDMW*>();
-    obsThFactory["mhsqTHDMW"] = boost::factory<mhsqTHDMW*>();
-    obsThFactory["mHHsqTHDMW"] = boost::factory<mHHsqTHDMW*>();
-    obsThFactory["mAsqTHDMW"] = boost::factory<mAsqTHDMW*>();
-    obsThFactory["mSRsqTHDMW"] = boost::factory<mSRsqTHDMW*>();
-    obsThFactory["mSIsqTHDMW"] = boost::factory<mSIsqTHDMW*>();
-
-    /** END: REMOVE FROM THE PACKAGE **/
 
     //-----  GeorgiMachacek observables  -----
     //-----  GeorgiMachacek quantities -----

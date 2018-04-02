@@ -76,3 +76,6 @@ Packaging/HEPfit*
 
 #ZFitter
 ZFitter*
+
+# Release Exclusions
+THDMW

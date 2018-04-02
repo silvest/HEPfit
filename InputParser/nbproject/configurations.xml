@@ -74,7 +74,6 @@
             <pElem>../GeneralTHDM/src</pElem>
             <pElem>../FlavourWilsonCoefficient/src</pElem>
             <pElem>../LeftRightSymmetricModel/src</pElem>
-            <pElem>../THDMW/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../GeorgiMachacek/src</pElem>
             <pElem>../boost/</pElem>
