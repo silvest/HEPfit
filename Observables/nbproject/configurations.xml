@@ -42,69 +42,6 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="3">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <standard>8</standard>
-          <incDir>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../boost</pElem>
-            <pElem>../Flavour/src</pElem>
-            <pElem>src</pElem>
-          </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
-          <warningLevel>2</warningLevel>
-        </ccTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/CorrelatedGaussianObservables.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/CorrelatedGaussianObservables.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/CorrelatedGaussianParameters.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/CorrelatedGaussianParameters.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ModelParameter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Observable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Observable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Observable2D.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ParamObs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ParamObs.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <compilerSet>default</compilerSet>
@@ -126,79 +63,8 @@
             <pElem>../Flavour/src</pElem>
             <pElem>src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
-        </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/CorrelatedGaussianObservables.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/CorrelatedGaussianObservables.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/CorrelatedGaussianParameters.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/CorrelatedGaussianParameters.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ModelParameter.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Observable.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Observable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Observable2D.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ParamObs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ParamObs.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Cluster" type="3">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
-        <ccTool>
-          <developmentMode>5</developmentMode>
-          <standard>8</standard>
-          <incDir>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../boost</pElem>
-            <pElem>../Flavour/src</pElem>
-            <pElem>src</pElem>
-          </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

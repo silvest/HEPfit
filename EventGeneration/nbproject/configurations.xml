@@ -29,45 +29,7 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="3">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <standard>8</standard>
-          <incDir>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../EW/src</pElem>
-            <pElem>../Flavour/src</pElem>
-            <pElem>../GeneralSUSY/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../LeptonFlavour/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
-            <pElem>../NewPhysics/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../pMSSM/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSY/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../THDM/src</pElem>
-            <pElem>../boost</pElem>
-          </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
-          <warningLevel>2</warningLevel>
-        </ccTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Debug_MPI" type="3">
+    <conf name="Release_MPI" type="3">
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -78,7 +40,7 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <standard>8</standard>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
@@ -150,145 +112,8 @@
             <pElem>../THDM/src</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
-        </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Release_MPI" type="3">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
-        <ccTool>
-          <developmentMode>6</developmentMode>
-          <standard>8</standard>
-          <commandlineTool>mpic++</commandlineTool>
-          <incDir>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../EW/src</pElem>
-            <pElem>../Flavour/src</pElem>
-            <pElem>../GeneralSUSY/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../LeptonFlavour/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
-            <pElem>../NewPhysics/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../pMSSM/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSY/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../THDM/src</pElem>
-            <pElem>../boost</pElem>
-          </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
-          <preprocessorList>
-            <Elem>_MPI</Elem>
-          </preprocessorList>
-        </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Cluster" type="3">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <standard>8</standard>
-          <incDir>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../EW/src</pElem>
-            <pElem>../Flavour/src</pElem>
-            <pElem>../GeneralSUSY/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../LeptonFlavour/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
-            <pElem>../NewPhysics/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../pMSSM/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSY/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../THDM/src</pElem>
-            <pElem>../boost</pElem>
-          </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
-        </ccTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Cluster_MPI" type="3">
-      <toolsSet>
-        <compilerSet>GNU_MPI|GNU</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
-        <ccTool>
-          <developmentMode>5</developmentMode>
-          <standard>8</standard>
-          <incDir>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../EW/src</pElem>
-            <pElem>../Flavour/src</pElem>
-            <pElem>../GeneralSUSY/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../LeptonFlavour/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
-            <pElem>../NewPhysics/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../pMSSM/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../SUSY/src</pElem>
-            <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../THDM/src</pElem>
-            <pElem>../boost</pElem>
-          </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
-          <preprocessorList>
-            <Elem>_MPI</Elem>
-          </preprocessorList>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

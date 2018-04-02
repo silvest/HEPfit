@@ -41,63 +41,6 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="3">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <standard>8</standard>
-          <incDir>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../boost</pElem>
-            <pElem>../Flavour/src</pElem>
-          </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
-          <warningLevel>2</warningLevel>
-        </ccTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/CMFV.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CMFV.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/CMFVMatching.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CMFVMatching.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficient.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficientMatching.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficientMatching.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/NPDF2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPDF2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFV.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFV.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFVMatching.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFVMatching.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <compilerSet>default</compilerSet>
@@ -115,74 +58,9 @@
             <pElem>../boost</pElem>
             <pElem>../Flavour/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
-        <archiverTool>
-        </archiverTool>
-      </compileType>
-      <item path="src/CMFV.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CMFV.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/CMFVMatching.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/CMFVMatching.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficient.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficientMatching.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="src/FlavourWilsonCoefficientMatching.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="src/NPDF2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPDF2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFV.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFV.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFVMatching.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/RealWeakEFTLFVMatching.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Cluster" type="3">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>true</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
-        <ccTool>
-          <developmentMode>5</developmentMode>
-          <standard>8</standard>
-          <incDir>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../boost</pElem>
-            <pElem>../Flavour/src</pElem>
-          </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
-        </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
         <archiverTool>
         </archiverTool>
       </compileType>

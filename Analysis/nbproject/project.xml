@@ -13,7 +13,6 @@
                 <make-dep-project>../HiggsExtensions</make-dep-project>
                 <make-dep-project>../Flavour</make-dep-project>
                 <make-dep-project>../LeptonFlavour</make-dep-project>
-                <make-dep-project>../THDMW</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
                 <make-dep-project>../MonteCarlo</make-dep-project>
                 <make-dep-project>../LoopFunctions</make-dep-project>
@@ -24,10 +23,8 @@
                 <make-dep-project>../GeorgiMachacek</make-dep-project>
                 <make-dep-project>../SUSYMassInsertion</make-dep-project>
                 <make-dep-project>../MFV</make-dep-project>
-                <make-dep-project>../pMSSM</make-dep-project>
                 <make-dep-project>../EventGeneration</make-dep-project>
                 <make-dep-project>../THDM</make-dep-project>
-                <make-dep-project>../GeneralTHDM</make-dep-project>
                 <make-dep-project>../gslpp</make-dep-project>
                 <make-dep-project>../LeftRightSymmetricModel</make-dep-project>
                 <make-dep-project>../FlavourWilsonCoefficient</make-dep-project>
@@ -38,31 +35,11 @@
             <sourceRootList/>
             <confList>
                 <confElem>
-                    <name>Debug_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Debug</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Release</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
                     <name>Release_MPI</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Cluster</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Cluster_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Schwinger_MPI</name>
+                    <name>Release</name>
                     <type>1</type>
                 </confElem>
             </confList>
