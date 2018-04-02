@@ -12047,7 +12047,7 @@ void THDMcache::computeHpquantities()
     double Mt2=Mt*Mt;
     double Mb2=Mb*Mb;
     double Mtau2=Mtau*Mtau;
-    double Vtb=myTHDM->getCKM().getVtb();
+    double Vtb=myTHDM->getCKM().getV_tb().abs();
     double gHpt=-1.0/tanb;
     double gHpb=0.0;
     double gHptau=0.0;

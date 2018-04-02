@@ -11,7 +11,8 @@
 #include <Math/Functor.h>
 
 EffectivePot_GTHDM::EffectivePot_GTHDM(const StandardModel& SM_i)
-: myGTHDM(static_cast<const GeneralTHDM&> (SM_i)),mat_neutral(4,4,0.)
+//: myGTHDM(static_cast<const GeneralTHDM&> (SM_i)),
+: mat_neutral(4,4,0.)
 {}
 
 const double* EffectivePot_GTHDM::potentialminimizer(double S1_start, double S2_start, double S3_start)

@@ -6,7 +6,6 @@
  */
 
 #include "VCKM.h"
-#include <stdexcept>
 #include "StandardModel.h"
 
 VCKM::VCKM(const StandardModel& SM_i, unsigned int obsFlag_1, unsigned int obsFlag_2) 
@@ -25,15 +24,15 @@ VCKM::~VCKM()
 double VCKM::computeThValue() 
 { 
     
-    if (obs_1 == 1 && obs_2 == 1) return(SM.getCKM().getVud());
-    if (obs_1 == 1 && obs_2 == 2) return(SM.getCKM().getVus());
-    if (obs_1 == 1 && obs_2 == 3) return(SM.getCKM().getVub());
-    if (obs_1 == 2 && obs_2 == 1) return(SM.getCKM().getVcd());
-    if (obs_1 == 2 && obs_2 == 2) return(SM.getCKM().getVcs());
-    if (obs_1 == 2 && obs_2 == 3) return(SM.getCKM().getVcb());
-    if (obs_1 == 3 && obs_2 == 1) return(SM.getCKM().getVtd());
-    if (obs_1 == 3 && obs_2 == 2) return(SM.getCKM().getVts());
-    if (obs_1 == 3 && obs_2 == 3) return(SM.getCKM().getVtb());
+    if (obs_1 == 1 && obs_2 == 1) return(SM.getCKM().getV_ud().abs());
+    if (obs_1 == 1 && obs_2 == 2) return(SM.getCKM().getV_us().abs());
+    if (obs_1 == 1 && obs_2 == 3) return(SM.getCKM().getV_ub().abs());
+    if (obs_1 == 2 && obs_2 == 1) return(SM.getCKM().getV_cd().abs());
+    if (obs_1 == 2 && obs_2 == 2) return(SM.getCKM().getV_cs().abs());
+    if (obs_1 == 2 && obs_2 == 3) return(SM.getCKM().getV_cb().abs());
+    if (obs_1 == 3 && obs_2 == 1) return(SM.getCKM().getV_td().abs());
+    if (obs_1 == 3 && obs_2 == 2) return(SM.getCKM().getV_ts().abs());
+    if (obs_1 == 3 && obs_2 == 3) return(SM.getCKM().getV_tb().abs());
     else throw std::runtime_error("obsFlag in CKM(myFlavour, obsFlag_1, obsFlag_1) called from ThFactory::ThFactory() can only be 1 - 3 corresponding to the CKM matrix");
 }
 
@@ -368,40 +367,40 @@ CKM_Rt::CKM_Rt(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_Rt::computeThValue()
 {
-    return SM.getCKM().getRt();
+    return SM.getCKM().computeRt();
 }
 
 CKM_Rts::CKM_Rts(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_Rts::computeThValue()
 {
-    return SM.getCKM().getRts();
+    return SM.getCKM().computeRts();
 }
 
 CKM_Rb::CKM_Rb(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_Rb::computeThValue()
 {
-    return SM.getCKM().getRb();
+    return SM.getCKM().computeRb();
 }
 
 CKM_VtdoVts::CKM_VtdoVts(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_VtdoVts::computeThValue()
 {
-    return (SM.getCKM().getVtd()/SM.getCKM().getVts());
+    return (SM.getCKM().getV_td().abs()/SM.getCKM().getV_ts().abs());
 }
 
 CKM_rho::CKM_rho(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_rho::computeThValue()
 {
-    return (SM.getCKM().getRhoNB());
+    return (SM.getCKM().getRho());
 }
 
 CKM_eta::CKM_eta(const StandardModel& SM_i) : ThObservable(SM_i) {}
 
 double CKM_eta::computeThValue()
 {
-    return (SM.getCKM().getEtaNB());
+    return (SM.getCKM().getEta());
 }

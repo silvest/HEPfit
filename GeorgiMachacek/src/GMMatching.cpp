@@ -9,6 +9,6 @@
 #include "GeorgiMachacek.h"
 
 GMMatching::GMMatching(const GeorgiMachacek & GeorgiMachacek_i) :
-    StandardModelMatching(GeorgiMachacek_i),
-    myGM(GeorgiMachacek_i)
+    StandardModelMatching(GeorgiMachacek_i)
+//    myGM(GeorgiMachacek_i)
 {}

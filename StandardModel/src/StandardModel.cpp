@@ -35,7 +35,6 @@
 std::string StandardModel::SMvars[NSMvars] = {
     "lambda", "A", "rhob", "etab", "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ", "delR0l", "delR0b",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", "muw"
-//    "s12_pmns", "s13_pmns", "s23_pmns", "delta_pmns", "alpha21_pmns", "alpha31_pmns",
 };
 
 const double StandardModel::GeVminus2_to_nb = 389379.338;
@@ -69,8 +68,6 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     
     bSigmaForAFB = false;
     bSigmaForR = false;
-    
-    
     
     // Caches for EWPO
     FlagCacheInStandardModel = true; // use caches in the current class
@@ -126,12 +123,6 @@ Ye(3, 3, 0.), SMM(*this), SMFlavour(*this)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("melectron", boost::cref(leptons[ELECTRON].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mmu", boost::cref(leptons[MU].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtau", boost::cref(leptons[TAU].getMass())));
-//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s12_pmns", boost::cref(s12)));
-//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s13_pmns", boost::cref(s13)));
-//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("s23_pmns", boost::cref(s23)));
-//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delta_pmns", boost::cref(delta)));
-//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha21_pmns", boost::cref(alpha21)));
-//    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha31_pmns", boost::cref(alpha31)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambda", boost::cref(lambda)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("A", boost::cref(A)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("rhob", boost::cref(rhob)));
@@ -234,10 +225,10 @@ bool StandardModel::PostUpdate()
     computeCKM();
 
     /* Set the Yukawa matrices */
-    if ( !isModelSUSY() ) {
-      computeYukawas();
+    if (!isModelSUSY()) {
+        computeYukawas();
     }
-      
+
     /* Check whether the parameters for the EWPO are updated or not */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;
@@ -348,20 +339,20 @@ void StandardModel::computeCKM()
 {
     if (requireCKM) {
         if (FlagWolfenstein) {
-            myCKM.setWolfenstein(lambda, A, rhob, etab);
-            Vus = myCKM.getVus();
-            Vcb = myCKM.getVcb();
-            Vub = myCKM.getVub();
+            myCKM.computeCKMwithWolfenstein(lambda, A, rhob, etab);
+            Vus = myCKM.getV_us().abs();
+            Vcb = myCKM.getV_cb().abs();
+            Vub = myCKM.getV_ub().abs();
             gamma = myCKM.computeGamma();
         } else {
-            myCKM.setCKM(Vus, Vcb, Vub, gamma);
+            myCKM.computeCKM(Vus, Vcb, Vub, gamma);
             lambda = myCKM.getLambda();
             A = myCKM.getA();
-            rhob = myCKM.getRho();
-            etab = myCKM.getEta();
+            rhob = myCKM.getRhoBar();
+            etab = myCKM.getEtaBar();
         }
     }
-    myPMNS.setPMNS(s12, s13, s23, delta, alpha21, alpha31);
+    myPMNS.computePMNS(s12, s13, s23, delta, alpha21, alpha31); // WARNING: This does not do anything since the input values are not set.
 }
 
 void StandardModel::computeYukawas()
@@ -516,95 +507,6 @@ bool StandardModel::checkSMparamsForEWPO()
 
     return bNotUpdated;
 }
-
-
-////////////////////////////////////////////////////////////////////////
-// CKM parameters
-
-// Angles
-
-double StandardModel::computeBeta() const
-{
-    return myCKM.computeBeta();
-}
-
-double StandardModel::computeGamma() const
-{
-    return myCKM.computeGamma();
-}
-
-double StandardModel::computeAlpha() const
-{
-    return myCKM.computeAlpha();
-}
-
-double StandardModel::computeBetas() const
-{
-    return myCKM.computeBetas();
-}
-
-// Lambda_q
-
-gslpp::complex StandardModel::computelamt() const
-{
-    return myCKM.computelamt();
-}
-
-gslpp::complex StandardModel::computelamc() const
-{
-    return myCKM.computelamc();
-}
-
-gslpp::complex StandardModel::computelamu() const
-{
-    return myCKM.computelamu();
-}
-
-gslpp::complex StandardModel::computelamt_d() const
-{
-    return myCKM.computelamt_d();
-}
-
-gslpp::complex StandardModel::computelamc_d() const
-{
-    return myCKM.computelamc_d();;
-}
-
-gslpp::complex StandardModel::computelamu_d() const
-{
-    return myCKM.computelamu_d();
-}
-
-gslpp::complex StandardModel::computelamt_s() const
-{
-    return myCKM.computelamt_s();
-}
-
-gslpp::complex StandardModel::computelamc_s() const
-{
-    return myCKM.computelamc_s();
-}
-
-gslpp::complex StandardModel::computelamu_s() const
-{
-    return myCKM.computelamu_s();
-}
-
-double StandardModel::computeRt() const
-{
-    return myCKM.getRt();
-}
-
-double StandardModel::computeRts() const
-{
-    return myCKM.getRts();
-}
-
-double StandardModel::computeRb() const
-{
-    return myCKM.getRb();
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

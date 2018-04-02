@@ -571,7 +571,7 @@ double Charm_Kpnunu::P_C(orders order)
 {
     double Xe = C_P(order) + C_Be(order);
     double Xt = C_P(order) + C_Bt(order);
-    double lambda4 = model.getLambda() * model.getLambda() * model.getLambda() * model.getLambda();
+    double lambda4 = model.getCKM().getLambda() * model.getCKM().getLambda() * model.getCKM().getLambda() * model.getCKM().getLambda();
     double pc = 1. / lambda4 * (2. / 3. * Xe + 1. / 3. * Xt);
 
     return (pc);
@@ -584,11 +584,11 @@ double Charm_Kpnunu::C_TOT(orders order, orders_qed order_qed)
     double Muw = model.getMuw();
     double Ale = model.getAle();
     double a = 1. / model.getMatching().mt2omh2(Muw);
-    gslpp::complex lambdat = model.computelamt();
-    gslpp::complex lambdac = model.computelamc();
-    double lambda = model.getLambda();
-    double lambda5 = model.getLambda() * model.getLambda() * model.getLambda()
-            * model.getLambda() * model.getLambda();
+    gslpp::complex lambdat = model.getCKM().computelamt();
+    gslpp::complex lambdac = model.getCKM().computelamc();
+    double lambda = model.getCKM().getLambda();
+    double lambda5 = model.getCKM().getLambda() * model.getCKM().getLambda() * model.getCKM().getLambda()
+            * model.getCKM().getLambda() * model.getCKM().getLambda();
     double IBT = model.getOptionalParameter("DeltaP_cu");
     double X = 0.;
 

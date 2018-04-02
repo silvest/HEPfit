@@ -6,7 +6,7 @@
  */
 
 #ifndef GMMATCHING_H
-#define	GMMATCHING_H
+#define GMMATCHING_H
 
 #include "StandardModelMatching.h"
 
@@ -25,7 +25,7 @@ public:
     GMMatching(const GeorgiMachacek & GeorgiMachacek_i);
 
 private:
-    const GeorgiMachacek & myGM;
+//    const GeorgiMachacek & myGM;
 };
 
 #endif	/* GMMATCHING_H */

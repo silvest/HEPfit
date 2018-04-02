@@ -1452,11 +1452,11 @@ void GMcache::computeOtherHiggsProperties()
     double Mb = myGM->getQuarks(QCD::BOTTOM).getMass();
     double Mc = myGM->getQuarks(QCD::CHARM).getMass();
     double Ms = myGM->getQuarks(QCD::STRANGE).getMass();
-    double Mu = myGM->getQuarks(QCD::UP).getMass();
-    double Md = myGM->getQuarks(QCD::DOWN).getMass();
+//    double Mu = myGM->getQuarks(QCD::UP).getMass();
+//    double Md = myGM->getQuarks(QCD::DOWN).getMass();
     double Mtau = myGM->getLeptons(StandardModel::TAU).getMass();
     double Mmu = myGM->getLeptons(StandardModel::MU).getMass();
-    double Me = myGM->getLeptons(StandardModel::ELECTRON).getMass();
+//    double Me = myGM->getLeptons(StandardModel::ELECTRON).getMass();
 
 //    /* rX_ii is the squared ratio between the GM vertex coupling of the neutral heavy Higgs X to
 //     * the particle i and the corresponding coupling of the SM Higgs boson.*/

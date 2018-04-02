@@ -503,13 +503,13 @@ double CPenguinBox::CT_tot(orders order, orders_qed order_qed)
         case(NNLO):
             switch (order_qed) {
                 case(NLO_QED11):
-                    return (model.computelamc().real() / model.getLambda()*(Cmatch(NNLO) + IBT) +
-                            model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
+                    return (model.getCKM().computelamc().real() / model.getCKM().getLambda()*(Cmatch(NNLO) + IBT) +
+                            model.getCKM().computelamt().real() / model.getCKM().getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt) + model.getAle() / 4. / M_PI *
                             model.getMatching().Xewt(xt, a, model.getMuc())));
                 case(LO_QED):
-                    return (model.computelamc().real() / model.getLambda()*(Cmatch(NNLO) + IBT) +
-                            model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
+                    return (model.getCKM().computelamc().real() / model.getCKM().getLambda()*(Cmatch(NNLO) + IBT) +
+                            model.getCKM().computelamt().real() / model.getCKM().getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
@@ -519,13 +519,13 @@ double CPenguinBox::CT_tot(orders order, orders_qed order_qed)
         case(NLO):
             switch (order_qed) {
                 case(NLO_QED11):
-                    return (model.computelamc().real() / model.getLambda()*(Cmatch(NLO) + IBT) +
-                            model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
+                    return (model.getCKM().computelamc().real() / model.getCKM().getLambda()*(Cmatch(NLO) + IBT) +
+                            model.getCKM().computelamt().real() / model.getCKM().getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt) + model.getAle() / 4. / M_PI *
                             model.getMatching().Xewt(xt, a, model.getMuc())));
                 case(LO_QED):
-                    return (model.computelamc().real() / model.getLambda()*(Cmatch(NLO) + IBT) +
-                            model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
+                    return (model.getCKM().computelamc().real() / model.getCKM().getLambda()*(Cmatch(NLO) + IBT) +
+                            model.getCKM().computelamt().real() / model.getCKM().getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;
@@ -535,13 +535,13 @@ double CPenguinBox::CT_tot(orders order, orders_qed order_qed)
         case(LO):
             switch (order_qed) {
                 case(NLO_QED11):
-                    return (model.computelamc().real() / model.getLambda()*(Cmatch(LO) + IBT) +
-                            model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
+                    return (model.getCKM().computelamc().real() / model.getCKM().getLambda()*(Cmatch(LO) + IBT) +
+                            model.getCKM().computelamt().real() / model.getCKM().getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt) + model.getAle() / 4. / M_PI *
                             model.getMatching().Xewt(xt, a, model.getMuc())));
                 case(LO_QED):
-                    return (model.computelamc().real() / model.getLambda()*(Cmatch(NLO) + IBT) +
-                            model.computelamt().real() / model.getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
+                    return (model.getCKM().computelamc().real() / model.getCKM().getLambda()*(Cmatch(NLO) + IBT) +
+                            model.getCKM().computelamt().real() / model.getCKM().getLambda()*(model.Als(model.getMuw()) / 4. / M_PI *
                             model.getMatching().X1t(xt)));
                 default:
                     std::stringstream out;

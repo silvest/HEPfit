@@ -80,8 +80,8 @@ void MVgamma::updateParameters()
     mc_pole = SM.Mbar2Mp(SM.getQuarks(QCD::CHARM).getMass()); /* Conversion to pole mass*/
     Ms = SM.getQuarks(QCD::STRANGE).getMass();
     MW = SM.Mw();
-    lambda_t = SM.computelamt_s();
-    lambda_u = SM.computelamu_s();
+    lambda_t = SM.getCKM().computelamt_s();
+    lambda_u = SM.getCKM().computelamu_s();
     mu_b = SM.getMub();
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     fB = SM.getMesons(meson).getDecayconst();

@@ -31,7 +31,7 @@ public:
 
 private:
     
-    const GeneralTHDM& myGTHDM;
+//    const GeneralTHDM& myGTHDM;
     gslpp::matrix<double> mat_neutral;
 };
 

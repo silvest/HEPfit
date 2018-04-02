@@ -110,7 +110,7 @@ void MPll::updateParameters()
     mc_pole = mySM.Mbar2Mp(Mc); /* Conversion to pole mass*/
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
-    lambda_t=mySM.computelamt_s();
+    lambda_t=mySM.getCKM().computelamt_s();
     mu_b = mySM.getMub();
     mu_h = sqrt(mu_b * .5); // From Beneke Neubert
     width = mySM.getMesons(meson).computeWidth();

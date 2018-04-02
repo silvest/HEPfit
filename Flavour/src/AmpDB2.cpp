@@ -121,9 +121,9 @@ gslpp::complex AmpDB2::PBd()
     
     gslpp::complex PBd = -2. * kappa / mySM.getCBd() * 
             (gslpp::complex(1,2.*mySM.getPhiBd(),true) * (n[0] + (n[5] * B2 + n[10])/B1)
-            - gslpp::complex(1./mySM.getCKM().getRt(),mySM.getCKM().computeBeta()+2.*mySM.getPhiBd(),true)
+            - gslpp::complex(1./mySM.getCKM().computeRt(),mySM.getCKM().computeBeta()+2.*mySM.getPhiBd(),true)
             * (n[1] + (n[6] * B2 + n[11])/B1)
-            + gslpp::complex(1./mySM.getCKM().getRt()/mySM.getCKM().getRt(),2.*(mySM.getCKM().computeBeta()+mySM.getPhiBd()),true)
+            + gslpp::complex(1./mySM.getCKM().computeRt()/mySM.getCKM().computeRt(),2.*(mySM.getCKM().computeBeta()+mySM.getPhiBd()),true)
             * (n[2] + (n[7] * B2 + n[12])/B1));
 
     return PBd;
@@ -150,9 +150,9 @@ gslpp::complex AmpDB2::PBs()
     
     gslpp::complex PBs = -2. * kappa / mySM.getCBs() * 
             (gslpp::complex(1,2.*mySM.getPhiBs(),true) * (n[0] + (n[5] * B2 + n[10])/B1)
-            - gslpp::complex(1./mySM.getCKM().getRts(),-mySM.getCKM().computeBetas()+2.*mySM.getPhiBs(),true)
+            - gslpp::complex(1./mySM.getCKM().computeRts(),-mySM.getCKM().computeBetas()+2.*mySM.getPhiBs(),true)
             * (n[1] + (n[6] * B2 + n[11])/B1)
-            + gslpp::complex(1./mySM.getCKM().getRts()/mySM.getCKM().getRts(),2.*(-mySM.getCKM().computeBetas()+mySM.getPhiBs()),true)
+            + gslpp::complex(1./mySM.getCKM().computeRts()/mySM.getCKM().computeRts(),2.*(-mySM.getCKM().computeBetas()+mySM.getPhiBs()),true)
             * (n[2] + (n[7] * B2 + n[12])/B1));
 
     return PBs;

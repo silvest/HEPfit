@@ -24,11 +24,11 @@ NPSMEFTd6Matching::NPSMEFTd6Matching(const NPSMEFTd6 & NPSMEFTd6_i) :
 void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
 {
     
-    SMEFT_factor = (M_PI/myNPSMEFTd6.getAle())*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())/myNPSMEFTd6.computelamt_s();
+    SMEFT_factor = (M_PI/myNPSMEFTd6.getAle())*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())*(myNPSMEFTd6.v()/myNPSMEFTd6.getLambda_NP())/myNPSMEFTd6.getCKM().computelamt_s();
     Muw = myNPSMEFTd6.getMuw();
     
     double ytop = myNPSMEFTd6.getQuarks(QCD::TOP).getMass()/myNPSMEFTd6.v();
-    loop_factor = myNPSMEFTd6.computelamt_s()*ytop*ytop/(16.*M_PI*M_PI);
+    loop_factor = myNPSMEFTd6.getCKM().computelamt_s()*ytop*ytop/(16.*M_PI*M_PI);
     
     C7NP = 0.; // to be implemented
     C8NP = 0.; // to be implemented 

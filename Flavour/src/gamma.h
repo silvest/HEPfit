@@ -10,15 +10,11 @@
 
 #include "ThObservable.h"
 
-
-
 class CKMGamma : public ThObservable {
 public:
-    CKMGamma(const StandardModel& SM_i) : ThObservable(SM_i) {};
+    CKMGamma(const StandardModel& SM_i);
 
-    double computeThValue() { 
-        return(SM.computeGamma()/M_PI*180.);
-    };
+    double computeThValue();
 };
 
 #endif	/* GAMMA_H */

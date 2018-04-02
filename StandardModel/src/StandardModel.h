@@ -832,42 +832,6 @@ public:
     }
 
     /**
-     * @brief A get method to retrieve the %CKM element @f$\lambda@f$.
-     * @return @f$\lambda@f$
-     */
-    double getLambda() const
-    {
-        return lambda;
-    }
-
-    /**
-     * @brief A get method to retrieve the %CKM element @f$A@f$.
-     * @return @f$A@f$
-     */
-    double getA() const
-    {
-        return A;
-    }
-
-    /**
-     * @brief A get method to retrieve the %CKM element @f$\bar{\rho}@f$.
-     * @return @f$\bar{\rho}@f$
-     */
-    double getRhob() const
-    {
-        return rhob;
-    }
-
-    /**
-     * @brief A get method to retrieve the %CKM element @f$\bar{\eta}@f$.
-     * @return @f$\bar{\eta}@f$
-     */
-    double getEtab() const
-    {
-        return etab;
-    }
-
-    /**
      * @brief A get method to retrieve the object of the %PMNS matrix.
      * @return the %PMNS matrix
      */
@@ -1012,108 +976,6 @@ public:
     {
         return myLeptonFlavour;
     }
-
-
-    ////////////////////////////////////////////////////////////////////////
-    // CKM parameters
-
-    /**
-     * @brief The %CKM angle @f$\beta@f$.
-     * @return @f$\beta@f$ in radians
-     */
-    double computeBeta() const;
-
-    /**
-     * @brief The %CKM angle @f$\gamma@f$.
-     * @return @f$\gamma@f$ in radians
-     */
-    double computeGamma() const;
-
-    /**
-     * @brief The %CKM angle @f$\alpha@f$.
-     * @return @f$\alpha@f$ in radians
-     */
-    double computeAlpha() const;
-
-    /**
-     * @brief The %CKM angle @f$\beta_s@f$.
-     * @return @f$\beta_s@f$ in radians
-     */
-    double computeBetas() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{td} V_{ts}^*@f$.
-     * @return @f$V_{td} V_{ts}^*@f$
-     */
-    gslpp::complex computelamt() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{cd} V_{cs}^*@f$.
-     * @return @f$V_{cd} V_{cs}^*@f$
-     */
-    gslpp::complex computelamc() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{ud} V_{us}^*@f$.
-     * @return @f$V_{ud} V_{us}^*@f$
-     */
-    gslpp::complex computelamu() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{td} V_{tb}^*@f$.
-     * @return @f$V_{td} V_{tb}^*@f$
-     */
-    gslpp::complex computelamt_d() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{cd} V_{cb}^*@f$.
-     * @return @f$V_{cd} V_{cb}^*@f$
-     */
-    gslpp::complex computelamc_d() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{ud} V_{ub}^*@f$.
-     * @return @f$V_{ud} V_{ub}^*@f$
-     */
-    gslpp::complex computelamu_d() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{ts} V_{tb}^*@f$.
-     * @return @f$V_{ts} V_{tb}^*@f$
-     */
-    gslpp::complex computelamt_s() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{cs} V_{cb}^*@f$.
-     * @return @f$V_{cs} V_{cb}^*@f$
-     */
-    gslpp::complex computelamc_s() const;
-
-    /**
-     * @brief The product of the %CKM elements @f$V_{us} V_{ub}^*@f$.
-     * @return @f$V_{us} V_{ub}^*@f$
-     */
-    gslpp::complex computelamu_s() const;
-
-    /**
-     * @brief @f$R_t=|(V_{td} V_{tb}^*)/(V_{cd}V_{cb}^*)|@f$.
-     * @return @f$R_t@f$
-     */
-    double computeRt() const;
-
-    /**
-     * @brief @f$R_{ts}=|(V_{ts}V_{tb}^*)/(V_{cs}V_{cb}^*)|@f$.
-     * @return @f$R_{ts}@f$
-     */
-    double computeRts() const;
-
-    /**
-     * @brief @f$R_b=|(V_{ud}V_{ub}^*)/(V_{ud}V_{ub}^*)|@f$.
-     * @return @f$R_b@f$
-     */
-    double computeRb() const;
-
-
     ////////////////////////////////////////////////////////////////////////
     // QED coupling
 
@@ -2433,7 +2295,7 @@ public:
     }
 
     /**
-     * @brief The ratio of the absolute value of the $B_d$ mixing amplitude over the Standard Model value
+     * @brief The ratio of the absolute value of the $B_d$ mixing amplitude over the Standard Model value.
      * @return @f$\vert (M_{12}^{bd})_\mathrm{full}/(M_{12}^{bd})_\mathrm{SM}\vert@f$
      */
     virtual double getCBd() const
@@ -2442,7 +2304,7 @@ public:
     }
 
     /**
-     * @brief The ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value
+     * @brief The ratio of the absolute value of the $B_s$ mixing amplitude over the Standard Model value.
      * @return @f$\vert (M_{12}^{bs})_\mathrm{full}/(M_{12}^{bs})_\mathrm{SM}\vert@f$
      */
     virtual double getCBs() const
@@ -2451,7 +2313,7 @@ public:
     }
 
     /**
-     * @brief The ratio of the real part of the $K$ mixing amplitude over the Standard Model value
+     * @brief The ratio of the real part of the $K$ mixing amplitude over the Standard Model value.
      * @return @f$(\mathrm{Re} M_{12}^{sd})_\mathrm{full}/(\mathrm{Re} M_{12}^{sd})_\mathrm{SM}\vert@f$
      */
     virtual double getCDMK() const
@@ -2460,7 +2322,7 @@ public:
     }
 
     /**
-     * @brief The ratio of the imaginary part of the $K$ mixing amplitude over the Standard Model value
+     * @brief The ratio of the imaginary part of the $K$ mixing amplitude over the Standard Model value.
      * @return @f$(\mathrm{Im} M_{12}^{sd})_\mathrm{full}/(\mathrm{Im} M_{12}^{sd})_\mathrm{SM}\vert@f$
      */
     virtual double getCepsK() const
@@ -2478,7 +2340,7 @@ public:
     }
 
     /**
-     * @brief Half the relative phase of the $B_d$ mixing amplitude w.r.t. the Standard Model one
+     * @brief Half the relative phase of the $B_d$ mixing amplitude w.r.t. the Standard Model one.
      * @return @f$1/2 (\mathrm{arg}((M_{12}^{bd})_\mathrm{full})-\mathrm{arg}((M_{12}^{bd})_\mathrm{SM}))\vert@f$
      */
     virtual double getPhiBd() const
@@ -2486,6 +2348,7 @@ public:
         return 0.;
     }
     
+/** BEGIN: REMOVE FROM THE PACKAGE **/
     ////////////////////////////////////////////////////////////////////////
     //LEP2 Observables
     
@@ -2501,7 +2364,8 @@ public:
     virtual double LEP2AFBbottom(const double s) const;
     virtual double LEP2Rcharm(const double s) const;
     virtual double LEP2Rbottom(const double s) const;
-
+/** END: REMOVE FROM THE PACKAGE **/
+    
 bool setFlagSigmaForAFB(const bool flagSigmaForAFB_i)
 {
     bSigmaForAFB = flagSigmaForAFB_i;

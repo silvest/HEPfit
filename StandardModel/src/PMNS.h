@@ -6,10 +6,10 @@
  */
 
 #ifndef PMNS_H
-#define	PMNS_H
+#define PMNS_H
 
 #include <math.h>
-#include <gslpp.h>
+#include "gslpp.h"
 
 /**
  * @class PMNS
@@ -23,61 +23,191 @@
 class PMNS {
 public:
     PMNS();
-//    ~PMNS();
 
-    void setPMNS(double s12_v, double s13_v, double s23_v, double delta_v, double alpha21_v, double alpha31_v);
+    /**
+     * @brief A set method to calculate the PMNS matrix from PMNS parameters
+     * @param[in] s12_v the PMNS parameter @f$ \sin\theta_{12} @f$
+     * @param[in] s13_v the PMNS parameter @f$ \sin\theta_{13} @f$
+     * @param[in] s23_v the PMNS parameter @f$ \sin\theta_{23} @f$
+     * @param[in] delta_v the PMNS parameter @f$ \delta @f$
+     * @param[in] alpha21_v the PMNS parameter @f$ \alpha_{21} @f$
+     * @param[in] alpha21_v the PMNS parameter @f$ \alpha_{31} @f$
+     */
+    void computePMNS(double s12_v, double s13_v, double s23_v, double delta_v, double alpha21_v, double alpha31_v);
 
-    gslpp::matrix<gslpp::complex> getPMNS() const {
+    /**
+     * @brief A member for returning the PMNS matrix.
+     * @return the CKM matrix
+     */
+    gslpp::matrix<gslpp::complex> getPMNS() const
+    {
         return U;
     }
+    // Gilman parameterization
 
-    void setPMNS(gslpp::matrix<gslpp::complex> U) {
-        this->U = U;
+    /**
+     * @brief A member for returning the value of the sine of the PMNS parameter @f$ \theta_{12} @f$
+     * @return the value of @f$ \sin\theta_{12} @f$
+     */
+    double gets12() const
+    {
+        return s12;
     }
 
-    // Gilman parameterization
-    double gets12();
-    double gets13();
-    double gets23();
-    double getc12();
-    double getc13();
-    double getc23();
-    double getdelta();
-    double getalpha21();
-    double getalpha31();
+    /**
+     * @brief A member for returning the value of the sine of the PMNS parameter @f$ \theta_{13} @f$
+     * @return the value of @f$ \sin\theta_{13} @f$
+     */
+    double gets13() const
+    {
+        return s13;
+    }
 
-    //Absolute values of PMNS elements
-    double getUe1();
-    double getUe2();
-    double getUe3();
-    double getUmu1();
-    double getUmu2();
-    double getUmu3();
-    double getUtau1();
-    double getUtau2();
-    double getUtau3();
+    /**
+     * @brief A member for returning the value of the sine of the PMNS parameter @f$ \theta_{23} @f$
+     * @return the value of @f$ \sin\theta_{23} @f$
+     */
+    double gets23() const
+    {
+        return s23;
+    }
 
-    //Phases of PMNS elements
-    double getArgUe1();
-    double getArgUe2();
-    double getArgUe3();
-    double getArgUmu1();
-    double getArgUmu2();
-    double getArgUmu3();
-    double getArgUtau1();
-    double getArgUtau2();
-    double getArgUtau3();
+    /**
+     * @brief A member for returning the value of the cosine of the PMNS parameter @f$ \theta_{12} @f$
+     * @return the value of @f$ \cos\theta_{12} @f$
+     */
+    double getc12() const
+    {
+        return c12;
+    }
+
+    /**
+     * @brief A member for returning the value of the cosine of the PMNS parameter @f$ \theta_{23} @f$
+     * @return the value of @f$ \cos\theta_{23} @f$
+     */
+    double getc23() const
+    {
+        return c23;
+    }
+
+    /**
+     * @brief A member for returning the value of the cosine of the PMNS parameter @f$ \theta_{13} @f$
+     * @return the value of @f$ \cos\theta_{13} @f$
+     */
+    double getc13() const
+    {
+        return c13;
+    }
+
+    /**
+     * @brief A member for returning the value of the PMNS parameter @f$ \delta @f$
+     * @return the value of @f$ \delta @f$
+     */
+    double getdelta() const
+    {
+        return delta;
+    }
+
+     /**
+     * @brief A member for returning the value of the phase @f$ \alpha_{21} @f$
+     * @return the value of @f$ \alpha_{21} @f$
+     */
+    double getalpha21()
+    {
+        return alpha21;
+    }
+
+    /**
+     * @brief A member for returning the value of the phase @f$ \alpha_{31} @f$
+     * @return the value of @f$ \alpha_{31} @f$
+     */
+    double getalpha31()
+    {
+        return alpha31;
+    }
 
     //Complex values of PMNS elements
-    gslpp::complex U_e1();
-    gslpp::complex U_e2();
-    gslpp::complex U_e3();
-    gslpp::complex U_mu1();
-    gslpp::complex U_mu2();
-    gslpp::complex U_mu3();
-    gslpp::complex U_tau1();
-    gslpp::complex U_tau2();
-    gslpp::complex U_tau3();
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{e1} @f$
+     * @return the value of @f$ U_{e1} @f$
+     */
+    gslpp::complex getU_e1()
+    {
+        return U(0, 0);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{e2} @f$
+     * @return the value of @f$ U_{e2} @f$
+     */
+    gslpp::complex getU_e2()
+    {
+        return U(0, 1);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{e3} @f$
+     * @return the value of @f$ U_{e3} @f$
+     */
+    gslpp::complex getU_e3()
+    {
+        return U(0, 2);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{\mu 1} @f$
+     * @return the value of @f$ U_{\mu 1} @f$
+     */
+    gslpp::complex getU_mu1()
+    {
+        return U(1, 0);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{\mu 2} @f$
+     * @return the value of @f$ U_{\mu 2} @f$
+     */
+    gslpp::complex getU_mu2()
+    {
+        return U(1, 1);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{\mu 3} @f$
+     * @return the value of @f$ U_{\mu 3} @f$
+     */
+    gslpp::complex getU_mu3()
+    {
+        return U(1, 2);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{\tau 1} @f$
+     * @return the value of @f$ U_{\tau 1} @f$
+     */
+    gslpp::complex getU_tau1()
+    {
+        return U(2, 0);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{\tau 2} @f$
+     * @return the value of @f$ U_{\tau 2} @f$
+     */
+    gslpp::complex getU_tau2()
+    {
+        return U(2, 1);
+    }
+
+    /**
+     * @brief A member for returning the value of the CKM element @f$ U_{\tau 3} @f$
+     * @return the value of @f$ U_{\tau 3} @f$
+     */
+    gslpp::complex getU_tau3()
+    {
+        return U(2, 2);
+    }
 
     
 private:

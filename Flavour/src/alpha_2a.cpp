@@ -10,7 +10,7 @@
 
 double Alpha_2a::computeThValue() 
 { 
-    double a_2a = (SM.computeAlpha()-SM.getPhiBd())/M_PI*180.;
+    double a_2a = (SM.getCKM().computeAlpha()-SM.getPhiBd())/M_PI*180.;
     if (a_2a < 0.)
         a_2a += 180.;
     else if (a_2a > 180.)

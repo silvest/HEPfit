@@ -14,7 +14,7 @@
 
 class Alpha : public ThObservable {
 public:
-    Alpha(const StandardModel& SM_i) : ThObservable(SM_i) {};
+    Alpha(const StandardModel& SM_i);
 
     double computeThValue();
 };

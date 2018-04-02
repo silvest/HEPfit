@@ -256,8 +256,8 @@ void MVll::updateParameters()
     mc_pole = mySM.Mbar2Mp(Mc); /* Conversion to pole mass*/
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
     MW = mySM.Mw();
-    lambda_t = mySM.computelamt_s();
-    lambda_u = mySM.computelamu_s();
+    lambda_t = mySM.getCKM().computelamt_s();
+    lambda_u = mySM.getCKM().computelamu_s();
     width = mySM.getMesons(meson).computeWidth();
     alpha_s_mub = mySM.Als(mu_b);
     fB = mySM.getMesons(meson).getDecayconst();

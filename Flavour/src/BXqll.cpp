@@ -54,8 +54,8 @@ void BXqll::updateParameters()
     Mc = mySM.getQuarks(QCD::CHARM).getMass();
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
     MW = mySM.Mw();
-    abslambdat_over_Vcb = mySM.computelamt_s().abs()/mySM.getCKM().V_cb().abs();
-    Vts_over_Vcb = mySM.getCKM().V_ts().abs()/mySM.getCKM().V_cb().abs();    
+    abslambdat_over_Vcb = mySM.getCKM().computelamt_s().abs()/mySM.getCKM().getV_cb().abs();
+    Vts_over_Vcb = mySM.getCKM().getV_ts().abs()/mySM.getCKM().getV_cb().abs();    
     muh = mu_b/Mb;
     alsmu = mySM.Als(mu_b, FULLNNNLO, true);
     alsmuc = mySM.Als(mu_c, FULLNNNLO, true);

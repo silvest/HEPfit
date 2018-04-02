@@ -56,8 +56,8 @@ double CPenguinBoxMu::X_ch()
 
     double x = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass_scale(),
             model.getQuarks(QCD::TOP).getMass(), FULLNNLO) / model.Mw_tree(), 2.);
-    double a = model.computelamc().real() / model.getLambda()*(C_NL() - B_NL());
-    double b = model.computelamt().real() / model.getLambda()*
+    double a = model.getCKM().computelamc().real() / model.getCKM().getLambda()*(C_NL() - B_NL());
+    double b = model.getCKM().computelamt().real() / model.getCKM().getLambda()*
             (modelmatching.Y0(x) + model.Als(model.getMuw()) / 4. / M_PI * modelmatching.Y1(x, model.getMuw()));
 
     return ( a * a + 2. * a * b);

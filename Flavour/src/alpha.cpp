@@ -8,8 +8,11 @@
 #include "alpha.h"
 #include "StandardModel.h"
 
+Alpha::Alpha(const StandardModel& SM_i) : ThObservable(SM_i) 
+{}
+
 double Alpha::computeThValue() 
 {
-    double alpha = (SM.computeAlpha() - SM.getPhiBd())/M_PI*180.;
+    double alpha = (SM.getCKM().computeAlpha() - SM.getPhiBd())/M_PI*180.;
     return(remainder(alpha,360.));
 }

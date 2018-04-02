@@ -78,7 +78,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
     double xt = x_t(Mut);
     double GF=myGTHDM.getGF();
     double MW=myGTHDM.Mw();
-    gslpp::complex co = GF / 4. / M_PI * MW * myGTHDM.computelamt_s();
+    gslpp::complex co = GF / 4. / M_PI * MW * myGTHDM.getCKM().computelamt_s();
     double tanb = myGTHDM.gettanb();
     double mHp2=myGTHDM.getmHp2();
     double xHW=mHp2/(MW*MW);

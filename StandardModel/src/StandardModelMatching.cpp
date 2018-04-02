@@ -134,7 +134,7 @@ void StandardModelMatching::updateSMParameters()
 //    }
 //    sW2 = (M_PI * Ale ) / ( sqrt(2.) * GF * Mw * Mw ); // WARNING: only for checking
     Vckm = SM.getVCKM();
-    lam_t = SM.computelamt();
+    lam_t = SM.getCKM().computelamt();
     L = 2*log(Muw/Mw);
     Lz = 2*log(Muw/SM.getMz());
     mu_b = SM.getMub();
@@ -1009,7 +1009,7 @@ double StandardModelMatching::phi_xy(double x, double y) const
     
     
     double xt = x_t(Mut);
-    gslpp::complex co = GF / 4. / M_PI * Mw * SM.computelamt_d();
+    gslpp::complex co = GF / 4. / M_PI * Mw * SM.getCKM().computelamt_d();
     
     vmcdb.clear();
 
@@ -1057,7 +1057,7 @@ double StandardModelMatching::phi_xy(double x, double y) const
     double gammam = 6. * CF;
     double Bt;
     double xt = x_t(Mut);
-    gslpp::complex co = GF / 4. / M_PI * Mw * SM.computelamt_s();
+    gslpp::complex co = GF / 4. / M_PI * Mw * SM.getCKM().computelamt_s();
 
     vmcds.clear();
 
@@ -1914,9 +1914,9 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     gslpp::complex lambda;
     
     switch (a) {
-        case 0: lambda = SM.computelamt_d();
+        case 0: lambda = SM.getCKM().computelamt_d();
         break;
-        case 1: lambda = SM.computelamt_s();
+        case 1: lambda = SM.getCKM().computelamt_s();
         break;   
         default:
             std::stringstream out;
@@ -1979,9 +1979,9 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     //gslpp::matrix<gslpp::complex> ckm = SM.getVCKM();
     
     switch (a) {
-        case 0: lambda1 = SM.computelamu_d();
+        case 0: lambda1 = SM.getCKM().computelamu_d();
                 break;
-        case 1: lambda1 = SM.computelamu_s();
+        case 1: lambda1 = SM.getCKM().computelamu_s();
                 break;
         case 2: lambda1 = Vckm(0,2).conjugate()*Vckm(1,0);
                 break;
@@ -2046,7 +2046,7 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     
     double xt = x_t(SM.getMut());
     double a = 1./mt2omh2(Muw);
-    double lambda5 = SM.getLambda()*SM.getLambda()*SM.getLambda()*SM.getLambda()*SM.getLambda();
+    double lambda5 = SM.getCKM().getLambda()*SM.getCKM().getLambda()*SM.getCKM().getLambda()*SM.getCKM().getLambda()*SM.getCKM().getLambda();
     
     vmckpnn.clear();
     
@@ -2094,9 +2094,9 @@ double StandardModelMatching::setWCBMll(int i, double x, orders order)
     switch (mckmm.getOrder()) {
         case NNLO:
         case NLO:
-            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1(xt, Muw)/SM.getLambda(), NLO);//* CHECK ORDER *//
+            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1(xt, Muw)/SM.getCKM().getLambda(), NLO);//* CHECK ORDER *//
         case LO:
-            mckmm.setCoeff(0, lam_t.real()*Y0(xt)/SM.getLambda(), LO);
+            mckmm.setCoeff(0, lam_t.real()*Y0(xt)/SM.getCKM().getLambda(), LO);
             break;
         default:
             std::stringstream out;
@@ -2540,7 +2540,7 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
 gslpp::complex StandardModelMatching::S0c() const 
 {
     double xc = x_c(SM.getMuc());
-    gslpp::complex co = GF / 2. / M_PI * Mw_tree * SM.computelamc().conjugate(); /* Mw_tree...?? */
+    gslpp::complex co = GF / 2. / M_PI * Mw_tree * SM.getCKM().computelamc().conjugate(); /* Mw_tree...?? */
 #if SUSYFIT_DEBUG & 2
     std::cout << "im lambdac = " << (SM.computelamc()*SM.computelamc()).imag() << std::endl;
 #endif
@@ -2558,7 +2558,7 @@ gslpp::complex StandardModelMatching::S0ct() const
     std::cout << "im lamc lamt = " << (SM.computelamc()*SM.computelamt()).imag() << std::endl;
 #endif
     
-    return( co * co * 2. * SM.computelamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
+    return( co * co * 2. * SM.getCKM().computelamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
 }
 
 gslpp::complex StandardModelMatching::S0tt() const

@@ -17,7 +17,7 @@ Xmatrices::Xmatrices(): X1(3,3,0.), X2(3,3,0.),
 }
 
 void Xmatrices::Update(const CKM & CKM_in){
-    if(CKM_in.getA() == myA && CKM_in.getRho() == myrho && CKM_in.getEta() == 
+    if(CKM_in.getA() == myA && CKM_in.getRhoBar() == myrho && CKM_in.getEtaBar() == 
             myeta && CKM_in.getLambda() == mylambda)
         return;
     
@@ -40,8 +40,8 @@ void Xmatrices::Update(const CKM & CKM_in){
         }
     }
     myA = CKM_in.getA();
-    myrho = CKM_in.getRho();
-    myeta = CKM_in.getEta();
+    myrho = CKM_in.getRhoBar();
+    myeta = CKM_in.getEtaBar();
     mylambda = CKM_in.getLambda();
 }
 

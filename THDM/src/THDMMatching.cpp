@@ -30,7 +30,7 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
     double xt = x_t(Mut);
     double GF=myTHDM.getGF();
     double MW=myTHDM.Mw();
-    gslpp::complex co = GF / 4. / M_PI * MW * myTHDM.computelamt_s();
+    gslpp::complex co = GF / 4. / M_PI * MW * myTHDM.getCKM().computelamt_s();
     double tanb = myTHDM.gettanb();
     double mHp2=myTHDM.getmHp2();
     double xHW=mHp2/(MW*MW);

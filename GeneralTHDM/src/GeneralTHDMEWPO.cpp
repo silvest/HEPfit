@@ -33,7 +33,7 @@ double Rb0GTHDM::computeThValue()
     double GF = myGTHDM.getGF();
     double as = myGTHDM.getAlsMz();
     double a = myGTHDM.getAle();
-    double MW=myGTHDM.Mw();
+//    double MW=myGTHDM.Mw();
     double MZ=myGTHDM.getMz();
     
     /*square mass of the charged Higgs*/

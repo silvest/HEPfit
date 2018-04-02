@@ -6,7 +6,7 @@
  */
 
 #ifndef VCKM_H
-#define	VCKM_H
+#define VCKM_H
 
 #include "ThObservable.h"
 

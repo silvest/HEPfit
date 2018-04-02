@@ -136,7 +136,7 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
             mySUSY.getLeptons(StandardModel::TAU).getMass(),
             mySUSY.getQuarks(QCD::BOTTOM).getMass(),
             Mw_FHinput, mySUSY.getMz(),
-            mySUSY.getLambda(), mySUSY.getA(), mySUSY.getRhob(), mySUSY.getEtab());
+            mySUSY.getCKM().getLambda(), mySUSY.getCKM().getA(), mySUSY.getCKM().getRhoBar(), mySUSY.getCKM().getEtaBar());
 #endif
     
     if (err != 0) {

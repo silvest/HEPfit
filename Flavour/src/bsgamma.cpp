@@ -2351,16 +2351,16 @@ void Bsgamma::updateParameters()
     Ms=SM.getQuarks(QCD::STRANGE).getMass();
     Mb=SM.getQuarks(QCD::BOTTOM).getMass();
     Mz=SM.getMz();
-    V_ub=SM.getCKM().V_ub();
-    V_cb=SM.getCKM().V_cb();
-    V_tb=SM.getCKM().V_tb();
+    V_ub=SM.getCKM().getV_ub();
+    V_cb=SM.getCKM().getV_cb();
+    V_tb=SM.getCKM().getV_tb();
     
     if(WET_NP_btos){
         C_7_NP = SM.getOptionalParameter("C7_NP");
         C_7p_NP = SM.getOptionalParameter("C7p_NP");
     }
     else if(SMEFT_NP_btos){
-            gslpp::complex SMEFT_factor = (M_PI/SM.getAle())*(SM.v()*1.e-3)*(SM.v()*1.e-3)/SM.computelamt_s();
+            gslpp::complex SMEFT_factor = (M_PI/SM.getAle())*(SM.v()*1.e-3)*(SM.v()*1.e-3)/SM.getCKM().computelamt_s();
             C_7_NP = SM.getOptionalParameter("CdB")-SM.getOptionalParameter("CdW");
             C_7_NP *= SMEFT_factor*SM.getAle()*8.*M_PI*SM.v()/Mb;
             C_7p_NP = SM.getOptionalParameter("CpdB")-SM.getOptionalParameter("CpdW");
@@ -2379,13 +2379,13 @@ void Bsgamma::updateParameters()
     else
         switch (quark) {
             case StandardModel::STRANGE:
-                CKMratio=(SM.computelamt_s()/V_cb).abs2();
-                CKMu=SM.computelamu_s().conjugate() / SM.computelamt_s().conjugate(); // -0.00802793 + 0.0180942*gslpp::complex::i(); //
+                CKMratio=(SM.getCKM().computelamt_s()/V_cb).abs2();
+                CKMu=SM.getCKM().computelamu_s().conjugate() / SM.getCKM().computelamt_s().conjugate(); // -0.00802793 + 0.0180942*gslpp::complex::i(); //
                 CKMusq = CKMu.abs2();
                 break;
             case StandardModel::DOWN:
-                CKMratio=(SM.computelamt_d()/V_cb).abs2();
-                CKMu=SM.computelamu_d().conjugate() / SM.computelamt_d().conjugate(); //  0.00745398 - 0.40416*gslpp::complex::i(); //
+                CKMratio=(SM.getCKM().computelamt_d()/V_cb).abs2();
+                CKMu=SM.getCKM().computelamu_d().conjugate() / SM.getCKM().computelamt_d().conjugate(); //  0.00745398 - 0.40416*gslpp::complex::i(); //
                 CKMusq = CKMu.abs2();
                 break;
             default:

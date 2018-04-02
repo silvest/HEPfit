@@ -48,11 +48,11 @@ void Mll::computeObs(orders order, orders_qed order_qed)
     mb = SM.getQuarks(QCD::BOTTOM).getMass();
     if (meson == QCD::B_S) {
         ms = SM.getQuarks(QCD::STRANGE).getMass();
-        CKM_factor = SM.computelamt_s();
+        CKM_factor = SM.getCKM().computelamt_s();
         ys = SM.getMesons(meson).getDgamma_gamma()/2.; // For now. To be explicitly calculated.
     } else if (meson == QCD::B_D) {
         ms = SM.getQuarks(QCD::DOWN).getMass();
-        CKM_factor = SM.computelamt_d();
+        CKM_factor = SM.getCKM().computelamt_d();
         ys = 0.;
     }
     chiral = pow(mBs, 2.) / 2. / mlep * mb / (mb + ms);
