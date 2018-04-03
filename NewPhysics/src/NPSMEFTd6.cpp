@@ -3449,443 +3449,66 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
     if (sqrt_s == 0.24) {
 
         mu += 
-                +121473. * CHbox / LambdaNP2
-                +328659. * CHL1_11 / LambdaNP2
-                -38412.9 * CHe_11 / LambdaNP2
-                -291557. * CHL3_11 / LambdaNP2
-                -197232. * CHD / LambdaNP2
-                -71338.2 * CHB / LambdaNP2
-                +29632.8 * CHW / LambdaNP2
-                -401506. * CHWB / LambdaNP2
-                -24480.6 * CDHB / LambdaNP2
-                -2057.83 * CDHW / LambdaNP2
-                +285871. * CLL_1221 / LambdaNP2
+                +121115. * CHbox / LambdaNP2
+                -137868. * CHL3_11 / LambdaNP2
+                -203737. * CHD / LambdaNP2
+                -24698.9 * CHW / LambdaNP2
+                -379818. * CHWB / LambdaNP2
+                -18173.1 * CDHW / LambdaNP2
+                -286375. * DeltaGF()
                 ;
         
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-        mu +=  
-                +3676051400.  * CHbox / LambdaNP2 * CHbox / LambdaNP2
-                +64887276497.  * CHbox / LambdaNP2 * CHL1_11 / LambdaNP2
-                +7510327272.  * CHbox / LambdaNP2 * CHe_11 / LambdaNP2
-                -14353916742.  * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-                -12086337515.  * CHbox / LambdaNP2 * CHD / LambdaNP2
-                -1778638172.  * CHbox / LambdaNP2 * CHB / LambdaNP2
-                +806517995.  * CHbox / LambdaNP2 * CHW / LambdaNP2
-                -26440254257.  * CHbox / LambdaNP2 * CHWB / LambdaNP2
-                -1121716995.  * CHbox / LambdaNP2 * CDHB / LambdaNP2
-                -427292959.  * CHbox / LambdaNP2 * CDHW / LambdaNP2
-                +17382436779.  * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-                +7477401948.  * CHL1_11 / LambdaNP2 * CHL1_11 / LambdaNP2
-                +227428624.  * CHL1_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +402232519854.  * CHL1_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +342465283600.  * CHL1_11 / LambdaNP2 * CHD / LambdaNP2
-                -919988415.  * CHL1_11 / LambdaNP2 * CHB / LambdaNP2
-                +21475694709.  * CHL1_11 / LambdaNP2 * CHW / LambdaNP2
-                +73430483362.  * CHL1_11 / LambdaNP2 * CHWB / LambdaNP2
-                -1007697819.  * CHL1_11 / LambdaNP2 * CDHB / LambdaNP2
-                +5762058138.  * CHL1_11 / LambdaNP2 * CDHW / LambdaNP2
-                +106316174565.  * CHL1_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +7722817554.  * CHe_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +10434888648.  * CHe_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +13503193452.  * CHe_11 / LambdaNP2 * CHD / LambdaNP2
-                -2047223450.  * CHe_11 / LambdaNP2 * CHB / LambdaNP2
-                +4909379144.  * CHe_11 / LambdaNP2 * CHW / LambdaNP2
-                -3569044099.  * CHe_11 / LambdaNP2 * CHWB / LambdaNP2
-                -1965885706.  * CHe_11 / LambdaNP2 * CDHB / LambdaNP2
-                +1264397970.  * CHe_11 / LambdaNP2 * CDHW / LambdaNP2
-                +10250445864.  * CHe_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +138877795223.  * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +54761062756.  * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-                -40054326784.  * CHL3_11 / LambdaNP2 * CHB / LambdaNP2
-                +122049448958.  * CHL3_11 / LambdaNP2 * CHW / LambdaNP2
-                +87213999360.  * CHL3_11 / LambdaNP2 * CHWB / LambdaNP2
-                -7382406292.  * CHL3_11 / LambdaNP2 * CDHB / LambdaNP2
-                +32218165328.  * CHL3_11 / LambdaNP2 * CDHW / LambdaNP2
-                +56306876210.  * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +9964635764.  * CHD / LambdaNP2 * CHD / LambdaNP2
-                -647744768.  * CHD / LambdaNP2 * CHB / LambdaNP2
-                +7557581208.  * CHD / LambdaNP2 * CHW / LambdaNP2
-                +43647241742.  * CHD / LambdaNP2 * CHWB / LambdaNP2
-                +1676935506.  * CHD / LambdaNP2 * CDHB / LambdaNP2
-                -49871195.  * CHD / LambdaNP2 * CDHW / LambdaNP2
-                -28593814307.  * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-                +286328369.  * CHB / LambdaNP2 * CHB / LambdaNP2
-                -1519198817.  * CHB / LambdaNP2 * CHW / LambdaNP2
-                -3603249851.  * CHB / LambdaNP2 * CHWB / LambdaNP2
-                +266024420.  * CHB / LambdaNP2 * CDHB / LambdaNP2
-                -75113943.  * CHB / LambdaNP2 * CDHW / LambdaNP2
-                -7105223846.  * CHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +6072740576.  * CHW / LambdaNP2 * CHW / LambdaNP2
-                +4059418014.  * CHW / LambdaNP2 * CHWB / LambdaNP2
-                -529213603.  * CHW / LambdaNP2 * CDHB / LambdaNP2
-                -336595887.  * CHW / LambdaNP2 * CDHW / LambdaNP2
-                +5066993888.  * CHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +40222245934.  * CHWB / LambdaNP2 * CHWB / LambdaNP2
-                +845875951.  * CHWB / LambdaNP2 * CDHB / LambdaNP2
-                +231823240.  * CHWB / LambdaNP2 * CDHW / LambdaNP2
-                -57937137021.  * CHWB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +163224243.  * CDHB / LambdaNP2 * CDHB / LambdaNP2
-                -61135924.  * CDHB / LambdaNP2 * CDHW / LambdaNP2
-                -3454232276.  * CDHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +146208253.  * CDHW / LambdaNP2 * CDHW / LambdaNP2
-                -608077375.  * CDHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +20598143378.  * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2
-                ;
-        }
+//        if (FlagQuadraticTerms) {
+//            //Add contributions that are quadratic in the effective coefficients
+//
+//        }
           
     } else if (sqrt_s == 0.25) {
 
         mu += 
-                +121289. * CHbox / LambdaNP2
-                +257564. * CHL1_11 / LambdaNP2
-                -38292.5 * CHe_11 / LambdaNP2
-                -389928. * CHL3_11 / LambdaNP2
-                -201301. * CHD / LambdaNP2
-                -57217. * CHB / LambdaNP2
-                -9072.46 * CHW / LambdaNP2
-                -403113. * CHWB / LambdaNP2
-                -20187.9 * CDHB / LambdaNP2
-                -8897.73 * CDHW / LambdaNP2
-                +284243. * CLL_1221 / LambdaNP2
+                +121115. * CHbox / LambdaNP2
+                -137868. * CHL3_11 / LambdaNP2
+                -203737. * CHD / LambdaNP2
+                -24698.9 * CHW / LambdaNP2
+                -379818. * CHWB / LambdaNP2
+                -18173.1 * CDHW / LambdaNP2
+                -286375. * DeltaGF()
                 ;
         
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-        mu +=  
-                +3675219419.  * CHbox / LambdaNP2 * CHbox / LambdaNP2
-                +66053950888.  * CHbox / LambdaNP2 * CHL1_11 / LambdaNP2
-                +8884154783.  * CHbox / LambdaNP2 * CHe_11 / LambdaNP2
-                -20059407804.  * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-                -12329538581.  * CHbox / LambdaNP2 * CHD / LambdaNP2
-                -1257698149.  * CHbox / LambdaNP2 * CHB / LambdaNP2
-                -555772100.  * CHbox / LambdaNP2 * CHW / LambdaNP2
-                -26091584791.  * CHbox / LambdaNP2 * CHWB / LambdaNP2
-                -828873268.  * CHbox / LambdaNP2 * CDHB / LambdaNP2
-                -837838201.  * CHbox / LambdaNP2 * CDHW / LambdaNP2
-                +17278800016.  * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-                +7385384605.  * CHL1_11 / LambdaNP2 * CHL1_11 / LambdaNP2
-                +204970363.  * CHL1_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +461680891386.  * CHL1_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +373242698351.  * CHL1_11 / LambdaNP2 * CHD / LambdaNP2
-                -856359458.  * CHL1_11 / LambdaNP2 * CHB / LambdaNP2
-                +26239163452.  * CHL1_11 / LambdaNP2 * CHW / LambdaNP2
-                +90347172753.  * CHL1_11 / LambdaNP2 * CHWB / LambdaNP2
-                -1015564307.  * CHL1_11 / LambdaNP2 * CDHB / LambdaNP2
-                +8711495813.  * CHL1_11 / LambdaNP2 * CDHW / LambdaNP2
-                +102816091182.  * CHL1_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +7608365479.  * CHe_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +10146772221.  * CHe_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +15107861454.  * CHe_11 / LambdaNP2 * CHD / LambdaNP2
-                -1898280937.  * CHe_11 / LambdaNP2 * CHB / LambdaNP2
-                +5723444577.  * CHe_11 / LambdaNP2 * CHW / LambdaNP2
-                -2358436043.  * CHe_11 / LambdaNP2 * CHWB / LambdaNP2
-                -1989744761.  * CHe_11 / LambdaNP2 * CDHB / LambdaNP2
-                +1956344673.  * CHe_11 / LambdaNP2 * CDHW / LambdaNP2
-                +12287872475.  * CHe_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +181973360573.  * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +69207537533.  * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-                -53439523662.  * CHL3_11 / LambdaNP2 * CHB / LambdaNP2
-                +125787287805.  * CHL3_11 / LambdaNP2 * CHW / LambdaNP2
-                +112436660798.  * CHL3_11 / LambdaNP2 * CHWB / LambdaNP2
-                -10532237470.  * CHL3_11 / LambdaNP2 * CDHB / LambdaNP2
-                +42300829290.  * CHL3_11 / LambdaNP2 * CDHW / LambdaNP2
-                +45721159662.  * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +10401607505.  * CHD / LambdaNP2 * CHD / LambdaNP2
-                -1559038185.  * CHD / LambdaNP2 * CHB / LambdaNP2
-                +11821212081.  * CHD / LambdaNP2 * CHW / LambdaNP2
-                +44195776939.  * CHD / LambdaNP2 * CHWB / LambdaNP2
-                +1136154084.  * CHD / LambdaNP2 * CDHB / LambdaNP2
-                +834988777.  * CHD / LambdaNP2 * CDHW / LambdaNP2
-                -28974744963.  * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-                +272227524.  * CHB / LambdaNP2 * CHB / LambdaNP2
-                -2066961466.  * CHB / LambdaNP2 * CHW / LambdaNP2
-                -5022163681.  * CHB / LambdaNP2 * CHWB / LambdaNP2
-                +249136436.  * CHB / LambdaNP2 * CDHB / LambdaNP2
-                -103573877.  * CHB / LambdaNP2 * CDHW / LambdaNP2
-                -5288289136.  * CHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +8256609454.  * CHW / LambdaNP2 * CHW / LambdaNP2
-                +13841211812.  * CHW / LambdaNP2 * CHWB / LambdaNP2
-                -610865445.  * CHW / LambdaNP2 * CDHB / LambdaNP2
-                -471310869.  * CHW / LambdaNP2 * CDHW / LambdaNP2
-                +1615569683.  * CHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +39846238626.  * CHWB / LambdaNP2 * CHWB / LambdaNP2
-                +106060402.  * CHWB / LambdaNP2 * CDHB / LambdaNP2
-                +1598419376.  * CHWB / LambdaNP2 * CDHW / LambdaNP2
-                -57379470706.  * CHWB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +169473529.  * CDHB / LambdaNP2 * CDHB / LambdaNP2
-                -86490773.  * CDHB / LambdaNP2 * CDHW / LambdaNP2
-                -2813255198.  * CDHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +198599481.  * CDHW / LambdaNP2 * CDHW / LambdaNP2
-                -1560140321.  * CDHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +20353221059.  * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2
-                ;
-        }
+//        if (FlagQuadraticTerms) {
+//            //Add contributions that are quadratic in the effective coefficients
+//
+//        }
         
     } else if (sqrt_s == 0.35) {
 
         mu += 
-                +120978. * CHbox / LambdaNP2
-                -18579. * CHL1_11 / LambdaNP2
-                -27402.2 * CHe_11 / LambdaNP2
-                -805477. * CHL3_11 / LambdaNP2
-                -205373. * CHD / LambdaNP2
-                +11692.6 * CHB / LambdaNP2
-                -93934.9 * CHW / LambdaNP2
-                -377677. * CHWB / LambdaNP2
-                +1291.2 * CDHB / LambdaNP2
-                -31455.1 * CDHW / LambdaNP2
-                +284280. * CLL_1221 / LambdaNP2
+                +121119. * CHbox / LambdaNP2
+                -218560. * CHL3_11 / LambdaNP2
+                -203738. * CHD / LambdaNP2
+                -39726.3 * CHW / LambdaNP2
+                -379800. * CHWB / LambdaNP2
+                -28867.1 * CDHW / LambdaNP2
+                -286322. * DeltaGF()
                 ;
         
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-        mu +=  
-                +3673828055.  * CHbox / LambdaNP2 * CHbox / LambdaNP2
-                +23435673039.  * CHbox / LambdaNP2 * CHL1_11 / LambdaNP2
-                +5540332126.  * CHbox / LambdaNP2 * CHe_11 / LambdaNP2
-                -47018758294.  * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-                -12442451849.  * CHbox / LambdaNP2 * CHD / LambdaNP2
-                +1116136437.  * CHbox / LambdaNP2 * CHB / LambdaNP2
-                -5437753309.  * CHbox / LambdaNP2 * CHW / LambdaNP2
-                -22679243930.  * CHbox / LambdaNP2 * CHWB / LambdaNP2
-                +261769664.  * CHbox / LambdaNP2 * CDHB / LambdaNP2
-                -1992467989.  * CHbox / LambdaNP2 * CDHW / LambdaNP2
-                +17240414619.  * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-                +15873175281.  * CHL1_11 / LambdaNP2 * CHL1_11 / LambdaNP2
-                +2681754600.  * CHL1_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +289743552957.  * CHL1_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +189408557799.  * CHL1_11 / LambdaNP2 * CHD / LambdaNP2
-                -6203543632.  * CHL1_11 / LambdaNP2 * CHB / LambdaNP2
-                +47377784154.  * CHL1_11 / LambdaNP2 * CHW / LambdaNP2
-                +40362253865.  * CHL1_11 / LambdaNP2 * CHWB / LambdaNP2
-                -2307363437.  * CHL1_11 / LambdaNP2 * CDHB / LambdaNP2
-                +24121839245.  * CHL1_11 / LambdaNP2 * CDHW / LambdaNP2
-                +29516516624.  * CHL1_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +18674724723.  * CHe_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +4330189018.  * CHe_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +9981349306.  * CHe_11 / LambdaNP2 * CHD / LambdaNP2
-                -12068110900.  * CHe_11 / LambdaNP2 * CHB / LambdaNP2
-                +4972203293.  * CHe_11 / LambdaNP2 * CHW / LambdaNP2
-                -11497794197.  * CHe_11 / LambdaNP2 * CHWB / LambdaNP2
-                -3665277429.  * CHe_11 / LambdaNP2 * CDHB / LambdaNP2
-                +6432731968.  * CHe_11 / LambdaNP2 * CDHW / LambdaNP2
-                +7268031993.  * CHe_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +269972382626.  * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +97979269036.  * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-                -55802195043.  * CHL3_11 / LambdaNP2 * CHB / LambdaNP2
-                +55657974965.  * CHL3_11 / LambdaNP2 * CHW / LambdaNP2
-                +166862738065.  * CHL3_11 / LambdaNP2 * CHWB / LambdaNP2
-                -19892457229.  * CHL3_11 / LambdaNP2 * CDHB / LambdaNP2
-                +66034252717.  * CHL3_11 / LambdaNP2 * CDHW / LambdaNP2
-                -80932893368.  * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +10585703526.  * CHD / LambdaNP2 * CHD / LambdaNP2
-                -2164233708.  * CHD / LambdaNP2 * CHB / LambdaNP2
-                +10640220939.  * CHD / LambdaNP2 * CHW / LambdaNP2
-                +39398156451.  * CHD / LambdaNP2 * CHWB / LambdaNP2
-                -457716725.  * CHD / LambdaNP2 * CDHB / LambdaNP2
-                +3448620925.  * CHD / LambdaNP2 * CDHW / LambdaNP2
-                -29207022704.  * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-                +3088877730.  * CHB / LambdaNP2 * CHB / LambdaNP2
-                -6549298806.  * CHB / LambdaNP2 * CHW / LambdaNP2
-                +2147663283.  * CHB / LambdaNP2 * CHWB / LambdaNP2
-                +1236949894.  * CHB / LambdaNP2 * CDHB / LambdaNP2
-                -1090993867.  * CHB / LambdaNP2 * CDHW / LambdaNP2
-                +2143717944.  * CHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +25164090241.  * CHW / LambdaNP2 * CHW / LambdaNP2
-                +19403895126.  * CHW / LambdaNP2 * CHWB / LambdaNP2
-                -1888798824.  * CHW / LambdaNP2 * CDHB / LambdaNP2
-                +644560812.  * CHW / LambdaNP2 * CDHW / LambdaNP2
-                -12200781894.  * CHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +39618378107.  * CHWB / LambdaNP2 * CHWB / LambdaNP2
-                +296919049.  * CHWB / LambdaNP2 * CDHB / LambdaNP2
-                +5570137370.  * CHWB / LambdaNP2 * CDHW / LambdaNP2
-                -53215092715.  * CHWB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +276948460.  * CDHB / LambdaNP2 * CDHB / LambdaNP2
-                -412130124.  * CDHB / LambdaNP2 * CDHW / LambdaNP2
-                +303016391.  * CDHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +864352068.  * CDHW / LambdaNP2 * CDHW / LambdaNP2
-                -4489760052.  * CDHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +20246404361.  * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2
-                ;
-        }
-        
-    } else if (sqrt_s == 0.5) {
-
-        mu += 
-                +121011. * CHbox / LambdaNP2
-                -26436.8 * CHL1_11 / LambdaNP2
-                -10707.3 * CHe_11 / LambdaNP2
-                -897695. * CHL3_11 / LambdaNP2
-                -204243. * CHD / LambdaNP2
-                +10636.8 * CHB / LambdaNP2
-                -82117.8 * CHW / LambdaNP2
-                -378410. * CHWB / LambdaNP2
-                +2200.72 * CDHB / LambdaNP2
-                -40967.2 * CDHW / LambdaNP2
-                +285529. * CLL_1221 / LambdaNP2
-                ;
-        
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-        mu +=  
-                +3674209294.  * CHbox / LambdaNP2 * CHbox / LambdaNP2
-                +8058713992.  * CHbox / LambdaNP2 * CHL1_11 / LambdaNP2
-                +3266512428.  * CHbox / LambdaNP2 * CHe_11 / LambdaNP2
-                -53698191462.  * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-                -12369579325.  * CHbox / LambdaNP2 * CHD / LambdaNP2
-                +721016844.  * CHbox / LambdaNP2 * CHB / LambdaNP2
-                -4932567785.  * CHbox / LambdaNP2 * CHW / LambdaNP2
-                -22854301272.  * CHbox / LambdaNP2 * CHWB / LambdaNP2
-                +173687329.  * CHbox / LambdaNP2 * CDHB / LambdaNP2
-                -2521372344.  * CHbox / LambdaNP2 * CDHW / LambdaNP2
-                +17307366758.  * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-                +15063623283.  * CHL1_11 / LambdaNP2 * CHL1_11 / LambdaNP2
-                +1715430409.  * CHL1_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +147267443501.  * CHL1_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +74896171317.  * CHL1_11 / LambdaNP2 * CHD / LambdaNP2
-                -4678497870.  * CHL1_11 / LambdaNP2 * CHB / LambdaNP2
-                +34874305223.  * CHL1_11 / LambdaNP2 * CHW / LambdaNP2
-                +11333690715.  * CHL1_11 / LambdaNP2 * CHWB / LambdaNP2
-                -2341618937.  * CHL1_11 / LambdaNP2 * CDHB / LambdaNP2
-                +17771210112.  * CHL1_11 / LambdaNP2 * CDHW / LambdaNP2
-                +8963688175.  * CHL1_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +16860875208.  * CHe_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +970572468.  * CHe_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +5363400389.  * CHe_11 / LambdaNP2 * CHD / LambdaNP2
-                -9001918573.  * CHe_11 / LambdaNP2 * CHB / LambdaNP2
-                +6046327907.  * CHe_11 / LambdaNP2 * CHW / LambdaNP2
-                -8697062890.  * CHe_11 / LambdaNP2 * CHWB / LambdaNP2
-                -3851649127.  * CHe_11 / LambdaNP2 * CDHB / LambdaNP2
-                +4454052987.  * CHe_11 / LambdaNP2 * CDHW / LambdaNP2
-                +4153147307.  * CHe_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +283850125554.  * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +98261857066.  * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-                -33145331941.  * CHL3_11 / LambdaNP2 * CHB / LambdaNP2
-                +72867703072.  * CHL3_11 / LambdaNP2 * CHW / LambdaNP2
-                +165544677369.  * CHL3_11 / LambdaNP2 * CHWB / LambdaNP2
-                -19421860452.  * CHL3_11 / LambdaNP2 * CDHB / LambdaNP2
-                +47076009367.  * CHL3_11 / LambdaNP2 * CDHW / LambdaNP2
-                -119316931411.  * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +10419687950.  * CHD / LambdaNP2 * CHD / LambdaNP2
-                -1160454815.  * CHD / LambdaNP2 * CHB / LambdaNP2
-                +8658832492.  * CHD / LambdaNP2 * CHW / LambdaNP2
-                +38745168298.  * CHD / LambdaNP2 * CHWB / LambdaNP2
-                -258414920.  * CHD / LambdaNP2 * CDHB / LambdaNP2
-                +4298733177.  * CHD / LambdaNP2 * CDHW / LambdaNP2
-                -29143554440.  * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-                +2307084615.  * CHB / LambdaNP2 * CHB / LambdaNP2
-                -4840730186.  * CHB / LambdaNP2 * CHW / LambdaNP2
-                +1910955619.  * CHB / LambdaNP2 * CHWB / LambdaNP2
-                +996134639.  * CHB / LambdaNP2 * CDHB / LambdaNP2
-                -1067488644.  * CHB / LambdaNP2 * CDHW / LambdaNP2
-                +1563919533.  * CHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +29225799171.  * CHW / LambdaNP2 * CHW / LambdaNP2
-                +15685748949.  * CHW / LambdaNP2 * CHWB / LambdaNP2
-                -1326608921.  * CHW / LambdaNP2 * CDHB / LambdaNP2
-                -398809356.  * CHW / LambdaNP2 * CDHW / LambdaNP2
-                -11480405158.  * CHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +38106255114.  * CHWB / LambdaNP2 * CHWB / LambdaNP2
-                +467821573.  * CHWB / LambdaNP2 * CDHB / LambdaNP2
-                +7519538414.  * CHWB / LambdaNP2 * CDHW / LambdaNP2
-                -53943091725.  * CHWB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +334875716.  * CDHB / LambdaNP2 * CDHB / LambdaNP2
-                -488079452.  * CDHB / LambdaNP2 * CDHW / LambdaNP2
-                +338035719.  * CDHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +1607792794.  * CDHW / LambdaNP2 * CDHW / LambdaNP2
-                -5882261660.  * CDHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +20397539712.  * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2
-                ;
-        }
-        
-    } else if (sqrt_s == 1.0) {
-
-        mu += 
-                +120919. * CHbox / LambdaNP2
-                -8335.81 * CHL1_11 / LambdaNP2
-                -2728.99 * CHe_11 / LambdaNP2
-                -1025774. * CHL3_11 / LambdaNP2
-                -203880. * CHD / LambdaNP2
-                +3572.49 * CHB / LambdaNP2
-                -61575.9 * CHW / LambdaNP2
-                -379726. * CHWB / LambdaNP2
-                +694.651 * CDHB / LambdaNP2
-                -63461.3 * CDHW / LambdaNP2
-                +285899. * CLL_1221 / LambdaNP2
-                ;
-        
-        if (FlagQuadraticTerms) {
-            //Add contributions that are quadratic in the effective coefficients
-        mu +=  
-                +3674357448.  * CHbox / LambdaNP2 * CHbox / LambdaNP2
-                +1363352188.  * CHbox / LambdaNP2 * CHL1_11 / LambdaNP2
-                +986255830.  * CHbox / LambdaNP2 * CHe_11 / LambdaNP2
-                -62208643445.  * CHbox / LambdaNP2 * CHL3_11 / LambdaNP2
-                -12344943932.  * CHbox / LambdaNP2 * CHD / LambdaNP2
-                +230028778.  * CHbox / LambdaNP2 * CHB / LambdaNP2
-                -3707105289.  * CHbox / LambdaNP2 * CHW / LambdaNP2
-                -23005507592.  * CHbox / LambdaNP2 * CHWB / LambdaNP2
-                +48179022.  * CHbox / LambdaNP2 * CDHB / LambdaNP2
-                -3852188151.  * CHbox / LambdaNP2 * CDHW / LambdaNP2
-                +17327924978.  * CHbox / LambdaNP2 * CLL_1221 / LambdaNP2
-                +19535079885.  * CHL1_11 / LambdaNP2 * CHL1_11 / LambdaNP2
-                +838543217.  * CHL1_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                +78673712414.  * CHL1_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +18175052099.  * CHL1_11 / LambdaNP2 * CHD / LambdaNP2
-                -2714647216.  * CHL1_11 / LambdaNP2 * CHB / LambdaNP2
-                +18277265059.  * CHL1_11 / LambdaNP2 * CHW / LambdaNP2
-                +1528728788.  * CHL1_11 / LambdaNP2 * CHWB / LambdaNP2
-                -3283318448.  * CHL1_11 / LambdaNP2 * CDHB / LambdaNP2
-                +11051503424.  * CHL1_11 / LambdaNP2 * CDHW / LambdaNP2
-                +1343157686.  * CHL1_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +20412821276.  * CHe_11 / LambdaNP2 * CHe_11 / LambdaNP2
-                -282822269.  * CHe_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +1491515332.  * CHe_11 / LambdaNP2 * CHD / LambdaNP2
-                -5250124045.  * CHe_11 / LambdaNP2 * CHB / LambdaNP2
-                +6394264166.  * CHe_11 / LambdaNP2 * CHW / LambdaNP2
-                -5308127419.  * CHe_11 / LambdaNP2 * CHWB / LambdaNP2
-                -6048526347.  * CHe_11 / LambdaNP2 * CDHB / LambdaNP2
-                +1421653270.  * CHe_11 / LambdaNP2 * CDHW / LambdaNP2
-                +1234990573.  * CHe_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +403329363898.  * CHL3_11 / LambdaNP2 * CHL3_11 / LambdaNP2
-                +106101022130.  * CHL3_11 / LambdaNP2 * CHD / LambdaNP2
-                -12382703185.  * CHL3_11 / LambdaNP2 * CHB / LambdaNP2
-                +89841718766.  * CHL3_11 / LambdaNP2 * CHW / LambdaNP2
-                +190702590057.  * CHL3_11 / LambdaNP2 * CHWB / LambdaNP2
-                -9132281433.  * CHL3_11 / LambdaNP2 * CDHB / LambdaNP2
-                +68053091198.  * CHL3_11 / LambdaNP2 * CDHW / LambdaNP2
-                -145148357646.  * CHL3_11 / LambdaNP2 * CLL_1221 / LambdaNP2
-                +10367172770.  * CHD / LambdaNP2 * CHD / LambdaNP2
-                -374168899.  * CHD / LambdaNP2 * CHB / LambdaNP2
-                +6317852536.  * CHD / LambdaNP2 * CHW / LambdaNP2
-                +38691078694.  * CHD / LambdaNP2 * CHWB / LambdaNP2
-                -66587278.  * CHD / LambdaNP2 * CDHB / LambdaNP2
-                +6483675697.  * CHD / LambdaNP2 * CDHW / LambdaNP2
-                -29116502927.  * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
-                +1298054977.  * CHB / LambdaNP2 * CHB / LambdaNP2
-                -2752356852.  * CHB / LambdaNP2 * CHW / LambdaNP2
-                +1301925176.  * CHB / LambdaNP2 * CHWB / LambdaNP2
-                +629750918.  * CHB / LambdaNP2 * CDHB / LambdaNP2
-                -815272403.  * CHB / LambdaNP2 * CDHW / LambdaNP2
-                +523419669.  * CHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +47168304059.  * CHW / LambdaNP2 * CHW / LambdaNP2
-                +11560484271.  * CHW / LambdaNP2 * CHWB / LambdaNP2
-                -528530317.  * CHW / LambdaNP2 * CDHB / LambdaNP2
-                -4553339287.  * CHW / LambdaNP2 * CDHW / LambdaNP2
-                -8730276868.  * CHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +37009030465.  * CHWB / LambdaNP2 * CHWB / LambdaNP2
-                +420660911.  * CHWB / LambdaNP2 * CDHB / LambdaNP2
-                +11896496973.  * CHWB / LambdaNP2 * CDHW / LambdaNP2
-                -54272700208.  * CHWB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +617842612.  * CDHB / LambdaNP2 * CDHB / LambdaNP2
-                -675647514.  * CDHB / LambdaNP2 * CDHW / LambdaNP2
-                +89213059.  * CDHB / LambdaNP2 * CLL_1221 / LambdaNP2
-                +4443683636.  * CDHW / LambdaNP2 * CDHW / LambdaNP2
-                -9071052893.  * CDHW / LambdaNP2 * CLL_1221 / LambdaNP2
-                +20443584400.  * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2
-                ;
-        }
-        
+//        if (FlagQuadraticTerms) {
+//            //Add contributions that are quadratic in the effective coefficients
+//
+//        }
+//        
+//    } else if (sqrt_s == 0.5) {
+//        
+//        if (FlagQuadraticTerms) {
+//            //Add contributions that are quadratic in the effective coefficients
+//        }
+//        
+//    } else if (sqrt_s == 1.0) {
+//        
+//        if (FlagQuadraticTerms) {
+//            //Add contributions that are quadratic in the effective coefficients
+//        }
+//        
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWBF()");
       
@@ -3905,13 +3528,13 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
 
         mu += 
                 +122379. * CHbox / LambdaNP2
-                -785638. * CHL3_11 / LambdaNP2
+                -218680. * CHL3_11 / LambdaNP2
                 -217481. * CHQ3_11 / LambdaNP2
                 -202145. * CHD / LambdaNP2
                 -65129.9 * CHW / LambdaNP2
                 -377695. * CHWB / LambdaNP2
                 -58836.6 * CDHW / LambdaNP2
-                +283479. * CLL_1221 / LambdaNP2
+                -283479. * DeltaGF()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3923,13 +3546,13 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
 
         mu += 
                 +122344. * CHbox / LambdaNP2
-                -803957. * CHL3_11 / LambdaNP2
+                -235801. * CHL3_11 / LambdaNP2
                 -235975. * CHQ3_11 / LambdaNP2
                 -201446. * CHD / LambdaNP2
                 -59025.7 * CHW / LambdaNP2
                 -376522. * CHWB / LambdaNP2
                 -65505.7 * CDHW / LambdaNP2
-                +284078. * CLL_1221 / LambdaNP2
+                -284078. * DeltaGF()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3957,7 +3580,7 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 +177060. * CHe_11 / LambdaNP2
                 -54375.5 * CHu_11 / LambdaNP2
                 +19796.1 * CHd_11 / LambdaNP2
-                -827935. * CHL3_11 / LambdaNP2
+                -204315. * CHL3_11 / LambdaNP2
                 -227935. * CHQ3_11 / LambdaNP2
                 -215293. * CHD / LambdaNP2
                 -9090.91 * CHB / LambdaNP2
@@ -3965,7 +3588,7 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -103483. * CHWB / LambdaNP2
                 -11130. * CDHB / LambdaNP2
                 -62531.9 * CDHW / LambdaNP2
-                +311810. * CLL_1221 / LambdaNP2
+                -311810. * DeltaGF()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3982,7 +3605,7 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 +192294. * CHe_11 / LambdaNP2
                 -58926.3 * CHu_11 / LambdaNP2
                 +20703.8 * CHd_11 / LambdaNP2
-                -845497. * CHL3_11 / LambdaNP2
+                -225821. * CHL3_11 / LambdaNP2
                 -247881. * CHQ3_11 / LambdaNP2
                 -215515. * CHD / LambdaNP2
                 -4931.93 * CHB / LambdaNP2
@@ -3990,7 +3613,7 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -104495. * CHWB / LambdaNP2
                 -13100.4 * CDHB / LambdaNP2
                 -70793.7 * CDHW / LambdaNP2
-                +309838. * CLL_1221 / LambdaNP2
+                -309838. * DeltaGF()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -4937,14 +4560,14 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +121274. * CHbox / LambdaNP2
                 +898665. * CHL1_11 / LambdaNP2
                 -771954. * CHe_11 / LambdaNP2
-                +460625. * CHL3_11 / LambdaNP2
+                +898707. * CHL3_11 / LambdaNP2
                 -48862.4 * CHD / LambdaNP2
                 +122450. * CHB / LambdaNP2
                 +540173. * CHW / LambdaNP2
                 +231005. * CHWB / LambdaNP2
                 +17546.8 * CDHB / LambdaNP2
                 +53438. * CDHW / LambdaNP2
-                +219041. * CLL_1221 / LambdaNP2
+                -219041. * DeltaGF()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -5025,14 +4648,14 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +121285. * CHbox / LambdaNP2
                 +975147. * CHL1_11 / LambdaNP2
                 -837552. * CHe_11 / LambdaNP2
-                +537112. * CHL3_11 / LambdaNP2
+                +975232. * CHL3_11 / LambdaNP2
                 -48866.5 * CHD / LambdaNP2
                 +128421. * CHB / LambdaNP2
                 +568430. * CHW / LambdaNP2
                 +244081. * CHWB / LambdaNP2
                 +19815.3 * CDHB / LambdaNP2
                 +60117.5 * CDHW / LambdaNP2
-                +219060. * CLL_1221 / LambdaNP2
+                -219060. * DeltaGF()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -5113,14 +4736,14 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +121274. * CHbox / LambdaNP2
                 +1911269. * CHL1_11 / LambdaNP2
                 -1641658. * CHe_11 / LambdaNP2
-                +1473232. * CHL3_11 / LambdaNP2
+                +1911346. * CHL3_11 / LambdaNP2
                 -48852.8 * CHD / LambdaNP2
                 +173326. * CHB / LambdaNP2
                 +785469. * CHW / LambdaNP2
                 +344545. * CHWB / LambdaNP2
                 +59232.1 * CDHB / LambdaNP2
                 +167941. * CDHW / LambdaNP2
-                +219057. * CLL_1221 / LambdaNP2
+                -219057. * DeltaGF()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -5201,14 +4824,14 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +121276. * CHbox / LambdaNP2
                 +3900301. * CHL1_11 / LambdaNP2
                 -3349835. * CHe_11 / LambdaNP2
-                +3462435. * CHL3_11 / LambdaNP2
+                +3900547. * CHL3_11 / LambdaNP2
                 -48890.4 * CHD / LambdaNP2
                 +209412. * CHB / LambdaNP2
                 +959487. * CHW / LambdaNP2
                 +425160. * CHWB / LambdaNP2
                 +169814. * CDHB / LambdaNP2
                 +455465. * CDHW / LambdaNP2
-                +219056. * CLL_1221 / LambdaNP2
+                -219056. * DeltaGF()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -5289,14 +4912,14 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +121352. * CHbox / LambdaNP2
                 +15601820. * CHL1_11 / LambdaNP2
                 -13395670. * CHe_11 / LambdaNP2
-                +15164889. * CHL3_11 / LambdaNP2
+                +15603075. * CHL3_11 / LambdaNP2
                 -48870.4 * CHD / LambdaNP2
                 +244038. * CHB / LambdaNP2
                 +1129275. * CHW / LambdaNP2
                 +503216. * CHWB / LambdaNP2
                 +900690. * CDHB / LambdaNP2
                 +2321462. * CDHW / LambdaNP2
-                +219093. * CLL_1221 / LambdaNP2
+                -219093. * DeltaGF()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -5604,7 +5227,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +83662.1 * CHL1_11 / LambdaNP2
                 +41909.2 * CHe_11 / LambdaNP2
                 -31246.3 * CHu_11 / LambdaNP2
-                -125845. * CHL3_11 / LambdaNP2
+                +84209. * CHL3_11 / LambdaNP2
                 -121041. * CuH_33r / LambdaNP2
                 -52181.4 * CHD / LambdaNP2
                 +138812. * CHB / LambdaNP2
@@ -5612,7 +5235,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 -251963. * CHWB / LambdaNP2
                 -1952.9 * CDHB / LambdaNP2
                 +1991.95 * CDHW / LambdaNP2
-                +105027. * CLL_1221 / LambdaNP2
+                -105027. * DeltaGF()
                 +1384291. * CuW_33r / LambdaNP2
                 +1696715. * CuB_33r / LambdaNP2
                 -1.188 * 0.5 * (CHQ1_33 - CHQ3_33) * v2_over_LambdaNP2
@@ -5767,7 +5390,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 +880833. * CHL1_11 / LambdaNP2
                 -537246. * CHe_11 / LambdaNP2
                 -8082.36 * CHu_11 / LambdaNP2
-                +629077. * CHL3_11 / LambdaNP2
+                +880977. * CHL3_11 / LambdaNP2
                 -115462. * CuH_33r / LambdaNP2
                 -59799.9 * CHD / LambdaNP2
                 +351246. * CHB / LambdaNP2
@@ -5775,7 +5398,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 -396132. * CHWB / LambdaNP2
                 +36899.8 * CDHB / LambdaNP2
                 +112864. * CDHW / LambdaNP2
-                +125950. * CLL_1221 / LambdaNP2
+                -125950. * DeltaGF()
                 +2759405. * CuW_33r / LambdaNP2
                 +3461224. * CuB_33r / LambdaNP2
                 -2.562 * 0.5 * (CHQ1_33 - CHQ3_33) * v2_over_LambdaNP2
@@ -6163,13 +5786,12 @@ double NPSMEFTd6::GammaHggRatio() const
 double NPSMEFTd6::deltaGammaHggRatio1() const
 {
     return ( +121249. * CHbox / LambdaNP2
-            -121249. * CHL3_11 / LambdaNP2
             +173400. * CuH_22r / LambdaNP2
             -128860. * CuH_33r / LambdaNP2
             +248587. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             +37390592. * CHG / LambdaNP2
-            +60624.6 * CLL_1221 / LambdaNP2 );
+            -60624.6 * DeltaGF() );
 }
 
 double NPSMEFTd6::deltaGammaHggRatio2() const
@@ -6361,7 +5983,6 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
 {
 
     return ( +119538. * CHbox / LambdaNP2
-            -229999. * CHL3_11 / LambdaNP2
             -321.71 * CeH_33r / LambdaNP2
             -2910.68 * CuH_22r / LambdaNP2
             +6522.67 * CuH_33r / LambdaNP2
@@ -6372,7 +5993,7 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
             +9237644. * CHWB / LambdaNP2
             -2872389. * CDHB / LambdaNP2
             +1586252. * CDHW / LambdaNP2
-            +115000. * CLL_1221 / LambdaNP2 );
+            -115000. * DeltaGF() );
     
 }
 
@@ -6492,7 +6113,6 @@ double NPSMEFTd6::GammaHgagaRatio() const
 double NPSMEFTd6::deltaGammaHgagaRatio1() const
 {
     return ( +119212. * CHbox / LambdaNP2
-            -250741. * CHL3_11 / LambdaNP2
             -42570.4 * CeH_33r / LambdaNP2
             -48874.1 * CuH_22r / LambdaNP2
             +31992.9 * CuH_33r / LambdaNP2
@@ -6501,7 +6121,7 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
             -48142626. * CHB / LambdaNP2
             -14682079. * CHW / LambdaNP2
             +26348174. * CHWB / LambdaNP2
-            +125370. * CLL_1221 / LambdaNP2 );
+            -125370. * DeltaGF() );
     
 }
 
@@ -6596,10 +6216,9 @@ double NPSMEFTd6::GammaHmumuRatio() const
 double NPSMEFTd6::deltaGammaHmumuRatio1() const
 {
     return ( +121249. * CHbox / LambdaNP2
-            -121249. * CHL3_11 / LambdaNP2
             -199794752. * CeH_22r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            +60624.6 * CLL_1221 / LambdaNP2 );
+            -60624.6 * DeltaGF() );
         
 }
 
@@ -6643,10 +6262,9 @@ double NPSMEFTd6::GammaHtautauRatio() const
 double NPSMEFTd6::deltaGammaHtautauRatio1() const
 {
     return ( +121249. * CHbox / LambdaNP2
-            -121249. * CHL3_11 / LambdaNP2
             -11880769. * CeH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            +60624.6 * CLL_1221 / LambdaNP2 );
+            -60624.6 * DeltaGF() );
         
 }
 
@@ -6690,11 +6308,10 @@ double NPSMEFTd6::GammaHccRatio() const
 double NPSMEFTd6::deltaGammaHccRatio1() const
 {
     return ( +121249. * CHbox / LambdaNP2
-            -121249. * CHL3_11 / LambdaNP2
             -16420490. * CuH_22r / LambdaNP2
             -1001.52 * CuH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            +60624.6 * CLL_1221 / LambdaNP2 );
+            -60624.6 * DeltaGF() );
 }
 
 double NPSMEFTd6::deltaGammaHccRatio2() const
@@ -6741,11 +6358,10 @@ double NPSMEFTd6::GammaHbbRatio() const
 double NPSMEFTd6::deltaGammaHbbRatio1() const
 {    
     return ( +121249. * CHbox / LambdaNP2
-            -121249. * CHL3_11 / LambdaNP2
             -562.029 * CuH_33r / LambdaNP2
             -5026895. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            +60624.6 * CLL_1221 / LambdaNP2 );
+            -60624.6 * DeltaGF() );
 }
 
 double NPSMEFTd6::deltaGammaHbbRatio2() const
@@ -6804,6 +6420,12 @@ double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const
             2.0 * (gLSM*gLSM*dgL + gRSM*gRSM*dgR)/(gLSM*gLSM + gRSM*gRSM);
     
     return dsigmarat * (BrHbbrat / BrZbbrat);
+    
+}
+
+double NPSMEFTd6::muttHbb(const double sqrt_s) const
+{   
+    return muttH(sqrt_s) * BrHbbRatio();
     
 }
 

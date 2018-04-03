@@ -614,6 +614,7 @@ public:
      */
     virtual double muttHZbbboost(const double sqrt_s) const;
 
+    virtual double muttHbb(const double sqrt_s) const;
     virtual double muttHWW(const double sqrt_s) const;
     virtual double muttHtautau(const double sqrt_s) const;
     /**

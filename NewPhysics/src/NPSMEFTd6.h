@@ -1669,6 +1669,8 @@ public:
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
      */
     virtual double muttHZbbboost(const double sqrt_s) const;
+    
+    virtual double muttHbb(const double sqrt_s) const;
       
     ////////////////////////////////////////////////////////////////////////
       

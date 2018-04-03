@@ -240,6 +240,11 @@ double HiggsKigen::muttHZbbboost(const double sqrt_s) const
     
 }
 
+double HiggsKigen::muttHbb(const double sqrt_s) const
+{
+    return computeKt() * computeKt() * computeKb() * computeKb() / computeGammaTotalRatio();
+}
+
 double HiggsKigen::muttHWW(const double sqrt_s) const
 {
     return computeKt() * computeKt() * computeKW() * computeKW() / computeGammaTotalRatio();
