@@ -63,7 +63,6 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../MFV/src</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>

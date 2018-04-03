@@ -34,7 +34,6 @@
 #include "NPDF2.h"
 #include "CMFV.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
-#include "MFV.h"
 #include "NPSTUVWXY.h"
 /** END: REMOVE FROM THE PACKAGE **/
 #include <boost/bind.hpp>
@@ -79,7 +78,6 @@ ModelFactory::ModelFactory()
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     /** BEGIN: REMOVE FROM THE PACKAGE **/
-    modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["NPSTUVWXY"] = boost::factory<NPSTUVWXY*>();
 /** END: REMOVE FROM THE PACKAGE **/
 }

@@ -21,7 +21,6 @@
                 <make-dep-project>../ComputeObservables</make-dep-project>
                 <make-dep-project>../Observables</make-dep-project>
                 <make-dep-project>../SUSYMassInsertion</make-dep-project>
-                <make-dep-project>../MFV</make-dep-project>
                 <make-dep-project>../EventGeneration</make-dep-project>
                 <make-dep-project>../THDM</make-dep-project>
                 <make-dep-project>../gslpp</make-dep-project>
