@@ -427,6 +427,80 @@ private:
 };
 
 /**
+ * @class deltagZuuV
+ * @brief An observable class for the deviation from the SM of the @f$Z u u@f$ vector coupling
+ * @f$\delta g_{Zuu}^{V}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z u u@f$ vector coupling
+ * @f$\delta g_{Zuu}^{V}@f$.
+ *
+ */
+class deltagZuuV : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagZuuV(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagZuuV class.
+     */
+    virtual ~deltagZuuV();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z uu@f$ vector coupling @f$\delta g_{Zuu}^{V}@f$.
+     * @return @f$\delta g_{Zuu}^{V}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class deltagZuuA
+ * @brief An observable class for the deviation from the SM of the @f$Z uu@f$ axial coupling
+ * @f$\delta g_{Zuu}^{A}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z uu@f$ axial coupling
+ * @f$\delta g_{Zuu}^{A}@f$.
+ *
+ */
+class deltagZuuA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagZuuA(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagZuuA class.
+     */
+    virtual ~deltagZuuA();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z uu@f$ axial coupling @f$\delta g_{Zuu}^{A}@f$.
+     * @return @f$\delta g_{Zuu}^{A}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
  * @class deltagZccL
  * @brief An observable class for the deviation from the SM of the @f$Z c_{L} c_{L}@f$ coupling
  * @f$\delta g_{Zcc}^{L}@f$.
@@ -713,6 +787,80 @@ public:
     /**
      * @brief The deviation from the SM of the @f$Z d_{R} d_{R}@f$ coupling @f$\delta g_{Zdd}^{R}@f$.
      * @return @f$\delta g_{Zdd}^{R}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class deltagZddV
+ * @brief An observable class for the deviation from the SM of the @f$Z dd@f$ vector coupling
+ * @f$\delta g_{Zdd}^{V}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z dd@f$ vector coupling
+ * @f$\delta g_{Zdd}^{V}@f$.
+ *
+ */
+class deltagZddV : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagZddV(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagZddV class.
+     */
+    virtual ~deltagZddV();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z dd@f$ vector coupling @f$\delta g_{Zdd}^{V}@f$.
+     * @return @f$\delta g_{Zdd}^{V}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class deltagZddA
+ * @brief An observable class for the deviation from the SM of the @f$Z dd@f$ axial coupling
+ * @f$\delta g_{Zdd}^{A}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the deviation from the SM on the @f$Z dd@f$ axial coupling
+ * @f$\delta g_{Zdd}^{A}@f$.
+ *
+ */
+class deltagZddA : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    deltagZddA(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the deltagZuuA class.
+     */
+    virtual ~deltagZddA();
+
+    /**
+     * @brief The deviation from the SM of the @f$Z dd@f$ axial coupling @f$\delta g_{Zdd}^{A}@f$.
+     * @return @f$\delta g_{Zdd}^{A}@f$
      */
     double computeThValue();
       

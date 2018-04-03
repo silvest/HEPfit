@@ -83,6 +83,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltagZtataR"] = boost::factory<deltagZtataR*>();
     obsThFactory["deltagZuuL"] = boost::factory<deltagZuuL*>();
     obsThFactory["deltagZuuR"] = boost::factory<deltagZuuR*>();
+    obsThFactory["deltagZuuV"] = boost::factory<deltagZuuV*>();
+    obsThFactory["deltagZuuA"] = boost::factory<deltagZuuA*>();
     obsThFactory["deltagZccL"] = boost::factory<deltagZccL*>();
     obsThFactory["deltagZccR"] = boost::factory<deltagZccR*>();
     obsThFactory["deltagZttL"] = boost::factory<deltagZttL*>();
@@ -91,6 +93,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltagZttA"] = boost::factory<deltagZttA*>();
     obsThFactory["deltagZddL"] = boost::factory<deltagZddL*>();
     obsThFactory["deltagZddR"] = boost::factory<deltagZddR*>();
+    obsThFactory["deltagZddV"] = boost::factory<deltagZddV*>();
+    obsThFactory["deltagZddA"] = boost::factory<deltagZddA*>();
     obsThFactory["deltagZssL"] = boost::factory<deltagZssL*>();
     obsThFactory["deltagZssR"] = boost::factory<deltagZssR*>();
     obsThFactory["deltagZbbL"] = boost::factory<deltagZbbL*>();

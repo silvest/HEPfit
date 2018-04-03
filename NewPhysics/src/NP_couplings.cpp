@@ -274,6 +274,50 @@ double deltagZuuR::computeThValue()
 
 /* -------------------------------------*/
 
+deltagZuuV::deltagZuuV(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltagZuuV::~deltagZuuV()
+{}
+
+double deltagZuuV::computeThValue()
+{
+    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::UP));
+    double gSM = ((SM.getQuarks(StandardModel::UP)).getIsospin()) * (1.0 - 4.0*fabs(SM.getQuarks(StandardModel::UP).getCharge())*sw2_tree);
+
+    return dgV/gSM;
+}
+
+
+/* -------------------------------------*/
+
+deltagZuuA::deltagZuuA(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltagZuuA::~deltagZuuA()
+{}
+
+double deltagZuuA::computeThValue()
+{
+    double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::UP));
+    double gSM = (SM.getQuarks(StandardModel::UP)).getIsospin();
+
+    return dgA/gSM;
+}
+
+/* -------------------------------------*/
+
 deltagZccL::deltagZccL(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
@@ -437,6 +481,50 @@ double deltagZddL::computeThValue()
     - ((SM.getQuarks(StandardModel::DOWN)).getCharge())*sw2_tree;
     
     return 0.5*(dgV + dgA)/gSM;
+}
+
+/* -------------------------------------*/
+
+deltagZddV::deltagZddV(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltagZddV::~deltagZddV()
+{}
+
+double deltagZddV::computeThValue()
+{
+    double sw2_tree = 1.0 - (SM.Mw_tree())*(SM.Mw_tree())/(SM.getMz())/(SM.getMz());
+    double dgV = myNPbase->deltaGV_f(SM.getQuarks(StandardModel::DOWN));
+    double gSM = ((SM.getQuarks(StandardModel::DOWN)).getIsospin()) * (1.0 - 4.0*fabs(SM.getQuarks(StandardModel::DOWN).getCharge())*sw2_tree);
+
+    return dgV/gSM;
+}
+
+
+/* -------------------------------------*/
+
+deltagZddA::deltagZddA(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+deltagZddA::~deltagZddA()
+{}
+
+double deltagZddA::computeThValue()
+{
+    double dgA = myNPbase->deltaGA_f(SM.getQuarks(StandardModel::DOWN));
+    double gSM = (SM.getQuarks(StandardModel::DOWN)).getIsospin();
+
+    return dgA/gSM;
 }
 
 /* -------------------------------------*/
