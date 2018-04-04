@@ -24,7 +24,7 @@ EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_qed 
     unsigned int p = 0;
     unsigned int q = 0;
     int L = 1;
-    double  b0 = 0., b1 = 0.;
+    double b0 = 0.;
 
   
     vavi.clear();
@@ -56,7 +56,6 @@ EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_qed 
 /* define L, nu, nd */
     if(L == 1){nd = 3; nu = 2;} 
     b0 = model.Beta0(6-L);
-    b1 = model.Beta1(6-L);
 	    
     AnomalousDimension(10,nu,nd).transpose().eigensystem(V,e); 
    
