@@ -265,6 +265,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["muVBFHbb"] = boost::bind(boost::factory<muVBFHbb*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVHbb"] = boost::bind(boost::factory<muVHbb*>(), _1, sqrt_s_LHC13);
     obsThFactory["muttHbb"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_LHC13);
+    obsThFactory["muttHbb100"] = boost::bind(boost::factory<muttHbb*>(), _1, sqrt_s_FCC100);
     obsThFactory["muppHmumu8"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC8);
     obsThFactory["muppHmumu13"] = boost::bind(boost::factory<muppHmumu*>(), _1, sqrt_s_LHC13);
     obsThFactory["muppHZga8"] = boost::bind(boost::factory<muppHZga*>(), _1, sqrt_s_LHC8);
