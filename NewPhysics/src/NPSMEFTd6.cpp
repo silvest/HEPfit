@@ -3455,7 +3455,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 -24698.9 * CHW / LambdaNP2
                 -379818. * CHWB / LambdaNP2
                 -18173.1 * CDHW / LambdaNP2
-                -286375. * DeltaGF()
+                -286375. * DeltaGF() / v() / v()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3472,7 +3472,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 -24698.9 * CHW / LambdaNP2
                 -379818. * CHWB / LambdaNP2
                 -18173.1 * CDHW / LambdaNP2
-                -286375. * DeltaGF()
+                -286375. * DeltaGF() / v() / v()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3489,7 +3489,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
                 -39726.3 * CHW / LambdaNP2
                 -379800. * CHWB / LambdaNP2
                 -28867.1 * CDHW / LambdaNP2
-                -286322. * DeltaGF()
+                -286322. * DeltaGF() / v() / v()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3534,7 +3534,7 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
                 -65129.9 * CHW / LambdaNP2
                 -377695. * CHWB / LambdaNP2
                 -58836.6 * CDHW / LambdaNP2
-                -283479. * DeltaGF()
+                -283479. * DeltaGF() / v() / v()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3552,7 +3552,7 @@ double NPSMEFTd6::muepWBF(const double sqrt_s) const
                 -59025.7 * CHW / LambdaNP2
                 -376522. * CHWB / LambdaNP2
                 -65505.7 * CDHW / LambdaNP2
-                -284078. * DeltaGF()
+                -284078. * DeltaGF() / v() / v()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3588,7 +3588,7 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -103483. * CHWB / LambdaNP2
                 -11130. * CDHB / LambdaNP2
                 -62531.9 * CDHW / LambdaNP2
-                -311810. * DeltaGF()
+                -311810. * DeltaGF() / v() / v()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -3613,7 +3613,7 @@ double NPSMEFTd6::muepZBF(const double sqrt_s) const
                 -104495. * CHWB / LambdaNP2
                 -13100.4 * CDHB / LambdaNP2
                 -70793.7 * CDHW / LambdaNP2
-                -309838. * DeltaGF()
+                -309838. * DeltaGF() / v() / v()
                 ;
         
 //        if (FlagQuadraticTerms) {
@@ -4567,7 +4567,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +231005. * CHWB / LambdaNP2
                 +17546.8 * CDHB / LambdaNP2
                 +53438. * CDHW / LambdaNP2
-                -219041. * DeltaGF()
+                -219041. * DeltaGF() / v() / v()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4655,7 +4655,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +244081. * CHWB / LambdaNP2
                 +19815.3 * CDHB / LambdaNP2
                 +60117.5 * CDHW / LambdaNP2
-                -219060. * DeltaGF()
+                -219060. * DeltaGF() / v() / v()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4743,7 +4743,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +344545. * CHWB / LambdaNP2
                 +59232.1 * CDHB / LambdaNP2
                 +167941. * CDHW / LambdaNP2
-                -219057. * DeltaGF()
+                -219057. * DeltaGF() / v() / v()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4831,7 +4831,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +425160. * CHWB / LambdaNP2
                 +169814. * CDHB / LambdaNP2
                 +455465. * CDHW / LambdaNP2
-                -219056. * DeltaGF()
+                -219056. * DeltaGF() / v() / v()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -4919,7 +4919,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 +503216. * CHWB / LambdaNP2
                 +900690. * CDHB / LambdaNP2
                 +2321462. * CDHW / LambdaNP2
-                -219093. * DeltaGF()
+                -219093. * DeltaGF() / v() / v()
                 ;
         
         if (FlagQuadraticTerms) {
@@ -5235,7 +5235,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 -251963. * CHWB / LambdaNP2
                 -1952.9 * CDHB / LambdaNP2
                 +1991.95 * CDHW / LambdaNP2
-                -105027. * DeltaGF()
+                -105027. * DeltaGF() / v() / v()
                 +1384291. * CuW_33r / LambdaNP2
                 +1696715. * CuB_33r / LambdaNP2
                 -1.188 * 0.5 * (CHQ1_33 - CHQ3_33) * v2_over_LambdaNP2
@@ -5398,7 +5398,7 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
                 -396132. * CHWB / LambdaNP2
                 +36899.8 * CDHB / LambdaNP2
                 +112864. * CDHW / LambdaNP2
-                -125950. * DeltaGF()
+                -125950. * DeltaGF() / v() / v()
                 +2759405. * CuW_33r / LambdaNP2
                 +3461224. * CuB_33r / LambdaNP2
                 -2.562 * 0.5 * (CHQ1_33 - CHQ3_33) * v2_over_LambdaNP2
@@ -5791,7 +5791,7 @@ double NPSMEFTd6::deltaGammaHggRatio1() const
             +248587. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             +37390592. * CHG / LambdaNP2
-            -60624.6 * DeltaGF() );
+            -60624.6 * DeltaGF() / v() / v() );
 }
 
 double NPSMEFTd6::deltaGammaHggRatio2() const
@@ -5993,7 +5993,7 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
             +9237644. * CHWB / LambdaNP2
             -2872389. * CDHB / LambdaNP2
             +1586252. * CDHW / LambdaNP2
-            -115000. * DeltaGF() );
+            -115000. * DeltaGF() / v() / v() );
     
 }
 
@@ -6121,7 +6121,7 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
             -48142626. * CHB / LambdaNP2
             -14682079. * CHW / LambdaNP2
             +26348174. * CHWB / LambdaNP2
-            -125370. * DeltaGF() );
+            -125370. * DeltaGF() / v() / v() );
     
 }
 
@@ -6218,7 +6218,7 @@ double NPSMEFTd6::deltaGammaHmumuRatio1() const
     return ( +121249. * CHbox / LambdaNP2
             -199794752. * CeH_22r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            -60624.6 * DeltaGF() );
+            -60624.6 * DeltaGF() / v() / v() );
         
 }
 
@@ -6264,7 +6264,7 @@ double NPSMEFTd6::deltaGammaHtautauRatio1() const
     return ( +121249. * CHbox / LambdaNP2
             -11880769. * CeH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            -60624.6 * DeltaGF() );
+            -60624.6 * DeltaGF() / v() / v() );
         
 }
 
@@ -6311,7 +6311,7 @@ double NPSMEFTd6::deltaGammaHccRatio1() const
             -16420490. * CuH_22r / LambdaNP2
             -1001.52 * CuH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            -60624.6 * DeltaGF() );
+            -60624.6 * DeltaGF() / v() / v() );
 }
 
 double NPSMEFTd6::deltaGammaHccRatio2() const
@@ -6361,7 +6361,7 @@ double NPSMEFTd6::deltaGammaHbbRatio1() const
             -562.029 * CuH_33r / LambdaNP2
             -5026895. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
-            -60624.6 * DeltaGF() );
+            -60624.6 * DeltaGF() / v() / v() );
 }
 
 double NPSMEFTd6::deltaGammaHbbRatio2() const
