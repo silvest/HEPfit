@@ -17,7 +17,6 @@
 Flavour::Flavour(const StandardModel& SM_i)
 : HDF2(*(new HeffDF2(SM_i))),
 HDB1(*(new HeffDB1(SM_i))),
-HDS1(*(new HeffDS1(SM_i))),
 MVll_BdKstarmu(*(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU))),
 MVll_BdKstarel(*(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON))),
 MVll_BpKstarmu(*(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU))),
@@ -68,21 +67,6 @@ gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffK(double mu, schemes scheme
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffmK(double mu, schemes scheme) const
 {
     return HDF2.ComputeCoeffmK(mu, scheme);
-}
-
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1PP(double mu, schemes scheme) const
-{
-    return HDS1.ComputeCoeffDS1PP(mu, scheme);
-}
-
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1pnunu() const
-{
-    return HDS1.ComputeCoeffDS1pnunu();
-}
-
-gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1mumu() const
-{
-    return HDS1.ComputeCoeffDS1mumu();
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsmumu(double mu, schemes scheme) const

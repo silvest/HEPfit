@@ -34,38 +34,6 @@ public:
     
     /**
      * 
-     * @param mu is the low energy scale
-     * @param scheme indicates the reonrmalization scheme
-     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 0 | \f$
-     */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep00(double mu, schemes scheme = NDR);
-    
-    /**
-     * 
-     * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
-     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 0 | \f$
-     */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep10(double mu, schemes scheme = NDR);
-    
-    /**
-     * 
-     * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
-     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 1 | \f$
-     */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep01(double mu, schemes scheme = NDR);
-    
-    /**
-     * 
-     * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
-     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 1 | \f$
-     */
-    gslpp::vector<gslpp::complex>** ComputeCoeffBnlep11(double mu, schemes scheme = NDR);
-    
-    /**
-     * 
      * @param scheme
      * @return short distance contribution to the rare decay \f$ B_{s} \rightarrow \mu \bar{\mu} \f$
      */
@@ -138,22 +106,6 @@ public:
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme = NDR);
     
-    WilsonCoefficient getCoeffnlep00() const {
-        return coeffnlep00;
-    }
-    
-    WilsonCoefficient getCoeffnlep10() const {
-        return coeffnlep01;
-    }
-    
-    WilsonCoefficient getCoeffnlep01() const {
-        return coeffnlep10;
-    }
-    
-    WilsonCoefficient getCoeffnlep11() const {
-        return coeffnlep11;
-    }
-    
     WilsonCoefficient getCoeffsmumu() const {
         return coeffsmumu;
     }
@@ -190,10 +142,6 @@ public:
         return evolbd;
     }
     
-    EvolDF1nlep& getUDF1() const {
-        return u;
-    }
-    
     EvolDB1Mll& getUDF1BMll() const {
         return evolDF1BMll;
     }
@@ -209,10 +157,6 @@ public:
 private :
     const StandardModel& model;
     
-    WilsonCoefficient coeffnlep00qcd, coeffnlep00;
-    WilsonCoefficient coeffnlep10qcd, coeffnlep10;
-    WilsonCoefficient coeffnlep01, coeffnlep01A, coeffnlep01B, coeffnlep00CC;
-    WilsonCoefficient coeffnlep11, coeffnlep11A, coeffnlep11B, coeffnlep10CC;
     WilsonCoefficient coeffsmumu, coeffdmumu;
     WilsonCoefficient coeffbtaunu;
     WilsonCoefficient coeffsnunu, coeffdnunu;
@@ -220,7 +164,6 @@ private :
     WilsonCoefficient coeffBMll, coeffprimeBMll;
     EvolDB1Mll& evolDF1BMll;
     EvolDB1bsg& evolDB1bsg;
-    EvolDF1nlep& u;
     EvolBsmm& evolbs;
     EvolBsmm& evolbd;
     

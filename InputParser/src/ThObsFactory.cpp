@@ -313,12 +313,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["Betas_JPsiPhi"] = boost::factory<Betas_JPsiPhi*>();
     obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
     obsThFactory["DmK"] = boost::factory<DmK*>();
-    /** BEGIN: REMOVE FROM THE PACKAGE **/
-    obsThFactory["M12D"] = boost::factory<M12D*>();
-    obsThFactory["ArgD"] = boost::factory<ArgD*>();
-    //----- eps'/eps  -----
-    obsThFactory["EpsiloP_o_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
-    /** END: REMOVE FROM THE PACKAGE **/
+
     //----- CKM  -----
     obsThFactory["Vud"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 1);
     obsThFactory["Vus"] = boost::bind(boost::factory<VCKM*>(), _1, 1, 2);
