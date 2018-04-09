@@ -637,7 +637,6 @@ private:
     double KaellenFunction(const double a2, const double b2, const double c2) const;
 
     double cW2_GM(const double c02) const;
-    double MW_GM(const double MW) const;
 
     gslpp::complex f_func(const double x) const;
     gslpp::complex g_func(const double x) const;
@@ -824,9 +823,11 @@ private:
 
 //    std::string GMmodel;
     double Q_GM;
+    double GF;
+    double Ale;
+    double MZ;
     double cW2;
     double MW;
-    double MZ;
     double vev;
     double mHl;
     double mHl2;

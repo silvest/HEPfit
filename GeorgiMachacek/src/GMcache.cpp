@@ -1403,6 +1403,14 @@ void GMcache::computeSignalStrengthQuantities()
     double ABSZgaSM=(A_hSM_F+A_hSM_W).abs2();
     rh_Zga=ABSZgaGM/ABSZgaSM;
 
+    std::cout<<"A_h_F="<<A_h_F<<std::endl;
+    std::cout<<"A_h_W="<<A_h_W<<std::endl;
+    std::cout<<"A_h_Hp="<<A_h_Hp<<std::endl;
+    std::cout<<"A_hSM_F="<<A_hSM_F<<std::endl;
+    std::cout<<"A_hSM_W="<<A_hSM_W<<std::endl;
+    std::cout<<"ZgaSM="<<ABSZgaSM<<std::endl;
+    std::cout<<"ZgaGM="<<ABSZgaGM<<std::endl;
+
     rh_gg=rh_ff;
 
     sumModBRs = rh_ff*(BrSM_htobb+BrSM_htotautau+BrSM_htocc) + rh_VV*(BrSM_htoWW+BrSM_htoZZ) 
@@ -1441,8 +1449,6 @@ double GMcache::KaellenFunction(const double a2, const double b2, const double c
 
 void GMcache::computeOtherHiggsProperties()
 {
-    double GF=1/(sqrt(2.0)*vev*vev);
-    double Ale=myGM->getAle();
     double Als=myGM->getAlsMz();
     double sW2=1.0-cW2;
     double mHh=sqrt(mH1sq);
@@ -2151,11 +2157,6 @@ double GMcache::cW2GM(const double c02) const{
 }
 
 
-
-double GMcache::MWGM(const double MW) const{
-    return MW;
-}
-
 double GMcache::updateCache()
 {
 //    GMmodel=myGM->getModelTypeGMflag();
@@ -2163,9 +2164,11 @@ double GMcache::updateCache()
     vev=myGM->v();
     mHl=myGM->getMHl();
     mHl2=mHl*mHl;
-    cW2=cW2GM(myGM->c02()); /*This might have to be replaced by the GM corrected value.*/
-    MW=MWGM(myGM->Mw_tree()); /*This might have to be replaced by the GM corrected W mass.*/
+    GF=1/(sqrt(2.0)*vev*vev);
+    Ale=myGM->getAle();
     MZ=myGM->getMz();
+    MW=myGM->Mw();
+    cW2=cW2GM(myGM->c02()); /*This might have to be replaced by the GM corrected value.*/
     tanb=myGM->gettanb();
     sinb=myGM->getsinb();
     cosb=myGM->getcosb();

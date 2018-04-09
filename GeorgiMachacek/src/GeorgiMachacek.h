@@ -340,6 +340,8 @@ public:
         return Q_GM;
     }
 
+    virtual double Mw() const;
+
     virtual double muggH(const double sqrt_s) const;
     virtual double muVBF(const double sqrt_s) const;
     virtual double mueeWBF(const double sqrt_s) const;

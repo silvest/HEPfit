@@ -362,6 +362,11 @@ double GeorgiMachacek::muppHmumu(const double sqrt_s) const
 
 double GeorgiMachacek::muppHZga(const double sqrt_s) const
 {
+    std::cout<<getMyGMCache()->rh_gg<<std::endl;
+    std::cout<<getMyGMCache()->rh_VV<<std::endl;
+    std::cout<<getMyGMCache()->rh_ff<<std::endl;
+    std::cout<<getMyGMCache()->rh_Zga<<std::endl;
+    std::cout<<computeGammaTotalRatio()<<std::endl;
     if(sqrt_s==8)
     {
         return (0.872 * getMyGMCache()->rh_gg + 0.122 * getMyGMCache()->rh_VV + 0.006 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_Zga / computeGammaTotalRatio();
@@ -374,4 +379,10 @@ double GeorgiMachacek::muppHZga(const double sqrt_s) const
     {
         throw std::runtime_error("The observable muppHZga is only defined for 8 or 13 TeV.");
     }
+}
+
+
+double GeorgiMachacek::Mw() const{
+    double MZ = StandardModel::Mz;
+    return ( MZ / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * StandardModel::ale / (sqrt(2.0) * StandardModel::GF * MZ* MZ))));
 }
