@@ -1403,14 +1403,6 @@ void GMcache::computeSignalStrengthQuantities()
     double ABSZgaSM=(A_hSM_F+A_hSM_W).abs2();
     rh_Zga=ABSZgaGM/ABSZgaSM;
 
-    std::cout<<"A_h_F="<<A_h_F<<std::endl;
-    std::cout<<"A_h_W="<<A_h_W<<std::endl;
-    std::cout<<"A_h_Hp="<<A_h_Hp<<std::endl;
-    std::cout<<"A_hSM_F="<<A_hSM_F<<std::endl;
-    std::cout<<"A_hSM_W="<<A_hSM_W<<std::endl;
-    std::cout<<"ZgaSM="<<ABSZgaSM<<std::endl;
-    std::cout<<"ZgaGM="<<ABSZgaGM<<std::endl;
-
     rh_gg=rh_ff;
 
     sumModBRs = rh_ff*(BrSM_htobb+BrSM_htotautau+BrSM_htocc) + rh_VV*(BrSM_htoWW+BrSM_htoZZ) 

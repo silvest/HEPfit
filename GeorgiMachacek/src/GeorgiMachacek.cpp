@@ -362,11 +362,6 @@ double GeorgiMachacek::muppHmumu(const double sqrt_s) const
 
 double GeorgiMachacek::muppHZga(const double sqrt_s) const
 {
-    std::cout<<getMyGMCache()->rh_gg<<std::endl;
-    std::cout<<getMyGMCache()->rh_VV<<std::endl;
-    std::cout<<getMyGMCache()->rh_ff<<std::endl;
-    std::cout<<getMyGMCache()->rh_Zga<<std::endl;
-    std::cout<<computeGammaTotalRatio()<<std::endl;
     if(sqrt_s==8)
     {
         return (0.872 * getMyGMCache()->rh_gg + 0.122 * getMyGMCache()->rh_VV + 0.006 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_Zga / computeGammaTotalRatio();
