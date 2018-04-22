@@ -242,7 +242,7 @@ bool StandardModel::PostUpdate()
     }
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
-    SMM.getObj().updateSMParameters();
+    if (!isModelSUSY()) SMM.getObj().updateSMParameters();
 
     SMFlavour.setSMupdated();
     iterationNo++;

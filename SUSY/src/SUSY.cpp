@@ -63,9 +63,11 @@ SUSY::~SUSY()
 
 bool SUSY::InitializeModel()
 {
-    mySUSYSpectrum = new SUSYSpectrum(*this);
+    if (!flag_h) mySUSYSpectrum = new SUSYSpectrum(*this);
+    else mySUSYSpectrum = NULL;
 /** BEGIN: REMOVE FROM THE PACKAGE **/
-    myFH = new FeynHiggsWrapper(*this);
+    if (flag_h) myFH = new FeynHiggsWrapper(*this);
+    else myFH = NULL;
 /** END: REMOVE FROM THE PACKAGE **/
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
@@ -92,7 +94,7 @@ bool SUSY::PreUpdate()
 bool SUSY::Update(const std::map<std::string, double>& DPars)
 {
     if(!PreUpdate()) return (false);
-    
+
     UpdateError = false;
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
@@ -165,7 +167,7 @@ bool SUSY::PostUpdate()
                 /* Zneu: first (second) index for gauge (mass) eigenstates */
                 N.assign(i,j, 0.);
         }
-
+        
     if(!mySUSYSpectrum->CalcHiggs(mh,saeff)) return (false);
     if(!mySUSYSpectrum->CalcChargino(U,V,mch)) return (false);
     if(!mySUSYSpectrum->CalcNeutralino(N,mneu)) return (false);
@@ -182,12 +184,14 @@ bool SUSY::PostUpdate()
 //    std::cout<<"muH S = "<<muH<<std::endl;
 
     /* Set the mass of the SM-like Higgs */
-    mHl = mh[0];
     /* allowed range for the use of EWSMApproximateFormulae class */
-    if (mHl < 10. || mHl > 1000.) {
-        std::cout << "WARNING: mh=" << mHl << " in SUSY::PostUpdate" << std::endl;
+    if (mh[0] < 10. || mh[0] > 1000.) {
+        std::stringstream out;
+        out << mh[0];
+        throw std::runtime_error("SUSY::PostUpdate(): mh=" + out.str() + " is out of range for EWSMApproximateFormulae");
         return (false);
     }
+    mHl = mh[0];
     
     if( Q_SUSY == -1 || Q_SUSY == 0) Q_SUSY = sqrt( sqrt(m_su2(2) * m_su2(5)) );
 
@@ -195,6 +199,8 @@ bool SUSY::PostUpdate()
     myEWSUSY->SetRosiekParameters();
 
     /* Necessary for updating SUSY and SUSY-derived parameters in SUSYMatching */
+    /* For SUSY Models only: The SM Matching needs to be updated here since StandardModel::PostUpdate() will not do it since the Higgs masses need to be computed. */
+    SUSYM.getObj().updateSMParameters();
     SUSYM.getObj().updateSUSYParameters();
 
     SUSYM.getObj().Comp_mySUSYMQ();
