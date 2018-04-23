@@ -1603,6 +1603,10 @@ void GMcache::computeOtherHiggsProperties()
     //Following partial widths stem from the GMcalc manual 1412.7387
     //lambda^{1/2}(x,y) is equivalent to 2*KaellenFunction(1,x,y)
 
+    // H3 -> f f' decays
+    
+    rA_ff = 1.0/(tanb*tanb);
+
     // H1 -> V H2 decays
 
     double GammaHAZ       = HSTheta(mHh-sqrt(mAsq)-MZ)

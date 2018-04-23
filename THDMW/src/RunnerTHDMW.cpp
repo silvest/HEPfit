@@ -145,29 +145,215 @@ int RGEcheckTHDMW(const double InitialValues[], const double t1, const double Rp
 {
     int check=0;
 
-    //positivity checks (empty at the moment)
+    //perturbativity of the Yukawa couplings
+//    for(int i=3;i<6;i++)
+//    {
+//        if(fabs(InitialValues[i])>sqrt(4.0*M_PI)) check=1;
+//    }
 
-    //NLO unitarity
-//    double la1Q = InitialValues[9];
-//    double la2Q = InitialValues[10];
-//    double la3Q = InitialValues[11];
-//    double la4Q = InitialValues[12];
-//    double la5Q = InitialValues[13];
+    //perturbativity of the quartic Higgs couplings
+    for(int i=0;i<15;i++)
+    {
+        if(fabs(InitialValues[i])>4.0*M_PI) check=1;
+    }
 
-//    double betalambda1 = 
-//    ...
+    double la1Q = InitialValues[0];
+    double la2Q = InitialValues[1];
+    double la3Q = InitialValues[2];
+    double la4Q = InitialValues[3];
+    double mu1Q = InitialValues[4];
+    double mu3Q = InitialValues[5];
+    double mu4Q = InitialValues[6];
+    double nu1Q = InitialValues[7];
+    double om1Q = InitialValues[8];
+    double ka1Q = InitialValues[9];
+    double nu2Q = InitialValues[10];
+    double om2Q = InitialValues[11];
+    double ka2Q = InitialValues[12];
+    double nu4Q = InitialValues[13];
+    double om4Q = InitialValues[14];
 
-//    double         uniLO1   = 
-//    gslpp::complex uniNLO1  = 
-//    ...
+    //positivity checks
+    double muAtimes2=4.0*mu1Q+2.0*mu3Q+4.0*mu4Q;
+    if(la1Q<0.0) check=1;
+    if(la2Q<0.0) check=1;
+    if(muAtimes2<0.0) check=1;
+    if(5.0*mu1Q+3.0*mu3Q+3.0*mu4Q-fabs(mu1Q)<0.0) check=1;
+    if(sqrt(la1Q*muAtimes2)+nu1Q<0.0) check=1;
+    if(sqrt(la1Q*muAtimes2)+nu1Q+2.0*nu2Q<0.0) check=1;
+    if(la1Q+0.25*muAtimes2+nu1Q+2.0*nu2Q-2.0*fabs(nu4Q)/sqrt(3.0)<0.0) check=1;
+    if(la3Q+sqrt(la1Q*la2Q)<0.0) check=1;
+    if(la3Q+2.0*la4Q+sqrt(la1Q*la2Q)<0.0) check=1;
+    if(sqrt(la2Q*muAtimes2)+om1Q<0.0) check=1;
+    if(sqrt(la2Q*muAtimes2)+om1Q+2.0*om2Q<0.0) check=1;
+    if(la2Q+0.25*muAtimes2+om1Q+2.0*om2Q-2.0*fabs(om4Q)/sqrt(3.0)<0.0) check=1;
+
+    /////////////////
+    //NLO unitarity//
+    /////////////////
+
+    double pi=M_PI;
+    gslpp::matrix<gslpp::complex> Smatrix1(4,4,0.), Smatrix2(4,4,0.);
+    gslpp::matrix<gslpp::complex> Seigenvectors1(4,4,0.), Seigenvectors2(4,4,0.);
+    gslpp::vector<double> Seigenvalues1(4,0.), Seigenvalues2(4,0.);
+    gslpp::vector<gslpp::complex> unitarityeigenvalues(11,0.);
+
+    if(t1>tNLOuni)
+    {
+
+    //LO part
+    Smatrix1.assign(0,0, 3.0*la1Q/(16.0*pi));
+    Smatrix1.assign(0,1, (2.0*la3Q+la4Q)/(16.0*pi));
+    Smatrix1.assign(1,0, Smatrix1(0,1));
+    Smatrix1.assign(0,3, (2.0*nu1Q+nu2Q)/(8.0*sqrt(2.0)*pi));
+    Smatrix1.assign(3,0, Smatrix1(0,3));
+    Smatrix1.assign(1,1, 3.0*la2Q/(16.0*pi));
+    Smatrix1.assign(1,3, (2.0*om1Q+om2Q)/(8.0*sqrt(2.0)*pi));
+    Smatrix1.assign(3,1, Smatrix1(1,3));
+    Smatrix1.assign(2,2, (la3Q+5.0*la4Q)/(16.0*pi));
+    Smatrix1.assign(2,3, (4.0*ka1Q+2.0*ka2Q)/(16.0*pi));
+    Smatrix1.assign(3,2, Smatrix1(2,3));
+    Smatrix1.assign(3,3, (26.0*mu1Q+17.0*mu3Q+13.0*mu4Q)/(32.0*pi));
+
+    Smatrix2.assign(0,0, la1Q/(16.0*pi));
+    Smatrix2.assign(0,1, la4Q/(16.0*pi));
+    Smatrix2.assign(1,0, Smatrix2(0,1));
+    Smatrix2.assign(0,3, nu2Q/(8.0*sqrt(2.0)*pi));
+    Smatrix2.assign(3,0, Smatrix2(0,3));
+    Smatrix2.assign(1,1, la2Q/(16.0*pi));
+    Smatrix2.assign(1,3, om2Q/(8.0*sqrt(2.0)*pi));
+    Smatrix2.assign(3,1, Smatrix2(1,3));
+    Smatrix2.assign(2,2, (la3Q+la4Q)/(16.0*pi));
+    Smatrix2.assign(2,3, ka2Q/(8.0*pi));
+    Smatrix2.assign(3,2, Smatrix2(2,3));
+    Smatrix2.assign(3,3, (14.0*mu1Q+3.0*mu3Q+27.0*mu4Q)/(96.0*pi));
+
+    Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
+    Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
+
+    for (int i=0; i < 4; i++) {
+        unitarityeigenvalues.assign(i, Seigenvalues1(i));
+        unitarityeigenvalues.assign(4+i, Seigenvalues2(i));
+    }
+    unitarityeigenvalues.assign(8, (la3Q-la4Q)/(16.0*pi));
+    unitarityeigenvalues.assign(9, sqrt(15.0)*nu4Q/(16.0*pi));
+    unitarityeigenvalues.assign(10, sqrt(15.0)*om4Q/(16.0*pi));
+
+    //beta_la1*16pi^2
+    double betala1 = 12.0*la1Q*la1Q + 4.0*la3Q*la3Q + 4.0*la3Q*la4Q + 4.0*la4Q*la4Q
+                     + 8.0*nu1Q*nu1Q + 8.0*nu1Q*nu2Q + 8.0*nu2Q*nu2Q;
+    //beta_la2*16pi^2
+    double betala2 = 12.0*la2Q*la2Q + 4.0*la3Q*la3Q + 4.0*la3Q*la4Q + 4.0*la4Q*la4Q
+                     + 8.0*om1Q*om1Q + 8.0*om1Q*om2Q + 8.0*om2Q*om2Q;
+    //beta_la3*16pi^2
+    double betala3 = 4.0*la3Q*la3Q + 4.0*la4Q*la4Q + (la1Q+la2Q)*(6.0*la3Q+2.0*la4Q)
+                     + 8.0*ka2Q*ka2Q + 8.0*nu1Q*om1Q + 4.0*nu2Q*om1Q + 4.0*nu1Q*om2Q;
+    //beta_la4*16pi^2
+    double betala4 = (la1Q*la4Q + la2Q*la4Q + 4.0*la3Q*la4Q + 6.0*la4Q*la4Q
+                      + 4.0*ka1Q*ka1Q + 4.0*ka1Q*ka2Q + 2.0*ka2Q*ka2Q + 2.0*nu2Q*om2Q)*2.0;
+    //beta_mu1*16pi^2
+    double betamu1 = 11.0*mu1Q*mu1Q + 3.0*mu1Q*mu4Q + mu1Q*(2.0*mu1Q+6.0*mu3Q+3.0*mu4Q)
+                     + 3.0*nu4Q*nu4Q + 3.0*om4Q*om4Q;
+    //beta_mu3*16pi^2
+    double betamu3 = (18.0*ka1Q*ka1Q + 18.0*ka1Q*ka2Q + 134.0*mu1Q*mu1Q + 6.0*mu1Q*(39.0*mu3Q + 22.0*mu4Q)
+                      + 3.0*(30.0*mu3Q*mu3Q + 39.0*mu3Q*mu4Q + 9.0*mu4Q*mu4Q
+                             + 3.0*nu1Q*nu1Q + 3.0*nu1Q*nu2Q - 5.0*nu4Q*nu4Q
+                             + 3.0*om1Q*om1Q + 3.0*om1Q*om2Q - 5.0*om4Q*om4Q))/4.5;
+    //beta_mu4*16pi^2
+    double betamu4 = (18.0*ka2Q*ka2Q + 4.0*mu1Q*mu1Q + 156.0*mu1Q*mu4Q + 54.0*mu3Q*mu4Q + 144.0*mu4Q*mu4Q
+                      + 9.0*nu2Q*nu2Q + 6.0*nu4Q*nu4Q + 9.0*om2Q*om2Q + 6.0*om4Q*om4Q)/9.0;
+    //beta_nu1*16pi^2
+    double betanu1 = (6.0*ka1Q*ka1Q + 6.0*ka2Q*ka2Q + 18.0*la1Q*nu1Q
+                      + 78.0*mu1Q*nu1Q + 51.0*mu3Q*nu1Q + 39.0*mu4Q*nu1Q + 6.0*nu1Q*nu1Q
+                      + 6.0*la1Q*nu2Q + 32.0*mu1Q*nu2Q + 24.0*mu3Q*nu2Q + 6.0*mu4Q*nu2Q
+                      + 6.0*nu2Q*nu2Q + 10.0*nu4Q*nu4Q
+                      + 12.0*la3Q*om1Q + 6.0*la4Q*om1Q + 6.0*la3Q*om2Q)/3.0;
+    //beta_om1*16pi^2
+    double betaom1 = (6.0*ka1Q*ka1Q + 6.0*ka2Q*ka2Q
+                      + 12.0*la3Q*nu1Q + 6.0*la4Q*nu1Q + 6.0*la3Q*nu2Q
+                      + 18.0*la2Q*om1Q + 78.0*mu1Q*om1Q + 51.0*mu3Q*om1Q + 39.0*mu4Q*om1Q + 6.0*om1Q*om1Q
+                      + 6.0*la2Q*om2Q + 32.0*mu1Q*om2Q + 24.0*mu3Q*om2Q + 6.0*mu4Q*om2Q + 6.0*om2Q*om2Q
+                      + 10.0*om4Q*om4Q)/3.0;
+    //beta_ka1*16pi^2
+    double betaka1 = (6.0*ka1Q*(2.0*la3Q + 10.0*la4Q + 18.0*mu1Q + 17.0*mu3Q + 13.0*mu4Q + 2.0*nu1Q + 2.0*om1Q)
+                      + ka2Q*(24.0*la4Q + 64.0*mu1Q + 48.0*mu3Q + 24.0*mu4Q + 9.0*nu2Q + 9.0*om2Q)
+                      + 20.0*nu4Q*om4Q)/6.0;
+    //beta_nu2*16pi^2
+    double betanu2 = 4.0*ka1Q*ka2Q + 6.0*ka2Q*ka2Q + 2.0*la1Q*nu2Q + ((14.0*mu1Q)/3.0 + mu3Q + 9.0*mu4Q)*nu2Q
+                     + 4.0*nu1Q*nu2Q + 6.0*nu2Q*nu2Q + (25.0*nu4Q*nu4Q)/3.0 + 2.0*la4Q*om2Q;
+    //beta_om2*16pi^2
+    double betaom2 = 4.0*ka1Q*ka2Q + 6.0*ka2Q*ka2Q + 2.0*la4Q*nu2Q + 2.0*la2Q*om2Q
+                     + ((14.0*mu1Q)/3.0 + mu3Q + 9.0*mu4Q)*om2Q + 4.0*om1Q*om2Q + 6.0*om2Q*om2Q
+                     + (25.0*om4Q*om4Q)/3.0;
+    //beta_ka2*16pi^2
+    double betaka2 = (ka2Q*(6.0*la3Q + 6.0*la4Q + 14.0*mu1Q + 3.0*mu3Q + 27.0*mu4Q
+                           + 6.0*nu1Q + 12.0*nu2Q + 6.0*om1Q + 12.0*om2Q)
+                      + 6.0*ka1Q*(nu2Q + om2Q) + 42.0*nu4Q*om4Q)/3.0;
+    //beta_nu4*16pi^2
+    double betanu4 = 11.0*mu1Q*nu4Q + 3.0*mu3Q*nu4Q + 9.0*mu4Q*nu4Q + 3.0*nu1Q*nu4Q + 9.0*nu2Q*nu4Q
+                     + 3.0*ka1Q*om4Q + 9.0*ka2Q*om4Q;
+    //beta_om4*16pi^2
+    double betaom4 = 3.0*ka1Q*nu4Q + 9.0*ka2Q*nu4Q
+                     + (11.0*mu1Q + 3.0*(mu3Q + 3.0*mu4Q + om1Q + 3.0*om2Q))*om4Q;
 
 //    diagonalization
+    gslpp::matrix<gslpp::complex> Sbmatrix1(4,4,0.), Sbmatrix2(4,4,0.);
+    gslpp::matrix<gslpp::complex> Seigenvectors1T(4,4,0.), Seigenvectors2T(4,4,0.);
+    gslpp::vector<gslpp::complex> Sbeigenvalues1(4,0.), Sbeigenvalues2(4,0.);
+    gslpp::vector<gslpp::complex> betaeigenvalues(11,0.);
+    gslpp::vector<gslpp::complex> NLOunitarityeigenvalues(11,0.);
 
-//    if( (uniNLOev1 - 0.5*gslpp::complex::i()).abs() > 0.5) check=1;
-//    ...
-//    if( fabs(uniLOev1) > Rpeps && (uniNLOev1/uniLOev1-1.0).abs() > 1.0) check=1;
-//    ...
+    Sbmatrix1.assign(0,0, 3.0*betala1/(16.0*pi));
+    Sbmatrix1.assign(0,1, (2.0*betala3+betala4)/(16.0*pi));
+    Sbmatrix1.assign(1,0, Sbmatrix1(0,1));
+    Sbmatrix1.assign(0,3, (2.0*betanu1+betanu2)/(8.0*sqrt(2.0)*pi));
+    Sbmatrix1.assign(3,0, Sbmatrix1(0,3));
+    Sbmatrix1.assign(1,1, 3.0*betala2/(16.0*pi));
+    Sbmatrix1.assign(1,3, (2.0*betaom1+betaom2)/(8.0*sqrt(2.0)*pi));
+    Sbmatrix1.assign(3,1, Sbmatrix1(1,3));
+    Sbmatrix1.assign(2,2, (betala3+5.0*betala4)/(16.0*pi));
+    Sbmatrix1.assign(2,3, (4.0*betaka1+2.0*betaka2)/(16.0*pi));
+    Sbmatrix1.assign(3,2, Sbmatrix1(2,3));
+    Sbmatrix1.assign(3,3, (26.0*betamu1+17.0*betamu3+13.0*betamu4)/(32.0*pi));
 
+    Sbmatrix2.assign(0,0, betala1/(16.0*pi));
+    Sbmatrix2.assign(0,1, betala4/(16.0*pi));
+    Sbmatrix2.assign(1,0, Sbmatrix2(0,1));
+    Sbmatrix2.assign(0,3, betanu2/(8.0*sqrt(2.0)*pi));
+    Sbmatrix2.assign(3,0, Sbmatrix2(0,3));
+    Sbmatrix2.assign(1,1, betala2/(16.0*pi));
+    Sbmatrix2.assign(1,3, betaom2/(8.0*sqrt(2.0)*pi));
+    Sbmatrix2.assign(3,1, Sbmatrix2(1,3));
+    Sbmatrix2.assign(2,2, (betala3+betala4)/(16.0*pi));
+    Sbmatrix2.assign(2,3, betaka2/(8.0*pi));
+    Sbmatrix2.assign(3,2, Sbmatrix2(2,3));
+    Sbmatrix2.assign(3,3, (14.0*betamu1+3.0*betamu3+27.0*betamu4)/(96.0*pi));
+
+    Seigenvectors1T=Seigenvectors1.hconjugate();
+    Seigenvectors2T=Seigenvectors2.hconjugate();
+
+    for (int i=0; i < 4; i++) {
+        for (int k=0; k < 4; k++) {
+            for (int l=0; l < 4; l++) {
+                Sbeigenvalues1.assign(i, Sbeigenvalues1(i) + Seigenvectors1T(i,k) * Sbmatrix1(k,l) * Seigenvectors1(l,i) );
+                Sbeigenvalues2.assign(i, Sbeigenvalues2(i) + Seigenvectors2T(i,k) * Sbmatrix2(k,l) * Seigenvectors2(l,i) );
+            }                
+        }
+        betaeigenvalues.assign(i, -1.5 * Sbeigenvalues1(i));
+        betaeigenvalues.assign(i+4, -1.5 * Sbeigenvalues2(i));
+    }
+
+    betaeigenvalues.assign(8, -1.5 * (betala3-betala4)/(16.0*pi));
+    betaeigenvalues.assign(9, -1.5 * sqrt(15.0)*betanu4/(16.0*pi));
+    betaeigenvalues.assign(10, -1.5 * sqrt(15.0)*betaom4/(16.0*pi));
+
+    for (int i=0; i < 11; i++) {
+        NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
+        if( ( unitarityeigenvalues(i) + NLOunitarityeigenvalues(i).real() ).abs() > 0.5) check=1;
+        if( (unitarityeigenvalues(i)).abs() > Rpeps && (NLOunitarityeigenvalues(i)/unitarityeigenvalues(i)).abs() > 1.0) check=1;
+    }
+
+    } //end of the if(t1>tNLOuni)
     return check;
 }
 

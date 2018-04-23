@@ -551,7 +551,7 @@ void THDMWcache::computeSignalStrengthQuantities()
     double Mtau = myTHDMW->getLeptons(StandardModel::TAU).getMass();
     double Mmu = myTHDMW->getLeptons(StandardModel::MU).getMass();
     double Me = myTHDMW->getLeptons(StandardModel::ELECTRON).getMass();
-    double MW = myTHDMW->Mw_tree();
+    double MW = myTHDMW->Mw();
     double cW2 = myTHDMW->c02();
     double sW2=1.0-cW2;
 

@@ -1373,6 +1373,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["THDMWpositivity8"] = boost::factory<THDMWpositivity8*>();
     obsThFactory["THDMWpositivity9"] = boost::factory<THDMWpositivity9*>();
     obsThFactory["THDMWpositivity10"] = boost::factory<THDMWpositivity10*>();
+    obsThFactory["THDMWpositivity11"] = boost::factory<THDMWpositivity11*>();
+    obsThFactory["THDMWpositivity12"] = boost::factory<THDMWpositivity12*>();
     obsThFactory["THDMWpositiveMassSquares"] = boost::factory<THDMWpositiveMassSquares*>();
     //-----  Tree-level unitarity constraints  -----
     obsThFactory["THDMWunitarity1"] = boost::bind(boost::factory<THDMWunitarityLO*>(), _1, 0);
@@ -1431,7 +1433,18 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mAsqTHDMW"] = boost::factory<mAsqTHDMW*>();
     obsThFactory["mSRsqTHDMW"] = boost::factory<mSRsqTHDMW*>();
     obsThFactory["mSIsqTHDMW"] = boost::factory<mSIsqTHDMW*>();
-
+    obsThFactory["mAmmHH_THDMW"] = boost::factory<mAmmHH_THDMW*>();
+    obsThFactory["mHHmmA_THDMW"] = boost::factory<mHHmmA_THDMW*>();
+    obsThFactory["mAmmSR_THDMW"] = boost::factory<mAmmSR_THDMW*>();
+    obsThFactory["mSRmmA_THDMW"] = boost::factory<mSRmmA_THDMW*>();
+    obsThFactory["mAmmSI_THDMW"] = boost::factory<mAmmSI_THDMW*>();
+    obsThFactory["mSImmA_THDMW"] = boost::factory<mSImmA_THDMW*>();
+    obsThFactory["mHHmmSR_THDMW"] = boost::factory<mHHmmSR_THDMW*>();
+    obsThFactory["mSRmmHH_THDMW"] = boost::factory<mSRmmHH_THDMW*>();
+    obsThFactory["mHHmmSI_THDMW"] = boost::factory<mHHmmSI_THDMW*>();
+    obsThFactory["mSImmHH_THDMW"] = boost::factory<mSImmHH_THDMW*>();
+    obsThFactory["mSRmmSI_THDMW"] = boost::factory<mSRmmSI_THDMW*>();
+    obsThFactory["mSImmSR_THDMW"] = boost::factory<mSImmSR_THDMW*>();
     /** END: REMOVE FROM THE PACKAGE **/
 
     //-----  GeorgiMachacek observables  -----
