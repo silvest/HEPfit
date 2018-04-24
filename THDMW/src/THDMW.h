@@ -437,6 +437,11 @@ public:
         return NLOuniscaleTHDMW;
     }
 
+    /*
+     * @brief Method overriding the NPbase Mw with the tree-level W mass
+     */
+    virtual double Mw() const;
+
 protected:
 
     virtual void setParameter(const std::string, const double&);

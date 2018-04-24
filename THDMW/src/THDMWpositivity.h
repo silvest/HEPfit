@@ -24,7 +24,6 @@
 /**
  * @class THDMWpositivity1
  * @brief Controls that the scalar %THDMW potential is bounded from below.
- * @details @f$\lambda_3>-\sqrt{\lambda_1 \lambda_2}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  */
@@ -37,7 +36,7 @@ public:
     THDMWpositivity1(const StandardModel& SM_i);
 
     /**
-     * @return @f$\lambda_3+\sqrt{\lambda_1 \lambda_2}@f$
+     * @return 
      */
     double computeThValue();
 private:
@@ -47,7 +46,6 @@ private:
 /**
  * @class THDMWpositivity2
  * @brief Controls that the scalar %THDMW potential is bounded from below.
- * @details @f$\lambda_3+\lambda_4-|\lambda_5|>-\sqrt{\lambda_1 \lambda_2}@f$.
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
  */
@@ -60,7 +58,7 @@ public:
     THDMWpositivity2(const StandardModel& SM_i);
 
     /**
-     * @return @f$\lambda_3+\lambda_4-|\lambda_5|+\sqrt{\lambda_1 \lambda_2}@f$
+     * @return 
      */
     double computeThValue();
 private:
@@ -210,6 +208,44 @@ public:
      * @brief THDMWpositivity10 constructor.
      */
     THDMWpositivity10(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity11
+ */
+class THDMWpositivity11: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity11 constructor.
+     */
+    THDMWpositivity11(const StandardModel& SM_i);
+
+    /**
+     * @return 
+     */
+    double computeThValue();
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class THDMWpositivity12
+ */
+class THDMWpositivity12: public ThObservable {
+public:
+
+    /**
+     * @brief THDMWpositivity12 constructor.
+     */
+    THDMWpositivity12(const StandardModel& SM_i);
 
     /**
      * @return 

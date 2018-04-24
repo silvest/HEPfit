@@ -233,3 +233,10 @@ bool THDMW::setFlagStr(const std::string name, const std::string value)
 
     return(res);
 }
+
+
+
+double THDMW::Mw() const{
+    double MZ = StandardModel::Mz;
+    return ( MZ / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * StandardModel::ale / (sqrt(2.0) * StandardModel::GF * MZ* MZ))));
+}
