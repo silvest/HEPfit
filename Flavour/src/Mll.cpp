@@ -24,9 +24,11 @@ double Mll::computeThValue()
     computeObs(FULLNLO, FULLNLO_QED);
     double FBs = SM.getMesons(meson).getDecayconst();
     
-    double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; 
+//    double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; /* Double GF for including EW corrections*/
+    double coupling = SM.getGF() * SM.getAle() / 4. / M_PI; /* Single GF for excluding EW corrections*/
  
-    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(meson).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta;
+//    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(meson).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta; /* Double GF for including EW corrections*/
+    double PRF = pow(coupling, 2.) / M_PI / SM.getMesons(meson).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta; /* Single GF for excluding EW corrections*/
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
      
     if (obs == 1) return( PRF * ampSq);
@@ -83,15 +85,17 @@ void Mll::computeAmpSq(orders order, orders_qed order_qed, double mu)
                                  "order " + out.str() + " not computed");
     }
     /* Temporary usage of MVll class here below  */
-    // gslpp::vector<gslpp::complex> ** allcoeffmumu = SM.getFlavour().ComputeCoeffsmumu(mu, NDR);
-    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffBMll(mu, lep); //check the mass scale, scheme fixed to NDR
-    gslpp::vector<gslpp::complex> ** allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu, lep);
+//    gslpp::vector<gslpp::complex> ** allcoeffmumu; /* Double GF for including EW corrections*/
+//    if (meson == QCD::B_S) allcoeffmumu = SM.getFlavour().ComputeCoeffsmumu(mu, NDR); /* Double GF for including EW corrections*/
+//    if (meson == QCD::B_D) allcoeffmumu = SM.getFlavour().ComputeCoeffdmumu(mu, NDR); /* Double GF for including EW corrections*/
+    
+    gslpp::vector<gslpp::complex> ** allcoeff = SM.getFlavour().ComputeCoeffBMll(mu, lep); /* Single GF for excluding EW corrections*/
+    gslpp::vector<gslpp::complex> ** allcoeffprime = SM.getFlavour().ComputeCoeffprimeBMll(mu, lep); /* Single GF for excluding EW corrections*/
 
-//    double alsmu = SM.Als(mu, FULLNNLO)/4./M_PI; /* tilde */
-//    double alemu = SM.Als(mu, FULLNNLO)/4./M_PI; /* tilde */
+//    double alsmu = SM.Als(mu, FULLNNLO, true)/4./M_PI; /* tilde */ /* Double GF for including EW corrections*/
+//    double alemu = SM.Ale(mu, FULLNNLO)/4./M_PI; /* tilde */ /* Double GF for including EW corrections*/
 
-    double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) );
-
+//    double sw = sqrt( (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ); /* Spurious sw */
 
     C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
     C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
@@ -105,7 +109,7 @@ void Mll::computeAmpSq(orders order, orders_qed order_qed, double mu)
     switch(order_qed) {
         case FULLNLO_QED:
         {
-/* Implementation to be corrected and updated with new EVO: At present better to use MVll!*/
+/* Implementation to be corrected and updated with new EVO: At present better to use MVll!*/  /* Double GF for including EW corrections*/
 //            gslpp::complex C10_SM = (*(allcoeffmumu[LO]))(7) /alemu  + (*(allcoeffmumu[NLO]))(7) * alsmu/alemu 
 //                    + (*(allcoeffmumu[NNLO]))(7) * alsmu * alsmu/alemu + (*(allcoeffmumu[LO_QED ]))(7) /alsmu
 //                    + (*(allcoeffmumu[NLO_QED11]))(7) + (*(allcoeffmumu[NLO_QED02]))(7) * alemu /alsmu /alsmu 
@@ -113,16 +117,19 @@ void Mll::computeAmpSq(orders order, orders_qed order_qed, double mu)
 //                    + (*(allcoeffmumu[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeffmumu[NLO_QED22]))(7) * alemu;
             
 /* Temporary usage of MVll result */
-//            std::cout << " C10_SM " << C10_SM / sw / sw / CKM_factor << std::endl;
+//            std::cout << " C10_SM " << C10_SM << std::endl;
 //            gslpp::complex C10_SM_plus_NP = CKM_factor * sw * sw * ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
 //            std::cout << " C10_SM_plus_NP " << C10_SM_plus_NP / sw / sw / CKM_factor << std::endl;
             
-            gslpp::complex CC_P = CKM_factor * sw * sw * ( C_10 - C_10p + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P - C_Pp) );
+//            gslpp::complex CC_P = C10_SM; /* Double GF for including EW corrections*/
+//            gslpp::complex CC_P = CKM_factor * sw * sw * ( C_10 - C_10p + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P - C_Pp) ); /* Spurious sw */
+            gslpp::complex CC_P = CKM_factor * ( C_10 - C_10p + mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_P - C_Pp) ); /* Single GF for excluding EW corrections*/
           
             absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)
             argP = CC_P.arg();
             
-            gslpp::complex CC_S = CKM_factor * sw * sw * ( beta * mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_S - C_Sp) );
+//            gslpp::complex CC_S = CKM_factor * sw * sw * ( beta * mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_S - C_Sp) ); /* Spurious sw */
+            gslpp::complex CC_S = CKM_factor * ( beta * mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_S - C_Sp) ); /* Single GF for excluding EW corrections*/
 
             absS = CC_S.abs();
             argS = CC_S.arg();
