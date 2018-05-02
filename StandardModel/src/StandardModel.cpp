@@ -240,11 +240,10 @@ bool StandardModel::PostUpdate()
             useKappaZ_f_cache[i] = false;
         }
     }
-
+    SMFlavour.setSMupdated();
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
     if (!isModelSUSY()) SMM.getObj().updateSMParameters();
 
-    SMFlavour.setSMupdated();
     iterationNo++;
 
     return (true);

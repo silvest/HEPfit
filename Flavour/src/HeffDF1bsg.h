@@ -11,6 +11,7 @@
 class StandardModel;
 class EvolDB1bsg;
 #include "WilsonCoefficient.h"
+#include <memory>
 
 class HeffDF1bsg {
 public:
@@ -37,7 +38,7 @@ public:
     
     
     EvolDB1bsg& getUDF1() const {
-        return evolDB1bsg;
+        return *evolDB1bsg;
     }
 
     const StandardModel& GetModel() const {
@@ -47,7 +48,7 @@ public:
 private :
     const StandardModel& model;
     WilsonCoefficient coeffbsg;
-    EvolDB1bsg& evolDB1bsg;
+    std::unique_ptr<EvolDB1bsg> evolDB1bsg;
     
 };
 

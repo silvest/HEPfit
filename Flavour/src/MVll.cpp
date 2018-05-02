@@ -19,7 +19,7 @@
 #include <gsl/gsl_sf_expint.h>
 
 MVll::MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
-: mySM(SM_i), myF_1(*(new F_1())), myF_2(*(new F_2())),
+: mySM(SM_i), myF_1(new F_1()), myF_2(new F_2()),
 N_cache(3, 0.),
 V_cache(3, 0.),
 A0_cache(3, 0.),
@@ -1103,8 +1103,8 @@ gslpp::complex MVll::deltaC7_QCDF(double q2, bool conjugate, bool spline)
     //gslpp::complex A_Sdl = A_Seidel(q2, mb_pole*mb_pole); /* hep-ph/0403185v2.*/
     //gslpp::complex Fu_17 = -A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     //gslpp::complex Fu_27 = 6. * A_Sdl; /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex F_17 = myF_1.F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_17im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_27 = myF_2.F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_27im(muh, z, sh, 20); /*arXiv:0810.4077*/ 
+    gslpp::complex F_17 = myF_1->F_17re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_17im(muh, z, sh, 20); /*arXiv:0810.4077*/
+    gslpp::complex F_27 = myF_2->F_27re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_27im(muh, z, sh, 20); /*arXiv:0810.4077*/ 
     gslpp::complex F_87 = F87_0 + F87_1 * sh + F87_2 * sh2 + F87_3 * sh*sh2 - 8./9. * log(sh) * (sh + sh2 + sh*sh2);
     
     if (!conjugate) {
@@ -1140,8 +1140,8 @@ gslpp::complex MVll::deltaC9_QCDF(double q2, bool conjugate, bool spline)
     //gslpp::complex C_Sdl = C_Seidel(q2); /* hep-ph/0403185v2.*/
     //gslpp::complex Fu_19 = -(B_Sdl + 4. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
     //gslpp::complex Fu_29 = -(-6. * B_Sdl + 3. * C_Sdl); /* sign different from hep-ph/0403185v2 but consistent with hep-ph/0412400 */
-    gslpp::complex F_19 = myF_1.F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1.F_19im(muh, z, sh, 20); /*arXiv:0810.4077*/
-    gslpp::complex F_29 = myF_2.F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2.F_29im(muh, z, sh, 20); /*arXiv:0810.4077*/
+    gslpp::complex F_19 = myF_1->F_19re(muh, z, sh, 20) + gslpp::complex::i() * myF_1->F_19im(muh, z, sh, 20); /*arXiv:0810.4077*/
+    gslpp::complex F_29 = myF_2->F_29re(muh, z, sh, 20) + gslpp::complex::i() * myF_2->F_29im(muh, z, sh, 20); /*arXiv:0810.4077*/
     gslpp::complex F_89 = (F89_0 + F89_1 * sh + F89_2 * sh2 + F89_3 * sh * sh2 + 16. / 9. * log(sh) * (1. + sh + sh2 + sh * sh2));
 
     if (!conjugate) {

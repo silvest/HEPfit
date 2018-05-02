@@ -11,7 +11,7 @@
 
 HeffDF1bsg::HeffDF1bsg(const StandardModel & SM) 
 :       model(SM), coeffbsg(10, NDR, NLO), 
-        evolDB1bsg(*(new EvolDB1bsg(13, NDR, NLO, SM))) 
+        evolDB1bsg(new EvolDB1bsg(13, NDR, NLO, SM)) 
 {}
 
 HeffDF1bsg::~HeffDF1bsg() 
@@ -33,7 +33,7 @@ gslpp::vector<gslpp::complex>** HeffDF1bsg::ComputeCoeffBsg(double mu, schemes s
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffbsg.setCoeff(*coeffbsg.getCoeff(orders(j)) +
-                    evolDB1bsg.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDB1bsg->Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }

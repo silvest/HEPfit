@@ -17,6 +17,7 @@ class MPll;
 class MVgamma;
 #include "QCD.h"
 #include <boost/tuple/tuple.hpp>
+#include <memory>
 
 /**
  * @class Flavour
@@ -43,7 +44,7 @@ public:
      */
     const HeffDF2& getHDF2() const
     {
-        return HDF2;
+        return *HDF2;
     }
 
     /**
@@ -53,7 +54,7 @@ public:
      */
     const HeffDS1& getHDS1() const
     {
-        return HDS1;
+        return *HDS1;
     }
 
     /**
@@ -63,7 +64,7 @@ public:
      */
     const HeffDB1& getHDB1() const
     {
-        return HDB1;
+        return *HDB1;
     }
 
     /**
@@ -228,20 +229,20 @@ public:
 
 private:
 
-    HeffDF2& HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
-    HeffDB1& HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
-    HeffDS1& HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
-    MVll& MVll_BdKstarmu; ///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
-    MVll& MVll_BdKstarel; ///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
-    MVll& MVll_BpKstarmu; ///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
-    MVll& MVll_BpKstarel; ///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
-    MVll& MVll_Bsphimu; ///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
-    MVll& MVll_Bsphiel; ///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
-    MPll& MPll_BpKmu; ///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
-    MPll& MPll_BpKel; ///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
-    MVgamma& MVgamma_BdKstgamma;
-    MVgamma& MVgamma_BpKstgamma;
-    MVgamma& MVgamma_Bsphigamma;
+    std::shared_ptr<HeffDF2> HDF2; ///< An Object for the Hamiltonian of the \f$ \Delta F = 2 \f$ processes.
+    std::shared_ptr<HeffDB1> HDB1; ///< An Object for the Hamiltonian of the \f$ \Delta B = 1 \f$ processes.
+    std::shared_ptr<HeffDS1> HDS1; ///< An Object for the Hamiltonian of the \f$ \Delta S = 1 \f$ processes.
+    std::shared_ptr<MVll> MVll_BdKstarmu; ///< An object for the process \f$ B_d \to K^* \mu^+ \mu^- \f$.
+    std::shared_ptr<MVll> MVll_BdKstarel; ///< An object for the process \f$ B_d \to K^* \e^+ \e^- \f$.
+    std::shared_ptr<MVll> MVll_BpKstarmu; ///< An object for the process \f$ B^\pm \to K^{*\pm} \mu^+ \mu^- \f$.
+    std::shared_ptr<MVll> MVll_BpKstarel; ///< An object for the process \f$ B^\pm \to K^{*\pm} \e^+ \e^- \f$.
+    std::shared_ptr<MVll> MVll_Bsphimu; ///< An object for the process \f$ B_s \to \phi \mu^+ \mu^- \f$.
+    std::shared_ptr<MVll> MVll_Bsphiel; ///< An object for the process \f$ B_s \to \phi \e^+ \e^- \f$.
+    std::shared_ptr<MPll> MPll_BpKmu; ///< An object for the process \f$ B^+ \to K^+ \mu^+ \mu^- \f$.
+    std::shared_ptr<MPll> MPll_BpKel; ///< An object for the process \f$ B^+ \to K^+ \e^+ \e^- \f$.
+    std::shared_ptr<MVgamma> MVgamma_BdKstgamma;
+    std::shared_ptr<MVgamma> MVgamma_BpKstgamma;
+    std::shared_ptr<MVgamma> MVgamma_Bsphigamma;
     mutable bool update_BdKstarmu; ///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
     mutable bool update_BdKstarel; ///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
     mutable bool update_BpKstarmu; ///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.
