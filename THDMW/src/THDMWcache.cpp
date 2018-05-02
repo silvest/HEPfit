@@ -564,71 +564,113 @@ void THDMWcache::computeSignalStrengthQuantities()
     double BrSM_htoZga = 1.54e-3;
     double BrSM_htocc = 2.91e-2;
 
-    rh_QuQu = cosa*cosa/(sinb*sinb);
-    rh_VV = sin(bma)*sin(bma);
-    rh_QdQd = 0.0;
-    rh_ll = 0.0;
-    rh_gg = 0.0;
-    double ghHpHm = 0.0;
+    if( THDMWmodel == "ManoharWise" ) {
+        rh_QuQu = 1.0;
+        rh_VV = 1.0;
+        rh_QdQd = 1.0;
+        rh_ll = 1.0;
 
-    //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
+        //gluon coupling
+        gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
+        gslpp::complex fermD = I_h_D(mhsq,Md,Ms,Mb);
+        double ch_p=-nu1*vev*vev/(4.0*mSpsq);//Victor Miralles, non-custodial
+        double ch_r=-(nu1+nu2+2.0*nu3)*vev*vev/(4.0*mSRsq);//Victor Miralles, non-custodial
+        double ch_i=-(nu1+nu2-2.0*nu3)*vev*vev/(4.0*mSIsq);//Victor Miralles, non-custodial
+        gslpp::complex I_h_Sp = 1.5*ch_p*(3.0*I_H_Hp(mSpsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SR = 0.75*ch_r*(3.0*I_H_Hp(mSRsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SI = 0.75*ch_i*(3.0*I_H_Hp(mSIsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        double ABSggMW=(9.0/32.0*(fermU+fermD)+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
+        double ABSggSM=(9.0/32.0*(fermU+fermD)).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
+        rh_gg=ABSggMW/ABSggSM;
 
-    gslpp::complex I_h_F = 0.0;
-    gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
-    gslpp::complex fermD = I_h_D(mhsq,Md,Ms,Mb);
-    gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
-    gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
-    gslpp::complex I_h_W = sin(bma)*I_hSM_W;
+        //photon coupling
+        gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
+        gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
+        gslpp::complex I_h_S = 8.0*ch_p*I_H_Hp(mHpsq,mhsq);//Factor 8 maybe wrong!
+        double ABSgagaMW=(fermU+fermD+fermL+I_hSM_W+I_h_S).abs2();
+        double ABSgagaSM=(fermU+fermD+fermL+I_hSM_W).abs2();
+        rh_gaga=ABSgagaMW/ABSgagaSM;
 
-    double ABSgagaTHDMW=0.0;
-    double ABSgagaSM=0.0;
+        //Z photon coupling
+        gslpp::complex A_h_Ux = A_h_U(mhsq,cW2,Mu,Mc,Mt,MZ);
+        gslpp::complex A_h_Dx = A_h_D(mhsq,cW2,Md,Ms,Mb,MZ);
+        gslpp::complex A_h_Lx  = A_h_L(mhsq,cW2,Me,Mmu,Mtau,MZ);
+        gslpp::complex A_h_F = (A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
+        gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
+        gslpp::complex A_h_S = 8.0*ch_p*A_H_Hp(mHpsq,mhsq,cW2,MZ);//Factor 8 maybe wrong!
+        double ABSZgaMW=(A_h_F+A_hSM_W+A_h_S).abs2();
+        double ABSZgaSM=(A_h_F+A_hSM_W).abs2();
+        rh_Zga=ABSZgaMW/ABSZgaSM;
 
-    //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
-
-    gslpp::complex A_h_F = 0.0;
-    gslpp::complex A_h_Ux = A_h_U(mhsq,cW2,Mu,Mc,Mt,MZ);
-    gslpp::complex A_h_Dx = A_h_D(mhsq,cW2,Md,Ms,Mb,MZ);
-    gslpp::complex A_h_Lx  = A_h_L(mhsq,cW2,Me,Mmu,Mtau,MZ);
-    gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
-    gslpp::complex A_h_W = sin(bma)*A_hSM_W;
-
-    double ABSZgaTHDMW=0.0;
-    double ABSZgaSM=0.0;
-
-    if( THDMWmodel == "custodial1" ) {
-        rh_QdQd=cosa/sinb*cosa/sinb;
-        rh_ll=cosa/sinb*cosa/sinb;
-        ghHpHm = vev*vev/mAsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
-                                 +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
-                                 -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
-        I_h_F=cosa/sinb*(fermU+fermD+fermL);
-        A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
     }
-    else {
-        throw std::runtime_error("THDMWmodel can be only \"custodial1\"");
+    else{
+        rh_QuQu = cosa*cosa/(sinb*sinb);
+        rh_VV = sin(bma)*sin(bma);
+        rh_QdQd = 0.0;
+        rh_ll = 0.0;
+        rh_gg = 0.0;
+
+        double ghHpHm = 0.0;
+
+        //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
+
+        gslpp::complex I_h_F = 0.0;
+        gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
+        gslpp::complex fermD = I_h_D(mhsq,Md,Ms,Mb);
+        gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
+        gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
+        gslpp::complex I_h_W = sin(bma)*I_hSM_W;
+
+        double ABSgagaTHDMW=0.0;
+        double ABSgagaSM=0.0;
+
+        //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
+
+        gslpp::complex A_h_F = 0.0;
+        gslpp::complex A_h_Ux = A_h_U(mhsq,cW2,Mu,Mc,Mt,MZ);
+        gslpp::complex A_h_Dx = A_h_D(mhsq,cW2,Md,Ms,Mb,MZ);
+        gslpp::complex A_h_Lx  = A_h_L(mhsq,cW2,Me,Mmu,Mtau,MZ);
+        gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
+        gslpp::complex A_h_W = sin(bma)*A_hSM_W;
+
+        double ABSZgaTHDMW=0.0;
+        double ABSZgaSM=0.0;
+
+        if( THDMWmodel == "custodial1" ) {
+            rh_QdQd=cosa/sinb*cosa/sinb;
+            rh_ll=cosa/sinb*cosa/sinb;
+            ghHpHm = vev*vev/mAsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
+                                     +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
+                                     -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
+            I_h_F=cosa/sinb*(fermU+fermD+fermL);
+            A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
+        }
+        else {
+            throw std::runtime_error("THDMWmodel can be only \"custodial1\" or \"ManoharWise\"");
+        }
+
+        double ch_p=0.0;
+        double ch_r=0.0;
+        gslpp::complex I_h_Sp = 1.5*ch_p*(3.0*I_H_Hp(mSpsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SR = 1.5*ch_r*(3.0*I_H_Hp(mSRsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SI = 1.5*ch_p*(3.0*I_H_Hp(mSIsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+    //    double ABSggTHDMW=(9.0/32.0*I_h_F+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
+    //    double ABSggSM=(9.0/32.0*(fermU+fermD)).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
+        rh_gg=cosa/sinb*cosa/sinb;
+
+        gslpp::complex I_h_Hp = 16.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
+        gslpp::complex A_h_Hp = 16.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
+        gslpp::complex I_h_S = 0.0;
+        gslpp::complex A_h_S = 0.0;
+
+        ABSgagaTHDMW=(I_h_F+I_h_W+I_h_Hp+I_h_S).abs2();
+        ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
+        rh_gaga=ABSgagaTHDMW/ABSgagaSM;
+    //
+        ABSZgaTHDMW=(A_h_F+A_h_W+A_h_Hp+A_h_S).abs2();
+        ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
+        rh_Zga=ABSZgaTHDMW/ABSZgaSM;
     }
-
-    double ch_p=0.0;
-    double ch_r=0.0;
-    gslpp::complex I_h_Sp = 1.5*ch_p*(3.0*I_H_Hp(mSpsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-    gslpp::complex I_h_SR = 1.5*ch_r*(3.0*I_H_Hp(mSRsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-    gslpp::complex I_h_SI = 1.5*ch_p*(3.0*I_H_Hp(mSIsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-//    double ABSggTHDMW=(9.0/32.0*I_h_F+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
-//    double ABSggSM=(9.0/32.0*(fermU+fermD)).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
-    rh_gg=cosa/sinb*cosa/sinb;
-
-    gslpp::complex I_h_Hp = 16.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
-    gslpp::complex A_h_Hp = 16.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
-    gslpp::complex I_h_S = 0.0;
-    gslpp::complex A_h_S = 0.0;
-
-    ABSgagaTHDMW=(I_h_F+I_h_W+I_h_Hp+I_h_S).abs2();
-    ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
-    rh_gaga=ABSgagaTHDMW/ABSgagaSM;
-//
-    ABSZgaTHDMW=(A_h_F+A_h_W+A_h_Hp+A_h_S).abs2();
-    ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
-    rh_Zga=ABSZgaTHDMW/ABSZgaSM;
 
     sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
           rh_gaga*BrSM_htogaga + rh_gg*BrSM_htogg + rh_Zga*BrSM_htoZga + rh_QuQu*BrSM_htocc;
