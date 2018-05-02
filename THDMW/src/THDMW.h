@@ -183,7 +183,12 @@ public:
      * @return @f$\lambda_2@f$
      */
     double getTHDMW_lambda2() const {
-        return THDMW_lambda2;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_lambda3;
+        }
     }
 
     /**
@@ -191,7 +196,12 @@ public:
      * @return @f$\lambda_3@f$
      */
     double getTHDMW_lambda3() const {
-        return THDMW_lambda3;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_lambda3;
+        }
     }
 
     /**
@@ -199,7 +209,12 @@ public:
      * @return @f$\lambda_4@f$
      */
     double getTHDMW_lambda4() const {
-        return THDMW_lambda4;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_lambda4;
+        }
     }
 
     /**
@@ -209,6 +224,9 @@ public:
     double getTHDMW_lambda5() const {
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_lambda4;
+        }
+        else if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
         }
         else {
             return THDMW_lambda5;
@@ -339,7 +357,12 @@ public:
      * @return @f$\omega_1@f$
      */
     double getTHDMW_omega1() const {
-        return THDMW_omega1;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_omega1;
+        }
     }
 
     /**
@@ -347,7 +370,12 @@ public:
      * @return @f$\omega_2@f$
      */
     double getTHDMW_omega2() const {
-        return THDMW_omega2;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_omega2;
+        }
     }
 
     /**
@@ -357,6 +385,9 @@ public:
     double getTHDMW_omega3() const {
         if (flag_modelTHDMW == "custodial1") {
             return 0.5*THDMW_omega2;
+        }
+        else if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
         }
         else {
             return THDMW_omega3;
@@ -368,7 +399,12 @@ public:
      * @return @f$\omega_4@f$
      */
     double getTHDMW_omega4() const {
-        return THDMW_omega4;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_omega4;
+        }
     }
 
     /**
@@ -378,6 +414,9 @@ public:
     double getTHDMW_omega5() const {
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_omega4;
+        }
+        else if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
         }
         else {
             return THDMW_omega5;
@@ -389,7 +428,12 @@ public:
      * @return @f$\kappa_1@f$
      */
     double getTHDMW_kappa1() const {
-        return THDMW_kappa1;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_kappa1;
+        }
     }
 
     /**
@@ -397,7 +441,12 @@ public:
      * @return @f$\kappa_2@f$
      */
     double getTHDMW_kappa2() const {
-        return THDMW_kappa2;
+        if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
+        }
+        else {
+            return THDMW_kappa2;
+        }
     }
 
     /**
@@ -407,6 +456,9 @@ public:
     double getTHDMW_kappa3() const {
         if (flag_modelTHDMW == "custodial1") {
             return THDMW_kappa2;
+        }
+        else if (flag_modelTHDMW == "ManoharWise") {
+            return 0.0;
         }
         else {
             return THDMW_kappa3;
@@ -454,6 +506,8 @@ protected:
     bool checkmodelTypeTHDMW(const std::string modeltype) const
     {
         if (modeltype.compare("custodial1") == 0)
+            return true;
+        if (modeltype.compare("ManoharWise") == 0)
             return true;
         else if (modeltype.compare("custodial2") == 0)
             return true;
