@@ -8,12 +8,16 @@
 #include "HiggsKigen.h"
 
 const std::string HiggsKigen::HKvKfgenvars[NHKvKfgenvars] = {
-    "Kw", "Kz", "Kg", "Kga", "Kzga", "Ku", "Kc", "Kt", "Kd", "Ks", "Kb", "Ke", "Kmu", "Ktau", "BrHinv"
+    "Kw", "Kz", "Kg", "Kga", "Kzga", "Ku", "Kc", "Kt", "Kd", "Ks", "Kb", "Ke", "Kmu", "Ktau", "KH"
 };
 
 HiggsKigen::HiggsKigen()
 : NPbase()
 {
+    
+    FlagExoDec = false;
+    FlagCustodial = false;
+    
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kw", boost::cref(Kw)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kz", boost::cref(Kz)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kg", boost::cref(Kg)));
@@ -28,7 +32,22 @@ HiggsKigen::HiggsKigen()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ke", boost::cref(Ke)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kmu", boost::cref(Kmu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ktau", boost::cref(Ktau)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(KH)));
+}
+
+bool HiggsKigen::PostUpdate()
+{
+    if (!NPbase::PostUpdate()) return (false);
+      
+    if (!FlagExoDec) {
+        KH = 1.0;
+    }
+
+    if (FlagCustodial) {
+        Kz = Kw;
+    }
+
+    return (true);
 }
 
 void HiggsKigen::setParameter(const std::string name, const double& value)
@@ -61,8 +80,8 @@ void HiggsKigen::setParameter(const std::string name, const double& value)
         Kmu = value;
     else if (name.compare("Ktau") == 0)
         Ktau = value;
-    else if (name.compare("BrHinv") == 0)
-        BrHinv = value;
+    else if (name.compare("KH") == 0)
+        KH = value;
     else
         NPbase::setParameter(name, value);
 }
@@ -76,6 +95,21 @@ bool HiggsKigen::CheckParameters(const std::map<std::string, double>& DPars)
         }
     }
     return (NPbase::CheckParameters(DPars));
+}
+
+bool HiggsKigen::setFlag(const std::string name, const bool value)
+{
+    bool res = false;
+    if (name.compare("ExoDec") == 0) {
+        FlagExoDec = value;
+        res = true;
+    } else if (name.compare("Custodial") == 0) {
+        FlagCustodial = value;
+        res = true;
+    } else
+        res = NPbase::setFlag(name, value);
+
+    return (res);
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -257,7 +291,8 @@ double HiggsKigen::muttHtautau(const double sqrt_s) const
 
 double HiggsKigen::computeGammaTotalRatio() const
 {
-    return ((computeKg() * computeKg() * trueSM.computeBrHtogg()
+    if (!FlagExoDec) {
+        return ((computeKg() * computeKg() * trueSM.computeBrHtogg()
             + computeKW() * computeKW() * trueSM.computeBrHtoWW()
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
             + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
@@ -265,8 +300,7 @@ double HiggsKigen::computeGammaTotalRatio() const
             + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
-            + computeKb() * computeKb() * trueSM.computeBrHtobb()
-            + BrHinv)
+            + computeKb() * computeKb() * trueSM.computeBrHtobb())
             / (trueSM.computeBrHtogg()
             + trueSM.computeBrHtoWW()
             + trueSM.computeBrHtoZZ()
@@ -276,6 +310,49 @@ double HiggsKigen::computeGammaTotalRatio() const
             + trueSM.computeBrHtotautau()
             + trueSM.computeBrHtocc()
             + trueSM.computeBrHtobb()));
+    } else {
+        return KH*KH;
+    }
+}
+
+
+double HiggsKigen::BrHexo() const
+{
+    double BrSMmodes, Brexo;
+    double BrSMrem;
+    
+    if (FlagExoDec) {   
+     
+//  SM BR associated to the modes not corrected by NP
+        BrSMrem = 1.0 - (trueSM.computeBrHtogg()
+            + trueSM.computeBrHtoWW()
+            + trueSM.computeBrHtoZZ()
+            + trueSM.computeBrHtoZga()
+            + trueSM.computeBrHtogaga()
+            + trueSM.computeBrHtomumu()
+            + trueSM.computeBrHtotautau()
+            + trueSM.computeBrHtocc()
+            + trueSM.computeBrHtobb());
+
+//  Br associated to the SM modes in presence of NP effects   
+        BrSMmodes = computeKg() * computeKg() * trueSM.computeBrHtogg()
+            + computeKW() * computeKW() * trueSM.computeBrHtoWW()
+            + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
+            + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
+            + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
+            + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
+            + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
+            + computeKc() * computeKc() * trueSM.computeBrHtocc()
+            + computeKb() * computeKb() * trueSM.computeBrHtobb()
+            + BrSMrem;
+    
+        Brexo = 1.0 - BrSMmodes/KH/KH;
+        
+        return Brexo;
+
+    } else {
+        return 0.0;   
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////
