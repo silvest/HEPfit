@@ -32,7 +32,7 @@ HiggsKigen::HiggsKigen()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ke", boost::cref(Ke)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kmu", boost::cref(Kmu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ktau", boost::cref(Ktau)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(KH)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("KH", boost::cref(KH)));
 }
 
 bool HiggsKigen::PostUpdate()
