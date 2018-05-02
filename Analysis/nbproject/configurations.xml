@@ -112,7 +112,7 @@
             <pElem>../boost</pElem>
             <pElem>../HiggsExtensions/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
@@ -1440,7 +1440,7 @@
             <pElem>../boost</pElem>
             <pElem>../HiggsExtensions/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `gsl-config --cflags` -Wall -Wno-unused-local-typedefs</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags` -std=c++11</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
