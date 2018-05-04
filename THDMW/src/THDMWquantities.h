@@ -497,4 +497,70 @@ private:
     const THDMW& myTHDMW;
 };
 
+/**
+ * @class rh_gg_THDMW
+ * @ingroup THDMW
+ * @brief rh_gg_THDMW.
+ */
+class rh_gg_THDMW: public ThObservable {
+public:
+
+    /**
+     * @brief rh_gg_THDMW constructor.
+     */
+    rh_gg_THDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$r_{gg}^h@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class rh_gaga_THDMW
+ * @ingroup THDMW
+ * @brief rh_gaga_THDMW.
+ */
+class rh_gaga_THDMW: public ThObservable {
+public:
+
+    /**
+     * @brief rh_gaga_THDMW constructor.
+     */
+    rh_gaga_THDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$r_{\gamma\gamma}^h@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class rh_Zga_THDMW
+ * @ingroup THDMW
+ * @brief rh_Zga_THDMW.
+ */
+class rh_Zga_THDMW: public ThObservable {
+public:
+
+    /**
+     * @brief rh_Zga_THDMW constructor.
+     */
+    rh_Zga_THDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$r_{Z\gamma}^h@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
 #endif	/* THDMWQUANTITIES_H */

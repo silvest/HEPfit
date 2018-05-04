@@ -344,6 +344,10 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
         flag_ATHDM = value;
         res = true;
     }
+    if(name.compare("CPconservation") == 0) {
+        flag_CPconservation = value;
+        res = true;
+    }
     else
         res = StandardModel::setFlag(name,value);
 

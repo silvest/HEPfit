@@ -1508,6 +1508,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mhsqTHDMW"] = boost::factory<mhsqTHDMW*>();
     obsThFactory["mHHsqTHDMW"] = boost::factory<mHHsqTHDMW*>();
     obsThFactory["mAsqTHDMW"] = boost::factory<mAsqTHDMW*>();
+    obsThFactory["mSpsqTHDMW"] = boost::factory<mSpsqTHDMW*>();
     obsThFactory["mSRsqTHDMW"] = boost::factory<mSRsqTHDMW*>();
     obsThFactory["mSIsqTHDMW"] = boost::factory<mSIsqTHDMW*>();
     obsThFactory["mAmmHH_THDMW"] = boost::factory<mAmmHH_THDMW*>();
@@ -1522,6 +1523,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mSImmHH_THDMW"] = boost::factory<mSImmHH_THDMW*>();
     obsThFactory["mSRmmSI_THDMW"] = boost::factory<mSRmmSI_THDMW*>();
     obsThFactory["mSImmSR_THDMW"] = boost::factory<mSImmSR_THDMW*>();
+    //-----   Higgs observables -----
+    obsThFactory["rh_gg_THDMW"] = boost::factory<rh_gg_THDMW*>();
+    obsThFactory["rh_gaga_THDMW"] = boost::factory<rh_gaga_THDMW*>();
+    obsThFactory["rh_Zga_THDMW"] = boost::factory<rh_Zga_THDMW*>();
     /** END: REMOVE FROM THE PACKAGE **/
 
     //-----  GeorgiMachacek observables  -----
