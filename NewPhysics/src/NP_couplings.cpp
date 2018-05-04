@@ -1082,6 +1082,26 @@ double deltagHZZ::computeThValue()
 
 /* -------------------------------------*/
 
+gHZZeff::gHZZeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHZZeff::~gHZZeff()
+{}
+
+double gHZZeff::computeThValue()
+{
+    double gNP = myNPbase->kappaZeff();
+    
+    return gNP;
+}
+
+/* -------------------------------------*/
+
 gHZZ1::gHZZ1(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
@@ -1210,6 +1230,27 @@ double deltagHWW::computeThValue()
     double gSM = 2.0 * (SM.Mw_tree())* (SM.Mw_tree()) / (SM.v());
     
     return dg/gSM;
+}
+
+
+/* -------------------------------------*/
+
+gHWWeff::gHWWeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHWWeff::~gHWWeff()
+{}
+
+double gHWWeff::computeThValue()
+{
+    double gNP = myNPbase->kappaWeff();
+    
+    return gNP;
 }
 
 /* -------------------------------------*/

@@ -6474,6 +6474,18 @@ double NPSMEFTd6::lambdaZNP() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
+double NPSMEFTd6::kappaZeff() const
+{
+      return sqrt(GammaHZZRatio());
+}
+
+double NPSMEFTd6::kappaWeff() const
+{
+      return sqrt(GammaHWWRatio());
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 double NPSMEFTd6::CLL_mu() const
 {
     return (CLL_1122 + CLL_2211 + CLL_1221 + CLL_2112);

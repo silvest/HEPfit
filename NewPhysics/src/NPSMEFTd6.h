@@ -1693,6 +1693,20 @@ public:
     virtual double lambdaZNP() const;
     
     ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{Z,eff}=\sqrt{\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}}@f$.
+     * @return @f$\kappa_{Z,eff}@f$
+     */
+    virtual double kappaZeff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{W,eff}=\sqrt{\Gamma_{HWW}/\Gamma_{HWW}^{SM}}@f$.
+     * @return @f$\kappa_{W,eff}@f$
+     */
+    virtual double kappaWeff() const;
+    
+    ////////////////////////////////////////////////////////////////////////
 protected:
 
     /**
