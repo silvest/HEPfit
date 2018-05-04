@@ -203,16 +203,17 @@ private:
     double mu5;
     double mu6;
     double nu1;
-    double omega1;
-    double kappa1;
     double nu2;
-    double omega2;
-    double kappa2;
     double nu3;
-    double omega3;
-    double kappa3;
     double nu4;
+    double nu5;
+    double omega1;
+    double omega2;
+    double omega3;
     double omega4;
+    double kappa1;
+    double kappa2;
+    double kappa3;
 };
 
 #endif	/* THDMWCACHE_H */
