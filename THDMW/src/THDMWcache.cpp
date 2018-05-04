@@ -754,7 +754,71 @@ void THDMWcache::runTHDMWparameters()
             omega4_at_Q = InitVals[14];
         }
     }//End custodial1 case
+    if( THDMWmodel == "ManoharWise")
+    {
+        double lambda1_at_MZ=lambda1;
+        double nu1_at_MZ=nu1;
+        double nu2_at_MZ=nu2;
+        double nu3_at_MZ=nu3;
+        double nu4_at_MZ=nu4;
+        double nu5_at_MZ=nu5;
+        double mu1_at_MZ=mu1;
+        double mu2_at_MZ=mu2;
+        double mu3_at_MZ=mu3;
+        double mu4_at_MZ=mu4;
+        double mu5_at_MZ=mu5;
+        double mu6_at_MZ=mu6;
+        double NLOuniscale=myTHDMW->getNLOuniscaleTHDMW();
 
+        if(fabs(Q_THDMW-log10(MZ))<0.005)   //at MZ scale
+        {
+            Q_cutoff=log10(MZ);
+
+            lambda1_at_Q = lambda1_at_MZ;
+            nu1_at_Q = nu1_at_MZ;
+            nu2_at_Q = nu2_at_MZ;
+            nu3_at_Q = nu3_at_MZ;
+            nu4_at_Q = nu4_at_MZ;
+            nu5_at_Q = nu5_at_MZ;
+            mu1_at_Q = mu1_at_MZ;
+            mu2_at_Q = mu2_at_MZ;
+            mu3_at_Q = mu3_at_MZ;
+            mu4_at_Q = mu4_at_MZ;
+            mu5_at_Q = mu5_at_MZ;
+            mu6_at_Q = mu6_at_MZ;
+        }
+        else   //at some other scale
+        {
+            double InitVals[12];
+            InitVals[0]=lambda1_at_MZ;
+            InitVals[1]=nu1_at_MZ;
+            InitVals[2]=nu2_at_MZ;
+            InitVals[3]=nu3_at_MZ;
+            InitVals[4]=nu4_at_MZ;
+            InitVals[5]=nu5_at_MZ;
+            InitVals[6]=mu1_at_MZ;
+            InitVals[7]=mu2_at_MZ;
+            InitVals[8]=mu3_at_MZ;
+            InitVals[9]=mu4_at_MZ;
+            InitVals[10]=mu5_at_MZ;
+            InitVals[11]=mu6_at_MZ;
+
+            Q_cutoff=myRunnerTHDMW->RGERunnerMW(InitVals, 12, log10(MZ), Q_THDMW, flag, RpepsTHDMW, NLOuniscale);  //Running up to Q_cutoff<=Q_THDM
+
+            lambda1_at_Q = InitVals[0];
+            nu1_at_Q = InitVals[1];
+            nu2_at_Q = InitVals[2];
+            nu3_at_Q = InitVals[3];
+            nu4_at_Q = InitVals[4];
+            nu5_at_Q = InitVals[5];
+            mu1_at_Q=InitVals[6];
+            mu2_at_Q=InitVals[7];
+            mu3_at_Q=InitVals[8];
+            mu4_at_Q = InitVals[9];
+            mu5_at_Q=InitVals[10];
+            mu6_at_Q=InitVals[11];
+        }
+    }//End ManoharWise case
 }
 
 void THDMWcache::computeUnitarity()

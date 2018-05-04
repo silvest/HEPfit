@@ -60,6 +60,11 @@ public:
     double kappa2_at_Q;
     double nu4_at_Q;
     double omega4_at_Q;
+    double nu3_at_Q;
+    double nu5_at_Q;
+    double mu2_at_Q;
+    double mu5_at_Q;
+    double mu6_at_Q;
     double m12sq;
     double m11sq;
     double m22sq;

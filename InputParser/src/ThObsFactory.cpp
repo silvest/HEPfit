@@ -1429,8 +1429,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda3atQTHDMW"] = boost::factory<lambda3atQTHDMW*>();
     obsThFactory["lambda4atQTHDMW"] = boost::factory<lambda4atQTHDMW*>();
     obsThFactory["mu1atQTHDMW"] = boost::factory<mu1atQTHDMW*>();
+    obsThFactory["mu2atQTHDMW"] = boost::factory<mu2atQTHDMW*>();
     obsThFactory["mu3atQTHDMW"] = boost::factory<mu3atQTHDMW*>();
     obsThFactory["mu4atQTHDMW"] = boost::factory<mu4atQTHDMW*>();
+    obsThFactory["mu5atQTHDMW"] = boost::factory<mu5atQTHDMW*>();
+    obsThFactory["mu6atQTHDMW"] = boost::factory<mu6atQTHDMW*>();
     obsThFactory["nu1atQTHDMW"] = boost::factory<nu1atQTHDMW*>();
     obsThFactory["omega1atQTHDMW"] = boost::factory<omega1atQTHDMW*>();
     obsThFactory["kappa1atQTHDMW"] = boost::factory<kappa1atQTHDMW*>();
@@ -1439,6 +1442,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["kappa2atQTHDMW"] = boost::factory<kappa2atQTHDMW*>();
     obsThFactory["nu4atQTHDMW"] = boost::factory<nu4atQTHDMW*>();
     obsThFactory["omega4atQTHDMW"] = boost::factory<omega4atQTHDMW*>();
+    obsThFactory["nu3atQTHDMW"] = boost::factory<nu3atQTHDMW*>();
+    obsThFactory["nu5atQTHDMW"] = boost::factory<nu5atQTHDMW*>();
     //-----  Positivity constraints  -----
     obsThFactory["THDMWpositivity1"] = boost::factory<THDMWpositivity1*>();
     obsThFactory["THDMWpositivity2"] = boost::factory<THDMWpositivity2*>();
