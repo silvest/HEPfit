@@ -12,6 +12,7 @@ class StandardModel;
 class EvolDF1nlep;
 #include "WilsonCoefficient.h"
 #include <sstream>
+#include <memory>
 
 class HeffDF1bnlep {
 public:
@@ -77,7 +78,7 @@ public:
     }
     
     EvolDF1nlep& getUDF1() const {
-        return u;
+        return *u;
     }
 
     const StandardModel& GetModel() const {
@@ -91,7 +92,7 @@ private :
     WilsonCoefficient coeffbnlep10qcd, coeffbnlep10;
     WilsonCoefficient coeffbnlep01, coeffbnlep01A, coeffbnlep01B, coeffbnlep00CC;
     WilsonCoefficient coeffbnlep11, coeffbnlep11A, coeffbnlep11B, coeffbnlep10CC;
-    EvolDF1nlep& u;
+    std::unique_ptr<EvolDF1nlep> u;
     
     gslpp::vector<gslpp::complex> bnlep, bnlep2, bnlepCC;
 };

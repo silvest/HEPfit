@@ -12,7 +12,7 @@
 
 HeffDC1::HeffDC1(const StandardModel & SM) 
 :       model(SM), coeffdc1(10, NDR, NLO), 
-        coeffdc1g(10, NDR, NLO), ug(*(new EvolDC1(10, NDR, NLO, SM))), u(*(new EvolDC1Buras(10, NDR, NLO, SM))), 
+        coeffdc1g(10, NDR, NLO), ug(new EvolDC1(10, NDR, NLO, SM)), u(new EvolDC1Buras(10, NDR, NLO, SM)), 
         ckm(3,0.), COEFF_pi(10,0.), COEFF_K(10,0.)
 {
   
@@ -52,7 +52,7 @@ gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1_pi(double mu, schemes s
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffdc1.setCoeff(*coeffdc1.getCoeff(orders(j)) +
-                    ug.DC1Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    ug->DC1Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
                 }
             }
@@ -76,7 +76,7 @@ gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1_K(double mu, schemes sc
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffdc1.setCoeff(*coeffdc1.getCoeff(orders(j)) + 
-                    ug.DC1Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    ug->DC1Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
                 }
             }
@@ -105,7 +105,7 @@ gslpp::vector<gslpp::complex>** HeffDC1::ComputeCoeffDC1g(double mu, schemes sch
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++)  {
                 coeffdc1g.setCoeff(*coeffdc1g.getCoeff(orders(j)) +
-                    ug.DC1Evol(mu, mcg[i].getMu(), orders(k), mcg[i].getScheme()) *
+                    ug->DC1Evol(mu, mcg[i].getMu(), orders(k), mcg[i].getScheme()) *
                     (*(mcg[i].getCoeff(orders(j - k)))), orders(j));
             }
             //STAMPA PROVE

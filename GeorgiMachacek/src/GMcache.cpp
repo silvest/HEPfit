@@ -1419,6 +1419,7 @@ void GMcache::computeSignalStrengthQuantities()
 
 int GMcache::HSTheta (const double x) const{
     if(x<0) return 0.0;
+    else if(x==0) return 0.5;
     else return 1.0;
 }
 
@@ -1459,11 +1460,9 @@ void GMcache::computeOtherHiggsProperties()
 //    /* rX_ii is the squared ratio between the GM vertex coupling of the neutral heavy Higgs X to
 //     * the particle i and the corresponding coupling of the SM Higgs boson.*/
     double rHH_ff=0.0;
-    double rA_ff=0.0;
-    double rH5_ff=0.0;
+    double rA_ff=1.0/(tanb*tanb);
     double rHH_VV=0.0;
-    double rA_VV=0.0;
-    double rH5_VV=0.0;
+    double rH5_VV=cosb/sqrt(3.0);
 
     double gHH_H3=0., gHH_H5=0.;
 
@@ -1603,43 +1602,99 @@ void GMcache::computeOtherHiggsProperties()
     //Following partial widths stem from the GMcalc manual 1412.7387
     //lambda^{1/2}(x,y) is equivalent to 2*KaellenFunction(1,x,y)
 
-    // H3 -> f f' decays
+    // H3p -> f f' decays
+
     
-    rA_ff = 1.0/(tanb*tanb);
+
+    // H5 -> V V decays
+
+    double GammaH5pZW     = HSTheta(mH5-MZ-MW)*(Ale*Ale*M_PI*vev*vev*cosb*cosb)
+                            *(1.0-2.0*MZ*MZ/mH5sq-2.0*MW*MW/mH5sq+10.0*MZ*MZ*MW*MW/(mH5sq*mH5sq)+MZ*MZ*MZ*MZ/(mH5sq*mH5sq)+MW*MW*MW*MW/(mH5sq*mH5sq))
+                            *mH5sq*mH5*KaellenFunction(1.0,MZ*MZ/mH5sq,MW*MW/mH5sq)/(8.0*MZ*MZ*MW*MW*cW2*sW2*sW2);
+
+    double kW=MW*MW/mH5sq;
+    double GammaH5ppWW    = /*On-shell part*/
+                            HSTheta(mH5-2.0*MW)*(Ale*Ale*M_PI*vev*vev*cosb*cosb)
+                            *(1.0-4.0*kW+12.0*kW*kW)
+                            *mH5sq*mH5*KaellenFunction(1.0,kW,kW)/(16.0*MW*MW*MW*MW*sW2*sW2)
+                            /*Off-shell part*/
+                            +HSTheta(2.0*MW-mH5)*HSTheta(mH5-MW)*9.0*mH5*(Ale*Ale*cosb*cosb)/(32.0*M_PI*sW2*sW2)
+                            *(((1.0-8.0*kW+20.0*kW*kW)/sqrt(4.0*kW-1.0))*acos((3.0*kW-1.0)/(2.0*kW*sqrt(kW)))
+                              -(1.0-kW)/(6.0*kW)*(2.0-13.0*kW+47.0*kW*kW) - 0.5*(1.0-6.0*kW+4.0*kW*kW)*log(kW));
 
     // H1 -> V H2 decays
+    //lambda(x/y,z/y)*lambda^{1/2}(y/x,z/x) = KaellenFunction(x,y,z)^3 * 8*sqrt(x)/y^2
 
-    double GammaHAZ       = HSTheta(mHh-sqrt(mAsq)-MZ)
+    double GammaHAZ       = HSTheta(mHh-mA-MZ)*2.0*Ale*(0.25*sina*sina*cosb*cosb-2.0/sqrt(6.0)*sina*cosa*sinb*cosb+cosa*cosa*sinb*sinb)
                             *KaellenFunction(mH1sq,MZ*MZ,mAsq)*KaellenFunction(mH1sq,MZ*MZ,mAsq)*KaellenFunction(mH1sq,MZ*MZ,mAsq)
-                            /(2.0*M_PI*MZ*MZ);
+                            /(cW2*sW2*MZ*MZ);
 
-    double GammaHHpW      = HSTheta(mHh-sqrt(mAsq)-MW)
+    double GammaHHpW      = HSTheta(mHh-mA-MW)*2.0*Ale*(0.25*sina*sina*cosb*cosb-2.0/sqrt(6.0)*sina*cosa*sinb*cosb+cosa*cosa*sinb*sinb)
                             *KaellenFunction(mH1sq,MW*MW,mAsq)*KaellenFunction(mH1sq,MW*MW,mAsq)*KaellenFunction(mH1sq,MW*MW,mAsq)
-                            /(2.0*M_PI*MW*MW);
+                            /(sW2*MW*MW);
 
-    double GammaAhZ=0.;
-    double GammaAHZ=0.;
-    double GammaAHpW=0.;
-    double GammaAH5Z=0.;
-    double GammaAH5pW=0.;
-    double GammaHphW=0.;
-    double GammaHpHW=0.;
-    double GammaHpZW=0.;
-    double GammaHpH5pZ=0.;
-    double GammaHpH5ppW   = 0.0;
-    double GammaH5AZ=0.;
-    double GammaH5HpW=0.;
-    double GammaH5pZW=0.;
-    double GammaH5pAW=0.;
-    double GammaH5pHpZ=0.;
-    double GammaH5ppWW=0.;
+    double GammaAhZ       = HSTheta(mA-sqrt(mHl2)-MZ)*2.0*Ale*(0.25*cosa*cosa*cosb*cosb+2.0/sqrt(6.0)*sina*cosa*sinb*cosb+sina*sina*sinb*sinb)
+                            *KaellenFunction(mAsq,MZ*MZ,mHl2)*KaellenFunction(mAsq,MZ*MZ,mHl2)*KaellenFunction(mAsq,MZ*MZ,mHl2)
+                            /(cW2*sW2*MZ*MZ);
+
+    double GammaAHZ       = HSTheta(mA-mHh-MZ)*2.0*Ale*(0.25*sina*sina*cosb*cosb-2.0/sqrt(6.0)*sina*cosa*sinb*cosb+cosa*cosa*sinb*sinb)
+                            *KaellenFunction(mAsq,MZ*MZ,mH1sq)*KaellenFunction(mAsq,MZ*MZ,mH1sq)*KaellenFunction(mAsq,MZ*MZ,mH1sq)
+                            /(cW2*sW2*MZ*MZ);
+
+    double GammaAH5Z      = HSTheta(mA-mH5-MZ)*2.0*Ale*sinb*sinb
+                            *KaellenFunction(mAsq,MZ*MZ,mH5sq)*KaellenFunction(mAsq,MZ*MZ,mH5sq)*KaellenFunction(mAsq,MZ*MZ,mH5sq)
+                            /(3.0*sW2*cW2*MZ*MZ);
+
+    double GammaAH5pW     = HSTheta(mA-mH5-MW)*Ale*sinb*sinb
+                            *KaellenFunction(mAsq,MW*MW,mH5sq)*KaellenFunction(mAsq,MW*MW,mH5sq)*KaellenFunction(mAsq,MW*MW,mH5sq)
+                            /(2.0*sW2*MW*MW);
+
+    double GammaHphW      = HSTheta(mA-mHl-MW)*2.0*Ale*(0.25*cosa*cosa*cosb*cosb+2.0/sqrt(6.0)*sina*cosa*sinb*cosb+sina*sina*sinb*sinb)
+                            *KaellenFunction(mAsq,MW*MW,mHl*mHl)*KaellenFunction(mAsq,MW*MW,mHl*mHl)*KaellenFunction(mAsq,MW*MW,mHl*mHl)
+                            /(sW2*MW*MW);
+
+    double GammaHpHW      = HSTheta(mA-mHh-MW)*2.0*Ale*(0.25*sina*sina*cosb*cosb-2.0/sqrt(6.0)*sina*cosa*sinb*cosb+cosa*cosa*sinb*sinb)
+                            *KaellenFunction(mAsq,MW*MW,mH1sq)*KaellenFunction(mAsq,MW*MW,mH1sq)*KaellenFunction(mAsq,MW*MW,mH1sq)
+                            /(sW2*MW*MW);
+
+    double GammaHpH5pZ    = HSTheta(mA-mH5-MZ)*(Ale*sinb*sinb)
+                            *KaellenFunction(mAsq,MZ*MZ,mH5sq)*KaellenFunction(mAsq,MZ*MZ,mH5sq)*KaellenFunction(mAsq,MZ*MZ,mH5sq)
+                            /(2.0*MZ*MZ*sW2*cW2);
+
+    double GammaHpH5W     = HSTheta(mA-mH5-MW)*(Ale*sinb*sinb)
+                            *KaellenFunction(mAsq,MW*MW,mH5sq)*KaellenFunction(mAsq,MW*MW,mH5sq)*KaellenFunction(mAsq,MW*MW,mH5sq)
+                            /(6.0*sW2*MW*MW);
+
+    double GammaHpH5ppW   = HSTheta(mA-mH5-MW)*(Ale*sinb*sinb)
+                            *KaellenFunction(mAsq,MW*MW,mH5sq)*KaellenFunction(mAsq,MW*MW,mH5sq)*KaellenFunction(mAsq,MW*MW,mH5sq)
+                            /(sW2*MW*MW);
+
+    double GammaH5AZ      = HSTheta(mH5-mA-MZ)*(2.0*Ale*sinb*sinb)
+                            *KaellenFunction(mH5sq,MZ*MZ,mAsq)*KaellenFunction(mH5sq,MZ*MZ,mAsq)*KaellenFunction(mH5sq,MZ*MZ,mAsq)
+                            /(3.0*sW2*cW2*MZ*MZ);
+
+    double GammaH5HpW     = HSTheta(mH5-mA-MW)*(Ale*sinb*sinb)
+                            *KaellenFunction(mH5sq,MW*MW,mAsq)*KaellenFunction(mH5sq,MW*MW,mAsq)*KaellenFunction(mH5sq,MW*MW,mAsq)
+                            /(6.0*sW2*MW*MW);
+
+    double GammaH5pAW     = HSTheta(mH5-mA-MW)*(Ale*sinb*sinb)
+                            *KaellenFunction(mH5sq,MW*MW,mAsq)*KaellenFunction(mH5sq,MW*MW,mAsq)*KaellenFunction(mH5sq,MW*MW,mAsq)
+                            /(2.0*sW2*MW*MW);
+
+    double GammaH5pHpZ    = HSTheta(mH5-mA-MZ)*(Ale*sinb*sinb)
+                            *KaellenFunction(mH5sq,MZ*MZ,mAsq)*KaellenFunction(mH5sq,MZ*MZ,mAsq)*KaellenFunction(mH5sq,MZ*MZ,mAsq)
+                            /(2.0*sW2*cW2*MZ*MZ);
+
+    double GammaH5ppHpW   = HSTheta(mH5-mA-MW)*(Ale*sinb*sinb)
+                            *KaellenFunction(mH5sq,MW*MW,mAsq)*KaellenFunction(mH5sq,MW*MW,mAsq)*KaellenFunction(mH5sq,MW*MW,mAsq)
+                            /(sW2*MW*MW);
 
     // H1 -> H2 H3 decays
 
     double GammaHhh       = HSTheta(mHh-2.0*sqrt(mHl2))*fabs(ghhH)*fabs(ghhH)
                             *KaellenFunction(1.0,mHl2/mH1sq,mHl2/mH1sq)/(16.0*mHh*M_PI);
 
-    double GammaHHpHm     = HSTheta(mHh-2.0*mA)*fabs(gHH3pH3m)*fabs(gHH3pH3m)
+    double GammaHHpHm     = HSTheta(mHh-2.0*mA)*fabs(gHH3H3)*fabs(gHH3H3)
                             *KaellenFunction(1.0,mAsq/mH1sq,mAsq/mH1sq)/(8.0*mHh*M_PI);
 
     double GammaHAA       = HSTheta(mHh-2.0*mA)*fabs(gHH3H3)*fabs(gHH3H3)
@@ -1648,17 +1703,21 @@ void GMcache::computeOtherHiggsProperties()
     double GammaHH5H5     = HSTheta(mHh-2.0*mH5)*fabs(gHH5H5)*fabs(gHH5H5)
                             *KaellenFunction(1.0,mH5sq/mH1sq,mH5sq/mH1sq)/(16.0*mHh*M_PI);
 
-    double GammaHHp5H5m   = HSTheta(mHh-2.0*mH5)*fabs(gHH5pH5m)*fabs(gHH5pH5m)
-                            *KaellenFunction(1.0,mH5sq/mH1sq,mH5sq/mH1sq)/(8.0*mHh*M_PI);
+    double GammaHHp5H5m   = GammaHH5H5;
 
-    double GammaHH5ppH5mm = HSTheta(mHh-2.0*mH5)*fabs(gHH5ppH5mm)*fabs(gHH5ppH5mm)
-                            *KaellenFunction(1.0,mH5sq/mH1sq,mH5sq/mH1sq)/(8.0*mHh*M_PI);
+    double GammaHH5ppH5mm = GammaHH5H5;
 
-    double GammaH5hh      = 0.;
-    double GammaH5HH      = 0.;
-    double GammaH5HpHm    = 0.;
-    double GammaH5AA      = 0.;
-    double GammaH5ppHpHp  = 0.;
+    double GammaH5HpHm    = HSTheta(mH5-2.0*mA)*fabs(gH5H3pH3m)*fabs(gH5H3pH3m)
+                            *KaellenFunction(1.0,mAsq/mH5sq,mAsq/mH5sq)/(8.0*mH5*M_PI);
+
+    double GammaH5AA      = HSTheta(mH5-2.0*mA)*fabs(gH3H3H5)*fabs(gH3H3H5)
+                            *KaellenFunction(1.0,mAsq/mH5sq,mAsq/mH5sq)/(16.0*mH5*M_PI);
+
+    double GammaH5pHpA    = HSTheta(mH5-2.0*mA)*gH3H3pH5m.abs2()
+                            *KaellenFunction(1.0,mAsq/mH5sq,mAsq/mH5sq)/(8.0*mH5*M_PI);
+
+    double GammaH5ppHpHp  = HSTheta(mH5-2.0*mA)*fabs(gH5ppH3mH3m)*fabs(gH5ppH3mH3m)
+                            *KaellenFunction(1.0,mAsq/mH5sq,mAsq/mH5sq)/(8.0*mH5*M_PI);
 
     GammaH1tot=  (rHH_ff*(BrSM_Htott+BrSM_Htocc+BrSM_Htobb+BrSM_Htotautau+BrSM_Htomumu)
                   +rHH_VV*(BrSM_HtoWW+BrSM_HtoZZ))*GammaHtotSM
@@ -1667,27 +1726,25 @@ void GMcache::computeOtherHiggsProperties()
                   +GammaHhh+GammaHHpHm+GammaHAA
                   +GammaHH5H5+GammaHHp5H5m+GammaHH5ppH5mm;
 
-    GammaH3tot=  (rA_ff*(BrSM_Atott+BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)
-                  +rA_VV*(BrSM_AtoWW+BrSM_AtoZZ))*GammaAtotSM
+    GammaH3tot=  rA_ff*(BrSM_Atott+BrSM_Atocc+BrSM_Atobb+BrSM_Atotautau+BrSM_Atomumu)*GammaAtotSM
                   +Gamma_Agg+Gamma_Agaga+Gamma_AZga
-                  +GammaAhZ+GammaAHZ+GammaAHpW
+                  +GammaAhZ+GammaAHZ
                   +GammaAH5Z+GammaAH5pW;
 
-    GammaH3ptot=  0.0 /*fermionic and vector boson terms go here*/
-                  +GammaHphW+GammaHpHW+GammaHpZW
-                  +GammaHpH5pZ+GammaHpH5ppW;
+    GammaH3ptot=  0.0 /*fermionic terms go here*/
+                  +GammaHphW+GammaHpHW
+                  +GammaHpH5pZ+GammaHpH5W+GammaHpH5ppW;
 
-    GammaH5tot=  (rH5_ff*(BrSM_H5tott+BrSM_H5tocc+BrSM_H5tobb+BrSM_H5totautau+BrSM_H5tomumu)
-                  +rH5_VV*(BrSM_H5toWW+BrSM_H5toZZ))*GammaH5totSM
+    GammaH5tot=  rH5_VV*(BrSM_H5toWW+BrSM_H5toZZ)*GammaH5totSM
                   +Gamma_H5gg+Gamma_H5gaga+Gamma_H5Zga
                   +GammaH5AZ+GammaH5HpW
-                  +GammaH5hh+GammaH5HH+GammaH5HpHm+GammaH5AA;
+                  +GammaH5HpHm+GammaH5AA;
 
-    GammaH5ptot=  0.0 /*fermionic and vector boson terms go here*/
-                  +GammaH5pZW+GammaH5pAW+GammaH5pHpZ;
+    GammaH5ptot=  0.0 /*fermionic terms go here*/
+                  +GammaH5pZW+GammaH5pAW+GammaH5pHpZ+GammaH5pHpA;
 
-    GammaH5pptot= 0.0 /*fermionic and vector boson terms go here*/
-                  +GammaH5ppWW+GammaH5ppHpHp;
+    GammaH5pptot= 0.0 /*fermionic terms go here*/
+                  +GammaH5ppWW+GammaH5ppHpW+GammaH5ppHpHp;
 
 //    Br_Htott=BrSM_Htott*rHH_QuQu*GammaHtotSM/GammaHtot;
 //    Br_Htobb=BrSM_Htobb*rHH_QdQd*GammaHtotSM/GammaHtot;

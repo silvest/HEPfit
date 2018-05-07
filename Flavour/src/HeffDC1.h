@@ -14,6 +14,7 @@ class EvolDC1Buras;
 #include "WilsonCoefficient.h"
 #include "gslpp.h"
 #include <sstream>
+#include <memory>
 
 /**
  * @class HeffDC1
@@ -63,14 +64,14 @@ public:
      * @return an object of EvolDC1 class
      */
     EvolDC1& getUDC1() const {
-        return ug;
+        return *ug;
     }
     /**
      * 
      * @return an object of EvolDC1Buras class
      */
     EvolDC1Buras& getUDC1Buras() const {
-        return u;
+        return *u;
     }
     /**
      * 
@@ -83,8 +84,8 @@ public:
 private :
     const StandardModel& model;
     WilsonCoefficient coeffdc1, coeffdc1g;
-    EvolDC1& ug;
-    EvolDC1Buras& u;
+    std::unique_ptr<EvolDC1> ug;
+    std::unique_ptr<EvolDC1Buras> u;
     gslpp::matrix<gslpp::complex> ckm, COEFF_pi, COEFF_K;
 };
 

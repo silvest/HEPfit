@@ -15,20 +15,20 @@
 #include "MVgamma.h"
 
 Flavour::Flavour(const StandardModel& SM_i)
-: HDF2(*(new HeffDF2(SM_i))),
-HDB1(*(new HeffDB1(SM_i))),
-HDS1(*(new HeffDS1(SM_i))),
-MVll_BdKstarmu(*(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU))),
-MVll_BdKstarel(*(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON))),
-MVll_BpKstarmu(*(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU))),
-MVll_BpKstarel(*(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::ELECTRON))),
-MVll_Bsphimu(*(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU))),
-MVll_Bsphiel(*(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON))),
-MPll_BpKmu(*(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU))),
-MPll_BpKel(*(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON))),
-MVgamma_BdKstgamma(*(new MVgamma(SM_i, StandardModel::B_D, StandardModel::K_star))),
-MVgamma_BpKstgamma(*(new MVgamma(SM_i, StandardModel::B_P, StandardModel::K_star_P))),
-MVgamma_Bsphigamma(*(new MVgamma(SM_i, StandardModel::B_S, StandardModel::PHI)))
+: HDF2(new HeffDF2(SM_i)),
+HDB1(new HeffDB1(SM_i)),
+HDS1(new HeffDS1(SM_i)),
+MVll_BdKstarmu(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU)),
+MVll_BdKstarel(new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON)),
+MVll_BpKstarmu(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::MU)),
+MVll_BpKstarel(new MVll(SM_i, StandardModel::B_P, StandardModel::K_star_P, StandardModel::ELECTRON)),
+MVll_Bsphimu(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU)),
+MVll_Bsphiel(new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON)),
+MPll_BpKmu(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::MU)),
+MPll_BpKel(new MPll(SM_i, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON)),
+MVgamma_BdKstgamma(new MVgamma(SM_i, StandardModel::B_D, StandardModel::K_star)),
+MVgamma_BpKstgamma(new MVgamma(SM_i, StandardModel::B_P, StandardModel::K_star_P)),
+MVgamma_Bsphigamma(new MVgamma(SM_i, StandardModel::B_S, StandardModel::PHI))
 {
     update_BdKstarmu = true;
     update_BdKstarel = true;
@@ -47,112 +47,112 @@ MVgamma_Bsphigamma(*(new MVgamma(SM_i, StandardModel::B_S, StandardModel::PHI)))
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const
 {
-    return HDF2.ComputeCoeffBd(mu, scheme);
+    return HDF2->ComputeCoeffBd(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBs(double mu, schemes scheme) const
 {
-    return HDF2.ComputeCoeffBs(mu, scheme);
+    return HDF2->ComputeCoeffBs(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdd(double mu, schemes scheme) const
 {
-    return HDF2.ComputeCoeffdd(mu, scheme);
+    return HDF2->ComputeCoeffdd(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffK(double mu, schemes scheme) const
 {
-    return HDF2.ComputeCoeffK(mu, scheme);
+    return HDF2->ComputeCoeffK(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffmK(double mu, schemes scheme) const
 {
-    return HDF2.ComputeCoeffmK(mu, scheme);
+    return HDF2->ComputeCoeffmK(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1PP(double mu, schemes scheme) const
 {
-    return HDS1.ComputeCoeffDS1PP(mu, scheme);
+    return HDS1->ComputeCoeffDS1PP(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1pnunu() const
 {
-    return HDS1.ComputeCoeffDS1pnunu();
+    return HDS1->ComputeCoeffDS1pnunu();
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffDS1mumu() const
 {
-    return HDS1.ComputeCoeffDS1mumu();
+    return HDS1->ComputeCoeffDS1mumu();
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsmumu(double mu, schemes scheme) const
 {
-    return HDB1.ComputeCoeffsmumu(mu, scheme);
+    return HDB1->ComputeCoeffsmumu(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdmumu(double mu, schemes scheme) const
 {
-    return HDB1.ComputeCoeffdmumu(mu, scheme);
+    return HDB1->ComputeCoeffdmumu(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffbtaunu() const
 {
-    return HDB1.ComputeCoeffbtaunu();
+    return HDB1->ComputeCoeffbtaunu();
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsnunu() const
 {
-    return HDB1.ComputeCoeffsnunu();
+    return HDB1->ComputeCoeffsnunu();
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffdnunu() const
 {
-    return HDB1.ComputeCoeffdnunu();
+    return HDB1->ComputeCoeffdnunu();
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffsgamma(double mu, schemes scheme) const
 {
-    return HDB1.ComputeCoeffsgamma(mu, scheme);
+    return HDB1->ComputeCoeffsgamma(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimesgamma(double mu, schemes scheme) const
 {
-    return HDB1.ComputeCoeffprimesgamma(mu, scheme);
+    return HDB1->ComputeCoeffprimesgamma(mu, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBMll(double mu, QCD::lepton lepton, schemes scheme) const
 {
-    return HDB1.ComputeCoeffBMll(mu, lepton, scheme);
+    return HDB1->ComputeCoeffBMll(mu, lepton, scheme);
 }
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffprimeBMll(double mu, QCD::lepton lepton, schemes scheme) const
 {
-    return HDB1.ComputeCoeffprimeBMll(mu, lepton, scheme);
+    return HDB1->ComputeCoeffprimeBMll(mu, lepton, scheme);
 }
 
 MVll& Flavour::getMVll(unsigned int meson_i, unsigned int vector_i, unsigned int lep_i) const
 {
-    if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::MU) return MVll_BdKstarmu;
-    if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return MVll_BdKstarel;
-    if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::MU) return MVll_BpKstarmu;
-    if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) return MVll_BpKstarel;
-    if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::MU) return MVll_Bsphimu;
-    if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return MVll_Bsphiel;
+    if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::MU) return *MVll_BdKstarmu;
+    if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return *MVll_BdKstarel;
+    if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::MU) return *MVll_BpKstarmu;
+    if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P && lep_i == StandardModel::ELECTRON) return *MVll_BpKstarel;
+    if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::MU) return *MVll_Bsphimu;
+    if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return *MVll_Bsphiel;
     else throw std::runtime_error("Flavour: Decay channel not implemented.");
 }
 
 MVgamma& Flavour::getMVgamma(unsigned int meson_i, unsigned int vector_i) const
 {
-    if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star) return MVgamma_BdKstgamma;
-    if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P) return MVgamma_BpKstgamma;
-    if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI) return MVgamma_Bsphigamma;
+    if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star) return *MVgamma_BdKstgamma;
+    if (meson_i == StandardModel::B_P && vector_i == StandardModel::K_star_P) return *MVgamma_BpKstgamma;
+    if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI) return *MVgamma_Bsphigamma;
     else throw std::runtime_error("Flavour: Decay channel not implemented.");
 }
 
 MPll& Flavour::getMPll(unsigned int meson_i, unsigned int pseudoscalar_i, unsigned int lep_i) const
 {
-    if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::MU) return MPll_BpKmu;
-    if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return MPll_BpKel;
+    if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::MU) return *MPll_BpKmu;
+    if (meson_i == StandardModel::B_P && pseudoscalar_i == StandardModel::K_P && lep_i == StandardModel::ELECTRON) return *MPll_BpKel;
     else throw std::runtime_error("Flavour: Decay channel not implemented.");
 }
 

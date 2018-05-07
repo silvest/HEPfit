@@ -17,7 +17,7 @@ HeffDF2::HeffDF2(const StandardModel& SM)
         coeffDd(5, NDR, NLO),
         coeffk(5, NDR, NLO),
         coeffmk(5, NDR, NLO),
-        evolDF2(*(new EvolDF2(5, NDR, NLO, SM)))
+        evolDF2(new EvolDF2(5, NDR, NLO, SM))
 {
     
     double Nc = SM.getNc();
@@ -50,7 +50,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBd(double mu, schemes schem
         for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){                
                 coeffbd.setCoeff(*coeffbd.getCoeff(orders(j)) +
-                    evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF2->Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -76,7 +76,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffBs(double mu, schemes schem
         for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){
                 coeffbs.setCoeff(*coeffbs.getCoeff(orders(j)) +
-                    evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF2->Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -102,7 +102,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffdd(double mu, schemes schem
        for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){
                 coeffDd.setCoeff(*coeffDd.getCoeff(orders(j)) +
-                    evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF2->Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -128,17 +128,17 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme
     orders ordDF2 = coeffk.getOrder();
     for (unsigned int i = 0; i < mc.size(); i++){
         if (i == 0){
-            coeffk.setCoeff(0, evolDF2.etatt(mu) * model.getMatching().S0tt()
-                             + evolDF2.etacc(mu) * model.getMatching().S0c()
-                             + evolDF2.etact(mu) * model.getMatching().S0ct(),
+            coeffk.setCoeff(0, evolDF2->etatt(mu) * model.getMatching().S0tt()
+                             + evolDF2->etacc(mu) * model.getMatching().S0c()
+                             + evolDF2->etact(mu) * model.getMatching().S0ct(),
                             NLO);
 #if SUSYFIT_DEBUG & 2
     std::cout << "mu = " << mu<< ", S0tt = " << model.getMatching().S0tt() << 
             ", S0cc = " << model.getMatching().S0c() << 
             ", S0ct = " << model.getMatching().S0ct() << std::endl <<
-            ", etatt = " << evolDF2.etatt(mu) << 
-            ", etacc = " << evolDF2.etacc(mu) << 
-            ", etact = " << evolDF2.etact(mu) << std::endl <<
+            ", etatt = " << evolDF2->etatt(mu) << 
+            ", etacc = " << evolDF2->etacc(mu) << 
+            ", etact = " << evolDF2->etact(mu) << std::endl <<
             "tt = " << evolDF2.etatt(mu)*model.getMatching().S0tt() << 
             ", cc = " << evolDF2.etacc(mu)*model.getMatching().S0c() << 
             ", ct = " << evolDF2.etact(mu)*model.getMatching().S0ct() << std::endl;
@@ -150,7 +150,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme
             for (int j = LO; j <= ordDF2; j++){
                 for (int k = LO; k <= j; k++){
                     coeffk.setCoeff(*coeffk.getCoeff(orders(j)) +
-                        evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                        evolDF2->Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                         (*(mc[i].getCoeff(orders(j - k)))), orders(j));
                 }
             }
@@ -181,7 +181,7 @@ gslpp::vector<gslpp::complex>** HeffDF2::ComputeCoeffmK(double mu, schemes schem
             for (int j = LO; j <= ordDF2; j++){
                 for (int k = LO; k <= j; k++){
                     coeffmk.setCoeff(*coeffmk.getCoeff(orders(j)) +
-                        evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                        evolDF2->Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                         (*(mc[i].getCoeff(orders(j - k)))), orders(j));
                 }
             }

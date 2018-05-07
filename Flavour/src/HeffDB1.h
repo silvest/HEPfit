@@ -16,6 +16,7 @@ class EvolDB1bsg;
 class EvolBsmm;
 #include "QCD.h"
 #include "WilsonCoefficient.h"
+#include <memory>
 
 class HeffDB1 {
 public:
@@ -183,23 +184,23 @@ public:
     }
     
     EvolBsmm& getUBsmm() const {
-        return evolbs;
+        return *evolbs;
     }
     
     EvolBsmm& getUBdmm() const {
-        return evolbd;
+        return *evolbd;
     }
     
     EvolDF1nlep& getUDF1() const {
-        return u;
+        return *u;
     }
     
     EvolDB1Mll& getUDF1BMll() const {
-        return evolDF1BMll;
+        return *evolDF1BMll;
     }
     
     EvolDB1bsg& getUDB1bsg() const {
-        return evolDB1bsg;
+        return *evolDB1bsg;
     }
 
     const StandardModel& GetModel() const {
@@ -218,11 +219,11 @@ private :
     WilsonCoefficient coeffsnunu, coeffdnunu;
     WilsonCoefficient coeffsgamma, coeffprimesgamma;
     WilsonCoefficient coeffBMll, coeffprimeBMll;
-    EvolDB1Mll& evolDF1BMll;
-    EvolDB1bsg& evolDB1bsg;
-    EvolDF1nlep& u;
-    EvolBsmm& evolbs;
-    EvolBsmm& evolbd;
+    std::unique_ptr<EvolDB1Mll> evolDF1BMll;
+    std::unique_ptr<EvolDB1bsg> evolDB1bsg;
+    std::unique_ptr<EvolDF1nlep> u;
+    std::unique_ptr<EvolBsmm> evolbs;
+    std::unique_ptr<EvolBsmm> evolbd;
     
     //StandardModelMatching& standardmodelmatching;
     

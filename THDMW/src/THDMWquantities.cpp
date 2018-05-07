@@ -204,3 +204,30 @@ double mSImmSR_THDMW::computeThValue()
 {
     return sqrt(myTHDMW.getMyTHDMWCache()->mSIsq) - sqrt(myTHDMW.getMyTHDMWCache()->mSRsq);
 }
+
+rh_gg_THDMW::rh_gg_THDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double rh_gg_THDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->rh_gg;
+}
+
+rh_gaga_THDMW::rh_gaga_THDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double rh_gaga_THDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->rh_gaga;
+}
+
+rh_Zga_THDMW::rh_Zga_THDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double rh_Zga_THDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->rh_Zga;
+}

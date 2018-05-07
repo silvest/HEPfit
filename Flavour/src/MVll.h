@@ -16,6 +16,7 @@ class F_2;
 #include <TGraph.h>
 #include <TFitResultPtr.h>
 #include <gsl/gsl_spline.h>
+#include <memory>
 
 #define SWITCH 8.2
 #define NFPOLARBASIS_MVLL true
@@ -720,8 +721,8 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson vectorM;/**< Final vector meson type */
     std::vector<std::string> mvllParameters;/**< The string of mandatory MVll parameters */
-    F_1& myF_1;
-    F_2& myF_2;
+    std::unique_ptr<F_1> myF_1;
+    std::unique_ptr<F_2> myF_2;
     bool fullKD;
     double mJ2;
     gslpp::complex exp_Phase[3];

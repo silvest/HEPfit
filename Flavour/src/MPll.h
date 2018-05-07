@@ -17,6 +17,7 @@ class F_2;
 #include <TGraph.h>
 #include <TFitResultPtr.h>
 #include <gsl/gsl_spline.h>
+#include <memory>
 
 #define MPllSWITCH 8.2
 #define LATTICE true
@@ -265,8 +266,8 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson pseudoscalar;/**< Final pseudoscalar meson type */
     std::vector<std::string> mpllParameters;/**< The string of mandatory MPll parameters */
-    F_1& myF_1;
-    F_2& myF_2;
+    std::unique_ptr<F_1> myF_1;
+    std::unique_ptr<F_2> myF_2;
     
     double GF;            /**<Fermi constant */
     double ale;           /**<alpha electromagnetic */

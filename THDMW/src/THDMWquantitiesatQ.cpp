@@ -72,6 +72,15 @@ double mu1atQTHDMW::computeThValue()
     return myTHDMW.getMyTHDMWCache()->mu1_at_Q;
 }
 
+mu2atQTHDMW::mu2atQTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mu2atQTHDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->mu2_at_Q;
+}
+
 mu3atQTHDMW::mu3atQTHDMW(const StandardModel& SM_i)
 : ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
 {}
@@ -88,6 +97,24 @@ mu4atQTHDMW::mu4atQTHDMW(const StandardModel& SM_i)
 double mu4atQTHDMW::computeThValue()
 {
     return myTHDMW.getMyTHDMWCache()->mu4_at_Q;
+}
+
+mu5atQTHDMW::mu5atQTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mu5atQTHDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->mu5_at_Q;
+}
+
+mu6atQTHDMW::mu6atQTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double mu6atQTHDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->mu6_at_Q;
 }
 
 nu1atQTHDMW::nu1atQTHDMW(const StandardModel& SM_i)
@@ -160,4 +187,22 @@ omega4atQTHDMW::omega4atQTHDMW(const StandardModel& SM_i)
 double omega4atQTHDMW::computeThValue()
 {
     return myTHDMW.getMyTHDMWCache()->omega4_at_Q;
+}
+
+nu3atQTHDMW::nu3atQTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double nu3atQTHDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->nu3_at_Q;
+}
+
+nu5atQTHDMW::nu5atQTHDMW(const StandardModel& SM_i)
+: ThObservable(SM_i), myTHDMW(static_cast<const THDMW&> (SM_i))
+{}
+
+double nu5atQTHDMW::computeThValue()
+{
+    return myTHDMW.getMyTHDMWCache()->nu5_at_Q;
 }

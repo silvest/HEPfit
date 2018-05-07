@@ -14,6 +14,7 @@ class F_2;
 class AmpDB2;
 #include "ThObservable.h"
 #include <gsl/gsl_integration.h>
+#include <memory>
 
 #define NFPOLARBASIS_MVGAMMA true
 
@@ -360,8 +361,8 @@ private:
     bool fullKD;
     
     const StandardModel& SM;
-    F_1& myF_1;
-    F_2& myF_2;
+    std::unique_ptr<F_1> myF_1;
+    std::unique_ptr<F_2> myF_2;
     double T_perp_real;
     double T_perp_imag;
     double T_perp_bar_real;
