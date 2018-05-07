@@ -87,6 +87,8 @@ EvolDF1::EvolDF1(std::string reqblocks, schemes scheme, const StandardModel& mod
 
         // Misiak-Munz basis, defined as in T. Huber et al., hep-ph/0512066
         W10.eigensystem(evecc, evalc);
+        for (size_t jj = 0; jj < evalc.size(); jj++)
+            if(fabs(evalc(jj).imag()) > EPS) throw ("check the imaginary part of eigenvalues of W10"); 
         eval = evalc.real();
         evec = evecc.real();
         evec_i = (evecc.inverse()).real();
@@ -260,7 +262,7 @@ double EvolDF1::f_h(uint nnf, uint i, uint p, uint q, uint j, int k, int l, int 
 
 void EvolDF1::CheckNf(indices nm, uint nf) const
 {
-   if (nm / 10  == nm / 10.)
+   if (nm % 10 == 0)
     {
         if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6))
            throw std::runtime_error("EvolDF1::CheckNf(): Wrong number of flavours in anoumalous dimensions");
