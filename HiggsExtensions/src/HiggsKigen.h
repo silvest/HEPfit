@@ -134,9 +134,9 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%ExoDec</td>
+ *   <td class="mod_name">%InvDec</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if exotic Higgs decays are allowed.
+ *   <td class="mod_desc">This flag is set to TRUE if invisible Higgs decays are allowed.
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
@@ -789,7 +789,7 @@ private:
     double Ktau; ///< The factor rescaling all Higgs couplings to taus with respect to the SM.
     double KH; ///< The factor rescaling the total Higgs width respect to the SM.
     
-    bool FlagExoDec; ///< A boolean flag that is true if one allows exotic Higgs decays (invisible or not).
+    bool FlagInvDec; ///< A boolean flag that is true if one allows invisible Higgs decays.
     bool FlagCustodial; ///< A boolean flag that is true if KZ=KW.
 
 };

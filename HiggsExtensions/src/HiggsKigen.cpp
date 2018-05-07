@@ -15,7 +15,7 @@ HiggsKigen::HiggsKigen()
 : NPbase()
 {
     
-    FlagExoDec = false;
+    FlagInvDec = false;
     FlagCustodial = false;
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kw", boost::cref(Kw)));
@@ -39,7 +39,7 @@ bool HiggsKigen::PostUpdate()
 {
     if (!NPbase::PostUpdate()) return (false);
       
-    if (!FlagExoDec) {
+    if (!FlagInvDec) {
         KH = 1.0;
     }
 
@@ -100,8 +100,8 @@ bool HiggsKigen::CheckParameters(const std::map<std::string, double>& DPars)
 bool HiggsKigen::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    if (name.compare("ExoDec") == 0) {
-        FlagExoDec = value;
+    if (name.compare("InvDec") == 0) {
+        FlagInvDec = value;
         res = true;
     } else if (name.compare("Custodial") == 0) {
         FlagCustodial = value;
@@ -291,7 +291,7 @@ double HiggsKigen::muttHtautau(const double sqrt_s) const
 
 double HiggsKigen::computeGammaTotalRatio() const
 {
-    if (!FlagExoDec) {
+    if (!FlagInvDec) {
         return ((computeKg() * computeKg() * trueSM.computeBrHtogg()
             + computeKW() * computeKW() * trueSM.computeBrHtoWW()
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
@@ -321,7 +321,7 @@ double HiggsKigen::Br_H_inv() const
     double BrSMmodes, Brinv;
     double BrSMrem;
     
-    if (FlagExoDec) {   
+    if (FlagInvDec) {   
      
 //  SM BR associated to the modes not corrected by NP
         BrSMrem = 1.0 - (trueSM.computeBrHtogg()
