@@ -297,6 +297,16 @@
  *   <td class="mod_desc">The new physics scale. </td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%BrHinv</td>
+ *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
+ *   <td class="mod_desc">The branching ratio of invisible Higgs decays. (Not part of the EFT. Only for tests.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BrHexo</td>
+ *   <td class="mod_symb">Br@f$(H\to exotic)@f$</td>
+ *   <td class="mod_desc">The branching ratio of exotic Higgs decays. (Not part of the EFT. Only for tests.)</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%eXint </td>
  *   <td class="mod_symb">\f$\varepsilon_{X}^{int}\f$</td>
  *   <td class="mod_desc">The relative intrinsic theoretical uncertainty for the process X.
@@ -600,6 +610,16 @@
  *   <td class="mod_symb">\f$\Lambda \f$</td>
  *   <td class="mod_desc">The new physics scale. </td>
  * </tr>
+ * <tr>
+ *   <td class="mod_name">%BrHinv</td>
+ *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
+ *   <td class="mod_desc">The branching ratio of invisible Higgs decays. (Not part of the EFT. Only for tests.)</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BrHexo</td>
+ *   <td class="mod_symb">Br@f$(H\to exotic)@f$</td>
+ *   <td class="mod_desc">The branching ratio of exotic Higgs decays. (Not part of the EFT. Only for tests.)</td>
+ * </tr>
  * </table>
  * (The parameters associated to the theoretical uncertainties:
  * \f$\varepsilon_{X}^{int}\f$, \f$\varepsilon_{X}^{par}\f$ and
@@ -652,7 +672,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 393;
+    static const int NNPSMEFTd6Vars = 395;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -670,7 +690,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 197;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 199;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -1659,6 +1679,18 @@ public:
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
     double deltaGammaHbbRatio2() const;
+    
+    /**
+     * @brief The branching ratio of the of the Higgs into exotic particles.
+     * @return Br@f$(H\to exotic)@f$
+     */
+    virtual double Br_H_exo() const;
+    
+    /**
+     * @brief The branching ratio of the of the Higgs into invisible particles.
+     * @return Br@f$(H\to invisible)@f$
+     */
+    virtual double Br_H_inv() const;
 
     ///////////////////////SPECIAL OBSERVABLES/////////////////////////
     
@@ -2077,6 +2109,10 @@ protected:
     double ettH_1314_DeltagHt;///< Theoretical uncertainty in the (linear) new physics contribution from \f$\delta g_{Htt}\f$ to ttH production at the LHC (13 & 14 TeV).
 
     double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
+    
+    double BrHinv; ///< The branching ratio of invisible Higgs decays.
+    double BrHexo; ///< The branching ratio of exotic Higgs decays.
+    
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
     double cW_tree;///< The tree level values for the cosine of the weak angle.
     double sW_tree;///< The tree level values for the sine of the weak angle.

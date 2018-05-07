@@ -63,6 +63,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
     "Lambda_NP",
+    "BrHinv","BrHexo",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -143,6 +144,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CQe_3211","CQe_3222","CQe_3233",
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
     "Lambda_NP",
+    "BrHinv","BrHexo",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -178,6 +180,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
     "Lambda_NP",
+    "BrHinv","BrHexo",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -213,6 +216,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "CLL", "CLQ1", "CLQ3",
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
     "Lambda_NP",
+    "BrHinv","BrHexo",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -557,6 +561,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CpLedQ_22", boost::cref(CpLedQ_22)));
     }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHexo", boost::cref(BrHexo)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eggFint", boost::cref(eggFint)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eggFpar", boost::cref(eggFpar)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettHint", boost::cref(ettHint)));
@@ -1535,7 +1541,11 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
     } else if (name.compare("CQe_3233") == 0) {
         CQe_3233 = value;
     } else if (name.compare("Lambda_NP") == 0) {
-        Lambda_NP = value;
+        Lambda_NP = value;        
+    } else if (name.compare("BrHinv") == 0) {
+        BrHinv = value;       
+    } else if (name.compare("BrHexo") == 0) {
+        BrHexo = value;   
     } else if (name.compare("eggFint") == 0) {
         eggFint = value;
     } else if (name.compare("eggFpar") == 0) {
@@ -5751,12 +5761,15 @@ double NPSMEFTd6::deltaGammaTotalRatio1() const
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
-            + trueSM.computeBrHtobb() * deltaGammaHbbRatio1());
+            + trueSM.computeBrHtobb() * deltaGammaHbbRatio1()
+            + BrHinv + BrHexo);
 }
 
 double NPSMEFTd6::deltaGammaTotalRatio2() const
 {
-    return (trueSM.computeBrHtogg() * deltaGammaHggRatio2()
+    double delta2SM;
+    
+    delta2SM = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
             + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
             + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
@@ -5764,7 +5777,9 @@ double NPSMEFTd6::deltaGammaTotalRatio2() const
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
-            + trueSM.computeBrHtobb() * deltaGammaHbbRatio2());
+            + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
+
+    return (delta2SM + (BrHinv + BrHexo)*(BrHinv + BrHexo + delta2SM));
 }
 
 double NPSMEFTd6::GammaHggRatio() const
@@ -6388,6 +6403,16 @@ double NPSMEFTd6::deltaGammaHbbRatio2() const
             -918834581. * CHD / LambdaNP2 * CLL_1221 / LambdaNP2
             +918834581. * CLL_1221 / LambdaNP2 * CLL_1221 / LambdaNP2 );        
     
+}
+
+double NPSMEFTd6::Br_H_exo() const
+{    
+    return BrHexo;
+}
+
+double NPSMEFTd6::Br_H_inv() const
+{    
+    return BrHinv;
 }
 
 

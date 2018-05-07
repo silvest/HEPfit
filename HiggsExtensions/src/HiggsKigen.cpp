@@ -316,9 +316,9 @@ double HiggsKigen::computeGammaTotalRatio() const
 }
 
 
-double HiggsKigen::BrHexo() const
+double HiggsKigen::Br_H_inv() const
 {
-    double BrSMmodes, Brexo;
+    double BrSMmodes, Brinv;
     double BrSMrem;
     
     if (FlagExoDec) {   
@@ -346,9 +346,9 @@ double HiggsKigen::BrHexo() const
             + computeKb() * computeKb() * trueSM.computeBrHtobb()
             + BrSMrem;
     
-        Brexo = 1.0 - BrSMmodes/KH/KH;
+        Brinv = 1.0 - BrSMmodes/KH/KH;
         
-        return Brexo;
+        return Brinv;
 
     } else {
         return 0.0;   

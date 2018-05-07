@@ -690,7 +690,16 @@ public:
      * @brief The branching ratio of the of the Higgs into exotic particles (invisible or not).
      * @return Br@f$(H\to exotic)@f$
      */
-    virtual double BrHexo() const;
+    virtual double Br_H_exo() const
+    {
+        return 0.0;
+    };
+    
+    /**
+     * @brief The branching ratio of the of the Higgs into invisible particles.
+     * @return Br@f$(H\to invisible)@f$
+     */
+    virtual double Br_H_inv() const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:
