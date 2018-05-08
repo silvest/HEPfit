@@ -6460,38 +6460,38 @@ double NPSMEFTd6::deltag1ZNP() const
 {
       double NPdirect, NPindirect;
       
-      /*    Translate from LHCHXWG-INT-2015-001  */
+      /*    From own calculations. Agrees with with LHCHXWG-INT-2015-001 for common interactions */
       NPdirect = sW_tree / sqrt( 4.0 * M_PI * ale );
       NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CDHW * v2_over_LambdaNP2;
-      NPdirect = NPdirect - 
-              sW_tree * CHWB * v2_over_LambdaNP2 / cW_tree / (cW2_tree-sW2_tree);
       
-      NPindirect = 0.0;
+      NPindirect = - 1.0 / (cW2_tree-sW2_tree);
+      
+      NPindirect = NPindirect * (sW_tree * CHWB / cW_tree 
+              + 0.25 * CHD ) * v2_over_LambdaNP2
+              + 0.5 * NPindirect * DeltaGF() ;
       
       return NPdirect + NPindirect;
 }
       
 double NPSMEFTd6::deltaKgammaNP() const
 {
-      double NPdirect, NPindirect;
+      double NPdirect;
 
-      /*    Translate from LHCHXWG-INT-2015-001  */
+      /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
       NPdirect = sqrt( 4.0 * M_PI * ale ) / 4.0 / sW2_tree;
       
       NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * ale ) ) * CHWB 
               - sW_tree * CDHW 
               - cW_tree * CDHB ) * v2_over_LambdaNP2;
       
-      NPindirect = 0.0;
-      
-      return NPdirect + NPindirect;
+      return NPdirect;
 }
       
 double NPSMEFTd6::lambdaZNP() const
 {
       double NPdirect;
 
-      /*    Translate from LHCHXWG-INT-2015-001  */
+      /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
       NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * ale ) / sW_tree) * CW * v2_over_LambdaNP2;
 
       return NPdirect;
