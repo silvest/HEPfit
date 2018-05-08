@@ -1772,6 +1772,43 @@ private:
 };
 
 /**
+ * @class gHZZeff
+ * @brief An observable class for the effective @f$H ZZ@f$ coupling 
+ * @f$g_{HZZ}^{Eff}@f$, defined from the square root of @f$\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H ZZ@f$ coupling
+ * @f$g_{HZZ}^{Eff}@f$, defined from the square root of @f$\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}@f$.
+ *
+ */
+class gHZZeff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHZZeff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHZZeff class.
+     */
+    virtual ~gHZZeff();
+
+    /**
+     * @brief The effective @f$H ZZ@f$ coupling
+     * @return @f$g_{HZZ}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
  * @class gHZZ1
  * @brief An observable class for the non-SM coupling @f$H Z_{\mu\nu} Z^{\mu\nu}@f$
  * @f$g_{HZZ}^{(1)}@f$.
@@ -1989,6 +2026,43 @@ public:
     /**
      * @brief The deviation from the SM of the effective @f$H W W@f$ coupling @f$\delta g_{HWW}@f$.
      * @return @f$\delta g_{HWW}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class gHWWeff
+ * @brief An observable class for the effective @f$H WW@f$ coupling 
+ * @f$g_{HWW}^{Eff}@f$, defined from the square root of @f$\Gamma_{HWW}/\Gamma_{HWW}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H WW@f$ coupling
+ * @f$g_{HWW}^{Eff}@f$, defined from the square root of @f$\Gamma_{HWW}/\Gamma_{HWW}^{SM}@f$.
+ *
+ */
+class gHWWeff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHWWeff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHWWeff class.
+     */
+    virtual ~gHWWeff();
+
+    /**
+     * @brief The effective @f$H WW@f$ coupling
+     * @return @f$g_{HWW}^{Eff}@f$
      */
     double computeThValue();
       

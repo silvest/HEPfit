@@ -116,12 +116,37 @@
  *   <td class="mod_desc">The factor rescaling all Higgs couplings to taus with respect to the SM.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%BrHinv</td>
- *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
- *   <td class="mod_desc">The branching ratio of invisible Higgs decays.</td>
+ *   <td class="mod_name">%KH</td>
+ *   <td class="mod_symb">@f$\kappa_H@f$</td>
+ *   <td class="mod_desc">The factor rescaling the total Higgs width respect to the SM.</td>
  * </tr>
  * </table>
  * 
+ *
+ * @anchor HiggsKigenFlags
+ * <h3>%Model flags</h3>
+ *
+ * The Flags of HiggsKigen are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%InvDec</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if invisible Higgs decays are allowed.
+ *   The default value is FALSE.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Custodial</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if KZ=KW is assumed.
+ *   The default value is FALSE.</td>
+ * </tr>
+ * </table>
+ *
  * Please read information about parameter initialization and update in the documentation of the %StandardModel class.
  */
 class HiggsKigen : public NPbase {
@@ -145,6 +170,22 @@ public:
     virtual ~HiggsKigen()
     {
     };
+    
+    /**
+     * @brief The post-update method for %HiggsKigen.
+     * @details This method runs all the procedures that are need to be executed
+     * after the model is successfully updated.
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool PostUpdate();
+    
+    /**
+     * @brief A method to set a flag of %HiggsKigen.
+     * @param[in] name name of a model flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool setFlag(const std::string name, const bool value);
 
     /**
      * @brief A get method to retrieve the factor rescaling the Higgs coupling
@@ -425,6 +466,27 @@ public:
     {
         this->Kt = Kt;
     }   
+    
+    
+    /**
+     * @brief A get method to retrieve the factor rescaling the Higgs width
+     * respect to the SM @f$K_H@f$.
+     * @return @f$K_H@f$
+     */
+    double getKH() const
+    {
+        return KH;
+    }
+
+    /**
+     * @brief A set method to change the factor rescaling the Higgs width
+     * with respect to the SM @f$K_H@f$.
+     * @param[in] @f$K_H@f$ the factor rescaling the Higgs width.
+     */
+    void setKH(double KH)
+    {
+        this->KH = KH;
+    } 
 
     /**
      * @brief A method to check if all the mandatory parameters for %HiggsKigen
@@ -623,6 +685,21 @@ public:
      * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
     virtual double computeGammaTotalRatio() const;
+    
+    /**
+     * @brief The branching ratio of the of the Higgs into exotic particles (invisible or not).
+     * @return Br@f$(H\to exotic)@f$
+     */
+    virtual double Br_H_exo() const
+    {
+        return 0.0;
+    };
+    
+    /**
+     * @brief The branching ratio of the of the Higgs into invisible particles.
+     * @return Br@f$(H\to invisible)@f$
+     */
+    virtual double Br_H_inv() const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -710,7 +787,11 @@ private:
     double Ke; ///< The factor rescaling all Higgs couplings to electrons with respect to the SM.
     double Kmu; ///< The factor rescaling all Higgs couplings to muons with respect to the SM.
     double Ktau; ///< The factor rescaling all Higgs couplings to taus with respect to the SM.
-    double BrHinv; ///< The branching ratio of invisible Higgs decays.
+    double KH; ///< The factor rescaling the total Higgs width respect to the SM.
+    
+    bool FlagInvDec; ///< A boolean flag that is true if one allows invisible Higgs decays.
+    bool FlagCustodial; ///< A boolean flag that is true if KZ=KW.
+
 };
 
 #endif	/* HIGGSKIGEN_H */

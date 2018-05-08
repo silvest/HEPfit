@@ -576,19 +576,19 @@ void THDMWcache::computeSignalStrengthQuantities()
         double ch_p=-nu1*vev*vev/(4.0*mSpsq);//Victor Miralles, non-custodial
         double ch_r=-(nu1+nu2+2.0*nu3)*vev*vev/(4.0*mSRsq);//Victor Miralles, non-custodial
         double ch_i=-(nu1+nu2-2.0*nu3)*vev*vev/(4.0*mSIsq);//Victor Miralles, non-custodial
-        gslpp::complex I_h_Sp = 1.5*ch_p*(3.0*I_H_Hp(mSpsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-        gslpp::complex I_h_SR = 0.75*ch_r*(3.0*I_H_Hp(mSRsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-        gslpp::complex I_h_SI = 0.75*ch_i*(3.0*I_H_Hp(mSIsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-        double ABSggMW=(9.0/32.0*(fermU+fermD)+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
-        double ABSggSM=(9.0/32.0*(fermU+fermD)).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_Sp = 4.5*ch_p*I_H_Hp(mSpsq,sqrt(mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SR = 2.25*ch_r*I_H_Hp(mSRsq,sqrt(mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SI = 2.25*ch_i*I_H_Hp(mSIsq,sqrt(mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        double ABSggMW=(-9.0/16.0*(fermU+4.0*fermD)+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/16 and 4 to normalize Higgs Hunters Guide to 1606.01298
+        double ABSggSM=(-9.0/16.0*(fermU+4.0*fermD)).abs2();   //Factor 9/16 and 4 to normalize Higgs Hunters Guide to 1606.01298
         rh_gg=ABSggMW/ABSggSM;
 
         //photon coupling
         gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
-        gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
-        gslpp::complex I_h_S = 8.0*ch_p*I_H_Hp(mHpsq,mhsq);//Factor 8 maybe wrong!
-        double ABSgagaMW=(fermU+fermD+fermL+I_hSM_W+I_h_S).abs2();
-        double ABSgagaSM=(fermU+fermD+fermL+I_hSM_W).abs2();
+        gslpp::complex I_hSM_W = I_H_W(sqrt(mhsq),MW);
+        gslpp::complex I_h_S = -8.0*ch_p*I_H_Hp(mSpsq,sqrt(mhsq));//Factor of 1/3 cancels with the normalization factor 3 between Higgs Hunters Guide and 1606.01298
+        double ABSgagaMW=(fermU+fermD+fermL+I_hSM_W+I_h_S).abs2();//-8 times (31) in 1606.01298
+        double ABSgagaSM=(fermU+fermD+fermL+I_hSM_W).abs2();//-8 times (31) in 1606.01298
         rh_gaga=ABSgagaMW/ABSgagaSM;
 
         //Z photon coupling
@@ -596,80 +596,59 @@ void THDMWcache::computeSignalStrengthQuantities()
         gslpp::complex A_h_Dx = A_h_D(mhsq,cW2,Md,Ms,Mb,MZ);
         gslpp::complex A_h_Lx  = A_h_L(mhsq,cW2,Me,Mmu,Mtau,MZ);
         gslpp::complex A_h_F = (A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
-        gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
-        gslpp::complex A_h_S = 8.0*ch_p*A_H_Hp(mHpsq,mhsq,cW2,MZ);//Factor 8 maybe wrong!
+        gslpp::complex A_hSM_W = A_H_W(sqrt(mhsq),cW2,MW,MZ);
+        gslpp::complex A_h_S = -8.0*ch_p*A_H_Hp(mSpsq,sqrt(mhsq),cW2,MZ);//Just analagous to the diphoton loop
         double ABSZgaMW=(A_h_F+A_hSM_W+A_h_S).abs2();
         double ABSZgaSM=(A_h_F+A_hSM_W).abs2();
         rh_Zga=ABSZgaMW/ABSZgaSM;
 
     }
-    else{
+    else if( THDMWmodel == "custodial1" ) {
         rh_QuQu = cosa*cosa/(sinb*sinb);
         rh_VV = sin(bma)*sin(bma);
-        rh_QdQd = 0.0;
-        rh_ll = 0.0;
-        rh_gg = 0.0;
+        rh_QdQd = rh_QuQu;
+        rh_ll = rh_QuQu;
 
-        double ghHpHm = 0.0;
-
-        //rh_gaga formula = abs(I_h_F+I_h_W+I_h_Hp)^2 / abs(I_hSM_F+I_hSM_W)^2
-
-        gslpp::complex I_h_F = 0.0;
+        //gluon coupling
         gslpp::complex fermU = I_h_U(mhsq,Mu,Mc,Mt);
         gslpp::complex fermD = I_h_D(mhsq,Md,Ms,Mb);
+        double ch_p=(-nu1*sina*cosb+omega1*cosa*sinb+kappa1*(cosa*cosb-sina*sinb))*vev*vev/(4.0*mSpsq);
+        double ch_r=(-(nu1+2.0*nu2)*sina*cosb+(omega1+2.0*omega2)*cosa*sinb+(kappa1+2.0*kappa2)*(cosa*cosb-sina*sinb))*vev*vev/(4.0*mSRsq);
+        double ch_i=ch_p;
+        gslpp::complex I_h_Sp = 4.5*ch_p*I_H_Hp(mSpsq,sqrt(mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SR = 2.25*ch_r*I_H_Hp(mSRsq,sqrt(mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        gslpp::complex I_h_SI = 2.25*ch_i*I_H_Hp(mSIsq,sqrt(mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
+        double ABSggTHDMW=(-9.0/16.0*(cosa/sinb)*(fermU+4.0*fermD)+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/16 to normalize Higgs Hunters Guide to 1606.01298
+        double ABSggSM=(-9.0/16.0*(fermU+4.0*fermD)).abs2();   //Factor 9/16 to normalize Higgs Hunters Guide to 1606.01298
+        rh_gg=ABSggTHDMW/ABSggSM;
+
+        //photon coupling
+        double ghHpHm = vev*vev/mAsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
+                                        +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
+                                        -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
         gslpp::complex fermL = I_h_L(mhsq,Me,Mmu,Mtau);
-        gslpp::complex I_hSM_W = I_H_W(mhsq,MW);
-        gslpp::complex I_h_W = sin(bma)*I_hSM_W;
+        gslpp::complex I_hSM_W = I_H_W(sqrt(mhsq),MW);
+        gslpp::complex I_h_Hp = -0.5*ghHpHm*I_H_Hp(mSpsq,sqrt(mhsq));
+        gslpp::complex I_h_S = -8.0*ch_p*I_H_Hp(mSpsq,sqrt(mhsq));//Factor of 1/3 cancels with the normalization factor 3 between Higgs Hunters Guide and 1606.01298
+        double ABSgagaTHDMW=((cosa/sinb)*(fermU+fermD+fermL)+sin(bma)*I_hSM_W+I_h_Hp+I_h_S).abs2();//-8 times (31) in 1606.01298
+        double ABSgagaSM=(fermU+fermD+fermL+I_hSM_W).abs2();//-8 times (31) in 1606.01298
+        rh_gaga=ABSgagaTHDMW/ABSgagaSM;
 
-        double ABSgagaTHDMW=0.0;
-        double ABSgagaSM=0.0;
-
-        //rh_Zga formula = abs(A_h_F+A_h_W+A_h_Hp)^2 / abs(A_hSM_F+A_hSM_W)^2
-
-        gslpp::complex A_h_F = 0.0;
+        //Z photon coupling
         gslpp::complex A_h_Ux = A_h_U(mhsq,cW2,Mu,Mc,Mt,MZ);
         gslpp::complex A_h_Dx = A_h_D(mhsq,cW2,Md,Ms,Mb,MZ);
         gslpp::complex A_h_Lx  = A_h_L(mhsq,cW2,Me,Mmu,Mtau,MZ);
-        gslpp::complex A_hSM_W = A_H_W(mhsq,cW2,MW,MZ);
-        gslpp::complex A_h_W = sin(bma)*A_hSM_W;
-
-        double ABSZgaTHDMW=0.0;
-        double ABSZgaSM=0.0;
-
-        if( THDMWmodel == "custodial1" ) {
-            rh_QdQd=cosa/sinb*cosa/sinb;
-            rh_ll=cosa/sinb*cosa/sinb;
-            ghHpHm = vev*vev/mAsq * (-lambda1*sina*sinb*sinb*cosb+lambda2*cosa*sinb*cosb*cosb
-                                     +lambda3*(cosa*sinb*sinb*sinb-sina*cosb*cosb*cosb)
-                                     -2.0*lambda4*(cosa*cosb-sina*sinb)*sinb*cosb);
-            I_h_F=cosa/sinb*(fermU+fermD+fermL);
-            A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
-        }
-        else {
-            throw std::runtime_error("THDMWmodel can be only \"custodial1\" or \"ManoharWise\"");
-        }
-
-        double ch_p=0.0;
-        double ch_r=0.0;
-        gslpp::complex I_h_Sp = 1.5*ch_p*(3.0*I_H_Hp(mSpsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-        gslpp::complex I_h_SR = 1.5*ch_r*(3.0*I_H_Hp(mSRsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-        gslpp::complex I_h_SI = 1.5*ch_p*(3.0*I_H_Hp(mSIsq,mhsq));   //Factor 3 to normalize Higgs Hunters Guide to 1606.01298
-    //    double ABSggTHDMW=(9.0/32.0*I_h_F+I_h_Sp+I_h_SR+I_h_SI).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
-    //    double ABSggSM=(9.0/32.0*(fermU+fermD)).abs2();   //Factor 9/32 to normalize Higgs Hunters Guide to 1606.01298
-        rh_gg=cosa/sinb*cosa/sinb;
-
-        gslpp::complex I_h_Hp = 16.0*ghHpHm*I_H_Hp(mHpsq,mhsq);
-        gslpp::complex A_h_Hp = 16.0*ghHpHm*A_H_Hp(mHpsq,mhsq,cW2,MZ);
-        gslpp::complex I_h_S = 0.0;
-        gslpp::complex A_h_S = 0.0;
-
-        ABSgagaTHDMW=(I_h_F+I_h_W+I_h_Hp+I_h_S).abs2();
-        ABSgagaSM=(fermU+fermL+fermD+I_hSM_W).abs2();
-        rh_gaga=ABSgagaTHDMW/ABSgagaSM;
-    //
-        ABSZgaTHDMW=(A_h_F+A_h_W+A_h_Hp+A_h_S).abs2();
-        ABSZgaSM=((A_h_Ux+A_h_Lx+A_h_Dx)/sqrt(sW2*cW2)+A_hSM_W).abs2();
+        gslpp::complex A_h_F = cosa/sinb*(A_h_Ux+A_h_Dx+A_h_Lx)/sqrt(sW2*cW2);
+        gslpp::complex A_hSM_W = A_H_W(sqrt(mhsq),cW2,MW,MZ);
+        gslpp::complex A_h_Hp = -0.5*ghHpHm*A_H_Hp(mSpsq,sqrt(mhsq),cW2,MZ);
+        gslpp::complex A_h_S = -8.0*ch_p*A_H_Hp(mSpsq,sqrt(mhsq),cW2,MZ);//Just analagous to the diphoton loop
+        double ABSZgaTHDMW=(A_h_F+sin(bma)*A_hSM_W+A_h_Hp+A_h_S).abs2();
+        double ABSZgaSM=(A_h_F+A_hSM_W).abs2();
         rh_Zga=ABSZgaTHDMW/ABSZgaSM;
+
+    }
+    else {
+        throw std::runtime_error("THDMWmodel can only be \"ManoharWise\" or \"custodial1\".");
     }
 
     sumModBRs = rh_QdQd*BrSM_htobb + rh_VV*(BrSM_htoWW+BrSM_htoZZ) + rh_ll*BrSM_htotautau +
@@ -686,8 +665,6 @@ void THDMWcache::computeSignalStrengthQuantities()
 
 void THDMWcache::runTHDMWparameters()
 {
-//    vev=myTHDM->v();
-//    double cosb=myTHDM->getcosb();
 
     std::string RGEorder=myTHDMW->getRGEorderflag();
     //flag will be used to transport information about model and RGEorder to the Runner:
@@ -700,236 +677,340 @@ void THDMWcache::runTHDMWparameters()
         throw std::runtime_error("RGEorder can be only any of \"LO\", \"approxNLO\" or \"NLO\"");
     }
 
-    double lambda1_at_MZ=lambda1;
-    double lambda2_at_MZ=lambda2;
-    double lambda3_at_MZ=lambda3;
-    double lambda4_at_MZ=lambda4;
-    double mu1_at_MZ=mu1;
-    double mu3_at_MZ=mu3;
-    double mu4_at_MZ=mu4;
-    double nu1_at_MZ=nu1;
-    double omega1_at_MZ=omega1;
-    double kappa1_at_MZ=kappa1;
-    double nu2_at_MZ=nu2;
-    double omega2_at_MZ=omega2;
-    double kappa2_at_MZ=kappa2;
-    double nu4_at_MZ=nu4;
-    double omega4_at_MZ=omega4;
-    double NLOuniscale=myTHDMW->getNLOuniscaleTHDMW();
-
-    if(fabs(Q_THDMW-log10(MZ))<0.005)   //at MZ scale
+    if( THDMWmodel == "custodial1")
     {
-        Q_cutoff=log10(MZ);
+        double lambda1_at_MZ=lambda1;
+        double lambda2_at_MZ=lambda2;
+        double lambda3_at_MZ=lambda3;
+        double lambda4_at_MZ=lambda4;
+        double mu1_at_MZ=mu1;
+        double mu3_at_MZ=mu3;
+        double mu4_at_MZ=mu4;
+        double nu1_at_MZ=nu1;
+        double omega1_at_MZ=omega1;
+        double kappa1_at_MZ=kappa1;
+        double nu2_at_MZ=nu2;
+        double omega2_at_MZ=omega2;
+        double kappa2_at_MZ=kappa2;
+        double nu4_at_MZ=nu4;
+        double omega4_at_MZ=omega4;
+        double NLOuniscale=myTHDMW->getNLOuniscaleTHDMW();
 
-        lambda1_at_Q = lambda1_at_MZ;
-        lambda2_at_Q = lambda2_at_MZ;
-        lambda3_at_Q = lambda3_at_MZ;
-        lambda4_at_Q = lambda4_at_MZ;
-        mu1_at_Q = mu1_at_MZ;
-        mu3_at_Q = mu3_at_MZ;
-        mu4_at_Q = mu4_at_MZ;
-        nu1_at_Q = nu1_at_MZ;
-        omega1_at_Q = omega1_at_MZ;
-        kappa1_at_Q = kappa1_at_MZ;
-        nu2_at_Q = nu2_at_MZ;
-        omega2_at_Q = omega2_at_MZ;
-        kappa2_at_Q = kappa2_at_MZ;
-        nu4_at_Q = nu4_at_MZ;
-        omega4_at_Q = omega4_at_MZ;
-    }
-    else   //at some other scale
+        if(fabs(Q_THDMW-log10(MZ))<0.005)   //at MZ scale
+        {
+            Q_cutoff=log10(MZ);
+
+            lambda1_at_Q = lambda1_at_MZ;
+            lambda2_at_Q = lambda2_at_MZ;
+            lambda3_at_Q = lambda3_at_MZ;
+            lambda4_at_Q = lambda4_at_MZ;
+            mu1_at_Q = mu1_at_MZ;
+            mu3_at_Q = mu3_at_MZ;
+            mu4_at_Q = mu4_at_MZ;
+            nu1_at_Q = nu1_at_MZ;
+            omega1_at_Q = omega1_at_MZ;
+            kappa1_at_Q = kappa1_at_MZ;
+            nu2_at_Q = nu2_at_MZ;
+            omega2_at_Q = omega2_at_MZ;
+            kappa2_at_Q = kappa2_at_MZ;
+            nu4_at_Q = nu4_at_MZ;
+            omega4_at_Q = omega4_at_MZ;
+        }
+        else   //at some other scale
+        {
+            double InitVals[15];
+            InitVals[0]=lambda1_at_MZ;
+            InitVals[1]=lambda2_at_MZ;
+            InitVals[2]=lambda3_at_MZ;
+            InitVals[3]=lambda4_at_MZ;
+            InitVals[4]=mu1_at_MZ;
+            InitVals[5]=mu3_at_MZ;
+            InitVals[6]=mu4_at_MZ;
+            InitVals[7]=nu1_at_MZ;
+            InitVals[8]=omega1_at_MZ;
+            InitVals[9]=kappa1_at_MZ;
+            InitVals[10]=nu2_at_MZ;
+            InitVals[11]=omega2_at_MZ;
+            InitVals[12]=kappa2_at_MZ;
+            InitVals[13]=nu4_at_MZ;
+            InitVals[14]=omega4_at_MZ;
+
+            Q_cutoff=myRunnerTHDMW->RGERunnerTHDMW(InitVals, 15, log10(MZ), Q_THDMW, flag, RpepsTHDMW, NLOuniscale);  //Running up to Q_cutoff<=Q_THDM
+
+            lambda1_at_Q = InitVals[0];
+            lambda2_at_Q = InitVals[1];
+            lambda3_at_Q = InitVals[2];
+            lambda4_at_Q = InitVals[3];
+            mu1_at_Q=InitVals[4];
+            mu3_at_Q=InitVals[5];
+            mu4_at_Q = InitVals[6];
+            nu1_at_Q = InitVals[7];
+            omega1_at_Q = InitVals[8];
+            kappa1_at_Q = InitVals[9];
+            nu2_at_Q = InitVals[10];
+            omega2_at_Q = InitVals[11];
+            kappa2_at_Q = InitVals[12];
+            nu4_at_Q = InitVals[13];
+            omega4_at_Q = InitVals[14];
+        }
+    }//End custodial1 case
+    if( THDMWmodel == "ManoharWise")
     {
-        double InitVals[15];
-        InitVals[0]=lambda1_at_MZ;
-        InitVals[1]=lambda2_at_MZ;
-        InitVals[2]=lambda3_at_MZ;
-        InitVals[3]=lambda4_at_MZ;
-        InitVals[4]=mu1_at_MZ;
-        InitVals[5]=mu3_at_MZ;
-        InitVals[6]=mu4_at_MZ;
-        InitVals[7]=nu1_at_MZ;
-        InitVals[8]=omega1_at_MZ;
-        InitVals[9]=kappa1_at_MZ;
-        InitVals[10]=nu2_at_MZ;
-        InitVals[11]=omega2_at_MZ;
-        InitVals[12]=kappa2_at_MZ;
-        InitVals[13]=nu4_at_MZ;
-        InitVals[14]=omega4_at_MZ;
+        double lambda1_at_MZ=lambda1;
+        double nu1_at_MZ=nu1;
+        double nu2_at_MZ=nu2;
+        double nu3_at_MZ=nu3;
+        double nu4_at_MZ=nu4;
+        double nu5_at_MZ=nu5;
+        double mu1_at_MZ=mu1;
+        double mu2_at_MZ=mu2;
+        double mu3_at_MZ=mu3;
+        double mu4_at_MZ=mu4;
+        double mu5_at_MZ=mu5;
+        double mu6_at_MZ=mu6;
+        double NLOuniscale=myTHDMW->getNLOuniscaleTHDMW();
 
-        Q_cutoff=myRunnerTHDMW->RGERunnerTHDMW(InitVals, 15, log10(MZ), Q_THDMW, flag, RpepsTHDMW, NLOuniscale);  //Running up to Q_cutoff<=Q_THDM
+        if(fabs(Q_THDMW-log10(MZ))<0.005)   //at MZ scale
+        {
+            Q_cutoff=log10(MZ);
 
-        lambda1_at_Q = InitVals[0];
-        lambda2_at_Q = InitVals[1];
-        lambda3_at_Q = InitVals[2];
-        lambda4_at_Q = InitVals[3];
-        mu1_at_Q=InitVals[4];
-        mu3_at_Q=InitVals[5];
-        mu4_at_Q = InitVals[6];
-        nu1_at_Q = InitVals[7];
-        omega1_at_Q = InitVals[8];
-        kappa1_at_Q = InitVals[9];
-        nu2_at_Q = InitVals[10];
-        omega2_at_Q = InitVals[11];
-        kappa2_at_Q = InitVals[12];
-        nu4_at_Q = InitVals[13];
-        omega4_at_Q = InitVals[14];
-    }
+            lambda1_at_Q = lambda1_at_MZ;
+            nu1_at_Q = nu1_at_MZ;
+            nu2_at_Q = nu2_at_MZ;
+            nu3_at_Q = nu3_at_MZ;
+            nu4_at_Q = nu4_at_MZ;
+            nu5_at_Q = nu5_at_MZ;
+            mu1_at_Q = mu1_at_MZ;
+            mu2_at_Q = mu2_at_MZ;
+            mu3_at_Q = mu3_at_MZ;
+            mu4_at_Q = mu4_at_MZ;
+            mu5_at_Q = mu5_at_MZ;
+            mu6_at_Q = mu6_at_MZ;
+        }
+        else   //at some other scale
+        {
+            double InitVals[12];
+            InitVals[0]=lambda1_at_MZ;
+            InitVals[1]=nu1_at_MZ;
+            InitVals[2]=nu2_at_MZ;
+            InitVals[3]=nu3_at_MZ;
+            InitVals[4]=nu4_at_MZ;
+            InitVals[5]=nu5_at_MZ;
+            InitVals[6]=mu1_at_MZ;
+            InitVals[7]=mu2_at_MZ;
+            InitVals[8]=mu3_at_MZ;
+            InitVals[9]=mu4_at_MZ;
+            InitVals[10]=mu5_at_MZ;
+            InitVals[11]=mu6_at_MZ;
 
+            Q_cutoff=myRunnerTHDMW->RGERunnerMW(InitVals, 12, log10(MZ), Q_THDMW, flag, RpepsTHDMW, NLOuniscale);  //Running up to Q_cutoff<=Q_THDM
+
+            lambda1_at_Q = InitVals[0];
+            nu1_at_Q = InitVals[1];
+            nu2_at_Q = InitVals[2];
+            nu3_at_Q = InitVals[3];
+            nu4_at_Q = InitVals[4];
+            nu5_at_Q = InitVals[5];
+            mu1_at_Q=InitVals[6];
+            mu2_at_Q=InitVals[7];
+            mu3_at_Q=InitVals[8];
+            mu4_at_Q = InitVals[9];
+            mu5_at_Q=InitVals[10];
+            mu6_at_Q=InitVals[11];
+        }
+    }//End ManoharWise case
 }
 
 void THDMWcache::computeUnitarity()
 {
-    std::string ModelType=myTHDMW->getModelTypeTHDMWflag();
-    if( ModelType != "custodial1" )
+    if( THDMWmodel != "custodial1" && THDMWmodel != "ManoharWise" )
     {
-        throw std::runtime_error("THDMW unitarity constraints are only implemented for the \"custodial1\" model.");
+        throw std::runtime_error("THDMW unitarity constraints are only implemented for the \"custodial1\" and the \"ManoharWise\" model.");
     }
 
-    double pi=M_PI;
-    gslpp::matrix<gslpp::complex> Smatrix1(4,4,0.), Smatrix2(4,4,0.);
-    gslpp::matrix<gslpp::complex> Sbmatrix1(4,4,0.), Sbmatrix2(4,4,0.);
-    gslpp::matrix<gslpp::complex> Seigenvectors1(4,4,0.), Seigenvectors2(4,4,0.);
-    gslpp::matrix<gslpp::complex> Seigenvectors1T(4,4,0.), Seigenvectors2T(4,4,0.);
-    gslpp::vector<double> Seigenvalues1(4,0.), Seigenvalues2(4,0.);
-    gslpp::vector<gslpp::complex> Sbeigenvalues1(4,0.), Sbeigenvalues2(4,0.);
+    if( THDMWmodel == "custodial1")
+    {
+        double pi=M_PI;
+        gslpp::matrix<gslpp::complex> Smatrix1(4,4,0.), Smatrix2(4,4,0.);
+        gslpp::matrix<gslpp::complex> Sbmatrix1(4,4,0.), Sbmatrix2(4,4,0.);
+        gslpp::matrix<gslpp::complex> Seigenvectors1(4,4,0.), Seigenvectors2(4,4,0.);
+        gslpp::matrix<gslpp::complex> Seigenvectors1T(4,4,0.), Seigenvectors2T(4,4,0.);
+        gslpp::vector<double> Seigenvalues1(4,0.), Seigenvalues2(4,0.);
+        gslpp::vector<gslpp::complex> Sbeigenvalues1(4,0.), Sbeigenvalues2(4,0.);
 
-    /*
-    *******   LO part   *************
-    */
+        /*
+        *******   LO part   *************
+        */
 
-    // Definition of the blocks of the S-matrix
-    Smatrix1.assign(0,0, 3.0*lambda1/(16.0*pi));
-    Smatrix1.assign(0,1, (2.0*lambda3+lambda4)/(16.0*pi));
-    Smatrix1.assign(1,0, Smatrix1(0,1));
-    Smatrix1.assign(0,3, (2.0*nu1+nu2)/(8.0*sqrt(2.0)*pi));
-    Smatrix1.assign(3,0, Smatrix1(0,3));
-    Smatrix1.assign(1,1, 3.0*lambda2/(16.0*pi));
-    Smatrix1.assign(1,3, (2.0*omega1+omega2)/(8.0*sqrt(2.0)*pi));
-    Smatrix1.assign(3,1, Smatrix1(1,3));
-    Smatrix1.assign(2,2, (lambda3+5.0*lambda4)/(16.0*pi));
-    Smatrix1.assign(2,3, (4.0*kappa1+2.0*kappa2)/(16.0*pi));
-    Smatrix1.assign(3,2, Smatrix1(2,3));
-    Smatrix1.assign(3,3, (26.0*mu1+17.0*mu3+13.0*mu4)/(32.0*pi));
+        // Definition of the blocks of the S-matrix
+        Smatrix1.assign(0,0, 3.0*lambda1/(16.0*pi));
+        Smatrix1.assign(0,1, (2.0*lambda3+lambda4)/(16.0*pi));
+        Smatrix1.assign(1,0, Smatrix1(0,1));
+        Smatrix1.assign(0,3, (2.0*nu1+nu2)/(8.0*sqrt(2.0)*pi));
+        Smatrix1.assign(3,0, Smatrix1(0,3));
+        Smatrix1.assign(1,1, 3.0*lambda2/(16.0*pi));
+        Smatrix1.assign(1,3, (2.0*omega1+omega2)/(8.0*sqrt(2.0)*pi));
+        Smatrix1.assign(3,1, Smatrix1(1,3));
+        Smatrix1.assign(2,2, (lambda3+5.0*lambda4)/(16.0*pi));
+        Smatrix1.assign(2,3, (4.0*kappa1+2.0*kappa2)/(16.0*pi));
+        Smatrix1.assign(3,2, Smatrix1(2,3));
+        Smatrix1.assign(3,3, (26.0*mu1+17.0*mu3+13.0*mu4)/(32.0*pi));
 
-    Smatrix2.assign(0,0, lambda1/(16.0*pi));
-    Smatrix2.assign(0,1, lambda4/(16.0*pi));
-    Smatrix2.assign(1,0, Smatrix2(0,1));
-    Smatrix2.assign(0,3, nu2/(8.0*sqrt(2.0)*pi));
-    Smatrix2.assign(3,0, Smatrix2(0,3));
-    Smatrix2.assign(1,1, lambda2/(16.0*pi));
-    Smatrix2.assign(1,3, omega2/(8.0*sqrt(2.0)*pi));
-    Smatrix2.assign(3,1, Smatrix2(1,3));
-    Smatrix2.assign(2,2, (lambda3+lambda4)/(16.0*pi));
-    Smatrix2.assign(2,3, kappa2/(8.0*pi));
-    Smatrix2.assign(3,2, Smatrix2(2,3));
-    Smatrix2.assign(3,3, (14.0*mu1+3.0*mu3+27.0*mu4)/(96.0*pi));
+        Smatrix2.assign(0,0, lambda1/(16.0*pi));
+        Smatrix2.assign(0,1, lambda4/(16.0*pi));
+        Smatrix2.assign(1,0, Smatrix2(0,1));
+        Smatrix2.assign(0,3, nu2/(8.0*sqrt(2.0)*pi));
+        Smatrix2.assign(3,0, Smatrix2(0,3));
+        Smatrix2.assign(1,1, lambda2/(16.0*pi));
+        Smatrix2.assign(1,3, omega2/(8.0*sqrt(2.0)*pi));
+        Smatrix2.assign(3,1, Smatrix2(1,3));
+        Smatrix2.assign(2,2, (lambda3+lambda4)/(16.0*pi));
+        Smatrix2.assign(2,3, kappa2/(8.0*pi));
+        Smatrix2.assign(3,2, Smatrix2(2,3));
+        Smatrix2.assign(3,3, (14.0*mu1+3.0*mu3+27.0*mu4)/(96.0*pi));
 
-    Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
-    Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
+        Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
+        Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
 
-    for (int i=0; i < 4; i++) {
-        unitarityeigenvalues.assign(i, Seigenvalues1(i));
-        unitarityeigenvalues.assign(4+i, Seigenvalues2(i));
-    }
-    unitarityeigenvalues.assign(8, (lambda3-lambda4)/(16.0*pi));
-    unitarityeigenvalues.assign(9, sqrt(15.0)*nu4/(16.0*pi));
-    unitarityeigenvalues.assign(10, sqrt(15.0)*omega4/(16.0*pi));
-
-    
-    
-    /*
-    *******   NLO part   *************
-    */
-
-    double blambda1=(12.0*lambda1*lambda1 + 4.0*lambda3*lambda3 + 4.0*lambda3*lambda4 + 4.0*lambda4*lambda4 
-                     + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 8.0*nu2*nu2)/(16.0*pi*pi);
-    double blambda2=(12.0*lambda2*lambda2 + 4.0*lambda3*lambda3 + 4.0*lambda3*lambda4 + 4.0*lambda4*lambda4
-                     + 8.0*omega1*omega1 + 8.0*omega1*omega2 + 8.0*omega2*omega2)/(16.0*pi*pi);
-    double blambda3=(4.0*lambda3*lambda3 + 4.0*lambda4*lambda4 + (lambda1+lambda2)*(6.0*lambda3+2.0*lambda4) 
-                     + 8.0*kappa2*kappa2 + 8.0*nu1*omega1 + 4.0*nu2*omega1 + 4.0*nu1*omega2)/(16.0*pi*pi);
-    double blambda4=(lambda1*lambda4 + lambda2*lambda4 + 4.0*lambda3*lambda4 + 6.0*lambda4*lambda4
-                     + 4.0*kappa1*kappa1 + 4.0*kappa1*kappa2 + 2.0*kappa2*kappa2 + 2.0*nu2*omega2)/(8.0*pi*pi);
-    double bmu1=(11.0*mu1*mu1 + 3.0*mu1*mu4 + mu1*(2.0*mu1+6.0*mu3+3.0*mu4)
-               + 3.0*nu4*nu4 + 3.0*omega4*omega4)/(16.0*pi*pi);
-    double bmu3=(18.0*kappa1*kappa1 + 18.0*kappa1*kappa2 + 134.0*mu1*mu1 + 6.0*mu1*(39.0*mu3 + 22.0*mu4)
-               + 3.0*(30.0*mu3*mu3 + 39.0*mu3*mu4 + 9.0*mu4*mu4 
-                      + 3.0*nu1*nu1 + 3.0*nu1*nu2 - 5.0*nu4*nu4
-                      + 3.0*omega1*omega1 + 3.0*omega1*omega2 - 5.0*omega4*omega4))/(72.0*pi*pi);
-    double bmu4=(18.0*kappa2*kappa2 + 4.0*mu1*mu1 + 156.0*mu1*mu4 + 54.0*mu3*mu4 + 144.0*mu4*mu4
-               + 9.0*nu2*nu2 + 6.0*nu4*nu4 + 9.0*omega2*omega2 + 6.0*omega4*omega4)/(144.0*pi*pi);
-    double bnu1=(6.0*kappa1*kappa1 + 6.0*kappa2*kappa2 + 18.0*lambda1*nu1
-               + 78.0*mu1*nu1 + 51.0*mu3*nu1 + 39.0*mu4*nu1 + 6.0*nu1*nu1
-               + 6.0*lambda1*nu2 + 32.0*mu1*nu2 + 24.0*mu3*nu2 + 6.0*mu4*nu2
-               + 6.0*nu2*nu2 + 10.0*nu4*nu4
-               + 12.0*lambda3*omega1 + 6.0*lambda4*omega1 + 6.0*lambda3*omega2)/(48.0*pi*pi);
-    double bomega1=(6.0*kappa1*kappa1 + 6.0*kappa2*kappa2 
-               + 12.0*lambda3*nu1 + 6.0*lambda4*nu1 + 6.0*lambda3*nu2
-               + 18.0*lambda2*omega1 + 78.0*mu1*omega1 + 51.0*mu3*omega1 + 39.0*mu4*omega1 + 6.0*omega1*omega1
-               + 6.0*lambda2*omega2 + 32.0*mu1*omega2 + 24.0*mu3*omega2 + 6.0*mu4*omega2 + 6.0*omega2*omega2
-               + 10.0*omega4*omega4)/(48.0*pi*pi);
-    double bkappa1=(6.0*kappa1*(2.0*lambda3 + 10.0*lambda4 + 18.0*mu1 + 17.0*mu3 + 13.0*mu4 + 2.0*nu1 + 2.0*omega1)
-               + kappa2*(24.0*lambda4 + 64.0*mu1 + 48.0*mu3 + 24.0*mu4 + 9.0*nu2 + 9.0*omega2)
-               + 20.0*nu4*omega4)/(96.0*pi*pi);
-    double bnu2=(4.0*kappa1*kappa2 + 6.0*kappa2*kappa2 + 2.0*lambda1*nu2 + ((14.0*mu1)/3.0 + mu3 + 9.0*mu4)*nu2 
-                + 4.0*nu1*nu2 + 6.0*nu2*nu2 + (25.0*nu4*nu4)/3.0 + 2.0*lambda4*omega2)/(16.0*pi*pi);
-    double bomega2=(4.0*kappa1*kappa2 + 6.0*kappa2*kappa2 + 2.0*lambda4*nu2 + 2.0*lambda2*omega2 
-                + ((14.0*mu1)/3.0 + mu3 + 9.0*mu4)*omega2 + 4.0*omega1*omega2 + 6.0*omega2*omega2 
-                + (25.0*omega4*omega4)/3.0)/(16.0*pi*pi);
-    double bkappa2=(kappa2*(6.0*lambda3 + 6.0*lambda4 + 14.0*mu1 + 3.0*mu3 + 27.0*mu4
-                     + 6.0*nu1 + 12.0*nu2 + 6.0*omega1 + 12.0*omega2)
-                + 6.0*kappa1*(nu2 + omega2) + 42.0*nu4*omega4)/(48.0*pi*pi);
-    double bnu4=(11.0*mu1*nu4 + 3.0*mu3*nu4 + 9.0*mu4*nu4 + 3.0*nu1*nu4 + 9.0*nu2*nu4 
-                + 3.0*kappa1*omega4 + 9.0*kappa2*omega4)/(16.0*pi*pi);
-    double bomega4=(3.0*kappa1*nu4 + 9.0*kappa2*nu4 
-                + (11.0*mu1 + 3.0*(mu3 + 3.0*mu4 + omega1 + 3.0*omega2))*omega4)/(16.0*pi*pi);
-
-    Sbmatrix1.assign(0,0, 3.0*blambda1/(16.0*pi));
-    Sbmatrix1.assign(0,1, (2.0*blambda3+blambda4)/(16.0*pi));
-    Sbmatrix1.assign(1,0, Sbmatrix1(0,1));
-    Sbmatrix1.assign(0,3, (2.0*bnu1+bnu2)/(8.0*sqrt(2.0)*pi));
-    Sbmatrix1.assign(3,0, Sbmatrix1(0,3));
-    Sbmatrix1.assign(1,1, 3.0*blambda2/(16.0*pi));
-    Sbmatrix1.assign(1,3, (2.0*bomega1+bomega2)/(8.0*sqrt(2.0)*pi));
-    Sbmatrix1.assign(3,1, Sbmatrix1(1,3));
-    Sbmatrix1.assign(2,2, (blambda3+5.0*blambda4)/(16.0*pi));
-    Sbmatrix1.assign(2,3, (4.0*bkappa1+2.0*bkappa2)/(16.0*pi));
-    Sbmatrix1.assign(3,2, Sbmatrix1(2,3));
-    Sbmatrix1.assign(3,3, (26.0*bmu1+17.0*bmu3+13.0*bmu4)/(32.0*pi));
-
-    Sbmatrix2.assign(0,0, blambda1/(16.0*pi));
-    Sbmatrix2.assign(0,1, blambda4/(16.0*pi));
-    Sbmatrix2.assign(1,0, Sbmatrix2(0,1));
-    Sbmatrix2.assign(0,3, bnu2/(8.0*sqrt(2.0)*pi));
-    Sbmatrix2.assign(3,0, Sbmatrix2(0,3));
-    Sbmatrix2.assign(1,1, blambda2/(16.0*pi));
-    Sbmatrix2.assign(1,3, bomega2/(8.0*sqrt(2.0)*pi));
-    Sbmatrix2.assign(3,1, Sbmatrix2(1,3));
-    Sbmatrix2.assign(2,2, (blambda3+blambda4)/(16.0*pi));
-    Sbmatrix2.assign(2,3, bkappa2/(8.0*pi));
-    Sbmatrix2.assign(3,2, Sbmatrix2(2,3));
-    Sbmatrix2.assign(3,3, (14.0*bmu1+3.0*bmu3+27.0*bmu4)/(96.0*pi));
-
-    Seigenvectors1T=Seigenvectors1.hconjugate();
-    Seigenvectors2T=Seigenvectors2.hconjugate();
-
-    for (int i=0; i < 4; i++) {
-        for (int k=0; k < 4; k++) {
-            for (int l=0; l < 4; l++) {
-                Sbeigenvalues1.assign(i, Sbeigenvalues1(i) + Seigenvectors1T(i,k) * Sbmatrix1(k,l) * Seigenvectors1(l,i) );
-                Sbeigenvalues2.assign(i, Sbeigenvalues2(i) + Seigenvectors2T(i,k) * Sbmatrix2(k,l) * Seigenvectors2(l,i) );
-            }                
+        for (int i=0; i < 4; i++) {
+            unitarityeigenvalues.assign(i, Seigenvalues1(i));
+            unitarityeigenvalues.assign(4+i, Seigenvalues2(i));
         }
-        betaeigenvalues.assign(i, -1.5 * Sbeigenvalues1(i));
-        betaeigenvalues.assign(i+4, -1.5 * Sbeigenvalues2(i));
-    }
+        unitarityeigenvalues.assign(8, (lambda3-lambda4)/(16.0*pi));
+        unitarityeigenvalues.assign(9, sqrt(15.0)*nu4/(16.0*pi));
+        unitarityeigenvalues.assign(10, sqrt(15.0)*omega4/(16.0*pi));
 
-    betaeigenvalues.assign(8, -1.5 * (blambda3-blambda4)/(16.0*pi));
-    betaeigenvalues.assign(9, -1.5 * sqrt(15.0)*bnu4/(16.0*pi));
-    betaeigenvalues.assign(10, -1.5 * sqrt(15.0)*bomega4/(16.0*pi));
+        /*
+        *******   NLO part   *************
+        */
 
-    for (int i=0; i < 11; i++) {
-        NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
-    }
+        double blambda1=(12.0*lambda1*lambda1 + 4.0*lambda3*lambda3 + 4.0*lambda3*lambda4 + 4.0*lambda4*lambda4 
+                         + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 8.0*nu2*nu2)/(16.0*pi*pi);
+        double blambda2=(12.0*lambda2*lambda2 + 4.0*lambda3*lambda3 + 4.0*lambda3*lambda4 + 4.0*lambda4*lambda4
+                         + 8.0*omega1*omega1 + 8.0*omega1*omega2 + 8.0*omega2*omega2)/(16.0*pi*pi);
+        double blambda3=(4.0*lambda3*lambda3 + 4.0*lambda4*lambda4 + (lambda1+lambda2)*(6.0*lambda3+2.0*lambda4) 
+                         + 8.0*kappa2*kappa2 + 8.0*nu1*omega1 + 4.0*nu2*omega1 + 4.0*nu1*omega2)/(16.0*pi*pi);
+        double blambda4=(lambda1*lambda4 + lambda2*lambda4 + 4.0*lambda3*lambda4 + 6.0*lambda4*lambda4
+                         + 4.0*kappa1*kappa1 + 4.0*kappa1*kappa2 + 2.0*kappa2*kappa2 + 2.0*nu2*omega2)/(8.0*pi*pi);
+        double bmu1=(11.0*mu1*mu1 + 3.0*mu1*mu4 + mu1*(2.0*mu1+6.0*mu3+3.0*mu4)
+                   + 3.0*nu4*nu4 + 3.0*omega4*omega4)/(16.0*pi*pi);
+        double bmu3=(18.0*kappa1*kappa1 + 18.0*kappa1*kappa2 + 134.0*mu1*mu1 + 6.0*mu1*(39.0*mu3 + 22.0*mu4)
+                   + 3.0*(30.0*mu3*mu3 + 39.0*mu3*mu4 + 9.0*mu4*mu4 
+                          + 3.0*nu1*nu1 + 3.0*nu1*nu2 - 5.0*nu4*nu4
+                          + 3.0*omega1*omega1 + 3.0*omega1*omega2 - 5.0*omega4*omega4))/(72.0*pi*pi);
+        double bmu4=(18.0*kappa2*kappa2 + 4.0*mu1*mu1 + 156.0*mu1*mu4 + 54.0*mu3*mu4 + 144.0*mu4*mu4
+                   + 9.0*nu2*nu2 + 6.0*nu4*nu4 + 9.0*omega2*omega2 + 6.0*omega4*omega4)/(144.0*pi*pi);
+        double bnu1=(6.0*kappa1*kappa1 + 6.0*kappa2*kappa2 + 18.0*lambda1*nu1
+                   + 78.0*mu1*nu1 + 51.0*mu3*nu1 + 39.0*mu4*nu1 + 6.0*nu1*nu1
+                   + 6.0*lambda1*nu2 + 32.0*mu1*nu2 + 24.0*mu3*nu2 + 6.0*mu4*nu2
+                   + 6.0*nu2*nu2 + 10.0*nu4*nu4
+                   + 12.0*lambda3*omega1 + 6.0*lambda4*omega1 + 6.0*lambda3*omega2)/(48.0*pi*pi);
+        double bomega1=(6.0*kappa1*kappa1 + 6.0*kappa2*kappa2 
+                   + 12.0*lambda3*nu1 + 6.0*lambda4*nu1 + 6.0*lambda3*nu2
+                   + 18.0*lambda2*omega1 + 78.0*mu1*omega1 + 51.0*mu3*omega1 + 39.0*mu4*omega1 + 6.0*omega1*omega1
+                   + 6.0*lambda2*omega2 + 32.0*mu1*omega2 + 24.0*mu3*omega2 + 6.0*mu4*omega2 + 6.0*omega2*omega2
+                   + 10.0*omega4*omega4)/(48.0*pi*pi);
+        double bkappa1=(6.0*kappa1*(2.0*lambda3 + 10.0*lambda4 + 18.0*mu1 + 17.0*mu3 + 13.0*mu4 + 2.0*nu1 + 2.0*omega1)
+                   + kappa2*(24.0*lambda4 + 64.0*mu1 + 48.0*mu3 + 24.0*mu4 + 9.0*nu2 + 9.0*omega2)
+                   + 20.0*nu4*omega4)/(96.0*pi*pi);
+        double bnu2=(4.0*kappa1*kappa2 + 6.0*kappa2*kappa2 + 2.0*lambda1*nu2 + ((14.0*mu1)/3.0 + mu3 + 9.0*mu4)*nu2 
+                    + 4.0*nu1*nu2 + 6.0*nu2*nu2 + (25.0*nu4*nu4)/3.0 + 2.0*lambda4*omega2)/(16.0*pi*pi);
+        double bomega2=(4.0*kappa1*kappa2 + 6.0*kappa2*kappa2 + 2.0*lambda4*nu2 + 2.0*lambda2*omega2 
+                    + ((14.0*mu1)/3.0 + mu3 + 9.0*mu4)*omega2 + 4.0*omega1*omega2 + 6.0*omega2*omega2 
+                    + (25.0*omega4*omega4)/3.0)/(16.0*pi*pi);
+        double bkappa2=(kappa2*(6.0*lambda3 + 6.0*lambda4 + 14.0*mu1 + 3.0*mu3 + 27.0*mu4
+                         + 6.0*nu1 + 12.0*nu2 + 6.0*omega1 + 12.0*omega2)
+                    + 6.0*kappa1*(nu2 + omega2) + 42.0*nu4*omega4)/(48.0*pi*pi);
+        double bnu4=(11.0*mu1*nu4 + 3.0*mu3*nu4 + 9.0*mu4*nu4 + 3.0*nu1*nu4 + 9.0*nu2*nu4 
+                    + 3.0*kappa1*omega4 + 9.0*kappa2*omega4)/(16.0*pi*pi);
+        double bomega4=(3.0*kappa1*nu4 + 9.0*kappa2*nu4 
+                    + (11.0*mu1 + 3.0*(mu3 + 3.0*mu4 + omega1 + 3.0*omega2))*omega4)/(16.0*pi*pi);
+
+        Sbmatrix1.assign(0,0, 3.0*blambda1/(16.0*pi));
+        Sbmatrix1.assign(0,1, (2.0*blambda3+blambda4)/(16.0*pi));
+        Sbmatrix1.assign(1,0, Sbmatrix1(0,1));
+        Sbmatrix1.assign(0,3, (2.0*bnu1+bnu2)/(8.0*sqrt(2.0)*pi));
+        Sbmatrix1.assign(3,0, Sbmatrix1(0,3));
+        Sbmatrix1.assign(1,1, 3.0*blambda2/(16.0*pi));
+        Sbmatrix1.assign(1,3, (2.0*bomega1+bomega2)/(8.0*sqrt(2.0)*pi));
+        Sbmatrix1.assign(3,1, Sbmatrix1(1,3));
+        Sbmatrix1.assign(2,2, (blambda3+5.0*blambda4)/(16.0*pi));
+        Sbmatrix1.assign(2,3, (4.0*bkappa1+2.0*bkappa2)/(16.0*pi));
+        Sbmatrix1.assign(3,2, Sbmatrix1(2,3));
+        Sbmatrix1.assign(3,3, (26.0*bmu1+17.0*bmu3+13.0*bmu4)/(32.0*pi));
+
+        Sbmatrix2.assign(0,0, blambda1/(16.0*pi));
+        Sbmatrix2.assign(0,1, blambda4/(16.0*pi));
+        Sbmatrix2.assign(1,0, Sbmatrix2(0,1));
+        Sbmatrix2.assign(0,3, bnu2/(8.0*sqrt(2.0)*pi));
+        Sbmatrix2.assign(3,0, Sbmatrix2(0,3));
+        Sbmatrix2.assign(1,1, blambda2/(16.0*pi));
+        Sbmatrix2.assign(1,3, bomega2/(8.0*sqrt(2.0)*pi));
+        Sbmatrix2.assign(3,1, Sbmatrix2(1,3));
+        Sbmatrix2.assign(2,2, (blambda3+blambda4)/(16.0*pi));
+        Sbmatrix2.assign(2,3, bkappa2/(8.0*pi));
+        Sbmatrix2.assign(3,2, Sbmatrix2(2,3));
+        Sbmatrix2.assign(3,3, (14.0*bmu1+3.0*bmu3+27.0*bmu4)/(96.0*pi));
+
+        Seigenvectors1T=Seigenvectors1.hconjugate();
+        Seigenvectors2T=Seigenvectors2.hconjugate();
+
+        for (int i=0; i < 4; i++) {
+            for (int k=0; k < 4; k++) {
+                for (int l=0; l < 4; l++) {
+                    Sbeigenvalues1.assign(i, Sbeigenvalues1(i) + Seigenvectors1T(i,k) * Sbmatrix1(k,l) * Seigenvectors1(l,i) );
+                    Sbeigenvalues2.assign(i, Sbeigenvalues2(i) + Seigenvectors2T(i,k) * Sbmatrix2(k,l) * Seigenvectors2(l,i) );
+                }                
+            }
+            betaeigenvalues.assign(i, -1.5 * Sbeigenvalues1(i));
+            betaeigenvalues.assign(i+4, -1.5 * Sbeigenvalues2(i));
+        }
+
+        betaeigenvalues.assign(8, -1.5 * (blambda3-blambda4)/(16.0*pi));
+        betaeigenvalues.assign(9, -1.5 * sqrt(15.0)*bnu4/(16.0*pi));
+        betaeigenvalues.assign(10, -1.5 * sqrt(15.0)*bomega4/(16.0*pi));
+
+        for (int i=0; i < 11; i++) {
+            NLOunitarityeigenvalues.assign(i, -(gslpp::complex::i()-1.0/pi)*unitarityeigenvalues(i)*unitarityeigenvalues(i) + betaeigenvalues(i) );
+        }
+    }//End of the custodial1 case
+
+    if( THDMWmodel == "ManoharWise")
+    {
+        double pi=M_PI;
+        gslpp::matrix<gslpp::complex> Smatrix1(4,4,0.), Smatrix2(4,4,0.);
+//        gslpp::matrix<gslpp::complex> Sbmatrix1(4,4,0.), Sbmatrix2(4,4,0.);
+        gslpp::matrix<gslpp::complex> Seigenvectors1(4,4,0.), Seigenvectors2(4,4,0.);
+//        gslpp::matrix<gslpp::complex> Seigenvectors1T(4,4,0.), Seigenvectors2T(4,4,0.);
+        gslpp::vector<double> Seigenvalues1(4,0.), Seigenvalues2(4,0.);
+//        gslpp::vector<gslpp::complex> Sbeigenvalues1(4,0.), Sbeigenvalues2(4,0.);
+
+        /*
+        *******   LO part   *************
+        */
+
+        // Definition of the blocks of the S-matrix, taken from 1303.4848
+        Smatrix1.assign(0,0, 3.0*lambda1/(16.0*pi));
+        Smatrix1.assign(0,3, (2.0*nu1+nu2)/(8.0*sqrt(2.0)*pi));
+        Smatrix1.assign(3,0, Smatrix1(0,3));
+        Smatrix1.assign(3,3, (26.0*mu1+17.0*mu3+13.0*mu4)/(32.0*pi));
+
+        Smatrix2.assign(0,0, lambda1/(16.0*pi));
+        Smatrix2.assign(0,3, nu3/(4.0*sqrt(2.0)*pi));
+        Smatrix2.assign(3,0, Smatrix2(0,3));
+        Smatrix2.assign(3,3, (14.0*mu1+3.0*mu3+27.0*mu4)/(96.0*pi)); //??
+
+        Smatrix1.eigensystem(Seigenvectors1, Seigenvalues1);
+        Smatrix2.eigensystem(Seigenvectors2, Seigenvalues2);
+
+        for (int i=0; i < 4; i++) {
+            unitarityeigenvalues.assign(i, Seigenvalues1(i));
+            unitarityeigenvalues.assign(4+i, Seigenvalues2(i));
+        }
+//        unitarityeigenvalues.assign(8, (lambda3-lambda4)/(16.0*pi));
+        unitarityeigenvalues.assign(9, sqrt(15.0)*(nu4+nu5)/(64.0*pi)); //non-custodial limit from 1606.01298
+//        unitarityeigenvalues.assign(10, sqrt(15.0)*omega4/(16.0*pi));
+    }//End of the ManoharWise case
 }
 
 double THDMWcache::setOtherParameters()
@@ -944,9 +1025,6 @@ double THDMWcache::setOtherParameters()
     double cot2a=1.0/tan2a;
     double lambda345=lambda3+lambda4+lambda5;
 
-    m12sq = vev*vev*(-lambda345*sin2b
-                     +2.0*(lambda1*cosb*cosb - lambda2*sinb*sinb)*tan2a/(4.0*tan2a/tan2b-2.0));
-    
     m11sq = vev*vev*(lambda2*sinb*sinb*tanb/(cot2a-2.0*cot2b)
                      +(lambda1*(cosb*cosb - (4.0*cosb*cosb-3.0)*cosb*tan2a/sinb)
                        -lambda345*(sinb*sinb + cos2b*tan2a*tanb))/(4.0*cot2b*tan2a-2.0));
@@ -954,16 +1032,19 @@ double THDMWcache::setOtherParameters()
     m22sq = vev*vev*(-lambda1*cosb*cosb*cosb/sinb/(cot2a-2.0*cot2b)
                      +(lambda2*(sinb*sinb + (4.0*sinb*sinb-3.0)*tanb*tan2a)
                        -lambda345*(cosb*cosb + cos2b*tan2a*cosb/sinb))/(4.0*cot2b*tan2a-2.0));
-    
-    mhsq = vev*vev*(lambda1*sina*sina*cosb*cosb + lambda2*cosa*cosa*sinb*sinb
-                    -lambda345*sin2a*cosb*sinb
-                    +cos(bma)*cos(bma)*(lambda345 + (lambda2 - lambda1/(tanb*tanb))*tan2a*tanb)/(1.0 - 2.0*cot2b*tan2a));
 
+    m12sq = vev*vev*(-lambda345*sin2b
+                     +2.0*(lambda1*cosb*cosb - lambda2*sinb*sinb)*tan2a/(4.0*tan2a/tan2b-2.0));
+    
     mHsq = vev*vev*(lambda1*cosa*cosa*cosb*cosb + lambda2*sina*sina*sinb*sinb
                     +lambda345*sin2a*cosb*sinb
                     +sin(bma)*sin(bma)*(lambda345 + (lambda2 - lambda1/(tanb*tanb))*tan2a*tanb)/(1.0 - 2.0*cot2b*tan2a));
 
     mAsq = vev*vev*(lambda3+lambda4 + tan2a*(-lambda1*cosb/sinb + lambda2*tanb + 2.0*lambda5*cot2b))/(1.0 - 2.0*cot2b*tan2a);
+
+    mhsq = vev*vev*(lambda1*sina*sina*cosb*cosb + lambda2*cosa*cosa*sinb*sinb
+                    -lambda345*sin2a*cosb*sinb
+                    +cos(bma)*cos(bma)*(lambda345 + (lambda2 - lambda1/(tanb*tanb))*tan2a*tanb)/(1.0 - 2.0*cot2b*tan2a));
 
     mSRsq = mSsq + vev*vev*((nu1+nu2+2.0*nu3)*cosb*cosb + (omega1+omega2+2.0*omega3)*sinb*sinb
                             +(kappa1+kappa2+kappa3)*sin2b)/4.0;
@@ -974,6 +1055,12 @@ double THDMWcache::setOtherParameters()
     if( THDMWmodel == "custodial1" ) {
         mHpsq = mAsq;
         mSpsq = mSIsq;
+    }
+    else if( THDMWmodel == "ManoharWise" ) {
+        mhsq = vev*vev*lambda1;
+        mSpsq = mSsq + vev*vev*nu1/4.0;
+        mSRsq = mSsq + vev*vev*(nu1+nu2+2.0*nu3)/4.0;
+        mSIsq = mSsq + vev*vev*(nu1+nu2-2.0*nu3)/4.0;
     }
     else {
         mHpsq = vev*vev*(lambda345 + tan2a*(-lambda1*cosb/sinb + lambda2*tanb + (lambda4+lambda5)*cot2b))/(1.0 - 2.0*cot2b*tan2a);
@@ -1015,19 +1102,21 @@ void THDMWcache::updateCache()
     mu5=myTHDMW->getTHDMW_mu5();
     mu6=myTHDMW->getTHDMW_mu6();
     nu1=myTHDMW->getTHDMW_nu1();
-    omega1=myTHDMW->getTHDMW_omega1();
-    kappa1=myTHDMW->getTHDMW_kappa1();
     nu2=myTHDMW->getTHDMW_nu2();
-    omega2=myTHDMW->getTHDMW_omega2();
-    kappa2=myTHDMW->getTHDMW_kappa2();
     nu3=myTHDMW->getTHDMW_nu3();
-    omega3=myTHDMW->getTHDMW_omega3();
-    kappa3=myTHDMW->getTHDMW_kappa3();
     nu4=myTHDMW->getTHDMW_nu4();
+    nu5=myTHDMW->getTHDMW_nu5();
+    omega1=myTHDMW->getTHDMW_omega1();
+    omega2=myTHDMW->getTHDMW_omega2();
+    omega3=myTHDMW->getTHDMW_omega3();
     omega4=myTHDMW->getTHDMW_omega4();
+    kappa1=myTHDMW->getTHDMW_kappa1();
+    kappa2=myTHDMW->getTHDMW_kappa2();
+    kappa3=myTHDMW->getTHDMW_kappa3();
     RpepsTHDMW=myTHDMW->getRpepsTHDMW();
 
     setOtherParameters();
     runTHDMWparameters();
     computeUnitarity();
+    computeSignalStrengthQuantities();
 }

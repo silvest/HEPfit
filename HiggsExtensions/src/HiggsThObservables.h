@@ -554,6 +554,82 @@ private:
     const NPbase* myNPbase;
 };
 
+
+/**
+ * @class BrHinvisible
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the branching ratio of Higgs decays into 
+ * invisible particles.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the branching ratio Br@f$(H\to invisible)@f$.
+ */
+class BrHinvisible : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHinvisible(const StandardModel& SM_i)
+    : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHinvisible called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the branching ratio of Higgs decays into
+     * invisible partciles.
+     * @return Br@f$(H\to invisible)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->Br_H_inv();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHexotic
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the branching ratio of Higgs decays into 
+ * exotics (invisible or not).
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the branching ratio Br@f$(H\to exotics)@f$.
+ */
+class BrHexotic : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHexotic(const StandardModel& SM_i)
+    : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHexotic called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the branching ratio of Higgs decays into
+     * exotics (invisible or not).
+     * @return Br@f$(H\to exotic)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->Br_H_exo();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+
 /**
  * @class BrHtoggRatio
  * @ingroup HiggsExtensions

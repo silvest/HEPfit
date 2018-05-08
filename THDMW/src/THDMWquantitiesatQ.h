@@ -168,6 +168,28 @@ private:
 };
 
 /**
+ * @class mu2atQTHDMW
+ * @ingroup THDMW
+ * @brief mu2atQTHDMW.
+ */
+class mu2atQTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mu2atQTHDMW constructor.
+     */
+    mu2atQTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\mu_2(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
  * @class mu3atQTHDMW
  * @ingroup THDMW
  * @brief mu3atQTHDMW.
@@ -204,6 +226,50 @@ public:
 
     /**
      * @return @f$\mu_4(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mu5atQTHDMW
+ * @ingroup THDMW
+ * @brief mu5atQTHDMW.
+ */
+class mu5atQTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mu5atQTHDMW constructor.
+     */
+    mu5atQTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\mu_5(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class mu6atQTHDMW
+ * @ingroup THDMW
+ * @brief mu6atQTHDMW.
+ */
+class mu6atQTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief mu6atQTHDMW constructor.
+     */
+    mu6atQTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\mu_6(Q)@f$
      */
     double computeThValue();
 
@@ -380,6 +446,50 @@ public:
 
     /**
      * @return @f$\omega_4(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class nu3atQTHDMW
+ * @ingroup THDMW
+ * @brief nu3atQTHDMW.
+ */
+class nu3atQTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief nu3atQTHDMW constructor.
+     */
+    nu3atQTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\nu_3(Q)@f$
+     */
+    double computeThValue();
+
+private:
+    const THDMW& myTHDMW;
+};
+
+/**
+ * @class nu5atQTHDMW
+ * @ingroup THDMW
+ * @brief nu5atQTHDMW.
+ */
+class nu5atQTHDMW: public ThObservable {
+public:
+
+    /**
+     * @brief nu5atQTHDMW constructor.
+     */
+    nu5atQTHDMW(const StandardModel& SM_i);
+
+    /**
+     * @return @f$\nu_5(Q)@f$
      */
     double computeThValue();
 

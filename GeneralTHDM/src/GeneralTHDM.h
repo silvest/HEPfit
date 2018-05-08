@@ -495,13 +495,21 @@ public:
     double getM2() const {
             return Rem12_2/sinb/cosb;
     }
-    
+
     /**
      *
      * @return Flag to switch on the Aligned Two Higgs Doublet Model
      */
     bool getATHDMflag() const {
         return flag_ATHDM;
+    }
+
+    /**
+     *
+     * @return Flag to switch on CP conservation
+     */
+    bool getCPconservationflag() const {
+        return flag_CPconservation;
     }
 
 protected:
@@ -542,7 +550,7 @@ private:
             Nl_21r, Nl_21i, Nl_22r, Nl_22i, Nl_23r, Nl_23i, 
             Nl_31r, Nl_31i, Nl_32r, Nl_32i, Nl_33r, Nl_33i, 
             Q_GTHDM;
-    bool flag_ATHDM;
+    bool flag_ATHDM, flag_CPconservation;
 };
 
 /**

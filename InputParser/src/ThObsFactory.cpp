@@ -228,6 +228,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["epZBF5000"] = boost::bind(boost::factory<muepZBF*>(), _1, sqrt_s_FCCep5);
     //-----  Decay width and Branching ratios (ratios with SM)  ----------
     obsThFactory["GammaHRatio"] = boost::factory<GammaHRatio*>();
+    obsThFactory["BrHinvisible"] = boost::factory<BrHinvisible*>();
+    obsThFactory["BrHexotic"] = boost::factory<BrHexotic*>();
     obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
     obsThFactory["BrHWWRatio"] = boost::factory<BrHtoWWRatio*>();
     obsThFactory["BrHZZRatio"] = boost::factory<BrHtoZZRatio*>();
@@ -1428,8 +1430,11 @@ ThObsFactory::ThObsFactory()
     obsThFactory["lambda3atQTHDMW"] = boost::factory<lambda3atQTHDMW*>();
     obsThFactory["lambda4atQTHDMW"] = boost::factory<lambda4atQTHDMW*>();
     obsThFactory["mu1atQTHDMW"] = boost::factory<mu1atQTHDMW*>();
+    obsThFactory["mu2atQTHDMW"] = boost::factory<mu2atQTHDMW*>();
     obsThFactory["mu3atQTHDMW"] = boost::factory<mu3atQTHDMW*>();
     obsThFactory["mu4atQTHDMW"] = boost::factory<mu4atQTHDMW*>();
+    obsThFactory["mu5atQTHDMW"] = boost::factory<mu5atQTHDMW*>();
+    obsThFactory["mu6atQTHDMW"] = boost::factory<mu6atQTHDMW*>();
     obsThFactory["nu1atQTHDMW"] = boost::factory<nu1atQTHDMW*>();
     obsThFactory["omega1atQTHDMW"] = boost::factory<omega1atQTHDMW*>();
     obsThFactory["kappa1atQTHDMW"] = boost::factory<kappa1atQTHDMW*>();
@@ -1438,6 +1443,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["kappa2atQTHDMW"] = boost::factory<kappa2atQTHDMW*>();
     obsThFactory["nu4atQTHDMW"] = boost::factory<nu4atQTHDMW*>();
     obsThFactory["omega4atQTHDMW"] = boost::factory<omega4atQTHDMW*>();
+    obsThFactory["nu3atQTHDMW"] = boost::factory<nu3atQTHDMW*>();
+    obsThFactory["nu5atQTHDMW"] = boost::factory<nu5atQTHDMW*>();
     //-----  Positivity constraints  -----
     obsThFactory["THDMWpositivity1"] = boost::factory<THDMWpositivity1*>();
     obsThFactory["THDMWpositivity2"] = boost::factory<THDMWpositivity2*>();
@@ -1507,6 +1514,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mhsqTHDMW"] = boost::factory<mhsqTHDMW*>();
     obsThFactory["mHHsqTHDMW"] = boost::factory<mHHsqTHDMW*>();
     obsThFactory["mAsqTHDMW"] = boost::factory<mAsqTHDMW*>();
+    obsThFactory["mSpsqTHDMW"] = boost::factory<mSpsqTHDMW*>();
     obsThFactory["mSRsqTHDMW"] = boost::factory<mSRsqTHDMW*>();
     obsThFactory["mSIsqTHDMW"] = boost::factory<mSIsqTHDMW*>();
     obsThFactory["mAmmHH_THDMW"] = boost::factory<mAmmHH_THDMW*>();
@@ -1521,6 +1529,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mSImmHH_THDMW"] = boost::factory<mSImmHH_THDMW*>();
     obsThFactory["mSRmmSI_THDMW"] = boost::factory<mSRmmSI_THDMW*>();
     obsThFactory["mSImmSR_THDMW"] = boost::factory<mSImmSR_THDMW*>();
+    //-----   Higgs observables -----
+    obsThFactory["rh_gg_THDMW"] = boost::factory<rh_gg_THDMW*>();
+    obsThFactory["rh_gaga_THDMW"] = boost::factory<rh_gaga_THDMW*>();
+    obsThFactory["rh_Zga_THDMW"] = boost::factory<rh_Zga_THDMW*>();
     /** END: REMOVE FROM THE PACKAGE **/
 
     //-----  GeorgiMachacek observables  -----

@@ -1117,7 +1117,7 @@ gslpp::matrix<double> EvolDF1::GammaBP(indices nm, uint n_u, uint n_d) const
         // QCD
         // ref.: Huber, Lunghi, Misiak, Wyler, Nucl. Phys. B 740, 105, hep-ph/0512066
         case 10:
-            gammaDF1(0,1) = -4./3.;       
+            gammaDF1(0,1) = 4./3.;       
             break;
         case 20:
             gammaDF1(0,0) = -1576./81.;
@@ -1269,7 +1269,8 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
         gammaDF1.assign(0, 2, GammaCP(nm, n_u, n_d));
         gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));   
         gammaDF1.assign(0, 6, GammaCQ(nm, n_u, n_d));
-        gammaDF1.assign(2, 6, GammaPQ(nm, n_u, n_d));   
+        gammaDF1.assign(2, 6, GammaPQ(nm, n_u, n_d));
+        gammaDF1.assign(6, 2, GammaQP(nm, n_u, n_d));
         gammaDF1.assign(6, 6, GammaQQ(nm, n_u, n_d));           
     }
     else if(blocks.compare("L") == 0)
@@ -1304,11 +1305,11 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
         gammaDF1.assign(2, 2, GammaPP(nm, n_u, n_d));         
         gammaDF1.assign(0, 6, GammaCQ(nm, n_u, n_d));         
         gammaDF1.assign(2, 6, GammaPQ(nm, n_u, n_d));
-        gammaDF1.assign(6, 6, GammaQQ(nm, n_u, n_d));
         gammaDF1.assign(6, 2, GammaQP(nm, n_u, n_d));
-        gammaDF1.assign(10, 10, GammaBB(nm, n_u, n_d));
+        gammaDF1.assign(6, 6, GammaQQ(nm, n_u, n_d));
         gammaDF1.assign(10, 2, GammaBP(nm, n_u, n_d));
         gammaDF1.assign(10, 6, GammaBQ(nm, n_u, n_d));
+        gammaDF1.assign(10, 10, GammaBB(nm, n_u, n_d));
     }
     else if(blocks.compare("CPMQB") == 0)
     {
@@ -1320,12 +1321,12 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
         gammaDF1.assign(6, 6, GammaMM(nm, n_u, n_d));                   
         gammaDF1.assign(0, 8, GammaCQ(nm, n_u, n_d));         
         gammaDF1.assign(2, 8, GammaPQ(nm, n_u, n_d));
-        gammaDF1.assign(8, 8, GammaQQ(nm, n_u, n_d));
         gammaDF1.assign(8, 2, GammaQP(nm, n_u, n_d));
         gammaDF1.assign(8, 6, GammaQM(nm, n_u, n_d));
-        gammaDF1.assign(12, 12, GammaBB(nm, n_u, n_d));
+        gammaDF1.assign(8, 8, GammaQQ(nm, n_u, n_d));
         gammaDF1.assign(12, 2, GammaBP(nm, n_u, n_d));
-        gammaDF1.assign(12, 8, GammaBQ(nm, n_u, n_d)); // *** does BM exists?
+        gammaDF1.assign(12, 8, GammaBQ(nm, n_u, n_d));
+        gammaDF1.assign(12, 12, GammaBB(nm, n_u, n_d)); // *** does BM exists?
     }
     else if(blocks.compare("CPMLQB") == 0)
     {
@@ -1341,13 +1342,14 @@ gslpp::matrix<double> EvolDF1::AnomalousDimension(indices nm, uint n_u, uint n_d
 
         gammaDF1.assign(0, 10, GammaCQ(nm, n_u, n_d));         
         gammaDF1.assign(2, 10, GammaPQ(nm, n_u, n_d));
-        gammaDF1.assign(10, 10, GammaQQ(nm, n_u, n_d));
         gammaDF1.assign(10, 2, GammaQP(nm, n_u, n_d));
         gammaDF1.assign(10, 6, GammaQM(nm, n_u, n_d));
-        gammaDF1.assign(14, 14, GammaBB(nm, n_u, n_d));
+        gammaDF1.assign(10, 8, GammaQL(nm, n_u, n_d));
+        gammaDF1.assign(10, 10, GammaQQ(nm, n_u, n_d));
         gammaDF1.assign(14, 2, GammaBP(nm, n_u, n_d));
         gammaDF1.assign(14, 8, GammaBL(nm, n_u, n_d));        
-        gammaDF1.assign(14, 10, GammaBQ(nm, n_u, n_d)); // *** does BM exists?
+        gammaDF1.assign(14, 10, GammaBQ(nm, n_u, n_d));
+        gammaDF1.assign(14, 14, GammaBB(nm, n_u, n_d)); // *** does BM exists?
     }
     else
         throw std::runtime_error("EvolDF1::AnomalousDimension(): block not implemented");

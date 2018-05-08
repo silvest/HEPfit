@@ -927,6 +927,24 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The branching ratio of the of the Higgs into exotic particles.
+     * @return Br@f$(H\to exotic)@f$
+     */
+    virtual double Br_H_exo() const
+    {
+        return 0.0;
+    };
+    
+    /**
+     * @brief The branching ratio of the of the Higgs into invisible particles.
+     * @return Br@f$(H\to invisible)@f$
+     */
+    virtual double Br_H_inv() const
+    {
+        return 0.0;
+    };
 
     /**
      * @brief 
@@ -1064,7 +1082,26 @@ public:
     {
         return 0.0;
     }
-      
+ 
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{Z,eff}=\sqrt{\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}}@f$.
+     * @return @f$\kappa_{Z,eff}@f$
+     */
+    virtual double kappaZeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{W,eff}=\sqrt{\Gamma_{HWW}/\Gamma_{HWW}^{SM}}@f$.
+     * @return @f$\kappa_{W,eff}@f$
+     */
+    virtual double kappaWeff() const
+    {
+        return 1.0;
+    }
       
     ////////////////////////////////////////////////////////////////////////
 protected:
