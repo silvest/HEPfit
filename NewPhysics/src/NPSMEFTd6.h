@@ -13,6 +13,7 @@
 #include "NPSMEFTd6Matching.h"
 #include <string.h>
 #include <stdexcept>
+#include <gsl/gsl_integration.h>
 
 
 /**
@@ -1723,6 +1724,21 @@ public:
      * @return @f$\lambda_{Z}@f$
      */
     virtual double lambdaZNP() const;
+    
+    ////////////////////////////////////////////////////////////////////////
+    /**
+     * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
+     * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.
+     * @return @f$d\sigma/d\cos{\theta}@f$
+     */
+    virtual double dxsWWdcos(const double sqrt_s, const double cos) const;
+    
+    /**
+     * @brief The integral of differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
+     * with @f$\ell= e, \mu@f$ in a given bin of the @f$W@f$ polar angle.
+     * @return @f$\int_{\cos{\theta_1}}^{\cos{\theta_2}} d\sigma/d\cos{\theta}@f$
+     */
+    virtual double dxsWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const;
     
     ////////////////////////////////////////////////////////////////////////
     

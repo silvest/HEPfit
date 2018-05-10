@@ -7,6 +7,9 @@
 
 #include "NPSMEFTd6.h"
 #include <limits>
+#include <gsl/gsl_sf.h>
+#include <boost/bind.hpp>
+#include "gslpp_function_adapter.h"
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
         = {"CG", "CW", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
@@ -6495,6 +6498,320 @@ double NPSMEFTd6::lambdaZNP() const
       NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * ale ) / sW_tree) * CW * v2_over_LambdaNP2;
 
       return NPdirect;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
+{
+    double s = sqrt_s * sqrt_s;
+    double cos2 = cos * cos;
+    double sin2 = 1.0 - cos2;
+    double sin = sqrt(sin2);
+    
+    double topb = 0.3894*1000000.0;
+    
+//  NC and CC couplings
+    double gLe, gRe;
+    gslpp::complex Uenu;
+    
+    gLe = -0.5 + sW2_tree + deltaGL_f(leptons[ELECTRON]);
+    gRe = sW2_tree + deltaGR_f(leptons[ELECTRON]);
+    
+    Uenu = deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]);
+    Uenu = 1.0 + Uenu;
+
+//  Wigner functions
+    double d1pp[2],d1mm[2],d1p0[2],d1m0[2],d10p[2],d10m[2],d100[2];
+    
+    d1pp[0]=sqrt((1.0 - cos2)/2.0);
+    d1pp[1]=-sqrt((1.0 - cos2)/2.0);
+    
+    d1mm[0]=d1pp[0];
+    d1mm[1]=d1pp[1];
+    
+    d1p0[0]=(1.0 - cos)/2.0;
+    d1p0[1]=(1.0 + cos)/2.0;
+    
+    d1m0[0]=d1p0[1];
+    d1m0[1]=d1p0[0];
+    
+    d10p[0]=d1p0[1];
+    d10p[1]=d1p0[0];
+    
+    d10m[0]=d1p0[0];
+    d10m[1]=d1p0[1];
+    
+    d100[0]=d1pp[0];
+    d100[1]=d1pp[1];
+    
+    gslpp::matrix<double> d1LH = gslpp::matrix<double>::matrix(3, 3, 0.0);
+    
+    gslpp::matrix<double> d1RH = gslpp::matrix<double>::matrix(3, 3, 0.0);
+    
+    d1LH.assign(0,0, d1pp[0]);
+    d1LH.assign(0,1, d1p0[0]);
+    d1LH.assign(0,2, 0.0);
+    
+    d1LH.assign(1,0, d10p[0]);
+    d1LH.assign(1,1, d100[0]);
+    d1LH.assign(1,2, d10m[0]);
+    
+    d1LH.assign(2,0, 0.0);
+    d1LH.assign(2,1, d1m0[0]);
+    d1LH.assign(2,2, d1mm[0]);
+    
+    d1RH.assign(0,0, d1pp[1]);
+    d1RH.assign(0,1, d1p0[1]);
+    d1RH.assign(0,2, 0.0);
+    
+    d1RH.assign(1,0, d10p[1]);
+    d1RH.assign(1,1, d100[1]);
+    d1RH.assign(1,2, d10m[1]);
+    
+    d1RH.assign(2,0, 0.0);
+    d1RH.assign(2,1, d1m0[1]);
+    d1RH.assign(2,2, d1mm[1]);
+    
+//  TGC parameterization
+    double g1Z,g1ga,kZ,kga,lambZ,lambga,g4Z,g4ga,g5Z,g5ga,ktZ,ktga,lambtZ,lambtga;
+
+//  TGC present in the SM     
+    g1Z=1.0 + deltag1ZNP();
+    g1ga=1.0;
+    kZ=1.0 + deltag1ZNP() - (sW2_tree/cW2_tree) * deltaKgammaNP();
+    kga=1.0 + deltaKgammaNP();
+//  TGC not present in the SM
+    lambZ=lambdaZNP(); //Check normalization
+    lambga=lambZ;
+    g4Z=0.0;
+    g4ga=0.0;
+    g5Z=0.0;
+    g5ga=0.0;
+    ktZ=0.0;
+    ktga=0.0;
+    lambtZ=0.0;
+    lambtga=0.0;
+    
+    double f3Z, f3ga;
+    
+    f3Z = g1Z + kZ + lambZ;    
+    f3ga = g1ga + kga + lambga;
+    
+ // Kinematic factors
+    double beta, gamma, gamma2;
+    
+    beta = sqrt(1.0 - 4.0 * Mw_tree() * Mw_tree() / s);
+    gamma = sqrt_s/(2.0*Mw_tree());
+    gamma2= gamma*gamma;
+    
+//  J=1 Subamplitudes: Z
+    gslpp::complex AZpp, AZmm, AZp0, AZm0, AZ0p, AZ0m, AZ00;
+    
+    AZpp = gslpp::complex(g1Z + 2.0* gamma2, (ktZ + lambtZ - 2.0*lambtZ)/beta , false);
+    AZmm = gslpp::complex(g1Z + 2.0* gamma2, -(ktZ + lambtZ - 2.0*lambtZ)/beta , false);
+    AZp0 = gslpp::complex(f3Z + beta * g5Z , -g4Z + (ktZ-lambtZ)/beta , false);
+    AZp0 = gamma * AZp0;
+    AZm0 = gslpp::complex(f3Z - beta * g5Z , -g4Z - (ktZ-lambtZ)/beta , false);
+    AZm0 = gamma * AZm0;
+    AZ0p = gslpp::complex(f3Z - beta * g5Z , g4Z + (ktZ-lambtZ)/beta , false);
+    AZ0p = gamma * AZ0p;
+    AZ0m = gslpp::complex(f3Z + beta * g5Z , g4Z - (ktZ-lambtZ)/beta , false);
+    AZ0m = gamma * AZ0m;
+    AZ00 = gslpp::complex( g1Z + 2.0*gamma2*kZ, 0.0 , false);
+    
+//  Collect in matrices and separate LH and RH
+    gslpp::matrix<gslpp::complex> AmpZLH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpZRH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    
+    AmpZLH.assign(0,0, AZpp *  d1LH(0,0) );
+    AmpZLH.assign(0,1, AZp0 *  d1LH(0,1));
+    AmpZLH.assign(0,2, 0.0);
+    
+    AmpZLH.assign(1,0, AZ0p *  d1LH(1,0));
+    AmpZLH.assign(1,1, AZ00 *  d1LH(1,1));
+    AmpZLH.assign(1,2, AZ0m *  d1LH(1,2));
+    
+    AmpZLH.assign(2,0, 0.0);
+    AmpZLH.assign(2,1, AZm0 *  d1LH(2,1));
+    AmpZLH.assign(2,2, AZmm *  d1LH(2,2));
+    
+    AmpZLH = AmpZLH * beta * s/(s-Mz*Mz);
+    
+//  Add the correct Zff coupling
+    AmpZLH = AmpZLH * gLe / sW2_tree;
+    
+    AmpZRH.assign(0,0, AZpp *  d1RH(0,0) );
+    AmpZRH.assign(0,1, AZp0 *  d1RH(0,1));
+    AmpZRH.assign(0,2, 0.0);
+    
+    AmpZRH.assign(1,0, AZ0p *  d1RH(1,0));
+    AmpZRH.assign(1,1, AZ00 *  d1RH(1,1));
+    AmpZRH.assign(1,2, AZ0m *  d1RH(1,2));
+    
+    AmpZRH.assign(2,0, 0.0);
+    AmpZRH.assign(2,1, AZm0 *  d1RH(2,1));
+    AmpZRH.assign(2,2, AZmm *  d1RH(2,2));
+    
+    AmpZRH = AmpZRH * beta * s/(s-Mz*Mz);
+
+//  Add the correct Zff coupling    
+    AmpZRH = AmpZRH * gRe / sW2_tree;
+
+//  J=1 Subamplitudes: gamma
+    gslpp::complex Agapp, Agamm, Agap0, Agam0, Aga0p, Aga0m, Aga00;
+    
+    Agapp = gslpp::complex(g1ga + 2.0* gamma2, (ktga + lambtga - 2.0*lambtga)/beta , false);
+    Agamm = gslpp::complex(g1ga + 2.0* gamma2, -(ktga + lambtga - 2.0*lambtga)/beta , false);
+    Agap0 = gslpp::complex(f3ga + beta * g5ga , -g4ga + (ktga-lambtga)/beta , false);
+    Agap0 = gamma * Agap0;
+    Agam0 = gslpp::complex(f3ga - beta * g5ga , -g4ga - (ktga-lambtga)/beta , false);
+    Agam0 = gamma * Agam0;
+    Aga0p = gslpp::complex(f3ga - beta * g5ga , g4ga + (ktga-lambtga)/beta , false);
+    Aga0p = gamma * Aga0p;
+    Aga0m = gslpp::complex(f3ga + beta * g5ga , g4ga - (ktga-lambtga)/beta , false);
+    Aga0m = gamma * Aga0m;
+    Aga00 = gslpp::complex( g1ga + 2.0*gamma2*kga, 0.0 , false);
+
+//  Collect in matrices. Here LH = RH, except for the Wigner functions  
+    gslpp::matrix<gslpp::complex> AmpgaLH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpgaRH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    
+    AmpgaLH.assign(0,0, Agapp * d1LH(0,0));
+    AmpgaLH.assign(0,1, Agap0 * d1LH(0,1));
+    AmpgaLH.assign(0,2, 0.0);
+    
+    AmpgaLH.assign(1,0, Aga0p * d1LH(1,0));
+    AmpgaLH.assign(1,1, Aga00 * d1LH(1,1));
+    AmpgaLH.assign(1,2, Aga0m * d1LH(1,2));
+    
+    AmpgaLH.assign(2,0, 0.0);
+    AmpgaLH.assign(2,1, Agam0 * d1LH(2,1));
+    AmpgaLH.assign(2,2, Agamm * d1LH(2,2));
+    
+    AmpgaRH.assign(0,0, Agapp * d1RH(0,0));
+    AmpgaRH.assign(0,1, Agap0 * d1RH(0,1));
+    AmpgaRH.assign(0,2, 0.0);
+    
+    AmpgaRH.assign(1,0, Aga0p * d1RH(1,0));
+    AmpgaRH.assign(1,1, Aga00 * d1RH(1,1));
+    AmpgaRH.assign(1,2, Aga0m * d1RH(1,2));
+    
+    AmpgaRH.assign(2,0, 0.0);
+    AmpgaRH.assign(2,1, Agam0 * d1RH(2,1));
+    AmpgaRH.assign(2,2, Agamm * d1RH(2,2));
+    
+    AmpgaLH = -beta * AmpgaLH;
+    AmpgaRH = -beta * AmpgaRH;
+    
+//  J=1 Subamplitudes: neutrino
+    gslpp::complex Bpp, Bmm, Bp0, Bm0, B0p, B0m, B00;
+    gslpp::complex Cpp, Cmm, Cp0, Cm0, C0p, C0m, C00;
+    
+    Bpp = gslpp::complex(1.0 , 0.0 , false);
+    Bmm = Bpp;
+    Bp0 = gslpp::complex( 2.0 * gamma, 0.0 , false);
+    Bm0 = Bp0;
+    B0p = Bp0;
+    B0m = Bp0;
+    B00 = gslpp::complex( 2.0 * gamma2, 0.0 , false);
+    
+    Cpp = gslpp::complex(1.0/gamma2 , 0.0 , false);
+    Cmm = Cpp;
+    Cp0 = gslpp::complex( 2.0 * (1.0 + beta)/gamma, 0.0 , false);
+    Cm0 = Cp0;
+    C0p = Cp0;
+    C0m = Cp0;
+    C00 = gslpp::complex( 2.0 / gamma2, 0.0 , false);
+    
+//  Collect in matrices. Here LH = RH    
+    gslpp::matrix<gslpp::complex> Bnu = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> Cnu = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    
+    Bnu.assign(0,0, Bpp * d1LH(0,0));
+    Bnu.assign(0,1, Bp0 * d1LH(0,1));
+    Bnu.assign(0,2, 0.0);
+    
+    Bnu.assign(1,0, B0p * d1LH(1,0));
+    Bnu.assign(1,1, B00 * d1LH(1,1));
+    Bnu.assign(1,2, B0m * d1LH(1,2));
+    
+    Bnu.assign(2,0, 0.0);
+    Bnu.assign(2,1, Bm0 * d1LH(2,1));
+    Bnu.assign(2,2, Bmm * d1LH(2,2));
+    
+    Cnu.assign(0,0, Cpp * d1LH(0,0));
+    Cnu.assign(0,1, Cp0 * d1LH(0,1));
+    Cnu.assign(0,2, 0.0);
+    
+    Cnu.assign(1,0, C0p * d1LH(1,0));
+    Cnu.assign(1,1, C00 * d1LH(1,1));
+    Cnu.assign(1,2, C0m * d1LH(1,2));
+    
+    Cnu.assign(2,0, 0.0);
+    Cnu.assign(2,1, Cm0 * d1LH(2,1));
+    Cnu.assign(2,2, Cmm * d1LH(2,2));
+ 
+//  The matrix with the total J=1 neutrino amplitude (only LH neutrinos)  
+    gslpp::matrix<gslpp::complex> Ampnu1 = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    
+    Ampnu1 = Bnu - Cnu/(1.0 + beta*beta - 2 * beta * cos);
+    
+    Ampnu1 = Uenu * Uenu.conjugate() * Ampnu1 / (2.0 * beta * sW2_tree);
+    
+    gslpp::matrix<gslpp::complex> Ampnu2 = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+
+    Ampnu2.assign(0,2, (1.0 - cos)/2.0 );
+    Ampnu2.assign(1,1, 0.0);
+    Ampnu2.assign(2,0, -(1.0 + cos)/2.0);
+    
+    Ampnu2 = (8.0 * M_PI * ale / sW2_tree)* Uenu * Uenu.conjugate() * Ampnu2 * sin / (1.0 + beta*beta - 2.0*beta*cos);
+    
+//  Total amplitudes 
+    gslpp::matrix<gslpp::complex> MRH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> MLH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+
+    MRH = sqrt(2.0) * 4.0 * M_PI * ale * (AmpZRH + AmpgaRH);
+    MLH = - sqrt(2.0) * 4.0 * M_PI * ale * (AmpZLH + AmpgaLH + Ampnu1) + Ampnu2;
+    
+//  Total amplitude squared and differential cross section (in pb)
+    gslpp::matrix<double> M2 = gslpp::matrix<double>::matrix(3, 3, 0.0);
+    double dxsdcos;
+    
+    dxsdcos = 0.0;
+    
+    for (int i=0; i<3; i++) {
+        for (int j=0; j<3; j++) {
+            M2.assign(i,j, (MRH(i,j)* (MRH(i,j).conjugate()) 
+                    + MLH(i,j)* (MLH(i,j).conjugate())).real() );
+            
+            dxsdcos = dxsdcos + M2(i,j);
+        }
+    }
+    
+//  Differential cross section in pb
+    dxsdcos = (topb * 8.0 * M_PI * M_PI * M_PI * beta / s) * dxsdcos;
+
+    return dxsdcos;
+}
+
+double NPSMEFTd6::dxsWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
+{
+    gsl_integration_cquad_workspace * w_WW;/**< Gsl integral variable */
+    w_WW = gsl_integration_cquad_workspace_alloc(100);
+    
+    double xsWWbin;/**< Gsl integral variable */
+    double errWW;/**< Gsl integral variable */
+    
+    gsl_function FR;/**< Gsl integral variable */
+    
+    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxsWWdcos,&(*this), sqrt_s, _1));
+    
+//    FR.function(&NPSMEFTd6::dxsWWdcos);
+    
+    gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
+    
+    return xsWWbin;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
