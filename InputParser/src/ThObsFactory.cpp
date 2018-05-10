@@ -28,6 +28,53 @@
 
 ThObsFactory::ThObsFactory()
 {
+    //-----  Energies of different colliders  -----
+    const double sqrt_s_LEP2_WWcos1 = 182.66; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_WWcos2 = 189.09; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_WWcos3 = 198.38; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_WWcos4 = 205.92; ///< the center-of-mass energy in GeV
+    //
+    const double cos1_LEP2_WW = -0.95;
+    const double cos2_LEP2_WW = -0.76;
+    const double cos3_LEP2_WW = -0.57;
+    const double cos4_LEP2_WW = -0.38;
+    const double cos5_LEP2_WW = -0.19;
+    const double cos6_LEP2_WW = 0.;
+    const double cos7_LEP2_WW = 0.19;
+    const double cos8_LEP2_WW = 0.38;
+    const double cos9_LEP2_WW = 0.57;
+    const double cos10_LEP2_WW = 0.76;
+    const double cos11_LEP2_WW = 0.95;
+    //
+    const double sqrt_s_LEP2_161 = 161.3; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_172 = 172.1; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_183 = 182.7; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_189 = 188.6; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_192 = 191.6; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_196 = 195.5; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_200 = 199.5; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_202 = 201.6; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_205 = 204.9; ///< the center-of-mass energy in GeV
+    const double sqrt_s_LEP2_207 = 206.6; ///< the center-of-mass energy in GeV
+    //
+    const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_LHC8 = 8.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_LHC13 = 13.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_LHC14 = 14.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCC100 = 100.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_TeV = 1.96; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCCee161 = .161; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCCee240 = .24; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCCee350 = .35; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCCee365 = .365; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCCep3_5 = 3.5; ///< the center-of-mass energy in TeV
+    const double sqrt_s_FCCep5 = 5.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_ILC250 = .25; ///< the center-of-mass energy in TeV
+    const double sqrt_s_ILC500 = .5; ///< the center-of-mass energy in TeV
+    const double sqrt_s_ILC1000 = 1.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_CLIC1400 = 1.4; ///< the center-of-mass energy in TeV
+    const double sqrt_s_CLIC3000 = 3.0; ///< the center-of-mass energy in TeV
+    //
     //-----  StandardModel observables  -----
     obsThFactory["MtMSbar"] = boost::factory<MtMSbar*>();
     obsThFactory["alpha_s_LO"] = boost::bind(boost::factory<alpha_s*>(), _1, LO);
@@ -70,6 +117,61 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltag1Z"] = boost::factory<deltag1Z*>();
     obsThFactory["deltaKgamma"] = boost::factory<deltaKgamma*>();
     obsThFactory["lambdaZ"] = boost::factory<lambdaZ*>();
+    //-----  ee -> WW observables: LEP2 total cross section  -----
+    obsThFactory["eeWW_LEP2_161"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_161);    
+    obsThFactory["eeWW_LEP2_172"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_172); 
+    obsThFactory["eeWW_LEP2_183"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_183); 
+    obsThFactory["eeWW_LEP2_189"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_189); 
+    obsThFactory["eeWW_LEP2_192"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_192); 
+    obsThFactory["eeWW_LEP2_196"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_196); 
+    obsThFactory["eeWW_LEP2_200"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_200); 
+    obsThFactory["eeWW_LEP2_202"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_202); 
+    obsThFactory["eeWW_LEP2_205"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_205); 
+    obsThFactory["eeWW_LEP2_207"] = boost::bind(boost::factory<xseeWW*>(), _1, sqrt_s_LEP2_207);
+    //-----  ee -> WW observables: LEP2 differential cross section  -----
+    obsThFactory["deeWWdcos_LEP2_183_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos1_LEP2_WW, cos2_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos2_LEP2_WW, cos3_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin3"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos3_LEP2_WW, cos4_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin4"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos4_LEP2_WW, cos5_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin5"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos5_LEP2_WW, cos6_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin6"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos6_LEP2_WW, cos7_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin7"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos7_LEP2_WW, cos8_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin8"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos8_LEP2_WW, cos9_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos9_LEP2_WW, cos10_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_183_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos1, cos10_LEP2_WW, cos11_LEP2_WW); 
+    //
+    obsThFactory["deeWWdcos_LEP2_189_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos1_LEP2_WW, cos2_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos2_LEP2_WW, cos3_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin3"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos3_LEP2_WW, cos4_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin4"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos4_LEP2_WW, cos5_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin5"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos5_LEP2_WW, cos6_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin6"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos6_LEP2_WW, cos7_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin7"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos7_LEP2_WW, cos8_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin8"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos8_LEP2_WW, cos9_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos9_LEP2_WW, cos10_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_189_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos2, cos10_LEP2_WW, cos11_LEP2_WW);
+    //
+    obsThFactory["deeWWdcos_LEP2_198_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos1_LEP2_WW, cos2_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos2_LEP2_WW, cos3_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin3"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos3_LEP2_WW, cos4_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin4"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos4_LEP2_WW, cos5_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin5"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos5_LEP2_WW, cos6_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin6"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos6_LEP2_WW, cos7_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin7"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos7_LEP2_WW, cos8_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin8"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos8_LEP2_WW, cos9_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos9_LEP2_WW, cos10_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_198_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos3, cos10_LEP2_WW, cos11_LEP2_WW);
+    //
+    obsThFactory["deeWWdcos_LEP2_206_Bin1"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos1_LEP2_WW, cos2_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin2"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos2_LEP2_WW, cos3_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin3"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos3_LEP2_WW, cos4_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin4"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos4_LEP2_WW, cos5_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin5"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos5_LEP2_WW, cos6_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin6"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos6_LEP2_WW, cos7_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin7"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos7_LEP2_WW, cos8_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin8"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos8_LEP2_WW, cos9_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin9"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos9_LEP2_WW, cos10_LEP2_WW);    
+    obsThFactory["deeWWdcos_LEP2_206_Bin10"] = boost::bind(boost::factory<dxseeWWdcosBin*>(), _1, sqrt_s_LEP2_WWcos4, cos10_LEP2_WW, cos11_LEP2_WW); 
     //-----  Observables for particle couplings -----
     //-----  Zff couplings observables  ----------
     obsThFactory["deltagZveveL"] = boost::factory<deltagZveveL*>();
@@ -141,21 +243,7 @@ ThObsFactory::ThObsFactory()
     //-----  VVV couplings observables  ----------
 
     //-----  Higgs Extension observables  ----------
-    const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
-    const double sqrt_s_LHC8 = 8.0; ///< the center-of-mass energy in TeV
-    const double sqrt_s_LHC13 = 13.0; ///< the center-of-mass energy in TeV
-    const double sqrt_s_LHC14 = 14.0; ///< the center-of-mass energy in TeV
-    const double sqrt_s_FCC100 = 100.0; ///< the center-of-mass energy in TeV
-    const double sqrt_s_TeV = 1.96;
-    const double sqrt_s_FCCee240 = .24;
-    const double sqrt_s_FCCee350 = .35;
-    const double sqrt_s_FCCep3_5 = 3.5;
-    const double sqrt_s_FCCep5 = 5.0;
-    const double sqrt_s_ILC250 = .25;
-    const double sqrt_s_ILC500 = .5;
-    const double sqrt_s_ILC1000 = 1.0;
-    const double sqrt_s_CLIC1400 = 1.4;
-    const double sqrt_s_CLIC3000 = 3.0;
+
     //-----  Production cross sections (ratios with SM)  ----------
     obsThFactory["ggH"] = boost::bind(boost::factory<muggH*>(), _1, sqrt_s_LHC8);
     obsThFactory["VBF"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_LHC8);

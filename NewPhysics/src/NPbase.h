@@ -1082,6 +1082,37 @@ public:
     {
         return 0.0;
     }
+    
+    ////////////////////////////////////////////////////////////////////////
+    /**
+     * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
+     * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.
+     * @return @f$d\sigma/d\cos{\theta}@f$
+     */
+    virtual double dxseeWWdcos(const double sqrt_s, const double cos) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The integral of differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
+     * with @f$\ell= e, \mu@f$ in a given bin of the @f$W@f$ polar angle.
+     * @return @f$\int_{\cos{\theta_1}}^{\cos{\theta_2}} d\sigma/d\cos{\theta}@f$
+     */
+    virtual double dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Total @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$ cross section in pb, 
+     * with @f$\ell= e, \mu@f$.
+     * @return @f$\sigma(e^+ e^- \to W^+ W^- \to jj \ell \nu) @f$
+     */
+    virtual double xseeWW(const double sqrt_s) const
+    {
+        return 0.0;
+    }
  
     ////////////////////////////////////////////////////////////////////////
     

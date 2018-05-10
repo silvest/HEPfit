@@ -6502,7 +6502,7 @@ double NPSMEFTd6::lambdaZNP() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
+double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 {
     double s = sqrt_s * sqrt_s;
     double cos2 = cos * cos;
@@ -6795,7 +6795,7 @@ double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
     return dxsdcos;
 }
 
-double NPSMEFTd6::dxsWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
+double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
 {
     gsl_integration_cquad_workspace * w_WW;/**< Gsl integral variable */
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -6805,13 +6805,18 @@ double NPSMEFTd6::dxsWWdcosBin(const double sqrt_s, const double cos1, const dou
     
     gsl_function FR;/**< Gsl integral variable */
     
-    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxsWWdcos,&(*this), sqrt_s, _1));
+    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
     
 //    FR.function(&NPSMEFTd6::dxsWWdcos);
     
     gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
     
     return xsWWbin;
+}
+
+double NPSMEFTd6::xseeWW(const double sqrt_s) const
+{    
+    return dxseeWWdcosBin(sqrt_s, -1.0, 1.0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

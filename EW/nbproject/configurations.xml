@@ -41,6 +41,7 @@
       <itemPath>src/Rinv.h</itemPath>
       <itemPath>src/Rlepton.h</itemPath>
       <itemPath>src/aTGC.h</itemPath>
+      <itemPath>src/ee_WW.h</itemPath>
       <itemPath>src/sigmaHadron.h</itemPath>
       <itemPath>src/sin2thetaEff.h</itemPath>
     </logicalFolder>
@@ -402,6 +403,8 @@
       </item>
       <item path="src/aTGC.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ee_WW.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sigmaHadron.h" ex="false" tool="3" flavor2="0">
@@ -604,6 +607,8 @@
       </item>
       <item path="src/aTGC.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ee_WW.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sigmaHadron.h" ex="false" tool="3" flavor2="0">
@@ -805,6 +810,8 @@
       <item path="src/aTGC.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/aTGC.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ee_WW.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
