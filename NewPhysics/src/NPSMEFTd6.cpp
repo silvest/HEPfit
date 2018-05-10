@@ -6545,9 +6545,9 @@ double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
     d100[0]=d1pp[0];
     d100[1]=d1pp[1];
     
-    gslpp::matrix<double> d1LH = gslpp::matrix<double>::matrix(3, 3, 0.0);
+    gslpp::matrix<double> d1LH(3, 3, 0.0);
     
-    gslpp::matrix<double> d1RH = gslpp::matrix<double>::matrix(3, 3, 0.0);
+    gslpp::matrix<double> d1RH(3, 3, 0.0);
     
     d1LH.assign(0,0, d1pp[0]);
     d1LH.assign(0,1, d1p0[0]);
@@ -6621,8 +6621,8 @@ double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
     AZ00 = gslpp::complex( g1Z + 2.0*gamma2*kZ, 0.0 , false);
     
 //  Collect in matrices and separate LH and RH
-    gslpp::matrix<gslpp::complex> AmpZLH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
-    gslpp::matrix<gslpp::complex> AmpZRH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpZLH(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpZRH(3, 3, 0.0);
     
     AmpZLH.assign(0,0, AZpp *  d1LH(0,0) );
     AmpZLH.assign(0,1, AZp0 *  d1LH(0,1));
@@ -6674,8 +6674,8 @@ double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
     Aga00 = gslpp::complex( g1ga + 2.0*gamma2*kga, 0.0 , false);
 
 //  Collect in matrices. Here LH = RH, except for the Wigner functions  
-    gslpp::matrix<gslpp::complex> AmpgaLH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
-    gslpp::matrix<gslpp::complex> AmpgaRH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpgaLH(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpgaRH(3, 3, 0.0);
     
     AmpgaLH.assign(0,0, Agapp * d1LH(0,0));
     AmpgaLH.assign(0,1, Agap0 * d1LH(0,1));
@@ -6725,8 +6725,8 @@ double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
     C00 = gslpp::complex( 2.0 / gamma2, 0.0 , false);
     
 //  Collect in matrices. Here LH = RH    
-    gslpp::matrix<gslpp::complex> Bnu = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
-    gslpp::matrix<gslpp::complex> Cnu = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> Bnu(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> Cnu(3, 3, 0.0);
     
     Bnu.assign(0,0, Bpp * d1LH(0,0));
     Bnu.assign(0,1, Bp0 * d1LH(0,1));
@@ -6753,13 +6753,13 @@ double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
     Cnu.assign(2,2, Cmm * d1LH(2,2));
  
 //  The matrix with the total J=1 neutrino amplitude (only LH neutrinos)  
-    gslpp::matrix<gslpp::complex> Ampnu1 = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> Ampnu1(3, 3, 0.0);
     
     Ampnu1 = Bnu - Cnu/(1.0 + beta*beta - 2 * beta * cos);
     
     Ampnu1 = Uenu * Uenu.conjugate() * Ampnu1 / (2.0 * beta * sW2_tree);
     
-    gslpp::matrix<gslpp::complex> Ampnu2 = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> Ampnu2(3, 3, 0.0);
 
     Ampnu2.assign(0,2, (1.0 - cos)/2.0 );
     Ampnu2.assign(1,1, 0.0);
@@ -6768,14 +6768,14 @@ double NPSMEFTd6::dxsWWdcos(const double sqrt_s, const double cos) const
     Ampnu2 = (8.0 * M_PI * ale / sW2_tree)* Uenu * Uenu.conjugate() * Ampnu2 * sin / (1.0 + beta*beta - 2.0*beta*cos);
     
 //  Total amplitudes 
-    gslpp::matrix<gslpp::complex> MRH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
-    gslpp::matrix<gslpp::complex> MLH = gslpp::matrix<gslpp::complex>::matrix(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> MRH(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> MLH(3, 3, 0.0);
 
     MRH = sqrt(2.0) * 4.0 * M_PI * ale * (AmpZRH + AmpgaRH);
     MLH = - sqrt(2.0) * 4.0 * M_PI * ale * (AmpZLH + AmpgaLH + Ampnu1) + Ampnu2;
     
 //  Total amplitude squared and differential cross section (in pb)
-    gslpp::matrix<double> M2 = gslpp::matrix<double>::matrix(3, 3, 0.0);
+    gslpp::matrix<double> M2(3, 3, 0.0);
     double dxsdcos;
     
     dxsdcos = 0.0;
