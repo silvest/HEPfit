@@ -5743,15 +5743,19 @@ double NPSMEFTd6::BrHbbRatio() const
 
 double NPSMEFTd6::computeGammaTotalRatio() const
 {
-    return (trueSM.computeBrHtogg() * GammaHggRatio()
-            + trueSM.computeBrHtoWW() * GammaHWWRatio()
-            + trueSM.computeBrHtoZZ() * GammaHZZRatio()
-            + trueSM.computeBrHtoZga() * GammaHZgaRatio()
-            + trueSM.computeBrHtogaga() * GammaHgagaRatio()
-            + trueSM.computeBrHtomumu() * GammaHmumuRatio()
-            + trueSM.computeBrHtotautau() * GammaHtautauRatio()
-            + trueSM.computeBrHtocc() * GammaHccRatio()
-            + trueSM.computeBrHtobb() * GammaHbbRatio());
+    double width = 1.0;
+
+    width += deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaTotalRatio2();
+        }
+    
+    if (width < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return width;
+
 }
 
 double NPSMEFTd6::deltaGammaTotalRatio1() const
