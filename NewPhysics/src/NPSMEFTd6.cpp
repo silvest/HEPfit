@@ -6509,7 +6509,7 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     double sin2 = 1.0 - cos2;
     double sin = sqrt(sin2);
     
-    double topb = 0.3894*1000000.0;
+    double topb = 0.3894*1000000000.0;
     
 //  NC and CC couplings
     double gLe, gRe;
@@ -6608,8 +6608,8 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 //  J=1 Subamplitudes: Z
     gslpp::complex AZpp, AZmm, AZp0, AZm0, AZ0p, AZ0m, AZ00;
     
-    AZpp = gslpp::complex(g1Z + 2.0* gamma2, (ktZ + lambtZ - 2.0*lambtZ)/beta , false);
-    AZmm = gslpp::complex(g1Z + 2.0* gamma2, -(ktZ + lambtZ - 2.0*lambtZ)/beta , false);
+    AZpp = gslpp::complex(g1Z + 2.0* gamma2* lambZ, (ktZ + lambtZ - 2.0*lambtZ)/beta , false);
+    AZmm = gslpp::complex(g1Z + 2.0* gamma2* lambZ, -(ktZ + lambtZ - 2.0*lambtZ)/beta , false);
     AZp0 = gslpp::complex(f3Z + beta * g5Z , -g4Z + (ktZ-lambtZ)/beta , false);
     AZp0 = gamma * AZp0;
     AZm0 = gslpp::complex(f3Z - beta * g5Z , -g4Z - (ktZ-lambtZ)/beta , false);
@@ -6661,8 +6661,8 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 //  J=1 Subamplitudes: gamma
     gslpp::complex Agapp, Agamm, Agap0, Agam0, Aga0p, Aga0m, Aga00;
     
-    Agapp = gslpp::complex(g1ga + 2.0* gamma2, (ktga + lambtga - 2.0*lambtga)/beta , false);
-    Agamm = gslpp::complex(g1ga + 2.0* gamma2, -(ktga + lambtga - 2.0*lambtga)/beta , false);
+    Agapp = gslpp::complex(g1ga + 2.0* gamma2* lambga, (ktga + lambtga - 2.0*lambtga)/beta , false);
+    Agamm = gslpp::complex(g1ga + 2.0* gamma2* lambga, -(ktga + lambtga - 2.0*lambtga)/beta , false);
     Agap0 = gslpp::complex(f3ga + beta * g5ga , -g4ga + (ktga-lambtga)/beta , false);
     Agap0 = gamma * Agap0;
     Agam0 = gslpp::complex(f3ga - beta * g5ga , -g4ga - (ktga-lambtga)/beta , false);
@@ -6719,8 +6719,8 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     Cpp = gslpp::complex(1.0/gamma2 , 0.0 , false);
     Cmm = Cpp;
     Cp0 = gslpp::complex( 2.0 * (1.0 + beta)/gamma, 0.0 , false);
-    Cm0 = Cp0;
-    C0p = Cp0;
+    Cm0 = gslpp::complex( 2.0 * (1.0 - beta)/gamma, 0.0 , false);
+    C0p = Cm0;
     C0m = Cp0;
     C00 = gslpp::complex( 2.0 / gamma2, 0.0 , false);
     
@@ -6755,7 +6755,7 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 //  The matrix with the total J=1 neutrino amplitude (only LH neutrinos)  
     gslpp::matrix<gslpp::complex> Ampnu1(3, 3, 0.0);
     
-    Ampnu1 = Bnu - Cnu/(1.0 + beta*beta - 2 * beta * cos);
+    Ampnu1 = Bnu - Cnu/(1.0 + beta*beta - 2.0 * beta * cos);
     
     Ampnu1 = Uenu * Uenu.conjugate() * Ampnu1 / (2.0 * beta * sW2_tree);
     
@@ -6790,7 +6790,7 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     }
     
 //  Differential cross section in pb
-    dxsdcos = (topb * 8.0 * M_PI * M_PI * M_PI * beta / s) * dxsdcos;
+    dxsdcos = (topb * beta / 32.0 / M_PI / s) * dxsdcos;
 
     return dxsdcos;
 }
@@ -6801,15 +6801,29 @@ double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const d
     w_WW = gsl_integration_cquad_workspace_alloc(100);
     
     double xsWWbin;/**< Gsl integral variable */
-    double errWW;/**< Gsl integral variable */
+//    double errWW;/**< Gsl integral variable */
     
-    gsl_function FR;/**< Gsl integral variable */
+//    gsl_function FR;/**< Gsl integral variable */
     
-    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
+//    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
     
 //    FR.function(&NPSMEFTd6::dxsWWdcos);
     
-    gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
+//    gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
+    
+//  Simple integration for testing
+    double cosx;
+    
+    xsWWbin = 0.0;
+    
+    for (int i=1; i<100; i++){
+        cosx = cos1 +  i*(cos2-cos1)/100;
+        xsWWbin = xsWWbin + dxseeWWdcos(sqrt_s, cosx);
+    }
+    
+    xsWWbin = xsWWbin + 0.5 * (dxseeWWdcos(sqrt_s, cos1) + dxseeWWdcos(sqrt_s, cos2));
+    
+    xsWWbin = xsWWbin * (cos2-cos1)/100;
     
     return xsWWbin;
 }
@@ -6821,6 +6835,11 @@ double NPSMEFTd6::xseeWW(const double sqrt_s) const
 
 ///////////////////////////////////////////////////////////////////////////////
 
+double NPSMEFTd6::kappaGeff() const
+{
+      return sqrt(GammaHggRatio());
+}
+
 double NPSMEFTd6::kappaZeff() const
 {
       return sqrt(GammaHZZRatio());
@@ -6829,6 +6848,16 @@ double NPSMEFTd6::kappaZeff() const
 double NPSMEFTd6::kappaWeff() const
 {
       return sqrt(GammaHWWRatio());
+}
+
+double NPSMEFTd6::kappaAeff() const
+{
+      return sqrt(GammaHgagaRatio());
+}
+
+double NPSMEFTd6::kappaZAeff() const
+{
+      return sqrt(GammaHZgaRatio());
 }
 
 ///////////////////////////////////////////////////////////////////////////////

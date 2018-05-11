@@ -1117,6 +1117,15 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
     /**
+     * @brief The effective coupling @f$\kappa_{G,eff}=\sqrt{\Gamma_{HGG}/\Gamma_{HGG}^{SM}}@f$.
+     * @return @f$\kappa_{G,eff}@f$
+     */
+    virtual double kappaGeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
      * @brief The effective coupling @f$\kappa_{Z,eff}=\sqrt{\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}}@f$.
      * @return @f$\kappa_{Z,eff}@f$
      */
@@ -1130,6 +1139,24 @@ public:
      * @return @f$\kappa_{W,eff}@f$
      */
     virtual double kappaWeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{A,eff}=\sqrt{\Gamma_{HAA}/\Gamma_{HAA}^{SM}}@f$.
+     * @return @f$\kappa_{A,eff}@f$
+     */
+    virtual double kappaAeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{ZA,eff}=\sqrt{\Gamma_{HZA}/\Gamma_{HZA}^{SM}}@f$.
+     * @return @f$\kappa_{ZA,eff}@f$
+     */
+    virtual double kappaZAeff() const
     {
         return 1.0;
     }

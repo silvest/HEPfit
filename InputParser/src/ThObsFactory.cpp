@@ -222,6 +222,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltagHss"] = boost::factory<deltagHss*>();
     obsThFactory["deltagHbb"] = boost::factory<deltagHbb*>();
     //-----  HGG couplings observables  ----------
+    obsThFactory["gHGGeff"] = boost::factory<gHGGeff*>();
     obsThFactory["deltagHGG"] = boost::factory<deltagHGG*>();
     //-----  HZZ couplings observables  ----------
     obsThFactory["gHZZeff"] = boost::factory<gHZZeff*>();
@@ -229,8 +230,10 @@ ThObsFactory::ThObsFactory()
     obsThFactory["gHZZ1"] = boost::factory<gHZZ1*>();
     obsThFactory["gHZZ2"] = boost::factory<gHZZ2*>();
     //-----  HAA couplings observables  ----------
+    obsThFactory["gHAAeff"] = boost::factory<gHAAeff*>();
     obsThFactory["deltagHAA"] = boost::factory<deltagHAA*>();
     //-----  HZA couplings observables  ----------
+    obsThFactory["gHZAeff"] = boost::factory<gHZAeff*>();
     obsThFactory["deltagHZA"] = boost::factory<deltagHZA*>();
     obsThFactory["gHZA2"] = boost::factory<gHZA2*>();
     //-----  HWW couplings observables  ----------

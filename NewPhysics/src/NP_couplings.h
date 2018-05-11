@@ -1732,6 +1732,43 @@ private:
 
 };
 
+/**
+ * @class gHGGeff
+ * @brief An observable class for the effective @f$H GG@f$ coupling 
+ * @f$g_{HGG}^{Eff}@f$, defined from the square root of @f$\Gamma_{HGG}/\Gamma_{HGG}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H GG@f$ coupling
+ * @f$g_{HGG}^{Eff}@f$, defined from the square root of @f$\Gamma_{HGG}/\Gamma_{HGG}^{SM}@f$.
+ *
+ */
+class gHGGeff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHGGeff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHGGeff class.
+     */
+    virtual ~gHGGeff();
+
+    /**
+     * @brief The effective @f$H GG@f$ coupling
+     * @return @f$g_{HGG}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
 //-----  HZZ couplings observables  ----------
 
 /**
@@ -1921,6 +1958,44 @@ private:
 
 };
 
+
+/**
+ * @class gHAAeff
+ * @brief An observable class for the effective @f$H AA@f$ coupling 
+ * @f$g_{HAA}^{Eff}@f$, defined from the square root of @f$\Gamma_{HAA}/\Gamma_{HAA}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H AA@f$ coupling
+ * @f$g_{HAA}^{Eff}@f$, defined from the square root of @f$\Gamma_{HAA}/\Gamma_{HAA}^{SM}@f$.
+ *
+ */
+class gHAAeff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHAAeff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHAAeff class.
+     */
+    virtual ~gHAAeff();
+
+    /**
+     * @brief The effective @f$H AA@f$ coupling
+     * @return @f$g_{HAA}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
 //-----  HZA couplings observables  ----------
 
 /**
@@ -1950,6 +2025,43 @@ public:
     /**
      * @brief The deviation from the SM of the effective @f$H Z \gamma@f$ coupling @f$\delta g_{HZA}@f$.
      * @return @f$\delta g_{HZA}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+/**
+ * @class gHZAeff
+ * @brief An observable class for the effective @f$H ZA@f$ coupling 
+ * @f$g_{HZA}^{Eff}@f$, defined from the square root of @f$\Gamma_{HZA}/\Gamma_{HZA}^{SM}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the effective @f$H ZA@f$ coupling
+ * @f$g_{HZA}^{Eff}@f$, defined from the square root of @f$\Gamma_{HZA}/\Gamma_{HZA}^{SM}@f$.
+ *
+ */
+class gHZAeff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHZAeff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHZAeff class.
+     */
+    virtual ~gHZAeff();
+
+    /**
+     * @brief The effective @f$H ZA@f$ coupling
+     * @return @f$g_{HZA}^{Eff}@f$
      */
     double computeThValue();
       

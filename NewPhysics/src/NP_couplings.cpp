@@ -1057,6 +1057,24 @@ double deltagHGG::computeThValue()
 
 /* -------------------------------------*/
 
+gHGGeff::gHGGeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHGGeff::~gHGGeff()
+{}
+
+double gHGGeff::computeThValue()
+{   
+    return myNPbase->kappaGeff();
+}
+
+/* -------------------------------------*/
+
 //-----  HZZ couplings observables  ----------
 
 /* -------------------------------------*/
@@ -1166,6 +1184,24 @@ double deltagHAA::computeThValue()
 
 /* -------------------------------------*/
 
+gHAAeff::gHAAeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHAAeff::~gHAAeff()
+{}
+
+double gHAAeff::computeThValue()
+{   
+    return myNPbase->kappaAeff();
+}
+
+/* -------------------------------------*/
+
 //-----  HZA couplings observables  ----------
 
 /* -------------------------------------*/
@@ -1186,6 +1222,24 @@ double deltagHZA::computeThValue()
     double dgRatio = myNPbase->deltaG1_hZARatio();
     
     return dgRatio;
+}
+
+/* -------------------------------------*/
+
+gHZAeff::gHZAeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHZAeff::~gHZAeff()
+{}
+
+double gHZAeff::computeThValue()
+{   
+    return myNPbase->kappaZAeff();
 }
 
 /* -------------------------------------*/
