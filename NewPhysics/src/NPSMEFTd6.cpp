@@ -5904,8 +5904,8 @@ double NPSMEFTd6::deltaGammaTotalRatio2() const
 
 double NPSMEFTd6::GammaHggRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHggint + eHggpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHggRatio1();
     
@@ -5920,13 +5920,20 @@ double NPSMEFTd6::GammaHggRatio() const
 
 double NPSMEFTd6::deltaGammaHggRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             +173400. * CuH_22r / LambdaNP2
             -128860. * CuH_33r / LambdaNP2
             +248587. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             +37390592. * CHG / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHggint + eHggpar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHggRatio2() const
@@ -5973,8 +5980,8 @@ double NPSMEFTd6::deltaGammaHggRatio2() const
 
 double NPSMEFTd6::GammaHWWRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHWWint + eHWWpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHWWRatio1();
     
@@ -5988,14 +5995,20 @@ double NPSMEFTd6::GammaHWWRatio() const
 }
 
 double NPSMEFTd6::deltaGammaHWWRatio1() const
-{
+{    
+    double dwidth;
 
-    return ( +121100. * CHbox / LambdaNP2
+    dwidth = ( +121100. * CHbox / LambdaNP2
                 -117075. * CHD / LambdaNP2
                 -91657.4 * CHW / LambdaNP2
                 -190618. * CHWB / LambdaNP2
                 +38345.4 * CDHW / LambdaNP2
                 -1.849 * DeltaGF() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHWWint + eHWWpar;
+    
+    return dwidth;
     
 }
 
@@ -6028,8 +6041,8 @@ double NPSMEFTd6::deltaGammaHWWRatio2() const
 
 double NPSMEFTd6::GammaHZZRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHZZint + eHZZpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHZZRatio1();
     
@@ -6044,8 +6057,9 @@ double NPSMEFTd6::GammaHZZRatio() const
 
 double NPSMEFTd6::deltaGammaHZZRatio1() const
 {
+    double dwidth;
 
-    return ( +120032. * CHbox / LambdaNP2
+    dwidth = ( +120032. * CHbox / LambdaNP2
                 +29732.2 * CHD / LambdaNP2
                 -13963.3 * CHB / LambdaNP2
                 -46223.3 * CHW / LambdaNP2
@@ -6053,6 +6067,11 @@ double NPSMEFTd6::deltaGammaHZZRatio1() const
                 +15260.6 * CDHB / LambdaNP2
                 +28274.3 * CDHW / LambdaNP2
                 -0.992 * DeltaGF() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
     
 }
 
@@ -6100,8 +6119,8 @@ double NPSMEFTd6::deltaGammaHZZRatio2() const
 
 double NPSMEFTd6::GammaHZgaRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHZgaint + eHZgapar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHZgaRatio1();
     
@@ -6116,8 +6135,9 @@ double NPSMEFTd6::GammaHZgaRatio() const
 
 double NPSMEFTd6::deltaGammaHZgaRatio1() const
 {
+    double dwidth;
 
-    return ( +119538. * CHbox / LambdaNP2
+    dwidth = ( +119538. * CHbox / LambdaNP2
             -321.71 * CeH_33r / LambdaNP2
             -2910.68 * CuH_22r / LambdaNP2
             +6522.67 * CuH_33r / LambdaNP2
@@ -6130,6 +6150,10 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
             +1586252. * CDHW / LambdaNP2
             -115000. * DeltaGF() / v() / v() );
     
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZgaint + eHZgapar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHZgaRatio2() const
@@ -6231,8 +6255,8 @@ double NPSMEFTd6::deltaGammaHZgaRatio2() const
 
 double NPSMEFTd6::GammaHgagaRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHgagaint + eHgagapar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHgagaRatio1();
     
@@ -6247,7 +6271,9 @@ double NPSMEFTd6::GammaHgagaRatio() const
 
 double NPSMEFTd6::deltaGammaHgagaRatio1() const
 {
-    return ( +119212. * CHbox / LambdaNP2
+    double dwidth;
+
+    dwidth = ( +119212. * CHbox / LambdaNP2
             -42570.4 * CeH_33r / LambdaNP2
             -48874.1 * CuH_22r / LambdaNP2
             +31992.9 * CuH_33r / LambdaNP2
@@ -6258,6 +6284,10 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
             +26348174. * CHWB / LambdaNP2
             -125370. * DeltaGF() / v() / v() );
     
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHgagaint + eHgagapar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHgagaRatio2() const
@@ -6334,8 +6364,8 @@ double NPSMEFTd6::deltaGammaHgagaRatio2() const
       
 double NPSMEFTd6::GammaHmumuRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHmumuint + eHmumupar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHmumuRatio1();
     
@@ -6350,11 +6380,17 @@ double NPSMEFTd6::GammaHmumuRatio() const
 
 double NPSMEFTd6::deltaGammaHmumuRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -199794752. * CeH_22r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
-        
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHmumuint + eHmumupar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHmumuRatio2() const
@@ -6380,8 +6416,8 @@ double NPSMEFTd6::deltaGammaHmumuRatio2() const
 
 double NPSMEFTd6::GammaHtautauRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHtautauint + eHtautaupar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHtautauRatio1();
     
@@ -6396,11 +6432,17 @@ double NPSMEFTd6::GammaHtautauRatio() const
 
 double NPSMEFTd6::deltaGammaHtautauRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -11880769. * CeH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
-        
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHtautauint + eHtautaupar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHtautauRatio2() const
@@ -6426,8 +6468,8 @@ double NPSMEFTd6::deltaGammaHtautauRatio2() const
 
 double NPSMEFTd6::GammaHccRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHccint + eHccpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHccRatio1();
     
@@ -6442,11 +6484,18 @@ double NPSMEFTd6::GammaHccRatio() const
 
 double NPSMEFTd6::deltaGammaHccRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -16420490. * CuH_22r / LambdaNP2
             -1001.52 * CuH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHccint + eHccpar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHccRatio2() const
@@ -6477,8 +6526,8 @@ double NPSMEFTd6::deltaGammaHccRatio2() const
 
 double NPSMEFTd6::GammaHbbRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHbbint + eHbbpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
     
     width += deltaGammaHbbRatio1();
     
@@ -6491,12 +6540,19 @@ double NPSMEFTd6::GammaHbbRatio() const
 }
 
 double NPSMEFTd6::deltaGammaHbbRatio1() const
-{    
-    return ( +121249. * CHbox / LambdaNP2
+{
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -562.029 * CuH_33r / LambdaNP2
             -5026895. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHbbint + eHbbpar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHbbRatio2() const
