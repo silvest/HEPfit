@@ -362,6 +362,15 @@ public:
         nBins2D = nbins;
     };
     
+    /**
+     * @brief A set method to set the number of bins for a 2D histograms
+     * @param[in] nbins the number of bins in the 2D histogram
+     */
+    void setSignificants(unsigned int significants_i)
+    {
+        significants = significants_i;
+    };
+    
 private:
     
     /**
@@ -412,6 +421,7 @@ private:
     int rIdx;
     unsigned int nBins1D; ///< The number of bins in a 1D histogram.
     unsigned int nBins2D; ///< The number of bins in a 2D histogram.
+    unsigned int significants; /// < The number of significant digits in the Statistics File.
     TColor * HEPfit_green;
     TColor * HEPfit_red;
 };

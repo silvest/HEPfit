@@ -560,15 +560,18 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         } else if (beg->compare("NBinsHistogram1D") == 0) {
             ++beg;
             double nBins1D = atoi((*beg).c_str());
-            if (nBins1D > 0) MCEngine.setNBins1D(nBins1D);
-            else if (nBins1D < 0)
-                throw std::runtime_error("\nERROR: NBinsHistogram1D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
+            if (nBins1D >= 0) MCEngine.setNBins1D(nBins1D);
+            else throw std::runtime_error("\nERROR: NBinsHistogram1D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("NBinsHistogram2D") == 0) {
             ++beg;
             double nBins2D = atoi((*beg).c_str());
-            if (nBins2D > 0) MCEngine.setNBins2D(nBins2D);
-            else if (nBins2D < 0)
-                throw std::runtime_error("\nERROR: NBinsHistogram2D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
+            if (nBins2D >= 0) MCEngine.setNBins2D(nBins2D);
+            else throw std::runtime_error("\nERROR: NBinsHistogram2D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
+        } else if (beg->compare("SignificantDigits") == 0) {
+            ++beg;
+            int significants = atoi((*beg).c_str());
+            if (significants >= 0) MCEngine.setSignificants(significants);
+            else throw std::runtime_error("\nERROR: SignificantDigits in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     } while (!IsEOF);
