@@ -3534,6 +3534,33 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 }
 
 
+double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.24) {
+
+        mu = 1.0; 
+          
+    } else if (sqrt_s == 0.25) {
+
+        mu = 1.0; 
+        
+    } else if (sqrt_s == 0.35) {
+
+        mu = 1.0; 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWBFPol()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeWBFint + eeeWBFpar;
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
 double NPSMEFTd6::muepWBF(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -5018,6 +5045,32 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     return mu;
 }
 
+double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.24) {
+
+        mu = 1.0; 
+          
+    } else if (sqrt_s == 0.25) {
+
+        mu = 1.0; 
+        
+    } else if (sqrt_s == 0.35) {
+
+        mu = 1.0; 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeZHint + eeeZHpar;
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 double NPSMEFTd6::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = computeSigmaWH(sqrt_s);
@@ -5561,6 +5614,32 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
         
     } else
         throw std::runtime_error("Bad argument in NPSMEFTd6::mueettH()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeettHint + eeettHpar;
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.24) {
+
+        mu = 1.0; 
+          
+    } else if (sqrt_s == 0.25) {
+
+        mu = 1.0; 
+        
+    } else if (sqrt_s == 0.35) {
+
+        mu = 1.0; 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueettHPol()");
       
     //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
     mu += eeettHint + eeettHpar;
