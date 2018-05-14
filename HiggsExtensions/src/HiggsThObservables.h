@@ -339,7 +339,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -2869,7 +2870,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -2909,7 +2911,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHccPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -2949,7 +2952,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHggPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -2989,7 +2993,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHWWPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -3029,7 +3034,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHtautauPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -3069,7 +3075,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHZZPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -3109,7 +3116,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHgagaPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -3149,7 +3157,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeZHmumuPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
@@ -3244,7 +3253,8 @@ public:
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to a StandardModel object or to any extension of it
-     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV, Pol_em_i and Pol_ep_i
+     * are the polarization of electrons and positrons, respectively
      */
     mueeWBFbbPol(const StandardModel& SM_i, const double sqrt_s_i, const double Pol_em_i, const double Pol_ep_i)
     : ThObservable(SM_i), sqrt_s(sqrt_s_i), Pol_em(Pol_em_i), Pol_ep(Pol_ep_i)
