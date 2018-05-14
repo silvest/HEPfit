@@ -963,6 +963,8 @@ std::string MonteCarloEngine::computeStatistics() {
     std::vector<double> mode(GetBestFitParameters());
     if (mode.size() == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
 
+    unsigned int rmsPrecision = 2;
+    if (significants > 0) rmsPrecision = significants;
     std::ostringstream StatsLog;
     int i = 0;
     StatsLog << "Statistics file for Observables, Binned Observables and Correlated Gaussian Observables.\n" << std::endl;
@@ -989,7 +991,7 @@ std::string MonteCarloEngine::computeStatistics() {
         if (bch1d.GetHistogram()->Integral() > 0.0) {
             double rms = bch1d.GetHistogram()->GetRMS();
             StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d.GetHistogram()->GetMean(),rms))
-                    << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(2)
+                    << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(rmsPrecision)
                     << rms << std::endl
 
                     << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d.GetLocalMode(0),rms)) << bch1d.GetLocalMode(0) << std::endl;
@@ -1046,7 +1048,7 @@ std::string MonteCarloEngine::computeStatistics() {
             if (bch1d.GetHistogram()->Integral() > 0.0) {
                 double rms = bch1d.GetHistogram()->GetRMS();
                 StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d.GetHistogram()->GetMean(), rms))
-                        << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(2)
+                        << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(rmsPrecision)
                         << rms << std::endl
 
                         << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d.GetLocalMode(0), rms)) << bch1d.GetLocalMode(0) << std::endl;
