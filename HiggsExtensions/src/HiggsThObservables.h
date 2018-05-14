@@ -1026,7 +1026,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->BrHgagaRatio())/(myNPbase->BrHmumuRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHmumuRatio()) );
+        } else {
+            return (myNPbase->BrHgagaRatio())/(myNPbase->BrHmumuRatio());
+        }
     }
 
 private:
@@ -1063,7 +1067,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->BrHgagaRatio())/(myNPbase->BrHZZRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHgagaRatio()) - (myNPbase->BrHZZRatio()) );
+        } else {
+            return (myNPbase->BrHgagaRatio())/(myNPbase->BrHZZRatio());
+        }
     }
 
 private:
@@ -1101,7 +1109,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->BrHZgaRatio())/(myNPbase->BrHZZRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHZZRatio()) );
+        } else {
+            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHZZRatio());
+        }
     }
 
 private:
@@ -1139,7 +1151,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->BrHmumuRatio())/(myNPbase->BrHZZRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHZZRatio()) );
+        } else {
+            return (myNPbase->BrHmumuRatio())/(myNPbase->BrHZZRatio());
+        }
     }
 
 private:
@@ -1175,7 +1191,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->BrHZZRatio())/(myNPbase->BrHgagaRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHZZRatio()) - (myNPbase->BrHgagaRatio()) );
+        } else {
+            return (myNPbase->BrHZZRatio())/(myNPbase->BrHgagaRatio());
+        }
     }
 
 private:
@@ -1212,7 +1232,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->BrHZgaRatio())/(myNPbase->BrHgagaRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHZgaRatio()) - (myNPbase->BrHgagaRatio()) );
+        } else {
+            return (myNPbase->BrHZgaRatio())/(myNPbase->BrHgagaRatio());
+        }
     }
 
 private:
@@ -1249,7 +1273,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->BrHmumuRatio())/(myNPbase->BrHgagaRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (1.0 + (myNPbase->BrHmumuRatio()) - (myNPbase->BrHgagaRatio()) );
+        } else {
+            return (myNPbase->BrHmumuRatio())/(myNPbase->BrHgagaRatio());
+        }
     }
 
 private:
@@ -2081,7 +2109,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->muggHH(sqrt_s))*(myNPbase->BrHgagaRatio())*(myNPbase->BrHbbRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return (-2.0 + (myNPbase->muggHH(sqrt_s)) + (myNPbase->BrHgagaRatio()) + (myNPbase->BrHbbRatio()) );
+        } else {
+            return (myNPbase->muggHH(sqrt_s))*(myNPbase->BrHgagaRatio())*(myNPbase->BrHbbRatio());
+        }
     }
 
 private:
@@ -2565,7 +2597,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHbbRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHbbRatio());
+        }
     }
 
 private:
@@ -2605,7 +2641,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHccRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHccRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHccRatio());
+        }
     }
 
 private:
@@ -2645,7 +2685,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHggRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHggRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHggRatio());
+        }
     }
 
 private:
@@ -2685,7 +2729,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHWWRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHWWRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHWWRatio());
+        }
     }
 
 private:
@@ -2725,7 +2773,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHtautauRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHtautauRatio());
+        }
     }
 
 private:
@@ -2765,7 +2817,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHZZRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHZZRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHZZRatio());
+        }
     }
 
 private:
@@ -2805,7 +2861,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHgagaRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHgagaRatio());
+        }
     }
 
 private:
@@ -2845,7 +2905,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHmumuRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZH(sqrt_s)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZH(sqrt_s))*(myNPbase->BrHmumuRatio());
+        }
     }
 
 private:
@@ -2886,7 +2950,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
+        }
     }
 
 private:
@@ -2927,7 +2995,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHccRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHccRatio());
+        }
     }
 
 private:
@@ -2968,7 +3040,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHggRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHggRatio());
+        }
     }
 
 private:
@@ -3009,7 +3085,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHWWRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHWWRatio());
+        }
     }
 
 private:
@@ -3050,7 +3130,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHtautauRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHtautauRatio());
+        }
     }
 
 private:
@@ -3091,7 +3175,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHZZRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHZZRatio());
+        }
     }
 
 private:
@@ -3132,7 +3220,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHgagaRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHgagaRatio());
+        }
     }
 
 private:
@@ -3173,25 +3265,17 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHmumuRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeZHPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHmumuRatio());
+        }
     }
 
 private:
     const NPbase* myNPbase;
     const double sqrt_s, Pol_em, Pol_ep;
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -3226,15 +3310,17 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHbbRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeWBF(sqrt_s)) + (myNPbase->BrHbbRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeWBF(sqrt_s))*(myNPbase->BrHbbRatio());
+        }
     }
 
 private:
     const NPbase* myNPbase;
     const double sqrt_s;
 };
-
-
 
 
 /**
@@ -3270,7 +3356,11 @@ public:
      */
     double computeThValue()
     {
-        return (myNPbase->mueeWBFPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
+        if ( (this->getModel()).isModelLinearized() ) {
+            return ((myNPbase->mueeWBFPol(sqrt_s,Pol_em, Pol_ep)) + (myNPbase->BrHbbRatio()) - 1.0);
+        } else {
+            return (myNPbase->mueeWBFPol(sqrt_s,Pol_em, Pol_ep))*(myNPbase->BrHbbRatio());
+        }
     }
 
 private:
