@@ -1798,8 +1798,9 @@ public:
     /**
      * @brief The ggH cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
+     * For the 13 and 14 TeV values we use the official N3LO numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -1814,9 +1815,9 @@ public:
             return 19.24; // in pb for Mh=125.1 GeV
             //return 19.09; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 43.92; // in pb for Mh=125. GeV            
+            return 48.51; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 49.47; // in pb for Mh=125. GeV            
+            return 54.60; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 100.0) {
             return 740.3; // in pb for Mh=125. GeV            
         } else if (sqrt_s == 1.96) {
@@ -1909,8 +1910,9 @@ public:
     /**
      * @brief The VBF cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -1925,9 +1927,9 @@ public:
             return 1.579; // in pb for Mh=125.1 GeV
             //return 1.572; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 3.748; // in pb for Mh=125. GeV            
+            return 3.779; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 4.233; // in pb for Mh=125. GeV            
+            return 4.275; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 100.0) {
             return 82.0; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2001,8 +2003,9 @@ public:
     /**
      * @brief The WH production cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2017,9 +2020,9 @@ public:
             return 0.7027; // in pb for Mh=125.1 GeV
             //return 0.6931; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 1.380; // in pb for Mh=125. GeV            
+            return 1.369; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 1.522; // in pb for Mh=125. GeV            
+            return 1.510; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 100.0) {
             return 15.9; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2031,8 +2034,9 @@ public:
     /**
      * @brief The ZH production cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2047,9 +2051,9 @@ public:
             return 0.4142; // in pb for Mh=125.1 GeV
             //return 0.4091; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 0.8696; // in pb for Mh=125. GeV            
+            return 0.8819; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 0.9690; // in pb for Mh=125. GeV            
+            return 0.9835; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 100.0) {
             return 11.26; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2061,8 +2065,9 @@ public:
     /**
      * @brief The ttH production cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa .
-     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 3 from 
-     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt1314TeV2014
+     * For the 13 and 14 TeV values we use the official numbers a la CERN Report 4 2016 from 
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt13TeV
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageAt14TeV
      * For the 100 TeV values we use the values from
      * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/HiggsEuropeanStrategy
      * @param[in] sqrt_s the center-of-mass energy in TeV
@@ -2077,9 +2082,9 @@ public:
             return 0.129; // in pb for Mh=125.1 GeV
             //return 0.1274; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 13.0) {
-            return 0.5085; // in pb for Mh=125. GeV            
+            return 0.5060; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 14.0) {
-            return 0.6113; // in pb for Mh=125. GeV            
+            return 0.6127; // in pb for Mh=125.1 GeV            
         } else if (sqrt_s == 100.0) {
             return 37.9; // in pb for Mh=125. GeV
         } else if (sqrt_s == 1.96) {
@@ -2090,108 +2095,118 @@ public:
 
     /**
      * @brief The Br@f$(H\to gg)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to gg)@f$
      */
     double computeBrHtogg() const
     {
-        return 8.56e-2; // Mh=125.1 GeV
+        return 8.179e-2; // Mh=125.1 GeV
     }
 
     /**
      * @brief The Br@f$(H\to WW)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to WW)@f$ in the Standard Model
      */
     double computeBrHtoWW() const
     {
         //return 2.23e-1; // Mh=125.5 GeV
-        return 2.16e-1; // Mh=125.1 GeV
+        return 2.154e-1; // Mh=125.1 GeV
     }
 
     /**
      * @brief The Br@f$(H\to ZZ)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to ZZ)@f$ in the Standard Model
      */
     double computeBrHtoZZ() const
     {
-        return 2.67e-2; // Mh=125.1 GeV
+        return 2.643e-2; // Mh=125.1 GeV
         //return 2.79e-2; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to Z\gamma)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to Z\gamma)@f$ in the Standard Model
      */
     double computeBrHtoZga() const
     {
-        return 1.55e-3; // Mh=125.1 GeV
+        return 1.541e-3; // Mh=125.1 GeV
         //return 1.59e-3; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to\gamma\gamma)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to\gamma\gamma)@f$ in the Standard Model
      */
     double computeBrHtogaga() const
     {
-        return 2.28e-3; // Mh=125.1 GeV
+        return 2.27e-3; // Mh=125.1 GeV
     }
     
     /**
      * @brief The Br@f$(H\to \mu\mu)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to \mu\mu)@f$ in the Standard Model
      */
     double computeBrHtomumu() const
     {
-        return 2.19e-4; // Mh=125.1 GeV
+        return 2.17e-4; // Mh=125.1 GeV
     }
 
     /**
      * @brief The Br@f$(H\to \tau\tau)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to \tau\tau)@f$ in the Standard Model
      */
     double computeBrHtotautau() const
     {
-        return 6.30e-2; // Mh=125.1 GeV
+        return 6.256e-2; // Mh=125.1 GeV
         //return 6.22e-2; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to cc)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to cc)@f$ in the Standard Model
      */
     double computeBrHtocc() const
     {
-        return 2.90e-2; // Mh=125.1 GeV
+        return 2.883e-2; // Mh=125.1 GeV
         //return 2.86e-2; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Br@f$(H\to bb)@f$ in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return Br@f$(H\to bb)@f$ in the Standard Model
      */
     double computeBrHtobb() const
     {
-        return 5.75e-1; // Mh=125.1 GeV
+        return 5.807e-1; // Mh=125.1 GeV
         //return 5.67e-1; // Mh=125.6 GeV
     }
 
     /**
      * @brief The Higgs total width in the Standard Model.
-     * @details Currently it returns the value of tables in appendix A (Mh=125.1 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @details Currently it returns the value for Mh=125.1 GeV provided by the LHCXSSWG update in the CERN Report 4 from 2016
+     * https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBR
      * @return @f$\Gamma_h@f$ in GeV in the Standard Model
      */
     double computeGammaHTotal() const
     {
-        return 4.08e-3; // Mh=125.1 GeV
+        return 4.101e-3; // Mh=125.1 GeV
         //return 4.15e-3; // Mh=125.6 GeV
     }
 
