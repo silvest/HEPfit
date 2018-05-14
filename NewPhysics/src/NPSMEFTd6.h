@@ -1777,6 +1777,30 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
     /**
+     * @brief The effective coupling @f$\kappa_{\mu,eff}=\sqrt{\Gamma_{H\mu\mu}/\Gamma_{H\mu\mu}^{SM}}@f$.
+     * @return @f$\kappa_{\mu,eff}@f$
+     */
+    virtual double kappamueff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{\tau,eff}=\sqrt{\Gamma_{H\tau\tau}/\Gamma_{H\tau\tau}^{SM}}@f$.
+     * @return @f$\kappa_{\tau,eff}@f$
+     */
+    virtual double kappataueff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{c,eff}=\sqrt{\Gamma_{Hcc}/\Gamma_{Hcc}^{SM}}@f$.
+     * @return @f$\kappa_{c,eff}@f$
+     */
+    virtual double kappaceff() const;
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{b,eff}=\sqrt{\Gamma_{Hbb}/\Gamma_{Hbb}^{SM}}@f$.
+     * @return @f$\kappa_{b,eff}@f$
+     */
+    virtual double kappabeff() const;
+    
+    /**
      * @brief The effective coupling @f$\kappa_{G,eff}=\sqrt{\Gamma_{HGG}/\Gamma_{HGG}^{SM}}@f$.
      * @return @f$\kappa_{G,eff}@f$
      */

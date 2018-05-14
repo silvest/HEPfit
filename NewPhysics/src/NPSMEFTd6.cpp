@@ -7008,6 +7008,26 @@ double NPSMEFTd6::xseeWW(const double sqrt_s) const
 
 ///////////////////////////////////////////////////////////////////////////////
 
+double NPSMEFTd6::kappamueff() const
+{
+      return sqrt(GammaHmumuRatio());
+}
+
+double NPSMEFTd6::kappataueff() const
+{
+      return sqrt(GammaHtautauRatio());
+}
+
+double NPSMEFTd6::kappaceff() const
+{
+      return sqrt(GammaHccRatio());
+}
+
+double NPSMEFTd6::kappabeff() const
+{
+      return sqrt(GammaHbbRatio());
+}
+
 double NPSMEFTd6::kappaGeff() const
 {
       return sqrt(GammaHggRatio());
