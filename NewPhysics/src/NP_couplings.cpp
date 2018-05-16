@@ -886,6 +886,24 @@ double deltagHmumu::computeThValue()
 
 /* -------------------------------------*/
 
+gHmumueff::gHmumueff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHmumueff::~gHmumueff()
+{}
+
+double gHmumueff::computeThValue()
+{   
+    return myNPbase->kappamueff();
+}
+
+/* -------------------------------------*/
+
 deltagHtata::deltagHtata(const StandardModel& SM_i):
 
         ThObservable(SM_i), 
@@ -903,6 +921,24 @@ double deltagHtata::computeThValue()
     double gSM = -(SM.getLeptons(StandardModel::TAU)).getMass() / (SM.v());
     
     return dg/gSM;
+}
+
+/* -------------------------------------*/
+
+gHtataeff::gHtataeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHtataeff::~gHtataeff()
+{}
+
+double gHtataeff::computeThValue()
+{   
+    return myNPbase->kappataueff();
 }
 
 /* -------------------------------------*/
@@ -945,6 +981,24 @@ double deltagHcc::computeThValue()
     double gSM = -(SM.getQuarks(StandardModel::CHARM)).getMass() / (SM.v());
     
     return dg/gSM;
+}
+
+/* -------------------------------------*/
+
+gHcceff::gHcceff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHcceff::~gHcceff()
+{}
+
+double gHcceff::computeThValue()
+{   
+    return myNPbase->kappaceff();
 }
 
 /* -------------------------------------*/
@@ -1033,6 +1087,24 @@ double deltagHbb::computeThValue()
 
 /* -------------------------------------*/
 
+gHbbeff::gHbbeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHbbeff::~gHbbeff()
+{}
+
+double gHbbeff::computeThValue()
+{   
+    return myNPbase->kappabeff();
+}
+
+/* -------------------------------------*/
+
 //-----  HGG couplings observables  ----------
 
 /* -------------------------------------*/
@@ -1053,6 +1125,24 @@ double deltagHGG::computeThValue()
     double dgRatio = myNPbase->deltaG_hggRatio();
     
     return dgRatio;
+}
+
+/* -------------------------------------*/
+
+gHGGeff::gHGGeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHGGeff::~gHGGeff()
+{}
+
+double gHGGeff::computeThValue()
+{   
+    return myNPbase->kappaGeff();
 }
 
 /* -------------------------------------*/
@@ -1166,6 +1256,24 @@ double deltagHAA::computeThValue()
 
 /* -------------------------------------*/
 
+gHAAeff::gHAAeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHAAeff::~gHAAeff()
+{}
+
+double gHAAeff::computeThValue()
+{   
+    return myNPbase->kappaAeff();
+}
+
+/* -------------------------------------*/
+
 //-----  HZA couplings observables  ----------
 
 /* -------------------------------------*/
@@ -1186,6 +1294,24 @@ double deltagHZA::computeThValue()
     double dgRatio = myNPbase->deltaG1_hZARatio();
     
     return dgRatio;
+}
+
+/* -------------------------------------*/
+
+gHZAeff::gHZAeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHZAeff::~gHZAeff()
+{}
+
+double gHZAeff::computeThValue()
+{   
+    return myNPbase->kappaZAeff();
 }
 
 /* -------------------------------------*/
@@ -1289,6 +1415,31 @@ gHWW2::~gHWW2()
 double gHWW2::computeThValue()
 {
     double gNP = myNPbase->deltaG2_hWW();
+    
+    return gNP;
+}
+
+/* -------------------------------------*/
+
+//-----  Other couplings observables  ----------
+/* -------------------------------------*/
+
+/* -------------------------------------*/
+
+gHWZeff::gHWZeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHWZeff::~gHWZeff()
+{}
+
+double gHWZeff::computeThValue()
+{
+    double gNP = (myNPbase->kappaWeff())/(myNPbase->kappaZeff());
     
     return gNP;
 }

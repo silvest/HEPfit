@@ -1512,7 +1512,7 @@ bool BCEngineMCMC::GetNewPointMetropolis(unsigned chain, unsigned parameter)
                 fMCMCStatistics[chain].efficiency[parameter] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
             }
         } else {						// new log(likelihood) was not a finite number
-            BCLog::OutDebug(Form("Log(likelihood) evaluated to nan or inf in chain %i while varying parameter %s to %.3e", chain, GetParameter(parameter).GetName().data(), fMCMCThreadLocalStorage[chain].xLocal[parameter]));
+            // BCLog::OutDebug(Form("Log(likelihood) evaluated to nan or inf in chain %i while varying parameter %s to %.3e", chain, GetParameter(parameter).GetName().data(), fMCMCThreadLocalStorage[chain].xLocal[parameter]));
             // decrease efficiency
             fMCMCStatistics[chain].efficiency[parameter] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
             // print parameter point
@@ -1557,8 +1557,8 @@ bool BCEngineMCMC::GetNewPointMetropolis(unsigned chain)
                 fMCMCStatistics[chain].efficiency[0] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
             }
         } else { // new log(likelihood) was not a finite number
-            BCLog::OutDebug("LogEval is nan or inf at ");
-            PrintParameters(fMCMCThreadLocalStorage[chain].xLocal, BCLog::OutDebug);
+            // BCLog::OutDebug("LogEval is nan or inf at ");
+            // PrintParameters(fMCMCThreadLocalStorage[chain].xLocal, BCLog::OutDebug);
             // decrease efficiency
             fMCMCStatistics[chain].efficiency[0] *= 1.*fMCMCStatistics[chain].n_samples_efficiency / (fMCMCStatistics[chain].n_samples_efficiency + 1.);
         }

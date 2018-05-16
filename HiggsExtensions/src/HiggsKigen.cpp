@@ -116,12 +116,41 @@ bool HiggsKigen::setFlag(const std::string name, const bool value)
 
 double HiggsKigen::obliqueS() const
 {
-    return 0.0;
+    if (FlagCustodial) {
+        double Lambda, Kv;
+    
+        Kv=Kw;
+    
+        if (fabs(1.0 - Kv * Kv) < pow(10.0, -32.0))
+            Lambda = pow(10.0, 19.0);
+        else
+            Lambda = 4.0 * M_PI * v() / sqrt(fabs(1.0 - Kv * Kv));
+
+        return ( 1.0 / 12.0 / M_PI * (1.0 - Kv * Kv) * log(Lambda * Lambda / mHl / mHl));
+    
+    } else {
+        return 0.0;
+    }
 }
 
 double HiggsKigen::obliqueT() const
 {
-    return 0.0;
+    if (FlagCustodial) {
+        double Lambda, Kv;
+        double cW2_SM = trueSM.cW2();
+        
+        Kv=Kw;
+        
+        if (fabs(1.0 - Kv * Kv) < pow(10.0, -32.0))
+            Lambda = pow(10.0, 19.0);
+        else
+            Lambda = 4.0 * M_PI * v() / sqrt(fabs(1.0 - Kv * Kv));
+
+        return ( -3.0 / 16.0 / M_PI / cW2_SM * (1.0 - Kv * Kv) * log(Lambda * Lambda / mHl / mHl));
+    
+    } else {
+        return 0.0;
+    }
 }
 
 double HiggsKigen::obliqueU() const
@@ -152,6 +181,11 @@ double HiggsKigen::mueeWBF(const double sqrt_s) const
     return (computeKW() * computeKW());
 }
 
+double HiggsKigen::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    return (computeKW() * computeKW());
+}
+
 double HiggsKigen::muepWBF(const double sqrt_s) const
 {
     return (computeKW() * computeKW());
@@ -173,6 +207,11 @@ double HiggsKigen::muZH(const double sqrt_s) const
 }
 
 double HiggsKigen::mueeZH(const double sqrt_s) const
+{
+    return (computeKZ() * computeKZ());
+}
+
+double HiggsKigen::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return (computeKZ() * computeKZ());
 }
@@ -219,6 +258,11 @@ double HiggsKigen::muggHpttH(const double sqrt_s) const
 } 
 
 double HiggsKigen::mueettH(const double sqrt_s) const
+{
+    return (computeKt() * computeKt());
+}
+
+double HiggsKigen::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return (computeKt() * computeKt());
 }

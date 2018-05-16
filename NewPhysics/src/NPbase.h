@@ -614,6 +614,19 @@ public:
     }
     
     /**
+     * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{eeWBF}@f$
+     */
+    virtual double mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+    {
+        return 1.0;
+    }
+    
+    /**
      * @brief The ratio @f$\mu_{epWBF}@f$ between the 
      * @f$ e^{-} p\to \nu j H @f$ production
      * cross-section in the current model and in the Standard Model.
@@ -670,6 +683,19 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio @f$\mu_{eeZH}@f$ between the 
+     * @f$ e^{+}e^{-}\to ZH @f$ associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively 
+     * @return @f$\mu_{eeZH}@f$
+     */
+    virtual double mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
@@ -715,7 +741,7 @@ public:
     {
         return 1.0;
     }
-    
+        
     /**
      * @brief The ratio @f$\mu_{eettH}@f$ between the 
      * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
@@ -724,6 +750,19 @@ public:
      * @return @f$\mu_{eettH}@f$
      */
     virtual double mueettH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The ratio @f$\mu_{eettH}@f$ between the 
+     * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV, Pol_em and Pol_ep
+     * are the polarization of electrons and positrons, respectively
+     * @return @f$\mu_{eettH}@f$
+     */
+    virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
     {
         return 1.0;
     }
@@ -1082,8 +1121,84 @@ public:
     {
         return 0.0;
     }
+    
+    ////////////////////////////////////////////////////////////////////////
+    /**
+     * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
+     * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.
+     * @return @f$d\sigma/d\cos{\theta}@f$
+     */
+    virtual double dxseeWWdcos(const double sqrt_s, const double cos) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief The integral of differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
+     * with @f$\ell= e, \mu@f$ in a given bin of the @f$W@f$ polar angle.
+     * @return @f$\int_{\cos{\theta_1}}^{\cos{\theta_2}} d\sigma/d\cos{\theta}@f$
+     */
+    virtual double dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
+    {
+        return 0.0;
+    }
+    
+    /**
+     * @brief Total @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$ cross section in pb, 
+     * with @f$\ell= e, \mu@f$.
+     * @return @f$\sigma(e^+ e^- \to W^+ W^- \to jj \ell \nu) @f$
+     */
+    virtual double xseeWW(const double sqrt_s) const
+    {
+        return 0.0;
+    }
  
     ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{\mu,eff}=\sqrt{\Gamma_{H\mu\mu}/\Gamma_{H\mu\mu}^{SM}}@f$.
+     * @return @f$\kappa_{\mu,eff}@f$
+     */
+    virtual double kappamueff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{\tau,eff}=\sqrt{\Gamma_{H\tau\tau}/\Gamma_{H\tau\tau}^{SM}}@f$.
+     * @return @f$\kappa_{\tau,eff}@f$
+     */
+    virtual double kappataueff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{c,eff}=\sqrt{\Gamma_{Hcc}/\Gamma_{Hcc}^{SM}}@f$.
+     * @return @f$\kappa_{c,eff}@f$
+     */
+    virtual double kappaceff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{b,eff}=\sqrt{\Gamma_{Hbb}/\Gamma_{Hbb}^{SM}}@f$.
+     * @return @f$\kappa_{b,eff}@f$
+     */
+    virtual double kappabeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{G,eff}=\sqrt{\Gamma_{HGG}/\Gamma_{HGG}^{SM}}@f$.
+     * @return @f$\kappa_{G,eff}@f$
+     */
+    virtual double kappaGeff() const
+    {
+        return 1.0;
+    }
     
     /**
      * @brief The effective coupling @f$\kappa_{Z,eff}=\sqrt{\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}}@f$.
@@ -1099,6 +1214,24 @@ public:
      * @return @f$\kappa_{W,eff}@f$
      */
     virtual double kappaWeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{A,eff}=\sqrt{\Gamma_{HAA}/\Gamma_{HAA}^{SM}}@f$.
+     * @return @f$\kappa_{A,eff}@f$
+     */
+    virtual double kappaAeff() const
+    {
+        return 1.0;
+    }
+    
+    /**
+     * @brief The effective coupling @f$\kappa_{ZA,eff}=\sqrt{\Gamma_{HZA}/\Gamma_{HZA}^{SM}}@f$.
+     * @return @f$\kappa_{ZA,eff}@f$
+     */
+    virtual double kappaZAeff() const
     {
         return 1.0;
     }

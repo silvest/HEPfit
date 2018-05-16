@@ -7,6 +7,9 @@
 
 #include "NPSMEFTd6.h"
 #include <limits>
+#include <gsl/gsl_sf.h>
+#include <boost/bind.hpp>
+#include "gslpp_function_adapter.h"
 
 const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
         = {"CG", "CW", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CHWB", "CHD", "CHbox", "CH",
@@ -3531,6 +3534,41 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 }
 
 
+double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.24 || sqrt_s == 0.25) {
+           
+            mu += 
+                +121115. * CHbox / LambdaNP2
+                -137868. * CHL3_11 / LambdaNP2
+                -203737. * CHD / LambdaNP2
+                -24698.9 * CHW / LambdaNP2
+                -379818. * CHWB / LambdaNP2
+                -18173.1 * CDHW / LambdaNP2
+                -286375. * DeltaGF() / v() / v()
+                ;
+              
+    } else if (sqrt_s == 0.25) {
+
+        mu = 1.0; 
+        
+    } else if (sqrt_s == 0.35) {
+
+        mu = 1.0; 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeWBFPol()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeWBFint + eeeWBFpar;
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
+
 double NPSMEFTd6::muepWBF(const double sqrt_s) const
 {
     double mu = 1.0;
@@ -5015,6 +5053,58 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
     return mu;
 }
 
+double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.24 || sqrt_s == 0.25) {
+        
+        if (Pol_em == 80. && Pol_ep == -30.){
+            mu += 
+                +121280. * CHbox / LambdaNP2
+                +127185. * CHL1_11 / LambdaNP2
+                -1825179. * CHe_11 / LambdaNP2
+                -190504. * CHL3_11 / LambdaNP2
+                -18772.7 * CHD / LambdaNP2
+                +560562. * CHB / LambdaNP2
+                +136181. * CHW / LambdaNP2
+                +902460. * CHWB / LambdaNP2
+                +154367. * CDHB / LambdaNP2
+                -13649.3 * CDHW / LambdaNP2
+                +158864. * CLL_1221 / LambdaNP2
+                ;            
+        } else if (Pol_em == -80. && Pol_ep == 30.){
+            mu += 
+                +121265. * CHbox / LambdaNP2
+                +1622206. * CHL1_11 / LambdaNP2
+                -83330.8 * CHe_11 / LambdaNP2
+                +1092344. * CHL3_11 / LambdaNP2
+                -71840. * CHD / LambdaNP2
+                -201403. * CHB / LambdaNP2
+                +898254. * CHW / LambdaNP2
+                -258409. * CHWB / LambdaNP2
+                -82913. * CDHB / LambdaNP2
+                +116401. * CDHW / LambdaNP2
+                +264975. * CLL_1221 / LambdaNP2
+                ; 
+        } else {
+            throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
+        }
+        
+    } else if (sqrt_s == 0.35) {
+
+        mu = 1.0; 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeeZHint + eeeZHpar;
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 double NPSMEFTd6::muVH(const double sqrt_s) const
 {
     double sigmaWH_SM = computeSigmaWH(sqrt_s);
@@ -5567,6 +5657,32 @@ double NPSMEFTd6::mueettH(const double sqrt_s) const
     return mu;
 }
 
+double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
+{
+    double mu = 1.0;
+    if (sqrt_s == 0.24) {
+
+        mu = 1.0; 
+          
+    } else if (sqrt_s == 0.25) {
+
+        mu = 1.0; 
+        
+    } else if (sqrt_s == 0.35) {
+
+        mu = 1.0; 
+    
+    } else
+        throw std::runtime_error("Bad argument in NPSMEFTd6::mueettHPol()");
+      
+    //Add intrinsic and parametric relative theory errors (free par). (Assume they are constant in energy.)
+    mu += eeettHint + eeettHpar;
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 double NPSMEFTd6::BrHggRatio() const
 {
     double Br = 1.0;
@@ -5740,15 +5856,19 @@ double NPSMEFTd6::BrHbbRatio() const
 
 double NPSMEFTd6::computeGammaTotalRatio() const
 {
-    return (trueSM.computeBrHtogg() * GammaHggRatio()
-            + trueSM.computeBrHtoWW() * GammaHWWRatio()
-            + trueSM.computeBrHtoZZ() * GammaHZZRatio()
-            + trueSM.computeBrHtoZga() * GammaHZgaRatio()
-            + trueSM.computeBrHtogaga() * GammaHgagaRatio()
-            + trueSM.computeBrHtomumu() * GammaHmumuRatio()
-            + trueSM.computeBrHtotautau() * GammaHtautauRatio()
-            + trueSM.computeBrHtocc() * GammaHccRatio()
-            + trueSM.computeBrHtobb() * GammaHbbRatio());
+    double width = 1.0;
+
+    width += deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+            width += deltaGammaTotalRatio2();
+        }
+    
+    if (width < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return width;
+
 }
 
 double NPSMEFTd6::deltaGammaTotalRatio1() const
@@ -5784,8 +5904,8 @@ double NPSMEFTd6::deltaGammaTotalRatio2() const
 
 double NPSMEFTd6::GammaHggRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHggint + eHggpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHggRatio1();
     
@@ -5800,13 +5920,20 @@ double NPSMEFTd6::GammaHggRatio() const
 
 double NPSMEFTd6::deltaGammaHggRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             +173400. * CuH_22r / LambdaNP2
             -128860. * CuH_33r / LambdaNP2
             +248587. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             +37390592. * CHG / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHggint + eHggpar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHggRatio2() const
@@ -5853,8 +5980,8 @@ double NPSMEFTd6::deltaGammaHggRatio2() const
 
 double NPSMEFTd6::GammaHWWRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHWWint + eHWWpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHWWRatio1();
     
@@ -5868,14 +5995,20 @@ double NPSMEFTd6::GammaHWWRatio() const
 }
 
 double NPSMEFTd6::deltaGammaHWWRatio1() const
-{
+{    
+    double dwidth;
 
-    return ( +121100. * CHbox / LambdaNP2
+    dwidth = ( +121100. * CHbox / LambdaNP2
                 -117075. * CHD / LambdaNP2
                 -91657.4 * CHW / LambdaNP2
                 -190618. * CHWB / LambdaNP2
                 +38345.4 * CDHW / LambdaNP2
                 -1.849 * DeltaGF() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHWWint + eHWWpar;
+    
+    return dwidth;
     
 }
 
@@ -5908,8 +6041,8 @@ double NPSMEFTd6::deltaGammaHWWRatio2() const
 
 double NPSMEFTd6::GammaHZZRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHZZint + eHZZpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHZZRatio1();
     
@@ -5924,8 +6057,9 @@ double NPSMEFTd6::GammaHZZRatio() const
 
 double NPSMEFTd6::deltaGammaHZZRatio1() const
 {
+    double dwidth;
 
-    return ( +120032. * CHbox / LambdaNP2
+    dwidth = ( +120032. * CHbox / LambdaNP2
                 +29732.2 * CHD / LambdaNP2
                 -13963.3 * CHB / LambdaNP2
                 -46223.3 * CHW / LambdaNP2
@@ -5933,6 +6067,11 @@ double NPSMEFTd6::deltaGammaHZZRatio1() const
                 +15260.6 * CDHB / LambdaNP2
                 +28274.3 * CDHW / LambdaNP2
                 -0.992 * DeltaGF() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZZint + eHZZpar;
+    
+    return dwidth;
     
 }
 
@@ -5980,8 +6119,8 @@ double NPSMEFTd6::deltaGammaHZZRatio2() const
 
 double NPSMEFTd6::GammaHZgaRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHZgaint + eHZgapar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHZgaRatio1();
     
@@ -5996,8 +6135,9 @@ double NPSMEFTd6::GammaHZgaRatio() const
 
 double NPSMEFTd6::deltaGammaHZgaRatio1() const
 {
+    double dwidth;
 
-    return ( +119538. * CHbox / LambdaNP2
+    dwidth = ( +119538. * CHbox / LambdaNP2
             -321.71 * CeH_33r / LambdaNP2
             -2910.68 * CuH_22r / LambdaNP2
             +6522.67 * CuH_33r / LambdaNP2
@@ -6010,6 +6150,10 @@ double NPSMEFTd6::deltaGammaHZgaRatio1() const
             +1586252. * CDHW / LambdaNP2
             -115000. * DeltaGF() / v() / v() );
     
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHZgaint + eHZgapar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHZgaRatio2() const
@@ -6111,8 +6255,8 @@ double NPSMEFTd6::deltaGammaHZgaRatio2() const
 
 double NPSMEFTd6::GammaHgagaRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHgagaint + eHgagapar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHgagaRatio1();
     
@@ -6127,7 +6271,9 @@ double NPSMEFTd6::GammaHgagaRatio() const
 
 double NPSMEFTd6::deltaGammaHgagaRatio1() const
 {
-    return ( +119212. * CHbox / LambdaNP2
+    double dwidth;
+
+    dwidth = ( +119212. * CHbox / LambdaNP2
             -42570.4 * CeH_33r / LambdaNP2
             -48874.1 * CuH_22r / LambdaNP2
             +31992.9 * CuH_33r / LambdaNP2
@@ -6138,6 +6284,10 @@ double NPSMEFTd6::deltaGammaHgagaRatio1() const
             +26348174. * CHWB / LambdaNP2
             -125370. * DeltaGF() / v() / v() );
     
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHgagaint + eHgagapar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHgagaRatio2() const
@@ -6214,8 +6364,8 @@ double NPSMEFTd6::deltaGammaHgagaRatio2() const
       
 double NPSMEFTd6::GammaHmumuRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHmumuint + eHmumupar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHmumuRatio1();
     
@@ -6230,11 +6380,17 @@ double NPSMEFTd6::GammaHmumuRatio() const
 
 double NPSMEFTd6::deltaGammaHmumuRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -199794752. * CeH_22r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
-        
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHmumuint + eHmumupar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHmumuRatio2() const
@@ -6260,8 +6416,8 @@ double NPSMEFTd6::deltaGammaHmumuRatio2() const
 
 double NPSMEFTd6::GammaHtautauRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHtautauint + eHtautaupar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHtautauRatio1();
     
@@ -6276,11 +6432,17 @@ double NPSMEFTd6::GammaHtautauRatio() const
 
 double NPSMEFTd6::deltaGammaHtautauRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -11880769. * CeH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
-        
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHtautauint + eHtautaupar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHtautauRatio2() const
@@ -6306,8 +6468,8 @@ double NPSMEFTd6::deltaGammaHtautauRatio2() const
 
 double NPSMEFTd6::GammaHccRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHccint + eHccpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
 
     width += deltaGammaHccRatio1();
     
@@ -6322,11 +6484,18 @@ double NPSMEFTd6::GammaHccRatio() const
 
 double NPSMEFTd6::deltaGammaHccRatio1() const
 {
-    return ( +121249. * CHbox / LambdaNP2
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -16420490. * CuH_22r / LambdaNP2
             -1001.52 * CuH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHccint + eHccpar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHccRatio2() const
@@ -6357,8 +6526,8 @@ double NPSMEFTd6::deltaGammaHccRatio2() const
 
 double NPSMEFTd6::GammaHbbRatio() const
 {
-      // SM (1) + intrinsic + parametric theory relative errors (free pars)
-    double width = 1.0 + eHbbint + eHbbpar;
+      // SM (1). Intrinsic + parametric theory relative errors (free pars) included in deltaGammaHXXRatio1
+    double width = 1.0;
     
     width += deltaGammaHbbRatio1();
     
@@ -6371,12 +6540,19 @@ double NPSMEFTd6::GammaHbbRatio() const
 }
 
 double NPSMEFTd6::deltaGammaHbbRatio1() const
-{    
-    return ( +121249. * CHbox / LambdaNP2
+{
+    double dwidth;
+    
+    dwidth = ( +121249. * CHbox / LambdaNP2
             -562.029 * CuH_33r / LambdaNP2
             -5026895. * CdH_33r / LambdaNP2
             -30312.3 * CHD / LambdaNP2
             -60624.6 * DeltaGF() / v() / v() );
+    
+    // SM (1) + intrinsic + parametric theory relative errors (free pars)    
+    dwidth += eHbbint + eHbbpar;
+    
+    return dwidth;
 }
 
 double NPSMEFTd6::deltaGammaHbbRatio2() const
@@ -6460,44 +6636,402 @@ double NPSMEFTd6::deltag1ZNP() const
 {
       double NPdirect, NPindirect;
       
-      /*    Translate from LHCHXWG-INT-2015-001  */
+      /*    From own calculations. Agrees with with LHCHXWG-INT-2015-001 for common interactions */
       NPdirect = sW_tree / sqrt( 4.0 * M_PI * ale );
       NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CDHW * v2_over_LambdaNP2;
-      NPdirect = NPdirect - 
-              sW_tree * CHWB * v2_over_LambdaNP2 / cW_tree / (cW2_tree-sW2_tree);
       
-      NPindirect = 0.0;
+      NPindirect = - 1.0 / (cW2_tree-sW2_tree);
+      
+      NPindirect = NPindirect * (sW_tree * CHWB / cW_tree 
+              + 0.25 * CHD ) * v2_over_LambdaNP2
+              + 0.5 * NPindirect * DeltaGF() ;
       
       return NPdirect + NPindirect;
 }
       
 double NPSMEFTd6::deltaKgammaNP() const
 {
-      double NPdirect, NPindirect;
+      double NPdirect;
 
-      /*    Translate from LHCHXWG-INT-2015-001  */
+      /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
       NPdirect = sqrt( 4.0 * M_PI * ale ) / 4.0 / sW2_tree;
       
       NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * ale ) ) * CHWB 
               - sW_tree * CDHW 
               - cW_tree * CDHB ) * v2_over_LambdaNP2;
       
-      NPindirect = 0.0;
-      
-      return NPdirect + NPindirect;
+      return NPdirect;
 }
       
 double NPSMEFTd6::lambdaZNP() const
 {
       double NPdirect;
 
-      /*    Translate from LHCHXWG-INT-2015-001  */
+      /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
       NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * ale ) / sW_tree) * CW * v2_over_LambdaNP2;
 
       return NPdirect;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+
+double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
+{
+    double s = sqrt_s * sqrt_s;
+    double cos2 = cos * cos;
+    double sin2 = 1.0 - cos2;
+    double sin = sqrt(sin2);
+    
+    double topb = 0.3894*1000000000.0;
+    
+//  NC and CC couplings
+    double gLe, gRe;
+    gslpp::complex Uenu;
+    
+    gLe = -0.5 + sW2_tree + deltaGL_f(leptons[ELECTRON]);
+    gRe = sW2_tree + deltaGR_f(leptons[ELECTRON]);
+    
+    Uenu = deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]);
+    Uenu = 1.0 + Uenu;
+
+//  Wigner functions
+    double d1pp[2],d1mm[2],d1p0[2],d1m0[2],d10p[2],d10m[2],d100[2];
+    
+    d1pp[0]=sqrt((1.0 - cos2)/2.0);
+    d1pp[1]=-sqrt((1.0 - cos2)/2.0);
+    
+    d1mm[0]=d1pp[0];
+    d1mm[1]=d1pp[1];
+    
+    d1p0[0]=(1.0 - cos)/2.0;
+    d1p0[1]=(1.0 + cos)/2.0;
+    
+    d1m0[0]=d1p0[1];
+    d1m0[1]=d1p0[0];
+    
+    d10p[0]=d1p0[1];
+    d10p[1]=d1p0[0];
+    
+    d10m[0]=d1p0[0];
+    d10m[1]=d1p0[1];
+    
+    d100[0]=d1pp[0];
+    d100[1]=d1pp[1];
+    
+    gslpp::matrix<double> d1LH(3, 3, 0.0);
+    
+    gslpp::matrix<double> d1RH(3, 3, 0.0);
+    
+    d1LH.assign(0,0, d1pp[0]);
+    d1LH.assign(0,1, d1p0[0]);
+    d1LH.assign(0,2, 0.0);
+    
+    d1LH.assign(1,0, d10p[0]);
+    d1LH.assign(1,1, d100[0]);
+    d1LH.assign(1,2, d10m[0]);
+    
+    d1LH.assign(2,0, 0.0);
+    d1LH.assign(2,1, d1m0[0]);
+    d1LH.assign(2,2, d1mm[0]);
+    
+    d1RH.assign(0,0, d1pp[1]);
+    d1RH.assign(0,1, d1p0[1]);
+    d1RH.assign(0,2, 0.0);
+    
+    d1RH.assign(1,0, d10p[1]);
+    d1RH.assign(1,1, d100[1]);
+    d1RH.assign(1,2, d10m[1]);
+    
+    d1RH.assign(2,0, 0.0);
+    d1RH.assign(2,1, d1m0[1]);
+    d1RH.assign(2,2, d1mm[1]);
+    
+//  TGC parameterization
+    double g1Z,g1ga,kZ,kga,lambZ,lambga,g4Z,g4ga,g5Z,g5ga,ktZ,ktga,lambtZ,lambtga;
+
+//  TGC present in the SM     
+    g1Z=1.0 + deltag1ZNP();
+    g1ga=1.0;
+    kZ=1.0 + deltag1ZNP() - (sW2_tree/cW2_tree) * deltaKgammaNP();
+    kga=1.0 + deltaKgammaNP();
+//  TGC not present in the SM
+    lambZ=lambdaZNP(); //Check normalization
+    lambga=lambZ;
+    g4Z=0.0;
+    g4ga=0.0;
+    g5Z=0.0;
+    g5ga=0.0;
+    ktZ=0.0;
+    ktga=0.0;
+    lambtZ=0.0;
+    lambtga=0.0;
+    
+    double f3Z, f3ga;
+    
+    f3Z = g1Z + kZ + lambZ;    
+    f3ga = g1ga + kga + lambga;
+    
+ // Kinematic factors
+    double beta, gamma, gamma2;
+    
+    beta = sqrt(1.0 - 4.0 * Mw_tree() * Mw_tree() / s);
+    gamma = sqrt_s/(2.0*Mw_tree());
+    gamma2= gamma*gamma;
+    
+//  J=1 Subamplitudes: Z
+    gslpp::complex AZpp, AZmm, AZp0, AZm0, AZ0p, AZ0m, AZ00;
+    
+    AZpp = gslpp::complex(g1Z + 2.0* gamma2* lambZ, (ktZ + lambtZ - 2.0*lambtZ)/beta , false);
+    AZmm = gslpp::complex(g1Z + 2.0* gamma2* lambZ, -(ktZ + lambtZ - 2.0*lambtZ)/beta , false);
+    AZp0 = gslpp::complex(f3Z + beta * g5Z , -g4Z + (ktZ-lambtZ)/beta , false);
+    AZp0 = gamma * AZp0;
+    AZm0 = gslpp::complex(f3Z - beta * g5Z , -g4Z - (ktZ-lambtZ)/beta , false);
+    AZm0 = gamma * AZm0;
+    AZ0p = gslpp::complex(f3Z - beta * g5Z , g4Z + (ktZ-lambtZ)/beta , false);
+    AZ0p = gamma * AZ0p;
+    AZ0m = gslpp::complex(f3Z + beta * g5Z , g4Z - (ktZ-lambtZ)/beta , false);
+    AZ0m = gamma * AZ0m;
+    AZ00 = gslpp::complex( g1Z + 2.0*gamma2*kZ, 0.0 , false);
+    
+//  Collect in matrices and separate LH and RH
+    gslpp::matrix<gslpp::complex> AmpZLH(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpZRH(3, 3, 0.0);
+    
+    AmpZLH.assign(0,0, AZpp *  d1LH(0,0) );
+    AmpZLH.assign(0,1, AZp0 *  d1LH(0,1));
+    AmpZLH.assign(0,2, 0.0);
+    
+    AmpZLH.assign(1,0, AZ0p *  d1LH(1,0));
+    AmpZLH.assign(1,1, AZ00 *  d1LH(1,1));
+    AmpZLH.assign(1,2, AZ0m *  d1LH(1,2));
+    
+    AmpZLH.assign(2,0, 0.0);
+    AmpZLH.assign(2,1, AZm0 *  d1LH(2,1));
+    AmpZLH.assign(2,2, AZmm *  d1LH(2,2));
+    
+    AmpZLH = AmpZLH * beta * s/(s-Mz*Mz);
+    
+//  Add the correct Zff coupling
+    AmpZLH = AmpZLH * gLe / sW2_tree;
+    
+    AmpZRH.assign(0,0, AZpp *  d1RH(0,0) );
+    AmpZRH.assign(0,1, AZp0 *  d1RH(0,1));
+    AmpZRH.assign(0,2, 0.0);
+    
+    AmpZRH.assign(1,0, AZ0p *  d1RH(1,0));
+    AmpZRH.assign(1,1, AZ00 *  d1RH(1,1));
+    AmpZRH.assign(1,2, AZ0m *  d1RH(1,2));
+    
+    AmpZRH.assign(2,0, 0.0);
+    AmpZRH.assign(2,1, AZm0 *  d1RH(2,1));
+    AmpZRH.assign(2,2, AZmm *  d1RH(2,2));
+    
+    AmpZRH = AmpZRH * beta * s/(s-Mz*Mz);
+
+//  Add the correct Zff coupling    
+    AmpZRH = AmpZRH * gRe / sW2_tree;
+
+//  J=1 Subamplitudes: gamma
+    gslpp::complex Agapp, Agamm, Agap0, Agam0, Aga0p, Aga0m, Aga00;
+    
+    Agapp = gslpp::complex(g1ga + 2.0* gamma2* lambga, (ktga + lambtga - 2.0*lambtga)/beta , false);
+    Agamm = gslpp::complex(g1ga + 2.0* gamma2* lambga, -(ktga + lambtga - 2.0*lambtga)/beta , false);
+    Agap0 = gslpp::complex(f3ga + beta * g5ga , -g4ga + (ktga-lambtga)/beta , false);
+    Agap0 = gamma * Agap0;
+    Agam0 = gslpp::complex(f3ga - beta * g5ga , -g4ga - (ktga-lambtga)/beta , false);
+    Agam0 = gamma * Agam0;
+    Aga0p = gslpp::complex(f3ga - beta * g5ga , g4ga + (ktga-lambtga)/beta , false);
+    Aga0p = gamma * Aga0p;
+    Aga0m = gslpp::complex(f3ga + beta * g5ga , g4ga - (ktga-lambtga)/beta , false);
+    Aga0m = gamma * Aga0m;
+    Aga00 = gslpp::complex( g1ga + 2.0*gamma2*kga, 0.0 , false);
+
+//  Collect in matrices. Here LH = RH, except for the Wigner functions  
+    gslpp::matrix<gslpp::complex> AmpgaLH(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> AmpgaRH(3, 3, 0.0);
+    
+    AmpgaLH.assign(0,0, Agapp * d1LH(0,0));
+    AmpgaLH.assign(0,1, Agap0 * d1LH(0,1));
+    AmpgaLH.assign(0,2, 0.0);
+    
+    AmpgaLH.assign(1,0, Aga0p * d1LH(1,0));
+    AmpgaLH.assign(1,1, Aga00 * d1LH(1,1));
+    AmpgaLH.assign(1,2, Aga0m * d1LH(1,2));
+    
+    AmpgaLH.assign(2,0, 0.0);
+    AmpgaLH.assign(2,1, Agam0 * d1LH(2,1));
+    AmpgaLH.assign(2,2, Agamm * d1LH(2,2));
+    
+    AmpgaRH.assign(0,0, Agapp * d1RH(0,0));
+    AmpgaRH.assign(0,1, Agap0 * d1RH(0,1));
+    AmpgaRH.assign(0,2, 0.0);
+    
+    AmpgaRH.assign(1,0, Aga0p * d1RH(1,0));
+    AmpgaRH.assign(1,1, Aga00 * d1RH(1,1));
+    AmpgaRH.assign(1,2, Aga0m * d1RH(1,2));
+    
+    AmpgaRH.assign(2,0, 0.0);
+    AmpgaRH.assign(2,1, Agam0 * d1RH(2,1));
+    AmpgaRH.assign(2,2, Agamm * d1RH(2,2));
+    
+    AmpgaLH = -beta * AmpgaLH;
+    AmpgaRH = -beta * AmpgaRH;
+    
+//  J=1 Subamplitudes: neutrino
+    gslpp::complex Bpp, Bmm, Bp0, Bm0, B0p, B0m, B00;
+    gslpp::complex Cpp, Cmm, Cp0, Cm0, C0p, C0m, C00;
+    
+    Bpp = gslpp::complex(1.0 , 0.0 , false);
+    Bmm = Bpp;
+    Bp0 = gslpp::complex( 2.0 * gamma, 0.0 , false);
+    Bm0 = Bp0;
+    B0p = Bp0;
+    B0m = Bp0;
+    B00 = gslpp::complex( 2.0 * gamma2, 0.0 , false);
+    
+    Cpp = gslpp::complex(1.0/gamma2 , 0.0 , false);
+    Cmm = Cpp;
+    Cp0 = gslpp::complex( 2.0 * (1.0 + beta)/gamma, 0.0 , false);
+    Cm0 = gslpp::complex( 2.0 * (1.0 - beta)/gamma, 0.0 , false);
+    C0p = Cm0;
+    C0m = Cp0;
+    C00 = gslpp::complex( 2.0 / gamma2, 0.0 , false);
+    
+//  Collect in matrices. Here LH = RH    
+    gslpp::matrix<gslpp::complex> Bnu(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> Cnu(3, 3, 0.0);
+    
+    Bnu.assign(0,0, Bpp * d1LH(0,0));
+    Bnu.assign(0,1, Bp0 * d1LH(0,1));
+    Bnu.assign(0,2, 0.0);
+    
+    Bnu.assign(1,0, B0p * d1LH(1,0));
+    Bnu.assign(1,1, B00 * d1LH(1,1));
+    Bnu.assign(1,2, B0m * d1LH(1,2));
+    
+    Bnu.assign(2,0, 0.0);
+    Bnu.assign(2,1, Bm0 * d1LH(2,1));
+    Bnu.assign(2,2, Bmm * d1LH(2,2));
+    
+    Cnu.assign(0,0, Cpp * d1LH(0,0));
+    Cnu.assign(0,1, Cp0 * d1LH(0,1));
+    Cnu.assign(0,2, 0.0);
+    
+    Cnu.assign(1,0, C0p * d1LH(1,0));
+    Cnu.assign(1,1, C00 * d1LH(1,1));
+    Cnu.assign(1,2, C0m * d1LH(1,2));
+    
+    Cnu.assign(2,0, 0.0);
+    Cnu.assign(2,1, Cm0 * d1LH(2,1));
+    Cnu.assign(2,2, Cmm * d1LH(2,2));
+ 
+//  The matrix with the total J=1 neutrino amplitude (only LH neutrinos)  
+    gslpp::matrix<gslpp::complex> Ampnu1(3, 3, 0.0);
+    
+    Ampnu1 = Bnu - Cnu/(1.0 + beta*beta - 2.0 * beta * cos);
+    
+    Ampnu1 = Uenu * Uenu.conjugate() * Ampnu1 / (2.0 * beta * sW2_tree);
+    
+    gslpp::matrix<gslpp::complex> Ampnu2(3, 3, 0.0);
+
+    Ampnu2.assign(0,2, (1.0 - cos)/2.0 );
+    Ampnu2.assign(1,1, 0.0);
+    Ampnu2.assign(2,0, -(1.0 + cos)/2.0);
+    
+    Ampnu2 = (8.0 * M_PI * ale / sW2_tree)* Uenu * Uenu.conjugate() * Ampnu2 * sin / (1.0 + beta*beta - 2.0*beta*cos);
+    
+//  Total amplitudes 
+    gslpp::matrix<gslpp::complex> MRH(3, 3, 0.0);
+    gslpp::matrix<gslpp::complex> MLH(3, 3, 0.0);
+
+    MRH = sqrt(2.0) * 4.0 * M_PI * ale * (AmpZRH + AmpgaRH);
+    MLH = - sqrt(2.0) * 4.0 * M_PI * ale * (AmpZLH + AmpgaLH + Ampnu1) + Ampnu2;
+    
+//  Total amplitude squared and differential cross section (in pb)
+    gslpp::matrix<double> M2(3, 3, 0.0);
+    double dxsdcos;
+    
+    dxsdcos = 0.0;
+    
+    for (int i=0; i<3; i++) {
+        for (int j=0; j<3; j++) {
+            M2.assign(i,j, (MRH(i,j)* (MRH(i,j).conjugate()) 
+                    + MLH(i,j)* (MLH(i,j).conjugate())).real() );
+            
+            dxsdcos = dxsdcos + M2(i,j);
+        }
+    }
+    
+//  Differential cross section in pb
+    dxsdcos = (topb * beta / 32.0 / M_PI / s) * dxsdcos;
+
+    return dxsdcos;
+}
+
+double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
+{
+    gsl_integration_cquad_workspace * w_WW;/**< Gsl integral variable */
+    w_WW = gsl_integration_cquad_workspace_alloc(100);
+    
+    double xsWWbin;/**< Gsl integral variable */
+//    double errWW;/**< Gsl integral variable */
+    
+//    gsl_function FR;/**< Gsl integral variable */
+    
+//    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
+    
+//    FR.function(&NPSMEFTd6::dxsWWdcos);
+    
+//    gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
+    
+//  Simple integration for testing
+    double cosx;
+    
+    xsWWbin = 0.0;
+    
+    for (int i=1; i<100; i++){
+        cosx = cos1 +  i*(cos2-cos1)/100;
+        xsWWbin = xsWWbin + dxseeWWdcos(sqrt_s, cosx);
+    }
+    
+    xsWWbin = xsWWbin + 0.5 * (dxseeWWdcos(sqrt_s, cos1) + dxseeWWdcos(sqrt_s, cos2));
+    
+    xsWWbin = xsWWbin * (cos2-cos1)/100;
+    
+    return xsWWbin;
+}
+
+double NPSMEFTd6::xseeWW(const double sqrt_s) const
+{    
+    return dxseeWWdcosBin(sqrt_s, -1.0, 1.0);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+double NPSMEFTd6::kappamueff() const
+{
+      return sqrt(GammaHmumuRatio());
+}
+
+double NPSMEFTd6::kappataueff() const
+{
+      return sqrt(GammaHtautauRatio());
+}
+
+double NPSMEFTd6::kappaceff() const
+{
+      return sqrt(GammaHccRatio());
+}
+
+double NPSMEFTd6::kappabeff() const
+{
+      return sqrt(GammaHbbRatio());
+}
+
+double NPSMEFTd6::kappaGeff() const
+{
+      return sqrt(GammaHggRatio());
+}
 
 double NPSMEFTd6::kappaZeff() const
 {
@@ -6507,6 +7041,16 @@ double NPSMEFTd6::kappaZeff() const
 double NPSMEFTd6::kappaWeff() const
 {
       return sqrt(GammaHWWRatio());
+}
+
+double NPSMEFTd6::kappaAeff() const
+{
+      return sqrt(GammaHgagaRatio());
+}
+
+double NPSMEFTd6::kappaZAeff() const
+{
+      return sqrt(GammaHZgaRatio());
 }
 
 ///////////////////////////////////////////////////////////////////////////////

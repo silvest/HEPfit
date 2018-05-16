@@ -47,6 +47,7 @@ MonteCarloEngine::MonteCarloEngine(
     kchainedObs = 0;
     nBins1D = NBINS1D;
     nBins2D = NBINS2D;
+    significants = 0;
 #ifdef _MPI
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #else
@@ -953,7 +954,8 @@ int MonteCarloEngine::getPrecision(double value, double rms) {
     if (value == 0.0) // otherwise it will return 'nan' due to the log10() of zero
         return 0.0;
 
-    return 2 + ceil(log10(fabs(value)))-ceil(log10(rms));   
+    if (significants == 0) return 2 + ceil(log10(fabs(value)))-ceil(log10(rms));   
+    else return significants;
 }
 
 std::string MonteCarloEngine::computeStatistics() {
@@ -961,6 +963,8 @@ std::string MonteCarloEngine::computeStatistics() {
     std::vector<double> mode(GetBestFitParameters());
     if (mode.size() == 0) throw std::runtime_error("\n ERROR: Global Mode could not be determined possibly because of infinite loglikelihood. Observables statistics cannot be generated.\n");
 
+    unsigned int rmsPrecision = 2;
+    if (significants > 0) rmsPrecision = significants;
     std::ostringstream StatsLog;
     int i = 0;
     StatsLog << "Statistics file for Observables, Binned Observables and Correlated Gaussian Observables.\n" << std::endl;
@@ -987,7 +991,7 @@ std::string MonteCarloEngine::computeStatistics() {
         if (bch1d.GetHistogram()->Integral() > 0.0) {
             double rms = bch1d.GetHistogram()->GetRMS();
             StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d.GetHistogram()->GetMean(),rms))
-                    << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(2)
+                    << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(rmsPrecision)
                     << rms << std::endl
 
                     << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d.GetLocalMode(0),rms)) << bch1d.GetLocalMode(0) << std::endl;
@@ -1044,7 +1048,7 @@ std::string MonteCarloEngine::computeStatistics() {
             if (bch1d.GetHistogram()->Integral() > 0.0) {
                 double rms = bch1d.GetHistogram()->GetRMS();
                 StatsLog << "      Mean +- sqrt(V):                " << std::setprecision(getPrecision(bch1d.GetHistogram()->GetMean(), rms))
-                        << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(2)
+                        << bch1d.GetHistogram()->GetMean() << " +- " << std::setprecision(rmsPrecision)
                         << rms << std::endl
 
                         << "      (Marginalized) mode:            " << std::setprecision(getPrecision(bch1d.GetLocalMode(0), rms)) << bch1d.GetLocalMode(0) << std::endl;

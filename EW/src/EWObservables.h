@@ -39,6 +39,7 @@
 #include "Epsilon3.h"
 #include "Epsilonb.h"
 #include "aTGC.h"
+#include "ee_WW.h"
 /** BEGIN: REMOVE FROM THE PACKAGE **/
 #include "LEP2sigmaHadron.h"
 #include "LEP2sigmaMu.h"
