@@ -1689,7 +1689,7 @@ double NPEffectiveGIMR::DeltaGF() const
 
 double NPEffectiveGIMR::obliqueS() const
 {
-    return (4.0 * sW2_tree * cW_tree * CHWB / alphaMz() * v2_over_LambdaNP2);
+    return (4.0 * sW_tree * cW_tree * CHWB / alphaMz() * v2_over_LambdaNP2);
 }
 
 double NPEffectiveGIMR::obliqueT() const
