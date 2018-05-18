@@ -143,6 +143,7 @@ StandardModel::~StandardModel()
         if (myThreeLoopQCD != NULL) delete(myThreeLoopQCD);
         if (myTwoLoopEW != NULL) delete(myTwoLoopEW);
         if (myThreeLoopEW2QCD != NULL) delete(myThreeLoopEW2QCD);
+        if (myThreeLoopEW != NULL) delete(myThreeLoopEW);
         if (myApproximateFormulae != NULL) delete(myApproximateFormulae);
         if (myLeptonFlavour != NULL) delete(myLeptonFlavour);
         /** BEGIN: REMOVE FROM THE PACKAGE **/
