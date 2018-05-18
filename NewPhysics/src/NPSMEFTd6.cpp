@@ -776,6 +776,7 @@ bool NPSMEFTd6::PostUpdate()
 
     LambdaNP2 = Lambda_NP * Lambda_NP;
     v2_over_LambdaNP2 = v() * v() / LambdaNP2;
+    aleMz = alphaMz();
     cW_tree = Mw_tree() / Mz;
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
@@ -2098,7 +2099,7 @@ double NPSMEFTd6::DeltaGF() const
 
 double NPSMEFTd6::obliqueS() const
 {
-    return (4.0 * sW2_tree * cW_tree * CHWB / alphaMz() * v2_over_LambdaNP2);
+    return (4.0 * sW_tree * cW_tree * CHWB / alphaMz() * v2_over_LambdaNP2);
 }
 
 double NPSMEFTd6::obliqueT() const
@@ -2259,12 +2260,12 @@ double NPSMEFTd6::deltaG_hggRatio() const
 
 double NPSMEFTd6::deltaG1_hWW() const
 {
-    return (( 2.0 * CHW - sqrt( M_PI * ale ) * CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return (( 2.0 * CHW - sqrt( M_PI * aleMz ) * CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG2_hWW() const
 {
-    return ( - sqrt( M_PI * ale ) * ( CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return ( - sqrt( M_PI * aleMz ) * ( CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG3_hWW() const
@@ -2280,12 +2281,12 @@ double NPSMEFTd6::deltaG3_hWW() const
 
 double NPSMEFTd6::deltaG1_hZZ() const
 {
-    return ( (delta_ZZ - 0.5 * sqrt( M_PI * ale ) * (CDHB / cW_tree + CDHW / sW_tree) * v2_over_LambdaNP2 )/ v());
+    return ( (delta_ZZ - 0.5 * sqrt( M_PI * aleMz ) * (CDHB / cW_tree + CDHW / sW_tree) * v2_over_LambdaNP2 )/ v());
 }
 
 double NPSMEFTd6::deltaG2_hZZ() const
 {
-    return ( - sqrt( M_PI * ale ) * ( CDHB / cW_tree + CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
+    return ( - sqrt( M_PI * aleMz ) * ( CDHB / cW_tree + CDHW / sW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG3_hZZ() const
@@ -2297,7 +2298,7 @@ double NPSMEFTd6::deltaG3_hZZ() const
 
 double NPSMEFTd6::deltaG1_hZA() const
 {
-    return ( (delta_AZ + 0.5 * sqrt( M_PI * ale ) * (CDHB / sW_tree - CDHW / cW_tree) * v2_over_LambdaNP2 )/ v());
+    return ( (delta_AZ + 0.5 * sqrt( M_PI * aleMz ) * (CDHB / sW_tree - CDHW / cW_tree) * v2_over_LambdaNP2 )/ v());
 }
 
 double NPSMEFTd6::deltaG1_hZARatio() const
@@ -2382,7 +2383,7 @@ double NPSMEFTd6::deltaG1_hZARatio() const
 
 double NPSMEFTd6::deltaG2_hZA() const
 {
-    return ( sqrt( M_PI * ale ) * ( CDHB / sW_tree - CDHW / cW_tree ) * v2_over_LambdaNP2 / v());
+    return ( sqrt( M_PI * aleMz ) * ( CDHB / sW_tree - CDHW / cW_tree ) * v2_over_LambdaNP2 / v());
 }
 
 double NPSMEFTd6::deltaG_hAA() const
@@ -6637,7 +6638,7 @@ double NPSMEFTd6::deltag1ZNP() const
       double NPdirect, NPindirect;
       
       /*    From own calculations. Agrees with with LHCHXWG-INT-2015-001 for common interactions */
-      NPdirect = sW_tree / sqrt( 4.0 * M_PI * ale );
+      NPdirect = sW_tree / sqrt( 4.0 * M_PI * aleMz );
       NPdirect = - NPdirect * (Mz * Mz / v () / v() ) * CDHW * v2_over_LambdaNP2;
       
       NPindirect = - 1.0 / (cW2_tree-sW2_tree);
@@ -6654,9 +6655,9 @@ double NPSMEFTd6::deltaKgammaNP() const
       double NPdirect;
 
       /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
-      NPdirect = sqrt( 4.0 * M_PI * ale ) / 4.0 / sW2_tree;
+      NPdirect = sqrt( 4.0 * M_PI * aleMz ) / 4.0 / sW2_tree;
       
-      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * ale ) ) * CHWB 
+      NPdirect = NPdirect * ( (4.0 * sW_tree * cW_tree / sqrt( 4.0 * M_PI * aleMz ) ) * CHWB 
               - sW_tree * CDHW 
               - cW_tree * CDHB ) * v2_over_LambdaNP2;
       
@@ -6668,7 +6669,7 @@ double NPSMEFTd6::lambdaZNP() const
       double NPdirect;
 
       /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
-      NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * ale ) / sW_tree) * CW * v2_over_LambdaNP2;
+      NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * aleMz ) / sW_tree) * CW * v2_over_LambdaNP2;
 
       return NPdirect;
 }
@@ -6938,14 +6939,14 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     Ampnu2.assign(1,1, 0.0);
     Ampnu2.assign(2,0, -(1.0 + cos)/2.0);
     
-    Ampnu2 = (8.0 * M_PI * ale / sW2_tree)* Uenu * Uenu.conjugate() * Ampnu2 * sin / (1.0 + beta*beta - 2.0*beta*cos);
+    Ampnu2 = (8.0 * M_PI * aleMz / sW2_tree)* Uenu * Uenu.conjugate() * Ampnu2 * sin / (1.0 + beta*beta - 2.0*beta*cos);
     
 //  Total amplitudes 
     gslpp::matrix<gslpp::complex> MRH(3, 3, 0.0);
     gslpp::matrix<gslpp::complex> MLH(3, 3, 0.0);
 
-    MRH = sqrt(2.0) * 4.0 * M_PI * ale * (AmpZRH + AmpgaRH);
-    MLH = - sqrt(2.0) * 4.0 * M_PI * ale * (AmpZLH + AmpgaLH + Ampnu1) + Ampnu2;
+    MRH = sqrt(2.0) * 4.0 * M_PI * aleMz * (AmpZRH + AmpgaRH);
+    MLH = - sqrt(2.0) * 4.0 * M_PI * aleMz * (AmpZLH + AmpgaLH + Ampnu1) + Ampnu2;
     
 //  Total amplitude squared and differential cross section (in pb)
     gslpp::matrix<double> M2(3, 3, 0.0);

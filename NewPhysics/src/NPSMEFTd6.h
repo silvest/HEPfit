@@ -2206,6 +2206,7 @@ protected:
     double BrHexo; ///< The branching ratio of exotic Higgs decays.
     
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
+    double aleMz;///< The em constant at Mz. 
     double cW_tree;///< The tree level values for the cosine of the weak angle.
     double sW_tree;///< The tree level values for the sine of the weak angle.
     double cW2_tree;///< The sqaure of the tree level values for the cosine of the weak angle.
