@@ -557,6 +557,46 @@ private:
     const double sqrt_s;
 };
 
+
+/**
+ * @class mummH
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{\mu\mu H}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
+ * production cross-section in the current model and in the Standard Model.
+ */
+class mummH : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
+     */
+    mummH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("mummH called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the value of @f$\mu_{\mu\mu H}@f$ in the current model.
+     * @return @f$\mu_{\mu\mu H}@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->mummH(sqrt_s);
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class GammaHRatio
  * @ingroup HiggsExtensions

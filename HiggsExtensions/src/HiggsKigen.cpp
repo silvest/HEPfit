@@ -262,6 +262,11 @@ double HiggsKigen::mueettH(const double sqrt_s) const
     return (computeKt() * computeKt());
 }
 
+double HiggsKigen::mummH(const double sqrt_s) const
+{
+    return (computeKmu() * computeKmu());
+}
+
 double HiggsKigen::mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const
 {
     return (computeKt() * computeKt());

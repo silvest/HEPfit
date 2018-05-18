@@ -766,6 +766,17 @@ public:
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H}@f$
+     */
+    virtual double mummH(const double sqrt_s) const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model

@@ -63,6 +63,7 @@ ThObsFactory::ThObsFactory()
     const double sqrt_s_LHC14 = 14.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_FCC100 = 100.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_TeV = 1.96; ///< the center-of-mass energy in TeV
+    const double sqrt_s_mucoll125 = .125; ///< the center-of-mass energy in TeV
     const double sqrt_s_FCCee161 = .161; ///< the center-of-mass energy in TeV
     const double sqrt_s_FCCee240 = .24; ///< the center-of-mass energy in TeV
     const double sqrt_s_FCCee350 = .35; ///< the center-of-mass energy in TeV
@@ -333,6 +334,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["eettH1000"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_ILC1000);
     obsThFactory["eettH1400"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_CLIC1400);
     obsThFactory["eettH3000"] = boost::bind(boost::factory<mueettH*>(), _1, sqrt_s_CLIC3000);
+    //
+    obsThFactory["mumuH125"] = boost::bind(boost::factory<mummH*>(), _1, sqrt_s_mucoll125);   
     //
     obsThFactory["epWBF3500"] = boost::bind(boost::factory<muepWBF*>(), _1, sqrt_s_FCCep3_5);
     obsThFactory["epZBF3500"] = boost::bind(boost::factory<muepZBF*>(), _1, sqrt_s_FCCep3_5);

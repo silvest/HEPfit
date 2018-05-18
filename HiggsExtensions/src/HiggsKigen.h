@@ -625,6 +625,13 @@ public:
      * @return @f$\mu_{eettH}@f$
      */
     virtual double mueettHPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+     /**
+     * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{\mu\mu H}@f$
+     */
+    virtual double mummH(const double sqrt_s) const;
     /**
      * @brief The ratio @f$\mu_{ggH+ttH}@f$ between the sum of gluon-gluon fusion
      * and t-tbar-Higgs associated 

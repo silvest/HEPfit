@@ -5684,6 +5684,26 @@ double NPSMEFTd6::mueettHPol(const double sqrt_s, const double Pol_em, const dou
     return mu;
 }
 
+double NPSMEFTd6::mummH(const double sqrt_s) const
+{
+    double mu = 1.0;
+    
+    double dymu = deltaG_hff(leptons[MU]).real();
+    double ymuSM = -(leptons[MU].getMass()) / v();
+    
+//  The ratio at all energies is given by a scaling of the muon Yukawa.
+    mu = 1.0 + 2.0 * dymu/ymuSM ;
+        
+    if (FlagQuadraticTerms) {
+            //Add contributions that are quadratic in the effective coefficients
+        mu += dymu*dymu/ymuSM/ymuSM;
+    }
+
+    if (mu < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return mu;
+}
+
 double NPSMEFTd6::BrHggRatio() const
 {
     double Br = 1.0;
