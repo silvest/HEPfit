@@ -6613,6 +6613,52 @@ double NPSMEFTd6::Br_H_inv() const
 }
 
 
+double NPSMEFTd6::BrHvisRatio() const
+{    
+    double Br = 1.0;
+    double dvis1,dvis2,delta2SM;
+
+//  Sum over decays of visible SM and exotic modes
+    dvis1 = (trueSM.computeBrHtogg() * deltaGammaHggRatio1()
+            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio1()
+            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
+            + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio1()
+            + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio1()
+            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
+            + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
+            + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
+            + trueSM.computeBrHtobb() * deltaGammaHbbRatio1()
+            + BrHexo);    
+    
+    Br += dvis1 - deltaGammaTotalRatio1();
+    
+    if (FlagQuadraticTerms) {
+
+//  Sum over decays of visible SM and exotic modes
+        delta2SM = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
+            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
+            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+            + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
+            + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
+            + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
+            + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
+            + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
+            + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
+
+        dvis2 = delta2SM + (BrHexo)*(BrHexo + delta2SM);
+
+        //Add contributions that are quadratic in the effective coefficients
+        Br += - dvis1 * deltaGammaTotalRatio1()
+                + dvis2 - deltaGammaTotalRatio2()
+                + pow(deltaGammaTotalRatio1(),2.0);            
+        }
+    
+    if (Br < 0) return std::numeric_limits<double>::quiet_NaN();
+    
+    return Br;
+}
+
+
 ///////////////////////SPECIAL OBSERVABLES/////////////////////////
 
 double NPSMEFTd6::muttHZbbboost(const double sqrt_s) const

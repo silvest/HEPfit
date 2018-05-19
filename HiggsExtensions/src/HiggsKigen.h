@@ -734,6 +734,13 @@ public:
      * @return Br@f$(H\to invisible)@f$
      */
     virtual double Br_H_inv() const;
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to visible)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to visible)@f$/Br@f$(H\to visible)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHvisRatio() const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:

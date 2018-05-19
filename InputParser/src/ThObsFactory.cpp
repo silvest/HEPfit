@@ -345,6 +345,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["GammaHRatio"] = boost::factory<GammaHRatio*>();
     obsThFactory["BrHinvisible"] = boost::factory<BrHinvisible*>();
     obsThFactory["BrHexotic"] = boost::factory<BrHexotic*>();
+    obsThFactory["BrHvisRatio"] = boost::factory<BrHtovisRatio*>();
     obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
     obsThFactory["BrHWWRatio"] = boost::factory<BrHtoWWRatio*>();
     obsThFactory["BrHZZRatio"] = boost::factory<BrHtoZZRatio*>();

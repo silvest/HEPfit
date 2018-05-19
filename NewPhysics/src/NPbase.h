@@ -995,6 +995,16 @@ public:
     {
         return 0.0;
     };
+    
+    /**
+     * @brief The ratio of the Br@f$(H\to visible)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to visible)@f$/Br@f$(H\to visible)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHvisRatio() const
+    {
+        return 1.0;
+    }
 
     /**
      * @brief 

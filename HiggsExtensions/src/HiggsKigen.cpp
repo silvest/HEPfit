@@ -404,6 +404,37 @@ double HiggsKigen::Br_H_inv() const
     }
 }
 
+
+double HiggsKigen::BrHvisRatio() const
+{    
+    if (FlagInvDec) {   
+
+//  The result is the same as GammaTotRatio in absence of invisible decays
+//  Modes with tiny BR are neglected
+        return ((computeKg() * computeKg() * trueSM.computeBrHtogg()
+            + computeKW() * computeKW() * trueSM.computeBrHtoWW()
+            + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
+            + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
+            + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
+            + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
+            + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
+            + computeKc() * computeKc() * trueSM.computeBrHtocc()
+            + computeKb() * computeKb() * trueSM.computeBrHtobb())
+            / (trueSM.computeBrHtogg()
+            + trueSM.computeBrHtoWW()
+            + trueSM.computeBrHtoZZ()
+            + trueSM.computeBrHtoZga()
+            + trueSM.computeBrHtogaga()
+            + trueSM.computeBrHtomumu()
+            + trueSM.computeBrHtotautau()
+            + trueSM.computeBrHtocc()
+            + trueSM.computeBrHtobb()));
+
+    } else {
+        return 1.0;   
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 double HiggsKigen::computeKg() const
