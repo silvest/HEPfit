@@ -1399,6 +1399,46 @@ private:
     const double sqrt_s;
 };
 
+
+/**
+ * @class muggHgagaInt
+ * @ingroup HiggsExtensions
+ * @brief To be used ONLY in Higgs Observables and for the diphoton decay. Replaces the 
+ * narrow width approximation for the result including finite width effects of interference
+ * with the background. Do NOT use for models with linearized expressions (e.g. NPSMEFTd6)
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class muggHgagaInt : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muggHgagaInt(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muggHgagaInt called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief 
+     * @return 
+     */
+    double computeThValue()
+    {
+        return (myNPbase->muggHgagaInt(sqrt_s))/(myNPbase->BrHgagaRatio());
+    }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+
 /**
  * @class muVBFHgaga
  * @ingroup HiggsExtensions

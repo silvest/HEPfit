@@ -365,6 +365,7 @@ ThObsFactory::ThObsFactory()
     obsThFactory["BrHtomumu_over_gaga_Ratio"] = boost::factory<BrHtomumu_over_gaga_Ratio*>();    
     //-----  Special observables --------
     obsThFactory["muttHZbb_boost100"] = boost::bind(boost::factory<muttHZbbboost*>(), _1, sqrt_s_FCC100);
+    obsThFactory["ggHgagaInt14"] = boost::bind(boost::factory<muggHgagaInt*>(), _1, sqrt_s_LHC14);
     //-----  Full Signal strengths per prod and decay: Hadron colliders  ----------
     obsThFactory["muggHgaga"] = boost::bind(boost::factory<muggHgaga*>(), _1, sqrt_s_LHC13);
     obsThFactory["muVBFHgaga"] = boost::bind(boost::factory<muVBFHgaga*>(), _1, sqrt_s_LHC13);
