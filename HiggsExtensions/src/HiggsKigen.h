@@ -140,6 +140,13 @@
  *   The default value is FALSE.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%KiLoop</td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if independent kappa's are used
+ *   for the loop induced processes (g,ga,Zga).
+ *   The default value is TRUE.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%Custodial</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to TRUE if KZ=KW is assumed.
@@ -709,10 +716,57 @@ public:
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
      */
     virtual double muttHZbbboost(const double sqrt_s) const;
+    
+    virtual double muggHgaga(const double sqrt_s) const;
+    
+    /**
+     * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
+     * production cross-section with subsequent decay into 2 photons in the
+     * current model and in the Standard Model. Includes interference effects
+     * with the background, following arXiv:1704.08259
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH,\gamma\gamma}@f$
+     */
+    virtual double muggHgagaInt(const double sqrt_s) const;
+    
+    virtual double muVBFHgaga(const double sqrt_s) const;
+
+    virtual double muVHgaga(const double sqrt_s) const;
+
+    virtual double muttHgaga(const double sqrt_s) const;
+
+    virtual double muggHZZ(const double sqrt_s) const;
+
+    virtual double muVBFHZZ(const double sqrt_s) const;
+
+    virtual double muVHZZ(const double sqrt_s) const;
+
+    virtual double muttHZZ(const double sqrt_s) const;
+
+    virtual double muggHWW(const double sqrt_s) const;
+
+    virtual double muVBFHWW(const double sqrt_s) const;
+
+    virtual double muVHWW(const double sqrt_s) const;
+
+    virtual double muttHWW(const double sqrt_s) const;
+
+    virtual double muggHtautau(const double sqrt_s) const;
+
+    virtual double muVBFHtautau(const double sqrt_s) const;
+
+    virtual double muVHtautau(const double sqrt_s) const;
+
+    virtual double muttHtautau(const double sqrt_s) const;
+
+    virtual double muggHbb(const double sqrt_s) const;
+
+    virtual double muVBFHbb(const double sqrt_s) const;
+
+    virtual double muVHbb(const double sqrt_s) const;
 
     virtual double muttHbb(const double sqrt_s) const;
-    virtual double muttHWW(const double sqrt_s) const;
-    virtual double muttHtautau(const double sqrt_s) const;
+
     /**
      * @brief The ratio of the @f$\Gamma(H)@f$ in the current model
      * and in the Standard Model.
@@ -783,6 +837,12 @@ protected:
     virtual double computeKgaga() const;
     
     /**
+     * @brief A method to compute the ratio of the @f$Hee@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$Hee@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKe() const;
+    
+    /**
      * @brief A method to compute the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$H\mu\mu@f$ coupling in the current model and in the SM
      */
@@ -793,6 +853,12 @@ protected:
      * @return the ratio of the @f$H\tau\tau@f$ coupling in the current model and in the SM
      */
     virtual double computeKtau() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$Huu@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$Huu@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKu() const;
 
     /**
      * @brief A method to compute the ratio of the @f$Hcc@f$ coupling in the current model and in the SM.
@@ -805,15 +871,50 @@ protected:
      * @return the ratio of the @f$Htt@f$ coupling in the current model and in the SM
      */
     virtual double computeKt() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$Hdd@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$Hdd@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKd() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$Hss@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$Hss@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKs() const;
 
     /**
      * @brief A method to compute the ratio of the @f$Hbb@f$ coupling in the current model and in the SM.
      * @return the ratio of the @f$Hbb@f$ coupling in the current model and in the SM
      */
     virtual double computeKb() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$Hgg@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$Hgg@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKgLoop() const;
+    
+    /**
+     * @brief A method to compute the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKZgaLoop() const;
+
+    /**
+     * @brief A method to compute the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKgagaLoop() const;
 
     ////////////////////////////////////////////////////////////////////////
 private:
+    gslpp::complex f_func(const double x) const;
+    gslpp::complex g_func(const double x) const;
+    gslpp::complex Int1(const double tau, const double lambda) const;
+    gslpp::complex Int2(const double tau, const double lambda) const;
+    
     double Kw; ///< The factor rescaling all Higgs couplings to the W vector bosons with respect to the SM.
     double Kz; ///< The factor rescaling all Higgs couplings to the Z vector bosons with respect to the SM.
     double Kg; ///< The factor rescaling all Higgs couplings to gluons with respect to the SM.
@@ -831,6 +932,7 @@ private:
     double KH; ///< The factor rescaling the total Higgs width respect to the SM.
     
     bool FlagInvDec; ///< A boolean flag that is true if one allows invisible Higgs decays.
+    bool FlagKiLoop; ///< A boolean flag that is true if one allows independent kappa's for the loop induced processes (g,ga,Zga)
     bool FlagCustodial; ///< A boolean flag that is true if KZ=KW.
 
 };

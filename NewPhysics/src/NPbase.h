@@ -878,11 +878,25 @@ public:
     {
         return 1.0;
     }
-    
+        
     virtual double muggHgaga(const double sqrt_s) const
     {
         return 1.0;
     }
+    
+    /**
+     * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
+     * production cross-section with subsequent decay into 2 photons in the
+     * current model and in the Standard Model. Includes interference effects
+     * with the background, following arXiv:1704.08259
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH,\gamma\gamma}@f$
+     */
+    virtual double muggHgagaInt(const double sqrt_s) const
+    {
+        return 1.0;        
+    };
+    
     virtual double muVBFHgaga(const double sqrt_s) const
     {
         return 1.0;
