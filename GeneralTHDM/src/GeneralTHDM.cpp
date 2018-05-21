@@ -8,7 +8,7 @@
 #include "GeneralTHDM.h"
 #include "GeneralTHDMcache.h"
 
-const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "alpha1", "alpha2", "alpha3", "Rem12_2", "Imlambda5", "Relambda6", "Imlambda6", "Relambda7", "Imlambda7", 
+const std::string GeneralTHDM::GeneralTHDMvars[NGeneralTHDMvars] = {"logtb", "mHp2", "mH2sq", "mH3sq", "alpha1", "alpha2", "alpha3", "Relambda5", "Imlambda5", "Relambda6", "Relambda7",
 "Nu_11r", "Nu_11i", "Nu_12r", "Nu_12i", "Nu_13r", "Nu_13i", 
 "Nu_21r", "Nu_21i", "Nu_22r", "Nu_22i", "Nu_23r", "Nu_23i", 
 "Nu_31r", "Nu_31i", "Nu_32r", "Nu_32i", "Nu_33r", "Nu_33i", 
@@ -25,15 +25,15 @@ GeneralTHDM::GeneralTHDM() : StandardModel(), GTHDMM(*this) {
     SMM.setObj((StandardModelMatching&) GTHDMM.getObj());
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("logtb", boost::cref(logtb)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp2", boost::cref(mHp2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH2sq", boost::cref(mH2sq)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mH3sq", boost::cref(mH3sq)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1", boost::cref(alpha1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2", boost::cref(alpha2)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha3", boost::cref(alpha3)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Rem12_2", boost::cref(Rem12_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Relambda5", boost::cref(Relambda5)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Imlambda5", boost::cref(Imlambda5)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Relambda6", boost::cref(Relambda6)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Imlambda6", boost::cref(Imlambda6)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Relambda7", boost::cref(Relambda7)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Imlambda7", boost::cref(Imlambda7)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_11r", boost::cref(Nu_11r)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_11i", boost::cref(Nu_11i)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Nu_12r", boost::cref(Nu_12r)));
@@ -159,6 +159,10 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         }
     else if(name.compare("mHp2") == 0)
         mHp2 = value;
+    else if(name.compare("mH2sq") == 0)
+        mH2sq = value;
+    else if(name.compare("mH3sq") == 0)
+        mH3sq = value;
     else if(name.compare("alpha1") == 0) {
         alpha1 = value;
         cosalpha1 = cos(alpha1);
@@ -174,18 +178,14 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         cosalpha3 = cos(alpha3);
         sinalpha3 = sin(alpha3);
     }
-    else if(name.compare("Rem12_2") == 0)
-        Rem12_2 = value;
+    else if(name.compare("Relambda5") == 0)
+        Relambda5 = value;
     else if(name.compare("Imlambda5") == 0)
         Imlambda5 = value;
     else if(name.compare("Relambda6") == 0)
         Relambda6 = value;
-    else if(name.compare("Imlambda6") == 0)
-        Imlambda6 = value;
     else if(name.compare("Relambda7") == 0)
         Relambda7 = value;
-    else if(name.compare("Imlambda7") == 0)
-        Imlambda7 = value;
     else if(name.compare("Nu_11r") == 0)
         Nu_11r = value;
     else if(name.compare("Nu_11i") == 0)

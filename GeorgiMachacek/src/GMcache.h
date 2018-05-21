@@ -119,112 +119,28 @@ public:
     gslpp::matrix<double> log_cs_ggHp_13;
 
     /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
+     * @brief Observed @f$95\%@f$ upper cross section limits, depending on the invariant mass.
      */
-//    gslpp::matrix<double> ATLAS8_pp_phi_gaga, ATLAS8_pp_phi_Zga_llga, ATLAS8_gg_phi_tautau, ATLAS8_bb_phi_tautau, ATLAS8_gg_A_hZ_tautauZ, ATLAS8_gg_A_hZ_bbZ, ATLAS8_gg_phi_tt, ATLAS8_gg_H_WW, ATLAS8_VBF_H_WW, ATLAS8_gg_H_ZZ, ATLAS8_VBF_H_ZZ, ATLAS8_gg_H_hh;
-    gslpp::matrix<double> ATLAS8_gg_phi_tautau, ATLAS8_bb_phi_tautau;
-
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> ATLAS8_pp_phi_gaga_e, ATLAS8_pp_phi_Zga_llga_e, ATLAS8_gg_phi_tautau_e, ATLAS8_bb_phi_tautau_e, ATLAS8_gg_A_hZ_tautauZ_e, ATLAS8_gg_A_hZ_bbZ_e, ATLAS8_gg_phi_tt_e, ATLAS8_gg_H_WW_e, ATLAS8_VBF_H_WW_e, ATLAS8_gg_H_ZZ_e, ATLAS8_VBF_H_ZZ_e, ATLAS8_gg_H_hh_e;
-    gslpp::matrix<double> ATLAS8_gg_phi_tautau_e, ATLAS8_bb_phi_tautau_e;
-
-    /**
-     * @brief CMS observed @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> CMS8_mu_pp_H_VV;
-
-    /**
-     * @brief CMS expected @f$95\%@f$ upper signal strength limits at 8 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> CMS8_mu_pp_H_VV_e;
-
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> CMS8_gg_A_hZ_bbll, CMS8_pp_H_hh, CMS8_pp_H_hh_gagabb, CMS8_pp_H_hh_bbbb, CMS8_bb_phi_bb, CMS8_gg_phi_tautau, CMS8_bb_phi_tautau, CMS8_gg_phi_gaga, CMS8_pp_A_Zga_llga, CMS8_pp_phi_Zga, CMS8_gg_H_hh_bbtautau, CMS8_gg_A_hZ_tautaull, CMS8_pp_A_HZ_bbll, CMS8_pp_H_AZ_bbll, CMS8_pp_A_HZ_tautaull, CMS8_pp_H_AZ_tautaull;
-
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> CMS8_gg_A_hZ_bbll_e, CMS8_pp_H_hh_e, CMS8_pp_H_hh_gagabb_e, CMS8_pp_H_hh_bbbb_e, CMS8_bb_phi_bb_e, CMS8_gg_phi_tautau_e, CMS8_bb_phi_tautau_e, CMS8_gg_phi_gaga_e, CMS8_pp_A_Zga_llga_e, CMS8_gg_H_hh_bbtautau_e, CMS8_gg_A_hZ_tautaull_e;
-
-//    gslpp::matrix<double> CMS_ggF_phi_gaga_ep2, CMS_ggF_phi_gaga_em2;
-
-    /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> ATLAS13_bb_phi_tt, ATLAS13_tt_phi_tt, ATLAS13_gg_phi_tautau, ATLAS13_bb_phi_tautau,\
-//                          ATLAS13_pp_phi_gaga, ATLAS13_pp_phi_Zga, ATLAS13_gg_phi_Zga_llga, ATLAS13_gg_H_ZZ_llllnunu, ATLAS13_VBF_H_ZZ_llllnunu, ATLAS13_gg_H_ZZ_llnunu, ATLAS13_gg_H_ZZ_llll,\
-//                          ATLAS13_VBF_H_ZZ_llll, ATLAS13_gg_H_ZZ_qqllnunu, ATLAS13_VBF_H_ZZ_qqllnunu, ATLAS13_gg_H_ZZ_llqq, ATLAS13_VBF_H_ZZ_llqq, ATLAS13_gg_H_ZZ_nunuqq,\
-//                          ATLAS13_gg_H_WW_enumumu, ATLAS13_VBF_H_WW_enumumu, ATLAS13_gg_H_WW_lnuqq, ATLAS13_VBF_H_WW_lnuqq, ATLAS13_pp_H_VV_qqqq, ATLAS13_pp_H_hh_bbbb,\
-//                          ATLAS13_pp_H_hh_gagabb, ATLAS13_pp_H_hh_gagaWW, ATLAS13_gg_A_Zh_Zbb, ATLAS13_bb_A_Zh_Zbb;
-
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> ATLAS13_bb_phi_tt_e, ATLAS13_tt_phi_tt_e, ATLAS13_gg_phi_tautau_e, ATLAS13_bb_phi_tautau_e,\
-//                          ATLAS13_pp_phi_gaga_e, ATLAS13_pp_phi_Zga_e, ATLAS13_gg_phi_Zga_llga_e, ATLAS13_gg_H_ZZ_llllnunu_e, ATLAS13_VBF_H_ZZ_llllnunu_e, ATLAS13_gg_H_ZZ_llnunu_e, ATLAS13_gg_H_ZZ_llll_e,\
-//                          ATLAS13_VBF_H_ZZ_llll_e, ATLAS13_gg_H_ZZ_qqllnunu_e, ATLAS13_VBF_H_ZZ_qqllnunu_e, ATLAS13_gg_H_ZZ_llqq_e, ATLAS13_VBF_H_ZZ_llqq_e, ATLAS13_gg_H_ZZ_nunuqq_e,\
-//                          ATLAS13_gg_H_WW_enumumu_e, ATLAS13_VBF_H_WW_enumumu_e, ATLAS13_gg_H_WW_lnuqq_e, ATLAS13_VBF_H_WW_lnuqq_e, ATLAS13_pp_H_VV_qqqq_e, ATLAS13_pp_H_hh_bbbb_e,\
-//                          ATLAS13_pp_H_hh_gagabb_e, ATLAS13_pp_H_hh_gagaWW_e, ATLAS13_gg_A_Zh_Zbb_e, ATLAS13_bb_A_Zh_Zbb_e;
-
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> CMS13_pp_phi_bb, CMS13_gg_phi_tautau, CMS13_bb_phi_tautau, CMS13_gg_phi_gaga, CMS13_pp_phi_Zga_llga,\
-//                          CMS13_pp_phi_Zga_qqga, CMS13_ggF_phi_Zga, CMS13_pp_H_ZZ_llnunu, CMS13_gg_H_ZZ_llnunu, CMS13_VBF_H_ZZ_llnunu, CMS13_pp_H_ZZ_llll, CMS13_VBFVH_H_ZZ_llll, CMS13_pp_H_ZZ_llqq, CMS13_ggFVBF_H_WW_lnulnu,\
-//                          CMS13_pp_H_hh_bbbb, CMS13_ggF_H_hh_bbbb, CMS13_pp_H_hh_gagabb, CMS13_pp_H_hh_bbtautau, CMS13_pp_H_hh_bbtautau1, CMS13_pp_H_hh_bblnulnu, CMS13_pp_H_hh_bbVV;
-    gslpp::matrix<double> CMS13_pp_H_hh_bbbb;
-
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the Higgs mass.
-     */
-//    gslpp::matrix<double> CMS13_pp_phi_bb_e, CMS13_gg_phi_tautau_e, CMS13_bb_phi_tautau_e, CMS13_gg_phi_gaga_e, CMS13_pp_phi_Zga_llga_e,\
-//                          CMS13_pp_phi_Zga_qqga_e, CMS13_ggF_phi_Zga_e, CMS13_pp_H_ZZ_llnunu_e, CMS13_gg_H_ZZ_llnunu_e, CMS13_VBF_H_ZZ_llnunu_e, CMS13_pp_H_ZZ_llll_e, CMS13_VBFVH_H_ZZ_llll_e, CMS13_pp_H_ZZ_llqq_e, CMS13_ggFVBF_H_WW_lnulnu_e,\
-//                          CMS13_pp_H_hh_bbbb_e, CMS13_ggF_H_hh_bbbb_e, CMS13_pp_H_hh_gagabb_e, CMS13_pp_H_hh_bbtautau_e, CMS13_pp_H_hh_bbtautau1_e, CMS13_pp_H_hh_bblnulnu_e, CMS13_pp_H_hh_bbVV_e;
-    gslpp::matrix<double> CMS13_pp_H_hh_bbbb_e;
-
-    /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu, ATLAS8_pp_Hpm_tb;
-
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> ATLAS8_pp_Hpm_taunu_e, ATLAS8_pp_Hpm_tb_e;
-
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> CMS8_pp_Hp_taunu, CMS8_pp_Hp_tb;
-
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 8 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> CMS8_pp_Hp_taunu_e, CMS8_pp_Hp_tb_e;
-
-    /**
-     * @brief ATLAS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu, ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2;
-
-    /**
-     * @brief ATLAS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> ATLAS13_pp_Hpm_taunu_e, ATLAS13_pp_Hp_tb1_e, ATLAS13_pp_Hp_tb2_e;
-
-    /**
-     * @brief CMS observed @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> CMS13_pp_Hpm_taunu;
-
-    /**
-     * @brief CMS expected @f$95\%@f$ upper cross section limits at 13 TeV, depending on the charged Higgs mass.
-     */
-//    gslpp::matrix<double> CMS13_pp_Hpm_taunu_e;
+    gslpp::matrix<double> ATLAS13_tt_phi_tt, ATLAS13_bb_phi_tt,
+        CMS8_bb_phi_bb, CMS8_gg_phi_bb, CMS13_pp_phi_bb, CMS13_bb_phi_bb,
+        ATLAS8_gg_phi_tautau, CMS8_gg_phi_tautau, ATLAS8_bb_phi_tautau, CMS8_bb_phi_tautau,
+        ATLAS13_gg_phi_tautau, CMS13_gg_phi_tautau, ATLAS13_bb_phi_tautau, CMS13_bb_phi_tautau,
+        ATLAS8_gg_phi_gaga, ATLAS13_pp_phi_gaga, CMS13_gg_phi_gaga,
+        ATLAS8_pp_phi_Zga_llga, CMS8_pp_phi_Zga_llga, ATLAS13_gg_phi_Zga_llga, CMS13_gg_phi_Zga,
+        ATLAS8_gg_phi_ZZ, ATLAS8_VV_phi_ZZ, ATLAS13_gg_phi_ZZ_llllnunu, ATLAS13_VV_phi_ZZ_llllnunu,
+        ATLAS13_gg_phi_ZZ_qqllnunu, ATLAS13_VV_phi_ZZ_qqllnunu, CMS13_pp_phi_ZZ_llqqnunull, CMS13_pp_phi_ZZ_qqnunu,
+        ATLAS8_gg_phi_WW, ATLAS8_VV_phi_WW, ATLAS13_gg_phi_WW_enumumu, ATLAS13_VV_phi_WW_enumumu,
+        ATLAS13_gg_phi_WW_lnuqq, ATLAS13_VV_phi_WW_lnuqq, CMS13_ggVV_phi_WW_lnulnu, CMS13_pp_phi_WW_lnuqq,
+        CMS8_mu_pp_phi_VV, ATLAS13_pp_phi_VV_qqqq,
+        ATLAS8_gg_phi_hh, CMS8_pp_phi_hh_bbbb, CMS8_pp_phi_hh_gagabb, CMS8_gg_phi_hh_bbtautau, CMS8_pp_phi_hh_bbtautau,
+        ATLAS13_pp_phi_hh_bbbb, CMS13_pp_phi_hh_bbbb, CMS13_gg_phi_hh_bbbb, ATLAS13_pp_phi_hh_gagabb,
+        CMS13_pp_phi_hh_gagabb, CMS13_pp_phi_hh_bbtautau, CMS13_pp_phi_hh_bblnulnu, ATLAS13_gg_phi_hh_gagaWW,
+        ATLAS8_gg_A_hZ_bbZ, CMS8_gg_A_hZ_bbll, ATLAS8_gg_A_hZ_tautauZ, CMS8_gg_A_hZ_tautaull,
+        ATLAS13_gg_A_Zh_Zbb, ATLAS13_bb_A_Zh_Zbb, CMS8_pp_A_phiZ_bbll, CMS8_pp_phi_AZ_bbll,
+        ATLAS8_pp_Hpm_taunu, CMS8_pp_Hp_taunu, ATLAS13_pp_Hpm_taunu, CMS13_pp_Hpm_taunu,
+        ATLAS8_pp_Hpm_tb, CMS8_pp_Hp_tb, ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2,
+        ATLAS8_WZ_H5p_WZ_qqll, CMS8_WZ_H5p_WZ_lnull,
+        ATLAS8_pp_H5ppmmH5mmpp_llll, ATLAS13_pp_H5ppmmH5mmpp_llll, CMS8_pp_H5ppmm_WW_jjll, CMS13_pp_H5ppmm_WW_jjll;
 
     /**
      * @brief Interpolating function for the SM branching ratio to two top quarks.
@@ -402,13 +318,6 @@ public:
     double ip_ex_gg_phi_tautau_ATLAS8(double mass);
 
     /**
-     * @brief Interpolating function for the expected ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
-     * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
-     * @details Taken from arXiv:1409.6064, Figure 11a @cite Aad:2014vgg.
-     */
-    double ip_ex_gg_phi_tautau_ATLAS8_e(double mass);
-
-    /**
      * @brief Interpolating function for the observed ATLAS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
      * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1409.6064, Figure 11b @cite Aad:2014vgg.
@@ -416,25 +325,11 @@ public:
     double ip_ex_bb_phi_tautau_ATLAS8(double mass);
 
     /**
-     * @brief Interpolating function for the expected ATLAS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
-     * @return @f$[\sigma_{bb\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
-     * @details Taken from arXiv:1409.6064, Figure 11b @cite Aad:2014vgg.
-     */
-    double ip_ex_bb_phi_tautau_ATLAS8_e(double mass);
-
-    /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to four b quarks.
-     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
+     * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
      * @details Taken from CMS-PAS-HIG-16-002, Figure 7 @cite CMS:2016tlj.
      */
-    double ip_ex_pp_H_hh_bbbb_CMS13(double mass);
-
-    /**
-     * @brief Interpolating function for the expected CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to four b quarks.
-     * @return @f$[\sigma_{pp\to H}\cdot BR(H\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
-     * @details Taken from CMS-PAS-HIG-16-002, Figure 7 @cite CMS:2016tlj.
-     */
-    double ip_ex_pp_H_hh_bbbb_CMS13_e(double mass);
+    double ip_ex_pp_phi_hh_bbbb_CMS13(double mass);
 
     double updateCache();
 
@@ -871,7 +766,7 @@ private:
      * @return @f$\Theta(x)@f$
      * @details Gives 1 for @f$x\geq 0@f$ and 0 for @f$x<0@f$.
      */
-    int HSTheta (const double x) const;
+    double HSTheta (const double x) const;
 
     mutable double ip_Br_HPtott_cache[2][CacheSize];
     mutable double ip_Br_HPtobb_cache[2][CacheSize];
@@ -902,11 +797,8 @@ private:
     mutable double ip_cs_ggtoHp_8_cache[3][CacheSize];
     mutable double ip_cs_ggtoHp_13_cache[3][CacheSize];
     mutable double ip_ex_gg_phi_tautau_ATLAS8_cache[2][CacheSize];
-    mutable double ip_ex_gg_phi_tautau_ATLAS8_cache_e[2][CacheSize];
     mutable double ip_ex_bb_phi_tautau_ATLAS8_cache[2][CacheSize];
-    mutable double ip_ex_bb_phi_tautau_ATLAS8_cache_e[2][CacheSize];
-    mutable double ip_ex_pp_H_hh_bbbb_CMS13_cache[2][CacheSize];
-    mutable double ip_ex_pp_H_hh_bbbb_CMS13_cache_e[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bbbb_CMS13_cache[2][CacheSize];
     mutable double KaellenFunction_cache[4][CacheSize];
 
 };

@@ -17,16 +17,16 @@ unitarity_GTHDM::~unitarity_GTHDM()
 
 bool unitarity_GTHDM::CalcSeigen21(gslpp::matrix<gslpp::complex>& Seigvec_i, gslpp::vector<double>& Seigval_i)
 {
-    double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1_GTHDM;
-    double lambda2 = myGTHDM.getMyGTHDMCache()->lambda2_GTHDM;
-    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3_GTHDM;
-    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4_GTHDM;
-    double Relambda5 = myGTHDM.getMyGTHDMCache()->Relambda5_GTHDM;
+    double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1;
+    double lambda2 = myGTHDM.getMyGTHDMCache()->lambda2;
+    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3;
+    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4;
+    double Relambda5 = myGTHDM.getRelambda5();
     double Imlambda5 = myGTHDM.getImlambda5();
     double Relambda6 = myGTHDM.getRelambda6();
     double Relambda7 = myGTHDM.getRelambda7();
-    double Imlambda6 = myGTHDM.getImlambda6();
-    double Imlambda7 = myGTHDM.getImlambda7();
+    double Imlambda6 = myGTHDM.getMyGTHDMCache()->Imlambda6;
+    double Imlambda7 = myGTHDM.getMyGTHDMCache()->Imlambda7;
     
     gslpp::complex i = gslpp::complex::i();
     
@@ -47,16 +47,16 @@ bool unitarity_GTHDM::CalcSeigen21(gslpp::matrix<gslpp::complex>& Seigvec_i, gsl
 
 bool unitarity_GTHDM::CalcSeigen01(gslpp::matrix<gslpp::complex>& Seigvec_i, gslpp::vector<double>& Seigval_i)
 {
-    double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1_GTHDM;
-    double lambda2 = myGTHDM.getMyGTHDMCache()->lambda2_GTHDM;
-    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3_GTHDM;
-    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4_GTHDM;
-    double Relambda5 = myGTHDM.getMyGTHDMCache()->Relambda5_GTHDM;
+    double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1;
+    double lambda2 = myGTHDM.getMyGTHDMCache()->lambda2;
+    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3;
+    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4;
+    double Relambda5 = myGTHDM.getRelambda5();
     double Imlambda5 = myGTHDM.getImlambda5();
     double Relambda6 = myGTHDM.getRelambda6();
     double Relambda7 = myGTHDM.getRelambda7();
-    double Imlambda6 = myGTHDM.getImlambda6();
-    double Imlambda7 = myGTHDM.getImlambda7();
+    double Imlambda6 = myGTHDM.getMyGTHDMCache()->Imlambda6;
+    double Imlambda7 = myGTHDM.getMyGTHDMCache()->Imlambda7;
     
     gslpp::complex i = gslpp::complex::i();
     
@@ -84,16 +84,16 @@ bool unitarity_GTHDM::CalcSeigen01(gslpp::matrix<gslpp::complex>& Seigvec_i, gsl
 
 bool unitarity_GTHDM::CalcSeigen00(gslpp::matrix<gslpp::complex>& Seigvec_i, gslpp::vector<double>& Seigval_i)
 {
-    double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1_GTHDM;
-    double lambda2 = myGTHDM.getMyGTHDMCache()->lambda2_GTHDM;
-    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3_GTHDM;
-    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4_GTHDM;
-    double Relambda5 = myGTHDM.getMyGTHDMCache()->Relambda5_GTHDM;
+    double lambda1 = myGTHDM.getMyGTHDMCache()->lambda1;
+    double lambda2 = myGTHDM.getMyGTHDMCache()->lambda2;
+    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3;
+    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4;
+    double Relambda5 = myGTHDM.getRelambda5();
     double Imlambda5 = myGTHDM.getImlambda5();
     double Relambda6 = myGTHDM.getRelambda6();
     double Relambda7 = myGTHDM.getRelambda7();
-    double Imlambda6 = myGTHDM.getImlambda6();
-    double Imlambda7 = myGTHDM.getImlambda7();
+    double Imlambda6 = myGTHDM.getMyGTHDMCache()->Imlambda6;
+    double Imlambda7 = myGTHDM.getMyGTHDMCache()->Imlambda7;
     
     gslpp::complex i = gslpp::complex::i();
     
@@ -257,7 +257,7 @@ unitarity4_GTHDM::unitarity4_GTHDM(const StandardModel& SM_i)
 
 double unitarity4_GTHDM::computeThValue()
 {
-    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3_GTHDM;
-    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4_GTHDM;
+    double lambda3 = myGTHDM.getMyGTHDMCache()->lambda3;
+    double lambda4 = myGTHDM.getMyGTHDMCache()->lambda4;
     return (lambda3-lambda4);
 }

@@ -1528,12 +1528,12 @@ ThObsFactory::ThObsFactory()
     obsThFactory["M2_GTHDM"] = boost::factory<M2_GTHDM*>();
     obsThFactory["m11_2_GTHDM"] = boost::factory<m11_2_GTHDM*>();
     obsThFactory["m22_2_GTHDM"] = boost::factory<m22_2_GTHDM*>();
+    obsThFactory["Rem12_2_GTHDM"] = boost::factory<Rem12_2_GTHDM*>();
     obsThFactory["Imm12_2_GTHDM"] = boost::factory<Imm12_2_GTHDM*>();
     obsThFactory["lambda1_GTHDM"] = boost::factory<lambda1_GTHDM*>();
     obsThFactory["lambda2_GTHDM"] = boost::factory<lambda2_GTHDM*>();
     obsThFactory["lambda3_GTHDM"] = boost::factory<lambda3_GTHDM*>();
     obsThFactory["lambda4_GTHDM"] = boost::factory<lambda4_GTHDM*>();
-    obsThFactory["Relambda5_GTHDM"] = boost::factory<Relambda5_GTHDM*>();
     obsThFactory["v1_GTHDM"] = boost::factory<v1_GTHDM*>();
     obsThFactory["v2_GTHDM"] = boost::factory<v2_GTHDM*>();
 

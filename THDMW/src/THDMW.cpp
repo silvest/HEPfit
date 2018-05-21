@@ -216,7 +216,7 @@ bool THDMW::setFlagStr(const std::string name, const std::string value)
             if (flag_modelTHDMW == "custodial1") {
                 //
             }
-            if (flag_modelTHDMW == "ManoharWise") {
+            else if (flag_modelTHDMW == "ManoharWise") {
                 //Pure Manohar-Wise model
             }
             else if (flag_modelTHDMW == "custodial2") {

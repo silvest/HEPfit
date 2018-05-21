@@ -188,7 +188,7 @@ public:
             return 0.0;
         }
         else {
-            return THDMW_lambda3;
+            return THDMW_lambda2;
         }
     }
 

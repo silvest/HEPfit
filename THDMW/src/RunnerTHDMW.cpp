@@ -160,6 +160,8 @@ int RGEsMW(double t, const double y[], double beta[], void *flags)
 
     double pi=M_PI;
 
+    //RGE taken from 1303.4848
+
     //beta_la1
     //I have no idea whether this is correct, it's just taken from the custodial THDMW!
     beta[0] = (12.0*la1*la1 + 8.0*nu1*nu1 + 8.0*nu1*nu2 + 8.0*nu2*nu2)/(16.0*pi*pi);

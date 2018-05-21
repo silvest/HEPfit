@@ -134,6 +134,26 @@ public:
     }
 
     /**
+     * @return Second neutral mass eigenvalue
+     */
+    double getmH2sq() const {
+    if(mH2sq < 0.) {
+            throw std::runtime_error("error in GeneralTHDM: mH2sq < 0!");
+    }
+        return sqrt(mH2sq);
+    }
+
+    /**
+     * @return Third neutral mass eigenvalue
+     */
+    double getmH3sq() const {
+    if(mH3sq < 0.) {
+            throw std::runtime_error("error in GeneralTHDM: mH3sq < 0!");
+    }
+        return sqrt(mH3sq);
+    }
+
+    /**
      * @return rotation angle between the first and second neutral mass eigenstate
      */
     double getalpha1() const {
@@ -197,10 +217,10 @@ public:
     }
 
     /**
-     * @return Real part of the Higgs potential parameter @f$m_{12}^2@f$
+     * @return Real part of the Higgs potential parameter @f$lambda_{5}@f$
      */
-    double getRem12_2() const {
-        return Rem12_2;
+    double getRelambda5() const {
+        return Relambda5;
     }
     
     /**
@@ -218,24 +238,10 @@ public:
     }
 
     /**
-     * @return Imaginary part of the Higgs potential parameter @f$lambda_{6}@f$
-     */
-    double getImlambda6() const {
-        return Imlambda6;
-    }
-
-    /**
      * @return Real part of the Higgs potential parameter @f$lambda_{7}@f$
      */
     double getRelambda7() const {
         return Relambda7;
-    }
-
-    /**
-     * @return Imaginary part of the Higgs potential parameter @f$lambda_{7}@f$
-     */
-    double getImlambda7() const {
-        return Imlambda7;
     }
 
     /**
@@ -488,13 +494,13 @@ public:
         return Q_GTHDM;
     }
     
-    /**
-     * 
-     * @return @f$M^2@f$ of @cite Kanemura:2015ska
-     */
-    double getM2() const {
-            return Rem12_2/sinb/cosb;
-    }
+//    /**
+//     * 
+//     * @return @f$M^2@f$ of @cite Kanemura:2015ska
+//     */
+//    double getM2() const {
+//            return Rem12_2/sinb/cosb;
+//    }
 
     /**
      *
@@ -538,8 +544,8 @@ private:
 
     GeneralTHDMcache* myGTHDMcache;
 
-    double logtb, tanb, sinb, cosb, mHp2, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
-            alpha3, cosalpha3, sinalpha3, Rem12_2, Imlambda5, Relambda6, Imlambda6, Relambda7, Imlambda7, 
+    double logtb, tanb, sinb, cosb, mHp2, mH2sq, mH3sq, alpha1, cosalpha1, sinalpha1, alpha2, cosalpha2, sinalpha2,
+            alpha3, cosalpha3, sinalpha3, Relambda5, Imlambda5, Relambda6, Relambda7,
             Nu_11r, Nu_11i, Nu_12r, Nu_12i, Nu_13r, Nu_13i, 
             Nu_21r, Nu_21i, Nu_22r, Nu_22i, Nu_23r, Nu_23i, 
             Nu_31r, Nu_31i, Nu_32r, Nu_32i, Nu_33r, Nu_33i, 

@@ -563,6 +563,27 @@ private:
 };
 
 /**
+ * @class Rem12_2_GTHDM
+ * @ingroup GeneralTHDM 
+ * @brief parameter of the Higgs potential @f$Re(m_{12}^2)@f$
+ */
+class Rem12_2_GTHDM: public ThObservable {
+public:
+
+    /**
+     * @brief Rem12_2_GTHDM constructor.
+     */
+    Rem12_2_GTHDM(const StandardModel& SM_i);
+
+    /**
+     * @return Rem12_2_GTHDM
+     */
+    double computeThValue();
+private:
+    const GeneralTHDM& myGTHDM;
+};
+
+/**
  * @class Imm12_2_GTHDM
  * @ingroup GeneralTHDM 
  * @brief parameter of the Higgs potential @f$Im(m_{12}^2)@f$
@@ -661,27 +682,6 @@ public:
 
     /**
      * @return lambda4_GTHDM
-     */
-    double computeThValue();
-private:
-    const GeneralTHDM& myGTHDM;
-};
-
-/**
- * @class Relambda5_GTHDM
- * @ingroup GeneralTHDM 
- * @brief parameter of the Higgs potential @f$Re(\lambda_{5})@f$
- */
-class Relambda5_GTHDM: public ThObservable {
-public:
-
-    /**
-     * @brief Relambda5_GTHDM constructor.
-     */
-    Relambda5_GTHDM(const StandardModel& SM_i);
-
-    /**
-     * @return Relambda5_GTHDM
      */
     double computeThValue();
 private:

@@ -21,128 +21,200 @@ GeneralTHDMcache::~GeneralTHDMcache()
 void GeneralTHDMcache::updateCache()
 {
     mHl=myGTHDM->getMHl();
-    mH1_2=mHl*mHl;
+    mH1sq=mHl*mHl;
+    mH2sq=myGTHDM->getmH2sq();
+    mH3sq=myGTHDM->getmH3sq();
     vev=myGTHDM->v();
     tanb=myGTHDM->gettanb();
     cosb=myGTHDM->getcosb();
     sinb=myGTHDM->getsinb();
-    cosalpha1=myGTHDM->getcosalpha1();
-    sinalpha1=myGTHDM->getsinalpha1();
-    cosalpha2=myGTHDM->getcosalpha2();
-    sinalpha2=myGTHDM->getsinalpha2();
-    cosalpha3=myGTHDM->getcosalpha3();
-    sinalpha3=myGTHDM->getsinalpha3();
+    cosa1=myGTHDM->getcosalpha1();
+    sina1=myGTHDM->getsinalpha1();
+    cosa2=myGTHDM->getcosalpha2();
+    sina2=myGTHDM->getsinalpha2();
+    cosa3=myGTHDM->getcosalpha3();
+    sina3=myGTHDM->getsinalpha3();
+    Relambda5=myGTHDM->getRelambda5();
     Imlambda5=myGTHDM->getImlambda5();
-    Imlambda6=myGTHDM->getImlambda6();
-    Imlambda7=myGTHDM->getImlambda7();
-    M2_GTHDM=myGTHDM->getM2();
-    mHp2=myGTHDM->getmHp2();
-    mHp2_GTHDM = mHp2;
+//    M2_GTHDM=myGTHDM->getM2();
+    mHpsq=myGTHDM->getmHp2();
+//    mHp2_GTHDM = mHp2;
     Relambda6=myGTHDM->getRelambda6();
     Relambda7=myGTHDM->getRelambda7();
-    
-    R11_GTHDM = cosalpha1*cosalpha2;
-    R12_GTHDM = sinalpha1*cosalpha2;
-    R13_GTHDM = -sinalpha2;
-    R21_GTHDM = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
-    R22_GTHDM = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3;
-    R23_GTHDM = cosalpha2*sinalpha3;
-    R31_GTHDM = cosalpha1*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
-    R32_GTHDM = sinalpha1*sinalpha2*cosalpha3 - cosalpha1*sinalpha3;
-    R33_GTHDM = cosalpha2*cosalpha3;
-    
-    M13_2 = -vev*vev*(sinb*cosb*Imlambda5 + cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7);
-    M23_2 = -vev*vev*((cosb*cosb - sinb*sinb)*Imlambda5 + 2.*sinb*cosb*(Imlambda7 - Imlambda6))/2.;
 
-    mH2_2 = -(cosalpha2*sinalpha3*(vev*vev*(cosb*cosb*Imlambda6 + sinb*(cosb*Imlambda5 + sinb*Imlambda7))
-                                   +mH1_2*cosalpha1*cosalpha2*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3))
-              +sinalpha2*(vev*vev/2.0*((cosb*cosb - sinb*sinb)*Imlambda5 + 2.0*sinb*cosb*(Imlambda7 - Imlambda6)) 
-                          +mH1_2*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3)*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)))
-            /(cosalpha3*sinalpha1*sinalpha2-cosalpha1*sinalpha3)/(cosalpha1*cosalpha3*sinalpha2+sinalpha1*sinalpha3);
+    M11_2 = -mH1sq*cosa1*cosa1*cosa2*cosa2
+            -mH2sq*sina1*sina1*cosa2*cosa2 - mH3sq*sina2*sina2;
+    M12_2 = cosa2*((mH1sq-mH2sq)*cosa1*cosa3*sina1
+                   +(-mH3sq+mH1sq*cosa1*cosa1+mH2sq*sina1*sina1)*sina2*sina3);
+    M13_2 = cosa2*(cosa3*(-mH3sq+mH1sq*cosa1*cosa1+mH2sq*sina1*sina1)*sina2
+                   +(mH2sq-mH1sq)*cosa1*sina1*sina3);
+    M22_2 = -mH3sq*cosa2*cosa2*sina3*sina3
+            -mH1sq*(cosa3*sina1+cosa1*sina2*sina3)*(cosa3*sina1+cosa1*sina2*sina3)
+            -mH2sq*(cosa1*cosa3-sina1*sina2*sina3)*(cosa1*cosa3-sina1*sina2*sina3);
+    M23_2 = (mH2sq-mH1sq)*cosa1*(cosa3*cosa3-sina3*sina3)*sina1*sina2
+            +cosa1*cosa1*cosa3*(mH2sq-mH1sq*sina2*sina2)*sina3
+            -cosa3*sina3*(mH3sq*cosa2*cosa2+sina1*sina1*(-mH1sq+mH2sq*sina2*sina2));
+    M33_2 = -mH3sq*cosa2*cosa2*cosa3*cosa3
+            -mH2sq*(cosa3*sina1*sina2+cosa1*sina3)*(cosa3*sina1*sina2+cosa1*sina3)
+            -mH1sq*(cosa1*cosa3*sina2-sina1*sina3)*(cosa1*cosa3*sina2-sina1*sina3);
 
-    mH3_2 = (mH1_2*cosalpha1 + vev*vev*sinb*cosb*Imlambda5*cosalpha1/(sinalpha2*cosalpha2*cosalpha3)
-             +0.5*(sinb*sinb - cosb*cosb)*vev*vev*Imlambda5*sinalpha1/(sinalpha2*cosalpha3*cosalpha3)
-             +(Imlambda6 - Imlambda7)*vev*vev*sinb*cosb*(sinalpha1*sinalpha2*cosalpha3*cosalpha3)
-             +mH1_2*sinalpha1*sinalpha3/(cosalpha3*sinalpha2) 
-             +vev*vev*sinb*cosb*Imlambda5*sinalpha1*sinalpha3/(cosalpha3*cosalpha3*cosalpha2)
-             +vev*vev*(cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7)*(cosalpha1/sinalpha2 + sinalpha1*sinalpha3/cosalpha3)/(cosalpha2*cosalpha3))
-            /(cosalpha1 + sinalpha1*sinalpha3/(cosalpha3*sinalpha2));
+    //Remaining general potential parameters
+    m11sq     = M11_2 - M33_2 - M12_2*tanb + 0.5*Relambda5*vev*vev
+                + (M33_2-0.5*Relambda5*vev*vev)*(cosb*cosb-sinb*sinb)
+                + 0.5*vev*vev*((Relambda6-Relambda7)*sinb*cosb+Relambda7*tanb);
+
+    m22sq     = M11_2 - M33_2 + M12_2/tanb + 0.5*Relambda5*vev*vev
+                - (M33_2-0.5*Relambda5*vev*vev)*(cosb*cosb-sinb*sinb)
+                + 0.25*vev*vev*(Relambda6+Relambda7+(Relambda6-Relambda7)*(cosb*cosb-sinb*sinb))/tanb;
+
+    Rem12sq   = 0.25*vev*vev*(Relambda6+Relambda7+(Relambda6-Relambda7)*(cosb*cosb-sinb*sinb))
+                - (2.0*M33_2-Relambda5*vev*vev)*sinb*cosb;
+
+    Imm12sq   = M13_2;
+
+    lambda1   = (-2.0*(M11_2-M22_2+M33_2) + Relambda5*vev*vev
+                 - (2.0*M22_2-2.0*M33_2+Relambda5*vev*vev)/(cosb*cosb)
+                 + (4.0*M12_2-2.0*Relambda6*vev*vev)*tanb)/(vev*vev);
+
+    lambda2   = (-2.0*(M11_2-M22_2+M33_2) + Relambda5*vev*vev
+                 - (2.0*M22_2-2.0*M33_2+Relambda5*vev*vev)/(sinb*sinb)
+                 - (4.0*M12_2+2.0*Relambda7*vev*vev)/tanb)/(vev*vev);
+
+    lambda3   = -(2.0*(M11_2-M22_2-M33_2+mHpsq) + Relambda5*vev*vev
+                  + (2.0*M12_2+Relambda6*vev*vev)/tanb
+                  - 2.0*(2.0*M12_2-Relambda7*vev*vev)*tanb)/(vev*vev);
+
+    lambda4   = Relambda5 + (2.0*mHpsq-4.0*M33_2)/(vev*vev);
+
+    Imlambda6 = (2.0*M13_2-(2.0*M23_2+0.5*Imlambda5*vev*vev)*tanb)/(vev*vev);
+
+    Imlambda7 = 2.0*M13_2/(vev*vev) + (-0.5*Imlambda5+(2.0*M23_2)/(vev*vev))/tanb;
+
+    //Higgs potential parameters
+    
+//    m11sqH     = M11_2;
+//    m22sqH     = 1/2 (-2 mHpsq - v^2 \[Lambda]3x);
+//    Rem12sqH   = -M12_2;
+//    Imm12sqH   = M13_2;
+//    lambda1H   = -2.0*M11_2/(vev*vev);
+//    lambda2H   = 0.;
+//    lambda3H   = 0.;
+//    lambda4H   = -((2 (M22_2 + M33_2 - mHpsq))/v^2);
+//    Relambda5H = -((2 (M22_2 - M33_2))/v^2);
+//    Imlambda5H = (4 M23_2)/v^2;
+//    Relambda6H = -((2 M12_2)/v^2);
+//    Imlambda6H = (2 M13_2)/v^2;
+//    Relambda7H = 0.;
+//    Imlambda7H = 0.;
+
+
+
+
+
+
+
+//    R11_GTHDM = cosalpha1*cosalpha2;
+//    R12_GTHDM = sinalpha1*cosalpha2;
+//    R13_GTHDM = -sinalpha2;
+//    R21_GTHDM = cosalpha1*sinalpha2*sinalpha3 - sinalpha1*cosalpha3;
+//    R22_GTHDM = sinalpha1*sinalpha2*sinalpha3 + cosalpha1*cosalpha3;
+//    R23_GTHDM = cosalpha2*sinalpha3;
+//    R31_GTHDM = cosalpha1*sinalpha2*cosalpha3 + sinalpha1*sinalpha3;
+//    R32_GTHDM = sinalpha1*sinalpha2*cosalpha3 - cosalpha1*sinalpha3;
+//    R33_GTHDM = cosalpha2*cosalpha3;
+
+//    M13_2 = -vev*vev*(sinb*cosb*Imlambda5 + cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7);
+//    M23_2 = -vev*vev*((cosb*cosb - sinb*sinb)*Imlambda5 + 2.*sinb*cosb*(Imlambda7 - Imlambda6))/2.;
+
+//    mH2_2 = -(cosalpha2*sinalpha3*(vev*vev*(cosb*cosb*Imlambda6 + sinb*(cosb*Imlambda5 + sinb*Imlambda7))
+//                                   +mH1_2*cosalpha1*cosalpha2*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3))
+//              +sinalpha2*(vev*vev/2.0*((cosb*cosb - sinb*sinb)*Imlambda5 + 2.0*sinb*cosb*(Imlambda7 - Imlambda6)) 
+//                          +mH1_2*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3)*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)))
+//            /(cosalpha3*sinalpha1*sinalpha2-cosalpha1*sinalpha3)/(cosalpha1*cosalpha3*sinalpha2+sinalpha1*sinalpha3);
+
+//    mH3_2 = (mH1_2*cosalpha1 + vev*vev*sinb*cosb*Imlambda5*cosalpha1/(sinalpha2*cosalpha2*cosalpha3)
+//             +0.5*(sinb*sinb - cosb*cosb)*vev*vev*Imlambda5*sinalpha1/(sinalpha2*cosalpha3*cosalpha3)
+//             +(Imlambda6 - Imlambda7)*vev*vev*sinb*cosb*(sinalpha1*sinalpha2*cosalpha3*cosalpha3)
+//             +mH1_2*sinalpha1*sinalpha3/(cosalpha3*sinalpha2) 
+//             +vev*vev*sinb*cosb*Imlambda5*sinalpha1*sinalpha3/(cosalpha3*cosalpha3*cosalpha2)
+//             +vev*vev*(cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7)*(cosalpha1/sinalpha2 + sinalpha1*sinalpha3/cosalpha3)/(cosalpha2*cosalpha3))
+//            /(cosalpha1 + sinalpha1*sinalpha3/(cosalpha3*sinalpha2));
 
 //        std::cout<<"mH1_2 before ordering = "<<mH1_2<<std::endl;
 //        std::cout<<"mH2_2 before ordering = "<<mH2_2<<std::endl;
 //        std::cout<<"mH3_2 before ordering = "<<mH3_2<<std::endl;
-
-    if(mH1_2<mH3_2 && mH3_2<mH2_2)
-    {
-        //1<3<2 swap 2 and 3
-        mHlight_2  = mH1_2;
-        mHmedium_2 = mH3_2;
-        mHheavy_2  = mH2_2;
-    }
-    else if(mH3_2<mH2_2 && mH2_2<mH1_2)
-    {
-        //3<2<1 swap 1 and 3
-        mHlight_2  = mH3_2;
-        mHmedium_2 = mH2_2;
-        mHheavy_2  = mH1_2;
-    }
-    else if(mH2_2<mH1_2 && mH1_2<mH3_2)
-    {
-        //2<1<3 swap 1 and 2
-        mHlight_2  = mH2_2;
-        mHmedium_2 = mH1_2;
-        mHheavy_2  = mH3_2;
-    }
-    else if(mH2_2<mH3_2 && mH3_2<mH1_2)
-    {
-        //2<3<1: 3->2, 1->3, 2->1
-        mHlight_2  = mH2_2;
-        mHmedium_2 = mH3_2;
-        mHheavy_2  = mH1_2;
-    }
-    else if(mH3_2<mH1_2 && mH1_2<mH2_2)
-    {
-        //3<1<2 3->1, 1->2, 2->3
-        mHlight_2  = mH3_2;
-        mHmedium_2 = mH1_2;
-        mHheavy_2  = mH2_2;
-    }
-    
-    else if(mH1_2<mH2_2 && mH2_2<mH3_2)
-    {
-        //1<2<3 ok
-        mHlight_2  = mH1_2;
-        mHmedium_2 = mH2_2;
-        mHheavy_2  = mH3_2;
-    }
-
-    M11_2 = (mH1_2*cosalpha1*cosalpha1*cosalpha2*cosalpha2 + mH2_2*sinalpha1*sinalpha1*cosalpha2*cosalpha2 + mH3_2*sinalpha2*sinalpha2);
-
-    M12_2 = (mH1_2*cosalpha1*cosalpha2*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)
-             + mH2_2*cosalpha2*sinalpha1*(cosalpha1*cosalpha3 + sinalpha1*sinalpha2*sinalpha3)
-             - mH3_2*cosalpha2*sinalpha2*sinalpha3);
-
-//    M13_2 = ?
-
-    M22_2 = (mH1_2*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)
-             + mH2_2*(cosalpha1*cosalpha3 + sinalpha1*sinalpha2*sinalpha3)*(cosalpha1*cosalpha3 + sinalpha1*sinalpha2*sinalpha3)
-             + mH3_2*cosalpha2*cosalpha2*sinalpha3*sinalpha3);
-
-//    M23_2 = ?
-
-    M33_2 = (mH1_2*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3)*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3)
-             + mH2_2*(cosalpha3*sinalpha1*sinalpha2 - cosalpha1*sinalpha3)*(cosalpha3*sinalpha1*sinalpha2 - cosalpha1*sinalpha3)
-             + mH3_2*cosalpha2*cosalpha2*cosalpha3*cosalpha3);
-
-    m11_2_GTHDM = M2_GTHDM*(1. - cosb*cosb + 3.*sinb*sinb)/4. + (M12_2*tanb - M11_2)/2.;
-    m22_2_GTHDM = M2_GTHDM*(1. + 3.*cosb*cosb - sinb*sinb)/4. - (M12_2/tanb + M11_2)/2.;
-    Imm12_2_GTHDM = 0.5*(cosb*sinb*Imlambda5 + cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7)*vev*vev;
-    lambda1_GTHDM = (M11_2 + tanb*tanb*(M22_2-M2_GTHDM) - 2.0*tanb*M12_2)/(vev*vev) + tanb*(tanb*tanb*Relambda7 - 3.0*Relambda6)/2.0;
-    lambda2_GTHDM = (M11_2 + (M22_2-M2_GTHDM)/(tanb*tanb) + 2.0*M12_2/tanb)/(vev*vev) + (0.5*Relambda6/(tanb*tanb) - 1.5*Relambda7)/tanb;
-    lambda3_GTHDM = (M11_2 - M22_2 - M2_GTHDM + (1.0/tanb - tanb)*M12_2 + 2.0*mHp2)/(vev*vev) - (Relambda6/tanb + tanb*Relambda7)/2.0;
-    lambda4_GTHDM = (M2_GTHDM + M33_2 - 2.0*mHp2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
-    Relambda5_GTHDM = (M2_GTHDM - M33_2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
-    
+//
+//    if(mH1_2<mH3_2 && mH3_2<mH2_2)
+//    {
+//        //1<3<2 swap 2 and 3
+//        mHlight_2  = mH1_2;
+//        mHmedium_2 = mH3_2;
+//        mHheavy_2  = mH2_2;
+//    }
+//    else if(mH3_2<mH2_2 && mH2_2<mH1_2)
+//    {
+//        //3<2<1 swap 1 and 3
+//        mHlight_2  = mH3_2;
+//        mHmedium_2 = mH2_2;
+//        mHheavy_2  = mH1_2;
+//    }
+//    else if(mH2_2<mH1_2 && mH1_2<mH3_2)
+//    {
+//        //2<1<3 swap 1 and 2
+//        mHlight_2  = mH2_2;
+//        mHmedium_2 = mH1_2;
+//        mHheavy_2  = mH3_2;
+//    }
+//    else if(mH2_2<mH3_2 && mH3_2<mH1_2)
+//    {
+//        //2<3<1: 3->2, 1->3, 2->1
+//        mHlight_2  = mH2_2;
+//        mHmedium_2 = mH3_2;
+//        mHheavy_2  = mH1_2;
+//    }
+//    else if(mH3_2<mH1_2 && mH1_2<mH2_2)
+//    {
+//        //3<1<2 3->1, 1->2, 2->3
+//        mHlight_2  = mH3_2;
+//        mHmedium_2 = mH1_2;
+//        mHheavy_2  = mH2_2;
+//    }
+//    
+//    else if(mH1_2<mH2_2 && mH2_2<mH3_2)
+//    {
+//        //1<2<3 ok
+//        mHlight_2  = mH1_2;
+//        mHmedium_2 = mH2_2;
+//        mHheavy_2  = mH3_2;
+//    }
+//
+//    M11_2 = (mH1_2*cosalpha1*cosalpha1*cosalpha2*cosalpha2 + mH2_2*sinalpha1*sinalpha1*cosalpha2*cosalpha2 + mH3_2*sinalpha2*sinalpha2);
+//
+//    M12_2 = (mH1_2*cosalpha1*cosalpha2*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)
+//             + mH2_2*cosalpha2*sinalpha1*(cosalpha1*cosalpha3 + sinalpha1*sinalpha2*sinalpha3)
+//             - mH3_2*cosalpha2*sinalpha2*sinalpha3);
+//
+////    M13_2 = ?
+//
+//    M22_2 = (mH1_2*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)*(cosalpha1*sinalpha2*sinalpha3 - cosalpha3*sinalpha1)
+//             + mH2_2*(cosalpha1*cosalpha3 + sinalpha1*sinalpha2*sinalpha3)*(cosalpha1*cosalpha3 + sinalpha1*sinalpha2*sinalpha3)
+//             + mH3_2*cosalpha2*cosalpha2*sinalpha3*sinalpha3);
+//
+////    M23_2 = ?
+//
+//    M33_2 = (mH1_2*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3)*(cosalpha1*cosalpha3*sinalpha2 + sinalpha1*sinalpha3)
+//             + mH2_2*(cosalpha3*sinalpha1*sinalpha2 - cosalpha1*sinalpha3)*(cosalpha3*sinalpha1*sinalpha2 - cosalpha1*sinalpha3)
+//             + mH3_2*cosalpha2*cosalpha2*cosalpha3*cosalpha3);
+//
+//    m11_2_GTHDM = M2_GTHDM*(1. - cosb*cosb + 3.*sinb*sinb)/4. + (M12_2*tanb - M11_2)/2.;
+//    m22_2_GTHDM = M2_GTHDM*(1. + 3.*cosb*cosb - sinb*sinb)/4. - (M12_2/tanb + M11_2)/2.;
+//    Imm12_2_GTHDM = 0.5*(cosb*sinb*Imlambda5 + cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7)*vev*vev;
+//    lambda1_GTHDM = (M11_2 + tanb*tanb*(M22_2-M2_GTHDM) - 2.0*tanb*M12_2)/(vev*vev) + tanb*(tanb*tanb*Relambda7 - 3.0*Relambda6)/2.0;
+//    lambda2_GTHDM = (M11_2 + (M22_2-M2_GTHDM)/(tanb*tanb) + 2.0*M12_2/tanb)/(vev*vev) + (0.5*Relambda6/(tanb*tanb) - 1.5*Relambda7)/tanb;
+//    lambda3_GTHDM = (M11_2 - M22_2 - M2_GTHDM + (1.0/tanb - tanb)*M12_2 + 2.0*mHp2)/(vev*vev) - (Relambda6/tanb + tanb*Relambda7)/2.0;
+//    lambda4_GTHDM = (M2_GTHDM + M33_2 - 2.0*mHp2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
+//    Relambda5_GTHDM = (M2_GTHDM - M33_2)/(vev*vev) - 0.5*(Relambda6/tanb + tanb*Relambda7);
+//    
     Mu_GTHDM.assign(0,0, myGTHDM->getQuarks(QCD::UP).getMass());
     Mu_GTHDM.assign(1,1, myGTHDM->getQuarks(QCD::CHARM).getMass());
     Mu_GTHDM.assign(2,2, myGTHDM->getQuarks(QCD::TOP).getMass());
@@ -231,7 +303,7 @@ void GeneralTHDMcache::updateCache()
 //    std::cout<<"Relambda5_GTHDM = "<<Relambda5_GTHDM<<std::endl;
 
 //    Q_THDM=myTHDM->getQ_THDM();
-//    m12_2=myTHDM->getm12_2();
+////    m12_2=myTHDM->getm12_2();
 //    MW=MWTHDM(myTHDM->Mw_tree());
 //    cW2=cW2THDM(myTHDM->c02());
 //    Ale=myTHDM->getAle();
