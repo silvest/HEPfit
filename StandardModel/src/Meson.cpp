@@ -116,6 +116,12 @@ void Meson::ModelParameterMapInsert(std::map< std::string, boost::reference_wrap
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha1kst", boost::cref(gegenalpha[0])));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("alpha2kst", boost::cref(gegenalpha[1])));
         return;
+    } 
+    if (name.compare("D_star_P") == 0) {
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MDstarP", boost::cref(mass)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tDstarP", boost::cref(lifetime)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("FDstarP", boost::cref(decayconst)));
+        return;
     } else throw std::runtime_error(name + " is not implemented in Meson class");
 }
 
@@ -132,6 +138,7 @@ std::vector<std::string> Meson::parameterList(std::string name_i)
     if (name_i.compare("PHI") == 0) return make_vector<std::string>() << "Mphi" << "tphi"  << "Fphi" << "Fphip" << "alpha2phi";
     if (name_i.compare("K_star") == 0) return make_vector<std::string>() << "MKstar"  << "tKstar"  << "FKstar" << "FKstarp" << "alpha1kst" << "alpha2kst";
     if (name_i.compare("K_star_P") == 0) return make_vector<std::string>() << "MKstarP" << "tKstar" << "FKstar" << "FKstarp" << "alpha1kst" << "alpha2kst";
+    if (name_i.compare("D_star_P") == 0) return make_vector<std::string>() << "MDstarP"  << "tDstarP"  << "FDstarP";
     else throw std::runtime_error(name_i + " is not implemented in Meson class");
 }
 
@@ -347,7 +354,20 @@ bool Meson::setParameter(std::string name_i, double value)
             return true;
         }
     }
-    
+    if (name.compare("D_star_P") == 0) {
+        if (name_i.compare("MDstarP") == 0) {
+            mass = value;
+            return true;
+        }
+        if (name_i.compare("tDstarP") == 0) {
+            lifetime = value;
+            return true;
+        }
+        if (name_i.compare("FDstarP") == 0) {
+            decayconst = value;
+            return true;
+        }
+    }
     return false;
 }
 

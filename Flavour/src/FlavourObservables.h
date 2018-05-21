@@ -31,6 +31,7 @@
 #include "BdmumuOBsmumu.h"
 #include "WilsonCoefficientObservables.h"
 #include "BXqllObservables.h"
+#include "MVlnuObservables.h"
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

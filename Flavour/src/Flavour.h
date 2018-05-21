@@ -15,6 +15,7 @@ class HeffDS1;
 class MVll;
 class MPll;
 class MVgamma;
+class MVlnu;
 #include "QCD.h"
 #include <boost/tuple/tuple.hpp>
 #include <memory>
@@ -192,6 +193,16 @@ public:
      * 
      */
     MVgamma& getMVgamma(unsigned int meson_i, unsigned int vector_i) const;
+    
+    /**
+     * @brief Returns the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
+     * @param[in] meson_i specifies the meson in the initial state
+     * @param[in] vector_i specifies the vector in the final state
+     * @param[in] lepton_i specifies the lepton in the final state
+     * @return returns a pointer to the initial and final state dependent object for the process \f$ B \to V \ell^+ \ell^- \f$
+     * 
+     */
+    MVlnu& getMVlnu(unsigned int meson_i, unsigned int vector_i, unsigned int lep_i) const;
 
     /**
      * @brief sets the update flag for the initial and final state dependent object for \f$ B \to V \ell^+ \ell^- \f$.
@@ -243,6 +254,9 @@ private:
     std::shared_ptr<MVgamma> MVgamma_BdKstgamma;
     std::shared_ptr<MVgamma> MVgamma_BpKstgamma;
     std::shared_ptr<MVgamma> MVgamma_Bsphigamma;
+    std::shared_ptr<MVlnu> MVlnu_BdbarDstartaunu; ///< An object for the process \f$ \bar{B} \to D^* \tau^- \nu \f$.
+    std::shared_ptr<MVlnu> MVlnu_BdbarDstarmunu; ///< An object for the process \f$ \bar{B} \to D^* \mu^- \nu  \f$.
+    std::shared_ptr<MVlnu> MVlnu_BdbarDstarelnu; ///< An object for the process \f$ \bar{B} \to D^* \e^- \nu  \f$.
     mutable bool update_BdKstarmu; ///< A flag used for caching of \f$ B_d \to K^* \mu^+ \mu^- \f$.
     mutable bool update_BdKstarel; ///< A flag used for caching of \f$ B_d \to K^* \e^+ \e^- \f$.
     mutable bool update_BpKstarmu; ///< A flag used for caching of \f$ B_d \to K^{*\pm} \mu^+ \mu^- \f$.
@@ -254,6 +268,9 @@ private:
     mutable bool update_BdKstgamma;
     mutable bool update_BpKstgamma;
     mutable bool update_Bsphigamma;
+    mutable bool update_BdDstartaunu;
+    mutable bool update_BdDstarmunu;  
+    mutable bool update_BdDstarelnu;
     mutable bool fullKD;
 };
 

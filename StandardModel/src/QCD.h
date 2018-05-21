@@ -636,6 +636,7 @@ public:
         PHI, /**< @f$\phi@f$ meson */
         K_star, /**< @f$K^*@f$ meson */
         K_star_P, /**< @f$K^{*,\pm}@f$ meson */
+        D_star_P, /**< @f$D^{*,\pm}@f$ meson */
         MESON_END /**< The size of this enum. */
     };
     
