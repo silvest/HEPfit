@@ -41,36 +41,36 @@ public:
     std::vector<std::string> initializeMVlnuParameters();
     
     /**
-    * @brief The integral of \f$ dBR/dw \f$ from \f$w_{min}\f$ to \f$w_{max}\f$
+    * @brief The integral of \f$ d\Gamma/dw \f$ from \f$w_{min}\f$ to \f$w_{max}\f$
     * @param[in] w_min maximum q^2 of the integral
     * @param[in] w_max minimum q^2 of the integral
-    * @return \f$ <dBR/dw> \f$ 
+    * @return \f$ <d\Gamma/dw> \f$ 
     */
-    double getDeltaBRDeltaw(double w_min, double w_max);
+    double getDeltaGammaDeltaw(double w_min, double w_max);
     
     /**
-    * @brief The integral of \f$ dBR/dcos\theta_{l} \f$ from \f$cos\theta_{l,min}\f$ to \f$cos\theta_{l,max}\f$
+    * @brief The integral of \f$ d\Gamma/dcos\theta_{l} \f$ from \f$cos\theta_{l,min}\f$ to \f$cos\theta_{l,max}\f$
     * @param[in] cl_min minmum cos angle value of the integral
     * @param[in] cl_max maximum cos angle value of the integral
-    * @return \f$ <dBR/dcos\theta_{l}> \f$ 
+    * @return \f$ <d\Gamma/dcos\theta_{l}> \f$ 
     */
-    double getDeltaBRDeltacl(double cl_min, double cl_max);
+    double getDeltaGammaDeltacl(double cl_min, double cl_max);
     
     /**
-    * @brief The integral of \f$ dBR/dcos\theta_{V} \f$ from \f$cos\theta_{V,min}\f$ to \f$cos\theta_{V,max}\f$
+    * @brief The integral of \f$ d\Gamma/dcos\theta_{V} \f$ from \f$cos\theta_{V,min}\f$ to \f$cos\theta_{V,max}\f$
     * @param[in] cV_min minmum cos angle value of the integral
     * @param[in] cV_max maximum cos angle value of the integral
-    * @return \f$ <dBR/dcos\theta_{V}> \f$ 
+    * @return \f$ <d\Gamma/dcos\theta_{V}> \f$ 
     */
-    double getDeltaBRDeltacV(double cV_min, double cV_max);
+    double getDeltaGammaDeltacV(double cV_min, double cV_max);
     
     /**
-    * @brief The integral of \f$ dBR/dcos\chi \f$ from \f$cos\chi\f$ to \f$cos\chi\f$
+    * @brief The integral of \f$ d\Gamma/dcos\chi \f$ from \f$cos\chi\f$ to \f$cos\chi\f$
     * @param[in] chi_min minmum cos angle value of the integral
     * @param[in] chi_max maximum cos angle value of the integral
-    * @return \f$ <dBR/dcos\chi> \f$ 
+    * @return \f$ <d\Gamma/dcos\chi> \f$ 
     */
-    double getDeltaBRDeltachi(double chi_min, double chi_max);
+    double getDeltaGammaDeltachi(double chi_min, double chi_max);
 
     /**
     * @brief The width of the meson M
@@ -467,41 +467,74 @@ private:
     * @return \f$ J_{9} \f$
     */
     double  J9(double q2);
-    
+
     /**
-    * @brief \f$ dBR/dw \f$ 
-    * @param[in] w related to \f$q^2\f$ of the decay
-    * @return \f$ dBR/dw \f$ 
+    * @brief \f$ <J_{i}> \f$ 
+    * @param[in] i, angular coefficient index (i = 1,...,12)
+    * @param[in] q2_min, lower extreme \f$q^2\f$ of intgrated decay
+    * @param[in] q2_max, upper extreme \f$q^2\f$ of intgrated decay
+    * @return \f$ <J_{i}> \f$ 
     */
-    double dBRdw(double w);
-
-    /**
-     * @brief \f$ dBR/dcos \theta_{l} \f$ 
-     * @param[in] cl \f$ cos \theta_{l}\f$ of the decay
-     * @return \f$ dBR/dcos \theta_{l} \f$ 
-     */
-    double dBRdcl(double cl);
-
-    /**
-     * @brief \f$ dBR/dcos \theta_{V} \f$ 
-     * @param[in] cV \f$ cos \theta_{V}\f$ of the decay
-     * @return \f$ dBR/dcos \theta_{V} \f$ 
-     */
-    double dBRdcV(double cV);
+    double integrateJ(int i, double q2_min, double q2_max) ;
     
     /**
-     * @brief \f$ dBR/dcos \chi \f$ 
-     * @param[in] cV \f$ cos \chi\f$ of the decay
-     * @return \f$ dBR/dcos \chi \f$ 
+     * @brief \f$ d\Gamma/dw \f$ 
+     * @param[in] w related to \f$q^2\f$ of the decay
+     * @return \f$ d\Gamma/dw \f$ 
+     */    
+    double dGammadw(double w);
+
+    /**
+     * @brief \f$ d\Gamma/dcos \theta_{l}/dq2 \f$ 
+     * @param[in] q2 \f$q^2\f$ of the decay
+     * @param[in] cl \f$ cos \theta_{l}\f$ of the decay
+     * @return \f$ d\Gamma/(dcos \theta_{l} dq2) \f$ 
+     */    
+    double dGammadcldq2(double q2, double cl);
+
+    /**
+     * @brief \f$ d\Gamma/dcos \theta_{l} \f$ 
+     * @param[in] cl \f$ cos \theta_{l}\f$ of the decay
+     * @return \f$ d\Gamma/dcos \theta_{l} \f$ 
      */
-    double dBRdchi(double chi);
+    double dGammadcl(double cl);
+
+    /**
+     * @brief \f$ d\Gamma/dcos \theta_{V}/dq2 \f$ 
+     * @param[in] q2 \f$q^2\f$ of the decay
+     * @param[in] cV \f$ cos \theta_{V}\f$ of the decay
+     * @return \f$ d\Gamma/(dcos \theta_{V} dq2) \f$ 
+     */    
+    double dGammadcVdq2(double q2, double cV);
+    
+    /**
+     * @brief \f$ d\Gamma/dcos \theta_{V} \f$ 
+     * @param[in] cV \f$ cos \theta_{V}\f$ of the decay
+     * @return \f$ d\Gamma/dcos \theta_{V} \f$ 
+     */
+    double dGammadcV(double cV);
+    
+    /**
+     * @brief \f$ d\Gamma/dcos \chi/dq2 \f$ 
+     * @param[in] q2 \f$q^2\f$ of the decay
+     * @param[in] chi \f$ chi\f$ of the decay
+     * @return \f$ d\Gamma/( dq2 dcos \chi) \f$ 
+     */    
+    double dGammadchidq2(double q2, double chi);
+    
+    /**
+     * @brief \f$ d\Gamma/dcos \chi \f$ 
+     * @param[in] q2 \f$q^2\f$ of the decay
+     * @param[in] cV \f$ cos \chi\f$ of the decay
+     * @return \f$ d\Gamma/dcos \chi \f$ 
+     */
+    double dGammadchi(double chi);
     
     gsl_error_handler_t * old_handler; /**< GSL error handler store */
     gsl_function FJ;/**< GSL integral variable */
     double J_res;/**< GSL integral variable */
     double J_err;/**< GSL integral variable */
     gsl_integration_cquad_workspace * w_J;/**< GSL integral variable */
-    
  
 };
 
