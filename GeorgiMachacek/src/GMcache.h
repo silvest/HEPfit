@@ -128,8 +128,8 @@ public:
         ATLAS8_gg_phi_gaga, ATLAS13_pp_phi_gaga, CMS13_gg_phi_gaga,
         ATLAS8_pp_phi_Zga_llga, CMS8_pp_phi_Zga_llga, ATLAS13_gg_phi_Zga_llga, CMS13_gg_phi_Zga,
         ATLAS8_gg_phi_ZZ, ATLAS8_VV_phi_ZZ, ATLAS13_gg_phi_ZZ_llllnunu, ATLAS13_VV_phi_ZZ_llllnunu,
-        ATLAS13_gg_phi_ZZ_qqllnunu, ATLAS13_VV_phi_ZZ_qqllnunu, CMS13_pp_phi_ZZ_llqqnunull, CMS13_pp_phi_ZZ_qqnunu,
-        ATLAS8_gg_phi_WW, ATLAS8_VV_phi_WW, ATLAS13_gg_phi_WW_enumumu, ATLAS13_VV_phi_WW_enumumu,
+        ATLAS13_gg_phi_ZZ_qqllnunu, ATLAS13_VV_phi_ZZ_qqllnunu, CMS13_pp_phi_ZZ_llqqnunull, CMS13_VV_phi_ZZ_llqqnunull, CMS13_pp_phi_ZZ_qqnunu,
+        ATLAS8_gg_phi_WW, ATLAS8_VV_phi_WW, ATLAS13_gg_phi_WW_enumunu, ATLAS13_VV_phi_WW_enumunu,
         ATLAS13_gg_phi_WW_lnuqq, ATLAS13_VV_phi_WW_lnuqq, CMS13_ggVV_phi_WW_lnulnu, CMS13_pp_phi_WW_lnuqq,
         CMS8_mu_pp_phi_VV, ATLAS13_pp_phi_VV_qqqq,
         ATLAS8_gg_phi_hh, CMS8_pp_phi_hh_bbbb, CMS8_pp_phi_hh_gagabb, CMS8_gg_phi_hh_bbtautau, CMS8_pp_phi_hh_bbtautau,
@@ -140,7 +140,8 @@ public:
         ATLAS8_pp_Hpm_taunu, CMS8_pp_Hp_taunu, ATLAS13_pp_Hpm_taunu, CMS13_pp_Hpm_taunu,
         ATLAS8_pp_Hpm_tb, CMS8_pp_Hp_tb, ATLAS13_pp_Hp_tb1, ATLAS13_pp_Hp_tb2,
         ATLAS8_WZ_H5p_WZ_qqll, CMS8_WZ_H5p_WZ_lnull,
-        ATLAS8_pp_H5ppmmH5mmpp_llll, ATLAS13_pp_H5ppmmH5mmpp_llll, CMS8_pp_H5ppmm_WW_jjll, CMS13_pp_H5ppmm_WW_jjll;
+        ATLAS8_pp_H5ppmmH5mmpp_eeee, ATLAS8_pp_H5ppmmH5mmpp_emuemu, ATLAS8_pp_H5ppmmH5mmpp_mumumumu,
+        ATLAS13_pp_H5ppmmH5mmpp_llll, CMS8_pp_H5ppmm_WW_jjll, CMS13_pp_H5ppmm_WW_jjll;
 
     /**
      * @brief Interpolating function for the SM branching ratio to two top quarks.
@@ -310,12 +311,56 @@ public:
      */
     double ip_cs_ggtoHp_13(double mHp, double logtb);
 
+
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-104.
+     */
+    double ip_ex_tt_phi_tt_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-104.
+     */
+    double ip_ex_bb_phi_tt_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1506.08329.
+     */
+    double ip_ex_bb_phi_bb_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1802.06149.
+     */
+    double ip_ex_gg_phi_bb_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-16-025.
+     */
+    double ip_ex_pp_phi_bb_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-16-018.
+     */
+    double ip_ex_bb_phi_bb_CMS13(double mass);
+
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a gluon-gluon produced scalar resonance decaying to two tau leptons.
      * @return @f$[\sigma_{gg\to \phi}\cdot BR(\phi\to \tau \tau)]_{\text{ATLAS,95\%}}@f$
      * @details Taken from arXiv:1409.6064, Figure 11a @cite Aad:2014vgg.
      */
     double ip_ex_gg_phi_tautau_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-14-029.
+     */
+    double ip_ex_gg_phi_tautau_CMS8(double mass);
 
     /**
      * @brief Interpolating function for the observed ATLAS upper limit on a bottom quark produced scalar resonance decaying to two tau leptons.
@@ -325,11 +370,414 @@ public:
     double ip_ex_bb_phi_tautau_ATLAS8(double mass);
 
     /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-14-029.
+     */
+    double ip_ex_bb_phi_tautau_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2017-050.
+     */
+    double ip_ex_gg_phi_tautau_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1803.06553.
+     */
+    double ip_ex_gg_phi_tautau_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2017-050.
+     */
+    double ip_ex_bb_phi_tautau_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1803.06553.
+     */
+    double ip_ex_bb_phi_tautau_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1407.6583.
+     */
+    double ip_ex_gg_phi_gaga_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1707.04147.
+     */
+    double ip_ex_pp_phi_gaga_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1609.02507.
+     */
+    double ip_ex_gg_phi_gaga_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1407.8150.
+     */
+    double ip_ex_pp_phi_Zga_llga_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-16-014.
+     */
+    double ip_ex_pp_phi_Zga_llga_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1708.00212.
+     */
+    double ip_ex_gg_phi_Zga_llga_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1712.03143.
+     */
+    double ip_ex_gg_phi_Zga_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1507.05930.
+     */
+    double ip_ex_gg_phi_ZZ_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1507.05930.
+     */
+    double ip_ex_VV_phi_ZZ_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1712.06386.
+     */
+    double ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1712.06386.
+     */
+    double ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1708.09638.
+     */
+    double ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1708.09638.
+     */
+    double ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1804.01939.
+     */
+    double ip_ex_pp_phi_ZZ_llqqnunull_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1804.01939.
+     */
+    double ip_ex_VV_phi_ZZ_llqqnunull_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1803.03838.
+     */
+    double ip_ex_pp_phi_ZZ_qqnunu_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1509.00389.
+     */
+    double ip_ex_gg_phi_WW_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1509.00389.
+     */
+    double ip_ex_VV_phi_WW_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1710.01123.
+     */
+    double ip_ex_gg_phi_WW_enumunu_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1710.01123.
+     */
+    double ip_ex_VV_phi_WW_enumunu_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1710.07235.
+     */
+    double ip_ex_gg_phi_WW_lnuqq_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1710.07235.
+     */
+    double ip_ex_VV_phi_WW_lnuqq_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-16-023.
+     */
+    double ip_ex_ggVV_phi_WW_lnulnu_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1802.09407.
+     */
+    double ip_ex_pp_phi_WW_lnuqq_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1504.00936.
+     */
+    double ip_ex_mu_pp_phi_VV_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1708.04445.
+     */
+    double ip_ex_pp_phi_VV_qqqq_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1509.04670.
+     */
+    double ip_ex_gg_phi_hh_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1503.04114.
+     */
+    double ip_ex_pp_phi_hh_bbbb_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1603.06896.
+     */
+    double ip_ex_pp_phi_hh_gagabb_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1510.01181.
+     */
+    double ip_ex_gg_phi_hh_bbtautau_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1707.00350.
+     */
+    double ip_ex_pp_phi_hh_bbtautau_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-049.
+     */
+    double ip_ex_pp_phi_hh_bbbb_ATLAS13(double mass);
+
+    /**
      * @brief Interpolating function for the observed CMS upper limit on a scalar resonance decaying to two @f$h@f$ bosons which further decay to four b quarks.
      * @return @f$[\sigma_{pp\to \phi}\cdot BR(\phi\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
-     * @details Taken from CMS-PAS-HIG-16-002, Figure 7 @cite CMS:2016tlj.
+     * @details Taken from CMS-PAS-HIG-17-009.
      */
     double ip_ex_pp_phi_hh_bbbb_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1710.04960.
+     */
+    double ip_ex_gg_phi_hh_bbbb_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-004.
+     */
+    double ip_ex_pp_phi_hh_gagabb_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-17-008.
+     */
+    double ip_ex_pp_phi_hh_gagabb_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1707.02909.
+     */
+    double ip_ex_pp_phi_hh_bbtautau_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1708.04188.
+     */
+    double ip_ex_pp_phi_hh_bblnulnu_CMS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-071.
+     */
+    double ip_ex_gg_phi_hh_gagaWW_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1502.04478.
+     */
+    double ip_ex_gg_A_hZ_bbZ_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1504.04710.
+     */
+    double ip_ex_gg_A_hZ_bbll_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1502.04478.
+     */
+    double ip_ex_gg_A_hZ_tautauZ_ATLAS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1510.01181.
+     */
+    double ip_ex_gg_A_hZ_tautaull_CMS8(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1712.06518.
+     */
+    double ip_ex_gg_A_hZ_bbZ_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1712.06518.
+     */
+    double ip_ex_bb_A_hZ_bbZ_ATLAS13(double mass);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1603.02991.
+     */
+    double ip_ex_pp_A_phiZ_bbll_CMS8(double mA, double mH);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1603.02991.
+     */
+    double ip_ex_pp_phi_AZ_bbll_CMS8(double mH, double mA);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1412.6663.
+     */
+    double ip_ex_pp_Hpm_taunu_ATLAS8(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1508.07774.
+     */
+    double ip_ex_pp_Hp_taunu_CMS8(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-088.
+     */
+    double ip_ex_pp_Hpm_taunu_ATLAS13(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from CMS-PAS-HIG-16-031.
+     */
+    double ip_ex_pp_Hpm_taunu_CMS13(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1512.03704.
+     */
+    double ip_ex_pp_Hpm_tb_ATLAS8(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1508.07774.
+     */
+    double ip_ex_pp_Hp_tb_CMS8(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-089.
+     */
+    double ip_ex_pp_Hp_tb1_ATLAS13(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from ATLAS-CONF-2016-104.
+     */
+    double ip_ex_pp_Hp_tb2_ATLAS13(double mHp);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1503.04233.
+     */
+    double ip_ex_WZ_H5p_WZ_qqll_ATLAS8(double mH5);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1705.02942.
+     */
+    double ip_ex_WZ_H5p_WZ_lnull_CMS8(double mH5);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1412.0237.
+     */
+    double ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8(double mH5);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1412.0237.
+     */
+    double ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8(double mH5);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1412.0237.
+     */
+    double ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8(double mH5);
+
+    /**
+     * @brief Interpolating function for the observed ATLAS upper limit on a scalar resonance
+     * @details Taken from arXiv:1710.09748.
+     */
+    double ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13(double mH5);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1410.6315.
+     */
+    double ip_ex_pp_H5ppmm_WW_jjll_CMS8(double mH5);
+
+    /**
+     * @brief Interpolating function for the observed CMS upper limit on a scalar resonance
+     * @details Taken from arXiv:1709.05822.
+     */
+    double ip_ex_pp_H5ppmm_WW_jjll_CMS13(double mH5);
+
 
     double updateCache();
 
@@ -796,9 +1244,83 @@ private:
     mutable double ip_cs_pptobbA_13_cache[2][CacheSize];
     mutable double ip_cs_ggtoHp_8_cache[3][CacheSize];
     mutable double ip_cs_ggtoHp_13_cache[3][CacheSize];
+    mutable double ip_ex_tt_phi_tt_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_tt_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_bb_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_bb_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_bb_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_bb_CMS13_cache[2][CacheSize];
     mutable double ip_ex_gg_phi_tautau_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_tautau_CMS8_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_tautau_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_tautau_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_tautau_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_tautau_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_tautau_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_phi_tautau_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_gaga_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_gaga_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_gaga_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_Zga_llga_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_Zga_llga_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_Zga_llga_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_Zga_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_ZZ_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_ZZ_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_ZZ_llllnunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_ZZ_llllnunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_ZZ_llqqnunull_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_ZZ_llqqnunull_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_ZZ_qqnunu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_WW_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_WW_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_WW_enumunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_WW_enumunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_WW_lnuqq_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_VV_phi_WW_lnuqq_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_ggVV_phi_WW_lnulnu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_WW_lnuqq_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_mu_pp_phi_VV_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_VV_qqqq_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_hh_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bbbb_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_gagabb_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_hh_bbtautau_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bbtautau_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bbbb_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_pp_phi_hh_bbbb_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_hh_bbbb_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_gagabb_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_gagabb_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bbtautau_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_phi_hh_bblnulnu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_phi_hh_gagaWW_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_gg_A_hZ_bbZ_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_A_hZ_bbll_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_A_hZ_tautaull_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_gg_A_hZ_bbZ_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_bb_A_hZ_bbZ_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_A_phiZ_bbll_CMS8_cache[3][CacheSize];
+    mutable double ip_ex_pp_phi_AZ_bbll_CMS8_cache[3][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_taunu_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_taunu_CMS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hpm_tb_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb1_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_Hp_tb2_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_WZ_H5p_WZ_qqll_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_WZ_H5p_WZ_lnull_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13_cache[2][CacheSize];
+    mutable double ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache[2][CacheSize];
+    mutable double ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache[2][CacheSize];
     mutable double KaellenFunction_cache[4][CacheSize];
 
 };

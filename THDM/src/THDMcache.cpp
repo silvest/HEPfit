@@ -1827,13 +1827,13 @@ void THDMcache::read(){
     ex23e << tablepath << "CMS-PAS-HIG-16-014_e.dat";
     CMS8_pp_A_Zga_llga_e = readTable(ex23e.str(),101,2);
     
-    ex24 << tablepath << "180309678_b.dat";
+    ex24 << tablepath << "ATLAS-CONF-2016-104_b.dat";
     ATLAS13_bb_phi_tt = readTable(ex24.str(),61,2);
-    ex24e << tablepath << "180309678_b_e.dat";
+    ex24e << tablepath << "ATLAS-CONF-2016-104_b_e.dat";
     ATLAS13_bb_phi_tt_e = readTable(ex24e.str(),61,2);
-    ex25 << tablepath << "180309678_a.dat";
+    ex25 << tablepath << "ATLAS-CONF-2016-104_a.dat";
     ATLAS13_tt_phi_tt = readTable(ex25.str(),61,2);
-    ex25e << tablepath << "180309678_a_e.dat";
+    ex25e << tablepath << "ATLAS-CONF-2016-104_a_e.dat";
     ATLAS13_tt_phi_tt_e = readTable(ex25e.str(),61,2);
     ex26 << tablepath << "ATLAS-CONF-2017-050_a.dat";
     ATLAS13_gg_phi_tautau = readTable(ex26.str(),206,2);
@@ -2154,9 +2154,9 @@ void THDMcache::read(){
     ATLAS13_pp_Hp_tb1 = readTable(ex104.str(),71,2);
     ex104e << tablepath << "ATLAS-CONF-2016-089_e.dat";
     ATLAS13_pp_Hp_tb1_e = readTable(ex104e.str(),71,2);
-    ex105 << tablepath << "180309678_c.dat";
+    ex105 << tablepath << "ATLAS-CONF-2016-104_c.dat";
     ATLAS13_pp_Hp_tb2 = readTable(ex105.str(),181,2);
-    ex105e << tablepath << "180309678_c_e.dat";
+    ex105e << tablepath << "ATLAS-CONF-2016-104_c_e.dat";
     ATLAS13_pp_Hp_tb2_e = readTable(ex105e.str(),181,2);
     ex106 << tablepath << "CMS-PAS-HIG-16-031.dat";
     CMS13_pp_Hpm_taunu = readTable(ex106.str(),283,2);

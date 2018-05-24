@@ -44,17 +44,17 @@ GMcache::GMcache(const StandardModel& SM_i)
     ATLAS13_tt_phi_tt(61,2,0.),
     ATLAS13_bb_phi_tt(61,2,0.),
     CMS8_bb_phi_bb(81, 2, 0.),
-                CMS8_gg_phi_bb(1, 2, 0.),
+    CMS8_gg_phi_bb(88, 2, 0.),
     CMS13_pp_phi_bb(66,2,0.),
-                CMS13_bb_phi_bb(1, 2, 0.),
+    CMS13_bb_phi_bb(101, 2, 0.),
     ATLAS8_gg_phi_tautau(92, 2, 0.),
     CMS8_gg_phi_tautau(92,2,0.),
     ATLAS8_bb_phi_tautau(92, 2, 0.),
     CMS8_bb_phi_tautau(92,2,0.),
     ATLAS13_gg_phi_tautau(206,2,0.),
-                CMS13_gg_phi_tautau(1,2,0.),
+    CMS13_gg_phi_tautau(312,2,0.),
     ATLAS13_bb_phi_tautau(206,2,0.),
-                CMS13_bb_phi_tautau(1,2,0.),
+    CMS13_bb_phi_tautau(312,2,0.),
     ATLAS8_gg_phi_gaga(108, 2, 0.),
     ATLAS13_pp_phi_gaga(251,2,0.),
     CMS13_gg_phi_gaga(351,2,0.),
@@ -68,23 +68,24 @@ GMcache::GMcache(const StandardModel& SM_i)
     ATLAS13_VV_phi_ZZ_llllnunu(101,2,0.),
     ATLAS13_gg_phi_ZZ_qqllnunu(271,2,0.),
     ATLAS13_VV_phi_ZZ_qqllnunu(271,2,0.),
-                CMS13_pp_phi_ZZ_llqqnunull(1,2,0.),
-                CMS13_pp_phi_ZZ_qqnunu(1,2,0.),
+    CMS13_pp_phi_ZZ_llqqnunull(288,2,0.),
+    CMS13_VV_phi_ZZ_llqqnunull(288,2,0.),
+    CMS13_pp_phi_ZZ_qqnunu(301,2,0.),
     ATLAS8_gg_phi_WW(13,2,0.),
     ATLAS8_VV_phi_WW(13,2,0.),
-    ATLAS13_gg_phi_WW_enumumu(381,2,0.),
-    ATLAS13_VV_phi_WW_enumumu(281,2,0.),
+    ATLAS13_gg_phi_WW_enumunu(381,2,0.),
+    ATLAS13_VV_phi_WW_enumunu(281,2,0.),
     ATLAS13_gg_phi_WW_lnuqq(271,2,0.),
     ATLAS13_VV_phi_WW_lnuqq(271,2,0.),
     CMS13_ggVV_phi_WW_lnulnu(81,2,0.),
-                CMS13_pp_phi_WW_lnuqq(1,2,0.),
+    CMS13_pp_phi_WW_lnuqq(341,2,0.),
     CMS8_mu_pp_phi_VV(172, 2, 0.),
     ATLAS13_pp_phi_VV_qqqq(181,2,0.),
     ATLAS8_gg_phi_hh(75,2,0.),
     CMS8_pp_phi_hh_bbbb(167, 2, 0.),
     CMS8_pp_phi_hh_gagabb(85, 2, 0.),
     CMS8_gg_phi_hh_bbtautau(10,2,0.),
-                CMS8_pp_phi_hh_bbtautau(1,2,0.),
+    CMS8_pp_phi_hh_bbtautau(71,2,0.),
     ATLAS13_pp_phi_hh_bbbb(271,2,0.),
     CMS13_pp_phi_hh_bbbb(95,2,0.),
     CMS13_gg_phi_hh_bbbb(226,2,0.),
@@ -110,12 +111,14 @@ GMcache::GMcache(const StandardModel& SM_i)
     CMS8_pp_Hp_tb(43,2,0.),
     ATLAS13_pp_Hp_tb1(71,2,0.),
     ATLAS13_pp_Hp_tb2(181,2,0.),
-                ATLAS8_WZ_H5p_WZ_qqll(1,2,0.),
-                CMS8_WZ_H5p_WZ_lnull(1,2,0.),
-                ATLAS8_pp_H5ppmmH5mmpp_llll(1,2,0.),
-                ATLAS13_pp_H5ppmmH5mmpp_llll(1,2,0.),
-                CMS8_pp_H5ppmm_WW_jjll(1,2,0.),
-                CMS13_pp_H5ppmm_WW_jjll(1,2,0.),
+    ATLAS8_WZ_H5p_WZ_qqll(81,2,0.),
+    CMS8_WZ_H5p_WZ_lnull(181,2,0.),
+    ATLAS8_pp_H5ppmmH5mmpp_eeee(50,2,0.),
+    ATLAS8_pp_H5ppmmH5mmpp_emuemu(57,2,0.),
+    ATLAS8_pp_H5ppmmH5mmpp_mumumumu(57,2,0.),
+    ATLAS13_pp_H5ppmmH5mmpp_llll(96,2,0.),
+    CMS8_pp_H5ppmm_WW_jjll(65,2,0.),
+    CMS13_pp_H5ppmm_WW_jjll(81,2,0.),
     unitarityeigenvalues(17, 0.),
     myGM(static_cast<const GeorgiMachacek*> (&SM_i))
 {
@@ -194,7 +197,7 @@ void GMcache::read(){
     std::stringstream ex31,ex32,ex33,ex34,ex35,ex36,ex37,ex38,ex39,ex40,ex41,ex42,ex43,ex44,ex45;
     std::stringstream ex46,ex47,ex48,ex49,ex50,ex51,ex52,ex53,ex54,ex55,ex56,ex57,ex58,ex59,ex60;
     std::stringstream ex61,ex62,ex63,ex64,ex65,ex66,ex67,ex68,ex69,ex70,ex71,ex72,ex73;
-    std::stringstream ex43a;
+    std::stringstream ex28a,ex43a,ex70a,ex70b;
 
     std::cout<<"reading tables"<<std::endl;
 
@@ -258,18 +261,18 @@ void GMcache::read(){
     log_cs_ggHp_8 = readTable(cs20.str(),744,3);
     cs21 << tablepath << "log_cs_ggHp_13.dat";
     log_cs_ggHp_13 = readTable(cs21.str(),1104,3);
-    ex1 << tablepath << "180309678_a.dat";
+    ex1 << tablepath << "ATLAS-CONF-2016-104_a.dat";
     ATLAS13_tt_phi_tt = readTable(ex1.str(),61,2);
-    ex2 << tablepath << "180309678_b.dat";
+    ex2 << tablepath << "ATLAS-CONF-2016-104_b.dat";
     ATLAS13_bb_phi_tt = readTable(ex2.str(),61,2);
     ex3 << tablepath << "150608329.dat";
     CMS8_bb_phi_bb = readTable(ex3.str(),81,2);
     ex4 << tablepath << "180206149.dat";
-                CMS8_gg_phi_bb = readTable(ex4.str(),1,2);
+    CMS8_gg_phi_bb = readTable(ex4.str(),88,2);
     ex5 << tablepath << "CMS-PAS-HIG-16-025.dat";
     CMS13_pp_phi_bb = readTable(ex5.str(),66,2);
     ex6 << tablepath << "CMS-PAS-HIG-16-018.dat";
-                CMS13_bb_phi_bb = readTable(ex6.str(),1,2);
+    CMS13_bb_phi_bb = readTable(ex6.str(),101,2);
     ex7 << tablepath << "14096064_a.dat";
     ATLAS8_gg_phi_tautau = readTable(ex7.str(),92,2);
     ex8 << tablepath << "CMS-PAS-HIG-14-029_a.dat";
@@ -280,12 +283,12 @@ void GMcache::read(){
     CMS8_bb_phi_tautau = readTable(ex10.str(),92,2);
     ex11 << tablepath << "ATLAS-CONF-2017-050_a.dat";
     ATLAS13_gg_phi_tautau = readTable(ex11.str(),206,2);
-    ex12 << tablepath << "CMS-PAS-HIG-16-037_a.dat";
-                CMS13_gg_phi_tautau = readTable(ex12.str(),1,2);
+    ex12 << tablepath << "180306553_a.dat";
+    CMS13_gg_phi_tautau = readTable(ex12.str(),312,2);
     ex13 << tablepath << "ATLAS-CONF-2017-050_b.dat";
     ATLAS13_bb_phi_tautau = readTable(ex13.str(),206,2);
-    ex14 << tablepath << "CMS-PAS-HIG-16-037_b.dat";
-                CMS13_bb_phi_tautau = readTable(ex14.str(),1,2);
+    ex14 << tablepath << "180306553_b.dat";
+    CMS13_bb_phi_tautau = readTable(ex14.str(),312,2);
     ex15 << tablepath << "14076583.dat";
     ATLAS8_gg_phi_gaga = readTable(ex15.str(),108,2);
     ex16 << tablepath << "170704147.dat";
@@ -312,18 +315,20 @@ void GMcache::read(){
     ATLAS13_gg_phi_ZZ_qqllnunu = readTable(ex26.str(),271,2);
     ex27 << tablepath << "170809638_b.dat";
     ATLAS13_VV_phi_ZZ_qqllnunu = readTable(ex27.str(),271,2);
-    ex28 << tablepath << "180401939.dat";
-                CMS13_pp_phi_ZZ_llqqnunull = readTable(ex28.str(),1,2);
+    ex28 << tablepath << "180401939_a.dat";
+    CMS13_pp_phi_ZZ_llqqnunull = readTable(ex28.str(),288,2);
+    ex28a << tablepath << "180401939_b.dat";
+    CMS13_VV_phi_ZZ_llqqnunull = readTable(ex28a.str(),288,2);
     ex29 << tablepath << "180303838.dat";
-                CMS13_pp_phi_ZZ_qqnunu = readTable(ex29.str(),1,2);
+    CMS13_pp_phi_ZZ_qqnunu = readTable(ex29.str(),301,2);
     ex30 << tablepath << "150900389_a.dat";
     ATLAS8_gg_phi_WW = readTable(ex30.str(),13,2);
     ex31 << tablepath << "150900389_b.dat";
     ATLAS8_VV_phi_WW = readTable(ex31.str(),13,2);
     ex32 << tablepath << "171001123_a.dat";
-    ATLAS13_gg_phi_WW_enumumu = readTable(ex32.str(),381,2);
+    ATLAS13_gg_phi_WW_enumunu = readTable(ex32.str(),381,2);
     ex33 << tablepath << "171001123_b.dat";
-    ATLAS13_VV_phi_WW_enumumu = readTable(ex33.str(),281,2);
+    ATLAS13_VV_phi_WW_enumunu = readTable(ex33.str(),281,2);
     ex34 << tablepath << "171007235_a.dat";
     ATLAS13_gg_phi_WW_lnuqq = readTable(ex34.str(),271,2);
     ex35 << tablepath << "171007235_b.dat";
@@ -331,7 +336,7 @@ void GMcache::read(){
     ex36 << tablepath << "CMS-PAS-HIG-16-023.dat";
     CMS13_ggVV_phi_WW_lnulnu = readTable(ex36.str(),81,2);
     ex37 << tablepath << "180209407.dat";
-                CMS13_pp_phi_WW_lnuqq = readTable(ex37.str(),1,2);
+    CMS13_pp_phi_WW_lnuqq = readTable(ex37.str(),341,2);
     ex38 << tablepath << "150400936.dat";
     CMS8_mu_pp_phi_VV = readTable(ex38.str(),172,2);
     ex39 << tablepath << "170804445.dat";
@@ -345,7 +350,7 @@ void GMcache::read(){
     ex43 << tablepath << "151001181_a.dat";
     CMS8_gg_phi_hh_bbtautau = readTable(ex43.str(),10,2);
     ex43a << tablepath << "170700350.dat";
-                CMS8_pp_phi_hh_bbtautau = readTable(ex43a.str(),1,2);
+    CMS8_pp_phi_hh_bbtautau = readTable(ex43a.str(),71,2);
     ex44 << tablepath << "ATLAS-CONF-2016-049.dat";
     ATLAS13_pp_phi_hh_bbbb = readTable(ex44.str(),271,2);
     ex45 << tablepath << "CMS-PAS-HIG-17-009.dat";
@@ -357,9 +362,9 @@ void GMcache::read(){
     ex48 << tablepath << "CMS-PAS-HIG-17-008.dat";
     CMS13_pp_phi_hh_gagabb = readTable(ex48.str(),66,2);
     ex49 << tablepath << "170702909.dat";
-                CMS13_pp_phi_hh_bbtautau = readTable(ex49.str(),1,2);
+    CMS13_pp_phi_hh_bbtautau = readTable(ex49.str(),66,2);
     ex50 << tablepath << "170804188.dat";
-                CMS13_pp_phi_hh_bblnulnu = readTable(ex50.str(),1,2);
+    CMS13_pp_phi_hh_bblnulnu = readTable(ex50.str(),65,2);
     ex51 << tablepath << "ATLAS-CONF-2016-071.dat";
     ATLAS13_gg_phi_hh_gagaWW = readTable(ex51.str(),25,2);
     ex52 << tablepath << "150204478_b.dat";
@@ -392,22 +397,26 @@ void GMcache::read(){
     CMS8_pp_Hp_tb = readTable(ex65.str(),43,2);
     ex66 << tablepath << "ATLAS-CONF-2016-089.dat";
     ATLAS13_pp_Hp_tb1 = readTable(ex66.str(),71,2);
-    ex67 << tablepath << "180309678_c.dat";
+    ex67 << tablepath << "ATLAS-CONF-2016-104_c.dat";
     ATLAS13_pp_Hp_tb2 = readTable(ex67.str(),181,2);
     ex68 << tablepath << "150304233.dat";
-                ATLAS8_WZ_H5p_WZ_qqll = readTable(ex68.str(),1,2);
+    ATLAS8_WZ_H5p_WZ_qqll = readTable(ex68.str(),81,2);
     ex69 << tablepath << "170502942.dat";
-                CMS8_WZ_H5p_WZ_lnull = readTable(ex69.str(),1,2);
+    CMS8_WZ_H5p_WZ_lnull = readTable(ex69.str(),181,2);
     ex70 << tablepath << "14120237.dat";
-                ATLAS8_pp_H5ppmmH5mmpp_llll = readTable(ex70.str(),1,2);
+    ATLAS8_pp_H5ppmmH5mmpp_eeee = readTable(ex70.str(),50,2);
+    ex70a << tablepath << "14120237.dat";
+    ATLAS8_pp_H5ppmmH5mmpp_emuemu = readTable(ex70a.str(),57,2);
+    ex70b << tablepath << "14120237.dat";
+    ATLAS8_pp_H5ppmmH5mmpp_mumumumu = readTable(ex70b.str(),57,2);
     ex71 << tablepath << "171009748.dat";
-                ATLAS13_pp_H5ppmmH5mmpp_llll = readTable(ex71.str(),1,2);
+    ATLAS13_pp_H5ppmmH5mmpp_llll = readTable(ex71.str(),96,2);
     ex72 << tablepath << "14106315.dat";
-                CMS8_pp_H5ppmm_WW_jjll = readTable(ex72.str(),1,2);
+    CMS8_pp_H5ppmm_WW_jjll = readTable(ex72.str(),65,2);
     ex73 << tablepath << "170905822.dat";
-                CMS13_pp_H5ppmm_WW_jjll = readTable(ex73.str(),1,2);
-}    
-    
+    CMS13_pp_H5ppmm_WW_jjll = readTable(ex73.str(),81,2);
+}
+
 
 
 double GMcache::ip_Br_HPtott(double mass){
@@ -535,7 +544,6 @@ double GMcache::ip_GammaHPtotSM(double mass){
         return newResult;
     }
 }
-
 
 
 double GMcache::ip_cs_ggtoH_8(double mass){
@@ -919,6 +927,91 @@ double GMcache::ip_cs_ggtoHp_13(double mHp, double logtb){
 
 
 
+
+double GMcache::ip_ex_tt_phi_tt_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_tt_phi_tt_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_tt_phi_tt_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_tt_phi_tt,mass);
+        CacheShiftReal(ip_ex_tt_phi_tt_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_phi_tt_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tt_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tt_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_bb_phi_tt,mass);
+        CacheShiftReal(ip_ex_bb_phi_tt_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_phi_bb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_bb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_bb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_bb_phi_bb,mass);
+        CacheShiftReal(ip_ex_bb_phi_bb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_bb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_bb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_bb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_gg_phi_bb,mass);
+        CacheShiftReal(ip_ex_gg_phi_bb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_bb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_bb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_bb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_bb,mass);
+        CacheShiftReal(ip_ex_pp_phi_bb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_phi_bb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_bb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_bb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_bb_phi_bb,mass);
+        CacheShiftReal(ip_ex_bb_phi_bb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
 double GMcache::ip_ex_gg_phi_tautau_ATLAS8(double mass){
     int NumPar = 1;
     double params[] = {mass};
@@ -933,7 +1026,19 @@ double GMcache::ip_ex_gg_phi_tautau_ATLAS8(double mass){
     }
 }
 
+double GMcache::ip_ex_gg_phi_tautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
 
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_tautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 double GMcache::ip_ex_bb_phi_tautau_ATLAS8(double mass){
     int NumPar = 1;
@@ -949,7 +1054,523 @@ double GMcache::ip_ex_bb_phi_tautau_ATLAS8(double mass){
     }
 }
 
+double GMcache::ip_ex_bb_phi_tautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
 
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_tautau_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_tautau_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_tautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_tautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_tautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_gg_phi_tautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_tautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_phi_tautau_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tautau_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_phi_tautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_phi_tautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_phi_tautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_bb_phi_tautau,mass);
+        CacheShiftReal(ip_ex_bb_phi_tautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_gaga_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_gaga_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_gaga_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_phi_gaga,mass);
+        CacheShiftReal(ip_ex_gg_phi_gaga_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_gaga_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_gaga_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_gaga_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_phi_gaga,mass);
+        CacheShiftReal(ip_ex_pp_phi_gaga_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_gaga_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_gaga_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_gaga_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_gg_phi_gaga,mass);
+        CacheShiftReal(ip_ex_gg_phi_gaga_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_Zga_llga_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_Zga_llga_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_Zga_llga_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_pp_phi_Zga_llga,mass);
+        CacheShiftReal(ip_ex_pp_phi_Zga_llga_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_Zga_llga_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_Zga_llga_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_Zga_llga_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_phi_Zga_llga,mass);
+        CacheShiftReal(ip_ex_pp_phi_Zga_llga_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_Zga_llga_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_Zga_llga_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_Zga_llga_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_Zga_llga,mass);
+        CacheShiftReal(ip_ex_gg_phi_Zga_llga_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_Zga_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_Zga_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_Zga_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_gg_phi_Zga,mass);
+        CacheShiftReal(ip_ex_gg_phi_Zga_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_ZZ_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_ZZ_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_ZZ_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_phi_ZZ,mass);
+        CacheShiftReal(ip_ex_gg_phi_ZZ_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_phi_ZZ_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VV_phi_ZZ_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_phi_ZZ_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_VV_phi_ZZ,mass);
+        CacheShiftReal(ip_ex_VV_phi_ZZ_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_ZZ_llllnunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_ZZ_llllnunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_ZZ_llllnunu,mass);
+        CacheShiftReal(ip_ex_gg_phi_ZZ_llllnunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VV_phi_ZZ_llllnunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_phi_ZZ_llllnunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_VV_phi_ZZ_llllnunu,mass);
+        CacheShiftReal(ip_ex_VV_phi_ZZ_llllnunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_ZZ_qqllnunu,mass);
+        CacheShiftReal(ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_VV_phi_ZZ_qqllnunu,mass);
+        CacheShiftReal(ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_ZZ_llqqnunull_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_ZZ_llqqnunull_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_ZZ_llqqnunull_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_ZZ_llqqnunull,mass);
+        CacheShiftReal(ip_ex_pp_phi_ZZ_llqqnunull_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_phi_ZZ_llqqnunull_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VV_phi_ZZ_llqqnunull_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_phi_ZZ_llqqnunull_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_VV_phi_ZZ_llqqnunull,mass);
+        CacheShiftReal(ip_ex_VV_phi_ZZ_llqqnunull_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_ZZ_qqnunu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_ZZ_qqnunu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_ZZ_qqnunu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_ZZ_qqnunu,mass);
+        CacheShiftReal(ip_ex_pp_phi_ZZ_qqnunu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_WW_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_WW_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_WW_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_phi_WW,mass);
+        CacheShiftReal(ip_ex_gg_phi_WW_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_phi_WW_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VV_phi_WW_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_phi_WW_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_VV_phi_WW,mass);
+        CacheShiftReal(ip_ex_VV_phi_WW_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_WW_enumunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_WW_enumunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_WW_enumunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_WW_enumunu,mass);
+        CacheShiftReal(ip_ex_gg_phi_WW_enumunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_phi_WW_enumunu_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VV_phi_WW_enumunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_phi_WW_enumunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_VV_phi_WW_enumunu,mass);
+        CacheShiftReal(ip_ex_VV_phi_WW_enumunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_WW_lnuqq_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_WW_lnuqq_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_WW_lnuqq_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_WW_lnuqq,mass);
+        CacheShiftReal(ip_ex_gg_phi_WW_lnuqq_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_VV_phi_WW_lnuqq_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_VV_phi_WW_lnuqq_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_VV_phi_WW_lnuqq_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_VV_phi_WW_lnuqq,mass);
+        CacheShiftReal(ip_ex_VV_phi_WW_lnuqq_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_ggVV_phi_WW_lnulnu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_ggVV_phi_WW_lnulnu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_ggVV_phi_WW_lnulnu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_ggVV_phi_WW_lnulnu,mass);
+        CacheShiftReal(ip_ex_ggVV_phi_WW_lnulnu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_WW_lnuqq_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_WW_lnuqq_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_WW_lnuqq_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_WW_lnuqq,mass);
+        CacheShiftReal(ip_ex_pp_phi_WW_lnuqq_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_mu_pp_phi_VV_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_mu_pp_phi_VV_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_mu_pp_phi_VV_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_mu_pp_phi_VV,mass);
+        CacheShiftReal(ip_ex_mu_pp_phi_VV_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_VV_qqqq_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_VV_qqqq_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_VV_qqqq_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_phi_VV_qqqq,mass);
+        CacheShiftReal(ip_ex_pp_phi_VV_qqqq_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_hh_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_hh_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_hh_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_phi_hh,mass);
+        CacheShiftReal(ip_ex_gg_phi_hh_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bbbb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbbb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_phi_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_gagabb_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_gagabb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_gagabb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_phi_hh_gagabb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_gagabb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_hh_bbtautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_hh_bbtautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_hh_bbtautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_gg_phi_hh_bbtautau,mass);
+        CacheShiftReal(ip_ex_gg_phi_hh_bbtautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bbtautau_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbtautau_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbtautau_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_phi_hh_bbtautau,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbtautau_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bbbb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbbb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_phi_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbbb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
 
 double GMcache::ip_ex_pp_phi_hh_bbbb_CMS13(double mass){
     int NumPar = 1;
@@ -957,13 +1578,435 @@ double GMcache::ip_ex_pp_phi_hh_bbbb_CMS13(double mass){
 
     int i = CacheCheckReal(ip_ex_pp_phi_hh_bbbb_CMS13_cache, NumPar, params);
     if (i>=0) {
-        return(ip_ex_pp_phi_hh_bbbb_CMS13_cache[NumPar][i] );
+        return ( ip_ex_pp_phi_hh_bbbb_CMS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate (CMS13_pp_phi_hh_bbbb,mass);
+        double newResult = interpolate(CMS13_pp_phi_hh_bbbb,mass);
         CacheShiftReal(ip_ex_pp_phi_hh_bbbb_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
+
+double GMcache::ip_ex_gg_phi_hh_bbbb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_hh_bbbb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_hh_bbbb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_gg_phi_hh_bbbb,mass);
+        CacheShiftReal(ip_ex_gg_phi_hh_bbbb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_gagabb_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_gagabb_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_gagabb_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_phi_hh_gagabb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_gagabb_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_gagabb_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_gagabb_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_gagabb_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_hh_gagabb,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_gagabb_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bbtautau_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bbtautau_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bbtautau_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_hh_bbtautau,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bbtautau_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_hh_bblnulnu_CMS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_hh_bblnulnu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_hh_bblnulnu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_phi_hh_bblnulnu,mass);
+        CacheShiftReal(ip_ex_pp_phi_hh_bblnulnu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_phi_hh_gagaWW_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_phi_hh_gagaWW_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_phi_hh_gagaWW_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_phi_hh_gagaWW,mass);
+        CacheShiftReal(ip_ex_gg_phi_hh_gagaWW_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_A_hZ_bbZ_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbZ_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_hZ_bbZ_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_A_hZ_bbZ,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbZ_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_A_hZ_bbll_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbll_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_hZ_bbll_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_gg_A_hZ_bbll,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbll_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_A_hZ_tautauZ_ATLAS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_gg_A_hZ_tautauZ,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_tautauZ_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_A_hZ_tautaull_CMS8(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_tautaull_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_hZ_tautaull_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_gg_A_hZ_tautaull,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_tautaull_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_gg_A_hZ_bbZ_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_gg_A_hZ_bbZ_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_gg_A_hZ_bbZ_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_gg_A_Zh_Zbb,mass);
+        CacheShiftReal(ip_ex_gg_A_hZ_bbZ_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_bb_A_hZ_bbZ_ATLAS13(double mass){
+    int NumPar = 1;
+    double params[] = {mass};
+
+    int i = CacheCheckReal(ip_ex_bb_A_hZ_bbZ_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_bb_A_hZ_bbZ_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_bb_A_Zh_Zbb,mass);
+        CacheShiftReal(ip_ex_bb_A_hZ_bbZ_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_A_phiZ_bbll_CMS8(double mA, double mH){
+    int NumPar = 2;
+    double params[] = {mA,mH};
+
+    int i = CacheCheckReal(ip_ex_pp_A_phiZ_bbll_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_A_phiZ_bbll_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2D(CMS8_pp_A_phiZ_bbll,mA,mH);
+        CacheShiftReal(ip_ex_pp_A_phiZ_bbll_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_phi_AZ_bbll_CMS8(double mH, double mA){
+    int NumPar = 2;
+    double params[] = {mH,mA};
+
+    int i = CacheCheckReal(ip_ex_pp_phi_AZ_bbll_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_phi_AZ_bbll_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate2D(CMS8_pp_phi_AZ_bbll,mH,mA);
+        CacheShiftReal(ip_ex_pp_phi_AZ_bbll_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hpm_taunu_ATLAS8(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hpm_taunu_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hpm_taunu_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_pp_Hpm_taunu,mHp);
+        CacheShiftReal(ip_ex_pp_Hpm_taunu_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hp_taunu_CMS8(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_taunu_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hp_taunu_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_Hp_taunu,mHp);
+        CacheShiftReal(ip_ex_pp_Hp_taunu_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hpm_taunu_ATLAS13(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hpm_taunu_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hpm_taunu_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_Hpm_taunu,mHp);
+        CacheShiftReal(ip_ex_pp_Hpm_taunu_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hpm_taunu_CMS13(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hpm_taunu_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hpm_taunu_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_Hpm_taunu,mHp);
+        CacheShiftReal(ip_ex_pp_Hpm_taunu_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hpm_tb_ATLAS8(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hpm_tb_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hpm_tb_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_pp_Hpm_tb,mHp);
+        CacheShiftReal(ip_ex_pp_Hpm_tb_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hp_tb_CMS8(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hp_tb_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_Hp_tb,mHp);
+        CacheShiftReal(ip_ex_pp_Hp_tb_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hp_tb1_ATLAS13(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb1_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hp_tb1_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_Hp_tb1,mHp);
+        CacheShiftReal(ip_ex_pp_Hp_tb1_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_Hp_tb2_ATLAS13(double mHp){
+    int NumPar = 1;
+    double params[] = {mHp};
+
+    int i = CacheCheckReal(ip_ex_pp_Hp_tb2_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_Hp_tb2_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_Hp_tb2,mHp);
+        CacheShiftReal(ip_ex_pp_Hp_tb2_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_WZ_H5p_WZ_qqll_ATLAS8(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_WZ_H5p_WZ_qqll_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_WZ_H5p_WZ_qqll_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_WZ_H5p_WZ_qqll,mH5);
+        CacheShiftReal(ip_ex_WZ_H5p_WZ_qqll_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_WZ_H5p_WZ_lnull_CMS8(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_WZ_H5p_WZ_lnull_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_WZ_H5p_WZ_lnull_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_WZ_H5p_WZ_lnull,mH5);
+        CacheShiftReal(ip_ex_WZ_H5p_WZ_lnull_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_pp_H5ppmmH5mmpp_eeee,mH5);
+        CacheShiftReal(ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_pp_H5ppmmH5mmpp_emuemu,mH5);
+        CacheShiftReal(ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS8_pp_H5ppmmH5mmpp_mumumumu,mH5);
+        CacheShiftReal(ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(ATLAS13_pp_H5ppmmH5mmpp_llll,mH5);
+        CacheShiftReal(ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_H5ppmm_WW_jjll_CMS8(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS8_pp_H5ppmm_WW_jjll,mH5);
+        CacheShiftReal(ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+double GMcache::ip_ex_pp_H5ppmm_WW_jjll_CMS13(double mH5){
+    int NumPar = 1;
+    double params[] = {mH5};
+
+    int i = CacheCheckReal(ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache, NumPar, params);
+    if (i>=0) {
+        return ( ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache[NumPar][i] );
+    } else {
+        double newResult = interpolate(CMS13_pp_H5ppmm_WW_jjll,mH5);
+        CacheShiftReal(ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache, NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
 
 
 
@@ -1098,21 +2141,21 @@ gslpp::complex GMcache::I_HH_U(const double mHh2, const double Mc, const double 
     }
 }
 
-gslpp::complex GMcache::I_A_U(const double mA2, const double Mc, const double Mt) const {
-    int NumPar = 3;
-    double params[] = {mA2, Mc, Mt};
-
-    int i = CacheCheck(I_A_U_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_A_U_cache[NumPar][i] );
-    } else {
-    	double TAUc=4.0*Mc*Mc/mA2;
-    	double TAUt=4.0*Mt*Mt/mA2;
-        gslpp::complex newResult = -(8./3.)*(TAUc*f_func(TAUc)+TAUt*f_func(TAUt));
-        CacheShift(I_A_U_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//gslpp::complex GMcache::I_A_U(const double mA2, const double Mc, const double Mt) const {
+//    int NumPar = 3;
+//    double params[] = {mA2, Mc, Mt};
+//
+//    int i = CacheCheck(I_A_U_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_A_U_cache[NumPar][i] );
+//    } else {
+//    	double TAUc=4.0*Mc*Mc/mA2;
+//    	double TAUt=4.0*Mt*Mt/mA2;
+//        gslpp::complex newResult = -(8./3.)*(TAUc*f_func(TAUc)+TAUt*f_func(TAUt));
+//        CacheShift(I_A_U_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::I_h_D(const double mHl2, const double Md, const double Ms, const double Mb) const {
     int NumPar = 4;
@@ -1148,22 +2191,22 @@ gslpp::complex GMcache::I_HH_D(const double mHh2, const double Ms, const double 
         return newResult;
     }
 }
-
-gslpp::complex GMcache::I_A_D(const double mA2, const double Ms, const double Mb) const {
-    int NumPar = 3;
-    double params[] = {mA2, Ms, Mb};
-
-    int i = CacheCheck(I_A_D_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_A_D_cache[NumPar][i] );
-    } else {
-    	double TAUs=4.0*Ms*Ms/mA2;
-    	double TAUb=4.0*Mb*Mb/mA2;
-        gslpp::complex newResult = -(2./3.)*(TAUs*f_func(TAUs)+TAUb*f_func(TAUb));
-        CacheShift(I_A_D_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::I_A_D(const double mA2, const double Ms, const double Mb) const {
+//    int NumPar = 3;
+//    double params[] = {mA2, Ms, Mb};
+//
+//    int i = CacheCheck(I_A_D_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_A_D_cache[NumPar][i] );
+//    } else {
+//    	double TAUs=4.0*Ms*Ms/mA2;
+//    	double TAUb=4.0*Mb*Mb/mA2;
+//        gslpp::complex newResult = -(2./3.)*(TAUs*f_func(TAUs)+TAUb*f_func(TAUb));
+//        CacheShift(I_A_D_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::I_h_L(const double mHl2, const double Me, const double Mmu, const double Mtau) const {
     int NumPar = 4;
@@ -1200,22 +2243,22 @@ gslpp::complex GMcache::I_HH_L(const double mHh2, const double Mmu, const double
         return newResult;
     }
 }
-
-gslpp::complex GMcache::I_A_L(const double mA2, const double Mmu, const double Mtau) const {
-    int NumPar = 3;
-    double params[] = {mA2, Mmu, Mtau};
-
-    int i = CacheCheck(I_A_L_cache, NumPar, params);
-    if (i>=0) {
-        return ( I_A_L_cache[NumPar][i] );
-    } else {
-    	double TAUmu=4.0*Mmu*Mmu/mA2;
-    	double TAUtau=4.0*Mtau*Mtau/mA2;
-        gslpp::complex newResult = -2.0*(TAUmu*f_func(TAUmu)+TAUtau*f_func(TAUtau));
-        CacheShift(I_A_L_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::I_A_L(const double mA2, const double Mmu, const double Mtau) const {
+//    int NumPar = 3;
+//    double params[] = {mA2, Mmu, Mtau};
+//
+//    int i = CacheCheck(I_A_L_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( I_A_L_cache[NumPar][i] );
+//    } else {
+//    	double TAUmu=4.0*Mmu*Mmu/mA2;
+//    	double TAUtau=4.0*Mtau*Mtau/mA2;
+//        gslpp::complex newResult = -2.0*(TAUmu*f_func(TAUmu)+TAUtau*f_func(TAUtau));
+//        CacheShift(I_A_L_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::I_H_W(const double mH, const double MW) const {
     int NumPar = 2;
@@ -1288,25 +2331,25 @@ gslpp::complex GMcache::A_HH_U(const double mHh2, const double cW2, const double
         return newResult;
     }
 }
-
-gslpp::complex GMcache::A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mA2, cW2, Mc, Mt, MZ};
-
-    int i = CacheCheck(A_A_U_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_A_U_cache[NumPar][i] );
-    } else {
-    	double TAUc=4.0*Mc*Mc/mA2;
-    	double TAUt=4.0*Mt*Mt/mA2;
-    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
-    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(-Int2(TAUc,LAMc)-Int2(TAUt,LAMt))/sqrt(sW2*cW2);
-        CacheShift(A_A_U_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::A_A_U(const double mA2, const double cW2, const double Mc, const double Mt, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mA2, cW2, Mc, Mt, MZ};
+//
+//    int i = CacheCheck(A_A_U_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_A_U_cache[NumPar][i] );
+//    } else {
+//    	double TAUc=4.0*Mc*Mc/mA2;
+//    	double TAUt=4.0*Mt*Mt/mA2;
+//    	double LAMc=4.0*Mc*Mc/(MZ*MZ);
+//    	double LAMt=4.0*Mt*Mt/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = -4.0*(1.0/2.0-4.0/3.0*sW2)*(-Int2(TAUc,LAMc)-Int2(TAUt,LAMt))/sqrt(sW2*cW2);
+//        CacheShift(A_A_U_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::A_h_D(const double mHl2, const double cW2, const double Md, const double Ms, const double Mb, const double MZ) const {
     int NumPar = 6;
@@ -1349,25 +2392,25 @@ gslpp::complex GMcache::A_HH_D(const double mHh2, const double cW2, const double
         return newResult;
     }
 }
-
-gslpp::complex GMcache::A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mA2, cW2, Ms, Mb, MZ};
-
-    int i = CacheCheck(A_A_D_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_A_D_cache[NumPar][i] );
-    } else {
-    	double TAUs=4.0*Ms*Ms/mA2;
-    	double TAUb=4.0*Mb*Mb/mA2;
-    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
-	double LAMb=4.0*Mb*Mb/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(-Int2(TAUs,LAMs)-Int2(TAUb,LAMb))/sqrt(sW2*cW2);
-        CacheShift(A_A_D_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::A_A_D(const double mA2, const double cW2, const double Ms, const double Mb, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mA2, cW2, Ms, Mb, MZ};
+//
+//    int i = CacheCheck(A_A_D_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_A_D_cache[NumPar][i] );
+//    } else {
+//    	double TAUs=4.0*Ms*Ms/mA2;
+//    	double TAUb=4.0*Mb*Mb/mA2;
+//    	double LAMs=4.0*Ms*Ms/(MZ*MZ);
+//	double LAMb=4.0*Mb*Mb/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0/3.0*sW2)*(-Int2(TAUs,LAMs)-Int2(TAUb,LAMb))/sqrt(sW2*cW2);
+//        CacheShift(A_A_D_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::A_h_L(const double mHl2, const double cW2, const double Me, const double Mmu, const double Mtau, const double MZ) const {
     int NumPar = 6;
@@ -1411,25 +2454,25 @@ gslpp::complex GMcache::A_HH_L(const double mHh2, const double cW2, const double
         return newResult;
     }
 }
-
-gslpp::complex GMcache::A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
-    int NumPar = 5;
-    double params[] = {mA2, cW2, Mmu, Mtau, MZ};
-
-    int i = CacheCheck(A_A_L_cache, NumPar, params);
-    if (i>=0) {
-        return ( A_A_L_cache[NumPar][i] );
-    } else {
-    	double TAUmu=4.0*Mmu*Mmu/mA2;
-    	double TAUtau=4.0*Mtau*Mtau/mA2;
-    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
-	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
-	double sW2=1.0-cW2;
-        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(-Int2(TAUmu,LAMmu)-Int2(TAUtau,LAMtau))/sqrt(sW2*cW2);
-        CacheShift(A_A_L_cache, NumPar, params, newResult);
-        return newResult;
-    }
-}
+//
+//gslpp::complex GMcache::A_A_L(const double mA2, const double cW2, const double Mmu, const double Mtau, const double MZ) const {
+//    int NumPar = 5;
+//    double params[] = {mA2, cW2, Mmu, Mtau, MZ};
+//
+//    int i = CacheCheck(A_A_L_cache, NumPar, params);
+//    if (i>=0) {
+//        return ( A_A_L_cache[NumPar][i] );
+//    } else {
+//    	double TAUmu=4.0*Mmu*Mmu/mA2;
+//    	double TAUtau=4.0*Mtau*Mtau/mA2;
+//    	double LAMmu=4.0*Mmu*Mmu/(MZ*MZ);
+//	double LAMtau=4.0*Mtau*Mtau/(MZ*MZ);
+//	double sW2=1.0-cW2;
+//        gslpp::complex newResult = 2.0*(-1.0/2.0+2.0*sW2)*(-Int2(TAUmu,LAMmu)-Int2(TAUtau,LAMtau))/sqrt(sW2*cW2);
+//        CacheShift(A_A_L_cache, NumPar, params, newResult);
+//        return newResult;
+//    }
+//}
 
 gslpp::complex GMcache::A_H_W(const double mH, const double cW2, const double MW, const double MZ) const {
     int NumPar = 4;
