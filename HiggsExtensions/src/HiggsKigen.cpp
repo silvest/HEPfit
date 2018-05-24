@@ -8,14 +8,14 @@
 #include "HiggsKigen.h"
 
 const std::string HiggsKigen::HKvKfgenvars[NHKvKfgenvars] = {
-    "Kw", "Kz", "Kg", "Kga", "Kzga", "Ku", "Kc", "Kt", "Kd", "Ks", "Kb", "Ke", "Kmu", "Ktau", "KH"
+    "Kw", "Kz", "Kg", "Kga", "Kzga", "Ku", "Kc", "Kt", "Kd", "Ks", "Kb", "Ke", "Kmu", "Ktau", "KH", "BrHexo"
 };
 
 HiggsKigen::HiggsKigen()
 : NPbase()
 {
     
-    FlagInvDec = false;
+    FlagInvExoDec = false;
     FlagKiLoop = true;
     FlagCustodial = false;
     
@@ -34,14 +34,16 @@ HiggsKigen::HiggsKigen()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kmu", boost::cref(Kmu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ktau", boost::cref(Ktau)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("KH", boost::cref(KH)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHexo", boost::cref(BrHexo)));
 }
 
 bool HiggsKigen::PostUpdate()
 {
     if (!NPbase::PostUpdate()) return (false);
       
-    if (!FlagInvDec) {
+    if (!FlagInvExoDec) {
         KH = 1.0;
+        BrHexo = 0.0;
     }
     
     if (!FlagKiLoop) {
@@ -89,6 +91,8 @@ void HiggsKigen::setParameter(const std::string name, const double& value)
         Ktau = value;
     else if (name.compare("KH") == 0)
         KH = value;
+    else if (name.compare("BrHexo") == 0)
+        BrHexo = value;
     else
         NPbase::setParameter(name, value);
 }
@@ -107,8 +111,8 @@ bool HiggsKigen::CheckParameters(const std::map<std::string, double>& DPars)
 bool HiggsKigen::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    if (name.compare("InvDec") == 0) {
-        FlagInvDec = value;
+    if (name.compare("InvExoDec") == 0) {
+        FlagInvExoDec = value;
         res = true;
     } else if (name.compare("KiLoop") == 0) {
         FlagKiLoop = value;
@@ -494,7 +498,7 @@ double HiggsKigen::muttHbb(const double sqrt_s) const
 
 double HiggsKigen::computeGammaTotalRatio() const
 {
-    if (!FlagInvDec) {
+    if (!FlagInvExoDec) {
         return ((computeKg() * computeKg() * trueSM.computeBrHtogg()
             + computeKW() * computeKW() * trueSM.computeBrHtoWW()
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
@@ -518,13 +522,18 @@ double HiggsKigen::computeGammaTotalRatio() const
     }
 }
 
+double HiggsKigen::Br_H_exo() const
+{
+    return BrHexo;
+};
+
 
 double HiggsKigen::Br_H_inv() const
 {
     double BrSMmodes, Brinv;
     double BrSMrem;
     
-    if (FlagInvDec) {   
+    if (FlagInvExoDec) {   
      
 //  SM BR associated to the modes not corrected by NP
         BrSMrem = 1.0 - (trueSM.computeBrHtogg()
@@ -549,7 +558,7 @@ double HiggsKigen::Br_H_inv() const
             + computeKb() * computeKb() * trueSM.computeBrHtobb()
             + BrSMrem;
     
-        Brinv = 1.0 - BrSMmodes/KH/KH;
+        Brinv = 1.0 - BrSMmodes/KH/KH - BrHexo;
         
         return Brinv;
 
@@ -561,7 +570,7 @@ double HiggsKigen::Br_H_inv() const
 
 double HiggsKigen::BrHvisRatio() const
 {    
-    if (FlagInvDec) {   
+    if (FlagInvExoDec) {   
 
 //  The result is the same as GammaTotRatio in absence of invisible decays
 //  Modes with tiny BR are neglected
@@ -573,7 +582,8 @@ double HiggsKigen::BrHvisRatio() const
             + computeKmu() * computeKmu() * trueSM.computeBrHtomumu()
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
-            + computeKb() * computeKb() * trueSM.computeBrHtobb())
+            + computeKb() * computeKb() * trueSM.computeBrHtobb()
+            + BrHexo )
             / (trueSM.computeBrHtogg()
             + trueSM.computeBrHtoWW()
             + trueSM.computeBrHtoZZ()
