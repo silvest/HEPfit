@@ -20,7 +20,7 @@
  * gluons (@f$\kappa_g@f$), photons (@f$\kappa_\gamma@f$), Z and photons (@f$\kappa_{Z\gamma}@f$) 
  * and fermions (@f$\kappa_{u,c,t}, \kappa_{d,s,b}, \kappa_{e\mu\tau}@f$)
  * (as well as the corresponding production mechanisms) with respect to the %StandardModel.
- * The possibility of extra decay width is also parametrized independently by @f$\kappa_H@f$ and Br@f$(H\to exotic)@f$.
+ * The possibility of extra decay width is also parametrized independently by Br@f$(H\to invisible)@f$ and Br@f$(H\to exotic)@f$.
  * This class inherits from the %NPbase class, which defines parameters related to generic
  * extensions of the %StandardModel Higgs sector.
  *
@@ -117,9 +117,9 @@
  *   <td class="mod_desc">The factor rescaling all Higgs couplings to taus with respect to the SM.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%KH</td>
- *   <td class="mod_symb">@f$\kappa_H@f$</td>
- *   <td class="mod_desc">The factor rescaling the total Higgs width respect to the SM.</td>
+ *   <td class="mod_name">%BrHinv</td>
+ *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
+ *   <td class="mod_desc">The branching ratio of invisible Higgs decays.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%BrHexo</td>
@@ -138,12 +138,6 @@
  *   <th>Label</th>
  *   <th>Value</th>
  *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="mod_name">%InvExoDec</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if invisible and/or exotic Higgs decays are allowed.
- *   The default value is FALSE.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%KiLoop</td>
@@ -482,23 +476,21 @@ public:
     
     
     /**
-     * @brief A get method to retrieve the factor rescaling the Higgs width
-     * respect to the SM @f$K_H@f$.
-     * @return @f$K_H@f$
+     * @brief A get method to retrieve the invisible Higgs branching ratio.
+     * @return @f$BR_{inv}@f$ the invisible Higgs branching ratio.
      */
-    double getKH() const
+    double getBrHinv() const
     {
-        return KH;
+        return BrHinv;
     }
 
     /**
-     * @brief A set method to change the factor rescaling the Higgs width
-     * with respect to the SM @f$K_H@f$.
-     * @param[in] @f$K_H@f$ the factor rescaling the Higgs width.
+     * @brief A set method to change the invisible Higgs branching ratio.
+     * @param[in] @f$BR_{inv}@f$ the invisible Higgs branching ratio.
      */
-    void setKH(double KH)
+    void setBrHinv(double BrHinv)
     {
-        this->KH = KH;
+        this->BrHinv = BrHinv;
     } 
     
     /**
@@ -1070,10 +1062,9 @@ private:
     double Ke; ///< The factor rescaling all Higgs couplings to electrons with respect to the SM.
     double Kmu; ///< The factor rescaling all Higgs couplings to muons with respect to the SM.
     double Ktau; ///< The factor rescaling all Higgs couplings to taus with respect to the SM.
-    double KH; ///< The factor rescaling the total Higgs width respect to the SM.
+    double BrHinv; ///< The branching ratio of invisible Higgs decays.
     double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
     
-    bool FlagInvExoDec; ///< A boolean flag that is true if one allows invisible and/or exotic Higgs decays.
     bool FlagKiLoop; ///< A boolean flag that is true if one allows independent kappa's for the loop induced processes (g,ga,Zga)
     bool FlagCustodial; ///< A boolean flag that is true if KZ=KW.
 

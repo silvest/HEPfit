@@ -2217,7 +2217,7 @@ protected:
     double LambdaNP2;///< The square of the new physics scale [GeV\f$^2\f$].
     
     double BrHinv; ///< The branching ratio of invisible Higgs decays.
-    double BrHexo; ///< The branching ratio of exotic Higgs decays.
+    double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
     
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
     double aleMz;///< The em constant at Mz. 
