@@ -3494,7 +3494,7 @@ double NPSMEFTd6::mueeWBF(const double sqrt_s) const
 //
 //        }
         
-    } else if (sqrt_s == 0.35) {
+    } else if ( (sqrt_s == 0.35)  || (sqrt_s == 0.365) ) {
 
         mu += 
                 +121119. * CHbox / LambdaNP2
@@ -3549,12 +3549,8 @@ double NPSMEFTd6::mueeWBFPol(const double sqrt_s, const double Pol_em, const dou
                 -18173.1 * CDHW / LambdaNP2
                 -286375. * DeltaGF() / v() / v()
                 ;
-              
-    } else if (sqrt_s == 0.25) {
-
-        mu = 1.0; 
         
-    } else if (sqrt_s == 0.35) {
+    } else if ( (sqrt_s == 0.35)  || (sqrt_s == 0.365) ) {
 
         mu = 1.0; 
     
@@ -4779,7 +4775,7 @@ double NPSMEFTd6::mueeZH(const double sqrt_s) const
                 ;
         }
         
-    } else if (sqrt_s == 0.35) {
+    } else if ( (sqrt_s == 0.35) || (sqrt_s == 0.365) ) {
 
         mu += 
                 +121274. * CHbox / LambdaNP2
@@ -5091,7 +5087,7 @@ double NPSMEFTd6::mueeZHPol(const double sqrt_s, const double Pol_em, const doub
             throw std::runtime_error("Bad argument in NPSMEFTd6::mueeZHPol()");
         }
         
-    } else if (sqrt_s == 0.35) {
+    } else if ( (sqrt_s == 0.35)  || (sqrt_s == 0.365) ) {
 
         mu = 1.0; 
     
