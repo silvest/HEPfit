@@ -119,12 +119,12 @@
  * <tr>
  *   <td class="mod_name">%BrHinv</td>
  *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
- *   <td class="mod_desc">The branching ratio of invisible Higgs decays.</td>
+ *   <td class="mod_desc">The branching ratio of invisible Higgs decays. Only the absolute value of this parameter is considered. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%BrHexo</td>
  *   <td class="mod_symb">Br@f$(H\to exotic (visible))@f$</td>
- *   <td class="mod_desc">The branching ratio of exotic, not invisible, Higgs decays.</td>
+ *   <td class="mod_desc">The branching ratio of exotic, not invisible, Higgs decays. Only the absolute value of this parameter is considered.</td>
  * </tr>
  * </table>
  * 

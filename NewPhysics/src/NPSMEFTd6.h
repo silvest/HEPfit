@@ -300,12 +300,12 @@
  * <tr>
  *   <td class="mod_name">%BrHinv</td>
  *   <td class="mod_symb">Br@f$(H\to invisible)@f$</td>
- *   <td class="mod_desc">The branching ratio of invisible Higgs decays. (Not part of the EFT. Only for tests.)</td>
+ *   <td class="mod_desc">The branching ratio of invisible Higgs decays. Only the absolute value of this parameter is considered.(Not part of the EFT. Only for tests.)</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%BrHexo</td>
  *   <td class="mod_symb">Br@f$(H\to exotic)@f$</td>
- *   <td class="mod_desc">The branching ratio of exotic Higgs decays. (Not part of the EFT. Only for tests.)</td>
+ *   <td class="mod_desc">The branching ratio of exotic Higgs decays. Only the absolute value of this parameter is considered. (Not part of the EFT. Only for tests.)</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%eXint </td>

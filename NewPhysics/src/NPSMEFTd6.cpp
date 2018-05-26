@@ -1547,9 +1547,11 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
     } else if (name.compare("Lambda_NP") == 0) {
         Lambda_NP = value;        
     } else if (name.compare("BrHinv") == 0) {
-        BrHinv = value;       
+//  Always positive
+        BrHinv = fabs(value);       
     } else if (name.compare("BrHexo") == 0) {
-        BrHexo = value;   
+//  Always positive
+        BrHexo = fabs(value);   
     } else if (name.compare("eggFint") == 0) {
         eggFint = value;
     } else if (name.compare("eggFpar") == 0) {
@@ -5890,7 +5892,10 @@ double NPSMEFTd6::computeGammaTotalRatio() const
 
 double NPSMEFTd6::deltaGammaTotalRatio1() const
 {
-    return (trueSM.computeBrHtogg() * deltaGammaHggRatio1()
+    double deltaGammaRatio;
+    
+//  The change in the ratio asumming only SM decays
+    deltaGammaRatio = ( trueSM.computeBrHtogg() * deltaGammaHggRatio1()
             + trueSM.computeBrHtoWW() * deltaGammaHWWRatio1()
             + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio1()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio1()
@@ -5898,15 +5903,21 @@ double NPSMEFTd6::deltaGammaTotalRatio1() const
             + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio1()
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio1()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio1()
-            + trueSM.computeBrHtobb() * deltaGammaHbbRatio1()
-            + BrHinv + BrHexo);
+            + trueSM.computeBrHtobb() * deltaGammaHbbRatio1() );
+    
+//  Add the effect of the invisible and exotic BR. Include also here the
+//  pure contribution from BrHinv and BrHexo even in case of no dim 6 contibutions    
+    deltaGammaRatio = -1.0 + (1.0 + deltaGammaRatio) / (1.0 - BrHinv - BrHexo);
+    
+    return deltaGammaRatio;
 }
 
 double NPSMEFTd6::deltaGammaTotalRatio2() const
 {
-    double delta2SM;
+    double deltaGammaRatio;
     
-    delta2SM = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
+//  The change in the ratio asumming only SM decays
+    deltaGammaRatio = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
             + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
             + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
             + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
@@ -5915,8 +5926,9 @@ double NPSMEFTd6::deltaGammaTotalRatio2() const
             + trueSM.computeBrHtotautau() * deltaGammaHtautauRatio2()
             + trueSM.computeBrHtocc() * deltaGammaHccRatio2()
             + trueSM.computeBrHtobb() * deltaGammaHbbRatio2();
-
-    return (delta2SM + (BrHinv + BrHexo)*(BrHinv + BrHexo + delta2SM));
+    
+//  Add the effect of the invisible and exotic BR and return     
+    return (deltaGammaRatio / (1.0 - BrHinv - BrHexo));
 }
 
 double NPSMEFTd6::GammaHggRatio() const

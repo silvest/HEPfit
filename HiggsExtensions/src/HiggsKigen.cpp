@@ -83,9 +83,11 @@ void HiggsKigen::setParameter(const std::string name, const double& value)
     else if (name.compare("Ktau") == 0)
         Ktau = value;
     else if (name.compare("BrHinv") == 0)
-        BrHinv = value;
+//  Always positive
+        BrHinv = fabs(value);
     else if (name.compare("BrHexo") == 0)
-        BrHexo = value;
+//  Always positive
+        BrHexo = fabs(value);
     else
         NPbase::setParameter(name, value);
 }
