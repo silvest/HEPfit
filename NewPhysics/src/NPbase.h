@@ -614,6 +614,18 @@ public:
     }
     
     /**
+     * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZBF}@f$
+     */
+    virtual double mueeZBF(const double sqrt_s) const
+    {
+        return 1.0;
+    }
+    
+    /**
      * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
      * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
      * cross-section in the current model and in the Standard Model.

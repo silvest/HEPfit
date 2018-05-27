@@ -192,6 +192,11 @@ double HiggsKigen::mueeWBFPol(const double sqrt_s, const double Pol_em, const do
     return (computeKW() * computeKW());
 }
 
+double HiggsKigen::mueeZBF(const double sqrt_s) const
+{
+    return (computeKZ() * computeKZ());
+}
+
 double HiggsKigen::muepWBF(const double sqrt_s) const
 {
     return (computeKW() * computeKW());

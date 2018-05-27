@@ -572,6 +572,14 @@ public:
      */
     virtual double mueeWBFPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
     /**
+     * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
+     * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{eeZBF}@f$
+     */
+    virtual double mueeZBF(const double sqrt_s) const;
+    /**
      * @brief The ratio @f$\mu_{epWBF}@f$ between the 
      * @f$ e^{-} p\to \nu j H @f$ production
      * cross-section in the current model and in the Standard Model.
