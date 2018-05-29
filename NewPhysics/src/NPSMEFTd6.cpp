@@ -6965,7 +6965,8 @@ double NPSMEFTd6::lambdaZNP() const
 
 double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 {
-    double s = sqrt_s * sqrt_s;
+    double sqrt_sGeV = 1000. * sqrt_s;
+    double s = sqrt_sGeV * sqrt_sGeV;
     double cos2 = cos * cos;
     double sin2 = 1.0 - cos2;
     double sin = sqrt(sin2);
@@ -7068,7 +7069,7 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     double beta, gamma, gamma2;
     
     beta = sqrt(1.0 - 4.0 * mw * mw / s);
-    gamma = sqrt_s/(2.0 * mw);
+    gamma = sqrt_sGeV/(2.0 * mw);
     gamma2= gamma*gamma;
     
 //  J=1 Subamplitudes: Z
