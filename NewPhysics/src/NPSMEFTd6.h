@@ -2313,6 +2313,8 @@ private:
      * universality.
      */
     const bool FlagQuarkUniversal;
+    
+    gsl_integration_cquad_workspace * w_WW;/**< Gsl integral variable */
 
 };
 
