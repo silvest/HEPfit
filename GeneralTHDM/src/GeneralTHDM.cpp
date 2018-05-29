@@ -167,16 +167,20 @@ void GeneralTHDM::setParameter(const std::string name, const double& value){
         alpha1 = value;
         cosalpha1 = cos(alpha1);
         sinalpha1 = sin(alpha1);
+      // std::cout<<"alpha1 before ordering = "<<alpha1<<std::endl;
+
     }
     else if(name.compare("alpha2") == 0) {
         alpha2 = value;
         cosalpha2 = cos(alpha2);
         sinalpha2 = sin(alpha2);
+              //std::cout<<"alpha2 before ordering = "<<alpha2<<std::endl;
     }
     else if(name.compare("alpha3") == 0) {
         alpha3 = value;
         cosalpha3 = cos(alpha3);
         sinalpha3 = sin(alpha3);
+              //std::cout<<"alpha3 before ordering = "<<alpha3<<std::endl;
     }
     else if(name.compare("Relambda5") == 0)
         Relambda5 = value;

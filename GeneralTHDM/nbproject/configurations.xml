@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="100">
+<configurationDescriptor version="94">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -8,6 +8,7 @@
       <itemPath>src/GeneralTHDMEDMcouplings.h</itemPath>
       <itemPath>src/GeneralTHDMEWPO.h</itemPath>
       <itemPath>src/GeneralTHDMEffectivePot.h</itemPath>
+      <itemPath>src/GeneralTHDMHeavyHiggs.h</itemPath>
       <itemPath>src/GeneralTHDMMatching.h</itemPath>
       <itemPath>src/GeneralTHDMObservables.h</itemPath>
       <itemPath>src/GeneralTHDMcache.h</itemPath>
@@ -27,6 +28,7 @@
       <itemPath>src/GeneralTHDMEDMcouplings.cpp</itemPath>
       <itemPath>src/GeneralTHDMEWPO.cpp</itemPath>
       <itemPath>src/GeneralTHDMEffectivePot.cpp</itemPath>
+      <itemPath>src/GeneralTHDMHeavyHiggs.cpp</itemPath>
       <itemPath>src/GeneralTHDMMatching.cpp</itemPath>
       <itemPath>src/GeneralTHDMcache.cpp</itemPath>
       <itemPath>src/GeneralTHDMgminus2.cpp</itemPath>
@@ -110,6 +112,10 @@
       </item>
       <item path="src/GeneralTHDMEffectivePot.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMHeavyHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMHeavyHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMMatching.h" ex="false" tool="3" flavor2="0">
@@ -186,6 +192,10 @@
       </item>
       <item path="src/GeneralTHDMEffectivePot.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GeneralTHDMHeavyHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMHeavyHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GeneralTHDMMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMMatching.h" ex="false" tool="3" flavor2="0">
@@ -251,6 +261,10 @@
       <item path="src/GeneralTHDMEffectivePot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GeneralTHDMEffectivePot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMHeavyHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GeneralTHDMHeavyHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GeneralTHDMMatching.cpp" ex="false" tool="1" flavor2="0">
       </item>
