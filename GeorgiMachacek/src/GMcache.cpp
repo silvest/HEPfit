@@ -2612,11 +2612,11 @@ void GMcache::computeSignalStrengthQuantities()
 
     Gamma_h = sumModBRs*myGM->computeGammaHTotal();
 
-    GM_BR_h_bb = rh_ff*BrSM_htobb/sumModBRs;
-//    GM_BR_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
-//    GM_BR_h_tautau = rh_ff*BrSM_htotautau/sumModBRs;
-//    GM_BR_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
-//    GM_BR_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
+    GM_Br_h_bb = rh_ff*BrSM_htobb/sumModBRs;
+    GM_Br_h_gaga = rh_gaga*BrSM_htogaga/sumModBRs;
+    GM_Br_h_tautau = rh_ff*BrSM_htotautau/sumModBRs;
+    GM_Br_h_WW = rh_VV*BrSM_htoWW/sumModBRs;
+    GM_Br_h_ZZ = rh_VV*BrSM_htoZZ/sumModBRs;
 }
 
 double GMcache::HSTheta (const double x) const{
@@ -2726,16 +2726,17 @@ void GMcache::computeOtherHiggsProperties()
 
     SigmaggF_H8=ip_cs_ggtoH_8(mHh)*rHH_ff;
     SigmabbF_H8=ip_cs_pptobbH_8(mHh)*rHH_ff;
-//    SigmaVBF_H8=ip_cs_VBFtoH_8(mHh)*rHH_VV;
-//    double SigmattF_H8=ip_cs_pptottH_8(mHh)*rHH_QuQu;
-//    double SigmaVH_H8=(ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh))*rHH_VV;
+    SigmaVBF_H8=ip_cs_VBFtoH_8(mHh)*rHH_VV;
+    double SigmattF_H8=ip_cs_pptottH_8(mHh)*rHH_ff;
+    double SigmaVH_H8=(ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh))*rHH_VV;
 //    SigmaTotSM_H8 = 1.0e-15;
 //    if (mHh>=20. && mHh <=2000.) {
 //            SigmaTotSM_H8=ip_cs_ggtoH_8(mHh)+ip_cs_VBFtoH_8(mHh)+ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh)+ip_cs_pptottH_8(mHh)+ip_cs_pptobbH_8(mHh);
 //    }
-//    SigmaSumH8 = SigmaggF_H8 + SigmaVBF_H8 + SigmaVH_H8 + SigmattF_H8 + SigmabbF_H8;
-//
+    SigmaSumH8 = SigmaggF_H8 + SigmaVBF_H8 + SigmaVH_H8 + SigmattF_H8 + SigmabbF_H8;
+
     SigmaggF_H13=ip_cs_ggtoH_13(mHh)*rHH_ff;
+    SigmaggF_A13=ip_cs_ggtoA_13(mA)*rA_ff;
     SigmabbF_H13=ip_cs_pptobbH_13(mHh)*rHH_ff;
     SigmaVBF_H13=ip_cs_VBFtoH_13(mHh)*rHH_VV;
     SigmattF_H13=ip_cs_pptottH_13(mHh)*rHH_ff;
@@ -2913,6 +2914,8 @@ void GMcache::computeOtherHiggsProperties()
     double GammaHHp5H5m   = GammaHH5H5;
 
     double GammaHH5ppH5mm = GammaHH5H5;
+    
+    double GammaH5hh       = 0.0; //Is this correct?
 
     double GammaH5HpHm    = HSTheta(mH5-2.0*mA)*fabs(gH5H3pH3m)*fabs(gH5H3pH3m)
                             *KaellenFunction(1.0,mAsq/mH5sq,mAsq/mH5sq)/(8.0*mH5*M_PI);
@@ -2961,179 +2964,461 @@ void GMcache::computeOtherHiggsProperties()
 //    std::cout<<"GammaH5pptot = "<<GammaH5pptot<<std::endl;
 
     
-    
-//    Br_Htott=BrSM_Htott*rHH_QuQu*GammaHtotSM/GammaHtot;
+
+    Br_Htott=BrSM_Htott*rHH_ff*GammaHtotSM/GammaH1tot;
+    Br_Atott=BrSM_Atott*rA_ff*GammaAtotSM/GammaH3tot;
 //    Br_Htobb=BrSM_Htobb*rHH_QdQd*GammaHtotSM/GammaHtot;
     Br_Htotautau=BrSM_Htotautau*rHH_ff*GammaHtotSM/GammaH1tot;
-//    Br_HtoWW=BrSM_HtoWW*rHH_VV*GammaHtotSM/GammaHtot;
-//    Br_HtoZZ=BrSM_HtoZZ*rHH_VV*GammaHtotSM/GammaHtot;
-//    Br_Htogaga=Gamma_Hgaga/GammaHtot;
-//    Br_HtoZga=Gamma_HZga/GammaHtot;
+    Br_Atotautau=BrSM_Atotautau*rA_ff*GammaAtotSM/GammaH3tot;
+    Br_HtoWW=BrSM_HtoWW*rHH_VV*GammaHtotSM/GammaH1tot;
+    Br_H5toWW=BrSM_H5toWW*rH5_VV*GammaH5totSM/GammaH5tot;
+    Br_HtoZZ=BrSM_HtoZZ*rHH_VV*GammaHtotSM/GammaH1tot;
+    Br_H5toZZ=BrSM_H5toZZ*rH5_VV*GammaH5totSM/GammaH5tot;
+    Br_Htogaga=Gamma_Hgaga/GammaH1tot;
+    Br_Atogaga=Gamma_Agaga/GammaH3tot;
+    Br_H5togaga=Gamma_H5gaga/GammaH5tot;
+    Br_HtoZga=Gamma_HZga/GammaH1tot;
+    Br_AtoZga=Gamma_AZga/GammaH3tot;
+    Br_H5toZga=Gamma_H5Zga/GammaH5tot;
     Br_Htohh=GammaHhh/GammaH1tot;
+    Br_H5tohh=GammaH5hh/GammaH5tot;
+    Br_AtohZ=GammaAhZ/GammaH3tot;
+    Br_AtoH5Z=GammaAH5Z/GammaH3tot;
+    Br_HtoAZ=GammaHAZ/GammaH1tot;
+    Br_H5toAZ=GammaH5AZ/GammaH5tot;
 //    Br_HtoAA=GammaHAA/GammaHtot;
 //    Br_HtoHpHm=GammaHHpHm/GammaHtot;
 //    Br_HtoAZ=GammaHAZ/GammaHtot;
 //    Br_HtoHpW=GammaHHpW/GammaHtot;
 
-}    
+}
 
 void GMcache::computeDirectSearchQuantities()
 {
     computeOtherHiggsProperties();
     double mHh=sqrt(mH1sq);
+    double mA=sqrt(mAsq);
+    double mH5=sqrt(mH5sq);
+    double Br_Ztoee=0.03363; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
+    double Br_Ztomumu=0.03366; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
+//    double Br_Ztotautau=0.0337; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
+//    double Br_Ztoinv=0.2; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
+    double Br_Wtoenu=0.1071; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
+    double Br_Wtomunu=0.1063; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
+//    double Br_Wtotaunu=0.1138; //C. Patrignani et al.(Particle Data Group), Chin. Phys. C, 40, 100001 (2016)
 
-    ggF_H_tautau_TH8=SigmaggF_H8*Br_Htotautau;
-    bbF_H_tautau_TH8=SigmabbF_H8*Br_Htotautau;
-    pp_H_hh_bbbb_TH13=SigmaSumH13*Br_Htohh*GM_BR_h_bb*GM_BR_h_bb;
+    tt_H_tt_TH13=SigmattF_H13*Br_Htott;
+    bb_H_tt_TH13=SigmabbF_H13*Br_Htott;
+    tt_A_tt_TH13=SigmattF_A13*Br_Atott;
+    bb_A_tt_TH13=SigmabbF_A13*Br_Atott;
+    bb_H_bb_TH8=SigmabbF_H8*Br_Htobb;
+    gg_H_bb_TH8=SigmaggF_H8*Br_Htobb;
+    pp_H_bb_TH13=SigmaSumH13*Br_Htobb;
+    bb_H_bb_TH13=SigmabbF_H13*Br_Htobb;
+    bb_A_bb_TH8=SigmabbF_A8*Br_Atobb;
+    gg_A_bb_TH8=SigmaggF_A8*Br_Atobb;
+    pp_A_bb_TH13=SigmaSumA13*Br_Atobb;
+    bb_A_bb_TH13=SigmabbF_A13*Br_Atobb;
+    gg_H_tautau_TH8=SigmaggF_H8*Br_Htotautau;
+    bb_H_tautau_TH8=SigmabbF_H8*Br_Htotautau;
+    gg_H_tautau_TH13=SigmaggF_H13*Br_Htotautau;
+    bb_H_tautau_TH13=SigmabbF_H13*Br_Htotautau;
+    gg_A_tautau_TH8=SigmaggF_A8*Br_Atotautau;
+    bb_A_tautau_TH8=SigmabbF_A8*Br_Atotautau;
+    gg_A_tautau_TH13=SigmaggF_A13*Br_Atotautau;
+    bb_A_tautau_TH13=SigmabbF_A13*Br_Atotautau;
+    gg_H_gaga_TH8=SigmaggF_H8*Br_Htogaga;
+    pp_H_gaga_TH13=SigmaSumH13*Br_Atogaga;
+    gg_H_gaga_TH13=SigmaggF_H13*Br_Htogaga;
+    gg_A_gaga_TH8=SigmaggF_A8*Br_Atogaga;
+    pp_A_gaga_TH13=SigmaSumA13*Br_Atogaga;
+    gg_A_gaga_TH13=SigmaggF_A13*Br_Atogaga;
+    gg_H5_gaga_TH8=0.0;
+    pp_H5_gaga_TH13=SigmaSumH513*Br_H5togaga;
+    gg_H5_gaga_TH13=0.0;
+    pp_H_Zga_llga_TH8=SigmaSumH8*Br_HtoZga*(Br_Ztoee+Br_Ztomumu);
+    gg_H_Zga_TH13=SigmaggF_H13*Br_HtoZga;
+    gg_H_Zga_llga_TH13=SigmaggF_H13*Br_HtoZga*(Br_Ztoee+Br_Ztomumu);
+    pp_A_Zga_llga_TH8=SigmaSumA8*Br_AtoZga*(Br_Ztoee+Br_Ztomumu);
+    gg_A_Zga_TH13=SigmaggF_A13*Br_AtoZga;
+    gg_A_Zga_llga_TH13=SigmaggF_A13*Br_AtoZga*(Br_Ztoee+Br_Ztomumu);
+    pp_H5_Zga_llga_TH8=SigmaSumH58*Br_H5toZga*(Br_Ztoee+Br_Ztomumu);
+    gg_H5_Zga_TH13=0.0;
+    gg_H5_Zga_llga_TH13=0.0;
+    gg_H_ZZ_TH8=SigmaggF_H8*Br_HtoZZ;
+    VV_H_ZZ_TH8=SigmaVBF_H8*Br_HtoZZ;
+    gg_H_ZZ_TH13=SigmaggF_H13*Br_HtoZZ;
+    VV_H_ZZ_TH13=SigmaVBF_H13*Br_HtoZZ;
+    pp_H_ZZ_TH13=SigmaSumH13*Br_HtoZZ;
+    gg_H5_ZZ_TH8=0.0;
+    VV_H5_ZZ_TH8=SigmaVBF_H58*Br_H5toZZ;
+    gg_H5_ZZ_TH13=0.0;
+    VV_H5_ZZ_TH13=SigmaVBF_H513*Br_H5toZZ;
+    pp_H5_ZZ_TH13=SigmaSumH513*Br_H5toZZ;
+    gg_H_WW_TH8=SigmaggF_H8*Br_HtoWW;
+    VV_H_WW_TH8=SigmaVBF_H8*Br_HtoWW;
+    gg_H_WW_TH13=SigmaggF_H13*Br_HtoWW;
+    VV_H_WW_TH13=SigmaVBF_H13*Br_HtoWW;
+    ggVV_H_WW_lnulnu_TH13=(SigmaggF_H13+SigmaVBF_H13)*Br_HtoWW*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu);
+    pp_H_WW_TH13=SigmaSumH13*Br_HtoWW;
+    gg_H5_WW_TH8=0.0;
+    VV_H5_WW_TH8=SigmaVBF_H58*Br_H5toWW;
+    gg_H5_WW_TH13=0.0;
+    VV_H5_WW_TH13=SigmaVBF_H513*Br_H5toWW;
+    ggVV_H5_WW_lnulnu_TH13=SigmaVBF_H513*Br_H5toWW*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu);
+    pp_H5_WW_TH13=SigmaSumH513*Br_H5toWW;
+    pp_H_VV_TH8=SigmaSumH8*(Br_HtoZZ+Br_HtoWW);
+    mu_pp_H_VV_TH8=SigmaSumH8/SigmaTotSM_H8*rHH_VV*GammaHtotSM/GammaH1tot;
+    pp_H_VV_TH13=SigmaSumH13*(Br_HtoZZ+Br_HtoWW);
+    pp_H5_VV_TH8=SigmaSumH58*(Br_H5toZZ+Br_H5toWW);
+    mu_pp_H5_VV_TH8=SigmaSumH58*cosb*GammaH5totSM/(SigmaTotSM_H58*sqrt(3.0)*GammaH5tot);
+    pp_H5_VV_TH13=SigmaSumH513*(Br_H5toZZ+Br_H5toWW);
+    gg_H_hh_TH8=SigmaggF_H8*Br_Htohh;
+    pp_H_hh_bbbb_TH8=SigmaSumH8*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
+    pp_H_hh_gagabb_TH8=SigmaSumH8*Br_Htohh*GM_Br_h_gaga*GM_Br_h_bb;
+    pp_H_hh_TH8=SigmaSumH8*Br_Htohh;
+    gg_H5_hh_TH8=0.0;
+    pp_H5_hh_bbbb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
+    pp_H5_hh_gagabb_TH8=SigmaSumH58*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
+    pp_H5_hh_TH8=SigmaSumH58*Br_H5tohh;
+    pp_H_hh_bbbb_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
+    gg_H_hh_bbbb_TH13=SigmaggF_H13*Br_Htohh*GM_Br_h_bb*GM_Br_h_bb;
+    pp_H_hh_TH13=SigmaSumH13*Br_Htohh;
+    pp_H_hh_gagabb_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_gaga*GM_Br_h_bb;
+    pp_H_hh_bbtautau_TH13=SigmaSumH13*Br_Htohh*GM_Br_h_bb*GM_Br_h_tautau;
+    pp_H_hh_bblnulnu_TH13=SigmaSumH13*Br_Htohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
+    gg_H_hh_TH13=SigmaggF_H13*Br_Htohh;
+    pp_H5_hh_bbbb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_bb;
+    gg_H5_hh_bbbb_TH13=0.0;
+    pp_H5_hh_TH13=SigmaSumH513*Br_H5tohh;
+    pp_H5_hh_gagabb_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_gaga*GM_Br_h_bb;
+    pp_H5_hh_bbtautau_TH13=SigmaSumH513*Br_H5tohh*GM_Br_h_bb*GM_Br_h_tautau;
+    pp_H5_hh_bblnulnu_TH13=SigmaSumH513*Br_H5tohh*5.77e-1*2.15e-1*(Br_Wtoenu+Br_Wtomunu)*(Br_Wtoenu+Br_Wtomunu)*2.0;/*SM BR assumed in the CMS analysis!*/
+    gg_H5_hh_TH13=0.0;
+    gg_A_hZ_bbZ_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_bb;
+    gg_A_hZ_bbll_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_bb*(Br_Ztoee+Br_Ztomumu);
+    gg_A_hZ_tautauZ_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_tautau;
+    gg_A_hZ_tautaull_TH8=SigmaggF_A8*Br_AtohZ*GM_Br_h_tautau*(Br_Ztoee+Br_Ztomumu);
+    gg_A_hZ_bbZ_TH13=SigmaggF_A13*Br_AtohZ*GM_Br_h_bb;
+    bb_A_hZ_bbZ_TH13=SigmabbF_A13*Br_AtohZ*GM_Br_h_bb;
+    pp_A_HZ_bbll_TH8=SigmaSumA8*Br_AtoHZ*Br_Htobb*(Br_Ztoee+Br_Ztomumu);
+    pp_A_H5Z_bbll_TH8=0.0;
+    pp_H_AZ_bbll_TH8=SigmaSumH8*Br_HtoAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
+    pp_H5_AZ_bbll_TH8=SigmaSumH58*Br_H5toAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
 
-    THoEX_ggF_H_tautau_ATLAS8=0.0;
-    R_ggF_H_tautau_ATLAS8=0.0;
+    pp_Hpm_taunu_TH8=0.0;
+    pp_Hp_taunu_TH8=0.0;
+    pp_Hpm_taunu_TH13=0.0;
+    pp_Hpm_tb_TH8=0.0;
+    pp_Hp_tb_TH8=0.0;
+    pp_Hp_tb_TH13=0.0;
+    WZ_H5pm_WZ_TH8=0.0;
+    WZ_H5pm_WZ_TH13=0.0;
+
+    pp_H5ppmmH5mmpp_TH8=0.0;
+    pp_H5ppmmH5mmpp_TH13=0.0;
+    pp_H5ppmm_WW_TH8=0.0;
+    pp_H5ppmm_WW_TH13=0.0;
+
+    THoEX_tt_H_tt_ATLAS13=0.0;
+    THoEX_bb_H_tt_ATLAS13=0.0;
+    THoEX_tt_A_tt_ATLAS13=0.0;
+    THoEX_bb_A_tt_ATLAS13=0.0;
+    THoEX_bb_H_bb_CMS8=0.0;
+    THoEX_gg_H_bb_CMS8=0.0;
+    THoEX_pp_H_bb_CMS13=0.0;
+    THoEX_bb_H_bb_CMS13=0.0;
+    THoEX_bb_A_bb_CMS8=0.0;
+    THoEX_gg_A_bb_CMS8=0.0;
+    THoEX_pp_A_bb_CMS13=0.0;
+    THoEX_bb_A_bb_CMS13=0.0;
+    THoEX_gg_H_tautau_ATLAS8=0.0;
+    THoEX_gg_H_tautau_CMS8=0.0;
+    THoEX_bb_H_tautau_ATLAS8=0.0;
+    THoEX_bb_H_tautau_CMS8=0.0;
+    THoEX_gg_H_tautau_ATLAS13=0.0;
+    THoEX_gg_H_tautau_CMS13=0.0;
+    THoEX_bb_H_tautau_ATLAS13=0.0;
+    THoEX_bb_H_tautau_CMS13=0.0;
+    R_gg_H_tautau_ATLAS8=0.0;
+    R_bb_H_tautau_ATLAS8=0.0;
+    THoEX_gg_A_tautau_ATLAS8=0.0;
+    THoEX_gg_A_tautau_CMS8=0.0;
+    THoEX_bb_A_tautau_ATLAS8=0.0;
+    THoEX_bb_A_tautau_CMS8=0.0;
+    THoEX_gg_A_tautau_ATLAS13=0.0;
+    THoEX_gg_A_tautau_CMS13=0.0;
+    THoEX_bb_A_tautau_ATLAS13=0.0;
+    THoEX_bb_A_tautau_CMS13=0.0;
+    THoEX_gg_H_gaga_ATLAS8=0.0;
+    THoEX_pp_H_gaga_ATLAS13=0.0;
+    THoEX_gg_H_gaga_CMS13=0.0;
+    THoEX_gg_A_gaga_ATLAS8=0.0;
+    THoEX_pp_A_gaga_ATLAS13=0.0;
+    THoEX_gg_A_gaga_CMS13=0.0;
+    THoEX_gg_H5_gaga_ATLAS8=0.0;
+    THoEX_pp_H5_gaga_ATLAS13=0.0;
+    THoEX_gg_H5_gaga_CMS13=0.0;
+    THoEX_pp_H_Zga_llga_ATLAS8=0.0;
+    THoEX_pp_H_Zga_llga_CMS8=0.0;
+    THoEX_gg_H_Zga_llga_ATLAS13=0.0;
+    THoEX_gg_H_Zga_CMS13=0.0;
+    THoEX_pp_A_Zga_llga_ATLAS8=0.0;
+    THoEX_pp_A_Zga_llga_CMS8=0.0;
+    THoEX_gg_A_Zga_llga_ATLAS13=0.0;
+    THoEX_gg_A_Zga_CMS13=0.0;
+    THoEX_pp_H5_Zga_llga_ATLAS8=0.0;
+    THoEX_pp_H5_Zga_llga_CMS8=0.0;
+    THoEX_gg_H5_Zga_llga_ATLAS13=0.0;
+    THoEX_gg_H5_Zga_CMS13=0.0;
+    THoEX_gg_H_ZZ_ATLAS8=0.0;
+    THoEX_VV_H_ZZ_ATLAS8=0.0;
+    THoEX_gg_H_ZZ_llllnunu_ATLAS13=0.0;
+    THoEX_VV_H_ZZ_llllnunu_ATLAS13=0.0;
+    THoEX_gg_H_ZZ_qqllnunu_ATLAS13=0.0;
+    THoEX_VV_H_ZZ_qqllnunu_ATLAS13=0.0;
+    THoEX_pp_H_ZZ_llqqnunull_CMS13=0.0;
+    THoEX_VV_H_ZZ_llqqnunull_CMS13=0.0;
+    THoEX_pp_H_ZZ_qqnunu_CMS13=0.0;
+    THoEX_gg_H5_ZZ_ATLAS8=0.0;
+    THoEX_VV_H5_ZZ_ATLAS8=0.0;
+    THoEX_gg_H5_ZZ_llllnunu_ATLAS13=0.0;
+    THoEX_VV_H5_ZZ_llllnunu_ATLAS13=0.0;
+    THoEX_gg_H5_ZZ_qqllnunu_ATLAS13=0.0;
+    THoEX_VV_H5_ZZ_qqllnunu_ATLAS13=0.0;
+    THoEX_pp_H5_ZZ_llqqnunull_CMS13=0.0;
+    THoEX_VV_H5_ZZ_llqqnunull_CMS13=0.0;
+    THoEX_pp_H5_ZZ_qqnunu_CMS13=0.0;
+    THoEX_gg_H_WW_ATLAS8=0.0;
+    THoEX_VV_H_WW_ATLAS8=0.0;
+    THoEX_gg_H_WW_enumunu_ATLAS13=0.0;
+    THoEX_VV_H_WW_enumunu_ATLAS13=0.0;
+    THoEX_gg_H_WW_lnuqq_ATLAS13=0.0;
+    THoEX_VV_H_WW_lnuqq_ATLAS13=0.0;
+    THoEX_ggVV_H_WW_lnulnu_CMS13=0.0;
+    THoEX_pp_H_WW_lnuqq_CMS13=0.0;
+    THoEX_gg_H5_WW_ATLAS8=0.0;
+    THoEX_VV_H5_WW_ATLAS8=0.0;
+    THoEX_gg_H5_WW_enumunu_ATLAS13=0.0;
+    THoEX_VV_H5_WW_enumunu_ATLAS13=0.0;
+    THoEX_gg_H5_WW_lnuqq_ATLAS13=0.0;
+    THoEX_VV_H5_WW_lnuqq_ATLAS13=0.0;
+    THoEX_ggVV_H5_WW_lnulnu_CMS13=0.0;
+    THoEX_pp_H5_WW_lnuqq_CMS13=0.0;
+    THoEX_mu_pp_H_VV_CMS8=0.0;
+    THoEX_pp_H_VV_qqqq_ATLAS13=0.0;
+    THoEX_mu_pp_H5_VV_CMS8=0.0;
+    THoEX_pp_H5_VV_qqqq_ATLAS13=0.0;
+    THoEX_gg_H_hh_ATLAS8=0.0;
+    THoEX_pp_H_hh_bbbb_CMS8=0.0;
+    THoEX_pp_H_hh_gagabb_CMS8=0.0;
+    THoEX_gg_H_hh_bbtautau_CMS8=0.0;
+    THoEX_pp_H_hh_bbtautau_CMS8=0.0;
+    THoEX_pp_H_hh_bbbb_ATLAS13=0.0;
     THoEX_pp_H_hh_bbbb_CMS13=0.0;
     R_pp_H_hh_bbbb_CMS13=0.0;
+    THoEX_gg_H_hh_bbbb_CMS13=0.0;
+    THoEX_pp_H_hh_gagabb_ATLAS13=0.0;
+    THoEX_pp_H_hh_gagabb_CMS13=0.0;
+    THoEX_pp_H_hh_bbtautau_CMS13=0.0;
+    THoEX_pp_H_hh_bblnulnu_CMS13=0.0;
+    THoEX_gg_H_hh_gagaWW_ATLAS13=0.0;
+    THoEX_gg_H5_hh_ATLAS8=0.0;
+    THoEX_pp_H5_hh_bbbb_CMS8=0.0;
+    THoEX_pp_H5_hh_gagabb_CMS8=0.0;
+    THoEX_gg_H5_hh_bbtautau_CMS8=0.0;
+    THoEX_pp_H5_hh_bbtautau_CMS8=0.0;
+    THoEX_pp_H5_hh_bbbb_ATLAS13=0.0;
+    THoEX_pp_H5_hh_bbbb_CMS13=0.0;
+    THoEX_gg_H5_hh_bbbb_CMS13=0.0;
+    THoEX_pp_H5_hh_gagabb_ATLAS13=0.0;
+    THoEX_pp_H5_hh_gagabb_CMS13=0.0;
+    THoEX_pp_H5_hh_bbtautau_CMS13=0.0;
+    THoEX_pp_H5_hh_bblnulnu_CMS13=0.0;
+    THoEX_gg_H5_hh_gagaWW_ATLAS13=0.0;
+    THoEX_gg_A_hZ_bbZ_ATLAS8=0.0;
+    THoEX_gg_A_hZ_bbll_CMS8=0.0;
+    THoEX_gg_A_hZ_tautauZ_ATLAS8=0.0;
+    THoEX_gg_A_hZ_tautaull_CMS8=0.0;
+    THoEX_gg_A_hZ_bbZ_ATLAS13=0.0;
+    THoEX_bb_A_hZ_bbZ_ATLAS13=0.0;
+    THoEX_pp_A_HZ_bbll_CMS8=0.0;
+    THoEX_pp_A_H5Z_bbll_CMS8=0.0;
+    THoEX_pp_H_AZ_bbll_CMS8=0.0;
+    THoEX_pp_H5_AZ_bbll_CMS8=0.0;
+    THoEX_pp_Hpm_taunu_ATLAS8=0.0;
+    THoEX_pp_Hp_taunu_CMS8=0.0;
+    THoEX_pp_Hpm_taunu_ATLAS13=0.0;
+    THoEX_pp_Hpm_taunu_CMS13=0.0;
+    THoEX_pp_Hpm_tb_ATLAS8=0.0;
+    THoEX_pp_Hp_tb_CMS8=0.0;
+    THoEX_pp_Hp_tb1_ATLAS13=0.0;
+    THoEX_pp_Hp_tb2_ATLAS13=0.0;
+    THoEX_WZ_H5p_WZ_qqll_ATLAS8=0.0;
+    THoEX_WZ_H5p_WZ_lnull_CMS8=0.0;
+    THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8=0.0;
+    THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8=0.0;
+    THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8=0.0;
+    THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13=0.0;
+    THoEX_pp_H5ppmm_WW_jjll_CMS8=0.0;
+    THoEX_pp_H5ppmm_WW_jjll_CMS13=0.0;
 
     //95% to 1 sigma conversion factor, roughly sqrt(3.84)
     double nftos=1.95996398454;
 
-    if(mHh>=65.0 && mHh<90.0)
-    {
-    }
-    else if(mHh>=90.0 && mHh<100.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=100.0 && mHh<130.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=130.0 && mHh<140.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=140.0 && mHh<145.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=145.0 && mHh<150.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=150.0 && mHh<175.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=175.0 && mHh<200.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=200.0 && mHh<220.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=220.0 && mHh<250.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=250.0 && mHh<260.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-    }
-    else if(mHh>=260.0 && mHh<270.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=270.0 && mHh<275.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=275.0 && mHh<300.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=300.0 && mHh<350.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=350.0 && mHh<400.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=400.0 && mHh<500.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=500.0 && mHh<550.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=550.0 && mHh<600.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=600.0 && mHh<650.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=650.0 && mHh<760.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=760.0 && mHh<850.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=850.0 && mHh<900.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=900.0 && mHh<1000.0)
-    {
-        THoEX_ggF_H_tautau_ATLAS8=ggF_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
-        THoEX_bbF_H_tautau_ATLAS8=bbF_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=1000.0 && mHh<1100.0)
-    {
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
-    else if(mHh>=1100.0 && mHh<1200.0)
-    {
-        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
-    }
+//    if(mHh>=65.0 && mHh<90.0)
+//    {
+//    }
+//    else if(mHh>=90.0 && mHh<100.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=100.0 && mHh<130.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=130.0 && mHh<140.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=140.0 && mHh<145.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=145.0 && mHh<150.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=150.0 && mHh<175.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=175.0 && mHh<200.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=200.0 && mHh<220.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=220.0 && mHh<250.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=250.0 && mHh<260.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//    }
+//    else if(mHh>=260.0 && mHh<270.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=270.0 && mHh<275.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=275.0 && mHh<300.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=300.0 && mHh<350.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=350.0 && mHh<400.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=400.0 && mHh<500.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=500.0 && mHh<550.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=550.0 && mHh<600.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=600.0 && mHh<650.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=650.0 && mHh<760.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=760.0 && mHh<850.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=850.0 && mHh<900.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=900.0 && mHh<1000.0)
+//    {
+//        THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+//        THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=1000.0 && mHh<1100.0)
+//    {
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
+//    else if(mHh>=1100.0 && mHh<1200.0)
+//    {
+//        THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+//    }
 
+    if(mHh>= 400.0 && mHh<=1000.0) THoEX_tt_H_tt_ATLAS13=tt_H_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(mHh);
+    if(mA >= 400.0 && mA <=1000.0) THoEX_tt_A_tt_ATLAS13=tt_A_tt_TH13/ip_ex_tt_phi_tt_ATLAS13(mA);
+    if(mHh>= 400.0 && mHh<=1000.0) THoEX_bb_H_tt_ATLAS13=bb_H_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(mHh);
+    if(mA >= 400.0 && mA <=1000.0) THoEX_bb_A_tt_ATLAS13=bb_A_tt_TH13/ip_ex_bb_phi_tt_ATLAS13(mA);
+    if(mHh>= 100.0 && mHh<= 900.0) THoEX_bb_H_bb_CMS8=bb_H_bb_TH8/ip_ex_bb_phi_bb_CMS8(mHh);
+    if(mA >= 100.0 && mA <= 900.0) THoEX_bb_A_bb_CMS8=bb_A_bb_TH8/ip_ex_bb_phi_bb_CMS8(mA);
+    if(mHh>= 330.0 && mHh<=1200.0) THoEX_gg_H_bb_CMS8=gg_H_bb_TH8/ip_ex_gg_phi_bb_CMS8(mHh);
+    if(mA >= 330.0 && mA <=1200.0) THoEX_gg_A_bb_CMS8=gg_A_bb_TH8/ip_ex_gg_phi_bb_CMS8(mA);
+    if(mHh>= 550.0 && mHh<=1200.0) THoEX_pp_H_bb_CMS13=pp_H_bb_TH13/ip_ex_pp_phi_bb_CMS13(mHh);
+    if(mA >= 550.0 && mA <=1200.0) THoEX_pp_A_bb_CMS13=pp_A_bb_TH13/ip_ex_pp_phi_bb_CMS13(mA);
+
+    
+    
 }    
 
 

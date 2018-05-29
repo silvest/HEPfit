@@ -822,31 +822,107 @@ public:
 
     double rh_ff, rh_VV, rh_gg, rh_gaga, rh_Zga;
     double rHH_ff, rHH_VV, rHH_gg, rHH_gaga, rHH_Zga;
-    double sumModBRs, GM_BR_h_bb, Gamma_h;//GM_BR_h_gaga, GM_BR_h_tautau, GM_BR_h_WW, GM_BR_h_ZZ
-    double Br_Htohh;
-    double THoEX_ggF_H_tautau_ATLAS8, R_ggF_H_tautau_ATLAS8;
-    double THoEX_bbF_H_tautau_ATLAS8, R_bbF_H_tautau_ATLAS8;
+    double sumModBRs, Gamma_h, GM_Br_h_bb, GM_Br_h_gaga, GM_Br_h_tautau, GM_Br_h_WW, GM_Br_h_ZZ;
+    double Br_Htohh, Br_H5tohh, Br_AtohZ, Br_AtoHZ, Br_AtoH5Z, Br_HtoAZ, Br_H5toAZ;
+    double THoEX_tt_H_tt_ATLAS13, THoEX_bb_H_tt_ATLAS13;
+    double THoEX_tt_A_tt_ATLAS13, THoEX_bb_A_tt_ATLAS13;
+    double THoEX_bb_H_bb_CMS8, THoEX_gg_H_bb_CMS8, THoEX_pp_H_bb_CMS13, THoEX_bb_H_bb_CMS13;
+    double THoEX_bb_A_bb_CMS8, THoEX_gg_A_bb_CMS8, THoEX_pp_A_bb_CMS13, THoEX_bb_A_bb_CMS13;
+    double THoEX_gg_H_tautau_ATLAS8, THoEX_gg_H_tautau_CMS8, THoEX_bb_H_tautau_ATLAS8, THoEX_bb_H_tautau_CMS8, THoEX_gg_H_tautau_ATLAS13, THoEX_gg_H_tautau_CMS13, THoEX_bb_H_tautau_ATLAS13, THoEX_bb_H_tautau_CMS13;
+    double R_gg_H_tautau_ATLAS8, R_bb_H_tautau_ATLAS8;
+    double THoEX_gg_A_tautau_ATLAS8, THoEX_gg_A_tautau_CMS8, THoEX_bb_A_tautau_ATLAS8, THoEX_bb_A_tautau_CMS8; 
+    double THoEX_gg_A_tautau_ATLAS13, THoEX_gg_A_tautau_CMS13, THoEX_bb_A_tautau_ATLAS13, THoEX_bb_A_tautau_CMS13;
+    double THoEX_gg_H_gaga_ATLAS8, THoEX_pp_H_gaga_ATLAS13, THoEX_gg_H_gaga_CMS13;
+    double THoEX_gg_A_gaga_ATLAS8, THoEX_pp_A_gaga_ATLAS13, THoEX_gg_A_gaga_CMS13;
+    double THoEX_gg_H5_gaga_ATLAS8, THoEX_pp_H5_gaga_ATLAS13, THoEX_gg_H5_gaga_CMS13;    
+    double THoEX_pp_H_Zga_llga_ATLAS8, THoEX_pp_H_Zga_llga_CMS8, THoEX_gg_H_Zga_llga_ATLAS13, THoEX_gg_H_Zga_CMS13;
+    double THoEX_pp_A_Zga_llga_ATLAS8, THoEX_pp_A_Zga_llga_CMS8, THoEX_gg_A_Zga_llga_ATLAS13, THoEX_gg_A_Zga_CMS13;
+    double THoEX_pp_H5_Zga_llga_ATLAS8, THoEX_pp_H5_Zga_llga_CMS8, THoEX_gg_H5_Zga_llga_ATLAS13, THoEX_gg_H5_Zga_CMS13;
+    double THoEX_gg_H_ZZ_ATLAS8, THoEX_VV_H_ZZ_ATLAS8, THoEX_gg_H_ZZ_llllnunu_ATLAS13, THoEX_VV_H_ZZ_llllnunu_ATLAS13;
+    double THoEX_gg_H_ZZ_qqllnunu_ATLAS13, THoEX_VV_H_ZZ_qqllnunu_ATLAS13, THoEX_pp_H_ZZ_llqqnunull_CMS13;
+    double THoEX_VV_H_ZZ_llqqnunull_CMS13, THoEX_pp_H_ZZ_qqnunu_CMS13;
+    double THoEX_gg_H5_ZZ_ATLAS8, THoEX_VV_H5_ZZ_ATLAS8, THoEX_gg_H5_ZZ_llllnunu_ATLAS13, THoEX_VV_H5_ZZ_llllnunu_ATLAS13;
+    double THoEX_gg_H5_ZZ_qqllnunu_ATLAS13, THoEX_VV_H5_ZZ_qqllnunu_ATLAS13, THoEX_pp_H5_ZZ_llqqnunull_CMS13;
+    double THoEX_VV_H5_ZZ_llqqnunull_CMS13, THoEX_pp_H5_ZZ_qqnunu_CMS13;
+    double THoEX_gg_H_WW_ATLAS8, THoEX_VV_H_WW_ATLAS8, THoEX_gg_H_WW_enumunu_ATLAS13, THoEX_VV_H_WW_enumunu_ATLAS13;
+    double THoEX_gg_H_WW_lnuqq_ATLAS13, THoEX_VV_H_WW_lnuqq_ATLAS13, THoEX_ggVV_H_WW_lnulnu_CMS13, THoEX_pp_H_WW_lnuqq_CMS13;
+    double THoEX_gg_H5_WW_ATLAS8, THoEX_VV_H5_WW_ATLAS8, THoEX_gg_H5_WW_enumunu_ATLAS13, THoEX_VV_H5_WW_enumunu_ATLAS13;
+    double THoEX_gg_H5_WW_lnuqq_ATLAS13, THoEX_VV_H5_WW_lnuqq_ATLAS13, THoEX_ggVV_H5_WW_lnulnu_CMS13, THoEX_pp_H5_WW_lnuqq_CMS13;
+    double THoEX_mu_pp_H_VV_CMS8, THoEX_pp_H_VV_qqqq_ATLAS13;
+    double THoEX_mu_pp_H5_VV_CMS8, THoEX_pp_H5_VV_qqqq_ATLAS13;
+    double THoEX_gg_H_hh_ATLAS8, THoEX_pp_H_hh_bbbb_CMS8, THoEX_pp_H_hh_gagabb_CMS8;
+    double THoEX_gg_H_hh_bbtautau_CMS8, THoEX_pp_H_hh_bbtautau_CMS8, THoEX_pp_H_hh_bbbb_ATLAS13;
     double THoEX_pp_H_hh_bbbb_CMS13, R_pp_H_hh_bbbb_CMS13;
+    double THoEX_gg_H_hh_bbbb_CMS13, THoEX_pp_H_hh_gagabb_ATLAS13, THoEX_pp_H_hh_gagabb_CMS13;
+    double THoEX_pp_H_hh_bbtautau_CMS13, THoEX_pp_H_hh_bblnulnu_CMS13, THoEX_gg_H_hh_gagaWW_ATLAS13;
+    double THoEX_gg_H5_hh_ATLAS8, THoEX_pp_H5_hh_bbbb_CMS8, THoEX_pp_H5_hh_gagabb_CMS8;
+    double THoEX_gg_H5_hh_bbtautau_CMS8, THoEX_pp_H5_hh_bbtautau_CMS8, THoEX_pp_H5_hh_bbbb_ATLAS13;
+    double THoEX_pp_H5_hh_bbbb_CMS13, THoEX_gg_H5_hh_bbbb_CMS13, THoEX_pp_H5_hh_gagabb_ATLAS13, THoEX_pp_H5_hh_gagabb_CMS13;
+    double THoEX_pp_H5_hh_bbtautau_CMS13, THoEX_pp_H5_hh_bblnulnu_CMS13, THoEX_gg_H5_hh_gagaWW_ATLAS13;
+    double THoEX_gg_A_hZ_bbZ_ATLAS8, THoEX_gg_A_hZ_bbll_CMS8, THoEX_gg_A_hZ_tautauZ_ATLAS8, THoEX_gg_A_hZ_tautaull_CMS8;
+    double THoEX_gg_A_hZ_bbZ_ATLAS13, THoEX_bb_A_hZ_bbZ_ATLAS13;
+    double THoEX_pp_A_HZ_bbll_CMS8, THoEX_pp_A_H5Z_bbll_CMS8;
+    double THoEX_pp_H_AZ_bbll_CMS8, THoEX_pp_H5_AZ_bbll_CMS8;
+    double THoEX_pp_Hpm_taunu_ATLAS8, THoEX_pp_Hp_taunu_CMS8;
+    double THoEX_pp_Hpm_taunu_ATLAS13, THoEX_pp_Hpm_taunu_CMS13;
+    double THoEX_pp_Hpm_tb_ATLAS8, THoEX_pp_Hp_tb_CMS8;
+    double THoEX_pp_Hp_tb1_ATLAS13, THoEX_pp_Hp_tb2_ATLAS13;
+    double THoEX_WZ_H5p_WZ_qqll_ATLAS8, THoEX_WZ_H5p_WZ_lnull_CMS8;
+    double THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8, THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8, THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8;
+    double THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13, THoEX_pp_H5ppmm_WW_jjll_CMS8, THoEX_pp_H5ppmm_WW_jjll_CMS13;
+
     double lambda1, lambda2, lambda3, lambda4, lambda5;
     double vPhi, vDelta;
+
+    double tt_H_tt_TH13, bb_H_tt_TH13;
+    double tt_A_tt_TH13, bb_A_tt_TH13;
+    double bb_H_bb_TH8, gg_H_bb_TH8, pp_H_bb_TH13, bb_H_bb_TH13;
+    double bb_A_bb_TH8, gg_A_bb_TH8, pp_A_bb_TH13, bb_A_bb_TH13;
 
     /**
      * @brief Cross section times branching ratio for the process @f$gg\to H\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GM}}_{gg\to H}\cdot BR^{\text{GM}}(H\to \tau\tau)@f$
      */
-    double ggF_H_tautau_TH8;
+    double gg_H_tautau_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$b\bar b\to H\to \tau\tau@f$ at the LHC with 8 TeV.
      * @return @f$\sigma^{\text{GM}}_{b\bar b\to H}\cdot BR^{\text{GM}}(H\to \tau\tau)@f$
      */
-    double bbF_H_tautau_TH8;
+    double bb_H_tautau_TH8;
+
+    double gg_H_tautau_TH13, bb_H_tautau_TH13; 
+    double gg_A_tautau_TH8, bb_A_tautau_TH8, gg_A_tautau_TH13, bb_A_tautau_TH13; 
+    double gg_H_gaga_TH8, pp_H_gaga_TH13, gg_H_gaga_TH13;
+    double gg_A_gaga_TH8, pp_A_gaga_TH13, gg_A_gaga_TH13;
+    double gg_H5_gaga_TH8, pp_H5_gaga_TH13, gg_H5_gaga_TH13;
+    double pp_H_Zga_llga_TH8, gg_H_Zga_TH13, gg_H_Zga_llga_TH13;
+    double pp_A_Zga_llga_TH8, gg_A_Zga_TH13, gg_A_Zga_llga_TH13;
+    double pp_H5_Zga_llga_TH8, gg_H5_Zga_TH13, gg_H5_Zga_llga_TH13;
+    double gg_H_ZZ_TH8, VV_H_ZZ_TH8, gg_H_ZZ_TH13, VV_H_ZZ_TH13, pp_H_ZZ_TH13;
+    double gg_H5_ZZ_TH8, VV_H5_ZZ_TH8, gg_H5_ZZ_TH13, VV_H5_ZZ_TH13, pp_H5_ZZ_TH13;
+    double gg_H_WW_TH8, VV_H_WW_TH8, gg_H_WW_TH13, VV_H_WW_TH13, ggVV_H_WW_lnulnu_TH13, pp_H_WW_TH13;
+    double gg_H5_WW_TH8, VV_H5_WW_TH8, gg_H5_WW_TH13, VV_H5_WW_TH13, ggVV_H5_WW_lnulnu_TH13, pp_H5_WW_TH13;
+    double pp_H_VV_TH8, mu_pp_H_VV_TH8, pp_H_VV_TH13;
+    double pp_H5_VV_TH8, mu_pp_H5_VV_TH8, pp_H5_VV_TH13;
+    double gg_H_hh_TH8, pp_H_hh_bbbb_TH8, pp_H_hh_gagabb_TH8, pp_H_hh_TH8;
+    double gg_H5_hh_TH8, pp_H5_hh_bbbb_TH8, pp_H5_hh_gagabb_TH8, pp_H5_hh_TH8;
 
     /**
      * @brief Cross section times branching ratio for the process @f$pp\to H\to hh\to b\bar b b\bar b@f$ at the LHC with 13 TeV.
      * @return @f$\sigma^{\text{THDM}}_{pp\to H}\cdot BR^{\text{THDM}}(H\to hh\to b\bar b b\bar b)@f$
      */
     double pp_H_hh_bbbb_TH13;
+
+    double gg_H_hh_bbbb_TH13, pp_H_hh_TH13, pp_H_hh_gagabb_TH13, pp_H_hh_bbtautau_TH13, pp_H_hh_bblnulnu_TH13, gg_H_hh_TH13;
+    double pp_H5_hh_bbbb_TH13, gg_H5_hh_bbbb_TH13, pp_H5_hh_TH13, pp_H5_hh_gagabb_TH13, pp_H5_hh_bbtautau_TH13, pp_H5_hh_bblnulnu_TH13, gg_H5_hh_TH13;
+    double gg_A_hZ_bbZ_TH8, gg_A_hZ_bbll_TH8, gg_A_hZ_tautauZ_TH8, gg_A_hZ_tautaull_TH8, gg_A_hZ_bbZ_TH13, bb_A_hZ_bbZ_TH13;
+    double pp_A_HZ_bbll_TH8, pp_A_H5Z_bbll_TH8, pp_H_AZ_bbll_TH8, pp_H5_AZ_bbll_TH8;
+    double pp_Hpm_taunu_TH8, pp_Hp_taunu_TH8,pp_Hpm_taunu_TH13;
+    double pp_Hpm_tb_TH8, pp_Hp_tb_TH8, pp_Hp_tb_TH13;
+    double WZ_H5pm_WZ_TH8, WZ_H5pm_WZ_TH13;
+    double pp_H5ppmmH5mmpp_TH8, pp_H5ppmmH5mmpp_TH13;
+    double pp_H5ppmm_WW_TH8, pp_H5ppmm_WW_TH13;
 
     /**
      * @brief Total decay width of the CP-even Higgs @f$H_1@f$.
@@ -1143,23 +1219,46 @@ private:
 //    double GM_BR_h_cc;
 
     double SigmaSumH8;
+    double SigmaSumA8;
+    double SigmaSumH58;
     double SigmaTotSM_H8;
+    double SigmaTotSM_A8;
+    double SigmaTotSM_H58;
     double SigmaggF_H8;
+    double SigmaggF_A8;
     double SigmabbF_H8;
+    double SigmabbF_A8;
     double SigmaVBF_H8;
+    double SigmaVBF_H58;
     double SigmaSumH13;
+    double SigmaSumA13;
+    double SigmaSumH513;
     double SigmaggF_H13;
+    double SigmaggF_A13;
     double SigmattF_H13;
+    double SigmattF_A13;
     double SigmabbF_H13;
+    double SigmabbF_A13;
     double SigmaVBF_H13;
+    double SigmaVBF_H513;
     double SigmaVH_H13;
+    double SigmaVH_H513;
     double Br_Htotautau;
+    double Br_Atotautau;
     double Br_Htogaga;
+    double Br_Atogaga;
+    double Br_H5togaga;
     double Br_HtoZga;
+    double Br_AtoZga;
+    double Br_H5toZga;
     double Br_HtoZZ;
+    double Br_H5toZZ;
     double Br_HtoWW;
+    double Br_H5toWW;
     double Br_Htott;
+    double Br_Atott;
     double Br_Htobb;
+    double Br_Atobb;
     double GammaHtotSM;
     double GammaAtotSM;
     double GammaH5totSM;
