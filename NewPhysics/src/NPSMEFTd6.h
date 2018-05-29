@@ -308,6 +308,21 @@
  *   <td class="mod_desc">The branching ratio of exotic Higgs decays. Only the absolute value of this parameter is considered. (Not part of the EFT. Only for tests.)</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%dg1Z</td>
+ *   <td class="mod_symb">@f$\delta g_{1Z}@f$</td>
+ *   <td class="mod_desc">Independent contribution to aTGC. (extra contribution to the one from the EFT. Only for tests.)</td>
+ * </tr>
+  * <tr>
+ *   <td class="mod_name">%dKappaga</td>
+ *   <td class="mod_symb">@f$\delta \kappa_{\gamma}@f$</td>
+ *   <td class="mod_desc">Independent contribution to aTGC. (extra contribution to the one from the EFT. Only for tests.)</td>
+ * </tr>
+  * <tr>
+ *   <td class="mod_name">%lambZ</td>
+ *   <td class="mod_symb">@f$\lambda_{Z}@f$</td>
+ *   <td class="mod_desc">Independent contribution to aTGC. (extra contribution to the one from the EFT. Only for tests.)</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%eXint </td>
  *   <td class="mod_symb">\f$\varepsilon_{X}^{int}\f$</td>
  *   <td class="mod_desc">The relative intrinsic theoretical uncertainty for the process X.
@@ -673,7 +688,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPSMEFTd6. 
      */
-    static const int NNPSMEFTd6Vars = 395;
+    static const int NNPSMEFTd6Vars = 398;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -691,7 +706,7 @@ public:
      *　@brief The number of the model parameters in %NPSMEFTd6
      * with lepton and quark flavour universalities.
      */
-    static const int NNPSMEFTd6Vars_LFU_QFU = 199;
+    static const int NNPSMEFTd6Vars_LFU_QFU = 202;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -2226,6 +2241,10 @@ protected:
     
     double BrHinv; ///< The branching ratio of invisible Higgs decays.
     double BrHexo; ///< The branching ratio of exotic (not invisible) Higgs decays.
+    
+    double dg1Z; ///< Independent contribution to aTGC.
+    double dKappaga; ///< Independent contribution to aTGC.    
+    double lambZ; ///< Independent contribution to aTGC.
     
     double v2_over_LambdaNP2;///< The ratio between the EW vev and the new physics scale, squared \f$v^2/\Lambda^2\f$.
     double aleMz;///< The em constant at Mz. 

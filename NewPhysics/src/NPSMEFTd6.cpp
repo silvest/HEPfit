@@ -67,6 +67,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
     "Lambda_NP",
     "BrHinv","BrHexo",
+    "dg1Z","dKappaga","lambZ",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -148,6 +149,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot[NNPSMEFTd6Vars]
     "CLedQ_11","CLedQ_22","CpLedQ_11","CpLedQ_22",
     "Lambda_NP",
     "BrHinv","BrHexo",
+    "dg1Z","dKappaga","lambZ",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -184,6 +186,7 @@ const std::string NPSMEFTd6::NPSMEFTd6Vars_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
     "Lambda_NP",
     "BrHinv","BrHexo",
+    "dg1Z","dKappaga","lambZ",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -220,6 +223,7 @@ const std::string NPSMEFTd6::NPSMEFTd6VarsRot_LFU_QFU[NNPSMEFTd6Vars_LFU_QFU]
     "Cee", "Ceu", "Ced", "CLe", "CLu", "CLd", "CQe",
     "Lambda_NP",
     "BrHinv","BrHexo",
+    "dg1Z","dKappaga","lambZ",
     "eggFint","eggFpar","ettHint","ettHpar",
     "eVBFint","eVBFpar","eWHint","eWHpar","eZHint","eZHpar",
     "eeeWBFint","eeeWBFpar","eeeZHint","eeeZHpar","eeettHint","eeettHpar",
@@ -568,6 +572,9 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHexo", boost::cref(BrHexo)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dg1Z", boost::cref(dg1Z)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dKappaga", boost::cref(dKappaga)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("lambZ", boost::cref(lambZ)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eggFint", boost::cref(eggFint)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("eggFpar", boost::cref(eggFpar)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("ettHint", boost::cref(ettHint)));
@@ -1553,7 +1560,13 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         BrHinv = fabs(value);       
     } else if (name.compare("BrHexo") == 0) {
 //  Always positive
-        BrHexo = fabs(value);   
+        BrHexo = fabs(value);      
+    } else if (name.compare("dg1Z") == 0) {
+        dg1Z = value;
+    } else if (name.compare("dKappaga") == 0) {
+        dKappaga = value;
+    } else if (name.compare("lambZ") == 0) {
+        lambZ = value;        
     } else if (name.compare("eggFint") == 0) {
         eggFint = value;
     } else if (name.compare("eggFpar") == 0) {
@@ -6934,7 +6947,7 @@ double NPSMEFTd6::deltag1ZNP() const
               + 0.25 * CHD ) * v2_over_LambdaNP2
               + 0.5 * NPindirect * DeltaGF() ;
       
-      return NPdirect + NPindirect;
+      return NPdirect + NPindirect + dg1Z ;
 }
       
 double NPSMEFTd6::deltaKgammaNP() const
@@ -6948,7 +6961,7 @@ double NPSMEFTd6::deltaKgammaNP() const
               - sW_tree * CDHW 
               - cW_tree * CDHB ) * v2_over_LambdaNP2;
       
-      return NPdirect;
+      return NPdirect + dKappaga ;
 }
       
 double NPSMEFTd6::lambdaZNP() const
@@ -6958,7 +6971,7 @@ double NPSMEFTd6::lambdaZNP() const
       /*    Translate from LHCHXWG-INT-2015-001: Checked with own calculations  */
       NPdirect = - (3.0 / 2.0) * (sqrt( 4.0 * M_PI * aleMz ) / sW_tree) * CW * v2_over_LambdaNP2;
 
-      return NPdirect;
+      return NPdirect + lambZ ;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -7287,7 +7300,24 @@ double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const d
     
 //    xsWWbin = xsWWbin * (cos2-cos1)/100;
     
-    return xsWWbin;
+//  Compute the BR into e nu, mu nu for one W and into jets for the other
+    double BRlv, BRjj;
+    
+    BRlv = GammaW(leptons[NEUTRINO_1], leptons[ELECTRON]) + 
+            GammaW(leptons[NEUTRINO_2], leptons[MU]) + 
+            GammaW(leptons[NEUTRINO_3], leptons[TAU]);
+    
+    BRjj = GammaW() - BRlv;
+    
+    BRlv = BRlv - GammaW(leptons[NEUTRINO_3], leptons[TAU]);
+    
+    BRlv =BRlv / GammaW();
+    
+    BRjj =BRjj / GammaW();
+    
+    
+    
+    return xsWWbin * BRlv * BRjj;
 }
 
 double NPSMEFTd6::xseeWW(const double sqrt_s) const
