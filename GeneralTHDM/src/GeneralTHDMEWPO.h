@@ -10,6 +10,7 @@
 
 #include "ThObservable.h"
 #include "GeneralTHDM.h"
+#include "GeneralTHDMcache.h"
 
 /**
  * @class GeneralTHDMEWPO

@@ -494,14 +494,6 @@ public:
         return Q_GTHDM;
     }
     
-//    /**
-//     * 
-//     * @return @f$M^2@f$ of @cite Kanemura:2015ska
-//     */
-//    double getM2() const {
-//            return Rem12_2/sinb/cosb;
-//    }
-
     /**
      *
      * @return Flag to switch on the Aligned Two Higgs Doublet Model

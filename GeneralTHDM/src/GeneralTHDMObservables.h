@@ -14,5 +14,7 @@
 #include "GeneralTHDMquantities.h"
 #include "GeneralTHDMstability.h"
 #include "GeneralTHDMunitarity.h"
+#include "GeneralTHDMHeavyHiggs.h"
+
 
 #endif	/* GENERALTHDMOBSERVABLES_H */

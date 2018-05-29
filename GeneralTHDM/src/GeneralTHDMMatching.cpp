@@ -9,6 +9,7 @@
 #include "GeneralTHDM.h"
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_sf_dilog.h>
+#include "GeneralTHDMcache.h"
 
 GeneralTHDMMatching::GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i) :
 
@@ -18,7 +19,8 @@ GeneralTHDMMatching::GeneralTHDMMatching(const GeneralTHDM & GeneralTHDM_i) :
     mcdbs2(5, NDR, NLO),
     mcbtaunu(3, NDR, LO),
     mcbsg(8, NDR, NNLO),
-    mcgminus2mu(2, NDR, NLO)
+    mcgminus2mu(2, NDR, NLO),
+    mcbsmm(8, NDR, NNLO, NLO_QED22)
 
 {}
 
@@ -32,24 +34,1750 @@ double GeneralTHDMMatching::gminus2muLO() {
 
     updateGTHDMParameters();
     double gminus2muLO;
-    gminus2muLO=0.0;
-    return(gminus2muLO);
+    
+     //add something to note that this is only valid in the aligned case and in the CP-conserving limit
+    
+    
+    
+    double pi=M_PI;
+    double GF=myGTHDM.getGF();
+    double mMU=myGTHDM.getLeptons(StandardModel::MU).getMass();
+    
+    double mHp2=myGTHDM.getmHp2();
+    double mHl=myGTHDM.getMHl();
+    //double mH1_2=mHl*mHl;
+    
+
+    gslpp::complex sl = myGTHDM.getNl_11();
+ 
+    
+    /*Mass of the physical scalars. THIS HAS TO BE CHANGED*/
+   
+    
+        
+    double mH2_2 = 500.;
+    double mH3_2 = 670.;
+    
+  double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
+   //double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2_2;
+   //double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3_2;
+
+
+
+   
+    /*eta is the deviation from the SM limit*/
+    double alpha1 = myGTHDM.getalpha1();
+    double beta = atan(myGTHDM.gettanb());
+    double eta = M_PI/2.0-(beta-alpha1);
+    
+    
+    
+ //in the CP-conserving limit su, sd, sl are real. have to fit it
+    
+ 
+    double yl_h = 1.0 + eta*sl.real();
+    
+ 
+    double yl_H = -sl.real() + eta;
+    
+   
+    double yl_A = - sl.real();
+    
+    double rmu_hSM, rmu_h, rmu_H, rmu_A, rmu_Hp;
+    double part_hSM, part_h, part_H, part_A, part_Hp;
+    
+    if( mH1_2<1.0 || mH2_2<1.0 || mH3_2<1.0 || mHp2<1.0)
+    {
+        throw std::runtime_error("The implemented approximation for g-2_\\mu only works for Higgs masses above 1 GeV.");
+    }
+    
+    rmu_hSM=mMU*mMU/15647.5081;
+    rmu_h=mMU*mMU/mH1_2;
+    rmu_H=mMU*mMU/mH2_2;
+    rmu_A=mMU*mMU/mH3_2;
+    rmu_Hp=mMU*mMU/mHp2;
+    
+    part_hSM=rmu_hSM*(-7.0/6.0-log(rmu_hSM));
+    part_h=yl_h*yl_h*rmu_h*(-7.0/6.0-log(rmu_h));
+    part_H=yl_H*yl_H*rmu_H*(-7.0/6.0-log(rmu_H));
+    part_A=yl_A*yl_A*rmu_A*(11.0/6.0+log(rmu_A));
+    part_Hp=-yl_A*yl_A*rmu_Hp*1.0/6.0;
+    
+   
+   gminus2muLO=GF*mMU*mMU/(4.0*pi*pi*sqrt(2.0)) * (-part_hSM+part_h+part_H+part_A+part_Hp);
+
+       return(gminus2muLO);
 }
+
+struct __f_params{
+  double a;
+};
+
+double __fS2_integrand(double x, void* p){
+  __f_params &params= *reinterpret_cast<__f_params *>(p);
+  double integ = (2.0*x*(1.0-x)-1.0) * log(x*(1.0-x)/params.a) / (x*(1.0-x)-params.a);
+  return integ;
+}
+
+double __fPS2_integrand(double x, void* p){
+  __f_params &params= *reinterpret_cast<__f_params *>(p);
+  double integ = log(x*(1.0-x)/params.a) / (x*(1.0-x)-params.a);
+  return integ;
+}
+
+
+double gscalar2(double r)
+{
+    __f_params params;
+    params.a=r;
+
+    double result;
+    gsl_integration_glfixed_table * w
+        = gsl_integration_glfixed_table_alloc(100);
+    gsl_function F;
+
+    F.function = &__fS2_integrand;
+    F.params = reinterpret_cast<void *>(&params);
+
+    result = gsl_integration_glfixed (&F, 0, 1, w);
+
+    gsl_integration_glfixed_table_free (w);
+    
+  return result;
+}
+
+double gpseudoscalar2(double r)
+{
+    __f_params params;
+    params.a=r;
+
+    double result;
+    gsl_integration_glfixed_table * w
+        = gsl_integration_glfixed_table_alloc(100);
+    gsl_function F;
+
+    F.function = &__fPS2_integrand;
+    F.params = reinterpret_cast<void *>(&params);
+
+    result = gsl_integration_glfixed (&F, 0, 1, w);
+
+    gsl_integration_glfixed_table_free (w);
+
+  return result;
+}
+
+
+
+gslpp::complex GeneralTHDMMatching::negsquareroot(double x){
+    gslpp::complex result;
+    if (x > 0)
+    {
+        result = sqrt(x);
+    }
+    else{
+        result = gslpp::complex::i()*sqrt(-x);
+    }
+    return result;
+}
+
+    gslpp::complex GeneralTHDMMatching::negpow(double basis, double exp){
+    gslpp::complex result;
+    if (basis > 0)
+    {
+        result = pow(basis, exp);
+    }
+    else{
+        result = pow(-basis, exp)*(cos(M_PI*exp) + gslpp::complex::i()*sin(M_PI*exp));
+    }
+    return result;
+}
+    
+        gslpp::complex GeneralTHDMMatching::neglog(gslpp::complex argument){
+            
+    gslpp::complex result;
+    
+      result = log(argument.abs()) + gslpp::complex::i()*argument.arg();
+   
+    
+    return result;
+}
+
+    
+    gslpp::complex GeneralTHDMMatching::TF(double m1, double m2, double m3){
+            
+        double pi=M_PI;
+        
+        double ml, mm, mh;
+        if(m1<=m3 && m3<=m2)
+    {
+        //1<3<2 swap 2 and 3
+        ml  = m1;
+        mm = m3;
+        mh  = m2;
+    }
+    else if(m3<=m2 && m2<=m1)
+    {
+        //3<2<1 swap 1 and 3
+        ml  = m3;
+        mm = m2;
+        mh  = m1;
+    }
+    else if(m2<=m1 && m1<=m3)
+    {
+        //2<1<3 swap 1 and 2
+        ml  = m2;
+        mm = m1;
+        mh  = m3;
+    }
+    else if(m2<=m3 && m3<=m1)
+    {
+        //2<3<1: 3->2, 1->3, 2->1
+        ml  = m2;
+        mm = m3;
+        mh  = m1;
+    }
+    else if(m3<=m1 && m1<=m2)
+    {
+        //3<1<2 3->1, 1->2, 2->3
+        ml  = m3;
+        mm = m1;
+        mh  = m2;
+    }
+    
+    else if(m1<=m2 && m2<=m3)
+    {
+        //1<2<3 ok
+        ml  = m1;
+        mm = m2;
+        mh  = m3;
+    }
+        
+        
+        gslpp::complex lambda = negsquareroot(ml*ml*ml*ml + mm*mm*mm*mm + mh*mh*mh*mh 
+         - 2.0*ml*ml*mm*mm - 2.0*mm*mm*mh*mh - 2.0*mh*mh*ml*ml);
+        gslpp::complex ap = 1.0/(2.0*mh*mh)*( mh*mh + ml*ml - mm*mm - lambda);
+        gslpp::complex am = 1.0/(2.0*mh*mh)*( mh*mh - ml*ml + mm*mm - lambda);
+            
+         gslpp::complex result = (lambda/2.0)*(2.0*neglog(ap)*neglog(am) 
+         - neglog(ml*ml/(mh*mh))*neglog(mm*mm/(mh*mh)) - 2.0*PolyLog.Li2(ap) 
+         - 2.0*PolyLog.Li2(am) + pi*pi/3.0);
+         
+        return result;
+        }
+
+
+
+double GeneralTHDMMatching::gminus2muNLOF() {
+
+    updateGTHDMParameters();
+    double  aFNphoton, aFNZ;
+    gslpp::complex aFC, gminus2muNLOF; 
+    
+    
+     //add something to note that this is only valid in the aligned case and in the CP-conserving limit
+    
+    double pi=M_PI;
+    double GF=myGTHDM.getGF();
+    double aem=myGTHDM.getAle();
+    double mMU=myGTHDM.getLeptons(StandardModel::MU).getMass();
+    double mTAU=myGTHDM.getLeptons(StandardModel::TAU).getMass();
+    double mt=myGTHDM.getQuarks(QCD::TOP).getMass();
+    double mb=myGTHDM.getQuarks(QCD::BOTTOM).getMass();
+    double MZ = myGTHDM.getMz();
+    double MW = myGTHDM.Mw();
+    double MW2 = MW*MW;
+    double cW2 = myGTHDM.cW2();
+    
+    double sW2 = myGTHDM.sW2();
+
+    double SW4 = sW2*sW2;
+    
+    double mHp2=myGTHDM.getmHp2();
+    double mHl=myGTHDM.getMHl();
+    double mH1_2=mHl*mHl;
+    
+    gslpp::complex su = myGTHDM.getNu_11();
+    gslpp::complex sd = myGTHDM.getNd_11();
+    gslpp::complex sl = myGTHDM.getNl_11();
+
+ 
+    
+    /*Mass of the physical scalars*/
+   
+        
+    double mH2_2 = 500.;
+    double mH3_2 = 670.;
+    
+ // double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1_2;
+   //double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2_2;
+   //double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3_2;
+
+
+    
+    //This has to be solved to consider the CP-conserving limtit
+   
+    /*eta is the deviation from the SM limit*/
+    double alpha1 = myGTHDM.getalpha1();
+    double beta = atan(myGTHDM.gettanb());
+    double eta = M_PI/2.0-(beta-alpha1);
+    
+    
+    double mt2 = mt*mt;
+    double mb2 = mb*mb;
+    double mTAU2 = mTAU*mTAU;
+    
+ //in the CP-conserving limit su, sd, sl are real. have to fit it
+    
+    double yt_h = 1.0 + eta*su.real();
+    double yb_h = 1.0 + eta*sd.real();
+    double ytau_h = 1.0 + eta*sl.real();
+    
+    double yt_H = -su.real() + eta;
+    double yb_H = -sd.real() + eta;
+    double ytau_H = -sl.real() + eta;
+    
+    double yt_A = su.real();
+    double yb_A = - sd.real();
+    double ytau_A = - sl.real();
+    
+    double rtau_hSM, rtau_h, rtau_H, rtau_A, rt_hSM, rt_h, rt_H, rt_A, rb_hSM, rb_h, rb_H, rb_A;
+    double stau_hSM, stau_h, stau_H, stau_A, st_hSM, st_h, st_H, st_A, sb_hSM, sb_h, sb_H, sb_A;
+
+    double part_hSM_photon, part_h_photon, part_H_photon, part_A_photon;
+    double part_hSM_Z, part_h_Z, part_H_Z, part_A_Z;
+
+    
+    if( mH1_2<1.0 || mH2_2<1.0 || mH3_2<1.0 || mHp2<1.0)
+    {
+        throw std::runtime_error("The implemented approximation for g-2_\\mu only works for Higgs masses above 1 GeV.");
+    }
+    
+
+    
+    rtau_hSM=mTAU*mTAU/mH1_2;
+    rtau_h=mTAU*mTAU/mH1_2;
+    rtau_H=mTAU*mTAU/mH2_2;
+    rtau_A=mTAU*mTAU/mH3_2;
+    rt_hSM=mt*mt/mH1_2;
+    rt_h=mt*mt/mH1_2;
+    rt_H=mt*mt/mH2_2;
+    rt_A=mt*mt/mH3_2;
+    rb_hSM=mb*mb/mH1_2;
+    rb_h=mb*mb/mH1_2;
+    rb_H=mb*mb/mH2_2;
+    rb_A=mb*mb/mH3_2;
+    
+    stau_hSM=mTAU*mTAU/(mH1_2 - MZ*MZ);
+    stau_h=mTAU*mTAU/(mH1_2-MZ*MZ);
+    stau_H=mTAU*mTAU/(mH2_2-MZ*MZ);
+    stau_A=mTAU*mTAU/(mH3_2-MZ*MZ);
+    st_hSM=mt*mt/(15647.5081-MZ*MZ);
+    st_h=mt*mt/(mH1_2-MZ*MZ);
+    st_H=mt*mt/(mH2_2-MZ*MZ);
+    st_A=mt*mt/(mH3_2-MZ*MZ);
+    sb_hSM=mb*mb/(mH1_2 -MZ*MZ);
+    sb_h=mb*mb/(mH1_2-MZ*MZ);
+    sb_H=mb*mb/(mH2_2-MZ*MZ);
+    sb_A=mb*mb/(mH3_2-MZ*MZ);
+    
+    part_hSM_photon=rtau_hSM*gscalar2(rtau_hSM)+(4.0/3.0)*rt_hSM*gscalar2(rt_hSM)+(1.0/3.0)*rb_hSM*gscalar2(rb_hSM);
+    part_h_photon=ytau_h*(ytau_h*rtau_h*gscalar2(rtau_h)+(4.0/3.0)*yt_h*rt_h*gscalar2(rt_h)+(1.0/3.0)*yb_h*rb_h*gscalar2(rb_h));
+    part_H_photon=ytau_H*(ytau_H*rtau_H*gscalar2(rtau_H)+(4.0/3.0)*yt_H*rt_H*gscalar2(rt_H)+(1.0/3.0)*yb_H*rb_H*gscalar2(rb_H));
+    part_A_photon=ytau_A*(ytau_A*rtau_A*gpseudoscalar2(rtau_A)+(4.0/3.0)*yt_A*rt_A*gpseudoscalar2(rt_A)+(1.0/3.0)*yb_A*rb_A*gpseudoscalar2(rb_A));
+
+    part_hSM_Z = stau_hSM*(3.0/4.0 - cW2)*(3.0/4.0 - cW2)*(gscalar2(rtau_hSM)-gscalar2(mTAU*mTAU/(MZ*MZ)))/(cW2*(1-cW2)) + (-2.0)*st_hSM*(3.0/4.0 - cW2)*(-5.0/12.0 + 2.0/3.0*cW2)*(gscalar2(rt_hSM)-gscalar2(mt*mt/(MZ*MZ)))/(cW2*(1-cW2))+ (1.0)*sb_hSM*(3.0/4.0 - cW2)*(1.0/12.0 + 1.0/3.0*cW2)*(gscalar2(rb_hSM)-gscalar2(mb*mb/(MZ*MZ)))/(cW2*(1-cW2));
+    part_h_Z = ytau_h*(ytau_h*stau_h*(3.0/4.0 - cW2)*(3.0/4.0 - cW2)*(gscalar2(rtau_h)-gscalar2(mTAU*mTAU/(MZ*MZ)))/(cW2*(1-cW2)) + (-2.0)*yt_h*st_h*(3.0/4.0 - cW2)*(-5.0/12.0 + 2.0/3.0*cW2)*(gscalar2(rt_h)-gscalar2(mt*mt/(MZ*MZ)))/(cW2*(1-cW2))+ (1.0)*yb_h*sb_h*(3.0/4.0 - cW2)*(1.0/12.0 + 1.0/3.0*cW2)*(gscalar2(rb_h)-gscalar2(mb*mb/(MZ*MZ)))/(cW2*(1-cW2)));
+    part_H_Z = ytau_H*(ytau_H*stau_h*(3.0/4.0 - cW2)*(3.0/4.0 - cW2)*(gscalar2(rtau_H)-gscalar2(mTAU*mTAU/(MZ*MZ)))/(cW2*(1-cW2)) + (-2.0)*yt_H*st_H*(3.0/4.0 - cW2)*(-5.0/12.0 + 2.0/3.0*cW2)*(gscalar2(rt_H)-gscalar2(mt*mt/(MZ*MZ)))/(cW2*(1-cW2))+ (1.0)*yb_H*sb_H*(3.0/4.0 - cW2)*(1.0/12.0 + 1.0/3.0*cW2)*(gscalar2(rb_H)-gscalar2(mb*mb/(MZ*MZ)))/(cW2*(1-cW2)));
+    part_A_Z = ytau_A*(ytau_A*stau_A*(3.0/4.0 - cW2)*(3.0/4.0 - cW2)*(gpseudoscalar2(rtau_A)-gpseudoscalar2(mTAU*mTAU/(MZ*MZ)))/(cW2*(1-cW2)) + (-2.0)*yt_A*st_A*(3.0/4.0 - cW2)*(-5.0/12.0 + 2.0/3.0*cW2)*(gpseudoscalar2(rt_A)-gpseudoscalar2(mt*mt/(MZ*MZ)))/(cW2*(1-cW2))+ (1.0)*yb_h*sb_A*(3.0/4.0 - cW2)*(1.0/12.0 + 1.0/3.0*cW2)*(gpseudoscalar2(rb_hSM)-gpseudoscalar2(mb*mb/(MZ*MZ)))/(cW2*(1-cW2)));
+
+    
+    aFNphoton = GF*mMU*mMU/(4.0*pi*pi*pi*sqrt(2.0)) * aem * (-part_hSM_photon+part_h_photon+part_H_photon+part_A_photon);
+    aFNZ = GF*mMU*mMU/(4.0*pi*pi*pi*sqrt(2.0)) * aem * (-part_hSM_Z+part_h_Z+part_H_Z+part_A_Z);
+    
+   
+  aFC = sl*((aem*aem*mTAU*mTAU*mMU*mMU*
+      sl*(mTAU*mTAU/mHp2 - 
+        mTAU*mTAU/MW2 + (-1.0/2.0 + mTAU*mTAU/mHp2)*
+         log (mTAU*mTAU/mHp2) - (-1.0/2.0 + mTAU*mTAU/MW2)*
+         log (mTAU*mTAU/MW2) + (mTAU*
+           mTAU*(-1.0 + mTAU*mTAU/mHp2)*(-pi*pi/6.0 + 
+             PolyLog.Li2 (1.0 - mHp2/mTAU2)))/
+         mHp2 - (mTAU*
+           mTAU*(-1.0 + mTAU*mTAU/MW2)*(-pi*pi/6.0 + 
+             PolyLog.Li2 (1.0 - MW2/mTAU2)))/MW2))/(32.0*
+      MW2*(mHp2 - MW2)*pi*pi*SW4)- (3.0*aem*aem*mMU*mMU*mt2*
+      su*(mb2/mHp2 - mt2/mHp2 - mb2/MW2 + 
+        mt2/MW2 + (13.0/12.0 + mb2/mHp2)*
+         log (mb2/mHp2) + (13.0/12.0 - mt2/mHp2)*log (mt2/mHp2) + 
+              (-log (mb2/mHp2)*log (mb2/mHp2) +  log (mt2/mHp2)*log (mt2/mHp2))/
+         3.0 - (13.0/12.0 + mb2/MW2)*
+         log (mb2/MW2) - (13.0/12.0 - mt2/MW2)*
+         log (mt2/MW2) + (log (mb2/MW2)*log (mb2/MW2) - 
+           log (mt2/MW2)*log (mt2/MW2))/
+         3.0 - (4.0*(-1.0 - mb2/mHp2 + mt2/mHp2)*
+           TF (sqrt (mb2/mHp2), sqrt (mt2/mHp2), 
+            1.0))/(3.0*(1.0 + (-(mb2/mHp2) + mt2/mHp2)*(-(mb2/mHp2) + 
+                mt2/mHp2) - 
+             2.0*(mb2/mHp2 + 
+                mt2/mHp2))) + ((-((mb2*(5.0/3.0 + mb2/mHp2))/
+                mHp2) + (mt2*(-8.0/3.0 + mt2/mHp2))/mHp2)*
+           TF (sqrt (mb2/mHp2), sqrt (mt2/mHp2), 
+            1.0))/(1.0 + (-(mb2/mHp2) + mt2/mHp2)*(-(mb2/mHp2) + 
+              mt2/mHp2) - 
+           2.0*(mb2/mHp2 + mt2/mHp2))+ ((5.0*mb2)/(3.0*mHp2) - (8.0*
+              mt2)/(3.0*mHp2) + (-(mb2/mHp2) + 
+              mt2/mHp2)*(-(mb2/mHp2) + 
+              mt2/mHp2))*(-(log (mb2/mt2)*log (mt2/mHp2))/2.0 + 
+           PolyLog.Li2 (1.0 - mb2/mt2) - ((-(mb2/mHp2) + mt2/mHp2)*
+              TF (sqrt (mb2/mHp2), sqrt (mt2/mHp2), 
+               1.0))/(1.0 + (-(mb2/mHp2) + mt2/mHp2)*(-(mb2/mHp2) + 
+                 mt2/mHp2) - 
+              2.0*(mb2/mHp2 + mt2/mHp2))) + (4.0*(-1.0 - mb2/MW2 + 
+             mt2/MW2)*
+           TF (sqrt (mb2/MW2), sqrt (mt2/MW2), 
+            1.0))/(3.0*(1.0 + (-(mb2/MW2) + mt2/MW2)*(-(mb2/MW2) + 
+                mt2/MW2) - 
+             2.0*(mb2/MW2 + 
+                mt2/MW2))) - ((-((mb2*(5.0/3.0 + mb2/MW2))/
+                MW2) + (mt2*(-8.0/3.0 + mt2/MW2))/MW2)*
+           TF (sqrt (mb2/MW2), sqrt (mt2/MW2), 
+            1.0))/(1.0 + (-(mb2/MW2) + mt2/MW2)*(-(mb2/MW2) + 
+              mt2/MW2) - 
+           2.0*(mb2/MW2 + mt2/MW2))- ((-(mb2/MW2) + 
+              mt2/MW2)*(-(mb2/MW2) + mt2/MW2) + (5.0*mb2)/(3.0*
+              MW2) - (8.0*mt2)/(3.0*
+              MW2))*(-(log (mb2/mt2)*log (mt2/MW2))/2.0 + 
+           PolyLog.Li2 (1.0 - mb2/mt2) - ((-(mb2/MW2) + mt2/MW2)*
+              TF (sqrt (mb2/MW2), sqrt (mt2/MW2), 
+               1.0))/(1.0 + (-(mb2/MW2) + mt2/MW2)*(-(mb2/MW2) + 
+                 mt2/MW2) - 2.0*(mb2/MW2 + mt2/MW2)))))/(32.0*
+      MW2*(mHp2 - MW2)*pi*pi*SW4) + (3.0*aem*aem*mb2*mMU*mMU*
+      sd*(mb2/mHp2 - mt2/mHp2 - mb2/MW2 + 
+        mt2/MW2 + (1.0/12.0 + mb2/mHp2)*
+         log (mb2/mHp2) + (1.0/12.0 - mt2/mHp2)*log (mt2/mHp2) - (1.0/12.0 + mb2/MW2)*
+         log (mb2/MW2) - (1.0/12.0 - mt2/MW2)*
+         log (mt2/
+           MW2) + ((-((mb2*(-1.0/3.0 + mb2/mHp2))/
+                mHp2) + (mt2*(-2.0/3.0 + mt2/mHp2))/mHp2)*
+           TF (sqrt (mb2/mHp2), sqrt (mt2/mHp2), 
+            1.0))/(1.0 + (-(mb2/mHp2) + mt2/mHp2)*(-(mb2/mHp2) + 
+              mt2/mHp2) - 
+           2.0*(mb2/mHp2 + mt2/mHp2)) + (-mb2/(3.0*mHp2) - (2.0*
+              mt2)/(3.0*mHp2) + (-(mb2/mHp2) + 
+              mt2/mHp2)*(-(mb2/mHp2) + 
+              
+              mt2/mHp2))*(-(log (mb2/mt2)*log (mt2/mHp2))/2.0 + 
+           PolyLog.Li2 (1.0 - mb2/mt2) - ((-(mb2/mHp2) + mt2/mHp2)*
+              TF (sqrt (mb2/mHp2), sqrt (mt2/mHp2), 
+               1.0))/(1.0 + (-(mb2/mHp2) + mt2/mHp2)*(-(mb2/mHp2) + 
+                 mt2/mHp2) - 
+              2.0*(mb2/mHp2 + 
+                 mt2/mHp2))) - ((-((mb2*(-1.0/3.0 + mb2/MW2))/
+                MW2) + (mt2*(-2.0/3.0 + mt2/MW2))/MW2)*
+           TF (sqrt (mb2/MW2), sqrt (mt2/MW2), 
+            1.0))/(1.0 + (-(mb2/MW2) + mt2/MW2)*(-(mb2/MW2) + 
+              mt2/MW2) - 
+           2.0*(mb2/MW2 + mt2/MW2)) - ((-(mb2/MW2) + 
+              mt2/MW2)*(-(mb2/MW2) + mt2/MW2) - 
+           mb2/(3.0*MW2) - (2.0*mt2)/(3.0*
+              MW2))*(-(log (mb2/mt2)*log (mt2/MW2))/2.0 + 
+           PolyLog.Li2 (1.0 - mb2/mt2) - ((-(mb2/MW2) + mt2/MW2)*
+              TF (sqrt (mb2/MW2), sqrt (mt2/MW2), 
+               1.0))/(1.0 + (-(mb2/MW2) + mt2/MW2)*(-(mb2/MW2) + 
+                 mt2/MW2) - 2.0*(mb2/MW2 + mt2/MW2)))))/(32.0*
+      MW2*(mHp2 - MW2)*pi*pi*SW4)) ;
+   
+   gminus2muNLOF = aFNphoton + aFNZ +aFC;
+       
+   // std::cout << "aFNphoton " << aFNphoton << std::endl;
+    //std::cout << "aFNZ " << aFNZ << std::endl;
+    //std::cout << "aFC " << aFC << std::endl;
+
+
+   
+    return(gminus2muNLOF.real());
+}
+
+
+
+
+double GeneralTHDMMatching::gminus2muNLOB() {
+
+     updateGTHDMParameters();
+    gslpp::complex aEWadd, aNonYuk, aYuk, gminus2muNLOB;
+    
+    double pi=M_PI;
+    double aem=myGTHDM.getAle();
+    double mMU=myGTHDM.getLeptons(StandardModel::MU).getMass();
+    double MZ = myGTHDM.getMz();
+    double CW2 = myGTHDM.cW2();
+    
+    double MH=myGTHDM.getMHl();
+    double mHp2=myGTHDM.getmHp2();
+    double mHp=sqrt(mHp2);
+
+   
+    double vev = myGTHDM.v();
+    
+    double M2 = myGTHDM.getMyGTHDMCache()->M2;
+    double tanb = myGTHDM.gettanb();
+
+    
+    
+    
+  //if mH2_2 = mH3_2 = mHSM we have infinities, so until I fixed that, just to implement the formulas
+    
+    double mH2_2 = 500.;
+    double mH3_2 = 670.;
+    
+    double mH1_2 = myGTHDM.getMyGTHDMCache()->mH1sq;
+   //double mH2_2 = myGTHDM.getMyGTHDMCache()->mH2_2;
+   //double mH3_2 = myGTHDM.getMyGTHDMCache()->mH3_2;
+
+    
+    //Lambda5 defined as in 1607.06292, Eq. (14)
+    
+    
+    double Lambda5 = (2.0*M2)/(vev*vev);
+    
+   
+  
+    double sl = (myGTHDM.getNl_11()).real();
+    
+     //This has to be solved to consider the CP-conserving limtit
+   
+    /*eta is the deviation from the SM limit*/
+    double alpha1 = myGTHDM.getalpha1();
+    double beta = atan(myGTHDM.gettanb());
+    double eta = M_PI/2.0-(beta-alpha1);
+    
+    double CW = sqrt(CW2);
+    double CW4 = CW2*CW2;
+    double CW6 = CW4*CW2;
+    double CW8 = CW4*CW4;
+    double CW10 = CW8*CW2;
+    double CW12 = CW10*CW2;
+    double CW14 = CW10*CW4;
+    
+    double MZ2 = MZ*MZ;
+    double MZ4 = MZ2*MZ2;
+    double MZ6 = MZ4*MZ2;
+    double MZ8 = MZ4*MZ4;
+    double MZ10 = MZ8*MZ2;
+    double MZ12 = MZ8*MZ4;
+    double MZ14 = MZ10*MZ4;
+    double MZ16 = MZ8*MZ8;
+    
+    double MH2 = MH*MH;
+    double MH4 = MH2*MH2;
+    double MH6 = MH4*MH2;
+    double MH8 = MH4*MH4;
+    double MH10 = MH8*MH2;
+    double MH12 = MH10*MH2;
+    double MH14 = MH12*MH2;
+    double MH16 = MH10*MH4*MH2;
+    
+    double mH3 = sqrt(mH3_2);
+    double mH3_6 = mH3_2*mH3_2*mH3_2;
+    double mH3_8 = mH3_6*mH3_2;
+    double mH3_10 = mH3_8*mH3_2;
+    
+    double mHp4 = mHp2*mHp2;
+    double mHp3 = mHp2*sqrt(mHp2);
+    double mHp6 = mHp4*mHp2;
+    double mHp8  = mHp6*mHp2;
+    double mHp10  = mHp8*mHp2;
+    
+    
+    double mH2 = sqrt(mH2_2);
+    double mH2_4 = mH2_2*mH2_2;
+    double mH2_6 = mH2_4*mH2_2;
+    double mH2_8 = mH2_4*mH2_4;
+    double mH2_10 = mH2_8*mH2_2;
+    double mH2_12 = mH2_10*mH2_2;
+
+
+    
+    
+
+    
+ aEWadd = (eta*aem*aem*mMU*mMU*(-24.0*(1.0 - 4.0*CW2)*(1.0 - 4.0*CW2)*(1.0- 3.0*CW2 + 2.0*CW4)*MH16*
+         pi*pi - 24.0*(1.0- 4.0*CW2)*(1.0- 4.0*CW2)*(1.0- 3.0*CW2 + 2.0*CW4)*MH14*MZ2*
+         (-5.0 - 8.0*CW2 + negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi + 
+        256.0*CW4*MZ16*(5.0 - 12.0*CW2 + 8.0*CW4 + 
+          9.0*CW8*negsquareroot((MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)) - 
+          CW6*(-2.0 + 9.0*negsquareroot((MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4))))*
+         (pi - 4.0*CW2*pi)*(pi - 4.0*CW2*pi) - 24.0*(1.0 - 4.0*CW2)*(1.0 - 4.0*CW2)*(1.0 - 3.0*CW2 + 2*CW4)*MH12*
+         MZ4*(6 + (4.0 + 16.0*CW4 - 3.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4) - 
+            8.0*CW2*(-5.0 + negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4)))*pi*pi) - 
+        MH10*MZ6*(-24.0 + 68.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4)*pi*pi + 
+          12288.0*CW12*(-5.0 + negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi + 
+          16.0*CW8*(4512.0 + (-1968.0 + 15.0*negsquareroot(1.0 - 4.0*CW2) - 1168.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) - 
+          6144.0*CW10*(6.0 + (-16.0 + negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) - 
+          4.0*CW6*(10668.0 + (2784.0 + 75.0*negsquareroot(1.0 - 4.0*CW2) - 3968.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) - 128.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) + 
+          2.0*CW4*(4860.0 + (3264.0 + 57.0*negsquareroot(1.0 - 4.0*CW2)- 1600.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) - 128.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) - 
+          CW2*(651.0 + 2.0*(384.0 + 9.0*negsquareroot(1.0 - 4.0*CW2) + 80.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) - 16.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi)) - 
+        2*MH4*MH2*MZ10*(-128.0*CW12*(1824 + (57.0*negsquareroot(1.0 - 4.0*CW2) - 
+              128.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) + 
+          10.0*(24.0 + (1.0 - 2*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) + 
+          8.0*CW2*(-12.0 + (-43.0+ 16.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) + 
+          2*CW6*(36516.0 + (-4664.0 + 2460.0*negsquareroot(1.0 - 4.0*CW2) - 3904.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) - 123.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) - 
+          CW4*(13836 + (-2852 + 504*negsquareroot(1.0 - 4.0*CW2) - 640.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) - 45.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) - 
+          32.0*CW8*(6792.0 + (-406.0 + 519.0*negsquareroot(1.0 - 4.0*CW2) - 800.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) + 6.0*negsquareroot((MH2*(MH2 - 
+                   4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) + 
+          32.0*CW10*(13236 + (-232.0 + 627.0*negsquareroot(1.0 - 4.0*CW2) - 1088.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) + 57.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi)) + 
+        MH8*MZ8*(-20.0*(-30.0 + (3.0 + negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) + 
+          12288.0*CW12*(-6.0 + (-4.0 + 3.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*
+             pi*pi) - 128.0*CW10*(-624 + (-768.0 + 3.0*negsquareroot(1.0 - 4.0*CW2) + 
+              448.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) + 
+          2*CW4*(13056.0 + (-1884.0 + 561.0*negsquareroot(1.0 - 4.0*CW2) - 2736.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) - 29.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) - 
+          CW2*(6267.0 + 2.0*(-312.0 + 63.0*negsquareroot(1.0 - 4.0*CW2) - 376.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) - 16.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) + 
+          16.0*CW8*(3144.0 + (-4152.0 + 201.0*negsquareroot(1.0 - 4.0*CW2) + 944.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) + 198.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) - 
+          4.0*CW6*(14748.0 + (-5040.0 + 867.0*negsquareroot(1.0 - 4.0*CW2) - 2592.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) + 268.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi)) - 
+        4.0*(negsquareroot(CW2) - 4.0*CW2*negsquareroot(CW2))*(negsquareroot(CW2) - 4.0*CW2*negsquareroot(CW2))*MH2*MZ14*(160.0*pi*pi + 
+          64.0*CW4*(-72.0+ (1.0 + 6.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) - 
+          16.0*CW2*(-120.0 + (19.0 + 10.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) + 
+          128.0*CW8*(-108.0 + (1.0 + 6.0*negsquareroot((MH2*(MH2 - 4.0*CW2*MZ2))/
+                 (CW4*MZ4)))*pi*pi) - CW6*(-17664.0 + 
+            (-96.0 + 256.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4) + 
+              907.0*negsquareroot((MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi)) - 
+        4.0*MH4*MZ12*(-20.0*pi*pi + 9216.0*CW14*(24.0 + negsquareroot(1.0 - 4.0*CW2)*pi*pi) + 
+          8.0*CW2*(-120 + (21.0 + 10.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) - 
+          16.0*CW4*(-474.0 + (5.0 + 47.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4))*pi*pi) + 
+          3.0*CW6*(-6108.0 + (-968.0 + 168.0*negsquareroot(1.0 - 4.0*CW2) + 704.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) + 77.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) - 
+          16.0*CW12*(18432.0 + (-416.0 + 1404.0*negsquareroot(1.0 - 4.0*CW2) - 
+              128.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4) + 113.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) + 
+          8.0*CW10*(5784.0 + (-1616.0 + 2190.0*negsquareroot(1.0 - 4.0*CW2) - 
+              256.0*negsquareroot((MH2*(MH2 - 4.0*MZ2))/MZ4) + 575.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi) - 
+          CW8*(-16800.0 + (-10080.0 + 5064.0*negsquareroot(1.0 - 4.0*CW2) + 1152.0*negsquareroot(
+                (MH2*(MH2 - 4.0*MZ2))/MZ4) + 1961.0*negsquareroot(
+                (MH2*(MH2 - 4.0*CW2*MZ2))/(CW4*MZ4)))*pi*pi)))*sl)/
+      (4608.0*CW4*(1.0 - 4.0*CW2)*(1.0 - 4.0*CW2)*(-1.0 + CW2)*(-1.0 + CW2)*MH4*MZ8*(MH2 - MZ2)*
+       (MH2 - 4.0*CW2*MZ2)*(MH2 - 4.0*CW2*MZ2)*pi*pi) + 
+     (eta*aem*aem*mMU*mMU*((71.0 - 278.0*CW2 + 120.0*CW4)*MH4 + 
+        6.0*CW2*(9.0 - 88.0*CW2 + 112.0*CW4)*MH2*MZ2 - 
+        128.0*CW4*(10.0 - 49.0*CW2 + 36.0*CW4)*MZ4)*sl*log(CW2))/
+      (768.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + 4.0*CW2)*MH2*MZ2*(-MH2 + 4.0*CW2*MZ2)*
+       pi*pi) - (eta*aem*aem*(-3.0 + 4.0*CW2)*mMU*mMU*((1.0 - 5.0*CW2 + 10.0*CW4)*MH2 + 
+        (-7.0 + 61.0*CW2 - 162.0*CW4 + 96.0*CW6)*MZ2)*sl*log(CW2)*log(CW2))/
+      (256.0*CW2*negpow((1.0 - 4.0*CW2), 3.0/2.0)*(-1.0 + CW2)*(-1.0 + CW2)*MZ2*(-MH2 + MZ2)*pi*pi) + 
+     (eta*aem*aem*(-3.0 + 4.0*CW2)*mMU*mMU*((1.0 - 5.0*CW2 + 10.0*CW4)*MH2 + 
+        (-7.0 + 61.0*CW2 - 162.0*CW4 + 96.0*CW6)*MZ2)*sl*log((1.0 - negsquareroot(1.0 - 4.0*CW2))/2.0)*log((1.0 - negsquareroot(1.0 - 4.0*CW2))/2.0))/(128.0*CW2*negpow((1.0 - 4.0*CW2),3.0/2.0)*(-1.0 + CW2)*(-1.0 + CW2)*MZ2*(-MH2 + MZ2)*pi*pi)
+    -  (eta*aem*aem*mMU*mMU*negsquareroot((MH4 - 4.0*MH2*MZ2)/MZ4)*
+       (6.0*(1.0 - 3.0*CW2 + 2.0*CW4)*MH4*MH2 - 12.0*(1.0 - 3.0*CW2 + 2.0*CW4)*MH4*MZ2 + 
+        (5.0 - 12.0*CW2 + 8.0*CW4)*MH2*MZ4 + 2.0*(5.0 - 12.0*CW2 + 8.0*CW4)*MZ6)*
+       sl*log((2.0 - negsquareroot(MH4/MZ4 - (4.0*MH2)/MZ2) - MH2/MZ2)/2.0)*
+      log((-negsquareroot(MH4/MZ4 - (4.0*MH2)/MZ2) + MH2/MZ2)/2.0))/
+      (192.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*MZ6*pi*pi) + 
+     (eta*aem*aem*mMU*mMU*negsquareroot((MH4 - 4.0*CW2*MH2*MZ2)/(CW4*MZ4))*
+       (-16.0*MH10 + (16.0 + 99.0*CW2)*MH8*MZ2 - 3.0*CW2*(15.0 + 38.0*CW2)*MH4*MH2*
+         MZ4 + 2.0*CW4*(-231.0 + 113.0*CW2)*MH4*MZ6 - 2.0*CW6*(-907.0 + 768.0*CW2)*
+         MH2*MZ8 + 1152.0*CW8*(-1.0 + CW2)*MZ10)*sl*
+       log((2.0 - negsquareroot(MH4/(CW4*MZ4) - (4.0*MH2)/(CW2*MZ2)) - 
+          MH2/(CW2*MZ2))/2.0)*
+       log((-negsquareroot(MH4/(CW4*MZ4) - (4.0*MH2)/(CW2*MZ2)) + 
+          MH2/(CW2*MZ2))/2.0))/(384.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*MH4*MZ2*
+       (MH2 - MZ2)*(MH2 - 4.0*CW2*MZ2)*(MH2 - 4.0*CW2*MZ2)*pi*pi) + 
+     (eta*aem*aem*mMU*mMU*(-48.0*(1.0 - 3.0*CW2 + 2*CW4)*MH8 + 
+        (10.0 + 73.0*CW2 - 512.0*CW4 + 384.0*CW6)*MH4*MH2*MZ2 + 
+        (-60.0 + 151.0*CW2 + 258.0*CW4 - 256.0*CW6)*MH4*MZ4 + 
+        2*(40 + 24.0*CW2 - 149.0*CW4 + 256.0*CW6)*MH2*MZ6 + 
+        64*CW2*(-5.0 + 12.0*CW2 - 28.0*CW4 + 18.0*CW6)*MZ8)*sl*
+       log(MH2/MZ2))/(768.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*MZ4*(MH2 - MZ2)*
+       (MH2 - 4.0*CW2*MZ2)*pi*pi) - (eta*aem*aem*(-1.0 + 2.0*CW2)*MH4*mMU*mMU*
+       (MH2 - 4.0*MZ2)*sl*log(MH2/MZ2)*log(MH2/MZ2))/(64*CW4*(-1.0 + CW2)*MZ8*
+       pi*pi) - (eta*aem*aem*(-3.0 + 4.0*CW2)*mMU*mMU*((1.0 - 5.0*CW2 + 10.0*CW4)*MH2 + 
+        (-7.0 + 61.0*CW2 - 162.0*CW4 + 96.0*CW6)*MZ2)*sl*
+       PolyLog.Li2( (1.0 - negsquareroot(1.0 - 4.0*CW2))/2))/(64.0*CW2*negpow((1.0 - 4.0*CW2), 3.0/2.0)*
+       (-1.0 + CW2)*
+       (-1.0 + CW2)*MZ2*(-MH2 + MZ2)*pi*pi) - 
+     (eta*aem*aem*mMU*mMU*(12.0*(1.0 - 3.0*CW2 + 2.0*CW4)*MH10 - 
+        48.0*(1.0 - 3.0*CW2 + 2*CW4)*MH8*MZ2 + (17.0 - 48.0*CW2 + 32.0*CW4)*MH4*MH2*
+         MZ4 - 3.0*(5.0 - 12.0*CW2 + 8.0*CW4)*MH2*MZ8 - 4.0*(5.0 - 12.0*CW2 + 8.0*CW4)*
+         MZ10)*sl*PolyLog.Li2(1.0 - MH2/MZ2))/(192.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH4*
+       MZ8*pi*pi) + (eta*aem*aem*mMU*mMU*negsquareroot((MH4 - 4.0*MH2*MZ2)/MZ4)*
+       (6.0*(1.0 - 3.0*CW2 + 2.0*CW4)*MH4*MH2 - 12.0*(1.0 - 3.0*CW2 + 2.0*CW4)*MH4*MZ2 + 
+        (5.0 - 12.0*CW2 + 8.0*CW4)*MH2*MZ4 + 2.0*(5.0 - 12.0*CW2 + 8.0*CW4)*MZ6)*
+       sl*PolyLog.Li2((2.0 - negsquareroot(MH4/MZ4 - (4.0*MH2)/MZ2) - MH2/MZ2)/2.0))/
+      (192.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*MZ6*pi*pi) + 
+     (eta*aem*aem*mMU*mMU*negsquareroot((MH4 - 4.0*MH2*MZ2)/MZ4)*
+       (6.0*(1.0 - 3.0*CW2 + 2*CW4)*MH4*MH2 - 12.0*(1.0 - 3.0*CW2 + 2.0*CW4)*MH4*MZ2 + 
+        (5.0 - 12.0*CW2 + 8.0*CW4)*MH2*MZ4 + 2.0*(5.0 - 12.0*CW2 + 8.0*CW4)*MZ6)*
+       sl*PolyLog.Li2( (-negsquareroot(MH4/MZ4 - (4.0*MH2)/MZ2) + MH2/MZ2)/2.0))/
+      (192.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*MZ6*pi*pi) + 
+     (eta*aem*aem*mMU*mMU*(-16.0*MH4*MH2 + 3.0*CW2*MH4*MZ2 + 12.0*CW4*MH2*MZ4 + 
+        16.0*CW6*MZ6)*sl*PolyLog.Li2( 1.0 - MH2/(CW2*MZ2)))/
+      (384.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH4*MZ4*pi*pi) + 
+     (eta*aem*aem*mMU*mMU*negsquareroot((MH4 - 4.0*CW2*MH2*MZ2)/(CW4*MZ4))*
+       (16.0*MH10 - (16.0 + 99.0*CW2)*MH8*MZ2 + 3.0*CW2*(15.0 + 38.0*CW2)*MH4*MH2*
+         MZ4 + 2*CW4*(231.0 - 113.0*CW2)*MH4*MZ6 + 2.0*CW6*(-907.0 + 768.0*CW2)*
+         MH2*MZ8 - 1152.0*CW8*(-1.0 + CW2)*MZ10)*sl*
+      PolyLog.Li2( (2.0 - negsquareroot(MH4/(CW4*MZ4) - (4.0*MH2)/(CW2*MZ2)) - 
+          MH2/(CW2*MZ2))/2.0))/(384.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*MH4*MZ2*
+       (MH2 - MZ2)*(MH2 - 4.0*CW2*MZ2)*(MH2 - 4.0*CW2*MZ2)*pi*pi) + 
+     (eta*aem*aem*mMU*mMU*negsquareroot((MH4 - 4.0*CW2*MH2*MZ2)/(CW4*MZ4))*
+       (16.0*MH10 - (16.0 + 99.0*CW2)*MH8*MZ2 + 3.0*CW2*(15.0 + 38.0*CW2)*MH4*MH2*
+         MZ4 + 2.0*CW4*(231.0 - 113.0*CW2)*MH4*MZ6 + 2.0*CW6*(-907.0 + 768.0*CW2)*
+         MH2*MZ8 - 1152.0*CW8*(-1.0+ CW2)*MZ10)*sl*
+       PolyLog.Li2( (-negsquareroot(MH4/(CW4*MZ4) - (4.0*MH2)/(CW2*MZ2)) + 
+          MH2/(CW2*MZ2))/2.0))/(384.0*CW2*(-1.0+ CW2)*(-1.0+ CW2)*MH4*MZ2*
+       (MH2 - MZ2)*(MH2 - 4.0*CW2*MZ2)*(MH2 - 4.0*CW2*MZ2)*pi*pi); 
+ 
+
+ 
+aNonYuk = (aem*aem*mMU*
+     mMU*(-15.0*(-25.0 + 32.0*CW2 + CW4 - 16.0*CW6 + 8.0*CW8)*mH3_2*
+        mH3_2*mHp2 - 
+       15.0*(-25.0 + 32.0*CW2 + CW4 - 16.0*CW6 + 8.0*CW8)*mH2_4*
+        mHp2 - 15.0*mH2_2*
+        mHp2*((50.0 - 64.0*CW2 + 8.0*CW4)*mHp2 + 
+          CW2*(13.0 - 43.0*CW2 + 50.0*CW4 - 20.0*CW6)*MZ2) + 
+       2.0*(15.0*(25.0 - 32.0*CW2 + 4.0*CW4)*mHp6 + 
+          30.0*CW2*(-17.0 + 41.0*CW2 - 80.0*CW4 + 184.0*CW6 - 
+             192.0*CW8 + 64.0*CW10)*mHp4*MZ2 - 
+          80.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 - 8.0*CW2 + 
+             8.0*CW4)*mHp2*MZ4 + 
+          24.0*CW6*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*MZ6) + 
+       15.0*mH3_2*
+        mHp2*(-50.0*mHp2 + CW2*(64.0*mHp2 - 13.0*MZ2) + 
+          4.0*CW8*(4.0*mH2_2 + 5.0*MZ2) - 
+          2.0*CW6*(16.0*mH2_2 + 25.0*MZ2) + 
+          CW4*(10.0*mH2_2 - 8.0*mHp2 + 43.0*MZ2))))/(17280.0*
+     CW6*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*mHp2*MZ6*pi*pi) + 
+  log(CW2)*((aem*aem*mMU*
+        mMU*(2.0*mH3_2*mH3_2 + 2.0*mH2_4 + 4.0*mHp4 - 
+          2.0*CW2*mHp2*MZ2 + mH3_2*(-4.0*mHp2 + CW2*MZ2) + 
+          mH2_2*(-4.0*mHp2 + CW2*MZ2)))/(128.0*
+        CW6*(-1.0 + CW2)*(-1.0 + CW2)*MZ6*pi*pi) - (aem*
+        aem*(mH3_2 - mHp2)*mMU*
+        mMU*(mH3_2*mH3_2 - 2.0*mH3_2*mHp2 + mHp4 - CW2*mHp2*MZ2)*
+        log(mH3_2/mHp2))/(128.0*CW8*(-1.0 + CW2)*(-1.0 + CW2)*MZ8*
+        pi*pi) - (aem*aem*(mH2_2 - mHp2)*mMU*
+        mMU*(mH2_4 - 2.0*mH2_2*mHp2 + mHp4 - CW2*mHp2*MZ2)*
+        log(mH2_2/mHp2))/(128.0*CW8*(-1.0 + CW2)*(-1.0 + CW2)*MZ8*
+        pi*pi)) + (aem*aem*mMU*
+     mMU*((-7.0 + 14.0*CW2 - 4.0*CW4 + 5.0*CW6 - 16.0*CW8 + 8.0*CW10)*
+        mH3_10 + 
+       mH3_8*((7.0 - 14.0*CW2 + 4.0*CW4 - 20.0*CW6 + 64.0*CW8 - 
+             32.0*CW10)*
+           mH2_2 + (28.0 - 56.0*CW2 + 16.0*CW4 - 5.0*CW6 + 
+             16.0*CW8 - 8.0*CW10)*mHp2 - 
+          3.0*CW2*(-19.0 + 26.0*CW2 + CW4 - 16.0*CW6 + 8.0*CW8)*MZ2) +
+        mH3_6*(-14.0*mHp2*(2.0*mH2_2 + 3.0*mHp2) + 
+          CW2*(84.0*mHp4 - 93.0*mHp2*MZ2 + 
+             mH2_2*(56.0*mHp2 - 57*MZ2)) + 
+          8.0*CW10*(6.0*mH2_4 + 3.0*MZ2*(mHp2 + MZ2) + 
+             mH2_2*(4.0*mHp2 + 3.0*MZ2)) - 
+          4.0*CW8*(24.0*mH2_4 + 4.0*mH2_2*(4.0*mHp2 + 3.0*MZ2) + 
+             3.0*MZ2*(4.0*mHp2 + 5.0*MZ2)) + 
+    CW6*(30.0*mH2_4 + mH2_2*(20.0*mHp2 + 3.0*MZ2) + 
+             3.0*MZ2*(mHp2 + 13.0*MZ2)) + 
+          CW4*(mH2_2*(-16.0*mHp2 + 78.0*MZ2) - 
+             3.0*(8.0*mHp4 - 38*mHp2*MZ2 + MZ4))) + 
+       mH3_2*mH3_2*(42*mH2_2*mHp4 + 28.0*mHp6 - 
+          4.0*CW10*(8.0*mH2_6 + 6.0*mH2_2*mHp2*MZ2 + 
+             6.0*mHp2*MZ4 - MZ6 + 6.0*mH2_4*(2.0*mHp2 - MZ2)) - 
+          CW6*(20.0*mH2_6 + 12*mHp4*MZ2 + 69.0*mHp2*MZ4 + 
+             2.0*MZ6 + 3.0*mH2_2*MZ2*(mHp2 - 10.0*MZ2) + 
+             15.0*mH2_4*(2.0*mHp2 - MZ2)) + 
+          CW2*(-56.0*mHp6 + 15.0*mHp4*MZ2 + 
+             mH2_2*(-84.0*mHp4 + 93.0*mHp2*MZ2)) + 
+          2.0*CW8*(32.0*mH2_6 + 36*mHp2*MZ4 - MZ6 + 
+             24.0*mH2_4*(2.0*mHp2 - MZ2) + 
+             6.0*mH2_2*(4.0*mHp2*MZ2 - MZ4)) + 
+          CW4*(3.0*mH2_2*(8.0*mHp4 - 38*mHp2*MZ2 - 3.0*MZ4) + 
+             2.0*mHp2*(8.0*mHp4 + 3.0*mHp2*MZ2 + 6.0*MZ4))) + 
+       mH3_2*(-7.0*(4.0*mH2_2*mHp6 + mHp8) - 
+          2.0*CW8*(8.0*mH2_8 + 6.0*mHp4*MZ4 - mH2_2*MZ6 - 
+             mHp2*MZ6 + 8*mH2_6*(4.0*mHp2 - 3.0*MZ2) + 
+             24.0*mH2_4*MZ2*(-mHp2 + MZ2)) - 
+          CW4*mHp4*(4.0*mHp4 + 42*mHp2*MZ2 + 21.0*MZ4 + 
+             2.0*mH2_2*(8.0*mHp2 + 3.0*MZ2)) + 
+          CW2*(7.0*mHp6*(2.0*mHp2 + 3.0*MZ2) + 
+             mH2_2*(56.0*mHp6 - 15.0*mHp4*MZ2)) + 
+          4.0*CW10*(2.0*mH2_8 - mH2_2*MZ6 - mHp2*MZ6 + 
+             mH2_6*(8.0*mHp2 - 6.0*MZ2) + 
+             mH2_4*(-6.0*mHp2*MZ2 + 6.0*MZ4)) + 
+          CW6*(5.0*mH2_8 + 5.0*mH2_6*(4.0*mHp2 - 3.0*MZ2) + 
+             15.0*mH2_4*MZ2*(-mHp2 + MZ2) + 
+             2.0*mHp2*MZ2*(6.0*mHp4 + 21.0*mHp2*MZ2 + MZ4) + 
+             2.0*mH2_2*(6.0*mHp4*MZ2 + MZ6))) + 
+       mH2_2*mHp2*(7.0*mHp6 - 7.0*CW2*(2.0*mHp6 + 3.0*mHp4*MZ2) + 
+          CW4*(4.0*mHp6 + 42*mHp4*MZ2 + 21.0*mHp2*MZ4) - 
+          4.0*CW10*(2.0*mH2_6 - 6.0*mH2_4*MZ2 + 6.0*mH2_2*MZ4 - 
+             MZ6) + 2.0*
+           CW8*(8.0*mH2_6 - 24.0*mH2_4*MZ2 + 24.0*mH2_2*MZ4 + 
+             6.0*mHp2*MZ4 - MZ6) - 
+          CW6*(5.0*mH2_6 - 15.0*mH2_4*MZ2 + 15.0*mH2_2*MZ4 + 
+             2.0*(6.0*mHp4*MZ2 + 21.0*mHp2*MZ4 + MZ6))))*
+     log(mH3_2/MZ2))/(2304.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*(mH3_2 - 
+       mH2_2)*(mH3_2 - mHp2)*MZ8*pi*pi) + (aem*aem*mMU*
+     mMU*(-7.0*(mH3_2 - mH2_2)*(mH2_2 - mHp2)*(mH2_2 - 
+          mHp2)*(mH2_2 - mHp2)*(mH2_2 - mHp2) + 
+       CW2*(mH3_2 - mH2_2)*(mH2_2 - mHp2)*(mH2_2 - 
+          mHp2)*(14.0*mH2_4 + 7.0*mHp2*(2.0*mHp2 + 3.0*MZ2) + 
+          mH2_2*(-28.0*mHp2 + 57*MZ2)) - 
+       4.0*CW10*(mH2_2 - mHp2)*(2.0*mH3_8 - 
+          2.0*mH3_6*(4.0*mH2_2 + 3.0*MZ2) + 
+          6.0*mH3_2*mH3_2*(2.0*mH2_4 + mH2_2*MZ2 + MZ4) - 
+          mH3_2*(8.0*mH2_6 - 6.0*mH2_4*MZ2 + MZ6) + 
+          mH2_2*(2.0*mH2_6 - 6.0*mH2_4*MZ2 + 6.0*mH2_2*MZ4 + 
+             MZ6)) + 
+       CW4*(mH3_2*(-4.0*mH2_8 + 2.0*mH2_6*(8.0*mHp2 - 39*MZ2) + 
+             2.0*mH2_2*(8.0*mHp6 + 3.0*mHp4*MZ2) + 
+             mH2_4*(-24.0*mHp4 + 114*mHp2*MZ2 + 9*MZ4) - 
+             mHp4*(4.0*mHp4 + 42*mHp2*MZ2 + 21.0*MZ4)) + 
+          mH2_2*(4.0*mH2_8 + 4.0*mHp8 + 42*mHp6*MZ2 + 
+             21.0*mHp4*MZ4 + mH2_6*(-16.0*mHp2 + 78.0*MZ2) + 
+             3.0*mH2_4*(8.0*mHp4 - 38*mHp2*MZ2 + MZ4) - 
+             2.0*mH2_2*(8.0*mHp6 + 3.0*mHp4*MZ2 + 6.0*mHp2*MZ4))) + 
+       2.0*CW8*(8.0*mH3_8*(mH2_2 - mHp2) - 
+          8*mH3_6*(mH2_2 - mHp2)*(4.0*mH2_2 + 3.0*MZ2) + 
+          24.0*mH3_2*
+           mH3_2*(mH2_2 - mHp2)*(2.0*mH2_4 + mH2_2*MZ2 + MZ4) + 
+          mH3_2*(-32.0*mH2_8 - 6.0*mHp4*MZ4 - mH2_2*MZ6 + 
+             mHp2*MZ6 + 6.0*mH2_4*MZ2*(-4.0*mHp2 + MZ2) + 
+             8*mH2_6*(4.0*mHp2 + 3.0*MZ2)) + 
+          mH2_2*(8.0*mH2_8 + 6.0*mHp4*MZ4 - mHp2*MZ6 - 
+             8*mH2_6*(mHp2 + 3.0*MZ2) + 
+             6.0*mH2_4*(4.0*mHp2*MZ2 + 5.0*MZ4) + 
+             mH2_2*(-36*mHp2*MZ4 + MZ6))) + 
+       CW6*(-5.0*mH3_8*(mH2_2 - mHp2) + 
+          5.0*mH3_6*(mH2_2 - mHp2)*(4.0*mH2_2 + 3.0*MZ2) - 
+          15.0*mH3_2*
+           mH3_2*(mH2_2 - mHp2)*(2.0*mH2_4 + mH2_2*MZ2 + MZ4) + 
+          mH3_2*(20.0*mH2_8 + 3.0*mH2_4*MZ2*(mHp2 - 10.0*MZ2) - 
+             mH2_6*(20.0*mHp2 + 3.0*MZ2) + 
+             2.0*mHp2*MZ2*(6.0*mHp4 + 21.0*mHp2*MZ2 + MZ4) - 
+             2.0*mH2_2*(6.0*mHp4*MZ2 + MZ6)) + 
+          mH2_2*(-5.0*mH2_8 + mH2_6*(5.0*mHp2 + 3.0*MZ2) - 
+             3.0*mH2_4*MZ2*(mHp2 + 13.0*MZ2) - 
+             2.0*mHp2*MZ2*(6.0*mHp4 + 21.0*mHp2*MZ2 + MZ4) + 
+             mH2_2*(12*mHp4*MZ2 + 69.0*mHp2*MZ4 + 2.0*MZ6))))*
+     log(mH2_2/MZ2))/(2304.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*(mH3_2 - 
+       mH2_2)*(mH2_2 - mHp2)*MZ8*pi*pi) + (aem*aem*mMU*
+     mMU*(-((7.0 - 14.0*CW2 + 4.0*CW4)*
+          mH3_8*(mH2_2 - mHp2)) + (7.0 - 14.0*CW2 + 4.0*CW4)*
+        mH3_6*(mH2_2 - mHp2)*(4.0*mHp2 + 3.0*CW2*MZ2) - 
+       3.0*mH3_2*
+        mH3_2*(mH2_2 - mHp2)*(2.0*(7.0 - 14.0*CW2 + 4.0*CW4)*mHp4 + 
+          CW2*(-5.0 - 2.0*CW2 + 4.0*CW4)*mHp2*MZ2 + 
+          CW4*(7.0 - 14.0*CW2 + 4.0*CW4)*MZ4) + 
+       mHp2*((7.0 - 14.0*CW2 + 4.0*CW4)*
+           mH2_8 - (7.0 - 14.0*CW2 + 4.0*CW4)*
+           mH2_6*(4.0*mHp2 + 3.0*CW2*MZ2) + 
+          3.0*mH2_4*(2.0*(7.0 - 14.0*CW2 + 4.0*CW4)*mHp4 + 
+             CW2*(-5.0 - 2.0*CW2 + 4.0*CW4)*mHp2*MZ2 + 
+             CW4*(7.0 - 14.0*CW2 + 4.0*CW4)*MZ4) + 
+          mH2_2*(-5.0*(7.0 - 14.0*CW2 + 4.0*CW4)*mHp6 + 
+             6.0*CW2*(25.0 - 32.0*CW2 + 4.0*CW4)*mHp4*MZ2 - 
+             3.0*CW4*(29 - 50.0*CW2 + 12*CW4)*mHp2*MZ4 + 
+             4.0*CW6*(1.0 + CW2 - 2.0*CW4)*MZ6) + 
+          2.0*mHp2*((7.0 - 14.0*CW2 + 4.0*CW4)*mHp6 - 
+             3.0*CW2*(19.0 - 26.0*CW2 + 4.0*CW4)*mHp4*MZ2 + 
+             3.0*CW4*(13.0 - 20.0*CW2 + 4.0*CW4)*mHp2*MZ4 + 
+             2.0*CW6*(-1.0 - CW2 + 2.0*CW4)*MZ6)) + 
+       mH3_2*((-7.0 + 14.0*CW2 - 4.0*CW4)*
+           mH2_8 + (7.0 - 14.0*CW2 + 4.0*CW4)*
+           mH2_6*(4.0*mHp2 + 3.0*CW2*MZ2) - 
+          3.0*mH2_4*(2.0*(7.0 - 14.0*CW2 + 4.0*CW4)*mHp4 + 
+             CW2*(-5.0 - 2.0*CW2 + 4.0*CW4)*mHp2*MZ2 + 
+             CW4*(7.0 - 14.0*CW2 + 4.0*CW4)*MZ4) + 
+          mHp2*(-5.0*(7.0 - 14.0*CW2 + 4.0*CW4)*mHp6 + 
+             6.0*CW2*(25.0 - 32.0*CW2 + 4.0*CW4)*mHp4*MZ2 - 
+             3.0*CW4*(29 - 50.0*CW2 + 12*CW4)*mHp2*MZ4 + 
+             4.0*CW6*(1.0 + CW2 - 2.0*CW4)*MZ6) + 
+          2.0*mH2_2*(4.0*(7.0 - 14.0*CW2 + 4.0*CW4)*mHp6 - 
+             3.0*CW2*(31 - 38*CW2 + 4.0*CW4)*mHp4*MZ2 + 
+             6.0*CW4*(8 - 15.0*CW2 + 4.0*CW4)*mHp2*MZ4 + 
+             2.0*CW6*(-1.0 - CW2 + 2.0*CW4)*MZ6)))*
+     log(mHp2/MZ2))/(2304.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*(mH3_2 - 
+       mHp2)*(-mH2_2 + mHp2)*MZ8*pi*pi) + (aem*aem*(mH3_2 - mHp2)*
+     mMU*mMU*(mH3_2*mH3_2 - 2.0*mH3_2*mHp2 + mHp4 - CW2*mHp2*MZ2)*
+     log(mH3_2/mHp2)*log(mHp2/MZ2))/(128.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*MZ8*pi*pi) + (aem*
+     aem*(mH2_2 - mHp2)*mMU*
+     mMU*(mH2_4 - 2.0*mH2_2*mHp2 + mHp4 - CW2*mHp2*MZ2)*
+     log(mH2_2/mHp2)*log(mHp2/MZ2))/(128.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*MZ8*pi*pi) + (aem*
+     aem*(1.0 - 2.0*CW2)*(1.0 - 2.0*CW2)*(5.0 - 16.0*CW2 + 8.0*CW4)*mMU*
+     mMU*(-4.0*mHp2 + MZ2)*(MZ4 - MZ2*negsquareroot(-4.0*mHp2*MZ2 + MZ4) + 
+       mHp2*(-4.0*MZ2 + 2.0*negsquareroot (-4.0*mHp2*MZ2 + MZ4)))*
+     log((2.0*mHp2 - MZ2 + negsquareroot (-4.0*mHp2*MZ2 + MZ4))/(2.0*
+         mHp2)))/(1152.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*
+     MZ6*(-2.0*mHp2 + MZ2 - negsquareroot (-4.0*mHp2*MZ2 + MZ4))*pi*pi) - (aem*
+     aem*(5.0 - 16.0*CW2 + 8.0*CW4)*mMU*
+     mMU*(-4.0*mH3_2*
+        mH2_2 + (mH3_2 + mH2_2 - MZ2)*(mH3_2 + mH2_2 - 
+          MZ2))*(mH3_2*mH3_2 + 
+       mH3_2*(-2.0*mH2_2 - 2.0*MZ2 + 
+          negsquareroot(mH3_2*mH3_2 + (mH2_2 - MZ2)*(mH2_2 - MZ2) - 
+             2.0*mH3_2*(mH2_2 + MZ2))) + (mH2_2 - MZ2)*(mH2_2 - 
+          MZ2 + negsquareroot(mH3_2*mH3_2 + (mH2_2 - MZ2)*(mH2_2 - MZ2) - 
+             2.0*mH3_2*(mH2_2 + MZ2))))*
+     log((mH3_2 + mH2_2 - MZ2 + 
+         negsquareroot (-4.0*mH3_2*       
+             mH2_2 + (mH3_2 + mH2_2 - MZ2)*(mH3_2 + mH2_2 - 
+               MZ2)))/(2.0*mH3*mH2)))/(1152.0*
+     CW2*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*
+     MZ8*(mH3_2 + mH2_2 - MZ2 + 
+       negsquareroot (-4.0*mH3_2*
+           mH2_2 + (mH3_2 + mH2_2 - MZ2)*(mH3_2 + mH2_2 - MZ2)))*
+     pi*pi) + (aem*aem*(7.0 - 14.0*CW2 + 4.0*CW4)*mMU*
+     mMU*(-4.0*mH3_2*
+        mHp2 + (mH3_2 + mHp2 - CW2*MZ2)*(mH3_2 + mHp2 - 
+          CW2*MZ2))*(mH3_2*mH3_2 + 
+       mH3_2*(-2.0*mHp2 - 2.0*CW2*MZ2 + 
+          negsquareroot (mH3_2*mH3_2 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+             2.0*mH3_2*(mHp2 + CW2*MZ2))) + (mHp2 - CW2*MZ2)*(mHp2 - 
+          CW2*MZ2 + 
+          negsquareroot (mH3_2*mH3_2 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+             2.0*mH3_2*(mHp2 + CW2*MZ2))))*
+     log((mH3_2 + mHp2 - CW2*MZ2 + 
+         negsquareroot (-4.0*mH3_2*
+             mHp2 + (mH3_2 + mHp2 - CW2*MZ2)*(mH3_2 + mHp2 - 
+               CW2*MZ2)))/(2.0*mH3*mHp)))/(1152.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*
+     MZ8*(mH3_2 + mHp2 - CW2*MZ2 + 
+       negsquareroot (-4.0*mH3_2*
+           mHp2 + (mH3_2 + mHp2 - CW2*MZ2)*(mH3_2 + mHp2 - 
+             CW2*MZ2)))*pi*pi) + (aem*aem*(7.0 - 14.0*CW2 + 4.0*CW4)*
+     mMU*mMU*(-4.0*mH2_2*
+        mHp2 + (mH2_2 + mHp2 - CW2*MZ2)*(mH2_2 + mHp2 - 
+          CW2*MZ2))*(mH2_4 + 
+       mH2_2*(-2.0*mHp2 - 2.0*CW2*MZ2 + 
+          negsquareroot (mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+             2.0*mH2_2*(mHp2 + CW2*MZ2))) + (mHp2 - CW2*MZ2)*(mHp2 - 
+          CW2*MZ2 + 
+          negsquareroot (mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+             2.0*mH2_2*(mHp2 + CW2*MZ2))))*
+     log((mH2_2 + mHp2 - CW2*MZ2 + 
+         negsquareroot (-4.0*mH2_2*
+             mHp2 + (mH2_2 + mHp2 - CW2*MZ2)*(mH2_2 + mHp2 - 
+               CW2*MZ2)))/(2.0*mH2*mHp)))/(1152.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + CW2)*
+     MZ8*(mH2_2 + mHp2 - CW2*MZ2 + 
+       negsquareroot(-4.0*mH2_2*
+           mHp2 + (mH2_2 + mHp2 - CW2*MZ2)*(mH2_2 + mHp2 - 
+             CW2*MZ2)))*pi*pi) - (aem*aem*(mH3_2 - mHp2)*mMU*
+     mMU*(mH3_2*mH3_2 - 2.0*mH3_2*mHp2 + mHp4 - CW2*mHp2*MZ2)*PolyLog.Li2( 1.0 - mH3_2/mHp2))/(64.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*MZ8*pi*pi) - (aem*
+     aem*(mH2_2 - mHp2)*mMU*
+     mMU*(mH2_4 - 2.0*mH2_2*mHp2 + mHp4 - CW2*mHp2*MZ2)*
+     PolyLog.Li2( 1.0 - mH2_2/mHp2))/(64.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*MZ8*pi*pi) + (aem*
+     aem*(mH3_2 - mHp2)*mMU*
+     mMU*(-mH3_6 + 
+       mH3_2*mH3_2*(3.0*mHp2 + CW2*MZ2) + (mHp3 - 
+          CW2*mHp*MZ2)*(mHp3 - CW2*mHp*MZ2) + 
+       mH3_2*(-3.0*mHp4 + CW2*mHp2*MZ2))*TF (mH3, mHp, CW*MZ))/(64.0*
+     CW8*(-1.0 + CW2)*(-1.0 + CW2)*
+     MZ8*(mH3_2*mH3_2 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+       2.0*mH3_2*(mHp2 + CW2*MZ2))*pi*pi) + (aem*aem*(mH2_2 - mHp2)*
+     mMU*mMU*(-mH2_6 + 
+       mH2_4*(3.0*mHp2 + CW2*MZ2) + (mHp3 - CW2*mHp*MZ2)*(mHp3 - 
+          CW2*mHp*MZ2) + mH2_2*(-3.0*mHp4 + CW2*mHp2*MZ2))*
+     TF(mH2, mHp, CW*MZ))/(64.0*CW8*(-1.0 + CW2)*(-1.0 + CW2)*
+     MZ8*(mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+       2.0*mH2_2*(mHp2 + CW2*MZ2))*pi*pi);
+
+
+gslpp::complex aYuk2 =  -(aem*aem*(MH2 + 2.0*mHp2)*mMU*mMU)/(8.0*CW2*(-1.0 + CW2)*MH2*MZ2*pi*
+    pi) + (aem*aem*(MH2 + 2.0*mHp2)*mMU*
+    mMU*((-3.0 + 2.0*CW2)*MH2 - 8.0*CW2*(-1.0 + CW2)*MZ2)*
+    log (MH2/MZ2))/(128.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*
+    MZ2*(MH2 - MZ2)*pi*pi) - (aem*aem*(MH2 + 2.0*mHp2)*mMU*mMU*
+    log (mHp2/MZ2))/(16.0*CW2*(-1.0 + CW2)*MH2*MZ2*pi*pi) + (aem*aem*
+    mHp2*(MH2 + 2.0*mHp2)*mMU*
+    mMU*((-3.0 + 2.0*CW2)*MH2 - 8.0*CW2*(-1.0 + CW2)*MZ2)*
+    TF (MH, mHp, mHp))/(64.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+    MH4*(MH2 - 4.0*mHp2)*MZ2*(MH2 - MZ2)*pi*pi) - (aem*
+    aem*(3.0 - 10.0*CW2 + 8.0*CW4)*mHp2*(MH2 + 2.0*mHp2)*mMU*mMU*
+    TF (mHp, mHp, MZ))/(64.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+    MZ4*(-MH2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*pi);
+
+
+gslpp::complex aYuk3 = sl*((aem*aem*mMU*
+       mMU*(-mH2_4 + mH2_2*mHp2 + 
+         8.0*CW2*(-1.0 + CW2)*mHp2*MZ2)*(-1.0 + tanb*tanb))/(64.0*
+       CW4*(-1.0 + CW2)*(-1.0 + CW2)*mHp2*MZ4*pi*pi*tanb) - (aem*aem*
+       mH3_2*mH2_2*mHp2*mMU*mMU*(-1.0 + tanb*tanb)*
+       log(mH3_2/mHp2)*
+       log(mH3_2/mHp2))/(512.0*
+       CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+       MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*
+       pi*tanb) + (aem*aem*mH2_4*mMU*
+       mMU*(-7.0*mHp6 + 8.0*CW2*mHp4*MZ2 - 4.0*CW4*mHp2*MZ4 + 
+         2.0*mH2_2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*(-1.0 + 
+         tanb*tanb)*log(mH2_2/mHp2)*log(mH2_2/mHp2))/(512.0*
+       CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+       MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*
+       pi*tanb) + (aem*aem*mH3_2*mH2_2*mHp2*mMU*
+       mMU*(-1.0 + tanb*tanb)*log (mH3_2/MZ2)*log (mH3_2/MZ2))/(512.0*
+       CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+       MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*
+       pi*tanb) - (aem*aem*mH2_4*mMU*
+       mMU*(-7.0*mHp6 + 8.0*CW2*mHp4*MZ2 - 4.0*CW4*mHp2*MZ4 + 
+         2.0*mH2_2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*(-1.0 + 
+         tanb*tanb)*log (mH2_2/MZ2)*log (mH2_2/MZ2))/(512.0*
+       CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+       MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*
+       pi*tanb) + (aem*aem*mMU*
+       mMU*(2.0*CW2*mH2_4*MZ2 + 
+         8.0*CW2*(-1.0 + CW2)*mHp2*MZ2*(-mHp2 + CW2*MZ2) + 
+         mH2_2*(-2.0*mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+       log (mHp2/MZ2))/(128.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*mHp2*
+       MZ4*(-mHp2 + CW2*MZ2)*pi*pi*tanb) + (aem*aem*mH2_2*mMU*
+       mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+         2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+       log (mH2_2/mHp2)*log (mHp2/MZ2))/(128.0*
+       CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ6*pi*pi*tanb) - (aem*aem*
+       mH3_2*mH2_2*mHp2*mMU*mMU*(-1.0 + tanb*tanb)*log (mH3_2/MZ2)*
+       log (mHp2/MZ2))/(256.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+       MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*
+       pi*tanb) + (aem*aem*mH2_2*mMU*
+       mMU*(mH3_2*mHp6 + 
+         2.0*mH2_4*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+         mH2_2*(mHp6 - 8.0*CW2*mHp4*MZ2 + 4.0*CW4*mHp2*MZ4))*(-1.0 + 
+         tanb*tanb)*log (mHp2/MZ2)*log (mHp2/MZ2))/(512.0*
+       CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+       MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*
+       pi*tanb)+log(mH2_2/
+        MZ2)*((aem*aem*mMU*
+          mMU*(2.0*mH2_6 - 
+            2.0*mH2_4*MZ2 + (-3.0 + 2.0*CW2)*mH2_2*mHp2*MZ2 - 
+            8.0*CW2*(-1.0 + CW2)*mHp2*MZ4)*(-1.0 + tanb*tanb))/(128.0*
+          CW4*(-1.0 + CW2)*(-1.0 + CW2)*mHp2*MZ4*(-mH2_2 + MZ2)*pi*
+          pi*tanb) - (3.0*aem*aem*mH2_4*mHp2*mMU*
+          mMU*(-1.0 + tanb*tanb)*log(mHp2/MZ2))/(256.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi*tanb))+ log (CW2)*(-(aem*aem*mH2_2*mMU*
+           mMU*(2.0*mH2_2 - 2.0*mHp2 + CW2*MZ2)*(-1.0 + 
+             tanb*tanb))/(128.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+          MZ4*(-mHp2 + CW2*MZ2)*pi*pi*tanb) - (aem*aem*mH2_2*mMU*
+          mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+            2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+          log (mH2_2/mHp2))/(128.0*CW6*(-1.0 + CW2)*(-1.0 + CW2)*
+          mHp4*MZ6*pi*pi*tanb) + (aem*aem*mH2_4*(mH2_2 - 2.0*mHp2)*
+          mMU*mMU*(-1.0 + tanb*tanb)*log (mH2_2/MZ2))/(128.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ2*(-mHp2 + CW2*MZ2)*pi*
+          pi*tanb) - (aem*aem*mH2_4*(mH2_2 - 2.0*mHp2)*mMU*
+          mMU*(-1.0 + tanb*tanb)*log (mHp2/MZ2))/(128.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ2*(-mHp2 + CW2*MZ2)*pi*
+          pi*tanb)) - (aem*aem*mH2_2*mMU*
+       mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+         2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+       PolyLog.Li2 (1.0 - mH2_2/mHp2))/(64.0*
+       CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ6*pi*pi*tanb)+ (aem*aem*
+       mMU*mMU*(-3.0*mH2_2*mHp8 + 8.0*CW6*mHp6*MZ4 - 
+         2.0*CW4*mHp6*MZ2*(mH2_2 + 4.0*(mHp2 + MZ2)) + 
+         CW2*(-mH2_10 + 2.0*mH2_4*mHp4*MZ2 + 8.0*mHp8*MZ2 + 
+            mH2_8*(4.0*mHp2 + MZ2) - 
+            2.0*mH2_6*(mHp4 + 2.0*mHp2*MZ2) + 
+            mH2_2*(2.0*mHp8 + 3.0*mHp6*MZ2)))*(-1.0 + tanb*tanb)*
+       TF (mH2, mHp, mHp))/(64.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*mH2_2*
+       mHp4*(mH2_2 - 4.0*mHp2)*MZ2*(mH2_2 - MZ2)*(-mHp2 + CW2*MZ2)*
+       pi*pi*tanb) - (aem*aem*mH2_2*mMU*
+       mMU*(-mH2_6 + 
+         mH2_4*(3.0*mHp2 + CW2*MZ2) + (mHp3 - CW2*mHp*MZ2)*(mHp3 - 
+            CW2*mHp*MZ2) + mH2_2*(-3.0*mHp4 + CW2*mHp2*MZ2))*(-1.0 + 
+         tanb*tanb)*TF(mH2, mHp, CW*MZ))/(64.0*
+       CW6*(-1.0 + CW2)*(-1.0 + CW2)*
+       MZ6*(-mHp2 + 
+         CW2*MZ2)*(mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+         2.0*mH2_2*(mHp2 + CW2*MZ2))*pi*pi*tanb)+  (aem*
+       aem*(3.0 - 10.0*CW2 + 8.0*CW4)*mH2_2*mHp2*mMU*
+       mMU*(-1.0 + tanb*tanb)*TF (mHp, mHp, MZ))/(64.0*
+       CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+       MZ4*(-mH2_2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*pi*tanb));
+
+
+gslpp::complex aYuk4 = eta*((aem*aem*mMU*
+       mMU*((-3.0 + 2.0*CW2)*MH2 - 8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 + 
+         tanb*tanb)*log(MH2/MZ2))/(128.0*
+       CW4*(-1.0 + CW2)*(-1.0 + CW2)*MZ2*(-MH2 + MZ2)*pi*pi*
+       tanb) + (aem*aem*mMU*
+       mMU*((3.0 - 2.0*CW2)*mH2_2 + 8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 +
+          tanb*tanb)*log(mH2_2/MZ2))/(128.0*
+       CW4*(-1.0 + CW2)*(-1.0 + CW2)*MZ2*(-mH2_2 + MZ2)*pi*pi*
+       tanb) + (aem*aem*mHp2*mMU*
+       mMU*((3.0 - 2.0*CW2)*MH2 + 8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 + 
+         tanb*tanb)*TF (MH, mHp, mHp))/(64.0*
+       CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*(MH2 - 4.0*mHp2)*
+       MZ2*(MH2 - MZ2)*pi*pi*tanb) + (aem*aem*mHp2*mMU*
+       mMU*((-3.0 + 2.0*CW2)*mH2_2 - 
+         8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 + tanb*tanb)*
+       TF (mH2, mHp, mHp))/(64.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+       mH2_2*(mH2_2 - 4.0*mHp2)*MZ2*(mH2_2 - MZ2)*pi*pi*
+       tanb) + (aem*aem*(3.0 - 10.0*CW2 + 8.0*CW4)*(MH2 - mH2_2)*
+       mHp2*mMU*mMU*(-1.0 + tanb*tanb)*TF (mHp, mHp, MZ))/(64.0*
+       CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+       MZ2*(-MH2 + MZ2)*(-mH2_2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*pi*
+       tanb)+ sl*((aem*aem*mMU*
+          mMU*(144.0*MH6*mH2_4*MZ4 - 144.0*CW2*MH4*mH2_4*MZ6 - 
+            1152.0*CW2*(-1.0 + CW2)*mH2_4*mHp4*MZ6 + 
+            MH2*(3.0*(40.0 - 41.0*CW2 + 64.0*CW4)*mH2_4*mHp2*MZ6 + 
+               144.0*mH2_6*
+                MZ4*((1.0 - 3.0*CW2 + 2.0*CW4)*mHp2 + CW2*MZ2) + 
+               24.0*(1.0 - 3.0*CW2 + 2.0*CW4)*mH2_10*mHp2*pi*pi + 
+               16.0*(5.0 - 12.0*CW2 + 8.0*CW4 + 2.0*CW6)*mHp2*MZ10*pi*
+                pi - 48.0*mH2_8*
+                MZ2*(3.0*MZ2 + 
+                  2.0*(1.0 - 3.0*CW2 + 2.0*CW4)*mHp2*pi*pi) + 
+               12.0*mH2_2*mHp2*
+                MZ6*(288*CW6*MZ2 + 5.0*MZ2*(-8.0 + pi*pi) - 
+                  12.0*CW2*(8.0*mHp2 + MZ2*(-8.0 + pi*pi)) +  2.0*CW4*(48.0*mHp2 + 
+                    MZ2*(-184.0 + 5.0*pi*pi))))))/(4608.0*
+          CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*mH2_4*mHp2*MZ8*pi*
+          pi) + (aem*aem*(MH2 - mH2_2)*mMU*
+          mMU*(MH4 + mH2_4 - 3.0*CW2*mHp2*MZ2 + 3.0*CW4*MZ4 + 
+            MH2*(mH2_2 - mHp2 - 3.0*CW2*MZ2) - 
+            mH2_2*(mHp2 + 3.0*CW2*MZ2))*log (CW2)*log (CW2))/(128.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ2*(-mHp2 + CW2*MZ2)*pi*
+          pi) +  (aem*aem*mH3_2*(MH2 - mH2_2)*mHp2*mMU*mMU*
+          log (mH3_2/mHp2)*
+          log (mH3_2/mHp2))/(512.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) + (aem*aem*mMU*
+          mMU*(-4.0*MH6*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) + 
+            2.0*CW2*
+             MZ2*(-3.0*mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*(-mHp2 + CW2*MZ2) + 
+            MH4*(7.0*mHp6 + 2.0*CW2*mHp4*MZ2 - 10.0*CW4*mHp2*MZ4 + 
+               6.0*CW6*MZ6) + 
+            MH2*(mH2_2*mHp6 + 
+               2.0*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2)*(4.0*mHp4 + 
+                  3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4)))*
+          log (MH2/mHp2)*
+          log (MH2/mHp2))/(512.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) +   (aem*aem*mMU*
+          mMU*(4.0*mH2_6*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+            2.0*CW2*
+             MZ2*(-3.0*mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*(-mHp2 + CW2*MZ2) - 
+            mH2_4*(9.0*mHp6 + 2.0*CW2*mHp4*MZ2 - 10.0*CW4*mHp2*MZ4 + 
+               6.0*CW6*MZ6) + 
+            mH2_2*(MH2*mHp6 - 
+               2.0*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2)*(4.0*mHp4 + 
+                  3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4)))*
+          log (mH2_2/mHp2)*
+          log (mH2_2/mHp2))/(512.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) +  (aem*aem*mH3_2*(-MH2 + mH2_2)*mHp2*mMU*mMU*
+          log (mH3_2/MZ2)*
+          log (mH3_2/MZ2))/(512.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) - (aem*aem*mMU*
+          mMU*(-4.0*MH6*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) + 
+            2.0*CW2*
+             MZ2*(-3.0*mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*(-mHp2 + CW2*MZ2) + 
+            MH4*(7.0*mHp6 + 2.0*CW2*mHp4*MZ2 - 10.0*CW4*mHp2*MZ4 + 
+               6.0*CW6*MZ6) + 
+            MH2*(mH2_2*mHp6 + 
+               2.0*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2)*(4.0*mHp4 + 
+                  3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4)))*
+          log (MH2/MZ2)*
+          log (MH2/MZ2))/(512.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) +  (aem*aem*mMU*
+          mMU*(2.0*CW4*
+             MZ8*(-3.0*mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*(-mHp2 + CW2*MZ2) - 
+            4.0*mH2_6*(mHp2 - CW2*MZ2)*(mHp2 - 
+               CW2*MZ2)*((2.0 - 6.0*CW2 + 4.0*CW4)*mHp6 - 
+               2.0*CW2*(1.0 - 3.0*CW2 + 2.0*CW4)*mHp4*MZ2 + CW2*MZ6) +
+             mH2_4*
+             MZ2*(32*(1.0 - 3.0*CW2 + 2.0*CW4)*mHp10 - 
+               96.0*CW2*(1.0 - 3.0*CW2 + 2.0*CW4)*mHp8*MZ2 + 
+               3.0*CW2*(3.0 + 32*CW2 - 96.0*CW4 + 64.0*CW6)*mHp6*
+                MZ4 + 2.0*CW4*(1.0 - 16.0*CW2 + 48.0*CW4 - 32*CW6)*
+                mHp4*MZ6 - 10.0*CW6*mHp2*MZ8 + 6.0*CW8*MZ10) - 
+            CW2*mH2_2*
+             MZ6*(MH2*mHp6 - 
+               2.0*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2)*(4.0*mHp4 + 
+                  3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4)))*
+          log(mH2_2/MZ2)*
+          log(mH2_2/MZ2))/(512.0*
+          CW4*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ8*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) +   (aem*aem*(MH2 - mH2_2)*mMU*
+          mMU*(-2.0*CW2*MH4*mH2_2*MZ2 + 
+            8.0*CW2*(-1.0 + CW2)*mHp4*MZ2*(-mHp2 + CW2*MZ2) + 
+            MH2*mH2_2*(mHp4 - 2.0*CW2*mH2_2*MZ2 - 
+               2.0*CW2*mHp2*MZ2 + 2.0*CW4*MZ4))*log (mHp2/MZ2))/(64.0*
+          CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH2*mH2_2*mHp2*
+          MZ4*(-mHp2 + CW2*MZ2)*pi*pi)  - (aem*aem*mMU*
+          mMU*(2.0*mHp8 + MH6*(mHp2 + CW2*MZ2) - 
+            MH2*(3.0*mHp6 + 4.0*CW2*mHp4*MZ2))*log (MH2/mHp2)*
+          log (mHp2/MZ2))/(128.0*CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ6*pi*pi)+ (aem*aem*mMU*
+          mMU*(2.0*mHp8 + mH2_6*(mHp2 + CW2*MZ2) - 
+            mH2_2*(3.0*mHp6 + 4.0*CW2*mHp4*MZ2))*log (mH2_2/mHp2)*
+          log (mHp2/MZ2))/(128.0*CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ6*pi*pi)+ (aem*aem*mH3_2*(MH2 - mH2_2)*mHp2*mMU*mMU*
+          log (mH3_2/MZ2)*log (mHp2/MZ2))/(256.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi)  - (aem*aem*(MH2 - mH2_2)*mMU*
+          mMU*(mH3_2*mHp6 + 9.0*mH2_2*mHp6 - 8.0*mHp8 + 
+            2.0*CW2*mH2_2*mHp4*MZ2 + 22.0*CW2*mHp6*MZ2 - 
+            10.0*CW4*mH2_2*mHp2*MZ4 - 26*CW4*mHp4*MZ4 + 
+            6.0*CW6*mH2_2*MZ6 + 18.0*CW6*mHp2*MZ6 - 6.0*CW8*MZ8 + 
+            MH2*(7.0*mHp6 + 2.0*CW2*mHp4*MZ2 - 10.0*CW4*mHp2*MZ4 + 
+               6.0*CW6*MZ6))*log(mHp2/MZ2)*log(mHp2/MZ2))/(512.0*
+          CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) +  log (mH2_2/
+           MZ2)*((aem*aem*mMU*
+             mMU*(-6.0*mH2_8 + 
+               mH2_4*MZ2*((5.0 + 26*CW2 - 16.0*CW4)*mHp2 - 
+                  3.0*CW2*MZ2) + 
+               3.0*mH2_6*((3.0 - 12.0*CW2 + 8.0*CW4)*
+                   mHp2 + (2.0 + CW2)*MZ2) + 
+               mH2_2*mHp2*
+                MZ2*((9.0 - 6.0*CW2)*mHp2 + (15 - 59*CW2 + 62*CW4)*
+                   MZ2) + 
+               4.0*mHp2*
+                MZ4*(-5.0*MZ2 + 18.0*CW6*MZ2 + 
+                  CW4*(6.0*mHp2 - 28*MZ2) - 
+                  6.0*CW2*(mHp2 - 2.0*MZ2))))/(192*
+             CW4*(-1.0 + CW2)*(-1.0 + CW2)*mH2_2*mHp2*
+             MZ4*(mH2_2 - MZ2)*pi*pi) + (aem*aem*
+             mH2_2*(MH2 - 7.0*mH2_2)*mHp2*mMU*mMU*
+             log (mHp2/MZ2))/(256.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+             MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi)) + 
+       log (MH2/
+          MZ2)*(-(aem*aem*mMU*
+              mMU*(-8.0*MH10- 128.0*CW4*(-1.0 + CW2)*mHp4*MZ6 + 
+                2.0*CW2*MH2*mHp2*
+                 MZ4*(8.0*(-5.0 + 4.0*CW2)*mHp2 + 
+                   CW2*(33 - 32*CW2)*MZ2) + 
+                MH6*MZ2*((10.0 + 11.0*CW2)*mHp2 - 
+                   4.0*CW2*(9.0 + 4.0*CW2)*MZ2) - 
+                4.0*MH8*(mHp2 - (2.0 + 9.0*CW2)*MZ2) + 
+                MH4*MZ2*((12.0 - 8.0*CW2)*mHp4 + 
+                   5.0*CW2*(-11.0 + 6.0*CW2)*mHp2*MZ2 + 
+                   16.0*CW4*MZ4)))/(256.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+             MH2*mHp2*MZ4*(MH2 - MZ2)*(MH2 - 4.0*CW2*MZ2)*pi*
+             pi) + (aem*aem*MH2*(5.0*MH2 + mH2_2)*mHp2*mMU*mMU*
+             log (mHp2/MZ2))/(256.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+             MZ2*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi)) + 
+       log (CW2)*((aem*aem*mMU*
+             mMU*(24.0*(1.0 - 4.0*CW2)*MH6*mH2_2*mHp2 + 
+               12.0*CW2*(-1.0 + 4.0*CW2)*MH4*mH2_2*
+                MZ2*(8.0*mHp2 + CW2*MZ2) + 2.0*CW2*
+                MZ2*(-48.0*(-1.0 + 4.0*CW2)*mH2_6*mHp2 + 
+                  24.0*CW4*(-1.0 + 4.0*CW2)*mH2_4*MZ4 + 
+                  CW2*(133 - 520*CW2 + 240*CW4)*mH2_2*mHp2*
+                   MZ2*(-mHp2 + CW2*MZ2) + 
+                  64.0*CW4*(10.0 - 49*CW2 + 36*CW4)*mHp2*
+                   MZ4*(-mHp2 + CW2*MZ2)) + 
+               MH2*(24.0*(-1.0 + 4.0*CW2)*mH2_6*mHp2 + 
+                  12.0*CW4*(1.0 - 4.0*CW2)*mH2_4*MZ4 - 
+                  32*CW4*(10.0 - 49*CW2 + 36*CW4)*mHp2*
+                   MZ4*(-mHp2 + CW2*MZ2) + 
+                  CW2*mH2_2*
+                   MZ2*((71.0 - 278.0*CW2 + 120*CW4)*mHp4 + 
+                    CW2*(-71.0 + 278.0*CW2 - 120*CW4)*mHp2*MZ2 + 
+                    48.0*CW4*(1.0 - 4.0*CW2)*MZ4))))/(768*
+             CW4*(-1.0 + CW2)*(-1.0 + CW2)*(-1.0 + 4.0*CW2)*mH2_2*
+             mHp2*MZ4*(-mHp2 + CW2*MZ2)*(-MH2 + 4.0*CW2*MZ2)*pi*
+             pi) + (aem*aem*mMU*
+             mMU*(2.0*mHp8 + MH6*(mHp2 + CW2*MZ2) - 
+               MH2*(3.0*mHp6 + 4.0*CW2*mHp4*MZ2))*
+             log (MH2/mHp2))/(128.0*CW6*(-1.0 + CW2)*(-1.0 + CW2)*
+             mHp4*MZ6*pi*pi) - (aem*aem*mMU*
+             mMU*(2.0*mHp8 + mH2_6*(mHp2 + CW2*MZ2) - 
+               mH2_2*(3.0*mHp6 + 4.0*CW2*mHp4*MZ2))*
+             log (mH2_2/mHp2))/(128.0*CW6*(-1.0 + CW2)*(-1.0 + CW2)*
+             mHp4*MZ6*pi*pi) + (aem*aem*mMU*
+             mMU*(-2.0*MH6 + 3.0*CW2*mHp4*MZ2 - 4.0*CW4*mHp2*MZ4 + 
+               CW6*MZ6 + MH4*(mHp2 + 3.0*CW2*MZ2) + 
+               MH2*(4.0*mHp4 + 3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4))*
+             log (MH2/MZ2))/(128.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+             MZ2*(-mHp2 + CW2*MZ2)*pi*pi) - (aem*aem*mMU*
+             mMU*(-2.0*mH2_6 + 3.0*CW2*mHp4*MZ2 - 4.0*CW4*mHp2*MZ4 + 
+               CW6*MZ6 + mH2_4*(mHp2 + 3.0*CW2*MZ2) + 
+               mH2_2*(4.0*mHp4 + 3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4))*
+             log (mH2_2/MZ2))/(128.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+             mHp4*MZ2*(-mHp2 + CW2*MZ2)*pi*pi) + (aem*aem*mMU*
+             mMU*(MH4*(mHp2 + 3.0*CW2*MZ2) + 
+               MH2*(-4.0*mHp4 + 3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4) - 
+               mH2_2*(-4.0*mHp4 + 3.0*CW2*mHp2*MZ2 - 3.0*CW4*MZ4 + 
+                  mH2_2*(mHp2 + 3.0*CW2*MZ2)))*
+             log (mHp2/MZ2))/(128.0*CW2*(-1.0 + CW2)*(-1.0 + CW2)*
+             mHp4*MZ2*(-mHp2 + CW2*MZ2)*pi*pi)) + (aem*aem*mMU*
+          mMU*(2.0*mHp8 + MH6*(mHp2 + CW2*MZ2) - 
+            MH2*(3.0*mHp6 + 4.0*CW2*mHp4*MZ2))*
+          PolyLog.Li2(1.0 - MH2/mHp2))/(64.0*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ6*pi*pi)  - (aem*aem*
+          mMU*mMU*(2.0*mHp8 + mH2_6*(mHp2 + CW2*MZ2) - 
+            mH2_2*(3.0*mHp6 + 4.0*CW2*mHp4*MZ2))*
+          PolyLog.Li2(1.0 - mH2_2/mHp2))/(64.0*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ6*pi*pi)+ (aem*aem*
+          mMU*mMU*(2.0*MH6*(mHp2 + CW2*MZ2) - 
+            CW4*MZ4*(mHp4 - 6.0*CW2*mHp2*MZ2 + 2.0*CW4*MZ4) - 
+            2.0*MH4*(mHp4 + 4.0*CW2*mHp2*MZ2 + 3.0*CW4*MZ4) + 
+            MH2*(4.0*CW2*mHp4*MZ2 + 6.0*CW6*MZ6))*
+          PolyLog.Li2(1.0 - MH2/(CW2*MZ2)))/(128.0*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*MZ6*pi*pi)+ (aem*aem*
+          mMU*mMU*(12.0*(1.0 - 3.0*CW2 + 2.0*CW4)*mH2_10 - 
+            48.0*(1.0 - 3.0*CW2 + 2.0*CW4)*mH2_8*
+             MZ2 + (17.0 - 48.0*CW2 + 32.0*CW4)*mH2_6*MZ4 - 
+            3.0*(5.0 - 12.0*CW2 + 8.0*CW4)*mH2_2*MZ8 - 
+            4.0*(5.0 - 12.0*CW2 + 8.0*CW4)*MZ10)*
+          PolyLog.Li2(  1.0 - mH2_2/MZ2))/(192.0*
+          CW4*(-1.0 + CW2)*(-1.0 + CW2)*mH2_4*MZ8*pi*pi) + (aem*aem*
+          mMU*mMU*(-6.0*CW6*mH2_2*mHp4*MZ6 - 8.0*CW8*mHp4*MZ8 - 
+            3.0*mH2_10*(mHp2 + CW2*MZ2) + 
+            3.0*mH2_8*(mHp4 + 4.0*CW2*mHp2*MZ2 + 3.0*CW4*MZ4) + 
+            mH2_6*(2.0*CW2*mHp4*MZ2 - 9.0*CW6*MZ6) + 
+            3.0*mH2_4*(-3.0*CW6*mHp2*MZ6 + CW8*MZ8))*
+          PolyLog.Li2( 1.0 - mH2_2/(CW2*MZ2)))/(192*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*mH2_4*mHp4*MZ6*pi*pi)   - (aem*
+          aem*(-3.0 + 4.0*CW2)*mMU*
+          mMU*((1.0 - 5.0*CW2 + 10.0*CW4)*
+             mH2_2 + (-7.0 + 61*CW2 - 162*CW4 + 96.0*CW6)*MZ2)*
+          TF (CW, CW, 1.0))/(128.0*
+          CW2*(1.0 - 4.0*CW2)*(1.0 - 4.0*CW2)*(-1.0 + CW2)*(-1.0 + 
+            CW2)*MZ2*(-mH2_2 + MZ2)*pi*pi) + (aem*
+          aem*(MH2 + 2.0*mHp2)*mMU*
+          mMU*(3.0*MH2*mHp8 - 8.0*CW6*mHp6*MZ4 + 
+            2.0*CW4*mHp6*MZ2*(MH2 + 4.0*(mHp2 + MZ2)) + 
+            CW2*(MH10 - 2.0*MH4*mHp4*MZ2 - 8.0*mHp8*MZ2 - 
+               MH8*(4.0*mHp2 + MZ2) + 
+               2.0*MH6*(mHp4 + 2.0*mHp2*MZ2) - 
+               MH2*(2.0*mHp8 + 3.0*mHp6*MZ2)))*
+          TF (MH, mHp, mHp))/(64.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*MH4*
+          mHp4*(MH2 - 4.0*mHp2)*MZ2*(MH2 - MZ2)*(-mHp2 + CW2*MZ2)*pi*
+          pi) + (aem*aem*mMU*
+          mMU*(MH8*(-mHp4 + CW4*MZ4) + 
+            MH6*(mHp6 + CW2*mHp4*MZ2 - 2.0*CW4*mHp2*MZ4 - 
+               4.0*CW6*MZ6) + (mHp2 - CW2*MZ2)*(mHp2 - 
+               CW2*MZ2)*(mHp2 - CW2*MZ2)*(2.0*mHp6 + 
+               2.0*CW2*mHp4*MZ2 + 2.0*CW4*mHp2*MZ4 - CW6*MZ6) + 
+            MH4*(3.0*mHp8 + 3.0*CW2*mHp6*MZ2 + CW4*mHp4*MZ4 - 
+               CW6*mHp2*MZ6 + 6.0*CW8*MZ8) + 
+            MH2*(-5.0*mHp10 + CW4*mHp6*MZ4 + 8.0*CW8*mHp2*MZ8 - 
+               4.0*CW10*MZ10))*TF (MH, mHp, CW*MZ))/(64.0*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ6*(-mHp2 + 
+            CW2*MZ2)*(MH4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+            2.0*MH2*(mHp2 + CW2*MZ2))*pi*pi) + (aem*aem*mMU*
+          mMU*(-2.0*MH10 + 2.0*CW8*MZ8*(-mHp2 + CW2*MZ2) + 
+            2.0*MH8*(mHp2 + 9.0*CW2*MZ2) - 
+            4.0*MH6*(4.0*CW2*mHp2*MZ2 + 11.0*CW4*MZ4) + 
+            MH4*(37*CW4*mHp2*MZ4 + 3.0*CW6*MZ6) + 
+            2.0*MH2*(-9.0*CW6*mHp2*MZ6 + 25*CW8*MZ8))*
+          TF (MH, CW*MZ, CW*MZ))/(128.0*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*MH2*
+          MZ6*(MH2 - 4.0*CW2*MZ2)*(MH2 - 4.0*CW2*MZ2)*(-mHp2 + 
+            CW2*MZ2)*pi*pi) + (aem*aem*(mH2_2 + 2.0*mHp2)*mMU*
+          mMU*(-3.0*mH2_2*mHp8 + 8.0*CW6*mHp6*MZ4 - 
+            2.0*CW4*mHp6*MZ2*(mH2_2 + 4.0*(mHp2 + MZ2)) + 
+            
+            CW2*(-mH2_10 + 2.0*mH2_4*mHp4*MZ2 + 8.0*mHp8*MZ2 + 
+               mH2_8*(4.0*mHp2 + MZ2) - 
+               2.0*mH2_6*(mHp4 + 2.0*mHp2*MZ2) + 
+               mH2_2*(2.0*mHp8 + 3.0*mHp6*MZ2)))*
+          TF (mH2, mHp, mHp))/(64.0*CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+          mH2_4*mHp4*(mH2_2 - 4.0*mHp2)*
+          MZ2*(mH2_2 - MZ2)*(-mHp2 + CW2*MZ2)*pi*pi) - (aem*aem*mMU*
+          mMU*(mH2_8*(-mHp4 + CW4*MZ4) + 
+            mH2_6*(mHp6 + CW2*mHp4*MZ2 - 2.0*CW4*mHp2*MZ4 - 
+               4.0*CW6*MZ6) + (mHp2 - CW2*MZ2)*(mHp2 - 
+               CW2*MZ2)*(mHp2 - CW2*MZ2)*(2.0*mHp6 + 
+               2.0*CW2*mHp4*MZ2 + 2.0*CW4*mHp2*MZ4 - CW6*MZ6) + 
+            mH2_4*(3.0*mHp8 + 3.0*CW2*mHp6*MZ2 + CW4*mHp4*MZ4 - 
+               CW6*mHp2*MZ6 + 6.0*CW8*MZ8) + 
+            mH2_2*(-5.0*mHp10 + CW4*mHp6*MZ4 + 8.0*CW8*mHp2*MZ8 - 
+               4.0*CW10*MZ10))*TF (mH2, mHp, CW*MZ))/(64.0*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*mHp4*
+          MZ6*(-mHp2 + 
+            CW2*MZ2)*(mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+            2.0*mH2_2*(mHp2 + CW2*MZ2))*pi*pi) + (aem*aem*mMU*
+          mMU*(6.0*(1.0 - 3.0*CW2 + 2.0*CW4)*mH2_6 - 
+            12.0*(1.0 - 3.0*CW2 + 2.0*CW4)*mH2_4*
+             MZ2 + (5.0 - 12.0*CW2 + 8.0*CW4)*mH2_2*MZ4 + 
+            2.0*(5.0 - 12.0*CW2 + 8.0*CW4)*MZ6)*
+          TF (mH2, MZ, MZ))/(192*CW4*(-1.0 + CW2)*(-1.0 + CW2)*mH2_2*
+          MZ8*pi*pi) + (aem*aem*mMU*
+          mMU*(3.0*mH2_12 - 
+            2.0*CW6*(-95 + 78*CW2)*mH2_2*MZ8*(-mHp2 + CW2*MZ2) + 
+            144*CW8*(-1.0 + CW2)*MZ10*(-mHp2 + CW2*MZ2) + 
+            2.0*CW2*mH2_6*
+             MZ4*((-2.0 + 5.0*CW2)*mHp2 + CW2*(-7.0 + CW2)*MZ2) - 
+            3.0*mH2_10*(mHp2 + (1.0 + 5.0*CW2)*MZ2) + 
+            CW4*mH2_4*
+             MZ6*((17.0 + 10.0*CW2)*mHp2 - CW2*(29 + 10.0*CW2)*MZ2) + 
+            mH2_8*MZ2*((3.0 + 4.0*CW2)*mHp2 + 
+               CW2*(15 + 14*CW2)*MZ2))*TF (mH2, CW*MZ, CW*MZ))/(192*
+          CW6*(-1.0 + CW2)*(-1.0 + CW2)*mH2_4*
+          MZ6*(mH2_2 - MZ2)*(mH2_2 - 4.0*CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi) + (aem*aem*(3.0 - 10.0*CW2 + 8.0*CW4)*(MH2 - mH2_2)*
+          mHp2*mMU*mMU*(2.0*mHp2 + MZ2)*TF(mHp, mHp, MZ))/(64.0*
+          CW4*(-1.0 + CW2)*(-1.0 + CW2)*
+          MZ4*(MH2 - MZ2)*(-mH2_2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*pi)));
+       
+
+        
+      
+gslpp::complex aYuk5 = Lambda5*(-(aem*mMU*mMU)/(8.0*MH2*pi*pi*pi) + (aem*mMU*
+       mMU*((-3.0 + 2.0*CW2)*MH2 - 8.0*CW2*(-1.0 + CW2)*MZ2)*
+       log (MH2/MZ2))/(128.0*CW2*(-1.0 + CW2)*MH2*(MH2 - MZ2)*pi*pi*
+       pi) - (aem*mMU*mMU*log(mHp2/MZ2))/(16.0*MH2*pi*pi*pi) + (aem*
+       mHp2*mMU*mMU*((-3.0 + 2.0*CW2)*MH2 - 8.0*CW2*(-1.0 + CW2)*MZ2)*
+       TF (MH, mHp, mHp))/(64.0*CW2*(-1.0 + CW2)*
+       MH4*(MH2 - 4.0*mHp2)*(MH2 - MZ2)*pi*pi*
+       pi) - (aem*(3.0 - 10.0*CW2 + 8.0*CW4)*mHp2*mMU*mMU*
+       TF (mHp, mHp, MZ))/(64.0*CW2*(-1.0 + CW2)*
+       MZ2*(-MH2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*pi*pi) +  sl*((aem*mMU*
+          mMU*(-mH2_4 + mH2_2*mHp2 + 
+            8.0*CW2*(-1.0 + CW2)*mHp2*MZ2)*(-1.0 + tanb*tanb))/(128.0*
+          CW2*(-1.0 + CW2)*mH2_2*mHp2*MZ2*pi*pi*pi*tanb) - (aem*
+          mH3_2*mHp2*mMU*mMU*(-1.0 + tanb*tanb)*
+          log(mH3_2/mHp2)*log(mH3_2/mHp2))/(1024*(-1.0 + 
+            CW2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+            CW2*MZ2)*pi*pi*pi*tanb) + (aem*mH2_2*mMU*
+          mMU*(-7.0*mHp6 + 8.0*CW2*mHp4*MZ2 - 4.0*CW4*mHp2*MZ4 + 
+            2.0*mH2_2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*(-1.0 + 
+            tanb*tanb)*
+          log(mH2_2/mHp2)*
+          log(mH2_2/mHp2))/(1024*(-1.0 + CW2)*
+          mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi*pi*tanb) + (aem*mH3_2*mHp2*mMU*
+          mMU*(-1.0 + tanb*tanb)*
+          log (mH3_2/MZ2)* log (mH3_2/MZ2))/(1024*(-1.0 + CW2)*(-mHp2 +
+             CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*pi*pi*
+          tanb) - (aem*mH2_2*mMU*
+          mMU*(-7.0*mHp6 + 8.0*CW2*mHp4*MZ2 - 4.0*CW4*mHp2*MZ4 + 
+            2.0*mH2_2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*(-1.0 + 
+            tanb*tanb)*
+          log (mH2_2/MZ2)*
+          log (mH2_2/MZ2))/(1024*(-1.0 + CW2)*
+          mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi*pi*tanb) + (aem*mMU*
+          mMU*(2.0*CW2*mH2_4*MZ2 + 
+            8.0*CW2*(-1.0 + CW2)*mHp2*MZ2*(-mHp2 + CW2*MZ2) + 
+            mH2_2*(-2.0*mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+          log (mHp2/MZ2))/(256.0*CW2*(-1.0 + CW2)*mH2_2*mHp2*
+          MZ2*(-mHp2 + CW2*MZ2)*pi*pi*pi*tanb) + (aem*mMU*
+          mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+            2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+          log (mH2_2/mHp2)*log (mHp2/MZ2))/(256.0*CW4*(-1.0 + CW2)*
+          mHp4*MZ4*pi*pi*pi*tanb) - (aem*mH3_2*mHp2*mMU*
+          mMU*(-1.0 + tanb*tanb)*log (mH3_2/MZ2)*
+          log (mHp2/MZ2))/(512.0*(-1.0 + CW2)*(-mHp2 + 
+            CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*pi*pi*
+          tanb) + (aem*mMU*
+          mMU*(mH3_2*mHp6 + 
+            2.0*mH2_4*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+            mH2_2*(mHp6 - 8.0*CW2*mHp4*MZ2 + 
+               4.0*CW4*mHp2*MZ4))*(-1.0 + tanb*tanb)*
+          log (mHp2/MZ2)*
+          log (mHp2/MZ2))/(1024*(-1.0 + CW2)*
+          mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi*pi*tanb) + 
+       log (mH2_2/
+           MZ2)*((aem*mMU*
+             mMU*(-2.0*mH2_6 + 
+               2.0*mH2_4*MZ2 + (3.0 - 2.0*CW2)*mH2_2*mHp2*MZ2 + 
+               8.0*CW2*(-1.0 + CW2)*mHp2*MZ4)*(-1.0 + 
+               tanb*tanb))/(256.0*CW2*(-1.0 + CW2)*mH2_2*mHp2*
+             MZ2*(mH2_2 - MZ2)*pi*pi*pi*tanb) - (3.0*aem*mH2_2*mHp2*
+             mMU*mMU*(-1.0 + tanb*tanb)*
+             log (mHp2/MZ2))/(512.0*(-1.0 + CW2)*(-mHp2 + 
+               CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*pi*pi*
+             tanb)) + 
+       log (CW2)*( -(aem*mMU*
+              mMU*(2.0*mH2_2 - 2.0*mHp2 + CW2*MZ2)*(-1.0 + 
+                tanb*tanb))/(256.0*CW2*(-1.0 + CW2)*
+             MZ2*(-mHp2 + CW2*MZ2)*pi*pi*pi*tanb)
+         - (aem*mMU*
+             mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+               2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+             log (mH2_2/mHp2))/(256.0*CW4*(-1.0 + CW2)*mHp4*MZ4*pi*pi*
+             pi*tanb)   + (aem*mH2_2*(mH2_2 - 2.0*mHp2)*mMU*
+             mMU*(-1.0 + tanb*tanb)*
+             log (mH2_2/MZ2))/(256.0*(-1.0 + CW2)*
+             mHp4*(-mHp2 + CW2*MZ2)*pi*pi*pi*tanb) - (aem*
+             mH2_2*(mH2_2 - 2.0*mHp2)*mMU*mMU*(-1.0 + tanb*tanb)*
+             log (mHp2/MZ2))/(256.0*(-1.0 + CW2)*mHp4*(-mHp2 + CW2*MZ2)*
+             pi*pi*pi*tanb)  ) -(aem*mMU*
+    mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+      2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+    PolyLog.Li2 (1.0 - mH2_2/mHp2))/(128.0*CW4*(-1.0 + CW2)*mHp4*MZ4*
+   pi*pi*pi*tanb)  + (aem*mMU*
+          mMU*(-3.0*mH2_2*mHp8 + 8.0*CW6*mHp6*MZ4 - 
+            2.0*CW4*mHp6*MZ2*(mH2_2 + 4.0*(mHp2 + MZ2)) + 
+            CW2*(-mH2_10 + 2.0*mH2_4*mHp4*MZ2 + 8.0*mHp8*MZ2 + 
+               mH2_8*(4.0*mHp2 + MZ2) - 
+               2.0*mH2_6*(mHp4 + 2.0*mHp2*MZ2) + 
+               mH2_2*(2.0*mHp8 + 3.0*mHp6*MZ2)))*(-1.0 + tanb*tanb)*
+          TF (mH2, mHp, mHp))/(128.0*CW2*(-1.0 + CW2)*mH2_4*
+          mHp4*(mH2_2 - 4.0*mHp2)*(mH2_2 - MZ2)*(-mHp2 + CW2*MZ2)*
+          pi*pi*pi*tanb)  - (aem*mMU*
+          mMU*(-mH2_6 + 
+            mH2_4*(3.0*mHp2 + CW2*MZ2) + (mHp3 - CW2*mHp*MZ2)*(mHp3 -
+                CW2*mHp*MZ2) + 
+            mH2_2*(-3.0*mHp4 + CW2*mHp2*MZ2))*(-1.0 + tanb*tanb)*
+          TF (mH2, mHp, CW*MZ))/(128.0*CW4*(-1.0 + CW2)*
+          MZ4*(-mHp2 + 
+            CW2*MZ2)*(mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+            2.0*mH2_2*(mHp2 + CW2*MZ2))*pi*pi*pi*
+          tanb)+(aem*(3.0 - 10.0*CW2 + 8.0*CW4)*mHp2*mMU*
+          mMU*(-1.0 + tanb*tanb)*TF (mHp, mHp, MZ))/(128.0*
+          CW2*(-1.0 + CW2)*MZ2*(-mH2_2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*
+          pi*pi*tanb)) + eta*(-(aem*(MH2 - mH2_2)*mMU*mMU*(-1.0 + tanb*tanb))/(16.0*MH2*
+          mH2_2*pi*pi*pi*tanb) + (aem*mMU*
+          mMU*((3.0 - 2.0*CW2)*MH2 + 8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 +
+             tanb*tanb)*log (MH2/MZ2))/(256.0*CW2*(-1.0 + CW2)*
+          MH2*(MH2 - MZ2)*pi*pi*pi*tanb) + (aem*mMU*
+          mMU*((-3.0 + 2.0*CW2)*mH2_2 - 
+            8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 + tanb*tanb)*
+          log (mH2_2/MZ2))/(256.0*CW2*(-1.0 + CW2)*
+          mH2_2*(mH2_2 - MZ2)*pi*pi*pi*tanb) - (aem*(MH2 - mH2_2)*
+          mMU*mMU*(-1.0 + tanb*tanb)*log (mHp2/MZ2))/(32*MH2*mH2_2*
+          pi*pi*pi*tanb) + (aem*mHp2*mMU*
+          mMU*((3.0 - 2.0*CW2)*MH2 + 8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 +
+             tanb*tanb)*TF (MH, mHp, mHp))/(128.0*CW2*(-1.0 + CW2)*
+          MH4*(MH2 - 4.0*mHp2)*(MH2 - MZ2)*pi*pi*pi*tanb)+ (aem*mHp2*
+          mMU*mMU*((-3.0 + 2.0*CW2)*mH2_2 - 
+            8.0*CW2*(-1.0 + CW2)*MZ2)*(-1.0 + tanb*tanb)*
+          TF (mH2, mHp, mHp))/(128.0*CW2*(-1.0 + CW2)*
+          mH2_4*(mH2_2 - 4.0*mHp2)*(mH2_2 - MZ2)*pi*pi*pi*
+          tanb) + (aem*(3.0 - 10.0*CW2 + 8.0*CW4)*(MH2 - mH2_2)*mHp2*
+          mMU*mMU*(-1.0 + tanb*tanb)*TF (mHp, mHp, MZ))/(128.0*
+          CW2*(-1.0 + CW2)*
+          MZ2*(-MH2 + MZ2)*(-mH2_2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*pi*pi*
+          tanb) + sl*((aem*(MH2 - mH2_2)*mMU*
+             mMU*(MH2*mH2_2 + 8.0*CW2*(-1.0 + CW2)*mHp2*MZ2))/(64.0*
+             CW2*(-1.0 + CW2)*MH2*mH2_2*mHp2*MZ2*pi*pi*pi) - (aem*
+             MH2*mMU*
+             mMU*(-3.0*mHp6 + 4.0*CW2*mHp4*MZ2 - 2.0*CW4*mHp2*MZ4 + 
+               MH2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*
+             log (MH2/mHp2)*
+             log (MH2/mHp2))/(256.0*(-1.0 + CW2)*
+             mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi*pi) + (aem*mH2_2*mMU*
+             mMU*(-3.0*mHp6 + 4.0*CW2*mHp4*MZ2 - 2.0*CW4*mHp2*MZ4 + 
+               mH2_2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*
+             log (mH2_2/mHp2)*
+             log (mH2_2/mHp2))/(256.0*(-1.0 + CW2)*
+             mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi*pi) + (aem*MH2*mMU*
+             mMU*(-3.0*mHp6 + 4.0*CW2*mHp4*MZ2 - 2.0*CW4*mHp2*MZ4 + 
+               MH2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*
+             log (MH2/MZ2)*
+             log (MH2/MZ2))/(256.0*(-1.0 + CW2)*
+             mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi*pi) - (aem*mH2_2*mMU*
+             mMU*(-3.0*mHp6 + 4.0*CW2*mHp4*MZ2 - 2.0*CW4*mHp2*MZ4 + 
+               mH2_2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2))*
+             log (mH2_2/MZ2)*
+             log (mH2_2/MZ2))/(256.0*(-1.0 + CW2)*
+             
+             mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi*pi)  - (aem*(MH2 - mH2_2)*mMU*
+             mMU*(MH2*mH2_2 + 
+               4.0*(-1.0 + CW2)*mHp2*(mHp2 - CW2*MZ2))*
+             log (mHp2/MZ2))/(64.0*(-1.0 + CW2)*MH2*mH2_2*
+             mHp2*(-mHp2 + CW2*MZ2)*pi*pi*pi) - (aem*mMU*
+             mMU*(mHp6 + MH4*(mHp2 + CW2*MZ2) - 
+               2.0*MH2*(mHp4 + CW2*mHp2*MZ2))*log (MH2/mHp2)*
+             log (mHp2/MZ2))/(128.0*CW4*(-1.0 + CW2)*mHp4*MZ4*pi*pi*
+             pi) + (aem*mMU*
+             mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+               2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*log(mH2_2/mHp2)*
+             log (mHp2/MZ2))/(128.0*CW4*(-1.0 + CW2)*mHp4*MZ4*pi*pi*
+             pi) + (aem*mMU*
+             mMU*(-(MH4*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2)) + 
+               MH2*(mHp6 - 4.0*CW2*mHp4*MZ2 + 2.0*CW4*mHp2*MZ4) + 
+               mH2_2*(mH2_2*(mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+                  mHp2*(mHp4 - 4.0*CW2*mHp2*MZ2 + 2.0*CW4*MZ4)))*
+             log(mHp2/MZ2)*
+             log(mHp2/MZ2))/(256.0*(-1.0 + CW2)*
+             mHp4*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi*pi)   + 
+          log (MH2/
+             MZ2)*((aem*mMU*
+                mMU*(2.0*MH6 - 
+                  2.0*MH4*MZ2 + (-3.0 + 2.0*CW2)*MH2*mHp2*MZ2 - 
+                  8.0*CW2*(-1.0 + CW2)*mHp2*MZ4))/(128.0*
+                CW2*(-1.0 + CW2)*MH2*mHp2*MZ2*(MH2 - MZ2)*pi*pi*
+                pi) + (aem*MH2*mHp2*mMU*mMU*
+                log (mHp2/MZ2))/(128.0*(-1.0 + CW2)*(-mHp2 + 
+                  CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*pi*
+                pi))  + log (mH2_2/
+              MZ2)*((aem*mMU*
+                mMU*(-2.0*mH2_6 + 
+                  2.0*mH2_4*MZ2 + (3.0 - 2.0*CW2)*mH2_2*mHp2*MZ2 + 
+                  8.0*CW2*(-1.0 + CW2)*mHp2*MZ4))/(128.0*
+                CW2*(-1.0 + CW2)*mH2_2*mHp2*MZ2*(mH2_2 - MZ2)*pi*pi*
+                pi) - (aem*mH2_2*mHp2*mMU*mMU*
+                log (mHp2/MZ2))/(128.0*(-1.0 + CW2)*(-mHp2 + 
+                  CW2*MZ2)*(-mHp2 + CW2*MZ2)*(-mHp2 + CW2*MZ2)*pi*pi*
+                pi))+ log (CW2)*((aem*(MH2 - mH2_2)*mMU*mMU)/(64.0*
+                CW2*(-1.0 + CW2)*MZ2*(-mHp2 + CW2*MZ2)*pi*pi*
+                pi) + (aem*mMU*
+                mMU*(mHp6 + MH4*(mHp2 + CW2*MZ2) - 
+                  2.0*MH2*(mHp4 + CW2*mHp2*MZ2))*
+                log (MH2/mHp2))/(128.0*CW4*(-1.0 + CW2)*mHp4*MZ4*pi*
+                pi*pi) - (aem*mMU*
+                mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+                  2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*
+                log (mH2_2/mHp2))/(128.0*CW4*(-1.0 + CW2)*mHp4*MZ4*
+                pi*pi*pi) - (aem*MH2*(MH2 - 2.0*mHp2)*mMU*mMU*
+                log (MH2/MZ2))/(128.0*(-1.0 + CW2)*
+                mHp4*(-mHp2 + CW2*MZ2)*pi*pi*pi) + (aem*
+                mH2_2*(mH2_2 - 2.0*mHp2)*mMU*mMU*
+                log (mH2_2/MZ2))/(128.0*(-1.0 + CW2)*
+                mHp4*(-mHp2 + CW2*MZ2)*pi*pi*
+                pi) + (aem*(MH2 - mH2_2)*(MH2 + mH2_2 - 2.0*mHp2)*
+                mMU*mMU*log (mHp2/MZ2))/(128.0*(-1.0 + CW2)*
+                mHp4*(-mHp2 + CW2*MZ2)*pi*pi*pi)) + (aem*mMU*
+             mMU*(mHp6 + MH4*(mHp2 + CW2*MZ2) - 
+               2.0*MH2*(mHp4 + CW2*mHp2*MZ2))*
+             PolyLog.Li2 (1.0 - MH2/mHp2))/(64.0*CW4*(-1.0 + CW2)*
+             mHp4*MZ4*pi*pi*pi) - (aem*mMU*
+             mMU*(mHp6 + mH2_4*(mHp2 + CW2*MZ2) - 
+               2.0*mH2_2*(mHp4 + CW2*mHp2*MZ2))*
+             PolyLog.Li2(1.0 - mH2_2/mHp2))/(64.0*CW4*(-1.0 + CW2)*
+             mHp4*MZ4*pi*pi*pi) + (aem*mMU*
+             mMU*(3.0*MH2*mHp8 - 8.0*CW6*mHp6*MZ4 + 
+               2.0*CW4*mHp6*MZ2*(MH2 + 4.0*(mHp2 + MZ2)) + 
+               CW2*(MH10 - 2.0*MH4*mHp4*MZ2 - 8.0*mHp8*MZ2 - 
+                  MH8*(4.0*mHp2 + MZ2) + 
+                  2.0*MH6*(mHp4 + 2.0*mHp2*MZ2) - 
+                  MH2*(2.0*mHp8 + 3.0*mHp6*MZ2)))*
+             TF (MH, mHp, mHp))/(64.0*CW2*(-1.0 + CW2)*MH4*
+             mHp4*(MH2 - 4.0*mHp2)*(MH2 - MZ2)*(-mHp2 + CW2*MZ2)*pi*
+             pi*pi) + (aem*mMU*
+             mMU*(-MH6 + 
+               MH4*(3.0*mHp2 + CW2*MZ2) + (mHp3 - CW2*mHp*MZ2)*(mHp3 -
+                   CW2*mHp*MZ2) + MH2*(-3.0*mHp4 + CW2*mHp2*MZ2))*
+             TF (MH, mHp, CW*MZ))/(64.0*CW4*(-1.0 + CW2)*
+             MZ4*(-mHp2 + 
+               CW2*MZ2)*(MH4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+               2.0*MH2*(mHp2 + CW2*MZ2))*pi*pi*pi)  + (aem*mMU*
+             mMU*(-3.0*mH2_2*mHp8 + 8.0*CW6*mHp6*MZ4 - 
+               2.0*CW4*mHp6*MZ2*(mH2_2 + 4.0*(mHp2 + MZ2)) + 
+               CW2*(-mH2_10 + 2.0*mH2_4*mHp4*MZ2 + 8.0*mHp8*MZ2 + 
+                  mH2_8*(4.0*mHp2 + MZ2) - 
+                  2.0*mH2_6*(mHp4 + 2.0*mHp2*MZ2) + 
+                  mH2_2*(2.0*mHp8 + 3.0*mHp6*MZ2)))*
+             TF (mH2, mHp, mHp))/(64.0*CW2*(-1.0 + CW2)*mH2_4*
+             mHp4*(mH2_2 - 4.0*mHp2)*(mH2_2 - MZ2)*(-mHp2 + 
+               CW2*MZ2)*pi*pi*pi) - (aem*mMU*
+             mMU*(-mH2_6 + 
+               mH2_4*(3.0*mHp2 + CW2*MZ2) + (mHp3 - 
+                  CW2*mHp*MZ2)*(mHp3 - CW2*mHp*MZ2) + 
+               mH2_2*(-3.0*mHp4 + CW2*mHp2*MZ2))*
+             TF (mH2, mHp, CW*MZ))/(64.0*CW4*(-1.0 + CW2)*
+             MZ4*(-mHp2 + 
+               CW2*MZ2)*(mH2_4 + (mHp2 - CW2*MZ2)*(mHp2 - CW2*MZ2) - 
+               2.0*mH2_2*(mHp2 + CW2*MZ2))*pi*pi*
+             pi) + (aem*(3.0 - 10.0*CW2 + 8.0*CW4)*(MH2 - mH2_2)*
+             mHp2*mMU*mMU*TF (mHp, mHp, MZ))/(64.0*CW2*(-1.0 + CW2)*
+             MZ2*(MH2 - MZ2)*(-mH2_2 + MZ2)*(-4.0*mHp2 + MZ2)*pi*pi*
+             pi))));
+        
+ 
+    aYuk = aYuk2+aYuk3+aYuk4+aYuk5;
+
+   
+
+
+    gminus2muNLOB = aEWadd + aNonYuk  + aYuk;
+  
+     return(gminus2muNLOB.real());
+}
+
 
 double GeneralTHDMMatching::gminus2muNLO() {
 
     updateGTHDMParameters();
-    double gminus2muNLO;
-    gminus2muNLO=0.0;
+     
+  //  double gminus2muLOvalue=gminus2muLO();
+    double gminus2muNLOFvalue=gminus2muNLOF();
+    double gminus2muNLOBvalue = gminus2muNLOB();
+    
+   double gminus2muNLO = gminus2muNLOFvalue + gminus2muNLOBvalue;
+   
+  
     return(gminus2muNLO);
-}
+    }
+
+
+
 
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMgminus2mu() {
-
+    
+    gslpp::complex su = myGTHDM.getNu_11();
+    gslpp::complex sd = myGTHDM.getNd_11();
+    gslpp::complex sl = myGTHDM.getNl_11();
+    
+    double Imlambda5=myGTHDM.getImlambda5();
+    double Imlambda6=myGTHDM.getMyGTHDMCache()->Imlambda6;
+    double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambda7;
+    double sinalpha2=myGTHDM.getsinalpha2();
+    double sinalpha3=myGTHDM.getsinalpha3();
+    
+    if(su.imag() != 0. || sd.imag() !=0. || sl.imag() != 0 )
+    {
+         throw std::runtime_error("Error: g-2 is only implemented in the CP-conserving limit. Alignment parameters should be real");
+    }
+    
+    if(Imlambda5 != 0. || Imlambda6!=0. || Imlambda7 != 0 ||  sinalpha2 != 0 || sinalpha3 != 0)
+    {
+         throw std::runtime_error("Error: g-2 is only implemented in the CP-conserving limit");
+    }
+    
+    
     vmcgminus2mu = StandardModelMatching::CMgminus2mu();
 
     double gminus2muLOvalue=gminus2muLO();
     double gminus2muNLOvalue=gminus2muNLO();
+
     
     switch (mcgminus2mu.getOrder()) {
         case LO:
@@ -69,7 +1797,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMgminus2mu() {
 
     vmcgminus2mu.push_back(mcgminus2mu);
     return(vmcgminus2mu);
-
+   
 }
 
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
@@ -105,6 +1833,326 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMdbs2() {
     return(vmcds);
 }
 
+double GeneralTHDMMatching::C10Bll(double xt, double xHp) {
+    
+    double C10 = su.abs2()*xt*xt/8*(1/(xHp-xt) + xHp/((xHp-xt)*(xHp-xt))*(log(xt)- log(xHp)));
+    return C10;
+    }
+
+ gslpp::complex  GeneralTHDMMatching::CSboxBll(double xt, double xHp) {
+   
+      gslpp::complex  CSboxU = xt/(8*(xHp-xt))*(sl*su.conjugate()*(xt/(xt-1)*log(xt)
+             - xHp/(xHp-1)*log(xHp)) 
+     + su*sl.conjugate()*(1-(xHp-xt*xt)/((xHp-xt)*(xt-1))*log(xt) 
+     - (xHp*(xt-1))/((xHp-xt)*(xHp-1))*log(xHp))  + 2*sd*sl.conjugate()*(log(xt)-log(xHp))); 
+             
+      return(CSboxU);
+    }
+
+
+ gslpp::complex  GeneralTHDMMatching::CPboxBll(double xt, double xHp) {
+
+    
+        gslpp::complex  CPboxU = -xt/(8*(xHp-xt))*(-sl*su.conjugate()*(xt/(xt-1)*log(xt) - xHp/(xHp-1)*log(xHp)) 
+     + su*sl.conjugate()*(1-(xHp-xt*xt)/((xHp-xt)*(xt-1))*log(xt) 
+     - (xHp*(xt-1))/((xHp-xt)*(xHp-1))*log(xHp))  + 2*sd*sl.conjugate()*(log(xt)-log(xHp))); 
+      
+        return CPboxU;
+    }
+
+ 
+  gslpp::complex  GeneralTHDMMatching:: CPZUBll(double xt, double xHp, double sW2) {
+
+    
+         // CPZF. Z-penguins diagrms. Eq. (52)
+       
+     gslpp::complex CPZF = (xt/(4*(xHp - xt)*(xHp - xt)))*(sd*su.conjugate()*(-((xt + xHp)/2) 
+             +  ((xt*xHp)/(xHp - xt))*(log(xHp) - log(xt))) + 
+           su.abs2()*(1/(6*(xHp - xt)))*((xHp*xHp - 8*xHp*xt -  17*xt*xt)/ 6 
+             + ((xt*xt*(3*xHp + xt))/(xHp - xt))*(log(xHp) - log(xt)))) 
+             + sW2*(xt/(6*(xHp - xt)*(xHp - xt)))*(sd*su.conjugate()*((5*xt - 3*xHp)/2 
+             + ((xHp*(2*xHp - 3*xt))/(xHp - xt))*(log(xHp) - log(xt))) - 
+            su.abs2()*(1/(6*(xHp - xt)))*(((4*xHp*xHp*xHp - 12*xHp*xHp*xHp*xt + 9*xHp*xt*xt + 3*xt*xt*xt)/(xHp - xt))* (log(xHp) - log(xt))
+             - (17*xHp*xHp - 64*xHp*xt + 71.0*xt*xt)/6));
+    
+     //CPGBF. Goldstone penguin diagrams. Eq. (53)
+     
+    gslpp::complex  CPGBF = su.abs2()*(1 - sW2)*(xt*xt/(4*(xHp - xt)*(xHp - xt)))*
+      (xHp*(log(xHp) - log(xt)) + xt - xHp);
+    
+      //CPZU. Z-penguin diagrams in the unitary gauge. Eq. (54)
+    
+    gslpp::complex  CPZU =  CPZF + CPGBF;
+    
+    return CPZU;
+      
+  }
+ 
+double GeneralTHDMMatching::f1(double xHp, double xt){
+
+
+      double f1 = (1.0/(2.0*(xHp - xt)))*(-xHp + xt + xHp*log(xHp) - 
+     xt*log(xt));
+      return f1;
+      
+  }
+
+
+double GeneralTHDMMatching::f2(double xHp, double xt){
+
+    double f2 =  (1.0/(2.0*(xHp - xt)))*(xt - ((xHp*xt)/(xHp - xt))*(log(xHp) - log(xt))); 
+         
+    return f2 ;
+      
+  }
+
+double GeneralTHDMMatching::f3(double xHp, double xt){
+
+       double f3= (1.0/(2.0*(xHp - xt)))*
+    (xHp - (xHp*xHp*log(xHp))/(xHp - xt) + (xt*(2*xHp - xt)*log(xt))/
+      (xHp - xt)); 
+ 
+      return f3;
+      
+  }
+
+double GeneralTHDMMatching::f4(double xHp, double xt){
+
+
+    double f4 = (1.0/(4*(xHp - xt)*(xHp - xt)))*((xt*(3.0*xHp - xt))/2.0 - 
+     ((xHp*xHp*xt)/(xHp - xt))*(log(xHp) - log(xt)));   
+      return f4;
+      
+  }
+
+double GeneralTHDMMatching::f5(double xHp, double xt){
+
+
+    double f5 = (1.0/(4*(xHp - xt)*(xHp - xt)))*((xt*(xHp - 3.0*xt))/2.0 - 
+    ((xHp*xt*(xHp - 2.0*xt))/(xHp - xt))*(log(xHp) - log(xt)));  
+      return f5;
+      
+  }
+
+double GeneralTHDMMatching::f6(double xHp, double xt){
+
+
+    double f6 = (1.0/(2.0*(xHp - xt)))*
+    ((xt*(xt*xt - 3.0*xHp*xt + 9*xHp - 5*xt - 2.0))/(4*(xt - 1.0)*(xt - 1.0)) + 
+     ((xHp*(xHp*xt - 3.0*xHp + 2.0*xt))/(2.0*(xHp - 1.0)*(xHp - xt)))*
+      log(xHp) + ((xHp*xHp*(-2.0*xt*xt*xt + 6*xt*xt - 9*xt + 2.0) + 
+        3.0*xHp*xt*xt*(xt*xt - 2.0*xt + 3.0) - xt*xt*(2.0*xt*xt - 3.0*xt*xt + 
+          3.0*xt + 1.0))/(2.0*(xt - 1.0)*(xt - 1.0)*(xt - 1.0)*(xHp - xt)))*log(xt)); 
+ 
+      return f6;
+      
+  }
+
+double GeneralTHDMMatching::f7(double xHp, double xt){
+
+
+     double f7= (1.0/(2.0*(xHp - xt)))*
+    (((xt*xt + xt - 8)*(xHp - xt))/(4*(xt - 1.0)*(xt - 1.0)) - 
+     ((xHp*(xHp + 2.0))/(2.0*(xHp - 1.0)))*log(xHp) + 
+     ((xHp*(xt*xt*xt - 3.0*xt*xt + 3.0*xt + 2.0) + 3.0*(xt - 2.0)*xt*xt)/
+       (2.0*(xt - 1.0)*(xt - 1.0)*(xt - 1.0)))*log(xt));  
+      return f7;
+      
+  }
+
+double GeneralTHDMMatching::f8(double xHp, double xt){
+
+     double f8 = (1.0/(4*(xHp - xt)))*((xt*log(xt))/(xt - 1.0) - 
+     (xHp*log(xHp))/(xHp - 1.0)); 
+ 
+      return f8;
+      
+  }
+
+double GeneralTHDMMatching::f9(double xHp, double xt){
+
+
+     double f9 = (1.0/(8*(xHp - xt)))*(xHp/(xHp - 1.0) + 
+     (xt*xt*log(xt))/((xt - 1.0)*(xHp - xt)) - 
+     ((xHp*(xHp*xt + xHp - 2.0*xt))/((xHp - 1.0)*(xHp - 1.0)*(xHp - xt)))*
+      log(xHp));  
+      return f9;
+      
+  }
+
+double GeneralTHDMMatching::f10(double xHp, double xt){
+double f10 = (1.0/(8*(xHp - xt)))*
+    ((xHp - xt)/((xHp - 1.0)*(xt - 1.0)) + ((xt*(xt - 2.0))/(xt - 1.0)*(xt - 1.0))*
+      log(xt) - ((xHp*(xHp - 2.0))/(xHp - 1.0)*(xHp - 1.0))*log(xHp)); 
+     
+      return f10;
+      
+  }
+  
+  
+gslpp::complex  GeneralTHDMMatching::g0(double xHp, double xt){
+
+    gslpp::complex  g0 = (1.0/(4.0*(xHp-xt)))*((sd*su.conjugate()*(xt/(xHp-xt)*(log(xHp)-log(xt))-1.0))
+            + su.abs2()*(xt*xt/(2.0*(xHp-xt)*(xHp-xt))*(log(xHp)-log(xt)) + (xHp-3.0*xt)/(4.0*(xHp-xt))));
+    
+    return g0;
+}
+
+gslpp::complex  GeneralTHDMMatching::g1a(double xHp, double xt){
+    
+     gslpp::complex  g1a = -(3.0/4.0) + sd*su.conjugate()*(xt/(xHp - xt))*(1.0 - (xHp/(xHp - xt))*(log(xHp) - log(xt))) 
+    + su.abs2()*(xt/(2.0*(xHp - xt)*(xHp - xt)))*((xHp + xt)/2.0 - ((xHp*xt)/(xHp - xt))*(log(xHp) - log(xt)));
+    
+     return g1a;
+    
+}
+
+gslpp::complex  GeneralTHDMMatching::g2a(double xHp, double xt){
+    
+     gslpp::complex  g2a = sd*sd*su.conjugate()*f1(xHp, xt) + sd*su.conjugate()*su.conjugate()*f2(xHp, xt)+sd*su.abs2()*f3(xHp, xt) 
+    + su*su.abs2()*f4(xHp, xt) - su.conjugate()*su.abs2()*f5(xHp, xt) + su*f6(xHp, xt) - su.conjugate()*f7(xHp, xt) +sd*f1(xHp, xt); 
+   
+     return g2a;
+    
+}
+
+gslpp::complex  GeneralTHDMMatching::g3a(double xHp, double xt){
+    
+    gslpp::complex g3a =sd*sd*su.conjugate()*f1(xHp, xt) - sd*su.conjugate()*su.conjugate()*f2(xHp, xt) 
+    + sd*su.abs2()*f3(xHp, xt) + su*su.abs2()*f4(xHp, xt) + su.conjugate()*su.abs2()*f5(xHp, xt) 
+    + su* f6(xHp, xt) + su.conjugate()*f7(xHp, xt) + sd*f1(xHp, xt); 
+    
+    return g3a;
+}
+
+
+    gslpp::complex  GeneralTHDMMatching::lambdaHHphi(double lambda3, double Relambda7,double Imlambda7, double Ri1, double Ri2, double Ri3 ){
+         gslpp::complex  lambdaHHphi = lambda3*Ri1 + Relambda7*Ri2 - Imlambda7*Ri3;
+        return lambdaHHphi;
+    }
+            
+            
+
+
+gslpp::complex  GeneralTHDMMatching::CphiU(double xHp, double xt, double vev, double xphi, double mu, double Ri1, double Ri2, double Ri3, double mHi_2, double lambda3, double Relambda7,double Imlambda7){
+     gslpp::complex i = gslpp::complex::i();
+     gslpp::complex CphiU = xt*((1/(2*xphi))*(su-sd)*(1 + su.conjugate()*sd)*
+      (Ri2 + i*Ri3)*mu + (vev*vev/mHi_2)*lambdaHHphi(lambda3, Relambda7, Imlambda7, Ri1, Ri2, Ri3)*g0(xHp, xt) + Ri1*((1/(2.0*xphi))*g1a(xHp, xt)) + Ri2*(1/(2.0*xphi)*g2a(xHp, xt)) + i*Ri3*(1/(2.0*xphi))*g3a(xHp, xt));
+    
+     return CphiU;
+}
+
+ 
+std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBll() {
+    
+    //From 1404.5865
+        
+     /*complex i */
+    gslpp::complex i = gslpp::complex::i();
+       
+    
+    double mHp2=myGTHDM.getmHp2();
+     double MW = myGTHDM.Mw();
+    double mt = myGTHDM.Mrun(MW, myGTHDM.getQuarks(QCD::TOP).getMass_scale(), 
+                        myGTHDM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    
+    double xt = (mt*mt)/(MW*MW);
+    double xHp = (mHp2)/(MW*MW);
+    double vev = myGTHDM.v();
+    double sW2 = myGTHDM.sW2();
+    double mHl=myGTHDM.getMHl();
+    double mH1_2=mHl*mHl;
+   
+    
+       /*mu contains the missalignemtn dependece. It should be mu -> CR(mu0) - log(mu/mu0). Eq (22)
+     Change depending which parameter is defined*/
+    double mu = 10;
+
+
+    //To be modified if the basis is modified
+    //Here lambdag, lambdac...are in the Higgs basis. Basis transformation at 106.0034, Eq. (119)-(129)
+    double Imlambda7=myGTHDM.getMyGTHDMCache()->Imlambdag_GTHDM;
+    double Relambda7=myGTHDM.getMyGTHDMCache()->Relambdag_GTHDM;
+    double lambda3=myGTHDM.getMyGTHDMCache()->lambdac_GTHDM;
+    
+    double  R11 = myGTHDM.getMyGTHDMCache()->R11_GTHDM;
+    double  R12 = myGTHDM.getMyGTHDMCache()->R12_GTHDM;
+    double  R13 = myGTHDM.getMyGTHDMCache()->R13_GTHDM;
+    double  R21 = myGTHDM.getMyGTHDMCache()->R21_GTHDM;
+    double  R22 = myGTHDM.getMyGTHDMCache()->R22_GTHDM;
+    double  R23 = myGTHDM.getMyGTHDMCache()->R23_GTHDM;
+    double  R31 = myGTHDM.getMyGTHDMCache()->R31_GTHDM;
+    double  R32 = myGTHDM.getMyGTHDMCache()->R32_GTHDM;
+    double  R33 = myGTHDM.getMyGTHDMCache()->R33_GTHDM;
+
+    
+    /*Mass of the physical scalars*/
+
+   double mH2_2 = myGTHDM.getmH2sq();
+   double mH3_2 = myGTHDM.getmH3sq();
+
+   
+    
+   
+    double xphi1 = mH1_2/(MW*MW);
+    double xphi2 = mH2_2/(MW*MW);
+    double xphi3 = mH3_2/(MW*MW);
+   
+    //Yukawa couplings. Eq. (19)
+    
+    gslpp::complex yl1 = R11  + (R12 + i*R13)*sl;
+    gslpp::complex yl2 = R21  + (R22 + i*R23)*sl;
+    gslpp::complex yl3 = R31  + (R32 + i*R33)*sl;
+    
+    
+     vmcbsmm = StandardModelMatching::CMbsmm();
+     mcbsmm.setMu(MW);
+    
+      
+    double C10 = C10Bll(xt, xHp);
+    
+   
+    gslpp::complex CSboxU = CSboxBll(xt,  xHp);
+    gslpp::complex CPboxU = CPboxBll(xt,  xHp);
+    gslpp::complex CPZU = CPZUBll(xt,  xHp,  sW2);
+    
+    gslpp::complex CSphi1U = yl1.real()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7);
+    gslpp::complex CSphi2U = yl2.real()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7);
+    gslpp::complex CSphi3U = yl3.real()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7);
+
+    gslpp::complex CPphi1U = i*yl1.imag()*CphiU(xHp,  xt,  vev,  xphi1,  mu,  R11,  R12,  R13,  mH1_2,  lambda3,  Relambda7, Imlambda7);
+    gslpp::complex CPphi2U = i*yl2.imag()*CphiU(xHp,  xt,  vev,  xphi2,  mu,  R21,  R22,  R23,  mH2_2,  lambda3,  Relambda7, Imlambda7);
+    gslpp::complex CPphi3U = i*yl3.imag()*CphiU(xHp,  xt,  vev,  xphi3,  mu,  R31,  R32,  R33,  mH3_2,  lambda3,  Relambda7, Imlambda7);
+
+
+    /*Total 2HDM Wilson coefficients CS and CP PART. Eq. (31)-(33) without SM part*/
+   
+    //C10
+    gslpp::complex CSphiU =  CSboxU + CSphi1U + CSphi2U + CSphi3U;
+    gslpp::complex CPphiU =  CPboxU + CPZU + CPphi1U + CPphi2U + CPphi3U;
+
+    
+    /*
+      switch (mcdbs2.getOrder()) {
+        case NNLO:
+        case NLO:
+        case LO:
+            mcdbs2.setCoeff(0, co * co * xt * (SWH+SHH), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcdbs2.getOrder();
+            throw std::runtime_error("THDMMatching::CMdbs2(): order " + out.str() + "not implemented");
+    }
+
+    vmcds.push_back(mcdbs2);
+    return(vmcds);
+    */
+    /*vmcbsmm.setCoeff(0, C10, LO); */ 
+
+    
+}
+
 std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu() {
 
     double Muw = myGTHDM.getMuw();
@@ -121,7 +2169,7 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMbtaunu() {
         case NNLO:
         case NLO:
         case LO:
-            mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
+            mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / negsquareroot(2.) * mB*mB*tanb*tanb/mHp2, LO);
             break;
         default:
             std::stringstream out;
@@ -399,8 +2447,8 @@ gslpp::complex GeneralTHDMMatching::setWCbsg(int i, gslpp::complex sigmau, gslpp
             throw std::runtime_error("order" + out.str() + "not implemeted"); 
             }
     
-    /*std::cout << "CWbsgArrayLO[6] = " << CWbsgArrayLO[6] << std::endl;
-    std::cout << "CWbsgArrayLO[7] = " << CWbsgArrayLO[7] << std::endl << std::endl;
+    std::cout << "CWbsgArrayLO[6] = " << CWbsgArrayLO[6] << std::endl;
+    /*std::cout << "CWbsgArrayLO[7] = " << CWbsgArrayLO[7] << std::endl << std::endl;
     std::cout << "CWbsgArrayNLO[3] = " << CWbsgArrayNLO[3] << std::endl;
     std::cout << "CWbsgArrayNLO[6] = " << CWbsgArrayNLO[6] << std::endl;
     std::cout << "CWbsgArrayNLO[7] = " << CWbsgArrayNLO[7] << std::endl << std::endl;
@@ -427,3 +2475,4 @@ gslpp::complex GeneralTHDMMatching::setWCbsg(int i, gslpp::complex sigmau, gslpp
             throw std::runtime_error("order" + out.str() + "not implemeted"); 
         }
 }
+
