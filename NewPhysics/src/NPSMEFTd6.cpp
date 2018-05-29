@@ -257,6 +257,8 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
     FlagPartialQFU = false;
     setModelLinearized();
     
+    w_WW = gsl_integration_cquad_workspace_alloc(100);
+    
     SMM.setObj((StandardModelMatching&) NPSMEFTd6M.getObj());
 
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CG", boost::cref(CG)));
@@ -6979,6 +6981,11 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
     
     Uenu = deltaGL_Wff(leptons[NEUTRINO_1], leptons[ELECTRON]);
     Uenu = 1.0 + Uenu;
+    
+//  W mass
+    double mw;
+    
+    mw = Mw();
 
 //  Wigner functions
     double d1pp[2],d1mm[2],d1p0[2],d1m0[2],d10p[2],d10m[2],d100[2];
@@ -7060,8 +7067,8 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
  // Kinematic factors
     double beta, gamma, gamma2;
     
-    beta = sqrt(1.0 - 4.0 * Mw_tree() * Mw_tree() / s);
-    gamma = sqrt_s/(2.0*Mw_tree());
+    beta = sqrt(1.0 - 4.0 * mw * mw / s);
+    gamma = sqrt_s/(2.0 * mw);
     gamma2= gamma*gamma;
     
 //  J=1 Subamplitudes: Z
@@ -7255,34 +7262,29 @@ double NPSMEFTd6::dxseeWWdcos(const double sqrt_s, const double cos) const
 }
 
 double NPSMEFTd6::dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const
-{
-    gsl_integration_cquad_workspace * w_WW;/**< Gsl integral variable */
-    w_WW = gsl_integration_cquad_workspace_alloc(100);
-    
+{    
     double xsWWbin;/**< Gsl integral variable */
-//    double errWW;/**< Gsl integral variable */
+    double errWW;/**< Gsl integral variable */
     
-//    gsl_function FR;/**< Gsl integral variable */
+    gsl_function FR;/**< Gsl integral variable */
     
-//    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
+    FR = convertToGslFunction(boost::bind(&NPSMEFTd6::dxseeWWdcos,&(*this), sqrt_s, _1));
     
-//    FR.function(&NPSMEFTd6::dxsWWdcos);
-    
-//    gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
+    gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
     
 //  Simple integration for testing
-    double cosx;
+//    double cosx;
     
-    xsWWbin = 0.0;
+//    xsWWbin = 0.0;
     
-    for (int i=1; i<100; i++){
-        cosx = cos1 +  i*(cos2-cos1)/100;
-        xsWWbin = xsWWbin + dxseeWWdcos(sqrt_s, cosx);
-    }
+//    for (int i=1; i<100; i++){
+//        cosx = cos1 +  i*(cos2-cos1)/100;
+//        xsWWbin = xsWWbin + dxseeWWdcos(sqrt_s, cosx);
+//    }
     
-    xsWWbin = xsWWbin + 0.5 * (dxseeWWdcos(sqrt_s, cos1) + dxseeWWdcos(sqrt_s, cos2));
+//    xsWWbin = xsWWbin + 0.5 * (dxseeWWdcos(sqrt_s, cos1) + dxseeWWdcos(sqrt_s, cos2));
     
-    xsWWbin = xsWWbin * (cos2-cos1)/100;
+//    xsWWbin = xsWWbin * (cos2-cos1)/100;
     
     return xsWWbin;
 }
