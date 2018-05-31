@@ -257,30 +257,27 @@ double MVlnu::hA1(double q2)
 double MVlnu::R1(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
-    if(CLNflag){
-        return R1w1-0.12*(w-1.)+0.05*(w-1.)*(w-1.);
-    }
-    else{
-        return MM*MV*(w+1.)*g_BGL(q2)/f_BGL(q2);
-    }   
+    return R1w1-0.12*(w-1.)+0.05*(w-1.)*(w-1.); 
 }
 
 double MVlnu::R2(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    if(CLNflag){
-        return R2w1+0.11*(w-1.)-0.06*(w-1.)*(w-1.);
-    }
-    else{
-        return (w-MV/MM)/(w-1.)-F1_BGL(q2)/f_BGL(q2)/MV/(w-1.);
-    }   
+    return R2w1+0.11*(w-1.)-0.06*(w-1.)*(w-1.);
 }
 
 double MVlnu::R0(double q2) 
 {
     /* form factor relation among A0, A1 and A2 at q2=0 */
-    double R2q2at0 = R2(0.);
+    double R2q2at0 = 0.;
+    if(CLNflag){
+        R2q2at0 = R2(0.);
+    }
+    else{
+        R2q2at0 = (w0-MV/MM)/(w0-1.);
+        if(f_BGL(0.) != 0) R2q2at0 -= F1_BGL(0.)/f_BGL(0.)/MV/(w0-1.);
+        else return 0.;
+    }
     double R0q2at0 = (MM+MV-(MM-MV)*R2q2at0)/(2.*MV);
     // caveat: HQET rel at the kinematic endpoint, q2 = 0 ...
     double R0w1 = R0q2at0+0.11*(w0-1.)-0.01*(w0-1.)*(w0-1.);
@@ -291,7 +288,12 @@ double MVlnu::R0(double q2)
 
 double MVlnu::V(double q2) 
 {
-    return R1(q2)/RV*hA1(q2);
+    if(CLNflag){
+        return R1(q2)/RV*hA1(q2);
+    }
+    else{
+        return sqrt(MM*MV)*g_BGL(q2)/RV;
+    }
 }
 
 double MVlnu::A0(double q2) 
@@ -307,7 +309,14 @@ double MVlnu::A1(double q2)
 
 double MVlnu::A2(double q2) 
 {
-    return R2(q2)/RV*hA1(q2);
+    double w = w0-q2/(2.*MM*MV);
+    if(CLNflag){
+        return R2(q2)/RV*hA1(q2);
+    }
+    else{
+    return (w-MV/MM)/(w-1.)*f_BGL(q2)/sqrt(MM*MV)/(1.+w)
+            -F1_BGL(q2)/MV/(w-1.)/sqrt(MM*MV)/(1.+w);
+    }
 }
 
 double MVlnu::T1(double q2) 
@@ -661,22 +670,26 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
         case 4:
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J2c, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
+                gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 5:
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J3, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
+                gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 6:
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J4, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
+                gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 7:
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J5, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
+                gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 8:
@@ -862,4 +875,29 @@ double MVlnu::getDeltaGammaDeltachi(double chi_min, double chi_max)
     return ((chi_max-chi_min)*(3.*intJ1c+6.*intJ1s-intJ2c-2.*intJ2s)/4.+
             (sin(2.*chi_max)-sin(2.*chi_min))/2.*intJ3-
             (cos(2.*chi_max)-cos(2.*chi_min))/2.*intJ9)/(2.*M_PI);
+}
+
+double MVlnu::get_unitarity_V_BGL()
+{
+    updateParameters();
+     
+    return ag0*ag0 + ag1*ag1 + ag2*ag2;
+     
+}
+ 
+double MVlnu::get_unitarity_A_BGL()
+{
+    updateParameters();
+    
+    double aF10 = (MM-MV)*(phi_F1(0.)/phi_f(0.))*af0;
+    return af0*af0 + af1*af1 + af2*af2 + aF10*aF10 + aF11*aF11 + aF12*aF12;   
+}
+ 
+double MVlnu::get_hA1w1()
+{
+    updateParameters();
+      
+    double q2_max = (MM-MV)*(MM-MV);
+      
+    return hA1(q2_max);
 }

@@ -121,6 +121,80 @@ private:
     
 };
 
+class UnitarityV_MVlnu : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    UnitarityV_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+     
+    /**
+    * @brief Vectorial unitarity constraint for @f$M \to V l \nu@f$.
+    * @return @f$ \Sum_i ag_i^2 @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
+ 
+class UnitarityA_MVlnu : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    UnitarityA_MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief Axial unitarity constraint for @f$M \to V l \nu@f$.
+    * @return @f$ \Sum_i (af_i^2 + aF1_i^2) @f$
+    */
+    double computeThValue ();
+     
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+
+};
+
+class FF_hA1atw1 : public ThObservable{
+public:
+     
+    /**
+    * @brief Constructor.
+    * @param[in] SM_i a reference to an object of type StandardModel
+    * @param[in] meson_i initial meson of the decay
+    * @param[in] vector_i final vector meson of the decay
+    * @param[in] lep_i final leptons of the decay
+    */
+    FF_hA1atw1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i);
+    
+    /**
+    * @brief A1 form factor at maximum lepton-neutrino invariant mass.
+    * @return @f$ h_{A1}((MM-MV)^2) @f$
+    */
+    double computeThValue ();
+    
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson vectorM; /**< Final vector meson type. */
+    
+};
 
 #endif /* MVLNUOBSERVABLES_H */
 

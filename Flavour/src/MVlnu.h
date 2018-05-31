@@ -66,6 +66,24 @@ public:
     double getDeltaGammaDeltachi(double chi_min, double chi_max);
 
     /**
+    * @brief Vector unitarity constraint for BGL parameters
+    * @return \f$ \Sum_i ag_i^2 \f$ 
+    */
+    double get_unitarity_V_BGL();
+ 
+    /**
+    * @brief Axial unitarity constraint for BGL parameters
+    * @return \f$ \Sum_i (af_i^2 + aF1_i^2) \f$ 
+    */
+    double get_unitarity_A_BGL();
+ 
+    /**
+    * @brief return A1 form factor at \f$ w = 1 \f$
+    * @return \f$ h_{A1}((MM-MV)^2) \f$ 
+    */
+    double get_hA1w1();
+
+    /**
     * @brief The width of the meson M
     * @return \f$ \Gamma_M \f$ 
     */
