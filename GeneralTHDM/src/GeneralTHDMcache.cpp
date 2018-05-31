@@ -687,13 +687,13 @@ void GeneralTHDMcache::read(){
     ATLAS13_pp_H_hh_gagaWW = readTable(ex41.str(),25,2);
     ex41e << tablepath << "ATLAS-CONF-2016-071_e.dat";
     ATLAS13_pp_H_hh_gagaWW_e = readTable(ex41e.str(),25,2);
-    ex42 << tablepath << "ATLAS-CONF-2017-055_a.dat";
+    ex42 << tablepath << "171206518_a.dat";
     ATLAS13_gg_A_Zh_Zbb = readTable(ex42.str(),181,2);
-    ex42e << tablepath << "ATLAS-CONF-2017-055_a_e.dat";
+    ex42e << tablepath << "171206518_a_e.dat";
     ATLAS13_gg_A_Zh_Zbb_e = readTable(ex42e.str(),181,2);
-    ex43 << tablepath << "ATLAS-CONF-2017-055_b.dat";
+    ex43 << tablepath << "171206518_b.dat";
     ATLAS13_bb_A_Zh_Zbb = readTable(ex43.str(),181,2);
-    ex43e << tablepath << "ATLAS-CONF-2017-055_b_e.dat";
+    ex43e << tablepath << "171206518_b_e.dat";
     ATLAS13_bb_A_Zh_Zbb_e = readTable(ex43e.str(),181,2);
     ex44 << tablepath << "CMS-PAS-HIG-16-025.dat";
     CMS13_pp_phi_bb = readTable(ex44.str(),66,2);
@@ -707,9 +707,9 @@ void GeneralTHDMcache::read(){
     CMS13_bb_phi_tautau = readTable(ex46.str(),312,2);
     ex46e << tablepath << "CMS-PAS-HIG-16-037_b_e.dat";
     CMS13_bb_phi_tautau_e = readTable(ex46e.str(),312,2);
-    ex47 << tablepath << "CMS-PAS-EXO-16-027.dat";
+    ex47 << tablepath << "160902507.dat";
     CMS13_gg_phi_gaga = readTable(ex47.str(),351,2);
-    ex47e << tablepath << "CMS-PAS-EXO-16-027_e.dat";
+    ex47e << tablepath << "160902507_e.dat";
     CMS13_gg_phi_gaga_e = readTable(ex47e.str(),351,2);
     ex48 << tablepath << "CMS-PAS-EXO-16-034.dat";
     CMS13_pp_phi_Zga_llga = readTable(ex48.str(),171,2);
@@ -959,9 +959,9 @@ void GeneralTHDMcache::read(){
     CMS13_pp_H_hh_bbVV = readTable(ex108.str(),65,2);
     ex108e << tablepath << "170804188_e.dat";
     CMS13_pp_H_hh_bbVV_e = readTable(ex108e.str(),65,2);
-    ex109 << tablepath << "CMS-PAS-EXO-17-005.dat";
+    ex109 << tablepath << "171203143.dat";
     CMS13_ggF_phi_Zga = readTable(ex109.str(),366,2);
-    ex109e << tablepath << "CMS-PAS-EXO-17-005_e.dat";
+    ex109e << tablepath << "171203143_e.dat";
     CMS13_ggF_phi_Zga_e = readTable(ex109e.str(),366,2);
     ex110 << tablepath << "171004960.dat";
     CMS13_ggF_H_hh_bbbb = readTable(ex110.str(),226,2);
@@ -976,13 +976,13 @@ void GeneralTHDMcache::read(){
     ATLAS13_gg_phi_Zga_llga = readTable(ex112.str(),216,2);
     ex112e << tablepath << "170800212_e.dat";
     ATLAS13_gg_phi_Zga_llga_e = readTable(ex112e.str(),216,2);
-    ex113 << tablepath << "ATLAS-CONF-2017-058_a.dat";
+    ex113 << tablepath << "171206386_a.dat";
     ATLAS13_gg_H_ZZ_llllnunu = readTable(ex113.str(),101,2);
-    ex113e << tablepath << "ATLAS-CONF-2017-058_a_e.dat";
+    ex113e << tablepath << "171206386_a_e.dat";
     ATLAS13_gg_H_ZZ_llllnunu_e = readTable(ex113e.str(),101,2);
-    ex114 << tablepath << "ATLAS-CONF-2017-058_b.dat";
+    ex114 << tablepath << "171206386_b.dat";
     ATLAS13_VBF_H_ZZ_llllnunu = readTable(ex114.str(),101,2);
-    ex114e << tablepath << "ATLAS-CONF-2017-058_b_e.dat";
+    ex114e << tablepath << "171206386_b_e.dat";
     ATLAS13_VBF_H_ZZ_llllnunu_e = readTable(ex114e.str(),101,2);
     ex115 << tablepath << "170809638_a.dat";
     ATLAS13_gg_H_ZZ_qqllnunu = readTable(ex115.str(),271,2);
@@ -6157,10 +6157,10 @@ void GeneralTHDMcache::computeSignalStrengths()
     double sW2=1.0-cW2;
 
       //FLAG to select only the model in which all the couplings are the same (by families)
-    
+
     if (!myGTHDM->getATHDMflag())
     {
-        throw std::runtime_error("Direct Searches are only aviable in the A2HDM.");
+        throw std::runtime_error("Direct Searches are only available in the A2HDM.");
     }
   
         /*complex i */

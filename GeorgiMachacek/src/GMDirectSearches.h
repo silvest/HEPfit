@@ -1459,20 +1459,20 @@ private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_WZ_H5p_WZ_qqll_ATLAS8: public ThObservable {
+class Hobs_WZ_H5pm_WZ_qqll_ATLAS8: public ThObservable {
 public:
 
-    Hobs_WZ_H5p_WZ_qqll_ATLAS8(const StandardModel& SM_i);
+    Hobs_WZ_H5pm_WZ_qqll_ATLAS8(const StandardModel& SM_i);
 
     double computeThValue();
 private:
     const GeorgiMachacek& myGM;
 };
 
-class Hobs_WZ_H5p_WZ_lnull_CMS8: public ThObservable {
+class Hobs_WZ_H5pm_WZ_lnull_CMS13: public ThObservable {
 public:
 
-    Hobs_WZ_H5p_WZ_lnull_CMS8(const StandardModel& SM_i);
+    Hobs_WZ_H5pm_WZ_lnull_CMS13(const StandardModel& SM_i);
 
     double computeThValue();
 private:

@@ -345,10 +345,12 @@ bool GeneralTHDM::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     if(name.compare("ATHDMflag") == 0) {
+    std::cout<<"ATHDMflag = "<< value<<std::endl;
         flag_ATHDM = value;
         res = true;
     }
-    if(name.compare("CPconservation") == 0) {
+    else if(name.compare("CPconservation") == 0) {
+    std::cout<<"CPconservation = "<< value<<std::endl;
         flag_CPconservation = value;
         res = true;
     }

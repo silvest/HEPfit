@@ -111,8 +111,8 @@ GMcache::GMcache(const StandardModel& SM_i)
     CMS8_pp_Hp_tb(43,2,0.),
     ATLAS13_pp_Hp_tb1(71,2,0.),
     ATLAS13_pp_Hp_tb2(181,2,0.),
-    ATLAS8_WZ_H5p_WZ_qqll(81,2,0.),
-    CMS8_WZ_H5p_WZ_lnull(181,2,0.),
+    ATLAS8_WZ_H5pm_WZ_qqll(81,2,0.),
+    CMS13_WZ_H5pm_WZ_lnull(181,2,0.),
     ATLAS8_pp_H5ppmmH5mmpp_eeee(50,2,0.),
     ATLAS8_pp_H5ppmmH5mmpp_emuemu(57,2,0.),
     ATLAS8_pp_H5ppmmH5mmpp_mumumumu(57,2,0.),
@@ -400,14 +400,14 @@ void GMcache::read(){
     ex67 << tablepath << "ATLAS-CONF-2016-104_c.dat";
     ATLAS13_pp_Hp_tb2 = readTable(ex67.str(),181,2);
     ex68 << tablepath << "150304233.dat";
-    ATLAS8_WZ_H5p_WZ_qqll = readTable(ex68.str(),81,2);
+    ATLAS8_WZ_H5pm_WZ_qqll = readTable(ex68.str(),81,2);
     ex69 << tablepath << "170502942.dat";
-    CMS8_WZ_H5p_WZ_lnull = readTable(ex69.str(),181,2);
-    ex70 << tablepath << "14120237.dat";
+    CMS13_WZ_H5pm_WZ_lnull = readTable(ex69.str(),181,2);
+    ex70 << tablepath << "14120237_a.dat";
     ATLAS8_pp_H5ppmmH5mmpp_eeee = readTable(ex70.str(),50,2);
-    ex70a << tablepath << "14120237.dat";
+    ex70a << tablepath << "14120237_b.dat";
     ATLAS8_pp_H5ppmmH5mmpp_emuemu = readTable(ex70a.str(),57,2);
-    ex70b << tablepath << "14120237.dat";
+    ex70b << tablepath << "14120237_c.dat";
     ATLAS8_pp_H5ppmmH5mmpp_mumumumu = readTable(ex70b.str(),57,2);
     ex71 << tablepath << "171009748.dat";
     ATLAS13_pp_H5ppmmH5mmpp_llll = readTable(ex71.str(),96,2);
@@ -1768,15 +1768,15 @@ double GMcache::ip_ex_pp_A_phiZ_bbll_CMS8(double mA, double mH){
     }
 }
 
-double GMcache::ip_ex_pp_phi_AZ_bbll_CMS8(double mH, double mA){
+double GMcache::ip_ex_pp_phi_AZ_bbll_CMS8(double mA, double mH){
     int NumPar = 2;
-    double params[] = {mH,mA};
+    double params[] = {mA,mH};
 
     int i = CacheCheckReal(ip_ex_pp_phi_AZ_bbll_CMS8_cache, NumPar, params);
     if (i>=0) {
         return ( ip_ex_pp_phi_AZ_bbll_CMS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate2D(CMS8_pp_phi_AZ_bbll,mH,mA);
+        double newResult = interpolate2D(CMS8_pp_phi_AZ_bbll,mA,mH);
         CacheShiftReal(ip_ex_pp_phi_AZ_bbll_CMS8_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -1894,30 +1894,30 @@ double GMcache::ip_ex_pp_Hp_tb2_ATLAS13(double mHp){
     }
 }
 
-double GMcache::ip_ex_WZ_H5p_WZ_qqll_ATLAS8(double mH5){
+double GMcache::ip_ex_WZ_H5pm_WZ_qqll_ATLAS8(double mH5){
     int NumPar = 1;
     double params[] = {mH5};
 
-    int i = CacheCheckReal(ip_ex_WZ_H5p_WZ_qqll_ATLAS8_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_WZ_H5pm_WZ_qqll_ATLAS8_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_WZ_H5p_WZ_qqll_ATLAS8_cache[NumPar][i] );
+        return ( ip_ex_WZ_H5pm_WZ_qqll_ATLAS8_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(ATLAS8_WZ_H5p_WZ_qqll,mH5);
-        CacheShiftReal(ip_ex_WZ_H5p_WZ_qqll_ATLAS8_cache, NumPar, params, newResult);
+        double newResult = interpolate(ATLAS8_WZ_H5pm_WZ_qqll,mH5);
+        CacheShiftReal(ip_ex_WZ_H5pm_WZ_qqll_ATLAS8_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double GMcache::ip_ex_WZ_H5p_WZ_lnull_CMS8(double mH5){
+double GMcache::ip_ex_WZ_H5pm_WZ_lnull_CMS13(double mH5){
     int NumPar = 1;
     double params[] = {mH5};
 
-    int i = CacheCheckReal(ip_ex_WZ_H5p_WZ_lnull_CMS8_cache, NumPar, params);
+    int i = CacheCheckReal(ip_ex_WZ_H5pm_WZ_lnull_CMS13_cache, NumPar, params);
     if (i>=0) {
-        return ( ip_ex_WZ_H5p_WZ_lnull_CMS8_cache[NumPar][i] );
+        return ( ip_ex_WZ_H5pm_WZ_lnull_CMS13_cache[NumPar][i] );
     } else {
-        double newResult = interpolate(CMS8_WZ_H5p_WZ_lnull,mH5);
-        CacheShiftReal(ip_ex_WZ_H5p_WZ_lnull_CMS8_cache, NumPar, params, newResult);
+        double newResult = interpolate(CMS13_WZ_H5pm_WZ_lnull,mH5);
+        CacheShiftReal(ip_ex_WZ_H5pm_WZ_lnull_CMS13_cache, NumPar, params, newResult);
         return newResult;
     }
 }
@@ -2725,27 +2725,40 @@ void GMcache::computeOtherHiggsProperties()
     double Gamma_H5Zga=0.0;
 
     SigmaggF_H8=ip_cs_ggtoH_8(mHh)*rHH_ff;
+    SigmaggF_A8=ip_cs_ggtoA_8(mA)*rA_ff;
     SigmabbF_H8=ip_cs_pptobbH_8(mHh)*rHH_ff;
+    SigmabbF_A8=ip_cs_pptobbA_8(mA)*rA_ff;
     SigmaVBF_H8=ip_cs_VBFtoH_8(mHh)*rHH_VV;
+    SigmaVBF_H58=ip_cs_VBFtoH_8(mH5)*rH5_VV;
     double SigmattF_H8=ip_cs_pptottH_8(mHh)*rHH_ff;
+    double SigmattF_A8=ip_cs_pptottA_8(mA)*rA_ff;
     double SigmaVH_H8=(ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh))*rHH_VV;
-//    SigmaTotSM_H8 = 1.0e-15;
-//    if (mHh>=20. && mHh <=2000.) {
-//            SigmaTotSM_H8=ip_cs_ggtoH_8(mHh)+ip_cs_VBFtoH_8(mHh)+ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh)+ip_cs_pptottH_8(mHh)+ip_cs_pptobbH_8(mHh);
-//    }
+    double SigmaVH_H58=(ip_cs_WtoWH_8(mH5)+ip_cs_ZtoZH_8(mH5))*rH5_VV;
+    SigmaTotSM_H8 = 1.0e-15;
+    SigmaTotSM_H58 = 1.0e-15;
+    if (mHh>=20. && mHh <=2000.) {
+            SigmaTotSM_H8=ip_cs_ggtoH_8(mHh)+ip_cs_VBFtoH_8(mHh)+ip_cs_WtoWH_8(mHh)+ip_cs_ZtoZH_8(mHh)+ip_cs_pptottH_8(mHh)+ip_cs_pptobbH_8(mHh);
+    }
+    if (mH5>=20. && mH5 <=2000.) {
+            SigmaTotSM_H58=ip_cs_VBFtoH_8(mH5)+ip_cs_WtoWH_8(mH5)+ip_cs_ZtoZH_8(mH5);
+    }
     SigmaSumH8 = SigmaggF_H8 + SigmaVBF_H8 + SigmaVH_H8 + SigmattF_H8 + SigmabbF_H8;
+    SigmaSumA8 = SigmaggF_A8 + SigmattF_A8 + SigmabbF_A8;
+    SigmaSumH58 = SigmaVBF_H58 + SigmaVH_H58;
 
     SigmaggF_H13=ip_cs_ggtoH_13(mHh)*rHH_ff;
     SigmaggF_A13=ip_cs_ggtoA_13(mA)*rA_ff;
     SigmabbF_H13=ip_cs_pptobbH_13(mHh)*rHH_ff;
+    SigmabbF_A13=ip_cs_pptobbA_13(mA)*rA_ff;
     SigmaVBF_H13=ip_cs_VBFtoH_13(mHh)*rHH_VV;
+    SigmaVBF_H513=ip_cs_VBFtoH_13(mH5)*rH5_VV;
     SigmattF_H13=ip_cs_pptottH_13(mHh)*rHH_ff;
+    SigmattF_A13=ip_cs_pptottA_13(mA)*rA_ff;
     SigmaVH_H13=(ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh))*rHH_VV;
-////    double SigmaTotSM_H13 = 1.0e-15;
-////    if (mHh>=20. && mHh <=2000.) {
-////            SigmaTotSM_H13=ip_cs_ggtoH_13(mHh)+ip_cs_VBFtoH_13(mHh)+ip_cs_WtoWH_13(mHh)+ip_cs_ZtoZH_13(mHh)+ip_cs_pptottH_13(mHh)+ip_cs_pptobbH_13(mHh);
-////    }
+    SigmaVH_H513=(ip_cs_WtoWH_13(mH5)+ip_cs_ZtoZH_13(mH5))*rH5_VV;
     SigmaSumH13 = SigmaggF_H13 + SigmaVBF_H13 + SigmaVH_H13 + SigmattF_H13 + SigmabbF_H13;
+    SigmaSumA13 = SigmaggF_A13 + SigmattF_A13 + SigmabbF_A13;
+    SigmaSumH513 = SigmaVBF_H513 + SigmaVH_H513;
 
     double BrSM_Htott=ip_Br_HPtott(mHh);
     double BrSM_Atott=ip_Br_HPtott(mA);
@@ -2991,6 +3004,12 @@ void GMcache::computeOtherHiggsProperties()
 //    Br_HtoAZ=GammaHAZ/GammaHtot;
 //    Br_HtoHpW=GammaHHpW/GammaHtot;
 
+    Br_Hptotaunu=GammaH3ptaunu/GammaH3ptot;
+    Br_Hptotb=GammaH3ptb/GammaH3ptot;
+    Br_H5ptoWZ=GammaH5pZW/GammaH5ptot;
+
+    Br_H5pptoWW=GammaH5ppWW/GammaH5pptot;
+
 }
 
 void GMcache::computeDirectSearchQuantities()
@@ -3106,19 +3125,28 @@ void GMcache::computeDirectSearchQuantities()
     pp_H_AZ_bbll_TH8=SigmaSumH8*Br_HtoAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
     pp_H5_AZ_bbll_TH8=SigmaSumH58*Br_H5toAZ*Br_Atobb*(Br_Ztoee+Br_Ztomumu);
 
-    pp_Hpm_taunu_TH8=0.0;
-    pp_Hp_taunu_TH8=0.0;
-    pp_Hpm_taunu_TH13=0.0;
-    pp_Hpm_tb_TH8=0.0;
-    pp_Hp_tb_TH8=0.0;
-    pp_Hp_tb_TH13=0.0;
-    WZ_H5pm_WZ_TH8=0.0;
-    WZ_H5pm_WZ_TH13=0.0;
+    double SigmaHp8=1.0;
+    double SigmaHp13=2.0;
+    double SigmaHp58=0.3;
+    double SigmaHp513=0.6;
+    double SigmaHppHmm58=0.2;
+    double SigmaHppHmm513=0.4;
+    double SigmaHpp58=0.23;
+    double SigmaHpp513=0.46;
 
-    pp_H5ppmmH5mmpp_TH8=0.0;
-    pp_H5ppmmH5mmpp_TH13=0.0;
-    pp_H5ppmm_WW_TH8=0.0;
-    pp_H5ppmm_WW_TH13=0.0;
+    pp_Hpm_taunu_TH8=2.0*SigmaHp8*Br_Hptotaunu;
+    pp_Hp_taunu_TH8=SigmaHp8*Br_Hptotaunu;
+    pp_Hpm_taunu_TH13=2.0*SigmaHp8*Br_Hptotaunu;
+    pp_Hpm_tb_TH8=2.0*SigmaHp8*Br_Hptotb;
+    pp_Hp_tb_TH8=SigmaHp8*Br_Hptotb;
+    pp_Hp_tb_TH13=SigmaHp13*Br_Hptotb;
+    WZ_H5pm_WZ_TH8=SigmaHp58*Br_H5ptoWZ;
+    WZ_H5pm_WZ_TH13=SigmaHp513*Br_H5ptoWZ;
+
+    pp_H5ppmmH5mmpp_TH8=SigmaHppHmm58;
+    pp_H5ppmmH5mmpp_TH13=SigmaHppHmm513;
+    pp_H5ppmm_WW_TH8=SigmaHpp58*Br_H5pptoWW;
+    pp_H5ppmm_WW_TH13=SigmaHpp513*Br_H5pptoWW;
 
     THoEX_tt_H_tt_ATLAS13=0.0;
     THoEX_bb_H_tt_ATLAS13=0.0;
@@ -3254,8 +3282,8 @@ void GMcache::computeDirectSearchQuantities()
     THoEX_pp_Hp_tb_CMS8=0.0;
     THoEX_pp_Hp_tb1_ATLAS13=0.0;
     THoEX_pp_Hp_tb2_ATLAS13=0.0;
-    THoEX_WZ_H5p_WZ_qqll_ATLAS8=0.0;
-    THoEX_WZ_H5p_WZ_lnull_CMS8=0.0;
+    THoEX_WZ_H5pm_WZ_qqll_ATLAS8=0.0;
+    THoEX_WZ_H5pm_WZ_lnull_CMS13=0.0;
     THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8=0.0;
     THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8=0.0;
     THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8=0.0;
@@ -3416,9 +3444,120 @@ void GMcache::computeDirectSearchQuantities()
     if(mA >= 330.0 && mA <=1200.0) THoEX_gg_A_bb_CMS8=gg_A_bb_TH8/ip_ex_gg_phi_bb_CMS8(mA);
     if(mHh>= 550.0 && mHh<=1200.0) THoEX_pp_H_bb_CMS13=pp_H_bb_TH13/ip_ex_pp_phi_bb_CMS13(mHh);
     if(mA >= 550.0 && mA <=1200.0) THoEX_pp_A_bb_CMS13=pp_A_bb_TH13/ip_ex_pp_phi_bb_CMS13(mA);
+    if(mHh>= 300.0 && mHh<=1300.0) THoEX_bb_H_bb_CMS13=bb_H_bb_TH13/ip_ex_bb_phi_bb_CMS13(mHh);
+    if(mA >= 300.0 && mA <=1300.0) THoEX_bb_A_bb_CMS13=bb_A_bb_TH13/ip_ex_bb_phi_bb_CMS13(mA);
+    if(mHh>=  90.0 && mHh<=1000.0) THoEX_gg_H_tautau_ATLAS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mHh);
+    if(mA >=  90.0 && mA <=1000.0) THoEX_gg_A_tautau_ATLAS8=gg_A_tautau_TH8/ip_ex_gg_phi_tautau_ATLAS8(mA);
+    if(mHh>=  90.0 && mHh<=1000.0) THoEX_gg_H_tautau_CMS8=gg_H_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(mHh);
+    if(mA >=  90.0 && mA <=1000.0) THoEX_gg_A_tautau_CMS8=gg_A_tautau_TH8/ip_ex_gg_phi_tautau_CMS8(mA);
+    if(mHh>=  90.0 && mHh<=1000.0) THoEX_bb_H_tautau_ATLAS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mHh);
+    if(mA >=  90.0 && mA <=1000.0) THoEX_bb_A_tautau_ATLAS8=bb_A_tautau_TH8/ip_ex_bb_phi_tautau_ATLAS8(mA);
+    if(mHh>=  90.0 && mHh<=1000.0) THoEX_bb_H_tautau_CMS8=bb_H_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(mHh);
+    if(mA >=  90.0 && mA <=1000.0) THoEX_bb_A_tautau_CMS8=bb_A_tautau_TH8/ip_ex_bb_phi_tautau_CMS8(mA);
+    if(mHh>= 200.0 && mHh<=2250.0) THoEX_gg_H_tautau_ATLAS13=gg_H_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(mHh);
+    if(mA >= 200.0 && mA <=2250.0) THoEX_gg_A_tautau_ATLAS13=gg_A_tautau_TH13/ip_ex_gg_phi_tautau_ATLAS13(mA);
+    if(mHh>=  90.0 && mHh<=3200.0) THoEX_gg_H_tautau_CMS13=gg_H_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(mHh);
+    if(mA >=  90.0 && mA <=3200.0) THoEX_gg_A_tautau_CMS13=gg_A_tautau_TH13/ip_ex_gg_phi_tautau_CMS13(mA);
+    if(mHh>= 200.0 && mHh<=2250.0) THoEX_bb_H_tautau_ATLAS13=bb_H_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(mHh);
+    if(mA >= 200.0 && mA <=2250.0) THoEX_bb_A_tautau_ATLAS13=bb_A_tautau_TH13/ip_ex_bb_phi_tautau_ATLAS13(mA);
+    if(mHh>=  90.0 && mHh<=3200.0) THoEX_bb_H_tautau_CMS13=bb_H_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(mHh);
+    if(mA >=  90.0 && mA <=3200.0) THoEX_bb_A_tautau_CMS13=bb_A_tautau_TH13/ip_ex_bb_phi_tautau_CMS13(mA);
+    if(mHh>=  65.0 && mHh<= 600.0) THoEX_gg_H_gaga_ATLAS8=gg_H_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(mHh);
+    if(mA >=  65.0 && mA <= 600.0) THoEX_gg_A_gaga_ATLAS8=gg_A_gaga_TH8/ip_ex_gg_phi_gaga_ATLAS8(mA);
+    if(mHh>= 200.0 && mHh<=2700.0) THoEX_pp_H_gaga_ATLAS13=pp_H_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(mHh);
+    if(mA >= 200.0 && mA <=2700.0) THoEX_pp_A_gaga_ATLAS13=pp_A_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(mA);
+    if(mH5>= 200.0 && mH5<=2700.0) THoEX_pp_H5_gaga_ATLAS13=pp_H5_gaga_TH13/ip_ex_pp_phi_gaga_ATLAS13(mH5);
+    if(mHh>= 500.0 && mHh<=4000.0) THoEX_gg_H_gaga_CMS13=gg_H_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(mHh);
+    if(mA >= 500.0 && mA <=4000.0) THoEX_gg_A_gaga_CMS13=gg_A_gaga_TH13/ip_ex_gg_phi_gaga_CMS13(mA);
+    if(mHh>= 200.0 && mHh<=1600.0) THoEX_pp_H_Zga_llga_ATLAS8=pp_H_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(mHh);
+    if(mA >= 200.0 && mA <=1600.0) THoEX_pp_A_Zga_llga_ATLAS8=pp_A_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(mA);
+    if(mH5>= 200.0 && mH5<=1600.0) THoEX_pp_H5_Zga_llga_ATLAS8=pp_H5_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_ATLAS8(mH5);
+    if(mHh>= 200.0 && mHh<=1200.0) THoEX_pp_H_Zga_llga_CMS8=pp_H_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(mHh);
+    if(mA >= 200.0 && mA <=1200.0) THoEX_pp_A_Zga_llga_CMS8=pp_A_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(mA);
+    if(mH5>= 200.0 && mH5<=1200.0) THoEX_pp_H5_Zga_llga_CMS8=pp_H5_Zga_llga_TH8/ip_ex_pp_phi_Zga_llga_CMS8(mH5);
+    if(mHh>= 250.0 && mHh<=2400.0) THoEX_gg_H_Zga_llga_ATLAS13=gg_H_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(mHh);
+    if(mA >= 250.0 && mA <=2400.0) THoEX_gg_A_Zga_llga_ATLAS13=gg_A_Zga_TH13/ip_ex_gg_phi_Zga_llga_ATLAS13(mA);
+    if(mHh>= 350.0 && mHh<=4000.0) THoEX_gg_H_Zga_CMS13=gg_H_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(mHh);
+    if(mA >= 350.0 && mA <=4000.0) THoEX_gg_A_Zga_CMS13=gg_A_Zga_TH13/ip_ex_gg_phi_Zga_CMS13(mA);
+    if(mHh>= 140.0 && mHh<=1000.0) THoEX_gg_H_ZZ_ATLAS8=gg_H_ZZ_TH8/ip_ex_gg_phi_ZZ_ATLAS8(mHh);
+    if(mHh>= 140.0 && mHh<=1000.0) THoEX_VV_H_ZZ_ATLAS8=VV_H_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(mHh);
+    if(mH5>= 140.0 && mH5<=1000.0) THoEX_VV_H5_ZZ_ATLAS8=VV_H5_ZZ_TH8/ip_ex_VV_phi_ZZ_ATLAS8(mH5);
+    if(mHh>= 200.0 && mHh<=1200.0) THoEX_gg_H_ZZ_llllnunu_ATLAS13=gg_H_ZZ_TH13/ip_ex_gg_phi_ZZ_llllnunu_ATLAS13(mHh);
+    if(mHh>= 200.0 && mHh<=1200.0) THoEX_VV_H_ZZ_llllnunu_ATLAS13=VV_H_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(mHh);
+    if(mH5>= 200.0 && mH5<=1200.0) THoEX_VV_H5_ZZ_llllnunu_ATLAS13=VV_H5_ZZ_TH13/ip_ex_VV_phi_ZZ_llllnunu_ATLAS13(mH5);
+    if(mHh>= 300.0 && mHh<=3000.0) THoEX_gg_H_ZZ_qqllnunu_ATLAS13=gg_H_ZZ_TH13/ip_ex_gg_phi_ZZ_qqllnunu_ATLAS13(mHh);
+    if(mHh>= 300.0 && mHh<=3000.0) THoEX_VV_H_ZZ_qqllnunu_ATLAS13=VV_H_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(mHh);
+    if(mH5>= 300.0 && mH5<=3000.0) THoEX_VV_H5_ZZ_qqllnunu_ATLAS13=VV_H5_ZZ_TH13/ip_ex_VV_phi_ZZ_qqllnunu_ATLAS13(mH5);
+    if(mHh>= 130.0 && mHh<=3000.0) THoEX_pp_H_ZZ_llqqnunull_CMS13=pp_H_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(mHh);
+    if(mH5>= 130.0 && mH5<=3000.0) THoEX_pp_H5_ZZ_llqqnunull_CMS13=pp_H5_ZZ_TH13/ip_ex_pp_phi_ZZ_llqqnunull_CMS13(mH5);
+    if(mHh>=1000.0 && mHh<=4000.0) THoEX_pp_H_ZZ_qqnunu_CMS13=pp_H_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(mHh);
+    if(mH5>=1000.0 && mH5<=4000.0) THoEX_pp_H5_ZZ_qqnunu_CMS13=pp_H5_ZZ_TH13/ip_ex_pp_phi_ZZ_qqnunu_CMS13(mH5);
+    if(mHh>= 300.0 && mHh<=1500.0) THoEX_gg_H_WW_ATLAS8=gg_H_WW_TH8/ip_ex_gg_phi_WW_ATLAS8(mHh);
+    if(mHh>= 300.0 && mHh<=1500.0) THoEX_VV_H_WW_ATLAS8=VV_H_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(mHh);
+    if(mH5>= 300.0 && mH5<=1500.0) THoEX_VV_H5_WW_ATLAS8=VV_H5_WW_TH8/ip_ex_VV_phi_WW_ATLAS8(mH5);
+    if(mHh>= 250.0 && mHh<=4000.0) THoEX_gg_H_WW_enumunu_ATLAS13=gg_H_WW_TH13/ip_ex_gg_phi_WW_enumunu_ATLAS13(mHh);
+    if(mHh>= 250.0 && mHh<=3000.0) THoEX_VV_H_WW_enumunu_ATLAS13=VV_H_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(mHh);
+    if(mH5>= 250.0 && mH5<=3000.0) THoEX_VV_H5_WW_enumunu_ATLAS13=VV_H5_WW_TH13/ip_ex_VV_phi_WW_enumunu_ATLAS13(mH5);
+    if(mHh>= 200.0 && mHh<=1000.0) THoEX_ggVV_H_WW_lnulnu_CMS13=ggVV_H_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(mHh);
+    if(mH5>= 200.0 && mH5<=1000.0) THoEX_ggVV_H5_WW_lnulnu_CMS13=ggVV_H5_WW_lnulnu_TH13/ip_ex_ggVV_phi_WW_lnulnu_CMS13(mH5);
+    if(mHh>= 300.0 && mHh<=3000.0) THoEX_gg_H_WW_lnuqq_ATLAS13=gg_H_WW_TH13/ip_ex_gg_phi_WW_lnuqq_ATLAS13(mHh);
+    if(mHh>= 300.0 && mHh<=3000.0) THoEX_VV_H_WW_lnuqq_ATLAS13=VV_H_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(mHh);
+    if(mH5>= 300.0 && mH5<=3000.0) THoEX_VV_H5_WW_lnuqq_ATLAS13=VV_H5_WW_TH13/ip_ex_VV_phi_WW_lnuqq_ATLAS13(mH5);
+    if(mHh>=1000.0 && mHh<=4400.0) THoEX_pp_H_WW_lnuqq_CMS13=pp_H_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(mHh);
+    if(mH5>=1000.0 && mH5<=4400.0) THoEX_pp_H5_WW_lnuqq_CMS13=pp_H5_WW_TH13/ip_ex_pp_phi_WW_lnuqq_CMS13(mH5);
+    if(mHh>= 145.0 && mHh<=1000.0) THoEX_mu_pp_H_VV_CMS8=mu_pp_H_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(mHh);
+    if(mH5>= 145.0 && mH5<=1000.0) THoEX_mu_pp_H5_VV_CMS8=mu_pp_H5_VV_TH8/ip_ex_mu_pp_phi_VV_CMS8(mH5);
+    if(mHh>=1200.0 && mHh<=3000.0) THoEX_pp_H_VV_qqqq_ATLAS13=pp_H_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(mHh);
+    if(mH5>=1200.0 && mH5<=3000.0) THoEX_pp_H5_VV_qqqq_ATLAS13=pp_H5_VV_TH13/ip_ex_pp_phi_VV_qqqq_ATLAS13(mH5);
+    if(mHh>= 260.0 && mHh<=1000.0) THoEX_gg_H_hh_ATLAS8=gg_H_hh_TH8/ip_ex_gg_phi_hh_ATLAS8(mHh);
+    if(mHh>= 270.0 && mHh<=1100.0) THoEX_pp_H_hh_bbbb_CMS8=pp_H_hh_bbbb_TH8/ip_ex_pp_phi_hh_bbbb_CMS8(mHh);
+    if(mH5>= 270.0 && mH5<=1100.0) THoEX_pp_H5_hh_bbbb_CMS8=pp_H5_hh_bbbb_TH8/ip_ex_pp_phi_hh_bbbb_CMS8(mH5);
+    if(mHh>= 260.0 && mHh<=1100.0) THoEX_pp_H_hh_gagabb_CMS8=pp_H_hh_gagabb_TH8/ip_ex_pp_phi_hh_gagabb_CMS8(mHh);
+    if(mH5>= 260.0 && mH5<=1100.0) THoEX_pp_H5_hh_gagabb_CMS8=pp_H5_hh_gagabb_TH8/ip_ex_pp_phi_hh_gagabb_CMS8(mH5);
+    if(mHh>= 260.0 && mHh<= 350.0) THoEX_gg_H_hh_bbtautau_CMS8=gg_H_hh_TH8/ip_ex_gg_phi_hh_bbtautau_CMS8(mHh);
+    if(mHh>= 350.0 && mHh<=1000.0) THoEX_pp_H_hh_bbtautau_CMS8=pp_H_hh_TH8/ip_ex_pp_phi_hh_bbtautau_CMS8(mHh);
+    if(mH5>= 300.0 && mH5<=1000.0) THoEX_pp_H5_hh_bbtautau_CMS8=pp_H5_hh_TH8/ip_ex_pp_phi_hh_bbtautau_CMS8(mH5);
+    if(mHh>= 300.0 && mHh<=3000.0) THoEX_pp_H_hh_bbbb_ATLAS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_ATLAS13(mHh);
+    if(mH5>= 300.0 && mH5<=3000.0) THoEX_pp_H5_hh_bbbb_ATLAS13=pp_H5_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_ATLAS13(mH5);
+    if(mHh>= 260.0 && mHh<=1200.0) THoEX_pp_H_hh_bbbb_CMS13=pp_H_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mHh);
+    if(mH5>= 260.0 && mH5<=1200.0) THoEX_pp_H5_hh_bbbb_CMS13=pp_H5_hh_bbbb_TH13/ip_ex_pp_phi_hh_bbbb_CMS13(mH5);
+    if(mHh>=1200.0 && mHh<=3000.0) THoEX_gg_H_hh_bbbb_CMS13=gg_H_hh_bbbb_TH13/ip_ex_gg_phi_hh_bbbb_CMS13(mHh);
+    if(mHh>= 275.0 && mHh<= 400.0) THoEX_pp_H_hh_gagabb_ATLAS13=pp_H_hh_TH13/ip_ex_pp_phi_hh_gagabb_ATLAS13(mHh);
+    if(mH5>= 275.0 && mH5<= 400.0) THoEX_pp_H5_hh_gagabb_ATLAS13=pp_H5_hh_TH13/ip_ex_pp_phi_hh_gagabb_ATLAS13(mH5);
+    if(mHh>= 250.0 && mHh<= 900.0) THoEX_pp_H_hh_gagabb_CMS13=pp_H_hh_gagabb_TH13/ip_ex_pp_phi_hh_gagabb_CMS13(mHh);
+    if(mH5>= 250.0 && mH5<= 900.0) THoEX_pp_H5_hh_gagabb_CMS13=pp_H5_hh_gagabb_TH13/ip_ex_pp_phi_hh_gagabb_CMS13(mH5);
+    if(mHh>= 250.0 && mHh<= 900.0) THoEX_pp_H_hh_bbtautau_CMS13=pp_H_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_CMS13(mHh);
+    if(mH5>= 250.0 && mH5<= 900.0) THoEX_pp_H5_hh_bbtautau_CMS13=pp_H5_hh_bbtautau_TH13/ip_ex_pp_phi_hh_bbtautau_CMS13(mH5);
+    if(mHh>= 260.0 && mHh<= 900.0) THoEX_pp_H_hh_bblnulnu_CMS13=pp_H_hh_bblnulnu_TH13/ip_ex_pp_phi_hh_bblnulnu_CMS13(mHh);
+    if(mH5>= 260.0 && mH5<= 900.0) THoEX_pp_H5_hh_bblnulnu_CMS13=pp_H5_hh_bblnulnu_TH13/ip_ex_pp_phi_hh_bblnulnu_CMS13(mH5);
+    if(mHh>= 250.0 && mHh<= 500.0) THoEX_gg_H_hh_gagaWW_ATLAS13=gg_H_hh_TH13/ip_ex_gg_phi_hh_gagaWW_ATLAS13(mHh);
+    if(mA >= 220.0 && mA <=1000.0) THoEX_gg_A_hZ_bbZ_ATLAS8=gg_A_hZ_bbZ_TH8/ip_ex_gg_A_hZ_bbZ_ATLAS8(mA);
+    if(mA >= 225.0 && mA <= 600.0) THoEX_gg_A_hZ_bbll_CMS8=gg_A_hZ_bbll_TH8/ip_ex_gg_A_hZ_bbll_CMS8(mA);
+    if(mA >= 220.0 && mA <=1000.0) THoEX_gg_A_hZ_tautauZ_ATLAS8=gg_A_hZ_tautauZ_TH8/ip_ex_gg_A_hZ_tautauZ_ATLAS8(mA);
+    if(mA >= 220.0 && mA <= 350.0) THoEX_gg_A_hZ_tautaull_CMS8=gg_A_hZ_tautaull_TH8/ip_ex_gg_A_hZ_tautaull_CMS8(mA);
+    if(mA >= 200.0 && mA <=2000.0) THoEX_gg_A_hZ_bbZ_ATLAS13=gg_A_hZ_bbZ_TH13/ip_ex_gg_A_hZ_bbZ_ATLAS13(mA);
+    if(mA >= 200.0 && mA <=2000.0) THoEX_bb_A_hZ_bbZ_ATLAS13=bb_A_hZ_bbZ_TH13/ip_ex_bb_A_hZ_bbZ_ATLAS13(mA);
+    if(mHh>= 130.0 && mHh<=1000.0 && mA >=50.0 && mA <=910.0) THoEX_pp_H_AZ_bbll_CMS8=pp_H_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mHh);
+    if(mH5>= 130.0 && mH5<=1000.0 && mA >=50.0 && mA <=910.0) THoEX_pp_H5_AZ_bbll_CMS8=pp_H5_AZ_bbll_TH8/ip_ex_pp_phi_AZ_bbll_CMS8(mA,mH5);
+    if(mA >= 130.0 && mA <=1000.0 && mHh>=50.0 && mHh<=910.0) THoEX_pp_A_HZ_bbll_CMS8=pp_A_HZ_bbll_TH8/ip_ex_pp_A_phiZ_bbll_CMS8(mA,mHh);
+    if(mA >= 180.0 && mA <=1000.0) THoEX_pp_Hpm_taunu_ATLAS8=pp_Hpm_taunu_TH8/ip_ex_pp_Hpm_taunu_ATLAS8(mA);
+    if(mA >= 180.0 && mA <= 600.0) THoEX_pp_Hp_taunu_CMS8=pp_Hp_taunu_TH8/ip_ex_pp_Hp_taunu_CMS8(mA);
+    if(mA >= 200.0 && mA <=2000.0) THoEX_pp_Hpm_taunu_ATLAS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_ATLAS13(mA);
+    if(mA >= 180.0 && mA <=3000.0) THoEX_pp_Hpm_taunu_CMS13=pp_Hpm_taunu_TH13/ip_ex_pp_Hpm_taunu_CMS13(mA);
+    if(mA >= 200.0 && mA <= 600.0) THoEX_pp_Hpm_tb_ATLAS8=pp_Hpm_tb_TH8/ip_ex_pp_Hpm_tb_ATLAS8(mA);
+    if(mA >= 180.0 && mA <= 600.0) THoEX_pp_Hp_tb_CMS8=pp_Hp_tb_TH8/ip_ex_pp_Hp_tb_CMS8(mA);
+    if(mA >= 200.0 && mA <= 300.0) THoEX_pp_Hp_tb2_ATLAS13=pp_Hp_tb_TH13/ip_ex_pp_Hp_tb2_ATLAS13(mA);
+    if(mA >= 300.0 && mA <=1000.0) THoEX_pp_Hp_tb1_ATLAS13=pp_Hp_tb_TH13/ip_ex_pp_Hp_tb1_ATLAS13(mA);
+    if(mA >=1000.0 && mA <=2000.0) THoEX_pp_Hp_tb2_ATLAS13=pp_Hp_tb_TH13/ip_ex_pp_Hp_tb2_ATLAS13(mA);
+    if(mH5>= 200.0 && mH5<=1000.0) THoEX_WZ_H5pm_WZ_qqll_ATLAS8=WZ_H5pm_WZ_TH8/ip_ex_WZ_H5pm_WZ_qqll_ATLAS8(mH5);
+    if(mH5>= 200.0 && mH5<=2000.0) THoEX_WZ_H5pm_WZ_lnull_CMS13=WZ_H5pm_WZ_TH13/ip_ex_WZ_H5pm_WZ_lnull_CMS13(mH5);
+    if(mH5>= 110.0 && mH5<= 600.0) THoEX_pp_H5ppmmH5mmpp_eeee_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_eeee_ATLAS8(mH5);
+    if(mH5>=  40.0 && mH5<= 600.0) THoEX_pp_H5ppmmH5mmpp_emuemu_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_emuemu_ATLAS8(mH5);
+    if(mH5>=  40.0 && mH5<= 600.0) THoEX_pp_H5ppmmH5mmpp_mumumumu_ATLAS8=pp_H5ppmmH5mmpp_TH8/ip_ex_pp_H5ppmmH5mmpp_mumumumu_ATLAS8(mH5);
+    if(mH5>= 250.0 && mH5<=1200.0) THoEX_pp_H5ppmmH5mmpp_llll_ATLAS13=pp_H5ppmmH5mmpp_TH13/ip_ex_pp_H5ppmmH5mmpp_llll_ATLAS13(mH5);
+    if(mH5>= 200.0 && mH5<= 800.0) THoEX_pp_H5ppmm_WW_jjll_CMS8=pp_H5ppmm_WW_TH8/ip_ex_pp_H5ppmm_WW_jjll_CMS8(mH5);
+    if(mH5>= 200.0 && mH5<=1000.0) THoEX_pp_H5ppmm_WW_jjll_CMS13=pp_H5ppmm_WW_TH13/ip_ex_pp_H5ppmm_WW_jjll_CMS13(mH5);
 
-    
-    
 }    
 
 
