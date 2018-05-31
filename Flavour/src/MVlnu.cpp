@@ -22,6 +22,7 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
+    CLNflag = false;
     
     w_J = gsl_integration_cquad_workspace_alloc (100); 
 }
@@ -31,15 +32,25 @@ MVlnu::~MVlnu() {
 
 std::vector<std::string> MVlnu::initializeMVlnuParameters()
 {
+    CLNflag = mySM.getFlavour().getFlagCLN();
     
     if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
-        << "hA1w1" << "rho2" << "R1w1" << "R2w1";
+        << "af0" << "af1" << "af2" << "ag0" << "ag1" << "ag2" << "aF11" << "aF12"  << "AbsVcb"
+        << "mBcstV1" << "mBcstV2" << "mBcstV3" << "mBcstV4"
+        << "mBcstA1" << "mBcstA2" << "mBcstA3" << "mBcstA4"
+        << "chiTV" << "chiTA" << "nI";
     else {
         std::stringstream out;
         out << vectorM;
         throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
     }
-    
+
+    if (CLNflag) {
+        mvlnuParameters.clear();
+        if (vectorM == StandardModel::D_star_P) mvlnuParameters = make_vector<std::string>()
+                << "hA1w1" << "rho2" << "R1w1" << "R2w1" << "AbsVcb";
+    }    
+
     mySM.initializeMeson(meson);
     mySM.initializeMeson(vectorM);
     return mvlnuParameters;
@@ -59,10 +70,8 @@ void MVlnu::updateParameters()
     RV = 2.*sqrt(MM*MV)/(MM+MV);
     mu_b = mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
-    mb_pole = mySM.Mbar2Mp(Mb); /* Conversion to pole mass*/
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
-    mc_pole = mySM.Mbar2Mp(Mc); /* Conversion to pole mass*/
-    Vcb = mySM.getCKM().getV_cb();
+    Vcb = mySM.getOptionalParameter("AbsVcb"); // mySM.getCKM().getV_cb();
     ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
     amplsq_factor = GF*GF*Vcb.abs2()/(64.*M_PI*M_PI*M_PI*MM*MM*MM);
@@ -89,16 +98,80 @@ void MVlnu::updateParameters()
     
     switch (vectorM) {
         case StandardModel::D_star_P:
-            hA1w1 = mySM.getOptionalParameter("hA1w1");
-            rho2 = mySM.getOptionalParameter("rho2");
-            R1w1 = mySM.getOptionalParameter("R1w1");
-            R2w1 = mySM.getOptionalParameter("R2w1");
+            if (CLNflag){
+                hA1w1 = mySM.getOptionalParameter("hA1w1");
+                rho2 = mySM.getOptionalParameter("rho2");
+                R1w1 = mySM.getOptionalParameter("R1w1");
+                R2w1 = mySM.getOptionalParameter("R2w1");
+                af0 = 0.;
+                af1 = 0.;
+                af2 = 0.; 
+                ag0 = 0.;
+                ag1 = 0.;
+                ag2 = 0.;
+                aF11 = 0.;
+                aF12 = 0.; 
+                mBcstV1 = 0.;
+                mBcstV2 = 0.;
+                mBcstV3 = 0.;
+                mBcstV4 = 0.;
+                mBcstA1 = 0.;
+                mBcstA2 = 0.;
+                mBcstA3 = 0.;
+                mBcstA4 = 0.;
+                chiTV = 0.;
+                chiTA = 0.;
+                nI = 0.;
+            }
+            else{
+                hA1w1 = 0.;
+                rho2 = 0.;
+                R1w1 = 0.;
+                R2w1 = 0.;
+                af0 = mySM.getOptionalParameter("af0");
+                af1 = mySM.getOptionalParameter("af1");
+                af2 = mySM.getOptionalParameter("af2");
+                ag0 = mySM.getOptionalParameter("ag0");
+                ag1 = mySM.getOptionalParameter("ag1");
+                ag2 = mySM.getOptionalParameter("ag2");
+                aF11 = mySM.getOptionalParameter("aF11");
+                aF12 = mySM.getOptionalParameter("aF12"); 
+                mBcstV1 = mySM.getOptionalParameter("mBcstV1");
+                mBcstV2 = mySM.getOptionalParameter("mBcstV2");
+                mBcstV3 = mySM.getOptionalParameter("mBcstV3");
+                mBcstV4 = mySM.getOptionalParameter("mBcstV4");
+                mBcstA1 = mySM.getOptionalParameter("mBcstA1");
+                mBcstA2 = mySM.getOptionalParameter("mBcstA2");
+                mBcstA3 = mySM.getOptionalParameter("mBcstA3");
+                mBcstA4 = mySM.getOptionalParameter("mBcstA4");
+                chiTV = mySM.getOptionalParameter("chiTV");
+                chiTA = mySM.getOptionalParameter("chiTA");
+                nI = mySM.getOptionalParameter("nI");
+            }
             break;
         default:
             std::stringstream out;
             out << vectorM;
             throw std::runtime_error("MVlnu: vector " + out.str() + " not implemented");
     }
+    
+    zV1 = sqrt((MM+MV)*(MM+MV)-mBcstV1*mBcstV1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zV1 /= (sqrt((MM+MV)*(MM+MV)-mBcstV1*mBcstV1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zV2 = sqrt((MM+MV)*(MM+MV)-mBcstV2*mBcstV2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zV2 /= (sqrt((MM+MV)*(MM+MV)-mBcstV2*mBcstV2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zV3 = sqrt((MM+MV)*(MM+MV)-mBcstV3*mBcstV3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zV3 /= (sqrt((MM+MV)*(MM+MV)-mBcstV3*mBcstV3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zV4 = sqrt((MM+MV)*(MM+MV)-mBcstV4*mBcstV4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zV4 /= (sqrt((MM+MV)*(MM+MV)-mBcstV4*mBcstV4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+
+    zA1 = sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zA1 /= (sqrt((MM+MV)*(MM+MV)-mBcstA1*mBcstA1)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zA2 = sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zA2 /= (sqrt((MM+MV)*(MM+MV)-mBcstA2*mBcstA2)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zA3 = sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zA3 /= (sqrt((MM+MV)*(MM+MV)-mBcstA3*mBcstA3)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
+    zA4 = sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
+    zA4 /= (sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
 
     return;
     
@@ -117,32 +190,102 @@ double MVlnu::lambda_half(double a, double b, double c)
  * Form factors                                                                *
  * ****************************************************************************/
 
+double MVlnu::phi_f(double z){
+    double prefac = 4.*(MV/MM)/MM/MM*sqrt(nI/(3.*M_PI*chiTA));
+    double num = (1.+z)*sqrt((1.-z)*(1.-z)*(1.-z));
+    double den = (1.+MV/MM)*(1.-z)+2.*sqrt(MV/MM)*(1.+z);
+    double den4 = den*den*den*den;
+    return prefac*num/den4;
+} 
+
+double MVlnu::f_BGL(double q2) 
+{
+    double w = w0-q2/(2.*MM*MV);
+    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    double Pfacf = (z-zA1)/(1.-z*zA1)*(z-zA2)/(1.-z*zA2)*(z-zA3)/(1.-z*zA3)*(z-zA4)/(1.-z*zA4);
+    double phif = phi_f(z);
+    return (af0+af1*z+af2*z*z)/phif/Pfacf;
+}
+
+double MVlnu::phi_g(double z){
+    double prefac = sqrt(nI/(3.*M_PI*chiTV));
+    double num = 16.*(MV/MM)*(MV/MM)*(1.+z)*(1.+z)/sqrt(1.-z);
+    double den = (1.+MV/MM)*(1.-z)+2.*sqrt(MV/MM)*(1.+z);
+    double den4 = den*den*den*den;
+    return prefac*num/den4;
+} 
+
+double MVlnu::g_BGL(double q2) 
+{
+    double w = w0-q2/(2.*MM*MV);
+    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    double Pfacg = (z-zV1)/(1.-z*zV1)*(z-zV2)/(1.-z*zV2)*(z-zV3)/(1.-z*zV3)*(z-zV4)/(1.-z*zV4);
+    double phig = phi_g(z);
+    return (ag0+ag1*z+ag2*z*z)/phig/Pfacg;
+}
+
+double MVlnu::phi_F1(double z){
+    double prefac = 4.*(MV/MM)/MM/MM/MM*sqrt(nI/(6.*M_PI*chiTV));
+    double num = (1.+z)*sqrt((1.-z)*(1.-z)*(1.-z)*(1.-z)*(1.-z));
+    double den = (1.+MV/MM)*(1.-z)+2.*sqrt(MV/MM)*(1.+z);
+    double den5 = den*den*den*den*den;
+    return prefac*num/den5;
+} 
+
+double MVlnu::F1_BGL(double q2) 
+{
+    double w = w0-q2/(2.*MM*MV);
+    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    double PfacF1 = (z-zA1)/(1.-z*zA1)*(z-zA2)/(1.-z*zA2)*(z-zA3)/(1.-z*zA3)*(z-zA4)/(1.-z*zA4);
+    double phiF1 = phi_F1(z);
+    double aF10 = (MM-MV)*(phi_F1(0.)/phi_f(0.))*af0; // F1(z=0) = (MM-MV)*f(z=0)
+    return (aF10+aF11*z+aF12*z*z)/phiF1/PfacF1;
+}
+
 double MVlnu::hA1(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
     double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
-    return hA1w1*(1.-8.*rho2*z+(53.*rho2-15.)*z*z-(231.*rho2-91.)*z*z*z);
+    if(CLNflag){
+        return hA1w1*(1.-8.*rho2*z+(53.*rho2-15.)*z*z-(231.*rho2-91.)*z*z*z);
+    }
+    else{
+        return f_BGL(q2)/sqrt(MM*MV)/(1.+w);
+    }   
 }
 
 double MVlnu::R1(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    return R1w1-0.12*(w-1.)+0.05*(w-1.)*(w-1.);
+    double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
+    if(CLNflag){
+        return R1w1-0.12*(w-1.)+0.05*(w-1.)*(w-1.);
+    }
+    else{
+        return MM*MV*(w+1.)*g_BGL(q2)/f_BGL(q2);
+    }   
 }
 
 double MVlnu::R2(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    return R2w1+0.11*(w-1.)-0.06*(w-1.)*(w-1.);
+    if(CLNflag){
+        return R2w1+0.11*(w-1.)-0.06*(w-1.)*(w-1.);
+    }
+    else{
+        return (w-MV/MM)/(w-1.)-F1_BGL(q2)/f_BGL(q2)/MV/(w-1.);
+    }   
 }
 
 double MVlnu::R0(double q2) 
 {
-    /* this can be derived from A0, A1 and A2 q2=0 relations */
+    /* form factor relation among A0, A1 and A2 at q2=0 */
     double R2q2at0 = R2(0.);
     double R0q2at0 = (MM+MV-(MM-MV)*R2q2at0)/(2.*MV);
+    // caveat: HQET rel at the kinematic endpoint, q2 = 0 ...
     double R0w1 = R0q2at0+0.11*(w0-1.)-0.01*(w0-1.)*(w0-1.);
     double w = w0-q2/(2.*MM*MV);
+    // one may consider "lattice" R0w1 = 1.14 +- O(10%) + consistency rel at q2 = 0 ...
     return R0w1-0.11*(w-1.)+0.01*(w-1.)*(w-1.);
 }
 

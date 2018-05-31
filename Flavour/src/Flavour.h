@@ -233,9 +233,19 @@ public:
         return (this->fullKD = fullKD);
     }
     
+    bool setFlagCLN(bool CLNflag)
+    {
+        return (this->CLNflag = CLNflag);
+    }
+    
     bool getFlagFullKD() const
     {
         return fullKD;
+    }
+    
+    bool getFlagCLN() const
+    {
+        return CLNflag;
     }
 
 private:
@@ -272,6 +282,7 @@ private:
     mutable bool update_BdDstarmunu;  
     mutable bool update_BdDstarelnu;
     mutable bool fullKD;
+    mutable bool CLNflag;
 };
 
 /**

@@ -16,13 +16,6 @@ class StandardModel;
 #include <gsl/gsl_spline.h>
 #include <memory>
 
-#define SWITCH 8.2
-#define NFPOLARBASIS_MVLL true
-#define COMPUTECP false
-#define GSL_INTERP_DIM 10
-#define GSL_INTERP_DIM_DC 10
-#define SPLINE true
-
 class MVlnu {
 public:
     /**
@@ -87,6 +80,7 @@ private:
     QCD::meson meson;/**< Initial meson type */
     QCD::meson vectorM;/**< Final vector meson type */
     std::vector<std::string> mvlnuParameters;/**< The string of mandatory MVlnu parameters */
+    bool CLNflag;
     
     double GF;            /**<Fermi constant */
     double Mlep;          /**<Lepton mass */
@@ -122,6 +116,9 @@ private:
     gslpp::complex CTp; /**<Wilson coeffients @f$C_{Tp}@f$*/
     
     double hA1w1,rho2,R1w1,R2w1; /**<CLN form factor parameters*/
+    double af0,af1,af2,ag0,ag1,ag2,aF11,aF12; /**<BGL form factor parameters*/
+    double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,chiTV,chiTA,nI; /**<BGL form factor parameters*/
+    double zV1,zV2,zV3,zV4,zA1,zA2,zA3,zA4;
     
     /**
      * @brief The update parameter method for MVll.
@@ -136,6 +133,48 @@ private:
     * @return \f$ \sqrt{\lambda} \f$
     */   
     double lambda_half(double a, double b, double c);
+    
+    /**
+    * @brief BGL outer function \f$ \phi_f \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \phi_f \f$
+    */
+    double phi_f(double z);
+
+    /**
+    * @brief BGL form factor function \f$ f \f$.
+    * @param[in] z \f$z\f$ of the decay
+    * @return \f$ f \f$
+    */
+    double f_BGL(double q2);
+    
+    /**
+    * @brief BGL outer function \f$ \phi_g \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \phi_g \f$
+    */
+    double phi_g(double q2);
+
+    /**
+    * @brief BGL form factor function \f$ g \f$.
+    * @param[in] z \f$z\f$ of the decay
+    * @return \f$ g \f$
+    */
+    double g_BGL(double q2);
+
+    /**
+    * @brief BGL outer function \f$ \phi_F1 \f$.
+    * @param[in] q2 \f$q^2\f$ of the decay
+    * @return \f$ \phi_F1 \f$
+    */
+    double phi_F1(double q2);
+    
+    /**
+    * @brief BGL form factor function \f$ F_{1} \f$.
+    * @param[in] z \f$z\f$ of the decay
+    * @return \f$ F_{1} \f$
+    */
+    double F1_BGL(double q2);
     
     /**
     * @brief HQET form factor \f$ h_{A1} \f$.

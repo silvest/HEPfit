@@ -50,6 +50,7 @@ MVlnu_BdbarDstarelnu(new MVlnu(SM_i, StandardModel::B_D, StandardModel::D_star_P
     update_BdDstarelnu = true;
     
     fullKD = false;
+    CLNflag = false;
 };
 
 gslpp::vector<gslpp::complex>** Flavour::ComputeCoeffBd(double mu, schemes scheme) const
