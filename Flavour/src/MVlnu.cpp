@@ -25,6 +25,9 @@ MVlnu::MVlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i,
     CLNflag = false;
     
     w_J = gsl_integration_cquad_workspace_alloc (100); 
+    
+    checkcache_int_mu = 0;
+    checkcache_int_el = 0;
 }
 
 MVlnu::~MVlnu() {
@@ -75,8 +78,8 @@ void MVlnu::updateParameters()
     ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
     amplsq_factor = GF*GF*Vcb.abs2()/(64.*M_PI*M_PI*M_PI*MM*MM*MM);
-    
-    mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
+    q2min = Mlep*Mlep;
+    q2max = (MM-MV)*(MM-MV);
     
     /* SM Wilson coefficients */
     CV_SM = 1./2.*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b));
@@ -173,6 +176,55 @@ void MVlnu::updateParameters()
     zA4 = sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)-sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV));
     zA4 /= (sqrt((MM+MV)*(MM+MV)-mBcstA4*mBcstA4)+sqrt((MM+MV)*(MM+MV)-(MM-MV)*(MM-MV)));
 
+    if((hA1w1 != hA1w1_cache) || (rho2 != rho2_cache) || (R1w1 != R1w1_cache) || (R2w1 != R2w1_cache) 
+           || (af0 != af0_cache) || (af1 != af1_cache) || (af2 != af2_cache)
+            || (ag0 != ag0_cache) || (ag1 != af1_cache) || (ag2 != af2_cache)
+                || (aF11 != aF11_cache) || (aF12 != aF12_cache) ) {
+        checkcache_int_mu = 0;
+        checkcache_int_el = 0;
+    }
+    
+    if((checkcache_int_mu == 0) || (checkcache_int_el == 0)){
+        if(lep == StandardModel::MU){
+            cached_intJ1s_mu = integrateJ(1,q2min,q2max);
+            cached_intJ1c_mu = integrateJ(2,q2min,q2max);
+            cached_intJ2s_mu = integrateJ(3,q2min,q2max);
+            cached_intJ2c_mu = integrateJ(4,q2min,q2max);
+            cached_intJ3_mu = integrateJ(5,q2min,q2max);
+            cached_intJ6s_mu = integrateJ(8,q2min,q2max);
+            cached_intJ6c_mu = integrateJ(9,q2min,q2max);
+            cached_intJ9_mu = integrateJ(12,q2min,q2max);
+            checkcache_int_mu = 1;
+        }
+        if(lep == StandardModel::ELECTRON){
+            cached_intJ1s_el = integrateJ(1,q2min,q2max);
+            cached_intJ1c_el = integrateJ(2,q2min,q2max);
+            cached_intJ2s_el = integrateJ(3,q2min,q2max);
+            cached_intJ2c_el = integrateJ(4,q2min,q2max);
+            cached_intJ3_el = integrateJ(5,q2min,q2max);
+            cached_intJ6s_el = integrateJ(8,q2min,q2max);
+            cached_intJ6c_el = integrateJ(9,q2min,q2max);
+            cached_intJ9_el = integrateJ(12,q2min,q2max);
+            checkcache_int_el = 1;
+        }
+    }
+    
+    hA1w1_cache = hA1w1;
+    rho2_cache = rho2;
+    R1w1_cache = R1w1;
+    R2w1_cache = R2w1;
+    
+    af0_cache = af0;
+    af1_cache = af1;
+    af2_cache = af2;
+    ag0_cache = ag0;
+    ag1_cache = ag1;
+    ag2_cache = ag2;
+    aF11_cache = aF11;
+    aF12_cache = aF12;
+    
+    mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
+     
     return;
     
 }
@@ -246,12 +298,8 @@ double MVlnu::hA1(double q2)
 {
     double w = w0-q2/(2.*MM*MV);
     double z = (sqrt(w+1.)-sqrt(2.))/(sqrt(w+1.)+sqrt(2.));
-    if(CLNflag){
-        return hA1w1*(1.-8.*rho2*z+(53.*rho2-15.)*z*z-(231.*rho2-91.)*z*z*z);
-    }
-    else{
-        return f_BGL(q2)/sqrt(MM*MV)/(1.+w);
-    }   
+    if(CLNflag) return hA1w1*(1.-8.*rho2*z+(53.*rho2-15.)*z*z-(231.*rho2-91.)*z*z*z);
+    else return f_BGL(q2)/sqrt(MM*MV)/(1.+w);   
 }
 
 double MVlnu::R1(double q2) 
@@ -268,32 +316,26 @@ double MVlnu::R2(double q2)
 
 double MVlnu::R0(double q2) 
 {
+    double w = w0-q2/(2.*MM*MV);
     /* form factor relation among A0, A1 and A2 at q2=0 */
     double R2q2at0 = 0.;
-    if(CLNflag){
-        R2q2at0 = R2(0.);
-    }
+    if(CLNflag) R2q2at0 = R2(0.);
     else{
         R2q2at0 = (w0-MV/MM)/(w0-1.);
         if(f_BGL(0.) != 0) R2q2at0 -= F1_BGL(0.)/f_BGL(0.)/MV/(w0-1.);
-        else return 0.;
+        else return 1.14-0.11*(w-1.)+0.01*(w-1.)*(w-1.); // approx result using lattice
     }
     double R0q2at0 = (MM+MV-(MM-MV)*R2q2at0)/(2.*MV);
     // caveat: HQET rel at the kinematic endpoint, q2 = 0 ...
     double R0w1 = R0q2at0+0.11*(w0-1.)-0.01*(w0-1.)*(w0-1.);
-    double w = w0-q2/(2.*MM*MV);
     // one may consider "lattice" R0w1 = 1.14 +- O(10%) + consistency rel at q2 = 0 ...
     return R0w1-0.11*(w-1.)+0.01*(w-1.)*(w-1.);
 }
 
 double MVlnu::V(double q2) 
 {
-    if(CLNflag){
-        return R1(q2)/RV*hA1(q2);
-    }
-    else{
-        return sqrt(MM*MV)*g_BGL(q2)/RV;
-    }
+    if(CLNflag) return R1(q2)/RV*hA1(q2);
+    else return sqrt(MM*MV)*g_BGL(q2)/RV;
 }
 
 double MVlnu::A0(double q2) 
@@ -310,13 +352,9 @@ double MVlnu::A1(double q2)
 double MVlnu::A2(double q2) 
 {
     double w = w0-q2/(2.*MM*MV);
-    if(CLNflag){
-        return R2(q2)/RV*hA1(q2);
-    }
-    else{
-    return (w-MV/MM)/(w-1.)*f_BGL(q2)/sqrt(MM*MV)/(1.+w)
-            -F1_BGL(q2)/MV/(w-1.)/sqrt(MM*MV)/(1.+w);
-    }
+    if(CLNflag) return R2(q2)/RV*hA1(q2);
+    else return (w-MV/MM)/(w-1.)*f_BGL(q2)/sqrt(MM*MV)/(1.+w)
+                -F1_BGL(q2)/MV/(w-1.)/sqrt(MM*MV)/(1.+w);
 }
 
 double MVlnu::T1(double q2) 
@@ -644,36 +682,44 @@ double MVlnu::J9(double q2)
 
 double MVlnu::integrateJ(int i, double q2_min, double q2_max) 
 {
-    updateParameters();
-    
     old_handler = gsl_set_error_handler_off();
     
     switch (i) {
         case 1:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J1s, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 2:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J1c, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 3:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J2s, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 4:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J2c, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 5:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J3, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
@@ -693,12 +739,16 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
                 return J_res;
                 break;
         case 8:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J6s, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 9:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J6c, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 return J_res;
@@ -716,6 +766,8 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
                 return J_res;
                 break;
         case 12:
+                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_mu;
+                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J9, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
@@ -762,15 +814,12 @@ double MVlnu::dGammadcl(double cl)
 {
     updateParameters();
     
-    double q2_min = Mlep*Mlep;
-    double q2_max = (MM-MV)*(MM-MV);
-    
-    double intJ1s = integrateJ(1,q2_min,q2_max);
-    double intJ1c = integrateJ(2,q2_min,q2_max);
-    double intJ2s = integrateJ(3,q2_min,q2_max);
-    double intJ2c = integrateJ(4,q2_min,q2_max);
-    double intJ6s = integrateJ(8,q2_min,q2_max);
-    double intJ6c = integrateJ(9,q2_min,q2_max); 
+    double intJ1s = integrateJ(1,q2min,q2max);
+    double intJ1c = integrateJ(2,q2min,q2max);
+    double intJ2s = integrateJ(3,q2min,q2max);
+    double intJ2c = integrateJ(4,q2min,q2max);
+    double intJ6s = integrateJ(8,q2min,q2max);
+    double intJ6c = integrateJ(9,q2min,q2max); 
     
     return 3./8.*((intJ1s+2.*intJ1c)+cl*(intJ6s+2.*intJ6c)+(2.*cl*cl-1.)*(intJ2s+2.*intJ2c));
 }
@@ -779,15 +828,12 @@ double MVlnu::getDeltaGammaDeltacl(double cl_min, double cl_max)
 {
     updateParameters();
     
-    double q2_min = Mlep*Mlep;
-    double q2_max = (MM-MV)*(MM-MV);
-    
-    double intJ1s = integrateJ(1,q2_min,q2_max);
-    double intJ1c = integrateJ(2,q2_min,q2_max);
-    double intJ2s = integrateJ(3,q2_min,q2_max);
-    double intJ2c = integrateJ(4,q2_min,q2_max);
-    double intJ6s = integrateJ(8,q2_min,q2_max);
-    double intJ6c = integrateJ(9,q2_min,q2_max);
+    double intJ1s = integrateJ(1,q2min,q2max);
+    double intJ1c = integrateJ(2,q2min,q2max);
+    double intJ2s = integrateJ(3,q2min,q2max);
+    double intJ2c = integrateJ(4,q2min,q2max);
+    double intJ6s = integrateJ(8,q2min,q2max);
+    double intJ6c = integrateJ(9,q2min,q2max);
     
     return 3./8.*((cl_max-cl_min)*(intJ1c+2.*intJ1s)+
             (cl_max*cl_max-cl_min*cl_min)/2.*(intJ6c+2.*intJ6s)+
@@ -805,13 +851,10 @@ double MVlnu::dGammadcV(double cV)
 {
     updateParameters();
     
-    double q2_min = Mlep*Mlep;
-    double q2_max = (MM-MV)*(MM-MV);
-    
-    double intJ1s = integrateJ(1,q2_min,q2_max);
-    double intJ1c = integrateJ(2,q2_min,q2_max);
-    double intJ2s = integrateJ(3,q2_min,q2_max);
-    double intJ2c = integrateJ(4,q2_min,q2_max);
+    double intJ1s = integrateJ(1,q2min,q2max);
+    double intJ1c = integrateJ(2,q2min,q2max);
+    double intJ2s = integrateJ(3,q2min,q2max);
+    double intJ2c = integrateJ(4,q2min,q2max);
 
     return 3./8.*(cV*cV*(3.*intJ1c-intJ2c)+(1.-cV*cV)*(3.*intJ1s-intJ2s));
 }
@@ -820,13 +863,10 @@ double MVlnu::getDeltaGammaDeltacV(double cV_min, double cV_max)
 {
     updateParameters();
     
-    double q2_min = Mlep*Mlep;
-    double q2_max = (MM-MV)*(MM-MV);
-    
-    double intJ1s = integrateJ(1,q2_min,q2_max);
-    double intJ1c = integrateJ(2,q2_min,q2_max);
-    double intJ2s = integrateJ(3,q2_min,q2_max);
-    double intJ2c = integrateJ(4,q2_min,q2_max);
+    double intJ1s = integrateJ(1,q2min,q2max);
+    double intJ1c = integrateJ(2,q2min,q2max);
+    double intJ2s = integrateJ(3,q2min,q2max);
+    double intJ2c = integrateJ(4,q2min,q2max);
     
     return 3./8.*((cV_max*cV_max*cV_max-cV_min*cV_min*cV_min)/3.*(3.*intJ1c-intJ2c)+
             ((cV_max-cV_min)-(cV_max*cV_max*cV_max-cV_min*cV_min*cV_min)/3.)*(3.*intJ1s-intJ2s));
@@ -844,15 +884,12 @@ double MVlnu::dGammadchi(double chi)
 {
     updateParameters();
     
-    double q2_min = Mlep*Mlep;
-    double q2_max = (MM-MV)*(MM-MV);
-    
-    double intJ1s = integrateJ(1,q2_min,q2_max);
-    double intJ1c = integrateJ(2,q2_min,q2_max);
-    double intJ2s = integrateJ(3,q2_min,q2_max);
-    double intJ2c = integrateJ(4,q2_min,q2_max);
-    double intJ3 = integrateJ(5,q2_min,q2_max);
-    double intJ9 = integrateJ(12,q2_min,q2_max);
+    double intJ1s = integrateJ(1,q2min,q2max);
+    double intJ1c = integrateJ(2,q2min,q2max);
+    double intJ2s = integrateJ(3,q2min,q2max);
+    double intJ2c = integrateJ(4,q2min,q2max);
+    double intJ3 = integrateJ(5,q2min,q2max);
+    double intJ9 = integrateJ(12,q2min,q2max);
 
     return ((3.*intJ1c+6.*intJ1s-intJ2c-2.*intJ2s)/4.+
             cos(2.*chi)*intJ3+sin(2.*chi)*intJ9)/2./M_PI;
@@ -862,15 +899,12 @@ double MVlnu::getDeltaGammaDeltachi(double chi_min, double chi_max)
 {
     updateParameters();
     
-    double q2_min = Mlep*Mlep;
-    double q2_max = (MM-MV)*(MM-MV);
-    
-    double intJ1s = integrateJ(1,q2_min,q2_max);
-    double intJ1c = integrateJ(2,q2_min,q2_max);
-    double intJ2s = integrateJ(3,q2_min,q2_max);
-    double intJ2c = integrateJ(4,q2_min,q2_max);
-    double intJ3 = integrateJ(5,q2_min,q2_max);
-    double intJ9 = integrateJ(12,q2_min,q2_max);
+    double intJ1s = integrateJ(1,q2min,q2max);
+    double intJ1c = integrateJ(2,q2min,q2max);
+    double intJ2s = integrateJ(3,q2min,q2max);
+    double intJ2c = integrateJ(4,q2min,q2max);
+    double intJ3 = integrateJ(5,q2min,q2max);
+    double intJ9 = integrateJ(12,q2min,q2max);
 
     return ((chi_max-chi_min)*(3.*intJ1c+6.*intJ1s-intJ2c-2.*intJ2s)/4.+
             (sin(2.*chi_max)-sin(2.*chi_min))/2.*intJ3-
@@ -897,7 +931,5 @@ double MVlnu::get_hA1w1()
 {
     updateParameters();
       
-    double q2_max = (MM-MV)*(MM-MV);
-      
-    return hA1(q2_max);
+    return hA1(q2max);
 }

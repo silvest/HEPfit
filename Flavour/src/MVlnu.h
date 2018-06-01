@@ -109,13 +109,12 @@ private:
     double RV;            /**<Dimensionless meson - vector mass ratio */
     double mu_b;          /**<b mass scale */
     double Mb;            /**<b quark mass */
-    double mb_pole;       /**<b quark pole mass */
     double Mc;            /**<charm quark mass */
-    double mc_pole;       /**<charm quark pole mass */
     double width;         /**<Initial meson width */
     double ale_mub;   /**<@f\aplha_{em}(\mu_b)$@f$ */
     gslpp::complex Vcb;   /**<CKM factor of the decay*/
     double amplsq_factor;   /**< Overall helicity |A|^2 factor*/
+    double q2min, q2max; /**< min and max lepton-neutrino invariant mass squared*/
     
     double CV_SM; /**<Wilson coeffients @f$C_{V}@f$*/
     double CA_SM; /**<Wilson coeffients @f$C_{A}@f$*/
@@ -137,6 +136,11 @@ private:
     double af0,af1,af2,ag0,ag1,ag2,aF11,aF12; /**<BGL form factor parameters*/
     double mBcstV1,mBcstV2,mBcstV3,mBcstV4,mBcstA1,mBcstA2,mBcstA3,mBcstA4,chiTV,chiTA,nI; /**<BGL form factor parameters*/
     double zV1,zV2,zV3,zV4,zA1,zA2,zA3,zA4;
+    double cached_intJ1s_mu,cached_intJ1c_mu,cached_intJ2s_mu,cached_intJ2c_mu,cached_intJ3_mu,cached_intJ6s_mu,cached_intJ6c_mu,cached_intJ9_mu,
+           cached_intJ1s_el,cached_intJ1c_el,cached_intJ2s_el,cached_intJ2c_el,cached_intJ3_el,cached_intJ6s_el,cached_intJ6c_el,cached_intJ9_el; /**< caching J1 integral btw q2min and q2mx*/
+    bool hA1w1_cache,rho2_cache,R1w1_cache,R2w1_cache;
+    bool af0_cache,af1_cache,af2_cache,ag0_cache,ag1_cache,ag2_cache,aF11_cache,aF12_cache;
+    bool checkcache_int_mu, checkcache_int_el;
     
     /**
      * @brief The update parameter method for MVll.
