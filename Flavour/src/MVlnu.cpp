@@ -105,7 +105,7 @@ void MVlnu::updateParameters()
                 hA1w1 = mySM.getOptionalParameter("hA1w1");
                 rho2 = mySM.getOptionalParameter("rho2");
                 R1w1 = mySM.getOptionalParameter("R1w1");
-                R2w1 = mySM.getOptionalParameter("R2w1");
+                R2w1 = mySM.getOptionalParameter("R2w1"); 
                 af0 = 0.;
                 af1 = 0.;
                 af2 = 0.; 
@@ -322,7 +322,7 @@ double MVlnu::R0(double q2)
     if(CLNflag) R2q2at0 = R2(0.);
     else{
         R2q2at0 = (w0-MV/MM)/(w0-1.);
-        if(f_BGL(0.) != 0) R2q2at0 -= F1_BGL(0.)/f_BGL(0.)/MV/(w0-1.);
+        if(f_BGL(0.) != 0) R2q2at0 -= F1_BGL(0.)/f_BGL(0.)/MM/(w0-1.);
         else return 1.14-0.11*(w-1.)+0.01*(w-1.)*(w-1.); // approx result using lattice
     }
     double R0q2at0 = (MM+MV-(MM-MV)*R2q2at0)/(2.*MV);
@@ -335,7 +335,7 @@ double MVlnu::R0(double q2)
 double MVlnu::V(double q2) 
 {
     if(CLNflag) return R1(q2)/RV*hA1(q2);
-    else return sqrt(MM*MV)*g_BGL(q2)/RV;
+    else return (MM+MV)*g_BGL(q2)/2.;
 }
 
 double MVlnu::A0(double q2) 
@@ -353,8 +353,7 @@ double MVlnu::A2(double q2)
 {
     double w = w0-q2/(2.*MM*MV);
     if(CLNflag) return R2(q2)/RV*hA1(q2);
-    else return (w-MV/MM)/(w-1.)*f_BGL(q2)/sqrt(MM*MV)/(1.+w)
-                -F1_BGL(q2)/MV/(w-1.)/sqrt(MM*MV)/(1.+w);
+    else return (MM+MV)/2./(w*w-1.)/MM/MV*((w-MV/MM)*f_BGL(q2)-F1_BGL(q2)/MM);
 }
 
 double MVlnu::T1(double q2) 
@@ -686,40 +685,40 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
     
     switch (i) {
         case 1:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1s_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J1s, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 2:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ1c_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J1c, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 3:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2s_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J2s, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 4:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ2c_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J2c, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 5:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ3_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J3, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
@@ -739,16 +738,16 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
                 return J_res;
                 break;
         case 8:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6s_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J6s, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
                 return J_res;
                 break;
         case 9:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ6c_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J6c, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 return J_res;
@@ -766,8 +765,8 @@ double MVlnu::integrateJ(int i, double q2_min, double q2_max)
                 return J_res;
                 break;
         case 12:
-                if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_mu;
-                if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_el;
+                if (lep == StandardModel::MU) if((checkcache_int_mu == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_mu;
+                if (lep == StandardModel::ELECTRON) if((checkcache_int_el == 1) && (q2_min == q2min) && (q2_max == q2max)) return cached_intJ9_el;
                 FJ = convertToGslFunction(boost::bind(&MVlnu::J9, &(*this), _1));
                 if (gsl_integration_cquad(&FJ, q2_min, q2_max, 1.e-2, 1.e-1, w_J, &J_res, &J_err, NULL) != 0) std::numeric_limits<double>::quiet_NaN();
                 gsl_set_error_handler(old_handler);
