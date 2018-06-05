@@ -208,7 +208,7 @@ void MVlnu::updateParameters()
             checkcache_int_el = 1;
         }
     }
-    
+
     hA1w1_cache = hA1w1;
     rho2_cache = rho2;
     R1w1_cache = R1w1;
@@ -277,7 +277,7 @@ double MVlnu::g_BGL(double q2)
 }
 
 double MVlnu::phi_F1(double z){
-    double prefac = 4.*(MV/MM)/MM/MM/MM*sqrt(nI/(6.*M_PI*chiTV));
+    double prefac = 4.*(MV/MM)/MM/MM/MM*sqrt(nI/(6.*M_PI*chiTA));
     double num = (1.+z)*sqrt((1.-z)*(1.-z)*(1.-z)*(1.-z)*(1.-z));
     double den = (1.+MV/MM)*(1.-z)+2.*sqrt(MV/MM)*(1.+z);
     double den5 = den*den*den*den*den;
@@ -323,7 +323,7 @@ double MVlnu::R0(double q2)
     else{
         R2q2at0 = (w0-MV/MM)/(w0-1.);
         if(f_BGL(0.) != 0) R2q2at0 -= F1_BGL(0.)/f_BGL(0.)/MM/(w0-1.);
-        else return 1.14-0.11*(w-1.)+0.01*(w-1.)*(w-1.); // approx result using lattice
+        else return 0.; // 1.14-0.11*(w-1.)+0.01*(w-1.)*(w-1.); approx result using lattice
     }
     double R0q2at0 = (MM+MV-(MM-MV)*R2q2at0)/(2.*MV);
     // caveat: HQET rel at the kinematic endpoint, q2 = 0 ...
@@ -382,9 +382,9 @@ double MVlnu::T23(double q2)
             8*MM*MV*(MV*MV-MM*MM)*A12(q2))/(4.*MM*(MV-MM)*MV*q2)*(1.+delta_T23);
 }
 
-/*******************************************************************************
- * Helicity amplitudes  (normalization such that all H \propto (mass scale)^-1)                                                       *
- * ****************************************************************************/
+/********************************************************************************
+ * Helicity amplitudes  (normalization such that all H \propto (mass scale)^-1) *
+ * *****************************************************************************/
 
 gslpp::complex MVlnu::HV0(double q2) 
 {
@@ -593,57 +593,49 @@ gslpp::complex MVlnu::G222(double q2)
 
 double MVlnu::J1s(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return amplsq_factor*(8.*G000(q2)+2.*G020(q2)-4.*G200(q2)-G220(q2)).real()/3.;
 }
 
 double MVlnu::J1c(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return amplsq_factor*(8.*G000(q2)+2.*G020(q2)+8.*G200(q2)+2.*G220(q2)).real()/3.;
 }
 
 double MVlnu::J2s(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return amplsq_factor*(2.*G020(q2)-G220(q2)).real();
 }
         
 double MVlnu::J2c(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return amplsq_factor*(2.*(G020(q2)+G220(q2))).real();
 }
 
 double MVlnu::J3(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return amplsq_factor*(G222(q2).real());
 }
 
 double MVlnu::J4(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return -amplsq_factor*(G221(q2).real());
 }
 
 double MVlnu::J5(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return amplsq_factor*(2.*G211(q2).real()/sqrt(3.));
 }
 
 double MVlnu::J6s(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return -amplsq_factor*(4.*(2.*G010(q2)-G210(q2)).real()/3.);
 }
 
@@ -656,22 +648,19 @@ double MVlnu::J6c(double q2)
 
 double MVlnu::J7(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return -amplsq_factor*(2.*sqrt(3.)*(G211(q2).imag())/3.);
 }
 
 double MVlnu::J8(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return amplsq_factor*(G221(q2).imag());
 }
 
 double MVlnu::J9(double q2) 
 {
-    if(q2 < Mlep*Mlep) return 0.;
-    if(q2 > (MM-MV)*(MM-MV)) return 0.;
+    if((q2 < Mlep*Mlep) or (q2 > (MM-MV)*(MM-MV))) return 0.;
     return -amplsq_factor*(G222(q2).imag());
 }
 
