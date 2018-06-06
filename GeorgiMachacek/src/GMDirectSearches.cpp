@@ -228,15 +228,6 @@ double Hobs_gg_H1_tautau_ATLAS8::computeThValue()
     return myGM.getMyGMCache()->THoEX_gg_H_tautau_ATLAS8;
 }
 
-Robs_gg_H1_tautau_ATLAS8::Robs_gg_H1_tautau_ATLAS8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
-{}
-
-double Robs_gg_H1_tautau_ATLAS8::computeThValue()
-{
-    return myGM.getMyGMCache()->R_gg_H_tautau_ATLAS8;
-}
-
 
 
 Hobs_bb_H1_tautau_ATLAS8::Hobs_bb_H1_tautau_ATLAS8(const StandardModel& SM_i)
@@ -246,15 +237,6 @@ Hobs_bb_H1_tautau_ATLAS8::Hobs_bb_H1_tautau_ATLAS8(const StandardModel& SM_i)
 double Hobs_bb_H1_tautau_ATLAS8::computeThValue()
 {
     return myGM.getMyGMCache()->THoEX_bb_H_tautau_ATLAS8;
-}
-
-Robs_bb_H1_tautau_ATLAS8::Robs_bb_H1_tautau_ATLAS8(const StandardModel& SM_i)
-: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
-{}
-
-double Robs_bb_H1_tautau_ATLAS8::computeThValue()
-{
-    return myGM.getMyGMCache()->R_bb_H_tautau_ATLAS8;
 }
 
 
@@ -1069,15 +1051,6 @@ Hobs_pp_H1_hh_bbbb_CMS13::Hobs_pp_H1_hh_bbbb_CMS13(const StandardModel& SM_i)
 double Hobs_pp_H1_hh_bbbb_CMS13::computeThValue()
 {
     return myGM.getMyGMCache()->THoEX_pp_H_hh_bbbb_CMS13;
-}
-
-Robs_pp_H1_hh_bbbb_CMS13::Robs_pp_H1_hh_bbbb_CMS13(const StandardModel& SM_i)
-: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
-{}
-
-double Robs_pp_H1_hh_bbbb_CMS13::computeThValue()
-{
-    return myGM.getMyGMCache()->R_pp_H_hh_bbbb_CMS13;
 }
 
 
@@ -2474,7 +2447,7 @@ log10_gg_H1_hh_bbtautau_TH8::log10_gg_H1_hh_bbtautau_TH8(const StandardModel& SM
 
 double log10_gg_H1_hh_bbtautau_TH8::computeThValue()
 {
-    return log10(1.);
+    return log10(myGM.getMyGMCache()->gg_H_hh_bbtautau_TH8);
 }
 
 
@@ -2485,7 +2458,7 @@ log10_pp_H1_hh_bbtautau_TH8::log10_pp_H1_hh_bbtautau_TH8(const StandardModel& SM
 
 double log10_pp_H1_hh_bbtautau_TH8::computeThValue()
 {
-    return log10(1.);
+    return log10(myGM.getMyGMCache()->pp_H_hh_bbtautau_TH8);
 }
 
 
@@ -2893,6 +2866,17 @@ log10_pp_H5ppmmH5mmpp_TH13::log10_pp_H5ppmmH5mmpp_TH13(const StandardModel& SM_i
 double log10_pp_H5ppmmH5mmpp_TH13::computeThValue()
 {
     return log10(myGM.getMyGMCache()->pp_H5ppmmH5mmpp_TH13);
+}
+
+
+
+log10_pp_H5ppmmH5mmpp_WWWW_TH13::log10_pp_H5ppmmH5mmpp_WWWW_TH13(const StandardModel& SM_i)
+: ThObservable(SM_i),myGM(static_cast<const GeorgiMachacek&> (SM_i))
+{}
+
+double log10_pp_H5ppmmH5mmpp_WWWW_TH13::computeThValue()
+{
+    return log10(myGM.getMyGMCache()->pp_H5ppmmH5mmpp_WWWW_TH13);
 }
 
 

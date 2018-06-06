@@ -118,6 +118,10 @@ public:
      */
     gslpp::matrix<double> log_cs_ggHp_13;
 
+    gslpp::matrix<double> log_cs_ppH5ppH5mm_8, log_cs_ppH5ppH5mm_13, log_cs_VBFH5_8, log_cs_VBFH5_13;
+    gslpp::matrix<double> log_cs_VBFH5m_8, log_cs_VBFH5m_13, log_cs_VBFH5mm_8, log_cs_VBFH5mm_13;
+    gslpp::matrix<double> log_cs_VBFH5p_8, log_cs_VBFH5p_13, log_cs_VBFH5pp_8, log_cs_VBFH5pp_13, log_cs_VHH5_8, log_cs_VHH5_13;
+
     /**
      * @brief Observed @f$95\%@f$ upper cross section limits, depending on the invariant mass.
      */
@@ -311,6 +315,25 @@ public:
      */
     double ip_cs_ggtoHp_13(double mHp, double logtb);
 
+
+    double ip_cs_ppH5ppH5mm_8(double mass);
+    double ip_cs_ppH5ppH5mm_13(double mass);
+    double ip_cs_VBFH5_8(double mass);
+    double ip_cs_VBFH5_13(double mass);
+    double ip_cs_VBFH5m_8(double mass);
+    double ip_cs_VBFH5m_13(double mass);
+    double ip_cs_VBFH5mm_8(double mass);
+    double ip_cs_VBFH5mm_13(double mass);
+    double ip_cs_VBFH5p_8(double mass);
+    double ip_cs_VBFH5p_13(double mass);
+    double ip_cs_VBFH5pp_8(double mass);
+    double ip_cs_VBFH5pp_13(double mass);
+    double ip_cs_VHH5_8(double mass);
+    double ip_cs_VHH5_13(double mass);
+    double ip_cs_VHH5mm_8(double mass);
+    double ip_cs_VHH5mm_13(double mass);
+    double ip_cs_VHH5pp_8(double mass);
+    double ip_cs_VHH5pp_13(double mass);
 
 
     /**
@@ -829,8 +852,8 @@ public:
     double THoEX_tt_A_tt_ATLAS13, THoEX_bb_A_tt_ATLAS13;
     double THoEX_bb_H_bb_CMS8, THoEX_gg_H_bb_CMS8, THoEX_pp_H_bb_CMS13, THoEX_bb_H_bb_CMS13;
     double THoEX_bb_A_bb_CMS8, THoEX_gg_A_bb_CMS8, THoEX_pp_A_bb_CMS13, THoEX_bb_A_bb_CMS13;
-    double THoEX_gg_H_tautau_ATLAS8, THoEX_gg_H_tautau_CMS8, THoEX_bb_H_tautau_ATLAS8, THoEX_bb_H_tautau_CMS8, THoEX_gg_H_tautau_ATLAS13, THoEX_gg_H_tautau_CMS13, THoEX_bb_H_tautau_ATLAS13, THoEX_bb_H_tautau_CMS13;
-    double R_gg_H_tautau_ATLAS8, R_bb_H_tautau_ATLAS8;
+    double THoEX_gg_H_tautau_ATLAS8, THoEX_gg_H_tautau_CMS8, THoEX_bb_H_tautau_ATLAS8, THoEX_bb_H_tautau_CMS8;
+    double THoEX_gg_H_tautau_ATLAS13, THoEX_gg_H_tautau_CMS13, THoEX_bb_H_tautau_ATLAS13, THoEX_bb_H_tautau_CMS13;
     double THoEX_gg_A_tautau_ATLAS8, THoEX_gg_A_tautau_CMS8, THoEX_bb_A_tautau_ATLAS8, THoEX_bb_A_tautau_CMS8; 
     double THoEX_gg_A_tautau_ATLAS13, THoEX_gg_A_tautau_CMS13, THoEX_bb_A_tautau_ATLAS13, THoEX_bb_A_tautau_CMS13;
     double THoEX_gg_H_gaga_ATLAS8, THoEX_pp_H_gaga_ATLAS13, THoEX_gg_H_gaga_CMS13;
@@ -853,8 +876,7 @@ public:
     double THoEX_mu_pp_H5_VV_CMS8, THoEX_pp_H5_VV_qqqq_ATLAS13;
     double THoEX_gg_H_hh_ATLAS8, THoEX_pp_H_hh_bbbb_CMS8, THoEX_pp_H_hh_gagabb_CMS8;
     double THoEX_gg_H_hh_bbtautau_CMS8, THoEX_pp_H_hh_bbtautau_CMS8, THoEX_pp_H_hh_bbbb_ATLAS13;
-    double THoEX_pp_H_hh_bbbb_CMS13, R_pp_H_hh_bbbb_CMS13;
-    double THoEX_gg_H_hh_bbbb_CMS13, THoEX_pp_H_hh_gagabb_ATLAS13, THoEX_pp_H_hh_gagabb_CMS13;
+    double THoEX_pp_H_hh_bbbb_CMS13, THoEX_gg_H_hh_bbbb_CMS13, THoEX_pp_H_hh_gagabb_ATLAS13, THoEX_pp_H_hh_gagabb_CMS13;
     double THoEX_pp_H_hh_bbtautau_CMS13, THoEX_pp_H_hh_bblnulnu_CMS13, THoEX_gg_H_hh_gagaWW_ATLAS13;
     double THoEX_gg_H5_hh_ATLAS8, THoEX_pp_H5_hh_bbbb_CMS8, THoEX_pp_H5_hh_gagabb_CMS8;
     double THoEX_gg_H5_hh_bbtautau_CMS8, THoEX_pp_H5_hh_bbtautau_CMS8, THoEX_pp_H5_hh_bbbb_ATLAS13;
@@ -922,7 +944,7 @@ public:
     double pp_Hpm_taunu_TH8, pp_Hp_taunu_TH8,pp_Hpm_taunu_TH13;
     double pp_Hpm_tb_TH8, pp_Hp_tb_TH8, pp_Hp_tb_TH13;
     double WZ_H5pm_WZ_TH8, WZ_H5pm_WZ_TH13;
-    double pp_H5ppmmH5mmpp_TH8, pp_H5ppmmH5mmpp_TH13;
+    double pp_H5ppmmH5mmpp_TH8, pp_H5ppmmH5mmpp_TH13, pp_H5ppmmH5mmpp_WWWW_TH13;
     double pp_H5ppmm_WW_TH8, pp_H5ppmm_WW_TH13;
 
     /**
@@ -1276,6 +1298,7 @@ private:
     double vev;
     double mHl;
     double mHl2;
+    double logtb;
     double tanb;
     double sinb;
     double cosb;
@@ -1346,6 +1369,24 @@ private:
     mutable double ip_cs_pptobbA_13_cache[2][CacheSize];
     mutable double ip_cs_ggtoHp_8_cache[3][CacheSize];
     mutable double ip_cs_ggtoHp_13_cache[3][CacheSize];
+    mutable double ip_cs_ppH5ppH5mm_8_cache[2][CacheSize];
+    mutable double ip_cs_ppH5ppH5mm_13_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5_8_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5_13_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5m_8_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5m_13_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5mm_8_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5mm_13_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5p_8_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5p_13_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5pp_8_cache[2][CacheSize];
+    mutable double ip_cs_VBFH5pp_13_cache[2][CacheSize];
+    mutable double ip_cs_VHH5_8_cache[2][CacheSize];
+    mutable double ip_cs_VHH5_13_cache[2][CacheSize];
+    mutable double ip_cs_VHH5mm_8_cache[2][CacheSize];
+    mutable double ip_cs_VHH5mm_13_cache[2][CacheSize];
+    mutable double ip_cs_VHH5pp_8_cache[2][CacheSize];
+    mutable double ip_cs_VHH5pp_13_cache[2][CacheSize];
     mutable double ip_ex_tt_phi_tt_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_tt_ATLAS13_cache[2][CacheSize];
     mutable double ip_ex_bb_phi_bb_CMS8_cache[2][CacheSize];

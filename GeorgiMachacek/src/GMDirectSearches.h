@@ -244,27 +244,6 @@ private:
 };
 
 /**
- * @class Robs_gg_H1_tautau_ATLAS8
- * @ingroup GeorgiMachacek
- * @brief Observable for the implementation of the ATLAS upper limit on the process @f$gg\to H_1\to \tau\tau@f$ assuming a Gaussian likelihood.
- */
-class Robs_gg_H1_tautau_ATLAS8: public ThObservable {
-public:
-
-    /**
-     * @brief Robs_gg_H1_tautau_ATLAS8 constructor.
-     */
-    Robs_gg_H1_tautau_ATLAS8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$1.96 + 1.96\left( [\sigma^{\text{GM}}_{gg\to H_1}\cdot BR^{\text{GM}}(H_1\to \tau\tau)]_{\text{theo}} - [\sigma^{\text{GM}}_{gg\to H_1}\cdot BR^{\text{GM}}(H_1\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{gg\to H_1}\cdot BR(H_1\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
-     */
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-/**
  * @class Hobs_bb_H1_tautau_ATLAS8
  * @ingroup GeorgiMachacek
  * @brief Ratio of the prediction and ATLAS upper limit for the cross section times branching ratio of the process @f$b\bar b\to H_1\to \tau\tau@f$.
@@ -279,27 +258,6 @@ public:
 
     /**
      * @return @f$[\sigma^{\text{GM}}_{b\bar b\to H_1}\cdot BR^{\text{GM}}(H_1\to \tau\tau)]_{\text{theo}} / [\sigma_{b\bar b\to H_1}\cdot BR(H_1\to \tau\tau)]_{\text{ATLAS,95\%}}@f$
-     */
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-/**
- * @class Robs_bb_H1_tautau_ATLAS8
- * @ingroup GeorgiMachacek
- * @brief Observable for the implementation of the ATLAS upper limit on the process @f$b\bar b\to H_1\to \tau\tau@f$ assuming a Gaussian likelihood.
- */
-class Robs_bb_H1_tautau_ATLAS8: public ThObservable {
-public:
-
-    /**
-     * @brief Robs_bb_H1_tautau_ATLAS8 constructor.
-     */
-    Robs_bb_H1_tautau_ATLAS8(const StandardModel& SM_i);
-
-    /**
-     * @return @f$1.96 + 1.96\left( [\sigma^{\text{GM}}_{b\bar b\to H_1}\cdot BR^{\text{GM}}(H_1\to \tau\tau)]_{\text{theo}} - [\sigma^{\text{GM}}_{b\bar b\to H_1}\cdot BR^{\text{GM}}(H_1\to \tau\tau)]_{\text{ATLAS,95\% observed}} \right) / [\sigma_{b\bar b\to H_1}\cdot BR(H_1\to \tau\tau)]_{\text{ATLAS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -1051,27 +1009,6 @@ public:
 
     /**
      * @return @f$[\sigma^{\text{THDM}}_{pp\to H_1}\cdot BR^{\text{GM}}(H_1\to hh\to b\bar b b\bar b)]_{\text{theo}} / [\sigma_{pp\to H_1}\cdot BR(H_1\to hh\to b\bar b b\bar b)]_{\text{CMS,95\%}}@f$
-     */
-    double computeThValue();
-private:
-    const GeorgiMachacek& myGM;
-};
-
-/**
- * @class Robs_pp_H1_hh_bbbb_CMS13
- * @ingroup GeorgiMachacek
- * @brief Observable for the implementation of the CMS upper limit on signal strength of the process @f$pp\to H_1\to hh\to b\bar b b\bar b@f$ assuming a Gaussian likelihood.
- */
-class Robs_pp_H1_hh_bbbb_CMS13: public ThObservable {
-public:
-
-    /**
-     * @brief Robs_pp_H1_hh_bbbb_CMS13 constructor.
-     */
-    Robs_pp_H1_hh_bbbb_CMS13(const StandardModel& SM_i);
-
-    /**
-     * @return @f$1.96 + 1.96\left( [\sigma^{\text{GM}}_{pp\to H_1}\cdot BR^{\text{GM}}(H_1\to hh\to b\bar b b\bar b)]_{\text{theo}} - [\sigma^{\text{GM}}_{pp\to H_1}\cdot BR^{\text{GM}}(H_1\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% observed}} \right) / [\sigma^{\text{GM}}_{pp\to H_1}\cdot BR^{\text{GM}}(H_1\to hh\to b\bar b b\bar b)]_{\text{CMS,95\% expected}}@f$
      */
     double computeThValue();
 private:
@@ -2757,6 +2694,16 @@ class log10_pp_H5ppmmH5mmpp_TH13: public ThObservable {
 public:
 
     log10_pp_H5ppmmH5mmpp_TH13(const StandardModel& SM_i);
+
+    double computeThValue();
+private:
+    const GeorgiMachacek& myGM;
+};
+
+class log10_pp_H5ppmmH5mmpp_WWWW_TH13: public ThObservable {
+public:
+
+    log10_pp_H5ppmmH5mmpp_WWWW_TH13(const StandardModel& SM_i);
 
     double computeThValue();
 private:
