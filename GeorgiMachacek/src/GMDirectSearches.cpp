@@ -2447,7 +2447,7 @@ log10_gg_H1_hh_bbtautau_TH8::log10_gg_H1_hh_bbtautau_TH8(const StandardModel& SM
 
 double log10_gg_H1_hh_bbtautau_TH8::computeThValue()
 {
-    return log10(myGM.getMyGMCache()->gg_H_hh_bbtautau_TH8);
+    return log10(1.);
 }
 
 
@@ -2458,7 +2458,7 @@ log10_pp_H1_hh_bbtautau_TH8::log10_pp_H1_hh_bbtautau_TH8(const StandardModel& SM
 
 double log10_pp_H1_hh_bbtautau_TH8::computeThValue()
 {
-    return log10(myGM.getMyGMCache()->pp_H_hh_bbtautau_TH8);
+    return log10(1.);
 }
 
 
