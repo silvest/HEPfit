@@ -1056,6 +1056,8 @@ private:
      */
     double KaellenFunction(const double a2, const double b2, const double c2) const;
 
+    double OffShellFunction(const double k) const;
+
     double cW2_GM(const double c02) const;
 
     gslpp::complex f_func(const double x) const;
@@ -1422,6 +1424,7 @@ private:
     mutable double ip_ex_pp_H5ppmm_WW_jjll_CMS8_cache[2][CacheSize];
     mutable double ip_ex_pp_H5ppmm_WW_jjll_CMS13_cache[2][CacheSize];
     mutable double KaellenFunction_cache[4][CacheSize];
+    mutable double OffShellFunction_cache[1][CacheSize];
 
 };
 

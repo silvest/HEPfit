@@ -350,7 +350,7 @@ double GeorgiMachacek::muppHmumu(const double sqrt_s) const
     {
         return (0.872 * getMyGMCache()->rh_gg + 0.122 * getMyGMCache()->rh_VV + 0.006 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_ff / computeGammaTotalRatio();
     }
-    if(sqrt_s==13)
+    else if(sqrt_s==13)
     {
         return (0.871 * getMyGMCache()->rh_gg + 0.119 * getMyGMCache()->rh_VV + 0.010 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_ff / computeGammaTotalRatio();
     }
@@ -366,7 +366,7 @@ double GeorgiMachacek::muppHZga(const double sqrt_s) const
     {
         return (0.872 * getMyGMCache()->rh_gg + 0.122 * getMyGMCache()->rh_VV + 0.006 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_Zga / computeGammaTotalRatio();
     }
-    if(sqrt_s==13)
+    else if(sqrt_s==13)
     {
         return (0.871 * getMyGMCache()->rh_gg + 0.119 * getMyGMCache()->rh_VV + 0.010 * getMyGMCache()->rh_ff) * getMyGMCache()->rh_Zga / computeGammaTotalRatio();
     }
