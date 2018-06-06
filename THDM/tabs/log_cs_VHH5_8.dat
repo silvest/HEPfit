@@ -1,0 +1,21 @@
+# VH neutral H5 Higgs Cross Section in MadGraph @ LO. Input from GMCalc with sH=1
+# H5 production cross section at 8 TeV
+# mH5[GeV] | log10(sigma/pb)
+150.   -0.519
+200.   -0.972
+250.   -1.351
+300.   -1.675
+350.   -1.965
+400.   -2.222
+450.   -2.459
+500.   -2.677
+550.   -2.879
+600.   -3.069
+650.   -3.250
+700.   -3.419
+750.   -3.584
+800.   -3.740
+850.   -3.891
+900.   -4.035
+950.   -4.176
+1000.  -4.314
