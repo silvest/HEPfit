@@ -125,7 +125,7 @@ UnitarityA_MVlnu::UnitarityA_MVlnu(const StandardModel& SM_i, QCD::meson meson_i
 
 double UnitarityA_MVlnu::computeThValue() 
 {
-    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_unitarity_V_BGL();
+    return SM.getFlavour().getMVlnu(meson, vectorM, lep).get_unitarity_A_BGL();
 }
 
 FF_hA1atw1::FF_hA1atw1(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
