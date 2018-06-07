@@ -140,7 +140,7 @@ public:
     if(mH2sq < 0.) {
             throw std::runtime_error("error in GeneralTHDM: mH2sq < 0!");
     }
-        return sqrt(mH2sq);
+        return mH2sq;
     }
 
     /**
@@ -150,7 +150,7 @@ public:
     if(mH3sq < 0.) {
             throw std::runtime_error("error in GeneralTHDM: mH3sq < 0!");
     }
-        return sqrt(mH3sq);
+        return mH3sq;
     }
 
     /**
@@ -178,42 +178,72 @@ public:
      * @return rotation angle between the first and third neutral mass eigenstate
      */
     double getalpha2() const {
-        return alpha2;
+        if(flag_CPconservation==true) {
+            return 0.0;
+        }
+        else {
+            return alpha2;
+        }
     }
 
     /**
      * @return cos of the rotation angle between the first and third neutral mass eigenstate
      */
     double getcosalpha2() const {
-        return cosalpha2;
+        if(flag_CPconservation==true) {
+            return 1.0;
+        }
+        else {
+            return cosalpha2;
+        }
     }
 
     /**
      * @return sin of the rotation angle between the first and third neutral mass eigenstate
      */
     double getsinalpha2() const {
-        return sinalpha2;
+        if(flag_CPconservation==true) {
+            return 0.0;
+        }
+        else {
+            return sinalpha2;
+        }
     }
 
     /**
      * @return rotation angle between the second and third neutral mass eigenstate
      */
     double getalpha3() const {
-        return alpha3;
+        if(flag_CPconservation==true) {
+            return 0.0;
+        }
+        else {
+            return alpha3;
+        }
     }
 
     /**
      * @return cos of the rotation angle between the second and third neutral mass eigenstate
      */
     double getcosalpha3() const {
-        return cosalpha3;
+        if(flag_CPconservation==true) {
+            return 1.0;
+        }
+        else {
+            return cosalpha3;
+        }
     }
 
     /**
      * @return sin of the rotation angle between the second and third neutral mass eigenstate
      */
     double getsinalpha3() const {
-        return sinalpha3;
+        if(flag_CPconservation==true) {
+            return 0.0;
+        }
+        else {
+            return sinalpha3;
+        }
     }
 
     /**
@@ -227,7 +257,12 @@ public:
      * @return Imaginary part of the Higgs potential parameter @f$lambda_{5}@f$
      */
     double getImlambda5() const {
-        return Imlambda5;
+        if(flag_CPconservation==true) {
+            return 0.0;
+        }
+        else {
+            return Imlambda5;
+        }
     }
     
     /**

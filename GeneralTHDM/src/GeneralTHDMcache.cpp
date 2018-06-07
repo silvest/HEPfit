@@ -14277,34 +14277,7 @@ double GeneralTHDMcache::updateCache()
 //    
     
     //Parameters in the potential in the Higgs basis, as defined in 1106.0034, Eq. (119)-(129)
-    
-    maa_2_GTHDM = m11sq*cosb*cosb + m22sq*sinb*sinb - Rem12sq*(2.0*sinb*cosb);
-    mbb_2_GTHDM = m22sq*sinb*sinb + m22sq*cosb*cosb + Rem12sq*(2.0*sinb*cosb);
-    Remab_2_GTHDM = (m11sq - m22sq)*(2.0*sinb*cosb)/2.0 + Rem12sq*(cosb*cosb - sinb*sinb);
-    Immab_2_GTHDM = Imm12sq;
 
-    lambdaa_GTHDM = lambda1 *cosb*cosb*cosb*cosb + lambda2 *sinb*sinb*sinb*sinb 
-            + (1.0/2.0)*(lambda3 + lambda4 +Relambda5 )*(2.0*sinb*cosb)*(2.0*sinb*cosb) 
-            + 2.0*(2.0*sinb*cosb)*(cosb*cosb*Relambda6 + sinb*sinb*Relambda7);
-    lambdab_GTHDM = lambda1 *sinb*sinb*sinb*sinb + lambda2 *cosb*cosb*cosb*cosb 
-            + (1.0/2.0)*(lambda3 + lambda4 +Relambda5 )*(2.0*sinb*cosb)*(2.0*sinb*cosb) 
-            - 2.0*(2.0*sinb*cosb)*(sinb*sinb*Relambda6 + cosb*cosb*Relambda7);
-    lambdac_GTHDM = lambda3 +(1.0/4.0)*(2.0*sinb*cosb)*(2.0*sinb*cosb)*(lambda1 +lambda2  - 2.0*(lambda3 + lambda4 +Relambda5 ))
-               - (2.0*sinb*cosb)*(cosb*cosb - sinb*sinb)*(Relambda6 - Relambda7);
-    lambdad_GTHDM = lambda4 +(1.0/4.0)*(2.0*sinb*cosb)*(2.0*sinb*cosb)*(lambda1 +lambda2  - 2.0*(lambda3 + lambda4 +Relambda5 ))
-            - (2.0*sinb*cosb)*(cosb*cosb - sinb*sinb)*(Relambda6 - Relambda7);
-     Relambdae_GTHDM = (1.0/4.0)*(2.0*sinb*cosb)*(2.0*sinb*cosb)*(lambda1 +lambda2  - 2.0*(lambda3 + lambda4 +Relambda5 ))
-            + Relambda5  - (2.0*sinb*cosb)*(cosb*cosb - sinb*sinb)*(Relambda6-Relambda7);
-     Imlambdae_GTHDM = (cosb*cosb - sinb*sinb)*(Imlambda5) -(2.0*sinb*cosb)*(Imlambda6-Imlambda7);
-    Relambdaf_GTHDM  = -(1.0/2.0)*(2.0*sinb*cosb)*(lambda1 *cosb*cosb - lambda2 *sinb*sinb -(lambda3 + lambda4 +Relambda5 )*(cosb*cosb - sinb*sinb))
-            +cosb*(cosb*cosb*cosb - 3.0*sinb*sinb*cosb)*Relambda6 + sinb*(3.0*sinb*cosb*cosb - sinb*sinb*sinb)*Relambda7;
-     Imlambdaf_GTHDM =  (1.0/2.0)*(2.0*sinb*cosb)*Imlambda5 + cosb*cosb*Imlambda6 + sinb*sinb*Imlambda7;
-    Relambdag_GTHDM = -(1.0/2.0)*(2.0*sinb*cosb)*(lambda1 *sinb*sinb - lambda2 *cosb*cosb + (lambda3 + lambda4 +Relambda5 )*(cosb*cosb - sinb*sinb) )
-            +sinb*(3.0*sinb*cosb*cosb - sinb*sinb*sinb)*Relambda6 +cosb*(cosb*cosb*cosb - 3.0*sinb*sinb*cosb)*Relambda7; 
-     Imlambdag_GTHDM = -(1.0/2.0)*(2.0*sinb*cosb)*Imlambda5+ sinb*sinb*Imlambda6 + cosb*cosb*Imlambda7;
-          
-   
-    
     Mu_GTHDM.assign(0,0, myGTHDM->getQuarks(QCD::UP).getMass());
     Mu_GTHDM.assign(1,1, myGTHDM->getQuarks(QCD::CHARM).getMass());
     Mu_GTHDM.assign(2,2, myGTHDM->getQuarks(QCD::TOP).getMass());
@@ -14410,9 +14383,6 @@ double GeneralTHDMcache::updateCache()
 //    MZ=myTHDM->getMz();
 //    modelflag=myTHDM->getModelTypeflag();
 //    WFRflag=myTHDM->getWFRflag();
-    
-    
-
 
     computeSignalStrengths();
     computephi2quantities();
