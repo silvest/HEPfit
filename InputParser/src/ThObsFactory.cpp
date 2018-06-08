@@ -323,6 +323,8 @@ ThObsFactory::ThObsFactory()
     obsThFactory["deltalHHH"] = boost::factory<deltalHHH*>();
     //-----  Other Higgs couplings observables  ----------
     obsThFactory["gHWZeff_Ratio"] = boost::factory<gHWZeff*>();
+    obsThFactory["gHbWeff_Ratio"] = boost::factory<gHbWeff*>();
+    obsThFactory["gHtaWeff_Ratio"] = boost::factory<gHtaWeff*>();
     //-----  VVV couplings observables  ----------
 
     //-----  Higgs Extension observables  ----------
@@ -695,6 +697,22 @@ ThObsFactory::ThObsFactory()
     obsThFactory["mueeZHmumu500_m80_p30"] = boost::bind(boost::factory<mueeZHmumuPol*>(), _1, sqrt_s_leptcoll_500, -pol_80, pol_30);
     obsThFactory["mueeZHmumu500_p80_0"] = boost::bind(boost::factory<mueeZHmumuPol*>(), _1, sqrt_s_leptcoll_500, pol_80, pol_0);
     obsThFactory["mueeZHmumu500_m80_0"] = boost::bind(boost::factory<mueeZHmumuPol*>(), _1, sqrt_s_leptcoll_500, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHinv240"] = boost::bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_240);
+    obsThFactory["mueeZHinv250"] = boost::bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_250);
+    obsThFactory["mueeZHinv350"] = boost::bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_350);
+    obsThFactory["mueeZHinv365"] = boost::bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_365);
+    obsThFactory["mueeZHinv500"] = boost::bind(boost::factory<mueeZHinv*>(), _1, sqrt_s_leptcoll_500);
+    //
+    obsThFactory["mueeZHinv250_p80_m30"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_250, pol_80, -pol_30);
+    obsThFactory["mueeZHinv250_m80_p30"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_250, -pol_80, pol_30);
+    obsThFactory["mueeZHinv250_p80_0"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_250, pol_80, pol_0);
+    obsThFactory["mueeZHinv250_m80_0"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_250, -pol_80, pol_0);
+    //
+    obsThFactory["mueeZHinv500_p80_m30"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_500, pol_80, -pol_30);
+    obsThFactory["mueeZHinv500_m80_p30"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_500, -pol_80, pol_30);
+    obsThFactory["mueeZHinv500_p80_0"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_500, pol_80, pol_0);
+    obsThFactory["mueeZHinv500_m80_0"] = boost::bind(boost::factory<mueeZHinvPol*>(), _1, sqrt_s_leptcoll_500, -pol_80, pol_0);
     //
     //-----  Limits  ----------
     obsThFactory["UpperLimit_ppHZgammaA13"] = boost::bind(boost::factory<UpperLimit_ppHZgammaA13*>(), _1, sqrt_s_LHC13);

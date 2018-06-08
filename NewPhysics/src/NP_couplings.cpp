@@ -1446,6 +1446,46 @@ double gHWZeff::computeThValue()
 
 /* -------------------------------------*/
 
+gHbWeff::gHbWeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHbWeff::~gHbWeff()
+{}
+
+double gHbWeff::computeThValue()
+{
+    double gNP = (myNPbase->kappabeff())/(myNPbase->kappaWeff());
+    
+    return gNP;
+}
+
+/* -------------------------------------*/
+
+gHtaWeff::gHtaWeff(const StandardModel& SM_i):
+
+        ThObservable(SM_i), 
+        myNPbase(static_cast<const NPbase*> (&SM_i))
+{
+}
+
+
+gHtaWeff::~gHtaWeff()
+{}
+
+double gHtaWeff::computeThValue()
+{
+    double gNP = (myNPbase->kappataueff())/(myNPbase->kappaWeff());
+    
+    return gNP;
+}
+
+/* -------------------------------------*/
+
 //-----  HHH couplings observables  ----------
 
 /* -------------------------------------*/

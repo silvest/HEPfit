@@ -2446,6 +2446,81 @@ private:
 
 };
 
+/**
+ * @class gHbWeff
+ * @brief An observable class for the ratio of the effective @f$H bb@f$ and @f$H WW@f$ couplings 
+ * @f$g_{Hbb}^{Eff}/g_{HWW}^{Eff}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the ratio of the effective @f$H bb@f$ and @f$H WW@f$ couplings 
+ * @f$g_{Hbb}^{Eff}/g_{HWW}^{Eff}@f$.
+ *
+ */
+class gHbWeff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHbWeff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHbWeff class.
+     */
+    virtual ~gHbWeff();
+
+    /**
+     * @brief The ratio of the effective @f$H bb@f$ and @f$H WW@f$ couplings
+     * @return @f$g_{Hbb}^{Eff}/g_{HWW}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
+
+/**
+ * @class gHtaWeff
+ * @brief An observable class for the ratio of the effective @f$H \tau\tau@f$ and @f$H WW@f$ couplings 
+ * @f$g_{H\tau\tau}^{Eff}/g_{HWW}^{Eff}@f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the ratio of the effective @f$H \tau\tau@f$ and @f$H WW@f$ couplings 
+ * @f$g_{H\tau\tau}^{Eff}/g_{HWW}^{Eff}@f$.
+ *
+ */
+class gHtaWeff : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
+    gHtaWeff(const StandardModel& SM_i);
+      
+    /**
+     * @brief Destructor of the gHtaWeff class.
+     */
+    virtual ~gHtaWeff();
+
+    /**
+     * @brief The ratio of the effective @f$H \tau\tau@f$ and @f$H WW@f$ couplings
+     * @return @f$g_{H\tau\tau}^{Eff}/g_{HWW}^{Eff}@f$
+     */
+    double computeThValue();
+      
+    const NPbase * myNPbase;
+    
+private:
+
+
+};
+
 //-----  HHH couplings observables  ----------
 
 /**
